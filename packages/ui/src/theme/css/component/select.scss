@@ -67,11 +67,13 @@
   &[multiple],
   &[size] {
     overflow: auto;
-    padding: 0.25rem 1rem;
+    padding: var(--amplify-components-select-multiple-padding-block)
+      var(--amplify-components-select-multiple-padding-inline);
 
     option {
       color: var(--amplify-components-select-option-color);
-      padding: 0.125rem 0;
+      padding: var(--amplify-components-select-multiple-option-padding-block)
+        var(--amplify-components-select-multiple-option-padding-inline);
     }
   }
 }

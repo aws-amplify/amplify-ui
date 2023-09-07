@@ -28,6 +28,12 @@ export type SelectTokens<Output extends OutputVariantKey> =
     };
     small?: SelectSizeTokens<Output>;
     large?: SelectSizeTokens<Output>;
+    multiple?: DesignTokenProperties<
+      'paddingBlock' | 'paddingInline',
+      Output
+    > & {
+      option?: DesignTokenProperties<'paddingBlock' | 'paddingInline', Output>;
+    };
   };
 
 export const select: Required<SelectTokens<'default'>> = {
@@ -70,5 +76,13 @@ export const select: Required<SelectTokens<'default'>> = {
   large: {
     minWidth: { value: '7.5rem' },
     paddingInlineEnd: { value: '{space.xxl.value}' },
+  },
+  multiple: {
+    paddingBlock: { value: '{space.xs.value}' },
+    paddingInline: { value: '{space.small.value}' },
+    option: {
+      paddingBlock: { value: '{space.xs.value}' },
+      paddingInline: { value: '{space.small.value}' },
+    },
   },
 };

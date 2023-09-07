@@ -166,7 +166,7 @@ describe('SelectField', () => {
       </SelectField>
     );
 
-    const select = await screen.findByRole(role);
+    const select = await screen.findByRole('listbox');
     expect(select).toHaveAttribute('multiple');
   });
 
@@ -179,7 +179,7 @@ describe('SelectField', () => {
       </SelectField>
     );
 
-    const select = await screen.findByRole(role);
+    const select = await screen.findByRole('listbox');
     expect(select).toHaveAttribute('size', '2');
   });
 

@@ -129,7 +129,7 @@ describe('Select primitive test suite', () => {
 
   it('should render the multiple attribute', async () => {
     render(
-      <Select isMultiple>
+      <Select testId={testId} isMultiple>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -142,7 +142,7 @@ describe('Select primitive test suite', () => {
 
   it('should render the size attribute', async () => {
     render(
-      <Select selectSize={2}>
+      <Select testId={testId} selectSize={2}>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
