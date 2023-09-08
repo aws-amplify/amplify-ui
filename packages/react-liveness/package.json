@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-liveness",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
