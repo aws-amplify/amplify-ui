@@ -2,27 +2,11 @@
 import deepExtend from 'style-dictionary/lib/utils/deepExtend.js';
 import flattenProperties from 'style-dictionary/lib/utils/flattenProperties.js';
 
-import { defaultTheme } from './defaultTheme';
-import { Theme, DefaultTheme, WebTheme, Override } from './types';
-import { cssValue, cssNameTransform, setupTokens, SetupToken } from './utils';
-import { WebDesignToken } from './tokens/types/designToken';
-import { createComponentTheme } from './createComponentTheme';
-
-/**
- * This will take a design token and add some data to it for it
- * to be used in JS/CSS. It will create its CSS var name and update
- * the value to use a CSS var if it is a reference. It will also
- * add a `.toString()` method to make it easier to use in JS.
- *
- * We should see if there is a way to share this logic with style dictionary...
- */
-const setupToken: SetupToken<WebDesignToken> = ({ token, path }) => {
-  const name = `--${cssNameTransform({ path })}`;
-  const { value: original } = token;
-  const value = cssValue(token);
-
-  return { name, original, path, value, toString: () => `var(${name})` };
-};
+import { defaultTheme } from '../defaultTheme';
+import { Theme, DefaultTheme, WebTheme, Override } from '../types';
+import { setupToken, setupTokens } from './setupToken';
+import { WebDesignToken } from '../tokens/types/designToken';
+import { setupComponentTheme } from './setupComponentTheme';
 
 /**
  * This will be used like `const myTheme = createTheme({})`
@@ -70,7 +54,7 @@ export function createTheme(
   let className = {};
 
   if (theme?.components) {
-    const component = createComponentTheme(
+    const component = setupComponentTheme(
       `[data-amplify-theme="${name}"]`,
       theme.components,
       // @ts-ignore

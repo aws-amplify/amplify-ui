@@ -15811,6 +15811,40 @@ Object {
       },
     },
   },
+  "Theme": Object {
+    "properties": Object {
+      "ariaLabel": Object {
+        "type": "string",
+      },
+      "ariaValuetext": Object {
+        "type": "string",
+      },
+      "children": Object {
+        "type": "string",
+      },
+      "className": Object {
+        "type": "string",
+      },
+      "colorMode": Object {
+        "type": "string",
+      },
+      "id": Object {
+        "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
+      },
+      "nonce": Object {
+        "type": "string",
+      },
+      "role": Object {
+        "type": "string",
+      },
+      "testId": Object {
+        "type": "string",
+      },
+    },
+  },
   "ToggleButton": Object {
     "properties": Object {
       "alignContent": Object {

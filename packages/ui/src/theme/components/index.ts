@@ -5,20 +5,14 @@ import { CSSProperties, ComponentTheme, WithStates } from './utils';
 
 type BaseComponentTheme = {
   modifier?: Record<string, CSSProperties & WithStates>;
-  children?: Record<string, CSSProperties & WithStates>;
+  element?: Record<string, CSSProperties & WithStates>;
 } & CSSProperties &
   WithStates;
 
 export { ComponentTheme, BaseComponentTheme };
 
 export type ComponentsTheme = {
-  [key: string]: ComponentTheme<
-    {
-      modifier?: Record<string, CSSProperties & WithStates>;
-      children?: Record<string, CSSProperties & WithStates>;
-    } & CSSProperties &
-      WithStates
-  >;
+  [key: string]: ComponentTheme<BaseComponentTheme>;
   alert?: AlertTheme;
   badge?: BadgeTheme;
   button?: ButtonTheme;

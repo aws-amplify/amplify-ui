@@ -1,4 +1,10 @@
-import type { Sizes, WithStates, CSSProperties, ComponentTheme } from './utils';
+import type {
+  ColorThemes,
+  Sizes,
+  WithStates,
+  CSSProperties,
+  ComponentTheme,
+} from './utils';
 
 type Variations =
   | 'primary'
@@ -8,10 +14,20 @@ type Variations =
   | 'menu'
   | 'link';
 
+type ColorThemeVariations = `${ColorThemes}--${Variations}`;
+
+// Make this a reusable type so customers can do
+// createComponentTheme<ComponentTheme<{
+//   modifier?: {
+//     [key in Variations | Sizes | ColorThemeVariations]?: CSSProperties &
+//       WithStates;
+//   };
+// }
 export type ButtonTheme = ComponentTheme<
   {
     modifier?: {
-      [key in Variations | Sizes]?: CSSProperties & WithStates;
+      [key in Variations | Sizes | ColorThemeVariations]?: CSSProperties &
+        WithStates;
     };
   } & CSSProperties &
     WithStates

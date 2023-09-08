@@ -1,7 +1,7 @@
 import type * as CSS from 'csstype';
 import { DefaultTheme, DesignToken } from '../types';
 
-export type Variations = 'info' | 'warning' | 'success' | 'error';
+export type ColorThemes = 'info' | 'warning' | 'success' | 'error' | 'overlay';
 
 export type Sizes = 'small' | 'large';
 
@@ -15,6 +15,10 @@ export type WithStates = {
   [key in States]?: CSSProperties;
 };
 
-export type ComponentTheme<ThemeType extends CSSProperties = CSSProperties> =
+type BaseTheme = CSSProperties & {
+  [key in States]?: CSSProperties;
+};
+
+export type ComponentTheme<ThemeType extends BaseTheme = BaseTheme> =
   | ThemeType
   | ((tokens: DefaultTheme['tokens']) => ThemeType);

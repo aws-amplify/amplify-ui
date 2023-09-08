@@ -1,9 +1,10 @@
-import { DefaultTheme } from './types';
-import { cssValue, isDesignToken } from './utils';
-import { BaseComponentTheme, ComponentsTheme } from './components';
-import { kebabCase } from 'lodash';
-import { isFunction } from '../utils';
-import { CSSProperties } from './components/utils';
+import kebabCase from 'lodash/kebabCase.js';
+import { DefaultTheme } from '../types';
+import { cssValue } from './cssValue';
+import { BaseComponentTheme, ComponentsTheme } from '../components';
+import { isFunction } from '../../utils';
+import { isDesignToken } from './isDesignToken';
+import { CSSProperties } from '../components/utils';
 
 /**
  * This will take an object like:
@@ -23,7 +24,7 @@ function propsToString(props: CSSProperties): string {
     .join(' ');
 }
 
-export function createComponentTheme(
+export function setupComponentTheme(
   str: string,
   components: ComponentsTheme,
   tokens: DefaultTheme['tokens']
@@ -63,11 +64,11 @@ export function createComponentTheme(
 
     const {
       modifier = {},
+      element = {},
       _hover,
       _active,
       _disabled,
       _focus,
-      children = {},
       ...props
     } = componentTheme;
 
@@ -110,7 +111,7 @@ export function createComponentTheme(
       );
     });
 
-    Object.entries(children).forEach(([key, value]) => {
+    Object.entries(element).forEach(([key, value]) => {
       if (value && Object.keys(value).length) {
         cssText += `${componentClassName}__${key} { `;
         cssText += propsToString(value);

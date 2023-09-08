@@ -4,6 +4,7 @@ import {
   ToggleButtonGroup,
   AmplifyProvider,
   ColorMode,
+  createTheme,
 } from '@aws-amplify/ui-react';
 import { MdWbSunny, MdBedtime, MdTonality } from 'react-icons/md';
 

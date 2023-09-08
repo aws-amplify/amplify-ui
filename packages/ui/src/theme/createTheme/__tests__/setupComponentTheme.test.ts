@@ -1,11 +1,10 @@
-import { createComponentCSS } from '../createTheme';
-import { createComponentTheme } from '../createComponentTheme';
-import { defaultTheme } from '../defaultTheme';
+import { setupComponentTheme } from '../setupComponentTheme';
+import { defaultTheme } from '../../defaultTheme';
 
 describe('@aws-amplify/ui', () => {
-  describe('createComponentCSS', () => {
+  describe('setupComponentTheme', () => {
     it('should pass through raw values', () => {
-      const { css, className } = createComponentTheme(
+      const { css } = setupComponentTheme(
         `[data-amplify-theme="test"]`,
         {
           badge: {
@@ -27,27 +26,9 @@ describe('@aws-amplify/ui', () => {
       `);
     });
 
-    // it('should pass through raw values', () => {
-    //   expect(
-    //     createComponentCSS(
-    //       `[data-amplify-theme="test"]`,
-    //       {
-    //         alert: {
-    //           backgroundColor: 'pink',
-    //           borderRadius: '{radii.small}',
-    //           heading: {
-    //             fontSize: '{fontSizes.xl}',
-    //           },
-    //         },
-    //       },
-    //       defaultTheme.tokens
-    //     ).css
-    //   ).toEqual('.amplify-alert {}');
-    // });
-
     it('should button', () => {
       expect(
-        createComponentTheme(
+        setupComponentTheme(
           `[data-amplify-theme="test"]`,
           {
             button: {
@@ -72,7 +53,7 @@ describe('@aws-amplify/ui', () => {
     });
 
     it('can use custom primitives', () => {
-      const { css, className } = createComponentTheme(
+      const { css, className } = setupComponentTheme(
         `[data-amplify-theme="test"]`,
         {
           chip: {

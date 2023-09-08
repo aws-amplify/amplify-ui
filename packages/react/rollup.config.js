@@ -5,7 +5,7 @@ import styles from 'rollup-plugin-styles';
 import externals from 'rollup-plugin-node-externals';
 
 // common config settings
-const input = ['src/index.ts', 'src/internal.ts'];
+const input = ['src/index.ts', 'src/internal.ts', 'src/theme.ts'];
 const sourceMap = false;
 const tsconfig = 'tsconfig.dist.json';
 
