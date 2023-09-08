@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, ComponentClassNames, View } from '@aws-amplify/ui-react';
-import { humanFileSize } from '@aws-amplify/ui';
+import { humanFileSize } from '../../utils';
 import { UploadDetailsProps } from './types';
 
 export const UploadDetails = ({
