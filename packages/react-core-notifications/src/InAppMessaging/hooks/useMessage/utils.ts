@@ -1,4 +1,4 @@
-import { Logger } from '@aws-amplify/core';
+import { ConsoleLogger as Logger } from '@aws-amplify/core';
 
 import {
   BannerMessageLayouts,

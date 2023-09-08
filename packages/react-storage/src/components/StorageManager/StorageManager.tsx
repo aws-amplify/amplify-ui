@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Logger } from '@aws-amplify/core';
+import { Logger } from 'aws-amplify';
 
 import { UploadTask } from '@aws-amplify/storage';
 import { ComponentClassNames, VisuallyHidden } from '@aws-amplify/ui-react';

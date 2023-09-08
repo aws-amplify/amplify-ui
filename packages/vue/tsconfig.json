@@ -17,8 +17,7 @@
     "resolveJsonModule": true,
     "types": ["webpack-env", "vite/client", "@types/jest"],
     "paths": {
-      "@/*": ["src/*"],
-      "aws-amplify": ["src/types/no-op.ts"]
+      "@/*": ["src/*"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },

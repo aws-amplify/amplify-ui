@@ -1,11 +1,7 @@
 {
   "extends": "../configs/ts/tsconfig.react.json",
   "compilerOptions": {
-    "noImplicitAny": false,
-    "baseUrl": "./",
-    "paths": {
-      "aws-amplify": ["src/types/no-op.ts"]
-    }
+    "noImplicitAny": false
   },
   "include": ["scripts", "src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]

@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import QRCode from 'qrcode';
-import { Logger } from '@aws-amplify/core';
+import { Logger } from 'aws-amplify';
 import {
   FormFieldsArray,
   getActorContext,
