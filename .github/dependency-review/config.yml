@@ -16,6 +16,7 @@ allow-licenses:
   - 'ISC'
   - 'JSON'
   - 'MIT'
+  - 'MIT AND Zlib'
   - 'MPL-2.0'
   - 'NTP'
   - 'OFL-1.0'
