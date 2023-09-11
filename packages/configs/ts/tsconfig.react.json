@@ -2,10 +2,6 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     // https://www.typescriptlang.org/tsconfig#jsx
-    "jsx": "react",
-    "baseUrl": "./",
-    "paths": {
-      "aws-amplify": ["src/types/no-op.ts"]
-    }
+    "jsx": "react"
   }
 }

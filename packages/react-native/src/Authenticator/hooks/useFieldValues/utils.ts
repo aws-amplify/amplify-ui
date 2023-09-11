@@ -1,4 +1,4 @@
-import { ConsoleLogger } from '@aws-amplify/core';
+import { Logger } from 'aws-amplify';
 import {
   authenticatorTextUtil,
   isString,
@@ -23,7 +23,7 @@ import {
 } from '../types';
 import { KEY_ALLOW_LIST } from './constants';
 
-const logger = new ConsoleLogger('Authenticator');
+const logger = new Logger('Authenticator');
 
 const { getInvalidEmailText, getRequiredFieldText } = authenticatorTextUtil;
 
