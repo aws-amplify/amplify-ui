@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { Flex } from '../Flex';
 import { FieldErrorMessage } from '../Field';
 import { Input } from '../Input';
@@ -54,25 +54,25 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
   const fieldId = useStableId(id);
   const LabelType = isLabelHidden ? VisuallyHidden : View;
   const wrapperClasses = classNames(
-    ComponentClassNames.SwitchTrack,
-    classNameModifierByFlag(ComponentClassNames.SwitchTrack, 'checked', isOn),
+    ComponentClassName.SwitchTrack,
+    classNameModifierByFlag(ComponentClassName.SwitchTrack, 'checked', isOn),
     classNameModifierByFlag(
-      ComponentClassNames.SwitchTrack,
+      ComponentClassName.SwitchTrack,
       'disabled',
       shouldBeDisabled
     ),
     classNameModifierByFlag(
-      ComponentClassNames.SwitchTrack,
+      ComponentClassName.SwitchTrack,
       'focused',
       isFocused
     ),
-    classNameModifierByFlag(ComponentClassNames.SwitchTrack, 'error', hasError)
+    classNameModifierByFlag(ComponentClassName.SwitchTrack, 'error', hasError)
   );
   const componentClasses = classNames(
-    ComponentClassNames.SwitchThumb,
-    classNameModifierByFlag(ComponentClassNames.SwitchThumb, 'checked', isOn),
+    ComponentClassName.SwitchThumb,
+    classNameModifierByFlag(ComponentClassName.SwitchThumb, 'checked', isOn),
     classNameModifierByFlag(
-      ComponentClassNames.SwitchThumb,
+      ComponentClassName.SwitchThumb,
       'disabled',
       shouldBeDisabled
     )
@@ -81,8 +81,8 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
   return (
     <Flex
       className={classNames(
-        ComponentClassNames.SwitchField,
-        classNameModifier(ComponentClassNames.SwitchField, size),
+        ComponentClassName.SwitchField,
+        classNameModifier(ComponentClassName.SwitchField, size),
         className
       )}
       data-size={size}
@@ -111,12 +111,12 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
       <Label
         htmlFor={fieldId}
         className={classNames(
-          ComponentClassNames.SwitchWrapper,
-          classNameModifier(ComponentClassNames.SwitchWrapper, labelPosition)
+          ComponentClassName.SwitchWrapper,
+          classNameModifier(ComponentClassName.SwitchWrapper, labelPosition)
         )}
         data-label-position={labelPosition}
       >
-        <LabelType as="span" className={ComponentClassNames.SwitchLabel}>
+        <LabelType as="span" className={ComponentClassName.SwitchLabel}>
           {label}
         </LabelType>
         <View

@@ -9,7 +9,7 @@ import {
   TableHead,
   TableRow,
 } from '..';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { TableProps } from '../../types';
 
 describe('Table primitive', () => {
@@ -81,7 +81,7 @@ describe('Table primitive', () => {
     it('should render Table with default and custom class names', async () => {
       const { $table } = await setup({ className: testClass });
 
-      expect($table).toHaveClass(ComponentClassNames.Table, testClass);
+      expect($table).toHaveClass(ComponentClassName.Table, testClass);
     });
 
     it('should render size classes for Table', async () => {
@@ -96,10 +96,10 @@ describe('Table primitive', () => {
       const large = await screen.findByTestId('large');
 
       expect(small.classList).toContain(
-        `${ComponentClassNames['Table']}--small`
+        `${ComponentClassName['Table']}--small`
       );
       expect(large.classList).toContain(
-        `${ComponentClassNames['Table']}--large`
+        `${ComponentClassName['Table']}--large`
       );
     });
 
@@ -115,50 +115,50 @@ describe('Table primitive', () => {
       const bordered = await screen.findByTestId('bordered');
 
       expect(striped.classList).toContain(
-        `${ComponentClassNames['Table']}--striped`
+        `${ComponentClassName['Table']}--striped`
       );
       expect(bordered.classList).toContain(
-        `${ComponentClassNames['Table']}--bordered`
+        `${ComponentClassName['Table']}--bordered`
       );
     });
 
     it('should render TableHead with default class name', async () => {
       const { $header } = await setup();
 
-      expect($header).toHaveClass(ComponentClassNames.TableHead);
+      expect($header).toHaveClass(ComponentClassName.TableHead);
     });
 
     it('should render TableBody with default class name', async () => {
       const { $body } = await setup();
 
-      expect($body).toHaveClass(ComponentClassNames.TableBody);
+      expect($body).toHaveClass(ComponentClassName.TableBody);
     });
 
     it('should render TableFoot with default class name', async () => {
       const { $footer } = await setup();
 
-      expect($footer).toHaveClass(ComponentClassNames.TableFoot);
+      expect($footer).toHaveClass(ComponentClassName.TableFoot);
     });
 
     it('should render TableRow with default class name', async () => {
       const { $bodyRow, $footerRow, $headerRow } = await setup();
 
-      expect($bodyRow).toHaveClass(ComponentClassNames.TableRow);
-      expect($footerRow).toHaveClass(ComponentClassNames.TableRow);
-      expect($headerRow).toHaveClass(ComponentClassNames.TableRow);
+      expect($bodyRow).toHaveClass(ComponentClassName.TableRow);
+      expect($footerRow).toHaveClass(ComponentClassName.TableRow);
+      expect($headerRow).toHaveClass(ComponentClassName.TableRow);
     });
 
     it('should render TableCell header with default class name', async () => {
       const { $headerCell } = await setup();
 
-      expect($headerCell).toHaveClass(ComponentClassNames.TableTh);
+      expect($headerCell).toHaveClass(ComponentClassName.TableTh);
     });
 
     it('should render TableCell data with default class name', async () => {
       const { $bodyCell, $footerCell } = await setup();
 
-      expect($bodyCell).toHaveClass(ComponentClassNames.TableTd);
-      expect($footerCell).toHaveClass(ComponentClassNames.TableTd);
+      expect($bodyCell).toHaveClass(ComponentClassName.TableTd);
+      expect($footerCell).toHaveClass(ComponentClassName.TableTd);
     });
 
     it('should render a caption with default class name', async () => {
@@ -166,7 +166,7 @@ describe('Table primitive', () => {
 
       const $caption = screen.getByText(testCaption);
 
-      expect($caption).toHaveClass(ComponentClassNames.TableCaption);
+      expect($caption).toHaveClass(ComponentClassName.TableCaption);
     });
 
     it('should set the data-highlightonhover attribute', async () => {

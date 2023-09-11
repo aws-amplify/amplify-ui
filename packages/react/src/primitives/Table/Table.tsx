@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { classNameModifier } from '../shared/utils';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   ForwardRefPrimitive,
   Primitive,
@@ -24,9 +24,9 @@ const TablePrimitive: Primitive<TableProps, 'table'> = (
   ref
 ) => {
   const componentClasses = classNames(
-    ComponentClassNames.Table,
-    classNameModifier(ComponentClassNames.Table, size),
-    classNameModifier(ComponentClassNames.Table, variation),
+    ComponentClassName.Table,
+    classNameModifier(ComponentClassName.Table, size),
+    classNameModifier(ComponentClassName.Table, variation),
     className
   );
 
@@ -41,7 +41,7 @@ const TablePrimitive: Primitive<TableProps, 'table'> = (
       {...rest}
     >
       {caption && (
-        <View as="caption" className={ComponentClassNames.TableCaption}>
+        <View as="caption" className={ComponentClassName.TableCaption}>
           {caption}
         </View>
       )}

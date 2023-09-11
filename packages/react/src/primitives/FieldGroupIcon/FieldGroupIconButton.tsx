@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { Button } from '../Button';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { FieldGroupIcon } from './FieldGroupIcon';
 import {
   BaseFieldGroupIconButtonProps,
@@ -17,7 +17,7 @@ const FieldGroupIconButtonPrimitive: Primitive<
 > = ({ children, className, ...rest }, ref) => (
   <FieldGroupIcon
     as={Button}
-    className={classNames(ComponentClassNames.FieldGroupIconButton, className)}
+    className={classNames(ComponentClassName.FieldGroupIconButton, className)}
     ref={ref}
     {...rest}
   >

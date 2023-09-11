@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import * as React from 'react';
 
 import { HighlightMatch } from '../HighlightMatch';
-import { ComponentClassNames } from '../../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 const TEST_ID = 'highlight-match-test-id';
 const MATCH_TEST_ID = 'highlight-match-test-id-match';
@@ -20,11 +20,11 @@ describe('HighlightMatch:', () => {
 
     const highlightMatch = screen.queryByTestId(TEST_ID);
     expect(highlightMatch).toHaveClass(
-      ComponentClassNames.HighlightMatch,
+      ComponentClassName.HighlightMatch,
       className
     );
     const match = screen.queryByTestId(MATCH_TEST_ID);
-    expect(match).toHaveClass(ComponentClassNames.HighlightMatchHighlighted);
+    expect(match).toHaveClass(ComponentClassName.HighlightMatchHighlighted);
   });
 
   it('should highlight matched substring in children', () => {
@@ -73,6 +73,6 @@ describe('HighlightMatch:', () => {
 
     await screen.findByTestId(TEST_ID);
     expect(ref?.current?.nodeName).toBe('SPAN');
-    expect(ref?.current).toHaveClass(ComponentClassNames.HighlightMatch);
+    expect(ref?.current).toHaveClass(ComponentClassName.HighlightMatch);
   });
 });

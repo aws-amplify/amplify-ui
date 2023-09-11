@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { classNameModifier } from '../shared/utils';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
@@ -44,7 +44,7 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, 'fieldset'> = (
   const fieldId = useStableId(id);
   const descriptionId = useStableId();
   const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
-  const radioGroupTestId = getTestId(testId, ComponentClassNames.RadioGroup);
+  const radioGroupTestId = getTestId(testId, ComponentClassName.RadioGroup);
 
   const radioGroupContextValue: RadioGroupContextType = React.useMemo(
     () => ({
@@ -77,9 +77,9 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, 'fieldset'> = (
     <Flex
       as="fieldset"
       className={classNames(
-        ComponentClassNames.Field,
-        classNameModifier(ComponentClassNames.Field, size),
-        ComponentClassNames.RadioGroupField,
+        ComponentClassName.Field,
+        classNameModifier(ComponentClassName.Field, size),
+        ComponentClassName.RadioGroupField,
         className
       )}
       data-size={size}
@@ -99,7 +99,7 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, 'fieldset'> = (
       />
       <Flex
         aria-describedby={ariaDescribedBy}
-        className={ComponentClassNames.RadioGroup}
+        className={ComponentClassName.RadioGroup}
         id={fieldId}
         testId={radioGroupTestId}
       >

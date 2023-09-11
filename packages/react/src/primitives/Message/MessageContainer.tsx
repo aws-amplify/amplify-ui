@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { classNameModifier } from '../shared/utils';
 import {
   MessageContainerProps,
@@ -38,9 +38,9 @@ const MessageContainerPrimitive: Primitive<MessageContainerProps, 'div'> = (
       {!dismissed ? (
         <Flex
           className={classNames(
-            ComponentClassNames.Message,
-            classNameModifier(ComponentClassNames.Message, variation),
-            classNameModifier(ComponentClassNames.Message, colorTheme),
+            ComponentClassName.Message,
+            classNameModifier(ComponentClassName.Message, variation),
+            classNameModifier(ComponentClassName.Message, colorTheme),
             className
           )}
           ref={ref}

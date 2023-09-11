@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { ComponentClassNames } from '@aws-amplify/ui-react';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 import { FilePicker } from '../FilePicker';
 
@@ -22,7 +22,7 @@ describe('FilePicker', () => {
 
     const filePickerButton = await screen.findByRole('button');
     expect(filePickerButton).toHaveClass(
-      ComponentClassNames.StorageManagerFilePicker
+      ComponentClassName.StorageManagerFilePicker
     );
   });
 });

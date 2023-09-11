@@ -2,7 +2,7 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { Link } from '../Link';
 import { Text } from '../../Text/Text';
 import { Flex } from '../../Flex';
@@ -52,7 +52,7 @@ describe('Link:', () => {
     const link = await screen.findByText(linkText);
     expect(link).toContainHTML(linkText);
     expect(link.nodeName).toBe('A');
-    expect(link).toHaveClass(ComponentClassNames.Link);
+    expect(link).toHaveClass(ComponentClassName.Link);
   });
 
   it('can render a classname for Link', async () => {
@@ -81,7 +81,7 @@ describe('Link:', () => {
     render(<Link as={Text}>{linkText}</Link>);
 
     const link = await screen.findByText(linkText);
-    expect(link).toHaveClass(ComponentClassNames.Text);
+    expect(link).toHaveClass(ComponentClassName.Text);
     expect(link.nodeName).toBe('P');
   });
 

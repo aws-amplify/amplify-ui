@@ -5,7 +5,7 @@ import * as Dropdown from '@radix-ui/react-dropdown-menu';
 import { sanitizeNamespaceImport } from '@aws-amplify/ui';
 
 import { ButtonGroup } from '../ButtonGroup';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { IconMenu, useIcons } from '../Icon';
 import { MenuButton } from './MenuButton';
 import {
@@ -48,7 +48,7 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
             size={size}
             testId={MENU_TRIGGER_TEST_ID}
             className={classNames(
-              ComponentClassNames.MenuTrigger,
+              ComponentClassName.MenuTrigger,
               triggerClassName
             )}
           >
@@ -58,10 +58,10 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align={menuAlign}
-        className={ComponentClassNames.MenuContentWrapper}
+        className={ComponentClassName.MenuContentWrapper}
       >
         <ButtonGroup
-          className={classNames(ComponentClassNames.MenuContent, className)}
+          className={classNames(ComponentClassName.MenuContent, className)}
           ref={ref}
           size={size}
           testId={MENU_ITEMS_GROUP_TEST_ID}

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { View } from '../../View';
 import { InternalIcon } from './types';
 
@@ -16,7 +16,7 @@ export const IconCheckCircleOutline: InternalIcon = (props) => {
       as="span"
       width="1em"
       height="1em"
-      className={classNames(ComponentClassNames.Icon, className)}
+      className={classNames(ComponentClassName.Icon, className)}
       {...rest}
     ></View>
   );

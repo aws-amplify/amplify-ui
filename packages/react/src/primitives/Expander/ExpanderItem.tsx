@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import { sanitizeNamespaceImport } from '@aws-amplify/ui';
 
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { BaseExpanderItemProps, ExpanderItemProps } from '../types/expander';
 import { IconExpandMore, useIcons } from '../Icon';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
@@ -31,24 +31,24 @@ const ExpanderItemPrimitive: Primitive<ExpanderItemProps, 'div'> = (
   const icons = useIcons('expander');
   return (
     <Item
-      className={classNames(ComponentClassNames.ExpanderItem, className)}
+      className={classNames(ComponentClassName.ExpanderItem, className)}
       data-testid={EXPANDER_ITEM_TEST_ID}
       ref={ref}
       value={value}
       {...rest}
     >
       <Header
-        className={ComponentClassNames.ExpanderHeader}
+        className={ComponentClassName.ExpanderHeader}
         data-testid={EXPANDER_HEADER_TEST_ID}
       >
         <Trigger
           aria-controls={contentId}
-          className={ComponentClassNames.ExpanderTrigger}
+          className={ComponentClassName.ExpanderTrigger}
           id={triggerId}
         >
           {title}
           <span
-            className={ComponentClassNames.ExpanderIcon}
+            className={ComponentClassName.ExpanderIcon}
             data-testid={EXPANDER_ICON_TEST_ID}
             aria-hidden="true"
           >
@@ -58,11 +58,11 @@ const ExpanderItemPrimitive: Primitive<ExpanderItemProps, 'div'> = (
       </Header>
       <Content
         aria-labelledby={triggerId}
-        className={ComponentClassNames.ExpanderContent}
+        className={ComponentClassName.ExpanderContent}
         id={contentId}
       >
         <View
-          className={ComponentClassNames.ExpanderContentText}
+          className={ComponentClassName.ExpanderContentText}
           testId={EXPANDER_CONTENT_TEXT_TEST_ID}
         >
           {children}

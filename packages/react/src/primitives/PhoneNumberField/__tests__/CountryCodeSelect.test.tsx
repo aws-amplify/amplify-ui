@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { countryDialCodes } from '@aws-amplify/ui';
 
 import { CountryCodeSelect } from '../CountryCodeSelect';
-import { ComponentClassNames } from '../../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { DialCodeSelectProps } from '../../types';
 
 describe('CountryCodeSelect', () => {
@@ -264,7 +264,7 @@ describe('CountryCodeSelect', () => {
 
     expect($countryCodeSelect).toHaveClass(className);
     expect($countryCodeSelect).toHaveClass(
-      ComponentClassNames.CountryCodeSelect
+      ComponentClassName.CountryCodeSelect
     );
   });
 

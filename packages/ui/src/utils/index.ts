@@ -1,4 +1,4 @@
-import { ComponentClassName, Modifiers } from '../types';
+import { Modifiers } from '../types';
 
 /**
  * Some libraries may not follow Node ES module spec and could be loaded as CommonJS modules,
@@ -185,7 +185,7 @@ export function isFunction(value: unknown): value is Function {
  * @returns the modified class name or empty string
  */
 export const classNameModifier = (
-  base: ComponentClassName,
+  base: string,
   modifier?: Modifiers
 ): string => {
   return modifier ? `${base}--${modifier}` : '';
@@ -200,7 +200,7 @@ export const classNameModifier = (
  * @returns the modified class name or empty string
  */
 export const classNameModifierByFlag = (
-  base: ComponentClassName,
+  base: string,
   modifier: Modifiers,
   flag?: boolean
 ): string => {

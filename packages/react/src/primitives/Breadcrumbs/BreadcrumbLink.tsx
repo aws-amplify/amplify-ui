@@ -1,6 +1,8 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { ComponentClassName } from '@aws-amplify/ui';
+
 import { classNameModifierByFlag } from '../shared/utils';
 import {
   BreadcrumbsLinkProps,
@@ -8,7 +10,6 @@ import {
   Primitive,
   BaseBreadcrumbLinkProps,
 } from '../types';
-import { ComponentClassNames } from '../shared/constants';
 import { Link } from '../Link';
 import { Text } from '../Text';
 
@@ -17,9 +18,9 @@ const BreadcrumbLinkPrimitive: Primitive<BreadcrumbsLinkProps, 'a'> = (
   ref
 ) => {
   const componentClasses = classNames(
-    ComponentClassNames.BreadcrumbsLink,
+    ComponentClassName.BreadcrumbsLink,
     classNameModifierByFlag(
-      ComponentClassNames.BreadcrumbsLink,
+      ComponentClassName.BreadcrumbsLink,
       'current',
       isCurrent
     ),

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseLabelProps,
   LabelProps,
@@ -17,8 +17,8 @@ const LabelPrimitive: Primitive<LabelProps, 'label'> = (
   return (
     <View
       as="label"
-      className={classNames(ComponentClassNames.Label, className, {
-        [ComponentClassNames.VisuallyHidden]: visuallyHidden,
+      className={classNames(ComponentClassName.Label, className, {
+        [ComponentClassName.VisuallyHidden]: visuallyHidden,
       })}
       ref={ref}
       {...rest}

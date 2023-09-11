@@ -10,7 +10,7 @@ import {
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 const PaginationPrimitive: Primitive<PaginationProps, 'nav'> = (
   {
@@ -47,7 +47,7 @@ const PaginationPrimitive: Primitive<PaginationProps, 'nav'> = (
   return (
     <View
       as="nav"
-      className={classNames(ComponentClassNames.Pagination, className)}
+      className={classNames(ComponentClassName.Pagination, className)}
       ref={ref}
       {...rest}
     >

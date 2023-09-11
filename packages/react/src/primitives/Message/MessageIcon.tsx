@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   MessageIconProps,
   BaseMessageIconProps,
@@ -41,7 +41,7 @@ const MessageIconPrimitive: Primitive<MessageIconProps, 'div'> = (
   }
   return icon ? (
     <View
-      className={classNames(ComponentClassNames.MessageIcon, className)}
+      className={classNames(ComponentClassName.MessageIcon, className)}
       aria-hidden="true"
       ref={ref}
       {...rest}

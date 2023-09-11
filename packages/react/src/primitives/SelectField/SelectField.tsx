@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { classNameModifier } from '../shared/utils';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
@@ -71,9 +71,9 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
   return (
     <Flex
       className={classNames(
-        ComponentClassNames.Field,
-        classNameModifier(ComponentClassNames.Field, size),
-        ComponentClassNames.SelectField,
+        ComponentClassName.Field,
+        classNameModifier(ComponentClassName.Field, size),
+        ComponentClassName.SelectField,
         className
       )}
       data-size={size}

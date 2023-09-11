@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { Button } from '../../Button';
 import { FieldGroup } from '../FieldGroup';
 import { Text } from '../../Text';
-import { ComponentClassNames } from '../../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { classNameModifier } from '../../shared/utils';
 
 describe('FieldGroup component', () => {
@@ -25,10 +25,10 @@ describe('FieldGroup component', () => {
     const vertical = await screen.findByTestId(`vertical`);
 
     expect(horizontal.classList).toContain(
-      `${ComponentClassNames['FieldGroup']}--horizontal`
+      `${ComponentClassName['FieldGroup']}--horizontal`
     );
     expect(vertical.classList).toContain(
-      `${ComponentClassNames['FieldGroup']}--vertical`
+      `${ComponentClassName['FieldGroup']}--vertical`
     );
   });
 
@@ -42,7 +42,7 @@ describe('FieldGroup component', () => {
     const fieldGroup = await screen.findByTestId(testId);
 
     expect(fieldGroup).toHaveClass('custom-class');
-    expect(fieldGroup).toHaveClass(ComponentClassNames.FieldGroup);
+    expect(fieldGroup).toHaveClass(ComponentClassName.FieldGroup);
   });
 
   it('should forward ref to DOM element', async () => {
@@ -60,7 +60,7 @@ describe('FieldGroup component', () => {
 
     await screen.findByTestId(testId);
     expect(ref.current?.nodeName).toBe('DIV');
-    expect(ref.current).toHaveClass(ComponentClassNames.FieldGroup);
+    expect(ref.current).toHaveClass(ComponentClassName.FieldGroup);
   });
 
   it('should not render hasInnerStart/End ClassName when inner components not provided', async () => {
@@ -71,12 +71,12 @@ describe('FieldGroup component', () => {
     );
 
     const fieldGroup = await screen.findByTestId(testId);
-    expect(fieldGroup).toHaveClass(ComponentClassNames.FieldGroup);
+    expect(fieldGroup).toHaveClass(ComponentClassName.FieldGroup);
     expect(fieldGroup).not.toHaveClass(
-      ComponentClassNames.FieldGroupHasInnerEnd
+      ComponentClassName.FieldGroupHasInnerEnd
     );
     expect(fieldGroup).not.toHaveClass(
-      ComponentClassNames.FieldGroupHasInnerStart
+      ComponentClassName.FieldGroupHasInnerStart
     );
   });
 
@@ -95,9 +95,9 @@ describe('FieldGroup component', () => {
     );
 
     const fieldGroup = await screen.findByTestId(testId);
-    expect(fieldGroup).toHaveClass(ComponentClassNames.FieldGroup);
-    expect(fieldGroup).toHaveClass(ComponentClassNames.FieldGroupHasInnerStart);
-    expect(fieldGroup).toHaveClass(ComponentClassNames.FieldGroupHasInnerEnd);
+    expect(fieldGroup).toHaveClass(ComponentClassName.FieldGroup);
+    expect(fieldGroup).toHaveClass(ComponentClassName.FieldGroupHasInnerStart);
+    expect(fieldGroup).toHaveClass(ComponentClassName.FieldGroupHasInnerEnd);
   });
 
   it('should render inner components when provided', () => {
@@ -120,10 +120,10 @@ describe('FieldGroup component', () => {
     expect(innerStartComponent).not.toBeNull();
     expect(innerEndComponent).not.toBeNull();
     expect(innerStartComponent).toHaveClass(
-      ComponentClassNames.FieldGroupInnerStart
+      ComponentClassName.FieldGroupInnerStart
     );
     expect(innerEndComponent).toHaveClass(
-      ComponentClassNames.FieldGroupInnerEnd
+      ComponentClassName.FieldGroupInnerEnd
     );
   });
 
@@ -147,10 +147,10 @@ describe('FieldGroup component', () => {
     expect(outerStartComponent).not.toBeNull();
     expect(outerEndComponent).not.toBeNull();
     expect(outerStartComponent).toHaveClass(
-      ComponentClassNames.FieldGroupOuterStart
+      ComponentClassName.FieldGroupOuterStart
     );
     expect(outerEndComponent).toHaveClass(
-      ComponentClassNames.FieldGroupOuterEnd
+      ComponentClassName.FieldGroupOuterEnd
     );
   });
 
@@ -176,10 +176,10 @@ describe('FieldGroup component', () => {
     expect(outerStartComponent).not.toBeNull();
     expect(outerEndComponent).not.toBeNull();
     expect(outerStartComponent).toHaveClass(
-      classNameModifier(ComponentClassNames.FieldGroupOuterStart, variation)
+      classNameModifier(ComponentClassName.FieldGroupOuterStart, variation)
     );
     expect(outerEndComponent).toHaveClass(
-      classNameModifier(ComponentClassNames.FieldGroupOuterEnd, variation)
+      classNameModifier(ComponentClassName.FieldGroupOuterEnd, variation)
     );
   });
 

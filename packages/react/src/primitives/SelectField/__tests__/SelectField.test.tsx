@@ -2,7 +2,7 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { SelectField } from '../SelectField';
 import {
   testFlexProps,
@@ -30,8 +30,8 @@ describe('SelectField', () => {
 
       const selectField = await screen.findByTestId(testId);
       expect(selectField).toHaveClass(className);
-      expect(selectField).toHaveClass(ComponentClassNames.Field);
-      expect(selectField).toHaveClass(ComponentClassNames.SelectField);
+      expect(selectField).toHaveClass(ComponentClassName.Field);
+      expect(selectField).toHaveClass(ComponentClassName.SelectField);
     });
 
     it('should render all flex style props', async () => {
@@ -58,7 +58,7 @@ describe('SelectField', () => {
       );
 
       const labelElelment = await screen.findByText(label);
-      expect(labelElelment).toHaveClass(ComponentClassNames.Label);
+      expect(labelElelment).toHaveClass(ComponentClassName.Label);
     });
 
     it('should match select id', async () => {
@@ -125,7 +125,7 @@ describe('SelectField', () => {
         </SelectField>
       );
       const field = await screen.findByLabelText(label);
-      expect(field).toHaveClass(ComponentClassNames.Select);
+      expect(field).toHaveClass(ComponentClassName.Select);
       expect(field.id).toBe(id);
     });
 
@@ -139,7 +139,7 @@ describe('SelectField', () => {
       );
       const field = await screen.findByLabelText(label);
       expect(field.id.startsWith(AUTO_GENERATED_ID_PREFIX)).toBe(true);
-      expect(field).toHaveClass(ComponentClassNames.Select);
+      expect(field).toHaveClass(ComponentClassName.Select);
     });
   });
 
@@ -191,8 +191,8 @@ describe('SelectField', () => {
     const small = await screen.findByTestId('small');
     const large = await screen.findByTestId('large');
 
-    expect(small.classList).toContain(`${ComponentClassNames['Field']}--small`);
-    expect(large.classList).toContain(`${ComponentClassNames['Field']}--large`);
+    expect(small.classList).toContain(`${ComponentClassName['Field']}--small`);
+    expect(large.classList).toContain(`${ComponentClassName['Field']}--large`);
   });
 
   it('can set defaultValue', async () => {

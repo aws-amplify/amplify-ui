@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
+import { ComponentClassName } from '@aws-amplify/ui';
+
 import { PasswordField } from '../PasswordField';
 import { ShowPasswordButton } from '../ShowPasswordButton';
-import { ComponentClassNames, ComponentText } from '../../shared/constants';
+import { ComponentText } from '../../shared/constants';
 import userEvent from '@testing-library/user-event';
 
 const { passwordIsHidden, passwordIsShown } = ComponentText.PasswordField;
@@ -14,7 +16,7 @@ describe('ShowPasswordButton component', () => {
 
     const button = await screen.findByRole('switch');
 
-    expect(button).toHaveClass(ComponentClassNames.FieldShowPassword);
+    expect(button).toHaveClass(ComponentClassName.FieldShowPassword);
   });
 
   it('should forward ref to DOM element', async () => {

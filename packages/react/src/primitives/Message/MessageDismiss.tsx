@@ -1,12 +1,13 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { ComponentClassName, isFunction } from '@aws-amplify/ui';
+
 import { Button } from '../Button';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { IconClose, useIcons } from '../Icon/internal';
-import { ComponentClassNames, ComponentText } from '../shared/constants';
+import { ComponentText } from '../shared/constants';
 import { useMessage } from './useMessage';
-import { isFunction } from '@aws-amplify/ui';
 
 import {
   MessageDismissProps,
@@ -32,7 +33,7 @@ const MessageDismissPrimitive: Primitive<MessageDismissProps, 'button'> = (
     <Button
       variation="link"
       colorTheme="overlay"
-      className={classNames(ComponentClassNames.MessageDismiss, className)}
+      className={classNames(ComponentClassName.MessageDismiss, className)}
       ref={ref}
       onClick={dismissMessage}
       {...rest}

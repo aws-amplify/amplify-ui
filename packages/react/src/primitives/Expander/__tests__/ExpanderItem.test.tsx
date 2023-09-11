@@ -9,7 +9,7 @@ import {
   EXPANDER_ICON_TEST_ID,
   EXPANDER_ITEM_TEST_ID,
 } from '../ExpanderItem';
-import { ComponentClassNames } from '../../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 describe('ExpanderItem:', () => {
   it('should render default and custom classnames', async () => {
@@ -27,24 +27,24 @@ describe('ExpanderItem:', () => {
     );
 
     const item = await screen.findByTestId(EXPANDER_ITEM_TEST_ID);
-    expect(item).toHaveClass(ComponentClassNames.ExpanderItem, className);
+    expect(item).toHaveClass(ComponentClassName.ExpanderItem, className);
 
     const header = await screen.findByTestId(EXPANDER_HEADER_TEST_ID);
-    expect(header).toHaveClass(ComponentClassNames.ExpanderHeader);
+    expect(header).toHaveClass(ComponentClassName.ExpanderHeader);
 
     const icon = await screen.findByTestId(EXPANDER_ICON_TEST_ID);
-    expect(icon).toHaveClass(ComponentClassNames.ExpanderIcon);
+    expect(icon).toHaveClass(ComponentClassName.ExpanderIcon);
 
     const contentText = await screen.findByTestId(
       EXPANDER_CONTENT_TEXT_TEST_ID
     );
-    expect(contentText).toHaveClass(ComponentClassNames.ExpanderContentText);
+    expect(contentText).toHaveClass(ComponentClassName.ExpanderContentText);
 
     const content = await screen.findByRole('region');
-    expect(content).toHaveClass(ComponentClassNames.ExpanderContent);
+    expect(content).toHaveClass(ComponentClassName.ExpanderContent);
 
     const trigger = await screen.findByRole('button');
-    expect(trigger).toHaveClass(ComponentClassNames.ExpanderTrigger);
+    expect(trigger).toHaveClass(ComponentClassName.ExpanderTrigger);
   });
 
   it('should pass string as title', async () => {

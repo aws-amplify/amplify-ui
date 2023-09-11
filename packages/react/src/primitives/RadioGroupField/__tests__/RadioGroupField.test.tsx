@@ -5,14 +5,14 @@ import userEvent from '@testing-library/user-event';
 import { Radio } from '../../Radio';
 import { RadioGroupField } from '../RadioGroupField';
 import { RadioGroupFieldProps } from '../../types/radioGroupField';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   testFlexProps,
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
 
 const basicProps = { label: 'testLabel', name: 'testName', testId: 'testId' };
-const radioGroupTestId = `${basicProps.testId}-${ComponentClassNames.RadioGroup}`;
+const radioGroupTestId = `${basicProps.testId}-${ComponentClassName.RadioGroup}`;
 
 const RadioFieldGroup = ({ label, name, ...props }: RadioGroupFieldProps) => {
   return (
@@ -37,8 +37,8 @@ describe('RadioFieldGroup', () => {
 
     const radioField = await screen.findByTestId(basicProps.testId);
     expect(radioField).toHaveClass(
-      ComponentClassNames.Field,
-      ComponentClassNames.RadioGroupField,
+      ComponentClassName.Field,
+      ComponentClassName.RadioGroupField,
       className
     );
   });
@@ -86,7 +86,7 @@ describe('RadioFieldGroup', () => {
       render(RadioFieldGroup({ ...basicProps }));
 
       const labelElement = await screen.findAllByText(basicProps.label);
-      expect(labelElement[1]).toHaveClass(ComponentClassNames.Label);
+      expect(labelElement[1]).toHaveClass(ComponentClassName.Label);
     });
 
     it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
@@ -101,7 +101,7 @@ describe('RadioFieldGroup', () => {
     it('should render default classname', async () => {
       render(RadioFieldGroup({ ...basicProps }));
       const radioGroup = await screen.findByTestId(radioGroupTestId);
-      expect(radioGroup).toHaveClass(ComponentClassNames.RadioGroup);
+      expect(radioGroup).toHaveClass(ComponentClassName.RadioGroup);
     });
 
     it('should work in uncontrolled way', async () => {
@@ -198,10 +198,10 @@ describe('RadioFieldGroup', () => {
       const large = await screen.findByTestId('large');
 
       expect(small.classList).toContain(
-        `${ComponentClassNames['Field']}--small`
+        `${ComponentClassName['Field']}--small`
       );
       expect(large.classList).toContain(
-        `${ComponentClassNames['Field']}--large`
+        `${ComponentClassName['Field']}--large`
       );
     });
 

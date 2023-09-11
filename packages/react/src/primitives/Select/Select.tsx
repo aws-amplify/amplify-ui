@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { Flex } from '../Flex';
 import { IconExpandMore, useIcons } from '../Icon';
 import { ForwardRefPrimitive, Primitive } from '../types';
@@ -34,18 +34,18 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
   const shouldSetDefaultPlaceholderValue =
     value === undefined && defaultValue === undefined && placeholder;
   const componentClasses = classNames(
-    ComponentClassNames.Select,
-    ComponentClassNames.FieldGroupControl,
-    classNameModifier(ComponentClassNames.Select, size),
-    classNameModifier(ComponentClassNames.Select, variation),
-    classNameModifierByFlag(ComponentClassNames.Select, 'error', hasError),
+    ComponentClassName.Select,
+    ComponentClassName.FieldGroupControl,
+    classNameModifier(ComponentClassName.Select, size),
+    classNameModifier(ComponentClassName.Select, variation),
+    classNameModifierByFlag(ComponentClassName.Select, 'error', hasError),
     className
   );
   const icons = useIcons('select');
   const { isFieldsetDisabled } = useFieldset();
 
   return (
-    <View className={ComponentClassNames.SelectWrapper}>
+    <View className={ComponentClassName.SelectWrapper}>
       <View
         aria-invalid={hasError}
         as="select"
@@ -69,8 +69,8 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
       </View>
       <Flex
         className={classNames(
-          ComponentClassNames.SelectIconWrapper,
-          classNameModifier(ComponentClassNames.SelectIconWrapper, size)
+          ComponentClassName.SelectIconWrapper,
+          classNameModifier(ComponentClassName.SelectIconWrapper, size)
         )}
         color={iconColor}
       >

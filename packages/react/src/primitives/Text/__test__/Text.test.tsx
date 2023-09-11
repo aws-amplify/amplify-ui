@@ -3,7 +3,7 @@ import kebabCase from 'lodash/kebabCase';
 import { render, screen } from '@testing-library/react';
 
 import { Text } from '../Text';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { ComponentPropsToStylePropsMap } from '../../types';
 
 describe('Text', () => {
@@ -15,7 +15,7 @@ describe('Text', () => {
     const text = await screen.findByText(textText);
     expect(text.innerHTML).toBe(textText);
     expect(text.nodeName).toBe('P');
-    expect(text.className).toContain(ComponentClassNames.Text);
+    expect(text.className).toContain(ComponentClassName.Text);
   });
 
   it('should render variation classes for Text', async () => {
@@ -54,21 +54,21 @@ describe('Text', () => {
     const success = await screen.findByTestId('success');
 
     expect(primary.classList).toContain(
-      `${ComponentClassNames['Text']}--primary`
+      `${ComponentClassName['Text']}--primary`
     );
     expect(secondary.classList).toContain(
-      `${ComponentClassNames['Text']}--secondary`
+      `${ComponentClassName['Text']}--secondary`
     );
     expect(tertiary.classList).toContain(
-      `${ComponentClassNames['Text']}--tertiary`
+      `${ComponentClassName['Text']}--tertiary`
     );
-    expect(error.classList).toContain(`${ComponentClassNames['Text']}--error`);
+    expect(error.classList).toContain(`${ComponentClassName['Text']}--error`);
     expect(warning.classList).toContain(
-      `${ComponentClassNames['Text']}--warning`
+      `${ComponentClassName['Text']}--warning`
     );
-    expect(info.classList).toContain(`${ComponentClassNames['Text']}--info`);
+    expect(info.classList).toContain(`${ComponentClassName['Text']}--info`);
     expect(success.classList).toContain(
-      `${ComponentClassNames['Text']}--success`
+      `${ComponentClassName['Text']}--success`
     );
   });
 
@@ -84,7 +84,7 @@ describe('Text', () => {
     const truncated = await screen.findByTestId('truncated');
 
     expect(truncated.classList).toContain(
-      `${ComponentClassNames['Text']}--truncated`
+      `${ComponentClassName['Text']}--truncated`
     );
   });
 

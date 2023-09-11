@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { sanitizeNamespaceImport } from '@aws-amplify/ui';
 
 import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { BaseExpanderProps, ExpanderProps } from '../types/expander';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
@@ -43,7 +43,7 @@ const ExpanderPrimitive: Primitive<ExpanderProps, 'div'> = (
   const expander =
     type === 'multiple' ? (
       <Root
-        className={classNames(ComponentClassNames.Expander, className)}
+        className={classNames(ComponentClassName.Expander, className)}
         data-testid={testId}
         defaultValue={defaultValue as string[]}
         onValueChange={handleValueChange as (value?: string[]) => void}
@@ -56,7 +56,7 @@ const ExpanderPrimitive: Primitive<ExpanderProps, 'div'> = (
       </Root>
     ) : (
       <Root
-        className={classNames(ComponentClassNames.Expander, className)}
+        className={classNames(ComponentClassName.Expander, className)}
         collapsible={isCollapsible}
         data-testid={testId}
         defaultValue={defaultValue as string}

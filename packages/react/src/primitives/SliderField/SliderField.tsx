@@ -5,7 +5,7 @@ import * as React from 'react';
 import { isFunction, sanitizeNamespaceImport } from '@aws-amplify/ui';
 
 import { classNameModifier } from '../shared/utils';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
 import { Flex } from '../Flex';
@@ -97,14 +97,14 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
 
   const isVertical = orientation === 'vertical';
   const componentClasses = classNames(
-    ComponentClassNames.SliderFieldTrack,
-    classNameModifier(ComponentClassNames.SliderFieldTrack, orientation),
-    classNameModifier(ComponentClassNames.SliderFieldTrack, size)
+    ComponentClassName.SliderFieldTrack,
+    classNameModifier(ComponentClassName.SliderFieldTrack, orientation),
+    classNameModifier(ComponentClassName.SliderFieldTrack, size)
   );
   const rootComponentClasses = classNames(
-    ComponentClassNames.SliderFieldRoot,
-    classNameModifier(ComponentClassNames.SliderFieldRoot, orientation),
-    classNameModifier(ComponentClassNames.SliderFieldRoot, size),
+    ComponentClassName.SliderFieldRoot,
+    classNameModifier(ComponentClassName.SliderFieldRoot, orientation),
+    classNameModifier(ComponentClassName.SliderFieldRoot, size),
     className
   );
 
@@ -112,16 +112,16 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
     <Flex
       // Custom classnames will be added to Root below
       className={classNames(
-        ComponentClassNames.Field,
-        classNameModifier(ComponentClassNames.Field, size),
-        ComponentClassNames.SliderField
+        ComponentClassName.Field,
+        classNameModifier(ComponentClassName.Field, size),
+        ComponentClassName.SliderField
       )}
       testId={testId}
       data-size={size}
       {...styleProps}
     >
       <Label
-        className={ComponentClassNames.SliderFieldLabel}
+        className={ComponentClassName.SliderFieldLabel}
         id={labelId}
         testId={SLIDER_LABEL_TEST_ID}
         visuallyHidden={labelHidden}
@@ -135,7 +135,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
         descriptiveText={descriptiveText}
       />
       <FieldGroup
-        className={ComponentClassNames.SliderFieldGroup}
+        className={ComponentClassName.SliderFieldGroup}
         id={fieldId}
         orientation={orientation}
         outerStartComponent={outerStartComponent}
@@ -162,9 +162,9 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
           >
             <Range
               className={classNames(
-                ComponentClassNames.SliderFieldRange,
+                ComponentClassName.SliderFieldRange,
                 classNameModifier(
-                  ComponentClassNames.SliderFieldRange,
+                  ComponentClassName.SliderFieldRange,
                   orientation
                 )
               )}
@@ -177,8 +177,8 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
             aria-labelledby={labelId}
             aria-valuetext={ariaValuetext}
             className={classNames(
-              ComponentClassNames.SliderFieldThumb,
-              classNameModifier(ComponentClassNames.SliderFieldThumb, size)
+              ComponentClassName.SliderFieldThumb,
+              classNameModifier(ComponentClassName.SliderFieldThumb, size)
             )}
             style={{ backgroundColor: String(thumbColor) }}
           />
