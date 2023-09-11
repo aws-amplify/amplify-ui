@@ -4551,6 +4551,22 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"6.5rem\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-select-multiple-option-padding-block\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-multiple-option-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-multiple-padding-block\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-multiple-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-select-option-background-color\\",
         \\"value\\": \\"var(--amplify-colors-background-primary)\\"
     },
