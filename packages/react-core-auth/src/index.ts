@@ -1,1 +1,1 @@
-export const exported = '';
+export { exported } from './exported';

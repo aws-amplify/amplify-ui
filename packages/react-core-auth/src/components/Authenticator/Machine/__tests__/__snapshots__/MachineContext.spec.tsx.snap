@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useMachine returns the expected values 1`] = `
+Object {
+  "challengeName": undefined,
+  "codeDeliveryDetails": undefined,
+  "errorMessage": undefined,
+  "federatedProviders": undefined,
+  "isPending": false,
+  "loginMechanism": "username",
+  "resendCode": [MockFunction],
+  "route": "idle",
+  "setRoute": [MockFunction],
+  "skipVerification": [MockFunction],
+  "submitForm": [MockFunction],
+  "toFederatedSignIn": [MockFunction],
+  "totpSecretCode": undefined,
+  "unverifiedContactMethods": Object {
+    "email": "test#example.com",
+  },
+  "username": undefined,
+}
+`;
