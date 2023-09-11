@@ -1,5 +1,74 @@
 # @aws-amplify/ui
 
+## 5.8.0
+
+### Minor Changes
+
+- [#4348](https://github.com/aws-amplify/amplify-ui/pull/4348) [`276968530`](https://github.com/aws-amplify/amplify-ui/commit/276968530ba1049cfa4a9fd1efe8bd870b3e4b18) Thanks [@hbuchel](https://github.com/hbuchel)! - feat(react/ui): add new Fieldset Primitive
+
+  Usage:
+
+  ```
+  <Fieldset legend="Legend test">
+     // Fieldset content/form controls
+  </Fieldset>
+  ```
+
+- [#4359](https://github.com/aws-amplify/amplify-ui/pull/4359) [`ec495a6f6`](https://github.com/aws-amplify/amplify-ui/commit/ec495a6f638c53970edd8706a0eeb5f95d142689) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(react): DropZone component
+
+  ```jsx
+  export default function DefaultDropZoneExample() {
+    const [files, setFiles] = React.useState([]);
+    return (
+      <>
+        <DropZone
+          onDropComplete={({ files }) => {
+            setFiles(files);
+          }}
+        >
+          Drag images here
+        </DropZone>
+        {files.map((file) => (
+          <Text key={file.name}>{file.name}</Text>
+        ))}
+      </>
+    );
+  }
+  ```
+
+### Patch Changes
+
+- [#4367](https://github.com/aws-amplify/amplify-ui/pull/4367) [`e1fc61119`](https://github.com/aws-amplify/amplify-ui/commit/e1fc61119224a92a4648d1d1673177647b1a8e53) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - feat(ui-react-storage): Added upload actions and option to upload files on click. Usage:
+
+  ```
+   <StorageManager
+        acceptedFileTypes={['image/*']}
+        accessLevel="public"
+        autoUpload={false}
+      />
+  ```
+
+- [#4368](https://github.com/aws-amplify/amplify-ui/pull/4368) [`14e402b6e`](https://github.com/aws-amplify/amplify-ui/commit/14e402b6eedab6bdef5cec21b0b084f230b0ce26) Thanks [@hbuchel](https://github.com/hbuchel)! - chore(ui): adds info, warning, and success border tokens. updates background color tokens for info, warning, success and error.
+
+- [#4384](https://github.com/aws-amplify/amplify-ui/pull/4384) [`2407ac294`](https://github.com/aws-amplify/amplify-ui/commit/2407ac294270214bd20c414349d2423ab14b8066) Thanks [@reesscot](https://github.com/reesscot)! - feat: Input and Label primitives
+
+  ```jx
+  export const InputLabelExample = () => (
+    <>
+      <Label htmlFor="first_name">First Name:</Label>
+      <Input id="first_name" name="first_name" />
+    </>
+  );
+  ```
+
+- [#4376](https://github.com/aws-amplify/amplify-ui/pull/4376) [`64fba0fd2`](https://github.com/aws-amplify/amplify-ui/commit/64fba0fd2ec4a0c5061b461f527c8a45235eee13) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(authenticator): add additional types for form fields
+
+## 5.7.2
+
+### Patch Changes
+
+- [#4366](https://github.com/aws-amplify/amplify-ui/pull/4366) [`5cc76794a`](https://github.com/aws-amplify/amplify-ui/commit/5cc76794a71584e26b1ec699c1dc1713d8a986c9) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(ui): add backgroundColor token for default Button style
+
 ## 5.7.1
 
 ### Patch Changes

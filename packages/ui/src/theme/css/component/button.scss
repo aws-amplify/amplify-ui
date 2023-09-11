@@ -3,7 +3,9 @@
  */
 .amplify-button {
   // Internal base properties that are updated per variation and color theme
-  --amplify-internal-button-background-color: transparent;
+  --amplify-internal-button-background-color: var(
+    --amplify-components-button-background-color
+  );
   --amplify-internal-button-border-color: var(
     --amplify-components-button-border-color
   );

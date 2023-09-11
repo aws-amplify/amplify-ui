@@ -1,5 +1,6 @@
 import { IconType } from 'react-icons/lib';
 import {
+  MdFeedback,
   MdFormatSize,
   MdTextFormat,
   MdOutlineImage,
@@ -38,6 +39,8 @@ import {
   MdCheckCircle,
   MdHighlight,
   MdChevronRight,
+  MdPanToolAlt,
+  MdLabel,
 } from 'react-icons/md';
 
 export interface ComponentNavItem {
@@ -255,6 +258,13 @@ export const feedbackComponents: ComponentNavItem[] = [
     icon: MdWarning,
   },
   {
+    href: '/components/message',
+    label: 'Message',
+    body: `A Message can be used to display feedback to the user.`,
+    platforms: ['react'],
+    icon: MdFeedback,
+  },
+  {
     href: '/components/placeholder',
     label: 'Placeholder',
     body: `The Placeholder component is used to fill out the interface while content is loaded asynchronously.`,
@@ -279,6 +289,27 @@ export const inputComponents: ComponentNavItem[] = [
     icon: MdSearch,
   },
   {
+    href: '/components/fieldset',
+    label: 'Fieldset',
+    body: `Fieldsets are used to group related form fields.`,
+    platforms: ['react'],
+    icon: MdSearch,
+  },
+  {
+    href: '/components/input',
+    label: 'Input',
+    body: `Input primitive allows creating interactive form controls`,
+    platforms: ['react'],
+    icon: MdInput,
+  },
+  {
+    href: '/components/label',
+    label: 'Label',
+    body: `Label primitive enables captioning a user interface item`,
+    platforms: ['react'],
+    icon: MdLabel,
+  },
+  {
     href: '/components/textareafield',
     label: 'TextArea Field',
     body: `The TextAreaField form primitive can be used allow users to input multiline text content.`,
@@ -288,7 +319,7 @@ export const inputComponents: ComponentNavItem[] = [
   {
     href: '/components/textfield',
     label: 'Text Field',
-    body: `The TextField form primitive can be used allow users to input text content.`,
+    body: `The TextField form primitive allows users to input text content.`,
     platforms: ['react'],
     icon: MdInput,
   },
@@ -368,6 +399,13 @@ export const inputComponents: ComponentNavItem[] = [
     body: `The Button primitive is used to trigger an action or event, such as submitting a form, opening a dialog, canceling an action, or performing a delete operation.`,
     platforms: ['react'],
     icon: MdTouchApp,
+  },
+  {
+    href: '/components/dropzone',
+    label: 'DropZone',
+    body: `The Dropzone component captures files from user with drag and drop`,
+    platforms: ['react'],
+    icon: MdPanToolAlt,
   },
 ].sort(sortByLabel);
 
@@ -641,6 +679,11 @@ export const theming: ComponentNavItem[] = [
     label: 'Sizes',
     platforms: ['react', 'vue', 'angular'],
     tertiary: true,
+  },
+  {
+    href: '/theming/icons',
+    label: 'Icons',
+    platforms: ['react'],
   },
   {
     href: '/theming/theme-provider',

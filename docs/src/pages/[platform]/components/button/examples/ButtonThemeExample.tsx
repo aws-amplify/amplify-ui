@@ -13,7 +13,9 @@ const theme: Theme = {
       button: {
         // this will affect the font weight of all button variants
         fontWeight: { value: '{fontWeights.extrabold}' },
-
+        backgroundColor: { value: '#f1fff5' },
+        borderColor: { value: '{colors.purple.80}' },
+        color: { value: '{colors.purple.100}' },
         outlined: {
           info: {
             borderColor: '{colors.purple.60}',
@@ -59,6 +61,7 @@ const theme: Theme = {
 export const ButtonThemeExample = () => (
   <ThemeProvider theme={theme} colorMode="light">
     <Flex direction="row">
+      <Button>Default</Button>
       <Button variation="primary">Primary</Button>
       <Button variation="primary" colorTheme="error">
         Primary error

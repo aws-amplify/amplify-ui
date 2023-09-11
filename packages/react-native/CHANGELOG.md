@@ -1,5 +1,25 @@
 # @aws-amplify/ui-react-native
 
+## 1.2.27
+
+### Patch Changes
+
+- [#4368](https://github.com/aws-amplify/amplify-ui/pull/4368) [`14e402b6e`](https://github.com/aws-amplify/amplify-ui/commit/14e402b6eedab6bdef5cec21b0b084f230b0ce26) Thanks [@hbuchel](https://github.com/hbuchel)! - chore(ui): adds info, warning, and success border tokens. updates background color tokens for info, warning, success and error.
+
+- Updated dependencies [[`276968530`](https://github.com/aws-amplify/amplify-ui/commit/276968530ba1049cfa4a9fd1efe8bd870b3e4b18), [`ec495a6f6`](https://github.com/aws-amplify/amplify-ui/commit/ec495a6f638c53970edd8706a0eeb5f95d142689), [`e1fc61119`](https://github.com/aws-amplify/amplify-ui/commit/e1fc61119224a92a4648d1d1673177647b1a8e53), [`14e402b6e`](https://github.com/aws-amplify/amplify-ui/commit/14e402b6eedab6bdef5cec21b0b084f230b0ce26), [`2407ac294`](https://github.com/aws-amplify/amplify-ui/commit/2407ac294270214bd20c414349d2423ab14b8066), [`5bc0c8a32`](https://github.com/aws-amplify/amplify-ui/commit/5bc0c8a32d1552313df496f96b96738637d0b157), [`64fba0fd2`](https://github.com/aws-amplify/amplify-ui/commit/64fba0fd2ec4a0c5061b461f527c8a45235eee13)]:
+  - @aws-amplify/ui@5.8.0
+  - @aws-amplify/ui-react-core@2.1.32
+  - @aws-amplify/ui-react-core-notifications@1.0.9
+
+## 1.2.26
+
+### Patch Changes
+
+- Updated dependencies [[`5cc76794a`](https://github.com/aws-amplify/amplify-ui/commit/5cc76794a71584e26b1ec699c1dc1713d8a986c9)]:
+  - @aws-amplify/ui@5.7.2
+  - @aws-amplify/ui-react-core@2.1.31
+  - @aws-amplify/ui-react-core-notifications@1.0.8
+
 ## 1.2.25
 
 ### Patch Changes

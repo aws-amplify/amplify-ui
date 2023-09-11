@@ -6,7 +6,7 @@ import { sanitizeNamespaceImport } from '@aws-amplify/ui';
 
 import { ComponentClassNames } from '../shared/constants';
 import { BaseExpanderItemProps, ExpanderItemProps } from '../types/expander';
-import { IconExpandMore } from '../Icon/internal';
+import { IconExpandMore, useIcons } from '../Icon';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { useStableId } from '../utils/useStableId';
@@ -28,6 +28,7 @@ const ExpanderItemPrimitive: Primitive<ExpanderItemProps, 'div'> = (
   const triggerId = useStableId();
   const contentId = useStableId();
   const { rest } = splitPrimitiveProps(_rest);
+  const icons = useIcons('expander');
   return (
     <Item
       className={classNames(ComponentClassNames.ExpanderItem, className)}
@@ -46,11 +47,13 @@ const ExpanderItemPrimitive: Primitive<ExpanderItemProps, 'div'> = (
           id={triggerId}
         >
           {title}
-          <IconExpandMore
-            aria-hidden
+          <span
             className={ComponentClassNames.ExpanderIcon}
             data-testid={EXPANDER_ICON_TEST_ID}
-          />
+            aria-hidden="true"
+          >
+            {icons?.more ?? <IconExpandMore />}
+          </span>
         </Trigger>
       </Header>
       <Content

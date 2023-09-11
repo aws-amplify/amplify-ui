@@ -6,6 +6,7 @@ import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';
 import { ComponentClassNames } from '../../shared';
 import { ComponentPropsToStylePropsMap } from '../../types';
 import { SwitchField } from '../SwitchField';
+import { Fieldset } from '../../Fieldset';
 
 describe('Switch Field', () => {
   const label = 'My switch label';
@@ -129,6 +130,25 @@ describe('Switch Field', () => {
     it('should disable the checkbox with the isDisabled prop', () => {
       const { container } = render(<SwitchField label={label} isDisabled />);
 
+      const field = container.getElementsByTagName('input')[0];
+      expect(field).toHaveProperty('disabled', true);
+    });
+
+    it('should always be disabled if parent Fieldset isDisabled and SliderField isDisabled={false}', async () => {
+      const { container } = render(
+        <Fieldset legend="legend" isDisabled>
+          <SwitchField label={label} isDisabled />
+        </Fieldset>
+      );
+      const field = container.getElementsByTagName('input')[0];
+      expect(field).toHaveProperty('disabled', true);
+    });
+    it('should always be disabled if parent Fieldset isDisabled and SliderField isDisabled is not defined', async () => {
+      const { container } = render(
+        <Fieldset legend="legend" isDisabled>
+          <SwitchField label={label} />
+        </Fieldset>
+      );
       const field = container.getElementsByTagName('input')[0];
       expect(field).toHaveProperty('disabled', true);
     });

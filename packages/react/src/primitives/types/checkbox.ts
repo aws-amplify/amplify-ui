@@ -29,7 +29,7 @@ export interface BaseCheckboxProps extends BaseFlexProps, BaseInputProps {
    * The submitted value when checked
    * Shows on form submission as key pair `name:value`
    */
-  value: string;
+  value?: string;
 
   /**
    * @description

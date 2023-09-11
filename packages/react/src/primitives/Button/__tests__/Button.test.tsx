@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Button } from '../Button';
+import { Fieldset } from '../../Fieldset';
 import { ButtonColorTheme } from '../../types';
 import { ComponentClassNames } from '../../shared';
 
@@ -236,6 +237,20 @@ describe('Button test suite', () => {
 
     const button = await screen.findByRole('button');
     expect(button).toBeDisabled();
+  });
+
+  it('should always be disabled if parent Fieldset isDisabled', async () => {
+    render(
+      <Fieldset legend="legend" isDisabled>
+        <Button testId="button" />
+        <Button testId="buttonWithDisabledProp" isDisabled={false} />
+      </Fieldset>
+    );
+
+    const button = await screen.findByTestId('button');
+    const buttonDisabled = await screen.findByTestId('buttonWithDisabledProp');
+    expect(button).toHaveAttribute('disabled');
+    expect(buttonDisabled).toHaveAttribute('disabled');
   });
 
   it('should set loading state correctly if isLoading is set to true', async () => {

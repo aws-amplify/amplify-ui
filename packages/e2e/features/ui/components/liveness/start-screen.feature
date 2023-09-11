@@ -25,4 +25,4 @@ Feature: Liveness Start Screen
     Then I see "Make sure your face is not covered with sunglasses or a mask."
     Then I see "Move to a well-lit place that is not in direct sunlight."
     Then I see "Maximize your screen's brightness."
-    Then I see "When an oval appears, fill the oval with your face within 7 seconds."
+    Then I see "When an oval appears, follow the instructions to fit your face in it."

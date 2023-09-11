@@ -7,3 +7,4 @@ export { StepperFieldSizeExample } from './StepperFieldSizeExample';
 export { StepperFieldStylePropsExample } from './StepperFieldStylePropsExample';
 export { StepperFieldValidationErrorExample } from './StepperFieldValidationErrorExample';
 export { StepperFieldThemeExample } from './StepperFieldThemeExample';
+export { StepperFieldIconProviderExample } from './StepperFieldIconProviderExample';
