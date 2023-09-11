@@ -3,11 +3,7 @@
   "compilerOptions": {
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "noImplicitAny": false,
-    "strict": false,
-    "baseUrl": "./",
-    "paths": {
-      "aws-amplify": ["src/types/no-op.ts"]
-    }
+    "strict": false
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]

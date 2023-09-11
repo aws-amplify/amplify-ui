@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Image } from 'react-native';
 
-import { Logger } from '@aws-amplify/core';
+import { ConsoleLogger as Logger } from '@aws-amplify/core';
 import {
   MessageImage,
   MessageLayout,

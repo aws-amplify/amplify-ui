@@ -4,7 +4,7 @@
  */
 
 import { Hub } from 'aws-amplify';
-import { appendToCognitoUserAgent } from 'amazon-cognito-identity-js';
+import { appendToCognitoUserAgent } from '@aws-amplify/auth';
 import { waitFor } from 'xstate/lib/waitFor.js';
 
 import { AuthInterpreter, AuthMachineHubHandler } from '../../types';

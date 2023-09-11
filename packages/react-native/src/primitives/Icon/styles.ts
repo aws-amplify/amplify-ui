@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Logger } from '@aws-amplify/core';
+import { ConsoleLogger as Logger } from '@aws-amplify/core';
 
 import { StrictTheme } from '../../theme';
 import { IconProps, IconStyles } from './types';
