@@ -36,6 +36,7 @@ export {
   UseDeprecationWarning,
   useHasValueUpdated,
   usePreviousValue,
+  useTimeout,
 } from './hooks';
 
 export { MergeProps } from './types';
