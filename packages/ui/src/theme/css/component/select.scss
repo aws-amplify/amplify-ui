@@ -33,7 +33,8 @@
 
   // For Chrome on Windows, fixes darkmode text color
   option {
-    color: initial;
+    background-color: var(--amplify-components-select-option-background-color);
+    color: var(--amplify-components-select-option-color);
 
     &[disabled=''] {
       color: var(--amplify-components-select-option-disabled-color);
@@ -41,14 +42,14 @@
   }
 
   // for Firefox only, to fix background color in darkmode
-  @-moz-document url-prefix() {
-    option {
-      background-color: var(
-        --amplify-components-select-option-background-color
-      );
-      color: var(--amplify-components-select-option-color);
-    }
-  }
+  // @-moz-document url-prefix() {
+  //   option {
+  //     background-color: var(
+  //       --amplify-components-select-option-background-color
+  //     );
+  //     color: var(--amplify-components-select-option-color);
+  //   }
+  // }
 
   &--small {
     min-width: var(--amplify-components-select-small-min-width);
@@ -71,7 +72,7 @@
       var(--amplify-components-select-multiple-padding-inline);
 
     option {
-      color: var(--amplify-components-select-option-color);
+      // color: var(--amplify-components-select-option-color);
       padding: var(--amplify-components-select-multiple-option-padding-block)
         var(--amplify-components-select-multiple-option-padding-inline);
     }
