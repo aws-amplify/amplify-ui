@@ -60,7 +60,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
         }
         isDisabled={isFieldsetDisabled ? isFieldsetDisabled : isDisabled}
         multiple={isMultiple}
-        size={selectSize || 1}
+        size={selectSize}
         required={isRequired}
         data-size={size}
         data-variation={variation}
