@@ -21,7 +21,8 @@ export type AuthenticatorMachineOptions = AuthContext['config'] & {
   services?: AuthContext['services'];
 };
 
-const STANDARD_WAIT_CONFIG = {
+// setup step waits for ui to emit INIT action to proceed to configure
+const LEGACY_WAIT_CONFIG = {
   on: {
     INIT: {
       actions: ['configure', 'setHasSetup'],
@@ -30,7 +31,8 @@ const STANDARD_WAIT_CONFIG = {
   },
 };
 
-const OVERRIDE_WAIT_CONFIG = {
+// setup step proceeds directly to configure
+const NEXT_WAIT_CONFIG = {
   always: {
     actions: ['configure', 'setHasSetup'],
     target: 'applyConfig',
@@ -38,8 +40,12 @@ const OVERRIDE_WAIT_CONFIG = {
 };
 
 export function createAuthenticatorMachine(
-  overrideServices?: AuthenticatorMachineOptions
+  options?: AuthenticatorMachineOptions & {
+    useNextWaitConfig?: boolean;
+  }
 ) {
+  const { useNextWaitConfig, ...overrideConfigServices } = options ?? {};
+  const waitConfig = useNextWaitConfig ? NEXT_WAIT_CONFIG : LEGACY_WAIT_CONFIG;
   return createMachine<AuthContext, AuthEvent>(
     {
       id: 'authenticator',
@@ -69,9 +75,7 @@ export function createAuthenticatorMachine(
         setup: {
           initial: 'waitConfig',
           states: {
-            waitConfig: overrideServices
-              ? OVERRIDE_WAIT_CONFIG
-              : STANDARD_WAIT_CONFIG,
+            waitConfig,
             applyConfig: {
               invoke: {
                 // TODO Wait for Auth to be configured
@@ -373,9 +377,11 @@ export function createAuthenticatorMachine(
         stopResetPasswordActor: stopActor('resetPasswordActor'),
         stopSignOutActor: stopActor('signOutActor'),
         configure: assign((_, event) => {
-          const { services: customServices, ...config } = (
-            isObject(overrideServices) ? overrideServices : event
-          ) as AuthenticatorMachineOptions;
+          const { services: customServices, ...config } = isObject(
+            overrideConfigServices
+          )
+            ? overrideConfigServices
+            : event.data;
 
           return {
             services: { ...defaultServices, ...customServices },
