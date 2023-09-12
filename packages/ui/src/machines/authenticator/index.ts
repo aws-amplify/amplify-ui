@@ -7,7 +7,7 @@ import {
   AmplifyUser,
   AuthFormFields,
 } from '../../types';
-import { isObject } from '../../utils';
+import { isEmptyObject } from '../../utils';
 
 import { stopActor } from './actions';
 import { resetPasswordActor, signInActor, signOutActor } from './actors';
@@ -377,7 +377,7 @@ export function createAuthenticatorMachine(
         stopResetPasswordActor: stopActor('resetPasswordActor'),
         stopSignOutActor: stopActor('signOutActor'),
         configure: assign((_, event) => {
-          const { services: customServices, ...config } = isObject(
+          const { services: customServices, ...config } = !isEmptyObject(
             overrideConfigServices
           )
             ? overrideConfigServices
