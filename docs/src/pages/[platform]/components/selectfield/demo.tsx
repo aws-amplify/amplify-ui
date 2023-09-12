@@ -52,6 +52,7 @@ const defaultSelectFieldProps = {
   hasError: false,
   label: 'Fruit',
   labelHidden: false,
+  isMultiple: false,
 };
 
 export const SelectFieldDemo = () => {

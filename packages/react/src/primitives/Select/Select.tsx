@@ -26,7 +26,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
     isDisabled,
     isRequired,
     isMultiple,
-    selectSize,
+    selectSize = 1,
     ...rest
   },
   ref
@@ -60,7 +60,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
         }
         isDisabled={isFieldsetDisabled ? isFieldsetDisabled : isDisabled}
         multiple={isMultiple}
-        size={selectSize}
+        size={selectSize || 1}
         required={isRequired}
         data-size={size}
         data-variation={variation}
@@ -71,7 +71,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
         {placeholder && <option value="">{placeholder}</option>}
         {children}
       </View>
-      {isMultiple || selectSize! > 1 ? null : (
+      {isMultiple || selectSize > 1 ? null : (
         <Flex
           className={classNames(
             ComponentClassNames.SelectIconWrapper,
