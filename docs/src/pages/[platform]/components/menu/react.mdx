@@ -11,6 +11,7 @@ import {
   SizeExample,
   StylePropsExample,
   MenuThemeExample,
+  MenuIconExample,
 } from './examples/';
 
 import { Example, ExampleCode } from '@/components/Example';
@@ -29,8 +30,7 @@ Import the `Menu` and `MenuItem` components. Note that the Menu component is ren
   <BasicExample />
   <ExampleCode>
 ```tsx file=./examples/basicExample.tsx
-
-````
+```
   </ExampleCode>
 </Example>
 
@@ -42,9 +42,7 @@ Use the `MenuItem` component to configure Menu options. The example below demons
   <MenuItemsExample />
   <ExampleCode>
 ```tsx file=./examples/menuItemsExample.tsx
-
-````
-
+```
   </ExampleCode>
 </Example>
 
@@ -56,9 +54,7 @@ The default Menu button can be customized by importing the `MenuButton` componen
   <MenuExample />
   <ExampleCode>
 ```tsx file=./examples/menuExample.tsx
-
-````
-
+```
   </ExampleCode>
 </Example>
 
@@ -70,9 +66,7 @@ To control the alignment of the Menu with the Menu button, use the `menuAlign` p
   <MenuAlignExample />
   <ExampleCode>
 ```tsx file=./examples/menuAlignExample.tsx
-
-````
-
+```
   </ExampleCode>
 </Example>
 
@@ -84,9 +78,7 @@ Control the size of the Menu button and items using the `size` prop. Available o
   <SizeExample />
   <ExampleCode>
 ```tsx file=./examples/sizeExample.tsx
-
-````
-
+```
   </ExampleCode>
 </Example>
 
@@ -98,13 +90,12 @@ Create a controlled `Menu` using the `isOpen` and `onOpenChange` props.
   <ControlledExample />
   <ExampleCode>
 ```tsx file=./examples/controlledExample.tsx
-
-````
+```
 
   </ExampleCode>
 </Example>
 
-## CSS Styling
+## Styling
 
 <ThemeExample component="Menu">
   <Example>
@@ -119,6 +110,16 @@ Create a controlled `Menu` using the `isOpen` and `onOpenChange` props.
     </ExampleCode>
   </Example>
 </ThemeExample>
+
+### Icons
+
+<Example>
+  <MenuIconExample />
+  <ExampleCode>
+```tsx file=./examples/MenuIconExample.tsx
+```
+  </ExampleCode>
+</Example>
 
 ### Target classes
 

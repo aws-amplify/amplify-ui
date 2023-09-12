@@ -8,6 +8,7 @@ Array [
   "Authenticator",
   "Autocomplete",
   "Badge",
+  "Breadcrumbs",
   "Button",
   "ButtonGroup",
   "Card",
@@ -18,22 +19,28 @@ Array [
   "ComponentPropsToStylePropsMap",
   "ComponentPropsToStylePropsMapKeys",
   "Divider",
+  "DropZone",
   "Expander",
   "ExpanderItem",
   "FieldGroupIcon",
   "FieldGroupIconButton",
+  "Fieldset",
   "FileUploader",
   "Flex",
   "Grid",
   "Heading",
   "HighlightMatch",
   "Icon",
+  "IconsProvider",
   "Image",
+  "Input",
+  "Label",
   "Link",
   "Loader",
   "Menu",
   "MenuButton",
   "MenuItem",
+  "Message",
   "Pagination",
   "PasswordField",
   "PhoneNumberField",
@@ -117,6 +124,8 @@ Array [
   "useDataStoreDeleteAction",
   "useDataStoreItem",
   "useDataStoreUpdateAction",
+  "useDropZone",
+  "useIcons",
   "useNavigateAction",
   "useStateMutationAction",
   "useStorageURL",
@@ -1024,6 +1033,256 @@ Object {
       },
     },
   },
+  "Breadcrumbs": Object {
+    "properties": Object {
+      "alignSelf": Object {
+        "type": "string",
+      },
+      "area": Object {
+        "type": "string",
+      },
+      "ariaLabel": Object {
+        "type": "string",
+      },
+      "ariaValuetext": Object {
+        "type": "string",
+      },
+      "backgroundColor": Object {
+        "type": "string",
+      },
+      "backgroundImage": Object {
+        "type": "string",
+      },
+      "basis": Object {
+        "type": "string",
+      },
+      "border": Object {
+        "type": "string",
+      },
+      "borderColor": Object {
+        "type": "string",
+      },
+      "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
+        "type": "string",
+      },
+      "bottom": Object {
+        "type": "string",
+      },
+      "boxShadow": Object {
+        "type": "string",
+      },
+      "children": Object {
+        "type": "string",
+      },
+      "className": Object {
+        "type": "string",
+      },
+      "color": Object {
+        "type": "string",
+      },
+      "column": Object {
+        "type": "string",
+      },
+      "columnEnd": Object {
+        "type": "string",
+      },
+      "columnSpan": Object {
+        "type": "string",
+      },
+      "columnStart": Object {
+        "type": "string",
+      },
+      "display": Object {
+        "type": "string",
+      },
+      "flex": Object {
+        "type": "string",
+      },
+      "fontFamily": Object {
+        "type": "string",
+      },
+      "fontSize": Object {
+        "type": "string",
+      },
+      "fontStyle": Object {
+        "type": "string",
+      },
+      "fontWeight": Object {
+        "type": "string",
+      },
+      "grow": Object {
+        "type": "string",
+      },
+      "height": Object {
+        "type": "string",
+      },
+      "id": Object {
+        "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
+      },
+      "isDisabled": Object {
+        "type": "boolean",
+      },
+      "key": Object {
+        "type": "string",
+      },
+      "left": Object {
+        "type": "string",
+      },
+      "letterSpacing": Object {
+        "type": "string",
+      },
+      "lineHeight": Object {
+        "type": "string",
+      },
+      "margin": Object {
+        "type": "string",
+      },
+      "marginBlock": Object {
+        "type": "string",
+      },
+      "marginBlockEnd": Object {
+        "type": "string",
+      },
+      "marginBlockStart": Object {
+        "type": "string",
+      },
+      "marginBottom": Object {
+        "type": "string",
+      },
+      "marginInline": Object {
+        "type": "string",
+      },
+      "marginInlineEnd": Object {
+        "type": "string",
+      },
+      "marginInlineStart": Object {
+        "type": "string",
+      },
+      "marginLeft": Object {
+        "type": "string",
+      },
+      "marginRight": Object {
+        "type": "string",
+      },
+      "marginTop": Object {
+        "type": "string",
+      },
+      "maxHeight": Object {
+        "type": "string",
+      },
+      "maxWidth": Object {
+        "type": "string",
+      },
+      "minHeight": Object {
+        "type": "string",
+      },
+      "minWidth": Object {
+        "type": "string",
+      },
+      "opacity": Object {
+        "type": "string",
+      },
+      "order": Object {
+        "type": "string",
+      },
+      "overflow": Object {
+        "type": "string",
+      },
+      "padding": Object {
+        "type": "string",
+      },
+      "paddingBlock": Object {
+        "type": "string",
+      },
+      "paddingBlockEnd": Object {
+        "type": "string",
+      },
+      "paddingBlockStart": Object {
+        "type": "string",
+      },
+      "paddingBottom": Object {
+        "type": "string",
+      },
+      "paddingInline": Object {
+        "type": "string",
+      },
+      "paddingInlineEnd": Object {
+        "type": "string",
+      },
+      "paddingInlineStart": Object {
+        "type": "string",
+      },
+      "paddingLeft": Object {
+        "type": "string",
+      },
+      "paddingRight": Object {
+        "type": "string",
+      },
+      "paddingTop": Object {
+        "type": "string",
+      },
+      "position": Object {
+        "type": "string",
+      },
+      "right": Object {
+        "type": "string",
+      },
+      "role": Object {
+        "type": "string",
+      },
+      "row": Object {
+        "type": "string",
+      },
+      "rowEnd": Object {
+        "type": "string",
+      },
+      "rowSpan": Object {
+        "type": "string",
+      },
+      "rowStart": Object {
+        "type": "string",
+      },
+      "shrink": Object {
+        "type": "string",
+      },
+      "testId": Object {
+        "type": "string",
+      },
+      "textAlign": Object {
+        "type": "string",
+      },
+      "textDecoration": Object {
+        "type": "string",
+      },
+      "textTransform": Object {
+        "type": "string",
+      },
+      "top": Object {
+        "type": "string",
+      },
+      "transform": Object {
+        "type": "string",
+      },
+      "transformOrigin": Object {
+        "type": "string",
+      },
+      "whiteSpace": Object {
+        "type": "string",
+      },
+      "width": Object {
+        "type": "string",
+      },
+    },
+  },
   "Button": Object {
     "properties": Object {
       "alignContent": Object {
@@ -1082,6 +1341,9 @@ Object {
         "type": "string",
       },
       "color": Object {
+        "type": "string",
+      },
+      "colorTheme": Object {
         "type": "string",
       },
       "column": Object {
@@ -2719,6 +2981,256 @@ Object {
       },
     },
   },
+  "DropZone": Object {
+    "properties": Object {
+      "alignSelf": Object {
+        "type": "string",
+      },
+      "area": Object {
+        "type": "string",
+      },
+      "ariaLabel": Object {
+        "type": "string",
+      },
+      "ariaValuetext": Object {
+        "type": "string",
+      },
+      "backgroundColor": Object {
+        "type": "string",
+      },
+      "backgroundImage": Object {
+        "type": "string",
+      },
+      "basis": Object {
+        "type": "string",
+      },
+      "border": Object {
+        "type": "string",
+      },
+      "borderColor": Object {
+        "type": "string",
+      },
+      "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
+        "type": "string",
+      },
+      "bottom": Object {
+        "type": "string",
+      },
+      "boxShadow": Object {
+        "type": "string",
+      },
+      "children": Object {
+        "type": "string",
+      },
+      "className": Object {
+        "type": "string",
+      },
+      "color": Object {
+        "type": "string",
+      },
+      "column": Object {
+        "type": "string",
+      },
+      "columnEnd": Object {
+        "type": "string",
+      },
+      "columnSpan": Object {
+        "type": "string",
+      },
+      "columnStart": Object {
+        "type": "string",
+      },
+      "display": Object {
+        "type": "string",
+      },
+      "flex": Object {
+        "type": "string",
+      },
+      "fontFamily": Object {
+        "type": "string",
+      },
+      "fontSize": Object {
+        "type": "string",
+      },
+      "fontStyle": Object {
+        "type": "string",
+      },
+      "fontWeight": Object {
+        "type": "string",
+      },
+      "grow": Object {
+        "type": "string",
+      },
+      "height": Object {
+        "type": "string",
+      },
+      "id": Object {
+        "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
+      },
+      "isDisabled": Object {
+        "type": "boolean",
+      },
+      "key": Object {
+        "type": "string",
+      },
+      "left": Object {
+        "type": "string",
+      },
+      "letterSpacing": Object {
+        "type": "string",
+      },
+      "lineHeight": Object {
+        "type": "string",
+      },
+      "margin": Object {
+        "type": "string",
+      },
+      "marginBlock": Object {
+        "type": "string",
+      },
+      "marginBlockEnd": Object {
+        "type": "string",
+      },
+      "marginBlockStart": Object {
+        "type": "string",
+      },
+      "marginBottom": Object {
+        "type": "string",
+      },
+      "marginInline": Object {
+        "type": "string",
+      },
+      "marginInlineEnd": Object {
+        "type": "string",
+      },
+      "marginInlineStart": Object {
+        "type": "string",
+      },
+      "marginLeft": Object {
+        "type": "string",
+      },
+      "marginRight": Object {
+        "type": "string",
+      },
+      "marginTop": Object {
+        "type": "string",
+      },
+      "maxHeight": Object {
+        "type": "string",
+      },
+      "maxWidth": Object {
+        "type": "string",
+      },
+      "minHeight": Object {
+        "type": "string",
+      },
+      "minWidth": Object {
+        "type": "string",
+      },
+      "opacity": Object {
+        "type": "string",
+      },
+      "order": Object {
+        "type": "string",
+      },
+      "overflow": Object {
+        "type": "string",
+      },
+      "padding": Object {
+        "type": "string",
+      },
+      "paddingBlock": Object {
+        "type": "string",
+      },
+      "paddingBlockEnd": Object {
+        "type": "string",
+      },
+      "paddingBlockStart": Object {
+        "type": "string",
+      },
+      "paddingBottom": Object {
+        "type": "string",
+      },
+      "paddingInline": Object {
+        "type": "string",
+      },
+      "paddingInlineEnd": Object {
+        "type": "string",
+      },
+      "paddingInlineStart": Object {
+        "type": "string",
+      },
+      "paddingLeft": Object {
+        "type": "string",
+      },
+      "paddingRight": Object {
+        "type": "string",
+      },
+      "paddingTop": Object {
+        "type": "string",
+      },
+      "position": Object {
+        "type": "string",
+      },
+      "right": Object {
+        "type": "string",
+      },
+      "role": Object {
+        "type": "string",
+      },
+      "row": Object {
+        "type": "string",
+      },
+      "rowEnd": Object {
+        "type": "string",
+      },
+      "rowSpan": Object {
+        "type": "string",
+      },
+      "rowStart": Object {
+        "type": "string",
+      },
+      "shrink": Object {
+        "type": "string",
+      },
+      "testId": Object {
+        "type": "string",
+      },
+      "textAlign": Object {
+        "type": "string",
+      },
+      "textDecoration": Object {
+        "type": "string",
+      },
+      "textTransform": Object {
+        "type": "string",
+      },
+      "top": Object {
+        "type": "string",
+      },
+      "transform": Object {
+        "type": "string",
+      },
+      "transformOrigin": Object {
+        "type": "string",
+      },
+      "whiteSpace": Object {
+        "type": "string",
+      },
+      "width": Object {
+        "type": "string",
+      },
+    },
+  },
   "Expander": Object {
     "properties": Object {
       "alignSelf": Object {
@@ -3742,6 +4254,295 @@ Object {
         "type": "string",
       },
       "width": Object {
+        "type": "string",
+      },
+    },
+  },
+  "Fieldset": Object {
+    "properties": Object {
+      "alignContent": Object {
+        "type": "string",
+      },
+      "alignItems": Object {
+        "type": "string",
+      },
+      "alignSelf": Object {
+        "type": "string",
+      },
+      "area": Object {
+        "type": "string",
+      },
+      "ariaLabel": Object {
+        "type": "string",
+      },
+      "ariaValuetext": Object {
+        "type": "string",
+      },
+      "backgroundColor": Object {
+        "type": "string",
+      },
+      "backgroundImage": Object {
+        "type": "string",
+      },
+      "basis": Object {
+        "type": "string",
+      },
+      "border": Object {
+        "type": "string",
+      },
+      "borderColor": Object {
+        "type": "string",
+      },
+      "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
+        "type": "string",
+      },
+      "bottom": Object {
+        "type": "string",
+      },
+      "boxShadow": Object {
+        "type": "string",
+      },
+      "children": Object {
+        "type": "string",
+      },
+      "className": Object {
+        "type": "string",
+      },
+      "color": Object {
+        "type": "string",
+      },
+      "column": Object {
+        "type": "string",
+      },
+      "columnEnd": Object {
+        "type": "string",
+      },
+      "columnGap": Object {
+        "type": "string",
+      },
+      "columnSpan": Object {
+        "type": "string",
+      },
+      "columnStart": Object {
+        "type": "string",
+      },
+      "direction": Object {
+        "type": "string",
+      },
+      "display": Object {
+        "type": "string",
+      },
+      "flex": Object {
+        "type": "string",
+      },
+      "fontFamily": Object {
+        "type": "string",
+      },
+      "fontSize": Object {
+        "type": "string",
+      },
+      "fontStyle": Object {
+        "type": "string",
+      },
+      "fontWeight": Object {
+        "type": "string",
+      },
+      "form": Object {
+        "type": "string",
+      },
+      "gap": Object {
+        "type": "string",
+      },
+      "grow": Object {
+        "type": "string",
+      },
+      "height": Object {
+        "type": "string",
+      },
+      "id": Object {
+        "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
+      },
+      "isDisabled": Object {
+        "type": "boolean",
+      },
+      "justifyContent": Object {
+        "type": "string",
+      },
+      "left": Object {
+        "type": "string",
+      },
+      "legend": Object {
+        "type": "string",
+      },
+      "legendHidden": Object {
+        "type": "boolean",
+      },
+      "letterSpacing": Object {
+        "type": "string",
+      },
+      "lineHeight": Object {
+        "type": "string",
+      },
+      "margin": Object {
+        "type": "string",
+      },
+      "marginBlock": Object {
+        "type": "string",
+      },
+      "marginBlockEnd": Object {
+        "type": "string",
+      },
+      "marginBlockStart": Object {
+        "type": "string",
+      },
+      "marginBottom": Object {
+        "type": "string",
+      },
+      "marginInline": Object {
+        "type": "string",
+      },
+      "marginInlineEnd": Object {
+        "type": "string",
+      },
+      "marginInlineStart": Object {
+        "type": "string",
+      },
+      "marginLeft": Object {
+        "type": "string",
+      },
+      "marginRight": Object {
+        "type": "string",
+      },
+      "marginTop": Object {
+        "type": "string",
+      },
+      "maxHeight": Object {
+        "type": "string",
+      },
+      "maxWidth": Object {
+        "type": "string",
+      },
+      "minHeight": Object {
+        "type": "string",
+      },
+      "minWidth": Object {
+        "type": "string",
+      },
+      "name": Object {
+        "type": "string",
+      },
+      "opacity": Object {
+        "type": "string",
+      },
+      "order": Object {
+        "type": "string",
+      },
+      "overflow": Object {
+        "type": "string",
+      },
+      "padding": Object {
+        "type": "string",
+      },
+      "paddingBlock": Object {
+        "type": "string",
+      },
+      "paddingBlockEnd": Object {
+        "type": "string",
+      },
+      "paddingBlockStart": Object {
+        "type": "string",
+      },
+      "paddingBottom": Object {
+        "type": "string",
+      },
+      "paddingInline": Object {
+        "type": "string",
+      },
+      "paddingInlineEnd": Object {
+        "type": "string",
+      },
+      "paddingInlineStart": Object {
+        "type": "string",
+      },
+      "paddingLeft": Object {
+        "type": "string",
+      },
+      "paddingRight": Object {
+        "type": "string",
+      },
+      "paddingTop": Object {
+        "type": "string",
+      },
+      "position": Object {
+        "type": "string",
+      },
+      "right": Object {
+        "type": "string",
+      },
+      "role": Object {
+        "type": "string",
+      },
+      "row": Object {
+        "type": "string",
+      },
+      "rowEnd": Object {
+        "type": "string",
+      },
+      "rowGap": Object {
+        "type": "string",
+      },
+      "rowSpan": Object {
+        "type": "string",
+      },
+      "rowStart": Object {
+        "type": "string",
+      },
+      "shrink": Object {
+        "type": "string",
+      },
+      "size": Object {
+        "type": "string",
+      },
+      "testId": Object {
+        "type": "string",
+      },
+      "textAlign": Object {
+        "type": "string",
+      },
+      "textDecoration": Object {
+        "type": "string",
+      },
+      "textTransform": Object {
+        "type": "string",
+      },
+      "top": Object {
+        "type": "string",
+      },
+      "transform": Object {
+        "type": "string",
+      },
+      "transformOrigin": Object {
+        "type": "string",
+      },
+      "variation": Object {
+        "type": "string",
+      },
+      "whiteSpace": Object {
+        "type": "string",
+      },
+      "width": Object {
+        "type": "string",
+      },
+      "wrap": Object {
         "type": "string",
       },
     },
@@ -5342,6 +6143,548 @@ Object {
       },
     },
   },
+  "Input": Object {
+    "properties": Object {
+      "alignSelf": Object {
+        "type": "string",
+      },
+      "area": Object {
+        "type": "string",
+      },
+      "ariaLabel": Object {
+        "type": "string",
+      },
+      "ariaValuetext": Object {
+        "type": "string",
+      },
+      "autoComplete": Object {
+        "type": "string",
+      },
+      "backgroundColor": Object {
+        "type": "string",
+      },
+      "backgroundImage": Object {
+        "type": "string",
+      },
+      "basis": Object {
+        "type": "string",
+      },
+      "border": Object {
+        "type": "string",
+      },
+      "borderColor": Object {
+        "type": "string",
+      },
+      "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
+        "type": "string",
+      },
+      "bottom": Object {
+        "type": "string",
+      },
+      "boxShadow": Object {
+        "type": "string",
+      },
+      "checked": Object {
+        "type": "boolean",
+      },
+      "children": Object {
+        "type": "string",
+      },
+      "className": Object {
+        "type": "string",
+      },
+      "color": Object {
+        "type": "string",
+      },
+      "column": Object {
+        "type": "string",
+      },
+      "columnEnd": Object {
+        "type": "string",
+      },
+      "columnSpan": Object {
+        "type": "string",
+      },
+      "columnStart": Object {
+        "type": "string",
+      },
+      "defaultChecked": Object {
+        "type": "boolean",
+      },
+      "defaultValue": Object {
+        "type": "string",
+      },
+      "display": Object {
+        "type": "string",
+      },
+      "enterKeyHint": Object {
+        "type": "string",
+      },
+      "flex": Object {
+        "type": "string",
+      },
+      "fontFamily": Object {
+        "type": "string",
+      },
+      "fontSize": Object {
+        "type": "string",
+      },
+      "fontStyle": Object {
+        "type": "string",
+      },
+      "fontWeight": Object {
+        "type": "string",
+      },
+      "grow": Object {
+        "type": "string",
+      },
+      "hasError": Object {
+        "type": "boolean",
+      },
+      "height": Object {
+        "type": "string",
+      },
+      "id": Object {
+        "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
+      },
+      "inputMode": Object {
+        "type": "string",
+      },
+      "isDisabled": Object {
+        "type": "boolean",
+      },
+      "isReadOnly": Object {
+        "type": "boolean",
+      },
+      "isRequired": Object {
+        "type": "boolean",
+      },
+      "left": Object {
+        "type": "string",
+      },
+      "letterSpacing": Object {
+        "type": "string",
+      },
+      "lineHeight": Object {
+        "type": "string",
+      },
+      "margin": Object {
+        "type": "string",
+      },
+      "marginBlock": Object {
+        "type": "string",
+      },
+      "marginBlockEnd": Object {
+        "type": "string",
+      },
+      "marginBlockStart": Object {
+        "type": "string",
+      },
+      "marginBottom": Object {
+        "type": "string",
+      },
+      "marginInline": Object {
+        "type": "string",
+      },
+      "marginInlineEnd": Object {
+        "type": "string",
+      },
+      "marginInlineStart": Object {
+        "type": "string",
+      },
+      "marginLeft": Object {
+        "type": "string",
+      },
+      "marginRight": Object {
+        "type": "string",
+      },
+      "marginTop": Object {
+        "type": "string",
+      },
+      "maxHeight": Object {
+        "type": "string",
+      },
+      "maxWidth": Object {
+        "type": "string",
+      },
+      "minHeight": Object {
+        "type": "string",
+      },
+      "minWidth": Object {
+        "type": "string",
+      },
+      "name": Object {
+        "type": "string",
+      },
+      "opacity": Object {
+        "type": "string",
+      },
+      "order": Object {
+        "type": "string",
+      },
+      "overflow": Object {
+        "type": "string",
+      },
+      "padding": Object {
+        "type": "string",
+      },
+      "paddingBlock": Object {
+        "type": "string",
+      },
+      "paddingBlockEnd": Object {
+        "type": "string",
+      },
+      "paddingBlockStart": Object {
+        "type": "string",
+      },
+      "paddingBottom": Object {
+        "type": "string",
+      },
+      "paddingInline": Object {
+        "type": "string",
+      },
+      "paddingInlineEnd": Object {
+        "type": "string",
+      },
+      "paddingInlineStart": Object {
+        "type": "string",
+      },
+      "paddingLeft": Object {
+        "type": "string",
+      },
+      "paddingRight": Object {
+        "type": "string",
+      },
+      "paddingTop": Object {
+        "type": "string",
+      },
+      "placeholder": Object {
+        "type": "string",
+      },
+      "position": Object {
+        "type": "string",
+      },
+      "right": Object {
+        "type": "string",
+      },
+      "role": Object {
+        "type": "string",
+      },
+      "row": Object {
+        "type": "string",
+      },
+      "rowEnd": Object {
+        "type": "string",
+      },
+      "rowSpan": Object {
+        "type": "string",
+      },
+      "rowStart": Object {
+        "type": "string",
+      },
+      "shrink": Object {
+        "type": "string",
+      },
+      "size": Object {
+        "type": "string",
+      },
+      "testId": Object {
+        "type": "string",
+      },
+      "textAlign": Object {
+        "type": "string",
+      },
+      "textDecoration": Object {
+        "type": "string",
+      },
+      "textTransform": Object {
+        "type": "string",
+      },
+      "top": Object {
+        "type": "string",
+      },
+      "transform": Object {
+        "type": "string",
+      },
+      "transformOrigin": Object {
+        "type": "string",
+      },
+      "type": Object {
+        "type": "string",
+      },
+      "value": Object {
+        "type": "string",
+      },
+      "variation": Object {
+        "type": "string",
+      },
+      "whiteSpace": Object {
+        "type": "string",
+      },
+      "width": Object {
+        "type": "string",
+      },
+    },
+  },
+  "Label": Object {
+    "properties": Object {
+      "alignSelf": Object {
+        "type": "string",
+      },
+      "area": Object {
+        "type": "string",
+      },
+      "ariaLabel": Object {
+        "type": "string",
+      },
+      "ariaValuetext": Object {
+        "type": "string",
+      },
+      "backgroundColor": Object {
+        "type": "string",
+      },
+      "backgroundImage": Object {
+        "type": "string",
+      },
+      "basis": Object {
+        "type": "string",
+      },
+      "border": Object {
+        "type": "string",
+      },
+      "borderColor": Object {
+        "type": "string",
+      },
+      "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
+        "type": "string",
+      },
+      "bottom": Object {
+        "type": "string",
+      },
+      "boxShadow": Object {
+        "type": "string",
+      },
+      "children": Object {
+        "type": "string",
+      },
+      "className": Object {
+        "type": "string",
+      },
+      "color": Object {
+        "type": "string",
+      },
+      "column": Object {
+        "type": "string",
+      },
+      "columnEnd": Object {
+        "type": "string",
+      },
+      "columnSpan": Object {
+        "type": "string",
+      },
+      "columnStart": Object {
+        "type": "string",
+      },
+      "display": Object {
+        "type": "string",
+      },
+      "flex": Object {
+        "type": "string",
+      },
+      "fontFamily": Object {
+        "type": "string",
+      },
+      "fontSize": Object {
+        "type": "string",
+      },
+      "fontStyle": Object {
+        "type": "string",
+      },
+      "fontWeight": Object {
+        "type": "string",
+      },
+      "grow": Object {
+        "type": "string",
+      },
+      "height": Object {
+        "type": "string",
+      },
+      "id": Object {
+        "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
+      },
+      "isDisabled": Object {
+        "type": "boolean",
+      },
+      "left": Object {
+        "type": "string",
+      },
+      "letterSpacing": Object {
+        "type": "string",
+      },
+      "lineHeight": Object {
+        "type": "string",
+      },
+      "margin": Object {
+        "type": "string",
+      },
+      "marginBlock": Object {
+        "type": "string",
+      },
+      "marginBlockEnd": Object {
+        "type": "string",
+      },
+      "marginBlockStart": Object {
+        "type": "string",
+      },
+      "marginBottom": Object {
+        "type": "string",
+      },
+      "marginInline": Object {
+        "type": "string",
+      },
+      "marginInlineEnd": Object {
+        "type": "string",
+      },
+      "marginInlineStart": Object {
+        "type": "string",
+      },
+      "marginLeft": Object {
+        "type": "string",
+      },
+      "marginRight": Object {
+        "type": "string",
+      },
+      "marginTop": Object {
+        "type": "string",
+      },
+      "maxHeight": Object {
+        "type": "string",
+      },
+      "maxWidth": Object {
+        "type": "string",
+      },
+      "minHeight": Object {
+        "type": "string",
+      },
+      "minWidth": Object {
+        "type": "string",
+      },
+      "opacity": Object {
+        "type": "string",
+      },
+      "order": Object {
+        "type": "string",
+      },
+      "overflow": Object {
+        "type": "string",
+      },
+      "padding": Object {
+        "type": "string",
+      },
+      "paddingBlock": Object {
+        "type": "string",
+      },
+      "paddingBlockEnd": Object {
+        "type": "string",
+      },
+      "paddingBlockStart": Object {
+        "type": "string",
+      },
+      "paddingBottom": Object {
+        "type": "string",
+      },
+      "paddingInline": Object {
+        "type": "string",
+      },
+      "paddingInlineEnd": Object {
+        "type": "string",
+      },
+      "paddingInlineStart": Object {
+        "type": "string",
+      },
+      "paddingLeft": Object {
+        "type": "string",
+      },
+      "paddingRight": Object {
+        "type": "string",
+      },
+      "paddingTop": Object {
+        "type": "string",
+      },
+      "position": Object {
+        "type": "string",
+      },
+      "right": Object {
+        "type": "string",
+      },
+      "role": Object {
+        "type": "string",
+      },
+      "row": Object {
+        "type": "string",
+      },
+      "rowEnd": Object {
+        "type": "string",
+      },
+      "rowSpan": Object {
+        "type": "string",
+      },
+      "rowStart": Object {
+        "type": "string",
+      },
+      "shrink": Object {
+        "type": "string",
+      },
+      "testId": Object {
+        "type": "string",
+      },
+      "textAlign": Object {
+        "type": "string",
+      },
+      "textDecoration": Object {
+        "type": "string",
+      },
+      "textTransform": Object {
+        "type": "string",
+      },
+      "top": Object {
+        "type": "string",
+      },
+      "transform": Object {
+        "type": "string",
+      },
+      "transformOrigin": Object {
+        "type": "string",
+      },
+      "visuallyHidden": Object {
+        "type": "boolean",
+      },
+      "whiteSpace": Object {
+        "type": "string",
+      },
+      "width": Object {
+        "type": "string",
+      },
+    },
+  },
   "Link": Object {
     "properties": Object {
       "alignSelf": Object {
@@ -6711,6 +8054,295 @@ Object {
         "type": "string",
       },
       "type": Object {
+        "type": "string",
+      },
+      "variation": Object {
+        "type": "string",
+      },
+      "whiteSpace": Object {
+        "type": "string",
+      },
+      "width": Object {
+        "type": "string",
+      },
+      "wrap": Object {
+        "type": "string",
+      },
+    },
+  },
+  "Message": Object {
+    "properties": Object {
+      "alignContent": Object {
+        "type": "string",
+      },
+      "alignItems": Object {
+        "type": "string",
+      },
+      "alignSelf": Object {
+        "type": "string",
+      },
+      "area": Object {
+        "type": "string",
+      },
+      "ariaLabel": Object {
+        "type": "string",
+      },
+      "ariaValuetext": Object {
+        "type": "string",
+      },
+      "backgroundColor": Object {
+        "type": "string",
+      },
+      "backgroundImage": Object {
+        "type": "string",
+      },
+      "basis": Object {
+        "type": "string",
+      },
+      "border": Object {
+        "type": "string",
+      },
+      "borderColor": Object {
+        "type": "string",
+      },
+      "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
+        "type": "string",
+      },
+      "bottom": Object {
+        "type": "string",
+      },
+      "boxShadow": Object {
+        "type": "string",
+      },
+      "children": Object {
+        "type": "string",
+      },
+      "className": Object {
+        "type": "string",
+      },
+      "color": Object {
+        "type": "string",
+      },
+      "colorTheme": Object {
+        "type": "string",
+      },
+      "column": Object {
+        "type": "string",
+      },
+      "columnEnd": Object {
+        "type": "string",
+      },
+      "columnGap": Object {
+        "type": "string",
+      },
+      "columnSpan": Object {
+        "type": "string",
+      },
+      "columnStart": Object {
+        "type": "string",
+      },
+      "direction": Object {
+        "type": "string",
+      },
+      "dismissLabel": Object {
+        "type": "string",
+      },
+      "display": Object {
+        "type": "string",
+      },
+      "flex": Object {
+        "type": "string",
+      },
+      "fontFamily": Object {
+        "type": "string",
+      },
+      "fontSize": Object {
+        "type": "string",
+      },
+      "fontStyle": Object {
+        "type": "string",
+      },
+      "fontWeight": Object {
+        "type": "string",
+      },
+      "gap": Object {
+        "type": "string",
+      },
+      "grow": Object {
+        "type": "string",
+      },
+      "hasIcon": Object {
+        "type": "boolean",
+      },
+      "heading": Object {
+        "type": "string",
+      },
+      "height": Object {
+        "type": "string",
+      },
+      "id": Object {
+        "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
+      },
+      "isDisabled": Object {
+        "type": "boolean",
+      },
+      "isDismissible": Object {
+        "type": "boolean",
+      },
+      "justifyContent": Object {
+        "type": "string",
+      },
+      "left": Object {
+        "type": "string",
+      },
+      "letterSpacing": Object {
+        "type": "string",
+      },
+      "lineHeight": Object {
+        "type": "string",
+      },
+      "margin": Object {
+        "type": "string",
+      },
+      "marginBlock": Object {
+        "type": "string",
+      },
+      "marginBlockEnd": Object {
+        "type": "string",
+      },
+      "marginBlockStart": Object {
+        "type": "string",
+      },
+      "marginBottom": Object {
+        "type": "string",
+      },
+      "marginInline": Object {
+        "type": "string",
+      },
+      "marginInlineEnd": Object {
+        "type": "string",
+      },
+      "marginInlineStart": Object {
+        "type": "string",
+      },
+      "marginLeft": Object {
+        "type": "string",
+      },
+      "marginRight": Object {
+        "type": "string",
+      },
+      "marginTop": Object {
+        "type": "string",
+      },
+      "maxHeight": Object {
+        "type": "string",
+      },
+      "maxWidth": Object {
+        "type": "string",
+      },
+      "minHeight": Object {
+        "type": "string",
+      },
+      "minWidth": Object {
+        "type": "string",
+      },
+      "opacity": Object {
+        "type": "string",
+      },
+      "order": Object {
+        "type": "string",
+      },
+      "overflow": Object {
+        "type": "string",
+      },
+      "padding": Object {
+        "type": "string",
+      },
+      "paddingBlock": Object {
+        "type": "string",
+      },
+      "paddingBlockEnd": Object {
+        "type": "string",
+      },
+      "paddingBlockStart": Object {
+        "type": "string",
+      },
+      "paddingBottom": Object {
+        "type": "string",
+      },
+      "paddingInline": Object {
+        "type": "string",
+      },
+      "paddingInlineEnd": Object {
+        "type": "string",
+      },
+      "paddingInlineStart": Object {
+        "type": "string",
+      },
+      "paddingLeft": Object {
+        "type": "string",
+      },
+      "paddingRight": Object {
+        "type": "string",
+      },
+      "paddingTop": Object {
+        "type": "string",
+      },
+      "position": Object {
+        "type": "string",
+      },
+      "right": Object {
+        "type": "string",
+      },
+      "role": Object {
+        "type": "string",
+      },
+      "row": Object {
+        "type": "string",
+      },
+      "rowEnd": Object {
+        "type": "string",
+      },
+      "rowGap": Object {
+        "type": "string",
+      },
+      "rowSpan": Object {
+        "type": "string",
+      },
+      "rowStart": Object {
+        "type": "string",
+      },
+      "shrink": Object {
+        "type": "string",
+      },
+      "testId": Object {
+        "type": "string",
+      },
+      "textAlign": Object {
+        "type": "string",
+      },
+      "textDecoration": Object {
+        "type": "string",
+      },
+      "textTransform": Object {
+        "type": "string",
+      },
+      "top": Object {
+        "type": "string",
+      },
+      "transform": Object {
+        "type": "string",
+      },
+      "transformOrigin": Object {
         "type": "string",
       },
       "variation": Object {

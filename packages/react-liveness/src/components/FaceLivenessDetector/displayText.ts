@@ -5,6 +5,7 @@ export type HintDisplayText = {
   hintCanNotIdentifyText?: string;
   hintTooCloseText?: string;
   hintTooFarText?: string;
+  /** @deprecated `hintHoldFacePositionCountdownText` is no longer in use and will be removed in a future major version release. */
   hintHoldFacePositionCountdownText?: string;
   hintConnectingText?: string;
   hintVerifyingText?: string;
@@ -48,7 +49,7 @@ export type StreamDisplayText = {
 export const defaultErrorDisplayText = {
   timeoutHeaderText: 'Time out',
   timeoutMessageText:
-    "Face didn't fill oval within time limit. Try again and completely fill oval with face within 7 seconds.",
+    "Face didn't fit inside oval in time limit. Try again and completely fill the oval with face in it.",
   faceDistanceHeaderText: 'Forward movement detected',
   faceDistanceMessageText: 'Avoid moving closer when connecting.',
   multipleFacesHeaderText: 'Multiple faces detected',
@@ -87,7 +88,7 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   tooFarAltText:
     "Illustration of a person's face inside of an oval; there is a gap between the perimeter of the face and the boundaries of the oval.",
   instructionListStepOneText:
-    'When an oval appears, fill the oval with your face within 7 seconds.',
+    'When an oval appears, follow the instructions to fit your face in it.',
   instructionListStepTwoText: "Maximize your screen's brightness.",
   instructionListStepThreeText:
     'Make sure your face is not covered with sunglasses or a mask.',
@@ -109,6 +110,7 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   hintCanNotIdentifyText: 'Move face in front of camera',
   hintTooCloseText: 'Move back',
   hintTooFarText: 'Move closer',
+  /** @deprecated `hintHoldFacePositionCountdownText` is no longer in use and will be removed in a future major version release. */
   hintHoldFacePositionCountdownText: 'Hold face position during countdown',
   hintConnectingText: 'Connecting...',
   hintVerifyingText: 'Verifying...',

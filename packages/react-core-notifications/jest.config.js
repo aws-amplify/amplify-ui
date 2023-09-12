@@ -1,6 +1,10 @@
 module.exports = {
   collectCoverage: true,
-  collectCoverageFrom: ['<rootDir>/src/**/*.(ts|tsx)'],
+  collectCoverageFrom: [
+    '<rootDir>/src/**/*.(ts|tsx)',
+    // do not collect from export files
+    '!<rootDir>/**/index.(ts|tsx)',
+  ],
   coverageThreshold: {
     global: {
       branches: 80,

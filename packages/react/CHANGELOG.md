@@ -1,5 +1,204 @@
 # @aws-amplify/ui-react
 
+## 5.3.0
+
+### Minor Changes
+
+- [#4348](https://github.com/aws-amplify/amplify-ui/pull/4348) [`276968530`](https://github.com/aws-amplify/amplify-ui/commit/276968530ba1049cfa4a9fd1efe8bd870b3e4b18) Thanks [@hbuchel](https://github.com/hbuchel)! - feat(react/ui): add new Fieldset Primitive
+
+  Usage:
+
+  ```
+  <Fieldset legend="Legend test">
+     // Fieldset content/form controls
+  </Fieldset>
+  ```
+
+- [#4359](https://github.com/aws-amplify/amplify-ui/pull/4359) [`ec495a6f6`](https://github.com/aws-amplify/amplify-ui/commit/ec495a6f638c53970edd8706a0eeb5f95d142689) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(react): DropZone component
+
+  ```jsx
+  export default function DefaultDropZoneExample() {
+    const [files, setFiles] = React.useState([]);
+    return (
+      <>
+        <DropZone
+          onDropComplete={({ files }) => {
+            setFiles(files);
+          }}
+        >
+          Drag images here
+        </DropZone>
+        {files.map((file) => (
+          <Text key={file.name}>{file.name}</Text>
+        ))}
+      </>
+    );
+  }
+  ```
+
+### Patch Changes
+
+- [#4372](https://github.com/aws-amplify/amplify-ui/pull/4372) [`265f0b482`](https://github.com/aws-amplify/amplify-ui/commit/265f0b48249c89b004a40a1a06abc0c3551f45f7) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(react): ShowPasswordButton should have aria-hidden="true" on icon
+
+- [#4367](https://github.com/aws-amplify/amplify-ui/pull/4367) [`e1fc61119`](https://github.com/aws-amplify/amplify-ui/commit/e1fc61119224a92a4648d1d1673177647b1a8e53) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - feat(ui-react-storage): Added upload actions and option to upload files on click. Usage:
+
+  ```
+   <StorageManager
+        acceptedFileTypes={['image/*']}
+        accessLevel="public"
+        autoUpload={false}
+      />
+  ```
+
+- [#4361](https://github.com/aws-amplify/amplify-ui/pull/4361) [`5b6c9bfe4`](https://github.com/aws-amplify/amplify-ui/commit/5b6c9bfe4ef1c0727270bffacb5f9e8045a8325d) Thanks [@hbuchel](https://github.com/hbuchel)! - feat(react): Add new Message primitive.
+
+  Usage:
+
+  ```
+  <Message colorTheme="error" heading="A message heading">Content of the message.<Message>
+  ```
+
+- [#4368](https://github.com/aws-amplify/amplify-ui/pull/4368) [`14e402b6e`](https://github.com/aws-amplify/amplify-ui/commit/14e402b6eedab6bdef5cec21b0b084f230b0ce26) Thanks [@hbuchel](https://github.com/hbuchel)! - chore(ui): adds info, warning, and success border tokens. updates background color tokens for info, warning, success and error.
+
+- [#4389](https://github.com/aws-amplify/amplify-ui/pull/4389) [`9471ea53a`](https://github.com/aws-amplify/amplify-ui/commit/9471ea53a2414879d197adb5f52c8dcb3e0df946) Thanks [@hbuchel](https://github.com/hbuchel)! - chore(react): update tests for disabled Fieldset
+
+- [#4384](https://github.com/aws-amplify/amplify-ui/pull/4384) [`2407ac294`](https://github.com/aws-amplify/amplify-ui/commit/2407ac294270214bd20c414349d2423ab14b8066) Thanks [@reesscot](https://github.com/reesscot)! - feat: Input and Label primitives
+
+  ```jx
+  export const InputLabelExample = () => (
+    <>
+      <Label htmlFor="first_name">First Name:</Label>
+      <Input id="first_name" name="first_name" />
+    </>
+  );
+  ```
+
+- Updated dependencies [[`276968530`](https://github.com/aws-amplify/amplify-ui/commit/276968530ba1049cfa4a9fd1efe8bd870b3e4b18), [`ec495a6f6`](https://github.com/aws-amplify/amplify-ui/commit/ec495a6f638c53970edd8706a0eeb5f95d142689), [`e1fc61119`](https://github.com/aws-amplify/amplify-ui/commit/e1fc61119224a92a4648d1d1673177647b1a8e53), [`14e402b6e`](https://github.com/aws-amplify/amplify-ui/commit/14e402b6eedab6bdef5cec21b0b084f230b0ce26), [`2407ac294`](https://github.com/aws-amplify/amplify-ui/commit/2407ac294270214bd20c414349d2423ab14b8066), [`5bc0c8a32`](https://github.com/aws-amplify/amplify-ui/commit/5bc0c8a32d1552313df496f96b96738637d0b157), [`64fba0fd2`](https://github.com/aws-amplify/amplify-ui/commit/64fba0fd2ec4a0c5061b461f527c8a45235eee13)]:
+  - @aws-amplify/ui@5.8.0
+  - @aws-amplify/ui-react-core@2.1.32
+
+## 5.2.0
+
+### Minor Changes
+
+- [#4268](https://github.com/aws-amplify/amplify-ui/pull/4268) [`f8c5b77e4`](https://github.com/aws-amplify/amplify-ui/commit/f8c5b77e46f2b304e33776b28ed5a18141f9b364) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(react): Add IconsProvider to customize icons globally for all Amplify UI components
+
+  Components that use icons:
+
+  - Alert
+  - Checkbox
+  - Expander
+  - Field
+  - Menu
+  - Pagination
+  - PasswordField
+  - Rating
+  - SearchField
+  - Select
+  - StepperField
+  - StorageManager
+
+  Wrap your application with the `<IconsProvider>` (or whatever part of your app you want to customize the icons).
+
+  ```jsx
+  <IconsProvider icons={{
+    alert: {
+      info: <MdInfo />
+    }
+  }}>
+    {/* ... */}
+  </IconProvider>
+  ```
+
+  Works well with the react-icons package!
+
+### Patch Changes
+
+- [#4355](https://github.com/aws-amplify/amplify-ui/pull/4355) [`00f2344e5`](https://github.com/aws-amplify/amplify-ui/commit/00f2344e593b47d6a7413869220606f32e5eaf1a) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui-react): merge internal and passed focus event handler props in Checkbox, remove extraneous useCheckbox hook
+
+- Updated dependencies [[`5cc76794a`](https://github.com/aws-amplify/amplify-ui/commit/5cc76794a71584e26b1ec699c1dc1713d8a986c9)]:
+  - @aws-amplify/ui@5.7.2
+  - @aws-amplify/ui-react-core@2.1.31
+
+## 5.1.1
+
+### Patch Changes
+
+- [#4305](https://github.com/aws-amplify/amplify-ui/pull/4305) [`00c7abc25`](https://github.com/aws-amplify/amplify-ui/commit/00c7abc25b263bb42b67d8980b31212d0a206d1c) Thanks [@hbuchel](https://github.com/hbuchel)! - feat(react): Add `colorTheme` prop to Button
+
+  The Button React primitive now accepts the `colorTheme` prop which allows for more color variants. Usage:
+
+  ```
+  <Button colorTheme="error">Button text</Button>
+  ```
+
+- [#4331](https://github.com/aws-amplify/amplify-ui/pull/4331) [`54d884dd0`](https://github.com/aws-amplify/amplify-ui/commit/54d884dd0ae7f16cc1f5b71ae767e0ccf477c4b5) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(ui-react-core): add createContextUtilities
+
+- Updated dependencies [[`00c7abc25`](https://github.com/aws-amplify/amplify-ui/commit/00c7abc25b263bb42b67d8980b31212d0a206d1c), [`54d884dd0`](https://github.com/aws-amplify/amplify-ui/commit/54d884dd0ae7f16cc1f5b71ae767e0ccf477c4b5), [`5040faf51`](https://github.com/aws-amplify/amplify-ui/commit/5040faf51ce2dc87882d452e6f90ad4ab0bd6967)]:
+  - @aws-amplify/ui@5.7.1
+  - @aws-amplify/ui-react-core@2.1.30
+
+## 5.1.0
+
+### Minor Changes
+
+- [#4288](https://github.com/aws-amplify/amplify-ui/pull/4288) [`30624bd4f`](https://github.com/aws-amplify/amplify-ui/commit/30624bd4f165ed07a1cc94071a2d5550510b07b7) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - New component: Breadcrumbs!
+
+  A composable component for displaying breadcrumb navigation
+
+  ```jsx
+  <Breadcrumbs
+    items={[
+      {
+        href: '/',
+        label: 'Home',
+      },
+      {
+        href: '/category',
+        label: 'Category',
+      },
+      {
+        href: '/category/type',
+        label: 'Type',
+      },
+    ]}
+  />
+  ```
+
+  ```jsx
+  <Breadcrumbs.Container>
+    {breadcrumbs.map(({ href, label }, idx) => {
+      const isCurrent = breadcrumbs.length - 1 === idx;
+      return (
+        <Breadcrumbs.Item>
+          <Breadcrumbs.Link isCurrent={isCurrent} href={href}>
+            {label}
+          </Breadcrumbs.Link>
+          {isCurrent ? null : <Breadcrumbs.Separator>/</Breadcrumbs.Separator>}
+        </Breadcrumbs.Item>
+      );
+    })}
+  </Breadcrumbs.Container>
+  ```
+
+### Patch Changes
+
+- [#4321](https://github.com/aws-amplify/amplify-ui/pull/4321) [`d0d9ac2de`](https://github.com/aws-amplify/amplify-ui/commit/d0d9ac2de9714c5e3d020bdac486291c50761441) Thanks [@thaddmt](https://github.com/thaddmt)! - chore: set amplify dependencies to be ^ instead of >=
+
+- Updated dependencies [[`d0d9ac2de`](https://github.com/aws-amplify/amplify-ui/commit/d0d9ac2de9714c5e3d020bdac486291c50761441), [`30624bd4f`](https://github.com/aws-amplify/amplify-ui/commit/30624bd4f165ed07a1cc94071a2d5550510b07b7)]:
+  - @aws-amplify/ui-react-core@2.1.29
+  - @aws-amplify/ui@5.7.0
+
+## 5.0.7
+
+### Patch Changes
+
+- [#4301](https://github.com/aws-amplify/amplify-ui/pull/4301) [`e7e75874d`](https://github.com/aws-amplify/amplify-ui/commit/e7e75874dea238046c94e4fdd965029620171254) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(react/ui): update paddingInlineEnd and icon placement on small and large Select primitives with related tokens for theming.
+
+- Updated dependencies [[`e7e75874d`](https://github.com/aws-amplify/amplify-ui/commit/e7e75874dea238046c94e4fdd965029620171254), [`0417bd41c`](https://github.com/aws-amplify/amplify-ui/commit/0417bd41c065673eb70dd916c9008d88671445c9)]:
+  - @aws-amplify/ui@5.6.9
+  - @aws-amplify/ui-react-core@2.1.28
+
 ## 5.0.6
 
 ### Patch Changes

@@ -3,14 +3,16 @@ import { Logger } from 'aws-amplify';
 
 import { UploadTask } from '@aws-amplify/storage';
 import { ComponentClassNames, VisuallyHidden } from '@aws-amplify/ui-react';
+import { useDropZone } from '@aws-amplify/ui-react/internal';
 
-import { useStorageManager, useUploadFiles, useDropZone } from './hooks';
+import { useStorageManager, useUploadFiles } from './hooks';
 import { FileStatus, StorageManagerProps, StorageManagerHandle } from './types';
 import {
   Container,
   DropZone,
   FileList,
   FileListHeader,
+  FileListFooter,
   FilePicker,
 } from './ui';
 import {
@@ -25,6 +27,7 @@ function StorageManagerBase(
   {
     acceptedFileTypes = [],
     accessLevel,
+    autoUpload = true,
     defaultFiles,
     displayText: overrideDisplayText,
     isResumable = false,
@@ -52,6 +55,7 @@ function StorageManagerBase(
     FileList,
     FilePicker,
     FileListHeader,
+    FileListFooter,
     ...components,
   };
 
@@ -79,6 +83,7 @@ function StorageManagerBase(
     clearFiles,
     files,
     removeUpload,
+    queueFiles,
     setUploadingFile,
     setUploadPaused,
     setUploadProgress,
@@ -88,19 +93,21 @@ function StorageManagerBase(
 
   React.useImperativeHandle(ref, () => ({ clearFiles }));
 
-  const dropZoneProps = useDropZone({
-    onChange: (event: React.DragEvent<HTMLDivElement>) => {
-      const { files } = event.dataTransfer;
-      if (!files || files.length === 0) {
-        return;
+  const { dragState, ...dropZoneProps } = useDropZone({
+    acceptedFileTypes,
+    onDropComplete: ({ acceptedFiles, rejectedFiles }) => {
+      if (rejectedFiles && rejectedFiles.length > 0) {
+        logger.warn('Rejected files: ', rejectedFiles);
       }
-
-      const filteredFiles = filterAllowedFiles(
-        Array.from(files),
+      // We need to filter out files by extension here,
+      // we don't get filenames on the drag event, only on drop
+      const _acceptedFiles = filterAllowedFiles(
+        acceptedFiles,
         acceptedFileTypes
       );
       addFiles({
-        files: filteredFiles,
+        files: _acceptedFiles,
+        status: autoUpload ? FileStatus.QUEUED : FileStatus.ADDED,
         getFileErrorMessage: getMaxFileSizeErrorMessage,
       });
     },
@@ -130,8 +137,17 @@ function StorageManagerBase(
 
     addFiles({
       files: Array.from(files),
+      status: autoUpload ? FileStatus.QUEUED : FileStatus.ADDED,
       getFileErrorMessage: getMaxFileSizeErrorMessage,
     });
+  };
+
+  const onClearAll = () => {
+    clearFiles();
+  };
+
+  const onUploadAll = () => {
+    queueFiles();
   };
 
   const onPauseUpload = ({
@@ -199,7 +215,12 @@ function StorageManagerBase(
 
   const remainingFilesCount = files.length - uploadedFilesLength;
 
+  // number of files selected for upload when autoUpload is turned off
+  const selectedFilesCount = autoUpload ? 0 : remainingFilesCount;
+
   const hasFiles = files.length > 0;
+
+  const hasUploadActions = !autoUpload && remainingFilesCount > 0;
 
   const hiddenInput = React.useRef<HTMLInputElement>(null);
   function handleClick() {
@@ -215,7 +236,11 @@ function StorageManagerBase(
         hasFiles ? ComponentClassNames.StorageManagerPreviewer : ''
       }`}
     >
-      <Components.DropZone {...dropZoneProps} displayText={displayText}>
+      <Components.DropZone
+        inDropZone={dragState !== 'inactive'}
+        {...dropZoneProps}
+        displayText={displayText}
+      >
         <>
           <Components.FilePicker onClick={handleClick}>
             {displayText.browseFilesText}
@@ -238,6 +263,7 @@ function StorageManagerBase(
           displayText={displayText}
           fileCount={files.length}
           remainingFilesCount={remainingFilesCount}
+          selectedFilesCount={selectedFilesCount}
         />
       ) : null}
       <Components.FileList
@@ -252,6 +278,14 @@ function StorageManagerBase(
         hasMaxFilesError={hasMaxFilesError}
         maxFileCount={maxFileCount}
       />
+      {hasUploadActions ? (
+        <Components.FileListFooter
+          displayText={displayText}
+          remainingFilesCount={remainingFilesCount}
+          onClearAll={onClearAll}
+          onUploadAll={onUploadAll}
+        />
+      ) : null}
     </Components.Container>
   );
 }
@@ -265,6 +299,7 @@ const StorageManager = Object.assign(
     DropZone,
     FileList,
     FileListHeader,
+    FileListFooter,
     FilePicker,
   }
 );

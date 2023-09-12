@@ -3,7 +3,17 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Button } from '../Button';
+import { Fieldset } from '../../Fieldset';
+import { ButtonColorTheme } from '../../types';
 import { ComponentClassNames } from '../../shared';
+
+const SUPPORTED_COLOR_THEMES: ButtonColorTheme[] = [
+  'info',
+  'success',
+  'warning',
+  'error',
+  'overlay',
+];
 
 describe('Button test suite', () => {
   it('should render button variations', async () => {
@@ -44,6 +54,81 @@ describe('Button test suite', () => {
     );
     expect(link.classList).toContain(`${ComponentClassNames['Button']}--link`);
     expect(menu.classList).toContain(`${ComponentClassNames['Button']}--menu`);
+  });
+
+  it.each(SUPPORTED_COLOR_THEMES)(
+    'should render the %s color theme for the default variation',
+    async (colorTheme) => {
+      const testId = `default-${colorTheme}-ColorTheme`;
+      render(<Button testId={testId} colorTheme={colorTheme} />);
+      const button = await screen.findByTestId(testId);
+      expect(button.classList).toContain(
+        `amplify-button--outlined--${colorTheme}`
+      );
+    }
+  );
+
+  it.each(SUPPORTED_COLOR_THEMES)(
+    'should render the %s color theme for the primary variation',
+    async (colorTheme) => {
+      const testId = `primary-${colorTheme}-ColorTheme`;
+      render(
+        <Button variation="primary" testId={testId} colorTheme={colorTheme} />
+      );
+      const button = await screen.findByTestId(testId);
+      expect(button.classList).toContain(
+        `amplify-button--primary--${colorTheme}`
+      );
+    }
+  );
+
+  it.each(SUPPORTED_COLOR_THEMES)(
+    'should render the %s color theme for the link variation',
+    async (colorTheme) => {
+      const testId = `link-${colorTheme}-ColorTheme`;
+      render(
+        <Button variation="link" testId={testId} colorTheme={colorTheme} />
+      );
+      const button = await screen.findByTestId(testId);
+      expect(button.classList).toContain(`amplify-button--link--${colorTheme}`);
+    }
+  );
+
+  it('should not render a color theme class for menu, warning, and destructive variations', async () => {
+    render(
+      <div>
+        <Button
+          testId="warningWarning"
+          variation="warning"
+          colorTheme="warning"
+        >
+          warning
+        </Button>
+        <Button
+          testId="destructiveWarning"
+          variation="destructive"
+          colorTheme="warning"
+        >
+          destructive
+        </Button>
+        <Button testId="menuWarning" variation="menu" colorTheme="warning">
+          destructive
+        </Button>
+      </div>
+    );
+    const warningWarning = await screen.findByTestId('warningWarning');
+    const destructiveWarning = await screen.findByTestId('destructiveWarning');
+    const menuWarning = await screen.findByTestId('menuWarning');
+
+    expect(warningWarning.classList).not.toContain(
+      'amplify-button--warning--warning'
+    );
+    expect(destructiveWarning.classList).not.toContain(
+      'amplify-button--destructive--warning'
+    );
+    expect(menuWarning.classList).not.toContain(
+      'amplify-button--menu--warning'
+    );
   });
 
   it('should add the disabled class with the disabled attribute', async () => {
@@ -152,6 +237,20 @@ describe('Button test suite', () => {
 
     const button = await screen.findByRole('button');
     expect(button).toBeDisabled();
+  });
+
+  it('should always be disabled if parent Fieldset isDisabled', async () => {
+    render(
+      <Fieldset legend="legend" isDisabled>
+        <Button testId="button" />
+        <Button testId="buttonWithDisabledProp" isDisabled={false} />
+      </Fieldset>
+    );
+
+    const button = await screen.findByTestId('button');
+    const buttonDisabled = await screen.findByTestId('buttonWithDisabledProp');
+    expect(button).toHaveAttribute('disabled');
+    expect(buttonDisabled).toHaveAttribute('disabled');
   });
 
   it('should set loading state correctly if isLoading is set to true', async () => {

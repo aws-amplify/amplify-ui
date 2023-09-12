@@ -9,8 +9,8 @@ Feature: Auth action hooks
   @react
   Scenario: Signout action works correctly
     When I type my "email" with status "CONFIRMED"
-    And I type my password
-    And I click the "Sign in" button
+    Then I type my password
+    Then I click the "Sign in" button
     Then I see "Sign out"
-    And I click the "Sign out" button
+    Then I click the "Sign out" button
     Then I see tab "Sign In"

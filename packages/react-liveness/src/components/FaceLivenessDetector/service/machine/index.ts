@@ -45,8 +45,11 @@ import {
   ClientSessionInformationEvent,
   LivenessResponseStream,
 } from '@aws-sdk/client-rekognitionstreaming';
+import { STATIC_VIDEO_CONSTRAINTS } from '../../StartLiveness/helpers';
+import { WS_CLOSURE_CODE } from '../utils/constants';
 
 export const MIN_FACE_MATCH_TIME = 500;
+const DEFAULT_FACE_FIT_TIMEOUT = 7000;
 
 // timer metrics variables
 let faceDetectedTimestamp: number;
@@ -66,7 +69,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       failedAttempts: 0,
       componentProps: undefined,
       serverSessionInformation: undefined,
-      videoAssociatedParams: undefined,
+      videoAssociatedParams: {
+        videoConstraints: STATIC_VIDEO_CONSTRAINTS,
+      },
       ovalAssociatedParams: undefined,
       faceMatchAssociatedParams: {
         illuminationState: undefined,
@@ -133,11 +138,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       },
       cameraCheck: {
-        entry: [
-          'resetErrorState',
-          'setVideoConstraints',
-          'initializeFaceDetector',
-        ],
+        entry: ['resetErrorState', 'initializeFaceDetector'],
         invoke: {
           src: 'checkVirtualCameraAndGetStream',
           onDone: {
@@ -427,16 +428,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           return context.failedAttempts! + 1;
         },
       }),
-      setVideoConstraints: assign({
-        videoAssociatedParams: (context, event) => {
-          return {
-            ...context.videoAssociatedParams,
-            videoConstraints:
-              event.data?.videoConstraints ||
-              context.videoAssociatedParams?.videoConstraints,
-          };
-        },
-      }),
       updateVideoMediaStream: assign({
         videoAssociatedParams: (context, event) => ({
           ...context.videoAssociatedParams,
@@ -685,7 +676,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       sendTimeoutAfterOvalMatchDelay: actions.send(
         { type: 'TIMEOUT' },
         {
-          delay: 7000,
+          delay: (context) => {
+            return (
+              context.serverSessionInformation?.Challenge
+                ?.FaceMovementAndLightChallenge?.ChallengeConfig
+                ?.OvalFitTimeout || DEFAULT_FACE_FIT_TIMEOUT
+            );
+          },
           id: 'ovalMatchTimeout',
         }
       ),
@@ -769,7 +766,22 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         if (freshnessColorEl) {
           freshnessColorEl.style.display = 'none';
         }
-        await context.livenessStreamProvider?.endStream();
+
+        let closureCode = WS_CLOSURE_CODE.DEFAULT_ERROR_CODE;
+        if (context.errorState === LivenessErrorState.TIMEOUT) {
+          closureCode = WS_CLOSURE_CODE.FACE_FIT_TIMEOUT;
+        } else if (context.errorState === LivenessErrorState.RUNTIME_ERROR) {
+          closureCode = WS_CLOSURE_CODE.RUNTIME_ERROR;
+        } else if (
+          context.errorState === LivenessErrorState.FACE_DISTANCE_ERROR ||
+          context.errorState === LivenessErrorState.MULTIPLE_FACES_ERROR
+        ) {
+          closureCode = WS_CLOSURE_CODE.USER_ERROR_DURING_CONNECTION;
+        } else if (context.errorState === undefined) {
+          closureCode = WS_CLOSURE_CODE.USER_CANCEL;
+        }
+
+        await context.livenessStreamProvider?.endStreamWithCode(closureCode);
       },
       freezeStream: async (context) => {
         const { videoMediaStream, videoEl } = context.videoAssociatedParams!;
@@ -790,7 +802,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         failedAttempts: 0,
         componentProps: (context) => context.componentProps,
         serverSessionInformation: (_) => undefined,
-        videoAssociatedParams: (_) => undefined,
+        videoAssociatedParams: (_) => {
+          return {
+            videoConstraints: STATIC_VIDEO_CONSTRAINTS,
+          };
+        },
         ovalAssociatedParams: (_) => undefined,
         errorState: (_) => undefined,
         livenessStreamProvider: (_) => undefined,

@@ -1,5 +1,59 @@
 # @aws-amplify/ui-react-liveness
 
+## 2.0.7
+
+### Patch Changes
+
+- [#4405](https://github.com/aws-amplify/amplify-ui/pull/4405) [`e274c3eac`](https://github.com/aws-amplify/amplify-ui/commit/e274c3eac4bc627407ddb700e6643e268c9c3bb3) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): get oval fit timeout from server
+
+- [#4371](https://github.com/aws-amplify/amplify-ui/pull/4371) [`41a7b4288`](https://github.com/aws-amplify/amplify-ui/commit/41a7b4288930f9574d037c0543167b405d62d016) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): Custom websocket handler
+
+## 2.0.6
+
+### Patch Changes
+
+- [#4392](https://github.com/aws-amplify/amplify-ui/pull/4392) [`60f21e0ab`](https://github.com/aws-amplify/amplify-ui/commit/60f21e0ab7761467268cd46ac8ee1e9752df33af) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): update start screen text to remove 7 seconds
+
+- Updated dependencies [[`276968530`](https://github.com/aws-amplify/amplify-ui/commit/276968530ba1049cfa4a9fd1efe8bd870b3e4b18), [`265f0b482`](https://github.com/aws-amplify/amplify-ui/commit/265f0b48249c89b004a40a1a06abc0c3551f45f7), [`ec495a6f6`](https://github.com/aws-amplify/amplify-ui/commit/ec495a6f638c53970edd8706a0eeb5f95d142689), [`e1fc61119`](https://github.com/aws-amplify/amplify-ui/commit/e1fc61119224a92a4648d1d1673177647b1a8e53), [`5b6c9bfe4`](https://github.com/aws-amplify/amplify-ui/commit/5b6c9bfe4ef1c0727270bffacb5f9e8045a8325d), [`14e402b6e`](https://github.com/aws-amplify/amplify-ui/commit/14e402b6eedab6bdef5cec21b0b084f230b0ce26), [`9471ea53a`](https://github.com/aws-amplify/amplify-ui/commit/9471ea53a2414879d197adb5f52c8dcb3e0df946), [`2407ac294`](https://github.com/aws-amplify/amplify-ui/commit/2407ac294270214bd20c414349d2423ab14b8066), [`64fba0fd2`](https://github.com/aws-amplify/amplify-ui/commit/64fba0fd2ec4a0c5061b461f527c8a45235eee13)]:
+  - @aws-amplify/ui-react@5.3.0
+  - @aws-amplify/ui@5.8.0
+
+## 2.0.5
+
+### Patch Changes
+
+- Updated dependencies [[`5cc76794a`](https://github.com/aws-amplify/amplify-ui/commit/5cc76794a71584e26b1ec699c1dc1713d8a986c9), [`f8c5b77e4`](https://github.com/aws-amplify/amplify-ui/commit/f8c5b77e46f2b304e33776b28ed5a18141f9b364), [`00f2344e5`](https://github.com/aws-amplify/amplify-ui/commit/00f2344e593b47d6a7413869220606f32e5eaf1a)]:
+  - @aws-amplify/ui@5.7.2
+  - @aws-amplify/ui-react@5.2.0
+
+## 2.0.4
+
+### Patch Changes
+
+- Updated dependencies [[`00c7abc25`](https://github.com/aws-amplify/amplify-ui/commit/00c7abc25b263bb42b67d8980b31212d0a206d1c), [`54d884dd0`](https://github.com/aws-amplify/amplify-ui/commit/54d884dd0ae7f16cc1f5b71ae767e0ccf477c4b5), [`5040faf51`](https://github.com/aws-amplify/amplify-ui/commit/5040faf51ce2dc87882d452e6f90ad4ab0bd6967)]:
+  - @aws-amplify/ui-react@5.1.1
+  - @aws-amplify/ui@5.7.1
+
+## 2.0.3
+
+### Patch Changes
+
+- [#4314](https://github.com/aws-amplify/amplify-ui/pull/4314) [`3d5c98ba2`](https://github.com/aws-amplify/amplify-ui/commit/3d5c98ba2f5e3eb38f1ff3ca5909ec2c333ac21d) Thanks [@thaddmt](https://github.com/thaddmt)! - fix: ensure that media track constraints is not undefined
+
+- [#4321](https://github.com/aws-amplify/amplify-ui/pull/4321) [`d0d9ac2de`](https://github.com/aws-amplify/amplify-ui/commit/d0d9ac2de9714c5e3d020bdac486291c50761441) Thanks [@thaddmt](https://github.com/thaddmt)! - chore: set amplify dependencies to be ^ instead of >=
+
+- Updated dependencies [[`d0d9ac2de`](https://github.com/aws-amplify/amplify-ui/commit/d0d9ac2de9714c5e3d020bdac486291c50761441), [`30624bd4f`](https://github.com/aws-amplify/amplify-ui/commit/30624bd4f165ed07a1cc94071a2d5550510b07b7)]:
+  - @aws-amplify/ui-react@5.1.0
+  - @aws-amplify/ui@5.7.0
+
+## 2.0.2
+
+### Patch Changes
+
+- Updated dependencies [[`e7e75874d`](https://github.com/aws-amplify/amplify-ui/commit/e7e75874dea238046c94e4fdd965029620171254), [`0417bd41c`](https://github.com/aws-amplify/amplify-ui/commit/0417bd41c065673eb70dd916c9008d88671445c9)]:
+  - @aws-amplify/ui-react@5.0.7
+  - @aws-amplify/ui@5.6.9
+
 ## 2.0.1
 
 ### Patch Changes

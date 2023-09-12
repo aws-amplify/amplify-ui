@@ -4,18 +4,18 @@ const AppDirectoryAlert = () => (
   <Alert variation="info" role="none">
     <Text>
       Next.js 13.4+ introduces{' '}
-      <Link href="https://nextjs.org/docs/app/building-your-application/routing#the-app-directory">
+      <Link href="https://nextjs.org/docs/app/building-your-application/routing#the-app-router">
         App Router
       </Link>{' '}
       with the usage of{' '}
-      <Link href="https://nextjs.org/docs/getting-started/react-essentials#server-components">
+      <Link href="https://nextjs.org/docs/app/building-your-application/rendering/server-components">
         Server Components.
       </Link>{' '}
       Amplify UI components are interactive and designed to work on the client
       side. To use them inside of Server Components you must wrap them in a
       Client Component with <code>&quot;use client&quot;</code>. For more info,
       visit{' '}
-      <Link href="https://nextjs.org/docs/getting-started/react-essentials#third-party-packages">
+      <Link href="https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns#using-third-party-packages-and-providers">
         Next.js third party package documentation.
       </Link>
     </Text>

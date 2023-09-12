@@ -66,6 +66,7 @@ select {
 @import './component/text.scss'; // text styling must be imported to allow override
 @import './component/badge.scss';
 @import './component/button.scss';
+@import './component/dropZone.scss';
 @import './component/fieldMessages.scss';
 @import './component/heading.scss';
 @import './component/icon.scss';
@@ -82,6 +83,7 @@ select {
 @import './component/alert.scss';
 @import './component/autocomplete.scss';
 @import './component/authenticator.scss';
+@import './component/breadcrumbs.scss';
 @import './component/card.scss';
 @import './component/collection.scss';
 @import './component/checkbox.scss';
@@ -91,9 +93,11 @@ select {
 @import './component/expander.scss';
 @import './component/field.scss';
 @import './component/fieldGroup.scss';
+@import './component/fieldset.scss';
 @import './component/liveness.scss';
 @import './component/fileUploader.scss';
 @import './component/menu.scss';
+@import './component/message.scss';
 @import './component/pagination.scss';
 @import './component/passwordField.scss';
 @import './component/phoneNumberField.scss';
