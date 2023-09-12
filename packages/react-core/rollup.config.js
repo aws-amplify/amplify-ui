@@ -1,4 +1,5 @@
 import { defineConfig } from 'rollup';
+import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
 import externals from 'rollup-plugin-node-externals';
 
@@ -15,6 +16,7 @@ const config = defineConfig([
     input,
     output: { dir: 'dist', format: 'cjs' },
     plugins: [
+      commonjs(),
       externals({ include: /^@aws-amplify/ }),
       typescript({ declarationDir: 'dist/types', sourceMap, tsconfig }),
     ],
@@ -25,11 +27,11 @@ const config = defineConfig([
     output: {
       dir: esmOutputDir,
       format: 'es',
-      entryFileNames: '[name].mjs',
       preserveModules: true,
       preserveModulesRoot: 'src',
     },
     plugins: [
+      commonjs(),
       externals({ include: /^@aws-amplify/ }),
       typescript({
         outDir: esmOutputDir,
