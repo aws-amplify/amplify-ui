@@ -60,7 +60,7 @@ onMounted(async () => {
   try {
     qrCode.qrCodeImageSource = await QRCode.toDataURL(totpCodeURL);
   } catch (error) {
-    logger.error(`Error generating QR code ${error}`);
+    logger.error(error);
   } finally {
     qrCode.isLoading = false;
   }

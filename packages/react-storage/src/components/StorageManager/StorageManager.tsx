@@ -97,7 +97,7 @@ function StorageManagerBase(
     acceptedFileTypes,
     onDropComplete: ({ acceptedFiles, rejectedFiles }) => {
       if (rejectedFiles && rejectedFiles.length > 0) {
-        logger.warn(`Rejected files: ${rejectedFiles}`);
+        logger.warn('Rejected files: ', rejectedFiles);
       }
       // We need to filter out files by extension here,
       // we don't get filenames on the drag event, only on drop

@@ -1,15 +1,13 @@
 import { getLogger } from '../logger';
 
 const logger = getLogger('Auth');
+logger.level = 'INFO';
 
-const consoleDebugSpy = jest
-  .spyOn(console, 'debug')
-  .mockImplementation(() => {});
+const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
 const consoleErrorSpy = jest
   .spyOn(console, 'error')
   .mockImplementation(() => {});
-const consoleInfoSpy = jest.spyOn(console, 'info').mockImplementation(() => {});
-const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
 
 const mockMessage = 'test message';
 const mockError = new Error('test');
@@ -17,6 +15,7 @@ const mockError = new Error('test');
 describe('logger', () => {
   afterEach(() => {
     jest.clearAllMocks();
+    delete (window as any).LOG_LEVEL;
   });
 
   it('should log error messages', () => {
@@ -25,9 +24,6 @@ describe('logger', () => {
       expect.stringContaining(mockMessage),
       mockError
     );
-    expect(consoleWarnSpy).not.toHaveBeenCalled();
-    expect(consoleDebugSpy).not.toHaveBeenCalled();
-    expect(consoleInfoSpy).not.toHaveBeenCalled();
   });
 
   it('should log warning messages', () => {
@@ -35,29 +31,25 @@ describe('logger', () => {
     expect(consoleWarnSpy).toHaveBeenCalledWith(
       expect.stringContaining(mockMessage)
     );
-    expect(consoleErrorSpy).not.toHaveBeenCalled();
-    expect(consoleDebugSpy).not.toHaveBeenCalled();
-    expect(consoleInfoSpy).not.toHaveBeenCalled();
   });
 
   it('should log info messages', () => {
+    (window as any).LOG_LEVEL = 'INFO';
     logger.info(mockMessage);
-    expect(consoleInfoSpy).toHaveBeenCalledWith(
+    expect(consoleLogSpy).toHaveBeenCalledWith(
       expect.stringContaining(mockMessage)
     );
-    expect(consoleWarnSpy).not.toHaveBeenCalled();
-    expect(consoleErrorSpy).not.toHaveBeenCalled();
-    expect(consoleDebugSpy).not.toHaveBeenCalled();
+    expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining('INFO'));
   });
 
   it('should log debug messages', () => {
+    (window as any).LOG_LEVEL = 'DEBUG';
     logger.debug(mockMessage);
-    expect(consoleDebugSpy).toHaveBeenCalledWith(
-      expect.stringContaining(mockMessage),
-      undefined
+    expect(consoleLogSpy).toHaveBeenCalledWith(
+      expect.stringContaining(mockMessage)
     );
-    expect(consoleWarnSpy).not.toHaveBeenCalled();
-    expect(consoleErrorSpy).not.toHaveBeenCalled();
-    expect(consoleInfoSpy).not.toHaveBeenCalled();
+    expect(consoleLogSpy).toHaveBeenCalledWith(
+      expect.stringContaining('DEBUG')
+    );
   });
 });

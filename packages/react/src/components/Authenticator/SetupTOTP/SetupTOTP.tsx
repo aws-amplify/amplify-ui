@@ -59,7 +59,7 @@ export const SetupTOTP = ({
 
       setQrCode(qrCodeImageSource);
     } catch (error) {
-      logger.error(`Error generating the QR code ${error}`);
+      logger.error(error);
     } finally {
       setIsLoading(false);
     }
