@@ -21,7 +21,7 @@ Note: to set up local environment
 cp ./docs/.env.example ./docs/.env
 ```
 
-Then set values to the variables.
+Then set values to the variables in the `./docs/.env` file.
 
 Note, if you're not using `nvm`, you'll need to set the environment variable: `export NODE_OPTIONS=--openssl-legacy-provider`
 
