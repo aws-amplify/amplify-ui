@@ -1,8 +1,9 @@
 import { Linking } from 'react-native';
-import { Logger } from '@aws-amplify/core';
-import { HandleMessageLinkAction } from '@aws-amplify/ui-react-core-notifications';
 
-const logger = new Logger('Notifications.InAppMessaging');
+import { HandleMessageLinkAction } from '@aws-amplify/ui-react-core-notifications';
+import { getLogger } from '@aws-amplify/ui';
+
+const logger = getLogger('Notifications');
 
 const handleMessageLinkAction: HandleMessageLinkAction = async (
   url: string

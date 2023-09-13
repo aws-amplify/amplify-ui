@@ -1,4 +1,4 @@
-import { Logger } from '@aws-amplify/core';
+import { getLogger } from '@aws-amplify/ui';
 
 import {
   BannerMessageLayouts,
@@ -11,7 +11,7 @@ import {
   OnMessageAction,
 } from '../../types';
 
-const logger = new Logger('Notifications.InAppMessaging');
+const logger = getLogger('Notifications');
 
 const positions: Record<BannerMessageLayouts, MessageComponentPosition> = {
   BOTTOM_BANNER: 'bottom',

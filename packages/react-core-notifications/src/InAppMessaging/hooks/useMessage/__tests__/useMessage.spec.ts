@@ -2,9 +2,10 @@ import {
   InAppMessageInteractionEvent,
   Notifications,
 } from '@aws-amplify/notifications';
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
 
 import { RenderNothing } from '@aws-amplify/ui-react-core';
+import { getLogger } from '@aws-amplify/ui';
+
 import { useInAppMessaging } from '../../useInAppMessaging';
 import {
   BannerMessageCommonProps,
@@ -27,7 +28,7 @@ jest.useFakeTimers();
 type TestStyle = { backgroundColor: string };
 type TestMessageProps = Required<MessageCommonProps<TestStyle>>;
 
-const infoSpy = jest.spyOn(Logger.prototype, 'info');
+const infoSpy = jest.spyOn(getLogger('Notifications'), 'info');
 
 const mockUseInAppMessaging = useInAppMessaging as jest.Mock;
 const mockClearMessage = jest.fn();

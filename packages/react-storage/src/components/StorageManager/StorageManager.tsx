@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Logger } from '@aws-amplify/core';
 
 import { UploadTask } from '@aws-amplify/storage';
 import { ComponentClassNames, VisuallyHidden } from '@aws-amplify/ui-react';
@@ -20,8 +19,9 @@ import {
   defaultStorageManagerDisplayText,
   filterAllowedFiles,
 } from './utils';
+import { getLogger } from '@aws-amplify/ui';
 
-const logger = new Logger('Storage.StorageManager');
+const logger = getLogger('StorageManager');
 
 function StorageManagerBase(
   {

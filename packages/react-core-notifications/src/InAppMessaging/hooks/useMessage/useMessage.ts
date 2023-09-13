@@ -1,9 +1,8 @@
-import { Logger } from '@aws-amplify/core';
 import {
   InAppMessageInteractionEvent,
   Notifications,
 } from '@aws-amplify/notifications';
-import { isNil } from '@aws-amplify/ui';
+import { getLogger, isNil } from '@aws-amplify/ui';
 
 import { RenderNothing } from '@aws-amplify/ui-react-core';
 import { useInAppMessaging } from '../useInAppMessaging';
@@ -12,7 +11,7 @@ import { getContentProps, getPositionProp } from './utils';
 
 export const EMPTY_PROPS = Object.freeze({});
 
-const logger = new Logger('Notifications.InAppMessaging');
+const logger = getLogger('Notifications');
 const { InAppMessaging } = Notifications;
 
 /**

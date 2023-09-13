@@ -2,19 +2,19 @@
 import { computed, ref, toRefs, useAttrs, onMounted, reactive } from 'vue';
 import QRCode from 'qrcode';
 
-import { Logger } from '@aws-amplify/core';
 import {
   authenticatorTextUtil,
   getFormDataFromEvent,
-  translate,
+  getLogger,
   getTotpCodeURL,
+  translate,
 } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../composables/useAuth';
 import { UseAuthenticator } from '../types';
 import BaseFormFields from './primitives/base-form-fields.vue';
 
-const logger = new Logger('SetupTOTP-logger');
+const logger = getLogger('Auth');
 
 // `facade` is manually typed to `UseAuthenticator` for temporary type safety.
 const facade: UseAuthenticator = useAuthenticator();

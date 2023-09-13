@@ -1,9 +1,9 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import { NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
 
-import { Logger } from 'aws-amplify';
 import {
   UnverifiedContactMethodType,
+  getLogger,
   authenticatorTextUtil,
 } from '@aws-amplify/ui';
 import {
@@ -14,7 +14,7 @@ import {
 import { UseFieldValuesParams } from '../types';
 import useFieldValues from '../useFieldValues';
 
-const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
+const warnSpy = jest.spyOn(getLogger('Auth'), 'warn').mockImplementation();
 
 const textField = {
   label: 'test',

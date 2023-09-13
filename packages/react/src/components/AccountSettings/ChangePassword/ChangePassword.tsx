@@ -1,9 +1,9 @@
 import React from 'react';
 import isEqual from 'lodash/isEqual.js';
 
-import { Logger } from '@aws-amplify/core';
 import {
   changePassword,
+  getLogger,
   ValidatorOptions,
   getDefaultConfirmPasswordValidators,
   getDefaultPasswordValidators,
@@ -18,7 +18,7 @@ import { FormValues, BlurredFields, ValidationError } from '../types';
 import { ChangePasswordProps, ValidateParams } from './types';
 import DEFAULTS from './defaults';
 
-const logger = new Logger('ChangePassword');
+const logger = getLogger('AccountSettings');
 
 const getIsDisabled = (
   formValues: FormValues,

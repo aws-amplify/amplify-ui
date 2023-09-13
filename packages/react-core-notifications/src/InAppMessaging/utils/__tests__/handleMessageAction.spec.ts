@@ -1,12 +1,13 @@
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
+import { getLogger } from '@aws-amplify/ui';
 
 import { MessageAction } from '../../types';
-
 import { handleMessageAction } from '..';
 
+const logger = getLogger('Notifications');
+
 // use empty mockImplementation to turn off console output
-const infoSpy = jest.spyOn(Logger.prototype, 'info').mockImplementation();
-const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
+const infoSpy = jest.spyOn(logger, 'info').mockImplementation();
+const warnSpy = jest.spyOn(logger, 'warn').mockImplementation();
 
 const close: MessageAction = 'CLOSE';
 const deepLink: MessageAction = 'DEEP_LINK';

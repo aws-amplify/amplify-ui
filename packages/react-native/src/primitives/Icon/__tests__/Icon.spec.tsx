@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, renderHook } from '@testing-library/react-native';
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
+import { getLogger } from '@aws-amplify/ui';
 
 import { useTheme } from '../../../theme';
 import { getThemedStyles } from '../styles';
@@ -9,7 +9,7 @@ import { IconProps, iconSizes } from '..';
 import { Size } from '../types';
 
 // use empty mockImplementation to turn off console output
-const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
+const warnSpy = jest.spyOn(getLogger('Icon'), 'warn').mockImplementation();
 
 const MOCK_SOURCE = { uri: 'mock.png' };
 const testID = 'iconTestID';
