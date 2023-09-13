@@ -42,8 +42,6 @@ export const ComponentText = {
   },
 };
 
-export const ComponentClassNames = ComponentClassName;
-
 export const stylePropsToThemeKeys: Record<ThemeStylePropKey, ThemeTokenKey> = {
   backgroundColor: 'colors',
   borderColor: 'colors',
