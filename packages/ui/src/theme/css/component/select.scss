@@ -68,15 +68,14 @@
     );
   }
 
-  &[multiple],
-  &[size] {
+  &--expanded {
     overflow: auto;
-    padding: var(--amplify-components-select-multiple-padding-block)
-      var(--amplify-components-select-multiple-padding-inline);
+    padding: var(--amplify-components-select-expanded-padding-block)
+      var(--amplify-components-select-expanded-padding-inline);
 
     option {
-      padding: var(--amplify-components-select-multiple-option-padding-block)
-        var(--amplify-components-select-multiple-option-padding-inline);
+      padding: var(--amplify-components-select-expanded-option-padding-block)
+        var(--amplify-components-select-expanded-option-padding-inline);
     }
   }
 }
