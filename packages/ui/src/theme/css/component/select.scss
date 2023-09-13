@@ -27,26 +27,30 @@
 .amplify-select {
   @include amplify-field-control;
   // default styles
+  background-color: var(--amplify-components-select-background-color);
+  color: var(--amplify-components-select-color);
   min-width: var(--amplify-components-select-min-width);
   padding-inline-end: var(--amplify-components-select-padding-inline-end);
   white-space: var(--amplify-components-select-white-space);
-
-  // For Chrome on Windows, fixes darkmode text color
   option {
-    color: initial;
-
+    background-color: var(--amplify-components-select-option-background-color);
+    color: var(--amplify-components-select-option-color);
     &[disabled=''] {
+      background-color: var(
+        --amplify-components-select-option-disabled-background-color
+      );
       color: var(--amplify-components-select-option-disabled-color);
+      cursor: var(--amplify-components-fieldcontrol-disabled-cursor);
     }
   }
-
-  // for Firefox only, to fix background color in darkmode
-  @-moz-document url-prefix() {
+  &[disabled] {
+    background-color: var(
+      --amplify-components-select-disabled-background-color
+    );
+    color: var(--amplify-components-select-disabled-color);
     option {
-      background-color: var(
-        --amplify-components-select-option-background-color
-      );
-      color: var(--amplify-components-select-option-color);
+      color: inherit;
+      background-color: inherit;
     }
   }
 
@@ -64,16 +68,14 @@
     );
   }
 
-  &[multiple],
-  &[size] {
+  &--expanded {
     overflow: auto;
-    padding: var(--amplify-components-select-multiple-padding-block)
-      var(--amplify-components-select-multiple-padding-inline);
+    padding: var(--amplify-components-select-expanded-padding-block)
+      var(--amplify-components-select-expanded-padding-inline);
 
     option {
-      color: var(--amplify-components-select-option-color);
-      padding: var(--amplify-components-select-multiple-option-padding-block)
-        var(--amplify-components-select-multiple-option-padding-inline);
+      padding: var(--amplify-components-select-expanded-option-padding-block)
+        var(--amplify-components-select-expanded-option-padding-inline);
     }
   }
 }
