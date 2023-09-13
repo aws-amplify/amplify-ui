@@ -45,6 +45,11 @@ export const LoginMechanismArray = [
   'phone_number',
 ] as const;
 
+/**
+ * Default supported federated sign sn providers
+ */
+export type FederatedProvider = 'amazon' | 'apple' | 'facebook' | 'google';
+
 /** Login mechanisms that can be used to sign in */
 export type LoginMechanism = typeof LoginMechanismArray[number];
 

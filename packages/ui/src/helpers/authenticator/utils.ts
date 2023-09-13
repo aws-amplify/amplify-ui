@@ -7,7 +7,12 @@ import { Hub } from 'aws-amplify';
 import { appendToCognitoUserAgent } from '@aws-amplify/auth';
 import { waitFor } from 'xstate/lib/waitFor.js';
 
-import { AuthInterpreter, AuthMachineHubHandler } from '../../types';
+import {
+  AuthActorState,
+  AuthInterpreter,
+  AuthMachineHubHandler,
+  AuthMachineState,
+} from '../../types';
 import { ALLOWED_SPECIAL_CHARACTERS, emailRegex } from './constants';
 import { getActorState } from './actor';
 import { isFunction } from '../../utils';
@@ -185,4 +190,55 @@ export const isValidEmail = (value: string | undefined) => {
   if (!value) return false;
 
   return emailRegex.test(value);
+};
+
+export const getRoute = (
+  state: AuthMachineState,
+  actorState: AuthActorState
+) => {
+  switch (true) {
+    case state.matches('idle'):
+      return 'idle';
+    case state.matches('setup'):
+      return 'setup';
+    case state.matches('signOut'):
+      return 'signOut';
+    case state.matches('authenticated'):
+      return 'authenticated';
+    case actorState?.matches('confirmSignUp'):
+      return 'confirmSignUp';
+    case actorState?.matches('confirmSignIn'):
+      return 'confirmSignIn';
+    case actorState?.matches('setupTOTP.edit'):
+    case actorState?.matches('setupTOTP.submit'):
+      return 'setupTOTP';
+    case actorState?.matches('signIn'):
+      return 'signIn';
+    case actorState?.matches('signUp'):
+      return 'signUp';
+    case actorState?.matches('forceNewPassword'):
+      return 'forceNewPassword';
+    case actorState?.matches('resetPassword'):
+      return 'resetPassword';
+    case actorState?.matches('confirmResetPassword'):
+      return 'confirmResetPassword';
+    case actorState?.matches('verifyUser'):
+      return 'verifyUser';
+    case actorState?.matches('confirmVerifyUser'):
+      return 'confirmVerifyUser';
+    case actorState?.matches('setupTOTP.getTotpSecretCode'):
+    case state.matches('signIn.runActor'):
+      /**
+       * This route is needed for autoSignIn to capture both the
+       * autoSignIn.pending and the resolved states when the
+       * signIn actor is running.
+       */
+      return 'transition';
+    default:
+      console.debug(
+        'Cannot infer `route` from Authenticator state:',
+        state.value
+      );
+      return null;
+  }
 };
