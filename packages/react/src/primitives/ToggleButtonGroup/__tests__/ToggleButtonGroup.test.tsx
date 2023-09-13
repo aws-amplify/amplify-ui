@@ -2,7 +2,7 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { ToggleButton } from '../../ToggleButton';
 import { ToggleButtonGroup } from '../ToggleButtonGroup';
 import { ToggleButtonGroupProps } from '../../types';
@@ -65,7 +65,7 @@ describe('ToggleButtonGroup', () => {
     );
     const toggleButtonGroup = await screen.findByRole('group');
     expect(toggleButtonGroup).toHaveClass(
-      ComponentClassNames.ToggleButtonGroup,
+      ComponentClassName.ToggleButtonGroup,
       testClass
     );
     expect(toggleButtonGroup).toHaveAttribute('aria-label', testLabel);

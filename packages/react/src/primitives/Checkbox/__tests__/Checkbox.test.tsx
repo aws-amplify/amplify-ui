@@ -6,7 +6,7 @@ import { Checkbox } from '../Checkbox';
 import { Fieldset } from '../../Fieldset';
 import { CheckboxProps } from '../../types/checkbox';
 import { PrimitiveProps } from '../../types/view';
-import { ComponentClassNames } from '../../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   testFlexProps,
   expectFlexContainerStyleProps,
@@ -65,17 +65,13 @@ describe('Checkbox', () => {
       'indeterminate-amplify-checkbox__icon'
     );
 
-    expect(disabled).toHaveClass(
-      `${ComponentClassNames['Checkbox']}--disabled`
-    );
-    expect(error).toHaveClass(
-      `${ComponentClassNames['CheckboxButton']}--error`
-    );
+    expect(disabled).toHaveClass(`${ComponentClassName['Checkbox']}--disabled`);
+    expect(error).toHaveClass(`${ComponentClassName['CheckboxButton']}--error`);
     expect(checked).toHaveClass(
-      `${ComponentClassNames['CheckboxIcon']}--checked`
+      `${ComponentClassName['CheckboxIcon']}--checked`
     );
     expect(indeterminate).toHaveClass(
-      `${ComponentClassNames['CheckboxIcon']}--indeterminate`
+      `${ComponentClassName['CheckboxIcon']}--indeterminate`
     );
   });
 
@@ -95,11 +91,9 @@ describe('Checkbox', () => {
     const checkboxDisabled = await screen.findByTestId(
       'checkboxWithDisabledProp'
     );
-    expect(checkbox).toHaveClass(
-      `${ComponentClassNames['Checkbox']}--disabled`
-    );
+    expect(checkbox).toHaveClass(`${ComponentClassName['Checkbox']}--disabled`);
     expect(checkboxDisabled).toHaveClass(
-      `${ComponentClassNames['Checkbox']}--disabled`
+      `${ComponentClassName['Checkbox']}--disabled`
     );
   });
 
@@ -109,7 +103,7 @@ describe('Checkbox', () => {
     const checkbox = await screen.findByTestId(basicProps.testId);
     expect(checkbox.nodeName).toBe('LABEL');
     expect(checkbox).not.toHaveAttribute('data-disabled');
-    expect(checkbox).toHaveClass(ComponentClassNames.Checkbox);
+    expect(checkbox).toHaveClass(ComponentClassName.Checkbox);
   });
 
   it('should render custom class name', async () => {
@@ -142,7 +136,7 @@ describe('Checkbox', () => {
       expect(input).toHaveAttribute('name', basicProps.name);
       expect(input).toHaveAttribute('value', basicProps.value);
       expect(input).not.toBeChecked();
-      expect(input).toHaveClass(ComponentClassNames.CheckboxInput);
+      expect(input).toHaveClass(ComponentClassName.CheckboxInput);
     });
 
     it('should be checked by default if defaultChecked is set to true', async () => {
@@ -222,28 +216,28 @@ describe('Checkbox', () => {
       render(getCheckbox({ ...basicProps }));
 
       const button = await screen.findByTestId(
-        `${basicProps.testId}-${ComponentClassNames.CheckboxButton}`
+        `${basicProps.testId}-${ComponentClassName.CheckboxButton}`
       );
       expect(button).not.toHaveAttribute('data-checked');
       expect(button).not.toHaveAttribute('data-disabled');
       expect(button).toHaveAttribute('data-focus', 'false');
-      expect(button).toHaveClass(ComponentClassNames.CheckboxButton);
+      expect(button).toHaveClass(ComponentClassName.CheckboxButton);
     });
 
     it('should update the checked button with a change to the controlled value', async () => {
       const { rerender } = render(<Checkbox {...basicProps} checked={false} />);
 
       let button = await screen.findByTestId(
-        `${basicProps.testId}-${ComponentClassNames.CheckboxButton}`
+        `${basicProps.testId}-${ComponentClassName.CheckboxButton}`
       );
       expect(button).toHaveAttribute('data-checked', 'false');
       expect(button).not.toHaveAttribute('data-disabled');
       expect(button).toHaveAttribute('data-focus', 'false');
-      expect(button).toHaveClass(ComponentClassNames.CheckboxButton);
+      expect(button).toHaveClass(ComponentClassName.CheckboxButton);
       // act(() => updateCheckedFunction(true));
       rerender(<Checkbox {...basicProps} checked />);
       button = await screen.findByTestId(
-        `${basicProps.testId}-${ComponentClassNames.CheckboxButton}`
+        `${basicProps.testId}-${ComponentClassName.CheckboxButton}`
       );
       expect(button).toHaveAttribute('data-checked', 'true');
     });
@@ -254,11 +248,11 @@ describe('Checkbox', () => {
       render(getCheckbox({ ...basicProps, size: 'large' }));
 
       const icon = await screen.findByTestId(
-        `${basicProps.testId}-${ComponentClassNames.CheckboxIcon}`
+        `${basicProps.testId}-${ComponentClassName.CheckboxIcon}`
       );
       expect(icon).not.toHaveAttribute('data-checked');
       expect(icon).not.toHaveAttribute('data-disabled');
-      expect(icon).toHaveClass(ComponentClassNames.CheckboxIcon);
+      expect(icon).toHaveClass(ComponentClassName.CheckboxIcon);
     });
   });
 
@@ -267,10 +261,10 @@ describe('Checkbox', () => {
       render(getCheckbox({ ...basicProps, size: 'large' }));
 
       const label = await screen.findByTestId(
-        `${basicProps.testId}-${ComponentClassNames.CheckboxLabel}`
+        `${basicProps.testId}-${ComponentClassName.CheckboxLabel}`
       );
       expect(label).not.toHaveAttribute('data-disabled');
-      expect(label).toHaveClass(ComponentClassNames.CheckboxLabel);
+      expect(label).toHaveClass(ComponentClassName.CheckboxLabel);
     });
   });
 });

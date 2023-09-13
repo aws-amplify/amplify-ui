@@ -2,12 +2,14 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as React from 'react';
 
+import { ComponentClassName } from '@aws-amplify/ui';
+
 import { StepperField } from '../StepperField';
 import {
   testFlexProps,
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
-import { ComponentClassNames, ComponentText } from '../../shared/constants';
+import { ComponentText } from '../../shared/constants';
 import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';
 
 const LABEL = 'stepper';
@@ -26,8 +28,8 @@ describe('StepperField:', () => {
 
       const stepperField = await screen.findByTestId('stepper-field');
       expect(stepperField).toHaveClass(
-        ComponentClassNames.Field,
-        ComponentClassNames.StepperField,
+        ComponentClassName.Field,
+        ComponentClassName.StepperField,
         classname
       );
     });
@@ -52,10 +54,10 @@ describe('StepperField:', () => {
       const large = await screen.findByTestId('large');
 
       expect(small.classList).toContain(
-        `${ComponentClassNames['Field']}--small`
+        `${ComponentClassName['Field']}--small`
       );
       expect(large.classList).toContain(
-        `${ComponentClassNames['Field']}--large`
+        `${ComponentClassName['Field']}--large`
       );
     });
 
@@ -77,7 +79,7 @@ describe('StepperField:', () => {
       render(<StepperField label="stepper" />);
 
       const stepperLabel = await screen.findByText('stepper');
-      expect(stepperLabel).toHaveClass(ComponentClassNames.Label);
+      expect(stepperLabel).toHaveClass(ComponentClassName.Label);
     });
 
     it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
@@ -92,7 +94,7 @@ describe('StepperField:', () => {
     it('should render classname', async () => {
       render(<StepperField label={LABEL} />);
       const stepperInput = await screen.findByLabelText(LABEL);
-      expect(stepperInput).toHaveClass(ComponentClassNames.StepperFieldInput);
+      expect(stepperInput).toHaveClass(ComponentClassName.StepperFieldInput);
     });
 
     it('should forward ref to DOM element', async () => {
@@ -235,10 +237,10 @@ describe('StepperField:', () => {
         </div>
       );
       const buttons = await screen.findAllByRole('button');
-      expect(buttons[0]).toHaveClass(`${ComponentClassNames.Button}--small`);
-      expect(buttons[1]).toHaveClass(`${ComponentClassNames.Button}--small`);
-      expect(buttons[2]).toHaveClass(`${ComponentClassNames.Button}--large`);
-      expect(buttons[3]).toHaveClass(`${ComponentClassNames.Button}--large`);
+      expect(buttons[0]).toHaveClass(`${ComponentClassName.Button}--small`);
+      expect(buttons[1]).toHaveClass(`${ComponentClassName.Button}--small`);
+      expect(buttons[2]).toHaveClass(`${ComponentClassName.Button}--large`);
+      expect(buttons[3]).toHaveClass(`${ComponentClassName.Button}--large`);
     });
 
     it('should render the variation classes for StepperField', async () => {
@@ -249,10 +251,10 @@ describe('StepperField:', () => {
       );
       const buttons = await screen.findAllByRole('button');
       expect(buttons[0]).toHaveClass(
-        `${ComponentClassNames.StepperFieldButtonDecrease}--quiet`
+        `${ComponentClassName.StepperFieldButtonDecrease}--quiet`
       );
       expect(buttons[1]).toHaveClass(
-        `${ComponentClassNames.StepperFieldButtonIncrease}--quiet`
+        `${ComponentClassName.StepperFieldButtonIncrease}--quiet`
       );
     });
 

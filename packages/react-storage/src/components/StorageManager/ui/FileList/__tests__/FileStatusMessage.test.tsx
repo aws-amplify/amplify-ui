@@ -1,11 +1,8 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import {
-  ComponentClassNames,
-  IconsProvider,
-  View,
-} from '@aws-amplify/ui-react';
+import { ComponentClassName } from '@aws-amplify/ui';
+import { IconsProvider, View } from '@aws-amplify/ui-react';
 
 import { FileStatusMessage } from '../FileStatusMessage';
 import { FileStatusMessageProps } from '../types';
@@ -31,7 +28,7 @@ describe('FileStatusMessage', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileStatus}`
+        `${ComponentClassName.StorageManagerFileStatus}`
       )
     ).toHaveLength(1);
     expect(
@@ -47,7 +44,7 @@ describe('FileStatusMessage', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileStatus}`
+        `${ComponentClassName.StorageManagerFileStatus}`
       )
     ).toHaveLength(1);
     expect(await findByText(uploadingPausedText)).toBeVisible();
@@ -61,7 +58,7 @@ describe('FileStatusMessage', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileStatus}`
+        `${ComponentClassName.StorageManagerFileStatus}`
       )
     ).toHaveLength(1);
     expect(await findByText(uploadSuccessful)).toBeVisible();
@@ -75,7 +72,7 @@ describe('FileStatusMessage', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileStatus}`
+        `${ComponentClassName.StorageManagerFileStatus}`
       )
     ).toHaveLength(1);
     expect(await findByText(errorUploading)).toBeVisible();

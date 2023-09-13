@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import kebabCase from 'lodash/kebabCase';
 
 import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { ComponentPropsToStylePropsMap } from '../../types';
 import { SwitchField } from '../SwitchField';
 import { Fieldset } from '../../Fieldset';
@@ -18,7 +18,7 @@ describe('Switch Field', () => {
       );
 
       const wrapper = container.getElementsByClassName(
-        ComponentClassNames.SwitchField
+        ComponentClassName.SwitchField
       )[0];
       expect(wrapper).toHaveClass('my-switch');
     });
@@ -29,9 +29,9 @@ describe('Switch Field', () => {
       );
 
       const wrapper = container.getElementsByClassName(
-        ComponentClassNames.SwitchWrapper
+        ComponentClassName.SwitchWrapper
       )[0];
-      expect(wrapper).toHaveClass(`${ComponentClassNames.SwitchWrapper}--top`);
+      expect(wrapper).toHaveClass(`${ComponentClassName.SwitchWrapper}--top`);
     });
 
     it('should forward ref to DOM element', async () => {
@@ -46,7 +46,7 @@ describe('Switch Field', () => {
       const { container } = render(<SwitchField label={label} size="large" />);
 
       const wrapper = container.getElementsByClassName(
-        ComponentClassNames.SwitchField
+        ComponentClassName.SwitchField
       )[0] as HTMLElement;
       expect(wrapper.dataset['size']).toEqual('large');
     });
@@ -57,7 +57,7 @@ describe('Switch Field', () => {
       );
 
       const wrapper = container.getElementsByClassName(
-        ComponentClassNames.SwitchWrapper
+        ComponentClassName.SwitchWrapper
       )[0];
       expect(wrapper).toHaveAttribute('for', 'my-switch');
     });
@@ -68,7 +68,7 @@ describe('Switch Field', () => {
       );
 
       const wrapper = container.getElementsByClassName(
-        ComponentClassNames.SwitchField
+        ComponentClassName.SwitchField
       )[0] as HTMLElement;
       expect(wrapper).toHaveAttribute('data-label-position', 'end');
     });
@@ -79,7 +79,7 @@ describe('Switch Field', () => {
       const { container } = render(<SwitchField label={label} />);
 
       const field = container.getElementsByClassName(
-        ComponentClassNames.SwitchLabel
+        ComponentClassName.SwitchLabel
       )[0];
       expect(field).toHaveTextContent(label);
     });
@@ -96,7 +96,7 @@ describe('Switch Field', () => {
       const { container } = render(<SwitchField label={label} isLabelHidden />);
 
       const field = container.getElementsByClassName(
-        ComponentClassNames.SwitchLabel
+        ComponentClassName.SwitchLabel
       )[0];
       expect(field).toHaveClass('amplify-visually-hidden');
     });
@@ -204,13 +204,11 @@ describe('Switch Field', () => {
       );
 
       const wrapper = container.getElementsByClassName(
-        ComponentClassNames.SwitchTrack
+        ComponentClassName.SwitchTrack
       )[0];
+      expect(wrapper).toHaveClass(`${ComponentClassName.SwitchTrack}--checked`);
       expect(wrapper).toHaveClass(
-        `${ComponentClassNames.SwitchTrack}--checked`
-      );
-      expect(wrapper).toHaveClass(
-        `${ComponentClassNames.SwitchTrack}--disabled`
+        `${ComponentClassName.SwitchTrack}--disabled`
       );
     });
 
@@ -220,7 +218,7 @@ describe('Switch Field', () => {
       );
 
       const track = container.getElementsByClassName(
-        ComponentClassNames.SwitchTrack
+        ComponentClassName.SwitchTrack
       )[0] as HTMLElement;
       expect(
         track.style.getPropertyValue(
@@ -235,7 +233,7 @@ describe('Switch Field', () => {
       );
 
       const track = container.getElementsByClassName(
-        ComponentClassNames.SwitchTrack
+        ComponentClassName.SwitchTrack
       )[0] as HTMLElement;
       expect(
         track.style.getPropertyValue(
@@ -248,7 +246,7 @@ describe('Switch Field', () => {
       const { container } = render(<SwitchField label={label} />);
 
       const track = container.getElementsByClassName(
-        ComponentClassNames.SwitchTrack
+        ComponentClassName.SwitchTrack
       )[0] as HTMLElement;
       const inputField = container.getElementsByTagName('input')[0];
       inputField.focus();
@@ -264,7 +262,7 @@ describe('Switch Field', () => {
       );
 
       const track = container.getElementsByClassName(
-        ComponentClassNames.SwitchThumb
+        ComponentClassName.SwitchThumb
       )[0] as HTMLElement;
       expect(
         track.style.getPropertyValue(

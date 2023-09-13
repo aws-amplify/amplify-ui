@@ -14,7 +14,7 @@ import {
   testFlexProps,
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
-import { ComponentClassNames } from '../../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';
 
 // Jest uses JSDom, which apparently doesn't support the ResizeObserver API
@@ -50,8 +50,8 @@ describe('SliderField:', () => {
 
       const label = await screen.findByTestId(SLIDER_LABEL_TEST_ID);
       expect(label).toHaveClass(
-        ComponentClassNames.Label,
-        ComponentClassNames.SliderFieldLabel
+        ComponentClassName.Label,
+        ComponentClassName.SliderFieldLabel
       );
     });
 
@@ -117,7 +117,7 @@ describe('SliderField:', () => {
       );
 
       const heading = await screen.findByText('10');
-      expect(heading).toHaveClass(ComponentClassNames.Heading);
+      expect(heading).toHaveClass(ComponentClassName.Heading);
     });
 
     it('should not display value if isValueHidden is true', () => {
@@ -199,10 +199,10 @@ describe('SliderField:', () => {
       const large = await screen.findByTestId('large');
 
       expect(small.classList).toContain(
-        `${ComponentClassNames['Field']}--small`
+        `${ComponentClassName['Field']}--small`
       );
       expect(large.classList).toContain(
-        `${ComponentClassNames['Field']}--large`
+        `${ComponentClassName['Field']}--large`
       );
     });
 
@@ -213,10 +213,7 @@ describe('SliderField:', () => {
           <SliderField defaultValue={0} label="slider" className={className} />
         );
         const root = await screen.findByTestId(SLIDER_ROOT_TEST_ID);
-        expect(root).toHaveClass(
-          ComponentClassNames.SliderFieldRoot,
-          className
-        );
+        expect(root).toHaveClass(ComponentClassName.SliderFieldRoot, className);
       });
 
       it('should pass orientation prop', async () => {
@@ -259,7 +256,7 @@ describe('SliderField:', () => {
       it('should render default classname', async () => {
         render(<SliderField defaultValue={0} label="slider" />);
         const track = await screen.findByTestId(SLIDER_TRACK_TEST_ID);
-        expect(track).toHaveClass(ComponentClassNames.SliderFieldTrack);
+        expect(track).toHaveClass(ComponentClassName.SliderFieldTrack);
       });
 
       it('should set empty track color', async () => {
@@ -294,7 +291,7 @@ describe('SliderField:', () => {
       it('should render default classname', async () => {
         render(<SliderField defaultValue={0} label="slider" />);
         const range = await screen.findByTestId(SLIDER_RANGE_TEST_ID);
-        expect(range).toHaveClass(ComponentClassNames.SliderFieldRange);
+        expect(range).toHaveClass(ComponentClassName.SliderFieldRange);
       });
 
       it('should render orientation classes for SliderField', async () => {
@@ -303,7 +300,7 @@ describe('SliderField:', () => {
         );
         const vertical = await screen.findByTestId(SLIDER_RANGE_TEST_ID);
         expect(vertical).toHaveClass(
-          `${ComponentClassNames.SliderFieldRange}--vertical`
+          `${ComponentClassName.SliderFieldRange}--vertical`
         );
       });
 
@@ -324,7 +321,7 @@ describe('SliderField:', () => {
       it('should render default classname', async () => {
         render(<SliderField defaultValue={0} label="slider" />);
         const thumb = await screen.findByRole('slider');
-        expect(thumb).toHaveClass(ComponentClassNames.SliderFieldThumb);
+        expect(thumb).toHaveClass(ComponentClassName.SliderFieldThumb);
       });
 
       it('should pass min and max props', async () => {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   ForwardRefPrimitive,
   Primitive,
@@ -16,7 +16,7 @@ const TableFootPrimitive: Primitive<TableFootProps, 'tfoot'> = (
 ) => (
   <View
     as="tfoot"
-    className={classNames(ComponentClassNames.TableFoot, className)}
+    className={classNames(ComponentClassName.TableFoot, className)}
     ref={ref}
     {...rest}
   >

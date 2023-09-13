@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
-import { ComponentClassNames } from '../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseInputProps,
   InputProps,
@@ -33,11 +33,11 @@ const InputPrimitive: Primitive<InputProps, 'input'> = (
   ref
 ) => {
   const componentClasses = classNames(
-    ComponentClassNames.Input,
-    ComponentClassNames.FieldGroupControl,
-    classNameModifier(ComponentClassNames.Input, variation),
-    classNameModifierByFlag(ComponentClassNames.Input, 'error', hasError),
-    classNameModifier(ComponentClassNames.Input, size),
+    ComponentClassName.Input,
+    ComponentClassName.FieldGroupControl,
+    classNameModifier(ComponentClassName.Input, variation),
+    classNameModifierByFlag(ComponentClassName.Input, 'error', hasError),
+    classNameModifier(ComponentClassName.Input, size),
     className
   );
   const { isFieldsetDisabled } = useFieldset();

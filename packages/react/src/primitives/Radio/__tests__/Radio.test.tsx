@@ -5,7 +5,7 @@ import { Radio } from '../Radio';
 import { Fieldset } from '../../Fieldset';
 import { RadioGroupField } from '../../RadioGroupField';
 import { View } from '../../View';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 describe('RadioField test suite', () => {
   it('should render basic props correctly', async () => {
@@ -19,16 +19,16 @@ describe('RadioField test suite', () => {
     // input control
     expect(radio).toHaveAttribute('id', 'test');
     expect(radio).toHaveAttribute('value', 'test');
-    expect(radio).toHaveClass(ComponentClassNames.Input);
+    expect(radio).toHaveClass(ComponentClassName.Input);
 
     // custom radio button
     const radioButton = await screen.findByTestId('test');
-    expect(radioButton).toHaveClass(ComponentClassNames.RadioButton);
+    expect(radioButton).toHaveClass(ComponentClassName.RadioButton);
 
     // label
     const radioLabel = await screen.findByText('test');
     expect(radioLabel).toContainHTML('test');
-    expect(radioLabel).toHaveClass(ComponentClassNames.RadioLabel);
+    expect(radioLabel).toHaveClass(ComponentClassName.RadioLabel);
   });
 
   it('should forward ref to DOM element', async () => {

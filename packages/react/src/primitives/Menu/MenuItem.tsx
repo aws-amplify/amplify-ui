@@ -4,7 +4,7 @@ import * as Dropdown from '@radix-ui/react-dropdown-menu';
 
 import { sanitizeNamespaceImport } from '@aws-amplify/ui';
 
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { MenuButton } from './MenuButton';
 import {
   ForwardRefPrimitive,
@@ -29,7 +29,7 @@ const MenuItemPrimitive: Primitive<MenuItemProps, 'div'> = (
   return (
     <DropdownMenuItem asChild ref={ref}>
       <MenuButton
-        className={classNames(ComponentClassNames.MenuItem, className)}
+        className={classNames(ComponentClassName.MenuItem, className)}
         testId={MENU_ITEM_TEST_ID}
         {...rest}
         variation="menu" // ensures `menu` variation is not overwritten

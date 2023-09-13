@@ -1,6 +1,8 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { ComponentClassName } from '@aws-amplify/ui';
+
 import { useStepper } from './useStepper';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
@@ -15,7 +17,7 @@ import {
   StepperFieldProps,
 } from '../types/stepperField';
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
-import { ComponentClassNames, ComponentText } from '../shared/constants';
+import { ComponentText } from '../shared/constants';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { useStableId } from '../utils/useStableId';
 
@@ -83,9 +85,9 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
   return (
     <Flex
       className={classNames(
-        ComponentClassNames.Field,
-        classNameModifier(ComponentClassNames.Field, size),
-        ComponentClassNames.StepperField,
+        ComponentClassName.Field,
+        classNameModifier(ComponentClassName.Field, size),
+        ComponentClassName.StepperField,
         className
       )}
       data-size={size}
@@ -107,13 +109,13 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
             aria-controls={fieldId}
             ariaLabel={`${decreaseButtonLabel} ${value - step}`}
             className={classNames(
-              ComponentClassNames.StepperFieldButtonDecrease,
+              ComponentClassName.StepperFieldButtonDecrease,
               classNameModifier(
-                ComponentClassNames.StepperFieldButtonDecrease,
+                ComponentClassName.StepperFieldButtonDecrease,
                 variation
               ),
               classNameModifierByFlag(
-                ComponentClassNames.StepperFieldButtonDecrease,
+                ComponentClassName.StepperFieldButtonDecrease,
                 'disabled',
                 shouldDisableDecreaseButton
               )
@@ -131,13 +133,13 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
             aria-controls={fieldId}
             ariaLabel={`${increaseButtonLabel} ${value + step}`}
             className={classNames(
-              ComponentClassNames.StepperFieldButtonIncrease,
+              ComponentClassName.StepperFieldButtonIncrease,
               classNameModifier(
-                ComponentClassNames.StepperFieldButtonIncrease,
+                ComponentClassName.StepperFieldButtonIncrease,
                 variation
               ),
               classNameModifierByFlag(
-                ComponentClassNames.StepperFieldButtonIncrease,
+                ComponentClassName.StepperFieldButtonIncrease,
                 'disabled',
                 shouldDisableIncreaseButton
               )
@@ -153,7 +155,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
       >
         <Input
           aria-describedby={ariaDescribedBy}
-          className={ComponentClassNames.StepperFieldInput}
+          className={ComponentClassName.StepperFieldInput}
           hasError={hasError}
           id={fieldId}
           isDisabled={isDisabled}

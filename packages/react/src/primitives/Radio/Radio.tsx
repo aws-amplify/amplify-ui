@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
-import { ComponentClassNames } from '../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { Flex } from '../Flex';
 import { Input } from '../Input';
 import {
@@ -69,9 +69,9 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
     <Flex
       as="label"
       className={classNames(
-        ComponentClassNames.Radio,
+        ComponentClassName.Radio,
         classNameModifierByFlag(
-          ComponentClassNames.Radio,
+          ComponentClassName.Radio,
           `disabled`,
           shouldBeDisabled
         ),
@@ -91,7 +91,7 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
       {children && (
         <Text
           as="span"
-          className={ComponentClassNames.RadioLabel}
+          className={ComponentClassName.RadioLabel}
           data-disabled={shouldBeDisabled}
         >
           {children}
@@ -100,8 +100,8 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
       <Input
         checked={checked}
         className={classNames(
-          ComponentClassNames.VisuallyHidden,
-          ComponentClassNames.RadioInput
+          ComponentClassName.VisuallyHidden,
+          ComponentClassName.RadioInput
         )}
         defaultChecked={defaultChecked}
         hasError={hasError}
@@ -120,8 +120,8 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
         aria-hidden="true"
         as="span"
         className={classNames(
-          ComponentClassNames.RadioButton,
-          classNameModifier(ComponentClassNames.RadioButton, size)
+          ComponentClassName.RadioButton,
+          classNameModifier(ComponentClassName.RadioButton, size)
         )}
         data-size={size}
         testId={testId}

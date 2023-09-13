@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import * as React from 'react';
 
+import { ComponentClassName } from '@aws-amplify/ui';
+
 import { Alert } from '../Alert';
-import { ComponentClassNames, ComponentText } from '../../shared/constants';
+import { ComponentText } from '../../shared/constants';
 
 describe('Alert:', () => {
   it('can render Alert variations', async () => {
@@ -31,16 +33,16 @@ describe('Alert:', () => {
     const defaultAlert = await screen.findByTestId('default');
 
     expect(info.dataset['variation']).toBe('info');
-    expect(info.classList).toContain(`${ComponentClassNames['Alert']}--info`);
+    expect(info.classList).toContain(`${ComponentClassName['Alert']}--info`);
     expect(error.dataset['variation']).toBe('error');
-    expect(error.classList).toContain(`${ComponentClassNames['Alert']}--error`);
+    expect(error.classList).toContain(`${ComponentClassName['Alert']}--error`);
     expect(warning.dataset['variation']).toBe('warning');
     expect(warning.classList).toContain(
-      `${ComponentClassNames['Alert']}--warning`
+      `${ComponentClassName['Alert']}--warning`
     );
     expect(success.dataset['variation']).toBe('success');
     expect(success.classList).toContain(
-      `${ComponentClassNames['Alert']}--success`
+      `${ComponentClassName['Alert']}--success`
     );
     expect(defaultAlert.dataset['variation']).toBe(undefined);
   });
@@ -55,11 +57,11 @@ describe('Alert:', () => {
     const alertHeading = await screen.findByText('Test heading');
     expect(alertHeading.nodeName).toBe('DIV');
     expect(
-      alertHeading.classList.contains(ComponentClassNames.AlertHeading)
+      alertHeading.classList.contains(ComponentClassName.AlertHeading)
     ).toBe(true);
     expect(
       alertHeading.parentElement?.parentElement?.classList.contains(
-        ComponentClassNames.Alert
+        ComponentClassName.Alert
       )
     ).toBe(true);
   });
@@ -86,13 +88,11 @@ describe('Alert:', () => {
     expect(defaultAlert.childElementCount).toBe(1);
     expect(
       hasIcon.firstElementChild?.classList.contains(
-        ComponentClassNames.AlertIcon
+        ComponentClassName.AlertIcon
       )
     ).toBe(true);
     expect(
-      noIcon.firstElementChild?.classList.contains(
-        ComponentClassNames.AlertIcon
-      )
+      noIcon.firstElementChild?.classList.contains(ComponentClassName.AlertIcon)
     ).toBe(false);
   });
 
@@ -121,7 +121,7 @@ describe('Alert:', () => {
         </Alert>
       </div>
     );
-    const icons = container.querySelectorAll(`.${ComponentClassNames.Icon}`);
+    const icons = container.querySelectorAll(`.${ComponentClassName.Icon}`);
     expect(icons.length).toEqual(2);
     icons.forEach((icon) => {
       expect(icon).toHaveAttribute('aria-hidden', 'true');
@@ -183,7 +183,7 @@ describe('Alert:', () => {
     render(<Alert className="custom-alert" testId="alertId"></Alert>);
     const alert = await screen.findByTestId('alertId');
     expect(alert.classList.contains('custom-alert')).toBe(true);
-    expect(alert.classList.contains(ComponentClassNames.Alert)).toBe(true);
+    expect(alert.classList.contains(ComponentClassName.Alert)).toBe(true);
   });
 
   it('can render any arbitrary data-* attribute', async () => {

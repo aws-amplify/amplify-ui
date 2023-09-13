@@ -9,7 +9,7 @@ import {
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { useStyles } from '../shared/styleUtils';
 
 /**
@@ -34,9 +34,9 @@ const MenuButtonPrimitive: Primitive<MenuButtonProps, 'button'> = (
 ) => {
   const { propStyles, nonStyleProps } = useStyles(rest, style);
   const componentClasses = classNames(
-    ComponentClassNames.Button,
-    classNameModifier(ComponentClassNames.Button, size),
-    classNameModifier(ComponentClassNames.Button, variation),
+    ComponentClassName.Button,
+    classNameModifier(ComponentClassName.Button, size),
+    classNameModifier(ComponentClassName.Button, variation),
     className
   );
 

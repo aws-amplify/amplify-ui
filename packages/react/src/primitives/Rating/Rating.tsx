@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { classNameModifier } from '../shared/utils';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { Flex } from '../Flex';
 import { IconStar, useIcons } from '../Icon';
 import { isIconFilled, isIconEmpty, isIconMixed } from './utils';
@@ -72,8 +72,8 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
   return (
     <Flex
       className={classNames(
-        ComponentClassNames.Rating,
-        classNameModifier(ComponentClassNames.Rating, size),
+        ComponentClassName.Rating,
+        classNameModifier(ComponentClassName.Rating, size),
         className
       )}
       data-size={size}

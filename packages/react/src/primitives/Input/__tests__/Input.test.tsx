@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 
 import { Input } from '../Input';
 import { Fieldset } from '../../Fieldset';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 describe('Input component', () => {
   it('should render custom classname for Input', async () => {
@@ -12,7 +12,7 @@ describe('Input component', () => {
 
     const input = await screen.findByRole('textbox');
     expect(input).toHaveClass('custom-class');
-    expect(input).toHaveClass(ComponentClassNames.Input);
+    expect(input).toHaveClass(ComponentClassName.Input);
   });
 
   it('should render variation classes for Input', async () => {
@@ -24,7 +24,7 @@ describe('Input component', () => {
 
     const quiet = await screen.findByTestId('quiet');
 
-    expect(quiet.classList).toContain(`${ComponentClassNames['Input']}--quiet`);
+    expect(quiet.classList).toContain(`${ComponentClassName['Input']}--quiet`);
   });
 
   it('should render error classes for Input', async () => {
@@ -36,7 +36,7 @@ describe('Input component', () => {
 
     const error = await screen.findByTestId('error');
 
-    expect(error.classList).toContain(`${ComponentClassNames['Input']}--error`);
+    expect(error.classList).toContain(`${ComponentClassName['Input']}--error`);
   });
 
   it('should render size classes for Input', async () => {
@@ -50,8 +50,8 @@ describe('Input component', () => {
     const small = await screen.findByTestId('small');
     const large = await screen.findByTestId('large');
 
-    expect(small.classList).toContain(`${ComponentClassNames['Input']}--small`);
-    expect(large.classList).toContain(`${ComponentClassNames['Input']}--large`);
+    expect(small.classList).toContain(`${ComponentClassName['Input']}--small`);
+    expect(large.classList).toContain(`${ComponentClassName['Input']}--large`);
   });
 
   it('should render expected classname, id Input field', async () => {

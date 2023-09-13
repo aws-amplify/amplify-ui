@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { classNameModifier } from '../shared/utils';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { BaseLoaderProps, LoaderProps } from '../types/loader';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { View } from '../View';
@@ -36,10 +36,10 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
 
   const percent = `${percentage}%`;
   const componentClasses = classNames(
-    ComponentClassNames.Loader,
-    classNameModifier(ComponentClassNames.Loader, size),
-    classNameModifier(ComponentClassNames.Loader, variation),
-    isDeterminate ? ComponentClassNames.LoaderDeterminate : null,
+    ComponentClassName.Loader,
+    classNameModifier(ComponentClassName.Loader, size),
+    classNameModifier(ComponentClassName.Loader, variation),
+    isDeterminate ? ComponentClassName.LoaderDeterminate : null,
     className
   );
 
@@ -73,8 +73,8 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
         <text
           aria-live="polite"
           className={classNames(
-            ComponentClassNames.LoaderPercentageText,
-            isPercentageTextHidden ? ComponentClassNames.VisuallyHidden : null
+            ComponentClassName.LoaderPercentageText,
+            isPercentageTextHidden ? ComponentClassName.VisuallyHidden : null
           )}
           // -1% offset makes the text position look nicest
           x={`${-1 + percentage}%`}
@@ -117,8 +117,8 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
         <text
           aria-live="polite"
           className={classNames(
-            ComponentClassNames.LoaderPercentageText,
-            isPercentageTextHidden ? ComponentClassNames.VisuallyHidden : null
+            ComponentClassName.LoaderPercentageText,
+            isPercentageTextHidden ? ComponentClassName.VisuallyHidden : null
           )}
           // this x and y make text position look nicest
           x="130%"

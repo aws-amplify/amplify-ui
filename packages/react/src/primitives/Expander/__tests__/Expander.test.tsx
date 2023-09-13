@@ -5,7 +5,7 @@ import * as React from 'react';
 import { Expander } from '../Expander';
 import { ExpanderItem } from '../ExpanderItem';
 import { ExpanderProps } from '../../types/expander';
-import { ComponentClassNames } from '../../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 function UncontrolledExpander(props: ExpanderProps) {
   return (
@@ -53,7 +53,7 @@ describe('Expander', () => {
       />
     );
     const expander = await screen.findByTestId(testId);
-    expect(expander).toHaveClass(ComponentClassNames.Expander, className);
+    expect(expander).toHaveClass(ComponentClassName.Expander, className);
   });
 
   it('should be collapsible', async () => {
