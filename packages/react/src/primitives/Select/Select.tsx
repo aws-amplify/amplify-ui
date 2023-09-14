@@ -25,7 +25,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
     placeholder,
     isDisabled,
     isRequired,
-    isMultiple,
+    isMultiple = false,
     selectSize = 1,
     ...rest
   },
@@ -35,12 +35,16 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
   // value === undefined is to make sure that component is used in uncontrolled way so that setting defaultValue is valid
   const shouldSetDefaultPlaceholderValue =
     value === undefined && defaultValue === undefined && placeholder;
+
+  const isExpanded = isMultiple || selectSize > 1;
+
   const componentClasses = classNames(
     ComponentClassNames.Select,
     ComponentClassNames.FieldGroupControl,
     classNameModifier(ComponentClassNames.Select, size),
     classNameModifier(ComponentClassNames.Select, variation),
     classNameModifierByFlag(ComponentClassNames.Select, 'error', hasError),
+    classNameModifierByFlag(ComponentClassNames.Select, 'expanded', isExpanded),
     className
   );
   const icons = useIcons('select');
@@ -60,7 +64,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
         }
         isDisabled={isFieldsetDisabled ? isFieldsetDisabled : isDisabled}
         multiple={isMultiple}
-        size={selectSize || 1}
+        size={selectSize}
         required={isRequired}
         data-size={size}
         data-variation={variation}
@@ -71,7 +75,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
         {placeholder && <option value="">{placeholder}</option>}
         {children}
       </View>
-      {isMultiple || selectSize > 1 ? null : (
+      {isExpanded ? null : (
         <Flex
           className={classNames(
             ComponentClassNames.SelectIconWrapper,

@@ -39,7 +39,7 @@ const propsToCode = (selectFieldProps) => {
     `\n>` +
     `\n    <option value="apple">Apple</option>
     <option value="banana">Banana</option>
-    <option value="orange">Orange</option>
+    <option value="orange" disabled>Orange</option>
     <option value="pineapple">Pineapple</option>
     <option value="kiwi">Kiwi</option>
     <option value="tangerine">Tangerine</option>` +
@@ -82,7 +82,9 @@ export const SelectFieldDemo = () => {
       >
         <option value="apple">Apple</option>
         <option value="banana">Banana</option>
-        <option value="orange">Orange</option>
+        <option value="orange" disabled>
+          Orange
+        </option>
         <option value="pineapple">Pineapple</option>
         <option value="kiwi">Kiwi</option>
         <option value="tangerine">Tangerine</option>
