@@ -6,6 +6,34 @@ import { Properties } from 'csstype';
 export type DesignToken<ValueType = unknown> = { value: ValueType } | ValueType;
 
 /**
+ * Opening up our theme to accept design tokens we don't explicitly define.
+ * This helper type allows you to have a deeply nested object where the nodes are DesignTokens
+ */
+export type RecursiveDesignToken<
+  ValueType = unknown,
+  Output extends OutputVariantKey = unknown,
+  Platform extends PlatformKey = unknown
+> = {
+  [key: string | number]:
+    | DesignTokenValue<ValueType, Output, Platform>
+    | RecursiveDesignToken<ValueType, Output, Platform>;
+} & (Output extends 'required'
+  ? Platform extends 'react-native'
+    ? DesignTokenValue<ValueType, Output, Platform>
+    : {}
+  : {});
+
+export type DesignTokenValue<
+  ValueType = unknown,
+  Output extends OutputVariantKey = unknown,
+  Platform extends PlatformKey = unknown
+> = Output extends 'required'
+  ? Platform extends 'react-native'
+    ? ValueType
+    : WebDesignToken<ValueType>
+  : DesignToken<ValueType>;
+
+/**
  * A fully setup design token ready to be used in web platform.
  */
 export type WebDesignToken<ValueType = unknown> = {
