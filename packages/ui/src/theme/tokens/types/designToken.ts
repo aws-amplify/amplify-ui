@@ -6,8 +6,7 @@ import { Properties } from 'csstype';
 export type DesignToken<ValueType = unknown> = { value: ValueType } | ValueType;
 
 /**
- * Opening up our theme to accept design tokens we don't explicitly define.
- * This helper type allows you to have a deeply nested object where the nodes are DesignTokens
+ * Helper type util allowing creation of a deeply nested object of Design Tokens
  */
 export type RecursiveDesignToken<
   ValueType = unknown,
