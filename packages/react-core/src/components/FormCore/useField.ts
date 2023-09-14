@@ -2,11 +2,13 @@ import useForm from './useForm';
 import { ChangeHandler, FocusHandler, UseField, UseFieldParams } from './types';
 
 export const DEFAULT_ERROR_MESSAGE =
-  '`Form.Field` must be used within a `Form`';
+  '`useField` must be used within a `FormProvider`';
 
 /**
+ * `Field` integration hook for usage with React `Field` components.
+ *
  * @param params Requires `name`, all additional params optional
- * @returns `Form` aware `Field` handler and state values
+ * @returns `Form` aware `Field` event handlers and state values
  */
 export default function useField<
   OnBlur extends FocusHandler,
