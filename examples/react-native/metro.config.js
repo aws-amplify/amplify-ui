@@ -114,7 +114,7 @@ config.resolver.blockList = [
   ...usedInternalPackagePaths,
 ];
 
-// point to the example app deps for React related and deps requiring native modules
+// point to the example app deps for React and native modules deps
 config.resolver.extraNodeModules = {
   // core React and React Native dependencies
   react: path.resolve(__dirname, 'node_modules/react'),
@@ -123,11 +123,10 @@ config.resolver.extraNodeModules = {
   // xstate uses React under the hood
   '@xstate/react': path.resolve(__dirname, 'node_modules/@xstate/react'),
 
-  // depedendencies with native modules
-  '@react-native-picker/picker': path.resolve(
-    __dirname,
-    'node_modules/@react-native-picker/picker'
-  ),
+  // self explanatory
+  'react-hook-form': path.resolve(__dirname, 'node_modules/react-hook-form'),
+
+  // dependencies with native modules
   'react-native-safe-area-context': path.resolve(
     __dirname,
     'node_modules/react-native-safe-area-context'
