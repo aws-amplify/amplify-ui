@@ -22,8 +22,8 @@ export default function BreadcrumbsStyleExample() {
       borderRadius="medium"
       padding="medium"
     >
-      {breadcrumbs.map(({ href, text, isCurrent }) => (
-        <Breadcrumbs.Item key={href}>
+      {breadcrumbs.map(({ href, text, isCurrent }, idx) => (
+        <Breadcrumbs.Item key={`${href}${idx}`}>
           <Breadcrumbs.Link
             fontWeight="bold"
             textDecoration="underline"
