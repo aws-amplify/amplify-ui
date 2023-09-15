@@ -24,6 +24,8 @@ Amplify.configure({
   },
 });
 
+console.log(Amplify);
+
 const App = () => {
   return (
     <Layout>
