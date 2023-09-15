@@ -1,7 +1,6 @@
 import {
   DesignTokenValues,
   OutputVariantKey,
-  RecursiveDesignToken,
   TransformValue,
 } from './types/designToken';
 
@@ -18,10 +17,9 @@ export type BaseTransforms<
 export type Transforms<
   Output extends OutputVariantKey = unknown,
   Platform = unknown
-> = (Output extends 'required' | 'default'
+> = Output extends 'required' | 'default'
   ? Required<BaseTransforms<Output, Platform>>
-  : BaseTransforms<Output, Platform>) &
-  RecursiveDesignToken<TransformValue, Output, Platform>;
+  : BaseTransforms<Output, Platform>;
 
 export const transforms: Transforms<'default'> = {
   // TODO: make this more generic and cross-platform
