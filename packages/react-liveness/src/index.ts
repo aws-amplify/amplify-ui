@@ -6,4 +6,5 @@ export {
   AwsCredentialProvider,
   AwsCredentials,
   AwsTemporaryCredentials,
+  LivenessErrorState,
 } from './components';
