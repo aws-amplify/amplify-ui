@@ -1,5 +1,4 @@
 import { Properties } from 'csstype';
-import { Prop } from 'xstate';
 
 /**
  * a DesignToken can be either an object with a `value` key of `ValueType` or the `ValueType` itself
