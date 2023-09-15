@@ -3,7 +3,6 @@ import {
   OutputVariantKey,
   SpaceValue,
   RecursiveDesignToken,
-  DesignTokenValue,
 } from './types/designToken';
 
 type SpaceSize =
@@ -46,7 +45,7 @@ export type Space<
 > = (Output extends 'required' | 'default'
   ? Required<BaseSpace<Output, Platform>>
   : BaseSpace<Output, Platform>) &
-  RecursiveDesignToken<SpaceValue, Output, Platform>;
+  RecursiveDesignToken<SpaceValue<Platform>, Output, Platform>;
 
 export const space: Space<'default'> = {
   zero: { value: '0' },
