@@ -2,8 +2,10 @@ import * as React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { ComponentClassName } from '@aws-amplify/ui';
+
 import { SearchField } from '../SearchField';
-import { ComponentClassNames, ComponentText } from '../../shared/constants';
+import { ComponentText } from '../../shared/constants';
 
 const label = 'Search Amplify UI';
 const { searchButtonLabel } = ComponentText.SearchField;
@@ -46,7 +48,7 @@ describe('SearchField component', () => {
     const searchFieldWrapper = await screen.findByTestId(testId);
 
     expect(searchFieldWrapper).toHaveClass('custom-class');
-    expect(searchFieldWrapper).toHaveClass(ComponentClassNames.SearchField);
+    expect(searchFieldWrapper).toHaveClass(ComponentClassName.SearchField);
   });
 
   it('should forward refs to DOM elements', async () => {
@@ -95,8 +97,8 @@ describe('SearchField component', () => {
     const small = await screen.findByTestId('small');
     const large = await screen.findByTestId('large');
 
-    expect(small.classList).toContain(`${ComponentClassNames['Field']}--small`);
-    expect(large.classList).toContain(`${ComponentClassNames['Field']}--large`);
+    expect(small.classList).toContain(`${ComponentClassName['Field']}--small`);
+    expect(large.classList).toContain(`${ComponentClassName['Field']}--large`);
   });
 
   it('should be able to set a quiet variation', () => {
@@ -112,7 +114,7 @@ describe('SearchField component', () => {
     const button = await screen.findByRole('button');
     expect(button).toBeDefined();
     expect(button).toHaveAttribute('aria-label', searchButtonLabel);
-    expect(button).toHaveClass(ComponentClassNames.SearchFieldSearch);
+    expect(button).toHaveClass(ComponentClassName.SearchFieldSearch);
   });
 
   it('should pass query text to onSubmit handler on Enter', async () => {

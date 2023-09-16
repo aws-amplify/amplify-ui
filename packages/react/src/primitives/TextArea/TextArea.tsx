@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
-import { ComponentClassNames } from '../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { BaseTextAreaProps, TextAreaProps } from '../types/textArea';
 import { View } from '../View';
@@ -22,11 +22,11 @@ const TextAreaPrimitive: Primitive<TextAreaProps, 'textarea'> = (
   ref
 ) => {
   const componentClasses = classNames(
-    ComponentClassNames.Textarea,
-    ComponentClassNames.FieldGroupControl,
-    classNameModifier(ComponentClassNames.Textarea, variation),
-    classNameModifier(ComponentClassNames.Textarea, size),
-    classNameModifierByFlag(ComponentClassNames.Textarea, 'error', hasError),
+    ComponentClassName.Textarea,
+    ComponentClassName.FieldGroupControl,
+    classNameModifier(ComponentClassName.Textarea, variation),
+    classNameModifier(ComponentClassName.Textarea, size),
+    classNameModifierByFlag(ComponentClassName.Textarea, 'error', hasError),
     className
   );
   const { isFieldsetDisabled } = useFieldset();

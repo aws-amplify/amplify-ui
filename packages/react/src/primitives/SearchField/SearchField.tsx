@@ -7,7 +7,7 @@ import { IconSearch } from '../Icon/internal';
 import { SearchFieldButton } from './SearchFieldButton';
 import { TextField } from '../TextField';
 import { useSearchField } from './useSearchField';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { strHasLength } from '../shared/utils';
 import type {
   BaseSearchFieldProps,
@@ -71,7 +71,7 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
   return (
     <TextField
       autoComplete={autoComplete}
-      className={classNames(ComponentClassNames.SearchField, className)}
+      className={classNames(ComponentClassName.SearchField, className)}
       labelHidden={labelHidden}
       innerStartComponent={SearchIcon}
       innerEndComponent={

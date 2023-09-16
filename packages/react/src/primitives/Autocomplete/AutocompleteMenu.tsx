@@ -1,10 +1,10 @@
 import * as React from 'react';
-
+import { ComponentClassName } from '@aws-amplify/ui';
 import { Loader } from '../Loader';
 
 import { ScrollView } from '../ScrollView';
 import { View } from '../View';
-import { ComponentClassNames } from '../shared/constants';
+
 import { ComponentText } from '../shared/constants';
 import type {
   ForwardRefPrimitive,
@@ -30,7 +30,7 @@ const AutocompleteMenuPrimitive: Primitive<AutocompleteMenuProps, 'div'> = (
   const MenuHeader = () => {
     return (
       Header && (
-        <View className={ComponentClassNames.AutocompleteMenuHeader}>
+        <View className={ComponentClassName.AutocompleteMenuHeader}>
           {Header}
         </View>
       )
@@ -40,7 +40,7 @@ const AutocompleteMenuPrimitive: Primitive<AutocompleteMenuProps, 'div'> = (
   const MenuFooter = () => {
     return (
       Footer && (
-        <View className={ComponentClassNames.AutocompleteMenuFooter}>
+        <View className={ComponentClassName.AutocompleteMenuFooter}>
           {Footer}
         </View>
       )
@@ -56,7 +56,7 @@ const AutocompleteMenuPrimitive: Primitive<AutocompleteMenuProps, 'div'> = (
     );
 
     return (
-      <View className={ComponentClassNames.AutocompleteMenuLoading}>
+      <View className={ComponentClassName.AutocompleteMenuLoading}>
         {MenuLoadingBody}
       </View>
     );
@@ -64,16 +64,16 @@ const AutocompleteMenuPrimitive: Primitive<AutocompleteMenuProps, 'div'> = (
 
   const MenuEmpty = () =>
     Empty ? (
-      <View className={ComponentClassNames.AutocompleteMenuEmpty}>{Empty}</View>
+      <View className={ComponentClassName.AutocompleteMenuEmpty}>{Empty}</View>
     ) : (
-      <View className={ComponentClassNames.AutocompleteMenuEmpty}>
+      <View className={ComponentClassName.AutocompleteMenuEmpty}>
         {ComponentText.Autocomplete.emptyText}
       </View>
     );
 
   return (
     <ScrollView
-      className={ComponentClassNames.AutocompleteMenu}
+      className={ComponentClassName.AutocompleteMenu}
       ref={ref}
       {...rest}
     >
@@ -86,7 +86,7 @@ const AutocompleteMenuPrimitive: Primitive<AutocompleteMenuProps, 'div'> = (
             <ScrollView
               as="ul"
               ariaLabel={ariaLabel}
-              className={ComponentClassNames.AutocompleteMenuOptions}
+              className={ComponentClassName.AutocompleteMenuOptions}
               id={listboxId}
               role="listbox"
             >

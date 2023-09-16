@@ -1,8 +1,9 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
+import { ComponentClassName } from '@aws-amplify/ui';
+
 import { View } from '../View';
-import { ComponentClassNames } from '../shared/constants';
 import { classNameModifierByFlag } from '../shared/utils';
 import type {
   ForwardRefPrimitive,
@@ -21,9 +22,9 @@ const AutocompleteOptionPrimitive: Primitive<AutocompleteOptionProps, 'li'> = (
       as="li"
       role="option"
       className={classNames(
-        ComponentClassNames.AutocompleteMenuOption,
+        ComponentClassName.AutocompleteMenuOption,
         classNameModifierByFlag(
-          ComponentClassNames.AutocompleteMenuOption,
+          ComponentClassName.AutocompleteMenuOption,
           'active',
           isActive
         ),

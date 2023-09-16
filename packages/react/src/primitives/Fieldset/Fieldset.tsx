@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { classNameModifier } from '../shared/utils';
 
 import { Flex } from '../Flex';
@@ -43,18 +43,18 @@ const FieldsetPrimitive: Primitive<FieldsetProps, 'fieldset'> = (
   );
 
   const fieldsetClasses = classNames(
-    ComponentClassNames.Fieldset,
-    classNameModifier(ComponentClassNames.Fieldset, variation),
-    classNameModifier(ComponentClassNames.Fieldset, size),
+    ComponentClassName.Fieldset,
+    classNameModifier(ComponentClassName.Fieldset, variation),
+    classNameModifier(ComponentClassName.Fieldset, size),
     className
   );
 
   const legendClasses = classNames(
-    ComponentClassNames.FieldsetLegend,
-    classNameModifier(ComponentClassNames.FieldsetLegend, size),
+    ComponentClassName.FieldsetLegend,
+    classNameModifier(ComponentClassName.FieldsetLegend, size),
     className,
     {
-      [ComponentClassNames.VisuallyHidden]: legendHidden,
+      [ComponentClassName.VisuallyHidden]: legendHidden,
     }
   );
 

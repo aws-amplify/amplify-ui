@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { ComponentClassNames } from '../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseImageProps,
   ImageProps,
@@ -17,7 +17,7 @@ const ImagePrimitive: Primitive<ImageProps, 'img'> = (
   <View
     as="img"
     ref={ref}
-    className={classNames(ComponentClassNames.Image, className)}
+    className={classNames(ComponentClassName.Image, className)}
     {...rest}
   />
 );

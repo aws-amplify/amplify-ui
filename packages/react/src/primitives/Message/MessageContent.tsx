@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   MessageContentProps,
   BaseMessageContentProps,
@@ -16,7 +16,7 @@ const MessageContentPrimitive: Primitive<MessageContentProps, 'div'> = (
 ) => {
   return (
     <Flex
-      className={classNames(ComponentClassNames.MessageContent, className)}
+      className={classNames(ComponentClassName.MessageContent, className)}
       ref={ref}
       {...rest}
     >

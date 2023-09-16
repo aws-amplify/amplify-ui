@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { Button } from '../Button';
 import { Fieldset } from '../../Fieldset';
 import { ButtonColorTheme } from '../../types';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 const SUPPORTED_COLOR_THEMES: ButtonColorTheme[] = [
   'info',
@@ -50,10 +50,10 @@ describe('Button test suite', () => {
     expect(destructive.classList).toContain('amplify-button--destructive');
 
     expect(primary.classList).toContain(
-      `${ComponentClassNames['Button']}--primary`
+      `${ComponentClassName['Button']}--primary`
     );
-    expect(link.classList).toContain(`${ComponentClassNames['Button']}--link`);
-    expect(menu.classList).toContain(`${ComponentClassNames['Button']}--menu`);
+    expect(link.classList).toContain(`${ComponentClassName['Button']}--link`);
+    expect(menu.classList).toContain(`${ComponentClassName['Button']}--menu`);
   });
 
   it.each(SUPPORTED_COLOR_THEMES)(
@@ -163,13 +163,13 @@ describe('Button test suite', () => {
     const loading = await screen.findByTestId('loading');
 
     expect(fullwidth.classList).toContain(
-      `${ComponentClassNames['Button']}--fullwidth`
+      `${ComponentClassName['Button']}--fullwidth`
     );
     expect(disabled.classList).toContain(
-      `${ComponentClassNames['Button']}--disabled`
+      `${ComponentClassName['Button']}--disabled`
     );
     expect(loading.classList).toContain(
-      `${ComponentClassNames['Button']}--loading`
+      `${ComponentClassName['Button']}--loading`
     );
   });
 
@@ -188,12 +188,8 @@ describe('Button test suite', () => {
     const small = await screen.findByTestId('small');
     const large = await screen.findByTestId('large');
 
-    expect(small.classList).toContain(
-      `${ComponentClassNames['Button']}--small`
-    );
-    expect(large.classList).toContain(
-      `${ComponentClassNames['Button']}--large`
-    );
+    expect(small.classList).toContain(`${ComponentClassName['Button']}--small`);
+    expect(large.classList).toContain(`${ComponentClassName['Button']}--large`);
   });
 
   it('should render classname and custom classname', async () => {
@@ -201,7 +197,7 @@ describe('Button test suite', () => {
     render(<Button className={className} />);
 
     const button = await screen.findByRole('button');
-    expect(button).toHaveClass(ComponentClassNames.Button, className);
+    expect(button).toHaveClass(ComponentClassName.Button, className);
   });
 
   it('should forward ref to button DOM element', async () => {
@@ -265,10 +261,10 @@ describe('Button test suite', () => {
     render(<Button loadingText="loading" isLoading />);
 
     const loaderWrapper = await screen.findByText('loading');
-    expect(loaderWrapper).toHaveClass(ComponentClassNames.ButtonLoaderWrapper);
+    expect(loaderWrapper).toHaveClass(ComponentClassName.ButtonLoaderWrapper);
 
     const loader = await screen.findByRole('img');
-    expect(loader).toHaveClass(ComponentClassNames.Loader);
+    expect(loader).toHaveClass(ComponentClassName.Loader);
   });
 
   it('should pass size to Loader correctly if size is set', async () => {
@@ -282,7 +278,7 @@ describe('Button test suite', () => {
     render(<Button isLoading />);
 
     const loader = await screen.findByRole('img');
-    expect(loader).toHaveClass(ComponentClassNames.Loader);
+    expect(loader).toHaveClass(ComponentClassName.Loader);
   });
 
   it('should fire onClick function if the button is clicked on', async () => {

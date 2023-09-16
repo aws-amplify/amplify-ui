@@ -6,11 +6,13 @@ module.exports = {
     '!<rootDir>/**/index.(ts|tsx)',
     // do not collect from top level internal, PrimitiveCatalog, style and version files
     '!<rootDir>/src/(internal|PrimitiveCatalog|styles|version).(ts|tsx)',
+    // do not collect coverage for the Authenticator
+    '!<rootDir>/src/components/Authenticator/**/*.(ts|tsx)',
   ],
   coverageThreshold: {
     global: {
       branches: 80,
-      functions: 70,
+      functions: 80,
       lines: 91,
       statements: 91,
     },

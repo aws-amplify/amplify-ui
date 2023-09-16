@@ -9,7 +9,7 @@ import {
   BaseFieldProps,
 } from '../types';
 import { classNameModifier } from '../shared/utils';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { Flex } from '../Flex';
 import { FieldDescription } from './FieldDescription';
 import { FieldErrorMessage } from './FieldErrorMessage';
@@ -38,8 +38,8 @@ const FieldPrimitive: Primitive<FieldPrimitiveProps, 'div'> = (props, ref) => {
   return (
     <Flex
       className={classNames(
-        ComponentClassNames.Field,
-        classNameModifier(ComponentClassNames.Field, size),
+        ComponentClassName.Field,
+        classNameModifier(ComponentClassName.Field, size),
         className
       )}
       data-size={size}

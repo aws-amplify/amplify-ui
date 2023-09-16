@@ -4,7 +4,7 @@ import * as React from 'react';
 
 import { sanitizeNamespaceImport } from '@aws-amplify/ui';
 
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { Flex } from '../Flex';
 import {
   BaseTabsProps,
@@ -77,7 +77,7 @@ const TabsPrimitive: Primitive<TabsProps, 'div'> = (
     <Root {...rootProps}>
       <List aria-label={ariaLabel}>
         <Flex
-          className={classNames(ComponentClassNames.Tabs, className)}
+          className={classNames(ComponentClassName.Tabs, className)}
           data-indicator-position={indicatorPosition}
           ref={ref}
           {...rest}
@@ -112,7 +112,7 @@ const TabItemPrimitive: Primitive<TabItemProps, 'button'> = (
 ) => (
   <View
     as={RadixTab}
-    className={classNames(ComponentClassNames.TabItems, className)}
+    className={classNames(ComponentClassName.TabItems, className)}
     ref={ref}
     {...rest}
   >

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { screen, render } from '@testing-library/react';
 
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { Menu, MENU_ITEMS_GROUP_TEST_ID } from '../Menu';
 import { MenuItem, MENU_ITEM_TEST_ID } from '../MenuItem';
 import { MENU_TRIGGER_TEST_ID } from '../Menu';
@@ -72,7 +72,7 @@ describe('Menu', () => {
     );
 
     const menuItemsGroup = screen.queryByTestId(MENU_ITEMS_GROUP_TEST_ID);
-    expect(menuItemsGroup).toHaveClass(ComponentClassNames.MenuContent);
+    expect(menuItemsGroup).toHaveClass(ComponentClassName.MenuContent);
   });
 
   it('should be closable (controlled)', () => {
@@ -97,7 +97,7 @@ describe('Menu', () => {
       const menuTrigger = await screen.findByTestId(MENU_TRIGGER_TEST_ID);
 
       expect(menuTrigger).toHaveClass(
-        ComponentClassNames.MenuTrigger,
+        ComponentClassName.MenuTrigger,
         triggerClassName
       );
     });
@@ -136,11 +136,11 @@ describe('Menu', () => {
       const menuItems = await screen.findAllByTestId(MENU_ITEM_TEST_ID);
 
       expect(menuItemsGroup).toHaveClass(
-        ComponentClassNames.MenuContent,
+        ComponentClassName.MenuContent,
         className
       );
       expect(menuItems[0]).toHaveClass(
-        ComponentClassNames.MenuItem,
+        ComponentClassName.MenuItem,
         menuItem1ClassName
       );
     });

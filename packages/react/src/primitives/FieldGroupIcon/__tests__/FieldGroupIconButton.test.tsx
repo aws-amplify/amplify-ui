@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import * as React from 'react';
 
 import { FieldGroupIconButton } from '../FieldGroupIconButton';
-import { ComponentClassNames } from '../../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 describe('FieldGroupIconButton:', () => {
   it('should render default and custom classname', async () => {
@@ -11,7 +11,7 @@ describe('FieldGroupIconButton:', () => {
 
     const fieldGroupIconButton = await screen.findByRole('button');
     expect(fieldGroupIconButton).toHaveClass(
-      ComponentClassNames.FieldGroupIconButton,
+      ComponentClassName.FieldGroupIconButton,
       className
     );
   });
@@ -29,6 +29,6 @@ describe('FieldGroupIconButton:', () => {
 
     const disabled = await screen.findByTestId('disabled');
 
-    expect(disabled).toHaveClass(`${ComponentClassNames.Button}--disabled`);
+    expect(disabled).toHaveClass(`${ComponentClassName.Button}--disabled`);
   });
 });

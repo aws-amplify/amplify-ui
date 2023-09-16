@@ -1,11 +1,7 @@
 import React from 'react';
 
-import {
-  View,
-  Loader,
-  ComponentClassNames,
-  Button,
-} from '@aws-amplify/ui-react';
+import { ComponentClassName } from '@aws-amplify/ui';
+import { View, Loader, Button } from '@aws-amplify/ui-react';
 
 import { FileStatus } from '../../types';
 import { FileStatusMessage } from './FileStatusMessage';
@@ -39,8 +35,8 @@ export function FileControl({
   } = displayText;
 
   return (
-    <View className={ComponentClassNames.StorageManagerFile}>
-      <View className={ComponentClassNames.StorageManagerFileWrapper}>
+    <View className={ComponentClassName.StorageManagerFile}>
+      <View className={ComponentClassName.StorageManagerFileWrapper}>
         {showThumbnails ? (
           <FileThumbnail
             isImage={isImage}
@@ -51,7 +47,7 @@ export function FileControl({
         <UploadDetails displayName={displayName} fileSize={size} />
         {status === FileStatus.UPLOADING ? (
           <Loader
-            className={ComponentClassNames.StorageManagerLoader}
+            className={ComponentClassName.StorageManagerLoader}
             variation="linear"
             percentage={progress}
             isDeterminate={loaderIsDeterminate}

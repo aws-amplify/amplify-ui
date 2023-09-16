@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 
 import { Fieldset } from '../Fieldset';
 
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 describe('Fieldset', () => {
   it('should render Fieldset variations', async () => {
@@ -21,9 +21,9 @@ describe('Fieldset', () => {
     const plain = await screen.findByTestId('plain');
 
     expect(outlined.classList).toContain(
-      `${ComponentClassNames.Fieldset}--outlined`
+      `${ComponentClassName.Fieldset}--outlined`
     );
-    expect(plain.classList).toContain(`${ComponentClassNames.Fieldset}--plain`);
+    expect(plain.classList).toContain(`${ComponentClassName.Fieldset}--plain`);
   });
 
   it('should forward ref to fieldset DOM element', async () => {
@@ -48,7 +48,7 @@ describe('Fieldset', () => {
     render(<Fieldset className={className} legend="Legend" testId={testId} />);
 
     const fieldset = await screen.findByTestId(testId);
-    expect(fieldset).toHaveClass(ComponentClassNames.Fieldset, className);
+    expect(fieldset).toHaveClass(ComponentClassName.Fieldset, className);
   });
 
   it('should render fieldset sizes', async () => {
@@ -62,8 +62,8 @@ describe('Fieldset', () => {
     const small = await screen.findByTestId('small');
     const large = await screen.findByTestId('large');
 
-    expect(small.classList).toContain(`${ComponentClassNames.Fieldset}--small`);
-    expect(large.classList).toContain(`${ComponentClassNames.Fieldset}--large`);
+    expect(small.classList).toContain(`${ComponentClassName.Fieldset}--small`);
+    expect(large.classList).toContain(`${ComponentClassName.Fieldset}--large`);
   });
 
   it('should add the disabled attribute when isDisabled prop is used', async () => {

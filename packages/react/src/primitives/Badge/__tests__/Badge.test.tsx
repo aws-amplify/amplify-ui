@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import { Badge } from '../Badge';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 describe('Badge:', () => {
   const badgeText = 'Badge primitive';
@@ -32,16 +32,16 @@ describe('Badge:', () => {
     const defaultAlert = await screen.findByTestId('default');
 
     expect(info.dataset['variation']).toBe('info');
-    expect(info.classList).toContain(`${ComponentClassNames['Badge']}--info`);
+    expect(info.classList).toContain(`${ComponentClassName['Badge']}--info`);
     expect(error.dataset['variation']).toBe('error');
-    expect(error.classList).toContain(`${ComponentClassNames['Badge']}--error`);
+    expect(error.classList).toContain(`${ComponentClassName['Badge']}--error`);
     expect(warning.dataset['variation']).toBe('warning');
     expect(warning.classList).toContain(
-      `${ComponentClassNames['Badge']}--warning`
+      `${ComponentClassName['Badge']}--warning`
     );
     expect(success.dataset['variation']).toBe('success');
     expect(success.classList).toContain(
-      `${ComponentClassNames['Badge']}--success`
+      `${ComponentClassName['Badge']}--success`
     );
     expect(defaultAlert.dataset['variation']).toBe(undefined);
   });
@@ -61,8 +61,8 @@ describe('Badge:', () => {
     const small = await screen.findByTestId('small');
     const large = await screen.findByTestId('large');
 
-    expect(small.classList).toContain(`${ComponentClassNames['Badge']}--small`);
-    expect(large.classList).toContain(`${ComponentClassNames['Badge']}--large`);
+    expect(small.classList).toContain(`${ComponentClassName['Badge']}--small`);
+    expect(large.classList).toContain(`${ComponentClassName['Badge']}--large`);
   });
 
   it('can apply styling via props', async () => {
@@ -80,7 +80,7 @@ describe('Badge:', () => {
     render(<Badge className="custom-badge">{badgeText}</Badge>);
     const badge = await screen.findByText(badgeText);
     expect(badge.classList.contains('custom-badge')).toBe(true);
-    expect(badge.classList.contains(ComponentClassNames.Badge)).toBe(true);
+    expect(badge.classList.contains(ComponentClassName.Badge)).toBe(true);
   });
 
   it('should forward ref to DOM element', async () => {

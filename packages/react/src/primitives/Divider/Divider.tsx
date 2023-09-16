@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import * as React from 'react';
 
 import { classNameModifier } from '../shared/utils';
-import { ComponentClassNames } from '../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseDividerProps,
   DividerProps,
@@ -16,10 +16,10 @@ const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
   ref
 ) => {
   const componentClasses = classNames(
-    ComponentClassNames.Divider,
-    classNameModifier(ComponentClassNames.Divider, orientation),
-    classNameModifier(ComponentClassNames.Divider, size),
-    label ? ComponentClassNames.DividerLabel : null,
+    ComponentClassName.Divider,
+    classNameModifier(ComponentClassName.Divider, orientation),
+    classNameModifier(ComponentClassName.Divider, size),
+    label ? ComponentClassName.DividerLabel : null,
     className
   );
 

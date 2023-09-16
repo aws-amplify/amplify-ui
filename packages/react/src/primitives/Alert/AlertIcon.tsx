@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { AlertVariations } from '../types';
 import {
   IconInfo,
@@ -40,7 +40,7 @@ export const AlertIcon: React.FC<AlertIconProps> = ({
   }
 
   return icon ? (
-    <span className={ComponentClassNames.AlertIcon}>{icon}</span>
+    <span className={ComponentClassName.AlertIcon}>{icon}</span>
   ) : null;
 };
 

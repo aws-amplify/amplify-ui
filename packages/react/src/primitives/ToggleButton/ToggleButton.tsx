@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { Button } from '../Button';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseToggleButtonProps,
   ToggleButtonProps,
@@ -36,10 +36,10 @@ const ToggleButtonPrimitive: Primitive<ToggleButtonProps, 'button'> = (
     value,
   });
   const componentClasses = classNames(
-    ComponentClassNames.ToggleButton,
-    classNameModifier(ComponentClassNames.ToggleButton, variation),
+    ComponentClassName.ToggleButton,
+    classNameModifier(ComponentClassName.ToggleButton, variation),
     classNameModifierByFlag(
-      ComponentClassNames.ToggleButton,
+      ComponentClassName.ToggleButton,
       'pressed',
       isPressed
     ),

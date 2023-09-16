@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BasePasswordFieldProps,
   PasswordFieldProps,
@@ -58,7 +58,7 @@ const PasswordFieldPrimitive: Primitive<PasswordFieldProps, 'input'> = (
       size={size}
       type={type}
       label={label}
-      className={classNames(ComponentClassNames.PasswordField, className)}
+      className={classNames(ComponentClassName.PasswordField, className)}
       ref={ref}
       hasError={hasError}
       {...rest}
