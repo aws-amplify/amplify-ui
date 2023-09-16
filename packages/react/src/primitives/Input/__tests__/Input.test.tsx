@@ -104,8 +104,8 @@ describe('Input component', () => {
     render(<Input size="small" variation="quiet" />);
 
     const input = await screen.findByRole('textbox');
-    expect(input.dataset['size']).toBe('small');
-    expect(input.dataset['variation']).toBe('quiet');
+    expect(input).toHaveClass(`${ComponentClassName.Input}--small`);
+    expect(input).toHaveClass(`${ComponentClassName.Input}--quiet`);
   });
 
   it('can set defaultChecked (uncontrolled)', async () => {

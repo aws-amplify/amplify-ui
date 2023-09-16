@@ -38,22 +38,24 @@ describe('ButtonGroup:', () => {
 
   it('should set size for each child button correctly', async () => {
     const size = 'large';
+    const className = `amplify-button--${size}`;
     render(getButtonGroup({ size }));
 
     const buttons = await screen.findAllByRole('button');
-    expect(buttons[0]).toHaveAttribute('data-size', size);
-    expect(buttons[1]).toHaveAttribute('data-size', size);
-    expect(buttons[2]).toHaveAttribute('data-size', size);
+    expect(buttons[0]).toHaveClass(className);
+    expect(buttons[1]).toHaveClass(className);
+    expect(buttons[2]).toHaveClass(className);
   });
 
   it('should set variation for each child button correctly', async () => {
     const variation = 'primary';
+    const className = `amplify-button--${variation}`;
     render(getButtonGroup({ variation }));
 
     const buttons = await screen.findAllByRole('button');
-    expect(buttons[0]).toHaveAttribute('data-variation', variation);
-    expect(buttons[1]).toHaveAttribute('data-variation', variation);
-    expect(buttons[2]).toHaveAttribute('data-variation', variation);
+    expect(buttons[0]).toHaveClass(className);
+    expect(buttons[1]).toHaveClass(className);
+    expect(buttons[2]).toHaveClass(className);
   });
 
   it('should forward ref to DOM element', async () => {

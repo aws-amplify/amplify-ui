@@ -35,8 +35,6 @@ const TablePrimitive: Primitive<TableProps, 'table'> = (
       as="table"
       className={componentClasses}
       data-highlightonhover={highlightOnHover}
-      data-size={size}
-      data-variation={variation}
       ref={ref}
       {...rest}
     >

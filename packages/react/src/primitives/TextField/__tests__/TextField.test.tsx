@@ -130,8 +130,8 @@ describe('TextField component', () => {
 
       const textField = await screen.findByTestId('testField');
       const input = await screen.findByRole('textbox');
-      expect(textField).toHaveAttribute('data-size', 'small');
-      expect(input).toHaveAttribute('data-variation', 'quiet');
+      expect(textField).toHaveClass(`${ComponentClassName.Field}--small`);
+      expect(input).toHaveClass(`${ComponentClassName.Input}--quiet`);
     });
 
     it('can set defaultValue', async () => {

@@ -32,15 +32,11 @@ describe('Alert:', () => {
     const success = await screen.findByTestId('success');
     const defaultAlert = await screen.findByTestId('default');
 
-    expect(info.dataset['variation']).toBe('info');
     expect(info.classList).toContain(`${ComponentClassName['Alert']}--info`);
-    expect(error.dataset['variation']).toBe('error');
     expect(error.classList).toContain(`${ComponentClassName['Alert']}--error`);
-    expect(warning.dataset['variation']).toBe('warning');
     expect(warning.classList).toContain(
       `${ComponentClassName['Alert']}--warning`
     );
-    expect(success.dataset['variation']).toBe('success');
     expect(success.classList).toContain(
       `${ComponentClassName['Alert']}--success`
     );

@@ -53,7 +53,6 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
         ComponentClassName.TextAreaField,
         className
       )}
-      data-size={size}
       testId={testId}
       {...styleProps}
     >

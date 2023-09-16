@@ -85,7 +85,6 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
         classNameModifier(ComponentClassName.SwitchField, size),
         className
       )}
-      data-size={size}
       data-label-position={labelPosition}
       ref={ref}
       {...rest}
@@ -114,7 +113,6 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
           ComponentClassName.SwitchWrapper,
           classNameModifier(ComponentClassName.SwitchWrapper, labelPosition)
         )}
-        data-label-position={labelPosition}
       >
         <LabelType as="span" className={ComponentClassName.SwitchLabel}>
           {label}

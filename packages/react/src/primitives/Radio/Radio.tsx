@@ -123,7 +123,6 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
           ComponentClassName.RadioButton,
           classNameModifier(ComponentClassName.RadioButton, size)
         )}
-        data-size={size}
         testId={testId}
       />
     </Flex>

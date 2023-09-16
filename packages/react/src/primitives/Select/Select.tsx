@@ -58,8 +58,6 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
         }
         isDisabled={isFieldsetDisabled ? isFieldsetDisabled : isDisabled}
         required={isRequired}
-        data-size={size}
-        data-variation={variation}
         className={componentClasses}
         ref={ref}
         {...rest}

@@ -76,7 +76,6 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
         classNameModifier(ComponentClassName.Rating, size),
         className
       )}
-      data-size={size}
       ref={ref}
       {...rest}
     >

@@ -48,7 +48,7 @@ describe('Switch Field', () => {
       const wrapper = container.getElementsByClassName(
         ComponentClassName.SwitchField
       )[0] as HTMLElement;
-      expect(wrapper.dataset['size']).toEqual('large');
+      expect(wrapper).toHaveClass(`${ComponentClassName.SwitchField}--large`);
     });
 
     it('should set the label for attribute to match the passed in id', () => {

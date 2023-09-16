@@ -183,14 +183,16 @@ describe('Table primitive', () => {
       const size = 'small';
       const { $table } = await setup({ size });
 
-      expect($table).toHaveAttribute('data-size', size);
+      expect($table).toHaveClass(`${ComponentClassName['Table']}--${size}`);
     });
 
     it('should set the data-variation attribute', async () => {
       const variation = 'striped';
       const { $table } = await setup({ variation });
 
-      expect($table).toHaveAttribute('data-variation', variation);
+      expect($table).toHaveClass(
+        `${ComponentClassName['Table']}--${variation}`
+      );
     });
   });
 

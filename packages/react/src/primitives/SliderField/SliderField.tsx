@@ -117,7 +117,6 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
         ComponentClassName.SliderField
       )}
       testId={testId}
-      data-size={size}
       {...styleProps}
     >
       <Label

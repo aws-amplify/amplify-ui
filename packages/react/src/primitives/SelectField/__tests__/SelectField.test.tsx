@@ -168,8 +168,8 @@ describe('SelectField', () => {
 
     const selectField = await screen.findByTestId(testId);
     const select = await screen.findByRole(role);
-    expect(selectField).toHaveAttribute('data-size', 'small');
-    expect(select).toHaveAttribute('data-variation', 'quiet');
+    expect(selectField).toHaveClass(`${ComponentClassName.Field}--small`);
+    expect(select).toHaveClass(`${ComponentClassName.Select}--quiet`);
   });
 
   it('should render size classes for SelectField', async () => {

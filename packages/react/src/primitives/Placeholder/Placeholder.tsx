@@ -26,7 +26,6 @@ const PlaceholderPrimitive: Primitive<PlaceholderProps, 'div'> = (
         classNameModifier(ComponentClassName.Placeholder, size),
         className
       )}
-      data-size={size}
       ref={ref}
       {...rest}
     />
