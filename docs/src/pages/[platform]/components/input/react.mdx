@@ -1,4 +1,4 @@
-import { Input, Label } from '@aws-amplify/ui-react';
+import { Input, Label, Flex } from '@aws-amplify/ui-react';
 
 import { InputDemo } from './demo';
 import {
@@ -138,38 +138,46 @@ Input provides several event handlers: `onSelect`, `onInput`, `onChange`, `onCop
 ### Input Types
 Input primitive comes styled for text input only (type `text`, `date`, `number`, etc). For text component combining Input and Label, see [TextField](textfield). For other input types, see [TextAreaField](textareafield), [CheckBoxField](checkboxfield), and [SelectField](selectfield).
   <Example>
-    <Label htmlFor="departing">Enter departing date ✈️</Label>
-    <Input
-      id="departing"
-      type="date"
-    />
+    <Flex direction="column" gap="small">
+      <Label htmlFor="departing">Enter departing date ✈️</Label>
+      <Input
+        id="departing"
+        type="date"
+      />
+    </Flex>
     <ExampleCode>
 
     ```jsx
-    <Label htmlFor="departing">Enter departing date ✈️</Label>
-    <Input
-      id="departing"
-      type="date"
-    />
+    <Flex direction="column" gap="small">
+      <Label htmlFor="departing">Enter departing date ✈️</Label>
+      <Input
+        id="departing"
+        type="date"
+      />
+    </Flex>
     ```
 
     </ExampleCode>
 
   </Example>
   <Example>
-    <Label htmlFor="quantity">Enter quantity needed: </Label>
-    <Input
-      id="quantity"
-      type="number"
-    />
+    <Flex direction="column" gap="small">
+      <Label htmlFor="quantity">Enter quantity needed: </Label>
+      <Input
+        id="quantity"
+        type="number"
+      />
+    </Flex>
     <ExampleCode>
 
     ```jsx
-    <Label htmlFor="quantity">Enter quantity needed: </Label>
-    <Input
-      id="quantity"
-      type="number"
-    />
+    <Flex direction="column" gap="small">
+      <Label htmlFor="quantity">Enter quantity needed: </Label>
+      <Input
+        id="quantity"
+        type="number"
+      />
+    </Flex>
     ```
 
     </ExampleCode>
@@ -217,8 +225,10 @@ To override styling on a specific Input, you can use a class selector or style p
 _Using a class selector:_
 
 <Example>
-  <Label htmlFor="custom-input">Square field</Label>
-  <Input className="custom-input-class" id="custom-input" />
+  <Flex direction="column" gap="small">
+    <Label htmlFor="custom-input">Square field</Label>
+    <Input className="custom-input-class" id="custom-input" />
+  </Flex>
   <ExampleCode>
     ```css
     /* styles.css */

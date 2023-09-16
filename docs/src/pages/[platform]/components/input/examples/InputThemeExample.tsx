@@ -1,4 +1,10 @@
-import { Input, Label, ThemeProvider, Theme } from '@aws-amplify/ui-react';
+import {
+  Flex,
+  Input,
+  Label,
+  ThemeProvider,
+  Theme,
+} from '@aws-amplify/ui-react';
 
 const theme: Theme = {
   name: 'input-theme',
@@ -16,7 +22,9 @@ const theme: Theme = {
 
 export const InputThemeExample = () => (
   <ThemeProvider theme={theme} colorMode="light">
-    <Label htmlFor="name">Name</Label>
-    <Input id="name" />
+    <Flex direction="column" gap="small">
+      <Label htmlFor="name">Name</Label>
+      <Input id="name" />
+    </Flex>
   </ThemeProvider>
 );

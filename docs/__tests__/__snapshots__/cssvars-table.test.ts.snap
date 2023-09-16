@@ -4251,6 +4251,38 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-components-fieldcontrol-color)\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-select-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-disabled-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-disabled-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-expanded-option-padding-block\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-expanded-option-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-expanded-padding-block\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-expanded-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-select-icon-wrapper-align-items\\",
         \\"value\\": \\"center\\"
     },
@@ -4296,11 +4328,15 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         \\"variable\\": \\"--amplify-components-select-option-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+        \\"value\\": \\"transparent\\"
     },
     {
         \\"variable\\": \\"--amplify-components-select-option-color\\",
         \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-option-disabled-background-color\\",
+        \\"value\\": \\"transparent\\"
     },
     {
         \\"variable\\": \\"--amplify-components-select-option-disabled-color\\",
