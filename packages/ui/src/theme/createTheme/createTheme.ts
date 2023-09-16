@@ -2,26 +2,11 @@
 import deepExtend from 'style-dictionary/lib/utils/deepExtend.js';
 import flattenProperties from 'style-dictionary/lib/utils/flattenProperties.js';
 
-import { defaultTheme } from './defaultTheme';
-import { Theme, DefaultTheme, WebTheme, Override } from './types';
-import { cssValue, cssNameTransform, setupTokens, SetupToken } from './utils';
-import { WebDesignToken } from './tokens/types/designToken';
-
-/**
- * This will take a design token and add some data to it for it
- * to be used in JS/CSS. It will create its CSS var name and update
- * the value to use a CSS var if it is a reference. It will also
- * add a `.toString()` method to make it easier to use in JS.
- *
- * We should see if there is a way to share this logic with style dictionary...
- */
-const setupToken: SetupToken<WebDesignToken> = ({ token, path }) => {
-  const name = `--${cssNameTransform({ path })}`;
-  const { value: original } = token;
-  const value = cssValue(token);
-
-  return { name, original, path, value, toString: () => `var(${name})` };
-};
+import { defaultTheme } from '../defaultTheme';
+import { Theme, DefaultTheme, WebTheme, Override } from '../types';
+import { setupToken, setupTokens } from './setupToken';
+import { WebDesignToken } from '../tokens/types/designToken';
+import { setupComponentTheme } from './setupComponentTheme';
 
 /**
  * This will be used like `const myTheme = createTheme({})`
@@ -38,7 +23,14 @@ export function createTheme(
   // deepExtend is an internal Style Dictionary method
   // that performs a deep merge on n objects. We could change
   // this to another 3p deep merge solution too.
-  const mergedTheme = deepExtend<DefaultTheme>([{}, DefaultTheme, theme]);
+  const mergedTheme = deepExtend<DefaultTheme>([
+    {},
+    DefaultTheme,
+    {
+      ...theme,
+      components: {},
+    },
+  ]);
 
   // Setting up the tokens. This is similar to what Style Dictionary
   // does. At the end of this, each token should have:
@@ -59,6 +51,19 @@ export function createTheme(
       .map((token: WebDesignToken) => `${token.name}: ${token.value};`)
       .join('\n') +
     `\n}\n`;
+  let className = {};
+
+  if (theme?.components) {
+    const component = setupComponentTheme(
+      `[data-amplify-theme="${name}"]`,
+      theme.components,
+      // @ts-ignore
+      tokens
+    );
+    console.log(component.css);
+    cssText += component.css;
+    className = component.className;
+  }
 
   let overrides: Array<Override> = [];
 
@@ -121,6 +126,7 @@ export function createTheme(
     breakpoints,
     name,
     cssText,
+    className,
     // keep overrides separate from base theme
     // this allows web platforms to use plain CSS scoped to a
     // selector and only override the CSS vars needed. This

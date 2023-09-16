@@ -1,28 +1,33 @@
-import { Breadcrumbs, ThemeProvider, createTheme } from '@aws-amplify/ui-react';
+import { Breadcrumbs } from '@aws-amplify/ui-react';
+import { Theme, createTheme } from '@aws-amplify/ui-react/theme';
 
 const theme = createTheme({
   name: 'breadcrumbs-theme',
-  tokens: {
-    components: {
-      breadcrumbs: {
-        separator: {
-          color: '{colors.brand.secondary.20}',
-          fontSize: '{fontSizes.xl}',
-          paddingInline: '{space.medium}',
-        },
-        link: {
-          current: {
-            color: '{colors.brand.secondary.80}',
+  components: {
+    breadcrumbs(tokens) {
+      return {
+        backgroundColor: tokens.colors.background.success,
+        element: {
+          separator: {
+            color: tokens.colors.brand.secondary[20],
+            fontSize: tokens.fontSizes.xl,
+          },
+          link: {
+            // Won't work:
+            // TODO: Need nested modifiers
+            // current: {
+            //   color: tokens.colors.brand.secondary[80],
+            // },
           },
         },
-      },
+      };
     },
   },
 });
 
 export default function BreadcrumbsThemeExample() {
   return (
-    <ThemeProvider theme={theme}>
+    <Theme theme={theme}>
       <Breadcrumbs
         items={[
           {
@@ -38,6 +43,6 @@ export default function BreadcrumbsThemeExample() {
           },
         ]}
       />
-    </ThemeProvider>
+    </Theme>
   );
 }
