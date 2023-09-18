@@ -71,7 +71,11 @@ jobs:
 
           - example: next
             package: react
-            tags: '@react and not @todo-react'
+            tags: '@react and not @todo-react and not @liveness-react'
+
+          - example: next-liveness
+            package: react
+            tags: '@liveness-react and not @react and not @todo-react'
 
           - example: vue
             package: vue
@@ -298,6 +302,234 @@ jobs:
       - name: Run E2E tests against ${{ matrix.example }} example
         id: e2e
         run: yarn e2e test:examples
+        env:
+          # Override on the default value in `cypress.json` with framework-specific tag
+          TAGS: '${{ matrix.tags }}'
+
+          # Env values for testing flows
+          DOMAIN: ${{ secrets.DOMAIN }}
+          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+          USERNAME: ${{ secrets.USERNAME }}
+          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+
+      - name: Upload failure screenshots and errors
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
+        if: ${{ failure() && steps.e2e.outcome != 'success' }}
+        with:
+          name: e2e-cypress-error-${{ matrix.package }}
+          path: |
+            packages/e2e/cypress/videos/**
+            packages/e2e/cypress/screenshots/**
+          retention-days: 5
+
+  e2e-liveness:
+    # Only run e2e tests if unit tests pass
+    runs-on: ubuntu-latest
+    environment: ci
+    env:
+      NODE_ENV: test
+
+    strategy:
+      # Run each examples (e.g. `next-example`) which uses a library (e.g. `@aws-amplify/ui-react`)
+      # BUT, Exclude `@todo-${{ package }}` tests in PRs
+      # See: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#using-environment-variables-in-a-matrix
+      matrix:
+        include:
+          - example: next-liveness
+            package: react
+            tags: '@liveness-react and not @react and not @todo-react'
+
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+        with:
+          # For `pull_request_target`, we want ref to point to `pull_request.head.ref` because `github.ref`
+          # always points to the target branch.
+          # See: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
+          ref: ${{ inputs.commit }}
+          repository: ${{ inputs.repository }}
+          persist-credentials: false
+
+      - name: Next.js Cache
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        with:
+          path: ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+
+      - name: Setup Node.js 16
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        with:
+          node-version: 16
+          cache: 'yarn'
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+
+      - name: Restore cypress runner Cache
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        id: restore-cypress-cache
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+
+      - name: Restore node_modules cache
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        id: restore-cache
+        with:
+          path: |
+            ./node_modules
+            **/node_modules
+          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
+
+      - name: Restore ui/dist cache
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        id: restore-ui-cache
+        with:
+          path: ./packages/ui/dist
+          key: ${{ runner.os }}-ui-${{ inputs.commit }}
+
+      - name: Restore ${{ matrix.package }}/dist cache
+        id: restore-package-cache
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        with:
+          path: ./packages/${{ matrix.package }}/dist
+          key: ${{ runner.os }}-${{ matrix.package }}-${{ inputs.commit }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+
+      - name: Install packages
+        if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
+        uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: false
+
+      - name: Build @aws-amplify/ui package
+        if: steps.restore-ui-cache.outputs.cache-hit != 'true'
+        run: yarn ui build
+
+      - name: Build react-core package
+        if: ${{ matrix.package == 'react' }}
+        run: yarn react-core build
+
+      - name: Build ${{ matrix.package }} package
+        if: steps.restore-package-cache.outputs.cache-hit != 'true'
+        run: yarn ${{ matrix.package }} build
+
+      - name: Build react-liveness package
+        if: ${{ matrix.package == 'react' }}
+        run: yarn react-liveness build
+
+      - name: Add Amplify CLI
+        run: yarn global add @aws-amplify/cli
+
+      - name: Configure auth credentials
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+
+      # Amplify CLI does not support headless pull with temporary credentials
+      # when useProfile is false.
+      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      - name: Create temp AWS Profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
+
+      - name: Pull down Auth AWS environments
+        run: yarn environments auth pull
+
+      - name: Create temp AWS profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.STORAGE_E2E_ROLE_ARN }}
+
+      - name: Create temp AWS profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
+
+      - name: Pull down Storage AWS environments
+        run: yarn environments storage pull
+
+      - name: Configure datastore credentials
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.DATASTORE_E2E_ROLE_ARN }}
+
+      - name: Create temp AWS profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
+
+      - name: Pull down Datastore AWS environments
+        run: yarn environments datastore pull
+
+      - name: Configure liveness credentials
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.LIVENESS_E2E_ROLE_ARN }}
+
+      - name: Create temp AWS profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
+
+      - name: Pull down Liveness AWS environments
+        run: yarn environments liveness pull
+
+      # Amplify CLI does not support headless pull with temporary credentials
+      # when useProfile is false.
+      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      - name: Create temp AWS Profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
+
+      - name: Pull down In-app-messaging AWS environments
+        run: yarn environments in-app-messaging pull
+
+      - name: Delete AWS profile
+        run: rm -rf ~/.aws
+
+      - name: Build ${{ matrix.example }} example
+        run: yarn ${{ matrix.example }}-example build
+
+      - name: Start ${{ matrix.example }} example
+        run: yarn ${{ matrix.example }}-example-liveness start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/ui/components/liveness/
+        env:
+          # Setting this value temporarily since the beta liveness sample app hits the gamma endpoint
+          NEXT_PUBLIC_STREAMING_API_URL: wss://streaming-rekognition-gamma.us-east-1.amazonaws.com
+
+      - name: Run E2E tests against ${{ matrix.example }} example
+        id: e2e
+        run: yarn e2e test:liveness
         env:
           # Override on the default value in `cypress.json` with framework-specific tag
           TAGS: '${{ matrix.tags }}'
