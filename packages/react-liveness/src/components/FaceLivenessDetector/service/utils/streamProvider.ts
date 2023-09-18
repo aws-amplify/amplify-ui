@@ -2,7 +2,6 @@ import {
   Credentials as AmplifyCredentials,
   getAmplifyUserAgent,
 } from '@aws-amplify/core';
-import { AmazonAIInterpretPredictionsProvider } from '@aws-amplify/predictions';
 import {
   ClientSessionInformationEvent,
   LivenessResponseStream,
@@ -59,7 +58,7 @@ function isEndStreamWithCodeEvent(obj: unknown): obj is EndStreamWithCodeEvent {
   return (obj as EndStreamWithCodeEvent).code !== undefined;
 }
 
-export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider {
+export class LivenessStreamProvider {
   public sessionId: string;
   public region: string;
   public videoRecorder: VideoRecorder;
@@ -79,7 +78,6 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
     videoEl,
     credentialProvider,
   }: StreamProviderArgs) {
-    super();
     this.sessionId = sessionId;
     this.region = region;
     this._stream = stream;
