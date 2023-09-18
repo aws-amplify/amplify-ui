@@ -80,8 +80,8 @@ const App = () => {
             error,
             children,
           }: {
-            error: Error;
-            children: React.ReactNode;
+            error: any;
+            children: JSX.Element | JSX.Element[];
           }) => {
             return (
               <View flex="1" backgroundColor="white">
