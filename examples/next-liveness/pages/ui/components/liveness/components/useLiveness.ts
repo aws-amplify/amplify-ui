@@ -41,7 +41,7 @@ export function useLiveness() {
     mutate();
   };
 
-  const handleGetLivenessDetection = async (sessionId) => {
+  const handleGetLivenessDetection = async (sessionId: string) => {
     const response = await API.get('BYOB', `/liveness/${sessionId}`, {});
     setGetLivenessResponse(response);
     return { isLive: response.isLive };

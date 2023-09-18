@@ -1,7 +1,7 @@
 import { Flex, Text, Image } from '@aws-amplify/ui-react';
 import { Badge, Button } from '@aws-amplify/ui-react';
 
-function truncateNumber(number, digitsAfterDot) {
+function truncateNumber(number: number, digitsAfterDot: number) {
   const str = `${number}`;
   const truncated = str.slice(0, str.indexOf('.') + digitsAfterDot + 1);
   return Math.max(parseFloat(truncated), 0.0001);
@@ -10,6 +10,9 @@ function truncateNumber(number, digitsAfterDot) {
 export default function LivenessInlineResults({
   getLivenessResponse,
   onUserCancel,
+}: {
+  getLivenessResponse: any;
+  onUserCancel: any;
 }) {
   const { isLive, confidenceScore, auditImageBytes } = getLivenessResponse;
 

@@ -8,6 +8,7 @@ import {
   Icon,
   Flex,
   Link,
+  ColorMode,
 } from '@aws-amplify/ui-react';
 
 export default function NavBar({
@@ -15,6 +16,11 @@ export default function NavBar({
   setColorMode,
   navOpen,
   handleNav,
+}: {
+  colorMode: ColorMode;
+  setColorMode: any;
+  navOpen: boolean;
+  handleNav: () => void;
 }) {
   return (
     <View position="relative">

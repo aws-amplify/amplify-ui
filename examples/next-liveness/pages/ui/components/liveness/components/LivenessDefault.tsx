@@ -11,6 +11,10 @@ export default function LivenessDefault({
   disableInstructionScreen = false,
   components = undefined,
   credentialProvider = undefined,
+}: {
+  disableInstructionScreen?: boolean;
+  components?: any;
+  credentialProvider?: any;
 }) {
   const {
     getLivenessResponse,

@@ -71,11 +71,11 @@ jobs:
 
           - example: next
             package: react
-            tags: '@react and not @todo-react and not @liveness'
+            tags: '@react and not @todo-react and not @liveness-react'
 
           - example: next-liveness
             package: react
-            tags: '@liveness and not @react and not @todo-react'
+            tags: '@liveness-react and not @react and not @todo-react'
 
           - example: vue
             package: vue
@@ -338,7 +338,7 @@ jobs:
         include:
           - example: next-liveness
             package: react
-            tags: '@liveness and not @react and not @todo-react'
+            tags: '@liveness-react and not @react and not @todo-react'
 
     steps:
       - name: Checkout Amplify UI
@@ -501,12 +501,6 @@ jobs:
 
       - name: Pull down Liveness AWS environments
         run: yarn environments liveness pull
-
-      - name: Configure in-app-messaging credentials
-        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
-        with:
-          aws-region: us-east-2
-          role-to-assume: ${{ secrets.IN_APP_MESSAGING_E2E_ROLE_ARN }}
 
       # Amplify CLI does not support headless pull with temporary credentials
       # when useProfile is false.

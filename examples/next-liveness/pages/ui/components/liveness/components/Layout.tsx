@@ -11,7 +11,7 @@ import '@aws-amplify/ui-react-liveness/styles.css';
 import '../style.css';
 import NavBar from './NavBar';
 
-export default function Layout({ children }) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   const [colorMode, setColorMode] = React.useState<ColorMode>('system');
   const [navOpen, toggleNavOpen] = React.useState(false);
 

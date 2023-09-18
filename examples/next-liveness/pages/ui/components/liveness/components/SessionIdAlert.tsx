@@ -2,14 +2,14 @@ import * as React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Alert, Button, Flex, Icon, Text } from '@aws-amplify/ui-react';
 
-export const SessionIdAlert = ({ sessionId }) => {
+export const SessionIdAlert = ({ sessionId }: { sessionId: string }) => {
   return (
     <Alert role="none">
       <Flex alignItems="center">
         <Text color="font.primary">
           SessionId: <strong>{sessionId}</strong>
         </Text>
-        <CopyToClipboard text={sessionId} marginLeft="auto">
+        <CopyToClipboard text={sessionId}>
           <Button size="small">
             <Icon>
               <path

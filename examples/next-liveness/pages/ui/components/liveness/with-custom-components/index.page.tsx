@@ -76,7 +76,13 @@ const App = () => {
               </Card>
             );
           },
-          ErrorView: ({ error, children }) => {
+          ErrorView: ({
+            error,
+            children,
+          }: {
+            error: Error;
+            children: React.ReactNode;
+          }) => {
             return (
               <View flex="1" backgroundColor="white">
                 <Heading color="black">My Custom Error Modal</Heading>
