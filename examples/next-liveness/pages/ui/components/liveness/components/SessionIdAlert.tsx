@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import CopyToClipboard from 'react-copy-to-clipboard';
 import { Alert, Button, Flex, Icon, Text } from '@aws-amplify/ui-react';
 
 export const SessionIdAlert = ({ sessionId }: { sessionId: string }) => {
