@@ -2,8 +2,7 @@
 
 // https://nextjs.org/docs/advanced-features/custom-app
 import App from 'next/app';
-import { Amplify, Hub } from 'aws-amplify';
-import { Authenticator, AmplifyProvider } from '@aws-amplify/ui-react';
+import { AmplifyProvider } from '@aws-amplify/ui-react';
 
 export default function MyApp(props: any) {
   return (
