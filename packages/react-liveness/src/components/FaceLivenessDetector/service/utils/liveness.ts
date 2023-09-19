@@ -460,7 +460,7 @@ export function isCameraDeviceVirtual(device: MediaDeviceInfo): boolean {
   return device.label.toLowerCase().includes('virtual');
 }
 
-export const LivenessErrorStateStringMap: Record<string, string> = {
+export const LivenessErrorStateStringMap = {
   [LivenessErrorState.RUNTIME_ERROR]: 'RUNTIME_ERROR',
   [LivenessErrorState.SERVER_ERROR]: 'SERVER_ERROR',
   [LivenessErrorState.TIMEOUT]: 'TIMEOUT',
