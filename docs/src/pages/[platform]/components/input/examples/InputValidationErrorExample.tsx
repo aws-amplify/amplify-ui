@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Input, Label } from '@aws-amplify/ui-react';
+import { Input, Label, Flex } from '@aws-amplify/ui-react';
 
 export const InputValidationErrorExample = () => {
   const [hasError, setHasError] = React.useState(true);
@@ -10,9 +10,9 @@ export const InputValidationErrorExample = () => {
   };
 
   return (
-    <>
+    <Flex direction="column" gap="small">
       <Label htmlFor="username">Username</Label>
       <Input id="username" hasError={hasError} onChange={validateUsername} />
-    </>
+    </Flex>
   );
 };

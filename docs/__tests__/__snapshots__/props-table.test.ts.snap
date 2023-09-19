@@ -9742,6 +9742,20 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseSelectProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"isMultiple\\": {
+                        \\"name\\": \\"isMultiple\\",
+                        \\"type\\": \\"boolean | undefined\\",
+                        \\"description\\": \\"A Boolean attribute indicating that multiple options can be selected at once\\",
+                        \\"category\\": \\"BaseSelectProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"selectSize\\": {
+                        \\"name\\": \\"selectSize\\",
+                        \\"type\\": \\"number | undefined\\",
+                        \\"description\\": \\"Sets the number of visible options in a drop-down list\\",
+                        \\"category\\": \\"BaseSelectProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"isRequired\\": {
                         \\"name\\": \\"isRequired\\",
                         \\"type\\": \\"boolean | undefined\\",

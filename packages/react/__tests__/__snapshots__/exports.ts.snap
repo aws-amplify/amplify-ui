@@ -11577,6 +11577,9 @@ Object {
       "isDisabled": Object {
         "type": "boolean",
       },
+      "isMultiple": Object {
+        "type": "boolean",
+      },
       "isRequired": Object {
         "type": "boolean",
       },
@@ -11714,6 +11717,9 @@ Object {
       },
       "rowStart": Object {
         "type": "string",
+      },
+      "selectSize": Object {
+        "type": "number",
       },
       "shrink": Object {
         "type": "string",
