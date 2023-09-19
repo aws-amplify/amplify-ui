@@ -45,7 +45,7 @@
     "@aws-amplify/ui-react-core-notifications": "1.0.9"
   },
   "peerDependencies": {
-    "aws-amplify": "console-preview",
+    "aws-amplify": "next",
     "react": ">= 16.14.0",
     "react-native": ">= 0.63.4",
     "react-native-safe-area-context": ">= 4.2.5"

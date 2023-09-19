@@ -48,7 +48,7 @@
     "tslib": "2.4.1"
   },
   "peerDependencies": {
-    "aws-amplify": "console-preview",
+    "aws-amplify": "next",
     "react": ">= 16.14.0",
     "react-dom": ">= 16.14.0"
   },

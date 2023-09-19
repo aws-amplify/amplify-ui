@@ -37,7 +37,7 @@
     "xstate": "^4.33.6"
   },
   "peerDependencies": {
-    "aws-amplify": "console-preview",
+    "aws-amplify": "next",
     "react": ">= 16.14.0"
   },
   "devDependencies": {

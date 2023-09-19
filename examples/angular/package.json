@@ -21,7 +21,7 @@
     "@angular/platform-browser-dynamic": "^14.3.0",
     "@angular/router": "^14.3.0",
     "@aws-amplify/ui-angular": "^4.0.8",
-    "aws-amplify": "console-preview",
+    "aws-amplify": "next",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"

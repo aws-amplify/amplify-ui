@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import { isFunction } from '@aws-amplify/ui';
 import { useHasValueUpdated } from '@aws-amplify/ui-react-core';
-import { getUrl, StorageOptions } from '@aws-amplify/storage';
+import { getUrl, GetUrlInput } from 'aws-amplify/storage';
 
 interface UseStorageURLParams {
   key: string;
-  options?: StorageOptions;
+  options?: GetUrlInput['options'];
   fallbackURL?: string;
   onStorageGetError?: (error: Error) => void;
 }

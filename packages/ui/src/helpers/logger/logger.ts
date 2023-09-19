@@ -1,4 +1,4 @@
-import { ConsoleLogger } from '@aws-amplify/core/internals/utils';
+import { ConsoleLogger } from '@aws-amplify/core';
 
 type LoggerCategory =
   | 'AccountSettings'
