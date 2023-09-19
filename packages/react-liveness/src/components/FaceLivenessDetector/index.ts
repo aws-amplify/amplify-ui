@@ -11,4 +11,5 @@ export {
   AwsTemporaryCredentials,
   AwsCredentials,
   LivenessErrorState,
+  ErrorState,
 } from './service';

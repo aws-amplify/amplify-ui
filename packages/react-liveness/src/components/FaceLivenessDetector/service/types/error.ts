@@ -13,3 +13,14 @@ export enum LivenessErrorState {
   MOBILE_LANDSCAPE_ERROR = 'MOBILE_LANDSCAPE_ERROR',
   MULTIPLE_FACES_ERROR = 'MULTIPLE_FACES_ERROR',
 }
+
+export type ErrorState =
+  | LivenessErrorState.TIMEOUT
+  | LivenessErrorState.RUNTIME_ERROR
+  | LivenessErrorState.FRESHNESS_TIMEOUT
+  | LivenessErrorState.SERVER_ERROR
+  | LivenessErrorState.CAMERA_FRAMERATE_ERROR
+  | LivenessErrorState.CAMERA_ACCESS_ERROR
+  | LivenessErrorState.FACE_DISTANCE_ERROR
+  | LivenessErrorState.MOBILE_LANDSCAPE_ERROR
+  | LivenessErrorState.MULTIPLE_FACES_ERROR;
