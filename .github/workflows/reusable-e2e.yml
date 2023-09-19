@@ -73,10 +73,6 @@ jobs:
             package: react
             tags: '@react and not @todo-react and not @liveness-react'
 
-          - example: next-liveness
-            package: react
-            tags: '@liveness-react and not @react and not @todo-react'
-
           - example: vue
             package: vue
             tags: '@vue and not @todo-vue'
@@ -336,7 +332,7 @@ jobs:
       # See: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#using-environment-variables-in-a-matrix
       matrix:
         include:
-          - example: next-liveness
+          - example: next
             package: react
             tags: '@liveness-react and not @react and not @todo-react'
 
@@ -512,14 +508,11 @@ jobs:
           aws configure set aws_session_token $AWS_SESSION_TOKEN && \
           aws configure set default.region $AWS_REGION
 
-      - name: Pull down In-app-messaging AWS environments
-        run: yarn environments in-app-messaging pull
-
       - name: Delete AWS profile
         run: rm -rf ~/.aws
 
       - name: Build ${{ matrix.example }} example
-        run: yarn ${{ matrix.example }}-example build
+        run: yarn ${{ matrix.example }}-example-liveness build
 
       - name: Start ${{ matrix.example }} example
         run: yarn ${{ matrix.example }}-example-liveness start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/ui/components/liveness/
