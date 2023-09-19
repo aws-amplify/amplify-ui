@@ -11,12 +11,12 @@ import {
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
 
-const basicProps = { label: 'testLabel', name: 'testName', testId: 'testId' };
+const basicProps = { legend: 'testLabel', name: 'testName', testId: 'testId' };
 const radioGroupTestId = `${basicProps.testId}-${ComponentClassName.RadioGroup}`;
 
-const RadioFieldGroup = ({ label, name, ...props }: RadioGroupFieldProps) => {
+const RadioFieldGroup = ({ legend, name, ...props }: RadioGroupFieldProps) => {
   return (
-    <RadioGroupField label={label} name={name} {...props}>
+    <RadioGroupField legend={legend} name={name} {...props}>
       <Radio value="html" testId="radio-button">
         html
       </Radio>
@@ -78,21 +78,21 @@ describe('RadioFieldGroup', () => {
     it('should render visually-hidden legend element with label name', async () => {
       render(RadioFieldGroup({ ...basicProps }));
 
-      const labelElement = await screen.findAllByText(basicProps.label);
+      const labelElement = await screen.findAllByText(basicProps.legend);
       expect(labelElement[0].nodeName).toBe('LEGEND');
     });
 
     it('should render expected label classname', async () => {
       render(RadioFieldGroup({ ...basicProps }));
 
-      const labelElement = await screen.findAllByText(basicProps.label);
+      const labelElement = await screen.findAllByText(basicProps.legend);
       expect(labelElement[1]).toHaveClass(ComponentClassName.Label);
     });
 
     it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
       render(RadioFieldGroup({ ...basicProps, labelHidden: true }));
 
-      const labelElement = await screen.findAllByText(basicProps.label);
+      const labelElement = await screen.findAllByText(basicProps.legend);
       expect(labelElement[1]).toHaveClass('amplify-visually-hidden');
     });
   });

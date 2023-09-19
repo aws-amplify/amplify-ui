@@ -12,8 +12,9 @@ import { demoState } from '@/utils/demoState';
 import { getPropString } from '../utils/getPropString';
 
 const propsToCode = ({
-  label,
+  legend,
   labelPosition,
+  variation,
   size,
   direction,
   name,
@@ -21,9 +22,10 @@ const propsToCode = ({
 }: RadioGroupFieldProps) => {
   return (
     `<RadioGroupField` +
-    getPropString(label, 'label') +
+    getPropString(legend, 'legend') +
     getPropString(name, 'name') +
     getPropString(labelPosition, 'labelPosition') +
+    getPropString(variation, 'variation') +
     (direction === 'row' ? `\n  direction=${JSON.stringify(direction)}` : '') +
     getPropString(size, 'size') +
     (isDisabled ? `\n  isDisabled={${isDisabled}}` : '') +
@@ -54,8 +56,9 @@ export const RadioGroupFieldDemo = () => {
     >
       <RadioGroupField
         name={props.name}
-        label={props.label}
+        legend={props.legend}
         defaultValue={props.defaultValue}
+        variation={props.variation}
         labelPosition={props.labelPosition}
         isDisabled={props.isDisabled}
         direction={props.direction}

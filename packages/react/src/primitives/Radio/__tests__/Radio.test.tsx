@@ -117,7 +117,7 @@ describe('RadioField test suite', () => {
   it('should inherit labelPosition from RadioGroupField', async () => {
     render(
       <RadioGroupField
-        label="label"
+        legend="label"
         name="label"
         labelPosition="end"
         testId="test"
@@ -135,7 +135,7 @@ describe('RadioField test suite', () => {
   it('should not inherit labelPosition from RadioGroupField', async () => {
     render(
       <RadioGroupField
-        label="label"
+        legend="label"
         name="label"
         labelPosition="end"
         testId="test"
