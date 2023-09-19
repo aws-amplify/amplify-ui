@@ -1,5 +1,31 @@
 # @aws-amplify/ui
 
+## 5.8.1
+
+### Patch Changes
+
+- [#4414](https://github.com/aws-amplify/amplify-ui/pull/4414) [`d570694c7`](https://github.com/aws-amplify/amplify-ui/commit/d570694c7e0d9d112449d3aade2d567773555926) Thanks [@lavr001](https://github.com/lavr001)! - added new `isMultiple` and `selectSize` props for the `SelectField` component
+
+  Example:
+
+  ```
+    <SelectField
+      label="Fruit"
+      descriptiveText="What's your favorite fruit?"
+      selectSize={3}
+      isMultiple={true}
+    >
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+      <option value="orange">Orange</option>
+      <option value="pineapple">Pineapple</option>
+      <option value="kiwi">Kiwi</option>
+      <option value="tangerine">Tangerine</option>
+    </SelectField>
+  ```
+
+- [#4457](https://github.com/aws-amplify/amplify-ui/pull/4457) [`6a5a4d79c`](https://github.com/aws-amplify/amplify-ui/commit/6a5a4d79ce60124fba2dc00d86b9e1a9b5f21c39) Thanks [@esauerbo](https://github.com/esauerbo)! - fix(ui): remove error border from disabled and quiet primitive fields
+
 ## 5.8.0
 
 ### Minor Changes
