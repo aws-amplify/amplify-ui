@@ -3,7 +3,7 @@ import React from 'react';
 import { Flex, Button, Text } from '@aws-amplify/ui-react';
 import { AlertIcon } from '@aws-amplify/ui-react/internal';
 
-import { LivenessErrorState } from '../service';
+import { LivenessErrorState, ErrorState } from '../service';
 
 import { Toast } from './Toast';
 import { Overlay } from './Overlay';
@@ -21,7 +21,7 @@ export interface FaceLivenessErrorModalProps {
 }
 
 const renderToastErrorModal = (props: {
-  error: LivenessErrorState;
+  error: ErrorState;
   displayText: Required<ErrorDisplayText>;
 }) => {
   const { error: errorState, displayText } = props;
@@ -80,7 +80,7 @@ export const renderErrorModal = ({
   errorState,
   overrideErrorDisplayText,
 }: {
-  errorState: LivenessErrorState;
+  errorState: ErrorState;
   overrideErrorDisplayText?: ErrorDisplayText;
 }): JSX.Element | null => {
   const displayText: Required<ErrorDisplayText> = {
