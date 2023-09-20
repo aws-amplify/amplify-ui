@@ -153,12 +153,12 @@ An HTML `<legend>` element is automatically associated with the RadioGroupField'
 If no `id` is provided to `<Radio>`, one will be automatically generated and connected to both the `label` and the form control; in this case the `input[type="radio"]`.
 
 
-#### How can I visually hide the legend while maintaining accessibility?
+#### How can I visually hide the legend or labels while maintaining accessibility?
 
 In some applications it may be desirable to hide the legend when the field purpose is visually apparent such as a search field with button.
-The `legendHidden` prop can be used to visually hide the legend while still keeping it visible for screenreaders.
+The `legendHidden` prop can be used on `RadioGroupField` to visually hide the `<legend>` while still keeping it available to screenreaders. Similarily, the `labelHidden` prop can be used to accessibly hide a `<Radio>` element's `<label>`
 
-UX Tip: refrain hiding legend if doing so hides important information needed by the user to fill out the field.
+UX Tip: refrain hiding legends and labels if doing so hides important information needed by the user to fill out the field.
 
 ## CSS Styling
 
