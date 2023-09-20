@@ -175,7 +175,7 @@ describe('RadioFieldGroup', () => {
       expect(javascript).toBeChecked();
     });
 
-    it('should set size attribute', async () => {
+    it('should have --large appended to the classname when size is large', async () => {
       render(RadioFieldGroup({ ...basicProps, size: 'large' }));
 
       const radioField = await screen.findByTestId(basicProps.testId);
