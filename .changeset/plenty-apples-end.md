@@ -9,6 +9,6 @@ refactor(ui): update radiogroupfield to use fieldset
 Update to `RadioGroupField` component props: 
  - `legend` replaces `label`
  - `legendHidden` replaces `labelHidden`
-
+ 
 Example usage:
 ``` <RadioGroupField legend="Language" legendHidden /> ```
