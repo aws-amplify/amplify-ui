@@ -14,11 +14,11 @@
     "@aws-amplify/ui-react-liveness": "^2.0.6",
     "@aws-sdk/credential-providers": "^3.370.0",
     "aws-amplify": "5",
-    "next": "^11.1.3",
+    "next": "^13.4.19",
     "next-global-css": "^1.1.1",
-    "react": "17",
+    "react": "18",
     "react-copy-to-clipboard": "^5.1.0",
-    "react-dom": "17",
+    "react-dom": "18",
     "react-icons": "^4.4.0",
     "react-map-gl": "7.0.23",
     "swr": "^2.0.0"
@@ -33,8 +33,11 @@
   "workspaces": {
     "nohoist": [
       "aws-amplify",
-      "react",
-      "react-dom"
+      "**/aws-amplify/**",
+      "**/react/",
+      "**/react/**",
+      "react-dom",
+      "**/react-dom/**"
     ]
   }
 }
