@@ -18,11 +18,11 @@ export const useRadioGroupFieldProps: UseRadioGroupFieldProps = (
     RadioGroupFieldProps['isDisabled']
   >(initialValues.isDisabled);
   const [legend, setLegend] = React.useState<RadioGroupFieldProps['legend']>(
-    initialValues.label
+    initialValues.legend
   );
   const [variation, setVariation] = React.useState<
     RadioGroupFieldProps['variation']
-  >(initialValues.label);
+  >(initialValues.legend);
   const [name, setName] = React.useState<RadioGroupFieldProps['name']>(
     initialValues.name
   );

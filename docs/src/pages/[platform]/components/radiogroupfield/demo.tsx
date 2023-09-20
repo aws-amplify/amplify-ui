@@ -38,7 +38,7 @@ const propsToCode = ({
 };
 
 const defaultRadioGroupFieldProps = {
-  label: 'Language',
+  legend: 'Language',
   name: 'language',
   defaultValue: 'HTML',
 };
