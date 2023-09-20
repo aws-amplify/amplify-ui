@@ -74,31 +74,27 @@ describe('RadioFieldGroup', () => {
     );
   });
 
-  describe('Label', () => {
-    it('should render visually-hidden legend element with label name', async () => {
+  describe('Legend', () => {
+    it('should render visually-hidden legend element with legend name', async () => {
       render(RadioFieldGroup({ ...basicProps }));
 
-      const labelElement = await screen.findAllByText(basicProps.legend);
-      expect(labelElement[0].nodeName).toBe('LEGEND');
+      const legendElement = await screen.findAllByText(basicProps.legend);
+      expect(legendElement[0].nodeName).toBe('LEGEND');
     });
 
     it('should have `amplify-fieldset__legend` classname', async () => {
-      render(RadioFieldGroup({ ...basicProps, labelHidden: true }));
+      render(RadioFieldGroup({ ...basicProps, legendHidden: true }));
 
-      const labelElement = await screen.findAllByText(basicProps.legend);
+      const legendElement = await screen.findAllByText(basicProps.legend);
 
-      expect(labelElement[1]).toHaveClass('amplify-fieldset__legend');
+      expect(legendElement[1]).toHaveClass('amplify-fieldset__legend');
     });
 
-    it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
-      render(RadioFieldGroup({ ...basicProps, labelHidden: true }));
+    it('should have `amplify-visually-hidden` class when legendHidden is true', async () => {
+      render(RadioFieldGroup({ ...basicProps, legendHidden: true }));
 
-      const labelElement = await screen.findAllByText(basicProps.legend);
-      // expect(labelElement[1]).toHaveClass('amplify-visually-hidden');
-      // expect(
-      //   labelElement[1].classList.contains('amplify-visually-hidden')
-      // ).toBe(true);
-      expect(labelElement[1].classList).toContain('amplify-visually-hidden');
+      const legendElement = await screen.findAllByText(basicProps.legend);
+      expect(legendElement[1]).toHaveClass('amplify-visually-hidden');
     });
   });
 
@@ -183,25 +179,21 @@ describe('RadioFieldGroup', () => {
       render(RadioFieldGroup({ ...basicProps, size: 'large' }));
 
       const radioField = await screen.findByTestId(basicProps.testId);
-      // expect(radioField).toHaveAttribute('size', 'large');
-      // expect(radioField).toHaveClass(
-      //   `${ComponentClassName['Fieldset']}--large`
-      // );
-      expect(radioField).toContain(`${ComponentClassName['Fieldset']}--large`);
+      expect(radioField).toHaveClass(
+        `${ComponentClassName['Fieldset']}--large`
+      );
 
       const radioButtons = await screen.findAllByTestId('radio-button');
-      expect(radioButtons[0]).toHaveAttribute('size', 'large');
-      expect(radioButtons[1]).toHaveAttribute('size', 'large');
-      expect(radioButtons[2]).toHaveAttribute('size', 'large');
-      // expect(radioButtons[0]).toContain(
-      //   `${ComponentClassName['Field']}--large`
-      // );
-      // expect(radioButtons[1]).toContain(
-      //   `${ComponentClassName['Field']}--large`
-      // );
-      // expect(radioButtons[2]).toContain(
-      //   `${ComponentClassName['Field']}--large`
-      // );
+
+      expect(radioButtons[0]).toHaveClass(
+        `${ComponentClassName['RadioButton']}--large`
+      );
+      expect(radioButtons[1]).toHaveClass(
+        `${ComponentClassName['RadioButton']}--large`
+      );
+      expect(radioButtons[2]).toHaveClass(
+        `${ComponentClassName['RadioButton']}--large`
+      );
     });
 
     it('should render size classes for RadioGroupField', async () => {
