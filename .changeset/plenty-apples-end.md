@@ -1,6 +1,4 @@
 ---
-"@aws-amplify/ui-docs": patch
-"@aws-amplify/ui-next-example": patch
 "@aws-amplify/ui-react": patch
 ---
 
