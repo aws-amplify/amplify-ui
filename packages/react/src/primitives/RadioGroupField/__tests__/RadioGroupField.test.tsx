@@ -82,18 +82,23 @@ describe('RadioFieldGroup', () => {
       expect(labelElement[0].nodeName).toBe('LEGEND');
     });
 
-    it('should render expected label classname', async () => {
-      render(RadioFieldGroup({ ...basicProps }));
+    it('should have `amplify-fieldset__legend` classname', async () => {
+      render(RadioFieldGroup({ ...basicProps, labelHidden: true }));
 
       const labelElement = await screen.findAllByText(basicProps.legend);
-      expect(labelElement[1]).toHaveClass(ComponentClassName.Label);
+
+      expect(labelElement[1]).toHaveClass('amplify-fieldset__legend');
     });
 
     it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
       render(RadioFieldGroup({ ...basicProps, labelHidden: true }));
 
       const labelElement = await screen.findAllByText(basicProps.legend);
-      expect(labelElement[1]).toHaveClass('amplify-visually-hidden');
+      // expect(labelElement[1]).toHaveClass('amplify-visually-hidden');
+      // expect(
+      //   labelElement[1].classList.contains('amplify-visually-hidden')
+      // ).toBe(true);
+      expect(labelElement[1].classList).toContain('amplify-visually-hidden');
     });
   });
 
@@ -178,12 +183,25 @@ describe('RadioFieldGroup', () => {
       render(RadioFieldGroup({ ...basicProps, size: 'large' }));
 
       const radioField = await screen.findByTestId(basicProps.testId);
-      expect(radioField).toHaveAttribute('data-size', 'large');
+      // expect(radioField).toHaveAttribute('size', 'large');
+      // expect(radioField).toHaveClass(
+      //   `${ComponentClassName['Fieldset']}--large`
+      // );
+      expect(radioField).toContain(`${ComponentClassName['Fieldset']}--large`);
 
       const radioButtons = await screen.findAllByTestId('radio-button');
-      expect(radioButtons[0]).toHaveAttribute('data-size', 'large');
-      expect(radioButtons[1]).toHaveAttribute('data-size', 'large');
-      expect(radioButtons[2]).toHaveAttribute('data-size', 'large');
+      expect(radioButtons[0]).toHaveAttribute('size', 'large');
+      expect(radioButtons[1]).toHaveAttribute('size', 'large');
+      expect(radioButtons[2]).toHaveAttribute('size', 'large');
+      // expect(radioButtons[0]).toContain(
+      //   `${ComponentClassName['Field']}--large`
+      // );
+      // expect(radioButtons[1]).toContain(
+      //   `${ComponentClassName['Field']}--large`
+      // );
+      // expect(radioButtons[2]).toContain(
+      //   `${ComponentClassName['Field']}--large`
+      // );
     });
 
     it('should render size classes for RadioGroupField', async () => {

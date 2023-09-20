@@ -52,7 +52,6 @@ const FieldsetPrimitive: Primitive<FieldsetProps, 'fieldset'> = (
   const legendClasses = classNames(
     ComponentClassName.FieldsetLegend,
     classNameModifier(ComponentClassName.FieldsetLegend, size),
-    className,
     {
       [ComponentClassName.VisuallyHidden]: legendHidden,
     }

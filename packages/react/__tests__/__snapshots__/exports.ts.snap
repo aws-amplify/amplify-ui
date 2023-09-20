@@ -10331,6 +10331,9 @@ Object {
       "fontWeight": Object {
         "type": "string",
       },
+      "form": Object {
+        "type": "string",
+      },
       "gap": Object {
         "type": "string",
       },
@@ -10364,9 +10367,6 @@ Object {
       "justifyContent": Object {
         "type": "string",
       },
-      "label": Object {
-        "type": "string",
-      },
       "labelHidden": Object {
         "type": "boolean",
       },
@@ -10375,6 +10375,12 @@ Object {
       },
       "left": Object {
         "type": "string",
+      },
+      "legend": Object {
+        "type": "string",
+      },
+      "legendHidden": Object {
+        "type": "boolean",
       },
       "letterSpacing": Object {
         "type": "string",
