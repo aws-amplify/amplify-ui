@@ -148,7 +148,10 @@ Use the `hasError` and `errorMessage` props to mark a RadioGroupField as having 
 
 ### Accessibility
 
-The form primitives are accessible by default. A matching `legend` HTML element will be connected to the form control -- simply provide a `legend` prop with a `string` or `ReactNode`. If no `id` is provided, one will be automatically generated and connected to both `legend` and form control elements.
+An HTML `<legend>` element is automatically associated with the RadioGroupField's `<fieldset>` via the `legend` prop so that the radiogroup is accessibly labelled.  For `Radio`, a `<label>` element will be automatically generated via the `label` prop. Both can accept a `string` or `ReactNode`. 
+
+If no `id` is provided to `<Radio>`, one will be automatically generated and connected to both the `label` and the form control; in this case the `input[type="radio"]`.
+
 
 #### How can I visually hide the legend while maintaining accessibility?
 
