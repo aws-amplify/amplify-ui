@@ -8,7 +8,7 @@ import { ElementType, PrimitiveProps } from './view';
 
 /** @deprecated For internal use only */
 export interface BaseRadioGroupFieldProps
-  extends Omit<BaseFieldProps, 'label'>,
+  extends Omit<BaseFieldProps, 'label' | 'labelHidden'>,
     FlexContainerStyleProps,
     BaseFieldsetProps,
     Omit<BaseInputProps, 'variation'> {
