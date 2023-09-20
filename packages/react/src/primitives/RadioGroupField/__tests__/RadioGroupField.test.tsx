@@ -87,7 +87,7 @@ describe('RadioFieldGroup', () => {
 
       const legendElement = await screen.findAllByText(basicProps.legend);
 
-      expect(legendElement[1]).toHaveClass('amplify-fieldset__legend');
+      expect(legendElement[1]).toHaveClass(ComponentClassName.FieldsetLegend);
     });
 
     it('should have `amplify-visually-hidden` class when legendHidden is true', async () => {
