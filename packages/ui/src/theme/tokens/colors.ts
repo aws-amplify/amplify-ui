@@ -39,17 +39,21 @@ type ColorValueScale<
   : Partial<BaseColorValueScale<VariantKey, Output, Platform>>;
 
 // scale keys
-type ScaleKey = 10 | 20 | 40 | 60 | 80 | 90 | 100;
+type ScaleKey = 10 | 30 | 20 | 40 | 50 | 60 | 70 | 80 | 90 | 100;
 type OverlayKey = 5 | 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90;
 
 // color palettes
 type ColorPaletteKey =
   | 'red'
   | 'orange'
+  | 'amber'
   | 'yellow'
+  | 'lime'
   | 'green'
   | 'teal'
+  | 'cyan'
   | 'blue'
+  | 'indigo'
   | 'purple'
   | 'pink'
   | 'neutral';
@@ -143,11 +147,14 @@ export type Colors<
 
 export const colors: Colors<'default'> = {
   red: {
-    10: { value: 'hsl(0, 75%, 95%)' },
-    20: { value: 'hsl(0, 75%, 85%)' },
-    40: { value: 'hsl(0, 75%, 75%)' },
-    60: { value: 'hsl(0, 50%, 50%)' },
-    80: { value: 'hsl(0, 95%, 30%)' },
+    10: { value: 'hsl(0, 100%, 98%)' },
+    20: { value: 'hsl(0, 100%, 95%)' },
+    30: { value: 'hsl(0, 100%, 90%)' },
+    40: { value: 'hsl(0, 93%, 79%)' },
+    50: { value: 'hsl(0, 86%, 67%)' },
+    60: { value: 'hsl(0, 78%, 59%)' },
+    70: { value: 'hsl(0, 57%, 42%)' },
+    80: { value: 'hsl(0, 70%, 28%)' },
     90: { value: 'hsl(0, 100%, 20%)' },
     100: { value: 'hsl(0, 100%, 15%)' },
   },
@@ -155,8 +162,25 @@ export const colors: Colors<'default'> = {
   orange: {
     10: { value: 'hsl(30, 75%, 95%)' },
     20: { value: 'hsl(30, 75%, 85%)' },
+    30: { value: 'hsl(30, 75%, 85%)' },
     40: { value: 'hsl(30, 75%, 75%)' },
+    50: { value: 'hsl(30, 75%, 75%)' },
     60: { value: 'hsl(30, 50%, 50%)' },
+    70: { value: 'hsl(30, 50%, 50%)' },
+    80: { value: 'hsl(30, 95%, 30%)' },
+    90: { value: 'hsl(30, 100%, 20%)' },
+    100: { value: 'hsl(30, 100%, 15%)' },
+  },
+
+  // TODO
+  amber: {
+    10: { value: 'hsl(30, 75%, 95%)' },
+    20: { value: 'hsl(30, 75%, 85%)' },
+    30: { value: 'hsl(30, 75%, 85%)' },
+    40: { value: 'hsl(30, 75%, 75%)' },
+    50: { value: 'hsl(30, 75%, 75%)' },
+    60: { value: 'hsl(30, 50%, 50%)' },
+    70: { value: 'hsl(30, 50%, 50%)' },
     80: { value: 'hsl(30, 95%, 30%)' },
     90: { value: 'hsl(30, 100%, 20%)' },
     100: { value: 'hsl(30, 100%, 15%)' },
@@ -165,8 +189,25 @@ export const colors: Colors<'default'> = {
   yellow: {
     10: { value: 'hsl(60, 75%, 95%)' },
     20: { value: 'hsl(60, 75%, 85%)' },
+    30: { value: 'hsl(60, 75%, 85%)' },
     40: { value: 'hsl(60, 75%, 75%)' },
+    50: { value: 'hsl(60, 75%, 75%)' },
     60: { value: 'hsl(60, 50%, 50%)' },
+    70: { value: 'hsl(60, 50%, 50%)' },
+    80: { value: 'hsl(60, 95%, 30%)' },
+    90: { value: 'hsl(60, 100%, 20%)' },
+    100: { value: 'hsl(60, 100%, 15%)' },
+  },
+
+  // TODO
+  lime: {
+    10: { value: 'hsl(60, 75%, 95%)' },
+    20: { value: 'hsl(60, 75%, 85%)' },
+    30: { value: 'hsl(60, 75%, 85%)' },
+    40: { value: 'hsl(60, 75%, 75%)' },
+    50: { value: 'hsl(60, 75%, 75%)' },
+    60: { value: 'hsl(60, 50%, 50%)' },
+    70: { value: 'hsl(60, 50%, 50%)' },
     80: { value: 'hsl(60, 95%, 30%)' },
     90: { value: 'hsl(60, 100%, 20%)' },
     100: { value: 'hsl(60, 100%, 15%)' },
@@ -175,8 +216,11 @@ export const colors: Colors<'default'> = {
   green: {
     10: { value: 'hsl(130, 60%, 95%)' },
     20: { value: 'hsl(130, 60%, 90%)' },
+    30: { value: 'hsl(130, 60%, 90%)' },
     40: { value: 'hsl(130, 44%, 63%)' },
+    50: { value: 'hsl(130, 44%, 63%)' },
     60: { value: 'hsl(130, 43%, 46%)' },
+    70: { value: 'hsl(130, 43%, 46%)' },
     80: { value: 'hsl(130, 33%, 37%)' },
     90: { value: 'hsl(130, 27%, 29%)' },
     100: { value: 'hsl(130, 22%, 23%)' },
@@ -185,8 +229,25 @@ export const colors: Colors<'default'> = {
   teal: {
     10: { value: 'hsl(190, 75%, 95%)' },
     20: { value: 'hsl(190, 75%, 85%)' },
+    30: { value: 'hsl(190, 75%, 85%)' },
     40: { value: 'hsl(190, 70%, 70%)' },
+    50: { value: 'hsl(190, 70%, 70%)' },
     60: { value: 'hsl(190, 50%, 50%)' },
+    70: { value: 'hsl(190, 50%, 50%)' },
+    80: { value: 'hsl(190, 95%, 30%)' },
+    90: { value: 'hsl(190, 100%, 20%)' },
+    100: { value: 'hsl(190, 100%, 15%)' },
+  },
+
+  // TODO
+  cyan: {
+    10: { value: 'hsl(190, 75%, 95%)' },
+    20: { value: 'hsl(190, 75%, 85%)' },
+    30: { value: 'hsl(190, 75%, 85%)' },
+    40: { value: 'hsl(190, 70%, 70%)' },
+    50: { value: 'hsl(190, 70%, 70%)' },
+    60: { value: 'hsl(190, 50%, 50%)' },
+    70: { value: 'hsl(190, 50%, 50%)' },
     80: { value: 'hsl(190, 95%, 30%)' },
     90: { value: 'hsl(190, 100%, 20%)' },
     100: { value: 'hsl(190, 100%, 15%)' },
@@ -195,8 +256,25 @@ export const colors: Colors<'default'> = {
   blue: {
     10: { value: 'hsl(220, 95%, 95%)' },
     20: { value: 'hsl(220, 85%, 85%)' },
+    30: { value: 'hsl(220, 85%, 85%)' },
     40: { value: 'hsl(220, 70%, 70%)' },
+    50: { value: 'hsl(220, 70%, 70%)' },
     60: { value: 'hsl(220, 50%, 50%)' },
+    70: { value: 'hsl(220, 50%, 50%)' },
+    80: { value: 'hsl(220, 95%, 30%)' },
+    90: { value: 'hsl(220, 100%, 20%)' },
+    100: { value: 'hsl(220, 100%, 15%)' },
+  },
+
+  // TODO
+  indigo: {
+    10: { value: 'hsl(220, 95%, 95%)' },
+    20: { value: 'hsl(220, 85%, 85%)' },
+    30: { value: 'hsl(220, 85%, 85%)' },
+    40: { value: 'hsl(220, 70%, 70%)' },
+    50: { value: 'hsl(220, 70%, 70%)' },
+    60: { value: 'hsl(220, 50%, 50%)' },
+    70: { value: 'hsl(220, 50%, 50%)' },
     80: { value: 'hsl(220, 95%, 30%)' },
     90: { value: 'hsl(220, 100%, 20%)' },
     100: { value: 'hsl(220, 100%, 15%)' },
@@ -205,8 +283,11 @@ export const colors: Colors<'default'> = {
   purple: {
     10: { value: 'hsl(300, 95%, 95%)' },
     20: { value: 'hsl(300, 85%, 85%)' },
+    30: { value: 'hsl(300, 85%, 85%)' },
     40: { value: 'hsl(300, 70%, 70%)' },
+    50: { value: 'hsl(300, 70%, 70%)' },
     60: { value: 'hsl(300, 50%, 50%)' },
+    70: { value: 'hsl(300, 50%, 50%)' },
     80: { value: 'hsl(300, 95%, 30%)' },
     90: { value: 'hsl(300, 100%, 20%)' },
     100: { value: 'hsl(300, 100%, 15%)' },
@@ -215,8 +296,11 @@ export const colors: Colors<'default'> = {
   pink: {
     10: { value: 'hsl(340, 95%, 95%)' },
     20: { value: 'hsl(340, 90%, 85%)' },
+    30: { value: 'hsl(340, 90%, 85%)' },
     40: { value: 'hsl(340, 70%, 70%)' },
+    50: { value: 'hsl(340, 70%, 70%)' },
     60: { value: 'hsl(340, 50%, 50%)' },
+    70: { value: 'hsl(340, 50%, 50%)' },
     80: { value: 'hsl(340, 95%, 30%)' },
     90: { value: 'hsl(340, 100%, 20%)' },
     100: { value: 'hsl(340, 100%, 15%)' },
@@ -225,8 +309,11 @@ export const colors: Colors<'default'> = {
   neutral: {
     10: { value: 'hsl(210, 5%, 98%)' },
     20: { value: 'hsl(210, 5%, 94%)' },
+    30: { value: 'hsl(210, 5%, 94%)' },
     40: { value: 'hsl(210, 5%, 87%)' },
+    50: { value: 'hsl(210, 5%, 87%)' },
     60: { value: 'hsl(210, 10%, 58%)' },
+    70: { value: 'hsl(210, 10%, 58%)' },
     80: { value: 'hsl(210, 10%, 40%)' },
     90: { value: 'hsl(210, 25%, 25%)' },
     100: { value: 'hsl(210, 50%, 10%)' },
@@ -236,8 +323,11 @@ export const colors: Colors<'default'> = {
     primary: {
       10: { value: '{colors.teal.10.value}' },
       20: { value: '{colors.teal.20.value}' },
+      30: { value: '{colors.teal.30.value}' },
       40: { value: '{colors.teal.40.value}' },
+      50: { value: '{colors.teal.50.value}' },
       60: { value: '{colors.teal.60.value}' },
+      70: { value: '{colors.teal.70.value}' },
       80: { value: '{colors.teal.80.value}' },
       90: { value: '{colors.teal.90.value}' },
       100: { value: '{colors.teal.100.value}' },
@@ -245,8 +335,11 @@ export const colors: Colors<'default'> = {
     secondary: {
       10: { value: '{colors.purple.10.value}' },
       20: { value: '{colors.purple.20.value}' },
+      30: { value: '{colors.purple.30.value}' },
       40: { value: '{colors.purple.40.value}' },
+      50: { value: '{colors.purple.50.value}' },
       60: { value: '{colors.purple.60.value}' },
+      70: { value: '{colors.purple.70.value}' },
       80: { value: '{colors.purple.80.value}' },
       90: { value: '{colors.purple.90.value}' },
       100: { value: '{colors.purple.100.value}' },
