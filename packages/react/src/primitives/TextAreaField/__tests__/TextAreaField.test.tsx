@@ -115,7 +115,7 @@ describe('TextAreaField component', () => {
       expect(field).toHaveAttribute('rows', String(rowCount));
     });
 
-    it('should set size and variation data attributes', async () => {
+    it('should set size and variation classes', async () => {
       render(
         <TextAreaField
           label="Field"

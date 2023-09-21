@@ -183,7 +183,7 @@ describe('SelectField', () => {
     expect(select).toHaveAttribute('size', '2');
   });
 
-  it('should set size and variation data attributes', async () => {
+  it('should set size and variation classes', async () => {
     render(
       <SelectField label={label} testId={testId} size="small" variation="quiet">
         <option value="1">1</option>

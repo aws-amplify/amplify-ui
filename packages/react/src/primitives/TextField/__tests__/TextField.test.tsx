@@ -118,7 +118,7 @@ describe('TextField component', () => {
       expect(field).toHaveAttribute('required');
     });
 
-    it('should set size and variation data attributes', async () => {
+    it('should set size and variation classes', async () => {
       render(
         <TextField
           label="Field"

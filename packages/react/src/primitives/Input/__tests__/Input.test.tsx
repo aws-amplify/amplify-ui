@@ -100,7 +100,7 @@ describe('Input component', () => {
     expect(inputDisabled).toHaveAttribute('disabled');
   });
 
-  it('should set size and variation data attributes', async () => {
+  it('should set size and variation classes', async () => {
     render(<Input size="small" variation="quiet" />);
 
     const input = await screen.findByRole('textbox');
