@@ -243,7 +243,7 @@ The following example overrides the warning component to require users to type "
 
 ### Text and labels
 
-All text in the `DeleteUser` component is customizable with the displayText prop. 
+All text in the `DeleteUser` component is customizable with the `displayText` prop. 
 
 
 <Example>
@@ -251,7 +251,6 @@ All text in the `DeleteUser` component is customizable with the displayText prop
 
 ```jsx
 import { AccountSettings } from '@aws-amplify/ui-react';
-
 
 function App() {
   return (
@@ -263,7 +262,6 @@ function App() {
         warningText: 'Are you sure you want to delete your account? You will lose access and all data.'
       }}  
     />
-     
   );
 }
 ```
