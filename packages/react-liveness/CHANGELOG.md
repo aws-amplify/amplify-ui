@@ -1,5 +1,27 @@
 # @aws-amplify/ui-react-liveness
 
+## 2.0.8
+
+### Patch Changes
+
+- [#4441](https://github.com/aws-amplify/amplify-ui/pull/4441) [`717b00955`](https://github.com/aws-amplify/amplify-ui/commit/717b0095573eb0fc44ef47441eb27e1c3122f6f9) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): remove predictions super class
+
+- [#4446](https://github.com/aws-amplify/amplify-ui/pull/4446) [`ac3cfa8aa`](https://github.com/aws-amplify/amplify-ui/commit/ac3cfa8aaa430df2b73e51a6b6f0916f1f6f6382) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(liveness): add missing liveness dependencies
+
+- [#4450](https://github.com/aws-amplify/amplify-ui/pull/4450) [`8ca045036`](https://github.com/aws-amplify/amplify-ui/commit/8ca0450363a194016fe7d1e5c4fc8359e2f4dba2) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): export error types
+
+- Updated dependencies [[`d570694c7`](https://github.com/aws-amplify/amplify-ui/commit/d570694c7e0d9d112449d3aade2d567773555926), [`6a5a4d79c`](https://github.com/aws-amplify/amplify-ui/commit/6a5a4d79ce60124fba2dc00d86b9e1a9b5f21c39), [`c393b74af`](https://github.com/aws-amplify/amplify-ui/commit/c393b74af6574593b2e7a5c9f00d27b052966a12), [`7e11a3b7e`](https://github.com/aws-amplify/amplify-ui/commit/7e11a3b7e4761a39a973ecd9a632a619660e18dd)]:
+  - @aws-amplify/ui-react@5.3.1
+  - @aws-amplify/ui@5.8.1
+
+## 2.0.7
+
+### Patch Changes
+
+- [#4405](https://github.com/aws-amplify/amplify-ui/pull/4405) [`e274c3eac`](https://github.com/aws-amplify/amplify-ui/commit/e274c3eac4bc627407ddb700e6643e268c9c3bb3) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): get oval fit timeout from server
+
+- [#4371](https://github.com/aws-amplify/amplify-ui/pull/4371) [`41a7b4288`](https://github.com/aws-amplify/amplify-ui/commit/41a7b4288930f9574d037c0543167b405d62d016) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): Custom websocket handler
+
 ## 2.0.6
 
 ### Patch Changes

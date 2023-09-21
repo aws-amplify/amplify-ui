@@ -13,7 +13,14 @@ import {
 import { Flex } from '../Flex';
 
 const ButtonGroupPrimitive: Primitive<ButtonGroupProps, 'div'> = (
-  { className, children, role = 'group', size, variation, ...rest },
+  {
+    className,
+    children,
+    role = 'group',
+    size: _size,
+    variation: _variation,
+    ...rest
+  },
   ref
 ) => (
   <Flex
@@ -24,6 +31,7 @@ const ButtonGroupPrimitive: Primitive<ButtonGroupProps, 'div'> = (
   >
     {React.Children.map(children, (child) => {
       if (React.isValidElement<ButtonProps>(child)) {
+        const { size = _size, variation = _variation } = child.props;
         return React.cloneElement(child, { size, variation });
       }
       return child;
