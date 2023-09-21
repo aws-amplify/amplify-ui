@@ -70,7 +70,7 @@ describe('Switch Field', () => {
       const wrapper = container.getElementsByClassName(
         ComponentClassName.SwitchField
       )[0] as HTMLElement;
-      expect(wrapper).toHaveAttribute('data-label-position', 'end');
+      expect(wrapper).toHaveClass('amplify-label-end');
     });
   });
 
@@ -240,18 +240,6 @@ describe('Switch Field', () => {
           kebabCase(ComponentPropsToStylePropsMap.backgroundColor)
         )
       ).toBe('red');
-    });
-
-    it('should add the data-focused attribute to the track when the input is focused', () => {
-      const { container } = render(<SwitchField label={label} />);
-
-      const track = container.getElementsByClassName(
-        ComponentClassName.SwitchTrack
-      )[0] as HTMLElement;
-      const inputField = container.getElementsByTagName('input')[0];
-      inputField.focus();
-
-      expect(track).toHaveAttribute('data-focused');
     });
   });
 

@@ -179,14 +179,14 @@ describe('Table primitive', () => {
       );
     });
 
-    it('should set the data-size attribute', async () => {
+    it('should set the size modifier', async () => {
       const size = 'small';
       const { $table } = await setup({ size });
 
       expect($table).toHaveClass(`${ComponentClassName['Table']}--${size}`);
     });
 
-    it('should set the data-variation attribute', async () => {
+    it('should set the variation modifier', async () => {
       const variation = 'striped';
       const { $table } = await setup({ variation });
 

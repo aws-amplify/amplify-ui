@@ -158,10 +158,9 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
           'disabled',
           shouldBeDisabled
         ),
+        labelPosition ? `amplify-label-${labelPosition}` : null,
         className
       )}
-      data-disabled={shouldBeDisabled}
-      data-label-position={labelPosition}
       testId={testId}
       {...styleProps}
     >

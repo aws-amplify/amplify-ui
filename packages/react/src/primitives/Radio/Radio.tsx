@@ -24,14 +24,6 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
     testId,
     value,
     labelPosition: radioLabelPosition,
-    height, // @TODO: remove custom destructuring for 3.0 release
-    width, // @TODO: remove custom destructuring for 3.0 release
-    bottom, // @TODO: remove custom destructuring for 3.0 release
-    left, // @TODO: remove custom destructuring for 3.0 release
-    position, // @TODO: remove custom destructuring for 3.0 release
-    padding, // @TODO: remove custom destructuring for 3.0 release
-    right, // @TODO: remove custom destructuring for 3.0 release
-    top, // @TODO: remove custom destructuring for 3.0 release
     ...rest
   },
   ref
@@ -75,18 +67,9 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
           `disabled`,
           shouldBeDisabled
         ),
+        labelPosition ? `amplify-label-${labelPosition}` : null,
         className
       )}
-      data-disabled={shouldBeDisabled}
-      data-label-position={labelPosition}
-      height={height}
-      width={width}
-      bottom={bottom}
-      top={top}
-      right={right}
-      left={left}
-      position={position}
-      padding={padding}
     >
       {children && (
         <Text
