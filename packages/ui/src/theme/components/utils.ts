@@ -21,4 +21,5 @@ type BaseTheme = CSSProperties & {
 
 export type ComponentTheme<ThemeType extends BaseTheme = BaseTheme> =
   | ThemeType
-  | ((tokens: DefaultTheme['tokens']) => ThemeType);
+  | ((tokens: DefaultTheme['tokens']) => ThemeType)
+  | undefined;
