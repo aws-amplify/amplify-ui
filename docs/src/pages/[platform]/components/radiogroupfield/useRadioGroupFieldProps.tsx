@@ -22,7 +22,7 @@ export const useRadioGroupFieldProps: UseRadioGroupFieldProps = (
   );
   const [variation, setVariation] = React.useState<
     RadioGroupFieldProps['variation']
-  >(initialValues.legend);
+  >(initialValues.variation);
   const [name, setName] = React.useState<RadioGroupFieldProps['name']>(
     initialValues.name
   );
