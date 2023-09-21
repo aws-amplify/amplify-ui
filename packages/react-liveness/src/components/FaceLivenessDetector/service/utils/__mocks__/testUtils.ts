@@ -78,7 +78,7 @@ export const mockOvalDetails: LivenessOvalDetails = {
 };
 export const mockLivenessStreamProvider: any = {
   sendClientInfo: jest.fn(),
-  endStream: jest.fn(),
+  endStreamWithCode: jest.fn(),
   stopVideo: jest.fn(),
   dispatchStopVideoEvent: jest.fn(),
   getResponseStream: jest.fn().mockResolvedValue([mockedStream]), // TODO: a following PR after PR634 will be made to have the stream emit the proper mock data.

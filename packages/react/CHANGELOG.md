@@ -1,5 +1,37 @@
 # @aws-amplify/ui-react
 
+## 5.3.1
+
+### Patch Changes
+
+- [#4414](https://github.com/aws-amplify/amplify-ui/pull/4414) [`d570694c7`](https://github.com/aws-amplify/amplify-ui/commit/d570694c7e0d9d112449d3aade2d567773555926) Thanks [@lavr001](https://github.com/lavr001)! - added new `isMultiple` and `selectSize` props for the `SelectField` component
+
+  Example:
+
+  ```
+    <SelectField
+      label="Fruit"
+      descriptiveText="What's your favorite fruit?"
+      selectSize={3}
+      isMultiple={true}
+    >
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+      <option value="orange">Orange</option>
+      <option value="pineapple">Pineapple</option>
+      <option value="kiwi">Kiwi</option>
+      <option value="tangerine">Tangerine</option>
+    </SelectField>
+  ```
+
+- [#4432](https://github.com/aws-amplify/amplify-ui/pull/4432) [`c393b74af`](https://github.com/aws-amplify/amplify-ui/commit/c393b74af6574593b2e7a5c9f00d27b052966a12) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui-react): update ButtonGroup to respect child props and allow optional children
+
+- [#4442](https://github.com/aws-amplify/amplify-ui/pull/4442) [`7e11a3b7e`](https://github.com/aws-amplify/amplify-ui/commit/7e11a3b7e4761a39a973ecd9a632a619660e18dd) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui-react): use guaranteed value for BreadCrumbs key
+
+- Updated dependencies [[`d570694c7`](https://github.com/aws-amplify/amplify-ui/commit/d570694c7e0d9d112449d3aade2d567773555926), [`6a5a4d79c`](https://github.com/aws-amplify/amplify-ui/commit/6a5a4d79ce60124fba2dc00d86b9e1a9b5f21c39)]:
+  - @aws-amplify/ui@5.8.1
+  - @aws-amplify/ui-react-core@2.1.33
+
 ## 5.3.0
 
 ### Minor Changes
