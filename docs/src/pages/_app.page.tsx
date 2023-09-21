@@ -3,7 +3,12 @@ import { Storage, Amplify } from 'aws-amplify';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 
-import { ThemeProvider, ColorMode, defaultTheme } from '@aws-amplify/ui-react';
+import {
+  ThemeProvider,
+  ColorMode,
+  defaultTheme,
+  IconsProvider,
+} from '@aws-amplify/ui-react';
 
 import MyStorageProvider from '@/utils/storageMock';
 import { configure, trackPageVisit } from '@/utils/track';
@@ -27,6 +32,7 @@ import {
   RIGHT_NAV_LINKS,
   SOCIAL_LINKS,
 } from '@/data/globalnav';
+import { MdOutlineColorize } from 'react-icons/md';
 
 if (typeof window === 'undefined') {
   // suppress useLayoutEffect warnings when running outside a browser
@@ -63,6 +69,7 @@ function MyApp({ Component, pageProps }) {
   const isHomepage = pathname === '/' || pathname === '/[platform]';
 
   const [colorMode, setColorMode] = React.useState<ColorMode>('system');
+  const [primaryColor, setPrimaryColor] = React.useState('teal');
   const handleColorModeChange = (colorMode: ColorMode) => {
     setColorMode(colorMode);
     if (colorMode !== 'system') {
@@ -95,37 +102,50 @@ function MyApp({ Component, pageProps }) {
       <Head />
 
       <div className={isHomepage ? `docs-home` : ''}>
-        <ThemeProvider theme={baseTheme} colorMode={colorMode}>
-          {
-            <GlobalNav
-              rightLinks={RIGHT_NAV_LINKS as NavMenuItem[]}
-              leftLinks={LEFT_NAV_LINKS as NavMenuItem[]}
-              socialLinks={SOCIAL_LINKS as NavMenuItem[]}
-              currentSite="UI Library"
-            />
-          }
-          <Header
-            expanded={expanded}
-            setExpanded={setExpanded}
+        <IconsProvider
+          icons={{
+            menu: {
+              menu: <MdOutlineColorize />,
+            },
+          }}
+        >
+          <ThemeProvider
+            theme={{ ...baseTheme, primaryColor }}
             colorMode={colorMode}
-            setColorMode={handleColorModeChange}
-            platform={platform}
-          />
-          <main className="docs-main">
-            <div
-              className={classNames(
-                'docs-sidebar-spacer',
-                expanded ? 'expanded' : 'collapsed'
-              )}
-            />
-
-            <Component
-              {...pageProps}
+          >
+            {
+              <GlobalNav
+                rightLinks={RIGHT_NAV_LINKS as NavMenuItem[]}
+                leftLinks={LEFT_NAV_LINKS as NavMenuItem[]}
+                socialLinks={SOCIAL_LINKS as NavMenuItem[]}
+                currentSite="UI Library"
+              />
+            }
+            <Header
+              expanded={expanded}
               setExpanded={setExpanded}
               colorMode={colorMode}
+              setColorMode={handleColorModeChange}
+              platform={platform}
+              primaryColor={primaryColor}
+              setPrimaryColor={setPrimaryColor}
             />
-          </main>
-        </ThemeProvider>
+            <main className="docs-main">
+              <div
+                className={classNames(
+                  'docs-sidebar-spacer',
+                  expanded ? 'expanded' : 'collapsed'
+                )}
+              />
+
+              <Component
+                {...pageProps}
+                setExpanded={setExpanded}
+                colorMode={colorMode}
+              />
+            </main>
+          </ThemeProvider>
+        </IconsProvider>
       </div>
       <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
       <Script src="/scripts/shortbreadv2.js" />

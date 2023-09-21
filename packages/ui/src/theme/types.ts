@@ -102,6 +102,8 @@ export interface Theme {
    */
   name: string;
   tokens?: Tokens;
+  primaryColor?: string;
+  accentColor?: string;
   breakpoints?: PartialDeep<Breakpoints>;
   /**
    * Overrides allow you to change design tokens in different contexts, like
@@ -126,7 +128,8 @@ export interface DefaultTheme extends Pick<Theme, 'name' | 'overrides'> {
  * to be used in Javascript/Typescript.
  */
 export interface WebTheme
-  extends Pick<DefaultTheme, 'breakpoints' | 'name' | 'overrides'> {
+  extends Pick<DefaultTheme, 'breakpoints' | 'name' | 'overrides'>,
+    Pick<Theme, 'primaryColor' | 'accentColor'> {
   cssText: string;
   // property `components` is not specified on `WebTokens`,
   // but is a required token property of `WebTheme`

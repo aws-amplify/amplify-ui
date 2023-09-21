@@ -4,6 +4,9 @@ import {
   Button,
   Flex,
   Link,
+  Menu,
+  ToggleButton,
+  ToggleButtonGroup,
   View,
   VisuallyHidden,
   useBreakpointValue,
@@ -24,6 +27,8 @@ export const Header = ({
   colorMode,
   setColorMode,
   platform,
+  setPrimaryColor,
+  primaryColor,
 }) => {
   const [showSearch, setShowSearch] = React.useState(false);
   const hiddenOnMobile = useBreakpointValue({
@@ -62,6 +67,41 @@ export const Header = ({
             indexName={process.env.DOCSEARCH_DOCS_INDEX_NAME}
           />
         )}
+        <Menu>
+          <ToggleButtonGroup
+            value={primaryColor}
+            isExclusive
+            onChange={(value) => setPrimaryColor(value as string)}
+          >
+            {[
+              'red',
+              'orange',
+              'yellow',
+              'green',
+              'teal',
+              'blue',
+              'purple',
+              'pink',
+            ].map((color) => (
+              <ToggleButton
+                value={color}
+                key={color}
+                size="small"
+                variation="link"
+                borderWidth="0"
+                onClick={() => setPrimaryColor(color)}
+              >
+                <View
+                  borderRadius="99px"
+                  width="1rem"
+                  height="1rem"
+                  backgroundColor={`${color}.60`}
+                />
+              </ToggleButton>
+            ))}
+          </ToggleButtonGroup>
+        </Menu>
+
         <ColorModeSwitcher colorMode={colorMode} setColorMode={setColorMode} />
         {hiddenOnMobile ? (
           <View>

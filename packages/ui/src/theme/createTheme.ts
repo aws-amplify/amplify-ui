@@ -40,6 +40,17 @@ export function createTheme(
   // this to another 3p deep merge solution too.
   const mergedTheme = deepExtend<DefaultTheme>([{}, DefaultTheme, theme]);
 
+  if (theme?.primaryColor) {
+    mergedTheme.tokens.colors.brand.primary = Object.keys(
+      mergedTheme.tokens.colors.brand.primary
+    ).reduce((acc, key) => {
+      return {
+        ...acc,
+        [key]: `{colors.${theme.primaryColor}.${key}}`,
+      };
+    }, {} as DefaultTheme['tokens']['colors']['brand']['primary']);
+  }
+
   // Setting up the tokens. This is similar to what Style Dictionary
   // does. At the end of this, each token should have:
   // - CSS variable name of itself
