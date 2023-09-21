@@ -13,7 +13,7 @@ import {
   LivenessOvalDetails,
   IlluminationState,
 } from './liveness';
-import { LivenessErrorState } from './error';
+import { ErrorState } from './error';
 import {
   VideoRecorder,
   LivenessStreamProvider,
@@ -67,7 +67,7 @@ export interface HydratedLivenessContext {
   ovalAssociatedParams: OvalAssociatedParams;
   faceMatchAssociatedParams: FaceMatchAssociatedParams;
   freshnessColorAssociatedParams: FreshnessColorAssociatedParams;
-  errorState: LivenessErrorState;
+  errorState: ErrorState;
   livenessStreamProvider: LivenessStreamProvider;
   responseStreamActorRef: ActorRef<any>;
   shouldDisconnect: boolean;

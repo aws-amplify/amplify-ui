@@ -6,6 +6,7 @@ import {
   IlluminationState,
   FaceMatchState,
   LivenessErrorState,
+  ErrorState,
 } from '../../service';
 
 import {
@@ -33,7 +34,7 @@ describe('Hint', () => {
   };
   const mockActorSend = jest.fn();
 
-  let errorState: LivenessErrorState | null = null;
+  let errorState: ErrorState | null = null;
   let faceMatchState: FaceMatchState | null = null;
   let illuminationState: IlluminationState | null = null;
   let faceMatchStateBeforeStart: FaceMatchState | null = null;
