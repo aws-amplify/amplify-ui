@@ -25,7 +25,7 @@ const FieldsetPrimitive: Primitive<FieldsetProps, 'fieldset'> = (
     legendHidden,
     size,
     testId,
-    variation = 'outlined',
+    variation = 'plain',
     ...rest
   },
   ref

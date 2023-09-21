@@ -10367,9 +10367,6 @@ Object {
       "justifyContent": Object {
         "type": "string",
       },
-      "labelHidden": Object {
-        "type": "boolean",
-      },
       "labelPosition": Object {
         "type": "string",
       },
