@@ -44,7 +44,7 @@
     "@aws-amplify/ui-react": "5.3.1",
     "@aws-amplify/ui-react-core": "2.1.33",
     "@aws-amplify/ui-react-core-auth": "0.0.1",
-    "@xstate/react": "3.0.0",
+    "@xstate/react": "3.0.1",
     "classnames": "2.3.1",
     "lodash": "4.17.21",
     "tslib": "2.4.1"
