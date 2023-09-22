@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@aws-amplify/ui-react-auth-core exports should match snapshot 1`] = `
+Array [
+  "exported",
+]
+`;

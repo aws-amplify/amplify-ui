@@ -7,6 +7,8 @@ import {
   AmplifyUser,
   AuthFormFields,
 } from '../../types';
+import { isEmptyObject } from '../../utils';
+
 import { stopActor } from './actions';
 import { resetPasswordActor, signInActor, signOutActor } from './actors';
 import { defaultServices } from './defaultServices';
@@ -19,7 +21,31 @@ export type AuthenticatorMachineOptions = AuthContext['config'] & {
   services?: AuthContext['services'];
 };
 
-export function createAuthenticatorMachine() {
+// setup step waits for ui to emit INIT action to proceed to configure
+const LEGACY_WAIT_CONFIG = {
+  on: {
+    INIT: {
+      actions: ['configure', 'setHasSetup'],
+      target: 'applyConfig',
+    },
+  },
+};
+
+// setup step proceeds directly to configure
+const NEXT_WAIT_CONFIG = {
+  always: {
+    actions: ['configure', 'setHasSetup'],
+    target: 'applyConfig',
+  },
+};
+
+export function createAuthenticatorMachine(
+  options?: AuthenticatorMachineOptions & {
+    useNextWaitConfig?: boolean;
+  }
+) {
+  const { useNextWaitConfig, ...overrideConfigServices } = options ?? {};
+  const waitConfig = useNextWaitConfig ? NEXT_WAIT_CONFIG : LEGACY_WAIT_CONFIG;
   return createMachine<AuthContext, AuthEvent>(
     {
       id: 'authenticator',
@@ -49,14 +75,7 @@ export function createAuthenticatorMachine() {
         setup: {
           initial: 'waitConfig',
           states: {
-            waitConfig: {
-              on: {
-                INIT: {
-                  actions: ['configure', 'setHasSetup'],
-                  target: 'applyConfig',
-                },
-              },
-            },
+            waitConfig,
             applyConfig: {
               invoke: {
                 // TODO Wait for Auth to be configured
@@ -358,7 +377,12 @@ export function createAuthenticatorMachine() {
         stopResetPasswordActor: stopActor('resetPasswordActor'),
         stopSignOutActor: stopActor('signOutActor'),
         configure: assign((_, event) => {
-          const { services: customServices, ...config } = event.data;
+          const { services: customServices, ...config } = !isEmptyObject(
+            overrideConfigServices
+          )
+            ? overrideConfigServices
+            : event.data;
+
           return {
             services: { ...defaultServices, ...customServices },
             config,

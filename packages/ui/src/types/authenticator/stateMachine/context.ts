@@ -23,6 +23,21 @@ export interface ActorDoneData {
 }
 
 /**
+ * Authenticator routes that can be directly navigated to by user interaction.
+ */
+export type NavigableRoute = 'signIn' | 'signUp' | 'resetPassword';
+export type InitialRoute = 'signIn' | 'signUp' | 'resetPassword';
+
+/**
+ * Authenticator routes that have default links
+ */
+export type NavigationRoute =
+  | 'resetPassword'
+  | 'setupTOTP'
+  | 'signIn'
+  | 'signUp';
+
+/**
  * Context interface for the top-level machine
  */
 export interface AuthContext {

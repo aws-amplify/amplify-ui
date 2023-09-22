@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useForm returns the expected values from getFieldState in the happy path 1`] = `
+Object {
+  "errorMessage": undefined,
+  "hasError": false,
+  "invalid": false,
+  "isDirty": false,
+  "isTouched": false,
+}
+`;
+
+exports[`useForm returns the expected values from getFieldState util for an invalid field 1`] = `
+Object {
+  "errorMessage": "err",
+  "hasError": true,
+}
+`;
+
+exports[`useForm returns the expected values from registerField util 1`] = `undefined`;
+
+exports[`useForm returns the expected values in the happy path 1`] = `
+Object {
+  "getFieldState": [Function],
+  "getValues": [Function],
+  "isValid": true,
+  "onSubmit": [Function],
+  "registerField": [Function],
+  "reset": [Function],
+  "setFormValue": [Function],
+}
+`;
