@@ -2,6 +2,7 @@ export {
   FormValues,
   FormHandle,
   SubmitHandler,
+  useControlledField,
   useField,
   useForm,
   Validate,

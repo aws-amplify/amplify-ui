@@ -178,12 +178,18 @@ export interface FormProviderProps<Values extends FormValues = FormValues> {
   mode?: ValidationMode;
 }
 
+/**
+ * For use with React only.
+ */
 export interface UseField<Name extends string = string>
   extends FieldState,
     RegisterProps {
   name: Name;
 }
 
+/**
+ * For use with React only.
+ */
 export interface UseFieldParams<
   OnBlur extends FocusHandler | undefined,
   OnChange extends ChangeHandler | undefined,
@@ -239,4 +245,33 @@ export interface UseFieldParams<
    * ```
    */
   validate?: Validate<Values>;
+}
+
+/**
+ * For use with React Native only.
+ */
+export interface UseControlledFieldParams<
+  OnBlur extends FocusHandler | undefined,
+  Values extends FormValues = FormValues
+> extends Omit<UseFieldParams<OnBlur, undefined, Values>, 'onChange'> {
+  /**
+   * Controlled text change event handler
+   */
+  onChangeText?: (value: string) => void;
+}
+
+/**
+ * For use with React Native only.
+ */
+export interface UseControlledField<Name extends string = string>
+  extends Omit<UseField<Name>, 'onChange'> {
+  name: Name;
+
+  /**
+   * React Native only.
+   * Controlled text change event handler
+   */
+  onChangeText: (value: string) => void;
+
+  value: string;
 }
