@@ -75,6 +75,18 @@ export interface BaseSelectProps extends BaseViewProps {
 
   /**
    * @description
+   * A Boolean attribute indicating that multiple options can be selected at once
+   */
+  isMultiple?: boolean;
+
+  /**
+   * @description
+   * Sets the number of visible options in a drop-down list
+   */
+  selectSize?: number;
+
+  /**
+   * @description
    * A Boolean attribute indicating that an option with a non-empty string value must be selected
    */
   isRequired?: boolean;

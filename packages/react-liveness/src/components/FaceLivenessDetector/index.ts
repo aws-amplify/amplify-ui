@@ -10,4 +10,5 @@ export {
   AwsCredentialProvider,
   AwsTemporaryCredentials,
   AwsCredentials,
+  ErrorState,
 } from './service';
