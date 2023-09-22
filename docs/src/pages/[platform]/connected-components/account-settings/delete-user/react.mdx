@@ -241,6 +241,35 @@ The following example overrides the warning component to require users to type "
   </ExpanderItem>
 </Expander>
 
+### Text and labels
+
+All text in the `DeleteUser` component is customizable with the `displayText` prop. 
+
+
+<Example>
+  <ExampleCode>
+
+```jsx
+import { AccountSettings } from '@aws-amplify/ui-react';
+
+function App() {
+  return (
+    <AccountSettings.DeleteUser 
+      displayText={{
+        deleteAccountText: 'Delete the account',
+        cancelText: 'Cancel',
+        deleteMyAccountText: 'Delete account',
+        warningText: 'Are you sure you want to delete your account? You will lose access and all data.'
+      }}  
+    />
+  );
+}
+```
+
+  </ExampleCode>
+</Example>
+
+
 ### Theming
 
 `DeleteUser` component is built upon our robust [Amplify UI theming system](../../theming). To get started, add a theme object and set the appropriate [design tokens](../../theming#design-tokens). You can then pass that `theme` to the `ThemeProvider` so the changes can take affect.

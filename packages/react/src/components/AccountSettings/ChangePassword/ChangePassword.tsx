@@ -8,7 +8,6 @@ import {
   getDefaultConfirmPasswordValidators,
   getDefaultPasswordValidators,
   runFieldValidators,
-  translate,
 } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
@@ -17,6 +16,7 @@ import { ComponentClassName } from '../constants';
 import { FormValues, BlurredFields, ValidationError } from '../types';
 import { ChangePasswordProps, ValidateParams } from './types';
 import DEFAULTS from './defaults';
+import { defaultChangePasswordDisplayText } from '../utils';
 
 const logger = new Logger('ChangePassword');
 
@@ -39,10 +39,11 @@ const getIsDisabled = (
 };
 
 function ChangePassword({
-  onSuccess,
-  onError,
-  validators,
   components,
+  displayText: overrideDisplayText,
+  onError,
+  onSuccess,
+  validators,
 }: ChangePasswordProps): JSX.Element | null {
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
   const [formValues, setFormValues] = React.useState<FormValues>({});
@@ -114,11 +115,16 @@ function ChangePassword({
   );
 
   /* Translations */
-  // TODO: add AccountSettingsTextUtil to collect these strings
-  const currentPasswordLabel = translate('Current Password');
-  const newPasswordLabel = translate('New Password');
-  const confirmPasswordLabel = translate('Confirm Password');
-  const updatePasswordText = translate('Update password');
+  const displayText = {
+    ...defaultChangePasswordDisplayText,
+    ...overrideDisplayText,
+  };
+  const {
+    confirmPasswordLabel,
+    currentPasswordLabel,
+    newPasswordLabel,
+    updatePasswordText,
+  } = displayText;
 
   /* Subcomponents */
   const {
