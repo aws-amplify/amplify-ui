@@ -66,8 +66,6 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
         multiple={isMultiple}
         size={selectSize}
         required={isRequired}
-        data-size={size}
-        data-variation={variation}
         className={componentClasses}
         ref={ref}
         {...rest}

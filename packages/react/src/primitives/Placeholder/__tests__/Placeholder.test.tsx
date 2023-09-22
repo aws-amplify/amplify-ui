@@ -77,9 +77,13 @@ describe('Placeholder:', () => {
     const placeholder2 = await screen.findByTestId('placeholder2');
     const placeholder3 = await screen.findByTestId('placeholder3');
 
-    expect(placeholder1.dataset['size']).toBe('small');
-    expect(placeholder2.dataset['size']).toBeUndefined();
-    expect(placeholder3.dataset['size']).toBe('large');
+    expect(placeholder1).toHaveClass(
+      `${ComponentClassName['Placeholder']}--small`
+    );
+    expect(placeholder2).toHaveClass(`${ComponentClassName['Placeholder']}`);
+    expect(placeholder3).toHaveClass(
+      `${ComponentClassName['Placeholder']}--large`
+    );
   });
 
   it('can apply styling via props', async () => {

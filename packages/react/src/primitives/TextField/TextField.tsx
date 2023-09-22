@@ -51,7 +51,6 @@ const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
         ComponentClassName.TextField,
         className
       )}
-      data-size={size}
       testId={testId}
       {...styleProps}
     >

@@ -9,6 +9,7 @@
   position: relative;
   &--disabled {
     cursor: var(--amplify-components-radio-disabled-cursor);
+    color: var(--amplify-components-radio-label-disabled-color);
   }
   --amplify-components-text-color: var(--amplify-components-radio-label-color);
 }
@@ -91,6 +92,6 @@
   );
 }
 
-.amplify-radio__label[data-disabled='true'] {
-  color: var(--amplify-components-radio-label-disabled-color);
+.amplify-radio__label {
+  color: inherit;
 }

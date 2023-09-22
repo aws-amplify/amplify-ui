@@ -21,7 +21,6 @@ const ScrollViewPrimitive: Primitive<ScrollViewProps, 'div'> = (
       classNameModifier(ComponentClassName.ScrollView, orientation),
       className
     )}
-    data-orientation={orientation}
     ref={ref}
     {...rest}
   >

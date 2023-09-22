@@ -60,13 +60,13 @@ describe('Loader:', () => {
   it('should set size attribute', async () => {
     render(<Loader size="large" />);
     const loader = await screen.findByRole('img');
-    expect(loader).toHaveAttribute('data-size', 'large');
+    expect(loader).toHaveClass(`${ComponentClassName.Loader}--large`);
   });
 
   it('should set variation attribute', async () => {
     render(<Loader variation="linear" />);
     const loader = await screen.findByRole('img');
-    expect(loader).toHaveAttribute('data-variation', 'linear');
+    expect(loader).toHaveClass(`${ComponentClassName.Loader}--linear`);
   });
 
   it('should set ariaLabel', async () => {

@@ -353,3 +353,30 @@ export type DesignTokenValues<
   : Output extends 'optional'
   ? OptionalTokenValues<PropertyValueKey, PropertyValue, Platform>
   : DefaultTokenValues<PropertyValueKey, PropertyValue, Platform>;
+
+/**
+ * Helper type util allowing creation of a deeply nested object of Design Tokens
+ */
+export type RecursiveDesignToken<
+  ValueType = unknown,
+  Output extends OutputVariantKey = unknown,
+  Platform extends PlatformKey = unknown
+> = {
+  [key: PropKey]:
+    | DesignTokenValue<ValueType, Output, Platform>
+    | RecursiveDesignToken<ValueType, Output, Platform>;
+} & (Output extends 'required'
+  ? Platform extends 'react-native'
+    ? DesignTokenValue<ValueType, Output, Platform>
+    : {}
+  : {});
+
+export type DesignTokenValue<
+  ValueType = unknown,
+  Output extends OutputVariantKey = unknown,
+  Platform extends PlatformKey = unknown
+> = Output extends 'required'
+  ? Platform extends 'react-native'
+    ? ValueType
+    : WebDesignToken<ValueType>
+  : DesignToken<ValueType>;

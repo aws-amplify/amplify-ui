@@ -114,14 +114,14 @@ describe('Text', () => {
     render(<Text isTruncated>{textText}</Text>);
 
     const text = await screen.findByText(textText);
-    expect(text.dataset['truncate']).toBe('true');
+    expect(text).toHaveClass(`${ComponentClassName['Text']}--truncated`);
   });
 
   it('can set the data-variation attribute', async () => {
     render(<Text variation="primary">{textText}</Text>);
 
     const text = await screen.findByText(textText);
-    expect(text.dataset['variation']).toBe('primary');
+    expect(text).toHaveClass(`${ComponentClassName['Text']}--primary`);
   });
 
   it('can apply font-family via props', async () => {

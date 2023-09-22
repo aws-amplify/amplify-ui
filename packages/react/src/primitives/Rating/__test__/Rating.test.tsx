@@ -43,7 +43,7 @@ describe('Rating', () => {
     render(<Rating testId="testId" size="small" />);
 
     const rating = await screen.findByTestId('testId');
-    expect(rating.dataset['size']).toBe('small');
+    expect(rating).toHaveClass(`${ComponentClassName['Rating']}--small`);
   });
 
   it('should render the empty icon color', () => {

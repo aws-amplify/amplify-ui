@@ -76,7 +76,6 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
         ComponentClassName.SelectField,
         className
       )}
-      data-size={size}
       testId={testId}
       {...styleProps}
     >

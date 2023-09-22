@@ -183,7 +183,7 @@ describe('SelectField', () => {
     expect(select).toHaveAttribute('size', '2');
   });
 
-  it('should set size and variation data attributes', async () => {
+  it('should set size and variation classes', async () => {
     render(
       <SelectField label={label} testId={testId} size="small" variation="quiet">
         <option value="1">1</option>
@@ -194,8 +194,8 @@ describe('SelectField', () => {
 
     const selectField = await screen.findByTestId(testId);
     const select = await screen.findByRole(role);
-    expect(selectField).toHaveAttribute('data-size', 'small');
-    expect(select).toHaveAttribute('data-variation', 'quiet');
+    expect(selectField).toHaveClass(`${ComponentClassName.Field}--small`);
+    expect(select).toHaveClass(`${ComponentClassName.Select}--quiet`);
   });
 
   it('should render size classes for SelectField', async () => {

@@ -131,15 +131,7 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
   );
 
   return (
-    <View
-      as="svg"
-      className={componentClasses}
-      data-size={size}
-      data-variation={variation}
-      ref={ref}
-      role="img"
-      {...rest}
-    >
+    <View as="svg" className={componentClasses} ref={ref} role="img" {...rest}>
       {variation === 'linear' ? linearLoader : circularLoader}
     </View>
   );

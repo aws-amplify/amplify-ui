@@ -2,6 +2,7 @@ import {
   BorderWidthValue,
   DesignTokenValues,
   OutputVariantKey,
+  RecursiveDesignToken,
 } from './types/designToken';
 
 type BorderWidthSize = 'small' | 'medium' | 'large';
@@ -9,7 +10,7 @@ type BorderWidthSize = 'small' | 'medium' | 'large';
 export type BorderWidths<
   Output extends OutputVariantKey = unknown,
   Platform = unknown
-> = Output extends 'required' | 'default'
+> = (Output extends 'required' | 'default'
   ? Required<
       DesignTokenValues<
         BorderWidthSize,
@@ -25,7 +26,8 @@ export type BorderWidths<
         Output,
         Platform
       >
-    >;
+    >) &
+  RecursiveDesignToken<BorderWidthValue<Platform, Output>, Output, Platform>;
 
 export const borderWidths: BorderWidths<'default'> = {
   small: { value: '1px' },

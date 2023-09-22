@@ -51,8 +51,8 @@ describe('Select primitive test suite', () => {
     expect(select.nodeName).toBe('SELECT');
     expect(select.childNodes).toHaveLength(3);
     expect(select).toHaveAttribute('name', name);
-    expect(select).toHaveAttribute('data-size', size);
-    expect(select).toHaveAttribute('data-variation', variation);
+    expect(select).toHaveClass(`${ComponentClassName.Select}--${size}`);
+    expect(select).toHaveClass(`${ComponentClassName.Select}--${variation}`);
     expect(select).toHaveClass(ComponentClassName.Select);
     expect(select).not.toBeDisabled();
     expect(select).not.toBeRequired();
