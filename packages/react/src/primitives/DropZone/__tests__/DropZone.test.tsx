@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createEvent, fireEvent, render, screen } from '@testing-library/react';
 import { DropZone } from '../DropZone';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { View } from '../../View';
 
 describe('DropZone', () => {
@@ -12,7 +12,7 @@ describe('DropZone', () => {
 
   it('should have the right class', () => {
     const { container } = render(<DropZone onDrop={() => {}} />);
-    expect(container.firstChild).toHaveClass(ComponentClassNames.DropZone);
+    expect(container.firstChild).toHaveClass(ComponentClassName.DropZone);
   });
 
   it('should conditionally render .Default', () => {

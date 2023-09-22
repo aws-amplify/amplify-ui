@@ -5,7 +5,7 @@
 #   (2) On every commit to the PR
 #   (3) Adding run-tests label to the PR
 
-name: Test / Internal PRs
+name: Test / Internal PRs / next-release
 
 concurrency:
   group: test-internal-prs-${{ github.event.pull_request.id }}
@@ -13,8 +13,7 @@ concurrency:
 
 on:
   pull_request:
-    # branches: [main, hotfix]
-    branches: [ui-react-auth/main]
+    branches: [next-release/main]
     types: [opened, synchronize, labeled]
 
 jobs:

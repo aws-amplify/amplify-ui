@@ -2,7 +2,8 @@ import * as React from 'react';
 import { Logger } from 'aws-amplify';
 
 import { UploadTask } from '@aws-amplify/storage';
-import { ComponentClassNames, VisuallyHidden } from '@aws-amplify/ui-react';
+import { ComponentClassName } from '@aws-amplify/ui';
+import { VisuallyHidden } from '@aws-amplify/ui-react';
 import { useDropZone } from '@aws-amplify/ui-react/internal';
 
 import { useStorageManager, useUploadFiles } from './hooks';
@@ -46,7 +47,7 @@ function StorageManagerBase(
   ref: React.ForwardedRef<StorageManagerHandle>
 ): JSX.Element {
   if (!accessLevel || !maxFileCount) {
-    logger.warn('FileUploader requires accessLevel and maxFileCount props');
+    logger.warn('StorageManager requires accessLevel and maxFileCount props');
   }
 
   const Components = {
@@ -232,8 +233,8 @@ function StorageManagerBase(
 
   return (
     <Components.Container
-      className={`${ComponentClassNames.StorageManager} ${
-        hasFiles ? ComponentClassNames.StorageManagerPreviewer : ''
+      className={`${ComponentClassName.StorageManager} ${
+        hasFiles ? ComponentClassName.StorageManagerPreviewer : ''
       }`}
     >
       <Components.DropZone

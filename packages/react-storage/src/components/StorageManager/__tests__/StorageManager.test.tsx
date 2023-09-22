@@ -1,9 +1,8 @@
 import React from 'react';
 import { fireEvent, render, waitFor, act } from '@testing-library/react';
 
-import { Logger } from 'aws-amplify';
-import { ComponentClassNames } from '@aws-amplify/ui-react';
-import { Storage } from 'aws-amplify';
+import { ComponentClassName } from '@aws-amplify/ui';
+import { Logger, Storage } from 'aws-amplify';
 
 import * as StorageHooks from '../hooks';
 import { StorageManager } from '../StorageManager';
@@ -37,25 +36,25 @@ describe('StorageManager', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerDropZone}`
+        `${ComponentClassName.StorageManagerDropZone}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerDropZoneText}`
+        `${ComponentClassName.StorageManagerDropZoneText}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerDropZoneIcon}`
+        `${ComponentClassName.StorageManagerDropZoneIcon}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFilePicker}`
+        `${ComponentClassName.StorageManagerFilePicker}`
       )
     ).toHaveLength(1);
 

@@ -10,14 +10,14 @@ import {
   LINEAR_EMPTY,
   LINEAR_FILLED,
 } from '../Loader';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 describe('Loader:', () => {
   it('should render default and custom classname', async () => {
     const className = 'class-test';
     render(<Loader className={className} />);
     const loader = await screen.findByRole('img');
-    expect(loader).toHaveClass(ComponentClassNames.Loader, className);
+    expect(loader).toHaveClass(ComponentClassName.Loader, className);
   });
 
   it('should render size classes for Loader', async () => {
@@ -31,12 +31,8 @@ describe('Loader:', () => {
     const small = await screen.findByTestId('small');
     const large = await screen.findByTestId('large');
 
-    expect(small.classList).toContain(
-      `${ComponentClassNames['Loader']}--small`
-    );
-    expect(large.classList).toContain(
-      `${ComponentClassNames['Loader']}--large`
-    );
+    expect(small.classList).toContain(`${ComponentClassName['Loader']}--small`);
+    expect(large.classList).toContain(`${ComponentClassName['Loader']}--large`);
   });
 
   it('should render variation classes for Loader', async () => {
@@ -49,7 +45,7 @@ describe('Loader:', () => {
     const linear = await screen.findByTestId('linear');
 
     expect(linear.classList).toContain(
-      `${ComponentClassNames['Loader']}--linear`
+      `${ComponentClassName['Loader']}--linear`
     );
   });
 
@@ -111,7 +107,7 @@ describe('Loader:', () => {
     render(<Loader percentage={percentage} isDeterminate />);
 
     const loader = await screen.findByRole('img');
-    expect(loader).toHaveClass(ComponentClassNames.LoaderDeterminate);
+    expect(loader).toHaveClass(ComponentClassName.LoaderDeterminate);
 
     const circularFilled = await screen.findByTestId(CIRCULAR_FILLED);
     expect(circularFilled).toHaveStyle({
@@ -123,9 +119,7 @@ describe('Loader:', () => {
 
     const textContent = `${percentage}%`;
     const percentageText = await screen.findByText(textContent);
-    expect(percentageText).toHaveClass(
-      ComponentClassNames.LoaderPercentageText
-    );
+    expect(percentageText).toHaveClass(ComponentClassName.LoaderPercentageText);
     expect(percentageText).toHaveAttribute('aria-live', 'polite');
     expect(percentageText).toHaveTextContent(textContent);
   });
@@ -136,7 +130,7 @@ describe('Loader:', () => {
 
     const textContent = `${percentage}%`;
     const percentageText = await screen.findByText(textContent);
-    expect(percentageText).toHaveClass(ComponentClassNames.VisuallyHidden);
+    expect(percentageText).toHaveClass(ComponentClassName.VisuallyHidden);
   });
 
   it('should render linear determinate loader correctly', async () => {
@@ -144,16 +138,14 @@ describe('Loader:', () => {
     render(<Loader percentage={percentage} variation="linear" isDeterminate />);
 
     const loader = await screen.findByRole('img');
-    expect(loader).toHaveClass(ComponentClassNames.LoaderDeterminate);
+    expect(loader).toHaveClass(ComponentClassName.LoaderDeterminate);
 
     const linearFilled = await screen.findByTestId(LINEAR_FILLED);
     expect(linearFilled).toHaveAttribute('x2', `${percentage}%`);
 
     const textContent = `${percentage}%`;
     const percentageText = await screen.findByText(textContent);
-    expect(percentageText).toHaveClass(
-      ComponentClassNames.LoaderPercentageText
-    );
+    expect(percentageText).toHaveClass(ComponentClassName.LoaderPercentageText);
     expect(percentageText).toHaveAttribute('aria-live', 'polite');
     expect(percentageText).toHaveTextContent(textContent);
   });
@@ -171,6 +163,6 @@ describe('Loader:', () => {
 
     const textContent = `${percentage}%`;
     const percentageText = await screen.findByText(textContent);
-    expect(percentageText).toHaveClass(ComponentClassNames.VisuallyHidden);
+    expect(percentageText).toHaveClass(ComponentClassName.VisuallyHidden);
   });
 });

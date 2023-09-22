@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
+import { ComponentClassName } from '@aws-amplify/ui';
+
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import {
   BaseButtonProps,
@@ -8,7 +10,6 @@ import {
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
-import { ComponentClassNames } from '../shared/constants';
 
 import { useFieldset } from '../Fieldset/useFieldset';
 import { Flex } from '../Flex';
@@ -48,19 +49,19 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
     : isDisabled ?? isLoading ?? rest['disabled'];
 
   const componentClasses = classNames(
-    ComponentClassNames.Button,
-    ComponentClassNames.FieldGroupControl,
-    classNameModifier(ComponentClassNames.Button, variation),
-    classNameModifier(ComponentClassNames.Button, colorThemeModifier),
-    classNameModifier(ComponentClassNames.Button, size),
+    ComponentClassName.Button,
+    ComponentClassName.FieldGroupControl,
+    classNameModifier(ComponentClassName.Button, variation),
+    classNameModifier(ComponentClassName.Button, colorThemeModifier),
+    classNameModifier(ComponentClassName.Button, size),
     classNameModifierByFlag(
-      ComponentClassNames.Button,
+      ComponentClassName.Button,
       'disabled',
       shouldBeDisabled
     ),
-    classNameModifierByFlag(ComponentClassNames.Button, 'loading', isLoading),
+    classNameModifierByFlag(ComponentClassName.Button, 'loading', isLoading),
     classNameModifierByFlag(
-      ComponentClassNames.Button,
+      ComponentClassName.Button,
       'fullwidth',
       isFullWidth
     ),
@@ -81,7 +82,7 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
       {...rest}
     >
       {isLoading ? (
-        <Flex as="span" className={ComponentClassNames.ButtonLoaderWrapper}>
+        <Flex as="span" className={ComponentClassName.ButtonLoaderWrapper}>
           <Loader size={size} />
           {loadingText ? loadingText : null}
         </Flex>

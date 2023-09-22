@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { Tabs, TabItem } from '../Tabs';
 import { Text } from '../../Text';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 describe('Tabs', () => {
   it('can render custom classnames', async () => {
@@ -15,7 +15,7 @@ describe('Tabs', () => {
 
     const tabs = await screen.findByTestId('tabsId');
     expect(tabs.className).toContain('custom-classname');
-    expect(tabs.className).toContain(ComponentClassNames.Tabs);
+    expect(tabs.className).toContain(ComponentClassName.Tabs);
   });
 
   it('can render any arbitrary data-* attribute', async () => {
@@ -81,7 +81,7 @@ describe('Tabs', () => {
 
       const tab = await screen.findByRole('tab');
       expect(tab.className).toContain('custom-classname');
-      expect(tab.className).toContain(ComponentClassNames.TabItems);
+      expect(tab.className).toContain(ComponentClassName.TabItems);
     });
 
     it('should handle React nodes in the title', async () => {

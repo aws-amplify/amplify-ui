@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseTextProps,
   TextProps,
@@ -16,9 +16,9 @@ const TextPrimitive: Primitive<TextProps, 'p'> = (
   ref
 ) => {
   const componentClasses = classNames(
-    ComponentClassNames.Text,
-    classNameModifier(ComponentClassNames.Text, variation),
-    classNameModifierByFlag(ComponentClassNames.Text, 'truncated', isTruncated),
+    ComponentClassName.Text,
+    classNameModifier(ComponentClassName.Text, variation),
+    classNameModifierByFlag(ComponentClassName.Text, 'truncated', isTruncated),
     className
   );
 

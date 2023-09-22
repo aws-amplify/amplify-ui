@@ -1,7 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { Text, ComponentClassNames, View } from '@aws-amplify/ui-react';
+import { ComponentClassName } from '@aws-amplify/ui';
+import { Text, View } from '@aws-amplify/ui-react';
 import { IconCheck, IconError, useIcons } from '@aws-amplify/ui-react/internal';
 import { classNameModifier } from '@aws-amplify/ui';
 import { FileStatus } from '../../types';
@@ -19,14 +20,14 @@ export const FileStatusMessage = ({
   switch (status) {
     case FileStatus.UPLOADING: {
       return (
-        <Text className={ComponentClassNames.StorageManagerFileStatus}>
+        <Text className={ComponentClassName.StorageManagerFileStatus}>
           {getUploadingText(percentage)}
         </Text>
       );
     }
     case FileStatus.PAUSED:
       return (
-        <Text className={ComponentClassNames.StorageManagerFileStatus}>
+        <Text className={ComponentClassName.StorageManagerFileStatus}>
           {getPausedText(percentage)}
         </Text>
       );
@@ -34,9 +35,9 @@ export const FileStatusMessage = ({
       return (
         <Text
           className={classNames(
-            ComponentClassNames.StorageManagerFileStatus,
+            ComponentClassName.StorageManagerFileStatus,
             classNameModifier(
-              ComponentClassNames.StorageManagerFileStatus,
+              ComponentClassName.StorageManagerFileStatus,
               'success'
             )
           )}
@@ -51,9 +52,9 @@ export const FileStatusMessage = ({
       return (
         <Text
           className={classNames(
-            ComponentClassNames.StorageManagerFileStatus,
+            ComponentClassName.StorageManagerFileStatus,
             classNameModifier(
-              ComponentClassNames.StorageManagerFileStatus,
+              ComponentClassName.StorageManagerFileStatus,
               'error'
             )
           )}

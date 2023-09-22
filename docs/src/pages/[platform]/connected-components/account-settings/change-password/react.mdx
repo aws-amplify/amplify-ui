@@ -324,6 +324,35 @@ function App() {
   </ExpanderItem>
 </Expander>
 
+
+### Text and labels
+
+All text in the `ChangePassword` component is customizable with the `displayText` prop. 
+
+
+<Example>
+  <ExampleCode>
+
+```jsx
+import { AccountSettings } from '@aws-amplify/ui-react';
+
+function App() {
+  return (
+    <AccountSettings.ChangePassword 
+      displayText={{
+        currentPasswordLabel: 'Enter current password',
+        newPasswordLabel: 'Enter new password',
+        confirmPasswordLabel: 'Confirm your password',
+        updatePasswordText: 'Update your password',
+      }}  
+    />
+  );
+}
+```
+
+  </ExampleCode>
+</Example>
+
 ### Theming
 
 `ChangePassword` component is built upon our robust [Amplify UI theming system](../../theming). To get started, add a theme object and set the appropriate [design tokens](../../theming#design-tokens). You can then pass that `theme` to the `ThemeProvider` so the changes can take affect.

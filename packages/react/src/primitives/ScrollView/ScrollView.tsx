@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { classNameModifier } from '../shared/utils';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   ForwardRefPrimitive,
   Primitive,
@@ -17,8 +17,8 @@ const ScrollViewPrimitive: Primitive<ScrollViewProps, 'div'> = (
 ) => (
   <View
     className={classNames(
-      ComponentClassNames.ScrollView,
-      classNameModifier(ComponentClassNames.ScrollView, orientation),
+      ComponentClassName.ScrollView,
+      classNameModifier(ComponentClassName.ScrollView, orientation),
       className
     )}
     data-orientation={orientation}

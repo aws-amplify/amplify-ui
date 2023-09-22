@@ -2,7 +2,7 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { Storage } from 'aws-amplify';
-import { ComponentClassNames } from '@aws-amplify/ui-react';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 import { StorageImage } from '../StorageImage';
 
@@ -22,7 +22,7 @@ describe('StorageImage', () => {
     );
 
     const img = await screen.findByRole('img');
-    expect(img).toHaveClass(ComponentClassNames.StorageImage);
+    expect(img).toHaveClass(ComponentClassName.StorageImage);
   });
 
   it('should render custom classname', async () => {

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { Image, ComponentClassNames } from '@aws-amplify/ui-react';
+import { ComponentClassName } from '@aws-amplify/ui';
+import { Image } from '@aws-amplify/ui-react';
 import { useStorageURL } from '@aws-amplify/ui-react/internal';
 
 import type { StorageImageProps } from './types';
@@ -30,7 +31,7 @@ export const StorageImage = ({
   return (
     <Image
       {...rest}
-      className={classNames(ComponentClassNames.StorageImage, className)}
+      className={classNames(ComponentClassName.StorageImage, className)}
       src={url}
     />
   );

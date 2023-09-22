@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 
 import { TextArea } from '../TextArea';
 import { Fieldset } from '../../Fieldset';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 describe('TextArea component', () => {
   it('should render custom classname for TextArea', async () => {
@@ -12,7 +12,7 @@ describe('TextArea component', () => {
 
     const textarea = await screen.findByRole('textbox');
     expect(textarea).toHaveClass('custom-class');
-    expect(textarea).toHaveClass(ComponentClassNames.Textarea);
+    expect(textarea).toHaveClass(ComponentClassName.Textarea);
   });
 
   it('should render expected classname, id TextArea field', async () => {

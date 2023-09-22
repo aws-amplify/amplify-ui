@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 
 import { Flex } from '../../Flex';
 import { Button } from '../../Button';
-import { ComponentClassNames } from '../../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 import { PhoneNumberField } from '../PhoneNumberField';
 
@@ -121,7 +121,7 @@ describe('PhoneNumberField primitive', () => {
     const phoneInput = await screen.findByTestId(testId);
 
     expect(phoneInput).toHaveClass(className);
-    expect(phoneInput).toHaveClass(ComponentClassNames.PhoneNumberField);
+    expect(phoneInput).toHaveClass(ComponentClassName.PhoneNumberField);
   });
 
   it('should be able to set a size', async () => {
@@ -144,8 +144,8 @@ describe('PhoneNumberField primitive', () => {
     const small = await screen.findByTestId('small');
     const large = await screen.findByTestId('large');
 
-    expect(small.classList).toContain(`${ComponentClassNames['Field']}--small`);
-    expect(large.classList).toContain(`${ComponentClassNames['Field']}--large`);
+    expect(small.classList).toContain(`${ComponentClassName['Field']}--small`);
+    expect(large.classList).toContain(`${ComponentClassName['Field']}--large`);
   });
 
   it('should be able to set a variation', async () => {
@@ -310,7 +310,7 @@ describe('PhoneNumberField primitive', () => {
       const phoneInput = await screen.findByTestId(testId);
 
       expect(phoneInput).toHaveClass(className);
-      expect(phoneInput).toHaveClass(ComponentClassNames.PhoneNumberField);
+      expect(phoneInput).toHaveClass(ComponentClassName.PhoneNumberField);
     });
 
     it('should be able to set a size', async () => {

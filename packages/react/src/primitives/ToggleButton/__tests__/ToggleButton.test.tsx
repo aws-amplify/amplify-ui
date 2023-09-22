@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as React from 'react';
 
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { ToggleButton } from '../ToggleButton';
 
 describe('ToggleButton:', () => {
@@ -18,7 +18,7 @@ describe('ToggleButton:', () => {
     render(<ToggleButton className="test-class" />);
     const toggleButton = await screen.findByRole('button');
     expect(toggleButton).toHaveClass(
-      ComponentClassNames.ToggleButton,
+      ComponentClassName.ToggleButton,
       className
     );
   });
@@ -43,13 +43,13 @@ describe('ToggleButton:', () => {
     const menu = await screen.findByTestId('menu');
 
     expect(primary.classList).toContain(
-      `${ComponentClassNames['ToggleButton']}--primary`
+      `${ComponentClassName['ToggleButton']}--primary`
     );
     expect(link.classList).toContain(
-      `${ComponentClassNames['ToggleButton']}--link`
+      `${ComponentClassName['ToggleButton']}--link`
     );
     expect(menu.classList).toContain(
-      `${ComponentClassNames['ToggleButton']}--menu`
+      `${ComponentClassName['ToggleButton']}--menu`
     );
   });
 

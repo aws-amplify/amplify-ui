@@ -218,13 +218,6 @@ export const connectedComponents: ComponentNavItem[] = [
     tertiary: true,
   },
   {
-    href: '/connected-components/storage/fileuploader',
-    label: 'File Uploader',
-    body: 'FileUploader component allows users to upload files to your Amplify backend.',
-    platforms: ['react'],
-    tertiary: true,
-  },
-  {
     href: '/connected-components/in-app-messaging',
     label: 'In-App Messaging',
     body: 'Amplify UI In-App Messaging provides UI components for displaying In-App Messages.',

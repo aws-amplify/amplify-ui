@@ -2,9 +2,11 @@ import { render, screen } from '@testing-library/react';
 import * as React from 'react';
 import userEvent from '@testing-library/user-event';
 
+import { ComponentClassName } from '@aws-amplify/ui';
+
 import { Message } from '../Message';
 import { MessageColorTheme, MessageProps } from '../../types';
-import { ComponentClassNames, ComponentText } from '../../shared/constants';
+import { ComponentText } from '../../shared/constants';
 
 const MESSAGE_COLOR_THEMES: MessageColorTheme[] = [
   'info',
@@ -47,11 +49,11 @@ describe('Message', () => {
     const messageHeading = await screen.findByText('Test heading');
     expect(messageHeading.nodeName).toBe('DIV');
     expect(
-      messageHeading.classList.contains(ComponentClassNames.MessageHeading)
+      messageHeading.classList.contains(ComponentClassName.MessageHeading)
     ).toBe(true);
     expect(
       messageHeading.parentElement?.parentElement?.classList.contains(
-        ComponentClassNames.Message
+        ComponentClassName.Message
       )
     ).toBe(true);
   });
@@ -74,17 +76,17 @@ describe('Message', () => {
     expect(defaultMessage.childElementCount).toBe(1);
     expect(
       hasIcon.firstElementChild?.classList.contains(
-        ComponentClassNames.MessageIcon
+        ComponentClassName.MessageIcon
       )
     ).toBe(true);
     expect(
       noIcon.firstElementChild?.classList.contains(
-        ComponentClassNames.MessageIcon
+        ComponentClassName.MessageIcon
       )
     ).toBe(false);
     expect(
       defaultMessage.firstElementChild?.classList.contains(
-        ComponentClassNames.MessageIcon
+        ComponentClassName.MessageIcon
       )
     ).toBe(false);
   });
@@ -97,7 +99,7 @@ describe('Message', () => {
     expect(isDismissible.childElementCount).toBe(2);
     expect(
       isDismissible.lastElementChild?.classList.contains(
-        ComponentClassNames.MessageDismiss
+        ComponentClassName.MessageDismiss
       )
     ).toBe(true);
   });
@@ -135,7 +137,7 @@ describe('Message', () => {
     render(<Message className="custom-message" testId="messageWithClass" />);
     const message = await screen.findByTestId('messageWithClass');
     expect(message.classList.contains('custom-message')).toBe(true);
-    expect(message.classList.contains(ComponentClassNames.Message)).toBe(true);
+    expect(message.classList.contains(ComponentClassName.Message)).toBe(true);
   });
 
   it('should forward ref to container DOM element', async () => {

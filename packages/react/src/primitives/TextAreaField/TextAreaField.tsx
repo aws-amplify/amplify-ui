@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { classNameModifier } from '../shared/utils';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
@@ -48,9 +48,9 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
   return (
     <Flex
       className={classNames(
-        ComponentClassNames.Field,
-        classNameModifier(ComponentClassNames.Field, size),
-        ComponentClassNames.TextAreaField,
+        ComponentClassName.Field,
+        classNameModifier(ComponentClassName.Field, size),
+        ComponentClassName.TextAreaField,
         className
       )}
       data-size={size}

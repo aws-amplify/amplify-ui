@@ -2,7 +2,7 @@ import * as React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 
 import { UploadTask } from '@aws-amplify/storage';
-import { ComponentClassNames } from '@aws-amplify/ui-react';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 import { FileList } from '../FileList';
 import { FileListProps } from '../types';
@@ -49,19 +49,19 @@ describe('FileList', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileList}`
+        `${ComponentClassName.StorageManagerFileList}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFile}`
+        `${ComponentClassName.StorageManagerFile}`
       )
     ).toHaveLength(fileListProps.files.length);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileStatus}`
+        `${ComponentClassName.StorageManagerFileStatus}`
       )
     ).toHaveLength(1);
   });
@@ -75,13 +75,13 @@ describe('FileList', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileList}`
+        `${ComponentClassName.StorageManagerFileList}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFile}`
+        `${ComponentClassName.StorageManagerFile}`
       )
     ).toHaveLength(fileListProps.files.length);
 
@@ -98,7 +98,7 @@ describe('FileList', () => {
     expect(container).toMatchSnapshot();
 
     expect(
-      container.getElementsByClassName(`${ComponentClassNames.Alert}--error`)
+      container.getElementsByClassName(`${ComponentClassName.Alert}--error`)
     ).toHaveLength(1);
   });
 

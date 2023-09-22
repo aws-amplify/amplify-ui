@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Button } from '../../Button';
 import { ButtonGroup } from '../ButtonGroup';
 import { ButtonGroupProps, PrimitiveProps } from '../../types';
-import { ComponentClassNames } from '../../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   testFlexProps,
   expectFlexContainerStyleProps,
@@ -29,7 +29,7 @@ describe('ButtonGroup', () => {
     render(<ButtonGroupWithChildren className={className} />);
 
     const buttonGroup = await screen.findByRole('group');
-    expect(buttonGroup).toHaveClass(ComponentClassNames.ButtonGroup, className);
+    expect(buttonGroup).toHaveClass(ComponentClassName.ButtonGroup, className);
   });
 
   it('should render all flex style props', async () => {

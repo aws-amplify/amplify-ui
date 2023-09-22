@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   ForwardRefPrimitive,
   Primitive,
@@ -19,8 +19,8 @@ const TableCellPrimitive: Primitive<TableCellProps, TableCellElement> = (
     as={asElementTag}
     className={classNames(
       asElementTag === 'td'
-        ? ComponentClassNames.TableTd
-        : ComponentClassNames.TableTh,
+        ? ComponentClassName.TableTd
+        : ComponentClassName.TableTh,
       className
     )}
     ref={ref}

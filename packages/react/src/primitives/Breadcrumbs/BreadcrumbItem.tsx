@@ -1,7 +1,8 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
+
 import {
   BaseBreadcrumbItemProps,
   BreadcrumbsItemProps,
@@ -15,7 +16,7 @@ const BreadcrumbItemPrimitive: Primitive<BreadcrumbsItemProps, 'li'> = (
   ref
 ) => {
   const componentClasses = classNames(
-    ComponentClassNames.BreadcrumbsItem,
+    ComponentClassName.BreadcrumbsItem,
     className
   );
 

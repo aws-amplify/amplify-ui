@@ -20,6 +20,11 @@ export const CHANGE_PASSWORD = [
     description: 'Submit button',
     type: `ChangePasswordComponents`,
   },
+  {
+    name: `displayText?`,
+    description: 'Text to override in the component',
+    type: `Partial<ChangePasswordDisplayText>`,
+  },
 ];
 
 export const OVERRIDES = [

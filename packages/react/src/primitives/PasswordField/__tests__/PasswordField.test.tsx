@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
+import { ComponentClassName } from '@aws-amplify/ui';
+
 import { PasswordField } from '../PasswordField';
-import { ComponentClassNames, ComponentText } from '../../shared/constants';
+import { ComponentText } from '../../shared/constants';
 
 describe('PasswordField component', () => {
   const testId = 'PasswordFieldTestId';
@@ -20,7 +22,7 @@ describe('PasswordField component', () => {
     const passwordFieldWrapper = await screen.findByTestId(testId);
 
     expect(passwordFieldWrapper).toHaveClass('custom-class');
-    expect(passwordFieldWrapper).toHaveClass(ComponentClassNames.PasswordField);
+    expect(passwordFieldWrapper).toHaveClass(ComponentClassName.PasswordField);
   });
 
   it('should forward refs to DOM elements', async () => {
@@ -81,8 +83,8 @@ describe('PasswordField component', () => {
     const small = await screen.findByTestId('small');
     const large = await screen.findByTestId('large');
 
-    expect(small.classList).toContain(`${ComponentClassNames['Field']}--small`);
-    expect(large.classList).toContain(`${ComponentClassNames['Field']}--large`);
+    expect(small.classList).toContain(`${ComponentClassName['Field']}--small`);
+    expect(large.classList).toContain(`${ComponentClassName['Field']}--large`);
   });
 
   it('should have show password button', async () => {
@@ -126,9 +128,9 @@ describe('PasswordField component', () => {
     );
     const input = await screen.findByPlaceholderText('Password');
     const button = await screen.findByRole('switch');
-    expect(input.classList).toContain(`${ComponentClassNames.Input}--error`);
+    expect(input.classList).toContain(`${ComponentClassName.Input}--error`);
     expect(button.classList).toContain(
-      `${ComponentClassNames.FieldShowPassword}--error`
+      `${ComponentClassName.FieldShowPassword}--error`
     );
   });
 });

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Card } from '../Card';
 import { render, screen } from '@testing-library/react';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 const testId = 'cardId';
 
@@ -23,10 +23,10 @@ describe('Card component', () => {
     const elevated = await screen.findByTestId('elevated');
 
     expect(outlined.classList).toContain(
-      `${ComponentClassNames['Card']}--outlined`
+      `${ComponentClassName['Card']}--outlined`
     );
     expect(elevated.classList).toContain(
-      `${ComponentClassNames['Card']}--elevated`
+      `${ComponentClassName['Card']}--elevated`
     );
   });
 
@@ -35,7 +35,7 @@ describe('Card component', () => {
 
     const card = await screen.findByTestId(testId);
     expect(card.className).toContain('custom-classname');
-    expect(card.className).toContain(ComponentClassNames.Card);
+    expect(card.className).toContain(ComponentClassName.Card);
   });
 
   it('should forward ref to DOM element', async () => {

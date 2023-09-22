@@ -1,11 +1,8 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import {
-  ComponentClassNames,
-  IconsProvider,
-  View,
-} from '@aws-amplify/ui-react';
+import { ComponentClassName } from '@aws-amplify/ui';
+import { IconsProvider, View } from '@aws-amplify/ui-react';
 
 import { FileThumbnail } from '../FileThumbnail';
 import { FileThumbnailProps } from '../types';
@@ -22,7 +19,7 @@ describe('FileThumbnail', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileImage}`
+        `${ComponentClassName.StorageManagerFileImage}`
       )
     ).toHaveLength(1);
 
@@ -39,7 +36,7 @@ describe('FileThumbnail', () => {
     const { container } = render(<FileThumbnail {...thumbnailProps} isImage />);
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileImage}`
+        `${ComponentClassName.StorageManagerFileImage}`
       )
     ).toHaveLength(1);
 

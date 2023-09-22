@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { Rating } from '../Rating';
 
 const CustomIcon = ({ className }: { className: string }) => (
@@ -27,12 +27,8 @@ describe('Rating', () => {
     const small = await screen.findByTestId('small');
     const large = await screen.findByTestId('large');
 
-    expect(small.classList).toContain(
-      `${ComponentClassNames['Rating']}--small`
-    );
-    expect(large.classList).toContain(
-      `${ComponentClassNames['Rating']}--large`
-    );
+    expect(small.classList).toContain(`${ComponentClassName['Rating']}--small`);
+    expect(large.classList).toContain(`${ComponentClassName['Rating']}--large`);
   });
 
   it('should forward ref to DOM element', async () => {
