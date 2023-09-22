@@ -30,8 +30,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "5.8.0",
-    "@aws-amplify/ui-react-core": "2.1.32",
+    "@aws-amplify/ui": "5.8.1",
+    "@aws-amplify/ui-react-core": "2.1.33",
     "@xstate/react": "3.0.1",
     "lodash": "4.17.21",
     "xstate": "^4.33.6"
