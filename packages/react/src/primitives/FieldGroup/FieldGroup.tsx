@@ -44,12 +44,7 @@ const FieldGroupPrimitive: Primitive<FieldGroupOptions, 'div'> = (
   );
 
   return (
-    <Flex
-      className={componentClasses}
-      data-orientation={orientation}
-      ref={ref}
-      {...rest}
-    >
+    <Flex className={componentClasses} ref={ref} {...rest}>
       {outerStartComponent && (
         <View
           className={classNames(
@@ -71,7 +66,6 @@ const FieldGroupPrimitive: Primitive<FieldGroupOptions, 'div'> = (
             orientation
           )
         )}
-        data-orientation={orientation}
       >
         {innerStartComponent && (
           <View className={ComponentClassName.FieldGroupInnerStart}>

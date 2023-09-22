@@ -36,7 +36,6 @@ const CheckboxFieldPrimitive: Primitive<CheckboxFieldProps, 'input'> = (
         classNameModifier(ComponentClassName.Field, size),
         className
       )}
-      data-size={size}
       testId={testId}
     >
       <Checkbox

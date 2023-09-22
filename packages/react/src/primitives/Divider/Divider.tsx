@@ -28,7 +28,6 @@ const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
       aria-orientation={orientation}
       as="hr"
       className={componentClasses}
-      data-size={size}
       data-label={label}
       ref={ref}
       {...rest}

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import { countryDialCodes } from '@aws-amplify/ui';
 
-import { CountryCodeSelect } from '../CountryCodeSelect';
+import { DialCodeSelect } from '../DialCodeSelect';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { DialCodeSelectProps } from '../../types';
 
@@ -14,7 +14,7 @@ describe('CountryCodeSelect', () => {
     ...rest
   }: DialCodeSelectProps & { ref?: React.Ref<HTMLSelectElement> }) => {
     render(
-      <CountryCodeSelect label={label} defaultValue={defaultValue} {...rest} />
+      <DialCodeSelect label={label} defaultValue={defaultValue} {...rest} />
     );
 
     return {

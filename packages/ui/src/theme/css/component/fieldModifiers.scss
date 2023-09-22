@@ -1,15 +1,17 @@
-[data-label-position='start'] {
+// These are utility classes for radio, checkbox, and switch
+// to position the label relative to the control
+.amplify-label-start {
   flex-direction: row;
 }
 
-[data-label-position='end'] {
+.amplify-label-end {
   flex-direction: row-reverse;
 }
 
-[data-label-position='top'] {
+.amplify-label-top {
   flex-direction: column;
 }
 
-[data-label-position='bottom'] {
+.amplify-label-bottom {
   flex-direction: column-reverse;
 }

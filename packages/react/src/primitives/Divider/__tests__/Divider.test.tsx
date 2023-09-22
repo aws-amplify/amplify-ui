@@ -43,7 +43,7 @@ describe('Divider component', () => {
     );
   });
 
-  it('renders <hr> with expected data attributes and classname', async () => {
+  it('renders <hr> with expected attributes and classes', async () => {
     const dividerTestId = 'dividerTest';
     render(<Divider id={dividerTestId} />);
 

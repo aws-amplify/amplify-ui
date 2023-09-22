@@ -71,8 +71,10 @@ describe('ToggleButtonGroup', () => {
     expect(toggleButtonGroup).toHaveAttribute('aria-label', testLabel);
 
     const toggleButton = await screen.findByRole('button');
-    expect(toggleButton).toHaveAttribute('data-size', size);
-    expect(toggleButton).toHaveAttribute('data-variation', variation);
+    expect(toggleButton).toHaveClass(`${ComponentClassName.Button}--${size}`);
+    expect(toggleButton).toHaveClass(
+      `${ComponentClassName.Button}--${variation}`
+    );
     userEvent.click(toggleButton);
     expect(onChange).toHaveBeenCalledTimes(1);
   });

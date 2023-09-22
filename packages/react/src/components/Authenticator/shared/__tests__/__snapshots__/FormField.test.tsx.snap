@@ -13,11 +13,9 @@ exports[`FormField renders as expected in the happy path 1`] = `
     </label>
     <div
       class="amplify-flex amplify-field-group amplify-field-group--horizontal"
-      data-orientation="horizontal"
     >
       <div
         class="amplify-field-group__field-wrapper amplify-field-group__field-wrapper--horizontal"
-        data-orientation="horizontal"
       >
         <input
           aria-invalid="false"
@@ -48,11 +46,9 @@ exports[`FormField renders as expected in the unhappy path 1`] = `
     </label>
     <div
       class="amplify-flex amplify-field-group amplify-field-group--horizontal"
-      data-orientation="horizontal"
     >
       <div
         class="amplify-field-group__field-wrapper amplify-field-group__field-wrapper--horizontal"
-        data-orientation="horizontal"
       >
         <input
           aria-describedby="amplify-id-1"
@@ -74,7 +70,6 @@ exports[`FormField renders as expected in the unhappy path 1`] = `
   >
     <p
       class="amplify-text amplify-text--error"
-      data-variation="error"
       role="alert"
     >
       Username cannot be empty.

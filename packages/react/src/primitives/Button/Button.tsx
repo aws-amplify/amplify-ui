@@ -73,10 +73,6 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
       ref={ref}
       as="button"
       className={componentClasses}
-      data-fullwidth={isFullWidth}
-      data-loading={isLoading}
-      data-size={size}
-      data-variation={variation}
       isDisabled={shouldBeDisabled}
       type={type}
       {...rest}

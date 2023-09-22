@@ -114,7 +114,7 @@ describe('Menu', () => {
       render(<Menu size="large" />);
       const menu = await screen.findByTestId(MENU_TRIGGER_TEST_ID);
 
-      expect(menu).toHaveAttribute('data-size', 'large');
+      expect(menu).toHaveClass('amplify-button--large');
     });
   });
 

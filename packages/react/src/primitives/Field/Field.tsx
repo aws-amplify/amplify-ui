@@ -42,7 +42,6 @@ const FieldPrimitive: Primitive<FieldPrimitiveProps, 'div'> = (props, ref) => {
         classNameModifier(ComponentClassName.Field, size),
         className
       )}
-      data-size={size}
       testId={testId}
       ref={ref}
       {...rest}

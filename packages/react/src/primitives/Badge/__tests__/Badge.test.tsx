@@ -31,15 +31,11 @@ describe('Badge:', () => {
     const success = await screen.findByTestId('success');
     const defaultAlert = await screen.findByTestId('default');
 
-    expect(info.dataset['variation']).toBe('info');
     expect(info.classList).toContain(`${ComponentClassName['Badge']}--info`);
-    expect(error.dataset['variation']).toBe('error');
     expect(error.classList).toContain(`${ComponentClassName['Badge']}--error`);
-    expect(warning.dataset['variation']).toBe('warning');
     expect(warning.classList).toContain(
       `${ComponentClassName['Badge']}--warning`
     );
-    expect(success.dataset['variation']).toBe('success');
     expect(success.classList).toContain(
       `${ComponentClassName['Badge']}--success`
     );
@@ -72,8 +68,8 @@ describe('Badge:', () => {
       </Badge>
     );
     const badge = await screen.findByText(badgeText);
-    expect(badge.dataset['variation']).toBe('success');
-    expect(badge.dataset['size']).toBe('large');
+    expect(badge).toHaveClass(`${ComponentClassName['Badge']}--success`);
+    expect(badge).toHaveClass(`${ComponentClassName['Badge']}--large`);
   });
 
   it('can apply a custom className', async () => {
