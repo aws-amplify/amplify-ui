@@ -1,5 +1,5 @@
 {
-  "extends": "../configs/ts/tsconfig.react-native.json",
+  "extends": "@aws-amplify/ui-typescript-config/tsconfig.react-native.json",
   "compilerOptions": {
     "rootDir": "src"
   },

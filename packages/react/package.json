@@ -74,6 +74,7 @@
   },
   "devDependencies": {
     "@aws-amplify/eslint-config-amplify-ui": "0.0.0",
+    "@aws-amplify/ui-typescript-config": "0.0.0",
     "@rollup/plugin-typescript": "^8.3.1",
     "@size-limit/preset-big-lib": "^8.2.6",
     "@svgr/core": "^5.5.0",

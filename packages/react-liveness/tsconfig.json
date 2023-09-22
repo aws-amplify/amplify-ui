@@ -1,5 +1,5 @@
 {
-  "extends": "../configs/ts/tsconfig.react.json",
+  "extends": "@aws-amplify/ui-typescript-config/tsconfig.react.json",
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "compilerOptions": {
     // turning on because the data store hooks typing fails type checking
