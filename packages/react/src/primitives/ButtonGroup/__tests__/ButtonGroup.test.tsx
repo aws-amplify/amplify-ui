@@ -73,16 +73,16 @@ describe('ButtonGroup', () => {
     const [first, second, third] = await screen.findAllByRole('button');
 
     // override size prop
-    expect(first).toHaveAttribute('data-size', 'small');
-    expect(first).toHaveAttribute('data-variation', variation);
+    expect(first).toHaveClass(`${ComponentClassName.Button}--small`);
+    expect(first).toHaveClass(`${ComponentClassName.Button}--${variation}`);
 
     // inherit parent props
-    expect(second).toHaveAttribute('data-size', size);
-    expect(second).toHaveAttribute('data-variation', variation);
+    expect(second).toHaveClass(`${ComponentClassName.Button}--${size}`);
+    expect(second).toHaveClass(`${ComponentClassName.Button}--${variation}`);
 
-    // override size prop
-    expect(second).toHaveAttribute('data-size', size);
-    expect(third).toHaveAttribute('data-variation', 'link');
+    // override variation prop
+    expect(third).toHaveClass(`${ComponentClassName.Button}--${size}`);
+    expect(third).toHaveClass(`${ComponentClassName.Button}--link`);
   });
 
   it('should forward ref to DOM element', async () => {
