@@ -57,6 +57,8 @@
       "**/@radix-ui/**",
       "**/react",
       "**/react-dom",
+      "**/react-hook-form",
+      "**/react-hook-form/**",
       "**/react-map-gl",
       "**/react-native",
       "**/react-native/**",
