@@ -4,6 +4,7 @@ import {
   getSendEventAliases,
   getServiceContextFacade,
   getServiceFacade,
+  getNextServiceFacade,
 } from '../facade';
 import { AmplifyUser, AuthEvent, AuthMachineState } from '../../../types';
 
@@ -235,6 +236,26 @@ describe('getServiceFacade', () => {
     expect(serviceFacade).toHaveProperty('authStatus');
     expect(serviceFacade).toHaveProperty('route');
     expect(serviceFacade).toHaveProperty('user');
+    expect(serviceFacade).toHaveProperty('route');
+  });
+});
+
+describe('getNextServiceFacade', () => {
+  const send = jest.fn();
+  const state = {
+    value: 'idle',
+    context: {},
+    hasTag: () => false,
+    matches: () => false,
+  } as unknown as AuthMachineState;
+
+  it('returns expected methods and properties', () => {
+    const serviceFacade = getNextServiceFacade({ send, state });
+
+    expect(serviceFacade).not.toHaveProperty('authStatus');
+    expect(serviceFacade).toHaveProperty('route');
+    expect(serviceFacade).not.toHaveProperty('user');
+    expect(serviceFacade).toHaveProperty('username');
     expect(serviceFacade).toHaveProperty('route');
   });
 });

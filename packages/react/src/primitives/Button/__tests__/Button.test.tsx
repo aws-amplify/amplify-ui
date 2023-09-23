@@ -217,8 +217,8 @@ describe('Button test suite', () => {
     render(<Button size={size} variation={variation} />);
 
     const button = await screen.findByRole('button');
-    expect(button).toHaveAttribute('data-size', size);
-    expect(button).toHaveAttribute('data-variation', variation);
+    expect(button).toHaveClass(`amplify-button--${size}`);
+    expect(button).toHaveClass(`amplify-button--${variation}`);
   });
 
   it('should set aria-label correctly if ariaLabel is provided', async () => {
@@ -271,7 +271,7 @@ describe('Button test suite', () => {
     render(<Button loadingText="loading" size="small" isLoading />);
 
     const loader = await screen.findByRole('img');
-    expect(loader).toHaveAttribute('data-size', 'small');
+    expect(loader).toHaveClass('amplify-loader--small');
   });
 
   it('should render Loader correctly without loadingText and isLoading is set to true', async () => {

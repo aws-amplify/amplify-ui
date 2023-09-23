@@ -8,8 +8,6 @@ exports[`DeleteUser renders as expected 1`] = `
   >
     <button
       class="amplify-button amplify-field-group__control amplify-button--warning"
-      data-fullwidth="false"
-      data-variation="warning"
       type="button"
     >
       Delete Account
@@ -26,7 +24,6 @@ exports[`DeleteUser renders as expected with components overrides 1`] = `
   >
     <button
       class="amplify-button amplify-field-group__control"
-      data-fullwidth="false"
       type="button"
     >
       Custom Delete Button

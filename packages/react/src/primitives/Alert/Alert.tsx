@@ -49,7 +49,6 @@ const AlertPrimitive: Primitive<AlertProps, 'div'> = (
         className,
         classNameModifier(ComponentClassName.Alert, variation)
       )}
-      data-variation={variation}
       ref={ref}
       role="alert"
       {...rest}

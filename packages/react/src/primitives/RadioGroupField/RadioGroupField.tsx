@@ -82,7 +82,6 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, 'fieldset'> = (
         ComponentClassName.RadioGroupField,
         className
       )}
-      data-size={size}
       ref={ref}
       role="radiogroup"
       testId={testId}

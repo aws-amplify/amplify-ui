@@ -2,6 +2,7 @@ import {
   ColorValue,
   DesignTokenValues,
   OutputVariantKey,
+  RecursiveDesignToken,
 } from './types/designToken';
 
 /**
@@ -11,7 +12,8 @@ type BaseColorValues<
   VariantKey extends string | number,
   Output,
   Platform = unknown
-> = DesignTokenValues<VariantKey, ColorValue, Output, Platform>;
+> = RecursiveDesignToken<ColorValue, Output, Platform> &
+  DesignTokenValues<VariantKey, ColorValue, Output, Platform>;
 
 type ColorValues<
   VariantKey extends string | number,
@@ -131,15 +133,14 @@ type BaseColors<
     font?: ColorValues<FontVariantKey<Output, Platform>, Output, Platform>;
     overlay?: ColorValues<OverlayKey, Output, Platform>;
     shadow?: ColorValues<OrderVariantKey, Output, Platform>;
-  };
+  } & RecursiveDesignToken<ColorValue, Output, Platform>;
 
 export type Colors<
   Output extends OutputVariantKey = unknown,
   Platform = unknown
-> = (Output extends 'required' | 'default'
+> = Output extends 'required' | 'default'
   ? Required<BaseColors<Output, Platform>>
-  : BaseColors<Output, Platform>) &
-  Record<string, any>; // TODO: remove 'any' and created structured custom color generic
+  : BaseColors<Output, Platform>;
 
 export const colors: Colors<'default'> = {
   red: {

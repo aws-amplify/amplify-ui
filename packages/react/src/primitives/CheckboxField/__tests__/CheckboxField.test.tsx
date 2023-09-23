@@ -50,9 +50,8 @@ describe('CheckboxField test suite', () => {
   it('should work with labelPosition', async () => {
     render(getCheckboxField({ ...basicProps, labelPosition: 'end' }));
     const checkboxField = await screen.findByTestId(basicProps.testId);
-    expect(checkboxField.querySelector('label')).toHaveAttribute(
-      'data-label-position',
-      'end'
+    expect(checkboxField.querySelector('label')).toHaveClass(
+      'amplify-label-end'
     );
   });
 

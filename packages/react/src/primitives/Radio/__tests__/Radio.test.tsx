@@ -108,10 +108,7 @@ describe('RadioField test suite', () => {
       </View>
     );
     const radioField = await screen.findByTestId('test');
-    expect(radioField.querySelector('label')).toHaveAttribute(
-      'data-label-position',
-      'end'
-    );
+    expect(radioField.querySelector('label')).toHaveClass('amplify-label-end');
   });
 
   it('should inherit labelPosition from RadioGroupField', async () => {
@@ -126,9 +123,8 @@ describe('RadioField test suite', () => {
       </RadioGroupField>
     );
     const radioField = await screen.findByTestId('test');
-    expect(radioField.querySelector('.amplify-radio')).toHaveAttribute(
-      'data-label-position',
-      'end'
+    expect(radioField.querySelector('.amplify-radio')).toHaveClass(
+      'amplify-label-end'
     );
   });
 
@@ -146,9 +142,8 @@ describe('RadioField test suite', () => {
       </RadioGroupField>
     );
     const radioField = await screen.findByTestId('test');
-    expect(radioField.querySelector('.amplify-radio')).toHaveAttribute(
-      'data-label-position',
-      'start'
+    expect(radioField.querySelector('.amplify-radio')).toHaveClass(
+      'amplify-label-start'
     );
   });
 });

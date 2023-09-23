@@ -25,6 +25,8 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
     placeholder,
     isDisabled,
     isRequired,
+    isMultiple = false,
+    selectSize = 1,
     ...rest
   },
   ref
@@ -33,12 +35,16 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
   // value === undefined is to make sure that component is used in uncontrolled way so that setting defaultValue is valid
   const shouldSetDefaultPlaceholderValue =
     value === undefined && defaultValue === undefined && placeholder;
+
+  const isExpanded = isMultiple || selectSize > 1;
+
   const componentClasses = classNames(
     ComponentClassName.Select,
     ComponentClassName.FieldGroupControl,
     classNameModifier(ComponentClassName.Select, size),
     classNameModifier(ComponentClassName.Select, variation),
     classNameModifierByFlag(ComponentClassName.Select, 'error', hasError),
+    classNameModifierByFlag(ComponentClassName.Select, 'expanded', isExpanded),
     className
   );
   const icons = useIcons('select');
@@ -57,9 +63,9 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
             : defaultValue
         }
         isDisabled={isFieldsetDisabled ? isFieldsetDisabled : isDisabled}
+        multiple={isMultiple}
+        size={selectSize}
         required={isRequired}
-        data-size={size}
-        data-variation={variation}
         className={componentClasses}
         ref={ref}
         {...rest}
@@ -67,15 +73,17 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
         {placeholder && <option value="">{placeholder}</option>}
         {children}
       </View>
-      <Flex
-        className={classNames(
-          ComponentClassName.SelectIconWrapper,
-          classNameModifier(ComponentClassName.SelectIconWrapper, size)
-        )}
-        color={iconColor}
-      >
-        {icon ?? icons?.expand ?? <IconExpandMore />}
-      </Flex>
+      {isExpanded ? null : (
+        <Flex
+          className={classNames(
+            ComponentClassName.SelectIconWrapper,
+            classNameModifier(ComponentClassName.SelectIconWrapper, size)
+          )}
+          color={iconColor}
+        >
+          {icon ?? icons?.expand ?? <IconExpandMore />}
+        </Flex>
+      )}
     </View>
   );
 };

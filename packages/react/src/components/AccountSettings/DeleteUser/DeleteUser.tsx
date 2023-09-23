@@ -1,26 +1,32 @@
 import React from 'react';
 
-import { deleteUser, translate, getLogger } from '@aws-amplify/ui';
+import { deleteUser, getLogger } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
 import { Flex } from '../../../primitives';
 import { ComponentClassName } from '../constants';
 import DEFAULTS from './defaults';
 import { DeleteUserProps, DeleteUserState } from './types';
+import { defaultDeleteUserDisplayText } from '../utils';
 
 const logger = getLogger('Auth');
 
 function DeleteUser({
   components,
-  onSuccess,
-  onError,
+  displayText: overrideDisplayText,
   handleDelete,
+  onError,
+  onSuccess,
 }: DeleteUserProps): JSX.Element | null {
   const [state, setState] = React.useState<DeleteUserState>('IDLE');
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
 
   // translations
-  const deleteAccountText = translate('Delete Account');
+  const displayText = {
+    ...defaultDeleteUserDisplayText,
+    ...overrideDisplayText,
+  };
+  const { deleteAccountText } = displayText;
 
   const { user, isLoading } = useAuth();
 

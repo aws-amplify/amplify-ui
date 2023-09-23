@@ -130,7 +130,7 @@ export function areEmptyArrays<T>(...values: T[]): boolean {
  * @param {unknown} value The value to check
  * @returns {boolean} Returns `true` if `value` is empty, `false` otherwise
  */
-function isEmptyObject<T>(value: T): boolean {
+export function isEmptyObject<T>(value: T): boolean {
   return isObject(value) && isEmpty(value);
 }
 

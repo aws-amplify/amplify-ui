@@ -85,7 +85,7 @@ To use the `eslint` configs in an Amplify UI package, declare `@aws-amplify/esli
     "@aws-amplify/eslint-config-amplify-ui": "0.0.0"
   },
   "dependencies": {
-    "eslint": "^8.13.0"
+    "eslint": "^8.44.0"
   }
 }
 ```

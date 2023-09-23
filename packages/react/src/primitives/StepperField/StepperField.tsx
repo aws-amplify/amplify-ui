@@ -90,8 +90,6 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
         ComponentClassName.StepperField,
         className
       )}
-      data-size={size}
-      data-variation={variation}
       testId={testId}
       {...styleProps}
     >

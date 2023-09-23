@@ -49,9 +49,9 @@ const DialCodeSelectPrimitive: Primitive<DialCodeSelectProps, 'select'> = (
   );
 };
 
-export const CountryCodeSelect: ForwardRefPrimitive<
+export const DialCodeSelect: ForwardRefPrimitive<
   BaseDialCodeSelectProps,
   'select'
 > = React.forwardRef(DialCodeSelectPrimitive);
 
-CountryCodeSelect.displayName = 'CountryCodeSelect';
+DialCodeSelect.displayName = 'DialCodeSelect';

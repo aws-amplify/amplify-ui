@@ -14,7 +14,7 @@ Feature: Delete User
     Then I see "Hello"
     Then I see "Delete Account:"
     Then I click the "Delete Account" button
-    Then I see "Deleting your account is not reversable. You will lose access to your account and all data associated with it."
+    Then I see "Deleting your account is not reversible. You will lose access to your account and all data associated with it."
     Then I click the "Delete my account" button
     Then I see "Sign in"
 
@@ -27,7 +27,7 @@ Feature: Delete User
     Then I see "Hello"
     Then I see "Delete Account:"
     Then I click the "Delete Account" button
-    Then I see "Deleting your account is not reversable. You will lose access to your account and all data associated with it."
+    Then I see "Deleting your account is not reversible. You will lose access to your account and all data associated with it."
     Then I click the "Cancel" button
     Then I click the "Sign Out" button
     Then I see "Sign in"
@@ -41,7 +41,7 @@ Feature: Delete User
     Then I see "Hello"
     Then I see "Delete Account:"
     Then I click the "Delete Account" button
-    Then I see "Deleting your account is not reversable. You will lose access to your account and all data associated with it."
+    Then I see "Deleting your account is not reversible. You will lose access to your account and all data associated with it."
     Then I click the "Delete my account" button
     Then I see 'Error deleting user'
     Then I click the "Sign Out" button

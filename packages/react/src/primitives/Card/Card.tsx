@@ -23,7 +23,6 @@ const CardPrimitive: Primitive<CardProps, 'div'> = (
         classNameModifier(ComponentClassName.Card, variation),
         className
       )}
-      data-variation={variation}
       ref={ref}
       {...rest}
     >

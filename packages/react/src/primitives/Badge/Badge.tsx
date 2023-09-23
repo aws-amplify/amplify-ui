@@ -24,14 +24,7 @@ const BadgePrimitive: Primitive<BadgeProps, 'span'> = (
   );
 
   return (
-    <View
-      as="span"
-      className={componentClasses}
-      data-variation={variation}
-      data-size={size}
-      ref={ref}
-      {...rest}
-    >
+    <View as="span" className={componentClasses} ref={ref} {...rest}>
       {children}
     </View>
   );

@@ -68,9 +68,8 @@ describe('RadioFieldGroup', () => {
   it('should work with labelPosition', async () => {
     render(RadioFieldGroup({ ...basicProps, labelPosition: 'end' }));
     const radioField = await screen.findByTestId(basicProps.testId);
-    expect(radioField.querySelector('.amplify-radio')).toHaveAttribute(
-      'data-label-position',
-      'end'
+    expect(radioField.querySelector('.amplify-radio')).toHaveClass(
+      'amplify-label-end'
     );
   });
 
@@ -178,12 +177,18 @@ describe('RadioFieldGroup', () => {
       render(RadioFieldGroup({ ...basicProps, size: 'large' }));
 
       const radioField = await screen.findByTestId(basicProps.testId);
-      expect(radioField).toHaveAttribute('data-size', 'large');
+      expect(radioField).toHaveClass(`${ComponentClassName.Field}--large`);
 
       const radioButtons = await screen.findAllByTestId('radio-button');
-      expect(radioButtons[0]).toHaveAttribute('data-size', 'large');
-      expect(radioButtons[1]).toHaveAttribute('data-size', 'large');
-      expect(radioButtons[2]).toHaveAttribute('data-size', 'large');
+      expect(radioButtons[0]).toHaveClass(
+        `${ComponentClassName.RadioButton}--large`
+      );
+      expect(radioButtons[1]).toHaveClass(
+        `${ComponentClassName.RadioButton}--large`
+      );
+      expect(radioButtons[2]).toHaveClass(
+        `${ComponentClassName.RadioButton}--large`
+      );
     });
 
     it('should render size classes for RadioGroupField', async () => {
