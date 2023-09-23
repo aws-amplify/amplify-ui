@@ -1,5 +1,5 @@
 {
-  "extends": "@aws-amplify/ui-typescript-config/tsconfig.react.json",
+  "extends": "../configs/ts/tsconfig.react.json",
   "compilerOptions": {
     "noImplicitAny": false
   },

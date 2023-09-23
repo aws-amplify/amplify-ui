@@ -49,7 +49,7 @@
       "examples/*",
       "packages/*",
       "packages/angular/projects/ui-angular",
-      "packages/configs/*"
+      "packages/configs/eslint"
     ],
     "nohoist": [
       "**/next",
