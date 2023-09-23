@@ -4,8 +4,6 @@
   "version": "0.0.0",
   "description": "Typescript configuration for Amplify UI packages",
   "exports": {
-    "./tsconfig.base.json": "./tsconfig.base.json",
-    "./tsconfig.react.json": "./tsconfig.react.json",
-    "./tsconfig.react-native.json": "./tsconfig.react-native.json"
+    "./*": "./*.json"
   }
 }

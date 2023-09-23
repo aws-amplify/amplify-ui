@@ -60,6 +60,7 @@
     }
   },
   "devDependencies": {
+    "@aws-amplify/typescript-config": "0.0.0",
     "@rollup/plugin-typescript": "^8.3.1",
     "@types/jest": "^26.0.23",
     "@types/lodash": "^4.14.170",
