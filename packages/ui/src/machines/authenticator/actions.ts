@@ -8,6 +8,7 @@ import {
   SignInContext,
   SignUpContext,
 } from '../../types';
+import { groupLog } from '../../utils';
 
 const { assign, stop } = actions;
 
@@ -43,9 +44,17 @@ export const stopActor = (machineId: string) => {
 export const clearAttributeToVerify = assign({
   attributeToVerify: (_) => undefined,
 });
-export const clearChallengeName = assign({ challengeName: (_) => undefined });
+export const clearChallengeName = assign({
+  challengeName: (_) => {
+    groupLog('+++clearChallengeName');
+    return undefined;
+  },
+});
 export const clearRequiredAttributes = assign({
-  requiredAttributes: (_) => undefined,
+  requiredAttributes: (_) => {
+    groupLog('+++clearRequiredAttributes');
+    return undefined;
+  },
 });
 export const clearError = assign({ remoteError: (_) => '' });
 export const clearFormValues = assign({ formValues: (_) => ({}) });
@@ -60,28 +69,55 @@ export const clearValidationError = assign({ validationError: (_) => ({}) });
  * "set" actions
  */
 export const setTotpSecretCode = assign({
-  totpSecretCode: (_, event: AuthEvent) => event.data,
+  totpSecretCode: (_, event: AuthEvent) => {
+    groupLog('+++totpSecretCode', 'event', event);
+    return event.data;
+  },
 });
 
+// export const setChallengeName = assign({
+//   challengeName: (_, event: AuthEvent) => {
+//     groupLog('+++setChallengeName', 'event', event);
+//     return event.data?.challengeName;
+//   },
+// });
+
 export const setChallengeName = assign({
-  challengeName: (_, event: AuthEvent) => event.data?.challengeName,
+  challengeName: (_, event: AuthEvent) => {
+    groupLog('+++setChallengeName', 'event', event);
+    return event.data.nextStep.signInStep;
+  },
 });
 
 export const setRequiredAttributes = assign({
-  requiredAttributes: (_, event: AuthEvent) =>
-    event.data?.challengeParam?.requiredAttributes,
+  requiredAttributes: (_, event: AuthEvent) => {
+    groupLog('+++setRequiredAttributes', 'event', event);
+    return event.data?.challengeParam?.requiredAttributes;
+  },
 });
 
 export const setConfirmResetPasswordIntent = assign({
-  redirectIntent: (_) => 'confirmPasswordReset',
+  redirectIntent: (_, __) => {
+    groupLog('+++setConfirmResetPasswordIntent', 'event', __);
+    return 'confirmPasswordReset';
+  },
 });
 
 export const setConfirmSignUpIntent = assign({
-  redirectIntent: (_) => 'confirmSignUp',
+  redirectIntent: (_, event) => {
+    groupLog('+++setConfirmSignUpIntent', 'event', event);
+    return 'confirmSignUp';
+  },
 });
 
 export const setCredentials = assign({
-  authAttributes: (context: SignInContext | SignUpContext, _) => {
+  /**
+   * @migration does not require updates
+   */
+  // authAttributes: (context: SignInContext | SignUpContext, _) => {
+  authAttributes: (context: SignInContext | SignUpContext) => {
+    // groupLog('+++setCredentials', 'context', context, 'event', _);
+    groupLog('+++setCredentials');
     const [primaryAlias] = context.loginMechanisms;
     const username =
       context.formValues[primaryAlias] ?? context.formValues['username'];
@@ -97,6 +133,7 @@ export const setFieldErrors = assign({
 
 export const setRemoteError = assign({
   remoteError: (_, event: AuthEvent) => {
+    groupLog('+++setRemoteError', 'event', event);
     if (event.data.name === 'NoUserPoolError') {
       return `Configuration error (see console) – please contact the administrator`;
     }
@@ -105,15 +142,43 @@ export const setRemoteError = assign({
 });
 
 export const setUnverifiedContactMethods = assign({
-  unverifiedContactMethods: (_, event: AuthEvent) => event.data.unverified,
+  unverifiedContactMethods: (_, event: AuthEvent) => {
+    groupLog('+++setUnverifiedContactMethods', 'event', event);
+    return event.data.unverified;
+  },
 });
 
 export const setUser = assign({
-  user: (_, event: AuthEvent) => event.data.user || event.data,
+  user: (_, event: AuthEvent) => {
+    //   event.data = {
+    //     "isSignUpComplete": false,
+    //     "nextStep": {
+    //         "signUpStep": "CONFIRM_SIGN_UP",
+    //         "codeDeliveryDetails": {
+    //             "deliveryMedium": "EMAIL",
+    //             "destination": "c***@g***",
+    //             "attributeName": "email"
+    //         }
+    //     },
+    //     "userId": "xxxxx"
+    // }
+    groupLog('+++setUser', 'event.data?.userId', event.data?.userId);
+
+    /**
+     * Cannot be called if unauthenticated. Maybe try/catch?
+     */
+    // const user = await Auth.getCurrentUser();
+    /**
+     * @migration event.data was the fallback here,
+     *  setting the entire event.data as user
+     */
+    return { user: event.data?.userId };
+  },
 });
 
 export const setUsername = assign({
   username: (context: ActorContextWithForms, _) => {
+    groupLog('+++setUsername', 'context', context);
     let {
       formValues: { username, country_code },
     } = context;
@@ -125,13 +190,20 @@ export const setUsername = assign({
 });
 
 export const setCodeDeliveryDetails = assign({
-  codeDeliveryDetails: (_, event: AuthEvent) => event.data.codeDeliveryDetails,
+  codeDeliveryDetails: (_, { data }: { data: Auth.SignUpOutput }) => {
+    groupLog('+++setCodeDeliveryDetails', 'data', data);
+
+    return data.nextStep.codeDeliveryDetails;
+  },
 });
 
 export const setUsernameAuthAttributes = assign({
-  authAttributes: (context: ActorContextWithForms, _) => ({
-    username: context.formValues.username,
-  }),
+  authAttributes: (context: ActorContextWithForms, _) => {
+    groupLog('+++setUsernameAuthAttributes', 'context', context, 'event', _);
+    return {
+      username: context.formValues.username,
+    };
+  },
 });
 
 export const handleInput = assign({
@@ -169,7 +241,10 @@ export const handleBlur = assign({
 //   const { username } = context;
 //   return await Auth.forgotPassword(username);
 // };
-
+/**
+ *
+ * @migration is working as expected
+ */
 export const resendCode = async (
   context
 ): Promise<Auth.ResetPasswordOutput> => {

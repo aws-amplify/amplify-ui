@@ -5,7 +5,6 @@ import {
   AmplifyUser,
   UnverifiedContactMethods,
 } from '../user';
-import { CodeDeliveryDetails as CognitoCodeDeliveryDetails } from 'amazon-cognito-identity-js';
 import { LoginMechanism, SignUpAttribute, SocialProvider } from '../attributes';
 import { defaultServices } from '../../../machines/authenticator/defaultServices';
 import { PasswordSettings } from '..';
@@ -64,7 +63,15 @@ export interface AuthContext {
   hasSetup?: boolean;
 }
 
-export interface CodeDeliveryDetails extends CognitoCodeDeliveryDetails {}
+/**
+ * @migration pulled from
+ */
+// export type AuthDeliveryMedium = 'EMAIL' | 'SMS' | 'PHONE' | 'UNKNOWN'
+export interface CodeDeliveryDetails {
+  attributeName: string;
+  deliveryMedium: string;
+  destination: string;
+}
 
 /**
  * Base context for all actors that have auth forms associated

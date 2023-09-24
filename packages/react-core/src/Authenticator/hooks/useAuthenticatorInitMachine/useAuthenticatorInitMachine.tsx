@@ -12,6 +12,13 @@ export const routeSelector: UseAuthenticatorSelector = ({ route }) => [route];
 export default function useAuthenticatorInitMachine(
   data: AuthenticatorMachineOptions
 ): void {
+  // eslint-disable-next-line no-console
+  // console.group('+++useAuthenticatorInitMachine');
+  // eslint-disable-next-line no-console
+  // console.log('data', data);
+  // eslint-disable-next-line no-console
+  // console.groupEnd();
+
   const { route, initializeMachine } = useAuthenticator(routeSelector);
 
   const hasInitialized = React.useRef(false);

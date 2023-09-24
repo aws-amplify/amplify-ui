@@ -80,7 +80,11 @@ export function AuthenticatorInternal({
   useDeprecationWarning({
     message:
       'The `passwordSettings` prop has been deprecated and will be removed in a future major version of Amplify UI.',
-    shouldWarn: !!passwordSettings,
+    // shouldWarn: !!passwordSettings,
+    /**
+     * @migration turn off until getConfig returns zero config
+     */
+    shouldWarn: false,
   });
 
   const { route, signOut, user } = useAuthenticator(
@@ -90,6 +94,7 @@ export function AuthenticatorInternal({
   useAuthenticatorInitMachine({
     initialState,
     loginMechanisms,
+    passwordSettings,
     services,
     signUpAttributes,
     socialProviders,

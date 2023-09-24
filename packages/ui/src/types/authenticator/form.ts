@@ -79,6 +79,9 @@ export type DefaultFormFieldOptions = Record<
 /** Ordered list of formFields */
 export type FormFieldsArray = Array<[string, FormFieldOptions]>;
 
+/**
+ * @migration `passwordPolicyCharacters` potential values
+ */
 export type PasswordPolicyRules =
   | 'REQUIRES_LOWERCASE'
   | 'REQUIRES_NUMBERS'

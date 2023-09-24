@@ -6,13 +6,15 @@ import {
   AuthEvent,
   AmplifyUser,
   AuthFormFields,
+  PasswordSettings,
 } from '../../types';
-import { isEmptyObject } from '../../utils';
+import { groupLog, isEmptyObject } from '../../utils';
 
 import { stopActor } from './actions';
 import { resetPasswordActor, signInActor, signOutActor } from './actors';
 import { defaultServices } from './defaultServices';
 import { createSignUpMachine } from './signUp';
+import { getAuthenticatorConfig } from './getAuthenticatorConfig';
 
 const { choose } = actions;
 const DEFAULT_COUNTRY_CODE = '+1';
@@ -242,78 +244,73 @@ export function createAuthenticatorMachine(
           },
         ]),
         setUser: assign({
-          user: (_, event) => event.data as AmplifyUser,
+          user: (_, event) => {
+            groupLog('+++createMachine.setUser', 'event', event);
+            return event.data as AmplifyUser;
+          },
         }),
         setActorDoneData: assign({
-          actorDoneData: (_, event) => ({
-            authAttributes: { ...event.data?.authAttributes },
-            intent: event.data?.intent,
-          }),
+          /**
+           * @migration potentially update flows here
+           */
+          actorDoneData: (_, event) => {
+            groupLog('+++setActorDoneData', 'event', event);
+            return {
+              authAttributes: { ...event.data?.authAttributes },
+              intent: event.data?.intent,
+            };
+          },
           user: (_, event) => event.data?.user,
         }),
         clearUser: assign({ user: undefined }),
         clearActorDoneData: assign({ actorDoneData: undefined }),
         applyAmplifyConfig: assign({
-          config(context, event) {
-            // The CLI uses uppercased constants in `aws-exports.js`, while `parameters.json` are lowercase.
-            // We use lowercase to be consistent with previous versions' values.
+          config(context, { data: cliConfigBase }) {
+            console.group('+++applyAmplifyConfig');
 
-            const cliLoginMechanisms =
-              event.data.aws_cognito_username_attributes?.map((s) =>
-                s.toLowerCase()
-              ) ?? [];
-
-            const cliVerificationMechanisms =
-              event.data.aws_cognito_verification_mechanisms?.map((s) =>
-                s.toLowerCase()
-              ) ?? [];
-
-            const cliSignUpAttributes =
-              event.data.aws_cognito_signup_attributes?.map((s) =>
-                s.toLowerCase()
-              ) ?? [];
-
-            const cliSocialProviders =
-              event.data.aws_cognito_social_providers?.map((s) =>
-                s.toLowerCase()
-              ) ?? [];
-
-            const cliPasswordSettings =
-              event.data.aws_cognito_password_protection_settings || {};
+            const cliConfig = getAuthenticatorConfig(cliConfigBase);
+            // Prefer explicitly configured settings over default CLI values\
+            const {
+              loginMechanisms = cliConfig.loginMechanisms ?? [],
+              signUpAttributes = cliConfig.signUpAttributes ?? [],
+              socialProviders = cliConfig.socialProviders ?? [],
+              initialState,
+              formFields: _formFields,
+              /**
+               * @migration was missing, prev noted as deprecated
+               */
+              passwordSettings = cliConfig.passwordSettings ??
+                ({} as PasswordSettings),
+            } = context.config;
 
             // By default, Cognito assumes `username`, so there isn't a different username attribute like `email`.
             // We explicitly add it as a login mechanism to be consistent with Admin UI's language.
-            if (cliLoginMechanisms.length === 0) {
-              cliLoginMechanisms.push('username');
+            if (loginMechanisms.length === 0) {
+              loginMechanisms.push('username');
             }
 
-            // Prefer explicitly configured settings over default CLI values\
-            const {
+            const formFields = convertFormFields(_formFields) ?? {};
+
+            console.groupEnd();
+
+            return {
+              formFields,
+              initialState,
               loginMechanisms,
+              passwordSettings,
               signUpAttributes,
               socialProviders,
-              initialState,
-              formFields,
-            } = context.config;
-            return {
-              loginMechanisms: loginMechanisms ?? cliLoginMechanisms,
-              formFields: convertFormFields(formFields) ?? {},
-              passwordSettings: cliPasswordSettings,
-              signUpAttributes:
-                signUpAttributes ??
-                Array.from(
-                  new Set([
-                    ...cliVerificationMechanisms,
-                    ...cliSignUpAttributes,
-                  ])
-                ),
-              socialProviders: socialProviders ?? cliSocialProviders.sort(),
-              initialState,
             };
           },
         }),
         spawnSignInActor: assign({
           actorRef: (context, _) => {
+            groupLog(
+              '+++spawnSignInActor.actorRef',
+              'looking for context.actorDoneData?.intent',
+              context
+            );
+
             const { services } = context;
             const actor = signInActor({ services }).withContext({
               authAttributes: context.actorDoneData?.authAttributes ?? {},
@@ -333,6 +330,11 @@ export function createAuthenticatorMachine(
         }),
         spawnSignUpActor: assign({
           actorRef: (context, _) => {
+            groupLog(
+              '+++spawnSignUpActor.actorRef',
+              'looking for context.actorDoneData?.intent',
+              context
+            );
             const { services } = context;
             const actor = createSignUpMachine({ services }).withContext({
               authAttributes: context.actorDoneData?.authAttributes ?? {},
@@ -399,17 +401,23 @@ export function createAuthenticatorMachine(
         isInitialStateResetPassword: (context) =>
           context.config.initialState === 'resetPassword',
         // guards for redirections
-        shouldRedirectToSignUp: (_, event) =>
-          event.data?.intent === 'confirmSignUp',
+        shouldRedirectToSignUp: (_, event) => {
+          groupLog('+++shouldRedirectToSignUp');
+          return event.data?.intent === 'confirmSignUp';
+        },
         shouldRedirectToResetPassword: (_, event) =>
           event.data?.intent === 'confirmPasswordReset',
         shouldAutoSignIn: (context, event) => {
+          groupLog('+++shouldAutoSignIn', 'event', event);
           return (
             event.data?.intent === 'autoSignIn' ||
             event.data?.intent === 'autoSignInSubmit'
           );
         },
-        shouldSetup: (context) => context.hasSetup === false,
+        shouldSetup: (context) => {
+          groupLog('+++shouldSetup', 'context', context);
+          return context.hasSetup === false;
+        },
         // other context guards
         hasActor: (context) => !!context.actorRef,
       },

@@ -10,6 +10,9 @@ import {
 
 export const getPrimaryAlias = (state: AuthMachineState) => {
   const loginMechanisms = state?.context.config?.loginMechanisms;
+  /**
+   * @migration this is where we grab only the first index of `aws_cognito_username_attributes`
+   */
   const [primaryAlias] = loginMechanisms ?? ['username'];
   return primaryAlias;
 };
