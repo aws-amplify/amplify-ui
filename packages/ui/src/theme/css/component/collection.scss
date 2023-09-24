@@ -1,6 +1,6 @@
 .amplify-collection {
   flex-direction: column;
-  &-pagination {
+  &__pagination {
     justify-content: center;
     --amplify-components-pagination-current-color: var(
       --amplify-components-collection-pagination-current-color
@@ -21,7 +21,7 @@
       --amplify-components-collection-pagination-button-disabled-color
     );
   }
-  &-search {
+  &__search {
     flex-direction: row;
     justify-content: center;
     --amplify-components-searchfield-input-color: var(
