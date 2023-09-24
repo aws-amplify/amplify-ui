@@ -2,7 +2,8 @@ import React from 'react';
 import { Button } from 'react-native';
 
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
-import { Amplify, Auth } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import * as Auth from '@aws-amplify/auth';
 
 import awsconfig from './aws-exports';
 
@@ -19,17 +20,23 @@ function App() {
       <Authenticator
         services={{
           handleSignUp: (formData) => {
-            let { username, password, attributes } = formData;
+            let { username, password, attributes = {} } = formData;
             // custom username
             username = username.toLowerCase();
-            attributes.email = attributes.email.toLowerCase();
+            // @todo-migration clean up
+            attributes.email = attributes.email
+              ? attributes?.email.toLowerCase()
+              : undefined;
             return Auth.signUp({
               username,
               password,
-              attributes,
-              autoSignIn: {
-                enabled: true,
+              options: {
+                userAttributes: attributes,
               },
+              // @todo-migration re-enable
+              // autoSignIn: {
+              //   enabled: true,
+              // },
             });
           },
         }}

@@ -45,7 +45,7 @@
     "@aws-amplify/ui-react-native": "1.2.28"
   },
   "peerDependencies": {
-    "aws-amplify": "next",
+    "aws-amplify": "console-preview",
     "react": ">= 16.14.0",
     "react-native": ">= 0.63.4"
   },

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Amplify, I18n } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import { I18n } from '@aws-amplify/core';
 
 import { translations } from '@aws-amplify/ui';
 

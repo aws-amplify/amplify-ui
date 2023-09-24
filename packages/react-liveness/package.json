@@ -43,7 +43,7 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "aws-amplify": "next",
+    "aws-amplify": "console-preview",
     "react": ">= 16.14.0",
     "react-dom": ">= 16.14.0"
   },

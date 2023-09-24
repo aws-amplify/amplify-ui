@@ -1,4 +1,7 @@
-import { Amplify, Auth, I18n } from 'aws-amplify';
+// @todo-migration clean up imports
+import { Amplify } from 'aws-amplify';
+import * as Auth from 'aws-amplify/auth';
+import { I18n } from '@aws-amplify/core';
 
 import {
   Authenticator,
@@ -20,6 +23,7 @@ const formFields = {
   },
 };
 
+// @todo-migration remove cast
 I18n.putVocabularies(translations);
 I18n.setLanguage('en');
 I18n.putVocabulariesForLanguage('en', {
@@ -39,10 +43,13 @@ export default function AuthenticatorWithEmail() {
       return Auth.signUp({
         username,
         password,
-        attributes,
-        autoSignIn: {
-          enabled: true,
+        options: {
+          userAttributes: attributes,
         },
+        // @todo-migration re-enable
+        // autoSignIn: {
+        //   enabled: true,
+        // },
       });
     },
   };

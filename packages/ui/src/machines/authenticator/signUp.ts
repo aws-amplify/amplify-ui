@@ -299,8 +299,17 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         // },
         async federatedSignIn(_, event) {
           const { provider } = event.data;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 48200d34e (chore(migration): update types and APIs across package)
           const result = await noop({ provider });
           return result;
+=======
+          noop({ provider });
+          // const result = noop({ provider });
+          // return result;
+>>>>>>> f22dd2401 (chore(migration): update types and APIs across packages)
         },
         async signUp(context, _event) {
           const { formValues, loginMechanisms } = context;

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Amplify, Auth } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import * as Auth from '@aws-amplify/auth';
 import { computed, toRefs } from 'vue';
 
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-vue';

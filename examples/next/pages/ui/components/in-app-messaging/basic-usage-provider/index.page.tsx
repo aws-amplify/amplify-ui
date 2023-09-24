@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { Amplify, Notifications } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import { Notifications } from '@aws-amplify/notifications';
 import { Text } from '@aws-amplify/ui-react';
 import {
   InAppMessagingProvider,

@@ -1,10 +1,9 @@
 import {
-  StorageProvider,
   UploadDataOutput,
-  StorageOptions,
 } from '@aws-amplify/storage';
 
-interface StorageProviderConfig extends StorageOptions {
+// interface StorageProviderConfig extends StorageOptions {
+interface StorageProviderConfig {
   delay?: number;
   networkError?: boolean;
 }
@@ -19,7 +18,8 @@ const defaultConfig = {
  * Mocking out the Storage class so we can render the StorageManager component
  * without an Amplify backend.
  */
-export default class MyStorageProvider implements StorageProvider {
+// export default class MyStorageProvider implements StorageProvider {
+export default class MyStorageProvider {
   // category and provider name
   static category = 'Storage';
   providerName = 'MOCK';

@@ -1,5 +1,7 @@
 import { Amplify } from 'aws-amplify';
 import { withAuthenticator } from '@aws-amplify/ui-react';
+// @todo-migration remove
+import { getAuthenticatorConfig } from '@aws-amplify/ui';
 import {
   StorageManager,
   StorageManagerProps,
@@ -29,4 +31,7 @@ export function StorageManagerExample() {
     />
   );
 }
-export default withAuthenticator(StorageManagerExample);
+export default withAuthenticator(
+  StorageManagerExample,
+  getAuthenticatorConfig(awsExports)
+);

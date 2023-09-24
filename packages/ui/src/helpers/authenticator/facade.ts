@@ -13,7 +13,7 @@ import {
   AuthEventData,
   AuthEventTypes,
   AuthMachineState,
-  ChallengeName,
+  // ChallengeName,
   CodeDeliveryDetails,
   FederatedProvider,
   LoginMechanism,
