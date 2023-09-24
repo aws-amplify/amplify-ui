@@ -14,7 +14,7 @@
       --amplify-components-pagination-item-container-margin-right
     );
   }
-  &__item-button {
+  &__item__button {
     @extend %item-shared;
 
     display: flex;
@@ -48,7 +48,7 @@
     }
   }
 
-  &__item-current {
+  &__item__current {
     @extend %item-shared;
     align-items: var(--amplify-components-pagination-current-align-items);
     justify-content: var(
@@ -62,7 +62,7 @@
     );
   }
 
-  &__item-ellipsis {
+  &__item__ellipsis {
     align-items: var(--amplify-components-pagination-ellipsis-align-items);
     justify-content: var(
       --amplify-components-pagination-ellipsis-justify-content

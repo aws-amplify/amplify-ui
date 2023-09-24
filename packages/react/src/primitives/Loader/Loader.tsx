@@ -73,7 +73,7 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
         <text
           aria-live="polite"
           className={classNames(
-            ComponentClassName.LoaderPercentageText,
+            ComponentClassName.LoaderLabel,
             isPercentageTextHidden ? ComponentClassName.VisuallyHidden : null
           )}
           // -1% offset makes the text position look nicest
@@ -117,7 +117,7 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
         <text
           aria-live="polite"
           className={classNames(
-            ComponentClassName.LoaderPercentageText,
+            ComponentClassName.LoaderLabel,
             isPercentageTextHidden ? ComponentClassName.VisuallyHidden : null
           )}
           // this x and y make text position look nicest

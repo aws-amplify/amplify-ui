@@ -119,7 +119,7 @@ describe('Loader:', () => {
 
     const textContent = `${percentage}%`;
     const percentageText = await screen.findByText(textContent);
-    expect(percentageText).toHaveClass(ComponentClassName.LoaderPercentageText);
+    expect(percentageText).toHaveClass(ComponentClassName.LoaderLabel);
     expect(percentageText).toHaveAttribute('aria-live', 'polite');
     expect(percentageText).toHaveTextContent(textContent);
   });
@@ -145,7 +145,7 @@ describe('Loader:', () => {
 
     const textContent = `${percentage}%`;
     const percentageText = await screen.findByText(textContent);
-    expect(percentageText).toHaveClass(ComponentClassName.LoaderPercentageText);
+    expect(percentageText).toHaveClass(ComponentClassName.LoaderLabel);
     expect(percentageText).toHaveAttribute('aria-live', 'polite');
     expect(percentageText).toHaveTextContent(textContent);
   });
