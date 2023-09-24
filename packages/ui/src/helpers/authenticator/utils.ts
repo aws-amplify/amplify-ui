@@ -3,8 +3,8 @@
  * implementations can use.
  */
 
-import { Hub } from 'aws-amplify';
-import { appendToCognitoUserAgent } from '@aws-amplify/auth';
+import { Hub } from '@aws-amplify/core';
+// import { appendToCognitoUserAgent } from '@aws-amplify/auth';
 import { waitFor } from 'xstate/lib/waitFor.js';
 
 import {
@@ -15,7 +15,7 @@ import {
 } from '../../types';
 import { ALLOWED_SPECIAL_CHARACTERS, emailRegex } from './constants';
 import { getActorState } from './actor';
-import { isFunction } from '../../utils';
+import { isFunction, noop as appendToCognitoUserAgent } from '../../utils';
 
 type ConfigureOptions = { packageName: string; version: string };
 export const configureComponent = ({

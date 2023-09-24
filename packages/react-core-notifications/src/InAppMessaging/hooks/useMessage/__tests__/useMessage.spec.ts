@@ -2,7 +2,7 @@ import {
   InAppMessageInteractionEvent,
   Notifications,
 } from '@aws-amplify/notifications';
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
+import { ConsoleLogger as Logger } from '@aws-amplify/core/internals/utils';
 
 import { RenderNothing } from '@aws-amplify/ui-react-core';
 import { useInAppMessaging } from '../../useInAppMessaging';

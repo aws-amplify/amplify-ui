@@ -2,7 +2,8 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { Authenticator } from '@aws-amplify/ui-react-native';
-import { Amplify, I18n } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import { I18n } from '@aws-amplify/core';
 import { translations } from '@aws-amplify/ui';
 
 import { SignOutButton } from '../SignOutButton';
@@ -14,6 +15,7 @@ Amplify.configure({
   Auth: { endpoint: 'http://127.0.0.1:9091/' },
 });
 
+// @todo-migration remove cast
 I18n.putVocabularies(translations);
 I18n.setLanguage('en');
 I18n.putVocabulariesForLanguage('en', {

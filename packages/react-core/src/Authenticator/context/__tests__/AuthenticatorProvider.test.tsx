@@ -11,8 +11,8 @@ jest.mock('aws-amplify');
 
 const hubListenSpy = jest.spyOn(Hub, 'listen');
 const listenToAuthHubSpy = jest.spyOn(UIModule, 'listenToAuthHub');
-const currentAuthenticatedUserSpy = jest
-  .spyOn(Auth, 'currentAuthenticatedUser')
+const getCurrentUserSpy = jest
+  .spyOn(Auth, 'getCurrentUser')
   .mockResolvedValue(undefined);
 
 function TestComponent(): JSX.Element | null {
@@ -61,7 +61,7 @@ describe('AuthenticatorProvider', () => {
   });
 
   it('returns the expected value of auth status on init when a user is not signed in', async () => {
-    currentAuthenticatedUserSpy.mockRejectedValueOnce(undefined);
+    getCurrentUserSpy.mockRejectedValueOnce(undefined);
 
     const { getByText } = render(
       <AuthenticatorProvider>
@@ -69,7 +69,7 @@ describe('AuthenticatorProvider', () => {
       </AuthenticatorProvider>
     );
 
-    expect(currentAuthenticatedUserSpy).toBeCalledTimes(2);
+    expect(getCurrentUserSpy).toBeCalledTimes(2);
     expect(getByText('configuring')).toBeDefined();
 
     await waitFor(() => {
@@ -84,7 +84,7 @@ describe('AuthenticatorProvider', () => {
       </AuthenticatorProvider>
     );
 
-    expect(currentAuthenticatedUserSpy).toBeCalledTimes(2);
+    expect(getCurrentUserSpy).toBeCalledTimes(2);
     expect(getByText('configuring')).toBeDefined();
 
     await waitFor(() => {

@@ -1,6 +1,8 @@
 import * as React from 'react';
 
-import type { StorageAccessLevel, UploadTask } from '@aws-amplify/storage';
+// import type { StorageAccessLevel, UploadTask } from '@aws-amplify/storage';
+import * as Storage from '@aws-amplify/storage';
+import { StorageAccessLevel } from '@aws-amplify/core';
 
 import {
   ContainerProps,
@@ -26,7 +28,8 @@ export interface StorageFile {
   file?: File;
   status: FileStatus;
   progress: number;
-  uploadTask?: UploadTask;
+  // uploadTask?: UploadTask;
+  uploadTask?: Storage.UploadDataOutput;
   key: string;
   error: string;
   isImage: boolean;
@@ -58,6 +61,7 @@ export interface StorageManagerProps {
    * @see https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/
    */
   accessLevel: StorageAccessLevel;
+
   /**
    * Determines if the upload will automatically start after a file is selected, default value: true
    */

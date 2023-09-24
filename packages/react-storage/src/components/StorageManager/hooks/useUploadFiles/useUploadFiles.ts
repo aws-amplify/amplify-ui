@@ -1,7 +1,7 @@
 import * as React from 'react';
-import type { UploadTask } from '@aws-amplify/storage';
+// import type { UploadTask } from '@aws-amplify/storage';
 
-import { uploadFile } from '../../utils/uploadFile';
+import { uploadFile, UploadFileProps } from '../../utils/uploadFile';
 
 import { FileStatus } from '../../types';
 
@@ -75,21 +75,21 @@ export function useUploadFiles({
       };
 
       if (file) {
-        resolveFile({ processFile, file, key }).then(({ key, ...rest }) => {
+        resolveFile({ processFile, file, key }).then(({ key, file }) => {
           onUploadStart?.({ key });
-          const uploadTask = uploadFile({
-            ...rest,
-            isResumable,
-            provider,
-            key: path + key,
+          const input: UploadFileProps = {
             level: accessLevel,
             completeCallback: onComplete,
-            progressCallback: onProgress,
             errorCallback: onError,
-          }) as unknown as UploadTask;
+            progressCallback: onProgress,
+            file,
+            key,
+          };
+          const uploadTask = uploadFile(input);
           setUploadingFile({
             id,
-            uploadTask: isResumable ? uploadTask : undefined,
+            // uploadTask: isResumable ? uploadTask : undefined,
+            uploadTask,
           });
         });
       }

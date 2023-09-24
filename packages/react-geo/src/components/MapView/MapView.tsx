@@ -3,7 +3,8 @@ import maplibregl from 'maplibre-gl';
 import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';
 import ReactMapGL from 'react-map-gl';
 import type { MapProps, MapRef, TransformRequestFunction } from 'react-map-gl';
-import { Amplify, Auth } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import * as Auth from '@aws-amplify/auth';
 
 // Utility types for missing AmplifyConfig type, only includes Geo related key/values.
 // Note: these types should not be be used outside this file
@@ -41,7 +42,7 @@ interface MapViewProps extends Omit<MapProps, 'mapLib' | 'transformRequest'> {
  */
 const MapView = forwardRef<MapRef, MapViewProps>(
   ({ mapLib, mapStyle, style, ...props }, ref) => {
-    const amplifyConfig = Amplify.configure() as AmplifyGeoConfig;
+    const amplifyConfig = Amplify.getConfig() as AmplifyGeoConfig;
     const geoConfig = useMemo(
       () =>
         amplifyConfig.geo?.amazon_location_service ??
@@ -70,9 +71,9 @@ const MapView = forwardRef<MapRef, MapViewProps>(
      */
     useEffect(() => {
       (async () => {
-        const credentials = await Auth.currentUserCredentials();
+        const credentials = await Auth.getCurrentUser();
 
-        if (credentials) {
+        if (credentials.userId) {
           const { region } = geoConfig;
           const { transformRequest: amplifyTransformRequest } =
             new AmplifyMapLibreRequest(credentials, region);

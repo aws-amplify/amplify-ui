@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { Authenticator, translations } from '@aws-amplify/ui-vue';
-import { Amplify, I18n } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import { I18n } from '@aws-amplify/core';
 import '@aws-amplify/ui-vue/styles.css';
 import aws_exports from './aws-exports';
 
+// @todo-migration remove cast
 I18n.putVocabularies(translations);
 I18n.setLanguage('ja');
 I18n.putVocabulariesForLanguage('ja', {

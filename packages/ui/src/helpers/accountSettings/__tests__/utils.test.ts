@@ -1,4 +1,4 @@
-import { Auth } from 'aws-amplify';
+import * as Auth from '@aws-amplify/auth';
 
 import { changePassword, deleteUser } from '../utils';
 import { AmplifyUser } from '../../../types';

@@ -13,7 +13,7 @@ import {
   AuthEventData,
   AuthEventTypes,
   AuthMachineState,
-  ChallengeName,
+  // ChallengeName,
   CodeDeliveryDetails,
   FederatedProvider,
   LoginMechanism,
@@ -84,7 +84,8 @@ export interface AuthenticatorServiceFacade
     AuthenticatorServiceContextFacade {}
 
 interface NextAuthenticatorServiceContextFacade {
-  challengeName: ChallengeName | undefined;
+  challengeName: string | undefined;
+  // challengeName: ChallengeName | undefined;
   codeDeliveryDetails: CodeDeliveryDetails | undefined;
   errorMessage: string | undefined;
   federatedProviders: FederatedProvider[] | undefined;

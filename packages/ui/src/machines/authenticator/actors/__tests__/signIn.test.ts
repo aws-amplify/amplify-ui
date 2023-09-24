@@ -3,7 +3,7 @@ import { setImmediate } from 'timers';
 
 import { SignInMachineOptions, signInActor } from '../signIn';
 import { AmplifyUser } from '../../../../types';
-import { Auth } from 'aws-amplify';
+import * as Auth from '@aws-amplify/auth';
 
 const flushPromises = () => new Promise(setImmediate);
 
@@ -22,8 +22,8 @@ const signInMachineProps: SignInMachineOptions = {
   },
 };
 
-const currentAuthenticatedUserSpy = jest
-  .spyOn(Auth, 'currentAuthenticatedUser')
+const getCurrentUserSpy = jest
+  .spyOn(Auth, 'getCurrentUser')
   .mockResolvedValue({});
 const completeNewPasswordSpy = jest
   .spyOn(Auth, 'completeNewPassword')
@@ -301,7 +301,7 @@ describe('signInActor', () => {
       user: { username: mockUsername },
     });
 
-    expect(currentAuthenticatedUserSpy).toHaveBeenCalledTimes(1);
+    expect(getCurrentUserSpy).toHaveBeenCalledTimes(1);
     expect(service.getSnapshot().value).toStrictEqual('resolved');
   });
 

@@ -1,4 +1,5 @@
-import { Amplify, Auth } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import * as Auth from '@aws-amplify/auth';
 import { hasSpecialChars } from '../../helpers';
 
 import {
@@ -10,11 +11,11 @@ import {
 
 export const defaultServices = {
   async getAmplifyConfig() {
-    return Amplify.configure();
+    return Amplify.getConfig();
   },
 
   async getCurrentUser() {
-    return Auth.currentAuthenticatedUser();
+    return Auth.getCurrentUser();
   },
 
   async handleSignUp(formData) {
@@ -27,46 +28,34 @@ export const defaultServices = {
     username: string;
     password: string;
   }): Promise<any> {
-    return Auth.signIn(username, password);
+    return Auth.signIn({ username, password });
   },
-  async handleConfirmSignIn({
-    user,
-    code,
-    mfaType,
-  }: {
-    user: any;
-    code: string;
-    mfaType: AuthChallengeName;
-  }): Promise<any> {
+  async handleConfirmSignIn(
+    input: Auth.ConfirmSignInInput
+  ): Promise<Auth.ConfirmSignInOutput> {
     return Auth.confirmSignIn(
-      user,
-      code,
-      // cast due to restrictive typing of Auth.confirmSignIn
-      mfaType as 'SMS_MFA' | 'SOFTWARE_TOKEN_MFA'
+      input
+      // {
+      //   // user,
+      //   code,
+      // }
+      // // cast due to restrictive typing of Auth.confirmSignIn
+      // mfaType as 'SMS_MFA' | 'SOFTWARE_TOKEN_MFA'
     );
   },
-  async handleConfirmSignUp({
-    username,
-    code,
-  }: {
-    username: string;
-    code: string;
-  }): Promise<any> {
-    return await Auth.confirmSignUp(username, code);
+  async handleConfirmSignUp(
+    input: Auth.ConfirmSignUpInput
+  ): Promise<Auth.ConfirmSignUpOutput> {
+    return await Auth.confirmSignUp(input);
   },
-  async handleForgotPasswordSubmit({
-    username,
-    code,
-    password,
-  }: {
-    username: string;
-    code: string;
-    password: string;
-  }): Promise<SignInResult> {
-    return Auth.forgotPasswordSubmit(username, code, password);
+  async handleForgotPasswordSubmit(
+    input: Auth.ConfirmResetPasswordInput
+  ): Promise<ReturnType<typeof Auth.confirmResetPassword>> {
+    return Auth.confirmResetPassword(input);
   },
-  async handleForgotPassword(formData): Promise<any> {
-    return Auth.forgotPassword(formData);
+  async handleForgotPassword(input: Auth.ResetPasswordInput): Promise<any> {
+    // return Auth.forgotPassword(formData);
+    return Auth.resetPassword(input);
   },
 
   // Validation hooks for overriding

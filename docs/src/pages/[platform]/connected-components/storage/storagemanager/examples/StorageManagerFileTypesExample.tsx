@@ -14,7 +14,7 @@ export const StorageManagerFileTypesExample = () => {
         'image/png',
         'video/*',
       ]}
-      accessLevel="public"
+      accessLevel="guest"
       maxFileCount={5}
       // Size is in bytes
       maxFileSize={10000}

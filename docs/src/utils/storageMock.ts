@@ -1,10 +1,12 @@
-import {
-  StorageProvider,
-  UploadTask,
-  StorageOptions,
-} from '@aws-amplify/storage';
+// @todo-migration re-enable
+// import {
+//   StorageProvider,
+//   UploadTask,
+//   StorageOptions,
+// } from '@aws-amplify/storage';
 
-interface StorageProviderConfig extends StorageOptions {
+// interface StorageProviderConfig extends StorageOptions {
+interface StorageProviderConfig {
   delay?: number;
   networkError?: boolean;
 }
@@ -19,7 +21,8 @@ const defaultConfig = {
  * Mocking out the Storage class so we can render the StorageManager component
  * without an Amplify backend.
  */
-export default class MyStorageProvider implements StorageProvider {
+// export default class MyStorageProvider implements StorageProvider {
+export default class MyStorageProvider {
   // category and provider name
   static category = 'Storage';
   providerName = 'MOCK';
@@ -53,7 +56,8 @@ export default class MyStorageProvider implements StorageProvider {
   }
 
   // upload storage object
-  put(key: string, object, options?): Promise<Object> | UploadTask {
+  // put(key: string, object, options?): Promise<Object> | UploadTask {
+  put(key: string, object, options?): Promise<Object> | any {
     const opt = Object.assign({}, options);
     const { delay, networkError } = this._config;
     const { progressCallback, resumable, errorCallback, completeCallback } =
@@ -94,7 +98,8 @@ export default class MyStorageProvider implements StorageProvider {
       // this will make the progress go in 4 chunks of 25%
       tick = tickCreator(null, 25);
       interval = setInterval(tick, delay);
-      const uploadTask: UploadTask = {
+      // const uploadTask: UploadTask = {
+      const uploadTask: any = {
         pause() {
           clearInterval(interval);
         },

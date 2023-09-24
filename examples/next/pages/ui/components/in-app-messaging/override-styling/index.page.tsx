@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
-import { Amplify, Notifications } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import { Notifications } from '@aws-amplify/notifications';
 import { Button } from '@aws-amplify/ui-react';
 import {
   InAppMessageDisplay,

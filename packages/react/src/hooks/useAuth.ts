@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Hub, HubCallback } from '@aws-amplify/core';
 import { AmplifyUser } from '@aws-amplify/ui';
-import { Auth } from 'aws-amplify';
+import * as Auth from '@aws-amplify/auth';
 
 export interface UseAuthResult {
   user?: AmplifyUser;
@@ -31,8 +31,8 @@ export const useAuth = (): UseAuthResult => {
     setResult((prevResult) => ({ ...prevResult, isLoading: true }));
 
     try {
-      // casting the result because `Auth.currentAuthenticateduser` returns `any`
-      const user = (await Auth.currentAuthenticatedUser()) as AmplifyUser;
+      // casting the result because `Auth.getCurrentUser` returns `any`
+      const user = await Auth.getCurrentUser();
       setResult({ user, isLoading: false });
     } catch (e) {
       const error = e as Error;

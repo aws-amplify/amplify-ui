@@ -1,4 +1,4 @@
-import { Auth } from 'aws-amplify';
+import * as Auth from '@aws-amplify/auth';
 import { actions } from 'xstate';
 import { trimValues } from '../../helpers';
 
@@ -165,10 +165,16 @@ export const handleBlur = assign({
   },
 });
 
-export const resendCode = async (context) => {
-  const { username } = context;
+// export const resendCode = async (context) => {
+//   const { username } = context;
+//   return await Auth.forgotPassword(username);
+// };
 
-  return await Auth.forgotPassword(username);
+export const resendCode = async (
+  context
+): Promise<Auth.ResetPasswordOutput> => {
+  const input: Auth.ResetPasswordInput = { ...context };
+  return await Auth.resetPassword(input);
 };
 
 /**

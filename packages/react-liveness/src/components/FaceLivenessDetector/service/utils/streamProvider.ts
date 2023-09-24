@@ -1,7 +1,5 @@
-import {
-  Credentials as AmplifyCredentials,
-  getAmplifyUserAgent,
-} from '@aws-amplify/core';
+import { getAmplifyUserAgent } from '@aws-amplify/core/internals/utils';
+import * as Auth from '@aws-amplify/auth';
 import {
   ClientSessionInformationEvent,
   LivenessResponseStream,
@@ -130,7 +128,7 @@ export class LivenessStreamProvider {
   private async init() {
     const credentials =
       this.credentialProvider ??
-      ((await AmplifyCredentials.get()) as Credentials);
+      ((await Auth.fetchAuthSession()) as Credentials);
 
     if (!credentials) {
       throw new Error('No credentials');

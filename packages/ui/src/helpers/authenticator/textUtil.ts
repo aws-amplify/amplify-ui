@@ -1,15 +1,11 @@
-import {
-  AuthChallengeName,
-  CodeDeliveryDetails,
-  SocialProvider,
-} from '../../types';
+import { CodeDeliveryDetails, SocialProvider } from '../../types';
 import { translate, DefaultTexts } from '../../i18n';
 import { AuthenticatorRoute } from './facade';
 
 /**
  * ConfirmSignIn
  */
-const getChallengeText = (challengeName?: AuthChallengeName): string => {
+const getChallengeText = (challengeName?: string): string => {
   switch (challengeName) {
     case 'SMS_MFA':
       return translate(DefaultTexts.CONFIRM_SMS);

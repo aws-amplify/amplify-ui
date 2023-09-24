@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-  AuthChallengeName,
+  // AuthChallengeName,
   AuthenticatorServiceFacade,
   LegacyFormFieldOptions,
 } from '@aws-amplify/ui';
@@ -92,7 +92,8 @@ export type ConfirmResetPasswordBaseProps<FieldType = {}> = {
   ValidationProps;
 
 export type ConfirmSignInBaseProps<FieldType = {}> = {
-  challengeName: AuthChallengeName;
+  // challengeName: AuthChallengeName;
+  challengeName: string;
   toSignIn: UseAuthenticator['toSignIn'];
 } & CommonRouteProps &
   ComponentSlots<FieldType> &

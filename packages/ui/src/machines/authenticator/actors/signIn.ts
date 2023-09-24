@@ -1,4 +1,4 @@
-import { Auth } from 'aws-amplify';
+import * as Auth from '@aws-amplify/auth';
 import get from 'lodash/get.js';
 import { createMachine, sendUpdate } from 'xstate';
 
@@ -35,7 +35,7 @@ import {
   setUsernameAuthAttributes,
 } from '../actions';
 import { defaultServices } from '../defaultServices';
-import { isEmpty } from '../../../utils';
+import { isEmpty, noop } from '../../../utils';
 
 export type SignInMachineOptions = {
   services?: Partial<typeof defaultServices>;
@@ -97,6 +97,9 @@ export function signInActor({ services }: SignInMachineOptions) {
               tags: ['pending'],
               entry: ['parsePhoneNumber', 'clearError', 'sendUpdate'],
               invoke: {
+                /**
+                 * @migration Auth.SignInOutput
+                 */
                 src: 'signIn',
                 onDone: [
                   {
@@ -148,6 +151,9 @@ export function signInActor({ services }: SignInMachineOptions) {
               tags: ['pending'],
               entry: ['clearError', 'sendUpdate'],
               invoke: {
+                /**
+                 * @migration Auth.FetchUserAttributesOutput
+                 */
                 src: 'checkVerifiedContact',
                 onDone: [
                   {
@@ -343,6 +349,9 @@ export function signInActor({ services }: SignInMachineOptions) {
                   tags: ['pending'],
                   entry: ['sendUpdate', 'clearError'],
                   invoke: {
+                    /**
+                     * @migration is this recursive
+                     */
                     src: 'forceNewPassword',
                     onDone: [
                       {
@@ -544,6 +553,8 @@ export function signInActor({ services }: SignInMachineOptions) {
         shouldRequestVerification: (_, event): boolean => {
           const { unverified, verified } = event.data;
 
+          // Auth.FetchUserAttributesOutput
+
           return isEmpty(verified) && !isEmpty(unverified);
         },
         shouldSetupTOTP: (_, event): boolean => {
@@ -567,17 +578,66 @@ export function signInActor({ services }: SignInMachineOptions) {
             password,
           });
         },
+        // async confirmSignIn(context) {
+        //   const { challengeName, user } = context;
+        //   const { confirmation_code: code } = context.formValues;
+
+        //   const mfaType = isMfaChallengeName(challengeName)
+        //     ? challengeName
+        //     : undefined;
+
+        //   await services.handleConfirmSignIn({ user, code, mfaType });
+        //   return await Auth.getCurrentUser();
+        // },
         async confirmSignIn(context) {
-          const { challengeName, user } = context;
-          const { confirmation_code: code } = context.formValues;
+          const { confirmation_code: challengeResponse } = context.formValues;
 
-          const mfaType = isMfaChallengeName(challengeName)
-            ? challengeName
-            : undefined;
-
-          await services.handleConfirmSignIn({ user, code, mfaType });
-          return await Auth.currentAuthenticatedUser();
+          await services.handleConfirmSignIn({ challengeResponse });
+          return await Auth.getCurrentUser();
         },
+        // async forceNewPassword(context) {
+        //   const { user, formValues } = context;
+        //   let {
+        //     password,
+        //     confirm_password,
+        //     phone_number,
+        //     country_code,
+        //     ...rest
+        //   } = formValues;
+
+        //   let phoneNumberWithCountryCode;
+        //   if (phone_number) {
+        //     phoneNumberWithCountryCode =
+        //       `${country_code}${phone_number}`.replace(/[^A-Z0-9+]/gi, '');
+        //     rest = { ...rest, phone_number: phoneNumberWithCountryCode };
+        //   }
+
+        //   try {
+        //     // complete forceNewPassword flow and get updated CognitoUser
+        //     const newUser: AmplifyUser = await Auth.completeNewPassword(
+        //       user,
+        //       password,
+        //       rest
+        //     );
+
+        //     if (newUser.challengeName) {
+        //       /**
+        //        * User still needs to complete MFA challenge. Return back the
+        //        * `completeNewPassword` result to start confirmSignIn flow.
+        //        */
+        //       return newUser;
+        //     } else {
+        //       /**
+        //        * Else, user has signed in! Return up-to-date user with
+        //        * `getCurrentUser`. Note that we're calling this extra
+        //        * API because this gets all `user.attributes` as well.
+        //        */
+        //       return Auth.getCurrentUser();
+        //     }
+        //   } catch (err) {
+        //     return Promise.reject(err);
+        //   }
+        // },
         async forceNewPassword(context) {
           const { user, formValues } = context;
           let {
@@ -597,67 +657,105 @@ export function signInActor({ services }: SignInMachineOptions) {
 
           try {
             // complete forceNewPassword flow and get updated CognitoUser
-            const newUser: AmplifyUser = await Auth.completeNewPassword(
-              user,
-              password,
-              rest
-            );
+            const input: Auth.ConfirmSignInInput = {
+              challengeResponse: password,
+              options: { serviceOptions: { userAttributes: rest } },
+            };
 
-            if (newUser.challengeName) {
+            const output = await Auth.confirmSignIn(input);
+            const { signInStep } = output.nextStep;
+
+            if (signInStep === 'DONE') {
+              /**
+               * Else, user has signed in! Return up-to-date user with
+               * `getCurrentUser`. Note that we're calling this extra
+               * API because this gets all `user.attributes` as well.
+               */
+              return Auth.getCurrentUser();
+            } else {
               /**
                * User still needs to complete MFA challenge. Return back the
                * `completeNewPassword` result to start confirmSignIn flow.
                */
-              return newUser;
-            } else {
-              /**
-               * Else, user has signed in! Return up-to-date user with
-               * `currentAuthenticatedUser`. Note that we're calling this extra
-               * API because this gets all `user.attributes` as well.
-               */
-              return Auth.currentAuthenticatedUser();
+              return output;
             }
           } catch (err) {
             return Promise.reject(err);
           }
         },
-        async getTotpSecretCode(context) {
-          const { user } = context;
-          return Auth.setupTOTP(user);
+        // async getTotpSecretCode(context) {
+        //   const { user } = context;
+        //   return Auth.setUpTOTP(user);
+        // },
+        async getTotpSecretCode() {
+          return Auth.setUpTOTP();
         },
-        async verifyTotpToken(context) {
-          const { formValues, user } = context;
-          const { confirmation_code } = formValues;
+        // async verifyTotpToken(context) {
+        //   const { formValues, user } = context;
+        //   const { confirmation_code } = formValues;
 
-          return Auth.verifyTotpToken(user, confirmation_code);
+        //   return Auth.verifyTotpToken(user, confirmation_code);
+        // },
+        async verifyTotpToken(context) {
+          const { confirmation_code: code } = context.formValues;
+          const input: Auth.VerifyTOTPSetupInput = { code };
+          return Auth.verifyTOTPSetup(input);
         },
+        // async federatedSignIn(_, event) {
+        //   const { provider } = event.data;
+
+        //   return await Auth.federatedSignIn({ provider });
+        // },
         async federatedSignIn(_, event) {
           const { provider } = event.data;
-
-          return await Auth.federatedSignIn({ provider });
+          return noop({ provider });
         },
-        async checkVerifiedContact(context) {
-          const { user } = context;
-          const result = await Auth.verifiedContact(user);
-
-          return result;
+        // async checkVerifiedContact(context) {
+        //   const { user } = context;
+        //   const result = await Auth.verifiedContact(user);
+        //   return result;
+        // },
+        async checkVerifiedContact() {
+          return await Auth.fetchUserAttributes();
         },
+        // async verifyUser(context) {
+        //   const { unverifiedAttr } = context.formValues;
+        //   const result = await Auth.verifyCurrentUserAttribute(unverifiedAttr);
+
+        //   context.attributeToVerify = unverifiedAttr;
+
+        //   return result;
+        // },
         async verifyUser(context) {
           const { unverifiedAttr } = context.formValues;
-          const result = await Auth.verifyCurrentUserAttribute(unverifiedAttr);
 
-          context.attributeToVerify = unverifiedAttr;
+          const input: Auth.UpdateUserAttributesInput = {
+            userAttributes: { unverifiedAttr },
+          };
+          const result = await Auth.updateUserAttributes(input);
+
+          context.attributeToVerify = unverifiedAttr as unknown as string;
 
           return result;
         },
+        // async confirmVerifyUser(context) {
+        //   const { attributeToVerify } = context;
+        //   const { confirmation_code } = context.formValues;
+
+        //   return await Auth.verifyCurrentUserAttributeSubmit(
+        //     attributeToVerify,
+        //     confirmation_code
+        //   );
+        // },
         async confirmVerifyUser(context) {
           const { attributeToVerify } = context;
           const { confirmation_code } = context.formValues;
 
-          return await Auth.verifyCurrentUserAttributeSubmit(
-            attributeToVerify,
-            confirmation_code
-          );
+          const input: Auth.ConfirmUserAttributeInput = {
+            confirmationCode: confirmation_code,
+            userAttributeKey: attributeToVerify,
+          };
+          return await Auth.confirmUserAttribute(input);
         },
         async validateFields(context) {
           return runValidators(

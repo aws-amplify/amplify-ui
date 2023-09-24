@@ -11,7 +11,7 @@ import {
 // gets password requirement from Amplify.configure data
 export const getPasswordRequirement = (): PasswordRequirement | null => {
   // need to cast to any because `Amplify.configure()` isn't typed properly
-  const config = Amplify.configure() as any;
+  const config = Amplify.getConfig() as Record<string, any>;
   const passwordSettings =
     config?.aws_cognito_password_protection_settings as PasswordSettings;
 

@@ -2,7 +2,8 @@
 
 // https://nextjs.org/docs/advanced-features/custom-app
 import App from 'next/app';
-import { Amplify, Hub } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import { Hub } from 'aws-amplify/utils';
 import { Authenticator, AmplifyProvider } from '@aws-amplify/ui-react';
 import { useEffect } from 'react';
 import { MapProvider, useMap } from 'react-map-gl';

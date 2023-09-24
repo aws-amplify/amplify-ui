@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Analytics, Notifications } from 'aws-amplify';
+import { Notifications } from '@aws-amplify/notifications';
+import * as Analytics from '@aws-amplify/analytics';
 import {
   InAppMessage,
   InAppMessageAction,

@@ -80,7 +80,7 @@ function DeleteUser({
     runDeleteUser();
   }, [runDeleteUser]);
 
-  // Return null if Auth.getCurrentAuthenticatedUser is still in progress
+  // Return null if Auth.getgetCurrentUser is still in progress
   if (isLoading) {
     return null;
   }

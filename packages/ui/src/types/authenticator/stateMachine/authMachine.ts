@@ -30,7 +30,7 @@ export type AuthMachineSend = AuthInterpreter['send'];
  * xstate events.
  */
 export type AuthMachineHubHandler = (
-  data: HubCapsule,
+  data: HubCapsule<any, any>,
   service: AuthInterpreter,
   options?: { onSignIn?: () => void; onSignOut?: () => void }
 ) => Promise<void>;

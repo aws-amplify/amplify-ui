@@ -3,7 +3,7 @@ import { setImmediate } from 'timers';
 
 import { SignUpMachineOptions, createSignUpMachine } from '../signUp';
 import { SignUpContext } from '../../../types';
-import { Auth } from 'aws-amplify';
+import * as Auth from '@aws-amplify/auth';
 
 jest.mock('aws-amplify');
 

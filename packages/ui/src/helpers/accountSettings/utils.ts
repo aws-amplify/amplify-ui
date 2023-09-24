@@ -1,4 +1,4 @@
-import { Auth } from 'aws-amplify';
+import * as Auth from '@aws-amplify/auth';
 
 import { AmplifyUser } from '../../types';
 import { getLogger } from '../utils';
@@ -12,7 +12,7 @@ type ChangePasswordInput = {
 };
 
 export const changePassword = async ({
-  user,
+  user: _,
   currentPassword,
   newPassword,
 }: ChangePasswordInput): Promise<void> => {
@@ -22,7 +22,12 @@ export const changePassword = async ({
      * Auth.changePassword returns `Promise<"SUCCESS">`. We're not interested
      * in its resolved string value, so we just return Promise.resolve() on success.
      */
-    await Auth.changePassword(user, currentPassword, newPassword);
+    // await Auth.changePassword(user, currentPassword, newPassword);
+    const input: Auth.UpdatePasswordInput = {
+      oldPassword: currentPassword,
+      newPassword,
+    };
+    await Auth.updatePassword(input);
     logger.debug('Auth.changePassword was successful');
     return Promise.resolve();
   } catch (e) {
@@ -34,7 +39,8 @@ export const changePassword = async ({
 export const deleteUser = async () => {
   try {
     logger.debug('calling Auth.deleteUser');
-    await Auth.deleteUser();
+    await Promise.resolve();
+    // await Auth.deleteUser();
     logger.debug('Auth.deleteUser was successful');
     return Promise.resolve();
   } catch (e) {

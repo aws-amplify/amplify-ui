@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Storage, Amplify } from 'aws-amplify';
+// import { Amplify, Storage } from 'aws-amplify';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 
@@ -44,12 +44,13 @@ if (typeof window === 'undefined') {
   ✨ you can explore the Amplify UI theme object by typing \`theme\` in the console.
  `);
   window['theme'] = defaultTheme;
-  Amplify.configure(mockConfig);
-  Storage.addPluggable(new MyStorageProvider('fast', { delay: 10 }));
-  Storage.addPluggable(new MyStorageProvider('slow', { delay: 1000 }));
-  Storage.addPluggable(
-    new MyStorageProvider('error', { delay: 50, networkError: true })
-  );
+  // @todo-migration re-enable?
+  // Amplify.configure(mockConfig);
+  // Storage.addPluggable(new MyStorageProvider('fast', { delay: 10 }));
+  // Storage.addPluggable(new MyStorageProvider('slow', { delay: 1000 }));
+  // Storage.addPluggable(
+  //   new MyStorageProvider('error', { delay: 50, networkError: true })
+  // );
 }
 
 function MyApp({ Component, pageProps }) {

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Amplify, Auth, I18n } from 'aws-amplify';
+// @todo-migration clean up imports
+import { Amplify } from 'aws-amplify';
+import * as Auth from 'aws-amplify/auth';
+import { I18n } from '@aws-amplify/core';
 import awsExports from './aws-exports';
 import { AuthenticatorService, translations } from '@aws-amplify/ui-angular';
 
@@ -45,9 +48,12 @@ export class SignUpWithEmailComponent implements OnInit {
       return Auth.signUp({
         username,
         password,
-        attributes,
-        autoSignIn: {
-          enabled: true,
+        options: {
+          userAttributes: attributes,
+          // @todo-migration re-enable
+          // autoSignIn: {
+          //   enabled: true,
+          // },
         },
       });
     },

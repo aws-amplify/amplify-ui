@@ -1,4 +1,4 @@
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
+import { ConsoleLogger as Logger } from '@aws-amplify/core/internals/utils';
 
 import { MessageButton, MessageContent } from '../../../types';
 import { BannerMessageLayouts } from '../../../types';
