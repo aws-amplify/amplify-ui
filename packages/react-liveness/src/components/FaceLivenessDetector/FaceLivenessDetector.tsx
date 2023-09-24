@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Credentials as AmplifyCredentials } from '@aws-amplify/core';
+import * as Auth from '@aws-amplify/auth';
 import {
   AwsTemporaryCredentials,
   FaceLivenessDetectorProps as FaceLivenessDetectorPropsFromUi,
@@ -17,7 +17,7 @@ export interface FaceLivenessDetectorProps
 
 const credentialProvider = async () => {
   const credentials =
-    (await AmplifyCredentials.get()) as AwsTemporaryCredentials;
+    (await Auth.fetchAuthSession()) as AwsTemporaryCredentials;
   return credentials;
 };
 

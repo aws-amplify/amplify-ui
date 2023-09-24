@@ -3,7 +3,8 @@ import { flushPromises, mount } from '@vue/test-utils';
 import * as XStateVue from '@xstate/vue';
 import * as XState from 'xstate';
 
-import { Auth, Hub } from 'aws-amplify';
+import { Hub } from '@aws-amplify/core';
+import * as Auth from '@aws-amplify/auth';
 import * as UIModule from '@aws-amplify/ui';
 
 import { useAuth } from '../useAuth';
@@ -37,8 +38,8 @@ jest.spyOn(XStateVue, 'useActor').mockImplementation(() => {
 });
 
 const currentAuthUserSpy = jest
-  .spyOn(Auth, 'currentAuthenticatedUser')
-  .mockResolvedValue(undefined);
+  .spyOn(Auth, 'getCurrentUser')
+  .mockResolvedValue(undefined as unknown as Auth.GetCurrentUserOutput);
 
 // test component to test mount and unmounted logic
 const TestComponent = defineComponent({
@@ -64,7 +65,7 @@ describe('useAuth', () => {
   it('returns expected values', async () => {
     const wrapper = mount(TestComponent);
 
-    // wait for Auth.currentAuthenticatedUser to resolve
+    // wait for Auth.getCurrentUser to resolve
     await flushPromises();
     const { authStatus, state, send, service } = wrapper.vm;
 
@@ -127,7 +128,7 @@ describe('useAuth', () => {
     currentAuthUserSpy.mockRejectedValueOnce(undefined);
     const wrapper = mount(TestComponent);
 
-    // wait for Auth.currentAuthenticatedUser to resolve
+    // wait for Auth.getCurrentUser to resolve
     await flushPromises();
 
     const { authStatus } = wrapper.vm;
@@ -137,10 +138,12 @@ describe('useAuth', () => {
   });
 
   it('sets authStatus to `authenticated` if there is signed in user', async () => {
-    currentAuthUserSpy.mockResolvedValueOnce(undefined);
+    currentAuthUserSpy.mockResolvedValueOnce(
+      undefined as unknown as Auth.GetCurrentUserOutput
+    );
     const wrapper = mount(TestComponent);
 
-    // wait for Auth.currentAuthenticatedUser to resolve
+    // wait for Auth.getCurrentUser to resolve
     await flushPromises();
 
     const { authStatus } = wrapper.vm;
@@ -153,7 +156,7 @@ describe('useAuth', () => {
     currentAuthUserSpy.mockRejectedValueOnce(undefined);
     const wrapper = mount(TestComponent);
 
-    // wait for Auth.currentAuthenticatedUser to resolve
+    // wait for Auth.getCurrentUser to resolve
     await flushPromises();
 
     expect(wrapper.vm.authStatus).toBe('unauthenticated');
@@ -169,10 +172,12 @@ describe('useAuth', () => {
   });
 
   it('sets authStatus to `unauthenticated` on signOut hub event', async () => {
-    currentAuthUserSpy.mockResolvedValueOnce(undefined);
+    currentAuthUserSpy.mockResolvedValueOnce(
+      undefined as unknown as Auth.GetCurrentUserOutput
+    );
     const wrapper = mount(TestComponent);
 
-    // wait for Auth.currentAuthenticatedUser to resolve
+    // wait for Auth.getCurrentUser to resolve
     await flushPromises();
 
     expect(wrapper.vm.authStatus).toBe('authenticated');

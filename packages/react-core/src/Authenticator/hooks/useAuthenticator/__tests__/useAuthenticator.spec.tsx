@@ -1,6 +1,6 @@
 import React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
-import { Auth } from 'aws-amplify';
+import * as Auth from '@aws-amplify/auth';
 import { AuthenticatorServiceFacade } from '@aws-amplify/ui';
 import * as UIModule from '@aws-amplify/ui';
 
@@ -58,7 +58,7 @@ const Wrapper = ({ children }: { children?: React.ReactNode }) => (
   <AuthenticatorProvider>{children}</AuthenticatorProvider>
 );
 
-jest.spyOn(Auth, 'currentAuthenticatedUser').mockResolvedValue(undefined);
+jest.spyOn(Auth, 'getCurrentUser').mockResolvedValue(undefined);
 
 describe('useAuthenticator', () => {
   beforeEach(() => {

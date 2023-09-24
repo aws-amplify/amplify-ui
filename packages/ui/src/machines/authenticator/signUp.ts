@@ -1,4 +1,4 @@
-import { Auth } from 'aws-amplify';
+import * as Auth from '@aws-amplify/auth';
 import get from 'lodash/get.js';
 import pickBy from 'lodash/pickBy.js';
 import { assign, createMachine, sendUpdate } from 'xstate';
@@ -21,6 +21,7 @@ import {
   handleSubmit,
 } from './actions';
 import { defaultServices } from './defaultServices';
+import { noop } from '../../utils';
 
 export type SignUpMachineOptions = {
   services?: Partial<typeof defaultServices>;
@@ -253,25 +254,52 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         }),
       },
       services: {
+        // async confirmSignUp(context, event) {
+        //   const { user, authAttributes, formValues } = context;
+        //   const { confirmation_code: code } = formValues;
+
+        //   const username =
+        //     get(user, 'username') || get(authAttributes, 'username');
+
+        //   return await services.handleConfirmSignUp({ username, code });
+        // },
         async confirmSignUp(context, event) {
           const { user, authAttributes, formValues } = context;
-          const { confirmation_code: code } = formValues;
+          const { confirmation_code: confirmationCode } = formValues;
 
           const username =
             get(user, 'username') || get(authAttributes, 'username');
 
-          return await services.handleConfirmSignUp({ username, code });
+          const input: Auth.ConfirmSignUpInput = {
+            username,
+            confirmationCode,
+          };
+
+          return await services.handleConfirmSignUp(input);
         },
+        // async resendConfirmationCode(context, event) {
+        //   const { user, authAttributes } = context;
+        //   const username =
+        //     get(user, 'username') || get(authAttributes, 'username');
+
+        //   return Auth.resendSignUp(username);
+        // },
         async resendConfirmationCode(context, event) {
           const { user, authAttributes } = context;
           const username =
             get(user, 'username') || get(authAttributes, 'username');
 
-          return Auth.resendSignUp(username);
+          const input: Auth.ResendSignUpCodeInput = { username };
+          return Auth.resendSignUpCode(input);
         },
+        // async federatedSignIn(_, event) {
+        //   const { provider } = event.data;
+        //   const result = await Auth.federatedSignIn({ provider });
+        //   return result;
+        // },
         async federatedSignIn(_, event) {
           const { provider } = event.data;
-          const result = await Auth.federatedSignIn({ provider });
+          const result = await noop({ provider });
           return result;
         },
         async signUp(context, _event) {

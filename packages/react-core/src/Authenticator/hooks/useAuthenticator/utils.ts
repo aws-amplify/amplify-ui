@@ -1,6 +1,5 @@
-import { Auth } from 'aws-amplify';
+// import * as Auth from '@aws-amplify/auth';
 import {
-  AmplifyUser,
   areEmptyArrays,
   areEmptyObjects,
   AuthenticatorRoute,
@@ -60,10 +59,10 @@ export const getQRFields = (
   ...getActorContext(state)?.formFields?.setupTOTP?.QR,
 });
 
-export const getTotpSecretCodeCallback = (user: AmplifyUser) =>
-  async function getTotpSecretCode(): Promise<string> {
-    return await Auth.setupTOTP(user);
-  };
+// export const getTotpSecretCodeCallback = (user: AmplifyUser) =>
+//   async function getTotpSecretCode(): Promise<string> {
+//     return await Auth.setupTOTP(user);
+//   };
 
 const flattenFormFields = (
   fields: FormFieldsArray

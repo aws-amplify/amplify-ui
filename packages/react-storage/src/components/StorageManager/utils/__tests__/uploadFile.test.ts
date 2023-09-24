@@ -1,5 +1,5 @@
 import { uploadFile } from '../uploadFile';
-import { Storage } from 'aws-amplify';
+import { Storage } from '@aws-amplify/storage';
 
 const storageSpy = jest
   .spyOn(Storage, 'put')

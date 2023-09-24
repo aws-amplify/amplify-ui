@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { Storage } from 'aws-amplify';
+import * as Storage from '@aws-amplify/storage';
 import { ComponentClassName } from '@aws-amplify/ui';
 
 import { StorageImage } from '../StorageImage';
@@ -13,12 +13,14 @@ describe('StorageImage', () => {
   const errorMessage = '500 Internal Server Error';
 
   beforeAll(() => {
-    jest.spyOn(Storage, 'get').mockResolvedValue(imgURL);
+    jest.spyOn(Storage, 'getUrl').mockResolvedValue({
+      url: new URL(imgURL),
+    } as Storage.GetUrlOutput);
   });
 
   it('should render default classname', async () => {
     render(
-      <StorageImage alt="StorageImage" imgKey={imgKey} accessLevel="public" />
+      <StorageImage alt="StorageImage" imgKey={imgKey} accessLevel="guest" />
     );
 
     const img = await screen.findByRole('img');
@@ -32,7 +34,7 @@ describe('StorageImage', () => {
         alt="StorageImage"
         className={className}
         imgKey={imgKey}
-        accessLevel="public"
+        accessLevel="guest"
       />
     );
 
@@ -46,7 +48,7 @@ describe('StorageImage', () => {
       <StorageImage
         alt="StorageImage"
         imgKey={imgKey}
-        accessLevel="public"
+        accessLevel="guest"
         onStorageGetError={onStorageError}
       />
     );
@@ -58,13 +60,13 @@ describe('StorageImage', () => {
 
   it('should set image src attribute to fallbackSrc and invoke onGetStorageError when Storage.get is rejected', async () => {
     jest.restoreAllMocks();
-    jest.spyOn(Storage, 'get').mockRejectedValue(errorMessage);
+    jest.spyOn(Storage, 'getUrl').mockRejectedValue(errorMessage);
     const onStorageError = jest.fn();
     render(
       <StorageImage
         alt="StorageImage"
         imgKey={imgKey}
-        accessLevel="public"
+        accessLevel="guest"
         fallbackSrc={fallbackSrc}
         onStorageGetError={onStorageError}
       />

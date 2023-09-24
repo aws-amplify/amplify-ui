@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Logger } from 'aws-amplify';
+import { ConsoleLogger as Logger } from '@aws-amplify/core/internals/utils';
 import { ValidationError } from '@aws-amplify/ui';
 
 import { OnChangeText, TextFieldOnBlur, TypedField } from '../types';

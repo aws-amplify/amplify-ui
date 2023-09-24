@@ -1,9 +1,11 @@
 import { AuthChallengeName, PasswordSettings } from '../../../types';
 import { defaultServices } from '../defaultServices';
 import { ALLOWED_SPECIAL_CHARACTERS } from '../../../helpers/authenticator/constants';
-import { Amplify, Auth } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import * as Auth from '@aws-amplify/auth';
 
 jest.mock('aws-amplify');
+jest.mock('@aws-amplify/auth');
 
 const {
   getAmplifyConfig,
@@ -338,10 +340,10 @@ describe('handleForgotPassword', () => {
 });
 
 describe('getCurrentUser', () => {
-  it('should call Auth.currentAuthenticatedUser', async () => {
+  it('should call Auth.getCurrentUser', async () => {
     await getCurrentUser();
 
-    expect(Auth.currentAuthenticatedUser).toHaveBeenCalledTimes(1);
+    expect(Auth.getCurrentUser).toHaveBeenCalledTimes(1);
   });
 });
 

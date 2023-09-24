@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { MessageImage } from '@aws-amplify/ui-react-core-notifications';
 
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
+import { ConsoleLogger as Logger } from '@aws-amplify/core/internals/utils';
 
 import { ImagePrefetchStatus, UseMessageImage } from './types';
 

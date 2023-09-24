@@ -1,4 +1,4 @@
-import { ChallengeName, CognitoUser } from 'amazon-cognito-identity-js';
+import { ChallengeName } from 'amazon-cognito-identity-js';
 
 /** Known challenge names */
 export type AuthChallengeName = ChallengeName;
@@ -25,9 +25,10 @@ export interface CognitoAttributes {
 /**
  * Amplify User Interface
  */
-export interface AmplifyUser extends CognitoUser {
+export interface AmplifyUser {
   username?: string;
   attributes?: CognitoAttributes;
+  challengeName?: string;
 }
 
 /**

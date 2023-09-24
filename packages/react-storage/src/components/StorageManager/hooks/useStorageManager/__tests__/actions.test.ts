@@ -1,4 +1,5 @@
-import { UploadTask } from '@aws-amplify/storage';
+// import { UploadTask } from '@aws-amplify/storage';
+import * as Storage from '@aws-amplify/storage';
 import { FileStatus } from '../../../types';
 
 import {
@@ -51,7 +52,7 @@ describe('clearFilesAction', () => {
 describe('setUploadingFileAction', () => {
   it('creates an action with the SET_STATUS_UPLOADING type and the given id and upload task', () => {
     const id = 'test-id';
-    const uploadTask = {} as UploadTask;
+    const uploadTask = {} as Storage.UploadDataOutput;
     const expectedAction = {
       type: StorageManagerActionTypes.SET_STATUS_UPLOADING,
       id,

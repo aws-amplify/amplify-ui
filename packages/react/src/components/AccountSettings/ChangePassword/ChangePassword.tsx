@@ -1,7 +1,7 @@
 import React from 'react';
 import isEqual from 'lodash/isEqual.js';
 
-import { Logger } from 'aws-amplify';
+import { ConsoleLogger as Logger } from '@aws-amplify/core/internals/utils';
 import {
   changePassword,
   ValidatorOptions,
@@ -186,7 +186,7 @@ function ChangePassword({
       });
   };
 
-  // Return null if Auth.getCurrentAuthenticatedUser is still in progress
+  // Return null if Auth.getgetCurrentUser is still in progress
   if (isLoading) {
     return null;
   }
