@@ -246,3 +246,20 @@ export function templateJoin(
 export function noop(..._: any[]): void {
   return;
 }
+
+/**
+ * @param {string} groupName name of group
+ * @param events string values related to group
+ */
+export function groupLog(groupName: string, ...events: any[]): void {
+  const hasEvents = !!events?.length;
+  if (hasEvents) {
+    console.groupCollapsed(groupName);
+    events?.forEach((event) => {
+      console.log(event);
+    });
+    console.groupEnd();
+  } else {
+    console.log(groupName);
+  }
+}

@@ -6,6 +6,7 @@ import {
 } from '@aws-amplify/ui-react-storage';
 import '@aws-amplify/ui-react/styles.css';
 // @todo-migration remove
+// @todo-migration zero config workaround
 import { getAuthenticatorConfig } from '@aws-amplify/ui';
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);

@@ -61,7 +61,11 @@ function Authenticator({
   useDeprecationWarning({
     message:
       'The `passwordSettings` prop has been deprecated and will be removed in a future major version of Amplify UI.',
-    shouldWarn: !!options?.passwordSettings,
+    // shouldWarn: !!options?.passwordSettings,
+    /**
+     * @migration turn off until getConfig returns zero config
+     */
+    shouldWarn: false,
   });
 
   React.useEffect(() => {

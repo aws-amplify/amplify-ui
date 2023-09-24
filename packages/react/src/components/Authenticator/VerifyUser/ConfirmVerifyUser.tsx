@@ -17,6 +17,8 @@ export const ConfirmVerifyUser = ({
   className,
   variation,
 }: RouteProps): JSX.Element => {
+  // eslint-disable-next-line no-console
+  console.log('+++UI: ConfirmVerifyUser');
   const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleChange, handleSubmit } = useFormHandlers();
 

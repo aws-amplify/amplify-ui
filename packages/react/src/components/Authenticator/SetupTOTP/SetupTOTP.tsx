@@ -25,9 +25,14 @@ export const SetupTOTP = ({
   className,
   variation,
 }: RouteProps): JSX.Element => {
+  // eslint-disable-next-line no-console
+  console.log('+++UI: SetupTOTP');
   const { totpSecretCode, isPending, user, QRFields } = useAuthenticator(
     (context) => [context.isPending, context.totpSecretCode]
   );
+
+  // eslint-disable-next-line no-console
+  console.log('totpSecretCode', totpSecretCode);
 
   const { handleChange, handleSubmit } = useFormHandlers();
 

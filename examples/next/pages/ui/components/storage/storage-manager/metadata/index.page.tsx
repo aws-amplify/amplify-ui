@@ -1,6 +1,7 @@
 import { Amplify } from 'aws-amplify';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 // @todo-migration remove
+// @todo-migration zero config workaround
 import { getAuthenticatorConfig } from '@aws-amplify/ui';
 import {
   StorageManager,

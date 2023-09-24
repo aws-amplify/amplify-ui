@@ -26,9 +26,9 @@ const getChallengeText = (challengeName?: string): string => {
 const getDeliveryMessageText = (
   codeDeliveryDetails: CodeDeliveryDetails
 ): string => {
-  const { DeliveryMedium, Destination } = codeDeliveryDetails ?? {};
-  const isEmailMessage = DeliveryMedium === 'EMAIL';
-  const isTextMessage = DeliveryMedium === 'SMS';
+  const { deliveryMedium, destination } = codeDeliveryDetails ?? {};
+  const isEmailMessage = deliveryMedium === 'EMAIL';
+  const isTextMessage = deliveryMedium === 'SMS';
 
   const arrivalMessage = translate(DefaultTexts.CODE_ARRIVAL);
 
@@ -40,15 +40,20 @@ const getDeliveryMessageText = (
     ? translate(DefaultTexts.CODE_EMAILED)
     : translate(DefaultTexts.CODE_TEXTED);
 
-  return `${instructionMessage} ${Destination}. ${arrivalMessage}.`;
+  return `${instructionMessage} ${destination}. ${arrivalMessage}.`;
 };
 
 const getDeliveryMethodText = (
   codeDeliveryDetails: CodeDeliveryDetails
 ): string => {
-  const { DeliveryMedium } = codeDeliveryDetails ?? {};
-  const isEmailMessage = DeliveryMedium === 'EMAIL';
-  const isTextMessage = DeliveryMedium === 'SMS';
+  // console.log(
+  //   '+++UI: getDeliveryMethodText codeDeliveryDetails',
+  //   codeDeliveryDetails
+  // );
+
+  const { deliveryMedium } = codeDeliveryDetails ?? {};
+  const isEmailMessage = deliveryMedium === 'EMAIL';
+  const isTextMessage = deliveryMedium === 'SMS';
 
   if (!isEmailMessage && isTextMessage) {
     return translate(DefaultTexts.WE_SENT_CODE);

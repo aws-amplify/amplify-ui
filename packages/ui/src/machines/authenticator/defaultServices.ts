@@ -3,23 +3,49 @@ import * as Auth from '@aws-amplify/auth';
 import { hasSpecialChars } from '../../helpers';
 
 import {
-  AuthChallengeName,
+  // AuthChallengeName,
   PasswordSettings,
-  SignInResult,
+  // SignInResult,
   ValidatorResult,
 } from '../../types';
+import { groupLog } from '../../utils';
 
 export const defaultServices = {
   async getAmplifyConfig() {
-    return Amplify.getConfig();
+    const result = Amplify.getConfig();
+    groupLog('+++getAmplifyConfig', 'result', result);
+    return result;
   },
-
   async getCurrentUser() {
     return Auth.getCurrentUser();
   },
-
-  async handleSignUp(formData) {
-    return Auth.signUp({ ...formData, autoSignIn: { enabled: true } });
+  // async handleSignUp(formData) {
+  //   return Auth.signUp({ ...formData, autoSignIn: { enabled: true } });
+  // },
+  async handleSignUp({
+    attributes: userAttributes,
+    username,
+    password,
+  }: {
+    username: string;
+    password: string;
+    attributes?: {
+      // made optional to appease TS, no plan to fix
+      email?: string;
+    };
+  }) {
+    const input: Auth.SignUpInput = {
+      username,
+      password,
+      options: {
+        /**
+         * @migration `autoSignIn` missing
+         */
+        // serviceOptions: { autoSignIn: true },
+        userAttributes,
+      },
+    };
+    return Auth.signUp(input);
   },
   async handleSignIn({
     username,
@@ -27,7 +53,7 @@ export const defaultServices = {
   }: {
     username: string;
     password: string;
-  }): Promise<any> {
+  }): Promise<Auth.SignInOutput> {
     return Auth.signIn({ username, password });
   },
   async handleConfirmSignIn(

@@ -65,6 +65,9 @@ const getSignUpFormFields = (state: AuthMachineState): FormFields => {
   const { loginMechanisms, signUpAttributes } = state.context.config;
   const primaryAlias = getPrimaryAlias(state);
 
+  /**
+   * @migration signUp Fields created here
+   */
   const fieldNames = Array.from(
     new Set([
       ...loginMechanisms,
@@ -133,6 +136,9 @@ const getForceNewPasswordFormFields = (state: AuthMachineState): FormFields => {
   const actorState = getActorState(state) as SignInState;
   const { requiredAttributes } = actorState.context as SignInContext;
 
+  /**
+   * @migration `requiredAttributes` translates to v6 `missingAttributes`
+   */
   const fieldNames = Array.from(
     new Set(['password', 'confirm_password', ...requiredAttributes] as const)
   );

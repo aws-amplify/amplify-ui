@@ -2,6 +2,7 @@ import { Amplify } from 'aws-amplify';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import { Field } from '@aws-amplify/ui-react/internal';
 // @todo-migration remove
+// @todo-migration zero config workaround
 import { getAuthenticatorConfig } from '@aws-amplify/ui';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
 import '@aws-amplify/ui-react/styles.css';

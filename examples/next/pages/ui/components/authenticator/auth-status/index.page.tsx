@@ -1,4 +1,5 @@
-import { Amplify, Auth } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import { signIn, signOut } from 'aws-amplify/auth';
 
 import {
   Button,
@@ -26,7 +27,7 @@ export default function App() {
       onSubmit={(e: any) => {
         e.preventDefault();
 
-        Auth.signIn(Object.fromEntries(new FormData(e.target)) as any);
+        signIn(Object.fromEntries(new FormData(e.target)) as any);
       }}
     >
       <Text>{authStatus}</Text>
@@ -39,7 +40,7 @@ export default function App() {
       <Button
         onClick={() => {
           if (isAuthenticated) {
-            Auth.signOut();
+            signOut();
           }
         }}
         type={isAuthenticated ? 'button' : 'submit'}
