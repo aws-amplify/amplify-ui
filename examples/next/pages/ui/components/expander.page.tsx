@@ -17,16 +17,14 @@ export default function ExpanderPage() {
       <ExpanderGroup>
         <Expander value="1" title="Hello">
           <p>my friend</p>
-          <Button>Next</Button>
         </Expander>
         <Expander value="2" title="Hello">
           <p>my enemy</p>
         </Expander>
       </ExpanderGroup>
 
-      <Expander title="single">
+      <Expander>
         <p>hello</p>
-        <Button>Next</Button>
       </Expander>
 
       <ExpanderGroup value={controlled} onValueChange={setControlled}>
