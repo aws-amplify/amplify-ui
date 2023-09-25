@@ -83,10 +83,9 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
       className={classNames(
         ComponentClassName.SwitchField,
         classNameModifier(ComponentClassName.SwitchField, size),
+        labelPosition ? `amplify-label-${labelPosition}` : null,
         className
       )}
-      data-size={size}
-      data-label-position={labelPosition}
       ref={ref}
       {...rest}
     >
@@ -114,7 +113,6 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
           ComponentClassName.SwitchWrapper,
           classNameModifier(ComponentClassName.SwitchWrapper, labelPosition)
         )}
-        data-label-position={labelPosition}
       >
         <LabelType as="span" className={ComponentClassName.SwitchLabel}>
           {label}
@@ -122,9 +120,6 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
         <View
           as="span"
           className={wrapperClasses}
-          data-checked={isOn}
-          data-disabled={shouldBeDisabled}
-          data-focused={isFocused}
           backgroundColor={isOn ? trackCheckedColor : trackColor}
         >
           <View

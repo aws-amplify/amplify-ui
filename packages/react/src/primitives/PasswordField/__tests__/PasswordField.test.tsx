@@ -69,7 +69,7 @@ describe('PasswordField component', () => {
     );
 
     const passwordField = await screen.findByPlaceholderText('Password');
-    expect(passwordField.dataset['size']).toBe('large');
+    expect(passwordField).toHaveClass('amplify-input--large');
   });
 
   it('should render size classes for PasswordField', async () => {

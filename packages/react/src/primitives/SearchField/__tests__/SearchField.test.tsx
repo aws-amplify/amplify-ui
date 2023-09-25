@@ -83,7 +83,7 @@ describe('SearchField component', () => {
     render(<SearchField label={label} name="q" size="large" />);
 
     const searchField = screen.getByLabelText(label);
-    expect(searchField.dataset['size']).toBe('large');
+    expect(searchField).toHaveClass(`${ComponentClassName.Input}--large`);
   });
 
   it('should render size classes for SearchField', async () => {
@@ -105,7 +105,7 @@ describe('SearchField component', () => {
     render(<SearchField label={label} name="q" variation="quiet" />);
 
     const searchField = screen.getByLabelText(label);
-    expect(searchField).toHaveAttribute('data-variation', 'quiet');
+    expect(searchField).toHaveClass(`${ComponentClassName.Input}--quiet`);
   });
 
   it('should have search button', async () => {

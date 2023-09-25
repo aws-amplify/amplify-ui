@@ -22,7 +22,6 @@ exports[`FileControl renders as expected when file is uploading 1`] = `
       />
       <svg
         class="amplify-loader amplify-loader--linear amplify-storagemanager__loader"
-        data-variation="linear"
         role="img"
       >
         <g>
@@ -45,8 +44,6 @@ exports[`FileControl renders as expected when file is uploading 1`] = `
       </svg>
       <button
         class="amplify-button amplify-field-group__control amplify-button--small"
-        data-fullwidth="false"
-        data-size="small"
         type="button"
       >
         <span
@@ -108,8 +105,6 @@ exports[`FileControl renders as expected when uploading is paused 1`] = `
       />
       <button
         class="amplify-button amplify-field-group__control amplify-button--small"
-        data-fullwidth="false"
-        data-size="small"
         type="button"
       >
         <span
@@ -192,7 +187,6 @@ exports[`FileControl renders thumbnails 1`] = `
       />
       <svg
         class="amplify-loader amplify-loader--linear amplify-storagemanager__loader"
-        data-variation="linear"
         role="img"
       >
         <g>
@@ -215,8 +209,6 @@ exports[`FileControl renders thumbnails 1`] = `
       </svg>
       <button
         class="amplify-button amplify-field-group__control amplify-button--small"
-        data-fullwidth="false"
-        data-size="small"
         type="button"
       >
         <span

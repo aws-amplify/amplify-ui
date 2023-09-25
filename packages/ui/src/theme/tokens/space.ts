@@ -2,6 +2,7 @@ import {
   DesignTokenValues,
   OutputVariantKey,
   SpaceValue,
+  RecursiveDesignToken,
 } from './types/designToken';
 
 type SpaceSize =
@@ -41,9 +42,10 @@ type BaseSpace<
 export type Space<
   Output extends OutputVariantKey = unknown,
   Platform = unknown
-> = Output extends 'required' | 'default'
+> = (Output extends 'required' | 'default'
   ? Required<BaseSpace<Output, Platform>>
-  : BaseSpace<Output, Platform>;
+  : BaseSpace<Output, Platform>) &
+  RecursiveDesignToken<SpaceValue<Platform>, Output, Platform>;
 
 export const space: Space<'default'> = {
   zero: { value: '0' },
@@ -70,3 +72,6 @@ export const space: Space<'default'> = {
     full: { value: '100%' },
   },
 };
+
+// I want to be able to pass in a Theme object that has extra tokens
+// and it returns that same object type WITH the extra tokens

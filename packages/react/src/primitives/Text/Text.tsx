@@ -23,14 +23,7 @@ const TextPrimitive: Primitive<TextProps, 'p'> = (
   );
 
   return (
-    <View
-      as={as}
-      className={componentClasses}
-      data-truncate={isTruncated}
-      data-variation={variation}
-      ref={ref}
-      {...rest}
-    >
+    <View as={as} className={componentClasses} ref={ref} {...rest}>
       {children}
     </View>
   );

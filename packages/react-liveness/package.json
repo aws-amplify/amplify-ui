@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-liveness",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -48,8 +48,8 @@
     "react-dom": ">= 16.14.0"
   },
   "dependencies": {
-    "@aws-amplify/ui": "5.8.0",
-    "@aws-amplify/ui-react": "5.3.0",
+    "@aws-amplify/ui": "5.8.1",
+    "@aws-amplify/ui-react": "5.3.1",
     "@aws-sdk/client-rekognitionstreaming": "3.398.0",
     "@aws-sdk/util-format-url": "^3.410.0",
     "@smithy/eventstream-serde-browser": "^2.0.4",
@@ -60,7 +60,7 @@
     "@tensorflow/tfjs-backend-wasm": "3.11.0",
     "@tensorflow/tfjs-converter": "3.11.0",
     "@tensorflow/tfjs-core": "3.11.0",
-    "@xstate/react": "3.0.0",
+    "@xstate/react": "3.0.1",
     "classnames": "2.3.1",
     "nanoid": "3.1.31",
     "tslib": "2.4.1",

@@ -107,7 +107,6 @@ Array [
   "IconVisibilityOff",
   "IconWarning",
   "PrimitiveCatalog",
-  "createDataStorePredicate",
   "useAuth",
   "useDropZone",
   "useIcons",

@@ -20,7 +20,6 @@ const MenuButtonPrimitive: Primitive<MenuButtonProps, 'button'> = (
     ariaLabel,
     className,
     children,
-    isFullWidth = false,
     isDisabled,
     isLoading,
     size,
@@ -44,13 +43,9 @@ const MenuButtonPrimitive: Primitive<MenuButtonProps, 'button'> = (
     <Button
       ref={ref}
       className={componentClasses}
-      data-fullwidth={isFullWidth}
-      data-loading={isLoading}
-      data-size={size}
-      data-variation={variation}
       disabled={isDisabled ?? isLoading}
       type={type}
-      data-testid={testId}
+      testId={testId}
       aria-label={ariaLabel}
       style={propStyles}
       {...nonStyleProps}

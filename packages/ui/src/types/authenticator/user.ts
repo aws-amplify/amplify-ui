@@ -2,6 +2,7 @@ import { ChallengeName, CognitoUser } from 'amazon-cognito-identity-js';
 
 /** Known challenge names */
 export type AuthChallengeName = ChallengeName;
+export { ChallengeName };
 
 /** Contact destinations that we can send user confirmation code to */
 export type ContactMethod = 'Email' | 'Phone Number';

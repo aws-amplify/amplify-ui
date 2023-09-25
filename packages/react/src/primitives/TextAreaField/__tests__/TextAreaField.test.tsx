@@ -115,7 +115,7 @@ describe('TextAreaField component', () => {
       expect(field).toHaveAttribute('rows', String(rowCount));
     });
 
-    it('should set size and variation data attributes', async () => {
+    it('should set size and variation classes', async () => {
       render(
         <TextAreaField
           label="Field"
@@ -127,8 +127,8 @@ describe('TextAreaField component', () => {
 
       const textAreaField = await screen.findByTestId('testField');
       const textArea = await screen.findByRole('textbox');
-      expect(textAreaField).toHaveAttribute('data-size', 'small');
-      expect(textArea).toHaveAttribute('data-variation', 'quiet');
+      expect(textAreaField).toHaveClass(`${ComponentClassName.Field}--small`);
+      expect(textArea).toHaveClass(`${ComponentClassName.Textarea}--small`);
     });
 
     it('should render size classes for TextAreaField', async () => {

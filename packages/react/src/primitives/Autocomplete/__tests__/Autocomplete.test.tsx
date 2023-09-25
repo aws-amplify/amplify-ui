@@ -186,7 +186,7 @@ describe('Autocomplete:', () => {
     render(<Autocomplete label={label} options={options} size="large" />);
 
     const textInput = await screen.findByRole('combobox');
-    expect(textInput).toHaveAttribute('data-size', 'large');
+    expect(textInput).toHaveClass('amplify-input--large');
   });
 
   it('should render size classes for Autocomplete', async () => {
@@ -222,7 +222,7 @@ describe('Autocomplete:', () => {
     render(<Autocomplete label={label} options={options} variation="quiet" />);
 
     const textInput = await screen.findByRole('combobox');
-    expect(textInput).toHaveAttribute('data-variation', 'quiet');
+    expect(textInput).toHaveClass('amplify-input--quiet');
   });
 
   it('should be in loading state when isLoading is set to true', async () => {

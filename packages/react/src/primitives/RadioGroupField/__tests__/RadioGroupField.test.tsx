@@ -68,9 +68,8 @@ describe('RadioFieldGroup', () => {
   it('should work with labelPosition', async () => {
     render(RadioFieldGroup({ ...basicProps, labelPosition: 'end' }));
     const radioField = await screen.findByTestId(basicProps.testId);
-    expect(radioField.querySelector('.amplify-radio')).toHaveAttribute(
-      'data-label-position',
-      'end'
+    expect(radioField.querySelector('.amplify-radio')).toHaveClass(
+      'amplify-label-end'
     );
   });
 

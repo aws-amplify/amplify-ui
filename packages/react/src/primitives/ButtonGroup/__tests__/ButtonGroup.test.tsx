@@ -40,22 +40,24 @@ describe('ButtonGroup', () => {
 
   it('should set size for each child button correctly', async () => {
     const size = 'large';
+    const className = `amplify-button--${size}`;
     render(<ButtonGroupWithChildren size={size} />);
 
     const buttons = await screen.findAllByRole('button');
-    expect(buttons[0]).toHaveAttribute('data-size', size);
-    expect(buttons[1]).toHaveAttribute('data-size', size);
-    expect(buttons[2]).toHaveAttribute('data-size', size);
+    expect(buttons[0]).toHaveClass(className);
+    expect(buttons[1]).toHaveClass(className);
+    expect(buttons[2]).toHaveClass(className);
   });
 
   it('sets variation for each child button correctly', async () => {
     const variation = 'primary';
+    const className = `amplify-button--${variation}`;
     render(<ButtonGroupWithChildren variation={variation} />);
 
     const buttons = await screen.findAllByRole('button');
-    expect(buttons[0]).toHaveAttribute('data-variation', variation);
-    expect(buttons[1]).toHaveAttribute('data-variation', variation);
-    expect(buttons[2]).toHaveAttribute('data-variation', variation);
+    expect(buttons[0]).toHaveClass(className);
+    expect(buttons[1]).toHaveClass(className);
+    expect(buttons[2]).toHaveClass(className);
   });
 
   it('respects child button size and variation props', async () => {
@@ -71,16 +73,16 @@ describe('ButtonGroup', () => {
     const [first, second, third] = await screen.findAllByRole('button');
 
     // override size prop
-    expect(first).toHaveAttribute('data-size', 'small');
-    expect(first).toHaveAttribute('data-variation', variation);
+    expect(first).toHaveClass(`${ComponentClassName.Button}--small`);
+    expect(first).toHaveClass(`${ComponentClassName.Button}--${variation}`);
 
     // inherit parent props
-    expect(second).toHaveAttribute('data-size', size);
-    expect(second).toHaveAttribute('data-variation', variation);
+    expect(second).toHaveClass(`${ComponentClassName.Button}--${size}`);
+    expect(second).toHaveClass(`${ComponentClassName.Button}--${variation}`);
 
-    // override size prop
-    expect(second).toHaveAttribute('data-size', size);
-    expect(third).toHaveAttribute('data-variation', 'link');
+    // override variation prop
+    expect(third).toHaveClass(`${ComponentClassName.Button}--${size}`);
+    expect(third).toHaveClass(`${ComponentClassName.Button}--link`);
   });
 
   it('should forward ref to DOM element', async () => {
