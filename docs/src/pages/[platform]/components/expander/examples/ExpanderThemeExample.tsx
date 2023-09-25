@@ -1,6 +1,6 @@
 import {
   Expander,
-  ExpanderItem,
+  ExpanderGroup,
   ThemeProvider,
   Theme,
 } from '@aws-amplify/ui-react';
@@ -36,13 +36,13 @@ const theme: Theme = {
 
 export const ExpanderThemeExample = () => (
   <ThemeProvider theme={theme} colorMode="light">
-    <Expander>
-      <ExpanderItem title="Check out this themed Expander" value="item1">
+    <ExpanderGroup>
+      <Expander title="Check out this themed Expander" value="item1">
         Pretty cool!
-      </ExpanderItem>
-      <ExpanderItem title="It's very customizable" value="item2">
+      </Expander>
+      <Expander title="It's very customizable" value="item2">
         I love it.
-      </ExpanderItem>
-    </Expander>
+      </Expander>
+    </ExpanderGroup>
   </ThemeProvider>
 );

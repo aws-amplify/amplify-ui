@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   Card,
   Expander,
-  ExpanderItem,
+  ExpanderGroup,
   Grid,
   GridContainerStyleProps,
   GridItemStyleProps,
@@ -180,27 +180,27 @@ export const GridDemo = () => {
       code={propsToCode(gridContainerProps, gridItemsCode)}
       propControls={
         <>
-          <Expander
+          <ExpanderGroup
             type="multiple"
             value={value as string | string[]}
             onChange={handleExpandChange}
           >
-            <ExpanderItem title="Grid container props" value="item-1">
+            <Expander title="Grid container props" value="item-1">
               <GridContainerPropControls {...gridContainerProps} />
-            </ExpanderItem>
-            <ExpanderItem title="Grid item (Header) props" value="item-2">
+            </Expander>
+            <Expander title="Grid item (Header) props" value="item-2">
               <GridItemPropControls {...headerGridItemProps} />
-            </ExpanderItem>
-            <ExpanderItem title="Grid item (Nav) props" value="item-3">
+            </Expander>
+            <Expander title="Grid item (Nav) props" value="item-3">
               <GridItemPropControls {...navGridItemProps} />
-            </ExpanderItem>
-            <ExpanderItem title="Grid item (Main) props" value="item-4">
+            </Expander>
+            <Expander title="Grid item (Main) props" value="item-4">
               <GridItemPropControls {...mainGridItemProps} />
-            </ExpanderItem>
-            <ExpanderItem title="Grid item (Footer) props" value="item-5">
+            </Expander>
+            <Expander title="Grid item (Footer) props" value="item-5">
               <GridItemPropControls {...footerGridItemProps} />
-            </ExpanderItem>
-          </Expander>
+            </Expander>
+          </ExpanderGroup>
         </>
       }
     >

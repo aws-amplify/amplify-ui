@@ -1,4 +1,4 @@
-import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
+import { Expander, ExpanderGroup } from '@aws-amplify/ui-react';
 import { Properties, Category } from '../../../scripts/types/catalog';
 import { PropsTable } from './PropsTable';
 
@@ -13,15 +13,15 @@ export function PropsTableExpander({
   const expanderItem = (categoryProperty: CategoryProperty): JSX.Element => {
     const title = Object.keys(categoryProperty)[0];
     return (
-      <ExpanderItem key={title} title={title} value={title}>
+      <Expander key={title} title={title} value={title}>
         <PropsTable properties={categoryProperty[title]} />
-      </ExpanderItem>
+      </Expander>
     );
   };
 
   return (
-    <Expander type="multiple" className="props-table-expander">
+    <ExpanderGroup type="multiple" className="props-table-expander">
       {propsSortedByCategory.map(expanderItem)}
-    </Expander>
+    </ExpanderGroup>
   );
 }

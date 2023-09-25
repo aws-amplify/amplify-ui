@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import {
   Expander,
-  ExpanderItem,
+  ExpanderGroup,
   Flex,
   View,
   useTheme,
@@ -22,8 +22,8 @@ export const CustomTitle = ({ courseNumber, courseName }) => {
 
 export const CustomTitleComponent = () => {
   return (
-    <Expander type="single">
-      <ExpanderItem
+    <ExpanderGroup type="single">
+      <Expander
         title={
           <CustomTitle
             courseNumber="CS 103"
@@ -33,8 +33,8 @@ export const CustomTitleComponent = () => {
         value="item-1"
       >
         Example content for CS 103
-      </ExpanderItem>
-      <ExpanderItem
+      </Expander>
+      <Expander
         title={
           <CustomTitle
             courseNumber="CS 106A"
@@ -44,7 +44,7 @@ export const CustomTitleComponent = () => {
         value="item-2"
       >
         Example content for CS 106A
-      </ExpanderItem>
-    </Expander>
+      </Expander>
+    </ExpanderGroup>
   );
 };

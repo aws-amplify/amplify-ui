@@ -10,7 +10,6 @@ export * from './checkboxField';
 export * from './collection';
 export * from './datastore';
 export * from './divider';
-export * from './expander';
 export * from './field';
 export * from './fieldGroup';
 export * from './fieldGroupIcon';

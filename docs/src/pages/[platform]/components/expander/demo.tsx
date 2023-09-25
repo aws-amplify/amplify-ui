@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
+import { Expander, ExpanderGroup } from '@aws-amplify/ui-react';
 
 import { ExpanderPropControls } from './ExpanderPropControls';
 import { useExpanderProps } from './useExpanderProps';
@@ -8,24 +8,24 @@ import { demoState } from '@/utils/demoState';
 
 const propsToCode = (expanderProps) => {
   return (
-    `<Expander` +
+    `<ExpanderGroup` +
     (expanderProps.type ? ` type=${JSON.stringify(expanderProps.type)}` : '') +
     (expanderProps.type === 'single' && expanderProps.isCollapsible
       ? ` isCollapsible={${JSON.stringify(expanderProps.isCollapsible)}}`
       : '') +
     `>
-  <ExpanderItem title="Is it accessible?" value="demo-item-1">
+  <Expander title="Is it accessible?" value="demo-item-1">
     Yes! It adheres to the WAI-ARIA design pattern.
-  </ExpanderItem>
-  <ExpanderItem title="Can I customize the styling?" value="demo-item-2">
+  </Expander>
+  <Expander title="Can I customize the styling?" value="demo-item-2">
     Of course! See the section on CSS Styling below.
-  </ExpanderItem>
-  <ExpanderItem
+  </Expander>
+  <Expander
     title="Is it a great way to organize content?"
     value="demo-item-3"
   >
     Most definitely!
-  </ExpanderItem>
+  </Expander>
 </Expander>`
   );
 };
@@ -45,23 +45,23 @@ export const ExpanderDemo = () => {
       code={propsToCode(expanderProps)}
       propControls={<ExpanderPropControls {...expanderProps} />}
     >
-      <Expander
+      <ExpanderGroup
         type={expanderProps.type}
         isCollapsible={expanderProps.isCollapsible}
       >
-        <ExpanderItem title="Is it accessible?" value="demo-item-1">
+        <Expander title="Is it accessible?" value="demo-item-1">
           Yes! It adheres to the WAI-ARIA design pattern.
-        </ExpanderItem>
-        <ExpanderItem title="Can I customize the styling?" value="demo-item-2">
+        </Expander>
+        <Expander title="Can I customize the styling?" value="demo-item-2">
           Of course! See the section on CSS Styling below.
-        </ExpanderItem>
-        <ExpanderItem
+        </Expander>
+        <Expander
           title="Is it a great way to organize content?"
           value="demo-item-3"
         >
           Most definitely!
-        </ExpanderItem>
-      </Expander>
+        </Expander>
+      </ExpanderGroup>
     </Demo>
   );
 };

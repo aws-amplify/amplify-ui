@@ -3,7 +3,7 @@ import {
   Card,
   Text,
   Expander,
-  ExpanderItem,
+  ExpanderGroup,
 } from '@aws-amplify/ui-react';
 
 export const AuthenticatorClasses = () => {
@@ -34,8 +34,8 @@ export const AuthenticatorClasses = () => {
   const search = (className, searchText) => className.includes(searchText);
 
   return (
-    <Expander>
-      <ExpanderItem title="Available Classes" value="classNames">
+    <ExpanderGroup>
+      <Expander title="Available Classes" value="classNames">
         <Collection
           type="list"
           items={classList}
@@ -53,7 +53,7 @@ export const AuthenticatorClasses = () => {
             </Card>
           )}
         </Collection>
-      </ExpanderItem>
-    </Expander>
+      </Expander>
+    </ExpanderGroup>
   );
 };

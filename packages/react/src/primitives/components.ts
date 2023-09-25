@@ -9,7 +9,12 @@ export { CheckboxField } from './CheckboxField';
 export { Collection } from './Collection';
 export { Divider } from './Divider';
 export { DropZone, DropZoneProps } from './DropZone';
-export { Expander, ExpanderItem } from './Expander';
+export {
+  Expander,
+  ExpanderGroup,
+  ExpanderGroupProps,
+  ExpanderProps,
+} from './Expander';
 export { FieldGroupIcon, FieldGroupIconButton } from './FieldGroupIcon';
 export { Fieldset } from './Fieldset';
 export { Flex } from './Flex';

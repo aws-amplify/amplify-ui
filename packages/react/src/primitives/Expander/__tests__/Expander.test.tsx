@@ -1,165 +1,138 @@
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import * as React from 'react';
 
-import { Expander } from '../Expander';
-import { ExpanderItem } from '../ExpanderItem';
-import { ExpanderProps } from '../../types/expander';
+import { ExpanderGroup } from '../ExpanderGroup';
+import {
+  Expander,
+  EXPANDER_CONTENT_TEXT_TEST_ID,
+  EXPANDER_HEADER_TEST_ID,
+  EXPANDER_ICON_TEST_ID,
+  EXPANDER_ITEM_TEST_ID,
+} from '../Expander';
 import { ComponentClassName } from '@aws-amplify/ui';
 
-function UncontrolledExpander(props: ExpanderProps) {
-  return (
-    <Expander {...props}>
-      <ExpanderItem title="Section 1 title" value="item-1">
-        content 1
-      </ExpanderItem>
-      <ExpanderItem title="Section 2 title" value="item-2">
-        content 2
-      </ExpanderItem>
-      <ExpanderItem title="Section 3 title" value="item-3">
-        content 3
-      </ExpanderItem>
-    </Expander>
-  );
-}
-
-function ControlledExpander({ value: initialValue, ...rest }: ExpanderProps) {
-  const [value, setValue] = React.useState(initialValue);
-  return (
-    <Expander value={value} onValueChange={setValue} {...rest}>
-      <ExpanderItem title="Section 1 title" value="item-1">
-        content 1
-      </ExpanderItem>
-      <ExpanderItem title="Section 2 title" value="item-2">
-        content 2
-      </ExpanderItem>
-      <ExpanderItem title="Section 3 title" value="item-3">
-        content 3
-      </ExpanderItem>
-    </Expander>
-  );
-}
-
-describe('Expander', () => {
-  it('should set default and custom classnames', async () => {
-    const testId = 'expander';
+describe('Expander:', () => {
+  it('should render default and custom classnames', async () => {
     const className = 'class-test';
     render(
-      <UncontrolledExpander
-        className={className}
-        defaultValue="item-1"
-        type="single"
-        testId={testId}
-      />
+      <ExpanderGroup type="single" defaultValue="item-value">
+        <Expander className={className} title="item-title" value="item-value">
+          content
+        </Expander>
+      </ExpanderGroup>
     );
-    const expander = await screen.findByTestId(testId);
-    expect(expander).toHaveClass(ComponentClassName.Expander, className);
+
+    const item = await screen.findByTestId(EXPANDER_ITEM_TEST_ID);
+    expect(item).toHaveClass(ComponentClassName.ExpanderItem, className);
+
+    const header = await screen.findByTestId(EXPANDER_HEADER_TEST_ID);
+    expect(header).toHaveClass(ComponentClassName.ExpanderHeader);
+
+    const icon = await screen.findByTestId(EXPANDER_ICON_TEST_ID);
+    expect(icon).toHaveClass(ComponentClassName.ExpanderIcon);
+
+    const contentText = await screen.findByTestId(
+      EXPANDER_CONTENT_TEXT_TEST_ID
+    );
+    expect(contentText).toHaveClass(ComponentClassName.ExpanderContentText);
+
+    const content = await screen.findByRole('region');
+    expect(content).toHaveClass(ComponentClassName.ExpanderContent);
+
+    const trigger = await screen.findByRole('button');
+    expect(trigger).toHaveClass(ComponentClassName.ExpanderTrigger);
   });
 
-  it('should be collapsible', async () => {
+  it('should pass string as title', async () => {
+    const title = 'item-title';
     render(
-      <UncontrolledExpander defaultValue="item-1" type="single" isCollapsible />
+      <ExpanderGroup type="single" defaultValue="item-value">
+        <Expander title={title} value="item-value">
+          content
+        </Expander>
+      </ExpanderGroup>
     );
-    const buttons = await screen.findAllByRole('button');
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
-    userEvent.click(buttons[0]);
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'false');
+
+    const header = await screen.findByTestId(EXPANDER_HEADER_TEST_ID);
+    expect(header).toHaveTextContent(title);
   });
 
-  it('should work as uncontrolled component with type single', async () => {
-    render(<UncontrolledExpander defaultValue="item-1" type="single" />);
-
-    const buttons = await screen.findAllByRole('button');
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[1]).toHaveAttribute('aria-expanded', 'false');
-    expect(buttons[2]).toHaveAttribute('aria-expanded', 'false');
-
-    userEvent.click(buttons[1]);
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'false');
-    expect(buttons[1]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[2]).toHaveAttribute('aria-expanded', 'false');
-
-    userEvent.click(buttons[2]);
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'false');
-    expect(buttons[1]).toHaveAttribute('aria-expanded', 'false');
-    expect(buttons[2]).toHaveAttribute('aria-expanded', 'true');
-  });
-
-  it('should work as uncontrolled component with type multiple', async () => {
-    render(<UncontrolledExpander defaultValue={['item-1']} type="multiple" />);
-
-    const buttons = await screen.findAllByRole('button');
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[1]).toHaveAttribute('aria-expanded', 'false');
-    expect(buttons[2]).toHaveAttribute('aria-expanded', 'false');
-
-    userEvent.click(buttons[1]);
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[1]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[2]).toHaveAttribute('aria-expanded', 'false');
-
-    userEvent.click(buttons[2]);
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[1]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[2]).toHaveAttribute('aria-expanded', 'true');
-  });
-
-  it('should work as controlled component with type single', async () => {
-    render(<ControlledExpander value="item-1" type="single" />);
-
-    const buttons = await screen.findAllByRole('button');
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[1]).toHaveAttribute('aria-expanded', 'false');
-    expect(buttons[2]).toHaveAttribute('aria-expanded', 'false');
-
-    userEvent.click(buttons[1]);
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'false');
-    expect(buttons[1]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[2]).toHaveAttribute('aria-expanded', 'false');
-
-    userEvent.click(buttons[2]);
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'false');
-    expect(buttons[1]).toHaveAttribute('aria-expanded', 'false');
-    expect(buttons[2]).toHaveAttribute('aria-expanded', 'true');
-  });
-
-  it('should work as controlled component with type multiple', async () => {
-    render(<ControlledExpander value={['item-1']} type="multiple" />);
-
-    const buttons = await screen.findAllByRole('button');
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[1]).toHaveAttribute('aria-expanded', 'false');
-    expect(buttons[2]).toHaveAttribute('aria-expanded', 'false');
-
-    userEvent.click(buttons[1]);
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[1]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[2]).toHaveAttribute('aria-expanded', 'false');
-
-    userEvent.click(buttons[2]);
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[1]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[2]).toHaveAttribute('aria-expanded', 'true');
-  });
-
-  it('should forward ref support on DOM element', async () => {
-    const testId = 'expander';
-    const ref = React.createRef<HTMLDivElement>();
+  it('should pass custom component as title', async () => {
+    const titleText = 'item-title';
+    const ExpanderTitle = ({ title }) => {
+      return (
+        <div>
+          <span>{title}</span>
+        </div>
+      );
+    };
     render(
-      <Expander testId={testId} ref={ref}>
-        <ExpanderItem title="Section 1 title" value="item-1">
-          content 1
-        </ExpanderItem>
-        <ExpanderItem title="Section 2 title" value="item-2">
-          content 2
-        </ExpanderItem>
-        <ExpanderItem title="Section 3 title" value="item-3">
-          content 3
-        </ExpanderItem>
-      </Expander>
+      <ExpanderGroup type="single" defaultValue="item-value">
+        <Expander
+          title={<ExpanderTitle title={titleText} />}
+          value="item-value"
+        >
+          content
+        </Expander>
+      </ExpanderGroup>
     );
 
-    await screen.findByTestId(testId);
+    const header = await screen.findByTestId(EXPANDER_HEADER_TEST_ID);
+    expect(header).toHaveTextContent(titleText);
+  });
+
+  it('should set aria-controls on trigger and have matching id on content', async () => {
+    render(
+      <ExpanderGroup type="single" defaultValue="item-value">
+        <Expander title="item-title" value="item-value">
+          content
+        </Expander>
+      </ExpanderGroup>
+    );
+
+    const trigger = await screen.findByRole('button');
+    const content = await screen.findByRole('region');
+    expect(trigger).toHaveAttribute('aria-controls', content.id);
+  });
+
+  it('should set aria-labelledby on content and have matching id on trigger', async () => {
+    render(
+      <ExpanderGroup type="single" defaultValue="item-value">
+        <Expander title="item-title" value="item-value">
+          content
+        </Expander>
+      </ExpanderGroup>
+    );
+
+    const content = await screen.findByRole('region');
+    const trigger = await screen.findByRole('button');
+    expect(content).toHaveAttribute('aria-labelledby', trigger.id);
+  });
+
+  it('should set aria-hidden on icon', async () => {
+    render(
+      <ExpanderGroup type="single" defaultValue="item-value">
+        <Expander title="item-title" value="item-value">
+          content
+        </Expander>
+      </ExpanderGroup>
+    );
+
+    const icon = await screen.findByTestId(EXPANDER_ICON_TEST_ID);
+    expect(icon).toHaveAttribute('aria-hidden', 'true');
+  });
+
+  it('should foward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLDetailsElement>();
+    render(
+      <ExpanderGroup type="single" defaultValue="item-value">
+        <Expander title="item-title" value="item-value" ref={ref}>
+          content
+        </Expander>
+      </ExpanderGroup>
+    );
+
+    await screen.findByTestId(EXPANDER_ITEM_TEST_ID);
     expect(ref.current?.nodeName).toBe('DIV');
   });
 });

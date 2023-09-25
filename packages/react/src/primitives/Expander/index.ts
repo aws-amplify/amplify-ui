@@ -1,2 +1,3 @@
+export { ExpanderGroup } from './ExpanderGroup';
 export { Expander } from './Expander';
-export { ExpanderItem } from './ExpanderItem';
+export { ExpanderGroupProps, ExpanderProps } from './types';

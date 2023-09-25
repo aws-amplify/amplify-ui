@@ -2,14 +2,12 @@
   display: block;
   background-color: var(--amplify-components-expander-background-color);
   border-radius: var(--amplify-components-expander-border-radius);
-  box-shadow: var(--amplify-components-expander-box-shadow);
   width: var(--amplify-components-expander-width);
 }
 
 .amplify-expander__item {
   display: block;
   overflow: hidden;
-  box-shadow: var(--amplify-components-expander-item-box-shadow);
 
   &:first-of-type {
     border-start-start-radius: var(
@@ -65,12 +63,7 @@
 
 .amplify-expander__header {
   display: flex;
-  box-shadow: var(--amplify-components-expander-header-box-shadow);
-}
-
-.amplify-expander__trigger {
-  flex: 1;
-  display: flex;
+  // box-shadow: var(--amplify-components-expander-header-box-shadow);
   min-height: var(--amplify-components-expander-trigger-min-height);
   padding-inline-start: var(
     --amplify-components-expander-trigger-padding-inline-start
@@ -96,24 +89,21 @@
   padding-inline-end: var(
     --amplify-components-expander-content-padding-inline-end
   );
+  animation-name: amplify-expander-slide-up;
+  animation-duration: var(
+    --amplify-components-expander-content-closed-animation-duration
+  );
+  animation-timing-function: var(
+    --amplify-components-expander-content-closed-animation-timing-function
+  );
 
-  &[data-state='open'] {
+  &[open] {
     animation-name: amplify-expander-slide-down;
     animation-duration: var(
       --amplify-components-expander-content-open-animation-duration
     );
     animation-timing-function: var(
       --amplify-components-expander-content-open-animation-timing-function
-    );
-  }
-
-  &[data-state='closed'] {
-    animation-name: amplify-expander-slide-up;
-    animation-duration: var(
-      --amplify-components-expander-content-closed-animation-duration
-    );
-    animation-timing-function: var(
-      --amplify-components-expander-content-closed-animation-timing-function
     );
   }
 }
@@ -138,7 +128,7 @@
     --amplify-components-expander-icon-transition-timing-function
   );
 
-  [data-state='open'] & {
+  [open] & {
     transform: rotate(180deg);
   }
 }

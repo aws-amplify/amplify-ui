@@ -13,7 +13,7 @@ import {
   Flex,
   Collection,
   Expander,
-  ExpanderItem,
+  ExpanderGroup,
   useTheme,
 } from '@aws-amplify/ui-react';
 import {
@@ -147,9 +147,9 @@ const SecondaryNav = (props) => {
   const hideGuidesExpander = isFlutter || isReactNative || isAndroid || isSwift;
 
   return (
-    <Expander type="multiple" value={value} onValueChange={setValue}>
+    <ExpanderGroup type="multiple" value={value} onValueChange={setValue}>
       {
-        <ExpanderItem
+        <Expander
           title={
             <ExpanderTitle Icon={MdOutlineChecklist} text="Getting started" />
           }
@@ -160,10 +160,10 @@ const SecondaryNav = (props) => {
               {label}
             </NavLink>
           ))}
-        </ExpanderItem>
+        </Expander>
       }
       {platform === 'react' ? (
-        <ExpanderItem
+        <Expander
           title={<ExpanderTitle Icon={MdOutlineWidgets} text="Components" />}
           value="components"
         >
@@ -175,10 +175,10 @@ const SecondaryNav = (props) => {
               components={components}
             />
           ))}
-        </ExpanderItem>
+        </Expander>
       ) : null}
 
-      <ExpanderItem
+      <Expander
         title={
           <ExpanderTitle Icon={MdOutlinePower} text="Connected components" />
         }
@@ -189,11 +189,11 @@ const SecondaryNav = (props) => {
             {label}
           </NavLink>
         ))}
-      </ExpanderItem>
+      </Expander>
 
       {/* Android and Swift don't have theming at this time */}
       {hideTheming ? null : (
-        <ExpanderItem
+        <Expander
           title={<ExpanderTitle Icon={MdOutlineAutoAwesome} text="Theming" />}
           value="theming"
         >
@@ -202,12 +202,12 @@ const SecondaryNav = (props) => {
               {label}
             </NavLink>
           ))}
-        </ExpanderItem>
+        </Expander>
       )}
 
       {/* Flutter, React Native, Android, and Swift don't have guides at this time */}
       {hideGuidesExpander ? null : (
-        <ExpanderItem
+        <Expander
           title={<ExpanderTitle Icon={MdOutlineArticle} text="Guides" />}
           value="guides"
         >
@@ -216,9 +216,9 @@ const SecondaryNav = (props) => {
               {label}
             </NavLink>
           ))}
-        </ExpanderItem>
+        </Expander>
       )}
-    </Expander>
+    </ExpanderGroup>
   );
 };
 

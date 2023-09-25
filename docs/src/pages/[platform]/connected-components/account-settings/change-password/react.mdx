@@ -1,4 +1,4 @@
-import { Alert, Expander, ExpanderItem } from '@aws-amplify/ui-react';
+import { Alert, Expander, ExpanderGroup } from '@aws-amplify/ui-react';
 
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
 import { Example, ExampleCode } from '@/components/Example';
@@ -152,8 +152,8 @@ Note that spreading props is necessary so that event listeners like `onChange` o
 
 Here are the required props and examples for overriding each slot.
 
-<Expander type="single">
-  <ExpanderItem title="PasswordFields" value="password-fields">
+<ExpanderGroup type="single">
+  <Expander title="PasswordFields" value="password-fields">
 
 `ChangePassword` has three password fields that you can override: `CurrentPasswordField`, `NewPasswordField`, and `ConfirmPasswordField`. They all take the same props:
 
@@ -221,8 +221,8 @@ function App() {
     </ExampleCode>
   </Example>
 
-  </ExpanderItem>
-  <ExpanderItem title="ErrorMessage" value="error-message">
+  </Expander>
+  <Expander title="ErrorMessage" value="error-message">
 
 
 Props:
@@ -255,8 +255,8 @@ function App() {
 
       </ExampleCode>
     </Example>
-  </ExpanderItem>
-  <ExpanderItem title="SubmitButton" value="submit-button">
+  </Expander>
+  <Expander title="SubmitButton" value="submit-button">
 
 Props:
 
@@ -321,8 +321,8 @@ function App() {
 
       </ExampleCode>
     </Example>
-  </ExpanderItem>
-</Expander>
+  </Expander>
+</ExpanderGroup>
 
 
 ### Text and labels

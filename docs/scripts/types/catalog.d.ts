@@ -16,7 +16,7 @@ export type ComponentName =
   | 'DropZone.Rejected'
   | 'DropZone.Default'
   | 'Expander'
-  | 'ExpanderItem'
+  | 'ExpanderGroup'
   | 'FieldGroupIcon'
   | 'FieldGroupIconButton'
   | 'Flex'
