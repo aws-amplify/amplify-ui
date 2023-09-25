@@ -107,7 +107,7 @@ describe('Loader:', () => {
     render(<Loader percentage={percentage} isDeterminate />);
 
     const loader = await screen.findByRole('img');
-    expect(loader).toHaveClass(ComponentClassName.LoaderDeterminate);
+    expect(loader).toHaveClass(`${ComponentClassName.Loader}--determinate`);
 
     const circularFilled = await screen.findByTestId(CIRCULAR_FILLED);
     expect(circularFilled).toHaveStyle({
@@ -138,7 +138,7 @@ describe('Loader:', () => {
     render(<Loader percentage={percentage} variation="linear" isDeterminate />);
 
     const loader = await screen.findByRole('img');
-    expect(loader).toHaveClass(ComponentClassName.LoaderDeterminate);
+    expect(loader).toHaveClass(`${ComponentClassName.Loader}--determinate`);
 
     const linearFilled = await screen.findByTestId(LINEAR_FILLED);
     expect(linearFilled).toHaveAttribute('x2', `${percentage}%`);
