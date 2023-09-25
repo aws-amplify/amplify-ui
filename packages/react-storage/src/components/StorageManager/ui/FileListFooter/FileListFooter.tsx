@@ -2,11 +2,11 @@ import React from 'react';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 import { View, Button } from '@aws-amplify/ui-react';
-import { StorageManagerDisplayText } from '../../utils';
+import { StorageManagerDisplayTextDefault } from '../../utils';
 
 export interface FileListFooterProps {
   remainingFilesCount: number;
-  displayText: StorageManagerDisplayText;
+  displayText: StorageManagerDisplayTextDefault;
   onClearAll: () => void;
   onUploadAll: () => void;
 }

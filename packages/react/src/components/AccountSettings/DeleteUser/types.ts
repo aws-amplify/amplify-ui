@@ -13,7 +13,7 @@ export interface WarningViewProps {
   /** whether account deletion is in progress */
   isDisabled: boolean;
   /** overrides default display text */
-  displayText?: Partial<DeleteUserDisplayText>;
+  displayText?: DeleteUserDisplayText;
 }
 
 export type WarningViewComponent<Props = {}> = React.ComponentType<
@@ -47,5 +47,5 @@ export interface DeleteUserProps {
   components?: DeleteUserComponents;
 
   /** overrides default display text*/
-  displayText?: Partial<DeleteUserDisplayText>;
+  displayText?: DeleteUserDisplayText;
 }
