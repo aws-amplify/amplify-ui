@@ -16,6 +16,10 @@ const theme = {
             color: { value: '{colors.blue.80}' },
           },
         },
+        legend: {
+          color: { value: '{colors.blue.80}' },
+          fontWeight: { value: '{fontWeights.bold}' },
+        },
       },
     },
   },

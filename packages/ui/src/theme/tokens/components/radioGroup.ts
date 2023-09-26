@@ -8,7 +8,7 @@ export type RadioGroupTokens<Output extends OutputVariantKey> = {
     _checked?: DesignTokenProperties<'color', Output>;
     label?: DesignTokenProperties<'color', Output>;
   };
-  label?: DesignTokenProperties<'color', Output>;
+  legend?: DesignTokenProperties<'color' | 'fontWeight', Output>;
 };
 
 export const radiogroup: Required<RadioGroupTokens<'default'>> = {
@@ -23,7 +23,8 @@ export const radiogroup: Required<RadioGroupTokens<'default'>> = {
       color: { value: '{components.radio.label.color}' },
     },
   },
-  label: {
-    color: { value: '{components.field.label.color}' },
+  legend: {
+    color: { value: '{components.fieldset.legend.color}' },
+    fontWeight: { value: '{fontWeights.normal}' },
   },
 };

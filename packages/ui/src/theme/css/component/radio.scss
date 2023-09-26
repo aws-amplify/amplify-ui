@@ -9,9 +9,7 @@
   position: relative;
   &--disabled {
     cursor: var(--amplify-components-radio-disabled-cursor);
-    color: var(--amplify-components-radio-label-disabled-color);
   }
-  --amplify-components-text-color: var(--amplify-components-radio-label-color);
 }
 
 .amplify-radio__button {
@@ -93,5 +91,8 @@
 }
 
 .amplify-radio__label {
-  color: inherit;
+  color: var(--amplify-components-radio-label-color);
+  &--disabled {
+    color: var(--amplify-components-radio-label-disabled-color);
+  }
 }
