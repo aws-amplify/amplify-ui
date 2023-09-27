@@ -59,7 +59,6 @@ export interface StorageManagerProps {
    * @see https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/
    */
   accessLevel: StorageAccessLevel;
-
   /**
    * Determines if the upload will automatically start after a file is selected, default value: true
    */

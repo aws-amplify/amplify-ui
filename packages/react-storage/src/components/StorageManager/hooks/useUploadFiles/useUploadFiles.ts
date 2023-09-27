@@ -86,8 +86,7 @@ export function useUploadFiles({
           });
           setUploadingFile({
             id,
-            // uploadTask: isResumable ? uploadTask : undefined,
-            uploadTask,
+            uploadTask: isResumable ? uploadTask : undefined,
           });
         });
       }
