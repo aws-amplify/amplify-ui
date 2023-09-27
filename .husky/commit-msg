@@ -12,5 +12,4 @@ fi
 git secrets --register-aws > /dev/null
 
 echo "Scanning commit message for secrets..."
-# Scans the commit message.
 git secrets --commit_msg_hook -- "$@"

@@ -12,5 +12,4 @@ fi
 git secrets --register-aws > /dev/null
 
 echo "Scanning commit history for secrets..."
-# Determines if merging in a commit will introduce tainted history.
 git secrets --prepare_commit_msg_hook -- "$@"
