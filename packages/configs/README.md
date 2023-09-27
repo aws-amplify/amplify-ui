@@ -22,7 +22,7 @@ There are currently 3 types of packages that Amplify UI supports:
 
 ## Typescript
 
-To prevent drift between the `compilerOptions` of the _tsconfig.json_ files in the Amplify UI monorepo as more packages are added, base Typescript `compilerOptions` configurations are stored within the [ts](./typescript) directory. The **[Base Config](./typescript/tsconfig.base.json)** is extended directly or indirectly in all platform and utility packages.
+To prevent drift between the `compilerOptions` of the _tsconfig.json_ files in the Amplify UI monorepo as more packages are added, base Typescript `compilerOptions` configurations are stored within the [typescript](./typescript) directory. The **[Base Config](./typescript/tsconfig.base.json)** is extended directly or indirectly in all platform and utility packages.
 
 - Utility package _tsconfig.json_ files directly use the **[Base Config](./typescript/tsconfig.base.json)**
 - React UI/React Utility package _tsconfig.json_ files use the **[React Base Config](./typescript/tsconfig.react.json)**, extends from the **Base Config**
