@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import type { StorageAccessLevel, UploadTask } from '@aws-amplify/storage';
+import type { StorageAccessLevel } from '@aws-amplify/core';
+import type { UploadDataOutput } from '@aws-amplify/storage';
 
 import {
   ContainerProps,
@@ -26,7 +27,7 @@ export interface StorageFile {
   file?: File;
   status: FileStatus;
   progress: number;
-  uploadTask?: UploadTask;
+  uploadTask?: UploadDataOutput;
   key: string;
   error: string;
   isImage: boolean;

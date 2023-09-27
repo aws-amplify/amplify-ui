@@ -1,6 +1,8 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 import { useReducer } from 'react';
 
+import { UploadDataOutput } from '@aws-amplify/storage';
+
 import { storageManagerStateReducer } from '../reducer';
 import {
   Action,
@@ -8,7 +10,6 @@ import {
   UseStorageManagerState,
 } from '../types';
 import { FileStatus, StorageFile, StorageFiles } from '../../../types';
-import { UploadTask } from '@aws-amplify/storage';
 
 const imageFile = new File(['hello'], 'hello.png', { type: 'image/png' });
 const initialState: UseStorageManagerState = {
@@ -94,7 +95,7 @@ describe('storageManagerStateReducer', () => {
       return { state, dispatch };
     });
 
-    const testUploadTask = {} as UploadTask;
+    const testUploadTask = {} as UploadDataOutput;
     const uploadingAction: Action = {
       type: StorageManagerActionTypes.SET_STATUS_UPLOADING,
       id: imageFile.name,

@@ -16,7 +16,7 @@ export const StorageImage = ({
   ...rest
 }: StorageImageProps): JSX.Element => {
   const options = React.useMemo(
-    () => ({ level: accessLevel, identityId }),
+    () => ({ accessLevel, identityId }),
     [accessLevel, identityId]
   );
 

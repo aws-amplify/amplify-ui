@@ -4,7 +4,7 @@ export const StorageManagerUploadActionsExample = () => {
   return (
     <StorageManager
       acceptedFileTypes={['image/*']}
-      accessLevel="public"
+      accessLevel="guest"
       autoUpload={false}
       maxFileCount={1}
       isResumable

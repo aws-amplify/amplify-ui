@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { UploadTask } from '@aws-amplify/storage';
+import { UploadDataOutput } from '@aws-amplify/storage';
 import { ComponentClassNames, VisuallyHidden } from '@aws-amplify/ui-react';
 import { useDropZone } from '@aws-amplify/ui-react/internal';
 
@@ -155,7 +155,7 @@ function StorageManagerBase(
     uploadTask,
   }: {
     id: string;
-    uploadTask: UploadTask;
+    uploadTask: UploadDataOutput;
   }) => {
     uploadTask.pause();
     setUploadPaused({ id });
@@ -166,7 +166,7 @@ function StorageManagerBase(
     uploadTask,
   }: {
     id: string;
-    uploadTask: UploadTask;
+    uploadTask: UploadDataOutput;
   }) => {
     uploadTask.resume();
     setUploadResumed({ id });
@@ -177,7 +177,7 @@ function StorageManagerBase(
     uploadTask,
   }: {
     id: string;
-    uploadTask: UploadTask;
+    uploadTask: UploadDataOutput;
   }) => {
     // At this time we don't know if the delete
     // permissions are enabled (required to cancel upload),

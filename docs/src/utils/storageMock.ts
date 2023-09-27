@@ -1,6 +1,6 @@
 import {
   StorageProvider,
-  UploadTask,
+  UploadDataOutput,
   StorageOptions,
 } from '@aws-amplify/storage';
 
@@ -53,7 +53,7 @@ export default class MyStorageProvider implements StorageProvider {
   }
 
   // upload storage object
-  put(key: string, object, options?): Promise<Object> | UploadTask {
+  put(key: string, object, options?): Promise<Object> | UploadDataOutput {
     const opt = Object.assign({}, options);
     const { delay, networkError } = this._config;
     const { progressCallback, resumable, errorCallback, completeCallback } =
@@ -94,7 +94,7 @@ export default class MyStorageProvider implements StorageProvider {
       // this will make the progress go in 4 chunks of 25%
       tick = tickCreator(null, 25);
       interval = setInterval(tick, delay);
-      const uploadTask: UploadTask = {
+      const uploadTask: UploadDataOutput = {
         pause() {
           clearInterval(interval);
         },

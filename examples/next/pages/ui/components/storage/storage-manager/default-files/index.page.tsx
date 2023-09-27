@@ -9,7 +9,7 @@ export function StorageManagerExample() {
     <>
       <StorageManager
         acceptedFileTypes={['image/*']}
-        accessLevel="public"
+        accessLevel="guest"
         maxFileCount={1}
         showThumbnails
         defaultFiles={[{ key: 'default.jpg' }]}

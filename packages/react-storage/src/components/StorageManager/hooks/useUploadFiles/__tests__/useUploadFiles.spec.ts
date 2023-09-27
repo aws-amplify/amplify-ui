@@ -1,10 +1,10 @@
 import { renderHook } from '@testing-library/react-hooks';
+import { waitFor } from '@testing-library/react';
 
-import { Storage, UploadTask } from '@aws-amplify/storage';
+import { uploadData } from '@aws-amplify/storage';
 
 import { FileStatus, StorageFile, StorageManagerProps } from '../../../types';
 import { useUploadFiles, UseUploadFilesProps } from '../useUploadFiles';
-import { waitFor } from '@testing-library/react';
 
 jest.mock('@aws-amplify/storage');
 
@@ -35,7 +35,7 @@ const mockSetUploadSuccess = jest.fn();
 const mockOnUploadError = jest.fn();
 const mockOnUploadStart = jest.fn();
 const props: Omit<UseUploadFilesProps, 'files'> = {
-  accessLevel: 'public',
+  accessLevel: 'guest',
   maxFileCount: 2,
   setUploadingFile: mockSetUploadingFile,
   setUploadProgress: mockSetUploadProgress,
@@ -44,18 +44,17 @@ const props: Omit<UseUploadFilesProps, 'files'> = {
   onUploadStart: mockOnUploadStart,
 };
 
-const storageOutput: UploadTask = {
+const storageOutput = {
   resume: jest.fn(),
   pause: jest.fn(),
-  percent: 100,
-  isInProgress: false,
+  cancel: jest.fn(),
 };
 
 describe('useUploadFiles', () => {
   afterEach(() => jest.clearAllMocks());
 
   it('should upload all queued files', async () => {
-    (Storage.put as jest.Mock).mockResolvedValue(storageOutput);
+    (uploadData as jest.Mock).mockResolvedValue(storageOutput);
     renderHook(() =>
       useUploadFiles({ ...props, files: [mockUploadingFile, mockQueuedFile] })
     );
@@ -81,7 +80,7 @@ describe('useUploadFiles', () => {
   });
 
   it('should upload all resumable queued files', async () => {
-    (Storage.put as jest.Mock).mockResolvedValue(storageOutput);
+    (uploadData as jest.Mock).mockResolvedValue(storageOutput);
     renderHook(() =>
       useUploadFiles({
         ...props,
@@ -102,7 +101,7 @@ describe('useUploadFiles', () => {
   });
 
   it('should do nothing if number of queued files exceeds max number of files', async () => {
-    (Storage.put as jest.Mock).mockResolvedValue(storageOutput);
+    (uploadData as jest.Mock).mockResolvedValue(storageOutput);
     renderHook(() =>
       useUploadFiles({ ...props, maxFileCount: 0, files: [mockQueuedFile] })
     );
@@ -116,7 +115,7 @@ describe('useUploadFiles', () => {
 
   it('should call onUploadError when upload fails', async () => {
     const mockError = new Error('Something wrong happened');
-    (Storage.put as jest.Mock).mockRejectedValue(mockError);
+    (uploadData as jest.Mock).mockRejectedValue(mockError);
     renderHook(() => useUploadFiles({ ...props, files: [mockQueuedFile] }));
 
     await waitFor(() => {
@@ -126,7 +125,7 @@ describe('useUploadFiles', () => {
   });
 
   it('should start upload after processFile', async () => {
-    (Storage.put as jest.Mock).mockResolvedValue(storageOutput);
+    (uploadData as jest.Mock).mockResolvedValue(storageOutput);
     const processFile: StorageManagerProps['processFile'] = ({ file }) => {
       return {
         file,
@@ -150,7 +149,7 @@ describe('useUploadFiles', () => {
   });
 
   it('should start upload after processFile promise resolves', async () => {
-    (Storage.put as jest.Mock).mockResolvedValue(storageOutput);
+    (uploadData as jest.Mock).mockResolvedValue(storageOutput);
     const processFile: StorageManagerProps['processFile'] = ({ file }) => {
       return new Promise((resolve) => {
         setTimeout(() => {

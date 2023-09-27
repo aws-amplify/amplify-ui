@@ -1,4 +1,4 @@
-import { UploadTask } from '@aws-amplify/storage';
+import { UploadDataOutput } from '@aws-amplify/storage';
 import { FileStatus } from '../../types';
 
 import {
@@ -37,7 +37,7 @@ export const setUploadingFileAction = ({
   uploadTask,
 }: {
   id: string;
-  uploadTask: UploadTask | undefined;
+  uploadTask: UploadDataOutput | undefined;
 }): Action => {
   return {
     type: StorageManagerActionTypes.SET_STATUS_UPLOADING,

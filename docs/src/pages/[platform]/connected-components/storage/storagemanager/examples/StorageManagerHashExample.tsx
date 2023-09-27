@@ -19,7 +19,7 @@ export const StorageManagerHashExample = () => {
   return (
     <StorageManager
       acceptedFileTypes={['image/*']}
-      accessLevel="public"
+      accessLevel="guest"
       maxFileCount={1}
       processFile={processFile}
       provider="fast" // IGNORE

@@ -8,7 +8,7 @@ export function StorageManagerExample() {
   return (
     <StorageManager
       acceptedFileTypes={['image/*']}
-      accessLevel="public"
+      accessLevel="guest"
       maxFileCount={3}
       isResumable
       showThumbnails
