@@ -44,7 +44,7 @@ exports[`FileList renders an alert in case of error 1`] = `
             />
             <text
               aria-live="polite"
-              class="amplify-loader__percentage-text amplify-visually-hidden"
+              class="amplify-loader__label amplify-visually-hidden"
               x="-1%"
               y="200%"
             >
@@ -177,7 +177,7 @@ exports[`FileList renders as expected 1`] = `
             />
             <text
               aria-live="polite"
-              class="amplify-loader__percentage-text amplify-visually-hidden"
+              class="amplify-loader__label amplify-visually-hidden"
               x="-1%"
               y="200%"
             >

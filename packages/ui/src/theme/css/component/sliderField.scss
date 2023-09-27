@@ -23,7 +23,7 @@
     --amplify-components-sliderfield-thumb-height
   );
 
-  &[data-disabled] {
+  &--disabled {
     cursor: not-allowed;
   }
 
@@ -111,7 +111,7 @@
     --amplify-components-sliderfield-range-background-color
   );
 
-  &[data-disabled] {
+  &--disabled {
     background-color: var(
       --amplify-components-sliderfield-range-disabled-background-color
     );
@@ -152,7 +152,7 @@
     box-shadow: var(--amplify-components-sliderfield-thumb-focus-box-shadow);
   }
 
-  &[data-disabled] {
+  &--disabled {
     background-color: var(
       --amplify-components-sliderfield-thumb-disabled-background-color
     );

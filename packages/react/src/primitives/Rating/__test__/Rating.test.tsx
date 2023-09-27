@@ -50,7 +50,7 @@ describe('Rating', () => {
     const { container } = render(<Rating testId="testId" emptyColor="red" />);
 
     const emptyIcon = container.getElementsByClassName(
-      'amplify-rating-icon-empty'
+      `${ComponentClassName.RatingIcon}--empty`
     )[0] as HTMLElement;
     expect(emptyIcon.style.color).toBe('red');
   });
@@ -61,7 +61,7 @@ describe('Rating', () => {
     );
 
     const filledIcon = container.getElementsByClassName(
-      'amplify-rating-icon-filled'
+      `${ComponentClassName.RatingIcon}--filled`
     )[0] as HTMLElement;
     expect(filledIcon.style.color).toBe('blue');
   });
@@ -70,7 +70,7 @@ describe('Rating', () => {
     const { container } = render(<Rating testId="testId" value={2} />);
 
     const filledIcons = container.getElementsByClassName(
-      'amplify-rating-icon-filled'
+      `${ComponentClassName.RatingIcon}--filled`
     );
     expect(filledIcons.length).toBe(2);
   });
@@ -78,10 +78,10 @@ describe('Rating', () => {
   it('should render 2 filled and 3 empty icons', () => {
     const { container } = render(<Rating value={2} />);
     const filledIcons = container.getElementsByClassName(
-      'amplify-rating-icon-filled'
+      `${ComponentClassName.RatingIcon}--filled`
     );
     const emptyIcons = container.getElementsByClassName(
-      'amplify-rating-icon-empty'
+      `${ComponentClassName.RatingIcon}--empty`
     );
     expect(filledIcons.length).toBe(2);
     expect(emptyIcons.length).toBe(3);
@@ -90,7 +90,7 @@ describe('Rating', () => {
   it('should render 7 icons when the maxValue is set to 7', () => {
     const { container } = render(<Rating maxValue={7} />);
     const emptyIcons = container.getElementsByClassName(
-      'amplify-rating-icon-empty'
+      `${ComponentClassName.RatingIcon}--empty`
     );
     expect(emptyIcons.length).toBe(7);
   });

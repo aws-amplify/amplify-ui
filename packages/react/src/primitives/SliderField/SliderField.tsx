@@ -2,7 +2,11 @@ import classNames from 'classnames';
 import * as RadixSlider from '@radix-ui/react-slider';
 import * as React from 'react';
 
-import { isFunction, sanitizeNamespaceImport } from '@aws-amplify/ui';
+import {
+  classNameModifierByFlag,
+  isFunction,
+  sanitizeNamespaceImport,
+} from '@aws-amplify/ui';
 
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassName } from '@aws-amplify/ui';
@@ -61,6 +65,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
   const labelId = useStableId();
   const descriptionId = useStableId();
   const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
+  const disabled = isFieldsetDisabled ? isFieldsetDisabled : isDisabled;
 
   const { styleProps, rest } = splitPrimitiveProps(_rest);
 
@@ -105,6 +110,11 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
     ComponentClassName.SliderFieldRoot,
     classNameModifier(ComponentClassName.SliderFieldRoot, orientation),
     classNameModifier(ComponentClassName.SliderFieldRoot, size),
+    classNameModifierByFlag(
+      ComponentClassName.SliderFieldRoot,
+      'disabled',
+      disabled
+    ),
     className
   );
 
@@ -143,7 +153,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
         <Root
           className={rootComponentClasses}
           data-testid={SLIDER_ROOT_TEST_ID}
-          disabled={isFieldsetDisabled ? isFieldsetDisabled : isDisabled}
+          disabled={disabled}
           defaultValue={defaultValues}
           onValueChange={onValueChange}
           orientation={orientation}
@@ -165,6 +175,11 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
                 classNameModifier(
                   ComponentClassName.SliderFieldRange,
                   orientation
+                ),
+                classNameModifierByFlag(
+                  ComponentClassName.SliderFieldRange,
+                  'disabled',
+                  disabled
                 )
               )}
               data-testid={SLIDER_RANGE_TEST_ID}
@@ -177,7 +192,12 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
             aria-valuetext={ariaValuetext}
             className={classNames(
               ComponentClassName.SliderFieldThumb,
-              classNameModifier(ComponentClassName.SliderFieldThumb, size)
+              classNameModifier(ComponentClassName.SliderFieldThumb, size),
+              classNameModifierByFlag(
+                ComponentClassName.SliderFieldThumb,
+                'disabled',
+                disabled
+              )
             )}
             style={{ backgroundColor: String(thumbColor) }}
           />
