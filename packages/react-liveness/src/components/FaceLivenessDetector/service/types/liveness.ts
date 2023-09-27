@@ -74,11 +74,16 @@ export interface FaceLivenessDetectorCoreConfig {
    * Optional parameter allowing usage of custom credential providers when calling the Rekognition stream endpoint
    */
   credentialProvider?: AwsCredentialProvider;
+
+  /**
+   * Internal use only - parameter for overriding the liveness endpoint
+   */
+  endpointOverride?: string;
 }
 
 export type FaceLivenessDetectorConfig = Omit<
   FaceLivenessDetectorCoreConfig,
-  'credentialProvider'
+  'credentialProvider' | 'endpointOverride'
 >;
 
 /**
