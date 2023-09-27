@@ -11,16 +11,22 @@ describe('StorageImage', () => {
   const imgURL = 'https://amplify.s3.amazonaws.com/path/to/test.jpg';
   const fallbackSrc = 'https://amplify.s3.amazonaws.com/path/to/fallback.jpg';
   const errorMessage = '500 Internal Server Error';
+  const accessLevel = 'guest';
 
   beforeAll(() => {
     jest.spyOn(Storage, 'getUrl').mockResolvedValue({
       url: new URL(imgURL),
-    } as Storage.GetUrlOutput);
+      expiresAt: new Date(),
+    });
   });
 
   it('should render default classname', async () => {
     render(
-      <StorageImage alt="StorageImage" imgKey={imgKey} accessLevel="guest" />
+      <StorageImage
+        alt="StorageImage"
+        imgKey={imgKey}
+        accessLevel={accessLevel}
+      />
     );
 
     const img = await screen.findByRole('img');
@@ -34,7 +40,7 @@ describe('StorageImage', () => {
         alt="StorageImage"
         className={className}
         imgKey={imgKey}
-        accessLevel="guest"
+        accessLevel={accessLevel}
       />
     );
 
@@ -48,7 +54,7 @@ describe('StorageImage', () => {
       <StorageImage
         alt="StorageImage"
         imgKey={imgKey}
-        accessLevel="guest"
+        accessLevel={accessLevel}
         onStorageGetError={onStorageError}
       />
     );
@@ -66,7 +72,7 @@ describe('StorageImage', () => {
       <StorageImage
         alt="StorageImage"
         imgKey={imgKey}
-        accessLevel="guest"
+        accessLevel={accessLevel}
         fallbackSrc={fallbackSrc}
         onStorageGetError={onStorageError}
       />

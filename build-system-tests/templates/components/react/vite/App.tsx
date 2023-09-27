@@ -38,7 +38,7 @@ export default function Home() {
       <AccountSettings.DeleteUser onSuccess={() => {}} />
       <StorageManager
         acceptedFileTypes={['image/*']}
-        accessLevel="public"
+        accessLevel="guest"
         maxFileCount={1}
         isResumable
       />

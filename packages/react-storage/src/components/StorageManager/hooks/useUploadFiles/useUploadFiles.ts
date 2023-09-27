@@ -1,7 +1,7 @@
 import * as React from 'react';
-// import type { UploadTask } from '@aws-amplify/storage';
+import { TransferProgressEvent } from '@aws-amplify/storage';
 
-import { uploadFile, UploadFileProps } from '../../utils/uploadFile';
+import { uploadFile } from '../../utils/uploadFile';
 
 import { FileStatus } from '../../types';
 
@@ -57,18 +57,17 @@ export function useUploadFiles({
         setUploadSuccess({ id });
       };
 
-      const onProgress: (progress: { loaded: number; total: number }) => void =
-        (progress) => {
-          /**
-           * When a file is zero bytes, the progress.total will equal zero.
-           * Therefore, this will prevent a divide by zero error.
-           */
-          const progressPercentage =
-            progress.total === 0
-              ? 100
-              : Math.floor((progress.loaded / progress.total) * 100);
-          setUploadProgress({ id, progress: progressPercentage });
-        };
+      const onProgress: (event: TransferProgressEvent) => void = (event) => {
+        /**
+         * When a file is zero bytes, the progress.total will equal zero.
+         * Therefore, this will prevent a divide by zero error.
+         */
+        const progressPercentage =
+          event.totalBytes === undefined || event.totalBytes === 0
+            ? 100
+            : Math.floor((event.transferredBytes / event.totalBytes) * 100);
+        setUploadProgress({ id, progress: progressPercentage });
+      };
 
       const onError = (error: string) => {
         onUploadError?.(error, { key });
@@ -77,19 +76,17 @@ export function useUploadFiles({
       if (file) {
         resolveFile({ processFile, file, key }).then(({ key, file }) => {
           onUploadStart?.({ key });
-          const input: UploadFileProps = {
-            level: accessLevel,
+          const uploadTask = uploadFile({
             completeCallback: onComplete,
-            errorCallback: onError,
+            level: accessLevel,
             progressCallback: onProgress,
+            errorCallback: onError,
             file,
             key,
-          };
-          const uploadTask = uploadFile(input);
+          });
           setUploadingFile({
             id,
-            // uploadTask: isResumable ? uploadTask : undefined,
-            uploadTask,
+            uploadTask: isResumable ? uploadTask : undefined,
           });
         });
       }

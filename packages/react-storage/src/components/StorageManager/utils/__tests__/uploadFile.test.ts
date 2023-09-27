@@ -1,9 +1,7 @@
 import { uploadFile } from '../uploadFile';
-import { Storage } from '@aws-amplify/storage';
+import * as Storage from '@aws-amplify/storage';
 
-const storageSpy = jest
-  .spyOn(Storage, 'put')
-  .mockImplementation(() => Promise.resolve({ key: 'file' }));
+const storageSpy = jest.spyOn(Storage, 'uploadData').mockImplementation();
 const imageFile = new File(['hello'], 'hello.png', { type: 'image/png' });
 
 describe('uploadfile', () => {
@@ -11,7 +9,7 @@ describe('uploadfile', () => {
     storageSpy.mockClear();
   });
 
-  it('calls Storage.put when isResumable is true', () => {
+  it('calls uploadData when isResumable is true', () => {
     const progressCallback = () => '';
     const errorCallback = () => '';
     const completeCallback = () => '';
@@ -22,41 +20,37 @@ describe('uploadfile', () => {
       completeCallback,
       errorCallback,
       isResumable: true,
-      level: 'public',
+      level: 'guest',
       progressCallback,
-      provider: 'provider',
     });
 
     expect(storageSpy).toBeCalledWith(imageFile.name, imageFile, {
       completeCallback,
       contentType: 'image/png',
       errorCallback,
-      level: 'public',
+      level: 'guest',
       progressCallback,
-      provider: 'provider',
       resumable: true,
     });
   });
 
-  it('calls Storage.put when isResumable is false', () => {
+  it('calls uploadData when isResumable is false', () => {
     const progressCallback = () => '';
     uploadFile({
       file: imageFile,
       key: imageFile.name,
-      level: 'public',
+      level: 'guest',
       progressCallback: progressCallback,
       errorCallback: () => '',
       completeCallback: () => '',
       isResumable: false,
-      provider: 'provider',
     });
 
     expect(storageSpy).toBeCalledWith(imageFile.name, imageFile, {
-      level: 'public',
+      level: 'guest',
       progressCallback: progressCallback,
       resumable: false,
       contentType: 'image/png',
-      provider: 'provider',
     });
   });
 
@@ -64,7 +58,7 @@ describe('uploadfile', () => {
     uploadFile({
       file: imageFile,
       key: imageFile.name,
-      level: 'public',
+      level: 'guest',
       progressCallback: () => '',
       errorCallback: () => '',
       completeCallback: () => '',
@@ -72,7 +66,7 @@ describe('uploadfile', () => {
     });
 
     expect(storageSpy).toBeCalledWith(imageFile.name, imageFile, {
-      level: 'public',
+      level: 'guest',
       progressCallback: expect.any(Function),
       resumable: false,
       contentType: 'image/png',
@@ -87,7 +81,7 @@ describe('uploadfile', () => {
     uploadFile({
       file: imageFileTypeUndefined,
       key: imageFileTypeUndefined.name,
-      level: 'public',
+      level: 'guest',
       progressCallback: () => '',
       errorCallback: () => '',
       completeCallback: () => '',
@@ -98,7 +92,7 @@ describe('uploadfile', () => {
       imageFileTypeUndefined.name,
       imageFileTypeUndefined,
       {
-        level: 'public',
+        level: 'guest',
         progressCallback: expect.any(Function),
         resumable: false,
         contentType: 'binary/octet-stream',
@@ -110,7 +104,7 @@ describe('uploadfile', () => {
     uploadFile({
       file: imageFile,
       key: imageFile.name,
-      level: 'public',
+      level: 'guest',
       progressCallback: () => '',
       errorCallback: () => '',
       completeCallback: () => '',
@@ -121,7 +115,7 @@ describe('uploadfile', () => {
     });
 
     expect(storageSpy).toBeCalledWith(imageFile.name, imageFile, {
-      level: 'public',
+      level: 'guest',
       progressCallback: expect.any(Function),
       resumable: false,
       contentType: 'image/png',
