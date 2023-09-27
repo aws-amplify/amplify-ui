@@ -16,11 +16,7 @@ then
 fi
 
 # Initialize git-secrets configuration
-git secrets --add '[aA]pollo|[bB]razil|[cC]oral|[oO]din' > /dev/null
-git secrets --add 'tt\.amazon\.com|issues\.amazon\.com|cr\.amazon\.com' > /dev/null
-git secrets --add 'ic\.gov|sgov\.gov' > /dev/null
-git secrets --add '\b(us-iso|aws-iso)\b' > /dev/null
-git secrets --add 'smil\.mil' > /dev/nulls --register-aws > /dev/null
+git secrets --register-aws > /dev/null
 
 echo "Scanning committed files for secrets..."
 git secrets --pre_commit_hook -- "$@"
