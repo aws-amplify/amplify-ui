@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { classNameModifier } from '../shared/utils';
-import { ComponentClassName } from '@aws-amplify/ui';
+import { ComponentClassName, classNameModifierByFlag } from '@aws-amplify/ui';
 import { BaseLoaderProps, LoaderProps } from '../types/loader';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { View } from '../View';
@@ -39,7 +39,11 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
     ComponentClassName.Loader,
     classNameModifier(ComponentClassName.Loader, size),
     classNameModifier(ComponentClassName.Loader, variation),
-    isDeterminate ? ComponentClassName.LoaderDeterminate : null,
+    classNameModifierByFlag(
+      ComponentClassName.Loader,
+      'determinate',
+      isDeterminate
+    ),
     className
   );
 
@@ -73,7 +77,7 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
         <text
           aria-live="polite"
           className={classNames(
-            ComponentClassName.LoaderPercentageText,
+            ComponentClassName.LoaderLabel,
             isPercentageTextHidden ? ComponentClassName.VisuallyHidden : null
           )}
           // -1% offset makes the text position look nicest
@@ -117,7 +121,7 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
         <text
           aria-live="polite"
           className={classNames(
-            ComponentClassName.LoaderPercentageText,
+            ComponentClassName.LoaderLabel,
             isPercentageTextHidden ? ComponentClassName.VisuallyHidden : null
           )}
           // this x and y make text position look nicest

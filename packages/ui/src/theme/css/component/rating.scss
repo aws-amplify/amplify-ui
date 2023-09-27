@@ -5,12 +5,6 @@
   font-size: var(--amplify-components-rating-default-size);
   line-height: var(--amplify-components-rating-default-size);
 
-  .amplify-icon {
-    font-size: unset;
-    line-height: unset;
-    height: 1em;
-  }
-
   &--small {
     font-size: var(--amplify-components-rating-small-size);
     line-height: var(--amplify-components-rating-small-size);
@@ -20,39 +14,26 @@
     font-size: var(--amplify-components-rating-large-size);
     line-height: var(--amplify-components-rating-large-size);
   }
-}
 
-.amplify-rating-filled {
-  fill: currentColor;
-  display: inline-block;
-  flex-shrink: 0;
-  width: 1em;
-  height: 1em;
-}
+  &__item {
+    position: relative;
+    height: 1em;
+    width: 1em;
+  }
 
-.amplify-rating-icon-container {
-  position: relative;
-  height: 1em;
-  width: 1em;
-}
+  &__icon {
+    width: 1em;
+    height: 1em;
+    display: block;
+    position: absolute;
+    overflow: hidden;
 
-.amplify-rating-label {
-  position: absolute;
-  overflow: hidden;
-  height: 1em;
-  width: 1em;
-}
+    &--filled {
+      color: var(--amplify-components-rating-filled-color);
+    }
 
-.amplify-rating-icon {
-  width: 1em;
-  height: 1em;
-  display: block;
-}
-
-.amplify-rating-icon-filled {
-  color: var(--amplify-components-rating-filled-color);
-}
-
-.amplify-rating-icon-empty {
-  color: var(--amplify-components-rating-empty-color);
+    &--empty {
+      color: var(--amplify-components-rating-empty-color);
+    }
+  }
 }

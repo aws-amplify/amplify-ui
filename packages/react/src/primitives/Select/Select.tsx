@@ -76,8 +76,8 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
       {isExpanded ? null : (
         <Flex
           className={classNames(
-            ComponentClassName.SelectIconWrapper,
-            classNameModifier(ComponentClassName.SelectIconWrapper, size)
+            ComponentClassName.SelectIcon,
+            classNameModifier(ComponentClassName.SelectIcon, size)
           )}
           color={iconColor}
         >

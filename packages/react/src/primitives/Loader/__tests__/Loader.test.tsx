@@ -107,7 +107,7 @@ describe('Loader:', () => {
     render(<Loader percentage={percentage} isDeterminate />);
 
     const loader = await screen.findByRole('img');
-    expect(loader).toHaveClass(ComponentClassName.LoaderDeterminate);
+    expect(loader).toHaveClass(`${ComponentClassName.Loader}--determinate`);
 
     const circularFilled = await screen.findByTestId(CIRCULAR_FILLED);
     expect(circularFilled).toHaveStyle({
@@ -119,7 +119,7 @@ describe('Loader:', () => {
 
     const textContent = `${percentage}%`;
     const percentageText = await screen.findByText(textContent);
-    expect(percentageText).toHaveClass(ComponentClassName.LoaderPercentageText);
+    expect(percentageText).toHaveClass(ComponentClassName.LoaderLabel);
     expect(percentageText).toHaveAttribute('aria-live', 'polite');
     expect(percentageText).toHaveTextContent(textContent);
   });
@@ -138,14 +138,14 @@ describe('Loader:', () => {
     render(<Loader percentage={percentage} variation="linear" isDeterminate />);
 
     const loader = await screen.findByRole('img');
-    expect(loader).toHaveClass(ComponentClassName.LoaderDeterminate);
+    expect(loader).toHaveClass(`${ComponentClassName.Loader}--determinate`);
 
     const linearFilled = await screen.findByTestId(LINEAR_FILLED);
     expect(linearFilled).toHaveAttribute('x2', `${percentage}%`);
 
     const textContent = `${percentage}%`;
     const percentageText = await screen.findByText(textContent);
-    expect(percentageText).toHaveClass(ComponentClassName.LoaderPercentageText);
+    expect(percentageText).toHaveClass(ComponentClassName.LoaderLabel);
     expect(percentageText).toHaveAttribute('aria-live', 'polite');
     expect(percentageText).toHaveTextContent(textContent);
   });

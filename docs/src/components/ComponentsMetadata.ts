@@ -383,23 +383,18 @@ export const ComponentsMetadata: ComponentClassNameItems = {
     components: ['Loader'],
     description: 'Top level element that wraps the Loader primitive',
   },
-  LoaderDeterminate: {
-    className: ComponentClassName.LoaderDeterminate,
+  LoaderLabel: {
+    className: ComponentClassName.LoaderLabel,
     components: ['Loader'],
-    description: 'Class applied to a determinate loader',
-  },
-  LoaderPercentageText: {
-    className: ComponentClassName.LoaderPercentageText,
-    components: ['Loader'],
-    description: 'Class applied to the percentage text of loader',
+    description: 'Class applied to the track of loader',
   },
   MenuContent: {
     className: ComponentClassName.MenuContent,
     components: ['Menu'],
     description: 'Menu content container (Flex)',
   },
-  MenuContentWrapper: {
-    className: ComponentClassName.MenuContentWrapper,
+  MenuWrapper: {
+    className: ComponentClassName.MenuWrapper,
     components: ['Menu'],
     description: 'Menu content wrapper',
   },
@@ -451,21 +446,10 @@ export const ComponentsMetadata: ComponentClassNameItems = {
     components: ['Pagination'],
     description: 'Top level element that wraps the Pagination primitive',
   },
-  PaginationItemButton: {
-    className: ComponentClassName.PaginationItemButton,
+  PaginationItem: {
+    className: ComponentClassName.PaginationItem,
     components: ['Pagination'],
-    description: 'Class applied to the pagination buttons',
-  },
-  PaginationItemCurrent: {
-    className: ComponentClassName.PaginationItemCurrent,
-    components: ['Pagination'],
-    description: 'Class applied to the currently selected pagination button',
-  },
-  PaginationItemEllipsis: {
-    className: ComponentClassName.PaginationItemEllipsis,
-    components: ['Pagination'],
-    description:
-      'Class applied to the ellipsis within the Pagination primitive',
+    description: 'Class applied to the pagination items',
   },
   PasswordField: {
     className: ComponentClassName.PasswordField,
@@ -517,6 +501,21 @@ export const ComponentsMetadata: ComponentClassNameItems = {
     components: ['Rating'],
     description: 'Top level element that wraps the Rating primitive',
   },
+  RatingItem: {
+    className: ComponentClassName.RatingItem,
+    components: ['Rating'],
+    description: 'Each element in the Rating primitive',
+  },
+  RatingIcon: {
+    className: ComponentClassName.RatingIcon,
+    components: ['Rating'],
+    description: 'The icons in the Rating primitive',
+  },
+  RatingLabel: {
+    className: ComponentClassName.RatingLabel,
+    components: ['Rating'],
+    description: 'Top level element that wraps the Rating primitive',
+  },
   ScrollView: {
     className: ComponentClassName.ScrollView,
     components: ['ScrollView'],
@@ -552,8 +551,8 @@ export const ComponentsMetadata: ComponentClassNameItems = {
     components: ['Select', 'SelectField'],
     description: 'Class applied to the select wrapper',
   },
-  SelectIconWrapper: {
-    className: ComponentClassName.SelectIconWrapper,
+  SelectIcon: {
+    className: ComponentClassName.SelectIcon,
     components: ['Select', 'SelectField'],
     description: 'Class applied to the select icon wrapper',
   },
