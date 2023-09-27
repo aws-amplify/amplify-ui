@@ -135,7 +135,7 @@ const checkReactNativeLog = async (): Promise<void> => {
   process.chdir(`mega-apps/${megaAppName}`);
 
   // Wait for the logging messages to be ready. The number is based on real experiments in Github Actions.
-  let timeToWait = platform === 'android' ? 500 : 300;
+  const timeToWait = 500;
 
   log('info', `Sleep for '${timeToWait}' seconds...`);
   await sleep(timeToWait);
