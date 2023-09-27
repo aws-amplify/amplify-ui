@@ -17,4 +17,5 @@ git secrets --add 'us-iso|aws-iso'
 git secrets --add 'smil\.mil'
 
 echo "Scanning commit message for secrets..."
+# Scans the commit message.
 git secrets --commit_msg_hook -- "$@"

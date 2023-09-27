@@ -1,7 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-
 # Check git-secrets installation
 if ! command -v git-secrets &> /dev/null
 then
@@ -9,13 +8,15 @@ then
     exit 1
 fi
 
+echo "register"
 # Initialize git-secrets configuration
 git secrets --register-aws > /dev/null
-git secrets --add '[aA]pollo|[bB]razil|[cC]oral|[oO]din'
-git secrets --add 'tt\.amazon\.com|issues\.amazon\.com|cr\.amazon\.com'
-git secrets --add 'ic\.gov|sgov\.gov'
-git secrets --add 'us-iso|aws-iso'
-git secrets --add 'smil\.mil'
+# git secrets --add '[aA]pollo|[bB]razil|[cC]oral|[oO]din'
+# git secrets --add 'tt\.amazon\.com|issues\.amazon\.com|cr\.amazon\.com'
+# git secrets --add 'ic\.gov|sgov\.gov'
+# git secrets --add 'us-iso|aws-iso'
+# git secrets --add 'smil\.mil'
 
 echo "Scanning commit history for secrets..."
+# Determines if merging in a commit will introduce tainted history.
 git secrets --prepare_commit_msg_hook -- "$@"
