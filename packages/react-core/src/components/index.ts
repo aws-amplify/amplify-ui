@@ -1,10 +1,12 @@
 export {
+  FormProvider,
+  FormProviderProps,
   FormValues,
   FormHandle,
   SubmitHandler,
-  useControlledField,
   useField,
   useForm,
+  UseForm,
   Validate,
   Validator,
   withFormProvider,

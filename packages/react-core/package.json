@@ -3,7 +3,7 @@
   "version": "2.1.33",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
-  "react-native": "dist/index.js",
+  "react-native": "src/index.ts",
   "exports": {
     ".": {
       "import": "./dist/esm/index.mjs",
@@ -16,7 +16,10 @@
   "license": "Apache-2.0",
   "files": [
     "dist",
-    "LICENSE"
+    "LICENSE",
+    "src",
+    "!**/__mocks__",
+    "!**/__tests__"
   ],
   "scripts": {
     "clean": "rimraf dist node_modules",
