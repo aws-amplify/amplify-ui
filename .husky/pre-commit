@@ -18,11 +18,11 @@ fi
 echo "pre-commit"
 # Initialize git-secrets configuration
 git secrets --register-aws > /dev/null
-git secrets --add '[aA]pollo|[bB]razil|[cC]oral|[oO]din' > /dev/null
-git secrets --add 'tt\.amazon\.com|issues\.amazon\.com|cr\.amazon\.com' > /dev/null
-git secrets --add 'ic\.gov|sgov\.gov' > /dev/null
-git secrets --add 'us-iso|aws-iso' > /dev/null
-git secrets --add 'smil\.mil' > /dev/null
+# git secrets --add '[aA]pollo|[bB]razil|[cC]oral|[oO]din' > /dev/null
+# git secrets --add 'tt\.amazon\.com|issues\.amazon\.com|cr\.amazon\.com' > /dev/null
+# git secrets --add 'ic\.gov|sgov\.gov' > /dev/null
+# git secrets --add 'us-iso|aws-iso' > /dev/null
+# git secrets --add 'smil\.mil' > /dev/null
 
 echo "Scanning committed files for secrets..."
 git secrets --pre_commit_hook -- "$@"

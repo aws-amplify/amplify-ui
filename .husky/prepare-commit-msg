@@ -8,7 +8,7 @@ then
     exit 1
 fi
 
-echo "register"
+echo "prepare commit"
 # Initialize git-secrets configuration
 git secrets --register-aws > /dev/null
 # git secrets --add '[aA]pollo|[bB]razil|[cC]oral|[oO]din'
