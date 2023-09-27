@@ -84,9 +84,9 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, 'fieldset'> = (
       isDisabled={isDisabled}
       legend={legend}
       legendHidden={legendHidden}
-      size={size}
       ref={ref}
       role="radiogroup"
+      size={size}
       testId={testId}
       variation={variation}
       {...rest}

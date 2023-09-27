@@ -2,7 +2,7 @@
 "@aws-amplify/ui-react": patch
 ---
 
-refactor(ui): update radiogroupfield to use fieldset
+refactor(ui): update Radiogroupfield to use Fieldset
 
 Update to `RadioGroupField` component props: 
  - `legend` replaces `label`
