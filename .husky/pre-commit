@@ -15,6 +15,7 @@ then
     exit 1
 fi
 
+echo "pre-commit"
 # Initialize git-secrets configuration
 git secrets --register-aws > /dev/null
 git secrets --add '[aA]pollo|[bB]razil|[cC]oral|[oO]din' > /dev/null
