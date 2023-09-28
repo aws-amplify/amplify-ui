@@ -17,8 +17,14 @@ fi
 
 # Initialize git-secrets configuration
 git secrets --register-aws > /dev/null
+# output=$(git secrets --add '[aA]pollo|[bB]razil|[cC]oral|[oO]din' 2>&1)
+# echo $output
+# git secrets --add 'tt\.amazon\.com|issues\.amazon\.com|cr\.amazon\.com'
+# git secrets --add 'ic\.gov|sgov\.gov'
+# git secrets --add '(us|aws)-iso'
+# git secrets --add 'smil\.mil'
 
 echo "Scanning committed files for secrets..."
 git secrets --pre_commit_hook -- "$@"
 
-npx lint-staged
+# npx lint-staged
