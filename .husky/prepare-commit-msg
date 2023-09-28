@@ -2,4 +2,5 @@
 . "$(dirname "$0")/_/husky.sh"
 
 echo "Scanning commit history for secrets..."
+
 git secrets --prepare_commit_msg_hook -- "$@"
