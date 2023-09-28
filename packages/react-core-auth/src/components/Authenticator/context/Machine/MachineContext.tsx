@@ -9,6 +9,7 @@ import {
 
 import { MachineContextType, UseMachineSelector, UseMachine } from './types';
 import { defaultComparator, getComparator } from './utils';
+import { InitialRoute } from '../ComponentRoute';
 
 export const USE_MACHINE_ERROR =
   '`useMachine` must be used inside an `Authenticator.Provider`.';
@@ -36,17 +37,25 @@ export function useMachine(selector?: UseMachineSelector): UseMachine {
   return facade;
 }
 
-interface MachineProviderProps extends AuthenticatorMachineOptions {
+interface MachineProviderProps
+  extends Omit<AuthenticatorMachineOptions, 'initialState'> {
   children?: React.ReactNode;
+  initialRoute: InitialRoute;
 }
 
 export function MachineProvider({
   children,
+  initialRoute: initialState,
   ...data
 }: MachineProviderProps): JSX.Element {
-  const service = useInterpret(() => createAuthenticatorMachine(data));
+  const service = useInterpret(() =>
+    createAuthenticatorMachine({
+      ...data,
+      initialState,
+      useNextWaitConfig: true,
+    })
+  );
   const value = React.useMemo(() => ({ service }), [service]);
-
   return (
     <MachineContext.Provider value={value}>{children}</MachineContext.Provider>
   );

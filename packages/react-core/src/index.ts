@@ -21,11 +21,14 @@ export {
 } from './Authenticator';
 
 export {
+  FormProvider,
+  FormProviderProps,
   RenderNothing,
   FormValues,
   FormHandle,
   useField,
   useForm,
+  UseForm,
   Validate,
   Validator,
   withFormProvider,
@@ -40,3 +43,5 @@ export {
 } from './hooks';
 
 export { MergeProps } from './types';
+
+export { createContextUtilities } from './utils';
