@@ -28,18 +28,3 @@ export type Comparator = (
   currentMachineContext: Partial<NextAuthenticatorServiceFacade>,
   nextMachineContext: Partial<NextAuthenticatorServiceFacade>
 ) => boolean;
-
-export type AuthenticatorRouteComponentKey =
-  | 'confirmResetPassword'
-  | 'confirmSignIn'
-  | 'confirmSignUp'
-  | 'confirmVerifyUser'
-  | 'forceNewPassword'
-  | 'resetPassword'
-  | 'setupTOTP'
-  | 'signIn'
-  | 'signUp'
-  | 'verifyUser';
-
-export type AuthenticatorRouteComponentName =
-  Capitalize<AuthenticatorRouteComponentKey>;
