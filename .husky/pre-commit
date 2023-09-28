@@ -20,7 +20,6 @@ git secrets --register-aws > /dev/null
 
 # Add additional secret patterns if they aren't already included 
 secret_string="secrets.providers cat .husky/.secret.patterns"
-echo $secret_string
 
 current_secrets="$(git secrets --list)"
 if ! [[ "$current_secrets" == *"$secret_string"* ]]; then
