@@ -17,7 +17,7 @@ fi
 
 # Initialize git-secrets configuration
 git secrets --register-aws > /dev/null
-# output=$(git secrets --add '[aA]pollo|[bB]razil|[cC]oral|[oO]din' 2>&1)
+# git secrets --add '[aA]pollo|[bB]razil|[cC]oral|[oO]din'
 # echo $output
 # git secrets --add 'tt\.amazon\.com|issues\.amazon\.com|cr\.amazon\.com'
 # git secrets --add 'ic\.gov|sgov\.gov'
