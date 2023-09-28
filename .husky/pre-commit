@@ -18,7 +18,7 @@ fi
 # Initialize git-secrets configuration
 git secrets --register-aws > /dev/null
 # git config --unset providers
-git secrets --list
+git_secrets_output="$(git secrets --list)"
 # git secrets --add-provider -- cat .husky/.secret.patterns
 # git secrets --add 'smil\.mil'
 # git secrets --add '(us|aws)-iso'
