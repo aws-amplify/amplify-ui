@@ -8,12 +8,12 @@ export const ErrorExample = () => {
 
   return (
     <RadioGroupField
-      label="Language"
+      legend="Language"
       name="example-12"
       onChange={(e) => setLanguage(e.target.value)}
       errorMessage="This is a required field. Please select an option."
       hasError={!language}
-      labelHidden
+      legendHidden
     >
       {options.map((option) => (
         <Radio key={option} value={option}>

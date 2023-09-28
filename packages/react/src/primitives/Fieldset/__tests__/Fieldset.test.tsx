@@ -9,11 +9,11 @@ describe('Fieldset', () => {
   it('should render Fieldset variations', async () => {
     render(
       <div>
-        <Fieldset legend="Outlined" testId="outlined">
-          Outlined (default)
+        <Fieldset legend="Plain" testId="plain">
+          Plain (default)
         </Fieldset>
-        <Fieldset legend="Plain" variation="plain" testId="plain">
-          Plain
+        <Fieldset legend="Outlined" testId="outlined" variation="outlined">
+          Outlined
         </Fieldset>
       </div>
     );
