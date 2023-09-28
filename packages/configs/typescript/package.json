@@ -4,6 +4,6 @@
   "version": "0.0.0",
   "description": "Typescript configuration for Amplify UI packages",
   "exports": {
-    "./*": "./*.json"
+    "./*.json": "./*.json"
   }
 }
