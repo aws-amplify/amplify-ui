@@ -20,7 +20,9 @@ git secrets --register-aws > /dev/null
 
 secret_string="secrets.providers cat \.husky.secret.patterns"
 # git config --unset providers
-if ! secret_string in "$(git secrets --list)"; then
+secrets="$(git secrets --list)"
+echo $secrets
+if [[ "$secrets" == *"$secret_string"* ]]; then
   echo "Adding extra secrets"
   git secrets --add-provider -- cat .husky/.secret.patterns
 fi
