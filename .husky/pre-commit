@@ -30,4 +30,4 @@ fi
 echo "Scanning committed files for secrets..."
 git secrets --pre_commit_hook -- "$@"
 
-# npx lint-staged
+npx lint-staged
