@@ -1,0 +1,45 @@
+import * as React from 'react';
+import classNames from 'classnames';
+
+import { ComponentClassName, classNameModifierByFlag } from '@aws-amplify/ui';
+
+import { ForwardRefPrimitive, Primitive } from '../types';
+import { View } from '../View';
+import { BaseTabPanelProps, TabPanelProps } from './types';
+import { TabsContext } from './TabsContext';
+
+const TabPanelPrimitive: Primitive<TabPanelProps, 'div'> = (
+  { className, value, children, role = 'tabpanel', ...rest },
+  ref
+) => {
+  const { activeTab } = React.useContext(TabsContext);
+
+  return (
+    <View
+      {...rest}
+      role={role}
+      id={`${value}-panel`}
+      aria-labelledby={value}
+      className={classNames(
+        ComponentClassName.TabsPanel,
+        classNameModifierByFlag(
+          ComponentClassName.TabsPanel,
+          'active',
+          activeTab === value
+        ),
+        className
+      )}
+      ref={ref}
+    >
+      {children}
+    </View>
+  );
+};
+
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/tabs)
+ */
+export const TabPanel: ForwardRefPrimitive<BaseTabPanelProps, 'button'> =
+  React.forwardRef(TabPanelPrimitive);
+
+TabPanel.displayName = 'Tabs.Panel';

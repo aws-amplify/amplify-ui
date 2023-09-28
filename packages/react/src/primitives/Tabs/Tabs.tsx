@@ -1,132 +1,78 @@
-import classNames from 'classnames';
-import * as RadixTabs from '@radix-ui/react-tabs';
 import * as React from 'react';
+import classNames from 'classnames';
 
-import { sanitizeNamespaceImport } from '@aws-amplify/ui';
-
-import { ComponentClassName } from '@aws-amplify/ui';
-import { Flex } from '../Flex';
-import {
-  BaseTabsProps,
-  BaseTabItemProps,
-  TabsProps,
-  TabsSpacing,
-  TabItemProps,
-  ForwardRefPrimitive,
-  Primitive,
-} from '../types';
+import { ComponentClassName, isFunction } from '@aws-amplify/ui';
+import { ForwardRefPrimitive, Primitive } from '../types';
+import { BaseTabsProps, TabsProps } from './types';
 import { View } from '../View';
-
-// Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
-// We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
-const {
-  Root,
-  List,
-  Trigger: RadixTab,
-  Content: Panel,
-} = sanitizeNamespaceImport(RadixTabs);
-
-/**
- * `TabItemProps` does not include HTML data attributes, so `data-spacing` is added explicitly
- * to the props of the return type of `isExtendedTabItem` to allow passing of `data-spacing`
- * to `TabsItem` from inside `Tabs`.
- * 
- * Additionally, `value` is avaialble on the props of `TabItemPrimitive`, but is not present
- * on `TabItemProps`. To mitigate this issue prefer usage of the props of `TabItemPrimitive`
-`*/
-type ExtendedTabItemProps = Parameters<typeof TabItemPrimitive>[0] & {
-  'data-spacing': TabsSpacing;
-};
-
-const isExtendedTabItem = (
-  child: React.ReactFragment | React.ReactChild | React.ReactPortal
-): child is React.ReactElement<ExtendedTabItemProps> =>
-  React.isValidElement<TabItemProps>(child);
+import { TabsContext } from './TabsContext';
+import { Tab } from './Tab';
+import { TabList } from './TabList';
+import { TabPanel } from './TabPanel';
 
 const TabsPrimitive: Primitive<TabsProps, 'div'> = (
   {
-    ariaLabel,
     children,
+    defaultValue,
     className,
-    defaultIndex = 0,
-    currentIndex,
+    value: controlledValue,
     onChange,
-    indicatorPosition,
-    spacing,
     ...rest
   }: BaseTabsProps,
   ref
 ) => {
-  // mapping our props to Radix's props
-  // value (currentIndex) and defaultValue (defaultIndex) must be strings
-  // https://www.radix-ui.com/docs/primitives/components/tabs#api-reference
-  const rootProps = {
-    defaultValue: defaultIndex.toString(),
-    // only pass value/currentIndex prop if it is defined
-    value: currentIndex != null ? currentIndex.toString() : undefined,
-    onValueChange: onChange,
-  };
+  const isControlled = controlledValue !== undefined;
+  const [localValue, setLocalValue] = React.useState(() =>
+    isControlled ? controlledValue : defaultValue
+  );
+  const activeTab = isControlled ? controlledValue : localValue ?? '';
 
-  // Remove null or undefined children or else they will mess up the index
-  // This is an issue when using defaultIndex
-  const nonNullChildren = React.Children.toArray(children).filter(
-    (child) => !!child
+  const setActiveTab = React.useCallback(
+    (newValue: string) => {
+      if (isFunction(onChange)) {
+        onChange(newValue);
+      }
+
+      if (!isControlled) {
+        setLocalValue(newValue);
+      }
+    },
+    [onChange, isControlled]
   );
 
+  const _value = React.useMemo(() => {
+    return {
+      activeTab,
+      setActiveTab,
+    };
+  }, [activeTab, setActiveTab]);
+
   return (
-    <Root {...rootProps}>
-      <List aria-label={ariaLabel}>
-        <Flex
-          className={classNames(ComponentClassName.Tabs, className)}
-          data-indicator-position={indicatorPosition}
-          ref={ref}
-          {...rest}
-        >
-          {React.Children.map(nonNullChildren, (child, index) => {
-            if (isExtendedTabItem(child)) {
-              return React.cloneElement(child, {
-                'data-spacing': spacing,
-                key: index,
-                value: `${index}`,
-              });
-            }
-          })}
-        </Flex>
-      </List>
-      {React.Children.map(nonNullChildren, (child, index) => {
-        if (isExtendedTabItem(child)) {
-          return (
-            <Panel key={index} value={`${index}`}>
-              {child.props.children}
-            </Panel>
-          );
-        }
-      })}
-    </Root>
+    <TabsContext.Provider value={_value}>
+      <View
+        {...rest}
+        ref={ref}
+        className={classNames(className, ComponentClassName.Tabs)}
+      >
+        {children}
+      </View>
+    </TabsContext.Provider>
   );
 };
 
-const TabItemPrimitive: Primitive<TabItemProps, 'button'> = (
-  { className, title, ...rest },
-  ref
-) => (
-  <View
-    as={RadixTab}
-    className={classNames(ComponentClassName.TabItems, className)}
-    ref={ref}
-    {...rest}
-  >
-    {title}
-  </View>
-);
+type TabsType = ForwardRefPrimitive<BaseTabsProps, 'div'> & {
+  Panel: typeof TabPanel;
+  Tab: typeof Tab;
+  List: typeof TabList;
+};
 
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/tabs)
  */
-export const Tabs: ForwardRefPrimitive<BaseTabsProps, 'div'> =
-  React.forwardRef(TabsPrimitive);
-export const TabItem: ForwardRefPrimitive<BaseTabItemProps, 'button'> =
-  React.forwardRef(TabItemPrimitive);
+export const Tabs: TabsType = Object.assign(React.forwardRef(TabsPrimitive), {
+  Tab,
+  List: TabList,
+  Panel: TabPanel,
+});
 
 Tabs.displayName = 'Tabs';
-TabItem.displayName = 'TabItem';

@@ -7336,21 +7336,6 @@
     "@babel/runtime" "^7.13.10"
     "@radix-ui/react-compose-refs" "1.0.0"
 
-"@radix-ui/react-tabs@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/@radix-ui/react-tabs/-/react-tabs-1.0.0.tgz#135c67f1f2bd9ada69a3f6e38dd897d459af5fe5"
-  integrity sha512-oKUwEDsySVC0uuSEH7SHCVt1+ijmiDFAI9p+fHCtuZdqrRDKIFs09zp5nrmu4ggP6xqSx9lj1VSblnDH+n3IBA==
-  dependencies:
-    "@babel/runtime" "^7.13.10"
-    "@radix-ui/primitive" "1.0.0"
-    "@radix-ui/react-context" "1.0.0"
-    "@radix-ui/react-direction" "1.0.0"
-    "@radix-ui/react-id" "1.0.0"
-    "@radix-ui/react-presence" "1.0.0"
-    "@radix-ui/react-primitive" "1.0.0"
-    "@radix-ui/react-roving-focus" "1.0.0"
-    "@radix-ui/react-use-controllable-state" "1.0.0"
-
 "@radix-ui/react-use-callback-ref@1.0.0":
   version "1.0.0"
   resolved "https://registry.npmjs.org/@radix-ui/react-use-callback-ref/-/react-use-callback-ref-1.0.0.tgz#9e7b8b6b4946fe3cbe8f748c82a2cce54e7b6a90"
@@ -28211,7 +28196,7 @@ semver@7.3.8, semver@7.5.4, semver@7.x, semver@^7.0.0, semver@^7.1.1, semver@^7.
 
 semver@7.5.3:
   version "7.5.3"
-  resolved "https://registry.npmjs.org/semver/-/semver-7.5.3.tgz#161ce8c2c6b4b3bdca6caadc9fa3317a4c4fe88e"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.5.3.tgz#161ce8c2c6b4b3bdca6caadc9fa3317a4c4fe88e"
   integrity sha512-QBlUtyVk/5EeHbi7X0fw6liDZc7BBmEaSYn01fMU1OUYbf6GPsbTtd8WmnqbI20SeycoHSeiybkE/q1Q+qlThQ==
   dependencies:
     lru-cache "^6.0.0"
