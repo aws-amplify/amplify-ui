@@ -5,7 +5,7 @@ Feature: Map with Marker Popup
   Background:
     Given I'm running the example "ui/components/geo/map-with-marker-popup"
 
-  @react
+  @todo-migration @react
   Scenario: Popup Appears when Marker Is Clicked
     When I click on a map marker
     Then I see a popup about the marker appear

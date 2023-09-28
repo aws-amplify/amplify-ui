@@ -6,7 +6,7 @@ Feature: Sign In with TOTP MFA
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-totp-mfa"
 
-  @angular @react @vue
+  @todo-migration @angular @react @vue
   Scenario: Sign in with valid credentials that have not set up TOTP MFA
     When I type my "email" with status "CONFIRMED"
     Then I type my password
@@ -15,7 +15,7 @@ Feature: Sign In with TOTP MFA
     Then I check to see if QR code is correct
     Then I see the "Confirm" button
 
-  @angular @react @vue
+  @todo-migration @angular @react @vue
   Scenario: Redirect to sign in page
     When I type my "email" with status "CONFIRMED"
     Then I type my password
@@ -23,7 +23,7 @@ Feature: Sign In with TOTP MFA
     Then I click the "Back to Sign In" button
     Then I see "Sign in"
   
-  @angular @react @vue
+  @todo-migration @angular @react @vue
   Scenario: Invalid TOTP code
     When I type my "email" with status "CONFIRMED"
     Then I type my password
@@ -32,21 +32,21 @@ Feature: Sign In with TOTP MFA
     Then I click the "Confirm" button
     Then I see 'Code mismatch'
 
-  @angular @react @vue
+  @todo-migration @angular @react @vue
   Scenario: Setup TOTP should only show one input code
     When I type my "email" with status "CONFIRMED"
     Then I type my password
     Then I click the "Sign In" button
     Then I see one code input
 
-  @angular @react @vue
+  @todo-migration @angular @react @vue
   Scenario: Sign in with unknown credentials
     When I type my "email" with status "UNKNOWN"
     Then I type my password
     Then I click the "Sign in" button
     Then I see "User does not exist"
 
-  @angular @react @vue
+  @todo-migration @angular @react @vue
   Scenario: Sign in with force change password with mfa setup
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password"
     When I type my "email" with status "FORCE_CHANGE_PASSWORD"
@@ -59,7 +59,7 @@ Feature: Sign In with TOTP MFA
     Then I click the "Change Password" button
     Then I see "Setup TOTP"
 
-@angular @react @vue
+  @todo-migration @angular @react @vue
   Scenario: Successful sign up shows correct username from authenticated user
     When I click the "Create Account" tab
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"

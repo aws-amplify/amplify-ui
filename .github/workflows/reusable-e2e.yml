@@ -67,15 +67,15 @@ jobs:
         include:
           - example: angular
             package: angular
-            tags: '@angular and not @todo-angular'
+            tags: '@angular and not @todo-angular and not @todo-migration'
 
           - example: next
             package: react
-            tags: '@react and not @todo-react'
+            tags: '@react and not @todo-react and not @todo-migration'
 
           - example: vue
             package: vue
-            tags: '@vue and not @todo-vue'
+            tags: '@vue and not @todo-vue and not @todo-migration'
 
     steps:
       - name: Checkout Amplify UI

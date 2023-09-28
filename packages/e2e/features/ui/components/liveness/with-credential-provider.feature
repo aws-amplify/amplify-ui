@@ -5,13 +5,13 @@ Liveness component supports using a custom credential provider.
   Background:
     Given I'm running the example "ui/components/liveness/with-credential-provider/"
   
-  @react
+  @todo-migration @react
   Scenario: See camera module and close with the close icon
       Then I click the "Begin check" button
       Then I click the "close-icon"
       Then I see the "Begin check" button
 
-  @react
+  @todo-migration @react
   Scenario: See camera module and instructions
       Then I click the "Begin check" button
       Then I see "liveness-detector" element

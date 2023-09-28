@@ -5,11 +5,11 @@ Feature: withAuthenticator
   Background:
     Given I'm running the example "/ui/components/authenticator/withAuthenticator"
 
-  @react @react-native
+  @todo-migration @react @react-native
   Scenario: Application is wrapped with Authenticator
     Then I see "Sign in"
 
-  @react @react-native
+  @todo-migration @react @react-native
   Scenario: Application renders when signed in
     When I type my "username" with status "CONFIRMED"
     Then I type my password

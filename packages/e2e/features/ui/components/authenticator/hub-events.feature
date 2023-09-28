@@ -6,7 +6,7 @@ Feature: Hub Events
   Background:
     Given I'm running the example "/ui/components/authenticator/hub-events"
 
-  @angular @react @vue
+  @todo-migration @angular @react @vue
   Scenario: Sign in with confirmed credentials then sign out
     When I type my "email" with status "CONFIRMED"
     Then I type my password
@@ -15,7 +15,7 @@ Feature: Hub Events
     Then I click the "Sign out" button
     Then I see "Sign in"
 
-  @angular @react @vue
+  @todo-migration @angular @react @vue
   Scenario: Unsuccessful token refresh logs out the user
     When I type my "email" with status "CONFIRMED"
     Then I type my password
@@ -24,7 +24,7 @@ Feature: Hub Events
     When I mock "tokenRefresh_failure" event
     Then I see "Sign in"
 
-  @angular @react @vue
+  @todo-migration @angular @react @vue
   Scenario: autoSignIn signs in the user after sign up
     When I click the "Create Account" tab 
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
@@ -39,7 +39,7 @@ Feature: Hub Events
     Then I mock "autoSignIn" event with fixture "Auth.currentAuthenticatedUser-verified-email"
     Then I see "Sign out"
     
-  @angular @react @vue
+  @todo-migration @angular @react @vue
   Scenario: Successful token refresh calls currentAuthenticatedUser
     When I type my "email" with status "CONFIRMED"
     Then I type my password

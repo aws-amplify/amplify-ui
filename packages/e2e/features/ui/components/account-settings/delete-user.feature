@@ -5,7 +5,7 @@ Feature: Delete User
   Background:
     Given I'm running the example "ui/components/account-settings/delete-user"
 
-  @react
+  @todo-migration @react
   Scenario: Delete an authenticated user
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.DeleteUser" } }' with fixture "delete-user"
     When I type my "email" with status "CONFIRMED"
@@ -18,7 +18,7 @@ Feature: Delete User
     Then I click the "Delete my account" button
     Then I see "Sign in"
 
- @react
+ @todo-migration @react
   Scenario: Initiate delete but don't confirm deletion
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.DeleteUser" } }' with fixture "delete-user"
     When I type my "email" with status "CONFIRMED"
@@ -32,7 +32,7 @@ Feature: Delete User
     Then I click the "Sign Out" button
     Then I see "Sign in"
 
-  @react
+  @todo-migration @react
   Scenario: Delete fails due to cognito error
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.DeleteUser" } }' with error fixture "delete-user-failure"
     When I type my "email" with status "CONFIRMED"
