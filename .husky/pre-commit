@@ -18,8 +18,10 @@ fi
 # Initialize git-secrets configuration
 git secrets --register-aws > /dev/null
 # git config --unset providers
-git_secrets_output="$(git secrets --list)"
-echo $git_secrets_output
+if ! "secrets.providers cat \.husky.secret.patterns" in "$(git secrets --list)"; then
+  echo "not found"
+fi
+
 # git secrets --add-provider -- cat .husky/.secret.patterns
 # git secrets --add 'smil\.mil'
 # git secrets --add '(us|aws)-iso'
