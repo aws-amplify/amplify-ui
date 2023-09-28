@@ -1,8 +1,9 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 
-import { useControlledField } from '..';
 import FormProvider from '../FormProvider';
-import { DEFAULT_ERROR_MESSAGE } from '../useControlledField';
+import useControlledField, {
+  DEFAULT_ERROR_MESSAGE,
+} from '../useControlledField';
 
 describe('useControlledField', () => {
   it('returns the expected values in the happy path', async () => {

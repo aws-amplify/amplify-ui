@@ -97,16 +97,19 @@ interface NextAuthenticatorServiceContextFacade {
   unverifiedContactMethods: UnverifiedContactMethods | undefined;
 }
 
+interface NextAuthenticatorSendEventAliases
+  extends Pick<AuthenticatorSendEventAliases, 'toFederatedSignIn'> {
+  handleSubmit: AuthenticatorSendEventAliases['submitForm'];
+  resendConfirmationCode: () => void;
+  setRoute: (route: NavigableRoute) => void;
+  skipAttributeVerification: () => void;
+}
+
 type NextSendEventAlias =
   | 'resendCode'
   | 'submitForm'
   | 'toFederatedSignIn'
   | 'skipVerification';
-
-interface NextAuthenticatorSendEventAliases
-  extends Pick<AuthenticatorSendEventAliases, NextSendEventAlias> {
-  setRoute: (route: NavigableRoute) => void;
-}
 
 export interface NextAuthenticatorServiceFacade
   extends NextAuthenticatorSendEventAliases,
@@ -157,12 +160,12 @@ const getNextSendEventAliases = (
   const { toFederatedSignIn, submitForm, resendCode, skipVerification } =
     getSendEventAliases(send);
   return {
-    resendCode,
+    handleSubmit: submitForm,
+    resendConfirmationCode: resendCode,
     // manual "route" navigation
     setRoute: (route: NavigableRoute) =>
       send({ type: NAVIGABLE_ROUTE_EVENT[route] }),
-    skipVerification,
-    submitForm,
+    skipAttributeVerification: skipVerification,
     toFederatedSignIn,
   };
 };
