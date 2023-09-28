@@ -17,8 +17,10 @@ fi
 
 # Initialize git-secrets configuration
 git secrets --register-aws > /dev/null
+
+secret_string="secrets.providers cat \.husky.secret.patterns"
 # git config --unset providers
-if ! "secrets.providers cat \.husky.secret.patterns" in "$(git secrets --list)"; then
+if ! secret_string in "$(git secrets --list)"; then
   echo "not found"
 fi
 
