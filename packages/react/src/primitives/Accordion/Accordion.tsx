@@ -1,19 +1,20 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import { ComponentClassName, isFunction } from '@aws-amplify/ui';
-import { BaseExpanderGroupProps, ExpanderGroupProps } from './types';
+import { BaseAccordionProps, AccordionProps } from './types';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { View } from '../View';
-import { ExpanderGroupContext } from './ExpanderGroupContext';
+import { AccordionContext } from './AccordionContext';
+import { AccordionItem } from './AccordionItem';
 
-const ExpanderGroupPrimitive: Primitive<ExpanderGroupProps, 'div'> = (
+const AccordionPrimitive: Primitive<AccordionProps, 'div'> = (
   {
     children,
     className,
     defaultValue,
     isCollapsible,
-    multiple,
-    onValueChange,
+    isExclusive,
+    onChange,
     testId,
     value: controlledValue,
     ...rest
@@ -42,19 +43,19 @@ const ExpanderGroupPrimitive: Primitive<ExpanderGroupProps, 'div'> = (
         ? isCollapsible || value.length > 1
           ? value.filter((v) => v !== _value)
           : value
-        : multiple
-        ? [...value, _value]
-        : [_value];
+        : isExclusive
+        ? [_value]
+        : [...value, _value];
 
-      if (isFunction(onValueChange)) {
-        onValueChange(newValue);
+      if (isFunction(onChange)) {
+        onChange(newValue);
       }
 
       if (!isControlled) {
         setLocalValue(newValue);
       }
     },
-    [onValueChange, value, isControlled, isCollapsible, multiple]
+    [onChange, value, isControlled, isCollapsible, isExclusive]
   );
 
   const _value = React.useMemo(() => {
@@ -65,56 +66,33 @@ const ExpanderGroupPrimitive: Primitive<ExpanderGroupProps, 'div'> = (
   }, [value, setValue]);
 
   return (
-    <ExpanderGroupContext.Provider value={_value}>
+    <AccordionContext.Provider value={_value}>
       <View
         {...rest}
-        className={classNames(ComponentClassName.Expander, className)}
+        className={classNames(ComponentClassName.Accordion, className)}
         data-testid={testId}
         ref={ref}
       >
         {children}
       </View>
-    </ExpanderGroupContext.Provider>
+    </AccordionContext.Provider>
   );
+};
 
-  // const expander =
-  //   type === 'multiple' ? (
-
-  //     <Root
-  //       className={classNames(ComponentClassName.Expander, className)}
-  //       data-testid={testId}
-  //       defaultValue={defaultValue as string[]}
-  //       onValueChange={onValueChange as (value?: string[]) => void}
-  //       ref={ref}
-  //       type={type}
-  //       value={value as string[]}
-  //       {...rest}
-  //     >
-  //       {children}
-  //     </Root>
-  //   ) : (
-  //     <Root
-  //       className={classNames(ComponentClassName.Expander, className)}
-  //       collapsible={isCollapsible}
-  //       data-testid={testId}
-  //       defaultValue={defaultValue as string}
-  //       onValueChange={handleValueChange as (value?: string) => void}
-  //       ref={ref}
-  //       type={type}
-  //       value={value as string}
-  //       {...rest}
-  //     >
-  //       {children}
-  //     </Root>
-  //   );
-
-  // return expander;
+type AccordionType = ForwardRefPrimitive<BaseAccordionProps, 'div'> & {
+  Item: typeof AccordionItem;
 };
 
 /**
- * [📖 Docs](https://ui.docs.amplify.aws/react/components/expander)
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/accordion)
  */
-export const ExpanderGroup: ForwardRefPrimitive<BaseExpanderGroupProps, 'div'> =
-  React.forwardRef(ExpanderGroupPrimitive);
+const Accordion: AccordionType = Object.assign(
+  React.forwardRef(AccordionPrimitive),
+  {
+    Item: AccordionItem,
+  }
+);
 
-ExpanderGroup.displayName = 'ExpanderGroup';
+Accordion.displayName = 'Accordion';
+
+export { Accordion };

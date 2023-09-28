@@ -1,12 +1,6 @@
 import * as React from 'react';
 
-import {
-  Expander,
-  ExpanderGroup,
-  Flex,
-  View,
-  useTheme,
-} from '@aws-amplify/ui-react';
+import { Accordion, Flex, View, useTheme } from '@aws-amplify/ui-react';
 
 export const CustomTitle = ({ courseNumber, courseName }) => {
   const { tokens } = useTheme();
@@ -22,8 +16,8 @@ export const CustomTitle = ({ courseNumber, courseName }) => {
 
 export const CustomTitleComponent = () => {
   return (
-    <ExpanderGroup type="single">
-      <Expander
+    <Accordion isExclusive>
+      <Accordion.Item
         title={
           <CustomTitle
             courseNumber="CS 103"
@@ -33,8 +27,8 @@ export const CustomTitleComponent = () => {
         value="item-1"
       >
         Example content for CS 103
-      </Expander>
-      <Expander
+      </Accordion.Item>
+      <Accordion.Item
         title={
           <CustomTitle
             courseNumber="CS 106A"
@@ -44,7 +38,7 @@ export const CustomTitleComponent = () => {
         value="item-2"
       >
         Example content for CS 106A
-      </Expander>
-    </ExpanderGroup>
+      </Accordion.Item>
+    </Accordion>
   );
 };

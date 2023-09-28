@@ -1,28 +1,27 @@
 import { render, screen } from '@testing-library/react';
 import * as React from 'react';
 
-import { ExpanderGroup } from '../ExpanderGroup';
-import {
-  Expander,
-  EXPANDER_CONTENT_TEXT_TEST_ID,
-  EXPANDER_HEADER_TEST_ID,
-  EXPANDER_ICON_TEST_ID,
-  EXPANDER_ITEM_TEST_ID,
-} from '../Expander';
+import { Accordion } from '../Accordion';
 import { ComponentClassName } from '@aws-amplify/ui';
 
 describe('Expander:', () => {
   it('should render default and custom classnames', async () => {
     const className = 'class-test';
+    const testId = 'test-id';
     render(
-      <ExpanderGroup type="single" defaultValue="item-value">
-        <Expander className={className} title="item-title" value="item-value">
+      <Accordion isExclusive defaultValue={['item-value']}>
+        <Accordion.Item
+          testId={testId}
+          className={className}
+          title="item-title"
+          value="item-value"
+        >
           content
-        </Expander>
-      </ExpanderGroup>
+        </Accordion.Item>
+      </Accordion>
     );
 
-    const item = await screen.findByTestId(EXPANDER_ITEM_TEST_ID);
+    const item = await screen.findByTestId(testId);
     expect(item).toHaveClass(ComponentClassName.ExpanderItem, className);
 
     const header = await screen.findByTestId(EXPANDER_HEADER_TEST_ID);

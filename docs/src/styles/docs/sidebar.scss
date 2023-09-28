@@ -86,20 +86,14 @@
     var(--secondary-nav-indent) + var(--amplify-space-medium)
   );
 
-  // Custom expander styles
-  --amplify-components-expander-box-shadow: none;
-  --amplify-components-expander-item-box-shadow: none;
-  --amplify-components-expander-header-box-shadow: none;
-  --amplify-components-expander-trigger-padding-inline-start: 0;
-  --amplify-components-expander-trigger-padding-inline-end: var(
-    --amplify-space-xs
-  );
-  --amplify-components-expander-trigger-min-height: 0;
-  --amplify-components-expander-item-border-start-start-radius: 0;
-  --amplify-components-expander-item-border-start-end-radius: 0;
-  --amplify-components-expander-item-border-end-start-radius: 0;
-  --amplify-components-expander-item-border-end-end-radius: 0;
-  --amplify-components-expander-trigger-hover-background-color: var(
+  --amplify-components-accordion-item-header-padding-inline: 0;
+  --amplify-components-accordion-item-header-padding-block: 0;
+  --amplify-components-accordion-item-border-width: 0;
+
+  --amplify-components-accordion-item-body-padding-inline: 0;
+  --amplify-components-accordion-item-body-padding-block-start: 0;
+  --amplify-components-accordion-item-body-padding-block-end: 0;
+  --amplify-components-accordion-item-header-hover-background-color: var(
     --amplify-colors-background-tertiary
   );
 

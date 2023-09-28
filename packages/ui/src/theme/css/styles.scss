@@ -80,6 +80,7 @@ select {
 @import './component/copy.scss';
 
 // Composed components
+@import './component/accordion.scss';
 @import './component/alert.scss';
 @import './component/autocomplete.scss';
 @import './component/authenticator.scss';
@@ -90,7 +91,6 @@ select {
 @import './component/checkboxField.scss';
 @import './component/dialCodeSelect.scss';
 @import './component/divider.scss';
-@import './component/expander.scss';
 @import './component/field.scss';
 @import './component/fieldGroup.scss';
 @import './component/fieldset.scss';

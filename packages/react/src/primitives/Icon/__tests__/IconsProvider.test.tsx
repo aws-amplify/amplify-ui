@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { IconsProvider } from '../context';
 import { Alert } from '../../Alert';
 import { View } from '../../View';
-import { Expander, ExpanderItem } from '../../Expander';
+import { Expander, ExpanderItem } from '../../Accordion';
 import { Checkbox } from '../../Checkbox';
 import { Menu } from '../../Menu';
 import { FieldClearButton } from '../../Field';

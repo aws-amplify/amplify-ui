@@ -1,6 +1,6 @@
 import { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
 
-export interface BaseExpanderGroupProps extends BaseViewProps {
+export interface BaseAccordionProps extends BaseViewProps {
   /**
    * @description
    * The value of the item(s) to expand.  Use on uncontrolled component.
@@ -22,20 +22,21 @@ export interface BaseExpanderGroupProps extends BaseViewProps {
   /**
    * @description
    * Determines whether one or multiple items can be opened at the same time.
+   * Default: false
    */
-  multiple?: boolean;
+  isExclusive?: boolean;
 
   /**
    * @description
    * Event handler called when the expanded state of an item changes
    */
-  onValueChange?: (value?: string[]) => void;
+  onChange?: (value?: string[]) => void;
 }
 
-export type ExpanderGroupProps<Element extends ElementType = 'div'> =
-  PrimitiveProps<BaseExpanderGroupProps, Element>;
+export type AccordionProps<Element extends ElementType = 'div'> =
+  PrimitiveProps<BaseAccordionProps, Element>;
 
-export interface BaseExpanderProps extends BaseViewProps {
+export interface BaseAccordionItemProps extends BaseViewProps {
   /**
    * @description
    * The content of the heading.
@@ -49,5 +50,5 @@ export interface BaseExpanderProps extends BaseViewProps {
   value?: string;
 }
 
-export type ExpanderProps<Element extends ElementType = 'details'> =
-  PrimitiveProps<BaseExpanderProps, Element>;
+export type AccordionItemProps<Element extends ElementType = 'details'> =
+  PrimitiveProps<BaseAccordionItemProps, Element>;

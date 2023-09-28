@@ -12,8 +12,7 @@ import {
   Text,
   Flex,
   Collection,
-  Expander,
-  ExpanderGroup,
+  Accordion,
   useTheme,
 } from '@aws-amplify/ui-react';
 import {
@@ -136,7 +135,7 @@ const SecondaryNav = (props) => {
   const { platform } = props;
   // Extract section from URL (/section/... => section)
   let section = pathname.split('/')[2];
-  const [value, setValue] = React.useState<string | string[]>([section]);
+  const [value, setValue] = React.useState<string[]>([section]);
 
   const isFlutter = platform === 'flutter';
   const isReactNative = platform === 'react-native';
@@ -147,9 +146,9 @@ const SecondaryNav = (props) => {
   const hideGuidesExpander = isFlutter || isReactNative || isAndroid || isSwift;
 
   return (
-    <ExpanderGroup type="multiple" value={value} onValueChange={setValue}>
+    <Accordion isCollapsible value={value} onChange={setValue}>
       {
-        <Expander
+        <Accordion.Item
           title={
             <ExpanderTitle Icon={MdOutlineChecklist} text="Getting started" />
           }
@@ -160,10 +159,10 @@ const SecondaryNav = (props) => {
               {label}
             </NavLink>
           ))}
-        </Expander>
+        </Accordion.Item>
       }
       {platform === 'react' ? (
-        <Expander
+        <Accordion.Item
           title={<ExpanderTitle Icon={MdOutlineWidgets} text="Components" />}
           value="components"
         >
@@ -175,10 +174,10 @@ const SecondaryNav = (props) => {
               components={components}
             />
           ))}
-        </Expander>
+        </Accordion.Item>
       ) : null}
 
-      <Expander
+      <Accordion.Item
         title={
           <ExpanderTitle Icon={MdOutlinePower} text="Connected components" />
         }
@@ -189,11 +188,11 @@ const SecondaryNav = (props) => {
             {label}
           </NavLink>
         ))}
-      </Expander>
+      </Accordion.Item>
 
       {/* Android and Swift don't have theming at this time */}
       {hideTheming ? null : (
-        <Expander
+        <Accordion.Item
           title={<ExpanderTitle Icon={MdOutlineAutoAwesome} text="Theming" />}
           value="theming"
         >
@@ -202,12 +201,12 @@ const SecondaryNav = (props) => {
               {label}
             </NavLink>
           ))}
-        </Expander>
+        </Accordion.Item>
       )}
 
       {/* Flutter, React Native, Android, and Swift don't have guides at this time */}
       {hideGuidesExpander ? null : (
-        <Expander
+        <Accordion.Item
           title={<ExpanderTitle Icon={MdOutlineArticle} text="Guides" />}
           value="guides"
         >
@@ -216,9 +215,9 @@ const SecondaryNav = (props) => {
               {label}
             </NavLink>
           ))}
-        </Expander>
+        </Accordion.Item>
       )}
-    </ExpanderGroup>
+    </Accordion>
   );
 };
 

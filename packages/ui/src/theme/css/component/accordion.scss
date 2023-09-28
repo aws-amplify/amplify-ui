@@ -1,0 +1,68 @@
+.amplify-accordion {
+  display: block;
+  background-color: var(--amplify-components-accordion-background-color);
+}
+
+.amplify-accordion__item {
+  display: block;
+  overflow: hidden;
+  position: relative;
+  border-width: 0;
+  border-block-end-width: var(--amplify-components-accordion-item-border-width);
+  border-style: var(--amplify-components-accordion-item-border-style);
+  border-color: var(--amplify-components-accordion-item-border-color);
+
+  &:focus-within {
+    box-shadow: var(--amplify-components-accordion-item-focus-box-shadow);
+    // this allows the box shadow to appear above the items that come after it
+    z-index: 2;
+  }
+
+  &__header {
+    display: flex;
+    padding-inline: var(
+      --amplify-components-accordion-item-header-padding-inline
+    );
+    padding-block: var(
+      --amplify-components-accordion-item-header-padding-block
+    );
+    align-items: var(--amplify-components-accordion-item-header-align-items);
+    justify-content: var(
+      --amplify-components-accordion-item-header-justify-content
+    );
+
+    &:hover {
+      background-color: var(
+        --amplify-components-accordion-item-header-hover-background-color
+      );
+    }
+  }
+
+  &__body {
+    display: block;
+    color: var(--amplify-components-accordion-item-body-color);
+    padding-block-end: var(
+      --amplify-components-accordion-item-body-padding-block-end
+    );
+    padding-block-start: var(
+      --amplify-components-accordion-item-body-padding-block-start
+    );
+    padding-inline: var(
+      --amplify-components-accordion-item-body-padding-inline
+    );
+  }
+
+  &__icon {
+    transition-property: transform;
+    transition-duration: var(
+      --amplify-components-accordion-item-icon-transition-duration
+    );
+    transition-timing-function: var(
+      --amplify-components-accordion-item-icon-transition-timing-function
+    );
+
+    [open] & {
+      transform: rotate(180deg);
+    }
+  }
+}

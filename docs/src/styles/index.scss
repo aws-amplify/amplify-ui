@@ -22,6 +22,7 @@
 @import './docs/install-code.scss';
 
 /* Primitive override styles for docs examples */
+@import './primitives/accordionStyles.css';
 @import './primitives/alertStyles.css';
 @import './primitives/badgeStyles.css';
 @import './primitives/buttonStyles.css';
@@ -29,7 +30,6 @@
 @import './primitives/checkboxFieldStyles.css';
 @import './primitives/collectionStyles.css';
 @import './primitives/dividerStyles.css';
-@import './primitives/expanderStyles.css';
 @import './primitives/fieldsetStyles.css';
 @import './primitives/flexStyles.css';
 @import './primitives/headingStyles.css';

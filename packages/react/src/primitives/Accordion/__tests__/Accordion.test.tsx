@@ -2,56 +2,52 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as React from 'react';
 
-import { ExpanderGroup } from '../ExpanderGroup';
-import { Expander } from '../Expander';
-import { ExpanderGroupProps } from '../types';
+import { Accordion } from '../Accordion';
+import { AccordionProps } from '../types';
 import { ComponentClassName } from '@aws-amplify/ui';
 
-function UncontrolledExpander(props: ExpanderGroupProps) {
+function UncontrolledAccordion(props: AccordionProps) {
   return (
-    <ExpanderGroup {...props}>
-      <Expander title="Section 1 title" value="item-1">
+    <Accordion {...props}>
+      <Accordion.Item title="Section 1 title" value="item-1">
         content 1
-      </Expander>
-      <Expander title="Section 2 title" value="item-2">
+      </Accordion.Item>
+      <Accordion.Item title="Section 2 title" value="item-2">
         content 2
-      </Expander>
-      <Expander title="Section 3 title" value="item-3">
+      </Accordion.Item>
+      <Accordion.Item title="Section 3 title" value="item-3">
         content 3
-      </Expander>
-    </ExpanderGroup>
+      </Accordion.Item>
+    </Accordion>
   );
 }
 
-function ControlledExpander({
-  value: initialValue,
-  ...rest
-}: ExpanderGroupProps) {
+function ControlledAccordion({ value: initialValue, ...rest }: AccordionProps) {
   const [value, setValue] = React.useState(initialValue);
   return (
-    <ExpanderGroup value={value} onValueChange={setValue} {...rest}>
-      <Expander title="Section 1 title" value="item-1">
+    <Accordion value={value} onChange={setValue} {...rest}>
+      <Accordion.Item title="Section 1 title" value="item-1">
         content 1
-      </Expander>
-      <Expander title="Section 2 title" value="item-2">
+      </Accordion.Item>
+      <Accordion.Item title="Section 2 title" value="item-2">
         content 2
-      </Expander>
-      <Expander title="Section 3 title" value="item-3">
+      </Accordion.Item>
+      <Accordion.Item title="Section 3 title" value="item-3">
         content 3
-      </Expander>
-    </ExpanderGroup>
+      </Accordion.Item>
+    </Accordion>
   );
 }
 
-describe('ExpanderGroup:', () => {
+describe('Accordion:', () => {
   it('should set default and custom classnames', async () => {
-    const testId = 'expander';
+    const testId = 'accordion';
     const className = 'class-test';
     render(
-      <UncontrolledExpander
+      <UncontrolledAccordion
         className={className}
-        defaultValue="item-1"
-        type="single"
+        defaultValue={['item-1']}
+        isExclusive
         testId={testId}
       />
     );
@@ -61,7 +57,11 @@ describe('ExpanderGroup:', () => {
 
   it('should be collapsible', async () => {
     render(
-      <UncontrolledExpander defaultValue="item-1" type="single" isCollapsible />
+      <UncontrolledAccordion
+        defaultValue={['item-1']}
+        isExclusive
+        isCollapsible
+      />
     );
     const buttons = await screen.findAllByRole('button');
     expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
@@ -70,7 +70,7 @@ describe('ExpanderGroup:', () => {
   });
 
   it('should work as uncontrolled component with type single', async () => {
-    render(<UncontrolledExpander defaultValue="item-1" type="single" />);
+    render(<UncontrolledAccordion defaultValue={['item-1']} isExclusive />);
 
     const buttons = await screen.findAllByRole('button');
     expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
@@ -89,7 +89,7 @@ describe('ExpanderGroup:', () => {
   });
 
   it('should work as uncontrolled component with type multiple', async () => {
-    render(<UncontrolledExpander defaultValue={['item-1']} type="multiple" />);
+    render(<UncontrolledAccordion defaultValue={['item-1']} />);
 
     const buttons = await screen.findAllByRole('button');
     expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
@@ -108,7 +108,7 @@ describe('ExpanderGroup:', () => {
   });
 
   it('should work as controlled component with type single', async () => {
-    render(<ControlledExpander value="item-1" type="single" />);
+    render(<ControlledAccordion value={['item-1']} isExclusive />);
 
     const buttons = await screen.findAllByRole('button');
     expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
@@ -127,7 +127,7 @@ describe('ExpanderGroup:', () => {
   });
 
   it('should work as controlled component with type multiple', async () => {
-    render(<ControlledExpander value={['item-1']} type="multiple" />);
+    render(<ControlledAccordion value={['item-1']} />);
 
     const buttons = await screen.findAllByRole('button');
     expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
@@ -149,17 +149,17 @@ describe('ExpanderGroup:', () => {
     const testId = 'expander';
     const ref = React.createRef<HTMLDivElement>();
     render(
-      <ExpanderGroup testId={testId} ref={ref}>
-        <Expander title="Section 1 title" value="item-1">
+      <Accordion testId={testId} ref={ref}>
+        <Accordion.Item title="Section 1 title" value="item-1">
           content 1
-        </Expander>
-        <Expander title="Section 2 title" value="item-2">
+        </Accordion.Item>
+        <Accordion.Item title="Section 2 title" value="item-2">
           content 2
-        </Expander>
-        <Expander title="Section 3 title" value="item-3">
+        </Accordion.Item>
+        <Accordion.Item title="Section 3 title" value="item-3">
           content 3
-        </Expander>
-      </ExpanderGroup>
+        </Accordion.Item>
+      </Accordion>
     );
 
     await screen.findByTestId(testId);

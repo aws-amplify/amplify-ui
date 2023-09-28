@@ -2,26 +2,21 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassName } from '@aws-amplify/ui';
-import { BaseExpanderProps, ExpanderProps } from './types';
+import { BaseAccordionItemProps, AccordionItemProps } from './types';
 import { IconExpandMore, useIcons } from '../Icon';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { useStableId } from '../utils/useStableId';
 import { View } from '../View';
-import { ExpanderGroupContext } from './ExpanderGroupContext';
+import { AccordionContext } from './AccordionContext';
 
-export const EXPANDER_ITEM_TEST_ID = 'expander-item';
-export const EXPANDER_HEADER_TEST_ID = 'expander-header';
-export const EXPANDER_ICON_TEST_ID = 'expander-icon';
-export const EXPANDER_CONTENT_TEXT_TEST_ID = 'expander-content-text';
-
-const ExpanderPrimitive: Primitive<ExpanderProps, 'details'> = (
+const AccordionItemPrimitive: Primitive<AccordionItemProps, 'details'> = (
   { children, className, title, value, ...rest },
   ref
 ) => {
   const triggerId = useStableId();
   const contentId = useStableId();
   const icons = useIcons('expander');
-  const context = React.useContext(ExpanderGroupContext);
+  const context = React.useContext(AccordionContext);
   const controlledProps = {};
 
   if (context?.value && value) {
@@ -35,14 +30,12 @@ const ExpanderPrimitive: Primitive<ExpanderProps, 'details'> = (
       {...rest}
       {...controlledProps}
       as="details"
-      className={classNames(ComponentClassName.ExpanderItem, className)}
-      data-testid={EXPANDER_ITEM_TEST_ID}
+      className={classNames(ComponentClassName.AccordionItem, className)}
       ref={ref}
     >
       <View
         as="summary"
-        className={ComponentClassName.ExpanderHeader}
-        data-testid={EXPANDER_HEADER_TEST_ID}
+        className={ComponentClassName.AccordionItemHeader}
         onClick={(e) => {
           if (context?.setValue && value) {
             e.preventDefault();
@@ -53,8 +46,7 @@ const ExpanderPrimitive: Primitive<ExpanderProps, 'details'> = (
         <View flex="1">{title}</View>
         <View
           as="span"
-          className={ComponentClassName.ExpanderIcon}
-          data-testid={EXPANDER_ICON_TEST_ID}
+          className={ComponentClassName.AccordionItemIcon}
           aria-hidden="true"
         >
           {icons?.more ?? <IconExpandMore />}
@@ -62,7 +54,7 @@ const ExpanderPrimitive: Primitive<ExpanderProps, 'details'> = (
       </View>
       <View
         aria-labelledby={triggerId}
-        className={ComponentClassName.ExpanderContent}
+        className={ComponentClassName.AccordionItemBody}
         id={contentId}
       >
         {children}
@@ -72,9 +64,11 @@ const ExpanderPrimitive: Primitive<ExpanderProps, 'details'> = (
 };
 
 /**
- * [📖 Docs](https://ui.docs.amplify.aws/react/components/expander)
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/accordion)
  */
-export const Expander: ForwardRefPrimitive<BaseExpanderProps, 'details'> =
-  React.forwardRef(ExpanderPrimitive);
+export const AccordionItem: ForwardRefPrimitive<
+  BaseAccordionItemProps,
+  'details'
+> = React.forwardRef(AccordionItemPrimitive);
 
-Expander.displayName = 'Expander';
+AccordionItem.displayName = 'AccordionItem';
