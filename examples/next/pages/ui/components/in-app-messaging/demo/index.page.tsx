@@ -45,18 +45,18 @@ function DemoDivider() {
   );
 }
 
-function DemoRadioGroup({ data, label, onChange, ...rest }) {
+function DemoRadioGroup({ data, legend, onChange, ...rest }) {
   return (
     <RadioGroupField
       {...rest}
-      label={label}
-      name={label}
+      legend={legend}
+      name={legend}
       onChange={(e) => {
         onChange(e.target.value);
       }}
     >
       {data.map((item) => (
-        <Radio key={`${label}:${item}`} value={item}>
+        <Radio key={`${legend}:${item}`} value={item}>
           {item}
         </Radio>
       ))}
@@ -97,7 +97,7 @@ function Content({ colorMode, setColorMode }) {
         <DemoRadioGroup
           data={['dark', 'light']}
           direction="row"
-          label="Color Mode"
+          legend="Color Mode"
           marginBottom="medium"
           onChange={setColorMode}
           value={colorMode}
@@ -117,7 +117,7 @@ function Content({ colorMode, setColorMode }) {
             <DemoDivider />
             <DemoRadioGroup
               data={LAYOUTS}
-              label="Layout"
+              legend="Layout"
               onChange={handleAction('setLayout')}
               value={layout}
             />
@@ -146,7 +146,7 @@ function Content({ colorMode, setColorMode }) {
             <DemoRadioGroup
               data={ORIENTATIONS}
               isDisabled={useAnalyticEvents || !hasImage}
-              label="Image Orientation"
+              legend="Image Orientation"
               onChange={handleAction('setImageOrientation')}
               value={imageOrientation}
             />
@@ -162,7 +162,7 @@ function Content({ colorMode, setColorMode }) {
             <DemoRadioGroup
               data={ACTIONS}
               isDisabled={useAnalyticEvents || !hasPrimaryButton}
-              label="Primary Button Action"
+              legend="Primary Button Action"
               onChange={handleAction('setPrimaryButtonAction')}
               value={primaryButtonAction}
             />
@@ -179,7 +179,7 @@ function Content({ colorMode, setColorMode }) {
               isDisabled={
                 useAnalyticEvents || !hasPrimaryButton || !hasSecondaryButton
               }
-              label="Secondary Button Action"
+              legend="Secondary Button Action"
               onChange={handleAction('setSecondaryButtonAction')}
               value={secondaryButtonAction}
             />

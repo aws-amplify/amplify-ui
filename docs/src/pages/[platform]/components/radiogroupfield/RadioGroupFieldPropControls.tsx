@@ -14,8 +14,11 @@ export interface RadioGroupFieldPropControlsProps extends RadioGroupFieldProps {
   setIsDisabled: (
     value: React.SetStateAction<RadioGroupFieldProps['isDisabled']>
   ) => void;
-  setLabel: (
-    value: React.SetStateAction<RadioGroupFieldProps['label']>
+  setVariation: (
+    value: React.SetStateAction<RadioGroupFieldProps['variation']>
+  ) => void;
+  setLegend: (
+    value: React.SetStateAction<RadioGroupFieldProps['legend']>
   ) => void;
   setSize: (value: React.SetStateAction<RadioGroupFieldProps['size']>) => void;
   setLabelPosition: (
@@ -31,22 +34,24 @@ export const RadioGroupFieldPropControls: RadioGroupFieldPropControlsInterface =
   ({
     setDirection,
     setIsDisabled,
-    label,
-    setLabel,
+    setLegend,
     setSize,
-    labelPosition,
-    isDisabled,
     setLabelPosition,
+    setVariation,
+    isDisabled,
+    legend,
+    labelPosition,
+    variation,
   }) => {
     return (
       <Flex direction="column">
         <TextField
-          id="label"
-          name="label"
-          label="label"
-          value={label as string}
+          id="legend"
+          name="legend"
+          label="legend"
+          value={legend as string}
           onChange={(event) => {
-            setLabel(event.target.value as RadioGroupFieldProps['label']);
+            setLegend(event.target.value as RadioGroupFieldProps['legend']);
           }}
         />
 
@@ -66,6 +71,20 @@ export const RadioGroupFieldPropControls: RadioGroupFieldPropControlsInterface =
           <option value="end">end</option>
           <option value="top">top</option>
           <option value="bottom">bottom</option>
+        </SelectField>
+
+        <SelectField
+          label="variation"
+          name="variation"
+          value={variation}
+          onChange={(event) =>
+            setVariation(
+              event.target.value as RadioGroupFieldProps['variation']
+            )
+          }
+        >
+          <option value="plain">plain (default)</option>
+          <option value="outlined">outlined</option>
         </SelectField>
 
         <SelectField

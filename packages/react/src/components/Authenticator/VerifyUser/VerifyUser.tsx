@@ -86,10 +86,10 @@ export const VerifyUser = ({
 
   const verificationRadioGroup = (
     <RadioGroupField
-      label={getVerifyContactText()}
-      labelHidden
+      legend={getVerifyContactText()}
       name="verify_context"
       isDisabled={isPending}
+      legendHidden
     >
       {generateRadioGroup(unverifiedContactMethods)}
     </RadioGroupField>

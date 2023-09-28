@@ -126,12 +126,12 @@ const Preview = () => {
         <Card variation="elevated" flex="1">
           <Center>
             <RadioGroupField
-              label="Language"
+              legend="Language"
               name="primitive-language"
               defaultValue="css"
               direction="row"
               gap="small"
-              labelHidden
+              legendHidden
             >
               <Radio value="html">HTML</Radio>
               <Radio value="css">CSS</Radio>

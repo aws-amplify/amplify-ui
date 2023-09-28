@@ -54,7 +54,9 @@ describe('RadioField test suite', () => {
     expect(radio).toBeDisabled();
 
     const radioLabel = await screen.findByText('test');
-    expect(radioLabel).toHaveAttribute('data-disabled', 'true');
+    expect(radioLabel.classList).toContain(
+      `${ComponentClassName.RadioLabel}--disabled`
+    );
   });
 
   it('should always be disabled if parent Fieldset isDisabled and radio isDisabled is not defined', async () => {
@@ -68,7 +70,9 @@ describe('RadioField test suite', () => {
     expect(radio).toHaveAttribute('disabled');
 
     const radioLabel = await screen.findByText('test');
-    expect(radioLabel).toHaveAttribute('data-disabled', 'true');
+    expect(radioLabel.classList).toContain(
+      `${ComponentClassName.RadioLabel}--disabled`
+    );
   });
 
   it('should always be disabled if parent Fieldset isDisabled and radio isDisabled={false}', async () => {
@@ -84,7 +88,9 @@ describe('RadioField test suite', () => {
     expect(radio).toHaveAttribute('disabled');
 
     const radioLabel = await screen.findByText('test');
-    expect(radioLabel).toHaveAttribute('data-disabled', 'true');
+    expect(radioLabel.classList).toContain(
+      `${ComponentClassName.RadioLabel}--disabled`
+    );
   });
 
   it('should have no default labelPosition', async () => {
@@ -114,7 +120,7 @@ describe('RadioField test suite', () => {
   it('should inherit labelPosition from RadioGroupField', async () => {
     render(
       <RadioGroupField
-        label="label"
+        legend="label"
         name="label"
         labelPosition="end"
         testId="test"
@@ -131,7 +137,7 @@ describe('RadioField test suite', () => {
   it('should not inherit labelPosition from RadioGroupField', async () => {
     render(
       <RadioGroupField
-        label="label"
+        legend="label"
         name="label"
         labelPosition="end"
         testId="test"

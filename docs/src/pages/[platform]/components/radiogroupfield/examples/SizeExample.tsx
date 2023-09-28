@@ -2,13 +2,13 @@ import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
 
 export const SizeExample = () => (
   <>
-    <RadioGroupField label="small" name="small" size="small" labelHidden>
+    <RadioGroupField legend="small" name="small" size="small" legendHidden>
       <Radio value="small">Small</Radio>
     </RadioGroupField>
-    <RadioGroupField label="default" name="default" labelHidden>
+    <RadioGroupField legend="default" name="default" legendHidden>
       <Radio value="default">Default</Radio>
     </RadioGroupField>
-    <RadioGroupField label="large" name="large" size="large" labelHidden>
+    <RadioGroupField legend="large" name="large" size="large" legendHidden>
       <Radio value="large">Large</Radio>
     </RadioGroupField>
   </>
