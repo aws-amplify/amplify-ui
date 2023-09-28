@@ -5,20 +5,20 @@ Feature: Liveness Detector
   Background:
     Given I'm running the example "ui/components/liveness"
 
-  @react
+  @todo-migration @react
   Scenario: Navigate with keyboard only
       Then I hit the "enter" key on "Begin check" button
       Then I click the "close-icon"
       # TODO: Change this to use keyboard navigation, at this time it doesnt work the same way begin check does
       Then I see the "Begin check" button
   
-  @react
+  @todo-migration @react
   Scenario: See camera module and close with the close icon
       Then I click the "Begin check" button
       Then I click the "close-icon"
       Then I see the "Begin check" button
 
-  @react
+  @todo-migration @react
   Scenario: See camera module and instructions
       Then I click the "Begin check" button
       Then I see "liveness-detector" element
