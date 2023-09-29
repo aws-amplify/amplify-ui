@@ -1,15 +1,11 @@
 import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-type AccordionItemTokens<Output> = DesignTokenProperties<
-  'borderWidth' | 'borderStyle' | 'borderColor',
-  Output
-> & {
-  _focus?: DesignTokenProperties<'boxShadow', Output>;
-};
-
 export type AccordionTokens<Output extends OutputVariantKey> =
   DesignTokenProperties<'backgroundColor', Output> & {
-    item?: AccordionItemTokens<Output> & {
+    item?: DesignTokenProperties<
+      'borderWidth' | 'borderStyle' | 'borderColor',
+      Output
+    > & {
       icon?: DesignTokenProperties<
         'transitionDuration' | 'transitionTimingFunction',
         Output
@@ -28,6 +24,7 @@ export type AccordionTokens<Output extends OutputVariantKey> =
         Output
       > & {
         _hover?: DesignTokenProperties<'backgroundColor' | 'color', Output>;
+        _focus?: DesignTokenProperties<'boxShadow' | 'borderColor', Output>;
       };
     };
   };
@@ -38,34 +35,35 @@ export const accordion: Required<AccordionTokens<'default'>> = {
     borderColor: { value: '{colors.border.secondary.value}' },
     borderWidth: { value: '{borderWidths.small.value}' },
     borderStyle: { value: 'solid' },
-    _focus: {
-      boxShadow: {
-        value: {
-          offsetX: '0',
-          offsetY: '0',
-          blurRadius: '0',
-          spreadRadius: '2px',
-          color: '{colors.border.focus.value}',
-        },
-      },
-    },
     trigger: {
       alignItems: { value: 'center' },
       color: { value: '{colors.font.secondary.value}' },
       backgroundColor: { value: '{colors.background.primary.value}' },
       justifyContent: { value: 'space-between' },
-      paddingBlock: { value: '{space.medium.value}' },
-      paddingInline: { value: '{space.medium.value}' },
+      paddingBlock: { value: '{space.xs.value}' },
+      paddingInline: { value: '{space.small.value}' },
       _hover: {
         color: { value: '{colors.font.secondary.value}' },
         backgroundColor: { value: '{colors.overlay.10.value}' },
       },
+      _focus: {
+        borderColor: { value: '{colors.border.focus.value}' },
+        boxShadow: {
+          value: {
+            offsetX: '0',
+            offsetY: '0',
+            blurRadius: '0',
+            spreadRadius: '2px',
+            color: '{colors.border.focus.value}',
+          },
+        },
+      },
     },
     content: {
       color: { value: '{colors.font.secondary.value}' },
-      paddingInline: { value: '{space.medium.value}' },
-      paddingBlockEnd: { value: '{space.medium.value}' },
-      paddingBlockStart: { value: '{space.xs.value}' },
+      paddingInline: { value: '{space.small.value}' },
+      paddingBlockEnd: { value: '{space.small.value}' },
+      paddingBlockStart: { value: '{space.xxxs.value}' },
     },
     icon: {
       transitionDuration: { value: '{time.medium.value}' },

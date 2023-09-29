@@ -86,16 +86,17 @@
     var(--secondary-nav-indent) + var(--amplify-space-medium)
   );
 
-  --amplify-components-accordion-item-header-padding-inline: 0;
-  --amplify-components-accordion-item-header-padding-block: 0;
+  --amplify-components-accordion-item-trigger-padding-inline: 0;
+  --amplify-components-accordion-item-trigger-padding-block: 0;
   --amplify-components-accordion-item-border-width: 0;
 
-  --amplify-components-accordion-item-body-padding-inline: 0;
-  --amplify-components-accordion-item-body-padding-block-start: 0;
-  --amplify-components-accordion-item-body-padding-block-end: 0;
-  --amplify-components-accordion-item-header-hover-background-color: var(
-    --amplify-colors-background-tertiary
-  );
+  --amplify-components-accordion-item-content-padding-inline: 0;
+  --amplify-components-accordion-item-content-padding-block-start: 0;
+  --amplify-components-accordion-item-content-padding-block-end: 0;
+
+  .amplify-accordion__item__trigger {
+    padding-inline-end: var(--amplify-space-xs);
+  }
 
   height: calc(100vh - var(--docs-dev-center-nav-height));
   width: var(--width);
