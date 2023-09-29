@@ -1,4 +1,5 @@
 import { uploadFile } from '../uploadFile';
+
 import * as Storage from '@aws-amplify/storage';
 
 const storageSpy = jest.spyOn(Storage, 'uploadData').mockImplementation();

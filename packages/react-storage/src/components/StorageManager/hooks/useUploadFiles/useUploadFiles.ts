@@ -1,10 +1,9 @@
 import * as React from 'react';
+
 import { TransferProgressEvent } from '@aws-amplify/storage';
 
-import { uploadFile } from '../../utils/uploadFile';
-
+import { uploadFile, UploadFileProps } from '../../utils/uploadFile';
 import { FileStatus } from '../../types';
-
 import { StorageManagerProps } from '../../types';
 import { UseStorageManager } from '../useStorageManager';
 import { resolveFile } from './resolveFile';
@@ -84,9 +83,11 @@ export function useUploadFiles({
             file,
             key,
           });
+
           setUploadingFile({
             id,
-            uploadTask: isResumable ? uploadTask : undefined,
+            // uploadTask: isResumable ? uploadTask : undefined,
+            uploadTask,
           });
         });
       }

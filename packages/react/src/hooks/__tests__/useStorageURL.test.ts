@@ -66,7 +66,7 @@ describe('useStorageURL', () => {
     const { waitForNextUpdate } = renderHook(() =>
       useStorageURL(useStorageURLParams)
     );
-
+    
     expect(getUrl).toHaveBeenCalledWith({ key, options });
 
     // Next update will happen when Storage.getUrl resolves

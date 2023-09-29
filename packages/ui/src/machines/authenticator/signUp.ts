@@ -345,7 +345,6 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         // },
         async federatedSignIn(_, event) {
           const { provider } = event.data;
-
           noop({ provider });
           // const result = noop({ provider });
           // return result;
