@@ -5,17 +5,19 @@ const theme: Theme = {
   tokens: {
     components: {
       accordion: {
-        backgroundColor: { value: '{colors.blue.10}' },
+        backgroundColor: '{colors.blue.10}',
         item: {
           trigger: {
+            color: '{colors.blue.80}',
             _hover: {
-              backgroundColor: { value: '{colors.overlay.20}' },
+              color: '{colors.blue.90}',
+              backgroundColor: '{colors.blue.20}',
             },
           },
           content: {
-            paddingInline: { value: '{space.xxl}' },
-            color: { value: '{colors.blue.80}' },
-            paddingBlockEnd: { value: '{space.large}' },
+            paddingInline: '{space.xxl}',
+            color: '{colors.blue.80}',
+            paddingBlockEnd: '{space.large}',
           },
         },
       },

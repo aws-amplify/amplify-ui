@@ -523,6 +523,10 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-border-secondary)\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-accordion-item-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-small)\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-accordion-item-border-style\\",
         \\"value\\": \\"solid\\"
     },
@@ -532,23 +536,23 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         \\"variable\\": \\"--amplify-components-accordion-item-content-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-secondary)\\"
+        \\"value\\": \\"inherit\\"
     },
     {
         \\"variable\\": \\"--amplify-components-accordion-item-content-padding-block-end\\",
-        \\"value\\": \\"var(--amplify-space-medium)\\"
+        \\"value\\": \\"var(--amplify-space-small)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-accordion-item-content-padding-block-start\\",
-        \\"value\\": \\"var(--amplify-space-xs)\\"
+        \\"value\\": \\"var(--amplify-space-xxxs)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-accordion-item-content-padding-inline\\",
-        \\"value\\": \\"var(--amplify-space-medium)\\"
+        \\"value\\": \\"var(--amplify-space-small)\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-accordion-item-focus-box-shadow\\",
-        \\"value\\": \\"0 0 0 2px var(--amplify-colors-border-focus)\\"
+        \\"variable\\": \\"--amplify-components-accordion-item-icon-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-tertiary)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-accordion-item-icon-transition-duration\\",
@@ -568,15 +572,23 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         \\"variable\\": \\"--amplify-components-accordion-item-trigger-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-secondary)\\"
+        \\"value\\": \\"inherit\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-accordion-item-trigger-focus-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-focus)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-accordion-item-trigger-focus-box-shadow\\",
+        \\"value\\": \\"0 0 0 2px var(--amplify-colors-border-focus)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-accordion-item-trigger-hover-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-overlay-10)\\"
+        \\"value\\": \\"var(--amplify-colors-overlay-5)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-accordion-item-trigger-hover-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-secondary)\\"
+        \\"value\\": \\"inherit\\"
     },
     {
         \\"variable\\": \\"--amplify-components-accordion-item-trigger-justify-content\\",
@@ -584,11 +596,11 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         \\"variable\\": \\"--amplify-components-accordion-item-trigger-padding-block\\",
-        \\"value\\": \\"var(--amplify-space-medium)\\"
+        \\"value\\": \\"var(--amplify-space-xs)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-accordion-item-trigger-padding-inline\\",
-        \\"value\\": \\"var(--amplify-space-medium)\\"
+        \\"value\\": \\"var(--amplify-space-small)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-alert-align-items\\",
@@ -4087,8 +4099,12 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-radiogroup-label-color\\",
-        \\"value\\": \\"var(--amplify-components-field-label-color)\\"
+        \\"variable\\": \\"--amplify-components-radiogroup-legend-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldset-legend-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radiogroup-legend-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-normal)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-radiogroup-radio-background-color\\",

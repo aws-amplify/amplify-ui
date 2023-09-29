@@ -1,6 +1,7 @@
 .amplify-accordion {
   display: block;
   background-color: var(--amplify-components-accordion-background-color);
+  border-radius: var(--amplify-components-accordion-item-border-radius);
 }
 
 .amplify-accordion__item {
@@ -17,10 +18,7 @@
     );
   }
 
-  // we need to make the corners of the trigger rounded for the first
-  // and last element too, but we don't want to make the specificity higher
-  &:where(:first-of-type),
-  &:where(:first-of-type) :where(&__trigger) {
+  &:where(:first-of-type) {
     border-start-end-radius: var(
       --amplify-components-accordion-item-border-radius
     );
@@ -29,8 +27,7 @@
     );
   }
 
-  &:where(:last-of-type),
-  &:where(:last-of-type) :where(&__trigger) {
+  &:where(:last-of-type) {
     border-end-end-radius: var(
       --amplify-components-accordion-item-border-radius
     );
@@ -43,6 +40,8 @@
     cursor: pointer;
     display: flex;
     position: relative;
+    color: var(--amplify-components-accordion-item-trigger-color);
+    border-radius: var(--amplify-components-accordion-item-border-radius);
     padding-inline: var(
       --amplify-components-accordion-item-trigger-padding-inline
     );
