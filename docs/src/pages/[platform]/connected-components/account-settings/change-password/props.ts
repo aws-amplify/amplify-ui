@@ -23,7 +23,7 @@ export const CHANGE_PASSWORD = [
   {
     name: `displayText?`,
     description: 'Text to override in the component',
-    type: `Partial<ChangePasswordDisplayText>`,
+    type: `ChangePasswordDisplayText`,
   },
 ];
 

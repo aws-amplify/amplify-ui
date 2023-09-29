@@ -21,7 +21,8 @@ const DefaultWarningView: WarningViewComponent = ({
     ...defaultDeleteUserDisplayText,
     ...overrideDisplayText,
   };
-  const { cancelText, deleteMyAccountText, warningText } = displayText;
+  const { cancelButtonText, confirmDeleteButtonText, warningText } =
+    displayText;
 
   return (
     <Card>
@@ -29,14 +30,14 @@ const DefaultWarningView: WarningViewComponent = ({
         <Text color="font.error">{warningText}</Text>
         <Flex>
           <Button variation="link" onClick={onCancel} isDisabled={isDisabled}>
-            {cancelText}
+            {cancelButtonText}
           </Button>
           <Button
             variation="destructive"
             onClick={onConfirm}
             isDisabled={isDisabled}
           >
-            {deleteMyAccountText}
+            {confirmDeleteButtonText}
           </Button>
         </Flex>
       </Flex>
