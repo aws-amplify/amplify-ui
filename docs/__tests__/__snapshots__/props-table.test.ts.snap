@@ -8032,17 +8032,17 @@ exports[`Props Table 1`] = `
         \\"RadioGroupField\\": [
             {
                 \\"Main\\": {
-                    \\"children\\": {
-                        \\"name\\": \\"children\\",
-                        \\"type\\": \\"React.ReactNode\\",
-                        \\"description\\": \\"Children to be rendered inside the component\\",
-                        \\"category\\": \\"BaseComponentProps\\",
-                        \\"isOptional\\": true
-                    },
                     \\"id\\": {
                         \\"name\\": \\"id\\",
                         \\"type\\": \\"string | undefined\\",
                         \\"description\\": \\"Unique identifier\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"children\\": {
+                        \\"name\\": \\"children\\",
+                        \\"type\\": \\"React.ReactNode\\",
+                        \\"description\\": \\"Children to be rendered inside the component\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -8070,7 +8070,7 @@ exports[`Props Table 1`] = `
                     \\"name\\": {
                         \\"name\\": \\"name\\",
                         \\"type\\": \\"string\\",
-                        \\"description\\": \\"Name of the Fieldset.\\",
+                        \\"description\\": \\"Name of the field. Submitted with the form as part of a name/value pair.\\",
                         \\"category\\": \\"BaseRadioGroupFieldProps\\",
                         \\"isOptional\\": false
                     },
@@ -8102,20 +8102,6 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseRadioGroupFieldProps\\",
                         \\"isOptional\\": true
                     },
-                    \\"isDisabled\\": {
-                        \\"name\\": \\"isDisabled\\",
-                        \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Sets the Boolean \`disabled\` HTML attribute, which, when present, makes the element not mutable, focusable, or even submitted with the form\\",
-                        \\"category\\": \\"BaseViewProps\\",
-                        \\"isOptional\\": true
-                    },
-                    \\"style\\": {
-                        \\"name\\": \\"style\\",
-                        \\"type\\": \\"React.CSSProperties | undefined\\",
-                        \\"description\\": \\"Accepts a JavaScript object with camelCased properties rather than a CSS string.\\\\nThis is consistent with the DOM style JavaScript property, is more efficient, and prevents XSS security holes. See: [React docs](https://reactjs.org/docs/dom-elements.html#style)\\",
-                        \\"category\\": \\"BaseViewProps\\",
-                        \\"isOptional\\": true
-                    },
                     \\"descriptiveText\\": {
                         \\"name\\": \\"descriptiveText\\",
                         \\"type\\": \\"React.ReactNode\\",
@@ -8130,6 +8116,20 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseFieldProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"label\\": {
+                        \\"name\\": \\"label\\",
+                        \\"type\\": \\"React.ReactNode\\",
+                        \\"description\\": \\"Label text for field (required)\\",
+                        \\"category\\": \\"BaseFieldProps\\",
+                        \\"isOptional\\": false
+                    },
+                    \\"labelHidden\\": {
+                        \\"name\\": \\"labelHidden\\",
+                        \\"type\\": \\"boolean | undefined\\",
+                        \\"description\\": \\"Visually hide label (not recommended in most cases) Default: false\\",
+                        \\"category\\": \\"BaseFieldProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"inputStyles\\": {
                         \\"name\\": \\"inputStyles\\",
                         \\"type\\": \\"BaseStyleProps | undefined\\",
@@ -8137,67 +8137,18 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseFieldProps\\",
                         \\"isOptional\\": true
                     },
-                    \\"legend\\": {
-                        \\"name\\": \\"legend\\",
-                        \\"type\\": \\"React.ReactNode\\",
-                        \\"description\\": \\"Legend is the label for the Fieldset.\\",
-                        \\"category\\": \\"BaseFieldsetProps\\",
-                        \\"isOptional\\": false
-                    },
-                    \\"legendHidden\\": {
-                        \\"name\\": \\"legendHidden\\",
+                    \\"isDisabled\\": {
+                        \\"name\\": \\"isDisabled\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Visually hides the legend while making it still accessible to screenreaders.\\",
-                        \\"category\\": \\"BaseFieldsetProps\\",
+                        \\"description\\": \\"Sets the Boolean \`disabled\` HTML attribute, which, when present, makes the element not mutable, focusable, or even submitted with the form\\",
+                        \\"category\\": \\"BaseViewProps\\",
                         \\"isOptional\\": true
                     },
-                    \\"variation\\": {
-                        \\"name\\": \\"variation\\",
-                        \\"type\\": \\"\\\\\\"outlined\\\\\\" | \\\\\\"plain\\\\\\" | undefined\\",
-                        \\"description\\": \\"Adds plain or outlined variation to the Fieldset\\",
-                        \\"category\\": \\"BaseFieldsetProps\\",
-                        \\"isOptional\\": true
-                    },
-                    \\"size\\": {
-                        \\"name\\": \\"size\\",
-                        \\"type\\": \\"'small' | 'large'\\",
-                        \\"description\\": \\"Changes the size of the Fieldset\\",
-                        \\"category\\": \\"BaseFieldsetProps\\",
-                        \\"isOptional\\": true
-                    },
-                    \\"form\\": {
-                        \\"name\\": \\"form\\",
-                        \\"type\\": \\"string | undefined\\",
-                        \\"description\\": \\"Form to associate the Fieldset with\\",
-                        \\"category\\": \\"BaseFieldsetProps\\",
-                        \\"isOptional\\": true
-                    },
-                    \\"defaultChecked\\": {
-                        \\"name\\": \\"defaultChecked\\",
-                        \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Use this to initialize an uncontrolled checkbox or radio.\\",
-                        \\"category\\": \\"BaseInputProps\\",
-                        \\"isOptional\\": true
-                    },
-                    \\"placeholder\\": {
-                        \\"name\\": \\"placeholder\\",
-                        \\"type\\": \\"string | undefined\\",
-                        \\"description\\": \\"Placeholder text shown when field is empty Accessibility tip: avoid putting important instructions for filling out the TextField in the placeholder. Use descriptiveText for important instructions.\\",
-                        \\"category\\": \\"BaseInputProps\\",
-                        \\"isOptional\\": true
-                    },
-                    \\"inputMode\\": {
-                        \\"name\\": \\"inputMode\\",
-                        \\"type\\": \\"InputMode | undefined\\",
-                        \\"description\\": \\" Provides hint for virtual keyboard shown See: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode) Default: \\\\\\"text\\\\\\"\\",
-                        \\"category\\": \\"BaseInputProps\\",
-                        \\"isOptional\\": true
-                    },
-                    \\"type\\": {
-                        \\"name\\": \\"type\\",
-                        \\"type\\": \\"React.HTMLInputTypeAttribute | undefined\\",
-                        \\"description\\": \\"Input field type.\\",
-                        \\"category\\": \\"BaseInputProps\\",
+                    \\"style\\": {
+                        \\"name\\": \\"style\\",
+                        \\"type\\": \\"React.CSSProperties | undefined\\",
+                        \\"description\\": \\"Accepts a JavaScript object with camelCased properties rather than a CSS string.\\\\nThis is consistent with the DOM style JavaScript property, is more efficient, and prevents XSS security holes. See: [React docs](https://reactjs.org/docs/dom-elements.html#style)\\",
+                        \\"category\\": \\"BaseViewProps\\",
                         \\"isOptional\\": true
                     },
                     \\"autoComplete\\": {
@@ -8211,6 +8162,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"checked\\",
                         \\"type\\": \\"boolean | undefined\\",
                         \\"description\\": \\"If checked is provided, this will be a controlled checkbox or radio.\\",
+                        \\"category\\": \\"BaseInputProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"defaultChecked\\": {
+                        \\"name\\": \\"defaultChecked\\",
+                        \\"type\\": \\"boolean | undefined\\",
+                        \\"description\\": \\"Use this to initialize an uncontrolled checkbox or radio.\\",
                         \\"category\\": \\"BaseInputProps\\",
                         \\"isOptional\\": true
                     },
@@ -8228,6 +8186,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseInputProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inputMode\\": {
+                        \\"name\\": \\"inputMode\\",
+                        \\"type\\": \\"InputMode | undefined\\",
+                        \\"description\\": \\" Provides hint for virtual keyboard shown See: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode) Default: \\\\\\"text\\\\\\"\\",
+                        \\"category\\": \\"BaseInputProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"isReadOnly\\": {
                         \\"name\\": \\"isReadOnly\\",
                         \\"type\\": \\"boolean | undefined\\",
@@ -8239,6 +8204,34 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"isRequired\\",
                         \\"type\\": \\"boolean | undefined\\",
                         \\"description\\": \\"Whether field should be marked required.\\",
+                        \\"category\\": \\"BaseInputProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"placeholder\\": {
+                        \\"name\\": \\"placeholder\\",
+                        \\"type\\": \\"string | undefined\\",
+                        \\"description\\": \\"Placeholder text shown when field is empty Accessibility tip: avoid putting important instructions for filling out the TextField in the placeholder. Use descriptiveText for important instructions.\\",
+                        \\"category\\": \\"BaseInputProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"size\\": {
+                        \\"name\\": \\"size\\",
+                        \\"type\\": \\"'small' | 'large'\\",
+                        \\"description\\": \\"Changes the font-size, padding, and height of the field.\\",
+                        \\"category\\": \\"BaseInputProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"type\\": {
+                        \\"name\\": \\"type\\",
+                        \\"type\\": \\"React.HTMLInputTypeAttribute | undefined\\",
+                        \\"description\\": \\"Input field type.\\",
+                        \\"category\\": \\"BaseInputProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"variation\\": {
+                        \\"name\\": \\"variation\\",
+                        \\"type\\": \\"\\\\\\"quiet\\\\\\" | undefined\\",
+                        \\"description\\": \\"Variants.\\",
                         \\"category\\": \\"BaseInputProps\\",
                         \\"isOptional\\": true
                     }
@@ -8337,10 +8330,10 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"FlexItemStyleProps\\",
                         \\"isOptional\\": true
                     },
-                    \\"row\\": {
-                        \\"name\\": \\"row\\",
-                        \\"type\\": \\"ResponsiveStyle<Property.GridRow> | undefined\\",
-                        \\"description\\": \\"Specifies a grid item's size and location within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row)\\",
+                    \\"area\\": {
+                        \\"name\\": \\"area\\",
+                        \\"type\\": \\"ResponsiveStyle<Property.GridArea> | undefined\\",
+                        \\"description\\": \\"Specifies a grid item's size and location within a grid by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the edges of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area)\\",
                         \\"category\\": \\"GridItemStyleProps\\",
                         \\"isOptional\\": true
                     },
@@ -8348,13 +8341,6 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"column\\",
                         \\"type\\": \\"ResponsiveStyle<Property.GridColumn> | undefined\\",
                         \\"description\\": \\"Specifies a grid item's size and location within a grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column)\\",
-                        \\"category\\": \\"GridItemStyleProps\\",
-                        \\"isOptional\\": true
-                    },
-                    \\"area\\": {
-                        \\"name\\": \\"area\\",
-                        \\"type\\": \\"ResponsiveStyle<Property.GridArea> | undefined\\",
-                        \\"description\\": \\"Specifies a grid item's size and location within a grid by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the edges of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area)\\",
                         \\"category\\": \\"GridItemStyleProps\\",
                         \\"isOptional\\": true
                     },
@@ -8376,6 +8362,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"columnStart\\",
                         \\"type\\": \\"ResponsiveStyle<Property.GridColumnStart> | undefined\\",
                         \\"description\\": \\"Specifies a grid item's start position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement. This start position defines the block-start edge of the grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-start)\\",
+                        \\"category\\": \\"GridItemStyleProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"row\\": {
+                        \\"name\\": \\"row\\",
+                        \\"type\\": \\"ResponsiveStyle<Property.GridRow> | undefined\\",
+                        \\"description\\": \\"Specifies a grid item's size and location within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row)\\",
                         \\"category\\": \\"GridItemStyleProps\\",
                         \\"isOptional\\": true
                     },

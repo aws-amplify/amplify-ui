@@ -158,6 +158,14 @@ module.exports = withNextPluginPreval({
           '/:platform(react|react-native|angular|vue)/connected-components/authenticator/advanced',
         permanent: true,
       },
+
+      /**
+       * Renamed "expander" to "accordion"
+       */
+      {
+        source: '/react/components/expander',
+        destination: '/react/components/accordion',
+      },
     ];
   },
 
