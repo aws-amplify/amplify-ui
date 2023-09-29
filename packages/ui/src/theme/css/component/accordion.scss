@@ -18,37 +18,37 @@
     z-index: 2;
   }
 
-  &__header {
+  &__trigger {
     display: flex;
     padding-inline: var(
-      --amplify-components-accordion-item-header-padding-inline
+      --amplify-components-accordion-item-trigger-padding-inline
     );
     padding-block: var(
-      --amplify-components-accordion-item-header-padding-block
+      --amplify-components-accordion-item-trigger-padding-block
     );
-    align-items: var(--amplify-components-accordion-item-header-align-items);
+    align-items: var(--amplify-components-accordion-item-trigger-align-items);
     justify-content: var(
-      --amplify-components-accordion-item-header-justify-content
+      --amplify-components-accordion-item-trigger-justify-content
     );
 
     &:hover {
       background-color: var(
-        --amplify-components-accordion-item-header-hover-background-color
+        --amplify-components-accordion-item-trigger-hover-background-color
       );
     }
   }
 
-  &__body {
+  &__content {
     display: block;
-    color: var(--amplify-components-accordion-item-body-color);
+    color: var(--amplify-components-accordion-item-content-color);
     padding-block-end: var(
-      --amplify-components-accordion-item-body-padding-block-end
+      --amplify-components-accordion-item-content-padding-block-end
     );
     padding-block-start: var(
-      --amplify-components-accordion-item-body-padding-block-start
+      --amplify-components-accordion-item-content-padding-block-start
     );
     padding-inline: var(
-      --amplify-components-accordion-item-body-padding-inline
+      --amplify-components-accordion-item-content-padding-inline
     );
   }
 

@@ -16,7 +16,7 @@ export const CustomTitle = ({ courseNumber, courseName }) => {
 
 export const CustomTitleComponent = () => {
   return (
-    <Accordion isExclusive>
+    <Accordion>
       <Accordion.Item
         title={
           <CustomTitle

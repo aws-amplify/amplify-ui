@@ -47,102 +47,105 @@ describe('Accordion:', () => {
       <UncontrolledAccordion
         className={className}
         defaultValue={['item-1']}
-        isExclusive
         testId={testId}
       />
     );
-    const expander = await screen.findByTestId(testId);
-    expect(expander).toHaveClass(ComponentClassName.Expander, className);
+    const accordion = await screen.findByTestId(testId);
+    expect(accordion).toHaveClass(ComponentClassName.Accordion, className);
   });
 
   it('should be collapsible', async () => {
-    render(
-      <UncontrolledAccordion
-        defaultValue={['item-1']}
-        isExclusive
-        isCollapsible
-      />
+    const { container } = render(
+      <UncontrolledAccordion defaultValue={['item-1']} allowToggle />
     );
-    const buttons = await screen.findAllByRole('button');
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
-    userEvent.click(buttons[0]);
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'false');
+    const details = container.getElementsByTagName('details');
+    const summaries = container.getElementsByTagName('summary');
+    expect(details[0]).toHaveAttribute('open');
+    userEvent.click(summaries[0]);
+    expect(details[0]).not.toHaveAttribute('open');
   });
 
-  it('should work as uncontrolled component with type single', async () => {
-    render(<UncontrolledAccordion defaultValue={['item-1']} isExclusive />);
+  it('should work as uncontrolled component', async () => {
+    const { container } = render(
+      <UncontrolledAccordion defaultValue={['item-1']} />
+    );
 
-    const buttons = await screen.findAllByRole('button');
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[1]).toHaveAttribute('aria-expanded', 'false');
-    expect(buttons[2]).toHaveAttribute('aria-expanded', 'false');
+    const details = container.getElementsByTagName('details');
+    const summaries = container.getElementsByTagName('summary');
+    expect(details[0]).toHaveAttribute('open');
+    expect(details[1]).not.toHaveAttribute('open');
+    expect(details[2]).not.toHaveAttribute('open');
 
-    userEvent.click(buttons[1]);
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'false');
-    expect(buttons[1]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[2]).toHaveAttribute('aria-expanded', 'false');
+    userEvent.click(summaries[1]);
+    expect(details[0]).not.toHaveAttribute('open');
+    expect(details[1]).toHaveAttribute('open');
+    expect(details[2]).not.toHaveAttribute('open');
 
-    userEvent.click(buttons[2]);
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'false');
-    expect(buttons[1]).toHaveAttribute('aria-expanded', 'false');
-    expect(buttons[2]).toHaveAttribute('aria-expanded', 'true');
+    userEvent.click(summaries[2]);
+    expect(details[0]).not.toHaveAttribute('open');
+    expect(details[1]).not.toHaveAttribute('open');
+    expect(details[2]).toHaveAttribute('open');
   });
 
-  it('should work as uncontrolled component with type multiple', async () => {
-    render(<UncontrolledAccordion defaultValue={['item-1']} />);
+  it('should work as uncontrolled component with allowMultiple', async () => {
+    const { container } = render(
+      <UncontrolledAccordion allowMultiple defaultValue={['item-1']} />
+    );
+    const details = container.getElementsByTagName('details');
+    const summaries = container.getElementsByTagName('summary');
+    expect(details[0]).toHaveAttribute('open');
+    expect(details[1]).not.toHaveAttribute('open');
+    expect(details[2]).not.toHaveAttribute('open');
 
-    const buttons = await screen.findAllByRole('button');
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[1]).toHaveAttribute('aria-expanded', 'false');
-    expect(buttons[2]).toHaveAttribute('aria-expanded', 'false');
+    userEvent.click(summaries[1]);
+    expect(details[0]).toHaveAttribute('open');
+    expect(details[1]).toHaveAttribute('open');
+    expect(details[2]).not.toHaveAttribute('open');
 
-    userEvent.click(buttons[1]);
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[1]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[2]).toHaveAttribute('aria-expanded', 'false');
-
-    userEvent.click(buttons[2]);
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[1]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[2]).toHaveAttribute('aria-expanded', 'true');
+    userEvent.click(summaries[2]);
+    expect(details[0]).toHaveAttribute('open');
+    expect(details[1]).toHaveAttribute('open');
+    expect(details[2]).toHaveAttribute('open');
   });
 
-  it('should work as controlled component with type single', async () => {
-    render(<ControlledAccordion value={['item-1']} isExclusive />);
+  it('should work as controlled component', async () => {
+    const { container } = render(<ControlledAccordion value={['item-1']} />);
+    const details = container.getElementsByTagName('details');
+    const summaries = container.getElementsByTagName('summary');
+    expect(details[0]).toHaveAttribute('open');
+    expect(details[1]).not.toHaveAttribute('open');
+    expect(details[2]).not.toHaveAttribute('open');
 
-    const buttons = await screen.findAllByRole('button');
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[1]).toHaveAttribute('aria-expanded', 'false');
-    expect(buttons[2]).toHaveAttribute('aria-expanded', 'false');
+    userEvent.click(summaries[1]);
+    expect(details[0]).not.toHaveAttribute('open');
+    expect(details[1]).toHaveAttribute('open');
+    expect(details[2]).not.toHaveAttribute('open');
 
-    userEvent.click(buttons[1]);
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'false');
-    expect(buttons[1]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[2]).toHaveAttribute('aria-expanded', 'false');
-
-    userEvent.click(buttons[2]);
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'false');
-    expect(buttons[1]).toHaveAttribute('aria-expanded', 'false');
-    expect(buttons[2]).toHaveAttribute('aria-expanded', 'true');
+    userEvent.click(summaries[2]);
+    expect(details[0]).not.toHaveAttribute('open');
+    expect(details[1]).not.toHaveAttribute('open');
+    expect(details[2]).toHaveAttribute('open');
   });
 
-  it('should work as controlled component with type multiple', async () => {
-    render(<ControlledAccordion value={['item-1']} />);
+  it('should work as controlled component with allowMultiple', async () => {
+    const { container } = render(
+      <ControlledAccordion allowMultiple value={['item-1']} />
+    );
+    const details = container.getElementsByTagName('details');
+    const summaries = container.getElementsByTagName('summary');
+    expect(details[0]).toHaveAttribute('open');
+    expect(details[1]).not.toHaveAttribute('open');
+    expect(details[2]).not.toHaveAttribute('open');
 
-    const buttons = await screen.findAllByRole('button');
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[1]).toHaveAttribute('aria-expanded', 'false');
-    expect(buttons[2]).toHaveAttribute('aria-expanded', 'false');
+    userEvent.click(summaries[1]);
+    expect(details[0]).toHaveAttribute('open');
+    expect(details[1]).toHaveAttribute('open');
+    expect(details[2]).not.toHaveAttribute('open');
 
-    userEvent.click(buttons[1]);
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[1]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[2]).toHaveAttribute('aria-expanded', 'false');
-
-    userEvent.click(buttons[2]);
-    expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[1]).toHaveAttribute('aria-expanded', 'true');
-    expect(buttons[2]).toHaveAttribute('aria-expanded', 'true');
+    userEvent.click(summaries[2]);
+    expect(details[0]).toHaveAttribute('open');
+    expect(details[1]).toHaveAttribute('open');
+    expect(details[2]).toHaveAttribute('open');
   });
 
   it('should forward ref support on DOM element', async () => {

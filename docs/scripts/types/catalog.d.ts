@@ -1,4 +1,6 @@
 export type ComponentName =
+  | 'Accordion'
+  | 'Accordion.Item'
   | 'Alert'
   | 'Badge'
   | 'Breadcrumbs'
@@ -15,7 +17,6 @@ export type ComponentName =
   | 'DropZone.Accepted'
   | 'DropZone.Rejected'
   | 'DropZone.Default'
-  | 'Expander'
   | 'ExpanderGroup'
   | 'FieldGroupIcon'
   | 'FieldGroupIconButton'

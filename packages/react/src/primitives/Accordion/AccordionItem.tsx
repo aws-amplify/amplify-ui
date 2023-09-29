@@ -5,7 +5,6 @@ import { ComponentClassName } from '@aws-amplify/ui';
 import { BaseAccordionItemProps, AccordionItemProps } from './types';
 import { IconExpandMore, useIcons } from '../Icon';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
-import { useStableId } from '../utils/useStableId';
 import { View } from '../View';
 import { AccordionContext } from './AccordionContext';
 
@@ -13,8 +12,6 @@ const AccordionItemPrimitive: Primitive<AccordionItemProps, 'details'> = (
   { children, className, title, value, ...rest },
   ref
 ) => {
-  const triggerId = useStableId();
-  const contentId = useStableId();
   const icons = useIcons('expander');
   const context = React.useContext(AccordionContext);
   const controlledProps = {};
@@ -35,7 +32,7 @@ const AccordionItemPrimitive: Primitive<AccordionItemProps, 'details'> = (
     >
       <View
         as="summary"
-        className={ComponentClassName.AccordionItemHeader}
+        className={ComponentClassName.AccordionItemTrigger}
         onClick={(e) => {
           if (context?.setValue && value) {
             e.preventDefault();
@@ -52,11 +49,7 @@ const AccordionItemPrimitive: Primitive<AccordionItemProps, 'details'> = (
           {icons?.more ?? <IconExpandMore />}
         </View>
       </View>
-      <View
-        aria-labelledby={triggerId}
-        className={ComponentClassName.AccordionItemBody}
-        id={contentId}
-      >
+      <View className={ComponentClassName.AccordionItemContent}>
         {children}
       </View>
     </View>

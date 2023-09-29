@@ -15,16 +15,17 @@ export interface BaseAccordionProps extends BaseViewProps {
 
   /**
    * @description
-   * Determines whether the opened item can be collapsed if this is a single expander.
-   */
-  isCollapsible?: boolean;
-
-  /**
-   * @description
    * Determines whether one or multiple items can be opened at the same time.
    * Default: false
    */
-  isExclusive?: boolean;
+  allowMultiple?: boolean;
+
+  /**
+   * @description
+   * Determines whether the opened item can always be collapsed even if its the only one.
+   * Default: false
+   */
+  allowToggle?: boolean;
 
   /**
    * @description

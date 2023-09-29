@@ -14,11 +14,11 @@ export type AccordionTokens<Output extends OutputVariantKey> =
         'transitionDuration' | 'transitionTimingFunction',
         Output
       >;
-      body?: DesignTokenProperties<
+      content?: DesignTokenProperties<
         'color' | 'paddingInline' | 'paddingBlockEnd' | 'paddingBlockStart',
         Output
       >;
-      header?: DesignTokenProperties<
+      trigger?: DesignTokenProperties<
         | 'alignItems'
         | 'backgroundColor'
         | 'paddingInline'
@@ -49,7 +49,7 @@ export const accordion: Required<AccordionTokens<'default'>> = {
         },
       },
     },
-    header: {
+    trigger: {
       alignItems: { value: 'center' },
       color: { value: '{colors.font.secondary.value}' },
       backgroundColor: { value: '{colors.background.primary.value}' },
@@ -61,7 +61,7 @@ export const accordion: Required<AccordionTokens<'default'>> = {
         backgroundColor: { value: '{colors.overlay.10.value}' },
       },
     },
-    body: {
+    content: {
       color: { value: '{colors.font.secondary.value}' },
       paddingInline: { value: '{space.medium.value}' },
       paddingBlockEnd: { value: '{space.medium.value}' },

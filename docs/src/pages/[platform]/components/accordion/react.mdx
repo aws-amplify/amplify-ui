@@ -42,23 +42,7 @@ Import the Accordion and Accordion.Item components and styles.
 
 ### Single or multiple
 
-To only allow one item to be open at a time, add the `isExclusive` prop.
-
-<Example>
-  <View>
-    <BasicSingleAccordion />
-  </View>
-  
-  <ExampleCode>
-
-```jsx file=./examples/BasicSingleExample.tsx
-
-```
-
-  </ExampleCode>
-</Example>
-
-The default behavior allows opening multiple items at once.
+The accordion by default only allows 1 item to be displayed at a time. To allow multiple items to be opened at a time, add the `allowMultiple` prop.
 
 <Example>
   <View>
@@ -74,11 +58,29 @@ The default behavior allows opening multiple items at once.
   </ExampleCode>
 </Example>
 
+
+The default behavior allows opening a single item at once.
+
+<Example>
+  <View>
+    <BasicSingleAccordion />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/BasicSingleExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+
 ### Allow collapsing
 
-To allow the accordion to have all items collapsed, set the `isCollapsible` prop.
+To allow the accordion to have all items collapsed, set the `allowToggle` prop.
 
-**Note**: The `isCollapsible` prop only applies to the `single` Accordion, and it is set to `false` (not collapsible) by default.
+**Note**: The `allowToggle` prop only applies to the `single` Accordion, and it is set to `false` (not collapsible) by default.
 
 <Example>
   <View>

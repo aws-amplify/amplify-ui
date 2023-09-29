@@ -3,35 +3,35 @@ import * as React from 'react';
 import { CheckboxField, AccordionProps, Flex } from '@aws-amplify/ui-react';
 
 export interface AccordionPropControlsProps extends AccordionProps {
-  setIsExclusive: (
-    value: React.SetStateAction<AccordionProps['isExclusive']>
+  setAllowMultiple: (
+    value: React.SetStateAction<AccordionProps['allowMultiple']>
   ) => void;
-  setIsCollapsible: (
-    value: React.SetStateAction<AccordionProps['isCollapsible']>
+  setAllowToggle: (
+    value: React.SetStateAction<AccordionProps['allowToggle']>
   ) => void;
 }
 
 export const AccordionPropControls: React.FC<AccordionPropControlsProps> = ({
-  isExclusive,
-  setIsExclusive,
-  isCollapsible,
-  setIsCollapsible,
+  allowMultiple,
+  setAllowMultiple,
+  allowToggle,
+  setAllowToggle,
 }) => {
   return (
     <Flex direction="column">
       <CheckboxField
-        name="collapsible"
-        checked={isExclusive}
+        name="allowMultiple"
+        checked={allowMultiple}
         value="yes"
-        onChange={(event) => setIsExclusive(event.target.checked)}
-        label="isExclusive"
+        onChange={(event) => setAllowMultiple(event.target.checked)}
+        label="allowMultiple"
       />
       <CheckboxField
-        name="collapsible"
-        checked={isCollapsible}
+        name="allowToggle"
+        checked={allowToggle}
         value="yes"
-        onChange={(event) => setIsCollapsible(event.target.checked)}
-        label="isCollapsible"
+        onChange={(event) => setAllowToggle(event.target.checked)}
+        label="allowToggle"
       />
     </Flex>
   );

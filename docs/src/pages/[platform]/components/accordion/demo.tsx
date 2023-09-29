@@ -8,33 +8,29 @@ import { demoState } from '@/utils/demoState';
 
 const propsToCode = (AccordionProps) => {
   return (
-    `<AccordionGroup` +
-    (AccordionProps.type
-      ? ` type=${JSON.stringify(AccordionProps.type)}`
-      : '') +
-    (AccordionProps.type === 'single' && AccordionProps.isCollapsible
-      ? ` isCollapsible={${JSON.stringify(AccordionProps.isCollapsible)}}`
-      : '') +
+    `<Accordion` +
+    (AccordionProps.allowToggle ? ` allowToggle` : '') +
+    (AccordionProps.allowMultiple ? ` allowMultiple` : '') +
     `>
-  <Accordion title="Is it accessible?" value="demo-item-1">
+  <Accordion.Item title="Is it accessible?" value="demo-item-1">
     Yes! It adheres to the WAI-ARIA design pattern.
-  </Accordion>
-  <Accordion title="Can I customize the styling?" value="demo-item-2">
+  </Accordion.Item>
+  <Accordion.Item title="Can I customize the styling?" value="demo-item-2">
     Of course! See the section on CSS Styling below.
-  </Accordion>
-  <Accordion
+  </Accordion.Item>
+  <Accordion.Item
     title="Is it a great way to organize content?"
     value="demo-item-3"
   >
     Most definitely!
-  </Accordion>
+  </Accordion.Item>
 </Accordion>`
   );
 };
 
 const defaultAccordionProps = {
-  type: 'single',
-  isCollapsible: false,
+  allowMultiple: false,
+  allowToggle: false,
 };
 
 export const AccordionDemo = () => {
@@ -47,7 +43,10 @@ export const AccordionDemo = () => {
       code={propsToCode(AccordionProps)}
       propControls={<AccordionPropControls {...AccordionProps} />}
     >
-      <Accordion isCollapsible={AccordionProps.isCollapsible}>
+      <Accordion
+        allowMultiple={AccordionProps.allowMultiple}
+        allowToggle={AccordionProps.allowToggle}
+      >
         <Accordion.Item title="Is it accessible?" value="demo-item-1">
           Yes! It adheres to the WAI-ARIA design pattern.
         </Accordion.Item>

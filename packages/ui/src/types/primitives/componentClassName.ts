@@ -1,8 +1,8 @@
 export const ComponentClassName = {
   Accordion: 'amplify-accordion',
   AccordionItem: 'amplify-accordion__item',
-  AccordionItemHeader: 'amplify-accordion__item__header',
-  AccordionItemBody: 'amplify-accordion__item__body',
+  AccordionItemTrigger: 'amplify-accordion__item__trigger',
+  AccordionItemContent: 'amplify-accordion__item__content',
   AccordionItemIcon: 'amplify-accordion__item__icon',
   Alert: 'amplify-alert',
   AlertIcon: 'amplify-alert__icon',

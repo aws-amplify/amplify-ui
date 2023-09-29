@@ -1,10 +1,4 @@
-import {
-  Collection,
-  Card,
-  Text,
-  Expander,
-  ExpanderGroup,
-} from '@aws-amplify/ui-react';
+import { Accordion, Card, Collection, Text } from '@aws-amplify/ui-react';
 
 export const AuthenticatorClasses = () => {
   const classList = [
@@ -34,8 +28,8 @@ export const AuthenticatorClasses = () => {
   const search = (className, searchText) => className.includes(searchText);
 
   return (
-    <ExpanderGroup>
-      <Expander title="Available Classes" value="classNames">
+    <Accordion>
+      <Accordion.Item title="Available Classes" value="classNames">
         <Collection
           type="list"
           items={classList}
@@ -53,7 +47,7 @@ export const AuthenticatorClasses = () => {
             </Card>
           )}
         </Collection>
-      </Expander>
-    </ExpanderGroup>
+      </Accordion.Item>
+    </Accordion>
   );
 };

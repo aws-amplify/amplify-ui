@@ -5,7 +5,7 @@ import { Accordion } from '@aws-amplify/ui-react';
 export const ControlledSingleAccordion = () => {
   const [value, setValue] = React.useState<string[]>([]);
   return (
-    <Accordion isExclusive value={value} onChange={setValue}>
+    <Accordion value={value} onChange={setValue}>
       <Accordion.Item
         title="What do you call a deer with no eyes?"
         value="joke-1"

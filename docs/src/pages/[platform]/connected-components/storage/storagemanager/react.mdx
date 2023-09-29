@@ -1,4 +1,4 @@
-import { Alert, Expander, ExpanderGroup } from '@aws-amplify/ui-react';
+import { Alert, Accordion } from '@aws-amplify/ui-react';
 
 import { AppDirectoryAlert } from '@/components/AppDirectoryAlert';
 
@@ -171,9 +171,9 @@ All text in the StorageManager component is customizable with the `displayText` 
 </Example>
 
 
-<Expander title="Display text props">
+<Accordion.Item title="Display text props">
   <ReactPropsTable props={DISPLAY_TEXT} />
-</Expander>
+</Accordion.Item>
 
 ### Internationalization
 
@@ -201,14 +201,14 @@ _You can even use a completely different UI kit like MUI, Chakra, or your own de
   </ExampleCode>
 </Example>
 
-<ExpanderGroup type="multiple">
-  <Expander title="FilePicker props" value="filepicker">
+<Accordion allowToggle>
+  <Accordion.Item title="FilePicker props" value="filepicker">
     <ReactPropsTable props={FILE_PICKER} />
-  </Expander>
-  <Expander title="DropZone props" value="dropzone">
+  </Accordion.Item>
+  <Accordion.Item title="DropZone props" value="dropzone">
     <ReactPropsTable props={DROPZONE_PROPS} />
-  </Expander>
-</ExpanderGroup>
+  </Accordion.Item>
+</Accordion>
 
 ### Imperative handles
 

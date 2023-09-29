@@ -146,7 +146,7 @@ const SecondaryNav = (props) => {
   const hideGuidesExpander = isFlutter || isReactNative || isAndroid || isSwift;
 
   return (
-    <Accordion isCollapsible value={value} onChange={setValue}>
+    <Accordion allowToggle value={value} onChange={setValue}>
       {
         <Accordion.Item
           title={

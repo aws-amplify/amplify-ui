@@ -4,7 +4,7 @@ import { Accordion } from '@aws-amplify/ui-react';
 
 export const BasicSingleAccordion = () => {
   return (
-    <Accordion isExclusive>
+    <Accordion>
       <Accordion.Item title="Click me first!" value="item-1">
         Now when you click the second item, this item will automatically
         collapse.

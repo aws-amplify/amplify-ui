@@ -8,27 +8,27 @@ interface UseAccordionProps {
 }
 
 export const useAccordionProps: UseAccordionProps = (initialValues) => {
-  const [isExclusive, setIsExclusive] = React.useState(
-    initialValues.isCollapsible
+  const [allowMultiple, setAllowMultiple] = React.useState(
+    initialValues.allowMultiple
   );
-  const [isCollapsible, setIsCollapsible] = React.useState(
-    initialValues.isCollapsible
+  const [allowToggle, setAllowToggle] = React.useState(
+    initialValues.allowToggle
   );
 
   React.useEffect(() => {
     demoState.set(Accordion.displayName, {
-      isExclusive,
-      isCollapsible,
+      allowMultiple,
+      allowToggle,
     });
-  }, [isExclusive, isCollapsible]);
+  }, [allowMultiple, allowToggle]);
 
   return React.useMemo(
     () => ({
-      isExclusive,
-      setIsExclusive,
-      isCollapsible,
-      setIsCollapsible,
+      allowMultiple,
+      setAllowMultiple,
+      allowToggle,
+      setAllowToggle,
     }),
-    [isExclusive, setIsExclusive, isCollapsible, setIsCollapsible]
+    [allowMultiple, setAllowMultiple, allowToggle, setAllowToggle]
   );
 };

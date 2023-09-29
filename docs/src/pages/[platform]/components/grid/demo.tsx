@@ -1,8 +1,7 @@
 import * as React from 'react';
 import {
+  Accordion,
   Card,
-  Expander,
-  ExpanderGroup,
   Grid,
   GridContainerStyleProps,
   GridItemStyleProps,
@@ -180,27 +179,23 @@ export const GridDemo = () => {
       code={propsToCode(gridContainerProps, gridItemsCode)}
       propControls={
         <>
-          <ExpanderGroup
-            type="multiple"
-            value={value as string | string[]}
-            onChange={handleExpandChange}
-          >
-            <Expander title="Grid container props" value="item-1">
+          <Accordion value={value} onChange={handleExpandChange}>
+            <Accordion.Item title="Grid container props" value="item-1">
               <GridContainerPropControls {...gridContainerProps} />
-            </Expander>
-            <Expander title="Grid item (Header) props" value="item-2">
+            </Accordion.Item>
+            <Accordion.Item title="Grid item (Header) props" value="item-2">
               <GridItemPropControls {...headerGridItemProps} />
-            </Expander>
-            <Expander title="Grid item (Nav) props" value="item-3">
+            </Accordion.Item>
+            <Accordion.Item title="Grid item (Nav) props" value="item-3">
               <GridItemPropControls {...navGridItemProps} />
-            </Expander>
-            <Expander title="Grid item (Main) props" value="item-4">
+            </Accordion.Item>
+            <Accordion.Item title="Grid item (Main) props" value="item-4">
               <GridItemPropControls {...mainGridItemProps} />
-            </Expander>
-            <Expander title="Grid item (Footer) props" value="item-5">
+            </Accordion.Item>
+            <Accordion.Item title="Grid item (Footer) props" value="item-5">
               <GridItemPropControls {...footerGridItemProps} />
-            </Expander>
-          </ExpanderGroup>
+            </Accordion.Item>
+          </Accordion>
         </>
       }
     >

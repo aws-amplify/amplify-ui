@@ -12,8 +12,8 @@ const AccordionPrimitive: Primitive<AccordionProps, 'div'> = (
     children,
     className,
     defaultValue,
-    isCollapsible,
-    isExclusive,
+    allowMultiple,
+    allowToggle,
     onChange,
     testId,
     value: controlledValue,
@@ -31,21 +31,21 @@ const AccordionPrimitive: Primitive<AccordionProps, 'div'> = (
     (_value: string) => {
       /**
        * This code looks a bit complex, but here is what it is doing:
-       * if the current value (which is an array of string values of expanders that are currently open)
-       * has the incoming expander value then we want to remove it (aka collapse it) if the ExpanderGroup
-       * has isCollapsible (meaning all expanders can be collapsed) OR if the ExpanderGroup array is
+       * if the current value (which is an array of string values of items that are currently open)
+       * has the incoming item value then we want to remove it (aka collapse it) if the Accordion
+       * has allowToggle (meaning all items can be collapsed) OR if the Accordion's value array is
        * more than 1 so that at least 1 will still be open.
-       * If the ExpanderGroup array doesn't have the incoming Expander value, that means we want to open
-       * the Expander, BUT if the ExpanderGroup only allows 1 Expander to be open at a time then
-       * replace the array with an array of only the Expander value.
+       * If the Accordion array doesn't have the incoming item value, that means we want to open
+       * the item, BUT if the Accordion only allows 1 item to be open at a time then
+       * replace the array with an array of only the item value.
        */
       const newValue = value.includes(_value)
-        ? isCollapsible || value.length > 1
+        ? allowToggle || value.length > 1
           ? value.filter((v) => v !== _value)
           : value
-        : isExclusive
-        ? [_value]
-        : [...value, _value];
+        : allowMultiple
+        ? [...value, _value]
+        : [_value];
 
       if (isFunction(onChange)) {
         onChange(newValue);
@@ -55,7 +55,7 @@ const AccordionPrimitive: Primitive<AccordionProps, 'div'> = (
         setLocalValue(newValue);
       }
     },
-    [onChange, value, isControlled, isCollapsible, isExclusive]
+    [onChange, value, isControlled, allowMultiple, allowToggle]
   );
 
   const _value = React.useMemo(() => {
