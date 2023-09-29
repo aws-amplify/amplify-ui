@@ -10,9 +10,32 @@
   border-style: var(--amplify-components-accordion-item-border-style);
   border-color: var(--amplify-components-accordion-item-border-color);
 
+  // This is so we don't get double-borders
   & + .amplify-accordion__item {
     margin-block-start: calc(
       -1 * var(--amplify-components-accordion-item-border-width)
+    );
+  }
+
+  // we need to make the corners of the trigger rounded for the first
+  // and last element too, but we don't want to make the specificity higher
+  &:where(:first-of-type),
+  &:where(:first-of-type) :where(&__trigger) {
+    border-start-end-radius: var(
+      --amplify-components-accordion-item-border-radius
+    );
+    border-start-start-radius: var(
+      --amplify-components-accordion-item-border-radius
+    );
+  }
+
+  &:where(:last-of-type),
+  &:where(:last-of-type) :where(&__trigger) {
+    border-end-end-radius: var(
+      --amplify-components-accordion-item-border-radius
+    );
+    border-end-start-radius: var(
+      --amplify-components-accordion-item-border-radius
     );
   }
 
@@ -64,6 +87,7 @@
   }
 
   &__icon {
+    color: var(--amplify-components-accordion-item-icon-color);
     transition-property: transform;
     transition-duration: var(
       --amplify-components-accordion-item-icon-transition-duration

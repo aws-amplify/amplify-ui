@@ -3,11 +3,11 @@ import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 export type AccordionTokens<Output extends OutputVariantKey> =
   DesignTokenProperties<'backgroundColor', Output> & {
     item?: DesignTokenProperties<
-      'borderWidth' | 'borderStyle' | 'borderColor',
+      'borderWidth' | 'borderStyle' | 'borderColor' | 'borderRadius',
       Output
     > & {
       icon?: DesignTokenProperties<
-        'transitionDuration' | 'transitionTimingFunction',
+        'transitionDuration' | 'transitionTimingFunction' | 'color',
         Output
       >;
       content?: DesignTokenProperties<
@@ -35,16 +35,17 @@ export const accordion: Required<AccordionTokens<'default'>> = {
     borderColor: { value: '{colors.border.secondary.value}' },
     borderWidth: { value: '{borderWidths.small.value}' },
     borderStyle: { value: 'solid' },
+    borderRadius: { value: '{radii.small.value}' },
     trigger: {
       alignItems: { value: 'center' },
-      color: { value: '{colors.font.secondary.value}' },
+      color: { value: 'inherit' },
       backgroundColor: { value: '{colors.background.primary.value}' },
       justifyContent: { value: 'space-between' },
       paddingBlock: { value: '{space.xs.value}' },
       paddingInline: { value: '{space.small.value}' },
       _hover: {
-        color: { value: '{colors.font.secondary.value}' },
-        backgroundColor: { value: '{colors.overlay.10.value}' },
+        color: { value: 'inherit' },
+        backgroundColor: { value: '{colors.overlay.5.value}' },
       },
       _focus: {
         borderColor: { value: '{colors.border.focus.value}' },
@@ -60,12 +61,13 @@ export const accordion: Required<AccordionTokens<'default'>> = {
       },
     },
     content: {
-      color: { value: '{colors.font.secondary.value}' },
+      color: { value: 'inherit' },
       paddingInline: { value: '{space.small.value}' },
       paddingBlockEnd: { value: '{space.small.value}' },
       paddingBlockStart: { value: '{space.xxxs.value}' },
     },
     icon: {
+      color: { value: '{colors.font.tertiary.value}' },
       transitionDuration: { value: '{time.medium.value}' },
       transitionTimingFunction: { value: 'cubic-bezier(0.87, 0, 0.13, 1)' },
     },

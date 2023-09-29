@@ -1,5 +1,5 @@
 import { Fragment } from '@/components/Fragment'; 
-import { Accordion, View } from '@aws-amplify/ui-react';
+import { Accordion, View, Message } from '@aws-amplify/ui-react';
 
 import {
   BasicSingleAccordion,
@@ -17,6 +17,12 @@ import { AccordionDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import ThemeExample from '@/components/ThemeExample.mdx';
+
+<Message
+  variation="filled"
+  colorTheme="info">
+  In Amplify UI v5 this was called Expander. We rebuilt it in v6 to use the browser native details and summary elements
+</Message>
 
 ## Demo
 

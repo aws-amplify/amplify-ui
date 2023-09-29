@@ -165,6 +165,7 @@ module.exports = withNextPluginPreval({
       {
         source: '/react/components/expander',
         destination: '/react/components/accordion',
+        permanent: false,
       },
     ];
   },
