@@ -30,8 +30,8 @@ export function FileControl({
     getPausedText,
     getUploadingText,
     uploadSuccessfulText,
-    pauseText,
-    resumeText,
+    pauseButtonText,
+    resumeButtonText,
   } = displayText;
 
   return (
@@ -58,11 +58,11 @@ export function FileControl({
         (status === FileStatus.UPLOADING || status === FileStatus.PAUSED) ? (
           status === FileStatus.PAUSED ? (
             <Button onClick={onResume} size="small" variation="link">
-              {resumeText}
+              {resumeButtonText}
             </Button>
           ) : (
             <Button onClick={onPause} size="small" variation="link">
-              {pauseText}
+              {pauseButtonText}
             </Button>
           )
         ) : null}

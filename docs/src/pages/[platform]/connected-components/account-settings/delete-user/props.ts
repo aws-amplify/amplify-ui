@@ -23,7 +23,7 @@ export const DELETE_USER = [
   {
     name: `displayText?`,
     description: 'Text to override in the component',
-    type: `Partial<DeleteUserDisplayText>`,
+    type: `DeleteUserDisplayText`,
   },
 ];
 
