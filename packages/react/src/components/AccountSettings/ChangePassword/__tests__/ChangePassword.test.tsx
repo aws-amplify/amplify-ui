@@ -11,10 +11,10 @@ import { defaultChangePasswordDisplayText } from '../../utils';
 import AccountSettings from '../../AccountSettings';
 
 const {
-  confirmPasswordLabel,
-  currentPasswordLabel,
-  newPasswordLabel,
-  updatePasswordText,
+  confirmPasswordFieldLabel,
+  currentPasswordFieldLabel,
+  newPasswordFieldLabel,
+  updatePasswordButtonText,
 } = defaultChangePasswordDisplayText;
 
 const components: ChangePasswordComponents = {
@@ -79,10 +79,12 @@ describe('ChangePassword', () => {
     const onSuccess = jest.fn();
     render(<ChangePassword onSuccess={onSuccess} />);
 
-    const currentPassword = await screen.findByLabelText(currentPasswordLabel);
-    const newPassword = await screen.findByLabelText(newPasswordLabel);
+    const currentPassword = await screen.findByLabelText(
+      currentPasswordFieldLabel
+    );
+    const newPassword = await screen.findByLabelText(newPasswordFieldLabel);
     const submitButton = await screen.findByRole('button', {
-      name: updatePasswordText,
+      name: updatePasswordButtonText,
     });
 
     fireEvent.input(currentPassword, {
@@ -109,7 +111,7 @@ describe('ChangePassword', () => {
     render(<ChangePassword onSuccess={onSuccess} />);
 
     const submitButton = await screen.findByRole('button', {
-      name: updatePasswordText,
+      name: updatePasswordButtonText,
     });
     fireEvent.submit(submitButton);
 
@@ -125,7 +127,7 @@ describe('ChangePassword', () => {
     render(<ChangePassword onError={onError} />);
 
     const submitButton = await screen.findByRole('button', {
-      name: updatePasswordText,
+      name: updatePasswordButtonText,
     });
 
     fireEvent.submit(submitButton);
@@ -141,7 +143,7 @@ describe('ChangePassword', () => {
     render(<ChangePassword onError={onError} />);
 
     const submitButton = await screen.findByRole('button', {
-      name: updatePasswordText,
+      name: updatePasswordButtonText,
     });
 
     fireEvent.submit(submitButton);
@@ -153,7 +155,7 @@ describe('ChangePassword', () => {
     render(<ChangePassword />);
 
     const submitButton = await screen.findByRole('button', {
-      name: updatePasswordText,
+      name: updatePasswordButtonText,
     });
 
     expect(submitButton).toHaveAttribute('disabled');
@@ -162,11 +164,15 @@ describe('ChangePassword', () => {
   it('enables submit button once formValues are valid', async () => {
     render(<ChangePassword />);
 
-    const currentPassword = await screen.findByLabelText(currentPasswordLabel);
-    const newPassword = await screen.findByLabelText(newPasswordLabel);
-    const confirmPassword = await screen.findByLabelText(confirmPasswordLabel);
+    const currentPassword = await screen.findByLabelText(
+      currentPasswordFieldLabel
+    );
+    const newPassword = await screen.findByLabelText(newPasswordFieldLabel);
+    const confirmPassword = await screen.findByLabelText(
+      confirmPasswordFieldLabel
+    );
     const submitButton = await screen.findByRole('button', {
-      name: updatePasswordText,
+      name: updatePasswordButtonText,
     });
 
     fireEvent.input(currentPassword, {
@@ -188,9 +194,9 @@ describe('ChangePassword', () => {
   it('displays new password validation error message', async () => {
     render(<ChangePassword />);
 
-    const newPassword = await screen.findByLabelText(newPasswordLabel);
+    const newPassword = await screen.findByLabelText(newPasswordFieldLabel);
     const submitButton = await screen.findByRole('button', {
-      name: updatePasswordText,
+      name: updatePasswordButtonText,
     });
 
     fireEvent.input(newPassword, {
@@ -212,10 +218,12 @@ describe('ChangePassword', () => {
   it('displays confirm password validation error message', async () => {
     render(<ChangePassword />);
 
-    const newPassword = await screen.findByLabelText(newPasswordLabel);
-    const confirmPassword = await screen.findByLabelText(confirmPasswordLabel);
+    const newPassword = await screen.findByLabelText(newPasswordFieldLabel);
+    const confirmPassword = await screen.findByLabelText(
+      confirmPasswordFieldLabel
+    );
     const submitButton = await screen.findByRole('button', {
-      name: updatePasswordText,
+      name: updatePasswordButtonText,
     });
 
     fireEvent.input(newPassword, {
@@ -252,9 +260,9 @@ describe('ChangePassword', () => {
     };
     render(<ChangePassword validators={[minLength, hasSpecialChar]} />);
 
-    const newPassword = await screen.findByLabelText(newPasswordLabel);
+    const newPassword = await screen.findByLabelText(newPasswordFieldLabel);
     const submitButton = await screen.findByRole('button', {
-      name: updatePasswordText,
+      name: updatePasswordButtonText,
     });
 
     fireEvent.input(newPassword, {
@@ -341,14 +349,14 @@ describe('ChangePassword', () => {
     });
   });
   it('renders as expected with override display text', () => {
-    const newPasswordLabelOverride = 'Custom new password label';
+    const newPasswordFieldLabelOverride = 'Custom new password label';
     const displayTextOverride = {
-      newPasswordLabel: newPasswordLabelOverride,
+      newPasswordFieldLabel: newPasswordFieldLabelOverride,
     };
     const { getByText, queryByText } = render(
       <AccountSettings.ChangePassword displayText={displayTextOverride} />
     );
-    expect(getByText(newPasswordLabelOverride)).toBeVisible();
-    expect(queryByText(newPasswordLabel)).toBe(null);
+    expect(getByText(newPasswordFieldLabelOverride)).toBeVisible();
+    expect(queryByText(newPasswordFieldLabel)).toBe(null);
   });
 });

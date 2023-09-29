@@ -26,7 +26,7 @@ function DeleteUser({
     ...defaultDeleteUserDisplayText,
     ...overrideDisplayText,
   };
-  const { deleteAccountText } = displayText;
+  const { deleteAccountButtonText } = displayText;
 
   const { user, isLoading } = useAuth();
 
@@ -102,7 +102,7 @@ function DeleteUser({
         isDisabled={state === 'CONFIRMATION' || state === 'DELETING'}
         onClick={startConfirmation}
       >
-        {deleteAccountText}
+        {deleteAccountButtonText}
       </DeleteButton>
       {state === 'CONFIRMATION' || state === 'DELETING' ? (
         <WarningView

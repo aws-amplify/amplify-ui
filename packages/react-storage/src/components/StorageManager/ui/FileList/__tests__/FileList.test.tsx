@@ -87,7 +87,7 @@ describe('FileList', () => {
     ).toHaveLength(fileListProps.files.length);
 
     expect(
-      getByText(defaultStorageManagerDisplayText.pauseText)
+      getByText(defaultStorageManagerDisplayText.pauseButtonText)
     ).toBeInTheDocument();
   });
 
@@ -117,7 +117,9 @@ describe('FileList', () => {
 
   it('should call onPause when pause button is clicked', () => {
     const { getByText } = render(<FileList {...fileListProps} isResumable />);
-    const pauseButton = getByText(defaultStorageManagerDisplayText.pauseText);
+    const pauseButton = getByText(
+      defaultStorageManagerDisplayText.pauseButtonText
+    );
     fireEvent.click(pauseButton);
     expect(mockOnPause).toHaveBeenCalledTimes(1);
   });
