@@ -74,8 +74,14 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
       {children && (
         <Text
           as="span"
-          className={ComponentClassName.RadioLabel}
-          data-disabled={shouldBeDisabled}
+          className={classNames(
+            ComponentClassName.RadioLabel,
+            classNameModifierByFlag(
+              ComponentClassName.RadioLabel,
+              `disabled`,
+              shouldBeDisabled
+            )
+          )}
         >
           {children}
         </Text>

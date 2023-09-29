@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useComponentRoute returns the expected values for a component route 1`] = `
+Object {
+  "hideSignUp": false,
+  "route": "signIn",
+  "setRoute": [MockFunction],
+}
+`;

@@ -16,16 +16,16 @@ const mockServiceFacade: NextAuthenticatorServiceFacade = {
   codeDeliveryDetails: undefined,
   errorMessage: undefined,
   federatedProviders: undefined,
-  loginMechanism: 'username',
+  handleSubmit: jest.fn(),
   isPending: false,
+  loginMechanism: 'username',
   route: 'idle',
-  unverifiedContactMethods: { email: 'test#example.com' },
-  totpSecretCode: undefined,
-  resendCode: jest.fn(),
+  resendConfirmationCode: jest.fn(),
   setRoute: jest.fn(),
-  submitForm: jest.fn(),
+  skipAttributeVerification: jest.fn(),
   toFederatedSignIn: jest.fn(),
-  skipVerification: jest.fn(),
+  totpSecretCode: undefined,
+  unverifiedContactMethods: { email: 'test#example.com' },
   username: undefined,
 };
 
@@ -48,7 +48,7 @@ jest.mock('../utils');
 const getComparatorSpy = jest.spyOn(utils, 'getComparator');
 
 const Wrapper = ({ children }: { children?: React.ReactNode }) => (
-  <MachineProvider>{children}</MachineProvider>
+  <MachineProvider initialRoute="signUp">{children}</MachineProvider>
 );
 
 describe('useMachine', () => {

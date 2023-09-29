@@ -108,7 +108,7 @@ export const DisabledFieldsetTest = () => {
             rows={3}
             isDisabled={false}
           />
-          <RadioGroupField label="Language" name="language" isDisabled={false}>
+          <RadioGroupField legend="Language" name="language" isDisabled={false}>
             <Radio value="HTML">HTML</Radio>
             <Radio value="CSS">CSS</Radio>
             <Radio value="JavaScript">JavaScript</Radio>

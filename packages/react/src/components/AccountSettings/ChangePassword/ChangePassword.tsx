@@ -120,10 +120,10 @@ function ChangePassword({
     ...overrideDisplayText,
   };
   const {
-    confirmPasswordLabel,
-    currentPasswordLabel,
-    newPasswordLabel,
-    updatePasswordText,
+    confirmPasswordFieldLabel,
+    currentPasswordFieldLabel,
+    newPasswordFieldLabel,
+    updatePasswordButtonText,
   } = displayText;
 
   /* Subcomponents */
@@ -207,7 +207,7 @@ function ChangePassword({
         <CurrentPasswordField
           autoComplete="current-password"
           isRequired
-          label={currentPasswordLabel}
+          label={currentPasswordFieldLabel}
           name="currentPassword"
           onBlur={handleBlur}
           onChange={handleChange}
@@ -216,7 +216,7 @@ function ChangePassword({
           autoComplete="new-password"
           fieldValidationErrors={validationError?.newPassword}
           isRequired
-          label={newPasswordLabel}
+          label={newPasswordFieldLabel}
           name="newPassword"
           onBlur={handleBlur}
           onChange={handleChange}
@@ -225,13 +225,13 @@ function ChangePassword({
           autoComplete="new-password"
           fieldValidationErrors={validationError?.confirmPassword}
           isRequired
-          label={confirmPasswordLabel}
+          label={confirmPasswordFieldLabel}
           name="confirmPassword"
           onBlur={handleBlur}
           onChange={handleChange}
         />
         <SubmitButton isDisabled={isDisabled} type="submit">
-          {updatePasswordText}
+          {updatePasswordButtonText}
         </SubmitButton>
         {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
       </Flex>

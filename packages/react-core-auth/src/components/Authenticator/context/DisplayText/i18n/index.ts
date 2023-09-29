@@ -1,0 +1,1 @@
+export { displayTextEn } from './en';

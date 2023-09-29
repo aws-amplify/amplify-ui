@@ -15,7 +15,7 @@ Feature: Delete User
     Then I see "Delete Account:"
     Then I click the "Delete Account" button
     Then I see "Deleting your account is not reversible. You will lose access to your account and all data associated with it."
-    Then I click the "Delete my account" button
+    Then I click the "Delete" button
     Then I see "Sign in"
 
  @react
@@ -42,6 +42,6 @@ Feature: Delete User
     Then I see "Delete Account:"
     Then I click the "Delete Account" button
     Then I see "Deleting your account is not reversible. You will lose access to your account and all data associated with it."
-    Then I click the "Delete my account" button
+    Then I click the "Delete" button
     Then I see 'Error deleting user'
     Then I click the "Sign Out" button

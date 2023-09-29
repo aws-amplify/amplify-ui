@@ -115,11 +115,11 @@ const Preview = ({ platform }) => {
               />
               <CheckboxField label="Frosting" value="Frosting" name="topping" />
               <RadioGroupField
-                label="Language"
+                legend="Language"
                 name="theme-language"
                 defaultValue="css"
                 gap="small"
-                labelHidden
+                legendHidden
               >
                 <Radio value="html">HTML</Radio>
                 <Radio value="css">CSS</Radio>

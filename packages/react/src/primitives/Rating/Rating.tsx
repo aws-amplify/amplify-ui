@@ -44,7 +44,7 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
           key={index.toString()}
           icon={filledIcon}
           fill={fillColor}
-          className="amplify-rating-icon-filled"
+          className={classNameModifier(ComponentClassName.RatingIcon, 'filled')}
         />
       );
     if (isIconEmpty(currentIconIndex, value))
@@ -53,7 +53,7 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
           key={index.toString()}
           icon={_emptyIcon}
           fill={emptyColor}
-          className="amplify-rating-icon-empty"
+          className={classNameModifier(ComponentClassName.RatingIcon, 'empty')}
         />
       );
     if (isIconMixed(currentIconIndex, value))

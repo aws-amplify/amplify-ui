@@ -25,7 +25,7 @@ const FieldsetPrimitive: Primitive<FieldsetProps, 'fieldset'> = (
     legendHidden,
     size,
     testId,
-    variation = 'outlined',
+    variation = 'plain',
     ...rest
   },
   ref
@@ -52,7 +52,6 @@ const FieldsetPrimitive: Primitive<FieldsetProps, 'fieldset'> = (
   const legendClasses = classNames(
     ComponentClassName.FieldsetLegend,
     classNameModifier(ComponentClassName.FieldsetLegend, size),
-    className,
     {
       [ComponentClassName.VisuallyHidden]: legendHidden,
     }
