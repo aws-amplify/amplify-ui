@@ -4,6 +4,7 @@ import { ComponentClassName } from '@aws-amplify/ui';
 type ComponentClassNameKey = keyof typeof ComponentClassName;
 
 type ComponentNameKey =
+  | 'Accordion'
   | 'Alert'
   | 'Autocomplete'
   | 'Badge'
@@ -17,7 +18,6 @@ type ComponentNameKey =
   | 'PhoneNumberField'
   | 'Divider'
   | 'DropZone'
-  | 'Expander'
   | 'Fieldset'
   | 'Flex'
   | 'Grid'
@@ -67,6 +67,31 @@ type ComponentClassNameItems = {
 };
 
 export const ComponentsMetadata: ComponentClassNameItems = {
+  Accordion: {
+    className: ComponentClassName.Accordion,
+    components: ['Accordion'],
+    description: 'Top level element that wraps the Accordion primitive',
+  },
+  AccordionItem: {
+    className: ComponentClassName.AccordionItem,
+    components: ['Accordion'],
+    description: 'Accordion item (containier for header, trigger, and content)',
+  },
+  AccordionItemContent: {
+    className: ComponentClassName.AccordionItemContent,
+    components: ['Accordion'],
+    description: 'Accordion content container',
+  },
+  AccordionItemIcon: {
+    className: ComponentClassName.AccordionItemIcon,
+    components: ['Accordion'],
+    description: 'Icon to indicate whether an item is expanded or collapsed',
+  },
+  AccordionItemTrigger: {
+    className: ComponentClassName.AccordionItemTrigger,
+    components: ['Accordion'],
+    description: 'Accordion item trigger (summary element)',
+  },
   Alert: {
     className: ComponentClassName.Alert,
     components: ['Alert'],
@@ -260,41 +285,6 @@ export const ComponentsMetadata: ComponentClassNameItems = {
     className: ComponentClassName.DropZone,
     components: ['DropZone'],
     description: 'Class applied to the DropZone component',
-  },
-  Expander: {
-    className: ComponentClassName.Expander,
-    components: ['Expander'],
-    description: 'Top level element that wraps the Expander primitive',
-  },
-  ExpanderContent: {
-    className: ComponentClassName.ExpanderContent,
-    components: ['Expander'],
-    description: 'Expander content container',
-  },
-  ExpanderContentText: {
-    className: ComponentClassName.ExpanderContentText,
-    components: ['Expander'],
-    description: 'Expander content text',
-  },
-  ExpanderHeader: {
-    className: ComponentClassName.ExpanderHeader,
-    components: ['Expander'],
-    description: 'Expander item header',
-  },
-  ExpanderIcon: {
-    className: ComponentClassName.ExpanderIcon,
-    components: ['Expander'],
-    description: 'Icon to indicate whether an item is expanded or collapsed',
-  },
-  ExpanderItem: {
-    className: ComponentClassName.ExpanderItem,
-    components: ['Expander'],
-    description: 'Expander item(containier for header, trigger, and content)',
-  },
-  ExpanderTrigger: {
-    className: ComponentClassName.ExpanderTrigger,
-    components: ['Expander'],
-    description: 'Expander item trigger(button)',
   },
   Field: { className: ComponentClassName.Field },
   FieldDescription: { className: ComponentClassName.FieldDescription },

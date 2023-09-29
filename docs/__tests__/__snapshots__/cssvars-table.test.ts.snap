@@ -515,6 +515,82 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"hsl(60, 100%, 20%)\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-accordion-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-accordion-item-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-secondary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-accordion-item-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-accordion-item-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-accordion-item-content-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-secondary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-accordion-item-content-padding-block-end\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-accordion-item-content-padding-block-start\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-accordion-item-content-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-accordion-item-focus-box-shadow\\",
+        \\"value\\": \\"0 0 0 2px var(--amplify-colors-border-focus)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-accordion-item-icon-transition-duration\\",
+        \\"value\\": \\"var(--amplify-time-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-accordion-item-icon-transition-timing-function\\",
+        \\"value\\": \\"cubic-bezier(0.87, 0, 0.13, 1)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-accordion-item-trigger-align-items\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-accordion-item-trigger-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-accordion-item-trigger-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-secondary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-accordion-item-trigger-hover-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-overlay-10)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-accordion-item-trigger-hover-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-secondary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-accordion-item-trigger-justify-content\\",
+        \\"value\\": \\"space-between\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-accordion-item-trigger-padding-block\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-accordion-item-trigger-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-alert-align-items\\",
         \\"value\\": \\"center\\"
     },
@@ -2765,142 +2841,6 @@ exports[`CSS Variables Table 1`] = `
     {
         \\"variable\\": \\"--amplify-components-dropzone-text-align\\",
         \\"value\\": \\"center\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-border-radius\\",
-        \\"value\\": \\"var(--amplify-radii-medium)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-box-shadow\\",
-        \\"value\\": \\"var(--amplify-shadows-large)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-content-closed-animation-duration\\",
-        \\"value\\": \\"var(--amplify-time-medium)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-content-closed-animation-timing-function\\",
-        \\"value\\": \\"cubic-bezier(0.87, 0, 0.13, 1)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-content-open-animation-duration\\",
-        \\"value\\": \\"var(--amplify-time-medium)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-content-open-animation-timing-function\\",
-        \\"value\\": \\"cubic-bezier(0.87, 0, 0.13, 1)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-content-padding-inline-end\\",
-        \\"value\\": \\"var(--amplify-space-large)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-content-padding-inline-start\\",
-        \\"value\\": \\"var(--amplify-space-large)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-content-text-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-secondary)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-content-text-padding-block-end\\",
-        \\"value\\": \\"var(--amplify-space-medium)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-content-text-padding-block-start\\",
-        \\"value\\": \\"var(--amplify-space-medium)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-display\\",
-        \\"value\\": \\"block\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-header-box-shadow\\",
-        \\"value\\": \\"0 1px 0  var(--amplify-colors-overlay-20)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-icon-transition-duration\\",
-        \\"value\\": \\"var(--amplify-time-medium)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-icon-transition-timing-function\\",
-        \\"value\\": \\"cubic-bezier(0.87, 0, 0.13, 1)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-item-border-bottom-left-radius\\",
-        \\"value\\": \\"var(--amplify-radii-medium)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-item-border-bottom-right-radius\\",
-        \\"value\\": \\"var(--amplify-radii-medium)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-item-border-end-end-radius\\",
-        \\"value\\": \\"var(--amplify-radii-medium)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-item-border-end-start-radius\\",
-        \\"value\\": \\"var(--amplify-radii-medium)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-item-border-start-end-radius\\",
-        \\"value\\": \\"var(--amplify-radii-medium)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-item-border-start-start-radius\\",
-        \\"value\\": \\"var(--amplify-radii-medium)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-item-border-top-left-radius\\",
-        \\"value\\": \\"var(--amplify-radii-medium)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-item-border-top-right-radius\\",
-        \\"value\\": \\"var(--amplify-radii-medium)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-item-box-shadow\\",
-        \\"value\\": \\"var(--amplify-shadows-small)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-item-focus-box-shadow\\",
-        \\"value\\": \\"0 0 0 2px var(--amplify-colors-border-focus)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-item-margin-top\\",
-        \\"value\\": \\"1px\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-trigger-align-items\\",
-        \\"value\\": \\"center\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-trigger-hover-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-overlay-10)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-trigger-justify-content\\",
-        \\"value\\": \\"space-between\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-trigger-min-height\\",
-        \\"value\\": \\"3rem\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-trigger-padding-inline-end\\",
-        \\"value\\": \\"var(--amplify-space-large)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-trigger-padding-inline-start\\",
-        \\"value\\": \\"var(--amplify-space-large)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-expander-width\\",
-        \\"value\\": \\"100%\\"
     },
     {
         \\"variable\\": \\"--amplify-components-field-flex-direction\\",

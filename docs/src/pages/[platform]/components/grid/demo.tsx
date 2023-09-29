@@ -160,10 +160,10 @@ export const GridDemo = () => {
     }
   );
   // To retain expanded items between light and dark mode
-  const [value, setValue] = React.useState(
-    demoState.get('GridDemoExpandedItems') || ''
+  const [value, setValue] = React.useState<string[]>(
+    (demoState.get('GridDemoExpandedItems') as string[]) || ['']
   );
-  const handleExpandChange = React.useCallback((value: string | string[]) => {
+  const handleExpandChange = React.useCallback((value: string[]) => {
     demoState.set('GridDemoExpandedItems', value);
     setValue(value);
   }, []);

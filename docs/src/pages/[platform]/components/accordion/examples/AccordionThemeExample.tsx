@@ -6,18 +6,16 @@ const theme: Theme = {
     components: {
       accordion: {
         backgroundColor: { value: '{colors.blue.10}' },
-        borderRadius: { value: '{radii.small}' },
-        header: {
-          _hover: {
-            backgroundColor: { value: '{colors.overlay.20}' },
+        item: {
+          trigger: {
+            _hover: {
+              backgroundColor: { value: '{colors.overlay.20}' },
+            },
           },
-        },
-        body: {
-          paddingInlineStart: { value: '{space.xxl}' },
-          color: { value: '{colors.blue.80}' },
-          paddingBlockEnd: { value: '{space.large}' },
-          _open: {
-            animationDuration: { value: '{time.short}' },
+          content: {
+            paddingInline: { value: '{space.xxl}' },
+            color: { value: '{colors.blue.80}' },
+            paddingBlockEnd: { value: '{space.large}' },
           },
         },
       },
