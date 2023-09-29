@@ -1,10 +1,9 @@
 import { UploadDataOutput } from '@aws-amplify/storage';
-
-import { StorageManagerDisplayText } from '../../utils/displayText';
+import { StorageManagerDisplayTextDefault } from '../../utils';
 import { FileStatus, StorageFile } from '../../types';
 
 export interface FileListProps {
-  displayText: StorageManagerDisplayText;
+  displayText: StorageManagerDisplayTextDefault;
   files: StorageFile[];
   isResumable: boolean;
   onCancelUpload: (params: {
@@ -20,7 +19,7 @@ export interface FileListProps {
 }
 
 export interface FileControlProps {
-  displayText: StorageManagerDisplayText;
+  displayText: StorageManagerDisplayTextDefault;
   displayName: string;
   errorMessage: string;
   isImage: boolean;
@@ -39,7 +38,7 @@ export interface FileControlProps {
 
 export interface FileStatusMessageProps
   extends Pick<
-    StorageManagerDisplayText,
+    StorageManagerDisplayTextDefault,
     'getUploadingText' | 'getPausedText' | 'uploadSuccessfulText'
   > {
   status: FileStatus;

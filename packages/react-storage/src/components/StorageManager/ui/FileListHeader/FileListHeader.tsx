@@ -1,11 +1,11 @@
 import React from 'react';
-import { StorageManagerDisplayText } from '../../utils/displayText';
+import { StorageManagerDisplayTextDefault } from '../../utils';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { Text } from '@aws-amplify/ui-react';
 
 export interface FileListHeaderProps {
   allUploadsSuccessful: boolean;
-  displayText: StorageManagerDisplayText;
+  displayText: StorageManagerDisplayTextDefault;
   fileCount: number;
   remainingFilesCount: number;
   selectedFilesCount?: number;

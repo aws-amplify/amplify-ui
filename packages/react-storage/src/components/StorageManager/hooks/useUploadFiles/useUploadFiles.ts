@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { TransferProgressEvent } from '@aws-amplify/storage';
 
-import { uploadFile, UploadFileProps } from '../../utils/uploadFile';
+import { uploadFile } from '../../utils/uploadFile';
 import { FileStatus } from '../../types';
 import { StorageManagerProps } from '../../types';
 import { UseStorageManager } from '../useStorageManager';

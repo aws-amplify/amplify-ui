@@ -82,7 +82,7 @@ export interface StorageManagerProps {
   /**
    * Overrides default display text
    */
-  displayText?: Partial<StorageManagerDisplayText>;
+  displayText?: StorageManagerDisplayText;
   /**
    * Determines if upload can be paused / resumed
    */
