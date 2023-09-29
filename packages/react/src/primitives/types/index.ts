@@ -8,7 +8,6 @@ export * from './buttonGroup';
 export * from './card';
 export * from './checkboxField';
 export * from './collection';
-export * from './datastore';
 export * from './divider';
 export * from './field';
 export * from './fieldGroup';

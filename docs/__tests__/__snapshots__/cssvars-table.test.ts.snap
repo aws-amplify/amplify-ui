@@ -4087,8 +4087,12 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-radiogroup-label-color\\",
-        \\"value\\": \\"var(--amplify-components-field-label-color)\\"
+        \\"variable\\": \\"--amplify-components-radiogroup-legend-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldset-legend-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radiogroup-legend-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-normal)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-radiogroup-radio-background-color\\",

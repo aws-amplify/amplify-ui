@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
-  "react-native": "dist/index.js",
+  "react-native": "src/index.ts",
   "exports": {
     ".": {
       "import": "./dist/esm/index.mjs",
@@ -15,7 +15,10 @@
   "license": "Apache-2.0",
   "files": [
     "dist",
-    "LICENSE"
+    "LICENSE",
+    "src",
+    "!**/__mocks__",
+    "!**/__tests__"
   ],
   "scripts": {
     "build": "rollup --config",
@@ -42,11 +45,13 @@
   },
   "devDependencies": {
     "@aws-amplify/eslint-config-amplify-ui": "0.0.0",
+    "@aws-amplify/typescript-config": "0.0.0",
     "@rollup/plugin-typescript": "^8.3.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/react-hooks": "^7.0.2",
     "@types/jest": "^26.0.23",
     "@types/react": "^17.0.2",
+    "@types/react-native": "^0.67.6",
     "@types/react-dom": "^17.0.13",
     "@types/react-test-renderer": "^17.0.1",
     "eslint": "^8.44.0",

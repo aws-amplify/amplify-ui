@@ -4,9 +4,8 @@ import classNames from 'classnames';
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { FieldErrorMessage, FieldDescription } from '../Field';
+import { Fieldset } from '../Fieldset';
 import { Flex } from '../Flex';
-import { Label } from '../Label';
-import { VisuallyHidden } from '../VisuallyHidden';
 import { RadioGroupContext, RadioGroupContextType } from './context';
 import {
   BaseRadioGroupFieldProps,
@@ -29,14 +28,15 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, 'fieldset'> = (
     isDisabled,
     isRequired,
     isReadOnly,
-    label,
-    labelHidden = false,
+    legend,
+    legendHidden = false,
     labelPosition,
     onChange,
     name,
     size,
     testId,
     value,
+    variation,
     ...rest
   },
   ref
@@ -74,26 +74,26 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, 'fieldset'> = (
   );
 
   return (
-    <Flex
-      as="fieldset"
+    <Fieldset
       className={classNames(
         ComponentClassName.Field,
         classNameModifier(ComponentClassName.Field, size),
         ComponentClassName.RadioGroupField,
         className
       )}
+      isDisabled={isDisabled}
+      legend={legend}
+      legendHidden={legendHidden}
       ref={ref}
       role="radiogroup"
+      size={size}
       testId={testId}
+      variation={variation}
       {...rest}
     >
-      <VisuallyHidden as="legend">{label}</VisuallyHidden>
-      <Label aria-hidden visuallyHidden={labelHidden}>
-        {label}
-      </Label>
       <FieldDescription
         id={descriptionId}
-        labelHidden={labelHidden}
+        labelHidden={legendHidden}
         descriptiveText={descriptiveText}
       />
       <Flex
@@ -107,7 +107,7 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, 'fieldset'> = (
         </RadioGroupContext.Provider>
       </Flex>
       <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
-    </Flex>
+    </Fieldset>
   );
 };
 

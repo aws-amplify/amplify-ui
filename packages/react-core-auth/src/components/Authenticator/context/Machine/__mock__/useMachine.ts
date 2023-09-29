@@ -5,12 +5,12 @@ const challengeName = 'CUSTOM_CHALLENGE';
 const codeDeliveryDetails = undefined;
 const errorMessage = 'error';
 const federatedProviders = undefined;
+const handleSubmit = jest.fn();
 const isPending = false;
-const resendCode = jest.fn();
+const resendConfirmationCode = jest.fn();
 const route = 'idle';
 const setRoute = jest.fn();
-const skipVerification = jest.fn();
-const submitForm = jest.fn();
+const skipAttributeVerification = jest.fn();
 const toFederatedSignIn = jest.fn();
 const totpSecretCode = undefined;
 const unverifiedContactMethods = {};
@@ -20,13 +20,13 @@ export const mockMachineContext: NextAuthenticatorServiceFacade = {
   codeDeliveryDetails,
   errorMessage,
   federatedProviders,
+  handleSubmit,
   isPending,
   loginMechanism: 'username',
-  resendCode,
+  resendConfirmationCode,
   route,
   setRoute,
-  skipVerification,
-  submitForm,
+  skipAttributeVerification,
   toFederatedSignIn,
   totpSecretCode,
   unverifiedContactMethods,
