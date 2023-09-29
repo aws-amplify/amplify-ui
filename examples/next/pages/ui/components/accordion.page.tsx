@@ -16,7 +16,7 @@ export default function ExpanderPage() {
   return (
     <Flex direction="column" gap="xl">
       <Heading level={4}>Default accordion, no props</Heading>
-      <Accordion indicatorPosition="start" variation="outlined">
+      <Accordion>
         <Accordion.Item value="1" title="Hello">
           <Text>my friend</Text>
         </Accordion.Item>
@@ -28,7 +28,7 @@ export default function ExpanderPage() {
 
       <Divider />
       <Heading level={4}>Single item, no accordion</Heading>
-      <Accordion.Item title="Single accordion item" variation="outlined">
+      <Accordion.Item title="Single accordion item">
         <Text>hello</Text>
       </Accordion.Item>
 
@@ -59,8 +59,8 @@ export default function ExpanderPage() {
 
       <Divider />
       <Heading level={4}>allowMultiple</Heading>
-      <Accordion allowMultiple variation="outlined">
-        <Accordion.Item value="1" title="One" variation="elevated">
+      <Accordion allowMultiple>
+        <Accordion.Item value="1" title="One">
           <Text>One</Text>
         </Accordion.Item>
         <Accordion.Item value="2" title="Two">
