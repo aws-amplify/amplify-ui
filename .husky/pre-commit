@@ -18,14 +18,6 @@ fi
 # Initialize git-secrets configuration
 git secrets --register-aws > /dev/null
 
-# Add additional secret patterns if they aren't already included 
-secret_string="secrets.providers cat .husky/.secret.patterns"
-
-current_secrets="$(git secrets --list)"
-if ! [[ "$current_secrets" == *"$secret_string"* ]]; then
-  git secrets --add-provider -- cat .husky/.secret.patterns
-fi
-
 echo "Scanning committed files for secrets..."
 git secrets --pre_commit_hook -- "$@"
 
