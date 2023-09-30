@@ -103,4 +103,6 @@ const HomeEditor = () => {
   );
 };
 
-export default HomeEditor;
+HomeEditor.displayName = 'HomeEditor';
+
+export default React.memo(HomeEditor);
