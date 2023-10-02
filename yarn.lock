@@ -20726,10 +20726,10 @@ maplibre-gl-draw-circle@^0.1.1:
     "@turf/helpers" "^6.1.4"
     "@turf/length" "^6.0.2"
 
-maplibre-gl-js-amplify@3.0.0-thadd:
-  version "3.0.0-thadd"
-  resolved "http://localhost:4873/maplibre-gl-js-amplify/-/maplibre-gl-js-amplify-3.0.0-thadd.tgz#1789f4a1ee6e6892f3b578e20b91890e2a260716"
-  integrity sha512-lWXH0zSB8T7SkYAAmrToje5KGjNgBGgBiokl1U+OkNbe6x7fPH4qJJKrGx7VE1qwK2s3cuykpS/YtW0KvKIhqQ==
+maplibre-gl-js-amplify@3.0.0-geo.1:
+  version "3.0.0-geo.1"
+  resolved "https://registry.npmjs.org/maplibre-gl-js-amplify/-/maplibre-gl-js-amplify-3.0.0-geo.1.tgz#6ea0ad3fa6cb33f5c2ecbcfd09d7b988a5c286c7"
+  integrity sha512-O4cU/XHgSBWCR9+AAoLt3X2Obxxlbct6IcsQ7n8GAZEPPPuhjN/5pQm+x6tyHMdW36/weoHvX7OeDpQJHS5gow==
   dependencies:
     "@mapbox/mapbox-gl-draw" "^1.3.0"
     "@maplibre/maplibre-gl-geocoder" "^1.5.0"

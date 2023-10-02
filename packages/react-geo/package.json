@@ -42,7 +42,7 @@
   "dependencies": {
     "mapbox-gl": "1.13.1",
     "maplibre-gl": "2.1.9",
-    "maplibre-gl-js-amplify": "3.0.0-thadd",
+    "maplibre-gl-js-amplify": "3.0.0-geo.1",
     "react-map-gl": "7.0.23",
     "tslib": "2.4.1"
   },
