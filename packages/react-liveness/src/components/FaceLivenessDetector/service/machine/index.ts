@@ -935,13 +935,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       async openLivenessStreamConnection(context) {
         const { config } = context.componentProps!;
-        const { credentialProvider } = config!;
+        const { credentialProvider, endpointOverride } = config!;
         const livenessStreamProvider = new LivenessStreamProvider({
           sessionId: context.componentProps!.sessionId,
           region: context.componentProps!.region,
           stream: context.videoAssociatedParams!.videoMediaStream!,
           videoEl: context.videoAssociatedParams!.videoEl!,
           credentialProvider: credentialProvider,
+          endpointOverride: endpointOverride,
         });
 
         streamConnectionOpenTimestamp = Date.now();

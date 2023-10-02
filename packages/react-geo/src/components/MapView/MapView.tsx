@@ -1,23 +1,11 @@
+import { Amplify } from 'aws-amplify';
+import { fetchAuthSession } from 'aws-amplify/auth';
 import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import maplibregl from 'maplibre-gl';
 import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';
 import ReactMapGL from 'react-map-gl';
 import type { MapProps, MapRef, TransformRequestFunction } from 'react-map-gl';
-import { Amplify } from 'aws-amplify';
-import * as Auth from '@aws-amplify/auth';
-
-// Utility types for missing AmplifyConfig type, only includes Geo related key/values.
-// Note: these types should not be be used outside this file
-type AmplifyGeoOptions = {
-  maps?: { default: string };
-  region: string;
-};
-type AmplifyGeoConfig = {
-  geo?: {
-    amazon_location_service?: AmplifyGeoOptions;
-    AmazonLocationService?: AmplifyGeoOptions;
-  };
-};
+import { GeoConfig } from '@aws-amplify/geo';
 
 interface MapViewProps extends Omit<MapProps, 'mapLib' | 'transformRequest'> {
   // replace `any` typed MapProps.mapLib
@@ -42,14 +30,12 @@ interface MapViewProps extends Omit<MapProps, 'mapLib' | 'transformRequest'> {
  */
 const MapView = forwardRef<MapRef, MapViewProps>(
   ({ mapLib, mapStyle, style, ...props }, ref) => {
-    const amplifyConfig = Amplify.getConfig() as AmplifyGeoConfig;
-    const geoConfig = useMemo(
-      () =>
-        amplifyConfig.geo?.amazon_location_service ??
-        amplifyConfig.geo?.AmazonLocationService ??
-        ({} as AmplifyGeoOptions),
-      [amplifyConfig]
-    );
+    const geoConfig: GeoConfig['LocationService'] = useMemo(() => {
+      return (
+        Amplify.getConfig().Geo?.LocationService ??
+        ({} as GeoConfig['LocationService'])
+      );
+    }, []);
     const [transformRequest, setTransformRequest] = useState<
       TransformRequestFunction | undefined
     >();
@@ -71,9 +57,9 @@ const MapView = forwardRef<MapRef, MapViewProps>(
      */
     useEffect(() => {
       (async () => {
-        const credentials = await Auth.getCurrentUser();
+        const { credentials } = await fetchAuthSession();
 
-        if (credentials.userId) {
+        if (credentials && geoConfig) {
           const { region } = geoConfig;
           const { transformRequest: amplifyTransformRequest } =
             new AmplifyMapLibreRequest(credentials, region);
@@ -93,7 +79,7 @@ const MapView = forwardRef<MapRef, MapViewProps>(
       <ReactMapGL
         {...props}
         mapLib={mapLib ?? maplibregl}
-        mapStyle={mapStyle ?? geoConfig.maps?.default}
+        mapStyle={mapStyle ?? geoConfig?.maps?.default}
         ref={ref}
         style={styleProps}
         transformRequest={transformRequest}

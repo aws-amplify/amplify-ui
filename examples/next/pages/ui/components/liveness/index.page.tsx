@@ -10,16 +10,6 @@ import Layout from './components/Layout';
 Amplify.configure({
   ...awsExports,
   // @todo-migration re-enable
-  // API: {
-  //   endpoints: [
-  //     {
-  //       name: 'SampleBackend',
-  //       endpoint: 'https://lfurp52ij6.execute-api.us-east-2.amazonaws.com/dev',
-  //       region: 'us-east-2',
-  //       // endpoint: '/liveness-next-example/api',
-  //     },
-  //   ],
-  // },
   // Analytics: {
   //   autoSessionRecord: false,
   // },
