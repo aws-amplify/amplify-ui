@@ -34,9 +34,9 @@ export interface StreamProviderArgs {
   stream: MediaStream;
   videoEl: HTMLVideoElement;
   credentialProvider?: AwsCredentialProvider;
+  endpointOverride?: string;
 }
 
-const ENDPOINT = process.env.NEXT_PUBLIC_STREAMING_API_URL;
 export const TIME_SLICE = 1000;
 
 function isBlob(obj: unknown): obj is Blob {
@@ -64,6 +64,7 @@ export class LivenessStreamProvider {
   public videoRecorder: VideoRecorder;
   public responseStream!: AsyncIterable<LivenessResponseStream>;
   public credentialProvider?: AwsCredentialProvider;
+  public endpointOverride?: string;
 
   private _reader!: ReadableStreamDefaultReader;
   private videoEl: HTMLVideoElement;
@@ -77,6 +78,7 @@ export class LivenessStreamProvider {
     stream,
     videoEl,
     credentialProvider,
+    endpointOverride,
   }: StreamProviderArgs) {
     this.sessionId = sessionId;
     this.region = region;
@@ -84,6 +86,7 @@ export class LivenessStreamProvider {
     this.videoEl = videoEl;
     this.videoRecorder = new VideoRecorder(stream);
     this.credentialProvider = credentialProvider;
+    this.endpointOverride = endpointOverride;
     this.initPromise = this.init();
   }
 
@@ -145,9 +148,10 @@ export class LivenessStreamProvider {
       }),
     };
 
-    if (ENDPOINT) {
+    if (this.endpointOverride) {
+      const override = this.endpointOverride;
       clientconfig.endpointProvider = () => {
-        const url = new URL(ENDPOINT);
+        const url = new URL(override);
         return { url };
       };
     }

@@ -19,6 +19,7 @@ import {
   IlluminationState,
   StreamActorCallback,
   LivenessError,
+  ErrorState,
 } from '../types';
 import {
   BlazeFaceFaceDetection,
@@ -717,7 +718,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       // callbacks
       callUserPermissionDeniedCallback: assign({
         errorState: (context, event) => {
-          let errorState: LivenessErrorState;
+          let errorState: ErrorState;
 
           if ((event.data!.message as string).includes('15 fps')) {
             errorState = LivenessErrorState.CAMERA_FRAMERATE_ERROR;
@@ -934,13 +935,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       async openLivenessStreamConnection(context) {
         const { config } = context.componentProps!;
-        const { credentialProvider } = config!;
+        const { credentialProvider, endpointOverride } = config!;
         const livenessStreamProvider = new LivenessStreamProvider({
           sessionId: context.componentProps!.sessionId,
           region: context.componentProps!.region,
           stream: context.videoAssociatedParams!.videoMediaStream!,
           videoEl: context.videoAssociatedParams!.videoEl!,
           credentialProvider: credentialProvider,
+          endpointOverride: endpointOverride,
         });
 
         streamConnectionOpenTimestamp = Date.now();
