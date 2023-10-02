@@ -37,7 +37,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -301,7 +301,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -768,7 +768,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -941,7 +941,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -1098,7 +1098,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -1255,7 +1255,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -1412,7 +1412,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -1571,7 +1571,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -1842,7 +1842,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -2008,7 +2008,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -2370,7 +2370,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -2641,7 +2641,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -2821,7 +2821,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -2980,7 +2980,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -3179,7 +3179,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -3352,7 +3352,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -3609,7 +3609,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -3873,7 +3873,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -4221,7 +4221,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -4394,7 +4394,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -4560,7 +4560,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -4761,7 +4761,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -4983,7 +4983,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -5240,7 +5240,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -5406,7 +5406,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -5586,7 +5586,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -5794,7 +5794,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -6049,7 +6049,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -6304,7 +6304,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -6575,7 +6575,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -6839,7 +6839,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -7075,7 +7075,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -7500,7 +7500,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -7946,7 +7946,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -8119,7 +8119,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -8486,7 +8486,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -8757,7 +8757,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -9021,7 +9021,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -9187,7 +9187,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -9612,7 +9612,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -9967,7 +9967,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -10434,7 +10434,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -10873,7 +10873,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -11221,7 +11221,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -11406,7 +11406,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -11563,7 +11563,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -11734,7 +11734,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -11891,7 +11891,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -12048,7 +12048,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -12200,7 +12200,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -12448,7 +12448,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -12614,7 +12614,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -12787,7 +12787,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -13128,7 +13128,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -13518,7 +13518,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -13801,7 +13801,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -14749,7 +14749,7 @@ exports[`Props Table 1`] = `
                     \\"inert\\": {
                         \\"name\\": \\"inert\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert)\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
