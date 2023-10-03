@@ -11,6 +11,7 @@ import {
 import { StorageImage } from '@aws-amplify/ui-react-storage';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
+import { getAuthenticatorConfig } from '@aws-amplify/ui';
 
 Amplify.configure(awsExports);
 
@@ -39,4 +40,7 @@ export function StorageImageExample() {
     </>
   );
 }
-export default withAuthenticator(StorageImageExample);
+export default withAuthenticator(
+  StorageImageExample,
+  getAuthenticatorConfig(awsExports)
+);
