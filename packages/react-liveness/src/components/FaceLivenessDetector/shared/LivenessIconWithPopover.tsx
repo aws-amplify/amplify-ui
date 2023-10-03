@@ -42,7 +42,7 @@ export const LivenessIconWithPopover: React.FC<LivenessIconWithPopoverProps> =
         <Button
           aria-controls="popover-text"
           aria-expanded={shouldShowPopover}
-          aria-haspopup="true"
+          aria-haspopup="dialog"
           className={LivenessClassNames.Popover}
           colorTheme="warning"
           onClick={() => setShouldShowPopover(!shouldShowPopover)}
@@ -56,6 +56,7 @@ export const LivenessIconWithPopover: React.FC<LivenessIconWithPopoverProps> =
               <Flex className={LivenessClassNames.PopoverAnchorSecondary} />
               <Flex
                 aria-hidden={!shouldShowPopover}
+                aria-label={children}
                 className={LivenessClassNames.PopoverContainer}
                 data-testid="popover-text"
                 left={isMobileScreen ? -190 : -108}
