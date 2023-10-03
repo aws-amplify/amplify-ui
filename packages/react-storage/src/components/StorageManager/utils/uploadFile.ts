@@ -37,13 +37,17 @@ export function uploadFile({
   };
   const output = uploadData(input);
 
-  if (output.state === 'SUCCESS') {
-    completeCallback?.({ key });
-  }
+  output.result.then(() => {
+    if (output.state === 'SUCCESS') {
+      completeCallback?.({ key });
+    }
 
-  if (output.state === 'ERROR') {
-    errorCallback?.(key);
-  }
+    if (output.state === 'ERROR') {
+      errorCallback?.(key);
+    }
+
+    return output;
+  });
 
   return output;
 }
