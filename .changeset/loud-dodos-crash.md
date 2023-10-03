@@ -1,6 +1,5 @@
 ---
 "@aws-amplify/ui-react-liveness": patch
-"@aws-amplify/ui-react": patch
 "@aws-amplify/ui": patch
 ---
 
