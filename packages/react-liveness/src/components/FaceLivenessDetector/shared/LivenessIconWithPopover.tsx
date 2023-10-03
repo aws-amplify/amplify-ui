@@ -20,6 +20,13 @@ export const LivenessIconWithPopover: React.FC<LivenessIconWithPopoverProps> =
     const wrapperRef = React.useRef<HTMLDivElement | null>(null);
     const isMobileScreen = breakpoint === 'base';
 
+    function handleKeyDown(event: React.KeyboardEvent) {
+      event.preventDefault();
+      if (event.key === 'Enter' || event.key === ' ') {
+        setShouldShowPopover(!shouldShowPopover);
+      }
+    }
+
     React.useEffect(() => {
       function handleClickOutside(event: MouseEvent) {
         if (
@@ -31,6 +38,7 @@ export const LivenessIconWithPopover: React.FC<LivenessIconWithPopoverProps> =
         }
       }
       document.addEventListener('mousedown', handleClickOutside);
+
       return () => {
         document.removeEventListener('mousedown', handleClickOutside);
       };
@@ -38,9 +46,15 @@ export const LivenessIconWithPopover: React.FC<LivenessIconWithPopoverProps> =
 
     return (
       <Flex
+        aria-controls="popover-text"
+        aria-expanded={shouldShowPopover}
+        aria-haspopup="true"
         className={LivenessClassNames.Popover}
         onClick={() => setShouldShowPopover(!shouldShowPopover)}
+        onKeyPress={handleKeyDown}
         ref={wrapperRef}
+        role="button"
+        tabIndex={0}
         testId="popover-icon"
       >
         <AlertIcon ariaHidden variation="info" />
@@ -49,9 +63,11 @@ export const LivenessIconWithPopover: React.FC<LivenessIconWithPopoverProps> =
             <Flex className={LivenessClassNames.PopoverAnchor} />
             <Flex className={LivenessClassNames.PopoverAnchorSecondary} />
             <Flex
+              aria-hidden={!shouldShowPopover}
               className={LivenessClassNames.PopoverContainer}
-              left={isMobileScreen ? -190 : -108}
               data-testid="popover-text"
+              left={isMobileScreen ? -190 : -108}
+              role="dialog"
             >
               {children}
             </Flex>
