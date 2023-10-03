@@ -1,6 +1,4 @@
-import {
-  UploadDataOutput,
-} from '@aws-amplify/storage';
+import { UploadDataOutput } from '@aws-amplify/storage';
 
 // interface StorageProviderConfig extends StorageOptions {
 interface StorageProviderConfig {
@@ -101,8 +99,11 @@ export default class MyStorageProvider {
         resume() {
           interval = setInterval(tick, delay);
         },
-        percent: progress,
-        isInProgress: true,
+        cancel() {
+          clearInterval(interval);
+        },
+        state: 'SUCCESS',
+        result: Promise.resolve({ key: 'key' }),
       };
       return uploadTask;
     } else {
