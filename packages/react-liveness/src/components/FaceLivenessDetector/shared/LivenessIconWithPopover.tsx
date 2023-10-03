@@ -8,6 +8,7 @@ import * as React from 'react';
 import { Button, Flex } from '@aws-amplify/ui-react';
 import { AlertIcon, useThemeBreakpoint } from '@aws-amplify/ui-react/internal';
 import { LivenessClassNames } from '../types/classNames';
+import { defaultLivenessDisplayText } from '../displayText';
 
 export interface LivenessIconWithPopoverProps {
   children: string;
@@ -56,7 +57,9 @@ export const LivenessIconWithPopover: React.FC<LivenessIconWithPopoverProps> =
               <Flex className={LivenessClassNames.PopoverAnchorSecondary} />
               <Flex
                 aria-hidden={!shouldShowPopover}
-                aria-label={children}
+                aria-label={
+                  defaultLivenessDisplayText.photosensitivyWarningHeadingText
+                }
                 className={LivenessClassNames.PopoverContainer}
                 data-testid="popover-text"
                 left={isMobileScreen ? -190 : -108}
