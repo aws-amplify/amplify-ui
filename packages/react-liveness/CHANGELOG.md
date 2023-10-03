@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-liveness
 
+## 2.0.9
+
+### Patch Changes
+
+- [#4481](https://github.com/aws-amplify/amplify-ui/pull/4481) [`c88ee2640`](https://github.com/aws-amplify/amplify-ui/commit/c88ee2640206ff1fc04609048e82b22b21147623) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): remove env variable endpoint override, replace with prop
+
 ## 2.0.8
 
 ### Patch Changes

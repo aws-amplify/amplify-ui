@@ -143,6 +143,17 @@ describe('LivenessStreamProvider', () => {
         credentialProvider,
       });
     });
+
+    test('with endpoint override', () => {
+      const endpointOverride = 'https://example.com';
+      new LivenessStreamProvider({
+        sessionId: 'sessionId',
+        region: 'us-east-1',
+        stream: mockVideoMediaStream,
+        videoEl: mockVideoEl,
+        endpointOverride,
+      });
+    });
   });
 
   describe('getResponseStream', () => {
