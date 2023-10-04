@@ -1,7 +1,7 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 import { useReducer } from 'react';
 
-import { UploadDataOutput } from '@aws-amplify/storage';
+import { UploadDataOutput } from 'aws-amplify/storage';
 
 import { storageManagerStateReducer } from '../reducer';
 import {

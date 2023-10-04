@@ -1,4 +1,5 @@
-import { UploadDataOutput } from '@aws-amplify/storage';
+import { UploadDataOutput } from 'aws-amplify/storage';
+
 import { StorageManagerDisplayTextDefault } from '../../utils';
 import { FileStatus, StorageFile } from '../../types';
 

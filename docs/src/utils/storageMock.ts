@@ -1,4 +1,4 @@
-import { UploadDataOutput } from '@aws-amplify/storage';
+import { UploadDataOutput } from 'aws-amplify/storage';
 
 // interface StorageProviderConfig extends StorageOptions {
 interface StorageProviderConfig {

@@ -3,7 +3,7 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import { DefaultFile, FileStatus } from '../../../types';
 import { useStorageManager } from '../useStorageManager';
 
-jest.mock('@aws-amplify/storage');
+jest.mock('aws-amplify/storage');
 
 const defaultFiles: DefaultFile[] = [{ key: 'file1' }, { key: 'file2' }];
 

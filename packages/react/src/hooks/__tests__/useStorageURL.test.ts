@@ -1,10 +1,9 @@
 import { renderHook } from '@testing-library/react-hooks';
-
-import { getUrl, GetUrlInput } from '@aws-amplify/storage';
+import { getUrl, GetUrlInput } from 'aws-amplify/storage';
 
 import { useStorageURL } from '../useStorageURL';
 
-jest.mock('@aws-amplify/storage');
+jest.mock('aws-amplify/storage');
 
 describe('useStorageURL', () => {
   afterEach(() => jest.clearAllMocks());
@@ -66,7 +65,7 @@ describe('useStorageURL', () => {
     const { waitForNextUpdate } = renderHook(() =>
       useStorageURL(useStorageURLParams)
     );
-    
+
     expect(getUrl).toHaveBeenCalledWith({ key, options });
 
     // Next update will happen when Storage.getUrl resolves

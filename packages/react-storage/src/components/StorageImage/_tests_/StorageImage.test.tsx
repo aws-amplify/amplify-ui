@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
+import * as Storage from 'aws-amplify/storage';
 
-import * as Storage from '@aws-amplify/storage';
 import { ComponentClassName } from '@aws-amplify/ui';
 
 import { StorageImage } from '../StorageImage';

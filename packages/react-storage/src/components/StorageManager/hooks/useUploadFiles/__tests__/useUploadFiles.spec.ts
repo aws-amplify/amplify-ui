@@ -1,12 +1,12 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { waitFor } from '@testing-library/react';
 
-import { uploadData } from '@aws-amplify/storage';
+import { uploadData } from 'aws-amplify/storage';
 
 import { FileStatus, StorageFile, StorageManagerProps } from '../../../types';
 import { useUploadFiles, UseUploadFilesProps } from '../useUploadFiles';
 
-jest.mock('@aws-amplify/storage');
+jest.mock('aws-amplify/storage');
 
 const mockUploadingFile: StorageFile = {
   id: 'uploading',

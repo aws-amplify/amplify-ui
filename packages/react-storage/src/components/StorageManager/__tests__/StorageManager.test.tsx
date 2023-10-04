@@ -1,8 +1,8 @@
 import React from 'react';
 import { fireEvent, render, waitFor, act } from '@testing-library/react';
+import * as Storage from 'aws-amplify/storage';
 
 import { getLogger, ComponentClassName } from '@aws-amplify/ui';
-import * as Storage from '@aws-amplify/storage';
 
 import * as StorageHooks from '../hooks';
 import { StorageManager } from '../StorageManager';

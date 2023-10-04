@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { UploadDataOutput } from '@aws-amplify/storage';
+import { UploadDataOutput } from 'aws-amplify/storage';
+
 import { getLogger, ComponentClassName } from '@aws-amplify/ui';
 import { VisuallyHidden } from '@aws-amplify/ui-react';
 import { useDropZone } from '@aws-amplify/ui-react/internal';

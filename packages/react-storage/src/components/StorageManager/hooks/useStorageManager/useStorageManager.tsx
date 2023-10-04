@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { UploadDataOutput } from '@aws-amplify/storage';
+import { UploadDataOutput } from 'aws-amplify/storage';
 import { isObject } from '@aws-amplify/ui';
-
 
 import { StorageFiles, FileStatus, DefaultFile } from '../../types';
 import { Action, GetFileErrorMessage, UseStorageManagerState } from './types';

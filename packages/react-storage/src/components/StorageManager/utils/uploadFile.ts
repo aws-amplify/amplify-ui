@@ -4,7 +4,7 @@ import {
   TransferProgressEvent,
   UploadDataInput,
   UploadDataOutput,
-} from '@aws-amplify/storage';
+} from 'aws-amplify/storage';
 
 export type UploadFileProps = {
   file: File;

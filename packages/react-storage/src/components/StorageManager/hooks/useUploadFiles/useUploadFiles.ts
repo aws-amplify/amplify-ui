@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { TransferProgressEvent } from '@aws-amplify/storage';
+import { TransferProgressEvent } from 'aws-amplify/storage';
 
 import { uploadFile } from '../../utils/uploadFile';
 import { FileStatus } from '../../types';
