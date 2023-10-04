@@ -1,7 +1,4 @@
-import {
-  updatePassword,
-  deleteUser as deleteCognitoUser,
-} from '@aws-amplify/auth';
+import { updatePassword, deleteUser as deleteAuthUser } from 'aws-amplify/auth';
 
 import { getLogger } from '../utils';
 
@@ -38,7 +35,7 @@ export const deleteUser = async () => {
   try {
     logger.debug('calling Auth.deleteUser');
     await Promise.resolve();
-    await deleteCognitoUser();
+    await deleteAuthUser();
     logger.debug('Auth.deleteUser was successful');
     return Promise.resolve();
   } catch (e) {
