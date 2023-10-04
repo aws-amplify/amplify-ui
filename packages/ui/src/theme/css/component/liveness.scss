@@ -331,13 +331,13 @@
 
 .amplify-liveness-popover {
   position: relative;
-  cursor: pointer;
 }
 
 .amplify-liveness-popover__anchor {
   position: absolute;
   top: 26px;
   z-index: 3;
+  left: 20px;
   border-style: solid;
   border-width: 0 9px 9px 9px;
   border-color: transparent transparent var(--amplify-colors-background-primary)
@@ -348,6 +348,7 @@
   position: absolute;
   top: 24px;
   z-index: 2;
+  left: 19px;
   border-style: solid;
   border-width: 0 10px 10px 10px;
   border-color: transparent transparent var(--amplify-colors-border-secondary)

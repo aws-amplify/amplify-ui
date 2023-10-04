@@ -32,12 +32,14 @@ export const DefaultHeader = ({
 };
 
 interface DefaultPhotosensitiveWarningProps {
+  labelText: string;
   headingText: string;
   bodyText: string;
   infoText: string;
 }
 
 export const DefaultPhotosensitiveWarning = ({
+  labelText,
   headingText,
   bodyText,
   infoText,
@@ -50,7 +52,9 @@ export const DefaultPhotosensitiveWarning = ({
         <View className={ComponentClassNames.AlertHeading}>{headingText}</View>
         <View className={ComponentClassNames.AlertBody}>{bodyText}</View>
       </View>
-      <LivenessIconWithPopover>{infoText}</LivenessIconWithPopover>
+      <LivenessIconWithPopover labelText={labelText} headingText={headingText}>
+        {infoText}
+      </LivenessIconWithPopover>
     </Flex>
   );
 };

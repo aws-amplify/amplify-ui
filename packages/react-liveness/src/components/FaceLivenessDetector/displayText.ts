@@ -27,6 +27,7 @@ export type InstructionDisplayText = {
   instructionsHeaderHeadingText?: string;
   instructionsHeaderBodyText?: string;
   instructionsBeginCheckText?: string;
+  photosensitivyWarningLabelText?: string;
   photosensitivyWarningHeadingText?: string;
   photosensitivyWarningBodyText?: string;
   photosensitivyWarningInfoText?: string;
@@ -76,6 +77,7 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
     'You will go through a face verification process to prove that you are a real person.',
   instructionsBeginCheckText: 'Begin check',
   photosensitivyWarningHeadingText: 'Photosensitivity warning',
+  photosensitivyWarningLabelText: 'More information about photosensitivity',
   photosensitivyWarningBodyText:
     'This check displays colored lights. Use caution if you are photosensitive.',
   photosensitivyWarningInfoText:

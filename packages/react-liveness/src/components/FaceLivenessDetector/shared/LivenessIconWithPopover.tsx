@@ -8,14 +8,15 @@ import * as React from 'react';
 import { Button, Flex } from '@aws-amplify/ui-react';
 import { AlertIcon, useThemeBreakpoint } from '@aws-amplify/ui-react/internal';
 import { LivenessClassNames } from '../types/classNames';
-import { defaultLivenessDisplayText } from '../displayText';
 
 export interface LivenessIconWithPopoverProps {
   children: string;
+  labelText: string;
+  headingText: string;
 }
 
 export const LivenessIconWithPopover: React.FC<LivenessIconWithPopoverProps> =
-  ({ children }) => {
+  ({ children, labelText, headingText }) => {
     const breakpoint = useThemeBreakpoint();
     const [shouldShowPopover, setShouldShowPopover] = React.useState(false);
     const wrapperRef = React.useRef<HTMLDivElement | null>(null);
@@ -39,38 +40,37 @@ export const LivenessIconWithPopover: React.FC<LivenessIconWithPopoverProps> =
     }, [wrapperRef, shouldShowPopover]);
 
     return (
-      <Flex ref={wrapperRef}>
+      <div className={LivenessClassNames.Popover} ref={wrapperRef}>
         <Button
-          aria-controls="popover-text"
+          aria-controls="photosensitivityDesc"
           aria-expanded={shouldShowPopover}
           aria-haspopup="dialog"
-          className={LivenessClassNames.Popover}
+          aria-label={labelText}
           colorTheme="warning"
+          id="popover-button"
           onClick={() => setShouldShowPopover(!shouldShowPopover)}
           testId="popover-icon"
-          variation="link"
         >
           <AlertIcon ariaHidden variation="info" />
-          {shouldShowPopover && (
-            <>
-              <Flex className={LivenessClassNames.PopoverAnchor} />
-              <Flex className={LivenessClassNames.PopoverAnchorSecondary} />
-              <Flex
-                aria-hidden={!shouldShowPopover}
-                aria-label={
-                  defaultLivenessDisplayText.photosensitivyWarningHeadingText
-                }
-                className={LivenessClassNames.PopoverContainer}
-                data-testid="popover-text"
-                left={isMobileScreen ? -190 : -108}
-                role="dialog"
-              >
-                {children}
-              </Flex>
-            </>
-          )}
         </Button>
-      </Flex>
+        {shouldShowPopover && (
+          <>
+            <Flex className={LivenessClassNames.PopoverAnchor} />
+            <Flex className={LivenessClassNames.PopoverAnchorSecondary} />
+            <Flex
+              aria-hidden={!shouldShowPopover}
+              aria-label={headingText}
+              className={LivenessClassNames.PopoverContainer}
+              data-testid="popover-text"
+              id="photosensitivityDesc"
+              left={isMobileScreen ? -190 : -108}
+              role="dialog"
+            >
+              {children}
+            </Flex>
+          </>
+        )}
+      </div>
     );
   };
 

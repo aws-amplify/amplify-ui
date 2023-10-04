@@ -40,6 +40,7 @@ export function StartLiveness(props: StartLivenessProps): JSX.Element {
           <customComponents.PhotosensitiveWarning />
         ) : (
           <DefaultPhotosensitiveWarning
+            labelText={instructionDisplayText.photosensitivyWarningLabelText}
             headingText={
               instructionDisplayText.photosensitivyWarningHeadingText
             }
