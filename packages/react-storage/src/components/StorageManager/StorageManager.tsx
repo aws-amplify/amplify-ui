@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { ConsoleLogger as Logger } from '@aws-amplify/core/internals/utils';
 
-// import { UploadTask } from '@aws-amplify/storage';
-import * as Storage from '@aws-amplify/storage';
-import { ComponentClassName } from '@aws-amplify/ui';
+import { UploadDataOutput } from 'aws-amplify/storage';
+
+import { getLogger, ComponentClassName } from '@aws-amplify/ui';
 import { VisuallyHidden } from '@aws-amplify/ui-react';
 import { useDropZone } from '@aws-amplify/ui-react/internal';
 
@@ -23,7 +22,7 @@ import {
   filterAllowedFiles,
 } from './utils';
 
-const logger = new Logger('Storage.StorageManager');
+const logger = getLogger('Storage');
 
 function StorageManagerBase(
   {
@@ -157,8 +156,7 @@ function StorageManagerBase(
     uploadTask,
   }: {
     id: string;
-    // uploadTask: UploadTask;
-    uploadTask: Storage.UploadDataOutput;
+    uploadTask: UploadDataOutput;
   }) => {
     uploadTask.pause();
     setUploadPaused({ id });
@@ -169,8 +167,7 @@ function StorageManagerBase(
     uploadTask,
   }: {
     id: string;
-    // uploadTask: UploadTask;
-    uploadTask: Storage.UploadDataOutput;
+    uploadTask: UploadDataOutput;
   }) => {
     uploadTask.resume();
     setUploadResumed({ id });
@@ -181,8 +178,7 @@ function StorageManagerBase(
     uploadTask,
   }: {
     id: string;
-    // uploadTask: UploadTask;
-    uploadTask: Storage.UploadDataOutput;
+    uploadTask: UploadDataOutput;
   }) => {
     // At this time we don't know if the delete
     // permissions are enabled (required to cancel upload),

@@ -3,7 +3,7 @@ Feature: Load an image from S3 with private access level settings
   Background:
     Given I'm running the example "ui/components/storage/storage-image/private-access-level"
 
-  @todo-migration @react
+  @react
   Scenario: I successfully load a private image
     When I type my "email" with status "CONFIRMED"
     Then I type my password
