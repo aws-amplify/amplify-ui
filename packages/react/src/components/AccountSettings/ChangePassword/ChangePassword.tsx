@@ -1,12 +1,12 @@
 import React from 'react';
 import isEqual from 'lodash/isEqual.js';
 
-import { ConsoleLogger as Logger } from '@aws-amplify/core/internals/utils';
 import {
   changePassword,
   ValidatorOptions,
   getDefaultConfirmPasswordValidators,
   getDefaultPasswordValidators,
+  getLogger,
   runFieldValidators,
 } from '@aws-amplify/ui';
 
@@ -18,7 +18,7 @@ import { ChangePasswordProps, ValidateParams } from './types';
 import DEFAULTS from './defaults';
 import { defaultChangePasswordDisplayText } from '../utils';
 
-const logger = new Logger('ChangePassword');
+const logger = getLogger('ChangePassword');
 
 const getIsDisabled = (
   formValues: FormValues,
@@ -173,7 +173,7 @@ function ChangePassword({
       setErrorMessage(null);
     }
 
-    changePassword({ user, currentPassword, newPassword })
+    changePassword({ currentPassword, newPassword })
       .then(() => {
         // notify success to the parent
         onSuccess?.();
