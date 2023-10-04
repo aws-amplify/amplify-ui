@@ -6,18 +6,36 @@ import { Accordion } from '../Accordion';
 import { AccordionProps } from '../types';
 import { ComponentClassName } from '@aws-amplify/ui';
 
+const accordionItems = [
+  {
+    value: 'item-1',
+    header: 'Section 1 title',
+    body: 'content 2',
+  },
+  {
+    value: 'item-2',
+    header: 'Section 2 title',
+    body: 'content 2',
+  },
+  {
+    value: 'item-3',
+    header: 'Section 3 title',
+    body: 'content 3',
+  },
+];
+
 function UncontrolledAccordion(props: AccordionProps) {
   return (
     <Accordion {...props}>
-      <Accordion.Item title="Section 1 title" value="item-1">
-        content 1
-      </Accordion.Item>
-      <Accordion.Item title="Section 2 title" value="item-2">
-        content 2
-      </Accordion.Item>
-      <Accordion.Item title="Section 3 title" value="item-3">
-        content 3
-      </Accordion.Item>
+      {accordionItems.map(({ value, header, body }) => (
+        <Accordion.Item value={value} key={value}>
+          <Accordion.Trigger>
+            {header}
+            <Accordion.Icon />
+          </Accordion.Trigger>
+          <Accordion.Content>{body}</Accordion.Content>
+        </Accordion.Item>
+      ))}
     </Accordion>
   );
 }
@@ -26,20 +44,48 @@ function ControlledAccordion({ value: initialValue, ...rest }: AccordionProps) {
   const [value, setValue] = React.useState(initialValue);
   return (
     <Accordion value={value} onChange={setValue} {...rest}>
-      <Accordion.Item title="Section 1 title" value="item-1">
-        content 1
-      </Accordion.Item>
-      <Accordion.Item title="Section 2 title" value="item-2">
-        content 2
-      </Accordion.Item>
-      <Accordion.Item title="Section 3 title" value="item-3">
-        content 3
-      </Accordion.Item>
+      {accordionItems.map(({ value, header, body }) => (
+        <Accordion.Item value={value} key={value}>
+          <Accordion.Trigger>
+            {header}
+            <Accordion.Icon />
+          </Accordion.Trigger>
+          <Accordion.Content>{body}</Accordion.Content>
+        </Accordion.Item>
+      ))}
     </Accordion>
   );
 }
 
 describe('Accordion:', () => {
+  it('should handle a non-composed use-case', async () => {
+    const testId = 'accordion';
+    render(
+      <Accordion
+        testId={testId}
+        items={[
+          {
+            value: '1',
+            trigger: 'Section 1 title',
+            content: 'content 1',
+          },
+          {
+            value: '2',
+            trigger: 'Section 2 title',
+            content: 'content 2',
+          },
+          {
+            value: '3',
+            trigger: 'Section 3 title',
+            content: 'content 3',
+          },
+        ]}
+      />
+    );
+    const accordion = await screen.findByTestId(testId);
+    expect(accordion).toBeInTheDocument();
+    expect(accordion.children).toHaveLength(3);
+  });
   it('should set default and custom classnames', async () => {
     const testId = 'accordion';
     const className = 'class-test';
@@ -153,15 +199,15 @@ describe('Accordion:', () => {
     const ref = React.createRef<HTMLDivElement>();
     render(
       <Accordion testId={testId} ref={ref}>
-        <Accordion.Item title="Section 1 title" value="item-1">
-          content 1
-        </Accordion.Item>
-        <Accordion.Item title="Section 2 title" value="item-2">
-          content 2
-        </Accordion.Item>
-        <Accordion.Item title="Section 3 title" value="item-3">
-          content 3
-        </Accordion.Item>
+        {accordionItems.map(({ value, header, body }) => (
+          <Accordion.Item value={value} key={value}>
+            <Accordion.Trigger>
+              {header}
+              <Accordion.Icon />
+            </Accordion.Trigger>
+            <Accordion.Content>{body}</Accordion.Content>
+          </Accordion.Item>
+        ))}
       </Accordion>
     );
 

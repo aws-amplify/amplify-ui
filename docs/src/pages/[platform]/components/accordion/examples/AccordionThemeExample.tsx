@@ -1,6 +1,6 @@
-import { Accordion, ThemeProvider, Theme } from '@aws-amplify/ui-react';
+import { Accordion, ThemeProvider, createTheme } from '@aws-amplify/ui-react';
 
-const theme: Theme = {
+const theme = createTheme({
   name: 'Accordion-theme',
   tokens: {
     components: {
@@ -15,24 +15,30 @@ const theme: Theme = {
             },
           },
           content: {
-            paddingInline: '{space.xxl}',
             color: '{colors.blue.80}',
-            paddingBlockEnd: '{space.large}',
           },
         },
       },
     },
   },
-};
+});
 
 export const AccordionThemeExample = () => (
   <ThemeProvider theme={theme} colorMode="light">
     <Accordion>
-      <Accordion.Item title="Check out this themed Accordion" value="item1">
-        Pretty cool!
+      <Accordion.Item value="item1">
+        <Accordion.Trigger>
+          Check out this themed Accordion
+          <Accordion.Icon />
+        </Accordion.Trigger>
+        <Accordion.Content>Pretty cool!</Accordion.Content>
       </Accordion.Item>
-      <Accordion.Item title="It's very customizable" value="item2">
-        I love it.
+      <Accordion.Item title="" value="item2">
+        <Accordion.Trigger>
+          It is very customizable
+          <Accordion.Icon />
+        </Accordion.Trigger>
+        <Accordion.Content>I love it.</Accordion.Content>
       </Accordion.Item>
     </Accordion>
   </ThemeProvider>

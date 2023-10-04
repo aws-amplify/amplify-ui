@@ -148,73 +148,84 @@ const SecondaryNav = (props) => {
   return (
     <Accordion allowToggle value={value} onChange={setValue}>
       {
-        <Accordion.Item
-          title={
+        <Accordion.Item value="getting-started">
+          <Accordion.Trigger>
             <ExpanderTitle Icon={MdOutlineChecklist} text="Getting started" />
-          }
-          value="getting-started"
-        >
-          {gettingStarted.map(({ label, ...rest }) => (
-            <NavLink key={label} {...rest} onClick={props.onClick}>
-              {label}
-            </NavLink>
-          ))}
+            <Accordion.Icon />
+          </Accordion.Trigger>
+          <Accordion.Content>
+            {gettingStarted.map(({ label, ...rest }) => (
+              <NavLink key={label} {...rest} onClick={props.onClick}>
+                {label}
+              </NavLink>
+            ))}
+          </Accordion.Content>
         </Accordion.Item>
       }
       {platform === 'react' ? (
-        <Accordion.Item
-          title={<ExpanderTitle Icon={MdOutlineWidgets} text="Components" />}
-          value="components"
-        >
-          {primitiveComponents.map(({ heading, components }, i) => (
-            <NavLinkComponentsSection
-              {...props}
-              key={heading || i}
-              heading={heading}
-              components={components}
-            />
-          ))}
+        <Accordion.Item value="components">
+          <Accordion.Trigger>
+            <ExpanderTitle Icon={MdOutlineWidgets} text="Components" />
+            <Accordion.Icon />
+          </Accordion.Trigger>
+          <Accordion.Content>
+            {primitiveComponents.map(({ heading, components }, i) => (
+              <NavLinkComponentsSection
+                {...props}
+                key={heading || i}
+                heading={heading}
+                components={components}
+              />
+            ))}
+          </Accordion.Content>
         </Accordion.Item>
       ) : null}
 
-      <Accordion.Item
-        title={
+      <Accordion.Item value="connected-components">
+        <Accordion.Trigger>
           <ExpanderTitle Icon={MdOutlinePower} text="Connected components" />
-        }
-        value="connected-components"
-      >
-        {connectedComponents.map(({ label, href, ...rest }) => (
-          <NavLink key={href} href={href} {...rest} onClick={props.onClick}>
-            {label}
-          </NavLink>
-        ))}
+          <Accordion.Icon />
+        </Accordion.Trigger>
+        <Accordion.Content>
+          {connectedComponents.map(({ label, href, ...rest }) => (
+            <NavLink key={href} href={href} {...rest} onClick={props.onClick}>
+              {label}
+            </NavLink>
+          ))}
+        </Accordion.Content>
       </Accordion.Item>
 
       {/* Android and Swift don't have theming at this time */}
       {hideTheming ? null : (
-        <Accordion.Item
-          title={<ExpanderTitle Icon={MdOutlineAutoAwesome} text="Theming" />}
-          value="theming"
-        >
-          {theming.map(({ label, ...rest }) => (
-            <NavLink key={label} {...rest} onClick={props.onClick}>
-              {label}
-            </NavLink>
-          ))}
+        <Accordion.Item value="theming">
+          <Accordion.Trigger>
+            <ExpanderTitle Icon={MdOutlineAutoAwesome} text="Theming" />
+            <Accordion.Icon />
+          </Accordion.Trigger>
+          <Accordion.Content>
+            {theming.map(({ label, ...rest }) => (
+              <NavLink key={label} {...rest} onClick={props.onClick}>
+                {label}
+              </NavLink>
+            ))}
+          </Accordion.Content>
         </Accordion.Item>
       )}
 
       {/* Flutter, React Native, Android, and Swift don't have guides at this time */}
       {hideGuidesExpander ? null : (
-        <Accordion.Item
-          title={<ExpanderTitle Icon={MdOutlineArticle} text="Guides" />}
-          value="guides"
-        >
-          {guides.map(({ label, ...rest }) => (
-            <NavLink {...rest} key={label} onClick={props.onClick}>
-              {label}
-            </NavLink>
-          ))}
+        <Accordion.Item value="guides">
+          <Accordion.Trigger>
+            <ExpanderTitle Icon={MdOutlineArticle} text="Guides" />
+            <Accordion.Icon />
+          </Accordion.Trigger>
+          <Accordion.Content>
+            {guides.map(({ label, ...rest }) => (
+              <NavLink {...rest} key={label} onClick={props.onClick}>
+                {label}
+              </NavLink>
+            ))}
+          </Accordion.Content>
         </Accordion.Item>
       )}
     </Accordion>

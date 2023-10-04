@@ -12,17 +12,32 @@ const propsToCode = (AccordionProps) => {
     (AccordionProps.allowToggle ? ` allowToggle` : '') +
     (AccordionProps.allowMultiple ? ` allowMultiple` : '') +
     `>
-  <Accordion.Item title="Is it accessible?" value="demo-item-1">
-    Yes! It adheres to the WAI-ARIA design pattern.
+  <Accordion.Item value="demo-item-1">
+    <Accordion.Trigger>
+      Is it accessible?
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>  
+      Yes! It adheres to the WAI-ARIA design pattern.
+    </Accordion.Content>
   </Accordion.Item>
-  <Accordion.Item title="Can I customize the styling?" value="demo-item-2">
-    Of course! See the section on CSS Styling below.
+  <Accordion.Item value="demo-item-2">
+    <Accordion.Trigger>
+      Can I customize the styling?
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>  
+      Of course! See the section on CSS Styling below.
+    </Accordion.Content>
   </Accordion.Item>
-  <Accordion.Item
-    title="Is it a great way to organize content?"
-    value="demo-item-3"
-  >
-    Most definitely!
+  <Accordion.Item value="demo-item-3">
+    <Accordion.Trigger>
+      Is it a great way to organize content?
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>  
+      Most definitely!
+    </Accordion.Content>
   </Accordion.Item>
 </Accordion>`
   );
@@ -47,20 +62,30 @@ export const AccordionDemo = () => {
         allowMultiple={AccordionProps.allowMultiple}
         allowToggle={AccordionProps.allowToggle}
       >
-        <Accordion.Item title="Is it accessible?" value="demo-item-1">
-          Yes! It adheres to the WAI-ARIA design pattern.
+        <Accordion.Item value="demo-item-1">
+          <Accordion.Trigger>
+            Is it accessible?
+            <Accordion.Icon />
+          </Accordion.Trigger>
+          <Accordion.Content>
+            Yes! It adheres to the WAI-ARIA design pattern.
+          </Accordion.Content>
         </Accordion.Item>
-        <Accordion.Item
-          title="Can I customize the styling?"
-          value="demo-item-2"
-        >
-          Of course! See the section on CSS Styling below.
+        <Accordion.Item value="demo-item-2">
+          <Accordion.Trigger>
+            Can I customize the styling?
+            <Accordion.Icon />
+          </Accordion.Trigger>
+          <Accordion.Content>
+            Of course! See the section on CSS Styling below.
+          </Accordion.Content>
         </Accordion.Item>
-        <Accordion.Item
-          title="Is it a great way to organize content?"
-          value="demo-item-3"
-        >
-          Most definitely!
+        <Accordion.Item value="demo-item-3">
+          <Accordion.Trigger>
+            Is it a great way to organize content?
+            <Accordion.Icon />
+          </Accordion.Trigger>
+          <Accordion.Content>Most definitely!</Accordion.Content>
         </Accordion.Item>
       </Accordion>
     </Demo>

@@ -61,7 +61,13 @@ describe('IconsProvider', () => {
         }}
       >
         <Accordion>
-          <Accordion.Item value="1" />
+          <Accordion.Item value="1">
+            <Accordion.Trigger>
+              Trigger
+              <Accordion.Icon />
+            </Accordion.Trigger>
+            <Accordion.Content>Content</Accordion.Content>
+          </Accordion.Item>
         </Accordion>
       </IconsProvider>
     );

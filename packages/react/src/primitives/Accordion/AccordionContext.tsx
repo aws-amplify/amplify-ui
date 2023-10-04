@@ -9,3 +9,8 @@ type AccordionContextProps =
 
 export const AccordionContext =
   React.createContext<AccordionContextProps>(undefined);
+
+type AccordionItemContextProps = string | undefined;
+
+export const AccordionItemContext =
+  React.createContext<AccordionItemContextProps>(undefined);

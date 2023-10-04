@@ -6,6 +6,9 @@ import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { View } from '../View';
 import { AccordionContext } from './AccordionContext';
 import { AccordionItem } from './AccordionItem';
+import { AccordionContent } from './AccordionContent';
+import { AccordionTrigger } from './AccordionTrigger';
+import { AccordionIcon } from './AccordionIcon';
 
 const AccordionPrimitive: Primitive<AccordionProps, 'div'> = (
   {
@@ -17,6 +20,7 @@ const AccordionPrimitive: Primitive<AccordionProps, 'div'> = (
     onChange,
     testId,
     value: controlledValue,
+    items,
     ...rest
   },
   ref
@@ -73,7 +77,17 @@ const AccordionPrimitive: Primitive<AccordionProps, 'div'> = (
         data-testid={testId}
         ref={ref}
       >
-        {children}
+        {children
+          ? children
+          : items?.map((item) => (
+              <AccordionItem key={item.value} {...item}>
+                <AccordionTrigger>
+                  {item.trigger}
+                  <AccordionIcon />
+                </AccordionTrigger>
+                <AccordionContent>{item.content}</AccordionContent>
+              </AccordionItem>
+            ))}
       </View>
     </AccordionContext.Provider>
   );
@@ -81,6 +95,9 @@ const AccordionPrimitive: Primitive<AccordionProps, 'div'> = (
 
 type AccordionType = ForwardRefPrimitive<BaseAccordionProps, 'div'> & {
   Item: typeof AccordionItem;
+  Content: typeof AccordionContent;
+  Trigger: typeof AccordionTrigger;
+  Icon: typeof AccordionIcon;
 };
 
 /**
@@ -90,6 +107,9 @@ const Accordion: AccordionType = Object.assign(
   React.forwardRef(AccordionPrimitive),
   {
     Item: AccordionItem,
+    Content: AccordionContent,
+    Trigger: AccordionTrigger,
+    Icon: AccordionIcon,
   }
 );
 

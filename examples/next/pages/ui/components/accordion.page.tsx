@@ -10,6 +10,24 @@ import {
 import '@aws-amplify/ui-react/styles.css';
 import { TextField } from '@aws-amplify/ui-react';
 
+const accordions = [
+  {
+    value: '1',
+    header: 'Hello',
+    body: 'My old friend',
+  },
+  {
+    value: '2',
+    header: 'Goodbye',
+    body: 'My new friend',
+  },
+  {
+    value: '3',
+    header: 'Hello again',
+    body: 'My old friend',
+  },
+];
+
 export default function ExpanderPage() {
   const [controlled, setControlled] = React.useState<string[]>(['2']);
 
@@ -17,36 +35,52 @@ export default function ExpanderPage() {
     <Flex direction="column" gap="xl">
       <Heading level={4}>Default accordion, no props</Heading>
       <Accordion>
-        <Accordion.Item value="1" title="Hello">
-          <Text>my friend</Text>
-        </Accordion.Item>
-        <Accordion.Item value="2" title="Hello">
-          <Text>my enemy</Text>
-          <TextField label="name" />
-        </Accordion.Item>
+        {accordions.map(({ value, header, body }) => (
+          <Accordion.Item value={value} key={value}>
+            <Accordion.Trigger>
+              {header}
+              <Accordion.Icon />
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <Text>{body}</Text>
+            </Accordion.Content>
+          </Accordion.Item>
+        ))}
       </Accordion>
 
       <Divider />
       <Heading level={4}>Single item, no accordion</Heading>
-      <Accordion.Item title="Single accordion item">
-        <Text>hello</Text>
+      <Accordion.Item>
+        <Accordion.Trigger>
+          Header
+          <Accordion.Icon />
+        </Accordion.Trigger>
+        <Accordion.Content>
+          <Text>Body</Text>
+        </Accordion.Content>
       </Accordion.Item>
 
       <Divider />
       <Heading level={4}>Controlled</Heading>
       <Accordion value={controlled} onChange={setControlled}>
-        <Accordion.Item value="1" title="First">
-          <Text>Test</Text>
-          <Button
-            onClick={() => {
-              setControlled(['2']);
-            }}
-          >
-            Next
-          </Button>
+        <Accordion.Item value="1">
+          <Accordion.Trigger>First</Accordion.Trigger>
+          <Accordion.Content>
+            <Text>Test</Text>
+            <Button
+              onClick={() => {
+                setControlled(['2']);
+              }}
+            >
+              Next
+            </Button>
+          </Accordion.Content>
         </Accordion.Item>
-        <Accordion.Item value="2" title="Second">
-          <Text>Test</Text>
+        <Accordion.Item value="2">
+          <Accordion.Trigger>Second</Accordion.Trigger>
+          <Accordion.Content>
+            <Text>Test</Text>
+          </Accordion.Content>
         </Accordion.Item>
       </Accordion>
       <Button
@@ -60,37 +94,49 @@ export default function ExpanderPage() {
       <Divider />
       <Heading level={4}>allowMultiple</Heading>
       <Accordion allowMultiple>
-        <Accordion.Item value="1" title="One">
-          <Text>One</Text>
-        </Accordion.Item>
-        <Accordion.Item value="2" title="Two">
-          <Text>Two</Text>
-        </Accordion.Item>
-        <Accordion.Item value="3" title="Three">
-          <Text>Three</Text>
-        </Accordion.Item>
+        {accordions.map(({ value, header, body }) => (
+          <Accordion.Item value={value} key={value}>
+            <Accordion.Trigger>
+              {header}
+              <Accordion.Icon />
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <Text>{body}</Text>
+            </Accordion.Content>
+          </Accordion.Item>
+        ))}
       </Accordion>
 
       <Divider />
       <Heading level={4}>allowMultiple & allowToggle</Heading>
       <Accordion allowMultiple allowToggle>
-        <Accordion.Item value="1" title="One">
-          <Text>One</Text>
-        </Accordion.Item>
-        <Accordion.Item value="2" title="Two">
-          <Text>Two</Text>
-        </Accordion.Item>
+        {accordions.map(({ value, header, body }) => (
+          <Accordion.Item value={value} key={value}>
+            <Accordion.Trigger>
+              {header}
+              <Accordion.Icon />
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <Text>{body}</Text>
+            </Accordion.Content>
+          </Accordion.Item>
+        ))}
       </Accordion>
 
       <Divider />
       <Heading level={4}>Uncontrolled, defaultValue, allowMultiple</Heading>
       <Accordion allowMultiple defaultValue={['2']}>
-        <Accordion.Item value="1" title="One">
-          <Text>One</Text>
-        </Accordion.Item>
-        <Accordion.Item value="2" title="Two">
-          <Text>Two</Text>
-        </Accordion.Item>
+        {accordions.map(({ value, header, body }) => (
+          <Accordion.Item value={value} key={value}>
+            <Accordion.Trigger>
+              {header}
+              <Accordion.Icon />
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <Text>{body}</Text>
+            </Accordion.Content>
+          </Accordion.Item>
+        ))}
       </Accordion>
     </Flex>
   );

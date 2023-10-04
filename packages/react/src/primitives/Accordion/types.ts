@@ -1,3 +1,4 @@
+import React from 'react';
 import { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
 
 export interface BaseAccordionProps extends BaseViewProps {
@@ -32,18 +33,18 @@ export interface BaseAccordionProps extends BaseViewProps {
    * Event handler called when the expanded state of an item changes
    */
   onChange?: (value?: string[]) => void;
+
+  items?: Array<{
+    trigger?: React.ReactNode;
+    content?: React.ReactNode;
+    value?: string;
+  }>;
 }
 
 export type AccordionProps<Element extends ElementType = 'div'> =
   PrimitiveProps<BaseAccordionProps, Element>;
 
 export interface BaseAccordionItemProps extends BaseViewProps {
-  /**
-   * @description
-   * The content of the heading.
-   */
-  title?: React.ReactNode;
-
   /**
    * @description
    * A unique value for the item.
