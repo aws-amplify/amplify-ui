@@ -968,7 +968,8 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-radiogroup-radio-background-color: var(--amplify-components-radio-button-background-color);
         --amplify-components-radiogroup-radio-checked-color: var(--amplify-components-radio-button-checked-color);
         --amplify-components-radiogroup-radio-label-color: var(--amplify-components-radio-label-color);
-        --amplify-components-radiogroup-label-color: var(--amplify-components-field-label-color);
+        --amplify-components-radiogroup-legend-color: var(--amplify-components-fieldset-legend-color);
+        --amplify-components-radiogroup-legend-font-weight: var(--amplify-font-weights-normal);
         --amplify-components-rating-large-size: var(--amplify-font-sizes-xxxl);
         --amplify-components-rating-default-size: var(--amplify-font-sizes-xl);
         --amplify-components-rating-small-size: var(--amplify-font-sizes-small);

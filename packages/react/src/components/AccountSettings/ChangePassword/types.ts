@@ -31,5 +31,5 @@ export interface ChangePasswordProps {
   /** custom component overrides */
   components?: ChangePasswordComponents;
   /** overrides default display text */
-  displayText?: Partial<ChangePasswordDisplayText>;
+  displayText?: ChangePasswordDisplayText;
 }

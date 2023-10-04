@@ -1,6 +1,6 @@
-import fs from 'fs';
-import { Command } from 'commander';
 import { PromisePool } from '@supercharge/promise-pool';
+import { Command } from 'commander';
+import fs from 'fs';
 
 const program = new Command();
 
@@ -91,7 +91,10 @@ const checkStartMessage = async (
  * @returns {boolean} hasError
  */
 const checkErrorMessage = async (logLines: string[]): Promise<boolean> => {
-  log('info', `Checking log file ${logFileName} for errors...`);
+  log(
+    'info',
+    `Checking log file ${logFileName} on  ${platform} platform for errors...`
+  );
 
   const { results } = await PromisePool.withConcurrency(1)
     .for(logLines)
@@ -135,7 +138,7 @@ const checkReactNativeLog = async (): Promise<void> => {
   process.chdir(`mega-apps/${megaAppName}`);
 
   // Wait for the logging messages to be ready. The number is based on real experiments in Github Actions.
-  let timeToWait = platform === 'android' ? 500 : 300;
+  const timeToWait = 500;
 
   log('info', `Sleep for '${timeToWait}' seconds...`);
   await sleep(timeToWait);
