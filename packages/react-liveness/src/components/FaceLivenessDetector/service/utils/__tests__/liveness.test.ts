@@ -262,8 +262,8 @@ describe('Liveness Helper', () => {
       expect(colorSequence.length).toBe(8);
       expect(colorSequence[0]).toStrictEqual({
         color: 'rgb(0,0,0)',
-        downscrollDuration: 475,
-        flatDisplayDuration: 0,
+        downscrollDuration: 0,
+        flatDisplayDuration: 75,
       });
     });
 

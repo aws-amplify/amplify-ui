@@ -62,7 +62,7 @@ describe('FreshnessColorDisplay', () => {
     ).mock.calls[0][0];
     expect(
       context.livenessStreamProvider!.sendClientInfo
-    ).toHaveBeenCalledTimes(2);
+    ).toHaveBeenCalledTimes(1);
     expect(
       clientSessionInfo.Challenge.FaceMovementAndLightChallenge.ColorDisplayed
         .CurrentColor.RGB
