@@ -270,9 +270,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
                 cond: 'hasFaceMatchedInOvalWithMinTime',
                 actions: [
                   'updateEndFaceMatch',
-                  'setupFlashFreshnessColors',
                   'cancelOvalMatchTimeout',
                   'cancelOvalDrawingTimeout',
+                  'setupFlashFreshnessColors',
                 ],
               },
               0.1: {
@@ -587,6 +587,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             context as unknown as LivenessContext,
             freshnessColors
           );
+
+          freshnessColorStartTimestamp = Date.now();
 
           return {
             ...context.freshnessColorAssociatedParams,
@@ -1096,8 +1098,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       async flashColors(context) {
         const { freshnessColorsComplete, freshnessColorDisplay } =
           context.freshnessColorAssociatedParams!;
-
-        freshnessColorStartTimestamp = Date.now();
 
         if (freshnessColorsComplete) {
           return;

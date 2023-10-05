@@ -458,8 +458,8 @@ export const MOCK_COLOR_SEQUENCES: ColorSequence[] = [
     FreshnessColor: {
       RGB: [0, 0, 0], // black
     },
-    DownscrollDuration: 475,
-    FlatDisplayDuration: 0,
+    DownscrollDuration: 0,
+    FlatDisplayDuration: 75,
   },
   {
     FreshnessColor: {
