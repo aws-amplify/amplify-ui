@@ -14,8 +14,8 @@ Follow the docs for adding the required dependencies making sure the **React Nat
 arch -arm64 brew install cocoapods
 ```
 
-**You will need ruby-2.7.4 to run this app**
-The default Ruby version available with MacOS is 2.6, so you can use [rbenv](https://github.com/rbenv/rbenv#installation) or [rvm](https://rvm.io/rvm/security#run-verified-installation) to do this.
+**You will need ruby-2.7.4 to run this app.**
+The default Ruby version available with MacOS is 2.6, so you can use [rbenv](https://github.com/rbenv/rbenv#installation) or [rvm](https://rvm.io/rvm/security#run-verified-installation) to install.
 
 > the Example App assumes usage with **macOS** and has not been tested for **Windows** or **Linux** development.
 
