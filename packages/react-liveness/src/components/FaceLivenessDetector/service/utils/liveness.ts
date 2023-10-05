@@ -132,7 +132,7 @@ export function getOvalDetailsFromSessionInformation({
 export function getStaticLivenessOvalDetails({
   width,
   height,
-  widthSeed = 1.1,
+  widthSeed = 1.0,
   centerXSeed = 0.5,
   centerYSeed = 0.5,
 }: {
@@ -168,7 +168,7 @@ export function getStaticLivenessOvalDetails({
   }
 
   const ovalWidth = ovalRatio * videoWidth;
-  const ovalHeight = 1.618 * ovalWidth;
+  const ovalHeight = 1.333 * ovalWidth;
 
   return {
     flippedCenterX: Math.floor(centerX),
