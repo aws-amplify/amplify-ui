@@ -31,7 +31,6 @@ jobs:
           - react-notifications
           - react-geo
           - react-storage
-          - react-liveness
 
     steps:
       - name: Checkout Amplify UI
