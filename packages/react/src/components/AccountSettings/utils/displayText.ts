@@ -1,18 +1,37 @@
-export const defaultChangePasswordDisplayText = {
-  currentPasswordLabel: 'Current Password',
-  newPasswordLabel: 'New Password',
-  confirmPasswordLabel: 'Confirm Password',
-  updatePasswordText: 'Update password',
-};
+import { DisplayTextTemplate } from '@aws-amplify/ui';
 
-export type ChangePasswordDisplayText = typeof defaultChangePasswordDisplayText;
+// ChangePassword
+export type ChangePasswordDisplayText = DisplayTextTemplate<{
+  confirmPasswordFieldLabel?: string;
+  currentPasswordFieldLabel?: string;
+  newPasswordFieldLabel?: string;
+  updatePasswordButtonText?: string;
+}>;
 
-export const defaultDeleteUserDisplayText = {
-  deleteAccountText: 'Delete Account',
+type ChangePasswordDisplayTextDefault = Required<ChangePasswordDisplayText>;
+
+export const defaultChangePasswordDisplayText: ChangePasswordDisplayTextDefault =
+  {
+    confirmPasswordFieldLabel: 'Confirm Password',
+    currentPasswordFieldLabel: 'Current Password',
+    newPasswordFieldLabel: 'New Password',
+    updatePasswordButtonText: 'Update password',
+  };
+
+// DeleteUser
+export type DeleteUserDisplayText = DisplayTextTemplate<{
+  cancelButtonText?: string;
+  confirmDeleteButtonText?: string;
+  deleteAccountButtonText?: string;
+  warningText?: string;
+}>;
+
+type DeleteUserDisplayTextDefault = Required<DeleteUserDisplayText>;
+
+export const defaultDeleteUserDisplayText: DeleteUserDisplayTextDefault = {
+  cancelButtonText: 'Cancel',
+  confirmDeleteButtonText: 'Delete',
+  deleteAccountButtonText: 'Delete Account',
   warningText:
     'Deleting your account is not reversible. You will lose access to your account and all data associated with it.',
-  cancelText: 'Cancel',
-  deleteMyAccountText: 'Delete my account',
 };
-
-export type DeleteUserDisplayText = typeof defaultDeleteUserDisplayText;

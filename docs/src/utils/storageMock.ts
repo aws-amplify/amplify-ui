@@ -1,9 +1,4 @@
-// @todo-migration re-enable
-// import {
-//   StorageProvider,
-//   UploadTask,
-//   StorageOptions,
-// } from '@aws-amplify/storage';
+import { UploadDataOutput } from 'aws-amplify/storage';
 
 // interface StorageProviderConfig extends StorageOptions {
 interface StorageProviderConfig {
@@ -56,8 +51,7 @@ export default class MyStorageProvider {
   }
 
   // upload storage object
-  // put(key: string, object, options?): Promise<Object> | UploadTask {
-  put(key: string, object, options?): Promise<Object> | any {
+  put(key: string, object, options?): Promise<Object> | UploadDataOutput {
     const opt = Object.assign({}, options);
     const { delay, networkError } = this._config;
     const { progressCallback, resumable, errorCallback, completeCallback } =
@@ -98,16 +92,18 @@ export default class MyStorageProvider {
       // this will make the progress go in 4 chunks of 25%
       tick = tickCreator(null, 25);
       interval = setInterval(tick, delay);
-      // const uploadTask: UploadTask = {
-      const uploadTask: any = {
+      const uploadTask: UploadDataOutput = {
         pause() {
           clearInterval(interval);
         },
         resume() {
           interval = setInterval(tick, delay);
         },
-        percent: progress,
-        isInProgress: true,
+        cancel() {
+          clearInterval(interval);
+        },
+        state: 'SUCCESS',
+        result: Promise.resolve({ key: 'key' }),
       };
       return uploadTask;
     } else {

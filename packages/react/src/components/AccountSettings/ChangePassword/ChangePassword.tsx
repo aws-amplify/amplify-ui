@@ -1,12 +1,12 @@
 import React from 'react';
 import isEqual from 'lodash/isEqual.js';
 
-import { ConsoleLogger as Logger } from '@aws-amplify/core/internals/utils';
 import {
   changePassword,
   ValidatorOptions,
   getDefaultConfirmPasswordValidators,
   getDefaultPasswordValidators,
+  getLogger,
   runFieldValidators,
 } from '@aws-amplify/ui';
 
@@ -18,7 +18,7 @@ import { ChangePasswordProps, ValidateParams } from './types';
 import DEFAULTS from './defaults';
 import { defaultChangePasswordDisplayText } from '../utils';
 
-const logger = new Logger('ChangePassword');
+const logger = getLogger('ChangePassword');
 
 const getIsDisabled = (
   formValues: FormValues,
@@ -120,10 +120,10 @@ function ChangePassword({
     ...overrideDisplayText,
   };
   const {
-    confirmPasswordLabel,
-    currentPasswordLabel,
-    newPasswordLabel,
-    updatePasswordText,
+    confirmPasswordFieldLabel,
+    currentPasswordFieldLabel,
+    newPasswordFieldLabel,
+    updatePasswordButtonText,
   } = displayText;
 
   /* Subcomponents */
@@ -173,7 +173,7 @@ function ChangePassword({
       setErrorMessage(null);
     }
 
-    changePassword({ user, currentPassword, newPassword })
+    changePassword({ currentPassword, newPassword })
       .then(() => {
         // notify success to the parent
         onSuccess?.();
@@ -207,7 +207,7 @@ function ChangePassword({
         <CurrentPasswordField
           autoComplete="current-password"
           isRequired
-          label={currentPasswordLabel}
+          label={currentPasswordFieldLabel}
           name="currentPassword"
           onBlur={handleBlur}
           onChange={handleChange}
@@ -216,7 +216,7 @@ function ChangePassword({
           autoComplete="new-password"
           fieldValidationErrors={validationError?.newPassword}
           isRequired
-          label={newPasswordLabel}
+          label={newPasswordFieldLabel}
           name="newPassword"
           onBlur={handleBlur}
           onChange={handleChange}
@@ -225,13 +225,13 @@ function ChangePassword({
           autoComplete="new-password"
           fieldValidationErrors={validationError?.confirmPassword}
           isRequired
-          label={confirmPasswordLabel}
+          label={confirmPasswordFieldLabel}
           name="confirmPassword"
           onBlur={handleBlur}
           onChange={handleChange}
         />
         <SubmitButton isDisabled={isDisabled} type="submit">
-          {updatePasswordText}
+          {updatePasswordButtonText}
         </SubmitButton>
         {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
       </Flex>

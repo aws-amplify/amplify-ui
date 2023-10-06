@@ -24,7 +24,7 @@ jest.mock('../../../../internal', () => ({
 
 const deleteUserSpy = jest.spyOn(UIModule, 'deleteUser');
 
-const { cancelText, deleteAccountText, deleteMyAccountText } =
+const { cancelButtonText, deleteAccountButtonText, confirmDeleteButtonText } =
   defaultDeleteUserDisplayText;
 
 function CustomWarningView({ onCancel, onConfirm }: WarningViewProps) {
@@ -82,13 +82,13 @@ describe('DeleteUser', () => {
     render(<DeleteUser onSuccess={onSuccess} />);
 
     const deleteAccountButton = await screen.findByRole('button', {
-      name: deleteAccountText,
+      name: deleteAccountButtonText,
     });
 
     fireEvent.click(deleteAccountButton);
 
     const confirmDeleteButton = await screen.findByRole('button', {
-      name: deleteMyAccountText,
+      name: confirmDeleteButtonText,
     });
 
     fireEvent.click(confirmDeleteButton);
@@ -103,13 +103,13 @@ describe('DeleteUser', () => {
     render(<DeleteUser onSuccess={onSuccess} />);
 
     const deleteAccountButton = await screen.findByRole('button', {
-      name: deleteAccountText,
+      name: deleteAccountButtonText,
     });
 
     fireEvent.click(deleteAccountButton);
 
     const confirmDeleteButton = await screen.findByRole('button', {
-      name: deleteMyAccountText,
+      name: confirmDeleteButtonText,
     });
 
     fireEvent.click(confirmDeleteButton);
@@ -126,13 +126,13 @@ describe('DeleteUser', () => {
     render(<DeleteUser onError={onError} />);
 
     const deleteAccountButton = await screen.findByRole('button', {
-      name: deleteAccountText,
+      name: deleteAccountButtonText,
     });
 
     fireEvent.click(deleteAccountButton);
 
     const confirmDeleteButton = await screen.findByRole('button', {
-      name: deleteMyAccountText,
+      name: confirmDeleteButtonText,
     });
 
     fireEvent.click(confirmDeleteButton);
@@ -147,21 +147,23 @@ describe('DeleteUser', () => {
     render(<DeleteUser />);
 
     const deleteAccountButton = await screen.findByRole('button', {
-      name: deleteAccountText,
+      name: deleteAccountButtonText,
     });
     fireEvent.click(deleteAccountButton);
 
     // warning window now should be visible
-    await screen.findByText(deleteMyAccountText);
+    await screen.findByText(confirmDeleteButtonText);
 
     const cancelButton = await screen.findByRole('button', {
-      name: cancelText,
+      name: cancelButtonText,
     });
     fireEvent.click(cancelButton);
 
     // warning window should be gone now
     await waitFor(() =>
-      expect(screen.queryByText(deleteMyAccountText)).not.toBeInTheDocument()
+      expect(
+        screen.queryByText(confirmDeleteButtonText)
+      ).not.toBeInTheDocument()
     );
   });
 
@@ -172,13 +174,13 @@ describe('DeleteUser', () => {
     render(<DeleteUser onError={onError} />);
 
     const deleteAccountButton = await screen.findByRole('button', {
-      name: deleteAccountText,
+      name: deleteAccountButtonText,
     });
 
     fireEvent.click(deleteAccountButton);
 
     const confirmDeleteButton = await screen.findByRole('button', {
-      name: deleteMyAccountText,
+      name: confirmDeleteButtonText,
     });
 
     fireEvent.click(confirmDeleteButton);
@@ -269,14 +271,14 @@ describe('DeleteUser', () => {
   });
 
   it('renders as expected with override display text', () => {
-    const deleteAccountTextOverride = 'Custom delete account label';
+    const deleteAccountButtonTextOverride = 'Custom delete account label';
     const displayTextOverride = {
-      deleteAccountText: deleteAccountTextOverride,
+      deleteAccountButtonText: deleteAccountButtonTextOverride,
     };
     const { getByText, queryByText } = render(
       <DeleteUser displayText={displayTextOverride} />
     );
-    expect(getByText(deleteAccountTextOverride)).toBeVisible();
-    expect(queryByText(deleteAccountText)).toBe(null);
+    expect(getByText(deleteAccountButtonTextOverride)).toBeVisible();
+    expect(queryByText(deleteAccountButtonText)).toBe(null);
   });
 });

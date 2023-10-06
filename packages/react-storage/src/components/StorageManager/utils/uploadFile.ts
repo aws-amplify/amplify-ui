@@ -1,17 +1,18 @@
-// import { Storage } from '@aws-amplify/storage';
-// import type { StorageAccessLevel, UploadTask } from '@aws-amplify/storage';
 import { StorageAccessLevel } from '@aws-amplify/core';
-import * as Storage from '@aws-amplify/storage';
+import {
+  uploadData,
+  TransferProgressEvent,
+  UploadDataInput,
+  UploadDataOutput,
+} from 'aws-amplify/storage';
 
 export type UploadFileProps = {
   file: File;
   key: string;
   level: StorageAccessLevel;
-  isResumable?: boolean;
-  progressCallback: (progress: { loaded: number; total: number }) => void;
+  progressCallback: (event: TransferProgressEvent) => void;
   errorCallback: (error: string) => void;
   completeCallback: (event: { key: string | undefined }) => void;
-  provider?: string;
 } & Record<string, any>;
 
 export function uploadFile({
@@ -21,33 +22,32 @@ export function uploadFile({
   progressCallback,
   errorCallback,
   completeCallback,
-  isResumable: _ = false,
-  provider: __,
-}: UploadFileProps): Storage.UploadDataOutput {
+}: UploadFileProps): UploadDataOutput {
   const contentType = file.type || 'binary/octet-stream';
 
-  const input: Storage.UploadDataInput = {
+  const input: UploadDataInput = {
     key,
     data: file,
     options: {
       accessLevel: level,
       contentType,
       onProgress: ({ transferredBytes, totalBytes }) =>
-        progressCallback({ loaded: transferredBytes, total: totalBytes } as {
-          loaded: number;
-          total: number;
-        }),
+        progressCallback({ transferredBytes, totalBytes }),
     },
   };
-  const output = Storage.uploadData(input);
+  const output = uploadData(input);
 
-  if (output.state === 'SUCCESS') {
-    completeCallback?.({ key });
-  }
+  output.result.then(() => {
+    if (output.state === 'SUCCESS') {
+      completeCallback?.({ key });
+    }
 
-  if (output.state === 'ERROR') {
-    errorCallback?.(key);
-  }
+    if (output.state === 'ERROR') {
+      errorCallback?.(key);
+    }
+
+    return output;
+  });
 
   return output;
 }

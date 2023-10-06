@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 
-// import { UploadTask } from '@aws-amplify/storage';
-import * as Storage from '@aws-amplify/storage';
+import { UploadDataOutput } from 'aws-amplify/storage';
 import { ComponentClassName } from '@aws-amplify/ui';
 
 import { FileList } from '../FileList';
@@ -17,7 +16,7 @@ const mockFile: StorageFile = {
   error: '',
   isImage: false,
   key: '',
-  uploadTask: {} as Storage.UploadDataOutput,
+  uploadTask: {} as UploadDataOutput,
 };
 
 const mockOnCancelUpload = jest.fn();
@@ -87,7 +86,7 @@ describe('FileList', () => {
     ).toHaveLength(fileListProps.files.length);
 
     expect(
-      getByText(defaultStorageManagerDisplayText.pauseText)
+      getByText(defaultStorageManagerDisplayText.pauseButtonText)
     ).toBeInTheDocument();
   });
 
@@ -117,7 +116,9 @@ describe('FileList', () => {
 
   it('should call onPause when pause button is clicked', () => {
     const { getByText } = render(<FileList {...fileListProps} isResumable />);
-    const pauseButton = getByText(defaultStorageManagerDisplayText.pauseText);
+    const pauseButton = getByText(
+      defaultStorageManagerDisplayText.pauseButtonText
+    );
     fireEvent.click(pauseButton);
     expect(mockOnPause).toHaveBeenCalledTimes(1);
   });
