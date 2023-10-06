@@ -266,9 +266,8 @@ export function createAuthenticatorMachine(
         clearActorDoneData: assign({ actorDoneData: undefined }),
         applyAmplifyConfig: assign({
           config(context, { data: cliConfigBase }) {
-            console.group('+++applyAmplifyConfig');
-
             const cliConfig = getAuthenticatorConfig(cliConfigBase);
+            console.group('+++applyAmplifyConfig', cliConfig, cliConfigBase);
             // Prefer explicitly configured settings over default CLI values\
             const {
               loginMechanisms = cliConfig.loginMechanisms ?? [],
@@ -324,6 +323,7 @@ export function createAuthenticatorMachine(
               loginMechanisms: context.config?.loginMechanisms,
               socialProviders: context.config?.socialProviders,
               formFields: context.config?.formFields,
+              signUpAttributes: context.config?.signUpAttributes,
             });
             return spawn(actor, { name: 'signInActor' });
           },

@@ -5,6 +5,7 @@ import { withAuthenticator, translations } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
+import { getAuthenticatorConfig } from '@aws-amplify/ui';
 Amplify.configure(awsExports);
 
 // @todo-migration remove cast
@@ -32,10 +33,13 @@ const formFields = {
 function App({ user, signOut }) {
   return (
     <>
-      <h2>Welcome, {user.attributes?.phone_number}</h2>
+      <h2>Welcome, {user?.attributes?.phone_number}</h2>
       <button onClick={signOut}>Sign out</button>
     </>
   );
 }
 
-export default withAuthenticator(App, { formFields: formFields });
+export default withAuthenticator(App, {
+  formFields: formFields,
+  ...getAuthenticatorConfig(awsExports),
+});

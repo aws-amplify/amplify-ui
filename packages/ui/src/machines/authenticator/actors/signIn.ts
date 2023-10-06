@@ -361,7 +361,6 @@ export function signInActor({ services }: SignInMachineOptions) {
                       {
                         cond: 'shouldSetupTOTP',
                         actions: ['setUser', 'setChallengeName'],
-
                         target: '#signInActor.setupTOTP',
                       },
                       {
@@ -543,11 +542,11 @@ export function signInActor({ services }: SignInMachineOptions) {
           groupLog('+++shouldConfirmSignIn', 'event', event);
           return isMfaChallengeName(getChallengeName(event));
         },
-        shouldForceChangePassword: (_, event): boolean => {
+        shouldForceChangePassword: (context, event): boolean => {
           groupLog('+++shouldForceChangePassword', 'event', event);
-          return isExpectedChallengeName(
-            getChallengeName(event),
-            'NEW_PASSWORD_REQUIRED'
+          return (
+            event.data.nextStep?.signInStep ===
+            'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED'
           );
         },
 
@@ -579,11 +578,11 @@ export function signInActor({ services }: SignInMachineOptions) {
             '+++shouldSetupTOTP',
             `'event.data.nextStep.signInStep' ===
             'CONTINUE_SIGN_IN_WITH_TOTP_SETUP'`,
-            event.data.nextStep.signInStep ===
+            event.data.nextStep?.signInStep ===
               'CONTINUE_SIGN_IN_WITH_TOTP_SETUP'
           );
           return (
-            event.data.nextStep.signInStep ===
+            event.data.nextStep?.signInStep ===
             'CONTINUE_SIGN_IN_WITH_TOTP_SETUP'
           );
           // return isExpectedChallengeName(getChallengeName(event), 'MFA_SETUP');
