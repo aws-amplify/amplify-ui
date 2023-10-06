@@ -18,7 +18,6 @@ export const StorageManagerFileTypesExample = () => {
       maxFileCount={5}
       // Size is in bytes
       maxFileSize={10000}
-      provider="fast" // IGNORE
     />
   );
 };

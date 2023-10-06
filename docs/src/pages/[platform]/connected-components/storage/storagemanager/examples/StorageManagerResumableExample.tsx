@@ -7,7 +7,6 @@ export const StorageManagerResumableExample = () => {
       accessLevel="guest"
       maxFileCount={10}
       isResumable
-      provider="slow" // IGNORE
     />
   );
 };

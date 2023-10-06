@@ -15,7 +15,6 @@ export const StorageManagerDisplayTextExample = () => {
           return `${count} images uploaded`;
         },
       }}
-      provider="fast" // IGNORE
     />
   );
 };
