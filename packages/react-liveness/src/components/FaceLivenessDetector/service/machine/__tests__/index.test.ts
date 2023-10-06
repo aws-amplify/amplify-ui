@@ -89,6 +89,8 @@ describe('Liveness Machine', () => {
     leftEye: [200, 200],
     mouth: [200, 200],
     nose: [200, 200],
+    rightEar: [100, 100],
+    leftEar: [0, 0],
   };
   const mockOvalDetails: LivenessOvalDetails = {
     height: 100,
@@ -572,9 +574,9 @@ describe('Liveness Machine', () => {
             .BoundingBox
         ).toStrictEqual({
           Height: 0,
-          Left: 0.6875,
-          Top: 0.4166666666666667,
-          Width: 0,
+          Left: 1,
+          Top: 0.625,
+          Width: -0.15625,
         })
       );
     });

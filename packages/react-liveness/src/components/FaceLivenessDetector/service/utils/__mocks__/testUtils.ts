@@ -68,6 +68,8 @@ export const mockFace: Face = {
   leftEye: [200, 200],
   mouth: [200, 200],
   nose: [200, 200],
+  rightEar: [100, 100],
+  leftEar: [0, 0],
 };
 export const mockOvalDetails: LivenessOvalDetails = {
   height: 100,

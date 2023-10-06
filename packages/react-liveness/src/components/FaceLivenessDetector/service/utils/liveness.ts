@@ -368,7 +368,15 @@ export function generateBboxFromLandmarks(
   face: Face,
   oval: LivenessOvalDetails
 ): BoundingBox {
-  const { leftEye, rightEye, nose } = face;
+  const {
+    leftEye,
+    rightEye,
+    nose,
+    leftEar,
+    rightEar,
+    top: faceTop,
+    height: faceHeight,
+  } = face;
   const { height: ovalHeight, centerY } = oval;
   const ovalTop = centerY! - ovalHeight! / 2;
 
@@ -384,26 +392,24 @@ export function generateBboxFromLandmarks(
   const ow = (alpha * pd + gamma * fh) / 2;
   const oh = 1.618 * ow;
 
-  let cx: number, cy: number;
+  let cx: number;
 
   if (eyeCenter[1] <= (ovalTop + ovalHeight!) / 2) {
     cx = (eyeCenter[0] + nose[0]) / 2;
-    cy = (eyeCenter[1] + nose[1]) / 2;
   } else {
     cx = eyeCenter[0];
-    cy = eyeCenter[1];
   }
 
-  const left = cx - ow / 2,
-    top = cy - oh / 2;
-  const width = ow,
-    height = oh;
+  const faceBottom = faceTop + faceHeight;
+  const top = faceBottom - oh;
+  const left = Math.min(cx - ow / 2, rightEar[0]);
+  const right = Math.min(cx + ow / 2, leftEar[0]);
 
   return {
     left: left,
     top: top,
-    right: left + width,
-    bottom: top + height,
+    right: right,
+    bottom: faceBottom,
   };
 }
 

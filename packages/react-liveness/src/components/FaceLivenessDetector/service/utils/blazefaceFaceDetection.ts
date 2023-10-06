@@ -1,5 +1,5 @@
 import * as tf from '@tensorflow/tfjs-core';
-import * as blazeface from '@tensorflow-models/blazeface';
+import * as faceDetection from '@tensorflow-models/face-detection';
 
 // TODO:: Figure out if we should lazy load these or not.
 import * as tfjsWasm from '@tensorflow/tfjs-backend-wasm';
@@ -12,7 +12,7 @@ import { FaceDetection, Face, Coordinate } from '../types';
 
 type BlazeFaceModelBackend = 'wasm' | 'cpu';
 
-export const BLAZEFACE_VERSION = '0.0.7';
+export const BLAZEFACE_VERSION = '1.0.2';
 
 /**
  *   WARNING: When updating these links,
@@ -28,7 +28,7 @@ export class BlazeFaceFaceDetection extends FaceDetection {
   modelBackend!: BlazeFaceModelBackend;
   faceModelUrl: string | undefined;
   binaryPath: string;
-  private _model!: blazeface.BlazeFaceModel;
+  private _model!: faceDetection.FaceDetector;
 
   constructor(binaryPath?: string, faceModelUrl?: string) {
     super();
@@ -45,11 +45,16 @@ export class BlazeFaceFaceDetection extends FaceDetection {
 
     try {
       await tf.ready();
-      this._model = await jitteredExponentialRetry(blazeface.load, [
-        {
-          modelUrl: this.faceModelUrl,
-        },
-      ]);
+      this._model = await jitteredExponentialRetry(
+        faceDetection.createDetector,
+        [
+          faceDetection.SupportedModels.MediaPipeFaceDetector,
+          {
+            detectorModelUrl: this.faceModelUrl,
+            runtime: 'tfjs',
+          },
+        ]
+      );
     } catch (e) {
       throw new Error(
         'There was an error loading the blazeface model. If you are using a custom blazeface model url ensure that it is a fully qualified url that returns a json file.'
@@ -58,47 +63,47 @@ export class BlazeFaceFaceDetection extends FaceDetection {
   }
 
   async detectFaces(videoEl: HTMLVideoElement): Promise<Face[]> {
-    const returnTensors = false;
     const flipHorizontal = true;
-    const annotateBoxes = true;
-    const predictions = await this._model.estimateFaces(
-      videoEl,
-      returnTensors,
+    const predictions = await this._model.estimateFaces(videoEl, {
       flipHorizontal,
-      annotateBoxes
-    );
+    });
 
     const timestampMs = Date.now();
 
-    const faces: Face[] = predictions
-      .filter((prediction) => !!prediction.landmarks)
-      .map((prediction) => {
-        const { topLeft, bottomRight, probability, landmarks } = prediction;
+    const faces: Face[] = predictions.map((prediction) => {
+      const { box, keypoints } = prediction;
+      const { xMin: left, yMin: top, width, height } = box;
+      const rightEye = this._getCoordinate(keypoints, 'rightEye');
+      const leftEye = this._getCoordinate(keypoints, 'leftEye');
+      const nose = this._getCoordinate(keypoints, 'noseTip');
+      const mouth = this._getCoordinate(keypoints, 'mouthCenter');
+      const rightEar = this._getCoordinate(keypoints, 'rightEarTragion');
+      const leftEar = this._getCoordinate(keypoints, 'leftEarTragion');
 
-        const [right, top] = topLeft as Coordinate; // right, top because the prediction is flipped
-        const [left, bottom] = bottomRight as Coordinate; // left, bottom because the prediction is flipped
-        const width = Math.abs(right - left);
-        const height = Math.abs(bottom - top);
-        const rightEye = (landmarks as Coordinate[])[0];
-        const leftEye = (landmarks as Coordinate[])[1];
-        const nose = (landmarks as Coordinate[])[2];
-        const mouth = (landmarks as Coordinate[])[3];
-
-        return {
-          top,
-          left,
-          width,
-          height,
-          timestampMs,
-          probability: (probability as unknown as [number])[0], // probability in reality is [number] but is typed as number | Tensor.1d
-          rightEye,
-          leftEye,
-          mouth,
-          nose,
-        };
-      });
+      return {
+        top,
+        left,
+        width,
+        height,
+        timestampMs,
+        rightEye,
+        leftEye,
+        mouth,
+        nose,
+        rightEar,
+        leftEar,
+      };
+    });
 
     return faces;
+  }
+
+  private _getCoordinate(
+    keypoints: faceDetection.Keypoint[],
+    name: string
+  ): Coordinate {
+    const keypoint = keypoints.find((k) => k.name === name)!;
+    return [keypoint.x, keypoint.y];
   }
 
   private async _loadWebAssemblyBackend() {

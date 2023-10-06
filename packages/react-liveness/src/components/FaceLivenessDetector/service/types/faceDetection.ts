@@ -7,11 +7,12 @@ export interface Face {
   width: number;
   height: number;
   timestampMs: number;
-  probability?: number;
   rightEye: Coordinate;
   leftEye: Coordinate;
   mouth: Coordinate;
   nose: Coordinate;
+  rightEar: Coordinate;
+  leftEar: Coordinate;
 }
 
 export type Coordinate = [number, number];
