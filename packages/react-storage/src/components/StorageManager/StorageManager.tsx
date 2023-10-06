@@ -41,7 +41,6 @@ function StorageManagerBase(
     showThumbnails = true,
     processFile,
     components,
-    provider,
     path,
   }: StorageManagerProps,
   ref: React.ForwardedRef<StorageManagerHandle>
@@ -126,7 +125,6 @@ function StorageManagerBase(
     setUploadProgress,
     setUploadSuccess,
     processFile,
-    provider,
     path,
   });
 

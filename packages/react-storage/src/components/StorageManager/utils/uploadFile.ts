@@ -22,6 +22,7 @@ export function uploadFile({
   progressCallback,
   errorCallback,
   completeCallback,
+  ...rest
 }: UploadFileProps): UploadDataOutput {
   const contentType = file.type || 'binary/octet-stream';
 
@@ -33,21 +34,20 @@ export function uploadFile({
       contentType,
       onProgress: ({ transferredBytes, totalBytes }) =>
         progressCallback({ transferredBytes, totalBytes }),
+      ...rest,
     },
   };
   const output = uploadData(input);
 
-  output.result.then(() => {
-    if (output.state === 'SUCCESS') {
-      completeCallback?.({ key });
-    }
-
-    if (output.state === 'ERROR') {
-      errorCallback?.(key);
-    }
-
-    return output;
-  });
-
+  output.result
+    .then(() => {
+      if (output.state === 'SUCCESS') {
+        completeCallback?.({ key });
+      }
+    })
+    .catch((e) => {
+      const error = e as Error;
+      errorCallback?.(error.message);
+    });
   return output;
 }
