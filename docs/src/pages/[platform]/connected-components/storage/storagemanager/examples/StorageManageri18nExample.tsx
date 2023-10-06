@@ -63,7 +63,6 @@ export const StorageManageri18nExample = () => {
         accessLevel="guest"
         maxFileCount={1}
         displayText={dictionary[language]}
-        provider="fast" // IGNORE
       />
     </>
   );

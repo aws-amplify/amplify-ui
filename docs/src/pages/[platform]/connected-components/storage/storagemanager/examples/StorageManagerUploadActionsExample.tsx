@@ -8,7 +8,6 @@ export const StorageManagerUploadActionsExample = () => {
       autoUpload={false}
       maxFileCount={1}
       isResumable
-      provider="slow" // IGNORE
     />
   );
 };

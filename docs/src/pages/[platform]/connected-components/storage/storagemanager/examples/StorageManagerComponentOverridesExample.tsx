@@ -17,7 +17,6 @@ export const StorageManagerComponentOverridesExample = () => {
       acceptedFileTypes={['image/*']}
       accessLevel="guest"
       maxFileCount={100}
-      provider="fast" // IGNORE
       components={{
         Container({ children }) {
           return <Card variation="elevated">{children}</Card>;

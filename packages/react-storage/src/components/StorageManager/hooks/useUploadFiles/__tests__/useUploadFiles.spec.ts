@@ -1,12 +1,14 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { waitFor } from '@testing-library/react';
-
-import { uploadData } from 'aws-amplify/storage';
+import { setImmediate } from 'timers';
+import * as Storage from 'aws-amplify/storage';
 
 import { FileStatus, StorageFile, StorageManagerProps } from '../../../types';
 import { useUploadFiles, UseUploadFilesProps } from '../useUploadFiles';
 
-jest.mock('aws-amplify/storage');
+const uploadDataSpy = jest.spyOn(Storage, 'uploadData');
+
+const flushPromises = () => new Promise(setImmediate);
 
 const mockUploadingFile: StorageFile = {
   id: 'uploading',
@@ -44,25 +46,36 @@ const props: Omit<UseUploadFilesProps, 'files'> = {
   onUploadStart: mockOnUploadStart,
 };
 
-const storageOutput = {
-  resume: jest.fn(),
-  pause: jest.fn(),
-  cancel: jest.fn(),
-};
-
 describe('useUploadFiles', () => {
-  afterEach(() => jest.clearAllMocks());
+  beforeEach(() => {
+    uploadDataSpy.mockClear();
+    jest.resetAllMocks();
+  });
 
   it('should upload all queued files', async () => {
-    (uploadData as jest.Mock).mockResolvedValue(storageOutput);
+    uploadDataSpy.mockImplementationOnce((input: Storage.UploadDataInput) => {
+      return {
+        cancel: jest.fn(),
+        pause: jest.fn(),
+        resume: jest.fn(),
+        state: 'SUCCESS',
+        result: Promise.resolve({ key: input.key, data: input.data }),
+      };
+    });
     renderHook(() =>
-      useUploadFiles({ ...props, files: [mockUploadingFile, mockQueuedFile] })
+      useUploadFiles({
+        ...props,
+        files: [mockUploadingFile, mockQueuedFile],
+      })
     );
+
+    await flushPromises();
 
     await waitFor(() => {
       expect(mockSetUploadingFile).toHaveBeenCalledTimes(1);
       expect(mockSetUploadingFile).toHaveBeenCalledWith({
         id: mockQueuedFile.id,
+        uploadTask: expect.any(Object),
       });
       expect(mockSetUploadingFile).not.toHaveBeenCalledWith({
         id: mockUploadingFile.id,
@@ -74,13 +87,20 @@ describe('useUploadFiles', () => {
       expect(mockSetUploadSuccess).not.toHaveBeenCalledWith({
         id: mockUploadingFile.id,
       });
-
       expect(mockOnUploadError).not.toHaveBeenCalled();
     });
   });
 
   it('should upload all resumable queued files', async () => {
-    (uploadData as jest.Mock).mockResolvedValue(storageOutput);
+    uploadDataSpy.mockImplementationOnce((input: Storage.UploadDataInput) => {
+      return {
+        cancel: jest.fn(),
+        pause: jest.fn(),
+        resume: jest.fn(),
+        state: 'SUCCESS',
+        result: Promise.resolve({ key: input.key, data: input.data }),
+      };
+    });
     renderHook(() =>
       useUploadFiles({
         ...props,
@@ -88,6 +108,8 @@ describe('useUploadFiles', () => {
         files: [mockUploadingFile, mockQueuedFile],
       })
     );
+    await flushPromises();
+
     await waitFor(() => {
       expect(mockSetUploadingFile).toHaveBeenCalledTimes(1);
       expect(mockSetUploadingFile).toHaveBeenCalledWith({
@@ -101,10 +123,19 @@ describe('useUploadFiles', () => {
   });
 
   it('should do nothing if number of queued files exceeds max number of files', async () => {
-    (uploadData as jest.Mock).mockResolvedValue(storageOutput);
+    uploadDataSpy.mockImplementationOnce((input: Storage.UploadDataInput) => {
+      return {
+        cancel: jest.fn(),
+        pause: jest.fn(),
+        resume: jest.fn(),
+        state: 'SUCCESS',
+        result: Promise.resolve({ key: input.key, data: input.data }),
+      };
+    });
     renderHook(() =>
       useUploadFiles({ ...props, maxFileCount: 0, files: [mockQueuedFile] })
     );
+    await flushPromises();
 
     expect(mockSetUploadingFile).not.toHaveBeenCalled();
 
@@ -114,18 +145,36 @@ describe('useUploadFiles', () => {
   });
 
   it('should call onUploadError when upload fails', async () => {
-    const mockError = new Error('Something wrong happened');
-    (uploadData as jest.Mock).mockRejectedValue(mockError);
+    const errorMessage = new Error('Error');
+    uploadDataSpy.mockImplementationOnce(() => {
+      return {
+        cancel: jest.fn(),
+        pause: jest.fn(),
+        resume: jest.fn(),
+        state: 'ERROR',
+        result: Promise.reject(errorMessage),
+      };
+    });
     renderHook(() => useUploadFiles({ ...props, files: [mockQueuedFile] }));
+
+    await flushPromises();
 
     await waitFor(() => {
       expect(mockOnUploadError).toHaveBeenCalledTimes(1);
-      expect(mockOnUploadError).toHaveBeenCalledWith(mockError, { key: 'key' });
+      expect(mockOnUploadError).toHaveBeenCalledWith('Error', { key: 'key' });
     });
   });
 
   it('should start upload after processFile', async () => {
-    (uploadData as jest.Mock).mockResolvedValue(storageOutput);
+    uploadDataSpy.mockImplementationOnce((input: Storage.UploadDataInput) => {
+      return {
+        cancel: jest.fn(),
+        pause: jest.fn(),
+        resume: jest.fn(),
+        state: 'SUCCESS',
+        result: Promise.resolve({ key: input.key, data: input.data }),
+      };
+    });
     const processFile: StorageManagerProps['processFile'] = ({ file }) => {
       return {
         file,
@@ -141,6 +190,8 @@ describe('useUploadFiles', () => {
       })
     );
 
+    await flushPromises();
+
     await waitFor(() => {
       expect(mockOnUploadStart).toHaveBeenCalledWith({
         key: 'test.png',
@@ -149,7 +200,15 @@ describe('useUploadFiles', () => {
   });
 
   it('should start upload after processFile promise resolves', async () => {
-    (uploadData as jest.Mock).mockResolvedValue(storageOutput);
+    uploadDataSpy.mockImplementationOnce((input: Storage.UploadDataInput) => {
+      return {
+        cancel: jest.fn(),
+        pause: jest.fn(),
+        resume: jest.fn(),
+        state: 'SUCCESS',
+        result: Promise.resolve({ key: input.key, data: input.data }),
+      };
+    });
     const processFile: StorageManagerProps['processFile'] = ({ file }) => {
       return new Promise((resolve) => {
         setTimeout(() => {
@@ -165,6 +224,8 @@ describe('useUploadFiles', () => {
         files: [mockQueuedFile],
       })
     );
+
+    await flushPromises();
 
     await waitFor(
       () => {

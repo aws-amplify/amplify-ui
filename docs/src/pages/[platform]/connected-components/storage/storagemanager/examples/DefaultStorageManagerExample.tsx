@@ -7,7 +7,6 @@ export const DefaultStorageManagerExample = () => {
       accessLevel="guest"
       maxFileCount={1}
       isResumable
-      provider="slow" // IGNORE
     />
   );
 };
