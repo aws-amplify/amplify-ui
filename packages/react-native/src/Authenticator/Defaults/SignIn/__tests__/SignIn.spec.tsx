@@ -5,6 +5,13 @@ import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import SignIn from '../SignIn';
 
+jest.mock(
+  '@aws-amplify/react-native/lib/moduleLoaders/loadUrlPolyfill',
+  () => ({
+    loadUrlPolyfill: jest.fn(),
+  })
+);
+
 const {
   getSignInText,
   getForgotPasswordText,

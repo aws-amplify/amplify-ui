@@ -9,6 +9,13 @@ import {
 
 import FederatedProviderButtons from '../FederatedProviderButtons';
 
+jest.mock(
+  '@aws-amplify/react-native/lib/moduleLoaders/loadUrlPolyfill',
+  () => ({
+    loadUrlPolyfill: jest.fn(),
+  })
+);
+
 const { getSignInWithFederationText } = authenticatorTextUtil;
 
 const route: AuthenticatorRoute = 'signIn';

@@ -2480,7 +2480,7 @@ Array [
         },
         Object {
           "fontSize": 24,
-          "fontWeight": "300",
+          "fontWeight": "500",
           "lineHeight": 36,
         },
         Object {
@@ -2571,9 +2571,9 @@ Array [
         style={
           Array [
             Object {
-              "fontSize": 14,
+              "fontSize": 16,
               "fontWeight": "400",
-              "lineHeight": 21,
+              "lineHeight": 24,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
@@ -2619,9 +2619,9 @@ Array [
         style={
           Array [
             Object {
-              "fontSize": 14,
+              "fontSize": 16,
               "fontWeight": "400",
-              "lineHeight": 21,
+              "lineHeight": 24,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
@@ -2668,6 +2668,7 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
+            "marginBottom": 8,
           },
           Object {
             "paddingHorizontal": 12,
@@ -2682,9 +2683,9 @@ Array [
         style={
           Array [
             Object {
-              "fontSize": 14,
+              "fontSize": 16,
               "fontWeight": "400",
-              "lineHeight": 21,
+              "lineHeight": 24,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
@@ -2692,8 +2693,7 @@ Array [
             Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
-                "lineHeight": 21,
-                "padding": 4,
+                "paddingVertical": 8,
               },
               undefined,
             ],
@@ -2735,6 +2735,7 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingHorizontal": 4,
                 "paddingVertical": 12,
               },
               Object {},
@@ -2748,6 +2749,7 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
+            "marginBottom": 8,
           },
           Array [
             Object {},
@@ -2765,9 +2767,9 @@ Array [
         style={
           Array [
             Object {
-              "fontSize": 14,
+              "fontSize": 16,
               "fontWeight": "400",
-              "lineHeight": 21,
+              "lineHeight": 24,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
@@ -2775,8 +2777,7 @@ Array [
             Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
-                "lineHeight": 21,
-                "padding": 4,
+                "paddingVertical": 8,
               },
               undefined,
             ],
@@ -2819,6 +2820,7 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingHorizontal": 4,
                 "paddingVertical": 12,
               },
               Object {},
@@ -2896,6 +2898,7 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
+            "marginBottom": 8,
           },
           Array [
             Object {},
@@ -2913,9 +2916,9 @@ Array [
         style={
           Array [
             Object {
-              "fontSize": 14,
+              "fontSize": 16,
               "fontWeight": "400",
-              "lineHeight": 21,
+              "lineHeight": 24,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
@@ -2923,8 +2926,7 @@ Array [
             Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
-                "lineHeight": 21,
-                "padding": 4,
+                "paddingVertical": 8,
               },
               undefined,
             ],
@@ -2967,6 +2969,7 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingHorizontal": 4,
                 "paddingVertical": 12,
               },
               Object {},
@@ -3044,6 +3047,7 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
+            "marginBottom": 8,
           },
           Array [
             Object {},
@@ -3061,9 +3065,9 @@ Array [
         style={
           Array [
             Object {
-              "fontSize": 14,
+              "fontSize": 16,
               "fontWeight": "400",
-              "lineHeight": 21,
+              "lineHeight": 24,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
@@ -3071,8 +3075,7 @@ Array [
             Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
-                "lineHeight": 21,
-                "padding": 4,
+                "paddingVertical": 8,
               },
               Array [
                 Object {},
@@ -3118,6 +3121,7 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingHorizontal": 4,
                 "paddingVertical": 12,
               },
               Array [
@@ -3161,8 +3165,7 @@ Array [
         },
         undefined,
         Object {
-          "marginHorizontal": 16,
-          "marginVertical": 12,
+          "margin": 12,
         },
       ]
     }
