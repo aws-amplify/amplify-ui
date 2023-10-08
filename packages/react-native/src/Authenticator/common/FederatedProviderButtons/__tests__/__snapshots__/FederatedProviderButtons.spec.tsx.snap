@@ -3,9 +3,12 @@
 exports[`FederatedProviderButtons renders as expected 1`] = `
 <View
   style={
-    Object {
-      "paddingVertical": 4,
-    }
+    Array [
+      Object {
+        "marginHorizontal": 12,
+      },
+      undefined,
+    ]
   }
   testID="amplify__federated-provider-buttons"
 >
@@ -47,9 +50,12 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
             "width": "100%",
           },
           undefined,
-          Object {
-            "marginVertical": 8,
-          },
+          Array [
+            Object {
+              "marginVertical": 8,
+            },
+            undefined,
+          ],
         ],
       ]
     }
@@ -114,7 +120,7 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
       style={
         Array [
           Object {
-            "backgroundColor": "hsl(0, 0%, 0%)",
+            "backgroundColor": "hsl(210, 50%, 10%)",
             "flex": 1,
             "height": 0.5,
           },
@@ -141,10 +147,12 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
               "margin": 16,
               "textAlign": "center",
             },
-            Object {
-              "paddingVertical": 8,
-              "textAlign": "center",
-            },
+            Array [
+              Object {
+                "textAlign": "center",
+              },
+              undefined,
+            ],
           ],
         ]
       }
@@ -155,7 +163,7 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
       style={
         Array [
           Object {
-            "backgroundColor": "hsl(0, 0%, 0%)",
+            "backgroundColor": "hsl(210, 50%, 10%)",
             "flex": 1,
             "height": 0.5,
           },

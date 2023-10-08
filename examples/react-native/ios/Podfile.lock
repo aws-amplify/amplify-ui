@@ -1,4 +1,6 @@
 PODS:
+  - "AmplifyRTNCore (1.0.1-console-preview.d807e55.0+d807e55)":
+    - React-Core
   - boost (1.76.0)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.68.6)
@@ -314,13 +316,12 @@ PODS:
     - React-jsi (= 0.68.6)
     - React-logger (= 0.68.6)
     - React-perflogger (= 0.68.6)
-  - RNAWSCognito (5.2.14):
-    - React-Core
   - RNCAsyncStorage (1.18.1):
     - React-Core
   - Yoga (1.14.0)
 
 DEPENDENCIES:
+  - "AmplifyRTNCore (from `../node_modules/@aws-amplify/react-native`)"
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
@@ -344,7 +345,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
-  - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
+  - react-native-get-random-values (from `../../../node_modules/react-native-get-random-values`)
   - react-native-launch-arguments (from `../node_modules/react-native-launch-arguments`)
   - "react-native-netinfo (from `../../../node_modules/@react-native-community/netinfo`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -360,7 +361,6 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - RNAWSCognito (from `../node_modules/amazon-cognito-identity-js`)
   - "RNCAsyncStorage (from `../../../node_modules/@react-native-async-storage/async-storage`)"
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -371,6 +371,8 @@ SPEC REPOS:
     - libevent
 
 EXTERNAL SOURCES:
+  AmplifyRTNCore:
+    :path: "../node_modules/@aws-amplify/react-native"
   boost:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
   DoubleConversion:
@@ -410,7 +412,7 @@ EXTERNAL SOURCES:
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-get-random-values:
-    :path: "../node_modules/react-native-get-random-values"
+    :path: "../../../node_modules/react-native-get-random-values"
   react-native-launch-arguments:
     :path: "../node_modules/react-native-launch-arguments"
   react-native-netinfo:
@@ -441,14 +443,13 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/runtimeexecutor"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
-  RNAWSCognito:
-    :path: "../node_modules/amazon-cognito-identity-js"
   RNCAsyncStorage:
     :path: "../../../node_modules/@react-native-async-storage/async-storage"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  AmplifyRTNCore: cfe1940d018b45ccc1297c4a7f82066d8ca21a67
   boost: a7c83b31436843459a1961bfd74b96033dc77234
   DoubleConversion: 831926d9b8bf8166fd87886c4abab286c2422662
   FBLazyVector: 74b042924fe14da854ac4e87cefc417f583b22b1
@@ -487,10 +488,9 @@ SPEC CHECKSUMS:
   React-RCTVibration: be5f18ffc644f96f904e0e673ab639ca5d673ee8
   React-runtimeexecutor: d5498cfb7059bf8397b6416db4777843f3f4c1e7
   ReactCommon: 1974dab5108c79b40199f12a4833d2499b9f6303
-  RNAWSCognito: bbfdc784e906e3837d4d996c17ffed19356afc19
   RNCAsyncStorage: b90b71f45b8b97be43bc4284e71a6af48ac9f547
   Yoga: 7929b92b1828675c1bebeb114dae8cb8fa7ef6a3
 
-PODFILE CHECKSUM: 3efe5070645ec1942f911b4ef2991e7ead092815
+PODFILE CHECKSUM: 765e3336ca6f113becb6b4bed134078d4f806dd7
 
 COCOAPODS: 1.12.1
