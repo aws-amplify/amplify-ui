@@ -5,7 +5,7 @@ import {
   BasicSingleAccordion,
   BasicMultipleAccordion,
   ClassStylingAccordion,
-  CollapsibleAccordion,
+  AlwaysOpenAccordionExample,
   ControlledSingleAccordion,
   CustomTitleComponent,
   DefaultAccordionExample,
@@ -82,20 +82,18 @@ The default behavior allows opening a single item at once.
 </Example>
 
 
-### Allow collapsing
+### Always open
 
-To allow the accordion to have all items collapsed, set the `allowToggle` prop.
-
-**Note**: The `allowToggle` prop only applies to the `single` Accordion, and it is set to `false` (not collapsible) by default.
+To allow for the accordion to always have at least 1 item open, set the `isAlwaysOpen` to true.
 
 <Example>
   <View>
-    <CollapsibleAccordion />
+    <AlwaysOpenAccordionExample />
   </View>
   
   <ExampleCode>
 
-```jsx file=./examples/CollapsibleExample.tsx
+```jsx file=./examples/AlwaysOpenAccordionExample.tsx
 
 ```
 

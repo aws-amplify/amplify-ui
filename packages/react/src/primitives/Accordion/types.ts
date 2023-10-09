@@ -26,7 +26,7 @@ export interface BaseAccordionProps extends BaseViewProps {
    * Determines whether the opened item can always be collapsed even if its the only one.
    * Default: false
    */
-  allowToggle?: boolean;
+  isAlwaysOpen?: boolean;
 
   /**
    * @description
@@ -34,6 +34,10 @@ export interface BaseAccordionProps extends BaseViewProps {
    */
   onChange?: (value?: string[]) => void;
 
+  /**
+   * @description
+   * Array of accordion items for a non-composed accordion
+   */
   items?: Array<{
     trigger?: React.ReactNode;
     content?: React.ReactNode;

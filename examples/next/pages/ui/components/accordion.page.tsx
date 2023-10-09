@@ -80,6 +80,7 @@ export default function ExpanderPage() {
           <Accordion.Trigger>Second</Accordion.Trigger>
           <Accordion.Content>
             <Text>Test</Text>
+            <TextField label="Test" />
           </Accordion.Content>
         </Accordion.Item>
       </Accordion>
@@ -108,8 +109,8 @@ export default function ExpanderPage() {
       </Accordion>
 
       <Divider />
-      <Heading level={4}>allowMultiple & allowToggle</Heading>
-      <Accordion allowMultiple allowToggle>
+      <Heading level={4}>isAlwaysOpen</Heading>
+      <Accordion isAlwaysOpen>
         {accordions.map(({ value, header, body }) => (
           <Accordion.Item value={value} key={value}>
             <Accordion.Trigger>

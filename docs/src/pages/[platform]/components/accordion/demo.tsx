@@ -9,7 +9,7 @@ import { demoState } from '@/utils/demoState';
 const propsToCode = (AccordionProps) => {
   return (
     `<Accordion` +
-    (AccordionProps.allowToggle ? ` allowToggle` : '') +
+    (AccordionProps.isAlwaysOpen ? ` isAlwaysOpen` : '') +
     (AccordionProps.allowMultiple ? ` allowMultiple` : '') +
     `>
   <Accordion.Item value="demo-item-1">
@@ -18,7 +18,7 @@ const propsToCode = (AccordionProps) => {
       <Accordion.Icon />
     </Accordion.Trigger>
     <Accordion.Content>  
-      Yes! It adheres to the WAI-ARIA design pattern.
+      Yes! It uses HTML native elements: <detials> and <summary>.
     </Accordion.Content>
   </Accordion.Item>
   <Accordion.Item value="demo-item-2">
@@ -45,7 +45,7 @@ const propsToCode = (AccordionProps) => {
 
 const defaultAccordionProps = {
   allowMultiple: false,
-  allowToggle: false,
+  isAlwaysOpen: false,
 };
 
 export const AccordionDemo = () => {
@@ -60,7 +60,7 @@ export const AccordionDemo = () => {
     >
       <Accordion
         allowMultiple={AccordionProps.allowMultiple}
-        allowToggle={AccordionProps.allowToggle}
+        isAlwaysOpen={AccordionProps.isAlwaysOpen}
       >
         <Accordion.Item value="demo-item-1">
           <Accordion.Trigger>

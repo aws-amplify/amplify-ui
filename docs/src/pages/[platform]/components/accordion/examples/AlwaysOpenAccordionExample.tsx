@@ -2,18 +2,15 @@ import * as React from 'react';
 
 import { Accordion } from '@aws-amplify/ui-react';
 
-export const CollapsibleAccordion = () => {
+export const AlwaysOpenAccordionExample = () => {
   return (
-    <Accordion allowToggle>
+    <Accordion isAlwaysOpen defaultValue={['item-1']}>
       <Accordion.Item value="item-1">
         <Accordion.Trigger>
-          Can I open and collapse this item?
+          Can I collapse this item?
           <Accordion.Icon />
         </Accordion.Trigger>
-        <Accordion.Content>
-          Yes, because this Accordion is the single type, and we have set the
-          allowToggle prop to true.
-        </Accordion.Content>
+        <Accordion.Content>Only by opening the other item</Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value="item-2">
         <Accordion.Trigger>
@@ -21,7 +18,7 @@ export const CollapsibleAccordion = () => {
           <Accordion.Icon />
         </Accordion.Trigger>
         <Accordion.Content>
-          Yes, you still need to set the allowToggle prop though.
+          Yes, you can set the isAlwaysOpen prop along with allowMultiple
         </Accordion.Content>
       </Accordion.Item>
     </Accordion>

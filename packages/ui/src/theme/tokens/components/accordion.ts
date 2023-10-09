@@ -17,10 +17,11 @@ export type AccordionTokens<Output extends OutputVariantKey> =
       trigger?: DesignTokenProperties<
         | 'alignItems'
         | 'backgroundColor'
-        | 'paddingInline'
-        | 'paddingBlock'
+        | 'color'
+        | 'gap'
         | 'justifyContent'
-        | 'color',
+        | 'paddingBlock'
+        | 'paddingInline',
         Output
       > & {
         _hover?: DesignTokenProperties<'backgroundColor' | 'color', Output>;
@@ -38,8 +39,9 @@ export const accordion: Required<AccordionTokens<'default'>> = {
     borderRadius: { value: '{radii.small.value}' },
     trigger: {
       alignItems: { value: 'center' },
-      color: { value: 'inherit' },
       backgroundColor: { value: '{colors.background.primary.value}' },
+      color: { value: 'inherit' },
+      gap: { value: '{space.small.value}' },
       justifyContent: { value: 'space-between' },
       paddingBlock: { value: '{space.xs.value}' },
       paddingInline: { value: '{space.small.value}' },
