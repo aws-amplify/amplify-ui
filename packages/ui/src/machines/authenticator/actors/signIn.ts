@@ -121,16 +121,16 @@ export function signInActor({ services }: SignInMachineOptions) {
                     target: '#signInActor.forceNewPassword',
                   },
                   {
+                    cond: 'shouldRedirectToConfirmSignUp',
+                    actions: ['setCredentials', 'setConfirmSignUpIntent'],
+                    target: 'rejected',
+                  },
+                  {
                     actions: 'setUser',
                     target: 'verifying',
                   },
                 ],
                 onError: [
-                  {
-                    cond: 'shouldRedirectToConfirmSignUp',
-                    actions: ['setCredentials', 'setConfirmSignUpIntent'],
-                    target: 'rejected',
-                  },
                   {
                     cond: 'shouldRedirectToConfirmResetPassword',
                     actions: [
@@ -540,9 +540,9 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         shouldConfirmSignIn: (_, event): boolean => {
           groupLog('+++shouldConfirmSignIn', 'event', event);
-          return isMfaChallengeName(getChallengeName(event));
+          return event.data.nextStep?.signInStep === 'CONFIRM_SIGN_IN';
         },
-        shouldForceChangePassword: (context, event): boolean => {
+        shouldForceChangePassword: (_, event): boolean => {
           groupLog('+++shouldForceChangePassword', 'event', event);
           return (
             event.data.nextStep?.signInStep ===
@@ -556,13 +556,16 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         shouldRedirectToConfirmSignUp: (_, event): boolean => {
           groupLog('+++shouldRedirectToConfirmSignUp', 'event', event);
-          return event.data.code === 'UserNotConfirmedException';
+          return event.data.nextStep?.signInStep === 'CONFIRM_SIGN_UP';
         },
         shouldRequestVerification: (_, event): boolean => {
           groupLog('+++shouldRequestVerification', 'event', event);
-          const { unverified, verified } = event.data;
+          const { phone_number_verified, email_verified } =
+            event.data as Auth.FetchUserAttributesOutput;
 
-          return isEmpty(verified) && !isEmpty(unverified);
+          return (
+            email_verified === 'false' || phone_number_verified === 'false'
+          );
         },
         shouldSetupTOTP: (_, event): boolean => {
           //   event.data ={
@@ -771,8 +774,12 @@ export function signInActor({ services }: SignInMachineOptions) {
         //   const result = await Auth.verifiedContact(user);
         //   return result;
         // },
-        async checkVerifiedContact() {
-          groupLog('+++checkVerifiedContact');
+        async checkVerifiedContact(): Promise<Auth.FetchUserAttributesOutput> {
+          groupLog(
+            '+++checkVerifiedContacts',
+            await Auth.fetchUserAttributes()
+          );
+
           return await Auth.fetchUserAttributes();
         },
         // async verifyUser(context) {
@@ -784,15 +791,16 @@ export function signInActor({ services }: SignInMachineOptions) {
         //   return result;
         // },
         async verifyUser(context) {
-          groupLog('+++verifyUser');
-          const { unverifiedAttr } = context.formValues;
+          groupLog('+++verifyUser', context.formValues);
 
           const input: Auth.UpdateUserAttributesInput = {
-            userAttributes: { unverifiedAttr },
+            userAttributes: { ...context.formValues },
           };
+          console.log({ input });
           const result = await Auth.updateUserAttributes(input);
 
-          context.attributeToVerify = unverifiedAttr as unknown as string;
+          console.log({ result });
+          // context.attributeToVerify = unverifiedAttr as unknown as string;
 
           return result;
         },

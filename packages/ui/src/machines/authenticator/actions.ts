@@ -144,7 +144,13 @@ export const setRemoteError = assign({
 export const setUnverifiedContactMethods = assign({
   unverifiedContactMethods: (_, event: AuthEvent) => {
     groupLog('+++setUnverifiedContactMethods', 'event', event);
-    return event.data.unverified;
+    const { phone_number_verified, email_verified, email, phone_number } =
+      event.data as Auth.FetchUserAttributesOutput;
+
+    return {
+      ...(email_verified === 'false' && { email }),
+      ...(phone_number_verified === 'false' && { phone_number }),
+    };
   },
 });
 
@@ -162,7 +168,7 @@ export const setUser = assign({
     //     },
     //     "userId": "xxxxx"
     // }
-    groupLog('+++setUser', 'event.data?.userId', event.data?.userId);
+    groupLog('+++setUser', 'event.data', event.data);
 
     /**
      * Cannot be called if unauthenticated. Maybe try/catch?
@@ -172,7 +178,7 @@ export const setUser = assign({
      * @migration event.data was the fallback here,
      *  setting the entire event.data as user
      */
-    return { user: event.data?.userId };
+    return { user: event.data?.userId, nextStep: event.data?.nextStep };
   },
 });
 

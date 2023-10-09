@@ -1,4 +1,5 @@
 import { ChallengeName } from 'amazon-cognito-identity-js';
+import { SignInOutput, SignUpOutput } from 'aws-amplify/auth';
 
 /** Known challenge names */
 export type AuthChallengeName = ChallengeName;
@@ -29,6 +30,9 @@ export interface AmplifyUser {
   username?: string;
   attributes?: CognitoAttributes;
   challengeName?: string;
+  nextStep?:
+    | SignUpOutput['nextStep']['signUpStep']
+    | SignInOutput['nextStep']['signInStep'];
 }
 
 /**
