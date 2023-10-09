@@ -40,7 +40,11 @@ export default function useDeviceOrientation(): {
       if (isFunction(subscription?.remove)) {
         subscription.remove();
       } else {
-        Dimensions.removeEventListener('change', handler);
+        (
+          Dimensions as unknown as {
+            removeEventListener: (event: 'change', handler: () => void) => void;
+          }
+        ).removeEventListener('change', handler);
       }
     };
   }, []);

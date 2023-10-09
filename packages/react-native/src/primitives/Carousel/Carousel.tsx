@@ -71,7 +71,14 @@ export default function Carousel<T>(
       if (isFunction(subscription?.remove)) {
         subscription.remove();
       } else {
-        Dimensions.removeEventListener('change', orientationHandler);
+        (
+          Dimensions as unknown as {
+            removeEventListener: (
+              event: 'change',
+              handler: (params: { window: any }) => void
+            ) => void;
+          }
+        ).removeEventListener('change', orientationHandler);
       }
     };
   }, [updateOrientation]);
