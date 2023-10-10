@@ -84,7 +84,7 @@ echo "##########################"
 echo "# Start Mega App Install #"
 echo "##########################"
 
-DEPENDENCIES="$FRAMEWORK@$FRAMEWORK_VERSION @aws-amplify/ui-$FRAMEWORK aws-amplify"
+DEPENDENCIES="$FRAMEWORK@$FRAMEWORK_VERSION @aws-amplify/ui-$FRAMEWORK aws-amplify@5"
 
 echo "cd ./mega-apps/${MEGA_APP_NAME}"
 cd ./mega-apps/${MEGA_APP_NAME}
@@ -102,8 +102,8 @@ if [ "$FRAMEWORK" == 'react' ]; then
 elif [ "$FRAMEWORK" == 'angular' ]; then
     # remove angular since it's deprecated https://www.npmjs.com/package/angular
     # We've install @amplify/cli when creating the app
-    echo "DEPENDENCIES="@aws-amplify/ui-$FRAMEWORK aws-amplify""
-    DEPENDENCIES="@aws-amplify/ui-$FRAMEWORK aws-amplify"
+    echo "DEPENDENCIES="@aws-amplify/ui-$FRAMEWORK aws-amplify@5""
+    DEPENDENCIES="@aws-amplify/ui-$FRAMEWORK aws-amplify@5"
 fi
 
 echo "Dependencies to be installed: $DEPENDENCIES"
@@ -136,8 +136,8 @@ else
     fi
 
     if [[ "$FRAMEWORK" == "react-native" ]]; then
-        echo "npm install @aws-amplify/ui-react-native aws-amplify react-native-safe-area-context amazon-cognito-identity-js @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
-        npm install @aws-amplify/ui-react-native aws-amplify react-native-safe-area-context amazon-cognito-identity-js @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill
+        echo "npm install @aws-amplify/ui-react-native aws-amplify@5 react-native-safe-area-context amazon-cognito-identity-js @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
+        npm install @aws-amplify/ui-react-native aws-amplify@5 react-native-safe-area-context amazon-cognito-identity-js @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill
         if [[ "$BUILD_TOOL" == "expo" ]]; then
             echo "npx expo install --fix" 
             npx expo install --fix # fix the dependencies that are incompatible with the installed expo versio
