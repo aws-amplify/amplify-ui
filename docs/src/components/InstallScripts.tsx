@@ -30,7 +30,7 @@ const frameworkInstallScript = (
 
   const componentSubpackage = component ? `-${component}` : '';
 
-  return `${packageManagerPrefix} @aws-amplify/ui-${framework}${componentSubpackage} aws-amplify${extraDependencies}`;
+  return `${packageManagerPrefix} @aws-amplify/ui-${framework}${componentSubpackage} aws-amplify@5${extraDependencies}`;
 };
 
 export const TerminalCommand = ({

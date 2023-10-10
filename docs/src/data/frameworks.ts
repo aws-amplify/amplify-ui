@@ -33,10 +33,10 @@ export const REACT_NATIVE_DEPENDENCIES =
   'react-native-safe-area-context amazon-cognito-identity-js @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill';
 
 export const FRAMEWORK_INSTALL_SCRIPTS = {
-  react: 'npm i @aws-amplify/ui-react aws-amplify',
-  vue: 'npm i @aws-amplify/ui-vue aws-amplify',
-  angular: 'npm i @aws-amplify/ui-angular aws-amplify',
+  react: 'npm i @aws-amplify/ui-react aws-amplify@5',
+  vue: 'npm i @aws-amplify/ui-vue aws-amplify@5',
+  angular: 'npm i @aws-amplify/ui-angular aws-amplify@5',
   flutter: 'flutter pub add amplify_authenticator',
   android: "implementation 'com.amplifyframework.ui:liveness:1.1.3'",
-  'react-native': `npm i @aws-amplify/ui-react-native aws-amplify ${REACT_NATIVE_DEPENDENCIES}`,
+  'react-native': `npm i @aws-amplify/ui-react-native aws-amplify@5 ${REACT_NATIVE_DEPENDENCIES}`,
 };
