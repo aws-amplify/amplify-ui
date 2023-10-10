@@ -1,5 +1,18 @@
 # @aws-amplify/ui-vue
 
+## 3.1.29
+
+### Patch Changes
+
+- [#4489](https://github.com/aws-amplify/amplify-ui/pull/4489) [`e0c819b86`](https://github.com/aws-amplify/amplify-ui/commit/e0c819b86c9636a47cf0162a6bdc35993ccea61f) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - Fixes an issue where warnings related to unused css would appear while building with nuxt.
+
+## 3.1.28
+
+### Patch Changes
+
+- Updated dependencies [[`d570694c7`](https://github.com/aws-amplify/amplify-ui/commit/d570694c7e0d9d112449d3aade2d567773555926), [`6a5a4d79c`](https://github.com/aws-amplify/amplify-ui/commit/6a5a4d79ce60124fba2dc00d86b9e1a9b5f21c39)]:
+  - @aws-amplify/ui@5.8.1
+
 ## 3.1.27
 
 ### Patch Changes

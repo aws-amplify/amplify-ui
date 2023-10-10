@@ -12,7 +12,7 @@ export interface BaseButtonGroupProps
     BaseStyleProps,
     BaseFlexProps,
     Pick<BaseButtonProps, 'size' | 'variation'> {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export type ButtonGroupProps<Element extends ElementType = 'div'> =

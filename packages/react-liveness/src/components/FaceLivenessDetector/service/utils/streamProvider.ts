@@ -2,7 +2,6 @@ import {
   Credentials as AmplifyCredentials,
   getAmplifyUserAgent,
 } from '@aws-amplify/core';
-import { AmazonAIInterpretPredictionsProvider } from '@aws-amplify/predictions';
 import {
   ClientSessionInformationEvent,
   LivenessResponseStream,
@@ -35,9 +34,9 @@ export interface StreamProviderArgs {
   stream: MediaStream;
   videoEl: HTMLVideoElement;
   credentialProvider?: AwsCredentialProvider;
+  endpointOverride?: string;
 }
 
-const ENDPOINT = process.env.NEXT_PUBLIC_STREAMING_API_URL;
 export const TIME_SLICE = 1000;
 
 function isBlob(obj: unknown): obj is Blob {
@@ -59,12 +58,13 @@ function isEndStreamWithCodeEvent(obj: unknown): obj is EndStreamWithCodeEvent {
   return (obj as EndStreamWithCodeEvent).code !== undefined;
 }
 
-export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider {
+export class LivenessStreamProvider {
   public sessionId: string;
   public region: string;
   public videoRecorder: VideoRecorder;
   public responseStream!: AsyncIterable<LivenessResponseStream>;
   public credentialProvider?: AwsCredentialProvider;
+  public endpointOverride?: string;
 
   private _reader!: ReadableStreamDefaultReader;
   private videoEl: HTMLVideoElement;
@@ -78,14 +78,15 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
     stream,
     videoEl,
     credentialProvider,
+    endpointOverride,
   }: StreamProviderArgs) {
-    super();
     this.sessionId = sessionId;
     this.region = region;
     this._stream = stream;
     this.videoEl = videoEl;
     this.videoRecorder = new VideoRecorder(stream);
     this.credentialProvider = credentialProvider;
+    this.endpointOverride = endpointOverride;
     this.initPromise = this.init();
   }
 
@@ -147,9 +148,10 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
       }),
     };
 
-    if (ENDPOINT) {
+    if (this.endpointOverride) {
+      const override = this.endpointOverride;
       clientconfig.endpointProvider = () => {
-        const url = new URL(ENDPOINT);
+        const url = new URL(override);
         return { url };
       };
     }
