@@ -18,7 +18,7 @@ import { ChangePasswordProps, ValidateParams } from './types';
 import DEFAULTS from './defaults';
 import { defaultChangePasswordDisplayText } from '../utils';
 
-const logger = getLogger('ChangePassword');
+const logger = getLogger('AccountSettings');
 
 const getIsDisabled = (
   formValues: FormValues,
