@@ -133,6 +133,7 @@ export type SetupTOTPBaseProps<FieldType = {}> = {
 
 export type SignInBaseProps<FieldType = {}> = {
   hideSignUp?: boolean;
+  socialProviders?: UseAuthenticator['socialProviders'];
   toFederatedSignIn: UseAuthenticator['toFederatedSignIn'];
   toResetPassword: UseAuthenticator['toResetPassword'];
   toSignUp: UseAuthenticator['toSignUp'];
@@ -142,6 +143,7 @@ export type SignInBaseProps<FieldType = {}> = {
 
 export type SignUpBaseProps<FieldType = {}> = {
   hideSignIn?: boolean;
+  socialProviders?: UseAuthenticator['socialProviders'];
   toFederatedSignIn: UseAuthenticator['toFederatedSignIn'];
   toSignIn: UseAuthenticator['toSignIn'];
 } & CommonRouteProps &
