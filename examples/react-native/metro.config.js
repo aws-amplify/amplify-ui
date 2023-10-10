@@ -120,7 +120,6 @@ config.resolver.extraNodeModules = {
     __dirname,
     'node_modules/@aws-amplify/react-native'
   ),
-  'base-64': path.resolve(__dirname, 'node_modules/base-64'),
 
   // core React and React Native dependencies
   react: path.resolve(__dirname, 'node_modules/react'),

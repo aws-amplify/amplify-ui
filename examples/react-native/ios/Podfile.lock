@@ -1,5 +1,5 @@
 PODS:
-  - "AmplifyRTNCore (1.0.1-console-preview.d807e55.0+d807e55)":
+  - "AmplifyRTNCore (1.0.1-console-preview.5f040a2.0+5f040a2)":
     - React-Core
   - boost (1.76.0)
   - DoubleConversion (1.1.6)
@@ -449,7 +449,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  AmplifyRTNCore: cfe1940d018b45ccc1297c4a7f82066d8ca21a67
+  AmplifyRTNCore: c76fd5c116a034d09b1083d15ae99275f242802c
   boost: a7c83b31436843459a1961bfd74b96033dc77234
   DoubleConversion: 831926d9b8bf8166fd87886c4abab286c2422662
   FBLazyVector: 74b042924fe14da854ac4e87cefc417f583b22b1
