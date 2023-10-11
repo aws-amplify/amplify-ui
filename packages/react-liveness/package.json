@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@aws-amplify/ui-react-liveness",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -64,7 +64,7 @@
     "@xstate/react": "3.0.1",
     "classnames": "2.3.1",
     "nanoid": "3.1.31",
-    "tslib": "2.4.1",
+    "tslib": "2.6.2",
     "xstate": "^4.33.6"
   },
   "devDependencies": {
