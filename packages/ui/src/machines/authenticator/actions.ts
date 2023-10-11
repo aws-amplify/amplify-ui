@@ -178,7 +178,7 @@ export const setUser = assign({
      * @migration event.data was the fallback here,
      *  setting the entire event.data as user
      */
-    return { user: event.data?.userId, nextStep: event.data?.nextStep };
+    return { ...event.data };
   },
 });
 

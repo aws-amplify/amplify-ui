@@ -6,7 +6,6 @@ import '@aws-amplify/ui-react/styles.css';
 import { Heading, Text, useTheme } from '@aws-amplify/ui-react';
 
 import awsExports from './aws-exports';
-import { getAuthenticatorConfig } from '@aws-amplify/ui';
 Amplify.configure(awsExports);
 
 const formFields = {
@@ -61,14 +60,16 @@ export default function App() {
       formFields={formFields}
       components={components}
       hideSignUp={true}
-      {...getAuthenticatorConfig(awsExports)}
     >
-      {({ signOut, user }) => (
-        <main>
-          <h1>Hello {user.username}</h1>
-          <button onClick={signOut}>Sign out</button>
-        </main>
-      )}
+      {({ signOut, user }) => {
+        console.log(user);
+        return (
+          <main>
+            <h1>Hello {user.username}</h1>
+            <button onClick={signOut}>Sign out</button>
+          </main>
+        );
+      }}
     </Authenticator>
   );
 }

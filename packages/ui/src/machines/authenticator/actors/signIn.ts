@@ -170,7 +170,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                 },
               },
             },
-            resolved: { always: '#signInActor.resolved' },
+            resolved: { always: '#signInActor.preResolved' },
             rejected: { always: '#signInActor.rejected' },
           },
         },
@@ -483,10 +483,20 @@ export function signInActor({ services }: SignInMachineOptions) {
             },
           },
         },
+        preResolved: {
+          invoke: {
+            src: 'getCurrentUserResolved',
+            onDone: {
+              actions: 'setUser',
+              target: '#signInActor.resolved',
+            },
+          },
+        },
         resolved: {
           type: 'final',
-          data: async () => {
-            return await Auth.getCurrentUser();
+          data: (context, event) => {
+            groupLog('+++signIn.resolved.final', context, event);
+            return { ...event.data, authAttributes: context.authAttributes };
           },
         },
         rejected: {
@@ -563,9 +573,8 @@ export function signInActor({ services }: SignInMachineOptions) {
           const { phone_number_verified, email_verified } =
             event.data as Auth.FetchUserAttributesOutput;
 
-          return (
-            email_verified === 'false' || phone_number_verified === 'false'
-          );
+          //@Thadd fixme
+          return false;
         },
         shouldSetupTOTP: (_, event): boolean => {
           //   event.data ={
@@ -834,6 +843,10 @@ export function signInActor({ services }: SignInMachineOptions) {
               defaultServices.validateConfirmPassword,
             ]
           );
+        },
+        async getCurrentUserResolved(context) {
+          groupLog('+++getCurrentUserResolved', context, event);
+          return await Auth.getCurrentUser();
         },
       },
     }

@@ -434,10 +434,10 @@
   resolved "https://registry.npmjs.org/@assemblyscript/loader/-/loader-0.10.1.tgz#70e45678f06c72fa2e350e8553ec4a4d72b92e06"
   integrity sha512-H71nDOOL8Y7kWRLqf6Sums+01Q5msqBW2KhDUTemh1tvY04eSkSXrK0uj/4mmY0Xr16/3zyZmsrxN7CKuRbNRg==
 
-"@aws-amplify/analytics@7.0.1-console-preview.d807e55.0+d807e55":
-  version "7.0.1-console-preview.d807e55.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/analytics/-/analytics-7.0.1-console-preview.d807e55.0.tgz#f216c561e8b8499afb7859e7a4acadf8a6c40852"
-  integrity sha512-loIJiOkxIBOmFJSi7K+U5p/4+pVgiOGlMkwVXP1kB9nZ31k5e/NIiNGHcBBGACQO76xbMCKzurwFBvJ21LcIlg==
+"@aws-amplify/analytics@7.0.1-console-preview.a1c533e.0+a1c533e":
+  version "7.0.1-console-preview.a1c533e.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/analytics/-/analytics-7.0.1-console-preview.a1c533e.0.tgz#063f957a7d950f43517625077ab230e5728d4a1d"
+  integrity sha512-IrokBt6TIBWYpeDZEx7FPMpHbNQBEuNGNVa6UkYlVpba6PEGKnZ6gHTBof2wjvg1Soa8k0sYe9ppb1+xYLGs/g==
   dependencies:
     "@aws-sdk/client-firehose" "3.398.0"
     "@aws-sdk/client-kinesis" "3.398.0"
@@ -446,14 +446,14 @@
     tslib "^2.5.0"
     uuid "^9.0.0"
 
-"@aws-amplify/api-graphql@4.0.1-console-preview.d807e55.0+d807e55":
-  version "4.0.1-console-preview.d807e55.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/api-graphql/-/api-graphql-4.0.1-console-preview.d807e55.0.tgz#751d846d1ddc5f10d81f44e3b286a1b6a044c637"
-  integrity sha512-gUOzACCHrO2+RGpMaxK5LgGA+SMfdHQoVeHylcage7ea4alOtxMOyECYLYyTVwLLtNErTqAik+mlhyfJpO+1XQ==
+"@aws-amplify/api-graphql@4.0.1-console-preview.a1c533e.0+a1c533e":
+  version "4.0.1-console-preview.a1c533e.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/api-graphql/-/api-graphql-4.0.1-console-preview.a1c533e.0.tgz#e5c3b6c89ca6ee41628226d29fd540189a1b91aa"
+  integrity sha512-FBRGqQ+RsKBnK/bKXp1t1EOQqrYx1cu2HhtaOCEcKR6YFRKdNYHlGjcAZQT4zFXa1klma6Fr2DmVbr/mpYMMMg==
   dependencies:
-    "@aws-amplify/api-rest" "4.0.1-console-preview.d807e55.0+d807e55"
-    "@aws-amplify/auth" "6.0.1-console-preview.d807e55.0+d807e55"
-    "@aws-amplify/core" "6.0.1-console-preview.d807e55.0+d807e55"
+    "@aws-amplify/api-rest" "4.0.1-console-preview.a1c533e.0+a1c533e"
+    "@aws-amplify/auth" "6.0.1-console-preview.a1c533e.0+a1c533e"
+    "@aws-amplify/core" "6.0.1-console-preview.a1c533e.0+a1c533e"
     "@aws-sdk/types" "3.387.0"
     graphql "15.8.0"
     rxjs "^7.8.1"
@@ -461,26 +461,26 @@
     url "0.11.0"
     uuid "^3.2.1"
 
-"@aws-amplify/api-rest@4.0.1-console-preview.d807e55.0+d807e55":
-  version "4.0.1-console-preview.d807e55.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/api-rest/-/api-rest-4.0.1-console-preview.d807e55.0.tgz#142c49c9c3f0f5b2c002023900ee0449c1629b4a"
-  integrity sha512-EfDboWiE49c6MWnsM9QUXwHrxJ7A5/bJh/4AMSq+obZR1pza7OgO4u2XfLMZmT8SaJ4S6khY67w+/HlzJp7zWQ==
+"@aws-amplify/api-rest@4.0.1-console-preview.a1c533e.0+a1c533e":
+  version "4.0.1-console-preview.a1c533e.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/api-rest/-/api-rest-4.0.1-console-preview.a1c533e.0.tgz#0f2e818b64518bbbddb5429620fdc9e11277d6c7"
+  integrity sha512-Tn+QmrMkcSH/dHVCq8QoORx5cnr0VsUef2kb9PtXB43KOaPU06rEJ1lbgdR1e4j+epEd9GFTdI4sjhAtnjWi/A==
   dependencies:
     tslib "^2.5.0"
 
-"@aws-amplify/api@6.0.1-console-preview.d807e55.0+d807e55":
-  version "6.0.1-console-preview.d807e55.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/api/-/api-6.0.1-console-preview.d807e55.0.tgz#67ea3c8e0d4a2afbd0d941ec36d988db840d72aa"
-  integrity sha512-ppcS/uqk208GkpsgGe2W79GJSBoHdkrztmGcjtYTh+BKZJCfDVD0uK86QoP5MAI952Bn9n47d7s1vxDtl/2dww==
+"@aws-amplify/api@6.0.1-console-preview.a1c533e.0+a1c533e":
+  version "6.0.1-console-preview.a1c533e.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/api/-/api-6.0.1-console-preview.a1c533e.0.tgz#5dc9e407626e6e91353a5db072ecf0cb4bf1ec1e"
+  integrity sha512-FL8QhZD3l9Zn/rIAKAEgA0fD7U6v24FwMplc5tKMUiydAHwTDxxMlo3jBp5Mm63YtTjLnSvug1q8GbJw+a6vFQ==
   dependencies:
-    "@aws-amplify/api-graphql" "4.0.1-console-preview.d807e55.0+d807e55"
-    "@aws-amplify/api-rest" "4.0.1-console-preview.d807e55.0+d807e55"
+    "@aws-amplify/api-graphql" "4.0.1-console-preview.a1c533e.0+a1c533e"
+    "@aws-amplify/api-rest" "4.0.1-console-preview.a1c533e.0+a1c533e"
     tslib "^2.6.1"
 
-"@aws-amplify/auth@6.0.1-console-preview.d807e55.0+d807e55":
-  version "6.0.1-console-preview.d807e55.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/auth/-/auth-6.0.1-console-preview.d807e55.0.tgz#8b063702cd96400d90a4357988a2cc337646a69e"
-  integrity sha512-u+9D95fsq/Uzz+4Jnvyn8bBqf0MmVN2hl6G5YHEV5TTt1zhs+ZuJjG9WepavoSprvQJu3GzczwYjhZmoPOVyZg==
+"@aws-amplify/auth@6.0.1-console-preview.a1c533e.0+a1c533e":
+  version "6.0.1-console-preview.a1c533e.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/auth/-/auth-6.0.1-console-preview.a1c533e.0.tgz#f652ccdbc7bca2f8d7b312058481fe202d01c716"
+  integrity sha512-Wok1LhwWHf/jWrUAjMGVXvnz87GEWfRQfCZUlGzS7taBFm/qL5lIbJdg4kKq7dergwFX+4rHrKQ93GI2laj9Gg==
   dependencies:
     tslib "^2.5.0"
     typescript "5.0.2"
@@ -509,10 +509,10 @@
     universal-cookie "^4.0.4"
     zen-observable-ts "0.8.19"
 
-"@aws-amplify/core@6.0.1-console-preview.d807e55.0+d807e55":
-  version "6.0.1-console-preview.d807e55.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/core/-/core-6.0.1-console-preview.d807e55.0.tgz#7b40df6e53c11a6f659b617dfea501cd16f9cc47"
-  integrity sha512-rEjlmkQp9O9qnKVixt7ph2C5sMuiCkj3fpgzmke+DZbzSJOT1bj8MT6oC08kV4SVbQgUrFhSPACmyewW4Qe+RA==
+"@aws-amplify/core@6.0.1-console-preview.a1c533e.0+a1c533e":
+  version "6.0.1-console-preview.a1c533e.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/core/-/core-6.0.1-console-preview.a1c533e.0.tgz#9aa74f78291446f11c5fc5b69e4328142bcdf887"
+  integrity sha512-Zl4JTCgtO5pGMHZsfCJiak7Kvrlme+EM9UDbMnwkGWkwaLm5zIEDxsz9CxnndapM0kjpL5SeJx7zddtPEjPgDw==
   dependencies:
     "@aws-crypto/sha256-js" "5.0.0"
     "@aws-sdk/types" "3.398.0"
@@ -522,13 +522,13 @@
     tslib "^2.5.0"
     uuid "^9.0.0"
 
-"@aws-amplify/datastore@5.0.1-console-preview.d807e55.0+d807e55":
-  version "5.0.1-console-preview.d807e55.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/datastore/-/datastore-5.0.1-console-preview.d807e55.0.tgz#b55dea4015a3a6b56b837de8b7623cc3b8594493"
-  integrity sha512-bfgemnOS05LAjXxuTlB56spdBSljAzn/8qggoQBmjAgTJz9EywJEWsxJFPlTrsGhgSoTRFLsZ9T8JXnxNM1Rvw==
+"@aws-amplify/datastore@5.0.1-console-preview.a1c533e.0+a1c533e":
+  version "5.0.1-console-preview.a1c533e.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/datastore/-/datastore-5.0.1-console-preview.a1c533e.0.tgz#d6cb3b3db9e1e283954c8a95d5b496c42a9664d2"
+  integrity sha512-XT8ws9qtldU37VshXXQdnrPjMwD9AWcQFi01PyPf0Z+Rsj46JRgrIcGIQ47C5K7tX5zsvgrghxxnkTydyVgFVA==
   dependencies:
-    "@aws-amplify/api" "6.0.1-console-preview.d807e55.0+d807e55"
-    "@aws-amplify/auth" "6.0.1-console-preview.d807e55.0+d807e55"
+    "@aws-amplify/api" "6.0.1-console-preview.a1c533e.0+a1c533e"
+    "@aws-amplify/auth" "6.0.1-console-preview.a1c533e.0+a1c533e"
     buffer "4.9.2"
     idb "5.0.6"
     immer "9.0.6"
@@ -557,10 +557,10 @@
     lodash "^4.17.21"
     uuid "^3.2.1"
 
-"@aws-amplify/notifications@2.0.1-console-preview.d807e55.0+d807e55":
-  version "2.0.1-console-preview.d807e55.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/notifications/-/notifications-2.0.1-console-preview.d807e55.0.tgz#d4148f8d416a916be19d5ad8625e8d01575c0a0e"
-  integrity sha512-V7wMDm4V41mpECRlYkL9fczWHCIoonwfrmEyXhA8ZW+uLD4tY+hmZfxMxavtSaDCe6e+azFryDUMgGgtv+SloA==
+"@aws-amplify/notifications@2.0.1-console-preview.a1c533e.0+a1c533e":
+  version "2.0.1-console-preview.a1c533e.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/notifications/-/notifications-2.0.1-console-preview.a1c533e.0.tgz#1e3d3105d91befc552f3aa9205916aac0e507330"
+  integrity sha512-SR5IuxgaWkC6yKL3VlgtXB6ogpZYDsX8kPfJnOW/gIT0o47TdbFBSSR+43ht6EGMxGjia7NhDWfnw3QW7pTszQ==
   dependencies:
     lodash "^4.17.21"
     uuid "^9.0.0"
@@ -570,10 +570,10 @@
   resolved "https://registry.npmjs.org/@aws-amplify/rtn-push-notification/-/rtn-push-notification-1.1.7.tgz#90593b613db4ee935ff5208c012cc7b6524be2fc"
   integrity sha512-P3Gj0o5g6DZoSdN3DXDweOU2on8eZKr/KzbX1beCaNgBnjqGW0pIkMvD+SMdffXeRD0Lbawk9FHvQM7o0BwR8g==
 
-"@aws-amplify/storage@6.0.1-console-preview.d807e55.0+d807e55":
-  version "6.0.1-console-preview.d807e55.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/storage/-/storage-6.0.1-console-preview.d807e55.0.tgz#14d14d7e3c32028da8f1218b483ddcbb8d677d58"
-  integrity sha512-vNbJhfo+amwB26UaDlN/7974mfc+ns5jaZEzLXw4xGHdBNADxnt5JqBEKswRK8KktH+AVR41iAoQizqYLOpXHQ==
+"@aws-amplify/storage@6.0.1-console-preview.a1c533e.0+a1c533e":
+  version "6.0.1-console-preview.a1c533e.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/storage/-/storage-6.0.1-console-preview.a1c533e.0.tgz#7ef5818da6b3f18e061e38ba468203b5c2d7b2b8"
+  integrity sha512-LIWyNmlhSw3+EKNf6FuYt2f45QCLrVCvjiqszghyzQewo+h9FjQrdMlybO+WotSWEYUtv+aYWb5NMOnzGT1FjQ==
   dependencies:
     "@aws-sdk/types" "3.398.0"
     "@smithy/md5-js" "2.0.7"
@@ -10784,17 +10784,17 @@ available-typed-arrays@^1.0.5:
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
 aws-amplify@console-preview:
-  version "6.0.1-console-preview.d807e55.0"
-  resolved "https://registry.npmjs.org/aws-amplify/-/aws-amplify-6.0.1-console-preview.d807e55.0.tgz#bcd9a17b5a4dd81f3bb97c2349a9584b4ced8a38"
-  integrity sha512-7HozVdFn99EOZEUUvPIfm3YQiLaSltr+G0tj6/fBYO2hc4tzRLkR9gOTsspAr+eMcn19NJS0VkJm1CsFN/AhXQ==
+  version "6.0.1-console-preview.a1c533e.0"
+  resolved "https://registry.npmjs.org/aws-amplify/-/aws-amplify-6.0.1-console-preview.a1c533e.0.tgz#3fd8139a4ba1104f5f54e2753fb82ed7c0d3572c"
+  integrity sha512-fl9CtKNMh8nZa7Muh7kBlx8wacP5UHrGJydaXJpjCkzv8xvxijwTYsOi4ptr6EUOVdYj/VPpKYh4/ELABgnXqw==
   dependencies:
-    "@aws-amplify/analytics" "7.0.1-console-preview.d807e55.0+d807e55"
-    "@aws-amplify/api" "6.0.1-console-preview.d807e55.0+d807e55"
-    "@aws-amplify/auth" "6.0.1-console-preview.d807e55.0+d807e55"
-    "@aws-amplify/core" "6.0.1-console-preview.d807e55.0+d807e55"
-    "@aws-amplify/datastore" "5.0.1-console-preview.d807e55.0+d807e55"
-    "@aws-amplify/notifications" "2.0.1-console-preview.d807e55.0+d807e55"
-    "@aws-amplify/storage" "6.0.1-console-preview.d807e55.0+d807e55"
+    "@aws-amplify/analytics" "7.0.1-console-preview.a1c533e.0+a1c533e"
+    "@aws-amplify/api" "6.0.1-console-preview.a1c533e.0+a1c533e"
+    "@aws-amplify/auth" "6.0.1-console-preview.a1c533e.0+a1c533e"
+    "@aws-amplify/core" "6.0.1-console-preview.a1c533e.0+a1c533e"
+    "@aws-amplify/datastore" "5.0.1-console-preview.a1c533e.0+a1c533e"
+    "@aws-amplify/notifications" "2.0.1-console-preview.a1c533e.0+a1c533e"
+    "@aws-amplify/storage" "6.0.1-console-preview.a1c533e.0+a1c533e"
     tslib "^2.5.0"
 
 aws-crt@^1.10.6:

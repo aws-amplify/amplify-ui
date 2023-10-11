@@ -1,3 +1,4 @@
+import { ResourcesConfig } from 'aws-amplify';
 import { AuthFieldsWithDefaults } from './attributes';
 
 /**
@@ -79,17 +80,6 @@ export type DefaultFormFieldOptions = Record<
 /** Ordered list of formFields */
 export type FormFieldsArray = Array<[string, FormFieldOptions]>;
 
-/**
- * @migration `passwordPolicyCharacters` potential values
- */
-export type PasswordPolicyRules =
-  | 'REQUIRES_LOWERCASE'
-  | 'REQUIRES_NUMBERS'
-  | 'REQUIRES_SYMBOLS'
-  | 'REQUIRES_UPPERCASE';
-
 // password setting directly coming from Amplify.Auth
-export interface PasswordSettings {
-  passwordPolicyMinLength: number;
-  passwordPolicyCharacters: Array<PasswordPolicyRules>;
-}
+export type PasswordSettings =
+  ResourcesConfig['Auth']['Cognito']['passwordFormat'];
