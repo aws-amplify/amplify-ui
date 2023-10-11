@@ -1,5 +1,9 @@
 import { updatePassword, deleteUser as deleteAuthUser } from 'aws-amplify/auth';
-
+import {
+  Category,
+  AuthAction,
+  SetCustomUserAgentInput,
+} from '@aws-amplify/core/internals/utils';
 import { getLogger } from '../utils';
 
 const logger = getLogger('Auth');
@@ -7,6 +11,18 @@ const logger = getLogger('Auth');
 type ChangePasswordInput = {
   currentPassword: string;
   newPassword: string;
+};
+
+export const changePasswordDataPlaneState: SetCustomUserAgentInput = {
+  category: Category.Auth,
+  apis: [AuthAction.UpdatePassword],
+  additionalDetails: [['component', 'changepassword']],
+};
+
+export const deleteUserDataPlaneState: SetCustomUserAgentInput = {
+  category: Category.Auth,
+  apis: [AuthAction.DeleteUser],
+  additionalDetails: [['component', 'deleteuser']],
 };
 
 export const changePassword = async ({

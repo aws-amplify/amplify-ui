@@ -3,12 +3,14 @@ import isEqual from 'lodash/isEqual.js';
 
 import {
   changePassword,
+  changePasswordDataPlaneState,
   ValidatorOptions,
   getDefaultConfirmPasswordValidators,
   getDefaultPasswordValidators,
   getLogger,
   runFieldValidators,
 } from '@aws-amplify/ui';
+import { setCustomUserAgent } from '@aws-amplify/core/internals/utils';
 
 import { useAuth } from '../../../internal';
 import { View, Flex } from '../../../primitives';
@@ -58,6 +60,13 @@ function ChangePassword({
   const passwordValidators: ValidatorOptions[] = React.useMemo(() => {
     return validators ?? getDefaultPasswordValidators();
   }, [validators]);
+
+  React.useEffect(() => {
+    const clearCustomUserAgent = setCustomUserAgent(
+      changePasswordDataPlaneState
+    );
+    return () => clearCustomUserAgent();
+  }, []);
 
   /*
    * Note that formValues and other states are passed in as props so that

@@ -5,7 +5,8 @@ import {
   OnMessageAction,
   useMessage,
 } from '@aws-amplify/ui-react-core-notifications';
-
+import { setCustomUserAgent } from '@aws-amplify/core/internals/utils';
+import { notificationsDataPlaneState } from '@aws-amplify/ui';
 import { ThemeProvider } from '@aws-amplify/ui-react';
 
 import { BannerMessage } from '../BannerMessage';
@@ -46,6 +47,13 @@ function InAppMessageDisplay({
     components,
     onMessageAction,
   });
+
+  React.useEffect(() => {
+    const clearCustomUserAgent = setCustomUserAgent(
+      notificationsDataPlaneState
+    );
+    return () => clearCustomUserAgent();
+  }, []);
 
   // There is currently no way to pass In-App Message payload variants so we
   // will fix the theme around In-App Messaging components to always assume

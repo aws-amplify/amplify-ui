@@ -1,11 +1,11 @@
 import * as React from 'react';
+import { setCustomUserAgent } from '@aws-amplify/core/internals/utils';
 import {
   AuthenticatorMachineOptions,
   AmplifyUser,
-  configureComponent,
+  authDataPlaneState,
   isFunction,
   FormFieldComponents,
-  FormFieldOptions,
 } from '@aws-amplify/ui';
 
 import {
@@ -15,7 +15,6 @@ import {
   useAuthenticatorInitMachine,
 } from '@aws-amplify/ui-react-core';
 
-import { VERSION } from '../../version';
 import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 
 import {
@@ -139,10 +138,8 @@ export function AuthenticatorInternal({
  */
 export function Authenticator(props: AuthenticatorProps): JSX.Element {
   React.useEffect(() => {
-    configureComponent({
-      packageName: '@aws-amplify/ui-react',
-      version: VERSION,
-    });
+    const clearCustomUserAgent = setCustomUserAgent(authDataPlaneState);
+    return () => clearCustomUserAgent();
   }, []);
 
   return (

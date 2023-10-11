@@ -1,8 +1,12 @@
 import * as React from 'react';
 
 import { UploadDataOutput } from 'aws-amplify/storage';
-
-import { getLogger, ComponentClassName } from '@aws-amplify/ui';
+import { setCustomUserAgent } from '@aws-amplify/core/internals/utils';
+import {
+  getLogger,
+  ComponentClassName,
+  storageManagerDataPlaneState,
+} from '@aws-amplify/ui';
 import { VisuallyHidden } from '@aws-amplify/ui-react';
 import { useDropZone } from '@aws-amplify/ui-react/internal';
 
@@ -228,6 +232,13 @@ function StorageManagerBase(
       hiddenInput.current.value = '';
     }
   }
+
+  React.useEffect(() => {
+    const clearCustomUserAgent = setCustomUserAgent(
+      storageManagerDataPlaneState
+    );
+    return () => clearCustomUserAgent();
+  }, []);
 
   return (
     <Components.Container

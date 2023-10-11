@@ -1,6 +1,11 @@
 import React from 'react';
 
-import { deleteUser, getLogger } from '@aws-amplify/ui';
+import {
+  deleteUser,
+  deleteUserDataPlaneState,
+  getLogger,
+} from '@aws-amplify/ui';
+import { setCustomUserAgent } from '@aws-amplify/core/internals/utils';
 
 import { useAuth } from '../../../internal';
 import { Flex } from '../../../primitives';
@@ -20,6 +25,11 @@ function DeleteUser({
 }: DeleteUserProps): JSX.Element | null {
   const [state, setState] = React.useState<DeleteUserState>('IDLE');
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const clearCustomUserAgent = setCustomUserAgent(deleteUserDataPlaneState);
+    return () => clearCustomUserAgent();
+  }, []);
 
   // translations
   const displayText = {

@@ -6,6 +6,8 @@ import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';
 import ReactMapGL from 'react-map-gl';
 import type { MapProps, MapRef, TransformRequestFunction } from 'react-map-gl';
 import { GeoConfig } from '@aws-amplify/geo';
+import { setCustomUserAgent } from '@aws-amplify/core/internals/utils';
+import { geoDataPlaneState } from '@aws-amplify/ui';
 
 interface MapViewProps extends Omit<MapProps, 'mapLib' | 'transformRequest'> {
   // replace `any` typed MapProps.mapLib
@@ -67,6 +69,11 @@ const MapView = forwardRef<MapRef, MapViewProps>(
         }
       })();
     }, [geoConfig]);
+
+    useEffect(() => {
+      const clearCustomUserAgent = setCustomUserAgent(geoDataPlaneState);
+      return () => clearCustomUserAgent();
+    }, []);
 
     /**
      * The mapLib property is used by react-map-gl@v7 to override the underlying map library. The default library is

@@ -4,7 +4,11 @@
  */
 
 import { Hub } from '@aws-amplify/core';
-// import { appendToCognitoUserAgent } from '@aws-amplify/auth';
+import {
+  Category,
+  AuthAction,
+  SetCustomUserAgentInput,
+} from '@aws-amplify/core/internals/utils';
 import { waitFor } from 'xstate/lib/waitFor.js';
 
 import {
@@ -15,15 +19,12 @@ import {
 } from '../../types';
 import { ALLOWED_SPECIAL_CHARACTERS, emailRegex } from './constants';
 import { getActorState } from './actor';
-import { isFunction, noop as appendToCognitoUserAgent } from '../../utils';
+import { isFunction } from '../../utils';
 
-type ConfigureOptions = { packageName: string; version: string };
-export const configureComponent = ({
-  packageName,
-  version,
-}: ConfigureOptions) => {
-  // "@aws-amplify/ui-react" + "/" + "3.5.10"
-  appendToCognitoUserAgent(`${packageName}/${version}`);
+export const authDataPlaneState: SetCustomUserAgentInput = {
+  category: Category.Auth,
+  apis: [AuthAction.SignUp, AuthAction.ConfirmSignUp, AuthAction.SignIn],
+  additionalDetails: [['component', 'authenticator']],
 };
 
 // replaces all characters in a string with '*', except for the first and last char
