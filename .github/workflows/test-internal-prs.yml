@@ -5,7 +5,7 @@
 #   (2) On every commit to the PR
 #   (3) Adding run-tests label to the PR
 
-name: Test / Internal PRs / next-release
+name: Test / Internal PRs
 
 concurrency:
   group: test-internal-prs-${{ github.event.pull_request.id }}
@@ -13,7 +13,7 @@ concurrency:
 
 on:
   pull_request:
-    branches: [next-release/migration]
+    branches: [main, hotfix]
     types: [opened, synchronize, labeled]
 
 jobs:
@@ -105,17 +105,16 @@ jobs:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.repository }}
 
-  # unit:
-  #   uses: ./.github/workflows/reusable-unit.yml
-  #   needs: setup-cache
-  #   with:
-  #     commit: ${{ github.event.pull_request.head.sha }}
-  #     repository: ${{ github.repository }}
+  unit:
+    uses: ./.github/workflows/reusable-unit.yml
+    needs: setup-cache
+    with:
+      commit: ${{ github.event.pull_request.head.sha }}
+      repository: ${{ github.repository }}
 
   e2e:
     uses: ./.github/workflows/reusable-e2e.yml
-    # needs: unit
-    needs: setup-cache
+    needs: unit
     with:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.event.pull_request.head.repo.full_name }}
