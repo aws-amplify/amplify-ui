@@ -156,22 +156,10 @@ export const setUnverifiedContactMethods = assign({
 
 export const setUser = assign({
   user: (_, event: AuthEvent) => {
-    //   event.data = {
-    //     "isSignUpComplete": false,
-    //     "nextStep": {
-    //         "signUpStep": "CONFIRM_SIGN_UP",
-    //         "codeDeliveryDetails": {
-    //             "deliveryMedium": "EMAIL",
-    //             "destination": "c***@g***",
-    //             "attributeName": "email"
-    //         }
-    //     },
-    //     "userId": "xxxxx"
-    // }
     groupLog('+++setUser', 'event.data', event.data);
 
     /**
-     * Cannot be called if unauthenticated. Maybe try/catch?
+     * @migration Cannot be called if unauthenticated. Maybe try/catch?
      */
     // const user = await Auth.getCurrentUser();
     /**

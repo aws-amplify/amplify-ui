@@ -33,7 +33,7 @@ const formFields = {
 function App({ user, signOut }) {
   return (
     <>
-      <h2>Welcome, {user?.attributes?.phone_number}</h2>
+      <h2>Welcome, {user.attributes?.phone_number}</h2>
       <button onClick={signOut}>Sign out</button>
     </>
   );

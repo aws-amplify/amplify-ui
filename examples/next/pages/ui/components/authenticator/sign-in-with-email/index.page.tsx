@@ -62,7 +62,6 @@ export default function App() {
       hideSignUp={true}
     >
       {({ signOut, user }) => {
-        console.log(user);
         return (
           <main>
             <h1>Hello {user.username}</h1>

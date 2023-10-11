@@ -573,7 +573,7 @@ export function signInActor({ services }: SignInMachineOptions) {
           const { phone_number_verified, email_verified } =
             event.data as Auth.FetchUserAttributesOutput;
 
-          //@Thadd fixme
+          // @todo-migration only request verificaion if phone or email is not verified and it is required
           return false;
         },
         shouldSetupTOTP: (_, event): boolean => {
@@ -778,11 +778,6 @@ export function signInActor({ services }: SignInMachineOptions) {
           const { provider } = event.data;
           return noop({ provider });
         },
-        // async checkVerifiedContact(context) {
-        //   const { user } = context;
-        //   const result = await Auth.verifiedContact(user);
-        //   return result;
-        // },
         async checkVerifiedContact(): Promise<Auth.FetchUserAttributesOutput> {
           groupLog(
             '+++checkVerifiedContacts',
@@ -805,11 +800,7 @@ export function signInActor({ services }: SignInMachineOptions) {
           const input: Auth.UpdateUserAttributesInput = {
             userAttributes: { ...context.formValues },
           };
-          console.log({ input });
           const result = await Auth.updateUserAttributes(input);
-
-          console.log({ result });
-          // context.attributeToVerify = unverifiedAttr as unknown as string;
 
           return result;
         },
