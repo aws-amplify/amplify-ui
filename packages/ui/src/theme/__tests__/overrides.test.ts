@@ -61,8 +61,9 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-accordion-item-border-style: solid;
         --amplify-components-accordion-item-border-radius: var(--amplify-radii-small);
         --amplify-components-accordion-item-trigger-align-items: center;
-        --amplify-components-accordion-item-trigger-color: inherit;
         --amplify-components-accordion-item-trigger-background-color: var(--amplify-colors-background-primary);
+        --amplify-components-accordion-item-trigger-color: inherit;
+        --amplify-components-accordion-item-trigger-gap: var(--amplify-space-small);
         --amplify-components-accordion-item-trigger-justify-content: space-between;
         --amplify-components-accordion-item-trigger-padding-block: var(--amplify-space-xs);
         --amplify-components-accordion-item-trigger-padding-inline: var(--amplify-space-small);

@@ -102,13 +102,24 @@ describe('Accordion:', () => {
 
   it('should be collapsible', async () => {
     const { container } = render(
-      <UncontrolledAccordion defaultValue={['item-1']} allowToggle />
+      <UncontrolledAccordion defaultValue={['item-1']} />
     );
     const details = container.getElementsByTagName('details');
     const summaries = container.getElementsByTagName('summary');
     expect(details[0]).toHaveAttribute('open');
     userEvent.click(summaries[0]);
     expect(details[0]).not.toHaveAttribute('open');
+  });
+
+  it('should be un-collapsible with isAlwaysOpen', async () => {
+    const { container } = render(
+      <UncontrolledAccordion defaultValue={['item-1']} isAlwaysOpen />
+    );
+    const details = container.getElementsByTagName('details');
+    const summaries = container.getElementsByTagName('summary');
+    expect(details[0]).toHaveAttribute('open');
+    userEvent.click(summaries[0]);
+    expect(details[0]).toHaveAttribute('open');
   });
 
   it('should work as uncontrolled component', async () => {
