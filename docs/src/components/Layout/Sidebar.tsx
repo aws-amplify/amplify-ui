@@ -146,7 +146,7 @@ const SecondaryNav = (props) => {
   const hideGuidesExpander = isFlutter || isReactNative || isAndroid || isSwift;
 
   return (
-    <Accordion allowToggle value={value} onChange={setValue}>
+    <Accordion value={value} onChange={setValue}>
       {
         <Accordion.Item value="getting-started">
           <Accordion.Trigger>

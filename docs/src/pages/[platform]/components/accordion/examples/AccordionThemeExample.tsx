@@ -33,7 +33,7 @@ export const AccordionThemeExample = () => (
         </Accordion.Trigger>
         <Accordion.Content>Pretty cool!</Accordion.Content>
       </Accordion.Item>
-      <Accordion.Item title="" value="item2">
+      <Accordion.Item value="item2">
         <Accordion.Trigger>
           It is very customizable
           <Accordion.Icon />

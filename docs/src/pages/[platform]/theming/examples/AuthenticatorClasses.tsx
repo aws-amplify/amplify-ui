@@ -29,24 +29,30 @@ export const AuthenticatorClasses = () => {
 
   return (
     <Accordion>
-      <Accordion.Item title="Available Classes" value="classNames">
-        <Collection
-          type="list"
-          items={classList}
-          gap="1.5rem"
-          direction="row"
-          isSearchable={true}
-          searchFilter={search}
-          searchPlaceholder="Type to search..."
-          wrap="wrap"
-          justifyContent="start"
-        >
-          {(className, index) => (
-            <Card key={index} padding="1rem">
-              <Text>{className}</Text>
-            </Card>
-          )}
-        </Collection>
+      <Accordion.Item value="classNames">
+        <Accordion.Trigger>
+          Available Classes
+          <Accordion.Icon />
+        </Accordion.Trigger>
+        <Accordion.Content>
+          <Collection
+            type="list"
+            items={classList}
+            gap="1.5rem"
+            direction="row"
+            isSearchable={true}
+            searchFilter={search}
+            searchPlaceholder="Type to search..."
+            wrap="wrap"
+            justifyContent="start"
+          >
+            {(className, index) => (
+              <Card key={index} padding="1rem">
+                <Text>{className}</Text>
+              </Card>
+            )}
+          </Collection>
+        </Accordion.Content>
       </Accordion.Item>
     </Accordion>
   );

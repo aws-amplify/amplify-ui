@@ -171,8 +171,14 @@ All text in the StorageManager component is customizable with the `displayText` 
 </Example>
 
 
-<Accordion.Item title="Display text props">
-  <ReactPropsTable props={DISPLAY_TEXT} />
+<Accordion.Item>
+  <Accordion.Trigger>
+    Display text props
+    <Accordion.Icon />
+  </Accordion.Trigger>
+  <Accordion.Content>
+    <ReactPropsTable props={DISPLAY_TEXT} />
+  </Accordion.Content>
 </Accordion.Item>
 
 ### Internationalization
@@ -201,12 +207,24 @@ _You can even use a completely different UI kit like MUI, Chakra, or your own de
   </ExampleCode>
 </Example>
 
-<Accordion allowToggle>
-  <Accordion.Item title="FilePicker props" value="filepicker">
-    <ReactPropsTable props={FILE_PICKER} />
+<Accordion>
+  <Accordion.Item value="filepicker">
+    <Accordion.Trigger>
+      FilePicker props
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
+      <ReactPropsTable props={FILE_PICKER} />
+    </Accordion.Content>
   </Accordion.Item>
-  <Accordion.Item title="DropZone props" value="dropzone">
-    <ReactPropsTable props={DROPZONE_PROPS} />
+  <Accordion.Item value="dropzone">
+    <Accordion.Trigger>
+      DropZone props
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
+      <ReactPropsTable props={DROPZONE_PROPS} />
+    </Accordion.Content>
   </Accordion.Item>
 </Accordion>
 

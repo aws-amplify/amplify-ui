@@ -180,20 +180,50 @@ export const GridDemo = () => {
       propControls={
         <>
           <Accordion value={value} onChange={handleExpandChange}>
-            <Accordion.Item title="Grid container props" value="item-1">
-              <GridContainerPropControls {...gridContainerProps} />
+            <Accordion.Item value="item-1">
+              <Accordion.Trigger>
+                Grid container props
+                <Accordion.Icon />
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <GridContainerPropControls {...gridContainerProps} />
+              </Accordion.Content>
             </Accordion.Item>
-            <Accordion.Item title="Grid item (Header) props" value="item-2">
-              <GridItemPropControls {...headerGridItemProps} />
+            <Accordion.Item value="item-2">
+              <Accordion.Trigger>
+                Grid item (Header) props
+                <Accordion.Icon />
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <GridItemPropControls {...headerGridItemProps} />
+              </Accordion.Content>
             </Accordion.Item>
-            <Accordion.Item title="Grid item (Nav) props" value="item-3">
-              <GridItemPropControls {...navGridItemProps} />
+            <Accordion.Item value="item-3">
+              <Accordion.Trigger>
+                Grid item (Nav) props
+                <Accordion.Icon />
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <GridItemPropControls {...navGridItemProps} />
+              </Accordion.Content>
             </Accordion.Item>
-            <Accordion.Item title="Grid item (Main) props" value="item-4">
-              <GridItemPropControls {...mainGridItemProps} />
+            <Accordion.Item value="item-4">
+              <Accordion.Trigger>
+                Grid item (Main) props
+                <Accordion.Icon />
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <GridItemPropControls {...mainGridItemProps} />
+              </Accordion.Content>
             </Accordion.Item>
-            <Accordion.Item title="Grid item (Footer) props" value="item-5">
-              <GridItemPropControls {...footerGridItemProps} />
+            <Accordion.Item value="item-5">
+              <Accordion.Trigger>
+                Grid item (Footer) props
+                <Accordion.Icon />
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <GridItemPropControls {...footerGridItemProps} />
+              </Accordion.Content>
             </Accordion.Item>
           </Accordion>
         </>

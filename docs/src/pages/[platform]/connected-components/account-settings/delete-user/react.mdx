@@ -107,7 +107,12 @@ Note that spreading props is necessary so that event listeners like `onClick` or
 Here are the required props and examples for overriding each slot.
 
 <Accordion>
-  <Accordion.Item title="DeleteButton" value="delete-button">
+  <Accordion.Item value="delete-button">
+    <Accordion.Trigger>
+      DeleteButton
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
 
 Props:
 
@@ -184,9 +189,14 @@ function App() {
 
       </ExampleCode>
     </Example>
-
+    </Accordion.Content>
   </Accordion.Item>
-  <Accordion.Item title="ErrorMessage" value="error-message">
+  <Accordion.Item value="error-message">
+    <Accordion.Trigger>
+      ErrorMessage
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
 
 Props:
 
@@ -218,8 +228,14 @@ function App() {
 
       </ExampleCode>
     </Example>
+    </Accordion.Content>
   </Accordion.Item>
-  <Accordion.Item title="WarningView" value="warning-view">
+  <Accordion.Item value="warning-view">
+    <Accordion.Trigger>
+      WarningView
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
 
 Props:
 
@@ -238,6 +254,7 @@ The following example overrides the warning component to require users to type "
         </ExampleCode>
       </Example>
     </ScrollView>
+    </Accordion.Content>
   </Accordion.Item>
 </Accordion>
 

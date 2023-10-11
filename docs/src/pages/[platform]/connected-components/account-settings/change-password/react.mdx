@@ -152,8 +152,13 @@ Note that spreading props is necessary so that event listeners like `onChange` o
 
 Here are the required props and examples for overriding each slot.
 
-<Accordion allowToggle>
-  <Accordion.Item title="PasswordFields" value="password-fields">
+<Accordion>
+  <Accordion.Item value="password-fields">
+    <Accordion.Trigger>
+      PasswordFields
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
 
 `ChangePassword` has three password fields that you can override: `CurrentPasswordField`, `NewPasswordField`, and `ConfirmPasswordField`. They all take the same props:
 
@@ -220,10 +225,14 @@ function App() {
 
     </ExampleCode>
   </Example>
-
+  </Accordion.Content>
   </Accordion.Item>
-  <Accordion.Item title="ErrorMessage" value="error-message">
-
+  <Accordion.Item value="error-message">
+    <Accordion.Trigger>
+      ErrorMessage
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
 
 Props:
 
@@ -255,8 +264,14 @@ function App() {
 
       </ExampleCode>
     </Example>
+    </Accordion.Content>
   </Accordion.Item>
-  <Accordion.Item title="SubmitButton" value="submit-button">
+  <Accordion.Item value="submit-button">
+    <Accordion.Trigger>
+      SubmitButton
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
 
 Props:
 
@@ -321,6 +336,7 @@ function App() {
 
       </ExampleCode>
     </Example>
+    </Accordion.Content>
   </Accordion.Item>
 </Accordion>
 
