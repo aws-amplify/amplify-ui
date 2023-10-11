@@ -18,7 +18,6 @@ export interface UseUploadFilesProps
       | 'onUploadStart'
       | 'maxFileCount'
       | 'processFile'
-      | 'provider'
       | 'path'
     >,
     Pick<
@@ -38,7 +37,6 @@ export function useUploadFiles({
   onUploadStart,
   maxFileCount,
   processFile,
-  provider,
   path = '',
 }: UseUploadFilesProps): void {
   React.useEffect(() => {
@@ -76,17 +74,16 @@ export function useUploadFiles({
         resolveFile({ processFile, file, key }).then(({ key, file }) => {
           onUploadStart?.({ key });
           const uploadTask = uploadFile({
-            completeCallback: onComplete,
+            file,
+            key,
             level: accessLevel,
             progressCallback: onProgress,
             errorCallback: onError,
-            file,
-            key,
+            completeCallback: onComplete,
           });
 
           setUploadingFile({
             id,
-            // uploadTask: isResumable ? uploadTask : undefined,
             uploadTask,
           });
         });
@@ -104,7 +101,6 @@ export function useUploadFiles({
     maxFileCount,
     setUploadSuccess,
     processFile,
-    provider,
     path,
   ]);
 }

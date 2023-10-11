@@ -116,6 +116,11 @@ config.resolver.blockList = [
 
 // point to the example app deps for React and native modules deps
 config.resolver.extraNodeModules = {
+  '@aws-amplify/react-native': path.resolve(
+    __dirname,
+    'node_modules/@aws-amplify/react-native'
+  ),
+
   // core React and React Native dependencies
   react: path.resolve(__dirname, 'node_modules/react'),
   'react-native': path.resolve(__dirname, 'node_modules/react-native'),

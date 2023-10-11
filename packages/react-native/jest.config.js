@@ -10,6 +10,7 @@ module.exports = {
     '^react$': '<rootDir>/node_modules/react',
     '^react-native$': '<rootDir>/node_modules/react-native',
   },
+  modulePaths: ['<rootDir>/node_modules'],
   coverageThreshold: {
     global: {
       branches: 90,

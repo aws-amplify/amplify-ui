@@ -42,6 +42,7 @@ const {
   resendCode,
   route,
   skipVerification,
+  socialProviders,
   submitForm,
   toFederatedSignIn,
   toResetPassword,
@@ -102,6 +103,7 @@ describe('getRouteMachineSelector', () => {
       'signIn',
       [
         ...commonSelectorProps,
+        socialProviders,
         toFederatedSignIn,
         toResetPassword,
         toSignUp,
@@ -113,6 +115,7 @@ describe('getRouteMachineSelector', () => {
       [
         ...commonSelectorProps,
         hasValidationErrors,
+        socialProviders,
         toSignIn,
         validationErrors,
         route,
@@ -163,6 +166,7 @@ describe('props resolver functions', () => {
         error,
         hideSignUp: false,
         isPending,
+        socialProviders,
         toFederatedSignIn,
         toResetPassword,
         toSignUp,
@@ -171,7 +175,14 @@ describe('props resolver functions', () => {
     [
       'SignUp',
       resolveSignUpRoute,
-      { error, hasValidationErrors, isPending, toSignIn, validationErrors },
+      {
+        error,
+        hasValidationErrors,
+        isPending,
+        socialProviders,
+        toSignIn,
+        validationErrors,
+      },
     ],
     [
       'VerifyUser',

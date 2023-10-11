@@ -20,7 +20,7 @@ export const getThemedStyles = (theme: StrictTheme): DividerStyles => {
       ...components?.divider?.label,
     },
     line: {
-      backgroundColor: colors.black,
+      backgroundColor: colors.font.primary,
       flex: 1,
       height: StyleSheet.hairlineWidth,
       ...components?.divider?.line,

@@ -7,6 +7,13 @@ import { useTheme } from '../../../../theme';
 import { getThemedStyles as getButtonThemedStyles } from '../../../../primitives/Button/styles';
 import { styles } from '../styles';
 
+jest.mock(
+  '@aws-amplify/react-native/lib/moduleLoaders/loadUrlPolyfill',
+  () => ({
+    loadUrlPolyfill: jest.fn(),
+  })
+);
+
 const signInText = 'Sign In with Amazon';
 
 describe('FederatedProviderButton', () => {

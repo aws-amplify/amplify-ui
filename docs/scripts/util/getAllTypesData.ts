@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { Project, PropertySignature, TypeAliasDeclaration } from 'ts-morph';
+import { Project, PropertySignature, TypeAliasDeclaration, ts } from 'ts-morph';
 import { capitalizeString } from '../../src/utils/capitalizeString';
 import {
   AllTypeFileData,
@@ -108,7 +108,8 @@ function setTypeData(
   const typeName = typeProp.getNameNode().getText();
   const typeType = typeProp.getTypeNode().getText();
   const isOptional =
-    typeProp.getChildrenOfKind(SyntaxKind.QuestionToken)[0]?.getText() === '?';
+    typeProp.getChildrenOfKind(ts.SyntaxKind.QuestionToken)[0]?.getText() ===
+    '?';
 
   typeData.set('name', typeName);
   typeData.set('type', typeType);

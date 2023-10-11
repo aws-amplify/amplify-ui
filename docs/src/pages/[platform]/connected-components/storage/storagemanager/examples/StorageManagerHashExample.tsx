@@ -22,7 +22,6 @@ export const StorageManagerHashExample = () => {
       accessLevel="guest"
       maxFileCount={1}
       processFile={processFile}
-      provider="fast" // IGNORE
     />
   );
 };
