@@ -134,7 +134,8 @@ const getConfirmResetPasswordFormFields = (
 
 const getForceNewPasswordFormFields = (state: AuthMachineState): FormFields => {
   const actorState = getActorState(state) as SignInState;
-  const { requiredAttributes } = actorState.context as SignInContext;
+  const { signUpAttributes: requiredAttributes } =
+    actorState.context as SignInContext;
 
   /**
    * @migration `requiredAttributes` translates to v6 `missingAttributes`

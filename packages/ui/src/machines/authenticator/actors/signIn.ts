@@ -121,16 +121,16 @@ export function signInActor({ services }: SignInMachineOptions) {
                     target: '#signInActor.forceNewPassword',
                   },
                   {
+                    cond: 'shouldRedirectToConfirmSignUp',
+                    actions: ['setCredentials', 'setConfirmSignUpIntent'],
+                    target: 'rejected',
+                  },
+                  {
                     actions: 'setUser',
                     target: 'verifying',
                   },
                 ],
                 onError: [
-                  {
-                    cond: 'shouldRedirectToConfirmSignUp',
-                    actions: ['setCredentials', 'setConfirmSignUpIntent'],
-                    target: 'rejected',
-                  },
                   {
                     cond: 'shouldRedirectToConfirmResetPassword',
                     actions: [
@@ -170,7 +170,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                 },
               },
             },
-            resolved: { always: '#signInActor.resolved' },
+            resolved: { always: '#signInActor.preResolved' },
             rejected: { always: '#signInActor.rejected' },
           },
         },
@@ -361,7 +361,6 @@ export function signInActor({ services }: SignInMachineOptions) {
                       {
                         cond: 'shouldSetupTOTP',
                         actions: ['setUser', 'setChallengeName'],
-
                         target: '#signInActor.setupTOTP',
                       },
                       {
@@ -484,10 +483,20 @@ export function signInActor({ services }: SignInMachineOptions) {
             },
           },
         },
+        preResolved: {
+          invoke: {
+            src: 'getCurrentUserResolved',
+            onDone: {
+              actions: 'setUser',
+              target: '#signInActor.resolved',
+            },
+          },
+        },
         resolved: {
           type: 'final',
-          data: async () => {
-            return await Auth.getCurrentUser();
+          data: (context, event) => {
+            groupLog('+++signIn.resolved.final', context, event);
+            return { ...event.data, authAttributes: context.authAttributes };
           },
         },
         rejected: {
@@ -541,13 +550,13 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         shouldConfirmSignIn: (_, event): boolean => {
           groupLog('+++shouldConfirmSignIn', 'event', event);
-          return isMfaChallengeName(getChallengeName(event));
+          return event.data.nextStep?.signInStep === 'CONFIRM_SIGN_IN';
         },
         shouldForceChangePassword: (_, event): boolean => {
           groupLog('+++shouldForceChangePassword', 'event', event);
-          return isExpectedChallengeName(
-            getChallengeName(event),
-            'NEW_PASSWORD_REQUIRED'
+          return (
+            event.data.nextStep?.signInStep ===
+            'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED'
           );
         },
 
@@ -557,13 +566,15 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         shouldRedirectToConfirmSignUp: (_, event): boolean => {
           groupLog('+++shouldRedirectToConfirmSignUp', 'event', event);
-          return event.data.code === 'UserNotConfirmedException';
+          return event.data.nextStep?.signInStep === 'CONFIRM_SIGN_UP';
         },
         shouldRequestVerification: (_, event): boolean => {
           groupLog('+++shouldRequestVerification', 'event', event);
-          const { unverified, verified } = event.data;
+          const { phone_number_verified, email_verified } =
+            event.data as Auth.FetchUserAttributesOutput;
 
-          return isEmpty(verified) && !isEmpty(unverified);
+          // @todo-migration only request verificaion if phone or email is not verified and it is required
+          return false;
         },
         shouldSetupTOTP: (_, event): boolean => {
           //   event.data ={
@@ -579,11 +590,11 @@ export function signInActor({ services }: SignInMachineOptions) {
             '+++shouldSetupTOTP',
             `'event.data.nextStep.signInStep' ===
             'CONTINUE_SIGN_IN_WITH_TOTP_SETUP'`,
-            event.data.nextStep.signInStep ===
+            event.data.nextStep?.signInStep ===
               'CONTINUE_SIGN_IN_WITH_TOTP_SETUP'
           );
           return (
-            event.data.nextStep.signInStep ===
+            event.data.nextStep?.signInStep ===
             'CONTINUE_SIGN_IN_WITH_TOTP_SETUP'
           );
           // return isExpectedChallengeName(getChallengeName(event), 'MFA_SETUP');
@@ -767,13 +778,12 @@ export function signInActor({ services }: SignInMachineOptions) {
           const { provider } = event.data;
           return noop({ provider });
         },
-        // async checkVerifiedContact(context) {
-        //   const { user } = context;
-        //   const result = await Auth.verifiedContact(user);
-        //   return result;
-        // },
-        async checkVerifiedContact() {
-          groupLog('+++checkVerifiedContact');
+        async checkVerifiedContact(): Promise<Auth.FetchUserAttributesOutput> {
+          groupLog(
+            '+++checkVerifiedContacts',
+            await Auth.fetchUserAttributes()
+          );
+
           return await Auth.fetchUserAttributes();
         },
         // async verifyUser(context) {
@@ -785,15 +795,12 @@ export function signInActor({ services }: SignInMachineOptions) {
         //   return result;
         // },
         async verifyUser(context) {
-          groupLog('+++verifyUser');
-          const { unverifiedAttr } = context.formValues;
+          groupLog('+++verifyUser', context.formValues);
 
           const input: Auth.UpdateUserAttributesInput = {
-            userAttributes: { unverifiedAttr },
+            userAttributes: { ...context.formValues },
           };
           const result = await Auth.updateUserAttributes(input);
-
-          context.attributeToVerify = unverifiedAttr as unknown as string;
 
           return result;
         },
@@ -827,6 +834,10 @@ export function signInActor({ services }: SignInMachineOptions) {
               defaultServices.validateConfirmPassword,
             ]
           );
+        },
+        async getCurrentUserResolved(context) {
+          groupLog('+++getCurrentUserResolved', context, event);
+          return await Auth.getCurrentUser();
         },
       },
     }
