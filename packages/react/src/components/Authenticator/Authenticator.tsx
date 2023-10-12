@@ -32,17 +32,17 @@ import { defaultComponents } from './hooks/useCustomComponents/defaultComponents
 export type SignOut = UseAuthenticator['signOut'];
 export type AuthenticatorProps = Partial<
   Omit<AuthenticatorMachineOptions, 'formFields'> &
-    ComponentsProviderProps &
-    RouterProps & {
-      children:
-        | React.ReactNode
-        | ((props: { signOut?: SignOut; user?: AmplifyUser }) => JSX.Element);
-      formFields: {
-        [key in FormFieldComponents]?: {
-          [field_name: string]: ReactFormFieldOptions;
-        };
+  ComponentsProviderProps &
+  RouterProps & {
+    children:
+    | React.ReactNode
+    | ((props: { signOut?: SignOut; user?: AmplifyUser }) => JSX.Element);
+    formFields: {
+      [key in FormFieldComponents]?: {
+        [field_name: string]: ReactFormFieldOptions;
       };
-    }
+    };
+  }
 >;
 
 interface ReactFormFieldOptions extends FormFieldOptions {

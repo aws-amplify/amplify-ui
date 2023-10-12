@@ -7191,7 +7191,7 @@
   dependencies:
     tslib "^2.5.0"
 
-"@smithy/types@^2.1.0":
+"@smithy/types@^2.1.0", "@smithy/types@^2.3.4":
   version "2.3.4"
   resolved "https://registry.npmjs.org/@smithy/types/-/types-2.3.4.tgz#3b9bc15000af0a0b1f4fda741f78c1580ba15e92"
   integrity sha512-D7xlM9FOMFyFw7YnMXn9dK2KuN6+JhnrZwVt1fWaIu8hCk5CigysweeIT/H/nCo4YV+s8/oqUdLfexbkPZtvqw==

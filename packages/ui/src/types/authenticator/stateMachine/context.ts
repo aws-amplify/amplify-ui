@@ -113,6 +113,7 @@ export interface SignInContext extends BaseFormContext {
   attributeToVerify?: string;
   redirectIntent?: string;
   unverifiedContactMethods?: UnverifiedContactMethods;
+  signUpAttributes?: SignUpAttribute[];
 }
 export interface SignUpContext extends BaseFormContext {
   loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];

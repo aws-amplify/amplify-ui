@@ -5,7 +5,7 @@ Feature: Reset Password
   Background:
     Given I'm running the example "ui/components/authenticator/reset-password"
 
-  @todo-migration @react @vue @angular @react-native
+  @react @vue @angular @react-native
   Scenario: Reset Password with valid username
     When I type my "username" with status "CONFIRMED"
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"
@@ -19,19 +19,19 @@ Feature: Reset Password
     Then I click the 'Submit' button
     Then I see "Sign In"
     
-  @todo-migration @react @vue @angular @react-native
+  @react @vue @angular @react-native
   Scenario: Reset Password with invalid username
     When I type my "username" with status "UNKNOWN"
     Then I click the "Send code" button
     Then I see "Username/client id combination not found."
 
-  @todo-migration @angular @react @vue @react-native
+  @angular @react @vue @react-native
   Scenario: Reset Password with valid placeholder 
     Then I see "Enter your username"
     Then I don't see "Enter your phone number"
     Then I don't see "Enter your email"
 
-  @todo-migration @angular @react @vue @react-native
+  @angular @react @vue @react-native
   Scenario: Reset Password with wrong password requirements
     When I type my "username" with status "CONFIRMED"
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"
@@ -46,7 +46,7 @@ Feature: Reset Password
     Then I see "Password must have upper case letters"
     Then I see "Password must have at least 8 characters"
 
-  @todo-migration @react-native
+  @react-native
   Scenario: Reset Password with wrong password requirements typed slowly
     When I type my "username" with status "CONFIRMED"
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"
@@ -61,7 +61,7 @@ Feature: Reset Password
     Then I see "Password must have upper case letters"
     Then I see "Password must have at least 8 characters"
 
-  @todo-migration @angular @react @vue @react-native
+  @angular @react @vue @react-native
   Scenario: Reset Password without lower case characters
     When I type my "username" with status "CONFIRMED"
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"
