@@ -61,12 +61,14 @@ export default function App() {
       components={components}
       hideSignUp={true}
     >
-      {({ signOut, user }) => (
-        <main>
-          <h1>Hello {user.username}</h1>
-          <button onClick={signOut}>Sign out</button>
-        </main>
-      )}
+      {({ signOut, user }) => {
+        return (
+          <main>
+            <h1>Hello {user.username}</h1>
+            <button onClick={signOut}>Sign out</button>
+          </main>
+        );
+      }}
     </Authenticator>
   );
 }

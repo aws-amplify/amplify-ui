@@ -1,3 +1,4 @@
+import { ResourcesConfig } from 'aws-amplify';
 import { assign, createMachine, forwardTo, spawn } from 'xstate';
 import { actions } from 'xstate';
 
@@ -7,6 +8,9 @@ import {
   AmplifyUser,
   AuthFormFields,
   PasswordSettings,
+  LoginMechanism,
+  SignUpAttribute,
+  SocialProvider,
 } from '../../types';
 import { groupLog, isEmptyObject } from '../../utils';
 
@@ -260,26 +264,37 @@ export function createAuthenticatorMachine(
               intent: event.data?.intent,
             };
           },
-          user: (_, event) => event.data?.user,
         }),
         clearUser: assign({ user: undefined }),
         clearActorDoneData: assign({ actorDoneData: undefined }),
         applyAmplifyConfig: assign({
           config(context, { data: cliConfigBase }) {
-            console.group('+++applyAmplifyConfig');
+            getAuthenticatorConfig(cliConfigBase);
+            const cliConfig = (cliConfigBase as ResourcesConfig).Auth.Cognito;
+            console.group('+++applyAmplifyConfig', cliConfig, cliConfigBase);
 
-            const cliConfig = getAuthenticatorConfig(cliConfigBase);
+            const cliLoginMechanisms = Object.entries(cliConfig.loginWith)
+              .filter(([key, _value]) => key !== 'oauth')
+              .filter(([_key, value]) => !!value)
+              .map((keyValueArray) => keyValueArray[0]) as LoginMechanism[];
+            const cliSignupAttributes = Object.entries(
+              cliConfig.userAttributes
+            ).map(
+              ([_key, value]) => Object.keys(value)[0]
+            ) as SignUpAttribute[];
+            const cliSocialProviders =
+              cliConfig.loginWith?.oauth?.providers.map((provider) =>
+                provider.toString().toLowerCase()
+              ) as SocialProvider[];
+
             // Prefer explicitly configured settings over default CLI values\
             const {
-              loginMechanisms = cliConfig.loginMechanisms ?? [],
-              signUpAttributes = cliConfig.signUpAttributes ?? [],
-              socialProviders = cliConfig.socialProviders ?? [],
+              loginMechanisms = cliLoginMechanisms ?? [],
+              signUpAttributes = cliSignupAttributes ?? [],
+              socialProviders = cliSocialProviders ?? [],
               initialState,
               formFields: _formFields,
-              /**
-               * @migration was missing, prev noted as deprecated
-               */
-              passwordSettings = cliConfig.passwordSettings ??
+              passwordSettings = cliConfig.passwordFormat ??
                 ({} as PasswordSettings),
             } = context.config;
 
@@ -324,6 +339,7 @@ export function createAuthenticatorMachine(
               loginMechanisms: context.config?.loginMechanisms,
               socialProviders: context.config?.socialProviders,
               formFields: context.config?.formFields,
+              signUpAttributes: context.config?.signUpAttributes,
             });
             return spawn(actor, { name: 'signInActor' });
           },
@@ -402,7 +418,7 @@ export function createAuthenticatorMachine(
           context.config.initialState === 'resetPassword',
         // guards for redirections
         shouldRedirectToSignUp: (_, event) => {
-          groupLog('+++shouldRedirectToSignUp');
+          groupLog('+++shouldRedirectToSignUp', event);
           return event.data?.intent === 'confirmSignUp';
         },
         shouldRedirectToResetPassword: (_, event) =>
