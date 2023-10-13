@@ -436,7 +436,7 @@
 
 "@aws-amplify/analytics@7.0.1-console-preview.23dc225.0+23dc225":
   version "7.0.1-console-preview.23dc225.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/analytics/-/analytics-7.0.1-console-preview.23dc225.0.tgz#3b9ecf8469fc15345c433a83038ace8c6c7af3d4"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/analytics/-/analytics-7.0.1-console-preview.23dc225.0.tgz#3b9ecf8469fc15345c433a83038ace8c6c7af3d4"
   integrity sha512-6DV2GS0yFYl4tDO9p0CFr4R9KDnuRuPQDH26yQl8qe1msK26z31we9AUMMGazwD7hv+N6XrbzSVB3Flq1lbmRw==
   dependencies:
     "@aws-sdk/client-firehose" "3.398.0"
@@ -447,7 +447,7 @@
 
 "@aws-amplify/api-graphql@4.0.1-console-preview.23dc225.0+23dc225":
   version "4.0.1-console-preview.23dc225.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/api-graphql/-/api-graphql-4.0.1-console-preview.23dc225.0.tgz#ebff42f05b1e546cb6d5056a8299323db9fd871a"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/api-graphql/-/api-graphql-4.0.1-console-preview.23dc225.0.tgz#ebff42f05b1e546cb6d5056a8299323db9fd871a"
   integrity sha512-C5F4ETUhNIo3LygItxsKD0nUVbzTxnKd/VzGeJ8q/lQOktcfFETFw7LxXdrICzH9jMeEJEPxjTFuDJS1re0uqQ==
   dependencies:
     "@aws-amplify/api-rest" "4.0.1-console-preview.23dc225.0+23dc225"
@@ -461,14 +461,14 @@
 
 "@aws-amplify/api-rest@4.0.1-console-preview.23dc225.0+23dc225":
   version "4.0.1-console-preview.23dc225.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/api-rest/-/api-rest-4.0.1-console-preview.23dc225.0.tgz#5dba2a8b8f161f0400250e20392d5c2e14637195"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/api-rest/-/api-rest-4.0.1-console-preview.23dc225.0.tgz#5dba2a8b8f161f0400250e20392d5c2e14637195"
   integrity sha512-oUdLILBX0+uusdmHT2DuxgQNHOM5Wm161MfKFC6EenCCYD/YINqCrP3Y1NtAITNjuxpIbLYe2hsU4/AzoRL1IA==
   dependencies:
     tslib "^2.5.0"
 
 "@aws-amplify/api@6.0.1-console-preview.23dc225.0+23dc225":
   version "6.0.1-console-preview.23dc225.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/api/-/api-6.0.1-console-preview.23dc225.0.tgz#d00ddf0769611e7e006f726e467c287a836f1ca3"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/api/-/api-6.0.1-console-preview.23dc225.0.tgz#d00ddf0769611e7e006f726e467c287a836f1ca3"
   integrity sha512-cpT1Ra5Uv2osWH0ZDS4n5r3l8+4tWL7XOEMNtSyN/ZBq9fYM7marBTg8AsvGaceCPNW4ZtRTg974ChO241lWaw==
   dependencies:
     "@aws-amplify/api-graphql" "4.0.1-console-preview.23dc225.0+23dc225"
@@ -477,7 +477,7 @@
 
 "@aws-amplify/auth@6.0.1-console-preview.23dc225.0+23dc225":
   version "6.0.1-console-preview.23dc225.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/auth/-/auth-6.0.1-console-preview.23dc225.0.tgz#62fd18dbd805141f45c22e4180bd085eb20320a2"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/auth/-/auth-6.0.1-console-preview.23dc225.0.tgz#62fd18dbd805141f45c22e4180bd085eb20320a2"
   integrity sha512-9wblEhQOGmKRTkWOj9ZTQ+moQApjlurbkrYYuuuIbJncqaVl9Wh+I6oEtOD7C1oKeCp7OX1+eJIxHhrzEi3W5A==
   dependencies:
     tslib "^2.5.0"
@@ -509,7 +509,7 @@
 
 "@aws-amplify/core@6.0.1-console-preview.23dc225.0+23dc225":
   version "6.0.1-console-preview.23dc225.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/core/-/core-6.0.1-console-preview.23dc225.0.tgz#8cd4d5e3383c9f58335e4639e1c2444f28d14eec"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-6.0.1-console-preview.23dc225.0.tgz#8cd4d5e3383c9f58335e4639e1c2444f28d14eec"
   integrity sha512-ofmHmzNcwSG1TgyfRnN+0JcFUoJUiCrEZgGFj6WuoatVg8NelzKON3YpqDWWYOvh1QeYKFx4Nj+Jdpm3puf7Pg==
   dependencies:
     "@aws-crypto/sha256-js" "5.0.0"
@@ -522,7 +522,7 @@
 
 "@aws-amplify/datastore@5.0.1-console-preview.23dc225.0+23dc225":
   version "5.0.1-console-preview.23dc225.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/datastore/-/datastore-5.0.1-console-preview.23dc225.0.tgz#3a0b75564ca43ff2cf40311c66ba7b2af88245dd"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/datastore/-/datastore-5.0.1-console-preview.23dc225.0.tgz#3a0b75564ca43ff2cf40311c66ba7b2af88245dd"
   integrity sha512-6PlZsik27wBaO4Kr8Oqmi92T+phbHVtUu7BD1xaV0VHX8gIgOghEjVs2WEY1F1VYvgJ1BAvUuadHweurDXG4CQ==
   dependencies:
     "@aws-amplify/api" "6.0.1-console-preview.23dc225.0+23dc225"
@@ -556,7 +556,7 @@
 
 "@aws-amplify/notifications@2.0.1-console-preview.23dc225.0+23dc225":
   version "2.0.1-console-preview.23dc225.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/notifications/-/notifications-2.0.1-console-preview.23dc225.0.tgz#cc4e920d4b1dcce4a39ba5762f9921807d998642"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/notifications/-/notifications-2.0.1-console-preview.23dc225.0.tgz#cc4e920d4b1dcce4a39ba5762f9921807d998642"
   integrity sha512-JTOjv74XSKEt1cLonorxH4F1w0nziN8PEarXi1Y6lYH7yg2D6JemQb2EgQI/AjrMhSO2Yuk7Yyh+lJZCW9i33w==
   dependencies:
     lodash "^4.17.21"
@@ -582,7 +582,7 @@
 
 "@aws-amplify/storage@6.0.1-console-preview.23dc225.0+23dc225":
   version "6.0.1-console-preview.23dc225.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/storage/-/storage-6.0.1-console-preview.23dc225.0.tgz#34f046003cfa1aa286827f0c65ada2e6c8b985a4"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/storage/-/storage-6.0.1-console-preview.23dc225.0.tgz#34f046003cfa1aa286827f0c65ada2e6c8b985a4"
   integrity sha512-MbkhaqLOSRrnUu2gTXVlfiuhQUvCeXH9EpDORGifb0TMB0eUGcyblsbHhU4xUiSqFHFjnrZALaAXExy0i/pboA==
   dependencies:
     "@aws-sdk/types" "3.398.0"
@@ -10802,7 +10802,7 @@ available-typed-arrays@^1.0.5:
 
 aws-amplify@console-preview:
   version "6.0.1-console-preview.23dc225.0"
-  resolved "https://registry.npmjs.org/aws-amplify/-/aws-amplify-6.0.1-console-preview.23dc225.0.tgz#0d7838d84d91bbc23ce026af4641f949f90bd083"
+  resolved "https://registry.yarnpkg.com/aws-amplify/-/aws-amplify-6.0.1-console-preview.23dc225.0.tgz#0d7838d84d91bbc23ce026af4641f949f90bd083"
   integrity sha512-8YtW6n7qZVIzA5sxE9gOowcccgOESeTJ4SCzNrRlCqLXhU3cJ8dNj68/TQzIvOaMf9FIrLc8TXwu74BCOBvi5g==
   dependencies:
     "@aws-amplify/analytics" "7.0.1-console-preview.23dc225.0+23dc225"
@@ -27026,7 +27026,7 @@ semver@7.3.8, semver@7.5.4, semver@7.x, semver@^7.0.0, semver@^7.1.1, semver@^7.
 
 semver@7.5.3:
   version "7.5.3"
-  resolved "https://registry.npmjs.org/semver/-/semver-7.5.3.tgz#161ce8c2c6b4b3bdca6caadc9fa3317a4c4fe88e"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.5.3.tgz#161ce8c2c6b4b3bdca6caadc9fa3317a4c4fe88e"
   integrity sha512-QBlUtyVk/5EeHbi7X0fw6liDZc7BBmEaSYn01fMU1OUYbf6GPsbTtd8WmnqbI20SeycoHSeiybkE/q1Q+qlThQ==
   dependencies:
     lru-cache "^6.0.0"

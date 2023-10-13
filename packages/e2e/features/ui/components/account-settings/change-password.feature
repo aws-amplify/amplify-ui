@@ -5,7 +5,7 @@ Feature: Change Password
   Background:
     Given I'm running the example "ui/components/account-settings/change-password"
 
-  @todo-migration @react
+  @react
   Scenario: Change password of an authenticated user
     When I type my "email" with status "CONFIRMED"
     Then I type my password
@@ -19,7 +19,7 @@ Feature: Change Password
     Then I click the "Sign out" button
     Then I see "Sign in"
 
-  @todo-migration @react
+  @react
   Scenario: Change password with wrong password requirements
     When I type my "email" with status "CONFIRMED"
     Then I type my password
