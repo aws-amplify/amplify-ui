@@ -23,7 +23,22 @@ import { isFunction } from '../../utils';
 
 export const authDataPlaneState: SetCustomUserAgentInput = {
   category: Category.Auth,
-  apis: [AuthAction.SignUp, AuthAction.ConfirmSignUp, AuthAction.SignIn],
+  apis: [
+    AuthAction.SignUp,
+    AuthAction.ConfirmSignUp,
+    AuthAction.ResendSignUpCode,
+    AuthAction.SignIn,
+    AuthAction.FetchMFAPreference,
+    AuthAction.UpdateMFAPreference,
+    AuthAction.SetUpTOTP,
+    AuthAction.VerifyTOTPSetup,
+    AuthAction.ConfirmSignIn,
+    AuthAction.FetchUserAttributes,
+    AuthAction.SignOut,
+    AuthAction.ResetPassword,
+    AuthAction.ConfirmResetPassword,
+    AuthAction.FederatedSignIn,
+  ],
   additionalDetails: [['component', 'authenticator']],
 };
 
