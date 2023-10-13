@@ -155,18 +155,14 @@ export const setUnverifiedContactMethods = assign({
 });
 
 export const setUser = assign({
-  user: (_, event: AuthEvent) => {
+  user: async (_, event: AuthEvent) => {
     groupLog('+++setUser', 'event.data', event.data);
 
-    /**
-     * @migration Cannot be called if unauthenticated. Maybe try/catch?
-     */
-    // const user = await Auth.getCurrentUser();
-    /**
-     * @migration event.data was the fallback here,
-     *  setting the entire event.data as user
-     */
-    return { ...event.data };
+    if (event.data.isSignedIn) {
+      return await Auth.getCurrentUser();
+    } else {
+      return { ...event.data };
+    }
   },
 });
 
