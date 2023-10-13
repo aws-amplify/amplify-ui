@@ -103,38 +103,25 @@ export const defaultServices = {
 
     const password_complexity = [];
 
-    const policyMinLength = +passwordSettings?.passwordPolicyMinLength;
+    const policyMinLength = +passwordSettings?.minLength;
     if (password.length < policyMinLength) {
       password_complexity.push(
         `Password must have at least ${policyMinLength} characters`
       );
     }
 
-    const passwordPolicyCharacters = passwordSettings?.passwordPolicyCharacters;
+    if (passwordSettings.requireLowercase && !/[a-z]/.test(password))
+      password_complexity.push('Password must have lower case letters');
 
-    passwordPolicyCharacters?.forEach((errorCheck) => {
-      switch (errorCheck) {
-        case 'REQUIRES_LOWERCASE':
-          if (!/[a-z]/.test(password))
-            password_complexity.push('Password must have lower case letters');
-          break;
-        case 'REQUIRES_UPPERCASE':
-          if (!/[A-Z]/.test(password))
-            password_complexity.push('Password must have upper case letters');
-          break;
-        case 'REQUIRES_NUMBERS':
-          if (!/[0-9]/.test(password))
-            password_complexity.push('Password must have numbers');
-          break;
-        case 'REQUIRES_SYMBOLS':
-          // https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-policies.html
-          if (!hasSpecialChars(password))
-            password_complexity.push('Password must have special characters');
-          break;
-        default:
-          break;
-      }
-    });
+    if (passwordSettings.requireUppercase && !/[A-Z]/.test(password))
+      password_complexity.push('Password must have upper case letters');
+
+    if (passwordSettings.requireNumbers && !/[0-9]/.test(password))
+      password_complexity.push('Password must have numbers');
+
+    // https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-policies.html
+    if (passwordSettings.requireSpecialCharacters && !hasSpecialChars(password))
+      password_complexity.push('Password must have special characters');
 
     /**
      * Only return an error if there is at least one error.

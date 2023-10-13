@@ -7,8 +7,9 @@ const formData: AuthFormData = {
 };
 const touchData: AuthFormData = {};
 const passwordSettings: PasswordSettings = {
-  passwordPolicyMinLength: 8,
-  passwordPolicyCharacters: ['REQUIRES_LOWERCASE', 'REQUIRES_NUMBERS'],
+  minLength: 8,
+  requireLowercase: true,
+  requireNumbers: true,
 };
 
 describe('runValidators', () => {
