@@ -175,13 +175,13 @@ export function signInActor({ services }: SignInMachineOptions) {
           },
         },
         autoSignIn: {
-          initial: 'pending',
+          initial: 'signIn',
           states: {
-            pending: {
-              tags: ['pending'],
+            signIn: {
               entry: ['clearError', 'sendUpdate'],
-              on: {
-                AUTO_SIGN_IN: [
+              invoke: {
+                src: 'autoSignIn',
+                onDone: [
                   {
                     cond: 'shouldSetupTOTP',
                     actions: ['setUser', 'setChallengeName'],
@@ -202,14 +202,10 @@ export function signInActor({ services }: SignInMachineOptions) {
                     target: '#signInActor.forceNewPassword',
                   },
                   {
-                    actions: 'setUser',
+                    actions: ['setUser'],
                     target: '#signInActor.resolved',
                   },
                 ],
-                AUTO_SIGN_IN_FAILURE: {
-                  actions: 'setRemoteError',
-                  target: 'pending',
-                },
               },
             },
             submit: {
@@ -576,7 +572,7 @@ export function signInActor({ services }: SignInMachineOptions) {
           // @todo-migration only request verificaion if phone or email is not verified and it is required
           return false;
         },
-        shouldSetupTOTP: (_, event): boolean => {
+        shouldSetupTOTP: (context, event): boolean => {
           //   event.data ={
           //     "isSignedIn": false,
           //     "nextStep": {
@@ -586,13 +582,7 @@ export function signInActor({ services }: SignInMachineOptions) {
           //         }
           //     }
           // }
-          groupLog(
-            '+++shouldSetupTOTP',
-            `'event.data.nextStep.signInStep' ===
-            'CONTINUE_SIGN_IN_WITH_TOTP_SETUP'`,
-            event.data.nextStep?.signInStep ===
-              'CONTINUE_SIGN_IN_WITH_TOTP_SETUP'
-          );
+          groupLog('+++shouldSetupTOTP', context, event);
           return (
             event.data.nextStep?.signInStep ===
             'CONTINUE_SIGN_IN_WITH_TOTP_SETUP'
@@ -838,6 +828,9 @@ export function signInActor({ services }: SignInMachineOptions) {
         async getCurrentUserResolved(context) {
           groupLog('+++getCurrentUserResolved', context, event);
           return await Auth.getCurrentUser();
+        },
+        async autoSignIn() {
+          return await Auth.autoSignIn();
         },
       },
     }

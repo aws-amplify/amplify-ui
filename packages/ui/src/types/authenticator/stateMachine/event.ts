@@ -19,6 +19,7 @@ export type AuthEventTypes =
   | 'AUTO_SIGN_IN'
   | 'AUTO_SIGN_IN_FAILURE'
   | 'SIGN_IN'
+  | 'SIGNED_IN'
   | 'SIGN_OUT'
   | 'SIGN_UP'
   | 'SKIP'
