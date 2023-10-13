@@ -10,24 +10,24 @@ Feature: Sign In with Email
   Background:
     Given I'm running the example "/ui/components/authenticator/sign-in-with-email"
 
-  @todo-migration @angular @react @vue
+  @angular @react @vue
   Scenario: Sign in with force password reset calls forgot password
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with error fixture "force-reset-password"
     When I type my "email" with status "CONFIRMED"
     Then I type my password
-    Given I spy "Amplify.Auth.forgotPassword" method
+    Given I spy "Auth.forgotPassword" method
     Then I click the "Sign in" button
     Then I see "Code *"
-    Then "Amplify.Auth.forgotPassword" method is called
+    Then "Auth.forgotPassword" method is called
 
-  @todo-migration @angular @react @vue @react-native
+  @angular @react @vue @react-native
   Scenario: Sign in with unknown credentials
     When I type my "email" with status "UNKNOWN"
     Then I type my password
     Then I click the "Sign in" button
     Then I see "User does not exist."
 
-  @todo-migration @angular @react @vue
+  @angular @react @vue
   Scenario: Sign in with unconfirmed credentials
 
   If you sign in with an unconfirmed account, Authenticator will redirect you to `confirmSignUp` route.
@@ -40,12 +40,12 @@ Feature: Sign In with Email
     Then I type a valid confirmation code
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
     # Mocking these two calls is much easier than intercepting 6+ network calls with tokens that are validated & expire within the hour
-    Then I mock 'Amplify.Auth.signIn' with fixture "Auth.signIn-verified-email"
-    Then I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
+    Then I mock '.Auth.signIn' with fixture "Auth.signIn-verified-email"
+    Then I mock 'Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
     Then I click the "Confirm" button
     Then I see "Sign out"
 
-  @todo-migration @angular @react @vue @react-native
+  @angular @react @vue @react-native
   Scenario: Sign in with confirmed credentials
     When I type my "email" with status "CONFIRMED"
     Then I type my password
@@ -53,7 +53,7 @@ Feature: Sign In with Email
     Then I see "Sign out"
     Then I click the "Sign out" button
 
-  @todo-migration @angular @react @vue @react-native
+  @angular @react @vue @react-native
   Scenario: Sign in with confirmed credentials then sign out
     When I type my "email" with status "CONFIRMED"
     Then I type my password
@@ -62,12 +62,12 @@ Feature: Sign In with Email
     Then I click the "Sign out" button
     Then I see "Sign in"
 
-  @todo-migration @angular @react @vue
+  @angular @react @vue
   Scenario: Sign Up Tab Is Not Present 
     Then I see "Sign in"
     Then I don't see "Create Account"
 
-  @todo-migration @angular @react @vue
+  @angular @react @vue
   Scenario: Email field autocompletes username
 
   On sign in form, autocomplete prefers usage of username instead of email. 
@@ -75,6 +75,6 @@ Feature: Sign In with Email
 
     Then "Email" field autocompletes "username"
 
-  @todo-migration @angular @react @vue
+  @angular @react @vue
   Scenario: Password fields autocomplete "current-password"
     Then "Password" field autocompletes "current-password"
