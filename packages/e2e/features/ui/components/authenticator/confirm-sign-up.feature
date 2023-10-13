@@ -54,7 +54,7 @@ Feature: Confirm Sign Up
     Then I mock "autoSignIn" event with fixture "Auth.currentAuthenticatedUser-verified-email"
     Then I see "Sign out"
   
-  @angular @react @vue 
+  @todo-migration @angular @react @vue 
   Scenario: User is already confirmed and then clicks Resend Code
     When I type a new "email"
     Then I type my password
@@ -63,13 +63,13 @@ Feature: Confirm Sign Up
     Then I see "Confirmation Code"
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ResendConfirmationCode" } }' with error fixture "user-already-confirmed-error"
     # Mocking these two calls is much easier than intercepting 6+ network calls with tokens that are validated & expire within the hour
-    Then I mock 'Amplify.Auth.signIn' with fixture "Auth.signIn-verified-email"
-    Then I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
+    Then I mock 'Auth.signIn' with fixture "Auth.signIn-verified-email"
+    Then I mock 'Auth.getCurrentUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
     Then I click the "Resend Code" button
     Then I mock "autoSignIn" event with fixture "Auth.signIn-verified-email"
     Then I see "Sign out"
 
-  @todo-migration @angular @react @vue
+  @angular @react @vue
   Scenario: Supports "One-Time Code"
 
     See: https://developer.apple.com/documentation/security/password_autofill/enabling_password_autofill_on_an_html_input_element

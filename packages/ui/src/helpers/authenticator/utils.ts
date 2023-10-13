@@ -90,12 +90,12 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = async (
         send('TOKEN_REFRESH');
       }
       break;
-    case 'signIn':
+    case 'signedIn':
       if (isFunction(onSignIn)) {
         onSignIn();
       }
       break;
-    case 'signOut':
+    case 'signedOut':
     case 'tokenRefresh_failure':
       if (isFunction(onSignOut)) {
         onSignOut();
