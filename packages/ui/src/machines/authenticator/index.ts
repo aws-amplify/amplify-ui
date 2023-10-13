@@ -283,7 +283,7 @@ export function createAuthenticatorMachine(
               ([_key, value]) => Object.keys(value)[0]
             ) as SignUpAttribute[];
             const cliSocialProviders =
-              cliConfig.loginWith?.oauth?.providers.map((provider) =>
+              cliConfig.loginWith?.oauth?.providers?.map((provider) =>
                 provider.toString().toLowerCase()
               ) as SocialProvider[];
 
