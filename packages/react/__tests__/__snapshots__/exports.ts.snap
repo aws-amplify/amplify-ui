@@ -4,7 +4,6 @@ exports[`@aws-amplify/ui-react exports should match snapshot 1`] = `
 Array [
   "AccountSettings",
   "Alert",
-  "AmplifyProvider",
   "Authenticator",
   "Autocomplete",
   "Badge",

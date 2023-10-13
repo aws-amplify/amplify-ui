@@ -8,7 +8,7 @@ import {
   sanitizeNamespaceImport,
 } from '@aws-amplify/ui';
 
-import { AmplifyContext } from './AmplifyContext';
+import { ThemeContext } from './ThemeContext';
 
 // Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
 // We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
@@ -40,7 +40,10 @@ interface ThemeProviderProps {
   theme?: Theme | WebTheme;
 }
 
-export function AmplifyProvider({
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/theming)
+ */
+export function ThemeProvider({
   children,
   colorMode,
   direction = 'ltr',
@@ -53,7 +56,7 @@ export function AmplifyProvider({
   } = value;
 
   return (
-    <AmplifyContext.Provider value={value}>
+    <ThemeContext.Provider value={value}>
       <DirectionProvider dir={direction}>
         {/*
           The data attributes on here as well as the root element allow for nested
@@ -124,11 +127,6 @@ export function AmplifyProvider({
           />
         )}
       </DirectionProvider>
-    </AmplifyContext.Provider>
+    </ThemeContext.Provider>
   );
 }
-
-/**
- * [📖 Docs](https://ui.docs.amplify.aws/react/theming)
- */
-export const ThemeProvider = AmplifyProvider;
