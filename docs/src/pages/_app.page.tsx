@@ -1,11 +1,10 @@
 import * as React from 'react';
-// import { Amplify, Storage } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 
 import { ThemeProvider, ColorMode, defaultTheme } from '@aws-amplify/ui-react';
 
-import MyStorageProvider from '@/utils/storageMock';
 import { configure, trackPageVisit } from '@/utils/track';
 import { Header } from '@/components/Layout/Header';
 import { baseTheme } from '../theme';
@@ -44,8 +43,8 @@ if (typeof window === 'undefined') {
   ✨ you can explore the Amplify UI theme object by typing \`theme\` in the console.
  `);
   window['theme'] = defaultTheme;
-  // @todo-migration re-enable?
-  // Amplify.configure(mockConfig);
+  // @todo-migration
+  Amplify.configure(mockConfig);
   // Storage.addPluggable(new MyStorageProvider('fast', { delay: 10 }));
   // Storage.addPluggable(new MyStorageProvider('slow', { delay: 1000 }));
   // Storage.addPluggable(
