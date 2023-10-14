@@ -50,7 +50,7 @@ const generateRadioGroup = (
   attributes: UnverifiedContactMethods
 ): JSX.Element[] => {
   return Object.entries(attributes).map(([key, value]: [string, string]) => (
-    <Radio name={key} value={value} key={key}>
+    <Radio name="unverifiedAttr" value={key} key={key}>
       {censorContactInformation(
         (defaultFormFieldOptions[key] as { label: ContactMethod }).label,
         value

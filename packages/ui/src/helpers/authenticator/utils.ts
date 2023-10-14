@@ -82,6 +82,7 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = async (
 
   const { onSignIn, onSignOut } = options ?? {};
 
+  console.log({ event });
   switch (event) {
     // TODO: We can add more cases here, according to
     // https://docs.amplify.aws/lib/auth/auth-events/q/platform/js/
@@ -97,6 +98,7 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = async (
       break;
     case 'signedOut':
     case 'tokenRefresh_failure':
+      console.log(state);
       if (isFunction(onSignOut)) {
         onSignOut();
       }

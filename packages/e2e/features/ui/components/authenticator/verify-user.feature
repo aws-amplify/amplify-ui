@@ -9,7 +9,7 @@ Feature: Verify User
     Given I'm running the example "/ui/components/authenticator/sign-in-with-email"
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.GetUserAttributeVerificationCode" } }' with fixture "verify-user-email"
 
-  @todo-migration @angular @react @vue
+  @angular @react @vue
   Scenario: Redirect to "Confirm Verify" page and replace label and placeholder
     When I type my "email" with status "UNVERIFIED"
     Then I type my password
@@ -32,7 +32,7 @@ Feature: Verify User
     Then I click the "Skip" button
     Then I click the "Sign out" button
 
-  @todo-migration @angular @react @vue @todo-react-native
+  @angular @react @vue @todo-react-native
   Scenario: Redirect to "Verify" page and verify custom header and footer text
     When I type my "email" with status "UNVERIFIED"
     Then I type my password
@@ -42,7 +42,7 @@ Feature: Verify User
     Then I click the "Skip" button
     Then I click the "Sign out" button
 
-  @todo-migration @angular @react @vue @todo-react-native
+  @angular @react @vue @todo-react-native
   Scenario: Skip verify account
     When I type my "email" with status "UNVERIFIED"
     Then I type my password
@@ -51,7 +51,7 @@ Feature: Verify User
     Then I see "Sign out"
     Then I click the "Sign out" button
 
-  @todo-migration @angular @react @vue @todo-react-native
+  @angular @react @vue @todo-react-native
   Scenario: Redirect to "Confirm Verify" page and verify custom header and footer 
     When I type my "email" with status "UNVERIFIED"
     Then I type my password

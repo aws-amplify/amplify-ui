@@ -269,7 +269,6 @@ export function createAuthenticatorMachine(
         clearActorDoneData: assign({ actorDoneData: undefined }),
         applyAmplifyConfig: assign({
           config(context, { data: cliConfigBase }) {
-            getAuthenticatorConfig(cliConfigBase);
             const cliConfig = (cliConfigBase as ResourcesConfig).Auth.Cognito;
             console.group('+++applyAmplifyConfig', cliConfig, cliConfigBase);
 

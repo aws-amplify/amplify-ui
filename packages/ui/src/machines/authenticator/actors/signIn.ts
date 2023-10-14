@@ -170,7 +170,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                 },
               },
             },
-            resolved: { always: '#signInActor.preResolved' },
+            resolved: { always: '#signInActor.updateCurrentUser' },
             rejected: { always: '#signInActor.rejected' },
           },
         },
@@ -469,7 +469,7 @@ export function signInActor({ services }: SignInMachineOptions) {
               invoke: {
                 src: 'confirmVerifyUser',
                 onDone: {
-                  target: '#signInActor.resolved',
+                  target: '#signInActor.updateCurrentUser',
                 },
                 onError: {
                   actions: 'setRemoteError',
@@ -479,7 +479,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             },
           },
         },
-        preResolved: {
+        updateCurrentUser: {
           invoke: {
             src: 'getCurrentUserResolved',
             onDone: {
@@ -564,13 +564,19 @@ export function signInActor({ services }: SignInMachineOptions) {
           groupLog('+++shouldRedirectToConfirmSignUp', 'event', event);
           return event.data.nextStep?.signInStep === 'CONFIRM_SIGN_UP';
         },
-        shouldRequestVerification: (_, event): boolean => {
-          groupLog('+++shouldRequestVerification', 'event', event);
+        shouldRequestVerification: (context, event): boolean => {
+          groupLog('+++shouldRequestVerification', context, event);
           const { phone_number_verified, email_verified } =
             event.data as Auth.FetchUserAttributesOutput;
 
-          // @todo-migration only request verificaion if phone or email is not verified and it is required
-          return false;
+          // email/phone_verified is returned as a string
+          const emailRequiredAndNotVerified =
+            !isEmpty(email_verified) && email_verified === 'false';
+          const phoneRequiredAndNotVerified =
+            !isEmpty(phone_number_verified) &&
+            phone_number_verified === 'false';
+
+          return emailRequiredAndNotVerified || phoneRequiredAndNotVerified;
         },
         shouldSetupTOTP: (context, event): boolean => {
           //   event.data ={
@@ -785,12 +791,16 @@ export function signInActor({ services }: SignInMachineOptions) {
         //   return result;
         // },
         async verifyUser(context) {
-          groupLog('+++verifyUser', context.formValues);
+          const { unverifiedAttr } = context.formValues;
+          groupLog('+++verifyUser', unverifiedAttr, context);
 
-          const input: Auth.UpdateUserAttributesInput = {
-            userAttributes: { ...context.formValues },
+          const input: Auth.SendUserAttributeVerificationCodeInput = {
+            userAttributeKey:
+              unverifiedAttr as Auth.SendUserAttributeVerificationCodeInput['userAttributeKey'],
           };
-          const result = await Auth.updateUserAttributes(input);
+          const result = await Auth.sendUserAttributeVerificationCode(input);
+
+          context.attributeToVerify = unverifiedAttr;
 
           return result;
         },
