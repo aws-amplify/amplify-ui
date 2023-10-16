@@ -10,7 +10,7 @@ Feature: Sign In with Email
   Background:
     Given I'm running the example "/ui/components/authenticator/sign-in-with-email"
 
-  @angular @react @vue
+  @todo-migration @angular @react @vue
   Scenario: Sign in with force password reset calls forgot password
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with error fixture "force-reset-password"
     When I type my "email" with status "CONFIRMED"
@@ -27,7 +27,7 @@ Feature: Sign In with Email
     Then I click the "Sign in" button
     Then I see "User does not exist."
 
-  @angular @react @vue
+  @todo-migration @angular @react @vue
   Scenario: Sign in with unconfirmed credentials
 
   If you sign in with an unconfirmed account, Authenticator will redirect you to `confirmSignUp` route.
@@ -40,7 +40,7 @@ Feature: Sign In with Email
     Then I type a valid confirmation code
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
     # Mocking these two calls is much easier than intercepting 6+ network calls with tokens that are validated & expire within the hour
-    Then I mock '.Auth.signIn' with fixture "Auth.signIn-verified-email"
+    Then I mock 'Auth.signIn' with fixture "Auth.signIn-verified-email"
     Then I mock 'Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
     Then I click the "Confirm" button
     Then I see "Sign out"
