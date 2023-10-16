@@ -74,10 +74,9 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   instructionsHeaderHeadingText: 'Liveness check',
   instructionsHeaderBodyText:
     'You will go through a face verification process to prove that you are a real person.',
-  instructionsBeginCheckText: 'Begin check',
+  instructionsBeginCheckText: 'Start video check',
   photosensitivyWarningHeadingText: 'Photosensitivity warning',
-  photosensitivyWarningBodyText:
-    'This check displays colored lights. Use caution if you are photosensitive.',
+  photosensitivyWarningBodyText: 'This check flashes colors.',
   photosensitivyWarningInfoText:
     'A small percentage of individuals may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
   instructionListHeadingText: 'Follow the instructions to complete the check:',
@@ -89,7 +88,7 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
     "Illustration of a person's face inside of an oval; there is a gap between the perimeter of the face and the boundaries of the oval.",
   instructionListStepOneText:
     'When an oval appears, follow the instructions to fit your face in it.',
-  instructionListStepTwoText: "Maximize your screen's brightness.",
+  instructionListStepTwoText: 'Maximize your screen brightness setting.',
   instructionListStepThreeText:
     'Make sure your face is not covered with sunglasses or a mask.',
   instructionListStepFourText:

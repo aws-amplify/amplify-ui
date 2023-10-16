@@ -7,7 +7,6 @@ import {
 import { View, Flex } from '@aws-amplify/ui-react';
 
 import { FaceLivenessDetectorProvider } from './providers';
-import { StartLiveness } from './StartLiveness';
 import { LivenessCheck } from './LivenessCheck';
 import { StartScreenComponents } from './shared/DefaultStartScreenComponents';
 import { LivenessDisplayText } from './displayText';
@@ -72,21 +71,14 @@ export default function FaceLivenessDetectorCore(
     <View className={DETECTOR_CLASS_NAME} testId={DETECTOR_CLASS_NAME}>
       <FaceLivenessDetectorProvider componentProps={props} service={service}>
         <Flex direction="column" ref={currElementRef}>
-          {isStartView ? (
-            <StartLiveness
-              beginLivenessCheck={beginLivenessCheck}
-              components={components}
-              instructionDisplayText={instructionDisplayText}
-            />
-          ) : (
-            <LivenessCheck
-              hintDisplayText={hintDisplayText}
-              cameraDisplayText={cameraDisplayText}
-              streamDisplayText={streamDisplayText}
-              errorDisplayText={errorDisplayText}
-              components={components}
-            />
-          )}
+          <LivenessCheck
+            instructionDisplayText={instructionDisplayText}
+            hintDisplayText={hintDisplayText}
+            cameraDisplayText={cameraDisplayText}
+            streamDisplayText={streamDisplayText}
+            errorDisplayText={errorDisplayText}
+            components={components}
+          />
         </Flex>
       </FaceLivenessDetectorProvider>
     </View>

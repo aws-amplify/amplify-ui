@@ -136,17 +136,19 @@ export function getStaticLivenessOvalDetails({
   widthSeed = 1.0,
   centerXSeed = 0.5,
   centerYSeed = 0.5,
+  ratioMultiplier = 0.8,
 }: {
   width: number;
   height: number;
   widthSeed?: number;
   centerXSeed?: number;
   centerYSeed?: number;
+  ratioMultiplier?: number;
 }): LivenessOvalDetails {
   const videoHeight = height;
   let videoWidth = width;
 
-  const ovalRatio = widthSeed * 0.8;
+  const ovalRatio = widthSeed * ratioMultiplier;
 
   const minOvalCenterX = Math.floor((7 * width) / 16);
   const maxOvalCenterX = Math.floor((9 * width) / 16);
@@ -305,7 +307,7 @@ export function getFaceMatchStateInLivenessOval(
     ovalBoundingBox
   );
 
-  const intersectionThreshold = OvalIouThreshold;
+  const intersectionThreshold = 0.6;
   const ovalMatchWidthThreshold = ovalDetails.width * OvalIouWidthThreshold;
   const ovalMatchHeightThreshold = ovalDetails.height * OvalIouHeightThreshold;
   const faceDetectionWidthThreshold = ovalDetails.width * FaceIouWidthThreshold;
@@ -368,7 +370,15 @@ export function generateBboxFromLandmarks(
   face: Face,
   oval: LivenessOvalDetails
 ): BoundingBox {
-  const { leftEye, rightEye, nose } = face;
+  const {
+    leftEye,
+    rightEye,
+    nose,
+    leftEar,
+    rightEar,
+    top: faceTop,
+    height: faceHeight,
+  } = face;
   const { height: ovalHeight, centerY } = oval;
   const ovalTop = centerY! - ovalHeight! / 2;
 
@@ -384,26 +394,24 @@ export function generateBboxFromLandmarks(
   const ow = (alpha * pd + gamma * fh) / 2;
   const oh = 1.618 * ow;
 
-  let cx: number, cy: number;
+  let cx: number;
 
   if (eyeCenter[1] <= (ovalTop + ovalHeight!) / 2) {
     cx = (eyeCenter[0] + nose[0]) / 2;
-    cy = (eyeCenter[1] + nose[1]) / 2;
   } else {
     cx = eyeCenter[0];
-    cy = eyeCenter[1];
   }
 
-  const left = cx - ow / 2,
-    top = cy - oh / 2;
-  const width = ow,
-    height = oh;
+  const faceBottom = faceTop + faceHeight;
+  const top = faceBottom - oh;
+  const left = Math.min(cx - ow / 2, rightEar[0]);
+  const right = Math.min(cx + ow / 2, leftEar[0]);
 
   return {
     left: left,
     top: top,
-    right: left + width,
-    bottom: top + height,
+    right: right,
+    bottom: faceBottom,
   };
 }
 
@@ -819,4 +827,19 @@ export function getBoundingBox({
     Top: top / deviceHeight,
     Left: left / deviceWidth,
   };
+}
+
+export function captureRefImage(videoElement: HTMLVideoElement) {
+  return new Promise<Blob>((resolve) => {
+    const canvasElement = document.createElement('canvas');
+    const canvas2dContext = canvasElement.getContext('2d')!;
+
+    canvasElement.width = videoElement.videoWidth;
+    canvasElement.height = videoElement.videoHeight;
+    canvas2dContext.drawImage(videoElement, 0, 0);
+
+    canvasElement.toBlob((blob) => {
+      resolve(blob!);
+    });
+  });
 }
