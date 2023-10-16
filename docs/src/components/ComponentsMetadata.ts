@@ -766,10 +766,10 @@ export const ComponentsMetadata: ComponentClassNameItems = {
     components: ['Tabs'],
     description: 'Top level element that wraps the Tabs primitive',
   },
-  TabsItems: {
+  TabsItem: {
     className: ComponentClassName.TabsItem,
     components: ['Tabs'],
-    description: 'Top level element that wraps the TabItem primitive',
+    description: 'Tab element (button) in a TabPanel',
   },
   TabsList: {
     className: ComponentClassName.TabsList,
