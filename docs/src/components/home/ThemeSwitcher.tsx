@@ -14,7 +14,6 @@ import {
   View,
   SwitchField,
   SliderField,
-  TabItem,
   Tabs,
   Alert,
   Loader,
@@ -172,19 +171,16 @@ const Preview = ({ platform }) => {
             </Flex>
           </Card>
           <Card variation="elevated" columnStart="2" columnEnd="-1">
-            <Tabs>
-              <TabItem title="Amplify"></TabItem>
-
-              <TabItem
-                title={
-                  <View>
-                    Studio{' '}
-                    <Badge size="small" variation="success">
-                      new
-                    </Badge>
-                  </View>
-                }
-              ></TabItem>
+            <Tabs defaultValue="amplify">
+              <Tabs.List>
+                <Tabs.Tab value="amplify">Amplify</Tabs.Tab>
+                <Tabs.Tab value="studio">
+                  Studio{' '}
+                  <Badge size="small" variation="success">
+                    new
+                  </Badge>
+                </Tabs.Tab>
+              </Tabs.List>
             </Tabs>
           </Card>
         </>

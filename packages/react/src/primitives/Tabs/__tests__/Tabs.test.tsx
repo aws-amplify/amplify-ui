@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import * as React from 'react';
 
-import { Tabs, TabItem } from '../Tabs';
+import { Tabs } from '../Tabs';
 import { Text } from '../../Text';
 import { ComponentClassName } from '@aws-amplify/ui';
 
@@ -9,7 +9,10 @@ describe('Tabs', () => {
   it('can render custom classnames', async () => {
     render(
       <Tabs className="custom-classname" testId="tabsId">
-        <TabItem title="Tab 1">Tab 1</TabItem>
+        <Tabs.List>
+          <Tabs.Tab value="1">Tab 1</Tabs.Tab>
+        </Tabs.List>
+        <Tabs.Panel value="1">Tab 1</Tabs.Panel>
       </Tabs>
     );
 
@@ -21,8 +24,12 @@ describe('Tabs', () => {
   it('can render any arbitrary data-* attribute', async () => {
     render(
       <Tabs data-demo="true" testId="tabsTest">
-        <TabItem title="Tab 1">Tab 1</TabItem>
-        <TabItem title="Tab 2">Tab 2</TabItem>
+        <Tabs.List>
+          <Tabs.Tab value="1">Tab 1</Tabs.Tab>
+          <Tabs.Tab value="2">Tab 2</Tabs.Tab>
+        </Tabs.List>
+        <Tabs.Panel value="1">Tab 1</Tabs.Panel>
+        <Tabs.Panel value="2">Tab 2</Tabs.Panel>
       </Tabs>
     );
     const tabs = await screen.findByTestId('tabsTest');
@@ -34,7 +41,9 @@ describe('Tabs', () => {
 
     render(
       <Tabs ref={ref} testId="tabsId">
-        <TabItem title="Tab 1">Tab 1</TabItem>
+        <Tabs.List>
+          <Tabs.Tab value="1">Tab 1</Tabs.Tab>
+        </Tabs.List>
       </Tabs>
     );
 
@@ -44,8 +53,12 @@ describe('Tabs', () => {
 
   it('should skip over null children', async () => {
     render(
-      <Tabs testId="tabsTest">
-        <TabItem title="Tab 1">Tab 1</TabItem>
+      <Tabs>
+        <Tabs.List testId="tabsTest">
+          <Tabs.Tab value="1">Tab 1</Tabs.Tab>
+          {null}
+        </Tabs.List>
+        <Tabs.Panel value="1">Tab 1</Tabs.Panel>
         {null}
       </Tabs>
     );
@@ -55,13 +68,17 @@ describe('Tabs', () => {
     expect(panels).toHaveLength(1);
   });
 
-  it('should work with defaultIndex and null children', async () => {
+  it('should work with defaultValue', async () => {
     render(
-      <Tabs testId="tabsTest" defaultIndex={1}>
-        <TabItem title="Tab 1">Tab 1</TabItem>
-        {null}
-        {undefined}
-        <TabItem title="Tab 2">Tab 2</TabItem>
+      <Tabs testId="tabsTest" defaultValue="2">
+        <Tabs.List>
+          <Tabs.Tab value="1">Tab 1</Tabs.Tab>
+          {null}
+          {undefined}
+          <Tabs.Tab value="2">Tab 2</Tabs.Tab>
+        </Tabs.List>
+        <Tabs.Panel value="1">Tab 1</Tabs.Panel>
+        <Tabs.Panel value="2">Tab 2</Tabs.Panel>
       </Tabs>
     );
     const tabs = await screen.findAllByRole('tab');
@@ -73,21 +90,27 @@ describe('Tabs', () => {
     it('can render custom classnames', async () => {
       render(
         <Tabs>
-          <TabItem className="custom-classname" title="Tab 1">
-            Tab 1
-          </TabItem>
+          <Tabs.List>
+            <Tabs.Tab className="custom-classname" value="Tab 1">
+              Tab 1
+            </Tabs.Tab>
+          </Tabs.List>
         </Tabs>
       );
 
       const tab = await screen.findByRole('tab');
       expect(tab.className).toContain('custom-classname');
-      expect(tab.className).toContain(ComponentClassName.TabItems);
+      expect(tab.className).toContain(ComponentClassName.TabsItem);
     });
 
     it('should handle React nodes in the title', async () => {
       render(
         <Tabs>
-          <TabItem title={<Text testId="test">Test1234</Text>}>Tab 1</TabItem>
+          <Tabs.List>
+            <Tabs.Tab value="1">
+              <Text testId="test">Test1234</Text>
+            </Tabs.Tab>
+          </Tabs.List>
         </Tabs>
       );
 
@@ -98,9 +121,11 @@ describe('Tabs', () => {
     it('should render disabled button when disabled', async () => {
       render(
         <Tabs data-demo="true" testId="tabsTest">
-          <TabItem title="Tab 1" isDisabled>
-            Tab 1
-          </TabItem>
+          <Tabs.List>
+            <Tabs.Tab value="Tab 1" isDisabled>
+              Tab 1
+            </Tabs.Tab>
+          </Tabs.List>
         </Tabs>
       );
 
@@ -113,9 +138,9 @@ describe('Tabs', () => {
 
       render(
         <Tabs>
-          <TabItem ref={ref} title="Tab 1">
+          <Tabs.Tab ref={ref} value="Tab 1">
             Tab 1
-          </TabItem>
+          </Tabs.Tab>
         </Tabs>
       );
 

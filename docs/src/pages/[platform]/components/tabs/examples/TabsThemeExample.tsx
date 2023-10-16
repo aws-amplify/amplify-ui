@@ -1,6 +1,6 @@
-import { Tabs, TabItem, ThemeProvider, Theme } from '@aws-amplify/ui-react';
+import { Tabs, ThemeProvider, createTheme } from '@aws-amplify/ui-react';
 
-const theme: Theme = {
+const theme = createTheme({
   name: 'tabs-theme',
   tokens: {
     components: {
@@ -30,17 +30,24 @@ const theme: Theme = {
       },
     },
   },
-};
+});
 
 export const TabsThemeExample = () => {
   return (
     <ThemeProvider theme={theme} colorMode="light">
       <Tabs>
-        <TabItem title="Tab 1">Tab 1 Content</TabItem>
-        <TabItem title="Tab 2">Tab 2 Content</TabItem>
-        <TabItem title="Tab 3" isDisabled>
+        <Tabs.List>
+          <Tabs.Tab value="1">Tab 1</Tabs.Tab>
+          <Tabs.Tab value="2">Tab 2</Tabs.Tab>
+          <Tabs.Tab value="3" isDisabled>
+            Tab 3
+          </Tabs.Tab>
+        </Tabs.List>
+        <Tabs.Panel value="1">Tab 1 Content</Tabs.Panel>
+        <Tabs.Panel value="2">Tab 2 Content</Tabs.Panel>
+        <Tabs.Panel value="3" isDisabled>
           Tab 3 Content
-        </TabItem>
+        </Tabs.Panel>
       </Tabs>
     </ThemeProvider>
   );

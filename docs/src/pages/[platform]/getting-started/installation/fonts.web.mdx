@@ -1,4 +1,4 @@
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Tabs } from '@aws-amplify/ui-react';
 import { Fragment } from '@/components/Fragment';
 import { TerminalCommand } from '@/components/InstallScripts';
 
@@ -23,17 +23,21 @@ or
 
 You can also install it as an NPM dependency:
 
-<Tabs>
-<TabItem title="npm">
+<Tabs defaultValue="npm">
+<Tabs.List>
+<Tabs.Tab value="npm">npm</Tabs.Tab>
+<Tabs.Tab value="yarn">yarn</Tabs.Tab>
+</Tabs.List>
+<Tabs.Panel value="npm">
 
 <TerminalCommand command="npm install @fontsource/inter" />
 
-</TabItem>
-<TabItem title="yarn">
+</Tabs.Panel>
+<Tabs.Panel value="yarn">
 
 <TerminalCommand command="yarn add @fontsource/inter" />
 
-</TabItem>
+</Tabs.Panel>
 </Tabs>
 
 Then import the variable font in your application:

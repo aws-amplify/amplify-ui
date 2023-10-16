@@ -20,7 +20,6 @@ import {
   SearchField,
   SwitchField,
   Tabs,
-  TabItem,
   Badge,
   ToggleButtonGroup,
   ToggleButton,
@@ -101,19 +100,16 @@ const Preview = () => {
       </Flex>
       <Flex direction={direction}>
         <Card variation="elevated" flex="2">
-          <Tabs>
-            <TabItem title="Sports"></TabItem>
-
-            <TabItem
-              title={
-                <View>
-                  Donuts{' '}
-                  <Badge size="small" variation="success">
-                    new
-                  </Badge>
-                </View>
-              }
-            ></TabItem>
+          <Tabs defaultValue="sports">
+            <Tabs.List>
+              <Tabs.Tab value="sports">Sports</Tabs.Tab>
+              <Tabs.Tab value="donuts">
+                Donuts{' '}
+                <Badge size="small" variation="success">
+                  new
+                </Badge>
+              </Tabs.Tab>
+            </Tabs.List>
           </Tabs>
         </Card>
         <Card variation="elevated" flex="1">

@@ -51,7 +51,6 @@ Array [
   "SliderField",
   "StepperField",
   "SwitchField",
-  "TabItem",
   "Table",
   "TableBody",
   "TableCell",
@@ -12848,247 +12847,6 @@ Object {
       },
     },
   },
-  "TabItem": Object {
-    "properties": Object {
-      "alignSelf": Object {
-        "type": "string",
-      },
-      "area": Object {
-        "type": "string",
-      },
-      "backgroundColor": Object {
-        "type": "string",
-      },
-      "backgroundImage": Object {
-        "type": "string",
-      },
-      "basis": Object {
-        "type": "string",
-      },
-      "border": Object {
-        "type": "string",
-      },
-      "borderColor": Object {
-        "type": "string",
-      },
-      "borderRadius": Object {
-        "type": "string",
-      },
-      "borderStyle": Object {
-        "type": "string",
-      },
-      "borderWidth": Object {
-        "type": "string",
-      },
-      "bottom": Object {
-        "type": "string",
-      },
-      "boxShadow": Object {
-        "type": "string",
-      },
-      "children": Object {
-        "type": "string",
-      },
-      "className": Object {
-        "type": "string",
-      },
-      "color": Object {
-        "type": "string",
-      },
-      "column": Object {
-        "type": "string",
-      },
-      "columnEnd": Object {
-        "type": "string",
-      },
-      "columnSpan": Object {
-        "type": "string",
-      },
-      "columnStart": Object {
-        "type": "string",
-      },
-      "display": Object {
-        "type": "string",
-      },
-      "flex": Object {
-        "type": "string",
-      },
-      "fontFamily": Object {
-        "type": "string",
-      },
-      "fontSize": Object {
-        "type": "string",
-      },
-      "fontStyle": Object {
-        "type": "string",
-      },
-      "fontWeight": Object {
-        "type": "string",
-      },
-      "grow": Object {
-        "type": "string",
-      },
-      "height": Object {
-        "type": "string",
-      },
-      "id": Object {
-        "type": "string",
-      },
-      "inert": Object {
-        "type": "boolean",
-      },
-      "isDisabled": Object {
-        "type": "boolean",
-      },
-      "left": Object {
-        "type": "string",
-      },
-      "letterSpacing": Object {
-        "type": "string",
-      },
-      "lineHeight": Object {
-        "type": "string",
-      },
-      "margin": Object {
-        "type": "string",
-      },
-      "marginBlock": Object {
-        "type": "string",
-      },
-      "marginBlockEnd": Object {
-        "type": "string",
-      },
-      "marginBlockStart": Object {
-        "type": "string",
-      },
-      "marginBottom": Object {
-        "type": "string",
-      },
-      "marginInline": Object {
-        "type": "string",
-      },
-      "marginInlineEnd": Object {
-        "type": "string",
-      },
-      "marginInlineStart": Object {
-        "type": "string",
-      },
-      "marginLeft": Object {
-        "type": "string",
-      },
-      "marginRight": Object {
-        "type": "string",
-      },
-      "marginTop": Object {
-        "type": "string",
-      },
-      "maxHeight": Object {
-        "type": "string",
-      },
-      "maxWidth": Object {
-        "type": "string",
-      },
-      "minHeight": Object {
-        "type": "string",
-      },
-      "minWidth": Object {
-        "type": "string",
-      },
-      "opacity": Object {
-        "type": "string",
-      },
-      "order": Object {
-        "type": "string",
-      },
-      "overflow": Object {
-        "type": "string",
-      },
-      "padding": Object {
-        "type": "string",
-      },
-      "paddingBlock": Object {
-        "type": "string",
-      },
-      "paddingBlockEnd": Object {
-        "type": "string",
-      },
-      "paddingBlockStart": Object {
-        "type": "string",
-      },
-      "paddingBottom": Object {
-        "type": "string",
-      },
-      "paddingInline": Object {
-        "type": "string",
-      },
-      "paddingInlineEnd": Object {
-        "type": "string",
-      },
-      "paddingInlineStart": Object {
-        "type": "string",
-      },
-      "paddingLeft": Object {
-        "type": "string",
-      },
-      "paddingRight": Object {
-        "type": "string",
-      },
-      "paddingTop": Object {
-        "type": "string",
-      },
-      "position": Object {
-        "type": "string",
-      },
-      "right": Object {
-        "type": "string",
-      },
-      "row": Object {
-        "type": "string",
-      },
-      "rowEnd": Object {
-        "type": "string",
-      },
-      "rowSpan": Object {
-        "type": "string",
-      },
-      "rowStart": Object {
-        "type": "string",
-      },
-      "shrink": Object {
-        "type": "string",
-      },
-      "testId": Object {
-        "type": "string",
-      },
-      "textAlign": Object {
-        "type": "string",
-      },
-      "textDecoration": Object {
-        "type": "string",
-      },
-      "textTransform": Object {
-        "type": "string",
-      },
-      "title": Object {
-        "type": "string",
-      },
-      "top": Object {
-        "type": "string",
-      },
-      "transform": Object {
-        "type": "string",
-      },
-      "transformOrigin": Object {
-        "type": "string",
-      },
-      "whiteSpace": Object {
-        "type": "string",
-      },
-      "width": Object {
-        "type": "string",
-      },
-    },
-  },
   "Table": Object {
     "properties": Object {
       "alignSelf": Object {
@@ -14585,12 +14343,6 @@ Object {
   },
   "Tabs": Object {
     "properties": Object {
-      "alignContent": Object {
-        "type": "string",
-      },
-      "alignItems": Object {
-        "type": "string",
-      },
       "alignSelf": Object {
         "type": "string",
       },
@@ -14648,22 +14400,10 @@ Object {
       "columnEnd": Object {
         "type": "string",
       },
-      "columnGap": Object {
-        "type": "string",
-      },
       "columnSpan": Object {
         "type": "string",
       },
       "columnStart": Object {
-        "type": "string",
-      },
-      "currentIndex": Object {
-        "type": "string",
-      },
-      "defaultIndex": Object {
-        "type": "string",
-      },
-      "direction": Object {
         "type": "string",
       },
       "display": Object {
@@ -14684,9 +14424,6 @@ Object {
       "fontWeight": Object {
         "type": "string",
       },
-      "gap": Object {
-        "type": "string",
-      },
       "grow": Object {
         "type": "string",
       },
@@ -14696,16 +14433,13 @@ Object {
       "id": Object {
         "type": "string",
       },
-      "indicatorPosition": Object {
-        "type": "string",
-      },
       "inert": Object {
         "type": "boolean",
       },
       "isDisabled": Object {
         "type": "boolean",
       },
-      "justifyContent": Object {
+      "key": Object {
         "type": "string",
       },
       "left": Object {
@@ -14819,9 +14553,6 @@ Object {
       "rowEnd": Object {
         "type": "string",
       },
-      "rowGap": Object {
-        "type": "string",
-      },
       "rowSpan": Object {
         "type": "string",
       },
@@ -14829,9 +14560,6 @@ Object {
         "type": "string",
       },
       "shrink": Object {
-        "type": "string",
-      },
-      "spacing": Object {
         "type": "string",
       },
       "testId": Object {
@@ -14859,9 +14587,6 @@ Object {
         "type": "string",
       },
       "width": Object {
-        "type": "string",
-      },
-      "wrap": Object {
         "type": "string",
       },
     },

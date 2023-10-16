@@ -1,12 +1,16 @@
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Tabs } from '@aws-amplify/ui-react';
 
 export const OverrideStyleClasses = () => (
   <Tabs className="custom-tabs">
-    <TabItem title="Tab 1" className="custom-tab-item">
+    <Tabs.List>
+      <Tabs.Tab value="1">Tab 1</Tabs.Tab>
+      <Tabs.Tab value="2">Tab 2</Tabs.Tab>
+    </Tabs.List>
+    <Tabs.Panel value="1" className="custom-tab-item">
       Content of Tab 1
-    </TabItem>
-    <TabItem title="Tab 2" className="custom-tab-item">
+    </Tabs.Panel>
+    <Tabs.Panel value="2" className="custom-tab-item">
       Content of Tab 2
-    </TabItem>
+    </Tabs.Panel>
   </Tabs>
 );

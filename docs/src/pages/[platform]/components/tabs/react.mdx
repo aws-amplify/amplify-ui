@@ -1,7 +1,6 @@
 import { Fragment } from '@/components/Fragment'; 
 import {
   Tabs,
-  TabItem,
   Flex,
   Text,
   IconEmail,
@@ -24,7 +23,6 @@ import {
   Spacing,
   StyleProps,
   TabsThemeExample,
-  Title,
 } from './examples';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import ThemeExample from '@/components/ThemeExample.mdx';
@@ -110,16 +108,6 @@ Note: this prop only has an effect if the `spacing` prop is not set, otherwise t
 ### Title
 
 In the `TabItem` component, use the **required** `title` prop to change the title corresponding with each Tab's content panel. For styling purposes, you may pass your own custom component if you wish.
-
-<Example>
-  <Title />
-  <ExampleCode>
-    ```jsx file=./examples/Title.tsx
-
-    ```
-
-</ExampleCode>
-</Example>
 
 You can also add badges and icons in the `TabItem` by passing custom components to the `title` prop.
 
@@ -288,28 +276,7 @@ border-color: transparent;
 background-color: var(--amplify-colors-brand-primary-100);
 }
 
-````
-  </ExampleCode>
-</Example>
-
-#### Using data attributes
-
-<Example className="tabs-data-demo">
-  <DataAttributeStyles />
-  <ExampleCode>
-```css
-/* styles.css */
-/* When a Tab is selected and displaying its corresponding content panel */
-.amplify-tabs-item[data-state='active'] {
-  background-color: var(--amplify-colors-brand-primary-20);
-}
-
-/* When a Tab is disabled */
-.amplify-tabs-item[data-disabled] {
-  background-color: var(--amplify-colors-background-tertiary);
-}
 ```
-
   </ExampleCode>
 </Example>
 

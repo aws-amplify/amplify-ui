@@ -31,6 +31,8 @@ export interface BaseTabsProps extends BaseViewProps {
    * to onChange.
    */
   onChange?: (value: string) => void;
+
+  isLazy?: boolean;
 }
 export type TabsProps<Element extends ElementType = 'div'> = PrimitiveProps<
   BaseTabsProps,

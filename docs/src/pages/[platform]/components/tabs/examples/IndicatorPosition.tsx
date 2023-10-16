@@ -1,8 +1,12 @@
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Tabs } from '@aws-amplify/ui-react';
 
 export const IndicatorPosition = () => (
   <Tabs indicatorPosition="top">
-    <TabItem title="Tab 1">Tab 1 content</TabItem>
-    <TabItem title="Tab 2">Tab 2 content</TabItem>
+    <Tabs.List>
+      <Tabs.Tab value="1">Tab 1</Tabs.Tab>
+      <Tabs.Tab value="2">Tab 2</Tabs.Tab>
+    </Tabs.List>
+    <Tabs.Panel value="1">Tab 1 content</Tabs.Panel>
+    <Tabs.Panel value="2">Tab 2 content</Tabs.Panel>
   </Tabs>
 );

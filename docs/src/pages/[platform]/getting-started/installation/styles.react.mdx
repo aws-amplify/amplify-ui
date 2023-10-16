@@ -1,7 +1,11 @@
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Tabs } from '@aws-amplify/ui-react';
 
-<Tabs>
-<TabItem title="JS">
+<Tabs defaultValue="js">
+  <Tabs.List>
+    <Tabs.Tab value="js">JS</Tabs.Tab>
+    <Tabs.Tab value="css">CSS</Tabs.Tab>
+  </Tabs.List>
+  <Tabs.Panel value="js">
 
 Modern bundlers like Create React App & Next.js allow you to import `.css` from within your `.js` files.
 This may be `src/index.js`, `src/App.js`, `pages/_app.js`, or whatever your entry-point is.
@@ -10,8 +14,8 @@ This may be `src/index.js`, `src/App.js`, `pages/_app.js`, or whatever your entr
 import '@aws-amplify/ui-react/styles.css';
 ```
 
-</TabItem>
-<TabItem title="CSS">
+  </Tabs.Panel>
+  <Tabs.Panel value="css">
 
 You can import `.css` from within your `.css` files using `@import`.
 This may be `src/index.css`, `src/styles/styles.css`, or whatever your global stylesheet is.
@@ -20,5 +24,5 @@ This may be `src/index.css`, `src/styles/styles.css`, or whatever your global st
 @import "@aws-amplify/ui-react/styles.css";
 ```
 
-</TabItem>
+  </Tabs.Panel>
 </Tabs>

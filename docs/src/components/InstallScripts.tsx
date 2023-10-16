@@ -1,5 +1,5 @@
 import { CopyButton } from '@/components/CopyButton';
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Tabs } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/router';
 import { Framework, REACT_NATIVE_DEPENDENCIES } from '../data/frameworks';
 
@@ -76,21 +76,25 @@ export const InstallScripts = ({
   }
 
   return (
-    <Tabs>
-      <TabItem title="npm">
+    <Tabs defaultValue="npm">
+      <Tabs.List>
+        <Tabs.Tab value="npm">npm</Tabs.Tab>
+        <Tabs.Tab value="yarn">yarn</Tabs.Tab>
+      </Tabs.List>
+      <Tabs.Panel value="npm">
         <TerminalCommand
           framework={framework}
           component={component}
           packageManager="npm"
         />
-      </TabItem>
-      <TabItem title="yarn">
+      </Tabs.Panel>
+      <Tabs.Panel value="yarn">
         <TerminalCommand
           framework={framework}
           component={component}
           packageManager="yarn"
         />
-      </TabItem>
+      </Tabs.Panel>
     </Tabs>
   );
 };

@@ -2,6 +2,7 @@ import * as React from 'react';
 
 export interface TabsContextInterface {
   activeTab: string;
+  isLazy?: boolean;
   setActiveTab: (tab: string) => void;
 }
 

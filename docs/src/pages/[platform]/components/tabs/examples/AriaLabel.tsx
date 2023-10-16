@@ -1,13 +1,17 @@
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Tabs } from '@aws-amplify/ui-react';
 
 export const AriaLabel = () => (
-  <Tabs ariaLabel="fruits">
-    <TabItem title="Apples">
+  <Tabs ariaLabel="fruits" defaultValue="Apples">
+    <Tabs.List>
+      <Tabs.Tab value="Apples">Apples</Tabs.Tab>
+      <Tabs.Tab value="Bananas">Bananas</Tabs.Tab>
+    </Tabs.List>
+    <Tabs.Panel value="Apples">
       Play with the Tab and Arrow keys to engage with this component.
-    </TabItem>
-    <TabItem title="Bananas">
+    </Tabs.Panel>
+    <Tabs.Panel value="Bananas">
       Notice how an outline is added when the :focus-visible pseudo-class is
       applied.
-    </TabItem>
+    </Tabs.Panel>
   </Tabs>
 );

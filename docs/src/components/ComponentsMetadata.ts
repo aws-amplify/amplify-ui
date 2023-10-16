@@ -766,8 +766,18 @@ export const ComponentsMetadata: ComponentClassNameItems = {
     components: ['Tabs'],
     description: 'Top level element that wraps the Tabs primitive',
   },
-  TabItems: {
-    className: ComponentClassName.TabItems,
+  TabsItems: {
+    className: ComponentClassName.TabsItem,
+    components: ['Tabs'],
+    description: 'Top level element that wraps the TabItem primitive',
+  },
+  TabsList: {
+    className: ComponentClassName.TabsList,
+    components: ['Tabs'],
+    description: 'Top level element that wraps the TabItem primitive',
+  },
+  TabsPanel: {
+    className: ComponentClassName.TabsPanel,
     components: ['Tabs'],
     description: 'Top level element that wraps the TabItem primitive',
   },

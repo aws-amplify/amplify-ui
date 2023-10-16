@@ -12,7 +12,9 @@ const TabPanelPrimitive: Primitive<TabPanelProps, 'div'> = (
   { className, value, children, role = 'tabpanel', ...rest },
   ref
 ) => {
-  const { activeTab } = React.useContext(TabsContext);
+  const { activeTab, isLazy } = React.useContext(TabsContext);
+
+  if (isLazy && activeTab !== value) return null;
 
   return (
     <View

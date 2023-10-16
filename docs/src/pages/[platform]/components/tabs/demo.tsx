@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Tabs, TabItem, TabsProps } from '@aws-amplify/ui-react';
+import { Tabs, TabsProps } from '@aws-amplify/ui-react';
 
 import { Demo } from '@/components/Demo';
 import { TabsPropControls } from './TabsPropControls';

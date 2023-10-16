@@ -17,6 +17,7 @@ const TabsPrimitive: Primitive<TabsProps, 'div'> = (
     className,
     value: controlledValue,
     onChange,
+    isLazy,
     ...rest
   }: BaseTabsProps,
   ref
@@ -43,9 +44,10 @@ const TabsPrimitive: Primitive<TabsProps, 'div'> = (
   const _value = React.useMemo(() => {
     return {
       activeTab,
+      isLazy,
       setActiveTab,
     };
-  }, [activeTab, setActiveTab]);
+  }, [activeTab, setActiveTab, isLazy]);
 
   return (
     <TabsContext.Provider value={_value}>
