@@ -53,6 +53,8 @@ export interface VideoAssociatedParams {
   videoRecorder?: VideoRecorder;
   recordingStartTimestampMs?: number;
   isMobile?: boolean;
+  selectedDeviceId?: string;
+  selectableDevices?: MediaDeviceInfo[];
 }
 
 export type LivenessContext = Partial<HydratedLivenessContext>;
@@ -85,6 +87,7 @@ export type LivenessEventTypes =
   | 'SET_SESSION_INFO'
   | 'DISCONNECT_EVENT'
   | 'SET_DOM_AND_CAMERA_DETAILS'
+  | 'UPDATE_DEVICE_AND_STREAM'
   | 'SERVER_ERROR'
   | 'RUNTIME_ERROR'
   | 'RETRY_CAMERA_CHECK'
