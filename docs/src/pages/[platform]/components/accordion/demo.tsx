@@ -15,14 +15,17 @@ const propsToCode = (AccordionProps) => {
   items={[
     {
       trigger: 'Is it accessible?',
+      value: 'accessible',
       content: 'Yes! It uses HTML native elements: <details> and <summary>.'
     },
     {
       trigger: 'Can I customize the styling?',
+      value: 'styling',
       content: 'Of course! See the section on CSS Styling below.'
     },
     {
       trigger: 'Is it a great way to organize content?',
+      value: 'content',
       content: 'Most definitely!'
     }
   ]}
@@ -39,6 +42,7 @@ export const AccordionDemo = () => {
   const AccordionProps = useAccordionProps(
     demoState.get(Accordion.displayName) || defaultAccordionProps
   );
+  console.log(AccordionProps);
 
   return (
     <Demo
@@ -51,15 +55,18 @@ export const AccordionDemo = () => {
         items={[
           {
             trigger: 'Is it accessible?',
+            value: 'accessible',
             content:
               'Yes! It uses HTML native elements: <details> and <summary>.',
           },
           {
             trigger: 'Can I customize the styling?',
+            value: 'styling',
             content: 'Of course! See the section on CSS Styling below.',
           },
           {
             trigger: 'Is it a great way to organize content?',
+            value: 'content',
             content: 'Most definitely!',
           },
         ]}
