@@ -1,12 +1,18 @@
 import { useState, useEffect, useCallback } from 'react';
 import * as Analytics from '@aws-amplify/analytics';
 import { syncMessages } from 'aws-amplify/in-app-messaging';
+// import {
+//   // Message,
+//   MessageAction,
+//   MessageButton,
+//   MessageLayout,
+// } from '@aws-amplify/internal/ui-react-core-notifications';
 import {
-  InAppMessage,
-  InAppMessageAction,
-  InAppMessageButton,
-  InAppMessageLayout,
-} from '@aws-amplify/ui-react-notifications';
+  Message,
+  MessageAction,
+  MessageButton,
+  MessageLayout,
+} from '@aws-amplify/ui-react-core-notifications/dist/types/InAppMessaging';
 import { useInAppMessaging } from '@aws-amplify/ui-react-notifications';
 
 type ImageOrientation = 'landscape' | 'portrait';
@@ -18,14 +24,14 @@ export interface GetDemoMessageParams {
   hasPrimaryButton: boolean;
   hasSecondaryButton: boolean;
   imageOrientation: ImageOrientation;
-  primaryButtonAction: InAppMessageAction;
-  secondaryButtonAction: InAppMessageAction;
-  layout: InAppMessageLayout;
+  primaryButtonAction: MessageAction;
+  secondaryButtonAction: MessageAction;
+  layout: MessageLayout;
   useAnalyticEvents: boolean;
 }
 
-export const ACTIONS: InAppMessageAction[] = ['CLOSE', 'DEEP_LINK', 'LINK'];
-export const LAYOUTS: InAppMessageLayout[] = [
+export const ACTIONS: MessageAction[] = ['CLOSE', 'DEEP_LINK', 'LINK'];
+export const LAYOUTS: MessageLayout[] = [
   'BOTTOM_BANNER',
   'CAROUSEL',
   'FULL_SCREEN',
@@ -42,9 +48,9 @@ const LANDSCAPE_IMAGE =
 const URL = 'https://ui.docs.amplify.aws/';
 
 const getButton = (
-  action: InAppMessageAction,
+  action: MessageAction,
   type: 'primary' | 'secondary'
-): InAppMessageButton => ({
+): MessageButton => ({
   title: `${type} - ${action.toLowerCase()} action`,
   action,
   url: action === 'LINK' || action === 'DEEP_LINK' ? URL : undefined,
@@ -60,7 +66,7 @@ function getDemoMessage({
   layout,
   primaryButtonAction,
   secondaryButtonAction,
-}: GetDemoMessageParams): InAppMessage {
+}: GetDemoMessageParams): Message {
   return {
     layout,
     id: layout,

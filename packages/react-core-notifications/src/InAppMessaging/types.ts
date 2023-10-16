@@ -8,7 +8,7 @@ import {
   InAppMessageLayout,
   InAppMessageStyle,
   InAppMessageTextAlign,
-} from '@aws-amplify/notifications';
+} from 'aws-amplify/in-app-messaging';
 
 export type Message = InAppMessage;
 export type MessageAction = InAppMessageAction;
@@ -18,6 +18,7 @@ export type MessageImage = InAppMessageImage;
 export type MessageLayout = InAppMessageLayout;
 export type MessageStyle = InAppMessageStyle;
 export type MessageTextAlign = InAppMessageTextAlign;
+export type test = 'hello';
 
 export type OnMessageAction = (params: {
   action: MessageAction;
