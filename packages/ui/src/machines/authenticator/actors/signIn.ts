@@ -587,7 +587,6 @@ export function signInActor({ services }: SignInMachineOptions) {
           //         }
           //     }
           // }
-          groupLog('+++shouldSetupTOTP', context, event);
           return (
             event.data.nextStep?.signInStep ===
             'CONTINUE_SIGN_IN_WITH_TOTP_SETUP'
