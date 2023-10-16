@@ -246,7 +246,6 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
          * @migration data is Auth.SignUpOutput
          */
         shouldSkipConfirm: (context, { data }) => {
-          groupLog('+++shouldSkipConfirm');
 
           return data.isSignUpComplete;
         },
