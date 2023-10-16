@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
-import { Notifications } from '@aws-amplify/notifications';
+import { useState, useEffect, useCallback } from 'react';
 import * as Analytics from '@aws-amplify/analytics';
+import { syncMessages } from 'aws-amplify/in-app-messaging';
 import {
   InAppMessage,
   InAppMessageAction,
   InAppMessageButton,
   InAppMessageLayout,
-} from '@aws-amplify/notifications';
+} from '@aws-amplify/ui-react-notifications';
 import { useInAppMessaging } from '@aws-amplify/ui-react-notifications';
 
 type ImageOrientation = 'landscape' | 'portrait';
@@ -40,8 +40,6 @@ const PORTRAIT_IMAGE =
 const LANDSCAPE_IMAGE =
   'https://images.unsplash.com/photo-1504858700536-882c978a3464?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80';
 const URL = 'https://ui.docs.amplify.aws/';
-
-const { InAppMessaging } = Notifications;
 
 const getButton = (
   action: InAppMessageAction,
@@ -118,13 +116,17 @@ export function useInAppDemo() {
 
   const [useAnalyticEvents, setUseAnalyticEvents] =
     useState<GetDemoMessageParams['useAnalyticEvents']>(false);
-  const [syncMessages, setSyncMessages] = useState<boolean>(false);
+  const [shouldSyncMessages, setShouldSyncMessages] = useState<boolean>(false);
+
+  const syncMessagesCallback = useCallback(async () => {
+    await syncMessages();
+  }, []);
 
   useEffect(() => {
-    if (syncMessages) {
-      InAppMessaging.syncMessages();
+    if (shouldSyncMessages) {
+      syncMessagesCallback();
     }
-  }, [syncMessages]);
+  }, [shouldSyncMessages]);
 
   const handleAction = (
     type:
@@ -170,7 +172,7 @@ export function useInAppDemo() {
           break;
         case 'setUseAnalyticEvents':
           setUseAnalyticEvents(value);
-          if (!syncMessages) setSyncMessages(true);
+          if (!shouldSyncMessages) setShouldSyncMessages(true);
           break;
         default:
           return null;

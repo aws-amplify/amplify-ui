@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { Amplify } from 'aws-amplify';
-import { Notifications } from '@aws-amplify/notifications';
+import { syncMessages } from '@aws-amplify/in-app-messaging';
 import { Button } from '@aws-amplify/ui-react';
 import {
   InAppMessageDisplay,
@@ -10,8 +10,6 @@ import {
 import '@aws-amplify/ui-react/styles.css';
 
 import config from './aws-exports';
-
-const { InAppMessaging } = Notifications;
 
 Amplify.configure(config);
 
@@ -25,9 +23,13 @@ const StyledModalMessage = (props) => (
 function App() {
   const { displayMessage } = useInAppMessaging();
 
+  const syncMessagesCallback = useCallback(async () => {
+    await syncMessages();
+  }, []);
+
   useEffect(() => {
     // sync remote in-app messages
-    InAppMessaging.syncMessages();
+    syncMessagesCallback();
   }, []);
 
   const displayStyledModalMessage = useCallback(

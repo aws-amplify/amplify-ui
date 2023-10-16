@@ -519,7 +519,7 @@
     camelcase-keys "6.2.2"
     tslib "^2.5.0"
 
-"@aws-amplify/notifications@2.0.1-console-preview.f7f118b.0+f7f118b", "@aws-amplify/notifications@console-preview":
+"@aws-amplify/notifications@2.0.1-console-preview.f7f118b.0+f7f118b":
   version "2.0.1-console-preview.f7f118b.0"
   resolved "https://registry.yarnpkg.com/@aws-amplify/notifications/-/notifications-2.0.1-console-preview.f7f118b.0.tgz#4cf5ce622e21c125e6af8af7f34eaaa1b99facf0"
   integrity sha512-WI2sDjFeQwDbS0QMhVT+vapmbX3YizOdD+3zo2dV0hYqqKuTz4B/4GNljxkEAHsgBrJKaCNjnZwv1kCiFATyDg==

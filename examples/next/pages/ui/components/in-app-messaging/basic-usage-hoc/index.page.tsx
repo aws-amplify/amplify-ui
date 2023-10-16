@@ -1,20 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Amplify } from 'aws-amplify';
-import { Notifications } from '@aws-amplify/notifications';
+import { syncMessages } from 'aws-amplify/in-app-messaging';
 import { Text } from '@aws-amplify/ui-react';
 import { withInAppMessaging } from '@aws-amplify/ui-react-notifications';
 import '@aws-amplify/ui-react/styles.css';
 
 import config from './aws-exports';
 
-const { InAppMessaging } = Notifications;
-
 Amplify.configure(config);
 
 function App() {
+  const syncMessagesCallback = useCallback(async () => {
+    await syncMessages();
+  }, []);
+
   useEffect(() => {
     // sync remote in-app messages
-    InAppMessaging.syncMessages();
+    syncMessagesCallback();
   }, []);
 
   return <Text>In-App Messaging Example</Text>;

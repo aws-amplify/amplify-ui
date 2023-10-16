@@ -1,7 +1,3 @@
-import {
-  InAppMessageInteractionEvent,
-  Notifications,
-} from '@aws-amplify/notifications';
 import { ConsoleLogger as Logger } from '@aws-amplify/core/internals/utils';
 
 import { RenderNothing } from '@aws-amplify/ui-react-core';
@@ -15,11 +11,19 @@ import { UseMessageParams } from '../types';
 
 import { EMPTY_PROPS } from '../useMessage';
 import { useMessage } from '..';
+import { notifyMessageInteraction } from 'aws-amplify/in-app-messaging';
 
 const notifyMessageInteractionSpy = jest.spyOn(
-  Notifications.InAppMessaging,
+  notifyMessageInteraction,
   'notifyMessageInteraction'
 );
+
+enum InAppMessageInteractionEvent {
+  MESSAGE_RECEIVED = 'MESSAGE_RECEIVED_EVENT',
+  MESSAGE_DISPLAYED = 'MESSAGE_DISPLAYED_EVENT',
+  MESSAGE_DISMISSED = 'MESSAGE_DISMISSED_EVENT',
+  MESSAGE_ACTION_TAKEN = 'MESSAGE_ACTION_TAKEN_EVENT',
+}
 
 jest.mock('../../useInAppMessaging');
 jest.useFakeTimers();
