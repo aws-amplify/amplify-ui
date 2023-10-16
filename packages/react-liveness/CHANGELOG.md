@@ -1,5 +1,17 @@
 # @aws-amplify/ui-react-liveness
 
+## 2.0.10
+
+### Patch Changes
+
+- [#4499](https://github.com/aws-amplify/amplify-ui/pull/4499) [`cdf6154ca`](https://github.com/aws-amplify/amplify-ui/commit/cdf6154ca6d377cdc38cffd981120a794d19e7ea) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): remove distance check while connecting
+
+## 2.0.9
+
+### Patch Changes
+
+- [#4481](https://github.com/aws-amplify/amplify-ui/pull/4481) [`c88ee2640`](https://github.com/aws-amplify/amplify-ui/commit/c88ee2640206ff1fc04609048e82b22b21147623) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): remove env variable endpoint override, replace with prop
+
 ## 2.0.8
 
 ### Patch Changes
