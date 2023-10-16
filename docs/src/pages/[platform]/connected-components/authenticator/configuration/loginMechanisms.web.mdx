@@ -17,7 +17,7 @@ You can provide an alternative `username` such as `email` or `phone_number`.
 
 > **Note**: A `username`, `email`, or `phone_number` value is required for Cognito User Pools.
 
-<Tabs>
+<Tabs.Container>
   <TabItem title="Username">
     <Fragment>
       {({ platform }) => import(`./loginMechanisms.username.${platform}.mdx`)}
@@ -44,4 +44,4 @@ You can provide an alternative `username` such as `email` or `phone_number`.
       <Authenticator loginMechanisms={['phone_number']} />
     </Example>
   </TabItem>
-</Tabs>
+</Tabs.Container>

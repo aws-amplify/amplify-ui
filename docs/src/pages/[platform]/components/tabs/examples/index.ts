@@ -7,7 +7,6 @@ export { DisabledTabs } from './DisabledTabs';
 export { IndicatorPosition } from './IndicatorPosition';
 export { JustifyContent } from './JustifyContent';
 export { OverrideStyleClasses } from './OverrideStyleClasses';
-export { PseudoStyles } from './PseudoStyles';
 export { Spacing } from './Spacing';
 export { StyleProps } from './StyleProps';
 export { TabsThemeExample } from './TabsThemeExample';

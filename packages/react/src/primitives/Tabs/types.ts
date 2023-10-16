@@ -26,10 +26,24 @@ export interface BaseTabsProps extends BaseViewProps {
    */
   onChange?: (value: string) => void;
 
+  /**
+   * @description
+   * Make the tabs lazy load the content. This means tab content will not render until it is
+   * active. This does mean that it will be unmounted and re-mounted switching back and forth
+   * between tabs.
+   */
   isLazy?: boolean;
+
+  /**
+   * @description
+   *
+   * @default bottom
+   */
+  indicatorPosition?: 'top' | 'bottom';
 
   items?: Array<{
     value: string;
+    isDisabled?: boolean;
     label: React.ReactNode;
     content: React.ReactNode;
   }>;

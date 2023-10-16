@@ -5,7 +5,7 @@ import { Tabs, View } from '@aws-amplify/ui-react';
 
 export const ComponentStyleDisplay = ({ componentName }) => {
   return (
-    <Tabs defaultValue="classes">
+    <Tabs.Container defaultValue="classes">
       <Tabs.List>
         <Tabs.Tab value="classes">Target Classes</Tabs.Tab>
         <Tabs.Tab value="variables">CSS Variables</Tabs.Tab>
@@ -20,6 +20,6 @@ export const ComponentStyleDisplay = ({ componentName }) => {
           <ComponentVariableTable componentName={componentName} />
         </View>
       </Tabs.Panel>
-    </Tabs>
+    </Tabs.Container>
   );
 };

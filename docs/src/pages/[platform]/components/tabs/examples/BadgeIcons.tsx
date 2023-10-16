@@ -10,7 +10,7 @@ const IconEmail = () => {
 };
 
 export const BadgeIcons = () => (
-  <Tabs defaultValue="1">
+  <Tabs.Container defaultValue="1">
     <Tabs.List>
       <Tabs.Tab value="1">
         Email{' '}
@@ -24,5 +24,5 @@ export const BadgeIcons = () => (
     </Tabs.List>
     <Tabs.Panel value="1">Content of the first tab</Tabs.Panel>
     <Tabs.Panel value="2">Content of the second tab</Tabs.Panel>
-  </Tabs>
+  </Tabs.Container>
 );

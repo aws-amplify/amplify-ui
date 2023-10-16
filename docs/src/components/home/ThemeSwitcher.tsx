@@ -171,7 +171,7 @@ const Preview = ({ platform }) => {
             </Flex>
           </Card>
           <Card variation="elevated" columnStart="2" columnEnd="-1">
-            <Tabs defaultValue="amplify">
+            <Tabs.Container defaultValue="amplify">
               <Tabs.List>
                 <Tabs.Tab value="amplify">Amplify</Tabs.Tab>
                 <Tabs.Tab value="studio">
@@ -181,7 +181,7 @@ const Preview = ({ platform }) => {
                   </Badge>
                 </Tabs.Tab>
               </Tabs.List>
-            </Tabs>
+            </Tabs.Container>
           </Card>
         </>
       )}

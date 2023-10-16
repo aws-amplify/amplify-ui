@@ -19,7 +19,6 @@ import {
   IndicatorPosition,
   JustifyContent,
   OverrideStyleClasses,
-  PseudoStyles,
   Spacing,
   StyleProps,
   TabsThemeExample,
@@ -203,30 +202,6 @@ Note that children of `TabItem` must be responsible for their own styling.
 </ExampleCode>
 </Example>
 
-#### Using pseudo-classes
-
-<Example className="pseudo-demo">
-  <PseudoStyles />
-<ExampleCode>
-```css
-/* styles.css */
-.amplify-tabs-item:hover {
-  background-color: var(--amplify-colors-background-primary);
-  border-color: var(--amplify-colors-purple-60);
-}
-
-.amplify-tabs-item[data-state='active'] {
-background-color: var(--amplify-colors-background-primary);
-border-color: var(--amplify-colors-pink-60);
-}
-
-.amplify-tabs-item:focus {
-background-color: var(--amplify-colors-pink-10);
-}
-
-````
-</ExampleCode>
-</Example>
 
 To replace the Tabs styling, unset it:
 

@@ -1,7 +1,7 @@
 import { Tabs } from '@aws-amplify/ui-react';
 
 export const DefaultTabUncontrolled = () => (
-  <Tabs defaultValue="second">
+  <Tabs.Container defaultValue="second">
     <Tabs.List>
       <Tabs.Tab value="first">First</Tabs.Tab>
       <Tabs.Tab value="second">Second</Tabs.Tab>
@@ -11,5 +11,5 @@ export const DefaultTabUncontrolled = () => (
       The content of the second tab is initially shown because we passed in the
       default value of this panel.
     </Tabs.Panel>
-  </Tabs>
+  </Tabs.Container>
 );

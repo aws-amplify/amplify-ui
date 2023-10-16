@@ -2,7 +2,7 @@ import { Tabs } from '@aws-amplify/ui-react';
 
 export const StyleProps = () => {
   return (
-    <Tabs>
+    <Tabs.Container defaultValue="1">
       <Tabs.List backgroundColor="background.secondary">
         <Tabs.Tab value="1" color="font.secondary">
           Tab 1
@@ -13,6 +13,6 @@ export const StyleProps = () => {
       </Tabs.List>
       <Tabs.Panel value="1">Content of Tab 1</Tabs.Panel>
       <Tabs.Panel value="2">Content of Tab 2</Tabs.Panel>
-    </Tabs>
+    </Tabs.Container>
   );
 };

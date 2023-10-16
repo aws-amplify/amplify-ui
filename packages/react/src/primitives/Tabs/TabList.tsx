@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { ComponentClassName } from '@aws-amplify/ui';
+import { classNameModifier, ComponentClassName } from '@aws-amplify/ui';
 
 import { ForwardRefPrimitive, Primitive } from '../types';
 import { View } from '../View';
@@ -14,7 +14,7 @@ const isValidTab = (
   React.isValidElement<TabProps>(child);
 
 const TabListPrimitive: Primitive<TabListProps, 'div'> = (
-  { className, children, ...rest },
+  { className, children, indicatorPosition, ...rest },
   ref
 ) => {
   const internalRef = React.useRef<HTMLDivElement>(null);
@@ -101,7 +101,13 @@ const TabListPrimitive: Primitive<TabListProps, 'div'> = (
     <View
       {...rest}
       onKeyDown={onKeyDown}
-      className={classNames(ComponentClassName.TabsList, className)}
+      className={classNames(
+        ComponentClassName.TabsList,
+        indicatorPosition
+          ? classNameModifier(ComponentClassName.TabsList, indicatorPosition)
+          : null,
+        className
+      )}
       ref={internalRef}
     >
       {children}

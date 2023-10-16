@@ -28,7 +28,7 @@ export async function getStaticProps() {
 
 By default, unauthenticated users are redirected to the Sign In flow. You can explicitly redirect to Sign Up or Reset Password:
 
-<Tabs>
+<Tabs.Container>
   <TabItem title="Sign In">
     <Fragment>
       {({ platform }) => import(`./initialState.signIn.${platform}.mdx`)}
@@ -59,7 +59,7 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
       }
     </Fragment>
   </TabItem>
-</Tabs>
+</Tabs.Container>
 
 ## Login Mechanisms
 
@@ -79,7 +79,7 @@ but can be explicitly defined as seen below.
 The Authenticator automatically renders _most_ [Cognito User Pools attributes](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html),
 with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, and `zoneinfo`. Because these are often app-specific, they can be customized via [Sign Up fields](customization#sign-up-fields).
 
-<Tabs>
+<Tabs.Container>
   <TabItem title="Verification Attributes">
     By default, the Authenticator will still require any attributes required for
     verification, such as `email`, _even if `signUpAttributes` is empty_:
@@ -102,7 +102,7 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
       }
     </Fragment>
   </TabItem>
-</Tabs>
+</Tabs.Container>
 
 <Fragment useCommonWebContent platforms={['web', 'flutter']}>
   {({ platform }) => import(`./socialProviders.${platform}.mdx`)}

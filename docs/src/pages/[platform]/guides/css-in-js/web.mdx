@@ -8,7 +8,7 @@ There are many CSS In JS libraries out there that give a number of benefits. Amp
   If your CSS library depends on injecting style tags into the DOM, make sure they are being injected <b>after</b> Amplify UI's style tag. In other words, ensure the style tag for Amplify UI is listed above your custom styles in the `<head>` tag. If Amplify UI's styles are injected after custom styles, then your custom styles may be unset.
 </Alert>
 
-<Tabs>
+<Tabs.Container>
 <TabItem title="Styled Components">
 [Styled Components](https://github.com/styled-components/styled-components) allows you to create visual primitives with actual CSS code directly tied to components.
 
@@ -494,4 +494,4 @@ In the example above, the button color will be set to `blue` because the Aphrodi
 
 </TabItem>
 
-</Tabs>
+</Tabs.Container>

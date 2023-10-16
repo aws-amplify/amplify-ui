@@ -21,11 +21,11 @@ const ControlledTabs = ({
   };
 
   return (
-    <Tabs onChange={onChangeHandler} selectedIndex={index}>
+    <Tabs.Container onChange={onChangeHandler} selectedIndex={index}>
       <Tab>Sign In</Tab>
       <Tab>Create Account</Tab>
       <Tab disabled>Disabled Tab</Tab>
-    </Tabs>
+    </Tabs.Container>
   );
 };
 
@@ -60,10 +60,10 @@ describe('Tabs', () => {
   it('applies theme and custom styling', () => {
     const customStyles = { backgroundColor: 'blue' };
     const { getByRole, toJSON } = render(
-      <Tabs style={customStyles}>
+      <Tabs.Container style={customStyles}>
         <Tab>Sign In</Tab>
         <Tab>Create Account</Tab>
-      </Tabs>
+      </Tabs.Container>
     );
 
     expect(toJSON()).toMatchSnapshot();

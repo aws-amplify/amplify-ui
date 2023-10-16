@@ -100,7 +100,7 @@ const Preview = () => {
       </Flex>
       <Flex direction={direction}>
         <Card variation="elevated" flex="2">
-          <Tabs defaultValue="sports">
+          <Tabs.Container defaultValue="sports">
             <Tabs.List>
               <Tabs.Tab value="sports">Sports</Tabs.Tab>
               <Tabs.Tab value="donuts">
@@ -110,7 +110,7 @@ const Preview = () => {
                 </Badge>
               </Tabs.Tab>
             </Tabs.List>
-          </Tabs>
+          </Tabs.Container>
         </Card>
         <Card variation="elevated" flex="1">
           <Center>

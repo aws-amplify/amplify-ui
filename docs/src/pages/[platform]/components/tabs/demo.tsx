@@ -26,25 +26,12 @@ const propsToCode = (props) => {
   <TabItem title="Disabled" isDisabled={true}>
     Cannot click
   </TabItem>
-</Tabs>`
+</Tabs.Container>`
   );
 };
 
-const demoChildren = [
-  <TabItem key={1} title="Tab 1">
-    Tab content #1
-  </TabItem>,
-  <TabItem key={2} title="Tab 2">
-    Tab content #2
-  </TabItem>,
-  <TabItem key={3} title="Disabled" isDisabled={true}>
-    Cannot click
-  </TabItem>,
-];
-
 const defaultTabsProps = {
   justifyContent: 'flex-start',
-  children: demoChildren,
 };
 
 export const TabsDemo = () => {
@@ -61,9 +48,12 @@ export const TabsDemo = () => {
         spacing={tabsProps.spacing}
         justifyContent={tabsProps.justifyContent}
         indicatorPosition={tabsProps.indicatorPosition}
-      >
-        {tabsProps.children}
-      </Tabs>
+        items={[
+          { label: 'Tab 1', value: 'Tab 1', content: 'Tab content #1' },
+          { label: 'Tab 2', value: 'Tab 2', content: 'Tab content #2' },
+          { label: 'Tab 3', value: 'Tab 3', content: 'Tab content #3' },
+        ]}
+      />
     </Demo>
   );
 };

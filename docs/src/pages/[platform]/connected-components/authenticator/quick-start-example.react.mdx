@@ -3,7 +3,7 @@ import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
 You can use the `Authenticator` component directly, or wrap your app in `withAuthenticator`
 [Higher-Order Component](https://legacy.reactjs.org/docs/higher-order-components.html):
 
-<Tabs>
+<Tabs.Container>
   <TabItem title="Authenticator">
     ```js{3-4,11-12} file=../../../../../../examples/next/pages/ui/components/authenticator/sign-in-with-username/index.page.tsx
 
@@ -12,7 +12,7 @@ You can use the `Authenticator` component directly, or wrap your app in `withAut
   <TabItem title="withAuthenticator">
 
 `withAuthenticator` defaults the `variation` prop to `modal`.
-  <Tabs>
+  <Tabs.Container>
     <TabItem title="Javascript">
     ```jsx
     import { Amplify } from 'aws-amplify';
@@ -52,9 +52,9 @@ You can use the `Authenticator` component directly, or wrap your app in `withAut
 
       ```
     </TabItem>
-  </Tabs>
+  </Tabs.Container>
   </TabItem>
-</Tabs>
+</Tabs.Container>
 
 <Alert role="none" variation="info" heading="React Authenticator v1">
   Looking for a previous version of Authenticator? Checkout the [Authenticator

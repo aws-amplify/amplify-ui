@@ -1,7 +1,7 @@
 import { Tabs } from '@aws-amplify/ui-react';
 
 export const OverrideStyleClasses = () => (
-  <Tabs className="custom-tabs">
+  <Tabs.Container className="custom-tabs" defaultValue="1">
     <Tabs.List>
       <Tabs.Tab value="1">Tab 1</Tabs.Tab>
       <Tabs.Tab value="2">Tab 2</Tabs.Tab>
@@ -12,5 +12,5 @@ export const OverrideStyleClasses = () => (
     <Tabs.Panel value="2" className="custom-tab-item">
       Content of Tab 2
     </Tabs.Panel>
-  </Tabs>
+  </Tabs.Container>
 );

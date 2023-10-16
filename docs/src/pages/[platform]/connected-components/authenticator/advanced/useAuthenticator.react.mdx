@@ -41,7 +41,7 @@ const App = () => {
 
 In advanced use cases where usage of the [`useAuthenticator` hook](advanced#useauthenticator-hook) outside the scope of the [`Authenticator`](../authenticator) is needed, wrap your application inside an `Authenticator.Provider`. The `Authenticator.Provider` guarantees that the [useAuthenticator hook](advanced#useauthenticator-hook) is available throughout your application. You can see an example of this pattern in the [Protected Routes Guide.](../../guides/auth-protected)
 
-<Tabs>
+<Tabs.Container>
 <TabItem title="Create React App">
 ```jsx
 import { Authenticator, View } from '@aws-amplify/ui-react';
@@ -70,7 +70,7 @@ export default function App(props) {
 };
 ```
 </TabItem>
-</Tabs>
+</Tabs.Container>
 
 ## Prevent Re-renders
 

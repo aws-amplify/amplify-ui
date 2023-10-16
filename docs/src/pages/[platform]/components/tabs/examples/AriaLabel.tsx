@@ -1,7 +1,7 @@
 import { Tabs } from '@aws-amplify/ui-react';
 
 export const AriaLabel = () => (
-  <Tabs ariaLabel="fruits" defaultValue="Apples">
+  <Tabs.Container ariaLabel="fruits" defaultValue="Apples">
     <Tabs.List>
       <Tabs.Tab value="Apples">Apples</Tabs.Tab>
       <Tabs.Tab value="Bananas">Bananas</Tabs.Tab>
@@ -13,5 +13,5 @@ export const AriaLabel = () => (
       Notice how an outline is added when the :focus-visible pseudo-class is
       applied.
     </Tabs.Panel>
-  </Tabs>
+  </Tabs.Container>
 );

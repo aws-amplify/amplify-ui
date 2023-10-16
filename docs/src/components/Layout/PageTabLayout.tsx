@@ -36,7 +36,7 @@ export const PageTabLayout = ({
   };
 
   return (
-    <Tabs value={currentTab as string} onChange={changeURL} isLazy>
+    <Tabs.Container value={currentTab as string} onChange={changeURL} isLazy>
       <Tabs.List>
         {tabComponents.map(({ title }, idx) => (
           <Tabs.Tab key={idx} value={title.toLocaleLowerCase()}>
@@ -49,6 +49,6 @@ export const PageTabLayout = ({
           <View className="docs-page-tab">{children}</View>
         </Tabs.Panel>
       ))}
-    </Tabs>
+    </Tabs.Container>
   );
 };

@@ -17,7 +17,7 @@ import { Tabs, TabItem } from '@aws-amplify/ui-react';
 
 When working with Vite in a Vue project, you must make a few modifications. Please follow the steps below.
 
-<Tabs>
+<Tabs.Container>
   <TabItem title="TypeScript">
     <Fragment>
       {({ platform }) => import(`../../getting-started/troubleshooting/shared/vite-polyfill.mdx`)}
@@ -31,7 +31,7 @@ When working with Vite in a Vue project, you must make a few modifications. Plea
       {({ platform }) => import(`../../getting-started/troubleshooting/shared/vite-polyfill.mdx`)}
     </Fragment>
   </TabItem>
-</Tabs>
+</Tabs.Container>
 
 ### Step 4. Add the Authenticator
 

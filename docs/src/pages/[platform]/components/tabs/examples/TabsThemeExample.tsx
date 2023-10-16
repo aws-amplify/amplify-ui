@@ -35,7 +35,7 @@ const theme = createTheme({
 export const TabsThemeExample = () => {
   return (
     <ThemeProvider theme={theme} colorMode="light">
-      <Tabs>
+      <Tabs.Container defaultValue="1">
         <Tabs.List>
           <Tabs.Tab value="1">Tab 1</Tabs.Tab>
           <Tabs.Tab value="2">Tab 2</Tabs.Tab>
@@ -48,7 +48,7 @@ export const TabsThemeExample = () => {
         <Tabs.Panel value="3" isDisabled>
           Tab 3 Content
         </Tabs.Panel>
-      </Tabs>
+      </Tabs.Container>
     </ThemeProvider>
   );
 };

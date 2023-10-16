@@ -7,12 +7,12 @@ import { TabPanel } from './TabPanel';
 import { TabsContainer } from './TabsContainer';
 
 const TabsPrimitive: Primitive<TabsProps, 'div'> = (
-  { items, ...rest }: BaseTabsProps,
+  { items, indicatorPosition, ...rest }: BaseTabsProps,
   ref
 ) => {
   return (
     <TabsContainer {...rest} ref={ref}>
-      <TabList>
+      <TabList indicatorPosition={indicatorPosition}>
         {items?.map((item) => (
           <Tab key={item.value} value={item.value}>
             {item.label}

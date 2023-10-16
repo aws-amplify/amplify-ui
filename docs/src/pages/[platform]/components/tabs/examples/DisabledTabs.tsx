@@ -1,7 +1,7 @@
 import { Tabs } from '@aws-amplify/ui-react';
 
 export const DisabledTabs = () => (
-  <Tabs>
+  <Tabs.Container defaultValue="1">
     <Tabs.List>
       <Tabs.Tab value="1">Tab 1</Tabs.Tab>
       <Tabs.Tab value="2">Tab 2</Tabs.Tab>
@@ -14,5 +14,5 @@ export const DisabledTabs = () => (
     <Tabs.Panel value="3" isDisabled>
       This Tab is not clickable and will not display its content to the user.
     </Tabs.Panel>
-  </Tabs>
+  </Tabs.Container>
 );

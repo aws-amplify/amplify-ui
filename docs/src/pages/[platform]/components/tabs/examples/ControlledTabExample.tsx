@@ -4,7 +4,7 @@ import { Tabs, Button } from '@aws-amplify/ui-react';
 export const ControlledTabExample = () => {
   const [tab, setTab] = useState('1');
   return (
-    <Tabs value={tab} onChange={(tab) => setTab(tab)}>
+    <Tabs.Container value={tab} onChange={(tab) => setTab(tab)}>
       <Tabs.List>
         <Tabs.Tab value="1">First</Tabs.Tab>
         <Tabs.Tab value="2">Second</Tabs.Tab>
@@ -19,6 +19,6 @@ export const ControlledTabExample = () => {
           Go to first tab
         </Button>
       </Tabs.Panel>
-    </Tabs>
+    </Tabs.Container>
   );
 };

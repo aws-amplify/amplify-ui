@@ -82,7 +82,7 @@ export function FlutterAuthenticatorExample({
           'The Authenticator demo below uses a mock backend. Any users you create are stored in memory. You can verify accounts that you create with the code "123456".'
         }
       </Alert>
-      <Tabs defaultValue="ios">
+      <Tabs.Container defaultValue="ios">
         <Tabs.List>
           <Tabs.Tab value="ios">iOS</Tabs.Tab>
           <Tabs.Tab value="android">Android</Tabs.Tab>
@@ -91,7 +91,7 @@ export function FlutterAuthenticatorExample({
         <Tabs.Panel value="ios">{getDeviceView('ios')}</Tabs.Panel>
         <Tabs.Panel value="android">{getDeviceView('android')}</Tabs.Panel>
         <Tabs.Panel value="web">{getDeviceView('web')}</Tabs.Panel>
-      </Tabs>
+      </Tabs.Container>
     </div>
   );
 }

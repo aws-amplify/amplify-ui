@@ -29,7 +29,7 @@ export const SignInSignUpTabs = ({
           {route === 'signIn' && <SignIn />}
         </View>
       ) : (
-        <Tabs
+        <Tabs.Container
           value={route}
           onChange={() => (route === 'signIn' ? toSignUp() : toSignIn())}
         >
@@ -48,7 +48,7 @@ export const SignInSignUpTabs = ({
           <View data-amplify-router-content="">
             {route === 'signUp' && <SignUp />}
           </View>
-        </Tabs>
+        </Tabs.Container>
       )}
     </RouteContainer>
   );

@@ -57,7 +57,7 @@ Here's an example that uses the `toResetPassword` trigger transition, to create 
   {({ platform }) => import(`./full-api.${platform}.mdx`)}
 </Fragment>
 
-<Tabs overflow="scroll">
+<Tabs.Container overflow="scroll">
   <TabItem title="Access Contexts">
 
     These are `readonly` contexts that represent the current auth state. Any unapplicable `context` will be `undefined`.
@@ -151,4 +151,4 @@ These helper functions trigger transition to another `route`. Note that any inva
     </ResponsiveTable>
     
   </TabItem>
-</Tabs>
+</Tabs.Container>

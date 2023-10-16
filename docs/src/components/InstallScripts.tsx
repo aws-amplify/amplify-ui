@@ -76,7 +76,7 @@ export const InstallScripts = ({
   }
 
   return (
-    <Tabs defaultValue="npm">
+    <Tabs.Container defaultValue="npm">
       <Tabs.List>
         <Tabs.Tab value="npm">npm</Tabs.Tab>
         <Tabs.Tab value="yarn">yarn</Tabs.Tab>
@@ -95,6 +95,6 @@ export const InstallScripts = ({
           packageManager="yarn"
         />
       </Tabs.Panel>
-    </Tabs>
+    </Tabs.Container>
   );
 };
