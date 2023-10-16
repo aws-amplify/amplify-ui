@@ -14,7 +14,7 @@ import DEFAULTS from './defaults';
 import { DeleteUserProps, DeleteUserState } from './types';
 import { defaultDeleteUserDisplayText } from '../utils';
 
-const logger = getLogger('Auth');
+const logger = getLogger('AccountSettings');
 
 function DeleteUser({
   components,

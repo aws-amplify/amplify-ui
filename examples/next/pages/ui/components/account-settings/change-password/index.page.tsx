@@ -12,6 +12,8 @@ import {
   withAuthenticator,
 } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
+// @todo-migration zero config workaround
+import { getAuthenticatorConfig } from '@aws-amplify/ui';
 
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
@@ -43,4 +45,6 @@ function App({ signOut }) {
   );
 }
 
-export default withAuthenticator(App);
+export default withAuthenticator(App, {
+  ...getAuthenticatorConfig(awsExports),
+});

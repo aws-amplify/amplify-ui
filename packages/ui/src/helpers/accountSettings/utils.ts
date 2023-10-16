@@ -31,10 +31,6 @@ export const changePassword = async ({
 }: ChangePasswordInput): Promise<void> => {
   try {
     logger.debug('calling Auth.updatePassword');
-    /**
-     * Auth.updatePassword returns `Promise<"SUCCESS">`. We're not interested
-     * in its resolved string value, so we just return Promise.resolve() on success.
-     */
     await updatePassword({
       oldPassword: currentPassword,
       newPassword,
@@ -50,7 +46,6 @@ export const changePassword = async ({
 export const deleteUser = async () => {
   try {
     logger.debug('calling Auth.deleteUser');
-    await Promise.resolve();
     await deleteAuthUser();
     logger.debug('Auth.deleteUser was successful');
     return Promise.resolve();

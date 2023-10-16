@@ -1,4 +1,4 @@
-import { Amplify } from 'aws-amplify';
+import { Amplify, ResourcesConfig } from 'aws-amplify';
 import { hasSpecialChars } from '../authenticator';
 import {
   ValidatorOptions,
@@ -10,26 +10,20 @@ import {
 
 // gets password requirement from Amplify.configure data
 export const getPasswordRequirement = (): PasswordRequirement | null => {
-  // need to cast to any because `Amplify.configure()` isn't typed properly
-  const config = Amplify.getConfig() as Record<string, any>;
-  const passwordSettings =
-    config?.aws_cognito_password_protection_settings as PasswordSettings;
+  const config: ResourcesConfig = Amplify.getConfig();
+  const passwordSettings = config?.Auth?.Cognito
+    .passwordFormat as PasswordSettings;
 
   if (!passwordSettings) {
     return null;
   }
 
-  const {
-    passwordPolicyCharacters: characterPolicy = [],
-    passwordPolicyMinLength: minLength,
-  } = passwordSettings;
-
   return {
-    minLength,
-    needsLowerCase: characterPolicy.includes('REQUIRES_LOWERCASE'),
-    needsUpperCase: characterPolicy.includes('REQUIRES_UPPERCASE'),
-    needsNumber: characterPolicy.includes('REQUIRES_NUMBERS'),
-    needsSpecialChar: characterPolicy.includes('REQUIRES_SYMBOLS'),
+    minLength: passwordSettings.minLength,
+    needsLowerCase: passwordSettings.requireLowercase ?? false,
+    needsUpperCase: passwordSettings.requireUppercase ?? false,
+    needsNumber: passwordSettings.requireNumbers ?? false,
+    needsSpecialChar: passwordSettings.requireSpecialCharacters ?? false,
   };
 };
 

@@ -1,5 +1,11 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+} from '@testing-library/react';
 
 import * as UIModule from '@aws-amplify/ui';
 
@@ -84,15 +90,15 @@ describe('DeleteUser', () => {
     const deleteAccountButton = await screen.findByRole('button', {
       name: deleteAccountButtonText,
     });
+    await act(async () => {
+      fireEvent.click(deleteAccountButton);
 
-    fireEvent.click(deleteAccountButton);
+      const confirmDeleteButton = await screen.findByRole('button', {
+        name: confirmDeleteButtonText,
+      });
 
-    const confirmDeleteButton = await screen.findByRole('button', {
-      name: confirmDeleteButtonText,
+      fireEvent.click(confirmDeleteButton);
     });
-
-    fireEvent.click(confirmDeleteButton);
-
     expect(deleteUserSpy).toBeCalledTimes(1);
   });
 
@@ -213,13 +219,15 @@ describe('DeleteUser', () => {
       name: 'Custom Delete Button',
     });
 
-    fireEvent.click(deleteAccountButton);
+    await act(async () => {
+      fireEvent.click(deleteAccountButton);
 
-    const confirmDeleteButton = await screen.findByRole('button', {
-      name: 'Custom Confirm Button',
+      const confirmDeleteButton = await screen.findByRole('button', {
+        name: 'Custom Confirm Button',
+      });
+
+      fireEvent.click(confirmDeleteButton);
     });
-
-    fireEvent.click(confirmDeleteButton);
 
     // submit handling is async, wait for onSuccess to be called
     // https://testing-library.com/docs/dom-testing-library/api-async/#waitfor
@@ -235,15 +243,15 @@ describe('DeleteUser', () => {
     const deleteAccountButton = await screen.findByRole('button', {
       name: 'Custom Delete Button',
     });
+    await act(async () => {
+      fireEvent.click(deleteAccountButton);
 
-    fireEvent.click(deleteAccountButton);
+      const confirmDeleteButton = await screen.findByRole('button', {
+        name: 'Custom Confirm Button',
+      });
 
-    const confirmDeleteButton = await screen.findByRole('button', {
-      name: 'Custom Confirm Button',
+      fireEvent.click(confirmDeleteButton);
     });
-
-    fireEvent.click(confirmDeleteButton);
-
     expect(deleteUserSpy).toBeCalledWith();
     expect(deleteUserSpy).toBeCalledTimes(1);
   });
@@ -256,15 +264,15 @@ describe('DeleteUser', () => {
     const deleteAccountButton = await screen.findByRole('button', {
       name: 'Custom Delete Button',
     });
+    await act(async () => {
+      fireEvent.click(deleteAccountButton);
 
-    fireEvent.click(deleteAccountButton);
+      const confirmDeleteButton = await screen.findByRole('button', {
+        name: 'Custom Confirm Button',
+      });
 
-    const confirmDeleteButton = await screen.findByRole('button', {
-      name: 'Custom Confirm Button',
+      fireEvent.click(confirmDeleteButton);
     });
-
-    fireEvent.click(confirmDeleteButton);
-
     await screen.findByText('Mock Error');
 
     expect(await screen.findByText('Custom Error Message')).toBeDefined();

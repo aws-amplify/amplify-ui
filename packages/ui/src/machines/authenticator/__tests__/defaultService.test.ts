@@ -26,18 +26,15 @@ const untouched = { password: false };
 const touched = { password: true };
 
 const strictPasswordPolicy: PasswordSettings = {
-  passwordPolicyCharacters: [
-    'REQUIRES_LOWERCASE',
-    'REQUIRES_NUMBERS',
-    'REQUIRES_UPPERCASE',
-    'REQUIRES_SYMBOLS',
-  ],
-  passwordPolicyMinLength: 8,
+  requireLowercase: true,
+  requireNumbers: true,
+  requireUppercase: true,
+  requireSpecialCharacters: true,
+  minLength: 8,
 };
 
 const lenientPasswordPolicy: PasswordSettings = {
-  passwordPolicyCharacters: [],
-  passwordPolicyMinLength: 4,
+  minLength: 4,
 };
 
 describe('validateFormPassword', () => {
@@ -56,7 +53,7 @@ describe('validateFormPassword', () => {
     const passwordSettings: PasswordSettings = {
       //@ts-expect-error
       passwordPolicyCharacters: ['UNSUPPORTED'],
-      passwordPolicyMinLength: 8,
+      minLength: 8,
     };
     const result = await validateFormPassword(
       { password },
@@ -155,8 +152,8 @@ describe('validateFormPassword', () => {
     async (character) => {
       const password = `password${character}`;
       const result = await validateFormPassword({ password }, touched, {
-        passwordPolicyMinLength: 4,
-        passwordPolicyCharacters: ['REQUIRES_SYMBOLS'],
+        minLength: 4,
+        requireSpecialCharacters: true,
       });
       expect(result).toBeNull();
     }
