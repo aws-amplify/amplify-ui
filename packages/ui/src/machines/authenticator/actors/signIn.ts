@@ -565,7 +565,6 @@ export function signInActor({ services }: SignInMachineOptions) {
           return event.data.nextStep?.signInStep === 'CONFIRM_SIGN_UP';
         },
         shouldRequestVerification: (context, event): boolean => {
-          groupLog('+++shouldRequestVerification', context, event);
           const { phone_number_verified, email_verified } =
             event.data as Auth.FetchUserAttributesOutput;
 
