@@ -25,7 +25,7 @@ const theme = createTheme({
 
 export const AccordionThemeExample = () => (
   <ThemeProvider theme={theme} colorMode="light">
-    <Accordion>
+    <Accordion.Container>
       <Accordion.Item value="item1">
         <Accordion.Trigger>
           Check out this themed Accordion
@@ -40,6 +40,6 @@ export const AccordionThemeExample = () => (
         </Accordion.Trigger>
         <Accordion.Content>I love it.</Accordion.Content>
       </Accordion.Item>
-    </Accordion>
+    </Accordion.Container>
   </ThemeProvider>
 );

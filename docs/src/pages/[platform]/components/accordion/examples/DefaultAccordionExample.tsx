@@ -4,7 +4,7 @@ import { Accordion } from '@aws-amplify/ui-react';
 
 export const DefaultAccordionExample = () => {
   return (
-    <Accordion>
+    <Accordion.Container>
       <Accordion.Item value="Accordion-item">
         <Accordion.Trigger>
           What is an Accordion?
@@ -23,6 +23,6 @@ export const DefaultAccordionExample = () => {
           The `children` of the Accordion are displayed here.
         </Accordion.Content>
       </Accordion.Item>
-    </Accordion>
+    </Accordion.Container>
   );
 };

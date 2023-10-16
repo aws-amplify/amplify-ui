@@ -26,7 +26,7 @@ const accordionItems = [
 
 function UncontrolledAccordion(props: AccordionProps) {
   return (
-    <Accordion {...props}>
+    <Accordion.Container {...props}>
       {accordionItems.map(({ value, header, body }) => (
         <Accordion.Item value={value} key={value}>
           <Accordion.Trigger>
@@ -36,14 +36,14 @@ function UncontrolledAccordion(props: AccordionProps) {
           <Accordion.Content>{body}</Accordion.Content>
         </Accordion.Item>
       ))}
-    </Accordion>
+    </Accordion.Container>
   );
 }
 
 function ControlledAccordion({ value: initialValue, ...rest }: AccordionProps) {
   const [value, setValue] = React.useState(initialValue);
   return (
-    <Accordion value={value} onChange={setValue} {...rest}>
+    <Accordion.Container value={value} onChange={setValue} {...rest}>
       {accordionItems.map(({ value, header, body }) => (
         <Accordion.Item value={value} key={value}>
           <Accordion.Trigger>
@@ -53,7 +53,7 @@ function ControlledAccordion({ value: initialValue, ...rest }: AccordionProps) {
           <Accordion.Content>{body}</Accordion.Content>
         </Accordion.Item>
       ))}
-    </Accordion>
+    </Accordion.Container>
   );
 }
 
@@ -209,7 +209,7 @@ describe('Accordion:', () => {
     const testId = 'expander';
     const ref = React.createRef<HTMLDivElement>();
     render(
-      <Accordion testId={testId} ref={ref}>
+      <Accordion.Container testId={testId} ref={ref}>
         {accordionItems.map(({ value, header, body }) => (
           <Accordion.Item value={value} key={value}>
             <Accordion.Trigger>
@@ -219,7 +219,7 @@ describe('Accordion:', () => {
             <Accordion.Content>{body}</Accordion.Content>
           </Accordion.Item>
         ))}
-      </Accordion>
+      </Accordion.Container>
     );
 
     await screen.findByTestId(testId);

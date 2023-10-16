@@ -4,7 +4,10 @@ import { Accordion } from '@aws-amplify/ui-react';
 
 export const StylePropsAccordion = () => {
   return (
-    <Accordion backgroundColor="brand.secondary.80" color="font.inverse">
+    <Accordion.Container
+      backgroundColor="brand.secondary.80"
+      color="font.inverse"
+    >
       <Accordion.Item value="item-1">
         <Accordion.Trigger>
           Section 1 title
@@ -35,6 +38,6 @@ export const StylePropsAccordion = () => {
           eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </Accordion.Content>
       </Accordion.Item>
-    </Accordion>
+    </Accordion.Container>
   );
 };

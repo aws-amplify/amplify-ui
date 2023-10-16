@@ -11,35 +11,22 @@ const propsToCode = (AccordionProps) => {
     `<Accordion` +
     (AccordionProps.isAlwaysOpen ? ` isAlwaysOpen` : '') +
     (AccordionProps.allowMultiple ? ` allowMultiple` : '') +
-    `>
-  <Accordion.Item value="demo-item-1">
-    <Accordion.Trigger>
-      Is it accessible?
-      <Accordion.Icon />
-    </Accordion.Trigger>
-    <Accordion.Content>  
-      Yes! It uses HTML native elements: <detials> and <summary>.
-    </Accordion.Content>
-  </Accordion.Item>
-  <Accordion.Item value="demo-item-2">
-    <Accordion.Trigger>
-      Can I customize the styling?
-      <Accordion.Icon />
-    </Accordion.Trigger>
-    <Accordion.Content>  
-      Of course! See the section on CSS Styling below.
-    </Accordion.Content>
-  </Accordion.Item>
-  <Accordion.Item value="demo-item-3">
-    <Accordion.Trigger>
-      Is it a great way to organize content?
-      <Accordion.Icon />
-    </Accordion.Trigger>
-    <Accordion.Content>  
-      Most definitely!
-    </Accordion.Content>
-  </Accordion.Item>
-</Accordion>`
+    `
+  items={[
+    {
+      trigger: 'Is it accessible?',
+      content: 'Yes! It uses HTML native elements: <details> and <summary>.'
+    },
+    {
+      trigger: 'Can I customize the styling?',
+      content: 'Of course! See the section on CSS Styling below.'
+    },
+    {
+      trigger: 'Is it a great way to organize content?',
+      content: 'Most definitely!'
+    }
+  ]}
+/>`
   );
 };
 
@@ -61,33 +48,22 @@ export const AccordionDemo = () => {
       <Accordion
         allowMultiple={AccordionProps.allowMultiple}
         isAlwaysOpen={AccordionProps.isAlwaysOpen}
-      >
-        <Accordion.Item value="demo-item-1">
-          <Accordion.Trigger>
-            Is it accessible?
-            <Accordion.Icon />
-          </Accordion.Trigger>
-          <Accordion.Content>
-            Yes! It adheres to the WAI-ARIA design pattern.
-          </Accordion.Content>
-        </Accordion.Item>
-        <Accordion.Item value="demo-item-2">
-          <Accordion.Trigger>
-            Can I customize the styling?
-            <Accordion.Icon />
-          </Accordion.Trigger>
-          <Accordion.Content>
-            Of course! See the section on CSS Styling below.
-          </Accordion.Content>
-        </Accordion.Item>
-        <Accordion.Item value="demo-item-3">
-          <Accordion.Trigger>
-            Is it a great way to organize content?
-            <Accordion.Icon />
-          </Accordion.Trigger>
-          <Accordion.Content>Most definitely!</Accordion.Content>
-        </Accordion.Item>
-      </Accordion>
+        items={[
+          {
+            trigger: 'Is it accessible?',
+            content:
+              'Yes! It uses HTML native elements: <details> and <summary>.',
+          },
+          {
+            trigger: 'Can I customize the styling?',
+            content: 'Of course! See the section on CSS Styling below.',
+          },
+          {
+            trigger: 'Is it a great way to organize content?',
+            content: 'Most definitely!',
+          },
+        ]}
+      />
     </Demo>
   );
 };

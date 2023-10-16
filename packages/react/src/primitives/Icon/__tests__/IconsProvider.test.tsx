@@ -60,7 +60,7 @@ describe('IconsProvider', () => {
           },
         }}
       >
-        <Accordion>
+        <Accordion.Container>
           <Accordion.Item value="1">
             <Accordion.Trigger>
               Trigger
@@ -68,7 +68,7 @@ describe('IconsProvider', () => {
             </Accordion.Trigger>
             <Accordion.Content>Content</Accordion.Content>
           </Accordion.Item>
-        </Accordion>
+        </Accordion.Container>
       </IconsProvider>
     );
     expect(screen.getByTestId('more')).toBeInTheDocument();

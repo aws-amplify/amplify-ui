@@ -34,7 +34,7 @@ export default function ExpanderPage() {
   return (
     <Flex direction="column" gap="xl">
       <Heading level={4}>Default accordion, no props</Heading>
-      <Accordion>
+      <Accordion.Container>
         {accordions.map(({ value, header, body }) => (
           <Accordion.Item value={value} key={value}>
             <Accordion.Trigger>
@@ -46,7 +46,7 @@ export default function ExpanderPage() {
             </Accordion.Content>
           </Accordion.Item>
         ))}
-      </Accordion>
+      </Accordion.Container>
 
       <Divider />
       <Heading level={4}>Single item, no accordion</Heading>
@@ -62,7 +62,7 @@ export default function ExpanderPage() {
 
       <Divider />
       <Heading level={4}>Controlled</Heading>
-      <Accordion value={controlled} onChange={setControlled}>
+      <Accordion.Container value={controlled} onChange={setControlled}>
         <Accordion.Item value="1">
           <Accordion.Trigger>First</Accordion.Trigger>
           <Accordion.Content>
@@ -83,7 +83,7 @@ export default function ExpanderPage() {
             <TextField label="Test" />
           </Accordion.Content>
         </Accordion.Item>
-      </Accordion>
+      </Accordion.Container>
       <Button
         onClick={() => {
           setControlled(['1', '2']);
@@ -94,7 +94,7 @@ export default function ExpanderPage() {
 
       <Divider />
       <Heading level={4}>allowMultiple</Heading>
-      <Accordion allowMultiple>
+      <Accordion.Container allowMultiple>
         {accordions.map(({ value, header, body }) => (
           <Accordion.Item value={value} key={value}>
             <Accordion.Trigger>
@@ -106,11 +106,11 @@ export default function ExpanderPage() {
             </Accordion.Content>
           </Accordion.Item>
         ))}
-      </Accordion>
+      </Accordion.Container>
 
       <Divider />
       <Heading level={4}>isAlwaysOpen</Heading>
-      <Accordion isAlwaysOpen>
+      <Accordion.Container isAlwaysOpen>
         {accordions.map(({ value, header, body }) => (
           <Accordion.Item value={value} key={value}>
             <Accordion.Trigger>
@@ -122,11 +122,11 @@ export default function ExpanderPage() {
             </Accordion.Content>
           </Accordion.Item>
         ))}
-      </Accordion>
+      </Accordion.Container>
 
       <Divider />
       <Heading level={4}>Uncontrolled, defaultValue, allowMultiple</Heading>
-      <Accordion allowMultiple defaultValue={['2']}>
+      <Accordion.Container allowMultiple defaultValue={['2']}>
         {accordions.map(({ value, header, body }) => (
           <Accordion.Item value={value} key={value}>
             <Accordion.Trigger>
@@ -138,7 +138,7 @@ export default function ExpanderPage() {
             </Accordion.Content>
           </Accordion.Item>
         ))}
-      </Accordion>
+      </Accordion.Container>
     </Flex>
   );
 }

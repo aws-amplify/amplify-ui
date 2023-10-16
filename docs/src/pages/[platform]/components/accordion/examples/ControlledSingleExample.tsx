@@ -5,7 +5,7 @@ import { Accordion } from '@aws-amplify/ui-react';
 export const ControlledSingleAccordion = () => {
   const [value, setValue] = React.useState<string[]>([]);
   return (
-    <Accordion value={value} onChange={setValue}>
+    <Accordion.Container value={value} onChange={setValue}>
       <Accordion.Item value="joke-1">
         <Accordion.Trigger>
           What do you call a deer with no eyes?
@@ -20,6 +20,6 @@ export const ControlledSingleAccordion = () => {
         </Accordion.Trigger>
         <Accordion.Content>Still, no eye-deer.</Accordion.Content>
       </Accordion.Item>
-    </Accordion>
+    </Accordion.Container>
   );
 };

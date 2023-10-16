@@ -25,5 +25,9 @@ export function PropsTableExpander({
     );
   };
 
-  return <Accordion>{propsSortedByCategory.map(expanderItem)}</Accordion>;
+  return (
+    <Accordion.Container>
+      {propsSortedByCategory.map(expanderItem)}
+    </Accordion.Container>
+  );
 }

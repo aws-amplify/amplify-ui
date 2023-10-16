@@ -4,7 +4,7 @@ import { Accordion } from '@aws-amplify/ui-react';
 
 export const BasicSingleAccordion = () => {
   return (
-    <Accordion>
+    <Accordion.Container>
       <Accordion.Item value="item-1">
         <Accordion.Trigger>
           Click me first!
@@ -25,6 +25,6 @@ export const BasicSingleAccordion = () => {
           Accordion type.
         </Accordion.Content>
       </Accordion.Item>
-    </Accordion>
+    </Accordion.Container>
   );
 };

@@ -9,7 +9,7 @@ describe('Accordion.Item:', () => {
     const className = 'class-test';
     const testId = 'test-id';
     const { container } = render(
-      <Accordion defaultValue={['item-value']}>
+      <Accordion.Container defaultValue={['item-value']}>
         <Accordion.Item
           testId={testId}
           className={className}
@@ -20,7 +20,7 @@ describe('Accordion.Item:', () => {
           </Accordion.Trigger>
           <Accordion.Content>content</Accordion.Content>
         </Accordion.Item>
-      </Accordion>
+      </Accordion.Container>
     );
 
     const item = await screen.findByTestId(testId);
@@ -39,14 +39,14 @@ describe('Accordion.Item:', () => {
 
   it('should set aria-hidden on icon', async () => {
     const { container } = render(
-      <Accordion>
+      <Accordion.Container>
         <Accordion.Item value="item-value">
           <Accordion.Trigger>
             content
             <Accordion.Icon />
           </Accordion.Trigger>
         </Accordion.Item>
-      </Accordion>
+      </Accordion.Container>
     );
 
     const icon = container.getElementsByClassName(
@@ -59,11 +59,11 @@ describe('Accordion.Item:', () => {
     const ref = React.createRef<HTMLDetailsElement>();
     const testId = 'test-id';
     render(
-      <Accordion>
+      <Accordion.Container>
         <Accordion.Item testId={testId} value="item-value" ref={ref}>
           content
         </Accordion.Item>
-      </Accordion>
+      </Accordion.Container>
     );
 
     await screen.findByTestId(testId);

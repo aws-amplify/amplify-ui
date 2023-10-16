@@ -28,7 +28,7 @@ export const AuthenticatorClasses = () => {
   const search = (className, searchText) => className.includes(searchText);
 
   return (
-    <Accordion>
+    <Accordion.Container>
       <Accordion.Item value="classNames">
         <Accordion.Trigger>
           Available Classes
@@ -54,6 +54,6 @@ export const AuthenticatorClasses = () => {
           </Collection>
         </Accordion.Content>
       </Accordion.Item>
-    </Accordion>
+    </Accordion.Container>
   );
 };

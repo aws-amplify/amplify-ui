@@ -6,7 +6,7 @@
 breaking: renaming Expander to Accordion and removing Radix dependency. The Accordion component is now built with `<details>` and `<summary>` elements to handle showing/hiding content.
 
 ```jsx
-<Accordion>
+<Accordion.Container>
   <Accordion.Item value="item-1">
     <Accordion.Trigger>
       Click me first!
@@ -25,7 +25,7 @@ breaking: renaming Expander to Accordion and removing Radix dependency. The Acco
       Notice how only one item can be open at a time for the single Accordion type.
     </Accordion.Content>
   </Accordion.Item>
-</Accordion>
+</Accordion.Container>
 ```
 
 The Accordion can be controlled or uncontrolled (with a default value)

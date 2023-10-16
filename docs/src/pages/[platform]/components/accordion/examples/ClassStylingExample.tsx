@@ -24,7 +24,7 @@ const accordionItems = [
 
 export const ClassStylingAccordion = () => {
   return (
-    <Accordion className="my-accordion">
+    <Accordion.Container className="my-accordion">
       {accordionItems.map(({ title, value, content }) => (
         <Accordion.Item value={value} key={value}>
           <Accordion.Trigger>
@@ -34,6 +34,6 @@ export const ClassStylingAccordion = () => {
           <Accordion.Content>{content}</Accordion.Content>
         </Accordion.Item>
       ))}
-    </Accordion>
+    </Accordion.Container>
   );
 };

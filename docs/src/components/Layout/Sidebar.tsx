@@ -146,7 +146,7 @@ const SecondaryNav = (props) => {
   const hideGuidesExpander = isFlutter || isReactNative || isAndroid || isSwift;
 
   return (
-    <Accordion value={value} onChange={setValue}>
+    <Accordion.Container value={value} onChange={setValue}>
       {
         <Accordion.Item value="getting-started">
           <Accordion.Trigger>
@@ -228,7 +228,7 @@ const SecondaryNav = (props) => {
           </Accordion.Content>
         </Accordion.Item>
       )}
-    </Accordion>
+    </Accordion.Container>
   );
 };
 

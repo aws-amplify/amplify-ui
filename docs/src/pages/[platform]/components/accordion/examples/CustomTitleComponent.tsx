@@ -14,7 +14,7 @@ export const CustomTitle = ({ courseNumber, courseName }) => {
 
 export const CustomTitleComponent = () => {
   return (
-    <Accordion>
+    <Accordion.Container>
       <Accordion.Item value="item-1">
         <Accordion.Trigger>
           <CustomTitle
@@ -35,6 +35,6 @@ export const CustomTitleComponent = () => {
         </Accordion.Trigger>
         <Accordion.Content>Example content for CS 106A</Accordion.Content>
       </Accordion.Item>
-    </Accordion>
+    </Accordion.Container>
   );
 };

@@ -1,103 +1,37 @@
 import * as React from 'react';
-import classNames from 'classnames';
-import { ComponentClassName, isFunction } from '@aws-amplify/ui';
 import { BaseAccordionProps, AccordionProps } from './types';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
-import { View } from '../View';
-import { AccordionContext } from './AccordionContext';
 import { AccordionItem } from './AccordionItem';
 import { AccordionContent } from './AccordionContent';
 import { AccordionTrigger } from './AccordionTrigger';
 import { AccordionIcon } from './AccordionIcon';
+import { AccordionContainer } from './AccordionContainer';
 
 const AccordionPrimitive: Primitive<AccordionProps, 'div'> = (
-  {
-    children,
-    className,
-    defaultValue,
-    allowMultiple,
-    isAlwaysOpen,
-    onChange,
-    testId,
-    value: controlledValue,
-    items,
-    ...rest
-  },
+  { items, ...rest },
   ref
 ) => {
-  const isControlled = controlledValue !== undefined;
-  const [localValue, setLocalValue] = React.useState(() =>
-    isControlled ? controlledValue : defaultValue ?? []
-  );
-  const value = isControlled ? controlledValue : localValue;
-
-  const setValue = React.useCallback(
-    (_value: string) => {
-      /**
-       * This code looks a bit complex, but here is what it is doing:
-       * if the current value (which is an array of string values of items that are currently open)
-       * has the incoming item value then we want to remove it (aka collapse it) if the Accordion
-       * has isAlwaysOpen set to false (meaning all items can be collapsed) OR if the Accordion's value array is
-       * more than 1 so that at least 1 will still be open.
-       * If the Accordion array doesn't have the incoming item value, that means we want to open
-       * the item, BUT if the Accordion only allows 1 item to be open at a time then
-       * replace the array with an array of only the item value.
-       */
-      const newValue = value.includes(_value)
-        ? !isAlwaysOpen || value.length > 1
-          ? value.filter((v) => v !== _value)
-          : value
-        : allowMultiple
-        ? [...value, _value]
-        : [_value];
-
-      if (isFunction(onChange)) {
-        onChange(newValue);
-      }
-
-      if (!isControlled) {
-        setLocalValue(newValue);
-      }
-    },
-    [onChange, value, isControlled, allowMultiple, isAlwaysOpen]
-  );
-
-  const _value = React.useMemo(() => {
-    return {
-      value,
-      setValue,
-    };
-  }, [value, setValue]);
-
   return (
-    <AccordionContext.Provider value={_value}>
-      <View
-        {...rest}
-        className={classNames(ComponentClassName.Accordion, className)}
-        data-testid={testId}
-        ref={ref}
-      >
-        {children
-          ? children
-          : items?.map((item) => (
-              <AccordionItem key={item.value} {...item}>
-                <AccordionTrigger>
-                  {item.trigger}
-                  <AccordionIcon />
-                </AccordionTrigger>
-                <AccordionContent>{item.content}</AccordionContent>
-              </AccordionItem>
-            ))}
-      </View>
-    </AccordionContext.Provider>
+    <AccordionContainer ref={ref} {...rest}>
+      {items?.map((item) => (
+        <AccordionItem key={item.value} {...item}>
+          <AccordionTrigger>
+            {item.trigger}
+            <AccordionIcon />
+          </AccordionTrigger>
+          <AccordionContent>{item.content}</AccordionContent>
+        </AccordionItem>
+      ))}
+    </AccordionContainer>
   );
 };
 
 type AccordionType = ForwardRefPrimitive<BaseAccordionProps, 'div'> & {
-  Item: typeof AccordionItem;
+  Container: typeof AccordionContainer;
   Content: typeof AccordionContent;
-  Trigger: typeof AccordionTrigger;
   Icon: typeof AccordionIcon;
+  Item: typeof AccordionItem;
+  Trigger: typeof AccordionTrigger;
 };
 
 /**
@@ -106,10 +40,11 @@ type AccordionType = ForwardRefPrimitive<BaseAccordionProps, 'div'> & {
 const Accordion: AccordionType = Object.assign(
   React.forwardRef(AccordionPrimitive),
   {
-    Item: AccordionItem,
+    Container: AccordionContainer,
     Content: AccordionContent,
-    Trigger: AccordionTrigger,
     Icon: AccordionIcon,
+    Item: AccordionItem,
+    Trigger: AccordionTrigger,
   }
 );
 

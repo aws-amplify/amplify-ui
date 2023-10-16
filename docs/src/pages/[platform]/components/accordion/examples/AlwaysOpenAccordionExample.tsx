@@ -4,7 +4,7 @@ import { Accordion } from '@aws-amplify/ui-react';
 
 export const AlwaysOpenAccordionExample = () => {
   return (
-    <Accordion isAlwaysOpen defaultValue={['item-1']}>
+    <Accordion.Container isAlwaysOpen defaultValue={['item-1']}>
       <Accordion.Item value="item-1">
         <Accordion.Trigger>
           Can I collapse this item?
@@ -21,6 +21,6 @@ export const AlwaysOpenAccordionExample = () => {
           Yes, you can set the isAlwaysOpen prop along with allowMultiple
         </Accordion.Content>
       </Accordion.Item>
-    </Accordion>
+    </Accordion.Container>
   );
 };

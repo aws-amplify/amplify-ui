@@ -4,7 +4,7 @@ import { Accordion } from '@aws-amplify/ui-react';
 
 export const ExpandedByDefaultMultipleAccordion = () => {
   return (
-    <Accordion defaultValue={['line-1', 'line-2']}>
+    <Accordion.Container defaultValue={['line-1', 'line-2']}>
       <Accordion.Item value="line-1">
         <Accordion.Trigger>
           Line 1
@@ -28,6 +28,6 @@ export const ExpandedByDefaultMultipleAccordion = () => {
         </Accordion.Trigger>
         <Accordion.Content>Refrigerator</Accordion.Content>
       </Accordion.Item>
-    </Accordion>
+    </Accordion.Container>
   );
 };

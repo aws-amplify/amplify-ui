@@ -4,7 +4,7 @@ import { Accordion } from '@aws-amplify/ui-react';
 
 export const BasicMultipleAccordion = () => {
   return (
-    <Accordion allowMultiple>
+    <Accordion.Container allowMultiple>
       <Accordion.Item value="item-1">
         <Accordion.Trigger>
           Click me first!
@@ -25,6 +25,6 @@ export const BasicMultipleAccordion = () => {
           Accordion.
         </Accordion.Content>
       </Accordion.Item>
-    </Accordion>
+    </Accordion.Container>
   );
 };
