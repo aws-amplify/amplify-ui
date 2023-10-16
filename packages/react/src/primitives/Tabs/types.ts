@@ -7,12 +7,6 @@ export type TabsSpacing = 'equal' | 'relative';
 export interface BaseTabsProps extends BaseViewProps {
   /**
    * @description
-   * The Tabs component only accepts TabItem components as children.
-   */
-  children: React.ReactNode;
-
-  /**
-   * @description
    * Change which Tab content is initially displayed. Pass in the index of the Tab you wish to show. The default is index 0 (the first tab).
    */
   defaultValue?: string;
@@ -33,7 +27,14 @@ export interface BaseTabsProps extends BaseViewProps {
   onChange?: (value: string) => void;
 
   isLazy?: boolean;
+
+  items?: Array<{
+    value: string;
+    label: React.ReactNode;
+    content: React.ReactNode;
+  }>;
 }
+
 export type TabsProps<Element extends ElementType = 'div'> = PrimitiveProps<
   BaseTabsProps,
   Element

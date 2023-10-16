@@ -8,12 +8,12 @@ import { ComponentClassName } from '@aws-amplify/ui';
 describe('Tabs', () => {
   it('can render custom classnames', async () => {
     render(
-      <Tabs className="custom-classname" testId="tabsId">
+      <Tabs.Container className="custom-classname" testId="tabsId">
         <Tabs.List>
           <Tabs.Tab value="1">Tab 1</Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value="1">Tab 1</Tabs.Panel>
-      </Tabs>
+      </Tabs.Container>
     );
 
     const tabs = await screen.findByTestId('tabsId');
@@ -23,14 +23,14 @@ describe('Tabs', () => {
 
   it('can render any arbitrary data-* attribute', async () => {
     render(
-      <Tabs data-demo="true" testId="tabsTest">
+      <Tabs.Container data-demo="true" testId="tabsTest">
         <Tabs.List>
           <Tabs.Tab value="1">Tab 1</Tabs.Tab>
           <Tabs.Tab value="2">Tab 2</Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value="1">Tab 1</Tabs.Panel>
         <Tabs.Panel value="2">Tab 2</Tabs.Panel>
-      </Tabs>
+      </Tabs.Container>
     );
     const tabs = await screen.findByTestId('tabsTest');
     expect(tabs.dataset['demo']).toBe('true');
@@ -40,11 +40,11 @@ describe('Tabs', () => {
     const ref = React.createRef<HTMLDivElement>();
 
     render(
-      <Tabs ref={ref} testId="tabsId">
+      <Tabs.Container ref={ref} testId="tabsId">
         <Tabs.List>
           <Tabs.Tab value="1">Tab 1</Tabs.Tab>
         </Tabs.List>
-      </Tabs>
+      </Tabs.Container>
     );
 
     await screen.findByTestId('tabsId');
@@ -53,14 +53,14 @@ describe('Tabs', () => {
 
   it('should skip over null children', async () => {
     render(
-      <Tabs>
+      <Tabs.Container>
         <Tabs.List testId="tabsTest">
           <Tabs.Tab value="1">Tab 1</Tabs.Tab>
           {null}
         </Tabs.List>
         <Tabs.Panel value="1">Tab 1</Tabs.Panel>
         {null}
-      </Tabs>
+      </Tabs.Container>
     );
     const tabs = await screen.findByTestId('tabsTest');
     const panels = await screen.findAllByRole('tabpanel');
@@ -70,7 +70,7 @@ describe('Tabs', () => {
 
   it('should work with defaultValue', async () => {
     render(
-      <Tabs testId="tabsTest" defaultValue="2">
+      <Tabs.Container testId="tabsTest" defaultValue="2">
         <Tabs.List>
           <Tabs.Tab value="1">Tab 1</Tabs.Tab>
           {null}
@@ -79,7 +79,7 @@ describe('Tabs', () => {
         </Tabs.List>
         <Tabs.Panel value="1">Tab 1</Tabs.Panel>
         <Tabs.Panel value="2">Tab 2</Tabs.Panel>
-      </Tabs>
+      </Tabs.Container>
     );
     const tabs = await screen.findAllByRole('tab');
     expect(tabs).toHaveLength(2);
@@ -89,13 +89,13 @@ describe('Tabs', () => {
   describe('TabItem', () => {
     it('can render custom classnames', async () => {
       render(
-        <Tabs>
+        <Tabs.Container>
           <Tabs.List>
             <Tabs.Tab className="custom-classname" value="Tab 1">
               Tab 1
             </Tabs.Tab>
           </Tabs.List>
-        </Tabs>
+        </Tabs.Container>
       );
 
       const tab = await screen.findByRole('tab');
@@ -105,13 +105,13 @@ describe('Tabs', () => {
 
     it('should handle React nodes in the title', async () => {
       render(
-        <Tabs>
+        <Tabs.Container>
           <Tabs.List>
             <Tabs.Tab value="1">
               <Text testId="test">Test1234</Text>
             </Tabs.Tab>
           </Tabs.List>
-        </Tabs>
+        </Tabs.Container>
       );
 
       const tab = await screen.findByTestId('test');
@@ -120,13 +120,13 @@ describe('Tabs', () => {
 
     it('should render disabled button when disabled', async () => {
       render(
-        <Tabs data-demo="true" testId="tabsTest">
+        <Tabs.Container data-demo="true" testId="tabsTest">
           <Tabs.List>
             <Tabs.Tab value="Tab 1" isDisabled>
               Tab 1
             </Tabs.Tab>
           </Tabs.List>
-        </Tabs>
+        </Tabs.Container>
       );
 
       const tab = await screen.findByRole('tab');
@@ -137,11 +137,11 @@ describe('Tabs', () => {
       const ref = React.createRef<HTMLButtonElement>();
 
       render(
-        <Tabs>
+        <Tabs.Container>
           <Tabs.Tab ref={ref} value="Tab 1">
             Tab 1
           </Tabs.Tab>
-        </Tabs>
+        </Tabs.Container>
       );
 
       await screen.findByRole('tab');
