@@ -2,22 +2,7 @@
 #
 # See `./test-prs.yml` to see an example usage.
 
-on:
-  workflow_call:
-    inputs:
-      commit:
-        # commit to run tests against
-        required: true
-        type: string
-      repository:
-        # repository to run tests against (possibly a fork of amplify-ui)
-        required: true
-        type: string
-      skip-changed-packages-check:
-        # skip checking changed packages job if true
-        required: false
-        default: 'false'
-        type: string
+on: pull_request
 
     secrets:
       AUTH_E2E_ROLE_ARN:
