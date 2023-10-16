@@ -3,7 +3,7 @@
 # See `./test-prs.yml` to see an example usage.
 
 on:
-  pull_request:
+  workflow_call:
     inputs:
       commit:
         # commit to run tests against
