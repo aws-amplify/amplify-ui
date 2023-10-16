@@ -3,6 +3,7 @@
     --margin-start: 0;
     --margin-end: calc(-1 * var(--amplify-components-tabs-item-border-width));
     --border-width: 0 0 var(--amplify-components-tabs-border-width) 0;
+    --flex: initial;
     display: flex;
     flex-direction: row;
     background-color: var(--amplify-components-tabs-background-color);
@@ -18,6 +19,14 @@
         -1 * var(--amplify-components-tabs-item-border-width)
       );
       --margin-end: 0;
+    }
+
+    &--equal {
+      --flex: 1 1 0;
+    }
+
+    &--relative {
+      --flex: 1 1 auto;
     }
   }
 
@@ -41,6 +50,7 @@
     border-width: var(--border-width);
     border-style: var(--amplify-components-tabs-item-border-style);
     border-color: var(--amplify-components-tabs-item-border-color);
+    flex: var(--flex);
 
     // negative margin so border of tab items and tab bar overlap
     margin-block-start: var(--margin-start);

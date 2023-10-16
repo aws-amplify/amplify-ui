@@ -14,7 +14,7 @@ const isValidTab = (
   React.isValidElement<TabProps>(child);
 
 const TabListPrimitive: Primitive<TabListProps, 'div'> = (
-  { className, children, indicatorPosition, ...rest },
+  { className, children, indicatorPosition, spacing, ...rest },
   ref
 ) => {
   const internalRef = React.useRef<HTMLDivElement>(null);
@@ -105,6 +105,9 @@ const TabListPrimitive: Primitive<TabListProps, 'div'> = (
         ComponentClassName.TabsList,
         indicatorPosition
           ? classNameModifier(ComponentClassName.TabsList, indicatorPosition)
+          : null,
+        spacing
+          ? classNameModifier(ComponentClassName.TabsList, spacing)
           : null,
         className
       )}
