@@ -6,7 +6,7 @@ Feature: Delete User With Overrides
     Given I'm running the example "ui/components/account-settings/delete-user-with-overrides"
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.DeleteUser" } }' with fixture "delete-user"
 
-  @todo-migration @react
+  @react
   Scenario: Customize warning view
     When I type my "email" with status "CONFIRMED"
     Then I type my password

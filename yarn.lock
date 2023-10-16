@@ -483,18 +483,33 @@
     tslib "^2.5.0"
     typescript "5.0.2"
 
+"@aws-amplify/core@5.8.5":
+  version "5.8.5"
+  resolved "https://registry.npmjs.org/@aws-amplify/core/-/core-5.8.5.tgz#b9d55ddecd477636b0a0a2ea015280dfdb5a54e3"
+  integrity sha512-R7zB+VUyNRT/7GCfBfWOIz2vy70VbHNfhotbdyo02ZVcc4vyXt+tsdZvvMSm1SB5uQ411jiAfDmTvOzLOIaJsA==
+  dependencies:
+    "@aws-crypto/sha256-js" "1.2.2"
+    "@aws-sdk/client-cloudwatch-logs" "3.6.1"
+    "@aws-sdk/types" "3.6.1"
+    "@aws-sdk/util-hex-encoding" "3.6.1"
+    "@types/node-fetch" "2.6.4"
+    isomorphic-unfetch "^3.0.0"
+    react-native-url-polyfill "^1.3.0"
+    tslib "^1.8.0"
+    universal-cookie "^4.0.4"
+    zen-observable-ts "0.8.19"
+
 "@aws-amplify/core@6.0.1-console-preview.f7f118b.0+f7f118b":
   version "6.0.1-console-preview.f7f118b.0"
   resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-6.0.1-console-preview.f7f118b.0.tgz#dd1db6d79e9e54c52caae9afb04cad999289dd94"
   integrity sha512-1gmvl32AUqobLj7xeamGov7IHSvJ95K9FUptmsVnox1/uT5J8gtVkIQxSj+NppLVxpPC5CYXQ86yHHWC2RO0BA==
+"@aws-amplify/cache@5.1.11":
+  version "5.1.11"
+  resolved "https://registry.npmjs.org/@aws-amplify/cache/-/cache-5.1.11.tgz#b85a621042dc9c9eb43d812d2c07e4b927520bdf"
+  integrity sha512-o8ju6RAbGOv8MXDJuLM2Fc5yl23pLfp1jdijlMjxBn+uXonV3B7YCtpJtjj3MW6RUY0xEZrz7fEfTp9Pa1Y7+Q==
   dependencies:
-    "@aws-crypto/sha256-js" "5.0.0"
-    "@aws-sdk/types" "3.398.0"
-    "@smithy/util-hex-encoding" "2.0.0"
-    js-cookie "^2.2.1"
-    rxjs "^7.8.1"
-    tslib "^2.5.0"
-    uuid "^9.0.0"
+    "@aws-amplify/core" "5.8.5"
+    tslib "^1.8.0"
 
 "@aws-amplify/datastore@5.0.1-console-preview.f7f118b.0+f7f118b":
   version "5.0.1-console-preview.f7f118b.0"

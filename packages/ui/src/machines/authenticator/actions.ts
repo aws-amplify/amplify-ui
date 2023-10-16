@@ -155,7 +155,7 @@ export const setUnverifiedContactMethods = assign({
 });
 
 export const setUser = assign({
-  user: (_, event: AuthEvent) => {
+  user: (context, event: AuthEvent) => {
     groupLog('+++setUser', 'event.data', event.data);
 
     /**
