@@ -56,7 +56,7 @@ export const setUserAgent = ({
 
   const additionalDetails: SetCustomUserAgentInput['additionalDetails'] = [
     [componentName],
-    [`ui-${packageName}/${version}`],
+    [`ui-${packageName}`, version],
   ];
 
   switch (componentName) {
