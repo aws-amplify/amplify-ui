@@ -6,16 +6,16 @@ export interface AccordionPropControlsProps extends AccordionProps {
   setAllowMultiple: (
     value: React.SetStateAction<AccordionProps['allowMultiple']>
   ) => void;
-  setIsAlwaysOpen: (
-    value: React.SetStateAction<AccordionProps['isAlwaysOpen']>
+  setPreventCollapse: (
+    value: React.SetStateAction<AccordionProps['preventCollapse']>
   ) => void;
 }
 
 export const AccordionPropControls: React.FC<AccordionPropControlsProps> = ({
   allowMultiple,
   setAllowMultiple,
-  isAlwaysOpen,
-  setIsAlwaysOpen,
+  preventCollapse,
+  setPreventCollapse,
 }) => {
   return (
     <Flex direction="column">
@@ -27,11 +27,11 @@ export const AccordionPropControls: React.FC<AccordionPropControlsProps> = ({
         label="allowMultiple"
       />
       <CheckboxField
-        name="isAlwaysOpen"
-        checked={isAlwaysOpen}
+        name="preventCollapse"
+        checked={preventCollapse}
         value="yes"
-        onChange={(event) => setIsAlwaysOpen(event.target.checked)}
-        label="isAlwaysOpen"
+        onChange={(event) => setPreventCollapse(event.target.checked)}
+        label="preventCollapse"
       />
     </Flex>
   );

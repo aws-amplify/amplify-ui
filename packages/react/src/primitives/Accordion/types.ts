@@ -4,35 +4,35 @@ import { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
 export interface BaseAccordionProps extends BaseViewProps {
   /**
    * @description
-   * The value of the item(s) to expand.  Use on uncontrolled component.
+   * The initial value of the item(s) to expand.  Use on uncontrolled component.
    */
   defaultValue?: string[];
 
   /**
    * @description
-   * The controlled value of the item(s) to expand. Must be used in conjunction with onValueChange.
+   * The controlled value of the item(s) to expand.
    */
   value?: string[];
 
   /**
    * @description
    * Allow multiple items to be expanded at the same time.
-   * Default: false
+   * @default: false
    */
   allowMultiple?: boolean;
 
   /**
    * @description
    * Prevent collapse when a single item is expanded.
-   * Default: false
+   * @default: false
    */
-  isAlwaysOpen?: boolean;
+  preventCollapse?: boolean;
 
   /**
    * @description
    * Event handler called when the expanded state of an item changes
    */
-  onChange?: (value?: string[]) => void;
+  onValueChange?: (value?: string[]) => void;
 
   /**
    * @description

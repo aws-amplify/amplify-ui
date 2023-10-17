@@ -43,7 +43,7 @@ function UncontrolledAccordion(props: AccordionProps) {
 function ControlledAccordion({ value: initialValue, ...rest }: AccordionProps) {
   const [value, setValue] = React.useState(initialValue);
   return (
-    <Accordion.Container value={value} onChange={setValue} {...rest}>
+    <Accordion.Container value={value} onValueChange={setValue} {...rest}>
       {accordionItems.map(({ value, header, body }) => (
         <Accordion.Item value={value} key={value}>
           <Accordion.Trigger>
@@ -102,7 +102,7 @@ describe('Accordion:', () => {
 
   it('should be collapsible', async () => {
     const { container } = render(
-      <UncontrolledAccordion defaultValue={['item-1']} />
+      <UncontrolledAccordion defaultValue={'item-1'} />
     );
     const details = container.getElementsByTagName('details');
     const summaries = container.getElementsByTagName('summary');
@@ -111,9 +111,9 @@ describe('Accordion:', () => {
     expect(details[0]).not.toHaveAttribute('open');
   });
 
-  it('should be un-collapsible with isAlwaysOpen', async () => {
+  it('should be un-collapsible with preventCollapse', async () => {
     const { container } = render(
-      <UncontrolledAccordion defaultValue={['item-1']} isAlwaysOpen />
+      <UncontrolledAccordion defaultValue={'item-1'} preventCollapse />
     );
     const details = container.getElementsByTagName('details');
     const summaries = container.getElementsByTagName('summary');

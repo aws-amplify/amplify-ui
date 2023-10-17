@@ -135,7 +135,7 @@ const SecondaryNav = (props) => {
   const { platform } = props;
   // Extract section from URL (/section/... => section)
   let section = pathname.split('/')[2];
-  const [value, setValue] = React.useState<string[]>([section]);
+  const [value, setValue] = React.useState([section]);
 
   const isFlutter = platform === 'flutter';
   const isReactNative = platform === 'react-native';
@@ -146,7 +146,7 @@ const SecondaryNav = (props) => {
   const hideGuidesExpander = isFlutter || isReactNative || isAndroid || isSwift;
 
   return (
-    <Accordion.Container value={value} onChange={setValue}>
+    <Accordion.Container value={value} onValueChange={setValue}>
       {
         <Accordion.Item value="getting-started">
           <Accordion.Trigger>

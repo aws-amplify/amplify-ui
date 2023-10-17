@@ -11,24 +11,24 @@ export const useAccordionProps: UseAccordionProps = (initialValues) => {
   const [allowMultiple, setAllowMultiple] = React.useState(
     initialValues.allowMultiple
   );
-  const [isAlwaysOpen, setIsAlwaysOpen] = React.useState(
-    initialValues.isAlwaysOpen
+  const [preventCollapse, setPreventCollapse] = React.useState(
+    initialValues.preventCollapse
   );
 
   React.useEffect(() => {
     demoState.set(Accordion.displayName, {
       allowMultiple,
-      isAlwaysOpen,
+      preventCollapse,
     });
-  }, [allowMultiple, isAlwaysOpen]);
+  }, [allowMultiple, preventCollapse]);
 
   return React.useMemo(
     () => ({
       allowMultiple,
       setAllowMultiple,
-      isAlwaysOpen,
-      setIsAlwaysOpen,
+      preventCollapse,
+      setPreventCollapse,
     }),
-    [allowMultiple, setAllowMultiple, isAlwaysOpen, setIsAlwaysOpen]
+    [allowMultiple, setAllowMultiple, preventCollapse, setPreventCollapse]
   );
 };

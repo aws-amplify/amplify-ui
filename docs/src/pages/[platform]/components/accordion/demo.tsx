@@ -9,7 +9,7 @@ import { demoState } from '@/utils/demoState';
 const propsToCode = (AccordionProps) => {
   return (
     `<Accordion` +
-    (AccordionProps.isAlwaysOpen ? ` isAlwaysOpen` : '') +
+    (AccordionProps.preventCollapse ? ` preventCollapse` : '') +
     (AccordionProps.allowMultiple ? ` allowMultiple` : '') +
     `
   items={[
@@ -35,7 +35,7 @@ const propsToCode = (AccordionProps) => {
 
 const defaultAccordionProps = {
   allowMultiple: false,
-  isAlwaysOpen: false,
+  preventCollapse: false,
 };
 
 export const AccordionDemo = () => {
@@ -51,7 +51,7 @@ export const AccordionDemo = () => {
     >
       <Accordion
         allowMultiple={AccordionProps.allowMultiple}
-        isAlwaysOpen={AccordionProps.isAlwaysOpen}
+        preventCollapse={AccordionProps.preventCollapse}
         items={[
           {
             trigger: 'Is it accessible?',

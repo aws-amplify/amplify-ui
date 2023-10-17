@@ -12,19 +12,13 @@ const AccordionItemPrimitive: Primitive<AccordionItemProps, 'details'> = (
   ref
 ) => {
   const context = React.useContext(AccordionContext);
-  const controlledProps = {};
-
-  if (context?.value && value) {
-    if (context.value.includes(value)) {
-      controlledProps['open'] = true;
-    }
-  }
+  const open = value ? context?.value?.includes(value) : undefined;
 
   return (
     <AccordionItemContext.Provider value={value}>
       <View
         {...rest}
-        {...controlledProps}
+        open={open}
         ref={ref}
         as={as}
         className={classNames(ComponentClassName.AccordionItem, className)}

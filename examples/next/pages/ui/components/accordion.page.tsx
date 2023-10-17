@@ -62,7 +62,7 @@ export default function ExpanderPage() {
 
       <Divider />
       <Heading level={4}>Controlled</Heading>
-      <Accordion.Container value={controlled} onChange={setControlled}>
+      <Accordion.Container value={controlled} onValueChange={setControlled}>
         <Accordion.Item value="1">
           <Accordion.Trigger>First</Accordion.Trigger>
           <Accordion.Content>
@@ -109,8 +109,8 @@ export default function ExpanderPage() {
       </Accordion.Container>
 
       <Divider />
-      <Heading level={4}>isAlwaysOpen</Heading>
-      <Accordion.Container isAlwaysOpen>
+      <Heading level={4}>preventCollapse</Heading>
+      <Accordion.Container preventCollapse>
         {accordions.map(({ value, header, body }) => (
           <Accordion.Item value={value} key={value}>
             <Accordion.Trigger>

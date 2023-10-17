@@ -8,8 +8,7 @@ import { View } from '../View';
 import { BaseAccordionProps } from './types';
 import { AccordionContext } from './AccordionContext';
 
-interface BaseAccordionContainerProps
-  extends Omit<BaseAccordionProps, 'items'> {}
+type BaseAccordionContainerProps = Omit<BaseAccordionProps, 'items'>;
 
 type AccordionContainerProps<Element extends ElementType = 'div'> =
   PrimitiveProps<BaseAccordionContainerProps, Element>;
@@ -20,8 +19,8 @@ const AccordionContainerPrimitive: Primitive<AccordionContainerProps, 'div'> = (
     className,
     defaultValue,
     allowMultiple,
-    isAlwaysOpen,
-    onChange,
+    preventCollapse,
+    onValueChange,
     testId,
     value: controlledValue,
     ...rest
@@ -47,22 +46,22 @@ const AccordionContainerPrimitive: Primitive<AccordionContainerProps, 'div'> = (
        * replace the array with an array of only the item value.
        */
       const newValue = value.includes(_value)
-        ? !isAlwaysOpen || value.length > 1
+        ? !preventCollapse || value.length > 1
           ? value.filter((v) => v !== _value)
           : value
         : allowMultiple
         ? [...value, _value]
         : [_value];
 
-      if (isFunction(onChange)) {
-        onChange(newValue);
+      if (isFunction(onValueChange)) {
+        onValueChange(newValue);
       }
 
       if (!isControlled) {
         setLocalValue(newValue);
       }
     },
-    [onChange, value, isControlled, allowMultiple, isAlwaysOpen]
+    [onValueChange, value, isControlled, allowMultiple, preventCollapse]
   );
 
   const contextValue = React.useMemo(() => {

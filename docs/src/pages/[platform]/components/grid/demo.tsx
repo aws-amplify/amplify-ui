@@ -179,7 +179,7 @@ export const GridDemo = () => {
       code={propsToCode(gridContainerProps, gridItemsCode)}
       propControls={
         <>
-          <Accordion.Container value={value} onChange={handleExpandChange}>
+          <Accordion.Container value={value} onValueChange={handleExpandChange}>
             <Accordion.Item value="item-1">
               <Accordion.Trigger>
                 Grid container props

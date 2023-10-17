@@ -4,7 +4,7 @@ import { Accordion } from '@aws-amplify/ui-react';
 
 export const AlwaysOpenAccordionExample = () => {
   return (
-    <Accordion.Container isAlwaysOpen defaultValue={['item-1']}>
+    <Accordion.Container preventCollapse defaultValue={['item-1']}>
       <Accordion.Item value="item-1">
         <Accordion.Trigger>
           Can I collapse this item?
@@ -18,7 +18,7 @@ export const AlwaysOpenAccordionExample = () => {
           <Accordion.Icon />
         </Accordion.Trigger>
         <Accordion.Content>
-          Yes, you can set the isAlwaysOpen prop along with allowMultiple
+          Yes, you can set the preventCollapse prop along with allowMultiple
         </Accordion.Content>
       </Accordion.Item>
     </Accordion.Container>
