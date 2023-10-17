@@ -23,7 +23,7 @@ export interface BaseAccordionProps extends BaseViewProps {
 
   /**
    * @description
-   * Determines whether the opened item can always be collapsed even if its the only one.
+   * Prevent collapse when a single item is expanded.
    * Default: false
    */
   isAlwaysOpen?: boolean;
