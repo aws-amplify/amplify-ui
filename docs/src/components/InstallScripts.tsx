@@ -24,13 +24,15 @@ const frameworkInstallScript = (
     packageManager === 'npm' ? 'npm install' : 'yarn add'
   }`;
 
-  const extraDependencies = `${
+  let extraDependencies = `${
     isReactNative ? ` ${REACT_NATIVE_DEPENDENCIES}` : ''
   }`;
 
   const componentSubpackage = component ? `-${component}` : '';
+  const isReactLiveness = componentSubpackage === 'liveness';
+  extraDependencies = `${isReactLiveness ? `@5` : ''}`;
 
-  return `${packageManagerPrefix} @aws-amplify/ui-${framework}${componentSubpackage} aws-amplify@5${extraDependencies}`;
+  return `${packageManagerPrefix} @aws-amplify/ui-${framework}${componentSubpackage} aws-amplify${extraDependencies}`;
 };
 
 export const TerminalCommand = ({
