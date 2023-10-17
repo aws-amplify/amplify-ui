@@ -170,18 +170,18 @@ export function signInActor({ services }: SignInMachineOptions) {
                 },
               },
             },
-            resolved: { always: '#signInActor.preResolved' },
+            resolved: { always: '#signInActor.updateCurrentUser' },
             rejected: { always: '#signInActor.rejected' },
           },
         },
         autoSignIn: {
-          initial: 'pending',
+          initial: 'signIn',
           states: {
-            pending: {
-              tags: ['pending'],
+            signIn: {
               entry: ['clearError', 'sendUpdate'],
-              on: {
-                AUTO_SIGN_IN: [
+              invoke: {
+                src: 'autoSignIn',
+                onDone: [
                   {
                     cond: 'shouldSetupTOTP',
                     actions: ['setUser', 'setChallengeName'],
@@ -202,14 +202,10 @@ export function signInActor({ services }: SignInMachineOptions) {
                     target: '#signInActor.forceNewPassword',
                   },
                   {
-                    actions: 'setUser',
+                    actions: ['setUser'],
                     target: '#signInActor.resolved',
                   },
                 ],
-                AUTO_SIGN_IN_FAILURE: {
-                  actions: 'setRemoteError',
-                  target: 'pending',
-                },
               },
             },
             submit: {
@@ -473,7 +469,7 @@ export function signInActor({ services }: SignInMachineOptions) {
               invoke: {
                 src: 'confirmVerifyUser',
                 onDone: {
-                  target: '#signInActor.resolved',
+                  target: '#signInActor.updateCurrentUser',
                 },
                 onError: {
                   actions: 'setRemoteError',
@@ -483,7 +479,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             },
           },
         },
-        preResolved: {
+        updateCurrentUser: {
           invoke: {
             src: 'getCurrentUserResolved',
             onDone: {
@@ -568,15 +564,20 @@ export function signInActor({ services }: SignInMachineOptions) {
           groupLog('+++shouldRedirectToConfirmSignUp', 'event', event);
           return event.data.nextStep?.signInStep === 'CONFIRM_SIGN_UP';
         },
-        shouldRequestVerification: (_, event): boolean => {
-          groupLog('+++shouldRequestVerification', 'event', event);
+        shouldRequestVerification: (context, event): boolean => {
           const { phone_number_verified, email_verified } =
             event.data as Auth.FetchUserAttributesOutput;
 
-          // @todo-migration only request verificaion if phone or email is not verified and it is required
-          return false;
+          // email/phone_verified is returned as a string
+          const emailRequiredAndNotVerified =
+            !isEmpty(email_verified) && email_verified === 'false';
+          const phoneRequiredAndNotVerified =
+            !isEmpty(phone_number_verified) &&
+            phone_number_verified === 'false';
+
+          return emailRequiredAndNotVerified || phoneRequiredAndNotVerified;
         },
-        shouldSetupTOTP: (_, event): boolean => {
+        shouldSetupTOTP: (context, event): boolean => {
           //   event.data ={
           //     "isSignedIn": false,
           //     "nextStep": {
@@ -586,13 +587,6 @@ export function signInActor({ services }: SignInMachineOptions) {
           //         }
           //     }
           // }
-          groupLog(
-            '+++shouldSetupTOTP',
-            `'event.data.nextStep.signInStep' ===
-            'CONTINUE_SIGN_IN_WITH_TOTP_SETUP'`,
-            event.data.nextStep?.signInStep ===
-              'CONTINUE_SIGN_IN_WITH_TOTP_SETUP'
-          );
           return (
             event.data.nextStep?.signInStep ===
             'CONTINUE_SIGN_IN_WITH_TOTP_SETUP'
@@ -791,12 +785,16 @@ export function signInActor({ services }: SignInMachineOptions) {
         //   return result;
         // },
         async verifyUser(context) {
-          groupLog('+++verifyUser', context.formValues);
+          const { unverifiedAttr } = context.formValues;
+          groupLog('+++verifyUser', unverifiedAttr, context);
 
-          const input: Auth.UpdateUserAttributesInput = {
-            userAttributes: { ...context.formValues },
+          const input: Auth.SendUserAttributeVerificationCodeInput = {
+            userAttributeKey:
+              unverifiedAttr as Auth.SendUserAttributeVerificationCodeInput['userAttributeKey'],
           };
-          const result = await Auth.updateUserAttributes(input);
+          const result = await Auth.sendUserAttributeVerificationCode(input);
+
+          context.attributeToVerify = unverifiedAttr;
 
           return result;
         },
@@ -834,6 +832,9 @@ export function signInActor({ services }: SignInMachineOptions) {
         async getCurrentUserResolved(context) {
           groupLog('+++getCurrentUserResolved', context, event);
           return await Auth.getCurrentUser();
+        },
+        async autoSignIn() {
+          return await Auth.autoSignIn();
         },
       },
     }
