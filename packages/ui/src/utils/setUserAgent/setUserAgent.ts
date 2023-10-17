@@ -66,6 +66,7 @@ export const setUserAgent = ({
       break;
     }
     case 'InAppMessaging': {
+      // remove cast when Category input types are available
       input = IN_APP_MESSAGING_INPUT_BASE as SetCustomUserAgentInput;
       break;
     }
