@@ -2,10 +2,10 @@ import * as React from 'react';
 
 import { createTheme, WebTheme } from '@aws-amplify/ui';
 
-export interface AmplifyContextType {
+export interface ThemeContextType {
   theme: WebTheme;
 }
 
-export const AmplifyContext = React.createContext<AmplifyContextType>({
+export const ThemeContext = React.createContext<ThemeContextType>({
   theme: createTheme(),
 });
