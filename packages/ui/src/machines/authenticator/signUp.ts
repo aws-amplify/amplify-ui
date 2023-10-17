@@ -338,16 +338,9 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           const input: Auth.ResendSignUpCodeInput = { username };
           return Auth.resendSignUpCode(input);
         },
-        // async federatedSignIn(_, event) {
-        //   const { provider } = event.data;
-        //   const result = await Auth.federatedSignIn({ provider });
-        //   return result;
-        // },
         async federatedSignIn(_, event) {
           const { provider } = event.data;
-          noop({ provider });
-          // const result = noop({ provider });
-          // return result;
+          return await Auth.signInWithRedirect({ provider });
         },
         async signUp(context, _event) {
           console.group('+++signUp');

@@ -769,15 +769,11 @@ export function signInActor({ services }: SignInMachineOptions) {
           const input: Auth.ConfirmSignInInput = { challengeResponse: code };
           return await Auth.confirmSignIn(input);
         },
-        // async federatedSignIn(_, event) {
-        //   const { provider } = event.data;
-
-        //   return await Auth.federatedSignIn({ provider });
-        // },
         async federatedSignIn(_, event) {
           const { provider } = event.data;
-          return noop({ provider });
+          return await Auth.signInWithRedirect({ provider });
         },
+
         async checkVerifiedContact(): Promise<Auth.FetchUserAttributesOutput> {
           groupLog(
             '+++checkVerifiedContacts',
