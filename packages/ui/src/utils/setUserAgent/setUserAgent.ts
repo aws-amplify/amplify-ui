@@ -61,6 +61,7 @@ export const setUserAgent = ({
 
   switch (componentName) {
     case 'AccountSettings': {
+      // remove cast when Category input types are available
       input = ACCOUNT_SETTINGS_INPUT_BASE as SetCustomUserAgentInput;
       break;
     }
