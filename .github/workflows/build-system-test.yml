@@ -5,9 +5,7 @@ name: Build System Test Canary
 permissions:
   id-token: write # This is required for aws-actions/configure-aws-credentials
 
-on:
-  schedule:
-    - cron: '*/15 * * * *' # Run every 15 minutes
+on: pull_request
 
 jobs:
   build:
