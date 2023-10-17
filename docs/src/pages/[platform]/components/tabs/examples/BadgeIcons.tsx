@@ -1,4 +1,4 @@
-import { Badge, Icon, Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Badge, Icon, Tabs } from '@aws-amplify/ui-react';
 
 const IconEmail = () => {
   return (

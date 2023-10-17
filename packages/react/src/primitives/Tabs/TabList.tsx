@@ -121,7 +121,7 @@ const TabListPrimitive: Primitive<TabListProps, 'div'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/tabs)
  */
-export const TabList: ForwardRefPrimitive<BaseTabListProps, 'button'> =
+export const TabList: ForwardRefPrimitive<BaseTabListProps, 'div'> =
   React.forwardRef(TabListPrimitive);
 
 TabList.displayName = 'Tabs.List';

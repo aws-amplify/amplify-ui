@@ -1,46 +1,40 @@
 import * as React from 'react';
 
-import { ElementType, PrimitiveProps, BaseViewProps } from '../types';
+import {
+  ElementType,
+  PrimitiveProps,
+  BaseViewProps,
+  BaseFlexProps,
+} from '../types';
 
 export type TabsSpacing = 'equal' | 'relative';
 
-export interface BaseTabsProps extends BaseViewProps {
+export interface BaseTabsProps extends BaseTabListProps {
   /**
    * @description
-   * Change which Tab content is initially displayed. Pass in the index of the Tab you wish to show. The default is index 0 (the first tab).
-   */
-  defaultValue?: string;
-
-  /**
-   * @description
-   * The controlled index of the currently selected tab. This should be used with
-   * `onChange` as well to make the component controlled.
-   */
-  value?: string;
-
-  /**
-   * @description
-   * For controlled usage, use the onChange event to listen to when a tab is clicked
-   * and update the `currentIndex` accordingly. The index of the tab clicked is passed
-   * to onChange.
-   */
-  onChange?: (value: string) => void;
-
-  /**
-   * @description
-   * Make the tabs lazy load the content. This means tab content will not render until it is
-   * active. This does mean that it will be unmounted and re-mounted switching back and forth
-   * between tabs.
-   */
-  isLazy?: boolean;
-
-  /**
-   * @description
+   * An array of tabs for easy use if you don't want to compose the
+   * tabs yourself. Each object in the array should have a `value`,
+   * `label`, and `content` property. The value is what will be passed to
+   * `onChange` when a tab is clicked. The label is what will be displayed
+   * on the tab. The content is what will be displayed when the tab is
+   * clicked. The content can be any React node.
    *
-   * @default bottom
+   * @example
+   * ```tsx
+   * <Tabs
+   *   items={[
+   *     {
+   *       value: 'tab-1',
+   *       label: 'Tab 1',
+   *       content: <div>Tab 1 content</div>,
+   *     },
+   *     {
+   *       value: 'tab-2',
+   *       label: 'Tab 2',
+   *       content: <div>Tab 2 content</div>,
+   *     },
+   *   ]}
    */
-  indicatorPosition?: 'top' | 'bottom';
-
   items?: Array<{
     value: string;
     isDisabled?: boolean;
@@ -83,7 +77,36 @@ export type TabPanelProps<Element extends ElementType = 'div'> = PrimitiveProps<
   Element
 >;
 
-export interface BaseTabListProps extends BaseViewProps {
+export interface BaseTabListProps extends BaseFlexProps {
+  /**
+   * @description
+   * Change which Tab content is initially displayed. Pass in the index of the Tab you wish to show. The default is index 0 (the first tab).
+   */
+  defaultValue?: string;
+
+  /**
+   * @description
+   * The controlled index of the currently selected tab. This should be used with
+   * `onChange` as well to make the component controlled.
+   */
+  value?: string;
+
+  /**
+   * @description
+   * For controlled usage, use the onChange event to listen to when a tab is clicked
+   * and update the `currentIndex` accordingly. The index of the tab clicked is passed
+   * to onChange.
+   */
+  onValueChange?: (value: string) => void;
+
+  /**
+   * @description
+   * Make the tabs lazy load the content. This means tab content will not render until it is
+   * active. This does mean that it will be unmounted and re-mounted switching back and forth
+   * between tabs.
+   */
+  isLazy?: boolean;
+
   /**
    * @description
    * Control how Tabs take up the remaining space. Pass `equal` to make each tab take up the same amount of space,

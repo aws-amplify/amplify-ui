@@ -4,7 +4,7 @@ import { Tabs, Button } from '@aws-amplify/ui-react';
 export const ControlledTabExample = () => {
   const [tab, setTab] = useState('1');
   return (
-    <Tabs.Container value={tab} onChange={(tab) => setTab(tab)}>
+    <Tabs.Container value={tab} onValueChange={(tab) => setTab(tab)}>
       <Tabs.List>
         <Tabs.Tab value="1">First</Tabs.Tab>
         <Tabs.Tab value="2">Second</Tabs.Tab>

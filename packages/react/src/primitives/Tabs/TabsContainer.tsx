@@ -13,7 +13,7 @@ const TabsContainerPrimitive: Primitive<TabsProps, 'div'> = (
     defaultValue,
     className,
     value: controlledValue,
-    onChange,
+    onValueChange,
     isLazy,
     ...rest
   }: BaseTabsProps,
@@ -27,15 +27,15 @@ const TabsContainerPrimitive: Primitive<TabsProps, 'div'> = (
 
   const setActiveTab = React.useCallback(
     (newValue: string) => {
-      if (isFunction(onChange)) {
-        onChange(newValue);
+      if (isFunction(onValueChange)) {
+        onValueChange(newValue);
       }
 
       if (!isControlled) {
         setLocalValue(newValue);
       }
     },
-    [onChange, isControlled]
+    [onValueChange, isControlled]
   );
 
   const _value = React.useMemo(() => {
