@@ -21,7 +21,7 @@ Feature: Verify User
     Then "New Label" field does not have class "amplify-visually-hidden"
     Then I see placeholder "Enter your Confirmation Code:"
 
-  @todo-react-native
+  @todo-migration @todo-react-native
   Scenario: Redirect to "Confirm Verify" page and replace label
     When I type my "email" with status "UNVERIFIED"
     Then I type my password

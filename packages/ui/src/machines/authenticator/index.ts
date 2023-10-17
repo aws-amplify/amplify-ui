@@ -264,12 +264,14 @@ export function createAuthenticatorMachine(
               intent: event.data?.intent,
             };
           },
+          user: (_, event) => {
+            return { ...event.data };
+          },
         }),
         clearUser: assign({ user: undefined }),
         clearActorDoneData: assign({ actorDoneData: undefined }),
         applyAmplifyConfig: assign({
           config(context, { data: cliConfigBase }) {
-            getAuthenticatorConfig(cliConfigBase);
             const cliConfig = (cliConfigBase as ResourcesConfig).Auth.Cognito;
             console.group('+++applyAmplifyConfig', cliConfig, cliConfigBase);
 
@@ -283,7 +285,7 @@ export function createAuthenticatorMachine(
               ([_key, value]) => Object.keys(value)[0]
             ) as SignUpAttribute[];
             const cliSocialProviders =
-              cliConfig.loginWith?.oauth?.providers.map((provider) =>
+              cliConfig.loginWith?.oauth?.providers?.map((provider) =>
                 provider.toString().toLowerCase()
               ) as SocialProvider[];
 

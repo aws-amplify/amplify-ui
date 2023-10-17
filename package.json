@@ -64,6 +64,7 @@
       "**/react-native/**",
       "**/react-native-safe-area-context",
       "**/react-native-safe-area-context/**",
+      "**/rtn-web-browser",
       "**/rollup",
       "**/use-sync-external-store",
       "**/use-isomorphic-layout-effect",

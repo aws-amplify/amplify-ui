@@ -46,11 +46,10 @@ export default function AuthenticatorWithEmail() {
         password,
         options: {
           userAttributes: attributes,
+          serviceOptions: {
+            autoSignIn: true,
+          },
         },
-        // @todo-migration re-enable
-        // autoSignIn: {
-        //   enabled: true,
-        // },
       });
     },
   };

@@ -1,6 +1,8 @@
 PODS:
   - "AmplifyRTNCore (1.0.1-console-preview.5f040a2.0+5f040a2)":
     - React-Core
+  - "AmplifyRTNWebBrowser (1.0.1-console-preview.5f040a2.0+5f040a2)":
+    - React-Core
   - boost (1.76.0)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.68.6)
@@ -322,6 +324,7 @@ PODS:
 
 DEPENDENCIES:
   - "AmplifyRTNCore (from `../node_modules/@aws-amplify/react-native`)"
+  - "AmplifyRTNWebBrowser (from `../node_modules/@aws-amplify/rtn-web-browser`)"
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
@@ -373,6 +376,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   AmplifyRTNCore:
     :path: "../node_modules/@aws-amplify/react-native"
+  AmplifyRTNWebBrowser:
+    :path: "../node_modules/@aws-amplify/rtn-web-browser"
   boost:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
   DoubleConversion:
@@ -450,6 +455,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AmplifyRTNCore: c76fd5c116a034d09b1083d15ae99275f242802c
+  AmplifyRTNWebBrowser: d37ec5375e8cf219f0888e1a1c79396a3d28c8aa
   boost: a7c83b31436843459a1961bfd74b96033dc77234
   DoubleConversion: 831926d9b8bf8166fd87886c4abab286c2422662
   FBLazyVector: 74b042924fe14da854ac4e87cefc417f583b22b1

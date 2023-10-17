@@ -38,11 +38,10 @@ export const defaultServices = {
       username,
       password,
       options: {
-        /**
-         * @migration `autoSignIn` missing
-         */
-        // serviceOptions: { autoSignIn: true },
         userAttributes,
+        serviceOptions: {
+          autoSignIn: true, // This enables the auto sign-in flow.
+        },
       },
     };
     return Auth.signUp(input);
