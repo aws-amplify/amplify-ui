@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { ComponentClassName } from '@aws-amplify/ui';
+import { ComponentClassName, isTypedFunction } from '@aws-amplify/ui';
 import { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { View } from '../View';
@@ -18,6 +18,16 @@ const AccordionTriggerPrimitive: Primitive<AccordionTriggerProps, 'summary'> = (
 ) => {
   const context = React.useContext(AccordionContext);
   const value = React.useContext(AccordionItemContext);
+  const handleOnClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    if (isTypedFunction(rest.onClick)) {
+      rest.onClick(e);
+    }
+
+    if (context?.setValue && value) {
+      e.preventDefault();
+      context.setValue(value);
+    }
+  };
 
   return (
     <View
@@ -25,12 +35,7 @@ const AccordionTriggerPrimitive: Primitive<AccordionTriggerProps, 'summary'> = (
       ref={ref}
       as="summary"
       className={classNames(ComponentClassName.AccordionItemTrigger, className)}
-      onClick={(e) => {
-        if (context?.setValue && value) {
-          e.preventDefault();
-          context.setValue(value);
-        }
-      }}
+      onClick={handleOnClick}
     >
       {children}
     </View>

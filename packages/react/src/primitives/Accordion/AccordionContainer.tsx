@@ -35,23 +35,20 @@ const AccordionContainerPrimitive: Primitive<AccordionContainerProps, 'div'> = (
 
   const setValue = React.useCallback(
     (_value: string) => {
-      /**
-       * This code looks a bit complex, but here is what it is doing:
-       * if the current value (which is an array of string values of items that are currently open)
-       * has the incoming item value then we want to remove it (aka collapse it) if the Accordion
-       * has isAlwaysOpen set to false (meaning all items can be collapsed) OR if the Accordion's value array is
-       * more than 1 so that at least 1 will still be open.
-       * If the Accordion array doesn't have the incoming item value, that means we want to open
-       * the item, BUT if the Accordion only allows 1 item to be open at a time then
-       * replace the array with an array of only the item value.
-       */
-      const newValue = value.includes(_value)
-        ? !preventCollapse || value.length > 1
-          ? value.filter((v) => v !== _value)
-          : value
-        : allowMultiple
-        ? [...value, _value]
-        : [_value];
+      let newValue: string[];
+      // if the value has the incoming value we try to close it by removing it from the array
+      if (value.includes(_value)) {
+        // only remove it from the array if preventCollapse is false/undefined OR
+        // the number of open accordions is more than 1 (so it won't fully collapse anyways)
+        newValue =
+          !preventCollapse || value.length > 1
+            ? value.filter((v) => v !== _value)
+            : value;
+      } else {
+        // open the item by adding it to the array if allowMultiple is true
+        // or make it the whole array
+        newValue = allowMultiple ? [...value, _value] : [_value];
+      }
 
       if (isFunction(onValueChange)) {
         onValueChange(newValue);

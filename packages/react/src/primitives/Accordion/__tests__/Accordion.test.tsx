@@ -102,7 +102,7 @@ describe('Accordion:', () => {
 
   it('should be collapsible', async () => {
     const { container } = render(
-      <UncontrolledAccordion defaultValue={'item-1'} />
+      <UncontrolledAccordion defaultValue={['item-1']} />
     );
     const details = container.getElementsByTagName('details');
     const summaries = container.getElementsByTagName('summary');
@@ -113,7 +113,7 @@ describe('Accordion:', () => {
 
   it('should be un-collapsible with preventCollapse', async () => {
     const { container } = render(
-      <UncontrolledAccordion defaultValue={'item-1'} preventCollapse />
+      <UncontrolledAccordion defaultValue={['item-1']} preventCollapse />
     );
     const details = container.getElementsByTagName('details');
     const summaries = container.getElementsByTagName('summary');
