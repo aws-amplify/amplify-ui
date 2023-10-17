@@ -16,7 +16,7 @@ export interface BaseAccordionProps extends BaseViewProps {
 
   /**
    * @description
-   * Determines whether one or multiple items can be opened at the same time.
+   * Allow multiple items to be expanded at the same time.
    * Default: false
    */
   allowMultiple?: boolean;
