@@ -278,7 +278,11 @@ export function createAuthenticatorMachine(
             const cliLoginMechanisms = Object.entries(cliConfig.loginWith)
               .filter(([key, _value]) => key !== 'oauth')
               .filter(([_key, value]) => !!value)
-              .map((keyValueArray) => keyValueArray[0]) as LoginMechanism[];
+              .map((keyValueArray) => {
+                return keyValueArray[0] === 'phone' // the key for phone_number is phone in getConfig but everywhere else we treat is as phone_number
+                  ? 'phone_number'
+                  : keyValueArray[0];
+              }) as LoginMechanism[];
             const cliSignupAttributes = Object.entries(
               cliConfig.userAttributes
             ).map(

@@ -546,7 +546,9 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         shouldConfirmSignIn: (_, event): boolean => {
           groupLog('+++shouldConfirmSignIn', 'event', event);
-          return event.data.nextStep?.signInStep === 'CONFIRM_SIGN_IN';
+          return (
+            event.data.nextStep?.signInStep === 'CONFIRM_SIGN_IN_WITH_SMS_CODE'
+          );
         },
         shouldForceChangePassword: (_, event): boolean => {
           groupLog('+++shouldForceChangePassword', 'event', event);
