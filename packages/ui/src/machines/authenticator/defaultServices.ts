@@ -1,4 +1,4 @@
-import { Amplify, ResourcesConfig } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
 import * as Auth from '@aws-amplify/auth';
 import { hasSpecialChars } from '../../helpers';
 
