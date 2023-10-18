@@ -1,9 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { Amplify } from 'aws-amplify';
-import {
-  initializeInAppMessaging,
-  syncMessages,
-} from 'aws-amplify/in-app-messaging';
+import { syncMessages } from 'aws-amplify/in-app-messaging';
 import { Button, Flex, Text } from '@aws-amplify/ui-react';
 import {
   useInAppMessaging,
