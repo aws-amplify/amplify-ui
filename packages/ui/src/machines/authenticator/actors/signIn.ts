@@ -697,7 +697,9 @@ export function signInActor({ services }: SignInMachineOptions) {
             // complete forceNewPassword flow and get updated CognitoUser
             const input: Auth.ConfirmSignInInput = {
               challengeResponse: password,
-              options: { serviceOptions: { userAttributes: rest } },
+              options: {
+                userAttributes: rest,
+              },
             };
 
             const output = await Auth.confirmSignIn(input);
