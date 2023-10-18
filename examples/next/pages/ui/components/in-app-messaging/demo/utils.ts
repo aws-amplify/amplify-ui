@@ -1,18 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import * as Analytics from '@aws-amplify/analytics';
 import { syncMessages } from 'aws-amplify/in-app-messaging';
-// import {
-//   // Message,
-//   MessageAction,
-//   MessageButton,
-//   MessageLayout,
-// } from '@aws-amplify/internal/ui-react-core-notifications';
 import {
   Message,
   MessageAction,
   MessageButton,
   MessageLayout,
-} from '@aws-amplify/ui-react-core-notifications/dist/types/InAppMessaging';
+} from '@aws-amplify/ui-react-core-notifications';
 import { useInAppMessaging } from '@aws-amplify/ui-react-notifications';
 
 type ImageOrientation = 'landscape' | 'portrait';
