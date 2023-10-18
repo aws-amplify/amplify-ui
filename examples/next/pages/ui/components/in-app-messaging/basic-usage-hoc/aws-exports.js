@@ -3,6 +3,6 @@
 // The Demo app will still function without values below,
 // but will throw warnings on some displayMessage calls
 
-import awsExports from '@environments/in-app-messaging/in-app-messaging-with-pinpoint-campaign/src/aws-exports';
+const awsmobile = {};
 
-export default awsExports;
+export default awsmobile;
