@@ -3,8 +3,11 @@ import * as Auth from '@aws-amplify/auth';
 import { hasSpecialChars } from '../../helpers';
 
 import {
+  LoginMechanism,
   // AuthChallengeName,
   PasswordSettings,
+  SignUpAttribute,
+  SocialProvider,
   // SignInResult,
   ValidatorResult,
 } from '../../types';
@@ -14,7 +17,28 @@ export const defaultServices = {
   async getAmplifyConfig() {
     const result = Amplify.getConfig();
     groupLog('+++getAmplifyConfig', 'result', result);
-    return result;
+
+    const cliConfig = result.Auth.Cognito;
+    const parsedLoginMechanisms = Object.entries(cliConfig.loginWith)
+      .filter(([key, _value]) => key !== 'oauth')
+      .filter(([_key, value]) => !!value)
+      .map((keyValueArray) => {
+        return keyValueArray[0] === 'phone' // the key for phone_number is phone in getConfig but everywhere else we treat is as phone_number
+          ? 'phone_number'
+          : keyValueArray[0];
+      }) as LoginMechanism[];
+    const parsedSignupAttributes = Object.entries(cliConfig.userAttributes).map(
+      ([_key, value]) => Object.keys(value)[0]
+    ) as SignUpAttribute[];
+    const parsedSocialProviders = cliConfig.loginWith?.oauth?.providers?.map(
+      (provider) => provider.toString().toLowerCase()
+    ) as SocialProvider[];
+    return {
+      ...cliConfig,
+      loginMechanisms: parsedLoginMechanisms,
+      signUpAttributes: parsedSignupAttributes,
+      socialProviders: parsedSocialProviders,
+    };
   },
   async getCurrentUser() {
     return Auth.getCurrentUser();
