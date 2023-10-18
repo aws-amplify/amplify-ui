@@ -1,4 +1,4 @@
-import { ConsoleLogger as Logger } from '@aws-amplify/core/internals/utils';
+import { ConsoleLogger as Logger } from '@aws-amplify/core';
 import { isNil } from '@aws-amplify/ui';
 
 import { RenderNothing } from '@aws-amplify/ui-react-core';

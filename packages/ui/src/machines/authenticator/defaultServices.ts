@@ -39,9 +39,7 @@ export const defaultServices = {
       password,
       options: {
         userAttributes,
-        serviceOptions: {
-          autoSignIn: true, // This enables the auto sign-in flow.
-        },
+        autoSignIn: true,
       },
     };
     return Auth.signUp(input);

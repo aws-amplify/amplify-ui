@@ -1,4 +1,4 @@
-import { ConsoleLogger as Logger } from '@aws-amplify/core/internals/utils';
+import { ConsoleLogger as Logger } from '@aws-amplify/core';
 
 import { RenderNothing } from '@aws-amplify/ui-react-core';
 import { useInAppMessaging } from '../../useInAppMessaging';
