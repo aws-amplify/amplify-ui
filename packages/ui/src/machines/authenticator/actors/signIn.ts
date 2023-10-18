@@ -107,7 +107,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                     target: '#signInActor.setupTOTP',
                   },
                   {
-                    cond: 'shouldConfirmSignIn',
+                    cond: 'shouldConfirmSignInWithSMS',
                     actions: ['setUser', 'setChallengeName'],
                     target: '#signInActor.confirmSignIn',
                   },
@@ -188,7 +188,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                     target: '#signInActor.setupTOTP',
                   },
                   {
-                    cond: 'shouldConfirmSignIn',
+                    cond: 'shouldConfirmSignInWithSMS',
                     actions: ['setUser', 'setChallengeName'],
                     target: '#signInActor.confirmSignIn',
                   },
@@ -220,7 +220,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                     target: '#signInActor.setupTOTP',
                   },
                   {
-                    cond: 'shouldConfirmSignIn',
+                    cond: 'shouldConfirmSignInWithSMS',
                     actions: ['setUser', 'setChallengeName'],
                     target: '#signInActor.confirmSignIn',
                   },
@@ -350,7 +350,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                     src: 'forceNewPassword',
                     onDone: [
                       {
-                        cond: 'shouldConfirmSignIn',
+                        cond: 'shouldConfirmSignInWithSMS',
                         actions: ['setUser', 'setChallengeName'],
                         target: '#signInActor.confirmSignIn',
                       },
@@ -544,9 +544,11 @@ export function signInActor({ services }: SignInMachineOptions) {
           groupLog('+++signIn.shouldAutoSubmit', 'context', context);
           return context?.intent === 'autoSignInSubmit';
         },
-        shouldConfirmSignIn: (_, event): boolean => {
-          groupLog('+++shouldConfirmSignIn', 'event', event);
-          return event.data.nextStep?.signInStep === 'CONFIRM_SIGN_IN';
+        shouldConfirmSignInWithSMS: (_, event): boolean => {
+          groupLog('+++shouldConfirmSignInWithSMS', 'event', event);
+          return (
+            event.data.nextStep?.signInStep === 'CONFIRM_SIGN_IN_WITH_SMS_CODE'
+          );
         },
         shouldForceChangePassword: (_, event): boolean => {
           groupLog('+++shouldForceChangePassword', 'event', event);
