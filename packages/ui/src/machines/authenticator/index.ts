@@ -18,7 +18,6 @@ import { stopActor } from './actions';
 import { resetPasswordActor, signInActor, signOutActor } from './actors';
 import { defaultServices } from './defaultServices';
 import { createSignUpMachine } from './signUp';
-import { getAuthenticatorConfig } from './getAuthenticatorConfig';
 
 const { choose } = actions;
 const DEFAULT_COUNTRY_CODE = '+1';
@@ -271,33 +270,14 @@ export function createAuthenticatorMachine(
         clearUser: assign({ user: undefined }),
         clearActorDoneData: assign({ actorDoneData: undefined }),
         applyAmplifyConfig: assign({
-          config(context, { data: cliConfigBase }) {
-            const cliConfig = (cliConfigBase as ResourcesConfig).Auth.Cognito;
-            console.group('+++applyAmplifyConfig', cliConfig, cliConfigBase);
-
-            const cliLoginMechanisms = Object.entries(cliConfig.loginWith)
-              .filter(([key, _value]) => key !== 'oauth')
-              .filter(([_key, value]) => !!value)
-              .map((keyValueArray) => {
-                return keyValueArray[0] === 'phone' // the key for phone_number is phone in getConfig but everywhere else we treat is as phone_number
-                  ? 'phone_number'
-                  : keyValueArray[0];
-              }) as LoginMechanism[];
-            const cliSignupAttributes = Object.entries(
-              cliConfig.userAttributes
-            ).map(
-              ([_key, value]) => Object.keys(value)[0]
-            ) as SignUpAttribute[];
-            const cliSocialProviders =
-              cliConfig.loginWith?.oauth?.providers?.map((provider) =>
-                provider.toString().toLowerCase()
-              ) as SocialProvider[];
+          config(context, { data: cliConfig }) {
+            console.group('+++applyAmplifyConfig', cliConfig);
 
             // Prefer explicitly configured settings over default CLI values\
             const {
-              loginMechanisms = cliLoginMechanisms ?? [],
-              signUpAttributes = cliSignupAttributes ?? [],
-              socialProviders = cliSocialProviders ?? [],
+              loginMechanisms = cliConfig.loginMechanisms ?? [],
+              signUpAttributes = cliConfig.signUpAttributes ?? [],
+              socialProviders = cliConfig.socialProviders ?? [],
               initialState,
               formFields: _formFields,
               passwordSettings = cliConfig.passwordFormat ??
