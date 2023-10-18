@@ -1,5 +1,6 @@
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
+import { notifyMessageInteraction } from 'aws-amplify/in-app-messaging';
 
+import { ConsoleLogger as Logger } from '@aws-amplify/core';
 import { RenderNothing } from '@aws-amplify/ui-react-core';
 import { useInAppMessaging } from '../../useInAppMessaging';
 import {
@@ -8,15 +9,10 @@ import {
   MessageCommonProps,
 } from '../../../types';
 import { UseMessageParams } from '../types';
-
 import { EMPTY_PROPS } from '../useMessage';
 import { useMessage } from '..';
-import { notifyMessageInteraction } from 'aws-amplify/in-app-messaging';
 
-const notifyMessageInteractionSpy = jest.spyOn(
-  notifyMessageInteraction,
-  'notifyMessageInteraction'
-);
+const mockNotifyMessageInteraction = notifyMessageInteraction as jest.Mock;
 
 enum InAppMessageInteractionEvent {
   MESSAGE_RECEIVED = 'MESSAGE_RECEIVED_EVENT',
@@ -181,7 +177,6 @@ describe('useMessage', () => {
 
     beforeEach(() => {
       jest.clearAllMocks();
-
       mockUseInAppMessaging.mockReturnValueOnce({
         clearMessage: mockClearMessage,
         components,
@@ -195,8 +190,8 @@ describe('useMessage', () => {
 
         (props as { onClose: () => void }).onClose();
 
-        expect(notifyMessageInteractionSpy).toHaveBeenCalledTimes(1);
-        expect(notifyMessageInteractionSpy).toHaveBeenCalledWith(
+        expect(mockNotifyMessageInteraction).toHaveBeenCalledTimes(1);
+        expect(mockNotifyMessageInteraction).toHaveBeenCalledWith(
           message,
           InAppMessageInteractionEvent.MESSAGE_DISMISSED
         );
@@ -210,8 +205,8 @@ describe('useMessage', () => {
 
         (props as TestMessageProps).onDisplay();
 
-        expect(notifyMessageInteractionSpy).toHaveBeenCalledTimes(1);
-        expect(notifyMessageInteractionSpy).toHaveBeenCalledWith(
+        expect(mockNotifyMessageInteraction).toHaveBeenCalledTimes(1);
+        expect(mockNotifyMessageInteraction).toHaveBeenCalledWith(
           message,
           InAppMessageInteractionEvent.MESSAGE_DISPLAYED
         );
@@ -228,8 +223,8 @@ describe('useMessage', () => {
 
         jest.runAllTimers();
 
-        expect(notifyMessageInteractionSpy).toHaveBeenCalledTimes(1);
-        expect(notifyMessageInteractionSpy).toHaveBeenCalledWith(
+        expect(mockNotifyMessageInteraction).toHaveBeenCalledTimes(1);
+        expect(mockNotifyMessageInteraction).toHaveBeenCalledWith(
           message,
           InAppMessageInteractionEvent.MESSAGE_ACTION_TAKEN
         );
