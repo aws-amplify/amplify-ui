@@ -24,7 +24,6 @@ import config from './aws-exports';
 import { ACTIONS, LAYOUTS, ORIENTATIONS, useInAppDemo } from './utils';
 
 Amplify.configure(config);
-initializeInAppMessaging();
 
 function DemoCheckbox({ label, onChange, ...rest }) {
   return (

@@ -9,7 +9,7 @@ import { notifyMessageInteraction } from 'aws-amplify/in-app-messaging';
 
 export const EMPTY_PROPS = Object.freeze({});
 
-const logger = new Logger('Notifications.InAppMessaging');
+const logger = new Logger('InAppMessaging');
 
 /**
  * Utility hook for parsing a message and retrieving its corresponding UI component and props

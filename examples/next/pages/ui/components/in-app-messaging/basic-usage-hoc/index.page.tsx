@@ -11,7 +11,6 @@ import '@aws-amplify/ui-react/styles.css';
 import config from './aws-exports';
 
 Amplify.configure(config);
-initializeInAppMessaging();
 
 function App() {
   useEffect(() => {

@@ -11,7 +11,7 @@ import {
   OnMessageAction,
 } from '../../types';
 
-const logger = new Logger('Notifications.InAppMessaging');
+const logger = new Logger('InAppMessaging');
 
 const positions: Record<BannerMessageLayouts, MessageComponentPosition> = {
   BOTTOM_BANNER: 'bottom',
