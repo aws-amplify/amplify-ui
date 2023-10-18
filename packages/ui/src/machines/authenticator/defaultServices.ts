@@ -18,7 +18,7 @@ export const defaultServices = {
     const result = Amplify.getConfig();
     groupLog('+++getAmplifyConfig', 'result', result);
 
-    const cliConfig = (result as ResourcesConfig).Auth.Cognito;
+    const cliConfig = result.Auth.Cognito;
     const parsedLoginMechanisms = Object.entries(cliConfig.loginWith)
       .filter(([key, _value]) => key !== 'oauth')
       .filter(([_key, value]) => !!value)
