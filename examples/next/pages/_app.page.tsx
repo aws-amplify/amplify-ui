@@ -3,7 +3,7 @@
 // https://nextjs.org/docs/advanced-features/custom-app
 import App from 'next/app';
 import { Amplify, Hub } from 'aws-amplify';
-import { Authenticator, AmplifyProvider } from '@aws-amplify/ui-react';
+import { Authenticator, ThemeProvider } from '@aws-amplify/ui-react';
 import { useEffect } from 'react';
 import { MapProvider, useMap } from 'react-map-gl';
 
@@ -55,10 +55,10 @@ export default function MyApp(props) {
   }
 
   return (
-    <AmplifyProvider>
+    <ThemeProvider>
       <Authenticator.Provider>
         <App {...props} />
       </Authenticator.Provider>
-    </AmplifyProvider>
+    </ThemeProvider>
   );
 }
