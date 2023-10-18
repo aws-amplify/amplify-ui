@@ -27,13 +27,9 @@ const StyledModalMessage = (props) => (
 function App() {
   const { displayMessage } = useInAppMessaging();
 
-  const syncMessagesCallback = useCallback(async () => {
-    await syncMessages();
-  }, []);
-
   useEffect(() => {
     // sync remote in-app messages
-    syncMessagesCallback();
+    syncMessages();
   }, []);
 
   const displayStyledModalMessage = useCallback(

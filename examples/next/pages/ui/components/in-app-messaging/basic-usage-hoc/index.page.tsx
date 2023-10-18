@@ -14,13 +14,9 @@ Amplify.configure(config);
 initializeInAppMessaging();
 
 function App() {
-  const syncMessagesCallback = useCallback(async () => {
-    await syncMessages();
-  }, []);
-
   useEffect(() => {
     // sync remote in-app messages
-    syncMessagesCallback();
+    syncMessages();
   }, []);
 
   return <Text>In-App Messaging Example</Text>;

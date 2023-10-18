@@ -118,13 +118,9 @@ export function useInAppDemo() {
     useState<GetDemoMessageParams['useAnalyticEvents']>(false);
   const [shouldSyncMessages, setShouldSyncMessages] = useState<boolean>(false);
 
-  const syncMessagesCallback = useCallback(async () => {
-    await syncMessages();
-  }, []);
-
   useEffect(() => {
     if (shouldSyncMessages) {
-      syncMessagesCallback();
+      syncMessages();
     }
   }, [shouldSyncMessages]);
 
