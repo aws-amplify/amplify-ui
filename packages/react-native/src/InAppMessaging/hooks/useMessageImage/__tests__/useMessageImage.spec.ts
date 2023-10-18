@@ -1,6 +1,6 @@
 import { Image } from 'react-native';
 import { renderHook } from '@testing-library/react-hooks';
-import { ConsoleLogger as Logger } from '@aws-amplify/core/internals/utils';
+import { ConsoleLogger as Logger } from '@aws-amplify/core';
 import { MessageImage } from '@aws-amplify/ui-react-core-notifications';
 
 import { getLayoutImageDimensions, prefetchNetworkImage } from '../utils';

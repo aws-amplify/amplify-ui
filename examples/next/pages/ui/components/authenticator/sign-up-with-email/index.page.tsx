@@ -46,9 +46,7 @@ export default function AuthenticatorWithEmail() {
         password,
         options: {
           userAttributes: attributes,
-          serviceOptions: {
-            autoSignIn: true,
-          },
+          autoSignIn: true,
         },
       });
     },
