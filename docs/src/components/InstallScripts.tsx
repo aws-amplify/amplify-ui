@@ -29,7 +29,7 @@ const frameworkInstallScript = (
   }`;
 
   const componentSubpackage = component ? `-${component}` : '';
-  const isReactLiveness = componentSubpackage === 'liveness';
+  const isReactLiveness = component === 'liveness';
   extraDependencies = `${isReactLiveness ? `@5` : ''}`;
 
   return `${packageManagerPrefix} @aws-amplify/ui-${framework}${componentSubpackage} aws-amplify${extraDependencies}`;
