@@ -6,6 +6,8 @@ import { isFunction } from '../../utils';
 import { isDesignToken } from './isDesignToken';
 import { CSSProperties } from '../components/utils';
 
+// we need to handle psuedo elements like ::before
+
 /**
  * This will take an object like:
  * {paddingTop:'20px',color:'{colors.font.primary}'}
@@ -24,104 +26,82 @@ function propsToString(props: CSSProperties): string {
     .join(' ');
 }
 
+// function to split an object in 2 by a predicate on the keys
+function splitObject(
+  obj: Record<string, any>,
+  predicate: (key: string) => boolean
+) {
+  const left = {};
+  const right = {};
+  Object.entries(obj).forEach(([key, value]) => {
+    if (predicate(key)) {
+      left[key] = value;
+    } else {
+      right[key] = value;
+    }
+  });
+  return [left, right] as const;
+}
+
+function createComponentCSS(baseSelector: string, theme: BaseComponentTheme) {
+  if (!theme) return '';
+  let str = '';
+  const { modifier = {}, element = {}, vars, ...props } = theme;
+
+  // if there are no props, skip
+  if (Object.keys(props).length) {
+    // separate psuedo/attribute selectors
+    const [selectors, other] = splitObject(
+      props,
+      (key) => key.startsWith(':') || key.startsWith('[')
+    );
+
+    Object.entries(selectors).forEach(([key, value]) => {
+      str += `${baseSelector}${key} { ${propsToString(value)} }\n`;
+    });
+
+    str += `${baseSelector} { ${propsToString(other)} }\n`;
+  }
+
+  if (vars) {
+    Object.entries(vars).forEach(([key, value]) => {
+      str += `${baseSelector} { --${key}:${value}; }\n`;
+    });
+  }
+
+  Object.entries(modifier).forEach(([key, value]) => {
+    if (value && Object.keys(value).length) {
+      str += createComponentCSS(`${baseSelector}--${key}`, value);
+    }
+  });
+
+  Object.entries(element).forEach(([key, value]) => {
+    if (value && Object.keys(value).length) {
+      str += createComponentCSS(`${baseSelector}__${key}`, value);
+    }
+  });
+
+  return str;
+}
+
 export function setupComponentTheme(
   str: string,
   components: ComponentsTheme,
   tokens: DefaultTheme['tokens']
-): {
-  css: string;
-  className: Record<
-    string,
-    (props: { modifier?: string; element?: string }) => string
-  >;
-} {
+) {
   let cssText = '';
-  const className = {};
-  // first we need to create the classname based on the key `.amplify-${key}`
-  // we need to turn references into CSS vars
-  // we need to turn prop names from camelCase into kebab-case (fontSize => font-size)
-  // for modifiers (variant, size) we need to separate those out into separate classes
-  // and create the classnames for those
-  // for children do the same
-  // and we need to handle states like :hover, :active
 
   Object.entries(components).forEach(([key, component]) => {
     const baseComponentClassName = `amplify-${key}`;
     const componentClassName = `${str} .${baseComponentClassName}`;
+    // unwrap the component theme
+    // if it is a function: call it with the defaultTheme to get a static object
     const componentTheme: BaseComponentTheme = isFunction(component)
       ? (component(tokens) as BaseComponentTheme)
       : component;
 
-    className[key] = ({ modifier, element }) => {
-      if (element) {
-        return `${baseComponentClassName}__${element}`;
-      }
-      if (modifier) {
-        return `${baseComponentClassName}--${modifier}`;
-      }
-      return `${baseComponentClassName}`;
-    };
-
-    const {
-      modifier = {},
-      element = {},
-      _hover,
-      _active,
-      _disabled,
-      _focus,
-      ...props
-    } = componentTheme;
-
-    // if there are no props, skip
-    if (Object.keys(props).length) {
-      cssText += `${componentClassName} { `;
-      cssText += propsToString(props);
-      cssText += ` }\n`;
-    }
-
-    Object.entries({ _hover, _active, _disabled, _focus }).forEach(
-      ([key, value]) => {
-        if (value && Object.keys(value).length) {
-          cssText += `${componentClassName}:${key.replace('_', '')} { `;
-          cssText += propsToString(value);
-          cssText += ` }\n`;
-        }
-      }
-    );
-
-    Object.entries(modifier).forEach(([modifier, value]) => {
-      const { _hover, _active, _disabled, _focus, ...props } = value;
-      if (props && Object.keys(props).length) {
-        cssText += `${componentClassName}--${modifier} { `;
-        cssText += propsToString(props);
-        cssText += ` }\n`;
-      }
-
-      Object.entries({ _hover, _active, _disabled, _focus }).forEach(
-        ([state, props]) => {
-          if (props && Object.keys(props).length) {
-            cssText += `${componentClassName}--${modifier}:${state.replace(
-              '_',
-              ''
-            )} { `;
-            cssText += propsToString(props);
-            cssText += ` }\n`;
-          }
-        }
-      );
-    });
-
-    Object.entries(element).forEach(([key, value]) => {
-      if (value && Object.keys(value).length) {
-        cssText += `${componentClassName}__${key} { `;
-        cssText += propsToString(value);
-        cssText += ` }\n`;
-      }
-    });
+    cssText += createComponentCSS(componentClassName, componentTheme);
   });
 
-  return {
-    css: cssText,
-    className,
-  };
+  return cssText;
 }

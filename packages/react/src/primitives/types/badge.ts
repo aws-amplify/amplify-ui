@@ -1,3 +1,4 @@
+import { BadgeTheme } from '@aws-amplify/ui';
 import { Sizes } from './base';
 import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
@@ -16,6 +17,8 @@ export interface BaseBadgeProps extends BaseViewProps {
    * The size property will affect the font size of the badge.
    */
   size?: BadgeSizes;
+
+  theme?: BadgeTheme;
 }
 
 export type BadgeProps<Element extends ElementType = 'span'> = PrimitiveProps<

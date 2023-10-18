@@ -1,4 +1,5 @@
 import Client from '@/components/Client';
+import { LinkButton } from '@/components/LinkButton';
 import Stat from '@/components/Stat';
 import Wizard from '@/components/Wizard';
 import theme from '@/theme';
@@ -16,6 +17,10 @@ export default async function Home() {
           >
             Hello
           </div>
+          <LinkButton variation="primary" href="">
+            test
+          </LinkButton>
+          <LinkButton href="">test</LinkButton>
           <Wizard variation="primary" />
           <Wizard />
           <Stat label="testing" />

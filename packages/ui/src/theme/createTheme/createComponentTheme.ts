@@ -1,29 +1,25 @@
-import { DefaultTheme } from '../types';
-import { BaseComponentTheme } from '../components';
+import { BaseComponentTheme, ComponentTheme } from '../components';
+import { createComponentClasses } from './createComponentClasses';
+
+type CreactComponentThemeProps<ThemeType> = {
+  name?: string;
+  prefix?: string;
+  theme: ThemeType;
+};
 
 export function createComponentTheme<
-  ComponentTheme extends BaseComponentTheme = BaseComponentTheme
->(
-  name: string,
-  theme: (tokens: DefaultTheme['tokens']) => ComponentTheme
-): {
-  className: (props?: { modifier?: string; element?: string }) => string;
-  theme: (tokens: DefaultTheme['tokens']) => BaseComponentTheme;
+  ThemeType extends ComponentTheme<BaseComponentTheme> = ComponentTheme<BaseComponentTheme>
+>({
+  name = '',
+  prefix = 'amplify-',
+  theme,
+}: CreactComponentThemeProps<ThemeType>): {
+  className: (props?: { modifier?: string[]; element?: string[] }) => string;
+  theme: ThemeType;
 } {
-  const baseComponentClassName = `amplify-${name}`;
+  const className = createComponentClasses({ name, prefix });
   return {
-    className: (props) => {
-      if (props) {
-        const { modifier, element } = props;
-        if (element) {
-          return `${baseComponentClassName}__${element}`;
-        }
-        if (modifier) {
-          return `${baseComponentClassName}--${modifier}`;
-        }
-      }
-      return `${baseComponentClassName}`;
-    },
+    className,
     theme,
   };
 }

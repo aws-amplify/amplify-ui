@@ -51,18 +51,14 @@ export function createTheme(
       .map((token: WebDesignToken) => `${token.name}: ${token.value};`)
       .join('\n') +
     `\n}\n`;
-  let className = {};
 
   if (theme?.components) {
-    const component = setupComponentTheme(
+    cssText += setupComponentTheme(
       `[data-amplify-theme="${name}"]`,
       theme.components,
       // @ts-ignore
       tokens
     );
-    console.log(component.css);
-    cssText += component.css;
-    className = component.className;
   }
 
   let overrides: Array<Override> = [];
@@ -126,7 +122,6 @@ export function createTheme(
     breakpoints,
     name,
     cssText,
-    className,
     // keep overrides separate from base theme
     // this allows web platforms to use plain CSS scoped to a
     // selector and only override the CSS vars needed. This

@@ -12,6 +12,9 @@ export default function Client() {
       <Button>Hello</Button>
       <Button colorTheme="error">Hello</Button>
       <Button variation="primary">Hello</Button>
+      <Button variation="primary" isDisabled>
+        Hello
+      </Button>
     </Flex>
   );
 }

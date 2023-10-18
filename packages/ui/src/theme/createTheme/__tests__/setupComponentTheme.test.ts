@@ -4,7 +4,7 @@ import { defaultTheme } from '../../defaultTheme';
 describe('@aws-amplify/ui', () => {
   describe('setupComponentTheme', () => {
     it('should pass through raw values', () => {
-      const { css } = setupComponentTheme(
+      const css = setupComponentTheme(
         `[data-amplify-theme="test"]`,
         {
           badge: {
@@ -35,7 +35,7 @@ describe('@aws-amplify/ui', () => {
               modifier: {
                 primary: {
                   background: 'red',
-                  _hover: {
+                  ':hover': {
                     background: 'pink',
                     color: '{colors.font.primary}',
                   },
@@ -44,16 +44,16 @@ describe('@aws-amplify/ui', () => {
             },
           },
           defaultTheme.tokens
-        ).css
+        )
       ).toMatchInlineSnapshot(`
-        "[data-amplify-theme=\\"test\\"] .amplify-button--primary { background:red;  }
-        [data-amplify-theme=\\"test\\"] .amplify-button--primary:hover { background:pink;  color:var(--amplify-colors-font-primary);  }
+        "[data-amplify-theme=\\"test\\"] .amplify-button--primary:hover { background:pink;  color:var(--amplify-colors-font-primary);  }
+        [data-amplify-theme=\\"test\\"] .amplify-button--primary { background:red;  }
         "
       `);
     });
 
     it('can use custom primitives', () => {
-      const { css, className } = setupComponentTheme(
+      const css = setupComponentTheme(
         `[data-amplify-theme="test"]`,
         {
           chip: {
@@ -63,7 +63,7 @@ describe('@aws-amplify/ui', () => {
             modifier: {
               primary: {
                 background: 'red',
-                _hover: {
+                ':hover': {
                   background: 'pink',
                   color: '{colors.font.primary}',
                 },
@@ -73,13 +73,10 @@ describe('@aws-amplify/ui', () => {
         },
         defaultTheme.tokens
       );
-      expect(className.chip({ modifier: 'primary' })).toEqual(
-        'amplify-chip--primary'
-      );
       expect(css).toMatchInlineSnapshot(`
         "[data-amplify-theme=\\"test\\"] .amplify-chip { padding-inline:var(--amplify-space-xs);  padding-block:var(--amplify-space-xs);  border-radius:var(--amplify-radii-small);  }
-        [data-amplify-theme=\\"test\\"] .amplify-chip--primary { background:red;  }
         [data-amplify-theme=\\"test\\"] .amplify-chip--primary:hover { background:pink;  color:var(--amplify-colors-font-primary);  }
+        [data-amplify-theme=\\"test\\"] .amplify-chip--primary { background:red;  }
         "
       `);
     });

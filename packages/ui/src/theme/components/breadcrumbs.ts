@@ -1,11 +1,15 @@
-import { CSSProperties, ComponentTheme, WithStates } from './utils';
+import {
+  ComponentTheme,
+  BaseComponentTheme,
+  BaseThemeDefinition,
+} from './utils';
 
 type Elements = 'list' | 'separator' | 'item' | 'link';
 
 export type BreadcrumbsTheme = ComponentTheme<
   {
     element?: {
-      [key in Elements]?: CSSProperties & WithStates;
+      [key in Elements]?: BaseThemeDefinition;
     };
-  } & CSSProperties
+  } & BaseComponentTheme
 >;

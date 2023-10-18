@@ -1,7 +1,6 @@
-'use client';
-import { createComponentTheme } from '@aws-amplify/ui-react/theme';
+import { createComponentTheme } from '@aws-amplify/ui';
 
-const { className, theme } = createComponentTheme({
+const wizardTheme = createComponentTheme({
   name: 'wizard',
   theme(tokens) {
     return {
@@ -22,13 +21,4 @@ const { className, theme } = createComponentTheme({
   },
 });
 
-export default function Wizard({ variation }: { variation?: string }) {
-  return (
-    <div className={className({ modifier: [variation] })}>
-      <h1 className={className({ element: ['header'] })}>Wizard</h1>
-      <p>Variation: {variation}</p>
-    </div>
-  );
-}
-
-Wizard.theme = theme;
+export default wizardTheme;

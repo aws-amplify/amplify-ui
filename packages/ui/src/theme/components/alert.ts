@@ -1,11 +1,19 @@
-import { CSSProperties, ComponentTheme } from './utils';
+import { BaseComponentTheme } from '.';
+import { ComponentTheme, BaseThemeDefinition } from './utils';
 
-type Variations = 'info' | 'success';
+// TODO: pull this out into utils
+type Variations = 'info' | 'success' | 'warning' | 'error';
 
 export type AlertTheme = ComponentTheme<
   {
     modifier?: {
-      [key in Variations]?: CSSProperties;
+      [key in Variations]?: BaseThemeDefinition;
     };
-  } & CSSProperties
+    element?: {
+      icon?: BaseThemeDefinition;
+      heading?: BaseThemeDefinition;
+      body?: BaseThemeDefinition;
+      dismiss?: BaseThemeDefinition;
+    };
+  } & BaseComponentTheme
 >;

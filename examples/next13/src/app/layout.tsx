@@ -2,6 +2,7 @@ import '@aws-amplify/ui-react/styles.css';
 import { Theme } from '@aws-amplify/ui-react/theme';
 import theme from '../theme';
 import Body from '@/components/Body';
+import '../styles/base.css';
 
 export default function RootLayout({
   children,
@@ -10,7 +11,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Body>{children}</Body>
+      <Body>
+        {children}
+        <Theme theme={theme} />
+      </Body>
     </html>
   );
 }

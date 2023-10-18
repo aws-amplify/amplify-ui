@@ -1,9 +1,9 @@
 import type {
   ColorThemes,
   Sizes,
-  WithStates,
-  CSSProperties,
   ComponentTheme,
+  BaseThemeDefinition,
+  BaseComponentTheme,
 } from './utils';
 
 type Variations =
@@ -16,19 +16,10 @@ type Variations =
 
 type ColorThemeVariations = `${ColorThemes}--${Variations}`;
 
-// Make this a reusable type so customers can do
-// createComponentTheme<ComponentTheme<{
-//   modifier?: {
-//     [key in Variations | Sizes | ColorThemeVariations]?: CSSProperties &
-//       WithStates;
-//   };
-// }
 export type ButtonTheme = ComponentTheme<
   {
     modifier?: {
-      [key in Variations | Sizes | ColorThemeVariations]?: CSSProperties &
-        WithStates;
+      [key in Variations | Sizes | ColorThemeVariations]?: BaseThemeDefinition;
     };
-  } & CSSProperties &
-    WithStates
+  } & BaseComponentTheme
 >;

@@ -1,4 +1,8 @@
-import { CSSProperties, ComponentTheme } from './utils';
+import {
+  ComponentTheme,
+  BaseComponentTheme,
+  BaseThemeDefinition,
+} from './utils';
 
 type Variations = 'info' | 'success';
 type Sizes = 'small' | 'large';
@@ -6,7 +10,7 @@ type Sizes = 'small' | 'large';
 export type BadgeTheme = ComponentTheme<
   {
     modifier?: {
-      [key in Variations | Sizes]?: CSSProperties;
+      [key in Variations | Sizes]?: BaseThemeDefinition;
     };
-  } & CSSProperties
+  } & BaseComponentTheme
 >;
