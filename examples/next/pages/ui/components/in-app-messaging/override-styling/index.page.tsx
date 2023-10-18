@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect } from 'react';
 import { Amplify } from 'aws-amplify';
-import { syncMessages } from 'aws-amplify/in-app-messaging';
+import {
+  syncMessages,
+  initializeInAppMessaging,
+} from 'aws-amplify/in-app-messaging';
 import { Button } from '@aws-amplify/ui-react';
 import {
   InAppMessageDisplay,
@@ -12,6 +15,7 @@ import '@aws-amplify/ui-react/styles.css';
 import config from './aws-exports';
 
 Amplify.configure(config);
+initializeInAppMessaging();
 
 const StyledModalMessage = (props) => (
   <InAppMessageDisplay.ModalMessage

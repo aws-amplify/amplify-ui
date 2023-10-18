@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Amplify } from 'aws-amplify';
+import { initializeInAppMessaging } from 'aws-amplify/in-app-messaging';
 import {
   Button,
   defaultDarkModeOverride,
@@ -17,13 +18,13 @@ import {
   InAppMessagingProvider,
   InAppMessageDisplay,
 } from '@aws-amplify/ui-react-notifications';
-
 import '@aws-amplify/ui-react/styles.css';
 
 import config from './aws-exports';
 import { ACTIONS, LAYOUTS, ORIENTATIONS, useInAppDemo } from './utils';
 
 Amplify.configure(config);
+initializeInAppMessaging();
 
 function DemoCheckbox({ label, onChange, ...rest }) {
   return (
