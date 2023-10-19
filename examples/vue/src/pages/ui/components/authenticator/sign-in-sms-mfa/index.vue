@@ -20,7 +20,7 @@ I18n.putVocabulariesForLanguage('en', {
 <template>
   <authenticator>
     <template v-slot="{ user, signOut }">
-      <h1>Hello {{ user.attributes?.name }}!</h1>
+      <h1>Hello {{ user.attributes?.email }}!</h1>
       <button @click="signOut">Sign Out</button>
     </template>
   </authenticator>
