@@ -20,7 +20,7 @@ const facade: UseAuthenticator = useAuthenticator();
 const { submitForm, toSignIn, updateForm } = facade;
 const { user, error, isPending } = toRefs(facade);
 
-const challengeName = computed(() => user.value.challengeName);
+const challengeName = computed(() => user.value.nextStep.signInStep);
 
 // Text Util
 const { getBackToSignInText, getConfirmText, getChallengeText } =
