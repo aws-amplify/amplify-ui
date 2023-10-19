@@ -203,7 +203,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                   },
                   {
                     actions: ['setUser'],
-                    target: '#signInActor.resolved',
+                    target: '#signInActor.updateCurrentUser',
                   },
                 ],
               },
@@ -235,7 +235,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                   },
                   {
                     actions: 'setUser',
-                    target: '#signInActor.resolved',
+                    target: 'resolved',
                   },
                 ],
                 onError: {
@@ -244,7 +244,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                 },
               },
             },
-            resolved: { always: '#signInActor.resolved' },
+            resolved: { always: '#signInActor.updateCurrentUser' },
             rejected: { always: '#signInActor.rejected' },
           },
         },
@@ -266,7 +266,7 @@ export function signInActor({ services }: SignInMachineOptions) {
               invoke: {
                 src: 'confirmSignIn',
                 onDone: {
-                  target: '#signInActor.resolved',
+                  target: '#signInActor.updateCurrentUser',
                   actions: [
                     'setUser',
                     'clearChallengeName',
@@ -370,7 +370,10 @@ export function signInActor({ services }: SignInMachineOptions) {
                     },
                   },
                 },
-                resolved: { type: 'final', always: '#signInActor.resolved' },
+                resolved: {
+                  type: 'final',
+                  always: '#signInActor.updateCurrentUser',
+                },
               },
             },
           },
@@ -407,7 +410,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                 src: 'verifyTotpToken',
                 onDone: {
                   actions: ['clearChallengeName', 'clearRequiredAttributes'],
-                  target: '#signInActor.resolved',
+                  target: '#signInActor.updateCurrentUser',
                 },
                 onError: {
                   actions: 'setRemoteError',
@@ -425,7 +428,7 @@ export function signInActor({ services }: SignInMachineOptions) {
               entry: 'sendUpdate',
               on: {
                 SUBMIT: { actions: 'handleSubmit', target: 'submit' },
-                SKIP: '#signInActor.resolved',
+                SKIP: '#signInActor.updateCurrentUser',
                 CHANGE: { actions: 'handleInput' },
               },
             },
@@ -459,7 +462,7 @@ export function signInActor({ services }: SignInMachineOptions) {
               entry: 'sendUpdate',
               on: {
                 SUBMIT: { actions: 'handleSubmit', target: 'submit' },
-                SKIP: '#signInActor.resolved',
+                SKIP: '#signInActor.updateCurrentUser',
                 CHANGE: { actions: 'handleInput' },
               },
             },

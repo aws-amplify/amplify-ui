@@ -61,7 +61,14 @@ export default function AuthenticatorWithEmail() {
         services={services}
         {...getAuthenticatorConfig(awsExports)}
       >
-        {({ signOut }) => <button onClick={signOut}>Sign out</button>}
+        {({ signOut, user }) => {
+          return (
+            <main>
+              <h1>Hello {user.username}</h1>
+              <button onClick={signOut}>Sign out</button>
+            </main>
+          );
+        }}
       </Authenticator>
     </>
   );
