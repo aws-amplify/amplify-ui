@@ -116,7 +116,11 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                       {
                         cond: 'shouldSkipConfirm',
                         target: 'skipConfirm',
-                        actions: ['setUser', 'setCredentials'],
+                        actions: [
+                          'setAutoSignInIntent', // Moved assign action here due to bug with always transition - https://github.com/statelyai/xstate/issues/890
+                          'setUser',
+                          'setCredentials',
+                        ],
                       },
                       {
                         target: 'resolved',
@@ -136,7 +140,6 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                 skipConfirm: {
                   always: {
                     target: '#signUpActor.resolved',
-                    actions: 'setAutoSignInIntent',
                   },
                 },
 
@@ -246,7 +249,6 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
          * @migration data is Auth.SignUpOutput
          */
         shouldSkipConfirm: (context, { data }) => {
-
           return data.isSignUpComplete;
         },
       },
