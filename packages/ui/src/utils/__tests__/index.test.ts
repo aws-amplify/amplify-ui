@@ -1,3 +1,4 @@
+import * as UserAgentModule from '@aws-amplify/core/internals/utils';
 import {
   areEmptyArrays,
   areEmptyObjects,
@@ -17,6 +18,7 @@ import {
   sanitizeNamespaceImport,
   templateJoin,
 } from '..';
+import { setUserAgent } from '../setUserAgent';
 import { ComponentClassName, Modifiers } from '../../types';
 
 const validArrays = [[], [], [], []];
@@ -338,11 +340,187 @@ describe('templateJoin', () => {
 });
 
 describe('userAgent', () => {
-  it('passes the expected input for AccountSettings', () => {});
+  type PackageName =
+    | 'angular'
+    | 'react'
+    | 'react-auth'
+    | 'react-geo'
+    | 'react-native'
+    | 'react-native-auth'
+    | 'react-core-notifications'
+    | 'react-storage'
+    | 'vue';
 
-  it('passes the expected input for Authenticator', () => {});
+  type ComponentName =
+    | 'AccountSettings'
+    | 'Authenticator'
+    | 'InAppMessaging'
+    | 'LocationSearch'
+    | 'MapView'
+    | 'StorageManager';
 
-  it('passes the expected input for StorageManager', () => {});
+  type Version = `${string}.${string}.${string}`;
 
-  it('passes the expected input for AccountSettings', () => {});
+  interface SetUserAgentOptions {
+    componentName: ComponentName;
+    packageName: PackageName;
+    version: Version;
+  }
+
+  const {
+    AuthAction,
+    GeoAction,
+    InAppMessagingAction,
+    StorageAction,
+    Category,
+  } = UserAgentModule;
+
+  const setCustomUserAgentSpy = jest.spyOn(
+    UserAgentModule,
+    'setCustomUserAgent'
+  );
+
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
+  it('passes the expected input for AccountSettings', () => {
+    const details: SetUserAgentOptions = {
+      componentName: 'AccountSettings',
+      packageName: 'react-auth',
+      version: '1.0.0',
+    };
+
+    setUserAgent(details);
+
+    expect(setCustomUserAgentSpy).toHaveBeenCalledTimes(1);
+    expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
+      apis: [AuthAction.DeleteUser, AuthAction.UpdatePassword],
+      category: Category.Auth,
+      additionalDetails: [['AccountSettings'], ['ui-react-auth', '1.0.0']],
+    });
+  });
+
+  it('passes the expected input for Authenticator', () => {
+    const details: SetUserAgentOptions = {
+      componentName: 'Authenticator',
+      packageName: 'react-auth',
+      version: '1.0.0',
+    };
+
+    setUserAgent(details);
+
+    expect(setCustomUserAgentSpy).toHaveBeenCalledTimes(1);
+    expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
+      apis: [
+        AuthAction.SignUp,
+        AuthAction.ConfirmSignUp,
+        AuthAction.ResendSignUpCode,
+        AuthAction.SignIn,
+        AuthAction.FetchMFAPreference,
+        AuthAction.UpdateMFAPreference,
+        AuthAction.SetUpTOTP,
+        AuthAction.VerifyTOTPSetup,
+        AuthAction.ConfirmSignIn,
+        AuthAction.FetchUserAttributes,
+        AuthAction.SignOut,
+        AuthAction.ResetPassword,
+        AuthAction.ConfirmResetPassword,
+        AuthAction.FederatedSignIn,
+      ],
+      category: Category.Auth,
+      additionalDetails: [['Authenticator'], ['ui-react-auth', '1.0.0']],
+    });
+  });
+
+  it('passes the expected input for InAppMessaging', () => {
+    const details: SetUserAgentOptions = {
+      componentName: 'InAppMessaging',
+      packageName: 'react-core-notifications',
+      version: '1.0.0',
+    };
+
+    setUserAgent(details);
+
+    expect(setCustomUserAgentSpy).toHaveBeenCalledTimes(1);
+    expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
+      apis: [InAppMessagingAction.SyncMessages],
+      category: Category.InAppMessaging,
+      additionalDetails: [
+        ['InAppMessaging'],
+        ['ui-react-core-notifications', '1.0.0'],
+      ],
+    });
+  });
+
+  it('passes the expected input for InAppMessaging', () => {
+    const details: SetUserAgentOptions = {
+      componentName: 'InAppMessaging',
+      packageName: 'react-core-notifications',
+      version: '1.0.0',
+    };
+
+    setUserAgent(details);
+
+    expect(setCustomUserAgentSpy).toHaveBeenCalledTimes(1);
+    expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
+      apis: [InAppMessagingAction.SyncMessages],
+      category: Category.InAppMessaging,
+      additionalDetails: [
+        ['InAppMessaging'],
+        ['ui-react-core-notifications', '1.0.0'],
+      ],
+    });
+  });
+
+  it('passes the expected input for LocationSearch', () => {
+    const details: SetUserAgentOptions = {
+      componentName: 'LocationSearch',
+      packageName: 'react-geo',
+      version: '1.0.0',
+    };
+
+    setUserAgent(details);
+
+    expect(setCustomUserAgentSpy).toHaveBeenCalledTimes(1);
+    expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
+      apis: [GeoAction.SearchByText],
+      category: Category.Geo,
+      additionalDetails: [['LocationSearch'], ['ui-react-geo', '1.0.0']],
+    });
+  });
+
+  it('passes the expected input for MapView', () => {
+    const details: SetUserAgentOptions = {
+      componentName: 'MapView',
+      packageName: 'react-geo',
+      version: '1.0.0',
+    };
+
+    setUserAgent(details);
+
+    expect(setCustomUserAgentSpy).toHaveBeenCalledTimes(1);
+    expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
+      apis: [GeoAction.SearchByText],
+      category: Category.Geo,
+      additionalDetails: [['MapView'], ['ui-react-geo', '1.0.0']],
+    });
+  });
+
+  it('passes the expected input for StorageManager', () => {
+    const details: SetUserAgentOptions = {
+      componentName: 'StorageManager',
+      packageName: 'react-storage',
+      version: '1.0.0',
+    };
+
+    setUserAgent(details);
+
+    expect(setCustomUserAgentSpy).toHaveBeenCalledTimes(1);
+    expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
+      apis: [StorageAction.GetUrl, StorageAction.UploadData],
+      category: Category.Storage,
+      additionalDetails: [['StorageManager'], ['ui-react-storage', '1.0.0']],
+    });
+  });
 });

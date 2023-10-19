@@ -20,10 +20,10 @@ type PackageName =
   | 'angular'
   | 'react'
   | 'react-auth'
-  | 'react-liveness'
+  | 'react-geo'
   | 'react-native'
   | 'react-native-auth'
-  | 'react-notifications'
+  | 'react-core-notifications'
   | 'react-storage'
   | 'vue';
 
