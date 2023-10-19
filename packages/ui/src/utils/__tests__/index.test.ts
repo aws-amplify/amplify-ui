@@ -336,3 +336,13 @@ describe('templateJoin', () => {
     expect(output).toBe('^one^^two^');
   });
 });
+
+describe('userAgent', () => {
+  it('passes the expected input for AccountSettings', () => {});
+
+  it('passes the expected input for Authenticator', () => {});
+
+  it('passes the expected input for StorageManager', () => {});
+
+  it('passes the expected input for AccountSettings', () => {});
+});

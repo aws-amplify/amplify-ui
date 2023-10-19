@@ -1,4 +1,8 @@
 import {
+  AuthUserAgentInput,
+  GeoUserAgentInput,
+  InAppMessagingUserAgentInput,
+  StorageUserAgentInput,
   setCustomUserAgent,
   SetCustomUserAgentInput,
 } from '@aws-amplify/core/internals/utils';
@@ -29,7 +33,7 @@ type ComponentName =
   | 'InAppMessaging'
   | 'LocationSearch'
   | 'MapView'
-  | 'Storage';
+  | 'StorageManager';
 
 // semver notation
 type Version = `${string}.${string}.${string}`;
@@ -65,32 +69,32 @@ export const setUserAgent = ({
   switch (componentName) {
     case 'AccountSettings': {
       // remove cast when Category input types are available
-      input = ACCOUNT_SETTINGS_INPUT_BASE as SetCustomUserAgentInput;
+      input = ACCOUNT_SETTINGS_INPUT_BASE as AuthUserAgentInput;
       break;
     }
     case 'Authenticator': {
       // remove cast when Category input types are available
-      input = AUTHENTICATOR_INPUT_BASE as SetCustomUserAgentInput;
+      input = AUTHENTICATOR_INPUT_BASE as AuthUserAgentInput;
       break;
     }
     case 'InAppMessaging': {
       // remove cast when Category input types are available
-      input = IN_APP_MESSAGING_INPUT_BASE as SetCustomUserAgentInput;
+      input = IN_APP_MESSAGING_INPUT_BASE as InAppMessagingUserAgentInput;
       break;
     }
     case 'LocationSearch': {
       // remove cast when Category input types are available
-      input = GEO_INPUT_BASE as SetCustomUserAgentInput;
+      input = GEO_INPUT_BASE as GeoUserAgentInput;
       break;
     }
     case 'MapView': {
       // remove cast when Category input types are available
-      input = GEO_INPUT_BASE as SetCustomUserAgentInput;
+      input = GEO_INPUT_BASE as GeoUserAgentInput;
       break;
     }
-    case 'Storage': {
+    case 'StorageManager': {
       // remove cast when Category input types are available
-      input = STORAGE_INPUT_BASE as SetCustomUserAgentInput;
+      input = STORAGE_INPUT_BASE as StorageUserAgentInput;
       break;
     }
     default:
