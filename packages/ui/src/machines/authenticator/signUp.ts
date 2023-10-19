@@ -242,18 +242,10 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
 
           return context.intent && context.intent === 'confirmSignUp';
         },
-        // shouldSkipConfirm: (context, event) => {
-        //   groupLog('+++shouldSkipConfirm', 'context', context, 'event', event);
-
-        //   return event.data.userConfirmed;
-        // },
         /**
          * @migration data is Auth.SignUpOutput
          */
         shouldSkipConfirm: (context, { data }) => {
-          // groupLog('+++shouldSkipConfirm', 'context', context);
-          groupLog('+++shouldSkipConfirm');
-
           return data.isSignUpComplete;
         },
       },
@@ -281,12 +273,12 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
               'event',
               event
             );
+            const { nextStep } = event.data as Auth.ConfirmSignUpOutput;
+            const { signUpStep } = nextStep;
 
             if (context?.intent === 'confirmSignUp') {
               return 'autoSignInSubmit';
-            } else {
-              console.log('> Returns "autoSignIn"');
-
+            } else if (signUpStep === 'COMPLETE_AUTO_SIGN_IN') {
               return 'autoSignIn';
             }
           },
@@ -338,16 +330,9 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           const input: Auth.ResendSignUpCodeInput = { username };
           return Auth.resendSignUpCode(input);
         },
-        // async federatedSignIn(_, event) {
-        //   const { provider } = event.data;
-        //   const result = await Auth.federatedSignIn({ provider });
-        //   return result;
-        // },
         async federatedSignIn(_, event) {
           const { provider } = event.data;
-          noop({ provider });
-          // const result = noop({ provider });
-          // return result;
+          return await Auth.signInWithRedirect({ provider });
         },
         async signUp(context, _event) {
           console.group('+++signUp');

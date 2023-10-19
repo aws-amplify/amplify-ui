@@ -27,7 +27,6 @@ type ComponentName =
   | 'AccountSettings'
   | 'Authenticator'
   | 'InAppMessaging'
-  | 'FaceLivenessDetector'
   | 'LocationSearch'
   | 'MapView'
   | 'Storage';

@@ -44,13 +44,13 @@ export const useAuth = (): UseAuthResult => {
     ({ payload }) => {
       switch (payload.event) {
         // success events
-        case 'signIn':
+        case 'signedIn':
         case 'signUp':
         case 'autoSignIn': {
           setResult({ user: payload.data as AmplifyUser, isLoading: false });
           break;
         }
-        case 'signOut': {
+        case 'signedOut': {
           setResult({ user: undefined, isLoading: false });
           break;
         }

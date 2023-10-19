@@ -3,6 +3,7 @@
 // https://nextjs.org/docs/advanced-features/custom-app
 import App from 'next/app';
 import { Amplify } from 'aws-amplify';
+import * as Auth from 'aws-amplify/auth';
 import { Hub } from 'aws-amplify/utils';
 import { Authenticator, AmplifyProvider } from '@aws-amplify/ui-react';
 import { useEffect } from 'react';
@@ -10,6 +11,7 @@ import { MapProvider, useMap } from 'react-map-gl';
 
 if (typeof window !== 'undefined') {
   window['Amplify'] = Amplify;
+  window['Auth'] = Auth;
   window['Hub'] = Hub;
 }
 

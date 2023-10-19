@@ -98,6 +98,7 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = async (
 
   const { onSignIn, onSignOut } = options ?? {};
 
+  console.log({ event });
   switch (event) {
     // TODO: We can add more cases here, according to
     // https://docs.amplify.aws/lib/auth/auth-events/q/platform/js/
@@ -106,32 +107,7 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = async (
         send('TOKEN_REFRESH');
       }
       break;
-    case 'autoSignIn':
-      if (!state.matches('authenticated')) {
-        /**
-         * We wait for state machine to reach `autoSignIn` before sending
-         * this event.
-         *
-         * This will ensure that xstate is ready to handle autoSignIn by
-         * the time we send this event, and prevent race conditions between
-         * hub events and state machine transitions.
-         */
-        await waitForAutoSignInState(service);
-        const currentActorState = getActorState(service.getSnapshot());
-        if (currentActorState?.matches('autoSignIn')) {
-          send({ type: 'AUTO_SIGN_IN', data });
-        }
-      }
-      break;
-    case 'autoSignIn_failure': {
-      await waitForAutoSignInState(service);
-      const currentActorState = getActorState(service.getSnapshot());
-      if (currentActorState?.matches('autoSignIn')) {
-        send({ type: 'AUTO_SIGN_IN_FAILURE', data });
-      }
-      break;
-    }
-    case 'signIn':
+    case 'signedIn':
       if (isFunction(onSignIn)) {
         onSignIn();
       }

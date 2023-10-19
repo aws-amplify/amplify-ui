@@ -1,5 +1,5 @@
 import { Linking } from 'react-native';
-import { ConsoleLogger as Logger } from '@aws-amplify/core/internals/utils';
+import { ConsoleLogger as Logger } from '@aws-amplify/core';
 
 import handleMessageLinkAction from '../handleMessageLinkAction';
 

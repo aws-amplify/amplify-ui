@@ -15,10 +15,10 @@ Feature: Sign In with Email
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with error fixture "force-reset-password"
     When I type my "email" with status "CONFIRMED"
     Then I type my password
-    Given I spy "Amplify.Auth.forgotPassword" method
+    Given I spy "Auth.forgotPassword" method
     Then I click the "Sign in" button
     Then I see "Code *"
-    Then "Amplify.Auth.forgotPassword" method is called
+    Then "Auth.forgotPassword" method is called
 
   @angular @react @vue @react-native
   Scenario: Sign in with unknown credentials
@@ -40,8 +40,8 @@ Feature: Sign In with Email
     Then I type a valid confirmation code
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
     # Mocking these two calls is much easier than intercepting 6+ network calls with tokens that are validated & expire within the hour
-    Then I mock 'Amplify.Auth.signIn' with fixture "Auth.signIn-verified-email"
-    Then I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
+    Then I mock 'Auth.signIn' with fixture "Auth.signIn-verified-email"
+    Then I mock 'Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
     Then I click the "Confirm" button
     Then I see "Sign out"
 

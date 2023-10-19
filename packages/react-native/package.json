@@ -41,8 +41,6 @@
     "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "@aws-amplify/react-native": "console-preview",
-    "@aws-amplify/rtn-web-browser": "console-preview",
     "@aws-amplify/ui": "5.8.1",
     "@aws-amplify/ui-react-core": "2.1.33",
     "@aws-amplify/ui-react-core-notifications": "1.0.10"

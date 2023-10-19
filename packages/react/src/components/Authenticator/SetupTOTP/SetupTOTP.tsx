@@ -1,7 +1,7 @@
 import QRCode from 'qrcode';
 import * as React from 'react';
 
-import { ConsoleLogger as Logger } from '@aws-amplify/core/internals/utils';
+import { ConsoleLogger as Logger } from '@aws-amplify/core';
 import { authenticatorTextUtil, getTotpCodeURL } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
