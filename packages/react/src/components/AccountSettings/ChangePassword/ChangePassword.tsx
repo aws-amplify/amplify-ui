@@ -3,14 +3,13 @@ import isEqual from 'lodash/isEqual.js';
 
 import {
   changePassword,
-  changePasswordDataPlaneState,
   ValidatorOptions,
   getDefaultConfirmPasswordValidators,
   getDefaultPasswordValidators,
   getLogger,
   runFieldValidators,
+  setUserAgent,
 } from '@aws-amplify/ui';
-import { setCustomUserAgent } from '@aws-amplify/core/internals/utils';
 
 import { useAuth } from '../../../internal';
 import { View, Flex } from '../../../primitives';
@@ -19,6 +18,7 @@ import { FormValues, BlurredFields, ValidationError } from '../types';
 import { ChangePasswordProps, ValidateParams } from './types';
 import DEFAULTS from './defaults';
 import { defaultChangePasswordDisplayText } from '../utils';
+import { VERSION } from '../../../version';
 
 const logger = getLogger('AccountSettings');
 
@@ -62,10 +62,12 @@ function ChangePassword({
   }, [validators]);
 
   React.useEffect(() => {
-    const clearCustomUserAgent = setCustomUserAgent(
-      changePasswordDataPlaneState
-    );
-    return () => clearCustomUserAgent();
+    const clearUserAgent = setUserAgent({
+      componentName: 'AccountSettings',
+      packageName: 'react',
+      version: VERSION,
+    });
+    return () => clearUserAgent();
   }, []);
 
   /*

@@ -1,11 +1,6 @@
 import React from 'react';
 
-import {
-  deleteUser,
-  deleteUserDataPlaneState,
-  getLogger,
-} from '@aws-amplify/ui';
-import { setCustomUserAgent } from '@aws-amplify/core/internals/utils';
+import { deleteUser, getLogger, setUserAgent } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
 import { Flex } from '../../../primitives';
@@ -13,6 +8,7 @@ import { ComponentClassName } from '../constants';
 import DEFAULTS from './defaults';
 import { DeleteUserProps, DeleteUserState } from './types';
 import { defaultDeleteUserDisplayText } from '../utils';
+import { VERSION } from '../../../version';
 
 const logger = getLogger('AccountSettings');
 
@@ -27,8 +23,12 @@ function DeleteUser({
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
 
   React.useEffect(() => {
-    const clearCustomUserAgent = setCustomUserAgent(deleteUserDataPlaneState);
-    return () => clearCustomUserAgent();
+    const clearUserAgent = setUserAgent({
+      componentName: 'AccountSettings',
+      packageName: 'react',
+      version: VERSION,
+    });
+    return () => clearUserAgent();
   }, []);
 
   // translations

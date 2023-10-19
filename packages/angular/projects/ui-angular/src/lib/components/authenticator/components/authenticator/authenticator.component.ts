@@ -10,11 +10,10 @@ import {
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
-import { setCustomUserAgent } from '@aws-amplify/core/internals/utils';
 import {
   AuthenticatorMachineOptions,
-  authDataPlaneState,
   authenticatorTextUtil,
+  setUserAgent,
   SocialProvider,
 } from '@aws-amplify/ui';
 import { AmplifySlotDirective } from '../../../../utilities/amplify-slot/amplify-slot.directive';
@@ -51,7 +50,7 @@ export class AuthenticatorComponent
   private hasInitialized = false;
   private isHandlingHubEvent = false;
   private unsubscribeMachine: () => void;
-  private clearCustomUserAgent: () => void;
+  private clearUserAgent: () => void;
 
   constructor(
     private authenticator: AuthenticatorService,
@@ -78,7 +77,11 @@ export class AuthenticatorComponent
       formFields,
     } = this;
 
-    this.clearCustomUserAgent = setCustomUserAgent(authDataPlaneState);
+    this.clearUserAgent = setUserAgent({
+      componentName: 'Authenticator',
+      packageName: 'angular',
+      version: VERSION,
+    });
 
     const { initializeMachine } = this.authenticator;
 
@@ -153,7 +156,7 @@ export class AuthenticatorComponent
   }
 
   ngOnDestroy(): void {
-    this.clearCustomUserAgent();
+    this.clearUserAgent();
     if (this.unsubscribeMachine) this.unsubscribeMachine();
   }
 

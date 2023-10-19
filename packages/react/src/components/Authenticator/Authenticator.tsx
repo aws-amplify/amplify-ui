@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { setCustomUserAgent } from '@aws-amplify/core/internals/utils';
 import {
   AuthenticatorMachineOptions,
   AmplifyUser,
-  authDataPlaneState,
   isFunction,
   FormFieldComponents,
+  setUserAgent,
 } from '@aws-amplify/ui';
 
 import {
@@ -28,21 +27,22 @@ import { SignUp } from './SignUp';
 import { ForceNewPassword } from './ForceNewPassword';
 import { ResetPassword } from './ResetPassword';
 import { defaultComponents } from './hooks/useCustomComponents/defaultComponents';
+import { VERSION } from '../../version';
 
 export type SignOut = UseAuthenticator['signOut'];
 export type AuthenticatorProps = Partial<
   Omit<AuthenticatorMachineOptions, 'formFields'> &
-  ComponentsProviderProps &
-  RouterProps & {
-    children:
-    | React.ReactNode
-    | ((props: { signOut?: SignOut; user?: AmplifyUser }) => JSX.Element);
-    formFields: {
-      [key in FormFieldComponents]?: {
-        [field_name: string]: ReactFormFieldOptions;
+    ComponentsProviderProps &
+    RouterProps & {
+      children:
+        | React.ReactNode
+        | ((props: { signOut?: SignOut; user?: AmplifyUser }) => JSX.Element);
+      formFields: {
+        [key in FormFieldComponents]?: {
+          [field_name: string]: ReactFormFieldOptions;
+        };
       };
-    };
-  }
+    }
 >;
 
 interface ReactFormFieldOptions extends FormFieldOptions {
@@ -93,6 +93,7 @@ export function AuthenticatorInternal({
   useAuthenticatorInitMachine({
     initialState,
     loginMechanisms,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     passwordSettings,
     services,
     signUpAttributes,
@@ -138,8 +139,12 @@ export function AuthenticatorInternal({
  */
 export function Authenticator(props: AuthenticatorProps): JSX.Element {
   React.useEffect(() => {
-    const clearCustomUserAgent = setCustomUserAgent(authDataPlaneState);
-    return () => clearCustomUserAgent();
+    const clearUserAgent = setUserAgent({
+      componentName: 'Authenticator',
+      packageName: 'react',
+      version: VERSION,
+    });
+    return () => clearUserAgent();
   }, []);
 
   return (

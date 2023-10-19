@@ -4,8 +4,8 @@ import { createAmplifyGeocoder } from 'maplibre-gl-js-amplify';
 import { useControl, useMap } from 'react-map-gl';
 import type { IControl } from 'react-map-gl';
 import { LocationSearchProps } from '../types/maplibre-gl-geocoder';
-import { setCustomUserAgent } from '@aws-amplify/core/internals/utils';
-import { geoDataPlaneState } from '@aws-amplify/ui';
+import { setUserAgent } from '@aws-amplify/ui';
+import { VERSION } from '../../version';
 
 const LOCATION_SEARCH_OPTIONS = {
   maplibregl,
@@ -76,8 +76,12 @@ export const LocationSearch = (props: LocationSearchProps): JSX.Element => {
   const { current: map } = useMap();
 
   useEffect(() => {
-    const clearCustomUserAgent = setCustomUserAgent(geoDataPlaneState);
-    return () => clearCustomUserAgent();
+    const clearUserAgent = setUserAgent({
+      componentName: 'LocationSearch',
+      packageName: 'react-storage',
+      version: VERSION,
+    });
+    return () => clearUserAgent();
   }, []);
 
   /**

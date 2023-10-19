@@ -9,14 +9,13 @@ import {
   withDefaults,
 } from 'vue';
 
-import { setCustomUserAgent } from '@aws-amplify/core/internals/utils';
 import {
   AuthFormFields,
   AuthenticatorMachineOptions,
   AuthenticatorRoute,
-  SocialProvider,
   authenticatorTextUtil,
-  authDataPlaneState,
+  SocialProvider,
+  setUserAgent,
 } from '@aws-amplify/ui';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
@@ -76,7 +75,7 @@ const emit = defineEmits([
 ]);
 
 let unsubscribeMachine: () => void;
-let clearCustomUserAgent: () => void;
+let clearUserAgent: () => void;
 
 const hasInitialized = ref(false);
 
@@ -114,11 +113,15 @@ const facade: UseAuthenticator = useAuthenticator();
 const { route, signOut, toSignIn, toSignUp, user } = toRefs(facade);
 
 onMounted(() => {
-  clearCustomUserAgent = setCustomUserAgent(authDataPlaneState);
+  clearUserAgent = setUserAgent({
+    componentName: 'Authenticator',
+    packageName: 'react',
+    version: VERSION,
+  });
 });
 
 onUnmounted(() => {
-  clearCustomUserAgent();
+  clearUserAgent();
   unsubscribeMachine();
 });
 

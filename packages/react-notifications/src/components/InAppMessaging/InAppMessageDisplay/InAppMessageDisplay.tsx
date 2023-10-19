@@ -5,8 +5,7 @@ import {
   OnMessageAction,
   useMessage,
 } from '@aws-amplify/ui-react-core-notifications';
-import { setCustomUserAgent } from '@aws-amplify/core/internals/utils';
-import { notificationsDataPlaneState } from '@aws-amplify/ui';
+import { setUserAgent } from '@aws-amplify/ui';
 import { ThemeProvider } from '@aws-amplify/ui-react';
 
 import { BannerMessage } from '../BannerMessage';
@@ -15,6 +14,7 @@ import { ModalMessage } from '../ModalMessage';
 
 import handleMessageLinkAction from './handleMessageLinkAction';
 import { InAppMessageDisplayProps, MessageDefaultComponents } from './types';
+import { VERSION } from '../../../version';
 
 // TODO: replace below components incrementally as they become available
 function CarouselMessage<P>(_: P) {
@@ -49,10 +49,12 @@ function InAppMessageDisplay({
   });
 
   React.useEffect(() => {
-    const clearCustomUserAgent = setCustomUserAgent(
-      notificationsDataPlaneState
-    );
-    return () => clearCustomUserAgent();
+    const clearUserAgent = setUserAgent({
+      componentName: 'InAppMessaging',
+      packageName: 'react-notifications',
+      version: VERSION,
+    });
+    return () => clearUserAgent();
   }, []);
 
   // There is currently no way to pass In-App Message payload variants so we

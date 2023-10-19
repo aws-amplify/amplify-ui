@@ -1,12 +1,7 @@
 import * as React from 'react';
 
 import { UploadDataOutput } from 'aws-amplify/storage';
-import { setCustomUserAgent } from '@aws-amplify/core/internals/utils';
-import {
-  getLogger,
-  ComponentClassName,
-  storageManagerDataPlaneState,
-} from '@aws-amplify/ui';
+import { getLogger, ComponentClassName, setUserAgent } from '@aws-amplify/ui';
 import { VisuallyHidden } from '@aws-amplify/ui-react';
 import { useDropZone } from '@aws-amplify/ui-react/internal';
 
@@ -25,6 +20,7 @@ import {
   defaultStorageManagerDisplayText,
   filterAllowedFiles,
 } from './utils';
+import { VERSION } from '../../version';
 
 const logger = getLogger('Storage');
 
@@ -234,10 +230,12 @@ function StorageManagerBase(
   }
 
   React.useEffect(() => {
-    const clearCustomUserAgent = setCustomUserAgent(
-      storageManagerDataPlaneState
-    );
-    return () => clearCustomUserAgent();
+    const clearUserAgent = setUserAgent({
+      componentName: 'StorageManager',
+      packageName: 'react-storage',
+      version: VERSION,
+    });
+    return () => clearUserAgent();
   }, []);
 
   return (

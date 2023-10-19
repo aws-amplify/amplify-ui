@@ -347,7 +347,7 @@ describe('userAgent', () => {
     | 'react-geo'
     | 'react-native'
     | 'react-native-auth'
-    | 'react-core-notifications'
+    | 'react-notifications'
     | 'react-storage'
     | 'vue';
 
@@ -436,7 +436,7 @@ describe('userAgent', () => {
   it('passes the expected input for InAppMessaging', () => {
     const details: SetUserAgentOptions = {
       componentName: 'InAppMessaging',
-      packageName: 'react-core-notifications',
+      packageName: 'react-notifications',
       version: '1.0.0',
     };
 
@@ -448,7 +448,7 @@ describe('userAgent', () => {
       category: Category.InAppMessaging,
       additionalDetails: [
         ['InAppMessaging'],
-        ['ui-react-core-notifications', '1.0.0'],
+        ['ui-react-notifications', '1.0.0'],
       ],
     });
   });
@@ -456,7 +456,7 @@ describe('userAgent', () => {
   it('passes the expected input for InAppMessaging', () => {
     const details: SetUserAgentOptions = {
       componentName: 'InAppMessaging',
-      packageName: 'react-core-notifications',
+      packageName: 'react-notifications',
       version: '1.0.0',
     };
 
@@ -468,7 +468,7 @@ describe('userAgent', () => {
       category: Category.InAppMessaging,
       additionalDetails: [
         ['InAppMessaging'],
-        ['ui-react-core-notifications', '1.0.0'],
+        ['ui-react-notifications', '1.0.0'],
       ],
     });
   });
