@@ -833,7 +833,10 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         async getCurrentUserResolved(context) {
           groupLog('+++getCurrentUserResolved', context, event);
-          return await Auth.getCurrentUser();
+          return {
+            ...(await Auth.getCurrentUser()),
+            attributes: { ...(await Auth.fetchUserAttributes()) },
+          };
         },
         async autoSignIn() {
           return await Auth.autoSignIn();
