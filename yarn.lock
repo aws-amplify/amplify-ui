@@ -534,9 +534,9 @@
     ulid "^2.3.0"
 
 "@aws-amplify/geo@console-preview":
-  version "3.0.1-console-preview.11cf989.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/geo/-/geo-3.0.1-console-preview.11cf989.0.tgz#0a08f01ae65284d45d37e81abbafcbd8b468125f"
-  integrity sha512-O7GAqA+J37Byi7B0tAkhzi7cnC3MvAfX1bCBhlA0Rqt43mQpzHY0lW+APMvogLxWSkTGotTWXA0HbjeCvjOnXg==
+  version "3.0.1-console-preview.b278dcb.0"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/geo/-/geo-3.0.1-console-preview.b278dcb.0.tgz#95c680b854b81fb6fb75d0b44dbaf9faa5a28d85"
+  integrity sha512-bL+DFl2/gJhqAeJ8ye8zvpCWOndagp2nIpXQBbuWfEJU61RVqRZcAuqiUJ82onqvpH+z4g7oomkSpX95pV1lSQ==
   dependencies:
     "@aws-sdk/client-location" "3.398.0"
     "@turf/boolean-clockwise" "6.5.0"
