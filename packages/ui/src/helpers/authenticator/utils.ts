@@ -4,11 +4,6 @@
  */
 
 import { Hub } from '@aws-amplify/core';
-import {
-  Category,
-  AuthAction,
-  SetCustomUserAgentInput,
-} from '@aws-amplify/core/internals/utils';
 import { waitFor } from 'xstate/lib/waitFor.js';
 
 import {
@@ -20,27 +15,6 @@ import {
 import { ALLOWED_SPECIAL_CHARACTERS, emailRegex } from './constants';
 import { getActorState } from './actor';
 import { isFunction } from '../../utils';
-
-export const authDataPlaneState: SetCustomUserAgentInput = {
-  category: Category.Auth,
-  apis: [
-    AuthAction.SignUp,
-    AuthAction.ConfirmSignUp,
-    AuthAction.ResendSignUpCode,
-    AuthAction.SignIn,
-    AuthAction.FetchMFAPreference,
-    AuthAction.UpdateMFAPreference,
-    AuthAction.SetUpTOTP,
-    AuthAction.VerifyTOTPSetup,
-    AuthAction.ConfirmSignIn,
-    AuthAction.FetchUserAttributes,
-    AuthAction.SignOut,
-    AuthAction.ResetPassword,
-    AuthAction.ConfirmResetPassword,
-    AuthAction.FederatedSignIn,
-  ],
-  additionalDetails: [['component', 'authenticator']],
-};
 
 // replaces all characters in a string with '*', except for the first and last char
 export const censorAllButFirstAndLast = (value: string): string => {
