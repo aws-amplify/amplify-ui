@@ -18,7 +18,6 @@ export type MessageImage = InAppMessageImage;
 export type MessageLayout = InAppMessageLayout;
 export type MessageStyle = InAppMessageStyle;
 export type MessageTextAlign = InAppMessageTextAlign;
-export type test = 'hello';
 
 export type OnMessageAction = (params: {
   action: MessageAction;
