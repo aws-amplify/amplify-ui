@@ -92,7 +92,7 @@ export const setChallengeName = assign({
 export const setRequiredAttributes = assign({
   requiredAttributes: (_, event: AuthEvent) => {
     groupLog('+++setRequiredAttributes', 'event', event);
-    return event.data?.challengeParam?.requiredAttributes;
+    return event.data?.nextStep?.missingAttributes;
   },
 });
 
