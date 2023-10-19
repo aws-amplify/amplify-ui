@@ -1,5 +1,6 @@
 import React from 'react';
 import { Amplify } from 'aws-amplify';
+import { initializeInAppMessaging } from 'aws-amplify/in-app-messaging';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 import { withInAppMessaging } from '@aws-amplify/ui-react-native';
@@ -8,6 +9,7 @@ import { useInAppDemo, ACTIONS, LAYOUTS, ORIENTATIONS } from './utils';
 import config from './aws-exports';
 
 Amplify.configure(config);
+initializeInAppMessaging();
 
 function DemoDivider() {
   return <View style={styles.divider} />;
