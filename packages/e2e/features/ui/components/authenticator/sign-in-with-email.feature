@@ -10,7 +10,7 @@ Feature: Sign In with Email
   Background:
     Given I'm running the example "/ui/components/authenticator/sign-in-with-email"
 
-  @angular @react @vue
+  @todo-migration @angular @react @vue
   Scenario: Sign in with force password reset calls forgot password
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with error fixture "force-reset-password"
     When I type my "email" with status "CONFIRMED"
@@ -27,7 +27,7 @@ Feature: Sign In with Email
     Then I click the "Sign in" button
     Then I see "User does not exist."
 
-  @angular @react @vue
+  @todo-migration @angular @react @vue
   Scenario: Sign in with unconfirmed credentials
 
   If you sign in with an unconfirmed account, Authenticator will redirect you to `confirmSignUp` route.
