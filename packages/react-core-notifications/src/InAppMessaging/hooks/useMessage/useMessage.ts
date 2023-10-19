@@ -36,17 +36,17 @@ export default function useMessage<PlatformStyleProps>({
   const { content, layout } = message;
 
   const onActionCallback = () => {
-    notifyMessageInteraction({ message, type: 'messageActionTaken' });
+    notifyMessageInteraction({ type: 'messageActionTaken', message });
     clearMessage();
   };
 
   const onClose = () => {
-    notifyMessageInteraction({ message, type: 'messageDismissed' });
+    notifyMessageInteraction({ type: 'messageDismissed', message });
     clearMessage();
   };
 
   const onDisplay = () => {
-    notifyMessageInteraction({ message, type: 'messageDisplayed' });
+    notifyMessageInteraction({ type: 'messageDisplayed', message });
   };
 
   switch (layout) {
