@@ -167,6 +167,14 @@ module.exports = withNextPluginPreval({
         destination: '/react/components/accordion',
         permanent: false,
       },
+      /**
+       * Redirect traffic from CRA to Vite getting started page
+       */
+      {
+        source: '/react/getting-started/usage/create-react-app',
+        destination: '/react/getting-started/usage/vite',
+        permanent: true,
+      },
     ];
   },
 
