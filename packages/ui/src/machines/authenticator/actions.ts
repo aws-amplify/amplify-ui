@@ -148,8 +148,9 @@ export const setUnverifiedContactMethods = assign({
       event.data as Auth.FetchUserAttributesOutput;
 
     return {
-      ...(email_verified === 'false' && { email }),
-      ...(phone_number_verified === 'false' && { phone_number }),
+      ...(email_verified === 'false' && email && { email }),
+      ...(phone_number_verified === 'false' &&
+        phone_number && { phone_number }),
     };
   },
 });
