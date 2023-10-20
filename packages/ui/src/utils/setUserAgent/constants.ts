@@ -63,7 +63,7 @@ export const MAP_VIEW_INPUT_BASE: Omit<GeoUserAgentInput, 'additionalDetails'> =
     apis: [],
   };
 
-export const STORAGE_INPUT_BASE: Omit<
+export const STORAGE_MANAGER_INPUT_BASE: Omit<
   StorageUserAgentInput,
   'additionalDetails'
 > = {

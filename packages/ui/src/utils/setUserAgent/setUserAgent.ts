@@ -9,7 +9,7 @@ import {
   IN_APP_MESSAGING_INPUT_BASE,
   LOCATION_SEARCH_INPUT_BASE,
   MAP_VIEW_INPUT_BASE,
-  STORAGE_INPUT_BASE,
+  STORAGE_MANAGER_INPUT_BASE,
 } from './constants';
 
 // public packages only, exclude internal packages e.g. 'react-core', 'ui'
@@ -93,7 +93,7 @@ export const setUserAgent = ({
       break;
     }
     case 'StorageManager': {
-      input = { ...STORAGE_INPUT_BASE, additionalDetails };
+      input = { ...STORAGE_MANAGER_INPUT_BASE, additionalDetails };
       break;
     }
     default:

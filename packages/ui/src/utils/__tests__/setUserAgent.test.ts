@@ -6,7 +6,7 @@ import {
   IN_APP_MESSAGING_INPUT_BASE,
   LOCATION_SEARCH_INPUT_BASE,
   MAP_VIEW_INPUT_BASE,
-  STORAGE_INPUT_BASE,
+  STORAGE_MANAGER_INPUT_BASE,
 } from '../setUserAgent/constants';
 import { setUserAgent } from '../setUserAgent';
 import { SetUserAgentOptions } from '../setUserAgent/setUserAgent';
@@ -131,7 +131,7 @@ describe('userAgent', () => {
 
     expect(setCustomUserAgentSpy).toHaveBeenCalledTimes(1);
     expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
-      ...STORAGE_INPUT_BASE,
+      ...STORAGE_MANAGER_INPUT_BASE,
       additionalDetails: [['StorageManager'], ['ui-react-storage', '1.0.0']],
     });
   });
