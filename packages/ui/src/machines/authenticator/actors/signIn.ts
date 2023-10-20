@@ -46,6 +46,11 @@ const MFA_CHALLENGE_NAMES: AuthChallengeName[] = [
   'SOFTWARE_TOKEN_MFA',
 ];
 
+const SIGN_IN_STEP_MFA_CONFIRMATION: string[] = [
+  'CONFIRM_SIGN_IN_WITH_SMS_CODE',
+  'CONFIRM_SIGN_IN_WITH_TOTP_CODE',
+];
+
 const getChallengeName = (event: AuthEvent): AuthChallengeName =>
   get(event, 'data.challengeName');
 
@@ -54,8 +59,8 @@ const isExpectedChallengeName = (
   expectedChallengeName: AuthChallengeName
 ) => challengeName === expectedChallengeName;
 
-const isMfaChallengeName = (challengeName: AuthChallengeName) =>
-  MFA_CHALLENGE_NAMES.includes(challengeName);
+const isSignInStepMFAConfirmation = (signInStep: string) =>
+  SIGN_IN_STEP_MFA_CONFIRMATION.includes(signInStep);
 
 export function signInActor({ services }: SignInMachineOptions) {
   return createMachine<SignInContext, AuthEvent>(
@@ -107,7 +112,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                     target: '#signInActor.setupTOTP',
                   },
                   {
-                    cond: 'shouldConfirmSignInWithSMS',
+                    cond: 'shouldConfirmSignIn',
                     actions: ['setUser', 'setChallengeName'],
                     target: '#signInActor.confirmSignIn',
                   },
@@ -188,7 +193,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                     target: '#signInActor.setupTOTP',
                   },
                   {
-                    cond: 'shouldConfirmSignInWithSMS',
+                    cond: 'shouldConfirmSignIn',
                     actions: ['setUser', 'setChallengeName'],
                     target: '#signInActor.confirmSignIn',
                   },
@@ -203,7 +208,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                   },
                   {
                     actions: ['setUser'],
-                    target: '#signInActor.resolved',
+                    target: '#signInActor.updateCurrentUser',
                   },
                 ],
               },
@@ -220,7 +225,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                     target: '#signInActor.setupTOTP',
                   },
                   {
-                    cond: 'shouldConfirmSignInWithSMS',
+                    cond: 'shouldConfirmSignIn',
                     actions: ['setUser', 'setChallengeName'],
                     target: '#signInActor.confirmSignIn',
                   },
@@ -235,7 +240,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                   },
                   {
                     actions: 'setUser',
-                    target: '#signInActor.resolved',
+                    target: 'resolved',
                   },
                 ],
                 onError: {
@@ -244,7 +249,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                 },
               },
             },
-            resolved: { always: '#signInActor.resolved' },
+            resolved: { always: '#signInActor.updateCurrentUser' },
             rejected: { always: '#signInActor.rejected' },
           },
         },
@@ -266,7 +271,7 @@ export function signInActor({ services }: SignInMachineOptions) {
               invoke: {
                 src: 'confirmSignIn',
                 onDone: {
-                  target: '#signInActor.resolved',
+                  target: '#signInActor.updateCurrentUser',
                   actions: [
                     'setUser',
                     'clearChallengeName',
@@ -350,7 +355,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                     src: 'forceNewPassword',
                     onDone: [
                       {
-                        cond: 'shouldConfirmSignInWithSMS',
+                        cond: 'shouldConfirmSignIn',
                         actions: ['setUser', 'setChallengeName'],
                         target: '#signInActor.confirmSignIn',
                       },
@@ -370,7 +375,10 @@ export function signInActor({ services }: SignInMachineOptions) {
                     },
                   },
                 },
-                resolved: { type: 'final', always: '#signInActor.resolved' },
+                resolved: {
+                  type: 'final',
+                  always: '#signInActor.updateCurrentUser',
+                },
               },
             },
           },
@@ -407,7 +415,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                 src: 'verifyTotpToken',
                 onDone: {
                   actions: ['clearChallengeName', 'clearRequiredAttributes'],
-                  target: '#signInActor.resolved',
+                  target: '#signInActor.updateCurrentUser',
                 },
                 onError: {
                   actions: 'setRemoteError',
@@ -425,7 +433,7 @@ export function signInActor({ services }: SignInMachineOptions) {
               entry: 'sendUpdate',
               on: {
                 SUBMIT: { actions: 'handleSubmit', target: 'submit' },
-                SKIP: '#signInActor.resolved',
+                SKIP: '#signInActor.updateCurrentUser',
                 CHANGE: { actions: 'handleInput' },
               },
             },
@@ -459,7 +467,7 @@ export function signInActor({ services }: SignInMachineOptions) {
               entry: 'sendUpdate',
               on: {
                 SUBMIT: { actions: 'handleSubmit', target: 'submit' },
-                SKIP: '#signInActor.resolved',
+                SKIP: '#signInActor.updateCurrentUser',
                 CHANGE: { actions: 'handleInput' },
               },
             },
@@ -544,11 +552,9 @@ export function signInActor({ services }: SignInMachineOptions) {
           groupLog('+++signIn.shouldAutoSubmit', 'context', context);
           return context?.intent === 'autoSignInSubmit';
         },
-        shouldConfirmSignInWithSMS: (_, event): boolean => {
-          groupLog('+++shouldConfirmSignInWithSMS', 'event', event);
-          return (
-            event.data.nextStep?.signInStep === 'CONFIRM_SIGN_IN_WITH_SMS_CODE'
-          );
+        shouldConfirmSignIn: (_, event): boolean => {
+          groupLog('+++shouldConfirmSignIn', 'event', event);
+          return isSignInStepMFAConfirmation(event.data.nextStep?.signInStep);
         },
         shouldForceChangePassword: (_, event): boolean => {
           groupLog('+++shouldForceChangePassword', 'event', event);
@@ -571,13 +577,14 @@ export function signInActor({ services }: SignInMachineOptions) {
             event.data as Auth.FetchUserAttributesOutput;
 
           // email/phone_verified is returned as a string
-          const emailRequiredAndNotVerified =
-            !isEmpty(email_verified) && email_verified === 'false';
-          const phoneRequiredAndNotVerified =
-            !isEmpty(phone_number_verified) &&
+          const emailNotVerified =
+            email_verified === undefined || email_verified === 'false';
+          const phoneNotVerified =
+            phone_number_verified === undefined ||
             phone_number_verified === 'false';
 
-          return emailRequiredAndNotVerified || phoneRequiredAndNotVerified;
+          // only request verification if both email and phone are not verified
+          return emailNotVerified && phoneNotVerified;
         },
         shouldSetupTOTP: (context, event): boolean => {
           //   event.data ={
@@ -835,7 +842,10 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         async getCurrentUserResolved(context) {
           groupLog('+++getCurrentUserResolved', context, event);
-          return await Auth.getCurrentUser();
+          return {
+            ...(await Auth.getCurrentUser()),
+            attributes: { ...(await Auth.fetchUserAttributes()) },
+          };
         },
         async autoSignIn() {
           return await Auth.autoSignIn();

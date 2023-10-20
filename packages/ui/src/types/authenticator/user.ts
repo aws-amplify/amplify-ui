@@ -30,9 +30,6 @@ export interface AmplifyUser {
   username?: string;
   attributes?: CognitoAttributes;
   challengeName?: string;
-  nextStep?:
-    | SignUpOutput['nextStep']['signUpStep']
-    | SignInOutput['nextStep']['signInStep'];
 }
 
 /**

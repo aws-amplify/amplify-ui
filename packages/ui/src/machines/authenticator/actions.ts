@@ -92,7 +92,7 @@ export const setChallengeName = assign({
 export const setRequiredAttributes = assign({
   requiredAttributes: (_, event: AuthEvent) => {
     groupLog('+++setRequiredAttributes', 'event', event);
-    return event.data?.challengeParam?.requiredAttributes;
+    return event.data?.nextStep?.missingAttributes;
   },
 });
 
@@ -148,8 +148,9 @@ export const setUnverifiedContactMethods = assign({
       event.data as Auth.FetchUserAttributesOutput;
 
     return {
-      ...(email_verified === 'false' && { email }),
-      ...(phone_number_verified === 'false' && { phone_number }),
+      ...(email_verified === 'false' && email && { email }),
+      ...(phone_number_verified === 'false' &&
+        phone_number && { phone_number }),
     };
   },
 });
@@ -166,7 +167,9 @@ export const setUser = assign({
      * @migration event.data was the fallback here,
      *  setting the entire event.data as user
      */
-    return { ...event.data };
+    // Setting the challengeName here to keep backwards compatability
+    const challengeName = event.data.nextStep?.signInStep;
+    return { ...event.data, ...(challengeName && { challengeName }) };
   },
 });
 

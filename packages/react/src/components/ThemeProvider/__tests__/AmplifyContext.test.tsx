@@ -1,26 +1,26 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import { AmplifyContext } from '../AmplifyContext';
+import { ThemeContext } from '../ThemeContext';
 import { WebTheme } from '@aws-amplify/ui';
 
-describe('AmplifyContext', () => {
+describe('ThemeContext', () => {
   it('should provide default context values', () => {
-    let amplifyContext;
+    let context;
 
     const TestComponent = () => {
-      amplifyContext = React.useContext(AmplifyContext);
+      context = React.useContext(ThemeContext);
       return null;
     };
 
     render(<TestComponent />);
 
-    expect(amplifyContext.theme.name).toBe('default-theme');
-    expect(JSON.stringify(amplifyContext.theme.tokens)).toBeDefined();
+    expect(context.theme.name).toBe('default-theme');
+    expect(JSON.stringify(context.theme.tokens)).toBeDefined();
   });
 
   it('should provide context values from a provider', () => {
-    let amplifyContext;
+    let context;
 
     const customTheme = {
       name: 'custom',
@@ -33,17 +33,17 @@ describe('AmplifyContext', () => {
     };
 
     const TestComponent = () => {
-      amplifyContext = React.useContext(AmplifyContext);
+      context = React.useContext(ThemeContext);
       return null;
     };
 
     render(
-      <AmplifyContext.Provider value={customContextValues}>
+      <ThemeContext.Provider value={customContextValues}>
         <TestComponent />
-      </AmplifyContext.Provider>
+      </ThemeContext.Provider>
     );
 
-    expect(amplifyContext.theme.name).toBe('custom');
-    expect(JSON.stringify(amplifyContext.theme.tokens)).toBe('{}');
+    expect(context.theme.name).toBe('custom');
+    expect(JSON.stringify(context.theme.tokens)).toBe('{}');
   });
 });
