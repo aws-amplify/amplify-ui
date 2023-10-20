@@ -1,4 +1,4 @@
-import { Alert, Expander, ExpanderItem, ScrollView } from '@aws-amplify/ui-react';
+import { Alert, Accordion, ScrollView } from '@aws-amplify/ui-react';
 
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
 import { Example, ExampleCode } from '@/components/Example';
@@ -106,8 +106,13 @@ Note that spreading props is necessary so that event listeners like `onClick` or
 
 Here are the required props and examples for overriding each slot.
 
-<Expander type="single">
-  <ExpanderItem title="DeleteButton" value="delete-button">
+<Accordion.Container>
+  <Accordion.Item value="delete-button">
+    <Accordion.Trigger>
+      DeleteButton
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
 
 Props:
 
@@ -184,9 +189,14 @@ function App() {
 
       </ExampleCode>
     </Example>
-
-  </ExpanderItem>
-  <ExpanderItem title="ErrorMessage" value="error-message">
+    </Accordion.Content>
+  </Accordion.Item>
+  <Accordion.Item value="error-message">
+    <Accordion.Trigger>
+      ErrorMessage
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
 
 Props:
 
@@ -218,8 +228,14 @@ function App() {
 
       </ExampleCode>
     </Example>
-  </ExpanderItem>
-  <ExpanderItem title="WarningView" value="warning-view">
+    </Accordion.Content>
+  </Accordion.Item>
+  <Accordion.Item value="warning-view">
+    <Accordion.Trigger>
+      WarningView
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
 
 Props:
 
@@ -238,8 +254,9 @@ The following example overrides the warning component to require users to type "
         </ExampleCode>
       </Example>
     </ScrollView>
-  </ExpanderItem>
-</Expander>
+    </Accordion.Content>
+  </Accordion.Item>
+</Accordion.Container>
 
 ### Text and labels
 
