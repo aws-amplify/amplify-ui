@@ -19,16 +19,12 @@ export const AUTHENTICATOR_INPUT_BASE: Omit<
     AuthAction.ConfirmSignUp,
     AuthAction.ResendSignUpCode,
     AuthAction.SignIn,
-    AuthAction.FetchMFAPreference,
-    AuthAction.UpdateMFAPreference,
-    AuthAction.SetUpTOTP,
-    AuthAction.VerifyTOTPSetup,
     AuthAction.ConfirmSignIn,
     AuthAction.FetchUserAttributes,
     AuthAction.SignOut,
     AuthAction.ResetPassword,
     AuthAction.ConfirmResetPassword,
-    AuthAction.FederatedSignIn,
+    AuthAction.SignInWithRedirect,
   ],
   category: Category.Auth,
 };
@@ -62,7 +58,11 @@ export const LOCATION_SEARCH_INPUT_BASE: Omit<
   'additionalDetails'
 > = {
   category: Category.Geo,
-  apis: [GeoAction.SearchByText],
+  apis: [
+    GeoAction.SearchByText,
+    GeoAction.SearchForSuggestions,
+    GeoAction.SearchByPlaceId,
+  ],
 };
 
 export const MAP_VIEW_INPUT_BASE: Omit<GeoUserAgentInput, 'additionalDetails'> =
