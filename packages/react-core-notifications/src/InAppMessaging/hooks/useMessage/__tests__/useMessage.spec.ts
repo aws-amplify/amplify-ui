@@ -27,6 +27,12 @@ const infoSpy = jest.spyOn(Logger.prototype, 'info');
 
 const mockUseInAppMessaging = useInAppMessaging as jest.Mock;
 const mockClearMessage = jest.fn();
+
+jest.mock('aws-amplify', () => ({
+  ...jest.requireActual('aws-amplify'),
+  Amplify: { configure: jest.fn() },
+}));
+
 jest.mock('aws-amplify/in-app-messaging', () => ({
   ...jest.requireActual('aws-amplify/in-app-messaging'),
   notifyMessageInteraction: jest.fn(),
