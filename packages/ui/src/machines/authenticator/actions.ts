@@ -167,7 +167,9 @@ export const setUser = assign({
      * @migration event.data was the fallback here,
      *  setting the entire event.data as user
      */
-    return { ...event.data };
+    // Setting the challengeName here to keep backwards compatability
+    const challengeName = event.data.nextStep?.signInStep;
+    return { ...event.data, ...(challengeName && { challengeName }) };
   },
 });
 
