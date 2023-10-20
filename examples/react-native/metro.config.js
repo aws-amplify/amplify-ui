@@ -124,6 +124,10 @@ config.resolver.extraNodeModules = {
     __dirname,
     'node_modules/@aws-amplify/rtn-web-browser'
   ),
+  '@aws-amplify/react-native': path.resolve(
+    __dirname,
+    'node_modules/@aws-amplify/react-native'
+  ),
 
   // core React and React Native dependencies
   react: path.resolve(__dirname, 'node_modules/react'),
