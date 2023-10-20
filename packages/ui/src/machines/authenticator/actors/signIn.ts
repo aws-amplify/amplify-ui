@@ -576,9 +576,15 @@ export function signInActor({ services }: SignInMachineOptions) {
           const { phone_number_verified, email_verified } =
             event.data as Auth.FetchUserAttributesOutput;
 
-          return (
-            email_verified === 'false' && phone_number_verified === 'false'
-          );
+          // email/phone_verified is returned as a string
+          const emailNotVerified =
+            email_verified === undefined || email_verified === 'false';
+          const phoneNotVerified =
+            phone_number_verified === undefined ||
+            phone_number_verified === 'false';
+
+          // only request verification if both email and phone are not verified
+          return emailNotVerified && phoneNotVerified;
         },
         shouldSetupTOTP: (context, event): boolean => {
           //   event.data ={
