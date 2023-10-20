@@ -26,6 +26,7 @@ type TestMessageProps = Required<MessageCommonProps<TestStyle>>;
 const infoSpy = jest.spyOn(Logger.prototype, 'info');
 
 const mockUseInAppMessaging = useInAppMessaging as jest.Mock;
+const mockInitializeInAppMessaging = initializeInAppMessaging as jest.Mock;
 const mockClearMessage = jest.fn();
 
 jest.mock('aws-amplify', () => ({
@@ -184,7 +185,7 @@ describe('useMessage', () => {
     beforeEach(() => {
       jest.clearAllMocks();
       Amplify.configure(mockawsmobile);
-      initializeInAppMessaging();
+      mockInitializeInAppMessaging();
       mockUseInAppMessaging.mockReturnValueOnce({
         clearMessage: mockClearMessage,
         components,
