@@ -41,7 +41,10 @@ export const defaultServices = {
     };
   },
   async getCurrentUser() {
-    return Auth.getCurrentUser();
+    return {
+      ...(await Auth.getCurrentUser()),
+      attributes: { ...(await Auth.fetchUserAttributes()) },
+    };
   },
   // async handleSignUp(formData) {
   //   return Auth.signUp({ ...formData, autoSignIn: { enabled: true } });
