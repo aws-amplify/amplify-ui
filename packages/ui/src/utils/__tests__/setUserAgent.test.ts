@@ -1,9 +1,8 @@
 import * as UserAgentModule from '@aws-amplify/core/internals/utils';
 
 import {
+  ACCOUNT_SETTINGS_INPUT_BASE,
   AUTHENTICATOR_INPUT_BASE,
-  CHANGE_PASSWORD_INPUT_BASE,
-  DELETE_USER_INPUT_BASE,
   IN_APP_MESSAGING_INPUT_BASE,
   LOCATION_SEARCH_INPUT_BASE,
   MAP_VIEW_INPUT_BASE,
@@ -49,7 +48,7 @@ describe('userAgent', () => {
 
     expect(setCustomUserAgentSpy).toHaveBeenCalledTimes(1);
     expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
-      ...CHANGE_PASSWORD_INPUT_BASE,
+      ...ACCOUNT_SETTINGS_INPUT_BASE,
       additionalDetails: [['ChangePassword'], ['ui-react-auth', '1.0.0']],
     });
   });
@@ -65,7 +64,7 @@ describe('userAgent', () => {
 
     expect(setCustomUserAgentSpy).toHaveBeenCalledTimes(1);
     expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
-      ...DELETE_USER_INPUT_BASE,
+      ...ACCOUNT_SETTINGS_INPUT_BASE,
       additionalDetails: [['DeleteUser'], ['ui-react-auth', '1.0.0']],
     });
   });

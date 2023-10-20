@@ -10,6 +10,14 @@ import {
   Category,
 } from '@aws-amplify/core/internals/utils';
 
+export const ACCOUNT_SETTINGS_INPUT_BASE: Omit<
+  AuthUserAgentInput,
+  'additionalDetails'
+> = {
+  apis: [AuthAction.DeleteUser, AuthAction.UpdatePassword],
+  category: Category.Auth,
+};
+
 export const AUTHENTICATOR_INPUT_BASE: Omit<
   AuthUserAgentInput,
   'additionalDetails'
@@ -26,22 +34,6 @@ export const AUTHENTICATOR_INPUT_BASE: Omit<
     AuthAction.ConfirmResetPassword,
     AuthAction.SignInWithRedirect,
   ],
-  category: Category.Auth,
-};
-
-export const CHANGE_PASSWORD_INPUT_BASE: Omit<
-  AuthUserAgentInput,
-  'additionalDetails'
-> = {
-  apis: [AuthAction.UpdatePassword],
-  category: Category.Auth,
-};
-
-export const DELETE_USER_INPUT_BASE: Omit<
-  AuthUserAgentInput,
-  'additionalDetails'
-> = {
-  apis: [AuthAction.DeleteUser],
   category: Category.Auth,
 };
 

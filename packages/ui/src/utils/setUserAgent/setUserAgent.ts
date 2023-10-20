@@ -4,9 +4,8 @@ import {
 } from '@aws-amplify/core/internals/utils';
 
 import {
+  ACCOUNT_SETTINGS_INPUT_BASE,
   AUTHENTICATOR_INPUT_BASE,
-  CHANGE_PASSWORD_INPUT_BASE,
-  DELETE_USER_INPUT_BASE,
   IN_APP_MESSAGING_INPUT_BASE,
   LOCATION_SEARCH_INPUT_BASE,
   MAP_VIEW_INPUT_BASE,
@@ -74,11 +73,11 @@ export const setUserAgent = ({
       break;
     }
     case 'ChangePassword': {
-      input = { ...CHANGE_PASSWORD_INPUT_BASE, additionalDetails };
+      input = { ...ACCOUNT_SETTINGS_INPUT_BASE, additionalDetails };
       break;
     }
     case 'DeleteUser': {
-      input = { ...DELETE_USER_INPUT_BASE, additionalDetails };
+      input = { ...ACCOUNT_SETTINGS_INPUT_BASE, additionalDetails };
       break;
     }
     case 'InAppMessaging': {
