@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { deleteUser, getLogger, setUserAgent } from '@aws-amplify/ui';
+import { deleteUser, getLogger } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
 import { Flex } from '../../../primitives';
@@ -8,7 +8,6 @@ import { ComponentClassName } from '../constants';
 import DEFAULTS from './defaults';
 import { DeleteUserProps, DeleteUserState } from './types';
 import { defaultDeleteUserDisplayText } from '../utils';
-import { VERSION } from '../../../version';
 
 const logger = getLogger('AccountSettings');
 
@@ -21,15 +20,6 @@ function DeleteUser({
 }: DeleteUserProps): JSX.Element | null {
   const [state, setState] = React.useState<DeleteUserState>('IDLE');
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
-
-  React.useEffect(() => {
-    const clearUserAgent = setUserAgent({
-      componentName: 'AccountSettings',
-      packageName: 'react',
-      version: VERSION,
-    });
-    return () => clearUserAgent();
-  }, []);
 
   // translations
   const displayText = {

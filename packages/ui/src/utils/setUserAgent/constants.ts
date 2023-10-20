@@ -3,8 +3,6 @@ import {
   GeoUserAgentInput,
   InAppMessagingUserAgentInput,
   StorageUserAgentInput,
-  setCustomUserAgent,
-  SetCustomUserAgentInput,
   AuthAction,
   GeoAction,
   InAppMessagingAction,
@@ -12,17 +10,8 @@ import {
   Category,
 } from '@aws-amplify/core/internals/utils';
 
-// replace type once Category input types are available
-export const ACCOUNT_SETTINGS_INPUT_BASE: Omit<
-  AuthUserAgentInput,
-  'additionalDetails'
-> = {
-  apis: [AuthAction.DeleteUser, AuthAction.UpdatePassword],
-  category: Category.Auth,
-};
-
 export const AUTHENTICATOR_INPUT_BASE: Omit<
-  SetCustomUserAgentInput,
+  AuthUserAgentInput,
   'additionalDetails'
 > = {
   apis: [
@@ -44,23 +33,48 @@ export const AUTHENTICATOR_INPUT_BASE: Omit<
   category: Category.Auth,
 };
 
-export const GEO_INPUT_BASE: Omit<GeoUserAgentInput, 'additionalDetails'> = {
-  category: Category.Geo,
-  apis: [GeoAction.SearchByText],
+export const CHANGE_PASSWORD_INPUT_BASE: Omit<
+  AuthUserAgentInput,
+  'additionalDetails'
+> = {
+  apis: [AuthAction.UpdatePassword],
+  category: Category.Auth,
+};
+
+export const DELETE_USER_INPUT_BASE: Omit<
+  AuthUserAgentInput,
+  'additionalDetails'
+> = {
+  apis: [AuthAction.DeleteUser],
+  category: Category.Auth,
 };
 
 export const IN_APP_MESSAGING_INPUT_BASE: Omit<
   InAppMessagingUserAgentInput,
   'additionalDetails'
 > = {
-  apis: [InAppMessagingAction.SyncMessages],
+  apis: [InAppMessagingAction.DispatchEvent],
   category: Category.InAppMessaging,
 };
+
+export const LOCATION_SEARCH_INPUT_BASE: Omit<
+  GeoUserAgentInput,
+  'additionalDetails'
+> = {
+  category: Category.Geo,
+  apis: [GeoAction.SearchByText],
+};
+
+export const MAP_VIEW_INPUT_BASE: Omit<GeoUserAgentInput, 'additionalDetails'> =
+  {
+    category: Category.Geo,
+    apis: [],
+  };
 
 export const STORAGE_INPUT_BASE: Omit<
   StorageUserAgentInput,
   'additionalDetails'
 > = {
-  apis: [StorageAction.GetUrl, StorageAction.UploadData],
+  apis: [StorageAction.UploadData],
   category: Category.Storage,
 };

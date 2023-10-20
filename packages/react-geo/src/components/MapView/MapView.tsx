@@ -6,8 +6,7 @@ import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';
 import ReactMapGL from 'react-map-gl';
 import type { MapProps, MapRef, TransformRequestFunction } from 'react-map-gl';
 import { GeoConfig } from '@aws-amplify/geo';
-import { setUserAgent } from '@aws-amplify/ui';
-import { VERSION } from '../../version';
+
 interface MapViewProps extends Omit<MapProps, 'mapLib' | 'transformRequest'> {
   // replace `any` typed MapProps.mapLib
   mapLib?: typeof maplibregl;
@@ -68,15 +67,6 @@ const MapView = forwardRef<MapRef, MapViewProps>(
         }
       })();
     }, [geoConfig]);
-
-    useEffect(() => {
-      const clearUserAgent = setUserAgent({
-        componentName: 'LocationSearch',
-        packageName: 'react-storage',
-        version: VERSION,
-      });
-      return () => clearUserAgent();
-    }, []);
 
     /**
      * The mapLib property is used by react-map-gl@v7 to override the underlying map library. The default library is

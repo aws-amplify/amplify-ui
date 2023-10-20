@@ -1,44 +1,46 @@
 import {
-  AuthUserAgentInput,
-  GeoUserAgentInput,
-  InAppMessagingUserAgentInput,
-  StorageUserAgentInput,
   setCustomUserAgent,
   SetCustomUserAgentInput,
 } from '@aws-amplify/core/internals/utils';
 
 import {
-  ACCOUNT_SETTINGS_INPUT_BASE,
   AUTHENTICATOR_INPUT_BASE,
-  GEO_INPUT_BASE,
+  CHANGE_PASSWORD_INPUT_BASE,
+  DELETE_USER_INPUT_BASE,
   IN_APP_MESSAGING_INPUT_BASE,
+  LOCATION_SEARCH_INPUT_BASE,
+  MAP_VIEW_INPUT_BASE,
   STORAGE_INPUT_BASE,
 } from './constants';
 
 // public packages only, exclude internal packages e.g. 'react-core', 'ui'
-type PackageName =
+export type PackageName =
   | 'angular'
   | 'react'
   | 'react-auth'
   | 'react-geo'
+  | 'react-liveness'
   | 'react-native'
   | 'react-native-auth'
   | 'react-notifications'
   | 'react-storage'
   | 'vue';
 
-type ComponentName =
-  | 'AccountSettings'
+export type ComponentName =
   | 'Authenticator'
+  | 'ChangePassword'
+  | 'DeleteUser'
+  | 'FaceLivenessDetector'
   | 'InAppMessaging'
   | 'LocationSearch'
   | 'MapView'
-  | 'StorageManager';
+  | 'StorageManager'
+  | 'StorageImage';
 
 // semver notation
-type Version = `${string}.${string}.${string}`;
+export type Version = `${string}.${string}.${string}`;
 
-interface SetUserAgentOptions {
+export interface SetUserAgentOptions {
   componentName: ComponentName;
   packageName: PackageName;
   version: Version;
@@ -67,32 +69,36 @@ export const setUserAgent = ({
   ];
 
   switch (componentName) {
-    case 'AccountSettings': {
-      input = ACCOUNT_SETTINGS_INPUT_BASE as AuthUserAgentInput;
+    case 'Authenticator': {
+      input = { ...AUTHENTICATOR_INPUT_BASE, additionalDetails };
       break;
     }
-    case 'Authenticator': {
-      input = AUTHENTICATOR_INPUT_BASE as AuthUserAgentInput;
+    case 'ChangePassword': {
+      input = { ...CHANGE_PASSWORD_INPUT_BASE, additionalDetails };
+      break;
+    }
+    case 'DeleteUser': {
+      input = { ...DELETE_USER_INPUT_BASE, additionalDetails };
       break;
     }
     case 'InAppMessaging': {
-      input = IN_APP_MESSAGING_INPUT_BASE as InAppMessagingUserAgentInput;
+      input = { ...IN_APP_MESSAGING_INPUT_BASE, additionalDetails };
       break;
     }
     case 'LocationSearch': {
-      input = GEO_INPUT_BASE as GeoUserAgentInput;
+      input = { ...LOCATION_SEARCH_INPUT_BASE, additionalDetails };
       break;
     }
     case 'MapView': {
-      input = GEO_INPUT_BASE as GeoUserAgentInput;
+      input = { ...MAP_VIEW_INPUT_BASE, additionalDetails };
       break;
     }
     case 'StorageManager': {
-      input = STORAGE_INPUT_BASE as StorageUserAgentInput;
+      input = { ...STORAGE_INPUT_BASE, additionalDetails };
       break;
     }
     default:
       break;
   }
-  return setCustomUserAgent({ ...input, additionalDetails });
+  return setCustomUserAgent(input);
 };
