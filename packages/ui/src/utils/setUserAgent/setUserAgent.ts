@@ -1,18 +1,11 @@
 import {
-  AuthUserAgentInput,
-  GeoUserAgentInput,
-  InAppMessagingUserAgentInput,
-  StorageUserAgentInput,
   setCustomUserAgent,
   SetCustomUserAgentInput,
 } from '@aws-amplify/core/internals/utils';
 
 import {
   ACCOUNT_SETTINGS_INPUT_BASE,
-  AUTHENTICATOR_INPUT_BASE,
-  GEO_INPUT_BASE,
   IN_APP_MESSAGING_INPUT_BASE,
-  STORAGE_INPUT_BASE,
 } from './constants';
 
 // public packages only, exclude internal packages e.g. 'react-core', 'ui'
@@ -20,7 +13,7 @@ type PackageName =
   | 'angular'
   | 'react'
   | 'react-auth'
-  | 'react-geo'
+  | 'react-liveness'
   | 'react-native'
   | 'react-native-auth'
   | 'react-notifications'
@@ -31,9 +24,9 @@ type ComponentName =
   | 'AccountSettings'
   | 'Authenticator'
   | 'InAppMessaging'
+  | 'FaceLivenessDetector'
   | 'LocationSearch'
-  | 'MapView'
-  | 'StorageManager';
+  | 'MapView';
 
 // semver notation
 type Version = `${string}.${string}.${string}`;
@@ -68,27 +61,13 @@ export const setUserAgent = ({
 
   switch (componentName) {
     case 'AccountSettings': {
-      input = ACCOUNT_SETTINGS_INPUT_BASE as AuthUserAgentInput;
-      break;
-    }
-    case 'Authenticator': {
-      input = AUTHENTICATOR_INPUT_BASE as AuthUserAgentInput;
+      // remove cast when Category input types are available
+      input = ACCOUNT_SETTINGS_INPUT_BASE as SetCustomUserAgentInput;
       break;
     }
     case 'InAppMessaging': {
-      input = IN_APP_MESSAGING_INPUT_BASE as InAppMessagingUserAgentInput;
-      break;
-    }
-    case 'LocationSearch': {
-      input = GEO_INPUT_BASE as GeoUserAgentInput;
-      break;
-    }
-    case 'MapView': {
-      input = GEO_INPUT_BASE as GeoUserAgentInput;
-      break;
-    }
-    case 'StorageManager': {
-      input = STORAGE_INPUT_BASE as StorageUserAgentInput;
+      // remove cast when Category input types are available
+      input = IN_APP_MESSAGING_INPUT_BASE as SetCustomUserAgentInput;
       break;
     }
     default:
