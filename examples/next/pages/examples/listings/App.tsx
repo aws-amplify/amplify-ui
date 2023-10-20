@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   ToggleButton,
   ToggleButtonGroup,
-  AmplifyProvider,
+  ThemeProvider,
   ColorMode,
 } from '@aws-amplify/ui-react';
 import { MdWbSunny, MdBedtime, MdTonality } from 'react-icons/md';
@@ -15,7 +15,7 @@ import './styles.scss';
 export const App = ({ children }) => {
   const [colorMode, setColorMode] = React.useState<ColorMode>('system');
   return (
-    <AmplifyProvider theme={theme} colorMode={colorMode}>
+    <ThemeProvider theme={theme} colorMode={colorMode}>
       <header className="listing-app-header">
         <Logo />
         <input type="search" placeholder="search" />
@@ -37,7 +37,7 @@ export const App = ({ children }) => {
       </header>
 
       {children}
-    </AmplifyProvider>
+    </ThemeProvider>
   );
 };
 

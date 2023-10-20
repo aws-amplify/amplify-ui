@@ -1,6 +1,6 @@
 import { createTheme, WebTheme } from '@aws-amplify/ui';
 import { renderHook } from '@testing-library/react-hooks';
-import { AmplifyProvider } from '../../components/ThemeProvider';
+import { ThemeProvider } from '../../components/ThemeProvider';
 import { useTheme } from '../useTheme';
 import * as React from 'react';
 
@@ -21,7 +21,7 @@ describe('useTheme', () => {
 
     const { result } = renderHook(() => useTheme(), {
       wrapper: ({ children }) => (
-        <AmplifyProvider theme={customTheme}>{children}</AmplifyProvider>
+        <ThemeProvider theme={customTheme}>{children}</ThemeProvider>
       ),
     });
 
@@ -48,7 +48,7 @@ describe('useTheme', () => {
 
     const { result } = renderHook(() => useTheme(), {
       wrapper: ({ children }) => (
-        <AmplifyProvider theme={extendedTheme}>{children}</AmplifyProvider>
+        <ThemeProvider theme={extendedTheme}>{children}</ThemeProvider>
       ),
     });
 
@@ -57,7 +57,7 @@ describe('useTheme', () => {
 
   it('should return a default theme if not provided through context', () => {
     const { result } = renderHook(() => useTheme(), {
-      wrapper: ({ children }) => <AmplifyProvider>{children}</AmplifyProvider>,
+      wrapper: ({ children }) => <ThemeProvider>{children}</ThemeProvider>,
     });
 
     expect(serializeTheme(result.current)).toBe(serializeTheme(createTheme()));
