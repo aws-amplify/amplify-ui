@@ -1,10 +1,12 @@
 import * as UserAgentModule from '@aws-amplify/core/internals/utils';
 
 import {
-  ACCOUNT_SETTINGS_INPUT_BASE,
   AUTHENTICATOR_INPUT_BASE,
-  GEO_INPUT_BASE,
+  CHANGE_PASSWORD_INPUT_BASE,
+  DELETE_USER_INPUT_BASE,
   IN_APP_MESSAGING_INPUT_BASE,
+  LOCATION_SEARCH_INPUT_BASE,
+  MAP_VIEW_INPUT_BASE,
   STORAGE_INPUT_BASE,
 } from '../setUserAgent/constants';
 import { setUserAgent } from '../setUserAgent';
@@ -20,22 +22,6 @@ describe('userAgent', () => {
     setCustomUserAgentSpy.mockReset();
   });
 
-  it('passes the expected input for AccountSettings', () => {
-    const details: SetUserAgentOptions = {
-      componentName: 'AccountSettings',
-      packageName: 'react-auth',
-      version: '1.0.0',
-    };
-
-    setUserAgent(details);
-
-    expect(setCustomUserAgentSpy).toHaveBeenCalledTimes(1);
-    expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
-      ...ACCOUNT_SETTINGS_INPUT_BASE,
-      additionalDetails: [['AccountSettings'], ['ui-react-auth', '1.0.0']],
-    });
-  });
-
   it('passes the expected input for Authenticator', () => {
     const details: SetUserAgentOptions = {
       componentName: 'Authenticator',
@@ -49,6 +35,38 @@ describe('userAgent', () => {
     expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
       ...AUTHENTICATOR_INPUT_BASE,
       additionalDetails: [['Authenticator'], ['ui-react-auth', '1.0.0']],
+    });
+  });
+
+  it('passes the expected input for ChangePassword', () => {
+    const details: SetUserAgentOptions = {
+      componentName: 'ChangePassword',
+      packageName: 'react-auth',
+      version: '1.0.0',
+    };
+
+    setUserAgent(details);
+
+    expect(setCustomUserAgentSpy).toHaveBeenCalledTimes(1);
+    expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
+      ...CHANGE_PASSWORD_INPUT_BASE,
+      additionalDetails: [['ChangePassword'], ['ui-react-auth', '1.0.0']],
+    });
+  });
+
+  it('passes the expected input for DeleteUser', () => {
+    const details: SetUserAgentOptions = {
+      componentName: 'DeleteUser',
+      packageName: 'react-auth',
+      version: '1.0.0',
+    };
+
+    setUserAgent(details);
+
+    expect(setCustomUserAgentSpy).toHaveBeenCalledTimes(1);
+    expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
+      ...DELETE_USER_INPUT_BASE,
+      additionalDetails: [['DeleteUser'], ['ui-react-auth', '1.0.0']],
     });
   });
 
@@ -82,7 +100,7 @@ describe('userAgent', () => {
 
     expect(setCustomUserAgentSpy).toHaveBeenCalledTimes(1);
     expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
-      ...GEO_INPUT_BASE,
+      ...LOCATION_SEARCH_INPUT_BASE,
       additionalDetails: [['LocationSearch'], ['ui-react-geo', '1.0.0']],
     });
   });
@@ -98,7 +116,7 @@ describe('userAgent', () => {
 
     expect(setCustomUserAgentSpy).toHaveBeenCalledTimes(1);
     expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
-      ...GEO_INPUT_BASE,
+      ...MAP_VIEW_INPUT_BASE,
       additionalDetails: [['MapView'], ['ui-react-geo', '1.0.0']],
     });
   });
