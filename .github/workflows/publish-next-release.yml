@@ -1,13 +1,13 @@
 # Description: This workflow runs unit + e2e tests, then publishes UI packages
 #              to `@next-release` NPM tag.
 #
-# Triggered by: merge to `next-release/main`
+# Triggered by: merge to `next-release/run-react-18-ci`
 
 name: Test and Publish / next-release
 
 on:
   push:
-    branches: [next-release/main]
+    branches: [next-release/run-react-18-ci]
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -15,20 +15,20 @@ permissions:
 
 jobs:
   setup-cache:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@next-release/main
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@next-release/run-react-18-ci
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
 
   unit:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@next-release/main
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@next-release/run-react-18-ci
     needs: setup-cache
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
 
   e2e:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@next-release/main
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@next-release/run-react-18-ci
     needs: unit
     with:
       commit: ${{ github.sha }}
@@ -54,7 +54,7 @@ jobs:
     needs: [e2e]
     uses: ./.github/workflows/reusable-tagged-publish.yml
     with:
-      dist-tag: next-release
+      dist-tag: react-18
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 

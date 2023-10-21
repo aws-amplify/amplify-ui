@@ -13,7 +13,7 @@ concurrency:
 
 on:
   pull_request:
-    branches: [next-release/main]
+    branches: [next-release/run-react-18-ci]
     types: [opened, synchronize, labeled]
 
 jobs:
