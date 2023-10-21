@@ -23,7 +23,7 @@ import {
 import { getStyleValue } from './getStyleValue';
 
 export const isSpanPrimitiveValue = (
-  spanValue: GridItemStyleProps['rowSpan'] | GridItemStyleProps['columnSpan']
+  spanValue: GridItemStyleProps['rowSpan' | 'columnSpan']
 ): spanValue is GridSpanType => {
   return (
     spanValue === 'auto' ||
@@ -37,7 +37,7 @@ export const getGridSpan = (spanValue: GridSpanType): string => {
 };
 
 export const convertGridSpan = (
-  spanValue?: GridItemStyleProps['rowSpan'] | GridItemStyleProps['columnSpan']
+  spanValue?: GridItemStyleProps['rowSpan' | 'columnSpan']
 ): GridItemStyleProps['row'] | GridItemStyleProps['column'] | null => {
   // PropertyType
   if (isSpanPrimitiveValue(spanValue)) {
@@ -45,7 +45,7 @@ export const convertGridSpan = (
   }
   // PropertyType[]
   if (Array.isArray(spanValue)) {
-    return spanValue.map((value) => getGridSpan(value));
+    return spanValue.map((value) => getGridSpan(value as GridSpanType));
   }
   // ResponsiveObject<PropertyType>
   if (typeof spanValue === 'object' && spanValue != null) {

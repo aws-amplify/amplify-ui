@@ -27,7 +27,7 @@ describe('createContextUtilities', () => {
   });
 
   it('throws an error when defaultValue is undefined and no errorMessage is provided', () => {
-    const defaultValue = undefined as unknown as {};
+    const defaultValue = undefined as unknown as object;
 
     expect(() => createContextUtilities({ contextName, defaultValue })).toThrow(
       INVALID_OPTIONS_MESSAGE
@@ -36,7 +36,9 @@ describe('createContextUtilities', () => {
 
   it('throws an error when no options are provided', () => {
     // @ts-expect-error
-    expect(() => createContextUtilities()).toThrow(INVALID_OPTIONS_MESSAGE);
+    expect(() => createContextUtilities(undefined)).toThrow(
+      INVALID_OPTIONS_MESSAGE
+    );
   });
 
   it('utility hook exposes expected values without a defaultValue provided', () => {
@@ -45,7 +47,7 @@ describe('createContextUtilities', () => {
       errorMessage,
     });
 
-    const { result } = renderHook(useStuff, {
+    const { result } = renderHook(() => useStuff(), {
       wrapper: (props: { children?: React.ReactNode }) => (
         <StuffProvider {...defaultValue} {...props} />
       ),

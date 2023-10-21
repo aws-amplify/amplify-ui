@@ -1,9 +1,9 @@
 {
   "name": "@aws-amplify/ui-react-native-auth",
   "version": "0.0.1",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
+  "module": "dist/index.js",
   "react-native": "src/index.ts",
-  "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
   "license": "Apache-2.0",
   "scripts": {
@@ -20,24 +20,11 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@aws-amplify/eslint-config-amplify-ui": "0.0.0",
-    "@aws-amplify/typescript-config": "0.0.0",
-    "@babel/cli": "^7.17.10",
-    "@babel/core": "^7.17.10",
-    "@babel/preset-env": "^7.17.10",
-    "@testing-library/react-hooks": "^8.0.0",
-    "@testing-library/react-native": "^11.1.0",
-    "@types/react": "^17.0.2",
-    "@types/react-native": "^0.67.6",
-    "@types/react-test-renderer": "^17.0.1",
-    "babel-jest": "^28.0.3",
-    "eslint": "^8.44.0",
-    "jest": "^27.0.4",
-    "metro-react-native-babel-preset": "^0.70.2",
-    "react": "^17.0.2",
-    "react-native": "^0.68.1",
-    "react-test-renderer": "^17.0.2",
-    "rimraf": "^3.0.2"
+    "@babel/cli": "^7.22.15",
+    "@babel/core": "^7.22.20",
+    "@babel/preset-env": "^7.22.20",
+    "@testing-library/react-native": "^12.3.0",
+    "metro-react-native-babel-preset": "^0.70.2"
   },
   "dependencies": {
     "@aws-amplify/ui": "5.8.1",
@@ -45,11 +32,15 @@
     "@aws-amplify/ui-react-native": "1.2.28"
   },
   "peerDependencies": {
-    "aws-amplify": ">= 5.0.1",
-    "react": ">= 16.14.0",
-    "react-native": ">= 0.63.4"
+    "aws-amplify": "^5.0.1",
+    "react": "^18",
+    "react-native": "^0.70 || ^0.71 || ^0.72"
   },
-  "resolutions": {
-    "@types/react": "^17.0.2"
-  }
+  "files": [
+    "dist",
+    "lib",
+    "src",
+    "!**/__mocks__",
+    "!**/__tests__"
+  ]
 }

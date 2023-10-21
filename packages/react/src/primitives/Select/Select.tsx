@@ -9,6 +9,7 @@ import { ForwardRefPrimitive, Primitive } from '../types';
 import { BaseSelectProps, SelectProps } from '../types/select';
 import { View } from '../View';
 import { useFieldset } from '../Fieldset/useFieldset';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const SelectPrimitive: Primitive<SelectProps, 'select'> = (
   {
@@ -89,6 +90,6 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
 };
 
 export const Select: ForwardRefPrimitive<BaseSelectProps, 'select'> =
-  React.forwardRef(SelectPrimitive);
+  primitiveWithForwardRef(SelectPrimitive);
 
 Select.displayName = 'Select';

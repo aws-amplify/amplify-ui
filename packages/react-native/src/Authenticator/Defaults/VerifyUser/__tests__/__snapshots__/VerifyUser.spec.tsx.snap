@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`VerifyUser renders as expected 1`] = `
-Array [
+[
   <Text
     accessibilityRole="header"
     style={
-      Array [
-        Object {
+      [
+        {
           "color": "hsl(210, 50%, 10%)",
         },
-        Object {
+        {
           "fontSize": 24,
           "fontWeight": "500",
           "lineHeight": 36,
         },
-        Object {
+        {
           "marginVertical": 12,
           "paddingHorizontal": 12,
         },
@@ -26,16 +26,16 @@ Array [
   <Text
     accessibilityRole="text"
     style={
-      Array [
-        Object {
+      [
+        {
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "hsl(210, 50%, 10%)",
         },
-        Object {
+        {
           "fontSize": 16,
           "paddingHorizontal": 12,
         },
@@ -46,12 +46,12 @@ Array [
   </Text>,
   <View
     style={
-      Array [
-        Object {},
-        Object {
+      [
+        {},
+        {
           "flexDirection": "column-reverse",
         },
-        Object {
+        {
           "paddingBottom": 8,
         },
       ]
@@ -59,14 +59,32 @@ Array [
   >
     <View
       accessibilityRole="radiogroup"
+      accessible={true}
       style={
-        Object {
+        {
           "flexDirection": "column",
         }
       }
     >
       <View
         accessibilityRole="radio"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
         accessible={true}
         collapsable={false}
         focusable={true}
@@ -80,13 +98,13 @@ Array [
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          Array [
-            Object {
+          [
+            {
               "alignItems": "center",
               "flexDirection": "row",
             },
             undefined,
-            Object {
+            {
               "paddingHorizontal": 12,
             },
           ]
@@ -95,8 +113,8 @@ Array [
       >
         <View
           style={
-            Array [
-              Object {
+            [
+              {
                 "alignItems": "center",
                 "borderColor": "hsl(210, 10%, 58%)",
                 "borderRadius": 999,
@@ -104,7 +122,7 @@ Array [
                 "justifyContent": "center",
                 "margin": 4,
               },
-              Object {
+              {
                 "height": 20,
                 "width": 20,
               },
@@ -116,16 +134,16 @@ Array [
         <Text
           accessibilityRole="text"
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Object {
+              {
                 "color": "hsl(210, 50%, 10%)",
               },
-              Object {},
+              {},
             ]
           }
         >
@@ -134,6 +152,23 @@ Array [
       </View>
       <View
         accessibilityRole="radio"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
         accessible={true}
         collapsable={false}
         focusable={true}
@@ -147,13 +182,13 @@ Array [
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          Array [
-            Object {
+          [
+            {
               "alignItems": "center",
               "flexDirection": "row",
             },
             undefined,
-            Object {
+            {
               "paddingHorizontal": 12,
             },
           ]
@@ -162,8 +197,8 @@ Array [
       >
         <View
           style={
-            Array [
-              Object {
+            [
+              {
                 "alignItems": "center",
                 "borderColor": "hsl(210, 10%, 58%)",
                 "borderRadius": 999,
@@ -171,7 +206,7 @@ Array [
                 "justifyContent": "center",
                 "margin": 4,
               },
-              Object {
+              {
                 "height": 20,
                 "width": 20,
               },
@@ -183,16 +218,16 @@ Array [
         <Text
           accessibilityRole="text"
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Object {
+              {
                 "color": "hsl(210, 50%, 10%)",
               },
-              Object {},
+              {},
             ]
           }
         >
@@ -204,8 +239,20 @@ Array [
   <View
     accessibilityRole="button"
     accessibilityState={
-      Object {
+      {
+        "busy": undefined,
+        "checked": undefined,
         "disabled": true,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
       }
     }
     accessible={true}
@@ -221,8 +268,8 @@ Array [
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "backgroundColor": "hsl(190, 95%, 30%)",
           "borderRadius": 4,
@@ -232,7 +279,7 @@ Array [
           "paddingVertical": 12,
         },
         undefined,
-        Object {
+        {
           "margin": 12,
         },
       ]
@@ -241,14 +288,14 @@ Array [
   >
     <Text
       style={
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
             "fontWeight": "700",
             "textAlign": "center",
           },
-          Object {},
+          {},
         ]
       }
     >
@@ -257,7 +304,7 @@ Array [
   </View>,
   <View
     style={
-      Object {
+      {
         "flexDirection": "row",
         "flexWrap": "wrap",
         "justifyContent": "center",
@@ -266,6 +313,23 @@ Array [
   >
     <View
       accessibilityRole="button"
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
       accessible={true}
       collapsable={false}
       focusable={true}
@@ -279,8 +343,8 @@ Array [
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
       style={
-        Array [
-          Object {
+        [
+          {
             "alignItems": "center",
             "backgroundColor": "transparent",
             "borderRadius": 4,
@@ -289,7 +353,7 @@ Array [
             "paddingVertical": 12,
           },
           undefined,
-          Object {
+          {
             "marginVertical": 8,
             "minWidth": "50%",
           },
@@ -298,8 +362,8 @@ Array [
     >
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "color": "hsl(190, 95%, 30%)",
               "fontSize": 16,
               "fontWeight": "700",
@@ -317,20 +381,20 @@ Array [
 `;
 
 exports[`VerifyUser renders as expected with errors 1`] = `
-Array [
+[
   <Text
     accessibilityRole="header"
     style={
-      Array [
-        Object {
+      [
+        {
           "color": "hsl(210, 50%, 10%)",
         },
-        Object {
+        {
           "fontSize": 24,
           "fontWeight": "500",
           "lineHeight": 36,
         },
-        Object {
+        {
           "marginVertical": 12,
           "paddingHorizontal": 12,
         },
@@ -342,16 +406,16 @@ Array [
   <Text
     accessibilityRole="text"
     style={
-      Array [
-        Object {
+      [
+        {
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "hsl(210, 50%, 10%)",
         },
-        Object {
+        {
           "fontSize": 16,
           "paddingHorizontal": 12,
         },
@@ -362,12 +426,12 @@ Array [
   </Text>,
   <View
     style={
-      Array [
-        Object {},
-        Object {
+      [
+        {},
+        {
           "flexDirection": "column-reverse",
         },
-        Object {
+        {
           "paddingBottom": 8,
         },
       ]
@@ -375,14 +439,32 @@ Array [
   >
     <View
       accessibilityRole="radiogroup"
+      accessible={true}
       style={
-        Object {
+        {
           "flexDirection": "column",
         }
       }
     >
       <View
         accessibilityRole="radio"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
         accessible={true}
         collapsable={false}
         focusable={true}
@@ -396,13 +478,13 @@ Array [
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          Array [
-            Object {
+          [
+            {
               "alignItems": "center",
               "flexDirection": "row",
             },
             undefined,
-            Object {
+            {
               "paddingHorizontal": 12,
             },
           ]
@@ -411,8 +493,8 @@ Array [
       >
         <View
           style={
-            Array [
-              Object {
+            [
+              {
                 "alignItems": "center",
                 "borderColor": "hsl(210, 10%, 58%)",
                 "borderRadius": 999,
@@ -420,7 +502,7 @@ Array [
                 "justifyContent": "center",
                 "margin": 4,
               },
-              Object {
+              {
                 "height": 20,
                 "width": 20,
               },
@@ -432,16 +514,16 @@ Array [
         <Text
           accessibilityRole="text"
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Object {
+              {
                 "color": "hsl(210, 50%, 10%)",
               },
-              Object {},
+              {},
             ]
           }
         >
@@ -450,6 +532,23 @@ Array [
       </View>
       <View
         accessibilityRole="radio"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
         accessible={true}
         collapsable={false}
         focusable={true}
@@ -463,13 +562,13 @@ Array [
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          Array [
-            Object {
+          [
+            {
               "alignItems": "center",
               "flexDirection": "row",
             },
             undefined,
-            Object {
+            {
               "paddingHorizontal": 12,
             },
           ]
@@ -478,8 +577,8 @@ Array [
       >
         <View
           style={
-            Array [
-              Object {
+            [
+              {
                 "alignItems": "center",
                 "borderColor": "hsl(210, 10%, 58%)",
                 "borderRadius": 999,
@@ -487,7 +586,7 @@ Array [
                 "justifyContent": "center",
                 "margin": 4,
               },
-              Object {
+              {
                 "height": 20,
                 "width": 20,
               },
@@ -499,16 +598,16 @@ Array [
         <Text
           accessibilityRole="text"
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Object {
+              {
                 "color": "hsl(210, 50%, 10%)",
               },
-              Object {},
+              {},
             ]
           }
         >
@@ -519,16 +618,17 @@ Array [
   </View>,
   <View
     accessibilityRole="alert"
+    accessible={true}
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "backgroundColor": "hsl(0, 75%, 95%)",
           "flexDirection": "row",
           "paddingHorizontal": 8,
           "paddingVertical": 12,
         },
-        Object {
+        {
           "marginHorizontal": 12,
         },
       ]
@@ -537,39 +637,40 @@ Array [
   >
     <Image
       accessibilityRole="image"
+      accessible={true}
       source={
-        Object {
-          "testUri": "../../../src/assets/icons/error.png",
+        {
+          "testUri": "../../../packages/react-native/src/assets/icons/error.png",
         }
       }
       style={
-        Array [
-          Object {
+        [
+          {
             "height": 20,
             "resizeMode": "contain",
             "tintColor": undefined,
             "width": 20,
           },
-          Array [
-            Object {
+          [
+            {
               "margin": 8,
               "tintColor": "hsl(0, 100%, 20%)",
             },
-            Object {},
+            {},
           ],
         ]
       }
     />
     <Text
       style={
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(0, 100%, 20%)",
             "flex": 1,
             "fontSize": 16,
             "paddingHorizontal": 8,
           },
-          Object {},
+          {},
         ]
       }
     >
@@ -579,8 +680,20 @@ Array [
   <View
     accessibilityRole="button"
     accessibilityState={
-      Object {
+      {
+        "busy": undefined,
+        "checked": undefined,
         "disabled": true,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
       }
     }
     accessible={true}
@@ -596,8 +709,8 @@ Array [
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "backgroundColor": "hsl(190, 95%, 30%)",
           "borderRadius": 4,
@@ -607,7 +720,7 @@ Array [
           "paddingVertical": 12,
         },
         undefined,
-        Object {
+        {
           "margin": 12,
         },
       ]
@@ -616,14 +729,14 @@ Array [
   >
     <Text
       style={
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
             "fontWeight": "700",
             "textAlign": "center",
           },
-          Object {},
+          {},
         ]
       }
     >
@@ -632,7 +745,7 @@ Array [
   </View>,
   <View
     style={
-      Object {
+      {
         "flexDirection": "row",
         "flexWrap": "wrap",
         "justifyContent": "center",
@@ -641,6 +754,23 @@ Array [
   >
     <View
       accessibilityRole="button"
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
       accessible={true}
       collapsable={false}
       focusable={true}
@@ -654,8 +784,8 @@ Array [
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
       style={
-        Array [
-          Object {
+        [
+          {
             "alignItems": "center",
             "backgroundColor": "transparent",
             "borderRadius": 4,
@@ -664,7 +794,7 @@ Array [
             "paddingVertical": 12,
           },
           undefined,
-          Object {
+          {
             "marginVertical": 8,
             "minWidth": "50%",
           },
@@ -673,8 +803,8 @@ Array [
     >
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "color": "hsl(190, 95%, 30%)",
               "fontSize": 16,
               "fontWeight": "700",

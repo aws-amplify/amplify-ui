@@ -4,13 +4,13 @@ exports[`Label applies accessibility role 1`] = `
 <Text
   accessibilityRole="none"
   style={
-    Array [
-      Object {
+    [
+      {
         "fontSize": 16,
         "fontWeight": "400",
         "lineHeight": 24,
       },
-      Object {
+      {
         "color": "hsl(210, 50%, 10%)",
       },
       undefined,
@@ -26,13 +26,13 @@ exports[`Label renders a default Label 1`] = `
 <Text
   accessibilityRole="text"
   style={
-    Array [
-      Object {
+    [
+      {
         "fontSize": 16,
         "fontWeight": "400",
         "lineHeight": 24,
       },
-      Object {
+      {
         "color": "hsl(210, 50%, 10%)",
       },
       undefined,
@@ -48,16 +48,16 @@ exports[`Label should apply theme and style props 1`] = `
 <Text
   accessibilityRole="text"
   style={
-    Array [
-      Object {
+    [
+      {
         "fontSize": 16,
         "fontWeight": "400",
         "lineHeight": 24,
       },
-      Object {
+      {
         "color": "hsl(210, 50%, 10%)",
       },
-      Object {
+      {
         "color": "red",
       },
     ]
@@ -72,13 +72,13 @@ exports[`Label should apply variant styles 1`] = `
 <Text
   accessibilityRole="text"
   style={
-    Array [
-      Object {
+    [
+      {
         "fontSize": 16,
         "fontWeight": "400",
         "lineHeight": 24,
       },
-      Object {
+      {
         "color": "hsl(130, 27%, 29%)",
       },
       undefined,

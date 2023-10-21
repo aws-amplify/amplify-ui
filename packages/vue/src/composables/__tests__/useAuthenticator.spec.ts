@@ -67,8 +67,8 @@ describe('useAuthenticator', () => {
   it('calls getServiceFacade once on initial mount', () => {
     const wrapper = mount(TestComponent);
 
-    expect(getServiceFacadeSpy).toBeCalledTimes(1);
-    expect(getServiceFacadeSpy).toBeCalledWith({
+    expect(getServiceFacadeSpy).toHaveBeenCalledTimes(1);
+    expect(getServiceFacadeSpy).toHaveBeenCalledWith({
       send: mockSend,
       state: mockState.value,
     });
@@ -78,8 +78,8 @@ describe('useAuthenticator', () => {
   it('getServiceFacadeValue is called again when state changes', async () => {
     const wrapper = mount(TestComponent);
 
-    expect(getServiceFacadeSpy).toBeCalledTimes(1);
-    expect(getServiceFacadeSpy).toBeCalledWith({
+    expect(getServiceFacadeSpy).toHaveBeenCalledTimes(1);
+    expect(getServiceFacadeSpy).toHaveBeenCalledWith({
       send: mockSend,
       state: mockState.value,
     });
@@ -90,8 +90,8 @@ describe('useAuthenticator', () => {
     mockState.value = newStateValue as unknown as UIModule.AuthMachineState;
     await flushPromises();
 
-    expect(getServiceFacadeSpy).toBeCalledTimes(1);
-    expect(getServiceFacadeSpy).toBeCalledWith({
+    expect(getServiceFacadeSpy).toHaveBeenCalledTimes(1);
+    expect(getServiceFacadeSpy).toHaveBeenCalledWith({
       send: mockSend,
       state: newStateValue,
     });

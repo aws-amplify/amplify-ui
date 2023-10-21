@@ -60,25 +60,13 @@
     }
   },
   "devDependencies": {
-    "@aws-amplify/typescript-config": "0.0.0",
-    "@rollup/plugin-typescript": "^8.3.1",
-    "@types/jest": "^26.0.23",
     "@types/lodash": "^4.14.170",
     "@types/webpack-env": "^1.16.2",
-    "@typescript-eslint/parser": "^5.20.0",
     "autoprefixer": "^10.3.1",
     "esbuild-register": "^3.4.2",
     "fs-extra": "^10.0.0",
-    "glob": "^7.1.7",
-    "globcat": "^1.3.4",
-    "jest": "^27.0.4",
     "postcss": "^8.4.31",
-    "rimraf": "^3.0.2",
-    "rollup": "^2.70.0",
-    "rollup-plugin-node-externals": "^4.1.1",
-    "rollup-plugin-terser": "^7.0.2",
-    "sass": "^1.35.2",
-    "ts-jest": "^27.0.3"
+    "sass": "^1.35.2"
   },
   "sideEffects": [
     "dist/**/*.css"

@@ -1,4 +1,6 @@
-module.exports = {
+import { Config } from 'jest';
+
+const config: Config = {
   collectCoverageFrom: [
     '<rootDir>/src/**/*.(ts|tsx)',
 
@@ -12,16 +14,16 @@ module.exports = {
   ],
   coverageThreshold: {
     global: {
-      // TBD
-      branches: 0,
-      functions: 0,
-      lines: 0,
-      statements: 0,
+      branches: 89,
+      functions: 87,
+      lines: 90,
+      statements: 90,
     },
   },
-  globals: { 'ts-jest': { tsconfig: 'tsconfig.json' } },
+  moduleNameMapper: { '^uuid$': '<rootDir>/../../node_modules/uuid' },
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
-  moduleNameMapper: { '^react$': '<rootDir>/node_modules/react' },
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
 };
+
+export default config;

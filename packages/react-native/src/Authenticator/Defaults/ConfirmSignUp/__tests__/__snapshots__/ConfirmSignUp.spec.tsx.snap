@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ConfirmSignUp renders as expected 1`] = `
-Array [
+[
   <Text
     accessibilityRole="header"
     style={
-      Array [
-        Object {
+      [
+        {
           "color": "hsl(210, 50%, 10%)",
         },
-        Object {
+        {
           "fontSize": 24,
           "fontWeight": "500",
           "lineHeight": 36,
         },
-        Object {
+        {
           "marginVertical": 12,
           "paddingHorizontal": 12,
         },
@@ -26,16 +26,16 @@ Array [
   <Text
     accessibilityRole="text"
     style={
-      Array [
-        Object {
+      [
+        {
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "hsl(210, 50%, 10%)",
         },
-        Object {
+        {
           "fontSize": 16,
           "paddingHorizontal": 12,
         },
@@ -46,7 +46,7 @@ Array [
   </Text>,
   <View
     style={
-      Object {
+      {
         "paddingBottom": 8,
       }
     }
@@ -54,8 +54,20 @@ Array [
   <View
     accessibilityRole="button"
     accessibilityState={
-      Object {
+      {
+        "busy": undefined,
+        "checked": undefined,
         "disabled": false,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
       }
     }
     accessible={true}
@@ -71,8 +83,8 @@ Array [
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "backgroundColor": "hsl(190, 95%, 30%)",
           "borderRadius": 4,
@@ -81,7 +93,7 @@ Array [
           "paddingVertical": 12,
         },
         undefined,
-        Object {
+        {
           "margin": 12,
         },
       ]
@@ -90,14 +102,14 @@ Array [
   >
     <Text
       style={
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
             "fontWeight": "700",
             "textAlign": "center",
           },
-          Object {},
+          {},
         ]
       }
     >
@@ -106,6 +118,23 @@ Array [
   </View>,
   <View
     accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -119,8 +148,8 @@ Array [
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "backgroundColor": "transparent",
           "borderColor": "hsl(210, 10%, 58%)",
@@ -131,7 +160,7 @@ Array [
           "paddingVertical": 12,
         },
         undefined,
-        Object {
+        {
           "marginHorizontal": 16,
         },
       ]
@@ -139,14 +168,14 @@ Array [
   >
     <Text
       style={
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(210, 50%, 10%)",
             "fontSize": 16,
             "fontWeight": "700",
             "textAlign": "center",
           },
-          Object {},
+          {},
         ]
       }
     >
@@ -157,20 +186,20 @@ Array [
 `;
 
 exports[`ConfirmSignUp renders as expected when isPending is true 1`] = `
-Array [
+[
   <Text
     accessibilityRole="header"
     style={
-      Array [
-        Object {
+      [
+        {
           "color": "hsl(210, 50%, 10%)",
         },
-        Object {
+        {
           "fontSize": 24,
           "fontWeight": "500",
           "lineHeight": 36,
         },
-        Object {
+        {
           "marginVertical": 12,
           "paddingHorizontal": 12,
         },
@@ -182,16 +211,16 @@ Array [
   <Text
     accessibilityRole="text"
     style={
-      Array [
-        Object {
+      [
+        {
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "hsl(210, 50%, 10%)",
         },
-        Object {
+        {
           "fontSize": 16,
           "paddingHorizontal": 12,
         },
@@ -202,7 +231,7 @@ Array [
   </Text>,
   <View
     style={
-      Object {
+      {
         "paddingBottom": 8,
       }
     }
@@ -210,8 +239,20 @@ Array [
   <View
     accessibilityRole="button"
     accessibilityState={
-      Object {
+      {
+        "busy": undefined,
+        "checked": undefined,
         "disabled": false,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
       }
     }
     accessible={true}
@@ -227,8 +268,8 @@ Array [
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "backgroundColor": "hsl(190, 95%, 30%)",
           "borderRadius": 4,
@@ -237,7 +278,7 @@ Array [
           "paddingVertical": 12,
         },
         undefined,
-        Object {
+        {
           "margin": 12,
         },
       ]
@@ -246,14 +287,14 @@ Array [
   >
     <Text
       style={
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
             "fontWeight": "700",
             "textAlign": "center",
           },
-          Object {},
+          {},
         ]
       }
     >
@@ -262,6 +303,23 @@ Array [
   </View>,
   <View
     accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -275,8 +333,8 @@ Array [
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "backgroundColor": "transparent",
           "borderColor": "hsl(210, 10%, 58%)",
@@ -287,7 +345,7 @@ Array [
           "paddingVertical": 12,
         },
         undefined,
-        Object {
+        {
           "marginHorizontal": 16,
         },
       ]
@@ -295,14 +353,14 @@ Array [
   >
     <Text
       style={
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(210, 50%, 10%)",
             "fontSize": 16,
             "fontWeight": "700",
             "textAlign": "center",
           },
-          Object {},
+          {},
         ]
       }
     >
@@ -313,20 +371,20 @@ Array [
 `;
 
 exports[`ConfirmSignUp renders as expected with an error 1`] = `
-Array [
+[
   <Text
     accessibilityRole="header"
     style={
-      Array [
-        Object {
+      [
+        {
           "color": "hsl(210, 50%, 10%)",
         },
-        Object {
+        {
           "fontSize": 24,
           "fontWeight": "500",
           "lineHeight": 36,
         },
-        Object {
+        {
           "marginVertical": 12,
           "paddingHorizontal": 12,
         },
@@ -338,16 +396,16 @@ Array [
   <Text
     accessibilityRole="text"
     style={
-      Array [
-        Object {
+      [
+        {
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "hsl(210, 50%, 10%)",
         },
-        Object {
+        {
           "fontSize": 16,
           "paddingHorizontal": 12,
         },
@@ -358,23 +416,24 @@ Array [
   </Text>,
   <View
     style={
-      Object {
+      {
         "paddingBottom": 8,
       }
     }
   />,
   <View
     accessibilityRole="alert"
+    accessible={true}
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "backgroundColor": "hsl(0, 75%, 95%)",
           "flexDirection": "row",
           "paddingHorizontal": 8,
           "paddingVertical": 12,
         },
-        Object {
+        {
           "marginHorizontal": 12,
         },
       ]
@@ -383,39 +442,40 @@ Array [
   >
     <Image
       accessibilityRole="image"
+      accessible={true}
       source={
-        Object {
-          "testUri": "../../../src/assets/icons/error.png",
+        {
+          "testUri": "../../../packages/react-native/src/assets/icons/error.png",
         }
       }
       style={
-        Array [
-          Object {
+        [
+          {
             "height": 20,
             "resizeMode": "contain",
             "tintColor": undefined,
             "width": 20,
           },
-          Array [
-            Object {
+          [
+            {
               "margin": 8,
               "tintColor": "hsl(0, 100%, 20%)",
             },
-            Object {},
+            {},
           ],
         ]
       }
     />
     <Text
       style={
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(0, 100%, 20%)",
             "flex": 1,
             "fontSize": 16,
             "paddingHorizontal": 8,
           },
-          Object {},
+          {},
         ]
       }
     >
@@ -425,8 +485,20 @@ Array [
   <View
     accessibilityRole="button"
     accessibilityState={
-      Object {
+      {
+        "busy": undefined,
+        "checked": undefined,
         "disabled": false,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
       }
     }
     accessible={true}
@@ -442,8 +514,8 @@ Array [
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "backgroundColor": "hsl(190, 95%, 30%)",
           "borderRadius": 4,
@@ -452,7 +524,7 @@ Array [
           "paddingVertical": 12,
         },
         undefined,
-        Object {
+        {
           "margin": 12,
         },
       ]
@@ -461,14 +533,14 @@ Array [
   >
     <Text
       style={
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
             "fontWeight": "700",
             "textAlign": "center",
           },
-          Object {},
+          {},
         ]
       }
     >
@@ -477,6 +549,23 @@ Array [
   </View>,
   <View
     accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -490,8 +579,8 @@ Array [
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "backgroundColor": "transparent",
           "borderColor": "hsl(210, 10%, 58%)",
@@ -502,7 +591,7 @@ Array [
           "paddingVertical": 12,
         },
         undefined,
-        Object {
+        {
           "marginHorizontal": 16,
         },
       ]
@@ -510,14 +599,14 @@ Array [
   >
     <Text
       style={
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(210, 50%, 10%)",
             "fontSize": 16,
             "fontWeight": "700",
             "textAlign": "center",
           },
-          Object {},
+          {},
         ]
       }
     >

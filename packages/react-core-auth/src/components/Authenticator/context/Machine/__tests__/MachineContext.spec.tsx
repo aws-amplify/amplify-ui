@@ -35,7 +35,7 @@ const getNextServiceFacadeSpy = jest
 
 // test setup
 jest.mock('@xstate/react', () => ({
-  ...jest.requireActual('@xstate/react'),
+  ...jest.requireActual<typeof import('@xstate/react')>('@xstate/react'),
   useSelector: jest.fn((_, selector: () => NextAuthenticatorServiceFacade) =>
     selector()
   ),
@@ -64,7 +64,7 @@ describe('useMachine', () => {
   });
 
   it('returns the expected values', () => {
-    const { result } = renderHook(useMachine, {
+    const { result } = renderHook(() => useMachine(), {
       wrapper: Wrapper,
     });
 
@@ -82,8 +82,8 @@ describe('useMachine', () => {
   });
 
   it('does not call getComparator when no selector argument passed', () => {
-    renderHook(useMachine, { wrapper: Wrapper });
+    renderHook(() => useMachine(), { wrapper: Wrapper });
 
-    expect(getComparatorSpy).not.toBeCalled();
+    expect(getComparatorSpy).not.toHaveBeenCalled();
   });
 });

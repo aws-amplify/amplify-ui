@@ -163,7 +163,7 @@ describe('StorageManager', () => {
 
     // Wait for the file to be uploaded
     await waitFor(() => {
-      expect(storageSpy).toBeCalledWith(file.name, file, {
+      expect(storageSpy).toHaveBeenCalledWith(file.name, file, {
         contentType: 'text/plain',
         level: 'public',
         progressCallback: expect.any(Function),
@@ -191,7 +191,7 @@ describe('StorageManager', () => {
 
     // Wait for the file to be uploaded
     await waitFor(() => {
-      expect(storageSpy).toBeCalledWith(file.name, file, {
+      expect(storageSpy).toHaveBeenCalledWith(file.name, file, {
         contentType: 'text/plain',
         level: 'public',
         progressCallback: expect.any(Function),

@@ -1,4 +1,6 @@
-module.exports = {
+import { Config } from 'jest';
+
+const config: Config = {
   collectCoverage: true,
   collectCoverageFrom: ['<rootDir>/src/**/*.(ts|tsx)'],
   coveragePathIgnorePatterns: [
@@ -18,9 +20,7 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
-  globals: {
-    'ts-jest': {
-      tsconfig: 'tsconfig.json',
-    },
-  },
+  moduleNameMapper: { '^uuid$': '<rootDir>/../../node_modules/uuid' },
 };
+
+export default config;

@@ -10,6 +10,7 @@ import {
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { View } from '../View';
 
 const BadgePrimitive: Primitive<BadgeProps, 'span'> = (
@@ -34,6 +35,6 @@ const BadgePrimitive: Primitive<BadgeProps, 'span'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/badge)
  */
 export const Badge: ForwardRefPrimitive<BaseBadgeProps, 'span'> =
-  React.forwardRef(BadgePrimitive);
+  primitiveWithForwardRef(BadgePrimitive);
 
 Badge.displayName = 'Badge';

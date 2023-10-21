@@ -3,6 +3,7 @@ import classNames from 'classnames';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 import { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { IconExpandMore, useIcons } from '../Icon';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { View } from '../View';
@@ -39,6 +40,6 @@ const AccordionIconPrimitive: Primitive<AccordionIconProps, 'span'> = (
 export const AccordionIcon: ForwardRefPrimitive<
   BaseAccordionIconProps,
   'span'
-> = React.forwardRef(AccordionIconPrimitive);
+> = primitiveWithForwardRef(AccordionIconPrimitive);
 
 AccordionIcon.displayName = 'Accordion.Icon';

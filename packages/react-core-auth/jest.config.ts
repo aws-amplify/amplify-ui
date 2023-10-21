@@ -1,12 +1,17 @@
-module.exports = {
-  collectCoverage: true,
+import { Config } from 'jest';
+
+const config: Config = {
   collectCoverageFrom: [
     '<rootDir>/src/**/*.(ts|tsx)',
+
+    // do not collect coverage from:
+    // - constants files
+    '!<rootDir>/src/**/*(c|C)onstants.ts',
+    // - __mock__ directories
+    '!<rootDir>/src/**/__mock__/*',
     // do not collect from export files
     '!<rootDir>/**/index.(ts|tsx)',
   ],
-  // ignore coverage for top level "export", version and style files
-  coveragePathIgnorePatterns: ['<rootDir>/src/(index|styles|version).(ts|tsx)'],
   coverageThreshold: {
     global: {
       // TBD
@@ -16,11 +21,10 @@ module.exports = {
       statements: 0,
     },
   },
-  globals: { 'ts-jest': { tsconfig: 'tsconfig.json' } },
-  moduleNameMapper: {
-    '^react$': '<rootDir>/node_modules/react',
-  },
+  moduleNameMapper: { '^uuid$': '<rootDir>/../../node_modules/uuid' },
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
 };
+
+export default config;

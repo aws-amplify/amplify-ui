@@ -27,7 +27,7 @@ describe('uploadfile', () => {
       provider: 'provider',
     });
 
-    expect(storageSpy).toBeCalledWith(imageFile.name, imageFile, {
+    expect(storageSpy).toHaveBeenCalledWith(imageFile.name, imageFile, {
       completeCallback,
       contentType: 'image/png',
       errorCallback,
@@ -51,7 +51,7 @@ describe('uploadfile', () => {
       provider: 'provider',
     });
 
-    expect(storageSpy).toBeCalledWith(imageFile.name, imageFile, {
+    expect(storageSpy).toHaveBeenCalledWith(imageFile.name, imageFile, {
       level: 'public',
       progressCallback: progressCallback,
       resumable: false,
@@ -71,7 +71,7 @@ describe('uploadfile', () => {
       isResumable: false,
     });
 
-    expect(storageSpy).toBeCalledWith(imageFile.name, imageFile, {
+    expect(storageSpy).toHaveBeenCalledWith(imageFile.name, imageFile, {
       level: 'public',
       progressCallback: expect.any(Function),
       resumable: false,
@@ -94,7 +94,7 @@ describe('uploadfile', () => {
       isResumable: false,
     });
 
-    expect(storageSpy).toBeCalledWith(
+    expect(storageSpy).toHaveBeenCalledWith(
       imageFileTypeUndefined.name,
       imageFileTypeUndefined,
       {
@@ -120,7 +120,7 @@ describe('uploadfile', () => {
       },
     });
 
-    expect(storageSpy).toBeCalledWith(imageFile.name, imageFile, {
+    expect(storageSpy).toHaveBeenCalledWith(imageFile.name, imageFile, {
       level: 'public',
       progressCallback: expect.any(Function),
       resumable: false,

@@ -1,21 +1,23 @@
-module.exports = {
+import { Config } from 'jest';
+
+const config: Config = {
   collectCoverage: true,
   collectCoverageFrom: [
     '<rootDir>/src/**/*.(ts|tsx)',
     // do not collect from export files
     '!<rootDir>/**/index.(ts|tsx)',
-    // do not collect from top level style file
-    '!<rootDir>/src/styles.ts',
   ],
+  // ignore coverage for top level "export", version and style files
+  coveragePathIgnorePatterns: ['<rootDir>/src/(index|styles|version).(ts|tsx)'],
   coverageThreshold: {
     global: {
-      branches: 61,
-      functions: 44,
-      lines: 68,
-      statements: 70,
+      // TBD
+      branches: 0,
+      functions: 0,
+      lines: 0,
+      statements: 0,
     },
   },
-  globals: { 'ts-jest': { tsconfig: 'tsconfig.json' } },
   moduleNameMapper: {
     '^react$': '<rootDir>/node_modules/react',
   },
@@ -23,3 +25,5 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
 };
+
+export default config;

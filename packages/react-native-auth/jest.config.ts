@@ -1,4 +1,6 @@
-module.exports = {
+import { Config } from 'jest';
+
+const config: Config = {
   preset: 'react-native',
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
   collectCoverageFrom: [
@@ -9,5 +11,7 @@ module.exports = {
     '^react$': '<rootDir>/node_modules/react',
     '^react-native$': '<rootDir>/node_modules/react-native',
   },
-  setupFiles: ['<rootDir>/jest.setup.js'],
+  setupFiles: ['<rootDir>/jest.setup.ts'],
 };
+
+export default config;

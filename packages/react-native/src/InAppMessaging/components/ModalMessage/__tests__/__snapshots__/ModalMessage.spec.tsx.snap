@@ -3,7 +3,7 @@
 exports[`ModalMessage correctly handles a primaryButton prop 1`] = `
 <MessageWrapper
   style={
-    Object {
+    {
       "flex": 1,
       "justifyContent": "center",
     }
@@ -11,46 +11,56 @@ exports[`ModalMessage correctly handles a primaryButton prop 1`] = `
 >
   <View
     style={
-      Array [
-        Object {
+      [
+        {
           "backgroundColor": "#fff",
           "elevation": 3,
           "margin": 16,
           "minHeight": "40%",
           "shadowColor": "#000",
-          "shadowOffset": Object {
+          "shadowOffset": {
             "height": 2,
             "width": 2,
           },
           "shadowOpacity": 0.1,
           "shadowRadius": 2,
         },
-        Object {},
-        Object {},
+        {},
+        {},
       ]
     }
     testID="inappmessaging-modal-dialog"
   >
     <View
       style={
-        Object {
+        {
           "padding": 12,
         }
       }
     >
       <View
         accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
         accessible={true}
         collapsable={false}
         focusable={true}
-        hitSlop={
-          Object {
-            "bottom": 10,
-            "left": 10,
-            "right": 10,
-            "top": 10,
-          }
-        }
+        hitSlop={10}
         onBlur={[Function]}
         onClick={[Function]}
         onFocus={[Function]}
@@ -61,11 +71,11 @@ exports[`ModalMessage correctly handles a primaryButton prop 1`] = `
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          Array [
-            Object {},
+          [
+            {},
             undefined,
-            Array [
-              Object {
+            [
+              {
                 "alignSelf": "flex-start",
                 "marginLeft": "auto",
               },
@@ -77,14 +87,15 @@ exports[`ModalMessage correctly handles a primaryButton prop 1`] = `
       >
         <Image
           accessibilityRole="image"
+          accessible={true}
           source={
-            Object {
-              "testUri": "../../../src/assets/icons/close.png",
+            {
+              "testUri": "../../../packages/react-native/src/assets/icons/close.png",
             }
           }
           style={
-            Array [
-              Object {
+            [
+              {
                 "height": 20,
                 "resizeMode": "contain",
                 "tintColor": undefined,
@@ -97,7 +108,7 @@ exports[`ModalMessage correctly handles a primaryButton prop 1`] = `
       </View>
       <View
         style={
-          Object {
+          {
             "marginTop": 12,
           }
         }
@@ -105,7 +116,7 @@ exports[`ModalMessage correctly handles a primaryButton prop 1`] = `
     </View>
     <View
       style={
-        Object {
+        {
           "flexDirection": "row",
           "justifyContent": "center",
           "marginTop": "auto",
@@ -116,6 +127,23 @@ exports[`ModalMessage correctly handles a primaryButton prop 1`] = `
     >
       <View
         accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
         accessible={true}
         collapsable={false}
         focusable={true}
@@ -129,8 +157,8 @@ exports[`ModalMessage correctly handles a primaryButton prop 1`] = `
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          Array [
-            Object {
+          [
+            {
               "alignItems": "center",
               "backgroundColor": "transparent",
               "borderColor": "hsl(210, 10%, 58%)",
@@ -141,17 +169,17 @@ exports[`ModalMessage correctly handles a primaryButton prop 1`] = `
               "paddingVertical": 12,
             },
             undefined,
-            Array [
-              Object {},
-              Object {
+            [
+              {},
+              {
                 "backgroundColor": "#e8e8e8",
                 "borderRadius": 4,
                 "flex": 1,
                 "margin": 8,
                 "padding": 12,
               },
-              Object {},
-              Object {},
+              {},
+              {},
             ],
           ]
         }
@@ -159,22 +187,22 @@ exports[`ModalMessage correctly handles a primaryButton prop 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "color": "hsl(210, 50%, 10%)",
                 "fontSize": 16,
                 "fontWeight": "700",
                 "textAlign": "center",
               },
-              Array [
-                Object {
+              [
+                {
                   "fontSize": 16,
                   "fontWeight": "400",
                   "lineHeight": 24,
                   "textAlign": "center",
                 },
-                Object {},
-                Object {},
+                {},
+                {},
               ],
             ]
           }
@@ -190,7 +218,7 @@ exports[`ModalMessage correctly handles a primaryButton prop 1`] = `
 exports[`ModalMessage correctly handles a secondaryButton prop 1`] = `
 <MessageWrapper
   style={
-    Object {
+    {
       "flex": 1,
       "justifyContent": "center",
     }
@@ -198,46 +226,56 @@ exports[`ModalMessage correctly handles a secondaryButton prop 1`] = `
 >
   <View
     style={
-      Array [
-        Object {
+      [
+        {
           "backgroundColor": "#fff",
           "elevation": 3,
           "margin": 16,
           "minHeight": "40%",
           "shadowColor": "#000",
-          "shadowOffset": Object {
+          "shadowOffset": {
             "height": 2,
             "width": 2,
           },
           "shadowOpacity": 0.1,
           "shadowRadius": 2,
         },
-        Object {},
-        Object {},
+        {},
+        {},
       ]
     }
     testID="inappmessaging-modal-dialog"
   >
     <View
       style={
-        Object {
+        {
           "padding": 12,
         }
       }
     >
       <View
         accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
         accessible={true}
         collapsable={false}
         focusable={true}
-        hitSlop={
-          Object {
-            "bottom": 10,
-            "left": 10,
-            "right": 10,
-            "top": 10,
-          }
-        }
+        hitSlop={10}
         onBlur={[Function]}
         onClick={[Function]}
         onFocus={[Function]}
@@ -248,11 +286,11 @@ exports[`ModalMessage correctly handles a secondaryButton prop 1`] = `
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          Array [
-            Object {},
+          [
+            {},
             undefined,
-            Array [
-              Object {
+            [
+              {
                 "alignSelf": "flex-start",
                 "marginLeft": "auto",
               },
@@ -264,14 +302,15 @@ exports[`ModalMessage correctly handles a secondaryButton prop 1`] = `
       >
         <Image
           accessibilityRole="image"
+          accessible={true}
           source={
-            Object {
-              "testUri": "../../../src/assets/icons/close.png",
+            {
+              "testUri": "../../../packages/react-native/src/assets/icons/close.png",
             }
           }
           style={
-            Array [
-              Object {
+            [
+              {
                 "height": 20,
                 "resizeMode": "contain",
                 "tintColor": undefined,
@@ -284,7 +323,7 @@ exports[`ModalMessage correctly handles a secondaryButton prop 1`] = `
       </View>
       <View
         style={
-          Object {
+          {
             "marginTop": 12,
           }
         }
@@ -292,7 +331,7 @@ exports[`ModalMessage correctly handles a secondaryButton prop 1`] = `
     </View>
     <View
       style={
-        Object {
+        {
           "flexDirection": "row",
           "justifyContent": "center",
           "marginTop": "auto",
@@ -303,6 +342,23 @@ exports[`ModalMessage correctly handles a secondaryButton prop 1`] = `
     >
       <View
         accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
         accessible={true}
         collapsable={false}
         focusable={true}
@@ -316,8 +372,8 @@ exports[`ModalMessage correctly handles a secondaryButton prop 1`] = `
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          Array [
-            Object {
+          [
+            {
               "alignItems": "center",
               "backgroundColor": "transparent",
               "borderColor": "hsl(210, 10%, 58%)",
@@ -328,17 +384,17 @@ exports[`ModalMessage correctly handles a secondaryButton prop 1`] = `
               "paddingVertical": 12,
             },
             undefined,
-            Array [
-              Object {},
-              Object {
+            [
+              {},
+              {
                 "backgroundColor": "#e8e8e8",
                 "borderRadius": 4,
                 "flex": 1,
                 "margin": 8,
                 "padding": 12,
               },
-              Object {},
-              Object {},
+              {},
+              {},
             ],
           ]
         }
@@ -346,22 +402,22 @@ exports[`ModalMessage correctly handles a secondaryButton prop 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "color": "hsl(210, 50%, 10%)",
                 "fontSize": 16,
                 "fontWeight": "700",
                 "textAlign": "center",
               },
-              Array [
-                Object {
+              [
+                {
                   "fontSize": 16,
                   "fontWeight": "400",
                   "lineHeight": 24,
                   "textAlign": "center",
                 },
-                Object {},
-                Object {},
+                {},
+                {},
               ],
             ]
           }
@@ -377,7 +433,7 @@ exports[`ModalMessage correctly handles a secondaryButton prop 1`] = `
 exports[`ModalMessage renders a message as expected with an image 1`] = `
 <MessageWrapper
   style={
-    Object {
+    {
       "flex": 1,
       "justifyContent": "center",
     }
@@ -385,46 +441,56 @@ exports[`ModalMessage renders a message as expected with an image 1`] = `
 >
   <View
     style={
-      Array [
-        Object {
+      [
+        {
           "backgroundColor": "#fff",
           "elevation": 3,
           "margin": 16,
           "minHeight": "40%",
           "shadowColor": "#000",
-          "shadowOffset": Object {
+          "shadowOffset": {
             "height": 2,
             "width": 2,
           },
           "shadowOpacity": 0.1,
           "shadowRadius": 2,
         },
-        Object {},
-        Object {},
+        {},
+        {},
       ]
     }
     testID="inappmessaging-modal-dialog"
   >
     <View
       style={
-        Object {
+        {
           "padding": 12,
         }
       }
     >
       <View
         accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
         accessible={true}
         collapsable={false}
         focusable={true}
-        hitSlop={
-          Object {
-            "bottom": 10,
-            "left": 10,
-            "right": 10,
-            "top": 10,
-          }
-        }
+        hitSlop={10}
         onBlur={[Function]}
         onClick={[Function]}
         onFocus={[Function]}
@@ -435,11 +501,11 @@ exports[`ModalMessage renders a message as expected with an image 1`] = `
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          Array [
-            Object {},
+          [
+            {},
             undefined,
-            Array [
-              Object {
+            [
+              {
                 "alignSelf": "flex-start",
                 "marginLeft": "auto",
               },
@@ -451,14 +517,15 @@ exports[`ModalMessage renders a message as expected with an image 1`] = `
       >
         <Image
           accessibilityRole="image"
+          accessible={true}
           source={
-            Object {
-              "testUri": "../../../src/assets/icons/close.png",
+            {
+              "testUri": "../../../packages/react-native/src/assets/icons/close.png",
             }
           }
           style={
-            Array [
-              Object {
+            [
+              {
                 "height": 20,
                 "resizeMode": "contain",
                 "tintColor": undefined,
@@ -471,7 +538,7 @@ exports[`ModalMessage renders a message as expected with an image 1`] = `
       </View>
       <View
         style={
-          Object {
+          {
             "alignItems": "center",
             "margin": 12,
           }
@@ -479,13 +546,13 @@ exports[`ModalMessage renders a message as expected with an image 1`] = `
       >
         <Image
           source={
-            Object {
+            {
               "uri": "asset.png",
             }
           }
           style={
-            Array [
-              Object {
+            [
+              {
                 "height": 100,
                 "width": 100,
               },
@@ -497,7 +564,7 @@ exports[`ModalMessage renders a message as expected with an image 1`] = `
       </View>
       <View
         style={
-          Object {
+          {
             "marginTop": 12,
           }
         }
@@ -510,7 +577,7 @@ exports[`ModalMessage renders a message as expected with an image 1`] = `
 exports[`ModalMessage renders as expected in landscape mode 1`] = `
 <MessageWrapper
   style={
-    Object {
+    {
       "flex": 1,
       "justifyContent": "center",
     }
@@ -518,30 +585,30 @@ exports[`ModalMessage renders as expected in landscape mode 1`] = `
 >
   <View
     style={
-      Array [
-        Object {
+      [
+        {
           "backgroundColor": "#fff",
           "elevation": 3,
           "flex": 1,
           "margin": 16,
           "padding": 16,
           "shadowColor": "#000",
-          "shadowOffset": Object {
+          "shadowOffset": {
             "height": 2,
             "width": 2,
           },
           "shadowOpacity": 0.1,
           "shadowRadius": 2,
         },
-        Object {},
-        Object {},
+        {},
+        {},
       ]
     }
     testID="inappmessaging-modal-dialog"
   >
     <View
       style={
-        Object {
+        {
           "flex": 1,
           "flexDirection": "row",
         }
@@ -549,7 +616,7 @@ exports[`ModalMessage renders as expected in landscape mode 1`] = `
     >
       <View
         style={
-          Object {
+          {
             "flex": 1,
             "justifyContent": "center",
             "paddingHorizontal": 8,
@@ -558,17 +625,27 @@ exports[`ModalMessage renders as expected in landscape mode 1`] = `
       />
       <View
         accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
         accessible={true}
         collapsable={false}
         focusable={true}
-        hitSlop={
-          Object {
-            "bottom": 10,
-            "left": 10,
-            "right": 10,
-            "top": 10,
-          }
-        }
+        hitSlop={10}
         onBlur={[Function]}
         onClick={[Function]}
         onFocus={[Function]}
@@ -579,11 +656,11 @@ exports[`ModalMessage renders as expected in landscape mode 1`] = `
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          Array [
-            Object {},
+          [
+            {},
             undefined,
-            Array [
-              Object {
+            [
+              {
                 "alignSelf": "flex-start",
                 "marginLeft": "auto",
                 "marginRight": 8,
@@ -596,14 +673,15 @@ exports[`ModalMessage renders as expected in landscape mode 1`] = `
       >
         <Image
           accessibilityRole="image"
+          accessible={true}
           source={
-            Object {
-              "testUri": "../../../src/assets/icons/close.png",
+            {
+              "testUri": "../../../packages/react-native/src/assets/icons/close.png",
             }
           }
           style={
-            Array [
-              Object {
+            [
+              {
                 "height": 20,
                 "resizeMode": "contain",
                 "tintColor": undefined,
@@ -622,7 +700,7 @@ exports[`ModalMessage renders as expected in landscape mode 1`] = `
 exports[`ModalMessage renders as expected in portrait mode 1`] = `
 <MessageWrapper
   style={
-    Object {
+    {
       "flex": 1,
       "justifyContent": "center",
     }
@@ -630,46 +708,56 @@ exports[`ModalMessage renders as expected in portrait mode 1`] = `
 >
   <View
     style={
-      Array [
-        Object {
+      [
+        {
           "backgroundColor": "#fff",
           "elevation": 3,
           "margin": 16,
           "minHeight": "40%",
           "shadowColor": "#000",
-          "shadowOffset": Object {
+          "shadowOffset": {
             "height": 2,
             "width": 2,
           },
           "shadowOpacity": 0.1,
           "shadowRadius": 2,
         },
-        Object {},
-        Object {},
+        {},
+        {},
       ]
     }
     testID="inappmessaging-modal-dialog"
   >
     <View
       style={
-        Object {
+        {
           "padding": 12,
         }
       }
     >
       <View
         accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
         accessible={true}
         collapsable={false}
         focusable={true}
-        hitSlop={
-          Object {
-            "bottom": 10,
-            "left": 10,
-            "right": 10,
-            "top": 10,
-          }
-        }
+        hitSlop={10}
         onBlur={[Function]}
         onClick={[Function]}
         onFocus={[Function]}
@@ -680,11 +768,11 @@ exports[`ModalMessage renders as expected in portrait mode 1`] = `
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          Array [
-            Object {},
+          [
+            {},
             undefined,
-            Array [
-              Object {
+            [
+              {
                 "alignSelf": "flex-start",
                 "marginLeft": "auto",
               },
@@ -696,14 +784,15 @@ exports[`ModalMessage renders as expected in portrait mode 1`] = `
       >
         <Image
           accessibilityRole="image"
+          accessible={true}
           source={
-            Object {
-              "testUri": "../../../src/assets/icons/close.png",
+            {
+              "testUri": "../../../packages/react-native/src/assets/icons/close.png",
             }
           }
           style={
-            Array [
-              Object {
+            [
+              {
                 "height": 20,
                 "resizeMode": "contain",
                 "tintColor": undefined,
@@ -716,7 +805,7 @@ exports[`ModalMessage renders as expected in portrait mode 1`] = `
       </View>
       <View
         style={
-          Object {
+          {
             "marginTop": 12,
           }
         }

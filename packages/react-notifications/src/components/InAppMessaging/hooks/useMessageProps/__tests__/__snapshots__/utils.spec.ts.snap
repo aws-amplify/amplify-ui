@@ -1,31 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`getMessageStyles returns the expected output in the happy path 1`] = `
-Object {
-  "body": Object {
+{
+  "body": {
     "color": "white",
     "textAlign": "left",
   },
-  "closeIconButton": Object {
+  "closeIconButton": {
     "backgroundColor": "turquoise",
     "color": "darkcyan",
   },
-  "container": Object {
+  "container": {
     "backgroundColor": "lawngreen",
     "borderRadius": 3,
   },
-  "header": Object {
+  "header": {
     "backgroundColor": "lightpink",
     "textAlign": "center",
   },
-  "image": Object {
+  "image": {
     "backgroundColor": "royalblue",
   },
-  "primaryButton": Object {
+  "primaryButton": {
     "backgroundColor": "seagreen",
     "color": "black",
   },
-  "secondaryButton": Object {
+  "secondaryButton": {
     "backgroundColor": "sienna",
     "color": "orchid",
   },
@@ -33,22 +33,22 @@ Object {
 `;
 
 exports[`getPayloadStyle returns the expected output in the happy path 1`] = `
-Object {
-  "body": Object {
+{
+  "body": {
     "textAlign": "left",
   },
-  "container": Object {
+  "container": {
     "backgroundColor": "lightgray",
     "borderRadius": 2,
   },
-  "header": Object {
+  "header": {
     "textAlign": "center",
   },
-  "primaryButton": Object {
+  "primaryButton": {
     "backgroundColor": "salmon",
     "color": "olive",
   },
-  "secondaryButton": Object {
+  "secondaryButton": {
     "backgroundColor": "sand",
     "color": "peru",
   },

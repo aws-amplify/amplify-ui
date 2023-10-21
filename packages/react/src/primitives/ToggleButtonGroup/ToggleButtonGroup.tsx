@@ -11,6 +11,7 @@ import {
   ToggleButtonGroupProps,
 } from '../types';
 import { useToggleButtonGroup } from './useToggleButtonGroup';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { isString } from '@aws-amplify/ui';
 
 const ToggleButtonGroupPrimitive: Primitive<ToggleButtonGroupProps, 'div'> = (
@@ -65,6 +66,6 @@ const ToggleButtonGroupPrimitive: Primitive<ToggleButtonGroupProps, 'div'> = (
 export const ToggleButtonGroup: ForwardRefPrimitive<
   BaseToggleButtonGroupProps,
   'div'
-> = React.forwardRef(ToggleButtonGroupPrimitive);
+> = primitiveWithForwardRef(ToggleButtonGroupPrimitive);
 
 ToggleButtonGroup.displayName = 'ToggleButtonGroup';

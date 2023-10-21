@@ -1,4 +1,6 @@
-module.exports = {
+import { Config } from 'jest';
+
+const config: Config = {
   preset: 'react-native',
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
   collectCoverage: true,
@@ -6,10 +8,8 @@ module.exports = {
     '<rootDir>/src/**/*.{js,jsx,ts,tsx}',
     '!<rootDir>/src/**/*{c,C}onstants.ts',
   ],
-  moduleNameMapper: {
-    '^react$': '<rootDir>/node_modules/react',
-    '^react-native$': '<rootDir>/node_modules/react-native',
-  },
+  moduleNameMapper: { '^uuid$': '<rootDir>/../../node_modules/uuid' },
+  transformIgnorePatterns: ['node_modules/(?!@?react-native)'],
   coverageThreshold: {
     global: {
       branches: 90,
@@ -18,5 +18,7 @@ module.exports = {
       statements: 90,
     },
   },
-  setupFiles: ['<rootDir>/jest.setup.js'],
+  setupFiles: ['<rootDir>/jest.setup.ts'],
 };
+
+export default config;

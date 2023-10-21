@@ -1,6 +1,5 @@
 {
   "$schema": "https://turborepo.org/schema.json",
-  "baseBranch": "origin/main",
   "pipeline": {
     "build": {
       "outputs": [".next/**", "dist/**"],
@@ -8,6 +7,8 @@
     },
     "clean": {
       "cache": false
-    }
+    },
+    "lint": {},
+    "test": {}
   }
 }

@@ -114,7 +114,7 @@ describe('getTotpSecretCodeCallback', () => {
 
     await getTotpSecretCode();
 
-    expect(setupTOTPSpy).toBeCalledWith(user);
+    expect(setupTOTPSpy).toHaveBeenCalledWith(user);
   });
 });
 

@@ -1,37 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`base config has the expected configuration 1`] = `
-Object {
-  "env": Object {
+{
+  "env": {
     "node": true,
   },
-  "extends": Array [
+  "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "prettier",
   ],
   "parser": "@typescript-eslint/parser",
-  "parserOptions": Object {
+  "parserOptions": {
     "ecmaVersion": 12,
     "sourceType": "module",
   },
-  "plugins": Array [
+  "plugins": [
     "@typescript-eslint",
+    "index",
   ],
-  "rules": Object {
+  "rules": {
     "@typescript-eslint/explicit-module-boundary-types": 2,
     "@typescript-eslint/member-ordering": "error",
     "@typescript-eslint/no-extra-semi": "error",
     "@typescript-eslint/no-floating-promises": "off",
-    "@typescript-eslint/no-unused-expressions": Array [
+    "@typescript-eslint/no-unused-expressions": [
       "error",
-      Object {
+      {
         "allowTernary": true,
       },
     ],
-    "@typescript-eslint/no-unused-vars": Array [
+    "@typescript-eslint/no-unused-vars": [
       "error",
-      Object {
+      {
         "argsIgnorePattern": "_",
         "varsIgnorePattern": "_",
       },
@@ -40,7 +41,7 @@ Object {
     "@typescript-eslint/prefer-nullish-coalescing": "error",
     "@typescript-eslint/restrict-template-expressions": "off",
     "@typescript-eslint/unbound-method": "off",
-    "comma-dangle": Array [
+    "comma-dangle": [
       "error",
       "only-multiline",
     ],
@@ -48,21 +49,22 @@ Object {
     "generator-star-spacing": "off",
     "global-require": "off",
     "implicit-arrow-linebreak": "off",
+    "index/only-import-export": "error",
     "max-params": 2,
     "no-alert": "error",
     "no-console": "error",
     "no-eval": "error",
-    "no-tabs": Array [
+    "no-tabs": [
       "error",
-      Object {
+      {
         "allowIndentationTabs": true,
       },
     ],
     "no-unused-vars": "off",
     "prefer-const": "error",
-    "prefer-destructuring": Array [
+    "prefer-destructuring": [
       "error",
-      Object {
+      {
         "array": false,
         "object": true,
       },

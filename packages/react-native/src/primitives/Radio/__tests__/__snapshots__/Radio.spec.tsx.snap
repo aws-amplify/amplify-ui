@@ -3,6 +3,23 @@
 exports[`Radio applies theme and custom styles 1`] = `
 <View
   accessibilityRole="radio"
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
   accessible={true}
   collapsable={false}
   focusable={true}
@@ -16,13 +33,13 @@ exports[`Radio applies theme and custom styles 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "center",
         "flexDirection": "row",
       },
       undefined,
-      Object {
+      {
         "margin": 10,
       },
     ]
@@ -30,8 +47,8 @@ exports[`Radio applies theme and custom styles 1`] = `
 >
   <View
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "borderColor": "hsl(210, 10%, 58%)",
           "borderRadius": 999,
@@ -39,11 +56,11 @@ exports[`Radio applies theme and custom styles 1`] = `
           "justifyContent": "center",
           "margin": 4,
         },
-        Object {
+        {
           "height": 20,
           "width": 20,
         },
-        Object {
+        {
           "borderColor": "blue",
           "borderWidth": 2,
         },
@@ -53,16 +70,16 @@ exports[`Radio applies theme and custom styles 1`] = `
   >
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "backgroundColor": "hsl(190, 95%, 30%)",
             "borderRadius": 999,
           },
-          Object {
+          {
             "height": 12,
             "width": 12,
           },
-          Object {
+          {
             "backgroundColor": "green",
           },
         ]
@@ -76,6 +93,23 @@ exports[`Radio applies theme and custom styles 1`] = `
 exports[`Radio renders as expected when disabled 1`] = `
 <View
   accessibilityRole="radio"
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
   accessible={true}
   collapsable={false}
   focusable={true}
@@ -89,8 +123,8 @@ exports[`Radio renders as expected when disabled 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "center",
         "flexDirection": "row",
         "opacity": 0.6,
@@ -102,8 +136,8 @@ exports[`Radio renders as expected when disabled 1`] = `
 >
   <View
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "borderColor": "hsl(210, 10%, 58%)",
           "borderRadius": 999,
@@ -111,7 +145,7 @@ exports[`Radio renders as expected when disabled 1`] = `
           "justifyContent": "center",
           "margin": 4,
         },
-        Object {
+        {
           "height": 20,
           "width": 20,
         },
@@ -123,13 +157,13 @@ exports[`Radio renders as expected when disabled 1`] = `
   <Text
     accessibilityRole="text"
     style={
-      Array [
-        Object {
+      [
+        {
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "hsl(210, 50%, 10%)",
         },
         undefined,
@@ -144,6 +178,23 @@ exports[`Radio renders as expected when disabled 1`] = `
 exports[`Radio renders as expected when passing a number to the size prop 1`] = `
 <View
   accessibilityRole="radio"
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
   accessible={true}
   collapsable={false}
   focusable={true}
@@ -157,8 +208,8 @@ exports[`Radio renders as expected when passing a number to the size prop 1`] = 
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "center",
         "flexDirection": "row",
       },
@@ -169,8 +220,8 @@ exports[`Radio renders as expected when passing a number to the size prop 1`] = 
 >
   <View
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "borderColor": "hsl(210, 10%, 58%)",
           "borderRadius": 999,
@@ -178,7 +229,7 @@ exports[`Radio renders as expected when passing a number to the size prop 1`] = 
           "justifyContent": "center",
           "margin": 4,
         },
-        Object {
+        {
           "height": 40,
           "width": 40,
         },
@@ -189,12 +240,12 @@ exports[`Radio renders as expected when passing a number to the size prop 1`] = 
   >
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "backgroundColor": "hsl(190, 95%, 30%)",
             "borderRadius": 999,
           },
-          Object {
+          {
             "height": 24,
             "width": 24,
           },
@@ -207,13 +258,13 @@ exports[`Radio renders as expected when passing a number to the size prop 1`] = 
   <Text
     accessibilityRole="text"
     style={
-      Array [
-        Object {
+      [
+        {
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "hsl(210, 50%, 10%)",
         },
         undefined,
@@ -228,6 +279,23 @@ exports[`Radio renders as expected when passing a number to the size prop 1`] = 
 exports[`Radio renders as expected when selected is false 1`] = `
 <View
   accessibilityRole="radio"
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
   accessible={true}
   collapsable={false}
   focusable={true}
@@ -241,8 +309,8 @@ exports[`Radio renders as expected when selected is false 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "center",
         "flexDirection": "row",
       },
@@ -253,8 +321,8 @@ exports[`Radio renders as expected when selected is false 1`] = `
 >
   <View
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "borderColor": "hsl(210, 10%, 58%)",
           "borderRadius": 999,
@@ -262,7 +330,7 @@ exports[`Radio renders as expected when selected is false 1`] = `
           "justifyContent": "center",
           "margin": 4,
         },
-        Object {
+        {
           "height": 20,
           "width": 20,
         },
@@ -274,13 +342,13 @@ exports[`Radio renders as expected when selected is false 1`] = `
   <Text
     accessibilityRole="text"
     style={
-      Array [
-        Object {
+      [
+        {
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "hsl(210, 50%, 10%)",
         },
         undefined,
@@ -295,6 +363,23 @@ exports[`Radio renders as expected when selected is false 1`] = `
 exports[`Radio renders as expected when selected is true 1`] = `
 <View
   accessibilityRole="radio"
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
   accessible={true}
   collapsable={false}
   focusable={true}
@@ -308,8 +393,8 @@ exports[`Radio renders as expected when selected is true 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "center",
         "flexDirection": "row",
       },
@@ -320,8 +405,8 @@ exports[`Radio renders as expected when selected is true 1`] = `
 >
   <View
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "borderColor": "hsl(210, 10%, 58%)",
           "borderRadius": 999,
@@ -329,7 +414,7 @@ exports[`Radio renders as expected when selected is true 1`] = `
           "justifyContent": "center",
           "margin": 4,
         },
-        Object {
+        {
           "height": 20,
           "width": 20,
         },
@@ -340,12 +425,12 @@ exports[`Radio renders as expected when selected is true 1`] = `
   >
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "backgroundColor": "hsl(190, 95%, 30%)",
             "borderRadius": 999,
           },
-          Object {
+          {
             "height": 12,
             "width": 12,
           },
@@ -358,13 +443,13 @@ exports[`Radio renders as expected when selected is true 1`] = `
   <Text
     accessibilityRole="text"
     style={
-      Array [
-        Object {
+      [
+        {
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "hsl(210, 50%, 10%)",
         },
         undefined,
@@ -379,6 +464,23 @@ exports[`Radio renders as expected when selected is true 1`] = `
 exports[`Radio renders as expected when size is large 1`] = `
 <View
   accessibilityRole="radio"
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
   accessible={true}
   collapsable={false}
   focusable={true}
@@ -392,8 +494,8 @@ exports[`Radio renders as expected when size is large 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "center",
         "flexDirection": "row",
       },
@@ -404,8 +506,8 @@ exports[`Radio renders as expected when size is large 1`] = `
 >
   <View
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "borderColor": "hsl(210, 10%, 58%)",
           "borderRadius": 999,
@@ -413,7 +515,7 @@ exports[`Radio renders as expected when size is large 1`] = `
           "justifyContent": "center",
           "margin": 4,
         },
-        Object {
+        {
           "height": 24,
           "width": 24,
         },
@@ -424,12 +526,12 @@ exports[`Radio renders as expected when size is large 1`] = `
   >
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "backgroundColor": "hsl(190, 95%, 30%)",
             "borderRadius": 999,
           },
-          Object {
+          {
             "height": 14.399999999999999,
             "width": 14.399999999999999,
           },
@@ -442,13 +544,13 @@ exports[`Radio renders as expected when size is large 1`] = `
   <Text
     accessibilityRole="text"
     style={
-      Array [
-        Object {
+      [
+        {
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "hsl(210, 50%, 10%)",
         },
         undefined,
@@ -463,6 +565,23 @@ exports[`Radio renders as expected when size is large 1`] = `
 exports[`Radio renders as expected when size is medium 1`] = `
 <View
   accessibilityRole="radio"
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
   accessible={true}
   collapsable={false}
   focusable={true}
@@ -476,8 +595,8 @@ exports[`Radio renders as expected when size is medium 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "center",
         "flexDirection": "row",
       },
@@ -488,8 +607,8 @@ exports[`Radio renders as expected when size is medium 1`] = `
 >
   <View
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "borderColor": "hsl(210, 10%, 58%)",
           "borderRadius": 999,
@@ -497,7 +616,7 @@ exports[`Radio renders as expected when size is medium 1`] = `
           "justifyContent": "center",
           "margin": 4,
         },
-        Object {
+        {
           "height": 20,
           "width": 20,
         },
@@ -508,12 +627,12 @@ exports[`Radio renders as expected when size is medium 1`] = `
   >
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "backgroundColor": "hsl(190, 95%, 30%)",
             "borderRadius": 999,
           },
-          Object {
+          {
             "height": 12,
             "width": 12,
           },
@@ -526,13 +645,13 @@ exports[`Radio renders as expected when size is medium 1`] = `
   <Text
     accessibilityRole="text"
     style={
-      Array [
-        Object {
+      [
+        {
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "hsl(210, 50%, 10%)",
         },
         undefined,
@@ -547,6 +666,23 @@ exports[`Radio renders as expected when size is medium 1`] = `
 exports[`Radio renders as expected when size is small 1`] = `
 <View
   accessibilityRole="radio"
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
   accessible={true}
   collapsable={false}
   focusable={true}
@@ -560,8 +696,8 @@ exports[`Radio renders as expected when size is small 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "center",
         "flexDirection": "row",
       },
@@ -572,8 +708,8 @@ exports[`Radio renders as expected when size is small 1`] = `
 >
   <View
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "borderColor": "hsl(210, 10%, 58%)",
           "borderRadius": 999,
@@ -581,7 +717,7 @@ exports[`Radio renders as expected when size is small 1`] = `
           "justifyContent": "center",
           "margin": 4,
         },
-        Object {
+        {
           "height": 16,
           "width": 16,
         },
@@ -592,12 +728,12 @@ exports[`Radio renders as expected when size is small 1`] = `
   >
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "backgroundColor": "hsl(190, 95%, 30%)",
             "borderRadius": 999,
           },
-          Object {
+          {
             "height": 9.6,
             "width": 9.6,
           },
@@ -610,13 +746,13 @@ exports[`Radio renders as expected when size is small 1`] = `
   <Text
     accessibilityRole="text"
     style={
-      Array [
-        Object {
+      [
+        {
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "hsl(210, 50%, 10%)",
         },
         undefined,
@@ -631,6 +767,23 @@ exports[`Radio renders as expected when size is small 1`] = `
 exports[`Radio renders as expected with accessibilityRole 1`] = `
 <View
   accessibilityRole="none"
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
   accessible={true}
   collapsable={false}
   focusable={true}
@@ -644,8 +797,8 @@ exports[`Radio renders as expected with accessibilityRole 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "center",
         "flexDirection": "row",
       },
@@ -656,8 +809,8 @@ exports[`Radio renders as expected with accessibilityRole 1`] = `
 >
   <View
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "borderColor": "hsl(210, 10%, 58%)",
           "borderRadius": 999,
@@ -665,7 +818,7 @@ exports[`Radio renders as expected with accessibilityRole 1`] = `
           "justifyContent": "center",
           "margin": 4,
         },
-        Object {
+        {
           "height": 20,
           "width": 20,
         },

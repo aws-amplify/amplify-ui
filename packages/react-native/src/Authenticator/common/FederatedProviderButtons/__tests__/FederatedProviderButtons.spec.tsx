@@ -50,6 +50,6 @@ describe('FederatedProviderButtons', () => {
 
     fireEvent.press(providerButton);
 
-    expect(toFederatedSignIn).toBeCalledWith({ provider });
+    expect(toFederatedSignIn).toHaveBeenCalledWith({ provider });
   });
 });
