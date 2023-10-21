@@ -41,7 +41,7 @@ export const IN_APP_MESSAGING_INPUT_BASE: Omit<
   InAppMessagingUserAgentInput,
   'additionalDetails'
 > = {
-  apis: [InAppMessagingAction.DispatchEvent],
+  apis: [InAppMessagingAction.NotifyMessageInteraction],
   category: Category.InAppMessaging,
 };
 
