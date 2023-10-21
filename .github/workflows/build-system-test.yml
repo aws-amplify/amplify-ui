@@ -31,7 +31,7 @@ jobs:
             build-tool-version: latest
             pkg-manager: npm
             language: ts
-            node-version: 16
+            node-version: 18
           - framework: react
             framework-version: 16
             build-tool: cra
@@ -60,7 +60,7 @@ jobs:
             build-tool-version: 11
             pkg-manager: npm
             language: ts
-            node-version: 16
+            node-version: 18
           - framework: react
             framework-version: latest
             build-tool: vite
