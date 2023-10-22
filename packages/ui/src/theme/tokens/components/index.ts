@@ -12,7 +12,7 @@ import { copy, CopyTokens } from './copy';
 import { dialcodeselect, DialCodeSelectTokens } from './dialCodeSelect';
 import { divider, DividerTokens } from './divider';
 import { dropzone, DropZoneTokens } from './dropZone';
-import { expander, ExpanderTokens } from './expander';
+import { accordion, AccordionTokens } from './accordion';
 import { field, FieldTokens } from './field';
 import { fieldcontrol, FieldControlTokens } from './fieldControl';
 import { fieldgroup, FieldGroupTokens } from './fieldGroup';
@@ -58,6 +58,7 @@ import {
 import { OutputVariantKey } from '../types/designToken';
 
 type BaseComponentTokens<Output extends OutputVariantKey> = {
+  accordion?: AccordionTokens<Output>;
   alert?: AlertTokens<Output>;
   authenticator?: AuthenticatorTokens<Output>;
   autocomplete?: AutocompleteTokens<Output>;
@@ -72,7 +73,6 @@ type BaseComponentTokens<Output extends OutputVariantKey> = {
   countrycodeselect?: DialCodeSelectTokens<Output>;
   divider?: DividerTokens<Output>;
   dropzone?: DropZoneTokens<Output>;
-  expander?: ExpanderTokens<Output>;
   field?: FieldTokens<Output>;
   fieldset?: FieldsetTokens<Output>;
   fieldcontrol?: FieldControlTokens<Output>;
@@ -126,6 +126,7 @@ export type WebComponentTokens = Required<{
 }>;
 
 export const components: DefaultComponentTokens = {
+  accordion,
   alert,
   authenticator,
   autocomplete,
@@ -140,7 +141,6 @@ export const components: DefaultComponentTokens = {
   countrycodeselect: dialcodeselect, // This to be renamed to dialcodeselect in the next major version
   divider,
   dropzone,
-  expander,
   field,
   fieldcontrol,
   fieldgroup,

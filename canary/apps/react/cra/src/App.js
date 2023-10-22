@@ -1,5 +1,5 @@
 import {
-  AmplifyProvider,
+  ThemeProvider,
   Button,
   Card,
   Heading,
@@ -14,13 +14,13 @@ Amplify.configure(aws_exports);
 function App() {
   const { signOut } = useAuthenticator();
   return (
-    <AmplifyProvider colorMode="dark">
+    <ThemeProvider colorMode="dark">
       <Card>
         <Heading>Amplify Sample App</Heading>
         <Button variation="primary">Click me!</Button>
         <Button onClick={signOut}>Sign out</Button>
       </Card>
-    </AmplifyProvider>
+    </ThemeProvider>
   );
 }
 

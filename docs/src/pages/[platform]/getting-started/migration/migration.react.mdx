@@ -27,6 +27,68 @@ Install the 6.x version of both `@aws-amplify/ui-react` and `aws-amplify`.
 - const App = ( <AmplifyProvider><App /></AmplifyProvider>);
 + const App = ( <ThemeProvider><App /></ThemeProvider>);
 ```
+#### 2. Expander is now Accordion
+The Expander component has been replaced by the Accordion component in Amplify UI v6. Here is a mapping between the two components:
+
+**Expander -> Accordion**
+The main Expander component maps to the Accordion.Container component.
+
+```jsx
+<Expander>
+  <ExpanderItem>
+    ...
+  </ExpanderItem>
+</Expander>
+
+// Becomes
+
+<Accordion.Container>
+  <Accordion.Item>
+   ...
+  </Accordion.Item>  
+</Accordion.Container>
+```
+
+**ExpanderItem -> Accordion.Item**
+The `ExpanderItem` component maps to the `Accordion.Item` component.
+
+```jsx
+<ExpanderItem>
+  ...
+</ExpanderItem>
+
+// Becomes 
+
+<Accordion.Item>
+ ...
+</Accordion.Item>
+```
+
+The ExpanderItem's `title` prop maps to placing content inside the `<Accordion.Trigger>` component.
+
+The ExpanderItem's `value` prop maps to the `value` prop on `<Accordion.Item>`.
+
+The children of `<ExpanderItem>` map to inside `<Accordion.Content>`.
+
+**Behavior**
+Here are some differences in behavior between the Expander and Accordion components:
+
+* The Accordion allows only 1 item expanded by default, while the Expander allowed multiple items expanded by default. To allow multiple open with Accordion, you need to add the allowMultiple prop.
+* The Accordion cannot be fully collapsed by default, while the Expander could be collapsed. To make the Accordion always have 1 item open, use the preventCollapse prop.
+
+**Styling**
+
+The class names have changed between Expander and Accordion. Here is a mapping:
+
+* `amplify-expander` -> `amplify-accordion`
+* `amplify-expander__item` -> `amplify-accordion__item`
+* `amplify-expander__content` -> `amplify-accordion__content`
+* `amplify-expander__header` -> `amplify-accordion__trigger`
+* `amplify-expander__icon` -> `amplify-accordion__icon`
+
+The `--amplify-components-accordion-` CSS variables can also be used to style Accordion.
+
+
 
 ### Migrate from 4.x to 5.x
 #### Installation
