@@ -17,15 +17,15 @@ const propsToCode = (props) => {
         : ``
     }` +
     `>
-  <TabItem title="Tab 1">
+  <Tabs.Tab title="Tab 1">
     Tab content #1
-  </TabItem>
-  <TabItem title="Tab 2">
+  </Tabs.Tab>
+  <Tabs.Tab title="Tab 2">
     Tab content #2
-  </TabItem>
-  <TabItem title="Disabled" isDisabled={true}>
+  </Tabs.Tab>
+  <Tabs.Tab title="Disabled" isDisabled={true}>
     Cannot click
-  </TabItem>
+  </Tabs.Tab>
 </Tabs.Container>`
   );
 };

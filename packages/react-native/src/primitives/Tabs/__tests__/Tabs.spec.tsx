@@ -21,11 +21,11 @@ const ControlledTabs = ({
   };
 
   return (
-    <Tabs.Container onChange={onChangeHandler} selectedIndex={index}>
+    <Tabs onChange={onChangeHandler} selectedIndex={index}>
       <Tab>Sign In</Tab>
       <Tab>Create Account</Tab>
       <Tab disabled>Disabled Tab</Tab>
-    </Tabs.Container>
+    </Tabs>
   );
 };
 

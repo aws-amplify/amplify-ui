@@ -6,17 +6,17 @@ import { Tabs } from '@aws-amplify/ui-react';
 When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.
 
 <Tabs.Container>
-  <TabItem title="TypeScript">
+  <Tabs.Tab title="TypeScript">
     <Fragment>
       {({ platform }) => import(`./shared/vite-polyfill.mdx`)}
     </Fragment>
     <Fragment>
       {({ platform }) => import(`./shared/vite-polyfill-ts.mdx`)}
     </Fragment>
-  </TabItem>
-  <TabItem title="JavaScript">
+  </Tabs.Tab>
+  <Tabs.Tab title="JavaScript">
     <Fragment>
       {({ platform }) => import(`./shared/vite-polyfill.mdx`)}
     </Fragment>
-  </TabItem>
+  </Tabs.Tab>
 </Tabs.Container>

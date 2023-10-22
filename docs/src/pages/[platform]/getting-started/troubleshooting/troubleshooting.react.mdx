@@ -8,7 +8,7 @@ import { Fragment } from '@/components/Fragment';
 
 When working with a [Astro](https://astro.build/) project you must make a few modifications. Please follow the steps below.
 <Tabs.Container>
-  <TabItem title="TypeScript">
+  <Tabs.Tab title="TypeScript">
 **1.** Add the following script to the bottom of the `index.astro` file. This will only run on the client side and will polyfill Node globals.
 
 ```html
@@ -36,8 +36,8 @@ export default defineConfig({
   }
 })
 ```
-  </TabItem>
-  <TabItem title="JavaScript">
+  </Tabs.Tab>
+  <Tabs.Tab title="JavaScript">
 **1.** Add the following script to the bottom of the `index.astro` file. This will only run on the client side and will polyfill Node globals.
 
 ```html
@@ -65,7 +65,7 @@ export default defineConfig({
   }
 })
 ```
-  </TabItem>
+  </Tabs.Tab>
 </Tabs.Container>
 
 
@@ -197,12 +197,12 @@ Webpack 4 already includes this polyfill.
    as dev dependency:
 
 <Tabs.Container>
-<TabItem title="npm">
+<Tabs.Tab title="npm">
 <TerminalCommand command="npm install node-polyfill-webpack-plugin -D" />
-</TabItem>
-<TabItem title="yarn">
+</Tabs.Tab>
+<Tabs.Tab title="yarn">
 <TerminalCommand command="yarn add node-polyfill-webpack-plugin -D" />
-</TabItem>
+</Tabs.Tab>
 </Tabs.Container>
 
 2. Add the plugin to your `webpack.config.js` plugins list:\_
@@ -225,19 +225,19 @@ Follow [here](#cra-4-cant-import-the-named-export-amplify-from-non-ecmascript-mo
 When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.
 
 <Tabs.Container>
-  <TabItem title="TypeScript">
+  <Tabs.Tab title="TypeScript">
     <Fragment>
       {({ platform }) => import(`./shared/vite-polyfill.mdx`)}
     </Fragment>
     <Fragment>
       {({ platform }) => import(`./shared/vite-polyfill-ts.mdx`)}
     </Fragment>
-  </TabItem>
-  <TabItem title="JavaScript">
+  </Tabs.Tab>
+  <Tabs.Tab title="JavaScript">
     <Fragment>
       {({ platform }) => import(`./shared/vite-polyfill.mdx`)}
     </Fragment>
-  </TabItem>
+  </Tabs.Tab>
 </Tabs.Container>
 
 > If you are still having issues, please see comments on the following issue for additional [Vite workarounds](https://github.com/aws-amplify/amplify-js/issues/9639). Note that there is active ongoing work to make these modifications unnecessary.

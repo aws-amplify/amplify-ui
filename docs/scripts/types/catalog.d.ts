@@ -49,6 +49,7 @@ export type ComponentName =
   | 'StepperField'
   | 'SwitchField'
   | 'Tabs'
+  | 'Tabs.Container'
   | 'Tabs.Tab'
   | 'Tabs.List'
   | 'Tabs.Panel'

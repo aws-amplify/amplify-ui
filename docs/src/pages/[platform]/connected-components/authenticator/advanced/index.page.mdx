@@ -58,7 +58,7 @@ Here's an example that uses the `toResetPassword` trigger transition, to create 
 </Fragment>
 
 <Tabs.Container overflow="scroll">
-  <TabItem title="Access Contexts">
+  <Tabs.Tab title="Access Contexts">
 
     These are `readonly` contexts that represent the current auth state. Any unapplicable `context` will be `undefined`.
 
@@ -109,8 +109,8 @@ Here's an example that uses the `toResetPassword` trigger transition, to create 
       </TableBody>
     </ResponsiveTable>
     
-  </TabItem>
-  <TabItem title="Trigger Transition">
+  </Tabs.Tab>
+  <Tabs.Tab title="Trigger Transition">
 
 These helper functions trigger transition to another `route`. Note that any invalid transition (e.g. `sign-in` to `authenticated` directly) will be no-op.
 
@@ -150,5 +150,5 @@ These helper functions trigger transition to another `route`. Note that any inva
       </TableBody>
     </ResponsiveTable>
     
-  </TabItem>
+  </Tabs.Tab>
 </Tabs.Container>

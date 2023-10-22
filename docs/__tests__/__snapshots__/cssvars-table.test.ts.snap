@@ -5127,6 +5127,10 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-font-interactive)\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-tabs-item-active-box-shadow\\",
+        \\"value\\": \\"none\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-tabs-item-active-color\\",
         \\"value\\": \\"var(--amplify-colors-font-interactive)\\"
     },
@@ -5159,8 +5163,24 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-border-tertiary)\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-tabs-item-disabled-box-shadow\\",
+        \\"value\\": \\"none\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-tabs-item-disabled-color\\",
         \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-item-focus-background-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-item-focus-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-focus)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-item-focus-box-shadow\\",
+        \\"value\\": \\"var(--amplify-components-field-control-focus-box-shadow)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-tabs-item-focus-color\\",

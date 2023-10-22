@@ -3,7 +3,7 @@ import { Tabs, View } from '@aws-amplify/ui-react';
 import { BorderWidthExample } from './examples';
 
 <Tabs.Container>
-  <TabItem title="Example usage">
+  <Tabs.Tab title="Example usage">
     <View marginTop="var(--amplify-space-large)">
       <Example>
         <BorderWidthExample />
@@ -14,8 +14,8 @@ import { BorderWidthExample } from './examples';
         </ExampleCode>
       </Example>
     </View>
-  </TabItem>
-  <TabItem title="CSS">
+  </Tabs.Tab>
+  <Tabs.Tab title="CSS">
     <View marginTop="var(--amplify-space-large)">
     <Example>
       <ExampleCode>
@@ -25,5 +25,5 @@ import { BorderWidthExample } from './examples';
       </ExampleCode>
     </Example>
     </View>
-  </TabItem>
+  </Tabs.Tab>
 </Tabs.Container>

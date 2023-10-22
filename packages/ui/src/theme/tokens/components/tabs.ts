@@ -1,7 +1,7 @@
 import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 type TabItemStateTokens<OutputType> = DesignTokenProperties<
-  'backgroundColor' | 'borderColor' | 'color',
+  'backgroundColor' | 'borderColor' | 'boxShadow' | 'color',
   OutputType
 >;
 
@@ -19,8 +19,8 @@ type TabItemTokens<OutputType extends OutputVariantKey> = DesignTokenProperties<
   | 'transitionDuration',
   OutputType
 > & {
-  _hover?: DesignTokenProperties<'color', OutputType>;
-  _focus?: DesignTokenProperties<'color', OutputType>;
+  _hover?: TabItemStateTokens<OutputType>;
+  _focus?: TabItemStateTokens<OutputType>;
   _active?: TabItemStateTokens<OutputType>;
   _disabled?: TabItemStateTokens<OutputType>;
 };
@@ -56,17 +56,22 @@ export const tabs: Required<TabsTokens<'default'>> = {
       color: { value: '{colors.font.hover.value}' },
     },
     _focus: {
+      backgroundColor: { value: 'transparent' },
+      borderColor: { value: '{colors.border.focus.value}' },
+      boxShadow: { value: '{components.fieldControl._focus.boxShadow}' },
       color: { value: '{colors.font.focus.value}' },
     },
     _active: {
-      color: { value: '{colors.font.interactive.value}' },
-      borderColor: { value: '{colors.font.interactive.value}' },
       backgroundColor: { value: 'transparent' },
+      borderColor: { value: '{colors.font.interactive.value}' },
+      boxShadow: { value: 'none' },
+      color: { value: '{colors.font.interactive.value}' },
     },
     _disabled: {
-      color: { value: '{colors.font.disabled.value}' },
       backgroundColor: { value: 'transparent' },
       borderColor: { value: '{colors.border.tertiary.value}' },
+      boxShadow: { value: 'none' },
+      color: { value: '{colors.font.disabled.value}' },
     },
   },
 };

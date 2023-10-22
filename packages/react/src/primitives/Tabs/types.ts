@@ -15,9 +15,9 @@ export interface BaseTabsProps extends BaseTabListProps {
    * An array of tabs for easy use if you don't want to compose the
    * tabs yourself. Each object in the array should have a `value`,
    * `label`, and `content` property. The value is what will be passed to
-   * `onChange` when a tab is clicked. The label is what will be displayed
+   * `onValueChange` when a tab is clicked. The label is what will be displayed
    * on the tab. The content is what will be displayed when the tab is
-   * clicked. The content can be any React node.
+   * clicked.
    *
    * @example
    * ```tsx
@@ -86,8 +86,7 @@ export interface BaseTabListProps extends BaseFlexProps {
 
   /**
    * @description
-   * The controlled index of the currently selected tab. This should be used with
-   * `onChange` as well to make the component controlled.
+   * The controlled value of the currently selected tab.
    */
   value?: string;
 

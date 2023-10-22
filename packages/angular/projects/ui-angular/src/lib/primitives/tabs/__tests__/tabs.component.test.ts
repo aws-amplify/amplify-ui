@@ -22,7 +22,7 @@ describe('amplify-tabs', () => {
       `,
       {
         componentProperties: {},
-        declarations: [TabsComponentComponent],
+        declarations: [TabsComponent, TabItemComponent],
       }
     );
     expect(container).toMatchSnapshot();

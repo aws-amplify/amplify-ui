@@ -3,17 +3,25 @@ import { Alert, Tabs } from '@aws-amplify/ui-react';
 You can use the `Authenticator` component directly, or wrap your app in `withAuthenticator`
 [Higher-Order Component](https://legacy.reactjs.org/docs/higher-order-components.html):
 
-<Tabs.Container>
-  <TabItem title="Authenticator">
+<Tabs.Container defaultValue="Authenticator">
+<Tabs.List>
+  <Tabs.Tab value="Authenticator">Authenticator</Tabs.Tab>
+  <Tabs.Tab value="withAuthenticator">withAuthenticator</Tabs.Tab>
+</Tabs.List>
+  <Tabs.Panel value="Authenticator">
     ```js{3-4,11-12} file=../../../../../../examples/next/pages/ui/components/authenticator/sign-in-with-username/index.page.tsx
 
     ```
-  </TabItem>
-  <TabItem title="withAuthenticator">
+  </Tabs.Panel>
+  <Tabs.Panel value="withAuthenticator">
 
 `withAuthenticator` defaults the `variation` prop to `modal`.
-  <Tabs.Container>
-    <TabItem title="Javascript">
+  <Tabs.Container defaultValue="Javascript">
+    <Tabs.List>
+      <Tabs.Tab value="Javascript">Javascript</Tabs.Tab>
+      <Tabs.Tab value="TypeScript">TypeScript</Tabs.Tab>
+    </Tabs.List>
+    <Tabs.Panel value="Javascript">
     ```jsx
     import { Amplify } from 'aws-amplify';
 
@@ -46,14 +54,14 @@ You can use the `Authenticator` component directly, or wrap your app in `withAut
       };
     }
     ```
-    </TabItem>
-    <TabItem title="TypeScript">
+    </Tabs.Panel>
+    <Tabs.Panel value="TypeScript">
       ```js{3-4,9,18} file=../../../../../../examples/next/pages/ui/components/authenticator/withAuthenticator/index.page.tsx
 
       ```
-    </TabItem>
+    </Tabs.Panel>
   </Tabs.Container>
-  </TabItem>
+  </Tabs.Panel>
 </Tabs.Container>
 
 <Alert role="none" variation="info" heading="React Authenticator v1">
