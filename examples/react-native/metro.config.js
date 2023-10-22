@@ -144,4 +144,12 @@ config.server.enhanceMiddleware = (middleware) => {
   };
 };
 
+config.resolver.extraNodeModules = {
+  'react-native': path.resolve(__dirname, 'node_modules/react-native'),
+  'react-native-safe-area-context': path.resolve(
+    __dirname,
+    'node_modules/react-native-safe-area-context'
+  ),
+};
+
 module.exports = config;

@@ -1,4 +1,6 @@
 rootProject.name = 'ReactNative'
-apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
+// point to monorepo top level node_modules
+apply from: file("../../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':app'
-includeBuild('../node_modules/react-native-gradle-plugin')
+// point to monorepo top level node_modules
+includeBuild('../../../node_modules/react-native-gradle-plugin')

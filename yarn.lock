@@ -10904,13 +10904,13 @@ amazon-cognito-identity-js@6.3.1:
     isomorphic-unfetch "^3.0.0"
     js-cookie "^2.2.1"
 
-amazon-cognito-identity-js@^5.2.11:
-  version "5.2.14"
-  resolved "https://registry.npmjs.org/amazon-cognito-identity-js/-/amazon-cognito-identity-js-5.2.14.tgz#780d633e2912971e77b00d60d5b959f26d66e6a5"
-  integrity sha512-9LMgLZfbypbbGTpARQ+QqglE09b1MWti11NXhcD/wPom0uhU/L90dfmUOpTwknz//eE6/dGYf004mJucWzrfxQ==
+amazon-cognito-identity-js@^6.3.6:
+  version "6.3.6"
+  resolved "https://registry.npmjs.org/amazon-cognito-identity-js/-/amazon-cognito-identity-js-6.3.6.tgz#a5baa3615dc5771d9f9edeedf13d6e6df5e202d6"
+  integrity sha512-kBq+GE6OkLrxtFj3ZduIOlKBFYeOqZK3EhxbDBkv476UTvy+uwfR0tlriTq2QzNdnvlQAjBIXnXuOM7DwR1UEQ==
   dependencies:
+    "@aws-crypto/sha256-js" "1.2.2"
     buffer "4.9.2"
-    crypto-js "^4.1.1"
     fast-base64-decode "^1.0.0"
     isomorphic-unfetch "^3.0.0"
     js-cookie "^2.2.1"
@@ -13026,7 +13026,7 @@ cross-spawn@^7.0.0, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
-crypto-js@^4.0.0, crypto-js@^4.1.1:
+crypto-js@^4.0.0:
   version "4.1.1"
   resolved "https://registry.npmjs.org/crypto-js/-/crypto-js-4.1.1.tgz#9e485bcf03521041bd85844786b83fb7619736cf"
   integrity sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==
@@ -23018,7 +23018,7 @@ react-native-launch-arguments@^3.1.4:
   resolved "https://registry.yarnpkg.com/react-native-launch-arguments/-/react-native-launch-arguments-3.1.4.tgz#7f0f1b2852fefdd6d7e1bccc770dac4826bad140"
   integrity sha512-O6MvDirykW8D6GuxGLjOp9Nhthq5Po+p5+b0EDI388OwNYsnCClR1yXAkvmq8M4fusNPd8VlZEwyfIaoizQx3A==
 
-react-native-safe-area-context@^4.7.2, react-native-safe-area-context@^4.7.3:
+react-native-safe-area-context@^4.7.3:
   version "4.7.3"
   resolved "https://registry.npmjs.org/react-native-safe-area-context/-/react-native-safe-area-context-4.7.3.tgz#149542a05fa68b2892568e8b338bc1e4e005cd0d"
   integrity sha512-Z+oldEQ/tHRU5X++ePdIGosPT9Fa93Mtky/Ptdh7qei4HqBUOcMnIj0KKCJGPRYyvN7j/63Ix0YqqYyVUEof5g==
@@ -23139,7 +23139,7 @@ react-style-singleton@^2.2.1:
     invariant "^2.2.4"
     tslib "^2.0.0"
 
-react-test-renderer@18.2.0, react-test-renderer@^18.2.0:
+react-test-renderer@^18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react-test-renderer/-/react-test-renderer-18.2.0.tgz#1dd912bd908ff26da5b9fca4fd1c489b9523d37e"
   integrity sha512-JWD+aQ0lh2gvh4NM3bBM42Kx+XybOxCpgYK7F8ugAlpaTSnWsX+39Z4XkOykGZAHrjwwTZT3x3KxswVWxHPUqA==
@@ -25870,11 +25870,6 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.npmjs.org/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==
-
-typescript@4.8.4:
-  version "4.8.4"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-4.8.4.tgz#c464abca159669597be5f96b8943500b238e60e6"
-  integrity sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==
 
 typescript@^5.2.2:
   version "5.2.2"
