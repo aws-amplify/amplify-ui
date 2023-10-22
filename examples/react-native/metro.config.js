@@ -114,25 +114,6 @@ config.resolver.blockList = [
   ...usedInternalPackagePaths,
 ];
 
-// point to the example app deps for React and native modules deps
-config.resolver.extraNodeModules = {
-  // core React and React Native dependencies
-  react: path.resolve(__dirname, 'node_modules/react'),
-  'react-native': path.resolve(__dirname, 'node_modules/react-native'),
-
-  // xstate uses React under the hood
-  '@xstate/react': path.resolve(__dirname, 'node_modules/@xstate/react'),
-
-  // self explanatory
-  'react-hook-form': path.resolve(__dirname, 'node_modules/react-hook-form'),
-
-  // dependencies with native modules
-  'react-native-safe-area-context': path.resolve(
-    __dirname,
-    'node_modules/react-native-safe-area-context'
-  ),
-};
-
 // base transform values included by `react-native init`
 config.transformer.getTransformOptions = async () => ({
   transform: {
