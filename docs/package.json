@@ -25,8 +25,6 @@
   "dependencies": {
     "@aws-amplify/ui-react": "5.3.1",
     "@aws-amplify/ui-react-storage": "2.3.1",
-    "@cucumber/gherkin": "^19.0.3",
-    "@cucumber/messages": "^16.0.1",
     "@docsearch/react": "3",
     "@mdx-js/loader": "^2.1.0",
     "@mdx-js/mdx": "^2.1.0",
@@ -66,7 +64,7 @@
     "@types/lodash": "^4.14.170",
     "@types/node": "^14.14.31",
     "autoprefixer": "^10.2.4",
-    "canvas": "^2.9.1",
+    "canvas": "^2.11.2",
     "dotenv-safe": "^8.2.0",
     "esbuild-register": "^3.3.2",
     "eslint-config-next": "^13.5.5",

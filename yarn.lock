@@ -6107,14 +6107,6 @@
   dependencies:
     "@cucumber/messages" ">=19.1.4 <=22"
 
-"@cucumber/gherkin@^19.0.3":
-  version "19.0.3"
-  resolved "https://registry.npmjs.org/@cucumber/gherkin/-/gherkin-19.0.3.tgz#61036ca4940e66f8a787be5f92ce229ae3815ebf"
-  integrity sha512-gWdMm8mfRk3P+VugJWvNALaQV5QnT+5RkqWy3tO+4NsMSQZPo5p4V4vXwriQZ/sZR1Wni5TDRztuRsKLgZ3XHA==
-  dependencies:
-    "@cucumber/message-streams" "^2.0.0"
-    "@cucumber/messages" "^16.0.1"
-
 "@cucumber/gherkin@^24.0.0":
   version "24.1.0"
   resolved "https://registry.npmjs.org/@cucumber/gherkin/-/gherkin-24.1.0.tgz#ca2dcbe11f5f7d7f30fd073280550bd6eca2363c"
@@ -6149,13 +6141,6 @@
   resolved "https://registry.npmjs.org/@cucumber/message-streams/-/message-streams-4.0.1.tgz#a5339d3504594bb2edb5732aaae94dddb24d0970"
   integrity sha512-Kxap9uP5jD8tHUZVjTWgzxemi/0uOsbGjd4LBOSxcJoOCRbESFwemUzilJuzNTB8pcTQUh8D5oudUyxfkJOKmA==
 
-"@cucumber/message-streams@^2.0.0":
-  version "2.1.0"
-  resolved "https://registry.npmjs.org/@cucumber/message-streams/-/message-streams-2.1.0.tgz#07a7a814ee7c39386a939d5afec2902f5199ffd2"
-  integrity sha512-Yh3mw3qv6QL9NI/ihkZF8V9MX2GbnR6oktv34kC3uAbrQy9d/b2SZ3HNjG3J9JQqpV4B7Om3SPElJYIeo66TrA==
-  dependencies:
-    "@cucumber/messages" "^16.0.1"
-
 "@cucumber/messages@19.1.4 - 21", "@cucumber/messages@21.0.1":
   version "21.0.1"
   resolved "https://registry.yarnpkg.com/@cucumber/messages/-/messages-21.0.1.tgz#1468cef60d6da4d4f540a70ab1265f6540f44f51"
@@ -6175,16 +6160,6 @@
     class-transformer "0.5.1"
     reflect-metadata "0.1.13"
     uuid "9.0.0"
-
-"@cucumber/messages@^16.0.1":
-  version "16.0.1"
-  resolved "https://registry.npmjs.org/@cucumber/messages/-/messages-16.0.1.tgz#8a9f9bb6ad0430d8ddd044dd49cb45ef37ee67b7"
-  integrity sha512-80JcaAfQragFqR1rMhRwiqWL9HcR6Z4LDD2mfF0Lxg/lFkCNvmWa9Jl10NUNfFXYD555NKPzP/8xFo55abw8TQ==
-  dependencies:
-    "@types/uuid" "8.3.0"
-    class-transformer "0.4.0"
-    reflect-metadata "0.1.13"
-    uuid "8.3.2"
 
 "@cucumber/messages@^19.1.2", "@cucumber/messages@^19.1.4":
   version "19.1.4"
@@ -9827,11 +9802,6 @@
   resolved "https://registry.npmjs.org/@types/unist/-/unist-2.0.6.tgz#250a7b16c3b91f672a24552ec64678eeb1d3a08d"
   integrity sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==
 
-"@types/uuid@8.3.0":
-  version "8.3.0"
-  resolved "https://registry.npmjs.org/@types/uuid/-/uuid-8.3.0.tgz#215c231dff736d5ba92410e6d602050cce7e273f"
-  integrity sha512-eQ9qFW/fhfGJF8WKHGEHZEyVWfZxrT+6CLIJGBcZPfxUh/+BnEj+UCGYMlr9qZuX/2AltsvwrGqp0LhEW8D0zQ==
-
 "@types/uuid@8.3.4":
   version "8.3.4"
   resolved "https://registry.npmjs.org/@types/uuid/-/uuid-8.3.4.tgz#bd86a43617df0594787d38b735f55c805becf1bc"
@@ -12150,7 +12120,7 @@ caniuse-lite@^1.0.30001541:
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001543.tgz#478a3e9dddbb353c5ab214b0ecb0dbed529ed1d8"
   integrity sha512-qxdO8KPWPQ+Zk6bvNpPeQIOH47qZSYdFZd6dXQzb2KzhnSXju4Kd7H1PkSJx6NICSMgo/IhRZRhhfPTHYpJUCA==
 
-canvas@^2.11.2, canvas@^2.9.1:
+canvas@^2.11.2:
   version "2.11.2"
   resolved "https://registry.npmjs.org/canvas/-/canvas-2.11.2.tgz#553d87b1e0228c7ac0fc72887c3adbac4abbd860"
   integrity sha512-ItanGBMrmRV7Py2Z+Xhs7cT+FNt5K0vPL4p9EZ/UX/Mu7hFbkxSjKF2KVtPwX7UYWp7dRKnrTvReflgrItJbdw==
@@ -12384,11 +12354,6 @@ cjs-module-lexer@^1.0.0:
   version "1.2.2"
   resolved "https://registry.npmjs.org/cjs-module-lexer/-/cjs-module-lexer-1.2.2.tgz#9f84ba3244a512f3a54e5277e8eef4c489864e40"
   integrity sha512-cOU9usZw8/dXIXKtwa8pM0OTJQuJkxMN6w30csNRUerHfeQ5R6U3kkU/FtJeIf3M202OHfY2U8ccInBG7/xogA==
-
-class-transformer@0.4.0:
-  version "0.4.0"
-  resolved "https://registry.npmjs.org/class-transformer/-/class-transformer-0.4.0.tgz#b52144117b423c516afb44cc1c76dbad31c2165b"
-  integrity sha512-ETWD/H2TbWbKEi7m9N4Km5+cw1hNcqJSxlSYhsLsNjQzWWiZIYA1zafxpK9PwVfaZ6AqR5rrjPVUBGESm5tQUA==
 
 class-transformer@0.5.1:
   version "0.5.1"
