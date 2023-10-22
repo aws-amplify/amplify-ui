@@ -1,15 +1,5 @@
-/*
- * For a detailed explanation regarding each configuration property and type check, visit:
- * https://jestjs.io/docs/configuration
- */
+import { Config } from 'jest';
 
-const jestConfig = {
-  preset: 'ts-jest',
-  setupFiles: ['./jestEnv.ts'],
-  transform: {
-    '^.+\\.(ts|tsx)?$': 'ts-jest',
-    '^.+\\.(js|jsx)$': 'babel-jest',
-  },
-};
+const jestConfig: Config = { preset: 'ts-jest' };
 
 export default jestConfig;
