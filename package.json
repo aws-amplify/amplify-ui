@@ -53,6 +53,8 @@
       "packages/configs/*"
     ],
     "nohoist": [
+      "**/react-native",
+      "**/react-native-safe-area-context",
       "**/rollup",
       "**/@types/webgl-ext",
       "**/@types/webgl-ext/**"

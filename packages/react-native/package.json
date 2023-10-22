@@ -26,7 +26,8 @@
     "@babel/preset-typescript": "^7.22.15",
     "@testing-library/react-native": "^12.3.0",
     "metro-react-native-babel-preset": "^0.70.2",
-    "react-native-safe-area-context": "^4.7.2"
+    "react-native": "0.71.14",
+    "react-native-safe-area-context": "^4.7.3"
   },
   "dependencies": {
     "@aws-amplify/ui": "5.8.1",

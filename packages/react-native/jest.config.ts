@@ -8,8 +8,12 @@ const config: Config = {
     '<rootDir>/src/**/*.{js,jsx,ts,tsx}',
     '!<rootDir>/src/**/*{c,C}onstants.ts',
   ],
-  moduleNameMapper: { '^uuid$': '<rootDir>/../../node_modules/uuid' },
-  transformIgnorePatterns: ['node_modules/(?!@?react-native)'],
+  moduleNameMapper: {
+    '^uuid$': '<rootDir>/../../node_modules/uuid',
+    '^react-native$': '<rootDir>/node_modules/react-native',
+  },
+
+  // transformIgnorePatterns: ['node_modules/(?!@?react-native)'],
   coverageThreshold: {
     global: {
       branches: 90,
