@@ -3900,7 +3900,7 @@ exports[`Props Table 1`] = `
                     },
                     "columnSpan": {
                         "name": "columnSpan",
-                        "type": "'auto' | number",
+                        "type": "number | string | 'auto'",
                         "description": "Makes it possible for an element to span across all columns when its value is set to all. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/column-span)",
                         "category": "GridItemStyleProps",
                         "isOptional": true
@@ -3928,7 +3928,7 @@ exports[`Props Table 1`] = `
                     },
                     "rowSpan": {
                         "name": "rowSpan",
-                        "type": "'auto' | number",
+                        "type": "number | string | 'auto'",
                         "description": "",
                         "category": "GridItemStyleProps",
                         "isOptional": true
@@ -4086,7 +4086,7 @@ exports[`Props Table 1`] = `
                     },
                     "columnSpan": {
                         "name": "columnSpan",
-                        "type": "'auto' | number",
+                        "type": "number | string | 'auto'",
                         "description": "Makes it possible for an element to span across all columns when its value is set to all. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/column-span)",
                         "category": "GridItemStyleProps",
                         "isOptional": true
@@ -4114,7 +4114,7 @@ exports[`Props Table 1`] = `
                     },
                     "rowSpan": {
                         "name": "rowSpan",
-                        "type": "'auto' | number",
+                        "type": "number | string | 'auto'",
                         "description": "",
                         "category": "GridItemStyleProps",
                         "isOptional": true
