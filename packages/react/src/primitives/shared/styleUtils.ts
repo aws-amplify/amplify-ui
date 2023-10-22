@@ -45,7 +45,7 @@ export const convertGridSpan = (
   }
   // PropertyType[]
   if (Array.isArray(spanValue)) {
-    return spanValue.map((value) => getGridSpan(value as GridSpanType));
+    return spanValue.map((value) => getGridSpan(value));
   }
   // ResponsiveObject<PropertyType>
   if (typeof spanValue === 'object' && spanValue != null) {
@@ -53,16 +53,6 @@ export const convertGridSpan = (
       (acc, [key, value]) => ({ ...acc, [key]: getGridSpan(value) }),
       {} as ResponsiveObject<string>
     );
-    // let newObj: ResponsiveObject<string> = {};
-    // Object.entries(spanValue).forEach(
-    //   ([key, value]: [string, GridSpanType]) => {
-    //     newObj = {
-    //       ...newObj,
-    //       [key]: getGridSpan(value),
-    //     };
-    //   }
-    // );
-    // return newObj;
   }
   return null;
 };

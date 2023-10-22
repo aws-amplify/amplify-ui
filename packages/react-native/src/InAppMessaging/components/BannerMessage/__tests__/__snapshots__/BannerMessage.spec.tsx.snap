@@ -99,7 +99,7 @@ exports[`BannerMessage correctly handles a primaryButton button prop 1`] = `
           accessible={true}
           source={
             {
-              "testUri": "../../../packages/react-native/src/assets/icons/close.png",
+              "uri": "close",
             }
           }
           style={
@@ -314,7 +314,7 @@ exports[`BannerMessage correctly handles a secondaryButton button prop 1`] = `
           accessible={true}
           source={
             {
-              "testUri": "../../../packages/react-native/src/assets/icons/close.png",
+              "uri": "close",
             }
           }
           style={
@@ -554,7 +554,7 @@ exports[`BannerMessage renders a message as expected with an image 1`] = `
           accessible={true}
           source={
             {
-              "testUri": "../../../packages/react-native/src/assets/icons/close.png",
+              "uri": "close",
             }
           }
           style={
@@ -674,7 +674,7 @@ exports[`BannerMessage renders a message as expected without an image 1`] = `
           accessible={true}
           source={
             {
-              "testUri": "../../../packages/react-native/src/assets/icons/close.png",
+              "uri": "close",
             }
           }
           style={

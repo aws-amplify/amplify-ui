@@ -1,6 +1,6 @@
 module.exports = {
   extends: ['@aws-amplify/amplify-ui/react'],
-  ignorePatterns: ['.eslintrc.js', 'dist', 'lib'],
+  ignorePatterns: ['.eslintrc.js', 'babel.config.js', 'dist', 'lib'],
   // point to local tsconfig
   parserOptions: { project: ['tsconfig.json'], tsconfigRootDir: __dirname },
   overrides: [

@@ -21,17 +21,20 @@ jobs:
       matrix:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
         package:
-          - ui
           - angular
-          - vue
           - react
-          - react-native
+          - react-auth
           - react-core
+          - react-core-auth
           - react-core-notifications
-          - react-notifications
           - react-geo
-          - react-storage
           - react-liveness
+          - react-native
+          - react-native-auth
+          - react-notifications
+          - react-storage
+          - ui
+          - vue
 
     steps:
       - name: Checkout Amplify UI
@@ -85,10 +88,12 @@ jobs:
           matrix.package == 'react-auth' ||
           matrix.package == 'react-core-auth' ||
           matrix.package == 'react-core-notifications' ||
-          matrix.package == 'react-native' ||
-          matrix.package == 'react-storage' ||
+          matrix.package == 'react-geo' ||
           matrix.package == 'react-liveness' ||
-          matrix.package == 'react-notifications'
+          matrix.package == 'react-native' ||
+          matrix.package == 'react-native-auth' ||
+          matrix.package == 'react-notifications' ||
+          matrix.package == 'react-storage'
         run: yarn react-core build
 
       - name: Build react-core-auth package
@@ -121,7 +126,11 @@ jobs:
         run: yarn ${{ matrix.package }} build
 
       - name: Check ${{ matrix.package }} bundle size
-        if: ${{ matrix.package == 'react' }} | ${{ matrix.package == 'react-liveness' }} | ${{ matrix.package == 'react-geo' }} | ${{ matrix.package == 'react-storage' }}
+        if: |
+          matrix.package == 'react' || 
+          matrix.package == 'react-geo' || 
+          matrix.package == 'react-liveness' || 
+          matrix.package == 'react-storage'
         run: yarn ${{ matrix.package }} size
 
       - name: Cache ${{ matrix.package }}/dist

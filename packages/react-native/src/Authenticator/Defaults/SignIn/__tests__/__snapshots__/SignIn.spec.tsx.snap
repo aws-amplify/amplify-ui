@@ -239,7 +239,7 @@ exports[`SignIn renders as expected 1`] = `
             accessible={true}
             source={
               {
-                "testUri": "../../../packages/react-native/src/assets/icons/visibilityOff.png",
+                "uri": "visibilityOff",
               }
             }
             style={
@@ -721,7 +721,7 @@ exports[`SignIn renders as expected when hideSignUp is true 1`] = `
             accessible={true}
             source={
               {
-                "testUri": "../../../packages/react-native/src/assets/icons/visibilityOff.png",
+                "uri": "visibilityOff",
               }
             }
             style={
@@ -1138,7 +1138,7 @@ exports[`SignIn renders as expected with an error 1`] = `
             accessible={true}
             source={
               {
-                "testUri": "../../../packages/react-native/src/assets/icons/visibilityOff.png",
+                "uri": "visibilityOff",
               }
             }
             style={
@@ -1197,7 +1197,7 @@ exports[`SignIn renders as expected with an error 1`] = `
       accessible={true}
       source={
         {
-          "testUri": "../../../packages/react-native/src/assets/icons/error.png",
+          "uri": "error",
         }
       }
       style={

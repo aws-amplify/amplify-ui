@@ -90,7 +90,7 @@ exports[`ModalMessage correctly handles a primaryButton prop 1`] = `
           accessible={true}
           source={
             {
-              "testUri": "../../../packages/react-native/src/assets/icons/close.png",
+              "uri": "close",
             }
           }
           style={
@@ -305,7 +305,7 @@ exports[`ModalMessage correctly handles a secondaryButton prop 1`] = `
           accessible={true}
           source={
             {
-              "testUri": "../../../packages/react-native/src/assets/icons/close.png",
+              "uri": "close",
             }
           }
           style={
@@ -520,7 +520,7 @@ exports[`ModalMessage renders a message as expected with an image 1`] = `
           accessible={true}
           source={
             {
-              "testUri": "../../../packages/react-native/src/assets/icons/close.png",
+              "uri": "close",
             }
           }
           style={
@@ -676,7 +676,7 @@ exports[`ModalMessage renders as expected in landscape mode 1`] = `
           accessible={true}
           source={
             {
-              "testUri": "../../../packages/react-native/src/assets/icons/close.png",
+              "uri": "close",
             }
           }
           style={
@@ -787,7 +787,7 @@ exports[`ModalMessage renders as expected in portrait mode 1`] = `
           accessible={true}
           source={
             {
-              "testUri": "../../../packages/react-native/src/assets/icons/close.png",
+              "uri": "close",
             }
           }
           style={

@@ -75,7 +75,7 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
       accessible={true}
       source={
         {
-          "testUri": "../../../packages/react-native/src/assets/icons/amazonLogo.png",
+          "uri": "amazonLogo",
         }
       }
       style={

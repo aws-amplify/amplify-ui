@@ -49,7 +49,7 @@ exports[`Checkbox applies label position prop 1`] = `
     accessible={true}
     source={
       {
-        "testUri": "../../../packages/react-native/src/assets/icons/checkboxOutline.png",
+        "uri": "checkboxOutline",
       }
     }
     style={
@@ -136,7 +136,7 @@ exports[`Checkbox applies theme and style props 1`] = `
     accessible={true}
     source={
       {
-        "testUri": "../../../packages/react-native/src/assets/icons/checkboxOutline.png",
+        "uri": "checkboxOutline",
       }
     }
     style={
@@ -222,7 +222,7 @@ exports[`Checkbox renders as expected when disabled 1`] = `
     accessible={true}
     source={
       {
-        "testUri": "../../../packages/react-native/src/assets/icons/checkboxOutline.png",
+        "uri": "checkboxOutline",
       }
     }
     style={
@@ -307,7 +307,7 @@ exports[`Checkbox renders as expected when passing a number to the size prop 1`]
     accessible={true}
     source={
       {
-        "testUri": "../../../packages/react-native/src/assets/icons/checkboxOutline.png",
+        "uri": "checkboxOutline",
       }
     }
     style={
@@ -392,7 +392,7 @@ exports[`Checkbox renders as expected when selected is false 1`] = `
     accessible={true}
     source={
       {
-        "testUri": "../../../packages/react-native/src/assets/icons/checkboxOutline.png",
+        "uri": "checkboxOutline",
       }
     }
     style={
@@ -477,7 +477,7 @@ exports[`Checkbox renders as expected when selected is true 1`] = `
     accessible={true}
     source={
       {
-        "testUri": "../../../packages/react-native/src/assets/icons/checkboxFilled.png",
+        "uri": "checkboxFilled",
       }
     }
     style={
@@ -562,7 +562,7 @@ exports[`Checkbox renders as expected with custom accessibilityRole 1`] = `
     accessible={true}
     source={
       {
-        "testUri": "../../../packages/react-native/src/assets/icons/checkboxOutline.png",
+        "uri": "checkboxOutline",
       }
     }
     style={
@@ -647,7 +647,7 @@ exports[`Checkbox renders as expected without a label 1`] = `
     accessible={true}
     source={
       {
-        "testUri": "../../../packages/react-native/src/assets/icons/checkboxOutline.png",
+        "uri": "checkboxOutline",
       }
     }
     style={

@@ -54,6 +54,7 @@
     ],
     "nohoist": [
       "**/react-native",
+      "**/react-native/**",
       "**/react-native-safe-area-context",
       "**/rollup",
       "**/@types/webgl-ext",
@@ -70,7 +71,7 @@
     "@babel/traverse": "7.23.2",
     "@cypress/request": "^3.0.0",
     "@sideway/formula": "^3.0.1",
-    "@types/react": "^18.2.2",
+    "@types/react": "^18.2.22",
     "@types/react-dom": "^18.2.7",
     "browserslist": "^4.16.15",
     "docs/next-plugin-preval/webpack": "^5.76.0",

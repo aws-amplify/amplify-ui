@@ -24,7 +24,7 @@ exports[`ErrorMessage applies theme and style props 1`] = `
     accessible={true}
     source={
       {
-        "testUri": "../../../packages/react-native/src/assets/icons/error.png",
+        "uri": "error",
       }
     }
     style={
@@ -87,7 +87,7 @@ exports[`ErrorMessage renders default ErrorMessage as expected 1`] = `
     accessible={true}
     source={
       {
-        "testUri": "../../../packages/react-native/src/assets/icons/error.png",
+        "uri": "error",
       }
     }
     style={

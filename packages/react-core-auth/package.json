@@ -23,7 +23,7 @@
   "scripts": {
     "build": "rollup --config",
     "clean": "rimraf dist node_modules",
-    "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-auth-core\"'",
+    "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-core-auth\"'",
     "dev": "yarn build --watch",
     "lint": "yarn typecheck && eslint src",
     "prebuild": "rimraf dist",

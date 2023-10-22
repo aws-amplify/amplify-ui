@@ -640,7 +640,7 @@ exports[`VerifyUser renders as expected with errors 1`] = `
       accessible={true}
       source={
         {
-          "testUri": "../../../packages/react-native/src/assets/icons/error.png",
+          "uri": "error",
         }
       }
       style={

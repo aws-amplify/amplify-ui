@@ -68,7 +68,7 @@ exports[`FederatedProviderButton applies style props 1`] = `
     accessible={true}
     source={
       {
-        "testUri": "../../../packages/react-native/src/assets/icons/amazonLogo.png",
+        "uri": "amazonLogo",
       }
     }
     style={
@@ -177,7 +177,7 @@ exports[`FederatedProviderButton renders default button as expected 1`] = `
     accessible={true}
     source={
       {
-        "testUri": "../../../packages/react-native/src/assets/icons/amazonLogo.png",
+        "uri": "amazonLogo",
       }
     }
     style={
