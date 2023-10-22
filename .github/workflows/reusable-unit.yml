@@ -44,7 +44,7 @@ jobs:
       - name: Setup Node.js 18
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
-          node-version: 18
+          node-version: 18.18.2
           cache: 'yarn'
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
@@ -82,12 +82,20 @@ jobs:
       - name: Build react-core package
         if: |
           matrix.package == 'react' ||
+          matrix.package == 'react-auth' ||
+          matrix.package == 'react-core-auth' ||
           matrix.package == 'react-core-notifications' ||
           matrix.package == 'react-native' ||
           matrix.package == 'react-storage' ||
           matrix.package == 'react-liveness' ||
           matrix.package == 'react-notifications'
         run: yarn react-core build
+
+      - name: Build react-core-auth package
+        if: |
+          matrix.package == 'react-auth' ||
+          matrix.package == 'react-native-auth'
+        run: yarn react-core-auth build
 
       - name: Build react-core-notifications package
         if: |
@@ -97,9 +105,15 @@ jobs:
 
       - name: Build react package
         if: |
+          matrix.package == 'react-auth' ||
           matrix.package == 'react-notifications' ||
           matrix.package == 'react-storage' ||
           matrix.package == 'react-liveness'
+        run: yarn react build
+
+      - name: Build react-native package
+        if: |
+          matrix.package == 'react-native-auth'
         run: yarn react build
 
       - name: Build ${{ matrix.package }} package
@@ -107,12 +121,8 @@ jobs:
         run: yarn ${{ matrix.package }} build
 
       - name: Check ${{ matrix.package }} bundle size
-        if: ${{ matrix.package == 'react' }}
-        run: yarn react size
-
-      - name: Check ${{ matrix.package }} bundle size
-        if: ${{ matrix.package == 'react-liveness' }}
-        run: yarn react-liveness size
+        if: ${{ matrix.package == 'react' }} | ${{ matrix.package == 'react-liveness' }} | ${{ matrix.package == 'react-geo' }} | ${{ matrix.package == 'react-storage' }}
+        run: yarn ${{ matrix.package }} size
 
       - name: Cache ${{ matrix.package }}/dist
         uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8

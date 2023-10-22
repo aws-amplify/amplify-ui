@@ -23,9 +23,10 @@ jobs:
           repository: ${{ inputs.repository }}
           persist-credentials: false
       - name: Setup Node.js 18
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        # uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        uses: actions/setup-node@6e9e44895f11c5489716beba7b3be1cd4d76f8e9 # v3.4.1 https://github.com/actions/setup-node/commit/6e9e44895f11c5489716beba7b3be1cd4d76f8e9
         with:
-          node-version: 18
+          node-version: 18.18.2
           cache: 'yarn'
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
