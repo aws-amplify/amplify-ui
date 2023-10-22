@@ -2,8 +2,12 @@ import { Example, ExampleCode } from '@/components/Example';
 import { Tabs, View } from '@aws-amplify/ui-react';
 import { FontWeightExample } from './examples';
 
-<Tabs.Container>
-  <Tabs.Tab title="Example usage">
+<Tabs.Container value="Example usage">
+  <Tabs.List>
+    <Tabs.Tab value="Example usage">Example usage</Tabs.Tab>
+    <Tabs.Tab value="CSS">CSS</Tabs.Tab>
+  </Tabs.List>
+  <Tabs.Panel value="Example usage">
     <View marginTop="var(--amplify-space-large)">
       <Example>
         <FontWeightExample  />
@@ -14,8 +18,8 @@ import { FontWeightExample } from './examples';
         </ExampleCode>
       </Example>
     </View>
-  </Tabs.Tab>
-  <Tabs.Tab title="CSS">
+  </Tabs.Panel>
+  <Tabs.Panel value="CSS">
     <View marginTop="var(--amplify-space-large)">
     <Example>
       <ExampleCode>
@@ -25,5 +29,5 @@ import { FontWeightExample } from './examples';
       </ExampleCode>
     </Example>
     </View>
-  </Tabs.Tab>
+  </Tabs.Panel>
 </Tabs.Container>

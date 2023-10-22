@@ -30,8 +30,12 @@ const MyComponent = ({ children }) => {
 
 Optional: To extend or override a token in the default theme, create a custom theme:
 
-<Tabs.Container>
-  <Tabs.Tab title="JavaScript">
+<Tabs.Container defaultValue="Javascript">
+  <Tabs.List>
+    <Tabs.Tab value="Javascript">Javascript</Tabs.Tab>
+    <Tabs.Tab value="TypeScript">TypeScript</Tabs.Tab>
+  </Tabs.List>
+  <Tabs.Panel value="Javascript">
     ```jsx
     import { ThemeProvider, Theme } from '@aws-amplify/ui-react';
 
@@ -57,8 +61,8 @@ Optional: To extend or override a token in the default theme, create a custom th
     );
     ```
 
-  </Tabs.Tab>
-  <Tabs.Tab title="TypeScript">
+  </Tabs.Panel>
+  <Tabs.Panel value="TypeScript">
     ```tsx
     import { ThemeProvider, Theme } from '@aws-amplify/ui-react';
 
@@ -84,5 +88,5 @@ Optional: To extend or override a token in the default theme, create a custom th
     );
     ```
 
-  </Tabs.Tab>
+  </Tabs.Panel>
 </Tabs.Container>

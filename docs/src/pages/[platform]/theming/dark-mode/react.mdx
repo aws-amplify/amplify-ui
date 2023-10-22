@@ -38,8 +38,12 @@ Amplify UI comes with a default dark mode that you can use.
 
 _Note: the Amplify UI theme and any overrides like dark mode are scoped to the ThemeProvider. Changing the color mode in the example will only affect the example code._
 
-<Tabs.Container>
-  <Tabs.Tab title="JavaScript">
+<Tabs.Container defaultValue="Javascript">
+  <Tabs.List>
+    <Tabs.Tab value="Javascript">Javascript</Tabs.Tab>
+    <Tabs.Tab value="TypeScript">TypeScript</Tabs.Tab>
+  </Tabs.List>
+  <Tabs.Panel value="JavaScript">
     <Example>
       <DefaultDarkMode />
 
@@ -83,8 +87,8 @@ export const DefaultDarkMode = () => {
         
       </ExampleCode>
     </Example>
-  </Tabs.Tab>
-  <Tabs.Tab title="TypeScript">
+  </Tabs.Panel>
+  <Tabs.Panel value="TypeScript">
     <Example>
       <DefaultDarkMode />
 
@@ -94,7 +98,7 @@ export const DefaultDarkMode = () => {
         
       </ExampleCode>
     </Example>
-  </Tabs.Tab>
+  </Tabs.Panel>
 </Tabs.Container>
 
 ### System Dark Mode

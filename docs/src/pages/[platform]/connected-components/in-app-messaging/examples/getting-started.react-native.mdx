@@ -3,8 +3,12 @@ import { Example, ExampleCode } from '@/components/Example';
 
 <Example>
 <ExampleCode>
-<Tabs.Container>
-<Tabs.Tab title="InAppMessagingProvider/InAppMessageDisplay">
+<Tabs.Container defaultValue="InAppMessagingProvider/InAppMessageDisplay">
+  <Tabs.List>
+    <Tabs.Tab value="InAppMessagingProvider/InAppMessageDisplay">InAppMessagingProvider/InAppMessageDisplay</Tabs.Tab>
+    <Tabs.Tab value="withInAppMessaging">withInAppMessaging</Tabs.Tab>
+  </Tabs.List>
+  <Tabs.Panel value="InAppMessagingProvider/InAppMessageDisplay">
 
 ```jsx
 import React, { useEffect } from 'react';
@@ -39,8 +43,8 @@ function App() {
 export default App;
 ```
 
-</Tabs.Tab>
-<Tabs.Tab title="withInAppMessaging">
+</Tabs.Panel>
+<Tabs.Panel value="withInAppMessaging">
 
 ```jsx
 import React, { useEffect } from 'react';
@@ -67,7 +71,7 @@ function App() {
 export default withInAppMessaging(App);
 ```
    
-</Tabs.Tab>
+  </Tabs.Panel>
 </Tabs.Container>
 </ExampleCode>
 </Example>
