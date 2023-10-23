@@ -53,6 +53,9 @@ export const tabs: Required<TabsTokens<'default'>> = {
     transitionDuration: { value: '{time.medium.value}' },
 
     _hover: {
+      backgroundColor: { value: 'transparent' },
+      borderColor: { value: '{colors.border.focus.value}' },
+      boxShadow: { value: 'none' },
       color: { value: '{colors.font.hover.value}' },
     },
     _focus: {

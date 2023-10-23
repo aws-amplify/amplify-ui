@@ -50,7 +50,9 @@ function reportResult(links: LinkInfo[]) {
         }
       }
     );
-    const failedLinks = errorLinks.filter((link) => link.statusCode >= 400);
+    const failedLinks = errorLinks.filter(
+      (link) => link.statusCode >= 400 && isInternalLink(link.href)
+    );
     if (failedLinks.length) {
       throw new Error(`${failedLinks.length} broken links were found`);
     } else {

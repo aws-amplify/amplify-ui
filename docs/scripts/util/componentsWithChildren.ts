@@ -3,7 +3,7 @@ import { ComponentName } from '../types/catalog';
 export const componentsWithChildren: {
   [key in ComponentName]?: ComponentName[];
 } = {
-  Expander: ['ExpanderItem'],
+  Accordion: ['Accordion.Item'],
   Breadcrumbs: [
     'Breadcrumbs.Item',
     'Breadcrumbs.Link',

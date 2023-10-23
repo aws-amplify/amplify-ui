@@ -7,6 +7,7 @@ describe('Amplify UI Theme', () => {
         name: 'test',
         tokens: {
           components: {
+            accordion: {},
             alert: {},
             authenticator: {},
             autocomplete: {},
@@ -18,7 +19,6 @@ describe('Amplify UI Theme', () => {
             collection: {},
             copy: {},
             divider: {},
-            expander: {},
             field: {},
             fieldcontrol: {},
             fieldgroup: {},
@@ -62,6 +62,7 @@ describe('Amplify UI Theme', () => {
           "name": "test",
           "tokens": Object {
             "components": Object {
+              "accordion": Object {},
               "alert": Object {},
               "authenticator": Object {},
               "autocomplete": Object {},
@@ -73,7 +74,6 @@ describe('Amplify UI Theme', () => {
               "collection": Object {},
               "copy": Object {},
               "divider": Object {},
-              "expander": Object {},
               "field": Object {},
               "fieldcontrol": Object {},
               "fieldgroup": Object {},

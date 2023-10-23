@@ -2,7 +2,95 @@ import { Alert,  Tabs } from '@aws-amplify/ui-react';
 import { TerminalCommand } from '@/components/InstallScripts';
 
 ## `@aws-amplify/ui-react`
-### 4.x to 5.x
+
+### Migrate from 5.x to 6.x
+#### Installation
+Install the 6.x version of both `@aws-amplify/ui-react` and `aws-amplify`.
+
+<Tabs>
+<TabItem title="npm">
+<TerminalCommand command="npm install @aws-amplify/ui-react@6.x aws-amplify@6.x" />
+</TabItem>
+<TabItem title="yarn">
+<TerminalCommand command="yarn add @aws-amplify/ui-react@6.x aws-amplify@6.x" />
+</TabItem>
+</Tabs>
+
+#### Update and usage
+
+`@aws-amplify/ui-react@6.x` introduces the following breaking changes:
+
+#### 1. `@aws-amplify/ui-react@6.x` drops `AmplifyProvider`. `AmplifyProvider` was renamed to `ThemeProvider` in version 2.18.3 but kept for compatibility. No API changes other than export name. If still using `AmplifyProvider`, replace directly with `ThemeProvider`:
+```diff
+- import { AmplifyProvider } from '@aws-amplify/ui-react';
++ import { ThemeProvider } from '@aws-amplify/ui-react';
+- const App = ( <AmplifyProvider><App /></AmplifyProvider>);
++ const App = ( <ThemeProvider><App /></ThemeProvider>);
+```
+#### 2. Expander is now Accordion
+The Expander component has been replaced by the Accordion component in Amplify UI v6. Here is a mapping between the two components:
+
+**Expander -> Accordion**
+The main Expander component maps to the Accordion.Container component.
+
+```jsx
+<Expander>
+  <ExpanderItem>
+    ...
+  </ExpanderItem>
+</Expander>
+
+// Becomes
+
+<Accordion.Container>
+  <Accordion.Item>
+   ...
+  </Accordion.Item>  
+</Accordion.Container>
+```
+
+**ExpanderItem -> Accordion.Item**
+The `ExpanderItem` component maps to the `Accordion.Item` component.
+
+```jsx
+<ExpanderItem>
+  ...
+</ExpanderItem>
+
+// Becomes 
+
+<Accordion.Item>
+ ...
+</Accordion.Item>
+```
+
+The ExpanderItem's `title` prop maps to placing content inside the `<Accordion.Trigger>` component.
+
+The ExpanderItem's `value` prop maps to the `value` prop on `<Accordion.Item>`.
+
+The children of `<ExpanderItem>` map to inside `<Accordion.Content>`.
+
+**Behavior**
+Here are some differences in behavior between the Expander and Accordion components:
+
+* The Accordion allows only 1 item expanded by default, while the Expander allowed multiple items expanded by default. To allow multiple open with Accordion, you need to add the allowMultiple prop.
+* The Accordion cannot be fully collapsed by default, while the Expander could be collapsed. To make the Accordion always have 1 item open, use the preventCollapse prop.
+
+**Styling**
+
+The class names have changed between Expander and Accordion. Here is a mapping:
+
+* `amplify-expander` -> `amplify-accordion`
+* `amplify-expander__item` -> `amplify-accordion__item`
+* `amplify-expander__content` -> `amplify-accordion__content`
+* `amplify-expander__header` -> `amplify-accordion__trigger`
+* `amplify-expander__icon` -> `amplify-accordion__icon`
+
+The `--amplify-components-accordion-` CSS variables can also be used to style Accordion.
+
+
+
+### Migrate from 4.x to 5.x
 #### Installation
 Install the 5.x version of the `@aws-amplify/ui-react` library.
 
@@ -109,7 +197,7 @@ import { Link as ReactRouterLink } from 'react-router-dom';
 
 #### 4. `@aws-amplify/ui-react@5.x` updates component types to include the underlying rendered HTML element's attributes and strictly types the `View` component.
 
-### 3.x to 4.x
+### Migrate from 3.x to 4.x
 #### Installation
 Install the 4.x version of the `@aws-amplify/ui-react` library and the 5.x version of the `aws-amplify` library.
 
@@ -216,7 +304,7 @@ We replaced following legacy Authenticator texts:
 
 If you were using `I18n` to translate those keys, please update your translations accordingly to match the new strings.
 
-### 2.x to 3.x
+### Migrate from 2.x to 3.x
 
 #### Installation
 Install the 3.x version of the `@aws-amplify/ui-react` library.
@@ -249,7 +337,7 @@ Note: We did not remove the [Icon](/react/components/icon) component, which allo
 
 This export has been removed and should no longer be used.
 
-### 1.x to 2.x
+### Migrate from 1.x to 2.x
 #### Installation
 
 Install the 2.x version of the `@aws-amplify/ui-react` library.
@@ -323,7 +411,7 @@ The latest version of the `Authenticator` has a completely different set of CSS 
 Previous versions of `Authenticator` exposed a `onAuthUIStateChange` handler to detect Auth state changes. For similar functionality see [useAuthenticator](/react/connected-components/authenticator/advanced#access-auth-state).
 
 ## `@aws-amplify/ui-react-liveness`
-### 1.x to 2.x
+### Migrate from 1.x to 2.x
 #### Installation
 
 Install the 2.x version of the `@aws-amplify/ui-react-liveness` library.
