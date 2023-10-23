@@ -58,7 +58,6 @@
     "deepmerge": "4.2.2",
     "lodash": "4.17.21",
     "qrcode": "1.5.0",
-    "react-generate-context": "1.0.1",
     "tslib": "2.4.1"
   },
   "peerDependencies": {
