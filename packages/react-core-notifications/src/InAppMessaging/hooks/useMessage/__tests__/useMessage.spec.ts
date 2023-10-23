@@ -1,8 +1,4 @@
-import { Amplify } from 'aws-amplify';
-import {
-  initializeInAppMessaging,
-  notifyMessageInteraction,
-} from 'aws-amplify/in-app-messaging';
+import { notifyMessageInteraction } from 'aws-amplify/in-app-messaging';
 import { ConsoleLogger as Logger } from '@aws-amplify/core';
 import { RenderNothing } from '@aws-amplify/ui-react-core';
 import { useInAppMessaging } from '../../useInAppMessaging';
@@ -14,8 +10,6 @@ import {
 import { UseMessageParams } from '../types';
 import { EMPTY_PROPS } from '../useMessage';
 import { useMessage } from '..';
-// @ts-ignore
-import mockawsmobile from '../mock-aws-exports';
 
 jest.mock('../../useInAppMessaging');
 jest.useFakeTimers();
@@ -26,11 +20,9 @@ type TestMessageProps = Required<MessageCommonProps<TestStyle>>;
 const infoSpy = jest.spyOn(Logger.prototype, 'info');
 
 const mockUseInAppMessaging = useInAppMessaging as jest.Mock;
-const mockInitializeInAppMessaging = initializeInAppMessaging as jest.Mock;
 const mockClearMessage = jest.fn();
 
 jest.mock('aws-amplify', () => ({
-  ...jest.requireActual('aws-amplify'),
   Amplify: { configure: jest.fn() },
 }));
 
@@ -183,9 +175,6 @@ describe('useMessage', () => {
     };
 
     beforeEach(() => {
-      jest.clearAllMocks();
-      Amplify.configure(mockawsmobile);
-      mockInitializeInAppMessaging();
       mockUseInAppMessaging.mockReturnValueOnce({
         clearMessage: mockClearMessage,
         components,
