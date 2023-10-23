@@ -42,7 +42,7 @@
     "babel-loader": "^8.2.5",
     "eslint": "^8.44.0",
     "jest": "^29.7.0",
-    "metro-react-native-babel-preset": "0.73.10",
+    "metro-react-native-babel-preset": "^0.77.0",
     "react-native-dotenv": "^3.4.0",
     "react-native-launch-arguments": "^3.1.4"
   },
