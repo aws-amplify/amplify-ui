@@ -51,9 +51,7 @@ export class SignUpWithEmailComponent implements OnInit {
         options: {
           userAttributes: attributes,
           // @todo-migration re-enable
-          // autoSignIn: {
-          //   enabled: true,
-          // },
+          autoSignIn: true,
         },
       });
     },
