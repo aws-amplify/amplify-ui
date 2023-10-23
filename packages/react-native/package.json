@@ -26,7 +26,6 @@
     "@babel/preset-typescript": "^7.23.2",
     "@testing-library/react-native": "^12.3.0",
     "metro-react-native-babel-preset": "^0.77.0",
-    "react-native": "0.71.14",
     "react-native-safe-area-context": "^4.7.3"
   },
   "dependencies": {

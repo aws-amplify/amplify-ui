@@ -54,7 +54,6 @@
     ],
     "nohoist": [
       "**/react-native",
-      "**/react-native/**",
       "**/react-native-safe-area-context",
       "**/rollup",
       "**/@types/webgl-ext",
