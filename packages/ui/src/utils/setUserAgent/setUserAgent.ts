@@ -76,7 +76,7 @@ export const setUserAgent = ({
     case 'DeleteUser': {
       input = {
         ...ACCOUNT_SETTINGS_INPUT_BASE,
-        additionalDetails: [['AccountSettins'], packageData],
+        additionalDetails: [['AccountSettings'], packageData],
       };
       break;
     }

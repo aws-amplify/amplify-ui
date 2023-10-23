@@ -49,7 +49,7 @@ describe('setUserAgent', () => {
     expect(setCustomUserAgentSpy).toHaveBeenCalledTimes(1);
     expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
       ...ACCOUNT_SETTINGS_INPUT_BASE,
-      additionalDetails: [['ChangePassword'], ['ui-react-auth', '1.0.0']],
+      additionalDetails: [['AccountSettings'], ['ui-react-auth', '1.0.0']],
     });
   });
 
@@ -65,7 +65,7 @@ describe('setUserAgent', () => {
     expect(setCustomUserAgentSpy).toHaveBeenCalledTimes(1);
     expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
       ...ACCOUNT_SETTINGS_INPUT_BASE,
-      additionalDetails: [['DeleteUser'], ['ui-react-auth', '1.0.0']],
+      additionalDetails: [['AccountSettings'], ['ui-react-auth', '1.0.0']],
     });
   });
 
