@@ -1,4 +1,5 @@
 import { updatePassword, deleteUser as deleteAuthUser } from 'aws-amplify/auth';
+
 import { getLogger } from '../utils';
 
 const logger = getLogger('Auth');

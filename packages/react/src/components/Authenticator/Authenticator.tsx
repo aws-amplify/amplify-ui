@@ -4,6 +4,7 @@ import {
   AmplifyUser,
   isFunction,
   FormFieldComponents,
+  FormFieldOptions,
   setUserAgent,
 } from '@aws-amplify/ui';
 
@@ -14,6 +15,7 @@ import {
   useAuthenticatorInitMachine,
 } from '@aws-amplify/ui-react-core';
 
+import { VERSION } from '../../version';
 import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 
 import {
@@ -27,7 +29,6 @@ import { SignUp } from './SignUp';
 import { ForceNewPassword } from './ForceNewPassword';
 import { ResetPassword } from './ResetPassword';
 import { defaultComponents } from './hooks/useCustomComponents/defaultComponents';
-import { VERSION } from '../../version';
 
 export type SignOut = UseAuthenticator['signOut'];
 export type AuthenticatorProps = Partial<
@@ -93,7 +94,6 @@ export function AuthenticatorInternal({
   useAuthenticatorInitMachine({
     initialState,
     loginMechanisms,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     passwordSettings,
     services,
     signUpAttributes,
