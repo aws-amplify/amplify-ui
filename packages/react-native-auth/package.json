@@ -24,7 +24,7 @@
     "@babel/core": "^7.23.2",
     "@babel/preset-env": "^7.23.2",
     "@testing-library/react-native": "^12.3.0",
-    "metro-react-native-babel-preset": "^0.70.2"
+    "metro-react-native-babel-preset": "^0.77.0"
   },
   "dependencies": {
     "@aws-amplify/ui": "5.8.1",

@@ -1,5 +1,3 @@
-// vite.config.js
-
 import { defineConfig, PluginOption } from 'vite';
 import dynamicImportVars from '@rollup/plugin-dynamic-import-vars';
 import path from 'path';
