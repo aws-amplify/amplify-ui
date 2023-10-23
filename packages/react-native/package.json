@@ -20,10 +20,10 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@babel/cli": "^7.22.15",
-    "@babel/core": "^7.22.20",
-    "@babel/preset-env": "^7.22.20",
-    "@babel/preset-typescript": "^7.22.15",
+    "@babel/cli": "^7.23.0",
+    "@babel/core": "^7.23.2",
+    "@babel/preset-env": "^7.23.2",
+    "@babel/preset-typescript": "^7.23.2",
     "@testing-library/react-native": "^12.3.0",
     "metro-react-native-babel-preset": "^0.70.2",
     "react-native": "0.71.14",

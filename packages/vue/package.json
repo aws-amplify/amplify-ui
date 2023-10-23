@@ -46,8 +46,8 @@
     "xstate": "^4.33.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.22.20",
-    "@babel/preset-env": "^7.22.20",
+    "@babel/core": "^7.23.2",
+    "@babel/preset-env": "^7.23.2",
     "@rollup/plugin-dynamic-import-vars": "^1.4.0",
     "@rushstack/eslint-patch": "^1.5.1",
     "@testing-library/vue": "^6.6.0",
