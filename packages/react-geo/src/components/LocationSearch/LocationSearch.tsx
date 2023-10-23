@@ -78,7 +78,7 @@ export const LocationSearch = (props: LocationSearchProps): JSX.Element => {
   useEffect(() => {
     const clearUserAgent = setUserAgent({
       componentName: 'LocationSearch',
-      packageName: 'react-storage',
+      packageName: 'react-geo',
       version: VERSION,
     });
     return () => clearUserAgent();

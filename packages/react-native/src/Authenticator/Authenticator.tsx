@@ -69,7 +69,7 @@ function Authenticator({
   React.useEffect(() => {
     const clearUserAgent = setUserAgent({
       componentName: 'Authenticator',
-      packageName: 'react',
+      packageName: 'react-native',
       version: VERSION,
     });
     return () => clearUserAgent();

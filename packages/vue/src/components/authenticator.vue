@@ -13,8 +13,8 @@ import {
   AuthFormFields,
   AuthenticatorMachineOptions,
   AuthenticatorRoute,
-  authenticatorTextUtil,
   SocialProvider,
+  authenticatorTextUtil,
   setUserAgent,
 } from '@aws-amplify/ui';
 
