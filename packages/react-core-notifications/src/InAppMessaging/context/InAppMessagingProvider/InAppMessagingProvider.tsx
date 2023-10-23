@@ -22,9 +22,7 @@ export default function InAppMessagingProvider({
     useState<InAppMessagingContextType['message']>(null);
 
   useEffect(() => {
-    const listener = onMessageReceived((message) => {
-      setMessage(message);
-    });
+    const listener = onMessageReceived(setMessage);
     return listener.remove;
   }, []);
 
