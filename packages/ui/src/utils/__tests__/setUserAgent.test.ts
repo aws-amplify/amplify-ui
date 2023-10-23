@@ -11,7 +11,7 @@ import {
 import { setUserAgent } from '../setUserAgent';
 import { SetUserAgentOptions } from '../setUserAgent/setUserAgent';
 
-describe('userAgent', () => {
+describe('setUserAgent', () => {
   const setCustomUserAgentSpy = jest.spyOn(
     UserAgentModule,
     'setCustomUserAgent'
