@@ -60,37 +60,52 @@ export const setUserAgent = ({
   packageName,
   version,
 }: SetUserAgentOptions): (() => void) => {
-  let input: SetCustomUserAgentInput | undefined;
+  const packageData: [string, string] = [`ui-${packageName}`, version];
 
-  const additionalDetails: SetCustomUserAgentInput['additionalDetails'] = [
-    [componentName],
-    [`ui-${packageName}`, version],
-  ];
+  let input: SetCustomUserAgentInput | undefined;
 
   switch (componentName) {
     case 'Authenticator': {
-      input = { ...AUTHENTICATOR_INPUT_BASE, additionalDetails };
+      input = {
+        ...AUTHENTICATOR_INPUT_BASE,
+        additionalDetails: [[componentName], packageData],
+      };
       break;
     }
     case 'ChangePassword':
     case 'DeleteUser': {
-      input = { ...ACCOUNT_SETTINGS_INPUT_BASE, additionalDetails };
+      input = {
+        ...ACCOUNT_SETTINGS_INPUT_BASE,
+        additionalDetails: [['AccountSettins'], packageData],
+      };
       break;
     }
     case 'InAppMessaging': {
-      input = { ...IN_APP_MESSAGING_INPUT_BASE, additionalDetails };
+      input = {
+        ...IN_APP_MESSAGING_INPUT_BASE,
+        additionalDetails: [[componentName], packageData],
+      };
       break;
     }
     case 'LocationSearch': {
-      input = { ...LOCATION_SEARCH_INPUT_BASE, additionalDetails };
+      input = {
+        ...LOCATION_SEARCH_INPUT_BASE,
+        additionalDetails: [[componentName], packageData],
+      };
       break;
     }
     case 'MapView': {
-      input = { ...MAP_VIEW_INPUT_BASE, additionalDetails };
+      input = {
+        ...MAP_VIEW_INPUT_BASE,
+        additionalDetails: [[componentName], packageData],
+      };
       break;
     }
     case 'StorageManager': {
-      input = { ...STORAGE_MANAGER_INPUT_BASE, additionalDetails };
+      input = {
+        ...STORAGE_MANAGER_INPUT_BASE,
+        additionalDetails: [[componentName], packageData],
+      };
       break;
     }
     default:

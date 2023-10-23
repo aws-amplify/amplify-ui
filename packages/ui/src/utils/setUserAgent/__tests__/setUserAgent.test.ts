@@ -7,9 +7,9 @@ import {
   LOCATION_SEARCH_INPUT_BASE,
   MAP_VIEW_INPUT_BASE,
   STORAGE_MANAGER_INPUT_BASE,
-} from '../setUserAgent/constants';
-import { setUserAgent } from '../setUserAgent';
-import { SetUserAgentOptions } from '../setUserAgent/setUserAgent';
+} from '../constants';
+import { setUserAgent } from '..';
+import { SetUserAgentOptions } from '../setUserAgent';
 
 describe('setUserAgent', () => {
   const setCustomUserAgentSpy = jest.spyOn(
