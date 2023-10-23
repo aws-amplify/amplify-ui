@@ -34,5 +34,7 @@ runs:
         if echo "$changed_files" | grep -Eq "^($package_names)/"; then
           echo "has-changed-packages=true" >> $GITHUB_OUTPUT
         else
-          echo "has-changed-packages=false" >> $GITHUB_OUTPUT
+          # @todo-upgrade-react-18 force RN tests
+          # echo "has-changed-packages=false" >> $GITHUB_OUTPUT
+          echo "has-changed-packages=true" >> $GITHUB_OUTPUT
         fi
