@@ -116,7 +116,7 @@ const { route, signOut, toSignIn, toSignUp, user } = toRefs(facade);
 onMounted(() => {
   clearUserAgent = setUserAgent({
     componentName: 'Authenticator',
-    packageName: 'react',
+    packageName: 'vue',
     version: VERSION,
   });
 });

@@ -63,7 +63,7 @@ function ChangePassword({
 
   React.useEffect(() => {
     const clearUserAgent = setUserAgent({
-      componentName: 'AccountSettings',
+      componentName: 'ChangePassword',
       packageName: 'react',
       version: VERSION,
     });

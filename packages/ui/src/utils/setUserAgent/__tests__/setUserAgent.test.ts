@@ -24,7 +24,7 @@ describe('setUserAgent', () => {
   it('passes the expected input for Authenticator', () => {
     const details: SetUserAgentOptions = {
       componentName: 'Authenticator',
-      packageName: 'react-auth',
+      packageName: 'vue',
       version: '1.0.0',
     };
 
@@ -33,7 +33,7 @@ describe('setUserAgent', () => {
     expect(setCustomUserAgentSpy).toHaveBeenCalledTimes(1);
     expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
       ...AUTHENTICATOR_INPUT_BASE,
-      additionalDetails: [['Authenticator'], ['ui-react-auth', '1.0.0']],
+      additionalDetails: [['Authenticator'], ['ui-vue', '1.0.0']],
     });
   });
 

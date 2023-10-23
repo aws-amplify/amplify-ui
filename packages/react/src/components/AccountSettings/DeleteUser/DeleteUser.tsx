@@ -24,7 +24,7 @@ function DeleteUser({
 
   React.useEffect(() => {
     const clearUserAgent = setUserAgent({
-      componentName: 'AccountSettings',
+      componentName: 'DeleteUser',
       packageName: 'react',
       version: VERSION,
     });

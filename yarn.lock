@@ -484,10 +484,10 @@
     tslib "^2.5.0"
     typescript "5.0.2"
 
-"@aws-amplify/core@6.0.1-console-preview.b278dcb.0+b278dcb":
-  version "6.0.1-console-preview.b278dcb.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-6.0.1-console-preview.b278dcb.0.tgz#96715ce89c4193c3734dbc6a0af2036ea149db3c"
-  integrity sha512-lDsmMS44CQrQxdN6QYL60o3TyD7Xu6Q1QCybptUz+EE9Dgpwl4HVpTFEuLnMV1ByMOl3KEozY3+z0qiUL2MzFA==
+"@aws-amplify/core@6.0.1-console-preview.3d7f188.0+3d7f188":
+  version "6.0.1-console-preview.3d7f188.0"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-6.0.1-console-preview.3d7f188.0.tgz#9575d489f0b90c15c1c3fc0dd4e61d8a4be5f9a2"
+  integrity sha512-5n2sTymAGXGgzaLycdCMl7tRGKINc0pLpHP5EuqCZ3mmTpms9MWgGfc0Ycz9BkhZ/65NYw63el8VyA84sAuImQ==
   dependencies:
     "@aws-crypto/sha256-js" "5.2.0"
     "@aws-sdk/types" "3.398.0"
@@ -520,10 +520,10 @@
     camelcase-keys "6.2.2"
     tslib "^2.5.0"
 
-"@aws-amplify/notifications@2.0.1-console-preview.b278dcb.0+b278dcb":
-  version "2.0.1-console-preview.b278dcb.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/notifications/-/notifications-2.0.1-console-preview.b278dcb.0.tgz#49851f772153da8573cc638c1588c281656d44c4"
-  integrity sha512-A30GLC2XZ/b2fl4MZr91ISVVwblyfKcVqh9hW9OMtjgEVkY5fLvxbiJ0NnSOTq0vNOMQYHkQqeMswH0b3u6KwA==
+"@aws-amplify/notifications@2.0.1-console-preview.3d7f188.0+3d7f188":
+  version "2.0.1-console-preview.3d7f188.0"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/notifications/-/notifications-2.0.1-console-preview.3d7f188.0.tgz#a0a2f210487e062146dfc00d4387dfcab05881cf"
+  integrity sha512-/pR4jclxGpV+E9M9q5+KOrPKt5E5x9+YTcbK3VWbI1EPpIAe76u+W8RskHKRho8ji0M3LFMvL9crf1JpWkLn8Q==
   dependencies:
     lodash "^4.17.21"
 
@@ -6706,7 +6706,7 @@
   dependencies:
     tslib "^2.5.0"
 
-"@smithy/types@^2.1.0", "@smithy/types@^2.3.4":
+"@smithy/types@^2.1.0":
   version "2.3.4"
   resolved "https://registry.npmjs.org/@smithy/types/-/types-2.3.4.tgz#3b9bc15000af0a0b1f4fda741f78c1580ba15e92"
   integrity sha512-D7xlM9FOMFyFw7YnMXn9dK2KuN6+JhnrZwVt1fWaIu8hCk5CigysweeIT/H/nCo4YV+s8/oqUdLfexbkPZtvqw==
@@ -26523,7 +26523,7 @@ semver@7.3.8, semver@7.5.4, semver@7.x, semver@^7.0.0, semver@^7.1.1, semver@^7.
 
 semver@7.5.3:
   version "7.5.3"
-  resolved "https://registry.npmjs.org/semver/-/semver-7.5.3.tgz#161ce8c2c6b4b3bdca6caadc9fa3317a4c4fe88e"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.5.3.tgz#161ce8c2c6b4b3bdca6caadc9fa3317a4c4fe88e"
   integrity sha512-QBlUtyVk/5EeHbi7X0fw6liDZc7BBmEaSYn01fMU1OUYbf6GPsbTtd8WmnqbI20SeycoHSeiybkE/q1Q+qlThQ==
   dependencies:
     lru-cache "^6.0.0"
