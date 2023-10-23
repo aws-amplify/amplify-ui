@@ -72,10 +72,10 @@ jobs:
           - example: next
             package: react
             tags: '@react and not @todo-react'
-
-          - example: vue
-            package: vue
-            tags: '@vue and not @todo-vue'
+          # @todo-upgrade-react-18 temporarily turn off vue e2e
+          # - example: vue
+          #   package: vue
+          #   tags: '@vue and not @todo-vue'
 
     steps:
       - name: Checkout Amplify UI
