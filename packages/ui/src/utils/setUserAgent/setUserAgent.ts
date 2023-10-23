@@ -72,10 +72,7 @@ export const setUserAgent = ({
       input = { ...AUTHENTICATOR_INPUT_BASE, additionalDetails };
       break;
     }
-    case 'ChangePassword': {
-      input = { ...ACCOUNT_SETTINGS_INPUT_BASE, additionalDetails };
-      break;
-    }
+    case 'ChangePassword':
     case 'DeleteUser': {
       input = { ...ACCOUNT_SETTINGS_INPUT_BASE, additionalDetails };
       break;
