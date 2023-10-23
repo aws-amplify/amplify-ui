@@ -13,14 +13,13 @@ import {
   AuthFormFields,
   AuthenticatorMachineOptions,
   AuthenticatorRoute,
-  SocialProvider,
   authenticatorTextUtil,
-  configureComponent,
+  SocialProvider,
+  setUserAgent,
 } from '@aws-amplify/ui';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
 import { UseAuthenticator } from '../types';
-import { VERSION } from '../version';
 
 import SignIn from './sign-in.vue';
 import SignUp from './sign-up.vue';
@@ -32,6 +31,7 @@ import ResetPassword from './reset-password.vue';
 import ConfirmResetPassword from './confirm-reset-password.vue';
 import VerifyUser from './verify-user.vue';
 import ConfirmVerifyUser from './confirm-verify-user.vue';
+import { VERSION } from '../version';
 
 interface AuthenticatorProps {
   hideSignUp?: boolean;
@@ -76,6 +76,7 @@ const emit = defineEmits([
 ]);
 
 let unsubscribeMachine: () => void;
+let clearUserAgent: () => void;
 
 const hasInitialized = ref(false);
 
@@ -113,13 +114,15 @@ const facade: UseAuthenticator = useAuthenticator();
 const { route, signOut, toSignIn, toSignUp, user } = toRefs(facade);
 
 onMounted(() => {
-  configureComponent({
-    packageName: '@aws-amplify/ui-vue',
+  clearUserAgent = setUserAgent({
+    componentName: 'Authenticator',
+    packageName: 'react',
     version: VERSION,
   });
 });
 
 onUnmounted(() => {
+  clearUserAgent();
   unsubscribeMachine();
 });
 
