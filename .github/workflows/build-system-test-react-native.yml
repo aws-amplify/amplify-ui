@@ -5,9 +5,7 @@ name: Build System Test Canary / React Native
 permissions:
   id-token: write # This is required for aws-actions/configure-aws-credentials
 
-on:
-  schedule:
-    - cron: '0 * * * *' # Run at the first minute of every hour
+on: pull_request
 
 jobs:
   build:
