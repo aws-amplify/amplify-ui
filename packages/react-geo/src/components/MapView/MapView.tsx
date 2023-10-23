@@ -6,6 +6,7 @@ import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';
 import ReactMapGL from 'react-map-gl';
 import type { MapProps, MapRef, TransformRequestFunction } from 'react-map-gl';
 import { GeoConfig } from '@aws-amplify/geo';
+
 interface MapViewProps extends Omit<MapProps, 'mapLib' | 'transformRequest'> {
   // replace `any` typed MapProps.mapLib
   mapLib?: typeof maplibregl;
