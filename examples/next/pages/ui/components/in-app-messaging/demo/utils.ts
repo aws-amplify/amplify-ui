@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Notifications } from '@aws-amplify/notifications';
 import * as Analytics from '@aws-amplify/analytics';
+import { syncMessages } from 'aws-amplify/in-app-messaging';
 import {
-  InAppMessage,
-  InAppMessageAction,
-  InAppMessageButton,
-  InAppMessageLayout,
-} from '@aws-amplify/notifications';
+  Message,
+  MessageAction,
+  MessageButton,
+  MessageLayout,
+} from '@aws-amplify/ui-react-core-notifications';
 import { useInAppMessaging } from '@aws-amplify/ui-react-notifications';
 
 type ImageOrientation = 'landscape' | 'portrait';
@@ -18,14 +18,14 @@ export interface GetDemoMessageParams {
   hasPrimaryButton: boolean;
   hasSecondaryButton: boolean;
   imageOrientation: ImageOrientation;
-  primaryButtonAction: InAppMessageAction;
-  secondaryButtonAction: InAppMessageAction;
-  layout: InAppMessageLayout;
+  primaryButtonAction: MessageAction;
+  secondaryButtonAction: MessageAction;
+  layout: MessageLayout;
   useAnalyticEvents: boolean;
 }
 
-export const ACTIONS: InAppMessageAction[] = ['CLOSE', 'DEEP_LINK', 'LINK'];
-export const LAYOUTS: InAppMessageLayout[] = [
+export const ACTIONS: MessageAction[] = ['CLOSE', 'DEEP_LINK', 'LINK'];
+export const LAYOUTS: MessageLayout[] = [
   'BOTTOM_BANNER',
   'CAROUSEL',
   'FULL_SCREEN',
@@ -41,12 +41,10 @@ const LANDSCAPE_IMAGE =
   'https://images.unsplash.com/photo-1504858700536-882c978a3464?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80';
 const URL = 'https://ui.docs.amplify.aws/';
 
-const { InAppMessaging } = Notifications;
-
 const getButton = (
-  action: InAppMessageAction,
+  action: MessageAction,
   type: 'primary' | 'secondary'
-): InAppMessageButton => ({
+): MessageButton => ({
   title: `${type} - ${action.toLowerCase()} action`,
   action,
   url: action === 'LINK' || action === 'DEEP_LINK' ? URL : undefined,
@@ -62,7 +60,7 @@ function getDemoMessage({
   layout,
   primaryButtonAction,
   secondaryButtonAction,
-}: GetDemoMessageParams): InAppMessage {
+}: GetDemoMessageParams): Message {
   return {
     layout,
     id: layout,
@@ -118,13 +116,13 @@ export function useInAppDemo() {
 
   const [useAnalyticEvents, setUseAnalyticEvents] =
     useState<GetDemoMessageParams['useAnalyticEvents']>(false);
-  const [syncMessages, setSyncMessages] = useState<boolean>(false);
+  const [shouldSyncMessages, setShouldSyncMessages] = useState<boolean>(false);
 
   useEffect(() => {
-    if (syncMessages) {
-      InAppMessaging.syncMessages();
+    if (shouldSyncMessages) {
+      syncMessages();
     }
-  }, [syncMessages]);
+  }, [shouldSyncMessages]);
 
   const handleAction = (
     type:
@@ -170,7 +168,7 @@ export function useInAppDemo() {
           break;
         case 'setUseAnalyticEvents':
           setUseAnalyticEvents(value);
-          if (!syncMessages) setSyncMessages(true);
+          if (!shouldSyncMessages) setShouldSyncMessages(true);
           break;
         default:
           return null;

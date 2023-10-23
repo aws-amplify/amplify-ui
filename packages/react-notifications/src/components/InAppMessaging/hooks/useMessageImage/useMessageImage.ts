@@ -5,7 +5,7 @@ import { ConsoleLogger as Logger } from '@aws-amplify/core';
 
 import { ImagePrefetchStatus, UseMessageImage } from './types';
 
-const logger = new Logger('Notifications.InAppMessaging');
+const logger = new Logger('InAppMessaging');
 
 /**
  * Handles prefetching for message images

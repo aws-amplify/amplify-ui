@@ -1,19 +1,15 @@
 import { ConsoleLogger as Logger } from '@aws-amplify/core';
-import {
-  InAppMessageInteractionEvent,
-  Notifications,
-} from '@aws-amplify/notifications';
 import { isNil } from '@aws-amplify/ui';
 
 import { RenderNothing } from '@aws-amplify/ui-react-core';
 import { useInAppMessaging } from '../useInAppMessaging';
 import { UseMessage, UseMessageParams } from './types';
 import { getContentProps, getPositionProp } from './utils';
+import { notifyMessageInteraction } from 'aws-amplify/in-app-messaging';
 
 export const EMPTY_PROPS = Object.freeze({});
 
-const logger = new Logger('Notifications.InAppMessaging');
-const { InAppMessaging } = Notifications;
+const logger = new Logger('InAppMessaging');
 
 /**
  * Utility hook for parsing a message and retrieving its corresponding UI component and props
@@ -40,26 +36,17 @@ export default function useMessage<PlatformStyleProps>({
   const { content, layout } = message;
 
   const onActionCallback = () => {
-    InAppMessaging.notifyMessageInteraction(
-      message,
-      InAppMessageInteractionEvent.MESSAGE_ACTION_TAKEN
-    );
+    notifyMessageInteraction({ type: 'messageActionTaken', message });
     clearMessage();
   };
 
   const onClose = () => {
-    InAppMessaging.notifyMessageInteraction(
-      message,
-      InAppMessageInteractionEvent.MESSAGE_DISMISSED
-    );
+    notifyMessageInteraction({ type: 'messageDismissed', message });
     clearMessage();
   };
 
   const onDisplay = () => {
-    InAppMessaging.notifyMessageInteraction(
-      message,
-      InAppMessageInteractionEvent.MESSAGE_DISPLAYED
-    );
+    notifyMessageInteraction({ type: 'messageDisplayed', message });
   };
 
   switch (layout) {

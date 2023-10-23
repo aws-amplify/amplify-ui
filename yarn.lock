@@ -484,34 +484,10 @@
     tslib "^2.5.0"
     typescript "5.0.2"
 
-"@aws-amplify/cache@5.1.11":
-  version "5.1.11"
-  resolved "https://registry.npmjs.org/@aws-amplify/cache/-/cache-5.1.11.tgz#b85a621042dc9c9eb43d812d2c07e4b927520bdf"
-  integrity sha512-o8ju6RAbGOv8MXDJuLM2Fc5yl23pLfp1jdijlMjxBn+uXonV3B7YCtpJtjj3MW6RUY0xEZrz7fEfTp9Pa1Y7+Q==
-  dependencies:
-    "@aws-amplify/core" "5.8.5"
-    tslib "^1.8.0"
-
-"@aws-amplify/core@5.8.5":
-  version "5.8.5"
-  resolved "https://registry.npmjs.org/@aws-amplify/core/-/core-5.8.5.tgz#b9d55ddecd477636b0a0a2ea015280dfdb5a54e3"
-  integrity sha512-R7zB+VUyNRT/7GCfBfWOIz2vy70VbHNfhotbdyo02ZVcc4vyXt+tsdZvvMSm1SB5uQ411jiAfDmTvOzLOIaJsA==
-  dependencies:
-    "@aws-crypto/sha256-js" "1.2.2"
-    "@aws-sdk/client-cloudwatch-logs" "3.6.1"
-    "@aws-sdk/types" "3.6.1"
-    "@aws-sdk/util-hex-encoding" "3.6.1"
-    "@types/node-fetch" "2.6.4"
-    isomorphic-unfetch "^3.0.0"
-    react-native-url-polyfill "^1.3.0"
-    tslib "^1.8.0"
-    universal-cookie "^4.0.4"
-    zen-observable-ts "0.8.19"
-
-"@aws-amplify/core@6.0.1-console-preview.3d7f188.0+3d7f188":
-  version "6.0.1-console-preview.3d7f188.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/core/-/core-6.0.1-console-preview.3d7f188.0.tgz#9575d489f0b90c15c1c3fc0dd4e61d8a4be5f9a2"
-  integrity sha512-5n2sTymAGXGgzaLycdCMl7tRGKINc0pLpHP5EuqCZ3mmTpms9MWgGfc0Ycz9BkhZ/65NYw63el8VyA84sAuImQ==
+"@aws-amplify/core@6.0.1-console-preview.b278dcb.0+b278dcb":
+  version "6.0.1-console-preview.b278dcb.0"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-6.0.1-console-preview.b278dcb.0.tgz#96715ce89c4193c3734dbc6a0af2036ea149db3c"
+  integrity sha512-lDsmMS44CQrQxdN6QYL60o3TyD7Xu6Q1QCybptUz+EE9Dgpwl4HVpTFEuLnMV1ByMOl3KEozY3+z0qiUL2MzFA==
   dependencies:
     "@aws-crypto/sha256-js" "5.2.0"
     "@aws-sdk/types" "3.398.0"
@@ -544,21 +520,10 @@
     camelcase-keys "6.2.2"
     tslib "^2.5.0"
 
-"@aws-amplify/notifications@1.6.5":
-  version "1.6.5"
-  resolved "https://registry.npmjs.org/@aws-amplify/notifications/-/notifications-1.6.5.tgz#c1de69680317b209f025a3af4849dd6de6613b8a"
-  integrity sha512-nk0ipLC1KTLpVOu4DPraiRyBrROD0j1vVFiLchGphi2bGdtVF6sdiyYvDtxz+qgi5YEOyB57x3K2rMZUfvI6Aw==
-  dependencies:
-    "@aws-amplify/cache" "5.1.11"
-    "@aws-amplify/core" "5.8.5"
-    "@aws-amplify/rtn-push-notification" "1.1.7"
-    lodash "^4.17.21"
-    uuid "^3.2.1"
-
-"@aws-amplify/notifications@2.0.1-console-preview.3d7f188.0+3d7f188":
-  version "2.0.1-console-preview.3d7f188.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/notifications/-/notifications-2.0.1-console-preview.3d7f188.0.tgz#a0a2f210487e062146dfc00d4387dfcab05881cf"
-  integrity sha512-/pR4jclxGpV+E9M9q5+KOrPKt5E5x9+YTcbK3VWbI1EPpIAe76u+W8RskHKRho8ji0M3LFMvL9crf1JpWkLn8Q==
+"@aws-amplify/notifications@2.0.1-console-preview.b278dcb.0+b278dcb":
+  version "2.0.1-console-preview.b278dcb.0"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/notifications/-/notifications-2.0.1-console-preview.b278dcb.0.tgz#49851f772153da8573cc638c1588c281656d44c4"
+  integrity sha512-A30GLC2XZ/b2fl4MZr91ISVVwblyfKcVqh9hW9OMtjgEVkY5fLvxbiJ0NnSOTq0vNOMQYHkQqeMswH0b3u6KwA==
   dependencies:
     lodash "^4.17.21"
 
