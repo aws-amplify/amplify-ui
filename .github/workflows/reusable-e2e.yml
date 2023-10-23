@@ -340,7 +340,9 @@ jobs:
           commit: ${{ inputs.commit }}
           packages: |
             packages/react-native
+            packages/react-native-auth
             packages/react-core
+            packages/react-core-auth
             packages/react-core-notifications
             packages/ui
             packages/e2e
