@@ -14,6 +14,7 @@
       "require": "./dist/internal.js"
     },
     "./styles.css": "./dist/styles.css",
+    "./styles/*": "./dist/styles/*",
     "./primitives.json": "./dist/primitives.json"
   },
   "browser": {
@@ -32,8 +33,9 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "yarn build:catalog && yarn build:rollup",
+    "build": "yarn build:catalog && yarn build:CSS && yarn build:rollup",
     "build:catalog": "yarn node -r esbuild-register scripts/generatePrimitiveCatalog.ts",
+    "build:CSS": "yarn node -r esbuild-register scripts/copyCSS.ts",
     "build:rollup": "rollup --config",
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react\"'",
     "clean": "rimraf dist node_modules",
@@ -81,6 +83,7 @@
     "@testing-library/react": "^12.0.0",
     "@testing-library/react-hooks": "^7.0.1",
     "@testing-library/user-event": "^13.2.1",
+    "@types/fs-extra": "^11.0.3",
     "@types/jest": "^26.0.23",
     "@types/qrcode": "^1.4.2",
     "@types/react": "^17.0.2",
