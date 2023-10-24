@@ -41,6 +41,8 @@ export const defaultServices = {
     };
   },
   async getCurrentUser() {
+    console.log('+++getCurrentUser');
+    await new Promise((resolve) => setTimeout(resolve, 4));
     return {
       ...(await Auth.getCurrentUser()),
       attributes: { ...(await Auth.fetchUserAttributes()) },
