@@ -26,6 +26,7 @@ allprojects {
     repositories {
         google()
         maven {
+            // point to monorepo top level node_modules
             url("$rootDir/../../../node_modules/detox/Detox-android")
         }
         maven { url 'https://www.jitpack.io' }
