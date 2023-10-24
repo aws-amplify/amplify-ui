@@ -2,12 +2,7 @@ import * as Auth from '@aws-amplify/auth';
 import get from 'lodash/get.js';
 import { createMachine, sendUpdate } from 'xstate';
 
-import {
-  AuthChallengeName,
-  AuthEvent,
-  // AmplifyUser,
-  SignInContext,
-} from '../../../types';
+import { AuthChallengeName, AuthEvent, SignInContext } from '../../../types';
 import { runValidators } from '../../../validators';
 import {
   clearAttributeToVerify,
@@ -622,17 +617,6 @@ export function signInActor({ services }: SignInMachineOptions) {
             password,
           });
         },
-        // async confirmSignIn(context) {
-        //   const { challengeName, user } = context;
-        //   const { confirmation_code: code } = context.formValues;
-
-        //   const mfaType = isMfaChallengeName(challengeName)
-        //     ? challengeName
-        //     : undefined;
-
-        //   await services.handleConfirmSignIn({ user, code, mfaType });
-        //   return await Auth.getCurrentUser();
-        // },
         async confirmSignIn(context) {
           groupLog('+++confirmSignIn');
 
@@ -641,49 +625,6 @@ export function signInActor({ services }: SignInMachineOptions) {
           await services.handleConfirmSignIn({ challengeResponse });
           return await Auth.getCurrentUser();
         },
-        // async forceNewPassword(context) {
-        //   const { user, formValues } = context;
-        //   let {
-        //     password,
-        //     confirm_password,
-        //     phone_number,
-        //     country_code,
-        //     ...rest
-        //   } = formValues;
-
-        //   let phoneNumberWithCountryCode;
-        //   if (phone_number) {
-        //     phoneNumberWithCountryCode =
-        //       `${country_code}${phone_number}`.replace(/[^A-Z0-9+]/gi, '');
-        //     rest = { ...rest, phone_number: phoneNumberWithCountryCode };
-        //   }
-
-        //   try {
-        //     // complete forceNewPassword flow and get updated CognitoUser
-        //     const newUser: AmplifyUser = await Auth.completeNewPassword(
-        //       user,
-        //       password,
-        //       rest
-        //     );
-
-        //     if (newUser.challengeName) {
-        //       /**
-        //        * User still needs to complete MFA challenge. Return back the
-        //        * `completeNewPassword` result to start confirmSignIn flow.
-        //        */
-        //       return newUser;
-        //     } else {
-        //       /**
-        //        * Else, user has signed in! Return up-to-date user with
-        //        * `getCurrentUser`. Note that we're calling this extra
-        //        * API because this gets all `user.attributes` as well.
-        //        */
-        //       return Auth.getCurrentUser();
-        //     }
-        //   } catch (err) {
-        //     return Promise.reject(err);
-        //   }
-        // },
         async forceNewPassword(context) {
           groupLog('+++forceNewPassword');
           const { user, formValues } = context;
@@ -787,14 +728,6 @@ export function signInActor({ services }: SignInMachineOptions) {
 
           return await Auth.fetchUserAttributes();
         },
-        // async verifyUser(context) {
-        //   const { unverifiedAttr } = context.formValues;
-        //   const result = await Auth.verifyCurrentUserAttribute(unverifiedAttr);
-
-        //   context.attributeToVerify = unverifiedAttr;
-
-        //   return result;
-        // },
         async verifyUser(context) {
           const { unverifiedAttr } = context.formValues;
           groupLog('+++verifyUser', unverifiedAttr, context);
@@ -809,15 +742,6 @@ export function signInActor({ services }: SignInMachineOptions) {
 
           return result;
         },
-        // async confirmVerifyUser(context) {
-        //   const { attributeToVerify } = context;
-        //   const { confirmation_code } = context.formValues;
-
-        //   return await Auth.verifyCurrentUserAttributeSubmit(
-        //     attributeToVerify,
-        //     confirmation_code
-        //   );
-        // },
         async confirmVerifyUser(context) {
           groupLog('+++confirmVerifyUser');
           const { attributeToVerify } = context;
@@ -841,7 +765,7 @@ export function signInActor({ services }: SignInMachineOptions) {
           );
         },
         async getCurrentUserResolved(context) {
-          groupLog('+++getCurrentUserResolved', context, event);
+          groupLog('+++getCurrentUserResolved', context);
           return {
             ...(await Auth.getCurrentUser()),
             attributes: { ...(await Auth.fetchUserAttributes()) },
