@@ -158,6 +158,8 @@ Then('I type an invalid confirmation code', async () => {
 });
 
 Then('I type my new password', async () => {
+  console.log('HEY HEY HEY');
+
   await typeInInputField(
     by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`),
     process.env.VALID_PASSWORD
