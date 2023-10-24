@@ -31,21 +31,21 @@ jobs:
             build-tool-version: latest
             pkg-manager: npm
             language: ts
-            node-version: 18.18.2
+            node-version: 18
           - framework: react
             framework-version: 16
             build-tool: cra
             build-tool-version: latest
             pkg-manager: npm
             language: ts
-            node-version: 18.18.2
+            node-version: 18
           - framework: react
             framework-version: latest
             build-tool: cra
             build-tool-version: latest
             pkg-manager: npm
             language: js
-            node-version: 18.18.2
+            node-version: 18
           - framework: react
             framework-version: latest
             build-tool: cra
@@ -53,21 +53,21 @@ jobs:
             pkg-manager: yarn
             pkg-manager-version: 1
             language: ts
-            node-version: 18.18.2
+            node-version: 18
           - framework: react
             framework-version: 17
             build-tool: next
             build-tool-version: 11
             pkg-manager: npm
             language: ts
-            node-version: 18.18.2
+            node-version: 18
           - framework: react
             framework-version: latest
             build-tool: vite
             build-tool-version: 2
             pkg-manager: npm
             language: ts
-            node-version: 18.18.2
+            node-version: 18
 
           - framework: angular
             framework-version: latest
@@ -75,14 +75,14 @@ jobs:
             build-tool-version: latest
             pkg-manager: npm
             language: ts
-            node-version: 18.18.2
+            node-version: 18
           - framework: angular
             framework-version: 14
             build-tool: angular-cli
             build-tool-version: 14
             pkg-manager: npm
             language: ts
-            node-version: 18.18.2
+            node-version: 18
 
           - framework: vue
             framework-version: 3 # here use "3" instead of "latest" because .vuerc(preset) doesn't accept "latest" as "vueVersion"
@@ -90,28 +90,28 @@ jobs:
             build-tool-version: latest
             pkg-manager: yarn # vue-cli defualt pkg-manager is yarn. It can't be customized in the preset.json.
             language: ts
-            node-version: 18.18.2
+            node-version: 18
           - framework: vue
             framework-version: latest
             build-tool: vite
             build-tool-version: latest
             pkg-manager: npm
             language: ts
-            node-version: 18.18.2
+            node-version: 18
           - framework: vue
             framework-version: latest
             build-tool: vite
             build-tool-version: 2
             pkg-manager: npm
             language: ts
-            node-version: 18.18.2
+            node-version: 18
           - framework: vue
             framework-version: latest
             build-tool: nuxt
             build-tool-version: latest
             pkg-manager: npm
             language: ts
-            node-version: 18.18.2
+            node-version: 18
 
     env:
       MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}

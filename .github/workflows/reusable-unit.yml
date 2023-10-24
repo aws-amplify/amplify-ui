@@ -47,7 +47,7 @@ jobs:
       - name: Setup Node.js 18
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
-          node-version: 18.18.2
+          node-version: 18
           cache: 'yarn'
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
@@ -111,15 +111,16 @@ jobs:
       - name: Build react package
         if: |
           matrix.package == 'react-auth' ||
+          matrix.package == 'react-geo' ||
+          matrix.package == 'react-liveness' ||
           matrix.package == 'react-notifications' ||
-          matrix.package == 'react-storage' ||
-          matrix.package == 'react-liveness'
+          matrix.package == 'react-storage'
         run: yarn react build
 
       - name: Build react-native package
         if: |
           matrix.package == 'react-native-auth'
-        run: yarn react build
+        run: yarn react-native build
 
       - name: Build ${{ matrix.package }} package
         if: ${{ matrix.package != 'ui' }}
@@ -139,7 +140,7 @@ jobs:
           path: ./packages/${{ matrix.package }}/dist
           key: ${{ runner.os }}-${{ matrix.package }}-${{ inputs.commit }}
 
-      - name: Lint packages
+      - name: Lint ${{ matrix.package }} package
         run: yarn ${{ matrix.package }} lint
 
       - name: Run ${{ matrix.package }} CI tests
