@@ -64,7 +64,6 @@
     "**/@aws-amplify/ui-angular-example/**/codelyzer/**/@angular/core": "10.2.5",
     "**/@angular-devkit/build-angular/minimatch": "3.0.5",
     "**/@angular-devkit/build-angular/webpack": "^5.76.0",
-    "**/@cucumber/cucumber/**/semver": "7.5.4",
     "**/@size-limit/webpack/webpack": "^5.76.0",
     "**/serve/serve-handler/minimatch": "3.0.5",
     "@babel/traverse": "7.23.2",
