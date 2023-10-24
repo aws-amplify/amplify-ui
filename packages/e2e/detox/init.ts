@@ -24,16 +24,13 @@ const mapStatus = (message: ITestCaseHookParameter): DetoxTestStatus => {
 
 // Load environment variables
 dotenv.config();
-
 // Cucumber has default timeout of 5000, not enough for Detox async operations
 // https://wix.github.io/Detox/docs/guide/cucumber-js-integration
 // anything lower than 500000 (8min) has caused flakiness in CI, especially for initial bundling
 // TODO: review when more powerful mac-os runtimes are available in github workflows
 setDefaultTimeout(500000);
 
-BeforeAll({ timeout: 120 * 1000 }, async () => {
-  console.log('In beforeAll');
-
+BeforeAll(async () => {
   try {
     log.info('INIT');
     await init({ testRunnerArgv: { ...process.env } });
