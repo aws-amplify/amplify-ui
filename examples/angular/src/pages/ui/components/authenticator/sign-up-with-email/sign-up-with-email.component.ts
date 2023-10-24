@@ -50,7 +50,6 @@ export class SignUpWithEmailComponent implements OnInit {
         password,
         options: {
           userAttributes: attributes,
-          // @todo-migration re-enable
           autoSignIn: true,
         },
       });
