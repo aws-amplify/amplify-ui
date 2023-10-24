@@ -6,7 +6,6 @@ export default function TabsPage() {
   const [tab, setTab] = React.useState('signIn');
   return (
     <>
-      <Heading value={4}>items, uncontrolled</Heading>
       <Tabs
         items={[
           {
