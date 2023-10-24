@@ -55,12 +55,13 @@ export type PrimitiveProps<
   Element
 >;
 
-// export type Primitive<
-//   Props extends BaseViewProps,
-//   Element extends ElementType
-// > = React.ForwardRefRenderFunction<React.ComponentRef<Element>, Props>;
-
-interface ForwardRefRenderFunction<T, P = {}> {
+/**
+ * @see {React.ForwardRefRenderFunction}
+ * Modifies return type of `React.ForwardRefRenderFunction`
+ * to allow usage in React 16
+ */
+interface JSElementForwardRefRenderFunction<T, P = {}> {
+  // return `JSX.Element` or `null` in place of `React.ReactNode`
   (props: P, ref: React.ForwardedRef<T>): JSX.Element | null;
   displayName?: string | undefined;
   // explicit rejected with `never` required due to
@@ -78,34 +79,31 @@ interface ForwardRefRenderFunction<T, P = {}> {
 export interface Primitive<
   Props extends BaseViewProps,
   Element extends ElementType,
-> extends ForwardRefRenderFunction<React.ComponentRef<Element>, Props> {
-  // <P extends Props, T extends Element>(
-  //   props: PrimitiveProps<P, T>,
-  //   ref: React.ForwardedRef<React.ComponentRef<T>>
-  // ): React.ReactNode;
-}
+> extends JSElementForwardRefRenderFunction<
+    React.ComponentRef<Element>,
+    Props
+  > {}
 
-interface ExoticComponent<P = {}> {
-  /**
-   * **NOTE**: Exotic components are not callable.
-   */
-  (props: P): JSX.Element | null;
-  readonly $$typeof: symbol;
-}
-
-interface NamedExoticComponent<P = {}> extends ExoticComponent<P> {
-  displayName?: string | undefined;
-}
-
-interface ForwardRefExoticComponent<P> extends NamedExoticComponent<P> {
+/**
+ * @see {React.ForwardRefExoticComponent}
+ * Modifies return type of `React.ForwardRefExoticComponent`
+ * to allow usage in React 16
+ */
+interface JSXElementForwardRefExoticComponent<P = {}> {
+  // return `React.ReactElement` or `null` in place of `React.ReactNode`
+  (props: P): React.ReactElement | null;
   defaultProps?: Partial<P> | undefined;
+  displayName?: string | undefined;
   propTypes?: React.WeakValidationMap<P> | undefined;
+  readonly $$typeof: symbol;
 }
 
 export interface ForwardRefPrimitive<
   Props extends BaseViewProps,
   DefaultElement extends ElementType,
-> extends ForwardRefExoticComponent<PrimitiveProps<Props, DefaultElement>> {
+> extends JSXElementForwardRefExoticComponent<
+    PrimitiveProps<Props, DefaultElement>
+  > {
   // overload the JSX constructor to make it accept generics
   <Element extends ElementType = DefaultElement>(
     props: PrimitiveProps<Props, Element>
