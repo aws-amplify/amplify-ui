@@ -7,13 +7,17 @@ import { TerminalCommand } from '@/components/InstallScripts';
 #### Installation
 Install the 6.x version of both `@aws-amplify/ui-react` and `aws-amplify`.
 
-<Tabs>
-<TabItem title="npm">
-<TerminalCommand command="npm install @aws-amplify/ui-react@6.x aws-amplify@6.x" />
-</TabItem>
-<TabItem title="yarn">
-<TerminalCommand command="yarn add @aws-amplify/ui-react@6.x aws-amplify@6.x" />
-</TabItem>
+<Tabs.Container defaultValue='npm'>
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="npm">
+    <TerminalCommand command="npm install @aws-amplify/ui-react@6.x aws-amplify@6.x" />
+  </Tabs.Panel>
+  <Tabs.Panel value="yarn">
+    <TerminalCommand command="yarn add @aws-amplify/ui-react@6.x aws-amplify@6.x" />
+  </Tabs.Panel>
 </Tabs>
 
 #### Update and usage
@@ -88,6 +92,48 @@ The class names have changed between Expander and Accordion. Here is a mapping:
 
 The `--amplify-components-accordion-` CSS variables can also be used to style Accordion.
 
+#### Tabs refactor
+
+The Tabs component is now fully composable and more light-weight after removing the Radix dependency. 
+
+```diff
+- import { Tabs, TabItem } from '@aws-amplify/ui-react'
++ import { Tabs } from '@aws-amplify/ui-react'
+
+- <Tabs>
+-  <TabItem title="Tab 1">
+-    Tab 1 Content
+-  </TabItem>
+
++ <Tabs.Container defaultValue="Tab 1">
++  <Tabs.List>
++    <Tabs.Item value="Tab 1">Tab 1</Tabs.Item>
++  </Tabs.List>
++  <Tabs.Panel value="Tab 1">
++    Tab 1 Content
++  </Tabs.Panel>
+```
+
+
+You can also use the Tabs in a uncomposed way too:
+
+```jsx
+  <Tabs
+    defaultValue={'Tab 1'}
+    items={[
+      { label: 'Tab 1', value: 'Tab 1', content: 'Tab content #1' },
+      { label: 'Tab 2', value: 'Tab 2', content: 'Tab content #2' },
+      { label: 'Tab 3', value: 'Tab 3', content: 'Tab content #3' },
+    ]}
+  />
+```
+
+Some notable differences:
+* Instead of providing a `defaultIndex` or `currentIndex` you provide a `defaultValue` or `value`. Each Tabs.Item and Tabs.Panel should have a `value` that matches with the corresponding element.
+* `onChange` becomes `onValueChange`
+* You should supply a `defaultValue` or `value` or else there will be no default selected tab. Previously the Tabs component would default to the first tab.
+
+There are also more design tokens and better CSS classes for easier customization. 
 
 
 ### Migrate from 4.x to 5.x
