@@ -27,7 +27,7 @@ describe('createContextUtilities', () => {
   });
 
   it('throws an error when defaultValue is undefined and no errorMessage is provided', () => {
-    const defaultValue = undefined as unknown as object;
+    const defaultValue = undefined as unknown as {};
 
     expect(() => createContextUtilities({ contextName, defaultValue })).toThrow(
       INVALID_OPTIONS_MESSAGE
