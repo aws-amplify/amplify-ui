@@ -60,10 +60,10 @@ describe('Tabs', () => {
   it('applies theme and custom styling', () => {
     const customStyles = { backgroundColor: 'blue' };
     const { getByRole, toJSON } = render(
-      <Tabs.Container style={customStyles}>
+      <Tabs style={customStyles}>
         <Tab>Sign In</Tab>
         <Tab>Create Account</Tab>
-      </Tabs.Container>
+      </Tabs>
     );
 
     expect(toJSON()).toMatchSnapshot();
