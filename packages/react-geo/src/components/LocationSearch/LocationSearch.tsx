@@ -3,8 +3,10 @@ import maplibregl from 'maplibre-gl';
 import { createAmplifyGeocoder } from 'maplibre-gl-js-amplify';
 import { useControl, useMap } from 'react-map-gl';
 import type { IControl } from 'react-map-gl';
+
+import { useSetUserAgent } from '@aws-amplify/ui-react/internal';
+
 import { LocationSearchProps } from '../types/maplibre-gl-geocoder';
-import { setUserAgent } from '@aws-amplify/ui';
 import { VERSION } from '../../version';
 
 const LOCATION_SEARCH_OPTIONS = {
@@ -75,14 +77,11 @@ const LocationSearchStandalone = (props: LocationSearchProps) => {
 export const LocationSearch = (props: LocationSearchProps): JSX.Element => {
   const { current: map } = useMap();
 
-  useEffect(() => {
-    const clearUserAgent = setUserAgent({
-      componentName: 'LocationSearch',
-      packageName: 'react-geo',
-      version: VERSION,
-    });
-    return () => clearUserAgent();
-  }, []);
+  useSetUserAgent({
+    componentName: 'LocationSearch',
+    packageName: 'react-geo',
+    version: VERSION,
+  });
 
   /**
    * This logic determines whether the LocationSearch exists as part of a Map component or if it is a standalone component.

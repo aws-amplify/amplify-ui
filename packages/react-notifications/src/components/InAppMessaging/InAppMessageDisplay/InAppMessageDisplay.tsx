@@ -5,8 +5,8 @@ import {
   OnMessageAction,
   useMessage,
 } from '@aws-amplify/ui-react-core-notifications';
-import { setUserAgent } from '@aws-amplify/ui';
 import { ThemeProvider } from '@aws-amplify/ui-react';
+import { useSetUserAgent } from '@aws-amplify/ui-react/internal';
 
 import { BannerMessage } from '../BannerMessage';
 import { FullScreenMessage } from '../FullScreenMessage';
@@ -48,14 +48,11 @@ function InAppMessageDisplay({
     onMessageAction,
   });
 
-  React.useEffect(() => {
-    const clearUserAgent = setUserAgent({
-      componentName: 'InAppMessaging',
-      packageName: 'react-notifications',
-      version: VERSION,
-    });
-    return () => clearUserAgent();
-  }, []);
+  useSetUserAgent({
+    componentName: 'InAppMessaging',
+    packageName: 'react-notifications',
+    version: VERSION,
+  });
 
   // There is currently no way to pass In-App Message payload variants so we
   // will fix the theme around In-App Messaging components to always assume

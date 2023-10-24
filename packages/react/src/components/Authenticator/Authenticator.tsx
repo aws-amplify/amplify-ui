@@ -5,7 +5,6 @@ import {
   isFunction,
   FormFieldComponents,
   FormFieldOptions,
-  setUserAgent,
 } from '@aws-amplify/ui';
 
 import {
@@ -15,6 +14,7 @@ import {
   useAuthenticatorInitMachine,
 } from '@aws-amplify/ui-react-core';
 
+import { useSetUserAgent } from '../../internal';
 import { VERSION } from '../../version';
 import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 
@@ -138,14 +138,11 @@ export function AuthenticatorInternal({
  * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/authenticator)
  */
 export function Authenticator(props: AuthenticatorProps): JSX.Element {
-  React.useEffect(() => {
-    const clearUserAgent = setUserAgent({
-      componentName: 'Authenticator',
-      packageName: 'react',
-      version: VERSION,
-    });
-    return () => clearUserAgent();
-  }, []);
+  useSetUserAgent({
+    componentName: 'Authenticator',
+    packageName: 'react',
+    version: VERSION,
+  });
 
   return (
     <Provider>
