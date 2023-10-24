@@ -3,7 +3,7 @@
  * implementations can use.
  */
 
-import { Hub } from '@aws-amplify/core';
+import { Hub } from 'aws-amplify/utils';
 // import { appendToCognitoUserAgent } from '@aws-amplify/auth';
 import { waitFor } from 'xstate/lib/waitFor.js';
 

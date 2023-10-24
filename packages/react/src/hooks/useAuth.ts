@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { Hub, HubCallback } from '@aws-amplify/core';
+import { HubCallback } from '@aws-amplify/core';
+import { Hub } from 'aws-amplify/utils';
 import { AmplifyUser } from '@aws-amplify/ui';
 import * as Auth from '@aws-amplify/auth';
 
