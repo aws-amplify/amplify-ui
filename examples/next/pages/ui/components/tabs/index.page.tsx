@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Tabs, TextField, Heading } from '@aws-amplify/ui-react';
+import { Button, Tabs, TextField } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 export default function TabsPage() {
@@ -52,7 +52,7 @@ export default function TabsPage() {
         </Tabs.Panel>
       </Tabs.Container>
 
-      <Tabs.Container value={tab} onChange={setTab}>
+      <Tabs.Container value={tab} onValueChange={setTab}>
         <Tabs.List>
           <Tabs.Item value="signIn">Sign In</Tabs.Item>
           <Tabs.Item value="signUp">Sign up</Tabs.Item>
