@@ -14,6 +14,7 @@
       "require": "./dist/internal.js"
     },
     "./styles.css": "./dist/styles.css",
+    "./styles.layer.css": "./dist/styles.layer.css",
     "./styles/*": "./dist/styles/*",
     "./primitives.json": "./dist/primitives.json"
   },
