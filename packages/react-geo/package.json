@@ -42,13 +42,13 @@
   "dependencies": {
     "mapbox-gl": "1.13.1",
     "maplibre-gl": "2.1.9",
-    "maplibre-gl-js-amplify": "3.0.0-geo.1",
+    "maplibre-gl-js-amplify": "4.0.0",
     "react-map-gl": "7.0.23",
     "tslib": "2.6.2"
   },
   "peerDependencies": {
-    "@aws-amplify/geo": "next",
-    "aws-amplify": "console-preview",
+    "@aws-amplify/geo": "^3.0.0",
+    "aws-amplify": "^6.0.0",
     "react": ">= 16.14.0",
     "react-dom": ">= 16.14.0"
   },
