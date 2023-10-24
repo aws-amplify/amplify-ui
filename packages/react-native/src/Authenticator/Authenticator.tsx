@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { setUserAgent } from '@aws-amplify/ui';
+
 import {
   AuthenticatorProvider as Provider,
   AuthenticatorMachineContext,
@@ -10,6 +10,7 @@ import {
   useAuthenticatorInitMachine,
 } from '@aws-amplify/ui-react-core';
 
+import { useSetUserAgent } from '@aws-amplify/ui-react/internal';
 import { useDeprecationWarning } from '../hooks';
 import { DefaultContainer, InnerContainer } from './common';
 import { TypedField, getRouteTypedFields } from './hooks';
@@ -66,14 +67,11 @@ function Authenticator({
     shouldWarn: false,
   });
 
-  React.useEffect(() => {
-    const clearUserAgent = setUserAgent({
-      componentName: 'Authenticator',
-      packageName: 'react-native',
-      version: VERSION,
-    });
-    return () => clearUserAgent();
-  }, []);
+  useSetUserAgent({
+    componentName: 'Authenticator',
+    packageName: 'react-native',
+    version: VERSION,
+  });
 
   useAuthenticatorInitMachine(options);
 
