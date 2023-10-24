@@ -40,7 +40,7 @@ describe('setUserAgent', () => {
   it('passes the expected input for ChangePassword', () => {
     const details: SetUserAgentOptions = {
       componentName: 'ChangePassword',
-      packageName: 'react-auth',
+      packageName: 'react',
       version: '1.0.0',
     };
 
@@ -56,7 +56,7 @@ describe('setUserAgent', () => {
   it('passes the expected input for DeleteUser', () => {
     const details: SetUserAgentOptions = {
       componentName: 'DeleteUser',
-      packageName: 'react-auth',
+      packageName: 'react',
       version: '1.0.0',
     };
 
