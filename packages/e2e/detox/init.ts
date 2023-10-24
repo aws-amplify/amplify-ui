@@ -31,7 +31,12 @@ dotenv.config();
 setDefaultTimeout(500000);
 
 BeforeAll({ timeout: 120 * 1000 }, async () => {
-  await init({ testRunnerArgv: { ...process.env } });
+  try {
+    await init({ testRunnerArgv: { ...process.env } });
+  } catch (error) {
+    error.message = `Failed to init detox: ${error.message}`;
+    throw error;
+  }
 });
 
 AfterAll(async () => {
