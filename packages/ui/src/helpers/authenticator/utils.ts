@@ -91,6 +91,9 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = async (
         send('TOKEN_REFRESH');
       }
       break;
+    case 'signInWithRedirect':
+      send('REFRESH');
+      break;
     case 'signedIn':
       if (isFunction(onSignIn)) {
         onSignIn();

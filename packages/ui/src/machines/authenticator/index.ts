@@ -236,6 +236,7 @@ export function createAuthenticatorMachine(
         RESEND: { actions: 'forwardToActor' },
         SIGN_IN: { actions: 'forwardToActor' },
         SKIP: { actions: 'forwardToActor' },
+        REFRESH: 'idle',
       },
     },
     {

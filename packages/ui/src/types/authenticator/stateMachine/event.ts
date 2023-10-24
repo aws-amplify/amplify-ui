@@ -25,6 +25,7 @@ export type AuthEventTypes =
   | 'SUBMIT'
   | 'INIT'
   | 'TOKEN_REFRESH'
+  | 'REFRESH'
   | InvokeActorEventTypes;
 
 /**
