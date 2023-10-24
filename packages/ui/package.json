@@ -63,7 +63,6 @@
     "@types/lodash": "^4.14.170",
     "@types/webpack-env": "^1.16.2",
     "autoprefixer": "^10.3.1",
-    "esbuild-register": "^3.4.2",
     "fs-extra": "^10.0.0",
     "postcss": "^8.4.31",
     "sass": "^1.35.2"
