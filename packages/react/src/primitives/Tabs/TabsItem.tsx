@@ -9,10 +9,10 @@ import {
 
 import { ForwardRefPrimitive, Primitive } from '../types';
 import { View } from '../View';
-import { BaseTabProps, TabProps } from './types';
+import { BaseTabsItemProps, TabsItemProps } from './types';
 import { TabsContext } from './TabsContext';
 
-const TabPrimitive: Primitive<TabProps, 'button'> = (
+const TabsItemPrimitive: Primitive<TabsItemProps, 'button'> = (
   { className, value, children, onClick, as = 'button', role = 'tab', ...rest },
   ref
 ) => {
@@ -20,7 +20,7 @@ const TabPrimitive: Primitive<TabProps, 'button'> = (
   const isActive = activeTab === value;
   const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (isTypedFunction(onClick)) {
-      onClick(e);
+      onClick?.(e);
     }
     setActiveTab(value);
   };
@@ -54,7 +54,7 @@ const TabPrimitive: Primitive<TabProps, 'button'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/tabs)
  */
-export const Tab: ForwardRefPrimitive<BaseTabProps, 'button'> =
-  React.forwardRef(TabPrimitive);
+export const TabsItem: ForwardRefPrimitive<BaseTabsItemProps, 'button'> =
+  React.forwardRef(TabsItemPrimitive);
 
-Tab.displayName = 'Tabs.Tab';
+TabsItem.displayName = 'Tabs.Item';

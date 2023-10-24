@@ -51,7 +51,7 @@ export type ComponentName =
   | 'SwitchField'
   | 'Tabs'
   | 'Tabs.Container'
-  | 'Tabs.Tab'
+  | 'Tabs.Item'
   | 'Tabs.List'
   | 'Tabs.Panel'
   | 'Text'

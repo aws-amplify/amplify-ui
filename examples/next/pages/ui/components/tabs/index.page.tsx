@@ -31,12 +31,12 @@ export default function TabsPage() {
       />
       <Tabs.Container defaultValue="signUp">
         <Tabs.List>
-          <Tabs.Tab isDisabled value="signIn">
+          <Tabs.Item isDisabled value="signIn">
             Sign In
-          </Tabs.Tab>
-          <Tabs.Tab value="signUp">Sign up</Tabs.Tab>
-          <Tabs.Tab value="foo">Foo</Tabs.Tab>
-          <Tabs.Tab value="test">Test</Tabs.Tab>
+          </Tabs.Item>
+          <Tabs.Item value="signUp">Sign up</Tabs.Item>
+          <Tabs.Item value="foo">Foo</Tabs.Item>
+          <Tabs.Item value="test">Test</Tabs.Item>
         </Tabs.List>
 
         <Tabs.Panel value="signIn">
@@ -55,11 +55,11 @@ export default function TabsPage() {
 
       <Tabs.Container value={tab} onChange={setTab}>
         <Tabs.List>
-          <Tabs.Tab value="signIn">Sign In</Tabs.Tab>
-          <Tabs.Tab value="signUp">Sign up</Tabs.Tab>
-          <Tabs.Tab isDisabled value="test">
+          <Tabs.Item value="signIn">Sign In</Tabs.Item>
+          <Tabs.Item value="signUp">Sign up</Tabs.Item>
+          <Tabs.Item isDisabled value="test">
             Test
-          </Tabs.Tab>
+          </Tabs.Item>
         </Tabs.List>
 
         <Tabs.Panel value="signIn">

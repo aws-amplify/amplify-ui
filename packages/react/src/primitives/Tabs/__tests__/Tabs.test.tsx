@@ -10,7 +10,7 @@ describe('Tabs', () => {
     render(
       <Tabs.Container className="custom-classname" testId="tabsId">
         <Tabs.List>
-          <Tabs.Tab value="1">Tab 1</Tabs.Tab>
+          <Tabs.Item value="1">Tab 1</Tabs.Item>
         </Tabs.List>
         <Tabs.Panel value="1">Tab 1</Tabs.Panel>
       </Tabs.Container>
@@ -25,8 +25,8 @@ describe('Tabs', () => {
     render(
       <Tabs.Container data-demo="true" testId="tabsTest">
         <Tabs.List>
-          <Tabs.Tab value="1">Tab 1</Tabs.Tab>
-          <Tabs.Tab value="2">Tab 2</Tabs.Tab>
+          <Tabs.Item value="1">Tab 1</Tabs.Item>
+          <Tabs.Item value="2">Tab 2</Tabs.Item>
         </Tabs.List>
         <Tabs.Panel value="1">Tab 1</Tabs.Panel>
         <Tabs.Panel value="2">Tab 2</Tabs.Panel>
@@ -42,7 +42,7 @@ describe('Tabs', () => {
     render(
       <Tabs.Container ref={ref} testId="tabsId">
         <Tabs.List>
-          <Tabs.Tab value="1">Tab 1</Tabs.Tab>
+          <Tabs.Item value="1">Tab 1</Tabs.Item>
         </Tabs.List>
       </Tabs.Container>
     );
@@ -55,7 +55,7 @@ describe('Tabs', () => {
     render(
       <Tabs.Container>
         <Tabs.List testId="tabsTest">
-          <Tabs.Tab value="1">Tab 1</Tabs.Tab>
+          <Tabs.Item value="1">Tab 1</Tabs.Item>
           {null}
         </Tabs.List>
         <Tabs.Panel value="1">Tab 1</Tabs.Panel>
@@ -72,10 +72,10 @@ describe('Tabs', () => {
     render(
       <Tabs.Container testId="tabsTest" defaultValue="2">
         <Tabs.List>
-          <Tabs.Tab value="1">Tab 1</Tabs.Tab>
+          <Tabs.Item value="1">Tab 1</Tabs.Item>
           {null}
           {undefined}
-          <Tabs.Tab value="2">Tab 2</Tabs.Tab>
+          <Tabs.Item value="2">Tab 2</Tabs.Item>
         </Tabs.List>
         <Tabs.Panel value="1">Tab 1</Tabs.Panel>
         <Tabs.Panel value="2">Tab 2</Tabs.Panel>
@@ -91,9 +91,9 @@ describe('Tabs', () => {
       render(
         <Tabs.Container>
           <Tabs.List>
-            <Tabs.Tab className="custom-classname" value="Tab 1">
+            <Tabs.Item className="custom-classname" value="Tab 1">
               Tab 1
-            </Tabs.Tab>
+            </Tabs.Item>
           </Tabs.List>
         </Tabs.Container>
       );
@@ -107,9 +107,9 @@ describe('Tabs', () => {
       render(
         <Tabs.Container>
           <Tabs.List>
-            <Tabs.Tab value="1">
+            <Tabs.Item value="1">
               <Text testId="test">Test1234</Text>
-            </Tabs.Tab>
+            </Tabs.Item>
           </Tabs.List>
         </Tabs.Container>
       );
@@ -122,9 +122,9 @@ describe('Tabs', () => {
       render(
         <Tabs.Container data-demo="true" testId="tabsTest">
           <Tabs.List>
-            <Tabs.Tab value="Tab 1" isDisabled>
+            <Tabs.Item value="Tab 1" isDisabled>
               Tab 1
-            </Tabs.Tab>
+            </Tabs.Item>
           </Tabs.List>
         </Tabs.Container>
       );
@@ -138,9 +138,9 @@ describe('Tabs', () => {
 
       render(
         <Tabs.Container>
-          <Tabs.Tab ref={ref} value="Tab 1">
+          <Tabs.Item ref={ref} value="Tab 1">
             Tab 1
-          </Tabs.Tab>
+          </Tabs.Item>
         </Tabs.Container>
       );
 

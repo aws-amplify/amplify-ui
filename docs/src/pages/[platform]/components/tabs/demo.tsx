@@ -16,17 +16,13 @@ const propsToCode = (props) => {
         ? `\n  indicatorPosition="${props.indicatorPosition}"`
         : ``
     }` +
-    `>
-  <Tabs.Tab title="Tab 1">
-    Tab content #1
-  </Tabs.Tab>
-  <Tabs.Tab title="Tab 2">
-    Tab content #2
-  </Tabs.Tab>
-  <Tabs.Tab title="Disabled" isDisabled={true}>
-    Cannot click
-  </Tabs.Tab>
-</Tabs.Container>`
+    `\n  defaultValue='Tab 1'` +
+    `\n  items={[
+    { label: 'Tab 1', value: 'Tab 1', content: 'Tab content #1' },
+    { label: 'Tab 2', value: 'Tab 2', content: 'Tab content #2' },
+    { label: 'Disabled tab', value: 'Tab 3', content: 'Tab content #3', isDisabled: true },
+  ]}
+/>`
   );
 };
 
@@ -48,10 +44,16 @@ export const TabsDemo = () => {
         spacing={tabsProps.spacing}
         justifyContent={tabsProps.justifyContent}
         indicatorPosition={tabsProps.indicatorPosition}
+        defaultValue={'Tab 1'}
         items={[
           { label: 'Tab 1', value: 'Tab 1', content: 'Tab content #1' },
           { label: 'Tab 2', value: 'Tab 2', content: 'Tab content #2' },
-          { label: 'Tab 3', value: 'Tab 3', content: 'Tab content #3' },
+          {
+            label: 'Disabled tab',
+            value: 'Tab 3',
+            content: 'Tab content #3',
+            isDisabled: true,
+          },
         ]}
       />
     </Demo>

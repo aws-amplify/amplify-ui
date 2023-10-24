@@ -173,13 +173,13 @@ const Preview = ({ platform }) => {
           <Card variation="elevated" columnStart="2" columnEnd="-1">
             <Tabs.Container defaultValue="amplify">
               <Tabs.List>
-                <Tabs.Tab value="amplify">Amplify</Tabs.Tab>
-                <Tabs.Tab value="studio">
+                <Tabs.Item value="amplify">Amplify</Tabs.Item>
+                <Tabs.Item value="studio">
                   Studio{' '}
                   <Badge size="small" variation="success">
                     new
                   </Badge>
-                </Tabs.Tab>
+                </Tabs.Item>
               </Tabs.List>
             </Tabs.Container>
           </Card>

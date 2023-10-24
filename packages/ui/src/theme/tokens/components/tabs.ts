@@ -30,6 +30,10 @@ export type TabsTokens<Output extends OutputVariantKey> = DesignTokenProperties<
   Output
 > & {
   item?: TabItemTokens<Output>;
+  panel?: DesignTokenProperties<
+    'backgroundColor' | 'paddingInline' | 'paddingBlock',
+    Output
+  >;
 };
 
 export const tabs: Required<TabsTokens<'default'>> = {
@@ -61,7 +65,15 @@ export const tabs: Required<TabsTokens<'default'>> = {
     _focus: {
       backgroundColor: { value: 'transparent' },
       borderColor: { value: '{colors.border.focus.value}' },
-      boxShadow: { value: '{components.fieldControl._focus.boxShadow}' },
+      boxShadow: {
+        value: {
+          offsetX: '0px',
+          offsetY: '0px',
+          blurRadius: '0px',
+          spreadRadius: '{borderWidths.medium}',
+          color: '{colors.border.focus.value}',
+        },
+      },
       color: { value: '{colors.font.focus.value}' },
     },
     _active: {
@@ -76,5 +88,10 @@ export const tabs: Required<TabsTokens<'default'>> = {
       boxShadow: { value: 'none' },
       color: { value: '{colors.font.disabled.value}' },
     },
+  },
+  panel: {
+    backgroundColor: { value: 'transparent' },
+    paddingInline: { value: '0' },
+    paddingBlock: { value: '{space.small.value}' },
   },
 };

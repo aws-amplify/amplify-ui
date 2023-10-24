@@ -4,9 +4,9 @@ export const JustifyContent = () => (
   <Flex direction="column" gap="2rem">
     <Tabs.Container defaultValue="First">
       <Tabs.List justifyContent="center">
-        <Tabs.Tab value="First">First</Tabs.Tab>
-        <Tabs.Tab value="Second">Second</Tabs.Tab>
-        <Tabs.Tab value="Third">Third</Tabs.Tab>
+        <Tabs.Item value="First">First</Tabs.Item>
+        <Tabs.Item value="Second">Second</Tabs.Item>
+        <Tabs.Item value="Third">Third</Tabs.Item>
       </Tabs.List>
       <Tabs.Panel value="First">Tabs are centered</Tabs.Panel>
       <Tabs.Panel value="Second">Content of the second tab</Tabs.Panel>
@@ -15,9 +15,9 @@ export const JustifyContent = () => (
 
     <Tabs.Container defaultValue="First">
       <Tabs.List justifyContent="flex-end">
-        <Tabs.Tab value="First">First</Tabs.Tab>
-        <Tabs.Tab value="Second">Second</Tabs.Tab>
-        <Tabs.Tab value="Third">Third</Tabs.Tab>
+        <Tabs.Item value="First">First</Tabs.Item>
+        <Tabs.Item value="Second">Second</Tabs.Item>
+        <Tabs.Item value="Third">Third</Tabs.Item>
       </Tabs.List>
       <Tabs.Panel value="First">Tabs are stacked to the right</Tabs.Panel>
       <Tabs.Panel value="Second">Content of the second tab</Tabs.Panel>

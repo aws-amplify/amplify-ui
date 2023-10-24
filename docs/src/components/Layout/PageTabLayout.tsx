@@ -9,7 +9,7 @@ export const PageTabLayout = ({
   tabComponents: [{ title: string; children: React.Component }];
 }) => {
   const {
-    query: { tab, platform },
+    query: { tab = '', platform },
     pathname,
     push,
   } = useRouter();
@@ -17,9 +17,13 @@ export const PageTabLayout = ({
     title.toLocaleLowerCase()
   );
 
-  const [currentTab, setCurrentTab] = React.useState(
-    tab ? tab : tabComponentsMap[0]
+  const getValue = React.useCallback(
+    (tab: string) => (tab === '' ? tabComponentsMap[0] : tab),
+    [tabComponentsMap]
   );
+  const defaultValue = getValue(tab as string);
+
+  const [currentTab, setCurrentTab] = React.useState(defaultValue);
   const changeURL = (tab) => {
     push(
       {
@@ -34,14 +38,19 @@ export const PageTabLayout = ({
     );
     setCurrentTab(tab);
   };
+  console.log(currentTab);
 
   return (
-    <Tabs.Container value={currentTab as string} onChange={changeURL} isLazy>
+    <Tabs.Container
+      value={currentTab as string}
+      onValueChange={changeURL}
+      isLazy
+    >
       <Tabs.List>
         {tabComponents.map(({ title }, idx) => (
-          <Tabs.Tab key={idx} value={title.toLocaleLowerCase()}>
+          <Tabs.Item key={idx} value={title.toLocaleLowerCase()}>
             {title}
-          </Tabs.Tab>
+          </Tabs.Item>
         ))}
       </Tabs.List>
       {tabComponents.map(({ title, children }, idx) => (

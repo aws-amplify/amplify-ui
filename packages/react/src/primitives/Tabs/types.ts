@@ -9,7 +9,7 @@ import {
 
 export type TabsSpacing = 'equal' | 'relative';
 
-export interface BaseTabsProps extends BaseTabListProps {
+export interface BaseTabsProps extends BaseTabsListProps {
   /**
    * @description
    * An array of tabs for easy use if you don't want to compose the
@@ -48,7 +48,7 @@ export type TabsProps<Element extends ElementType = 'div'> = PrimitiveProps<
   Element
 >;
 
-export interface BaseTabProps extends BaseViewProps {
+export interface BaseTabsItemProps extends BaseViewProps {
   /**
    * @description
    * Make a Tab not clickable and its content not visible to the user. Defaults to false (i.e., visible).
@@ -63,21 +63,17 @@ export interface BaseTabProps extends BaseViewProps {
 
   value: string;
 }
-export type TabProps<Element extends ElementType = 'button'> = PrimitiveProps<
-  BaseTabProps,
-  Element
->;
+export type TabsItemProps<Element extends ElementType = 'button'> =
+  PrimitiveProps<BaseTabsItemProps, Element>;
 
-export interface BaseTabPanelProps extends BaseViewProps {
+export interface BaseTabsPanelProps extends BaseViewProps {
   value: string;
 }
 
-export type TabPanelProps<Element extends ElementType = 'div'> = PrimitiveProps<
-  BaseTabPanelProps,
-  Element
->;
+export type TabsPanelProps<Element extends ElementType = 'div'> =
+  PrimitiveProps<BaseTabsPanelProps, Element>;
 
-export interface BaseTabListProps extends BaseFlexProps {
+export interface BaseTabsListProps extends BaseFlexProps {
   /**
    * @description
    * Change which Tab content is initially displayed. Pass in the index of the Tab you wish to show. The default is index 0 (the first tab).
@@ -120,7 +116,7 @@ export interface BaseTabListProps extends BaseFlexProps {
   indicatorPosition?: 'top' | 'bottom';
 }
 
-export type TabListProps<Element extends ElementType = 'div'> = PrimitiveProps<
-  BaseTabListProps,
+export type TabsListProps<Element extends ElementType = 'div'> = PrimitiveProps<
+  BaseTabsListProps,
   Element
 >;

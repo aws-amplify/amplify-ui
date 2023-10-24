@@ -5,15 +5,15 @@ import { classNameModifier, ComponentClassName } from '@aws-amplify/ui';
 
 import { ForwardRefPrimitive, Primitive } from '../types';
 import { View } from '../View';
-import { BaseTabListProps, TabListProps, TabProps } from './types';
+import { BaseTabsListProps, TabsListProps, TabsItemProps } from './types';
 import { TabsContext } from './TabsContext';
 
 const isValidTab = (
   child: React.ReactFragment | React.ReactChild | React.ReactPortal
-): child is React.ReactElement<TabProps> =>
-  React.isValidElement<TabProps>(child);
+): child is React.ReactElement<TabsItemProps> =>
+  React.isValidElement<TabsItemProps>(child);
 
-const TabListPrimitive: Primitive<TabListProps, 'div'> = (
+const TabListPrimitive: Primitive<TabsListProps, 'div'> = (
   { className, children, indicatorPosition, spacing, ...rest },
   ref
 ) => {
@@ -121,7 +121,7 @@ const TabListPrimitive: Primitive<TabListProps, 'div'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/tabs)
  */
-export const TabList: ForwardRefPrimitive<BaseTabListProps, 'div'> =
+export const TabList: ForwardRefPrimitive<BaseTabsListProps, 'div'> =
   React.forwardRef(TabListPrimitive);
 
 TabList.displayName = 'Tabs.List';

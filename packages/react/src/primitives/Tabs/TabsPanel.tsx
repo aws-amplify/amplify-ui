@@ -5,10 +5,10 @@ import { ComponentClassName, classNameModifierByFlag } from '@aws-amplify/ui';
 
 import { ForwardRefPrimitive, Primitive } from '../types';
 import { View } from '../View';
-import { BaseTabPanelProps, TabPanelProps } from './types';
+import { BaseTabsPanelProps, TabsPanelProps } from './types';
 import { TabsContext } from './TabsContext';
 
-const TabPanelPrimitive: Primitive<TabPanelProps, 'div'> = (
+const TabPanelPrimitive: Primitive<TabsPanelProps, 'div'> = (
   { className, value, children, role = 'tabpanel', ...rest },
   ref
 ) => {
@@ -41,7 +41,7 @@ const TabPanelPrimitive: Primitive<TabPanelProps, 'div'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/tabs)
  */
-export const TabPanel: ForwardRefPrimitive<BaseTabPanelProps, 'button'> =
+export const TabPanel: ForwardRefPrimitive<BaseTabsPanelProps, 'button'> =
   React.forwardRef(TabPanelPrimitive);
 
 TabPanel.displayName = 'Tabs.Panel';

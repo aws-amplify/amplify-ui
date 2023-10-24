@@ -78,8 +78,8 @@ export const InstallScripts = ({
   return (
     <Tabs.Container defaultValue="npm">
       <Tabs.List>
-        <Tabs.Tab value="npm">npm</Tabs.Tab>
-        <Tabs.Tab value="yarn">yarn</Tabs.Tab>
+        <Tabs.Item value="npm">npm</Tabs.Item>
+        <Tabs.Item value="yarn">yarn</Tabs.Item>
       </Tabs.List>
       <Tabs.Panel value="npm">
         <TerminalCommand

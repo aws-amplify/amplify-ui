@@ -1,47 +1,51 @@
 .amplify-tabs {
   &__list {
-    --internal-tab-margin-start: 0;
-    --internal-tab-margin-end: calc(
+    --internal-item-margin-start: 0;
+    --internal-item-margin-end: calc(
       -1 * var(--amplify-components-tabs-item-border-width)
     );
-    --internal-tab-border-width: 0 0 var(--amplify-components-tabs-border-width)
-      0;
-    --internal-tab-flex: initial;
+    --internal-item-border-width: 0 0
+      var(--amplify-components-tabs-border-width) 0;
+    --internal-item-flex: initial;
     display: flex;
     flex-direction: row;
     background-color: var(--amplify-components-tabs-background-color);
     box-shadow: var(--amplify-components-tabs-box-shadow);
-    border-width: var(--internal-tab-border-width);
+    border-width: var(--internal-item-border-width);
     border-style: var(--amplify-components-tabs-border-style);
     border-color: var(--amplify-components-tabs-border-color);
     gap: var(--amplify-components-tabs-gap);
 
     &--top {
-      --internal-tab-border-width: var(--amplify-components-tabs-border-width) 0
-        0 0;
-      --internal-tab-margin-start: calc(
+      --internal-item-border-width: var(--amplify-components-tabs-border-width)
+        0 0 0;
+      --internal-item-margin-start: calc(
         -1 * var(--amplify-components-tabs-item-border-width)
       );
-      --internal-tab-margin-end: 0;
+      --internal-item-margin-end: 0;
     }
 
     &--equal {
-      --internal-tab-flex: 1 1 0;
+      --internal-item-flex: 1 1 0;
     }
 
     &--relative {
-      --internal-tab-flex: 1 1 auto;
+      --internal-item-flex: 1 1 auto;
     }
   }
 
   &__panel {
     display: none;
+    background-color: var(--amplify-components-tabs-panel-background-color);
+    padding-inline: var(--amplify-components-tabs-panel-padding-inline);
+    padding-block: var(--amplify-components-tabs-panel-padding-block);
     &--active {
       display: block;
     }
   }
 
   &__item {
+    position: relative; // this is needed for z-index on focus
     background-color: var(--amplify-components-tabs-item-background-color);
     box-sizing: border-box;
     color: var(--amplify-components-tabs-item-color);
@@ -51,14 +55,14 @@
       var(--amplify-components-tabs-item-padding-horizontal);
     text-align: var(--amplify-components-tabs-item-text-align);
     transition: all var(--amplify-components-tabs-item-transition-duration);
-    border-width: var(--internal-tab-border-width);
+    border-width: var(--internal-item-border-width);
     border-style: var(--amplify-components-tabs-item-border-style);
     border-color: var(--amplify-components-tabs-item-border-color);
-    flex: var(--internal-tab-flex);
+    flex: var(--internal-item-flex);
 
-    // negative margin so border of tab items and tab bar overlap
-    margin-block-start: var(--internal-tab-margin-start);
-    margin-block-end: var(--internal-tab-margin-end);
+    // negative margin so border of tab tabs and tab bar overlap
+    margin-block-start: var(--internal-item-margin-start);
+    margin-block-end: var(--internal-item-margin-end);
 
     &--active {
       color: var(--amplify-components-tabs-item-active-color);
@@ -76,6 +80,7 @@
 
     &:focus,
     &:focus-visible {
+      z-index: 2;
       color: var(--amplify-components-tabs-item-focus-color);
       background-color: var(
         --amplify-components-tabs-item-focus-background-color

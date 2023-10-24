@@ -12438,7 +12438,7 @@ exports[`Props Table 1`] = `
                 }
             }
         ],
-        \\"Tabs.Tab\\": [
+        \\"Tabs.Item\\": [
             {
                 \\"Main\\": {
                     \\"children\\": {

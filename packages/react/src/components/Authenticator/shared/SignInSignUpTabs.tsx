@@ -38,8 +38,8 @@ export const SignInSignUpTabs = ({
             // justifyContent="center"
             indicatorPosition="top"
           >
-            <Tabs.Tab value="signIn">{getSignInTabText()}</Tabs.Tab>
-            <Tabs.Tab value="signUp">{getSignUpTabText()}</Tabs.Tab>
+            <Tabs.Item value="signIn">{getSignInTabText()}</Tabs.Item>
+            <Tabs.Item value="signUp">{getSignUpTabText()}</Tabs.Item>
           </Tabs.List>
 
           <View data-amplify-router-content="">

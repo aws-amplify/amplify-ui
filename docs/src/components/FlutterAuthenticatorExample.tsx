@@ -84,9 +84,9 @@ export function FlutterAuthenticatorExample({
       </Alert>
       <Tabs.Container defaultValue="ios">
         <Tabs.List>
-          <Tabs.Tab value="ios">iOS</Tabs.Tab>
-          <Tabs.Tab value="android">Android</Tabs.Tab>
-          <Tabs.Tab value="web">Web &amp; Desktop</Tabs.Tab>
+          <Tabs.Item value="ios">iOS</Tabs.Item>
+          <Tabs.Item value="android">Android</Tabs.Item>
+          <Tabs.Item value="web">Web &amp; Desktop</Tabs.Item>
         </Tabs.List>
         <Tabs.Panel value="ios">{getDeviceView('ios')}</Tabs.Panel>
         <Tabs.Panel value="android">{getDeviceView('android')}</Tabs.Panel>

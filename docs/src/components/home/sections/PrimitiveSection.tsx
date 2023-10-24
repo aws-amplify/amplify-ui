@@ -102,13 +102,13 @@ const Preview = () => {
         <Card variation="elevated" flex="2">
           <Tabs.Container defaultValue="sports">
             <Tabs.List>
-              <Tabs.Tab value="sports">Sports</Tabs.Tab>
-              <Tabs.Tab value="donuts">
+              <Tabs.Item value="sports">Sports</Tabs.Item>
+              <Tabs.Item value="donuts">
                 Donuts{' '}
                 <Badge size="small" variation="success">
                   new
                 </Badge>
-              </Tabs.Tab>
+              </Tabs.Item>
             </Tabs.List>
           </Tabs.Container>
         </Card>

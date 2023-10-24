@@ -7,8 +7,8 @@ export const ComponentStyleDisplay = ({ componentName }) => {
   return (
     <Tabs.Container defaultValue="classes">
       <Tabs.List>
-        <Tabs.Tab value="classes">Target Classes</Tabs.Tab>
-        <Tabs.Tab value="variables">CSS Variables</Tabs.Tab>
+        <Tabs.Item value="classes">Target Classes</Tabs.Item>
+        <Tabs.Item value="variables">CSS Variables</Tabs.Item>
       </Tabs.List>
       <Tabs.Panel value="classes">
         <View padding="medium 0">

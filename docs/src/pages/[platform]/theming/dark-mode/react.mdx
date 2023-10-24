@@ -40,8 +40,8 @@ _Note: the Amplify UI theme and any overrides like dark mode are scoped to the T
 
 <Tabs.Container defaultValue="Javascript">
   <Tabs.List>
-    <Tabs.Tab value="Javascript">Javascript</Tabs.Tab>
-    <Tabs.Tab value="TypeScript">TypeScript</Tabs.Tab>
+    <Tabs.Item value="Javascript">Javascript</Tabs.Item>
+    <Tabs.Item value="TypeScript">TypeScript</Tabs.Item>
   </Tabs.List>
   <Tabs.Panel value="JavaScript">
     <Example>
@@ -120,7 +120,7 @@ _Note: to see dark mode applied, change your OS preferences_
 ### Custom dark mode
 
 <Tabs.Container>
-  <Tabs.Tab title="JavaScript">
+  <Tabs.Item title="JavaScript">
     <Example>
       <CustomDarkModeExample />
       <ExampleCode>
@@ -186,8 +186,8 @@ export const CustomDarkModeExample = () => {
 ```
       </ExampleCode>
     </Example>
-  </Tabs.Tab>
-  <Tabs.Tab title="TypeScript">
+  </Tabs.Item>
+  <Tabs.Item title="TypeScript">
     <Example>
       <CustomDarkModeExample />
 
@@ -197,7 +197,7 @@ export const CustomDarkModeExample = () => {
         
       </ExampleCode>
     </Example>
-  </Tabs.Tab>
+  </Tabs.Item>
 </Tabs.Container>
 
 
