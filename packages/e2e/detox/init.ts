@@ -2,7 +2,7 @@ import { init, cleanup, onTestStart, onTestDone } from 'detox/internals';
 import {
   After,
   AfterAll,
-  // Before,
+  Before,
   BeforeAll,
   ITestCaseHookParameter,
   setDefaultTimeout,
@@ -38,15 +38,16 @@ AfterAll(async () => {
   await cleanup();
 });
 
-// Before(async ({ pickle }) => {
-//   console.log('BEFORE');
+Before(async (message) => {
+  console.log('BEFORE', message);
 
-//   await onTestStart({
-//     title: pickle.uri,
-//     fullName: pickle.name,
-//     status: 'running',
-//   });
-// });
+  const { pickle } = message;
+  await onTestStart({
+    title: pickle.uri,
+    fullName: pickle.name,
+    status: 'running',
+  });
+});
 
 After(async (message) => {
   const { pickle } = message;
