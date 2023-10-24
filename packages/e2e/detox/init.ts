@@ -44,7 +44,7 @@ AfterAll(async () => {
 });
 
 Before(async (message) => {
-  console.log('BEFORE', message);
+  console.log('BEFORE', message.pickle.name);
 
   const { pickle } = message;
   await onTestStart({
@@ -56,7 +56,7 @@ Before(async (message) => {
 
 After(async (message) => {
   const { pickle } = message;
-  console.log('AFTER');
+  console.log('AFTER', message.result);
 
   // inform Detox that Cucumber test ended, allows Detox to save logs/screenshots
   await onTestDone({
