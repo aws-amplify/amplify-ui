@@ -13895,10 +13895,10 @@ detect-node@^2.0.4:
   resolved "https://registry.npmjs.org/detect-node/-/detect-node-2.1.0.tgz#c9c70775a49c3d03bc2c06d9a73be550f978f8b1"
   integrity sha512-T0NIuQpnTvFDATNuHN5roPwSBG83rFsuO+MXXH9/3N1eFbn4wcPjttvjMLEPWJ0RGUYgQE7cGgS3tNxbqCGM7g==
 
-detox@^20.11.2:
-  version "20.11.2"
-  resolved "https://registry.yarnpkg.com/detox/-/detox-20.11.2.tgz#7628ad7909b343069e164fbada428ac12464eb67"
-  integrity sha512-UuaIO0DzXnmrcEswVvsrP1AboEyUuJbcO+GAg3/I3aZNqIPS2hSu2jhHnIiQVj0QI2DGuCaw0y8QMTCG2KqE3Q==
+detox@^20.13.1:
+  version "20.13.1"
+  resolved "https://registry.npmjs.org/detox/-/detox-20.13.1.tgz#524fc06a1f1a90e515e1f863f169192303446b04"
+  integrity sha512-lYevoG98YiSLtEA3YubD+/OyTJUIBkO7vgTbokln5cKlWv2g+MEx9nyl8KVZzs1z0rbzsf4r9vv2zNelHtlqVQ==
   dependencies:
     ajv "^8.6.3"
     bunyan "^1.8.12"
