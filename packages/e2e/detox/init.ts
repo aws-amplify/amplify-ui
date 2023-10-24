@@ -1,4 +1,5 @@
 import { init, cleanup, onTestStart, onTestDone } from 'detox/internals';
+import { log } from 'detox';
 import {
   After,
   AfterAll,
@@ -31,8 +32,12 @@ dotenv.config();
 setDefaultTimeout(500000);
 
 BeforeAll({ timeout: 120 * 1000 }, async () => {
+  console.log('In beforeAll');
+
   try {
+    log.info('INIT');
     await init({ testRunnerArgv: { ...process.env } });
+    log.info('POST INIT');
   } catch (error) {
     error.message = `Failed to init detox: ${error.message}`;
     throw error;
