@@ -96,17 +96,18 @@ jobs:
           matrix.package == 'react-storage'
         run: yarn react-core build
 
+      - name: Build react-core-notifications package
+        if: |
+          matrix.package == 'react-native' ||
+          matrix.package == 'react-native-auth' ||
+          matrix.package == 'react-notifications'
+        run: yarn react-core-notifications build
+
       - name: Build react-core-auth package
         if: |
           matrix.package == 'react-auth' ||
           matrix.package == 'react-native-auth'
         run: yarn react-core-auth build
-
-      - name: Build react-core-notifications package
-        if: |
-          matrix.package == 'react-native' ||
-          matrix.package == 'react-notifications'
-        run: yarn react-core-notifications build
 
       - name: Build react package
         if: |
