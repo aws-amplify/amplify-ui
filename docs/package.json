@@ -66,14 +66,12 @@
     "autoprefixer": "^10.2.4",
     "canvas": "^2.11.2",
     "dotenv-safe": "^8.2.0",
-    "esbuild-register": "^3.3.2",
     "eslint-config-next": "^13.5.5",
     "globby": "^13.1.1",
     "postcss": "^8.4.31",
     "puppeteer": "^19.7.2",
     "react-markdown": "^8.0.3",
     "sitemap-urls": "^3.0.0",
-    "ts-morph": "^17.0.0",
     "ts-node": "^10.9.1"
   }
 }

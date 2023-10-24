@@ -14796,13 +14796,6 @@ esbuild-openbsd-64@0.15.5:
   resolved "https://registry.yarnpkg.com/esbuild-openbsd-64/-/esbuild-openbsd-64-0.15.5.tgz#26705b61961d525d79a772232e8b8f211fdbb035"
   integrity sha512-2mMFfkLk3oPWfopA9Plj4hyhqHNuGyp5KQyTT9Rc8hFd8wAn5ZrbJg+gNcLMo2yzf8Uiu0RT6G9B15YN9WQyMA==
 
-esbuild-register@^3.3.2:
-  version "3.4.2"
-  resolved "https://registry.npmjs.org/esbuild-register/-/esbuild-register-3.4.2.tgz#1e39ee0a77e8f320a9790e68c64c3559620b9175"
-  integrity sha512-kG/XyTDyz6+YDuyfB9ZoSIOOmgyFCH+xPRtsCa8W85HLRV5Csp+o3jWVbOSHgSLfyLc5DmP+KFDNwty4mEjC+Q==
-  dependencies:
-    debug "^4.3.4"
-
 esbuild-register@^3.5.0:
   version "3.5.0"
   resolved "https://registry.npmjs.org/esbuild-register/-/esbuild-register-3.5.0.tgz#449613fb29ab94325c722f560f800dd946dc8ea8"
