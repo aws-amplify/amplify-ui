@@ -15,21 +15,22 @@ export const typeInInputField = async (
   const inputField = element(inputFieldMatcher);
   // replaceText is much faster than typeText
   // downside: doesn't trigger text input callbacks (such as validations) so we need to tap return key
-  console.log('INPUT', text);
-
   await inputField.replaceText(text);
   await inputField.tapReturnKey();
 };
 
 Given("I'm running the example {string}", async (name: string) => {
-  console.log('LAUNCH');
-
-  await device.launchApp({
-    newInstance: true,
-    launchArgs: {
-      EXAMPLE_APP_NAME: name,
-    },
-  });
+  try {
+    await device.launchApp({
+      newInstance: true,
+      launchArgs: {
+        EXAMPLE_APP_NAME: name,
+      },
+    });
+  } catch (error) {
+    error.message = `Failed to launch app with error: ${error.message}`;
+    throw error;
+  }
 });
 
 Given(
