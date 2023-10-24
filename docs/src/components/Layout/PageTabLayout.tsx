@@ -38,7 +38,10 @@ export const PageTabLayout = ({
     );
     setCurrentTab(tab);
   };
-  console.log(currentTab);
+
+  React.useEffect(() => {
+    setCurrentTab(getValue(tab as string));
+  }, [tab, getValue]);
 
   return (
     <Tabs.Container
