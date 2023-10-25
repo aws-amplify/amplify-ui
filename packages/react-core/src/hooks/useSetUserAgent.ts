@@ -13,8 +13,6 @@ export default function useSetUserAgent({
       version,
     });
 
-    return () => {
-      clearUserAgent();
-    };
+    return clearUserAgent;
   }, [componentName, packageName, version]);
 }
