@@ -40,4 +40,5 @@ export const IGNORED_LINKS = [
 
   // @todo-upgrade-react-18 remove after releasing ui-react v6
   'https://github.com/aws-amplify/amplify-ui//blob/main/packages/ui/src/theme/tokens/components/accordion.ts',
+  'https://github.com/aws-amplify/amplify-ui//blob/main/packages/react/src/primitives/Accordion/Accordion.tsx',
 ];
