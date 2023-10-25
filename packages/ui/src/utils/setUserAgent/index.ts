@@ -1,1 +1,1 @@
-export { setUserAgent, SetUserAgentOptions } from './setUserAgent';
+export { setUserAgent } from './setUserAgent';

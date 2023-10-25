@@ -1,3 +1,3 @@
-export { setUserAgent, SetUserAgentOptions } from './setUserAgent';
+export { setUserAgent } from './setUserAgent';
 // generic utils
 export * from './utils';
