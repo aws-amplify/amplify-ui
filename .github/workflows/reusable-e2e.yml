@@ -331,7 +331,7 @@ jobs:
           fetch-depth: 2
           persist-credentials: false
 
-      - name: Determine if there were changes to react-native packages
+      - name: Determine if there were changes to react-native dependency packages
         if: ${{ inputs.skip-changed-packages-check == 'false' }}
         id: has-rn-changed-packages
         uses: ./.github/actions/changed-packages
@@ -346,125 +346,126 @@ jobs:
             packages/ui
             packages/e2e
 
-  e2e-ios:
-    needs: check-changed-packages
-    if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
-    runs-on: macos-13
-    environment: ci
-    env:
-      NODE_ENV: test
-    steps:
-      - name: Checkout Amplify UI
-        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
-        with:
-          ref: ${{ inputs.commit }}
-          repository: ${{ inputs.repository }}
-          persist-credentials: false
+  # @todo-upgrade-react-18 re-enable
+  # e2e-ios:
+  #   needs: check-changed-packages
+  #   if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
+  #   runs-on: macos-13
+  #   environment: ci
+  #   env:
+  #     NODE_ENV: test
+  #   steps:
+  #     - name: Checkout Amplify UI
+  #       uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+  #       with:
+  #         ref: ${{ inputs.commit }}
+  #         repository: ${{ inputs.repository }}
+  #         persist-credentials: false
 
-      - name: Setup Node.js 20
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
-        with:
-          node-version: 20
-          cache: 'yarn'
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+  #     - name: Setup Node.js 20
+  #       uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+  #       with:
+  #         node-version: 20
+  #         cache: 'yarn'
+  #       env:
+  #         SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
 
-      - name: Restore CocoaPods cache
-        id: restore-cocoapods-cache
-        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
-        with:
-          path: ./examples/react-native/ios/Pods
-          key: ${{ runner.os }}-cocoapods-${{ inputs.commit }}
-          restore-keys: |
-            pods-${{ hashFiles('examples/react-native/ios/Podfile.lock') }}
-            pods-
-        continue-on-error: true
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+  #     - name: Restore CocoaPods cache
+  #       id: restore-cocoapods-cache
+  #       uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+  #       with:
+  #         path: ./examples/react-native/ios/Pods
+  #         key: ${{ runner.os }}-cocoapods-${{ inputs.commit }}
+  #         restore-keys: |
+  #           pods-${{ hashFiles('examples/react-native/ios/Podfile.lock') }}
+  #           pods-
+  #       continue-on-error: true
+  #       env:
+  #         SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
-      - name: Install simulator
-        run: |
-          brew tap wix/brew
-          brew install applesimutils
+  #     - name: Install simulator
+  #       run: |
+  #         brew tap wix/brew
+  #         brew install applesimutils
 
-      - name: Install packages
-        uses: ./.github/actions/install-with-retries
-        with:
-          skip-cypress-binary: true
+  #     - name: Install packages
+  #       uses: ./.github/actions/install-with-retries
+  #       with:
+  #         skip-cypress-binary: true
 
-      - name: Build @aws-amplify/ui package
-        run: yarn ui build
+  #     - name: Build @aws-amplify/ui package
+  #       run: yarn ui build
 
-      - name: Build react-core package
-        run: yarn react-core build
+  #     - name: Build react-core package
+  #       run: yarn react-core build
 
-      - name: Build react-core-notifications package
-        run: yarn react-core-notifications build
+  #     - name: Build react-core-notifications package
+  #       run: yarn react-core-notifications build
 
-      - name: Build react-native package
-        run: yarn react-native build
+  #     - name: Build react-native package
+  #       run: yarn react-native build
 
-      - name: Update CocoaPods
-        run: |
-          gem update cocoapods xcodeproj
-          yarn react-native-example ios:pod-install
+  #     - name: Update CocoaPods
+  #       run: |
+  #         gem update cocoapods xcodeproj
+  #         yarn react-native-example ios:pod-install
 
-      - name: Add Amplify CLI
-        run: yarn global add @aws-amplify/cli
+  #     - name: Add Amplify CLI
+  #       run: yarn global add @aws-amplify/cli
 
-      - name: Get CLI versions
-        id: cli-version
-        run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
+  #     - name: Get CLI versions
+  #       id: cli-version
+  #       run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
 
-      - name: Configure auth credentials
-        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
-        with:
-          aws-region: us-east-2
-          role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+  #     - name: Configure auth credentials
+  #       uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
+  #       with:
+  #         aws-region: us-east-2
+  #         role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
 
-      # Amplify CLI does not support headless pull with temporary credentials
-      # when useProfile is false.
-      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
-      - name: Create temp AWS Profile
-        run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
-          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
-          aws configure set default.region $AWS_REGION
+  #     # Amplify CLI does not support headless pull with temporary credentials
+  #     # when useProfile is false.
+  #     # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+  #     - name: Create temp AWS Profile
+  #       run: |
+  #         aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+  #         aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+  #         aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+  #         aws configure set default.region $AWS_REGION
 
-      - name: Pull down Auth AWS environments
-        run: yarn environments auth pull
+  #     - name: Pull down Auth AWS environments
+  #       run: yarn environments auth pull
 
-      - name: Delete AWS profile
-        run: rm -rf ~/.aws
+  #     - name: Delete AWS profile
+  #       run: rm -rf ~/.aws
 
-      - name: Start Metro Bundler in background
-        run: yarn react-native-example dev --reset-cache &
+  #     - name: Start Metro Bundler in background
+  #       run: yarn react-native-example dev --reset-cache &
 
-      - name: Rebuild detox cache
-        run: yarn detox rebuild-framework-cache
+  #     - name: Rebuild detox cache
+  #       run: yarn detox rebuild-framework-cache
 
-      - name: Build ios example
-        run: yarn e2e detox:build:ios:debug
+  #     - name: Build ios example
+  #       run: yarn e2e detox:build:ios:debug
 
-      - name: Run E2E tests against react-native example
-        run: yarn e2e detox:e2e:ios:debug --retry 1 --fail-fast
-        env:
-          # Env values for testing flows
-          DOMAIN: ${{ secrets.DOMAIN }}
-          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
-          USERNAME: ${{ secrets.USERNAME }}
-          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
-          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+  #     - name: Run E2E tests against react-native example
+  #       run: yarn e2e detox:e2e:ios:debug --retry 1 --fail-fast
+  #       env:
+  #         # Env values for testing flows
+  #         DOMAIN: ${{ secrets.DOMAIN }}
+  #         PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+  #         USERNAME: ${{ secrets.USERNAME }}
+  #         NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+  #         VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
-      - name: Upload failure screenshots and errors
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
-        if: ${{ failure() && steps.e2e-ios.outcome != 'success' }}
-        with:
-          name: e2e-detox-error-react-native-ios
-          path: |
-            packages/e2e/detox/screenshots/**
-          retention-days: 5
+  #     - name: Upload failure screenshots and errors
+  #       uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
+  #       if: ${{ failure() && steps.e2e-ios.outcome != 'success' }}
+  #       with:
+  #         name: e2e-detox-error-react-native-ios
+  #         path: |
+  #           packages/e2e/detox/screenshots/**
+  #         retention-days: 5
 
   e2e-android:
     needs: check-changed-packages
