@@ -15,7 +15,7 @@ import {
   AuthenticatorRoute,
   SocialProvider,
   authenticatorTextUtil,
-  configureComponent,
+  setUserAgent,
 } from '@aws-amplify/ui';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
@@ -76,6 +76,7 @@ const emit = defineEmits([
 ]);
 
 let unsubscribeMachine: () => void;
+let clearUserAgent: () => void;
 
 const hasInitialized = ref(false);
 
@@ -113,13 +114,15 @@ const facade: UseAuthenticator = useAuthenticator();
 const { route, signOut, toSignIn, toSignUp, user } = toRefs(facade);
 
 onMounted(() => {
-  configureComponent({
-    packageName: '@aws-amplify/ui-vue',
+  clearUserAgent = setUserAgent({
+    componentName: 'Authenticator',
+    packageName: 'vue',
     version: VERSION,
   });
 });
 
 onUnmounted(() => {
+  clearUserAgent();
   unsubscribeMachine();
 });
 

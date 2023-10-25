@@ -1,6 +1,7 @@
 import React from 'react';
 import isEqual from 'lodash/isEqual.js';
 
+import { useSetUserAgent } from '@aws-amplify/ui-react-core';
 import {
   changePassword,
   ValidatorOptions,
@@ -17,6 +18,7 @@ import { FormValues, BlurredFields, ValidationError } from '../types';
 import { ChangePasswordProps, ValidateParams } from './types';
 import DEFAULTS from './defaults';
 import { defaultChangePasswordDisplayText } from '../utils';
+import { VERSION } from '../../../version';
 
 const logger = getLogger('AccountSettings');
 
@@ -58,6 +60,12 @@ function ChangePassword({
   const passwordValidators: ValidatorOptions[] = React.useMemo(() => {
     return validators ?? getDefaultPasswordValidators();
   }, [validators]);
+
+  useSetUserAgent({
+    componentName: 'ChangePassword',
+    packageName: 'react',
+    version: VERSION,
+  });
 
   /*
    * Note that formValues and other states are passed in as props so that
