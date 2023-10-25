@@ -30,7 +30,7 @@ const TabsItemPrimitive: Primitive<TabsItemProps, 'button'> = (
       {...rest}
       role={role}
       as={as}
-      id={value}
+      id={`${value}-tab`}
       aria-selected={isActive}
       aria-controls={`${value}-panel`}
       tabIndex={!isActive ? -1 : undefined}

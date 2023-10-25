@@ -14,7 +14,14 @@ const isValidTab = (
   React.isValidElement<TabsItemProps>(child);
 
 const TabListPrimitive: Primitive<TabsListProps, 'div'> = (
-  { className, children, indicatorPosition, spacing, ...rest },
+  {
+    className,
+    children,
+    indicatorPosition,
+    spacing,
+    role = 'tablist',
+    ...rest
+  },
   ref
 ) => {
   const internalRef = React.useRef<HTMLDivElement>(null);
@@ -100,6 +107,7 @@ const TabListPrimitive: Primitive<TabsListProps, 'div'> = (
   return (
     <View
       {...rest}
+      role={role}
       onKeyDown={onKeyDown}
       className={classNames(
         ComponentClassName.TabsList,

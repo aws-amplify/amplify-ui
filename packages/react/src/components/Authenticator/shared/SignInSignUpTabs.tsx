@@ -31,19 +31,19 @@ export const SignInSignUpTabs = ({
       ) : (
         <Tabs.Container
           value={route}
+          isLazy
           onValueChange={() => (route === 'signIn' ? toSignUp() : toSignIn())}
         >
           <Tabs.List spacing="equal" indicatorPosition="top">
             <Tabs.Item value="signIn">{getSignInTabText()}</Tabs.Item>
             <Tabs.Item value="signUp">{getSignUpTabText()}</Tabs.Item>
           </Tabs.List>
-
-          <View data-amplify-router-content="">
-            {route === 'signIn' && <SignIn />}
-          </View>
-          <View data-amplify-router-content="">
-            {route === 'signUp' && <SignUp />}
-          </View>
+          <Tabs.Panel value="signIn" data-amplify-router-content="">
+            <SignIn />
+          </Tabs.Panel>
+          <Tabs.Panel value="signUp" data-amplify-router-content="">
+            <SignUp />
+          </Tabs.Panel>
         </Tabs.Container>
       )}
     </RouteContainer>

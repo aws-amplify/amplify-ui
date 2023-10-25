@@ -21,7 +21,7 @@ const TabPanelPrimitive: Primitive<TabsPanelProps, 'div'> = (
       {...rest}
       role={role}
       id={`${value}-panel`}
-      aria-labelledby={value}
+      aria-labelledby={`${value}-tab`}
       className={classNames(
         ComponentClassName.TabsPanel,
         classNameModifierByFlag(
