@@ -5,14 +5,19 @@ import {
 
 import {
   ACCOUNT_SETTINGS_INPUT_BASE,
+  AUTHENTICATOR_INPUT_BASE,
   IN_APP_MESSAGING_INPUT_BASE,
+  LOCATION_SEARCH_INPUT_BASE,
+  MAP_VIEW_INPUT_BASE,
+  STORAGE_MANAGER_INPUT_BASE,
 } from './constants';
 
 // public packages only, exclude internal packages e.g. 'react-core', 'ui'
-type PackageName =
+export type PackageName =
   | 'angular'
   | 'react'
   | 'react-auth'
+  | 'react-geo'
   | 'react-liveness'
   | 'react-native'
   | 'react-native-auth'
@@ -20,18 +25,21 @@ type PackageName =
   | 'react-storage'
   | 'vue';
 
-type ComponentName =
-  | 'AccountSettings'
+export type ComponentName =
   | 'Authenticator'
-  | 'InAppMessaging'
+  | 'ChangePassword'
+  | 'DeleteUser'
   | 'FaceLivenessDetector'
+  | 'InAppMessaging'
   | 'LocationSearch'
-  | 'MapView';
+  | 'MapView'
+  | 'StorageManager'
+  | 'StorageImage';
 
 // semver notation
-type Version = `${string}.${string}.${string}`;
+export type Version = `${string}.${string}.${string}`;
 
-interface SetUserAgentOptions {
+export interface SetUserAgentOptions {
   componentName: ComponentName;
   packageName: PackageName;
   version: Version;
@@ -52,26 +60,56 @@ export const setUserAgent = ({
   packageName,
   version,
 }: SetUserAgentOptions): (() => void) => {
+  const packageData: [string, string] = [`ui-${packageName}`, version];
+
   let input: SetCustomUserAgentInput | undefined;
 
-  const additionalDetails: SetCustomUserAgentInput['additionalDetails'] = [
-    [componentName],
-    [`ui-${packageName}`, version],
-  ];
-
   switch (componentName) {
-    case 'AccountSettings': {
-      // remove cast when Category input types are available
-      input = ACCOUNT_SETTINGS_INPUT_BASE as SetCustomUserAgentInput;
+    case 'Authenticator': {
+      input = {
+        ...AUTHENTICATOR_INPUT_BASE,
+        additionalDetails: [[componentName], packageData],
+      };
+      break;
+    }
+    case 'ChangePassword':
+    case 'DeleteUser': {
+      input = {
+        ...ACCOUNT_SETTINGS_INPUT_BASE,
+        additionalDetails: [['AccountSettings'], packageData],
+      };
       break;
     }
     case 'InAppMessaging': {
-      // remove cast when Category input types are available
-      input = IN_APP_MESSAGING_INPUT_BASE as SetCustomUserAgentInput;
+      input = {
+        ...IN_APP_MESSAGING_INPUT_BASE,
+        additionalDetails: [[componentName], packageData],
+      };
+      break;
+    }
+    case 'LocationSearch': {
+      input = {
+        ...LOCATION_SEARCH_INPUT_BASE,
+        additionalDetails: [[componentName], packageData],
+      };
+      break;
+    }
+    case 'MapView': {
+      input = {
+        ...MAP_VIEW_INPUT_BASE,
+        additionalDetails: [[componentName], packageData],
+      };
+      break;
+    }
+    case 'StorageManager': {
+      input = {
+        ...STORAGE_MANAGER_INPUT_BASE,
+        additionalDetails: [[componentName], packageData],
+      };
       break;
     }
     default:
       break;
   }
-  return setCustomUserAgent({ ...input, additionalDetails });
+  return setCustomUserAgent(input);
 };
