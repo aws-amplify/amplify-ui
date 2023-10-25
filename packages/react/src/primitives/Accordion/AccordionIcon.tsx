@@ -19,7 +19,7 @@ const AccordionIconPrimitive: Primitive<AccordionIconProps, 'span'> = (
   { className, as = 'span', ...rest },
   ref
 ) => {
-  const icons = useIcons('expander');
+  const icons = useIcons('accordion');
 
   return (
     <View
