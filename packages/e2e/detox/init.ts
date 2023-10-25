@@ -40,7 +40,12 @@ BeforeAll(async () => {
 });
 
 AfterAll(async () => {
-  await cleanup();
+  try {
+    await cleanup();
+  } catch (error) {
+    error.message = `Failed to cleanup detox: ${error.message}`;
+    throw error;
+  }
 });
 
 Before(async (message) => {
