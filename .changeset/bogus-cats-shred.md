@@ -21,6 +21,7 @@ breaking: refactoring Tabs component to remove Radix dependency and allow more c
 +  <Tabs.Panel value="Tab 1">
 +    Tab 1 Content
 +  </Tabs.Panel>
++ </Tabs.Container>
 ```
 
 
