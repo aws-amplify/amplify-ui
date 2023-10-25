@@ -1,5 +1,5 @@
 import type * as CSS from 'csstype';
-import { DefaultTheme, DesignToken, WebTheme } from '../types';
+import { DesignToken, WebTheme } from '../types';
 
 export type ColorThemes = 'info' | 'warning' | 'success' | 'error' | 'overlay';
 
