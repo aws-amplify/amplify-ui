@@ -31,13 +31,9 @@ export const SignInSignUpTabs = ({
       ) : (
         <Tabs.Container
           value={route}
-          onChange={() => (route === 'signIn' ? toSignUp() : toSignIn())}
+          onValueChange={() => (route === 'signIn' ? toSignUp() : toSignIn())}
         >
-          <Tabs.List
-            spacing="equal"
-            // justifyContent="center"
-            indicatorPosition="top"
-          >
+          <Tabs.List spacing="equal" indicatorPosition="top">
             <Tabs.Item value="signIn">{getSignInTabText()}</Tabs.Item>
             <Tabs.Item value="signUp">{getSignUpTabText()}</Tabs.Item>
           </Tabs.List>
