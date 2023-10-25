@@ -1,4 +1,9 @@
-import { getTotpCodeURL, isValidEmail, trimValues } from '../utils';
+import {
+  configureComponent,
+  getTotpCodeURL,
+  isValidEmail,
+  trimValues,
+} from '../utils';
 
 import * as AuthModule from '@aws-amplify/auth';
 
@@ -55,6 +60,23 @@ describe('trimValues', () => {
       password: ' password ',
       first_name: 'john',
     });
+  });
+});
+
+describe('configureComponent', () => {
+  it('appends package name and version to Cognito user agent', () => {
+    const appendToCognitoUserAgentSpy = jest.spyOn(
+      AuthModule,
+      'appendToCognitoUserAgent'
+    );
+    const packageName = '@aws-amplify/ui-react';
+    const version = '3.5.10';
+
+    configureComponent({ packageName, version });
+
+    expect(appendToCognitoUserAgentSpy).toHaveBeenCalledWith(
+      `${packageName}/${version}`
+    );
   });
 });
 
