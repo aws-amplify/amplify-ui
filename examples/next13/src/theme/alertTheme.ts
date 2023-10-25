@@ -31,4 +31,15 @@ const { theme } = createComponentTheme<AlertTheme>({
   },
 });
 
+const { theme: darkTheme } = createComponentTheme<AlertTheme>({
+  theme(tokens) {
+    return {
+      borderWidth: '10px',
+      borderColor: 'white',
+    };
+  },
+});
+
+export { theme, darkTheme };
+
 export default theme;

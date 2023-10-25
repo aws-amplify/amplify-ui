@@ -13,7 +13,7 @@ export default function RootLayout({
     <html lang="en">
       <Body>
         {children}
-        <Theme theme={theme} />
+        <Theme.Style theme={theme} />
       </Body>
     </html>
   );

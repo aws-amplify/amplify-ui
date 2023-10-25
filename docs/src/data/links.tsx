@@ -678,6 +678,11 @@ export const theming: ComponentNavItem[] = [
     platforms: ['react'],
   },
   {
+    href: '/theming/components',
+    label: 'Components',
+    platforms: ['react'],
+  },
+  {
     href: '/theming/dark-mode',
     label: 'Dark mode',
     platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],

@@ -125,6 +125,7 @@ exports[`Sitemap Snapshot 1`] = `
 /react/guides/auth-protected, 
 /react/guides/css-in-js, 
 /react/theming, 
+/react/theming/components, 
 /react/theming/css-variables, 
 /react/theming/dark-mode, 
 /react/theming/default-theme, 

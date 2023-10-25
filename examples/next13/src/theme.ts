@@ -4,13 +4,13 @@ import buttonTheme from './theme/buttonTheme';
 import card from './theme/cardTheme';
 import checkbox from './theme/checkboxTheme';
 import rating from './theme/ratingTheme';
-import alert from './theme/alertTheme';
+import { theme, darkTheme } from './theme/alertTheme';
 import wizardTheme from './theme/wizardTheme';
 
 export default createTheme({
   name: 'my-theme',
   components: {
-    alert,
+    alert: theme,
     autocomplete(tokens) {
       return {
         backgroundColor: tokens.colors.pink[60],
@@ -61,15 +61,21 @@ export default createTheme({
     //   };
     // },
   },
-  // tokens: {
-  //   colors: {
-  //     green: {
-  //       60: '#00f',
-  //     },
-  //   },
-  // },
+  tokens: {
+    colors: {
+      green: {
+        60: '#00f',
+      },
+    },
+  },
   overrides: [
     defaultDarkModeOverride,
+    {
+      colorMode: 'dark',
+      components: {
+        alert: darkTheme,
+      },
+    },
     // {
     //   colorMode: 'dark',
     //   tokens: {

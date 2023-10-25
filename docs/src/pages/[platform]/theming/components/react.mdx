@@ -1,0 +1,196 @@
+import { Message } from '@aws-amplify/ui-react'
+
+import { Example, ExampleCode } from '@/components/Example';
+
+import { ComponentThemingCSSVars, ComponentThemingDarkMode, CustomComponentTheming, DefaultComponentTheming } from './examples'
+
+<Message colorTheme="info" heading="Developer preview">
+Component theming is an experimental feature that is in developer preview right now. Please let us know if there are any issues by filing an [issue on Github](https://github.com/aws-amplify/amplify-ui/issues/new?assignees=&labels=&projects=&template=1.bug_report.yaml).
+</Message>
+
+Starting in v6 you can now fully style all components with a Theme. Previously, you were limited to only being able to customize the design tokens defined in the Amplify UI and if you needed to do something we didn't have a design token for, for example adding a background gradient on a button, you would have to reach to CSS or a CSS-in-JS solution. 
+
+## Usage
+
+To get started with full component theming, use the `createTheme` function and pass in a Theme object with `components` defined. Then pass that theme to the `<Theme>` component. 
+
+<Example>
+  <DefaultComponentTheming />
+  <ExampleCode>
+  ```jsx file=./examples/DefaultComponentTheming.tsx
+  ```
+  </ExampleCode>
+</Example>
+
+<Message>
+You can also pass it to the `ThemeProvider` component as well. Both work similarly, but the `<Theme>` component can be used in a React Server Component.
+</Message>
+
+## Code splitting
+
+If you are creating a very large theme with a lot of customizations, keeping that all in 1 file can be cumbersome. 
+
+<Example>
+<ExampleCode>
+```typescript
+// theme/button.ts
+import { createComponentTheme } from '@aws-amplify/ui-react/theme';
+
+export default createComponentTheme({
+  theme(tokens) {
+    return {
+      // theme
+    };
+  },
+});
+```
+</ExampleCode>
+<ExampleCode>
+```typescript
+// theme/message.ts
+import { createComponentTheme } from '@aws-amplify/ui-react/theme';
+
+export default createComponentTheme({
+  theme(tokens) {
+    return {
+      // theme
+    };
+  },
+});
+```
+</ExampleCode>
+<ExampleCode>
+```typescript
+// theme/index.ts
+import { createTheme } from '@aws-amplify/ui-react/theme';
+import button from './button';
+import message from './message';
+
+export default createTheme({
+  name: 'my-theme',
+  components: {
+    button,
+    message,
+  }
+})
+```
+</ExampleCode>
+</Example>
+
+
+
+## CSS Variables
+
+Sometimes it can be useful to define locally-scoped CSS variables in a component. For example, if you want the icon of an Alert component to be a lighter color based on the variation of the Alert (info, warning, etc), it would be verbose to write all that CSS. A component theme allows you to define a local variable that you can set (and override) and use. 
+
+<Example>
+  <ComponentThemingCSSVars />
+  <ExampleCode>
+  ```jsx file=./examples/ComponentThemingCSSVars.tsx
+  ```
+  </ExampleCode>
+</Example>
+
+## Dark mode
+
+Component theming for color modes work the same way as the design tokens for color modes works in the Theme. To apply changes to a theme based on a color mode, add an `overrides` array and add the component theme overrides you wish to apply. 
+
+<Example>
+  <ComponentThemingDarkMode />
+  <ExampleCode>
+  ```jsx file=./examples/ComponentThemingDarkMode.tsx
+  ```
+  </ExampleCode>
+</Example>
+
+<Message colorTheme="info">
+Generally you will want overrides to take place in the `tokens` and all components will be automatically updated. You only need to set dark-mode-specific overrides at the component level if you want to change something that isn't in a design token.
+</Message>
+
+## Server-side rendering
+
+The Amplify UI theme is just CSS and CSS variables
+
+You generally won't need the `<ThemeProvider>`, and should instead use `<Theme>` component which is RSC compliant. The `<Theme>` component takes the same props as `<ThemeProvider>` and outputs the same HTML, the only difference is that `<Theme>` does not create a Context, so it can be used server-side. 
+
+The general pattern is to create and export a theme using `createTheme` and import that theme in the root layout or component of your application 
+
+<Example>
+<ExampleCode>
+```jsx
+// src/theme.[ts|js]
+import { createTheme } from '@aws-amplify/ui-react/theme'
+
+export default createTheme({
+  name: 'my-theme',
+  components: {
+    // ...
+  },
+  tokens: {},
+  overrides: []
+})
+```
+</ExampleCode>
+<ExampleCode>
+```jsx
+// src/app/layout.[jsx|tsx]
+import { Theme } from '@aws-amplify/ui-react/theme'
+import theme from '@/theme'
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        <Theme theme={theme}>
+          {children}
+        </Theme>
+      </body>
+    </html>
+  );
+}
+```
+</ExampleCode>
+<ExampleCode>
+```jsx
+// src/components/MyComponent.[jsx|tsx]
+'use client'
+import { View } from '@aws-amplify/ui-react'
+import theme from '@/theme'
+
+export const MyComponent = ({ children }) => {
+  return (
+    <View border={`1px solid ${theme.tokens.colors.border.primary}`}>
+      {children}
+    </View>
+  )
+}
+```
+</ExampleCode>
+</Example>
+
+<Message colorTheme="info">
+Amplify UI components are all client components because they have interactions and state. 
+</Message>
+
+You might not need to use the theme directly. All Amplify UI components support style properties like `backgroundColor` where you can pass a theme key like `"red.20"`. 
+
+
+## Custom components
+
+You can use the `createComponentTheme` function to not only theme the built-in Amplify UI components, but also create the styles for your own components too! 
+
+The `createComponentTheme` function returns
+* `theme` which is your component theme you need to pass to `createTheme`
+* `className` a helper function to generate classnames for your elements.
+
+<Example>
+  <CustomComponentTheming />
+  <ExampleCode>
+  ```jsx file=./examples/Avatar.tsx
+  ```
+  </ExampleCode>
+  <ExampleCode>
+  ```jsx file=./examples/CustomComponentTheming.tsx
+  ```
+  </ExampleCode>
+</Example>

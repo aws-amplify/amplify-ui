@@ -1102,6 +1102,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseBadgeProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"theme\\": {
+                        \\"name\\": \\"theme\\",
+                        \\"type\\": \\"BadgeTheme\\",
+                        \\"description\\": \\"\\",
+                        \\"category\\": \\"BaseBadgeProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"isDisabled\\": {
                         \\"name\\": \\"isDisabled\\",
                         \\"type\\": \\"boolean | undefined\\",
@@ -2778,13 +2785,6 @@ exports[`Props Table 1`] = `
             },
             {
                 \\"Layout\\": {
-                    \\"alignItems\\": {
-                        \\"name\\": \\"alignItems\\",
-                        \\"type\\": \\"ResponsiveStyle<Property.AlignItems> | undefined\\",
-                        \\"description\\": \\"Sets the align-self value on all direct children as a group. In Flexbox, it controls the alignment of items on the Cross Axis. In Grid Layout, it controls the alignment of items on the Block Axis within their grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items)\\",
-                        \\"category\\": \\"CSSLayoutStyleProps\\",
-                        \\"isOptional\\": true
-                    },
                     \\"alignContent\\": {
                         \\"name\\": \\"alignContent\\",
                         \\"type\\": \\"ResponsiveStyle<Property.AlignContent> | undefined\\",
@@ -2792,17 +2792,10 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"CSSLayoutStyleProps\\",
                         \\"isOptional\\": true
                     },
-                    \\"justifyContent\\": {
-                        \\"name\\": \\"justifyContent\\",
-                        \\"type\\": \\"ResponsiveStyle<Property.JustifyContent> | undefined\\",
-                        \\"description\\": \\"Defines how the browser distributes space between and around content items along the main-axis of a flex container, and the inline axis of a grid container. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content)\\",
-                        \\"category\\": \\"CSSLayoutStyleProps\\",
-                        \\"isOptional\\": true
-                    },
-                    \\"gap\\": {
-                        \\"name\\": \\"gap\\",
-                        \\"type\\": \\"ResponsiveStyle<SpaceKeys<StyleToken<Property.Gap<0 | (string & {})>>>> | undefined\\",
-                        \\"description\\": \\"Controls the spacing between child components. Shorthand for rowGap and columnGap. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/gap)\\",
+                    \\"alignItems\\": {
+                        \\"name\\": \\"alignItems\\",
+                        \\"type\\": \\"ResponsiveStyle<Property.AlignItems> | undefined\\",
+                        \\"description\\": \\"Sets the align-self value on all direct children as a group. In Flexbox, it controls the alignment of items on the Cross Axis. In Grid Layout, it controls the alignment of items on the Block Axis within their grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items)\\",
                         \\"category\\": \\"CSSLayoutStyleProps\\",
                         \\"isOptional\\": true
                     },
@@ -2813,10 +2806,24 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"CSSLayoutStyleProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"justifyContent\\": {
+                        \\"name\\": \\"justifyContent\\",
+                        \\"type\\": \\"ResponsiveStyle<Property.JustifyContent> | undefined\\",
+                        \\"description\\": \\"Defines how the browser distributes space between and around content items along the main-axis of a flex container, and the inline axis of a grid container. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content)\\",
+                        \\"category\\": \\"CSSLayoutStyleProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"rowGap\\": {
                         \\"name\\": \\"rowGap\\",
                         \\"type\\": \\"ResponsiveStyle<SpaceKeys<StyleToken<Property.RowGap<0 | (string & {})>>>> | undefined\\",
                         \\"description\\": \\"Controls the spacing between Flex/Grid child rows See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/row-gap)\\",
+                        \\"category\\": \\"CSSLayoutStyleProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"gap\\": {
+                        \\"name\\": \\"gap\\",
+                        \\"type\\": \\"ResponsiveStyle<SpaceKeys<StyleToken<Property.Gap<0 | (string & {})>>>> | undefined\\",
+                        \\"description\\": \\"Controls the spacing between child components. Shorthand for rowGap and columnGap. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/gap)\\",
                         \\"category\\": \\"CSSLayoutStyleProps\\",
                         \\"isOptional\\": true
                     },
@@ -6064,13 +6071,6 @@ exports[`Props Table 1`] = `
             },
             {
                 \\"Layout\\": {
-                    \\"alignItems\\": {
-                        \\"name\\": \\"alignItems\\",
-                        \\"type\\": \\"ResponsiveStyle<Property.AlignItems> | undefined\\",
-                        \\"description\\": \\"Sets the align-self value on all direct children as a group. In Flexbox, it controls the alignment of items on the Cross Axis. In Grid Layout, it controls the alignment of items on the Block Axis within their grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items)\\",
-                        \\"category\\": \\"CSSLayoutStyleProps\\",
-                        \\"isOptional\\": true
-                    },
                     \\"alignContent\\": {
                         \\"name\\": \\"alignContent\\",
                         \\"type\\": \\"ResponsiveStyle<Property.AlignContent> | undefined\\",
@@ -6078,17 +6078,10 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"CSSLayoutStyleProps\\",
                         \\"isOptional\\": true
                     },
-                    \\"justifyContent\\": {
-                        \\"name\\": \\"justifyContent\\",
-                        \\"type\\": \\"ResponsiveStyle<Property.JustifyContent> | undefined\\",
-                        \\"description\\": \\"Defines how the browser distributes space between and around content items along the main-axis of a flex container, and the inline axis of a grid container. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content)\\",
-                        \\"category\\": \\"CSSLayoutStyleProps\\",
-                        \\"isOptional\\": true
-                    },
-                    \\"gap\\": {
-                        \\"name\\": \\"gap\\",
-                        \\"type\\": \\"ResponsiveStyle<SpaceKeys<StyleToken<Property.Gap<0 | (string & {})>>>> | undefined\\",
-                        \\"description\\": \\"Controls the spacing between child components. Shorthand for rowGap and columnGap. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/gap)\\",
+                    \\"alignItems\\": {
+                        \\"name\\": \\"alignItems\\",
+                        \\"type\\": \\"ResponsiveStyle<Property.AlignItems> | undefined\\",
+                        \\"description\\": \\"Sets the align-self value on all direct children as a group. In Flexbox, it controls the alignment of items on the Cross Axis. In Grid Layout, it controls the alignment of items on the Block Axis within their grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items)\\",
                         \\"category\\": \\"CSSLayoutStyleProps\\",
                         \\"isOptional\\": true
                     },
@@ -6099,10 +6092,24 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"CSSLayoutStyleProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"justifyContent\\": {
+                        \\"name\\": \\"justifyContent\\",
+                        \\"type\\": \\"ResponsiveStyle<Property.JustifyContent> | undefined\\",
+                        \\"description\\": \\"Defines how the browser distributes space between and around content items along the main-axis of a flex container, and the inline axis of a grid container. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content)\\",
+                        \\"category\\": \\"CSSLayoutStyleProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"rowGap\\": {
                         \\"name\\": \\"rowGap\\",
                         \\"type\\": \\"ResponsiveStyle<SpaceKeys<StyleToken<Property.RowGap<0 | (string & {})>>>> | undefined\\",
                         \\"description\\": \\"Controls the spacing between Flex/Grid child rows See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/row-gap)\\",
+                        \\"category\\": \\"CSSLayoutStyleProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"gap\\": {
+                        \\"name\\": \\"gap\\",
+                        \\"type\\": \\"ResponsiveStyle<SpaceKeys<StyleToken<Property.Gap<0 | (string & {})>>>> | undefined\\",
+                        \\"description\\": \\"Controls the spacing between child components. Shorthand for rowGap and columnGap. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/gap)\\",
                         \\"category\\": \\"CSSLayoutStyleProps\\",
                         \\"isOptional\\": true
                     },
@@ -6326,13 +6333,6 @@ exports[`Props Table 1`] = `
             },
             {
                 \\"Layout\\": {
-                    \\"alignItems\\": {
-                        \\"name\\": \\"alignItems\\",
-                        \\"type\\": \\"ResponsiveStyle<Property.AlignItems> | undefined\\",
-                        \\"description\\": \\"Sets the align-self value on all direct children as a group. In Flexbox, it controls the alignment of items on the Cross Axis. In Grid Layout, it controls the alignment of items on the Block Axis within their grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items)\\",
-                        \\"category\\": \\"CSSLayoutStyleProps\\",
-                        \\"isOptional\\": true
-                    },
                     \\"alignContent\\": {
                         \\"name\\": \\"alignContent\\",
                         \\"type\\": \\"ResponsiveStyle<Property.AlignContent> | undefined\\",
@@ -6340,17 +6340,10 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"CSSLayoutStyleProps\\",
                         \\"isOptional\\": true
                     },
-                    \\"justifyContent\\": {
-                        \\"name\\": \\"justifyContent\\",
-                        \\"type\\": \\"ResponsiveStyle<Property.JustifyContent> | undefined\\",
-                        \\"description\\": \\"Defines how the browser distributes space between and around content items along the main-axis of a flex container, and the inline axis of a grid container. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content)\\",
-                        \\"category\\": \\"CSSLayoutStyleProps\\",
-                        \\"isOptional\\": true
-                    },
-                    \\"gap\\": {
-                        \\"name\\": \\"gap\\",
-                        \\"type\\": \\"ResponsiveStyle<SpaceKeys<StyleToken<Property.Gap<0 | (string & {})>>>> | undefined\\",
-                        \\"description\\": \\"Controls the spacing between child components. Shorthand for rowGap and columnGap. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/gap)\\",
+                    \\"alignItems\\": {
+                        \\"name\\": \\"alignItems\\",
+                        \\"type\\": \\"ResponsiveStyle<Property.AlignItems> | undefined\\",
+                        \\"description\\": \\"Sets the align-self value on all direct children as a group. In Flexbox, it controls the alignment of items on the Cross Axis. In Grid Layout, it controls the alignment of items on the Block Axis within their grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items)\\",
                         \\"category\\": \\"CSSLayoutStyleProps\\",
                         \\"isOptional\\": true
                     },
@@ -6361,10 +6354,24 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"CSSLayoutStyleProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"justifyContent\\": {
+                        \\"name\\": \\"justifyContent\\",
+                        \\"type\\": \\"ResponsiveStyle<Property.JustifyContent> | undefined\\",
+                        \\"description\\": \\"Defines how the browser distributes space between and around content items along the main-axis of a flex container, and the inline axis of a grid container. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content)\\",
+                        \\"category\\": \\"CSSLayoutStyleProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"rowGap\\": {
                         \\"name\\": \\"rowGap\\",
                         \\"type\\": \\"ResponsiveStyle<SpaceKeys<StyleToken<Property.RowGap<0 | (string & {})>>>> | undefined\\",
                         \\"description\\": \\"Controls the spacing between Flex/Grid child rows See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/row-gap)\\",
+                        \\"category\\": \\"CSSLayoutStyleProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"gap\\": {
+                        \\"name\\": \\"gap\\",
+                        \\"type\\": \\"ResponsiveStyle<SpaceKeys<StyleToken<Property.Gap<0 | (string & {})>>>> | undefined\\",
+                        \\"description\\": \\"Controls the spacing between child components. Shorthand for rowGap and columnGap. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/gap)\\",
                         \\"category\\": \\"CSSLayoutStyleProps\\",
                         \\"isOptional\\": true
                     },
@@ -7697,13 +7704,6 @@ exports[`Props Table 1`] = `
             },
             {
                 \\"Layout\\": {
-                    \\"alignItems\\": {
-                        \\"name\\": \\"alignItems\\",
-                        \\"type\\": \\"ResponsiveStyle<Property.AlignItems> | undefined\\",
-                        \\"description\\": \\"Sets the align-self value on all direct children as a group. In Flexbox, it controls the alignment of items on the Cross Axis. In Grid Layout, it controls the alignment of items on the Block Axis within their grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items)\\",
-                        \\"category\\": \\"CSSLayoutStyleProps\\",
-                        \\"isOptional\\": true
-                    },
                     \\"alignContent\\": {
                         \\"name\\": \\"alignContent\\",
                         \\"type\\": \\"ResponsiveStyle<Property.AlignContent> | undefined\\",
@@ -7711,17 +7711,10 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"CSSLayoutStyleProps\\",
                         \\"isOptional\\": true
                     },
-                    \\"justifyContent\\": {
-                        \\"name\\": \\"justifyContent\\",
-                        \\"type\\": \\"ResponsiveStyle<Property.JustifyContent> | undefined\\",
-                        \\"description\\": \\"Defines how the browser distributes space between and around content items along the main-axis of a flex container, and the inline axis of a grid container. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content)\\",
-                        \\"category\\": \\"CSSLayoutStyleProps\\",
-                        \\"isOptional\\": true
-                    },
-                    \\"gap\\": {
-                        \\"name\\": \\"gap\\",
-                        \\"type\\": \\"ResponsiveStyle<SpaceKeys<StyleToken<Property.Gap<0 | (string & {})>>>> | undefined\\",
-                        \\"description\\": \\"Controls the spacing between child components. Shorthand for rowGap and columnGap. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/gap)\\",
+                    \\"alignItems\\": {
+                        \\"name\\": \\"alignItems\\",
+                        \\"type\\": \\"ResponsiveStyle<Property.AlignItems> | undefined\\",
+                        \\"description\\": \\"Sets the align-self value on all direct children as a group. In Flexbox, it controls the alignment of items on the Cross Axis. In Grid Layout, it controls the alignment of items on the Block Axis within their grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items)\\",
                         \\"category\\": \\"CSSLayoutStyleProps\\",
                         \\"isOptional\\": true
                     },
@@ -7732,10 +7725,24 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"CSSLayoutStyleProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"justifyContent\\": {
+                        \\"name\\": \\"justifyContent\\",
+                        \\"type\\": \\"ResponsiveStyle<Property.JustifyContent> | undefined\\",
+                        \\"description\\": \\"Defines how the browser distributes space between and around content items along the main-axis of a flex container, and the inline axis of a grid container. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content)\\",
+                        \\"category\\": \\"CSSLayoutStyleProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"rowGap\\": {
                         \\"name\\": \\"rowGap\\",
                         \\"type\\": \\"ResponsiveStyle<SpaceKeys<StyleToken<Property.RowGap<0 | (string & {})>>>> | undefined\\",
                         \\"description\\": \\"Controls the spacing between Flex/Grid child rows See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/row-gap)\\",
+                        \\"category\\": \\"CSSLayoutStyleProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"gap\\": {
+                        \\"name\\": \\"gap\\",
+                        \\"type\\": \\"ResponsiveStyle<SpaceKeys<StyleToken<Property.Gap<0 | (string & {})>>>> | undefined\\",
+                        \\"description\\": \\"Controls the spacing between child components. Shorthand for rowGap and columnGap. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/gap)\\",
                         \\"category\\": \\"CSSLayoutStyleProps\\",
                         \\"isOptional\\": true
                     },
@@ -13568,13 +13575,6 @@ exports[`Props Table 1`] = `
             },
             {
                 \\"Layout\\": {
-                    \\"alignItems\\": {
-                        \\"name\\": \\"alignItems\\",
-                        \\"type\\": \\"ResponsiveStyle<Property.AlignItems> | undefined\\",
-                        \\"description\\": \\"Sets the align-self value on all direct children as a group. In Flexbox, it controls the alignment of items on the Cross Axis. In Grid Layout, it controls the alignment of items on the Block Axis within their grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items)\\",
-                        \\"category\\": \\"CSSLayoutStyleProps\\",
-                        \\"isOptional\\": true
-                    },
                     \\"alignContent\\": {
                         \\"name\\": \\"alignContent\\",
                         \\"type\\": \\"ResponsiveStyle<Property.AlignContent> | undefined\\",
@@ -13582,17 +13582,10 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"CSSLayoutStyleProps\\",
                         \\"isOptional\\": true
                     },
-                    \\"justifyContent\\": {
-                        \\"name\\": \\"justifyContent\\",
-                        \\"type\\": \\"ResponsiveStyle<Property.JustifyContent> | undefined\\",
-                        \\"description\\": \\"Defines how the browser distributes space between and around content items along the main-axis of a flex container, and the inline axis of a grid container. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content)\\",
-                        \\"category\\": \\"CSSLayoutStyleProps\\",
-                        \\"isOptional\\": true
-                    },
-                    \\"gap\\": {
-                        \\"name\\": \\"gap\\",
-                        \\"type\\": \\"ResponsiveStyle<SpaceKeys<StyleToken<Property.Gap<0 | (string & {})>>>> | undefined\\",
-                        \\"description\\": \\"Controls the spacing between child components. Shorthand for rowGap and columnGap. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/gap)\\",
+                    \\"alignItems\\": {
+                        \\"name\\": \\"alignItems\\",
+                        \\"type\\": \\"ResponsiveStyle<Property.AlignItems> | undefined\\",
+                        \\"description\\": \\"Sets the align-self value on all direct children as a group. In Flexbox, it controls the alignment of items on the Cross Axis. In Grid Layout, it controls the alignment of items on the Block Axis within their grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items)\\",
                         \\"category\\": \\"CSSLayoutStyleProps\\",
                         \\"isOptional\\": true
                     },
@@ -13603,10 +13596,24 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"CSSLayoutStyleProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"justifyContent\\": {
+                        \\"name\\": \\"justifyContent\\",
+                        \\"type\\": \\"ResponsiveStyle<Property.JustifyContent> | undefined\\",
+                        \\"description\\": \\"Defines how the browser distributes space between and around content items along the main-axis of a flex container, and the inline axis of a grid container. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content)\\",
+                        \\"category\\": \\"CSSLayoutStyleProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"rowGap\\": {
                         \\"name\\": \\"rowGap\\",
                         \\"type\\": \\"ResponsiveStyle<SpaceKeys<StyleToken<Property.RowGap<0 | (string & {})>>>> | undefined\\",
                         \\"description\\": \\"Controls the spacing between Flex/Grid child rows See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/row-gap)\\",
+                        \\"category\\": \\"CSSLayoutStyleProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"gap\\": {
+                        \\"name\\": \\"gap\\",
+                        \\"type\\": \\"ResponsiveStyle<SpaceKeys<StyleToken<Property.Gap<0 | (string & {})>>>> | undefined\\",
+                        \\"description\\": \\"Controls the spacing between child components. Shorthand for rowGap and columnGap. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/gap)\\",
                         \\"category\\": \\"CSSLayoutStyleProps\\",
                         \\"isOptional\\": true
                     },

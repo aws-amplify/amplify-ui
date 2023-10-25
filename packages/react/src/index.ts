@@ -14,4 +14,4 @@ export {
   createTheme,
   translations,
 } from '@aws-amplify/ui';
-export type { Theme as UITheme } from '@aws-amplify/ui';
+export type { Theme } from '@aws-amplify/ui';

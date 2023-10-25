@@ -1,5 +1,7 @@
 import { setupComponentTheme } from '../setupComponentTheme';
-import { defaultTheme } from '../../defaultTheme';
+import { createTheme } from '../createTheme';
+
+const { tokens } = createTheme();
 
 describe('@aws-amplify/ui', () => {
   describe('setupComponentTheme', () => {
@@ -17,7 +19,7 @@ describe('@aws-amplify/ui', () => {
             },
           },
         },
-        defaultTheme.tokens
+        tokens
       );
       expect(css).toMatchInlineSnapshot(`
         "[data-amplify-theme=\\"test\\"] .amplify-badge { background-color:pink;  border-radius:var(--amplify-radii-small);  }
@@ -43,7 +45,7 @@ describe('@aws-amplify/ui', () => {
               },
             },
           },
-          defaultTheme.tokens
+          tokens
         )
       ).toMatchInlineSnapshot(`
         "[data-amplify-theme=\\"test\\"] .amplify-button--primary:hover { background:pink;  color:var(--amplify-colors-font-primary);  }
@@ -71,7 +73,7 @@ describe('@aws-amplify/ui', () => {
             },
           },
         },
-        defaultTheme.tokens
+        createTheme().tokens
       );
       expect(css).toMatchInlineSnapshot(`
         "[data-amplify-theme=\\"test\\"] .amplify-chip { padding-inline:var(--amplify-space-xs);  padding-block:var(--amplify-space-xs);  border-radius:var(--amplify-radii-small);  }

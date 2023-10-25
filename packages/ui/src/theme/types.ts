@@ -27,6 +27,7 @@ export type Override =
 
 interface BaseOverride {
   tokens?: PartialDeep<Tokens>;
+  components?: ComponentsTheme;
 }
 
 /**
@@ -103,6 +104,7 @@ export interface Theme {
    */
   name: string;
   tokens?: Tokens;
+  primaryColor?: string;
   breakpoints?: PartialDeep<Breakpoints>;
   /**
    * Overrides allow you to change design tokens in different contexts, like
@@ -134,6 +136,7 @@ export interface WebTheme
     DefaultTheme,
     'breakpoints' | 'name' | 'overrides' | 'components'
   > {
+  primaryColor?: string;
   cssText: string;
   // property `components` is not specified on `WebTokens`,
   // but is a required token property of `WebTheme`

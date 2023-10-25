@@ -1,5 +1,5 @@
 import kebabCase from 'lodash/kebabCase.js';
-import { DefaultTheme } from '../types';
+import { DefaultTheme, WebTheme } from '../types';
 import { cssValue } from './cssValue';
 import { BaseComponentTheme, ComponentsTheme } from '../components';
 import { isFunction } from '../../utils';
@@ -87,7 +87,7 @@ function createComponentCSS(baseSelector: string, theme: BaseComponentTheme) {
 export function setupComponentTheme(
   str: string,
   components: ComponentsTheme,
-  tokens: DefaultTheme['tokens']
+  tokens: WebTheme['tokens']
 ) {
   let cssText = '';
 

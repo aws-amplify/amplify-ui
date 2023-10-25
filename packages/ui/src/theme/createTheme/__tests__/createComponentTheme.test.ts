@@ -1,5 +1,8 @@
 import { defaultTheme } from '../../defaultTheme';
 import { createComponentTheme } from '../createComponentTheme';
+import { createTheme } from '../createTheme';
+
+const { tokens } = createTheme();
 
 describe('createComponentTheme', () => {
   it('returned className function should return the right className', () => {
@@ -24,6 +27,6 @@ describe('createComponentTheme', () => {
       },
     });
     expect(typeof theme).toBe('function');
-    expect(theme(defaultTheme.tokens)).toStrictEqual({});
+    expect(theme(tokens)).toStrictEqual({});
   });
 });

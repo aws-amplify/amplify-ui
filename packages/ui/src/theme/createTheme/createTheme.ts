@@ -7,6 +7,7 @@ import { Theme, DefaultTheme, WebTheme, Override } from '../types';
 import { setupToken, setupTokens } from './setupToken';
 import { WebDesignToken } from '../tokens/types/designToken';
 import { setupComponentTheme } from './setupComponentTheme';
+import { isString } from '../../utils';
 
 /**
  * This will be used like `const myTheme = createTheme({})`
@@ -32,6 +33,18 @@ export function createTheme(
     },
   ]);
 
+  // if primaryColor is present on the theme, use it
+  if (isString(theme?.primaryColor)) {
+    mergedTheme.tokens.colors.brand.primary = Object.keys(
+      mergedTheme.tokens.colors.brand.primary
+    ).reduce((acc, key) => {
+      return {
+        ...acc,
+        [key]: { value: `{colors.${theme.primaryColor}.${key}}` },
+      };
+    }, {} as typeof mergedTheme.tokens.colors.brand.primary);
+  }
+
   // Setting up the tokens. This is similar to what Style Dictionary
   // does. At the end of this, each token should have:
   // - CSS variable name of itself
@@ -56,7 +69,6 @@ export function createTheme(
     cssText += setupComponentTheme(
       `[data-amplify-theme="${name}"]`,
       theme.components,
-      // @ts-ignore
       tokens
     );
   }
@@ -70,11 +82,11 @@ export function createTheme(
    */
   if (mergedTheme.overrides) {
     overrides = mergedTheme.overrides.map((override) => {
-      const tokens = setupTokens({
+      const overrideTokens = setupTokens({
         tokens: override.tokens,
         setupToken,
       });
-      const customProperties = flattenProperties(tokens)
+      const customProperties = flattenProperties(overrideTokens)
         .map((token: WebDesignToken) => `${token.name}: ${token.value};`)
         .join('\n');
       // Overrides can have a selector, media query, breakpoint, or color mode
@@ -108,11 +120,18 @@ export function createTheme(
           ${customProperties}
           color-scheme: ${override.colorMode};
         }\n`;
+        if (override.components) {
+          cssText += setupComponentTheme(
+            `[data-amplify-theme="${name}"][data-amplify-color-mode="${override.colorMode}"]`,
+            override.components,
+            tokens
+          );
+        }
       }
 
       return {
         ...override,
-        tokens,
+        tokens: overrideTokens,
       };
     });
   }

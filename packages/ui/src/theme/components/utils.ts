@@ -1,5 +1,5 @@
 import type * as CSS from 'csstype';
-import { DefaultTheme, DesignToken } from '../types';
+import { DefaultTheme, DesignToken, WebTheme } from '../types';
 
 export type ColorThemes = 'info' | 'warning' | 'success' | 'error' | 'overlay';
 
@@ -24,4 +24,4 @@ export type BaseComponentTheme = {
 
 export type ComponentTheme<
   ThemeType extends BaseComponentTheme = BaseComponentTheme
-> = ThemeType | ((tokens: DefaultTheme['tokens']) => ThemeType) | undefined;
+> = ThemeType | ((tokens: WebTheme['tokens']) => ThemeType) | undefined;

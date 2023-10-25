@@ -1,10 +1,11 @@
 ---
-title: Custom Components
-description: Extend Amplify UI to complete your design system by creating your own components using the Amplify UI theming system.
+title: Component Theming
+description: A Theme is a structured collection of design decisions that change the appearance of a UI library. An Amplify UI theme is a structured object of design tokens, breakpoints, and overrides.
 supportedFrameworks: react
 ---
 
 import { Fragment } from '@/components/Fragment';
+import { FRAMEWORKS } from '@/data/frameworks';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
 
 export async function getStaticPaths() {
@@ -17,6 +18,6 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-<Fragment useCommonWebContent>
+<Fragment>
   {({ platform }) => import(`./${platform}.mdx`)}
 </Fragment>

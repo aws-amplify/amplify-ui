@@ -304,5 +304,15 @@ describe('@aws-amplify/ui', () => {
         expect(cssText).toContain('@media (prefers-color-scheme: dark)');
       });
     });
+
+    it('should accept primaryColor', () => {
+      const theme = createTheme({
+        name: 'my-theme',
+        primaryColor: 'red',
+      });
+      expect(theme.tokens.colors.brand.primary[10].value).toEqual(
+        'var(--amplify-colors-red-10)'
+      );
+    });
   });
 });
