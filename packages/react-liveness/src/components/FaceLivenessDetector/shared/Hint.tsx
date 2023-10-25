@@ -79,7 +79,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
   };
 
   const getInstructionContent = () => {
-    if (errorState || isCheckFailed || isCheckSuccessful) {
+    if (errorState ?? (isCheckFailed || isCheckSuccessful)) {
       return;
     }
 

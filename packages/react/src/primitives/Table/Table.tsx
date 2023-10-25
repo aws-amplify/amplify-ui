@@ -10,6 +10,7 @@ import {
   TableProps,
 } from '../types';
 import { View } from '../View';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const TablePrimitive: Primitive<TableProps, 'table'> = (
   {
@@ -52,6 +53,6 @@ const TablePrimitive: Primitive<TableProps, 'table'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/table)
  */
 export const Table: ForwardRefPrimitive<BaseTableProps, 'table'> =
-  React.forwardRef(TablePrimitive);
+  primitiveWithForwardRef(TablePrimitive);
 
 Table.displayName = 'Table';

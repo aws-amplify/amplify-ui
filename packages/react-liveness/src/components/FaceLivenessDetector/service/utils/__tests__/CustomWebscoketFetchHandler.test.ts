@@ -167,7 +167,7 @@ describe(CustomWebSocketFetchHandler.name, () => {
   describe('should handle http requests', () => {
     it('should create fetch http handler at construction', () => {
       new CustomWebSocketFetchHandler();
-      expect(FetchHttpHandler).toBeCalled();
+      expect(FetchHttpHandler).toHaveBeenCalled();
     });
 
     it('should make http request with fetch handler', async () => {

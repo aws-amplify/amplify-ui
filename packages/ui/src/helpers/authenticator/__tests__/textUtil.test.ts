@@ -18,7 +18,7 @@ describe('authenticatorTextUtil', () => {
       expect(() =>
         // @ts-expect-error getChallengeText param is typed, this is for js usecase
         authenticatorTextUtil.getChallengeText('invalidChallenge')
-      ).toThrowError(
+      ).toThrow(
         'Unexpected challengeName encountered in ConfirmSignIn: invalidChallenge'
       );
     });

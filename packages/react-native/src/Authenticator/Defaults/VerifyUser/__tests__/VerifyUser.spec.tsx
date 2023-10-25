@@ -101,7 +101,7 @@ describe('VerifyUser', () => {
     });
     fireEvent.press(submitButton);
 
-    expect(handleSubmit).toBeCalledTimes(1);
-    expect(handleSubmit).toBeCalledWith({ unverifiedAttr: 'email' });
+    expect(handleSubmit).toHaveBeenCalledTimes(1);
+    expect(handleSubmit).toHaveBeenCalledWith({ unverifiedAttr: 'email' });
   });
 });

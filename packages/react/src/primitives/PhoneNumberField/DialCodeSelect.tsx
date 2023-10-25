@@ -10,6 +10,7 @@ import {
   Primitive,
 } from '../types';
 import { SelectField } from '../SelectField';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const DialCodeSelectPrimitive: Primitive<DialCodeSelectProps, 'select'> = (
   { className, dialCodeList, isReadOnly, ...props },
@@ -52,6 +53,6 @@ const DialCodeSelectPrimitive: Primitive<DialCodeSelectProps, 'select'> = (
 export const DialCodeSelect: ForwardRefPrimitive<
   BaseDialCodeSelectProps,
   'select'
-> = React.forwardRef(DialCodeSelectPrimitive);
+> = primitiveWithForwardRef(DialCodeSelectPrimitive);
 
 DialCodeSelect.displayName = 'DialCodeSelect';

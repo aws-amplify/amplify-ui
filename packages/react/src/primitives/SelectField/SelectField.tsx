@@ -15,6 +15,7 @@ import {
 } from '../types';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { useStableId } from '../utils/useStableId';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 interface SelectFieldChildrenProps {
   children?: React.ReactNode;
@@ -107,6 +108,6 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/selectfield)
  */
 export const SelectField: ForwardRefPrimitive<BaseSelectFieldProps, 'select'> =
-  React.forwardRef(SelectFieldPrimitive);
+  primitiveWithForwardRef(SelectFieldPrimitive);
 
 SelectField.displayName = 'SelectField';

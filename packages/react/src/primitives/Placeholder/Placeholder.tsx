@@ -10,6 +10,7 @@ import {
   Primitive,
 } from '../types';
 import { View } from '../View';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const PlaceholderPrimitive: Primitive<PlaceholderProps, 'div'> = (
   { className, children, isLoaded, size, ...rest },
@@ -36,6 +37,6 @@ const PlaceholderPrimitive: Primitive<PlaceholderProps, 'div'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/placeholder)
  */
 export const Placeholder: ForwardRefPrimitive<BasePlaceholderProps, 'div'> =
-  React.forwardRef(PlaceholderPrimitive);
+  primitiveWithForwardRef(PlaceholderPrimitive);
 
 Placeholder.displayName = 'Placeholder';

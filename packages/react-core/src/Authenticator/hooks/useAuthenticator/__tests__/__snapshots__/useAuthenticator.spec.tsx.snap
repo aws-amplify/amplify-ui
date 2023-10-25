@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`useAuthenticator returns the expected values 1`] = `
-Object {
+{
   "QRFields": null,
   "authStatus": "authenticated",
-  "codeDeliveryDetails": Object {},
+  "codeDeliveryDetails": {},
   "error": undefined,
   "fields": undefined,
   "getTotpSecretCode": undefined,
@@ -15,19 +15,19 @@ Object {
   "route": "idle",
   "signOut": [MockFunction],
   "skipVerification": [MockFunction],
-  "socialProviders": Array [],
+  "socialProviders": [],
   "submitForm": [MockFunction],
   "toFederatedSignIn": [MockFunction],
   "toResetPassword": [MockFunction],
   "toSignIn": [MockFunction],
   "toSignUp": [MockFunction],
   "totpSecretCode": null,
-  "unverifiedContactMethods": Object {
+  "unverifiedContactMethods": {
     "email": "test#example.com",
   },
   "updateBlur": [MockFunction],
   "updateForm": [MockFunction],
-  "user": Object {},
+  "user": {},
   "validationErrors": undefined,
 }
 `;

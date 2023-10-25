@@ -14,6 +14,7 @@ import {
   TextAreaFieldProps,
 } from '../types/textAreaField';
 import { useStableId } from '../utils/useStableId';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 export const DEFAULT_ROW_COUNT = 3;
 
@@ -86,6 +87,6 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
 export const TextAreaField: ForwardRefPrimitive<
   BaseTextAreaFieldProps,
   'textarea'
-> = React.forwardRef(TextAreaFieldPrimitive);
+> = primitiveWithForwardRef(TextAreaFieldPrimitive);
 
 TextAreaField.displayName = 'TextAreaField';

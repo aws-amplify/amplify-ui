@@ -14,6 +14,7 @@ import {
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 // Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
 // We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
@@ -78,6 +79,6 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/menu)
  */
 export const Menu: ForwardRefPrimitive<BaseMenuProps, 'div'> =
-  React.forwardRef(MenuPrimitive);
+  primitiveWithForwardRef(MenuPrimitive);
 
 Menu.displayName = 'Menu';

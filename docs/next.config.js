@@ -15,8 +15,6 @@ module.exports = withNextPluginPreval({
     DOCSEARCH_DOCS_APP_ID: process.env.DOCSEARCH_DOCS_APP_ID,
     DOCSEARCH_DOCS_API_KEY: process.env.DOCSEARCH_DOCS_API_KEY,
     DOCSEARCH_DOCS_INDEX_NAME: process.env.DOCSEARCH_DOCS_INDEX_NAME,
-    FF_FILEUPLOADER_COMPONENTS_ENABLED:
-      process.env.FF_FILEUPLOADER_COMPONENTS_ENABLED,
   },
   // Differentiate pages with frontmatter & layout vs. normal MD(X)
   pageExtensions: ['page.mdx', 'page.tsx'],
@@ -257,13 +255,6 @@ module.exports = withNextPluginPreval({
         },
       ],
     });
-
-    // resolve react and react-dom from project node_modules
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      react: path.resolve(__dirname, 'node_modules/react'),
-      'react-dom': path.resolve(__dirname, 'node_modules/react-dom'),
-    };
 
     return config;
   },
