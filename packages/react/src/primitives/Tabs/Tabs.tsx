@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { ForwardRefPrimitive, Primitive } from '../types';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { BaseTabsProps, TabsProps } from './types';
 import { TabsItem } from './TabsItem';
 import { TabList } from './TabsList';
@@ -42,11 +43,14 @@ type TabsType = ForwardRefPrimitive<BaseTabsProps, 'div'> & {
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/tabs)
  */
-export const Tabs: TabsType = Object.assign(React.forwardRef(TabsPrimitive), {
-  Item: TabsItem,
-  List: TabList,
-  Panel: TabPanel,
-  Container: TabsContainer,
-});
+export const Tabs: TabsType = Object.assign(
+  primitiveWithForwardRef(TabsPrimitive),
+  {
+    Item: TabsItem,
+    List: TabList,
+    Panel: TabPanel,
+    Container: TabsContainer,
+  }
+);
 
 Tabs.displayName = 'Tabs';

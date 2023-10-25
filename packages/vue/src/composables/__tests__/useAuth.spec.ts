@@ -32,7 +32,7 @@ const hubListenSpy = jest.spyOn(Hub, 'listen');
 jest.spyOn(XState, 'interpret').mockReturnValue(mockService);
 jest.spyOn(XStateVue, 'useActor').mockImplementation(() => {
   return { state: mockState, send: mockSend } as unknown as ReturnType<
-    typeof XStateVue['useActor']
+    (typeof XStateVue)['useActor']
   >;
 });
 
@@ -79,14 +79,14 @@ describe('useAuth', () => {
   it('calls subscribe on init', () => {
     const wrapper = mount(TestComponent);
 
-    expect(listenToAuthHubSpy).toBeCalledTimes(1);
-    expect(listenToAuthHubSpy).toBeCalledWith(
+    expect(listenToAuthHubSpy).toHaveBeenCalledTimes(1);
+    expect(listenToAuthHubSpy).toHaveBeenCalledWith(
       mockService,
       expect.any(Function)
     );
 
-    expect(hubListenSpy).toBeCalledTimes(1);
-    expect(hubListenSpy).toBeCalledWith(
+    expect(hubListenSpy).toHaveBeenCalledTimes(1);
+    expect(hubListenSpy).toHaveBeenCalledWith(
       'auth',
       expect.any(Function),
       'authenticator-hub-handler'
@@ -98,7 +98,7 @@ describe('useAuth', () => {
   it('subscribes only once even if multiple instances are mounted', () => {
     const wrapper = mount(DoubleTestComponent);
 
-    expect(listenToAuthHubSpy).toBeCalledTimes(1);
+    expect(listenToAuthHubSpy).toHaveBeenCalledTimes(1);
     wrapper.unmount();
   });
 
@@ -109,8 +109,8 @@ describe('useAuth', () => {
     const wrapper = mount(TestComponent);
     wrapper.unmount();
 
-    expect(listenToAuthHubSpy).toBeCalledTimes(1);
-    expect(unsubscribeHubSpy).toBeCalledTimes(1);
+    expect(listenToAuthHubSpy).toHaveBeenCalledTimes(1);
+    expect(unsubscribeHubSpy).toHaveBeenCalledTimes(1);
   });
 
   it('unsubscribes only once even if multiple instances are unmounted', () => {
@@ -120,7 +120,7 @@ describe('useAuth', () => {
     const wrapper = mount(DoubleTestComponent);
     wrapper.unmount();
 
-    expect(unsubscribeHubSpy).toBeCalledTimes(1);
+    expect(unsubscribeHubSpy).toHaveBeenCalledTimes(1);
   });
 
   it('sets authStatus to `unauthenticated` if there is no signed in user', async () => {

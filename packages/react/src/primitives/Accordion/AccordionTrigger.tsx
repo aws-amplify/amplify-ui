@@ -2,6 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassName, isTypedFunction } from '@aws-amplify/ui';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { View } from '../View';
@@ -48,6 +49,6 @@ const AccordionTriggerPrimitive: Primitive<AccordionTriggerProps, 'summary'> = (
 export const AccordionTrigger: ForwardRefPrimitive<
   BaseAccordionTriggerProps,
   'summary'
-> = React.forwardRef(AccordionTriggerPrimitive);
+> = primitiveWithForwardRef(AccordionTriggerPrimitive);
 
 AccordionTrigger.displayName = 'Accordion.Trigger';

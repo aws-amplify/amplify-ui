@@ -5,6 +5,7 @@ import { classNameModifier, ComponentClassName } from '@aws-amplify/ui';
 
 import { ForwardRefPrimitive, Primitive } from '../types';
 import { View } from '../View';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { BaseTabsListProps, TabsListProps, TabsItemProps } from './types';
 import { TabsContext } from './TabsContext';
 
@@ -130,6 +131,6 @@ const TabListPrimitive: Primitive<TabsListProps, 'div'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/tabs)
  */
 export const TabList: ForwardRefPrimitive<BaseTabsListProps, 'div'> =
-  React.forwardRef(TabListPrimitive);
+  primitiveWithForwardRef(TabListPrimitive);
 
 TabList.displayName = 'Tabs.List';

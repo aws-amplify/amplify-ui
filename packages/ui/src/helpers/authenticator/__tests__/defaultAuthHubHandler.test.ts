@@ -45,7 +45,7 @@ describe('defaultAuthHubHandler', () => {
       { payload: { event: 'tokenRefresh' } } as unknown as HubCapsule,
       authenticatedStateMachine
     );
-    expect(authSendSpy).toBeCalledWith('TOKEN_REFRESH');
+    expect(authSendSpy).toHaveBeenCalledWith('TOKEN_REFRESH');
   });
 
   it('ignores token refresh event when state is unauthenticated', async () => {
@@ -61,7 +61,7 @@ describe('defaultAuthHubHandler', () => {
       { payload: { event: 'signOut' } } as unknown as HubCapsule,
       authenticatedStateMachine
     );
-    expect(authSendSpy).toBeCalledWith('SIGN_OUT');
+    expect(authSendSpy).toHaveBeenCalledWith('SIGN_OUT');
   });
 
   it('ignores signOut event when state is unauthenticated', async () => {
@@ -77,7 +77,7 @@ describe('defaultAuthHubHandler', () => {
       { payload: { event: 'tokenRefresh_failure' } } as unknown as HubCapsule,
       authenticatedStateMachine
     );
-    expect(authSendSpy).toBeCalledWith('SIGN_OUT');
+    expect(authSendSpy).toHaveBeenCalledWith('SIGN_OUT');
   });
 
   it('ignores token refresh failure event when state is unauthenticated', async () => {

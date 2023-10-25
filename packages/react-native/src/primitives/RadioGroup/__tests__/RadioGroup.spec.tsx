@@ -70,10 +70,10 @@ describe('RadioGroup', () => {
     const option3 = getByText('Option 3');
 
     fireEvent.press(option2);
-    expect(onChangeMock).toBeCalledWith('option-2');
+    expect(onChangeMock).toHaveBeenCalledWith('option-2');
 
     fireEvent.press(option3);
-    expect(onChangeMock).toBeCalledWith('option-3');
+    expect(onChangeMock).toHaveBeenCalledWith('option-3');
   });
 
   it('does not execute the callback when disabled', () => {

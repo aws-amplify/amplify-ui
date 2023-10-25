@@ -15,6 +15,7 @@ import {
   Primitive,
 } from '../types';
 import { VisuallyHidden } from '../VisuallyHidden';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const RATING_DEFAULT_MAX_VALUE = 5;
 const RATING_DEFAULT_VALUE = 0;
@@ -91,6 +92,6 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/rating)
  */
 export const Rating: ForwardRefPrimitive<BaseRatingProps, 'div'> =
-  React.forwardRef(RatingPrimitive);
+  primitiveWithForwardRef(RatingPrimitive);
 
 Rating.displayName = 'Rating';

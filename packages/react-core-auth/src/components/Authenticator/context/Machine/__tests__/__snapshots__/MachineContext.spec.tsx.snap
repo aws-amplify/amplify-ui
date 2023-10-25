@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`useMachine returns the expected values 1`] = `
-Object {
+{
   "challengeName": undefined,
   "codeDeliveryDetails": undefined,
   "errorMessage": undefined,
@@ -15,7 +15,7 @@ Object {
   "skipAttributeVerification": [MockFunction],
   "toFederatedSignIn": [MockFunction],
   "totpSecretCode": undefined,
-  "unverifiedContactMethods": Object {
+  "unverifiedContactMethods": {
     "email": "test#example.com",
   },
   "username": undefined,

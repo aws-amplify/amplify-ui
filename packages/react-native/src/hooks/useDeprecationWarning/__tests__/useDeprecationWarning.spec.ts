@@ -5,7 +5,7 @@ import useDeprecationWarning from '../useDeprecationWarning';
 
 const mockIsDev = jest.fn();
 jest.mock('../../../utils', () => ({
-  ...jest.requireActual('../../../utils'),
+  ...jest.requireActual<typeof import('../../../utils')>('../../../utils'),
   IS_DEV: mockIsDev,
 }));
 

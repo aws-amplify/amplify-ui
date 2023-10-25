@@ -20,6 +20,7 @@ import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { View } from '../View';
 import { useStableId } from '../utils/useStableId';
 import { useFieldset } from '../Fieldset/useFieldset';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 // Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
 // We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
@@ -212,6 +213,6 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/sliderfield)
  */
 export const SliderField: ForwardRefPrimitive<BaseSliderFieldProps, 'span'> =
-  React.forwardRef(SliderFieldPrimitive);
+  primitiveWithForwardRef(SliderFieldPrimitive);
 
 SliderField.displayName = 'SliderField';

@@ -9,6 +9,7 @@ import {
 
 import { ForwardRefPrimitive, Primitive } from '../types';
 import { View } from '../View';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { BaseTabsItemProps, TabsItemProps } from './types';
 import { TabsContext } from './TabsContext';
 
@@ -55,6 +56,6 @@ const TabsItemPrimitive: Primitive<TabsItemProps, 'button'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/tabs)
  */
 export const TabsItem: ForwardRefPrimitive<BaseTabsItemProps, 'button'> =
-  React.forwardRef(TabsItemPrimitive);
+  primitiveWithForwardRef(TabsItemPrimitive);
 
 TabsItem.displayName = 'Tabs.Item';

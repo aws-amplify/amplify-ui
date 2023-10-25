@@ -4,6 +4,8 @@ import classNames from 'classnames';
 import { Button } from '../Button';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { FieldGroupIcon } from './FieldGroupIcon';
+
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import {
   BaseFieldGroupIconButtonProps,
   FieldGroupIconButtonProps,
@@ -28,6 +30,6 @@ const FieldGroupIconButtonPrimitive: Primitive<
 export const FieldGroupIconButton: ForwardRefPrimitive<
   BaseFieldGroupIconButtonProps,
   'button'
-> = React.forwardRef(FieldGroupIconButtonPrimitive);
+> = primitiveWithForwardRef(FieldGroupIconButtonPrimitive);
 
 FieldGroupIconButton.displayName = 'FieldGroupIconButton';

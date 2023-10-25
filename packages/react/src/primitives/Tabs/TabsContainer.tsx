@@ -3,6 +3,7 @@ import classNames from 'classnames';
 
 import { ComponentClassName, isFunction } from '@aws-amplify/ui';
 import { ForwardRefPrimitive, Primitive } from '../types';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { BaseTabsProps, TabsProps } from './types';
 import { View } from '../View';
 import { TabsContext } from './TabsContext';
@@ -63,6 +64,6 @@ const TabsContainerPrimitive: Primitive<TabsProps, 'div'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/tabs)
  */
 export const TabsContainer: ForwardRefPrimitive<BaseTabsProps, 'div'> =
-  React.forwardRef(TabsContainerPrimitive);
+  primitiveWithForwardRef(TabsContainerPrimitive);
 
 TabsContainer.displayName = 'Tabs.Container';

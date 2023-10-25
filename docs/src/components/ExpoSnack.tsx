@@ -80,10 +80,14 @@ export const ExpoSnack = (options: SnackOptions) => {
     }
     setTheme(theme);
 
-    const listener = function (event) {
-      const [eventName, data] = event.data;
+    const listener = function ({ data }) {
+      if (!Array.isArray(data)) {
+        return;
+      }
 
-      if (eventName === 'expoFrameLoaded' && data.iframeId === id.current) {
+      const [eventName, { iframeId = null } = {}] = data;
+
+      if (eventName === 'expoFrameLoaded' && iframeId === id.current) {
         ref.current.contentWindow.postMessage(
           [
             'expoDataEvent',

@@ -83,7 +83,7 @@ describe('FileStatusMessage', () => {
     const { container } = render(
       <FileStatusMessage {...defaultProps} status={FileStatus.QUEUED} />
     );
-    expect(container).toMatchInlineSnapshot(`<div />`);
+    expect(container).toMatchSnapshot();
   });
 
   it('renders custom icons from IconProvider', () => {

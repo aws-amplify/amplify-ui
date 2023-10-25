@@ -14,13 +14,14 @@ import {
 import { Text } from '../Text';
 import { useRadioGroupContext } from '../RadioGroupField/context';
 import { useFieldset } from '../Fieldset/useFieldset';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
   {
     children,
     className,
     id,
-    isDisabled,
+    isDisabled = false,
     testId,
     value,
     labelPosition: radioLabelPosition,
@@ -33,7 +34,7 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
     defaultValue,
     name,
     hasError,
-    isGroupDisabled,
+    isGroupDisabled = false,
     isRequired,
     isReadOnly,
     onChange,
@@ -119,6 +120,6 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
 };
 
 export const Radio: ForwardRefPrimitive<BaseRadioProps, 'input'> =
-  React.forwardRef(RadioPrimitive);
+  primitiveWithForwardRef(RadioPrimitive);
 
 Radio.displayName = 'Radio';

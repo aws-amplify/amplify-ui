@@ -111,7 +111,8 @@ describe('Link:', () => {
     expect(screen.getByText(/you are home/i)).toBeInTheDocument();
 
     const leftClick = { button: 0 };
-    userEvent.click(screen.getByText(/about/i), leftClick);
+    const events = userEvent.setup();
+    events.click(screen.getByText(/about/i));
 
     expect(screen.getByText(/you are on the about page/i)).toBeInTheDocument();
   });

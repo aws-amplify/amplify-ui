@@ -1,9 +1,5 @@
 {
   "extends": "@aws-amplify/typescript-config/tsconfig.react.json",
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "compilerOptions": {
-    // turning on because the data store hooks typing fails type checking
-    "skipLibCheck": true
-  },
+  "include": ["jest.config.ts", "jest.setup.ts", "src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]
 }
