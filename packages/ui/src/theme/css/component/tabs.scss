@@ -78,7 +78,6 @@
       cursor: pointer;
     }
 
-    &:focus,
     &:focus-visible {
       z-index: 2;
       color: var(--amplify-components-tabs-item-focus-color);
