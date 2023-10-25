@@ -1,5 +1,4 @@
 import { init, cleanup, onTestStart, onTestDone } from 'detox/internals';
-import { log } from 'detox';
 import {
   After,
   AfterAll,
