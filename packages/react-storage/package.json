@@ -45,7 +45,7 @@
     "@aws-amplify/ui-react-core": "2.1.33",
     "classnames": "2.3.1",
     "lodash": "4.17.21",
-    "tslib": "2.4.1"
+    "tslib": "^2.5.2"
   },
   "peerDependencies": {
     "aws-amplify": "^5.0.1",

@@ -44,7 +44,7 @@
     "maplibre-gl": "2.1.9",
     "maplibre-gl-js-amplify": "^3.1.0",
     "react-map-gl": "7.0.23",
-    "tslib": "2.4.1"
+    "tslib": "^2.5.2"
   },
   "peerDependencies": {
     "aws-amplify": "^5.0.1",

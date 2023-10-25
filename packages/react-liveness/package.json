@@ -63,7 +63,7 @@
     "@xstate/react": "^3.2.2",
     "classnames": "2.3.1",
     "nanoid": "3.1.31",
-    "tslib": "2.4.1",
+    "tslib": "^2.5.2",
     "xstate": "^4.33.6"
   },
   "devDependencies": {

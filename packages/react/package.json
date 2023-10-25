@@ -58,7 +58,7 @@
     "deepmerge": "4.2.2",
     "lodash": "4.17.21",
     "qrcode": "1.5.0",
-    "tslib": "2.4.1"
+    "tslib": "^2.5.2"
   },
   "peerDependencies": {
     "aws-amplify": "^5.0.1",
