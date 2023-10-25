@@ -6,7 +6,7 @@ applications:
         preBuild:
           commands:
             - rm -rf node_modules
-            - nvm install 18.13
+            - nvm install 18.13 # hosting supports node 18.13 natively
             - nvm use 18.13
             - node -v
             - export FLUTTER_HOME=${HOME}/sdks/flutter
@@ -19,7 +19,7 @@ applications:
             - (cd .. && yarn install && yarn build)
         build:
           commands:
-            - nvm install 18.13
+            - nvm install 18.13 # hosting supports node 18.13 natively
             - nvm use 18.13
             - node -v
             - yarn flutter:build
