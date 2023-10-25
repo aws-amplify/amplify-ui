@@ -1,9 +1,10 @@
 import * as React from 'react';
 
 import { UploadDataOutput } from 'aws-amplify/storage';
+
 import { getLogger, ComponentClassName } from '@aws-amplify/ui';
 import { VisuallyHidden } from '@aws-amplify/ui-react';
-import { useDropZone, useSetUserAgent } from '@aws-amplify/ui-react/internal';
+import { useDropZone } from '@aws-amplify/ui-react/internal';
 
 import { useStorageManager, useUploadFiles } from './hooks';
 import { FileStatus, StorageManagerProps, StorageManagerHandle } from './types';
@@ -20,7 +21,6 @@ import {
   defaultStorageManagerDisplayText,
   filterAllowedFiles,
 } from './utils';
-import { VERSION } from '../../version';
 
 const logger = getLogger('Storage');
 
@@ -228,12 +228,6 @@ function StorageManagerBase(
       hiddenInput.current.value = '';
     }
   }
-
-  useSetUserAgent({
-    componentName: 'StorageManager',
-    packageName: 'react-storage',
-    version: VERSION,
-  });
 
   return (
     <Components.Container

@@ -2,6 +2,7 @@ import * as React from 'react';
 import {
   AuthenticatorMachineOptions,
   AmplifyUser,
+  configureComponent,
   isFunction,
   FormFieldComponents,
   FormFieldOptions,
@@ -14,7 +15,6 @@ import {
   useAuthenticatorInitMachine,
 } from '@aws-amplify/ui-react-core';
 
-import { useSetUserAgent } from '../../internal';
 import { VERSION } from '../../version';
 import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 
@@ -33,17 +33,17 @@ import { defaultComponents } from './hooks/useCustomComponents/defaultComponents
 export type SignOut = UseAuthenticator['signOut'];
 export type AuthenticatorProps = Partial<
   Omit<AuthenticatorMachineOptions, 'formFields'> &
-    ComponentsProviderProps &
-    RouterProps & {
-      children:
-        | React.ReactNode
-        | ((props: { signOut?: SignOut; user?: AmplifyUser }) => JSX.Element);
-      formFields: {
-        [key in FormFieldComponents]?: {
-          [field_name: string]: ReactFormFieldOptions;
-        };
+  ComponentsProviderProps &
+  RouterProps & {
+    children:
+    | React.ReactNode
+    | ((props: { signOut?: SignOut; user?: AmplifyUser }) => JSX.Element);
+    formFields: {
+      [key in FormFieldComponents]?: {
+        [field_name: string]: ReactFormFieldOptions;
       };
-    }
+    };
+  }
 >;
 
 interface ReactFormFieldOptions extends FormFieldOptions {
@@ -138,11 +138,12 @@ export function AuthenticatorInternal({
  * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/authenticator)
  */
 export function Authenticator(props: AuthenticatorProps): JSX.Element {
-  useSetUserAgent({
-    componentName: 'Authenticator',
-    packageName: 'react',
-    version: VERSION,
-  });
+  React.useEffect(() => {
+    configureComponent({
+      packageName: '@aws-amplify/ui-react',
+      version: VERSION,
+    });
+  }, []);
 
   return (
     <Provider>

@@ -10,7 +10,8 @@ import {
   useAuthenticatorInitMachine,
 } from '@aws-amplify/ui-react-core';
 
-import { useSetUserAgent } from '@aws-amplify/ui-react/internal';
+import { configureComponent } from '@aws-amplify/ui';
+
 import { useDeprecationWarning } from '../hooks';
 import { DefaultContainer, InnerContainer } from './common';
 import { TypedField, getRouteTypedFields } from './hooks';
@@ -67,11 +68,12 @@ function Authenticator({
     shouldWarn: false,
   });
 
-  useSetUserAgent({
-    componentName: 'Authenticator',
-    packageName: 'react-native',
-    version: VERSION,
-  });
+  React.useEffect(() => {
+    configureComponent({
+      packageName: '@aws-amplify/ui-react-native',
+      version: VERSION,
+    });
+  }, []);
 
   useAuthenticatorInitMachine(options);
 

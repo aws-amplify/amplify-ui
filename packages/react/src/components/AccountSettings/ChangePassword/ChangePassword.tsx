@@ -10,14 +10,13 @@ import {
   runFieldValidators,
 } from '@aws-amplify/ui';
 
-import { useAuth, useSetUserAgent } from '../../../internal';
+import { useAuth } from '../../../internal';
 import { View, Flex } from '../../../primitives';
 import { ComponentClassName } from '../constants';
 import { FormValues, BlurredFields, ValidationError } from '../types';
 import { ChangePasswordProps, ValidateParams } from './types';
 import DEFAULTS from './defaults';
 import { defaultChangePasswordDisplayText } from '../utils';
-import { VERSION } from '../../../version';
 
 const logger = getLogger('AccountSettings');
 
@@ -59,12 +58,6 @@ function ChangePassword({
   const passwordValidators: ValidatorOptions[] = React.useMemo(() => {
     return validators ?? getDefaultPasswordValidators();
   }, [validators]);
-
-  useSetUserAgent({
-    componentName: 'ChangePassword',
-    packageName: 'react',
-    version: VERSION,
-  });
 
   /*
    * Note that formValues and other states are passed in as props so that

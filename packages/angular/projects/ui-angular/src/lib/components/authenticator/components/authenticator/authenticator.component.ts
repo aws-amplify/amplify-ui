@@ -13,7 +13,7 @@ import {
 import {
   AuthenticatorMachineOptions,
   authenticatorTextUtil,
-  setUserAgent,
+  configureComponent,
   SocialProvider,
 } from '@aws-amplify/ui';
 import { AmplifySlotDirective } from '../../../../utilities/amplify-slot/amplify-slot.directive';
@@ -51,7 +51,6 @@ export class AuthenticatorComponent
   private hasInitialized = false;
   private isHandlingHubEvent = false;
   private unsubscribeMachine: () => void;
-  private clearUserAgent: () => void;
 
   constructor(
     private authenticator: AuthenticatorService,
@@ -78,9 +77,8 @@ export class AuthenticatorComponent
       formFields,
     } = this;
 
-    this.clearUserAgent = setUserAgent({
-      componentName: 'Authenticator',
-      packageName: 'angular',
+    configureComponent({
+      packageName: '@aws-amplify/ui-angular',
       version: VERSION,
     });
 
@@ -157,7 +155,6 @@ export class AuthenticatorComponent
   }
 
   ngOnDestroy(): void {
-    this.clearUserAgent();
     if (this.unsubscribeMachine) this.unsubscribeMachine();
   }
 
