@@ -6,8 +6,8 @@ applications:
         preBuild:
           commands:
             - rm -rf node_modules
-            - nvm install 18
-            - nvm use 18
+            - nvm install 18.13
+            - nvm use 18.13
             - node -v
             - export FLUTTER_HOME=${HOME}/sdks/flutter
             # pin to flutter v3.10.6
@@ -19,8 +19,8 @@ applications:
             - (cd .. && yarn install && yarn build)
         build:
           commands:
-            - nvm install 18
-            - nvm use 18
+            - nvm install 18.13
+            - nvm use 18.13
             - node -v
             - yarn flutter:build
             - yarn build
