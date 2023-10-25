@@ -20,8 +20,6 @@ export const typeInInputField = async (
 };
 
 Given("I'm running the example {string}", async (name: string) => {
-  console.log('LAUNCH', name);
-
   try {
     await device.launchApp({
       newInstance: true,
