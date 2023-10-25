@@ -9,6 +9,7 @@ import {
   Primitive,
 } from '../types';
 import { View } from '../View';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const GridPrimitive: Primitive<GridProps, 'div'> = (
   { className, children, ...rest },
@@ -27,6 +28,6 @@ const GridPrimitive: Primitive<GridProps, 'div'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/grid)
  */
 export const Grid: ForwardRefPrimitive<BaseGridProps, 'div'> =
-  React.forwardRef(GridPrimitive);
+  primitiveWithForwardRef(GridPrimitive);
 
 Grid.displayName = 'Grid';

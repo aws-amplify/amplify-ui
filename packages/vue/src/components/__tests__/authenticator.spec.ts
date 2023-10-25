@@ -91,7 +91,7 @@ describe('authenticator', () => {
 
     listener(setupState);
 
-    expect(sendSpy).toBeCalledTimes(1);
+    expect(sendSpy).toHaveBeenCalledTimes(1);
     expect(sendSpy).toHaveBeenCalledWith({
       type: 'INIT',
       data: {
@@ -119,7 +119,7 @@ describe('authenticator', () => {
     const listener = mockService['listeners'][0];
     listener(setupState);
 
-    expect(sendSpy).toBeCalledTimes(1);
+    expect(sendSpy).toHaveBeenCalledTimes(1);
     expect(sendSpy).toHaveBeenCalledWith({
       type: 'INIT',
       data: props,
@@ -133,7 +133,7 @@ describe('authenticator', () => {
     const listener = mockService['listeners'][0];
     listener(setupState);
 
-    expect(sendSpy).toBeCalledTimes(1);
+    expect(sendSpy).toHaveBeenCalledTimes(1);
     expect(sendSpy).toHaveBeenCalledWith({
       type: 'INIT',
       data: props,

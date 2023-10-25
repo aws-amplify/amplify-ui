@@ -20,7 +20,7 @@ const INITIAL_ROUTE = 'signUp';
 export function createProvider<
   T extends Platform,
   K extends PrimitivesDefault<T>,
-  U extends Variant
+  U extends Variant,
 >({
   platform,
   primitives: primitivesDefault,
@@ -45,7 +45,7 @@ export function createProvider<
     return (
       <PlatformProvider platform={platform}>
         <DisplayTextProvider {...displayText}>
-          <PrimitivesProvider {...primitives}>
+          <PrimitivesProvider {...(primitives as PrimitivesDefault)}>
             <MachineProvider initialRoute={initialRoute}>
               <ComponentRouteProvider>
                 <MfaProvider>{children}</MfaProvider>

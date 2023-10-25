@@ -16,6 +16,7 @@ import {
   Primitive,
 } from '../types';
 import { View } from '../View';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 // Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
 // We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
@@ -124,9 +125,9 @@ const TabItemPrimitive: Primitive<TabItemProps, 'button'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/tabs)
  */
 export const Tabs: ForwardRefPrimitive<BaseTabsProps, 'div'> =
-  React.forwardRef(TabsPrimitive);
+  primitiveWithForwardRef(TabsPrimitive);
 export const TabItem: ForwardRefPrimitive<BaseTabItemProps, 'button'> =
-  React.forwardRef(TabItemPrimitive);
+  primitiveWithForwardRef(TabItemPrimitive);
 
 Tabs.displayName = 'Tabs';
 TabItem.displayName = 'TabItem';

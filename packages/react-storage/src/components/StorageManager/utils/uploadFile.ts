@@ -8,7 +8,7 @@ export type UploadFileProps = {
   isResumable?: boolean;
   progressCallback: (progress: { loaded: number; total: number }) => void;
   errorCallback: (error: string) => void;
-  completeCallback: (event: { key: string | undefined }) => void;
+  completeCallback: (event: { key?: string | undefined }) => void;
   provider?: string;
 } & Record<string, any>;
 

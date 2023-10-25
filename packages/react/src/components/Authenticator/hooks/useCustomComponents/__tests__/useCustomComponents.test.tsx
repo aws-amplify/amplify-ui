@@ -16,7 +16,7 @@ describe('useCustomComponents', () => {
       .spyOn(console, 'error')
       .mockImplementation(() => {});
 
-    expect(() => render(<TestComponent />)).toThrowError();
+    expect(() => render(<TestComponent />)).toThrow();
 
     consoleErrorSpy.mockRestore();
   });

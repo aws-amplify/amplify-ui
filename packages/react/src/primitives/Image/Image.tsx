@@ -9,6 +9,7 @@ import {
   Primitive,
 } from '../types';
 import { View } from '../View';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const ImagePrimitive: Primitive<ImageProps, 'img'> = (
   { className, ...rest },
@@ -26,6 +27,6 @@ const ImagePrimitive: Primitive<ImageProps, 'img'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/image)
  */
 export const Image: ForwardRefPrimitive<BaseImageProps, 'img'> =
-  React.forwardRef(ImagePrimitive);
+  primitiveWithForwardRef(ImagePrimitive);
 
 Image.displayName = 'Image';

@@ -77,7 +77,7 @@ describe('ToggleButton:', () => {
     render(<ToggleButton onClick={onClick} />);
     const toggleButton = await screen.findByRole('button');
     userEvent.click(toggleButton);
-    expect(onClick).toBeCalledTimes(1);
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 
   it('should works in uncontrolled way', async () => {

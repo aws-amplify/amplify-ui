@@ -1,6 +1,7 @@
 allow-licenses:
   - '0BSD'
   - 'Apache-2.0'
+  - 'Apache-2.0 AND MIT'
   - 'BlueOak-1.0.0'
   - 'BSL-1.0'
   - 'BSD-1-Clause'

@@ -30,7 +30,7 @@ const createAccountLabel = computed(() => getCreateAccountText());
 
 // Methods
 const onInput = (e: Event): void => {
-  let { checked, name, type, value } = e.target as HTMLInputElement;
+  const { checked, name, type, value } = e.target as HTMLInputElement;
 
   const isUncheckedCheckbox = type === 'checkbox' && !checked;
   updateForm({

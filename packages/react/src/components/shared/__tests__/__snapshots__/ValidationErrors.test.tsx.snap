@@ -39,3 +39,5 @@ exports[`ValidationErrors renders errors as expected 1`] = `
   </div>
 </div>
 `;
+
+exports[`ValidationErrors renders nothing if there are no errors 1`] = `<div />`;

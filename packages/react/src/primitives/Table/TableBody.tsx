@@ -9,6 +9,7 @@ import {
   TableBodyProps,
 } from '../types';
 import { View } from '../View';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const TableBodyPrimitive: Primitive<TableBodyProps, 'tbody'> = (
   { children, className, ...rest },
@@ -25,6 +26,6 @@ const TableBodyPrimitive: Primitive<TableBodyProps, 'tbody'> = (
 );
 
 export const TableBody: ForwardRefPrimitive<BaseTableBodyProps, 'tbody'> =
-  React.forwardRef(TableBodyPrimitive);
+  primitiveWithForwardRef(TableBodyPrimitive);
 
 TableBody.displayName = 'TableBody';

@@ -337,8 +337,6 @@ When('I see one code input', () => {
 
 When('I see {string} as the {string} input', (custom, order) => {
   cy.get('input').eq(order).should('have.attr', 'placeholder', custom);
-
-  // cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
 });
 
 When('I mock {string} event', (eventName: string) => {
@@ -356,7 +354,7 @@ When('I mock {string} event', (eventName: string) => {
 
 When(
   'I mock {string} event with fixture {string}',
-  async (eventName: string, fixture: string) => {
+  (eventName: string, fixture: string) => {
     if (!window) {
       throw new Error('window has not been set in the Cypress tests');
     }

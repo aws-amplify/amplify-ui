@@ -33,7 +33,7 @@ describe('AuthenticatorProvider', () => {
     );
 
     await waitFor(() => {
-      expect(hubListenSpy).toBeCalledTimes(1);
+      expect(hubListenSpy).toHaveBeenCalledTimes(1);
       expect(hubListenSpy).toHaveBeenCalledWith(
         'auth',
         expect.any(Function),
@@ -56,7 +56,7 @@ describe('AuthenticatorProvider', () => {
     });
 
     await waitFor(() => {
-      expect(unsubscribe).toBeCalledTimes(1);
+      expect(unsubscribe).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -69,7 +69,7 @@ describe('AuthenticatorProvider', () => {
       </AuthenticatorProvider>
     );
 
-    expect(currentAuthenticatedUserSpy).toBeCalledTimes(2);
+    expect(currentAuthenticatedUserSpy).toHaveBeenCalledTimes(2);
     expect(getByText('configuring')).toBeDefined();
 
     await waitFor(() => {
@@ -84,7 +84,7 @@ describe('AuthenticatorProvider', () => {
       </AuthenticatorProvider>
     );
 
-    expect(currentAuthenticatedUserSpy).toBeCalledTimes(2);
+    expect(currentAuthenticatedUserSpy).toHaveBeenCalledTimes(2);
     expect(getByText('configuring')).toBeDefined();
 
     await waitFor(() => {

@@ -317,3 +317,5 @@ exports[`FileList renders as expected when upload is resumable 1`] = `
   </div>
 </div>
 `;
+
+exports[`FileList renders nothing when there are no files 1`] = `<div />`;
