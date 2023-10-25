@@ -1,8 +1,9 @@
 import React from 'react';
 
+import { useSetUserAgent } from '@aws-amplify/ui-react-core';
 import { deleteUser, getLogger } from '@aws-amplify/ui';
 
-import { useAuth, useSetUserAgent } from '../../../internal';
+import { useAuth } from '../../../internal';
 import { Flex } from '../../../primitives';
 import { ComponentClassName } from '../constants';
 import DEFAULTS from './defaults';

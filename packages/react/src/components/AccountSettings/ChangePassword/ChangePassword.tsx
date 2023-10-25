@@ -1,6 +1,7 @@
 import React from 'react';
 import isEqual from 'lodash/isEqual.js';
 
+import { useSetUserAgent } from '@aws-amplify/ui-react-core';
 import {
   changePassword,
   ValidatorOptions,
@@ -10,7 +11,7 @@ import {
   runFieldValidators,
 } from '@aws-amplify/ui';
 
-import { useAuth, useSetUserAgent } from '../../../internal';
+import { useAuth } from '../../../internal';
 import { View, Flex } from '../../../primitives';
 import { ComponentClassName } from '../constants';
 import { FormValues, BlurredFields, ValidationError } from '../types';

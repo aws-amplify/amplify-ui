@@ -8,9 +8,9 @@ import {
   useAuthenticator,
   useAuthenticatorRoute,
   useAuthenticatorInitMachine,
+  useSetUserAgent,
 } from '@aws-amplify/ui-react-core';
 
-import { useSetUserAgent } from '@aws-amplify/ui-react/internal';
 import { useDeprecationWarning } from '../hooks';
 import { DefaultContainer, InnerContainer } from './common';
 import { TypedField, getRouteTypedFields } from './hooks';

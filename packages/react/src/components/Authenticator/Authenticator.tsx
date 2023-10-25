@@ -12,9 +12,9 @@ import {
   useAuthenticator,
   UseAuthenticator,
   useAuthenticatorInitMachine,
+  useSetUserAgent,
 } from '@aws-amplify/ui-react-core';
 
-import { useSetUserAgent } from '../../internal';
 import { VERSION } from '../../version';
 import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 

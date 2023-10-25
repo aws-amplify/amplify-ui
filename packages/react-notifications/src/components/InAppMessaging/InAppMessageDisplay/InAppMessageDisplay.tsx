@@ -6,7 +6,7 @@ import {
   useMessage,
 } from '@aws-amplify/ui-react-core-notifications';
 import { ThemeProvider } from '@aws-amplify/ui-react';
-import { useSetUserAgent } from '@aws-amplify/ui-react/internal';
+import { useSetUserAgent } from '@aws-amplify/ui-react-core';
 
 import { BannerMessage } from '../BannerMessage';
 import { FullScreenMessage } from '../FullScreenMessage';

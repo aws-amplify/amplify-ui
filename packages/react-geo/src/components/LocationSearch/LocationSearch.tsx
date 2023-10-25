@@ -4,7 +4,7 @@ import { createAmplifyGeocoder } from 'maplibre-gl-js-amplify';
 import { useControl, useMap } from 'react-map-gl';
 import type { IControl } from 'react-map-gl';
 
-import { useSetUserAgent } from '@aws-amplify/ui-react/internal';
+import { useSetUserAgent } from '@aws-amplify/ui-react-core';
 
 import { LocationSearchProps } from '../types/maplibre-gl-geocoder';
 import { VERSION } from '../../version';
