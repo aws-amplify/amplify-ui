@@ -214,7 +214,7 @@ export const getServiceContextFacade = (
 
   return {
     authStatus,
-    challengeName: user.challengeName,
+    challengeName: user?.challengeName,
     codeDeliveryDetails,
     error,
     hasValidationErrors,

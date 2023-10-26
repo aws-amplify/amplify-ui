@@ -104,7 +104,7 @@ export const setUserAgent = ({
       });
       break;
     }
-    default:
-      return noop;
   }
+
+  return noop as () => void;
 };
