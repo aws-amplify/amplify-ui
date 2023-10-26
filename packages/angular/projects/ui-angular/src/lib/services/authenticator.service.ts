@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Event, interpret, Subscription } from 'xstate';
 
-import * as Auth from '@aws-amplify/auth';
+import { getCurrentUser } from '@aws-amplify/auth';
 import { ConsoleLogger as Logger } from '@aws-amplify/core';
 import {
   AmplifyUser,
@@ -198,7 +198,7 @@ export class AuthenticatorService implements OnDestroy {
 
   private async getInitialAuthStatus(): Promise<void> {
     try {
-      await Auth.getCurrentUser();
+      await getCurrentUser();
       this._authStatus = 'authenticated';
     } catch (e) {
       this._authStatus = 'unauthenticated';
