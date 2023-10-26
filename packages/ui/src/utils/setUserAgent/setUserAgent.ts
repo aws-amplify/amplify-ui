@@ -1,7 +1,4 @@
-import {
-  setCustomUserAgent,
-  SetCustomUserAgentInput,
-} from '@aws-amplify/core/internals/utils';
+import { setCustomUserAgent } from '@aws-amplify/core/internals/utils';
 
 import {
   ACCOUNT_SETTINGS_INPUT_BASE,
@@ -11,6 +8,7 @@ import {
   MAP_VIEW_INPUT_BASE,
   STORAGE_MANAGER_INPUT_BASE,
 } from './constants';
+import { noop } from '../utils';
 
 // public packages only, exclude internal packages e.g. 'react-core', 'ui'
 export type PackageName =
@@ -62,54 +60,51 @@ export const setUserAgent = ({
 }: SetUserAgentOptions): (() => void) => {
   const packageData: [string, string] = [`ui-${packageName}`, version];
 
-  let input: SetCustomUserAgentInput | undefined;
-
   switch (componentName) {
     case 'Authenticator': {
-      input = {
+      setCustomUserAgent({
         ...AUTHENTICATOR_INPUT_BASE,
         additionalDetails: [[componentName], packageData],
-      };
+      });
       break;
     }
     case 'ChangePassword':
     case 'DeleteUser': {
-      input = {
+      setCustomUserAgent({
         ...ACCOUNT_SETTINGS_INPUT_BASE,
         additionalDetails: [['AccountSettings'], packageData],
-      };
+      });
       break;
     }
     case 'InAppMessaging': {
-      input = {
+      setCustomUserAgent({
         ...IN_APP_MESSAGING_INPUT_BASE,
         additionalDetails: [[componentName], packageData],
-      };
+      });
       break;
     }
     case 'LocationSearch': {
-      input = {
+      setCustomUserAgent({
         ...LOCATION_SEARCH_INPUT_BASE,
         additionalDetails: [[componentName], packageData],
-      };
+      });
       break;
     }
     case 'MapView': {
-      input = {
+      setCustomUserAgent({
         ...MAP_VIEW_INPUT_BASE,
         additionalDetails: [[componentName], packageData],
-      };
+      });
       break;
     }
     case 'StorageManager': {
-      input = {
+      setCustomUserAgent({
         ...STORAGE_MANAGER_INPUT_BASE,
         additionalDetails: [[componentName], packageData],
-      };
+      });
       break;
     }
     default:
-      break;
+      return noop;
   }
-  return setCustomUserAgent(input);
 };
