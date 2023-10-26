@@ -60,7 +60,9 @@ const Wrapper: WrapperComponent<{ children?: React.ReactNode }> = ({
   children,
 }) => <AuthenticatorProvider>{children}</AuthenticatorProvider>;
 
-jest.spyOn(Auth, 'getCurrentUser').mockResolvedValue(undefined);
+jest
+  .spyOn(Auth, 'getCurrentUser')
+  .mockResolvedValue({ userId: '1234', username: 'test' });
 
 describe('useAuthenticator', () => {
   beforeEach(() => {

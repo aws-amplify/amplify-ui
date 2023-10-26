@@ -7,7 +7,6 @@ exports[`useAuthenticator returns the expected values 1`] = `
   "codeDeliveryDetails": {},
   "error": undefined,
   "fields": undefined,
-  "getTotpSecretCode": undefined,
   "hasValidationErrors": false,
   "initializeMachine": [MockFunction],
   "isPending": false,

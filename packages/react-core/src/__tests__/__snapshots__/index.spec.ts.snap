@@ -16,6 +16,7 @@ exports[`@aws-amplify/ui-react-core exports should match snapshot 1`] = `
   "useForm",
   "useHasValueUpdated",
   "usePreviousValue",
+  "useSetUserAgent",
   "useTimeout",
   "withFormProvider",
 ]
