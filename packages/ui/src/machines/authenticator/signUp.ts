@@ -3,7 +3,7 @@ import get from 'lodash/get.js';
 import pickBy from 'lodash/pickBy.js';
 import { assign, createMachine, sendUpdate } from 'xstate';
 
-import { AuthEvent, SignUpContext } from '../../types';
+import { AuthEvent, AuthTouchData, SignUpContext } from '../../types';
 import { runValidators } from '../../validators';
 import {
   clearError,
@@ -21,7 +21,7 @@ import {
   handleSubmit,
 } from './actions';
 import { defaultServices } from './defaultServices';
-import { groupLog, noop } from '../../utils';
+import { groupLog } from '../../utils';
 
 export type SignUpMachineOptions = {
   services?: Partial<typeof defaultServices>;
@@ -249,7 +249,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
          * @migration data is Auth.SignUpOutput
          */
         shouldSkipConfirm: (context, { data }) => {
-          return data.isSignUpComplete;
+          return (data as Auth.SignUpOutput).isSignUpComplete;
         },
       },
       actions: {

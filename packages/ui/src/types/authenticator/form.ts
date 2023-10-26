@@ -5,6 +5,7 @@ import { AuthFieldsWithDefaults } from './attributes';
  * Map of each input name to its value
  */
 export type AuthFormData = Record<string, string>;
+export type AuthTouchData = Record<string, boolean>;
 
 /**
  * List of routes that support custom formFields

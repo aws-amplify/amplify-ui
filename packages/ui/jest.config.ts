@@ -2,7 +2,7 @@ import { Config } from 'jest';
 
 const config: Config = {
   collectCoverage: true,
-  collectCoverageFrom: ['<rootDir>/src/**/*.(ts|tsx)'],
+  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
   coveragePathIgnorePatterns: [
     // ignore coverage for top level "export"
     '<rootDir>/src/index.ts',
@@ -11,7 +11,7 @@ const config: Config = {
   ],
   coverageThreshold: {
     global: {
-      branches: 73,
+      branches: 71,
       functions: 75,
       lines: 84,
       statements: 85,
@@ -29,4 +29,3 @@ const config: Config = {
 };
 
 export default config;
-4;

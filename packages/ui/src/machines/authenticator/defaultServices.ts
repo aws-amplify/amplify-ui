@@ -3,36 +3,49 @@ import * as Auth from '@aws-amplify/auth';
 import { hasSpecialChars } from '../../helpers';
 
 import {
+  AuthFormData,
+  AuthTouchData,
   LoginMechanism,
-  // AuthChallengeName,
   PasswordSettings,
   SignUpAttribute,
   SocialProvider,
-  // SignInResult,
   ValidatorResult,
 } from '../../types';
 import { groupLog } from '../../utils';
+
+// Cognito does not allow a password length lower then 8 characters
+const DEFAULT_COGNITO_PASSWORD_MIN_LENGTH = 8;
 
 export const defaultServices = {
   async getAmplifyConfig() {
     const result = Amplify.getConfig();
     groupLog('+++getAmplifyConfig', 'result', result);
 
-    const cliConfig = result.Auth.Cognito;
-    const parsedLoginMechanisms = Object.entries(cliConfig.loginWith)
-      .filter(([key, _value]) => key !== 'oauth')
-      .filter(([_key, value]) => !!value)
-      .map((keyValueArray) => {
-        return keyValueArray[0] === 'phone' // the key for phone_number is phone in getConfig but everywhere else we treat is as phone_number
-          ? 'phone_number'
-          : keyValueArray[0];
-      }) as LoginMechanism[];
-    const parsedSignupAttributes = Object.entries(cliConfig.userAttributes).map(
-      ([_key, value]) => Object.keys(value)[0]
-    ) as SignUpAttribute[];
-    const parsedSocialProviders = cliConfig.loginWith?.oauth?.providers?.map(
-      (provider) => provider.toString().toLowerCase()
-    ) as SocialProvider[];
+    const cliConfig = result.Auth?.Cognito;
+    const { loginWith, userAttributes } = result.Auth?.Cognito ?? {};
+
+    const parsedLoginMechanisms = loginWith
+      ? (Object.entries(loginWith)
+          .filter(([key, _value]) => key !== 'oauth')
+          .filter(([_key, value]) => !!value)
+          .map((keyValueArray) => {
+            return keyValueArray[0] === 'phone' // the key for phone_number is phone in getConfig but everywhere else we treat is as phone_number
+              ? 'phone_number'
+              : keyValueArray[0];
+          }) as LoginMechanism[])
+      : undefined;
+
+    const parsedSignupAttributes = userAttributes
+      ? (Object.entries(userAttributes).map(
+          ([_key, value]) => Object.keys(value)[0]
+        ) as SignUpAttribute[])
+      : undefined;
+
+    const parsedSocialProviders = loginWith?.oauth?.providers
+      ? (loginWith.oauth.providers?.map((provider) =>
+          provider.toString().toLowerCase()
+        ) as SocialProvider[])
+      : undefined;
     return {
       ...cliConfig,
       loginMechanisms: parsedLoginMechanisms,
@@ -67,7 +80,7 @@ export const defaultServices = {
       options: {
         userAttributes,
         autoSignIn: true,
-      },
+      } as Auth.SignUpInput['options'],
     };
     return Auth.signUp(input);
   },
@@ -109,10 +122,13 @@ export const defaultServices = {
   },
 
   // Validation hooks for overriding
-  async validateCustomSignUp(formData, touchData): Promise<ValidatorResult> {},
-  async validateFormPassword<Validator>(
-    formData,
-    touchData,
+  async validateCustomSignUp(
+    formData: AuthFormData,
+    touchData: AuthTouchData
+  ): Promise<ValidatorResult> {},
+  async validateFormPassword(
+    formData: AuthFormData,
+    touchData: AuthTouchData,
     passwordSettings: PasswordSettings
   ): Promise<ValidatorResult> {
     const { password } = formData;
@@ -127,7 +143,8 @@ export const defaultServices = {
 
     const password_complexity = [];
 
-    const policyMinLength = +passwordSettings?.minLength;
+    const policyMinLength =
+      passwordSettings.minLength ?? DEFAULT_COGNITO_PASSWORD_MIN_LENGTH;
     if (password.length < policyMinLength) {
       password_complexity.push(
         `Password must have at least ${policyMinLength} characters`
@@ -154,9 +171,9 @@ export const defaultServices = {
       ? { password: password_complexity }
       : null;
   },
-  async validateConfirmPassword<Validator>(
-    formData,
-    touchData
+  async validateConfirmPassword(
+    formData: AuthFormData,
+    touchData: AuthTouchData
   ): Promise<ValidatorResult> {
     const { password, confirm_password } = formData;
 
@@ -183,7 +200,7 @@ export const defaultServices = {
     }
   },
   async validatePreferredUsername(
-    formData,
-    touchData
+    formData: AuthFormData,
+    touchData: AuthTouchData
   ): Promise<ValidatorResult> {},
 };

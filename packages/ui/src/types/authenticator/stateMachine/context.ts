@@ -1,5 +1,5 @@
 import { ValidationError } from '../validator';
-import { AuthFormData, AuthFormFields } from '../form';
+import { AuthFormData, AuthFormFields, AuthTouchData } from '../form';
 import { ChallengeName, AmplifyUser, UnverifiedContactMethods } from '../user';
 import { LoginMechanism, SignUpAttribute, SocialProvider } from '../attributes';
 import { defaultServices } from '../../../machines/authenticator/defaultServices';
@@ -82,7 +82,7 @@ interface BaseFormContext {
   /** Maps each input name to tis value */
   formValues?: AuthFormData;
   /** Input (names) that has been blurred at least ones */
-  touched?: AuthFormData;
+  touched?: AuthTouchData;
   /** String that indicates where authMachine should next transition to */
   intent?: string;
   /** Error returned from remote service / API */

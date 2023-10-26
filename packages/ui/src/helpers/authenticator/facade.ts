@@ -85,8 +85,7 @@ export interface AuthenticatorServiceFacade
     AuthenticatorServiceContextFacade {}
 
 interface NextAuthenticatorServiceContextFacade {
-  challengeName: string | undefined;
-  // challengeName: ChallengeName | undefined;
+  challengeName: ChallengeName | undefined;
   codeDeliveryDetails: CodeDeliveryDetails | undefined;
   errorMessage: string | undefined;
   federatedProviders: FederatedProvider[] | undefined;
@@ -184,14 +183,15 @@ export const getServiceContextFacade = (
   } = actorContext;
   // groupLog('+++getServiceContextFacade', 'actorContext', actorContext);
 
-  const { socialProviders } = state.context?.config ?? {};
+  const { socialProviders = [] } = state.context?.config ?? {};
 
   // check for user in actorContext prior to state context. actorContext is more "up to date",
   // but is not available on all states
   const user = actorContext?.user ?? state.context?.user;
 
-  const hasValidationErrors =
-    validationErrors && Object.keys(validationErrors).length > 0;
+  const hasValidationErrors = !!(
+    validationErrors && Object.keys(validationErrors).length > 0
+  );
 
   const actorState = getActorState(state);
   const isPending = state.hasTag('pending') || actorState?.hasTag('pending');
@@ -225,7 +225,15 @@ export const getServiceContextFacade = (
     unverifiedContactMethods,
     user,
     validationErrors,
-  };
+
+    // @v6-migration-note
+    // While most of the properties
+    // on `AuthenticatorServiceContextFacade` can resolve to `undefined`, updating
+    // the interface requires material changes in consumers (namely `useAutenticator`)
+    // which will have implications on the UI layer as typeguards and non-null checks
+    // are required to pass type checking. As the `Authenticator` is behaving as expected
+    // with the `AuthenticatorServiceContextFacade` interface, prefer to cast
+  } as AuthenticatorServiceContextFacade;
 };
 
 export const getNextServiceContextFacade = (
@@ -251,7 +259,8 @@ export const getNextServiceContextFacade = (
   const actorState = getActorState(state);
   const isPending = state.hasTag('pending') || actorState?.hasTag('pending');
 
-  const route = getRoute(state, actorState);
+  // @todo-migration remove this cast for Authenticator.Next
+  const route = getRoute(state, actorState) as AuthenticatorRoute;
 
   return {
     challengeName,

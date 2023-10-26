@@ -1,7 +1,6 @@
 {
   "extends": "@aws-amplify/typescript-config/tsconfig.base.json",
   "compilerOptions": {
-    "noImplicitAny": false,
     "strict": false
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],

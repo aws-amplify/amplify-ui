@@ -1,4 +1,4 @@
-import { ChallengeName, PasswordSettings } from '../../../types';
+import { AuthTouchData, ChallengeName, PasswordSettings } from '../../../types';
 import { defaultServices } from '../defaultServices';
 import { ALLOWED_SPECIAL_CHARACTERS } from '../../../helpers/authenticator/constants';
 import { Amplify } from 'aws-amplify';
@@ -178,8 +178,8 @@ describe('validateConfirmPassword', () => {
       confirm_password: password,
     };
     const touchData = {
-      password: touched,
-      confirm_password: touched,
+      password: true,
+      confirm_password: true,
     };
 
     const result = await validateConfirmPassword(formData, touchData);
@@ -206,9 +206,10 @@ describe('validateConfirmPassword', () => {
       password: 'password1',
       confirm_password: 'password2',
     };
+
     const touchData = {
-      password: touched,
-      confirm_password: touched,
+      password: false,
+      confirm_password: false,
     };
 
     const result = await validateConfirmPassword(formData, touchData);
