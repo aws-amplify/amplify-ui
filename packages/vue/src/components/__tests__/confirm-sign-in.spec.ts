@@ -60,7 +60,7 @@ describe('ConfirmSignIn', () => {
     jest.clearAllMocks();
   });
 
-  it.skip('renders as expected for TOTP challenge', () => {
+  it('renders as expected for TOTP challenge', () => {
     // mock random value so that snapshots are consistent
     const mathRandomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.1);
 
@@ -70,7 +70,7 @@ describe('ConfirmSignIn', () => {
     mathRandomSpy.mockRestore();
   });
 
-  it.skip('renders as expected for SMS challenge', () => {
+  it('renders as expected for SMS challenge', () => {
     // mock random value so that snapshots are consistent
     const mathRandomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.1);
 
@@ -86,9 +86,7 @@ describe('ConfirmSignIn', () => {
     mathRandomSpy.mockRestore();
   });
 
-  // @todo-migration
-  // expected challengeName encountered in ConfirmSignIn: SOFTWARE_TOKEN_MFA
-  it.skip('sends change event on form input', async () => {
+  it('sends change event on form input', async () => {
     render(ConfirmSignIn, { global: { components } });
 
     const codeField = await screen.findByLabelText('Code *');
@@ -97,9 +95,7 @@ describe('ConfirmSignIn', () => {
     expect(updateFormSpy).toHaveBeenCalledWith(codeInputParams);
   });
 
-  // @todo-migration
-  //     Unexpected challengeName encountered in ConfirmSignIn: SOFTWARE_TOKEN_MFA
-  it.skip('sends submit event on form submit', async () => {
+  it('sends submit event on form submit', async () => {
     render(ConfirmSignIn, { global: { components } });
 
     const codeField = await screen.findByLabelText('Code *');
@@ -113,9 +109,7 @@ describe('ConfirmSignIn', () => {
     expect(submitFormSpy).toHaveBeenCalledTimes(1);
   });
 
-  // @todo-migration
-  // expected challengeName encountered in ConfirmSignIn: SOFTWARE_TOKEN_MFA
-  it.skip('displays error if present', async () => {
+  it('displays error if present', async () => {
     useAuthenticatorSpy.mockReturnValueOnce(
       reactive({ ...mockServiceFacade, error: 'mockError' })
     );
@@ -124,9 +118,7 @@ describe('ConfirmSignIn', () => {
     expect(await screen.findByText('mockError')).toBeInTheDocument();
   });
 
-  // @todo-migration
-  // expected challengeName encountered in ConfirmSignIn: SOFTWARE_TOKEN_MFA
-  it.skip('handles back to sign in button as expected', async () => {
+  it('handles back to sign in button as expected', async () => {
     render(ConfirmSignIn, { global: { components } });
 
     const backToSignInButton = await screen.findByRole('button', {
@@ -136,12 +128,8 @@ describe('ConfirmSignIn', () => {
 
     expect(toSignInSpy).toHaveBeenCalledTimes(1);
   });
-  // @todo-migrationg
-  //     Unexpected challengeName encountered in ConfirmSignIn: SOFTWARE_TOKEN_MFA
-  //   3045 |             return translate(DefaultTexts.CONFIRM_TOTP);
-  //   3046 |         default:
-  // > 3047 |             throw new Error(`${translate('Unexpected challengeName encountered in ConfirmSignIn:')} ${challengeName}`);
-  it.skip('disables the submit button if confirmation is pending', async () => {
+
+  it('disables the submit button if confirmation is pending', async () => {
     useAuthenticatorSpy.mockReturnValue(
       reactive({ ...mockServiceFacade, isPending: true })
     );

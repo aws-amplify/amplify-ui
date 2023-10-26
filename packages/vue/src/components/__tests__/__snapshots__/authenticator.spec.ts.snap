@@ -161,7 +161,7 @@ exports[`authenticator renders confirmSignIn subcomponent 1`] = `
                 class="amplify-heading amplify-heading--3"
                 data-amplify-heading=""
               >
-                
+                Confirm TOTP Code
               </h3>
               
               <div
@@ -190,7 +190,7 @@ exports[`authenticator renders confirmSignIn subcomponent 1`] = `
                   style="font-weight: normal;"
                 >
                   
-                  
+                  Confirm
                   
                 </button>
                 
@@ -208,7 +208,7 @@ exports[`authenticator renders confirmSignIn subcomponent 1`] = `
                   type="button"
                 >
                   
-                  
+                  Back to Sign In
                   
                 </button>
                 
