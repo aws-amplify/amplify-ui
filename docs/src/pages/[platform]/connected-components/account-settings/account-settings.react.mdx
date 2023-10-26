@@ -1,4 +1,4 @@
-import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Alert, Tabs } from '@aws-amplify/ui-react';
 import { AppDirectoryAlert } from '@/components/AppDirectoryAlert';
 
 import { InstallScripts } from '@/components/InstallScripts';
@@ -28,22 +28,26 @@ to **automatically** work with your backend.
 First, update `@aws-amplify/cli` with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 if you're using a version before `6.4.0`:
 
-<Tabs>
-<TabItem title="npm">
+<Tabs.Container defaultValue="npm">
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+<Tabs.Panel value="npm">
 
 ```shell
 npm install -g @aws-amplify/cli@latest
 ```
 
-</TabItem>
-<TabItem title="yarn">
+</Tabs.Panel>
+<Tabs.Panel value="yarn">
 
 ```shell
 yarn global add @aws-amplify/cli@latest
 ```
 
-</TabItem>
-</Tabs>
+</Tabs.Panel>
+</Tabs.Container>
 
 ### Step 2. Install Dependencies
 

@@ -1,8 +1,12 @@
-import { Tabs, TabItem, } from '@aws-amplify/ui-react';
+import { Tabs, } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 
-<Tabs className="docs-tabs">
-  <TabItem title="InAppMessagingProvider">
+<Tabs.Container defaultValue="InAppMessagingProvider" className="docs-tabs">
+  <Tabs.List>
+    <Tabs.Item value="InAppMessagingProvider">InAppMessagingProvider</Tabs.Item>
+    <Tabs.Item value="withInAppMessaging">withInAppMessaging</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="InAppMessagingProvider">
     <Example>
       <ExampleCode>
 ```js file=../../../../../../../examples/next/pages/ui/components/in-app-messaging/basic-usage-provider/index.page.tsx
@@ -11,8 +15,8 @@ import { Example, ExampleCode } from '@/components/Example';
       </ExampleCode>
     </Example>
       
-  </TabItem>
-  <TabItem title="withInAppMessaging">
+  </Tabs.Panel>
+  <Tabs.Panel value="withInAppMessaging">
     <Example>
       <ExampleCode>
       ```js file=../../../../../../../examples/next/pages/ui/components/in-app-messaging/basic-usage-hoc/index.page.tsx
@@ -20,5 +24,5 @@ import { Example, ExampleCode } from '@/components/Example';
       ```
       </ExampleCode>
     </Example>
-  </TabItem>
-</Tabs>
+  </Tabs.Panel>
+</Tabs.Container>

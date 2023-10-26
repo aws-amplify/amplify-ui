@@ -1,4 +1,4 @@
-import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Alert, Tabs } from '@aws-amplify/ui-react';
 
 One of the goals of Amplify is to be a good citizen of the environment it exists in. As such Amplify works hard to not interfere with other tools that are being used.
 
@@ -8,8 +8,14 @@ There are many CSS In JS libraries out there that give a number of benefits. Amp
   If your CSS library depends on injecting style tags into the DOM, make sure they are being injected <b>after</b> Amplify UI's style tag. In other words, ensure the style tag for Amplify UI is listed above your custom styles in the `<head>` tag. If Amplify UI's styles are injected after custom styles, then your custom styles may be unset.
 </Alert>
 
-<Tabs>
-<TabItem title="Styled Components">
+<Tabs.Container defaultValue="Styled Components">
+  <Tabs.List>
+    <Tabs.Item value="Styled Components">Styled Components</Tabs.Item>
+    <Tabs.Item value="JSS">JSS</Tabs.Item>
+    <Tabs.Item value="Emotion">Emotion</Tabs.Item>
+    <Tabs.Item value="Aphrodite">Aphrodite</Tabs.Item>
+  </Tabs.List>
+<Tabs.Panel value="Styled Components">
 [Styled Components](https://github.com/styled-components/styled-components) allows you to create visual primitives with actual CSS code directly tied to components.
 
 ## Usage
@@ -120,9 +126,9 @@ const StyledButton = styled(Button)`
 
 In the example above, the button color will be set to `blue` because the Styled Component will take precedence over the Amplify CSS variable.
 
-</TabItem>
+</Tabs.Panel>
 
-<TabItem title="JSS">
+<Tabs.Panel value="JSS">
 [JSS](https://github.com/cssinjs/jss/tree/master/packages/react-jss) is a library for generating Style Sheets with Javascript.
 
 ## Usage
@@ -254,9 +260,9 @@ const classes = useStyles();
 
 In the example above, the button color will be set to `blue` because the JSS styling will take precedence over the Amplify CSS variable.
 
-</TabItem>
+</Tabs.Panel>
 
-<TabItem title="Emotion">
+<Tabs.Panel value="Emotion">
 [Emotion](https://github.com/emotion-js/emotion) is a library designed for writing css styles with JavaScript.
 
 ## Usage
@@ -370,9 +376,9 @@ const styles = {
 
 In the example above, the button color will be set to `blue` because the Emotion styling will take precedence over the Amplify CSS variable.
 
-</TabItem>
+</Tabs.Panel>
 
-<TabItem title="Aphrodite">
+<Tabs.Panel value="Aphrodite">
 [Aphrodite](https://github.com/Khan/aphrodite) is a Framework-agnostic CSS-in-JS with support for server-side rendering, browser prefixing, and minimum CSS generation.
 
 ## Usage
@@ -492,6 +498,6 @@ const styles = StyleSheet.create({
 
 In the example above, the button color will be set to `blue` because the Aphrodite styling will take precedence over the Amplify CSS variable.
 
-</TabItem>
+</Tabs.Panel>
 
-</Tabs>
+</Tabs.Container>
