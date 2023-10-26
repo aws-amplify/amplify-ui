@@ -80,6 +80,6 @@ export type DefaultFormFieldOptions = Record<
 /** Ordered list of formFields */
 export type FormFieldsArray = Array<[string, FormFieldOptions]>;
 
-// password setting directly coming from Amplify.Auth
-export type PasswordSettings =
-  ResourcesConfig['Auth']['Cognito']['passwordFormat'];
+type AuthConfig = NonNullable<ResourcesConfig['Auth']>;
+type CognitoConfig = NonNullable<AuthConfig['Cognito']>;
+export type PasswordSettings = CognitoConfig['passwordFormat'];
