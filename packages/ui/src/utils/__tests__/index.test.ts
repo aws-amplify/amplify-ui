@@ -15,7 +15,6 @@ import {
   isTypedFunction,
   isUndefined,
   sanitizeNamespaceImport,
-  splitObject,
   templateJoin,
 } from '..';
 import { ComponentClassName, Modifiers } from '../../types';
