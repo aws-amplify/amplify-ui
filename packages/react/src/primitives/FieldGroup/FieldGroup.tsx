@@ -11,6 +11,7 @@ import {
 } from '../types';
 import { Flex } from '../Flex';
 import { View } from '../View';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const FieldGroupPrimitive: Primitive<FieldGroupOptions, 'div'> = (
   {
@@ -95,6 +96,6 @@ const FieldGroupPrimitive: Primitive<FieldGroupOptions, 'div'> = (
 };
 
 export const FieldGroup: ForwardRefPrimitive<BaseFieldGroupOptions, 'div'> =
-  React.forwardRef(FieldGroupPrimitive);
+  primitiveWithForwardRef(FieldGroupPrimitive);
 
 FieldGroup.displayName = 'FieldGroup';

@@ -143,7 +143,7 @@ describe('Collection component', () => {
           {(item, index) => <div />}
         </Collection>
       )
-    ).not.toThrowError(TypeError);
+    ).not.toThrow(TypeError);
   });
 
   it('can apply a custom className', async () => {

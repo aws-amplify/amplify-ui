@@ -101,7 +101,8 @@ describe('TextArea component', () => {
     );
     const textarea = await screen.findByRole('textbox');
     userEvent.type(textarea, 'hello');
-    userEvent.paste(textarea, 'there');
+    // userEvent.paste(textarea, 'there');
+    userEvent.paste('there');
     expect(onChange).toHaveBeenCalled();
     expect(onInput).toHaveBeenCalled();
     expect(onPaste).toHaveBeenCalled();

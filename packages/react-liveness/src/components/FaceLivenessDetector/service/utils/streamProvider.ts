@@ -165,6 +165,7 @@ export class LivenessStreamProvider {
   private getAsyncGeneratorFromReadableStream(
     stream: ReadableStream
   ): () => AsyncGenerator<any> {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const current = this;
     this._reader = stream.getReader();
     return async function* () {

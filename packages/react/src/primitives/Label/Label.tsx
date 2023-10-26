@@ -9,6 +9,7 @@ import {
   Primitive,
 } from '../types';
 import { View } from '../View';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const LabelPrimitive: Primitive<LabelProps, 'label'> = (
   { children, className, visuallyHidden, ...rest },
@@ -29,6 +30,6 @@ const LabelPrimitive: Primitive<LabelProps, 'label'> = (
 };
 
 export const Label: ForwardRefPrimitive<BaseLabelProps, 'label'> =
-  React.forwardRef(LabelPrimitive);
+  primitiveWithForwardRef(LabelPrimitive);
 
 Label.displayName = 'Label';

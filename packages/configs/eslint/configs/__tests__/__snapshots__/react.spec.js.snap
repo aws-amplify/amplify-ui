@@ -1,40 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`react config has the expected configuration 1`] = `
-Object {
-  "extends": Array [
+{
+  "extends": [
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
-    "amplify-ui",
+    "@aws-amplify/amplify-ui",
   ],
-  "parserOptions": Object {
-    "ecmaFeatures": Object {
+  "parserOptions": {
+    "ecmaFeatures": {
       "jsx": true,
     },
   },
-  "plugins": Array [
+  "plugins": [
     "react",
     "react-hooks",
   ],
-  "rules": Object {
+  "rules": {
     "react-hooks/exhaustive-deps": "error",
     "react-hooks/rules-of-hooks": "error",
-    "react/destructuring-assignment": Array [
+    "react/destructuring-assignment": [
       "error",
       "always",
     ],
     "react/jsx-boolean-value": "error",
     "react/jsx-no-constructed-context-values": "error",
-    "react/jsx-no-useless-fragment": Array [
+    "react/jsx-no-useless-fragment": [
       "error",
-      Object {
+      {
         "allowExpressions": true,
       },
     ],
     "react/jsx-props-no-spreading": "off",
-    "react/jsx-wrap-multilines": Array [
+    "react/jsx-wrap-multilines": [
       "error",
-      Object {
+      {
         "declaration": "ignore",
       },
     ],
@@ -42,13 +42,13 @@ Object {
     "react/no-danger": "error",
     "react/no-unused-prop-types": "error",
     "react/prop-types": "off",
-    "react/static-property-placement": Array [
+    "react/static-property-placement": [
       "error",
       "static public field",
     ],
   },
-  "settings": Object {
-    "react": Object {
+  "settings": {
+    "react": {
       "version": "detect",
     },
   },

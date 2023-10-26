@@ -8,7 +8,9 @@ const fs = require('fs-extra');
 const packages = [
   'packages/angular/projects/ui-angular',
   'packages/react',
+  'packages/react-auth',
   'packages/react-native',
+  'packages/react-native-auth',
   'packages/react-liveness',
   'packages/vue',
 ];

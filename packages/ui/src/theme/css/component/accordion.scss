@@ -70,6 +70,12 @@
       // this allows the box shadow to appear above the items that come after it
       z-index: 2;
     }
+
+    // the summary element has a webkit psuedo element that looks like ▶︎
+    // but we have our own indicator, lets hide this one
+    &::-webkit-details-marker {
+      display: none;
+    }
   }
 
   &__content {

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { BaseAccordionProps, AccordionProps } from './types';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { AccordionItem } from './AccordionItem';
 import { AccordionContent } from './AccordionContent';
 import { AccordionTrigger } from './AccordionTrigger';
@@ -13,13 +14,13 @@ const AccordionPrimitive: Primitive<AccordionProps, 'div'> = (
 ) => {
   return (
     <AccordionContainer ref={ref} {...rest}>
-      {items?.map((item) => (
-        <AccordionItem key={item.value} {...item}>
+      {items?.map(({ content, trigger, value }) => (
+        <AccordionItem key={value} value={value}>
           <AccordionTrigger>
-            {item.trigger}
+            {trigger}
             <AccordionIcon />
           </AccordionTrigger>
-          <AccordionContent>{item.content}</AccordionContent>
+          <AccordionContent>{content}</AccordionContent>
         </AccordionItem>
       ))}
     </AccordionContainer>
@@ -38,7 +39,7 @@ type AccordionType = ForwardRefPrimitive<BaseAccordionProps, 'div'> & {
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/accordion)
  */
 const Accordion: AccordionType = Object.assign(
-  React.forwardRef(AccordionPrimitive),
+  primitiveWithForwardRef(AccordionPrimitive),
   {
     Container: AccordionContainer,
     Content: AccordionContent,

@@ -2,6 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassName } from '@aws-amplify/ui';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { View } from '../View';
@@ -31,7 +32,7 @@ const AccordionContentPrimitive: Primitive<AccordionContentProps, 'div'> = (
  */
 export const AccordionContent: ForwardRefPrimitive<
   BaseAccordionContentProps,
-  'span'
-> = React.forwardRef(AccordionContentPrimitive);
+  'div'
+> = primitiveWithForwardRef(AccordionContentPrimitive);
 
 AccordionContent.displayName = 'Accordion.Content';

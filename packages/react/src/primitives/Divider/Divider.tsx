@@ -9,6 +9,7 @@ import {
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { View } from '../View';
 
 const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
@@ -38,6 +39,6 @@ const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/divider)
  */
 export const Divider: ForwardRefPrimitive<BaseDividerProps, 'hr'> =
-  React.forwardRef(DividerPrimitive);
+  primitiveWithForwardRef(DividerPrimitive);
 
 Divider.displayName = 'Divider';
