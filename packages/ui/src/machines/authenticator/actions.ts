@@ -1,4 +1,4 @@
-import * as Auth from '@aws-amplify/auth';
+import * as Auth from '@aws-amplify/auth/cognito';
 import { actions } from 'xstate';
 import { trimValues } from '../../helpers';
 
@@ -7,6 +7,8 @@ import {
   AuthEvent,
   SignInContext,
   SignUpContext,
+  CodeDeliveryDetails,
+  V6AuthDeliveryMedium,
 } from '../../types';
 import { groupLog } from '../../utils';
 
@@ -189,8 +191,22 @@ export const setUsername = assign({
 export const setCodeDeliveryDetails = assign({
   codeDeliveryDetails: (_, { data }: { data: Auth.SignUpOutput }) => {
     groupLog('+++setCodeDeliveryDetails', 'data', data);
+    const { codeDeliveryDetails: details } = data.nextStep as {
+      codeDeliveryDetails: {
+        destination?: string;
+        deliveryMedium?: V6AuthDeliveryMedium;
+        attributName?: string;
+      };
+    };
 
-    return data.nextStep.codeDeliveryDetails;
+    // map `details` property names to PascalCase to prevent changes in UI layer
+    const mappedDetails: CodeDeliveryDetails = {
+      Destination: details.destination,
+      DeliveryMedium: details.deliveryMedium,
+      AttributeName: details.attributName,
+    };
+
+    return mappedDetails;
   },
 });
 

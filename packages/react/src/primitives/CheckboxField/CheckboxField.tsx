@@ -11,8 +11,9 @@ import {
 } from '../types';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { FieldErrorMessage } from '../Field';
-import { Flex } from '../Flex';
 import { getTestId } from '../utils/getTestId';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
+import { Flex } from '../Flex';
 
 const CheckboxFieldPrimitive: Primitive<CheckboxFieldProps, 'input'> = (
   {
@@ -57,6 +58,6 @@ const CheckboxFieldPrimitive: Primitive<CheckboxFieldProps, 'input'> = (
 export const CheckboxField: ForwardRefPrimitive<
   BaseCheckboxFieldProps,
   'input'
-> = React.forwardRef(CheckboxFieldPrimitive);
+> = primitiveWithForwardRef(CheckboxFieldPrimitive);
 
 CheckboxField.displayName = 'CheckboxField';

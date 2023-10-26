@@ -80,7 +80,8 @@ const HomeEditor = () => {
               if (e.keyCode === 9) {
                 // tab key
                 e.preventDefault();
-                e.target.blur();
+                // @todo-upgrade-react-18 fix/remove?
+                // e.target.blur();
                 return;
               }
               if (!edited) {

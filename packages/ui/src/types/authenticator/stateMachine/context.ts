@@ -64,13 +64,13 @@ export interface AuthContext {
 }
 
 /**
- * @migration pulled from
+ * `AuthDeliveryMedium` is deeply nested in the v6 types, added this as utility
  */
-// export type AuthDeliveryMedium = 'EMAIL' | 'SMS' | 'PHONE' | 'UNKNOWN'
+export type V6AuthDeliveryMedium = 'EMAIL' | 'SMS' | 'PHONE' | 'UNKNOWN';
 export interface CodeDeliveryDetails {
-  attributeName: string;
-  deliveryMedium: string;
-  destination: string;
+  AttributeName: string;
+  DeliveryMedium: V6AuthDeliveryMedium;
+  Destination: string;
 }
 
 /**

@@ -10,6 +10,7 @@ import {
   TableCellProps,
 } from '../types';
 import { View } from '../View';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const TableCellPrimitive: Primitive<TableCellProps, TableCellElement> = (
   { as: asElementTag = 'td', children, className, ...rest },
@@ -33,6 +34,6 @@ const TableCellPrimitive: Primitive<TableCellProps, TableCellElement> = (
 export const TableCell: ForwardRefPrimitive<
   BaseTableCellProps,
   TableCellElement
-> = React.forwardRef(TableCellPrimitive);
+> = primitiveWithForwardRef(TableCellPrimitive);
 
 TableCell.displayName = 'TableCell';

@@ -1,4 +1,8 @@
-import { CodeDeliveryDetails, SocialProvider } from '../../types';
+import {
+  CodeDeliveryDetails,
+  SocialProvider,
+  V6AuthDeliveryMedium,
+} from '../../types';
 import { translate, DefaultTexts } from '../../i18n';
 import { AuthenticatorRoute } from './facade';
 
@@ -26,9 +30,9 @@ const getChallengeText = (challengeName?: string): string => {
 const getDeliveryMessageText = (
   codeDeliveryDetails: CodeDeliveryDetails
 ): string => {
-  const { deliveryMedium, destination } = codeDeliveryDetails ?? {};
-  const isEmailMessage = deliveryMedium === 'EMAIL';
-  const isTextMessage = deliveryMedium === 'SMS';
+  const { DeliveryMedium, Destination } = codeDeliveryDetails ?? {};
+  const isEmailMessage = DeliveryMedium === 'EMAIL';
+  const isTextMessage = DeliveryMedium === 'SMS';
 
   const arrivalMessage = translate(DefaultTexts.CODE_ARRIVAL);
 
@@ -40,7 +44,7 @@ const getDeliveryMessageText = (
     ? translate(DefaultTexts.CODE_EMAILED)
     : translate(DefaultTexts.CODE_TEXTED);
 
-  return `${instructionMessage} ${destination}. ${arrivalMessage}.`;
+  return `${instructionMessage} ${Destination}. ${arrivalMessage}.`;
 };
 
 const getDeliveryMethodText = (
@@ -51,9 +55,9 @@ const getDeliveryMethodText = (
   //   codeDeliveryDetails
   // );
 
-  const { deliveryMedium } = codeDeliveryDetails ?? {};
-  const isEmailMessage = deliveryMedium === 'EMAIL';
-  const isTextMessage = deliveryMedium === 'SMS';
+  const { DeliveryMedium } = codeDeliveryDetails ?? {};
+  const isEmailMessage = DeliveryMedium === 'EMAIL';
+  const isTextMessage = DeliveryMedium === 'SMS';
 
   if (!isEmailMessage && isTextMessage) {
     return translate(DefaultTexts.WE_SENT_CODE);

@@ -20,7 +20,7 @@ describe('listenToAuthHub', () => {
     Utils.listenToAuthHub(authenticatedStateMachine);
     Hub.dispatch('auth', { event: 'signOut' });
 
-    expect(hubHandlerSpy).toBeCalledWith(
+    expect(hubHandlerSpy).toHaveBeenCalledWith(
       {
         channel: 'auth',
         patternInfo: [],

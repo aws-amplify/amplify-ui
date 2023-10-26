@@ -14,6 +14,7 @@ import { Flex } from '../Flex';
 import { FieldDescription } from './FieldDescription';
 import { FieldErrorMessage } from './FieldErrorMessage';
 import { Label } from '../Label';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 interface FieldPrimitiveProps
   extends BaseFieldProps,
@@ -62,6 +63,6 @@ const FieldPrimitive: Primitive<FieldPrimitiveProps, 'div'> = (props, ref) => {
 };
 
 export const Field: ForwardRefPrimitive<FieldPrimitiveProps, 'div'> =
-  React.forwardRef(FieldPrimitive);
+  primitiveWithForwardRef(FieldPrimitive);
 
 Field.displayName = 'Field';

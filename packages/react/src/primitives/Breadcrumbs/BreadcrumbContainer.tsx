@@ -8,6 +8,7 @@ import {
   BreadcrumbsContainerProps,
   BaseBreadcrumbContainerProps,
 } from '../types';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { View } from '../View';
 
 const BreadcrumbContainerPrimitive: Primitive<
@@ -42,6 +43,6 @@ const BreadcrumbContainerPrimitive: Primitive<
 export const BreadcrumbContainer: ForwardRefPrimitive<
   BaseBreadcrumbContainerProps,
   'nav'
-> = React.forwardRef(BreadcrumbContainerPrimitive);
+> = primitiveWithForwardRef(BreadcrumbContainerPrimitive);
 
 BreadcrumbContainer.displayName = 'Breadcrumbs.Container';

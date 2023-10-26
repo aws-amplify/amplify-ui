@@ -3,6 +3,7 @@ import classNames from 'classnames';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 import { classNameModifier } from '../shared/utils';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 import { Flex } from '../Flex';
 import { View } from '../View';
@@ -82,6 +83,6 @@ const FieldsetPrimitive: Primitive<FieldsetProps, 'fieldset'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/fieldset)
  */
 export const Fieldset: ForwardRefPrimitive<BaseFieldsetProps, 'fieldset'> =
-  React.forwardRef(FieldsetPrimitive);
+  primitiveWithForwardRef(FieldsetPrimitive);
 
 Fieldset.displayName = 'Fieldset';

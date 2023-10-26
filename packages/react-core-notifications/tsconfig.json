@@ -1,5 +1,5 @@
 {
   "extends": "@aws-amplify/typescript-config/tsconfig.react.json",
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["*.config.ts", "src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]
 }

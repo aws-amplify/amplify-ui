@@ -216,6 +216,7 @@ const main = async () => {
   });
 };
 
+// @todo-upgrade-react-18 re-enable
 if (require.main) {
   main();
 }

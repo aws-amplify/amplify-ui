@@ -2,8 +2,10 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
+    "rootDir": "src",
     "outDir": "lib",
     "declaration": false
   },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules", "**/__mocks__", "**/__tests__"]
 }

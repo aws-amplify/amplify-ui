@@ -20,12 +20,17 @@ export const typeInInputField = async (
 };
 
 Given("I'm running the example {string}", async (name: string) => {
-  await device.launchApp({
-    newInstance: true,
-    launchArgs: {
-      EXAMPLE_APP_NAME: name,
-    },
-  });
+  try {
+    await device.launchApp({
+      newInstance: true,
+      launchArgs: {
+        EXAMPLE_APP_NAME: name,
+      },
+    });
+  } catch (error) {
+    error.message = `Failed to launch app with error: ${error.message}`;
+    throw error;
+  }
 });
 
 Given(

@@ -4,9 +4,9 @@ exports[`DefaultContainer renders as expected with children 1`] = `
 <View
   onLayout={[Function]}
   style={
-    Array [
-      Array [
-        Object {
+    [
+      [
+        {
           "alignContent": "center",
           "backgroundColor": "hsl(0, 0%, 100%)",
           "flex": 1,
@@ -14,7 +14,7 @@ exports[`DefaultContainer renders as expected with children 1`] = `
         },
         undefined,
       ],
-      Object {
+      {
         "paddingBottom": 0,
       },
     ]
@@ -23,8 +23,8 @@ exports[`DefaultContainer renders as expected with children 1`] = `
   <RCTScrollView
     alwaysBounceVertical={false}
     contentContainerStyle={
-      Array [
-        Object {
+      [
+        {
           "alignContent": "center",
           "flexGrow": 1,
           "justifyContent": "center",
@@ -38,8 +38,8 @@ exports[`DefaultContainer renders as expected with children 1`] = `
     }
     keyboardShouldPersistTaps="handled"
     style={
-      Array [
-        Object {},
+      [
+        {},
         undefined,
       ]
     }
@@ -47,6 +47,23 @@ exports[`DefaultContainer renders as expected with children 1`] = `
     <View>
       <View
         accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
         accessible={true}
         collapsable={false}
         focusable={true}
@@ -60,8 +77,8 @@ exports[`DefaultContainer renders as expected with children 1`] = `
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          Array [
-            Object {
+          [
+            {
               "alignItems": "center",
               "backgroundColor": "transparent",
               "borderColor": "hsl(210, 10%, 58%)",

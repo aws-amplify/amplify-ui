@@ -11,6 +11,7 @@ import {
 } from '../types';
 import { View } from '../View';
 import { useFieldset } from '../Fieldset/useFieldset';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const InputPrimitive: Primitive<InputProps, 'input'> = (
   {
@@ -64,6 +65,6 @@ const InputPrimitive: Primitive<InputProps, 'input'> = (
 };
 
 export const Input: ForwardRefPrimitive<BaseInputProps, 'input'> =
-  React.forwardRef(InputPrimitive);
+  primitiveWithForwardRef(InputPrimitive);
 
 Input.displayName = 'Input';

@@ -5,7 +5,6 @@
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
-    "declaration": false, // this is overriden in the vite.config.ts typescript2 settings
     "moduleResolution": "node",
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -15,20 +14,8 @@
     "baseUrl": ".",
     "outDir": "dist",
     "resolveJsonModule": true,
-    "types": ["webpack-env", "vite/client", "@types/jest"],
-    "paths": {
-      "@/*": ["src/*"]
-    },
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+    "types": ["webpack-env", "vite/client"]
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
+  "include": ["jest.setup.ts", "src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
   "exclude": ["node_modules"]
 }

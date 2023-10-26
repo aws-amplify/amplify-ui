@@ -12,6 +12,48 @@ import type {
   AutocompleteMenuProps,
   BaseAutocompleteMenuProps,
 } from '../types';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
+
+const MenuHeader = ({ children }: { children?: React.ReactNode }) => {
+  if (!children) {
+    return null;
+  }
+  return (
+    <View className={ComponentClassName.AutocompleteMenuHeader}>
+      {children}
+    </View>
+  );
+};
+
+const MenuFooter = ({ children }: { children?: React.ReactNode }) => {
+  if (!children) {
+    return null;
+  }
+  return (
+    <View className={ComponentClassName.AutocompleteMenuFooter}>
+      {children}
+    </View>
+  );
+};
+
+const MenuLoading = ({ children }: { children?: React.ReactNode }) => {
+  return (
+    <View className={ComponentClassName.AutocompleteMenuLoading}>
+      {children ?? (
+        <>
+          <Loader />
+          {ComponentText.Autocomplete.loadingText}
+        </>
+      )}
+    </View>
+  );
+};
+
+const MenuEmpty = ({ children }: { children?: React.ReactNode }) => (
+  <View className={ComponentClassName.AutocompleteMenuEmpty}>
+    {children ?? ComponentText.Autocomplete.emptyText}
+  </View>
+);
 
 const AutocompleteMenuPrimitive: Primitive<AutocompleteMenuProps, 'div'> = (
   {
@@ -27,50 +69,6 @@ const AutocompleteMenuPrimitive: Primitive<AutocompleteMenuProps, 'div'> = (
   },
   ref
 ) => {
-  const MenuHeader = () => {
-    return (
-      Header && (
-        <View className={ComponentClassName.AutocompleteMenuHeader}>
-          {Header}
-        </View>
-      )
-    );
-  };
-
-  const MenuFooter = () => {
-    return (
-      Footer && (
-        <View className={ComponentClassName.AutocompleteMenuFooter}>
-          {Footer}
-        </View>
-      )
-    );
-  };
-
-  const MenuLoading = () => {
-    const MenuLoadingBody = LoadingIndicator ?? (
-      <>
-        <Loader />
-        {ComponentText.Autocomplete.loadingText}
-      </>
-    );
-
-    return (
-      <View className={ComponentClassName.AutocompleteMenuLoading}>
-        {MenuLoadingBody}
-      </View>
-    );
-  };
-
-  const MenuEmpty = () =>
-    Empty ? (
-      <View className={ComponentClassName.AutocompleteMenuEmpty}>{Empty}</View>
-    ) : (
-      <View className={ComponentClassName.AutocompleteMenuEmpty}>
-        {ComponentText.Autocomplete.emptyText}
-      </View>
-    );
-
   return (
     <ScrollView
       className={ComponentClassName.AutocompleteMenu}
@@ -78,10 +76,10 @@ const AutocompleteMenuPrimitive: Primitive<AutocompleteMenuProps, 'div'> = (
       {...rest}
     >
       {isLoading ? (
-        <MenuLoading />
+        <MenuLoading>{LoadingIndicator}</MenuLoading>
       ) : (
         <>
-          <MenuHeader />
+          <MenuHeader>{Header}</MenuHeader>
           {children.length > 0 ? (
             <ScrollView
               as="ul"
@@ -93,9 +91,9 @@ const AutocompleteMenuPrimitive: Primitive<AutocompleteMenuProps, 'div'> = (
               {children}
             </ScrollView>
           ) : (
-            <MenuEmpty />
+            <MenuEmpty>{Empty}</MenuEmpty>
           )}
-          <MenuFooter />
+          <MenuFooter>{Footer}</MenuFooter>
         </>
       )}
     </ScrollView>
@@ -105,6 +103,6 @@ const AutocompleteMenuPrimitive: Primitive<AutocompleteMenuProps, 'div'> = (
 export const AutocompleteMenu: ForwardRefPrimitive<
   BaseAutocompleteMenuProps,
   'div'
-> = React.forwardRef(AutocompleteMenuPrimitive);
+> = primitiveWithForwardRef(AutocompleteMenuPrimitive);
 
 AutocompleteMenu.displayName = 'AutocompleteMenu';

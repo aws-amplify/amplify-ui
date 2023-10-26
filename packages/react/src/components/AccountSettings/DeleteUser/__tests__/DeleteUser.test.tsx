@@ -99,7 +99,8 @@ describe('DeleteUser', () => {
 
       fireEvent.click(confirmDeleteButton);
     });
-    expect(deleteUserSpy).toBeCalledTimes(1);
+
+    expect(deleteUserSpy).toHaveBeenCalledTimes(1);
   });
 
   it('onSuccess is called after successful account deletion', async () => {
@@ -122,7 +123,7 @@ describe('DeleteUser', () => {
 
     // submit handling is async, wait for onSuccess to be called
     // https://testing-library.com/docs/dom-testing-library/api-async/#waitfor
-    await waitFor(() => expect(onSuccess).toBeCalledTimes(1));
+    await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(1));
   });
 
   it('onError is called after unsuccessful submit', async () => {
@@ -144,7 +145,7 @@ describe('DeleteUser', () => {
     fireEvent.click(confirmDeleteButton);
 
     // submit handling is async, wait for onError to be called
-    await waitFor(() => expect(onError).toBeCalledTimes(1));
+    await waitFor(() => expect(onError).toHaveBeenCalledTimes(1));
   });
 
   it('hides warning component if cancel is clicked', async () => {
@@ -231,7 +232,7 @@ describe('DeleteUser', () => {
 
     // submit handling is async, wait for onSuccess to be called
     // https://testing-library.com/docs/dom-testing-library/api-async/#waitfor
-    await waitFor(() => expect(onSuccess).toBeCalledTimes(1));
+    await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(1));
   });
 
   it('calls deleteUser with expected arguments and component overrides', async () => {
@@ -252,8 +253,9 @@ describe('DeleteUser', () => {
 
       fireEvent.click(confirmDeleteButton);
     });
-    expect(deleteUserSpy).toBeCalledWith();
-    expect(deleteUserSpy).toBeCalledTimes(1);
+
+    expect(deleteUserSpy).toHaveBeenCalledWith();
+    expect(deleteUserSpy).toHaveBeenCalledTimes(1);
   });
 
   it('error message is displayed with component overrides after unsuccessful submit', async () => {

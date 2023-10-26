@@ -98,7 +98,7 @@ describe('uploadFile', () => {
       key: imageFileTypeUndefined.name,
     });
 
-    expect(uploadDataSpy).toBeCalledWith({
+    expect(uploadDataSpy).toHaveBeenCalledWith({
       data: imageFileTypeUndefined,
       key: imageFileTypeUndefined.name,
       options: {
@@ -127,7 +127,7 @@ describe('uploadFile', () => {
       },
     });
 
-    expect(uploadDataSpy).toBeCalledWith({
+    expect(uploadDataSpy).toHaveBeenCalledWith({
       data: imageFile,
       key: imageFile.name,
       options: {

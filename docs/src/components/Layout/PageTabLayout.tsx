@@ -6,7 +6,7 @@ import { Tabs, TabItem, View } from '@aws-amplify/ui-react';
 export const PageTabLayout = ({
   tabComponents,
 }: {
-  tabComponents: [{ title: string; children: React.Component }];
+  tabComponents: [{ title: string; children: React.ReactNode }];
 }) => {
   const {
     query: { tab = '', platform },

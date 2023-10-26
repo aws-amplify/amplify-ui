@@ -16,6 +16,7 @@ import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { classNameModifierByFlag } from '../shared/utils';
 import { View } from '../View';
 import { useFieldset } from '../Fieldset/useFieldset';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   {
@@ -209,6 +210,6 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
 };
 
 export const Checkbox: ForwardRefPrimitive<BaseCheckboxProps, 'input'> =
-  React.forwardRef(CheckboxPrimitive);
+  primitiveWithForwardRef(CheckboxPrimitive);
 
 Checkbox.displayName = 'Checkbox';

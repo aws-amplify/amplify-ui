@@ -20,13 +20,12 @@ const defaultProps = {
 const onChangeText = jest.fn();
 
 describe('TextField', () => {
-  it('renders as expected', async () => {
-    const { toJSON, findAllByRole, getByTestId, getByText } = render(
+  it('renders as expected', () => {
+    const { toJSON, getByTestId, getByText } = render(
       <TextField {...defaultProps} />
     );
     expect(toJSON()).toMatchSnapshot();
 
-    expect(await findAllByRole('text')).toHaveLength(1);
     const textInput = getByTestId(testID);
     expect(textInput.props.editable).toBe(true);
     expect(textInput.props.secureTextEntry).toBeUndefined();

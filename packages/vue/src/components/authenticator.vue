@@ -75,7 +75,6 @@ const emit = defineEmits([
   'confirmVerifyUserSubmit',
 ]);
 
-let unsubscribeMachine: () => void;
 let clearUserAgent: () => void;
 
 const hasInitialized = ref(false);
@@ -86,7 +85,7 @@ const { service, send, state } = useAuth();
  * Subscribes to state machine changes and sends INIT event
  * once machine reaches 'setup' state.
  */
-unsubscribeMachine = service.subscribe((newState) => {
+const unsubscribeMachine = service.subscribe((newState) => {
   if (newState.matches('setup') && !hasInitialized.value) {
     send({
       type: 'INIT',
@@ -545,9 +544,9 @@ const hasRouteComponent = computed(() => {
   <!-- cast slot props back to any for backwards compatibility -->
   <slot
     v-if="route === 'authenticated'"
-    :user="(user as any)"
-    :state="(state as any)"
-    :signOut="(signOut as any)"
-    :send="(send as any)"
+    :user="user as any"
+    :state="state as any"
+    :signOut="signOut as any"
+    :send="send as any"
   ></slot>
 </template>
