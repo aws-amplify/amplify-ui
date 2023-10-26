@@ -16,7 +16,7 @@ exports[`Divider applies theme and style props 1`] = `
     style={
       Array [
         Object {
-          "backgroundColor": "hsl(0, 0%, 0%)",
+          "backgroundColor": "hsl(210, 50%, 10%)",
           "flex": 1,
           "height": 0.5,
         },
@@ -58,7 +58,7 @@ exports[`Divider applies theme and style props 1`] = `
     style={
       Array [
         Object {
-          "backgroundColor": "hsl(0, 0%, 0%)",
+          "backgroundColor": "hsl(210, 50%, 10%)",
           "flex": 1,
           "height": 0.5,
         },
@@ -87,7 +87,7 @@ exports[`Divider renders as expected with label 1`] = `
     style={
       Array [
         Object {
-          "backgroundColor": "hsl(0, 0%, 0%)",
+          "backgroundColor": "hsl(210, 50%, 10%)",
           "flex": 1,
           "height": 0.5,
         },
@@ -125,7 +125,7 @@ exports[`Divider renders as expected with label 1`] = `
     style={
       Array [
         Object {
-          "backgroundColor": "hsl(0, 0%, 0%)",
+          "backgroundColor": "hsl(210, 50%, 10%)",
           "flex": 1,
           "height": 0.5,
         },
@@ -152,7 +152,7 @@ exports[`Divider renders as expected without label 1`] = `
     style={
       Array [
         Object {
-          "backgroundColor": "hsl(0, 0%, 0%)",
+          "backgroundColor": "hsl(210, 50%, 10%)",
           "flex": 1,
           "height": 0.5,
         },

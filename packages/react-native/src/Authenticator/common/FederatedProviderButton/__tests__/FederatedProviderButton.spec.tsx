@@ -5,14 +5,6 @@ import { icons } from '../../../../assets';
 import FederatedProviderButton from '../FederatedProviderButton';
 import { useTheme } from '../../../../theme';
 import { getThemedStyles as getButtonThemedStyles } from '../../../../primitives/Button/styles';
-import { styles } from '../styles';
-
-jest.mock(
-  '@aws-amplify/react-native/lib/moduleLoaders/loadUrlPolyfill',
-  () => ({
-    loadUrlPolyfill: jest.fn(),
-  })
-);
 
 const signInText = 'Sign In with Amazon';
 
@@ -63,7 +55,15 @@ describe('FederatedProviderButton', () => {
       { ...buttonThemedStyle.container, ...buttonThemedStyle.containerDefault },
       undefined, // button pressed styles
       [
-        styles.container,
+        {
+          alignItems: 'center',
+          borderRadius: 4,
+          borderWidth: 0.5,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          paddingVertical: 8,
+          width: '100%',
+        },
         undefined, // pressed style
         customStyle,
       ],

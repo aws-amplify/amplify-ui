@@ -5,13 +5,6 @@ import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { SignUp } from '..';
 
-jest.mock(
-  '@aws-amplify/react-native/lib/moduleLoaders/loadUrlPolyfill',
-  () => ({
-    loadUrlPolyfill: jest.fn(),
-  })
-);
-
 const USERNAME = 'username';
 const username = {
   name: USERNAME,
