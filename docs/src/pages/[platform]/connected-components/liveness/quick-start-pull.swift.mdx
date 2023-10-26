@@ -1,4 +1,4 @@
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Tabs } from '@aws-amplify/ui-react';
 import { Fragment } from '@/components/Fragment';
 
 There are four methods to setup the Amazon Cognito resources needed for Amplify Auth. The most common is the Amplify CLI create flow which asks a series of questions and will configure both a User Pool and Identity Pool automatically. The second option is the Amplify CLI import flow which adds an existing Cognito resource into Amplify. The third is to reuse or create a Cognito Identity Pool manually and to add it into your application. Finally the fourth is to pass a credentials provider which obtains the AWS credentials under your control.
@@ -7,8 +7,14 @@ There are four methods to setup the Amazon Cognito resources needed for Amplify 
   {({}) => import(`./cognito-callout.mdx`)}
 </Fragment>
 
-<Tabs>
-  <TabItem title="Amplify CLI">
+<Tabs.Container defaultValue="Amplify CLI">
+  <Tabs.List>
+    <Tabs.Item value="Amplify CLI">Amplify CLI</Tabs.Item>
+    <Tabs.Item value="Existing Cognito Resource">Existing Cognito Resource</Tabs.Item>
+    <Tabs.Item value="Self Managed Cognito Resource">Self Managed Cognito Resource</Tabs.Item>
+    <Tabs.Item value="Custom Credentials Provider">Custom Credentials Provider</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="Amplify CLI">
 > Use the Amplify CLI to automatically configure and manage your Cognito Identity and User Pool for you.
 
 FaceLivenessDetector uses Amplify Auth by default to authorize users to perform the Face Liveness check. If you are using Amplify for the first time, follow the instructions for [installing the Amplify CLI](https://docs.amplify.aws/cli/start/install/).
@@ -47,16 +53,16 @@ You should now have an `amplifyconfiguration.json` file in your `app/src/main/re
   <Fragment>
   {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}
 </Fragment>
-  </TabItem>
-  <TabItem title="Existing Cognito Resource">
+  </Tabs.Panel>
+  <Tabs.Panel value="Existing Cognito Resource">
 > If you previously had unmanaged resources that you want to manage with Amplify you can use the CLI to import your Cognito resources.
 
 FaceLivenessDetector uses Amplify Auth by default to authorize users to perform the Face Liveness check. Follow the instructions for [importing existing resources](https://docs.amplify.aws/lib/auth/getting-started/q/platform/android/#set-up-backend-resources).
  <Fragment>
   {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}
 </Fragment> 
-  </TabItem>
-  <TabItem title="Self Managed Cognito Resource">
+  </Tabs.Panel>
+  <Tabs.Panel value="Self Managed Cognito Resource">
 > Use this option if you already have a Cognito identity/user pools that you do not want to import to Amplify, or want to manage Cognito resources yourself or with a 3rd party resource management tool.
 
 If you already have Cognito set up or do not want to use the Amplify CLI to generate Cognito resources, you can follow the documentation in the [existing resources tab](https://docs.amplify.aws/lib/auth/getting-started/q/platform/android/#set-up-backend-resources).
@@ -86,8 +92,8 @@ When initially configuring Amplify (assuming you are using no pieces of Amplify 
 <Fragment>
   {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}
 </Fragment>
-  </TabItem>
-  <TabItem title="Custom Credentials Provider">
+  </Tabs.Panel>
+  <Tabs.Panel value="Custom Credentials Provider">
 > Use this option if you want more control over the process of obtaining AWS credentials.
 
 By default, FaceLivenessDetector uses Amplify Auth to authorize users to perform the Face Liveness check. You can use your own credentials provider to retrieve credentials from [Amazon Cognito](https://aws.amazon.com/cognito/) or assume a role with [Amazon STS](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html), for example:
@@ -137,5 +143,5 @@ struct MyView: View {
 <Fragment>
   {({ platform }) => import(`./quick-start-add-with-credentials-provider.swift.mdx`)}
 </Fragment>
-  </TabItem>
-</Tabs>
+  </Tabs.Panel>
+</Tabs.Container>

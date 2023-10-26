@@ -49,7 +49,6 @@ exports[`@aws-amplify/ui-react exports should match snapshot 1`] = `
   "SliderField",
   "StepperField",
   "SwitchField",
-  "TabItem",
   "Table",
   "TableBody",
   "TableCell",
@@ -12608,247 +12607,6 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       },
     },
   },
-  "TabItem": {
-    "properties": {
-      "alignSelf": {
-        "type": "string",
-      },
-      "area": {
-        "type": "string",
-      },
-      "backgroundColor": {
-        "type": "string",
-      },
-      "backgroundImage": {
-        "type": "string",
-      },
-      "basis": {
-        "type": "string",
-      },
-      "border": {
-        "type": "string",
-      },
-      "borderColor": {
-        "type": "string",
-      },
-      "borderRadius": {
-        "type": "string",
-      },
-      "borderStyle": {
-        "type": "string",
-      },
-      "borderWidth": {
-        "type": "string",
-      },
-      "bottom": {
-        "type": "string",
-      },
-      "boxShadow": {
-        "type": "string",
-      },
-      "children": {
-        "type": "string",
-      },
-      "className": {
-        "type": "string",
-      },
-      "color": {
-        "type": "string",
-      },
-      "column": {
-        "type": "string",
-      },
-      "columnEnd": {
-        "type": "string",
-      },
-      "columnSpan": {
-        "type": "string",
-      },
-      "columnStart": {
-        "type": "string",
-      },
-      "display": {
-        "type": "string",
-      },
-      "flex": {
-        "type": "string",
-      },
-      "fontFamily": {
-        "type": "string",
-      },
-      "fontSize": {
-        "type": "string",
-      },
-      "fontStyle": {
-        "type": "string",
-      },
-      "fontWeight": {
-        "type": "string",
-      },
-      "grow": {
-        "type": "string",
-      },
-      "height": {
-        "type": "string",
-      },
-      "id": {
-        "type": "string",
-      },
-      "inert": {
-        "type": "boolean",
-      },
-      "isDisabled": {
-        "type": "boolean",
-      },
-      "left": {
-        "type": "string",
-      },
-      "letterSpacing": {
-        "type": "string",
-      },
-      "lineHeight": {
-        "type": "string",
-      },
-      "margin": {
-        "type": "string",
-      },
-      "marginBlock": {
-        "type": "string",
-      },
-      "marginBlockEnd": {
-        "type": "string",
-      },
-      "marginBlockStart": {
-        "type": "string",
-      },
-      "marginBottom": {
-        "type": "string",
-      },
-      "marginInline": {
-        "type": "string",
-      },
-      "marginInlineEnd": {
-        "type": "string",
-      },
-      "marginInlineStart": {
-        "type": "string",
-      },
-      "marginLeft": {
-        "type": "string",
-      },
-      "marginRight": {
-        "type": "string",
-      },
-      "marginTop": {
-        "type": "string",
-      },
-      "maxHeight": {
-        "type": "string",
-      },
-      "maxWidth": {
-        "type": "string",
-      },
-      "minHeight": {
-        "type": "string",
-      },
-      "minWidth": {
-        "type": "string",
-      },
-      "opacity": {
-        "type": "string",
-      },
-      "order": {
-        "type": "string",
-      },
-      "overflow": {
-        "type": "string",
-      },
-      "padding": {
-        "type": "string",
-      },
-      "paddingBlock": {
-        "type": "string",
-      },
-      "paddingBlockEnd": {
-        "type": "string",
-      },
-      "paddingBlockStart": {
-        "type": "string",
-      },
-      "paddingBottom": {
-        "type": "string",
-      },
-      "paddingInline": {
-        "type": "string",
-      },
-      "paddingInlineEnd": {
-        "type": "string",
-      },
-      "paddingInlineStart": {
-        "type": "string",
-      },
-      "paddingLeft": {
-        "type": "string",
-      },
-      "paddingRight": {
-        "type": "string",
-      },
-      "paddingTop": {
-        "type": "string",
-      },
-      "position": {
-        "type": "string",
-      },
-      "right": {
-        "type": "string",
-      },
-      "row": {
-        "type": "string",
-      },
-      "rowEnd": {
-        "type": "string",
-      },
-      "rowSpan": {
-        "type": "string",
-      },
-      "rowStart": {
-        "type": "string",
-      },
-      "shrink": {
-        "type": "string",
-      },
-      "testId": {
-        "type": "string",
-      },
-      "textAlign": {
-        "type": "string",
-      },
-      "textDecoration": {
-        "type": "string",
-      },
-      "textTransform": {
-        "type": "string",
-      },
-      "title": {
-        "type": "string",
-      },
-      "top": {
-        "type": "string",
-      },
-      "transform": {
-        "type": "string",
-      },
-      "transformOrigin": {
-        "type": "string",
-      },
-      "whiteSpace": {
-        "type": "string",
-      },
-      "width": {
-        "type": "string",
-      },
-    },
-  },
   "Table": {
     "properties": {
       "alignSelf": {
@@ -14345,12 +14103,6 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
   },
   "Tabs": {
     "properties": {
-      "alignContent": {
-        "type": "string",
-      },
-      "alignItems": {
-        "type": "string",
-      },
       "alignSelf": {
         "type": "string",
       },
@@ -14408,22 +14160,10 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "columnEnd": {
         "type": "string",
       },
-      "columnGap": {
-        "type": "string",
-      },
       "columnSpan": {
         "type": "string",
       },
       "columnStart": {
-        "type": "string",
-      },
-      "currentIndex": {
-        "type": "string",
-      },
-      "defaultIndex": {
-        "type": "string",
-      },
-      "direction": {
         "type": "string",
       },
       "display": {
@@ -14444,9 +14184,6 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "fontWeight": {
         "type": "string",
       },
-      "gap": {
-        "type": "string",
-      },
       "grow": {
         "type": "string",
       },
@@ -14456,16 +14193,13 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "id": {
         "type": "string",
       },
-      "indicatorPosition": {
-        "type": "string",
-      },
       "inert": {
         "type": "boolean",
       },
       "isDisabled": {
         "type": "boolean",
       },
-      "justifyContent": {
+      "key": {
         "type": "string",
       },
       "left": {
@@ -14579,9 +14313,6 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "rowEnd": {
         "type": "string",
       },
-      "rowGap": {
-        "type": "string",
-      },
       "rowSpan": {
         "type": "string",
       },
@@ -14589,9 +14320,6 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "shrink": {
-        "type": "string",
-      },
-      "spacing": {
         "type": "string",
       },
       "testId": {
@@ -14619,9 +14347,6 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "width": {
-        "type": "string",
-      },
-      "wrap": {
         "type": "string",
       },
     },

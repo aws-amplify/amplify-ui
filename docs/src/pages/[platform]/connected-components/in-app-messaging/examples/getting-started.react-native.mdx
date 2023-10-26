@@ -1,10 +1,14 @@
-import { Tabs, TabItem, } from '@aws-amplify/ui-react';
+import { Tabs, } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 
 <Example>
 <ExampleCode>
-<Tabs>
-<TabItem title="InAppMessagingProvider/InAppMessageDisplay">
+<Tabs.Container defaultValue="InAppMessagingProvider/InAppMessageDisplay">
+  <Tabs.List>
+    <Tabs.Item value="InAppMessagingProvider/InAppMessageDisplay">InAppMessagingProvider/InAppMessageDisplay</Tabs.Item>
+    <Tabs.Item value="withInAppMessaging">withInAppMessaging</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="InAppMessagingProvider/InAppMessageDisplay">
 
 ```jsx
 import React, { useEffect } from 'react';
@@ -39,8 +43,8 @@ function App() {
 export default App;
 ```
 
-</TabItem>
-<TabItem title="withInAppMessaging">
+</Tabs.Panel>
+<Tabs.Panel value="withInAppMessaging">
 
 ```jsx
 import React, { useEffect } from 'react';
@@ -67,7 +71,7 @@ function App() {
 export default withInAppMessaging(App);
 ```
    
-</TabItem>
-</Tabs>
+  </Tabs.Panel>
+</Tabs.Container>
 </ExampleCode>
 </Example>
