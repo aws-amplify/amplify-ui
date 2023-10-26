@@ -1,6 +1,5 @@
 import { defineConfig } from 'rollup';
 import typescript from '@rollup/plugin-typescript';
-
 import styles from 'rollup-plugin-styles';
 import externals from 'rollup-plugin-node-externals';
 

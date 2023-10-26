@@ -3,18 +3,12 @@
 exports[`FederatedProviderButtons renders as expected 1`] = `
 <View
   style={
-<<<<<<< HEAD
-    Array [
-      Object {
+    [
+      {
         "marginHorizontal": 12,
       },
       undefined,
     ]
-=======
-    {
-      "paddingVertical": 4,
-    }
->>>>>>> next-release/main
   }
   testID="amplify__federated-provider-buttons"
 >
@@ -73,18 +67,12 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
             "width": "100%",
           },
           undefined,
-<<<<<<< HEAD
-          Array [
-            Object {
+          [
+            {
               "marginVertical": 8,
             },
             undefined,
           ],
-=======
-          {
-            "marginVertical": 8,
-          },
->>>>>>> next-release/main
         ],
       ]
     }
@@ -148,15 +136,9 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
   >
     <View
       style={
-<<<<<<< HEAD
-        Array [
-          Object {
-            "backgroundColor": "hsl(210, 50%, 10%)",
-=======
         [
           {
-            "backgroundColor": "hsl(0, 0%, 0%)",
->>>>>>> next-release/main
+            "backgroundColor": "hsl(210, 50%, 10%)",
             "flex": 1,
             "height": 0.5,
           },
@@ -183,19 +165,12 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
               "margin": 16,
               "textAlign": "center",
             },
-<<<<<<< HEAD
-            Array [
-              Object {
+            [
+              {
                 "textAlign": "center",
               },
               undefined,
             ],
-=======
-            {
-              "paddingVertical": 8,
-              "textAlign": "center",
-            },
->>>>>>> next-release/main
           ],
         ]
       }
@@ -204,15 +179,9 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
     </Text>
     <View
       style={
-<<<<<<< HEAD
-        Array [
-          Object {
-            "backgroundColor": "hsl(210, 50%, 10%)",
-=======
         [
           {
-            "backgroundColor": "hsl(0, 0%, 0%)",
->>>>>>> next-release/main
+            "backgroundColor": "hsl(210, 50%, 10%)",
             "flex": 1,
             "height": 0.5,
           },

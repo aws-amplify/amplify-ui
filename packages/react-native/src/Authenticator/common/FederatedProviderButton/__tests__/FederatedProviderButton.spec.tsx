@@ -54,7 +54,17 @@ describe('FederatedProviderButton', () => {
     expect(getByRole('button').props.style).toStrictEqual([
       { ...buttonThemedStyle.container, ...buttonThemedStyle.containerDefault },
       undefined, // button pressed styles
+
       [
+        {
+          alignItems: 'center',
+          borderRadius: 4,
+          borderWidth: 0.5,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          paddingVertical: 8,
+          width: '100%',
+        },
         undefined, // pressed style
         customStyle,
       ],

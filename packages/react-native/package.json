@@ -20,6 +20,7 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@aws-amplify/react-native": "console-preview",
     "@babel/cli": "^7.23.0",
     "@babel/core": "^7.23.2",
     "@babel/preset-env": "^7.23.2",

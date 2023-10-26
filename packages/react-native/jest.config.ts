@@ -12,6 +12,7 @@ const config: Config = {
     '^react-native$': '<rootDir>/node_modules/react-native',
     '^uuid$': '<rootDir>/../../node_modules/uuid',
   },
+  modulePaths: ['<rootDir>/node_modules/'],
   coverageThreshold: {
     global: {
       branches: 90,
