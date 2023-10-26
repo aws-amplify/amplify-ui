@@ -40,7 +40,7 @@ exports[`authenticator renders confirmResetPassword subcomponent 1`] = `
                 class="amplify-heading amplify-heading--3"
                 data-amplify-heading=""
               >
-                
+                Reset Password
               </h3>
               
               <div
@@ -69,7 +69,7 @@ exports[`authenticator renders confirmResetPassword subcomponent 1`] = `
                   type="submit"
                 >
                   
-                  
+                  Submit
                   
                 </button>
                 
@@ -86,7 +86,7 @@ exports[`authenticator renders confirmResetPassword subcomponent 1`] = `
                   type="button"
                 >
                   
-                  
+                  Resend Code
                   
                 </button>
                 
@@ -161,7 +161,7 @@ exports[`authenticator renders confirmSignIn subcomponent 1`] = `
                 class="amplify-heading amplify-heading--3"
                 data-amplify-heading=""
               >
-                
+                Confirm TOTP Code
               </h3>
               
               <div
@@ -190,7 +190,7 @@ exports[`authenticator renders confirmSignIn subcomponent 1`] = `
                   style="font-weight: normal;"
                 >
                   
-                  
+                  Confirm
                   
                 </button>
                 
@@ -208,7 +208,7 @@ exports[`authenticator renders confirmSignIn subcomponent 1`] = `
                   type="button"
                 >
                   
-                  
+                  Back to Sign In
                   
                 </button>
                 
@@ -276,7 +276,7 @@ exports[`authenticator renders confirmSignUp subcomponent 1`] = `
                 class="amplify-heading amplify-authenticator__heading amplify-heading--3"
                 data-amplify-heading=""
               >
-                
+                We Texted You
               </h3>
               
               
@@ -285,7 +285,7 @@ exports[`authenticator renders confirmSignUp subcomponent 1`] = `
                 data-amplify-text=""
               >
                 
-                undefined. undefined.
+                Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.
                 
               </span>
               
@@ -318,7 +318,7 @@ exports[`authenticator renders confirmSignUp subcomponent 1`] = `
                   type="submit"
                 >
                   
-                  
+                  Confirm
                   
                 </button>
                 
@@ -335,7 +335,7 @@ exports[`authenticator renders confirmSignUp subcomponent 1`] = `
                   type="button"
                 >
                   
-                  
+                  Resend Code
                   
                 </button>
                 
@@ -414,7 +414,7 @@ exports[`authenticator renders confirmVerifyUser subcomponent 1`] = `
                 class="amplify-heading amplify-heading--3"
                 data-amplify-heading=""
               >
-                
+                Account recovery requires verified contact information
               </h3>
               
               <div
@@ -443,7 +443,7 @@ exports[`authenticator renders confirmVerifyUser subcomponent 1`] = `
                   type="submit"
                 >
                   
-                  
+                  Submit
                   
                 </button>
                 
@@ -461,7 +461,7 @@ exports[`authenticator renders confirmVerifyUser subcomponent 1`] = `
                   type="button"
                 >
                   
-                  
+                  Skip
                   
                 </button>
                 
@@ -533,7 +533,7 @@ exports[`authenticator renders forceNewPassword subcomponent 1`] = `
                 class="amplify-heading amplify-heading--3"
                 data-amplify-heading=""
               >
-                
+                Change Password
               </h3>
               
               <div
@@ -564,7 +564,7 @@ exports[`authenticator renders forceNewPassword subcomponent 1`] = `
                   style="font-weight: normal;"
                 >
                   
-                  
+                  Change Password
                   
                 </button>
                 
@@ -582,7 +582,7 @@ exports[`authenticator renders forceNewPassword subcomponent 1`] = `
                   type="button"
                 >
                   
-                  
+                  Back to Sign In
                   
                 </button>
                 
@@ -648,7 +648,7 @@ exports[`authenticator renders resetPassword subcomponent 1`] = `
               class="amplify-heading amplify-heading--3"
               data-amplify-heading=""
             >
-              
+              Reset Password
             </h3>
             
             
@@ -680,7 +680,7 @@ exports[`authenticator renders resetPassword subcomponent 1`] = `
                 type="submit"
               >
                 
-                
+                Send code
                 
               </button>
               
@@ -698,7 +698,7 @@ exports[`authenticator renders resetPassword subcomponent 1`] = `
                 type="button"
               >
                 
-                
+                Back to Sign In
                 
               </button>
               
@@ -800,7 +800,9 @@ exports[`authenticator renders setupTOTP subcomponent 1`] = `
                       
                       <div
                         data-amplify-copy-tooltip=""
-                      />
+                      >
+                        COPY
+                      </div>
                       <svg
                         height="24"
                         viewBox="0 0 24 24"
@@ -837,7 +839,7 @@ exports[`authenticator renders setupTOTP subcomponent 1`] = `
                     type="submit"
                   >
                     
-                    
+                    Confirm
                     
                   </button>
                   
@@ -855,7 +857,7 @@ exports[`authenticator renders setupTOTP subcomponent 1`] = `
                     type="button"
                   >
                     
-                    
+                    Back to Sign In
                     
                   </button>
                   
@@ -931,7 +933,7 @@ exports[`authenticator renders signIn subcomponent 1`] = `
               tabindex="0"
             >
               
-              
+              Sign In
               
             </div>
             <div
@@ -947,7 +949,7 @@ exports[`authenticator renders signIn subcomponent 1`] = `
               tabindex="-1"
             >
               
-              
+              Create Account
               
             </div>
             
@@ -1003,7 +1005,7 @@ exports[`authenticator renders signIn subcomponent 1`] = `
                   fullwidth="true"
                 >
                   
-                  
+                  Sign in
                   
                 </button>
                 
@@ -1035,7 +1037,7 @@ exports[`authenticator renders signIn subcomponent 1`] = `
                 type="button"
               >
                 
-                
+                Forgot your password?
                 
               </button>
               
@@ -1108,7 +1110,7 @@ exports[`authenticator renders signUp subcomponent 1`] = `
               tabindex="-1"
             >
               
-              
+              Sign In
               
             </div>
             <div
@@ -1124,7 +1126,7 @@ exports[`authenticator renders signUp subcomponent 1`] = `
               tabindex="0"
             >
               
-              
+              Create Account
               
             </div>
             
@@ -1175,7 +1177,7 @@ exports[`authenticator renders signUp subcomponent 1`] = `
                   style="border-radius: 0px; font-weight: normal;"
                 >
                   
-                  
+                  Create Account
                   
                 </button>
                 
@@ -1256,7 +1258,7 @@ exports[`authenticator renders verifyUser subcomponent 1`] = `
                 class="amplify-heading amplify-heading--3"
                 data-amplify-heading=""
               >
-                
+                Account recovery requires verified contact information
               </h3>
               
               <div
@@ -1270,7 +1272,7 @@ exports[`authenticator renders verifyUser subcomponent 1`] = `
                   id="amplify-field-493c"
                 >
                   
-                  
+                  Verify Contact
                   
                 </label>
                 <div
@@ -1341,7 +1343,7 @@ exports[`authenticator renders verifyUser subcomponent 1`] = `
                   type="submit"
                 >
                   
-                  
+                  Verify
                   
                 </button>
                 
@@ -1359,7 +1361,7 @@ exports[`authenticator renders verifyUser subcomponent 1`] = `
                   type="button"
                 >
                   
-                  
+                  Skip
                   
                 </button>
                 

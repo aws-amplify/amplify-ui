@@ -11,9 +11,9 @@ import { AuthenticatorRoute } from './facade';
  */
 const getChallengeText = (challengeName?: string): string => {
   switch (challengeName) {
-    case 'CONFIRM_SIGN_IN_WITH_SMS_CODE':
+    case 'SMS_MFA':
       return translate(DefaultTexts.CONFIRM_SMS);
-    case 'CONFIRM_SIGN_IN_WITH_TOTP_CODE':
+    case 'SOFTWARE_TOKEN_MFA':
       return translate(DefaultTexts.CONFIRM_TOTP);
     default:
       throw new Error(
