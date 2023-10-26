@@ -36,6 +36,7 @@ const user = {
 
 export const mockMachineContext: AuthenticatorMachineContext = {
   authStatus,
+  challengeName,
   codeDeliveryDetails,
   error,
   hasValidationErrors,
