@@ -1,5 +1,5 @@
 import { defineConfig } from 'rollup';
-import { terser } from 'rollup-plugin-terser';
+
 import typescript from '@rollup/plugin-typescript';
 import externals from 'rollup-plugin-node-externals';
 
@@ -18,7 +18,6 @@ const config = defineConfig([
     plugins: [
       externals(),
       typescript({ declarationDir: 'dist/types', sourceMap, tsconfig }),
-      terser(),
     ],
   },
   // ESM config
@@ -39,7 +38,6 @@ const config = defineConfig([
         sourceMap,
         tsconfig,
       }),
-      terser(),
     ],
   },
 ]);
