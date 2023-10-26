@@ -74,7 +74,7 @@ describe('handleSubmit', () => {
 
 describe('resendCode', () => {
   it('should call Auth.forgotPassword', async () => {
-    const authSpy = jest.spyOn(Auth, 'forgotPassword');
+    const authSpy = jest.spyOn(Auth, 'resetPassword');
     const mockUsername = 'test';
     resendCode({ username: mockUsername });
 

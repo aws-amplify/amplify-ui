@@ -25,7 +25,8 @@ describe('listenToAuthHub', () => {
         channel: 'auth',
         patternInfo: [],
         payload: { event: 'signOut' },
-        source: '',
+        // @todo-migration confirm changing from source '' to undefined is correct
+        source: undefined,
       },
       authenticatedStateMachine
     );
