@@ -1,5 +1,5 @@
 import kebabCase from 'lodash/kebabCase.js';
-import { DefaultTheme, WebTheme } from '../types';
+import { WebTheme } from '../types';
 import { cssValue } from './cssValue';
 import { BaseComponentTheme, ComponentsTheme } from '../components';
 import { isFunction } from '../../utils';

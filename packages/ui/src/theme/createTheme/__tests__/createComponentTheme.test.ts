@@ -1,4 +1,3 @@
-import { defaultTheme } from '../../defaultTheme';
 import { createComponentTheme } from '../createComponentTheme';
 import { createTheme } from '../createTheme';
 

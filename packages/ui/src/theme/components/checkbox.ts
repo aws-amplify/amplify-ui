@@ -1,5 +1,4 @@
 import {
-  CSSProperties,
   ComponentTheme,
   BaseThemeDefinition,
   BaseComponentTheme,
