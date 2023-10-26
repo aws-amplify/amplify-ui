@@ -2,7 +2,7 @@ import * as Auth from '@aws-amplify/auth';
 import get from 'lodash/get.js';
 import { createMachine, sendUpdate } from 'xstate';
 
-import { AuthChallengeName, AuthEvent, SignInContext } from '../../../types';
+import { ChallengeName, AuthEvent, SignInContext } from '../../../types';
 import { runValidators } from '../../../validators';
 import {
   clearAttributeToVerify,
@@ -36,22 +36,19 @@ export type SignInMachineOptions = {
   services?: Partial<typeof defaultServices>;
 };
 
-const MFA_CHALLENGE_NAMES: AuthChallengeName[] = [
-  'SMS_MFA',
-  'SOFTWARE_TOKEN_MFA',
-];
+const MFA_CHALLENGE_NAMES: ChallengeName[] = ['SMS_MFA', 'SOFTWARE_TOKEN_MFA'];
 
 const SIGN_IN_STEP_MFA_CONFIRMATION: string[] = [
   'CONFIRM_SIGN_IN_WITH_SMS_CODE',
   'CONFIRM_SIGN_IN_WITH_TOTP_CODE',
 ];
 
-const getChallengeName = (event: AuthEvent): AuthChallengeName =>
+const getChallengeName = (event: AuthEvent): ChallengeName =>
   get(event, 'data.challengeName');
 
 const isExpectedChallengeName = (
-  challengeName: AuthChallengeName,
-  expectedChallengeName: AuthChallengeName
+  challengeName: ChallengeName,
+  expectedChallengeName: ChallengeName
 ) => challengeName === expectedChallengeName;
 
 const isSignInStepMFAConfirmation = (signInStep: string) =>

@@ -1,10 +1,6 @@
 import { ValidationError } from '../validator';
 import { AuthFormData, AuthFormFields } from '../form';
-import {
-  AuthChallengeName,
-  AmplifyUser,
-  UnverifiedContactMethods,
-} from '../user';
+import { ChallengeName, AmplifyUser, UnverifiedContactMethods } from '../user';
 import { LoginMechanism, SignUpAttribute, SocialProvider } from '../attributes';
 import { defaultServices } from '../../../machines/authenticator/defaultServices';
 import { PasswordSettings } from '..';
@@ -80,7 +76,7 @@ interface BaseFormContext {
   /** Any user attributes set that needs to persist between states */
   authAttributes?: Record<string, any>;
   /** Current challengeName issued by Cognnito */
-  challengeName?: AuthChallengeName;
+  challengeName?: ChallengeName;
   /** Required attributes for form submission */
   requiredAttributes?: Array<string>;
   /** Maps each input name to tis value */
@@ -130,7 +126,7 @@ export interface ResetPasswordContext extends BaseFormContext {
 
 export interface SignOutContext {
   authAttributes?: Record<string, any>;
-  challengeName?: AuthChallengeName;
+  challengeName?: ChallengeName;
   unverifiedContactMethods?: UnverifiedContactMethods;
   user?: AmplifyUser;
   formFields?: AuthFormFields;

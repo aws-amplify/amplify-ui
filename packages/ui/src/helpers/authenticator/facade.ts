@@ -13,7 +13,7 @@ import {
   AuthEventData,
   AuthEventTypes,
   AuthMachineState,
-  // ChallengeName,
+  ChallengeName,
   CodeDeliveryDetails,
   FederatedProvider,
   LoginMechanism,
@@ -49,6 +49,7 @@ export type AuthStatus = 'configuring' | 'authenticated' | 'unauthenticated';
 
 interface AuthenticatorServiceContextFacade {
   authStatus: AuthStatus;
+  challengeName: ChallengeName | undefined;
   codeDeliveryDetails: CodeDeliveryDetails;
   error: string;
   hasValidationErrors: boolean;
@@ -213,6 +214,7 @@ export const getServiceContextFacade = (
 
   return {
     authStatus,
+    challengeName: user.challengeName,
     codeDeliveryDetails,
     error,
     hasValidationErrors,

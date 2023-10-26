@@ -178,7 +178,7 @@ type BaseComponent<
   // Route specific `FieldType`
   FieldType = {},
   // additional props assigned in the UI layer
-  Props = {}
+  Props = {},
 > = React.ComponentType<
   ComponentSlots<FieldType> &
     ComponentRouteProps & { fields: FieldType[] } & Props

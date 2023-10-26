@@ -27,7 +27,9 @@ jest.mock('aws-amplify', () => ({
 }));
 
 jest.mock('aws-amplify/in-app-messaging', () => ({
-  ...jest.requireActual('aws-amplify/in-app-messaging'),
+  ...jest.requireActual<typeof import('aws-amplify/in-app-messaging')>(
+    'aws-amplify/in-app-messaging'
+  ),
   notifyMessageInteraction: jest.fn(),
 }));
 

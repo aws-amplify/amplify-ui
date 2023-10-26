@@ -1,4 +1,4 @@
-import { AuthChallengeName, PasswordSettings } from '../../../types';
+import { ChallengeName, PasswordSettings } from '../../../types';
 import { defaultServices } from '../defaultServices';
 import { ALLOWED_SPECIAL_CHARACTERS } from '../../../helpers/authenticator/constants';
 import { Amplify } from 'aws-amplify';
@@ -278,7 +278,7 @@ describe('handleConfirmSignIn', () => {
     user: 'testuser',
     code: '1234',
     // @todo-migration confirm this is correct value for challengResponse
-    challengeResponse: 'SMS_MFA' as AuthChallengeName,
+    challengeResponse: 'SMS_MFA' as ChallengeName,
   };
   it('should call Auth.confirmSignIn', async () => {
     await handleConfirmSignIn(testCredentials);

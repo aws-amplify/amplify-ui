@@ -29,7 +29,9 @@ const mockGet = jest.fn().mockImplementation(() => {
     expiration: new Date(),
   };
 });
-Amplify.Credentials.get = mockGet;
+
+// @todo-migration remove cast and fix mock if needed
+(Amplify as any).Credentials.get = mockGet;
 
 let SWITCH = false;
 
