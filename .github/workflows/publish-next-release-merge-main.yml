@@ -33,9 +33,17 @@ jobs:
   #     commit: ${{ github.sha }}
   #     repository: ${{ github.repository }}
 
+  publish:
+    uses: ./.github/workflows/reusable-tagged-publish.yml
+    needs: setup-cache
+    with:
+      dist-tag: next-release-migration
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
   e2e:
     uses: ./.github/workflows/reusable-e2e.yml
-    needs: setup-cache
+    needs: publish
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
@@ -56,10 +64,4 @@ jobs:
       DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
       DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
-  publish:
-    uses: ./.github/workflows/reusable-tagged-publish.yml
-    needs: e2e
-    with:
-      dist-tag: next-release-migration
-    secrets:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
