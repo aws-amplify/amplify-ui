@@ -6,8 +6,9 @@ permissions:
   id-token: write # This is required for aws-actions/configure-aws-credentials
 
 on:
-  pull_request_target:
-   types: [opened, synchronize, labeled]
+  pull_request:
+    branches: [next-release/merge-main-to-migration]
+    types: [opened, synchronize, labeled]
 
 jobs:
   build:
