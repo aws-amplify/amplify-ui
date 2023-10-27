@@ -60,6 +60,6 @@ jobs:
     uses: ./.github/workflows/reusable-tagged-publish.yml
     needs: e2e
     with:
-      dist-tag: next-release-react18
+      dist-tag: next-release-migration
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
