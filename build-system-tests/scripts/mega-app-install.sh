@@ -104,7 +104,7 @@ if [ "$FRAMEWORK" == 'react' ]; then
 elif [ "$FRAMEWORK" == 'angular' ]; then
     # remove angular since it's deprecated https://www.npmjs.com/package/angular
     # We've install @amplify/cli when creating the app
-    echo "DEPENDENCIES="@aws-amplify/ui-$FRAMEWORK@$UI_VERSION aws-amplify@$AMPLIFY_VERSION"
+    echo "DEPENDENCIES="@aws-amplify/ui-$FRAMEWORK@$UI_VERSION aws-amplify@$AMPLIFY_VERSION""
     DEPENDENCIES="@aws-amplify/ui-$FRAMEWORK@$UI_VERSION aws-amplify@$AMPLIFY_VERSION"
 fi
 
