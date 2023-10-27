@@ -1,6 +1,6 @@
 import { Image } from 'react-native';
 import { ConsoleLogger as Logger } from '@aws-amplify/core';
-import { MessageLayout } from '@aws-amplify/ui-react-core-notifications';
+import { InAppMessageLayout } from '@aws-amplify/ui-react-core-notifications';
 
 import {
   BANNER_IMAGE_SCREEN_SIZE,
@@ -12,7 +12,7 @@ import { ImageDimensions, ImageLoadingState } from './types';
 
 const logger = new Logger('InAppMessaging');
 
-const inAppMessageImageSizes: Record<MessageLayout, number> = {
+const inAppMessageImageSizes: Record<InAppMessageLayout, number> = {
   BOTTOM_BANNER: BANNER_IMAGE_SCREEN_SIZE,
   MIDDLE_BANNER: BANNER_IMAGE_SCREEN_SIZE,
   TOP_BANNER: BANNER_IMAGE_SCREEN_SIZE,
@@ -41,7 +41,7 @@ export const prefetchNetworkImage = async (
 export const getLayoutImageDimensions = (
   imageHeight: number,
   imageWidth: number,
-  layout: MessageLayout
+  layout: InAppMessageLayout
 ): ImageDimensions => {
   // determine aspect ratio for scaling rendered image
   const aspectRatio = imageWidth / imageHeight;

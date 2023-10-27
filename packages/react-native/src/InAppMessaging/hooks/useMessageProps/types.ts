@@ -6,7 +6,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import {
-  MessageLayout,
+  InAppMessageLayout,
   MessagePayloadStyle,
 } from '@aws-amplify/ui-react-core-notifications';
 
@@ -50,7 +50,7 @@ export interface MessageStyleParams {
   /**
    * message specific layout
    */
-  layout: MessageLayout;
+  layout: InAppMessageLayout;
 
   /**
    * style params to derive resolved style from

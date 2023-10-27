@@ -1,7 +1,7 @@
 import { Image } from 'react-native';
 import { renderHook } from '@testing-library/react-hooks';
 import { ConsoleLogger as Logger } from '@aws-amplify/core';
-import { MessageImage } from '@aws-amplify/ui-react-core-notifications';
+import { InAppMessageImage } from '@aws-amplify/ui-react-core-notifications';
 
 import { getLayoutImageDimensions, prefetchNetworkImage } from '../utils';
 import useMessageImage from '../useMessageImage';
@@ -117,7 +117,7 @@ describe('useMessageImage', () => {
 
   it('returns the expected values when the image argument is an empty object', () => {
     const { result } = renderHook(() =>
-      useMessageImage({} as MessageImage, 'TOP_BANNER')
+      useMessageImage({} as InAppMessageImage, 'TOP_BANNER')
     );
 
     expect(result.current).toStrictEqual({

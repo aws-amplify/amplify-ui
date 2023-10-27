@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { MessageImage } from '@aws-amplify/ui-react-core-notifications';
+import { InAppMessageImage } from '@aws-amplify/ui-react-core-notifications';
 
 import { ConsoleLogger as Logger } from '@aws-amplify/core';
 
@@ -14,7 +14,7 @@ const logger = new Logger('InAppMessaging');
  * @returns message image dimensions and fetching related booleans
  */
 export default function useMessageImage(
-  image: MessageImage | undefined
+  image: InAppMessageImage | undefined
 ): UseMessageImage {
   const { src } = image ?? {};
   const shouldPrefetch = !!src;

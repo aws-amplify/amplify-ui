@@ -1,6 +1,6 @@
 import { ConsoleLogger as Logger } from '@aws-amplify/core';
 
-import { MessageButton, MessageContent } from '../../../types';
+import { InAppMessageButton, InAppMessageContent } from '../../../types';
 import { BannerMessageLayouts } from '../../../types';
 import { getActionHandler, getContentProps, getPositionProp } from '../utils';
 
@@ -9,17 +9,17 @@ const errorSpy = jest.spyOn(Logger.prototype, 'error').mockImplementation();
 
 const onMessageAction = jest.fn();
 
-const baseContent: MessageContent = {
+const baseContent: InAppMessageContent = {
   container: { style: { backgroundColor: 'purple' } },
 };
 
-const primaryButton: MessageButton = {
+const primaryButton: InAppMessageButton = {
   action: 'LINK',
   title: 'Go to docs',
   url: 'https://docs.amplify.aws/',
 };
 
-const secondaryButton: MessageButton = {
+const secondaryButton: InAppMessageButton = {
   action: 'CLOSE',
   title: 'close',
 };
@@ -82,7 +82,7 @@ describe('getContentProps', () => {
 
   it('returns an empty props object when content is null', () => {
     const output = getContentProps(
-      null as unknown as MessageContent,
+      null as unknown as InAppMessageContent,
       onMessageAction,
       onActionCallback
     );

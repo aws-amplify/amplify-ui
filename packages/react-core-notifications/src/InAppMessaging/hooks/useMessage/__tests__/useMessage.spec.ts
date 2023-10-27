@@ -4,7 +4,7 @@ import { RenderNothing } from '@aws-amplify/ui-react-core';
 import { useInAppMessaging } from '../../useInAppMessaging';
 import {
   BannerMessageCommonProps,
-  Message,
+  InAppMessage,
   MessageCommonProps,
 } from '../../../types';
 import { UseMessageParams } from '../types';
@@ -32,11 +32,11 @@ jest.mock('aws-amplify/in-app-messaging', () => ({
 }));
 
 const header = { content: 'header one' };
-const baseMessage: Partial<Message> = {
+const baseMessage: Partial<InAppMessage> = {
   id: 'test',
   content: [{ header }],
 };
-const carouselMessage: Partial<Message> = {
+const carouselMessage: Partial<InAppMessage> = {
   id: 'carousel',
   content: [{ header }, { header: { content: 'header two' } }],
   layout: 'CAROUSEL',

@@ -2,11 +2,11 @@ import { ConsoleLogger as Logger } from '@aws-amplify/core';
 
 import {
   BannerMessageLayouts,
-  MessageAction,
-  MessageButton,
+  InAppMessageAction,
+  InAppMessageButton,
   MessageButtonProps,
   MessageComponentPosition,
-  MessageContent,
+  InAppMessageContent,
   MessageContentProps,
   OnMessageAction,
 } from '../../types';
@@ -24,7 +24,7 @@ export const getPositionProp = (
 ): MessageComponentPosition => positions[layout];
 
 export const getActionHandler = (
-  actionParams: { action: MessageAction; url?: string },
+  actionParams: { action: InAppMessageAction; url?: string },
   onMessageAction: OnMessageAction,
   onActionCallback: () => void
 ): { onAction: () => void } => ({
@@ -40,7 +40,7 @@ export const getActionHandler = (
 });
 
 const getButtonProps = (
-  { action, url, ...baseButtonProps }: MessageButton,
+  { action, url, ...baseButtonProps }: InAppMessageButton,
   onMessageAction: OnMessageAction,
   onActionCallback: () => void
 ): MessageButtonProps => ({
@@ -49,7 +49,7 @@ const getButtonProps = (
 });
 
 export const getContentProps = (
-  content: MessageContent,
+  content: InAppMessageContent,
   onMessageAction: OnMessageAction,
   onActionCallback: () => void
 ): MessageContentProps => {

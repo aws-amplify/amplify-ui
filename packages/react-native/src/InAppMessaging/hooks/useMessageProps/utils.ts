@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { isFunction } from '@aws-amplify/ui';
 import {
   MessageComponentBaseProps,
-  MessageLayout,
+  InAppMessageLayout,
   MessagePayloadStyle,
 } from '@aws-amplify/ui-react-core-notifications';
 
@@ -87,7 +87,7 @@ export const getComponentButtonStyle = ({
  * @returns {Boolean} boolean indicating whether entire screen should be filled
  */
 
-export const shouldFillDeviceScreen = (layout: MessageLayout): boolean => {
+export const shouldFillDeviceScreen = (layout: InAppMessageLayout): boolean => {
   switch (layout) {
     case 'CAROUSEL':
     case 'FULL_SCREEN': {

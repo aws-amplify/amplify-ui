@@ -1,10 +1,10 @@
 import { createContext } from 'react';
-import { Message } from '../../types';
+import { InAppMessage } from '../../types';
 
 export interface InAppMessagingContextType {
   clearMessage: () => void;
-  displayMessage: (message: Message) => void;
-  message: Message | null;
+  displayMessage: (message: InAppMessage) => void;
+  message: InAppMessage | null;
 }
 
 const InAppMessagingContext = createContext<InAppMessagingContextType | null>(
