@@ -746,7 +746,8 @@ export function signInActor({ services }: SignInMachineOptions) {
 
           const input: Auth.ConfirmUserAttributeInput = {
             confirmationCode: confirmation_code,
-            userAttributeKey: attributeToVerify,
+            userAttributeKey:
+              attributeToVerify as Auth.ConfirmUserAttributeInput['userAttributeKey'],
           };
           return await Auth.confirmUserAttribute(input);
         },
