@@ -5,12 +5,11 @@
     tabindex="0"
     aria-orientation="horizontal"
     data-orientation="horizontal"
-    class="amplify-authenticator__tabs"
-    role="tablist"
+    class="amplify-authenticator__tabs amplify-tabs"
   >
     <base-wrapper
-      class="amplify-flex amplify-tabs amplify-authenticator__tabs-wrapper"
-      data-indicator-position="top"
+      class="amplify-tabs__list amplify-tabs__list--top amplify-tabs__list--equal amplify-authenticator__tabs-wrapper"
+      role="tablist"
     >
       <slot></slot>
     </base-wrapper>

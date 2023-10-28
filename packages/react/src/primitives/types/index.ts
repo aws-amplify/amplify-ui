@@ -39,7 +39,6 @@ export * from './stepperField';
 export * from './style';
 export * from './switchField';
 export * from './table';
-export * from './tabs';
 export * from './text';
 export * from './textArea';
 export * from './textAreaField';

@@ -1,4 +1,4 @@
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Tabs } from '@aws-amplify/ui-react';
 import { TerminalCommand } from '@/components/InstallScripts';
 
 The Authenticator works seamlessly with the [Amplify CLI](https://docs.amplify.aws/cli/start/install/)
@@ -7,15 +7,16 @@ to **automatically** work with your backend.
 First, update `@aws-amplify/cli` with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 if you're using a version before `6.4.0`:
 
-<Tabs>
-<TabItem title="npm">
+<Tabs.Container defaultValue="npm">
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="npm">
+    <TerminalCommand command="npm install -g @aws-amplify/cli@latest" />
+  </Tabs.Panel>
+  <Tabs.Panel value="yarn">
+    <TerminalCommand command="yarn global add @aws-amplify/cli@latest" />
+  </Tabs.Panel>
+</Tabs.Container>
 
-<TerminalCommand command="npm install -g @aws-amplify/cli@latest" />
-
-</TabItem>
-<TabItem title="yarn">
-
-<TerminalCommand command="yarn global add @aws-amplify/cli@latest" />
-
-</TabItem>
-</Tabs>

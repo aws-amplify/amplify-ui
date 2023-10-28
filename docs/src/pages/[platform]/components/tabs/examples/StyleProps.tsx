@@ -1,23 +1,18 @@
-import { Tabs, TabItem, useTheme } from '@aws-amplify/ui-react';
+import { Tabs } from '@aws-amplify/ui-react';
 
 export const StyleProps = () => {
-  const { tokens } = useTheme();
   return (
-    <Tabs backgroundColor={tokens.colors.neutral[10]}>
-      <TabItem
-        title="Tab 1"
-        color={tokens.colors.font.secondary}
-        backgroundColor="transparent"
-      >
-        Content of Tab 1
-      </TabItem>
-      <TabItem
-        title="Tab 2"
-        color={tokens.colors.brand.secondary[60]}
-        backgroundColor="transparent"
-      >
-        Content of Tab 2
-      </TabItem>
-    </Tabs>
+    <Tabs.Container defaultValue="1">
+      <Tabs.List backgroundColor="background.secondary">
+        <Tabs.Item value="1" color="font.secondary">
+          Tab 1
+        </Tabs.Item>
+        <Tabs.Item value="2" color="brand.secondary.60">
+          Tab 2
+        </Tabs.Item>
+      </Tabs.List>
+      <Tabs.Panel value="1">Content of Tab 1</Tabs.Panel>
+      <Tabs.Panel value="2">Content of Tab 2</Tabs.Panel>
+    </Tabs.Container>
   );
 };
