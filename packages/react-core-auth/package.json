@@ -1,5 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-core-auth",
+  "private": true,
   "version": "0.0.1",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",

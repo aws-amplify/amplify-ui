@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import { NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
 
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
+import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import {
   UnverifiedContactMethodType,
   authenticatorTextUtil,
