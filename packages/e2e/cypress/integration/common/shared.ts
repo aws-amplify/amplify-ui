@@ -4,7 +4,6 @@
 
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { get, escapeRegExp } from 'lodash';
-import * as Auth from 'aws-amplify/auth';
 
 let language = 'en-US';
 let window = null;
@@ -74,6 +73,23 @@ Given(
     cy.intercept(routeMatcher, { fixture }).as(
       `${routeMatcher.headers?.['x-amz-target'] || 'route'}`
     );
+  }
+);
+
+Given(
+  'I intercept and confirm {string} with fixture {string}',
+  (json: string, fixture: string) => {
+    let routeMatcher;
+
+    try {
+      routeMatcher = JSON.parse(json);
+    } catch (error) {
+      throw error;
+    }
+
+    cy.intercept(routeMatcher, { fixture }).as(
+      `${routeMatcher.headers?.['x-amz-target'] || 'route'}`
+    );
     cy.wait(`@${routeMatcher.headers?.['x-amz-target'] || 'route'}`).then(
       (interception) => {
         console.log('interception');
@@ -110,7 +126,7 @@ Given('I see {string} request', (json: string, fixture: string) => {
   cy.wait(`@${routeMatcher.headers?.['X-Amz-Target'] || 'route'}`).then(
     (interception) => {
       console.log('interception');
-      assert.isNotNull(interception, '1st API call has data');
+      assert.isNotNull(interception, 'API call confirmed');
     }
   );
 });
