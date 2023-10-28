@@ -51,7 +51,7 @@
     "tslib": "^2.5.2"
   },
   "peerDependencies": {
-    "aws-amplify": "console-preview",
+    "aws-amplify": "^6.0.0",
     "xstate": "^4.33.6"
   },
   "peerDependenciesMeta": {

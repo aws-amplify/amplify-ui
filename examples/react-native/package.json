@@ -12,8 +12,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "@aws-amplify/react-native": "console-preview",
-    "@aws-amplify/rtn-web-browser": "console-preview",
+    "@aws-amplify/react-native": "^1.0.0",
+    "@aws-amplify/rtn-web-browser": "^1.0.0",
     "@aws-amplify/ui": "*",
     "@aws-amplify/ui-react-core": "*",
     "@aws-amplify/ui-react-core-notifications": "*",
