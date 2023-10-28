@@ -4,6 +4,7 @@
 
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { get, escapeRegExp } from 'lodash';
+import * as Auth from 'aws-amplify/auth';
 
 let language = 'en-US';
 let window = null;
@@ -70,9 +71,49 @@ Given(
       throw error;
     }
 
-    cy.intercept(routeMatcher, { fixture }).as('route');
+    cy.intercept(routeMatcher, { fixture }).as(
+      `${routeMatcher.headers?.['x-amz-target'] || 'route'}`
+    );
+    cy.wait(`@${routeMatcher.headers?.['x-amz-target'] || 'route'}`).then(
+      (interception) => {
+        console.log('interception');
+        assert.isNotNull(interception, 'API call confirmed');
+      }
+    );
   }
 );
+
+Given('I spy {string} request', (json: string, fixture: string) => {
+  let routeMatcher;
+
+  try {
+    routeMatcher = JSON.parse(json);
+  } catch (error) {
+    throw error;
+  }
+  console.log(routeMatcher, 'routmater');
+
+  cy.intercept(routeMatcher).as(
+    `${routeMatcher.headers?.['X-Amz-Target'] || 'route'}`
+  );
+});
+
+Given('I see {string} request', (json: string, fixture: string) => {
+  let routeMatcher;
+
+  try {
+    routeMatcher = JSON.parse(json);
+  } catch (error) {
+    throw error;
+  }
+
+  cy.wait(`@${routeMatcher.headers?.['X-Amz-Target'] || 'route'}`).then(
+    (interception) => {
+      console.log('interception');
+      assert.isNotNull(interception, '1st API call has data');
+    }
+  );
+});
 
 Given(
   'I intercept {string} with fixture {string} and add header {string} with value {string}',
@@ -182,6 +223,12 @@ Then('I see the {string} button', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
   }).should('exist');
+});
+
+Then('I do not see the {string} button', (name: string) => {
+  cy.findByRole('button', {
+    name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
+  }).should('not.exist');
 });
 
 When('I click the {string} checkbox', (label: string) => {
@@ -339,7 +386,7 @@ When('I see {string} as the {string} input', (custom, order) => {
   cy.get('input').eq(order).should('have.attr', 'placeholder', custom);
 });
 
-When('I mock {string} event', (eventName: string) => {
+When('I dispatch {string} event', (eventName: string) => {
   if (!window) {
     throw new Error('window has not been set in the Cypress tests');
   }
@@ -370,7 +417,7 @@ When(
   }
 );
 
-Given('I spy {string} method', (path) => {
+Given('I spy {string} method', (path: string) => {
   const { obj, method } = getMethodFromWindow(path);
   cy.spy(obj, method).as(path);
 });

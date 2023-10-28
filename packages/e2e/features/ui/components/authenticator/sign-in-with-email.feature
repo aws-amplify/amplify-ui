@@ -10,7 +10,7 @@ Feature: Sign In with Email
   Background:
     Given I'm running the example "/ui/components/authenticator/sign-in-with-email"
 
-  @todo-migration @angular @react @vue
+  @skip @angular @react @vue
   Scenario: Sign in with force password reset calls forgot password
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with error fixture "force-reset-password"
     When I type my "email" with status "CONFIRMED"
@@ -27,23 +27,21 @@ Feature: Sign In with Email
     Then I click the "Sign in" button
     Then I see "User does not exist."
 
-  @todo-migration @angular @react @vue
+  @angular @react @vue
   Scenario: Sign in with unconfirmed credentials
 
   If you sign in with an unconfirmed account, Authenticator will redirect you to `confirmSignUp` route.
 
-    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
     When I type my "email" with status "UNCONFIRMED"
     Then I type my password
     Then I click the "Sign in" button
+    Then I spy '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' request
+    Then I see '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' request
     Then I see "Confirmation Code"
     Then I type a valid confirmation code
-    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
-    # Mocking these two calls is much easier than intercepting 6+ network calls with tokens that are validated & expire within the hour
-    Then I mock 'Auth.signIn' with fixture "Auth.signIn-verified-email"
-    Then I mock 'Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
+    Then I spy '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' request
     Then I click the "Confirm" button
-    Then I see "Sign out"
+    Then I see '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' request
 
   @angular @react @vue @react-native
   Scenario: Sign in with confirmed credentials
