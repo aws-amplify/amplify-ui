@@ -50,6 +50,7 @@ Feature: Sign In with Email
     Then I click the "Sign in" button
     Then I see "Sign out"
     Then I click the "Sign out" button
+    Then I see "Sign in"
 
   @angular @react @vue @react-native
   Scenario: Sign in with confirmed credentials then sign out
