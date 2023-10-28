@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 import { Event, interpret, Subscription } from 'xstate';
 
 import * as Auth from '@aws-amplify/auth';
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
+import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import {
   AmplifyUser,
   AuthContext,
