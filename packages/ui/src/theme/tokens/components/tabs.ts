@@ -1,7 +1,7 @@
 import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 type TabItemStateTokens<OutputType> = DesignTokenProperties<
-  'backgroundColor' | 'borderColor' | 'color',
+  'backgroundColor' | 'borderColor' | 'boxShadow' | 'color',
   OutputType
 >;
 
@@ -19,8 +19,8 @@ type TabItemTokens<OutputType extends OutputVariantKey> = DesignTokenProperties<
   | 'transitionDuration',
   OutputType
 > & {
-  _hover?: DesignTokenProperties<'color', OutputType>;
-  _focus?: DesignTokenProperties<'color', OutputType>;
+  _hover?: TabItemStateTokens<OutputType>;
+  _focus?: TabItemStateTokens<OutputType>;
   _active?: TabItemStateTokens<OutputType>;
   _disabled?: TabItemStateTokens<OutputType>;
 };
@@ -30,6 +30,10 @@ export type TabsTokens<Output extends OutputVariantKey> = DesignTokenProperties<
   Output
 > & {
   item?: TabItemTokens<Output>;
+  panel?: DesignTokenProperties<
+    'backgroundColor' | 'paddingInline' | 'paddingBlock',
+    Output
+  >;
 };
 
 export const tabs: Required<TabsTokens<'default'>> = {
@@ -53,20 +57,41 @@ export const tabs: Required<TabsTokens<'default'>> = {
     transitionDuration: { value: '{time.medium.value}' },
 
     _hover: {
+      backgroundColor: { value: 'transparent' },
+      borderColor: { value: '{colors.border.focus.value}' },
+      boxShadow: { value: 'none' },
       color: { value: '{colors.font.hover.value}' },
     },
     _focus: {
+      backgroundColor: { value: 'transparent' },
+      borderColor: { value: '{colors.border.focus.value}' },
+      boxShadow: {
+        value: {
+          offsetX: '0px',
+          offsetY: '0px',
+          blurRadius: '0px',
+          spreadRadius: '{borderWidths.medium}',
+          color: '{colors.border.focus.value}',
+        },
+      },
       color: { value: '{colors.font.focus.value}' },
     },
     _active: {
-      color: { value: '{colors.font.interactive.value}' },
-      borderColor: { value: '{colors.font.interactive.value}' },
       backgroundColor: { value: 'transparent' },
+      borderColor: { value: '{colors.font.interactive.value}' },
+      boxShadow: { value: 'none' },
+      color: { value: '{colors.font.interactive.value}' },
     },
     _disabled: {
-      color: { value: '{colors.font.disabled.value}' },
       backgroundColor: { value: 'transparent' },
       borderColor: { value: '{colors.border.tertiary.value}' },
+      boxShadow: { value: 'none' },
+      color: { value: '{colors.font.disabled.value}' },
     },
+  },
+  panel: {
+    backgroundColor: { value: 'transparent' },
+    paddingInline: { value: '0' },
+    paddingBlock: { value: '{space.small.value}' },
   },
 };

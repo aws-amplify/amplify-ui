@@ -1,6 +1,5 @@
 import { defineConfig } from 'rollup';
 import typescript from '@rollup/plugin-typescript';
-import styles from 'rollup-plugin-styles';
 
 import externals from 'rollup-plugin-node-externals';
 
@@ -41,16 +40,6 @@ const config = defineConfig([
         tsconfig,
       }),
     ],
-  },
-  // CSS config
-  {
-    input: 'src/styles.ts',
-    output: {
-      dir: 'dist',
-      format: 'cjs',
-      assetFileNames: '[name][extname]',
-    },
-    plugins: [styles({ mode: ['extract'] })],
   },
 ]);
 

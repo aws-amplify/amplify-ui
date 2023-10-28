@@ -908,50 +908,37 @@ exports[`authenticator renders signIn subcomponent 1`] = `
       >
         <div
           aria-orientation="horizontal"
-          class="amplify-authenticator__tabs"
+          class="amplify-authenticator__tabs amplify-tabs"
           data-orientation="horizontal"
-          role="tablist"
           tabindex="0"
         >
           
           <div
-            class="amplify-flex amplify-tabs amplify-authenticator__tabs-wrapper"
-            data-indicator-position="top"
+            class="amplify-tabs__list amplify-tabs__list--top amplify-tabs__list--equal amplify-authenticator__tabs-wrapper"
+            role="tablist"
           >
             
             
-            <div
-              aria-controls="radix-id-44472-8-content-0"
+            <button
+              aria-controls="signIn-panel"
               aria-selected="true"
-              class="amplify-tabs-item"
-              data-orientation="horizontal"
-              data-radix-collection-item=""
-              data-spacing="equal"
-              data-state="active"
-              id="radix-id-44472-8-trigger-0"
+              class="amplify-tabs__item--active amplify-tabs__item"
+              id="signIn-tab"
               role="tab"
               tabindex="0"
             >
-              
               Sign In
-              
-            </div>
-            <div
-              aria-controls="radix-id-44471-8-content-0"
+            </button>
+            <button
+              aria-controls="signUp-panel"
               aria-selected="false"
-              class="amplify-tabs-item"
-              data-orientation="horizontal"
-              data-radix-collection-item=""
-              data-spacing="equal"
-              data-state="inactive"
-              id="radix-id-44471-8-trigger-0"
+              class="amplify-tabs__item"
+              id="signUp-tab"
               role="tab"
               tabindex="-1"
             >
-              
               Create Account
-              
-            </div>
+            </button>
             
             
           </div>
@@ -963,7 +950,12 @@ exports[`authenticator renders signIn subcomponent 1`] = `
           
           
           
-          <div>
+          <div
+            aria-labelledby="signIn-tab"
+            class="amplify-tabs__panel amplify-tabs__panel--active"
+            id="signIn-panel"
+            role="tabpanel"
+          >
             
             
             <form
@@ -1085,50 +1077,37 @@ exports[`authenticator renders signUp subcomponent 1`] = `
       >
         <div
           aria-orientation="horizontal"
-          class="amplify-authenticator__tabs"
+          class="amplify-authenticator__tabs amplify-tabs"
           data-orientation="horizontal"
-          role="tablist"
           tabindex="0"
         >
           
           <div
-            class="amplify-flex amplify-tabs amplify-authenticator__tabs-wrapper"
-            data-indicator-position="top"
+            class="amplify-tabs__list amplify-tabs__list--top amplify-tabs__list--equal amplify-authenticator__tabs-wrapper"
+            role="tablist"
           >
             
             
-            <div
-              aria-controls="radix-id-44472-8-content-0"
+            <button
+              aria-controls="signIn-panel"
               aria-selected="false"
-              class="amplify-tabs-item"
-              data-orientation="horizontal"
-              data-radix-collection-item=""
-              data-spacing="equal"
-              data-state="inactive"
-              id="radix-id-44472-8-trigger-0"
+              class="amplify-tabs__item"
+              id="signIn-tab"
               role="tab"
               tabindex="-1"
             >
-              
               Sign In
-              
-            </div>
-            <div
-              aria-controls="radix-id-44471-8-content-0"
+            </button>
+            <button
+              aria-controls="signUp-panel"
               aria-selected="true"
-              class="amplify-tabs-item"
-              data-orientation="horizontal"
-              data-radix-collection-item=""
-              data-spacing="equal"
-              data-state="active"
-              id="radix-id-44471-8-trigger-0"
+              class="amplify-tabs__item--active amplify-tabs__item"
+              id="signUp-tab"
               role="tab"
               tabindex="0"
             >
-              
               Create Account
-              
-            </div>
+            </button>
             
             
           </div>
@@ -1141,7 +1120,12 @@ exports[`authenticator renders signUp subcomponent 1`] = `
           
           
           
-          <div>
+          <div
+            aria-labelledby="signUp-tab"
+            class="amplify-tabs__panel amplify-tabs__panel--active"
+            id="signUp-panel"
+            role="tabpanel"
+          >
             
             
             <form
