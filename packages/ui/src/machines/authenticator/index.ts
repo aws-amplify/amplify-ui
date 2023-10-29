@@ -258,13 +258,15 @@ export function createAuthenticatorMachine(
            * @migration potentially update flows here
            */
           actorDoneData: (_, event) => {
-            groupLog('+++setActorDoneData', 'event', event);
+            groupLog('+++setActorDoneData actorDoneData', 'event', event);
             return {
               authAttributes: { ...event.data?.authAttributes },
               intent: event.data?.intent,
             };
           },
           user: (_, event) => {
+            groupLog('+++setActorDoneData user', event.data);
+
             return { ...event.data };
           },
         }),
@@ -412,7 +414,7 @@ export function createAuthenticatorMachine(
           return event.data?.intent === 'confirmPasswordReset';
         },
         shouldAutoSignIn: (context, event) => {
-          groupLog('+++shouldAutoSignIn', 'event', event);
+          groupLog('+++shouldAutoSignIn.top', 'event', event);
           return (
             event.data?.intent === 'autoSignIn' ||
             event.data?.intent === 'autoSignInSubmit'

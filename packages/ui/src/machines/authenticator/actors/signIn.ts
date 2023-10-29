@@ -127,12 +127,6 @@ export function signInActor({ services }: SignInMachineOptions) {
                     target: 'rejected',
                   },
                   {
-                    actions: 'setUser',
-                    target: 'verifying',
-                  },
-                ],
-                onError: [
-                  {
                     cond: 'shouldRedirectToConfirmResetPassword',
                     actions: [
                       'setUsernameAuthAttributes',
@@ -140,6 +134,21 @@ export function signInActor({ services }: SignInMachineOptions) {
                     ],
                     target: 'rejected',
                   },
+                  {
+                    actions: 'setUser',
+                    target: 'verifying',
+                  },
+                ],
+                onError: [
+                  // @todo-migration moved to onDone, delete
+                  // {
+                  //   cond: 'shouldRedirectToConfirmResetPassword',
+                  //   actions: [
+                  //     'setUsernameAuthAttributes',
+                  //     'setConfirmResetPasswordIntent',
+                  //   ],
+                  //   target: 'rejected',
+                  // },
                   {
                     actions: 'setRemoteError',
                     target: 'edit',
@@ -541,34 +550,54 @@ export function signInActor({ services }: SignInMachineOptions) {
       },
       guards: {
         shouldAutoSignIn: (context) => {
-          // releveant when a user is directed from confirm sign up
-          groupLog('+++signIn.shouldAutoSignIn', 'context', context);
-          return false;
+          groupLog(
+            '+++signIn.shouldAutoSignIn',
+            context?.intent === 'autoSignIn'
+          );
+          return context?.intent === 'autoSignIn';
         },
         shouldAutoSubmit: (context) => {
-          groupLog('+++signIn.shouldAutoSubmit', 'context', context);
-          return false;
+          groupLog(
+            '+++signIn.shouldAutoSubmit',
+            context?.intent === 'autoSignInSubmit'
+          );
+          return context?.intent === 'autoSignInSubmit';
         },
         shouldConfirmSignIn: (_, event): boolean => {
-          groupLog('+++shouldConfirmSignIn', 'event', event);
+          groupLog(
+            '+++shouldConfirmSignIn',
+            SIGN_IN_STEP_MFA_CONFIRMATION.includes(
+              event.data.nextStep?.signInStep
+            )
+          );
           return SIGN_IN_STEP_MFA_CONFIRMATION.includes(
             event.data.nextStep?.signInStep
           );
         },
         shouldForceChangePassword: (_, event): boolean => {
-          groupLog('+++shouldForceChangePassword', 'event', event);
-          return (
-            event.data.nextStep?.signInStep === 'RESET_PASSWORD' ||
+          groupLog(
+            '+++shouldForceChangePassword',
             event.data.nextStep?.signInStep ===
               'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED'
           );
+          return (
+            event.data.nextStep?.signInStep ===
+            'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED'
+          );
         },
         shouldRedirectToConfirmResetPassword: (_, event): boolean => {
-          groupLog('+++shouldRedirectToConfirmResetPassword', 'event', event);
-          return event.data.code === 'PasswordResetRequiredException';
+          groupLog(
+            '+++shouldRedirectToConfirmResetPassword',
+            event.data.nextStep?.signInStep === 'RESET_PASSWORD'
+          );
+          return event.data.nextStep?.signInStep === 'RESET_PASSWORD';
+          // return event.data.code === 'PasswordResetRequiredException';
         },
         shouldRedirectToConfirmSignUp: (_, event): boolean => {
-          groupLog('+++shouldRedirectToConfirmSignUp', 'event', event);
+          groupLog(
+            '+++shouldRedirectToConfirmSignUp',
+            event.data.nextStep?.signInStep === 'CONFIRM_SIGN_UP'
+          );
           return event.data.nextStep?.signInStep === 'CONFIRM_SIGN_UP';
         },
         shouldRequestVerification: (context, event): boolean => {
@@ -586,6 +615,11 @@ export function signInActor({ services }: SignInMachineOptions) {
           return emailNotVerified && phoneNotVerified;
         },
         shouldSetupTOTP: (context, event): boolean => {
+          groupLog(
+            '+++shouldSetupTOTP',
+            event.data.nextStep?.signInStep ===
+              'CONTINUE_SIGN_IN_WITH_TOTP_SETUP'
+          );
           //   event.data ={
           //     "isSignedIn": false,
           //     "nextStep": {
