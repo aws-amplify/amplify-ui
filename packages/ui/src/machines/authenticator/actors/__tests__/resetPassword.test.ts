@@ -5,8 +5,8 @@ import {
   ResetPasswordMachineOptions,
   resetPasswordActor,
 } from '../resetPassword';
-import { SignInResult } from '../../../../types';
-import * as Auth from 'aws-amplify/auth';
+
+import { ConfirmResetPasswordInput } from 'aws-amplify/auth';
 
 const flushPromises = () => new Promise(setImmediate);
 
@@ -16,9 +16,7 @@ const mockValidateFields = jest.fn(async () => Promise.resolve);
 const mockHandleForgotPassword = jest.fn(async () => Promise.resolve);
 const mockHandleForgotPasswordSubmit = jest.fn(
   async () => Promise.resolve
-) as unknown as (
-  input: Auth.ConfirmResetPasswordInput
-) => Promise<Promise<void>>;
+) as unknown as (input: ConfirmResetPasswordInput) => Promise<Promise<void>>;
 
 const resetPasswordMachineProps: ResetPasswordMachineOptions = {
   services: {

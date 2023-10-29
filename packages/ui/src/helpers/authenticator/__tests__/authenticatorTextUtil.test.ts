@@ -1,4 +1,4 @@
-import { I18n } from '@aws-amplify/core';
+import { I18n } from 'aws-amplify/utils';
 import {
   ChallengeName,
   CodeDeliveryDetails,

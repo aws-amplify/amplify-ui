@@ -1,4 +1,5 @@
-import * as Auth from '@aws-amplify/auth';
+// prefer scoped amplify js packages for spies
+import * as AuthModule from '@aws-amplify/auth';
 import {
   clearAttributeToVerify,
   handleSubmit,
@@ -75,8 +76,8 @@ describe('handleSubmit', () => {
 describe('resendCode', () => {
   // @todo-migration
   // AuthTokenConfigException: Auth Token Provider not configured.
-  it.skip('should call Auth.resetPassword', async () => {
-    const authSpy = jest.spyOn(Auth, 'resetPassword');
+  it.skip('should call resetPassword', async () => {
+    const authSpy = jest.spyOn(AuthModule, 'resetPassword');
     const mockUsername = 'test';
     resendCode({ username: mockUsername });
 

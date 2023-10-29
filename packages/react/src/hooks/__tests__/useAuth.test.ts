@@ -1,9 +1,12 @@
-import * as Auth from '@aws-amplify/auth';
-import { Hub } from '@aws-amplify/core';
 import { act, renderHook } from '@testing-library/react-hooks';
+
+// prefer scoped amplify js packages for spies
+import * as AuthModule from '@aws-amplify/auth';
+import { Hub } from 'aws-amplify/utils';
+
 import { useAuth } from '../useAuth';
 
-const getCurrentUserSpy = jest.spyOn(Auth, 'getCurrentUser');
+const getCurrentUserSpy = jest.spyOn(AuthModule, 'getCurrentUser');
 
 // hub events that return valid user object
 const SUCCESS_EVENTS_WITH_USER = ['signIn', 'signUp', 'autoSignIn'];

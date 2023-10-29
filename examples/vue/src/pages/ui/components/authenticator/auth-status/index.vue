@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Amplify } from 'aws-amplify';
-import * as Auth from '@aws-amplify/auth';
+import { signIn, signOut } from 'aws-amplify/auth';
 import { computed, toRefs } from 'vue';
 
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-vue';
@@ -13,10 +13,10 @@ Amplify.configure(aws_exports);
 const { authStatus } = toRefs(useAuthenticator());
 const isAuthenticated = computed(() => authStatus.value === 'authenticated');
 
-const signOut = () => Auth.signOut();
+const handleSignOut = () => signOut();
 
 const onSubmit = (event: Event) => {
-  Auth.signIn(
+  signIn(
     Object.fromEntries(new FormData(event.target as HTMLFormElement)) as any
   );
 };
@@ -26,10 +26,7 @@ const onSubmit = (event: Event) => {
   <form @submit.prevent="onSubmit">
     <div>{{ authStatus }}</div>
 
-    <div
-      v-if="!isAuthenticated"
-      :style="{ display: 'flex', 'flex-direction': 'column', gap: '1rem' }"
-    >
+    <div v-if="!isAuthenticated" :style="{ display: 'flex', 'flex-direction': 'column', gap: '1rem' }">
       <label for="username">Username</label>
       <input id="username" name="username" />
       <label for="password">Password</label>
@@ -38,7 +35,7 @@ const onSubmit = (event: Event) => {
     </div>
 
     <div v-if="isAuthenticated">
-      <button type="button" @click="signOut">Sign Out</button>
+      <button type="button" @click="handleSignOut">Sign Out</button>
     </div>
   </form>
 </template>

@@ -135,7 +135,7 @@ describe('ConfirmResetPassword', () => {
     expect(updateBlurSpy).toHaveBeenCalledWith({ name: 'confirm_password' });
   });
 
-  // @todo-upgrade-react-18 fix?
+  // @todo-migration fix?
   it.skip('sends submit event on form submit', async () => {
     render(ConfirmResetPassword, { global: { components } });
 

@@ -1,10 +1,10 @@
 import { interpret } from 'xstate';
 import { setImmediate } from 'timers';
+// prefer scoped amplify js packages for spies
+import * as AuthModule from '@aws-amplify/auth';
 
 import { SignUpMachineOptions, createSignUpMachine } from '../signUp';
 import { SignUpContext } from '../../../types';
-import * as Auth from '@aws-amplify/auth';
-import { ConfirmSignUpInput, ConfirmSignUpOutput } from 'aws-amplify/auth';
 
 jest.mock('aws-amplify');
 
@@ -15,19 +15,16 @@ const mockUsername = 'test';
 const mockPassword = 'test';
 const mockEmail = 'test@amazon.com';
 const mockConfirmationCode = '1234';
-const resendSignUpSpy = jest
-  .spyOn(Auth, 'resendSignUpCode')
+
+const resendSignUpCodeSpy = jest
+  .spyOn(AuthModule, 'resendSignUpCode')
   .mockResolvedValue({});
-const mockHandleSignUp = jest.fn(async () => Promise.resolve as never);
-// @todo-migrationg
-// Doublecheck that this is the right type casting
-const mockHandleConfirmSignUp = jest.fn(
-  async () => Promise.resolve
-) as unknown as (input: ConfirmSignUpInput) => Promise<ConfirmSignUpOutput>;
+
+const handleSignUpMock = jest.fn();
 const signUpMachineProps: SignUpMachineOptions = {
   services: {
-    handleSignUp: mockHandleSignUp,
-    handleConfirmSignUp: mockHandleConfirmSignUp,
+    handleSignUp: handleSignUpMock,
+    handleConfirmSignUp: jest.fn(),
   },
 };
 
@@ -99,7 +96,7 @@ describe('signUpActor', () => {
       type: 'SUBMIT',
     });
     await flushPromises();
-    expect(mockHandleSignUp).toHaveBeenCalledWith({
+    expect(handleSignUpMock).toHaveBeenCalledWith({
       attributes: { email: mockEmail },
       password: mockPassword,
       username: mockUsername,
@@ -203,7 +200,9 @@ describe('signUpActor', () => {
     await flushPromises();
     // @todo-migration
     // confirm this is the correct return
-    expect(resendSignUpSpy).toHaveBeenCalledWith({ username: mockUsername });
+    expect(resendSignUpCodeSpy).toHaveBeenCalledWith({
+      username: mockUsername,
+    });
     expect(service.getSnapshot().value).toStrictEqual({
       confirmSignUp: 'edit',
     });
@@ -258,7 +257,7 @@ describe('signUpActor', () => {
       type: 'RESEND',
     });
     await flushPromises();
-    expect(resendSignUpSpy).not.toHaveBeenCalled();
+    expect(resendSignUpCodeSpy).not.toHaveBeenCalled();
     expect(service.getSnapshot().value).toStrictEqual('resolved');
   });
 });

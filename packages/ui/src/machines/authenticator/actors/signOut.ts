@@ -1,7 +1,7 @@
 import { createMachine } from 'xstate';
 
 import { AuthEvent, SignOutContext } from '../../../types';
-import * as Auth from '@aws-amplify/auth';
+import { signOut } from 'aws-amplify/auth';
 import { groupLog } from '../../../utils';
 
 export const signOutActor = () => {
@@ -26,7 +26,7 @@ export const signOutActor = () => {
     },
     {
       services: {
-        signOut: () => Auth.signOut(/* global? */),
+        signOut: () => signOut(),
       },
     }
   );

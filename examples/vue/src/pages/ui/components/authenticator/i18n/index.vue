@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Authenticator, translations } from '@aws-amplify/ui-vue';
 import { Amplify } from 'aws-amplify';
-import { I18n } from '@aws-amplify/core';
+import { I18n } from 'aws-amplify/utils';
 import '@aws-amplify/ui-vue/styles.css';
 import aws_exports from './aws-exports';
 
@@ -19,10 +19,7 @@ Amplify.configure(aws_exports);
   <authenticator initial-state="signUp">
     <template v-slot="{ user, send }">
       <h1 class="mb-10 text-6xl">Hello {{ user.username }}!</h1>
-      <button
-        className="px-2 bg-white rounded shadow"
-        @click="send('SIGN_OUT')"
-      >
+      <button className="px-2 bg-white rounded shadow" @click="send('SIGN_OUT')">
         Sign Out
       </button>
     </template>

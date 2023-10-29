@@ -1,9 +1,11 @@
 import { interpret } from 'xstate';
 import { setImmediate } from 'timers';
 
-import { SignInMachineOptions, signInActor } from '../signIn';
+// prefer scoped amplify js packages for spies
+import * as AuthModule from '@aws-amplify/auth';
+
 import { AmplifyUser } from '../../../../types';
-import * as Auth from '@aws-amplify/auth';
+import { SignInMachineOptions, signInActor } from '../signIn';
 
 const flushPromises = () => new Promise(setImmediate);
 
@@ -14,12 +16,12 @@ const mockHandleSignIn = jest.fn(async () => Promise.resolve) as unknown as ({
 }: {
   username: string;
   password: string;
-}) => Promise<Auth.SignInOutput>;
+}) => Promise<AuthModule.SignInOutput>;
 const mockHandleConfirmSignIn = jest.fn(
   async () => Promise.resolve
 ) as unknown as (
-  input: Auth.ConfirmSignInInput
-) => Promise<Auth.ConfirmSignInOutput>;
+  input: AuthModule.ConfirmSignInInput
+) => Promise<AuthModule.ConfirmSignInOutput>;
 const mockUsername = 'test';
 const mockPassword = 'test';
 const mockUserId = '1234';
@@ -34,28 +36,28 @@ const signInMachineProps: SignInMachineOptions = {
 };
 
 const getCurrentUserSpy = jest
-  .spyOn(Auth, 'getCurrentUser')
+  .spyOn(AuthModule, 'getCurrentUser')
   .mockResolvedValue({ userId: mockUserId, username: mockUsername });
 const completeNewPasswordSpy = jest
-  .spyOn(Auth, 'confirmResetPassword')
+  .spyOn(AuthModule, 'confirmResetPassword')
   .mockResolvedValue();
 const verifyTotpTokenSpy = jest
-  .spyOn(Auth, 'verifyTOTPSetup')
+  .spyOn(AuthModule, 'verifyTOTPSetup')
   .mockResolvedValue();
 const federatedSignInSpy = jest
-  .spyOn(Auth, 'signInWithRedirect')
+  .spyOn(AuthModule, 'signInWithRedirect')
   .mockResolvedValue();
 const verifiedContactSpy = jest
-  .spyOn(Auth, 'fetchUserAttributes')
+  .spyOn(AuthModule, 'fetchUserAttributes')
   .mockResolvedValue({} as never);
 const verifyCurrentUserAttributeSpy = jest
-  .spyOn(Auth, 'updateUserAttribute')
+  .spyOn(AuthModule, 'updateUserAttribute')
   .mockResolvedValue({
     isUpdated: true,
     nextStep: { updateAttributeStep: 'DONE' },
   });
 const verifyCurrentUserAttributeSubmitSpy = jest
-  .spyOn(Auth, 'confirmUserAttribute')
+  .spyOn(AuthModule, 'confirmUserAttribute')
   .mockResolvedValue({} as never);
 
 describe('signInActor', () => {

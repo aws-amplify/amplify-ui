@@ -1,6 +1,23 @@
 import { Amplify } from 'aws-amplify';
 
-import * as Auth from '@aws-amplify/auth';
+import {
+  confirmResetPassword,
+  ConfirmResetPasswordInput,
+  confirmSignIn,
+  ConfirmSignInInput,
+  ConfirmSignInOutput,
+  confirmSignUp,
+  ConfirmSignUpInput,
+  ConfirmSignUpOutput,
+  getCurrentUser,
+  resetPassword,
+  ResetPasswordInput,
+  signIn,
+  SignInInput,
+  SignInOutput,
+  signUp,
+  SignUpInput,
+} from 'aws-amplify/auth';
 import { hasSpecialChars } from '../../helpers';
 
 import {
@@ -56,7 +73,7 @@ export const defaultServices = {
   },
   async getCurrentUser() {
     groupLog('+++getCurrentUser');
-    return Auth.getCurrentUser();
+    return getCurrentUser();
   },
   async handleSignUp({
     attributes: userAttributes,
@@ -70,45 +87,42 @@ export const defaultServices = {
       email?: string;
     };
   }) {
-    const input: Auth.SignUpInput = {
+    const input: SignUpInput = {
       username,
       password,
       options: {
         userAttributes,
         autoSignIn: true,
-      } as Auth.SignUpInput['options'],
+      } as SignUpInput['options'],
     };
-    return Auth.signUp(input);
+    return signUp(input);
   },
   async handleSignIn({
     username,
     password,
-  }: {
-    username: string;
-    password: string;
-  }): Promise<Auth.SignInOutput> {
+  }: SignInInput): Promise<SignInOutput> {
     groupLog('+++handleSignIn');
     // #todo-migration logs error in failure use cases (fiorce new password, etc)
-    return Auth.signIn({ username, password });
+    return signIn({ username, password });
   },
   async handleConfirmSignIn(
-    input: Auth.ConfirmSignInInput
-  ): Promise<Auth.ConfirmSignInOutput> {
-    return Auth.confirmSignIn(input);
+    input: ConfirmSignInInput
+  ): Promise<ConfirmSignInOutput> {
+    return confirmSignIn(input);
   },
   async handleConfirmSignUp(
-    input: Auth.ConfirmSignUpInput
-  ): Promise<Auth.ConfirmSignUpOutput> {
-    return await Auth.confirmSignUp(input);
+    input: ConfirmSignUpInput
+  ): Promise<ConfirmSignUpOutput> {
+    return await confirmSignUp(input);
   },
   async handleForgotPasswordSubmit(
-    input: Auth.ConfirmResetPasswordInput
-  ): Promise<ReturnType<typeof Auth.confirmResetPassword>> {
-    return Auth.confirmResetPassword(input);
+    input: ConfirmResetPasswordInput
+  ): Promise<ReturnType<typeof confirmResetPassword>> {
+    return confirmResetPassword(input);
   },
-  async handleForgotPassword(input: Auth.ResetPasswordInput): Promise<any> {
-    // return Auth.forgotPassword(formData);
-    return Auth.resetPassword(input);
+  async handleForgotPassword(input: ResetPasswordInput): Promise<any> {
+    // return forgotPassword(formData);
+    return resetPassword(input);
   },
 
   // Validation hooks for overriding

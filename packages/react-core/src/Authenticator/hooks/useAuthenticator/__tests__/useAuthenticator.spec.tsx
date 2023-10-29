@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { renderHook, WrapperComponent } from '@testing-library/react-hooks';
-import * as Auth from '@aws-amplify/auth';
+// prefer scoped amplify js packages for spies
+import * as AuthModule from '@aws-amplify/auth';
 
 import { AuthenticatorServiceFacade } from '@aws-amplify/ui';
 import * as UIModule from '@aws-amplify/ui';
@@ -62,7 +63,7 @@ const Wrapper: WrapperComponent<{ children?: React.ReactNode }> = ({
 }) => <AuthenticatorProvider>{children}</AuthenticatorProvider>;
 
 jest
-  .spyOn(Auth, 'getCurrentUser')
+  .spyOn(AuthModule, 'getCurrentUser')
   .mockResolvedValue({ userId: '1234', username: 'test' });
 
 describe('useAuthenticator', () => {

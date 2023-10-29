@@ -1,7 +1,7 @@
 import BaseAlert from '../base-alert.vue';
 import { components } from '../../../../global-spec';
 import { render } from '@testing-library/vue';
-import { I18n } from '@aws-amplify/core';
+import { I18n } from 'aws-amplify/utils';
 
 describe('Base Alert', () => {
   it('Base Alert Exists', () => {

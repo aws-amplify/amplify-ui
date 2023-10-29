@@ -347,7 +347,7 @@ jobs:
             packages/ui
             packages/e2e
 
-  # @todo-upgrade-react-18 re-enable
+  # @todo-migration re-enable
   # e2e-ios:
   #   needs: check-changed-packages
   #   if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
