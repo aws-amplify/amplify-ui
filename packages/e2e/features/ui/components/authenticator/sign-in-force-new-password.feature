@@ -30,9 +30,7 @@ Feature: Sign In with Force New Password flow
     Then I click the "Change Password" button
     Then I confirm request '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }'
 
-  # This test is currently broken because the password validation isn't working
-  # Add back after fixing bug
-  @skip @todo-migration @angular @react @vue
+  @angular @react @vue
   Scenario: User is in a FORCE_CHANGE_PASSWORD state and then enters wrong password requirements
     When I select my country code with status "FORCE_CHANGE_PASSWORD"
     Then I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
@@ -46,9 +44,7 @@ Feature: Sign In with Force New Password flow
     Then I see "Password must have special characters"
     Then I see "Password must have upper case letters"
 
-  # This test is currently broken because the password validation isn't working
-  # Add back after fixing bug
-  @skip @todo-migration @angular @react @vue
+  @angular @react @vue
   Scenario: User is in a FORCE_CHANGE_PASSWORD state and then enters password without lower case characters
     When I select my country code with status "FORCE_CHANGE_PASSWORD"
     Then I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
@@ -63,7 +59,7 @@ Feature: Sign In with Force New Password flow
     Then I see "Password must have lower case letters"
     Then I confirm "Password must have numbers" error is accessible in password field
 
-  @todo-migration @angular @react @vue
+  @angular @react @vue
   Scenario: User is in a FORCE_CHANGE_PASSWORD state and then enters an invalid new password
     When I select my country code with status "FORCE_CHANGE_PASSWORD"
     Then I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
