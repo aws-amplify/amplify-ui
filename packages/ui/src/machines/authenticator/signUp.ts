@@ -28,6 +28,7 @@ export type SignUpMachineOptions = {
 };
 
 export function createSignUpMachine({ services }: SignUpMachineOptions) {
+  groupLog('+++createSignUpMachine');
   return createMachine<SignUpContext, AuthEvent>(
     {
       id: 'signUpActor',
@@ -334,6 +335,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           return Auth.resendSignUpCode(input);
         },
         async federatedSignIn(_, event) {
+          groupLog('+++signUp.signInWithRedirect');
           const { provider } = event.data;
           return await Auth.signInWithRedirect({ provider });
         },

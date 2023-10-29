@@ -1,4 +1,5 @@
 import { Amplify } from 'aws-amplify';
+
 import * as Auth from '@aws-amplify/auth';
 import { hasSpecialChars } from '../../helpers';
 
@@ -54,14 +55,9 @@ export const defaultServices = {
     };
   },
   async getCurrentUser() {
-    return {
-      ...(await Auth.getCurrentUser()),
-      attributes: { ...(await Auth.fetchUserAttributes()) },
-    };
+    groupLog('+++getCurrentUser');
+    return Auth.getCurrentUser();
   },
-  // async handleSignUp(formData) {
-  //   return Auth.signUp({ ...formData, autoSignIn: { enabled: true } });
-  // },
   async handleSignUp({
     attributes: userAttributes,
     username,
@@ -91,20 +87,14 @@ export const defaultServices = {
     username: string;
     password: string;
   }): Promise<Auth.SignInOutput> {
+    groupLog('+++handleSignIn');
+    // #todo-migration logs error in failure use cases (fiorce new password, etc)
     return Auth.signIn({ username, password });
   },
   async handleConfirmSignIn(
     input: Auth.ConfirmSignInInput
   ): Promise<Auth.ConfirmSignInOutput> {
-    return Auth.confirmSignIn(
-      input
-      // {
-      //   // user,
-      //   code,
-      // }
-      // // cast due to restrictive typing of Auth.confirmSignIn
-      // mfaType as 'SMS_MFA' | 'SOFTWARE_TOKEN_MFA'
-    );
+    return Auth.confirmSignIn(input);
   },
   async handleConfirmSignUp(
     input: Auth.ConfirmSignUpInput

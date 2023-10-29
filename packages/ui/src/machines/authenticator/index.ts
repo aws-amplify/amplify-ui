@@ -49,6 +49,7 @@ export function createAuthenticatorMachine(
     useNextWaitConfig?: boolean;
   }
 ) {
+  groupLog('+++createAuthenticatorMachine');
   const { useNextWaitConfig, ...overrideConfigServices } = options ?? {};
   const waitConfig = useNextWaitConfig ? NEXT_WAIT_CONFIG : LEGACY_WAIT_CONFIG;
   return createMachine<AuthContext, AuthEvent>(
@@ -271,7 +272,7 @@ export function createAuthenticatorMachine(
         clearActorDoneData: assign({ actorDoneData: undefined }),
         applyAmplifyConfig: assign({
           config(context, { data: cliConfig }) {
-            console.group('+++applyAmplifyConfig', cliConfig);
+            groupLog('+++applyAmplifyConfig', cliConfig);
 
             // Prefer explicitly configured settings over default CLI values\
             const {
@@ -291,8 +292,6 @@ export function createAuthenticatorMachine(
             }
 
             const formFields = convertFormFields(_formFields) ?? {};
-
-            console.groupEnd();
 
             return {
               formFields,
@@ -370,7 +369,7 @@ export function createAuthenticatorMachine(
         }),
         spawnSignOutActor: assign({
           actorRef: (context) => {
-            const actor = signOutActor.withContext({
+            const actor = signOutActor().withContext({
               user: context.user,
             });
             return spawn(actor, { name: 'signOutActor' });
@@ -407,8 +406,11 @@ export function createAuthenticatorMachine(
           groupLog('+++shouldRedirectToSignUp', event);
           return event.data?.intent === 'confirmSignUp';
         },
-        shouldRedirectToResetPassword: (_, event) =>
-          event.data?.intent === 'confirmPasswordReset',
+        shouldRedirectToResetPassword: (context, event) => {
+          groupLog('+++shouldRedirectToResetPassword');
+
+          return event.data?.intent === 'confirmPasswordReset';
+        },
         shouldAutoSignIn: (context, event) => {
           groupLog('+++shouldAutoSignIn', 'event', event);
           return (
