@@ -5,13 +5,13 @@ Feature: Sign Up with Email
   Background:
     Given I'm running the example "ui/components/authenticator/sign-up-with-email"
 
-  @todo-migration @angular @react @vue @react-native
+  @angular @react @vue @react-native
   Scenario: Login mechanism set to "email"
     Then I see "Email" as an input field
     Then I don't see "Username" as an input field
     Then I don't see "Phone Number" as an input field
 
-  @todo-migration @angular @react @vue  
+  @angular @react @vue  
   Scenario: Sign up with a new email & password and check auth message
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
     Then I see "unauthenticated"
@@ -22,17 +22,17 @@ Feature: Sign Up with Email
     Then I see "authenticated"
     Then I see "Confirmation Code"
 
-@todo-migration @angular @react @vue  
+  @angular @react @vue  
   Scenario: Sign up with a new email & password and lowercase the email 
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
     When I type a new "email" with value "TEST@example.com"
     Then I type my password
     Then I confirm my password
     Then I click the "Create Account" button
-    Then I verify the body has "test@example.com" included
+    Then I verify the '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' body has "test@example.com" included
     Then I see "Confirmation Code"
 
-@react-native
+  @react-native 
   Scenario: Confirm sign up submit button is disabled when required fields are empty or invalid
     When I click the "Create Account" button
     Then I do not see a remote error with id "amplify__error-message"
@@ -42,23 +42,23 @@ Feature: Sign Up with Email
     Then I click the "Create Account" button
     Then I do not see a remote error with id "amplify__error-message"
 
-@todo-migration @angular @react @vue @react-native
-Scenario: Sign up with a new email & password
-  Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
-  When I type a new "email"
-  Then I type my password
-  Then I confirm my password
-  Then I click the "Create Account" button
-  Then I see "Confirmation Code"
+  @angular @react @vue @react-native
+  Scenario: Sign up with a new email & password
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
+    When I type a new "email"
+    Then I type my password
+    Then I confirm my password
+    Then I click the "Create Account" button
+    Then I see "Confirmation Code"
 
-@react-native
-Scenario: Sign up using invalid email
-  When I type a new "email" with value ''
-  Then I see "This field is required"
-  When I type a new "email" with value 'inv'
-  Then I see "Please enter a valid email"
+  @react-native
+  Scenario: Sign up using invalid email
+    When I type a new "email" with value ''
+    Then I see "This field is required"
+    When I type a new "email" with value 'inv'
+    Then I see "Please enter a valid email"
 
-  @todo-migration @angular @react @vue
+  @angular @react @vue
   Scenario: Email field autocompletes username
 
   On sign up form, autocomplete prefers usage of username instead of email. 
@@ -66,7 +66,7 @@ Scenario: Sign up using invalid email
 
     Then "Email" field autocompletes "username"
 
-  @todo-migration @angular @react @vue
+  @angular @react @vue
   Scenario: Password fields autocomplete "new-password"
     Then "Password" field autocompletes "new-password"
     Then "Confirm Password" field autocompletes "new-password"
