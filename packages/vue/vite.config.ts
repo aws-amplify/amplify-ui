@@ -56,6 +56,7 @@ export default defineConfig({
       plugins: [dynamicImportVars],
       external: [
         'aws-amplify',
+        'aws-amplify/auth',
         'aws-amplify/core',
         'aws-amplify/utils',
         'vue',
