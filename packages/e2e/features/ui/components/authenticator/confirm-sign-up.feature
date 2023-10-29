@@ -8,7 +8,7 @@ Feature: Confirm Sign Up
     Given I'm running the example "ui/components/authenticator/sign-up-with-email"
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
 
-    @angular @react @vue
+  @angular @react @vue
   Scenario: Confirm new password page has correct translations and replaced placeholder
     When I type a new "email"
     Then I type my password
@@ -19,7 +19,7 @@ Feature: Confirm Sign Up
     Then I see "Enter this code:"
     Then I see "It will take several minutes to arrive."
 
-    @react-native
+  @react-native
   Scenario: Confirm new password page has correct translations
     When I type a new "email"
     Then I type my password

@@ -6,7 +6,7 @@ Feature: Sign In with SMS MFA
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-sms-mfa"
 
-    @angular @react @vue
+  @angular @react @vue
   Scenario: Sign in with with sms mfa and check mocked name attribute
     When I select my country code with status "CONFIRMED"
     Then I type my "phone number" with status "CONFIRMED"
@@ -18,7 +18,7 @@ Feature: Sign In with SMS MFA
     Then I click the "Confirm" button
     Then I confirm request '{"headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }'
 
-    @angular @react @vue
+  @angular @react @vue
   Scenario: Sign in using a valid phone number and SMS MFA
     When I select my country code with status "CONFIRMED"
     Then I type my "phone number" with status "CONFIRMED"
@@ -27,7 +27,7 @@ Feature: Sign In with SMS MFA
     Then I will be redirected to the confirm sms mfa page
 
 
-    @angular @react @vue
+  @angular @react @vue
   Scenario: Redirect to sign in page
     When I select my country code with status "CONFIRMED"
     Then I type my "phone number" with status "CONFIRMED"
@@ -36,7 +36,7 @@ Feature: Sign In with SMS MFA
     Then I click the "Back to Sign In" button
     Then I see "Sign in"
 
-    @angular @react @vue
+  @angular @react @vue
   Scenario: Incorrect SMS code with translated text
     When I select my country code with status "CONFIRMED"
     Then I type my "phone number" with status "CONFIRMED"
@@ -46,7 +46,7 @@ Feature: Sign In with SMS MFA
     Then I click the "Confirm" button
     Then I see "translated text"
     
-    @angular @react @vue
+  @angular @react @vue
   Scenario: Sign in with unknown credentials
     When I select my country code with status "UNKNOWN"
     Then I type my "phone number" with status "UNKNOWN"
