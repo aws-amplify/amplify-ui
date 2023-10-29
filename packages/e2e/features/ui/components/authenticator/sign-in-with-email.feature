@@ -11,12 +11,13 @@ Feature: Sign In with Email
     Given I'm running the example "/ui/components/authenticator/sign-in-with-email"
 
   @skip @angular @react @vue
-  Scenario: Sign in with force password reset calls forgot password
+  Scenario: Sign in with force password reset shows the Reset Password with code view
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with error fixture "force-reset-password"
     When I type my "email" with status "CONFIRMED"
     Then I type my password
     Given I spy "Auth.forgotPassword" method
     Then I click the "Sign in" button
+    Then I see "Reset Password"
     Then I see "Code *"
     Then "Auth.forgotPassword" method is called
 

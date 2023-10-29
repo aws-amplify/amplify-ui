@@ -11,7 +11,7 @@ Feature: Sign Up with Email
     Then I don't see "Username" as an input field
     Then I don't see "Phone Number" as an input field
 
-  @angular @react @vue  
+  @angular @react @vue
   Scenario: Sign up with a new email & password and check auth message
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
     Then I see "unauthenticated"
@@ -22,7 +22,7 @@ Feature: Sign Up with Email
     Then I see "authenticated"
     Then I see "Confirmation Code"
 
-  @angular @react @vue  
+  @angular @react @vue
   Scenario: Sign up with a new email & password and lowercase the email 
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
     When I type a new "email" with value "TEST@example.com"
