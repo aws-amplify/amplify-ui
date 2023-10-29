@@ -10,7 +10,7 @@ Feature: Headless Usage
   Background:
     Given I'm running the example "/ui/components/authenticator/useAuthenticator"
 
-  @todo-migration @angular @react @vue
+    @angular @react @vue
   Scenario: Conditionally render Login and Logout component
 
   /useAuthenticator example uses headless API to get access to conditionally render 

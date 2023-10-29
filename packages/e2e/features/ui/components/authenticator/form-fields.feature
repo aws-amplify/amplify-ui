@@ -9,44 +9,44 @@ Feature: Form Fields
   Background:
     Given I'm running the example "ui/components/authenticator/custom-slots"
 
-  @todo-migration @angular @react @vue
+    @angular @react @vue
   Scenario: Order of sign up inputs are backwards
     When I click the "Create Account" tab
     Then I see "Please confirm your Password" as the "0" input
     Then I see "Enter your Password:" as the "1" input
     Then I see "Enter your Email" as the "2" input
 
-  @todo-migration @angular @react @vue
+    @angular @react @vue
   Scenario: Sign in with replaced email placeholder
     Then I see placeholder "Enter your email"
 
-  @todo-migration @angular @react @vue
+    @angular @react @vue
   Scenario: Sign in label is visibile
     When I see "Email"
     Then "Email" field does not have class "amplify-visually-hidden"
 
-  @todo-migration @angular @react @vue
+    @angular @react @vue
   Scenario: Sign up with replaced password label
     When I click the "Create Account" tab
     Then I see "Password:"
 
-  @todo-migration @angular @react @vue
+    @angular @react @vue
   Scenario: Sign up with replaced password placeholder
     When I click the "Create Account" tab
     Then I see placeholder "Enter your Password:"
 
-  @todo-migration @angular @react @vue
+    @angular @react @vue
   Scenario: Sign up with not required password
     When I click the "Create Account" tab
     Then 'Password:' field does not have "required"
 
-  @todo-migration @angular @react @vue
+    @angular @react @vue
   Scenario: Sign up with replaced confirm password placeholder and is visible
     When I click the "Create Account" tab
     Then I see "Confirm Password:"
     Then "Confirm Password:" field does not have class "amplify-visually-hidden"
 
-  @todo-migration @angular @react @vue
+    @angular @react @vue
   Scenario: Confirm Force New Password replaced placeholder and label is visible
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password"
     Then I type my "email" with status "FORCE_CHANGE_PASSWORD"
@@ -55,13 +55,13 @@ Feature: Form Fields
     Then "Password" field does not have class "amplify-visually-hidden"
     Then I see placeholder "Enter your Password:"
 
-  @todo-migration @angular @react @vue
+    @angular @react @vue
   Scenario: Reset password replaced placeholder and label is visible
     When I click the "Reset Password" button
     Then "Email" field does not have class "amplify-visually-hidden"
     Then I see placeholder "Enter your email:"
 
-  @todo-migration @angular @react @vue
+    @angular @react @vue
   Scenario: Confirm Reset Password replaced placeholder, label and label is visible
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "verify-user-email"
     When I click the "Reset Password" button
@@ -73,7 +73,7 @@ Feature: Form Fields
     Then 'New Label' field does not have "required"
     Then I see placeholder "Enter your Confirmation Code:"
 
-  @todo-migration @angular @react @vue
+    @angular @react @vue
   Scenario: Setup TOTP Sign in replace placeholder, and label
     When I type my "email" with status "CONFIRMED"
     Then I type my password
@@ -83,7 +83,7 @@ Feature: Form Fields
     Then "New Label" field does not have class "amplify-visually-hidden"
     Then I see placeholder "Enter your Confirmation Code:"
 
-  @todo-migration @angular @react @vue
+    @angular @react @vue
   Scenario: Confirm sign in and replace placeholder, and label
     When I type my "email" with status "UNVERIFIED"
     Then I type my password

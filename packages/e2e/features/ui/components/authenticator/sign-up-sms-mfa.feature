@@ -8,7 +8,7 @@ Feature: Sign up with SMS MFA
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-phone"
     When I click the "Create Account" tab 
 
-  @todo-migration @angular @react @vue
+    @angular @react @vue
   Scenario: Successful sign up redirects user to sms mfa route
     When I select my country code with status "UNCONFIRMED"
     Then I type my "phone number" with status "UNCONFIRMED"

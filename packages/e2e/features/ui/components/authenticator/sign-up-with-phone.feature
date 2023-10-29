@@ -6,16 +6,16 @@ Feature: Sign Up with Phone
     Given I'm running the example "ui/components/authenticator/sign-up-with-phone/"
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-phone"
 
-  @todo-migration @angular @react @vue @react-native
+    @angular @react @vue @react-native
   Scenario: Login mechanism set to "phone_number"
     Then I see "Phone Number" as an input field
     Then I don't see "Username" as an input field
 
-  @todo-migration @angular @react @vue @react-native
+    @angular @react @vue @react-native
   Scenario: "Email" is included from `aws_cognito_verification_mechanisms`
     Then I see "Email" as an "email" field
 
-  @todo-migration @angular @react @vue @react-native
+    @angular @react @vue @react-native
   Scenario: Sign up with valid phone number & password
     When I select my country code with status "UNCONFIRMED"
     Then I type my "phone number" with status "UNCONFIRMED"
@@ -25,7 +25,7 @@ Feature: Sign Up with Phone
     Then I click the "Create Account" button
     Then I see "Confirmation Code"
 
-  @todo-migration @angular @react @vue
+    @angular @react @vue
   Scenario: Phone number field autocompletes username
 
   On sign up form, autocomplete prefers usage of username instead of phone number. 
@@ -33,7 +33,7 @@ Feature: Sign Up with Phone
 
     Then "Phone Number" field autocompletes "username"
 
-  @todo-migration @angular @react @vue
+    @angular @react @vue
   Scenario: Password fields autocomplete "new-password"
     Then "Password" field autocompletes "new-password"
     Then "Confirm Password" field autocompletes "new-password"
