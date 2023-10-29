@@ -17,7 +17,7 @@ Feature: Sign In with Phone Number
     Then I type my "phone number" with status "CONFIRMED"
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"
     Then I click the "Send code" button
-    Then I verify the body has "+19995554444" included
+    Then I verify the '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' body has "+19995554444" included
     Then I will be redirected to the confirm forgot password page
     Then I see "Code"
     Then I type a valid code
@@ -25,7 +25,7 @@ Feature: Sign In with Phone Number
     Then I confirm my password
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmForgotPassword" } }' with fixture "confirm-reset-password"
     Then I click the submit button
-    Then I verify the body has "+19995554444" included
+    Then I verify the '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmForgotPassword" } }' body has "+19995554444" included
     Then I see "Sign In"
 
   @todo-migration @angular @react @vue

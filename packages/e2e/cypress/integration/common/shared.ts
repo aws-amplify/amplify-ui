@@ -9,6 +9,12 @@ let language = 'en-US';
 let window = null;
 let stub = null;
 
+const getRoute = (routeMatcher: { headers: { [key: string]: string } }) => {
+  return `${routeMatcher.headers?.['X-Amz-Target'] || 'route'}`;
+};
+const getWaitRoute = (routeMatcher: { headers: { [key: string]: string } }) =>
+  `@${getRoute(routeMatcher)}`;
+
 /**
  * Given dot delimited paths to a method (e.g. Amplify.Auth.signIn) on window,
  * returns the object that holds the method (Amplify.Auth) and the method (signIn).
@@ -70,9 +76,7 @@ Given(
       throw error;
     }
 
-    cy.intercept(routeMatcher, { fixture }).as(
-      `${routeMatcher.headers?.['X-Amz-Target'] || 'route'}`
-    );
+    cy.intercept(routeMatcher, { fixture }).as(getRoute(routeMatcher));
   }
 );
 
@@ -87,14 +91,10 @@ Given(
       throw error;
     }
 
-    cy.intercept(routeMatcher, { fixture }).as(
-      `${routeMatcher.headers?.['X-Amz-Target'] || 'route'}`
-    );
-    cy.wait(`@${routeMatcher.headers?.['X-Amz-Target'] || 'route'}`).then(
-      (interception) => {
-        assert.isNotNull(interception, 'API call confirmed');
-      }
-    );
+    cy.intercept(routeMatcher, { fixture }).as(getRoute(routeMatcher));
+    cy.wait(getWaitRoute(routeMatcher)).then((interception) => {
+      assert.isNotNull(interception, 'API call confirmed');
+    });
   }
 );
 
@@ -107,9 +107,7 @@ Given('I spy request {string}', (json: string) => {
     throw error;
   }
 
-  cy.intercept(routeMatcher).as(
-    `${routeMatcher.headers?.['X-Amz-Target'] || 'route'}`
-  );
+  cy.intercept(routeMatcher).as(getRoute(routeMatcher));
 });
 
 Given('I confirm request {string}', (json: string) => {
@@ -121,11 +119,9 @@ Given('I confirm request {string}', (json: string) => {
     throw error;
   }
 
-  cy.wait(`@${routeMatcher.headers?.['X-Amz-Target'] || 'route'}`).then(
-    (interception) => {
-      assert.isNotNull(interception, 'API call confirmed');
-    }
-  );
+  cy.wait(getWaitRoute(routeMatcher)).then((interception) => {
+    assert.isNotNull(interception, 'API call confirmed');
+  });
 });
 
 Given(
@@ -144,6 +140,22 @@ Given(
         [headerName]: headerValue,
       },
     });
+  }
+);
+
+Given(
+  'I verify the {string} body has {string} included',
+  (json: string, value: string) => {
+    let routeMatcher;
+
+    try {
+      routeMatcher = JSON.parse(json);
+    } catch (error) {
+      throw error;
+    }
+    cy.wait(getWaitRoute(routeMatcher))
+      .its('request.body.Username')
+      .should('include', value);
   }
 );
 
