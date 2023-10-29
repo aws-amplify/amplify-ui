@@ -35,13 +35,13 @@ Feature: Sign In with Email
     When I type my "email" with status "UNCONFIRMED"
     Then I type my password
     Then I click the "Sign in" button
-    Then I spy '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' request
-    Then I see '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' request
+    Then I spy request '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }'
+    Then I confirm request '{"headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }'
     Then I see "Confirmation Code"
     Then I type a valid confirmation code
-    Then I spy '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' request
+    Then I spy request '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }'
     Then I click the "Confirm" button
-    Then I see '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' request
+    Then I confirm request '{"headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }'
 
   @angular @react @vue @react-native
   Scenario: Sign in with confirmed credentials

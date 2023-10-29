@@ -71,7 +71,7 @@ Given(
     }
 
     cy.intercept(routeMatcher, { fixture }).as(
-      `${routeMatcher.headers?.['x-amz-target'] || 'route'}`
+      `${routeMatcher.headers?.['X-Amz-Target'] || 'route'}`
     );
   }
 );
@@ -88,18 +88,17 @@ Given(
     }
 
     cy.intercept(routeMatcher, { fixture }).as(
-      `${routeMatcher.headers?.['x-amz-target'] || 'route'}`
+      `${routeMatcher.headers?.['X-Amz-Target'] || 'route'}`
     );
-    cy.wait(`@${routeMatcher.headers?.['x-amz-target'] || 'route'}`).then(
+    cy.wait(`@${routeMatcher.headers?.['X-Amz-Target'] || 'route'}`).then(
       (interception) => {
-        console.log('interception');
         assert.isNotNull(interception, 'API call confirmed');
       }
     );
   }
 );
 
-Given('I spy {string} request', (json: string, fixture: string) => {
+Given('I spy request {string}', (json: string) => {
   let routeMatcher;
 
   try {
@@ -107,14 +106,13 @@ Given('I spy {string} request', (json: string, fixture: string) => {
   } catch (error) {
     throw error;
   }
-  console.log(routeMatcher, 'routmater');
 
   cy.intercept(routeMatcher).as(
     `${routeMatcher.headers?.['X-Amz-Target'] || 'route'}`
   );
 });
 
-Given('I see {string} request', (json: string, fixture: string) => {
+Given('I confirm request {string}', (json: string) => {
   let routeMatcher;
 
   try {
@@ -125,7 +123,6 @@ Given('I see {string} request', (json: string, fixture: string) => {
 
   cy.wait(`@${routeMatcher.headers?.['X-Amz-Target'] || 'route'}`).then(
     (interception) => {
-      console.log('interception');
       assert.isNotNull(interception, 'API call confirmed');
     }
   );

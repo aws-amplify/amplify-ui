@@ -50,9 +50,9 @@ Feature: Confirm Sign Up
     Then I see "Confirmation Code"
     Then I type a valid confirmation code
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
-    Then I spy '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' request
+    Then I spy request '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' 
     Then I click the "Confirm" button
-    Then I see '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' request
+    Then I confirm request '{"headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }'
 
   @angular @react @vue
   Scenario: Supports "One-Time Code"

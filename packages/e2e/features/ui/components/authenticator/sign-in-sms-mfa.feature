@@ -14,9 +14,9 @@ Feature: Sign In with SMS MFA
     Then I click the "Sign in" button
     Then I see "Confirm SMS Code"
     Then I type a valid SMS confirmation code
-    Then I spy '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' request
+    Then I spy request '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }'
     Then I click the "Confirm" button
-    Then I see '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' request
+    Then I confirm request '{"headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }'
 
   @todo-migration @angular @react @vue
   Scenario: Sign in using a valid phone number and SMS MFA
