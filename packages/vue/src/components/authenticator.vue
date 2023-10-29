@@ -301,19 +301,23 @@ const hasRouteComponent = computed(() => {
         <base-two-tabs v-if="hasTabs && !hideSignUp">
           <base-two-tab-item
             :active="route === 'signIn'"
-            :id="44472"
+            id="signIn"
             :label="signInLabel"
             @click="toSignIn"
           />
           <base-two-tab-item
             :active="route === 'signUp'"
-            :id="44471"
+            id="signUp"
             :label="createAccountLabel"
             @click="toSignUp"
           />
         </base-two-tabs>
         <div v-if="hasTabs" data-amplify-router-content>
           <sign-in
+            id="signIn-panel"
+            role="tabpanel"
+            class="amplify-tabs__panel amplify-tabs__panel--active"
+            aria-labelledby="signIn-tab"
             v-if="route === 'signIn'"
             @sign-in-submit="onSignInSubmitI"
             ref="signInComponent"
@@ -343,6 +347,10 @@ const hasRouteComponent = computed(() => {
             </template>
           </sign-in>
           <sign-up
+            id="signUp-panel"
+            class="amplify-tabs__panel amplify-tabs__panel--active"
+            role="tabpanel"
+            aria-labelledby="signUp-tab"
             v-if="route === 'signUp' && !hideSignUp"
             @sign-up-submit="onSignUpSubmitI"
             ref="signUpComponent"

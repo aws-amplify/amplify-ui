@@ -1,3 +1,5 @@
+@import './_fieldControl.scss';
+
 .amplify-input {
   @include amplify-field-control;
   // The user-select property has been added to fix

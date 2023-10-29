@@ -9,7 +9,7 @@ import {
   useAuthenticator,
   View,
 } from '@aws-amplify/ui-react';
-import { getAuthenticatorConfig } from '@aws-amplify/ui';
+
 import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
@@ -59,7 +59,6 @@ export default function AuthenticatorWithEmail() {
         formFields={formFields}
         initialState="signUp"
         services={services}
-        {...getAuthenticatorConfig(awsExports)}
       >
         {({ signOut, user }) => {
           return (

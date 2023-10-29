@@ -36,7 +36,8 @@ export type SignInMachineOptions = {
   services?: Partial<typeof defaultServices>;
 };
 
-const MFA_CHALLENGE_NAMES: ChallengeName[] = ['SMS_MFA', 'SOFTWARE_TOKEN_MFA'];
+// @todo-migration delete?
+// const MFA_CHALLENGE_NAMES: ChallengeName[] = ['SMS_MFA', 'SOFTWARE_TOKEN_MFA'];
 
 const SIGN_IN_STEP_MFA_CONFIRMATION: string[] = [
   'CONFIRM_SIGN_IN_WITH_SMS_CODE',
@@ -51,8 +52,8 @@ const isExpectedChallengeName = (
   expectedChallengeName: ChallengeName
 ) => challengeName === expectedChallengeName;
 
-const isSignInStepMFAConfirmation = (signInStep: string) =>
-  SIGN_IN_STEP_MFA_CONFIRMATION.includes(signInStep);
+// const isSignInStepMFAConfirmation = (signInStep: string) =>
+//   SIGN_IN_STEP_MFA_CONFIRMATION.includes(signInStep);
 
 export function signInActor({ services }: SignInMachineOptions) {
   return createMachine<SignInContext, AuthEvent>(
@@ -105,13 +106,16 @@ export function signInActor({ services }: SignInMachineOptions) {
                   },
                   {
                     cond: 'shouldConfirmSignIn',
-                    actions: ['setUser', 'setChallengeName'],
+                    actions: [
+                      // 'setUser',
+                      'setChallengeName',
+                    ],
                     target: '#signInActor.confirmSignIn',
                   },
                   {
                     cond: 'shouldForceChangePassword',
                     actions: [
-                      'setUser',
+                      // 'setUser',
                       'setChallengeName',
                       'setRequiredAttributes',
                     ],
@@ -497,7 +501,7 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         rejected: {
           type: 'final',
-          data: (context, event) => {
+          data: (context) => {
             groupLog('+++signIn.rejected.final', context);
 
             return {
@@ -537,25 +541,28 @@ export function signInActor({ services }: SignInMachineOptions) {
       },
       guards: {
         shouldAutoSignIn: (context) => {
+          // releveant when a user is directed from confirm sign up
           groupLog('+++signIn.shouldAutoSignIn', 'context', context);
-          return context?.intent === 'autoSignIn';
+          return false;
         },
         shouldAutoSubmit: (context) => {
           groupLog('+++signIn.shouldAutoSubmit', 'context', context);
-          return context?.intent === 'autoSignInSubmit';
+          return false;
         },
         shouldConfirmSignIn: (_, event): boolean => {
           groupLog('+++shouldConfirmSignIn', 'event', event);
-          return isSignInStepMFAConfirmation(event.data.nextStep?.signInStep);
+          return SIGN_IN_STEP_MFA_CONFIRMATION.includes(
+            event.data.nextStep?.signInStep
+          );
         },
         shouldForceChangePassword: (_, event): boolean => {
           groupLog('+++shouldForceChangePassword', 'event', event);
           return (
+            event.data.nextStep?.signInStep === 'RESET_PASSWORD' ||
             event.data.nextStep?.signInStep ===
-            'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED'
+              'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED'
           );
         },
-
         shouldRedirectToConfirmResetPassword: (_, event): boolean => {
           groupLog('+++shouldRedirectToConfirmResetPassword', 'event', event);
           return event.data.code === 'PasswordResetRequiredException';
@@ -713,6 +720,7 @@ export function signInActor({ services }: SignInMachineOptions) {
           return await Auth.confirmSignIn(input);
         },
         async federatedSignIn(_, event) {
+          groupLog('+++signIn.signInWithRedirect');
           const { provider } = event.data;
           return await Auth.signInWithRedirect({ provider });
         },

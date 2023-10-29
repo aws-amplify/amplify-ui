@@ -1,7 +1,7 @@
 import {
+  ChallengeName,
   CodeDeliveryDetails,
   SocialProvider,
-  V6AuthDeliveryMedium,
 } from '../../types';
 import { translate, DefaultTexts } from '../../i18n';
 import { AuthenticatorRoute } from './facade';
@@ -9,7 +9,7 @@ import { AuthenticatorRoute } from './facade';
 /**
  * ConfirmSignIn
  */
-const getChallengeText = (challengeName?: string): string => {
+const getChallengeText = (challengeName?: ChallengeName): string => {
   switch (challengeName) {
     case 'SMS_MFA':
     case 'CONFIRM_SIGN_IN_WITH_SMS_CODE':
@@ -51,6 +51,7 @@ const getDeliveryMessageText = (
 const getDeliveryMethodText = (
   codeDeliveryDetails: CodeDeliveryDetails
 ): string => {
+  // @todo-migration delete
   // console.log(
   //   '+++UI: getDeliveryMethodText codeDeliveryDetails',
   //   codeDeliveryDetails

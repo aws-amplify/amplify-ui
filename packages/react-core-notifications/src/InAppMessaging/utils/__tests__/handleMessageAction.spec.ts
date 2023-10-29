@@ -1,4 +1,4 @@
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
+import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 
 import { MessageAction } from '../../types';
 

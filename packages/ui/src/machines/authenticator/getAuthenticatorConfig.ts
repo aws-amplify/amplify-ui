@@ -13,6 +13,7 @@ export interface LegacyConfig {
   aws_cognito_password_protection_settings?: Record<string, any>;
 }
 
+// @todo-migration migrate config parsing here
 export function getAuthenticatorConfig<T extends LegacyConfig>(
   config: T
 ): {

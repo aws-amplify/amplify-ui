@@ -77,13 +77,6 @@ export const setTotpSecretCode = assign({
   },
 });
 
-// export const setChallengeName = assign({
-//   challengeName: (_, event: AuthEvent) => {
-//     groupLog('+++setChallengeName', 'event', event);
-//     return event.data?.challengeName;
-//   },
-// });
-
 export const setChallengeName = assign({
   challengeName: (_, event: AuthEvent) => {
     groupLog('+++setChallengeName', 'event', event);
@@ -158,8 +151,8 @@ export const setUnverifiedContactMethods = assign({
 });
 
 export const setUser = assign({
-  user: (context, event: AuthEvent) => {
-    groupLog('+++setUser', 'event.data', event.data);
+  user: (_, event: AuthEvent) => {
+    groupLog('+++setUser.source', 'event.data', event.data);
 
     /**
      * @migration Cannot be called if unauthenticated. Maybe try/catch?
@@ -169,7 +162,7 @@ export const setUser = assign({
      * @migration event.data was the fallback here,
      *  setting the entire event.data as user
      */
-    // Setting the challengeName here to keep backwards compatability
+    // Add challengeName to `user` to keep backwards compatability
     const challengeName = event.data.nextStep?.signInStep;
     return { ...event.data, ...(challengeName && { challengeName }) };
   },
