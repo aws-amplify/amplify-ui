@@ -1,8 +1,6 @@
 import React from 'react';
 import { Amplify } from 'aws-amplify';
 import * as Auth from '@aws-amplify/auth';
-// @todo-migration zero config workaround
-import { getAuthenticatorConfig } from '@aws-amplify/ui';
 
 import {
   Button,
@@ -74,6 +72,4 @@ function App() {
   );
 }
 
-export default withAuthenticator(App, {
-  ...getAuthenticatorConfig(awsExports),
-});
+export default withAuthenticator(App);

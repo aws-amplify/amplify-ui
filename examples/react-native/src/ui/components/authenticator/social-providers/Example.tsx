@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { getAuthenticatorConfig } from '@aws-amplify/ui';
 import { Authenticator } from '@aws-amplify/ui-react-native';
 import { Amplify } from 'aws-amplify';
 
@@ -12,7 +11,7 @@ Amplify.configure(awsconfig);
 function App() {
   return (
     <Authenticator.Provider>
-      <Authenticator {...getAuthenticatorConfig(awsconfig)}>
+      <Authenticator>
         <View style={style.container}>
           <SignOutButton />
         </View>
