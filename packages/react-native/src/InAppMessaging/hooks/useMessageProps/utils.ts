@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { isFunction } from '@aws-amplify/ui';
 import {
-  MessageComponentBaseProps,
   InAppMessageLayout,
+  MessageComponentBaseProps,
   MessagePayloadStyle,
 } from '@aws-amplify/ui-react-core-notifications';
 
