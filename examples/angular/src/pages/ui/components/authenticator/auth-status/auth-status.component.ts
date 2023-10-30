@@ -3,12 +3,10 @@ import { AuthenticatorService } from '@aws-amplify/ui-angular';
 import { Amplify } from 'aws-amplify';
 
 import { signIn, signOut } from 'aws-amplify/auth';
-import { ConsoleLogger } from 'aws-amplify/utils';
 
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
-ConsoleLogger.LOG_LEVEL = 'DEBUG' as unknown as null;
 @Component({
   selector: 'auth-status',
   templateUrl: 'auth-status.component.html',
