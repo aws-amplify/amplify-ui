@@ -80,8 +80,7 @@ const HomeEditor = () => {
               if (e.keyCode === 9) {
                 // tab key
                 e.preventDefault();
-                // @todo-migration fix/remove?
-                // e.target.blur();
+                e.currentTarget.blur();
                 return;
               }
               if (!edited) {
