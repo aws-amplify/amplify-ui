@@ -29,7 +29,7 @@ exports[`SignUp renders as expected 1`] = `
           
           <!-- textfield input -->
           <div
-            class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield amplify-authenticator__column"
+            class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield"
           >
             
             <label
@@ -222,7 +222,7 @@ exports[`SignUp renders as expected 1`] = `
           
           <!-- textfield input -->
           <div
-            class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield amplify-authenticator__column"
+            class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield"
           >
             
             <label
