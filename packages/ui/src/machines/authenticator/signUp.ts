@@ -246,7 +246,11 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           return event.data.message === 'User is already confirmed.';
         },
         shouldInitConfirmSignUp: (context) => {
-          console.log('+++shouldInitConfirmSignUp', context);
+          console.log(
+            '+++shouldInitConfirmSignUp',
+            context.intent && context.intent === 'confirmSignUp',
+            context?.intent === 'confirmSignUp'
+          );
           /**
            * @migration this lookup is broken, lookup prev event
            */

@@ -18,9 +18,9 @@ const attrs = useAttrs();
 // `facade` is manually typed to `UseAuthenticator` for temporary type safety.
 const facade: UseAuthenticator = useAuthenticator();
 const { submitForm, toSignIn, updateForm } = facade;
-const { user, error, isPending } = toRefs(facade);
+const { error, isPending, challengeName: challengeNameRef } = toRefs(facade);
 
-const challengeName = computed(() => user.value.challengeName);
+const challengeName = computed(() => challengeNameRef.value);
 
 // Text Util
 const { getBackToSignInText, getConfirmText, getChallengeText } =
@@ -63,15 +63,8 @@ const onBackToSignInClicked = (): void => {
 <template>
   <slot v-bind="$attrs" name="confirmSignInSlotI">
     <base-wrapper v-bind="$attrs">
-      <base-form
-        data-amplify-authenticator-confirmsignin
-        @input="onInput"
-        @submit.prevent="onConfirmSignInSubmit"
-      >
-        <base-field-set
-          class="amplify-flex amplify-authenticator__column"
-          :disabled="isPending"
-        >
+      <base-form data-amplify-authenticator-confirmsignin @input="onInput" @submit.prevent="onConfirmSignInSubmit">
+        <base-field-set class="amplify-flex amplify-authenticator__column" :disabled="isPending">
           <slot name="header">
             <base-heading :level="3" class="amplify-heading">
               {{ confirmSignInHeading }}
@@ -84,32 +77,17 @@ const onBackToSignInClicked = (): void => {
             <base-alert v-if="error">
               {{ translate(error) }}
             </base-alert>
-            <amplify-button
-              class="amplify-field-group__control amplify-authenticator__font"
-              :fullwidth="false"
-              :loading="false"
-              :variation="'primary'"
-              style="font-weight: normal"
-              :disabled="isPending"
-            >
+            <amplify-button class="amplify-field-group__control amplify-authenticator__font" :fullwidth="false"
+              :loading="false" :variation="'primary'" style="font-weight: normal" :disabled="isPending">
               {{ confirmText }}
             </amplify-button>
-            <amplify-button
-              class="amplify-field-group__control amplify-authenticator__font"
-              :fullwidth="false"
-              :size="'small'"
-              :variation="'link'"
-              style="font-weight: normal"
-              type="button"
-              @click.prevent="onBackToSignInClicked"
-            >
+            <amplify-button class="amplify-field-group__control amplify-authenticator__font" :fullwidth="false"
+              :size="'small'" :variation="'link'" style="font-weight: normal" type="button"
+              @click.prevent="onBackToSignInClicked">
               {{ backSignInText }}
             </amplify-button>
-            <slot
-              name="footer"
-              :onBackToSignInClicked="onBackToSignInClicked"
-              :onConfirmSignInSubmit="onConfirmSignInSubmit"
-            >
+            <slot name="footer" :onBackToSignInClicked="onBackToSignInClicked"
+              :onConfirmSignInSubmit="onConfirmSignInSubmit">
             </slot>
           </base-footer>
         </base-field-set>

@@ -195,8 +195,8 @@ export function createAuthenticatorMachine(
               always: { actions: 'spawnSignOutActor', target: 'runActor' },
             },
             runActor: {
-              entry: 'clearActorDoneData',
-              exit: ['stopSignOutActor', 'clearUser'],
+              entry: ['clearActorDoneData', 'clearUser'],
+              exit: ['stopSignOutActor'],
             },
           },
           on: {
@@ -270,8 +270,14 @@ export function createAuthenticatorMachine(
             return { ...event.data };
           },
         }),
-        clearUser: assign({ user: undefined }),
-        clearActorDoneData: assign({ actorDoneData: undefined }),
+        clearUser: assign((ctx, e) => {
+          groupLog('+++clearUser', e);
+          return { user: undefined };
+        }),
+        clearActorDoneData: assign((ctx, e) => {
+          groupLog('+++clearActorDoneData', e);
+          return { actorDoneData: undefined };
+        }),
         applyAmplifyConfig: assign({
           config(context, { data: cliConfig }) {
             groupLog('+++applyAmplifyConfig', cliConfig);

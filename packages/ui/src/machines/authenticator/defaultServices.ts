@@ -73,6 +73,7 @@ export const defaultServices = {
   },
   async getCurrentUser() {
     groupLog('+++getCurrentUser');
+
     return getCurrentUser();
   },
   async handleSignUp({

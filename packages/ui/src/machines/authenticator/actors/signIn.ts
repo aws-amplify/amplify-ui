@@ -97,22 +97,18 @@ export function signInActor({ services }: SignInMachineOptions) {
                 onDone: [
                   {
                     cond: 'shouldSetupTOTP',
-                    // actions: ['setUser', 'setChallengeName'],
-                    actions: ['setChallengeName'],
+                    actions: ['setUser', 'setChallengeName'],
                     target: '#signInActor.setupTOTP',
                   },
                   {
                     cond: 'shouldConfirmSignIn',
-                    actions: [
-                      // 'setUser',
-                      'setChallengeName',
-                    ],
+                    actions: ['setUser', 'setChallengeName'],
                     target: '#signInActor.confirmSignIn',
                   },
                   {
                     cond: 'shouldForceChangePassword',
                     actions: [
-                      // 'setUser',
+                      'setUser',
                       'setChallengeName',
                       'setRequiredAttributes',
                     ],
@@ -168,6 +164,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                 },
               },
             },
+            // resolved: { always: '#signInActor.resolved' },
             resolved: { always: '#signInActor.updateCurrentUser' },
             rejected: { always: '#signInActor.rejected' },
           },
@@ -242,6 +239,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                 },
               },
             },
+            // resolved: { always: '#signInActor.resolved' },
             resolved: { always: '#signInActor.updateCurrentUser' },
             rejected: { always: '#signInActor.rejected' },
           },
@@ -776,6 +774,7 @@ export function signInActor({ services }: SignInMachineOptions) {
           };
         },
         async autoSignIn() {
+          groupLog('+++autoSignIn');
           return await autoSignIn();
         },
       },
