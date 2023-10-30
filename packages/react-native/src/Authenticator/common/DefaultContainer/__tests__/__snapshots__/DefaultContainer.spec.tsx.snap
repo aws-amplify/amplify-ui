@@ -84,6 +84,8 @@ exports[`DefaultContainer renders as expected with children 1`] = `
               "borderColor": "hsl(210, 10%, 58%)",
               "borderRadius": 4,
               "borderWidth": 1,
+              "flexDirection": "row",
+              "gap": 12,
               "justifyContent": "center",
               "paddingHorizontal": 16,
               "paddingVertical": 12,
