@@ -30,8 +30,8 @@ const { totpIssuer = 'AWSCognito', totpUsername = user.value.username } =
   QRFields.value ?? {};
 
 const totpCodeURL =
-  totpSecretCode.value && totpUsername
-    ? getTotpCodeURL(totpIssuer, totpUsername, totpSecretCode.value)
+  totpSecretCode.value
+    ? getTotpCodeURL(totpIssuer, totpUsername!, totpSecretCode.value)
     : null;
 
 const qrCode = reactive({
