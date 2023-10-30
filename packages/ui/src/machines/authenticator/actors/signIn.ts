@@ -644,8 +644,8 @@ export function signInActor({ services }: SignInMachineOptions) {
 
           const { confirmation_code: challengeResponse } = context.formValues;
 
-          await services.handleConfirmSignIn({ challengeResponse });
-          return await getCurrentUser();
+          return services.handleConfirmSignIn({ challengeResponse });
+          // return await getCurrentUser();
         },
         async forceNewPassword(context) {
           groupLog('+++forceNewPassword');
