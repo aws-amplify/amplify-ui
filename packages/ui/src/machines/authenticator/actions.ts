@@ -72,8 +72,8 @@ export const clearValidationError = assign({ validationError: (_) => ({}) });
  * "set" actions
  */
 export const setTotpSecretCode = assign({
-  totpSecretCode: (_, event: AuthEvent) => {
-    groupLog('+++totpSecretCode', 'event', event);
+  totpSecretCode: (ctx, event: AuthEvent) => {
+    groupLog('+++setTotpSecretCode', ctx, event);
     return event.data;
   },
 });

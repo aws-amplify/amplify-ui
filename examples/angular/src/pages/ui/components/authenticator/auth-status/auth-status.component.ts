@@ -6,6 +6,7 @@ import { signIn, signOut } from 'aws-amplify/auth';
 import { ConsoleLogger } from 'aws-amplify/utils';
 
 import awsExports from './aws-exports';
+Amplify.configure(awsExports);
 
 ConsoleLogger.LOG_LEVEL = 'DEBUG' as unknown as null;
 @Component({
@@ -13,9 +14,7 @@ ConsoleLogger.LOG_LEVEL = 'DEBUG' as unknown as null;
   templateUrl: 'auth-status.component.html',
 })
 export class AuthStatusComponent {
-  constructor(public authenticator: AuthenticatorService) {
-    Amplify.configure(awsExports);
-  }
+  constructor(public authenticator: AuthenticatorService) {}
 
   get isAuthenticated(): boolean {
     return this.authenticator.authStatus === 'authenticated';
