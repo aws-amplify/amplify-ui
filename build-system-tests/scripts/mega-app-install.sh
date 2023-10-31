@@ -10,7 +10,7 @@ FRAMEWORK_VERSION="latest"
 PKG_MANAGER="npm"
 PKG_MANAGER_VERSION="latest"
 UI_VERSION="next-release-migration"
-AMPLIFY_VERSION="console-preview"
+AMPLIFY_VERSION="6.0"
 
 # Import install function
 source "./scripts/install-with-retries.sh"
