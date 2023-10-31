@@ -25,9 +25,6 @@
     "strict": true,
 
     // https://www.typescriptlang.org/tsconfig#target
-    "target": "ES2020",
-
-    // @todo-migration remove before release
-    "skipLibCheck": true
+    "target": "ES2020"
   }
 }
