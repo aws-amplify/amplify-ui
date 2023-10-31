@@ -14,7 +14,7 @@ export function StorageManagerMetadataExample() {
   return (
     <StorageManager
       acceptedFileTypes={['image/*']}
-      accessLevel="private"
+      accessLevel="guest"
       maxFileCount={3}
       showThumbnails={true}
       processFile={processFile}
