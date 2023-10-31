@@ -20,12 +20,13 @@ describe('listenToAuthHub', () => {
     Utils.listenToAuthHub(authenticatedStateMachine);
     Hub.dispatch('auth', { event: 'signOut' });
 
-    expect(hubHandlerSpy).toBeCalledWith(
+    expect(hubHandlerSpy).toHaveBeenCalledWith(
       {
         channel: 'auth',
         patternInfo: [],
         payload: { event: 'signOut' },
-        source: '',
+        // @todo-migration confirm changing from source '' to undefined is correct
+        source: undefined,
       },
       authenticatedStateMachine
     );

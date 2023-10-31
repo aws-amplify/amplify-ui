@@ -4,7 +4,7 @@ exports[`MessageWrapper renders as expected 1`] = `
 <Modal
   hardwareAccelerated={false}
   supportedOrientations={
-    Array [
+    [
       "portrait",
       "portrait-upside-down",
       "landscape",
@@ -18,8 +18,8 @@ exports[`MessageWrapper renders as expected 1`] = `
   <SafeAreaProvider>
     <SafeAreaView
       style={
-        Array [
-          Object {
+        [
+          {
             "flex": 1,
           },
           undefined,

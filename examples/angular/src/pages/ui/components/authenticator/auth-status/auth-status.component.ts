@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthenticatorService } from '@aws-amplify/ui-angular';
 import { Amplify } from 'aws-amplify';
-import * as Auth from '@aws-amplify/auth';
+
+import { signIn, signOut } from 'aws-amplify/auth';
 
 import awsExports from './aws-exports';
 
@@ -19,13 +20,13 @@ export class AuthStatusComponent {
   }
 
   signOut() {
-    Auth.signOut();
+    signOut();
   }
 
   handleSubmit(event: Event) {
     event.preventDefault();
 
     const formData = new FormData(event.target as HTMLFormElement);
-    Auth.signIn(Object.fromEntries(formData) as any);
+    signIn(Object.fromEntries(formData) as any);
   }
 }

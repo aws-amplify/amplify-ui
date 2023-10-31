@@ -9,6 +9,7 @@ import {
   Primitive,
 } from '../types';
 import { Flex } from '../Flex';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const MessageContentPrimitive: Primitive<MessageContentProps, 'div'> = (
   { children, className, ...rest },
@@ -28,6 +29,6 @@ const MessageContentPrimitive: Primitive<MessageContentProps, 'div'> = (
 export const MessageContent: ForwardRefPrimitive<
   BaseMessageContentProps,
   'div'
-> = React.forwardRef(MessageContentPrimitive);
+> = primitiveWithForwardRef(MessageContentPrimitive);
 
 MessageContent.displayName = 'MessageContent';

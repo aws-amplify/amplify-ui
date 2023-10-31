@@ -1,7 +1,5 @@
 import { getTotpCodeURL, isValidEmail, trimValues } from '../utils';
 
-import * as AuthModule from '@aws-amplify/auth';
-
 const SECRET_KEY = 'shhhhh';
 const USERNAME = 'username';
 

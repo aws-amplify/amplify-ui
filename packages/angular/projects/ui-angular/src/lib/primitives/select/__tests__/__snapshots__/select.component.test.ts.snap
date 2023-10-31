@@ -22,11 +22,11 @@ exports[`amplify-form-select renders as expected 1`] = `
       
     </select>
     <div
-      class="amplify-flex amplify-select__icon-wrapper"
+      class="amplify-flex amplify-select__icon"
       style="align-items: center; justify-content: center;"
     >
       <svg
-        class="amplify-icon amplify-icon--large"
+        class="amplify-icon"
         data-size="large"
         fill="currentColor"
         viewBox="0 0 24 24"

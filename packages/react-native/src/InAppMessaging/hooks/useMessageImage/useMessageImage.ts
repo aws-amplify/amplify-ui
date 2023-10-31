@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Image } from 'react-native';
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
+import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 
 import {
   InAppMessageImage,

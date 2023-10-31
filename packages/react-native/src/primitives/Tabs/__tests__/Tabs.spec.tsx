@@ -41,9 +41,9 @@ describe('Tabs', () => {
 
     const tabs = queryAllByRole('tab');
     fireEvent.press(tabs[1]);
-    expect(onChangeMock).toBeCalledWith(1);
+    expect(onChangeMock).toHaveBeenCalledWith(1);
     fireEvent.press(tabs[0]);
-    expect(onChangeMock).toBeCalledWith(0);
+    expect(onChangeMock).toHaveBeenCalledWith(0);
   });
 
   it('does not allow disabled Tabs to be selected', () => {

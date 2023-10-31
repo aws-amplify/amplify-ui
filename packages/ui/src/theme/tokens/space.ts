@@ -18,7 +18,7 @@ type SpaceSize =
 
 export type SpaceSizes<
   Output extends OutputVariantKey = unknown,
-  Platform = unknown
+  Platform = unknown,
 > = DesignTokenValues<
   SpaceSize | 'zero',
   SpaceValue<Platform>,
@@ -28,7 +28,7 @@ export type SpaceSizes<
 
 type BaseSpace<
   Output extends OutputVariantKey = unknown,
-  Platform = unknown
+  Platform = unknown,
 > = SpaceSizes<Output, Platform> & {
   relative?: DesignTokenValues<
     SpaceSize | 'full',
@@ -41,11 +41,11 @@ type BaseSpace<
 // `Space` tokens requires special handling for `required` output due to nested tokens
 export type Space<
   Output extends OutputVariantKey = unknown,
-  Platform = unknown
+  Platform = unknown,
 > = (Output extends 'required' | 'default'
   ? Required<BaseSpace<Output, Platform>>
   : BaseSpace<Output, Platform>) &
-  RecursiveDesignToken<SpaceValue<Platform>, Output, Platform>;
+  RecursiveDesignToken<SpaceValue<Platform, Output>, Output, Platform>;
 
 export const space: Space<'default'> = {
   zero: { value: '0' },

@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactNative from 'react-native';
 
 /********************************/
 /** Platform primitive helpers **/
@@ -11,7 +10,7 @@ import ReactNative from 'react-native';
 export type ButtonHandler<T> = T extends 'react'
   ? { onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void }
   : T extends 'react-native'
-  ? { onPress?: (event: ReactNative.GestureResponderEvent) => void }
+  ? { onPress?: (event: any) => void }
   : unknown;
 
 type ImgSrc<T> = T extends 'react'
@@ -25,7 +24,7 @@ interface BlurHandler<T> {
     event: T extends 'react'
       ? React.FocusEvent<HTMLInputElement>
       : T extends 'react-native'
-      ? ReactNative.NativeSyntheticEvent<ReactNative.TextInputFocusEventData>
+      ? any
       : unknown
   ) => void;
 }
@@ -35,7 +34,7 @@ interface ChangeHandler<T> {
     event: T extends 'react'
       ? React.ChangeEvent<HTMLInputElement>
       : T extends 'react-native'
-      ? ReactNative.NativeSyntheticEvent<ReactNative.TextInputChangeEventData>
+      ? any
       : unknown
   ) => void;
 }
@@ -46,9 +45,7 @@ interface ChangeTextHandler<T> {
 
 export interface SubmitHandler<T> {
   onSubmit?: (
-    e: T extends 'react'
-      ? React.FormEvent<HTMLFormElement>
-      : ReactNative.GestureResponderEvent
+    e: T extends 'react' ? React.FormEvent<HTMLFormElement> : any
   ) => void;
 }
 
@@ -101,7 +98,7 @@ interface FieldPrimitivePropsBase<P, T>
 
 type FieldPrimitiveProps<
   P,
-  T extends FieldType = FieldType
+  T extends FieldType = FieldType,
 > = FieldPrimitivePropsBase<P, T>;
 type RadioGroupPrimitiveProps<P = unknown> = FieldPrimitiveProps<P, 'radio'>;
 

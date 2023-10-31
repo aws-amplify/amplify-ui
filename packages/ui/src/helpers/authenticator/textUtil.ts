@@ -1,15 +1,19 @@
-import { CodeDeliveryDetails, SocialProvider } from '../../types';
+import {
+  ChallengeName,
+  CodeDeliveryDetails,
+  SocialProvider,
+} from '../../types';
 import { translate, DefaultTexts } from '../../i18n';
 import { AuthenticatorRoute } from './facade';
 
 /**
  * ConfirmSignIn
  */
-const getChallengeText = (challengeName?: string): string => {
+const getChallengeText = (challengeName?: ChallengeName): string => {
   switch (challengeName) {
-    case 'CONFIRM_SIGN_IN_WITH_SMS_CODE':
+    case 'SMS_MFA':
       return translate(DefaultTexts.CONFIRM_SMS);
-    case 'CONFIRM_SIGN_IN_WITH_TOTP_CODE':
+    case 'SOFTWARE_TOKEN_MFA':
       return translate(DefaultTexts.CONFIRM_TOTP);
     default:
       throw new Error(
@@ -26,9 +30,9 @@ const getChallengeText = (challengeName?: string): string => {
 const getDeliveryMessageText = (
   codeDeliveryDetails: CodeDeliveryDetails
 ): string => {
-  const { deliveryMedium, destination } = codeDeliveryDetails ?? {};
-  const isEmailMessage = deliveryMedium === 'EMAIL';
-  const isTextMessage = deliveryMedium === 'SMS';
+  const { DeliveryMedium, Destination } = codeDeliveryDetails ?? {};
+  const isEmailMessage = DeliveryMedium === 'EMAIL';
+  const isTextMessage = DeliveryMedium === 'SMS';
 
   const arrivalMessage = translate(DefaultTexts.CODE_ARRIVAL);
 
@@ -40,20 +44,21 @@ const getDeliveryMessageText = (
     ? translate(DefaultTexts.CODE_EMAILED)
     : translate(DefaultTexts.CODE_TEXTED);
 
-  return `${instructionMessage} ${destination}. ${arrivalMessage}.`;
+  return `${instructionMessage} ${Destination}. ${arrivalMessage}.`;
 };
 
 const getDeliveryMethodText = (
   codeDeliveryDetails: CodeDeliveryDetails
 ): string => {
+  // @todo-migration delete
   // console.log(
   //   '+++UI: getDeliveryMethodText codeDeliveryDetails',
   //   codeDeliveryDetails
   // );
 
-  const { deliveryMedium } = codeDeliveryDetails ?? {};
-  const isEmailMessage = deliveryMedium === 'EMAIL';
-  const isTextMessage = deliveryMedium === 'SMS';
+  const { DeliveryMedium } = codeDeliveryDetails ?? {};
+  const isEmailMessage = DeliveryMedium === 'EMAIL';
+  const isTextMessage = DeliveryMedium === 'SMS';
 
   if (!isEmailMessage && isTextMessage) {
     return translate(DefaultTexts.WE_SENT_CODE);

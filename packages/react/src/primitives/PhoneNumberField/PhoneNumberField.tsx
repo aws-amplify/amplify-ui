@@ -10,6 +10,7 @@ import {
 } from '../types';
 import { ComponentText } from '../shared/constants';
 import { TextField } from '../TextField';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
   {
@@ -70,6 +71,6 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
 export const PhoneNumberField: ForwardRefPrimitive<
   PhoneNumberFieldProps,
   'input'
-> = React.forwardRef(PhoneNumberFieldPrimitive);
+> = primitiveWithForwardRef(PhoneNumberFieldPrimitive);
 
 PhoneNumberField.displayName = 'PhoneNumberField';

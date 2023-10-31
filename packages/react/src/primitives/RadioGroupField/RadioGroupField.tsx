@@ -15,6 +15,7 @@ import {
 } from '../types';
 import { getTestId } from '../utils/getTestId';
 import { useStableId } from '../utils/useStableId';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, 'fieldset'> = (
   {
@@ -117,6 +118,6 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, 'fieldset'> = (
 export const RadioGroupField: ForwardRefPrimitive<
   BaseRadioGroupFieldProps,
   'fieldset'
-> = React.forwardRef(RadioGroupFieldPrimitive);
+> = primitiveWithForwardRef(RadioGroupFieldPrimitive);
 
 RadioGroupField.displayName = 'RadioGroupField';

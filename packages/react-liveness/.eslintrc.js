@@ -1,16 +1,15 @@
 module.exports = {
   extends: ['@aws-amplify/amplify-ui/react'],
-  // point to local tsconfig
-  parserOptions: { project: ['./tsconfig.json'], tsconfigRootDir: __dirname },
   ignorePatterns: [
-    'dist',
-    '*.config.js',
     '.eslintrc.js',
-    'jest.setup.ts',
+    'dist',
+    'rollup.config.ts',
 
     // NOTE: remove to turn on linting for test files
     '__tests__',
   ],
+  // point to local tsconfig
+  parserOptions: { project: ['tsconfig.json'], tsconfigRootDir: __dirname },
   overrides: [
     {
       extends: ['@aws-amplify/amplify-ui/jest'],

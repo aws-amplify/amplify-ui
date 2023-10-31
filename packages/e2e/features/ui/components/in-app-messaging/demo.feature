@@ -16,7 +16,7 @@ Feature: In-App Messaging demo page to show banners with various configurations
     When I dismiss the banner
     Then I do not see the banner
 
-   @react @react-native
+  @react @react-native
   Scenario: Verify that the banner has expected number of buttons
     When I toggle "Has Secondary Button" checkbox
     Then I click the "Display Demo Message" button
@@ -31,13 +31,13 @@ Feature: In-App Messaging demo page to show banners with various configurations
     When I dismiss the banner
     Then I do not see the banner
 
-   @react @react-native
+  @react @react-native
   Scenario: Verify that the banner is shown as a bottom banner
     When I click the "BOTTOM_BANNER" layout radio option
     Then I click the "Display Demo Message" button
     Then I see a "bottom" banner dialog
 
-   @react @react-native
+  @react @react-native
   Scenario: Verify that the banner is shown as a middle banner
     When I click the "MIDDLE_BANNER" layout radio option
     Then I click the "Display Demo Message" button

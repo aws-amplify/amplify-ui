@@ -4,7 +4,8 @@
  */
 
 import { Hub } from '@aws-amplify/core';
-import { waitFor } from 'xstate/lib/waitFor.js';
+// @todo-migration delete?
+// import { waitFor } from 'xstate/lib/waitFor.js';
 
 import {
   AuthActorState,
@@ -13,8 +14,9 @@ import {
   AuthMachineState,
 } from '../../types';
 import { ALLOWED_SPECIAL_CHARACTERS, emailRegex } from './constants';
-import { getActorState } from './actor';
-import { isFunction } from '../../utils';
+// @todo-migration delete?
+// import { getActorState } from './actor';
+import { groupLog, isFunction } from '../../utils';
 
 // replaces all characters in a string with '*', except for the first and last char
 export const censorAllButFirstAndLast = (value: string): string => {
@@ -42,31 +44,33 @@ export const censorPhoneNumber = (val: string): string => {
   return split.join('');
 };
 
-const waitForAutoSignInState = async (service: AuthInterpreter) => {
-  // https://xstate.js.org/docs/guides/interpretation.html#waitfor
-  try {
-    await waitFor(service, (state) =>
-      getActorState(state).matches('autoSignIn')
-    );
-  } catch (e) {
-    /**
-     * AutoSignIn can be called in unrelated state, or after user has already
-     * signed in, because Amplify JS can send duplicate hub events.
-     *
-     * In that case, we do no-op and ignore the second event.
-     */
-  }
-};
+// @todo-migration delete?
+// const waitForAutoSignInState = async (service: AuthInterpreter) => {
+//   // https://xstate.js.org/docs/guides/interpretation.html#waitfor
+//   try {
+//     await waitFor(service, (state) =>
+//       getActorState(state).matches('autoSignIn')
+//     );
+//   } catch (e) {
+//     /**
+//      * AutoSignIn can be called in unrelated state, or after user has already
+//      * signed in, because Amplify JS can send duplicate hub events.
+//      *
+//      * In that case, we do no-op and ignore the second event.
+//      */
+//   }
+// };
 
 /**
  * Handles Amplify JS Auth hub events, by forwarding hub events as appropriate
  * xstate events.
  */
 export const defaultAuthHubHandler: AuthMachineHubHandler = async (
-  { payload: { data, event } },
+  { payload: { event } },
   service,
   options
 ) => {
+  groupLog('+++defaultAuthHubHandler');
   const { send } = service;
   const state = service.getSnapshot(); // this is just a getter and is not expensive
 
@@ -74,6 +78,10 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = async (
 
   console.log({ event });
   switch (event) {
+    case 'signInWithRedirect_failure':
+      console.log('HIIIIIIIIIII');
+
+      break;
     // TODO: We can add more cases here, according to
     // https://docs.amplify.aws/lib/auth/auth-events/q/platform/js/
     case 'tokenRefresh':

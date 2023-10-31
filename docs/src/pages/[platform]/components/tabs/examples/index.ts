@@ -1,15 +1,13 @@
 export { AriaLabel } from './AriaLabel';
 export { BadgeIcons } from './BadgeIcons';
-export { BasicTabs } from './BasicTabs';
+export { ComposedTabsExample } from './ComposedTabsExample';
 export { ControlledTabExample } from './ControlledTabExample';
-export { DataAttributeStyles } from './DataAttributeStyles';
 export { DefaultTabUncontrolled } from './DefaultTabUncontrolled';
 export { DisabledTabs } from './DisabledTabs';
 export { IndicatorPosition } from './IndicatorPosition';
 export { JustifyContent } from './JustifyContent';
+export { LazyTabsExample } from './LazyTabsExample';
 export { OverrideStyleClasses } from './OverrideStyleClasses';
-export { PseudoStyles } from './PseudoStyles';
 export { Spacing } from './Spacing';
 export { StyleProps } from './StyleProps';
 export { TabsThemeExample } from './TabsThemeExample';
-export { Title } from './Title';

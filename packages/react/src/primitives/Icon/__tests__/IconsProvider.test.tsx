@@ -55,7 +55,7 @@ describe('IconsProvider', () => {
     render(
       <IconsProvider
         icons={{
-          expander: {
+          accordion: {
             more: <View testId="more" />,
           },
         }}

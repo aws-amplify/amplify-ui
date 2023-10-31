@@ -104,7 +104,7 @@ describe('FileList', () => {
 
   it('renders nothing when there are no files', () => {
     const { container } = render(<FileList {...fileListProps} files={[]} />);
-    expect(container).toMatchInlineSnapshot(`<div />`);
+    expect(container).toMatchSnapshot();
   });
 
   it('should call onDeleteUpload when remove button is clicked', () => {

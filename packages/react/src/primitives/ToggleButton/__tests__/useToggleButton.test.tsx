@@ -37,6 +37,6 @@ describe('useToggleButton:', () => {
       useToggleButton({ isPressed: false, onChange })
     );
     act(() => result.current.handleClick(mockEvent));
-    expect(onChange).toBeCalledTimes(1);
+    expect(onChange).toHaveBeenCalledTimes(1);
   });
 });

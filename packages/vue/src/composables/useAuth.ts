@@ -3,7 +3,7 @@ import { ref, reactive, Ref, watchEffect, onScopeDispose } from 'vue';
 import { useActor } from '@xstate/vue';
 import { interpret } from 'xstate';
 
-import * as Auth from '@aws-amplify/auth';
+import { getCurrentUser } from 'aws-amplify/auth';
 import {
   AuthInterpreter,
   AuthMachineState,
@@ -42,7 +42,7 @@ export const useAuth = createSharedComposable((): UseAuth => {
     await defaultAuthHubHandler(data, service, { onSignIn, onSignOut });
   });
 
-  Auth.getCurrentUser()
+  getCurrentUser()
     .then(() => {
       authStatus.value = 'authenticated';
     })

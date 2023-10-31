@@ -1,5 +1,5 @@
 import { notifyMessageInteraction } from 'aws-amplify/in-app-messaging';
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
+import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import { RenderNothing } from '@aws-amplify/ui-react-core';
 import { useInAppMessaging } from '../../useInAppMessaging';
 import {
@@ -27,7 +27,9 @@ jest.mock('aws-amplify', () => ({
 }));
 
 jest.mock('aws-amplify/in-app-messaging', () => ({
-  ...jest.requireActual('aws-amplify/in-app-messaging'),
+  ...jest.requireActual<typeof import('aws-amplify/in-app-messaging')>(
+    'aws-amplify/in-app-messaging'
+  ),
   notifyMessageInteraction: jest.fn(),
 }));
 

@@ -7,81 +7,81 @@ Feature: Sign Up with Attributes
   Background:
     Given I'm running the example "ui/components/authenticator/sign-up-with-attributes"
 
-  @todo-migration @angular @react @vue @react-native
+  @angular @react @vue @react-native
   Scenario: Login mechanism set to "username"
     Then I see "Username" as a "text" field
     Then I see "Email" as an "email" field
     Then I see "Phone Number" as a "tel" field
 
-  @todo-migration @angular @react @vue @react-native
+  @angular @react @vue @react-native
   Scenario: Sign Up screen does not have Address
     Then I don't see "Address"
 
-  @todo-migration @angular @react @vue @react-native
+  @angular @react @vue @react-native
   Scenario: Sign Up screen has Birthdate
     Then I see "Birthdate" as a "date" field
 
-  @todo-migration @angular @react @vue @react-native
+  @angular @react @vue @react-native
   Scenario: Sign Up screen has Email
     Then I see "Email" as an "email" field
 
-  @todo-migration @angular @react @vue  
+  @angular @react @vue  
   Scenario: Sign Up screen has Family Name
     Then I see "Family Name" as a "text" field
 
-  @todo-migration @angular @react @vue @react-native
+  @angular @react @vue @react-native
   Scenario: Sign Up screen has Middle Name
     Then I see "Middle Name" as a "text" field
 
-  @todo-migration @angular @react @vue  
+  @angular @react @vue  
   Scenario: Sign Up screen does not have Gender
     Then I don't see "Gender"
 
-  @todo-migration @angular @react @vue @react-native
+  @angular @react @vue @react-native
   Scenario: Sign Up screen does not have Locale
     Then I don't see "Locale"
 
-  @todo-migration @angular @react @vue @react-native
+  @angular @react @vue @react-native
   Scenario: Sign Up screen has Given Name
     Then I see "Given Name" as a "text" field
 
-  @todo-migration @angular @react @vue @react-native
+  @angular @react @vue @react-native
   Scenario: Sign Up screen has Name
     Then I see "Name" as a "text" field
 
-  @todo-migration @angular @react @vue @react-native
+  @angular @react @vue @react-native
   Scenario: Sign Up screen has Nickname
     Then I see "Nickname" as a "text" field
 
-  @todo-migration @angular @react @vue @react-native
+  @angular @react @vue @react-native
   Scenario: Sign Up screen has Phone Number
     Then I see "Phone Number" as a "tel" field
 
-  @todo-migration @angular @react @vue @react-native
+  @angular @react @vue @react-native
   Scenario: Sign Up screen has Preferred Username
     Then I see "Preferred Username" as a "text" field
 
-  @todo-migration @angular @react @vue @react-native
+  @angular @react @vue @react-native
   Scenario: Sign Up screen does not have Picture
     Then I don't see "Picture"
 
-  @todo-migration @angular @react @vue @react-native
+  @angular @react @vue @react-native
   Scenario: Sign Up screen has Profile
     Then I see "Profile" as a "url" field
 
-  @todo-migration @angular @react @vue @react-native
+  @angular @react @vue @react-native
   Scenario: Sign Up screen does not have Updated At
     Then I don't see "Updated At"
 
-  @todo-migration @angular @react @vue @react-native
+  @angular @react @vue @react-native
   Scenario: Sign Up screen has Website
     Then I see "Website" as a "url" field
 
-  @todo-migration @angular @react @vue @react-native
+  @angular @react @vue @react-native
   Scenario: Sign Up screen does not have Zone Info
     Then I don't see "Zone Info"
 
-  @todo-migration @angular @react @vue
+  @angular @react @vue
   Scenario: Sign In Force New Password screen has correct attributes 
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password-with-attributes"
     When I click the "Sign In" tab

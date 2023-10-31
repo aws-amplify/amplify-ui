@@ -1,4 +1,11 @@
-import * as Auth from '@aws-amplify/auth';
+import {
+  SignUpOutput,
+  ConfirmSignUpOutput,
+  ConfirmSignUpInput,
+  ResendSignUpCodeInput,
+  resendSignUpCode,
+  signInWithRedirect,
+} from 'aws-amplify/auth';
 import get from 'lodash/get.js';
 import pickBy from 'lodash/pickBy.js';
 import { assign, createMachine, sendUpdate } from 'xstate';
@@ -21,13 +28,14 @@ import {
   handleSubmit,
 } from './actions';
 import { defaultServices } from './defaultServices';
-import { groupLog, noop } from '../../utils';
+import { groupLog } from '../../utils';
 
 export type SignUpMachineOptions = {
   services?: Partial<typeof defaultServices>;
 };
 
 export function createSignUpMachine({ services }: SignUpMachineOptions) {
+  groupLog('+++createSignUpMachine');
   return createMachine<SignUpContext, AuthEvent>(
     {
       id: 'signUpActor',
@@ -238,7 +246,11 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           return event.data.message === 'User is already confirmed.';
         },
         shouldInitConfirmSignUp: (context) => {
-          console.log('+++shouldInitConfirmSignUp', context);
+          console.log(
+            '+++shouldInitConfirmSignUp',
+            context.intent && context.intent === 'confirmSignUp',
+            context?.intent === 'confirmSignUp'
+          );
           /**
            * @migration this lookup is broken, lookup prev event
            */
@@ -246,10 +258,10 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           return context.intent && context.intent === 'confirmSignUp';
         },
         /**
-         * @migration data is Auth.SignUpOutput
+         * @migration data is SignUpOutput
          */
         shouldSkipConfirm: (context, { data }) => {
-          return data.isSignUpComplete;
+          return (data as SignUpOutput).isSignUpComplete;
         },
       },
       actions: {
@@ -276,7 +288,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
               'event',
               event
             );
-            const { nextStep } = event.data as Auth.ConfirmSignUpOutput;
+            const { nextStep } = event.data as ConfirmSignUpOutput;
             const { signUpStep } = nextStep;
 
             if (context?.intent === 'confirmSignUp') {
@@ -309,20 +321,13 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
 
           console.groupEnd();
 
-          const input: Auth.ConfirmSignUpInput = {
+          const input: ConfirmSignUpInput = {
             username,
             confirmationCode,
           };
 
           return await services.handleConfirmSignUp(input);
         },
-        // async resendConfirmationCode(context, event) {
-        //   const { user, authAttributes } = context;
-        //   const username =
-        //     get(user, 'username') || get(authAttributes, 'username');
-
-        //   return Auth.resendSignUp(username);
-        // },
         async resendConfirmationCode(context, event) {
           console.log('+++resendConfirmationCode');
 
@@ -330,12 +335,13 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           const username =
             get(user, 'username') || get(authAttributes, 'username');
 
-          const input: Auth.ResendSignUpCodeInput = { username };
-          return Auth.resendSignUpCode(input);
+          const input: ResendSignUpCodeInput = { username };
+          return resendSignUpCode(input);
         },
         async federatedSignIn(_, event) {
+          groupLog('+++signUp.signInWithRedirect');
           const { provider } = event.data;
-          return await Auth.signInWithRedirect({ provider });
+          return await signInWithRedirect({ provider });
         },
         async signUp(context, _event) {
           console.group('+++signUp');
