@@ -32,7 +32,7 @@ describe('FileRemoveButton', () => {
     expect(container).toMatchSnapshot();
   });
 
-  // @todo-upgrade-react-18 @todo-migration fix
+  // @todo-migration fix
   // eslint-disable-next-line jest/no-disabled-tests
   it.skip('should fire onClick function if the button is clicked on', async () => {
     const { findByRole } = render(

@@ -1,8 +1,6 @@
 import React from 'react';
 import { Amplify } from 'aws-amplify';
-import * as Auth from '@aws-amplify/auth';
-// @todo-migration zero config workaround
-import { getAuthenticatorConfig } from '@aws-amplify/ui';
+import { signOut } from 'aws-amplify/auth';
 
 import {
   Button,
@@ -18,6 +16,10 @@ import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
+
+const handleSignOut = () => {
+  signOut();
+};
 
 function CustomWarning({ onCancel, onConfirm, isDisabled }) {
   const [value, setValue] = React.useState('');
@@ -58,22 +60,16 @@ function CustomWarning({ onCancel, onConfirm, isDisabled }) {
 
 const components = { WarningView: CustomWarning };
 
-const signOut = () => {
-  Auth.signOut();
-};
-
 function App() {
   return (
     <Card variation="outlined" width="800px">
       <Flex direction="column">
         <Heading>Delete Account:</Heading>
         <AccountSettings.DeleteUser components={components} />
-        <Button onClick={signOut}>Sign Out</Button>
+        <Button onClick={handleSignOut}>Sign Out</Button>
       </Flex>
     </Card>
   );
 }
 
-export default withAuthenticator(App, {
-  ...getAuthenticatorConfig(awsExports),
-});
+export default withAuthenticator(App);

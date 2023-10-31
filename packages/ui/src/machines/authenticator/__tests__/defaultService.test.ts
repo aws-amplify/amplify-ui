@@ -1,8 +1,10 @@
-import { AuthTouchData, ChallengeName, PasswordSettings } from '../../../types';
+import { Amplify } from 'aws-amplify';
+// prefer scoped amplify js packages for spies
+import * as AuthModule from '@aws-amplify/auth';
+
+import { ChallengeName, PasswordSettings } from '../../../types';
 import { defaultServices } from '../defaultServices';
 import { ALLOWED_SPECIAL_CHARACTERS } from '../../../helpers/authenticator/constants';
-import { Amplify } from 'aws-amplify';
-import * as Auth from '@aws-amplify/auth';
 
 jest.mock('aws-amplify');
 jest.mock('@aws-amplify/auth');
@@ -254,10 +256,10 @@ describe('validateConfirmPassword', () => {
 
 describe('handleSignUp', () => {
   const testCredentials = { username: 'testuser', password: 'testpass' };
-  it('should call Auth.signUp with form data and autoSignIn enabled', async () => {
+  it('should call signUp with form data and autoSignIn enabled', async () => {
     await handleSignUp(testCredentials);
 
-    expect(Auth.signUp).toHaveBeenCalledWith({
+    expect(AuthModule.signUp).toHaveBeenCalledWith({
       ...testCredentials,
       // @todo-migration confirm this is correct value for options
       options: { autoSignIn: true, userAttributes: undefined },
@@ -267,10 +269,10 @@ describe('handleSignUp', () => {
 
 describe('handleSignIn', () => {
   const testCredentials = { username: 'testuser', password: 'testpass' };
-  it('should call Auth.signIn with username and password', async () => {
+  it('should call signIn with username and password', async () => {
     await handleSignIn(testCredentials);
 
-    expect(Auth.signIn).toHaveBeenCalledWith(testCredentials);
+    expect(AuthModule.signIn).toHaveBeenCalledWith(testCredentials);
   });
 });
 
@@ -281,10 +283,10 @@ describe('handleConfirmSignIn', () => {
     // @todo-migration confirm this is correct value for challengResponse
     challengeResponse: 'SMS_MFA' as ChallengeName,
   };
-  it('should call Auth.confirmSignIn', async () => {
+  it('should call confirmSignIn', async () => {
     await handleConfirmSignIn(testCredentials);
 
-    expect(Auth.confirmSignIn).toHaveBeenCalledWith({
+    expect(AuthModule.confirmSignIn).toHaveBeenCalledWith({
       user: testCredentials.user,
       code: testCredentials.code,
       challengeResponse: testCredentials.challengeResponse,
@@ -297,10 +299,10 @@ describe('handleConfirmSignUp', () => {
     username: 'testuser',
     confirmationCode: '1234',
   };
-  it('should call Auth.confirmSignUp', async () => {
+  it('should call confirmSignUp', async () => {
     await handleConfirmSignUp(testCredentials);
 
-    expect(Auth.confirmSignUp).toHaveBeenCalledWith({
+    expect(AuthModule.confirmSignUp).toHaveBeenCalledWith({
       username: testCredentials.username,
       confirmationCode: testCredentials.confirmationCode,
     });
@@ -313,10 +315,10 @@ describe('handleForgotPasswordSubmit', () => {
     newPassword: 'testpassword',
     confirmationCode: '1234',
   };
-  it('should call Auth.forgotPasswordSubmit', async () => {
+  it('should call forgotPasswordSubmit', async () => {
     await handleForgotPasswordSubmit(testCredentials);
 
-    expect(Auth.confirmResetPassword).toHaveBeenCalledWith({
+    expect(AuthModule.confirmResetPassword).toHaveBeenCalledWith({
       username: testCredentials.username,
       confirmationCode: testCredentials.confirmationCode,
       newPassword: testCredentials.newPassword,
@@ -329,18 +331,20 @@ describe('handleForgotPassword', () => {
     username: 'testuser',
     password: 'testpassword',
   };
-  it('should call Auth.forgotPassword', async () => {
+  it('should call forgotPassword', async () => {
     await handleForgotPassword(testCredentials);
 
-    expect(Auth.resetPassword).toHaveBeenCalledWith({ ...testCredentials });
+    expect(AuthModule.resetPassword).toHaveBeenCalledWith({
+      ...testCredentials,
+    });
   });
 });
 
 describe('getCurrentUser', () => {
-  it('should call Auth.getCurrentUser', async () => {
+  it('should call getCurrentUser', async () => {
     await getCurrentUser();
 
-    expect(Auth.getCurrentUser).toHaveBeenCalledTimes(1);
+    expect(AuthModule.getCurrentUser).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -348,7 +352,7 @@ describe('getAmplifyConfig', () => {
   // @todo-migration
   // think we need to mock result here:
   //     TypeError: Cannot read properties of undefined (reading 'Auth')
-  // > 21 |     const cliConfig = result.Auth.Cognito;
+  // > 21 |     const cliConfig = result.Cognito;
   it.skip('should call Amplify.configure', async () => {
     await getAmplifyConfig();
 

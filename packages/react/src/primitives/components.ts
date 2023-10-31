@@ -38,7 +38,7 @@ export { SliderField } from './SliderField';
 export { StepperField } from './StepperField';
 export { SwitchField } from './SwitchField';
 export * from './Table';
-export { Tabs, TabItem } from './Tabs';
+export { Tabs, TabsProps } from './Tabs';
 export { Text } from './Text';
 export { TextAreaField } from './TextAreaField';
 export { TextField } from './TextField';

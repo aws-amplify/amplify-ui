@@ -9,6 +9,7 @@ import {
   SignUpContext,
   CodeDeliveryDetails,
   V6AuthDeliveryMedium,
+  ChallengeName,
 } from '../../types';
 import { groupLog } from '../../utils';
 
@@ -71,23 +72,23 @@ export const clearValidationError = assign({ validationError: (_) => ({}) });
  * "set" actions
  */
 export const setTotpSecretCode = assign({
-  totpSecretCode: (_, event: AuthEvent) => {
-    groupLog('+++totpSecretCode', 'event', event);
+  totpSecretCode: (ctx, event: AuthEvent) => {
+    groupLog('+++setTotpSecretCode', ctx, event);
     return event.data;
   },
 });
 
-// export const setChallengeName = assign({
-//   challengeName: (_, event: AuthEvent) => {
-//     groupLog('+++setChallengeName', 'event', event);
-//     return event.data?.challengeName;
-//   },
-// });
-
 export const setChallengeName = assign({
-  challengeName: (_, event: AuthEvent) => {
-    groupLog('+++setChallengeName', 'event', event);
-    return event.data.nextStep.signInStep;
+  challengeName: (_, event: AuthEvent): ChallengeName | string => {
+    groupLog(`+++setChallengeName: ${event.data.nextStep.signInStep}`);
+
+    // map v6 `signInStep` to v5 `challengeName`
+    const { signInStep } = event.data.nextStep;
+    return signInStep === 'CONFIRM_SIGN_IN_WITH_SMS_CODE'
+      ? 'SMS_MFA'
+      : signInStep === 'CONFIRM_SIGN_IN_WITH_TOTP_CODE'
+      ? 'SOFTWARE_TOKEN_MFA'
+      : signInStep;
   },
 });
 
@@ -116,9 +117,7 @@ export const setCredentials = assign({
   /**
    * @migration does not require updates
    */
-  // authAttributes: (context: SignInContext | SignUpContext, _) => {
   authAttributes: (context: SignInContext | SignUpContext) => {
-    // groupLog('+++setCredentials', 'context', context, 'event', _);
     groupLog('+++setCredentials');
     const [primaryAlias] = context.loginMechanisms;
     const username =
@@ -157,9 +156,10 @@ export const setUnverifiedContactMethods = assign({
   },
 });
 
+// @todo-migration fix-me
 export const setUser = assign({
-  user: (context, event: AuthEvent) => {
-    groupLog('+++setUser', 'event.data', event.data);
+  user: (_, event: AuthEvent) => {
+    groupLog('+++setUser.source', 'event.data', event.data);
 
     /**
      * @migration Cannot be called if unauthenticated. Maybe try/catch?
@@ -169,9 +169,7 @@ export const setUser = assign({
      * @migration event.data was the fallback here,
      *  setting the entire event.data as user
      */
-    // Setting the challengeName here to keep backwards compatability
-    const challengeName = event.data.nextStep?.signInStep;
-    return { ...event.data, ...(challengeName && { challengeName }) };
+    return { ...event.data };
   },
 });
 

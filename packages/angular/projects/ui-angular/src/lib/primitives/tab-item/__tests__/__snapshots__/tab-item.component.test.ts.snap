@@ -7,8 +7,7 @@ exports[`amplify-tab-item renders as expected 1`] = `
 >
   <div
     aria-labelledby="mock-id-1"
-    data-orientation="horizontal"
-    data-state="inactive"
+    class="amplify-tabs__panel"
     id="mock-id-0"
     role="tabpanel"
     tabindex="0"

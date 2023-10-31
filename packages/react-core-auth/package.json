@@ -1,5 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-core-auth",
+  "private": true,
   "version": "0.0.1",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
@@ -40,7 +41,7 @@
     "xstate": "^4.33.6"
   },
   "peerDependencies": {
-    "aws-amplify": "console-preview",
+    "aws-amplify": "^6.0.0",
     "react": "^16.14.0 || ^17.0 || ^18.0"
   },
   "sideEffects": false

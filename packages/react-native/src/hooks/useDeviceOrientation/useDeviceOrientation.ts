@@ -42,7 +42,7 @@ export default function useDeviceOrientation(): {
       } else {
         (
           Dimensions as unknown as {
-            // @todo-upgrade-react-18 remove below, no longer needed
+            // @todo-migration remove below, no longer needed
             removeEventListener: (event: 'change', handler: () => void) => void;
           }
         ).removeEventListener('change', handler);

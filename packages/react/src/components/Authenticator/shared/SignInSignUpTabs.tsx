@@ -2,7 +2,7 @@ import React from 'react';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '@aws-amplify/ui-react-core';
-import { TabItem, Tabs } from '../../../primitives/Tabs';
+import { Tabs } from '../../../primitives/Tabs';
 import { View } from '../../../primitives/View';
 import { SignIn } from '../SignIn';
 import { SignUp } from '../SignUp';
@@ -29,24 +29,22 @@ export const SignInSignUpTabs = ({
           {route === 'signIn' && <SignIn />}
         </View>
       ) : (
-        <Tabs
-          indicatorPosition="top"
-          currentIndex={route === 'signIn' ? 0 : 1}
-          spacing="equal"
-          justifyContent="center"
-          onChange={() => (route === 'signIn' ? toSignUp() : toSignIn())}
+        <Tabs.Container
+          value={route}
+          isLazy
+          onValueChange={() => (route === 'signIn' ? toSignUp() : toSignIn())}
         >
-          <TabItem title={getSignInTabText()}>
-            <View data-amplify-router-content="">
-              {route === 'signIn' && <SignIn />}
-            </View>
-          </TabItem>
-          <TabItem title={getSignUpTabText()}>
-            <View data-amplify-router-content="">
-              {route === 'signUp' && <SignUp />}
-            </View>
-          </TabItem>
-        </Tabs>
+          <Tabs.List spacing="equal" indicatorPosition="top">
+            <Tabs.Item value="signIn">{getSignInTabText()}</Tabs.Item>
+            <Tabs.Item value="signUp">{getSignUpTabText()}</Tabs.Item>
+          </Tabs.List>
+          <Tabs.Panel value="signIn" data-amplify-router-content="">
+            <SignIn />
+          </Tabs.Panel>
+          <Tabs.Panel value="signUp" data-amplify-router-content="">
+            <SignUp />
+          </Tabs.Panel>
+        </Tabs.Container>
       )}
     </RouteContainer>
   );

@@ -27,7 +27,7 @@ const config: Config = {
       statements: 44.58,
     },
   },
-  // @todo-upgrade-react-18 update test API usage and remove temp thresholds
+  // @todo-migration update test API usage and remove temp thresholds
   testPathIgnorePatterns: [
     '<rootDir>/src/primitives/Accordion/__tests__/Accordion.test.tsx',
     '<rootDir>/src/primitives/Autocomplete/__tests__/Autocomplete.test.tsx',

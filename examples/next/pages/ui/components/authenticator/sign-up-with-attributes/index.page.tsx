@@ -5,13 +5,12 @@ import { TextField } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
-import { getAuthenticatorConfig } from '@aws-amplify/ui';
+
 Amplify.configure(awsExports);
 
 export default function AuthenticatorWithAttributes() {
   return (
     <Authenticator
-      {...getAuthenticatorConfig(awsExports)}
       initialState="signUp"
       components={{
         ForceNewPassword: {

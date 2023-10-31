@@ -1,5 +1,23 @@
 import { Amplify } from 'aws-amplify';
-import * as Auth from '@aws-amplify/auth';
+
+import {
+  confirmResetPassword,
+  ConfirmResetPasswordInput,
+  confirmSignIn,
+  ConfirmSignInInput,
+  ConfirmSignInOutput,
+  confirmSignUp,
+  ConfirmSignUpInput,
+  ConfirmSignUpOutput,
+  getCurrentUser,
+  resetPassword,
+  ResetPasswordInput,
+  signIn,
+  SignInInput,
+  SignInOutput,
+  signUp,
+  SignUpInput,
+} from 'aws-amplify/auth';
 import { hasSpecialChars } from '../../helpers';
 
 import {
@@ -12,6 +30,7 @@ import {
   ValidatorResult,
 } from '../../types';
 import { groupLog } from '../../utils';
+import { uniqueId } from 'lodash';
 
 // Cognito does not allow a password length lower then 8 characters
 const DEFAULT_COGNITO_PASSWORD_MIN_LENGTH = 8;
@@ -54,14 +73,18 @@ export const defaultServices = {
     };
   },
   async getCurrentUser() {
-    return {
-      ...(await Auth.getCurrentUser()),
-      attributes: { ...(await Auth.fetchUserAttributes()) },
-    };
+    const id = uniqueId();
+    groupLog(`+++getCurrentUser.defaultServices: ${id}`);
+    return getCurrentUser()
+      .then((user) => {
+        console.log('getCurrentUser.defaultServices success', id, user);
+        return user;
+      })
+      .catch((e) => {
+        console.log('getCurrentUser.defaultServices fail', id, e);
+        throw new Error(undefined);
+      });
   },
-  // async handleSignUp(formData) {
-  //   return Auth.signUp({ ...formData, autoSignIn: { enabled: true } });
-  // },
   async handleSignUp({
     attributes: userAttributes,
     username,
@@ -74,51 +97,42 @@ export const defaultServices = {
       email?: string;
     };
   }) {
-    const input: Auth.SignUpInput = {
+    const input: SignUpInput = {
       username,
       password,
       options: {
         userAttributes,
         autoSignIn: true,
-      } as Auth.SignUpInput['options'],
+      } as SignUpInput['options'],
     };
-    return Auth.signUp(input);
+    return signUp(input);
   },
   async handleSignIn({
     username,
     password,
-  }: {
-    username: string;
-    password: string;
-  }): Promise<Auth.SignInOutput> {
-    return Auth.signIn({ username, password });
+  }: SignInInput): Promise<SignInOutput> {
+    groupLog('+++handleSignIn');
+    // #todo-migration logs error in failure use cases (fiorce new password, etc)
+    return signIn({ username, password });
   },
   async handleConfirmSignIn(
-    input: Auth.ConfirmSignInInput
-  ): Promise<Auth.ConfirmSignInOutput> {
-    return Auth.confirmSignIn(
-      input
-      // {
-      //   // user,
-      //   code,
-      // }
-      // // cast due to restrictive typing of Auth.confirmSignIn
-      // mfaType as 'SMS_MFA' | 'SOFTWARE_TOKEN_MFA'
-    );
+    input: ConfirmSignInInput
+  ): Promise<ConfirmSignInOutput> {
+    return confirmSignIn(input);
   },
   async handleConfirmSignUp(
-    input: Auth.ConfirmSignUpInput
-  ): Promise<Auth.ConfirmSignUpOutput> {
-    return await Auth.confirmSignUp(input);
+    input: ConfirmSignUpInput
+  ): Promise<ConfirmSignUpOutput> {
+    return confirmSignUp(input);
   },
   async handleForgotPasswordSubmit(
-    input: Auth.ConfirmResetPasswordInput
-  ): Promise<ReturnType<typeof Auth.confirmResetPassword>> {
-    return Auth.confirmResetPassword(input);
+    input: ConfirmResetPasswordInput
+  ): Promise<ReturnType<typeof confirmResetPassword>> {
+    return confirmResetPassword(input);
   },
-  async handleForgotPassword(input: Auth.ResetPasswordInput): Promise<any> {
-    // return Auth.forgotPassword(formData);
-    return Auth.resetPassword(input);
+  async handleForgotPassword(input: ResetPasswordInput): Promise<any> {
+    // return forgotPassword(formData);
+    return resetPassword(input);
   },
 
   // Validation hooks for overriding

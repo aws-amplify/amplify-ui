@@ -26,6 +26,7 @@ import {
 import { getActorContext, getActorState } from './actor';
 import { NAVIGABLE_ROUTE_EVENT } from './constants';
 import { getRoute } from './utils';
+import { groupLog } from '../../utils';
 
 export type AuthenticatorRoute =
   | 'authenticated'
@@ -105,12 +106,6 @@ interface NextAuthenticatorSendEventAliases
   skipAttributeVerification: () => void;
 }
 
-type NextSendEventAlias =
-  | 'resendCode'
-  | 'submitForm'
-  | 'toFederatedSignIn'
-  | 'skipVerification';
-
 export interface NextAuthenticatorServiceFacade
   extends NextAuthenticatorSendEventAliases,
     NextAuthenticatorServiceContextFacade {}
@@ -175,13 +170,13 @@ export const getServiceContextFacade = (
 ): AuthenticatorServiceContextFacade => {
   const actorContext = (getActorContext(state) ?? {}) as ActorContextWithForms;
   const {
+    challengeName,
     codeDeliveryDetails,
     remoteError: error,
     unverifiedContactMethods,
     validationError: validationErrors,
     totpSecretCode = null,
   } = actorContext;
-  // groupLog('+++getServiceContextFacade', 'actorContext', actorContext);
 
   const { socialProviders = [] } = state.context?.config ?? {};
 
@@ -212,9 +207,9 @@ export const getServiceContextFacade = (
     }
   })(route);
 
-  return {
+  const facade = {
     authStatus,
-    challengeName: user?.challengeName,
+    challengeName,
     codeDeliveryDetails,
     error,
     hasValidationErrors,
@@ -234,6 +229,8 @@ export const getServiceContextFacade = (
     // are required to pass type checking. As the `Authenticator` is behaving as expected
     // with the `AuthenticatorServiceContextFacade` interface, prefer to cast
   } as AuthenticatorServiceContextFacade;
+
+  return facade;
 };
 
 export const getNextServiceContextFacade = (

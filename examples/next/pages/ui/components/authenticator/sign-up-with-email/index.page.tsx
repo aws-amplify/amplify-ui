@@ -1,7 +1,7 @@
 // @todo-migration clean up imports
 import { Amplify } from 'aws-amplify';
 import * as Auth from 'aws-amplify/auth';
-import { I18n } from '@aws-amplify/core';
+import { I18n } from 'aws-amplify/utils';
 
 import {
   Authenticator,
@@ -9,7 +9,7 @@ import {
   useAuthenticator,
   View,
 } from '@aws-amplify/ui-react';
-import { getAuthenticatorConfig } from '@aws-amplify/ui';
+
 import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
@@ -59,7 +59,6 @@ export default function AuthenticatorWithEmail() {
         formFields={formFields}
         initialState="signUp"
         services={services}
-        {...getAuthenticatorConfig(awsExports)}
       >
         {({ signOut, user }) => {
           return (

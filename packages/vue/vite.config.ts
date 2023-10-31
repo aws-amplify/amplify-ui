@@ -54,7 +54,15 @@ export default defineConfig({
     },
     rollupOptions: {
       plugins: [dynamicImportVars],
-      external: ['aws-amplify', 'vue', '@aws-amplify/auth'],
+      external: [
+        '@aws-amplify/auth',
+        '@aws-amplify/core',
+        'aws-amplify',
+        'aws-amplify/auth',
+        'aws-amplify/core',
+        'aws-amplify/utils',
+        'vue',
+      ],
       output: {
         globals: {
           vue: 'Vue',

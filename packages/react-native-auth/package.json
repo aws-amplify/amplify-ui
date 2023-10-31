@@ -1,5 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-native-auth",
+  "private": true,
   "version": "0.0.1",
   "main": "lib/index.js",
   "module": "dist/index.js",
@@ -32,7 +33,7 @@
     "@aws-amplify/ui-react-native": "1.2.28"
   },
   "peerDependencies": {
-    "aws-amplify": "console-preview",
+    "aws-amplify": "^6.0.0",
     "react": "^18",
     "react-native": "^0.70 || ^0.71 || ^0.72"
   },

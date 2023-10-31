@@ -17,6 +17,7 @@ describe('authenticatorTextUtil', () => {
 
     it('throws an error for unexpected challenge names', () => {
       expect(() =>
+        // @ts-expect-error
         authenticatorTextUtil.getChallengeText('invalidChallenge')
       ).toThrow(
         'Unexpected challengeName encountered in ConfirmSignIn: invalidChallenge'

@@ -5,7 +5,7 @@ import { DividerStyles } from './types';
 
 export const getThemedStyles = (theme: StrictTheme): DividerStyles => {
   const { tokens, components } = theme;
-  const { colors, fontSizes, space } = tokens;
+  const { colors, fontSizes, space, borderWidths } = tokens;
 
   return StyleSheet.create({
     container: {
@@ -17,12 +17,13 @@ export const getThemedStyles = (theme: StrictTheme): DividerStyles => {
       fontSize: fontSizes.medium,
       margin: space.medium,
       textAlign: 'center',
+      color: colors.font.tertiary,
       ...components?.divider?.label,
     },
     line: {
-      backgroundColor: colors.font.primary,
+      backgroundColor: colors.border.secondary,
       flex: 1,
-      height: StyleSheet.hairlineWidth,
+      height: borderWidths.small,
       ...components?.divider?.line,
     },
   });

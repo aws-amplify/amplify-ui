@@ -147,7 +147,11 @@ const getForceNewPasswordFormFields = (state: AuthMachineState): FormFields => {
    * @migration `requiredAttributes` translates to v6 `missingAttributes`
    */
   const fieldNames = Array.from(
-    new Set(['password', 'confirm_password', ...requiredAttributes] as const)
+    new Set([
+      'password',
+      'confirm_password',
+      ...(requiredAttributes ?? []),
+    ] as const)
   );
 
   const formField: FormFields = {};

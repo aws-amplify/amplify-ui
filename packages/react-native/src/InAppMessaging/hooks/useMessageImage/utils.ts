@@ -1,5 +1,5 @@
 import { Image } from 'react-native';
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
+import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import { MessageLayout } from '@aws-amplify/ui-react-core-notifications';
 
 import {

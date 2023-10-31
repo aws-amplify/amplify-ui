@@ -140,7 +140,7 @@ describe('ConfirmResetPassword', () => {
     expect(updateBlurSpy).toHaveBeenCalledWith({ name: 'preferred_username' });
   });
 
-  // @todo-upgrade-react-18 fix
+  // @todo-migration fix
   it.skip('sends submit event on form submit', async () => {
     render(ForceNewPassword, { global: { components } });
 

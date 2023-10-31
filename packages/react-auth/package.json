@@ -1,5 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-auth",
+  "private": true,
   "version": "0.0.1",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
@@ -50,7 +51,7 @@
     "tslib": "^2.5.2"
   },
   "peerDependencies": {
-    "aws-amplify": "console-preview",
+    "aws-amplify": "^6.0.0",
     "react": "^16.14.0 || ^17.0 || ^18.0",
     "react-dom": "^16.14.0 || ^17.0 || ^18.0"
   },

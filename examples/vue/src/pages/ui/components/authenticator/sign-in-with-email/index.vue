@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Amplify } from 'aws-amplify';
-import * as Auth from '@aws-amplify/auth';
 import { Authenticator } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
 import aws_exports from './aws-exports';
@@ -25,10 +24,7 @@ const formFields = {
     </template>
 
     <template v-slot:verify-user-header>
-      <h3
-        class="amplify-heading"
-        style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
-      >
+      <h3 class="amplify-heading" style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)">
         Enter Information:
       </h3>
     </template>
@@ -38,10 +34,7 @@ const formFields = {
     </template>
 
     <template v-slot:confirm-verify-user-header>
-      <h3
-        class="amplify-heading"
-        style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
-      >
+      <h3 class="amplify-heading" style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)">
         Enter Information:
       </h3>
     </template>

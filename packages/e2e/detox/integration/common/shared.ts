@@ -61,6 +61,14 @@ Given(
   }
 );
 
+Given('I spy request {string}', (json: string) => {
+  // don't need to do anything
+});
+
+Given('I confirm request {string}', (json: string) => {
+  // don't need to do anything
+});
+
 Then('I see {string}', async (message: string) => {
   await expect(element(by.text(message))).toBeVisible();
 });

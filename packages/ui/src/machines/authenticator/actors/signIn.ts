@@ -1,8 +1,19 @@
-import * as Auth from '@aws-amplify/auth';
-import get from 'lodash/get.js';
 import { createMachine, sendUpdate } from 'xstate';
+import {
+  autoSignIn,
+  confirmSignIn,
+  ConfirmSignInInput,
+  confirmUserAttribute,
+  ConfirmUserAttributeInput,
+  fetchUserAttributes,
+  FetchUserAttributesOutput,
+  getCurrentUser,
+  sendUserAttributeVerificationCode,
+  SendUserAttributeVerificationCodeInput,
+  signInWithRedirect,
+} from 'aws-amplify/auth';
 
-import { ChallengeName, AuthEvent, SignInContext } from '../../../types';
+import { AuthEvent, SignInContext } from '../../../types';
 import { runValidators } from '../../../validators';
 import {
   clearAttributeToVerify,
@@ -30,29 +41,16 @@ import {
   setUsernameAuthAttributes,
 } from '../actions';
 import { defaultServices } from '../defaultServices';
-import { groupLog, isEmpty, noop } from '../../../utils';
+import { groupLog } from '../../../utils';
 
 export type SignInMachineOptions = {
   services?: Partial<typeof defaultServices>;
 };
 
-const MFA_CHALLENGE_NAMES: ChallengeName[] = ['SMS_MFA', 'SOFTWARE_TOKEN_MFA'];
-
 const SIGN_IN_STEP_MFA_CONFIRMATION: string[] = [
   'CONFIRM_SIGN_IN_WITH_SMS_CODE',
   'CONFIRM_SIGN_IN_WITH_TOTP_CODE',
 ];
-
-const getChallengeName = (event: AuthEvent): ChallengeName =>
-  get(event, 'data.challengeName');
-
-const isExpectedChallengeName = (
-  challengeName: ChallengeName,
-  expectedChallengeName: ChallengeName
-) => challengeName === expectedChallengeName;
-
-const isSignInStepMFAConfirmation = (signInStep: string) =>
-  SIGN_IN_STEP_MFA_CONFIRMATION.includes(signInStep);
 
 export function signInActor({ services }: SignInMachineOptions) {
   return createMachine<SignInContext, AuthEvent>(
@@ -93,14 +91,13 @@ export function signInActor({ services }: SignInMachineOptions) {
               entry: ['parsePhoneNumber', 'clearError', 'sendUpdate'],
               invoke: {
                 /**
-                 * @migration Auth.SignInOutput
+                 * @migration SignInOutput
                  */
                 src: 'signIn',
                 onDone: [
                   {
                     cond: 'shouldSetupTOTP',
-                    // actions: ['setUser', 'setChallengeName'],
-                    actions: ['setChallengeName'],
+                    actions: ['setUser', 'setChallengeName'],
                     target: '#signInActor.setupTOTP',
                   },
                   {
@@ -123,12 +120,6 @@ export function signInActor({ services }: SignInMachineOptions) {
                     target: 'rejected',
                   },
                   {
-                    actions: 'setUser',
-                    target: 'verifying',
-                  },
-                ],
-                onError: [
-                  {
                     cond: 'shouldRedirectToConfirmResetPassword',
                     actions: [
                       'setUsernameAuthAttributes',
@@ -136,6 +127,12 @@ export function signInActor({ services }: SignInMachineOptions) {
                     ],
                     target: 'rejected',
                   },
+                  {
+                    actions: 'setUser',
+                    target: 'verifying',
+                  },
+                ],
+                onError: [
                   {
                     actions: 'setRemoteError',
                     target: 'edit',
@@ -148,7 +145,7 @@ export function signInActor({ services }: SignInMachineOptions) {
               entry: ['clearError', 'sendUpdate'],
               invoke: {
                 /**
-                 * @migration Auth.FetchUserAttributesOutput
+                 * @migration FetchUserAttributesOutput
                  */
                 src: 'checkVerifiedContact',
                 onDone: [
@@ -167,6 +164,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                 },
               },
             },
+            // resolved: { always: '#signInActor.resolved' },
             resolved: { always: '#signInActor.updateCurrentUser' },
             rejected: { always: '#signInActor.rejected' },
           },
@@ -241,6 +239,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                 },
               },
             },
+            // resolved: { always: '#signInActor.resolved' },
             resolved: { always: '#signInActor.updateCurrentUser' },
             rejected: { always: '#signInActor.rejected' },
           },
@@ -404,7 +403,7 @@ export function signInActor({ services }: SignInMachineOptions) {
               tags: ['pending'],
               entry: ['sendUpdate', 'clearError'],
               invoke: {
-                src: 'verifyTotpToken',
+                src: 'confirmSignInSetupTotp',
                 onDone: {
                   actions: ['clearChallengeName', 'clearRequiredAttributes'],
                   target: '#signInActor.updateCurrentUser',
@@ -497,7 +496,7 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         rejected: {
           type: 'final',
-          data: (context, event) => {
+          data: (context) => {
             groupLog('+++signIn.rejected.final', context);
 
             return {
@@ -537,36 +536,58 @@ export function signInActor({ services }: SignInMachineOptions) {
       },
       guards: {
         shouldAutoSignIn: (context) => {
-          groupLog('+++signIn.shouldAutoSignIn', 'context', context);
+          groupLog(
+            '+++signIn.shouldAutoSignIn',
+            context?.intent === 'autoSignIn'
+          );
           return context?.intent === 'autoSignIn';
         },
         shouldAutoSubmit: (context) => {
-          groupLog('+++signIn.shouldAutoSubmit', 'context', context);
+          groupLog(
+            '+++signIn.shouldAutoSubmit',
+            context?.intent === 'autoSignInSubmit'
+          );
           return context?.intent === 'autoSignInSubmit';
         },
         shouldConfirmSignIn: (_, event): boolean => {
-          groupLog('+++shouldConfirmSignIn', 'event', event);
-          return isSignInStepMFAConfirmation(event.data.nextStep?.signInStep);
+          groupLog(
+            '+++shouldConfirmSignIn',
+            SIGN_IN_STEP_MFA_CONFIRMATION.includes(
+              event.data.nextStep?.signInStep
+            )
+          );
+          return SIGN_IN_STEP_MFA_CONFIRMATION.includes(
+            event.data.nextStep?.signInStep
+          );
         },
         shouldForceChangePassword: (_, event): boolean => {
-          groupLog('+++shouldForceChangePassword', 'event', event);
+          groupLog(
+            '+++shouldForceChangePassword',
+            event.data.nextStep?.signInStep ===
+              'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED'
+          );
           return (
             event.data.nextStep?.signInStep ===
             'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED'
           );
         },
-
         shouldRedirectToConfirmResetPassword: (_, event): boolean => {
-          groupLog('+++shouldRedirectToConfirmResetPassword', 'event', event);
-          return event.data.code === 'PasswordResetRequiredException';
+          groupLog(
+            '+++shouldRedirectToConfirmResetPassword',
+            event.data.nextStep?.signInStep === 'RESET_PASSWORD'
+          );
+          return event.data.nextStep?.signInStep === 'RESET_PASSWORD';
         },
         shouldRedirectToConfirmSignUp: (_, event): boolean => {
-          groupLog('+++shouldRedirectToConfirmSignUp', 'event', event);
+          groupLog(
+            '+++shouldRedirectToConfirmSignUp',
+            event.data.nextStep?.signInStep === 'CONFIRM_SIGN_UP'
+          );
           return event.data.nextStep?.signInStep === 'CONFIRM_SIGN_UP';
         },
         shouldRequestVerification: (context, event): boolean => {
           const { phone_number_verified, email_verified } =
-            event.data as Auth.FetchUserAttributesOutput;
+            event.data as FetchUserAttributesOutput;
 
           // email/phone_verified is returned as a string
           const emailNotVerified =
@@ -579,6 +600,11 @@ export function signInActor({ services }: SignInMachineOptions) {
           return emailNotVerified && phoneNotVerified;
         },
         shouldSetupTOTP: (context, event): boolean => {
+          groupLog(
+            '+++shouldSetupTOTP',
+            event.data.nextStep?.signInStep ===
+              'CONTINUE_SIGN_IN_WITH_TOTP_SETUP'
+          );
           //   event.data ={
           //     "isSignedIn": false,
           //     "nextStep": {
@@ -592,7 +618,6 @@ export function signInActor({ services }: SignInMachineOptions) {
             event.data.nextStep?.signInStep ===
             'CONTINUE_SIGN_IN_WITH_TOTP_SETUP'
           );
-          // return isExpectedChallengeName(getChallengeName(event), 'MFA_SETUP');
         },
       },
       services: {
@@ -619,12 +644,12 @@ export function signInActor({ services }: SignInMachineOptions) {
 
           const { confirmation_code: challengeResponse } = context.formValues;
 
-          await services.handleConfirmSignIn({ challengeResponse });
-          return await Auth.getCurrentUser();
+          return services.handleConfirmSignIn({ challengeResponse });
+          // return await getCurrentUser();
         },
         async forceNewPassword(context) {
           groupLog('+++forceNewPassword');
-          const { user, formValues } = context;
+          const { formValues } = context;
           let {
             password,
             confirm_password,
@@ -642,14 +667,14 @@ export function signInActor({ services }: SignInMachineOptions) {
 
           try {
             // complete forceNewPassword flow and get updated CognitoUser
-            const input: Auth.ConfirmSignInInput = {
+            const input: ConfirmSignInInput = {
               challengeResponse: password,
               options: {
                 userAttributes: rest,
               },
             };
 
-            const output = await Auth.confirmSignIn(input);
+            const output = await confirmSignIn(input);
             const { signInStep } = output.nextStep;
 
             if (signInStep === 'DONE') {
@@ -658,7 +683,8 @@ export function signInActor({ services }: SignInMachineOptions) {
                * `getCurrentUser`. Note that we're calling this extra
                * API because this gets all `user.attributes` as well.
                */
-              return Auth.getCurrentUser();
+              // @todo-migration needs attributes
+              return getCurrentUser();
             } else {
               /**
                * User still needs to complete MFA challenge. Return back the
@@ -670,10 +696,6 @@ export function signInActor({ services }: SignInMachineOptions) {
             return Promise.reject(err);
           }
         },
-        // async getTotpSecretCode(context) {
-        //   const { user } = context;
-        //   return Auth.setUpTOTP(user);
-        // },
         async getTotpSecretCode(_, event) {
           //   event.data = {
           //     "isSignedIn": false,
@@ -689,51 +711,33 @@ export function signInActor({ services }: SignInMachineOptions) {
             'event',
             event.data.nextStep.totpSetupDetails.sharedSecret
           );
-          // const secretCode = await Auth.setUpTOTP();
-
           return event.data.nextStep.totpSetupDetails.sharedSecret;
         },
-        // async verifyTotpToken(context) {
-        //   const { formValues, user } = context;
-        //   const { confirmation_code } = formValues;
-
-        //   return Auth.verifyTotpToken(user, confirmation_code);
-        // },
-        async verifyTotpToken(context) {
+        async confirmSignInSetupTotp(context) {
           const { confirmation_code: code } = context.formValues;
-          /**
-           * @migration not sure if renaming makes sense vs explaining
-           * confusing API interaction in comment
-           */
-          groupLog('+++verifyTotpToken', 'code', code);
-          // const input: Auth.VerifyTOTPSetupInput = { code };
-          // return Auth.verifyTOTPSetup(input);
-          // return await Auth.verifyTOTPSetup(input);
-          const input: Auth.ConfirmSignInInput = { challengeResponse: code };
-          return await Auth.confirmSignIn(input);
+          groupLog('+++confirmSignInSetupTotp', 'code', code);
+          const input: ConfirmSignInInput = { challengeResponse: code };
+          return await confirmSignIn(input);
         },
         async federatedSignIn(_, event) {
+          groupLog('+++signIn.signInWithRedirect', event);
           const { provider } = event.data;
-          return await Auth.signInWithRedirect({ provider });
+          return await signInWithRedirect({ provider });
         },
+        async checkVerifiedContact(): Promise<FetchUserAttributesOutput> {
+          groupLog('+++checkVerifiedContacts', await fetchUserAttributes());
 
-        async checkVerifiedContact(): Promise<Auth.FetchUserAttributesOutput> {
-          groupLog(
-            '+++checkVerifiedContacts',
-            await Auth.fetchUserAttributes()
-          );
-
-          return await Auth.fetchUserAttributes();
+          return await fetchUserAttributes();
         },
         async verifyUser(context) {
           const { unverifiedAttr } = context.formValues;
           groupLog('+++verifyUser', unverifiedAttr, context);
 
-          const input: Auth.SendUserAttributeVerificationCodeInput = {
+          const input: SendUserAttributeVerificationCodeInput = {
             userAttributeKey:
-              unverifiedAttr as Auth.SendUserAttributeVerificationCodeInput['userAttributeKey'],
+              unverifiedAttr as SendUserAttributeVerificationCodeInput['userAttributeKey'],
           };
-          const result = await Auth.sendUserAttributeVerificationCode(input);
+          const result = await sendUserAttributeVerificationCode(input);
 
           context.attributeToVerify = unverifiedAttr;
 
@@ -744,11 +748,12 @@ export function signInActor({ services }: SignInMachineOptions) {
           const { attributeToVerify } = context;
           const { confirmation_code } = context.formValues;
 
-          const input: Auth.ConfirmUserAttributeInput = {
+          const input: ConfirmUserAttributeInput = {
             confirmationCode: confirmation_code,
-            userAttributeKey: attributeToVerify,
+            userAttributeKey:
+              attributeToVerify as ConfirmUserAttributeInput['userAttributeKey'],
           };
-          return await Auth.confirmUserAttribute(input);
+          return await confirmUserAttribute(input);
         },
         async validateFields(context) {
           return runValidators(
@@ -764,12 +769,13 @@ export function signInActor({ services }: SignInMachineOptions) {
         async getCurrentUserResolved(context) {
           groupLog('+++getCurrentUserResolved', context);
           return {
-            ...(await Auth.getCurrentUser()),
-            attributes: { ...(await Auth.fetchUserAttributes()) },
+            ...(await getCurrentUser()),
+            attributes: { ...(await fetchUserAttributes()) },
           };
         },
         async autoSignIn() {
-          return await Auth.autoSignIn();
+          groupLog('+++autoSignIn');
+          return await autoSignIn();
         },
       },
     }

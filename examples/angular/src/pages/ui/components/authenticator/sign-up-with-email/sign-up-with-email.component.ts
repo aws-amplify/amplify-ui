@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 // @todo-migration clean up imports
 import { Amplify } from 'aws-amplify';
-import * as Auth from 'aws-amplify/auth';
-import { I18n } from '@aws-amplify/core';
+
+import { signUp } from 'aws-amplify/auth';
+import { I18n } from 'aws-amplify/utils';
 import awsExports from './aws-exports';
 import { AuthenticatorService, translations } from '@aws-amplify/ui-angular';
 
@@ -45,7 +46,7 @@ export class SignUpWithEmailComponent implements OnInit {
       // custom username
       username = username.toLowerCase();
       attributes.email = attributes.email.toLowerCase();
-      return Auth.signUp({
+      return signUp({
         username,
         password,
         options: {

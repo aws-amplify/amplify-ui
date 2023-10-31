@@ -64,7 +64,7 @@ describe('StorageImage', () => {
     expect(img).toHaveAttribute('src', imgURL);
   });
 
-  // @todo-upgrade-react-18 @todo-migration fix
+  // @todo-migration fix
   // eslint-disable-next-line jest/no-disabled-tests
   it.skip('should set image src attribute to fallbackSrc and invoke onGetStorageError when Storage.get is rejected', async () => {
     jest.restoreAllMocks();

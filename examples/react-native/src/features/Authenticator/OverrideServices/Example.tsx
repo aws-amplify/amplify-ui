@@ -3,7 +3,7 @@ import { Button } from 'react-native';
 
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
 import { Amplify } from 'aws-amplify';
-import * as Auth from '@aws-amplify/auth';
+import { signUp } from 'aws-amplify/auth';
 
 import awsconfig from './aws-exports';
 
@@ -27,7 +27,7 @@ function App() {
             attributes.email = attributes.email
               ? attributes?.email.toLowerCase()
               : undefined;
-            return Auth.signUp({
+            return signUp({
               username,
               password,
               options: {
