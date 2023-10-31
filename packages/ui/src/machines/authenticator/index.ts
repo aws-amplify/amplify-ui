@@ -434,7 +434,19 @@ export function createAuthenticatorMachine(
         hasActor: (context) => !!context.actorRef,
       },
       services: {
-        getCurrentUser: (context, _) => context.services.getCurrentUser(),
+        getCurrentUser: (context, event) => {
+          groupLog('+++getCurrentUser.top', context, event);
+          return context.services
+            .getCurrentUser()
+            .then((user) => {
+              console.log('getCurrentUser.top success', user);
+              return user;
+            })
+            .catch((e) => {
+              console.log('getCurrentUser.top fail', e);
+              throw new Error(undefined);
+            });
+        },
         getAmplifyConfig: (context, _) => context.services.getAmplifyConfig(),
       },
     }

@@ -78,6 +78,10 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = async (
 
   console.log({ event });
   switch (event) {
+    case 'signInWithRedirect_failure':
+      console.log('HIIIIIIIIIII');
+
+      break;
     // TODO: We can add more cases here, according to
     // https://docs.amplify.aws/lib/auth/auth-events/q/platform/js/
     case 'tokenRefresh':

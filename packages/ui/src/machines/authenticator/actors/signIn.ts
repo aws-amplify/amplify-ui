@@ -720,7 +720,7 @@ export function signInActor({ services }: SignInMachineOptions) {
           return await confirmSignIn(input);
         },
         async federatedSignIn(_, event) {
-          groupLog('+++signIn.signInWithRedirect');
+          groupLog('+++signIn.signInWithRedirect', event);
           const { provider } = event.data;
           return await signInWithRedirect({ provider });
         },

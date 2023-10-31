@@ -30,6 +30,7 @@ import {
   ValidatorResult,
 } from '../../types';
 import { groupLog } from '../../utils';
+import { uniqueId } from 'lodash';
 
 // Cognito does not allow a password length lower then 8 characters
 const DEFAULT_COGNITO_PASSWORD_MIN_LENGTH = 8;
@@ -72,9 +73,17 @@ export const defaultServices = {
     };
   },
   async getCurrentUser() {
-    groupLog('+++getCurrentUser');
-
-    return getCurrentUser();
+    const id = uniqueId();
+    groupLog(`+++getCurrentUser.defaultServices: ${id}`);
+    return getCurrentUser()
+      .then((user) => {
+        console.log('getCurrentUser.defaultServices success', id, user);
+        return user;
+      })
+      .catch((e) => {
+        console.log('getCurrentUser.defaultServices fail', id, e);
+        throw new Error(undefined);
+      });
   },
   async handleSignUp({
     attributes: userAttributes,
@@ -114,7 +123,7 @@ export const defaultServices = {
   async handleConfirmSignUp(
     input: ConfirmSignUpInput
   ): Promise<ConfirmSignUpOutput> {
-    return await confirmSignUp(input);
+    return confirmSignUp(input);
   },
   async handleForgotPasswordSubmit(
     input: ConfirmResetPasswordInput
