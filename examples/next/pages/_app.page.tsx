@@ -11,15 +11,8 @@ import { useEffect } from 'react';
 import { MapProvider, useMap } from 'react-map-gl';
 
 if (typeof window !== 'undefined') {
-  if (typeof window['Amplify'] === undefined) {
-    window['Amplify'] = Amplify;
-  }
-  if (typeof window['Auth'] === undefined) {
-    window['Auth'] = Auth;
-  }
-  if (typeof window['Hub'] === undefined) {
-    window['Hub'] = Hub;
-  }
+  window['Amplify'] = Amplify;
+  window['Hub'] = Hub;
 }
 
 const SetCypressProperties = () => {
