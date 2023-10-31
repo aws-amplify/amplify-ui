@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Amplify, Notifications } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
 import { AccountSettings, Authenticator, Text } from '@aws-amplify/ui-react';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
 import {
@@ -11,8 +11,6 @@ import '@aws-amplify/ui-react/styles.css';
 import '@aws-amplify/ui-react-geo/styles.css';
 import awsconfig from './aws-exports';
 Amplify.configure(awsconfig);
-
-const { InAppMessaging } = Notifications;
 
 export default function Home() {
   useEffect(() => {
