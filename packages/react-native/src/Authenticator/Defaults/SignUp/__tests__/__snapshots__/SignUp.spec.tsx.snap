@@ -564,6 +564,8 @@ exports[`SignUp renders as expected 1`] = `
           "alignItems": "center",
           "backgroundColor": "hsl(190, 95%, 30%)",
           "borderRadius": 4,
+          "flexDirection": "row",
+          "gap": 12,
           "justifyContent": "center",
           "paddingHorizontal": 16,
           "paddingVertical": 12,
@@ -638,6 +640,8 @@ exports[`SignUp renders as expected 1`] = `
             "alignItems": "center",
             "backgroundColor": "transparent",
             "borderRadius": 4,
+            "flexDirection": "row",
+            "gap": 12,
             "justifyContent": "center",
             "paddingHorizontal": 16,
             "paddingVertical": 12,
@@ -1234,6 +1238,8 @@ exports[`SignUp renders as expected when hideSignIn is true 1`] = `
           "alignItems": "center",
           "backgroundColor": "hsl(190, 95%, 30%)",
           "borderRadius": 4,
+          "flexDirection": "row",
+          "gap": 12,
           "justifyContent": "center",
           "paddingHorizontal": 16,
           "paddingVertical": 12,
@@ -1837,6 +1843,8 @@ exports[`SignUp renders as expected when isPending is true 1`] = `
           "alignItems": "center",
           "backgroundColor": "hsl(190, 95%, 30%)",
           "borderRadius": 4,
+          "flexDirection": "row",
+          "gap": 12,
           "justifyContent": "center",
           "paddingHorizontal": 16,
           "paddingVertical": 12,
@@ -1911,6 +1919,8 @@ exports[`SignUp renders as expected when isPending is true 1`] = `
             "alignItems": "center",
             "backgroundColor": "transparent",
             "borderRadius": 4,
+            "flexDirection": "row",
+            "gap": 12,
             "justifyContent": "center",
             "paddingHorizontal": 16,
             "paddingVertical": 12,
@@ -2568,6 +2578,8 @@ exports[`SignUp renders as expected with errors 1`] = `
           "alignItems": "center",
           "backgroundColor": "hsl(190, 95%, 30%)",
           "borderRadius": 4,
+          "flexDirection": "row",
+          "gap": 12,
           "justifyContent": "center",
           "paddingHorizontal": 16,
           "paddingVertical": 12,
@@ -2642,6 +2654,8 @@ exports[`SignUp renders as expected with errors 1`] = `
             "alignItems": "center",
             "backgroundColor": "transparent",
             "borderRadius": 4,
+            "flexDirection": "row",
+            "gap": 12,
             "justifyContent": "center",
             "paddingHorizontal": 16,
             "paddingVertical": 12,
@@ -2747,21 +2761,15 @@ exports[`SignUp renders as expected with social providers 1`] = `
             "borderColor": "hsl(210, 10%, 58%)",
             "borderRadius": 4,
             "borderWidth": 1,
+            "flexDirection": "row",
+            "gap": 12,
             "justifyContent": "center",
             "paddingHorizontal": 16,
             "paddingVertical": 12,
           },
           undefined,
           [
-            {
-              "alignItems": "center",
-              "borderRadius": 4,
-              "borderWidth": 0.5,
-              "flexDirection": "row",
-              "justifyContent": "center",
-              "paddingVertical": 8,
-              "width": "100%",
-            },
+            undefined,
             undefined,
             [
               {
@@ -2789,9 +2797,7 @@ exports[`SignUp renders as expected with social providers 1`] = `
               "tintColor": undefined,
               "width": 20,
             },
-            {
-              "paddingHorizontal": 16,
-            },
+            undefined,
           ]
         }
       />
@@ -2808,9 +2814,6 @@ exports[`SignUp renders as expected with social providers 1`] = `
               "color": "hsl(210, 50%, 10%)",
             },
             [
-              {
-                "fontWeight": "400",
-              },
               undefined,
             ],
           ]
@@ -2834,9 +2837,9 @@ exports[`SignUp renders as expected with social providers 1`] = `
         style={
           [
             {
-              "backgroundColor": "hsl(210, 50%, 10%)",
+              "backgroundColor": "hsl(210, 5%, 87%)",
               "flex": 1,
-              "height": 0.5,
+              "height": 1,
             },
             undefined,
           ]
@@ -2857,6 +2860,7 @@ exports[`SignUp renders as expected with social providers 1`] = `
             },
             [
               {
+                "color": "hsl(210, 10%, 40%)",
                 "fontSize": 16,
                 "margin": 16,
                 "textAlign": "center",
@@ -2877,9 +2881,9 @@ exports[`SignUp renders as expected with social providers 1`] = `
         style={
           [
             {
-              "backgroundColor": "hsl(210, 50%, 10%)",
+              "backgroundColor": "hsl(210, 5%, 87%)",
               "flex": 1,
-              "height": 0.5,
+              "height": 1,
             },
             undefined,
           ]
@@ -3428,6 +3432,8 @@ exports[`SignUp renders as expected with social providers 1`] = `
           "alignItems": "center",
           "backgroundColor": "hsl(190, 95%, 30%)",
           "borderRadius": 4,
+          "flexDirection": "row",
+          "gap": 12,
           "justifyContent": "center",
           "paddingHorizontal": 16,
           "paddingVertical": 12,
@@ -3502,6 +3508,8 @@ exports[`SignUp renders as expected with social providers 1`] = `
             "alignItems": "center",
             "backgroundColor": "transparent",
             "borderRadius": 4,
+            "flexDirection": "row",
+            "gap": 12,
             "justifyContent": "center",
             "paddingHorizontal": 16,
             "paddingVertical": 12,
@@ -4135,6 +4143,8 @@ exports[`SignUp renders as expected with validationErrors 1`] = `
           "alignItems": "center",
           "backgroundColor": "hsl(190, 95%, 30%)",
           "borderRadius": 4,
+          "flexDirection": "row",
+          "gap": 12,
           "justifyContent": "center",
           "paddingHorizontal": 16,
           "paddingVertical": 12,
@@ -4209,6 +4219,8 @@ exports[`SignUp renders as expected with validationErrors 1`] = `
             "alignItems": "center",
             "backgroundColor": "transparent",
             "borderRadius": 4,
+            "flexDirection": "row",
+            "gap": 12,
             "justifyContent": "center",
             "paddingHorizontal": 16,
             "paddingVertical": 12,
