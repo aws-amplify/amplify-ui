@@ -8,7 +8,8 @@ export const StorageManagerEventExample = () => {
     <>
       <StorageManager
         acceptedFileTypes={['image/*']}
-        accessLevel="public"
+        // private uploads will fail intentionally in docs // IGNORE
+        accessLevel="private"
         maxFileCount={3}
         onFileRemove={({ key }) => {
           setFiles((prevFiles) => {
