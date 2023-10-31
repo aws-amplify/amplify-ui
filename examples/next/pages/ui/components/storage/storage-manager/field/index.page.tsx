@@ -1,7 +1,6 @@
 import { Amplify } from 'aws-amplify';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import { Field } from '@aws-amplify/ui-react/internal';
-// @todo-migration remove
 
 import { StorageManager } from '@aws-amplify/ui-react-storage';
 import '@aws-amplify/ui-react/styles.css';

@@ -5,7 +5,6 @@ import {
   withAuthenticator,
 } from '@aws-amplify/ui-react';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
-// @todo-migration remove
 
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
