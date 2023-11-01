@@ -15,7 +15,7 @@ if (typeof window !== 'undefined') {
   window['Hub'] = Hub;
 }
 
-const SetCypressProperties = () => {
+const SetGeoWindowProperties = () => {
   const { default: map } = useMap();
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export default function MyApp(props) {
     return (
       <MapProvider>
         <App {...props} />
-        <SetCypressProperties />
+        <SetGeoWindowProperties />
       </MapProvider>
     );
   }
