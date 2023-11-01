@@ -1,5 +1,15 @@
 import { translate } from '../../../i18n/translations';
 import { FormFields, FormFieldsArray } from '../../../types';
+import { AuthMachineState } from '../../../machines/authenticator/types';
+
+export const getPrimaryAlias = (state: AuthMachineState) => {
+  const loginMechanisms = state?.context.config?.loginMechanisms;
+  /**
+   * @migration this is where we grab only the first index of `aws_cognito_username_attributes`
+   */
+  const [primaryAlias] = loginMechanisms ?? ['username'];
+  return primaryAlias;
+};
 
 /** Applies translations to label and placeholder */
 export const applyTranslation = (formFields: FormFields): FormFields => {

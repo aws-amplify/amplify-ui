@@ -1,48 +1,29 @@
 import { createMachine, sendUpdate } from 'xstate';
-import { AuthEvent, ResetPasswordContext } from '../../../types';
-import { runValidators } from '../../../validators';
-import {
-  clearError,
-  clearFormValues,
-  clearTouched,
-  clearUsername,
-  clearValidationError,
-  handleInput,
-  handleSubmit,
-  handleBlur,
-  setFieldErrors,
-  setRemoteError,
-  setUsername,
-  resendCode,
-} from '../actions';
-import { defaultServices } from '../defaultServices';
-import { groupLog } from '../../../utils';
 
-export type ResetPasswordMachineOptions = {
+import { groupLog } from '../../../utils';
+import { runValidators } from '../../../validators';
+import actions from '../actions';
+import { defaultServices } from '../defaultServices';
+import { AuthEvent, ResetPasswordContext } from '../types';
+
+export type ForgotPasswordMachineOptions = {
   services?: Partial<typeof defaultServices>;
 };
 
-export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
-  groupLog('+++resetPasswordActor (machine)');
+export function forgotPasswordActor({
+  services,
+}: ForgotPasswordMachineOptions) {
+  groupLog('+++forgotPasswordActor (machine)');
   return createMachine<ResetPasswordContext, AuthEvent>(
     {
-      id: 'resetPasswordActor',
-      initial: 'init',
+      id: 'forgotPasswordActor',
+      initial: 'forgotPassword',
       predictableActionArguments: true,
       states: {
-        init: {
-          always: [
-            {
-              target: 'confirmResetPassword',
-              cond: 'shouldAutoConfirmReset',
-              actions: 'resendCode',
-            },
-            { target: 'resetPassword' },
-          ],
-        },
-        resetPassword: {
+        forgotPassword: {
           initial: 'edit',
-          exit: ['clearFormValues', 'clearError', 'clearTouched'],
+          entry: 'sendUpdate',
+          exit: ['clearError', 'clearTouched'],
           states: {
             edit: {
               entry: 'sendUpdate',
@@ -53,12 +34,13 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
               },
             },
             submit: {
-              tags: ['pending'],
-              entry: ['sendUpdate', 'setUsername', 'clearError'],
+              tags: 'pending',
+              entry: ['sendUpdate', 'clearError'],
               invoke: {
-                src: 'resetPassword',
+                src: 'forgotPassword',
                 onDone: {
-                  target: '#resetPasswordActor.confirmResetPassword',
+                  actions: ['setUsername', 'setCodeDeliveryDetails'],
+                  target: '#forgotPasswordActor.confirmPasswordUpdate',
                 },
                 onError: {
                   actions: ['setRemoteError'],
@@ -68,14 +50,9 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
             },
           },
         },
-        confirmResetPassword: {
+        confirmPasswordUpdate: {
           type: 'parallel',
-          exit: [
-            'clearFormValues',
-            'clearError',
-            'clearUsername',
-            'clearTouched',
-          ],
+          exit: ['clearFormValues', 'clearError', 'clearTouched'],
           states: {
             validation: {
               initial: 'pending',
@@ -96,7 +73,6 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
                 valid: { entry: 'sendUpdate' },
                 invalid: { entry: 'sendUpdate' },
               },
-
               on: {
                 CHANGE: {
                   actions: 'handleInput',
@@ -135,87 +111,53 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
                   },
                 },
                 resendCode: {
-                  tags: ['pending'],
+                  tags: 'pending',
                   entry: ['clearError', 'sendUpdate'],
                   invoke: {
                     src: 'resetPassword',
                     onDone: { target: 'idle' },
-                    onError: {
-                      actions: 'setRemoteError',
-                      target: 'idle',
-                    },
+                    onError: { actions: 'setRemoteError', target: 'idle' },
                   },
                 },
                 pending: {
-                  tags: ['pending'],
+                  tags: 'pending',
                   entry: ['clearError', 'sendUpdate'],
                   invoke: {
-                    src: 'confirmResetPassword',
+                    src: 'confirmPasswordUpdate',
                     onDone: {
-                      actions: 'clearUsername',
-                      target: '#resetPasswordActor.resolved',
+                      cond: 'hasCompletePasswordUpdate',
+                      actions: 'setNextResetPasswordStep',
+                      target: '#forgotPasswordActor.resolved',
                     },
-                    onError: {
-                      actions: 'setRemoteError',
-                      target: 'idle',
-                    },
+                    onError: { actions: 'setRemoteError', target: 'idle' },
                   },
                 },
               },
             },
           },
         },
-        resolved: { type: 'final' },
+        resolved: {
+          type: 'final',
+          data: (context, event) => {
+            groupLog('+++resetPassword.resolved.final', context, event);
+            return { step: context.step };
+          },
+        },
       },
     },
     {
-      actions: {
-        clearError,
-        clearFormValues,
-        clearTouched,
-        clearUsername,
-        clearValidationError,
-        handleInput,
-        handleSubmit,
-        handleBlur,
-        resendCode,
-        setFieldErrors,
-        setRemoteError,
-        setUsername,
-        sendUpdate: sendUpdate(), // sendUpdate is a HOC
-      },
-      guards: {
-        shouldAutoConfirmReset: (context, event): boolean => {
-          return !!(
-            context.intent && context.intent === 'confirmPasswordReset'
-          );
-        },
-      },
+      // sendUpdate is a HOC
+      actions: { ...actions, sendUpdate: sendUpdate() },
       services: {
-        // async resetPassword(context) {
-        //   const { username } = context;
+        forgotPassword({ formValues }: ResetPasswordContext) {
+          groupLog('+++forgotPassword', formValues);
+          const { username } = formValues;
 
-        //   return services.handleForgotPassword(username);
-        // },
-        /**
-         * @TechDebt `services.handleForgotPassword` requires `username`.
-         * but setting `username` to required in `ResetPasswordContext`
-         * has a wide ranging impact.
-         */
-        async resetPassword({ username = '' }: ResetPasswordContext) {
+          groupLog('+++forgotPassword username:', username);
           return services.handleForgotPassword({ username });
         },
-        // async confirmResetPassword(context) {
-        //   const { username } = context;
-        //   const { confirmation_code: code, password } = context.formValues;
-
-        //   return services.handleForgotPasswordSubmit({
-        //     username,
-        //     code,
-        //     password,
-        //   });
-        // },
-        async confirmResetPassword(context) {
+        confirmPasswordUpdate(context) {
+          groupLog('+++confirmPasswordUpdate', context);
           const { username } = context;
           const { confirmation_code: confirmationCode, password } =
             context.formValues;
@@ -226,7 +168,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
             username,
           });
         },
-        async validateFields(context, event) {
+        validateFields(context, event) {
           return runValidators(
             context.formValues,
             context.touched,

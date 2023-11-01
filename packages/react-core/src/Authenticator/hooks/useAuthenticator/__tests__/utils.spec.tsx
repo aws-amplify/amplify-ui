@@ -156,7 +156,7 @@ describe('getMachineFields', () => {
     });
 
     it('returns an empty object if no QRfields are present', () => {
-      getActorContextSpy.mockReturnValue({});
+      getActorContextSpy.mockReturnValue({} as AuthActorContext);
       const QRFields = getQRFields(state);
       expect(QRFields).toEqual({});
     });

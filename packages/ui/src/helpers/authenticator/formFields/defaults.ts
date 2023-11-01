@@ -1,33 +1,33 @@
 /**
  * This file contains helpers that generate default formFields for each screen
  */
-import { getActorContext, getActorState } from '../actor';
+import { getActorState } from '../actor';
 import { defaultFormFieldOptions } from '../constants';
-import { getPrimaryAlias } from '../context';
 import { isAuthFieldWithDefaults } from '../form';
 import {
-  ActorContextWithForms,
-  AuthMachineState,
   FormFields,
   FormFieldOptions,
   FormFieldComponents,
-  SignInState,
-  SignInContext,
   LoginMechanism,
   SignUpAttribute,
 } from '../../../types';
+import {
+  AuthMachineState,
+  SignInState,
+} from '../../../machines/authenticator/types';
+import { getPrimaryAlias } from '../formFields/utils';
+
+export const DEFAULT_COUNTRY_CODE = '+1';
 
 /** Helper function that gets the default formField for given field name */
 const getDefaultFormField = (
-  state: AuthMachineState,
   fieldName: keyof typeof defaultFormFieldOptions
 ) => {
-  const { country_code } = getActorContext(state) as ActorContextWithForms;
   let options: FormFieldOptions = defaultFormFieldOptions[fieldName];
   const { type } = options;
 
   if (type === 'tel') {
-    options = { ...options, dialCode: country_code };
+    options = { ...options, dialCode: DEFAULT_COUNTRY_CODE };
   }
 
   return options;
@@ -39,7 +39,7 @@ export const getAliasDefaultFormField = (
 ): FormFieldOptions => {
   const primaryAlias = getPrimaryAlias(state);
   return {
-    ...getDefaultFormField(state, primaryAlias),
+    ...getDefaultFormField(primaryAlias),
     autocomplete: 'username',
   };
 };
@@ -49,7 +49,7 @@ const getConfirmationCodeFormFields = (
   state: AuthMachineState
 ): FormFields => ({
   confirmation_code: {
-    ...getDefaultFormField(state, 'confirmation_code'),
+    ...getDefaultFormField('confirmation_code'),
     label: 'Code *',
     placeholder: 'Code',
   },
@@ -58,7 +58,7 @@ const getConfirmationCodeFormFields = (
 const getSignInFormFields = (state: AuthMachineState): FormFields => ({
   username: { ...getAliasDefaultFormField(state) },
   password: {
-    ...getDefaultFormField(state, 'password'),
+    ...getDefaultFormField('password'),
     autocomplete: 'current-password',
   },
 });
@@ -89,7 +89,7 @@ const getSignUpFormFields = (state: AuthMachineState): FormFields => {
       const fieldAttrs =
         fieldName === primaryAlias
           ? getAliasDefaultFormField(state)
-          : getDefaultFormField(state, fieldName);
+          : getDefaultFormField(fieldName);
 
       formField[fieldName] = { ...fieldAttrs };
     } else {
@@ -104,7 +104,7 @@ const getSignUpFormFields = (state: AuthMachineState): FormFields => {
 
 const getConfirmSignUpFormFields = (state: AuthMachineState): FormFields => ({
   confirmation_code: {
-    ...getDefaultFormField(state, 'confirmation_code'),
+    ...getDefaultFormField('confirmation_code'),
     placeholder: 'Enter your code',
   },
 });
@@ -126,12 +126,12 @@ const getConfirmResetPasswordFormFields = (
 ): FormFields => ({
   ...getConfirmationCodeFormFields(state),
   password: {
-    ...getDefaultFormField(state, 'password'),
+    ...getDefaultFormField('password'),
     label: 'New Password',
     placeholder: 'New Password',
   },
   confirm_password: {
-    ...getDefaultFormField(state, 'confirm_password'),
+    ...getDefaultFormField('confirm_password'),
     label: 'Confirm Password',
     placeholder: 'Confirm Password',
   },
@@ -139,18 +139,15 @@ const getConfirmResetPasswordFormFields = (
 
 const getForceNewPasswordFormFields = (state: AuthMachineState): FormFields => {
   const actorState = getActorState(state) as SignInState;
-  const { requiredAttributes } = actorState.context as {
-    requiredAttributes: SignUpAttribute[];
+  const { missingAttributes } = actorState.context as {
+    missingAttributes: SignUpAttribute[];
   };
 
-  /**
-   * @migration `requiredAttributes` translates to v6 `missingAttributes`
-   */
   const fieldNames = Array.from(
     new Set([
       'password',
       'confirm_password',
-      ...(requiredAttributes ?? []),
+      ...(missingAttributes ?? []),
     ] as const)
   );
 
@@ -158,7 +155,7 @@ const getForceNewPasswordFormFields = (state: AuthMachineState): FormFields => {
 
   for (const fieldName of fieldNames) {
     if (isAuthFieldWithDefaults(fieldName)) {
-      formField[fieldName] = { ...getDefaultFormField(state, fieldName) };
+      formField[fieldName] = { ...getDefaultFormField(fieldName) };
     } else {
       // There's a `custom:*` attribute or one we don't already have an implementation for
       console.debug(

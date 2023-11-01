@@ -1,8 +1,8 @@
+import { SocialProvider } from '../../types';
 import {
   ChallengeName,
-  CodeDeliveryDetails,
-  SocialProvider,
-} from '../../types';
+  V5CodeDeliveryDetails,
+} from '../../machines/authenticator/types';
 import { translate, DefaultTexts } from '../../i18n';
 import { AuthenticatorRoute } from './facade';
 
@@ -28,7 +28,7 @@ const getChallengeText = (challengeName?: ChallengeName): string => {
  * ConfirmSignUp
  */
 const getDeliveryMessageText = (
-  codeDeliveryDetails: CodeDeliveryDetails
+  codeDeliveryDetails: V5CodeDeliveryDetails
 ): string => {
   const { DeliveryMedium, Destination } = codeDeliveryDetails ?? {};
   const isEmailMessage = DeliveryMedium === 'EMAIL';
@@ -48,14 +48,8 @@ const getDeliveryMessageText = (
 };
 
 const getDeliveryMethodText = (
-  codeDeliveryDetails: CodeDeliveryDetails
+  codeDeliveryDetails: V5CodeDeliveryDetails
 ): string => {
-  // @todo-migration delete
-  // console.log(
-  //   '+++UI: getDeliveryMethodText codeDeliveryDetails',
-  //   codeDeliveryDetails
-  // );
-
   const { DeliveryMedium } = codeDeliveryDetails ?? {};
   const isEmailMessage = DeliveryMedium === 'EMAIL';
   const isTextMessage = DeliveryMedium === 'SMS';

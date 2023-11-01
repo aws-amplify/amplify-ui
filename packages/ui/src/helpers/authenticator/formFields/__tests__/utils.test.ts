@@ -1,6 +1,27 @@
+import { AuthMachineState } from '../../../../machines/authenticator/types';
+
 import { translate } from '../../../../i18n';
 import { FormFields } from '../../../../types';
-import { applyTranslation, sortFormFields } from '../util';
+
+import { applyTranslation, getPrimaryAlias, sortFormFields } from '../utils';
+
+describe('getPrimaryAlias', () => {
+  it('returns "username" when no login mechanisms are provided', () => {
+    const state = { context: { config: {} } } as AuthMachineState;
+    expect(getPrimaryAlias(state)).toEqual('username');
+  });
+
+  it('returns the first login mechanism when provided', () => {
+    const state = {
+      context: { config: { loginMechanisms: ['email', 'phone_number'] } },
+    } as AuthMachineState;
+    expect(getPrimaryAlias(state)).toEqual('email');
+  });
+
+  it("shouldn't break if state isn't provided", () => {
+    expect(getPrimaryAlias(null)).toEqual('username');
+  });
+});
 
 describe('applyTranslation', () => {
   const formFields: FormFields = {

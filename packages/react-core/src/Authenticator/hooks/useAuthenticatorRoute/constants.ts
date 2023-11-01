@@ -43,8 +43,8 @@ const CONFIRM_RESET_PASSWORD_MACHINE_KEYS: ConfirmResetPasswordMachineKey[] = [
 ];
 const CONFIRM_SIGN_IN_MACHINE_KEYS: ConfirmSignInMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,
+  'challengeName',
   'toSignIn',
-  'user',
 ];
 const CONFIRM_SIGN_UP_MACHINE_KEYS: ConfirmSignUpMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,
@@ -83,6 +83,7 @@ const SETUP_TOTP_MACHINE_KEYS: SetupTOTPMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,
   'toSignIn',
   'totpSecretCode',
+  'username',
 ];
 const VERIFY_USER_MACHINE_KEYS: VerifyUserMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,

@@ -61,7 +61,7 @@ Feature: Reset Password
     Then I see "Password must have upper case letters"
     Then I see "Password must have at least 8 characters"
 
-  @angular   @react @vue @react-native
+  @angular @react @vue @react-native
   Scenario: Reset Password without lower case characters
     When I type my "username" with status "CONFIRMED"
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"

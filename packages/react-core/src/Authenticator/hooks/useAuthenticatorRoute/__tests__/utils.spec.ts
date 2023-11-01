@@ -35,6 +35,7 @@ type PropsResolver = (
 ) => UseAuthenticatorRoute<AuthenticatorRouteComponentName, {}>;
 
 const {
+  challengeName,
   codeDeliveryDetails,
   error,
   hasValidationErrors,
@@ -51,11 +52,9 @@ const {
   totpSecretCode,
   updateBlur,
   updateForm,
-  user,
+  username,
   validationErrors,
 } = mockUseAuthenticatorOutput;
-
-const { challengeName } = user;
 
 const machineContext = mockMachineContext;
 
@@ -81,7 +80,7 @@ describe('getRouteMachineSelector', () => {
         route,
       ],
     ],
-    ['confirmSignIn', [...commonSelectorProps, toSignIn, user, route]],
+    ['confirmSignIn', [...commonSelectorProps, challengeName, toSignIn, route]],
     [
       'confirmSignUp',
       [...commonSelectorProps, codeDeliveryDetails, resendCode, route],
@@ -121,7 +120,10 @@ describe('getRouteMachineSelector', () => {
         route,
       ],
     ],
-    ['setupTOTP', [...commonSelectorProps, toSignIn, totpSecretCode, route]],
+    [
+      'setupTOTP',
+      [...commonSelectorProps, toSignIn, totpSecretCode, username, route],
+    ],
     ['verifyUser', [...commonSelectorProps, skipVerification, route]],
   ])('returns the expected route selector for %s', (route, expected) => {
     const selector = getRouteMachineSelector(route as AuthenticatorRoute);
@@ -158,7 +160,11 @@ describe('props resolver functions', () => {
       resolveResetPasswordRoute,
       { error, isPending, toSignIn },
     ],
-    ['SetupTOTP', resolveSetupTOTPRoute, { toSignIn, totpSecretCode }],
+    [
+      'SetupTOTP',
+      resolveSetupTOTPRoute,
+      { toSignIn, totpSecretCode, username },
+    ],
     [
       'SignIn',
       resolveSignInRoute,

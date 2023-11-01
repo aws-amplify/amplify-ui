@@ -122,6 +122,7 @@ exports[`useAuthenticatorRoute returns the expected values for the setupTOTP rou
     "isPending": false,
     "toSignIn": [MockFunction],
     "totpSecretCode": null,
+    "username": "george",
   },
 }
 `;

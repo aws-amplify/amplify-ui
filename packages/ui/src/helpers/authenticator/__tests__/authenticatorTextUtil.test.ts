@@ -1,9 +1,6 @@
 import { I18n } from 'aws-amplify/utils';
-import {
-  ChallengeName,
-  CodeDeliveryDetails,
-  SocialProvider,
-} from '../../../types';
+import { ChallengeName, SocialProvider } from '../../../types';
+import { V5CodeDeliveryDetails } from '../../../machines/authenticator/types';
 import { authenticatorTextUtil } from '../textUtil';
 
 const AUTH_CHALLENGE_NAMES: ChallengeName[] = ['SMS_MFA', 'SOFTWARE_TOKEN_MFA'];
@@ -15,7 +12,7 @@ const SOCIAL_PROVIDERS: SocialProvider[] = [
   'google',
 ];
 
-const CODE_DELIVERY_DETAILS: Array<CodeDeliveryDetails['DeliveryMedium']> = [
+const CODE_DELIVERY_DETAILS: Array<V5CodeDeliveryDetails['DeliveryMedium']> = [
   'SMS',
   'EMAIL',
 ];
@@ -57,7 +54,7 @@ describe('authenticatorTextUtil', () => {
 
       const codeDeliveryDetail = {
         DeliveryMedium: deliveryMethod,
-      } as unknown as CodeDeliveryDetails;
+      } as unknown as V5CodeDeliveryDetails;
 
       expect(getDeliveryMethodText(codeDeliveryDetail)).toMatchSnapshot();
     }
@@ -70,7 +67,7 @@ describe('authenticatorTextUtil', () => {
 
       const codeDeliveryDetail = {
         DeliveryMedium: deliveryMethod,
-      } as unknown as CodeDeliveryDetails;
+      } as unknown as V5CodeDeliveryDetails;
 
       expect(getDeliveryMessageText(codeDeliveryDetail)).toMatchSnapshot();
     }

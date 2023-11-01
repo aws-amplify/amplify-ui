@@ -1,4 +1,4 @@
-import { AuthMachineState } from '../../../../types';
+import { AuthMachineState } from '../../../../machines/authenticator/types';
 import { defaultFormFieldOptions } from '../../constants';
 import {
   getAliasDefaultFormField,
@@ -20,7 +20,7 @@ jest.mock('../../actor', () => ({
   }),
   getActorState: () => ({
     context: {
-      requiredAttributes: ['email', 'custom:test'],
+      missingAttributes: ['email', 'custom:test'],
     },
   }),
 }));

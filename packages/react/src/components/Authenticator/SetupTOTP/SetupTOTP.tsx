@@ -27,12 +27,9 @@ export const SetupTOTP = ({
 }: RouteProps): JSX.Element => {
   // eslint-disable-next-line no-console
   console.log('+++UI: SetupTOTP');
-  const { totpSecretCode, isPending, user, QRFields } = useAuthenticator(
-    (context) => [context.isPending, context.totpSecretCode]
+  const { totpSecretCode, isPending, username, QRFields } = useAuthenticator(
+    (context) => [context.isPending, context.totpSecretCode, context.username]
   );
-
-  // eslint-disable-next-line no-console
-  console.log('totpSecretCode', totpSecretCode);
 
   const { handleChange, handleSubmit } = useFormHandlers();
 
@@ -47,16 +44,17 @@ export const SetupTOTP = ({
   const [qrCode, setQrCode] = React.useState<string>();
   const [copyTextLabel, setCopyTextLabel] = React.useState<string>('COPY');
 
-  const { totpIssuer = 'AWSCognito', totpUsername = user?.username } =
+  const { totpIssuer = 'AWSCognito', totpUsername = username } =
     (QRFields as LegacyQRFields) ?? {};
 
   const generateQRCode = React.useCallback(async (): Promise<void> => {
     try {
       const totpCode = getTotpCodeURL(
         totpIssuer,
-        totpUsername!,
+        totpUsername,
         totpSecretCode!
       );
+
       const qrCodeImageSource = await QRCode.toDataURL(totpCode);
 
       setQrCode(qrCodeImageSource);

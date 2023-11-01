@@ -1,6 +1,6 @@
+import { AuthMachineState } from '../../../../machines/authenticator/types';
 import {
   AuthFormFields,
-  AuthMachineState,
   FormFieldOptions,
   FormFieldsArray,
   LoginMechanism,

@@ -12,6 +12,7 @@ import {
   getCurrentUser,
   resetPassword,
   ResetPasswordInput,
+  ResetPasswordOutput,
   signIn,
   SignInInput,
   SignInOutput,
@@ -33,7 +34,7 @@ import { groupLog } from '../../utils';
 // import .js directly to satisfy ESM
 import uniqueId from 'lodash/uniqueId.js';
 
-// Cognito does not allow a password length lower then 8 characters
+// Cognito does not allow a password length less then 8 characters
 const DEFAULT_COGNITO_PASSWORD_MIN_LENGTH = 8;
 
 export const defaultServices = {
@@ -76,15 +77,7 @@ export const defaultServices = {
   async getCurrentUser() {
     const id = uniqueId();
     groupLog(`+++getCurrentUser.defaultServices: ${id}`);
-    return getCurrentUser()
-      .then((user) => {
-        console.log('getCurrentUser.defaultServices success', id, user);
-        return user;
-      })
-      .catch((e) => {
-        console.log('getCurrentUser.defaultServices fail', id, e);
-        throw new Error(undefined);
-      });
+    return getCurrentUser();
   },
   async handleSignUp({
     attributes: userAttributes,
@@ -94,7 +87,6 @@ export const defaultServices = {
     username: string;
     password: string;
     attributes?: {
-      // made optional to appease TS, no plan to fix
       email?: string;
     };
   }) {
@@ -113,26 +105,29 @@ export const defaultServices = {
     password,
   }: SignInInput): Promise<SignInOutput> {
     groupLog('+++handleSignIn');
-    // #todo-migration logs error in failure use cases (fiorce new password, etc)
     return signIn({ username, password });
   },
   async handleConfirmSignIn(
     input: ConfirmSignInInput
   ): Promise<ConfirmSignInOutput> {
+    groupLog('+++handleConfirmSignIn', input);
     return confirmSignIn(input);
   },
   async handleConfirmSignUp(
     input: ConfirmSignUpInput
   ): Promise<ConfirmSignUpOutput> {
+    groupLog('+++handleConfirmSignUp', input);
     return confirmSignUp(input);
   },
   async handleForgotPasswordSubmit(
     input: ConfirmResetPasswordInput
   ): Promise<ReturnType<typeof confirmResetPassword>> {
+    groupLog('+++handleForgotPasswordSubmit', input);
     return confirmResetPassword(input);
   },
-  async handleForgotPassword(input: ResetPasswordInput): Promise<any> {
-    // return forgotPassword(formData);
+  async handleForgotPassword(
+    input: ResetPasswordInput
+  ): Promise<ResetPasswordOutput> {
     return resetPassword(input);
   },
 

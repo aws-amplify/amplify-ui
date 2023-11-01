@@ -81,13 +81,10 @@ export function resolveConfirmSignInRoute<FieldType = {}>(
   Component: Defaults<FieldType>['ConfirmSignIn'],
   props: UseAuthenticator
 ): UseAuthenticatorRoute<'ConfirmSignIn', FieldType> {
-  const { user, ...machineProps } = getConvertedMachineProps(
+  const { challengeName, ...machineProps } = getConvertedMachineProps(
     'confirmSignIn',
     props
   );
-
-  // prior to the `confirmSignIn` route, `user.username` is populated
-  const challengeName = user.challengeName!;
 
   return { Component, props: { ...Component, ...machineProps, challengeName } };
 }
@@ -198,7 +195,7 @@ export function resolveVerifyUserRoute<FieldType = {}>(
 }
 
 export function resolveDefault<
-  FieldType = {}
+  FieldType = {},
 >(): UseAuthenticatorRouteDefault<FieldType> {
   return {
     Component: RenderNothing as DefaultComponentType<FieldType>,

@@ -44,7 +44,7 @@ Feature: Sign In with SMS MFA
     Then I click the "Sign in" button
     Then I type an invalid SMS code
     Then I click the "Confirm" button
-    Then I see "translated text"
+    Then I see "invalid code"
     
   @angular @react @vue
   Scenario: Sign in with unknown credentials
@@ -55,15 +55,15 @@ Feature: Sign In with SMS MFA
     Then I see "User does not exist"
 
   @angular @react @vue
-Scenario: Sign in with force change password with sms mfa
-  Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password"
-  When I select my country code with status "FORCE_CHANGE_PASSWORD"
-  Then I type my "phone number" with status "CONFIRMED"
-  Then I type my password
-  Then I click the "Sign in" button
-  Then I see "Change Password"
-  Then I type my password
-  Then I confirm my password
-  Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password-sms-mfa"
-  Then I click the "Change Password" button
-  Then I see "Confirm SMS Code"
+  Scenario: Sign in with force change password with sms mfa
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password"
+    When I select my country code with status "FORCE_CHANGE_PASSWORD"
+    Then I type my "phone number" with status "CONFIRMED"
+    Then I type my password
+    Then I click the "Sign in" button
+    Then I see "Change Password"
+    Then I type my password
+    Then I confirm my password
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password-sms-mfa"
+    Then I click the "Change Password" button
+    Then I see "Confirm SMS Code"

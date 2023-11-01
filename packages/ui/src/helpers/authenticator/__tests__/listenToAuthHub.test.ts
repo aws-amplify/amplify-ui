@@ -1,7 +1,7 @@
 import { Hub } from 'aws-amplify/utils';
 
 import * as Utils from '../utils';
-import { AuthInterpreter } from '../../../types';
+import { AuthInterpreter } from '../types';
 
 const authenticatedStateMachine = {
   getSnapshot: () => ({

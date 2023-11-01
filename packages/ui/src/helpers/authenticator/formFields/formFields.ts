@@ -2,17 +2,18 @@
  * This file contains helpers that generate default form fields, given the
  * current Authenticator / Zero Config configuration.
  */
+import { AuthMachineState } from '../../../machines/authenticator/types';
 import {
-  AuthMachineState,
   FormFields,
   FormFieldComponents,
   FormFieldsArray,
   isAuthFieldsWithDefaults,
 } from '../../../types';
+
 import { getActorContext } from '../actor';
 import { defaultFormFieldOptions } from '../constants';
 import { defaultFormFieldsGetters, getAliasDefaultFormField } from './defaults';
-import { applyTranslation, sortFormFields } from './util';
+import { applyTranslation, sortFormFields } from './utils';
 
 // Gets the default formFields for given route
 export const getDefaultFormFields = (

@@ -28,6 +28,7 @@ exports[`useAuthenticator returns the expected values 1`] = `
   "updateBlur": [MockFunction],
   "updateForm": [MockFunction],
   "user": {},
+  "username": "sally",
   "validationErrors": undefined,
 }
 `;

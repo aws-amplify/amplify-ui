@@ -2,11 +2,11 @@
  * This file contains helpers related to forms and input attributes.
  */
 
+import { DefaultFormFieldOptions } from '../../types';
 import {
   AuthEventTypes,
-  DefaultFormFieldOptions,
   NavigableRoute,
-} from '../../types';
+} from '../../machines/authenticator/types';
 import { countryDialCodes } from '../../i18n';
 
 export const defaultFormFieldOptions: DefaultFormFieldOptions = {

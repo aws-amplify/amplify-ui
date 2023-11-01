@@ -3,8 +3,7 @@
  * authenticator machine and its intepreter.
  */
 import { Interpreter } from 'xstate';
-import { AuthContext } from './context';
-import { AuthEvent } from './event';
+import { AuthContext, AuthEvent } from '../../machines/authenticator/types';
 import { HubCapsule } from '@aws-amplify/core';
 
 /**

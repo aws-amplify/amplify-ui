@@ -92,7 +92,7 @@ export type ConfirmResetPasswordBaseProps<FieldType = {}> = {
   ValidationProps;
 
 export type ConfirmSignInBaseProps<FieldType = {}> = {
-  challengeName: ChallengeName;
+  challengeName: ChallengeName | undefined;
   toSignIn: UseAuthenticator['toSignIn'];
 } & CommonRouteProps &
   ComponentSlots<FieldType> &
@@ -126,6 +126,7 @@ export type ResetPasswordBaseProps<FieldType = {}> = {
 export type SetupTOTPBaseProps<FieldType = {}> = {
   toSignIn: UseAuthenticator['toSignIn'];
   totpSecretCode: UseAuthenticator['totpSecretCode'];
+  username: UseAuthenticator['username'];
 } & CommonRouteProps &
   ComponentSlots<FieldType> &
   ValidationProps;

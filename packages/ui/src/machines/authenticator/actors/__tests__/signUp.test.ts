@@ -3,8 +3,8 @@ import { setImmediate } from 'timers';
 
 import * as AuthModule from 'aws-amplify/auth';
 
-import { SignUpMachineOptions, createSignUpMachine } from '../signUp';
-import { SignUpContext } from '../../../types';
+import { SignUpMachineOptions, signUpActor } from '../signUp';
+import { SignUpContext } from '../../types';
 
 jest.mock('aws-amplify');
 
@@ -39,7 +39,7 @@ describe('signUpActor', () => {
   //   TypeError: Cannot destructure property 'codeDeliveryDetails' of '((cov_orv9ttv7g(...).s[75]++) , data.nextStep)' as it is undefined.
   it.skip('should transition from initial state to resolved', async () => {
     service = interpret(
-      createSignUpMachine(signUpMachineProps)
+      signUpActor(signUpMachineProps)
         .withContext({
           formValues: {
             username: mockUsername,
@@ -110,7 +110,7 @@ describe('signUpActor', () => {
   // Received: {"confirmSignUp": "submit"}
   it.skip('should transition to confirm signUp if intent is confirmSignUp', async () => {
     service = interpret(
-      createSignUpMachine(signUpMachineProps)
+      signUpActor(signUpMachineProps)
         .withContext({
           intent: 'confirmSignUp',
           loginMechanisms: ['username'],
@@ -158,7 +158,7 @@ describe('signUpActor', () => {
   // Received: {"confirmSignUp": "submit"}
   it.skip('should handle resending the confirmation code', async () => {
     service = interpret(
-      createSignUpMachine({})
+      signUpActor({})
         .withContext({
           intent: 'confirmSignUp',
           authAttributes: {
@@ -214,7 +214,7 @@ describe('signUpActor', () => {
   // Received: {"confirmSignUp": "resend"}
   it.skip('should handle resending the scenario when user is already confirmed', async () => {
     service = interpret(
-      createSignUpMachine({})
+      signUpActor({})
         .withContext({
           intent: 'confirmSignUp',
           authAttributes: {

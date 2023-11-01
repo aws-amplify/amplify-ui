@@ -1,22 +1,14 @@
-/**
- * This file contains general helpers that state machine or authenticator
- * implementations can use.
- */
-
 import { Hub } from 'aws-amplify/utils';
-// @todo-migration delete?
-// import { waitFor } from 'xstate/lib/waitFor.js';
 
 import {
   AuthActorState,
-  AuthInterpreter,
-  AuthMachineHubHandler,
   AuthMachineState,
-} from '../../types';
-import { ALLOWED_SPECIAL_CHARACTERS, emailRegex } from './constants';
-// @todo-migration delete?
-// import { getActorState } from './actor';
+} from '../../machines/authenticator/types';
 import { groupLog, isFunction } from '../../utils';
+
+import { AuthInterpreter, AuthMachineHubHandler } from './types';
+import { ALLOWED_SPECIAL_CHARACTERS, emailRegex } from './constants';
+import { getCurrentUser } from 'aws-amplify/auth';
 
 // replaces all characters in a string with '*', except for the first and last char
 export const censorAllButFirstAndLast = (value: string): string => {
@@ -44,23 +36,6 @@ export const censorPhoneNumber = (val: string): string => {
   return split.join('');
 };
 
-// @todo-migration delete?
-// const waitForAutoSignInState = async (service: AuthInterpreter) => {
-//   // https://xstate.js.org/docs/guides/interpretation.html#waitfor
-//   try {
-//     await waitFor(service, (state) =>
-//       getActorState(state).matches('autoSignIn')
-//     );
-//   } catch (e) {
-//     /**
-//      * AutoSignIn can be called in unrelated state, or after user has already
-//      * signed in, because Amplify JS can send duplicate hub events.
-//      *
-//      * In that case, we do no-op and ignore the second event.
-//      */
-//   }
-// };
-
 /**
  * Handles Amplify JS Auth hub events, by forwarding hub events as appropriate
  * xstate events.
@@ -70,38 +45,45 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = async (
   service,
   options
 ) => {
-  groupLog('+++defaultAuthHubHandler');
+  groupLog('+++defaultAuthHubHandler', event);
   const { send } = service;
   const state = service.getSnapshot(); // this is just a getter and is not expensive
-
   const { onSignIn, onSignOut } = options ?? {};
 
-  console.log({ event });
   switch (event) {
     case 'signInWithRedirect_failure':
-      console.log('HIIIIIIIIIII');
-
       break;
     // TODO: We can add more cases here, according to
     // https://docs.amplify.aws/lib/auth/auth-events/q/platform/js/
-    case 'tokenRefresh':
+    case 'tokenRefresh': {
       if (state.matches('authenticated.idle')) {
+        // just call getCurrentUser here
         send('TOKEN_REFRESH');
       }
       break;
-    case 'signedIn':
+    }
+    case 'signInWithRedirect': {
+      // if (isFunction(onSignInWithRedirect)) {
+      //   // getCurrentUser()
+      //   //   .then('onSignInWithRedirect')
+      //   //   .catch((e) => {
+      //   //     return;
+      //   //   });
+      // }
+      break;
+    }
+    case 'signedIn': {
       if (isFunction(onSignIn)) {
         onSignIn();
       }
       break;
+    }
     case 'signedOut':
     case 'tokenRefresh_failure':
       if (isFunction(onSignOut)) {
         onSignOut();
       }
-      if (state.matches('authenticated.idle')) {
-        send('SIGN_OUT');
-      }
+      send('SIGN_OUT');
       break;
     default:
       break;
@@ -180,6 +162,7 @@ export const getRoute = (
     case state.matches('authenticated'):
       return 'authenticated';
     case actorState?.matches('confirmSignUp'):
+    case actorState?.matches('confirmSignUp.resendConfirmationCode'):
       return 'confirmSignUp';
     case actorState?.matches('confirmSignIn'):
       return 'confirmSignIn';
@@ -187,12 +170,14 @@ export const getRoute = (
     case actorState?.matches('setupTOTP.submit'):
       return 'setupTOTP';
     case actorState?.matches('signIn'):
+    case state?.matches('signIn.getCurrentUser'):
       return 'signIn';
     case actorState?.matches('signUp'):
       return 'signUp';
     case actorState?.matches('forceNewPassword'):
       return 'forceNewPassword';
-    case actorState?.matches('resetPassword'):
+    case state?.matches('forgotPassword'):
+    case state?.matches('resetPassword'):
       return 'resetPassword';
     case actorState?.matches('confirmResetPassword'):
       return 'confirmResetPassword';
@@ -209,6 +194,8 @@ export const getRoute = (
        */
       return 'transition';
     default:
+      groupLog('state', state);
+      groupLog('actorState', actorState);
       console.debug(
         'Cannot infer `route` from Authenticator state:',
         state.value

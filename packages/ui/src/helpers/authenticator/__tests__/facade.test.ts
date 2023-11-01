@@ -1,12 +1,17 @@
 import { Sender } from 'xstate';
 
 import {
+  AuthEvent,
+  AuthMachineState,
+} from '../../../machines/authenticator/types';
+import { AmplifyUser } from '../../../types';
+
+import {
   getSendEventAliases,
   getServiceContextFacade,
   getServiceFacade,
   getNextServiceFacade,
 } from '../facade';
-import { AmplifyUser, AuthEvent, AuthMachineState } from '../../../types';
 
 jest.mock('../actor', () => {
   const originalModule = jest.requireActual('../actor');

@@ -28,11 +28,8 @@ const totpSecretCode = null;
 const unverifiedContactMethods = {};
 const updateBlur = jest.fn();
 const updateForm = jest.fn();
+const user = {};
 const validationErrors = {};
-
-const user = {
-  challengeName,
-} as AuthenticatorMachineContext['user'];
 
 export const mockMachineContext: AuthenticatorMachineContext = {
   authStatus,
@@ -57,6 +54,7 @@ export const mockMachineContext: AuthenticatorMachineContext = {
   toResetPassword,
   totpSecretCode,
   unverifiedContactMethods,
+  username: 'george',
   validationErrors,
 };
 

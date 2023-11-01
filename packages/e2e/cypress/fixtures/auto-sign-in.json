@@ -1,0 +1,8 @@
+{
+  "UserAttributes": [
+    { "Name": "sub", "Value": "••••-••-••-••-••••" },
+    { "Name": "email_verified", "Value": "true" },
+    { "Name": "email", "Value": "test@example.com" }
+  ],
+  "Username": "••••-••-••-••-••••"
+}

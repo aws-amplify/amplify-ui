@@ -24,7 +24,7 @@ const formFields = {
     },
   },
 };
-// @todo-migration remove cast
+
 I18n.putVocabularies(translations);
 I18n.setLanguage('en');
 I18n.putVocabulariesForLanguage('en', {

@@ -1,6 +1,6 @@
 import { createMachine } from 'xstate';
 
-import { AuthEvent, SignOutContext } from '../../../types';
+import { AuthEvent, SignOutContext } from '../types';
 import { signOut } from 'aws-amplify/auth';
 import { groupLog } from '../../../utils';
 
@@ -13,7 +13,7 @@ export const signOutActor = () => {
       predictableActionArguments: true,
       states: {
         pending: {
-          tags: ['pending'],
+          tags: 'pending',
           invoke: {
             src: 'signOut',
             onDone: 'resolved',
@@ -26,7 +26,11 @@ export const signOutActor = () => {
     },
     {
       services: {
-        signOut: () => signOut(),
+        signOut: (context) => {
+          console.log('+++signOut', context);
+
+          return signOut();
+        },
       },
     }
   );
