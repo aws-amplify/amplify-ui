@@ -7,11 +7,9 @@ import { useInAppMessaging } from '../../../hooks/useInAppMessaging';
 import { InAppMessagingContextType } from '../..';
 import { InAppMessagingProvider } from '..';
 
-jest.mock('aws-amplify/notifications', () => ({
-  ...jest.requireActual<typeof import('aws-amplify/in-app-messaging')>(
-    'aws-amplify/in-app-messaging'
-  ),
-  Notifications: { InAppMessaging: { onMessageReceived: jest.fn() } },
+jest.mock('aws-amplify/in-app-messaging', () => ({
+  ...jest.requireActual('aws-amplify/in-app-messaging'),
+  onMessageReceived: jest.fn(),
 }));
 
 let onMessageReceivedCallback =
