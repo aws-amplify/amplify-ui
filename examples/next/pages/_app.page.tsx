@@ -3,7 +3,6 @@
 // https://nextjs.org/docs/advanced-features/custom-app
 import App from 'next/app';
 import { Amplify } from 'aws-amplify';
-import * as Auth from 'aws-amplify/auth';
 import { Hub } from 'aws-amplify/utils';
 
 import { ThemeProvider } from '@aws-amplify/ui-react';

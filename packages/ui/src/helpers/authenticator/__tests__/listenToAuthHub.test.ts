@@ -1,4 +1,4 @@
-import { Hub } from '@aws-amplify/core';
+import { Hub } from 'aws-amplify/utils';
 
 import * as Utils from '../utils';
 import { AuthInterpreter } from '../../../types';

@@ -1,4 +1,3 @@
-import { HubCapsule } from '@aws-amplify/core';
 import { defaultAuthHubHandler } from '../utils';
 import { AuthInterpreter } from '../../../types';
 
