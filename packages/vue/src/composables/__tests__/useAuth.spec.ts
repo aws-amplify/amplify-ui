@@ -4,8 +4,8 @@ import * as XStateVue from '@xstate/vue';
 import * as XState from 'xstate';
 
 import { Hub } from 'aws-amplify/core';
-// prefer scoped amplify js packages for spies
-import * as AuthModule from '@aws-amplify/auth';
+
+import * as AuthModule from 'aws-amplify/auth';
 import * as UIModule from '@aws-amplify/ui';
 
 import { useAuth } from '../useAuth';
