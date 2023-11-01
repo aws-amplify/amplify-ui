@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import { Amplify } from 'aws-amplify';
-import { syncMessages } from 'aws-amplify/in-app-messaging';
+import {
+  initializeInAppMessaging,
+  syncMessages,
+} from 'aws-amplify/in-app-messaging';
 import { AccountSettings, Authenticator, Text } from '@aws-amplify/ui-react';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
 import {
@@ -12,6 +15,8 @@ import '@aws-amplify/ui-react/styles.css';
 import '@aws-amplify/ui-react-geo/styles.css';
 import awsconfig from '@/data/aws-exports';
 Amplify.configure(awsconfig);
+
+initializeInAppMessaging();
 
 export default function Home() {
   useEffect(() => {
