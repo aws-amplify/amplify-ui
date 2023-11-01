@@ -1,6 +1,8 @@
-import { UploadDataOutput } from 'aws-amplify/storage';
+// import `UploadDataOutput` directly from '@aws-amplify/storage' scoped package as
+// this file acts as `aws-amplify/storage`, meaning `UploadDataOutput` is `undefined`
+// if importing from the subpath
+import { UploadDataOutput } from '@aws-amplify/storage';
 
-// interface StorageProviderConfig extends StorageOptions {
 interface StorageProviderConfig {
   delay?: number;
   networkError?: boolean;
