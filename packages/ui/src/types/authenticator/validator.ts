@@ -1,5 +1,5 @@
 import { PasswordSettings } from '.';
-import { AuthFormData } from './form';
+import { AuthFormData, AuthTouchData } from './form';
 
 /**
  * Maps each input to its validation error, if any
@@ -18,6 +18,6 @@ export type SignInResult = string; // null if there are no error, `ValidationErr
  */
 export type Validator = (
   formData: AuthFormData,
-  touchData?: AuthFormData,
+  touchData?: AuthTouchData,
   passwordSettings?: PasswordSettings
 ) => ValidatorResult | Promise<ValidatorResult>;

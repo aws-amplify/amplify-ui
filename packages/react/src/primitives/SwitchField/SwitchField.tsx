@@ -18,6 +18,7 @@ import { useSwitch } from './useSwitch';
 import { View } from '../View';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { useFieldset } from '../Fieldset/useFieldset';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
   {
@@ -52,7 +53,7 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
   const shouldBeDisabled = isFieldsetDisabled ? isFieldsetDisabled : isDisabled;
 
   const fieldId = useStableId(id);
-  const LabelType = isLabelHidden ? VisuallyHidden : View;
+
   const wrapperClasses = classNames(
     ComponentClassName.SwitchTrack,
     classNameModifierByFlag(ComponentClassName.SwitchTrack, 'checked', isOn),
@@ -114,9 +115,15 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
           classNameModifier(ComponentClassName.SwitchWrapper, labelPosition)
         )}
       >
-        <LabelType as="span" className={ComponentClassName.SwitchLabel}>
-          {label}
-        </LabelType>
+        {isLabelHidden ? (
+          <VisuallyHidden as="span" className={ComponentClassName.SwitchLabel}>
+            {label}
+          </VisuallyHidden>
+        ) : (
+          <View as="span" className={ComponentClassName.SwitchLabel}>
+            {label}
+          </View>
+        )}
         <View
           as="span"
           className={wrapperClasses}
@@ -140,6 +147,6 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/switchfield)
  */
 export const SwitchField: ForwardRefPrimitive<BaseSwitchFieldProps, 'div'> =
-  React.forwardRef(SwitchFieldPrimitive);
+  primitiveWithForwardRef(SwitchFieldPrimitive);
 
 SwitchField.displayName = 'SwitchField';

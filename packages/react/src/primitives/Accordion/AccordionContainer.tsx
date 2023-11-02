@@ -3,6 +3,7 @@ import classNames from 'classnames';
 
 import { ComponentClassName, isFunction } from '@aws-amplify/ui';
 import { ElementType, PrimitiveProps } from '../types/view';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { View } from '../View';
 import { BaseAccordionProps } from './types';
@@ -87,6 +88,6 @@ const AccordionContainerPrimitive: Primitive<AccordionContainerProps, 'div'> = (
 export const AccordionContainer: ForwardRefPrimitive<
   BaseAccordionContainerProps,
   'div'
-> = React.forwardRef(AccordionContainerPrimitive);
+> = primitiveWithForwardRef(AccordionContainerPrimitive);
 
 AccordionContainer.displayName = 'Accordion.Container';

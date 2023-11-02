@@ -1,4 +1,10 @@
-import * as Auth from '@aws-amplify/auth';
+import {
+  FetchUserAttributesOutput,
+  SignUpOutput,
+  ResetPasswordOutput,
+  ResetPasswordInput,
+  resetPassword,
+} from 'aws-amplify/auth';
 import { actions } from 'xstate';
 import { trimValues } from '../../helpers';
 
@@ -7,6 +13,9 @@ import {
   AuthEvent,
   SignInContext,
   SignUpContext,
+  CodeDeliveryDetails,
+  V6AuthDeliveryMedium,
+  ChallengeName,
 } from '../../types';
 import { groupLog } from '../../utils';
 
@@ -69,23 +78,23 @@ export const clearValidationError = assign({ validationError: (_) => ({}) });
  * "set" actions
  */
 export const setTotpSecretCode = assign({
-  totpSecretCode: (_, event: AuthEvent) => {
-    groupLog('+++totpSecretCode', 'event', event);
+  totpSecretCode: (ctx, event: AuthEvent) => {
+    groupLog('+++setTotpSecretCode', ctx, event);
     return event.data;
   },
 });
 
-// export const setChallengeName = assign({
-//   challengeName: (_, event: AuthEvent) => {
-//     groupLog('+++setChallengeName', 'event', event);
-//     return event.data?.challengeName;
-//   },
-// });
-
 export const setChallengeName = assign({
-  challengeName: (_, event: AuthEvent) => {
-    groupLog('+++setChallengeName', 'event', event);
-    return event.data.nextStep.signInStep;
+  challengeName: (_, event: AuthEvent): ChallengeName | string => {
+    groupLog(`+++setChallengeName: ${event.data.nextStep.signInStep}`);
+
+    // map v6 `signInStep` to v5 `challengeName`
+    const { signInStep } = event.data.nextStep;
+    return signInStep === 'CONFIRM_SIGN_IN_WITH_SMS_CODE'
+      ? 'SMS_MFA'
+      : signInStep === 'CONFIRM_SIGN_IN_WITH_TOTP_CODE'
+      ? 'SOFTWARE_TOKEN_MFA'
+      : signInStep;
   },
 });
 
@@ -114,9 +123,7 @@ export const setCredentials = assign({
   /**
    * @migration does not require updates
    */
-  // authAttributes: (context: SignInContext | SignUpContext, _) => {
   authAttributes: (context: SignInContext | SignUpContext) => {
-    // groupLog('+++setCredentials', 'context', context, 'event', _);
     groupLog('+++setCredentials');
     const [primaryAlias] = context.loginMechanisms;
     const username =
@@ -145,7 +152,7 @@ export const setUnverifiedContactMethods = assign({
   unverifiedContactMethods: (_, event: AuthEvent) => {
     groupLog('+++setUnverifiedContactMethods', 'event', event);
     const { phone_number_verified, email_verified, email, phone_number } =
-      event.data as Auth.FetchUserAttributesOutput;
+      event.data as FetchUserAttributesOutput;
 
     return {
       ...(email_verified === 'false' && email && { email }),
@@ -155,21 +162,20 @@ export const setUnverifiedContactMethods = assign({
   },
 });
 
+// @todo-migration fix-me
 export const setUser = assign({
-  user: (context, event: AuthEvent) => {
-    groupLog('+++setUser', 'event.data', event.data);
+  user: (_, event: AuthEvent) => {
+    groupLog('+++setUser.source', 'event.data', event.data);
 
     /**
      * @migration Cannot be called if unauthenticated. Maybe try/catch?
      */
-    // const user = await Auth.getCurrentUser();
+    // const user = await getCurrentUser();
     /**
      * @migration event.data was the fallback here,
      *  setting the entire event.data as user
      */
-    // Setting the challengeName here to keep backwards compatability
-    const challengeName = event.data.nextStep?.signInStep;
-    return { ...event.data, ...(challengeName && { challengeName }) };
+    return { ...event.data };
   },
 });
 
@@ -187,10 +193,24 @@ export const setUsername = assign({
 });
 
 export const setCodeDeliveryDetails = assign({
-  codeDeliveryDetails: (_, { data }: { data: Auth.SignUpOutput }) => {
+  codeDeliveryDetails: (_, { data }: { data: SignUpOutput }) => {
     groupLog('+++setCodeDeliveryDetails', 'data', data);
+    const { codeDeliveryDetails: details } = data.nextStep as {
+      codeDeliveryDetails: {
+        destination?: string;
+        deliveryMedium?: V6AuthDeliveryMedium;
+        attributName?: string;
+      };
+    };
 
-    return data.nextStep.codeDeliveryDetails;
+    // map `details` property names to PascalCase to prevent changes in UI layer
+    const mappedDetails: CodeDeliveryDetails = {
+      Destination: details.destination,
+      DeliveryMedium: details.deliveryMedium,
+      AttributeName: details.attributName,
+    };
+
+    return mappedDetails;
   },
 });
 
@@ -236,17 +256,15 @@ export const handleBlur = assign({
 
 // export const resendCode = async (context) => {
 //   const { username } = context;
-//   return await Auth.forgotPassword(username);
+//   return await forgotPassword(username);
 // };
 /**
  *
  * @migration is working as expected
  */
-export const resendCode = async (
-  context
-): Promise<Auth.ResetPasswordOutput> => {
-  const input: Auth.ResetPasswordInput = { ...context };
-  return await Auth.resetPassword(input);
+export const resendCode = async (context): Promise<ResetPasswordOutput> => {
+  const input: ResetPasswordInput = { ...context };
+  return await resetPassword(input);
 };
 
 /**

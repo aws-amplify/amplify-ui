@@ -7,6 +7,7 @@ import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { BaseTextAreaProps, TextAreaProps } from '../types/textArea';
 import { View } from '../View';
 import { useFieldset } from '../Fieldset/useFieldset';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const TextAreaPrimitive: Primitive<TextAreaProps, 'textarea'> = (
   {
@@ -46,6 +47,6 @@ const TextAreaPrimitive: Primitive<TextAreaProps, 'textarea'> = (
 };
 
 export const TextArea: ForwardRefPrimitive<BaseTextAreaProps, 'textarea'> =
-  React.forwardRef(TextAreaPrimitive);
+  primitiveWithForwardRef(TextAreaPrimitive);
 
 TextArea.displayName = 'TextArea';

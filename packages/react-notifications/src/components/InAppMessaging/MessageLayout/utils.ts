@@ -15,7 +15,7 @@ import { MessageLayoutButtonModifier } from './types';
  * @returns the modifier - either 'light' or 'dark'
  */
 export const getButtonModifier = (
-  buttonStyles: MessageComponentStyles['primaryButton' | 'primaryButton'],
+  buttonStyles: MessageComponentStyles['primaryButton' | 'secondaryButton'],
   defaultModifier: MessageLayoutButtonModifier = 'light'
 ): MessageLayoutButtonModifier => {
   const { backgroundColor } = buttonStyles ?? {};

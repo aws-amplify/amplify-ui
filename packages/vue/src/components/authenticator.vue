@@ -15,7 +15,7 @@ import {
   AuthenticatorRoute,
   SocialProvider,
   authenticatorTextUtil,
-  configureComponent,
+  setUserAgent,
 } from '@aws-amplify/ui';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
@@ -75,7 +75,7 @@ const emit = defineEmits([
   'confirmVerifyUserSubmit',
 ]);
 
-let unsubscribeMachine: () => void;
+let clearUserAgent: () => void;
 
 const hasInitialized = ref(false);
 
@@ -85,7 +85,7 @@ const { service, send, state } = useAuth();
  * Subscribes to state machine changes and sends INIT event
  * once machine reaches 'setup' state.
  */
-unsubscribeMachine = service.subscribe((newState) => {
+const unsubscribeMachine = service.subscribe((newState) => {
   if (newState.matches('setup') && !hasInitialized.value) {
     send({
       type: 'INIT',
@@ -113,13 +113,15 @@ const facade: UseAuthenticator = useAuthenticator();
 const { route, signOut, toSignIn, toSignUp, user } = toRefs(facade);
 
 onMounted(() => {
-  configureComponent({
-    packageName: '@aws-amplify/ui-vue',
+  clearUserAgent = setUserAgent({
+    componentName: 'Authenticator',
+    packageName: 'vue',
     version: VERSION,
   });
 });
 
 onUnmounted(() => {
+  clearUserAgent();
   unsubscribeMachine();
 });
 
@@ -299,19 +301,23 @@ const hasRouteComponent = computed(() => {
         <base-two-tabs v-if="hasTabs && !hideSignUp">
           <base-two-tab-item
             :active="route === 'signIn'"
-            :id="44472"
+            id="signIn"
             :label="signInLabel"
             @click="toSignIn"
           />
           <base-two-tab-item
             :active="route === 'signUp'"
-            :id="44471"
+            id="signUp"
             :label="createAccountLabel"
             @click="toSignUp"
           />
         </base-two-tabs>
         <div v-if="hasTabs" data-amplify-router-content>
           <sign-in
+            id="signIn-panel"
+            role="tabpanel"
+            class="amplify-tabs__panel amplify-tabs__panel--active"
+            aria-labelledby="signIn-tab"
             v-if="route === 'signIn'"
             @sign-in-submit="onSignInSubmitI"
             ref="signInComponent"
@@ -341,6 +347,10 @@ const hasRouteComponent = computed(() => {
             </template>
           </sign-in>
           <sign-up
+            id="signUp-panel"
+            class="amplify-tabs__panel amplify-tabs__panel--active"
+            role="tabpanel"
+            aria-labelledby="signUp-tab"
             v-if="route === 'signUp' && !hideSignUp"
             @sign-up-submit="onSignUpSubmitI"
             ref="signUpComponent"
@@ -542,9 +552,9 @@ const hasRouteComponent = computed(() => {
   <!-- cast slot props back to any for backwards compatibility -->
   <slot
     v-if="route === 'authenticated'"
-    :user="(user as any)"
-    :state="(state as any)"
-    :signOut="(signOut as any)"
-    :send="(send as any)"
+    :user="user as any"
+    :state="state as any"
+    :signOut="signOut as any"
+    :send="send as any"
   ></slot>
 </template>

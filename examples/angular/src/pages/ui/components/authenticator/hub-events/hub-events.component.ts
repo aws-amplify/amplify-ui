@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
-import * as Auth from '@aws-amplify/auth';
+import { signOut } from 'aws-amplify/auth';
 import awsExports from './aws-exports';
 
 @Component({
@@ -13,6 +13,6 @@ export class HubEventsComponent {
   }
 
   public signOut(): void {
-    Auth.signOut();
+    signOut();
   }
 }

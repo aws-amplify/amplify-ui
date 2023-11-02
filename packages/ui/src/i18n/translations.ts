@@ -10,7 +10,7 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
  * and limitations under the License.
  */
-import { I18n } from '@aws-amplify/core';
+import { I18n } from 'aws-amplify/utils';
 import {
   deDict,
   enDict,
@@ -47,7 +47,7 @@ import {
 export const DefaultTexts = { ...defaultTexts } as const;
 
 // type Phrase = "Back to Sign In" | "Change Password" | ...
-export type Phrase = typeof DefaultTexts[keyof typeof DefaultTexts];
+export type Phrase = (typeof DefaultTexts)[keyof typeof DefaultTexts];
 
 /**
  * TODO: Translation keys for dictionaries can be inferred from DefaultTexts

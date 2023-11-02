@@ -1,4 +1,4 @@
-import { Hub } from '@aws-amplify/core';
+import { Hub } from 'aws-amplify/utils';
 
 import * as Utils from '../utils';
 import { AuthInterpreter } from '../../../types';
@@ -20,12 +20,13 @@ describe('listenToAuthHub', () => {
     Utils.listenToAuthHub(authenticatedStateMachine);
     Hub.dispatch('auth', { event: 'signOut' });
 
-    expect(hubHandlerSpy).toBeCalledWith(
+    expect(hubHandlerSpy).toHaveBeenCalledWith(
       {
         channel: 'auth',
         patternInfo: [],
         payload: { event: 'signOut' },
-        source: '',
+        // @todo-migration confirm changing from source '' to undefined is correct
+        source: undefined,
       },
       authenticatedStateMachine
     );

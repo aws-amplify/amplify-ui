@@ -17,6 +17,7 @@ import {
   IconCheckCircle,
   useIcons,
 } from '../Icon/internal';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const MessageIconPrimitive: Primitive<MessageIconProps, 'div'> = (
   { className, ...rest },
@@ -52,6 +53,6 @@ const MessageIconPrimitive: Primitive<MessageIconProps, 'div'> = (
 };
 
 export const MessageIcon: ForwardRefPrimitive<BaseMessageIconProps, 'div'> =
-  React.forwardRef(MessageIconPrimitive);
+  primitiveWithForwardRef(MessageIconPrimitive);
 
 MessageIcon.displayName = 'MessageIcon';

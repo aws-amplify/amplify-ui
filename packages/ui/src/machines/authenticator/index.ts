@@ -49,6 +49,7 @@ export function createAuthenticatorMachine(
     useNextWaitConfig?: boolean;
   }
 ) {
+  groupLog('+++createAuthenticatorMachine');
   const { useNextWaitConfig, ...overrideConfigServices } = options ?? {};
   const waitConfig = useNextWaitConfig ? NEXT_WAIT_CONFIG : LEGACY_WAIT_CONFIG;
   return createMachine<AuthContext, AuthEvent>(
@@ -194,8 +195,8 @@ export function createAuthenticatorMachine(
               always: { actions: 'spawnSignOutActor', target: 'runActor' },
             },
             runActor: {
-              entry: 'clearActorDoneData',
-              exit: ['stopSignOutActor', 'clearUser'],
+              entry: ['clearActorDoneData', 'clearUser'],
+              exit: ['stopSignOutActor'],
             },
           },
           on: {
@@ -257,21 +258,29 @@ export function createAuthenticatorMachine(
            * @migration potentially update flows here
            */
           actorDoneData: (_, event) => {
-            groupLog('+++setActorDoneData', 'event', event);
+            groupLog('+++setActorDoneData actorDoneData', 'event', event);
             return {
               authAttributes: { ...event.data?.authAttributes },
               intent: event.data?.intent,
             };
           },
           user: (_, event) => {
+            groupLog('+++setActorDoneData user', event.data);
+
             return { ...event.data };
           },
         }),
-        clearUser: assign({ user: undefined }),
-        clearActorDoneData: assign({ actorDoneData: undefined }),
+        clearUser: assign((ctx, e) => {
+          groupLog('+++clearUser', e);
+          return { user: undefined };
+        }),
+        clearActorDoneData: assign((ctx, e) => {
+          groupLog('+++clearActorDoneData', e);
+          return { actorDoneData: undefined };
+        }),
         applyAmplifyConfig: assign({
           config(context, { data: cliConfig }) {
-            console.group('+++applyAmplifyConfig', cliConfig);
+            groupLog('+++applyAmplifyConfig', cliConfig);
 
             // Prefer explicitly configured settings over default CLI values\
             const {
@@ -291,8 +300,6 @@ export function createAuthenticatorMachine(
             }
 
             const formFields = convertFormFields(_formFields) ?? {};
-
-            console.groupEnd();
 
             return {
               formFields,
@@ -370,7 +377,7 @@ export function createAuthenticatorMachine(
         }),
         spawnSignOutActor: assign({
           actorRef: (context) => {
-            const actor = signOutActor.withContext({
+            const actor = signOutActor().withContext({
               user: context.user,
             });
             return spawn(actor, { name: 'signOutActor' });
@@ -407,10 +414,13 @@ export function createAuthenticatorMachine(
           groupLog('+++shouldRedirectToSignUp', event);
           return event.data?.intent === 'confirmSignUp';
         },
-        shouldRedirectToResetPassword: (_, event) =>
-          event.data?.intent === 'confirmPasswordReset',
+        shouldRedirectToResetPassword: (context, event) => {
+          groupLog('+++shouldRedirectToResetPassword');
+
+          return event.data?.intent === 'confirmPasswordReset';
+        },
         shouldAutoSignIn: (context, event) => {
-          groupLog('+++shouldAutoSignIn', 'event', event);
+          groupLog('+++shouldAutoSignIn.top', 'event', event);
           return (
             event.data?.intent === 'autoSignIn' ||
             event.data?.intent === 'autoSignInSubmit'
@@ -424,7 +434,19 @@ export function createAuthenticatorMachine(
         hasActor: (context) => !!context.actorRef,
       },
       services: {
-        getCurrentUser: (context, _) => context.services.getCurrentUser(),
+        getCurrentUser: (context, event) => {
+          groupLog('+++getCurrentUser.top', context, event);
+          return context.services
+            .getCurrentUser()
+            .then((user) => {
+              console.log('getCurrentUser.top success', user);
+              return user;
+            })
+            .catch((e) => {
+              console.log('getCurrentUser.top fail', e);
+              throw new Error(undefined);
+            });
+        },
         getAmplifyConfig: (context, _) => context.services.getAmplifyConfig(),
       },
     }

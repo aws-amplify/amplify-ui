@@ -1,4 +1,4 @@
-import { Alert,  Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Tabs, Message } from '@aws-amplify/ui-react';
 import { TerminalCommand } from '@/components/InstallScripts';
 
 ## `@aws-amplify/ui-react`
@@ -7,70 +7,108 @@ import { TerminalCommand } from '@/components/InstallScripts';
 #### Installation
 Install the 6.x version of both `@aws-amplify/ui-react` and `aws-amplify`.
 
-<Tabs>
-<TabItem title="npm">
-<TerminalCommand command="npm install @aws-amplify/ui-react@6.x aws-amplify@6.x" />
-</TabItem>
-<TabItem title="yarn">
-<TerminalCommand command="yarn add @aws-amplify/ui-react@6.x aws-amplify@6.x" />
-</TabItem>
-</Tabs>
+<Message colorTheme="warning" title="Upgrade both @aws-amplify/ui-react and aws-amplify">
+The 6.x version of `@aws-amplify/ui-react` has a minimum dependency of 6.x on `aws-amplify`. `aws-amplify@6` introduced breaking API changes.
+</Message>
+
+<Tabs.Container defaultValue='npm'>
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="npm">
+    <TerminalCommand command="npm install @aws-amplify/ui-react@6.x aws-amplify@6.x" />
+  </Tabs.Panel>
+  <Tabs.Panel value="yarn">
+    <TerminalCommand command="yarn add @aws-amplify/ui-react@6.x aws-amplify@6.x" />
+  </Tabs.Panel>
+</Tabs.Container>
 
 #### Update and usage
 
 `@aws-amplify/ui-react@6.x` introduces the following breaking changes:
 
-#### 1. `@aws-amplify/ui-react@6.x` drops `AmplifyProvider`. `AmplifyProvider` was renamed to `ThemeProvider` in version 2.18.3 but kept for compatibility. No API changes other than export name. If still using `AmplifyProvider`, replace directly with `ThemeProvider`:
+#### 1. `@aws-amplify/ui-react@6.x` drops `AmplifyProvider`.
+
+`AmplifyProvider` was renamed to `ThemeProvider` in version 2.18.3 but kept for compatibility. No API changes other than export name. If still using `AmplifyProvider`, replace directly with `ThemeProvider`:
+
 ```diff
 - import { AmplifyProvider } from '@aws-amplify/ui-react';
 + import { ThemeProvider } from '@aws-amplify/ui-react';
 - const App = ( <AmplifyProvider><App /></AmplifyProvider>);
 + const App = ( <ThemeProvider><App /></ThemeProvider>);
 ```
-#### 2. Expander is now Accordion
-The Expander component has been replaced by the Accordion component in Amplify UI v6. Here is a mapping between the two components:
 
-**Expander -> Accordion**
-The main Expander component maps to the Accordion.Container component.
+#### 2. Expander is now Accordion
+
+The Expander component has been replaced by the [`Accordion`](../components/accordion) component in Amplify UI v6. The Accordion is fully composable and uses HTML elements `<summary>` and `<details>`. 
 
 ```jsx
-<Expander>
-  <ExpanderItem>
-    ...
+<Expander type="single">
+  <ExpanderItem title="Is it accessible?" value="demo-item-1">
+    Yes! It adheres to the WAI-ARIA design pattern.
+  </ExpanderItem>
+  <ExpanderItem title="Can I customize the styling?" value="demo-item-2">
+    Of course! See the section on CSS Styling below.
+  </ExpanderItem>
+  <ExpanderItem
+    title="Is it a great way to organize content?"
+    value="demo-item-3"
+  >
+    Most definitely!
   </ExpanderItem>
 </Expander>
 
-// Becomes
+// Becomes 
 
+<Accordion
+  items={[
+    {
+      trigger: 'Is it accessible?',
+      value: 'accessible',
+      content: 'Yes! It uses HTML native elements: <details> and <summary>.'
+    },
+    {
+      trigger: 'Can I customize the styling?',
+      value: 'styling',
+      content: 'Of course! See the section on CSS Styling below.'
+    },
+    {
+      trigger: 'Is it a great way to organize content?',
+      value: 'content',
+      content: 'Most definitely!'
+    }
+  ]}
+/>
+```
+
+The [`Accordion`](../components/accordion) is also fully composable now too:
+
+```jsx
 <Accordion.Container>
-  <Accordion.Item>
-   ...
-  </Accordion.Item>  
+  <Accordion.Item value="Accordion-item">
+    <Accordion.Trigger>
+      What is an Accordion?
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
+      An Accordion contains all the parts of a collapsible section.
+    </Accordion.Content>
+  </Accordion.Item>
+  <Accordion.Item value="unique-value">
+    <Accordion.Trigger>
+      This is the item title
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
+      The `children` of the Accordion are displayed here.
+    </Accordion.Content>
+  </Accordion.Item>
 </Accordion.Container>
 ```
 
-**ExpanderItem -> Accordion.Item**
-The `ExpanderItem` component maps to the `Accordion.Item` component.
-
-```jsx
-<ExpanderItem>
-  ...
-</ExpanderItem>
-
-// Becomes 
-
-<Accordion.Item>
- ...
-</Accordion.Item>
-```
-
-The ExpanderItem's `title` prop maps to placing content inside the `<Accordion.Trigger>` component.
-
-The ExpanderItem's `value` prop maps to the `value` prop on `<Accordion.Item>`.
-
-The children of `<ExpanderItem>` map to inside `<Accordion.Content>`.
-
 **Behavior**
+
 Here are some differences in behavior between the Expander and Accordion components:
 
 * The Accordion allows only 1 item expanded by default, while the Expander allowed multiple items expanded by default. To allow multiple open with Accordion, you need to add the allowMultiple prop.
@@ -88,20 +126,122 @@ The class names have changed between Expander and Accordion. Here is a mapping:
 
 The `--amplify-components-accordion-` CSS variables can also be used to style Accordion.
 
+#### 3. Tabs refactor
+
+The [`Tabs`](../components/tabs) component is now fully composable and more light-weight after removing the Radix dependency. 
+
+```diff
+- import { Tabs, TabItem } from '@aws-amplify/ui-react'
++ import { Tabs } from '@aws-amplify/ui-react'
+
+- <Tabs>
+-  <TabItem title="Tab 1">
+-    Tab 1 Content
+-  </TabItem>
+
++ <Tabs.Container defaultValue="Tab 1">
++  <Tabs.List>
++    <Tabs.Item value="Tab 1">Tab 1</Tabs.Item>
++  </Tabs.List>
++  <Tabs.Panel value="Tab 1">
++    Tab 1 Content
++  </Tabs.Panel>
+```
+
+You can also use the Tabs in a uncomposed way too:
+
+```jsx
+  <Tabs
+    defaultValue={'Tab 1'}
+    items={[
+      { label: 'Tab 1', value: 'Tab 1', content: 'Tab content #1' },
+      { label: 'Tab 2', value: 'Tab 2', content: 'Tab content #2' },
+      { label: 'Tab 3', value: 'Tab 3', content: 'Tab content #3' },
+    ]}
+  />
+```
+
+Some notable differences:
+
+* Instead of providing a `defaultIndex` or `currentIndex` you provide a `defaultValue` or `value`. Each Tabs.Item and Tabs.Panel should have a `value` that matches with the corresponding element.
+* `onChange` becomes `onValueChange`
+* You should supply a `defaultValue` or `value` or else there will be no default selected tab. Previously the Tabs component would default to the first tab.
+
+There are also more design tokens and better CSS classes for easier customization. 
+
+#### 4. In-App Messaging
+
+Starting with `aws-amplify@6` the Amplify categories like Auth and Notifications are no longer exported from the base `aws-amplify` package. If you are using in-app messaging you will need to change your imports accordingly and run `initializeInAppMessaging` before your application code:
+
+```diff
+- import { Amplify, Notifications } from 'aws-amplify'
++ import { Amplify } from 'aws-amplify';
++ import { initializeInAppMessaging, syncMessages } from 'aws-amplify/in-app-messaging';
+- import exports from './aws-exports';
++ import config from './amplifyconfiguration';
+
+Amplify.configure(config);
+
+- const { InAppMessaging } = Notifications;
++ initializeInAppMessaging()
+
+const MyApp = () => {
+  React.useEffect(() => {
+-    InAppMessaging.syncMessages()
++    syncMessages();
+  }, []}
+
+  // ..
+}
+```
+
+#### 5. Removal of extraneous `data` attributes and updating classNames
+
+https://github.com/aws-amplify/amplify-ui/pull/4452
+
+If you were using `[data-]` attributes in CSS to target styling components you will need to change these selectors to classes. 
+
+ClassName updates:
+
+* `amplify-loader__percentage-text` -> `amplify-loader__label`
+* `amplify-menu-content-wrapper` -> `amplify-menu__wrapper`
+* `amplify-menu-trigger` -> `amplify-menu__trigger`
+* `amplify-menu-content` -> `amplify-menu__content`
+* `amplify-menu-content__item` -> `amplify-menu__content__item`
+* `amplify-pagination__item-button` -> `amplify-pagination__item`
+* `amplify-pagination__item-current` -> `amplify-pagination__item--current`
+* `amplify-pagination__item-ellipsis` -> `amplify-pagination__item--ellipsis`
+* `amplify-rating-icon-container` -> `amplify-rating__item`
+* `amplify-rating-icon` -> `amplify-rating__icon`
+* `amplify-rating-icon-filled` -> `amplify-rating__icon--filled`
+* `amplify-rating-icon-empty` -> `amplify-rating__icon--empty`
+* `amplify-select__icon-wrapper` -> `amplify-select__icon`
+* `.amplify-switch-label` -> `.amplify-switch__label`
+* `.amplify-switch-thumb` -> `.amplify-switch__thumb`
+* `.amplify-switch-track` -> `.amplify-switch__track`
+
+
+#### 6. public accessLevel becomes 'guest' in Storage components
+
+Starting in v6 of the Amplify JS libraries, `'public'` access level, meaning unauthentiated users can access it, became `'guest'`. The `accessLevel` property on StorageManager and StorageImage components have been updated to reflect this change. 
+
+#### 7. Removal of FileUploader
+
+The FileUploader component was the predecessor to the [`StorageManager`](../connected-components/storage/storagemanager) component. In this major version we are removing the FileUploader component. Please use the StorageManager component which covers all of the use-cases of FileUploader and more. 
 
 
 ### Migrate from 4.x to 5.x
 #### Installation
 Install the 5.x version of the `@aws-amplify/ui-react` library.
 
-<Tabs>
-<TabItem title="npm">
+<Tabs.Container>
+<Tabs.Item title="npm">
 <TerminalCommand command="npm install @aws-amplify/ui-react@5.x" />
-</TabItem>
-<TabItem title="yarn">
+</Tabs.Item>
+<Tabs.Item title="yarn">
 <TerminalCommand command="yarn add @aws-amplify/ui-react@5.x" />
-</TabItem>
-</Tabs>
+</Tabs.Item>
+</Tabs.Container>
 
 #### Update and usage
 
@@ -110,14 +250,14 @@ Install the 5.x version of the `@aws-amplify/ui-react` library.
 #### 1. `@aws-amplify/ui-react@5.x` drops Amplify Geo components. They are moved to a separate new package `@aws-amplify/ui-react-geo`.
 Install the 1.x version of the `@aws-amplify/ui-react-geo` library and update your existing imports accordingly.
 
-<Tabs>
-<TabItem title="npm">
+<Tabs.Container>
+<Tabs.Item title="npm">
 <TerminalCommand command="npm install @aws-amplify/ui-react-geo@1.x" />
-</TabItem>
-<TabItem title="yarn">
+</Tabs.Item>
+<Tabs.Item title="yarn">
 <TerminalCommand command="yarn add @aws-amplify/ui-react-geo@1.x" />
-</TabItem>
-</Tabs>
+</Tabs.Item>
+</Tabs.Container>
 
 Styles supporting Amplify Geo UI components are moved to `@aws-amplify/ui-react-geo` library and are not available through `@aws-amplify/ui-react` library anymore.
 When using components like `MapView` or `LocationSearch` from `@aws-amplify/ui-react-geo` library, import the styles from the same library as well.
@@ -146,14 +286,14 @@ export default function BasicMap() {
 #### 2. `@aws-amplify/ui-react@5.x` drops Amplify Notifications components. They are moved to a separate new package `@aws-amplify/ui-react-notifications`.
 Install the 1.x version of the `@aws-amplify/ui-react-notifications` library and update your existing imports accordingly.
 
-<Tabs>
-<TabItem title="npm">
+<Tabs.Container>
+<Tabs.Item title="npm">
 <TerminalCommand command="npm install @aws-amplify/ui-react-notifications@1.x" />
-</TabItem>
-<TabItem title="yarn">
+</Tabs.Item>
+<Tabs.Item title="yarn">
 <TerminalCommand command="yarn add @aws-amplify/ui-react-notifications@1.x" />
-</TabItem>
-</Tabs>
+</Tabs.Item>
+</Tabs.Container>
 
 For example, you can import the In-App messaging components like InAppMessageDisplay and InAppMessagingProvider from `@aws-amplify/ui-react-notifications` library.
 
@@ -201,14 +341,14 @@ import { Link as ReactRouterLink } from 'react-router-dom';
 #### Installation
 Install the 4.x version of the `@aws-amplify/ui-react` library and the 5.x version of the `aws-amplify` library.
 
-<Tabs>
-<TabItem title="npm">
+<Tabs.Container>
+<Tabs.Item title="npm">
 <TerminalCommand command="npm install aws-amplify@5.x @aws-amplify/ui-react@4.x" />
-</TabItem>
-<TabItem title="yarn">
+</Tabs.Item>
+<Tabs.Item title="yarn">
 <TerminalCommand command="yarn add aws-amplify@5.x @aws-amplify/ui-react@4.x" />
-</TabItem>
-</Tabs>
+</Tabs.Item>
+</Tabs.Container>
 
 #### Update and usage
 
@@ -226,9 +366,9 @@ Replace any `TextField` components using the `isMultiline` prop with the `TextAr
 
 #### 2. `@aws-amplify/ui-react@4.x` moves text directionality support to ThemeProvider
 
-<Alert variation="info" heading="Note">
+<Message colorTheme="info" heading="Note">
   If you are NOT using `dir="rtl"` in your application, feel free to skip this item.
-</Alert>
+</Message>
 
 `@aws-amplify/ui-react` has a dependency on Radix components for Menu, SliderField, Tabs, and Expander. There were a number of changes in the [July 21, 2022 release](https://www.radix-ui.com/primitives/docs/overview/releases#july-21-2022) of `radix-ui/*` packages, and the breaking change for `@aws-amplify/ui-react` was removal of support for the `dir` HTML attribute, and the addition of the `DirectionProvider`. In order to make the transition seamless for most of Amplify users, we've added the `DirectionProvider` with a default `direction` of `ltr` to the `ThemeProvider`.
 
@@ -270,9 +410,9 @@ Before 4.0, Field components like `TextField` would try to intelligently apply c
 
 Hopefully this change won't affect your code but will allow for more customization and control. 
 
-<Alert variation="info" heading="Note">
+<Message colorTheme="info" heading="Note">
   The TextAreaField component does apply 1 style prop directly on the `textarea` element: `resize`. We felt this one makes sense to apply direclty on the the `textarea` element and not the wrapper element.
-</Alert>
+</Message>
 
 #### 5. `@aws-amplify/ui-react@4.x` moves automatic signin on signup logic to `aws-amplify`. 
 
@@ -309,14 +449,14 @@ If you were using `I18n` to translate those keys, please update your translation
 #### Installation
 Install the 3.x version of the `@aws-amplify/ui-react` library.
 
-<Tabs>
-<TabItem title="npm">
+<Tabs.Container>
+<Tabs.Item title="npm">
 <TerminalCommand command="npm install aws-amplify @aws-amplify/ui-react@3.x" />
-</TabItem>
-<TabItem title="yarn">
+</Tabs.Item>
+<Tabs.Item title="yarn">
 <TerminalCommand command="yarn add aws-amplify @aws-amplify/ui-react@3.x" />
-</TabItem>
-</Tabs>
+</Tabs.Item>
+</Tabs.Container>
 
 #### Update and usage
 
@@ -342,14 +482,14 @@ This export has been removed and should no longer be used.
 
 Install the 2.x version of the `@aws-amplify/ui-react` library.
 
-<Tabs>
-<TabItem title="npm">
+<Tabs.Container>
+<Tabs.Item title="npm">
 <TerminalCommand command="npm install aws-amplify @aws-amplify/ui-react@2.x" />
-</TabItem>
-<TabItem title="yarn">
+</Tabs.Item>
+<Tabs.Item title="yarn">
 <TerminalCommand command="yarn add aws-amplify @aws-amplify/ui-react@2.x" />
-</TabItem>
-</Tabs>
+</Tabs.Item>
+</Tabs.Container>
 
 #### Update and Usage
 
@@ -416,14 +556,14 @@ Previous versions of `Authenticator` exposed a `onAuthUIStateChange` handler to 
 
 Install the 2.x version of the `@aws-amplify/ui-react-liveness` library.
 
-<Tabs>
-<TabItem title="npm">
-<TerminalCommand command="npm install aws-amplify @aws-amplify/ui-react-liveness@2.x" />
-</TabItem>
-<TabItem title="yarn">
-<TerminalCommand command="yarn add aws-amplify @aws-amplify/ui-react-liveness@2.x" />
-</TabItem>
-</Tabs>
+<Tabs.Container>
+<Tabs.Item title="npm">
+<TerminalCommand command="npm install aws-amplify@5.x @aws-amplify/ui-react-liveness@2.x" />
+</Tabs.Item>
+<Tabs.Item title="yarn">
+<TerminalCommand command="yarn add aws-amplify@5.x @aws-amplify/ui-react-liveness@2.x" />
+</Tabs.Item>
+</Tabs.Container>
 
 #### Update and Usage
 

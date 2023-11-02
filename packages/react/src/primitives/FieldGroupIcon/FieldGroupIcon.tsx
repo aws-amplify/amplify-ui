@@ -8,6 +8,7 @@ import {
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { View } from '../View';
 
 const FieldGroupIconPrimitive: Primitive<FieldGroupIconProps, 'div'> = (
@@ -35,6 +36,6 @@ const FieldGroupIconPrimitive: Primitive<FieldGroupIconProps, 'div'> = (
 export const FieldGroupIcon: ForwardRefPrimitive<
   BaseFieldGroupIconProps,
   'div'
-> = React.forwardRef(FieldGroupIconPrimitive);
+> = primitiveWithForwardRef(FieldGroupIconPrimitive);
 
 FieldGroupIcon.displayName = 'FieldGroupIcon';

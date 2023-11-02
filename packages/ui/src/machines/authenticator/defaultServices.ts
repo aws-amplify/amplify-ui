@@ -1,38 +1,70 @@
 import { Amplify } from 'aws-amplify';
-import * as Auth from '@aws-amplify/auth';
+
+import {
+  confirmResetPassword,
+  ConfirmResetPasswordInput,
+  confirmSignIn,
+  ConfirmSignInInput,
+  ConfirmSignInOutput,
+  confirmSignUp,
+  ConfirmSignUpInput,
+  ConfirmSignUpOutput,
+  getCurrentUser,
+  resetPassword,
+  ResetPasswordInput,
+  signIn,
+  SignInInput,
+  SignInOutput,
+  signUp,
+  SignUpInput,
+} from 'aws-amplify/auth';
 import { hasSpecialChars } from '../../helpers';
 
 import {
+  AuthFormData,
+  AuthTouchData,
   LoginMechanism,
-  // AuthChallengeName,
   PasswordSettings,
   SignUpAttribute,
   SocialProvider,
-  // SignInResult,
   ValidatorResult,
 } from '../../types';
 import { groupLog } from '../../utils';
+import { uniqueId } from 'lodash';
+
+// Cognito does not allow a password length lower then 8 characters
+const DEFAULT_COGNITO_PASSWORD_MIN_LENGTH = 8;
 
 export const defaultServices = {
   async getAmplifyConfig() {
     const result = Amplify.getConfig();
     groupLog('+++getAmplifyConfig', 'result', result);
 
-    const cliConfig = result.Auth.Cognito;
-    const parsedLoginMechanisms = Object.entries(cliConfig.loginWith)
-      .filter(([key, _value]) => key !== 'oauth')
-      .filter(([_key, value]) => !!value)
-      .map((keyValueArray) => {
-        return keyValueArray[0] === 'phone' // the key for phone_number is phone in getConfig but everywhere else we treat is as phone_number
-          ? 'phone_number'
-          : keyValueArray[0];
-      }) as LoginMechanism[];
-    const parsedSignupAttributes = Object.entries(cliConfig.userAttributes).map(
-      ([_key, value]) => Object.keys(value)[0]
-    ) as SignUpAttribute[];
-    const parsedSocialProviders = cliConfig.loginWith?.oauth?.providers?.map(
-      (provider) => provider.toString().toLowerCase()
-    ) as SocialProvider[];
+    const cliConfig = result.Auth?.Cognito;
+    const { loginWith, userAttributes } = result.Auth?.Cognito ?? {};
+
+    const parsedLoginMechanisms = loginWith
+      ? (Object.entries(loginWith)
+          .filter(([key, _value]) => key !== 'oauth')
+          .filter(([_key, value]) => !!value)
+          .map((keyValueArray) => {
+            return keyValueArray[0] === 'phone' // the key for phone_number is phone in getConfig but everywhere else we treat is as phone_number
+              ? 'phone_number'
+              : keyValueArray[0];
+          }) as LoginMechanism[])
+      : undefined;
+
+    const parsedSignupAttributes = userAttributes
+      ? (Object.entries(userAttributes).map(
+          ([_key, value]) => Object.keys(value)[0]
+        ) as SignUpAttribute[])
+      : undefined;
+
+    const parsedSocialProviders = loginWith?.oauth?.providers
+      ? (loginWith.oauth.providers?.map((provider) =>
+          provider.toString().toLowerCase()
+        ) as SocialProvider[])
+      : undefined;
     return {
       ...cliConfig,
       loginMechanisms: parsedLoginMechanisms,
@@ -41,14 +73,18 @@ export const defaultServices = {
     };
   },
   async getCurrentUser() {
-    return {
-      ...(await Auth.getCurrentUser()),
-      attributes: { ...(await Auth.fetchUserAttributes()) },
-    };
+    const id = uniqueId();
+    groupLog(`+++getCurrentUser.defaultServices: ${id}`);
+    return getCurrentUser()
+      .then((user) => {
+        console.log('getCurrentUser.defaultServices success', id, user);
+        return user;
+      })
+      .catch((e) => {
+        console.log('getCurrentUser.defaultServices fail', id, e);
+        throw new Error(undefined);
+      });
   },
-  // async handleSignUp(formData) {
-  //   return Auth.signUp({ ...formData, autoSignIn: { enabled: true } });
-  // },
   async handleSignUp({
     attributes: userAttributes,
     username,
@@ -61,58 +97,52 @@ export const defaultServices = {
       email?: string;
     };
   }) {
-    const input: Auth.SignUpInput = {
+    const input: SignUpInput = {
       username,
       password,
       options: {
         userAttributes,
         autoSignIn: true,
-      },
+      } as SignUpInput['options'],
     };
-    return Auth.signUp(input);
+    return signUp(input);
   },
   async handleSignIn({
     username,
     password,
-  }: {
-    username: string;
-    password: string;
-  }): Promise<Auth.SignInOutput> {
-    return Auth.signIn({ username, password });
+  }: SignInInput): Promise<SignInOutput> {
+    groupLog('+++handleSignIn');
+    // #todo-migration logs error in failure use cases (fiorce new password, etc)
+    return signIn({ username, password });
   },
   async handleConfirmSignIn(
-    input: Auth.ConfirmSignInInput
-  ): Promise<Auth.ConfirmSignInOutput> {
-    return Auth.confirmSignIn(
-      input
-      // {
-      //   // user,
-      //   code,
-      // }
-      // // cast due to restrictive typing of Auth.confirmSignIn
-      // mfaType as 'SMS_MFA' | 'SOFTWARE_TOKEN_MFA'
-    );
+    input: ConfirmSignInInput
+  ): Promise<ConfirmSignInOutput> {
+    return confirmSignIn(input);
   },
   async handleConfirmSignUp(
-    input: Auth.ConfirmSignUpInput
-  ): Promise<Auth.ConfirmSignUpOutput> {
-    return await Auth.confirmSignUp(input);
+    input: ConfirmSignUpInput
+  ): Promise<ConfirmSignUpOutput> {
+    return confirmSignUp(input);
   },
   async handleForgotPasswordSubmit(
-    input: Auth.ConfirmResetPasswordInput
-  ): Promise<ReturnType<typeof Auth.confirmResetPassword>> {
-    return Auth.confirmResetPassword(input);
+    input: ConfirmResetPasswordInput
+  ): Promise<ReturnType<typeof confirmResetPassword>> {
+    return confirmResetPassword(input);
   },
-  async handleForgotPassword(input: Auth.ResetPasswordInput): Promise<any> {
-    // return Auth.forgotPassword(formData);
-    return Auth.resetPassword(input);
+  async handleForgotPassword(input: ResetPasswordInput): Promise<any> {
+    // return forgotPassword(formData);
+    return resetPassword(input);
   },
 
   // Validation hooks for overriding
-  async validateCustomSignUp(formData, touchData): Promise<ValidatorResult> {},
-  async validateFormPassword<Validator>(
-    formData,
-    touchData,
+  async validateCustomSignUp(
+    formData: AuthFormData,
+    touchData: AuthTouchData
+  ): Promise<ValidatorResult> {},
+  async validateFormPassword(
+    formData: AuthFormData,
+    touchData: AuthTouchData,
     passwordSettings: PasswordSettings
   ): Promise<ValidatorResult> {
     const { password } = formData;
@@ -127,7 +157,8 @@ export const defaultServices = {
 
     const password_complexity = [];
 
-    const policyMinLength = +passwordSettings?.minLength;
+    const policyMinLength =
+      passwordSettings.minLength ?? DEFAULT_COGNITO_PASSWORD_MIN_LENGTH;
     if (password.length < policyMinLength) {
       password_complexity.push(
         `Password must have at least ${policyMinLength} characters`
@@ -154,9 +185,9 @@ export const defaultServices = {
       ? { password: password_complexity }
       : null;
   },
-  async validateConfirmPassword<Validator>(
-    formData,
-    touchData
+  async validateConfirmPassword(
+    formData: AuthFormData,
+    touchData: AuthTouchData
   ): Promise<ValidatorResult> {
     const { password, confirm_password } = formData;
 
@@ -183,7 +214,7 @@ export const defaultServices = {
     }
   },
   async validatePreferredUsername(
-    formData,
-    touchData
+    formData: AuthFormData,
+    touchData: AuthTouchData
   ): Promise<ValidatorResult> {},
 };

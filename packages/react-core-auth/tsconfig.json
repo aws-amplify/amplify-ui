@@ -1,9 +1,5 @@
 {
   "extends": "@aws-amplify/typescript-config/tsconfig.react.json",
-  "compilerOptions": {
-    // turn on due to type conflict between @types/node and @types/react-native
-    "skipLibCheck": true
-  },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["*.config.ts", "src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]
 }

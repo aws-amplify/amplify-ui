@@ -11,7 +11,7 @@ export const componentsWithChildren: {
   ],
   Menu: ['MenuButton', 'MenuItem'],
   RadioGroupField: ['Radio'],
-  Tabs: ['TabItem'],
+  Tabs: ['Tabs.Container', 'Tabs.Item', 'Tabs.List', 'Tabs.Panel'],
   Table: ['TableBody', 'TableCell', 'TableFoot', 'TableHead', 'TableRow'],
   ToggleButton: ['ToggleButtonGroup'],
 };

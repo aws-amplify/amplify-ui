@@ -125,7 +125,7 @@ module.exports = {
   extends: ['@aws-amplify/amplify-ui'],
   parserOptions: {
     // point to local tsconfig
-    project: ['./tsconfig.json'],
+    project: ['tsconfig.json'],
     tsconfigRootDir: __dirname,
   },
 };
@@ -138,7 +138,7 @@ module.exports = {
   extends: ['@aws-amplify/eslint-config-amplify-ui'],
   parserOptions: {
     // point to local tsconfig
-    project: ['./tsconfig.json'],
+    project: ['tsconfig.json'],
     tsconfigRootDir: __dirname,
   },
 };

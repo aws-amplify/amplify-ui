@@ -171,7 +171,7 @@ describe('StorageManager', () => {
 
     // Wait for the file to be uploaded
     await waitFor(() => {
-      expect(uploadDataSpy).toBeCalledWith({
+      expect(uploadDataSpy).toHaveBeenCalledWith({
         key: file.name,
         data: file,
         options: {
@@ -210,7 +210,7 @@ describe('StorageManager', () => {
 
     // Wait for the file to be uploaded
     await waitFor(() => {
-      expect(uploadDataSpy).toBeCalledWith({
+      expect(uploadDataSpy).toHaveBeenCalledWith({
         key: file.name,
         data: file,
         options: {

@@ -5,7 +5,8 @@ import {
   ResetPasswordMachineOptions,
   resetPasswordActor,
 } from '../resetPassword';
-import { SignInResult } from '../../../../types';
+
+import { ConfirmResetPasswordInput } from 'aws-amplify/auth';
 
 const flushPromises = () => new Promise(setImmediate);
 
@@ -14,8 +15,8 @@ const mockResendCode = jest.fn(() => Promise.resolve);
 const mockValidateFields = jest.fn(async () => Promise.resolve);
 const mockHandleForgotPassword = jest.fn(async () => Promise.resolve);
 const mockHandleForgotPasswordSubmit = jest.fn(
-  async () => Promise.resolve as unknown as Promise<SignInResult>
-);
+  async () => Promise.resolve
+) as unknown as (input: ConfirmResetPasswordInput) => Promise<Promise<void>>;
 
 const resetPasswordMachineProps: ResetPasswordMachineOptions = {
   services: {
@@ -89,7 +90,9 @@ describe('resetPasswordActor', () => {
     });
 
     await flushPromises();
-    expect(mockHandleForgotPassword).toHaveBeenCalledWith(mockUsername);
+    expect(mockHandleForgotPassword).toHaveBeenCalledWith({
+      username: mockUsername,
+    });
     expect(service.getSnapshot().value).toStrictEqual({
       confirmResetPassword: { submission: 'idle', validation: 'valid' },
     });
@@ -100,8 +103,8 @@ describe('resetPasswordActor', () => {
     });
     await flushPromises();
     expect(mockHandleForgotPasswordSubmit).toHaveBeenCalledWith({
-      code: mockConfirmationCode,
-      password: mockPassword,
+      confirmationCode: mockConfirmationCode,
+      newPassword: mockPassword,
       username: mockUsername,
     });
     expect(service.getSnapshot().value).toStrictEqual('resolved');

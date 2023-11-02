@@ -1,11 +1,11 @@
 import { Amplify } from 'aws-amplify';
-import { I18n } from '@aws-amplify/core';
+import { I18n } from 'aws-amplify/utils';
 
 import { withAuthenticator, translations } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
-import { getAuthenticatorConfig } from '@aws-amplify/ui';
+
 Amplify.configure(awsExports);
 
 // @todo-migration remove cast
@@ -41,5 +41,4 @@ function App({ user, signOut }) {
 
 export default withAuthenticator(App, {
   formFields: formFields,
-  ...getAuthenticatorConfig(awsExports),
 });

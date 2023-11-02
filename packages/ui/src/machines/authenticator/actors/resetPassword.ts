@@ -16,12 +16,14 @@ import {
   resendCode,
 } from '../actions';
 import { defaultServices } from '../defaultServices';
+import { groupLog } from '../../../utils';
 
 export type ResetPasswordMachineOptions = {
   services?: Partial<typeof defaultServices>;
 };
 
 export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
+  groupLog('+++resetPasswordActor (machine)');
   return createMachine<ResetPasswordContext, AuthEvent>(
     {
       id: 'resetPasswordActor',

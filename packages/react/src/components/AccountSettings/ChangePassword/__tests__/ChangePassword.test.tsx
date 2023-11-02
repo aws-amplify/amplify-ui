@@ -97,7 +97,7 @@ describe('ChangePassword', () => {
 
     fireEvent.submit(submitButton);
 
-    expect(changePasswordSpy).toBeCalledWith({
+    expect(changePasswordSpy).toHaveBeenCalledWith({
       currentPassword: 'oldpassword',
       newPassword: 'newpassword',
     });
@@ -116,7 +116,7 @@ describe('ChangePassword', () => {
 
     // submit handling is async, wait for onSuccess to be called
     // https://testing-library.com/docs/dom-testing-library/api-async/#waitfor
-    await waitFor(() => expect(onSuccess).toBeCalledTimes(1));
+    await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(1));
   });
 
   it('onError is called after unsuccessful submit', async () => {
@@ -132,7 +132,7 @@ describe('ChangePassword', () => {
     fireEvent.submit(submitButton);
 
     // submit handling is async, wait for onError to be called
-    await waitFor(() => expect(onError).toBeCalledTimes(1));
+    await waitFor(() => expect(onError).toHaveBeenCalledTimes(1));
   });
 
   it('displays error message after unsuccessful submit', async () => {
@@ -308,7 +308,7 @@ describe('ChangePassword', () => {
     });
     fireEvent.submit(submitButton);
 
-    await waitFor(() => expect(onSuccess).toBeCalledTimes(1));
+    await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(1));
   });
 
   it('calls changePassword with expected arguments and component overrides', async () => {

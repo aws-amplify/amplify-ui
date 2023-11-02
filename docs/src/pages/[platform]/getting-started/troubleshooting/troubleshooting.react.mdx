@@ -1,4 +1,4 @@
-import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Alert, Tabs } from '@aws-amplify/ui-react';
 import { TerminalCommand } from '@/components/InstallScripts';
 import { Fragment } from '@/components/Fragment';
 
@@ -7,8 +7,8 @@ import { Fragment } from '@/components/Fragment';
 ### `Uncaught ReferenceError: global is not defined`
 
 When working with a [Astro](https://astro.build/) project you must make a few modifications. Please follow the steps below.
-<Tabs>
-  <TabItem title="TypeScript">
+<Tabs.Container>
+  <Tabs.Item title="TypeScript">
 **1.** Add the following script to the bottom of the `index.astro` file. This will only run on the client side and will polyfill Node globals.
 
 ```html
@@ -36,8 +36,8 @@ export default defineConfig({
   }
 })
 ```
-  </TabItem>
-  <TabItem title="JavaScript">
+  </Tabs.Item>
+  <Tabs.Item title="JavaScript">
 **1.** Add the following script to the bottom of the `index.astro` file. This will only run on the client side and will polyfill Node globals.
 
 ```html
@@ -65,8 +65,8 @@ export default defineConfig({
   }
 })
 ```
-  </TabItem>
-</Tabs>
+  </Tabs.Item>
+</Tabs.Container>
 
 
 ## Create React App
@@ -196,14 +196,14 @@ Webpack 4 already includes this polyfill.
    [node-polyfill-webpack-plugin](https://www.npmjs.com/package/node-polyfill-webpack-plugin)
    as dev dependency:
 
-<Tabs>
-<TabItem title="npm">
+<Tabs.Container>
+<Tabs.Item title="npm">
 <TerminalCommand command="npm install node-polyfill-webpack-plugin -D" />
-</TabItem>
-<TabItem title="yarn">
+</Tabs.Item>
+<Tabs.Item title="yarn">
 <TerminalCommand command="yarn add node-polyfill-webpack-plugin -D" />
-</TabItem>
-</Tabs>
+</Tabs.Item>
+</Tabs.Container>
 
 2. Add the plugin to your `webpack.config.js` plugins list:\_
 
@@ -224,20 +224,20 @@ Follow [here](#cra-4-cant-import-the-named-export-amplify-from-non-ecmascript-mo
 
 When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.
 
-<Tabs>
-  <TabItem title="TypeScript">
+<Tabs.Container>
+  <Tabs.Item title="TypeScript">
     <Fragment>
       {({ platform }) => import(`./shared/vite-polyfill.mdx`)}
     </Fragment>
     <Fragment>
       {({ platform }) => import(`./shared/vite-polyfill-ts.mdx`)}
     </Fragment>
-  </TabItem>
-  <TabItem title="JavaScript">
+  </Tabs.Item>
+  <Tabs.Item title="JavaScript">
     <Fragment>
       {({ platform }) => import(`./shared/vite-polyfill.mdx`)}
     </Fragment>
-  </TabItem>
-</Tabs>
+  </Tabs.Item>
+</Tabs.Container>
 
 > If you are still having issues, please see comments on the following issue for additional [Vite workarounds](https://github.com/aws-amplify/amplify-js/issues/9639). Note that there is active ongoing work to make these modifications unnecessary.

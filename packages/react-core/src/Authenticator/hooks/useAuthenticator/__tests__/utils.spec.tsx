@@ -1,6 +1,4 @@
-// import * as Auth from '@aws-amplify/auth';
 import {
-  // AmplifyUser,
   AuthenticatorServiceFacade,
   AuthMachineState,
   AuthActorContext,
@@ -13,11 +11,8 @@ import {
   defaultComparator,
   getComparator,
   getMachineFields,
-  // getTotpSecretCodeCallback,
   getQRFields,
 } from '../utils';
-
-// const setupTOTPSpy = jest.spyOn(Auth, 'setUpTOTP').mockImplementation();
 
 const totpIssuer = 'testIssuer';
 const totpUsername = 'testUsername';
@@ -100,24 +95,6 @@ describe('defaultComparator', () => {
     expect(defaultComparator()).toBe(false);
   });
 });
-// eslint-disable-next-line jest/no-commented-out-tests
-// describe('getTotpSecretCodeCallback', () => {
-// eslint-disable-next-line jest/no-commented-out-tests
-//   it('returns a getTotpSecretCode function', () => {
-//     const getTotpSecretCode = getTotpSecretCodeCallback();
-
-//     expect(getTotpSecretCode).toStrictEqual(expect.any(Function));
-//   });
-
-//   // eslint-disable-next-line jest/no-commented-out-tests
-//   // it('returns a function that calls Auth.setupTOTP with the user', async () => {
-//   //   const getTotpSecretCode = getTotpSecretCodeCallback(user);
-
-//   //   await getTotpSecretCode();
-
-//   //   expect(setupTOTPSpy).toBeCalledWith(user);
-//   // });
-// });
 
 describe('getMachineFields', () => {
   const state = {} as unknown as AuthMachineState;

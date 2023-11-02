@@ -3,6 +3,7 @@ import classNames from 'classnames';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 import { BaseAccordionItemProps, AccordionItemProps } from './types';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { View } from '../View';
 import { AccordionContext, AccordionItemContext } from './AccordionContext';
@@ -35,6 +36,6 @@ const AccordionItemPrimitive: Primitive<AccordionItemProps, 'details'> = (
 export const AccordionItem: ForwardRefPrimitive<
   BaseAccordionItemProps,
   'details'
-> = React.forwardRef(AccordionItemPrimitive);
+> = primitiveWithForwardRef(AccordionItemPrimitive);
 
 AccordionItem.displayName = 'AccordionItem';

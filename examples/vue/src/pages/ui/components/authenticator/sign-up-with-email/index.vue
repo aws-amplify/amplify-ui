@@ -2,7 +2,7 @@
 // @todo-migration clean up imports
 import { Amplify } from 'aws-amplify';
 import * as Auth from 'aws-amplify/auth';
-import { I18n } from '@aws-amplify/core';
+import { I18n } from 'aws-amplify/utils';
 import {
   Authenticator,
   translations,
@@ -53,11 +53,7 @@ const services = {
 
 <template>
   {{ authStatus }}
-  <authenticator
-    :services="services"
-    :form-fields="formFields"
-    initial-state="signUp"
-  >
+  <authenticator :services="services" :form-fields="formFields" initial-state="signUp">
     <template v-slot="{ user, signOut }">
       <h1>Hello {{ user.username }}!</h1>
       <button @click="signOut">Sign Out</button>

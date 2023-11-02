@@ -1,15 +1,12 @@
-import { I18n } from '@aws-amplify/core';
+import { I18n } from 'aws-amplify/utils';
 import {
-  AuthChallengeName,
+  ChallengeName,
   CodeDeliveryDetails,
   SocialProvider,
 } from '../../../types';
 import { authenticatorTextUtil } from '../textUtil';
 
-const AUTH_CHALLENGE_NAMES: AuthChallengeName[] = [
-  'SMS_MFA',
-  'SOFTWARE_TOKEN_MFA',
-];
+const AUTH_CHALLENGE_NAMES: ChallengeName[] = ['SMS_MFA', 'SOFTWARE_TOKEN_MFA'];
 
 const SOCIAL_PROVIDERS: SocialProvider[] = [
   'apple',
@@ -81,9 +78,9 @@ describe('authenticatorTextUtil', () => {
 
   it.each(AUTH_CHALLENGE_NAMES)(
     'getChallengeText for %s returns the expected text',
-    (authChallengeName) => {
+    (challengeName) => {
       const { getChallengeText } = authenticatorTextUtil;
-      expect(getChallengeText(authChallengeName)).toMatchSnapshot();
+      expect(getChallengeText(challengeName)).toMatchSnapshot();
     }
   );
 });

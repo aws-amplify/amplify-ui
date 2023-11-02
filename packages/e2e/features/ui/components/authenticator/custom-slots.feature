@@ -10,7 +10,7 @@ Feature: Custom Slots
   Background:
     Given I'm running the example "ui/components/authenticator/custom-slots"
 
-  @todo-migration @angular @react @vue  
+  @angular @react @vue  
   Scenario: Has custom Confirm Sign Up Footer and Header slot text
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
     When I click the "Create Account" tab
@@ -21,7 +21,7 @@ Feature: Custom Slots
     Then I see "Enter Information:"
     Then I see "Footer Information"
 
-  @todo-migration @angular @react @vue
+  @angular @react @vue
   Scenario: Has Confirm Reset Password Verify User Footer and Header slot text
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "verify-user-email"
     When I click the "Reset Password" button
@@ -32,7 +32,7 @@ Feature: Custom Slots
     Then I see "Enter Information:"
     Then I see "Footer Information"
 
-  @todo-migration @angular @react @vue
+  @angular @react @vue
   Scenario: Has Setup TOTP Verify User Footer and Header slot text
     When I type my "email" with status "CONFIRMED"
     Then I type my password
@@ -40,6 +40,7 @@ Feature: Custom Slots
     Then I see "Enter Information:"
     Then I see "Footer Information"
 
+  @angular @react @vue
   Scenario: Has confirm sign in Footer and Header slot text
     When I type my "email" with status "UNVERIFIED"
     Then I type my password
@@ -47,35 +48,36 @@ Feature: Custom Slots
     Then I see "Enter Information:"
     Then I see "Footer Information"
 
+  @angular @react @vue
   Scenario: Has reset password in Footer and Header slot text
     When I click the "Reset Password" button
     Then I see "Enter Information:"
     Then I see "Footer Information"
 
-  @todo-migration @angular @react @vue
+  @angular @react @vue
   Scenario: Has a custom Header slot logo
     Then I see the "Amplify logo" image
 
-  @todo-migration @angular @react @vue
+  @angular @react @vue
   Scenario: Has custom Footer slot text
     Then I see "© All Rights Reserved"
 
-  @todo-migration @angular @react @vue
+  @angular @react @vue
   Scenario: Has custom Sign In Header slot text
     Then I see "Sign in to your account"
 
-  @todo-migration @angular @react @vue
+  @angular @react @vue
   Scenario: Has custom Sign In Footer slot text
     Given I see "Reset Password"
     When I click "Reset Password"
     Then I see "Send code"
 
-  @todo-migration @angular @react @vue
+  @angular @react @vue
   Scenario: Has custom Sign Up Header slot text
     When I click the "Create Account" tab
     Then I see "Create a new account"
 
-  @todo-migration @angular @react @vue
+  @angular @react @vue
   Scenario: Has custom Sign Up Footer slot text
     When I click the "Create Account" tab
     Then I see "Back to Sign In"

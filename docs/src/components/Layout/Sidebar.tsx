@@ -24,7 +24,7 @@ import {
   primitiveComponents,
 } from '../../data/links';
 
-import Link from 'next/link';
+import NextLink from 'next/link';
 import { FrameworkChooser } from './FrameworkChooser';
 import { LogoLink } from './LogoLink';
 import { MenuButton } from './MenuButton';
@@ -66,11 +66,11 @@ const NavLink = ({
   }
 
   return (
-    <Link href={`/${platform}${href}`} passHref>
+    <NextLink href={`/${platform}${href}`} passHref legacyBehavior>
       <a onClick={onClick} className={classNames}>
         {children}
       </a>
-    </Link>
+    </NextLink>
   );
 };
 

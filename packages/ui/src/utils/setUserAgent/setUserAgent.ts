@@ -1,18 +1,21 @@
-import {
-  setCustomUserAgent,
-  SetCustomUserAgentInput,
-} from '@aws-amplify/core/internals/utils';
+import { setCustomUserAgent } from '@aws-amplify/core/internals/utils';
 
 import {
   ACCOUNT_SETTINGS_INPUT_BASE,
+  AUTHENTICATOR_INPUT_BASE,
   IN_APP_MESSAGING_INPUT_BASE,
+  LOCATION_SEARCH_INPUT_BASE,
+  MAP_VIEW_INPUT_BASE,
+  STORAGE_MANAGER_INPUT_BASE,
 } from './constants';
+import { noop } from '../utils';
 
 // public packages only, exclude internal packages e.g. 'react-core', 'ui'
-type PackageName =
+export type PackageName =
   | 'angular'
   | 'react'
   | 'react-auth'
+  | 'react-geo'
   | 'react-liveness'
   | 'react-native'
   | 'react-native-auth'
@@ -20,18 +23,21 @@ type PackageName =
   | 'react-storage'
   | 'vue';
 
-type ComponentName =
-  | 'AccountSettings'
+export type ComponentName =
   | 'Authenticator'
-  | 'InAppMessaging'
+  | 'ChangePassword'
+  | 'DeleteUser'
   | 'FaceLivenessDetector'
+  | 'InAppMessaging'
   | 'LocationSearch'
-  | 'MapView';
+  | 'MapView'
+  | 'StorageManager'
+  | 'StorageImage';
 
 // semver notation
-type Version = `${string}.${string}.${string}`;
+export type Version = `${string}.${string}.${string}`;
 
-interface SetUserAgentOptions {
+export interface SetUserAgentOptions {
   componentName: ComponentName;
   packageName: PackageName;
   version: Version;
@@ -52,26 +58,53 @@ export const setUserAgent = ({
   packageName,
   version,
 }: SetUserAgentOptions): (() => void) => {
-  let input: SetCustomUserAgentInput | undefined;
-
-  const additionalDetails: SetCustomUserAgentInput['additionalDetails'] = [
-    [componentName],
-    [`ui-${packageName}`, version],
-  ];
+  const packageData: [string, string] = [`ui-${packageName}`, version];
 
   switch (componentName) {
-    case 'AccountSettings': {
-      // remove cast when Category input types are available
-      input = ACCOUNT_SETTINGS_INPUT_BASE as SetCustomUserAgentInput;
+    case 'Authenticator': {
+      setCustomUserAgent({
+        ...AUTHENTICATOR_INPUT_BASE,
+        additionalDetails: [[componentName], packageData],
+      });
+      break;
+    }
+    case 'ChangePassword':
+    case 'DeleteUser': {
+      setCustomUserAgent({
+        ...ACCOUNT_SETTINGS_INPUT_BASE,
+        additionalDetails: [['AccountSettings'], packageData],
+      });
       break;
     }
     case 'InAppMessaging': {
-      // remove cast when Category input types are available
-      input = IN_APP_MESSAGING_INPUT_BASE as SetCustomUserAgentInput;
+      setCustomUserAgent({
+        ...IN_APP_MESSAGING_INPUT_BASE,
+        additionalDetails: [[componentName], packageData],
+      });
       break;
     }
-    default:
+    case 'LocationSearch': {
+      setCustomUserAgent({
+        ...LOCATION_SEARCH_INPUT_BASE,
+        additionalDetails: [[componentName], packageData],
+      });
       break;
+    }
+    case 'MapView': {
+      setCustomUserAgent({
+        ...MAP_VIEW_INPUT_BASE,
+        additionalDetails: [[componentName], packageData],
+      });
+      break;
+    }
+    case 'StorageManager': {
+      setCustomUserAgent({
+        ...STORAGE_MANAGER_INPUT_BASE,
+        additionalDetails: [[componentName], packageData],
+      });
+      break;
+    }
   }
-  return setCustomUserAgent({ ...input, additionalDetails });
+
+  return noop as () => void;
 };

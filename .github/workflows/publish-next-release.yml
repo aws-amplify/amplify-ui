@@ -20,6 +20,15 @@ jobs:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
 
+  # @todo-migration publish before running unit/e2e tests
+  publish:
+    uses: ./.github/workflows/reusable-tagged-publish.yml
+    needs: setup-cache
+    with:
+      dist-tag: next-release
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
   unit:
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@next-release/main
     needs: setup-cache
@@ -50,13 +59,13 @@ jobs:
       DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
       DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
-  publish:
-    needs: [e2e]
-    uses: ./.github/workflows/reusable-tagged-publish.yml
-    with:
-      dist-tag: next-release
-    secrets:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  # publish:
+  #   needs: [e2e]
+  #   uses: ./.github/workflows/reusable-tagged-publish.yml
+  #   with:
+  #     dist-tag: next-release
+  #   secrets:
+  #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   build-test:
     needs: publish
@@ -65,10 +74,10 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
-      - name: Setup Node.js 16
+      - name: Setup Node.js 20
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
-          node-version: 16
+          node-version: 20
           cache: 'yarn'
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2

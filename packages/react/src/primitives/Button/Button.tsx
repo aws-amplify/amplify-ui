@@ -1,5 +1,5 @@
-import classNames from 'classnames';
 import * as React from 'react';
+import classNames from 'classnames';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 
@@ -10,6 +10,8 @@ import {
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
+
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 import { useFieldset } from '../Fieldset/useFieldset';
 import { Flex } from '../Flex';
@@ -93,6 +95,6 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/button)
  */
 export const Button: ForwardRefPrimitive<BaseButtonProps, 'button'> =
-  React.forwardRef(ButtonPrimitive);
+  primitiveWithForwardRef(ButtonPrimitive);
 
 Button.displayName = 'Button';

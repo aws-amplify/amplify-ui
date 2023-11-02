@@ -5,6 +5,7 @@ import { AuthFieldsWithDefaults } from './attributes';
  * Map of each input name to its value
  */
 export type AuthFormData = Record<string, string>;
+export type AuthTouchData = Record<string, boolean>;
 
 /**
  * List of routes that support custom formFields
@@ -80,6 +81,6 @@ export type DefaultFormFieldOptions = Record<
 /** Ordered list of formFields */
 export type FormFieldsArray = Array<[string, FormFieldOptions]>;
 
-// password setting directly coming from Amplify.Auth
-export type PasswordSettings =
-  ResourcesConfig['Auth']['Cognito']['passwordFormat'];
+type AuthConfig = NonNullable<ResourcesConfig['Auth']>;
+type CognitoConfig = NonNullable<AuthConfig['Cognito']>;
+export type PasswordSettings = CognitoConfig['passwordFormat'];

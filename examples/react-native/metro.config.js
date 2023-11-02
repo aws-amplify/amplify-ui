@@ -114,34 +114,6 @@ config.resolver.blockList = [
   ...usedInternalPackagePaths,
 ];
 
-// point to the example app deps for React and native modules deps
-config.resolver.extraNodeModules = {
-  '@aws-amplify/react-native': path.resolve(
-    __dirname,
-    'node_modules/@aws-amplify/react-native'
-  ),
-  '@aws-amplify/rtn-web-browser': path.resolve(
-    __dirname,
-    'node_modules/@aws-amplify/rtn-web-browser'
-  ),
-
-  // core React and React Native dependencies
-  react: path.resolve(__dirname, 'node_modules/react'),
-  'react-native': path.resolve(__dirname, 'node_modules/react-native'),
-
-  // xstate uses React under the hood
-  '@xstate/react': path.resolve(__dirname, 'node_modules/@xstate/react'),
-
-  // self explanatory
-  'react-hook-form': path.resolve(__dirname, 'node_modules/react-hook-form'),
-
-  // dependencies with native modules
-  'react-native-safe-area-context': path.resolve(
-    __dirname,
-    'node_modules/react-native-safe-area-context'
-  ),
-};
-
 // base transform values included by `react-native init`
 config.transformer.getTransformOptions = async () => ({
   transform: {
@@ -170,6 +142,18 @@ config.server.enhanceMiddleware = (middleware) => {
     }
     return middleware(req, res, next);
   };
+};
+
+config.resolver.extraNodeModules = {
+  '@aws-amplify/react-native': path.resolve(
+    __dirname,
+    'node_modules/@aws-amplify/react-native'
+  ),
+  'react-native': path.resolve(__dirname, 'node_modules/react-native'),
+  'react-native-safe-area-context': path.resolve(
+    __dirname,
+    'node_modules/react-native-safe-area-context'
+  ),
 };
 
 module.exports = config;

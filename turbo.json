@@ -8,6 +8,8 @@
     },
     "clean": {
       "cache": false
-    }
+    },
+    "lint": {},
+    "test": {}
   }
 }

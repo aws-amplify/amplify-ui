@@ -11,6 +11,7 @@ import type {
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 export const HighlightMatchPrimitive: Primitive<HighlightMatchProps, 'span'> = (
   { children, className, query, testId, ...rest },
@@ -57,6 +58,6 @@ export const HighlightMatchPrimitive: Primitive<HighlightMatchProps, 'span'> = (
 export const HighlightMatch: ForwardRefPrimitive<
   BaseHighlightMatchProps,
   'span'
-> = React.forwardRef(HighlightMatchPrimitive);
+> = primitiveWithForwardRef(HighlightMatchPrimitive);
 
 HighlightMatch.displayName = 'HighlightMatch';

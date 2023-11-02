@@ -7,9 +7,11 @@ import { useInAppMessaging } from '../../../hooks/useInAppMessaging';
 import { InAppMessagingContextType } from '../..';
 import { InAppMessagingProvider } from '..';
 
-jest.mock('aws-amplify/in-app-messaging', () => ({
-  ...jest.requireActual('aws-amplify/in-app-messaging'),
-  onMessageReceived: jest.fn(),
+jest.mock('aws-amplify/notifications', () => ({
+  ...jest.requireActual<typeof import('aws-amplify/in-app-messaging')>(
+    'aws-amplify/in-app-messaging'
+  ),
+  Notifications: { InAppMessaging: { onMessageReceived: jest.fn() } },
 }));
 
 let onMessageReceivedCallback =
@@ -69,8 +71,8 @@ describe('InAppMessagingProvider', () => {
   });
 
   it('registers a listener to InAppMessaging.onMessageReceived as expected', () => {
-    expect(onMessageReceived).toBeCalledTimes(1);
-    expect(onMessageReceived).toBeCalledWith(
+    expect(onMessageReceived).toHaveBeenCalledTimes(1);
+    expect(onMessageReceived).toHaveBeenCalledWith(
       expect.any(Function) as InAppMessagingContextType['displayMessage']
     );
   });
@@ -92,7 +94,7 @@ describe('InAppMessagingProvider', () => {
       renderer.unmount();
     });
 
-    expect(mockRemove).toBeCalledTimes(1);
+    expect(mockRemove).toHaveBeenCalledTimes(1);
   });
 
   it('updates the value of message when displayMessage is called', () => {

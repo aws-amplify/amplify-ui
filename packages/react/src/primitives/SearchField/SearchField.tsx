@@ -15,6 +15,7 @@ import type {
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
   {
@@ -101,6 +102,6 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/searchfield)
  */
 export const SearchField: ForwardRefPrimitive<BaseSearchFieldProps, 'input'> =
-  React.forwardRef(SearchFieldPrimitive);
+  primitiveWithForwardRef(SearchFieldPrimitive);
 
 SearchField.displayName = 'SearchField';

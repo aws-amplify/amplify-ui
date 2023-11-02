@@ -7,7 +7,7 @@ import {
 } from '@aws-amplify/ui-react';
 
 // @todo-migration fix import
-import { I18n } from '@aws-amplify/core';
+import { I18n } from 'aws-amplify/utils';
 import * as React from 'react';
 
 type ScreenProps = {
