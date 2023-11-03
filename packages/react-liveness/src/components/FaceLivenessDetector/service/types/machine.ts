@@ -6,6 +6,7 @@ import {
   ServiceQuotaExceededException,
   SessionInformation,
 } from '@aws-sdk/client-rekognitionstreaming';
+import { WebTheme } from '@aws-amplify/ui';
 
 import {
   FaceLivenessDetectorCoreProps,
@@ -76,6 +77,7 @@ export interface HydratedLivenessContext {
   faceMatchStateBeforeStart: FaceMatchState;
   isFaceFarEnoughBeforeRecording: boolean;
   isRecordingStopped: boolean;
+  theme: WebTheme;
 }
 
 export type LivenessEventTypes =

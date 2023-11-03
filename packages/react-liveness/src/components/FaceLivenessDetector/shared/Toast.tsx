@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Flex, View, ViewProps } from '@aws-amplify/ui-react';
+import { Flex, View, ViewProps, useTheme } from '@aws-amplify/ui-react';
 
 import { LivenessClassNames } from '../types/classNames';
 
@@ -17,24 +17,23 @@ export const Toast: React.FC<ToastProps> = ({
   isInitial = false,
   ...rest
 }) => {
+  const { tokens } = useTheme();
   return (
     <View
       className={`${LivenessClassNames.Toast} ${LivenessClassNames.Toast}--${variation} ${LivenessClassNames.Toast}--${size}`}
       maxWidth={{ base: '100%' }}
-      {...(variation === 'primary'
-        ? {
-            borderRadius: 'unset',
-            fontSize: 'xxl',
-            padding: '0 var(--amplify-space-xs)',
-          }
-        : {})}
-      {...(isInitial ? { backgroundColor: 'background.primary' } : {})}
+      {...((variation === 'primary' || variation === 'error') && {
+        borderRadius: 'unset',
+        fontSize: 'xxl',
+        padding: '0 var(--amplify-space-xs)',
+      })}
+      {...(isInitial && { backgroundColor: tokens.colors.white })}
       {...rest}
     >
       <Flex className={LivenessClassNames.ToastContainer}>
         <Flex
           className={LivenessClassNames.ToastMessage}
-          {...(isInitial ? { color: 'font.primary' } : {})}
+          {...(isInitial ? { color: tokens.colors.black } : {})}
         >
           {children}
         </Flex>

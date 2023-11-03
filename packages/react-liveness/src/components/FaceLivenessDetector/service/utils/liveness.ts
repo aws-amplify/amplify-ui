@@ -190,11 +190,13 @@ export function drawLivenessOvalInCanvas({
   oval,
   scaleFactor,
   videoEl,
+  ovalBackgroundColor,
 }: {
   canvas: HTMLCanvasElement;
   oval: LivenessOvalDetails;
   scaleFactor: number;
   videoEl: HTMLVideoElement;
+  ovalBackgroundColor?: string;
 }): void {
   const { flippedCenterX, centerY, width, height } = oval;
 
@@ -206,7 +208,7 @@ export function drawLivenessOvalInCanvas({
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
     // fill the canvas with a transparent rectangle
-    ctx.fillStyle = 'rgba(255, 255, 255, 1.0)';
+    ctx.fillStyle = ovalBackgroundColor ?? 'rgba(255, 255, 255, 1.0)';
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
     // On mobile our canvas is the width/height of the full screen.

@@ -467,6 +467,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       }),
       drawStaticOval: (context) => {
+        const { theme } = context;
         const { canvasEl, videoEl, videoMediaStream, isMobile } =
           context.videoAssociatedParams!;
         const { width, height } = videoMediaStream!
@@ -492,12 +493,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         // vs the intrinsic video resolution
         const scaleFactor = videoScaledWidth / videoEl!.videoWidth;
 
+        console.log(theme?.tokens.colors.black.value);
         // Draw oval in canvas using ovalDetails and scaleFactor
         drawLivenessOvalInCanvas({
           canvas: canvasEl!,
           oval: ovalDetails,
           scaleFactor,
           videoEl: videoEl!,
+          ovalBackgroundColor: theme?.tokens.colors.white.value,
         });
       },
       updateRecordingStartTimestampMs: assign({

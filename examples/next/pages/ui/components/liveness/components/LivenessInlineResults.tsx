@@ -9,7 +9,6 @@ function truncateNumber(number, digitsAfterDot) {
 
 export default function LivenessInlineResults({
   getLivenessResponse,
-  refImageblob,
   onUserCancel,
 }) {
   const { isLive, confidenceScore, auditImageBytes } = getLivenessResponse;
@@ -61,13 +60,6 @@ export default function LivenessInlineResults({
         height="100%"
         src={`data:image/jpeg;base64,${base64string}`}
         alt="Audit image"
-      />
-
-      <Image
-        width="100%"
-        height="100%"
-        src={URL.createObjectURL(refImageblob)}
-        alt="Ref image"
       />
     </Flex>
   );

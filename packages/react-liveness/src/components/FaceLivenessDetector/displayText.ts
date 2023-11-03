@@ -5,8 +5,6 @@ export type HintDisplayText = {
   hintCanNotIdentifyText?: string;
   hintTooCloseText?: string;
   hintTooFarText?: string;
-  /** @deprecated `hintHoldFacePositionCountdownText` is no longer in use and will be removed in a future major version release. */
-  hintHoldFacePositionCountdownText?: string;
   hintConnectingText?: string;
   hintVerifyingText?: string;
   hintIlluminationTooBrightText?: string;
@@ -21,6 +19,7 @@ export type CameraDisplayText = {
   cameraNotFoundHeadingText?: string;
   cameraNotFoundMessageText?: string;
   retryCameraPermissionsText?: string;
+  waitingCameraPermissionText?: string;
 };
 
 export type InstructionDisplayText = {
@@ -76,9 +75,10 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
     'You will go through a face verification process to prove that you are a real person.',
   instructionsBeginCheckText: 'Start video check',
   photosensitivyWarningHeadingText: 'Photosensitivity warning',
-  photosensitivyWarningBodyText: 'This check flashes colors.',
+  photosensitivyWarningBodyText:
+    'This check flashes different colors. Use caution if you are photosensitive.',
   photosensitivyWarningInfoText:
-    'A small percentage of individuals may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
+    'Some people may experience may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
   instructionListHeadingText: 'Follow the instructions to complete the check:',
   goodFitCaptionText: 'Good fit',
   goodFitAltText:
@@ -97,10 +97,11 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
     'Camera does not meet minimum specifications',
   cameraMinSpecificationsMessageText:
     'Camera must support at least 320*240 resolution and 15 frames per second.',
-  cameraNotFoundHeadingText: 'Camera not accessible.',
+  cameraNotFoundHeadingText: 'Camera is not accessible.',
   cameraNotFoundMessageText:
-    'Check that camera is connected and camera permissions are enabled in settings before retrying.',
+    'Check that a camera is connected and there is not another application using the camera. You may have to go into settings to grant camera permissions and close out all instances of your browser and retry.',
   retryCameraPermissionsText: 'Retry',
+  waitingCameraPermissionText: 'Waiting for you to allow camera permission.',
   cancelLivenessCheckText: 'Cancel Liveness check',
   recordingIndicatorText: 'Rec',
   hintMoveFaceFrontOfCameraText: 'Move face in front of camera',
@@ -109,8 +110,6 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   hintCanNotIdentifyText: 'Move face in front of camera',
   hintTooCloseText: 'Move back',
   hintTooFarText: 'Move closer',
-  /** @deprecated `hintHoldFacePositionCountdownText` is no longer in use and will be removed in a future major version release. */
-  hintHoldFacePositionCountdownText: 'Hold face position during countdown',
   hintConnectingText: 'Connecting...',
   hintVerifyingText: 'Verifying...',
   hintIlluminationTooBrightText: 'Move to dimmer area',

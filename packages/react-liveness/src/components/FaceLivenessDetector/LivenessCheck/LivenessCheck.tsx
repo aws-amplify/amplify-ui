@@ -146,7 +146,7 @@ export const LivenessCheck: React.FC<LivenessCheckProps> = ({
               ? cameraMinSpecificationsHeadingText
               : cameraNotFoundHeadingText}
           </Text>
-          <Text maxWidth={300}>
+          <Text maxWidth={420}>
             {errorState === LivenessErrorState.CAMERA_FRAMERATE_ERROR
               ? cameraMinSpecificationsMessageText
               : cameraNotFoundMessageText}
@@ -172,6 +172,7 @@ export const LivenessCheck: React.FC<LivenessCheckProps> = ({
           streamDisplayText={streamDisplayText}
           hintDisplayText={hintDisplayText}
           errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
           components={components}
         />
       );
@@ -184,7 +185,7 @@ export const LivenessCheck: React.FC<LivenessCheckProps> = ({
       position="relative"
       testId={CHECK_CLASS_NAME}
       className={CHECK_CLASS_NAME}
-      gap="xs"
+      gap="xl"
     >
       {renderCheck()}
     </Flex>

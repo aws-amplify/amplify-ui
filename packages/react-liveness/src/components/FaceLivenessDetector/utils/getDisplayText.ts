@@ -52,6 +52,7 @@ export function getDisplayText(
     cameraNotFoundHeadingText,
     cameraNotFoundMessageText,
     retryCameraPermissionsText,
+    waitingCameraPermissionText,
     cancelLivenessCheckText,
     recordingIndicatorText,
     hintMoveFaceFrontOfCameraText,
@@ -60,7 +61,6 @@ export function getDisplayText(
     hintCanNotIdentifyText,
     hintTooCloseText,
     hintTooFarText,
-    hintHoldFacePositionCountdownText,
     hintConnectingText,
     hintVerifyingText,
     hintIlluminationTooBrightText,
@@ -90,7 +90,6 @@ export function getDisplayText(
     hintCanNotIdentifyText,
     hintTooCloseText,
     hintTooFarText,
-    hintHoldFacePositionCountdownText,
     hintConnectingText,
     hintVerifyingText,
     hintIlluminationTooBrightText,
@@ -105,6 +104,7 @@ export function getDisplayText(
     cameraNotFoundHeadingText,
     cameraNotFoundMessageText,
     retryCameraPermissionsText,
+    waitingCameraPermissionText,
   };
 
   const instructionDisplayText: Required<InstructionDisplayText> = {

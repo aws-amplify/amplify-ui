@@ -4,7 +4,7 @@ import {
   livenessMachine,
   FaceLivenessDetectorCoreProps as FaceLivenessDetectorPropsFromUi,
 } from './service';
-import { View, Flex } from '@aws-amplify/ui-react';
+import { View, Flex, useTheme } from '@aws-amplify/ui-react';
 
 import { FaceLivenessDetectorProvider } from './providers';
 import { LivenessCheck } from './LivenessCheck';
@@ -34,6 +34,7 @@ export default function FaceLivenessDetectorCore(
     displayText,
   } = props;
   const currElementRef = React.useRef<HTMLDivElement>(null);
+  const theme = useTheme();
   const {
     hintDisplayText,
     cameraDisplayText,
@@ -49,6 +50,7 @@ export default function FaceLivenessDetectorCore(
         ...props,
         config: config ?? {},
       },
+      theme,
     },
   });
 

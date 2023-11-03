@@ -7,6 +7,7 @@ import {
   Label,
   Loader,
   SelectField,
+  Text,
   View,
 } from '@aws-amplify/ui-react';
 import { FaceMatchState } from '../service';
@@ -22,6 +23,7 @@ import {
   ErrorDisplayText,
   HintDisplayText,
   StreamDisplayText,
+  CameraDisplayText,
 } from '../displayText';
 
 import {
@@ -66,6 +68,7 @@ export interface LivenessCameraModuleProps {
   streamDisplayText: Required<StreamDisplayText>;
   hintDisplayText: Required<HintDisplayText>;
   errorDisplayText: Required<ErrorDisplayText>;
+  cameraDisplayText: Required<CameraDisplayText>;
   components?: CheckScreenComponents;
   testId?: string;
 }
@@ -95,6 +98,7 @@ export const LivenessCameraModule = (
     streamDisplayText,
     hintDisplayText,
     errorDisplayText,
+    cameraDisplayText,
     components: customComponents,
     testId,
   } = props;
@@ -201,8 +205,23 @@ export const LivenessCameraModule = (
 
   if (isCheckingCamera) {
     return (
-      <Flex height={videoHeight} width="100%" position="relative">
-        {centeredLoader}
+      <Flex
+        justifyContent={'center'}
+        className={LivenessClassNames.StartScreenCameraWaiting}
+      >
+        <Loader
+          size="large"
+          className={LivenessClassNames.Loader}
+          data-testid="centered-loader"
+          position="unset"
+        />
+        <Text
+          fontSize="large"
+          fontWeight="bold"
+          data-testid="waiting-camera-permission"
+        >
+          {cameraDisplayText.waitingCameraPermissionText}
+        </Text>
       </Flex>
     );
   }
@@ -211,6 +230,7 @@ export const LivenessCameraModule = (
     <>
       {isStartView && (
         <DefaultPhotosensitiveWarning
+          headingText={instructionDisplayText.photosensitivyWarningHeadingText}
           bodyText={instructionDisplayText.photosensitivyWarningBodyText}
           infoText={instructionDisplayText.photosensitivyWarningInfoText}
         />
@@ -318,18 +338,18 @@ export const LivenessCameraModule = (
               />
             ) : null}
           </Overlay>
-        </View>
 
-        {isStartView && (
-          <Flex
-            width="100%"
-            padding="small"
-            backgroundColor="var(--amplify-colors-background-primary)"
-            direction="column"
-          >
-            {!isMobileScreen && (
-              <Flex alignItems="center" justifyContent="center">
-                <Label htmlFor="amplify-liveness-camera-select">Camera:</Label>
+          {isStartView && !isMobileScreen && (
+            <Flex className={LivenessClassNames.StartScreenCameraSelect}>
+              <View
+                className={LivenessClassNames.StartScreenCameraSelectContainer}
+              >
+                <Label
+                  htmlFor="amplify-liveness-camera-select"
+                  className={`${LivenessClassNames.StartScreenCameraSelect}__label`}
+                >
+                  Camera:
+                </Label>
                 <SelectField
                   id="amplify-liveness-camera-select"
                   label="Camera"
@@ -344,21 +364,23 @@ export const LivenessCameraModule = (
                     </option>
                   ))}
                 </SelectField>
-              </Flex>
-            )}
-
-            <Flex justifyContent="center">
-              <Button
-                variation="primary"
-                type="button"
-                onClick={beginLivenessCheck}
-              >
-                {instructionDisplayText.instructionsBeginCheckText}
-              </Button>
+              </View>
             </Flex>
-          </Flex>
-        )}
+          )}
+        </View>
       </Flex>
+
+      {isStartView && (
+        <Flex justifyContent="center">
+          <Button
+            variation="primary"
+            type="button"
+            onClick={beginLivenessCheck}
+          >
+            {instructionDisplayText.instructionsBeginCheckText}
+          </Button>
+        </Flex>
+      )}
     </>
   );
 };
