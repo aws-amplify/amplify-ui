@@ -41,14 +41,7 @@ export type BorderColorValue = ColorValue;
 export type BorderCollapseValue = string;
 export type BorderRadiusValue = RadiusValue;
 export type BorderStyleValue = string;
-export type BorderWidthValue<
-  Platform extends PlatformKey = unknown,
-  Output extends OutputVariantKey = unknown,
-> = Output extends 'required'
-  ? Platform extends 'react-native'
-    ? number
-    : SpaceValue<Platform>
-  : SpaceValue<Platform>;
+
 export type BorderValue = string;
 export type BoxSizingValue = string;
 export type BoxShadowValue = ShadowValue;
@@ -138,10 +131,11 @@ export type StrokeWidthValue = string;
 export type SpaceValue<
   Platform extends PlatformKey = unknown,
   Output extends OutputVariantKey = unknown,
-> = Output extends 'required'
-  ? Platform extends 'react-native'
-    ? number
-    : string
+> = Platform extends 'react-native'
+  ? Output extends 'required'
+    ? // must only be `number` on RN "required" theme to satisfy `ReactNative.createStyleSheet`
+      number
+    : number | string
   : string;
 
 export type TextAlignValue = string;
@@ -182,7 +176,7 @@ interface TokenStandardProperties {
   borderInlineStart: BorderValue;
   borderRadius: BorderRadiusValue;
   borderStyle: BorderStyleValue;
-  borderWidth: BorderWidthValue;
+  borderWidth: SpaceValue;
   border: BorderValue;
   bottom: SpaceValue;
   boxSizing: BoxSizingValue;
