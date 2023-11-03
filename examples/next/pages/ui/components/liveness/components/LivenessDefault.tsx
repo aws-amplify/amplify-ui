@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { Button, View, Flex, Loader, Text } from '@aws-amplify/ui-react';
+import { View, Flex, Loader, Text } from '@aws-amplify/ui-react';
 import { FaceLivenessDetectorCore } from '@aws-amplify/ui-react-liveness';
 import { useLiveness } from './useLiveness';
 import { SessionIdAlert } from './SessionIdAlert';
@@ -12,7 +11,6 @@ export default function LivenessDefault({
 }) {
   const {
     cameraPermissionsLoading,
-    cameraPermissionsData,
     getLivenessResponse,
     createLivenessSessionApiError,
     createLivenessSessionApiData,
