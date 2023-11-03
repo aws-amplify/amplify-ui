@@ -3,7 +3,6 @@
   "compilerOptions": {
     "module": "commonjs",
     "outDir": "lib",
-    "rootDir": "src",
     "declaration": false
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
