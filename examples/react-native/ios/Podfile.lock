@@ -1,7 +1,7 @@
 PODS:
-  - "AmplifyRTNCore (1.0.1-console-preview.5f040a2.0+5f040a2)":
+  - "AmplifyRTNCore (1.0.1-unstable.588b76b.0+588b76b)":
     - React-Core
-  - "AmplifyRTNWebBrowser (1.0.1-console-preview.5f040a2.0+5f040a2)":
+  - "AmplifyRTNWebBrowser (1.0.1-unstable.588b76b.0+588b76b)":
     - React-Core
   - boost (1.76.0)
   - CocoaAsyncSocket (7.6.5)
@@ -603,8 +603,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  AmplifyRTNCore: c76fd5c116a034d09b1083d15ae99275f242802c
-  AmplifyRTNWebBrowser: d37ec5375e8cf219f0888e1a1c79396a3d28c8aa
+  AmplifyRTNCore: 48a938efcf4b5aad51e1537d77c9a0bb2c4d99c3
+  AmplifyRTNWebBrowser: be69b21ab1064fbee4035cd13dcd974e212376c1
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
