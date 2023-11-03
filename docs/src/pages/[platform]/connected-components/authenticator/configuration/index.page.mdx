@@ -115,3 +115,7 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
 <Fragment useCommonWebContent platforms={['web', 'react-native', 'swift']}>
   {({ platform }) => import(`./hidesignup.${platform}.mdx`)}
 </Fragment>
+
+<Fragment useCommonWebContent platforms={['swift']}>
+  {({ platform }) => import(`./totpIssuer.${platform}.mdx`)}
+</Fragment>

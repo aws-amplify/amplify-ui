@@ -221,32 +221,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
                 target: '#livenessMachine.recording',
                 cond: 'hasServerSessionInfo',
               },
-              100: { target: 'detectFaceDistanceDuringLoading' },
+              100: { target: 'waitForSessionInfo' },
             },
-          },
-          detectFaceDistanceDuringLoading: {
-            invoke: {
-              src: 'detectFaceDistanceWhileLoading',
-              onDone: {
-                target: 'checkFaceDistanceDuringLoading',
-                actions: ['updateFaceDistanceWhileLoading'],
-              },
-            },
-          },
-          checkFaceDistanceDuringLoading: {
-            always: [
-              {
-                target: 'failure',
-                cond: 'hasNotEnoughFaceDistanceBeforeRecording',
-              },
-              {
-                target: 'waitForSessionInfo',
-              },
-            ],
-          },
-          failure: {
-            entry: 'sendTimeoutAfterFaceDistanceDelay',
-            type: 'final',
           },
         },
       },
