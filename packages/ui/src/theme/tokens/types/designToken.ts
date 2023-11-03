@@ -331,13 +331,11 @@ type RequiredTokenValues<
 type OptionalTokenValues<
   PropertyValueKey extends PropKey,
   PropertyValue,
-  Platform extends PlatformKey = unknown,
 > = Partial<Record<PropertyValueKey, DesignToken<PropertyValue>>>;
 
 type DefaultTokenValues<
   PropertyValueKey extends PropKey,
   PropertyValue,
-  Platform extends PlatformKey = unknown,
 > = Required<Record<PropertyValueKey, DesignToken<PropertyValue>>>;
 
 /**
@@ -351,8 +349,8 @@ export type DesignTokenValues<
 > = Output extends 'required'
   ? RequiredTokenValues<PropertyValueKey, PropertyValue, Platform>
   : Output extends 'optional'
-  ? OptionalTokenValues<PropertyValueKey, PropertyValue, Platform>
-  : DefaultTokenValues<PropertyValueKey, PropertyValue, Platform>;
+  ? OptionalTokenValues<PropertyValueKey, PropertyValue>
+  : DefaultTokenValues<PropertyValueKey, PropertyValue>;
 
 /**
  * Helper type util allowing creation of a deeply nested object of Design Tokens
