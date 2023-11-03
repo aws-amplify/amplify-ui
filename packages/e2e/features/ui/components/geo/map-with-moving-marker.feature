@@ -5,7 +5,7 @@ Feature: Map with Moving Marker
   Background:
     Given I'm running the example "ui/components/geo/map-with-moving-marker"
 
-  @react
+  @todo-migration @react
   Scenario: Marker position updates
     When I see the position of a map marker
     Then I click a button to move the map marker

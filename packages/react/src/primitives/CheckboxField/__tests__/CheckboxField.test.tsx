@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 
 import { CheckboxField } from '../CheckboxField';
 import { CheckboxFieldProps } from '../../types/checkboxField';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 describe('CheckboxField test suite', () => {
   const basicProps = {
@@ -33,8 +33,8 @@ describe('CheckboxField test suite', () => {
 
     const checkboxField = await screen.findByTestId(basicProps.testId);
     expect(checkboxField).toHaveClass(
-      ComponentClassNames.Field,
-      ComponentClassNames.CheckboxField,
+      ComponentClassName.Field,
+      ComponentClassName.CheckboxField,
       className
     );
   });
@@ -50,9 +50,8 @@ describe('CheckboxField test suite', () => {
   it('should work with labelPosition', async () => {
     render(getCheckboxField({ ...basicProps, labelPosition: 'end' }));
     const checkboxField = await screen.findByTestId(basicProps.testId);
-    expect(checkboxField.querySelector('label')).toHaveAttribute(
-      'data-label-position',
-      'end'
+    expect(checkboxField.querySelector('label')).toHaveClass(
+      'amplify-label-end'
     );
   });
 
@@ -69,7 +68,7 @@ describe('CheckboxField test suite', () => {
       render(component);
 
       const checkbox = await screen.findByTestId(
-        `${basicProps.testId}-${ComponentClassNames.Checkbox}`
+        `${basicProps.testId}-${ComponentClassName.Checkbox}`
       );
       userEvent.click(checkbox);
 

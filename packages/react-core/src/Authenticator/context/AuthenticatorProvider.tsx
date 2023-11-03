@@ -1,7 +1,7 @@
 import React, { ReactNode, useContext, useEffect, useMemo } from 'react';
 import { useInterpret } from '@xstate/react';
 
-import { Auth } from 'aws-amplify';
+import { getCurrentUser } from 'aws-amplify/auth';
 import {
   AuthStatus,
   AuthMachineHubHandler,
@@ -33,7 +33,7 @@ export default function AuthenticatorProvider({
 
   // only run on first render
   React.useEffect(() => {
-    Auth.currentAuthenticatedUser()
+    getCurrentUser()
       .then(() => {
         setAuthStatus('authenticated');
       })

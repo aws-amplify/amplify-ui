@@ -1,4 +1,4 @@
-import { Logger } from 'aws-amplify';
+import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import {
   authenticatorTextUtil,
   isString,

@@ -1,7 +1,15 @@
-import { ChallengeName, CognitoUser } from 'amazon-cognito-identity-js';
-
-/** Known challenge names */
-export type AuthChallengeName = ChallengeName;
+// copied from JS v6 types
+export type ChallengeName =
+  | 'SMS_MFA'
+  | 'SOFTWARE_TOKEN_MFA'
+  | 'SELECT_MFA_TYPE'
+  | 'MFA_SETUP'
+  | 'PASSWORD_VERIFIER'
+  | 'CUSTOM_CHALLENGE'
+  | 'DEVICE_SRP_AUTH'
+  | 'DEVICE_PASSWORD_VERIFIER'
+  | 'ADMIN_NO_SRP_AUTH'
+  | 'NEW_PASSWORD_REQUIRED';
 
 /** Contact destinations that we can send user confirmation code to */
 export type ContactMethod = 'Email' | 'Phone Number';
@@ -24,9 +32,10 @@ export interface CognitoAttributes {
 /**
  * Amplify User Interface
  */
-export interface AmplifyUser extends CognitoUser {
+export interface AmplifyUser {
   username?: string;
   attributes?: CognitoAttributes;
+  challengeName?: ChallengeName;
 }
 
 /**

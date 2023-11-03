@@ -5,7 +5,6 @@ import { icons } from '../../../../assets';
 import FederatedProviderButton from '../FederatedProviderButton';
 import { useTheme } from '../../../../theme';
 import { getThemedStyles as getButtonThemedStyles } from '../../../../primitives/Button/styles';
-import { styles } from '../styles';
 
 const signInText = 'Sign In with Amazon';
 
@@ -56,7 +55,7 @@ describe('FederatedProviderButton', () => {
       { ...buttonThemedStyle.container, ...buttonThemedStyle.containerDefault },
       undefined, // button pressed styles
       [
-        styles.container,
+        undefined,
         undefined, // pressed style
         customStyle,
       ],

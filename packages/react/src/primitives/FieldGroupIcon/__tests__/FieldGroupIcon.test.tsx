@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { FieldGroupIcon } from '../FieldGroupIcon';
 
-import { ComponentClassNames } from '../../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 describe('FieldGroupIcon component', () => {
   const testId = 'fieldGroupTestId';
@@ -13,7 +13,7 @@ describe('FieldGroupIcon component', () => {
     const fieldGroup = await screen.findByTestId(testId);
 
     expect(fieldGroup).toHaveClass('custom-class');
-    expect(fieldGroup).toHaveClass(ComponentClassNames.FieldGroupIcon);
+    expect(fieldGroup).toHaveClass(ComponentClassName.FieldGroupIcon);
   });
 
   it('should forward ref to DOM element', async () => {

@@ -21,17 +21,6 @@ Feature: Verify User
     Then "New Label" field does not have class "amplify-visually-hidden"
     Then I see placeholder "Enter your Confirmation Code:"
 
-  @todo-react-native
-  Scenario: Redirect to "Confirm Verify" page and replace label
-    When I type my "email" with status "UNVERIFIED"
-    Then I type my password
-    Then I click the "Sign in" button
-    Then I click the "Email" radio button
-    Then I click the "Verify" button
-    Then I see "New Label"
-    Then I click the "Skip" button
-    Then I click the "Sign out" button
-
   @angular @react @vue @todo-react-native
   Scenario: Redirect to "Verify" page and verify custom header and footer text
     When I type my "email" with status "UNVERIFIED"

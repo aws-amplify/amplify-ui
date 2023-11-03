@@ -1,11 +1,7 @@
 import React from 'react';
 
-import {
-  View,
-  Loader,
-  ComponentClassNames,
-  Button,
-} from '@aws-amplify/ui-react';
+import { ComponentClassName } from '@aws-amplify/ui';
+import { View, Loader, Button } from '@aws-amplify/ui-react';
 
 import { FileStatus } from '../../types';
 import { FileStatusMessage } from './FileStatusMessage';
@@ -34,13 +30,13 @@ export function FileControl({
     getPausedText,
     getUploadingText,
     uploadSuccessfulText,
-    pauseText,
-    resumeText,
+    pauseButtonText,
+    resumeButtonText,
   } = displayText;
 
   return (
-    <View className={ComponentClassNames.StorageManagerFile}>
-      <View className={ComponentClassNames.StorageManagerFileWrapper}>
+    <View className={ComponentClassName.StorageManagerFile}>
+      <View className={ComponentClassName.StorageManagerFileWrapper}>
         {showThumbnails ? (
           <FileThumbnail
             isImage={isImage}
@@ -51,7 +47,7 @@ export function FileControl({
         <UploadDetails displayName={displayName} fileSize={size} />
         {status === FileStatus.UPLOADING ? (
           <Loader
-            className={ComponentClassNames.StorageManagerLoader}
+            className={ComponentClassName.StorageManagerLoader}
             variation="linear"
             percentage={progress}
             isDeterminate={loaderIsDeterminate}
@@ -62,11 +58,11 @@ export function FileControl({
         (status === FileStatus.UPLOADING || status === FileStatus.PAUSED) ? (
           status === FileStatus.PAUSED ? (
             <Button onClick={onResume} size="small" variation="link">
-              {resumeText}
+              {resumeButtonText}
             </Button>
           ) : (
             <Button onClick={onPause} size="small" variation="link">
-              {pauseText}
+              {pauseButtonText}
             </Button>
           )
         ) : null}

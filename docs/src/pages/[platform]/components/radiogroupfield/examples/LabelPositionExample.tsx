@@ -2,28 +2,28 @@ import { Radio, RadioGroupField, Flex } from '@aws-amplify/ui-react';
 
 export const LabelPositionExample = () => (
   <Flex>
-    <RadioGroupField label="Default" name="default" labelHidden>
+    <RadioGroupField legend="Default" name="default" legendHidden>
       <Radio value="default">Default</Radio>
     </RadioGroupField>
 
     <RadioGroupField
-      label="Start"
+      legend="Start"
       name="start"
       labelPosition="start"
-      labelHidden
+      legendHidden
     >
       <Radio value="start">Start</Radio>
     </RadioGroupField>
 
-    <RadioGroupField label="Top" name="top" labelPosition="top" labelHidden>
+    <RadioGroupField legend="Top" name="top" labelPosition="top" legendHidden>
       <Radio value="top">Top</Radio>
     </RadioGroupField>
 
     <RadioGroupField
-      label="Bottom"
+      legend="Bottom"
       name="bottom"
       labelPosition="bottom"
-      labelHidden
+      legendHidden
     >
       <Radio value="bottom">Bottom</Radio>
     </RadioGroupField>

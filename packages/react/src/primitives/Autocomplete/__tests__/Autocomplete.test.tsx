@@ -2,8 +2,10 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as React from 'react';
 
+import { ComponentClassName } from '@aws-amplify/ui';
+
 import { Autocomplete } from '../Autocomplete';
-import { ComponentClassNames, ComponentText } from '../../shared/constants';
+import { ComponentText } from '../../shared/constants';
 import { classNameModifier } from '../../shared/utils';
 import type {
   AutocompleteProps,
@@ -144,7 +146,7 @@ describe('Autocomplete:', () => {
     render(<Autocomplete label={label} options={options} testId={testId} />);
 
     const autocomplete = await screen.findByTestId(testId);
-    expect(autocomplete).toHaveClass(ComponentClassNames.Autocomplete);
+    expect(autocomplete).toHaveClass(ComponentClassName.Autocomplete);
   });
 
   it('should work in uncontrolled way', async () => {
@@ -184,7 +186,7 @@ describe('Autocomplete:', () => {
     render(<Autocomplete label={label} options={options} size="large" />);
 
     const textInput = await screen.findByRole('combobox');
-    expect(textInput).toHaveAttribute('data-size', 'large');
+    expect(textInput).toHaveClass('amplify-input--large');
   });
 
   it('should render size classes for Autocomplete', async () => {
@@ -209,10 +211,10 @@ describe('Autocomplete:', () => {
     const large = await screen.findByTestId('large');
 
     expect(small.firstChild).toHaveClass(
-      `${ComponentClassNames['Field']}--small`
+      `${ComponentClassName['Field']}--small`
     );
     expect(large.firstChild).toHaveClass(
-      `${ComponentClassNames['Field']}--large`
+      `${ComponentClassName['Field']}--large`
     );
   });
 
@@ -220,7 +222,7 @@ describe('Autocomplete:', () => {
     render(<Autocomplete label={label} options={options} variation="quiet" />);
 
     const textInput = await screen.findByRole('combobox');
-    expect(textInput).toHaveAttribute('data-variation', 'quiet');
+    expect(textInput).toHaveClass('amplify-input--quiet');
   });
 
   it('should be in loading state when isLoading is set to true', async () => {
@@ -231,7 +233,7 @@ describe('Autocomplete:', () => {
     const listbox = screen.queryByRole('listbox');
     expect(listbox).not.toBeInTheDocument();
     const loading = screen.getByText(ComponentText.Autocomplete.loadingText);
-    expect(loading).toHaveClass(ComponentClassNames.AutocompleteMenuLoading);
+    expect(loading).toHaveClass(ComponentClassName.AutocompleteMenuLoading);
   });
 
   it('should render classname on active option correctly', async () => {
@@ -248,49 +250,49 @@ describe('Autocomplete:', () => {
       .parentElement as HTMLLIElement;
 
     expect(appleOption).not.toHaveClass(
-      classNameModifier(ComponentClassNames.AutocompleteMenuOption, 'active')
+      classNameModifier(ComponentClassName.AutocompleteMenuOption, 'active')
     );
     expect(bananaOption).not.toHaveClass(
-      classNameModifier(ComponentClassNames.AutocompleteMenuOption, 'active')
+      classNameModifier(ComponentClassName.AutocompleteMenuOption, 'active')
     );
     expect(cherryOption).not.toHaveClass(
-      classNameModifier(ComponentClassNames.AutocompleteMenuOption, 'active')
+      classNameModifier(ComponentClassName.AutocompleteMenuOption, 'active')
     );
 
     userEvent.hover(bananaOption);
     expect(appleOption).not.toHaveClass(
-      classNameModifier(ComponentClassNames.AutocompleteMenuOption, 'active')
+      classNameModifier(ComponentClassName.AutocompleteMenuOption, 'active')
     );
     expect(bananaOption).toHaveClass(
-      classNameModifier(ComponentClassNames.AutocompleteMenuOption, 'active')
+      classNameModifier(ComponentClassName.AutocompleteMenuOption, 'active')
     );
     expect(cherryOption).not.toHaveClass(
-      classNameModifier(ComponentClassNames.AutocompleteMenuOption, 'active')
+      classNameModifier(ComponentClassName.AutocompleteMenuOption, 'active')
     );
 
     userEvent.keyboard('{ArrowDown}');
     expect(textInput).toHaveFocus();
     expect(appleOption).not.toHaveClass(
-      classNameModifier(ComponentClassNames.AutocompleteMenuOption, 'active')
+      classNameModifier(ComponentClassName.AutocompleteMenuOption, 'active')
     );
     expect(bananaOption).not.toHaveClass(
-      classNameModifier(ComponentClassNames.AutocompleteMenuOption, 'active')
+      classNameModifier(ComponentClassName.AutocompleteMenuOption, 'active')
     );
     expect(cherryOption).toHaveClass(
-      classNameModifier(ComponentClassNames.AutocompleteMenuOption, 'active')
+      classNameModifier(ComponentClassName.AutocompleteMenuOption, 'active')
     );
 
     userEvent.keyboard('{ArrowUp}');
     userEvent.keyboard('{ArrowUp}');
     expect(textInput).toHaveFocus();
     expect(appleOption).toHaveClass(
-      classNameModifier(ComponentClassNames.AutocompleteMenuOption, 'active')
+      classNameModifier(ComponentClassName.AutocompleteMenuOption, 'active')
     );
     expect(bananaOption).not.toHaveClass(
-      classNameModifier(ComponentClassNames.AutocompleteMenuOption, 'active')
+      classNameModifier(ComponentClassName.AutocompleteMenuOption, 'active')
     );
     expect(cherryOption).not.toHaveClass(
-      classNameModifier(ComponentClassNames.AutocompleteMenuOption, 'active')
+      classNameModifier(ComponentClassName.AutocompleteMenuOption, 'active')
     );
   });
 
@@ -355,7 +357,7 @@ describe('Autocomplete:', () => {
 
     const loading = screen.getByText(LoadingIndicator);
     expect(loading).toBeInTheDocument();
-    expect(loading).toHaveClass(ComponentClassNames.AutocompleteMenuLoading);
+    expect(loading).toHaveClass(ComponentClassName.AutocompleteMenuLoading);
   });
 
   it('should be able to customize empty menu', async () => {
@@ -367,7 +369,7 @@ describe('Autocomplete:', () => {
 
     const empty = screen.getByText(Empty);
     expect(empty).toBeInTheDocument();
-    expect(empty).toHaveClass(ComponentClassNames.AutocompleteMenuEmpty);
+    expect(empty).toHaveClass(ComponentClassName.AutocompleteMenuEmpty);
   });
 
   it('should be able to customize header and footer', async () => {
@@ -386,11 +388,11 @@ describe('Autocomplete:', () => {
 
     const header = screen.getByText(Header);
     expect(header).toBeInTheDocument();
-    expect(header).toHaveClass(ComponentClassNames.AutocompleteMenuHeader);
+    expect(header).toHaveClass(ComponentClassName.AutocompleteMenuHeader);
 
     const footer = screen.getByText(Footer);
     expect(footer).toBeInTheDocument();
-    expect(footer).toHaveClass(ComponentClassNames.AutocompleteMenuFooter);
+    expect(footer).toHaveClass(ComponentClassName.AutocompleteMenuFooter);
   });
 
   it('should set accessible props correctly', async () => {

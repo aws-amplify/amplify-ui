@@ -1,19 +1,18 @@
 import React from 'react';
 import TestRenderer, { ReactTestRenderer } from 'react-test-renderer';
-import { Notifications } from '@aws-amplify/notifications';
-
+import { onMessageReceived } from 'aws-amplify/in-app-messaging';
 import { RenderNothing } from '@aws-amplify/ui-react-core';
 
 import { useInAppMessaging } from '../../../hooks/useInAppMessaging';
 import { InAppMessagingContextType } from '../..';
 import { InAppMessagingProvider } from '..';
 
-jest.mock('@aws-amplify/notifications', () => ({
-  ...jest.requireActual('@aws-amplify/notifications'),
+jest.mock('aws-amplify/notifications', () => ({
+  ...jest.requireActual<typeof import('aws-amplify/in-app-messaging')>(
+    'aws-amplify/in-app-messaging'
+  ),
   Notifications: { InAppMessaging: { onMessageReceived: jest.fn() } },
 }));
-
-const { InAppMessaging } = Notifications;
 
 let onMessageReceivedCallback =
   null as unknown as InAppMessagingContextType['displayMessage'];
@@ -43,9 +42,7 @@ describe('InAppMessagingProvider', () => {
   beforeEach(() => {
     jest.resetAllMocks();
 
-    (InAppMessaging.onMessageReceived as jest.Mock).mockImplementation(
-      mockOnMessageReceived
-    );
+    (onMessageReceived as jest.Mock).mockImplementation(mockOnMessageReceived);
 
     TestRenderer.act(() => {
       renderer = TestRenderer.create(
@@ -74,8 +71,8 @@ describe('InAppMessagingProvider', () => {
   });
 
   it('registers a listener to InAppMessaging.onMessageReceived as expected', () => {
-    expect(InAppMessaging.onMessageReceived).toBeCalledTimes(1);
-    expect(InAppMessaging.onMessageReceived).toBeCalledWith(
+    expect(onMessageReceived).toHaveBeenCalledTimes(1);
+    expect(onMessageReceived).toHaveBeenCalledWith(
       expect.any(Function) as InAppMessagingContextType['displayMessage']
     );
   });
@@ -97,7 +94,7 @@ describe('InAppMessagingProvider', () => {
       renderer.unmount();
     });
 
-    expect(mockRemove).toBeCalledTimes(1);
+    expect(mockRemove).toHaveBeenCalledTimes(1);
   });
 
   it('updates the value of message when displayMessage is called', () => {

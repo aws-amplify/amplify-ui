@@ -6,14 +6,12 @@ Amplify.configure(awsExports);
 
 export function StorageManagerExample() {
   return (
-    <>
-      <StorageManager
-        acceptedFileTypes={['*']}
-        accessLevel="public"
-        maxFileCount={1}
-        showThumbnails
-      />
-    </>
+    <StorageManager
+      acceptedFileTypes={['*']}
+      accessLevel="guest"
+      maxFileCount={1}
+      showThumbnails
+    />
   );
 }
 export default StorageManagerExample;

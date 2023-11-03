@@ -2,7 +2,7 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { ToggleButton } from '../../ToggleButton';
 import { ToggleButtonGroup } from '../ToggleButtonGroup';
 import { ToggleButtonGroupProps } from '../../types';
@@ -65,14 +65,16 @@ describe('ToggleButtonGroup', () => {
     );
     const toggleButtonGroup = await screen.findByRole('group');
     expect(toggleButtonGroup).toHaveClass(
-      ComponentClassNames.ToggleButtonGroup,
+      ComponentClassName.ToggleButtonGroup,
       testClass
     );
     expect(toggleButtonGroup).toHaveAttribute('aria-label', testLabel);
 
     const toggleButton = await screen.findByRole('button');
-    expect(toggleButton).toHaveAttribute('data-size', size);
-    expect(toggleButton).toHaveAttribute('data-variation', variation);
+    expect(toggleButton).toHaveClass(`${ComponentClassName.Button}--${size}`);
+    expect(toggleButton).toHaveClass(
+      `${ComponentClassName.Button}--${variation}`
+    );
     userEvent.click(toggleButton);
     expect(onChange).toHaveBeenCalledTimes(1);
   });

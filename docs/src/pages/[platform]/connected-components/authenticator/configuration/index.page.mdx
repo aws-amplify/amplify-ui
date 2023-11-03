@@ -6,7 +6,7 @@ supportedFrameworks: android|angular|flutter|react|react-native|swift|vue
 ---
 
 import { Fragment } from '@/components/Fragment';
-import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Alert, Tabs } from '@aws-amplify/ui-react';
 import { FRAMEWORKS } from '@/data/frameworks';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
 
@@ -28,8 +28,13 @@ export async function getStaticProps() {
 
 By default, unauthenticated users are redirected to the Sign In flow. You can explicitly redirect to Sign Up or Reset Password:
 
-<Tabs>
-  <TabItem title="Sign In">
+<Tabs.Container defaultValue="sign-in">
+  <Tabs.List>
+    <Tabs.Item value="sign-in">Sign In</Tabs.Item>
+    <Tabs.Item value="sign-up">Sign Up</Tabs.Item>
+    <Tabs.Item value="reset-password">Reset Password</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="sign-in">
     <Fragment>
       {({ platform }) => import(`./initialState.signIn.${platform}.mdx`)}
     </Fragment>
@@ -38,8 +43,8 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
         import(`./initialState.signIn.example.${platform}.mdx`)
       }
     </Fragment>
-  </TabItem>
-  <TabItem title="Sign Up">
+  </Tabs.Panel>
+  <Tabs.Panel value="sign-up">
     <Fragment>
       {({ platform }) => import(`./initialState.signUp.${platform}.mdx`)}
     </Fragment>
@@ -48,8 +53,8 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
         import(`./initialState.signUp.example.${platform}.mdx`)
       }
     </Fragment>
-  </TabItem>
-  <TabItem title="Reset Password">
+  </Tabs.Panel>
+  <Tabs.Panel value="Reset Password">
     <Fragment>
       {({ platform }) => import(`./initialState.resetPassword.${platform}.mdx`)}
     </Fragment>
@@ -58,8 +63,8 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
         import(`./initialState.resetPassword.example.${platform}.mdx`)
       }
     </Fragment>
-  </TabItem>
-</Tabs>
+  </Tabs.Panel>
+</Tabs.Container>
 
 ## Login Mechanisms
 
@@ -79,8 +84,12 @@ but can be explicitly defined as seen below.
 The Authenticator automatically renders _most_ [Cognito User Pools attributes](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html),
 with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, and `zoneinfo`. Because these are often app-specific, they can be customized via [Sign Up fields](customization#sign-up-fields).
 
-<Tabs>
-  <TabItem title="Verification Attributes">
+<Tabs.Container defaultValue="verification-attributes">
+  <Tabs.List>
+    <Tabs.Item value="verification-attributes">Verification Attributes</Tabs.Item>
+    <Tabs.Item value="all-attributes">All Attributes</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="verification-attributes">
     By default, the Authenticator will still require any attributes required for
     verification, such as `email`, _even if `signUpAttributes` is empty_:
     <Fragment>
@@ -91,8 +100,8 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
         import(`./signUpAttributes.default.example.${platform}.mdx`)
       }
     </Fragment>
-  </TabItem>
-  <TabItem title="All Attributes">
+  </Tabs.Panel>
+  <Tabs.Panel value="all-attributes">
     <Fragment>
       {({ platform }) => import(`./signUpAttributes.all.${platform}.mdx`)}
     </Fragment>
@@ -101,8 +110,8 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
         import(`./signUpAttributes.all.example.${platform}.mdx`)
       }
     </Fragment>
-  </TabItem>
-</Tabs>
+  </Tabs.Panel>
+</Tabs.Container>
 
 <Fragment useCommonWebContent platforms={['web', 'flutter']}>
   {({ platform }) => import(`./socialProviders.${platform}.mdx`)}

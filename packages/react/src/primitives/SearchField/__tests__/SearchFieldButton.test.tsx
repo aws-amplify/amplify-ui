@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
+import { ComponentClassName } from '@aws-amplify/ui';
+
 import { SearchFieldButton } from '../SearchFieldButton';
-import { ComponentClassNames, ComponentText } from '../../shared/constants';
+import { ComponentText } from '../../shared/constants';
 
 const ariaLabelText = ComponentText.SearchField.searchButtonLabel;
 
@@ -12,7 +14,7 @@ describe('SearchFieldButton component', () => {
 
     const button = await screen.findByRole('button');
 
-    expect(button).toHaveClass(ComponentClassNames.SearchFieldSearch);
+    expect(button).toHaveClass(ComponentClassName.SearchFieldSearch);
   });
 
   it('should forward ref to DOM element', async () => {

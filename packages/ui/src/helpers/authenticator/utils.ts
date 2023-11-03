@@ -3,23 +3,20 @@
  * implementations can use.
  */
 
-import { Hub } from 'aws-amplify';
-import { appendToCognitoUserAgent } from '@aws-amplify/auth';
-import { waitFor } from 'xstate/lib/waitFor.js';
+import { Hub } from 'aws-amplify/utils';
+// @todo-migration delete?
+// import { waitFor } from 'xstate/lib/waitFor.js';
 
-import { AuthInterpreter, AuthMachineHubHandler } from '../../types';
+import {
+  AuthActorState,
+  AuthInterpreter,
+  AuthMachineHubHandler,
+  AuthMachineState,
+} from '../../types';
 import { ALLOWED_SPECIAL_CHARACTERS, emailRegex } from './constants';
-import { getActorState } from './actor';
-import { isFunction } from '../../utils';
-
-type ConfigureOptions = { packageName: string; version: string };
-export const configureComponent = ({
-  packageName,
-  version,
-}: ConfigureOptions) => {
-  // "@aws-amplify/ui-react" + "/" + "3.5.10"
-  appendToCognitoUserAgent(`${packageName}/${version}`);
-};
+// @todo-migration delete?
+// import { getActorState } from './actor';
+import { groupLog, isFunction } from '../../utils';
 
 // replaces all characters in a string with '*', except for the first and last char
 export const censorAllButFirstAndLast = (value: string): string => {
@@ -47,37 +44,44 @@ export const censorPhoneNumber = (val: string): string => {
   return split.join('');
 };
 
-const waitForAutoSignInState = async (service: AuthInterpreter) => {
-  // https://xstate.js.org/docs/guides/interpretation.html#waitfor
-  try {
-    await waitFor(service, (state) =>
-      getActorState(state).matches('autoSignIn')
-    );
-  } catch (e) {
-    /**
-     * AutoSignIn can be called in unrelated state, or after user has already
-     * signed in, because Amplify JS can send duplicate hub events.
-     *
-     * In that case, we do no-op and ignore the second event.
-     */
-  }
-};
+// @todo-migration delete?
+// const waitForAutoSignInState = async (service: AuthInterpreter) => {
+//   // https://xstate.js.org/docs/guides/interpretation.html#waitfor
+//   try {
+//     await waitFor(service, (state) =>
+//       getActorState(state).matches('autoSignIn')
+//     );
+//   } catch (e) {
+//     /**
+//      * AutoSignIn can be called in unrelated state, or after user has already
+//      * signed in, because Amplify JS can send duplicate hub events.
+//      *
+//      * In that case, we do no-op and ignore the second event.
+//      */
+//   }
+// };
 
 /**
  * Handles Amplify JS Auth hub events, by forwarding hub events as appropriate
  * xstate events.
  */
 export const defaultAuthHubHandler: AuthMachineHubHandler = async (
-  { payload: { data, event } },
+  { payload: { event } },
   service,
   options
 ) => {
+  groupLog('+++defaultAuthHubHandler');
   const { send } = service;
   const state = service.getSnapshot(); // this is just a getter and is not expensive
 
   const { onSignIn, onSignOut } = options ?? {};
 
+  console.log({ event });
   switch (event) {
+    case 'signInWithRedirect_failure':
+      console.log('HIIIIIIIIIII');
+
+      break;
     // TODO: We can add more cases here, according to
     // https://docs.amplify.aws/lib/auth/auth-events/q/platform/js/
     case 'tokenRefresh':
@@ -85,37 +89,12 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = async (
         send('TOKEN_REFRESH');
       }
       break;
-    case 'autoSignIn':
-      if (!state.matches('authenticated')) {
-        /**
-         * We wait for state machine to reach `autoSignIn` before sending
-         * this event.
-         *
-         * This will ensure that xstate is ready to handle autoSignIn by
-         * the time we send this event, and prevent race conditions between
-         * hub events and state machine transitions.
-         */
-        await waitForAutoSignInState(service);
-        const currentActorState = getActorState(service.getSnapshot());
-        if (currentActorState?.matches('autoSignIn')) {
-          send({ type: 'AUTO_SIGN_IN', data });
-        }
-      }
-      break;
-    case 'autoSignIn_failure': {
-      await waitForAutoSignInState(service);
-      const currentActorState = getActorState(service.getSnapshot());
-      if (currentActorState?.matches('autoSignIn')) {
-        send({ type: 'AUTO_SIGN_IN_FAILURE', data });
-      }
-      break;
-    }
-    case 'signIn':
+    case 'signedIn':
       if (isFunction(onSignIn)) {
         onSignIn();
       }
       break;
-    case 'signOut':
+    case 'signedOut':
     case 'tokenRefresh_failure':
       if (isFunction(onSignOut)) {
         onSignOut();
@@ -185,4 +164,55 @@ export const isValidEmail = (value: string | undefined) => {
   if (!value) return false;
 
   return emailRegex.test(value);
+};
+
+export const getRoute = (
+  state: AuthMachineState,
+  actorState: AuthActorState
+) => {
+  switch (true) {
+    case state.matches('idle'):
+      return 'idle';
+    case state.matches('setup'):
+      return 'setup';
+    case state.matches('signOut'):
+      return 'signOut';
+    case state.matches('authenticated'):
+      return 'authenticated';
+    case actorState?.matches('confirmSignUp'):
+      return 'confirmSignUp';
+    case actorState?.matches('confirmSignIn'):
+      return 'confirmSignIn';
+    case actorState?.matches('setupTOTP.edit'):
+    case actorState?.matches('setupTOTP.submit'):
+      return 'setupTOTP';
+    case actorState?.matches('signIn'):
+      return 'signIn';
+    case actorState?.matches('signUp'):
+      return 'signUp';
+    case actorState?.matches('forceNewPassword'):
+      return 'forceNewPassword';
+    case actorState?.matches('resetPassword'):
+      return 'resetPassword';
+    case actorState?.matches('confirmResetPassword'):
+      return 'confirmResetPassword';
+    case actorState?.matches('verifyUser'):
+      return 'verifyUser';
+    case actorState?.matches('confirmVerifyUser'):
+      return 'confirmVerifyUser';
+    case actorState?.matches('setupTOTP.getTotpSecretCode'):
+    case state.matches('signIn.runActor'):
+      /**
+       * This route is needed for autoSignIn to capture both the
+       * autoSignIn.pending and the resolved states when the
+       * signIn actor is running.
+       */
+      return 'transition';
+    default:
+      console.debug(
+        'Cannot infer `route` from Authenticator state:',
+        state.value
+      );
+      return null;
+  }
 };

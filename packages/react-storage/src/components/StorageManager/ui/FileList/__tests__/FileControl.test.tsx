@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 
-import { ComponentClassNames } from '@aws-amplify/ui-react';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 import { FileControlProps } from '../types';
 import { FileControl } from '../FileControl';
@@ -33,31 +33,31 @@ describe('FileControl', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFile}`
+        `${ComponentClassName.StorageManagerFile}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileWrapper}`
+        `${ComponentClassName.StorageManagerFileWrapper}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileStatus}`
+        `${ComponentClassName.StorageManagerFileStatus}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerLoader}`
+        `${ComponentClassName.StorageManagerLoader}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileImage}`
+        `${ComponentClassName.StorageManagerFileImage}`
       )
     ).toHaveLength(0);
   });
@@ -71,19 +71,19 @@ describe('FileControl', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFile}`
+        `${ComponentClassName.StorageManagerFile}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileStatus}`
+        `${ComponentClassName.StorageManagerFileStatus}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerLoader}`
+        `${ComponentClassName.StorageManagerLoader}`
       )
     ).toHaveLength(0);
   });
@@ -95,7 +95,7 @@ describe('FileControl', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileImage}`
+        `${ComponentClassName.StorageManagerFileImage}`
       )
     ).toHaveLength(1);
 

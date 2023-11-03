@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { ComponentClassNames } from '../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseLinkProps,
   LinkProps,
@@ -9,6 +9,7 @@ import {
   Primitive,
 } from '../types';
 import { View } from '../View';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const LinkPrimitive: Primitive<LinkProps, 'a'> = (
   { as = 'a', children, className, isExternal, ...rest },
@@ -17,7 +18,7 @@ const LinkPrimitive: Primitive<LinkProps, 'a'> = (
   return (
     <View
       as={as}
-      className={classNames(ComponentClassNames.Link, className)}
+      className={classNames(ComponentClassName.Link, className)}
       ref={ref}
       rel={isExternal ? 'noopener noreferrer' : undefined}
       target={isExternal ? '_blank' : undefined}
@@ -32,6 +33,6 @@ const LinkPrimitive: Primitive<LinkProps, 'a'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/link)
  */
 export const Link: ForwardRefPrimitive<BaseLinkProps, 'a'> =
-  React.forwardRef(LinkPrimitive);
+  primitiveWithForwardRef(LinkPrimitive);
 
 Link.displayName = 'Link';

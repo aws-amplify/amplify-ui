@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import type { StorageAccessLevel, UploadTask } from '@aws-amplify/storage';
+import type { UploadDataOutput } from 'aws-amplify/storage';
+import type { StorageAccessLevel } from '@aws-amplify/core';
 
 import {
   ContainerProps,
@@ -26,7 +27,7 @@ export interface StorageFile {
   file?: File;
   status: FileStatus;
   progress: number;
-  uploadTask?: UploadTask;
+  uploadTask?: UploadDataOutput;
   key: string;
   error: string;
   isImage: boolean;
@@ -58,6 +59,7 @@ export interface StorageManagerProps {
    * @see https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/
    */
   accessLevel: StorageAccessLevel;
+
   /**
    * Determines if the upload will automatically start after a file is selected, default value: true
    */
@@ -80,7 +82,7 @@ export interface StorageManagerProps {
   /**
    * Overrides default display text
    */
-  displayText?: Partial<StorageManagerDisplayText>;
+  displayText?: StorageManagerDisplayText;
   /**
    * Determines if upload can be paused / resumed
    */
@@ -117,12 +119,6 @@ export interface StorageManagerProps {
    * Determines if thumbnails show for image files
    */
   showThumbnails?: boolean;
-  /**
-   * Storage provider name
-   * @see https://docs.amplify.aws/lib/storage/custom-plugin/q/platform/js/
-   */
-  provider?: string;
-
   /**
    * A path to put files in the s3 bucket.
    * This will be prepended to the key sent to

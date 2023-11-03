@@ -2,6 +2,7 @@ import {
   ColorValue,
   DesignTokenValues,
   OutputVariantKey,
+  RecursiveDesignToken,
 } from './types/designToken';
 
 /**
@@ -10,13 +11,14 @@ import {
 type BaseColorValues<
   VariantKey extends string | number,
   Output,
-  Platform = unknown
-> = DesignTokenValues<VariantKey, ColorValue, Output, Platform>;
+  Platform = unknown,
+> = RecursiveDesignToken<ColorValue, Output, Platform> &
+  DesignTokenValues<VariantKey, ColorValue, Output, Platform>;
 
 type ColorValues<
   VariantKey extends string | number,
   Output,
-  Platform = unknown
+  Platform = unknown,
 > = Output extends 'required' | 'default'
   ? BaseColorValues<VariantKey, Output, Platform>
   : Partial<BaseColorValues<VariantKey, Output, Platform>>;
@@ -27,13 +29,13 @@ type ColorValues<
 type BaseColorValueScale<
   VariantKey extends string | number,
   Output,
-  Platform = unknown
+  Platform = unknown,
 > = Record<VariantKey, ColorValues<ScaleKey, Output, Platform>>;
 
 type ColorValueScale<
   VariantKey extends string | number,
   Output,
-  Platform = unknown
+  Platform = unknown,
 > = Output extends 'required' | 'default'
   ? BaseColorValueScale<VariantKey, Output, Platform>
   : Partial<BaseColorValueScale<VariantKey, Output, Platform>>;
@@ -120,7 +122,7 @@ type GreyscaleColors<Output, Platform> = ColorValues<
 // `Colors` tokens requires special handling for `required` output due to nested tokens
 type BaseColors<
   Output extends OutputVariantKey = unknown,
-  Platform = unknown
+  Platform = unknown,
 > = PaletteValues<Output, Platform> &
   GreyscaleColors<Output, Platform> & {
     // brand properties have scaled values
@@ -131,15 +133,14 @@ type BaseColors<
     font?: ColorValues<FontVariantKey<Output, Platform>, Output, Platform>;
     overlay?: ColorValues<OverlayKey, Output, Platform>;
     shadow?: ColorValues<OrderVariantKey, Output, Platform>;
-  };
+  } & RecursiveDesignToken<ColorValue, Output, Platform>;
 
 export type Colors<
   Output extends OutputVariantKey = unknown,
-  Platform = unknown
-> = (Output extends 'required' | 'default'
+  Platform = unknown,
+> = Output extends 'required' | 'default'
   ? Required<BaseColors<Output, Platform>>
-  : BaseColors<Output, Platform>) &
-  Record<string, any>; // TODO: remove 'any' and created structured custom color generic
+  : BaseColors<Output, Platform>;
 
 export const colors: Colors<'default'> = {
   red: {

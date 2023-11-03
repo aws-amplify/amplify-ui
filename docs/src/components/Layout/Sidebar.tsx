@@ -12,8 +12,7 @@ import {
   Text,
   Flex,
   Collection,
-  Expander,
-  ExpanderItem,
+  Accordion,
   useTheme,
 } from '@aws-amplify/ui-react';
 import {
@@ -25,7 +24,7 @@ import {
   primitiveComponents,
 } from '../../data/links';
 
-import Link from 'next/link';
+import NextLink from 'next/link';
 import { FrameworkChooser } from './FrameworkChooser';
 import { LogoLink } from './LogoLink';
 import { MenuButton } from './MenuButton';
@@ -67,11 +66,11 @@ const NavLink = ({
   }
 
   return (
-    <Link href={`/${platform}${href}`} passHref>
+    <NextLink href={`/${platform}${href}`} passHref legacyBehavior>
       <a onClick={onClick} className={classNames}>
         {children}
       </a>
-    </Link>
+    </NextLink>
   );
 };
 
@@ -136,7 +135,7 @@ const SecondaryNav = (props) => {
   const { platform } = props;
   // Extract section from URL (/section/... => section)
   let section = pathname.split('/')[2];
-  const [value, setValue] = React.useState<string | string[]>([section]);
+  const [value, setValue] = React.useState([section]);
 
   const isFlutter = platform === 'flutter';
   const isReactNative = platform === 'react-native';
@@ -147,78 +146,89 @@ const SecondaryNav = (props) => {
   const hideGuidesExpander = isFlutter || isReactNative || isAndroid || isSwift;
 
   return (
-    <Expander type="multiple" value={value} onValueChange={setValue}>
+    <Accordion.Container value={value} onValueChange={setValue}>
       {
-        <ExpanderItem
-          title={
+        <Accordion.Item value="getting-started">
+          <Accordion.Trigger>
             <ExpanderTitle Icon={MdOutlineChecklist} text="Getting started" />
-          }
-          value="getting-started"
-        >
-          {gettingStarted.map(({ label, ...rest }) => (
-            <NavLink key={label} {...rest} onClick={props.onClick}>
+            <Accordion.Icon />
+          </Accordion.Trigger>
+          <Accordion.Content>
+            {gettingStarted.map(({ label, ...rest }) => (
+              <NavLink key={label} {...rest} onClick={props.onClick}>
+                {label}
+              </NavLink>
+            ))}
+          </Accordion.Content>
+        </Accordion.Item>
+      }
+      {platform === 'react' ? (
+        <Accordion.Item value="components">
+          <Accordion.Trigger>
+            <ExpanderTitle Icon={MdOutlineWidgets} text="Components" />
+            <Accordion.Icon />
+          </Accordion.Trigger>
+          <Accordion.Content>
+            {primitiveComponents.map(({ heading, components }, i) => (
+              <NavLinkComponentsSection
+                {...props}
+                key={heading || i}
+                heading={heading}
+                components={components}
+              />
+            ))}
+          </Accordion.Content>
+        </Accordion.Item>
+      ) : null}
+
+      <Accordion.Item value="connected-components">
+        <Accordion.Trigger>
+          <ExpanderTitle Icon={MdOutlinePower} text="Connected components" />
+          <Accordion.Icon />
+        </Accordion.Trigger>
+        <Accordion.Content>
+          {connectedComponents.map(({ label, href, ...rest }) => (
+            <NavLink key={href} href={href} {...rest} onClick={props.onClick}>
               {label}
             </NavLink>
           ))}
-        </ExpanderItem>
-      }
-      {platform === 'react' ? (
-        <ExpanderItem
-          title={<ExpanderTitle Icon={MdOutlineWidgets} text="Components" />}
-          value="components"
-        >
-          {primitiveComponents.map(({ heading, components }, i) => (
-            <NavLinkComponentsSection
-              {...props}
-              key={heading || i}
-              heading={heading}
-              components={components}
-            />
-          ))}
-        </ExpanderItem>
-      ) : null}
-
-      <ExpanderItem
-        title={
-          <ExpanderTitle Icon={MdOutlinePower} text="Connected components" />
-        }
-        value="connected-components"
-      >
-        {connectedComponents.map(({ label, href, ...rest }) => (
-          <NavLink key={href} href={href} {...rest} onClick={props.onClick}>
-            {label}
-          </NavLink>
-        ))}
-      </ExpanderItem>
+        </Accordion.Content>
+      </Accordion.Item>
 
       {/* Android and Swift don't have theming at this time */}
       {hideTheming ? null : (
-        <ExpanderItem
-          title={<ExpanderTitle Icon={MdOutlineAutoAwesome} text="Theming" />}
-          value="theming"
-        >
-          {theming.map(({ label, ...rest }) => (
-            <NavLink key={label} {...rest} onClick={props.onClick}>
-              {label}
-            </NavLink>
-          ))}
-        </ExpanderItem>
+        <Accordion.Item value="theming">
+          <Accordion.Trigger>
+            <ExpanderTitle Icon={MdOutlineAutoAwesome} text="Theming" />
+            <Accordion.Icon />
+          </Accordion.Trigger>
+          <Accordion.Content>
+            {theming.map(({ label, ...rest }) => (
+              <NavLink key={label} {...rest} onClick={props.onClick}>
+                {label}
+              </NavLink>
+            ))}
+          </Accordion.Content>
+        </Accordion.Item>
       )}
 
       {/* Flutter, React Native, Android, and Swift don't have guides at this time */}
       {hideGuidesExpander ? null : (
-        <ExpanderItem
-          title={<ExpanderTitle Icon={MdOutlineArticle} text="Guides" />}
-          value="guides"
-        >
-          {guides.map(({ label, ...rest }) => (
-            <NavLink {...rest} key={label} onClick={props.onClick}>
-              {label}
-            </NavLink>
-          ))}
-        </ExpanderItem>
+        <Accordion.Item value="guides">
+          <Accordion.Trigger>
+            <ExpanderTitle Icon={MdOutlineArticle} text="Guides" />
+            <Accordion.Icon />
+          </Accordion.Trigger>
+          <Accordion.Content>
+            {guides.map(({ label, ...rest }) => (
+              <NavLink {...rest} key={label} onClick={props.onClick}>
+                {label}
+              </NavLink>
+            ))}
+          </Accordion.Content>
+        </Accordion.Item>
       )}
-    </Expander>
+    </Accordion.Container>
   );
 };
 

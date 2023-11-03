@@ -216,6 +216,7 @@ const main = async () => {
   });
 };
 
+// @todo-migration re-enable
 if (require.main) {
   main();
 }

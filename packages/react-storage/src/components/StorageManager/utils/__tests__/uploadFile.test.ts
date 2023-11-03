@@ -1,132 +1,143 @@
-import { uploadFile } from '../uploadFile';
-import { Storage } from 'aws-amplify';
+import { setImmediate } from 'timers';
+import * as Storage from 'aws-amplify/storage';
 
-const storageSpy = jest
-  .spyOn(Storage, 'put')
-  .mockImplementation(() => Promise.resolve({ key: 'file' }));
+import { UploadFileProps, uploadFile } from '../uploadFile';
+
+const uploadDataSpy = jest.spyOn(Storage, 'uploadData');
 const imageFile = new File(['hello'], 'hello.png', { type: 'image/png' });
+const key = imageFile.name;
+const file = imageFile;
 
-describe('uploadfile', () => {
+const errorCallback = jest.fn();
+const completeCallback = jest.fn();
+const progressCallback = jest.fn();
+
+const defaultProps: UploadFileProps = {
+  file,
+  key,
+  level: 'guest',
+  progressCallback,
+  errorCallback,
+  completeCallback,
+};
+
+const flushPromises = () => new Promise(setImmediate);
+
+describe('uploadFile', () => {
   beforeEach(() => {
-    storageSpy.mockClear();
+    uploadDataSpy.mockClear();
+    jest.resetAllMocks();
   });
 
-  it('calls Storage.put when isResumable is true', () => {
-    const progressCallback = () => '';
-    const errorCallback = () => '';
-    const completeCallback = () => '';
+  it('uploads a file with default options', async () => {
+    uploadDataSpy.mockImplementationOnce((input: Storage.UploadDataInput) => {
+      return {
+        cancel: jest.fn(),
+        pause: jest.fn(),
+        resume: jest.fn(),
+        state: 'SUCCESS',
+        result: Promise.resolve({ key: input.key, data: input.data }),
+      };
+    });
+    uploadFile(defaultProps);
 
-    uploadFile({
-      file: imageFile,
-      key: imageFile.name,
-      completeCallback,
-      errorCallback,
-      isResumable: true,
-      level: 'public',
-      progressCallback,
-      provider: 'provider',
+    expect(uploadDataSpy).toHaveBeenCalledWith({
+      key,
+      data: file,
+      options: {
+        accessLevel: 'guest',
+        contentType: imageFile.type,
+        onProgress: expect.any(Function),
+      },
     });
 
-    expect(storageSpy).toBeCalledWith(imageFile.name, imageFile, {
-      completeCallback,
-      contentType: 'image/png',
-      errorCallback,
-      level: 'public',
-      progressCallback,
-      provider: 'provider',
-      resumable: true,
-    });
+    await flushPromises();
+
+    expect(completeCallback).toHaveBeenCalledWith({ key });
+    expect(errorCallback).not.toHaveBeenCalled();
   });
 
-  it('calls Storage.put when isResumable is false', () => {
-    const progressCallback = () => '';
-    uploadFile({
-      file: imageFile,
-      key: imageFile.name,
-      level: 'public',
-      progressCallback: progressCallback,
-      errorCallback: () => '',
-      completeCallback: () => '',
-      isResumable: false,
-      provider: 'provider',
+  it('calls errorCallback on upload error', async () => {
+    const errorMessage = new Error('Error');
+    uploadDataSpy.mockImplementationOnce(() => {
+      return {
+        cancel: jest.fn(),
+        pause: jest.fn(),
+        resume: jest.fn(),
+        state: 'ERROR',
+        result: Promise.reject(errorMessage),
+      };
     });
 
-    expect(storageSpy).toBeCalledWith(imageFile.name, imageFile, {
-      level: 'public',
-      progressCallback: progressCallback,
-      resumable: false,
-      contentType: 'image/png',
-      provider: 'provider',
-    });
-  });
+    uploadFile(defaultProps);
 
-  it('calls uploadFile with contentType defined image type', () => {
-    uploadFile({
-      file: imageFile,
-      key: imageFile.name,
-      level: 'public',
-      progressCallback: () => '',
-      errorCallback: () => '',
-      completeCallback: () => '',
-      isResumable: false,
-    });
+    await flushPromises();
 
-    expect(storageSpy).toBeCalledWith(imageFile.name, imageFile, {
-      level: 'public',
-      progressCallback: expect.any(Function),
-      resumable: false,
-      contentType: 'image/png',
-    });
+    expect(progressCallback).not.toHaveBeenCalled();
+    expect(errorCallback).toHaveBeenCalledWith('Error');
+    expect(completeCallback).not.toHaveBeenCalled();
   });
 
   it('calls uploadFile with contentType binary/octet-stream when file.type is undefined', () => {
+    uploadDataSpy.mockImplementationOnce((input: Storage.UploadDataInput) => {
+      return {
+        cancel: jest.fn(),
+        pause: jest.fn(),
+        resume: jest.fn(),
+        state: 'SUCCESS',
+        result: Promise.resolve({ key: input.key, data: input.data }),
+      };
+    });
     const imageFileTypeUndefined = new File(['hello2'], 'hello2.png', {
       type: undefined,
     });
 
     uploadFile({
+      ...defaultProps,
       file: imageFileTypeUndefined,
       key: imageFileTypeUndefined.name,
-      level: 'public',
-      progressCallback: () => '',
-      errorCallback: () => '',
-      completeCallback: () => '',
-      isResumable: false,
     });
 
-    expect(storageSpy).toBeCalledWith(
-      imageFileTypeUndefined.name,
-      imageFileTypeUndefined,
-      {
-        level: 'public',
-        progressCallback: expect.any(Function),
-        resumable: false,
+    expect(uploadDataSpy).toHaveBeenCalledWith({
+      data: imageFileTypeUndefined,
+      key: imageFileTypeUndefined.name,
+      options: {
+        accessLevel: 'guest',
+        onProgress: expect.any(Function),
         contentType: 'binary/octet-stream',
-      }
-    );
+      },
+    });
   });
 
-  it('passes metadata to Storage.put', () => {
+  it('passes other options to uploadData', () => {
+    uploadDataSpy.mockImplementationOnce((input: Storage.UploadDataInput) => {
+      return {
+        cancel: jest.fn(),
+        pause: jest.fn(),
+        resume: jest.fn(),
+        state: 'SUCCESS',
+        result: Promise.resolve({ key: input.key, data: input.data }),
+      };
+    });
     uploadFile({
-      file: imageFile,
-      key: imageFile.name,
-      level: 'public',
-      progressCallback: () => '',
-      errorCallback: () => '',
-      completeCallback: () => '',
-      isResumable: false,
+      ...defaultProps,
+      contentDisposition: 'attachment',
       metadata: {
         foo: 'bar',
       },
     });
 
-    expect(storageSpy).toBeCalledWith(imageFile.name, imageFile, {
-      level: 'public',
-      progressCallback: expect.any(Function),
-      resumable: false,
-      contentType: 'image/png',
-      metadata: {
-        foo: 'bar',
+    expect(uploadDataSpy).toHaveBeenCalledWith({
+      data: imageFile,
+      key: imageFile.name,
+      options: {
+        accessLevel: 'guest',
+        onProgress: expect.any(Function),
+        contentType: 'image/png',
+        contentDisposition: 'attachment',
+        metadata: {
+          foo: 'bar',
+        },
       },
     });
   });

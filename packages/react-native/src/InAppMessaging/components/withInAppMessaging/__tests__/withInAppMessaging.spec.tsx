@@ -3,6 +3,10 @@ import { render } from '@testing-library/react-native';
 
 import withInAppMessaging from '../withInAppMessaging';
 
+jest.mock('aws-amplify/in-app-messaging', () => ({
+  onMessageReceived: jest.fn(() => ({ remove: jest.fn() })),
+}));
+
 const TestComponent = ({ title }: { title: string }) => <>{title}</>;
 
 describe('withInAppMessaging', () => {

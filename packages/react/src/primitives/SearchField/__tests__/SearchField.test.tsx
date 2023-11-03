@@ -2,8 +2,10 @@ import * as React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { ComponentClassName } from '@aws-amplify/ui';
+
 import { SearchField } from '../SearchField';
-import { ComponentClassNames, ComponentText } from '../../shared/constants';
+import { ComponentText } from '../../shared/constants';
 
 const label = 'Search Amplify UI';
 const { searchButtonLabel } = ComponentText.SearchField;
@@ -46,7 +48,7 @@ describe('SearchField component', () => {
     const searchFieldWrapper = await screen.findByTestId(testId);
 
     expect(searchFieldWrapper).toHaveClass('custom-class');
-    expect(searchFieldWrapper).toHaveClass(ComponentClassNames.SearchField);
+    expect(searchFieldWrapper).toHaveClass(ComponentClassName.SearchField);
   });
 
   it('should forward refs to DOM elements', async () => {
@@ -81,7 +83,7 @@ describe('SearchField component', () => {
     render(<SearchField label={label} name="q" size="large" />);
 
     const searchField = screen.getByLabelText(label);
-    expect(searchField.dataset['size']).toBe('large');
+    expect(searchField).toHaveClass(`${ComponentClassName.Input}--large`);
   });
 
   it('should render size classes for SearchField', async () => {
@@ -95,15 +97,15 @@ describe('SearchField component', () => {
     const small = await screen.findByTestId('small');
     const large = await screen.findByTestId('large');
 
-    expect(small.classList).toContain(`${ComponentClassNames['Field']}--small`);
-    expect(large.classList).toContain(`${ComponentClassNames['Field']}--large`);
+    expect(small.classList).toContain(`${ComponentClassName['Field']}--small`);
+    expect(large.classList).toContain(`${ComponentClassName['Field']}--large`);
   });
 
   it('should be able to set a quiet variation', () => {
     render(<SearchField label={label} name="q" variation="quiet" />);
 
     const searchField = screen.getByLabelText(label);
-    expect(searchField).toHaveAttribute('data-variation', 'quiet');
+    expect(searchField).toHaveClass(`${ComponentClassName.Input}--quiet`);
   });
 
   it('should have search button', async () => {
@@ -112,7 +114,7 @@ describe('SearchField component', () => {
     const button = await screen.findByRole('button');
     expect(button).toBeDefined();
     expect(button).toHaveAttribute('aria-label', searchButtonLabel);
-    expect(button).toHaveClass(ComponentClassNames.SearchFieldSearch);
+    expect(button).toHaveClass(ComponentClassName.SearchFieldSearch);
   });
 
   it('should pass query text to onSubmit handler on Enter', async () => {

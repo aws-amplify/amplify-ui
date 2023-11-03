@@ -1,5 +1,6 @@
 import React from 'react';
-import { Flex, View, ComponentClassNames, Text } from '@aws-amplify/ui-react';
+import { ComponentClassName } from '@aws-amplify/ui';
+import { Flex, View, Text } from '@aws-amplify/ui-react';
 import { GoodFitIllustration, TooFarIllustration, StartScreenFigure } from './';
 import { LivenessIconWithPopover } from './LivenessIconWithPopover';
 import { LivenessClassNames } from '../types/classNames';
@@ -44,11 +45,11 @@ export const DefaultPhotosensitiveWarning = ({
 }: DefaultPhotosensitiveWarningProps): JSX.Element => {
   return (
     <Flex
-      className={`${ComponentClassNames.Alert} ${LivenessClassNames.StartScreenWarning}`}
+      className={`${ComponentClassName.Alert} ${LivenessClassNames.StartScreenWarning}`}
     >
       <View flex="1">
-        <View className={ComponentClassNames.AlertHeading}>{headingText}</View>
-        <View className={ComponentClassNames.AlertBody}>{bodyText}</View>
+        <View className={ComponentClassName.AlertHeading}>{headingText}</View>
+        <View className={ComponentClassName.AlertBody}>{bodyText}</View>
       </View>
       <LivenessIconWithPopover>{infoText}</LivenessIconWithPopover>
     </Flex>

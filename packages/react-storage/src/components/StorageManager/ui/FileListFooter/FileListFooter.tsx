@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { ComponentClassNames, View, Button } from '@aws-amplify/ui-react';
-import { StorageManagerDisplayText } from '../../utils';
+import { ComponentClassName } from '@aws-amplify/ui';
+import { View, Button } from '@aws-amplify/ui-react';
+import { StorageManagerDisplayTextDefault } from '../../utils';
 
 export interface FileListFooterProps {
   remainingFilesCount: number;
-  displayText: StorageManagerDisplayText;
+  displayText: StorageManagerDisplayTextDefault;
   onClearAll: () => void;
   onUploadAll: () => void;
 }
@@ -18,8 +19,8 @@ export function FileListFooter({
 }: FileListFooterProps): JSX.Element {
   const { clearAllButtonText, getUploadButtonText } = displayText;
   return (
-    <View className={ComponentClassNames.StorageManagerPreviewerFooter}>
-      <View className={ComponentClassNames.StorageManagerPreviewerActions}>
+    <View className={ComponentClassName.StorageManagerPreviewerFooter}>
+      <View className={ComponentClassName.StorageManagerPreviewerActions}>
         <Button size="small" variation="link" onClick={onClearAll}>
           {clearAllButtonText}
         </Button>

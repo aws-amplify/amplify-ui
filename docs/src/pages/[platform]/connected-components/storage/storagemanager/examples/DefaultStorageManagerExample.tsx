@@ -4,10 +4,9 @@ export const DefaultStorageManagerExample = () => {
   return (
     <StorageManager
       acceptedFileTypes={['image/*']}
-      accessLevel="public"
+      accessLevel="guest"
       maxFileCount={1}
       isResumable
-      provider="slow" // IGNORE
     />
   );
 };

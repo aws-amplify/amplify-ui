@@ -20,7 +20,7 @@ export function StorageImageExample() {
       <StorageImage
         alt="public cat"
         imgKey="public-e2e.jpeg"
-        accessLevel="public"
+        accessLevel="guest"
         onLoad={onLoad}
       />
       {isLoaded ? (

@@ -2,10 +2,11 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { classNameModifier } from '../shared/utils';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName, classNameModifierByFlag } from '@aws-amplify/ui';
 import { BaseLoaderProps, LoaderProps } from '../types/loader';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { View } from '../View';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 export const LINEAR_EMPTY = 'linear-empty';
 export const LINEAR_FILLED = 'linear-filled';
@@ -36,10 +37,14 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
 
   const percent = `${percentage}%`;
   const componentClasses = classNames(
-    ComponentClassNames.Loader,
-    classNameModifier(ComponentClassNames.Loader, size),
-    classNameModifier(ComponentClassNames.Loader, variation),
-    isDeterminate ? ComponentClassNames.LoaderDeterminate : null,
+    ComponentClassName.Loader,
+    classNameModifier(ComponentClassName.Loader, size),
+    classNameModifier(ComponentClassName.Loader, variation),
+    classNameModifierByFlag(
+      ComponentClassName.Loader,
+      'determinate',
+      isDeterminate
+    ),
     className
   );
 
@@ -73,8 +78,8 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
         <text
           aria-live="polite"
           className={classNames(
-            ComponentClassNames.LoaderPercentageText,
-            isPercentageTextHidden ? ComponentClassNames.VisuallyHidden : null
+            ComponentClassName.LoaderLabel,
+            isPercentageTextHidden ? ComponentClassName.VisuallyHidden : null
           )}
           // -1% offset makes the text position look nicest
           x={`${-1 + percentage}%`}
@@ -117,8 +122,8 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
         <text
           aria-live="polite"
           className={classNames(
-            ComponentClassNames.LoaderPercentageText,
-            isPercentageTextHidden ? ComponentClassNames.VisuallyHidden : null
+            ComponentClassName.LoaderLabel,
+            isPercentageTextHidden ? ComponentClassName.VisuallyHidden : null
           )}
           // this x and y make text position look nicest
           x="130%"
@@ -131,15 +136,7 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
   );
 
   return (
-    <View
-      as="svg"
-      className={componentClasses}
-      data-size={size}
-      data-variation={variation}
-      ref={ref}
-      role="img"
-      {...rest}
-    >
+    <View as="svg" className={componentClasses} ref={ref} role="img" {...rest}>
       {variation === 'linear' ? linearLoader : circularLoader}
     </View>
   );
@@ -149,6 +146,6 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/loader)
  */
 export const Loader: ForwardRefPrimitive<BaseLoaderProps, 'svg'> =
-  React.forwardRef(LoaderPrimitive);
+  primitiveWithForwardRef(LoaderPrimitive);
 
 Loader.displayName = 'Loader';

@@ -25,7 +25,7 @@ export interface BaseFieldsetProps
    * @description
    * Adds plain or outlined variation to the Fieldset
    */
-  variation?: 'outlined' | 'plain';
+  variation?: 'plain' | 'outlined';
 
   /**
    * @description

@@ -2,6 +2,7 @@ import {
   DesignTokenValues,
   FontSizeValue,
   OutputVariantKey,
+  RecursiveDesignToken,
 } from './types/designToken';
 
 type FontSize =
@@ -18,13 +19,14 @@ type FontSize =
 
 export type FontSizes<
   Output extends OutputVariantKey = unknown,
-  Platform = unknown
+  Platform = unknown,
 > = DesignTokenValues<
   FontSize,
   FontSizeValue<Platform, Output>,
   Output,
   Platform
->;
+> &
+  RecursiveDesignToken<FontSizeValue<Platform, Output>, Output, Platform>;
 
 export const fontSizes: FontSizes<'default'> = {
   xxxs: { value: '0.375rem' },

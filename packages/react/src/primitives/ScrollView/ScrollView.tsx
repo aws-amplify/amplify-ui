@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { classNameModifier } from '../shared/utils';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   ForwardRefPrimitive,
   Primitive,
@@ -10,6 +10,7 @@ import {
   ScrollViewProps,
 } from '../types';
 import { View } from '../View';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const ScrollViewPrimitive: Primitive<ScrollViewProps, 'div'> = (
   { children, className, orientation, ...rest },
@@ -17,11 +18,10 @@ const ScrollViewPrimitive: Primitive<ScrollViewProps, 'div'> = (
 ) => (
   <View
     className={classNames(
-      ComponentClassNames.ScrollView,
-      classNameModifier(ComponentClassNames.ScrollView, orientation),
+      ComponentClassName.ScrollView,
+      classNameModifier(ComponentClassName.ScrollView, orientation),
       className
     )}
-    data-orientation={orientation}
     ref={ref}
     {...rest}
   >
@@ -33,6 +33,6 @@ const ScrollViewPrimitive: Primitive<ScrollViewProps, 'div'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/scrollview)
  */
 export const ScrollView: ForwardRefPrimitive<BaseScrollViewProps, 'div'> =
-  React.forwardRef(ScrollViewPrimitive);
+  primitiveWithForwardRef(ScrollViewPrimitive);
 
 ScrollView.displayName = 'ScrollView';

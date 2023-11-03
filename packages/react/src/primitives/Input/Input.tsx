@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
-import { ComponentClassNames } from '../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseInputProps,
   InputProps,
@@ -11,6 +11,7 @@ import {
 } from '../types';
 import { View } from '../View';
 import { useFieldset } from '../Fieldset/useFieldset';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const InputPrimitive: Primitive<InputProps, 'input'> = (
   {
@@ -33,11 +34,11 @@ const InputPrimitive: Primitive<InputProps, 'input'> = (
   ref
 ) => {
   const componentClasses = classNames(
-    ComponentClassNames.Input,
-    ComponentClassNames.FieldGroupControl,
-    classNameModifier(ComponentClassNames.Input, variation),
-    classNameModifierByFlag(ComponentClassNames.Input, 'error', hasError),
-    classNameModifier(ComponentClassNames.Input, size),
+    ComponentClassName.Input,
+    ComponentClassName.FieldGroupControl,
+    classNameModifier(ComponentClassName.Input, variation),
+    classNameModifierByFlag(ComponentClassName.Input, 'error', hasError),
+    classNameModifier(ComponentClassName.Input, size),
     className
   );
   const { isFieldsetDisabled } = useFieldset();
@@ -49,8 +50,6 @@ const InputPrimitive: Primitive<InputProps, 'input'> = (
       autoComplete={autoComplete}
       checked={checked}
       className={componentClasses}
-      data-size={size}
-      data-variation={variation}
       defaultChecked={defaultChecked}
       defaultValue={defaultValue}
       isDisabled={isFieldsetDisabled ? isFieldsetDisabled : isDisabled}
@@ -66,6 +65,6 @@ const InputPrimitive: Primitive<InputProps, 'input'> = (
 };
 
 export const Input: ForwardRefPrimitive<BaseInputProps, 'input'> =
-  React.forwardRef(InputPrimitive);
+  primitiveWithForwardRef(InputPrimitive);
 
 Input.displayName = 'Input';

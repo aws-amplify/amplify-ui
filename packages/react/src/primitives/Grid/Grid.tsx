@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseGridProps,
   GridProps,
@@ -9,13 +9,14 @@ import {
   Primitive,
 } from '../types';
 import { View } from '../View';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const GridPrimitive: Primitive<GridProps, 'div'> = (
   { className, children, ...rest },
   ref
 ) => (
   <View
-    className={classNames(ComponentClassNames.Grid, className)}
+    className={classNames(ComponentClassName.Grid, className)}
     ref={ref}
     {...rest}
   >
@@ -27,6 +28,6 @@ const GridPrimitive: Primitive<GridProps, 'div'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/grid)
  */
 export const Grid: ForwardRefPrimitive<BaseGridProps, 'div'> =
-  React.forwardRef(GridPrimitive);
+  primitiveWithForwardRef(GridPrimitive);
 
 Grid.displayName = 'Grid';

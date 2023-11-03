@@ -1,5 +1,5 @@
-import type { StorageAccessLevel } from '@aws-amplify/storage';
-import type { ImageProps } from '@aws-amplify/ui-react';
+import { StorageAccessLevel } from '@aws-amplify/core';
+import { ImageProps } from '@aws-amplify/ui-react';
 
 export interface StorageImageProps extends Omit<ImageProps, 'src'> {
   // Use imgKey instead of key because key is a reserved keyword

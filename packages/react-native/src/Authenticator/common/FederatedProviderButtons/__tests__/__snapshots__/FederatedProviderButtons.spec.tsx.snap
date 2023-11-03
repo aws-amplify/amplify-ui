@@ -3,13 +3,34 @@
 exports[`FederatedProviderButtons renders as expected 1`] = `
 <View
   style={
-    Object {
-      "paddingVertical": 4,
-    }
+    [
+      {
+        "marginHorizontal": 12,
+      },
+      undefined,
+    ]
   }
+  testID="amplify__federated-provider-buttons"
 >
   <View
     accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -23,73 +44,66 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "backgroundColor": "transparent",
           "borderColor": "hsl(210, 10%, 58%)",
           "borderRadius": 4,
           "borderWidth": 1,
+          "flexDirection": "row",
+          "gap": 12,
           "justifyContent": "center",
           "paddingHorizontal": 16,
           "paddingVertical": 12,
         },
         undefined,
-        Array [
-          Object {
-            "alignItems": "center",
-            "borderRadius": 4,
-            "borderWidth": 0.5,
-            "flexDirection": "row",
-            "justifyContent": "center",
-            "paddingVertical": 8,
-            "width": "100%",
-          },
+        [
           undefined,
-          Object {
-            "marginVertical": 8,
-          },
+          undefined,
+          [
+            {
+              "marginVertical": 8,
+            },
+            undefined,
+          ],
         ],
       ]
     }
   >
     <Image
       accessibilityRole="image"
+      accessible={true}
       source={
-        Object {
-          "testUri": "../../../src/assets/icons/amazonLogo.png",
+        {
+          "uri": "amazonLogo",
         }
       }
       style={
-        Array [
-          Object {
+        [
+          {
             "height": 20,
             "resizeMode": "contain",
             "tintColor": undefined,
             "width": 20,
           },
-          Object {
-            "paddingHorizontal": 16,
-          },
+          undefined,
         ]
       }
     />
     <Text
       accessibilityRole="text"
       style={
-        Array [
-          Object {
+        [
+          {
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Object {
+          {
             "color": "hsl(210, 50%, 10%)",
           },
-          Array [
-            Object {
-              "fontWeight": "400",
-            },
+          [
             undefined,
           ],
         ]
@@ -100,8 +114,8 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
   </View>
   <View
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "flexDirection": "row",
         },
@@ -111,11 +125,11 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
   >
     <View
       style={
-        Array [
-          Object {
-            "backgroundColor": "hsl(0, 0%, 0%)",
+        [
+          {
+            "backgroundColor": "hsl(210, 5%, 87%)",
             "flex": 1,
-            "height": 0.5,
+            "height": 1,
           },
           undefined,
         ]
@@ -125,38 +139,41 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
     <Text
       accessibilityRole="text"
       style={
-        Array [
-          Object {
+        [
+          {
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Object {
+          {
             "color": "hsl(210, 50%, 10%)",
           },
-          Array [
-            Object {
+          [
+            {
+              "color": "hsl(210, 10%, 40%)",
               "fontSize": 16,
               "margin": 16,
               "textAlign": "center",
             },
-            Object {
-              "paddingVertical": 8,
-              "textAlign": "center",
-            },
+            [
+              {
+                "textAlign": "center",
+              },
+              undefined,
+            ],
           ],
         ]
       }
     >
-      Or
+      or
     </Text>
     <View
       style={
-        Array [
-          Object {
-            "backgroundColor": "hsl(0, 0%, 0%)",
+        [
+          {
+            "backgroundColor": "hsl(210, 5%, 87%)",
             "flex": 1,
-            "height": 0.5,
+            "height": 1,
           },
           undefined,
         ]

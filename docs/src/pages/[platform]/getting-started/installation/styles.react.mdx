@@ -1,7 +1,12 @@
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Tabs } from '@aws-amplify/ui-react';
+import { Example, ExampleCode } from '@/components/Example';
 
-<Tabs>
-<TabItem title="JS">
+<Tabs.Container defaultValue="js">
+  <Tabs.List>
+    <Tabs.Item value="js">JS</Tabs.Item>
+    <Tabs.Item value="css">CSS</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="js">
 
 Modern bundlers like Create React App & Next.js allow you to import `.css` from within your `.js` files.
 This may be `src/index.js`, `src/App.js`, `pages/_app.js`, or whatever your entry-point is.
@@ -10,8 +15,8 @@ This may be `src/index.js`, `src/App.js`, `pages/_app.js`, or whatever your entr
 import '@aws-amplify/ui-react/styles.css';
 ```
 
-</TabItem>
-<TabItem title="CSS">
+  </Tabs.Panel>
+  <Tabs.Panel value="css">
 
 You can import `.css` from within your `.css` files using `@import`.
 This may be `src/index.css`, `src/styles/styles.css`, or whatever your global stylesheet is.
@@ -20,5 +25,19 @@ This may be `src/index.css`, `src/styles/styles.css`, or whatever your global st
 @import "@aws-amplify/ui-react/styles.css";
 ```
 
-</TabItem>
-</Tabs>
+  </Tabs.Panel>
+</Tabs.Container>
+
+#### CSS Layers
+
+[CSS Layers](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) are a new feature of the CSS spec that make it easy to override styles without needing to use a higher specificity. This means you don't have to worry about making sure your CSS selectors are specific enough to override the CSS selectors in Amplify UI's styles. [Support for CSS Layers is pretty good](https://caniuse.com/mdn-css_at-rules_layer), but we are introducing this as an opt-in feature. All CSS files have a regular CSS file version and a version with CSS Layers. To use CSS Layers with the example above, you would change the imports to this:
+
+<ExampleCode>
+```jsx
+import '@aws-amplify/ui-react/reset.layer.css' // global CSS reset
+import '@aws-amplify/ui-react/base.layer.css' // base styling needed for Amplify UI
+import '@aws-amplify/ui-react/button.layer.css' // component specific styles
+```
+</ExampleCode>
+
+You can also use this for the main CSS export, `'@aws-amplify/ui-react/styles.layer.css'`.

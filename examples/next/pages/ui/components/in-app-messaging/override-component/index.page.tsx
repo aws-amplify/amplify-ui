@@ -1,5 +1,9 @@
 import React, { useCallback, useEffect } from 'react';
-import { Amplify, Notifications } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import {
+  initializeInAppMessaging,
+  syncMessages,
+} from 'aws-amplify/in-app-messaging';
 import { Button, Flex, Text } from '@aws-amplify/ui-react';
 import {
   useInAppMessaging,
@@ -10,9 +14,8 @@ import '@aws-amplify/ui-react/styles.css';
 
 import config from './aws-exports';
 
-const { InAppMessaging } = Notifications;
-
 Amplify.configure(config);
+initializeInAppMessaging();
 
 const CustomBannerMessage = (props) => {
   return (
@@ -36,7 +39,7 @@ function App() {
 
   useEffect(() => {
     // sync remote in-app messages
-    InAppMessaging.syncMessages();
+    syncMessages();
   }, []);
 
   const displayCustomBannerMessage = useCallback(

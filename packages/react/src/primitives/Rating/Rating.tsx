@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { classNameModifier } from '../shared/utils';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { Flex } from '../Flex';
 import { IconStar, useIcons } from '../Icon';
 import { isIconFilled, isIconEmpty, isIconMixed } from './utils';
@@ -15,6 +15,7 @@ import {
   Primitive,
 } from '../types';
 import { VisuallyHidden } from '../VisuallyHidden';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const RATING_DEFAULT_MAX_VALUE = 5;
 const RATING_DEFAULT_VALUE = 0;
@@ -44,7 +45,7 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
           key={index.toString()}
           icon={filledIcon}
           fill={fillColor}
-          className="amplify-rating-icon-filled"
+          className={classNameModifier(ComponentClassName.RatingIcon, 'filled')}
         />
       );
     if (isIconEmpty(currentIconIndex, value))
@@ -53,7 +54,7 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
           key={index.toString()}
           icon={_emptyIcon}
           fill={emptyColor}
-          className="amplify-rating-icon-empty"
+          className={classNameModifier(ComponentClassName.RatingIcon, 'empty')}
         />
       );
     if (isIconMixed(currentIconIndex, value))
@@ -72,11 +73,10 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
   return (
     <Flex
       className={classNames(
-        ComponentClassNames.Rating,
-        classNameModifier(ComponentClassNames.Rating, size),
+        ComponentClassName.Rating,
+        classNameModifier(ComponentClassName.Rating, size),
         className
       )}
-      data-size={size}
       ref={ref}
       {...rest}
     >
@@ -92,6 +92,6 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/rating)
  */
 export const Rating: ForwardRefPrimitive<BaseRatingProps, 'div'> =
-  React.forwardRef(RatingPrimitive);
+  primitiveWithForwardRef(RatingPrimitive);
 
 Rating.displayName = 'Rating';

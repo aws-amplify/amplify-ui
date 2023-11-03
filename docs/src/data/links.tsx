@@ -218,13 +218,6 @@ export const connectedComponents: ComponentNavItem[] = [
     tertiary: true,
   },
   {
-    href: '/connected-components/storage/fileuploader',
-    label: 'File Uploader',
-    body: 'FileUploader component allows users to upload files to your Amplify backend.',
-    platforms: ['react'],
-    tertiary: true,
-  },
-  {
     href: '/connected-components/in-app-messaging',
     label: 'In-App Messaging',
     body: 'Amplify UI In-App Messaging provides UI components for displaying In-App Messages.',
@@ -446,9 +439,9 @@ export const layoutComponents: ComponentNavItem[] = [
     icon: MdTableChart,
   },
   {
-    href: '/components/expander',
-    label: 'Expander',
-    body: `The Expander primitive enables users to expand or collapse a set of sections.`,
+    href: '/components/accordion',
+    label: 'Accordion',
+    body: `The Accordion primitive enables users to expand or collapse a set of sections.`,
     platforms: ['react'],
     icon: MdExpand,
   },

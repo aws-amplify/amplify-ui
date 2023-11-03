@@ -43,7 +43,7 @@ export type BorderRadiusValue = RadiusValue;
 export type BorderStyleValue = string;
 export type BorderWidthValue<
   Platform extends PlatformKey = unknown,
-  Output extends OutputVariantKey = unknown
+  Output extends OutputVariantKey = unknown,
 > = Output extends 'required'
   ? Platform extends 'react-native'
     ? number
@@ -62,7 +62,7 @@ export type FlexWrapValue = string;
 
 export type FontSizeValue<
   Platform extends PlatformKey = unknown,
-  Output extends OutputVariantKey = unknown
+  Output extends OutputVariantKey = unknown,
 > = Output extends 'required'
   ? Platform extends 'react-native'
     ? number
@@ -73,7 +73,7 @@ export type FontStyleValue = string;
 export type FontValue = string;
 export type FontWeightValue<
   Platform extends PlatformKey = unknown,
-  Output extends OutputVariantKey = unknown
+  Output extends OutputVariantKey = unknown,
 > = Output extends 'required'
   ? Platform extends 'react-native'
     ?
@@ -98,7 +98,7 @@ export type ObjectFitValue = string;
 // `opacity` values are `string` for web and `number` for react-native
 export type OpacityValue<
   Platform extends PlatformKey = unknown,
-  Output extends OutputVariantKey = unknown
+  Output extends OutputVariantKey = unknown,
 > = Output extends 'required'
   ? Platform extends 'react-native'
     ? number
@@ -114,7 +114,7 @@ export type PointerEventsValue = string;
 
 export type RadiusValue<
   Platform extends PlatformKey = unknown,
-  Output extends OutputVariantKey = unknown
+  Output extends OutputVariantKey = unknown,
 > = Output extends 'required'
   ? Platform extends 'react-native'
     ? number
@@ -135,15 +135,21 @@ export type StrokeEmptyValue = string;
 export type StrokeLinecapValue = string;
 export type StrokeWidthValue = string;
 
-export type SpaceValue<Platform extends PlatformKey = unknown> =
-  Platform extends 'react-native' ? string | number : string;
+export type SpaceValue<
+  Platform extends PlatformKey = unknown,
+  Output extends OutputVariantKey = unknown,
+> = Output extends 'required'
+  ? Platform extends 'react-native'
+    ? number
+    : string
+  : string;
 
 export type TextAlignValue = string;
 export type TextDecorationValue = string;
 
 export type TimeValue<
   Platform extends PlatformKey = unknown,
-  Output extends OutputVariantKey = unknown
+  Output extends OutputVariantKey = unknown,
 > = Output extends 'required'
   ? Platform extends 'react-native'
     ? number
@@ -305,7 +311,7 @@ type DefaultDesignTokenProperties<Keys extends TokenProperty> = Required<{
  */
 export type DesignTokenProperties<
   Keys extends TokenProperty,
-  Output extends OutputVariantKey = unknown
+  Output extends OutputVariantKey = unknown,
 > = Output extends 'required'
   ? RequiredDesignTokenProperties<Keys>
   : Output extends 'optional'
@@ -320,7 +326,7 @@ type PropKey = string | number;
 type RequiredTokenValues<
   PropertyValueKey extends PropKey,
   PropertyValue,
-  Platform extends PlatformKey = unknown
+  Platform extends PlatformKey = unknown,
 > = Record<
   PropertyValueKey,
   Platform extends 'react-native'
@@ -331,13 +337,13 @@ type RequiredTokenValues<
 type OptionalTokenValues<
   PropertyValueKey extends PropKey,
   PropertyValue,
-  Platform extends PlatformKey = unknown
+  Platform extends PlatformKey = unknown,
 > = Partial<Record<PropertyValueKey, DesignToken<PropertyValue>>>;
 
 type DefaultTokenValues<
   PropertyValueKey extends PropKey,
   PropertyValue,
-  Platform extends PlatformKey = unknown
+  Platform extends PlatformKey = unknown,
 > = Required<Record<PropertyValueKey, DesignToken<PropertyValue>>>;
 
 /**
@@ -347,9 +353,36 @@ export type DesignTokenValues<
   PropertyValueKey extends PropKey,
   PropertyValue,
   Output extends OutputVariantKey = unknown,
-  Platform extends PlatformKey = unknown
+  Platform extends PlatformKey = unknown,
 > = Output extends 'required'
   ? RequiredTokenValues<PropertyValueKey, PropertyValue, Platform>
   : Output extends 'optional'
   ? OptionalTokenValues<PropertyValueKey, PropertyValue, Platform>
   : DefaultTokenValues<PropertyValueKey, PropertyValue, Platform>;
+
+/**
+ * Helper type util allowing creation of a deeply nested object of Design Tokens
+ */
+export type RecursiveDesignToken<
+  ValueType = unknown,
+  Output extends OutputVariantKey = unknown,
+  Platform extends PlatformKey = unknown,
+> = {
+  [key: PropKey]:
+    | DesignTokenValue<ValueType, Output, Platform>
+    | RecursiveDesignToken<ValueType, Output, Platform>;
+} & (Output extends 'required'
+  ? Platform extends 'react-native'
+    ? DesignTokenValue<ValueType, Output, Platform>
+    : {}
+  : {});
+
+export type DesignTokenValue<
+  ValueType = unknown,
+  Output extends OutputVariantKey = unknown,
+  Platform extends PlatformKey = unknown,
+> = Output extends 'required'
+  ? Platform extends 'react-native'
+    ? ValueType
+    : WebDesignToken<ValueType>
+  : DesignToken<ValueType>;

@@ -3,10 +3,12 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import kebabCase from 'lodash/kebabCase';
 
+import { ComponentClassName } from '@aws-amplify/ui';
+
 import { Collection } from '../Collection';
 import { Flex } from '../../Flex';
 import { Text } from '../../Text';
-import { ComponentClassNames, ComponentText } from '../../shared/constants';
+import { ComponentText } from '../../shared/constants';
 import { ComponentPropsToStylePropsMap } from '../../types';
 
 const emojis = [
@@ -69,7 +71,7 @@ describe('Collection component', () => {
     const collection = await screen.findByTestId('testList');
     const search = getElementByClassName(
       collection,
-      ComponentClassNames.CollectionSearch
+      ComponentClassName.CollectionSearch
     );
 
     expect(search).not.toBe(null);
@@ -95,7 +97,7 @@ describe('Collection component', () => {
     const collection = await screen.findByTestId(testList);
     const pagination = getElementByClassName(
       collection,
-      ComponentClassNames.CollectionPagination
+      ComponentClassName.CollectionPagination
     );
 
     expect(pagination).not.toBe(null);
@@ -120,7 +122,7 @@ describe('Collection component', () => {
     const collection = await screen.findByTestId(testList);
     const items = getElementByClassName<HTMLDivElement>(
       collection,
-      ComponentClassNames.CollectionItems
+      ComponentClassName.CollectionItems
     );
 
     expect(
@@ -141,7 +143,7 @@ describe('Collection component', () => {
           {(item, index) => <div />}
         </Collection>
       )
-    ).not.toThrowError(TypeError);
+    ).not.toThrow(TypeError);
   });
 
   it('can apply a custom className', async () => {
@@ -177,7 +179,7 @@ describe('Collection component', () => {
     const collection = await screen.findByTestId(testList);
     const items = getElementByClassName<HTMLDivElement>(
       collection,
-      ComponentClassNames.CollectionItems
+      ComponentClassName.CollectionItems
     );
 
     expect(items?.dataset['demo']).toBe('true');

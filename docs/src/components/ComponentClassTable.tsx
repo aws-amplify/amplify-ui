@@ -1,16 +1,16 @@
 import * as React from 'react';
 import {
-  ComponentClassObject,
   TableRow,
   TableBody,
   TableHead,
   TableCell,
 } from '@aws-amplify/ui-react';
+import { ComponentsMetadata } from './ComponentsMetadata';
 import { ResponsiveTable, ResponsiveTableCell } from './ResponsiveTable';
 
 export const ComponentClassTable = ({ componentName }) => {
   const targetClasses = React.useMemo(() => {
-    return Object.values(ComponentClassObject)
+    return Object.values(ComponentsMetadata)
       .filter((value: any) => {
         return (
           value &&
