@@ -164,6 +164,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       start: {
         entry: ['drawStaticOval', 'initializeFaceDetector'],
+        always: [
+          {
+            target: 'detectFaceBeforeStart',
+            cond: 'shouldSkipStartScreen',
+          },
+        ],
         on: {
           BEGIN: 'detectFaceBeforeStart',
         },
@@ -468,7 +474,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       drawStaticOval: (context) => {
         const { theme } = context;
-        const { canvasEl, videoEl, videoMediaStream, isMobile } =
+        const { canvasEl, videoEl, videoMediaStream } =
           context.videoAssociatedParams!;
         const { width, height } = videoMediaStream!
           .getTracks()[0]
@@ -493,7 +499,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         // vs the intrinsic video resolution
         const scaleFactor = videoScaledWidth / videoEl!.videoWidth;
 
-        console.log(theme?.tokens.colors.black.value);
         // Draw oval in canvas using ovalDetails and scaleFactor
         drawLivenessOvalInCanvas({
           canvas: canvasEl!,
@@ -913,6 +918,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           context.livenessStreamProvider!.videoRecorder.firstChunkTimestamp !==
           undefined
         );
+      },
+      shouldSkipStartScreen: (context) => {
+        return !!context.componentProps?.disableStartScreen;
       },
     },
     services: {

@@ -5,7 +5,7 @@ import { SessionIdAlert } from './SessionIdAlert';
 import LivenessInlineResults from './LivenessInlineResults';
 
 export default function LivenessDefault({
-  disableInstructionScreen = false,
+  disableStartScreen = false,
   components = undefined,
   credentialProvider = undefined,
 }) {
@@ -58,7 +58,7 @@ export default function LivenessDefault({
                 onError={(error) => {
                   console.error(error);
                 }}
-                disableInstructionScreen={disableInstructionScreen}
+                disableStartScreen={disableStartScreen}
                 components={components}
                 {...(credentialProvider
                   ? { config: { credentialProvider } }
