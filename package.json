@@ -55,6 +55,7 @@
     "nohoist": [
       "**/react-native",
       "**/react-native-safe-area-context",
+      "**/react-native-url-polyfill",
       "**/rollup",
       "**/@types/webgl-ext",
       "**/@types/webgl-ext/**"
@@ -115,7 +116,6 @@
     "rollup": "^2.70.0",
     "rollup-plugin-node-externals": "^4.1.1",
     "rollup-plugin-styles": "^4.0.0",
-    "rollup-plugin-terser": "^7.0.2",
     "ts-jest": "^29.1.1",
     "ts-morph": "^17.0.0",
     "turbo": "^1.2.8",

@@ -127,22 +127,33 @@ jobs:
         if: ${{ matrix.package != 'ui' }}
         run: yarn ${{ matrix.package }} build
 
-      - name: Check ${{ matrix.package }} bundle size
-        if: |
-          matrix.package == 'react' || 
-          matrix.package == 'react-geo' || 
-          matrix.package == 'react-liveness' || 
-          matrix.package == 'react-storage'
-        run: yarn ${{ matrix.package }} size
+      - name: Run ${{ matrix.package }} package unit tests
+        run: yarn ${{ matrix.package }} test
+
+      - name: Lint ${{ matrix.package }} package
+        run: yarn ${{ matrix.package }} lint
+
+      # @todo-migration enable
+      # - name: Validate ${{ matrix.package }} package esm modules
+      #   if: |
+      #     matrix.package != 'angular' ||
+      #     matrix.package != 'react-native' ||
+      #     matrix.package != 'react-native-auth'
+      #   run: yarn ${{ matrix.package }} check:esm
+
+      # @todo-migration enable
+      # - name: Check ${{ matrix.package }} bundle size
+      #   if: |
+      #     matrix.package == 'react' ||
+      #     matrix.package == 'react-auth' ||
+      #     matrix.package == 'react-geo' ||
+      #     matrix.package == 'react-liveness' ||
+      #     matrix.package == 'react-notifications' ||
+      #     matrix.package == 'react-storage'
+      #   run: yarn ${{ matrix.package }} size
 
       - name: Cache ${{ matrix.package }}/dist
         uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:
           path: ./packages/${{ matrix.package }}/dist
           key: ${{ runner.os }}-${{ matrix.package }}-${{ inputs.commit }}
-
-      - name: Lint ${{ matrix.package }} package
-        run: yarn ${{ matrix.package }} lint
-
-      - name: Run ${{ matrix.package }} CI tests
-        run: yarn ${{ matrix.package }} test:ci
