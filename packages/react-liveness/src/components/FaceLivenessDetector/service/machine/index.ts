@@ -473,7 +473,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       }),
       drawStaticOval: (context) => {
-        const { theme } = context;
         const { canvasEl, videoEl, videoMediaStream } =
           context.videoAssociatedParams!;
         const { width, height } = videoMediaStream!
@@ -505,7 +504,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           oval: ovalDetails,
           scaleFactor,
           videoEl: videoEl!,
-          ovalBackgroundColor: theme?.tokens.colors.white.value,
+          isStartScreen: true,
         });
       },
       updateRecordingStartTimestampMs: assign({

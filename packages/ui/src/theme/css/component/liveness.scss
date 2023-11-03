@@ -390,22 +390,12 @@
   gap: var(--amplify-space-xs);
 }
 
-.amplify-liveness-start-screen-camera-select__label {
-  background-color: var(--amplify-colors-white);
-  color: var(--amplify-colors-black);
-}
-
-.amplify-liveness-start-screen-camera-select .amplify-select {
-  background-color: var(--amplify-colors-white);
-  color: var(--amplify-colors-black);
-}
-.amplify-liveness-start-screen-camera-select .amplify-select__wrapper {
-  background-color: var(--amplify-colors-white);
-  color: var(--amplify-colors-black);
-}
+.amplify-liveness-start-screen-camera-select__label,
+.amplify-liveness-start-screen-camera-select .amplify-select,
+.amplify-liveness-start-screen-camera-select .amplify-select__wrapper,
 .amplify-liveness-start-screen-camera-select .amplify-select__icon-wrapper {
-  background-color: var(--amplify-colors-white);
-  color: var(--amplify-colors-black);
+  background-color: var(--amplify-colors-background-primary);
+  color: var(--amplify-colors-font-primary);
 }
 
 .amplify-liveness-start-screen-camera-waiting {

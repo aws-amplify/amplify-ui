@@ -27,13 +27,13 @@ export const Toast: React.FC<ToastProps> = ({
         fontSize: 'xxl',
         padding: '0 var(--amplify-space-xs)',
       })}
-      {...(isInitial && { backgroundColor: tokens.colors.white })}
+      {...(isInitial && { backgroundColor: tokens.colors.background.primary })}
       {...rest}
     >
       <Flex className={LivenessClassNames.ToastContainer}>
         <Flex
           className={LivenessClassNames.ToastMessage}
-          {...(isInitial ? { color: tokens.colors.black } : {})}
+          {...(isInitial ? { color: tokens.colors.font.primary } : {})}
         >
           {children}
         </Flex>
