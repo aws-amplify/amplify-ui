@@ -33,4 +33,8 @@ export const IGNORED_LINKS = [
   'https://www.w3.org/WAI/ARIA/apg/patterns/alert/examples/alert/',
   'https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/',
   'https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/',
+  'https://pub.dev/documentation/amplify_authenticator/latest/amplify_authenticator/AuthenticatorStep.html',
+  'https://pub.dev/documentation/amplify_authenticator/latest/amplify_authenticator/AuthenticatorState-class.html',
+  'https://pub.dev/documentation/amplify_authenticator/latest/amplify_authenticator/amplify_authenticator-library.html',
+  'https://docs.flutter.dev/ui/accessibility-and-localization/internationalization',
 ];
