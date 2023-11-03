@@ -57,6 +57,7 @@ export default defineConfig({
       external: [
         '@aws-amplify/auth',
         '@aws-amplify/core',
+        '@aws-amplify/core/internals/utils',
         'aws-amplify',
         'aws-amplify/auth',
         'aws-amplify/core',

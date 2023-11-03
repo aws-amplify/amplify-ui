@@ -3,26 +3,18 @@
 // https://nextjs.org/docs/advanced-features/custom-app
 import App from 'next/app';
 import { Amplify } from 'aws-amplify';
-import * as Auth from 'aws-amplify/auth';
 import { Hub } from 'aws-amplify/utils';
 
-import { Authenticator, ThemeProvider } from '@aws-amplify/ui-react';
+import { ThemeProvider } from '@aws-amplify/ui-react';
 import { useEffect } from 'react';
 import { MapProvider, useMap } from 'react-map-gl';
 
 if (typeof window !== 'undefined') {
-  if (typeof window['Amplify'] === undefined) {
-    window['Amplify'] = Amplify;
-  }
-  if (typeof window['Auth'] === undefined) {
-    window['Auth'] = Auth;
-  }
-  if (typeof window['Hub'] === undefined) {
-    window['Hub'] = Hub;
-  }
+  window['Amplify'] = Amplify;
+  window['Hub'] = Hub;
 }
 
-const SetCypressProperties = () => {
+const SetGeoWindowProperties = () => {
   const { default: map } = useMap();
 
   useEffect(() => {
@@ -59,16 +51,14 @@ export default function MyApp(props) {
     return (
       <MapProvider>
         <App {...props} />
-        <SetCypressProperties />
+        <SetGeoWindowProperties />
       </MapProvider>
     );
   }
 
   return (
     <ThemeProvider>
-      <Authenticator.Provider>
-        <App {...props} />
-      </Authenticator.Provider>
+      <App {...props} />
     </ThemeProvider>
   );
 }

@@ -5,8 +5,7 @@
     "build": "yarn --cwd ../../ build",
     "dev": "yarn --cwd ../../ dev",
     "lint": "yarn --cwd ../../ lint",
-    "test": "yarn --cwd ../../ test",
-    "test:ci": "yarn --cwd ../../ test:ci"
+    "test": "yarn --cwd ../../ test"
   },
   "license": "Apache-2.0",
   "repository": {
@@ -16,7 +15,7 @@
   },
   "peerDependencies": {
     "@angular/core": ">= 14.0.0",
-    "aws-amplify": "^6.0.0"
+    "aws-amplify": "unstable"
   },
   "dependencies": {
     "@aws-amplify/ui": "5.8.1",

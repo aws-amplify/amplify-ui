@@ -1,9 +1,8 @@
 import React from 'react';
 
 import { renderHook, WrapperComponent } from '@testing-library/react-hooks';
-// prefer scoped amplify js packages for spies
-import * as AuthModule from '@aws-amplify/auth';
 
+import * as AuthModule from 'aws-amplify/auth';
 import { AuthenticatorServiceFacade } from '@aws-amplify/ui';
 import * as UIModule from '@aws-amplify/ui';
 

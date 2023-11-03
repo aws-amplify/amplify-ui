@@ -20,6 +20,15 @@ jobs:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
 
+  # @todo-migration publish before running unit/e2e tests
+  publish:
+    uses: ./.github/workflows/reusable-tagged-publish.yml
+    needs: setup-cache
+    with:
+      dist-tag: next-release
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
   unit:
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@next-release/main
     needs: setup-cache
@@ -50,13 +59,13 @@ jobs:
       DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
       DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
-  publish:
-    needs: [e2e]
-    uses: ./.github/workflows/reusable-tagged-publish.yml
-    with:
-      dist-tag: next-release
-    secrets:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  # publish:
+  #   needs: [e2e]
+  #   uses: ./.github/workflows/reusable-tagged-publish.yml
+  #   with:
+  #     dist-tag: next-release
+  #   secrets:
+  #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   build-test:
     needs: publish

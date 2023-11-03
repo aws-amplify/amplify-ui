@@ -1,7 +1,6 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 
-// prefer scoped amplify js packages for spies
-import * as AuthModule from '@aws-amplify/auth';
+import * as AuthModule from 'aws-amplify/auth';
 import { Hub } from 'aws-amplify/utils';
 
 import { useAuth } from '../useAuth';
@@ -24,7 +23,9 @@ const mockCognitoUser = {
 };
 
 describe('useAuth', () => {
-  afterEach(() => jest.clearAllMocks());
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
 
   it('should return default values when initialized', async () => {
     getCurrentUserSpy.mockRejectedValue(undefined);
@@ -38,14 +39,14 @@ describe('useAuth', () => {
     await waitForNextUpdate();
   });
 
-  it('should invoke Auth.getCurrentUser function', async () => {
+  it('should invoke getCurrentUser function', async () => {
     getCurrentUserSpy.mockResolvedValue(mockCognitoUser);
 
     const { waitForNextUpdate } = renderHook(() => useAuth());
 
     await waitForNextUpdate();
 
-    expect(getCurrentUserSpy).toHaveBeenCalled();
+    expect(getCurrentUserSpy).toHaveBeenCalledTimes(1);
   });
 
   it('should set an error when something unexpected happen', async () => {
@@ -91,7 +92,7 @@ describe('useAuth', () => {
   );
 
   // @todo-migration fix
-  it.skip('should should unset user on Auth.signOut Hub event', async () => {
+  it.skip('should should unset user on signOut Hub event', async () => {
     getCurrentUserSpy.mockResolvedValue(mockCognitoUser);
 
     const { result, waitForNextUpdate } = renderHook(() => useAuth());
@@ -108,7 +109,7 @@ describe('useAuth', () => {
     expect(result.current.user).toBeUndefined();
   });
 
-  it('invokes Auth.getCurrentUser on tokenRefresh event', async () => {
+  it('invokes getCurrentUser on tokenRefresh event', async () => {
     getCurrentUserSpy.mockResolvedValue(mockCognitoUser);
 
     const { waitForNextUpdate } = renderHook(() => useAuth());

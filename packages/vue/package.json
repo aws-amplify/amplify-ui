@@ -33,7 +33,6 @@
     "clean": "rimraf dist node_modules",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "test": "jest",
-    "test:ci": "yarn test",
     "test:watch": "yarn test --watch"
   },
   "dependencies": {
@@ -68,6 +67,6 @@
     "vue-tsc": "~0.40.10"
   },
   "peerDependencies": {
-    "aws-amplify": "^6.0.0"
+    "aws-amplify": "unstable"
   }
 }

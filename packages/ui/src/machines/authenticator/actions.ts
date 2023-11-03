@@ -1,4 +1,10 @@
-import * as Auth from '@aws-amplify/auth/cognito';
+import {
+  FetchUserAttributesOutput,
+  SignUpOutput,
+  ResetPasswordOutput,
+  ResetPasswordInput,
+  resetPassword,
+} from 'aws-amplify/auth';
 import { actions } from 'xstate';
 import { trimValues } from '../../helpers';
 
@@ -146,7 +152,7 @@ export const setUnverifiedContactMethods = assign({
   unverifiedContactMethods: (_, event: AuthEvent) => {
     groupLog('+++setUnverifiedContactMethods', 'event', event);
     const { phone_number_verified, email_verified, email, phone_number } =
-      event.data as Auth.FetchUserAttributesOutput;
+      event.data as FetchUserAttributesOutput;
 
     return {
       ...(email_verified === 'false' && email && { email }),
@@ -164,7 +170,7 @@ export const setUser = assign({
     /**
      * @migration Cannot be called if unauthenticated. Maybe try/catch?
      */
-    // const user = await Auth.getCurrentUser();
+    // const user = await getCurrentUser();
     /**
      * @migration event.data was the fallback here,
      *  setting the entire event.data as user
@@ -187,7 +193,7 @@ export const setUsername = assign({
 });
 
 export const setCodeDeliveryDetails = assign({
-  codeDeliveryDetails: (_, { data }: { data: Auth.SignUpOutput }) => {
+  codeDeliveryDetails: (_, { data }: { data: SignUpOutput }) => {
     groupLog('+++setCodeDeliveryDetails', 'data', data);
     const { codeDeliveryDetails: details } = data.nextStep as {
       codeDeliveryDetails: {
@@ -250,17 +256,15 @@ export const handleBlur = assign({
 
 // export const resendCode = async (context) => {
 //   const { username } = context;
-//   return await Auth.forgotPassword(username);
+//   return await forgotPassword(username);
 // };
 /**
  *
  * @migration is working as expected
  */
-export const resendCode = async (
-  context
-): Promise<Auth.ResetPasswordOutput> => {
-  const input: Auth.ResetPasswordInput = { ...context };
-  return await Auth.resetPassword(input);
+export const resendCode = async (context): Promise<ResetPasswordOutput> => {
+  const input: ResetPasswordInput = { ...context };
+  return await resetPassword(input);
 };
 
 /**

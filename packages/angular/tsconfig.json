@@ -13,8 +13,6 @@
     "target": "es2020",
     "module": "es2020",
     "esModuleInterop": true,
-    // @todo-migration
-    "skipLibCheck": true,
     "paths": {}
   },
   "angularCompilerOptions": {

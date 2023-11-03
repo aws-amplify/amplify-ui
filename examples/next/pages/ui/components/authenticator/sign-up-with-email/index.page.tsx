@@ -24,7 +24,6 @@ const formFields = {
   },
 };
 
-// @todo-migration remove cast
 I18n.putVocabularies(translations);
 I18n.setLanguage('en');
 I18n.putVocabulariesForLanguage('en', {
@@ -33,7 +32,7 @@ I18n.putVocabulariesForLanguage('en', {
   'It may take a minute to arrive': 'It will take several minutes to arrive',
 });
 
-export default function AuthenticatorWithEmail() {
+function AuthenticatorWithEmail() {
   const { authStatus } = useAuthenticator((context) => [context.authStatus]);
   const services = {
     async handleSignUp(formData) {
@@ -70,5 +69,13 @@ export default function AuthenticatorWithEmail() {
         }}
       </Authenticator>
     </>
+  );
+}
+
+export default function ProviderWrappedApp() {
+  return (
+    <Authenticator.Provider>
+      <AuthenticatorWithEmail />
+    </Authenticator.Provider>
   );
 }
