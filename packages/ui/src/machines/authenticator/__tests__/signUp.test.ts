@@ -1,7 +1,7 @@
 import { interpret } from 'xstate';
 import { setImmediate } from 'timers';
-// prefer scoped amplify js packages for spies
-import * as AuthModule from '@aws-amplify/auth';
+
+import * as AuthModule from 'aws-amplify/auth';
 
 import { SignUpMachineOptions, createSignUpMachine } from '../signUp';
 import { SignUpContext } from '../../../types';

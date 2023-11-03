@@ -12,15 +12,15 @@
     "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "tsc --project tsconfig.esm.json",
     "clean": "rimraf dist",
-    "dev": "yarn build:esm --watch",
+    "dev": "tsc --watch",
     "lint": "yarn typecheck && eslint src",
     "prebuild": "rimraf dist",
     "test": "jest",
-    "test:ci": "yarn test",
     "test:watch": "yarn test --watch",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@aws-amplify/react-native": "unstable",
     "@babel/cli": "^7.23.0",
     "@babel/core": "^7.23.2",
     "@babel/preset-env": "^7.23.2",

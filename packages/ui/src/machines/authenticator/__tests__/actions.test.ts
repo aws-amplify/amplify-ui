@@ -1,5 +1,4 @@
-// prefer scoped amplify js packages for spies
-import * as AuthModule from '@aws-amplify/auth';
+import * as AuthModule from 'aws-amplify/auth';
 import {
   clearAttributeToVerify,
   handleSubmit,
