@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react';
 import { Text } from 'react-native';
 
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
 import { LaunchArguments } from 'react-native-launch-arguments';
 
 import { EXAMPLE_APP_NAME } from '@env';
@@ -76,14 +75,15 @@ const SignUpWithPhone = React.lazy(
 const SignUpWithUsername = React.lazy(
   () => import('../ui/components/authenticator/sign-up-with-username/Example')
 );
+const SocialProviders = React.lazy(
+  () => import('../ui/components/authenticator/social-providers/Example')
+);
 const ResetPassword = React.lazy(
   () => import('../ui/components/authenticator/reset-password/Example')
 );
 const WithAuthenticator = React.lazy(
   () => import('../ui/components/authenticator/with-authenticator/Example')
 );
-
-const logger = new Logger('RNExample-logger');
 
 export const ExampleComponent = () => {
   // .env file or launch argument passed from Detox
@@ -128,6 +128,8 @@ export const ExampleComponent = () => {
       return <SignUpWithUsername />;
     case 'ui/components/authenticator/sign-up-with-attributes':
       return <SignUpWithAttributes />;
+    case '/ui/components/authenticator/social-providers':
+      return <SocialProviders />;
     case 'ui/components/authenticator/reset-password':
       return <ResetPassword />;
     case '/ui/components/authenticator/withAuthenticator':
@@ -135,7 +137,7 @@ export const ExampleComponent = () => {
     case 'ui/components/in-app-messaging/demo':
       return <InAppMessaging />;
     default:
-      logger.warn(
+      console.warn(
         'EXAMPLE_APP_NAME environment variable not configured correctly, running default example app'
       );
       return null;

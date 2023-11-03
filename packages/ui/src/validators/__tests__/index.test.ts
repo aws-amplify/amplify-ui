@@ -1,14 +1,15 @@
 import { runValidators } from '..';
-import { AuthFormData, PasswordSettings } from '../../types';
+import { AuthFormData, AuthTouchData, PasswordSettings } from '../../types';
 
 const formData: AuthFormData = {
   username: 'testuser',
   password: 'testpassword',
 };
-const touchData: AuthFormData = {};
+const touchData: AuthTouchData = {};
 const passwordSettings: PasswordSettings = {
-  passwordPolicyMinLength: 8,
-  passwordPolicyCharacters: ['REQUIRES_LOWERCASE', 'REQUIRES_NUMBERS'],
+  minLength: 8,
+  requireLowercase: true,
+  requireNumbers: true,
 };
 
 describe('runValidators', () => {

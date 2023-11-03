@@ -1,5 +1,5 @@
 import {
-  AuthChallengeName,
+  ChallengeName,
   CodeDeliveryDetails,
   SocialProvider,
 } from '../../types';
@@ -9,7 +9,7 @@ import { AuthenticatorRoute } from './facade';
 /**
  * ConfirmSignIn
  */
-const getChallengeText = (challengeName?: AuthChallengeName): string => {
+const getChallengeText = (challengeName?: ChallengeName): string => {
   switch (challengeName) {
     case 'SMS_MFA':
       return translate(DefaultTexts.CONFIRM_SMS);
@@ -50,6 +50,12 @@ const getDeliveryMessageText = (
 const getDeliveryMethodText = (
   codeDeliveryDetails: CodeDeliveryDetails
 ): string => {
+  // @todo-migration delete
+  // console.log(
+  //   '+++UI: getDeliveryMethodText codeDeliveryDetails',
+  //   codeDeliveryDetails
+  // );
+
   const { DeliveryMedium } = codeDeliveryDetails ?? {};
   const isEmailMessage = DeliveryMedium === 'EMAIL';
   const isTextMessage = DeliveryMedium === 'SMS';

@@ -32,8 +32,9 @@ const defaultOptions: SnackOptions = {
   sdkVersion: '45.0.0',
   dependencies: [
     '@aws-amplify/ui-react-native,aws-amplify',
+    '@aws-amplify/react-native',
+    '@aws-amplify/rtn-web-browser',
     'react-native-safe-area-context',
-    'amazon-cognito-identity-js',
     '@react-native-community/netinfo',
     '@react-native-async-storage/async-storage',
     'react-native-get-random-values',

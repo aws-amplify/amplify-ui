@@ -1,6 +1,5 @@
 import { defineConfig } from 'rollup';
 import typescript from '@rollup/plugin-typescript';
-import { terser } from 'rollup-plugin-terser';
 import externals from 'rollup-plugin-node-externals';
 
 // common config settings
@@ -19,7 +18,6 @@ const config = defineConfig([
     plugins: [
       externals({ include: /^@aws-amplify/ }),
       typescript({ declarationDir: 'dist/types', sourceMap, tsconfig }),
-      terser(),
     ],
   },
   // ESM config
@@ -40,7 +38,6 @@ const config = defineConfig([
         sourceMap,
         tsconfig,
       }),
-      terser(),
     ],
   },
 ]);

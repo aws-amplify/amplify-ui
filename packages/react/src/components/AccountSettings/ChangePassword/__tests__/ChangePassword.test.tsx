@@ -98,7 +98,6 @@ describe('ChangePassword', () => {
     fireEvent.submit(submitButton);
 
     expect(changePasswordSpy).toHaveBeenCalledWith({
-      user,
       currentPassword: 'oldpassword',
       newPassword: 'newpassword',
     });
@@ -342,8 +341,7 @@ describe('ChangePassword', () => {
 
     fireEvent.submit(submitButton);
 
-    expect(changePasswordSpy).toHaveBeenCalledWith({
-      user,
+    expect(changePasswordSpy).toBeCalledWith({
       currentPassword: 'oldpassword',
       newPassword: 'newpassword',
     });

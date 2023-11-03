@@ -60,10 +60,9 @@ export const StorageManageri18nExample = () => {
       </ToggleButtonGroup>
       <StorageManager
         acceptedFileTypes={['image/*']}
-        accessLevel="public"
+        accessLevel="guest"
         maxFileCount={1}
         displayText={dictionary[language]}
-        provider="fast" // IGNORE
       />
     </>
   );

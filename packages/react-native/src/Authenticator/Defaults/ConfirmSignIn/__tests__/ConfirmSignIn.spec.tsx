@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
-import { AuthChallengeName, authenticatorTextUtil } from '@aws-amplify/ui';
+import { ChallengeName, authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { ConfirmSignIn } from '..';
 
@@ -14,7 +14,7 @@ const code = {
 const fields = [code];
 
 const props = {
-  challengeName: 'SMS_MFA' as AuthChallengeName,
+  challengeName: 'SMS_MFA' as ChallengeName,
   fields,
   Footer: ConfirmSignIn.Footer,
   FormFields: ConfirmSignIn.FormFields,

@@ -9,12 +9,14 @@ export const IGNORED_LINKS = [
   'https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html', // 403
   'https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-inapp.html', // 403
   'https://docs.aws.amazon.com/amplify/latest/userguide/getting-started.html', // 403
+  'https://docs.aws.amazon.com/cognito/latest/developerguide/getting-started-with-identity-pools.html', // 403
+  'https://docs.aws.amazon.com/cognito/latest/developerguide/getting-started-with-identity-pools.html#create-identity-pool', // 403
   'https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html', // 403
   'https://docs.aws.amazon.com/general/latest/gr/rekognition.html', // 403,
   'https://docs.aws.amazon.com/rekognition/latest/dg/face-liveness-programming-api.html', // 403
   'https://docs.aws.amazon.com/rekognition/latest/dg/recommendations-liveness.html', // 403
-  'https://docs.aws.amazon.com/cognito/latest/developerguide/getting-started-with-identity-pools.html', // 403
   'https://docs.aws.amazon.com/rekognition/latest/dg/face-liveness-prerequisites.html#face-liveness-prerequisites-amplify', // 403
+  'https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html', // 403
   'https://github.com/aws-amplify/amplify-ui/issues/new/choose', // 302. Only at test. Can't reproduce the status code. Can't find the redirected link.
   'https://github.com/aws-amplify/amplify-ui-android/issues/new/choose', // 302
   'https://github.com/aws-amplify/amplify-ui-swift/issues/new/choose', // 302 amplify-ui-wift redirects to amplify-ui-swift-liveness
@@ -38,7 +40,7 @@ export const IGNORED_LINKS = [
   'https://pub.dev/documentation/amplify_authenticator/latest/amplify_authenticator/amplify_authenticator-library.html',
   'https://docs.flutter.dev/ui/accessibility-and-localization/internationalization',
 
-  // @todo-upgrade-react-18 remove after releasing ui-react v6
+  // @todo-migration remove after releasing ui-react v6
   'https://github.com/aws-amplify/amplify-ui//blob/main/packages/ui/src/theme/tokens/components/accordion.ts',
   'https://github.com/aws-amplify/amplify-ui//blob/main/packages/react/src/primitives/Accordion/Accordion.tsx',
 ];

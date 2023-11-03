@@ -1,6 +1,8 @@
-import { Amplify, Auth } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import { signIn, signOut } from 'aws-amplify/auth';
 
 import {
+  Authenticator,
   Button,
   Flex,
   Text,
@@ -14,7 +16,7 @@ import awsExports from './aws-exports';
 import React from 'react';
 Amplify.configure(awsExports);
 
-export default function App() {
+function App() {
   const { authStatus } = useAuthenticator();
 
   const isAuthenticated = authStatus === 'authenticated';
@@ -26,7 +28,7 @@ export default function App() {
       onSubmit={(e: any) => {
         e.preventDefault();
 
-        Auth.signIn(Object.fromEntries(new FormData(e.target)) as any);
+        signIn(Object.fromEntries(new FormData(e.target)) as any);
       }}
     >
       <Text>{authStatus}</Text>
@@ -39,7 +41,7 @@ export default function App() {
       <Button
         onClick={() => {
           if (isAuthenticated) {
-            Auth.signOut();
+            signOut();
           }
         }}
         type={isAuthenticated ? 'button' : 'submit'}
@@ -47,5 +49,13 @@ export default function App() {
         {isAuthenticated ? 'Sign Out' : 'Sign In'}
       </Button>
     </Flex>
+  );
+}
+
+export default function ProviderWrappedApp() {
+  return (
+    <Authenticator.Provider>
+      <App />
+    </Authenticator.Provider>
   );
 }

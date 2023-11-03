@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 
-import { Logger } from 'aws-amplify';
+import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import {
   authenticatorTextUtil,
   UnverifiedContactMethodType,

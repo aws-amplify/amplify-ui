@@ -4,10 +4,10 @@ exports[`useAuthenticator returns the expected values 1`] = `
 {
   "QRFields": null,
   "authStatus": "authenticated",
+  "challengeName": "SELECT_MFA_TYPE",
   "codeDeliveryDetails": {},
   "error": undefined,
   "fields": undefined,
-  "getTotpSecretCode": undefined,
   "hasValidationErrors": false,
   "initializeMachine": [MockFunction],
   "isPending": false,

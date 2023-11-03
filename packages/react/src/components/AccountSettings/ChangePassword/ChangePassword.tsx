@@ -1,12 +1,13 @@
 import React from 'react';
 import isEqual from 'lodash/isEqual.js';
 
-import { Logger } from 'aws-amplify';
+import { useSetUserAgent } from '@aws-amplify/ui-react-core';
 import {
   changePassword,
   ValidatorOptions,
   getDefaultConfirmPasswordValidators,
   getDefaultPasswordValidators,
+  getLogger,
   runFieldValidators,
 } from '@aws-amplify/ui';
 
@@ -17,8 +18,9 @@ import { FormValues, BlurredFields, ValidationError } from '../types';
 import { ChangePasswordProps, ValidateParams } from './types';
 import DEFAULTS from './defaults';
 import { defaultChangePasswordDisplayText } from '../utils';
+import { VERSION } from '../../../version';
 
-const logger = new Logger('ChangePassword');
+const logger = getLogger('AccountSettings');
 
 const getIsDisabled = (
   formValues: FormValues,
@@ -58,6 +60,12 @@ function ChangePassword({
   const passwordValidators: ValidatorOptions[] = React.useMemo(() => {
     return validators ?? getDefaultPasswordValidators();
   }, [validators]);
+
+  useSetUserAgent({
+    componentName: 'ChangePassword',
+    packageName: 'react',
+    version: VERSION,
+  });
 
   /*
    * Note that formValues and other states are passed in as props so that
@@ -173,7 +181,7 @@ function ChangePassword({
       setErrorMessage(null);
     }
 
-    changePassword({ user, currentPassword, newPassword })
+    changePassword({ currentPassword, newPassword })
       .then(() => {
         // notify success to the parent
         onSuccess?.();
@@ -186,7 +194,7 @@ function ChangePassword({
       });
   };
 
-  // Return null if Auth.getCurrentAuthenticatedUser is still in progress
+  // Return null if Auth.getgetCurrentUser is still in progress
   if (isLoading) {
     return null;
   }

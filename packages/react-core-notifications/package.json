@@ -31,7 +31,6 @@
     "lint": "yarn typecheck && eslint src --ext .js,.ts,.tsx",
     "prebuild": "rimraf dist",
     "test": "jest",
-    "test:ci": "yarn test && yarn check:esm",
     "test:watch": "yarn test --watch",
     "typecheck": "tsc --noEmit"
   },
@@ -40,12 +39,8 @@
     "@aws-amplify/ui-react-core": "2.1.33"
   },
   "peerDependencies": {
-    "aws-amplify": "^5.0.1",
+    "aws-amplify": "unstable",
     "react": "^16.14.0 || ^17.0 || ^18.0"
-  },
-  "devDependencies": {
-    "@aws-amplify/eslint-config-amplify-ui": "0.0.0",
-    "@aws-amplify/typescript-config": "0.0.0"
   },
   "sideEffects": false
 }

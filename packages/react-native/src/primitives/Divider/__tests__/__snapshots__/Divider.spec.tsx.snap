@@ -16,9 +16,9 @@ exports[`Divider applies theme and style props 1`] = `
     style={
       [
         {
-          "backgroundColor": "hsl(0, 0%, 0%)",
+          "backgroundColor": "hsl(210, 5%, 87%)",
           "flex": 1,
-          "height": 0.5,
+          "height": 1,
         },
         {
           "backgroundColor": "blue",
@@ -41,6 +41,7 @@ exports[`Divider applies theme and style props 1`] = `
         },
         [
           {
+            "color": "hsl(210, 10%, 40%)",
             "fontSize": 16,
             "margin": 16,
             "textAlign": "center",
@@ -58,9 +59,9 @@ exports[`Divider applies theme and style props 1`] = `
     style={
       [
         {
-          "backgroundColor": "hsl(0, 0%, 0%)",
+          "backgroundColor": "hsl(210, 5%, 87%)",
           "flex": 1,
-          "height": 0.5,
+          "height": 1,
         },
         {
           "backgroundColor": "blue",
@@ -87,9 +88,9 @@ exports[`Divider renders as expected with label 1`] = `
     style={
       [
         {
-          "backgroundColor": "hsl(0, 0%, 0%)",
+          "backgroundColor": "hsl(210, 5%, 87%)",
           "flex": 1,
-          "height": 0.5,
+          "height": 1,
         },
         undefined,
       ]
@@ -110,6 +111,7 @@ exports[`Divider renders as expected with label 1`] = `
         },
         [
           {
+            "color": "hsl(210, 10%, 40%)",
             "fontSize": 16,
             "margin": 16,
             "textAlign": "center",
@@ -125,9 +127,9 @@ exports[`Divider renders as expected with label 1`] = `
     style={
       [
         {
-          "backgroundColor": "hsl(0, 0%, 0%)",
+          "backgroundColor": "hsl(210, 5%, 87%)",
           "flex": 1,
-          "height": 0.5,
+          "height": 1,
         },
         undefined,
       ]
@@ -152,9 +154,9 @@ exports[`Divider renders as expected without label 1`] = `
     style={
       [
         {
-          "backgroundColor": "hsl(0, 0%, 0%)",
+          "backgroundColor": "hsl(210, 5%, 87%)",
           "flex": 1,
-          "height": 0.5,
+          "height": 1,
         },
         undefined,
       ]

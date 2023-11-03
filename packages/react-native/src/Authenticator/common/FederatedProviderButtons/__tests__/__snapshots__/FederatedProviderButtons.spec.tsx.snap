@@ -3,10 +3,14 @@
 exports[`FederatedProviderButtons renders as expected 1`] = `
 <View
   style={
-    {
-      "paddingVertical": 4,
-    }
+    [
+      {
+        "marginHorizontal": 12,
+      },
+      undefined,
+    ]
   }
+  testID="amplify__federated-provider-buttons"
 >
   <View
     accessibilityRole="button"
@@ -47,25 +51,22 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
           "borderColor": "hsl(210, 10%, 58%)",
           "borderRadius": 4,
           "borderWidth": 1,
+          "flexDirection": "row",
+          "gap": 12,
           "justifyContent": "center",
           "paddingHorizontal": 16,
           "paddingVertical": 12,
         },
         undefined,
         [
-          {
-            "alignItems": "center",
-            "borderRadius": 4,
-            "borderWidth": 0.5,
-            "flexDirection": "row",
-            "justifyContent": "center",
-            "paddingVertical": 8,
-            "width": "100%",
-          },
           undefined,
-          {
-            "marginVertical": 8,
-          },
+          undefined,
+          [
+            {
+              "marginVertical": 8,
+            },
+            undefined,
+          ],
         ],
       ]
     }
@@ -86,9 +87,7 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
             "tintColor": undefined,
             "width": 20,
           },
-          {
-            "paddingHorizontal": 16,
-          },
+          undefined,
         ]
       }
     />
@@ -105,9 +104,6 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
             "color": "hsl(210, 50%, 10%)",
           },
           [
-            {
-              "fontWeight": "400",
-            },
             undefined,
           ],
         ]
@@ -131,9 +127,9 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
       style={
         [
           {
-            "backgroundColor": "hsl(0, 0%, 0%)",
+            "backgroundColor": "hsl(210, 5%, 87%)",
             "flex": 1,
-            "height": 0.5,
+            "height": 1,
           },
           undefined,
         ]
@@ -154,27 +150,30 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
           },
           [
             {
+              "color": "hsl(210, 10%, 40%)",
               "fontSize": 16,
               "margin": 16,
               "textAlign": "center",
             },
-            {
-              "paddingVertical": 8,
-              "textAlign": "center",
-            },
+            [
+              {
+                "textAlign": "center",
+              },
+              undefined,
+            ],
           ],
         ]
       }
     >
-      Or
+      or
     </Text>
     <View
       style={
         [
           {
-            "backgroundColor": "hsl(0, 0%, 0%)",
+            "backgroundColor": "hsl(210, 5%, 87%)",
             "flex": 1,
-            "height": 0.5,
+            "height": 1,
           },
           undefined,
         ]

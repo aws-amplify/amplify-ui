@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
+import * as Storage from 'aws-amplify/storage';
 
-import { Storage } from 'aws-amplify';
 import { ComponentClassName } from '@aws-amplify/ui';
 
 import { StorageImage } from '../StorageImage';
@@ -11,14 +11,22 @@ describe('StorageImage', () => {
   const imgURL = 'https://amplify.s3.amazonaws.com/path/to/test.jpg';
   const fallbackSrc = 'https://amplify.s3.amazonaws.com/path/to/fallback.jpg';
   const errorMessage = '500 Internal Server Error';
+  const accessLevel = 'guest';
 
   beforeAll(() => {
-    jest.spyOn(Storage, 'get').mockResolvedValue(imgURL);
+    jest.spyOn(Storage, 'getUrl').mockResolvedValue({
+      url: new URL(imgURL),
+      expiresAt: new Date(),
+    });
   });
 
   it('should render default classname', async () => {
     render(
-      <StorageImage alt="StorageImage" imgKey={imgKey} accessLevel="public" />
+      <StorageImage
+        alt="StorageImage"
+        imgKey={imgKey}
+        accessLevel={accessLevel}
+      />
     );
 
     const img = await screen.findByRole('img');
@@ -32,7 +40,7 @@ describe('StorageImage', () => {
         alt="StorageImage"
         className={className}
         imgKey={imgKey}
-        accessLevel="public"
+        accessLevel={accessLevel}
       />
     );
 
@@ -46,7 +54,7 @@ describe('StorageImage', () => {
       <StorageImage
         alt="StorageImage"
         imgKey={imgKey}
-        accessLevel="public"
+        accessLevel={accessLevel}
         onStorageGetError={onStorageError}
       />
     );
@@ -56,16 +64,17 @@ describe('StorageImage', () => {
     expect(img).toHaveAttribute('src', imgURL);
   });
 
-  // @todo-upgrade-react-18
+  // @todo-migration fix
+  // eslint-disable-next-line jest/no-disabled-tests
   it.skip('should set image src attribute to fallbackSrc and invoke onGetStorageError when Storage.get is rejected', async () => {
     jest.restoreAllMocks();
-    jest.spyOn(Storage, 'get').mockRejectedValue(errorMessage);
+    jest.spyOn(Storage, 'getUrl').mockRejectedValue(errorMessage);
     const onStorageError = jest.fn();
     render(
       <StorageImage
         alt="StorageImage"
         imgKey={imgKey}
-        accessLevel="public"
+        accessLevel={accessLevel}
         fallbackSrc={fallbackSrc}
         onStorageGetError={onStorageError}
       />

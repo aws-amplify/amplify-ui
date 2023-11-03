@@ -1,4 +1,8 @@
 PODS:
+  - "AmplifyRTNCore (1.0.1-unstable.588b76b.0+588b76b)":
+    - React-Core
+  - "AmplifyRTNWebBrowser (1.0.1-unstable.588b76b.0+588b76b)":
+    - React-Core
   - boost (1.76.0)
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
@@ -421,8 +425,6 @@ PODS:
     - React-jsi (= 0.71.14)
     - React-logger (= 0.71.14)
     - React-perflogger (= 0.71.14)
-  - RNAWSCognito (6.3.6):
-    - React-Core
   - RNCAsyncStorage (1.18.1):
     - React-Core
   - SocketRocket (0.6.1)
@@ -431,6 +433,8 @@ PODS:
     - Yoga (~> 1.14)
 
 DEPENDENCIES:
+  - "AmplifyRTNCore (from `../node_modules/@aws-amplify/react-native`)"
+  - "AmplifyRTNWebBrowser (from `../../../node_modules/@aws-amplify/rtn-web-browser`)"
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
@@ -493,7 +497,6 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - RNAWSCognito (from `../node_modules/amazon-cognito-identity-js`)
   - "RNCAsyncStorage (from `../../../node_modules/@react-native-async-storage/async-storage`)"
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -516,6 +519,10 @@ SPEC REPOS:
     - YogaKit
 
 EXTERNAL SOURCES:
+  AmplifyRTNCore:
+    :path: "../node_modules/@aws-amplify/react-native"
+  AmplifyRTNWebBrowser:
+    :path: "../../../node_modules/@aws-amplify/rtn-web-browser"
   boost:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
   DoubleConversion:
@@ -590,14 +597,14 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/runtimeexecutor"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
-  RNAWSCognito:
-    :path: "../node_modules/amazon-cognito-identity-js"
   RNCAsyncStorage:
     :path: "../../../node_modules/@react-native-async-storage/async-storage"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  AmplifyRTNCore: 48a938efcf4b5aad51e1537d77c9a0bb2c4d99c3
+  AmplifyRTNWebBrowser: be69b21ab1064fbee4035cd13dcd974e212376c1
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
@@ -648,12 +655,11 @@ SPEC CHECKSUMS:
   React-RCTVibration: 64e412b9ac684c4edc938fa1187135ada9af7faf
   React-runtimeexecutor: ffe826b7b1cfbc32a35ed5b64d5886c0ff75f501
   ReactCommon: 7f3dd5e98a9ec627c6b03d26c062bf37ea9fc888
-  RNAWSCognito: c36b39c89406b2107aa6d57448d0a7c8feb2af58
   RNCAsyncStorage: b90b71f45b8b97be43bc4284e71a6af48ac9f547
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: e71803b4c1fff832ccf9b92541e00f9b873119b9
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: aa4f87fe5fe6130c5825a52f3d2244178ad6af02
+PODFILE CHECKSUM: f7c8f4ded50877217c4595b83eaa30fc6a145138
 
 COCOAPODS: 1.12.1

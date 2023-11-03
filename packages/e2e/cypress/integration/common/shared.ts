@@ -9,6 +9,12 @@ let language = 'en-US';
 let window = null;
 let stub = null;
 
+const getRoute = (routeMatcher: { headers: { [key: string]: string } }) => {
+  return `${routeMatcher.headers?.['X-Amz-Target'] || 'route'}`;
+};
+const getWaitRoute = (routeMatcher: { headers: { [key: string]: string } }) =>
+  `@${getRoute(routeMatcher)}`;
+
 /**
  * Given dot delimited paths to a method (e.g. Amplify.Auth.signIn) on window,
  * returns the object that holds the method (Amplify.Auth) and the method (signIn).
@@ -70,9 +76,53 @@ Given(
       throw error;
     }
 
-    cy.intercept(routeMatcher, { fixture }).as('route');
+    cy.intercept(routeMatcher, { fixture }).as(getRoute(routeMatcher));
   }
 );
+
+Given(
+  'I intercept and confirm {string} with fixture {string}',
+  (json: string, fixture: string) => {
+    let routeMatcher;
+
+    try {
+      routeMatcher = JSON.parse(json);
+    } catch (error) {
+      throw error;
+    }
+
+    cy.intercept(routeMatcher, { fixture }).as(getRoute(routeMatcher));
+    cy.wait(getWaitRoute(routeMatcher)).then((interception) => {
+      assert.isNotNull(interception, 'API call confirmed');
+    });
+  }
+);
+
+Given('I spy request {string}', (json: string) => {
+  let routeMatcher;
+
+  try {
+    routeMatcher = JSON.parse(json);
+  } catch (error) {
+    throw error;
+  }
+
+  cy.intercept(routeMatcher).as(getRoute(routeMatcher));
+});
+
+Given('I confirm request {string}', (json: string) => {
+  let routeMatcher;
+
+  try {
+    routeMatcher = JSON.parse(json);
+  } catch (error) {
+    throw error;
+  }
+
+  cy.wait(getWaitRoute(routeMatcher)).then((interception) => {
+    assert.isNotNull(interception, 'API call confirmed');
+  });
+});
 
 Given(
   'I intercept {string} with fixture {string} and add header {string} with value {string}',
@@ -90,6 +140,22 @@ Given(
         [headerName]: headerValue,
       },
     });
+  }
+);
+
+Given(
+  'I verify the {string} body has {string} included',
+  (json: string, value: string) => {
+    let routeMatcher;
+
+    try {
+      routeMatcher = JSON.parse(json);
+    } catch (error) {
+      throw error;
+    }
+    cy.wait(getWaitRoute(routeMatcher))
+      .its('request.body.Username')
+      .should('include', value);
   }
 );
 
@@ -182,6 +248,12 @@ Then('I see the {string} button', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
   }).should('exist');
+});
+
+Then('I do not see the {string} button', (name: string) => {
+  cy.findByRole('button', {
+    name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
+  }).should('not.exist');
 });
 
 When('I click the {string} checkbox', (label: string) => {
@@ -339,7 +411,7 @@ When('I see {string} as the {string} input', (custom, order) => {
   cy.get('input').eq(order).should('have.attr', 'placeholder', custom);
 });
 
-When('I mock {string} event', (eventName: string) => {
+When('I dispatch {string} event', (eventName: string) => {
   if (!window) {
     throw new Error('window has not been set in the Cypress tests');
   }
@@ -370,7 +442,7 @@ When(
   }
 );
 
-Given('I spy {string} method', (path) => {
+Given('I spy {string} method', (path: string) => {
   const { obj, method } = getMethodFromWindow(path);
   cy.spy(obj, method).as(path);
 });

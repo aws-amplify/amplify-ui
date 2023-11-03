@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { renderHook, WrapperComponent } from '@testing-library/react-hooks';
-import { Auth } from 'aws-amplify';
+
+import * as AuthModule from 'aws-amplify/auth';
 import { AuthenticatorServiceFacade } from '@aws-amplify/ui';
 import * as UIModule from '@aws-amplify/ui';
 
@@ -11,6 +13,7 @@ import { useAuthenticator, UseAuthenticator } from '..';
 
 const mockServiceFacade: AuthenticatorServiceFacade = {
   authStatus: 'authenticated',
+  challengeName: 'SELECT_MFA_TYPE',
   codeDeliveryDetails: {} as UseAuthenticator['codeDeliveryDetails'],
   error: undefined as unknown as UseAuthenticator['error'],
   hasValidationErrors: false,
@@ -58,7 +61,9 @@ const Wrapper: WrapperComponent<{ children?: React.ReactNode }> = ({
   children,
 }) => <AuthenticatorProvider>{children}</AuthenticatorProvider>;
 
-jest.spyOn(Auth, 'currentAuthenticatedUser').mockResolvedValue(undefined);
+jest
+  .spyOn(AuthModule, 'getCurrentUser')
+  .mockResolvedValue({ userId: '1234', username: 'test' });
 
 describe('useAuthenticator', () => {
   beforeEach(() => {

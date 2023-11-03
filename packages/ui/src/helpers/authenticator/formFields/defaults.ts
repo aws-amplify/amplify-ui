@@ -13,6 +13,8 @@ import {
   FormFieldComponents,
   SignInState,
   SignInContext,
+  LoginMechanism,
+  SignUpAttribute,
 } from '../../../types';
 
 /** Helper function that gets the default formField for given field name */
@@ -62,9 +64,15 @@ const getSignInFormFields = (state: AuthMachineState): FormFields => ({
 });
 
 const getSignUpFormFields = (state: AuthMachineState): FormFields => {
-  const { loginMechanisms, signUpAttributes } = state.context.config;
+  const { loginMechanisms, signUpAttributes } = state.context.config as {
+    loginMechanisms: LoginMechanism[];
+    signUpAttributes: SignUpAttribute[];
+  };
   const primaryAlias = getPrimaryAlias(state);
 
+  /**
+   * @migration signUp Fields created here
+   */
   const fieldNames = Array.from(
     new Set([
       ...loginMechanisms,
@@ -107,8 +115,8 @@ const getResetPasswordFormFields = (state: AuthMachineState): FormFields => {
   return {
     username: {
       ...getAliasDefaultFormField(state),
-      label: `Enter your ${label.toLowerCase()}`,
-      placeholder: `Enter your ${label.toLowerCase()}`,
+      label: `Enter your ${label!.toLowerCase()}`,
+      placeholder: `Enter your ${label!.toLowerCase()}`,
     },
   };
 };
@@ -131,10 +139,19 @@ const getConfirmResetPasswordFormFields = (
 
 const getForceNewPasswordFormFields = (state: AuthMachineState): FormFields => {
   const actorState = getActorState(state) as SignInState;
-  const { requiredAttributes } = actorState.context as SignInContext;
+  const { requiredAttributes } = actorState.context as {
+    requiredAttributes: SignUpAttribute[];
+  };
 
+  /**
+   * @migration `requiredAttributes` translates to v6 `missingAttributes`
+   */
   const fieldNames = Array.from(
-    new Set(['password', 'confirm_password', ...requiredAttributes] as const)
+    new Set([
+      'password',
+      'confirm_password',
+      ...(requiredAttributes ?? []),
+    ] as const)
   );
 
   const formField: FormFields = {};

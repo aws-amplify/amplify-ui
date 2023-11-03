@@ -39,6 +39,7 @@ export {
   UseDeprecationWarning,
   useHasValueUpdated,
   usePreviousValue,
+  useSetUserAgent,
   useTimeout,
 } from './hooks';
 

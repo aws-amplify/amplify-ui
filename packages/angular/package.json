@@ -8,7 +8,6 @@
     "start": "ng serve",
     "build": "ng build --configuration production",
     "test": "jest",
-    "test:ci": "yarn test",
     "test:watch": "yarn test --watch",
     "lint": "ng lint"
   },
@@ -30,7 +29,6 @@
     "@angular/platform-browser": "^14.3.0",
     "@angular/platform-browser-dynamic": "^14.3.0",
     "@angular/router": "^14.3.0",
-    "@aws-amplify/eslint-config-amplify-ui": "0.0.0",
     "@testing-library/angular": "^12.0.0",
     "@types/node": "^20.2.5",
     "canvas": "^2.11.2",

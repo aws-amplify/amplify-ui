@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, renderHook } from '@testing-library/react-native';
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
+import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 
 import { useTheme } from '../../../theme';
 import { getThemedStyles } from '../styles';

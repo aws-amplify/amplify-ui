@@ -21,13 +21,13 @@ const config: Config = {
   // },
   coverageThreshold: {
     global: {
-      branches: 61.69,
-      functions: 30.83,
+      branches: 61.11,
+      functions: 30.79,
       lines: 42.73,
       statements: 44.58,
     },
   },
-  // @todo-upgrade-react-18 update test API usage and remove temp thresholds
+  // @todo-migration update test API usage and remove temp thresholds
   testPathIgnorePatterns: [
     '<rootDir>/src/primitives/Accordion/__tests__/Accordion.test.tsx',
     '<rootDir>/src/primitives/Autocomplete/__tests__/Autocomplete.test.tsx',

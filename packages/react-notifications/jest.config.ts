@@ -25,7 +25,7 @@ const config: Config = {
       statements: 58.46,
     },
   },
-  // @todo-upgrade-react-18 update test API usage and remove temp thresholds
+  // @todo-migration update test API usage and remove temp thresholds
   testPathIgnorePatterns: [
     '<rootDir>/src/components/InAppMessaging/MessageLayout/__tests__/MessageLayout.test.tsx',
   ],

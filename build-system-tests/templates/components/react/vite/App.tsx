@@ -1,5 +1,9 @@
 import { useEffect } from 'react';
-import { Amplify, Notifications } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import {
+  initializeInAppMessaging,
+  syncMessages,
+} from 'aws-amplify/in-app-messaging';
 import { AccountSettings, Authenticator, Text } from '@aws-amplify/ui-react';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
 import {
@@ -12,12 +16,12 @@ import '@aws-amplify/ui-react-geo/styles.css';
 import awsconfig from './aws-exports';
 Amplify.configure(awsconfig);
 
-const { InAppMessaging } = Notifications;
+initializeInAppMessaging();
 
 export default function Home() {
   useEffect(() => {
     // sync remote in-app messages
-    InAppMessaging.syncMessages();
+    syncMessages();
   }, []);
 
   return (
@@ -38,7 +42,7 @@ export default function Home() {
       <AccountSettings.DeleteUser onSuccess={() => {}} />
       <StorageManager
         acceptedFileTypes={['image/*']}
-        accessLevel="public"
+        accessLevel="guest"
         maxFileCount={1}
         isResumable
       />

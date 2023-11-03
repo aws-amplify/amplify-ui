@@ -18,7 +18,7 @@ Feature: Delete User
     Then I click the "Delete" button
     Then I see "Sign in"
 
- @react
+  @react
   Scenario: Initiate delete but don't confirm deletion
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.DeleteUser" } }' with fixture "delete-user"
     When I type my "email" with status "CONFIRMED"

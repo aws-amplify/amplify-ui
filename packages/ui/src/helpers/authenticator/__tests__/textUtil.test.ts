@@ -1,4 +1,5 @@
 import { authenticatorTextUtil } from '../textUtil';
+import { V6AuthDeliveryMedium } from '../../../types';
 
 describe('authenticatorTextUtil', () => {
   describe('getChallengeText', () => {
@@ -16,7 +17,7 @@ describe('authenticatorTextUtil', () => {
 
     it('throws an error for unexpected challenge names', () => {
       expect(() =>
-        // @ts-expect-error getChallengeText param is typed, this is for js usecase
+        // @ts-expect-error
         authenticatorTextUtil.getChallengeText('invalidChallenge')
       ).toThrow(
         'Unexpected challengeName encountered in ConfirmSignIn: invalidChallenge'
@@ -27,7 +28,7 @@ describe('authenticatorTextUtil', () => {
   describe('getDeliveryMessageText', () => {
     it('returns the correct text for email delivery', () => {
       const codeDeliveryDetails = {
-        DeliveryMedium: 'EMAIL',
+        DeliveryMedium: 'EMAIL' as V6AuthDeliveryMedium,
         Destination: 'user@example.com',
         AttributeName: '',
       };
@@ -41,7 +42,7 @@ describe('authenticatorTextUtil', () => {
 
     it('returns the correct text for SMS delivery', () => {
       const codeDeliveryDetails = {
-        DeliveryMedium: 'SMS',
+        DeliveryMedium: 'SMS' as V6AuthDeliveryMedium,
         Destination: '+1234567890',
         AttributeName: '',
       };
@@ -55,7 +56,7 @@ describe('authenticatorTextUtil', () => {
 
     it('returns the default text for other delivery methods', () => {
       const codeDeliveryDetails = {
-        DeliveryMedium: 'INVALID_MEDIUM',
+        DeliveryMedium: 'INVALID_MEDIUM' as V6AuthDeliveryMedium,
         Destination: 'user@example.com',
         AttributeName: '',
       };
@@ -71,7 +72,7 @@ describe('authenticatorTextUtil', () => {
   describe('getDeliveryMethodText', () => {
     it('returns the correct text for email delivery', () => {
       const codeDeliveryDetails = {
-        DeliveryMedium: 'EMAIL',
+        DeliveryMedium: 'EMAIL' as V6AuthDeliveryMedium,
         Destination: 'user@example.com',
         AttributeName: '',
       };
@@ -83,7 +84,7 @@ describe('authenticatorTextUtil', () => {
 
     it('returns the correct text for SMS delivery', () => {
       const codeDeliveryDetails = {
-        DeliveryMedium: 'SMS',
+        DeliveryMedium: 'SMS' as V6AuthDeliveryMedium,
         Destination: '+1234567890',
         AttributeName: '',
       };

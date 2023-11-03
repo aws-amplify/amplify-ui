@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useSetUserAgent } from '@aws-amplify/ui-react-core';
 import { deleteUser, getLogger } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
@@ -8,8 +9,9 @@ import { ComponentClassName } from '../constants';
 import DEFAULTS from './defaults';
 import { DeleteUserProps, DeleteUserState } from './types';
 import { defaultDeleteUserDisplayText } from '../utils';
+import { VERSION } from '../../../version';
 
-const logger = getLogger('Auth');
+const logger = getLogger('AccountSettings');
 
 function DeleteUser({
   components,
@@ -20,6 +22,12 @@ function DeleteUser({
 }: DeleteUserProps): JSX.Element | null {
   const [state, setState] = React.useState<DeleteUserState>('IDLE');
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
+
+  useSetUserAgent({
+    componentName: 'DeleteUser',
+    packageName: 'react',
+    version: VERSION,
+  });
 
   // translations
   const displayText = {
@@ -80,7 +88,7 @@ function DeleteUser({
     runDeleteUser();
   }, [runDeleteUser]);
 
-  // Return null if Auth.getCurrentAuthenticatedUser is still in progress
+  // Return null if Auth.getgetCurrentUser is still in progress
   if (isLoading) {
     return null;
   }

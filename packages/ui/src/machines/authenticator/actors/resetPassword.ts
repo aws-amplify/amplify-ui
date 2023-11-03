@@ -16,12 +16,14 @@ import {
   resendCode,
 } from '../actions';
 import { defaultServices } from '../defaultServices';
+import { groupLog } from '../../../utils';
 
 export type ResetPasswordMachineOptions = {
   services?: Partial<typeof defaultServices>;
 };
 
 export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
+  groupLog('+++resetPasswordActor (machine)');
   return createMachine<ResetPasswordContext, AuthEvent>(
     {
       id: 'resetPasswordActor',
@@ -190,19 +192,38 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
         },
       },
       services: {
-        async resetPassword(context) {
-          const { username } = context;
+        // async resetPassword(context) {
+        //   const { username } = context;
 
-          return services.handleForgotPassword(username);
+        //   return services.handleForgotPassword(username);
+        // },
+        /**
+         * @TechDebt `services.handleForgotPassword` requires `username`.
+         * but setting `username` to required in `ResetPasswordContext`
+         * has a wide ranging impact.
+         */
+        async resetPassword({ username = '' }: ResetPasswordContext) {
+          return services.handleForgotPassword({ username });
         },
+        // async confirmResetPassword(context) {
+        //   const { username } = context;
+        //   const { confirmation_code: code, password } = context.formValues;
+
+        //   return services.handleForgotPasswordSubmit({
+        //     username,
+        //     code,
+        //     password,
+        //   });
+        // },
         async confirmResetPassword(context) {
           const { username } = context;
-          const { confirmation_code: code, password } = context.formValues;
+          const { confirmation_code: confirmationCode, password } =
+            context.formValues;
 
           return services.handleForgotPasswordSubmit({
+            confirmationCode,
+            newPassword: password,
             username,
-            code,
-            password,
           });
         },
         async validateFields(context, event) {

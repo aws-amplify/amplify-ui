@@ -1,4 +1,4 @@
-import { Hub } from 'aws-amplify';
+import { Hub } from 'aws-amplify/utils';
 
 import * as Utils from '../utils';
 import { AuthInterpreter } from '../../../types';
@@ -25,7 +25,8 @@ describe('listenToAuthHub', () => {
         channel: 'auth',
         patternInfo: [],
         payload: { event: 'signOut' },
-        source: '',
+        // @todo-migration confirm changing from source '' to undefined is correct
+        source: undefined,
       },
       authenticatedStateMachine
     );

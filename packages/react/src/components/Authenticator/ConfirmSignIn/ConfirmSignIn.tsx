@@ -17,6 +17,9 @@ export const ConfirmSignIn = ({
   className,
   variation,
 }: RouteProps): JSX.Element => {
+  // eslint-disable-next-line no-console
+  console.log('+++UI: ConfirmSignIn');
+
   const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
@@ -56,9 +59,9 @@ export const ConfirmSignIn = ({
 };
 
 function Header() {
-  const {
-    user: { challengeName },
-  } = useAuthenticator(({ user }) => [user]);
+  const { challengeName } = useAuthenticator(({ challengeName }) => [
+    challengeName,
+  ]);
 
   return <Heading level={3}>{getChallengeText(challengeName)}</Heading>;
 }

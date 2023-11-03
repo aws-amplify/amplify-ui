@@ -26,6 +26,7 @@ import {
 import { getActorContext, getActorState } from './actor';
 import { NAVIGABLE_ROUTE_EVENT } from './constants';
 import { getRoute } from './utils';
+import { groupLog } from '../../utils';
 
 export type AuthenticatorRoute =
   | 'authenticated'
@@ -49,6 +50,7 @@ export type AuthStatus = 'configuring' | 'authenticated' | 'unauthenticated';
 
 interface AuthenticatorServiceContextFacade {
   authStatus: AuthStatus;
+  challengeName: ChallengeName | undefined;
   codeDeliveryDetails: CodeDeliveryDetails;
   error: string;
   hasValidationErrors: boolean;
@@ -103,12 +105,6 @@ interface NextAuthenticatorSendEventAliases
   setRoute: (route: NavigableRoute) => void;
   skipAttributeVerification: () => void;
 }
-
-type NextSendEventAlias =
-  | 'resendCode'
-  | 'submitForm'
-  | 'toFederatedSignIn'
-  | 'skipVerification';
 
 export interface NextAuthenticatorServiceFacade
   extends NextAuthenticatorSendEventAliases,
@@ -174,6 +170,7 @@ export const getServiceContextFacade = (
 ): AuthenticatorServiceContextFacade => {
   const actorContext = (getActorContext(state) ?? {}) as ActorContextWithForms;
   const {
+    challengeName,
     codeDeliveryDetails,
     remoteError: error,
     unverifiedContactMethods,
@@ -181,14 +178,15 @@ export const getServiceContextFacade = (
     totpSecretCode = null,
   } = actorContext;
 
-  const { socialProviders } = state.context?.config ?? {};
+  const { socialProviders = [] } = state.context?.config ?? {};
 
   // check for user in actorContext prior to state context. actorContext is more "up to date",
   // but is not available on all states
   const user = actorContext?.user ?? state.context?.user;
 
-  const hasValidationErrors =
-    validationErrors && Object.keys(validationErrors).length > 0;
+  const hasValidationErrors = !!(
+    validationErrors && Object.keys(validationErrors).length > 0
+  );
 
   const actorState = getActorState(state);
   const isPending = state.hasTag('pending') || actorState?.hasTag('pending');
@@ -209,8 +207,9 @@ export const getServiceContextFacade = (
     }
   })(route);
 
-  return {
+  const facade = {
     authStatus,
+    challengeName,
     codeDeliveryDetails,
     error,
     hasValidationErrors,
@@ -221,7 +220,17 @@ export const getServiceContextFacade = (
     unverifiedContactMethods,
     user,
     validationErrors,
-  };
+
+    // @v6-migration-note
+    // While most of the properties
+    // on `AuthenticatorServiceContextFacade` can resolve to `undefined`, updating
+    // the interface requires material changes in consumers (namely `useAutenticator`)
+    // which will have implications on the UI layer as typeguards and non-null checks
+    // are required to pass type checking. As the `Authenticator` is behaving as expected
+    // with the `AuthenticatorServiceContextFacade` interface, prefer to cast
+  } as AuthenticatorServiceContextFacade;
+
+  return facade;
 };
 
 export const getNextServiceContextFacade = (
@@ -247,7 +256,8 @@ export const getNextServiceContextFacade = (
   const actorState = getActorState(state);
   const isPending = state.hasTag('pending') || actorState?.hasTag('pending');
 
-  const route = getRoute(state, actorState);
+  // @todo-migration remove this cast for Authenticator.Next
+  const route = getRoute(state, actorState) as AuthenticatorRoute;
 
   return {
     challengeName,

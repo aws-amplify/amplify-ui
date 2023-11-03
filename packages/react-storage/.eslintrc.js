@@ -1,8 +1,8 @@
 module.exports = {
   extends: ['@aws-amplify/amplify-ui/react'],
+  ignorePatterns: ['.eslintrc.js', 'dist', 'rollup.config.ts'],
   // point to local tsconfig
   parserOptions: { project: ['tsconfig.json'], tsconfigRootDir: __dirname },
-  ignorePatterns: ['.eslintrc.js', 'dist'],
   overrides: [
     {
       extends: ['@aws-amplify/amplify-ui/jest'],
