@@ -17,41 +17,6 @@ if (!config.Auth) {
 config.Auth.Cognito.userPoolEndpoint = 'http://127.0.0.1:9091/';
 Amplify.configure(config);
 
-const formFields = {
-  signUp: {
-    zoneinfo: {
-      label: 'Zone Info',
-      isRequired: false,
-      type: 'text',
-    },
-    picture: {
-      label: 'Picture',
-      isRequired: false,
-      type: 'text',
-    },
-    updated_at: {
-      label: 'Updated at',
-      isRequired: false,
-      type: 'text',
-    },
-    address: {
-      label: 'Address',
-      isRequired: false,
-      type: 'text',
-    },
-    gender: {
-      label: 'Gender',
-      isRequired: false,
-      type: 'text',
-    },
-    locale: {
-      label: 'Locale',
-      isRequired: false,
-      type: 'text',
-    },
-  },
-};
-
 function App() {
   return (
     <Authenticator.Provider>
@@ -65,7 +30,6 @@ function App() {
             </>
           ),
         }}
-        formFields={formFields}
       >
         <View style={style.container}>
           <SignOutButton />
