@@ -87,7 +87,7 @@ exports[`SignIn renders as expected 1`] = `
           
           <!-- password input -->
           <div
-            class="amplify-flex amplify-field amplify-textfield amplify-passwordfield amplify-authenticator__column"
+            class="amplify-flex amplify-field amplify-textfield amplify-passwordfield"
           >
             
             <label

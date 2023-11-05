@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, toRefs, useAttrs } from 'vue';
+import { computed, toRefs } from 'vue';
 
 import {
   authenticatorTextUtil,
@@ -16,11 +16,6 @@ import { useAuthenticator } from '../composables/useAuth';
 const facade: UseAuthenticator = useAuthenticator();
 const { isPending, unverifiedContactMethods, error } = toRefs(facade);
 const { skipVerification, submitForm, updateForm } = facade;
-
-const attrs = useAttrs();
-
-/** @deprecated Component events are deprecated and not maintained. */
-const emit = defineEmits(['verifyUserSubmit', 'skipClicked']);
 
 // Text Util
 const {
@@ -43,13 +38,7 @@ const onInput = (e: Event): void => {
 };
 
 const onVerifyUserSubmit = (e: Event): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onVerifyUserSubmit) {
-    emit('verifyUserSubmit', e);
-  } else {
-    submit(e);
-  }
+  submit(e);
 };
 
 const submit = (e: Event): void => {
@@ -57,13 +46,7 @@ const submit = (e: Event): void => {
 };
 
 const onSkipClicked = (): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onSkipClicked) {
-    emit('skipClicked');
-  } else {
-    skipVerification();
-  }
+  skipVerification();
 };
 </script>
 

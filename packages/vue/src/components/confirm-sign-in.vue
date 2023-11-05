@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, toRefs, useAttrs } from 'vue';
+import { computed, toRefs } from 'vue';
 
 import {
   authenticatorTextUtil,
@@ -10,10 +10,6 @@ import {
 import { useAuthenticator } from '../composables/useAuth';
 import { UseAuthenticator } from '../types';
 import BaseFormFields from './primitives/base-form-fields.vue';
-
-/** @deprecated Component events are deprecated and not maintained. */
-const emit = defineEmits(['confirmSignInSubmit', 'backToSignInClicked']);
-const attrs = useAttrs();
 
 // `facade` is manually typed to `UseAuthenticator` for temporary type safety.
 const facade: UseAuthenticator = useAuthenticator();
@@ -40,31 +36,26 @@ const onInput = (e: Event): void => {
 };
 
 const onConfirmSignInSubmit = (e: Event): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onConfirmSignInSubmit) {
-    emit('confirmSignInSubmit', e);
-  } else {
-    submitForm(getFormDataFromEvent(e));
-  }
+  submitForm(getFormDataFromEvent(e));
 };
 
 const onBackToSignInClicked = (): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onBackToSignInClicked) {
-    emit('backToSignInClicked');
-  } else {
-    toSignIn();
-  }
+  toSignIn();
 };
 </script>
 
 <template>
   <slot v-bind="$attrs" name="confirmSignInSlotI">
     <base-wrapper v-bind="$attrs">
-      <base-form data-amplify-authenticator-confirmsignin @input="onInput" @submit.prevent="onConfirmSignInSubmit">
-        <base-field-set class="amplify-flex amplify-authenticator__column" :disabled="isPending">
+      <base-form
+        data-amplify-authenticator-confirmsignin
+        @input="onInput"
+        @submit.prevent="onConfirmSignInSubmit"
+      >
+        <base-field-set
+          class="amplify-flex amplify-authenticator__column"
+          :disabled="isPending"
+        >
           <slot name="header">
             <base-heading :level="3" class="amplify-heading">
               {{ confirmSignInHeading }}
@@ -77,17 +68,32 @@ const onBackToSignInClicked = (): void => {
             <base-alert v-if="error">
               {{ translate(error) }}
             </base-alert>
-            <amplify-button class="amplify-field-group__control amplify-authenticator__font" :fullwidth="false"
-              :loading="false" :variation="'primary'" style="font-weight: normal" :disabled="isPending">
+            <amplify-button
+              class="amplify-field-group__control amplify-authenticator__font"
+              :fullwidth="false"
+              :loading="false"
+              :variation="'primary'"
+              style="font-weight: normal"
+              :disabled="isPending"
+            >
               {{ confirmText }}
             </amplify-button>
-            <amplify-button class="amplify-field-group__control amplify-authenticator__font" :fullwidth="false"
-              :size="'small'" :variation="'link'" style="font-weight: normal" type="button"
-              @click.prevent="onBackToSignInClicked">
+            <amplify-button
+              class="amplify-field-group__control amplify-authenticator__font"
+              :fullwidth="false"
+              :size="'small'"
+              :variation="'link'"
+              style="font-weight: normal"
+              type="button"
+              @click.prevent="onBackToSignInClicked"
+            >
               {{ backSignInText }}
             </amplify-button>
-            <slot name="footer" :onBackToSignInClicked="onBackToSignInClicked"
-              :onConfirmSignInSubmit="onConfirmSignInSubmit">
+            <slot
+              name="footer"
+              :onBackToSignInClicked="onBackToSignInClicked"
+              :onConfirmSignInSubmit="onConfirmSignInSubmit"
+            >
             </slot>
           </base-footer>
         </base-field-set>

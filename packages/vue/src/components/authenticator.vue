@@ -144,126 +144,6 @@ const signInLabel = computed(() => getSignInTabText());
 const createAccountLabel = computed(() => getSignUpTabText());
 
 // methods
-const onSignInSubmitI = (e: Event) => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onSignInSubmit) {
-    emit('signInSubmit', e);
-  } else {
-    // TODO(BREAKING): remove unused event binding
-    // istanbul ignore next
-    signInComponent.value?.submit(e);
-  }
-};
-
-const onConfirmSignUpSubmitI = (e: Event) => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onConfirmSignUpSubmit) {
-    emit('confirmSignUpSubmit', e);
-  } else {
-    // TODO(BREAKING): remove unused event binding
-    // istanbul ignore next
-    confirmSignUpComponent.value.submit(e);
-  }
-};
-
-const onResetPasswordSubmitI = (e: Event) => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onResetPasswordSubmit) {
-    emit('resetPasswordSubmit', e);
-  } else {
-    // TODO(BREAKING): remove unused event binding
-    // istanbul ignore next
-    resetPasswordComponent.value.submit(e);
-  }
-};
-
-const onConfirmResetPasswordSubmitI = (e: Event) => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onConfirmResetPasswordSubmit) {
-    emit('confirmResetPasswordSubmit', e);
-  } else {
-    // TODO(BREAKING): remove unused event binding
-    // istanbul ignore next
-    confirmResetPasswordComponent.value.submit(e);
-  }
-};
-
-const onConfirmSignInSubmitI = (e: Event) => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onConfirmSignInSubmit) {
-    emit('confirmSignInSubmit', e);
-  } else {
-    // TODO(BREAKING): remove unused event binding
-    // istanbul ignore next
-    confirmSignInComponent.value.submit(e);
-  }
-};
-
-const onConfirmSetupTOTPSubmitI = (e: Event) => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onForceNewPasswordSubmit) {
-    emit('mSetupTOTPSubmit', e);
-  } else {
-    // TODO(BREAKING): remove unused event binding
-    // istanbul ignore next
-    confirmSetupTOTPComponent.value.submit(e);
-  }
-};
-
-const onForceNewPasswordSubmitI = (e: Event) => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onForceNewPasswordSubmit) {
-    emit('forceNewPasswordSubmit', e);
-  } else {
-    // TODO(BREAKING): remove unused event binding
-    // istanbul ignore next
-    forceNewPasswordComponent.value.submit(e);
-  }
-};
-
-const onSignUpSubmitI = (e: Event) => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onSignUpSubmit) {
-    emit('signUpSubmit', e);
-  } else {
-    // TODO(BREAKING): remove unused event binding
-    // istanbul ignore next
-    signUpComponent.value.submit();
-  }
-};
-
-const onVerifyUserSubmitI = (e: Event) => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onVerifyUserSubmit) {
-    emit('verifyUserSubmit', e);
-  } else {
-    // TODO(BREAKING): remove unused event binding
-    // istanbul ignore next
-    verifyUserComponent.value.submit(e);
-  }
-};
-
-const onConfirmVerifyUserSubmitI = (e: Event) => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onConfirmVerifyUserSubmit) {
-    emit('confirmVerifyUserSubmit', e);
-  } else {
-    // TODO(BREAKING): remove unused event binding
-    // istanbul ignore next
-    confirmVerifyUserComponent.value.submit(e);
-  }
-};
-
 const hasTabs = computed(() => {
   return route.value === 'signIn' || route.value === 'signUp';
 });
@@ -319,7 +199,6 @@ const hasRouteComponent = computed(() => {
             class="amplify-tabs__panel amplify-tabs__panel--active"
             aria-labelledby="signIn-tab"
             v-if="route === 'signIn'"
-            @sign-in-submit="onSignInSubmitI"
             ref="signInComponent"
           >
             <template #signInSlotI>
@@ -352,7 +231,6 @@ const hasRouteComponent = computed(() => {
             role="tabpanel"
             aria-labelledby="signUp-tab"
             v-if="route === 'signUp' && !hideSignUp"
-            @sign-up-submit="onSignUpSubmitI"
             ref="signUpComponent"
           >
             <template #signUpSlotI>
@@ -373,7 +251,6 @@ const hasRouteComponent = computed(() => {
 
         <confirm-sign-up
           v-if="route === 'confirmSignUp'"
-          @confirm-sign-up-submit="onConfirmSignUpSubmitI"
           ref="confirmSignUpComponent"
         >
           <template #confirmSignUpSlotI>
@@ -394,7 +271,6 @@ const hasRouteComponent = computed(() => {
 
         <reset-password
           v-if="route === 'resetPassword'"
-          @reset-password-submit="onResetPasswordSubmitI"
           ref="resetPasswordComponent"
         >
           <template #resetPasswordSlotI>
@@ -415,7 +291,6 @@ const hasRouteComponent = computed(() => {
 
         <confirm-reset-password
           v-if="route === 'confirmResetPassword'"
-          @confirm-reset-password-submit="onConfirmResetPasswordSubmitI"
           ref="confirmResetPasswordComponent"
         >
           <template #confirmResetPasswordSlotI>
@@ -438,7 +313,6 @@ const hasRouteComponent = computed(() => {
 
         <confirm-sign-in
           v-if="route === 'confirmSignIn'"
-          @confirm-sign-in-submit="onConfirmSignInSubmitI"
           ref="confirmSignInComponent"
         >
           <template #confirmSignInSlotI>
@@ -459,7 +333,6 @@ const hasRouteComponent = computed(() => {
 
         <setup-totp
           v-if="route === 'setupTOTP'"
-          @confirm-setup-totp-submit="onConfirmSetupTOTPSubmitI"
           ref="confirmSetupTOTPComponent"
         >
           <template #confirmSetupTOTPI>
@@ -480,7 +353,6 @@ const hasRouteComponent = computed(() => {
 
         <force-new-password
           v-if="route === 'forceNewPassword'"
-          @force-new-password-submit="onForceNewPasswordSubmitI"
           ref="forceNewPasswordComponent"
         >
           <template #forceNewPasswordI>
@@ -504,11 +376,7 @@ const hasRouteComponent = computed(() => {
           </template>
         </force-new-password>
 
-        <verify-user
-          v-if="route === 'verifyUser'"
-          @verify-user-submit="onVerifyUserSubmitI"
-          ref="verifyUserComponent"
-        >
+        <verify-user v-if="route === 'verifyUser'" ref="verifyUserComponent">
           <template #verifyUserSlotI>
             <slot name="verify-user"></slot>
           </template>
@@ -527,7 +395,6 @@ const hasRouteComponent = computed(() => {
 
         <confirm-verify-user
           v-if="route === 'confirmVerifyUser'"
-          @confirm-verify-user-submit="onConfirmVerifyUserSubmitI"
           ref="confirmVerifyUserComponent"
         >
           <template #confirmVerifyUserSlotI>

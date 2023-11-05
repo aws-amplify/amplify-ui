@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useAttrs, toRefs } from 'vue';
+import { computed, toRefs } from 'vue';
 
 import {
   authenticatorTextUtil,
@@ -16,11 +16,6 @@ import FederatedSignIn from './federated-sign-in.vue';
 const facade: UseAuthenticator = useAuthenticator();
 const { submitForm, updateBlur, updateForm } = facade;
 const { error, hasValidationErrors, isPending } = toRefs(facade);
-
-const attrs = useAttrs();
-
-/** @deprecated Authenticator component events are deprecated and not maintained. */
-const emit = defineEmits(['signUpSubmit']);
 
 // Text Util
 const { getCreateAccountText } = authenticatorTextUtil;
@@ -45,13 +40,7 @@ function onBlur(e: Event) {
 }
 
 const onSignUpSubmit = (e: Event): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onSignUpSubmit) {
-    emit('signUpSubmit', e);
-  } else {
-    submitForm(getFormDataFromEvent(e));
-  }
+  submitForm(getFormDataFromEvent(e));
 };
 </script>
 

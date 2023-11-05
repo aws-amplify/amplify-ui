@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineEmits, computed, toRefs, useAttrs } from 'vue';
+import { computed, toRefs } from 'vue';
 
 import {
   authenticatorTextUtil,
@@ -16,10 +16,6 @@ const facade: UseAuthenticator = useAuthenticator();
 const { resendCode, submitForm, updateBlur, updateForm } = facade;
 const { error, isPending } = toRefs(facade);
 
-/** @deprecated Component events are deprecated and not maintained. */
-const emit = defineEmits(['confirmResetPasswordSubmit', 'backToSignInClicked']);
-const attrs = useAttrs();
-
 // Text Util
 const { getResendCodeText, getResetYourPasswordText, getSubmitText } =
   authenticatorTextUtil;
@@ -31,13 +27,7 @@ const confirmResetPasswordText = computed(() => getSubmitText());
 
 // Methods
 const onConfirmResetPasswordSubmit = (e: Event): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onConfirmResetPasswordSubmit) {
-    emit('confirmResetPasswordSubmit', e);
-  } else {
-    submit(e);
-  }
+  submit(e);
 };
 
 const submit = (e: Event): void => {
