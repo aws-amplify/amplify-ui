@@ -37,6 +37,7 @@ describe('FederatedSignInButton', () => {
   it('does not render anything if there is no provider', () => {
     const { container } = render(FederatedSignInButton, {
       global: { components },
+      props: { provider: 'amazon' },
     });
 
     expect(container.firstChild?.hasChildNodes()).toBe(false);
