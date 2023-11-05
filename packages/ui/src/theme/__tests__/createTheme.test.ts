@@ -304,5 +304,19 @@ describe('@aws-amplify/ui', () => {
         expect(cssText).toContain('@media (prefers-color-scheme: dark)');
       });
     });
+
+    it('should apply primaryColor', () => {
+      const { tokens } = createTheme({
+        name: 'test',
+        primaryColor: 'red',
+        secondaryColor: 'blue',
+      });
+      expect(tokens.colors.primary[10].value).toEqual(
+        'var(--amplify-colors-red-10)'
+      );
+      expect(tokens.colors.secondary[10].value).toEqual(
+        'var(--amplify-colors-blue-10)'
+      );
+    });
   });
 });

@@ -6,6 +6,7 @@ import { defaultTheme } from './defaultTheme';
 import { Theme, DefaultTheme, WebTheme, Override } from './types';
 import { cssValue, cssNameTransform, setupTokens, SetupToken } from './utils';
 import { WebDesignToken } from './tokens/types/designToken';
+import { isString } from '../utils';
 
 /**
  * This will take a design token and add some data to it for it
@@ -23,6 +24,17 @@ const setupToken: SetupToken<WebDesignToken> = ({ token, path }) => {
   return { name, original, path, value, toString: () => `var(${name})` };
 };
 
+function applyBrandColor({ tokens, value, key }) {
+  if (isString(value)) {
+    tokens.colors[key] = Object.keys(tokens.colors[key]).reduce((acc, key) => {
+      return {
+        ...acc,
+        [key]: { value: `{colors.${value}.${key}}` },
+      };
+    }, {});
+  }
+}
+
 /**
  * This will be used like `const myTheme = createTheme({})`
  * `myTheme` can then be passed to a Provider or the generated CSS
@@ -39,6 +51,18 @@ export function createTheme(
   // that performs a deep merge on n objects. We could change
   // this to another 3p deep merge solution too.
   const mergedTheme = deepExtend<DefaultTheme>([{}, DefaultTheme, theme]);
+
+  // apply primaryColor and secondaryColor if present
+  applyBrandColor({
+    tokens: mergedTheme.tokens,
+    value: theme?.primaryColor,
+    key: 'primary',
+  });
+  applyBrandColor({
+    tokens: mergedTheme.tokens,
+    value: theme?.secondaryColor,
+    key: 'secondary',
+  });
 
   // Setting up the tokens. This is similar to what Style Dictionary
   // does. At the end of this, each token should have:

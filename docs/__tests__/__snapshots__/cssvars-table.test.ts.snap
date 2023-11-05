@@ -92,7 +92,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-colors-border-focus",
-        "value": "var(--amplify-colors-brand-primary-100)"
+        "value": "var(--amplify-colors-primary-100)"
     },
     {
         "variable": "--amplify-colors-border-info",
@@ -100,7 +100,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-colors-border-pressed",
-        "value": "var(--amplify-colors-brand-primary-100)"
+        "value": "var(--amplify-colors-primary-100)"
     },
     {
         "variable": "--amplify-colors-border-primary",
@@ -123,64 +123,64 @@ exports[`CSS Variables Table 1`] = `
         "value": "var(--amplify-colors-orange-80)"
     },
     {
-        "variable": "--amplify-colors-brand-primary-10",
+        "variable": "--amplify-colors-primary-10",
         "value": "var(--amplify-colors-teal-10)"
     },
     {
-        "variable": "--amplify-colors-brand-primary-100",
+        "variable": "--amplify-colors-primary-100",
         "value": "var(--amplify-colors-teal-100)"
     },
     {
-        "variable": "--amplify-colors-brand-primary-20",
+        "variable": "--amplify-colors-primary-20",
         "value": "var(--amplify-colors-teal-20)"
     },
     {
-        "variable": "--amplify-colors-brand-primary-40",
+        "variable": "--amplify-colors-primary-40",
         "value": "var(--amplify-colors-teal-40)"
     },
     {
-        "variable": "--amplify-colors-brand-primary-60",
+        "variable": "--amplify-colors-primary-60",
         "value": "var(--amplify-colors-teal-60)"
     },
     {
-        "variable": "--amplify-colors-brand-primary-80",
+        "variable": "--amplify-colors-primary-80",
         "value": "var(--amplify-colors-teal-80)"
     },
     {
-        "variable": "--amplify-colors-brand-primary-90",
+        "variable": "--amplify-colors-primary-90",
         "value": "var(--amplify-colors-teal-90)"
     },
     {
-        "variable": "--amplify-colors-brand-secondary-10",
+        "variable": "--amplify-colors-secondary-10",
         "value": "var(--amplify-colors-purple-10)"
     },
     {
-        "variable": "--amplify-colors-brand-secondary-100",
+        "variable": "--amplify-colors-secondary-100",
         "value": "var(--amplify-colors-purple-100)"
     },
     {
-        "variable": "--amplify-colors-brand-secondary-20",
+        "variable": "--amplify-colors-secondary-20",
         "value": "var(--amplify-colors-purple-20)"
     },
     {
-        "variable": "--amplify-colors-brand-secondary-40",
+        "variable": "--amplify-colors-secondary-40",
         "value": "var(--amplify-colors-purple-40)"
     },
     {
-        "variable": "--amplify-colors-brand-secondary-60",
+        "variable": "--amplify-colors-secondary-60",
         "value": "var(--amplify-colors-purple-60)"
     },
     {
-        "variable": "--amplify-colors-brand-secondary-80",
+        "variable": "--amplify-colors-secondary-80",
         "value": "var(--amplify-colors-purple-80)"
     },
     {
-        "variable": "--amplify-colors-brand-secondary-90",
+        "variable": "--amplify-colors-secondary-90",
         "value": "var(--amplify-colors-purple-90)"
     },
     {
         "variable": "--amplify-colors-font-active",
-        "value": "var(--amplify-colors-brand-primary-100)"
+        "value": "var(--amplify-colors-primary-100)"
     },
     {
         "variable": "--amplify-colors-font-disabled",
@@ -192,11 +192,11 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-colors-font-focus",
-        "value": "var(--amplify-colors-brand-primary-100)"
+        "value": "var(--amplify-colors-primary-100)"
     },
     {
         "variable": "--amplify-colors-font-hover",
-        "value": "var(--amplify-colors-brand-primary-90)"
+        "value": "var(--amplify-colors-primary-90)"
     },
     {
         "variable": "--amplify-colors-font-info",
@@ -204,7 +204,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-colors-font-interactive",
-        "value": "var(--amplify-colors-brand-primary-80)"
+        "value": "var(--amplify-colors-primary-80)"
     },
     {
         "variable": "--amplify-colors-font-inverse",
@@ -784,7 +784,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-autocomplete-menu-option-active-background-color",
-        "value": "var(--amplify-colors-brand-primary-80)"
+        "value": "var(--amplify-colors-primary-80)"
     },
     {
         "variable": "--amplify-components-autocomplete-menu-option-active-color",
@@ -1020,11 +1020,11 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-active-background-color",
-        "value": "var(--amplify-colors-brand-primary-20)"
+        "value": "var(--amplify-colors-primary-20)"
     },
     {
         "variable": "--amplify-components-button-active-border-color",
-        "value": "var(--amplify-colors-brand-primary-100)"
+        "value": "var(--amplify-colors-primary-100)"
     },
     {
         "variable": "--amplify-components-button-active-color",
@@ -1152,7 +1152,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-focus-background-color",
-        "value": "var(--amplify-colors-brand-primary-10)"
+        "value": "var(--amplify-colors-primary-10)"
     },
     {
         "variable": "--amplify-components-button-focus-border-color",
@@ -1176,11 +1176,11 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-hover-background-color",
-        "value": "var(--amplify-colors-brand-primary-10)"
+        "value": "var(--amplify-colors-primary-10)"
     },
     {
         "variable": "--amplify-components-button-hover-border-color",
-        "value": "var(--amplify-colors-brand-primary-60)"
+        "value": "var(--amplify-colors-primary-60)"
     },
     {
         "variable": "--amplify-components-button-hover-color",
@@ -1212,7 +1212,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-link-active-background-color",
-        "value": "var(--amplify-colors-brand-primary-20)"
+        "value": "var(--amplify-colors-primary-20)"
     },
     {
         "variable": "--amplify-components-button-link-active-border-color",
@@ -1304,7 +1304,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-link-focus-background-color",
-        "value": "var(--amplify-colors-brand-primary-10)"
+        "value": "var(--amplify-colors-primary-10)"
     },
     {
         "variable": "--amplify-components-button-link-focus-border-color",
@@ -1320,7 +1320,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-link-hover-background-color",
-        "value": "var(--amplify-colors-brand-primary-10)"
+        "value": "var(--amplify-colors-primary-10)"
     },
     {
         "variable": "--amplify-components-button-link-hover-border-color",
@@ -1572,7 +1572,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-menu-active-background-color",
-        "value": "var(--amplify-colors-brand-primary-90)"
+        "value": "var(--amplify-colors-primary-90)"
     },
     {
         "variable": "--amplify-components-button-menu-active-color",
@@ -1592,7 +1592,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-menu-focus-background-color",
-        "value": "var(--amplify-colors-brand-primary-80)"
+        "value": "var(--amplify-colors-primary-80)"
     },
     {
         "variable": "--amplify-components-button-menu-focus-color",
@@ -1600,7 +1600,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-menu-hover-background-color",
-        "value": "var(--amplify-colors-brand-primary-80)"
+        "value": "var(--amplify-colors-primary-80)"
     },
     {
         "variable": "--amplify-components-button-menu-hover-color",
@@ -1888,7 +1888,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-primary-active-background-color",
-        "value": "var(--amplify-colors-brand-primary-100)"
+        "value": "var(--amplify-colors-primary-100)"
     },
     {
         "variable": "--amplify-components-button-primary-active-border-color",
@@ -1900,7 +1900,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-primary-background-color",
-        "value": "var(--amplify-colors-brand-primary-80)"
+        "value": "var(--amplify-colors-primary-80)"
     },
     {
         "variable": "--amplify-components-button-primary-border-color",
@@ -1984,7 +1984,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-primary-focus-background-color",
-        "value": "var(--amplify-colors-brand-primary-90)"
+        "value": "var(--amplify-colors-primary-90)"
     },
     {
         "variable": "--amplify-components-button-primary-focus-border-color",
@@ -2000,7 +2000,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-primary-hover-background-color",
-        "value": "var(--amplify-colors-brand-primary-90)"
+        "value": "var(--amplify-colors-primary-90)"
     },
     {
         "variable": "--amplify-components-button-primary-hover-border-color",
@@ -2504,7 +2504,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-checkbox-icon-background-color",
-        "value": "var(--amplify-colors-brand-primary-80)"
+        "value": "var(--amplify-colors-primary-80)"
     },
     {
         "variable": "--amplify-components-checkbox-icon-border-radius",
@@ -2748,7 +2748,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-dropzone-active-background-color",
-        "value": "var(--amplify-colors-brand-primary-10)"
+        "value": "var(--amplify-colors-primary-10)"
     },
     {
         "variable": "--amplify-components-dropzone-active-border-color",
@@ -3416,7 +3416,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-loader-linear-stroke-filled",
-        "value": "var(--amplify-colors-brand-primary-80)"
+        "value": "var(--amplify-colors-primary-80)"
     },
     {
         "variable": "--amplify-components-loader-linear-stroke-linecap",
@@ -3448,7 +3448,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-loader-stroke-filled",
-        "value": "var(--amplify-colors-brand-primary-80)"
+        "value": "var(--amplify-colors-primary-80)"
     },
     {
         "variable": "--amplify-components-loader-stroke-linecap",
@@ -3992,7 +3992,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-radio-button-checked-color",
-        "value": "var(--amplify-colors-brand-primary-80)"
+        "value": "var(--amplify-colors-primary-80)"
     },
     {
         "variable": "--amplify-components-radio-button-checked-disabled-color",
@@ -4140,7 +4140,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-rating-filled-color",
-        "value": "var(--amplify-colors-brand-secondary-80)"
+        "value": "var(--amplify-colors-secondary-80)"
     },
     {
         "variable": "--amplify-components-rating-large-size",
@@ -4376,7 +4376,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-sliderfield-range-background-color",
-        "value": "var(--amplify-colors-brand-primary-80)"
+        "value": "var(--amplify-colors-primary-80)"
     },
     {
         "variable": "--amplify-components-sliderfield-range-border-radius",
@@ -4536,7 +4536,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-storagemanager-dropzone-active-background-color",
-        "value": "var(--amplify-colors-brand-primary-10)"
+        "value": "var(--amplify-colors-primary-10)"
     },
     {
         "variable": "--amplify-components-storagemanager-dropzone-active-border-color",
@@ -4844,7 +4844,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-switchfield-track-checked-background-color",
-        "value": "var(--amplify-colors-brand-primary-80)"
+        "value": "var(--amplify-colors-primary-80)"
     },
     {
         "variable": "--amplify-components-switchfield-track-error-background-color",
@@ -5408,11 +5408,11 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-togglebutton-primary-pressed-background-color",
-        "value": "var(--amplify-colors-brand-primary-80)"
+        "value": "var(--amplify-colors-primary-80)"
     },
     {
         "variable": "--amplify-components-togglebutton-primary-pressed-border-color",
-        "value": "var(--amplify-colors-brand-primary-80)"
+        "value": "var(--amplify-colors-primary-80)"
     },
     {
         "variable": "--amplify-components-togglebutton-primary-pressed-color",
@@ -5432,15 +5432,15 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-togglebutton-primary-pressed-hover-background-color",
-        "value": "var(--amplify-colors-brand-primary-60)"
+        "value": "var(--amplify-colors-primary-60)"
     },
     {
         "variable": "--amplify-components-togglebutton-primary-pressed-hover-border-color",
-        "value": "var(--amplify-colors-brand-primary-60)"
+        "value": "var(--amplify-colors-primary-60)"
     },
     {
         "variable": "--amplify-components-togglebutton-primary-pressed-hover-box-shadow",
-        "value": "var(--amplify-colors-brand-primary-60)"
+        "value": "var(--amplify-colors-primary-60)"
     },
     {
         "variable": "--amplify-components-togglebutton-primary-pressed-hover-color",

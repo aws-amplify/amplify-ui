@@ -16,7 +16,7 @@ export const SizeThemeTokenExample = () => {
   const { tokens } = useTheme();
   return (
     <View
-      backgroundColor={tokens.colors.brand.primary[60]}
+      backgroundColor={tokens.colors.primary[60]}
       width={tokens.space.xxxl}
       height={tokens.space.xxxl}
     ></View>

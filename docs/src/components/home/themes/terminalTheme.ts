@@ -85,7 +85,7 @@ const theme = {
       },
       button: {
         primary: {
-          backgroundColor: { value: '{colors.brand.primary.40.value}' },
+          backgroundColor: { value: '{colors.primary.40.value}' },
           color: { value: '{colors.font.primary.value}' },
           borderColor: { value: '{colors.border.primary.value}' },
         },
