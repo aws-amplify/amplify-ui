@@ -39,7 +39,7 @@ Feature: Confirm Sign Up
     Then I click the "Confirm" button
     Then I see "Invalid verification code provided, please try again."
 
-  @angular @react @vue @react-native @target
+  @angular @react @vue @react-native
   Scenario: Confirm a new username & password with a valid code
     When I type a new "email"
     Then I type my password
