@@ -3,7 +3,7 @@
 #
 # Triggered by: merge to `next-release/main`
 
-name: Test and Publish / next-release-fix
+name: Test and Publish / mjs-test
 
 on:
   push:
