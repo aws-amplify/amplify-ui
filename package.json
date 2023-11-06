@@ -49,6 +49,7 @@
     "ansi-regex": "5.0.1",
     "ansi-html": "0.0.8",
     "async": "^3.2.2",
+    "@babel/traverse": "7.23.2",
     "cssnano-preset-simple": "3.0.0",
     "eventsource": "~2.0.2",
     "fs-extra": "^10.0.0",
