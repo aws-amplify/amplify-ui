@@ -180,7 +180,7 @@ exports[`authenticator renders confirmSignIn subcomponent 1`] = `
                 <!--v-if-->
                 
                 <button
-                  class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+                  class="amplify-button amplify-field-group__control amplify-button--primary amplify-field-group__control amplify-authenticator__font"
                   data-amplify-button=""
                   data-disabled="false"
                   data-fullwidth="false"
@@ -196,7 +196,7 @@ exports[`authenticator renders confirmSignIn subcomponent 1`] = `
                 
                 
                 <button
-                  class="amplify-button amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+                  class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
                   data-amplify-button=""
                   data-disabled="false"
                   data-fullwidth="false"
