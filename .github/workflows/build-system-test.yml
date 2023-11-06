@@ -56,7 +56,7 @@ jobs:
             language: ts
             node-version: 20
           - framework: react
-            framework-version: 17
+            framework-version: 18
             build-tool: next
             build-tool-version: 12
             pkg-manager: npm
