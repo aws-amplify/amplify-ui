@@ -29,14 +29,14 @@ const setupToken: SetupToken<WebDesignToken> = ({ token, path }) => {
  * Takes a set of keys and a color name and returns an object of design tokens,
  * used for applying a primary color at the theme level to our tokens.
  *
- * createBrandColorPalette({keys: ['10','20',...], value: 'red'})
+ * createColorPalette({keys: ['10','20',...], value: 'red'})
  * returns {
  *   10: { value: '{colors.red.10.value}' },
  *   20: { value: '{colors.red.20.value}' },
  *   ...
  * }
  */
-function createBrandColorPalette<
+function createColorPalette<
   ColorType extends ColorValues<ScaleKey, 'default'> = ColorValues<
     ScaleKey,
     'default'
@@ -69,13 +69,13 @@ export function createTheme(
 
   // apply primaryColor and secondaryColor if present
   if (isString(theme?.primaryColor)) {
-    mergedTheme.tokens.colors.primary = createBrandColorPalette({
+    mergedTheme.tokens.colors.primary = createColorPalette({
       keys: Object.keys(mergedTheme.tokens.colors.primary),
       value: theme?.primaryColor,
     });
   }
   if (isString(theme?.secondaryColor)) {
-    mergedTheme.tokens.colors.secondary = createBrandColorPalette({
+    mergedTheme.tokens.colors.secondary = createColorPalette({
       keys: Object.keys(mergedTheme.tokens.colors.secondary),
       value: theme?.secondaryColor,
     });
