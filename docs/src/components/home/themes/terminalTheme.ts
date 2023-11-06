@@ -2,6 +2,8 @@ import { defaultDarkModeOverride } from '@aws-amplify/ui-react';
 
 const theme = {
   name: 'terminal',
+  primaryColor: 'green',
+  secondaryColor: 'green',
   tokens: {
     colors: {
       green: {
@@ -12,26 +14,6 @@ const theme = {
         80: { value: '#31703D' },
         90: { value: '#224226' },
         100: { value: '#013D09' },
-      },
-      brand: {
-        primary: {
-          10: { value: '{colors.green.10}' },
-          20: { value: '{colors.green.20}' },
-          40: { value: '{colors.green.40}' },
-          60: { value: '{colors.green.60}' },
-          80: { value: '{colors.green.80}' },
-          90: { value: '{colors.green.90}' },
-          100: { value: '{colors.green.100}' },
-        },
-        secondary: {
-          10: { value: '{colors.green.10}' },
-          20: { value: '{colors.green.20}' },
-          40: { value: '{colors.green.40}' },
-          60: { value: '{colors.green.60}' },
-          80: { value: '{colors.green.80}' },
-          90: { value: '{colors.green.90}' },
-          100: { value: '{colors.green.100}' },
-        },
       },
       border: {
         primary: { value: 'black' },

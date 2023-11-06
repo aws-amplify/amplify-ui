@@ -1,5 +1,7 @@
 const theme = {
   name: 'synthwave-theme',
+  primaryColor: 'pink',
+  secondaryColor: 'purple',
   tokens: {
     colors: {
       pink: {
@@ -37,26 +39,6 @@ const theme = {
         80: { value: '#231934' },
         90: { value: '#180d2a' },
         100: { value: '#0c001f' },
-      },
-      brand: {
-        primary: {
-          10: { value: '{colors.pink.10}' },
-          20: { value: '{colors.pink.20}' },
-          40: { value: '{colors.pink.40}' },
-          60: { value: '{colors.pink.60}' },
-          80: { value: '{colors.pink.80}' },
-          90: { value: '{colors.pink.90}' },
-          100: { value: '{colors.pink.100}' },
-        },
-        secondary: {
-          10: { value: '{colors.purple.10}' },
-          20: { value: '{colors.purple.20}' },
-          40: { value: '{colors.purple.40}' },
-          60: { value: '{colors.purple.60}' },
-          80: { value: '{colors.purple.80}' },
-          90: { value: '{colors.purple.90}' },
-          100: { value: '{colors.purple.100}' },
-        },
       },
       border: {
         primary: { value: '{colors.neutral.90}' },
