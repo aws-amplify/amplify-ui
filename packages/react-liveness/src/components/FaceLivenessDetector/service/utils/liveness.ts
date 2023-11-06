@@ -6,6 +6,7 @@ import {
   FaceMatchState,
   BoundingBox,
   LivenessErrorState,
+  ErrorState,
 } from '../types';
 import { FaceDetection } from '../types/faceDetection';
 import { ClientFreshnessColorSequence } from '../types/service';
@@ -441,7 +442,7 @@ export function isCameraDeviceVirtual(device: MediaDeviceInfo): boolean {
   return device.label.toLowerCase().includes('virtual');
 }
 
-export const LivenessErrorStateStringMap: Record<LivenessErrorState, string> = {
+export const LivenessErrorStateStringMap = {
   [LivenessErrorState.RUNTIME_ERROR]: 'RUNTIME_ERROR',
   [LivenessErrorState.SERVER_ERROR]: 'SERVER_ERROR',
   [LivenessErrorState.TIMEOUT]: 'TIMEOUT',
@@ -766,18 +767,13 @@ export async function isFaceDistanceBelowThreshold({
   isMobile?: boolean;
 }): Promise<{
   isDistanceBelowThreshold: boolean;
-  error?:
-    | LivenessErrorState.FACE_DISTANCE_ERROR
-    | LivenessErrorState.MULTIPLE_FACES_ERROR;
+  error?: ErrorState;
 }> {
   const detectedFaces = await faceDetector.detectFaces(videoEl);
   let detectedFace: Face;
 
   let isDistanceBelowThreshold = false;
-  let error:
-    | LivenessErrorState.FACE_DISTANCE_ERROR
-    | LivenessErrorState.MULTIPLE_FACES_ERROR
-    | undefined;
+  let error: ErrorState | undefined;
 
   switch (detectedFaces.length) {
     case 0: {

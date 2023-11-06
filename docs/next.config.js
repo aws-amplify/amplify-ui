@@ -158,6 +158,14 @@ module.exports = withNextPluginPreval({
           '/:platform(react|react-native|angular|vue)/connected-components/authenticator/advanced',
         permanent: true,
       },
+      /**
+       * Redirect traffic from CRA to Vite getting started page
+       */
+      {
+        source: '/react/getting-started/usage/create-react-app',
+        destination: '/react/getting-started/usage/vite',
+        permanent: true,
+      },
     ];
   },
 

@@ -1,7 +1,11 @@
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
-import { ComponentClassNames } from '@aws-amplify/ui-react';
+import {
+  ComponentClassNames,
+  IconsProvider,
+  View,
+} from '@aws-amplify/ui-react';
 
 import { FileThumbnail } from '../FileThumbnail';
 import { FileThumbnailProps } from '../types';
@@ -46,6 +50,22 @@ describe('FileThumbnail', () => {
     const svg = container.querySelector('svg');
     expect(svg).not.toBeInTheDocument();
 
+    expect(container).toMatchSnapshot();
+  });
+
+  it('renders custom icons from IconProvider', () => {
+    const { container } = render(
+      <IconsProvider
+        icons={{
+          storageManager: {
+            file: <View testId="file" />,
+          },
+        }}
+      >
+        <FileThumbnail {...thumbnailProps} />
+      </IconsProvider>
+    );
+    expect(screen.getByTestId('file')).toBeInTheDocument();
     expect(container).toMatchSnapshot();
   });
 });

@@ -1,5 +1,100 @@
 # @aws-amplify/ui
 
+## 5.8.1
+
+### Patch Changes
+
+- [#4414](https://github.com/aws-amplify/amplify-ui/pull/4414) [`d570694c7`](https://github.com/aws-amplify/amplify-ui/commit/d570694c7e0d9d112449d3aade2d567773555926) Thanks [@lavr001](https://github.com/lavr001)! - added new `isMultiple` and `selectSize` props for the `SelectField` component
+
+  Example:
+
+  ```
+    <SelectField
+      label="Fruit"
+      descriptiveText="What's your favorite fruit?"
+      selectSize={3}
+      isMultiple={true}
+    >
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+      <option value="orange">Orange</option>
+      <option value="pineapple">Pineapple</option>
+      <option value="kiwi">Kiwi</option>
+      <option value="tangerine">Tangerine</option>
+    </SelectField>
+  ```
+
+- [#4457](https://github.com/aws-amplify/amplify-ui/pull/4457) [`6a5a4d79c`](https://github.com/aws-amplify/amplify-ui/commit/6a5a4d79ce60124fba2dc00d86b9e1a9b5f21c39) Thanks [@esauerbo](https://github.com/esauerbo)! - fix(ui): remove error border from disabled and quiet primitive fields
+
+## 5.8.0
+
+### Minor Changes
+
+- [#4348](https://github.com/aws-amplify/amplify-ui/pull/4348) [`276968530`](https://github.com/aws-amplify/amplify-ui/commit/276968530ba1049cfa4a9fd1efe8bd870b3e4b18) Thanks [@hbuchel](https://github.com/hbuchel)! - feat(react/ui): add new Fieldset Primitive
+
+  Usage:
+
+  ```
+  <Fieldset legend="Legend test">
+     // Fieldset content/form controls
+  </Fieldset>
+  ```
+
+- [#4359](https://github.com/aws-amplify/amplify-ui/pull/4359) [`ec495a6f6`](https://github.com/aws-amplify/amplify-ui/commit/ec495a6f638c53970edd8706a0eeb5f95d142689) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(react): DropZone component
+
+  ```jsx
+  export default function DefaultDropZoneExample() {
+    const [files, setFiles] = React.useState([]);
+    return (
+      <>
+        <DropZone
+          onDropComplete={({ files }) => {
+            setFiles(files);
+          }}
+        >
+          Drag images here
+        </DropZone>
+        {files.map((file) => (
+          <Text key={file.name}>{file.name}</Text>
+        ))}
+      </>
+    );
+  }
+  ```
+
+### Patch Changes
+
+- [#4367](https://github.com/aws-amplify/amplify-ui/pull/4367) [`e1fc61119`](https://github.com/aws-amplify/amplify-ui/commit/e1fc61119224a92a4648d1d1673177647b1a8e53) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - feat(ui-react-storage): Added upload actions and option to upload files on click. Usage:
+
+  ```
+   <StorageManager
+        acceptedFileTypes={['image/*']}
+        accessLevel="public"
+        autoUpload={false}
+      />
+  ```
+
+- [#4368](https://github.com/aws-amplify/amplify-ui/pull/4368) [`14e402b6e`](https://github.com/aws-amplify/amplify-ui/commit/14e402b6eedab6bdef5cec21b0b084f230b0ce26) Thanks [@hbuchel](https://github.com/hbuchel)! - chore(ui): adds info, warning, and success border tokens. updates background color tokens for info, warning, success and error.
+
+- [#4384](https://github.com/aws-amplify/amplify-ui/pull/4384) [`2407ac294`](https://github.com/aws-amplify/amplify-ui/commit/2407ac294270214bd20c414349d2423ab14b8066) Thanks [@reesscot](https://github.com/reesscot)! - feat: Input and Label primitives
+
+  ```jx
+  export const InputLabelExample = () => (
+    <>
+      <Label htmlFor="first_name">First Name:</Label>
+      <Input id="first_name" name="first_name" />
+    </>
+  );
+  ```
+
+- [#4376](https://github.com/aws-amplify/amplify-ui/pull/4376) [`64fba0fd2`](https://github.com/aws-amplify/amplify-ui/commit/64fba0fd2ec4a0c5061b461f527c8a45235eee13) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(authenticator): add additional types for form fields
+
+## 5.7.2
+
+### Patch Changes
+
+- [#4366](https://github.com/aws-amplify/amplify-ui/pull/4366) [`5cc76794a`](https://github.com/aws-amplify/amplify-ui/commit/5cc76794a71584e26b1ec699c1dc1713d8a986c9) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(ui): add backgroundColor token for default Button style
+
 ## 5.7.1
 
 ### Patch Changes

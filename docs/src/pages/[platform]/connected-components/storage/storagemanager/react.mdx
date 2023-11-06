@@ -20,6 +20,7 @@ import {
   StorageManagerResumableExample,
   StorageManagerThemeExample,
   StorageManagerHandleExample,
+  StorageManagerUploadActionsExample,
 } from './examples'
 
 <DefaultStorageManagerExample />
@@ -62,6 +63,18 @@ At a minimum you must include the `accessLevel` and `maxFileCount` props. `acces
 ### Props
 
 <ReactPropsTable props={STORAGE_MANAGER} />
+
+## Manually Upload
+
+The default behavior of the Storage Manager component is to automatically start the upload after a file is selected. If you wish to change that, set the value of the `autoUpload` prop to false.
+
+<Example>
+  <StorageManagerUploadActionsExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerUploadActionsExample.tsx
+    ```
+  </ExampleCode>
+</Example>
 
 ## Setting Limits
 
@@ -177,7 +190,7 @@ You can use the `displayText` prop to also support different languages. Use an o
 
 ### Component overrides
 
-Don't like how things look? Use your own components inside the StorageManager! You can pass your own components with the `components` prop. The available components to override are: `Container`, `FileList`, `FileListHeader`, `DropZone`, and `FilePicker`. 
+Don't like how things look? Use your own components inside the StorageManager! You can pass your own components with the `components` prop. The available components to override are: `Container`, `FileList`, `FileListHeader`, `FileListFooter`, `DropZone`, and `FilePicker`. 
 
 _You can even use a completely different UI kit like MUI, Chakra, or your own design system!_
 

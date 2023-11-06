@@ -1,4 +1,3 @@
-import { AmazonAIInterpretPredictionsProvider } from '@aws-amplify/predictions';
 import {
   ClientSessionInformationEvent,
   LivenessResponseStream,
@@ -27,17 +26,38 @@ export interface StreamProviderArgs {
   stream: MediaStream;
   videoEl: HTMLVideoElement;
   credentialProvider?: AwsCredentialProvider;
+  endpointOverride?: string;
 }
 
 export const TIME_SLICE = 1000;
 
-export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider {
+function isBlob(obj: unknown): obj is Blob {
+  return (obj as Blob).arrayBuffer !== undefined;
+}
+
+function isClientSessionInformationEvent(
+  obj: unknown
+): obj is ClientSessionInformationEvent {
+  return (obj as ClientSessionInformationEvent).Challenge !== undefined;
+}
+
+interface EndStreamWithCodeEvent {
+  type: string;
+  code: number;
+}
+
+function isEndStreamWithCodeEvent(obj: unknown): obj is EndStreamWithCodeEvent {
+  return (obj as EndStreamWithCodeEvent).code !== undefined;
+}
+
+export class LivenessStreamProvider {
   public sessionId: string;
   public region: string;
   public videoRecorder: VideoRecorder;
   public responseStream!: AsyncIterable<LivenessResponseStream>;
   public credentialProvider?: AwsCredentialProvider;
   public clientInfo: any[];
+  public endpointOverride?: string;
 
   private _reader!: ReadableStreamDefaultReader;
   private videoEl: HTMLVideoElement;
@@ -51,14 +71,15 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
     stream,
     videoEl,
     credentialProvider,
+    endpointOverride,
   }: StreamProviderArgs) {
-    super();
     this.sessionId = sessionId;
     this.region = region;
     this._stream = stream;
     this.videoEl = videoEl;
     this.videoRecorder = new VideoRecorder(stream);
     this.credentialProvider = credentialProvider;
+    this.endpointOverride = endpointOverride;
     this.initPromise = this.init();
     this.clientInfo = [];
   }
@@ -86,16 +107,17 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
     this.videoRecorder.dispatch(new Event('stopVideo'));
   }
 
-  public async endStream(): Promise<undefined> {
+  public async endStreamWithCode(code?: number): Promise<undefined> {
     if (this.videoRecorder.getState() === 'recording') {
       await this.stopVideo();
-      this.dispatchStopVideoEvent();
     }
-    if (!this._reader) {
-      return;
-    }
-    await this._reader.cancel();
-    return this._reader.closed;
+    this.videoRecorder.dispatch(
+      new MessageEvent('endStreamWithCode', {
+        data: { code: code },
+      })
+    );
+
+    return;
   }
 
   private async init() {}

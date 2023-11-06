@@ -1,0 +1,11 @@
+## TOTP Issuer
+
+The TOTP issuer is the name that will be shown in TOTP applications preceding the account name. In most cases, this should be the name of your app. For example, if your app is called "My App", your user will see "My App" - "username" in their TOTP app. This can be customized by adding the `totpOptions` argument to the Authenticator component with a value for `issuer`. 
+
+Note: Unless changed, the default issuer is the application name retrieved from the project configuration. The key for this value is `CFBundleDisplayName` on iOS found in `info.plist`.
+
+```swift
+Authenticator(totpOptions: .init(issuer: "My App")) { _ in
+    Text("Signed In Content")
+}
+```

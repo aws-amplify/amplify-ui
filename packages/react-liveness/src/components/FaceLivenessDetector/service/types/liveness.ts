@@ -1,5 +1,5 @@
 import { AwsCredentialProvider } from './credentials';
-import { LivenessErrorState } from './error';
+import { ErrorState } from './error';
 
 /**
  * The props for the FaceLivenessDetectorCore which allows for full configuration of auth
@@ -80,11 +80,15 @@ export interface FaceLivenessDetectorCoreConfig {
 
   centerXSeed?: number;
   centerYSeed?: number;
+  /**
+   * Internal use only - parameter for overriding the liveness endpoint
+   */
+  endpointOverride?: string;
 }
 
 export type FaceLivenessDetectorConfig = Omit<
   FaceLivenessDetectorCoreConfig,
-  'credentialProvider'
+  'credentialProvider' | 'endpointOverride'
 >;
 
 /**
@@ -130,6 +134,6 @@ export enum FaceMatchState {
 }
 
 export interface LivenessError {
-  state: LivenessErrorState;
+  state: ErrorState;
   error: Error;
 }

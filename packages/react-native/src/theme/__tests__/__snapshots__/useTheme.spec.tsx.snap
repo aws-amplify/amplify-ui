@@ -10,14 +10,14 @@ Object {
   "colors": Object {
     "background": Object {
       "disabled": "hsl(210, 5%, 94%)",
-      "error": "hsl(0, 75%, 85%)",
-      "info": "hsl(220, 85%, 85%)",
+      "error": "hsl(0, 75%, 95%)",
+      "info": "hsl(220, 95%, 95%)",
       "primary": "hsl(0, 0%, 100%)",
       "quaternary": "hsl(210, 10%, 58%)",
       "secondary": "hsl(210, 5%, 98%)",
-      "success": "hsl(130, 60%, 90%)",
+      "success": "hsl(130, 60%, 95%)",
       "tertiary": "hsl(210, 5%, 94%)",
-      "warning": "hsl(30, 75%, 85%)",
+      "warning": "hsl(30, 75%, 95%)",
     },
     "black": "hsl(0, 0%, 0%)",
     "blue": Object {
@@ -33,10 +33,13 @@ Object {
       "disabled": "hsl(210, 5%, 94%)",
       "error": "hsl(0, 95%, 30%)",
       "focus": "hsl(190, 100%, 15%)",
+      "info": "hsl(220, 95%, 30%)",
       "pressed": "hsl(190, 100%, 15%)",
       "primary": "hsl(210, 10%, 58%)",
       "secondary": "hsl(210, 5%, 87%)",
+      "success": "hsl(130, 33%, 37%)",
       "tertiary": "hsl(210, 5%, 94%)",
+      "warning": "hsl(30, 95%, 30%)",
     },
     "brand": Object {
       "primary": Object {

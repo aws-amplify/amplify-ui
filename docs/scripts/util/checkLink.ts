@@ -95,7 +95,11 @@ export async function checkLink(
         `⚠️[WARNING...] page #${pageIdx} link #${linkIdx} "${tagName}" tag "${tagText}" doesn't have a href.`
       );
       res({ ...linkData, statusCode: 0 });
-    } else if (IGNORED_LINKS.includes(href) || requestedUrl.has(href)) {
+    } else if (
+      IGNORED_LINKS.includes(href) ||
+      requestedUrl.has(href) ||
+      (href as string).includes('www.w3.org')
+    ) {
       res({ ...linkData, statusCode: 0 });
     } else {
       const { get } = href.includes('https:') ? https : http;

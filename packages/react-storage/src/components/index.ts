@@ -8,4 +8,5 @@ export {
   FileListProps,
   FilePickerProps,
   FileListHeaderProps,
+  FileListFooterProps,
 } from './StorageManager';

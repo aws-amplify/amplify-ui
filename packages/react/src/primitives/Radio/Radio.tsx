@@ -13,6 +13,7 @@ import {
 } from '../types';
 import { Text } from '../Text';
 import { useRadioGroupContext } from '../RadioGroupField/context';
+import { useFieldset } from '../Fieldset/useFieldset';
 
 export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
   {
@@ -47,9 +48,11 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
     size,
     labelPosition: groupLabelPosition,
   } = useRadioGroupContext();
+  const { isFieldsetDisabled } = useFieldset();
 
-  const shouldBeDisabled =
-    isGroupDisabled || isDisabled || (isReadOnly && defaultValue !== value);
+  const shouldBeDisabled = isFieldsetDisabled
+    ? isFieldsetDisabled
+    : isGroupDisabled || isDisabled || (isReadOnly && defaultValue !== value);
 
   // for controlled component
   const checked =

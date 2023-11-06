@@ -19,6 +19,7 @@ import {
   IlluminationState,
   StreamActorCallback,
   LivenessError,
+  ErrorState,
 } from '../types';
 import {
   BlazeFaceFaceDetection,
@@ -45,9 +46,14 @@ import {
   LivenessResponseStream,
 } from '@aws-sdk/client-rekognitionstreaming';
 import { getLivenessUserAgent } from '../../utils/platform';
-import { getVideoConstraints } from '../../StartLiveness/helpers';
+import {
+  getVideoConstraints,
+  STATIC_VIDEO_CONSTRAINTS,
+} from '../../StartLiveness/helpers';
+import { WS_CLOSURE_CODE } from '../utils/constants';
 
 export const MIN_FACE_MATCH_TIME = 500;
+const DEFAULT_FACE_FIT_TIMEOUT = 7000;
 
 // timer metrics variables
 let faceDetectedTimestamp: number;
@@ -609,7 +615,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       sendTimeoutAfterOvalMatchDelay: actions.send(
         { type: 'TIMEOUT' },
         {
-          delay: 7000,
+          delay: (context) => {
+            return (
+              context.serverSessionInformation?.Challenge
+                ?.FaceMovementAndLightChallenge?.ChallengeConfig
+                ?.OvalFitTimeout || DEFAULT_FACE_FIT_TIMEOUT
+            );
+          },
           id: 'ovalMatchTimeout',
         }
       ),
@@ -644,7 +656,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       // callbacks
       callUserPermissionDeniedCallback: assign({
         errorState: (context, event) => {
-          let errorState: LivenessErrorState;
+          let errorState: ErrorState;
 
           if ((event.data!.message as string).includes('15 fps')) {
             errorState = LivenessErrorState.CAMERA_FRAMERATE_ERROR;
@@ -693,7 +705,22 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         if (freshnessColorEl) {
           freshnessColorEl.style.display = 'none';
         }
-        await context.livenessStreamProvider?.endStream();
+
+        let closureCode = WS_CLOSURE_CODE.DEFAULT_ERROR_CODE;
+        if (context.errorState === LivenessErrorState.TIMEOUT) {
+          closureCode = WS_CLOSURE_CODE.FACE_FIT_TIMEOUT;
+        } else if (context.errorState === LivenessErrorState.RUNTIME_ERROR) {
+          closureCode = WS_CLOSURE_CODE.RUNTIME_ERROR;
+        } else if (
+          context.errorState === LivenessErrorState.FACE_DISTANCE_ERROR ||
+          context.errorState === LivenessErrorState.MULTIPLE_FACES_ERROR
+        ) {
+          closureCode = WS_CLOSURE_CODE.USER_ERROR_DURING_CONNECTION;
+        } else if (context.errorState === undefined) {
+          closureCode = WS_CLOSURE_CODE.USER_CANCEL;
+        }
+
+        await context.livenessStreamProvider?.endStreamWithCode(closureCode);
       },
       freezeStream: async (context) => {
         const { videoMediaStream, videoEl } = context.videoAssociatedParams!;
@@ -850,13 +877,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       async openLivenessStreamConnection(context) {
         const { config } = context.componentProps!;
-        const { credentialProvider } = config!;
+        const { credentialProvider, endpointOverride } = config!;
         const livenessStreamProvider = new LivenessStreamProvider({
           sessionId: context.componentProps!.sessionId,
           region: context.componentProps!.region,
           stream: context.videoAssociatedParams!.videoMediaStream!,
           videoEl: context.videoAssociatedParams!.videoEl!,
           credentialProvider: credentialProvider,
+          endpointOverride: endpointOverride,
         });
 
         streamConnectionOpenTimestamp = Date.now();

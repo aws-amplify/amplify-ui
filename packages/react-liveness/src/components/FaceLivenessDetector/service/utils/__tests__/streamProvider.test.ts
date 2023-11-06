@@ -2,6 +2,7 @@
 import 'web-streams-polyfill';
 import 'blob-polyfill';
 
+import { TextDecoder } from 'util';
 import { Amplify } from '@aws-amplify/core';
 import { RekognitionStreamingClient } from '@aws-sdk/client-rekognitionstreaming';
 import { LivenessStreamProvider } from '../streamProvider';
@@ -12,6 +13,11 @@ import { AwsCredentialProvider } from '../../types';
 jest.mock('../videoRecorder');
 jest.mock('@aws-sdk/client-rekognitionstreaming');
 jest.mock('@aws-amplify/core');
+
+Object.defineProperty(window, 'TextDecoder', {
+  writable: true,
+  value: TextDecoder,
+});
 
 const mockGet = jest.fn().mockImplementation(() => {
   return {
