@@ -76,3 +76,13 @@
 .amplify-authenticator__federated-text {
   align-self: center;
 }
+
+.amplify-authenticator__federated-buttons {
+  flex-direction: column;
+  padding-block-end: var(--amplify-space-medium);
+}
+
+.amplify-authenticator__federated-button {
+  font-weight: normal;
+  gap: var(--amplify-space-medium);
+}
