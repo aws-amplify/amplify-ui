@@ -123,62 +123,6 @@ exports[`CSS Variables Table 1`] = `
         "value": "var(--amplify-colors-orange-80)"
     },
     {
-        "variable": "--amplify-colors-primary-10",
-        "value": "var(--amplify-colors-teal-10)"
-    },
-    {
-        "variable": "--amplify-colors-primary-100",
-        "value": "var(--amplify-colors-teal-100)"
-    },
-    {
-        "variable": "--amplify-colors-primary-20",
-        "value": "var(--amplify-colors-teal-20)"
-    },
-    {
-        "variable": "--amplify-colors-primary-40",
-        "value": "var(--amplify-colors-teal-40)"
-    },
-    {
-        "variable": "--amplify-colors-primary-60",
-        "value": "var(--amplify-colors-teal-60)"
-    },
-    {
-        "variable": "--amplify-colors-primary-80",
-        "value": "var(--amplify-colors-teal-80)"
-    },
-    {
-        "variable": "--amplify-colors-primary-90",
-        "value": "var(--amplify-colors-teal-90)"
-    },
-    {
-        "variable": "--amplify-colors-secondary-10",
-        "value": "var(--amplify-colors-purple-10)"
-    },
-    {
-        "variable": "--amplify-colors-secondary-100",
-        "value": "var(--amplify-colors-purple-100)"
-    },
-    {
-        "variable": "--amplify-colors-secondary-20",
-        "value": "var(--amplify-colors-purple-20)"
-    },
-    {
-        "variable": "--amplify-colors-secondary-40",
-        "value": "var(--amplify-colors-purple-40)"
-    },
-    {
-        "variable": "--amplify-colors-secondary-60",
-        "value": "var(--amplify-colors-purple-60)"
-    },
-    {
-        "variable": "--amplify-colors-secondary-80",
-        "value": "var(--amplify-colors-purple-80)"
-    },
-    {
-        "variable": "--amplify-colors-secondary-90",
-        "value": "var(--amplify-colors-purple-90)"
-    },
-    {
         "variable": "--amplify-colors-font-active",
         "value": "var(--amplify-colors-primary-100)"
     },
@@ -383,6 +327,34 @@ exports[`CSS Variables Table 1`] = `
         "value": "hsl(340, 100%, 20%)"
     },
     {
+        "variable": "--amplify-colors-primary-10",
+        "value": "var(--amplify-colors-teal-10)"
+    },
+    {
+        "variable": "--amplify-colors-primary-100",
+        "value": "var(--amplify-colors-teal-100)"
+    },
+    {
+        "variable": "--amplify-colors-primary-20",
+        "value": "var(--amplify-colors-teal-20)"
+    },
+    {
+        "variable": "--amplify-colors-primary-40",
+        "value": "var(--amplify-colors-teal-40)"
+    },
+    {
+        "variable": "--amplify-colors-primary-60",
+        "value": "var(--amplify-colors-teal-60)"
+    },
+    {
+        "variable": "--amplify-colors-primary-80",
+        "value": "var(--amplify-colors-teal-80)"
+    },
+    {
+        "variable": "--amplify-colors-primary-90",
+        "value": "var(--amplify-colors-teal-90)"
+    },
+    {
         "variable": "--amplify-colors-purple-10",
         "value": "hsl(300, 95%, 95%)"
     },
@@ -437,6 +409,34 @@ exports[`CSS Variables Table 1`] = `
     {
         "variable": "--amplify-colors-red-90",
         "value": "hsl(0, 100%, 20%)"
+    },
+    {
+        "variable": "--amplify-colors-secondary-10",
+        "value": "var(--amplify-colors-purple-10)"
+    },
+    {
+        "variable": "--amplify-colors-secondary-100",
+        "value": "var(--amplify-colors-purple-100)"
+    },
+    {
+        "variable": "--amplify-colors-secondary-20",
+        "value": "var(--amplify-colors-purple-20)"
+    },
+    {
+        "variable": "--amplify-colors-secondary-40",
+        "value": "var(--amplify-colors-purple-40)"
+    },
+    {
+        "variable": "--amplify-colors-secondary-60",
+        "value": "var(--amplify-colors-purple-60)"
+    },
+    {
+        "variable": "--amplify-colors-secondary-80",
+        "value": "var(--amplify-colors-purple-80)"
+    },
+    {
+        "variable": "--amplify-colors-secondary-90",
+        "value": "var(--amplify-colors-purple-90)"
     },
     {
         "variable": "--amplify-colors-shadow-primary",
