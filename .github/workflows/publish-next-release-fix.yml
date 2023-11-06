@@ -23,7 +23,7 @@ jobs:
   publish:
     uses: ./.github/workflows/reusable-tagged-publish.yml
     with:
-      dist-tag: next-release-fix
+      dist-tag: mjs-test
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
