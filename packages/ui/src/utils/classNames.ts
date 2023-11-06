@@ -9,7 +9,7 @@ type ClassNamesInput =
   | Record<string, unknown>
   | ClassNamesArgs;
 
-interface ClassNamesArgs extends Array<ClassNamesInput> {}
+type ClassNamesArgs = Array<ClassNamesInput>;
 
 export const classNames = (...args: ClassNamesArgs) => {
   const classes: string[] = [];
@@ -22,14 +22,17 @@ export const classNames = (...args: ClassNamesArgs) => {
 
     if (isString(arg)) {
       classes.push(arg);
+      continue;
     }
 
     if (typeof arg === 'number') {
       classes.push(arg.toString());
+      continue;
     }
 
     if (Array.isArray(arg)) {
       classes.push(classNames(...arg));
+      continue;
     }
 
     if (isObject(arg)) {
