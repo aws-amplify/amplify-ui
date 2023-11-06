@@ -93,8 +93,8 @@ cd ./mega-apps/${MEGA_APP_NAME}
 
 if [ "$FRAMEWORK" == 'react' ]; then
     # add react-dom
-    echo "DEPENDENCIES='$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage@$UI_VERSION @aws-amplify/ui-react-geo@$UI_VERSION @aws-amplify/ui-react-notifications@$UI_VERSION'"
-    DEPENDENCIES="$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage@$UI_VERSION @aws-amplify/ui-react-geo@$UI_VERSION @aws-amplify/ui-react-notifications@$UI_VERSION"
+    DEPENDENCIES="$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage@$UI_VERSION @aws-amplify/ui-react-geo@$UI_VERSION @aws-amplify/ui-react-notifications@$UI_VERSION @aws-amplify/geo@3"
+    echo "DEPENDENCIES='$DEPENDENCIES'"
 
     if [[ "$BUILD_TOOL" == 'cra' && "$LANGUAGE" == 'ts' ]]; then
         DEP_TYPES="@types/react@$FRAMEWORK_VERSION @types/react-dom@$FRAMEWORK_VERSION"
