@@ -414,6 +414,24 @@ describe('Liveness Machine', () => {
   });
 
   describe('notRecording', () => {
+    it('should reach waitForSessionInfo', async () => {
+      await transitionToInitializeLivenessStream(service);
+      await flushPromises(); // checkFaceDistanceBeforeRecording
+
+      service.send({
+        type: 'SET_SESSION_INFO',
+        data: {
+          sessionInfo: mockSessionInformation,
+        },
+      });
+      jest.advanceTimersToNextTimer(); // initializeLivenessStream
+      await flushPromises(); // { notRecording: 'waitForSessionInfo' }
+
+      expect(service.state.value).toEqual({
+        notRecording: 'waitForSessionInfo',
+      });
+    });
+
     it('should reach recording state on START_RECORDING', async () => {
       await transitionToInitializeLivenessStream(service);
       await flushPromises(); // checkFaceDistanceBeforeRecording
