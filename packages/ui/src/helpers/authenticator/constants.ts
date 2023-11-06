@@ -107,7 +107,7 @@ export const defaultFormFieldOptions: DefaultFormFieldOptions = {
   },
   username: {
     label: 'Username',
-    placeholder: 'Enter your Username',
+    placeholder: 'Enter your username',
     type: 'text',
     autocomplete: 'username',
     isRequired: true,

@@ -242,7 +242,7 @@ describe('getFormFields', () => {
         autocomplete: 'username',
         isRequired: true,
         label: 'Mock Label',
-        placeholder: 'Enter your Username',
+        placeholder: 'Enter your username',
         type: 'text',
       },
     });
