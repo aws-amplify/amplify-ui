@@ -242,13 +242,8 @@ const hasRouteComponent = computed(() => {
           <template #header>
             <slot name="confirm-sign-up-header"></slot>
           </template>
-          <template #footer="{ onConfirmSignUpSubmit, onLostCodeClicked }">
-            <slot
-              name="confirm-sign-up-footer"
-              :onConfirmSignUpSubmit="onConfirmSignUpSubmit"
-              :onLostCodeClicked="onLostCodeClicked"
-            >
-            </slot>
+          <template #footer>
+            <slot name="confirm-sign-up-footer"> </slot>
           </template>
         </confirm-sign-up>
 
@@ -262,13 +257,8 @@ const hasRouteComponent = computed(() => {
           <template #header>
             <slot name="reset-password-header"></slot>
           </template>
-          <template #footer="{ onResetPasswordSubmit, onBackToSignInClicked }">
-            <slot
-              name="reset-password-footer"
-              :onResetPasswordSubmit="onResetPasswordSubmit"
-              :onBackToSignInClicked="onBackToSignInClicked"
-            >
-            </slot>
+          <template #footer>
+            <slot name="reset-password-footer"> </slot>
           </template>
         </reset-password>
 
@@ -282,15 +272,8 @@ const hasRouteComponent = computed(() => {
           <template #header>
             <slot name="confirm-reset-password-header"></slot>
           </template>
-          <template
-            #footer="{ onConfirmResetPasswordSubmit, onLostYourCodeClicked }"
-          >
-            <slot
-              name="confirm-reset-password-footer"
-              :onConfirmResetPasswordSubmit="onConfirmResetPasswordSubmit"
-              :onLostYourCodeClicked="onLostYourCodeClicked"
-            >
-            </slot>
+          <template #footer>
+            <slot name="confirm-reset-password-footer"> </slot>
           </template>
         </confirm-reset-password>
 
@@ -304,13 +287,8 @@ const hasRouteComponent = computed(() => {
           <template #header>
             <slot name="confirm-sign-in-header"></slot>
           </template>
-          <template #footer="{ onConfirmSignInSubmit, onBackToSignInClicked }">
-            <slot
-              name="confirm-sign-in-footer"
-              :onConfirmSignInSubmit="onConfirmSignInSubmit"
-              :onBackToSignInClicked="onBackToSignInClicked"
-            >
-            </slot>
+          <template #footer>
+            <slot name="confirm-sign-in-footer"> </slot>
           </template>
         </confirm-sign-in>
 
@@ -324,13 +302,8 @@ const hasRouteComponent = computed(() => {
           <template #header>
             <slot name="setup-totp-header"></slot>
           </template>
-          <template #footer="{ onSetupTOTPSubmit, onBackToSignInClicked }">
-            <slot
-              name="setup-totp-footer"
-              :onSetupTOTPSubmit="onSetupTOTPSubmit"
-              :onBackToSignInClicked="onBackToSignInClicked"
-            >
-            </slot>
+          <template #footer>
+            <slot name="setup-totp-footer"> </slot>
           </template>
         </setup-totp>
 
@@ -347,15 +320,8 @@ const hasRouteComponent = computed(() => {
           <template #force-new-password-form-fields>
             <slot name="force-new-password-form-fields"></slot>
           </template>
-          <template
-            #footer="{ onHaveAccountClicked, onForceNewPasswordSubmit }"
-          >
-            <slot
-              name="force-new-password-footer"
-              :onForceNewPasswordSubmit="onForceNewPasswordSubmit"
-              :onBackToSignInClicked="onHaveAccountClicked"
-            >
-            </slot>
+          <template #footer>
+            <slot name="force-new-password-footer"> </slot>
           </template>
         </force-new-password>
 
@@ -366,13 +332,8 @@ const hasRouteComponent = computed(() => {
           <template #header>
             <slot name="verify-user-header"></slot>
           </template>
-          <template #footer="{ onVerifyUserSubmit, onSkipClicked }">
-            <slot
-              name="verify-user-footer"
-              :onVerifyUserSubmit="onVerifyUserSubmit"
-              :onSkipClicked="onSkipClicked"
-            >
-            </slot>
+          <template #footer>
+            <slot name="verify-user-footer"> </slot>
           </template>
         </verify-user>
 
