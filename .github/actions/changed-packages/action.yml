@@ -32,9 +32,7 @@ runs:
 
         # check if any of the modified files belongs to the specified input packages
         if echo "$changed_files" | grep -Eq "^($package_names)/"; then
-          # prevent RN e2e tests runs here in place of @todo-migration e2e flag
-          # echo "has-changed-packages=true" >> $GITHUB_OUTPUT
-          echo "has-changed-packages=false" >> $GITHUB_OUTPUT
+          echo "has-changed-packages=true" >> $GITHUB_OUTPUT
         else
           echo "has-changed-packages=false" >> $GITHUB_OUTPUT
         fi
