@@ -62,7 +62,7 @@ jobs:
         working-directory: ./canary
       - name: Delete AWS Profile
         run: rm -rf ~/.aws
-      - name: Setup canary apps against @next-release-fix
+      - name: Setup canary apps against @mjs-test
         run: yarn setup:mjs-test
         working-directory: ./canary
       - name: Run yarn install on each sample app
