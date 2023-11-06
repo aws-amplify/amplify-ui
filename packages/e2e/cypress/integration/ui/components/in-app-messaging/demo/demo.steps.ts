@@ -18,10 +18,6 @@ When('I toggle {string} checkbox', (checkboxName: string) => {
   cy.findByText(checkboxName).click();
 });
 
-When('I wait', () => {
-  cy.wait(1000);
-});
-
 When('I wait for pinpoint messages to sync', () => {
   const analyticsCampaignRegion = 'us-east-1';
   cy.intercept({
