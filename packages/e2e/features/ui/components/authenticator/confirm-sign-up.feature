@@ -26,7 +26,6 @@ Feature: Confirm Sign Up
     Then I confirm my password
     Then I click the "Create Account" button
     Then I see "Confirmation Code"
-    Then I see "Your code is on the way. To log in, enter the code we sent you. It will take several minutes to arrive."
 
   @angular @react @vue @react-native
   Scenario: Confirm a new username & password with an invalid code
@@ -38,8 +37,7 @@ Feature: Confirm Sign Up
     Then I type an invalid confirmation code
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with error fixture "AWSCognitoIdentityProviderService.ConfirmSignUp-invalid-code"
     Then I click the "Confirm" button
-    # Not the actual error a real user would see because this is a test user with a mock API call
-    Then I see "Username/client id combination not found."
+    Then I see "Invalid verification code provided, please try again."
 
   @angular @react @vue @react-native
   Scenario: Confirm a new username & password with a valid code
@@ -52,6 +50,7 @@ Feature: Confirm Sign Up
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
     Then I spy request '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' 
     Then I click the "Confirm" button
+    Then I don't see "Confirmation Code"
     Then I confirm request '{"headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }'
 
   @angular @react @vue
