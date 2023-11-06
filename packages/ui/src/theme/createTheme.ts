@@ -7,6 +7,7 @@ import { Theme, DefaultTheme, WebTheme, Override } from './types';
 import { cssValue, cssNameTransform, setupTokens, SetupToken } from './utils';
 import { WebDesignToken } from './tokens/types/designToken';
 import { isString } from '../utils';
+import { ColorValues, ScaleKey } from './tokens/colors';
 
 /**
  * This will take a design token and add some data to it for it
@@ -24,15 +25,29 @@ const setupToken: SetupToken<WebDesignToken> = ({ token, path }) => {
   return { name, original, path, value, toString: () => `var(${name})` };
 };
 
-function applyBrandColor({ tokens, value, key }) {
-  if (isString(value)) {
-    tokens.colors[key] = Object.keys(tokens.colors[key]).reduce((acc, key) => {
-      return {
-        ...acc,
-        [key]: { value: `{colors.${value}.${key}}` },
-      };
-    }, {});
-  }
+/**
+ * Takes a set of keys and a color name and returns an object of design tokens,
+ * used for applying a primary color at the theme level to our tokens.
+ *
+ * createBrandColorPalette({keys: ['10','20',...], value: 'red'})
+ * returns {
+ *   10: { value: '{colors.red.10.value}' },
+ *   20: { value: '{colors.red.20.value}' },
+ *   ...
+ * }
+ */
+function createBrandColorPalette<
+  ColorType extends ColorValues<ScaleKey, 'default'> = ColorValues<
+    ScaleKey,
+    'default'
+  >,
+>({ keys, value }: { keys: string[]; value: string }): ColorType {
+  return keys.reduce((acc, key) => {
+    return {
+      ...acc,
+      [key]: { value: `{colors.${value}.${key}.value}` },
+    };
+  }, {} as ColorType);
 }
 
 /**
@@ -53,16 +68,18 @@ export function createTheme(
   const mergedTheme = deepExtend<DefaultTheme>([{}, DefaultTheme, theme]);
 
   // apply primaryColor and secondaryColor if present
-  applyBrandColor({
-    tokens: mergedTheme.tokens,
-    value: theme?.primaryColor,
-    key: 'primary',
-  });
-  applyBrandColor({
-    tokens: mergedTheme.tokens,
-    value: theme?.secondaryColor,
-    key: 'secondary',
-  });
+  if (isString(theme?.primaryColor)) {
+    mergedTheme.tokens.colors.primary = createBrandColorPalette({
+      keys: Object.keys(mergedTheme.tokens.colors.primary),
+      value: theme?.primaryColor,
+    });
+  }
+  if (isString(theme?.secondaryColor)) {
+    mergedTheme.tokens.colors.secondary = createBrandColorPalette({
+      keys: Object.keys(mergedTheme.tokens.colors.secondary),
+      value: theme?.secondaryColor,
+    });
+  }
 
   // Setting up the tokens. This is similar to what Style Dictionary
   // does. At the end of this, each token should have:

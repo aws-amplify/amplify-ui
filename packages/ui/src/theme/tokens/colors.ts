@@ -15,7 +15,7 @@ type BaseColorValues<
 > = RecursiveDesignToken<ColorValue, Output, Platform> &
   DesignTokenValues<VariantKey, ColorValue, Output, Platform>;
 
-type ColorValues<
+export type ColorValues<
   VariantKey extends string | number,
   Output,
   Platform = unknown,
@@ -41,7 +41,7 @@ type ColorValueScale<
   : Partial<BaseColorValueScale<VariantKey, Output, Platform>>;
 
 // scale keys
-type ScaleKey = 10 | 20 | 40 | 60 | 80 | 90 | 100;
+export type ScaleKey = 10 | 20 | 40 | 60 | 80 | 90 | 100;
 type OverlayKey = 5 | 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90;
 
 // color palettes
