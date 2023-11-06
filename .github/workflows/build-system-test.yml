@@ -58,7 +58,7 @@ jobs:
           - framework: react
             framework-version: 17
             build-tool: next
-            build-tool-version: 11
+            build-tool-version: 12
             pkg-manager: npm
             language: ts
             node-version: 20
@@ -133,4 +133,3 @@ jobs:
         run: npm run ${{ env.MEGA_APP_NAME }}
         shell: bash
         working-directory: build-system-tests
-
