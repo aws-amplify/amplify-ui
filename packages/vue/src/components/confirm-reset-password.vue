@@ -94,12 +94,7 @@ function onBlur(e: Event) {
             >
               {{ resendCodeText }}
             </amplify-button>
-            <slot
-              name="footer"
-              :onConfirmResetPasswordSubmit="onConfirmResetPasswordSubmit"
-              :onLostYourCodeClicked="onLostYourCodeClicked"
-            >
-            </slot>
+            <slot name="footer"> </slot>
           </base-footer>
         </base-field-set>
       </base-form>

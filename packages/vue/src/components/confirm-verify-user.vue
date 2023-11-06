@@ -84,12 +84,7 @@ const onSkipClicked = (): void => {
             >
               {{ skipText }}
             </amplify-button>
-            <slot
-              name="footer"
-              :onSkipClicked="onSkipClicked"
-              :onConfirmVerifyUserSubmit="onConfirmVerifyUserSubmit"
-            >
-            </slot>
+            <slot name="footer"> </slot>
           </base-footer>
         </base-field-set>
       </base-form>

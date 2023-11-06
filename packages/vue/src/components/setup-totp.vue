@@ -155,12 +155,7 @@ const onBackToSignInClicked = (): void => {
               >
                 {{ backSignInText }}
               </amplify-button>
-              <slot
-                name="footer"
-                :onBackToSignInClicked="onBackToSignInClicked"
-                :onSetupTOTPSubmit="onSetupTOTPSubmit"
-              >
-              </slot>
+              <slot name="footer"> </slot>
             </base-footer>
           </base-wrapper>
         </base-field-set>

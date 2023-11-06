@@ -403,13 +403,8 @@ const hasRouteComponent = computed(() => {
           <template #header>
             <slot name="confirm-verify-user-header"></slot>
           </template>
-          <template #footer="{ onConfirmVerifyUserSubmit, onSkipClicked }">
-            <slot
-              name="confirm-verify-user-footer"
-              :onConfirmVerifyUserSubmit="onConfirmVerifyUserSubmit"
-              :onSkipClicked="onSkipClicked"
-            >
-            </slot>
+          <template #footer>
+            <slot name="confirm-verify-user-footer"> </slot>
           </template>
         </confirm-verify-user>
       </div>

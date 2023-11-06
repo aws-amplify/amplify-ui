@@ -89,12 +89,7 @@ const onBackToSignInClicked = (): void => {
             >
               {{ backSignInText }}
             </amplify-button>
-            <slot
-              name="footer"
-              :onBackToSignInClicked="onBackToSignInClicked"
-              :onConfirmSignInSubmit="onConfirmSignInSubmit"
-            >
-            </slot>
+            <slot name="footer"> </slot>
           </base-footer>
         </base-field-set>
       </base-form>

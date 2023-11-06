@@ -101,12 +101,7 @@ const onLostCodeClicked = (): void => {
             >
               {{ resendCodeText }}
             </amplify-button>
-            <slot
-              name="footer"
-              :onConfirmSignUpSubmit="onConfirmSignUpSubmit"
-              :onLostCodeClicked="onLostCodeClicked"
-            >
-            </slot>
+            <slot name="footer"> </slot>
           </base-footer>
         </base-wrapper>
       </base-form>
