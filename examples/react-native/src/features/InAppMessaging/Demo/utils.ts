@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import {
-  Message,
-  MessageAction,
-  MessageButton,
-  MessageLayout,
-} from '@aws-amplify/ui-react-core-notifications';
+  InAppMessage,
+  InAppMessageAction,
+  InAppMessageButton,
+  InAppMessageLayout,
+} from '@aws-amplify/ui-react-native';
 import { useInAppMessaging } from '@aws-amplify/ui-react-native';
 
 type ImageOrientation = 'landscape' | 'portrait';
