@@ -6,7 +6,8 @@
 }
 
 .amplify-liveness-cancel-button {
-  background-color: var(--amplify-colors-background-primary);
+  background-color: var(--amplify-colors-white);
+  color: hsl(190, 95%, 30%);
 }
 
 .amplify-liveness-fade-out {
@@ -97,10 +98,14 @@
 .amplify-liveness-recording-icon {
   flex-direction: column;
   align-items: center;
-  background-color: var(--amplify-colors-background-primary);
+  background-color: var(--amplify-colors-white);
   padding: var(--amplify-space-xxs);
   gap: var(--amplify-space-xxs);
   border-radius: var(--amplify-radii-small);
+}
+
+.amplify-liveness-recording-icon .amplify-text {
+  color: var(--amplify-colors-black);
 }
 
 .amplify-liveness-instruction-overlay {
