@@ -31,7 +31,7 @@ import {
 } from '../../types';
 import { groupLog } from '../../utils';
 // import .js directly to satisfy ESM
-import { uniqueId } from 'lodash/uniqueId.js';
+import uniqueId from 'lodash/uniqueId.js';
 
 // Cognito does not allow a password length lower then 8 characters
 const DEFAULT_COGNITO_PASSWORD_MIN_LENGTH = 8;
