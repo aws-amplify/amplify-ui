@@ -3,7 +3,6 @@ import {
   ref,
   toRefs,
   computed,
-  useAttrs,
   onMounted,
   onUnmounted,
   withDefaults,
@@ -44,8 +43,6 @@ interface AuthenticatorProps {
   formFields?: AuthFormFields;
 }
 
-const attrs = useAttrs();
-
 const props = withDefaults(defineProps<AuthenticatorProps>(), {
   variation: 'default',
 });
@@ -60,20 +57,6 @@ const {
   hideSignUp,
   formFields,
 } = toRefs(props);
-
-/** @deprecated Component events are deprecated and not maintained. */
-const emit = defineEmits([
-  'signInSubmit',
-  'confirmSignUpSubmit',
-  'resetPasswordSubmit',
-  'confirmResetPasswordSubmit',
-  'confirmSignInSubmit',
-  'mSetupTOTPSubmit',
-  'forceNewPasswordSubmit',
-  'signUpSubmit',
-  'verifyUserSubmit',
-  'confirmVerifyUserSubmit',
-]);
 
 let clearUserAgent: () => void;
 
