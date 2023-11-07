@@ -9167,11 +9167,6 @@
     "@svgr/hast-util-to-babel-ast" "^5.5.0"
     svg-parser "^2.0.2"
 
-"@tensorflow-models/blazeface@0.0.7":
-  version "0.0.7"
-  resolved "https://registry.npmjs.org/@tensorflow-models/blazeface/-/blazeface-0.0.7.tgz#0a16499a0cc97fc87e11ae1f78140731c5f63bf2"
-  integrity sha512-+hInPkvHJoubfiXlmNuF3SCucZvU6W1PMC25IV99NSAftJUpKvLokfF93iX8UkOFQCXkPFbnLKacGfGlbjgvMw==
-
 "@tensorflow-models/face-detection@1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@tensorflow-models/face-detection/-/face-detection-1.0.2.tgz#5667bad30ee95021cc69a90538b5218dd349c65b"
@@ -28225,7 +28220,7 @@ semver@7.3.8, semver@7.5.4, semver@7.x, semver@^7.0.0, semver@^7.1.1, semver@^7.
 
 semver@7.5.3:
   version "7.5.3"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-7.5.3.tgz#161ce8c2c6b4b3bdca6caadc9fa3317a4c4fe88e"
+  resolved "https://registry.npmjs.org/semver/-/semver-7.5.3.tgz#161ce8c2c6b4b3bdca6caadc9fa3317a4c4fe88e"
   integrity sha512-QBlUtyVk/5EeHbi7X0fw6liDZc7BBmEaSYn01fMU1OUYbf6GPsbTtd8WmnqbI20SeycoHSeiybkE/q1Q+qlThQ==
   dependencies:
     lru-cache "^6.0.0"
