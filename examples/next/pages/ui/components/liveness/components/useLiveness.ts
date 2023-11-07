@@ -60,7 +60,7 @@ export function useLiveness() {
     const { body } = response;
     const livenessResponse = await body.json();
     setGetLivenessResponse(livenessResponse);
-    return { isLive: (livenessResponse as any).isLive };
+    return { isLive: livenessResponse['isLive'] };
   };
 
   return {
