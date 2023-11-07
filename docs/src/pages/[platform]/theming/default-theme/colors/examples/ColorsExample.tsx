@@ -11,10 +11,10 @@ const theme = {
         },
       },
       heading: {
-        color: { value: '{colors.brand.secondary[80]}' },
+        color: { value: '{colors.secondary[80]}' },
       },
       text: {
-        color: { value: '{colors.brand.primary[80]}' },
+        color: { value: '{colors.primary[80]}' },
       },
     },
   },

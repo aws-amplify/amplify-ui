@@ -6,6 +6,8 @@ import { defaultTheme } from './defaultTheme';
 import { Theme, DefaultTheme, WebTheme, Override } from './types';
 import { cssValue, cssNameTransform, setupTokens, SetupToken } from './utils';
 import { WebDesignToken } from './tokens/types/designToken';
+import { isString } from '../utils';
+import { ColorValues, ScaleKey } from './tokens/colors';
 
 /**
  * This will take a design token and add some data to it for it
@@ -24,6 +26,31 @@ const setupToken: SetupToken<WebDesignToken> = ({ token, path }) => {
 };
 
 /**
+ * Takes a set of keys and a color name and returns an object of design tokens,
+ * used for applying a primary color at the theme level to our tokens.
+ *
+ * createColorPalette({keys: ['10','20',...], value: 'red'})
+ * returns {
+ *   10: { value: '{colors.red.10.value}' },
+ *   20: { value: '{colors.red.20.value}' },
+ *   ...
+ * }
+ */
+function createColorPalette<
+  ColorType extends ColorValues<ScaleKey, 'default'> = ColorValues<
+    ScaleKey,
+    'default'
+  >,
+>({ keys, value }: { keys: string[]; value: string }): ColorType {
+  return keys.reduce((acc, key) => {
+    return {
+      ...acc,
+      [key]: { value: `{colors.${value}.${key}.value}` },
+    };
+  }, {} as ColorType);
+}
+
+/**
  * This will be used like `const myTheme = createTheme({})`
  * `myTheme` can then be passed to a Provider or the generated CSS
  * can be passed to a stylesheet at build-time or run-time.
@@ -39,6 +66,21 @@ export function createTheme(
   // that performs a deep merge on n objects. We could change
   // this to another 3p deep merge solution too.
   const mergedTheme = deepExtend<DefaultTheme>([{}, DefaultTheme, theme]);
+  const { primaryColor, secondaryColor } = mergedTheme;
+
+  // apply primaryColor and secondaryColor if present
+  if (isString(primaryColor)) {
+    mergedTheme.tokens.colors.primary = createColorPalette({
+      keys: Object.keys(mergedTheme.tokens.colors[primaryColor]),
+      value: primaryColor,
+    });
+  }
+  if (isString(secondaryColor)) {
+    mergedTheme.tokens.colors.secondary = createColorPalette({
+      keys: Object.keys(mergedTheme.tokens.colors[secondaryColor]),
+      value: secondaryColor,
+    });
+  }
 
   // Setting up the tokens. This is similar to what Style Dictionary
   // does. At the end of this, each token should have:

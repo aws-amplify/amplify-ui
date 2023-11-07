@@ -38,7 +38,7 @@ const MyHeader = ({
       <Text
         style={{
           fontSize: fontSizes.xxl,
-          color: colors.brand.secondary[80],
+          color: colors.secondary[80],
           borderWidth: borderWidths.large,
         }}
       >

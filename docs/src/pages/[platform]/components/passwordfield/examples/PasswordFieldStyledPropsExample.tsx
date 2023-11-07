@@ -11,7 +11,7 @@ export const PasswordFieldStyledPropsExample = () => {
           </Text>
         }
         padding="xl"
-        border={`1px solid ${tokens.colors.brand.primary[60]}`}
+        border={`1px solid ${tokens.colors.primary[60]}`}
       />
       <PasswordField
         label="Password"
