@@ -67,15 +67,15 @@ jobs:
         include:
           - example: angular
             package: angular
-            tags: '@angular and not @todo-angular'
+            tags: '@angular and not @todo-angular and not @todo-migration'
 
           - example: next
             package: react
-            tags: '@react and not @todo-react'
+            tags: '@react and not @todo-react and not @todo-migration'
 
           - example: vue
             package: vue
-            tags: '@vue and not @todo-vue'
+            tags: '@vue and not @todo-vue and not @todo-migration'
 
     steps:
       - name: Checkout Amplify UI
@@ -96,10 +96,10 @@ jobs:
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
-      - name: Setup Node.js 16
+      - name: Setup Node.js 20
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
-          node-version: 16
+          node-version: 20
           cache: 'yarn'
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
@@ -332,7 +332,7 @@ jobs:
           fetch-depth: 2
           persist-credentials: false
 
-      - name: Determine if there were changes to react-native packages
+      - name: Determine if there were changes to react-native dependency packages
         if: ${{ inputs.skip-changed-packages-check == 'false' }}
         id: has-rn-changed-packages
         uses: ./.github/actions/changed-packages
@@ -340,7 +340,9 @@ jobs:
           commit: ${{ inputs.commit }}
           packages: |
             packages/react-native
+            packages/react-native-auth
             packages/react-core
+            packages/react-core-auth
             packages/react-core-notifications
             packages/ui
             packages/e2e
@@ -348,7 +350,7 @@ jobs:
   e2e-ios:
     needs: check-changed-packages
     if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
-    runs-on: macos-12
+    runs-on: macos-13
     environment: ci
     env:
       NODE_ENV: test
@@ -360,10 +362,10 @@ jobs:
           repository: ${{ inputs.repository }}
           persist-credentials: false
 
-      - name: Setup Node.js 16
+      - name: Setup Node.js 20
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
-          node-version: 16
+          node-version: 20
           cache: 'yarn'
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
@@ -468,7 +470,7 @@ jobs:
   e2e-android:
     needs: check-changed-packages
     if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
-    runs-on: macos-12
+    runs-on: macos-13
     environment: ci
     env:
       NODE_ENV: test
@@ -491,10 +493,10 @@ jobs:
           distribution: 'corretto' # Amazon Corretto Build of OpenJDK
           java-version: '11'
 
-      - name: Setup Node.js 16
+      - name: Setup Node.js 20
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
-          node-version: 16
+          node-version: 20
           cache: 'yarn'
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
@@ -618,10 +620,10 @@ jobs:
           repository: ${{ inputs.repository }}
           persist-credentials: false
 
-      - name: Setup Node.js 16
+      - name: Setup Node.js 20
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
-          node-version: 16
+          node-version: 20
           cache: 'yarn'
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2

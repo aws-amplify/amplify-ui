@@ -8,18 +8,25 @@ import { Sender } from 'xstate';
 
 import {
   ActorContextWithForms,
+  AmplifyUser,
   AuthEvent,
   AuthEventData,
   AuthEventTypes,
   AuthMachineState,
+  ChallengeName,
   CodeDeliveryDetails,
-  AmplifyUser,
-  ValidationError,
+  FederatedProvider,
+  LoginMechanism,
+  NavigableRoute,
   SocialProvider,
   UnverifiedContactMethods,
+  ValidationError,
 } from '../../types';
 
 import { getActorContext, getActorState } from './actor';
+import { NAVIGABLE_ROUTE_EVENT } from './constants';
+import { getRoute } from './utils';
+import { groupLog } from '../../utils';
 
 export type AuthenticatorRoute =
   | 'authenticated'
@@ -43,6 +50,7 @@ export type AuthStatus = 'configuring' | 'authenticated' | 'unauthenticated';
 
 interface AuthenticatorServiceContextFacade {
   authStatus: AuthStatus;
+  challengeName: ChallengeName | undefined;
   codeDeliveryDetails: CodeDeliveryDetails;
   error: string;
   hasValidationErrors: boolean;
@@ -76,6 +84,31 @@ type AuthenticatorSendEventAliases = Record<
 export interface AuthenticatorServiceFacade
   extends AuthenticatorSendEventAliases,
     AuthenticatorServiceContextFacade {}
+
+interface NextAuthenticatorServiceContextFacade {
+  challengeName: ChallengeName | undefined;
+  codeDeliveryDetails: CodeDeliveryDetails | undefined;
+  errorMessage: string | undefined;
+  federatedProviders: FederatedProvider[] | undefined;
+  loginMechanism: LoginMechanism | undefined;
+  isPending: boolean;
+  route: AuthenticatorRoute;
+  totpSecretCode: string | undefined;
+  username: string | undefined;
+  unverifiedContactMethods: UnverifiedContactMethods | undefined;
+}
+
+interface NextAuthenticatorSendEventAliases
+  extends Pick<AuthenticatorSendEventAliases, 'toFederatedSignIn'> {
+  handleSubmit: AuthenticatorSendEventAliases['submitForm'];
+  resendConfirmationCode: () => void;
+  setRoute: (route: NavigableRoute) => void;
+  skipAttributeVerification: () => void;
+}
+
+export interface NextAuthenticatorServiceFacade
+  extends NextAuthenticatorSendEventAliases,
+    NextAuthenticatorServiceContextFacade {}
 
 /**
  * Creates public facing auth helpers that abstracts out xstate implementation
@@ -116,11 +149,28 @@ export const getSendEventAliases = (
   };
 };
 
+const getNextSendEventAliases = (
+  send: Sender<AuthEvent>
+): NextAuthenticatorSendEventAliases => {
+  const { toFederatedSignIn, submitForm, resendCode, skipVerification } =
+    getSendEventAliases(send);
+  return {
+    handleSubmit: submitForm,
+    resendConfirmationCode: resendCode,
+    // manual "route" navigation
+    setRoute: (route: NavigableRoute) =>
+      send({ type: NAVIGABLE_ROUTE_EVENT[route] }),
+    skipAttributeVerification: skipVerification,
+    toFederatedSignIn,
+  };
+};
+
 export const getServiceContextFacade = (
   state: AuthMachineState
 ): AuthenticatorServiceContextFacade => {
   const actorContext = (getActorContext(state) ?? {}) as ActorContextWithForms;
   const {
+    challengeName,
     codeDeliveryDetails,
     remoteError: error,
     unverifiedContactMethods,
@@ -128,66 +178,20 @@ export const getServiceContextFacade = (
     totpSecretCode = null,
   } = actorContext;
 
-  const { socialProviders } = state.context?.config ?? {};
+  const { socialProviders = [] } = state.context?.config ?? {};
 
   // check for user in actorContext prior to state context. actorContext is more "up to date",
   // but is not available on all states
   const user = actorContext?.user ?? state.context?.user;
 
-  const hasValidationErrors =
-    validationErrors && Object.keys(validationErrors).length > 0;
+  const hasValidationErrors = !!(
+    validationErrors && Object.keys(validationErrors).length > 0
+  );
 
   const actorState = getActorState(state);
   const isPending = state.hasTag('pending') || actorState?.hasTag('pending');
 
-  // Any additional idle states added beyond (idle, setup) should be updated inside the authStatus below as well
-  const route = (() => {
-    switch (true) {
-      case state.matches('idle'):
-        return 'idle';
-      case state.matches('setup'):
-        return 'setup';
-      case state.matches('signOut'):
-        return 'signOut';
-      case state.matches('authenticated'):
-        return 'authenticated';
-      case actorState?.matches('confirmSignUp'):
-        return 'confirmSignUp';
-      case actorState?.matches('confirmSignIn'):
-        return 'confirmSignIn';
-      case actorState?.matches('setupTOTP.edit'):
-      case actorState?.matches('setupTOTP.submit'):
-        return 'setupTOTP';
-      case actorState?.matches('signIn'):
-        return 'signIn';
-      case actorState?.matches('signUp'):
-        return 'signUp';
-      case actorState?.matches('forceNewPassword'):
-        return 'forceNewPassword';
-      case actorState?.matches('resetPassword'):
-        return 'resetPassword';
-      case actorState?.matches('confirmResetPassword'):
-        return 'confirmResetPassword';
-      case actorState?.matches('verifyUser'):
-        return 'verifyUser';
-      case actorState?.matches('confirmVerifyUser'):
-        return 'confirmVerifyUser';
-      case actorState?.matches('setupTOTP.getTotpSecretCode'):
-      case state.matches('signIn.runActor'):
-        /**
-         * This route is needed for autoSignIn to capture both the
-         * autoSignIn.pending and the resolved states when the
-         * signIn actor is running.
-         */
-        return 'transition';
-      default:
-        console.debug(
-          'Cannot infer `route` from Authenticator state:',
-          state.value
-        );
-        return null;
-    }
-  })();
+  const route = getRoute(state, actorState);
 
   // Auth status represents the current state of the auth flow
   // The `configuring` state is used to indicate when the xState machine is loading
@@ -203,8 +207,9 @@ export const getServiceContextFacade = (
     }
   })(route);
 
-  return {
+  const facade = {
     authStatus,
+    challengeName,
     codeDeliveryDetails,
     error,
     hasValidationErrors,
@@ -215,6 +220,56 @@ export const getServiceContextFacade = (
     unverifiedContactMethods,
     user,
     validationErrors,
+
+    // @v6-migration-note
+    // While most of the properties
+    // on `AuthenticatorServiceContextFacade` can resolve to `undefined`, updating
+    // the interface requires material changes in consumers (namely `useAutenticator`)
+    // which will have implications on the UI layer as typeguards and non-null checks
+    // are required to pass type checking. As the `Authenticator` is behaving as expected
+    // with the `AuthenticatorServiceContextFacade` interface, prefer to cast
+  } as AuthenticatorServiceContextFacade;
+
+  return facade;
+};
+
+export const getNextServiceContextFacade = (
+  state: AuthMachineState
+): NextAuthenticatorServiceContextFacade => {
+  const actorContext = (getActorContext(state) ?? {}) as ActorContextWithForms;
+  const {
+    codeDeliveryDetails,
+    remoteError: errorMessage,
+    unverifiedContactMethods,
+    totpSecretCode,
+  } = actorContext;
+
+  const { socialProviders: federatedProviders, loginMechanisms } =
+    state.context?.config ?? {};
+
+  const loginMechanism = loginMechanisms?.[0];
+
+  // check for user in actorContext prior to state context. actorContext is more "up to date",
+  // but is not available on all states
+  const user = actorContext?.user ?? state.context?.user;
+  const { challengeName, username } = user ?? {};
+  const actorState = getActorState(state);
+  const isPending = state.hasTag('pending') || actorState?.hasTag('pending');
+
+  // @todo-migration remove this cast for Authenticator.Next
+  const route = getRoute(state, actorState) as AuthenticatorRoute;
+
+  return {
+    challengeName,
+    codeDeliveryDetails,
+    errorMessage,
+    federatedProviders,
+    isPending,
+    loginMechanism,
+    route,
+    totpSecretCode,
+    unverifiedContactMethods,
+    username,
   };
 };
 
@@ -233,3 +288,14 @@ export const getServiceFacade = ({
     ...serviceContext,
   };
 };
+
+export const getNextServiceFacade = ({
+  send,
+  state,
+}: {
+  send: Sender<AuthEvent>;
+  state: AuthMachineState;
+}): NextAuthenticatorServiceFacade => ({
+  ...getNextSendEventAliases(send),
+  ...getNextServiceContextFacade(state),
+});

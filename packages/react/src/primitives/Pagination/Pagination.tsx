@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 import { Flex } from '../Flex';
 import { View } from '../View';
@@ -11,6 +11,7 @@ import {
   Primitive,
 } from '../types';
 import { ComponentClassName } from '@aws-amplify/ui';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const PaginationPrimitive: Primitive<PaginationProps, 'nav'> = (
   {
@@ -62,6 +63,6 @@ const PaginationPrimitive: Primitive<PaginationProps, 'nav'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/pagination)
  */
 export const Pagination: ForwardRefPrimitive<BasePaginationProps, 'nav'> =
-  React.forwardRef(PaginationPrimitive);
+  primitiveWithForwardRef(PaginationPrimitive);
 
 Pagination.displayName = 'Pagination';

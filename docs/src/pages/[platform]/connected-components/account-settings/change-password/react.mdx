@@ -1,4 +1,4 @@
-import { Alert, Expander, ExpanderItem } from '@aws-amplify/ui-react';
+import { Alert, Accordion } from '@aws-amplify/ui-react';
 
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
 import { Example, ExampleCode } from '@/components/Example';
@@ -152,8 +152,13 @@ Note that spreading props is necessary so that event listeners like `onChange` o
 
 Here are the required props and examples for overriding each slot.
 
-<Expander type="single">
-  <ExpanderItem title="PasswordFields" value="password-fields">
+<Accordion.Container>
+  <Accordion.Item value="password-fields">
+    <Accordion.Trigger>
+      PasswordFields
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
 
 `ChangePassword` has three password fields that you can override: `CurrentPasswordField`, `NewPasswordField`, and `ConfirmPasswordField`. They all take the same props:
 
@@ -220,10 +225,14 @@ function App() {
 
     </ExampleCode>
   </Example>
-
-  </ExpanderItem>
-  <ExpanderItem title="ErrorMessage" value="error-message">
-
+  </Accordion.Content>
+  </Accordion.Item>
+  <Accordion.Item value="error-message">
+    <Accordion.Trigger>
+      ErrorMessage
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
 
 Props:
 
@@ -255,8 +264,14 @@ function App() {
 
       </ExampleCode>
     </Example>
-  </ExpanderItem>
-  <ExpanderItem title="SubmitButton" value="submit-button">
+    </Accordion.Content>
+  </Accordion.Item>
+  <Accordion.Item value="submit-button">
+    <Accordion.Trigger>
+      SubmitButton
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
 
 Props:
 
@@ -321,8 +336,38 @@ function App() {
 
       </ExampleCode>
     </Example>
-  </ExpanderItem>
-</Expander>
+    </Accordion.Content>
+  </Accordion.Item>
+</Accordion.Container>
+
+
+### Text and labels
+
+All text in the `ChangePassword` component is customizable with the `displayText` prop. 
+
+
+<Example>
+  <ExampleCode>
+
+```jsx
+import { AccountSettings } from '@aws-amplify/ui-react';
+
+function App() {
+  return (
+    <AccountSettings.ChangePassword 
+      displayText={{
+        currentPasswordLabel: 'Enter current password',
+        newPasswordLabel: 'Enter new password',
+        confirmPasswordLabel: 'Confirm your password',
+        updatePasswordText: 'Update your password',
+      }}  
+    />
+  );
+}
+```
+
+  </ExampleCode>
+</Example>
 
 ### Theming
 

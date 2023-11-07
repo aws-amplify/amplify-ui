@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 import { ComponentClassName, isFunction } from '@aws-amplify/ui';
 
@@ -16,6 +16,7 @@ import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { classNameModifierByFlag } from '../shared/utils';
 import { View } from '../View';
 import { useFieldset } from '../Fieldset/useFieldset';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   {
@@ -158,10 +159,9 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
           'disabled',
           shouldBeDisabled
         ),
+        labelPosition ? `amplify-label-${labelPosition}` : null,
         className
       )}
-      data-disabled={shouldBeDisabled}
-      data-label-position={labelPosition}
       testId={testId}
       {...styleProps}
     >
@@ -210,6 +210,6 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
 };
 
 export const Checkbox: ForwardRefPrimitive<BaseCheckboxProps, 'input'> =
-  React.forwardRef(CheckboxPrimitive);
+  primitiveWithForwardRef(CheckboxPrimitive);
 
 Checkbox.displayName = 'Checkbox';

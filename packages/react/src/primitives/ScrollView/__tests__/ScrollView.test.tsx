@@ -41,6 +41,6 @@ describe('ScrollView:', () => {
   it('should set data-orientation correctly', async () => {
     render(<ScrollView orientation="horizontal" testId="test-id" />);
     const scrollView = await screen.findByTestId('test-id');
-    expect(scrollView).toHaveAttribute('data-orientation', 'horizontal');
+    expect(scrollView).toHaveClass('amplify-scrollview--horizontal');
   });
 });

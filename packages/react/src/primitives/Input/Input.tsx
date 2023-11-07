@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassName } from '@aws-amplify/ui';
@@ -11,6 +11,7 @@ import {
 } from '../types';
 import { View } from '../View';
 import { useFieldset } from '../Fieldset/useFieldset';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const InputPrimitive: Primitive<InputProps, 'input'> = (
   {
@@ -49,8 +50,6 @@ const InputPrimitive: Primitive<InputProps, 'input'> = (
       autoComplete={autoComplete}
       checked={checked}
       className={componentClasses}
-      data-size={size}
-      data-variation={variation}
       defaultChecked={defaultChecked}
       defaultValue={defaultValue}
       isDisabled={isFieldsetDisabled ? isFieldsetDisabled : isDisabled}
@@ -66,6 +65,6 @@ const InputPrimitive: Primitive<InputProps, 'input'> = (
 };
 
 export const Input: ForwardRefPrimitive<BaseInputProps, 'input'> =
-  React.forwardRef(InputPrimitive);
+  primitiveWithForwardRef(InputPrimitive);
 
 Input.displayName = 'Input';

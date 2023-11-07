@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 
@@ -13,6 +13,7 @@ import {
   BaseShowPasswordButtonProps,
 } from '../types';
 import { classNameModifierByFlag } from '../shared/utils';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const { passwordIsHidden, passwordIsShown, showPassword } =
   ComponentText.PasswordField;
@@ -70,6 +71,6 @@ const ShowPasswordButtonPrimitive: Primitive<
 export const ShowPasswordButton: ForwardRefPrimitive<
   BaseShowPasswordButtonProps,
   'button'
-> = React.forwardRef(ShowPasswordButtonPrimitive);
+> = primitiveWithForwardRef(ShowPasswordButtonPrimitive);
 
 ShowPasswordButton.displayName = 'ShowPasswordButton';

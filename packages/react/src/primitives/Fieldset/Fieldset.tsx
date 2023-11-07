@@ -1,8 +1,9 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 import { classNameModifier } from '../shared/utils';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 import { Flex } from '../Flex';
 import { View } from '../View';
@@ -25,7 +26,7 @@ const FieldsetPrimitive: Primitive<FieldsetProps, 'fieldset'> = (
     legendHidden,
     size,
     testId,
-    variation = 'outlined',
+    variation = 'plain',
     ...rest
   },
   ref
@@ -52,7 +53,6 @@ const FieldsetPrimitive: Primitive<FieldsetProps, 'fieldset'> = (
   const legendClasses = classNames(
     ComponentClassName.FieldsetLegend,
     classNameModifier(ComponentClassName.FieldsetLegend, size),
-    className,
     {
       [ComponentClassName.VisuallyHidden]: legendHidden,
     }
@@ -83,6 +83,6 @@ const FieldsetPrimitive: Primitive<FieldsetProps, 'fieldset'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/fieldset)
  */
 export const Fieldset: ForwardRefPrimitive<BaseFieldsetProps, 'fieldset'> =
-  React.forwardRef(FieldsetPrimitive);
+  primitiveWithForwardRef(FieldsetPrimitive);
 
 Fieldset.displayName = 'Fieldset';

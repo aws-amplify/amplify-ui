@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassName } from '@aws-amplify/ui';
@@ -15,6 +15,7 @@ import {
   Primitive,
 } from '../types';
 import { VisuallyHidden } from '../VisuallyHidden';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const RATING_DEFAULT_MAX_VALUE = 5;
 const RATING_DEFAULT_VALUE = 0;
@@ -44,7 +45,7 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
           key={index.toString()}
           icon={filledIcon}
           fill={fillColor}
-          className="amplify-rating-icon-filled"
+          className={classNameModifier(ComponentClassName.RatingIcon, 'filled')}
         />
       );
     if (isIconEmpty(currentIconIndex, value))
@@ -53,7 +54,7 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
           key={index.toString()}
           icon={_emptyIcon}
           fill={emptyColor}
-          className="amplify-rating-icon-empty"
+          className={classNameModifier(ComponentClassName.RatingIcon, 'empty')}
         />
       );
     if (isIconMixed(currentIconIndex, value))
@@ -76,7 +77,6 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
         classNameModifier(ComponentClassName.Rating, size),
         className
       )}
-      data-size={size}
       ref={ref}
       {...rest}
     >
@@ -92,6 +92,6 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/rating)
  */
 export const Rating: ForwardRefPrimitive<BaseRatingProps, 'div'> =
-  React.forwardRef(RatingPrimitive);
+  primitiveWithForwardRef(RatingPrimitive);
 
 Rating.displayName = 'Rating';

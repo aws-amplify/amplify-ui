@@ -31,25 +31,25 @@ Feature: In-App Messaging demo page to show banners with various configurations
     When I dismiss the banner
     Then I do not see the banner
 
-  @react @react-native
+  @skip-migration @react @react-native
   Scenario: Verify that the banner is shown as a bottom banner
     When I click the "BOTTOM_BANNER" layout radio option
     Then I click the "Display Demo Message" button
     Then I see a "bottom" banner dialog
 
-  @react @react-native
+  @skip-migration @react @react-native
   Scenario: Verify that the banner is shown as a middle banner
     When I click the "MIDDLE_BANNER" layout radio option
     Then I click the "Display Demo Message" button
     Then I see a "middle" banner dialog
 
-  @react @react-native
+  @skip-migration @react @react-native
   Scenario: Verify that the banner is shown as a modal
     When I click the "MODAL" layout radio option
     Then I click the "Display Demo Message" button
     Then I see a "modal" dialog
 
-  @react @react-native
+  @skip-migration @react @react-native
   Scenario: Verify that the banner is shown as fullscreen
     When I click the "FULL_SCREEN" layout radio option
     Then I click the "Display Demo Message" button

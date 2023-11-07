@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 
@@ -10,6 +10,9 @@ import {
   Primitive,
   BaseBreadcrumbLinkProps,
 } from '../types';
+
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
+
 import { Link } from '../Link';
 import { Text } from '../Text';
 
@@ -55,6 +58,6 @@ const BreadcrumbLinkPrimitive: Primitive<BreadcrumbsLinkProps, 'a'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/breadcrumbs)
  */
 export const BreadcrumbLink: ForwardRefPrimitive<BaseBreadcrumbLinkProps, 'a'> =
-  React.forwardRef(BreadcrumbLinkPrimitive);
+  primitiveWithForwardRef(BreadcrumbLinkPrimitive);
 
 BreadcrumbLink.displayName = 'Breadcrumbs.Link';

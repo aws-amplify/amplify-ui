@@ -67,7 +67,7 @@ async function returnStatus({
   }
 }
 
-export function checkLink(
+export async function checkLink(
   {
     href,
     tagName,
@@ -82,12 +82,7 @@ export function checkLink(
     pageUrl: string;
   },
   linkIdx: number
-): Promise<LinkInfo>;
-
-export async function checkLink(
-  { href, tagName, tagText, pageIdx, pageUrl },
-  linkIdx
-) {
+): Promise<LinkInfo> {
   return new Promise(async (res, rej) => {
     const linkData = { href, linkIdx, pageIdx, pageUrl, tagName, tagText };
     if (!href) {
@@ -95,7 +90,11 @@ export async function checkLink(
         `⚠️[WARNING...] page #${pageIdx} link #${linkIdx} "${tagName}" tag "${tagText}" doesn't have a href.`
       );
       res({ ...linkData, statusCode: 0 });
-    } else if (IGNORED_LINKS.includes(href) || requestedUrl.has(href)) {
+    } else if (
+      IGNORED_LINKS.includes(href) ||
+      requestedUrl.has(href) ||
+      (href as string).includes('www.w3.org')
+    ) {
       res({ ...linkData, statusCode: 0 });
     } else {
       const { get } = href.includes('https:') ? https : http;

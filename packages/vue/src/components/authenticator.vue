@@ -3,7 +3,6 @@ import {
   ref,
   toRefs,
   computed,
-  useAttrs,
   onMounted,
   onUnmounted,
   withDefaults,
@@ -15,7 +14,7 @@ import {
   AuthenticatorRoute,
   SocialProvider,
   authenticatorTextUtil,
-  configureComponent,
+  setUserAgent,
 } from '@aws-amplify/ui';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
@@ -44,8 +43,6 @@ interface AuthenticatorProps {
   formFields?: AuthFormFields;
 }
 
-const attrs = useAttrs();
-
 const props = withDefaults(defineProps<AuthenticatorProps>(), {
   variation: 'default',
 });
@@ -61,21 +58,7 @@ const {
   formFields,
 } = toRefs(props);
 
-/** @deprecated Component events are deprecated and not maintained. */
-const emit = defineEmits([
-  'signInSubmit',
-  'confirmSignUpSubmit',
-  'resetPasswordSubmit',
-  'confirmResetPasswordSubmit',
-  'confirmSignInSubmit',
-  'mSetupTOTPSubmit',
-  'forceNewPasswordSubmit',
-  'signUpSubmit',
-  'verifyUserSubmit',
-  'confirmVerifyUserSubmit',
-]);
-
-let unsubscribeMachine: () => void;
+let clearUserAgent: () => void;
 
 const hasInitialized = ref(false);
 
@@ -85,7 +68,7 @@ const { service, send, state } = useAuth();
  * Subscribes to state machine changes and sends INIT event
  * once machine reaches 'setup' state.
  */
-unsubscribeMachine = service.subscribe((newState) => {
+const unsubscribeMachine = service.subscribe((newState) => {
   if (newState.matches('setup') && !hasInitialized.value) {
     send({
       type: 'INIT',
@@ -113,13 +96,15 @@ const facade: UseAuthenticator = useAuthenticator();
 const { route, signOut, toSignIn, toSignUp, user } = toRefs(facade);
 
 onMounted(() => {
-  configureComponent({
-    packageName: '@aws-amplify/ui-vue',
+  clearUserAgent = setUserAgent({
+    componentName: 'Authenticator',
+    packageName: 'vue',
     version: VERSION,
   });
 });
 
 onUnmounted(() => {
+  clearUserAgent();
   unsubscribeMachine();
 });
 
@@ -142,126 +127,6 @@ const signInLabel = computed(() => getSignInTabText());
 const createAccountLabel = computed(() => getSignUpTabText());
 
 // methods
-const onSignInSubmitI = (e: Event) => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onSignInSubmit) {
-    emit('signInSubmit', e);
-  } else {
-    // TODO(BREAKING): remove unused event binding
-    // istanbul ignore next
-    signInComponent.value?.submit(e);
-  }
-};
-
-const onConfirmSignUpSubmitI = (e: Event) => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onConfirmSignUpSubmit) {
-    emit('confirmSignUpSubmit', e);
-  } else {
-    // TODO(BREAKING): remove unused event binding
-    // istanbul ignore next
-    confirmSignUpComponent.value.submit(e);
-  }
-};
-
-const onResetPasswordSubmitI = (e: Event) => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onResetPasswordSubmit) {
-    emit('resetPasswordSubmit', e);
-  } else {
-    // TODO(BREAKING): remove unused event binding
-    // istanbul ignore next
-    resetPasswordComponent.value.submit(e);
-  }
-};
-
-const onConfirmResetPasswordSubmitI = (e: Event) => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onConfirmResetPasswordSubmit) {
-    emit('confirmResetPasswordSubmit', e);
-  } else {
-    // TODO(BREAKING): remove unused event binding
-    // istanbul ignore next
-    confirmResetPasswordComponent.value.submit(e);
-  }
-};
-
-const onConfirmSignInSubmitI = (e: Event) => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onConfirmSignInSubmit) {
-    emit('confirmSignInSubmit', e);
-  } else {
-    // TODO(BREAKING): remove unused event binding
-    // istanbul ignore next
-    confirmSignInComponent.value.submit(e);
-  }
-};
-
-const onConfirmSetupTOTPSubmitI = (e: Event) => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onForceNewPasswordSubmit) {
-    emit('mSetupTOTPSubmit', e);
-  } else {
-    // TODO(BREAKING): remove unused event binding
-    // istanbul ignore next
-    confirmSetupTOTPComponent.value.submit(e);
-  }
-};
-
-const onForceNewPasswordSubmitI = (e: Event) => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onForceNewPasswordSubmit) {
-    emit('forceNewPasswordSubmit', e);
-  } else {
-    // TODO(BREAKING): remove unused event binding
-    // istanbul ignore next
-    forceNewPasswordComponent.value.submit(e);
-  }
-};
-
-const onSignUpSubmitI = (e: Event) => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onSignUpSubmit) {
-    emit('signUpSubmit', e);
-  } else {
-    // TODO(BREAKING): remove unused event binding
-    // istanbul ignore next
-    signUpComponent.value.submit();
-  }
-};
-
-const onVerifyUserSubmitI = (e: Event) => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onVerifyUserSubmit) {
-    emit('verifyUserSubmit', e);
-  } else {
-    // TODO(BREAKING): remove unused event binding
-    // istanbul ignore next
-    verifyUserComponent.value.submit(e);
-  }
-};
-
-const onConfirmVerifyUserSubmitI = (e: Event) => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onConfirmVerifyUserSubmit) {
-    emit('confirmVerifyUserSubmit', e);
-  } else {
-    // TODO(BREAKING): remove unused event binding
-    // istanbul ignore next
-    confirmVerifyUserComponent.value.submit(e);
-  }
-};
-
 const hasTabs = computed(() => {
   return route.value === 'signIn' || route.value === 'signUp';
 });
@@ -299,21 +164,24 @@ const hasRouteComponent = computed(() => {
         <base-two-tabs v-if="hasTabs && !hideSignUp">
           <base-two-tab-item
             :active="route === 'signIn'"
-            :id="44472"
+            id="signIn"
             :label="signInLabel"
             @click="toSignIn"
           />
           <base-two-tab-item
             :active="route === 'signUp'"
-            :id="44471"
+            id="signUp"
             :label="createAccountLabel"
             @click="toSignUp"
           />
         </base-two-tabs>
         <div v-if="hasTabs" data-amplify-router-content>
           <sign-in
+            id="signIn-panel"
+            role="tabpanel"
+            class="amplify-tabs__panel amplify-tabs__panel--active"
+            aria-labelledby="signIn-tab"
             v-if="route === 'signIn'"
-            @sign-in-submit="onSignInSubmitI"
             ref="signInComponent"
           >
             <template #signInSlotI>
@@ -341,8 +209,11 @@ const hasRouteComponent = computed(() => {
             </template>
           </sign-in>
           <sign-up
+            id="signUp-panel"
+            class="amplify-tabs__panel amplify-tabs__panel--active"
+            role="tabpanel"
+            aria-labelledby="signUp-tab"
             v-if="route === 'signUp' && !hideSignUp"
-            @sign-up-submit="onSignUpSubmitI"
             ref="signUpComponent"
           >
             <template #signUpSlotI>
@@ -363,7 +234,6 @@ const hasRouteComponent = computed(() => {
 
         <confirm-sign-up
           v-if="route === 'confirmSignUp'"
-          @confirm-sign-up-submit="onConfirmSignUpSubmitI"
           ref="confirmSignUpComponent"
         >
           <template #confirmSignUpSlotI>
@@ -372,19 +242,13 @@ const hasRouteComponent = computed(() => {
           <template #header>
             <slot name="confirm-sign-up-header"></slot>
           </template>
-          <template #footer="{ onConfirmSignUpSubmit, onLostCodeClicked }">
-            <slot
-              name="confirm-sign-up-footer"
-              :onConfirmSignUpSubmit="onConfirmSignUpSubmit"
-              :onLostCodeClicked="onLostCodeClicked"
-            >
-            </slot>
+          <template #footer>
+            <slot name="confirm-sign-up-footer"> </slot>
           </template>
         </confirm-sign-up>
 
         <reset-password
           v-if="route === 'resetPassword'"
-          @reset-password-submit="onResetPasswordSubmitI"
           ref="resetPasswordComponent"
         >
           <template #resetPasswordSlotI>
@@ -393,19 +257,13 @@ const hasRouteComponent = computed(() => {
           <template #header>
             <slot name="reset-password-header"></slot>
           </template>
-          <template #footer="{ onResetPasswordSubmit, onBackToSignInClicked }">
-            <slot
-              name="reset-password-footer"
-              :onResetPasswordSubmit="onResetPasswordSubmit"
-              :onBackToSignInClicked="onBackToSignInClicked"
-            >
-            </slot>
+          <template #footer>
+            <slot name="reset-password-footer"> </slot>
           </template>
         </reset-password>
 
         <confirm-reset-password
           v-if="route === 'confirmResetPassword'"
-          @confirm-reset-password-submit="onConfirmResetPasswordSubmitI"
           ref="confirmResetPasswordComponent"
         >
           <template #confirmResetPasswordSlotI>
@@ -414,21 +272,13 @@ const hasRouteComponent = computed(() => {
           <template #header>
             <slot name="confirm-reset-password-header"></slot>
           </template>
-          <template
-            #footer="{ onConfirmResetPasswordSubmit, onLostYourCodeClicked }"
-          >
-            <slot
-              name="confirm-reset-password-footer"
-              :onConfirmResetPasswordSubmit="onConfirmResetPasswordSubmit"
-              :onLostYourCodeClicked="onLostYourCodeClicked"
-            >
-            </slot>
+          <template #footer>
+            <slot name="confirm-reset-password-footer"> </slot>
           </template>
         </confirm-reset-password>
 
         <confirm-sign-in
           v-if="route === 'confirmSignIn'"
-          @confirm-sign-in-submit="onConfirmSignInSubmitI"
           ref="confirmSignInComponent"
         >
           <template #confirmSignInSlotI>
@@ -437,19 +287,13 @@ const hasRouteComponent = computed(() => {
           <template #header>
             <slot name="confirm-sign-in-header"></slot>
           </template>
-          <template #footer="{ onConfirmSignInSubmit, onBackToSignInClicked }">
-            <slot
-              name="confirm-sign-in-footer"
-              :onConfirmSignInSubmit="onConfirmSignInSubmit"
-              :onBackToSignInClicked="onBackToSignInClicked"
-            >
-            </slot>
+          <template #footer>
+            <slot name="confirm-sign-in-footer"> </slot>
           </template>
         </confirm-sign-in>
 
         <setup-totp
           v-if="route === 'setupTOTP'"
-          @confirm-setup-totp-submit="onConfirmSetupTOTPSubmitI"
           ref="confirmSetupTOTPComponent"
         >
           <template #confirmSetupTOTPI>
@@ -458,19 +302,13 @@ const hasRouteComponent = computed(() => {
           <template #header>
             <slot name="setup-totp-header"></slot>
           </template>
-          <template #footer="{ onSetupTOTPSubmit, onBackToSignInClicked }">
-            <slot
-              name="setup-totp-footer"
-              :onSetupTOTPSubmit="onSetupTOTPSubmit"
-              :onBackToSignInClicked="onBackToSignInClicked"
-            >
-            </slot>
+          <template #footer>
+            <slot name="setup-totp-footer"> </slot>
           </template>
         </setup-totp>
 
         <force-new-password
           v-if="route === 'forceNewPassword'"
-          @force-new-password-submit="onForceNewPasswordSubmitI"
           ref="forceNewPasswordComponent"
         >
           <template #forceNewPasswordI>
@@ -482,42 +320,25 @@ const hasRouteComponent = computed(() => {
           <template #force-new-password-form-fields>
             <slot name="force-new-password-form-fields"></slot>
           </template>
-          <template
-            #footer="{ onHaveAccountClicked, onForceNewPasswordSubmit }"
-          >
-            <slot
-              name="force-new-password-footer"
-              :onForceNewPasswordSubmit="onForceNewPasswordSubmit"
-              :onBackToSignInClicked="onHaveAccountClicked"
-            >
-            </slot>
+          <template #footer>
+            <slot name="force-new-password-footer"> </slot>
           </template>
         </force-new-password>
 
-        <verify-user
-          v-if="route === 'verifyUser'"
-          @verify-user-submit="onVerifyUserSubmitI"
-          ref="verifyUserComponent"
-        >
+        <verify-user v-if="route === 'verifyUser'" ref="verifyUserComponent">
           <template #verifyUserSlotI>
             <slot name="verify-user"></slot>
           </template>
           <template #header>
             <slot name="verify-user-header"></slot>
           </template>
-          <template #footer="{ onVerifyUserSubmit, onSkipClicked }">
-            <slot
-              name="verify-user-footer"
-              :onVerifyUserSubmit="onVerifyUserSubmit"
-              :onSkipClicked="onSkipClicked"
-            >
-            </slot>
+          <template #footer>
+            <slot name="verify-user-footer"> </slot>
           </template>
         </verify-user>
 
         <confirm-verify-user
           v-if="route === 'confirmVerifyUser'"
-          @confirm-verify-user-submit="onConfirmVerifyUserSubmitI"
           ref="confirmVerifyUserComponent"
         >
           <template #confirmVerifyUserSlotI>
@@ -526,13 +347,8 @@ const hasRouteComponent = computed(() => {
           <template #header>
             <slot name="confirm-verify-user-header"></slot>
           </template>
-          <template #footer="{ onConfirmVerifyUserSubmit, onSkipClicked }">
-            <slot
-              name="confirm-verify-user-footer"
-              :onConfirmVerifyUserSubmit="onConfirmVerifyUserSubmit"
-              :onSkipClicked="onSkipClicked"
-            >
-            </slot>
+          <template #footer>
+            <slot name="confirm-verify-user-footer"> </slot>
           </template>
         </confirm-verify-user>
       </div>
@@ -542,9 +358,9 @@ const hasRouteComponent = computed(() => {
   <!-- cast slot props back to any for backwards compatibility -->
   <slot
     v-if="route === 'authenticated'"
-    :user="(user as any)"
-    :state="(state as any)"
-    :signOut="(signOut as any)"
-    :send="(send as any)"
+    :user="user as any"
+    :state="state as any"
+    :signOut="signOut as any"
+    :send="send as any"
   ></slot>
 </template>

@@ -3,14 +3,14 @@
 exports[`FieldErrors renders as expected 1`] = `
 <View
   style={
-    Object {
+    {
       "backgroundColor": "black",
     }
   }
 >
   <Text
     style={
-      Object {
+      {
         "color": "red",
       }
     }
@@ -19,7 +19,7 @@ exports[`FieldErrors renders as expected 1`] = `
   </Text>
   <Text
     style={
-      Object {
+      {
         "color": "red",
       }
     }

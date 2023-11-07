@@ -39,7 +39,7 @@ describe('StepperField:', () => {
         <StepperField label="stepper" testId="stepper-field" size="small" />
       );
       const stepperField = await screen.findByTestId('stepper-field');
-      expect(stepperField).toHaveAttribute('data-size', 'small');
+      expect(stepperField).toHaveClass(`${ComponentClassName.Field}--small`);
     });
 
     it('should render size classes for StepperField', async () => {
@@ -188,7 +188,7 @@ describe('StepperField:', () => {
       render(<StepperField label={LABEL} size="small" />);
 
       const stepperInput = await screen.findByLabelText(LABEL);
-      expect(stepperInput).toHaveAttribute('data-size', 'small');
+      expect(stepperInput).toHaveClass(`${ComponentClassName.Input}--small`);
     });
 
     it('show render aria-invalid attribute to input when hasError', async () => {
@@ -225,8 +225,8 @@ describe('StepperField:', () => {
     it('should pass through size attribute', async () => {
       render(<StepperField label="stepper" size="small" />);
       const buttons = await screen.findAllByRole('button');
-      expect(buttons[0]).toHaveAttribute('data-size', 'small');
-      expect(buttons[1]).toHaveAttribute('data-size', 'small');
+      expect(buttons[0]).toHaveClass(`${ComponentClassName.Button}--small`);
+      expect(buttons[1]).toHaveClass(`${ComponentClassName.Button}--small`);
     });
 
     it('should render the size classes for StepperField', async () => {

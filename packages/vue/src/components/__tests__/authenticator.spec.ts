@@ -91,7 +91,7 @@ describe('authenticator', () => {
 
     listener(setupState);
 
-    expect(sendSpy).toBeCalledTimes(1);
+    expect(sendSpy).toHaveBeenCalledTimes(1);
     expect(sendSpy).toHaveBeenCalledWith({
       type: 'INIT',
       data: {
@@ -119,7 +119,7 @@ describe('authenticator', () => {
     const listener = mockService['listeners'][0];
     listener(setupState);
 
-    expect(sendSpy).toBeCalledTimes(1);
+    expect(sendSpy).toHaveBeenCalledTimes(1);
     expect(sendSpy).toHaveBeenCalledWith({
       type: 'INIT',
       data: props,
@@ -133,7 +133,7 @@ describe('authenticator', () => {
     const listener = mockService['listeners'][0];
     listener(setupState);
 
-    expect(sendSpy).toBeCalledTimes(1);
+    expect(sendSpy).toHaveBeenCalledTimes(1);
     expect(sendSpy).toHaveBeenCalledWith({
       type: 'INIT',
       data: props,
@@ -167,17 +167,17 @@ describe('authenticator', () => {
 
   it.each(routesWithComponent)('renders %s subcomponent', (route) => {
     let user = undefined as unknown as AmplifyUser;
+    const challengeName = 'SOFTWARE_TOKEN_MFA';
 
     // some routes expect specific shape of user
-    if (route === 'confirmSignIn') {
-      user = { challengeName: 'SOFTWARE_TOKEN_MFA' } as AmplifyUser;
-    } else if (route === 'setupTOTP') {
+    if (route === 'setupTOTP') {
       user = { username: 'username' } as AmplifyUser;
     }
 
     useAuthenticatorSpy.mockReturnValue(
       reactive({
         ...baseMockServiceFacade,
+        challengeName,
         route,
         user,
         totpSecretCode:

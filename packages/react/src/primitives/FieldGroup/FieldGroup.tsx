@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassName } from '@aws-amplify/ui';
@@ -11,6 +11,7 @@ import {
 } from '../types';
 import { Flex } from '../Flex';
 import { View } from '../View';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const FieldGroupPrimitive: Primitive<FieldGroupOptions, 'div'> = (
   {
@@ -44,12 +45,7 @@ const FieldGroupPrimitive: Primitive<FieldGroupOptions, 'div'> = (
   );
 
   return (
-    <Flex
-      className={componentClasses}
-      data-orientation={orientation}
-      ref={ref}
-      {...rest}
-    >
+    <Flex className={componentClasses} ref={ref} {...rest}>
       {outerStartComponent && (
         <View
           className={classNames(
@@ -71,7 +67,6 @@ const FieldGroupPrimitive: Primitive<FieldGroupOptions, 'div'> = (
             orientation
           )
         )}
-        data-orientation={orientation}
       >
         {innerStartComponent && (
           <View className={ComponentClassName.FieldGroupInnerStart}>
@@ -101,6 +96,6 @@ const FieldGroupPrimitive: Primitive<FieldGroupOptions, 'div'> = (
 };
 
 export const FieldGroup: ForwardRefPrimitive<BaseFieldGroupOptions, 'div'> =
-  React.forwardRef(FieldGroupPrimitive);
+  primitiveWithForwardRef(FieldGroupPrimitive);
 
 FieldGroup.displayName = 'FieldGroup';

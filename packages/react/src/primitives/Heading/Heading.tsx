@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassName } from '@aws-amplify/ui';
@@ -11,6 +11,7 @@ import {
   Primitive,
 } from '../types';
 import { View } from '../View';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 interface HeadingLevels {
   [key: number]: HeadingTag;
@@ -52,6 +53,6 @@ const HeadingPrimitive: Primitive<HeadingProps, HeadingTag> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/heading)
  */
 export const Heading: ForwardRefPrimitive<BaseHeadingProps, HeadingTag> =
-  React.forwardRef(HeadingPrimitive);
+  primitiveWithForwardRef(HeadingPrimitive);
 
 Heading.displayName = 'Heading';

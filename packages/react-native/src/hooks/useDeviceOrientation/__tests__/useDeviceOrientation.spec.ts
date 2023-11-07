@@ -14,7 +14,6 @@ describe('useDeviceOrientation', () => {
 
   let getSpy: jest.SpyInstance;
   let addEventListenerSpy: jest.SpyInstance;
-  let removeEventListener: jest.SpyInstance;
 
   beforeEach(() => {
     jest.resetAllMocks();
@@ -22,38 +21,9 @@ describe('useDeviceOrientation', () => {
     getSpy = jest.spyOn(Dimensions, 'get');
 
     addEventListenerSpy = jest.spyOn(Dimensions, 'addEventListener');
-
-    removeEventListener = jest.spyOn(Dimensions, 'removeEventListener');
   });
 
-  /* eslint-disable no-console */
-  // turn off console errors during tests, can be safely removed once React Native v0.64 is no longer supported
-  const consoleWarn = console.warn;
-  console.warn = jest.fn();
-  afterAll(() => {
-    console.warn = consoleWarn;
-    /* eslint-enable no-console */
-  });
-
-  it('should handle unsubscribing for React Native versions < 0.65', () => {
-    getSpy.mockImplementation((_: string) => dimensions['portrait']);
-
-    // mock an `undefined` return to simulate React Native versions < 0.65
-    addEventListenerSpy.mockReturnValueOnce(undefined);
-
-    const { unmount } = renderHook(() => useDeviceOrientation());
-
-    expect(getSpy).toHaveBeenCalledTimes(1);
-    expect(getSpy).toHaveBeenCalledWith('screen');
-    expect(addEventListenerSpy).toHaveBeenCalledTimes(1);
-
-    unmount();
-
-    expect(removeEventListener).toHaveBeenCalledTimes(1);
-    expect(subscription.remove).not.toHaveBeenCalled();
-  });
-
-  it('should handle unsubscribing for React Native versions >= 0.65', () => {
+  it('should handle listener removal as expected', () => {
     getSpy.mockImplementation((_: string) => dimensions['landscape']);
     addEventListenerSpy.mockReturnValue(subscription);
 
@@ -66,7 +36,6 @@ describe('useDeviceOrientation', () => {
     unmount();
 
     expect(subscription.remove).toHaveBeenCalledTimes(1);
-    expect(removeEventListener).not.toHaveBeenCalled();
   });
 
   it.each([

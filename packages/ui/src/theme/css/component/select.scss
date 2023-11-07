@@ -1,3 +1,5 @@
+@import './_fieldControl.scss';
+
 .amplify-select__wrapper {
   flex: var(--amplify-components-select-wrapper-flex);
   display: var(--amplify-components-select-wrapper-display);
@@ -6,7 +8,7 @@
   align-self: stretch;
 }
 
-.amplify-select__icon-wrapper {
+.amplify-select__icon {
   color: var(--amplify-components-fieldcontrol-color);
   align-items: var(--amplify-components-select-icon-wrapper-align-items);
   position: var(--amplify-components-select-icon-wrapper-position);
@@ -14,9 +16,11 @@
   right: var(--amplify-components-select-icon-wrapper-right);
   transform: var(--amplify-components-select-icon-wrapper-transform);
   pointer-events: var(--amplify-components-select-icon-wrapper-pointer-events);
+
   &--small {
     right: var(--amplify-components-select-icon-wrapper-small-right);
   }
+
   &--large {
     right: var(--amplify-components-select-icon-wrapper-large-right);
   }
@@ -25,26 +29,30 @@
 .amplify-select {
   @include amplify-field-control;
   // default styles
+  background-color: var(--amplify-components-select-background-color);
+  color: var(--amplify-components-select-color);
   min-width: var(--amplify-components-select-min-width);
   padding-inline-end: var(--amplify-components-select-padding-inline-end);
   white-space: var(--amplify-components-select-white-space);
-
-  // For Chrome on Windows, fixes darkmode text color
   option {
-    color: initial;
-
+    background-color: var(--amplify-components-select-option-background-color);
+    color: var(--amplify-components-select-option-color);
     &[disabled=''] {
+      background-color: var(
+        --amplify-components-select-option-disabled-background-color
+      );
       color: var(--amplify-components-select-option-disabled-color);
+      cursor: var(--amplify-components-fieldcontrol-disabled-cursor);
     }
   }
-
-  // for Firefox only, to fix background color in darkmode
-  @-moz-document url-prefix() {
+  &[disabled] {
+    background-color: var(
+      --amplify-components-select-disabled-background-color
+    );
+    color: var(--amplify-components-select-disabled-color);
     option {
-      background-color: var(
-        --amplify-components-select-option-background-color
-      );
-      color: var(--amplify-components-select-option-color);
+      color: inherit;
+      background-color: inherit;
     }
   }
 
@@ -60,5 +68,16 @@
     padding-inline-end: var(
       --amplify-components-select-large-padding-inline-end
     );
+  }
+
+  &--expanded {
+    overflow: auto;
+    padding: var(--amplify-components-select-expanded-padding-block)
+      var(--amplify-components-select-expanded-padding-inline);
+
+    option {
+      padding: var(--amplify-components-select-expanded-option-padding-block)
+        var(--amplify-components-select-expanded-option-padding-inline);
+    }
   }
 }

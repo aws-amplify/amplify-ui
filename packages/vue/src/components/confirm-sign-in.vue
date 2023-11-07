@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, toRefs, useAttrs } from 'vue';
+import { computed, toRefs } from 'vue';
 
 import {
   authenticatorTextUtil,
@@ -11,16 +11,12 @@ import { useAuthenticator } from '../composables/useAuth';
 import { UseAuthenticator } from '../types';
 import BaseFormFields from './primitives/base-form-fields.vue';
 
-/** @deprecated Component events are deprecated and not maintained. */
-const emit = defineEmits(['confirmSignInSubmit', 'backToSignInClicked']);
-const attrs = useAttrs();
-
 // `facade` is manually typed to `UseAuthenticator` for temporary type safety.
 const facade: UseAuthenticator = useAuthenticator();
 const { submitForm, toSignIn, updateForm } = facade;
-const { user, error, isPending } = toRefs(facade);
+const { error, isPending, challengeName: challengeNameRef } = toRefs(facade);
 
-const challengeName = computed(() => user.value.challengeName);
+const challengeName = computed(() => challengeNameRef.value);
 
 // Text Util
 const { getBackToSignInText, getConfirmText, getChallengeText } =
@@ -40,23 +36,11 @@ const onInput = (e: Event): void => {
 };
 
 const onConfirmSignInSubmit = (e: Event): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onConfirmSignInSubmit) {
-    emit('confirmSignInSubmit', e);
-  } else {
-    submitForm(getFormDataFromEvent(e));
-  }
+  submitForm(getFormDataFromEvent(e));
 };
 
 const onBackToSignInClicked = (): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onBackToSignInClicked) {
-    emit('backToSignInClicked');
-  } else {
-    toSignIn();
-  }
+  toSignIn();
 };
 </script>
 
@@ -105,12 +89,7 @@ const onBackToSignInClicked = (): void => {
             >
               {{ backSignInText }}
             </amplify-button>
-            <slot
-              name="footer"
-              :onBackToSignInClicked="onBackToSignInClicked"
-              :onConfirmSignInSubmit="onConfirmSignInSubmit"
-            >
-            </slot>
+            <slot name="footer"> </slot>
           </base-footer>
         </base-field-set>
       </base-form>

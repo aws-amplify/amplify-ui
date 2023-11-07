@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 import { Button } from '../Button';
 
 import { classNameModifier } from '../shared/utils';
@@ -11,6 +11,7 @@ import {
 } from '../types';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { useStyles } from '../shared/styleUtils';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/menu)
@@ -20,7 +21,6 @@ const MenuButtonPrimitive: Primitive<MenuButtonProps, 'button'> = (
     ariaLabel,
     className,
     children,
-    isFullWidth = false,
     isDisabled,
     isLoading,
     size,
@@ -44,13 +44,9 @@ const MenuButtonPrimitive: Primitive<MenuButtonProps, 'button'> = (
     <Button
       ref={ref}
       className={componentClasses}
-      data-fullwidth={isFullWidth}
-      data-loading={isLoading}
-      data-size={size}
-      data-variation={variation}
       disabled={isDisabled ?? isLoading}
       type={type}
-      data-testid={testId}
+      testId={testId}
       aria-label={ariaLabel}
       style={propStyles}
       {...nonStyleProps}
@@ -61,6 +57,6 @@ const MenuButtonPrimitive: Primitive<MenuButtonProps, 'button'> = (
 };
 
 export const MenuButton: ForwardRefPrimitive<BaseMenuButtonProps, 'button'> =
-  React.forwardRef(MenuButtonPrimitive);
+  primitiveWithForwardRef(MenuButtonPrimitive);
 
 MenuButton.displayName = 'MenuButton';

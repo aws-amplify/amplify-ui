@@ -26,7 +26,7 @@ import {
 
 Import the Radio and RadioGroupField components, and nest the Radio options inside the RadioGroupField. 
 
-RadioGroupField requires both `label` and `name` for accessibility and form submission, respectively. Radio only requires the `value` prop, which will be submitted with form data. 
+RadioGroupField requires both `legend` and `name` for accessibility and form submission, respectively. Radio only requires the `value` prop, which will be submitted with form data. 
 
 You also have the option to set a Radio as pre-selected by passing its `value` to the `defaultValue` prop on the RadioGroupField. 
 
@@ -146,9 +146,19 @@ Use the `hasError` and `errorMessage` props to mark a RadioGroupField as having 
   </ExampleCode>
 </Example>
 
-### Accessibility / Label behavior
+### Accessibility
 
-<Fragment>{() => import('./../shared/formFieldAccessibility.mdx')}</Fragment>
+An HTML `<legend>` element is automatically associated with the RadioGroupField's `<fieldset>` via the `legend` prop so that the radiogroup is accessibly labelled.  For `Radio`, a `<label>` element will be automatically generated via the `label` prop. Both can accept a `string` or `ReactNode`. 
+
+If no `id` is provided to `<Radio>`, one will be automatically generated and connected to both the `label` and the form control; in this case the `input[type="radio"]`.
+
+
+#### How can I visually hide the legend or labels while maintaining accessibility?
+
+In some applications it may be desirable to hide the legend when the field purpose is visually apparent such as a search field with button.
+The `legendHidden` prop can be used on `RadioGroupField` to visually hide the `<legend>` while still keeping it available to screenreaders. Similarily, the `labelHidden` prop can be used to accessibly hide a `<Radio>` element's `<label>`
+
+UX Tip: refrain hiding legends and labels if doing so hides important information needed by the user to fill out the field.
 
 ## CSS Styling
 
@@ -175,10 +185,10 @@ Use the `hasError` and `errorMessage` props to mark a RadioGroupField as having 
 To override styling on all Radio buttons, you can set the Amplify CSS variables or use the built-in `.amplify-radio__button` class.
 
 <RadioGroupField
-  label="Colors"
+  legend="Colors"
   name="colors"
   defaultValue="a"
-  labelHidden
+  legendHidden
   className="global-radio-styling"
 >
   <Radio value="a">
@@ -222,10 +232,10 @@ _Using a class selector:_
 
 <Example>
   <RadioGroupField
-    label="Colors"
+    legend="Colors"
     name="colors"
     defaultValue="red"
-    labelHidden
+    legendHidden
   >
     <Radio value="red" className="custom-radio">
       Red
@@ -252,7 +262,7 @@ _Using a class selector:_
 ```jsx
 import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
 
-<RadioGroupField label="Language" name="language" defaultValue="html">
+<RadioGroupField legend="Language" name="language" defaultValue="html">
   <Radio value="html" className="custom-radio">
     html
   </Radio>

@@ -1,8 +1,5 @@
-import {
-  Credentials as AmplifyCredentials,
-  getAmplifyUserAgent,
-} from '@aws-amplify/core';
-import { AmazonAIInterpretPredictionsProvider } from '@aws-amplify/predictions';
+import { getAmplifyUserAgent } from '@aws-amplify/core/internals/utils';
+import { fetchAuthSession } from 'aws-amplify/auth';
 import {
   ClientSessionInformationEvent,
   LivenessResponseStream,
@@ -10,10 +7,10 @@ import {
   RekognitionStreamingClientConfig,
   StartFaceLivenessSessionCommand,
 } from '@aws-sdk/client-rekognitionstreaming';
-import { WebSocketFetchHandler } from '@aws-sdk/middleware-websocket';
 import { VideoRecorder } from './videoRecorder';
 import { getLivenessUserAgent } from '../../utils/platform';
 import { AwsCredentialProvider } from '../types';
+import { CustomWebSocketFetchHandler } from './CustomWebSocketFetchHandler';
 
 export interface StartLivenessStreamInput {
   sessionId: string;
@@ -35,9 +32,9 @@ export interface StreamProviderArgs {
   stream: MediaStream;
   videoEl: HTMLVideoElement;
   credentialProvider?: AwsCredentialProvider;
+  endpointOverride?: string;
 }
 
-const ENDPOINT = process.env.NEXT_PUBLIC_STREAMING_API_URL;
 export const TIME_SLICE = 1000;
 
 function isBlob(obj: unknown): obj is Blob {
@@ -50,12 +47,22 @@ function isClientSessionInformationEvent(
   return (obj as ClientSessionInformationEvent).Challenge !== undefined;
 }
 
-export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider {
+interface EndStreamWithCodeEvent {
+  type: string;
+  code: number;
+}
+
+function isEndStreamWithCodeEvent(obj: unknown): obj is EndStreamWithCodeEvent {
+  return (obj as EndStreamWithCodeEvent).code !== undefined;
+}
+
+export class LivenessStreamProvider {
   public sessionId: string;
   public region: string;
   public videoRecorder: VideoRecorder;
   public responseStream!: AsyncIterable<LivenessResponseStream>;
   public credentialProvider?: AwsCredentialProvider;
+  public endpointOverride?: string;
 
   private _reader!: ReadableStreamDefaultReader;
   private videoEl: HTMLVideoElement;
@@ -69,14 +76,15 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
     stream,
     videoEl,
     credentialProvider,
+    endpointOverride,
   }: StreamProviderArgs) {
-    super();
     this.sessionId = sessionId;
     this.region = region;
     this._stream = stream;
     this.videoEl = videoEl;
     this.videoRecorder = new VideoRecorder(stream);
     this.credentialProvider = credentialProvider;
+    this.endpointOverride = endpointOverride;
     this.initPromise = this.init();
   }
 
@@ -107,22 +115,22 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
     this.videoRecorder.dispatch(new Event('stopVideo'));
   }
 
-  public async endStream(): Promise<undefined> {
+  public async endStreamWithCode(code?: number): Promise<undefined> {
     if (this.videoRecorder.getState() === 'recording') {
       await this.stopVideo();
-      this.dispatchStopVideoEvent();
     }
-    if (!this._reader) {
-      return;
-    }
-    await this._reader.cancel();
-    return this._reader.closed;
+    this.videoRecorder.dispatch(
+      new MessageEvent('endStreamWithCode', {
+        data: { code: code },
+      })
+    );
+
+    return;
   }
 
   private async init() {
     const credentials =
-      this.credentialProvider ??
-      ((await AmplifyCredentials.get()) as Credentials);
+      this.credentialProvider ?? ((await fetchAuthSession()) as Credentials);
 
     if (!credentials) {
       throw new Error('No credentials');
@@ -132,12 +140,15 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
       credentials,
       region: this.region,
       customUserAgent: `${getAmplifyUserAgent()} ${getLivenessUserAgent()}`,
-      requestHandler: new WebSocketFetchHandler({ connectionTimeout: 10_000 }),
+      requestHandler: new CustomWebSocketFetchHandler({
+        connectionTimeout: 10_000,
+      }),
     };
 
-    if (ENDPOINT) {
+    if (this.endpointOverride) {
+      const override = this.endpointOverride;
       clientconfig.endpointProvider = () => {
-        const url = new URL(ENDPOINT);
+        const url = new URL(override);
         return { url };
       };
     }
@@ -151,6 +162,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
   private getAsyncGeneratorFromReadableStream(
     stream: ReadableStream
   ): () => AsyncGenerator<any> {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const current = this;
     this._reader = stream.getReader();
     return async function* () {
@@ -185,6 +197,13 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
           yield {
             ClientSessionInformationEvent: {
               Challenge: value.Challenge,
+            },
+          };
+        } else if (isEndStreamWithCodeEvent(value)) {
+          yield {
+            VideoEvent: {
+              VideoChunk: [],
+              TimestampMillis: { closeCode: value.code },
             },
           };
         }

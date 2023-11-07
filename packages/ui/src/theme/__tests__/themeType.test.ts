@@ -7,6 +7,7 @@ describe('Amplify UI Theme', () => {
         name: 'test',
         tokens: {
           components: {
+            accordion: {},
             alert: {},
             authenticator: {},
             autocomplete: {},
@@ -18,7 +19,6 @@ describe('Amplify UI Theme', () => {
             collection: {},
             copy: {},
             divider: {},
-            expander: {},
             field: {},
             fieldcontrol: {},
             fieldgroup: {},
@@ -57,60 +57,7 @@ describe('Amplify UI Theme', () => {
       };
       // This test doesn't test anything, but
       // if there is a TS error it will fail
-      expect(theme).toMatchInlineSnapshot(`
-        Object {
-          "name": "test",
-          "tokens": Object {
-            "components": Object {
-              "alert": Object {},
-              "authenticator": Object {},
-              "autocomplete": Object {},
-              "badge": Object {},
-              "button": Object {},
-              "card": Object {},
-              "checkbox": Object {},
-              "checkboxfield": Object {},
-              "collection": Object {},
-              "copy": Object {},
-              "divider": Object {},
-              "expander": Object {},
-              "field": Object {},
-              "fieldcontrol": Object {},
-              "fieldgroup": Object {},
-              "fieldmessages": Object {},
-              "flex": Object {},
-              "heading": Object {},
-              "highlightmatch": Object {},
-              "icon": Object {},
-              "image": Object {},
-              "inappmessaging": Object {},
-              "link": Object {},
-              "loader": Object {},
-              "menu": Object {},
-              "pagination": Object {},
-              "passwordfield": Object {},
-              "phonenumberfield": Object {},
-              "placeholder": Object {},
-              "radio": Object {},
-              "radiogroup": Object {},
-              "rating": Object {},
-              "searchfield": Object {},
-              "select": Object {},
-              "selectfield": Object {},
-              "sliderfield": Object {},
-              "stepperfield": Object {},
-              "switchfield": Object {},
-              "table": Object {},
-              "tabs": Object {},
-              "text": Object {},
-              "textareafield": Object {},
-              "textfield": Object {},
-              "togglebutton": Object {},
-              "togglebuttongroup": Object {},
-            },
-          },
-        }
-      `);
+      expect(theme).toMatchSnapshot();
     });
   });
 });

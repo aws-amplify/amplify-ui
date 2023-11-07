@@ -63,12 +63,12 @@ describe('TextArea component', () => {
     expect(textareaDisabled).toHaveAttribute('disabled');
   });
 
-  it('should set size and variation data attributes', async () => {
+  it('should set size and variation classes', async () => {
     render(<TextArea size="small" variation="quiet" />);
 
     const textarea = await screen.findByRole('textbox');
-    expect(textarea).toHaveAttribute('data-size', 'small');
-    expect(textarea).toHaveAttribute('data-variation', 'quiet');
+    expect(textarea).toHaveClass(`${ComponentClassName.Textarea}--small`);
+    expect(textarea).toHaveClass(`${ComponentClassName.Textarea}--quiet`);
   });
 
   it('can set defaultValue (uncontrolled)', async () => {
@@ -101,7 +101,8 @@ describe('TextArea component', () => {
     );
     const textarea = await screen.findByRole('textbox');
     userEvent.type(textarea, 'hello');
-    userEvent.paste(textarea, 'there');
+    // userEvent.paste(textarea, 'there');
+    userEvent.paste('there');
     expect(onChange).toHaveBeenCalled();
     expect(onInput).toHaveBeenCalled();
     expect(onPaste).toHaveBeenCalled();

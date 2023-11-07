@@ -56,8 +56,8 @@ describe('ToggleButton:', () => {
   it('should set size and variation correctly', async () => {
     render(<ToggleButton size="large" variation="primary" />);
     const toggleButton = await screen.findByRole('button');
-    expect(toggleButton).toHaveAttribute('data-size', 'large');
-    expect(toggleButton).toHaveAttribute('data-variation', 'primary');
+    expect(toggleButton).toHaveClass(`${ComponentClassName.Button}--large`);
+    expect(toggleButton).toHaveClass(`${ComponentClassName.Button}--primary`);
   });
 
   it('should be disabled if isDisabled is set to true', async () => {
@@ -77,7 +77,7 @@ describe('ToggleButton:', () => {
     render(<ToggleButton onClick={onClick} />);
     const toggleButton = await screen.findByRole('button');
     userEvent.click(toggleButton);
-    expect(onClick).toBeCalledTimes(1);
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 
   it('should works in uncontrolled way', async () => {

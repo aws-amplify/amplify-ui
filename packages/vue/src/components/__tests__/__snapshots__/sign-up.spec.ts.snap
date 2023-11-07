@@ -29,7 +29,7 @@ exports[`SignUp renders as expected 1`] = `
           
           <!-- textfield input -->
           <div
-            class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield amplify-authenticator__column"
+            class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield"
           >
             
             <label
@@ -80,7 +80,7 @@ exports[`SignUp renders as expected 1`] = `
           
           <!-- password input -->
           <div
-            class="amplify-flex amplify-field amplify-textfield amplify-passwordfield amplify-authenticator__column"
+            class="amplify-flex amplify-field amplify-textfield amplify-passwordfield"
           >
             
             <label
@@ -150,7 +150,7 @@ exports[`SignUp renders as expected 1`] = `
           
           <!-- password input -->
           <div
-            class="amplify-flex amplify-field amplify-textfield amplify-passwordfield amplify-authenticator__column"
+            class="amplify-flex amplify-field amplify-textfield amplify-passwordfield"
           >
             
             <label
@@ -222,7 +222,7 @@ exports[`SignUp renders as expected 1`] = `
           
           <!-- textfield input -->
           <div
-            class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield amplify-authenticator__column"
+            class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield"
           >
             
             <label
@@ -277,7 +277,7 @@ exports[`SignUp renders as expected 1`] = `
         <!--v-if-->
         
         <button
-          class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+          class="amplify-button amplify-field-group__control amplify-button--primary amplify-field-group__control amplify-authenticator__font"
           data-amplify-button=""
           data-disabled="false"
           data-fullwidth="false"

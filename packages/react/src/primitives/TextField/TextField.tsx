@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassName } from '@aws-amplify/ui';
@@ -16,6 +16,7 @@ import {
 } from '../types';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { useStableId } from '../utils/useStableId';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
   const {
@@ -51,7 +52,6 @@ const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
         ComponentClassName.TextField,
         className
       )}
-      data-size={size}
       testId={testId}
       {...styleProps}
     >
@@ -90,6 +90,6 @@ const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/textfield)
  */
 export const TextField: ForwardRefPrimitive<BaseTextFieldProps, 'input'> =
-  React.forwardRef(TextFieldPrimitive);
+  primitiveWithForwardRef(TextFieldPrimitive);
 
 TextField.displayName = 'TextField';

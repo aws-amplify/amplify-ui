@@ -1,12 +1,11 @@
 {
   "name": "@aws-amplify/ui-angular",
-  "version": "4.0.8",
+  "version": "4.0.9",
   "scripts": {
     "build": "yarn --cwd ../../ build",
     "dev": "yarn --cwd ../../ dev",
     "lint": "yarn --cwd ../../ lint",
-    "test": "yarn --cwd ../../ test",
-    "test:ci": "yarn --cwd ../../ test:ci"
+    "test": "yarn --cwd ../../ test"
   },
   "license": "Apache-2.0",
   "repository": {
@@ -16,14 +15,13 @@
   },
   "peerDependencies": {
     "@angular/core": ">= 14.0.0",
-    "aws-amplify": "^5.0.1"
+    "aws-amplify": "unstable"
   },
   "dependencies": {
-    "@aws-amplify/ui": "5.8.0",
-    "classnames": "2.3.1",
+    "@aws-amplify/ui": "5.8.1",
     "nanoid": "3.1.31",
     "qrcode": "1.5.0",
-    "tslib": "2.3.1",
+    "tslib": "^2.5.2",
     "xstate": "^4.33.6"
   },
   "publishConfig": {

@@ -40,6 +40,7 @@ Feature: Custom Slots
     Then I see "Enter Information:"
     Then I see "Footer Information"
 
+  @angular @react @vue
   Scenario: Has confirm sign in Footer and Header slot text
     When I type my "email" with status "UNVERIFIED"
     Then I type my password
@@ -47,6 +48,7 @@ Feature: Custom Slots
     Then I see "Enter Information:"
     Then I see "Footer Information"
 
+  @angular @react @vue
   Scenario: Has reset password in Footer and Header slot text
     When I click the "Reset Password" button
     Then I see "Enter Information:"

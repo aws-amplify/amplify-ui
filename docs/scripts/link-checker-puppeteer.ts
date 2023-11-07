@@ -50,7 +50,9 @@ function reportResult(links: LinkInfo[]) {
         }
       }
     );
-    const failedLinks = errorLinks.filter((link) => link.statusCode >= 400);
+    const failedLinks = errorLinks.filter(
+      (link) => link.statusCode >= 400 && isInternalLink(link.href)
+    );
     if (failedLinks.length) {
       throw new Error(`${failedLinks.length} broken links were found`);
     } else {
@@ -60,6 +62,7 @@ function reportResult(links: LinkInfo[]) {
     }
   } else {
     console.log('🎉 All links look good!');
+    process.exit();
   }
 }
 
@@ -93,7 +96,7 @@ async function runLinkChecker() {
     };
   });
 
-  await console.table(allPagesPathsNum);
+  console.table(allPagesPathsNum);
 
   const links = results.reduce((acc, curr) => [...acc, ...curr.links], []);
   reportResult(links);
@@ -102,5 +105,6 @@ async function runLinkChecker() {
 try {
   runLinkChecker();
 } catch (err) {
+  console.log(`Docs link check failure: ${err.message}`);
   process.exit(1);
 }

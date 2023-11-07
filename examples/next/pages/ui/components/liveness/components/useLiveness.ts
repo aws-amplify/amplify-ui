@@ -1,21 +1,22 @@
 import { useState } from 'react';
-import { API } from 'aws-amplify';
+// @todo-migration re-enable
+// import { API } from 'aws-amplify';
 import useSWR from 'swr';
 
 export function useLiveness() {
   const [isLivenessActive, setLivenessActive] = useState(false);
   const [getLivenessResponse, setGetLivenessResponse] = useState(null);
 
-  const {
-    data: createLivenessSessionApiData,
-    error: createLivenessSessionApiError,
-    isValidating: createLivenessSessionApiLoading,
-    mutate,
-  } = useSWR(
-    'CreateStreamingLivenessSession',
-    () => API.post('BYOB', '/liveness/create', {}),
-    { revalidateOnFocus: false }
-  );
+  // const {
+  //   data: createLivenessSessionApiData,
+  //   error: createLivenessSessionApiError,
+  //   isValidating: createLivenessSessionApiLoading,
+  //   mutate,
+  // } = useSWR(
+  //   'CreateStreamingLivenessSession',
+  //   () => API.post('BYOB', '/liveness/create', {}),
+  //   { revalidateOnFocus: false }
+  // );
 
   const handleCreateLivenessSession = () => {
     setLivenessActive(true);
@@ -38,13 +39,13 @@ export function useLiveness() {
   const stopLiveness = () => {
     setLivenessActive(false);
     setGetLivenessResponse(null);
-    mutate();
+    // mutate();
   };
 
   const handleGetLivenessDetection = async (sessionId) => {
-    const response = await API.get('BYOB', `/liveness/${sessionId}`, {});
-    setGetLivenessResponse(response);
-    return { isLive: response.isLive };
+    // const response = await API.get('BYOB', `/liveness/${sessionId}`, {});
+    // setGetLivenessResponse(response);
+    // return { isLive: response.isLive };
   };
 
   return {
@@ -56,8 +57,8 @@ export function useLiveness() {
     handleSuccess,
     handleGetLivenessDetection,
     stopLiveness,
-    createLivenessSessionApiData,
-    createLivenessSessionApiError,
-    createLivenessSessionApiLoading,
+    createLivenessSessionApiData: null,
+    createLivenessSessionApiError: null,
+    createLivenessSessionApiLoading: null,
   };
 }

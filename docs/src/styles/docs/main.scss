@@ -23,12 +23,24 @@
   }
 
   // Targeting tabs
-  & > [data-orientation] > [role='tabpanel'] {
-    padding-top: var(--amplify-space-medium);
-    // Don't add top margin to h2's since they already
-    // have top margin
-    & > * + *:not(h2) {
-      margin-top: var(--amplify-space-medium);
+  & > [data-orientation] {
+    & > [role='tablist'] button {
+      // 20rem is kind of magic here; it's at least the height of the page above the page tabs.
+      // Since we add a scroll-margin-block-start to tabpanel below, we need to add
+      // this here to scroll the top of the page when reverse keyboard navigating
+      // so elements aren't hidden by sticky nav.
+      scroll-margin-block-start: 20rem;
+    }
+    & > [role='tabpanel'] {
+      // Prevent demo from getting cut off by sticky nav
+      // when keyboard navigating.
+      scroll-margin-block-start: 7rem;
+      padding-top: var(--amplify-space-medium);
+      // Don't add top margin to h2's since they already
+      // have top margin
+      & > * + *:not(h2) {
+        margin-top: var(--amplify-space-medium);
+      }
     }
   }
 

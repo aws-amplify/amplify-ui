@@ -1,8 +1,8 @@
 import React from 'react';
 import { fireEvent, render, waitFor, act } from '@testing-library/react';
+import * as Storage from 'aws-amplify/storage';
 
 import { ComponentClassName } from '@aws-amplify/ui';
-import { Logger, Storage } from 'aws-amplify';
 
 import * as StorageHooks from '../hooks';
 import { StorageManager } from '../StorageManager';
@@ -13,19 +13,18 @@ import {
 } from '../types';
 import { defaultStorageManagerDisplayText } from '../utils';
 
-const storageSpy = jest
-  .spyOn(Storage, 'put')
-  .mockImplementation(() => Promise.resolve({ key: 'file' }));
+const warnSpy = jest.spyOn(console, 'warn').mockImplementation();
 
-const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
+const uploadDataSpy = jest.spyOn(Storage, 'uploadData');
 
 const storeManagerProps: StorageManagerProps = {
-  accessLevel: 'public',
+  accessLevel: 'guest',
   maxFileCount: 100,
 };
 describe('StorageManager', () => {
-  afterEach(() => {
-    jest.clearAllMocks();
+  beforeEach(() => {
+    uploadDataSpy.mockClear();
+    jest.resetAllMocks();
   });
 
   it('renders as expected', () => {
@@ -144,6 +143,15 @@ describe('StorageManager', () => {
   });
 
   it('calls onUploadSuccess callback when file is successfully uploaded', async () => {
+    uploadDataSpy.mockImplementationOnce((input: Storage.UploadDataInput) => {
+      return {
+        cancel: jest.fn(),
+        pause: jest.fn(),
+        resume: jest.fn(),
+        state: 'SUCCESS',
+        result: Promise.resolve({ key: input.key, data: input.data }),
+      };
+    });
     const onUploadSuccess = jest.fn();
     render(
       <StorageManager
@@ -163,18 +171,29 @@ describe('StorageManager', () => {
 
     // Wait for the file to be uploaded
     await waitFor(() => {
-      expect(storageSpy).toBeCalledWith(file.name, file, {
-        contentType: 'text/plain',
-        level: 'public',
-        progressCallback: expect.any(Function),
-        provider: undefined,
-        resumable: false,
+      expect(uploadDataSpy).toHaveBeenCalledWith({
+        key: file.name,
+        data: file,
+        options: {
+          accessLevel: 'guest',
+          contentType: 'text/plain',
+          onProgress: expect.any(Function),
+        },
       });
       expect(onUploadSuccess).toHaveBeenCalledTimes(1);
     });
   });
 
   it('calls onUploadStart callback when file starts uploading', async () => {
+    uploadDataSpy.mockImplementationOnce((input: Storage.UploadDataInput) => {
+      return {
+        cancel: jest.fn(),
+        pause: jest.fn(),
+        resume: jest.fn(),
+        state: 'SUCCESS',
+        result: Promise.resolve({ key: input.key, data: input.data }),
+      };
+    });
     const onUploadStart = jest.fn();
     render(
       <StorageManager {...storeManagerProps} onUploadStart={onUploadStart} />
@@ -191,12 +210,14 @@ describe('StorageManager', () => {
 
     // Wait for the file to be uploaded
     await waitFor(() => {
-      expect(storageSpy).toBeCalledWith(file.name, file, {
-        contentType: 'text/plain',
-        level: 'public',
-        progressCallback: expect.any(Function),
-        provider: undefined,
-        resumable: false,
+      expect(uploadDataSpy).toHaveBeenCalledWith({
+        key: file.name,
+        data: file,
+        options: {
+          accessLevel: 'guest',
+          contentType: 'text/plain',
+          onProgress: expect.any(Function),
+        },
       });
       expect(onUploadStart).toHaveBeenCalledTimes(1);
     });

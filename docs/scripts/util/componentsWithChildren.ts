@@ -3,7 +3,7 @@ import { ComponentName } from '../types/catalog';
 export const componentsWithChildren: {
   [key in ComponentName]?: ComponentName[];
 } = {
-  Expander: ['ExpanderItem'],
+  Accordion: ['Accordion.Item'],
   Breadcrumbs: [
     'Breadcrumbs.Item',
     'Breadcrumbs.Link',
@@ -11,7 +11,7 @@ export const componentsWithChildren: {
   ],
   Menu: ['MenuButton', 'MenuItem'],
   RadioGroupField: ['Radio'],
-  Tabs: ['TabItem'],
+  Tabs: ['Tabs.Container', 'Tabs.Item', 'Tabs.List', 'Tabs.Panel'],
   Table: ['TableBody', 'TableCell', 'TableFoot', 'TableHead', 'TableRow'],
   ToggleButton: ['ToggleButtonGroup'],
 };

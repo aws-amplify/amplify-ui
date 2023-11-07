@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import dynamic from 'next/dynamic';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 import { Heading, View } from '@aws-amplify/ui-react';
 import { useIntersectionObserver } from '@/components/useIntersection';
 import { trackScroll } from '@/utils/track';

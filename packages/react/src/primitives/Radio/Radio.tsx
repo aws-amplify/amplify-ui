@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassName } from '@aws-amplify/ui';
@@ -14,24 +14,17 @@ import {
 import { Text } from '../Text';
 import { useRadioGroupContext } from '../RadioGroupField/context';
 import { useFieldset } from '../Fieldset/useFieldset';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
   {
     children,
     className,
     id,
-    isDisabled,
+    isDisabled = false,
     testId,
     value,
     labelPosition: radioLabelPosition,
-    height, // @TODO: remove custom destructuring for 3.0 release
-    width, // @TODO: remove custom destructuring for 3.0 release
-    bottom, // @TODO: remove custom destructuring for 3.0 release
-    left, // @TODO: remove custom destructuring for 3.0 release
-    position, // @TODO: remove custom destructuring for 3.0 release
-    padding, // @TODO: remove custom destructuring for 3.0 release
-    right, // @TODO: remove custom destructuring for 3.0 release
-    top, // @TODO: remove custom destructuring for 3.0 release
     ...rest
   },
   ref
@@ -41,7 +34,7 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
     defaultValue,
     name,
     hasError,
-    isGroupDisabled,
+    isGroupDisabled = false,
     isRequired,
     isReadOnly,
     onChange,
@@ -75,24 +68,21 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
           `disabled`,
           shouldBeDisabled
         ),
+        labelPosition ? `amplify-label-${labelPosition}` : null,
         className
       )}
-      data-disabled={shouldBeDisabled}
-      data-label-position={labelPosition}
-      height={height}
-      width={width}
-      bottom={bottom}
-      top={top}
-      right={right}
-      left={left}
-      position={position}
-      padding={padding}
     >
       {children && (
         <Text
           as="span"
-          className={ComponentClassName.RadioLabel}
-          data-disabled={shouldBeDisabled}
+          className={classNames(
+            ComponentClassName.RadioLabel,
+            classNameModifierByFlag(
+              ComponentClassName.RadioLabel,
+              `disabled`,
+              shouldBeDisabled
+            )
+          )}
         >
           {children}
         </Text>
@@ -123,7 +113,6 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
           ComponentClassName.RadioButton,
           classNameModifier(ComponentClassName.RadioButton, size)
         )}
-        data-size={size}
         testId={testId}
       />
     </Flex>
@@ -131,6 +120,6 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
 };
 
 export const Radio: ForwardRefPrimitive<BaseRadioProps, 'input'> =
-  React.forwardRef(RadioPrimitive);
+  primitiveWithForwardRef(RadioPrimitive);
 
 Radio.displayName = 'Radio';

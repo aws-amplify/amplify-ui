@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassName } from '@aws-amplify/ui';
@@ -10,6 +10,7 @@ import {
   TableProps,
 } from '../types';
 import { View } from '../View';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const TablePrimitive: Primitive<TableProps, 'table'> = (
   {
@@ -35,8 +36,6 @@ const TablePrimitive: Primitive<TableProps, 'table'> = (
       as="table"
       className={componentClasses}
       data-highlightonhover={highlightOnHover}
-      data-size={size}
-      data-variation={variation}
       ref={ref}
       {...rest}
     >
@@ -54,6 +53,6 @@ const TablePrimitive: Primitive<TableProps, 'table'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/table)
  */
 export const Table: ForwardRefPrimitive<BaseTableProps, 'table'> =
-  React.forwardRef(TablePrimitive);
+  primitiveWithForwardRef(TablePrimitive);
 
 Table.displayName = 'Table';

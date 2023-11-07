@@ -83,7 +83,7 @@ describe('Authenticator', () => {
 
   it('handles `authStatus` of authenticated as expected', () => {
     useAuthenticatorSpy.mockImplementation(
-      () => ({ authStatus: 'authenticated' } as unknown as UseAuthenticator)
+      () => ({ authStatus: 'authenticated' }) as unknown as UseAuthenticator
     );
 
     const { getByTestId, toJSON } = render(
@@ -104,12 +104,12 @@ describe('Authenticator', () => {
     'handles an authStatus of %s as expected',
     (route) => {
       useAuthenticatorSpy.mockImplementation(
-        () => ({ route } as unknown as UseAuthenticator)
+        () => ({ route }) as unknown as UseAuthenticator
       );
 
-      const { container } = render(<Authenticator />);
+      const { root } = render(<Authenticator />);
 
-      expect(container.instance).toBeNull();
+      expect(root.instance).toBeNull();
     }
   );
 

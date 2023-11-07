@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 import { classNameModifier } from '../shared/utils';
@@ -11,6 +11,7 @@ import {
 } from '../types';
 import { Flex } from '../Flex';
 import { MessageContext } from './useMessage';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const MessageContainerPrimitive: Primitive<MessageContainerProps, 'div'> = (
   {
@@ -56,6 +57,6 @@ const MessageContainerPrimitive: Primitive<MessageContainerProps, 'div'> = (
 export const MessageContainer: ForwardRefPrimitive<
   BaseMessageContainerProps,
   'div'
-> = React.forwardRef(MessageContainerPrimitive);
+> = primitiveWithForwardRef(MessageContainerPrimitive);
 
 MessageContainer.displayName = 'MessageContainer';

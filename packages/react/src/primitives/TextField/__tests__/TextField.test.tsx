@@ -118,7 +118,7 @@ describe('TextField component', () => {
       expect(field).toHaveAttribute('required');
     });
 
-    it('should set size and variation data attributes', async () => {
+    it('should set size and variation classes', async () => {
       render(
         <TextField
           label="Field"
@@ -130,8 +130,8 @@ describe('TextField component', () => {
 
       const textField = await screen.findByTestId('testField');
       const input = await screen.findByRole('textbox');
-      expect(textField).toHaveAttribute('data-size', 'small');
-      expect(input).toHaveAttribute('data-variation', 'quiet');
+      expect(textField).toHaveClass(`${ComponentClassName.Field}--small`);
+      expect(input).toHaveClass(`${ComponentClassName.Input}--quiet`);
     });
 
     it('can set defaultValue', async () => {
@@ -168,7 +168,7 @@ describe('TextField component', () => {
       );
       const field = await screen.findByRole('textbox');
       userEvent.type(field, 'hello');
-      userEvent.paste(field, 'there');
+      // userEvent.paste(field, 'there');
       expect(onChange).toHaveBeenCalled();
       expect(onInput).toHaveBeenCalled();
       expect(onPaste).toHaveBeenCalled();

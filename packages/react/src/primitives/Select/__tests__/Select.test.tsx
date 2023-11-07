@@ -39,6 +39,7 @@ describe('Select primitive test suite', () => {
         variation={variation}
         isDisabled={false}
         isRequired={false}
+        isMultiple={false}
       >
         <option value="1">1</option>
         <option value="2">2</option>
@@ -50,8 +51,8 @@ describe('Select primitive test suite', () => {
     expect(select.nodeName).toBe('SELECT');
     expect(select.childNodes).toHaveLength(3);
     expect(select).toHaveAttribute('name', name);
-    expect(select).toHaveAttribute('data-size', size);
-    expect(select).toHaveAttribute('data-variation', variation);
+    expect(select).toHaveClass(`${ComponentClassName.Select}--${size}`);
+    expect(select).toHaveClass(`${ComponentClassName.Select}--${variation}`);
     expect(select).toHaveClass(ComponentClassName.Select);
     expect(select).not.toBeDisabled();
     expect(select).not.toBeRequired();
@@ -116,6 +117,32 @@ describe('Select primitive test suite', () => {
     const select = await screen.findByTestId('test-select');
     expect(select).toBeDisabled();
     expect(select).toBeRequired();
+  });
+
+  it('should render the multiple attribute', async () => {
+    render(
+      <Select testId={testId} isMultiple>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </Select>
+    );
+
+    const select = await screen.findByTestId('test-select');
+    expect(select).toHaveAttribute('multiple');
+  });
+
+  it('should render the size attribute', async () => {
+    render(
+      <Select testId={testId} selectSize={2}>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </Select>
+    );
+
+    const select = await screen.findByTestId('test-select');
+    expect(select).toHaveAttribute('size', '2');
   });
 
   it('should always be disabled if parent Fieldset isDisabled', async () => {

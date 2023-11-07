@@ -1,9 +1,5 @@
-import {
-  InAppMessageInteractionEvent,
-  Notifications,
-} from '@aws-amplify/notifications';
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
-
+import { notifyMessageInteraction } from 'aws-amplify/in-app-messaging';
+import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import { RenderNothing } from '@aws-amplify/ui-react-core';
 import { useInAppMessaging } from '../../useInAppMessaging';
 import {
@@ -12,14 +8,8 @@ import {
   MessageCommonProps,
 } from '../../../types';
 import { UseMessageParams } from '../types';
-
 import { EMPTY_PROPS } from '../useMessage';
 import { useMessage } from '..';
-
-const notifyMessageInteractionSpy = jest.spyOn(
-  Notifications.InAppMessaging,
-  'notifyMessageInteraction'
-);
 
 jest.mock('../../useInAppMessaging');
 jest.useFakeTimers();
@@ -31,6 +21,17 @@ const infoSpy = jest.spyOn(Logger.prototype, 'info');
 
 const mockUseInAppMessaging = useInAppMessaging as jest.Mock;
 const mockClearMessage = jest.fn();
+
+jest.mock('aws-amplify', () => ({
+  Amplify: { configure: jest.fn() },
+}));
+
+jest.mock('aws-amplify/in-app-messaging', () => ({
+  ...jest.requireActual<typeof import('aws-amplify/in-app-messaging')>(
+    'aws-amplify/in-app-messaging'
+  ),
+  notifyMessageInteraction: jest.fn(),
+}));
 
 const header = { content: 'header one' };
 const baseMessage: Partial<Message> = {
@@ -176,8 +177,6 @@ describe('useMessage', () => {
     };
 
     beforeEach(() => {
-      jest.clearAllMocks();
-
       mockUseInAppMessaging.mockReturnValueOnce({
         clearMessage: mockClearMessage,
         components,
@@ -190,12 +189,11 @@ describe('useMessage', () => {
         const { props } = useMessage({ components, onMessageAction });
 
         (props as { onClose: () => void }).onClose();
-
-        expect(notifyMessageInteractionSpy).toHaveBeenCalledTimes(1);
-        expect(notifyMessageInteractionSpy).toHaveBeenCalledWith(
+        expect(notifyMessageInteraction).toHaveBeenCalledTimes(1);
+        expect(notifyMessageInteraction).toHaveBeenCalledWith({
+          type: 'messageDismissed',
           message,
-          InAppMessageInteractionEvent.MESSAGE_DISMISSED
-        );
+        });
         expect(mockClearMessage).toHaveBeenCalledTimes(1);
       });
     });
@@ -206,11 +204,11 @@ describe('useMessage', () => {
 
         (props as TestMessageProps).onDisplay();
 
-        expect(notifyMessageInteractionSpy).toHaveBeenCalledTimes(1);
-        expect(notifyMessageInteractionSpy).toHaveBeenCalledWith(
+        expect(notifyMessageInteraction).toHaveBeenCalledTimes(1);
+        expect(notifyMessageInteraction).toHaveBeenCalledWith({
           message,
-          InAppMessageInteractionEvent.MESSAGE_DISPLAYED
-        );
+          type: 'messageDisplayed',
+        });
       });
     });
 
@@ -224,11 +222,11 @@ describe('useMessage', () => {
 
         jest.runAllTimers();
 
-        expect(notifyMessageInteractionSpy).toHaveBeenCalledTimes(1);
-        expect(notifyMessageInteractionSpy).toHaveBeenCalledWith(
+        expect(notifyMessageInteraction).toHaveBeenCalledTimes(1);
+        expect(notifyMessageInteraction).toHaveBeenCalledWith({
           message,
-          InAppMessageInteractionEvent.MESSAGE_ACTION_TAKEN
-        );
+          type: 'messageActionTaken',
+        });
         expect(mockClearMessage).toHaveBeenCalledTimes(1);
       });
     });

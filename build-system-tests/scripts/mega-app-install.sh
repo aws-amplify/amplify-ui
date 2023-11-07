@@ -10,6 +10,9 @@ FRAMEWORK_VERSION="latest"
 PKG_MANAGER="npm"
 PKG_MANAGER_VERSION="latest"
 
+# Import install function
+source "./scripts/install-with-retries.sh"
+
 # Options
 # e.g.
 # $ ./mega-app-install.sh --build-tool react --build-tool-version latest --language typescript --name react-latest-cra-latest-node-18-ts --framework cra --framework-version latest --pkg-manager npm --pkg-manager-version latest
@@ -122,8 +125,7 @@ else
     if [[ "$BUILD_TOOL" == 'cra' && "$LANGUAGE" == 'ts' ]]; then
         # If not testing the latest React, we need to download its types.
         # CRA is the only framework that we test React 16.
-        echo "npm install $DEP_TYPES"
-        npm install $DEP_TYPES
+        install_with_retries npm "$DEP_TYPES"
     fi
 
     if [[ "$BUILD_TOOL" == 'next' && "$BUILD_TOOL_VERSION" == '11' ]]; then
@@ -134,15 +136,14 @@ else
     fi
 
     if [[ "$FRAMEWORK" == "react-native" ]]; then
-        echo "npm install @aws-amplify/ui-react-native aws-amplify react-native-safe-area-context amazon-cognito-identity-js @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
-        npm install @aws-amplify/ui-react-native aws-amplify react-native-safe-area-context amazon-cognito-identity-js @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill
+        echo "npm install @aws-amplify/ui-react-native @aws-amplify/react-native aws-amplify react-native-safe-area-context @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
+        npm install @aws-amplify/ui-react-native @aws-amplify/react-native aws-amplify react-native-safe-area-context @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill
         if [[ "$BUILD_TOOL" == "expo" ]]; then
             echo "npx expo install --fix" 
             npx expo install --fix # fix the dependencies that are incompatible with the installed expo versio
         fi
     else
-        echo "npm install $DEPENDENCIES"
-        npm install $DEPENDENCIES
+        install_with_retries npm "$DEPENDENCIES"
     fi
 fi
 

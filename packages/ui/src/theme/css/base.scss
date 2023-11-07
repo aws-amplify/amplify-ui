@@ -1,0 +1,56 @@
+/*
+ * Amplify UI Basic Theme
+ */
+
+@import 'dist/theme';
+
+// Allows both users with and without ThemeProvider to use or override default font
+// html => customers w/o ThemeProvider still get default font
+// [data-amplify-theme] => customers with ThemeProvider can override default font
+html,
+[data-amplify-theme] {
+  font-family: var(--amplify-fonts-default-static);
+}
+
+@supports (font-variation-settings: normal) {
+  html,
+  [data-amplify-theme] {
+    font-family: var(--amplify-fonts-default-variable);
+  }
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+// https://piccalil.li/blog/a-modern-css-reset/
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: var(--amplify-line-heights-medium);
+}
+
+// Note: This rule can be easily overwritten when
+// needed due to very low specificity of 0 0 0
+* {
+  box-sizing: border-box;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+}
+
+[class*='amplify'] {
+  all: unset; /* protect against external styles */
+  box-sizing: border-box; /* set box-sizing after unset above */
+}

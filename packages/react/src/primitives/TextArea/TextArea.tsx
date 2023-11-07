@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassName } from '@aws-amplify/ui';
@@ -7,6 +7,7 @@ import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { BaseTextAreaProps, TextAreaProps } from '../types/textArea';
 import { View } from '../View';
 import { useFieldset } from '../Fieldset/useFieldset';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const TextAreaPrimitive: Primitive<TextAreaProps, 'textarea'> = (
   {
@@ -36,8 +37,6 @@ const TextAreaPrimitive: Primitive<TextAreaProps, 'textarea'> = (
       aria-invalid={hasError}
       as="textarea"
       className={componentClasses}
-      data-size={size}
-      data-variation={variation}
       disabled={isFieldsetDisabled ? isFieldsetDisabled : isDisabled}
       readOnly={isReadOnly}
       ref={ref}
@@ -48,6 +47,6 @@ const TextAreaPrimitive: Primitive<TextAreaProps, 'textarea'> = (
 };
 
 export const TextArea: ForwardRefPrimitive<BaseTextAreaProps, 'textarea'> =
-  React.forwardRef(TextAreaPrimitive);
+  primitiveWithForwardRef(TextAreaPrimitive);
 
 TextArea.displayName = 'TextArea';

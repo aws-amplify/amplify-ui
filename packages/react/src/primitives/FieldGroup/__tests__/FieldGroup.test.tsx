@@ -190,7 +190,7 @@ describe('FieldGroup component', () => {
       </FieldGroup>
     );
     const fieldGroup = await screen.findByTestId(testId);
-    expect(fieldGroup).toHaveAttribute('data-orientation', 'horizontal');
+    expect(fieldGroup).toHaveClass('amplify-field-group--horizontal');
   });
 
   it('should set vertical orientation', async () => {
@@ -200,6 +200,6 @@ describe('FieldGroup component', () => {
       </FieldGroup>
     );
     const fieldGroup = await screen.findByTestId(testId);
-    expect(fieldGroup).toHaveAttribute('data-orientation', 'vertical');
+    expect(fieldGroup).toHaveClass('amplify-field-group--vertical');
   });
 });

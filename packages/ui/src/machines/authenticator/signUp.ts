@@ -1,4 +1,11 @@
-import { Auth } from 'aws-amplify';
+import {
+  SignUpOutput,
+  ConfirmSignUpOutput,
+  ConfirmSignUpInput,
+  ResendSignUpCodeInput,
+  resendSignUpCode,
+  signInWithRedirect,
+} from 'aws-amplify/auth';
 import get from 'lodash/get.js';
 import pickBy from 'lodash/pickBy.js';
 import { assign, createMachine, sendUpdate } from 'xstate';
@@ -21,12 +28,14 @@ import {
   handleSubmit,
 } from './actions';
 import { defaultServices } from './defaultServices';
+import { groupLog } from '../../utils';
 
 export type SignUpMachineOptions = {
   services?: Partial<typeof defaultServices>;
 };
 
 export function createSignUpMachine({ services }: SignUpMachineOptions) {
+  groupLog('+++createSignUpMachine');
   return createMachine<SignUpContext, AuthEvent>(
     {
       id: 'signUpActor',
@@ -115,7 +124,11 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                       {
                         cond: 'shouldSkipConfirm',
                         target: 'skipConfirm',
-                        actions: ['setUser', 'setCredentials'],
+                        actions: [
+                          'setAutoSignInIntent', // Moved assign action here due to bug with always transition - https://github.com/statelyai/xstate/issues/890
+                          'setUser',
+                          'setCredentials',
+                        ],
                       },
                       {
                         target: 'resolved',
@@ -135,7 +148,6 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                 skipConfirm: {
                   always: {
                     target: '#signUpActor.resolved',
-                    actions: 'setAutoSignInIntent',
                   },
                 },
 
@@ -194,8 +206,20 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           data: (context, event) => {
             const { username, password } = context.authAttributes;
 
+            const user = get(event, 'data.user') || context.user;
+
+            groupLog(
+              '+++signUpActor.resolved',
+              'context',
+              context,
+              'event',
+              event,
+              'user',
+              user
+            );
+
             return {
-              user: get(event, 'data.user') || context.user,
+              user,
               authAttributes: { username, password },
               intent: context.intent,
             };
@@ -218,13 +242,26 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
          * https://github.com/aws-amplify/amplify-ui/issues/219
          */
         isUserAlreadyConfirmed: (context, event) => {
+          console.log('+++isUserAlreadyConfirmed');
           return event.data.message === 'User is already confirmed.';
         },
         shouldInitConfirmSignUp: (context) => {
+          console.log(
+            '+++shouldInitConfirmSignUp',
+            context.intent && context.intent === 'confirmSignUp',
+            context?.intent === 'confirmSignUp'
+          );
+          /**
+           * @migration this lookup is broken, lookup prev event
+           */
+
           return context.intent && context.intent === 'confirmSignUp';
         },
-        shouldSkipConfirm: (context, event) => {
-          return event.data.userConfirmed;
+        /**
+         * @migration data is SignUpOutput
+         */
+        shouldSkipConfirm: (context, { data }) => {
+          return (data as SignUpOutput).isSignUpComplete;
         },
       },
       actions: {
@@ -243,38 +280,72 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         setUser,
         sendUpdate: sendUpdate(), // sendUpdate is a HOC
         setAutoSignInIntent: assign({
-          intent: (context) => {
+          intent: (context, event) => {
+            groupLog(
+              '+++setAutoSignInIntent',
+              'context',
+              context,
+              'event',
+              event
+            );
+            const { nextStep } = event.data as ConfirmSignUpOutput;
+            const { signUpStep } = nextStep;
+
             if (context?.intent === 'confirmSignUp') {
               return 'autoSignInSubmit';
-            } else {
+            } else if (signUpStep === 'COMPLETE_AUTO_SIGN_IN') {
               return 'autoSignIn';
             }
           },
         }),
       },
       services: {
+        // async confirmSignUp(context, event) {
+        //   const { user, authAttributes, formValues } = context;
+        //   const { confirmation_code: code } = formValues;
+
+        //   const username =
+        //     get(user, 'username') || get(authAttributes, 'username');
+
+        //   return await services.handleConfirmSignUp({ username, code });
+        // },
         async confirmSignUp(context, event) {
+          console.group('+++confirmSignUp');
+
           const { user, authAttributes, formValues } = context;
-          const { confirmation_code: code } = formValues;
+          const { confirmation_code: confirmationCode } = formValues;
+          console.log('context', context);
 
           const username =
             get(user, 'username') || get(authAttributes, 'username');
 
-          return await services.handleConfirmSignUp({ username, code });
+          console.groupEnd();
+
+          const input: ConfirmSignUpInput = {
+            username,
+            confirmationCode,
+          };
+
+          return await services.handleConfirmSignUp(input);
         },
         async resendConfirmationCode(context, event) {
+          console.log('+++resendConfirmationCode');
+
           const { user, authAttributes } = context;
           const username =
             get(user, 'username') || get(authAttributes, 'username');
 
-          return Auth.resendSignUp(username);
+          const input: ResendSignUpCodeInput = { username };
+          return resendSignUpCode(input);
         },
         async federatedSignIn(_, event) {
+          groupLog('+++signUp.signInWithRedirect');
           const { provider } = event.data;
-          const result = await Auth.federatedSignIn({ provider });
-          return result;
+          return await signInWithRedirect({ provider });
         },
         async signUp(context, _event) {
+          console.group('+++signUp');
+
           const { formValues, loginMechanisms } = context;
           const [primaryAlias = 'username'] = loginMechanisms;
           const { [primaryAlias]: username, password } = formValues;
@@ -307,6 +378,8 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                 return key.startsWith('custom:');
             }
           });
+
+          console.groupEnd();
 
           return await services.handleSignUp({
             username,

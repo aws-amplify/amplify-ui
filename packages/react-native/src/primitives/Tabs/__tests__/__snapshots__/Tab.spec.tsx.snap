@@ -3,6 +3,23 @@
 exports[`Tab can apply custom styling 1`] = `
 <View
   accessibilityRole="tab"
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
   accessible={true}
   collapsable={false}
   focusable={true}
@@ -16,20 +33,22 @@ exports[`Tab can apply custom styling 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "center",
         "backgroundColor": "transparent",
         "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
         "borderWidth": 1,
+        "flexDirection": "row",
+        "gap": 12,
         "justifyContent": "center",
         "paddingHorizontal": 16,
         "paddingVertical": 12,
       },
       undefined,
-      Array [
-        Object {
+      [
+        {
           "backgroundColor": "transparent",
           "borderBottomColor": "hsl(210, 5%, 87%)",
           "borderBottomWidth": 2,
@@ -41,7 +60,7 @@ exports[`Tab can apply custom styling 1`] = `
           "paddingVertical": 12,
         },
         undefined,
-        Object {
+        {
           "backgroundColor": "lavender",
           "borderTopColor": "rebeccapurple",
         },
@@ -51,15 +70,15 @@ exports[`Tab can apply custom styling 1`] = `
 >
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "color": "hsl(210, 50%, 10%)",
           "fontSize": 16,
           "fontWeight": "700",
           "textAlign": "center",
         },
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(210, 25%, 25%)",
             "fontSize": 16,
             "fontWeight": "700",
@@ -78,6 +97,23 @@ exports[`Tab can apply custom styling 1`] = `
 exports[`Tab renders as expected when Tab is selected 1`] = `
 <View
   accessibilityRole="tab"
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
   accessible={true}
   collapsable={false}
   focusable={true}
@@ -91,20 +127,22 @@ exports[`Tab renders as expected when Tab is selected 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "center",
         "backgroundColor": "transparent",
         "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
         "borderWidth": 1,
+        "flexDirection": "row",
+        "gap": 12,
         "justifyContent": "center",
         "paddingHorizontal": 16,
         "paddingVertical": 12,
       },
       undefined,
-      Array [
-        Object {
+      [
+        {
           "backgroundColor": "hsl(0, 0%, 100%)",
           "borderBottomColor": "hsl(190, 95%, 30%)",
           "borderBottomWidth": 2,
@@ -125,21 +163,21 @@ exports[`Tab renders as expected when Tab is selected 1`] = `
 >
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "color": "hsl(210, 50%, 10%)",
           "fontSize": 16,
           "fontWeight": "700",
           "textAlign": "center",
         },
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(210, 25%, 25%)",
             "fontSize": 16,
             "fontWeight": "700",
           },
           undefined,
-          Object {
+          {
             "backgroundColor": "hsl(0, 0%, 100%)",
             "borderBottomColor": "hsl(190, 95%, 30%)",
             "color": "hsl(190, 95%, 30%)",
@@ -156,6 +194,23 @@ exports[`Tab renders as expected when Tab is selected 1`] = `
 exports[`Tab renders as expected with a component passed as children 1`] = `
 <View
   accessibilityRole="tab"
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
   accessible={true}
   collapsable={false}
   focusable={true}
@@ -169,20 +224,22 @@ exports[`Tab renders as expected with a component passed as children 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "center",
         "backgroundColor": "transparent",
         "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
         "borderWidth": 1,
+        "flexDirection": "row",
+        "gap": 12,
         "justifyContent": "center",
         "paddingHorizontal": 16,
         "paddingVertical": 12,
       },
       undefined,
-      Array [
-        Object {
+      [
+        {
           "backgroundColor": "transparent",
           "borderBottomColor": "hsl(210, 5%, 87%)",
           "borderBottomWidth": 2,
@@ -208,6 +265,23 @@ exports[`Tab renders as expected with a component passed as children 1`] = `
 exports[`Tab renders default Tab as expected 1`] = `
 <View
   accessibilityRole="tab"
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
   accessible={true}
   collapsable={false}
   focusable={true}
@@ -221,20 +295,22 @@ exports[`Tab renders default Tab as expected 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "center",
         "backgroundColor": "transparent",
         "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
         "borderWidth": 1,
+        "flexDirection": "row",
+        "gap": 12,
         "justifyContent": "center",
         "paddingHorizontal": 16,
         "paddingVertical": 12,
       },
       undefined,
-      Array [
-        Object {
+      [
+        {
           "backgroundColor": "transparent",
           "borderBottomColor": "hsl(210, 5%, 87%)",
           "borderBottomWidth": 2,
@@ -253,15 +329,15 @@ exports[`Tab renders default Tab as expected 1`] = `
 >
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "color": "hsl(210, 50%, 10%)",
           "fontSize": 16,
           "fontWeight": "700",
           "textAlign": "center",
         },
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(210, 25%, 25%)",
             "fontSize": 16,
             "fontWeight": "700",

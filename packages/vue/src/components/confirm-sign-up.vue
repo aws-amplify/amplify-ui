@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useAttrs, toRefs } from 'vue';
+import { computed, toRefs } from 'vue';
 import {
   authenticatorTextUtil,
   getFormDataFromEvent,
@@ -9,11 +9,6 @@ import {
 import { useAuthenticator } from '../composables/useAuth';
 import { UseAuthenticator } from '../types';
 import BaseFormFields from './primitives/base-form-fields.vue';
-
-const attrs = useAttrs();
-
-/** @deprecated Authenticator component events are deprecated and not maintained. */
-const emit = defineEmits(['confirmSignUpSubmit', 'lostCodeClicked']);
 
 // `facade` is manually typed to `UseAuthenticator` for temporary type safety.
 const facade: UseAuthenticator = useAuthenticator();
@@ -47,13 +42,7 @@ const onInput = (e: Event): void => {
 };
 
 const onConfirmSignUpSubmit = (e: Event): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onConfirmSignUpSubmit) {
-    emit('confirmSignUpSubmit', e);
-  } else {
-    submit(e);
-  }
+  submit(e);
 };
 
 const submit = (e: Event): void => {
@@ -61,13 +50,7 @@ const submit = (e: Event): void => {
 };
 
 const onLostCodeClicked = (): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onLostCodeClicked) {
-    emit('lostCodeClicked');
-  } else {
-    resendCode();
-  }
+  resendCode();
 };
 </script>
 
@@ -118,12 +101,7 @@ const onLostCodeClicked = (): void => {
             >
               {{ resendCodeText }}
             </amplify-button>
-            <slot
-              name="footer"
-              :onConfirmSignUpSubmit="onConfirmSignUpSubmit"
-              :onLostCodeClicked="onLostCodeClicked"
-            >
-            </slot>
+            <slot name="footer"> </slot>
           </base-footer>
         </base-wrapper>
       </base-form>

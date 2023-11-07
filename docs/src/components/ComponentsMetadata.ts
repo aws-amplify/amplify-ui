@@ -4,6 +4,7 @@ import { ComponentClassName } from '@aws-amplify/ui';
 type ComponentClassNameKey = keyof typeof ComponentClassName;
 
 type ComponentNameKey =
+  | 'Accordion'
   | 'Alert'
   | 'Autocomplete'
   | 'Badge'
@@ -17,7 +18,6 @@ type ComponentNameKey =
   | 'PhoneNumberField'
   | 'Divider'
   | 'DropZone'
-  | 'Expander'
   | 'Fieldset'
   | 'Flex'
   | 'Grid'
@@ -67,6 +67,31 @@ type ComponentClassNameItems = {
 };
 
 export const ComponentsMetadata: ComponentClassNameItems = {
+  Accordion: {
+    className: ComponentClassName.Accordion,
+    components: ['Accordion'],
+    description: 'Top level element that wraps the Accordion primitive',
+  },
+  AccordionItem: {
+    className: ComponentClassName.AccordionItem,
+    components: ['Accordion'],
+    description: 'Accordion item (containier for header, trigger, and content)',
+  },
+  AccordionItemContent: {
+    className: ComponentClassName.AccordionItemContent,
+    components: ['Accordion'],
+    description: 'Accordion content container',
+  },
+  AccordionItemIcon: {
+    className: ComponentClassName.AccordionItemIcon,
+    components: ['Accordion'],
+    description: 'Icon to indicate whether an item is expanded or collapsed',
+  },
+  AccordionItemTrigger: {
+    className: ComponentClassName.AccordionItemTrigger,
+    components: ['Accordion'],
+    description: 'Accordion item trigger (summary element)',
+  },
   Alert: {
     className: ComponentClassName.Alert,
     components: ['Alert'],
@@ -261,41 +286,6 @@ export const ComponentsMetadata: ComponentClassNameItems = {
     components: ['DropZone'],
     description: 'Class applied to the DropZone component',
   },
-  Expander: {
-    className: ComponentClassName.Expander,
-    components: ['Expander'],
-    description: 'Top level element that wraps the Expander primitive',
-  },
-  ExpanderContent: {
-    className: ComponentClassName.ExpanderContent,
-    components: ['Expander'],
-    description: 'Expander content container',
-  },
-  ExpanderContentText: {
-    className: ComponentClassName.ExpanderContentText,
-    components: ['Expander'],
-    description: 'Expander content text',
-  },
-  ExpanderHeader: {
-    className: ComponentClassName.ExpanderHeader,
-    components: ['Expander'],
-    description: 'Expander item header',
-  },
-  ExpanderIcon: {
-    className: ComponentClassName.ExpanderIcon,
-    components: ['Expander'],
-    description: 'Icon to indicate whether an item is expanded or collapsed',
-  },
-  ExpanderItem: {
-    className: ComponentClassName.ExpanderItem,
-    components: ['Expander'],
-    description: 'Expander item(containier for header, trigger, and content)',
-  },
-  ExpanderTrigger: {
-    className: ComponentClassName.ExpanderTrigger,
-    components: ['Expander'],
-    description: 'Expander item trigger(button)',
-  },
   Field: { className: ComponentClassName.Field },
   FieldDescription: { className: ComponentClassName.FieldDescription },
   FieldErrorMessage: { className: ComponentClassName.FieldErrorMessage },
@@ -383,23 +373,18 @@ export const ComponentsMetadata: ComponentClassNameItems = {
     components: ['Loader'],
     description: 'Top level element that wraps the Loader primitive',
   },
-  LoaderDeterminate: {
-    className: ComponentClassName.LoaderDeterminate,
+  LoaderLabel: {
+    className: ComponentClassName.LoaderLabel,
     components: ['Loader'],
-    description: 'Class applied to a determinate loader',
-  },
-  LoaderPercentageText: {
-    className: ComponentClassName.LoaderPercentageText,
-    components: ['Loader'],
-    description: 'Class applied to the percentage text of loader',
+    description: 'Class applied to the track of loader',
   },
   MenuContent: {
     className: ComponentClassName.MenuContent,
     components: ['Menu'],
     description: 'Menu content container (Flex)',
   },
-  MenuContentWrapper: {
-    className: ComponentClassName.MenuContentWrapper,
+  MenuWrapper: {
+    className: ComponentClassName.MenuWrapper,
     components: ['Menu'],
     description: 'Menu content wrapper',
   },
@@ -451,21 +436,10 @@ export const ComponentsMetadata: ComponentClassNameItems = {
     components: ['Pagination'],
     description: 'Top level element that wraps the Pagination primitive',
   },
-  PaginationItemButton: {
-    className: ComponentClassName.PaginationItemButton,
+  PaginationItem: {
+    className: ComponentClassName.PaginationItem,
     components: ['Pagination'],
-    description: 'Class applied to the pagination buttons',
-  },
-  PaginationItemCurrent: {
-    className: ComponentClassName.PaginationItemCurrent,
-    components: ['Pagination'],
-    description: 'Class applied to the currently selected pagination button',
-  },
-  PaginationItemEllipsis: {
-    className: ComponentClassName.PaginationItemEllipsis,
-    components: ['Pagination'],
-    description:
-      'Class applied to the ellipsis within the Pagination primitive',
+    description: 'Class applied to the pagination items',
   },
   PasswordField: {
     className: ComponentClassName.PasswordField,
@@ -517,6 +491,21 @@ export const ComponentsMetadata: ComponentClassNameItems = {
     components: ['Rating'],
     description: 'Top level element that wraps the Rating primitive',
   },
+  RatingItem: {
+    className: ComponentClassName.RatingItem,
+    components: ['Rating'],
+    description: 'Each element in the Rating primitive',
+  },
+  RatingIcon: {
+    className: ComponentClassName.RatingIcon,
+    components: ['Rating'],
+    description: 'The icons in the Rating primitive',
+  },
+  RatingLabel: {
+    className: ComponentClassName.RatingLabel,
+    components: ['Rating'],
+    description: 'Top level element that wraps the Rating primitive',
+  },
   ScrollView: {
     className: ComponentClassName.ScrollView,
     components: ['ScrollView'],
@@ -552,8 +541,8 @@ export const ComponentsMetadata: ComponentClassNameItems = {
     components: ['Select', 'SelectField'],
     description: 'Class applied to the select wrapper',
   },
-  SelectIconWrapper: {
-    className: ComponentClassName.SelectIconWrapper,
+  SelectIcon: {
+    className: ComponentClassName.SelectIcon,
     components: ['Select', 'SelectField'],
     description: 'Class applied to the select icon wrapper',
   },
@@ -767,8 +756,18 @@ export const ComponentsMetadata: ComponentClassNameItems = {
     components: ['Tabs'],
     description: 'Top level element that wraps the Tabs primitive',
   },
-  TabItems: {
-    className: ComponentClassName.TabItems,
+  TabsItem: {
+    className: ComponentClassName.TabsItem,
+    components: ['Tabs'],
+    description: 'Tab element (button) in a TabPanel',
+  },
+  TabsList: {
+    className: ComponentClassName.TabsList,
+    components: ['Tabs'],
+    description: 'Top level element that wraps the TabItem primitive',
+  },
+  TabsPanel: {
+    className: ComponentClassName.TabsPanel,
     components: ['Tabs'],
     description: 'Top level element that wraps the TabItem primitive',
   },

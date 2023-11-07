@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Tabs, TabItem, TabsProps } from '@aws-amplify/ui-react';
+import { Tabs, TabsProps } from '@aws-amplify/ui-react';
 
 import { Demo } from '@/components/Demo';
 import { TabsPropControls } from './TabsPropControls';
@@ -16,35 +16,18 @@ const propsToCode = (props) => {
         ? `\n  indicatorPosition="${props.indicatorPosition}"`
         : ``
     }` +
-    `>
-  <TabItem title="Tab 1">
-    Tab content #1
-  </TabItem>
-  <TabItem title="Tab 2">
-    Tab content #2
-  </TabItem>
-  <TabItem title="Disabled" isDisabled={true}>
-    Cannot click
-  </TabItem>
-</Tabs>`
+    `\n  defaultValue='Tab 1'` +
+    `\n  items={[
+    { label: 'Tab 1', value: 'Tab 1', content: 'Tab content #1' },
+    { label: 'Tab 2', value: 'Tab 2', content: 'Tab content #2' },
+    { label: 'Disabled tab', value: 'Tab 3', content: 'Tab content #3', isDisabled: true },
+  ]}
+/>`
   );
 };
 
-const demoChildren = [
-  <TabItem key={1} title="Tab 1">
-    Tab content #1
-  </TabItem>,
-  <TabItem key={2} title="Tab 2">
-    Tab content #2
-  </TabItem>,
-  <TabItem key={3} title="Disabled" isDisabled={true}>
-    Cannot click
-  </TabItem>,
-];
-
 const defaultTabsProps = {
   justifyContent: 'flex-start',
-  children: demoChildren,
 };
 
 export const TabsDemo = () => {
@@ -61,9 +44,18 @@ export const TabsDemo = () => {
         spacing={tabsProps.spacing}
         justifyContent={tabsProps.justifyContent}
         indicatorPosition={tabsProps.indicatorPosition}
-      >
-        {tabsProps.children}
-      </Tabs>
+        defaultValue={'Tab 1'}
+        items={[
+          { label: 'Tab 1', value: 'Tab 1', content: 'Tab content #1' },
+          { label: 'Tab 2', value: 'Tab 2', content: 'Tab content #2' },
+          {
+            label: 'Disabled tab',
+            value: 'Tab 3',
+            content: 'Tab content #3',
+            isDisabled: true,
+          },
+        ]}
+      />
     </Demo>
   );
 };

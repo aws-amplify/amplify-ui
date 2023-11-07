@@ -20,8 +20,8 @@
     "@angular/platform-browser": "^14.3.0",
     "@angular/platform-browser-dynamic": "^14.3.0",
     "@angular/router": "^14.3.0",
-    "@aws-amplify/ui-angular": "^4.0.8",
-    "aws-amplify": "latest",
+    "@aws-amplify/ui-angular": "^4.0.9",
+    "aws-amplify": "unstable",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"

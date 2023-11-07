@@ -439,9 +439,9 @@ export const layoutComponents: ComponentNavItem[] = [
     icon: MdTableChart,
   },
   {
-    href: '/components/expander',
-    label: 'Expander',
-    body: `The Expander primitive enables users to expand or collapse a set of sections.`,
+    href: '/components/accordion',
+    label: 'Accordion',
+    body: `The Accordion primitive enables users to expand or collapse a set of sections.`,
     platforms: ['react'],
     icon: MdExpand,
   },
@@ -603,12 +603,6 @@ export const gettingStarted: ComponentNavItem[] = [
   {
     href: '/getting-started/usage/vite',
     label: 'Vite',
-    platforms: ['react'],
-    tertiary: true,
-  },
-  {
-    href: '/getting-started/usage/create-react-app',
-    label: 'Create React App',
     platforms: ['react'],
     tertiary: true,
   },

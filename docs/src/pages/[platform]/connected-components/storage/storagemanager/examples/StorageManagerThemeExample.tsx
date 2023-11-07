@@ -22,9 +22,8 @@ export const StorageManagerThemeExample = () => {
     <ThemeProvider theme={theme}>
       <StorageManager
         acceptedFileTypes={['image/*']}
-        accessLevel="public"
+        accessLevel="guest"
         maxFileCount={5}
-        provider="fast" // IGNORE
       />
     </ThemeProvider>
   );

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ref, toRefs, useAttrs, onMounted, reactive } from 'vue';
+import { computed, ref, toRefs, onMounted, reactive } from 'vue';
 import QRCode from 'qrcode';
 
-import { Logger } from 'aws-amplify';
+import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import {
   authenticatorTextUtil,
   getFormDataFromEvent,
@@ -21,18 +21,12 @@ const facade: UseAuthenticator = useAuthenticator();
 const { updateForm, submitForm, toSignIn } = facade;
 const { error, isPending, QRFields, totpSecretCode, user } = toRefs(facade);
 
-const attrs = useAttrs();
-
-/** @deprecated Component events are deprecated and not maintained. */
-const emit = defineEmits(['confirmSetupTOTPSubmit', 'backToSignInClicked']);
-
 const { totpIssuer = 'AWSCognito', totpUsername = user.value.username } =
   QRFields.value ?? {};
 
-const totpCodeURL =
-  totpSecretCode.value && totpUsername
-    ? getTotpCodeURL(totpIssuer, totpUsername, totpSecretCode.value)
-    : null;
+const totpCodeURL = totpSecretCode.value
+  ? getTotpCodeURL(totpIssuer, totpUsername!, totpSecretCode.value)
+  : null;
 
 const qrCode = reactive({
   qrCodeImageSource: '',
@@ -77,23 +71,11 @@ const onInput = (e: Event): void => {
 };
 
 const onSetupTOTPSubmit = (e: Event): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onConfirmSetupTOTPSubmit) {
-    emit('confirmSetupTOTPSubmit', e);
-  } else {
-    submitForm(getFormDataFromEvent(e));
-  }
+  submitForm(getFormDataFromEvent(e));
 };
 
 const onBackToSignInClicked = (): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onBackToSignInClicked) {
-    emit('backToSignInClicked');
-  } else {
-    toSignIn();
-  }
+  toSignIn();
 };
 </script>
 
@@ -173,12 +155,7 @@ const onBackToSignInClicked = (): void => {
               >
                 {{ backSignInText }}
               </amplify-button>
-              <slot
-                name="footer"
-                :onBackToSignInClicked="onBackToSignInClicked"
-                :onSetupTOTPSubmit="onSetupTOTPSubmit"
-              >
-              </slot>
+              <slot name="footer"> </slot>
             </base-footer>
           </base-wrapper>
         </base-field-set>

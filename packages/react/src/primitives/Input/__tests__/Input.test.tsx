@@ -100,12 +100,12 @@ describe('Input component', () => {
     expect(inputDisabled).toHaveAttribute('disabled');
   });
 
-  it('should set size and variation data attributes', async () => {
+  it('should set size and variation classes', async () => {
     render(<Input size="small" variation="quiet" />);
 
     const input = await screen.findByRole('textbox');
-    expect(input.dataset['size']).toBe('small');
-    expect(input.dataset['variation']).toBe('quiet');
+    expect(input).toHaveClass(`${ComponentClassName.Input}--small`);
+    expect(input).toHaveClass(`${ComponentClassName.Input}--quiet`);
   });
 
   it('can set defaultChecked (uncontrolled)', async () => {
@@ -150,7 +150,7 @@ describe('Input component', () => {
     render(<Input onChange={onChange} onInput={onInput} onPaste={onPaste} />);
     const input = await screen.findByRole('textbox');
     userEvent.type(input, 'hello');
-    userEvent.paste(input, 'there');
+    // userEvent.paste(input, 'there');
     expect(onChange).toHaveBeenCalled();
     expect(onInput).toHaveBeenCalled();
     expect(onPaste).toHaveBeenCalled();

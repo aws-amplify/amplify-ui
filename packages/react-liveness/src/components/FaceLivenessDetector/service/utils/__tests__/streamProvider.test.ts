@@ -2,8 +2,10 @@
 import 'web-streams-polyfill';
 import 'blob-polyfill';
 
-import { Amplify } from '@aws-amplify/core';
+import { TextDecoder } from 'util';
 import { RekognitionStreamingClient } from '@aws-sdk/client-rekognitionstreaming';
+import { Amplify } from 'aws-amplify';
+
 import { LivenessStreamProvider } from '../streamProvider';
 import { VideoRecorder } from '../videoRecorder';
 import { mockClientSessionInformationEvent } from '../__mocks__/testUtils';
@@ -11,7 +13,12 @@ import { AwsCredentialProvider } from '../../types';
 
 jest.mock('../videoRecorder');
 jest.mock('@aws-sdk/client-rekognitionstreaming');
-jest.mock('@aws-amplify/core');
+jest.mock('aws-amplify');
+
+Object.defineProperty(window, 'TextDecoder', {
+  writable: true,
+  value: TextDecoder,
+});
 
 const mockGet = jest.fn().mockImplementation(() => {
   return {
@@ -23,7 +30,9 @@ const mockGet = jest.fn().mockImplementation(() => {
     expiration: new Date(),
   };
 });
-Amplify.Credentials.get = mockGet;
+
+// @todo-migration remove cast and fix mock if needed
+(Amplify as any).Credentials.get = mockGet;
 
 let SWITCH = false;
 
@@ -137,6 +146,17 @@ describe('LivenessStreamProvider', () => {
         credentialProvider,
       });
     });
+
+    test('with endpoint override', () => {
+      const endpointOverride = 'https://example.com';
+      new LivenessStreamProvider({
+        sessionId: 'sessionId',
+        region: 'us-east-1',
+        stream: mockVideoMediaStream,
+        videoEl: mockVideoEl,
+        endpointOverride,
+      });
+    });
   });
 
   describe('getResponseStream', () => {
@@ -244,7 +264,7 @@ describe('LivenessStreamProvider', () => {
     });
   });
 
-  describe('endStream', () => {
+  describe('endStreamWithCode', () => {
     test('should stop video and end the stream and return a promise if cancelled successfully', async () => {
       const provider = new LivenessStreamProvider({
         sessionId: 'sessionId',
@@ -252,7 +272,7 @@ describe('LivenessStreamProvider', () => {
         stream: mockVideoMediaStream,
         videoEl: mockVideoEl,
       });
-      const response = await provider.endStream();
+      const response = await provider.endStreamWithCode();
 
       expect(mockVideoRecorder.stop).toHaveBeenCalled();
       expect(response).toBeUndefined();
@@ -266,7 +286,7 @@ describe('LivenessStreamProvider', () => {
         videoEl: mockVideoEl,
       });
       (provider as any)._reader = undefined;
-      const response = await provider.endStream();
+      const response = await provider.endStreamWithCode();
 
       expect(mockVideoRecorder.stop).toHaveBeenCalled();
       expect(response).toBeUndefined();

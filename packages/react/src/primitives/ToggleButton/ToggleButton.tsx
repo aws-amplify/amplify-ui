@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 import * as React from 'react';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
@@ -11,6 +11,7 @@ import {
   Primitive,
 } from '../types';
 import { useToggleButton } from './useToggleButton';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const ToggleButtonPrimitive: Primitive<ToggleButtonProps, 'button'> = (
   {
@@ -69,6 +70,6 @@ const ToggleButtonPrimitive: Primitive<ToggleButtonProps, 'button'> = (
 export const ToggleButton: ForwardRefPrimitive<
   BaseToggleButtonProps,
   'button'
-> = React.forwardRef(ToggleButtonPrimitive);
+> = primitiveWithForwardRef(ToggleButtonPrimitive);
 
 ToggleButton.displayName = 'ToggleButton';

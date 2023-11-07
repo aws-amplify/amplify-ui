@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Storage, Amplify } from 'aws-amplify';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 
@@ -10,11 +9,9 @@ import {
   IconsProvider,
 } from '@aws-amplify/ui-react';
 
-import MyStorageProvider from '@/utils/storageMock';
 import { configure, trackPageVisit } from '@/utils/track';
 import { Header } from '@/components/Layout/Header';
 import { baseTheme } from '../theme';
-import { mockConfig } from '../mockConfig';
 
 import { Head } from './Head';
 
@@ -25,7 +22,7 @@ globalThis.Prism = Prism;
 require('prismjs/components/prism-dart');
 
 import '../styles/index.scss';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 import { GlobalNav, NavMenuItem } from '@/components/Layout/GlobalNav';
 import {
   LEFT_NAV_LINKS,
@@ -50,12 +47,6 @@ if (typeof window === 'undefined') {
   ✨ you can explore the Amplify UI theme object by typing \`theme\` in the console.
  `);
   window['theme'] = defaultTheme;
-  Amplify.configure(mockConfig);
-  Storage.addPluggable(new MyStorageProvider('fast', { delay: 10 }));
-  Storage.addPluggable(new MyStorageProvider('slow', { delay: 1000 }));
-  Storage.addPluggable(
-    new MyStorageProvider('error', { delay: 50, networkError: true })
-  );
 }
 
 function MyApp({ Component, pageProps }) {

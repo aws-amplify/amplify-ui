@@ -10,7 +10,7 @@ import {
   defaultComparator,
   getComparator,
   getMachineFields,
-  getTotpSecretCodeCallback,
+  // getTotpSecretCodeCallback,
   getQRFields,
 } from './utils';
 
@@ -67,7 +67,6 @@ export default function useAuthenticator(
     user,
     /** @deprecated For internal use only */
     fields,
-    getTotpSecretCode: getTotpSecretCodeCallback(user),
     QRFields,
   };
 }

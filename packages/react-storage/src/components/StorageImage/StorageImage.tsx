@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 import { Image } from '@aws-amplify/ui-react';
@@ -17,7 +17,7 @@ export const StorageImage = ({
   ...rest
 }: StorageImageProps): JSX.Element => {
   const options = React.useMemo(
-    () => ({ level: accessLevel, identityId }),
+    () => ({ accessLevel, identityId }),
     [accessLevel, identityId]
   );
 

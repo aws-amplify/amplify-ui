@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 import {
   ForwardRefPrimitive,
   Primitive,
@@ -14,6 +14,7 @@ import { Flex } from '../Flex';
 import { FieldDescription } from './FieldDescription';
 import { FieldErrorMessage } from './FieldErrorMessage';
 import { Label } from '../Label';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 interface FieldPrimitiveProps
   extends BaseFieldProps,
@@ -42,7 +43,6 @@ const FieldPrimitive: Primitive<FieldPrimitiveProps, 'div'> = (props, ref) => {
         classNameModifier(ComponentClassName.Field, size),
         className
       )}
-      data-size={size}
       testId={testId}
       ref={ref}
       {...rest}
@@ -63,6 +63,6 @@ const FieldPrimitive: Primitive<FieldPrimitiveProps, 'div'> = (props, ref) => {
 };
 
 export const Field: ForwardRefPrimitive<FieldPrimitiveProps, 'div'> =
-  React.forwardRef(FieldPrimitive);
+  primitiveWithForwardRef(FieldPrimitive);
 
 Field.displayName = 'Field';

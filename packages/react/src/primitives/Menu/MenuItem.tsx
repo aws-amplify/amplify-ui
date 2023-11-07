@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 import * as Dropdown from '@radix-ui/react-dropdown-menu';
 
 import { sanitizeNamespaceImport } from '@aws-amplify/ui';
@@ -12,6 +12,7 @@ import {
   MenuItemProps,
   Primitive,
 } from '../types';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 // Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
 // We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
@@ -41,6 +42,6 @@ const MenuItemPrimitive: Primitive<MenuItemProps, 'div'> = (
 };
 
 export const MenuItem: ForwardRefPrimitive<BaseMenuItemProps, 'div'> =
-  React.forwardRef(MenuItemPrimitive);
+  primitiveWithForwardRef(MenuItemPrimitive);
 
 MenuItem.displayName = 'MenuItem';

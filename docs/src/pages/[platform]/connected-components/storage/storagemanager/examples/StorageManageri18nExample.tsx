@@ -36,8 +36,8 @@ const dictionary = {
     extensionNotAllowedText: 'Extensión no permitida',
     browseFilesText: 'Buscar archivos',
     dropFilesText: 'Arrastre los archivos aquí o',
-    pauseText: 'Pausa',
-    resumeText: 'Reanudar',
+    pauseButtonText: 'Pausa',
+    resumeButtonText: 'Reanudar',
     uploadSuccessfulText: 'Carga exitosa',
     getPausedText(percentage) {
       return `Pausado: ${percentage}%`;
@@ -60,10 +60,9 @@ export const StorageManageri18nExample = () => {
       </ToggleButtonGroup>
       <StorageManager
         acceptedFileTypes={['image/*']}
-        accessLevel="public"
+        accessLevel="guest"
         maxFileCount={1}
         displayText={dictionary[language]}
-        provider="fast" // IGNORE
       />
     </>
   );

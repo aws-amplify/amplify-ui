@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 import { ComponentClassName, isFunction } from '@aws-amplify/ui';
 
@@ -15,6 +15,7 @@ import {
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const MessageDismissPrimitive: Primitive<MessageDismissProps, 'button'> = (
   { onDismiss, dismissLabel, hasIcon = true, children, className, ...rest },
@@ -57,6 +58,6 @@ const MessageDismissPrimitive: Primitive<MessageDismissProps, 'button'> = (
 export const MessageDismiss: ForwardRefPrimitive<
   BaseMessageDismissProps,
   'button'
-> = React.forwardRef(MessageDismissPrimitive);
+> = primitiveWithForwardRef(MessageDismissPrimitive);
 
 MessageDismiss.displayName = 'MessageContent';

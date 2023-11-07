@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 import { Flex, useBreakpointValue } from '@aws-amplify/ui-react';
 
