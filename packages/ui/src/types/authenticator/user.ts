@@ -16,8 +16,8 @@ export type ContactMethod = 'Email' | 'Phone Number';
 
 /** Federated IDPs that Authenticator supports */
 export enum FederatedIdentityProviders {
-  Apple = 'SignInWithApple',
-  Amazon = 'LoginWithAmazon',
+  Apple = 'Apple',
+  Amazon = 'Amazon',
   Facebook = 'Facebook',
   Google = 'Google',
 }

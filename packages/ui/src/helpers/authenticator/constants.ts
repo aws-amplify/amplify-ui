@@ -20,7 +20,7 @@ export const defaultFormFieldOptions: DefaultFormFieldOptions = {
   confirmation_code: {
     label: 'Confirmation Code',
     placeholder: 'Enter your Confirmation Code',
-    type: 'number',
+    type: 'text',
     autocomplete: 'one-time-code',
     isRequired: true,
   },

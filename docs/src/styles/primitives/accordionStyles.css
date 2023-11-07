@@ -1,14 +1,14 @@
 .accordion-global-styling-example {
   --amplify-components-accordion-background-color: var(
-    --amplify-colors-brand-secondary-10
+    --amplify-colors-secondary-10
   );
 }
 
 .my-accordion {
-  background-color: var(--amplify-colors-brand-primary-10);
-  color: var(--amplify-colors-brand-primary-90);
+  background-color: var(--amplify-colors-primary-10);
+  color: var(--amplify-colors-primary-90);
 }
 
 .my-accordion .amplify-accordion__item__body {
-  color: var(--amplify-colors-brand-primary-90);
+  color: var(--amplify-colors-primary-90);
 }

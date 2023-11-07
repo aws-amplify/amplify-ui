@@ -8,13 +8,13 @@ export const SearchFieldStyledPropsExample = () => {
       <SearchField
         label="search"
         padding="xl"
-        border={`1px solid ${tokens.colors.brand.primary[60]}`}
+        border={`1px solid ${tokens.colors.primary[60]}`}
       />
       <SearchField
         label="search"
         inputStyles={{
-          border: `1px solid ${tokens.colors.brand.primary[60]}`,
-          backgroundColor: tokens.colors.brand.primary[10],
+          border: `1px solid ${tokens.colors.primary[60]}`,
+          backgroundColor: tokens.colors.primary[10],
         }}
       />
     </>
