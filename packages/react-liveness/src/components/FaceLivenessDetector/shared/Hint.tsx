@@ -10,7 +10,6 @@ import {
   createLivenessSelector,
 } from '../hooks';
 import { Toast } from './Toast';
-import { Overlay } from './Overlay';
 import { HintDisplayText } from '../displayText';
 import { LivenessClassNames } from '../types/classNames';
 
@@ -54,6 +53,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
   const isCheckFaceDistanceBeforeRecording = state.matches(
     'checkFaceDistanceBeforeRecording'
   );
+  const isStartView = state.matches('start') || state.matches('userCancel');
   const isRecording = state.matches('recording');
   const isNotRecording = state.matches('notRecording');
   const isUploading = state.matches('uploading');
@@ -79,7 +79,15 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
   };
 
   const getInstructionContent = () => {
-    if (errorState ?? (isCheckFailed || isCheckSuccessful)) {
+    if (isStartView) {
+      return (
+        <Toast size="large" variation="primary" isInitial>
+          Center your face
+        </Toast>
+      );
+    }
+
+    if ((errorState ?? isCheckFailed) || isCheckSuccessful) {
       return;
     }
 
@@ -87,10 +95,16 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
       if (isCheckFaceDetectedBeforeStart) {
         if (faceMatchStateBeforeStart === FaceMatchState.TOO_MANY) {
           return (
-            <Toast>{FaceMatchStateStringMap[faceMatchStateBeforeStart]}</Toast>
+            <Toast size="large" variation="primary">
+              {FaceMatchStateStringMap[faceMatchStateBeforeStart]}
+            </Toast>
           );
         }
-        return <Toast>{hintDisplayText.hintMoveFaceFrontOfCameraText}</Toast>;
+        return (
+          <Toast size="large" variation="primary">
+            {hintDisplayText.hintMoveFaceFrontOfCameraText}
+          </Toast>
+        );
       }
 
       // Specifically checking for false here because initially the value is undefined and we do not want to show the instruction
@@ -98,7 +112,11 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
         isCheckFaceDistanceBeforeRecording &&
         isFaceFarEnoughBeforeRecordingState === false
       ) {
-        return <Toast>{hintDisplayText.hintTooCloseText}</Toast>;
+        return (
+          <Toast size="large" variation="primary">
+            {hintDisplayText.hintTooCloseText}
+          </Toast>
+        );
       }
 
       if (isNotRecording) {
@@ -114,22 +132,21 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
 
       if (isUploading) {
         return (
-          <Overlay
-            className={LivenessClassNames.OpaqueOverlay}
-            anchorOrigin={{ horizontal: 'center', vertical: 'end' }}
-          >
-            <Toast>
-              <Flex className={LivenessClassNames.HintText}>
-                <Loader />
-                <View>{hintDisplayText.hintVerifyingText}</View>
-              </Flex>
-            </Toast>
-          </Overlay>
+          <Toast>
+            <Flex className={LivenessClassNames.HintText}>
+              <Loader />
+              <View>{hintDisplayText.hintVerifyingText}</View>
+            </Flex>
+          </Toast>
         );
       }
 
       if (illuminationState && illuminationState !== IlluminationState.NORMAL) {
-        return <Toast>{IlluminationStateStringMap[illuminationState]}</Toast>;
+        return (
+          <Toast size="large" variation="primary">
+            {IlluminationStateStringMap[illuminationState]}
+          </Toast>
+        );
       }
     }
 

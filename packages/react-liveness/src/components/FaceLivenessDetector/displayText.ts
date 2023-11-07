@@ -19,6 +19,7 @@ export type CameraDisplayText = {
   cameraNotFoundHeadingText?: string;
   cameraNotFoundMessageText?: string;
   retryCameraPermissionsText?: string;
+  waitingCameraPermissionText?: string;
 };
 
 export type InstructionDisplayText = {
@@ -72,12 +73,12 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   instructionsHeaderHeadingText: 'Liveness check',
   instructionsHeaderBodyText:
     'You will go through a face verification process to prove that you are a real person.',
-  instructionsBeginCheckText: 'Begin check',
+  instructionsBeginCheckText: 'Start video check',
   photosensitivyWarningHeadingText: 'Photosensitivity warning',
   photosensitivyWarningBodyText:
-    'This check displays colored lights. Use caution if you are photosensitive.',
+    'This check flashes different colors. Use caution if you are photosensitive.',
   photosensitivyWarningInfoText:
-    'A small percentage of individuals may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
+    'Some people may experience may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
   instructionListHeadingText: 'Follow the instructions to complete the check:',
   goodFitCaptionText: 'Good fit',
   goodFitAltText:
@@ -87,7 +88,7 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
     "Illustration of a person's face inside of an oval; there is a gap between the perimeter of the face and the boundaries of the oval.",
   instructionListStepOneText:
     'When an oval appears, follow the instructions to fit your face in it.',
-  instructionListStepTwoText: "Maximize your screen's brightness.",
+  instructionListStepTwoText: 'Maximize your screen brightness setting.',
   instructionListStepThreeText:
     'Make sure your face is not covered with sunglasses or a mask.',
   instructionListStepFourText:
@@ -96,10 +97,11 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
     'Camera does not meet minimum specifications',
   cameraMinSpecificationsMessageText:
     'Camera must support at least 320*240 resolution and 15 frames per second.',
-  cameraNotFoundHeadingText: 'Camera not accessible.',
+  cameraNotFoundHeadingText: 'Camera is not accessible.',
   cameraNotFoundMessageText:
-    'Check that camera is connected and camera permissions are enabled in settings before retrying.',
+    'Check that a camera is connected and there is not another application using the camera. You may have to go into settings to grant camera permissions and close out all instances of your browser and retry.',
   retryCameraPermissionsText: 'Retry',
+  waitingCameraPermissionText: 'Waiting for you to allow camera permission.',
   cancelLivenessCheckText: 'Cancel Liveness check',
   recordingIndicatorText: 'Rec',
   hintMoveFaceFrontOfCameraText: 'Move face in front of camera',
