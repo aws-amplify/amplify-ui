@@ -30,12 +30,13 @@
     ]
   },
   "devDependencies": {
-    "@aws-amplify/ui": "^5.7.2",
+    "@aws-amplify/ui": "^5.8.1",
     "@badeball/cypress-cucumber-preprocessor": "^16.0.3",
     "@bahmutov/cypress-esbuild-preprocessor": "~2.2.0",
     "@cucumber/cucumber": "^9.3.0",
     "@nuintun/qrcode": "^3.3.0",
     "@testing-library/cypress": "^9.0.0",
+    "esbuild": "^0.19.3",
     "aws-crt": "^1.10.6",
     "cypress": "^12.17.3",
     "detox": "^20.11.2",

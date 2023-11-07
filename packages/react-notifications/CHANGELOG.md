@@ -1,5 +1,23 @@
 # @aws-amplify/ui-react-notifications
 
+## 1.0.13
+
+### Patch Changes
+
+- Updated dependencies [[`d570694c7`](https://github.com/aws-amplify/amplify-ui/commit/d570694c7e0d9d112449d3aade2d567773555926), [`6a5a4d79c`](https://github.com/aws-amplify/amplify-ui/commit/6a5a4d79ce60124fba2dc00d86b9e1a9b5f21c39), [`c393b74af`](https://github.com/aws-amplify/amplify-ui/commit/c393b74af6574593b2e7a5c9f00d27b052966a12), [`7e11a3b7e`](https://github.com/aws-amplify/amplify-ui/commit/7e11a3b7e4761a39a973ecd9a632a619660e18dd)]:
+  - @aws-amplify/ui-react@5.3.1
+  - @aws-amplify/ui@5.8.1
+  - @aws-amplify/ui-react-core-notifications@1.0.10
+
+## 1.0.12
+
+### Patch Changes
+
+- Updated dependencies [[`276968530`](https://github.com/aws-amplify/amplify-ui/commit/276968530ba1049cfa4a9fd1efe8bd870b3e4b18), [`265f0b482`](https://github.com/aws-amplify/amplify-ui/commit/265f0b48249c89b004a40a1a06abc0c3551f45f7), [`ec495a6f6`](https://github.com/aws-amplify/amplify-ui/commit/ec495a6f638c53970edd8706a0eeb5f95d142689), [`e1fc61119`](https://github.com/aws-amplify/amplify-ui/commit/e1fc61119224a92a4648d1d1673177647b1a8e53), [`5b6c9bfe4`](https://github.com/aws-amplify/amplify-ui/commit/5b6c9bfe4ef1c0727270bffacb5f9e8045a8325d), [`14e402b6e`](https://github.com/aws-amplify/amplify-ui/commit/14e402b6eedab6bdef5cec21b0b084f230b0ce26), [`9471ea53a`](https://github.com/aws-amplify/amplify-ui/commit/9471ea53a2414879d197adb5f52c8dcb3e0df946), [`2407ac294`](https://github.com/aws-amplify/amplify-ui/commit/2407ac294270214bd20c414349d2423ab14b8066), [`64fba0fd2`](https://github.com/aws-amplify/amplify-ui/commit/64fba0fd2ec4a0c5061b461f527c8a45235eee13)]:
+  - @aws-amplify/ui-react@5.3.0
+  - @aws-amplify/ui@5.8.0
+  - @aws-amplify/ui-react-core-notifications@1.0.9
+
 ## 1.0.11
 
 ### Patch Changes

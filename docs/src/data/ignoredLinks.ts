@@ -25,4 +25,16 @@ export const IGNORED_LINKS = [
   'https://tfhub.dev/tensorflow/tfjs-model/blazeface/1/default/1/model.json?tfjs-format=file', // 302 to a google cdn
   'https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow/tfjs-backend-wasm/3.11.0/', // 404 this is the intentional path as the tfjs library will append the correct file name
   'https://cdn.liveness.rekognition.amazonaws.com',
+  'https://www.figma.com/community/file/1047600760128127424',
+  'https://www.figma.com/community/plugin/1040722185526429545/AWS-Amplify-Theme-Editor',
+  'https://www.w3.org/WAI/ARIA/apg/patterns/tabs/',
+  'https://www.w3.org/WAI/standards-guidelines/act/rules/0ssw9k/proposed/',
+  'https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/#aria_lh_step3',
+  'https://www.w3.org/WAI/ARIA/apg/patterns/alert/examples/alert/',
+  'https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/',
+  'https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/',
+  'https://pub.dev/documentation/amplify_authenticator/latest/amplify_authenticator/AuthenticatorStep.html',
+  'https://pub.dev/documentation/amplify_authenticator/latest/amplify_authenticator/AuthenticatorState-class.html',
+  'https://pub.dev/documentation/amplify_authenticator/latest/amplify_authenticator/amplify_authenticator-library.html',
+  'https://docs.flutter.dev/ui/accessibility-and-localization/internationalization',
 ];

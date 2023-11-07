@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { LivenessErrorState } from '../../service';
+import { LivenessErrorState, ErrorState } from '../../service';
 import {
   FaceLivenessErrorModal,
   renderErrorModal,
@@ -60,7 +60,7 @@ describe('FaceLivenessErrorModal', () => {
     render(
       <FaceLivenessErrorModal onRetry={() => {}}>
         {renderErrorModal({
-          errorState: errorState as unknown as LivenessErrorState,
+          errorState: errorState as unknown as ErrorState,
         })}
       </FaceLivenessErrorModal>
     );

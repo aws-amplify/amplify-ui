@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Select } from '../Select';
+import { Fieldset } from '../../Fieldset';
 import { IconExpandMore } from '../../Icon/internal';
 import { ComponentClassNames } from '../../shared';
 
@@ -38,6 +39,7 @@ describe('Select primitive test suite', () => {
         variation={variation}
         isDisabled={false}
         isRequired={false}
+        isMultiple={false}
       >
         <option value="1">1</option>
         <option value="2">2</option>
@@ -123,6 +125,54 @@ describe('Select primitive test suite', () => {
     const select = await screen.findByTestId('test-select');
     expect(select).toBeDisabled();
     expect(select).toBeRequired();
+  });
+
+  it('should render the multiple attribute', async () => {
+    render(
+      <Select testId={testId} isMultiple>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </Select>
+    );
+
+    const select = await screen.findByTestId('test-select');
+    expect(select).toHaveAttribute('multiple');
+  });
+
+  it('should render the size attribute', async () => {
+    render(
+      <Select testId={testId} selectSize={2}>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </Select>
+    );
+
+    const select = await screen.findByTestId('test-select');
+    expect(select).toHaveAttribute('size', '2');
+  });
+
+  it('should always be disabled if parent Fieldset isDisabled', async () => {
+    render(
+      <Fieldset legend="legend" isDisabled>
+        <Select testId="select">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </Select>
+        <Select testId="selectWithDisabledProp" isDisabled={false}>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </Select>
+      </Fieldset>
+    );
+
+    const select = await screen.findByTestId('select');
+    const selectDisabled = await screen.findByTestId('selectWithDisabledProp');
+    expect(select).toHaveAttribute('disabled');
+    expect(selectDisabled).toHaveAttribute('disabled');
   });
 
   it('should render placeholder correctly if it is set', async () => {

@@ -1,5 +1,114 @@
 # @aws-amplify/ui-react
 
+## 5.3.1
+
+### Patch Changes
+
+- [#4414](https://github.com/aws-amplify/amplify-ui/pull/4414) [`d570694c7`](https://github.com/aws-amplify/amplify-ui/commit/d570694c7e0d9d112449d3aade2d567773555926) Thanks [@lavr001](https://github.com/lavr001)! - added new `isMultiple` and `selectSize` props for the `SelectField` component
+
+  Example:
+
+  ```
+    <SelectField
+      label="Fruit"
+      descriptiveText="What's your favorite fruit?"
+      selectSize={3}
+      isMultiple={true}
+    >
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+      <option value="orange">Orange</option>
+      <option value="pineapple">Pineapple</option>
+      <option value="kiwi">Kiwi</option>
+      <option value="tangerine">Tangerine</option>
+    </SelectField>
+  ```
+
+- [#4432](https://github.com/aws-amplify/amplify-ui/pull/4432) [`c393b74af`](https://github.com/aws-amplify/amplify-ui/commit/c393b74af6574593b2e7a5c9f00d27b052966a12) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui-react): update ButtonGroup to respect child props and allow optional children
+
+- [#4442](https://github.com/aws-amplify/amplify-ui/pull/4442) [`7e11a3b7e`](https://github.com/aws-amplify/amplify-ui/commit/7e11a3b7e4761a39a973ecd9a632a619660e18dd) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui-react): use guaranteed value for BreadCrumbs key
+
+- Updated dependencies [[`d570694c7`](https://github.com/aws-amplify/amplify-ui/commit/d570694c7e0d9d112449d3aade2d567773555926), [`6a5a4d79c`](https://github.com/aws-amplify/amplify-ui/commit/6a5a4d79ce60124fba2dc00d86b9e1a9b5f21c39)]:
+  - @aws-amplify/ui@5.8.1
+  - @aws-amplify/ui-react-core@2.1.33
+
+## 5.3.0
+
+### Minor Changes
+
+- [#4348](https://github.com/aws-amplify/amplify-ui/pull/4348) [`276968530`](https://github.com/aws-amplify/amplify-ui/commit/276968530ba1049cfa4a9fd1efe8bd870b3e4b18) Thanks [@hbuchel](https://github.com/hbuchel)! - feat(react/ui): add new Fieldset Primitive
+
+  Usage:
+
+  ```
+  <Fieldset legend="Legend test">
+     // Fieldset content/form controls
+  </Fieldset>
+  ```
+
+- [#4359](https://github.com/aws-amplify/amplify-ui/pull/4359) [`ec495a6f6`](https://github.com/aws-amplify/amplify-ui/commit/ec495a6f638c53970edd8706a0eeb5f95d142689) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(react): DropZone component
+
+  ```jsx
+  export default function DefaultDropZoneExample() {
+    const [files, setFiles] = React.useState([]);
+    return (
+      <>
+        <DropZone
+          onDropComplete={({ files }) => {
+            setFiles(files);
+          }}
+        >
+          Drag images here
+        </DropZone>
+        {files.map((file) => (
+          <Text key={file.name}>{file.name}</Text>
+        ))}
+      </>
+    );
+  }
+  ```
+
+### Patch Changes
+
+- [#4372](https://github.com/aws-amplify/amplify-ui/pull/4372) [`265f0b482`](https://github.com/aws-amplify/amplify-ui/commit/265f0b48249c89b004a40a1a06abc0c3551f45f7) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(react): ShowPasswordButton should have aria-hidden="true" on icon
+
+- [#4367](https://github.com/aws-amplify/amplify-ui/pull/4367) [`e1fc61119`](https://github.com/aws-amplify/amplify-ui/commit/e1fc61119224a92a4648d1d1673177647b1a8e53) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - feat(ui-react-storage): Added upload actions and option to upload files on click. Usage:
+
+  ```
+   <StorageManager
+        acceptedFileTypes={['image/*']}
+        accessLevel="public"
+        autoUpload={false}
+      />
+  ```
+
+- [#4361](https://github.com/aws-amplify/amplify-ui/pull/4361) [`5b6c9bfe4`](https://github.com/aws-amplify/amplify-ui/commit/5b6c9bfe4ef1c0727270bffacb5f9e8045a8325d) Thanks [@hbuchel](https://github.com/hbuchel)! - feat(react): Add new Message primitive.
+
+  Usage:
+
+  ```
+  <Message colorTheme="error" heading="A message heading">Content of the message.<Message>
+  ```
+
+- [#4368](https://github.com/aws-amplify/amplify-ui/pull/4368) [`14e402b6e`](https://github.com/aws-amplify/amplify-ui/commit/14e402b6eedab6bdef5cec21b0b084f230b0ce26) Thanks [@hbuchel](https://github.com/hbuchel)! - chore(ui): adds info, warning, and success border tokens. updates background color tokens for info, warning, success and error.
+
+- [#4389](https://github.com/aws-amplify/amplify-ui/pull/4389) [`9471ea53a`](https://github.com/aws-amplify/amplify-ui/commit/9471ea53a2414879d197adb5f52c8dcb3e0df946) Thanks [@hbuchel](https://github.com/hbuchel)! - chore(react): update tests for disabled Fieldset
+
+- [#4384](https://github.com/aws-amplify/amplify-ui/pull/4384) [`2407ac294`](https://github.com/aws-amplify/amplify-ui/commit/2407ac294270214bd20c414349d2423ab14b8066) Thanks [@reesscot](https://github.com/reesscot)! - feat: Input and Label primitives
+
+  ```jx
+  export const InputLabelExample = () => (
+    <>
+      <Label htmlFor="first_name">First Name:</Label>
+      <Input id="first_name" name="first_name" />
+    </>
+  );
+  ```
+
+- Updated dependencies [[`276968530`](https://github.com/aws-amplify/amplify-ui/commit/276968530ba1049cfa4a9fd1efe8bd870b3e4b18), [`ec495a6f6`](https://github.com/aws-amplify/amplify-ui/commit/ec495a6f638c53970edd8706a0eeb5f95d142689), [`e1fc61119`](https://github.com/aws-amplify/amplify-ui/commit/e1fc61119224a92a4648d1d1673177647b1a8e53), [`14e402b6e`](https://github.com/aws-amplify/amplify-ui/commit/14e402b6eedab6bdef5cec21b0b084f230b0ce26), [`2407ac294`](https://github.com/aws-amplify/amplify-ui/commit/2407ac294270214bd20c414349d2423ab14b8066), [`5bc0c8a32`](https://github.com/aws-amplify/amplify-ui/commit/5bc0c8a32d1552313df496f96b96738637d0b157), [`64fba0fd2`](https://github.com/aws-amplify/amplify-ui/commit/64fba0fd2ec4a0c5061b461f527c8a45235eee13)]:
+  - @aws-amplify/ui@5.8.0
+  - @aws-amplify/ui-react-core@2.1.32
+
 ## 5.2.0
 
 ### Minor Changes

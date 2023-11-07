@@ -2,6 +2,7 @@
 import 'web-streams-polyfill';
 import 'blob-polyfill';
 
+import { TextDecoder } from 'util';
 import { Amplify } from '@aws-amplify/core';
 import { RekognitionStreamingClient } from '@aws-sdk/client-rekognitionstreaming';
 import { LivenessStreamProvider } from '../streamProvider';
@@ -12,6 +13,11 @@ import { AwsCredentialProvider } from '../../types';
 jest.mock('../videoRecorder');
 jest.mock('@aws-sdk/client-rekognitionstreaming');
 jest.mock('@aws-amplify/core');
+
+Object.defineProperty(window, 'TextDecoder', {
+  writable: true,
+  value: TextDecoder,
+});
 
 const mockGet = jest.fn().mockImplementation(() => {
   return {
@@ -137,6 +143,17 @@ describe('LivenessStreamProvider', () => {
         credentialProvider,
       });
     });
+
+    test('with endpoint override', () => {
+      const endpointOverride = 'https://example.com';
+      new LivenessStreamProvider({
+        sessionId: 'sessionId',
+        region: 'us-east-1',
+        stream: mockVideoMediaStream,
+        videoEl: mockVideoEl,
+        endpointOverride,
+      });
+    });
   });
 
   describe('getResponseStream', () => {
@@ -244,7 +261,7 @@ describe('LivenessStreamProvider', () => {
     });
   });
 
-  describe('endStream', () => {
+  describe('endStreamWithCode', () => {
     test('should stop video and end the stream and return a promise if cancelled successfully', async () => {
       const provider = new LivenessStreamProvider({
         sessionId: 'sessionId',
@@ -252,7 +269,7 @@ describe('LivenessStreamProvider', () => {
         stream: mockVideoMediaStream,
         videoEl: mockVideoEl,
       });
-      const response = await provider.endStream();
+      const response = await provider.endStreamWithCode();
 
       expect(mockVideoRecorder.stop).toHaveBeenCalled();
       expect(response).toBeUndefined();
@@ -266,7 +283,7 @@ describe('LivenessStreamProvider', () => {
         videoEl: mockVideoEl,
       });
       (provider as any)._reader = undefined;
-      const response = await provider.endStream();
+      const response = await provider.endStreamWithCode();
 
       expect(mockVideoRecorder.stop).toHaveBeenCalled();
       expect(response).toBeUndefined();
