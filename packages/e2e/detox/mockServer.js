@@ -10,9 +10,15 @@ const server = app.listen(9091, '127.0.0.1', () => {
   );
 });
 
-const errorMessage = {
+const userNotFoundErrorMessage = {
   __type: 'UserNotFoundException',
   message: 'Username/client id combination not found.',
+  error: true,
+};
+
+const invalidCodeErrorMessage = {
+  __type: 'CodeMismatchException',
+  message: 'Invalid verification code provided, please try again.',
   error: true,
 };
 
@@ -57,13 +63,24 @@ const buildMockResponse = (header, body) => {
       };
     case 'AWSCognitoIdentityProviderService.ConfirmSignUp':
       if (body['ConfirmationCode'] === '0000') {
-        return errorMessage;
+        return invalidCodeErrorMessage;
       } else {
         return {};
       }
+    case 'AWSCognitoIdentityProviderService.SignUp':
+      return {
+        CodeDeliveryDetails: {
+          AttributeName: 'email',
+          DeliveryMedium: 'EMAIL',
+          Destination: 'a***@e***.com',
+        },
+        UserConfirmed: false,
+        UserSub: '••••••-••••-••••-••••-•••••••••••••',
+      };
+
     case 'AWSCognitoIdentityProviderService.ForgotPassword':
       if (body['Username'].includes('UNKNOWN')) {
-        return errorMessage;
+        return userNotFoundErrorMessage;
       } else {
         return {};
       }

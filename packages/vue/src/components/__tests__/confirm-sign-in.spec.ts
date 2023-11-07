@@ -2,11 +2,7 @@ import { reactive, Ref, ref } from 'vue';
 import { fireEvent, render, screen } from '@testing-library/vue';
 
 import * as UIModule from '@aws-amplify/ui';
-import {
-  AmplifyUser,
-  AuthInterpreter,
-  AuthMachineState,
-} from '@aws-amplify/ui';
+import { AuthInterpreter, AuthMachineState } from '@aws-amplify/ui';
 
 import { components } from '../../../global-spec';
 import * as UseAuthComposables from '../../composables/useAuth';
@@ -28,10 +24,10 @@ const toSignInSpy = jest.fn();
 const mockServiceFacade: UseAuthenticator = {
   ...baseMockServiceFacade,
   route: 'confirmSignIn',
+  challengeName: 'SOFTWARE_TOKEN_MFA',
   updateForm: updateFormSpy,
   submitForm: submitFormSpy,
   toSignIn: toSignInSpy,
-  user: { challengeName: 'SOFTWARE_TOKEN_MFA' } as AmplifyUser,
 };
 
 const useAuthenticatorSpy = jest

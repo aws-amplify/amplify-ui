@@ -16,7 +16,7 @@ const { type, fullWidth, size, variation, fontWeight } = toRefs(props);
 <template>
   <slot v-bind="$attrs" name="buttont">
     <button
-      class="amplify-button"
+      class="amplify-button amplify-field-group__control"
       :class="{
         [`amplify-button--${variation}`]: variation,
         [`amplify-button--${size}`]: size,
