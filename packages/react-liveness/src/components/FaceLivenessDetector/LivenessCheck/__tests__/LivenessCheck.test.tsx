@@ -7,7 +7,7 @@ import {
   renderWithLivenessProvider,
   getMockedFunction,
 } from '../../__mocks__/utils';
-import { LivenessCheck, selectIsRecordingStopped } from '../LivenessCheck';
+import { LivenessCheck } from '../LivenessCheck';
 import { useLivenessSelector, useLivenessActor } from '../../hooks';
 import { getDisplayText } from '../../utils/getDisplayText';
 import { defaultErrorDisplayText } from '../../displayText';
