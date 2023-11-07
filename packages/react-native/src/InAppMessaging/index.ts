@@ -1,3 +1,4 @@
+// re-export in-app types from '@aws-amplify/ui-react-core-notifications'
 export {
   InAppMessage,
   InAppMessageAction,
