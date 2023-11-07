@@ -158,7 +158,7 @@ describe('PhoneNumberField primitive', () => {
   it('should fire onChange handler when phone input field is changed', async () => {
     const onChange = jest.fn();
     const { phoneInput } = await setup({ onChange });
-    userEvent.type(phoneInput, '1');
+    await userEvent.type(phoneInput, '1');
 
     expect(onChange).toHaveBeenCalled();
   });
@@ -166,7 +166,7 @@ describe('PhoneNumberField primitive', () => {
   it('should fire onInput handler when phone input field is changed', async () => {
     const onInput = jest.fn();
     const { phoneInput } = await setup({ onInput });
-    userEvent.type(phoneInput, '1');
+    await userEvent.type(phoneInput, '1');
 
     expect(onInput).toHaveBeenCalled();
   });
@@ -174,7 +174,7 @@ describe('PhoneNumberField primitive', () => {
   it('should fire onCountryCodeChange handler when phone input field is changed', async () => {
     const onDialCodeChange = jest.fn();
     const { dialCodeSelector } = await setup({ onDialCodeChange });
-    userEvent.selectOptions(dialCodeSelector, '+7');
+    await userEvent.selectOptions(dialCodeSelector, '+7');
 
     expect(onDialCodeChange).toHaveBeenCalled();
   });
@@ -193,11 +193,11 @@ describe('PhoneNumberField primitive', () => {
     });
   });
 
-  it('should still submit the form values when the isReadOnly prop is passed', () => {
+  it('should still submit the form values when the isReadOnly prop is passed', async () => {
     const { container } = render(<ReadOnlyFormTest />);
 
     const button = container.getElementsByTagName('button')[0];
-    userEvent.click(button);
+    await userEvent.click(button);
     expect(onSubmit).toHaveBeenCalled();
   });
 
@@ -334,7 +334,7 @@ describe('PhoneNumberField primitive', () => {
     it('should fire onChange handler when phone input field is changed', async () => {
       const onChange = jest.fn();
       const { phoneInput } = await dialCodeSetup({ onChange });
-      userEvent.type(phoneInput, '1');
+      await userEvent.type(phoneInput, '1');
 
       expect(onChange).toHaveBeenCalled();
     });
@@ -342,7 +342,7 @@ describe('PhoneNumberField primitive', () => {
     it('should fire onInput handler when phone input field is changed', async () => {
       const onInput = jest.fn();
       const { phoneInput } = await dialCodeSetup({ onInput });
-      userEvent.type(phoneInput, '1');
+      await userEvent.type(phoneInput, '1');
 
       expect(onInput).toHaveBeenCalled();
     });
@@ -350,7 +350,7 @@ describe('PhoneNumberField primitive', () => {
     it('should fire onDialCodeChange handler when phone input field is changed', async () => {
       const onDialCodeChange = jest.fn();
       const { dialCodeSelector } = await dialCodeSetup({ onDialCodeChange });
-      userEvent.selectOptions(dialCodeSelector, '+7');
+      await userEvent.selectOptions(dialCodeSelector, '+7');
 
       expect(onDialCodeChange).toHaveBeenCalled();
     });
@@ -369,11 +369,11 @@ describe('PhoneNumberField primitive', () => {
       });
     });
 
-    it('should still submit the form values when the isReadOnly prop is passed', () => {
+    it('should still submit the form values when the isReadOnly prop is passed', async () => {
       const { container } = render(<DialCodeReadOnlyFormTest />);
 
       const button = container.getElementsByTagName('button')[0];
-      userEvent.click(button);
+      await userEvent.click(button);
       expect(onSubmit).toHaveBeenCalled();
     });
   });

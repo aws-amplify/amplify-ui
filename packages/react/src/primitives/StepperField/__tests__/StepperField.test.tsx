@@ -137,7 +137,7 @@ describe('StepperField:', () => {
 
       expect(stepperInput).toHaveValue(0);
 
-      userEvent.type(stepperInput, '9');
+      await userEvent.type(stepperInput, '9');
       fireEvent.blur(stepperInput);
       // will be rounded up to 10 when losing focus since the step is 2
       expect(stepperInput).toHaveValue(10);
@@ -156,11 +156,11 @@ describe('StepperField:', () => {
       const stepperInput = await screen.findByLabelText(LABEL);
       expect(stepperInput).toHaveValue(0);
       const buttons = await screen.findAllByRole('button');
-      userEvent.click(buttons[0]);
+      await userEvent.click(buttons[0]);
       expect(stepperInput).toHaveValue(-2);
-      userEvent.click(buttons[1]);
+      await userEvent.click(buttons[1]);
       expect(stepperInput).toHaveValue(0);
-      userEvent.type(stepperInput, '9');
+      await userEvent.type(stepperInput, '9');
       fireEvent.blur(stepperInput);
       // will be rounded up to 10 when losing focus since the step is 2
       expect(stepperInput).toHaveValue(10);
@@ -212,7 +212,7 @@ describe('StepperField:', () => {
         />
       );
       const stepperInput = await screen.findByLabelText(LABEL);
-      userEvent.type(stepperInput, '100');
+      await userEvent.type(stepperInput, '100');
       fireEvent.blur(stepperInput);
       fireEvent.wheel(stepperInput);
       expect(onChange).toHaveBeenCalled();

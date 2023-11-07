@@ -204,7 +204,7 @@ describe('Collection component', () => {
     const searchInput = await screen.findByRole('textbox');
 
     const text = 'Yosemite National Park';
-    userEvent.type(searchInput, text);
+    await userEvent.type(searchInput, text);
     expect(searchInput).toHaveValue(text);
   });
 

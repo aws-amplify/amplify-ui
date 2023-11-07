@@ -177,13 +177,13 @@ describe('Pagination component:', () => {
     const pageTwo = await screen.findByLabelText(
       `${ComponentText.PaginationItem.pageLabel} ${page2}`
     );
-    userEvent.click(pageTwo);
+    await userEvent.click(pageTwo);
     expect(mockOnChange).toHaveBeenCalledTimes(1);
     expect(mockOnChange).toHaveBeenCalledWith(2, 3);
 
     // current page
     const pageThree = await screen.findByText('3');
-    userEvent.click(pageThree);
+    await userEvent.click(pageThree);
     expect(mockOnChange).toHaveBeenCalledTimes(1);
     expect(mockOnChange).toHaveBeenLastCalledWith(2, 3);
 
@@ -192,7 +192,7 @@ describe('Pagination component:', () => {
     const pageFour = await screen.findByLabelText(
       `${ComponentText.PaginationItem.pageLabel} ${page4}`
     );
-    userEvent.click(pageFour);
+    await userEvent.click(pageFour);
     expect(mockOnChange).toHaveBeenCalledTimes(2);
     expect(mockOnChange).toHaveBeenCalledWith(4, 3);
 
@@ -200,7 +200,7 @@ describe('Pagination component:', () => {
     const previous = await screen.findByLabelText(
       ComponentText.PaginationItem.previousLabel
     );
-    userEvent.click(previous);
+    await userEvent.click(previous);
     expect(mockOnPrevious).toHaveBeenCalledTimes(1);
     expect(mockOnPrevious).toHaveBeenCalledWith();
 
@@ -208,7 +208,7 @@ describe('Pagination component:', () => {
     const next = await screen.findByLabelText(
       ComponentText.PaginationItem.nextLabel
     );
-    userEvent.click(next);
+    await userEvent.click(next);
     expect(mockOnNext).toHaveBeenCalledTimes(1);
     expect(mockOnNext).toHaveBeenCalledWith();
   });
@@ -340,7 +340,7 @@ describe('Pagination component:', () => {
       expect(invisibleLabel).toHaveClass(ComponentClassName.VisuallyHidden);
       expect(pageItem.getAttribute('aria-current')).toBe('page');
 
-      userEvent.click(pageItem);
+      await userEvent.click(pageItem);
       expect(mockOnClick).not.toHaveBeenCalled();
     });
     it('should render previous page button with provided props', async () => {
@@ -359,7 +359,7 @@ describe('Pagination component:', () => {
       expect(previous.nodeName).toBe('BUTTON');
       expect(previous).not.toBeDisabled();
       expect(previous.getAttribute('aria-current')).toBe(null);
-      userEvent.click(previous);
+      await userEvent.click(previous);
       expect(mockOnClick).toHaveBeenCalledTimes(1);
       expect(mockOnClick).toHaveBeenCalledWith();
     });
@@ -380,7 +380,7 @@ describe('Pagination component:', () => {
       expect(next).not.toBeDisabled();
       expect(next.getAttribute('aria-current')).toBe(null);
 
-      userEvent.click(next);
+      await userEvent.click(next);
       expect(mockOnClick).toHaveBeenCalledTimes(1);
       expect(mockOnClick).toHaveBeenCalledWith();
     });

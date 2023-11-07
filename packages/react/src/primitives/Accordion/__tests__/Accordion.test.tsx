@@ -107,7 +107,7 @@ describe('Accordion:', () => {
     const details = container.getElementsByTagName('details');
     const summaries = container.getElementsByTagName('summary');
     expect(details[0]).toHaveAttribute('open');
-    userEvent.click(summaries[0]);
+    await userEvent.click(summaries[0]);
     expect(details[0]).not.toHaveAttribute('open');
   });
 
@@ -118,7 +118,7 @@ describe('Accordion:', () => {
     const details = container.getElementsByTagName('details');
     const summaries = container.getElementsByTagName('summary');
     expect(details[0]).toHaveAttribute('open');
-    userEvent.click(summaries[0]);
+    await userEvent.click(summaries[0]);
     expect(details[0]).toHaveAttribute('open');
   });
 
@@ -133,12 +133,12 @@ describe('Accordion:', () => {
     expect(details[1]).not.toHaveAttribute('open');
     expect(details[2]).not.toHaveAttribute('open');
 
-    userEvent.click(summaries[1]);
+    await userEvent.click(summaries[1]);
     expect(details[0]).not.toHaveAttribute('open');
     expect(details[1]).toHaveAttribute('open');
     expect(details[2]).not.toHaveAttribute('open');
 
-    userEvent.click(summaries[2]);
+    await userEvent.click(summaries[2]);
     expect(details[0]).not.toHaveAttribute('open');
     expect(details[1]).not.toHaveAttribute('open');
     expect(details[2]).toHaveAttribute('open');
@@ -154,12 +154,12 @@ describe('Accordion:', () => {
     expect(details[1]).not.toHaveAttribute('open');
     expect(details[2]).not.toHaveAttribute('open');
 
-    userEvent.click(summaries[1]);
+    await userEvent.click(summaries[1]);
     expect(details[0]).toHaveAttribute('open');
     expect(details[1]).toHaveAttribute('open');
     expect(details[2]).not.toHaveAttribute('open');
 
-    userEvent.click(summaries[2]);
+    await userEvent.click(summaries[2]);
     expect(details[0]).toHaveAttribute('open');
     expect(details[1]).toHaveAttribute('open');
     expect(details[2]).toHaveAttribute('open');
@@ -173,12 +173,12 @@ describe('Accordion:', () => {
     expect(details[1]).not.toHaveAttribute('open');
     expect(details[2]).not.toHaveAttribute('open');
 
-    userEvent.click(summaries[1]);
+    await userEvent.click(summaries[1]);
     expect(details[0]).not.toHaveAttribute('open');
     expect(details[1]).toHaveAttribute('open');
     expect(details[2]).not.toHaveAttribute('open');
 
-    userEvent.click(summaries[2]);
+    await userEvent.click(summaries[2]);
     expect(details[0]).not.toHaveAttribute('open');
     expect(details[1]).not.toHaveAttribute('open');
     expect(details[2]).toHaveAttribute('open');
@@ -194,12 +194,12 @@ describe('Accordion:', () => {
     expect(details[1]).not.toHaveAttribute('open');
     expect(details[2]).not.toHaveAttribute('open');
 
-    userEvent.click(summaries[1]);
+    await userEvent.click(summaries[1]);
     expect(details[0]).toHaveAttribute('open');
     expect(details[1]).toHaveAttribute('open');
     expect(details[2]).not.toHaveAttribute('open');
 
-    userEvent.click(summaries[2]);
+    await userEvent.click(summaries[2]);
     expect(details[0]).toHaveAttribute('open');
     expect(details[1]).toHaveAttribute('open');
     expect(details[2]).toHaveAttribute('open');
