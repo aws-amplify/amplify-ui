@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, toRefs, useAttrs } from 'vue';
+import { computed, toRefs } from 'vue';
 
 import {
   authenticatorTextUtil,
@@ -15,11 +15,6 @@ import BaseFormFields from './primitives/base-form-fields.vue';
 const facade: UseAuthenticator = useAuthenticator();
 const { error, isPending } = toRefs(facade);
 const { skipVerification, submitForm, updateForm } = facade;
-
-const attrs = useAttrs();
-
-/** @deprecated Authenticator component events are deprecated and not maintained. */
-const emit = defineEmits(['confirmVerifyUserSubmit', 'skipClicked']);
 
 // Text Util
 const { getAccountRecoveryInfoText, getSkipText, getSubmitText } =
@@ -37,13 +32,7 @@ const onInput = (e: Event): void => {
 };
 
 const onConfirmVerifyUserSubmit = (e: Event): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onConfirmVerifyUserSubmit) {
-    emit('confirmVerifyUserSubmit', e);
-  } else {
-    submit(e);
-  }
+  submit(e);
 };
 
 const submit = (e: Event): void => {
@@ -51,13 +40,7 @@ const submit = (e: Event): void => {
 };
 
 const onSkipClicked = (): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onSkipClicked) {
-    emit('skipClicked');
-  } else {
-    skipVerification();
-  }
+  skipVerification();
 };
 </script>
 
@@ -101,12 +84,7 @@ const onSkipClicked = (): void => {
             >
               {{ skipText }}
             </amplify-button>
-            <slot
-              name="footer"
-              :onSkipClicked="onSkipClicked"
-              :onConfirmVerifyUserSubmit="onConfirmVerifyUserSubmit"
-            >
-            </slot>
+            <slot name="footer"> </slot>
           </base-footer>
         </base-field-set>
       </base-form>

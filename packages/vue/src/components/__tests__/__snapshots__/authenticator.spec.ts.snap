@@ -59,7 +59,7 @@ exports[`authenticator renders confirmResetPassword subcomponent 1`] = `
                 <!--v-if-->
                 
                 <button
-                  class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+                  class="amplify-button amplify-field-group__control amplify-button--primary amplify-field-group__control amplify-authenticator__font"
                   data-amplify-button=""
                   data-disabled="false"
                   data-fullwidth="false"
@@ -75,7 +75,7 @@ exports[`authenticator renders confirmResetPassword subcomponent 1`] = `
                 
                 
                 <button
-                  class="amplify-button amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+                  class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
                   data-amplify-button=""
                   data-disabled="false"
                   data-fullwidth="false"
@@ -180,7 +180,7 @@ exports[`authenticator renders confirmSignIn subcomponent 1`] = `
                 <!--v-if-->
                 
                 <button
-                  class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+                  class="amplify-button amplify-field-group__control amplify-button--primary amplify-field-group__control amplify-authenticator__font"
                   data-amplify-button=""
                   data-disabled="false"
                   data-fullwidth="false"
@@ -196,7 +196,7 @@ exports[`authenticator renders confirmSignIn subcomponent 1`] = `
                 
                 
                 <button
-                  class="amplify-button amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+                  class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
                   data-amplify-button=""
                   data-disabled="false"
                   data-fullwidth="false"
@@ -308,7 +308,7 @@ exports[`authenticator renders confirmSignUp subcomponent 1`] = `
                 <!--v-if-->
                 
                 <button
-                  class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+                  class="amplify-button amplify-field-group__control amplify-button--primary amplify-field-group__control amplify-authenticator__font"
                   data-amplify-button=""
                   data-disabled="false"
                   data-fullwidth="false"
@@ -324,7 +324,7 @@ exports[`authenticator renders confirmSignUp subcomponent 1`] = `
                 
                 
                 <button
-                  class="amplify-button amplify-button--default amplify-field-group__control amplify-authenticator__font"
+                  class="amplify-button amplify-field-group__control amplify-button--default amplify-field-group__control amplify-authenticator__font"
                   data-amplify-button=""
                   data-disabled="false"
                   data-fullwidth="false"
@@ -433,7 +433,7 @@ exports[`authenticator renders confirmVerifyUser subcomponent 1`] = `
                 <!--v-if-->
                 
                 <button
-                  class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+                  class="amplify-button amplify-field-group__control amplify-button--primary amplify-field-group__control amplify-authenticator__font"
                   data-amplify-button=""
                   data-disabled="false"
                   data-fullwidth="false"
@@ -449,7 +449,7 @@ exports[`authenticator renders confirmVerifyUser subcomponent 1`] = `
                 
                 
                 <button
-                  class="amplify-button amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+                  class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
                   data-amplify-button=""
                   data-disabled="false"
                   data-fullwidth="false"
@@ -554,7 +554,7 @@ exports[`authenticator renders forceNewPassword subcomponent 1`] = `
                 <!--v-if-->
                 
                 <button
-                  class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+                  class="amplify-button amplify-field-group__control amplify-button--primary amplify-field-group__control amplify-authenticator__font"
                   data-amplify-button=""
                   data-disabled="false"
                   data-fullwidth="false"
@@ -570,7 +570,7 @@ exports[`authenticator renders forceNewPassword subcomponent 1`] = `
                 
                 
                 <button
-                  class="amplify-button amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+                  class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
                   data-amplify-button=""
                   data-disabled="false"
                   data-fullwidth="false"
@@ -670,7 +670,7 @@ exports[`authenticator renders resetPassword subcomponent 1`] = `
               <!--v-if-->
               
               <button
-                class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+                class="amplify-button amplify-field-group__control amplify-button--primary amplify-field-group__control amplify-authenticator__font"
                 data-amplify-button=""
                 data-disabled="false"
                 data-fullwidth="false"
@@ -686,7 +686,7 @@ exports[`authenticator renders resetPassword subcomponent 1`] = `
               
               
               <button
-                class="amplify-button amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+                class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
                 data-amplify-button=""
                 data-disabled="false"
                 data-fullwidth="false"
@@ -829,7 +829,7 @@ exports[`authenticator renders setupTOTP subcomponent 1`] = `
                   <!--v-if-->
                   
                   <button
-                    class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+                    class="amplify-button amplify-field-group__control amplify-button--primary amplify-field-group__control amplify-authenticator__font"
                     data-amplify-button=""
                     data-disabled="false"
                     data-fullwidth="false"
@@ -845,7 +845,7 @@ exports[`authenticator renders setupTOTP subcomponent 1`] = `
                   
                   
                   <button
-                    class="amplify-button amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+                    class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
                     data-amplify-button=""
                     data-disabled="false"
                     data-fullwidth="false"
@@ -988,7 +988,7 @@ exports[`authenticator renders signIn subcomponent 1`] = `
                 <!--v-if-->
                 
                 <button
-                  class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+                  class="amplify-button amplify-field-group__control amplify-button--primary amplify-field-group__control amplify-authenticator__font"
                   data-amplify-button=""
                   data-disabled="false"
                   data-fullwidth="false"
@@ -1017,7 +1017,7 @@ exports[`authenticator renders signIn subcomponent 1`] = `
             >
               
               <button
-                class="amplify-button amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+                class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
                 data-amplify-button=""
                 data-disabled="false"
                 data-fullwidth="false"
@@ -1151,7 +1151,7 @@ exports[`authenticator renders signUp subcomponent 1`] = `
                 <!--v-if-->
                 
                 <button
-                  class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+                  class="amplify-button amplify-field-group__control amplify-button--primary amplify-field-group__control amplify-authenticator__font"
                   data-amplify-button=""
                   data-disabled="false"
                   data-fullwidth="false"
@@ -1317,7 +1317,7 @@ exports[`authenticator renders verifyUser subcomponent 1`] = `
                 <!--v-if-->
                 
                 <button
-                  class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+                  class="amplify-button amplify-field-group__control amplify-button--primary amplify-field-group__control amplify-authenticator__font"
                   data-amplify-button=""
                   data-disabled="false"
                   data-fullwidth="false"
@@ -1333,7 +1333,7 @@ exports[`authenticator renders verifyUser subcomponent 1`] = `
                 
                 
                 <button
-                  class="amplify-button amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+                  class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
                   data-amplify-button=""
                   data-disabled="false"
                   data-fullwidth="false"

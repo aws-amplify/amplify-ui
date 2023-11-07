@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useAttrs, toRefs } from 'vue';
+import { computed, toRefs } from 'vue';
 import {
   authenticatorTextUtil,
   getFormDataFromEvent,
@@ -9,10 +9,6 @@ import {
 import { useAuthenticator } from '../composables/useAuth';
 import { UseAuthenticator } from '../types';
 import BaseFormFields from './primitives/base-form-fields.vue';
-
-const attrs = useAttrs();
-/** @deprecated Component events are deprecated and not maintained. */
-const emit = defineEmits(['resetPasswordSubmit', 'backToSignInClicked']);
 
 // `facade` is manually typed to `UseAuthenticator` for temporary type safety.
 const facade: UseAuthenticator = useAuthenticator();
@@ -30,13 +26,7 @@ const sendCodeText = computed(() => getSendCodeText());
 
 // Methods
 const onResetPasswordSubmit = (e: Event): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onResetPasswordSubmit) {
-    emit('resetPasswordSubmit', e);
-  } else {
-    submitForm(getFormDataFromEvent(e));
-  }
+  submitForm(getFormDataFromEvent(e));
 };
 
 const onInput = (e: Event): void => {
@@ -45,13 +35,7 @@ const onInput = (e: Event): void => {
 };
 
 const onBackToSignInClicked = (): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onBackToSignInClicked) {
-    emit('backToSignInClicked');
-  } else {
-    toSignIn();
-  }
+  toSignIn();
 };
 </script>
 
