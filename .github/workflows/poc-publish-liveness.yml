@@ -1,0 +1,107 @@
+# Description: This workflow runs unit + e2e tests, then publishes UI packages
+#              to `@next` NPM tag.
+#
+# Triggered by: merge to `poc-liveness-ux-v6`
+
+name: POC / Test and Publish / liveness
+
+concurrency:
+  group: e2e-${{ github.sha }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [poc-liveness-ux-v6]
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
+
+jobs:
+  setup-cache:
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@poc-liveness-ux-v6
+    with:
+      commit: ${{ github.sha }}
+      repository: ${{ github.repository }}
+
+  unit:
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@poc-liveness-ux-v6
+    needs: setup-cache
+    with:
+      commit: ${{ github.sha }}
+      repository: ${{ github.repository }}
+
+  guides:
+    runs-on: ubuntu-latest
+    environment: ci
+    env:
+      NODE_ENV: test
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - path: ./guides/react/protected-routes
+            tags: '@guides and not @todo-guides'
+
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        with:
+          node-version: 20
+          cache: 'yarn'
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+
+      - name: Restore cypress runner Cache
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        id: restore-cypress-cache
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+
+      - name: Install packages
+        run: yarn install
+      - name: Add Amplify CLI
+        run: yarn global add @aws-amplify/cli
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+      # Amplify CLI does not support headless pull with temporary credentials
+      # when useProfile is false.
+      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      - name: Create temp AWS profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
+      - name: Pull down AWS environments
+        run: yarn environments auth pull:email
+      - name: Delete AWS Profile
+        run: rm -rf ~/.aws
+
+      - name: Install guides
+        run: yarn install
+        working-directory: ${{ matrix.path }}
+
+      - name: Build guides
+        run: yarn build
+        working-directory: ${{ matrix.path }}
+
+  publish:
+    needs: [guides]
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-tagged-publish.yml@poc-liveness-ux-v6
+    with:
+      dist-tag: liveness
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
