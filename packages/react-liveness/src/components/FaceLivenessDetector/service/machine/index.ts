@@ -223,9 +223,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       },
       notRecording: {
-        on: {
-          START_RECORDING: 'recording', // if countdown completes while face is far enough, start recording
-        },
         initial: 'waitForSessionInfo',
         states: {
           waitForSessionInfo: {

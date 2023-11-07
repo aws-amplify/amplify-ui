@@ -25,7 +25,7 @@ import { selectErrorState } from '../shared';
 
 const CHECK_CLASS_NAME = 'liveness-detector-check';
 
-const selectIsRecordingStopped = createLivenessSelector(
+export const selectIsRecordingStopped = createLivenessSelector(
   (state) => state.context.isRecordingStopped
 );
 

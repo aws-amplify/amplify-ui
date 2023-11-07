@@ -49,10 +49,10 @@ export const selectVideoStream = createLivenessSelector(
   (state) => state.context.videoAssociatedParams?.videoMediaStream
 );
 export const selectFaceMatchPercentage = createLivenessSelector(
-  (state) => state.context.faceMatchAssociatedParams!.faceMatchPercentage
+  (state) => state.context.faceMatchAssociatedParams?.faceMatchPercentage
 );
 export const selectFaceMatchState = createLivenessSelector(
-  (state) => state.context.faceMatchAssociatedParams!.faceMatchState
+  (state) => state.context.faceMatchAssociatedParams?.faceMatchState
 );
 export const selectSelectedDeviceId = createLivenessSelector(
   (state) => state.context.videoAssociatedParams?.selectedDeviceId

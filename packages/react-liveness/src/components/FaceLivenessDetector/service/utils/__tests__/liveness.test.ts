@@ -58,18 +58,21 @@ describe('Liveness Helper', () => {
       expect(faceMatchPercentage).toBe(0);
     });
 
+    // Note: if this test ever fails just add a console log for face and do a check and copy the value here
     it('should return matched', () => {
       const face: Face = {
-        top: 150.07504272460938,
-        left: 106.4375,
-        width: 432.6287078857422,
-        height: 324.4761657714844,
+        top: 155.67390441894534,
+        left: 150.18686294555664,
+        width: 308.7495231628418,
+        height: 308.7055206298828,
         timestampMs: 1683674498221,
         probability: 0.9998714923858643,
-        rightEye: [409.51867485046387, 253.7000298500061],
-        leftEye: [251.89466857910156, 246.67850017547607],
-        mouth: [320.84685707092285, 404.4503116607666],
-        nose: [326.97374725341797, 341.47182762622833],
+        rightEye: [249.71416473388672, 231.34775161743164],
+        leftEye: [369.01573181152344, 234.44118499755862],
+        mouth: [305.5531311035156, 377.31029510498047],
+        nose: [309.24442291259766, 308.65787506103516],
+        rightEar: [181.92646026611328, 265.05077362060547],
+        leftEar: [427.19539642333984, 272.8925323486328],
       };
       const ovalDetails: LivenessOvalDetails = {
         centerX: 305,
@@ -105,6 +108,8 @@ describe('Liveness Helper', () => {
         leftEye: [318.5161700248718, 253.94269466400146],
         mouth: [339.64158596098423, 298.5959941148758],
         nose: [342.7122294306755, 277.0021167397499],
+        rightEar: [400.5564064979553, 258.19776356220245],
+        leftEar: [300.5161700248718, 253.94269466400146],
       };
       const ovalDetails: LivenessOvalDetails = {
         flippedCenterX: 346,
@@ -235,6 +240,8 @@ describe('Liveness Helper', () => {
         leftEye: [150, 100],
         mouth: [100, 100],
         nose: [100, 100],
+        rightEar: [0, 100],
+        leftEar: [150, 100],
       };
       mockBlazeFace.detectFaces.mockResolvedValue([mockCloseFace]);
 

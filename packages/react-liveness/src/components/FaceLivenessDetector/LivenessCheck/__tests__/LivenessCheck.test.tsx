@@ -7,7 +7,7 @@ import {
   renderWithLivenessProvider,
   getMockedFunction,
 } from '../../__mocks__/utils';
-import { LivenessCheck } from '../LivenessCheck';
+import { LivenessCheck, selectIsRecordingStopped } from '../LivenessCheck';
 import { useLivenessSelector, useLivenessActor } from '../../hooks';
 import { getDisplayText } from '../../utils/getDisplayText';
 import { defaultErrorDisplayText } from '../../displayText';
@@ -29,6 +29,7 @@ const {
   cameraDisplayText,
   streamDisplayText,
   errorDisplayText,
+  instructionDisplayText,
 } = getDisplayText(undefined);
 
 const {
@@ -89,6 +90,7 @@ describe('LivenessCheck', () => {
         cameraDisplayText={cameraDisplayText}
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
+        instructionDisplayText={instructionDisplayText}
       />
     );
 
@@ -115,6 +117,7 @@ describe('LivenessCheck', () => {
         cameraDisplayText={cameraDisplayText}
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
+        instructionDisplayText={instructionDisplayText}
       />
     );
 
@@ -142,6 +145,7 @@ describe('LivenessCheck', () => {
         cameraDisplayText={cameraDisplayText}
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
+        instructionDisplayText={instructionDisplayText}
       />
     );
 
@@ -167,6 +171,7 @@ describe('LivenessCheck', () => {
         cameraDisplayText={cameraDisplayText}
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
+        instructionDisplayText={instructionDisplayText}
       />
     );
 
