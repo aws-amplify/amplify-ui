@@ -1,0 +1,20 @@
+import { Message } from '@aws-amplify/ui-react';
+import { Example } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
+import {SocialProviderDemo} from "@/components/SocialProviderDemo";
+
+## Social Providers
+
+<Message colorTheme="info" heading="Zero Configuration">
+
+The Authenticator [automatically infers](/connected-components/authenticator#step-1-configure-backend) `socialProviders` from `amplify pull`,
+but can be explicitly defined as seen below.
+
+</Message>
+
+For your [configured social providers](https://docs.amplify.aws/lib/auth/social/q/platform/js/), you can also provide `amazon`, `facebook`, or `google`:
+
+```jsx expoSnack file=../../../../../../../examples/react-native/src/features/Authenticator/Federated/Example.tsx
+```
+
+_[Step by step video](https://www.youtube.com/watch?v=8KwZNn56F78&feature=youtu.be) on setting up social providers._
