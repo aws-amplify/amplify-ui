@@ -167,9 +167,13 @@ describe('authenticator', () => {
 
   it.each(routesWithComponent)('renders %s subcomponent', (route) => {
     let user = undefined as unknown as AmplifyUser;
+    let challengeName = baseMockServiceFacade.challengeName as string | '';
 
     // some routes expect specific shape of user
     if (route === 'confirmSignIn') {
+      // confirmSignIn component uses getChallengeText() and
+      // expects challengeName to be either 'SMS_MFA' or 'SOFTWARE_TOKEN_MFA'
+      challengeName = 'SOFTWARE_TOKEN_MFA';
       user = { challengeName: 'SOFTWARE_TOKEN_MFA' } as AmplifyUser;
     } else if (route === 'setupTOTP') {
       user = { username: 'username' } as AmplifyUser;
@@ -178,6 +182,8 @@ describe('authenticator', () => {
     useAuthenticatorSpy.mockReturnValue(
       reactive({
         ...baseMockServiceFacade,
+        // Updating challenge name value if changed
+        challengeName,
         route,
         user,
         totpSecretCode:
