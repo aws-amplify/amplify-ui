@@ -117,7 +117,11 @@ export interface Theme {
 /**
  * A DefaultTheme has all tokens and breakpoints required
  */
-export interface DefaultTheme extends Pick<Theme, 'name' | 'overrides'> {
+export interface DefaultTheme
+  extends Pick<
+    Theme,
+    'name' | 'overrides' | 'primaryColor' | 'secondaryColor'
+  > {
   tokens: DefaultTokens;
   breakpoints: Breakpoints;
 }

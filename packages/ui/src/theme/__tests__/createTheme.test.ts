@@ -305,18 +305,54 @@ describe('@aws-amplify/ui', () => {
       });
     });
 
-    it('should apply primaryColor', () => {
+    it('should apply primaryColor and secondaryColor', () => {
       const { tokens } = createTheme({
         name: 'test',
         primaryColor: 'red',
         secondaryColor: 'blue',
       });
-      expect(tokens.colors.primary[10].value).toEqual(
-        'var(--amplify-colors-red-10)'
-      );
-      expect(tokens.colors.secondary[10].value).toEqual(
-        'var(--amplify-colors-blue-10)'
-      );
+      Object.keys(tokens.colors.primary).forEach((key) => {
+        expect(tokens.colors.primary[key].value).toEqual(
+          `var(--amplify-colors-red-${key})`
+        );
+      });
+      Object.keys(tokens.colors.secondary).forEach((key) => {
+        expect(tokens.colors.secondary[key].value).toEqual(
+          `var(--amplify-colors-blue-${key})`
+        );
+      });
+    });
+
+    it('should add all values from the primaryColor', () => {
+      // There are more than the default values for a color ramp here,
+      // we should make sure to bring all of them over
+      const red = {
+        10: '#fef2f2',
+        20: '#fecaca',
+        30: '#fca5a5',
+        40: '#f87171',
+        50: '#ef4444',
+        60: '#dc2626',
+        70: '#b91c1c',
+        80: '#991b1b',
+        90: '#7f1d1d',
+        100: '#450a0a',
+      };
+      const { tokens } = createTheme({
+        name: 'test',
+        primaryColor: 'red',
+        tokens: {
+          colors: {
+            red,
+          },
+        },
+      });
+      Object.keys(red).forEach((key) => {
+        expect(tokens.colors.red[key].value).toEqual(red[key]);
+        expect(tokens.colors.primary[key].value).toEqual(
+          `var(--amplify-colors-red-${key})`
+        );
+      });
     });
   });
 });

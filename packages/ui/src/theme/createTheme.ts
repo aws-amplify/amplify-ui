@@ -66,18 +66,19 @@ export function createTheme(
   // that performs a deep merge on n objects. We could change
   // this to another 3p deep merge solution too.
   const mergedTheme = deepExtend<DefaultTheme>([{}, DefaultTheme, theme]);
+  const { primaryColor, secondaryColor } = mergedTheme;
 
   // apply primaryColor and secondaryColor if present
-  if (isString(theme?.primaryColor)) {
+  if (isString(primaryColor)) {
     mergedTheme.tokens.colors.primary = createColorPalette({
-      keys: Object.keys(mergedTheme.tokens.colors.primary),
-      value: theme?.primaryColor,
+      keys: Object.keys(mergedTheme.tokens.colors[primaryColor]),
+      value: primaryColor,
     });
   }
-  if (isString(theme?.secondaryColor)) {
+  if (isString(secondaryColor)) {
     mergedTheme.tokens.colors.secondary = createColorPalette({
-      keys: Object.keys(mergedTheme.tokens.colors.secondary),
-      value: theme?.secondaryColor,
+      keys: Object.keys(mergedTheme.tokens.colors[secondaryColor]),
+      value: secondaryColor,
     });
   }
 
