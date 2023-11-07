@@ -16,8 +16,8 @@ export interface FaceLivenessDetectorProps
 }
 
 const credentialProvider = async () => {
-  const credentials = (await fetchAuthSession()) as AwsTemporaryCredentials;
-  return credentials;
+  const { credentials } = await fetchAuthSession();
+  return credentials as AwsTemporaryCredentials;
 };
 
 export default function FaceLivenessDetector(
