@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 import {
   MdFormatAlignCenter,
   MdFormatAlignJustify,

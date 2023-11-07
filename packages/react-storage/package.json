@@ -42,7 +42,6 @@
     "@aws-amplify/ui": "5.8.1",
     "@aws-amplify/ui-react": "5.3.1",
     "@aws-amplify/ui-react-core": "2.1.33",
-    "classnames": "2.3.1",
     "lodash": "4.17.21",
     "tslib": "^2.5.2"
   },
