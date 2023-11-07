@@ -24,14 +24,20 @@ function filterAllowedFiles<FileType extends DragFile = DragFile>(
   const acceptedFiles: FileType[] = [];
   const rejectedFiles: FileType[] = [];
 
-  function filterFile({ type = '' }) {
+  function filterFile(file) {
+    const { type = '', name = '' } = file;
     const mimeType = type.toLowerCase();
     const baseMimeType = mimeType.split('/')[0];
 
     return acceptedFileTypes.some((type) => {
       const validType = type.trim().toLowerCase();
+      // if the accepted file type is a file extension
+      // it will start with '.', check against the file name
+      if (validType.charAt(0) === '.') {
+        return name.toLowerCase().endsWith(validType)
+      }
+      // This is something like a image/* mime type
       if (validType.endsWith('/*')) {
-        // This is something like a image/* mime type
         return baseMimeType === validType.split('/')[0];
       }
       return mimeType === validType;
