@@ -17,7 +17,7 @@ globalThis.Prism = Prism;
 require('prismjs/components/prism-dart');
 
 import '../styles/index.scss';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 import { GlobalNav, NavMenuItem } from '@/components/Layout/GlobalNav';
 import {
   LEFT_NAV_LINKS,
