@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 import { isEmpty } from '@aws-amplify/ui';
 import { MessageButtonProps } from '@aws-amplify/ui-react-core-notifications';
 import {

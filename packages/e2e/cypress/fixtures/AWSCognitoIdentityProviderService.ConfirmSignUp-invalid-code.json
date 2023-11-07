@@ -1,4 +1,4 @@
 {
-  "__type": "UserNotFoundException",
-  "message": "Username/client id combination not found."
+  "__type": "CodeMismatchException",
+  "message": "Invalid verification code provided, please try again."
 }

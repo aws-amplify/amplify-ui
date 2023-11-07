@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 import * as RadixSlider from '@radix-ui/react-slider';
 import * as React from 'react';
 

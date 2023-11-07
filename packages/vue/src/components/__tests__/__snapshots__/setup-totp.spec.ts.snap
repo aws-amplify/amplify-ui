@@ -132,7 +132,7 @@ exports[`SetupTOTP renders loading text as expected on init 1`] = `
             <!--v-if-->
             
             <button
-              class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+              class="amplify-button amplify-field-group__control amplify-button--primary amplify-field-group__control amplify-authenticator__font"
               data-amplify-button=""
               data-disabled="false"
               data-fullwidth="false"
@@ -148,7 +148,7 @@ exports[`SetupTOTP renders loading text as expected on init 1`] = `
             
             
             <button
-              class="amplify-button amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+              class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
               data-amplify-button=""
               data-disabled="false"
               data-fullwidth="false"
@@ -320,7 +320,7 @@ exports[`SetupTOTP renders qrcode image as expected after onMounted is done 1`] 
             <!--v-if-->
             
             <button
-              class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+              class="amplify-button amplify-field-group__control amplify-button--primary amplify-field-group__control amplify-authenticator__font"
               data-amplify-button=""
               data-disabled="false"
               data-fullwidth="false"
@@ -336,7 +336,7 @@ exports[`SetupTOTP renders qrcode image as expected after onMounted is done 1`] 
             
             
             <button
-              class="amplify-button amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+              class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
               data-amplify-button=""
               data-disabled="false"
               data-fullwidth="false"
