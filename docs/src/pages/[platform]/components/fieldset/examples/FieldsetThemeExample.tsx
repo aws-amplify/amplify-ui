@@ -8,12 +8,12 @@ const theme = createTheme({
         outlined: {
           borderStyle: 'dashed',
           borderWidth: '2px',
-          borderColor: '{colors.brand.primary.20}',
+          borderColor: '{colors.primary.20}',
           padding: '{space.large}',
         },
         legend: {
           fontSize: '{fontSizes.large}',
-          color: '{colors.brand.primary.80}',
+          color: '{colors.primary.80}',
           fontWeight: '400',
         },
       },

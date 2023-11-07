@@ -11,12 +11,12 @@ const theme: Theme = {
     components: {
       pagination: {
         current: {
-          backgroundColor: { value: '{colors.brand.secondary.80}' },
+          backgroundColor: { value: '{colors.secondary.80}' },
         },
         button: {
           hover: {
             backgroundColor: { value: '{colors.neutral.40}' },
-            color: { value: '{colors.brand.secondary.80}' },
+            color: { value: '{colors.secondary.80}' },
           },
         },
       },

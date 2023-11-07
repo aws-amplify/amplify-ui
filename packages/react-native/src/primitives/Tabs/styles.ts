@@ -16,11 +16,11 @@ export const getThemedStyles = (
   const tabBorderStyles: ViewStyle = {};
 
   if (indicatorPosition && indicatorPosition === 'top') {
-    selectedTabBorderStyles.borderTopColor = colors.brand.primary[80];
+    selectedTabBorderStyles.borderTopColor = colors.primary[80];
     tabBorderStyles.borderTopWidth = borderWidths.medium;
     tabBorderStyles.borderTopColor = colors.border.secondary;
   } else {
-    selectedTabBorderStyles.borderBottomColor = colors.brand.primary[80];
+    selectedTabBorderStyles.borderBottomColor = colors.primary[80];
     tabBorderStyles.borderBottomWidth = borderWidths.medium;
     tabBorderStyles.borderBottomColor = colors.border.secondary;
   }
@@ -58,7 +58,7 @@ export const getThemedStyles = (
     },
     selected: {
       backgroundColor: colors.background.primary,
-      color: colors.brand.primary[80],
+      color: colors.primary[80],
       ...selectedTabBorderStyles,
       ...components?.tabs?.selected,
     },

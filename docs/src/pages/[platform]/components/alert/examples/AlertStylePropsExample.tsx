@@ -5,10 +5,10 @@ export const AlertStylePropsExample = () => {
 
   return (
     <Alert
-      backgroundColor={tokens.colors.brand.primary[10]}
+      backgroundColor={tokens.colors.primary[10]}
       color={tokens.colors.font.primary}
       fontWeight="bold"
-      border={`${tokens.borderWidths.large} solid ${tokens.colors.brand.primary[80]}`}
+      border={`${tokens.borderWidths.large} solid ${tokens.colors.primary[80]}`}
       borderRadius="10px"
     >
       Passing props directly

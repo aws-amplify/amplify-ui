@@ -14,13 +14,13 @@ export const TextFieldStylePropsExample = () => {
           </Text>
         }
         padding="xl"
-        border={`1px solid ${tokens.colors.brand.primary[60]}`}
+        border={`1px solid ${tokens.colors.primary[60]}`}
       />
       <TextField
         label="Special Field"
         inputStyles={{
           backgroundColor: 'brand.primary.10',
-          border: `1px solid ${tokens.colors.brand.primary[60]}`,
+          border: `1px solid ${tokens.colors.primary[60]}`,
         }}
       />
     </>

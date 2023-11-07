@@ -18,7 +18,7 @@ const theme: Theme = {
         linear: {
           width: { value: '50%' },
           strokeWidth: { value: '{fontSizes.xxs}' },
-          strokeFilled: { value: '{colors.brand.secondary.80}' },
+          strokeFilled: { value: '{colors.secondary.80}' },
           strokeEmpty: { value: '{colors.neutral.20}' },
           animationDuration: { value: '2s' },
         },
