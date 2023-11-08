@@ -23,7 +23,10 @@ export const StorageImage = ({
 
   const url = useStorageURL({
     key: imgKey,
-    options,
+    options: {
+      ...options,
+      validateObjectExistence: true,
+    },
     fallbackURL: fallbackSrc,
     onStorageGetError,
   });
