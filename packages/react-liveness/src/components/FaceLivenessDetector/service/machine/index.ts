@@ -47,7 +47,7 @@ import {
   ClientSessionInformationEvent,
   LivenessResponseStream,
 } from '@aws-sdk/client-rekognitionstreaming';
-import { STATIC_VIDEO_CONSTRAINTS } from '../../StartLiveness/helpers';
+import { STATIC_VIDEO_CONSTRAINTS } from '../../utils/helpers';
 import { WS_CLOSURE_CODE } from '../utils/constants';
 
 export const MIN_FACE_MATCH_TIME = 500;

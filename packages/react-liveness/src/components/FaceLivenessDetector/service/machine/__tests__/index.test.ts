@@ -18,7 +18,7 @@ import {
   mockSessionInformation,
   mockVideoRecorder,
 } from '../../utils/__mocks__/testUtils';
-import { STATIC_VIDEO_CONSTRAINTS } from '../../../StartLiveness/helpers';
+import { STATIC_VIDEO_CONSTRAINTS } from '../../../utils/helpers';
 
 jest.useFakeTimers();
 jest.mock('../../utils');
