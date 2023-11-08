@@ -3,6 +3,8 @@ import { Button, Text } from 'react-native';
 import 'react-native-get-random-values';
 import 'react-native-url-polyfill/auto';
 
+import { initializeInAppMessaging } from 'aws-amplify/in-app-messaging';
+
 import { Amplify } from 'aws-amplify';
 import {
   Authenticator,
@@ -12,7 +14,9 @@ import {
 } from '@aws-amplify/ui-react-native';
 
 import awsExports from './aws-exports';
+
 Amplify.configure(awsExports);
+initializeInAppMessaging();
 
 function SignOutButton() {
   const { signOut } = useAuthenticator();
