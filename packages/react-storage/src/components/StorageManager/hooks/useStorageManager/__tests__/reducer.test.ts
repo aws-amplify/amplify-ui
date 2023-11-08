@@ -16,7 +16,14 @@ const initialState: UseStorageManagerState = {
   files: [],
 };
 
+// mock Date.now() so we can get accurate file IDs
+const dateSpy = jest.spyOn(Date, 'now').mockImplementation(() => 1487076708000);
+
 describe('storageManagerStateReducer', () => {
+  beforeEach(() => {
+    dateSpy.mockClear();
+  });
+
   it('should add files to state on ADD_FILES action', () => {
     const addFilesAction: Action = {
       type: StorageManagerActionTypes.ADD_FILES,
@@ -27,7 +34,7 @@ describe('storageManagerStateReducer', () => {
 
     const expectedFiles: StorageFiles = [
       {
-        id: imageFile.name,
+        id: `${Date.now()}-${imageFile.name}`,
         file: imageFile,
         error: 'Test error',
         key: imageFile.name,
