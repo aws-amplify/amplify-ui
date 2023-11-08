@@ -1,5 +1,13 @@
 # @aws-amplify/ui-react
 
+## 5.3.2
+
+### Patch Changes
+
+- [#4649](https://github.com/aws-amplify/amplify-ui/pull/4649) [`1dbe3f46c`](https://github.com/aws-amplify/amplify-ui/commit/1dbe3f46c2423c407aa2e499f383745b45b2e640) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(storage): fixing drop handler for file extensions
+
+  Previously, adding a file extension for an `acceptedFileTypes` when a customer would drop a file it would show as rejected even if it was a valid file type. This fixes that issue.
+
 ## 5.3.1
 
 ### Patch Changes
