@@ -14,19 +14,17 @@ export const StorageImage = ({
   identityId,
   imgKey,
   onStorageGetError,
+  validateObjectExistence = true,
   ...rest
 }: StorageImageProps): JSX.Element => {
   const options = React.useMemo(
-    () => ({ accessLevel, identityId }),
-    [accessLevel, identityId]
+    () => ({ accessLevel, identityId, validateObjectExistence }),
+    [accessLevel, identityId, validateObjectExistence]
   );
 
   const url = useStorageURL({
     key: imgKey,
-    options: {
-      ...options,
-      validateObjectExistence: true,
-    },
+    options,
     fallbackURL: fallbackSrc,
     onStorageGetError,
   });
