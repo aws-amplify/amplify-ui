@@ -75,13 +75,13 @@ export function useUploadFiles({
           ({ key, file, ...rest }) => {
             onUploadStart?.({ key });
             const uploadTask = uploadFile({
+              ...rest,
               file,
               key,
               level: accessLevel,
               progressCallback: onProgress,
               errorCallback: onError,
               completeCallback: onComplete,
-              ...rest,
             });
 
             setUploadingFile({
