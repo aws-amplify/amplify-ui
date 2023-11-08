@@ -32,6 +32,7 @@ const mockServiceFacade: UseAuthenticator = {
   submitForm: submitFormSpy,
   toSignIn: toSignInSpy,
   user: { challengeName: 'SOFTWARE_TOKEN_MFA' } as AmplifyUser,
+  challengeName: 'SOFTWARE_TOKEN_MFA',
 };
 
 const useAuthenticatorSpy = jest
@@ -77,6 +78,7 @@ describe('ConfirmSignIn', () => {
     useAuthenticatorSpy.mockReturnValueOnce(
       reactive({
         ...mockServiceFacade,
+        challengeName: 'SMS_MFA',
         user: { challengeName: 'SMS_MFA' },
       } as UseAuthenticator)
     );

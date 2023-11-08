@@ -3,7 +3,7 @@ import { flushPromises, mount } from '@vue/test-utils';
 import * as XStateVue from '@xstate/vue';
 import * as XState from 'xstate';
 
-import { Hub } from 'aws-amplify/core';
+import { Hub } from '@aws-amplify/core';
 
 import * as AuthModule from 'aws-amplify/auth';
 import * as UIModule from '@aws-amplify/ui';
