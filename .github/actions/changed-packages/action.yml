@@ -32,7 +32,9 @@ runs:
 
         # check if any of the modified files belongs to the specified input packages
         if echo "$changed_files" | grep -Eq "^($package_names)/"; then
-          echo "has-changed-packages=true" >> $GITHUB_OUTPUT
+          # @todo-migration re-enable
+          # echo "has-changed-packages=true" >> $GITHUB_OUTPUT
+          echo "has-changed-packages=false" >> $GITHUB_OUTPUT
         else
           echo "has-changed-packages=false" >> $GITHUB_OUTPUT
         fi

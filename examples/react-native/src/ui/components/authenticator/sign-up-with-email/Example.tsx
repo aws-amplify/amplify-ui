@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { Authenticator } from '@aws-amplify/ui-react-native';
 import { Amplify } from 'aws-amplify';
-import { parseAWSExports } from '@aws-amplify/core/lib-esm/parseAWSExports';
+import { parseAWSExports } from '@aws-amplify/core/internals/utils';
 import { I18n } from 'aws-amplify/utils';
 import { translations } from '@aws-amplify/ui';
 
