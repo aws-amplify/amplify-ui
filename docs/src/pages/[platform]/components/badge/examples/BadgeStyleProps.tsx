@@ -4,8 +4,8 @@ export const BadgeStyleProps = () => {
   const { tokens } = useTheme();
   return (
     <Badge
-      backgroundColor={tokens.colors.brand.secondary[20]}
-      color={tokens.colors.brand.secondary[90]}
+      backgroundColor={tokens.colors.secondary[20]}
+      color={tokens.colors.secondary[90]}
     >
       Badge
     </Badge>
