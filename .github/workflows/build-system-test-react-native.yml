@@ -67,12 +67,12 @@ jobs:
           key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
-      - name: Install Java 11
+      - name: Install Java 17
         if: ${{ matrix.platform == 'android' }}
         uses: actions/setup-java@de1bb2b0c5634f0fc4438d7aa9944e68f9bf86cc # 3.6.0
         with:
           distribution: 'corretto' # Amazon Corretto Build of OpenJDK
-          java-version: '11'
+          java-version: '17'
 
       - name: Install iOS simulator
         if: ${{ matrix.platform == 'ios' }}
