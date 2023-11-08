@@ -76,6 +76,7 @@ export function useUploadFiles({
             onUploadStart?.({ key: processedKey });
             const uploadTask = uploadFile({
               ...rest,
+              file,
               key: processedKey,
               level: accessLevel,
               progressCallback: onProgress,
