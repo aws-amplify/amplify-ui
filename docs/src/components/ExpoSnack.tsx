@@ -31,7 +31,8 @@ const defaultOptions: SnackOptions = {
   loading: 'lazy',
   sdkVersion: '45.0.0',
   dependencies: [
-    '@aws-amplify/ui-react-native,aws-amplify',
+    '@aws-amplify/ui-react-native',
+    'aws-amplify@5.3.11',
     '@aws-amplify/react-native',
     '@aws-amplify/rtn-web-browser',
     'react-native-safe-area-context',
