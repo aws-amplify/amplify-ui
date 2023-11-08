@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Amplify } from 'aws-amplify';
 import { Text, Loader } from '@aws-amplify/ui-react';
 import { StorageImage } from '@aws-amplify/ui-react-storage';
+
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
 
@@ -37,6 +38,13 @@ export function StorageImageExample() {
       ) : (
         <Loader testId="Loader" />
       )}
+      <StorageImage
+        alt="private cat"
+        imgKey="this-image-does-not-exist-2.jpeg"
+        fallbackSrc="https://placekitten.com/g/200/300"
+        accessLevel="guest"
+        validateObjectExistence={false}
+      />
     </>
   );
 }
