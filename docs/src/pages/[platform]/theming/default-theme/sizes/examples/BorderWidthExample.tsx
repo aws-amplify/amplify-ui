@@ -16,9 +16,7 @@ export const BorderWidthExample = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Button color={tokens.colors.brand.secondary[60]}>
-        Custom border button
-      </Button>
+      <Button color={tokens.colors.secondary[60]}>Custom border button</Button>
     </ThemeProvider>
   );
 };

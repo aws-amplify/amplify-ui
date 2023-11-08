@@ -1,6 +1,6 @@
 .collection-styling-example {
   --amplify-components-collection-pagination-current-color: var(
-    --amplify-colors-brand-secondary-20
+    --amplify-colors-secondary-20
   );
   --amplify-components-collection-pagination-current-background-color: var(
     --amplify-colors-teal-80

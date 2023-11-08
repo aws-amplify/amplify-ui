@@ -2,28 +2,10 @@ import { defaultDarkModeOverride } from '@aws-amplify/ui-react';
 
 const theme = {
   name: 'classic-theme',
+  primaryColor: 'blue',
+  secondaryColor: 'neutral',
   tokens: {
     colors: {
-      brand: {
-        primary: {
-          10: { value: '{colors.blue.10}' },
-          20: { value: '{colors.blue.20}' },
-          40: { value: '{colors.blue.40}' },
-          60: { value: '{colors.blue.60}' },
-          80: { value: '{colors.blue.80}' },
-          90: { value: '{colors.blue.90}' },
-          100: { value: '{colors.blue.100}' },
-        },
-        secondary: {
-          10: { value: '{colors.neutral.10}' },
-          20: { value: '{colors.neutral.20}' },
-          40: { value: '{colors.neutral.40}' },
-          60: { value: '{colors.neutral.60}' },
-          80: { value: '{colors.neutral.80}' },
-          90: { value: '{colors.neutral.90}' },
-          100: { value: '{colors.neutral.100}' },
-        },
-      },
       border: {
         primary: { value: '{colors.neutral.40}' },
         secondary: { value: '{colors.neutral.20}' },

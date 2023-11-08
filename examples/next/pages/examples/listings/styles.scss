@@ -1,6 +1,6 @@
 :root {
   --amplify-components-rating-filled-color: var(
-    --amplify-colors-brand-secondary-60
+    --amplify-colors-secondary-60
   );
   --amplify-components-rating-empty-color: var(
     --amplify-colors-border-tertiary
@@ -92,7 +92,7 @@ h6.amplify-heading {
   color: white;
   font-size: var(--amplify-font-sizes-xxl);
   font-weight: 200;
-  text-shadow: 0 0 1rem var(--amplify-colors-brand-secondary-60);
+  text-shadow: 0 0 1rem var(--amplify-colors-secondary-60);
 }
 
 .flex-grow {
@@ -119,6 +119,6 @@ input[type='search'] {
   
   &:focus {
     outline: none;
-    border-color: var(--amplify-colors-brand-primary-60);
+    border-color: var(--amplify-colors-primary-60);
   }
 }

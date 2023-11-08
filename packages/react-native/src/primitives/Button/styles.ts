@@ -33,7 +33,7 @@ export const getThemedStyles = (theme: StrictTheme): ButtonStyles => {
       ...components?.button?.containerDefault,
     },
     containerPrimary: {
-      backgroundColor: colors.brand.primary[80],
+      backgroundColor: colors.primary[80],
       ...components?.button?.containerPrimary,
     },
     containerLink: {

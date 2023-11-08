@@ -64,7 +64,7 @@
 }
 
 :root {
-  --docsearch-primary-color: var(--amplify-colors-brand-primary-60);
+  --docsearch-primary-color: var(--amplify-colors-primary-60);
 }
 
 html {
@@ -104,7 +104,7 @@ a {
 blockquote {
   padding: var(--amplify-space-medium);
   border-left: var(--amplify-border-widths-large) solid
-    var(--amplify-colors-brand-secondary-60);
+    var(--amplify-colors-secondary-60);
   margin: 0 0 var(--amplify-space-medium) 0;
   background-color: var(--amplify-colors-background-secondary);
 }
@@ -243,7 +243,7 @@ h4:hover > a .icon-link {
   --docs-dev-center-nav-height: 3rem;
   --docs-header-height: 4rem;
   --docs-gradient-color-hsl: 210, 0%, 100%;
-  --docs-callout-bg: var(--amplify-colors-brand-primary-10);
+  --docs-callout-bg: var(--amplify-colors-primary-10);
   --docs-font-mono: 'Source Code Pro', 'Fira Code', 'Fira Mono', ui-monospace,
     SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
     monospace;

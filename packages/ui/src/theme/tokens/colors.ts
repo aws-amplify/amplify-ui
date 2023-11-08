@@ -11,14 +11,14 @@ import {
 type BaseColorValues<
   VariantKey extends string | number,
   Output,
-  Platform = unknown
+  Platform = unknown,
 > = RecursiveDesignToken<ColorValue, Output, Platform> &
   DesignTokenValues<VariantKey, ColorValue, Output, Platform>;
 
-type ColorValues<
+export type ColorValues<
   VariantKey extends string | number,
   Output,
-  Platform = unknown
+  Platform = unknown,
 > = Output extends 'required' | 'default'
   ? BaseColorValues<VariantKey, Output, Platform>
   : Partial<BaseColorValues<VariantKey, Output, Platform>>;
@@ -29,19 +29,19 @@ type ColorValues<
 type BaseColorValueScale<
   VariantKey extends string | number,
   Output,
-  Platform = unknown
+  Platform = unknown,
 > = Record<VariantKey, ColorValues<ScaleKey, Output, Platform>>;
 
 type ColorValueScale<
   VariantKey extends string | number,
   Output,
-  Platform = unknown
+  Platform = unknown,
 > = Output extends 'required' | 'default'
   ? BaseColorValueScale<VariantKey, Output, Platform>
   : Partial<BaseColorValueScale<VariantKey, Output, Platform>>;
 
 // scale keys
-type ScaleKey = 10 | 20 | 40 | 60 | 80 | 90 | 100;
+export type ScaleKey = 10 | 20 | 40 | 60 | 80 | 90 | 100;
 type OverlayKey = 5 | 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90;
 
 // color palettes
@@ -54,7 +54,9 @@ type ColorPaletteKey =
   | 'blue'
   | 'purple'
   | 'pink'
-  | 'neutral';
+  | 'neutral'
+  | 'primary'
+  | 'secondary';
 type GreyscalePaletteKey = 'white' | 'black' | 'transparent';
 
 // variant keys
@@ -81,7 +83,6 @@ type StateVariantKey<Platform> = Platform extends 'react-native'
   ? ReactNativeStateVariantKey
   : WebStateVariantKey;
 
-type BrandVariantKey = Extract<OrderVariantKey, 'primary' | 'secondary'>;
 type FontVariantKey<Output, Platform> =
   | 'inverse'
   | 'interactive'
@@ -122,12 +123,9 @@ type GreyscaleColors<Output, Platform> = ColorValues<
 // `Colors` tokens requires special handling for `required` output due to nested tokens
 type BaseColors<
   Output extends OutputVariantKey = unknown,
-  Platform = unknown
+  Platform = unknown,
 > = PaletteValues<Output, Platform> &
   GreyscaleColors<Output, Platform> & {
-    // brand properties have scaled values
-    brand?: ColorValueScale<BrandVariantKey, Output, Platform>;
-
     background?: ColorValues<BackgroundColorKey<Platform>, Output, Platform>;
     border?: ColorValues<BorderColorKey<Output, Platform>, Output, Platform>;
     font?: ColorValues<FontVariantKey<Output, Platform>, Output, Platform>;
@@ -137,7 +135,7 @@ type BaseColors<
 
 export type Colors<
   Output extends OutputVariantKey = unknown,
-  Platform = unknown
+  Platform = unknown,
 > = Output extends 'required' | 'default'
   ? Required<BaseColors<Output, Platform>>
   : BaseColors<Output, Platform>;
@@ -233,25 +231,23 @@ export const colors: Colors<'default'> = {
     100: { value: 'hsl(210, 50%, 10%)' },
   },
 
-  brand: {
-    primary: {
-      10: { value: '{colors.teal.10.value}' },
-      20: { value: '{colors.teal.20.value}' },
-      40: { value: '{colors.teal.40.value}' },
-      60: { value: '{colors.teal.60.value}' },
-      80: { value: '{colors.teal.80.value}' },
-      90: { value: '{colors.teal.90.value}' },
-      100: { value: '{colors.teal.100.value}' },
-    },
-    secondary: {
-      10: { value: '{colors.purple.10.value}' },
-      20: { value: '{colors.purple.20.value}' },
-      40: { value: '{colors.purple.40.value}' },
-      60: { value: '{colors.purple.60.value}' },
-      80: { value: '{colors.purple.80.value}' },
-      90: { value: '{colors.purple.90.value}' },
-      100: { value: '{colors.purple.100.value}' },
-    },
+  primary: {
+    10: { value: '{colors.teal.10.value}' },
+    20: { value: '{colors.teal.20.value}' },
+    40: { value: '{colors.teal.40.value}' },
+    60: { value: '{colors.teal.60.value}' },
+    80: { value: '{colors.teal.80.value}' },
+    90: { value: '{colors.teal.90.value}' },
+    100: { value: '{colors.teal.100.value}' },
+  },
+  secondary: {
+    10: { value: '{colors.purple.10.value}' },
+    20: { value: '{colors.purple.20.value}' },
+    40: { value: '{colors.purple.40.value}' },
+    60: { value: '{colors.purple.60.value}' },
+    80: { value: '{colors.purple.80.value}' },
+    90: { value: '{colors.purple.90.value}' },
+    100: { value: '{colors.purple.100.value}' },
   },
 
   font: {
@@ -261,14 +257,14 @@ export const colors: Colors<'default'> = {
     disabled: { value: '{colors.neutral.60.value}' },
     inverse: { value: '{colors.white.value}' },
 
-    interactive: { value: '{colors.brand.primary.80.value}' },
+    interactive: { value: '{colors.primary.80.value}' },
     // Hover and Focus colors are intentionally different colors.
     // This allows users to distinguish between the current keyboard focus
     // and the location of their pointer
-    hover: { value: '{colors.brand.primary.90.value}' },
+    hover: { value: '{colors.primary.90.value}' },
     // Focus color is set to 100 to ensure enough contrast for accessibility
-    focus: { value: '{colors.brand.primary.100.value}' },
-    active: { value: '{colors.brand.primary.100.value}' },
+    focus: { value: '{colors.primary.100.value}' },
+    active: { value: '{colors.primary.100.value}' },
 
     info: { value: '{colors.blue.90.value}' },
     warning: { value: '{colors.orange.90.value}' },
@@ -296,9 +292,9 @@ export const colors: Colors<'default'> = {
 
     disabled: { value: '{colors.border.tertiary.value}' },
 
-    pressed: { value: '{colors.brand.primary.100.value}' },
+    pressed: { value: '{colors.primary.100.value}' },
     // Focus color is set to 100 to ensure enough contrast for accessibility
-    focus: { value: '{colors.brand.primary.100.value}' },
+    focus: { value: '{colors.primary.100.value}' },
     error: { value: '{colors.red.80.value}' },
     info: { value: '{colors.blue.80.value}' },
     success: { value: '{colors.green.80.value}' },

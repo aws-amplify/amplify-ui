@@ -102,6 +102,8 @@ export interface Theme {
    */
   name: string;
   tokens?: Tokens;
+  primaryColor?: string;
+  secondaryColor?: string;
   breakpoints?: PartialDeep<Breakpoints>;
   /**
    * Overrides allow you to change design tokens in different contexts, like
@@ -115,7 +117,11 @@ export interface Theme {
 /**
  * A DefaultTheme has all tokens and breakpoints required
  */
-export interface DefaultTheme extends Pick<Theme, 'name' | 'overrides'> {
+export interface DefaultTheme
+  extends Pick<
+    Theme,
+    'name' | 'overrides' | 'primaryColor' | 'secondaryColor'
+  > {
   tokens: DefaultTokens;
   breakpoints: Breakpoints;
 }
@@ -127,6 +133,8 @@ export interface DefaultTheme extends Pick<Theme, 'name' | 'overrides'> {
  */
 export interface WebTheme
   extends Pick<DefaultTheme, 'breakpoints' | 'name' | 'overrides'> {
+  primaryColor?: string;
+  secondaryColor?: string;
   cssText: string;
   // property `components` is not specified on `WebTokens`,
   // but is a required token property of `WebTheme`

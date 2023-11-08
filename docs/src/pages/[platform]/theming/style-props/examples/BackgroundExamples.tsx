@@ -14,7 +14,7 @@ export const BackgroundThemeTokenExample = () => {
   const { tokens } = useTheme();
   return (
     <Card
-      backgroundColor={tokens.colors.brand.primary[80]}
+      backgroundColor={tokens.colors.primary[80]}
       color={tokens.colors.white}
     >
       Background Styling Example
