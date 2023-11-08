@@ -1,4 +1,4 @@
-import { notifyMessageInteraction } from 'aws-amplify/in-app-messaging';
+import * as InAppModule from 'aws-amplify/in-app-messaging';
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import { RenderNothing } from '@aws-amplify/ui-react-core';
 import { useInAppMessaging } from '../../useInAppMessaging';
@@ -22,16 +22,10 @@ const infoSpy = jest.spyOn(Logger.prototype, 'info');
 const mockUseInAppMessaging = useInAppMessaging as jest.Mock;
 const mockClearMessage = jest.fn();
 
-jest.mock('aws-amplify', () => ({
-  Amplify: { configure: jest.fn() },
-}));
-
-jest.mock('aws-amplify/in-app-messaging', () => ({
-  ...jest.requireActual<typeof import('aws-amplify/in-app-messaging')>(
-    'aws-amplify/in-app-messaging'
-  ),
-  notifyMessageInteraction: jest.fn(),
-}));
+const notifyMessageInteractionSpy = jest.spyOn(
+  InAppModule,
+  'notifyMessageInteraction'
+);
 
 const header = { content: 'header one' };
 const baseMessage: Partial<Message> = {
@@ -189,8 +183,8 @@ describe('useMessage', () => {
         const { props } = useMessage({ components, onMessageAction });
 
         (props as { onClose: () => void }).onClose();
-        expect(notifyMessageInteraction).toHaveBeenCalledTimes(1);
-        expect(notifyMessageInteraction).toHaveBeenCalledWith({
+        expect(notifyMessageInteractionSpy).toHaveBeenCalledTimes(1);
+        expect(notifyMessageInteractionSpy).toHaveBeenCalledWith({
           type: 'messageDismissed',
           message,
         });
@@ -204,8 +198,8 @@ describe('useMessage', () => {
 
         (props as TestMessageProps).onDisplay();
 
-        expect(notifyMessageInteraction).toHaveBeenCalledTimes(1);
-        expect(notifyMessageInteraction).toHaveBeenCalledWith({
+        expect(notifyMessageInteractionSpy).toHaveBeenCalledTimes(1);
+        expect(notifyMessageInteractionSpy).toHaveBeenCalledWith({
           message,
           type: 'messageDisplayed',
         });
@@ -222,8 +216,8 @@ describe('useMessage', () => {
 
         jest.runAllTimers();
 
-        expect(notifyMessageInteraction).toHaveBeenCalledTimes(1);
-        expect(notifyMessageInteraction).toHaveBeenCalledWith({
+        expect(notifyMessageInteractionSpy).toHaveBeenCalledTimes(1);
+        expect(notifyMessageInteractionSpy).toHaveBeenCalledWith({
           message,
           type: 'messageActionTaken',
         });
