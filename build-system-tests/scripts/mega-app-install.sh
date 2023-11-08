@@ -9,8 +9,8 @@ FRAMEWORK="react"
 FRAMEWORK_VERSION="latest"
 PKG_MANAGER="npm"
 PKG_MANAGER_VERSION="latest"
-UI_VERSION="mjs-test"
-AMPLIFY_VERSION="mjs-test"
+UI_VERSION="next-release"
+AMPLIFY_VERSION="unstable"
 
 # Import install function
 source "./scripts/install-with-retries.sh"
