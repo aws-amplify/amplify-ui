@@ -73,7 +73,7 @@ exports[`SetupTOTP renders loading text as expected on init 1`] = `
             
             <!-- textfield input -->
             <div
-              class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield amplify-authenticator__column"
+              class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield"
             >
               
               <label
@@ -261,7 +261,7 @@ exports[`SetupTOTP renders qrcode image as expected after onMounted is done 1`] 
             
             <!-- textfield input -->
             <div
-              class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield amplify-authenticator__column"
+              class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield"
             >
               
               <label

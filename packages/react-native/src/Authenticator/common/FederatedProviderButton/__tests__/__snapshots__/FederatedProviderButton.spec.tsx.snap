@@ -3,6 +3,23 @@
 exports[`FederatedProviderButton applies style props 1`] = `
 <View
   accessibilityRole="button"
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
   accessible={true}
   collapsable={false}
   focusable={true}
@@ -16,30 +33,24 @@ exports[`FederatedProviderButton applies style props 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "center",
         "backgroundColor": "transparent",
         "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
         "borderWidth": 1,
+        "flexDirection": "row",
+        "gap": 12,
         "justifyContent": "center",
         "paddingHorizontal": 16,
         "paddingVertical": 12,
       },
       undefined,
-      Array [
-        Object {
-          "alignItems": "center",
-          "borderRadius": 4,
-          "borderWidth": 0.5,
-          "flexDirection": "row",
-          "justifyContent": "center",
-          "paddingVertical": 8,
-          "width": "100%",
-        },
+      [
         undefined,
-        Object {
+        undefined,
+        {
           "backgroundColor": "blue",
         },
       ],
@@ -48,41 +59,37 @@ exports[`FederatedProviderButton applies style props 1`] = `
 >
   <Image
     accessibilityRole="image"
+    accessible={true}
     source={
-      Object {
-        "testUri": "../../../src/assets/icons/amazonLogo.png",
+      {
+        "uri": "amazonLogo",
       }
     }
     style={
-      Array [
-        Object {
+      [
+        {
           "height": 20,
           "resizeMode": "contain",
           "tintColor": undefined,
           "width": 20,
         },
-        Object {
-          "paddingHorizontal": 16,
-        },
+        undefined,
       ]
     }
   />
   <Text
     accessibilityRole="text"
     style={
-      Array [
-        Object {
+      [
+        {
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "hsl(210, 50%, 10%)",
         },
-        Array [
-          Object {
-            "fontWeight": "400",
-          },
+        [
           undefined,
         ],
       ]
@@ -96,6 +103,23 @@ exports[`FederatedProviderButton applies style props 1`] = `
 exports[`FederatedProviderButton renders default button as expected 1`] = `
 <View
   accessibilityRole="button"
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
   accessible={true}
   collapsable={false}
   focusable={true}
@@ -109,28 +133,22 @@ exports[`FederatedProviderButton renders default button as expected 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "center",
         "backgroundColor": "transparent",
         "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
         "borderWidth": 1,
+        "flexDirection": "row",
+        "gap": 12,
         "justifyContent": "center",
         "paddingHorizontal": 16,
         "paddingVertical": 12,
       },
       undefined,
-      Array [
-        Object {
-          "alignItems": "center",
-          "borderRadius": 4,
-          "borderWidth": 0.5,
-          "flexDirection": "row",
-          "justifyContent": "center",
-          "paddingVertical": 8,
-          "width": "100%",
-        },
+      [
+        undefined,
         undefined,
         undefined,
       ],
@@ -139,41 +157,37 @@ exports[`FederatedProviderButton renders default button as expected 1`] = `
 >
   <Image
     accessibilityRole="image"
+    accessible={true}
     source={
-      Object {
-        "testUri": "../../../src/assets/icons/amazonLogo.png",
+      {
+        "uri": "amazonLogo",
       }
     }
     style={
-      Array [
-        Object {
+      [
+        {
           "height": 20,
           "resizeMode": "contain",
           "tintColor": undefined,
           "width": 20,
         },
-        Object {
-          "paddingHorizontal": 16,
-        },
+        undefined,
       ]
     }
   />
   <Text
     accessibilityRole="text"
     style={
-      Array [
-        Object {
+      [
+        {
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "hsl(210, 50%, 10%)",
         },
-        Array [
-          Object {
-            "fontWeight": "400",
-          },
+        [
           undefined,
         ],
       ]

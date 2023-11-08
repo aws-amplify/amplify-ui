@@ -1,8 +1,9 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
+import { ComponentClassName } from '@aws-amplify/ui';
+
 import { View } from '../View';
-import { ComponentClassNames } from '../shared/constants';
 import { classNameModifierByFlag } from '../shared/utils';
 import type {
   ForwardRefPrimitive,
@@ -10,6 +11,7 @@ import type {
   AutocompleteOptionProps,
   BaseAutocompleteOptionProps,
 } from '../types';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const AutocompleteOptionPrimitive: Primitive<AutocompleteOptionProps, 'li'> = (
   { children, className, isActive, ...rest },
@@ -21,9 +23,9 @@ const AutocompleteOptionPrimitive: Primitive<AutocompleteOptionProps, 'li'> = (
       as="li"
       role="option"
       className={classNames(
-        ComponentClassNames.AutocompleteMenuOption,
+        ComponentClassName.AutocompleteMenuOption,
         classNameModifierByFlag(
-          ComponentClassNames.AutocompleteMenuOption,
+          ComponentClassName.AutocompleteMenuOption,
           'active',
           isActive
         ),
@@ -40,6 +42,6 @@ const AutocompleteOptionPrimitive: Primitive<AutocompleteOptionProps, 'li'> = (
 export const AutocompleteOption: ForwardRefPrimitive<
   BaseAutocompleteOptionProps,
   'li'
-> = React.forwardRef(AutocompleteOptionPrimitive);
+> = primitiveWithForwardRef(AutocompleteOptionPrimitive);
 
 AutocompleteOption.displayName = 'AutocompleteOption';

@@ -1,30 +1,29 @@
 import { Fragment } from '@/components/Fragment'; 
 import {
-  Tabs,
-  TabItem,
-  Flex,
-  Text,
-  IconEmail,
   Badge,
+  Flex,
+  IconEmail,
+  Message,
+  Tabs,
+  Text,
 } from '@aws-amplify/ui-react';
 import { TabsDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
 import {
   AriaLabel,
   BadgeIcons,
-  BasicTabs,
+  ComposedTabsExample,
   ControlledTabExample,
   DataAttributeStyles,
   DefaultTabUncontrolled,
   DisabledTabs,
   IndicatorPosition,
   JustifyContent,
+  LazyTabsExample,
   OverrideStyleClasses,
-  PseudoStyles,
   Spacing,
   StyleProps,
   TabsThemeExample,
-  Title,
 } from './examples';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import ThemeExample from '@/components/ThemeExample.mdx';
@@ -35,23 +34,11 @@ import ThemeExample from '@/components/ThemeExample.mdx';
 
 ## Usage
 
-Import the `Tabs` and `TabItem` components.
+<Message colorTheme="info">
+The Tabs component had some breaking changes in v6. Please see the migration docs for more information. 
+</Message>
 
-<Example>
-  <BasicTabs />
-  <ExampleCode>
-    ```jsx file=./examples/BasicTabs.tsx
-
-    ```
-
-</ExampleCode>
-</Example>
-
-The `Tabs` component accepts `TabItems` as children. Each `TabItem` contains both the Tab's `title` and its corresponding content panel (children). Children passed to `TabItem` are responsible for their own styling.
-
-### Default Tab (uncontrolled)
-
-In the `Tabs` component, use the `defaultIndex` prop to change which Tab content is initially displayed. Pass in the index of the Tab you wish to show. The default is index 0 (the first tab).
+Import the `Tabs` component and pass an array of items and a `defaultValue`.
 
 <Example>
   <DefaultTabUncontrolled />
@@ -63,9 +50,13 @@ In the `Tabs` component, use the `defaultIndex` prop to change which Tab content
 </ExampleCode>
 </Example>
 
-### Current Index and onChange (controlled)
+### Controlled Tabs
 
-The tabs component also works as a controlled component. This allows you to programmatically set the current tab
+The Tabs component also works as a controlled component. This allows you to programmatically set the current tab by setting the `value` prop. You can also use the `onValueChange` handler to know when a Tab would change.
+
+<Message colorTheme="info">
+Always include a `defaultValue` or `value` prop. If both are undefined, no initial tab is selected!
+</Message>
 
 <Example>
   <ControlledTabExample />
@@ -77,7 +68,20 @@ The tabs component also works as a controlled component. This allows you to prog
 </ExampleCode>
 </Example>
 
-### Grow
+### Lazy loading tabs
+
+By default, each tab's content is always rendered into the DOM and hidden with CSS. This allows search engines and users (using cmd/ctrl+F) to see all the tab content. Sometimes this is not preferrable and you would rather only load tab content when a tab is shown. To do that use the `isLazy` prop. 
+
+<Example>
+<LazyTabsExample />
+<ExampleCode>
+```jsx file=./examples/LazyTabsExample.tsx
+```
+</ExampleCode>
+</Example>
+
+
+### Tab spacing
 
 In the `Tabs` component, use the `spacing` prop to control how Tabs take up the remaining space. Pass `equal` to make each tab take up the same amount of space, and `relative` to make each tab take up space relative to the size of its title.
 
@@ -107,31 +111,6 @@ Note: this prop only has an effect if the `spacing` prop is not set, otherwise t
 </ExampleCode>
 </Example>
 
-### Title
-
-In the `TabItem` component, use the **required** `title` prop to change the title corresponding with each Tab's content panel. For styling purposes, you may pass your own custom component if you wish.
-
-<Example>
-  <Title />
-  <ExampleCode>
-    ```jsx file=./examples/Title.tsx
-
-    ```
-
-</ExampleCode>
-</Example>
-
-You can also add badges and icons in the `TabItem` by passing custom components to the `title` prop.
-
-<Example>
-  <BadgeIcons />
-  <ExampleCode>
-    ```jsx file=./examples/BadgeIcons.tsx
-
-    ```
-
-</ExampleCode>
-</Example>
 
 ### Indicator Position
 
@@ -161,7 +140,39 @@ In the `TabItem` component, use the `isDisabled` prop to make a Tab not clickabl
 </ExampleCode>
 </Example>
 
-## CSS Styling
+## Composable
+
+The Tabs component is composable so you can rearrange parts of the tabs or access any props for each sub-component. Here are the composable parts of the Tabs component:
+
+* `<Tabs.Container>`: outermost element to wrap all the pieces
+* `<Tabs.List>`: the tab bar that contains the tabs
+* `<Tabs.Item>`: each individual tab in the tab bar
+* `<Tabs.Panel>`: the content for each tab
+
+There should be a 1-to-1 relationship between `<Tabs.Item>`s and `<Tabs.Panel>`s. The corresponding item/panel should have the same value. 
+
+All of the visual props, `indicatorPosition`, `spacing`, `justifyContent`, should be placed on the `<Tabs.List>` element. The other props like `defaultValue` and `isLazy` should go on the `<Tabs.Container>` element.
+
+<Example>
+<ComposedTabsExample />
+<ExampleCode>
+```jsx file=./examples/ComposedTabsExample.tsx
+```
+</ExampleCode>
+</Example>
+
+With the composable interface you can add elements to the tabs like badges and icons
+
+<Example>
+<BadgeIcons />
+<ExampleCode>
+```jsx file=./examples/BadgeIcons.tsx
+```
+</ExampleCode>
+</Example>
+
+
+## Styling
 
 <ThemeExample component="Tabs">
   <Example>
@@ -183,12 +194,10 @@ In the `TabItem` component, use the `isDisabled` prop to make a Tab not clickabl
 
 ### Global styling
 
-To override styling on all `Tabs` or `TabItems`, you can set the Amplify CSS variables, use the built-in `.amplify-tabs` or `.amplify-tabs-items`classes, or use pseudo-classes.
-
-Note that children of `TabItem` must be responsible for their own styling.
+To override styling on all Tabs components, you can set Amplify CSS variables or use the target classes like `.amplify-tabs` class.
 
 <Example className="global-tabs-example">
-  <BasicTabs />
+  <DefaultTabUncontrolled />
   <ExampleCode>
     ```css
     /* styles.css */
@@ -207,7 +216,7 @@ Note that children of `TabItem` must be responsible for their own styling.
       background-color: var(--amplify-colors-background-secondary);
     }
 
-    .amplify-tabs-item {
+    .amplify-tabs__item {
       background-color: var(--amplify-colors-background-primary);
     }
     ```
@@ -215,30 +224,6 @@ Note that children of `TabItem` must be responsible for their own styling.
 </ExampleCode>
 </Example>
 
-#### Using pseudo-classes
-
-<Example className="pseudo-demo">
-  <PseudoStyles />
-<ExampleCode>
-```css
-/* styles.css */
-.amplify-tabs-item:hover {
-  background-color: var(--amplify-colors-background-primary);
-  border-color: var(--amplify-colors-purple-60);
-}
-
-.amplify-tabs-item[data-state='active'] {
-background-color: var(--amplify-colors-background-primary);
-border-color: var(--amplify-colors-pink-60);
-}
-
-.amplify-tabs-item:focus {
-background-color: var(--amplify-colors-pink-10);
-}
-
-````
-</ExampleCode>
-</Example>
 
 To replace the Tabs styling, unset it:
 
@@ -248,7 +233,7 @@ To replace the Tabs styling, unset it:
   /* Add your styling here*/
 }
 
-.amplify-tabs-items {
+.amplify-tabs__item {
   all: unset;
   /* Add your styling here*/
 }
@@ -256,7 +241,7 @@ To replace the Tabs styling, unset it:
 
 ### Local styling
 
-To override styling on a specific `Tabs` or `TabItem` component, you can use (in order of increasing specificity): a class selector, data attributes, or style props.
+To override styling on a specific `Tabs` component, you can use (in order of increasing specificity): a class selector or style props.
 
 #### Using a class selector
 
@@ -282,34 +267,13 @@ color: var(--amplify-colors-font-inverse);
 background-color: var(--amplify-colors-brand-primary-90);
 }
 
-.custom-tab-item[data-state='active'] {
+.custom-tab-item[aria-selected='true'] {
 color: var(--amplify-colors-font-inverse);
 border-color: transparent;
 background-color: var(--amplify-colors-brand-primary-100);
 }
 
-````
-  </ExampleCode>
-</Example>
-
-#### Using data attributes
-
-<Example className="tabs-data-demo">
-  <DataAttributeStyles />
-  <ExampleCode>
-```css
-/* styles.css */
-/* When a Tab is selected and displaying its corresponding content panel */
-.amplify-tabs-item[data-state='active'] {
-  background-color: var(--amplify-colors-brand-primary-20);
-}
-
-/* When a Tab is disabled */
-.amplify-tabs-item[data-disabled] {
-  background-color: var(--amplify-colors-background-tertiary);
-}
 ```
-
   </ExampleCode>
 </Example>
 

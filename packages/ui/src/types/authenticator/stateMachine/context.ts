@@ -1,11 +1,6 @@
 import { ValidationError } from '../validator';
-import { AuthFormData, AuthFormFields } from '../form';
-import {
-  AuthChallengeName,
-  AmplifyUser,
-  UnverifiedContactMethods,
-} from '../user';
-import { CodeDeliveryDetails as CognitoCodeDeliveryDetails } from 'amazon-cognito-identity-js';
+import { AuthFormData, AuthFormFields, AuthTouchData } from '../form';
+import { ChallengeName, AmplifyUser, UnverifiedContactMethods } from '../user';
 import { LoginMechanism, SignUpAttribute, SocialProvider } from '../attributes';
 import { defaultServices } from '../../../machines/authenticator/defaultServices';
 import { PasswordSettings } from '..';
@@ -21,6 +16,21 @@ export interface ActorDoneData {
   /** User returned by the actor it's done */
   user?: AmplifyUser;
 }
+
+/**
+ * Authenticator routes that can be directly navigated to by user interaction.
+ */
+export type NavigableRoute = 'signIn' | 'signUp' | 'resetPassword';
+export type InitialRoute = 'signIn' | 'signUp' | 'resetPassword';
+
+/**
+ * Authenticator routes that have default links
+ */
+export type NavigationRoute =
+  | 'resetPassword'
+  | 'setupTOTP'
+  | 'signIn'
+  | 'signUp';
 
 /**
  * Context interface for the top-level machine
@@ -49,7 +59,15 @@ export interface AuthContext {
   hasSetup?: boolean;
 }
 
-export interface CodeDeliveryDetails extends CognitoCodeDeliveryDetails {}
+/**
+ * `AuthDeliveryMedium` is deeply nested in the v6 types, added this as utility
+ */
+export type V6AuthDeliveryMedium = 'EMAIL' | 'SMS' | 'PHONE' | 'UNKNOWN';
+export interface CodeDeliveryDetails {
+  AttributeName: string;
+  DeliveryMedium: V6AuthDeliveryMedium;
+  Destination: string;
+}
 
 /**
  * Base context for all actors that have auth forms associated
@@ -58,13 +76,13 @@ interface BaseFormContext {
   /** Any user attributes set that needs to persist between states */
   authAttributes?: Record<string, any>;
   /** Current challengeName issued by Cognnito */
-  challengeName?: AuthChallengeName;
+  challengeName?: ChallengeName;
   /** Required attributes for form submission */
   requiredAttributes?: Array<string>;
   /** Maps each input name to tis value */
   formValues?: AuthFormData;
   /** Input (names) that has been blurred at least ones */
-  touched?: AuthFormData;
+  touched?: AuthTouchData;
   /** String that indicates where authMachine should next transition to */
   intent?: string;
   /** Error returned from remote service / API */
@@ -91,6 +109,7 @@ export interface SignInContext extends BaseFormContext {
   attributeToVerify?: string;
   redirectIntent?: string;
   unverifiedContactMethods?: UnverifiedContactMethods;
+  signUpAttributes?: SignUpAttribute[];
 }
 export interface SignUpContext extends BaseFormContext {
   loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];
@@ -107,7 +126,7 @@ export interface ResetPasswordContext extends BaseFormContext {
 
 export interface SignOutContext {
   authAttributes?: Record<string, any>;
-  challengeName?: AuthChallengeName;
+  challengeName?: ChallengeName;
   unverifiedContactMethods?: UnverifiedContactMethods;
   user?: AmplifyUser;
   formFields?: AuthFormFields;

@@ -4,13 +4,14 @@ import * as React from 'react';
 import { View } from '../View';
 import { strHasLength } from '../shared/utils';
 import { getTestId } from '../utils/getTestId';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import type {
   BaseHighlightMatchProps,
   HighlightMatchProps,
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 export const HighlightMatchPrimitive: Primitive<HighlightMatchProps, 'span'> = (
   { children, className, query, testId, ...rest },
@@ -26,7 +27,7 @@ export const HighlightMatchPrimitive: Primitive<HighlightMatchProps, 'span'> = (
     return (
       <View
         as="span"
-        className={classNames(className, ComponentClassNames.HighlightMatch)}
+        className={classNames(className, ComponentClassName.HighlightMatch)}
         testId={testId}
         ref={ref}
         {...rest}
@@ -34,7 +35,7 @@ export const HighlightMatchPrimitive: Primitive<HighlightMatchProps, 'span'> = (
         {children.substring(0, startIndex)}
         <View
           as="strong"
-          className={ComponentClassNames.HighlightMatchHighlighted}
+          className={ComponentClassName.HighlightMatchHighlighted}
           testId={matchTestId}
         >
           {match}
@@ -57,6 +58,6 @@ export const HighlightMatchPrimitive: Primitive<HighlightMatchProps, 'span'> = (
 export const HighlightMatch: ForwardRefPrimitive<
   BaseHighlightMatchProps,
   'span'
-> = React.forwardRef(HighlightMatchPrimitive);
+> = primitiveWithForwardRef(HighlightMatchPrimitive);
 
 HighlightMatch.displayName = 'HighlightMatch';

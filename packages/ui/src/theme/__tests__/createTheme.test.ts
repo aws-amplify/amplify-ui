@@ -165,9 +165,39 @@ describe('@aws-amplify/ui', () => {
           {
             name: 'test-theme',
             tokens: {
-              colors: { fuschia: { 10: 'fuschia', 20: { value: 'fuschia' } } },
+              // we still have control over the top-level keys in the tokens object
+              // @ts-expect-error
+              foo: 'bar',
+              borderWidths: {
+                small: '1px',
+                big: '2px',
+              },
+              fontSizes: {
+                big: '24px',
+                2: { value: '24px' },
+              },
+              colors: {
+                fuschia: { 10: 'fuschia', 20: { value: 'fuschia' } },
+                red: {
+                  10: 'red',
+                  '20': 'blue',
+                },
+              },
+            },
+            space: {
+              small: '1px',
+              superHuge: '2px',
+              superDuperHuge: { value: '4px' },
+              relative: {
+                small: { value: '1px' },
+              },
+            },
+            fontWeights: {
+              bold: 250,
+              bolder: 'foo',
             },
           },
+
           theme
         );
         const { tokens } = newTheme;

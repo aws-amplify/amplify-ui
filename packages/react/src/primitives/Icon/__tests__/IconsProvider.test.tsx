@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { IconsProvider } from '../context';
 import { Alert } from '../../Alert';
 import { View } from '../../View';
-import { Expander, ExpanderItem } from '../../Expander';
+import { Accordion } from '../../Accordion';
 import { Checkbox } from '../../Checkbox';
 import { Menu } from '../../Menu';
 import { FieldClearButton } from '../../Field';
@@ -55,14 +55,20 @@ describe('IconsProvider', () => {
     render(
       <IconsProvider
         icons={{
-          expander: {
+          accordion: {
             more: <View testId="more" />,
           },
         }}
       >
-        <Expander>
-          <ExpanderItem value="1" />
-        </Expander>
+        <Accordion.Container>
+          <Accordion.Item value="1">
+            <Accordion.Trigger>
+              Trigger
+              <Accordion.Icon />
+            </Accordion.Trigger>
+            <Accordion.Content>Content</Accordion.Content>
+          </Accordion.Item>
+        </Accordion.Container>
       </IconsProvider>
     );
     expect(screen.getByTestId('more')).toBeInTheDocument();

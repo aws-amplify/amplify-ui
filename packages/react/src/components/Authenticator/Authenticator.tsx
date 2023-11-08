@@ -2,7 +2,6 @@ import * as React from 'react';
 import {
   AuthenticatorMachineOptions,
   AmplifyUser,
-  configureComponent,
   isFunction,
   FormFieldComponents,
   FormFieldOptions,
@@ -13,6 +12,7 @@ import {
   useAuthenticator,
   UseAuthenticator,
   useAuthenticatorInitMachine,
+  useSetUserAgent,
 } from '@aws-amplify/ui-react-core';
 
 import { VERSION } from '../../version';
@@ -80,7 +80,11 @@ export function AuthenticatorInternal({
   useDeprecationWarning({
     message:
       'The `passwordSettings` prop has been deprecated and will be removed in a future major version of Amplify UI.',
-    shouldWarn: !!passwordSettings,
+    // shouldWarn: !!passwordSettings,
+    /**
+     * @migration turn off until getConfig returns zero config
+     */
+    shouldWarn: false,
   });
 
   const { route, signOut, user } = useAuthenticator(
@@ -90,6 +94,7 @@ export function AuthenticatorInternal({
   useAuthenticatorInitMachine({
     initialState,
     loginMechanisms,
+    passwordSettings,
     services,
     signUpAttributes,
     socialProviders,
@@ -133,12 +138,11 @@ export function AuthenticatorInternal({
  * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/authenticator)
  */
 export function Authenticator(props: AuthenticatorProps): JSX.Element {
-  React.useEffect(() => {
-    configureComponent({
-      packageName: '@aws-amplify/ui-react',
-      version: VERSION,
-    });
-  }, []);
+  useSetUserAgent({
+    componentName: 'Authenticator',
+    packageName: 'react',
+    version: VERSION,
+  });
 
   return (
     <Provider>

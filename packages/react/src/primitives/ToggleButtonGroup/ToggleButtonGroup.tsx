@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { Flex } from '../Flex';
 import {
   Primitive,
@@ -11,6 +11,7 @@ import {
   ToggleButtonGroupProps,
 } from '../types';
 import { useToggleButtonGroup } from './useToggleButtonGroup';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { isString } from '@aws-amplify/ui';
 
 const ToggleButtonGroupPrimitive: Primitive<ToggleButtonGroupProps, 'div'> = (
@@ -36,7 +37,7 @@ const ToggleButtonGroupPrimitive: Primitive<ToggleButtonGroupProps, 'div'> = (
 
   return (
     <Flex
-      className={classNames(ComponentClassNames.ToggleButtonGroup, className)}
+      className={classNames(ComponentClassName.ToggleButtonGroup, className)}
       ref={ref}
       role="group"
       {...rest}
@@ -65,6 +66,6 @@ const ToggleButtonGroupPrimitive: Primitive<ToggleButtonGroupProps, 'div'> = (
 export const ToggleButtonGroup: ForwardRefPrimitive<
   BaseToggleButtonGroupProps,
   'div'
-> = React.forwardRef(ToggleButtonGroupPrimitive);
+> = primitiveWithForwardRef(ToggleButtonGroupPrimitive);
 
 ToggleButtonGroup.displayName = 'ToggleButtonGroup';

@@ -2,12 +2,14 @@ import classNames from 'classnames';
 import * as React from 'react';
 import debounce from 'lodash/debounce.js';
 
+import { ComponentClassName } from '@aws-amplify/ui';
+
 import { Flex } from '../Flex';
 import { Grid } from '../Grid';
 import { Text } from '../Text';
 import { Pagination, usePagination } from '../Pagination';
 import { SearchField } from '../SearchField';
-import { ComponentClassNames, ComponentText } from '../shared/constants';
+import { ComponentText } from '../shared/constants';
 import { strHasLength } from '../shared/utils';
 import {
   BaseCollectionProps,
@@ -102,13 +104,13 @@ export const Collection = <Item, Element extends ElementType>({
   const collection =
     type === 'list' ? (
       <ListCollection
-        className={ComponentClassNames.CollectionItems}
+        className={ComponentClassName.CollectionItems}
         items={items}
         {...rest}
       />
     ) : type === 'grid' ? (
       <GridCollection
-        className={ComponentClassNames.CollectionItems}
+        className={ComponentClassName.CollectionItems}
         items={items}
         {...rest}
       />
@@ -117,10 +119,10 @@ export const Collection = <Item, Element extends ElementType>({
   return (
     <Flex
       testId={testId}
-      className={classNames(ComponentClassNames.Collection, className)}
+      className={classNames(ComponentClassName.Collection, className)}
     >
       {isSearchable ? (
-        <Flex className={ComponentClassNames.CollectionSearch}>
+        <Flex className={ComponentClassName.CollectionSearch}>
           <SearchField
             label={searchLabel}
             placeholder={searchPlaceholder}
@@ -139,7 +141,7 @@ export const Collection = <Item, Element extends ElementType>({
       )}
 
       {isPaginated ? (
-        <Flex className={ComponentClassNames.CollectionPagination}>
+        <Flex className={ComponentClassName.CollectionPagination}>
           <Pagination {...pagination} />
         </Flex>
       ) : null}

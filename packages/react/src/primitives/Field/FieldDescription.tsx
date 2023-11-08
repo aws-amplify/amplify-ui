@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { BaseFieldDescriptionProps } from '../types';
 import { Text } from '../Text';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 export const QA_FIELD_DESCRIPTION = 'qa-field-description';
 
@@ -15,8 +15,8 @@ export const FieldDescription: React.FC<BaseFieldDescriptionProps> = ({
   descriptiveText ? (
     <Text
       data-testid={QA_FIELD_DESCRIPTION}
-      className={classNames(ComponentClassNames.FieldDescription, {
-        [ComponentClassNames.VisuallyHidden]: labelHidden,
+      className={classNames(ComponentClassName.FieldDescription, {
+        [ComponentClassName.VisuallyHidden]: labelHidden,
       })}
       {...rest}
     >

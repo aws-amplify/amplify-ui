@@ -2,7 +2,7 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { DEFAULT_ROW_COUNT, TextAreaField } from '../TextAreaField';
 import {
   testFlexProps,
@@ -27,8 +27,8 @@ describe('TextAreaField component', () => {
 
       const field = await screen.findByTestId(testId);
       expect(field).toHaveClass(customClassName);
-      expect(field).toHaveClass(ComponentClassNames.Field);
-      expect(field).toHaveClass(ComponentClassNames.TextAreaField);
+      expect(field).toHaveClass(ComponentClassName.Field);
+      expect(field).toHaveClass(ComponentClassName.TextAreaField);
     });
 
     it('should render all flex style props', async () => {
@@ -45,7 +45,7 @@ describe('TextAreaField component', () => {
       render(<TextAreaField label="Field" />);
 
       const label = await screen.findByText('Field');
-      expect(label).toHaveClass(ComponentClassNames.Label);
+      expect(label).toHaveClass(ComponentClassName.Label);
     });
 
     it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
@@ -67,7 +67,7 @@ describe('TextAreaField component', () => {
       );
       const field = await screen.findByLabelText(label);
       expect(field.tagName).toBe('TEXTAREA');
-      expect(field).toHaveClass(ComponentClassNames.Textarea);
+      expect(field).toHaveClass(ComponentClassName.Textarea);
       expect(field.id).toBe('testField');
     });
 
@@ -83,7 +83,7 @@ describe('TextAreaField component', () => {
       render(<TextAreaField label={label} defaultValue="Hello there" />);
       const field = await screen.findByLabelText(label);
       expect(field.id.startsWith(AUTO_GENERATED_ID_PREFIX)).toBe(true);
-      expect(field).toHaveClass(ComponentClassNames.Textarea);
+      expect(field).toHaveClass(ComponentClassName.Textarea);
     });
 
     it('should render the state attributes', async () => {
@@ -115,7 +115,7 @@ describe('TextAreaField component', () => {
       expect(field).toHaveAttribute('rows', String(rowCount));
     });
 
-    it('should set size and variation data attributes', async () => {
+    it('should set size and variation classes', async () => {
       render(
         <TextAreaField
           label="Field"
@@ -127,8 +127,8 @@ describe('TextAreaField component', () => {
 
       const textAreaField = await screen.findByTestId('testField');
       const textArea = await screen.findByRole('textbox');
-      expect(textAreaField).toHaveAttribute('data-size', 'small');
-      expect(textArea).toHaveAttribute('data-variation', 'quiet');
+      expect(textAreaField).toHaveClass(`${ComponentClassName.Field}--small`);
+      expect(textArea).toHaveClass(`${ComponentClassName.Textarea}--small`);
     });
 
     it('should render size classes for TextAreaField', async () => {
@@ -143,10 +143,10 @@ describe('TextAreaField component', () => {
       const large = await screen.findByTestId('large');
 
       expect(small.classList).toContain(
-        `${ComponentClassNames['Field']}--small`
+        `${ComponentClassName['Field']}--small`
       );
       expect(large.classList).toContain(
-        `${ComponentClassNames['Field']}--large`
+        `${ComponentClassName['Field']}--large`
       );
     });
 
@@ -190,7 +190,8 @@ describe('TextAreaField component', () => {
       );
       const field = await screen.findByRole('textbox');
       userEvent.type(field, 'hello');
-      userEvent.paste(field, 'there');
+      // userEvent.paste(field, 'there');
+      userEvent.paste('there');
       expect(onChange).toHaveBeenCalled();
       expect(onInput).toHaveBeenCalled();
       expect(onPaste).toHaveBeenCalled();

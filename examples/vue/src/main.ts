@@ -1,4 +1,5 @@
-import { Amplify, Hub } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import { Hub } from 'aws-amplify/utils';
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';

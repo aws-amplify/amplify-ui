@@ -20,6 +20,11 @@ export const DELETE_USER = [
     description: 'Custom components override',
     type: `DeleteUserComponents`,
   },
+  {
+    name: `displayText?`,
+    description: 'Text to override in the component',
+    type: `DeleteUserDisplayText`,
+  },
 ];
 
 export const OVERRIDES = [
@@ -63,7 +68,8 @@ export const WARNING = [
   },
   {
     name: `onConfirm`,
-    description: 'Callback function triggered when user confirms account deletion',
+    description:
+      'Callback function triggered when user confirms account deletion',
     type: `() => void`,
   },
   {

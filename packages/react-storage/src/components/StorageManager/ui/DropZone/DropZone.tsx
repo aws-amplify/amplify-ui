@@ -1,7 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { View, ComponentClassNames, Text } from '@aws-amplify/ui-react';
+import { ComponentClassName } from '@aws-amplify/ui';
+import { View, Text } from '@aws-amplify/ui-react';
 import { classNameModifier } from '@aws-amplify/ui';
 import { IconUpload, useIcons } from '@aws-amplify/ui-react/internal';
 import { DropZoneProps } from './types';
@@ -25,10 +26,10 @@ export function DropZone({
       className={classNames(
         inDropZone &&
           classNameModifier(
-            ComponentClassNames.StorageManagerDropZone,
+            ComponentClassName.StorageManagerDropZone,
             'active'
           ),
-        ComponentClassNames.StorageManagerDropZone
+        ComponentClassName.StorageManagerDropZone
       )}
       data-testid={testId}
       onDragStart={onDragStart}
@@ -40,12 +41,12 @@ export function DropZone({
       <View
         as="span"
         aria-hidden
-        className={ComponentClassNames.StorageManagerDropZoneIcon}
+        className={ComponentClassName.StorageManagerDropZoneIcon}
       >
         {icons?.upload ?? <IconUpload />}
       </View>
 
-      <Text className={ComponentClassNames.StorageManagerDropZoneText}>
+      <Text className={ComponentClassName.StorageManagerDropZoneText}>
         {dropFilesText}
       </Text>
       {children}

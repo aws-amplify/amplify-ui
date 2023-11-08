@@ -1,3 +1,6 @@
+// disable `@typescript-eslint/no-var-requires` for this file
+// .png icons will be removed in favor of .svg icons
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { ImageSourcePropType } from 'react-native';
 
 const icons = {

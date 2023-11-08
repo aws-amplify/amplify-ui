@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { Notifications } from '@aws-amplify/notifications';
+import { onMessageReceived } from 'aws-amplify/in-app-messaging';
 import {
   InAppMessagingContext,
   InAppMessagingContextType,
@@ -15,8 +15,6 @@ export interface InAppMessagingProviderProps {
   children: ReactNode;
 }
 
-const { InAppMessaging } = Notifications;
-
 export default function InAppMessagingProvider({
   children,
 }: InAppMessagingProviderProps): JSX.Element {
@@ -24,9 +22,7 @@ export default function InAppMessagingProvider({
     useState<InAppMessagingContextType['message']>(null);
 
   useEffect(() => {
-    const listener = InAppMessaging.onMessageReceived((message) => {
-      setMessage(message);
-    });
+    const listener = onMessageReceived(setMessage);
     return listener.remove;
   }, []);
 

@@ -4,7 +4,6 @@ exports[`FederatedSignInButton renders as expected with { provider: 'Facebook', 
 <div>
   <button
     class="amplify-button amplify-field-group__control federated-sign-in-button"
-    data-fullwidth="false"
     style="font-weight: var(--amplify-font-weights-normal); gap: 1rem;"
     type="button"
   >
@@ -21,7 +20,6 @@ exports[`FederatedSignInButton renders as expected with { provider: 'Google', te
 <div>
   <button
     class="amplify-button amplify-field-group__control federated-sign-in-button"
-    data-fullwidth="false"
     style="font-weight: var(--amplify-font-weights-normal); gap: 1rem;"
     type="button"
   >
@@ -38,7 +36,6 @@ exports[`FederatedSignInButton renders as expected with { provider: 'LoginWithAm
 <div>
   <button
     class="amplify-button amplify-field-group__control federated-sign-in-button"
-    data-fullwidth="false"
     style="font-weight: var(--amplify-font-weights-normal); gap: 1rem;"
     type="button"
   >
@@ -55,7 +52,6 @@ exports[`FederatedSignInButton renders as expected with { provider: 'SignInWithA
 <div>
   <button
     class="amplify-button amplify-field-group__control federated-sign-in-button"
-    data-fullwidth="false"
     style="font-weight: var(--amplify-font-weights-normal); gap: 1rem;"
     type="button"
   >

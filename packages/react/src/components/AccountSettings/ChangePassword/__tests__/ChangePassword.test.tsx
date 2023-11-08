@@ -7,6 +7,15 @@ import ChangePassword from '../ChangePassword';
 import { Button } from '../../../../primitives';
 import { ChangePasswordComponents } from '../types';
 import { ComponentClassName } from '../../constants';
+import { defaultChangePasswordDisplayText } from '../../utils';
+import AccountSettings from '../../AccountSettings';
+
+const {
+  confirmPasswordFieldLabel,
+  currentPasswordFieldLabel,
+  newPasswordFieldLabel,
+  updatePasswordButtonText,
+} = defaultChangePasswordDisplayText;
 
 const components: ChangePasswordComponents = {
   CurrentPasswordField: (props) => (
@@ -70,10 +79,12 @@ describe('ChangePassword', () => {
     const onSuccess = jest.fn();
     render(<ChangePassword onSuccess={onSuccess} />);
 
-    const currentPassword = await screen.findByLabelText('Current Password');
-    const newPassword = await screen.findByLabelText('New Password');
+    const currentPassword = await screen.findByLabelText(
+      currentPasswordFieldLabel
+    );
+    const newPassword = await screen.findByLabelText(newPasswordFieldLabel);
     const submitButton = await screen.findByRole('button', {
-      name: 'Update password',
+      name: updatePasswordButtonText,
     });
 
     fireEvent.input(currentPassword, {
@@ -86,8 +97,7 @@ describe('ChangePassword', () => {
 
     fireEvent.submit(submitButton);
 
-    expect(changePasswordSpy).toBeCalledWith({
-      user,
+    expect(changePasswordSpy).toHaveBeenCalledWith({
       currentPassword: 'oldpassword',
       newPassword: 'newpassword',
     });
@@ -100,13 +110,13 @@ describe('ChangePassword', () => {
     render(<ChangePassword onSuccess={onSuccess} />);
 
     const submitButton = await screen.findByRole('button', {
-      name: 'Update password',
+      name: updatePasswordButtonText,
     });
     fireEvent.submit(submitButton);
 
     // submit handling is async, wait for onSuccess to be called
     // https://testing-library.com/docs/dom-testing-library/api-async/#waitfor
-    await waitFor(() => expect(onSuccess).toBeCalledTimes(1));
+    await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(1));
   });
 
   it('onError is called after unsuccessful submit', async () => {
@@ -116,13 +126,13 @@ describe('ChangePassword', () => {
     render(<ChangePassword onError={onError} />);
 
     const submitButton = await screen.findByRole('button', {
-      name: 'Update password',
+      name: updatePasswordButtonText,
     });
 
     fireEvent.submit(submitButton);
 
     // submit handling is async, wait for onError to be called
-    await waitFor(() => expect(onError).toBeCalledTimes(1));
+    await waitFor(() => expect(onError).toHaveBeenCalledTimes(1));
   });
 
   it('displays error message after unsuccessful submit', async () => {
@@ -132,7 +142,7 @@ describe('ChangePassword', () => {
     render(<ChangePassword onError={onError} />);
 
     const submitButton = await screen.findByRole('button', {
-      name: 'Update password',
+      name: updatePasswordButtonText,
     });
 
     fireEvent.submit(submitButton);
@@ -144,7 +154,7 @@ describe('ChangePassword', () => {
     render(<ChangePassword />);
 
     const submitButton = await screen.findByRole('button', {
-      name: 'Update password',
+      name: updatePasswordButtonText,
     });
 
     expect(submitButton).toHaveAttribute('disabled');
@@ -153,11 +163,15 @@ describe('ChangePassword', () => {
   it('enables submit button once formValues are valid', async () => {
     render(<ChangePassword />);
 
-    const currentPassword = await screen.findByLabelText('Current Password');
-    const newPassword = await screen.findByLabelText('New Password');
-    const confirmPassword = await screen.findByLabelText('Confirm Password');
+    const currentPassword = await screen.findByLabelText(
+      currentPasswordFieldLabel
+    );
+    const newPassword = await screen.findByLabelText(newPasswordFieldLabel);
+    const confirmPassword = await screen.findByLabelText(
+      confirmPasswordFieldLabel
+    );
     const submitButton = await screen.findByRole('button', {
-      name: 'Update password',
+      name: updatePasswordButtonText,
     });
 
     fireEvent.input(currentPassword, {
@@ -179,9 +193,9 @@ describe('ChangePassword', () => {
   it('displays new password validation error message', async () => {
     render(<ChangePassword />);
 
-    const newPassword = await screen.findByLabelText('New Password');
+    const newPassword = await screen.findByLabelText(newPasswordFieldLabel);
     const submitButton = await screen.findByRole('button', {
-      name: 'Update password',
+      name: updatePasswordButtonText,
     });
 
     fireEvent.input(newPassword, {
@@ -203,10 +217,12 @@ describe('ChangePassword', () => {
   it('displays confirm password validation error message', async () => {
     render(<ChangePassword />);
 
-    const newPassword = await screen.findByLabelText('New Password');
-    const confirmPassword = await screen.findByLabelText('Confirm Password');
+    const newPassword = await screen.findByLabelText(newPasswordFieldLabel);
+    const confirmPassword = await screen.findByLabelText(
+      confirmPasswordFieldLabel
+    );
     const submitButton = await screen.findByRole('button', {
-      name: 'Update password',
+      name: updatePasswordButtonText,
     });
 
     fireEvent.input(newPassword, {
@@ -243,9 +259,9 @@ describe('ChangePassword', () => {
     };
     render(<ChangePassword validators={[minLength, hasSpecialChar]} />);
 
-    const newPassword = await screen.findByLabelText('New Password');
+    const newPassword = await screen.findByLabelText(newPasswordFieldLabel);
     const submitButton = await screen.findByRole('button', {
-      name: 'Update password',
+      name: updatePasswordButtonText,
     });
 
     fireEvent.input(newPassword, {
@@ -292,7 +308,7 @@ describe('ChangePassword', () => {
     });
     fireEvent.submit(submitButton);
 
-    await waitFor(() => expect(onSuccess).toBeCalledTimes(1));
+    await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(1));
   });
 
   it('calls changePassword with expected arguments and component overrides', async () => {
@@ -326,9 +342,19 @@ describe('ChangePassword', () => {
     fireEvent.submit(submitButton);
 
     expect(changePasswordSpy).toBeCalledWith({
-      user,
       currentPassword: 'oldpassword',
       newPassword: 'newpassword',
     });
+  });
+  it('renders as expected with override display text', () => {
+    const newPasswordFieldLabelOverride = 'Custom new password label';
+    const displayTextOverride = {
+      newPasswordFieldLabel: newPasswordFieldLabelOverride,
+    };
+    const { getByText, queryByText } = render(
+      <AccountSettings.ChangePassword displayText={displayTextOverride} />
+    );
+    expect(getByText(newPasswordFieldLabelOverride)).toBeVisible();
+    expect(queryByText(newPasswordFieldLabel)).toBe(null);
   });
 });

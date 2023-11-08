@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { Button } from '../Button';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseToggleButtonProps,
   ToggleButtonProps,
@@ -11,6 +11,7 @@ import {
   Primitive,
 } from '../types';
 import { useToggleButton } from './useToggleButton';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const ToggleButtonPrimitive: Primitive<ToggleButtonProps, 'button'> = (
   {
@@ -36,10 +37,10 @@ const ToggleButtonPrimitive: Primitive<ToggleButtonProps, 'button'> = (
     value,
   });
   const componentClasses = classNames(
-    ComponentClassNames.ToggleButton,
-    classNameModifier(ComponentClassNames.ToggleButton, variation),
+    ComponentClassName.ToggleButton,
+    classNameModifier(ComponentClassName.ToggleButton, variation),
     classNameModifierByFlag(
-      ComponentClassNames.ToggleButton,
+      ComponentClassName.ToggleButton,
       'pressed',
       isPressed
     ),
@@ -69,6 +70,6 @@ const ToggleButtonPrimitive: Primitive<ToggleButtonProps, 'button'> = (
 export const ToggleButton: ForwardRefPrimitive<
   BaseToggleButtonProps,
   'button'
-> = React.forwardRef(ToggleButtonPrimitive);
+> = primitiveWithForwardRef(ToggleButtonPrimitive);
 
 ToggleButton.displayName = 'ToggleButton';

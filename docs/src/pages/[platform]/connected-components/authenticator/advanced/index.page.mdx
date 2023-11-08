@@ -6,7 +6,7 @@ supportedFrameworks: react|angular|vue|react-native
 ---
 
 import { useRouter } from 'next/router';
-import { Tabs, TabItem, Table, TableHead, TableRow, TableCell, TableBody, View } from '@aws-amplify/ui-react';
+import { Tabs, Table, TableHead, TableRow, TableCell, TableBody, View } from '@aws-amplify/ui-react';
 import { Fragment } from '@/components/Fragment';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
 import { ResponsiveTable, ResponsiveTableCell } from '@/components/ResponsiveTable';
@@ -57,8 +57,8 @@ Here's an example that uses the `toResetPassword` trigger transition, to create 
   {({ platform }) => import(`./full-api.${platform}.mdx`)}
 </Fragment>
 
-<Tabs overflow="scroll">
-  <TabItem title="Access Contexts">
+<Tabs.Container overflow="scroll">
+  <Tabs.Item title="Access Contexts">
 
     These are `readonly` contexts that represent the current auth state. Any unapplicable `context` will be `undefined`.
 
@@ -109,8 +109,8 @@ Here's an example that uses the `toResetPassword` trigger transition, to create 
       </TableBody>
     </ResponsiveTable>
     
-  </TabItem>
-  <TabItem title="Trigger Transition">
+  </Tabs.Item>
+  <Tabs.Item title="Trigger Transition">
 
 These helper functions trigger transition to another `route`. Note that any invalid transition (e.g. `sign-in` to `authenticated` directly) will be no-op.
 
@@ -150,5 +150,5 @@ These helper functions trigger transition to another `route`. Note that any inva
       </TableBody>
     </ResponsiveTable>
     
-  </TabItem>
-</Tabs>
+  </Tabs.Item>
+</Tabs.Container>

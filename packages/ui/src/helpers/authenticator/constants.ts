@@ -2,7 +2,11 @@
  * This file contains helpers related to forms and input attributes.
  */
 
-import { DefaultFormFieldOptions } from '../../types';
+import {
+  AuthEventTypes,
+  DefaultFormFieldOptions,
+  NavigableRoute,
+} from '../../types';
 import { countryDialCodes } from '../../i18n';
 
 export const defaultFormFieldOptions: DefaultFormFieldOptions = {
@@ -136,3 +140,12 @@ export const ALLOWED_SPECIAL_CHARACTERS = [
  */
 export const emailRegex =
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
+/**
++ * map navigable route keys to auth event names
++ */
+export const NAVIGABLE_ROUTE_EVENT: Record<NavigableRoute, AuthEventTypes> = {
+  resetPassword: 'RESET_PASSWORD',
+  signIn: 'SIGN_IN',
+  signUp: 'SIGN_UP',
+};

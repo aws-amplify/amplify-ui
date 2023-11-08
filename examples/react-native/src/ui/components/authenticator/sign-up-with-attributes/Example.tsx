@@ -14,6 +14,41 @@ Amplify.configure({
   Auth: { endpoint: 'http://127.0.0.1:9091/' },
 });
 
+const formFields = {
+  signUp: {
+    zoneinfo: {
+      label: 'Zone Info',
+      isRequired: false,
+      type: 'text',
+    },
+    picture: {
+      label: 'Picture',
+      isRequired: false,
+      type: 'text',
+    },
+    updated_at: {
+      label: 'Updated at',
+      isRequired: false,
+      type: 'text',
+    },
+    address: {
+      label: 'Address',
+      isRequired: false,
+      type: 'text',
+    },
+    gender: {
+      label: 'Gender',
+      isRequired: false,
+      type: 'text',
+    },
+    locale: {
+      label: 'Locale',
+      isRequired: false,
+      type: 'text',
+    },
+  },
+};
+
 function App() {
   return (
     <Authenticator.Provider>
@@ -23,10 +58,11 @@ function App() {
           ForceNewPassword: ({ fields, ...props }) => (
             <>
               <Authenticator.ForceNewPassword {...props} fields={fields} />
-              <TextField label="Zone Info" placeholder="Zone Info"></TextField>
+              <TextField label="Zone Info" placeholder="Zone Info" />
             </>
           ),
         }}
+        formFields={formFields}
       >
         <View style={style.container}>
           <SignOutButton />

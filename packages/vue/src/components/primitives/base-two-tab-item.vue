@@ -3,7 +3,7 @@ import { toRefs } from 'vue';
 const props = withDefaults(
   defineProps<{
     label: string;
-    id: number;
+    id: string;
     active?: boolean;
   }>(),
   {
@@ -15,18 +15,15 @@ const { active, id, label } = toRefs(props);
 </script>
 
 <template>
-  <base-wrapper
+  <button
     :tabindex="active ? 0 : -1"
-    :data-state="active ? 'active' : 'inactive'"
     :aria-selected="active ? 'true' : 'false'"
-    :aria-controls="`radix-id-${id}-8-content-0`"
-    :id="`radix-id-${id}-8-trigger-0`"
-    data-orientation="horizontal"
+    :class="{ 'amplify-tabs__item--active': active }"
+    :id="`${id}-tab`"
+    :aria-controls="`${id}-panel`"
     role="tab"
-    class="amplify-tabs-item"
-    data-spacing="equal"
-    data-radix-collection-item=""
+    class="amplify-tabs__item"
   >
     {{ label }}
-  </base-wrapper>
+  </button>
 </template>

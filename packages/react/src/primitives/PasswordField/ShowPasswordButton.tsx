@@ -1,9 +1,11 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { ComponentClassName } from '@aws-amplify/ui';
+
 import { Button } from '../Button';
 import { VisuallyHidden } from '../VisuallyHidden';
-import { ComponentClassNames, ComponentText } from '../shared/constants';
+import { ComponentText } from '../shared/constants';
 import { IconVisibility, IconVisibilityOff, useIcons } from '../Icon';
 import {
   ForwardRefPrimitive,
@@ -11,6 +13,7 @@ import {
   BaseShowPasswordButtonProps,
 } from '../types';
 import { classNameModifierByFlag } from '../shared/utils';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const { passwordIsHidden, passwordIsShown, showPassword } =
   ComponentText.PasswordField;
@@ -32,9 +35,9 @@ const ShowPasswordButtonPrimitive: Primitive<
 ) => {
   const icons = useIcons('passwordField');
   const showPasswordButtonClass = classNames(
-    ComponentClassNames.FieldShowPassword,
+    ComponentClassName.FieldShowPassword,
     classNameModifierByFlag(
-      ComponentClassNames.FieldShowPassword,
+      ComponentClassName.FieldShowPassword,
       'error',
       hasError
     )
@@ -68,6 +71,6 @@ const ShowPasswordButtonPrimitive: Primitive<
 export const ShowPasswordButton: ForwardRefPrimitive<
   BaseShowPasswordButtonProps,
   'button'
-> = React.forwardRef(ShowPasswordButtonPrimitive);
+> = primitiveWithForwardRef(ShowPasswordButtonPrimitive);
 
 ShowPasswordButton.displayName = 'ShowPasswordButton';

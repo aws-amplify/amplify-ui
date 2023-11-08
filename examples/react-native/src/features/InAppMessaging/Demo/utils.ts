@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import {
-  InAppMessage,
-  InAppMessageAction,
-  InAppMessageButton,
-  InAppMessageLayout,
-} from '@aws-amplify/notifications';
+  Message,
+  MessageAction,
+  MessageButton,
+  MessageLayout,
+} from '@aws-amplify/ui-react-core-notifications';
 import { useInAppMessaging } from '@aws-amplify/ui-react-native';
 
 type ImageOrientation = 'landscape' | 'portrait';
@@ -16,13 +16,13 @@ export interface GetDemoMessageParams {
   hasPrimaryButton: boolean;
   hasSecondaryButton: boolean;
   imageOrientation: ImageOrientation;
-  primaryButtonAction: InAppMessageAction;
-  secondaryButtonAction: InAppMessageAction;
-  layout: InAppMessageLayout;
+  primaryButtonAction: MessageAction;
+  secondaryButtonAction: MessageAction;
+  layout: MessageLayout;
 }
 
-export const ACTIONS: InAppMessageAction[] = ['CLOSE', 'DEEP_LINK', 'LINK'];
-export const LAYOUTS: InAppMessageLayout[] = [
+export const ACTIONS: MessageAction[] = ['CLOSE', 'DEEP_LINK', 'LINK'];
+export const LAYOUTS: MessageLayout[] = [
   'BOTTOM_BANNER',
   'CAROUSEL',
   'FULL_SCREEN',
@@ -39,9 +39,9 @@ const LANDSCAPE_IMAGE =
 const URL = 'https://ui.docs.amplify.aws/';
 
 const getButton = (
-  action: InAppMessageAction,
+  action: MessageAction,
   type: 'primary' | 'secondary'
-): InAppMessageButton => ({
+): MessageButton => ({
   title: `${type} - ${action.toLowerCase()}`,
   action,
   url: action === 'LINK' || action === 'DEEP_LINK' ? URL : undefined,
@@ -57,7 +57,7 @@ function getDemoMessage({
   layout,
   primaryButtonAction,
   secondaryButtonAction,
-}: GetDemoMessageParams): InAppMessage {
+}: GetDemoMessageParams): Message {
   return {
     layout,
     id: layout,

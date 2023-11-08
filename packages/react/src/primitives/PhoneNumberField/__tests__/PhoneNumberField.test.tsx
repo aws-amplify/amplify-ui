@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 
 import { Flex } from '../../Flex';
 import { Button } from '../../Button';
-import { ComponentClassNames } from '../../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 import { PhoneNumberField } from '../PhoneNumberField';
 
@@ -18,13 +18,13 @@ describe('PhoneNumberField primitive', () => {
   });
 
   const setup = async ({
-    defaultCountryCode = '+1',
+    defaultDialCode = '+1',
     label = 'Phone Number',
     ...rest
   }) => {
     render(
       <PhoneNumberField
-        defaultCountryCode={defaultCountryCode}
+        defaultDialCode={defaultDialCode}
         label={label}
         {...rest}
       />
@@ -34,25 +34,23 @@ describe('PhoneNumberField primitive', () => {
       phoneInput: await screen.findByRole('textbox', {
         name: /phone number/i,
       }),
-      countryCodeSelector: await screen.findByRole('combobox', {
-        name: /country code/i,
-      }),
+      dialCodeSelector: await screen.findByRole('combobox'),
     };
   };
 
   const ReadOnlyFormTest = () => {
     const inputRef = React.useRef<HTMLInputElement>(null);
-    const countryCodeRef = React.useRef<HTMLSelectElement>(null);
+    const dialCodeRef = React.useRef<HTMLSelectElement>(null);
 
     return (
       <Flex as="form" onSubmit={onSubmit}>
         <PhoneNumberField
-          defaultCountryCode="+40"
+          defaultDialCode="+40"
           defaultValue="1234567"
           label="Read Only"
           name="read_only_phone"
           ref={inputRef}
-          countryCodeRef={countryCodeRef}
+          dialCodeRef={dialCodeRef}
           isReadOnly
         />
         <Button type="submit">Submit</Button>
@@ -62,24 +60,24 @@ describe('PhoneNumberField primitive', () => {
 
   it('should forward ref and countryCodeRef to DOM elements', async () => {
     const ref = React.createRef<HTMLInputElement>();
-    const countryCodeRef = React.createRef<HTMLSelectElement>();
-    await setup({ ref, countryCodeRef });
+    const dialCodeRef = React.createRef<HTMLSelectElement>();
+    await setup({ ref, dialCodeRef });
 
     await screen.findByRole('textbox');
     expect(ref.current?.nodeName).toBe('INPUT');
-    expect(countryCodeRef.current?.nodeName).toBe('SELECT');
+    expect(dialCodeRef.current?.nodeName).toBe('SELECT');
   });
 
   it('should render a country code selector with an accessible role', async () => {
-    const { countryCodeSelector } = await setup({});
+    const { dialCodeSelector } = await setup({});
 
-    expect(countryCodeSelector).toBeDefined();
+    expect(dialCodeSelector).toBeDefined();
   });
 
   it('should render a country code selector with an accessible label', async () => {
-    const { countryCodeSelector } = await setup({});
+    const { dialCodeSelector } = await setup({});
 
-    expect(countryCodeSelector).toBeDefined();
+    expect(dialCodeSelector).toBeDefined();
   });
 
   it('should render a phone input field with an accessible role', async () => {
@@ -96,10 +94,10 @@ describe('PhoneNumberField primitive', () => {
   });
 
   it('should use a specified defaultCountryCode', async () => {
-    const defaultCountryCode = '+7';
-    const { countryCodeSelector } = await setup({ defaultCountryCode });
+    const defaultDialCode = '+7';
+    const { dialCodeSelector } = await setup({ defaultDialCode });
 
-    expect(countryCodeSelector).toHaveValue(defaultCountryCode);
+    expect(dialCodeSelector).toHaveValue(defaultDialCode);
   });
 
   it('should always use type "tel"', async () => {
@@ -121,16 +119,16 @@ describe('PhoneNumberField primitive', () => {
     const phoneInput = await screen.findByTestId(testId);
 
     expect(phoneInput).toHaveClass(className);
-    expect(phoneInput).toHaveClass(ComponentClassNames.PhoneNumberField);
+    expect(phoneInput).toHaveClass(ComponentClassName.PhoneNumberField);
   });
 
   it('should be able to set a size', async () => {
-    const { countryCodeSelector, phoneInput } = await setup({
+    const { dialCodeSelector, phoneInput } = await setup({
       size: 'large',
     });
 
-    expect(phoneInput).toHaveAttribute('data-size', 'large');
-    expect(countryCodeSelector).toHaveAttribute('data-size', 'large');
+    expect(phoneInput).toHaveClass(`${ComponentClassName.Input}--large`);
+    expect(dialCodeSelector).toHaveClass(`${ComponentClassName.Select}--large`);
   });
 
   it('should render size classes for PhoneNumberField', async () => {
@@ -144,17 +142,17 @@ describe('PhoneNumberField primitive', () => {
     const small = await screen.findByTestId('small');
     const large = await screen.findByTestId('large');
 
-    expect(small.classList).toContain(`${ComponentClassNames['Field']}--small`);
-    expect(large.classList).toContain(`${ComponentClassNames['Field']}--large`);
+    expect(small.classList).toContain(`${ComponentClassName['Field']}--small`);
+    expect(large.classList).toContain(`${ComponentClassName['Field']}--large`);
   });
 
   it('should be able to set a variation', async () => {
-    const { countryCodeSelector, phoneInput } = await setup({
+    const { dialCodeSelector, phoneInput } = await setup({
       variation: 'quiet',
     });
 
-    expect(phoneInput).toHaveAttribute('data-variation', 'quiet');
-    expect(countryCodeSelector).toHaveAttribute('data-variation', 'quiet');
+    expect(phoneInput).toHaveClass(`${ComponentClassName.Input}--quiet`);
+    expect(dialCodeSelector).toHaveClass(`${ComponentClassName.Select}--quiet`);
   });
 
   it('should fire onChange handler when phone input field is changed', async () => {
@@ -174,11 +172,11 @@ describe('PhoneNumberField primitive', () => {
   });
 
   it('should fire onCountryCodeChange handler when phone input field is changed', async () => {
-    const onCountryCodeChange = jest.fn();
-    const { countryCodeSelector } = await setup({ onCountryCodeChange });
-    userEvent.selectOptions(countryCodeSelector, '+7');
+    const onDialCodeChange = jest.fn();
+    const { dialCodeSelector } = await setup({ onDialCodeChange });
+    userEvent.selectOptions(dialCodeSelector, '+7');
 
-    expect(onCountryCodeChange).toHaveBeenCalled();
+    expect(onDialCodeChange).toHaveBeenCalled();
   });
 
   /*
@@ -186,11 +184,11 @@ describe('PhoneNumberField primitive', () => {
     so that a screen reader will announce something to the user about the interactivity of the options list ( https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly)
   */
   it('should set aria-disabled="true" when the isReadOnly prop is passed, and disable all the select options', async () => {
-    const { countryCodeSelector } = await setup({ isReadOnly: true });
+    const { dialCodeSelector } = await setup({ isReadOnly: true });
 
-    expect(countryCodeSelector).toHaveAttribute('aria-disabled', 'true');
+    expect(dialCodeSelector).toHaveAttribute('aria-disabled', 'true');
 
-    countryCodeSelector.querySelectorAll('option').forEach((option) => {
+    dialCodeSelector.querySelectorAll('option').forEach((option) => {
       expect(option).toHaveAttribute('disabled');
     });
   });
@@ -310,25 +308,27 @@ describe('PhoneNumberField primitive', () => {
       const phoneInput = await screen.findByTestId(testId);
 
       expect(phoneInput).toHaveClass(className);
-      expect(phoneInput).toHaveClass(ComponentClassNames.PhoneNumberField);
+      expect(phoneInput).toHaveClass(ComponentClassName.PhoneNumberField);
     });
 
     it('should be able to set a size', async () => {
       const { dialCodeSelector, phoneInput } = await dialCodeSetup({
         size: 'large',
       });
-
-      expect(phoneInput).toHaveAttribute('data-size', 'large');
-      expect(dialCodeSelector).toHaveAttribute('data-size', 'large');
+      expect(phoneInput).toHaveClass(`${ComponentClassName.Input}--large`);
+      expect(dialCodeSelector).toHaveClass(
+        `${ComponentClassName.Select}--large`
+      );
     });
 
     it('should be able to set a variation', async () => {
       const { dialCodeSelector, phoneInput } = await dialCodeSetup({
         variation: 'quiet',
       });
-
-      expect(phoneInput).toHaveAttribute('data-variation', 'quiet');
-      expect(dialCodeSelector).toHaveAttribute('data-variation', 'quiet');
+      expect(phoneInput).toHaveClass(`${ComponentClassName.Input}--quiet`);
+      expect(dialCodeSelector).toHaveClass(
+        `${ComponentClassName.Select}--quiet`
+      );
     });
 
     it('should fire onChange handler when phone input field is changed', async () => {

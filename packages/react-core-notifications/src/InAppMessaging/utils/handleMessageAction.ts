@@ -1,9 +1,9 @@
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
+import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import { isString } from '@aws-amplify/ui';
 
 import { MessageAction } from '../types';
 
-const logger = new Logger('Notifications.InAppMessaging');
+const logger = new Logger('InAppMessaging');
 
 export type HandleMessageLinkAction = (url: string) => void | Promise<void>;
 

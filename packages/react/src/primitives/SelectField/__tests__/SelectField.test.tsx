@@ -2,7 +2,7 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { SelectField } from '../SelectField';
 import {
   testFlexProps,
@@ -30,8 +30,8 @@ describe('SelectField', () => {
 
       const selectField = await screen.findByTestId(testId);
       expect(selectField).toHaveClass(className);
-      expect(selectField).toHaveClass(ComponentClassNames.Field);
-      expect(selectField).toHaveClass(ComponentClassNames.SelectField);
+      expect(selectField).toHaveClass(ComponentClassName.Field);
+      expect(selectField).toHaveClass(ComponentClassName.SelectField);
     });
 
     it('should render all flex style props', async () => {
@@ -58,7 +58,7 @@ describe('SelectField', () => {
       );
 
       const labelElelment = await screen.findByText(label);
-      expect(labelElelment).toHaveClass(ComponentClassNames.Label);
+      expect(labelElelment).toHaveClass(ComponentClassName.Label);
     });
 
     it('should match select id', async () => {
@@ -125,7 +125,7 @@ describe('SelectField', () => {
         </SelectField>
       );
       const field = await screen.findByLabelText(label);
-      expect(field).toHaveClass(ComponentClassNames.Select);
+      expect(field).toHaveClass(ComponentClassName.Select);
       expect(field.id).toBe(id);
     });
 
@@ -139,7 +139,7 @@ describe('SelectField', () => {
       );
       const field = await screen.findByLabelText(label);
       expect(field.id.startsWith(AUTO_GENERATED_ID_PREFIX)).toBe(true);
-      expect(field).toHaveClass(ComponentClassNames.Select);
+      expect(field).toHaveClass(ComponentClassName.Select);
     });
   });
 
@@ -183,7 +183,7 @@ describe('SelectField', () => {
     expect(select).toHaveAttribute('size', '2');
   });
 
-  it('should set size and variation data attributes', async () => {
+  it('should set size and variation classes', async () => {
     render(
       <SelectField label={label} testId={testId} size="small" variation="quiet">
         <option value="1">1</option>
@@ -194,8 +194,8 @@ describe('SelectField', () => {
 
     const selectField = await screen.findByTestId(testId);
     const select = await screen.findByRole(role);
-    expect(selectField).toHaveAttribute('data-size', 'small');
-    expect(select).toHaveAttribute('data-variation', 'quiet');
+    expect(selectField).toHaveClass(`${ComponentClassName.Field}--small`);
+    expect(select).toHaveClass(`${ComponentClassName.Select}--quiet`);
   });
 
   it('should render size classes for SelectField', async () => {
@@ -217,8 +217,8 @@ describe('SelectField', () => {
     const small = await screen.findByTestId('small');
     const large = await screen.findByTestId('large');
 
-    expect(small.classList).toContain(`${ComponentClassNames['Field']}--small`);
-    expect(large.classList).toContain(`${ComponentClassNames['Field']}--large`);
+    expect(small.classList).toContain(`${ComponentClassName['Field']}--small`);
+    expect(large.classList).toContain(`${ComponentClassName['Field']}--large`);
   });
 
   it('can set defaultValue', async () => {

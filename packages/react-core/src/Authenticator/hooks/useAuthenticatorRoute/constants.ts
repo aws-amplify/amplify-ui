@@ -67,6 +67,7 @@ const RESET_PASSWORD_MACHINE_KEYS: ResetPasswordMachineKey[] = [
 ];
 const SIGN_IN_MACHINE_KEYS: SignInMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,
+  'socialProviders',
   'toFederatedSignIn',
   'toResetPassword',
   'toSignUp',
@@ -74,6 +75,7 @@ const SIGN_IN_MACHINE_KEYS: SignInMachineKey[] = [
 const SIGN_UP_MACHINE_KEYS: SignUpMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,
   'hasValidationErrors',
+  'socialProviders',
   'toSignIn',
   'validationErrors',
 ];

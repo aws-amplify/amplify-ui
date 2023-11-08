@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { ComponentClassNames } from '../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseImageProps,
   ImageProps,
@@ -9,6 +9,7 @@ import {
   Primitive,
 } from '../types';
 import { View } from '../View';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const ImagePrimitive: Primitive<ImageProps, 'img'> = (
   { className, ...rest },
@@ -17,7 +18,7 @@ const ImagePrimitive: Primitive<ImageProps, 'img'> = (
   <View
     as="img"
     ref={ref}
-    className={classNames(ComponentClassNames.Image, className)}
+    className={classNames(ComponentClassName.Image, className)}
     {...rest}
   />
 );
@@ -26,6 +27,6 @@ const ImagePrimitive: Primitive<ImageProps, 'img'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/image)
  */
 export const Image: ForwardRefPrimitive<BaseImageProps, 'img'> =
-  React.forwardRef(ImagePrimitive);
+  primitiveWithForwardRef(ImagePrimitive);
 
 Image.displayName = 'Image';

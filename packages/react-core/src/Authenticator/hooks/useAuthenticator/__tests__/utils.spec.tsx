@@ -1,6 +1,4 @@
-import { Auth } from 'aws-amplify';
 import {
-  AmplifyUser,
   AuthenticatorServiceFacade,
   AuthMachineState,
   AuthActorContext,
@@ -13,11 +11,8 @@ import {
   defaultComparator,
   getComparator,
   getMachineFields,
-  getTotpSecretCodeCallback,
   getQRFields,
 } from '../utils';
-
-const setupTOTPSpy = jest.spyOn(Auth, 'setupTOTP').mockImplementation();
 
 const totpIssuer = 'testIssuer';
 const totpUsername = 'testUsername';
@@ -98,23 +93,6 @@ describe('getComparator', () => {
 describe('defaultComparator', () => {
   it('returns false', () => {
     expect(defaultComparator()).toBe(false);
-  });
-});
-
-describe('getTotpSecretCodeCallback', () => {
-  const user = {} as AmplifyUser;
-  it('returns a getTotpSecretCode function', () => {
-    const getTotpSecretCode = getTotpSecretCodeCallback(user);
-
-    expect(getTotpSecretCode).toStrictEqual(expect.any(Function));
-  });
-
-  it('returns a function that calls Auth.setupTOTP with the user', async () => {
-    const getTotpSecretCode = getTotpSecretCodeCallback(user);
-
-    await getTotpSecretCode();
-
-    expect(setupTOTPSpy).toBeCalledWith(user);
   });
 });
 

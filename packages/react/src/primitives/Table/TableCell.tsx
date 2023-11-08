@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   ForwardRefPrimitive,
   Primitive,
@@ -10,6 +10,7 @@ import {
   TableCellProps,
 } from '../types';
 import { View } from '../View';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const TableCellPrimitive: Primitive<TableCellProps, TableCellElement> = (
   { as: asElementTag = 'td', children, className, ...rest },
@@ -19,8 +20,8 @@ const TableCellPrimitive: Primitive<TableCellProps, TableCellElement> = (
     as={asElementTag}
     className={classNames(
       asElementTag === 'td'
-        ? ComponentClassNames.TableTd
-        : ComponentClassNames.TableTh,
+        ? ComponentClassName.TableTd
+        : ComponentClassName.TableTh,
       className
     )}
     ref={ref}
@@ -33,6 +34,6 @@ const TableCellPrimitive: Primitive<TableCellProps, TableCellElement> = (
 export const TableCell: ForwardRefPrimitive<
   BaseTableCellProps,
   TableCellElement
-> = React.forwardRef(TableCellPrimitive);
+> = primitiveWithForwardRef(TableCellPrimitive);
 
 TableCell.displayName = 'TableCell';

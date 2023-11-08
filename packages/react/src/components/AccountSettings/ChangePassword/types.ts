@@ -1,10 +1,12 @@
 import { InputEventType, ValidatorOptions } from '@aws-amplify/ui';
+
 import {
   SubmitButtonComponent,
   ErrorMessageComponent,
   PasswordFieldComponent,
   FormValues,
 } from '../types';
+import { ChangePasswordDisplayText } from '../utils';
 
 export interface ChangePasswordComponents {
   ConfirmPasswordField?: PasswordFieldComponent;
@@ -28,4 +30,6 @@ export interface ChangePasswordProps {
   validators?: ValidatorOptions[];
   /** custom component overrides */
   components?: ChangePasswordComponents;
+  /** overrides default display text */
+  displayText?: ChangePasswordDisplayText;
 }

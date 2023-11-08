@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@aws-amplify/ui-vue exports should match snapshot 1`] = `
+[
+  "AmplifyButton",
+  "AmplifyCheckBox",
+  "AmplifyTextField",
+  "Authenticator",
+  "AuthenticatorForceNewPasswordFormFields",
+  "AuthenticatorSignUpFormFields",
+  "ConfirmResetPassword",
+  "ConfirmSignIn",
+  "ConfirmSignUp",
+  "ConfirmVerifyUser",
+  "FederatedSignIn",
+  "ForceNewPassword",
+  "PasswordControl",
+  "RenderInfo",
+  "ResetPassword",
+  "SignIn",
+  "SignUp",
+  "VerifyUser",
+  "default",
+  "translations",
+  "useAuthenticator",
+]
+`;

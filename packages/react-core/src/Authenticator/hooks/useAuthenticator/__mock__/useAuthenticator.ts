@@ -10,7 +10,6 @@ const codeDeliveryDetails =
   {} as AuthenticatorMachineContext['codeDeliveryDetails'];
 const error = 'error';
 const fields = [] as AuthenticatorLegacyFields;
-const getTotpSecretCode = jest.fn();
 const hasValidationErrors = false;
 const initializeMachine = jest.fn();
 const isPending = false;
@@ -37,6 +36,7 @@ const user = {
 
 export const mockMachineContext: AuthenticatorMachineContext = {
   authStatus,
+  challengeName,
   codeDeliveryDetails,
   error,
   hasValidationErrors,
@@ -63,6 +63,5 @@ export const mockMachineContext: AuthenticatorMachineContext = {
 export const mockUseAuthenticatorOutput: UseAuthenticator = {
   ...mockMachineContext,
   fields,
-  getTotpSecretCode,
   QRFields,
 };

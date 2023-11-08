@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { isFunction } from '@aws-amplify/ui';
+import { ComponentClassName, isFunction } from '@aws-amplify/ui';
 
 import { Flex } from '../Flex';
 import { IconCheck, IconIndeterminate, useIcons } from '../Icon';
@@ -12,11 +12,11 @@ import { BaseCheckboxProps, CheckboxProps } from '../types/checkbox';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { getTestId } from '../utils/getTestId';
 import { useStableId } from '../utils/useStableId';
-import { ComponentClassNames } from '../shared/constants';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { classNameModifierByFlag } from '../shared/utils';
 import { View } from '../View';
 import { useFieldset } from '../Fieldset/useFieldset';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   {
@@ -88,41 +88,41 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     }
   }, [dataId, isIndeterminate]);
 
-  const buttonTestId = getTestId(testId, ComponentClassNames.CheckboxButton);
-  const iconTestId = getTestId(testId, ComponentClassNames.CheckboxIcon);
-  const labelTestId = getTestId(testId, ComponentClassNames.CheckboxLabel);
+  const buttonTestId = getTestId(testId, ComponentClassName.CheckboxButton);
+  const iconTestId = getTestId(testId, ComponentClassName.CheckboxIcon);
+  const labelTestId = getTestId(testId, ComponentClassName.CheckboxLabel);
   const flexClasses = classNames(
-    ComponentClassNames.CheckboxButton,
+    ComponentClassName.CheckboxButton,
     classNameModifierByFlag(
-      ComponentClassNames.CheckboxButton,
+      ComponentClassName.CheckboxButton,
       'disabled',
       shouldBeDisabled
     ),
     classNameModifierByFlag(
-      ComponentClassNames.CheckboxButton,
+      ComponentClassName.CheckboxButton,
       'error',
       hasError
     ),
     classNameModifierByFlag(
-      ComponentClassNames.CheckboxButton,
+      ComponentClassName.CheckboxButton,
       'focused',
       focused
     )
   );
   const iconClasses = classNames(
-    ComponentClassNames.CheckboxIcon,
+    ComponentClassName.CheckboxIcon,
     classNameModifierByFlag(
-      ComponentClassNames.CheckboxIcon,
+      ComponentClassName.CheckboxIcon,
       'checked',
       checked
     ),
     classNameModifierByFlag(
-      ComponentClassNames.CheckboxIcon,
+      ComponentClassName.CheckboxIcon,
       'disabled',
       shouldBeDisabled
     ),
     classNameModifierByFlag(
-      ComponentClassNames.CheckboxIcon,
+      ComponentClassName.CheckboxIcon,
       'indeterminate',
       isIndeterminate
     )
@@ -153,23 +153,22 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     <Flex
       as="label"
       className={classNames(
-        ComponentClassNames.Checkbox,
+        ComponentClassName.Checkbox,
         classNameModifierByFlag(
-          ComponentClassNames.Checkbox,
+          ComponentClassName.Checkbox,
           'disabled',
           shouldBeDisabled
         ),
+        labelPosition ? `amplify-label-${labelPosition}` : null,
         className
       )}
-      data-disabled={shouldBeDisabled}
-      data-label-position={labelPosition}
       testId={testId}
       {...styleProps}
     >
       <VisuallyHidden>
         <Input
           checked={controlledChecked}
-          className={ComponentClassNames.CheckboxInput}
+          className={ComponentClassName.CheckboxInput}
           data-id={dataId}
           defaultChecked={defaultChecked}
           isDisabled={shouldBeDisabled}
@@ -184,8 +183,8 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
       {label && (
         <Text
           as="span"
-          className={classNames(ComponentClassNames.CheckboxLabel, {
-            [ComponentClassNames.VisuallyHidden]: labelHidden,
+          className={classNames(ComponentClassName.CheckboxLabel, {
+            [ComponentClassName.VisuallyHidden]: labelHidden,
           })}
           data-disabled={shouldBeDisabled}
           testId={labelTestId}
@@ -211,6 +210,6 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
 };
 
 export const Checkbox: ForwardRefPrimitive<BaseCheckboxProps, 'input'> =
-  React.forwardRef(CheckboxPrimitive);
+  primitiveWithForwardRef(CheckboxPrimitive);
 
 Checkbox.displayName = 'Checkbox';

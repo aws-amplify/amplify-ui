@@ -1,8 +1,7 @@
 import * as React from 'react';
 import {
+  Accordion,
   Card,
-  Expander,
-  ExpanderItem,
   Grid,
   GridContainerStyleProps,
   GridItemStyleProps,
@@ -161,10 +160,10 @@ export const GridDemo = () => {
     }
   );
   // To retain expanded items between light and dark mode
-  const [value, setValue] = React.useState(
-    demoState.get('GridDemoExpandedItems') || ''
+  const [value, setValue] = React.useState<string[]>(
+    (demoState.get('GridDemoExpandedItems') as string[]) || ['']
   );
-  const handleExpandChange = React.useCallback((value: string | string[]) => {
+  const handleExpandChange = React.useCallback((value: string[]) => {
     demoState.set('GridDemoExpandedItems', value);
     setValue(value);
   }, []);
@@ -180,27 +179,53 @@ export const GridDemo = () => {
       code={propsToCode(gridContainerProps, gridItemsCode)}
       propControls={
         <>
-          <Expander
-            type="multiple"
-            value={value as string | string[]}
-            onChange={handleExpandChange}
-          >
-            <ExpanderItem title="Grid container props" value="item-1">
-              <GridContainerPropControls {...gridContainerProps} />
-            </ExpanderItem>
-            <ExpanderItem title="Grid item (Header) props" value="item-2">
-              <GridItemPropControls {...headerGridItemProps} />
-            </ExpanderItem>
-            <ExpanderItem title="Grid item (Nav) props" value="item-3">
-              <GridItemPropControls {...navGridItemProps} />
-            </ExpanderItem>
-            <ExpanderItem title="Grid item (Main) props" value="item-4">
-              <GridItemPropControls {...mainGridItemProps} />
-            </ExpanderItem>
-            <ExpanderItem title="Grid item (Footer) props" value="item-5">
-              <GridItemPropControls {...footerGridItemProps} />
-            </ExpanderItem>
-          </Expander>
+          <Accordion.Container value={value} onValueChange={handleExpandChange}>
+            <Accordion.Item value="item-1">
+              <Accordion.Trigger>
+                Grid container props
+                <Accordion.Icon />
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <GridContainerPropControls {...gridContainerProps} />
+              </Accordion.Content>
+            </Accordion.Item>
+            <Accordion.Item value="item-2">
+              <Accordion.Trigger>
+                Grid item (Header) props
+                <Accordion.Icon />
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <GridItemPropControls {...headerGridItemProps} />
+              </Accordion.Content>
+            </Accordion.Item>
+            <Accordion.Item value="item-3">
+              <Accordion.Trigger>
+                Grid item (Nav) props
+                <Accordion.Icon />
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <GridItemPropControls {...navGridItemProps} />
+              </Accordion.Content>
+            </Accordion.Item>
+            <Accordion.Item value="item-4">
+              <Accordion.Trigger>
+                Grid item (Main) props
+                <Accordion.Icon />
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <GridItemPropControls {...mainGridItemProps} />
+              </Accordion.Content>
+            </Accordion.Item>
+            <Accordion.Item value="item-5">
+              <Accordion.Trigger>
+                Grid item (Footer) props
+                <Accordion.Icon />
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <GridItemPropControls {...footerGridItemProps} />
+              </Accordion.Content>
+            </Accordion.Item>
+          </Accordion.Container>
         </>
       }
     >

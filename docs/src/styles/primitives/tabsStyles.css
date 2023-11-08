@@ -4,18 +4,18 @@
   border-color: transparent;
 }
 
-.custom-tab-item {
+.custom-tabs__item {
   background-color: var(--amplify-colors-brand-primary-80);
   color: var(--amplify-colors-font-inverse);
   border-color: transparent;
 }
 
-.custom-tab-item:hover {
+.custom-tabs__item:hover {
   color: var(--amplify-colors-font-inverse);
   background-color: var(--amplify-colors-brand-primary-90);
 }
 
-.custom-tab-item[data-state='active'] {
+.custom-tabs__item[aria-selected='true'] {
   color: var(--amplify-colors-font-inverse);
   border-color: transparent;
   background-color: var(--amplify-colors-brand-primary-100);
@@ -25,28 +25,28 @@
   background-color: var(--amplify-colors-background-secondary);
 }
 
-.global-tabs-example .amplify-tabs-item {
+.global-tabs-example .amplify-tabs__item {
   background-color: var(--amplify-colors-background-primary);
 }
 
-.pseudo-demo .amplify-tabs-item:hover {
+.pseudo-demo .amplify-tabs__item:hover {
   background-color: var(--amplify-colors-background-primary);
   border-color: var(--amplify-colors-purple-60);
 }
 
-.pseudo-demo .amplify-tabs-item[data-state='active'] {
+.pseudo-demo .amplify-tabs__item--active {
   background-color: var(--amplify-colors-background-primary);
   border-color: var(--amplify-colors-pink-60);
 }
 
-.pseudo-demo .amplify-tabs-item:focus {
+.pseudo-demo .amplify-tabs__item:focus {
   background-color: var(--amplify-colors-pink-10);
 }
 
-.tabs-data-demo .amplify-tabs-item[data-state='active'] {
+.tabs-data-demo .amplify-tabs__item--active {
   background-color: var(--amplify-colors-brand-primary-20);
 }
 
-.tabs-data-demo .amplify-tabs-item[data-disabled] {
+.tabs-data-demo .amplify-tabs__item[disabled] {
   background-color: var(--amplify-colors-background-tertiary);
 }

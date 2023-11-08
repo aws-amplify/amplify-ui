@@ -87,7 +87,7 @@ Feature: Sign In with Username
     Then I click the "Sign in" button
     Then I see "Change Password"
 
-@angular @react @vue
+  @angular @react @vue
   Scenario: Sign in with untrimmed username
     When I type my username with untrimmed spaces
     Then I type my password

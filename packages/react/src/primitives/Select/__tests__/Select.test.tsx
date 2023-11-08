@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { Select } from '../Select';
 import { Fieldset } from '../../Fieldset';
 import { IconExpandMore } from '../../Icon/internal';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 describe('Select primitive test suite', () => {
   const testId = 'test-select';
@@ -51,9 +51,9 @@ describe('Select primitive test suite', () => {
     expect(select.nodeName).toBe('SELECT');
     expect(select.childNodes).toHaveLength(3);
     expect(select).toHaveAttribute('name', name);
-    expect(select).toHaveAttribute('data-size', size);
-    expect(select).toHaveAttribute('data-variation', variation);
-    expect(select).toHaveClass(ComponentClassNames.Select);
+    expect(select).toHaveClass(`${ComponentClassName.Select}--${size}`);
+    expect(select).toHaveClass(`${ComponentClassName.Select}--${variation}`);
+    expect(select).toHaveClass(ComponentClassName.Select);
     expect(select).not.toBeDisabled();
     expect(select).not.toBeRequired();
   });
@@ -69,12 +69,8 @@ describe('Select primitive test suite', () => {
     const small = await screen.findByTestId('small');
     const large = await screen.findByTestId('large');
 
-    expect(small.classList).toContain(
-      `${ComponentClassNames['Select']}--small`
-    );
-    expect(large.classList).toContain(
-      `${ComponentClassNames['Select']}--large`
-    );
+    expect(small.classList).toContain(`${ComponentClassName['Select']}--small`);
+    expect(large.classList).toContain(`${ComponentClassName['Select']}--large`);
   });
 
   it('should render variation classes for Select', async () => {
@@ -86,9 +82,7 @@ describe('Select primitive test suite', () => {
 
     const quiet = await screen.findByTestId('quiet');
 
-    expect(quiet.classList).toContain(
-      `${ComponentClassNames['Select']}--quiet`
-    );
+    expect(quiet.classList).toContain(`${ComponentClassName['Select']}--quiet`);
   });
 
   it('should render error classes for Select', async () => {
@@ -100,9 +94,7 @@ describe('Select primitive test suite', () => {
 
     const error = await screen.findByTestId('error');
 
-    expect(error.classList).toContain(
-      `${ComponentClassNames['Select']}--error`
-    );
+    expect(error.classList).toContain(`${ComponentClassName['Select']}--error`);
   });
 
   it('should forward ref to DOM element', async () => {
@@ -184,9 +176,8 @@ describe('Select primitive test suite', () => {
       </Select>
     );
 
-    const placeholderElement = await screen.findByText<HTMLOptionElement>(
-      placeholder
-    );
+    const placeholderElement =
+      await screen.findByText<HTMLOptionElement>(placeholder);
     expect(placeholderElement.nodeName).toBe('OPTION');
     expect(placeholderElement).toHaveAttribute('value', '');
     expect(placeholderElement.selected).toBeTruthy();

@@ -12,7 +12,11 @@ export const NameAttribute = () => {
   }, [setFieldsetName]);
   return (
     <Flex as="form" ref={formRef} direction="column">
-      <Fieldset legend="Fieldset with a name" name="Fieldset #1">
+      <Fieldset
+        legend="Fieldset with a name"
+        name="Fieldset #1"
+        variation="outlined"
+      >
         Fieldset content
       </Fieldset>
       Fieldset name: {fieldsetName}

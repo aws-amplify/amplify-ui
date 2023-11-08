@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   MessageHeadingProps,
   BaseMessageHeadingProps,
@@ -9,6 +9,7 @@ import {
   Primitive,
 } from '../types';
 import { Flex } from '../Flex';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const MessageHeadingPrimitive: Primitive<MessageHeadingProps, 'div'> = (
   { children, className, ...rest },
@@ -16,7 +17,7 @@ const MessageHeadingPrimitive: Primitive<MessageHeadingProps, 'div'> = (
 ) => {
   return (
     <Flex
-      className={classNames(ComponentClassNames.MessageHeading, className)}
+      className={classNames(ComponentClassName.MessageHeading, className)}
       ref={ref}
       {...rest}
     >
@@ -28,6 +29,6 @@ const MessageHeadingPrimitive: Primitive<MessageHeadingProps, 'div'> = (
 export const MessageHeading: ForwardRefPrimitive<
   BaseMessageHeadingProps,
   'div'
-> = React.forwardRef(MessageHeadingPrimitive);
+> = primitiveWithForwardRef(MessageHeadingPrimitive);
 
 MessageHeading.displayName = 'MessageHeading';

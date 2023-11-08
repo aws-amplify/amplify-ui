@@ -1,8 +1,6 @@
 {
-  "extends": "../configs/ts/tsconfig.base.json",
+  "extends": "@aws-amplify/typescript-config/tsconfig.base.json",
   "compilerOptions": {
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
-    "noImplicitAny": false,
     "strict": false
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],

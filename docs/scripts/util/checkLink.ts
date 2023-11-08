@@ -67,7 +67,7 @@ async function returnStatus({
   }
 }
 
-export function checkLink(
+export async function checkLink(
   {
     href,
     tagName,
@@ -82,12 +82,7 @@ export function checkLink(
     pageUrl: string;
   },
   linkIdx: number
-): Promise<LinkInfo>;
-
-export async function checkLink(
-  { href, tagName, tagText, pageIdx, pageUrl },
-  linkIdx
-) {
+): Promise<LinkInfo> {
   return new Promise(async (res, rej) => {
     const linkData = { href, linkIdx, pageIdx, pageUrl, tagName, tagText };
     if (!href) {

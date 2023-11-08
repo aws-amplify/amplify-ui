@@ -1,5 +1,5 @@
 import { Image } from 'react-native';
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
+import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import { MessageLayout } from '@aws-amplify/ui-react-core-notifications';
 
 import {
@@ -10,7 +10,7 @@ import {
 } from './constants';
 import { ImageDimensions, ImageLoadingState } from './types';
 
-const logger = new Logger('Notifications.InAppMessaging');
+const logger = new Logger('InAppMessaging');
 
 const inAppMessageImageSizes: Record<MessageLayout, number> = {
   BOTTOM_BANNER: BANNER_IMAGE_SCREEN_SIZE,

@@ -1,19 +1,20 @@
 import {
-  BorderWidthValue,
   DesignTokenValues,
   OutputVariantKey,
+  RecursiveDesignToken,
+  SpaceValue,
 } from './types/designToken';
 
 type BorderWidthSize = 'small' | 'medium' | 'large';
 
 export type BorderWidths<
   Output extends OutputVariantKey = unknown,
-  Platform = unknown
-> = Output extends 'required' | 'default'
+  Platform = unknown,
+> = (Output extends 'required' | 'default'
   ? Required<
       DesignTokenValues<
         BorderWidthSize,
-        BorderWidthValue<Platform, Output>,
+        SpaceValue<Platform, Output>,
         Output,
         Platform
       >
@@ -21,11 +22,12 @@ export type BorderWidths<
   : Partial<
       DesignTokenValues<
         BorderWidthSize,
-        BorderWidthValue<Platform, Output>,
+        SpaceValue<Platform, Output>,
         Output,
         Platform
       >
-    >;
+    >) &
+  RecursiveDesignToken<SpaceValue<Platform, Output>, Output, Platform>;
 
 export const borderWidths: BorderWidths<'default'> = {
   small: { value: '1px' },

@@ -3,6 +3,7 @@ import { UseAuthenticator } from '../../types';
 
 export const baseMockServiceFacade: UseAuthenticator = {
   authStatus: 'authenticated',
+  challengeName: 'SELECT_MFA_TYPE',
   codeDeliveryDetails: {} as AuthenticatorServiceFacade['codeDeliveryDetails'],
   error: undefined as unknown as AuthenticatorServiceFacade['error'],
   hasValidationErrors: false,

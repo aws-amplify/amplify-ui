@@ -1,10 +1,4 @@
 /**
- * Prevents usage of T from being automatically inferred.
- * see: https://github.com/Microsoft/TypeScript/issues/14829#issuecomment-504042546
- */
-export type NoInfer<T> = [T][T extends any ? 0 : never];
-
-/**
  * Improves readability of enumerable properties of an `Object` created from another `Object`,
  * for example types that have been created using `Omit` or `Pick`.
  */
@@ -82,7 +76,7 @@ If this is undesirable, you can pass `{recurseIntoArrays: false}` as the second 
 */
 export type PartialDeep<
   T,
-  Options extends PartialDeepOptions = {}
+  Options extends PartialDeepOptions = {},
 > = T extends BuiltIns
   ? T
   : T extends Map<infer KeyType, infer ValueType>
@@ -125,7 +119,7 @@ Same as `PartialDeep`, but accepts only `ReadonlyMap`s as inputs. Internal helpe
 interface PartialReadonlyMapDeep<
   KeyType,
   ValueType,
-  Options extends PartialDeepOptions
+  Options extends PartialDeepOptions,
 > extends ReadonlyMap<
     PartialDeep<KeyType, Options>,
     PartialDeep<ValueType, Options>
@@ -142,7 +136,7 @@ Same as `PartialDeep`, but accepts only `object`s as inputs. Internal helper for
 */
 type PartialObjectDeep<
   ObjectType extends object,
-  Options extends PartialDeepOptions
+  Options extends PartialDeepOptions,
 > = {
   [KeyType in keyof ObjectType]?: PartialDeep<ObjectType[KeyType], Options>;
 };

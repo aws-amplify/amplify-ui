@@ -2,13 +2,14 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { Flex } from '../Flex';
 import { IconExpandMore, useIcons } from '../Icon';
 import { ForwardRefPrimitive, Primitive } from '../types';
 import { BaseSelectProps, SelectProps } from '../types/select';
 import { View } from '../View';
 import { useFieldset } from '../Fieldset/useFieldset';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const SelectPrimitive: Primitive<SelectProps, 'select'> = (
   {
@@ -39,19 +40,19 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
   const isExpanded = isMultiple || selectSize > 1;
 
   const componentClasses = classNames(
-    ComponentClassNames.Select,
-    ComponentClassNames.FieldGroupControl,
-    classNameModifier(ComponentClassNames.Select, size),
-    classNameModifier(ComponentClassNames.Select, variation),
-    classNameModifierByFlag(ComponentClassNames.Select, 'error', hasError),
-    classNameModifierByFlag(ComponentClassNames.Select, 'expanded', isExpanded),
+    ComponentClassName.Select,
+    ComponentClassName.FieldGroupControl,
+    classNameModifier(ComponentClassName.Select, size),
+    classNameModifier(ComponentClassName.Select, variation),
+    classNameModifierByFlag(ComponentClassName.Select, 'error', hasError),
+    classNameModifierByFlag(ComponentClassName.Select, 'expanded', isExpanded),
     className
   );
   const icons = useIcons('select');
   const { isFieldsetDisabled } = useFieldset();
 
   return (
-    <View className={ComponentClassNames.SelectWrapper}>
+    <View className={ComponentClassName.SelectWrapper}>
       <View
         aria-invalid={hasError}
         as="select"
@@ -66,8 +67,6 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
         multiple={isMultiple}
         size={selectSize}
         required={isRequired}
-        data-size={size}
-        data-variation={variation}
         className={componentClasses}
         ref={ref}
         {...rest}
@@ -78,8 +77,8 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
       {isExpanded ? null : (
         <Flex
           className={classNames(
-            ComponentClassNames.SelectIconWrapper,
-            classNameModifier(ComponentClassNames.SelectIconWrapper, size)
+            ComponentClassName.SelectIcon,
+            classNameModifier(ComponentClassName.SelectIcon, size)
           )}
           color={iconColor}
         >
@@ -91,6 +90,6 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
 };
 
 export const Select: ForwardRefPrimitive<BaseSelectProps, 'select'> =
-  React.forwardRef(SelectPrimitive);
+  primitiveWithForwardRef(SelectPrimitive);
 
 Select.displayName = 'Select';

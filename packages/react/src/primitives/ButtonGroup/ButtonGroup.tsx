@@ -1,6 +1,8 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { ComponentClassName } from '@aws-amplify/ui';
+
 import {
   ButtonProps,
   ButtonGroupProps,
@@ -8,7 +10,7 @@ import {
   Primitive,
   ForwardRefPrimitive,
 } from '../types';
-import { ComponentClassNames } from '../shared/constants';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { Flex } from '../Flex';
 
 const ButtonGroupPrimitive: Primitive<ButtonGroupProps, 'div'> = (
@@ -23,7 +25,7 @@ const ButtonGroupPrimitive: Primitive<ButtonGroupProps, 'div'> = (
   ref
 ) => (
   <Flex
-    className={classNames(ComponentClassNames.ButtonGroup, className)}
+    className={classNames(ComponentClassName.ButtonGroup, className)}
     role={role}
     ref={ref}
     {...rest}
@@ -42,6 +44,6 @@ const ButtonGroupPrimitive: Primitive<ButtonGroupProps, 'div'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/button#buttongroup)
  */
 export const ButtonGroup: ForwardRefPrimitive<BaseButtonGroupProps, 'div'> =
-  React.forwardRef(ButtonGroupPrimitive);
+  primitiveWithForwardRef(ButtonGroupPrimitive);
 
 ButtonGroup.displayName = 'ButtonGroup';

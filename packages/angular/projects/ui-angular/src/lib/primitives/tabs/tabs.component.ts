@@ -20,8 +20,8 @@ export class TabsComponent implements AfterContentInit {
   ngAfterContentInit(): void {
     // assign ids
     this.tabs.forEach((tab, index) => {
-      tab.id = `radix-id-${nanoid(12)}-1-content-${index}`;
-      tab.labelledById = `radix-id-${nanoid(12)}-1-trigger-${index}`;
+      tab.id = `tab-${nanoid(12)}-panel-${index}`;
+      tab.labelledById = `tab-${nanoid(12)}-tab-${index}`;
     });
 
     // find active tab

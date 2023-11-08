@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { classNameModifier } from '../shared/utils';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
@@ -15,6 +15,7 @@ import {
 } from '../types';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { useStableId } from '../utils/useStableId';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 interface SelectFieldChildrenProps {
   children?: React.ReactNode;
@@ -71,12 +72,11 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
   return (
     <Flex
       className={classNames(
-        ComponentClassNames.Field,
-        classNameModifier(ComponentClassNames.Field, size),
-        ComponentClassNames.SelectField,
+        ComponentClassName.Field,
+        classNameModifier(ComponentClassName.Field, size),
+        ComponentClassName.SelectField,
         className
       )}
-      data-size={size}
       testId={testId}
       {...styleProps}
     >
@@ -108,6 +108,6 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/selectfield)
  */
 export const SelectField: ForwardRefPrimitive<BaseSelectFieldProps, 'select'> =
-  React.forwardRef(SelectFieldPrimitive);
+  primitiveWithForwardRef(SelectFieldPrimitive);
 
 SelectField.displayName = 'SelectField';

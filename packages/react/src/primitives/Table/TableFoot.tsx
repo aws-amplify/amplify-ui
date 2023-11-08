@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   ForwardRefPrimitive,
   Primitive,
@@ -9,6 +9,7 @@ import {
   TableFootProps,
 } from '../types';
 import { View } from '../View';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const TableFootPrimitive: Primitive<TableFootProps, 'tfoot'> = (
   { children, className, ...rest },
@@ -16,7 +17,7 @@ const TableFootPrimitive: Primitive<TableFootProps, 'tfoot'> = (
 ) => (
   <View
     as="tfoot"
-    className={classNames(ComponentClassNames.TableFoot, className)}
+    className={classNames(ComponentClassName.TableFoot, className)}
     ref={ref}
     {...rest}
   >
@@ -25,6 +26,6 @@ const TableFootPrimitive: Primitive<TableFootProps, 'tfoot'> = (
 );
 
 export const TableFoot: ForwardRefPrimitive<BaseTableFootProps, 'tfoot'> =
-  React.forwardRef(TableFootPrimitive);
+  primitiveWithForwardRef(TableFootPrimitive);
 
 TableFoot.displayName = 'TableFoot';

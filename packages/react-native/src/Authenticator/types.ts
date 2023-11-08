@@ -7,11 +7,8 @@ import { Components } from './Defaults';
 
 type SupportedAuthenticatorMachineOptions = Omit<
   AuthenticatorMachineOptions,
-  // `socialProviders` not supported as a prop,
-  // feature is not enabled in React Native `Authenticator`
-  | 'socialProviders'
   // `formFields` prop in RWA is to be deprecated
-  | 'formFields'
+  'formFields'
 >;
 
 export interface AuthenticatorProps

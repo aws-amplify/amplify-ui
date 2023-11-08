@@ -1,7 +1,7 @@
 import QRCode from 'qrcode';
 import * as React from 'react';
 
-import { Logger } from 'aws-amplify';
+import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import { authenticatorTextUtil, getTotpCodeURL } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
@@ -25,9 +25,14 @@ export const SetupTOTP = ({
   className,
   variation,
 }: RouteProps): JSX.Element => {
+  // eslint-disable-next-line no-console
+  console.log('+++UI: SetupTOTP');
   const { totpSecretCode, isPending, user, QRFields } = useAuthenticator(
     (context) => [context.isPending, context.totpSecretCode]
   );
+
+  // eslint-disable-next-line no-console
+  console.log('totpSecretCode', totpSecretCode);
 
   const { handleChange, handleSubmit } = useFormHandlers();
 

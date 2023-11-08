@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-  AuthChallengeName,
+  ChallengeName,
   AuthenticatorServiceFacade,
   LegacyFormFieldOptions,
 } from '@aws-amplify/ui';
@@ -92,7 +92,7 @@ export type ConfirmResetPasswordBaseProps<FieldType = {}> = {
   ValidationProps;
 
 export type ConfirmSignInBaseProps<FieldType = {}> = {
-  challengeName: AuthChallengeName;
+  challengeName: ChallengeName;
   toSignIn: UseAuthenticator['toSignIn'];
 } & CommonRouteProps &
   ComponentSlots<FieldType> &
@@ -132,6 +132,7 @@ export type SetupTOTPBaseProps<FieldType = {}> = {
 
 export type SignInBaseProps<FieldType = {}> = {
   hideSignUp?: boolean;
+  socialProviders?: UseAuthenticator['socialProviders'];
   toFederatedSignIn: UseAuthenticator['toFederatedSignIn'];
   toResetPassword: UseAuthenticator['toResetPassword'];
   toSignUp: UseAuthenticator['toSignUp'];
@@ -141,6 +142,7 @@ export type SignInBaseProps<FieldType = {}> = {
 
 export type SignUpBaseProps<FieldType = {}> = {
   hideSignIn?: boolean;
+  socialProviders?: UseAuthenticator['socialProviders'];
   toFederatedSignIn: UseAuthenticator['toFederatedSignIn'];
   toSignIn: UseAuthenticator['toSignIn'];
 } & CommonRouteProps &
@@ -175,7 +177,7 @@ type BaseComponent<
   // Route specific `FieldType`
   FieldType = {},
   // additional props assigned in the UI layer
-  Props = {}
+  Props = {},
 > = React.ComponentType<
   ComponentSlots<FieldType> &
     ComponentRouteProps & { fields: FieldType[] } & Props

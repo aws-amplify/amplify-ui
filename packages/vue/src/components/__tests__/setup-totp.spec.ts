@@ -3,11 +3,6 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/vue';
 import QRCode from 'qrcode';
 
 import * as UIModule from '@aws-amplify/ui';
-import {
-  AmplifyUser,
-  AuthInterpreter,
-  AuthMachineState,
-} from '@aws-amplify/ui';
 
 import { components } from '../../../global-spec';
 import * as UseAuthComposables from '../../composables/useAuth';
@@ -28,8 +23,8 @@ const getTotpCodeURLSpy = jest.spyOn(UIModule, 'getTotpCodeURL');
 jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
   authStatus: ref('unauthenticated'),
   send: jest.fn(),
-  service: undefined as unknown as AuthInterpreter,
-  state: ref(undefined) as unknown as Ref<AuthMachineState>,
+  service: undefined as unknown as UIModule.AuthInterpreter,
+  state: ref(undefined) as unknown as Ref<UIModule.AuthMachineState>,
 });
 
 const submitFormSpy = jest.fn();
@@ -44,7 +39,7 @@ const mockServiceFacade = {
   toSignIn: toSignInSpy,
   totpSecretCode: 'totp-mock-secret-code',
   updateForm: updateFormSpy,
-  user: { username: 'testuser' } as unknown as AmplifyUser,
+  user: { username: 'testuser' } as unknown as UIModule.AmplifyUser,
 } as UseAuthenticator;
 
 const useAuthenticatorSpy = jest

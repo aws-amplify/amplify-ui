@@ -2,13 +2,14 @@ import classNames from 'classnames';
 import * as React from 'react';
 
 import { classNameModifier } from '../shared/utils';
-import { ComponentClassNames } from '../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseDividerProps,
   DividerProps,
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { View } from '../View';
 
 const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
@@ -16,10 +17,9 @@ const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
   ref
 ) => {
   const componentClasses = classNames(
-    ComponentClassNames.Divider,
-    classNameModifier(ComponentClassNames.Divider, orientation),
-    classNameModifier(ComponentClassNames.Divider, size),
-    label ? ComponentClassNames.DividerLabel : null,
+    ComponentClassName.Divider,
+    classNameModifier(ComponentClassName.Divider, orientation),
+    classNameModifier(ComponentClassName.Divider, size),
     className
   );
 
@@ -28,7 +28,6 @@ const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
       aria-orientation={orientation}
       as="hr"
       className={componentClasses}
-      data-size={size}
       data-label={label}
       ref={ref}
       {...rest}
@@ -40,6 +39,6 @@ const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/divider)
  */
 export const Divider: ForwardRefPrimitive<BaseDividerProps, 'hr'> =
-  React.forwardRef(DividerPrimitive);
+  primitiveWithForwardRef(DividerPrimitive);
 
 Divider.displayName = 'Divider';

@@ -37,7 +37,7 @@ const {
   required,
 } = toRefs(props);
 
-let password = ref('');
+const password = ref('');
 
 function togglePasswordText(): void {
   showHideLabel.value =

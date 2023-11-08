@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { Flex } from '../Flex';
 import { FieldErrorMessage } from '../Field';
 import { Input } from '../Input';
@@ -18,6 +18,7 @@ import { useSwitch } from './useSwitch';
 import { View } from '../View';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { useFieldset } from '../Fieldset/useFieldset';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
   {
@@ -52,27 +53,27 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
   const shouldBeDisabled = isFieldsetDisabled ? isFieldsetDisabled : isDisabled;
 
   const fieldId = useStableId(id);
-  const LabelType = isLabelHidden ? VisuallyHidden : View;
+
   const wrapperClasses = classNames(
-    ComponentClassNames.SwitchTrack,
-    classNameModifierByFlag(ComponentClassNames.SwitchTrack, 'checked', isOn),
+    ComponentClassName.SwitchTrack,
+    classNameModifierByFlag(ComponentClassName.SwitchTrack, 'checked', isOn),
     classNameModifierByFlag(
-      ComponentClassNames.SwitchTrack,
+      ComponentClassName.SwitchTrack,
       'disabled',
       shouldBeDisabled
     ),
     classNameModifierByFlag(
-      ComponentClassNames.SwitchTrack,
+      ComponentClassName.SwitchTrack,
       'focused',
       isFocused
     ),
-    classNameModifierByFlag(ComponentClassNames.SwitchTrack, 'error', hasError)
+    classNameModifierByFlag(ComponentClassName.SwitchTrack, 'error', hasError)
   );
   const componentClasses = classNames(
-    ComponentClassNames.SwitchThumb,
-    classNameModifierByFlag(ComponentClassNames.SwitchThumb, 'checked', isOn),
+    ComponentClassName.SwitchThumb,
+    classNameModifierByFlag(ComponentClassName.SwitchThumb, 'checked', isOn),
     classNameModifierByFlag(
-      ComponentClassNames.SwitchThumb,
+      ComponentClassName.SwitchThumb,
       'disabled',
       shouldBeDisabled
     )
@@ -81,12 +82,11 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
   return (
     <Flex
       className={classNames(
-        ComponentClassNames.SwitchField,
-        classNameModifier(ComponentClassNames.SwitchField, size),
+        ComponentClassName.SwitchField,
+        classNameModifier(ComponentClassName.SwitchField, size),
+        labelPosition ? `amplify-label-${labelPosition}` : null,
         className
       )}
-      data-size={size}
-      data-label-position={labelPosition}
       ref={ref}
       {...rest}
     >
@@ -111,20 +111,22 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
       <Label
         htmlFor={fieldId}
         className={classNames(
-          ComponentClassNames.SwitchWrapper,
-          classNameModifier(ComponentClassNames.SwitchWrapper, labelPosition)
+          ComponentClassName.SwitchWrapper,
+          classNameModifier(ComponentClassName.SwitchWrapper, labelPosition)
         )}
-        data-label-position={labelPosition}
       >
-        <LabelType as="span" className={ComponentClassNames.SwitchLabel}>
-          {label}
-        </LabelType>
+        {isLabelHidden ? (
+          <VisuallyHidden as="span" className={ComponentClassName.SwitchLabel}>
+            {label}
+          </VisuallyHidden>
+        ) : (
+          <View as="span" className={ComponentClassName.SwitchLabel}>
+            {label}
+          </View>
+        )}
         <View
           as="span"
           className={wrapperClasses}
-          data-checked={isOn}
-          data-disabled={shouldBeDisabled}
-          data-focused={isFocused}
           backgroundColor={isOn ? trackCheckedColor : trackColor}
         >
           <View
@@ -145,6 +147,6 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/switchfield)
  */
 export const SwitchField: ForwardRefPrimitive<BaseSwitchFieldProps, 'div'> =
-  React.forwardRef(SwitchFieldPrimitive);
+  primitiveWithForwardRef(SwitchFieldPrimitive);
 
 SwitchField.displayName = 'SwitchField';

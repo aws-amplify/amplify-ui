@@ -2,7 +2,7 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { VisuallyHidden } from '../VisuallyHidden';
-import { ComponentClassNames } from '../../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 const hiddenContent = 'A hidden text';
 
@@ -11,7 +11,7 @@ describe('VisuallyHidden test suite', () => {
     render(<VisuallyHidden>{hiddenContent}</VisuallyHidden>);
 
     const visuallyHidden = await screen.findByText(hiddenContent);
-    expect(visuallyHidden).toHaveClass(ComponentClassNames.VisuallyHidden);
+    expect(visuallyHidden).toHaveClass(ComponentClassName.VisuallyHidden);
   });
 
   it('should forward ref to DOM element', async () => {

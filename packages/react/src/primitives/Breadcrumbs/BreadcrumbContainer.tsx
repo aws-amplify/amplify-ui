@@ -1,5 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 import {
   Primitive,
@@ -7,7 +8,7 @@ import {
   BreadcrumbsContainerProps,
   BaseBreadcrumbContainerProps,
 } from '../types';
-import { ComponentClassNames } from '../shared/constants';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { View } from '../View';
 
 const BreadcrumbContainerPrimitive: Primitive<
@@ -15,7 +16,7 @@ const BreadcrumbContainerPrimitive: Primitive<
   'nav'
 > = ({ className, children, ...rest }, ref) => {
   const componentClasses = classNames(
-    ComponentClassNames.Breadcrumbs,
+    ComponentClassName.Breadcrumbs,
     className
   );
 
@@ -29,7 +30,7 @@ const BreadcrumbContainerPrimitive: Primitive<
       className={componentClasses}
       ref={ref}
     >
-      <View as="ol" className={ComponentClassNames.BreadcrumbsList}>
+      <View as="ol" className={ComponentClassName.BreadcrumbsList}>
         {children}
       </View>
     </View>
@@ -42,6 +43,6 @@ const BreadcrumbContainerPrimitive: Primitive<
 export const BreadcrumbContainer: ForwardRefPrimitive<
   BaseBreadcrumbContainerProps,
   'nav'
-> = React.forwardRef(BreadcrumbContainerPrimitive);
+> = primitiveWithForwardRef(BreadcrumbContainerPrimitive);
 
 BreadcrumbContainer.displayName = 'Breadcrumbs.Container';

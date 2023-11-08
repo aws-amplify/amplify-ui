@@ -2,8 +2,10 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { ComponentClassName } from '@aws-amplify/ui';
+
 import { Pagination } from '../Pagination';
-import { ComponentClassNames, ComponentText } from '../../shared/constants';
+import { ComponentText } from '../../shared/constants';
 import {
   PaginationItem,
   PAGINATION_CURRENT_TEST_ID,
@@ -29,10 +31,12 @@ describe('Pagination component:', () => {
     expect(pagination.id).toBe(id);
     expect(pagination.nodeName).toBe('NAV');
     expect(pagination.childNodes.length).toBe(1);
-    expect(pagination).toHaveClass(ComponentClassNames.Pagination);
+    expect(pagination).toHaveClass(ComponentClassName.Pagination);
 
     const firstPage = await screen.findByText('1');
-    expect(firstPage).toHaveClass(ComponentClassNames.PaginationItemCurrent);
+    expect(firstPage).toHaveClass(
+      `${ComponentClassName.PaginationItem}--current`
+    );
 
     const lastPage = await screen.findByLabelText(
       `${ComponentText.PaginationItem.pageLabel} ${totalPages}`
@@ -327,11 +331,13 @@ describe('Pagination component:', () => {
       );
       const pageItem = await screen.findByText('1');
       expect(pageItem.nodeName).toBe('BUTTON');
-      expect(pageItem).toHaveClass(ComponentClassNames.PaginationItemCurrent);
+      expect(pageItem).toHaveClass(
+        `${ComponentClassName.PaginationItem}--current`
+      );
       const invisibleLabel = await screen.findByText(
         `${ComponentText.PaginationItem.currentPageLabel}:`
       );
-      expect(invisibleLabel).toHaveClass(ComponentClassNames.VisuallyHidden);
+      expect(invisibleLabel).toHaveClass(ComponentClassName.VisuallyHidden);
       expect(pageItem.getAttribute('aria-current')).toBe('page');
 
       userEvent.click(pageItem);
@@ -382,7 +388,9 @@ describe('Pagination component:', () => {
       render(<PaginationItem type="ellipsis" ariaLabel="ellipsis" />);
       const ellipsis = await screen.findByTestId(PAGINATION_ELLIPSIS_TEST_ID);
       expect(ellipsis.nodeName).toBe('SPAN');
-      expect(ellipsis).toHaveClass(ComponentClassNames.PaginationItemEllipsis);
+      expect(ellipsis).toHaveClass(
+        `${ComponentClassName.PaginationItem}--ellipsis`
+      );
       expect(ellipsis.innerHTML).toBe('\u2026');
     });
   });

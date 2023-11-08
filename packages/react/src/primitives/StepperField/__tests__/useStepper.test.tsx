@@ -71,7 +71,7 @@ describe('useStepper:', () => {
       target: {},
     } as React.MouseEvent<HTMLButtonElement>;
     act(() => result.current.handleIncrease(mockMouseEvent));
-    expect(onIncrease).toBeCalledTimes(1);
+    expect(onIncrease).toHaveBeenCalledTimes(1);
   });
 
   it('should handle onDecrease', () => {
@@ -87,7 +87,7 @@ describe('useStepper:', () => {
       target: {},
     } as React.MouseEvent<HTMLButtonElement>;
     act(() => result.current.handleDecrease(mockMouseEvent));
-    expect(onDecrease).toBeCalledTimes(1);
+    expect(onDecrease).toHaveBeenCalledTimes(1);
   });
 
   it('should return a valid value if above max', () => {
@@ -117,6 +117,6 @@ describe('useStepper:', () => {
       target: {},
     } as React.ChangeEvent<HTMLInputElement>;
     act(() => result.current.handleOnChange(mockMouseEvent));
-    expect(onChange).toBeCalledTimes(1);
+    expect(onChange).toHaveBeenCalledTimes(1);
   });
 });

@@ -6,7 +6,7 @@ export const ControlledExample = () => {
 
   return (
     <RadioGroupField
-      label="Fruit"
+      legend="Fruit"
       name="fruit"
       value={value}
       onChange={(e) => setValue(e.target.value)}

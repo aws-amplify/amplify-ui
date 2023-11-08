@@ -17,6 +17,8 @@ export const ConfirmResetPassword = ({
   className,
   variation,
 }: RouteProps): JSX.Element => {
+  // eslint-disable-next-line no-console
+  console.log('+++UI: ConfirmResetPassword');
   const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleBlur, handleChange, handleSubmit } = useFormHandlers();
 

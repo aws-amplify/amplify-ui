@@ -2,11 +2,11 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { View } from '../View';
-import { ComponentClassNames } from '../shared/constants';
 import { ComponentClassName, classNameModifierByFlag } from '@aws-amplify/ui';
 import { DropZoneContext } from './DropZoneProvider';
 import { BaseDropZoneContainerProps, DropZoneContainerProps } from './types';
 import { ForwardRefPrimitive, Primitive } from '../types';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const Container: Primitive<DropZoneContainerProps, 'div'> = (
   {
@@ -37,12 +37,12 @@ const Container: Primitive<DropZoneContainerProps, 'div'> = (
       className={classNames(
         className,
         classNameModifierByFlag(
-          ComponentClassNames.DropZone,
+          ComponentClassName.DropZone,
           'rejected',
           dragState === 'reject'
         ),
         classNameModifierByFlag(
-          ComponentClassNames.DropZone,
+          ComponentClassName.DropZone,
           'accepted',
           dragState === 'accept'
         ),
@@ -51,7 +51,7 @@ const Container: Primitive<DropZoneContainerProps, 'div'> = (
           'disabled',
           isDisabled
         ),
-        ComponentClassNames.DropZone
+        ComponentClassName.DropZone
       )}
       data-testid={testId}
       ref={ref}
@@ -64,7 +64,7 @@ const Container: Primitive<DropZoneContainerProps, 'div'> = (
 const DropZoneContainer: ForwardRefPrimitive<
   BaseDropZoneContainerProps,
   'div'
-> = React.forwardRef(Container);
+> = primitiveWithForwardRef(Container);
 
 DropZoneContainer.displayName = 'DropZoneContainer';
 
