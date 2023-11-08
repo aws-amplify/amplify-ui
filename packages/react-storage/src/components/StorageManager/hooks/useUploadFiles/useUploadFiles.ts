@@ -72,11 +72,10 @@ export function useUploadFiles({
 
       if (file) {
         resolveFile({ processFile, file, key }).then(
-          ({ key: processedKey, file, ...rest }) => {
+          ({ key: processedKey, ...rest }) => {
             onUploadStart?.({ key: processedKey });
             const uploadTask = uploadFile({
               ...rest,
-              file,
               key: processedKey,
               level: accessLevel,
               progressCallback: onProgress,
