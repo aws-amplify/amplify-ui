@@ -45,8 +45,8 @@ export const PageTabLayout = ({
 
   return (
     <Tabs.Container
-      onValueChange={changeURL}
       defaultValue={defaultValue}
+      onValueChange={changeURL}
       isLazy
     >
       <Tabs.List>
