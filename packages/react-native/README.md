@@ -20,4 +20,4 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 
 ## We love contributors!! ✨
 
-See our contributing guide [CONTRIBUTING.md](/CONTRIBUTING.md) to help us scale Amplify UI!
+See our contributing guide [CONTRIBUTING.md](/CONTRIBUTING.md) to help us scale Amplify UI!!!
