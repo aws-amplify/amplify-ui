@@ -10,7 +10,7 @@ export function StorageManagerExample() {
       acceptedFileTypes={['image/*']}
       accessLevel="guest"
       autoUpload={false}
-      maxFileCount={1}
+      maxFileCount={10}
       showThumbnails
     />
   );
