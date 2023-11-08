@@ -71,22 +71,25 @@ export function useUploadFiles({
       };
 
       if (file) {
-        resolveFile({ processFile, file, key }).then(({ key, file }) => {
-          onUploadStart?.({ key });
-          const uploadTask = uploadFile({
-            file,
-            key,
-            level: accessLevel,
-            progressCallback: onProgress,
-            errorCallback: onError,
-            completeCallback: onComplete,
-          });
+        resolveFile({ processFile, file, key }).then(
+          ({ key, file, ...rest }) => {
+            onUploadStart?.({ key });
+            const uploadTask = uploadFile({
+              file,
+              key,
+              level: accessLevel,
+              progressCallback: onProgress,
+              errorCallback: onError,
+              completeCallback: onComplete,
+              ...rest,
+            });
 
-          setUploadingFile({
-            id,
-            uploadTask,
-          });
-        });
+            setUploadingFile({
+              id,
+              uploadTask,
+            });
+          }
+        );
       }
     }
   }, [
