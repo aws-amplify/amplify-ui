@@ -29,7 +29,7 @@ jest.mock('../../shared/FormFields', () => ({ FormFields: () => null }));
 const DEFAULT_TOTP_ISSUER = 'AWSCognito';
 const SECRET_KEY = "Don't tell anyone";
 
-const user = { username: 'username' };
+const username = 'username';
 
 const getTotpCodeURLSpy = jest.spyOn(UI, 'getTotpCodeURL');
 
@@ -39,7 +39,7 @@ describe('SetupTOTP', () => {
 
     (useAuthenticator as jest.Mock).mockReturnValue({
       isPending: false,
-      user,
+      username,
       totpSecretCode: SECRET_KEY,
     } as UseAuthenticator);
   });
@@ -52,7 +52,7 @@ describe('SetupTOTP', () => {
     expect(getTotpCodeURLSpy).toHaveBeenCalledTimes(1);
     expect(getTotpCodeURLSpy).toHaveBeenCalledWith(
       DEFAULT_TOTP_ISSUER,
-      user.username,
+      username,
       SECRET_KEY
     );
   });
@@ -68,7 +68,7 @@ describe('SetupTOTP', () => {
         totpUsername: customTotpUsername,
       },
       totpSecretCode: SECRET_KEY,
-      user,
+      username,
     } as UseAuthenticator);
 
     await act(async () => {
