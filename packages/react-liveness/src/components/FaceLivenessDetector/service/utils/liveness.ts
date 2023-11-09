@@ -836,18 +836,3 @@ export function getBoundingBox({
     Left: left / deviceWidth,
   };
 }
-
-export function captureRefImage(videoElement: HTMLVideoElement) {
-  return new Promise<Blob>((resolve) => {
-    const canvasElement = document.createElement('canvas');
-    const canvas2dContext = canvasElement.getContext('2d')!;
-
-    canvasElement.width = videoElement.videoWidth;
-    canvasElement.height = videoElement.videoHeight;
-    canvas2dContext.drawImage(videoElement, 0, 0);
-
-    canvasElement.toBlob((blob) => {
-      resolve(blob!);
-    });
-  });
-}
