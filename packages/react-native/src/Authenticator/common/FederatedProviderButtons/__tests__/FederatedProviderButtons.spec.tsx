@@ -5,6 +5,7 @@ import {
   AuthenticatorRoute,
   SocialProvider,
   authenticatorTextUtil,
+  capitalize,
 } from '@aws-amplify/ui';
 
 import FederatedProviderButtons from '../FederatedProviderButtons';
@@ -54,6 +55,8 @@ describe('FederatedProviderButtons', () => {
 
     fireEvent.press(providerButton);
 
-    expect(toFederatedSignIn).toHaveBeenCalledWith({ provider });
+    expect(toFederatedSignIn).toHaveBeenCalledWith({
+      provider: capitalize(provider),
+    });
   });
 });
