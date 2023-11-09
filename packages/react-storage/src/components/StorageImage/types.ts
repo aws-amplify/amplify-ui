@@ -9,5 +9,6 @@ export interface StorageImageProps extends Omit<ImageProps, 'src'> {
   accessLevel: StorageAccessLevel;
   identityId?: string;
   fallbackSrc?: string;
+  validateObjectExistence?: boolean;
   onStorageGetError?: (error: Error) => void;
 }

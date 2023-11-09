@@ -1,6 +1,5 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
-# point to monorepo top level node_modules
-require_relative '../../../node_modules/@react-native-community/cli-platform-ios/native_modules'
+require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 platform :ios, 13
 prepare_react_native_project!
