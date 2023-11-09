@@ -8,6 +8,9 @@ export const getRoute = (
   state: AuthMachineState,
   actorState: AuthActorState
 ) => {
+  // console.log('state', state?.value);
+  // console.log('actorState', actorState?.value);
+
   switch (true) {
     case state.matches('idle'):
       return 'idle';
@@ -26,16 +29,14 @@ export const getRoute = (
     case actorState?.matches('setupTotp.submit'):
       return 'setupTotp';
     case actorState?.matches('signIn'):
-    case state?.matches('signIn.getCurrentUser'):
       return 'signIn';
     case actorState?.matches('signUp'):
       return 'signUp';
-    case actorState?.matches('forceNewPassword'):
+    case actorState?.matches('forceChangePassword'):
       return 'forceNewPassword';
-    case state?.matches('forgotPassword'):
-    case state?.matches('resetPassword'):
+    case actorState?.matches('forgotPassword'):
       return 'resetPassword';
-    case actorState?.matches('confirmResetPassword'):
+    case actorState?.matches('confirmPasswordUpdate'):
       return 'confirmResetPassword';
     case actorState?.matches('verifyUser'):
       return 'verifyUser';

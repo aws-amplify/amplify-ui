@@ -99,6 +99,7 @@ const setTotpSecretCode = assign({
 const setShouldVerifyUserAttribute = assign({
   step: 'SHOULD_VERIFY_USER_ATTRIBUTE',
 });
+
 const setConfirmAttributeComplete = assign({
   step: 'CONFIRM_ATTRIBUTE_COMPLETE',
 });
@@ -148,7 +149,8 @@ const setNextResetPasswordStep = assign({
     const nextStep =
       (event.data as ResetPasswordOutput).nextStep.resetPasswordStep === 'DONE'
         ? 'RESET_PASSWORD_COMPLETE'
-        : event.data.nextStep.signInStep;
+        : event.data.nextStep.resetPasswordStep;
+    groupLog('+++SetNextResetPasswordStep', nextStep);
     return nextStep;
   },
 });
