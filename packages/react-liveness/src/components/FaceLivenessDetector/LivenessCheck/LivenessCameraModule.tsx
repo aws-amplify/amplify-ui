@@ -185,9 +185,8 @@ export const LivenessCameraModule = (
   }, [send]);
 
   const onCameraChange = React.useCallback(
-    async (e: any) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const newDeviceId = e.target.value as string;
+    async (e: React.ChangeEvent<HTMLSelectElement>) => {
+      const newDeviceId = e.target.value;
       const newStream = await navigator.mediaDevices.getUserMedia({
         video: {
           ...videoConstraints,
@@ -219,12 +218,16 @@ export const LivenessCameraModule = (
           fontSize="large"
           fontWeight="bold"
           data-testid="waiting-camera-permission"
+          className={`${LivenessClassNames.StartScreenCameraWaiting}__text`}
         >
           {cameraDisplayText.waitingCameraPermissionText}
         </Text>
       </Flex>
     );
   }
+
+  const isRecordingOnMobile =
+    isMobileScreen && !isStartView && !isWaitingForCamera && isRecording;
 
   return (
     <>
@@ -239,11 +242,7 @@ export const LivenessCameraModule = (
       <Flex
         className={classNames(
           LivenessClassNames.CameraModule,
-          isMobileScreen &&
-            !isStartView &&
-            !isWaitingForCamera &&
-            isRecording &&
-            `${LivenessClassNames.CameraModule}--mobile`
+          isRecordingOnMobile && `${LivenessClassNames.CameraModule}--mobile`
         )}
         data-testid={testId}
         gap="zero"
@@ -277,11 +276,7 @@ export const LivenessCameraModule = (
           <Flex
             className={classNames(
               LivenessClassNames.OvalCanvas,
-              isMobileScreen &&
-                !isStartView &&
-                !isWaitingForCamera &&
-                isRecording &&
-                `${LivenessClassNames.OvalCanvas}--mobile`,
+              isRecordingOnMobile && `${LivenessClassNames.OvalCanvas}--mobile`,
               isRecordingStopped && LivenessClassNames.FadeOut
             )}
           >
