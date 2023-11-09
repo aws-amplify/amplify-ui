@@ -5,8 +5,8 @@ const theme = createTheme({
   tokens: {
     components: {
       dropzone: {
-        backgroundColor: '{colors.brand.primary.10}',
-        borderColor: '{colors.brand.primary.80}',
+        backgroundColor: '{colors.primary.10}',
+        borderColor: '{colors.primary.80}',
       },
     },
   },

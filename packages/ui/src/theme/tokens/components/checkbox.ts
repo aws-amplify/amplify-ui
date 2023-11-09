@@ -118,7 +118,7 @@ export const checkbox: Required<CheckboxTokens<'default'>> = {
     },
   },
   icon: {
-    backgroundColor: { value: '{colors.brand.primary.80.value}' },
+    backgroundColor: { value: '{colors.primary.80.value}' },
     borderRadius: { value: '20%' },
     opacity: { value: '{opacities.0.value}' },
     transform: { value: 'scale(0)' },

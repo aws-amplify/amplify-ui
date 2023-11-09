@@ -229,6 +229,39 @@ Starting in v6 of the Amplify JS libraries, `'public'` access level, meaning una
 
 The FileUploader component was the predecessor to the [`StorageManager`](../connected-components/storage/storagemanager) component. In this major version we are removing the FileUploader component. Please use the StorageManager component which covers all of the use-cases of FileUploader and more. 
 
+#### 8. Moving brand.primary and brand.secondary up a level
+
+To make it easier to access the primary and secondary colors in the Theme, we removed the `brand` namespace and moved `primary` and `secondary` up a level.
+
+```diff
+- tokens.colors.brand.primary[10]
++ tokens.colors.primary[10]
+```
+
+
+```diff
+const theme = createTheme({
+  tokens: {
+    colors: {
+-       brand: {
+        primary: {
+          //... 
+        }
+-       }
+    }
+  }
+})
+```
+
+We also added the ability to easily set the entire range of primary and secondary colors at the theme level
+
+```ts
+const theme = createTheme({
+  primaryColor: 'red',
+  secondaryColor: 'green'
+});
+```
+
 
 ### Migrate from 4.x to 5.x
 #### Installation

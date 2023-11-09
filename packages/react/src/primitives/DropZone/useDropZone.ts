@@ -1,49 +1,7 @@
 import { useState } from 'react';
 import { UseDropZoneProps, UseDropZoneReturn, DragState } from './types';
 import { isFunction } from '@aws-amplify/ui';
-
-type DragFile =
-  | {
-      kind: string;
-      type: string;
-    }
-  | File;
-
-function filterAllowedFiles<FileType extends DragFile = DragFile>(
-  files: FileType[],
-  acceptedFileTypes: string[]
-): { acceptedFiles: FileType[]; rejectedFiles: FileType[] } {
-  // Allow any files if acceptedFileTypes is undefined, empty array, or contains '*'
-  if (
-    !acceptedFileTypes ||
-    acceptedFileTypes.length === 0 ||
-    acceptedFileTypes.includes('*')
-  ) {
-    return { acceptedFiles: files, rejectedFiles: [] };
-  }
-  const acceptedFiles: FileType[] = [];
-  const rejectedFiles: FileType[] = [];
-
-  function filterFile({ type = '' }) {
-    const mimeType = type.toLowerCase();
-    const baseMimeType = mimeType.split('/')[0];
-
-    return acceptedFileTypes.some((type) => {
-      const validType = type.trim().toLowerCase();
-      if (validType.endsWith('/*')) {
-        // This is something like a image/* mime type
-        return baseMimeType === validType.split('/')[0];
-      }
-      return mimeType === validType;
-    });
-  }
-
-  files.forEach((file) => {
-    (filterFile(file) ? acceptedFiles : rejectedFiles).push(file);
-  });
-
-  return { acceptedFiles, rejectedFiles };
-}
+import { filterAllowedFiles } from './filterAllowedFiles';
 
 export function useDropZone({
   onDropComplete,

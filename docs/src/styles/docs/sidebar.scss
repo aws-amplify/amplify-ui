@@ -151,11 +151,11 @@
   &:hover,
   &.current {
     color: var(--amplify-colors-font-hover);
-    background-color: var(--amplify-colors-brand-primary-10);
+    background-color: var(--amplify-colors-primary-10);
   }
 
   &:active {
-    background-color: var(--amplify-colors-brand-primary-20);
+    background-color: var(--amplify-colors-primary-20);
   }
 }
 

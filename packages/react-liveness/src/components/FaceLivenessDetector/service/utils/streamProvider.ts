@@ -130,7 +130,7 @@ export class LivenessStreamProvider {
 
   private async init() {
     const credentials =
-      this.credentialProvider ?? ((await fetchAuthSession()) as Credentials);
+      this.credentialProvider ?? (await fetchAuthSession()).credentials;
 
     if (!credentials) {
       throw new Error('No credentials');

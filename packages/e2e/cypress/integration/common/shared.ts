@@ -457,7 +457,7 @@ When('I type a valid code', () => {
    * now, but we can look to make them consistent on next major release.
    */
   const regex = new RegExp(`^(confirmation )?code( *)?`, 'i');
-  cy.findByRole('spinbutton', { name: regex }).type('1234');
+  cy.findByRole('textbox', { name: regex }).type('1234');
 });
 
 Then('I will be redirected to the confirm forgot password page', () => {
