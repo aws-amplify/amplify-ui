@@ -60,7 +60,7 @@ export const autocomplete: Required<AutocompleteTokens<'default'>> = {
       transitionProperty: { value: 'background-color, color' },
       transitionTimingFunction: { value: 'ease' },
       _active: {
-        backgroundColor: { value: '{colors.brand.primary.80}' },
+        backgroundColor: { value: '{colors.primary.80}' },
         color: { value: '{colors.white}' },
       },
     },

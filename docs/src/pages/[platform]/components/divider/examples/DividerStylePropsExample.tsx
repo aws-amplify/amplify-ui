@@ -5,7 +5,7 @@ export const DividerStylePropsExample = () => {
   return (
     <Flex direction="column">
       <Divider
-        border={`${tokens.borderWidths.large} solid ${tokens.colors.brand.primary[80]}`}
+        border={`${tokens.borderWidths.large} solid ${tokens.colors.primary[80]}`}
       />
       <Divider border="5px solid pink" borderRadius="10px" />
     </Flex>

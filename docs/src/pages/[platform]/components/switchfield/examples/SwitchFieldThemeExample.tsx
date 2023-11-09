@@ -16,7 +16,7 @@ const theme: Theme = {
         track: {
           backgroundColor: { value: '{colors.background.tertiary}' },
           checked: {
-            backgroundColor: { value: '{colors.brand.secondary.60}' },
+            backgroundColor: { value: '{colors.secondary.60}' },
           },
           transition: {
             duration: { value: '{time.long}' },

@@ -1,7 +1,11 @@
 import React, { useMemo } from 'react';
 import { View } from 'react-native';
 
-import { SocialProvider, authenticatorTextUtil } from '@aws-amplify/ui';
+import {
+  SocialProvider,
+  authenticatorTextUtil,
+  capitalize,
+} from '@aws-amplify/ui';
 
 import { Divider } from '../../../primitives';
 import { useTheme } from '../../../theme';
@@ -29,7 +33,7 @@ export default function FederatedProviderButtons({
         const providerIconSource = icons[`${provider}Logo`];
 
         const handlePress = () => {
-          toFederatedSignIn({ provider });
+          toFederatedSignIn({ provider: capitalize(provider) });
         };
 
         return (
