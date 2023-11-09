@@ -29,6 +29,47 @@ export type SignUpMachineOptions = {
 
 const { log } = xStateActions;
 
+const autoSignInState = {
+  tags: 'pending',
+  invoke: {
+    src: 'autoSignIn',
+    onDone: [
+      { cond: 'hasCompletedSignIn', target: 'fetchUserAttributes' },
+      {
+        actions: [
+          'setNextSignInStep',
+          'setChallengeName',
+          'setMissingAttributes',
+          'setTotpSecretCode',
+        ],
+        target: '#signUpActor.resolved',
+      },
+    ],
+    onError: { actions: 'setRemoteError', target: '#signUpActor.resolved' },
+  },
+};
+
+const fetchUserAttributesState = {
+  tags: 'pending',
+  invoke: {
+    src: 'fetchUserAttributes',
+    onDone: [
+      {
+        cond: 'shouldVerifyAttribute',
+        actions: [
+          'setUnverifiedUserAttributes',
+          'setShouldVerifyUserAttribute',
+        ],
+        target: '#signUpActor.resolved',
+      },
+      {
+        actions: 'setConfirmAttributeComplete',
+        target: '#signUpActor.resolved',
+      },
+    ],
+  },
+};
+
 export function signUpActor({ services }: SignUpMachineOptions) {
   groupLog('+++createSignUpMachine');
   return createMachine<SignUpContext, AuthEvent>(
@@ -41,7 +82,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
           always: [
             {
               cond: (context, event) => {
-                groupLog('Heyhye ', context);
+                groupLog('go to CONFIRM_SIGN_UP ', context);
                 return context.step === 'CONFIRM_SIGN_UP';
               },
               target: 'confirmSignUp',
@@ -88,51 +129,28 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                     FEDERATED_SIGN_IN: 'federatedSignIn',
                   },
                 },
-                autoSignIn: {
-                  tags: 'pending',
-                  invoke: {
-                    src: 'autoSignIn',
-                    onDone: [
-                      {
-                        cond: 'hasCompletedSignIn',
-                        target: 'fetchUserAttributes',
-                      },
-                      {
-                        actions: [
-                          'setNextSignInStep',
-                          'setChallengeName',
-                          'setMissingAttributes',
-                          'setTotpSecretCode',
-                        ],
-                        target: '#signUpActor.resolved',
-                      },
-                    ],
-                    onError: {
-                      actions: 'setRemoteError',
-                      target: '#signUpActor.resolved',
-                    },
-                  },
-                },
-                fetchUserAttributes: {
-                  tags: 'pending',
-                  invoke: {
-                    src: 'fetchUserAttributes',
-                    onDone: [
-                      {
-                        cond: 'shouldVerifyAttribute',
-                        actions: [
-                          'setUnverifiedUserAttributes',
-                          assign({ step: 'SHOULD_VERIFY_USER_ATTRIBUTE' }),
-                        ],
-                        target: '#signUpActor.resolved',
-                      },
-                      {
-                        actions: assign({ step: 'CONFIRM_ATTRIBUTE_COMPLETE' }),
-                        target: '#signUpActor.resolved',
-                      },
-                    ],
-                  },
-                },
+                autoSignIn: autoSignInState,
+                fetchUserAttributes: fetchUserAttributesState,
+                // fetchUserAttributes: {
+                //   tags: 'pending',
+                //   invoke: {
+                //     src: 'fetchUserAttributes',
+                //     onDone: [
+                //       {
+                //         cond: 'shouldVerifyAttribute',
+                //         actions: [
+                //           'setUnverifiedUserAttributes',
+                //           'setShouldVerifyUserAttribute',
+                //         ],
+                //         target: '#signUpActor.resolved',
+                //       },
+                //       {
+                //         actions: 'setConfirmAttributeComplete',
+                //         target: '#signUpActor.resolved',
+                //       },
+                //     ],
+                //   },
+                // },
                 federatedSignIn: {
                   entry: ['sendUpdate', 'clearError'],
                   invoke: {
@@ -190,7 +208,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
         },
         confirmSignUp: {
           initial: 'edit',
-          entry: ['sendUpdate', log('entered')],
+          entry: 'sendUpdate',
           states: {
             edit: {
               on: {
@@ -200,6 +218,8 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                 RESEND: 'resendSignUpCode',
               },
             },
+            autoSignIn: autoSignInState,
+            fetchUserAttributes: fetchUserAttributesState,
             resendSignUpCode: {
               tags: 'pending',
               entry: 'sendUpdate',
@@ -220,15 +240,42 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                 ],
               },
             },
+            // fetchUserAttributes: {
+            //   tags: 'pending',
+            //   invoke: {
+            //     src: 'fetchUserAttributes',
+            //     onDone: [
+            //       {
+            //         cond: 'shouldVerifyAttribute',
+            //         actions: [
+            //           'setUnverifiedUserAttributes',
+            //           'setShouldVerifyUserAttribute',
+            //         ],
+            //         target: '#signUpActor.resolved',
+            //       },
+            //       {
+            //         actions: 'setConfirmAttributeComplete',
+            //         target: '#signUpActor.resolved',
+            //       },
+            //     ],
+            //   },
+            // },
             submit: {
               tags: 'pending',
               entry: ['clearError', 'sendUpdate'],
               invoke: {
                 src: 'confirmSignUp',
-                onDone: {
-                  actions: 'setNextSignUpStep',
-                  target: '#signUpActor.init',
-                },
+                onDone: [
+                  {
+                    cond: 'shouldAutoSignIn',
+                    actions: ['setNextSignUpStep', 'clearFormValues'],
+                    target: 'autoSignIn',
+                  },
+                  {
+                    actions: 'setNextSignUpStep',
+                    target: '#signUpActor.init',
+                  },
+                ],
                 onError: {
                   actions: ['setRemoteError', 'sendUpdate'],
                   target: 'edit',
@@ -257,7 +304,18 @@ export function signUpActor({ services }: SignUpMachineOptions) {
       actions: { ...actions, sendUpdate: sendUpdate() },
       guards,
       services: {
-        autoSignIn,
+        autoSignIn: () => {
+          console.log('+++autoSignIn');
+          return autoSignIn()
+            .then((res) => {
+              console.log('autoSignIn res', res);
+              return res;
+            })
+            .catch((e) => {
+              console.log('autoSignIn e', e);
+              throw e;
+            });
+        },
         async fetchUserAttributes(context) {
           groupLog('+++fetchUserAttributes', context);
           return fetchUserAttributes()
