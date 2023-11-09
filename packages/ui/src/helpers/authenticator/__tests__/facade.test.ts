@@ -134,7 +134,7 @@ describe('getServiceContextFacade', () => {
     } as AuthMachineState;
     const facade = getServiceContextFacade(state);
 
-    expect(facade.route).toBe('setupTOTP');
+    expect(facade.route).toBe('setupTotp');
     expect(facade.user).toEqual({
       username: 'test',
     });

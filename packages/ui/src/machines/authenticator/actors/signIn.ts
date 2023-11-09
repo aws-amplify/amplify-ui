@@ -1,4 +1,9 @@
-import { assign, createMachine, sendUpdate } from 'xstate';
+import {
+  actions as xStateActions,
+  assign,
+  createMachine,
+  sendUpdate,
+} from 'xstate';
 import {
   confirmSignIn,
   ConfirmSignInInput,
@@ -52,7 +57,11 @@ export function signInActor({ services }: SignInMachineOptions) {
               target: 'confirmSignIn',
             },
             {
-              cond: ({ step }) => step === 'CONTINUE_SIGN_IN_WITH_TOTP_SETUP',
+              cond: ({ step }) => {
+                console.log('to CONTINUE_SIGN_IN_WITH_TOTP_SETUP', step);
+
+                return step === 'CONTINUE_SIGN_IN_WITH_TOTP_SETUP';
+              },
               target: 'setupTotp',
             },
             {
@@ -275,7 +284,7 @@ export function signInActor({ services }: SignInMachineOptions) {
           exit: ['clearFormValues', 'clearError', 'clearTouched'],
           states: {
             edit: {
-              entry: 'sendUpdate',
+              entry: ['sendUpdate', xStateActions.log('ENTER setupTotp')],
               on: {
                 SUBMIT: { actions: 'handleSubmit', target: 'submit' },
                 SIGN_IN: '#signInActor.signIn',

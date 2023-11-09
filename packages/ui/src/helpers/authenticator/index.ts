@@ -1,4 +1,5 @@
 export * from './actor';
+export * from './defaultAuthHubHandler';
 export * from './facade';
 export * from './constants';
 export * from './form';

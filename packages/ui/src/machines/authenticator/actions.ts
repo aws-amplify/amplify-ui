@@ -103,19 +103,18 @@ const setConfirmAttributeComplete = assign({
   step: 'CONFIRM_ATTRIBUTE_COMPLETE',
 });
 
+// map v6 `signInStep` to v5 `challengeName`
 const setChallengeName = assign({
-  challengeName: (_, event: AuthEvent): ChallengeName | string => {
-    groupLog(
-      `+++setChallengeName: ${(event.data as SignInOutput).nextStep.signInStep}`
-    );
-
-    // map v6 `signInStep` to v5 `challengeName`
+  challengeName: (_, event: AuthEvent): ChallengeName | undefined => {
     const { signInStep } = (event.data as SignInOutput).nextStep;
-    return signInStep === 'CONFIRM_SIGN_IN_WITH_SMS_CODE'
-      ? 'SMS_MFA'
-      : signInStep === 'CONFIRM_SIGN_IN_WITH_TOTP_CODE'
-      ? 'SOFTWARE_TOKEN_MFA'
-      : signInStep;
+    const challengeName =
+      signInStep === 'CONFIRM_SIGN_IN_WITH_SMS_CODE'
+        ? 'SMS_MFA'
+        : signInStep === 'CONFIRM_SIGN_IN_WITH_TOTP_CODE'
+        ? 'SOFTWARE_TOKEN_MFA'
+        : undefined;
+    groupLog(`+++setChallengeName: ${challengeName}`);
+    return challengeName;
   },
 });
 

@@ -28,8 +28,7 @@ import {
 
 import { getActorContext, getActorState } from './actor';
 import { NAVIGABLE_ROUTE_EVENT } from './constants';
-import { getRoute } from './utils';
-import { groupLog } from '../../utils';
+import { getRoute } from './getRoute';
 
 export type AuthenticatorRoute =
   | 'authenticated'
