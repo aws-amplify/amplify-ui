@@ -50,7 +50,7 @@ import {
 import { STATIC_VIDEO_CONSTRAINTS } from '../../utils/helpers';
 import { WS_CLOSURE_CODE } from '../utils/constants';
 
-export const MIN_FACE_MATCH_TIME = 500;
+export const MIN_FACE_MATCH_TIME = 1000;
 const DEFAULT_FACE_FIT_TIMEOUT = 7000;
 const CAMERA_ID_KEY = 'AmplifyLivenessCameraId';
 
