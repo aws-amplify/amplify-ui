@@ -13,7 +13,6 @@ export default function LivenessDefault({
   credentialProvider = undefined,
 }) {
   const {
-    cameraPermissionsLoading,
     getLivenessResponse,
     createLivenessSessionApiError,
     createLivenessSessionApiData,
@@ -32,7 +31,7 @@ export default function LivenessDefault({
 
   return (
     <View maxWidth="640px" margin="0 auto">
-      {createLivenessSessionApiLoading || cameraPermissionsLoading ? (
+      {createLivenessSessionApiLoading ? (
         <Flex justifyContent="center" alignItems="center">
           <Loader /> <Text as="span">Loading...</Text>
         </Flex>

@@ -8,7 +8,6 @@ import {
   getOvalBoundingBox,
   isFaceDistanceBelowThreshold,
   generateBboxFromLandmarks,
-  captureRefImage,
 } from '../utils/liveness';
 
 import {

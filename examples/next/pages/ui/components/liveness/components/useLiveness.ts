@@ -27,23 +27,6 @@ export function useLiveness() {
     }
   );
 
-  const {
-    data: cameraPermissionsData,
-    isValidating: cameraPermissionsLoading,
-  } = useSWR(
-    'CameraPermissions',
-    async () => {
-      const devices = await navigator.mediaDevices.enumerateDevices();
-      const videoDevices = devices.filter(
-        (device) => device.kind === 'videoinput'
-      );
-      return videoDevices.some((device) => !!device.label);
-    },
-    {
-      revalidateOnFocus: false,
-    }
-  );
-
   const handleCreateLivenessSession = () => {
     setLivenessActive(true);
   };
@@ -92,7 +75,5 @@ export function useLiveness() {
     createLivenessSessionApiData,
     createLivenessSessionApiError,
     createLivenessSessionApiLoading,
-    cameraPermissionsData,
-    cameraPermissionsLoading,
   };
 }
