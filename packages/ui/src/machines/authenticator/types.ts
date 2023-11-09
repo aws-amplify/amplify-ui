@@ -5,7 +5,6 @@ import {
   LoginMechanism,
   SignUpAttribute,
   SocialProvider,
-  AmplifyUser,
   UnverifiedContactMethods,
   AuthFormData,
   AuthFormFields,

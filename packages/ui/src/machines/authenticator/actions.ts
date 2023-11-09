@@ -150,7 +150,7 @@ const setNextResetPasswordStep = assign({
       (event.data as ResetPasswordOutput).nextStep.resetPasswordStep === 'DONE'
         ? 'RESET_PASSWORD_COMPLETE'
         : event.data.nextStep.resetPasswordStep;
-    groupLog('+++SetNextResetPasswordStep', nextStep);
+    groupLog('+++setNextResetPasswordStep', nextStep);
     return nextStep;
   },
 });
@@ -173,20 +173,6 @@ const setRemoteError = assign({
       return `Configuration error (see console) – please contact the administrator`;
     }
     return event.data?.message || event.data;
-  },
-});
-
-const setUnverifiedContactMethods = assign({
-  unverifiedContactMethods: (_, event: AuthEvent) => {
-    groupLog('+++setUnverifiedContactMethods', 'event', event);
-    const { phone_number_verified, email_verified, email, phone_number } =
-      event.data as FetchUserAttributesOutput;
-
-    return {
-      ...(email_verified === 'false' && email && { email }),
-      ...(phone_number_verified === 'false' &&
-        phone_number && { phone_number }),
-    };
   },
 });
 

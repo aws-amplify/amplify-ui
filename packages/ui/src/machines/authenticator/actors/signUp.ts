@@ -1,9 +1,4 @@
-import {
-  actions as xStateActions,
-  assign,
-  createMachine,
-  sendUpdate,
-} from 'xstate';
+import { createMachine, sendUpdate } from 'xstate';
 import pickBy from 'lodash/pickBy.js';
 
 import {
@@ -26,8 +21,6 @@ import guards from '../guards';
 export type SignUpMachineOptions = {
   services?: Partial<typeof defaultServices>;
 };
-
-const { log } = xStateActions;
 
 const autoSignInState = {
   tags: 'pending',

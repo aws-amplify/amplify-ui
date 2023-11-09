@@ -1,8 +1,3 @@
-import { Hub } from 'aws-amplify/utils';
-
-import { groupLog, isFunction } from '../../utils';
-
-import { AuthInterpreter, AuthMachineHubHandler } from './types';
 import { ALLOWED_SPECIAL_CHARACTERS, emailRegex } from './constants';
 
 // replaces all characters in a string with '*', except for the first and last char
