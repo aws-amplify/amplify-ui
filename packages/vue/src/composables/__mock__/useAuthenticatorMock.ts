@@ -25,6 +25,7 @@ export const baseMockServiceFacade: UseAuthenticator = {
   updateBlur: jest.fn(),
   updateForm: jest.fn(),
   user: {} as AuthenticatorServiceFacade['user'],
+  username: 'tobias',
   validationErrors:
     {} as unknown as AuthenticatorServiceFacade['validationErrors'],
 };

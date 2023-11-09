@@ -19,6 +19,6 @@
   },
   "include": ["jest.setup.ts", "src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
   // @todo-migration restore type checking on test/mock dirs
-  // "exclude": ["node_modules"]
-  "exclude": ["node_modules", "__tests__", "**/__mock__", "**/__tests__"]
+  "exclude": ["node_modules"]
+  // "exclude": ["node_modules", "__tests__", "**/__mock__", "**/__tests__"]
 }
