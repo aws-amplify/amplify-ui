@@ -31,6 +31,7 @@
     "build": "vue-tsc --noEmit && vite build",
     "dev": "vite build --watch",
     "clean": "rimraf dist node_modules",
+    "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-vue\"'",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "test": "jest",
     "test:watch": "yarn test --watch"
