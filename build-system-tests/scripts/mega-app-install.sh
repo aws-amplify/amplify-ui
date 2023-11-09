@@ -9,7 +9,7 @@ FRAMEWORK="react"
 FRAMEWORK_VERSION="latest"
 PKG_MANAGER="npm"
 PKG_MANAGER_VERSION="latest"
-UI_VERSION="next-release"
+UI_VERSION="next-release-unstable"
 AMPLIFY_VERSION="unstable"
 
 # Import install function
