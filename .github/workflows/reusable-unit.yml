@@ -135,8 +135,8 @@ jobs:
 
       - name: Validate ${{ matrix.package }} package esm modules
         if: |
-          matrix.package != 'angular' ||
-          matrix.package != 'react-native' ||
+          matrix.package != 'angular' &&
+          matrix.package != 'react-native' &&
           matrix.package != 'react-native-auth'
         run: yarn ${{ matrix.package }} check:esm
 
