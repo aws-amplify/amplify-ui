@@ -1,37 +1,37 @@
 import React from 'react';
 import {
-  InAppMessage,
-  InAppMessageAction,
-  InAppMessageButton,
-  InAppMessageContent,
-  InAppMessageImage,
-  InAppMessageLayout,
-  InAppMessageStyle,
-  InAppMessageTextAlign,
+  InAppMessage as InAppMessageBase,
+  InAppMessageAction as InAppMessageActionBase,
+  InAppMessageButton as InAppMessageButtonBase,
+  InAppMessageContent as InAppMessageContentBase,
+  InAppMessageImage as InAppMessageImageBase,
+  InAppMessageLayout as InAppMessageLayoutBase,
+  InAppMessageStyle as InAppMessageStyleBase,
+  InAppMessageTextAlign as InAppMessageTextAlignBase,
 } from 'aws-amplify/in-app-messaging';
 
-export type Message = InAppMessage;
-export type MessageAction = InAppMessageAction;
-export type MessageButton = InAppMessageButton;
-export type MessageContent = InAppMessageContent;
-export type MessageImage = InAppMessageImage;
-export type MessageLayout = InAppMessageLayout;
-export type MessageStyle = InAppMessageStyle;
-export type MessageTextAlign = InAppMessageTextAlign;
+export type InAppMessage = InAppMessageBase;
+export type InAppMessageAction = InAppMessageActionBase;
+export type InAppMessageButton = InAppMessageButtonBase;
+export type InAppMessageContent = InAppMessageContentBase;
+export type InAppMessageImage = InAppMessageImageBase;
+export type InAppMessageLayout = InAppMessageLayoutBase;
+export type InAppMessageStyle = InAppMessageStyleBase;
+export type InAppMessageTextAlign = InAppMessageTextAlignBase;
 
 export type OnMessageAction = (params: {
-  action: MessageAction;
+  action: InAppMessageAction;
   url?: string | undefined;
 }) => void;
 
 export interface MessageButtonProps
-  extends Omit<MessageButton, 'action' | 'url'> {
+  extends Omit<InAppMessageButton, 'action' | 'url'> {
   onAction: () => void;
 }
 
 // omit payload button props, replace with MessageButtonProps
 export interface MessageContentProps
-  extends Omit<MessageContent, 'primaryButton' | 'secondaryButton'> {
+  extends Omit<InAppMessageContent, 'primaryButton' | 'secondaryButton'> {
   primaryButton?: MessageButtonProps;
   secondaryButton?: MessageButtonProps;
 }
@@ -42,7 +42,7 @@ export interface MessageComponentBaseProps<Style = unknown>
 
 // props common to each Message component
 export interface MessageCommonProps<PlatformStyleProps> {
-  layout: MessageLayout;
+  layout: InAppMessageLayout;
   onClose?: () => void;
   onDisplay?: () => void;
   style?: PlatformStyleProps;
@@ -77,11 +77,11 @@ export interface ModalMessageCommonProps<PlatformStyleProps>
     MessageContentProps {}
 
 export interface MessagePayloadStyle {
-  body?: MessageStyle;
-  container?: MessageStyle;
-  header?: MessageStyle;
-  primaryButton?: MessageStyle;
-  secondaryButton?: MessageStyle;
+  body?: InAppMessageStyle;
+  container?: InAppMessageStyle;
+  header?: InAppMessageStyle;
+  primaryButton?: InAppMessageStyle;
+  secondaryButton?: InAppMessageStyle;
 }
 
 export type BannerMessageComponent<PlatformStyleProps> = React.ComponentType<
