@@ -179,5 +179,5 @@ export const defaultFormFieldsGetters: Record<
   resetPassword: getResetPasswordFormFields,
   confirmResetPassword: getConfirmResetPasswordFormFields,
   confirmVerifyUser: getConfirmationCodeFormFields,
-  setupTOTP: getConfirmationCodeFormFields,
+  setupTotp: getConfirmationCodeFormFields,
 };

@@ -246,7 +246,7 @@ describe('signInActor', () => {
             verifyUser: jest.fn(async () => Promise.resolve),
           },
           guards: {
-            shouldSetupTOTP: jest.fn(() => false),
+            shouldSetupTotp: jest.fn(() => false),
             shouldForceChangePassword: jest.fn(() => false),
           },
         })
@@ -304,7 +304,7 @@ describe('signInActor', () => {
           },
           guards: {
             shouldRequestVerification: jest.fn(() => false),
-            shouldSetupTOTP: jest.fn(() => false),
+            shouldSetupTotp: jest.fn(() => false),
             shouldForceChangePassword: jest.fn(() => false),
             shouldConfirmSignIn: jest.fn(() => true),
           },
@@ -376,7 +376,7 @@ describe('signInActor', () => {
           },
           guards: {
             shouldRequestVerification: jest.fn(() => false),
-            shouldSetupTOTP: jest.fn(() => false),
+            shouldSetupTotp: jest.fn(() => false),
             shouldForceChangePassword: jest.fn(() => true),
             shouldConfirmSignIn: jest.fn(() => false),
           },
@@ -410,7 +410,7 @@ describe('signInActor', () => {
   // @todo-migration
   // Expected: {"username": "test"}, "1234"
   // Number of calls: 0
-  it.skip('transitions to setupTOTP when challengeName is MFA_SETUP', async () => {
+  it.skip('transitions to setupTotp when challengeName is MFA_SETUP', async () => {
     service = interpret(
       signInActor(signInMachineProps)
         .withContext({
@@ -448,7 +448,7 @@ describe('signInActor', () => {
           },
           guards: {
             shouldRequestVerification: jest.fn(() => false),
-            shouldSetupTOTP: jest.fn(() => true),
+            shouldSetupTotp: jest.fn(() => true),
             shouldForceChangePassword: jest.fn(() => false),
             shouldConfirmSignIn: jest.fn(() => false),
           },
@@ -464,7 +464,7 @@ describe('signInActor', () => {
     await flushPromises();
 
     expect(service.getSnapshot().value).toStrictEqual({
-      setupTOTP: 'edit',
+      setupTotp: 'edit',
     });
     service.send({
       type: 'SUBMIT',

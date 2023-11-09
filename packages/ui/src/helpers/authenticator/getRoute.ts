@@ -24,7 +24,7 @@ export const getRoute = (
       return 'confirmSignIn';
     case actorState?.matches('setupTotp.edit'):
     case actorState?.matches('setupTotp.submit'):
-      return 'setupTOTP';
+      return 'setupTotp';
     case actorState?.matches('signIn'):
     case state?.matches('signIn.getCurrentUser'):
       return 'signIn';

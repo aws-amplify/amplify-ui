@@ -14,19 +14,19 @@ import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields } from '../shared/FormFields';
 import { RouteContainer, RouteProps } from '../RouteContainer';
 
-const logger = new Logger('SetupTOTP-logger');
+const logger = new Logger('SetupTotp-logger');
 
 type LegacyQRFields = { totpIssuer?: string; totpUsername?: string };
 
-const { getSetupTOTPText, getCopiedText, getLoadingText } =
+const { getSetupTotpText, getCopiedText, getLoadingText } =
   authenticatorTextUtil;
 
-export const SetupTOTP = ({
+export const SetupTotp = ({
   className,
   variation,
 }: RouteProps): JSX.Element => {
   // eslint-disable-next-line no-console
-  console.log('+++UI: SetupTOTP');
+  console.log('+++UI: SetupTotp');
   const { totpSecretCode, isPending, username, QRFields } = useAuthenticator(
     (context) => [context.isPending, context.totpSecretCode, context.username]
   );
@@ -36,7 +36,7 @@ export const SetupTOTP = ({
   const {
     components: {
       // @ts-ignore
-      SetupTOTP: { Header = SetupTOTP.Header, Footer = SetupTOTP.Footer },
+      SetupTotp: { Header = SetupTotp.Header, Footer = SetupTotp.Footer },
     },
   } = useCustomComponents();
 
@@ -127,11 +127,11 @@ export const SetupTOTP = ({
   );
 };
 
-SetupTOTP.Header = function Header(): JSX.Element {
-  return <Heading level={3}>{getSetupTOTPText()}</Heading>;
+SetupTotp.Header = function Header(): JSX.Element {
+  return <Heading level={3}>{getSetupTotpText()}</Heading>;
 };
 
-SetupTOTP.Footer = function Footer(): JSX.Element {
+SetupTotp.Footer = function Footer(): JSX.Element {
   // @ts-ignore
   return null;
 };

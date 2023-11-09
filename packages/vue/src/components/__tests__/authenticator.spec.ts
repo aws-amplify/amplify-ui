@@ -25,7 +25,7 @@ const routesWithComponent: AuthenticatorRoute[] = [
   'confirmVerifyUser',
   'forceNewPassword',
   'resetPassword',
-  'setupTOTP',
+  'setupTotp',
   'signIn',
   'signUp',
   'verifyUser',
@@ -170,7 +170,7 @@ describe('authenticator', () => {
     const challengeName = 'SOFTWARE_TOKEN_MFA';
 
     // some routes expect specific shape of user
-    if (route === 'setupTOTP') {
+    if (route === 'setupTotp') {
       user = { username: 'username' } as AmplifyUser;
     }
 
@@ -181,7 +181,7 @@ describe('authenticator', () => {
         route,
         user,
         totpSecretCode:
-          route === 'setupTOTP' ? 'totp-mock-secret-code' : undefined,
+          route === 'setupTotp' ? 'totp-mock-secret-code' : undefined,
       })
     );
 

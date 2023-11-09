@@ -24,7 +24,7 @@ import {
   ConfirmVerifyUser,
   ForceNewPassword,
   ResetPassword,
-  SetupTOTP,
+  SetupTotp,
   SignIn,
   SignUp,
   VerifyUser,
@@ -37,7 +37,7 @@ const DEFAULTS = {
   ConfirmVerifyUser,
   ForceNewPassword,
   ResetPassword,
-  SetupTOTP,
+  SetupTotp,
   SignIn,
   SignUp,
   VerifyUser,
@@ -113,7 +113,7 @@ Authenticator.ConfirmSignUp = ConfirmSignUp;
 Authenticator.ConfirmVerifyUser = ConfirmVerifyUser;
 Authenticator.ForceNewPassword = ForceNewPassword;
 Authenticator.ResetPassword = ResetPassword;
-Authenticator.SetupTOTP = SetupTOTP;
+Authenticator.SetupTotp = SetupTotp;
 Authenticator.SignIn = SignIn;
 Authenticator.SignUp = SignUp;
 Authenticator.VerifyUser = VerifyUser;

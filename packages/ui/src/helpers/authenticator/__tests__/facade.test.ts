@@ -4,7 +4,6 @@ import {
   AuthEvent,
   AuthMachineState,
 } from '../../../machines/authenticator/types';
-import { AmplifyUser } from '../../../types';
 
 import {
   getSendEventAliases,
@@ -78,9 +77,7 @@ describe('getServiceContextFacade', () => {
       hasTag: (tag: string) => false,
       matches: (state: string) => false,
       context: {
-        user: {
-          username: 'test',
-        } as AmplifyUser,
+        user: undefined,
         config: {
           socialProviders: ['amazon'],
         },
@@ -89,9 +86,7 @@ describe('getServiceContextFacade', () => {
     const facade = getServiceContextFacade(state);
 
     expect(facade.authStatus).toBe('unauthenticated');
-    expect(facade.user).toEqual({
-      username: 'test',
-    });
+    expect(facade.user).toEqual(undefined);
     expect(facade.socialProviders).toEqual(['amazon']);
   });
 
@@ -101,9 +96,7 @@ describe('getServiceContextFacade', () => {
       hasTag: (tag: string) => false,
       matches: (state: string) => state === 'signIn.runActor',
       context: {
-        user: {
-          username: 'test',
-        } as AmplifyUser,
+        user: undefined,
         config: {
           socialProviders: ['amazon'],
         },
@@ -112,21 +105,17 @@ describe('getServiceContextFacade', () => {
     const facade = getServiceContextFacade(state);
 
     expect(facade.route).toBe('transition');
-    expect(facade.user).toEqual({
-      username: 'test',
-    });
+    expect(facade.user).toEqual(undefined);
     expect(facade.socialProviders).toEqual(['amazon']);
   });
 
-  it('returns the expected service context facade for setupTOTP', () => {
+  it('returns the expected service context facade for setupTotp', () => {
     const state = {
-      value: 'setupTOTP.submit',
+      value: 'setupTotp.submit',
       hasTag: (tag: string) => false,
-      matches: (state: string) => state === 'setupTOTP.submit',
+      matches: (state: string) => state === 'setupTotp.submit',
       context: {
-        user: {
-          username: 'test',
-        } as AmplifyUser,
+        user: undefined,
         config: {
           socialProviders: ['amazon'],
         },
@@ -135,9 +124,7 @@ describe('getServiceContextFacade', () => {
     const facade = getServiceContextFacade(state);
 
     expect(facade.route).toBe('setupTotp');
-    expect(facade.user).toEqual({
-      username: 'test',
-    });
+    expect(facade.user).toEqual(undefined);
     expect(facade.socialProviders).toEqual(['amazon']);
   });
 
@@ -150,18 +137,14 @@ describe('getServiceContextFacade', () => {
         matches: (state: string) => state === status,
 
         context: {
-          user: {
-            username: 'test',
-          } as AmplifyUser,
+          user: undefined,
         },
       } as AuthMachineState;
       const facade = getServiceContextFacade(state);
 
       expect(facade.authStatus).toBe('configuring');
       expect(facade.route).toBe(status);
-      expect(facade.user).toEqual({
-        username: 'test',
-      });
+      expect(facade.user).toEqual(undefined);
     }
   );
 
@@ -172,9 +155,7 @@ describe('getServiceContextFacade', () => {
       matches: (state: string) => state === 'authenticated',
 
       context: {
-        user: {
-          username: 'test',
-        } as AmplifyUser,
+        user: { username: 'testName', userId: 'testId' },
         config: {
           socialProviders: ['amazon'],
         },
@@ -183,9 +164,7 @@ describe('getServiceContextFacade', () => {
     const facade = getServiceContextFacade(state);
 
     expect(facade.authStatus).toBe('authenticated');
-    expect(facade.user).toEqual({
-      username: 'test',
-    });
+    expect(facade.user).toEqual({ username: 'testName', userId: 'testId' });
     expect(facade.socialProviders).toEqual(['amazon']);
   });
 
@@ -207,9 +186,7 @@ describe('getServiceContextFacade', () => {
       matches: (state: string) => state === status,
 
       context: {
-        user: {
-          username: 'test',
-        } as AmplifyUser,
+        user: undefined,
         config: {
           socialProviders: ['amazon'],
         },
@@ -219,9 +196,7 @@ describe('getServiceContextFacade', () => {
 
     expect(facade.authStatus).toBe('unauthenticated');
     expect(facade.route).toBe(status);
-    expect(facade.user).toEqual({
-      username: 'test',
-    });
+    expect(facade.user).toEqual(undefined);
     expect(facade.socialProviders).toEqual(['amazon']);
   });
 });

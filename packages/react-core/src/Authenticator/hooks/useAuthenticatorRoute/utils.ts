@@ -141,15 +141,15 @@ export function resolveResetPasswordRoute<FieldType = {}>(
   };
 }
 
-export function resolveSetupTOTPRoute<FieldType = {}>(
-  Component: Defaults<FieldType>['SetupTOTP'],
+export function resolveSetupTotpRoute<FieldType = {}>(
+  Component: Defaults<FieldType>['SetupTotp'],
   props: UseAuthenticator
-): UseAuthenticatorRoute<'SetupTOTP', FieldType> {
+): UseAuthenticatorRoute<'SetupTotp', FieldType> {
   return {
     Component,
     props: {
       ...Component,
-      ...getConvertedMachineProps('setupTOTP', props),
+      ...getConvertedMachineProps('setupTotp', props),
     },
   };
 }

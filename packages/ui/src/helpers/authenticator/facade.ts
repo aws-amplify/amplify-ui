@@ -41,7 +41,7 @@ export type AuthenticatorRoute =
   | 'resetPassword'
   | 'setup'
   | 'signOut'
-  | 'setupTOTP'
+  | 'setupTotp'
   | 'signIn'
   | 'signUp'
   | 'transition'

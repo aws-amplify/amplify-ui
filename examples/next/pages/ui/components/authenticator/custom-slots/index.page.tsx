@@ -120,7 +120,7 @@ const components = {
       return <Text>Footer Information</Text>;
     },
   },
-  SetupTOTP: {
+  SetupTotp: {
     Header() {
       const { tokens } = useTheme();
       return (
@@ -224,7 +224,7 @@ const formFields = {
       placeholder: 'Enter your Password Please:',
     },
   },
-  setupTOTP: {
+  setupTotp: {
     QR: {
       totpIssuer: 'test issuer',
       totpUsername: 'amplify_qr_test_user',

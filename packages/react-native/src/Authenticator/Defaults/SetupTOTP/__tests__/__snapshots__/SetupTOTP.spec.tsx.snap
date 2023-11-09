@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SetupTOTP renders an error message 1`] = `
+exports[`SetupTotp renders an error message 1`] = `
 [
   <Text
     accessibilityRole="header"
@@ -365,7 +365,7 @@ exports[`SetupTOTP renders an error message 1`] = `
 ]
 `;
 
-exports[`SetupTOTP renders as expected 1`] = `
+exports[`SetupTotp renders as expected 1`] = `
 [
   <Text
     accessibilityRole="header"

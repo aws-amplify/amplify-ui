@@ -23,7 +23,7 @@ import {
   resolveConfirmVerifyUserRoute,
   resolveForceNewPasswordRoute,
   resolveResetPasswordRoute,
-  resolveSetupTOTPRoute,
+  resolveSetupTotpRoute,
   resolveSignInRoute,
   resolveSignUpRoute,
   resolveVerifyUserRoute,
@@ -121,7 +121,7 @@ describe('getRouteMachineSelector', () => {
       ],
     ],
     [
-      'setupTOTP',
+      'setupTotp',
       [...commonSelectorProps, toSignIn, totpSecretCode, username, route],
     ],
     ['verifyUser', [...commonSelectorProps, skipVerification, route]],
@@ -161,8 +161,8 @@ describe('props resolver functions', () => {
       { error, isPending, toSignIn },
     ],
     [
-      'SetupTOTP',
-      resolveSetupTOTPRoute,
+      'SetupTotp',
+      resolveSetupTotpRoute,
       { toSignIn, totpSecretCode, username },
     ],
     [

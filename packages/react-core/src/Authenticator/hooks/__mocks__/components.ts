@@ -49,12 +49,12 @@ ResetPassword.Footer = Footer;
 ResetPassword.FormFields = FormFields;
 ResetPassword.Header = Header;
 
-const SetupTOTP: DefaultComponents<{}>['SetupTOTP'] = () => {
+const SetupTotp: DefaultComponents<{}>['SetupTotp'] = () => {
   return null;
 };
-SetupTOTP.Footer = Footer;
-SetupTOTP.FormFields = FormFields;
-SetupTOTP.Header = Header;
+SetupTotp.Footer = Footer;
+SetupTotp.FormFields = FormFields;
+SetupTotp.Header = Header;
 
 const SignIn: DefaultComponents<{}>['SignIn'] = () => {
   return null;
@@ -84,7 +84,7 @@ export const DEFAULTS: DefaultComponents<{}> = {
   ConfirmVerifyUser,
   ForceNewPassword,
   ResetPassword,
-  SetupTOTP,
+  SetupTotp,
   SignIn,
   SignUp,
   VerifyUser,

@@ -2,7 +2,7 @@ import React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react-native';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
-import { SetupTOTP } from '..';
+import { SetupTotp } from '..';
 
 const code = {
   name: 'code',
@@ -16,9 +16,9 @@ const toSignIn = jest.fn();
 const props = {
   error: null as unknown as string,
   fields,
-  Footer: SetupTOTP.Footer,
-  FormFields: SetupTOTP.FormFields,
-  Header: SetupTOTP.Header,
+  Footer: SetupTotp.Footer,
+  FormFields: SetupTotp.FormFields,
+  Header: SetupTotp.Header,
   handleBlur: jest.fn(),
   handleChange: jest.fn(),
   handleSubmit: jest.fn(),
@@ -33,30 +33,30 @@ const {
   getBackToSignInText,
   getConfirmingText,
   getConfirmText,
-  getSetupTOTPText,
+  getSetupTotpText,
 } = authenticatorTextUtil;
 
-describe('SetupTOTP', () => {
+describe('SetupTotp', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it('renders as expected', () => {
     const { toJSON, getAllByRole, getByText } = render(
-      <SetupTOTP {...props} />
+      <SetupTotp {...props} />
     );
 
     expect(toJSON()).toMatchSnapshot();
 
     expect(getAllByRole('header')).toBeDefined();
-    expect(getByText(getSetupTOTPText())).toBeDefined();
+    expect(getByText(getSetupTotpText())).toBeDefined();
     expect(getByText(getConfirmText())).toBeDefined();
   });
 
   it('renders an error message', () => {
     const errorMessage = 'Test error message';
     const { toJSON, getByText } = render(
-      <SetupTOTP {...props} error={errorMessage} />
+      <SetupTotp {...props} error={errorMessage} />
     );
 
     expect(toJSON()).toMatchSnapshot();
@@ -64,7 +64,7 @@ describe('SetupTOTP', () => {
   });
 
   it('calls toSignIn an secondary button press', () => {
-    const { getByText } = render(<SetupTOTP {...props} />);
+    const { getByText } = render(<SetupTotp {...props} />);
 
     const secondaryButton = getByText(getBackToSignInText());
 
@@ -76,7 +76,7 @@ describe('SetupTOTP', () => {
   });
 
   it('shows the correct submit button based on isPending', async () => {
-    const { queryByText } = render(<SetupTOTP {...props} isPending />);
+    const { queryByText } = render(<SetupTotp {...props} isPending />);
 
     await waitFor(() => {
       expect(queryByText(getConfirmingText())).toBeDefined();

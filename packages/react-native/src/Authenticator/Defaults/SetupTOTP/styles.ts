@@ -1,10 +1,10 @@
 import { StyleSheet, TextStyle } from 'react-native';
 
-export interface SetupTOTPStyle {
+export interface SetupTotpStyle {
   secretKeyText: TextStyle;
 }
 
-export const styles: SetupTOTPStyle = StyleSheet.create({
+export const styles: SetupTotpStyle = StyleSheet.create({
   // TODO: replace with tokens
   secretKeyText: { flexWrap: 'wrap', paddingVertical: 4, marginHorizontal: 8 },
 });

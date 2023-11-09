@@ -1,1 +1,1 @@
-export { default as SetupTOTP } from './SetupTOTP';
+export { default as SetupTotp } from './SetupTotp';

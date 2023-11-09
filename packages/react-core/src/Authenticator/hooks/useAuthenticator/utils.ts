@@ -55,7 +55,7 @@ export const getComparator =
 export const getQRFields = (
   state: AuthMachineState
 ): { totpIssuer?: string; totpUsername?: string } => ({
-  ...getActorContext(state)?.formFields?.setupTOTP?.QR,
+  ...getActorContext(state)?.formFields?.setupTotp?.QR,
 });
 
 const flattenFormFields = (

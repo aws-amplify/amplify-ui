@@ -730,7 +730,7 @@ exports[`authenticator renders resetPassword subcomponent 1`] = `
 </div>
 `;
 
-exports[`authenticator renders setupTOTP subcomponent 1`] = `
+exports[`authenticator renders setupTotp subcomponent 1`] = `
 <div>
   
   <div
