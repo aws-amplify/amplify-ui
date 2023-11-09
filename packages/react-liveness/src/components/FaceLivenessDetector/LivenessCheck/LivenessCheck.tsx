@@ -12,6 +12,7 @@ import {
 import { isMobileScreen, getLandscapeMediaQuery } from '../utils/device';
 import { CancelButton } from '../shared/CancelButton';
 import {
+  InstructionDisplayText,
   HintDisplayText,
   CameraDisplayText,
   StreamDisplayText,
@@ -24,11 +25,12 @@ import { selectErrorState } from '../shared';
 
 const CHECK_CLASS_NAME = 'liveness-detector-check';
 
-const selectIsRecordingStopped = createLivenessSelector(
+export const selectIsRecordingStopped = createLivenessSelector(
   (state) => state.context.isRecordingStopped
 );
 
 interface LivenessCheckProps {
+  instructionDisplayText: Required<InstructionDisplayText>;
   hintDisplayText: Required<HintDisplayText>;
   cameraDisplayText: Required<CameraDisplayText>;
   streamDisplayText: Required<StreamDisplayText>;
@@ -37,6 +39,7 @@ interface LivenessCheckProps {
 }
 
 export const LivenessCheck: React.FC<LivenessCheckProps> = ({
+  instructionDisplayText,
   hintDisplayText,
   cameraDisplayText,
   streamDisplayText,
@@ -143,7 +146,7 @@ export const LivenessCheck: React.FC<LivenessCheckProps> = ({
               ? cameraMinSpecificationsHeadingText
               : cameraNotFoundHeadingText}
           </Text>
-          <Text maxWidth={300}>
+          <Text maxWidth={420}>
             {errorState === LivenessErrorState.CAMERA_FRAMERATE_ERROR
               ? cameraMinSpecificationsMessageText
               : cameraNotFoundMessageText}
@@ -165,9 +168,11 @@ export const LivenessCheck: React.FC<LivenessCheckProps> = ({
         <LivenessCameraModule
           isMobileScreen={isMobile}
           isRecordingStopped={isRecordingStopped!}
+          instructionDisplayText={instructionDisplayText}
           streamDisplayText={streamDisplayText}
           hintDisplayText={hintDisplayText}
           errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
           components={components}
         />
       );
@@ -180,6 +185,7 @@ export const LivenessCheck: React.FC<LivenessCheckProps> = ({
       position="relative"
       testId={CHECK_CLASS_NAME}
       className={CHECK_CLASS_NAME}
+      gap="xl"
     >
       {renderCheck()}
     </Flex>

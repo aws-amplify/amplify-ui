@@ -1,18 +1,19 @@
 import { View, Flex, Loader, Text } from '@aws-amplify/ui-react';
 import {
-  FaceLivenessDetector,
   FaceLivenessDetectorCore,
+  FaceLivenessDetector,
 } from '@aws-amplify/ui-react-liveness';
 import { useLiveness } from './useLiveness';
 import { SessionIdAlert } from './SessionIdAlert';
 import LivenessInlineResults from './LivenessInlineResults';
 
 export default function LivenessDefault({
-  disableInstructionScreen = false,
+  disableStartScreen = false,
   components = undefined,
   credentialProvider = undefined,
 }) {
   const {
+    cameraPermissionsLoading,
     getLivenessResponse,
     createLivenessSessionApiError,
     createLivenessSessionApiData,
@@ -31,7 +32,7 @@ export default function LivenessDefault({
 
   return (
     <View maxWidth="640px" margin="0 auto">
-      {createLivenessSessionApiLoading ? (
+      {createLivenessSessionApiLoading || cameraPermissionsLoading ? (
         <Flex justifyContent="center" alignItems="center">
           <Loader /> <Text as="span">Loading...</Text>
         </Flex>
@@ -68,7 +69,7 @@ export default function LivenessDefault({
                   onError={(error) => {
                     console.error(error);
                   }}
-                  disableInstructionScreen={disableInstructionScreen}
+                  disableStartScreen={disableStartScreen}
                   components={components}
                   config={{ credentialProvider }}
                 />
@@ -85,7 +86,7 @@ export default function LivenessDefault({
                   onError={(error) => {
                     console.error(error);
                   }}
-                  disableInstructionScreen={disableInstructionScreen}
+                  disableStartScreen={disableStartScreen}
                   components={components}
                 />
               )

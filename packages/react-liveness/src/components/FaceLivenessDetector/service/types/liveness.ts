@@ -34,7 +34,7 @@ export interface FaceLivenessDetectorCoreProps {
   /**
    * Optional parameter for the disabling the Start/Get Ready Screen, default: false
    */
-  disableInstructionScreen?: boolean;
+  disableStartScreen?: boolean;
 
   /**
    * Optional parameter for advanced options for the component

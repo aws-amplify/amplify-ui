@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { isObject } from '@aws-amplify/ui';
-import { STATIC_VIDEO_CONSTRAINTS } from '../StartLiveness/helpers';
+import { STATIC_VIDEO_CONSTRAINTS } from '../utils/helpers';
 
 export interface UseMediaStreamInVideo {
   videoRef: React.MutableRefObject<HTMLVideoElement | null>;

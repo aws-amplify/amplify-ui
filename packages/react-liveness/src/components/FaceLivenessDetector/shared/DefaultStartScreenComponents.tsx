@@ -33,7 +33,7 @@ export const DefaultHeader = ({
 };
 
 interface DefaultPhotosensitiveWarningProps {
-  headingText: string;
+  headingText?: string;
   bodyText: string;
   infoText: string;
 }
@@ -46,9 +46,12 @@ export const DefaultPhotosensitiveWarning = ({
   return (
     <Flex
       className={`${ComponentClassName.Alert} ${LivenessClassNames.StartScreenWarning}`}
+      style={{ zIndex: '3' }}
     >
       <View flex="1">
-        <View className={ComponentClassName.AlertHeading}>{headingText}</View>
+        {headingText && (
+          <View className={ComponentClassName.AlertHeading}>{headingText}</View>
+        )}
         <View className={ComponentClassName.AlertBody}>{bodyText}</View>
       </View>
       <LivenessIconWithPopover>{infoText}</LivenessIconWithPopover>
