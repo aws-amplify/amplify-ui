@@ -1,9 +1,10 @@
 import { Amplify } from 'aws-amplify';
 import * as AuthModule from 'aws-amplify/auth';
 
-import { ChallengeName, PasswordSettings } from '../../../types';
+import { PasswordSettings } from '../../../types';
 import { defaultServices } from '../defaultServices';
 import { ALLOWED_SPECIAL_CHARACTERS } from '../../../helpers/authenticator/constants';
+import { ChallengeName } from '../types';
 
 jest.mock('aws-amplify');
 jest.mock('aws-amplify/auth');

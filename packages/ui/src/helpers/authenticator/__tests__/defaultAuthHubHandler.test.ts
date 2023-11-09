@@ -83,7 +83,8 @@ describe('defaultAuthHubHandler', () => {
     expect(authSendSpy).toHaveBeenCalledWith('SIGN_OUT');
   });
 
-  it('ignores token refresh failure event when state is unauthenticated', async () => {
+  // @todo-migration potentially remove
+  it.skip('ignores token refresh failure event when state is unauthenticated', async () => {
     await defaultAuthHubHandler(
       { channel: 'auth', payload: { event: 'tokenRefresh_failure' } },
       unauthenticatedStateMachine

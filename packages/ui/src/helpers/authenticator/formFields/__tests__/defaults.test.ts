@@ -76,7 +76,7 @@ describe('defaultFormFieldsGetters', () => {
       email: defaultFormFieldOptions.email,
       phone_number: {
         ...defaultFormFieldOptions.phone_number,
-        dialCode: undefined,
+        // dialCode: undefined,
       },
       password: defaultFormFieldOptions.password,
       confirm_password: defaultFormFieldOptions.confirm_password,

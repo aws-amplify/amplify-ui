@@ -1,6 +1,9 @@
 import { I18n } from 'aws-amplify/utils';
-import { ChallengeName, SocialProvider } from '../../../types';
-import { V5CodeDeliveryDetails } from '../../../machines/authenticator/types';
+import { SocialProvider } from '../../../types';
+import {
+  ChallengeName,
+  V5CodeDeliveryDetails,
+} from '../../../machines/authenticator/types';
 import { authenticatorTextUtil } from '../textUtil';
 
 const AUTH_CHALLENGE_NAMES: ChallengeName[] = ['SMS_MFA', 'SOFTWARE_TOKEN_MFA'];
