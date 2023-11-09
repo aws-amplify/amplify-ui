@@ -53,6 +53,7 @@
       "packages/configs/*"
     ],
     "nohoist": [
+      "**/@react-native-community/**",
       "**/react-native",
       "**/react-native-safe-area-context",
       "**/react-native-url-polyfill",
