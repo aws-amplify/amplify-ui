@@ -146,12 +146,18 @@ export function forgotPasswordActor({
                   tags: 'pending',
                   entry: ['clearError', 'sendUpdate'],
                   invoke: {
-                    src: 'handleConfirmPasswordUpdate',
-                    onDone: {
-                      cond: 'hasCompletedResetPassword',
-                      actions: 'setNextResetPasswordStep',
-                      target: '#forgotPasswordActor.resolved',
-                    },
+                    src: 'handleConfirmResetPassword',
+                    onDone: [
+                      {
+                        cond: 'hasCompletedResetPassword',
+                        actions: 'setNextResetPasswordStep',
+                        target: '#forgotPasswordActor.resolved',
+                      },
+                      {
+                        actions: 'setSignInStep',
+                        target: '#forgotPasswordActor.resolved',
+                      },
+                    ],
                     onError: { actions: 'setRemoteError', target: 'idle' },
                   },
                 },
@@ -180,8 +186,8 @@ export function forgotPasswordActor({
           groupLog('+++forgotPassword username:', username);
           return services.handleForgotPassword({ username });
         },
-        handleConfirmPasswordUpdate(context) {
-          groupLog('+++handleConfirmPasswordUpdate', context);
+        handleConfirmResetPassword(context) {
+          groupLog('+++handleConfirmResetPassword', context);
           const { username } = context;
           const { confirmation_code: confirmationCode, password } =
             context.formValues;

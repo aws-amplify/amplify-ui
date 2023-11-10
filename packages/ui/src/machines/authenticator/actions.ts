@@ -112,6 +112,10 @@ const setTotpSecretCode = assign({
   },
 });
 
+const setSignInStep = assign({
+  step: 'SIGN_IN',
+});
+
 const setShouldVerifyUserAttribute = assign({
   step: 'SHOULD_VERIFY_USER_ATTRIBUTE',
 });
@@ -361,6 +365,7 @@ const ACTIONS: MachineOptions<AuthActorContext, AuthEvent>['actions'] = {
   setShouldVerifyUserAttribute,
   setConfirmAttributeComplete,
   setConfirmSignUpSignUpStep,
+  setSignInStep,
   setUser,
   setUnverifiedUserAttributes,
   setUsername,

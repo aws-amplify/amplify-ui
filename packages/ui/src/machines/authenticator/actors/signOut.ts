@@ -10,8 +10,6 @@ export const signOutActor = () => {
     {
       initial: 'pending',
       id: 'signOutActor',
-      // getUsernameValue
-      // fix actions imprts
       predictableActionArguments: true,
       states: {
         pending: {
