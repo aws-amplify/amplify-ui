@@ -98,7 +98,16 @@ export const defaultServices = {
         autoSignIn: true,
       } as SignUpInput['options'],
     };
-    return signUp(input);
+    console.log('+++handleSignUp input', input);
+
+    return signUp(input)
+      .then((res) => {
+        console.log('+++ handleSignUp res', res);
+        return res;
+      })
+      .catch((e) => {
+        throw e;
+      });
   },
   async handleSignIn({
     username,

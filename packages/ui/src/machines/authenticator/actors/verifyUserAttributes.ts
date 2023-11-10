@@ -75,6 +75,7 @@ export function verifyUserAttributesActor() {
             submit: {
               tags: 'pending',
               entry: 'clearError',
+              exit: 'sendUpdate',
               invoke: {
                 src: 'confirmVerifyUserAttribute',
                 onDone: {
