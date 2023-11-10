@@ -246,7 +246,7 @@ describe('signInActor', () => {
             verifyUser: jest.fn(async () => Promise.resolve),
           },
           guards: {
-            shouldSetupTotp: jest.fn(() => false),
+            shouldContinueSignInWithSetupTotp: jest.fn(() => false),
             shouldForceChangePassword: jest.fn(() => false),
           },
         })
@@ -304,7 +304,7 @@ describe('signInActor', () => {
           },
           guards: {
             shouldRequestVerification: jest.fn(() => false),
-            shouldSetupTotp: jest.fn(() => false),
+            shouldContinueSignInWithSetupTotp: jest.fn(() => false),
             shouldForceChangePassword: jest.fn(() => false),
             shouldConfirmSignIn: jest.fn(() => true),
           },
@@ -376,7 +376,7 @@ describe('signInActor', () => {
           },
           guards: {
             shouldRequestVerification: jest.fn(() => false),
-            shouldSetupTotp: jest.fn(() => false),
+            shouldContinueSignInWithSetupTotp: jest.fn(() => false),
             shouldForceChangePassword: jest.fn(() => true),
             shouldConfirmSignIn: jest.fn(() => false),
           },
@@ -448,7 +448,7 @@ describe('signInActor', () => {
           },
           guards: {
             shouldRequestVerification: jest.fn(() => false),
-            shouldSetupTotp: jest.fn(() => true),
+            shouldContinueSignInWithSetupTotp: jest.fn(() => true),
             shouldForceChangePassword: jest.fn(() => false),
             shouldConfirmSignIn: jest.fn(() => false),
           },

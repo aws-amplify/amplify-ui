@@ -17,7 +17,7 @@ const SIGN_IN_STEP_MFA_CONFIRMATION: string[] = [
   'CONFIRM_SIGN_IN_WITH_TOTP_CODE',
 ];
 
-export const shouldConfirmSignIn = (_, event): boolean => {
+const shouldConfirmSignIn = (_, event): boolean => {
   groupLog(
     '+++shouldConfirmSignIn',
     SIGN_IN_STEP_MFA_CONFIRMATION.includes(event.data?.nextStep?.signInStep)
@@ -27,7 +27,7 @@ export const shouldConfirmSignIn = (_, event): boolean => {
   );
 };
 
-export const shouldForceChangePassword = (_, event): boolean => {
+const shouldForceChangePassword = (_, event): boolean => {
   groupLog(
     '+++shouldForceChangePassword',
     event.data?.nextStep?.signInStep ===
@@ -39,14 +39,9 @@ export const shouldForceChangePassword = (_, event): boolean => {
   );
 };
 
-export const hasCompletedSignIn = (_, event): boolean => {
-  groupLog('+++hasCompletedSignIn', event);
-  return (event.data as SignInOutput)?.nextStep.signInStep === 'DONE';
-};
-
-export const shouldSetupTotp = (context, event): boolean => {
+const shouldContinueSignInWithSetupTotp = (context, event): boolean => {
   groupLog(
-    '+++shouldSetupTotp',
+    '+++shouldContinueSignInWithSetupTotp',
     event.data?.nextStep?.signInStep === 'CONTINUE_SIGN_IN_WITH_TOTP_SETUP',
     context,
     event
@@ -57,7 +52,7 @@ export const shouldSetupTotp = (context, event): boolean => {
   );
 };
 
-export const shouldConfirmResetPassword = (_, event): boolean => {
+const shouldConfirmResetPassword = (_, event): boolean => {
   groupLog(
     '+++shouldConfirmResetPassword',
     event.data?.nextStep?.signInStep === 'RESET_PASSWORD'
@@ -67,7 +62,7 @@ export const shouldConfirmResetPassword = (_, event): boolean => {
   );
 };
 
-export const shouldConfirmSignUpFromSignIn = (context, { data }: AuthEvent) => {
+const shouldConfirmSignUpFromSignIn = (context, { data }: AuthEvent) => {
   groupLog(
     '+++shouldConfirmSignUpFromSignIn',
     (data as SignInOutput)?.nextStep.signInStep === 'CONFIRM_SIGN_UP',
@@ -77,19 +72,30 @@ export const shouldConfirmSignUpFromSignIn = (context, { data }: AuthEvent) => {
   return (data as SignInOutput)?.nextStep.signInStep === 'CONFIRM_SIGN_UP';
 };
 
-export const shouldAutoSignIn = (context, { data }: AuthEvent) => {
+const shouldAutoSignIn = (context, { data }: AuthEvent) => {
   groupLog('+++shouldAutoSignIn', data);
   return (
     (data as SignUpOutput)?.nextStep.signUpStep === 'COMPLETE_AUTO_SIGN_IN'
   );
 };
 
-export const hasCompletedSignUp = (_, event: AuthEvent) => {
+const hasCompletedSignIn = (_, event): boolean => {
+  groupLog('+++hasCompletedSignIn', event);
+  return (event.data as SignInOutput)?.nextStep.signInStep === 'DONE';
+};
+
+const hasCompletedSignUp = (_, event: AuthEvent) => {
   groupLog('+++hasCompletedSignUp', event);
   return (event.data as SignUpOutput)?.nextStep.signUpStep === 'DONE';
 };
 
-export const shouldConfirmSignUp = (context, { data }: AuthEvent) => {
+const hasCompletedResetPassword = (_, event) => {
+  return (
+    (event.data as ResetPasswordOutput)?.nextStep.resetPasswordStep === 'DONE'
+  );
+};
+
+const shouldConfirmSignUp = (context, { data }: AuthEvent) => {
   groupLog(
     '+++shouldConfirmSignUp',
     (data as ConfirmSignUpOutput)?.nextStep.signUpStep === 'CONFIRM_SIGN_UP',
@@ -101,13 +107,7 @@ export const shouldConfirmSignUp = (context, { data }: AuthEvent) => {
   );
 };
 
-export const hasResetPassword = (_, event) => {
-  return (
-    (event.data as ResetPasswordOutput)?.nextStep.resetPasswordStep === 'DONE'
-  );
-};
-
-export const shouldVerifyAttribute = (context, event): boolean => {
+const shouldVerifyAttribute = (_, event): boolean => {
   const { phone_number_verified, email_verified } =
     event.data as FetchUserAttributesOutput;
   groupLog('+++shouldVerifyAttribute', event);
@@ -138,7 +138,7 @@ export const shouldVerifyAttribute = (context, event): boolean => {
  *
  * https://github.com/aws-amplify/amplify-ui/issues/219
  */
-export const isUserAlreadyConfirmed = (context, event) => {
+const isUserAlreadyConfirmed = (_, event) => {
   console.log('+++isUserAlreadyConfirmed', event);
   return event.data.message === 'User is already confirmed.';
 };
@@ -147,13 +147,13 @@ const GUARDS: MachineOptions<AuthActorContext, AuthEvent>['guards'] = {
   shouldConfirmSignIn,
   shouldForceChangePassword,
   hasCompletedSignIn,
-  shouldSetupTotp,
+  shouldContinueSignInWithSetupTotp,
   shouldConfirmResetPassword,
   shouldConfirmSignUpFromSignIn,
   shouldAutoSignIn,
   hasCompletedSignUp,
   shouldConfirmSignUp,
-  hasResetPassword,
+  hasCompletedResetPassword,
   shouldVerifyAttribute,
   isUserAlreadyConfirmed,
 };

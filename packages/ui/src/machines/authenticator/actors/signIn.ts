@@ -1,9 +1,4 @@
-import {
-  actions as xStateActions,
-  assign,
-  createMachine,
-  sendUpdate,
-} from 'xstate';
+import { createMachine, sendUpdate } from 'xstate';
 import {
   confirmSignIn,
   ConfirmSignInInput,
@@ -23,21 +18,62 @@ export interface SignInMachineOptions {
   services?: Partial<typeof defaultServices>;
 }
 
-const fetchUserAttributesState = {
-  tags: 'pending',
-  invoke: {
-    src: 'fetchUserAttributes',
-    onDone: [
-      {
-        cond: 'shouldVerifyAttribute',
-        actions: 'setShouldVerifyUserAttribute',
-        target: '#signInActor.resolved',
-      },
-      {
-        actions: 'setConfirmAttributeComplete',
-        target: '#signInActor.resolved',
-      },
-    ],
+const handleSignInResponse = {
+  onDone: [
+    {
+      cond: 'hasCompletedSignIn',
+      actions: 'setNextSignInStep',
+      target: 'fetchUserAttributes',
+    },
+    {
+      cond: 'shouldConfirmResetPassword',
+      actions: 'setNextSignInStep',
+      target: '#signInActor.resolved',
+    },
+    {
+      cond: 'shouldConfirmSignUpFromSignIn',
+      actions: 'setNextSignInStep',
+      target: 'resendSignUpCode',
+    },
+    {
+      actions: [
+        'setChallengeName',
+        'setMissingAttributes',
+        'setNextSignInStep',
+        'setTotpSecretCode',
+      ],
+      target: '#signInActor.init',
+    },
+  ],
+  onError: { actions: 'setRemoteError', target: 'edit' },
+};
+
+const handleFetchUserAttributesResponse = {
+  onDone: [
+    {
+      cond: 'shouldVerifyAttribute',
+      actions: 'setShouldVerifyUserAttribute',
+      target: '#signInActor.resolved',
+    },
+    {
+      actions: 'setConfirmAttributeComplete',
+      target: '#signInActor.resolved',
+    },
+  ],
+  onError: {
+    actions: 'setConfirmAttributeComplete',
+    target: '#signInActor.resolved',
+  },
+};
+
+const handleConfirmSignInResponse = {
+  onDone: {
+    actions: ['setConfirmSignUpSignUpStep', 'setCodeDeliveryDetails'],
+    target: '#signInActor.resolved',
+  },
+  onError: {
+    actions: 'setRemoteError',
+    target: '#signInActor.signIn',
   },
 };
 
@@ -92,19 +128,18 @@ export function signInActor({ services }: SignInMachineOptions) {
                 onError: { actions: 'setRemoteError' },
               },
             },
-            fetchUserAttributes: fetchUserAttributesState,
+            fetchUserAttributes: {
+              tags: 'pending',
+              invoke: {
+                src: 'fetchUserAttributes',
+                ...handleFetchUserAttributesResponse,
+              },
+            },
             resendSignUpCode: {
               tags: 'pending',
               invoke: {
                 src: 'resendSignUpCode',
-                onDone: {
-                  actions: ['setConfirmSignUpStep', 'setCodeDeliveryDetails'],
-                  target: '#signInActor.resolved',
-                },
-                onError: {
-                  actions: 'setRemoteError',
-                  target: '#signInActor.signIn',
-                },
+                ...handleConfirmSignInResponse,
               },
             },
             submit: {
@@ -113,32 +148,7 @@ export function signInActor({ services }: SignInMachineOptions) {
               exit: 'setUsername',
               invoke: {
                 src: 'signIn',
-                onDone: [
-                  {
-                    cond: 'hasCompletedSignIn',
-                    actions: 'setNextSignInStep',
-                    target: 'fetchUserAttributes',
-                  },
-                  {
-                    cond: 'shouldConfirmResetPassword',
-                    actions: 'setNextSignInStep',
-                    target: '#signInActor.resolved',
-                  },
-                  {
-                    cond: 'shouldConfirmSignUpFromSignIn',
-                    target: 'resendSignUpCode',
-                  },
-                  {
-                    actions: [
-                      'setNextSignInStep',
-                      'setChallengeName',
-                      'setMissingAttributes',
-                      'setTotpSecretCode',
-                    ],
-                    target: '#signInActor.init',
-                  },
-                ],
-                onError: { actions: 'setRemoteError', target: 'edit' },
+                ...handleSignInResponse,
               },
             },
           },
@@ -164,48 +174,22 @@ export function signInActor({ services }: SignInMachineOptions) {
               tags: 'pending',
               invoke: {
                 src: 'resendSignUpCode',
-                onDone: {
-                  actions: ['setConfirmSignUpStep', 'setCodeDeliveryDetails'],
-                  target: '#signInActor.resolved',
-                },
-                onError: {
-                  actions: 'setRemoteError',
-                  target: '#signInActor.confirmSignIn',
-                },
+                ...handleConfirmSignInResponse,
               },
             },
-            fetchUserAttributes: fetchUserAttributesState,
+            fetchUserAttributes: {
+              tags: 'pending',
+              invoke: {
+                src: 'fetchUserAttributes',
+                ...handleFetchUserAttributesResponse,
+              },
+            },
             submit: {
               tags: 'pending',
               entry: ['clearError', 'sendUpdate'],
               invoke: {
                 src: 'confirmSignIn',
-                onDone: [
-                  {
-                    cond: 'hasCompletedSignIn',
-                    actions: 'setNextSignInStep',
-                    target: 'fetchUserAttributes',
-                  },
-                  {
-                    cond: 'shouldConfirmResetPassword',
-                    actions: 'setNextSignInStep',
-                    target: '#signInActor.resolved',
-                  },
-                  {
-                    cond: 'shouldConfirmSignUpFromSignIn',
-                    target: 'resendSignUpCode',
-                  },
-                  {
-                    actions: [
-                      'setNextSignInStep',
-                      'setChallengeName',
-                      'setMissingAttributes',
-                      'setTotpSecretCode',
-                    ],
-                    target: '#signInActor.init',
-                  },
-                ],
-                onError: { actions: 'setRemoteError', target: 'edit' },
+                ...handleSignInResponse,
               },
             },
           },
@@ -246,10 +230,10 @@ export function signInActor({ services }: SignInMachineOptions) {
               },
             },
             submit: {
-              initial: 'idle',
+              initial: 'edit',
               entry: 'clearError',
               states: {
-                idle: {
+                edit: {
                   entry: 'sendUpdate',
                   on: {
                     SUBMIT: { actions: 'handleSubmit', target: 'validate' },
@@ -263,16 +247,29 @@ export function signInActor({ services }: SignInMachineOptions) {
                       actions: 'clearValidationError',
                       target: 'pending',
                     },
-                    onError: { actions: 'setFieldErrors', target: 'idle' },
+                    onError: { actions: 'setFieldErrors', target: 'edit' },
+                  },
+                },
+                fetchUserAttributes: {
+                  tags: 'pending',
+                  invoke: {
+                    src: 'fetchUserAttributes',
+                    ...handleFetchUserAttributesResponse,
+                  },
+                },
+                resendSignUpCode: {
+                  tags: 'pending',
+                  invoke: {
+                    src: 'resendSignUpCode',
+                    ...handleConfirmSignInResponse,
                   },
                 },
                 pending: {
                   tags: 'pending',
                   entry: ['sendUpdate', 'clearError'],
                   invoke: {
-                    src: 'forceChangePassword',
-                    onDone: { target: '#signInActor.resolved' },
-                    onError: { actions: 'setRemoteError', target: 'idle' },
+                    src: 'handleForceChangePassword',
+                    ...handleSignInResponse,
                   },
                 },
               },
@@ -284,11 +281,25 @@ export function signInActor({ services }: SignInMachineOptions) {
           exit: ['clearFormValues', 'clearError', 'clearTouched'],
           states: {
             edit: {
-              entry: ['sendUpdate', xStateActions.log('ENTER setupTotp')],
+              entry: 'sendUpdate',
               on: {
                 SUBMIT: { actions: 'handleSubmit', target: 'submit' },
                 SIGN_IN: '#signInActor.signIn',
                 CHANGE: { actions: 'handleInput' },
+              },
+            },
+            fetchUserAttributes: {
+              tags: 'pending',
+              invoke: {
+                src: 'fetchUserAttributes',
+                ...handleFetchUserAttributesResponse,
+              },
+            },
+            resendSignUpCode: {
+              tags: 'pending',
+              invoke: {
+                src: 'resendSignUpCode',
+                ...handleConfirmSignInResponse,
               },
             },
             submit: {
@@ -296,8 +307,9 @@ export function signInActor({ services }: SignInMachineOptions) {
               entry: ['sendUpdate', 'clearError'],
               invoke: {
                 src: 'confirmSignIn',
-                onDone: { target: '#signInActor.resolved' },
-                onError: { actions: 'setRemoteError', target: 'edit' },
+                ...handleSignInResponse,
+                // onDone: { target: '#signInActor.resolved' },
+                // onError: { actions: 'setRemoteError', target: 'edit' },
               },
             },
           },
@@ -347,15 +359,10 @@ export function signInActor({ services }: SignInMachineOptions) {
           const { confirmation_code: challengeResponse } = formValues;
           return services.handleConfirmSignIn({ challengeResponse });
         },
-        async forceChangePassword({ formValues }) {
-          groupLog('+++forceChangePassword', formValues);
-          let {
-            password,
-            confirm_password,
-            phone_number,
-            country_code,
-            ...userAttributes
-          } = formValues;
+        async handleForceChangePassword({ formValues }) {
+          groupLog('+++handleForceChangePassword', formValues);
+          let { password, phone_number, country_code, ...userAttributes } =
+            formValues;
 
           let phoneNumberWithCountryCode;
           if (phone_number) {

@@ -64,8 +64,8 @@ Feature: Sign In with TOTP MFA
     Then I confirm request '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }'
     Then I see "Setup TOTP"
 
-  # @todo-migration Test broken because we can't mock autosignin after confirmation code submission
-  @skip @angular @react @vue
+  # @todo-migration Potentially remove - Test broken due to inability to mock autosignin response
+  # @skip @angular @react @vue
   Scenario: Successful sign up shows correct username from authenticated user
     When I click the "Create Account" tab
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"

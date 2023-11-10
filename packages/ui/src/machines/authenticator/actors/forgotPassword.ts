@@ -3,6 +3,7 @@ import { createMachine, sendUpdate } from 'xstate';
 import { groupLog } from '../../../utils';
 import { runValidators } from '../../../validators';
 import actions from '../actions';
+import guards from '../guards';
 import { defaultServices } from '../defaultServices';
 import { AuthEvent, ResetPasswordContext } from '../types';
 
@@ -147,7 +148,7 @@ export function forgotPasswordActor({
                   invoke: {
                     src: 'handleConfirmPasswordUpdate',
                     onDone: {
-                      cond: 'hasCompletePasswordUpdate',
+                      cond: 'hasCompletedResetPassword',
                       actions: 'setNextResetPasswordStep',
                       target: '#forgotPasswordActor.resolved',
                     },
@@ -170,6 +171,7 @@ export function forgotPasswordActor({
     {
       // sendUpdate is a HOC
       actions: { ...actions, sendUpdate: sendUpdate() },
+      guards,
       services: {
         forgotPassword({ formValues }: ResetPasswordContext) {
           groupLog('+++forgotPassword', formValues);

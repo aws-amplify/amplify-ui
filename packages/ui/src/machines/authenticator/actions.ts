@@ -1,8 +1,6 @@
 import {
   FetchUserAttributesOutput,
   ResendSignUpCodeOutput,
-  resetPassword,
-  ResetPasswordInput,
   ResetPasswordOutput,
   SendUserAttributeVerificationCodeOutput,
   SignInOutput,
@@ -55,6 +53,24 @@ const { assign } = xStateActions;
 /**
  * "clear" actions
  */
+export const getUsernameValue = ({
+  country_code,
+  email,
+  username,
+}: AuthActorContext['formValues']) => {
+  console.log('getUsernameValue');
+
+  if (username) {
+    console.log(
+      '- username',
+      country_code ? `${country_code}${username}` : username
+    );
+    return country_code ? `${country_code}${username}` : username;
+  }
+
+  console.log('- email', email);
+  return email;
+};
 
 const clearChallengeName = assign({
   challengeName: (_, e) => {
@@ -182,25 +198,6 @@ const setUser = assign({
     return event.data;
   },
 });
-
-const getUsernameValue = ({
-  country_code,
-  email,
-  username,
-}: AuthActorContext['formValues']) => {
-  console.log('getUsernameValue');
-
-  if (username) {
-    console.log(
-      '- username',
-      country_code ? `${country_code}${username}` : username
-    );
-    return country_code ? `${country_code}${username}` : username;
-  }
-
-  console.log('- email', email);
-  return email;
-};
 
 const setUsername = assign({
   username: (context: AuthActorContext, _) => {
@@ -334,7 +331,8 @@ const setSelectedUserAttribute = assign({
   },
 });
 
-const setConfirmSignUpStep = assign({ step: 'CONFIRM_SIGN_UP' });
+// Maps to unexposed `ConfirmSignUpSignUpStep`
+const setConfirmSignUpSignUpStep = assign({ step: 'CONFIRM_SIGN_UP' });
 
 const ACTIONS: MachineOptions<AuthActorContext, AuthEvent>['actions'] = {
   clearChallengeName,
@@ -362,7 +360,7 @@ const ACTIONS: MachineOptions<AuthActorContext, AuthEvent>['actions'] = {
   setTotpSecretCode,
   setShouldVerifyUserAttribute,
   setConfirmAttributeComplete,
-  setConfirmSignUpStep,
+  setConfirmSignUpSignUpStep,
   setUser,
   setUnverifiedUserAttributes,
   setUsername,

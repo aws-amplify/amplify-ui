@@ -157,11 +157,13 @@ export function createAuthenticatorMachine(
             RESET_PASSWORD: 'resetPassword',
             'done.invoke.signInActor': [
               {
-                cond: (context, event) => {
-                  groupLog('+++isDoneDone', context, event);
-                  return (
-                    (event as any)?.data?.step === 'CONFIRM_ATTRIBUTE_COMPLETE'
+                cond: (context, { data }) => {
+                  groupLog(
+                    '+++to CONFIRM_ATTRIBUTE_COMPLETE',
+                    data.step,
+                    context
                   );
+                  return data.step === 'CONFIRM_ATTRIBUTE_COMPLETE';
                 },
                 target: '.getCurrentUser',
               },
