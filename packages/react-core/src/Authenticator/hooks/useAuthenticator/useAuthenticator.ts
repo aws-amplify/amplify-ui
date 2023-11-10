@@ -48,8 +48,8 @@ export default function useAuthenticator(
   // `fields` from updating with current form state on value changes
   const serviceSnapshot = service.getSnapshot() as AuthMachineState;
 
-  // legacy `QRFields` values only used for SetupTOTP page to retrieve issuer information, will be removed in future
-  const QRFields = route === 'setupTOTP' ? getQRFields(serviceSnapshot) : null;
+  // legacy `QRFields` values only used for SetupTotp page to retrieve issuer information, will be removed in future
+  const QRFields = route === 'setupTotp' ? getQRFields(serviceSnapshot) : null;
 
   // legacy `formFields` values required until form state is removed from state machine
   const fields = getMachineFields(

@@ -17,9 +17,27 @@ export function forgotPasswordActor({
   return createMachine<ResetPasswordContext, AuthEvent>(
     {
       id: 'forgotPasswordActor',
-      initial: 'forgotPassword',
+      initial: 'init',
       predictableActionArguments: true,
       states: {
+        init: {
+          always: [
+            {
+              cond: ({ step }) => {
+                groupLog('is FORGOT_PASSWORD', step);
+                return step === 'FORGOT_PASSWORD';
+              },
+              target: 'forgotPassword',
+            },
+            {
+              cond: ({ step }) => {
+                groupLog('is CONFIRM_RESET_PASSWORD_WITH_CODE', step);
+                return step === 'CONFIRM_RESET_PASSWORD_WITH_CODE';
+              },
+              target: 'confirmPasswordUpdate',
+            },
+          ],
+        },
         forgotPassword: {
           initial: 'edit',
           entry: 'sendUpdate',
@@ -39,7 +57,11 @@ export function forgotPasswordActor({
               invoke: {
                 src: 'forgotPassword',
                 onDone: {
-                  actions: ['setUsername', 'setCodeDeliveryDetails'],
+                  actions: [
+                    'setUsername',
+                    'setCodeDeliveryDetails',
+                    'setNextResetPasswordStep',
+                  ],
                   target: '#forgotPasswordActor.confirmPasswordUpdate',
                 },
                 onError: {
@@ -123,7 +145,7 @@ export function forgotPasswordActor({
                   tags: 'pending',
                   entry: ['clearError', 'sendUpdate'],
                   invoke: {
-                    src: 'confirmPasswordUpdate',
+                    src: 'handleConfirmPasswordUpdate',
                     onDone: {
                       cond: 'hasCompletePasswordUpdate',
                       actions: 'setNextResetPasswordStep',
@@ -156,8 +178,8 @@ export function forgotPasswordActor({
           groupLog('+++forgotPassword username:', username);
           return services.handleForgotPassword({ username });
         },
-        confirmPasswordUpdate(context) {
-          groupLog('+++confirmPasswordUpdate', context);
+        handleConfirmPasswordUpdate(context) {
+          groupLog('+++handleConfirmPasswordUpdate', context);
           const { username } = context;
           const { confirmation_code: confirmationCode, password } =
             context.formValues;

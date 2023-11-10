@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { ConfirmSignUp } from '../ConfirmSignUp';
 import { ForceNewPassword } from '../ForceNewPassword';
-import { SetupTOTP } from '../SetupTOTP';
+import { SetupTotp } from '../SetupTotp';
 import { SignInSignUpTabs } from '../shared';
 import { ConfirmVerifyUser, VerifyUser } from '../VerifyUser';
 import { ConfirmSignIn } from '../ConfirmSignIn/ConfirmSignIn';
@@ -29,8 +29,8 @@ const getRouteComponent = (route: string): RouteComponent => {
       return ConfirmSignUp;
     case 'confirmSignIn':
       return ConfirmSignIn;
-    case 'setupTOTP':
-      return SetupTOTP;
+    case 'setupTotp':
+      return SetupTotp;
     case 'signIn':
     case 'signUp':
       return SignInSignUpTabs;

@@ -4,7 +4,7 @@ import { act, render } from '@testing-library/react';
 import * as UI from '@aws-amplify/ui';
 import { useAuthenticator, UseAuthenticator } from '@aws-amplify/ui-react-core';
 
-import { SetupTOTP } from '..';
+import { SetupTotp } from '..';
 
 jest.mock('qrcode');
 
@@ -19,7 +19,7 @@ jest.mock('../../hooks/useCustomComponents', () => ({
     components: {
       Header: () => null,
       Footer: () => null,
-      SetupTOTP: { Header: () => null, Footer: () => null },
+      SetupTotp: { Header: () => null, Footer: () => null },
     },
   }),
 }));
@@ -33,7 +33,7 @@ const username = 'username';
 
 const getTotpCodeURLSpy = jest.spyOn(UI, 'getTotpCodeURL');
 
-describe('SetupTOTP', () => {
+describe('SetupTotp', () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
@@ -46,7 +46,7 @@ describe('SetupTOTP', () => {
 
   it('handles an undefined value when looking up QR field values', async () => {
     await act(async () => {
-      render(<SetupTOTP className="className" variation="default" />);
+      render(<SetupTotp className="className" variation="default" />);
     });
 
     expect(getTotpCodeURLSpy).toHaveBeenCalledTimes(1);
@@ -72,7 +72,7 @@ describe('SetupTOTP', () => {
     } as UseAuthenticator);
 
     await act(async () => {
-      render(<SetupTOTP className="className" variation="default" />);
+      render(<SetupTotp className="className" variation="default" />);
     });
 
     expect(getTotpCodeURLSpy).toHaveBeenCalledTimes(1);

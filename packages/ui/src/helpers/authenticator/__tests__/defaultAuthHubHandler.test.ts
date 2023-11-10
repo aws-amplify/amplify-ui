@@ -1,4 +1,4 @@
-import { defaultAuthHubHandler } from '../utils';
+import { defaultAuthHubHandler } from '../defaultAuthHubHandler';
 import { AuthInterpreter } from '../types';
 
 jest.mock('xstate/lib/waitFor', () => ({

@@ -112,7 +112,7 @@ const signInComponent = ref();
 const signUpComponent = ref();
 const confirmSignUpComponent = ref();
 const confirmSignInComponent = ref();
-const confirmSetupTOTPComponent = ref();
+const confirmSetupTotpComponent = ref();
 const forceNewPasswordComponent = ref();
 const resetPasswordComponent = ref();
 const confirmResetPasswordComponent = ref();
@@ -139,7 +139,7 @@ const hasRouteComponent = computed(() => {
     'confirmVerifyUser',
     'forceNewPassword',
     'resetPassword',
-    'setupTOTP',
+    'setupTotp',
     'signIn',
     'signUp',
     'verifyUser',
@@ -293,10 +293,10 @@ const hasRouteComponent = computed(() => {
         </confirm-sign-in>
 
         <setup-totp
-          v-if="route === 'setupTOTP'"
-          ref="confirmSetupTOTPComponent"
+          v-if="route === 'setupTotp'"
+          ref="confirmSetupTotpComponent"
         >
-          <template #confirmSetupTOTPI>
+          <template #confirmSetupTotpI>
             <slot name="setup-totp"></slot>
           </template>
           <template #header>

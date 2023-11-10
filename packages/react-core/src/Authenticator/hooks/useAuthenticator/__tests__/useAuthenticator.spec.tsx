@@ -113,7 +113,7 @@ describe('useAuthenticator', () => {
     expect(getComparatorSpy).not.toHaveBeenCalled();
   });
 
-  it('calls getQRFields only for the setupTOTP route', async () => {
+  it('calls getQRFields only for the setupTotp route', async () => {
     getServiceFacadeSpy.mockReturnValueOnce({
       ...mockServiceFacade,
       route: 'signIn',
@@ -130,7 +130,7 @@ describe('useAuthenticator', () => {
 
     getServiceFacadeSpy.mockReturnValueOnce({
       ...mockServiceFacade,
-      route: 'setupTOTP',
+      route: 'setupTotp',
     });
 
     await waitForNextUpdate();

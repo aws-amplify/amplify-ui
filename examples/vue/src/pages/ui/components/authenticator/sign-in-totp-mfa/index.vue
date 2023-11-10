@@ -6,7 +6,7 @@ import aws_exports from './aws-exports';
 
 Amplify.configure(aws_exports);
 const formFields = {
-  setupTOTP: { QR: { totpIssuer: 'My Web App' } },
+  setupTotp: { QR: { totpIssuer: 'My Web App' } },
 };
 </script>
 

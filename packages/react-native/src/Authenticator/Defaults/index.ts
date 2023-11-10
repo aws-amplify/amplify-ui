@@ -4,7 +4,7 @@ export { ConfirmSignUp } from './ConfirmSignUp';
 export { ConfirmVerifyUser } from './ConfirmVerifyUser';
 export { ForceNewPassword } from './ForceNewPassword';
 export { ResetPassword } from './ResetPassword';
-export { SetupTOTP } from './SetupTOTP';
+export { SetupTotp } from './SetupTotp';
 export { SignIn } from './SignIn';
 export { SignUp } from './SignUp';
 export { VerifyUser } from './VerifyUser';

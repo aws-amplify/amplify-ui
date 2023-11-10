@@ -59,7 +59,7 @@ export type InitialRoute = 'signIn' | 'signUp' | 'resetPassword';
  */
 export type NavigationRoute =
   | 'resetPassword'
-  | 'setupTOTP'
+  | 'setupTotp'
   | 'signIn'
   | 'signUp';
 

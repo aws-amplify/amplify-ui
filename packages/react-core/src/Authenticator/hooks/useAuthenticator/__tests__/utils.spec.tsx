@@ -18,7 +18,7 @@ const totpIssuer = 'testIssuer';
 const totpUsername = 'testUsername';
 const mockActorReturnActorContextValues = {
   formFields: {
-    setupTOTP: {
+    setupTotp: {
       QR: {
         totpIssuer,
         totpUsername,

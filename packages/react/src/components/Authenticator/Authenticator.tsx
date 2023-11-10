@@ -23,7 +23,7 @@ import {
   ComponentsProviderProps,
 } from './hooks/useCustomComponents';
 import { Router, RouterProps } from './Router';
-import { SetupTOTP } from './SetupTOTP';
+import { SetupTotp } from './SetupTotp';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
 import { ForceNewPassword } from './ForceNewPassword';
@@ -153,7 +153,7 @@ export function Authenticator(props: AuthenticatorProps): JSX.Element {
 
 Authenticator.Provider = Provider;
 Authenticator.ResetPassword = ResetPassword;
-Authenticator.SetupTOTP = SetupTOTP;
+Authenticator.SetupTotp = SetupTotp;
 Authenticator.SignIn = SignIn;
 Authenticator.SignUp = SignUp;
 Authenticator.ForceNewPassword = ForceNewPassword;

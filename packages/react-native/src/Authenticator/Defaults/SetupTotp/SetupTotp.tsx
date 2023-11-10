@@ -12,20 +12,20 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultSetupTOTPProps } from '../types';
+import { DefaultSetupTotpProps } from '../types';
 import { styles } from './styles';
 
-const COMPONENT_NAME = 'SetupTOTP';
+const COMPONENT_NAME = 'SetupTotp';
 
 const {
   getBackToSignInText,
   getConfirmingText,
   getConfirmText,
-  getSetupTOTPText,
-  getSetupTOTPInstructionsText,
+  getSetupTotpText,
+  getSetupTotpInstructionsText,
 } = authenticatorTextUtil;
 
-const SetupTOTP = ({
+const SetupTotp = ({
   fields,
   handleBlur,
   handleChange,
@@ -35,7 +35,7 @@ const SetupTOTP = ({
   totpSecretCode,
   validationErrors,
   ...rest
-}: DefaultSetupTOTPProps): JSX.Element => {
+}: DefaultSetupTotpProps): JSX.Element => {
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
@@ -50,14 +50,14 @@ const SetupTOTP = ({
     validationErrors,
   });
 
-  const headerText = getSetupTOTPText();
+  const headerText = getSetupTotpText();
   const primaryButtonText = isPending ? getConfirmingText() : getConfirmText();
   const secondaryButtonText = getBackToSignInText();
 
   const body = (
     <>
       <Label style={styles.secretKeyText}>
-        {getSetupTOTPInstructionsText()}
+        {getSetupTotpInstructionsText()}
       </Label>
       <Label selectable style={styles.secretKeyText}>
         {totpSecretCode}
@@ -96,9 +96,9 @@ const SetupTOTP = ({
   );
 };
 
-SetupTOTP.Footer = DefaultFooter;
-SetupTOTP.FormFields = DefaultTextFormFields;
-SetupTOTP.Header = DefaultHeader;
+SetupTotp.Footer = DefaultFooter;
+SetupTotp.FormFields = DefaultTextFormFields;
+SetupTotp.Header = DefaultHeader;
 
-SetupTOTP.displayName = COMPONENT_NAME;
-export default SetupTOTP;
+SetupTotp.displayName = COMPONENT_NAME;
+export default SetupTotp;

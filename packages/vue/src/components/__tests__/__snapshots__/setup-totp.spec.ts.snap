@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SetupTOTP renders loading text as expected on init 1`] = `
+exports[`SetupTotp renders loading text as expected on init 1`] = `
 <div>
   
   <div>
@@ -183,7 +183,7 @@ exports[`SetupTOTP renders loading text as expected on init 1`] = `
 </div>
 `;
 
-exports[`SetupTOTP renders qrcode image as expected after onMounted is done 1`] = `
+exports[`SetupTotp renders qrcode image as expected after onMounted is done 1`] = `
 <div>
   
   <div>

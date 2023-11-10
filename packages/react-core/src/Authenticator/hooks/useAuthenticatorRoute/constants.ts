@@ -14,7 +14,7 @@ import {
   ResetPasswordMachineKey,
   SignInMachineKey,
   SignUpMachineKey,
-  SetupTOTPMachineKey,
+  SetupTotpMachineKey,
   VerifyUserMachineKey,
 } from './types';
 
@@ -79,7 +79,7 @@ const SIGN_UP_MACHINE_KEYS: SignUpMachineKey[] = [
   'toSignIn',
   'validationErrors',
 ];
-const SETUP_TOTP_MACHINE_KEYS: SetupTOTPMachineKey[] = [
+const SETUP_TOTP_MACHINE_KEYS: SetupTotpMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,
   'toSignIn',
   'totpSecretCode',
@@ -102,6 +102,6 @@ export const MACHINE_PROP_KEYS: Record<
   signIn: SIGN_IN_MACHINE_KEYS,
   signUp: SIGN_UP_MACHINE_KEYS,
   resetPassword: RESET_PASSWORD_MACHINE_KEYS,
-  setupTOTP: SETUP_TOTP_MACHINE_KEYS,
+  setupTotp: SETUP_TOTP_MACHINE_KEYS,
   verifyUser: VERIFY_USER_MACHINE_KEYS,
 };
