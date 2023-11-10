@@ -1,6 +1,6 @@
 import {
   MessageComponentBaseProps,
-  MessageTextAlign,
+  InAppMessageTextAlign,
 } from '@aws-amplify/ui-react-core-notifications';
 import { StyleParams } from '../types';
 
@@ -9,9 +9,9 @@ import { getPayloadStyle, getMessageStyles } from '../utils';
 describe('getPayloadStyle', () => {
   it('returns the expected output in the happy path', () => {
     const output = getPayloadStyle({
-      body: { style: { textAlign: 'left' as MessageTextAlign } },
+      body: { style: { textAlign: 'left' as InAppMessageTextAlign } },
       container: { style: { backgroundColor: 'lightgray', borderRadius: 2 } },
-      header: { style: { textAlign: 'center' as MessageTextAlign } },
+      header: { style: { textAlign: 'center' as InAppMessageTextAlign } },
       primaryButton: { style: { backgroundColor: 'salmon', color: 'olive' } },
       secondaryButton: { style: { backgroundColor: 'sand', color: 'peru' } },
     } as MessageComponentBaseProps);
@@ -22,9 +22,9 @@ describe('getPayloadStyle', () => {
 
 describe('getMessageStyles', () => {
   const payloadStyle: StyleParams['payloadStyle'] = {
-    body: { textAlign: 'left' as MessageTextAlign },
+    body: { textAlign: 'left' as InAppMessageTextAlign },
     container: { backgroundColor: 'lightgray', borderRadius: 2 },
-    header: { textAlign: 'center' as MessageTextAlign },
+    header: { textAlign: 'center' as InAppMessageTextAlign },
     primaryButton: { backgroundColor: 'salmon', color: 'olive' },
     secondaryButton: { backgroundColor: 'sand', color: 'peru' },
   };
