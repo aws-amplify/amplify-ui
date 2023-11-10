@@ -4,6 +4,7 @@ import {
   ConfirmSignInInput,
   fetchUserAttributes,
   resendSignUpCode,
+  resetPassword,
   signInWithRedirect,
 } from 'aws-amplify/auth';
 
@@ -23,17 +24,22 @@ const handleSignInResponse = {
     {
       cond: 'hasCompletedSignIn',
       actions: 'setNextSignInStep',
-      target: 'fetchUserAttributes',
+      target: '#signInActor.fetchUserAttributes',
     },
     {
-      cond: 'shouldConfirmResetPassword',
-      actions: 'setNextSignInStep',
+      cond: 'shouldConfirmSignInWithNewPassword',
+      actions: ['setUsername', 'setNextSignInStep'],
       target: '#signInActor.resolved',
+    },
+    {
+      cond: 'shouldResetPassword',
+      actions: 'setNextSignInStep',
+      target: '#signInActor.resetPassword',
     },
     {
       cond: 'shouldConfirmSignUpFromSignIn',
       actions: 'setNextSignInStep',
-      target: 'resendSignUpCode',
+      target: '#signInActor.resendSignUpCode',
     },
     {
       actions: [
@@ -48,20 +54,27 @@ const handleSignInResponse = {
   onError: { actions: 'setRemoteError', target: 'edit' },
 };
 
+const handleResetPasswordResponse = {
+  onDone: [
+    { actions: 'setCodeDeliveryDetails', target: '#signInActor.resolved' },
+  ],
+  onError: { actions: ['setRemoteError', 'sendUpdate'] },
+};
+
 const handleFetchUserAttributesResponse = {
   onDone: [
     {
       cond: 'shouldVerifyAttribute',
-      actions: 'setShouldVerifyUserAttribute',
+      actions: 'setShouldVerifyUserAttributeStep',
       target: '#signInActor.resolved',
     },
     {
-      actions: 'setConfirmAttributeComplete',
+      actions: 'setConfirmAttributeCompleteStep',
       target: '#signInActor.resolved',
     },
   ],
   onError: {
-    actions: 'setConfirmAttributeComplete',
+    actions: 'setConfirmAttributeCompleteStep',
     target: '#signInActor.resolved',
   },
 };
@@ -108,6 +121,31 @@ export function signInActor({ services }: SignInMachineOptions) {
             { target: 'signIn' },
           ],
         },
+        federatedSignIn: {
+          entry: ['sendUpdate', 'clearError'],
+          invoke: {
+            src: 'signInWithRedirect',
+            onError: { actions: 'setRemoteError' },
+          },
+        },
+        fetchUserAttributes: {
+          invoke: {
+            src: 'fetchUserAttributes',
+            ...handleFetchUserAttributesResponse,
+          },
+        },
+        resendSignUpCode: {
+          invoke: {
+            src: 'resendSignUpCode',
+            ...handleConfirmSignInResponse,
+          },
+        },
+        resetPassword: {
+          invoke: {
+            src: 'resetPassword',
+            ...handleResetPasswordResponse,
+          },
+        },
         signIn: {
           initial: 'edit',
           exit: 'clearTouched',
@@ -116,30 +154,8 @@ export function signInActor({ services }: SignInMachineOptions) {
               entry: 'sendUpdate',
               on: {
                 CHANGE: { actions: 'handleInput' },
-                FEDERATED_SIGN_IN: 'federatedSignIn',
+                FEDERATED_SIGN_IN: { target: '#signInActor.federatedSignIn' },
                 SUBMIT: { actions: 'handleSubmit', target: 'submit' },
-              },
-            },
-            federatedSignIn: {
-              entry: ['sendUpdate', 'clearError'],
-              invoke: {
-                src: 'signInWithRedirect',
-                onDone: { target: 'edit' },
-                onError: { actions: 'setRemoteError' },
-              },
-            },
-            fetchUserAttributes: {
-              tags: 'pending',
-              invoke: {
-                src: 'fetchUserAttributes',
-                ...handleFetchUserAttributesResponse,
-              },
-            },
-            resendSignUpCode: {
-              tags: 'pending',
-              invoke: {
-                src: 'resendSignUpCode',
-                ...handleConfirmSignInResponse,
               },
             },
             submit: {
@@ -168,20 +184,6 @@ export function signInActor({ services }: SignInMachineOptions) {
                 SUBMIT: { actions: 'handleSubmit', target: 'submit' },
                 SIGN_IN: '#signInActor.signIn',
                 CHANGE: { actions: 'handleInput' },
-              },
-            },
-            resendSignUpCode: {
-              tags: 'pending',
-              invoke: {
-                src: 'resendSignUpCode',
-                ...handleConfirmSignInResponse,
-              },
-            },
-            fetchUserAttributes: {
-              tags: 'pending',
-              invoke: {
-                src: 'fetchUserAttributes',
-                ...handleFetchUserAttributesResponse,
               },
             },
             submit: {
@@ -253,20 +255,6 @@ export function signInActor({ services }: SignInMachineOptions) {
                     onError: { actions: 'setFieldErrors', target: 'edit' },
                   },
                 },
-                fetchUserAttributes: {
-                  tags: 'pending',
-                  invoke: {
-                    src: 'fetchUserAttributes',
-                    ...handleFetchUserAttributesResponse,
-                  },
-                },
-                resendSignUpCode: {
-                  tags: 'pending',
-                  invoke: {
-                    src: 'resendSignUpCode',
-                    ...handleConfirmSignInResponse,
-                  },
-                },
                 pending: {
                   tags: 'pending',
                   entry: ['sendUpdate', 'clearError'],
@@ -291,28 +279,12 @@ export function signInActor({ services }: SignInMachineOptions) {
                 CHANGE: { actions: 'handleInput' },
               },
             },
-            fetchUserAttributes: {
-              tags: 'pending',
-              invoke: {
-                src: 'fetchUserAttributes',
-                ...handleFetchUserAttributesResponse,
-              },
-            },
-            resendSignUpCode: {
-              tags: 'pending',
-              invoke: {
-                src: 'resendSignUpCode',
-                ...handleConfirmSignInResponse,
-              },
-            },
             submit: {
               tags: 'pending',
               entry: ['sendUpdate', 'clearError'],
               invoke: {
                 src: 'confirmSignIn',
                 ...handleSignInResponse,
-                // onDone: { target: '#signInActor.resolved' },
-                // onError: { actions: 'setRemoteError', target: 'edit' },
               },
             },
           },
@@ -347,6 +319,10 @@ export function signInActor({ services }: SignInMachineOptions) {
               groupLog('+++fetchUserAttributes error', e);
               throw e;
             });
+        },
+        resetPassword({ username }) {
+          groupLog('+++resetPassword', username);
+          return resetPassword({ username });
         },
         resendSignUpCode({ username }) {
           console.log('+++resendSignUpCode username:', username);

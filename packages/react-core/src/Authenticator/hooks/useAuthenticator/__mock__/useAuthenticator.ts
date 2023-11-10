@@ -21,7 +21,7 @@ const signOut = jest.fn();
 const socialProviders = [] as AuthenticatorMachineContext['socialProviders'];
 const submitForm = jest.fn();
 const toFederatedSignIn = jest.fn();
-const toResetPassword = jest.fn();
+const toForgotPassword = jest.fn();
 const toSignIn = jest.fn();
 const toSignUp = jest.fn();
 const totpSecretCode = null;
@@ -51,7 +51,7 @@ export const mockMachineContext: AuthenticatorMachineContext = {
   skipVerification,
   socialProviders,
   toFederatedSignIn,
-  toResetPassword,
+  toForgotPassword,
   totpSecretCode,
   unverifiedContactMethods,
   username: 'george',

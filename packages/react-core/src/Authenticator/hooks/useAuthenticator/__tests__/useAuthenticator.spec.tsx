@@ -33,7 +33,7 @@ const mockServiceFacade: AuthenticatorServiceFacade = {
   updateForm: jest.fn(),
   updateBlur: jest.fn(),
   toFederatedSignIn: jest.fn(),
-  toResetPassword: jest.fn(),
+  toForgotPassword: jest.fn(),
   toSignIn: jest.fn(),
   toSignUp: jest.fn(),
   skipVerification: jest.fn(),

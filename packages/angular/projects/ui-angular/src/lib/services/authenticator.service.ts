@@ -127,8 +127,8 @@ export class AuthenticatorService implements OnDestroy {
     return this._facade.toFederatedSignIn;
   }
 
-  public get toResetPassword(): AuthenticatorServiceFacade['toResetPassword'] {
-    return this._facade.toResetPassword;
+  public get toForgotPassword(): AuthenticatorServiceFacade['toForgotPassword'] {
+    return this._facade.toForgotPassword;
   }
 
   public get toSignIn(): AuthenticatorServiceFacade['toSignIn'] {

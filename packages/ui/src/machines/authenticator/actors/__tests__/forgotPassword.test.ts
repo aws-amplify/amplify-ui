@@ -37,7 +37,7 @@ describe('forgotPasswordActor', () => {
   });
 
   // @todo-migration fix
-  it.skip('transitions from initial state to edit on RESET_PASSWORD event', async () => {
+  it.skip('transitions from initial state to edit on FORGOT_PASSWORD event', async () => {
     service = interpret(
       forgotPasswordActor(forgotPasswordMachineProps)
         .withContext({
@@ -48,7 +48,7 @@ describe('forgotPasswordActor', () => {
           },
           loginMechanisms: [],
           socialProviders: undefined,
-          step: 'RESET_PASSWORD',
+          step: 'FORGOT_PASSWORD',
         })
         .withConfig({
           actions: {

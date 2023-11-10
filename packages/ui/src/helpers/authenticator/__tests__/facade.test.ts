@@ -37,7 +37,7 @@ describe('getSendEventAliases', () => {
       updateForm,
       updateBlur,
       toFederatedSignIn,
-      toResetPassword,
+      toForgotPassword,
       toSignIn,
       toSignUp,
       skipVerification,
@@ -50,7 +50,7 @@ describe('getSendEventAliases', () => {
     updateForm();
     updateBlur();
     toFederatedSignIn();
-    toResetPassword();
+    toForgotPassword();
     toSignIn();
     toSignUp();
     skipVerification();

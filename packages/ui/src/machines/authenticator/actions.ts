@@ -50,6 +50,8 @@ const { assign } = xStateActions;
  * how TypeScript integrate with Xstate.
  */
 
+const sanitizePhoneNumber = (dialCode: string, phoneNumber: string) =>
+  `${dialCode}${phoneNumber}`.replace(/[^A-Z0-9+]/gi, '');
 /**
  * "clear" actions
  */
@@ -65,7 +67,9 @@ export const getUsernameValue = ({
       '- username',
       country_code ? `${country_code}${username}` : username
     );
-    return country_code ? `${country_code}${username}` : username;
+    return country_code
+      ? sanitizePhoneNumber(country_code, username)
+      : username;
   }
 
   console.log('- email', email);
@@ -116,11 +120,11 @@ const setSignInStep = assign({
   step: 'SIGN_IN',
 });
 
-const setShouldVerifyUserAttribute = assign({
+const setShouldVerifyUserAttributeStep = assign({
   step: 'SHOULD_VERIFY_USER_ATTRIBUTE',
 });
 
-const setConfirmAttributeComplete = assign({
+const setConfirmAttributeCompleteStep = assign({
   step: 'CONFIRM_ATTRIBUTE_COMPLETE',
 });
 
@@ -362,8 +366,8 @@ const ACTIONS: MachineOptions<AuthActorContext, AuthEvent>['actions'] = {
   setRemoteError,
   setSelectedUserAttribute,
   setTotpSecretCode,
-  setShouldVerifyUserAttribute,
-  setConfirmAttributeComplete,
+  setShouldVerifyUserAttributeStep,
+  setConfirmAttributeCompleteStep,
   setConfirmSignUpSignUpStep,
   setSignInStep,
   setUser,

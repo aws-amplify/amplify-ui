@@ -142,7 +142,7 @@ exports[`useAuthenticatorRoute returns the expected values for the signIn route 
     "isPending": false,
     "socialProviders": [],
     "toFederatedSignIn": [MockFunction],
-    "toResetPassword": [MockFunction],
+    "toForgotPassword": [MockFunction],
     "toSignUp": [MockFunction],
   },
 }

@@ -24,18 +24,25 @@ export function forgotPasswordActor({
         init: {
           always: [
             {
-              cond: ({ step }) => {
-                groupLog('is FORGOT_PASSWORD', step);
-                return step === 'FORGOT_PASSWORD';
+              cond: (context) => {
+                groupLog('is FORGOT_PASSWORD', context);
+                return context.step === 'FORGOT_PASSWORD';
               },
               target: 'forgotPassword',
+            },
+            {
+              cond: ({ step }) => {
+                groupLog('is RESET_PASSWORD', step);
+                return step === 'RESET_PASSWORD';
+              },
+              target: 'resetPassword',
             },
             {
               cond: ({ step }) => {
                 groupLog('is CONFIRM_RESET_PASSWORD_WITH_CODE', step);
                 return step === 'CONFIRM_RESET_PASSWORD_WITH_CODE';
               },
-              target: 'confirmPasswordUpdate',
+              target: 'resetPassword',
             },
           ],
         },
@@ -63,7 +70,7 @@ export function forgotPasswordActor({
                     'setCodeDeliveryDetails',
                     'setNextResetPasswordStep',
                   ],
-                  target: '#forgotPasswordActor.confirmPasswordUpdate',
+                  target: '#forgotPasswordActor.resetPassword',
                 },
                 onError: {
                   actions: ['setRemoteError'],
@@ -73,7 +80,7 @@ export function forgotPasswordActor({
             },
           },
         },
-        confirmPasswordUpdate: {
+        resetPassword: {
           type: 'parallel',
           exit: ['clearFormValues', 'clearError', 'clearTouched'],
           states: {
@@ -168,7 +175,7 @@ export function forgotPasswordActor({
         resolved: {
           type: 'final',
           data: (context, event) => {
-            groupLog('+++resetPassword.resolved.final', context, event);
+            groupLog('+++forgotPassword.resolved.final', context, event);
             return { step: context.step };
           },
         },
@@ -179,7 +186,7 @@ export function forgotPasswordActor({
       actions: { ...actions, sendUpdate: sendUpdate() },
       guards,
       services: {
-        forgotPassword({ formValues }: ResetPasswordContext) {
+        resetPassword({ formValues }: ResetPasswordContext) {
           groupLog('+++forgotPassword', formValues);
           const { username } = formValues;
 

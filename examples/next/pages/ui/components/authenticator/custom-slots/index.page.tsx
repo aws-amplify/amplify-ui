@@ -57,13 +57,13 @@ const components = {
       );
     },
     Footer() {
-      const { toResetPassword } = useAuthenticator();
+      const { toForgotPassword } = useAuthenticator();
 
       return (
         <View textAlign="center">
           <Button
             fontWeight="normal"
-            onClick={toResetPassword}
+            onClick={toForgotPassword}
             size="small"
             variation="link"
           >

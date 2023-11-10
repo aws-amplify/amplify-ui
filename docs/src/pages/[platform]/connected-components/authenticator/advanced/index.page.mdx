@@ -45,7 +45,7 @@ export async function getStaticProps() {
 
 ### Example
 
-Here's an example that uses the `toResetPassword` trigger transition, to create a custom button. Note that example uses the [Footer "slot" override](../authenticator/customization#headers--footers).
+Here's an example that uses the `toForgotPassword` trigger transition, to create a custom button. Note that example uses the [Footer "slot" override](../authenticator/customization#headers--footers).
 
 <Fragment>
   {({ platform }) => import(`./example.${platform}.mdx`)}
@@ -135,7 +135,7 @@ These helper functions trigger transition to another `route`. Note that any inva
           <ResponsiveTableCell label="Type">`() => void`</ResponsiveTableCell>
         </TableRow>
         <TableRow>
-          <ResponsiveTableCell label="Name">`toResetPassword`</ResponsiveTableCell>
+          <ResponsiveTableCell label="Name">`toForgotPassword`</ResponsiveTableCell>
           <ResponsiveTableCell label="Description">Transitions to `resetPassword`. Allowed from `signIn`.</ResponsiveTableCell>
           <ResponsiveTableCell label="Type">`() => void`</ResponsiveTableCell>
         </TableRow>

@@ -15,10 +15,10 @@ export default function App() {
   const components = {
     SignIn: {
       Footer() {
-        const { toResetPassword } = useAuthenticator();
+        const { toForgotPassword } = useAuthenticator();
         return (
           <View textAlign="center">
-            <Button fontWeight="normal" onClick={toResetPassword} size="small">
+            <Button fontWeight="normal" onClick={toForgotPassword} size="small">
               Custom Reset Password
             </Button>
           </View>

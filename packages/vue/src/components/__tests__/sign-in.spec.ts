@@ -25,7 +25,7 @@ const mockServiceFacade = {
   route: 'signIn',
   updateForm: updateFormSpy,
   submitForm: submitFormSpy,
-  toResetPassword: toResetPasswordSpy,
+  toForgotPassword: toResetPasswordSpy,
 };
 
 const useAuthenticatorSpy = jest

@@ -36,7 +36,7 @@ export const getRoute = (
       return 'forceNewPassword';
     case actorState?.matches('forgotPassword'):
       return 'resetPassword';
-    case actorState?.matches('confirmPasswordUpdate'):
+    case actorState?.matches('resetPassword'):
       return 'confirmResetPassword';
     case actorState?.matches('verifyUser'):
       return 'verifyUser';

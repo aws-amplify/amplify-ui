@@ -247,7 +247,7 @@ describe('signInActor', () => {
           },
           guards: {
             shouldContinueSignInWithSetupTotp: jest.fn(() => false),
-            shouldForceChangePassword: jest.fn(() => false),
+            shouldConfirmSignInWithNewPassword: jest.fn(() => false),
           },
         })
     );
@@ -305,7 +305,7 @@ describe('signInActor', () => {
           guards: {
             shouldRequestVerification: jest.fn(() => false),
             shouldContinueSignInWithSetupTotp: jest.fn(() => false),
-            shouldForceChangePassword: jest.fn(() => false),
+            shouldConfirmSignInWithNewPassword: jest.fn(() => false),
             shouldConfirmSignIn: jest.fn(() => true),
           },
         })
@@ -377,7 +377,7 @@ describe('signInActor', () => {
           guards: {
             shouldRequestVerification: jest.fn(() => false),
             shouldContinueSignInWithSetupTotp: jest.fn(() => false),
-            shouldForceChangePassword: jest.fn(() => true),
+            shouldConfirmSignInWithNewPassword: jest.fn(() => true),
             shouldConfirmSignIn: jest.fn(() => false),
           },
         })
@@ -449,7 +449,7 @@ describe('signInActor', () => {
           guards: {
             shouldRequestVerification: jest.fn(() => false),
             shouldContinueSignInWithSetupTotp: jest.fn(() => true),
-            shouldForceChangePassword: jest.fn(() => false),
+            shouldConfirmSignInWithNewPassword: jest.fn(() => false),
             shouldConfirmSignIn: jest.fn(() => false),
           },
         })

@@ -11,7 +11,7 @@ import { toRefs } from 'vue';
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
-const { toResetPassword, toSignIn } = toRefs(useAuthenticator());
+const { toForgotPassword, toSignIn } = toRefs(useAuthenticator());
 
 const formFields = {
   signIn: {
@@ -96,7 +96,7 @@ const formFields = {
     <template v-slot:sign-in-footer>
       <div style="text-align: center">
         <button
-          @click="toResetPassword"
+          @click="toForgotPassword"
           class="amplify-button amplify-field-group__control"
           data-fullwidth="false"
           data-size="small"

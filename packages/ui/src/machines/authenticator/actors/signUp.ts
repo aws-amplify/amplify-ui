@@ -51,15 +51,33 @@ const fetchUserAttributesState = {
         cond: 'shouldVerifyAttribute',
         actions: [
           'setUnverifiedUserAttributes',
-          'setShouldVerifyUserAttribute',
+          'setShouldVerifyUserAttributeStep',
         ],
         target: '#signUpActor.resolved',
       },
       {
-        actions: 'setConfirmAttributeComplete',
+        actions: 'setConfirmAttributeCompleteStep',
         target: '#signUpActor.resolved',
       },
     ],
+  },
+};
+
+const handleFetchUserAttributesResponse = {
+  onDone: [
+    {
+      cond: 'shouldVerifyAttribute',
+      actions: 'setShouldVerifyUserAttributeStep',
+      target: '#signInActor.resolved',
+    },
+    {
+      actions: 'setConfirmAttributeCompleteStep',
+      target: '#signInActor.resolved',
+    },
+  ],
+  onError: {
+    actions: 'setConfirmAttributeCompleteStep',
+    target: '#signInActor.resolved',
   },
 };
 
@@ -124,26 +142,6 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                 },
                 autoSignIn: autoSignInState,
                 fetchUserAttributes: fetchUserAttributesState,
-                // fetchUserAttributes: {
-                //   tags: 'pending',
-                //   invoke: {
-                //     src: 'fetchUserAttributes',
-                //     onDone: [
-                //       {
-                //         cond: 'shouldVerifyAttribute',
-                //         actions: [
-                //           'setUnverifiedUserAttributes',
-                //           'setShouldVerifyUserAttribute',
-                //         ],
-                //         target: '#signUpActor.resolved',
-                //       },
-                //       {
-                //         actions: 'setConfirmAttributeComplete',
-                //         target: '#signUpActor.resolved',
-                //       },
-                //     ],
-                //   },
-                // },
                 federatedSignIn: {
                   entry: ['sendUpdate', 'clearError'],
                   invoke: {
@@ -225,7 +223,6 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                 },
                 onError: [
                   {
-                    // @todo-migration verify this still works
                     cond: 'isUserAlreadyConfirmed',
                     target: '#signUpActor.resolved',
                   },
@@ -233,26 +230,6 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                 ],
               },
             },
-            // fetchUserAttributes: {
-            //   tags: 'pending',
-            //   invoke: {
-            //     src: 'fetchUserAttributes',
-            //     onDone: [
-            //       {
-            //         cond: 'shouldVerifyAttribute',
-            //         actions: [
-            //           'setUnverifiedUserAttributes',
-            //           'setShouldVerifyUserAttribute',
-            //         ],
-            //         target: '#signUpActor.resolved',
-            //       },
-            //       {
-            //         actions: 'setConfirmAttributeComplete',
-            //         target: '#signUpActor.resolved',
-            //       },
-            //     ],
-            //   },
-            // },
             submit: {
               tags: 'pending',
               entry: ['clearError', 'sendUpdate'],

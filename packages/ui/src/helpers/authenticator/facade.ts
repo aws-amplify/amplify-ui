@@ -74,7 +74,7 @@ type SendEventAlias =
   | 'updateForm'
   | 'updateBlur'
   | 'toFederatedSignIn'
-  | 'toResetPassword'
+  | 'toForgotPassword'
   | 'toSignIn'
   | 'toSignUp'
   | 'skipVerification';
@@ -143,9 +143,8 @@ export const getSendEventAliases = (
 
     // Actions that don't immediately invoke a service but instead transition to a screen
     // are prefixed with `to*`
-
     toFederatedSignIn: sendToMachine('FEDERATED_SIGN_IN'),
-    toResetPassword: sendToMachine('RESET_PASSWORD'),
+    toForgotPassword: sendToMachine('FORGOT_PASSWORD'),
     toSignIn: sendToMachine('SIGN_IN'),
     toSignUp: sendToMachine('SIGN_UP'),
     skipVerification: sendToMachine('SKIP'),

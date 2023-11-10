@@ -18,7 +18,7 @@ exports[`useAuthenticator returns the expected values 1`] = `
   "socialProviders": [],
   "submitForm": [MockFunction],
   "toFederatedSignIn": [MockFunction],
-  "toResetPassword": [MockFunction],
+  "toForgotPassword": [MockFunction],
   "toSignIn": [MockFunction],
   "toSignUp": [MockFunction],
   "totpSecretCode": null,

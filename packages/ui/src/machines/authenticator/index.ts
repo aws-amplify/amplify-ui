@@ -119,19 +119,19 @@ export function createAuthenticatorMachine(
             goToInitialState: {
               always: [
                 {
-                  target: '#authenticator.signUp',
                   cond: 'isInitialStateSignUp',
+                  target: '#authenticator.signUpActor',
                 },
                 {
-                  target: '#authenticator.resetPassword',
                   cond: 'isInitialStateResetPassword',
+                  target: '#authenticator.forgotPasswordActor',
                 },
-                { target: '#authenticator.signIn' },
+                { target: '#authenticator.signInActor' },
               ],
             },
           },
         },
-        signIn: {
+        signInActor: {
           initial: 'spawnActor',
           states: {
             spawnActor: {
@@ -153,9 +153,9 @@ export function createAuthenticatorMachine(
             },
           },
           on: {
-            RESET_PASSWORD: 'resetPassword',
-            SIGN_IN: 'signIn',
-            SIGN_UP: 'signUp',
+            FORGOT_PASSWORD: 'forgotPasswordActor',
+            SIGN_IN: 'signInActor',
+            SIGN_UP: 'signUpActor',
             'done.invoke.signInActor': [
               {
                 cond: (context, { data }) => {
@@ -169,9 +169,12 @@ export function createAuthenticatorMachine(
                 target: '.getCurrentUser',
               },
               {
-                cond: 'shouldConfirmResetPassword',
+                cond: (context, event) => {
+                  groupLog('+++is RESET_PASSWORD', context, event);
+                  return event.data?.step === 'RESET_PASSWORD';
+                },
                 actions: 'setActorDoneData',
-                target: '#authenticator.resetPassword',
+                target: '#authenticator.forgotPasswordActor',
               },
               {
                 cond: (context, event) => {
@@ -184,12 +187,12 @@ export function createAuthenticatorMachine(
                   return event.data?.step === 'CONFIRM_SIGN_UP';
                 },
                 actions: 'setActorDoneData',
-                target: '#authenticator.signUp',
+                target: '#authenticator.signUpActor',
               },
             ],
           },
         },
-        verifyUserAttributes: {
+        verifyUserAttributesActor: {
           // on: SKIP
           initial: 'spawnActor',
           states: {
@@ -210,7 +213,7 @@ export function createAuthenticatorMachine(
                   actions: 'setUser',
                   target: '#authenticator.authenticated',
                 },
-                onError: { target: '#authenticator.signIn' },
+                onError: { target: '#authenticator.signInActor' },
               },
             },
           },
@@ -220,7 +223,7 @@ export function createAuthenticatorMachine(
             },
           },
         },
-        signUp: {
+        signUpActor: {
           initial: 'spawnActor',
           states: {
             spawnActor: {
@@ -242,7 +245,7 @@ export function createAuthenticatorMachine(
             },
           },
           on: {
-            SIGN_IN: 'signIn',
+            SIGN_IN: 'signInActor',
             'done.invoke.signUpActor': [
               {
                 cond: (context, event) => {
@@ -251,11 +254,11 @@ export function createAuthenticatorMachine(
                 },
                 target: '.getCurrentUser',
               },
-              { target: '#authenticator.signIn' },
+              { target: '#authenticator.signInActor' },
             ],
           },
         },
-        resetPassword: {
+        forgotPasswordActor: {
           initial: 'spawnActor',
           states: {
             spawnActor: {
@@ -270,9 +273,9 @@ export function createAuthenticatorMachine(
             },
           },
           on: {
-            SIGN_IN: 'signIn',
+            SIGN_IN: 'signInActor',
             'done.invoke.forgotPasswordActor': [
-              { target: '#authenticator.signIn' },
+              { target: '#authenticator.signInActor' },
             ],
           },
         },
@@ -448,7 +451,7 @@ export function createAuthenticatorMachine(
         isInitialStateResetPassword: (context) =>
           // keep 'resetPassword` to prevent breaking API change
           // required if renamed to `forgotPassword`
-          context.config.initialState === 'resetPassword',
+          context.config.initialState === 'forgotPassword',
 
         shouldSetup: (context) => {
           groupLog('+++shouldSetup', context);

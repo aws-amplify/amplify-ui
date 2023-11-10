@@ -27,9 +27,9 @@ const shouldConfirmSignIn = (_, event): boolean => {
   );
 };
 
-const shouldForceChangePassword = (_, event): boolean => {
+const shouldConfirmSignInWithNewPassword = (_, event): boolean => {
   groupLog(
-    '+++shouldForceChangePassword',
+    '+++shouldConfirmSignInWithNewPassword',
     event.data?.nextStep?.signInStep ===
       'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED'
   );
@@ -52,10 +52,12 @@ const shouldContinueSignInWithSetupTotp = (context, event): boolean => {
   );
 };
 
-const shouldConfirmResetPassword = (_, event): boolean => {
+const shouldResetPassword = (_, event): boolean => {
   groupLog(
-    '+++shouldConfirmResetPassword',
-    event.data?.nextStep?.signInStep === 'RESET_PASSWORD'
+    '+++shouldResetPassword',
+    event.data?.nextStep?.signInStep === 'RESET_PASSWORD',
+    _,
+    event
   );
   return (
     (event.data as SignInOutput)?.nextStep?.signInStep === 'RESET_PASSWORD'
@@ -138,6 +140,7 @@ const shouldVerifyAttribute = (_, event): boolean => {
  *
  * https://github.com/aws-amplify/amplify-ui/issues/219
  */
+// @todo-migration make an e2e test for this, use response user-already-confirmed-error.json
 const isUserAlreadyConfirmed = (_, event) => {
   console.log('+++isUserAlreadyConfirmed', event);
   return event.data.message === 'User is already confirmed.';
@@ -145,10 +148,10 @@ const isUserAlreadyConfirmed = (_, event) => {
 
 const GUARDS: MachineOptions<AuthActorContext, AuthEvent>['guards'] = {
   shouldConfirmSignIn,
-  shouldForceChangePassword,
+  shouldConfirmSignInWithNewPassword,
   hasCompletedSignIn,
   shouldContinueSignInWithSetupTotp,
-  shouldConfirmResetPassword,
+  shouldResetPassword,
   shouldConfirmSignUpFromSignIn,
   shouldAutoSignIn,
   hasCompletedSignUp,

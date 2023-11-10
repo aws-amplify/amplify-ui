@@ -69,7 +69,7 @@ const SIGN_IN_MACHINE_KEYS: SignInMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,
   'socialProviders',
   'toFederatedSignIn',
-  'toResetPassword',
+  'toForgotPassword',
   'toSignUp',
 ];
 const SIGN_UP_MACHINE_KEYS: SignUpMachineKey[] = [

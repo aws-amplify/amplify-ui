@@ -135,7 +135,7 @@ export type SignInBaseProps<FieldType = {}> = {
   hideSignUp?: boolean;
   socialProviders?: UseAuthenticator['socialProviders'];
   toFederatedSignIn: UseAuthenticator['toFederatedSignIn'];
-  toResetPassword: UseAuthenticator['toResetPassword'];
+  toForgotPassword: UseAuthenticator['toForgotPassword'];
   toSignUp: UseAuthenticator['toSignUp'];
 } & CommonRouteProps &
   ComponentSlots<FieldType> &
