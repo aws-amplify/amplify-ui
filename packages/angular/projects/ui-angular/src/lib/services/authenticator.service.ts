@@ -75,6 +75,10 @@ export class AuthenticatorService implements OnDestroy {
     return this._facade?.user;
   }
 
+  public get username(): string {
+    return this._facade?.username;
+  }
+
   public get validationErrors(): AuthenticatorServiceFacade['validationErrors'] {
     return this._facade?.validationErrors;
   }

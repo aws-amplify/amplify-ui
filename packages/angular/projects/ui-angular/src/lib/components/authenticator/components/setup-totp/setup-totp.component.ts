@@ -48,9 +48,9 @@ export class SetupTotpComponent implements OnInit {
   }
 
   async generateQRCode(): Promise<void> {
-    const { authState: state, totpSecretCode, user } = this.authenticator;
+    const { authState: state, totpSecretCode, username } = this.authenticator;
     const { formFields } = getActorContext(state) as SignInContext;
-    const { totpIssuer = 'AWSCognito', totpUsername = user?.username } =
+    const { totpIssuer = 'AWSCognito', totpUsername = username } =
       formFields?.setupTOTP?.QR ?? {};
 
     this.totpSecretCode = totpSecretCode;
