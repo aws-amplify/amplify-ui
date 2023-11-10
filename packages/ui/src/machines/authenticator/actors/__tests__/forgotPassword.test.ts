@@ -81,7 +81,7 @@ describe('forgotPasswordActor', () => {
     expect(service.getSnapshot().value).toStrictEqual({
       forgotPassword: 'edit',
     });
-    service.send({ type: 'RESET_PASSWORD' });
+    service.send({ type: 'FORGOT_PASSWORD' });
 
     await flushPromises();
     expect(service.getSnapshot().value).toStrictEqual({

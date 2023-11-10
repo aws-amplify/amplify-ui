@@ -145,7 +145,7 @@ export const emailRegex =
 + * map navigable route keys to auth event names
 + */
 export const NAVIGABLE_ROUTE_EVENT: Record<NavigableRoute, AuthEventTypes> = {
-  resetPassword: 'RESET_PASSWORD',
+  resetPassword: 'FORGOT_PASSWORD',
   signIn: 'SIGN_IN',
   signUp: 'SIGN_UP',
 };

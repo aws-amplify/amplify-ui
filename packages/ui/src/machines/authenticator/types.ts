@@ -88,7 +88,7 @@ export type AuthEventTypes =
   | 'BLUR'
   | 'FEDERATED_SIGN_IN'
   | 'RESEND'
-  | 'RESET_PASSWORD'
+  | 'FORGOT_PASSWORD'
   | 'AUTO_SIGN_IN'
   | 'AUTO_SIGN_IN_FAILURE'
   | 'SIGN_IN'
@@ -131,7 +131,7 @@ export interface AuthContext {
     signUpAttributes?: SignUpAttribute[];
     socialProviders?: SocialProvider[];
     formFields?: AuthFormFields;
-    initialState?: 'signIn' | 'signUp' | 'resetPassword';
+    initialState?: 'signIn' | 'signUp' | 'forgotPassword';
     passwordSettings?: PasswordSettings;
   };
   services?: Partial<typeof defaultServices>;

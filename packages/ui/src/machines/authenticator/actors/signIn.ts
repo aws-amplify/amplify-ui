@@ -218,7 +218,10 @@ export function signInActor({ services }: SignInMachineOptions) {
                 invalid: { entry: 'sendUpdate' },
               },
               on: {
-                SIGN_IN: { target: '#signInActor.resolved' },
+                SIGN_IN: {
+                  actions: 'setSignInStep',
+                  target: '#signInActor.resolved',
+                },
                 CHANGE: {
                   actions: 'handleInput',
                   target: '.pending',

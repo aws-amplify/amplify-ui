@@ -63,7 +63,7 @@ describe('getSendEventAliases', () => {
     expect(mockSend).toHaveBeenCalledWith({ type: 'CHANGE' });
     expect(mockSend).toHaveBeenCalledWith({ type: 'BLUR' });
     expect(mockSend).toHaveBeenCalledWith({ type: 'FEDERATED_SIGN_IN' });
-    expect(mockSend).toHaveBeenCalledWith({ type: 'RESET_PASSWORD' });
+    expect(mockSend).toHaveBeenCalledWith({ type: 'FORGOT_PASSWORD' });
     expect(mockSend).toHaveBeenCalledWith({ type: 'SIGN_IN' });
     expect(mockSend).toHaveBeenCalledWith({ type: 'SIGN_UP' });
     expect(mockSend).toHaveBeenCalledWith({ type: 'SKIP' });

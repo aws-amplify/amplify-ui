@@ -153,8 +153,9 @@ export function createAuthenticatorMachine(
             },
           },
           on: {
-            SIGN_UP: 'signUp',
             RESET_PASSWORD: 'resetPassword',
+            SIGN_IN: 'signIn',
+            SIGN_UP: 'signUp',
             'done.invoke.signInActor': [
               {
                 cond: (context, { data }) => {
@@ -189,6 +190,7 @@ export function createAuthenticatorMachine(
           },
         },
         verifyUserAttributes: {
+          // on: SKIP
           initial: 'spawnActor',
           states: {
             spawnActor: {
@@ -269,7 +271,6 @@ export function createAuthenticatorMachine(
           },
           on: {
             SIGN_IN: 'signIn',
-
             'done.invoke.forgotPasswordActor': [
               { target: '#authenticator.signIn' },
             ],
