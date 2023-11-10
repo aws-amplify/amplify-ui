@@ -35,7 +35,7 @@ export class CustomSlotsComponent {
         placeholder: 'Enter your Password:',
       },
     },
-    resetPassword: {
+    forgotPassword: {
       username: {
         placeholder: 'Enter your email:',
       },

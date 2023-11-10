@@ -20,7 +20,7 @@ function App() {
   return (
     <Authenticator.Provider>
       <Authenticator
-        initialState="resetPassword"
+        initialState="forgotPassword"
         components={{
           ResetPassword: (props) => (
             <Authenticator.ResetPassword

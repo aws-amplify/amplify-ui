@@ -36,7 +36,7 @@ const formFields = {
       placeholder: 'Enter your Password:',
     },
   },
-  resetPassword: {
+  forgotPassword: {
     username: {
       placeholder: 'Enter your email:',
     },

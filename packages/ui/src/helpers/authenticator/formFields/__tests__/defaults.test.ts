@@ -74,10 +74,7 @@ describe('defaultFormFieldsGetters', () => {
 
     expect(formFields).toStrictEqual({
       email: defaultFormFieldOptions.email,
-      phone_number: {
-        ...defaultFormFieldOptions.phone_number,
-        // dialCode: undefined,
-      },
+      phone_number: { ...defaultFormFieldOptions.phone_number },
       password: defaultFormFieldOptions.password,
       confirm_password: defaultFormFieldOptions.confirm_password,
     });

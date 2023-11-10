@@ -8,6 +8,7 @@ export const getRoute = (
   state: AuthMachineState,
   actorState: AuthActorState
 ) => {
+  // @todo-migration delete
   // console.log('state', state?.value);
   // console.log('actorState', actorState?.value);
 
