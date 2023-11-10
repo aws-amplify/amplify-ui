@@ -39,3 +39,8 @@ export interface UnverifiedContactMethods {
   email?: string;
   phone_number?: string;
 }
+
+export interface UnverifiedUserAttributes {
+  email?: string;
+  phone_number?: string;
+}

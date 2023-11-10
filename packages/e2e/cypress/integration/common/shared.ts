@@ -269,6 +269,8 @@ When('I click the {string} checkbox', (label: string) => {
 });
 
 When('I click the {string} radio button', (label: string) => {
+  console.log('HIIIIIIII', label);
+
   cy.findByLabelText(new RegExp(`^${escapeRegExp(label)}`, 'i')).click({
     // We have to force this click because the radio input type isn't visible by default
     // and instead has ::before decoration.
@@ -276,7 +278,7 @@ When('I click the {string} radio button', (label: string) => {
     //    cy.click() failed because this element:
     //    <input ...> is being covered by another element:
     //    <form ...>...</form>
-    force: true,
+    // force: true,
   });
 });
 
@@ -458,6 +460,10 @@ When('I type a valid code', () => {
    */
   const regex = new RegExp(`^(confirmation )?code( *)?`, 'i');
   cy.findByRole('textbox', { name: regex }).type('1234');
+});
+
+When('I type a valid confirmation code for attribute confirmation', () => {
+  cy.findInputField('New Label').type('1234');
 });
 
 Then('I will be redirected to the confirm forgot password page', () => {

@@ -2,7 +2,6 @@ import {
   AuthActorState,
   AuthMachineState,
 } from '../../machines/authenticator/types';
-import { groupLog } from '../../utils';
 
 export const getRoute = (
   state: AuthMachineState,
@@ -40,9 +39,9 @@ export const getRoute = (
       return 'forgotPassword';
     case actorState?.matches('confirmResetPassword'):
       return 'confirmResetPassword';
-    case actorState?.matches('verifyUser'):
+    case actorState?.matches('selectUserAttributes'):
       return 'verifyUser';
-    case actorState?.matches('confirmVerifyUser'):
+    case actorState?.matches('confirmVerifyUserAttribute'):
       return 'confirmVerifyUser';
     case state.matches('signIn.runActor'):
     case actorState.matches('fetchUserAttributes'):
@@ -53,6 +52,9 @@ export const getRoute = (
        */
       return 'transition';
     default:
+      // @todo-migration delete
+      console.log('state', state?.value);
+      console.log('actorState', actorState?.value);
       console.debug(
         'Cannot infer `route` from Authenticator state:',
         state.value

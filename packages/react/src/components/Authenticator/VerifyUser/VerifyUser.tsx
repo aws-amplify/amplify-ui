@@ -72,10 +72,10 @@ export const VerifyUser = ({
     },
   } = useCustomComponents();
 
-  const { isPending, unverifiedContactMethods } = useAuthenticator(
-    ({ isPending, unverifiedContactMethods }) => [
+  const { isPending, unverifiedUserAttributes } = useAuthenticator(
+    ({ isPending, unverifiedUserAttributes }) => [
       isPending,
-      unverifiedContactMethods,
+      unverifiedUserAttributes,
     ]
   );
   const { handleChange, handleSubmit } = useFormHandlers();
@@ -93,7 +93,7 @@ export const VerifyUser = ({
       isDisabled={isPending}
       legendHidden
     >
-      {generateRadioGroup(unverifiedContactMethods)}
+      {generateRadioGroup(unverifiedUserAttributes)}
     </RadioGroupField>
   );
 

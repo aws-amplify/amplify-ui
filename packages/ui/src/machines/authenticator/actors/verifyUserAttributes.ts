@@ -2,8 +2,8 @@ import { assign, createMachine, sendUpdate } from 'xstate';
 import {
   confirmUserAttribute,
   ConfirmUserAttributeInput,
-  fetchUserAttributes,
-  FetchUserAttributesOutput,
+  // fetchUserAttributes,
+  // FetchUserAttributesOutput,
   sendUserAttributeVerificationCode,
   SendUserAttributeVerificationCodeInput,
 } from 'aws-amplify/auth';
@@ -15,20 +15,16 @@ import actions from '../actions';
 import { defaultServices } from '../defaultServices';
 import { groupLog } from '../../../utils';
 
-export const clearUnverifiedUserAttributes = assign({
-  unverifiedContactMethods: (_) => undefined,
-});
-
 export function verifyUserAttributesActor() {
   return createMachine<VerifyUserContext, AuthEvent>(
     {
-      initial: 'selectUserAttributes',
       id: 'verifyUserAttributesActor',
+      initial: 'selectUserAttributes',
       predictableActionArguments: true,
       states: {
         selectUserAttributes: {
           initial: 'edit',
-          exit: ['clearFormValues', 'clearError', 'clearTouched'],
+          exit: ['clearError', 'clearTouched'],
           states: {
             edit: {
               entry: 'sendUpdate',
@@ -45,7 +41,7 @@ export function verifyUserAttributesActor() {
                 src: 'sendUserAttributeVerificationCode',
                 onDone: {
                   actions: [
-                    'setSelectedUserAttributes',
+                    'setSelectedUserAttribute',
                     'setCodeDeliveryDetails',
                   ],
                   target:
@@ -65,7 +61,6 @@ export function verifyUserAttributesActor() {
             'clearError',
             'clearFormValues',
             'clearTouched',
-            'clearUnverifiedUserAttributes',
             'clearSelectedUserAttribute',
           ],
           states: {
@@ -83,6 +78,7 @@ export function verifyUserAttributesActor() {
               invoke: {
                 src: 'confirmVerifyUserAttribute',
                 onDone: {
+                  actions: 'setConfirmAttributeCompleteStep',
                   target: '#verifyUserAttributesActor.resolved',
                 },
                 onError: {
@@ -96,8 +92,12 @@ export function verifyUserAttributesActor() {
         resolved: {
           type: 'final',
           data: (context, event) => {
-            groupLog('+++verifyUserAttribute.resolved.final', context, event);
-            return { ...event.data, step: 'VERIFIED' };
+            groupLog(
+              '+++verifyUserAttributesActor.resolved.final',
+              context,
+              event
+            );
+            return { step: context.step };
           },
         },
       },
@@ -106,13 +106,6 @@ export function verifyUserAttributesActor() {
       // sendUpdate is a HOC
       actions: { ...actions, sendUpdate: sendUpdate() },
       services: {
-        fetchUserAttributes(
-          context,
-          event
-        ): Promise<FetchUserAttributesOutput> {
-          groupLog('+++signIn.fetchUserAttributes', context, event);
-          return fetchUserAttributes();
-        },
         sendUserAttributeVerificationCode(context) {
           const { unverifiedAttr } = context.formValues;
           groupLog(

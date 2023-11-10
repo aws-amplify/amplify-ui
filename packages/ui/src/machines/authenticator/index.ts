@@ -21,20 +21,23 @@ import {
 } from './actors';
 
 import { defaultServices } from './defaultServices';
-import { getCurrentUser } from 'aws-amplify/auth';
 
 export type AuthenticatorMachineOptions = AuthContext['config'] & {
   services?: AuthContext['services'];
 };
 
 const getActorContext = (
-  defaultStep: InitialStep | 'CONFIRM_ATTRIBUTE_WITH_CODE',
+  defaultStep:
+    | InitialStep
+    | 'CONFIRM_ATTRIBUTE_WITH_CODE'
+    | 'SHOULD_VERIFY_USER_ATTRIBUTE',
   context: AuthContext
 ) => ({
   codeDeliveryDetails: context.actorDoneData?.codeDeliveryDetails,
   errorMessage: context.actorDoneData?.errorMessage,
   step: context.actorDoneData?.step ?? defaultStep,
   username: context.actorDoneData?.username,
+  unverifiedUserAttributes: context.actorDoneData?.unverifiedUserAttributes,
 
   formValues: {},
   touched: {},
@@ -79,7 +82,6 @@ export function createAuthenticatorMachine(
     useNextWaitConfig?: boolean;
   }
 ) {
-  groupLog('+++createAuthenticatorMachine');
   const { useNextWaitConfig, ...overrideConfigServices } = options ?? {};
   const initConfig = useNextWaitConfig ? NEXT_WAIT_CONFIG : LEGACY_WAIT_CONFIG;
   return createMachine<AuthContext, AuthEvent>(
@@ -98,7 +100,7 @@ export function createAuthenticatorMachine(
         // See: https://xstate.js.org/docs/guides/communication.html#invoking-promises
         idle: {
           invoke: {
-            src: 'getCurrentUser',
+            src: 'handleGetCurrentUser',
             onDone: { actions: 'setUser', target: 'authenticated' },
             onError: { target: 'setup' },
           },
@@ -131,6 +133,16 @@ export function createAuthenticatorMachine(
             },
           },
         },
+        getCurrentUser: {
+          invoke: {
+            src: 'handleGetCurrentUser',
+            onDone: {
+              actions: 'setUser',
+              target: '#authenticator.authenticated',
+            },
+            onError: { target: '#authenticator.setup' },
+          },
+        },
         signInActor: {
           initial: 'spawnActor',
           states: {
@@ -140,16 +152,6 @@ export function createAuthenticatorMachine(
             runActor: {
               entry: clearActorDoneData,
               exit: stopActor('signInActor'),
-            },
-            getCurrentUser: {
-              invoke: {
-                src: getCurrentUser,
-                onDone: {
-                  actions: 'setUser',
-                  target: '#authenticator.authenticated',
-                },
-                onError: { target: '#authenticator.setup' },
-              },
             },
           },
           on: {
@@ -166,7 +168,20 @@ export function createAuthenticatorMachine(
                   );
                   return data.step === 'CONFIRM_ATTRIBUTE_COMPLETE';
                 },
-                target: '.getCurrentUser',
+                target: '#authenticator.getCurrentUser',
+              },
+              {
+                cond: (context, event) => {
+                  groupLog(
+                    '+++is SHOULD_VERIFY_USER_ATTRIBUTE ',
+                    context,
+                    event
+                  );
+
+                  return event.data?.step === 'SHOULD_VERIFY_USER_ATTRIBUTE';
+                },
+                actions: 'setActorDoneData',
+                target: '#authenticator.verifyUserAttributesActor',
               },
               {
                 cond: (context, event) => {
@@ -193,7 +208,6 @@ export function createAuthenticatorMachine(
           },
         },
         verifyUserAttributesActor: {
-          // on: SKIP
           initial: 'spawnActor',
           states: {
             spawnActor: {
@@ -204,23 +218,20 @@ export function createAuthenticatorMachine(
             },
             runActor: {
               entry: clearActorDoneData,
-              exit: stopActor('signUpActor'),
-            },
-            getCurrentUser: {
-              invoke: {
-                src: 'getCurrentUser',
-                onDone: {
-                  actions: 'setUser',
-                  target: '#authenticator.authenticated',
-                },
-                onError: { target: '#authenticator.signInActor' },
-              },
+              exit: stopActor('verifyUserAttributesActor'),
             },
           },
           on: {
-            'done.invoke.verifyUserAttributesActor': {
-              target: '#authenticator.idle',
-            },
+            'done.invoke.verifyUserAttributesActor': [
+              {
+                cond: (context, event) => {
+                  groupLog('+++is VERIFIED', context, event);
+                  return event.data?.step === 'CONFIRM_ATTRIBUTE_COMPLETE';
+                },
+                actions: 'setActorDoneData',
+                target: '#authenticator.getCurrentUser',
+              },
+            ],
           },
         },
         signUpActor: {
@@ -233,16 +244,6 @@ export function createAuthenticatorMachine(
               entry: clearActorDoneData,
               exit: stopActor('signUpActor'),
             },
-            getCurrentUser: {
-              invoke: {
-                src: getCurrentUser,
-                onDone: {
-                  actions: 'setUser',
-                  target: '#authenticator.authenticated',
-                },
-                onError: { target: '#authenticator.setup' },
-              },
-            },
           },
           on: {
             SIGN_IN: 'signInActor',
@@ -252,7 +253,14 @@ export function createAuthenticatorMachine(
                   groupLog('+++is VERIFIED', context, event);
                   return event.data?.step === 'CONFIRM_ATTRIBUTE_COMPLETE';
                 },
-                target: '.getCurrentUser',
+                target: '#authenticator.getCurrentUser',
+              },
+              {
+                cond: (context, event) => {
+                  groupLog('+++go to verify attrs ', context, event);
+                  return event.data?.step === 'CONFIRM_ATTRIBUTE_WITH_CODE';
+                },
+                target: '#authenticator.verifyUserAttributesActor',
               },
               {
                 actions: 'setActorDoneData',
@@ -309,7 +317,7 @@ export function createAuthenticatorMachine(
             idle: { on: { TOKEN_REFRESH: 'refreshUser' } },
             refreshUser: {
               invoke: {
-                src: 'getCurrentUser',
+                src: '#authenticator.getCurrentUser',
                 onDone: { actions: 'setUser', target: 'idle' },
                 onError: { target: '#authenticator.signOut' },
               },
@@ -343,6 +351,7 @@ export function createAuthenticatorMachine(
               errorMessage: event.data.errorMessage,
               username: event.data.username,
               step: event.data.step,
+              unverifiedUserAttributes: event.data.unverifiedUserAttributes,
             };
           },
         }),
@@ -460,7 +469,7 @@ export function createAuthenticatorMachine(
         hasActor: (context) => !!context.actorRef,
       },
       services: {
-        getCurrentUser: (context, event) => {
+        handleGetCurrentUser: (context, event) => {
           groupLog('+++getCurrentUser.top', context, event);
           return context.services
             .getCurrentUser()

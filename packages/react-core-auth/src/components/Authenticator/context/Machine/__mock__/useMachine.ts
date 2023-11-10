@@ -29,6 +29,7 @@ export const mockMachineContext: NextAuthenticatorServiceFacade = {
   skipAttributeVerification,
   toFederatedSignIn,
   totpSecretCode,
+  unverifiedUserAttributes: unverifiedContactMethods,
   unverifiedContactMethods,
   username: 'Charles',
 };

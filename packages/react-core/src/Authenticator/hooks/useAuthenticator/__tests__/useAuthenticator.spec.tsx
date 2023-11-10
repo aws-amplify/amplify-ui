@@ -21,6 +21,7 @@ const mockServiceFacade: AuthenticatorServiceFacade = {
   route: 'idle',
   socialProviders: [],
   unverifiedContactMethods: { email: 'test#example.com' },
+  unverifiedUserAttributes: { email: 'test#example.com' },
   user: {},
   username: 'sally',
   validationErrors:

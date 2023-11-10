@@ -41,7 +41,7 @@ export default function useAuthenticator(
   const { authStatus } = context;
   const facade = useSelector(service, xstateSelector, comparator);
 
-  const { route, totpSecretCode, unverifiedContactMethods, user, ...rest } =
+  const { route, totpSecretCode, unverifiedUserAttributes, user, ...rest } =
     facade;
 
   // do not memoize output. `service.getSnapshot` reference remains stable preventing
@@ -55,7 +55,7 @@ export default function useAuthenticator(
   const fields = getMachineFields(
     route,
     serviceSnapshot,
-    unverifiedContactMethods
+    unverifiedUserAttributes
   );
 
   return {
@@ -63,7 +63,7 @@ export default function useAuthenticator(
     authStatus,
     route,
     totpSecretCode,
-    unverifiedContactMethods,
+    unverifiedUserAttributes,
     user,
     /** @deprecated For internal use only */
     fields,

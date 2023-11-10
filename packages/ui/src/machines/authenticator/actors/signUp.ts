@@ -68,7 +68,10 @@ const handleFetchUserAttributesResponse = {
   onDone: [
     {
       cond: 'shouldVerifyAttribute',
-      actions: 'setShouldVerifyUserAttributeStep',
+      actions: [
+        'setShouldVerifyUserAttributeStep',
+        'setUnverifiedUserAttributes',
+      ],
       target: '#signUpActor.resolved',
     },
     {
@@ -143,7 +146,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
         },
         signUp: {
           type: 'parallel',
-          exit: ['clearTouched'],
+          exit: 'clearTouched',
           states: {
             validation: {
               initial: 'pending',
@@ -279,6 +282,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
               step: context.step,
               remoteError: context.remoteError,
               totpSecretCode: context.totpSecretCode,
+              unverifiedUserAttributes: context.unverifiedUserAttributes,
             };
           },
         },

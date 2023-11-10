@@ -54,6 +54,7 @@ export const mockMachineContext: AuthenticatorMachineContext = {
   toForgotPassword,
   totpSecretCode,
   unverifiedContactMethods,
+  unverifiedUserAttributes: unverifiedContactMethods,
   username: 'george',
   validationErrors,
 };

@@ -65,7 +65,10 @@ const handleFetchUserAttributesResponse = {
   onDone: [
     {
       cond: 'shouldVerifyAttribute',
-      actions: 'setShouldVerifyUserAttributeStep',
+      actions: [
+        'setShouldVerifyUserAttributeStep',
+        'setUnverifiedUserAttributes',
+      ],
       target: '#signInActor.resolved',
     },
     {
@@ -298,6 +301,7 @@ export function signInActor({ services }: SignInMachineOptions) {
               errorMessage: context.errorMessage,
               step: context.step,
               username: context.username,
+              unverifiedUserAttributes: context.unverifiedUserAttributes,
             };
           },
         },

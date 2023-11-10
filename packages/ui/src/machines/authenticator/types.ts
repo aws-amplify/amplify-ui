@@ -6,6 +6,7 @@ import {
   SignUpAttribute,
   SocialProvider,
   UnverifiedContactMethods,
+  UnverifiedUserAttributes,
   AuthFormData,
   AuthFormFields,
   AuthTouchData,
@@ -110,6 +111,7 @@ export interface ActorDoneData {
   errorMessage?: string;
   step: Step;
   username?: string;
+  unverifiedUserAttributes?: UnverifiedUserAttributes;
 }
 
 /**
@@ -175,6 +177,7 @@ interface BaseFormContext {
   remoteError?: string;
   step: Step;
   totpSecretCode?: string;
+  unverifiedUserAttributes?: UnverifiedUserAttributes;
 
   // kept in memory for submission to relevnat APIs
   username?: string;

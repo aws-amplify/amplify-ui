@@ -12,6 +12,7 @@ import {
   LoginMechanism,
   SocialProvider,
   UnverifiedContactMethods,
+  UnverifiedUserAttributes,
   ValidationError,
 } from '../../types';
 
@@ -61,6 +62,7 @@ interface AuthenticatorServiceContextFacade {
   socialProviders: SocialProvider[];
   totpSecretCode: string | null;
   unverifiedContactMethods: UnverifiedContactMethods;
+  unverifiedUserAttributes: UnverifiedUserAttributes;
   user: AmplifyUser;
   username: string;
   validationErrors: AuthenticatorValidationErrors;
@@ -99,6 +101,7 @@ interface NextAuthenticatorServiceContextFacade {
   totpSecretCode: string | undefined;
   username: string | undefined;
   unverifiedContactMethods: UnverifiedContactMethods | undefined;
+  unverifiedUserAttributes: UnverifiedUserAttributes | undefined;
 }
 
 interface NextAuthenticatorSendEventAliases
@@ -178,6 +181,7 @@ export const getServiceContextFacade = (
     unverifiedContactMethods,
     validationError: validationErrors,
     totpSecretCode = null,
+    unverifiedUserAttributes,
     username,
   } = actorContext;
 
@@ -221,6 +225,7 @@ export const getServiceContextFacade = (
     socialProviders,
     totpSecretCode,
     unverifiedContactMethods,
+    unverifiedUserAttributes,
     user,
     username,
     validationErrors,
@@ -247,6 +252,7 @@ export const getNextServiceContextFacade = (
     remoteError: errorMessage,
     unverifiedContactMethods,
     totpSecretCode,
+    unverifiedUserAttributes,
     username,
   } = actorContext;
 
@@ -271,6 +277,7 @@ export const getNextServiceContextFacade = (
     route,
     totpSecretCode,
     unverifiedContactMethods,
+    unverifiedUserAttributes,
     username,
   };
 };

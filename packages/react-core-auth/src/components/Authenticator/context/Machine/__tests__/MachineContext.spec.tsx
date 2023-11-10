@@ -26,6 +26,7 @@ const mockServiceFacade: NextAuthenticatorServiceFacade = {
   toFederatedSignIn: jest.fn(),
   totpSecretCode: undefined,
   unverifiedContactMethods: { email: 'test#example.com' },
+  unverifiedUserAttributes: { email: 'test#example.com' },
   username: undefined,
 };
 

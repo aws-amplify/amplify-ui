@@ -319,23 +319,25 @@ const parsePhoneNumber = assign({
 const setUnverifiedUserAttributes = assign({
   unverifiedUserAttributes: (_, event: AuthEvent) => {
     groupLog('+++setUnverifiedUserAttributes', 'event', event);
-    const { phone_number_verified, email_verified, email, phone_number } =
-      event.data as FetchUserAttributesOutput;
+    const { email, phone_number } = event.data as FetchUserAttributesOutput;
 
-    return {
-      ...(email_verified === 'false' && email && { email }),
-      ...(phone_number_verified === 'false' &&
-        phone_number && { phone_number }),
+    const unverifiedUserAttributes = {
+      ...(email && { email }),
+      ...(phone_number && { phone_number }),
     };
+
+    console.log('unverifiedUserAttributes', unverifiedUserAttributes);
+
+    return unverifiedUserAttributes;
   },
 });
 
 const clearSelectedUserAttribute = assign({ selectedUserAttribute: undefined });
 
 const setSelectedUserAttribute = assign({
-  selectedUserAttribute: (context, event) => {
-    groupLog('+++selectedUserAttribute', context, event);
-    return 'idk';
+  selectedUserAttribute: (context: any, event) => {
+    groupLog('+++setSelectedUserAttribute', context, event);
+    return context.formValues?.unverifiedAttr;
   },
 });
 
