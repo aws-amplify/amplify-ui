@@ -307,7 +307,7 @@ export function getFaceMatchStateInLivenessOval(
     ovalBoundingBox
   );
 
-  const intersectionThreshold = 0.6;
+  const intersectionThreshold = OvalIouThreshold;
   const ovalMatchWidthThreshold = ovalDetails.width * OvalIouWidthThreshold;
   const ovalMatchHeightThreshold = ovalDetails.height * OvalIouHeightThreshold;
   const faceDetectionWidthThreshold = ovalDetails.width * FaceIouWidthThreshold;
