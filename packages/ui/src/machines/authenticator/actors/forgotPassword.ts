@@ -2,7 +2,7 @@ import { createMachine, sendUpdate } from 'xstate';
 
 import { groupLog } from '../../../utils';
 import { runValidators } from '../../../validators';
-import actions from '../actions';
+import actions, { getUsernameValue } from '../actions';
 import guards from '../guards';
 import { defaultServices } from '../defaultServices';
 import { AuthEvent, ResetPasswordContext } from '../types';
@@ -35,14 +35,14 @@ export function forgotPasswordActor({
                 groupLog('is RESET_PASSWORD', step);
                 return step === 'RESET_PASSWORD';
               },
-              target: 'resetPassword',
+              target: 'confirmResetPassword',
             },
             {
               cond: ({ step }) => {
                 groupLog('is CONFIRM_RESET_PASSWORD_WITH_CODE', step);
                 return step === 'CONFIRM_RESET_PASSWORD_WITH_CODE';
               },
-              target: 'resetPassword',
+              target: 'confirmResetPassword',
             },
           ],
         },
@@ -63,14 +63,14 @@ export function forgotPasswordActor({
               tags: 'pending',
               entry: ['sendUpdate', 'clearError'],
               invoke: {
-                src: 'forgotPassword',
+                src: 'handleResetPassword',
                 onDone: {
                   actions: [
                     'setUsername',
                     'setCodeDeliveryDetails',
                     'setNextResetPasswordStep',
                   ],
-                  target: '#forgotPasswordActor.resetPassword',
+                  target: '#forgotPasswordActor.confirmResetPassword',
                 },
                 onError: {
                   actions: ['setRemoteError'],
@@ -80,7 +80,7 @@ export function forgotPasswordActor({
             },
           },
         },
-        resetPassword: {
+        confirmResetPassword: {
           type: 'parallel',
           exit: ['clearFormValues', 'clearError', 'clearTouched'],
           states: {
@@ -186,10 +186,9 @@ export function forgotPasswordActor({
       actions: { ...actions, sendUpdate: sendUpdate() },
       guards,
       services: {
-        resetPassword({ formValues }: ResetPasswordContext) {
+        handleResetPassword({ formValues }: ResetPasswordContext) {
           groupLog('+++forgotPassword', formValues);
-          const { username } = formValues;
-
+          const username = getUsernameValue(formValues);
           groupLog('+++forgotPassword username:', username);
           return services.handleForgotPassword({ username });
         },

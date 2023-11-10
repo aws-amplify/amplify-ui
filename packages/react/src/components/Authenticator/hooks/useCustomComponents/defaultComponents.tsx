@@ -5,7 +5,7 @@ import { ForceNewPassword } from '../../ForceNewPassword';
 import { SetupTotp } from '../../SetupTotp';
 import { ConfirmSignIn } from '../../ConfirmSignIn/ConfirmSignIn';
 import { ConfirmVerifyUser, VerifyUser } from '../../VerifyUser';
-import { ConfirmResetPassword, ResetPassword } from '../../ResetPassword';
+import { ConfirmResetPassword, ResetPassword } from '../../ForgotPassword';
 
 // use the very generic name of Components as this is a temporary interface and is not exported
 interface Components {

@@ -14,7 +14,7 @@ export type AuthenticatorRouteComponentKey =
   | 'confirmSignUp'
   | 'confirmVerifyUser'
   | 'forceNewPassword'
-  | 'resetPassword'
+  | 'forgotPassword'
   | 'setupTotp'
   | 'signIn'
   | 'signUp'
@@ -162,7 +162,7 @@ export interface DefaultProps<FieldType = {}> {
   ConfirmResetPassword: ConfirmResetPasswordBaseProps<FieldType>;
   ConfirmVerifyUser: ConfirmVerifyUserProps<FieldType>;
   ForceNewPassword: ForceResetPasswordBaseProps<FieldType>;
-  ResetPassword: ResetPasswordBaseProps<FieldType>;
+  ForgotPassword: ResetPasswordBaseProps<FieldType>;
   SetupTotp: SetupTotpBaseProps<FieldType>;
   SignIn: SignInBaseProps<FieldType>;
   SignUp: SignUpBaseProps<FieldType>;

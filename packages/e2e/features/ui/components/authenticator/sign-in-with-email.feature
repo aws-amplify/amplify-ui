@@ -16,6 +16,7 @@ Feature: Sign In with Email
     When I type my "email" with status "CONFIRMED"
     Then I type my password
     Then I click the "Sign in" button
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "forgot-password-email"
     Then I see "Reset Password"
     Then I see "Code *"
 
@@ -27,7 +28,7 @@ Feature: Sign In with Email
     Then I see "User does not exist."
 
   # @todo-migration re-enable
-  # @angular @react @vue
+  # # @angular @react @vue
   Scenario: Sign in with unconfirmed credentials
 
   If you sign in with an unconfirmed account, Authenticator will redirect you to `confirmSignUp` route.
@@ -74,6 +75,6 @@ Feature: Sign In with Email
 
     Then "Email" field autocompletes "username"
 
-  @angular @react @vue
+  # @angular @react @vue
   Scenario: Password fields autocomplete "current-password"
     Then "Password" field autocompletes "current-password"

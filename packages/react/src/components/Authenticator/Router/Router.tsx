@@ -7,7 +7,7 @@ import { SetupTotp } from '../SetupTotp';
 import { SignInSignUpTabs } from '../shared';
 import { ConfirmVerifyUser, VerifyUser } from '../VerifyUser';
 import { ConfirmSignIn } from '../ConfirmSignIn/ConfirmSignIn';
-import { ConfirmResetPassword, ResetPassword } from '../ResetPassword';
+import { ConfirmResetPassword, ResetPassword } from '../ForgotPassword';
 import { isSignInOrSignUpRoute } from '../utils';
 import { RouterProps } from './types';
 
@@ -36,7 +36,7 @@ const getRouteComponent = (route: string): RouteComponent => {
       return SignInSignUpTabs;
     case 'forceNewPassword':
       return ForceNewPassword;
-    case 'resetPassword':
+    case 'forgotPassword':
       return ResetPassword;
     case 'confirmResetPassword':
       return ConfirmResetPassword;

@@ -22,8 +22,8 @@ function App() {
       <Authenticator
         initialState="forgotPassword"
         components={{
-          ResetPassword: (props) => (
-            <Authenticator.ResetPassword
+          ForgotPassword: (props) => (
+            <Authenticator.ForgotPassword
               {...props}
               fields={[
                 {

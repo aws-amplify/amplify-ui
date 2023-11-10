@@ -80,8 +80,8 @@ describe('defaultFormFieldsGetters', () => {
     });
   });
 
-  it('should return the correct form fields for the "resetPassword" component', () => {
-    const formFields = defaultFormFieldsGetters.resetPassword(state);
+  it('should return the correct form fields for the "forgotPassword" component', () => {
+    const formFields = defaultFormFieldsGetters.forgotPassword(state);
     expect(formFields).toStrictEqual({
       username: {
         ...defaultFormFieldOptions.email,

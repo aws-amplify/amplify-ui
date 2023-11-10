@@ -22,45 +22,46 @@ export type SignUpMachineOptions = {
   services?: Partial<typeof defaultServices>;
 };
 
-const autoSignInState = {
-  tags: 'pending',
-  invoke: {
-    src: 'autoSignIn',
-    onDone: [
-      { cond: 'hasCompletedSignIn', target: 'fetchUserAttributes' },
-      {
-        actions: [
-          'setNextSignInStep',
-          'setChallengeName',
-          'setMissingAttributes',
-          'setTotpSecretCode',
-        ],
-        target: '#signUpActor.resolved',
-      },
-    ],
-    onError: { actions: 'setRemoteError', target: '#signUpActor.resolved' },
-  },
+const handleResetPasswordResponse = {
+  onDone: [
+    { actions: 'setCodeDeliveryDetails', target: '#signUpActor.resolved' },
+  ],
+  onError: { actions: ['setRemoteError', 'sendUpdate'] },
 };
 
-const fetchUserAttributesState = {
-  tags: 'pending',
-  invoke: {
-    src: 'fetchUserAttributes',
-    onDone: [
-      {
-        cond: 'shouldVerifyAttribute',
-        actions: [
-          'setUnverifiedUserAttributes',
-          'setShouldVerifyUserAttributeStep',
-        ],
-        target: '#signUpActor.resolved',
-      },
-      {
-        actions: 'setConfirmAttributeCompleteStep',
-        target: '#signUpActor.resolved',
-      },
-    ],
-  },
+const handleSignInResponse = {
+  onDone: [
+    {
+      cond: 'hasCompletedSignIn',
+      actions: 'setNextSignInStep',
+      target: '#signUpActor.fetchUserAttributes',
+    },
+    {
+      cond: 'shouldConfirmSignInWithNewPassword',
+      actions: ['setUsername', 'setNextSignInStep'],
+      target: '#signUpActor.resolved',
+    },
+    {
+      cond: 'shouldResetPassword',
+      actions: 'setNextSignInStep',
+      target: '#signUpActor.resetPassword',
+    },
+    {
+      cond: 'shouldConfirmSignUpFromSignIn',
+      actions: 'setNextSignInStep',
+      target: '#signUpActor.resendSignUpCode',
+    },
+    {
+      actions: [
+        'setChallengeName',
+        'setMissingAttributes',
+        'setNextSignInStep',
+        'setTotpSecretCode',
+      ],
+      target: '#signUpActor.init',
+    },
+  ],
+  onError: { actions: 'setRemoteError' },
 };
 
 const handleFetchUserAttributesResponse = {
@@ -68,16 +69,16 @@ const handleFetchUserAttributesResponse = {
     {
       cond: 'shouldVerifyAttribute',
       actions: 'setShouldVerifyUserAttributeStep',
-      target: '#signInActor.resolved',
+      target: '#signUpActor.resolved',
     },
     {
       actions: 'setConfirmAttributeCompleteStep',
-      target: '#signInActor.resolved',
+      target: '#signUpActor.resolved',
     },
   ],
   onError: {
     actions: 'setConfirmAttributeCompleteStep',
-    target: '#signInActor.resolved',
+    target: '#signUpActor.resolved',
   },
 };
 
@@ -104,6 +105,41 @@ export function signUpActor({ services }: SignUpMachineOptions) {
             },
             { target: 'signUp' },
           ],
+        },
+        autoSignIn: {
+          tags: 'pending',
+          invoke: { src: 'autoSignIn', ...handleSignInResponse },
+        },
+        fetchUserAttributes: {
+          invoke: {
+            src: 'fetchUserAttributes',
+            ...handleFetchUserAttributesResponse,
+          },
+        },
+        resetPassword: {
+          invoke: {
+            src: 'resetPassword',
+            ...handleResetPasswordResponse,
+          },
+        },
+        resendSignUpCode: {
+          tags: 'pending',
+          entry: 'sendUpdate',
+          exit: 'sendUpdate',
+          invoke: {
+            src: 'resendSignUpCode',
+            onDone: {
+              actions: ['setCodeDeliveryDetails', 'sendUpdate'],
+              target: '#signUpActor.confirmSignUp',
+            },
+            onError: [
+              {
+                cond: 'isUserAlreadyConfirmed',
+                target: '#signUpActor.resolved',
+              },
+              { actions: ['setRemoteError', 'sendUpdate'] },
+            ],
+          },
         },
         signUp: {
           type: 'parallel',
@@ -140,8 +176,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                     FEDERATED_SIGN_IN: 'federatedSignIn',
                   },
                 },
-                autoSignIn: autoSignInState,
-                fetchUserAttributes: fetchUserAttributesState,
+
                 federatedSignIn: {
                   entry: ['sendUpdate', 'clearError'],
                   invoke: {
@@ -175,7 +210,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                       {
                         cond: 'shouldAutoSignIn',
                         actions: ['setNextSignUpStep', 'clearFormValues'],
-                        target: 'autoSignIn',
+                        target: '#signUpActor.autoSignIn',
                       },
                       {
                         actions: [
@@ -206,30 +241,10 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                 SUBMIT: { actions: 'handleSubmit', target: 'submit' },
                 CHANGE: { actions: 'handleInput' },
                 BLUR: { actions: 'handleBlur' },
-                RESEND: 'resendSignUpCode',
+                RESEND: '#signUpActor.resendSignUpCode',
               },
             },
-            autoSignIn: autoSignInState,
-            fetchUserAttributes: fetchUserAttributesState,
-            resendSignUpCode: {
-              tags: 'pending',
-              entry: 'sendUpdate',
-              exit: 'sendUpdate',
-              invoke: {
-                src: 'resendSignUpCode',
-                onDone: {
-                  actions: ['setCodeDeliveryDetails', 'sendUpdate'],
-                  target: '#signUpActor.confirmSignUp',
-                },
-                onError: [
-                  {
-                    cond: 'isUserAlreadyConfirmed',
-                    target: '#signUpActor.resolved',
-                  },
-                  { actions: ['setRemoteError', 'sendUpdate'], target: 'edit' },
-                ],
-              },
-            },
+
             submit: {
               tags: 'pending',
               entry: ['clearError', 'sendUpdate'],
@@ -239,7 +254,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                   {
                     cond: 'shouldAutoSignIn',
                     actions: ['setNextSignUpStep', 'clearFormValues'],
-                    target: 'autoSignIn',
+                    target: '#signUpActor.autoSignIn',
                   },
                   {
                     actions: 'setNextSignUpStep',

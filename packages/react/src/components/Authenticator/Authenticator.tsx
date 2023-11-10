@@ -27,7 +27,7 @@ import { SetupTotp } from './SetupTotp';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
 import { ForceNewPassword } from './ForceNewPassword';
-import { ResetPassword } from './ResetPassword';
+import { ResetPassword } from './ForgotPassword';
 import { defaultComponents } from './hooks/useCustomComponents/defaultComponents';
 
 export type SignOut = UseAuthenticator['signOut'];

@@ -177,7 +177,7 @@ describe('getServiceContextFacade', () => {
     'confirmSignUp',
     'confirmVerifyUser',
     'forceNewPassword',
-    'resetPassword',
+    'forgotPassword',
     'signIn',
     'signOut',
     'signUp',

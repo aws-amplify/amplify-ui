@@ -10,11 +10,11 @@ const { getResetYourPasswordText, getSendCodeText, getBackToSignInText } =
   authenticatorTextUtil;
 
 @Component({
-  selector: 'amplify-reset-password',
-  templateUrl: './reset-password.component.html',
+  selector: 'amplify-forgot-password',
+  templateUrl: './forgot-password.component.html',
 })
-export class ResetPasswordComponent {
-  @HostBinding('attr.data-amplify-authenticator-resetPassword') dataAttr = '';
+export class ForgotPasswordComponent {
+  @HostBinding('attr.data-amplify-authenticator-forgotPassword') dataAttr = '';
   @Input() public headerText = getResetYourPasswordText();
 
   // translated texts

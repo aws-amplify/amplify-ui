@@ -22,7 +22,7 @@ import {
   resolveDefault,
   resolveConfirmVerifyUserRoute,
   resolveForceNewPasswordRoute,
-  resolveResetPasswordRoute,
+  resolveForgotPasswordRoute,
   resolveSetupTotpRoute,
   resolveSignInRoute,
   resolveSignUpRoute,
@@ -97,7 +97,7 @@ describe('getRouteMachineSelector', () => {
       ],
     ],
     ['idle', [route]],
-    ['resetPassword', [...commonSelectorProps, toSignIn, route]],
+    ['forgotPassword', [...commonSelectorProps, toSignIn, route]],
     [
       'signIn',
       [
@@ -156,8 +156,8 @@ describe('props resolver functions', () => {
       { error, hasValidationErrors, isPending, toSignIn, validationErrors },
     ],
     [
-      'ResetPassword',
-      resolveResetPasswordRoute,
+      'ForgotPassword',
+      resolveForgotPasswordRoute,
       { error, isPending, toSignIn },
     ],
     [

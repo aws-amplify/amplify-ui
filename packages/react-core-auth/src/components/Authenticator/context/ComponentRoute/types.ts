@@ -8,7 +8,7 @@ export type ComponentRoute =
   | 'confirmSignUp'
   | 'confirmVerifyUser'
   | 'forceNewPassword'
-  | 'resetPassword'
+  | 'forgotPassword'
   | 'setupTotp'
   | 'signIn'
   | 'signUp'

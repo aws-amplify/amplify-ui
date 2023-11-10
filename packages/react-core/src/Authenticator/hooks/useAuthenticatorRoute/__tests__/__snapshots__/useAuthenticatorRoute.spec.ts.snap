@@ -91,7 +91,7 @@ exports[`useAuthenticatorRoute returns the expected values for the forceNewPassw
 }
 `;
 
-exports[`useAuthenticatorRoute returns the expected values for the resetPassword route 1`] = `
+exports[`useAuthenticatorRoute returns the expected values for the forgotPassword route 1`] = `
 {
   "Component": [Function],
   "props": {

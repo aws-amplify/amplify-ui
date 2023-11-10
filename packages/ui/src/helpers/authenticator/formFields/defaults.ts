@@ -109,7 +109,7 @@ const getConfirmSignUpFormFields = (state: AuthMachineState): FormFields => ({
   },
 });
 
-const getResetPasswordFormFields = (state: AuthMachineState): FormFields => {
+const getForgotPasswordFormFields = (state: AuthMachineState): FormFields => {
   const primaryAlias = getPrimaryAlias(state);
   const { label } = defaultFormFieldOptions[primaryAlias];
   return {
@@ -176,7 +176,7 @@ export const defaultFormFieldsGetters: Record<
   confirmSignUp: getConfirmSignUpFormFields,
   confirmSignIn: getConfirmationCodeFormFields,
   forceNewPassword: getForceNewPasswordFormFields,
-  resetPassword: getResetPasswordFormFields,
+  forgotPassword: getForgotPasswordFormFields,
   confirmResetPassword: getConfirmResetPasswordFormFields,
   confirmVerifyUser: getConfirmationCodeFormFields,
   setupTotp: getConfirmationCodeFormFields,

@@ -3,7 +3,7 @@ export { ConfirmSignIn } from './ConfirmSignIn';
 export { ConfirmSignUp } from './ConfirmSignUp';
 export { ConfirmVerifyUser } from './ConfirmVerifyUser';
 export { ForceNewPassword } from './ForceNewPassword';
-export { ResetPassword } from './ResetPassword';
+export { ForgotPassword } from './ForgotPassword';
 export { SetupTotp } from './SetupTotp';
 export { SignIn } from './SignIn';
 export { SignUp } from './SignUp';

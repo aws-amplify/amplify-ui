@@ -18,7 +18,7 @@ export type FormFieldComponents =
   | 'confirmSignIn'
   | 'confirmSignUp'
   | 'confirmVerifyUser'
-  | 'resetPassword'
+  | 'forgotPassword'
   | 'setupTotp';
 
 /**

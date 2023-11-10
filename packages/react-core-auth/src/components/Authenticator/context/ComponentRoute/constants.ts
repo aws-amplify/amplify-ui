@@ -6,7 +6,7 @@ export const COMPONENT_ROUTE: ComponentRoute[] = [
   'confirmSignUp',
   'confirmVerifyUser',
   'forceNewPassword',
-  'resetPassword',
+  'forgotPassword',
   'setupTotp',
   'signIn',
   'signUp',

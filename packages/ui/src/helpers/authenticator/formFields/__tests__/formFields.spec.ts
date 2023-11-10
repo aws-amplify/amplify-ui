@@ -182,7 +182,7 @@ describe('getCustomFormField', () => {
     expect(zoneinfo).toStrictEqual(zoneinfoOptions);
   });
 
-  it('applies defaults to known auth fields on resetPassword with email loginMechanism', () => {
+  it('applies defaults to known auth fields on forgotPassword with email loginMechanism', () => {
     const zoneinfoOptions: FormFieldOptions = {
       label: 'Zone Info',
       type: 'text',
@@ -190,8 +190,8 @@ describe('getCustomFormField', () => {
     };
 
     const formFields = {
-      resetPassword: {
-        username: { label: 'Mock Email Label' }, // resetPassword uses "username" as "email"
+      forgotPassword: {
+        username: { label: 'Mock Email Label' }, // forgotPassword uses "username" as "email"
         password: { label: 'Mock Password Label' }, // known cognito attribute
         birthdate: { label: 'Mock Birthdate Label' }, // known cognito attribute
         zoneinfo: zoneinfoOptions, // cognito attribute without defaults
@@ -199,7 +199,7 @@ describe('getCustomFormField', () => {
     };
 
     const state = generateMockState(formFields, 'email');
-    const result = getCustomFormFields('resetPassword', state);
+    const result = getCustomFormFields('forgotPassword', state);
 
     expect(result).toMatchSnapshot();
     const { username, password, birthdate, zoneinfo } = result;

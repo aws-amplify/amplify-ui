@@ -3,7 +3,7 @@ import { fireEvent, render } from '@testing-library/react-native';
 
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
-import { ResetPassword } from '..';
+import { ForgotPassword } from '..';
 
 const username = {
   name: 'username',
@@ -16,13 +16,13 @@ const fields = [username];
 
 const props = {
   fields,
-  Footer: ResetPassword.Footer,
-  FormFields: ResetPassword.FormFields,
+  Footer: ForgotPassword.Footer,
+  FormFields: ForgotPassword.FormFields,
   handleBlur: jest.fn(),
   handleChange: jest.fn(),
   handleSubmit: jest.fn(),
   hasValidationErrors: false,
-  Header: ResetPassword.Header,
+  Header: ForgotPassword.Header,
   isPending: false,
   toSignIn: jest.fn(),
 };
@@ -37,7 +37,7 @@ const {
 describe('ResetPassword', () => {
   it('renders as expected', () => {
     const { toJSON, getAllByRole, getByText } = render(
-      <ResetPassword {...props} />
+      <ForgotPassword {...props} />
     );
     expect(toJSON()).toMatchSnapshot();
 
@@ -50,7 +50,7 @@ describe('ResetPassword', () => {
   it('renders an error message', () => {
     const errorMessage = 'Test error message';
     const { toJSON, getByText } = render(
-      <ResetPassword {...props} error={errorMessage} />
+      <ForgotPassword {...props} error={errorMessage} />
     );
 
     expect(toJSON()).toMatchSnapshot();
@@ -61,7 +61,7 @@ describe('ResetPassword', () => {
     const toSignInMock = jest.fn();
 
     const { getByText } = render(
-      <ResetPassword {...props} toSignIn={toSignInMock} />
+      <ForgotPassword {...props} toSignIn={toSignInMock} />
     );
 
     const button = getByText(getBackToSignInText());
@@ -70,7 +70,7 @@ describe('ResetPassword', () => {
   });
 
   it('renders correct text based on isPending', () => {
-    const { queryByText } = render(<ResetPassword {...props} isPending />);
+    const { queryByText } = render(<ForgotPassword {...props} isPending />);
 
     expect(queryByText(getSendingText())).toBeDefined();
     expect(queryByText(getSendCodeText())).toBe(null);

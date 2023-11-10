@@ -9,9 +9,9 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultResetPasswordProps } from '../types';
+import { DefaultForgotPasswordProps } from '../types';
 
-const COMPONENT_NAME = 'ResetPassword';
+const COMPONENT_NAME = 'ForgotPassword';
 const {
   getResetYourPasswordText,
   getSendCodeText,
@@ -28,7 +28,7 @@ const ResetPassword = ({
   toSignIn,
   validationErrors,
   ...rest
-}: DefaultResetPasswordProps): JSX.Element => {
+}: DefaultForgotPasswordProps): JSX.Element => {
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,

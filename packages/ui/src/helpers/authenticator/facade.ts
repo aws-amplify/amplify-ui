@@ -38,7 +38,7 @@ export type AuthenticatorRoute =
   | 'confirmVerifyUser'
   | 'forceNewPassword'
   | 'idle'
-  | 'resetPassword'
+  | 'forgotPassword'
   | 'setup'
   | 'signOut'
   | 'setupTotp'

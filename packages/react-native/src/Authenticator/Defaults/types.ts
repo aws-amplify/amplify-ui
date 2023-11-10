@@ -56,11 +56,11 @@ export type DefaultForceNewPasswordProps = React.ComponentPropsWithoutRef<
   >['ForceNewPassword']
 >;
 
-export type DefaultResetPasswordProps = React.ComponentPropsWithoutRef<
+export type DefaultForgotPasswordProps = React.ComponentPropsWithoutRef<
   DefaultComponents<
     TextFieldOptionsType,
     { style?: ResetPasswordStyle }
-  >['ResetPassword']
+  >['ForgotPassword']
 >;
 
 export type DefaultSetupTotpProps = React.ComponentPropsWithoutRef<
@@ -121,7 +121,7 @@ type ForceNewPasswordComponent<P = {}> = OverrideComponents<
 type ResetPasswordComponent<P = {}> = OverrideComponents<
   TextFieldOptionsType,
   { style?: ResetPasswordStyle } & P
->['ResetPassword'];
+>['ForgotPassword'];
 
 type SetupTotpComponent<P = {}> = OverrideComponents<
   TextFieldOptionsType,

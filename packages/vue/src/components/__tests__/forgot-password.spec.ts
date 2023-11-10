@@ -8,7 +8,7 @@ import { components } from '../../../global-spec';
 import * as UseAuthComposables from '../../composables/useAuth';
 import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
 import { UseAuthenticator } from '../../types';
-import ResetPassword from '../reset-password.vue';
+import ForgotPassword from '../forgot-password.vue';
 
 jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
   authStatus: ref('unauthenticated'),
@@ -23,7 +23,7 @@ const toSignInSpy = jest.fn();
 
 const mockServiceFacade: UseAuthenticator = {
   ...baseMockServiceFacade,
-  route: 'resetPassword',
+  route: 'forgotPassword',
   updateForm: updateFormSpy,
   submitForm: submitFormSpy,
   toSignIn: toSignInSpy,
@@ -50,7 +50,7 @@ jest.spyOn(UIModule, 'getSortedFormFields').mockReturnValue([
 
 const emailInputParams = { name: 'email', value: 'user@example.com' };
 
-describe('ResetPassword', () => {
+describe('ForgotPassword', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -59,14 +59,14 @@ describe('ResetPassword', () => {
     // mock random value so that snapshots are consistent
     const mathRandomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.1);
 
-    const { container } = render(ResetPassword, { global: { components } });
+    const { container } = render(ForgotPassword, { global: { components } });
     expect(container).toMatchSnapshot();
 
     mathRandomSpy.mockRestore();
   });
 
   it('sends change event on form input', async () => {
-    render(ResetPassword, { global: { components } });
+    render(ForgotPassword, { global: { components } });
 
     const emailField = await screen.findByLabelText('Email');
 
@@ -75,7 +75,7 @@ describe('ResetPassword', () => {
   });
 
   it('sends submit event on form submit', async () => {
-    render(ResetPassword, { global: { components } });
+    render(ForgotPassword, { global: { components } });
 
     const emailField = await screen.findByLabelText('Email');
     await fireEvent.input(emailField, { target: emailInputParams });
@@ -92,13 +92,13 @@ describe('ResetPassword', () => {
     useAuthenticatorSpy.mockReturnValueOnce(
       reactive({ ...mockServiceFacade, error: 'mockError' })
     );
-    render(ResetPassword, { global: { components } });
+    render(ForgotPassword, { global: { components } });
 
     expect(await screen.findByText('mockError')).toBeInTheDocument();
   });
 
   it('handles back to sign in button as expected', async () => {
-    render(ResetPassword, { global: { components } });
+    render(ForgotPassword, { global: { components } });
 
     const backToSignInButton = await screen.findByRole('button', {
       name: 'Back to Sign In',
@@ -112,7 +112,7 @@ describe('ResetPassword', () => {
     useAuthenticatorSpy.mockReturnValue(
       reactive({ ...mockServiceFacade, isPending: true })
     );
-    render(ResetPassword, { global: { components } });
+    render(ForgotPassword, { global: { components } });
 
     const submitButton = await screen.findByRole('button', {
       name: 'Send code',

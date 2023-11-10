@@ -38,10 +38,10 @@ export const getCustomFormFields = (
   return Object.entries(customFormFields).reduce(
     (acc, [fieldName, customOptions]) => {
       if (
-        (route === 'signIn' || route === 'resetPassword') &&
+        (route === 'signIn' || route === 'forgotPassword') &&
         fieldName === 'username'
       ) {
-        // Unlike other screens, `signIn` and `resetPassword` screens default login
+        // Unlike other screens, `signIn` and `forgotPassword` screens default login
         // alias field names to "username", even if it's a phone number or email.
         // In this case, we get the default formFieldOptions based on loginMechanism.
         const defaultOptions = getAliasDefaultFormField(state);

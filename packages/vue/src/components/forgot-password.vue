@@ -57,7 +57,7 @@ const onBackToSignInClicked = (): void => {
           class="amplify-flex amplify-authenticator__column"
           :disabled="isPending"
         >
-          <base-form-fields route="resetPassword"></base-form-fields>
+          <base-form-fields route="forgotPassword"></base-form-fields>
         </base-field-set>
 
         <base-footer class="amplify-flex amplify-authenticator__column">

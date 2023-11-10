@@ -24,7 +24,7 @@ const routesWithComponent: AuthenticatorRoute[] = [
   'confirmSignUp',
   'confirmVerifyUser',
   'forceNewPassword',
-  'resetPassword',
+  'forgotPassword',
   'setupTotp',
   'signIn',
   'signUp',

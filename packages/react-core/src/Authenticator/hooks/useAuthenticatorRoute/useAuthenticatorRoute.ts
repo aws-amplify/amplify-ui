@@ -15,7 +15,7 @@ import {
   resolveConfirmVerifyUserRoute,
   resolveDefault,
   resolveForceNewPasswordRoute,
-  resolveResetPasswordRoute,
+  resolveForgotPasswordRoute,
   resolveSetupTotpRoute,
   resolveSignInRoute,
   resolveSignUpRoute,
@@ -39,7 +39,7 @@ export default function useAuthenticatorRoute<FieldType>(
 ): UseAuthenticatorRoute<'ForceNewPassword'>;
 export default function useAuthenticatorRoute<FieldType>(
   params: UseAuthenticatorRouteParams<FieldType>
-): UseAuthenticatorRoute<'ResetPassword'>;
+): UseAuthenticatorRoute<'ForgotPassword'>;
 export default function useAuthenticatorRoute<FieldType>(
   params: UseAuthenticatorRouteParams<FieldType>
 ): UseAuthenticatorRoute<'SetupTotp'>;
@@ -75,7 +75,7 @@ export default function useAuthenticatorRoute<FieldType>({
     ConfirmSignUp,
     ConfirmVerifyUser,
     ForceNewPassword,
-    ResetPassword,
+    ForgotPassword,
     SetupTotp,
     SignIn,
     SignUp,
@@ -104,8 +104,8 @@ export default function useAuthenticatorRoute<FieldType>({
     case 'forceNewPassword': {
       return resolveForceNewPasswordRoute(ForceNewPassword, routeSelectorProps);
     }
-    case 'resetPassword': {
-      return resolveResetPasswordRoute(ResetPassword, routeSelectorProps);
+    case 'forgotPassword': {
+      return resolveForgotPasswordRoute(ForgotPassword, routeSelectorProps);
     }
     case 'setupTotp': {
       return resolveSetupTotpRoute(SetupTotp, routeSelectorProps);

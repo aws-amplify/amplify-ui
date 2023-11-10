@@ -50,17 +50,8 @@ export interface CodeDeliveryDetails {
 /**
  * Authenticator routes that can be directly navigated to by user interaction.
  */
-export type NavigableRoute = 'signIn' | 'signUp' | 'resetPassword';
-export type InitialRoute = 'signIn' | 'signUp' | 'resetPassword';
-
-/**
- * Authenticator routes that have default links
- */
-export type NavigationRoute =
-  | 'resetPassword'
-  | 'setupTotp'
-  | 'signIn'
-  | 'signUp';
+export type NavigableRoute = 'signIn' | 'signUp' | 'forgotPassword';
+export type InitialRoute = 'signIn' | 'signUp' | 'forgotPassword';
 
 /**
  * `AuthTOTPSetupDetails` is deeply nested in the v6 types, added this as utility

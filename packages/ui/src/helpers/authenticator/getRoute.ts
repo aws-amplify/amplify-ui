@@ -29,6 +29,7 @@ export const getRoute = (
     case actorState?.matches('setupTotp.edit'):
     case actorState?.matches('setupTotp.submit'):
       return 'setupTotp';
+    case state.matches('signInActor.getCurrentUser'):
     case actorState?.matches('signIn'):
       return 'signIn';
     case actorState?.matches('signUp'):
@@ -36,14 +37,15 @@ export const getRoute = (
     case actorState?.matches('forceChangePassword'):
       return 'forceNewPassword';
     case actorState?.matches('forgotPassword'):
-      return 'resetPassword';
-    case actorState?.matches('resetPassword'):
+      return 'forgotPassword';
+    case actorState?.matches('confirmResetPassword'):
       return 'confirmResetPassword';
     case actorState?.matches('verifyUser'):
       return 'verifyUser';
     case actorState?.matches('confirmVerifyUser'):
       return 'confirmVerifyUser';
     case state.matches('signIn.runActor'):
+    case actorState.matches('fetchUserAttributes'):
       /**
        * This route is needed for autoSignIn to capture both the
        * autoSignIn.pending and the resolved states when the
@@ -51,8 +53,6 @@ export const getRoute = (
        */
       return 'transition';
     default:
-      groupLog('state', state);
-      groupLog('actorState', actorState);
       console.debug(
         'Cannot infer `route` from Authenticator state:',
         state.value

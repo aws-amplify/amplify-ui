@@ -29,7 +29,7 @@ const handleSignInResponse = {
     {
       cond: 'shouldConfirmSignInWithNewPassword',
       actions: ['setUsername', 'setNextSignInStep'],
-      target: '#signInActor.resolved',
+      target: '#signInActor.forceChangePassword',
     },
     {
       cond: 'shouldResetPassword',

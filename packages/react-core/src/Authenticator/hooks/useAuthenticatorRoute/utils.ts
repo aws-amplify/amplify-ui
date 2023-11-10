@@ -128,15 +128,15 @@ export function resolveForceNewPasswordRoute<FieldType = {}>(
   };
 }
 
-export function resolveResetPasswordRoute<FieldType = {}>(
-  Component: Defaults<FieldType>['ResetPassword'],
+export function resolveForgotPasswordRoute<FieldType = {}>(
+  Component: Defaults<FieldType>['ForgotPassword'],
   props: UseAuthenticator
-): UseAuthenticatorRoute<'ResetPassword', FieldType> {
+): UseAuthenticatorRoute<'ForgotPassword', FieldType> {
   return {
     Component,
     props: {
       ...Component,
-      ...getConvertedMachineProps('resetPassword', props),
+      ...getConvertedMachineProps('forgotPassword', props),
     },
   };
 }

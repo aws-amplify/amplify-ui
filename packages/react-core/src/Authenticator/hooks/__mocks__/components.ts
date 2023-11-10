@@ -42,12 +42,12 @@ ForceNewPassword.Footer = Footer;
 ForceNewPassword.FormFields = FormFields;
 ForceNewPassword.Header = Header;
 
-const ResetPassword: DefaultComponents<{}>['ResetPassword'] = () => {
+const ForgotPassword: DefaultComponents<{}>['ForgotPassword'] = () => {
   return null;
 };
-ResetPassword.Footer = Footer;
-ResetPassword.FormFields = FormFields;
-ResetPassword.Header = Header;
+ForgotPassword.Footer = Footer;
+ForgotPassword.FormFields = FormFields;
+ForgotPassword.Header = Header;
 
 const SetupTotp: DefaultComponents<{}>['SetupTotp'] = () => {
   return null;
@@ -83,7 +83,7 @@ export const DEFAULTS: DefaultComponents<{}> = {
   ConfirmSignUp,
   ConfirmVerifyUser,
   ForceNewPassword,
-  ResetPassword,
+  ForgotPassword,
   SetupTotp,
   SignIn,
   SignUp,

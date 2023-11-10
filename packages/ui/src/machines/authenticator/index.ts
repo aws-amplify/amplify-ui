@@ -249,12 +249,15 @@ export function createAuthenticatorMachine(
             'done.invoke.signUpActor': [
               {
                 cond: (context, event) => {
-                  groupLog('+++is SIGN_UP_COMPLETE', context, event);
+                  groupLog('+++is VERIFIED', context, event);
                   return event.data?.step === 'CONFIRM_ATTRIBUTE_COMPLETE';
                 },
                 target: '.getCurrentUser',
               },
-              { target: '#authenticator.signInActor' },
+              {
+                actions: 'setActorDoneData',
+                target: '#authenticator.signInActor',
+              },
             ],
           },
         },
@@ -445,14 +448,10 @@ export function createAuthenticatorMachine(
       },
       guards: {
         ...guards,
-
         isInitialStateSignUp: (context) =>
           context.config.initialState === 'signUp',
         isInitialStateResetPassword: (context) =>
-          // keep 'resetPassword` to prevent breaking API change
-          // required if renamed to `forgotPassword`
           context.config.initialState === 'forgotPassword',
-
         shouldSetup: (context) => {
           groupLog('+++shouldSetup', context);
           return context.hasSetup === false;
