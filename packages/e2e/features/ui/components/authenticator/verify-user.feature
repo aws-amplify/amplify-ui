@@ -24,8 +24,9 @@ Feature: Verify User
     Then I see placeholder "Enter your Confirmation Code:"
     Then I type a valid confirmation code for attribute confirmation
     Then I click the "Submit" button
+    Then I see "Sign out"
 
-  # @angular @react @vue @todo-react-native
+  @angular @react @vue @todo-react-native
   Scenario: Redirect to "Verify" page and verify custom header and footer text
     When I type my "email" with status "UNVERIFIED"
     Then I type my password
@@ -35,7 +36,7 @@ Feature: Verify User
     Then I click the "Skip" button
     Then I click the "Sign out" button
 
-  # @angular @react @vue @todo-react-native
+  @angular @react @vue @todo-react-native
   Scenario: Skip verify account
     When I type my "email" with status "UNVERIFIED"
     Then I type my password
@@ -44,7 +45,7 @@ Feature: Verify User
     Then I see "Sign out"
     Then I click the "Sign out" button
 
-  # @angular @react @vue @todo-react-native
+  @angular @react @vue @todo-react-native
   Scenario: Redirect to "Confirm Verify" page and verify custom header and footer 
     When I type my "email" with status "UNVERIFIED"
     Then I type my password
