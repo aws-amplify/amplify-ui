@@ -61,7 +61,10 @@ const handleSignInResponse = {
       target: '#signUpActor.init',
     },
   ],
-  onError: { actions: 'setRemoteError' },
+  onError: {
+    actions: 'setRemoteError',
+    target: '#signUpActor.resolved',
+  },
 };
 
 const handleFetchUserAttributesResponse = {
@@ -279,8 +282,8 @@ export function signUpActor({ services }: SignUpMachineOptions) {
             return {
               challengeName: context.challengeName,
               missingAttributes: context.missingAttributes,
-              step: context.step,
               remoteError: context.remoteError,
+              step: context.step,
               totpSecretCode: context.totpSecretCode,
               unverifiedUserAttributes: context.unverifiedUserAttributes,
             };

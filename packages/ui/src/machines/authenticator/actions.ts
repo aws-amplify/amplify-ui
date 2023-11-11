@@ -52,24 +52,21 @@ const { assign } = xStateActions;
 
 const sanitizePhoneNumber = (dialCode: string, phoneNumber: string) =>
   `${dialCode}${phoneNumber}`.replace(/[^A-Z0-9+]/gi, '');
-/**
- * "clear" actions
- */
-export const getUsernameValue = ({
-  country_code,
-  email,
-  username,
-}: AuthActorContext['formValues']) => {
-  console.log('getUsernameValue');
+
+export const getUsernameValue = (
+  formValues: AuthActorContext['formValues']
+) => {
+  console.log('getUsernameValue', formValues);
+
+  const { phone_number, email, username } = formValues;
+
+  if (phone_number) {
+    return phone_number;
+  }
 
   if (username) {
-    console.log(
-      '- username',
-      country_code ? `${country_code}${username}` : username
-    );
-    return country_code
-      ? sanitizePhoneNumber(country_code, username)
-      : username;
+    console.log('- username', username);
+    return username;
   }
 
   console.log('- email', email);

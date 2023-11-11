@@ -34,7 +34,7 @@ const getActorContext = (
   context: AuthContext
 ) => ({
   codeDeliveryDetails: context.actorDoneData?.codeDeliveryDetails,
-  errorMessage: context.actorDoneData?.errorMessage,
+  remoteError: context.actorDoneData?.remoteError,
   step: context.actorDoneData?.step ?? defaultStep,
   username: context.actorDoneData?.username,
   unverifiedUserAttributes: context.actorDoneData?.unverifiedUserAttributes,
@@ -348,7 +348,7 @@ export function createAuthenticatorMachine(
             groupLog('+++setActorDoneData', context, event);
             return {
               codeDeliveryDetails: event.data.codeDeliveryDetails,
-              errorMessage: event.data.errorMessage,
+              remoteError: event.data.remoteError,
               username: event.data.username,
               step: event.data.step,
               unverifiedUserAttributes: event.data.unverifiedUserAttributes,

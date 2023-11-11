@@ -108,7 +108,7 @@ export interface AuthEvent {
  */
 export interface ActorDoneData {
   codeDeliveryDetails?: V5CodeDeliveryDetails;
-  errorMessage?: string;
+  remoteError?: string;
   step: Step;
   username?: string;
   unverifiedUserAttributes?: UnverifiedUserAttributes;

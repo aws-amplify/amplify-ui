@@ -298,7 +298,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             groupLog('+++signIn.resolved.final', context, event);
             return {
               codeDeliveryDetails: context.codeDeliveryDetails,
-              errorMessage: context.errorMessage,
+              remoteError: context.remoteError,
               step: context.step,
               username: context.username,
               unverifiedUserAttributes: context.unverifiedUserAttributes,

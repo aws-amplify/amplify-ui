@@ -14,7 +14,6 @@ export type ForgotPasswordMachineOptions = {
 export function forgotPasswordActor({
   services,
 }: ForgotPasswordMachineOptions) {
-  groupLog('+++forgotPasswordActor (machine)');
   return createMachine<ResetPasswordContext, AuthEvent>(
     {
       id: 'forgotPasswordActor',
@@ -48,7 +47,7 @@ export function forgotPasswordActor({
         },
         forgotPassword: {
           initial: 'edit',
-          entry: 'sendUpdate',
+          entry: ['sendUpdate', 'parsePhoneNumber'],
           exit: ['clearError', 'clearTouched'],
           states: {
             edit: {
@@ -189,6 +188,7 @@ export function forgotPasswordActor({
         handleResetPassword({ formValues }: ResetPasswordContext) {
           groupLog('+++forgotPassword', formValues);
           const username = getUsernameValue(formValues);
+
           groupLog('+++forgotPassword username:', username);
           return services.handleForgotPassword({ username });
         },

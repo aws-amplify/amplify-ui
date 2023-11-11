@@ -19,7 +19,7 @@ Feature: Sign up with SMS MFA
     Then I see "Confirmation Code"
     Then I type a valid confirmation code
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
-    Then I spy request '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }'
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with error fixture "limit-exceeded-exception"
     Then I click the "Confirm" button
     # @todo-migration
     # ConfirmSignUp is returning the DONE step, not COMPLETE_AUTO_SIGN_IN
