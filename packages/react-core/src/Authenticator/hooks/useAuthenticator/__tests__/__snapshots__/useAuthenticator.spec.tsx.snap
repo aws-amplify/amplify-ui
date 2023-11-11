@@ -25,6 +25,9 @@ exports[`useAuthenticator returns the expected values 1`] = `
   "unverifiedContactMethods": {
     "email": "test#example.com",
   },
+  "unverifiedUserAttributes": {
+    "email": "test#example.com",
+  },
   "updateBlur": [MockFunction],
   "updateForm": [MockFunction],
   "user": {},

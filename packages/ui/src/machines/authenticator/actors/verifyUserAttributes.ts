@@ -1,9 +1,7 @@
-import { assign, createMachine, sendUpdate } from 'xstate';
+import { createMachine, sendUpdate } from 'xstate';
 import {
   confirmUserAttribute,
   ConfirmUserAttributeInput,
-  // fetchUserAttributes,
-  // FetchUserAttributesOutput,
   sendUserAttributeVerificationCode,
   SendUserAttributeVerificationCodeInput,
 } from 'aws-amplify/auth';

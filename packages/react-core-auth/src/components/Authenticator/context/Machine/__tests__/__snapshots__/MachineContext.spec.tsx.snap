@@ -18,6 +18,9 @@ exports[`useMachine returns the expected values 1`] = `
   "unverifiedContactMethods": {
     "email": "test#example.com",
   },
+  "unverifiedUserAttributes": {
+    "email": "test#example.com",
+  },
   "username": undefined,
 }
 `;
