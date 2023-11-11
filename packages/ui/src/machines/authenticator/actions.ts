@@ -290,7 +290,7 @@ const handleBlur = assign({
  */
 const parsePhoneNumber = assign({
   formValues: (context: AuthActorContext, _) => {
-    const [primaryAlias = 'username'] = context.loginMechanisms;
+    const [primaryAlias = 'username'] = context?.loginMechanisms ?? [];
 
     if (!context.formValues.phone_number && primaryAlias !== 'phone_number') {
       return context.formValues;
