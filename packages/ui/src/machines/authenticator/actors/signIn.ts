@@ -338,8 +338,15 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         async handleForceChangePassword({ formValues }) {
           groupLog('+++handleForceChangePassword', formValues);
-          let { password, phone_number, country_code, ...userAttributes } =
-            formValues;
+          let {
+            password,
+            phone_number,
+            country_code,
+            // destructure and toss UI confirm_password field
+            // to prevent error from sending to confirmSignIn
+            confirm_password,
+            ...userAttributes
+          } = formValues;
 
           let phoneNumberWithCountryCode;
           if (phone_number) {

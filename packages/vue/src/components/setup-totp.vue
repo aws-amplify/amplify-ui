@@ -19,9 +19,9 @@ const logger = new Logger('SetupTotp-logger');
 // `facade` is manually typed to `UseAuthenticator` for temporary type safety.
 const facade: UseAuthenticator = useAuthenticator();
 const { updateForm, submitForm, toSignIn } = facade;
-const { error, isPending, QRFields, totpSecretCode, user } = toRefs(facade);
+const { error, isPending, QRFields, totpSecretCode, username } = toRefs(facade);
 
-const { totpIssuer = 'AWSCognito', totpUsername = user.value.username } =
+const { totpIssuer = 'AWSCognito', totpUsername = username.value } =
   QRFields.value ?? {};
 
 const totpCodeURL = totpSecretCode.value
@@ -48,7 +48,7 @@ function copyText() {
 
 // lifecycle hooks
 onMounted(async () => {
-  if (!user.value || !totpCodeURL) {
+  if (!username.value || !totpCodeURL) {
     return;
   }
   try {

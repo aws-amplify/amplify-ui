@@ -6,9 +6,7 @@ Feature: Sign In with TOTP MFA
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-totp-mfa"
 
-  # @todo-migration failing on @vue
-  # @angular @react @vue
-  @angular @react
+  @angular @react @vue
   Scenario: Sign in with valid credentials that have not set up TOTP MFA
     When I type my "email" with status "CONFIRMED"
     Then I type my password
@@ -17,9 +15,7 @@ Feature: Sign In with TOTP MFA
     Then I check to see if QR code is correct
     Then I see the "Confirm" button
 
-  # @todo-migration failing on @vue
-  # @angular @react @vue
-  @angular @react
+  @angular @react @vue
   Scenario: Redirect to sign in page
     When I type my "email" with status "CONFIRMED"
     Then I type my password
@@ -27,9 +23,7 @@ Feature: Sign In with TOTP MFA
     Then I click the "Back to Sign In" button
     Then I see "Sign in"
   
-  # @todo-migration failing on @vue
-  # @angular @react @vue
-  @angular @react
+  @angular @react @vue
   Scenario: Invalid TOTP code
     When I type my "email" with status "CONFIRMED"
     Then I type my password
@@ -38,9 +32,7 @@ Feature: Sign In with TOTP MFA
     Then I click the "Confirm" button
     Then I see 'Code mismatch'
 
-  # @todo-migration failing on @vue
-  # @angular @react @vue
-  @angular @react
+  @angular @react @vue
   Scenario: Setup TOTP should only show one input code
     When I type my "email" with status "CONFIRMED"
     Then I type my password
@@ -56,9 +48,7 @@ Feature: Sign In with TOTP MFA
 
   # Tests the scenario where an admin creates a user with a temporary password
   # and the user is forced to setup a new password then setup TOTP as MFA type
-  # @todo-migration failing on @vue
-  # @angular @react @vue
-  @angular @react
+  @angular @react @vue
   Scenario: Sign in with admin created user account, user must change password on first login and setup totp/mfa
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password"
     When I type my "email" with status "FORCE_CHANGE_PASSWORD"
