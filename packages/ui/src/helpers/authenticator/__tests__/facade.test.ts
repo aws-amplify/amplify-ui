@@ -90,11 +90,11 @@ describe('getServiceContextFacade', () => {
     expect(facade.socialProviders).toEqual(['amazon']);
   });
 
-  it('returns the expected service context facade for signIn.runActor', () => {
+  it('returns the expected service context facade for getCurrentUser', () => {
     const state = {
       value: 'signIn.runActor',
       hasTag: (tag: string) => false,
-      matches: (state: string) => state === 'signIn.runActor',
+      matches: (state: string) => state === 'getCurrentUser',
       context: {
         user: undefined,
         config: {
