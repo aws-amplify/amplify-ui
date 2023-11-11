@@ -28,7 +28,7 @@ const handleSignInResponse = {
     },
     {
       cond: 'shouldConfirmSignInWithNewPassword',
-      actions: ['setUsername', 'setNextSignInStep'],
+      actions: ['setMissingAttributes', 'setUsername', 'setNextSignInStep'],
       target: '#signInActor.forceChangePassword',
     },
     {
@@ -42,12 +42,7 @@ const handleSignInResponse = {
       target: '#signInActor.resendSignUpCode',
     },
     {
-      actions: [
-        'setChallengeName',
-        'setMissingAttributes',
-        'setNextSignInStep',
-        'setTotpSecretCode',
-      ],
+      actions: ['setChallengeName', 'setNextSignInStep', 'setTotpSecretCode'],
       target: '#signInActor.init',
     },
   ],
@@ -119,6 +114,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             {
               cond: ({ step }) =>
                 step === 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED',
+              actions: 'setActorDoneData',
               target: 'forceChangePassword',
             },
             { target: 'signIn' },
@@ -200,6 +196,7 @@ export function signInActor({ services }: SignInMachineOptions) {
           },
         },
         forceChangePassword: {
+          entry: 'sendUpdate',
           type: 'parallel',
           exit: ['clearFormValues', 'clearError', 'clearTouched'],
           states: {

@@ -348,6 +348,7 @@ export function createAuthenticatorMachine(
             groupLog('+++setActorDoneData', context, event);
             return {
               codeDeliveryDetails: event.data.codeDeliveryDetails,
+              missingAttributes: event.data.missingAttributes,
               remoteError: event.data.remoteError,
               username: event.data.username,
               step: event.data.step,

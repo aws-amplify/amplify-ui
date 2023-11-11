@@ -108,6 +108,7 @@ export interface AuthEvent {
  */
 export interface ActorDoneData {
   codeDeliveryDetails?: V5CodeDeliveryDetails;
+  missingAttributes?: string[];
   remoteError?: string;
   step: Step;
   username?: string;

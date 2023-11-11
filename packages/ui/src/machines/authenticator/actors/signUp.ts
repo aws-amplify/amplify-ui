@@ -182,7 +182,6 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                     FEDERATED_SIGN_IN: 'federatedSignIn',
                   },
                 },
-
                 federatedSignIn: {
                   entry: ['sendUpdate', 'clearError'],
                   invoke: {
@@ -250,7 +249,6 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                 RESEND: '#signUpActor.resendSignUpCode',
               },
             },
-
             submit: {
               tags: 'pending',
               entry: ['clearError', 'sendUpdate'],
