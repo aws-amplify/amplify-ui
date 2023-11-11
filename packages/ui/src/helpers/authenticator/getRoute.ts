@@ -52,8 +52,8 @@ export const getRoute = (
       return 'transition';
     default:
       // @todo-migration delete
-      console.log('state', state?.value);
-      console.log('actorState', actorState?.value);
+      // console.log('state', state);
+      // console.log('actorState', actorState);
       console.debug(
         'Cannot infer `route` from Authenticator state:',
         state.value

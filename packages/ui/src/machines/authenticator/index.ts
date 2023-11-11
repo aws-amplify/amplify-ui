@@ -267,22 +267,13 @@ export function createAuthenticatorMachine(
               },
             },
             runActor: {
-              entry: [
-                (c, v) => {
-                  console.log('WHAT', c, v);
-                },
-                clearActorDoneData,
-              ],
+              entry: clearActorDoneData,
               exit: stopActor('verifyUserAttributesActor'),
             },
           },
           on: {
             'done.invoke.verifyUserAttributesActor': [
               {
-                cond: (context, event) => {
-                  groupLog('+++is VERIFIED???????', context, event);
-                  return event.data?.step === 'CONFIRM_ATTRIBUTE_COMPLETE';
-                },
                 actions: 'setActorDoneData',
                 target: '#authenticator.getCurrentUser',
               },
@@ -430,7 +421,7 @@ export function createAuthenticatorMachine(
             const actor = verifyUserAttributesActor().withContext(
               getActorContext(context)
             );
-            return spawn(actor, { name: 'signOutActor' });
+            return spawn(actor, { name: 'verifyUserAttributesActor' });
           },
         }),
         spawnSignOutActor: assign({
