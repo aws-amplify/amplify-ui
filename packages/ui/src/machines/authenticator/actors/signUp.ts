@@ -1,4 +1,4 @@
-import { assign, createMachine, sendUpdate } from 'xstate';
+import { createMachine, sendUpdate } from 'xstate';
 import pickBy from 'lodash/pickBy.js';
 
 import {

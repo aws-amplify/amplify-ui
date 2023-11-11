@@ -1,4 +1,3 @@
-import { AuthUser } from 'aws-amplify/auth';
 import { Hub } from 'aws-amplify/utils';
 
 import { groupLog, isFunction } from '../../utils';
@@ -44,10 +43,7 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = async (
     }
     case 'signedIn': {
       if (isFunction(onSignIn)) {
-        console.log('PAYLOAD', payload);
         onSignIn(payload);
-
-        // const {} =
       }
       break;
     }
@@ -56,7 +52,6 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = async (
       if (event === 'signedOut' && isFunction(onSignOut)) {
         onSignOut();
       }
-
       send('SIGN_OUT');
       break;
     }

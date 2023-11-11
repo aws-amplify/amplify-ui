@@ -28,7 +28,8 @@ Feature: Sign In with Email
     Then I see "User does not exist."
 
   # @todo-migration re-enable
-  @angular @react @vue
+  # @angular @react @vue
+  @react @vue
   Scenario: Sign in with unconfirmed credentials
 
   If you sign in with an unconfirmed account, Authenticator will redirect you to `confirmSignUp` route.
