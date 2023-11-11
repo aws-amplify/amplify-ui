@@ -295,27 +295,11 @@ export function signUpActor({ services }: SignUpMachineOptions) {
       services: {
         autoSignIn: () => {
           console.log('+++autoSignIn');
-          return autoSignIn()
-            .then((res) => {
-              console.log('autoSignIn res', res);
-              return res;
-            })
-            .catch((e) => {
-              console.log('autoSignIn e', e);
-              throw e;
-            });
+          return autoSignIn();
         },
         async fetchUserAttributes(context) {
           groupLog('+++fetchUserAttributes', context);
-          return fetchUserAttributes()
-            .then((res) => {
-              groupLog('+++fetchUserAttributes res', res);
-              return res;
-            })
-            .catch((e) => {
-              groupLog('+++fetchUserAttributes error', e);
-              throw e;
-            });
+          return fetchUserAttributes();
         },
         confirmSignUp(context, event) {
           groupLog('+++confirmSignUp', context, event);

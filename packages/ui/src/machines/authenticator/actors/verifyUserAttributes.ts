@@ -24,7 +24,7 @@ export function verifyUserAttributesActor() {
       states: {
         selectUserAttributes: {
           initial: 'edit',
-          exit: ['clearError', 'clearTouched'],
+          exit: ['clearError', 'clearTouched', 'sendUpdate'],
           states: {
             edit: {
               entry: 'sendUpdate',
@@ -36,7 +36,7 @@ export function verifyUserAttributesActor() {
             },
             submit: {
               tags: 'pending',
-              entry: 'clearError',
+              entry: ['clearError', 'sendUpdate'],
               invoke: {
                 src: 'sendUserAttributeVerificationCode',
                 onDone: {
@@ -62,6 +62,7 @@ export function verifyUserAttributesActor() {
             'clearFormValues',
             'clearTouched',
             'clearSelectedUserAttribute',
+            'sendUpdate',
           ],
           states: {
             edit: {
@@ -74,8 +75,7 @@ export function verifyUserAttributesActor() {
             },
             submit: {
               tags: 'pending',
-              entry: 'clearError',
-              exit: 'sendUpdate',
+              entry: ['clearError', 'sendUpdate'],
               invoke: {
                 src: 'confirmVerifyUserAttribute',
                 onDone: {

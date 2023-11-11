@@ -100,14 +100,7 @@ export const defaultServices = {
     };
     console.log('+++handleSignUp input', input);
 
-    return signUp(input)
-      .then((res) => {
-        console.log('+++ handleSignUp res', res);
-        return res;
-      })
-      .catch((e) => {
-        throw e;
-      });
+    return signUp(input);
   },
   async handleSignIn({
     username,

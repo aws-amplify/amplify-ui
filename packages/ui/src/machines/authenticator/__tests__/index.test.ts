@@ -430,7 +430,7 @@ describe('authenticator', () => {
           setUser: jest.fn(() => Promise.resolve),
         },
         services: {
-          getCurrentUser: jest.fn(async () => Promise.resolve),
+          handleGetCurrentUser: jest.fn(async () => Promise.resolve),
         },
         guards: {},
       })

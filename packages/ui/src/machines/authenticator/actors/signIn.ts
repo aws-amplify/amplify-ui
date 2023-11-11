@@ -314,15 +314,7 @@ export function signInActor({ services }: SignInMachineOptions) {
       services: {
         async fetchUserAttributes(context) {
           groupLog('+++fetchUserAttributes', context);
-          return fetchUserAttributes()
-            .then((res) => {
-              groupLog('+++fetchUserAttributes res', res);
-              return res;
-            })
-            .catch((e) => {
-              groupLog('+++fetchUserAttributes error', e);
-              throw e;
-            });
+          return fetchUserAttributes();
         },
         resetPassword({ username }) {
           groupLog('+++resetPassword', username);

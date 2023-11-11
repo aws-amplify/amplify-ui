@@ -429,7 +429,7 @@ export function createAuthenticatorMachine(
           actorRef: (context) => {
             groupLog('+++spawnVerifyAttributes', context);
             const actor = verifyUserAttributesActor().withContext(
-              getActorContext('CONFIRM_ATTRIBUTE_WITH_CODE', context)
+              getActorContext('SHOULD_VERIFY_USER_ATTRIBUTE', context)
             );
             return spawn(actor, { name: 'signOutActor' });
           },
