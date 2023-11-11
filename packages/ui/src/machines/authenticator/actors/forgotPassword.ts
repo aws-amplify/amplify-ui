@@ -47,7 +47,7 @@ export function forgotPasswordActor({
         },
         forgotPassword: {
           initial: 'edit',
-          entry: ['sendUpdate', 'parsePhoneNumber'],
+          entry: 'sendUpdate',
           exit: ['clearError', 'clearTouched'],
           states: {
             edit: {

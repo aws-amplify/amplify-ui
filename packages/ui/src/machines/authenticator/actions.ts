@@ -50,9 +50,6 @@ const { assign } = xStateActions;
  * how TypeScript integrate with Xstate.
  */
 
-const sanitizePhoneNumber = (dialCode: string, phoneNumber: string) =>
-  `${dialCode}${phoneNumber}`.replace(/[^A-Z0-9+]/gi, '');
-
 export const getUsernameValue = (
   formValues: AuthActorContext['formValues']
 ) => {

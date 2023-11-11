@@ -1,4 +1,4 @@
-import { createMachine, sendUpdate } from 'xstate';
+import { assign, createMachine, sendUpdate } from 'xstate';
 import pickBy from 'lodash/pickBy.js';
 
 import {
@@ -9,7 +9,7 @@ import {
   fetchUserAttributes,
 } from 'aws-amplify/auth';
 
-import { AuthEvent, SignUpContext } from '../types';
+import { AuthActorContext, AuthEvent, SignUpContext } from '../types';
 
 import { runValidators } from '../../../validators';
 
@@ -21,6 +21,9 @@ import guards from '../guards';
 export type SignUpMachineOptions = {
   services?: Partial<typeof defaultServices>;
 };
+
+export const sanitizePhoneNumber = (dialCode: string, phoneNumber: string) =>
+  `${dialCode}${phoneNumber}`.replace(/[^A-Z0-9+]/gi, '');
 
 const handleResetPasswordResponse = {
   onDone: [
@@ -202,7 +205,29 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                 },
                 handleSignUp: {
                   tags: 'pending',
-                  entry: ['parsePhoneNumber', 'sendUpdate'],
+                  entry: [
+                    'sendUpdate',
+                    assign({
+                      username: ({
+                        formValues,
+                        loginMechanisms,
+                      }: AuthActorContext) => {
+                        const loginMechanism = loginMechanisms[0];
+                        const { username, country_code, phone_number, email } =
+                          formValues;
+                        if (loginMechanism === 'username') {
+                          return username;
+                        }
+                        if (loginMechanism === 'phone_number') {
+                          return sanitizePhoneNumber(
+                            country_code,
+                            phone_number
+                          );
+                        }
+                        return email;
+                      },
+                    }),
+                  ],
                   exit: 'sendUpdate',
                   invoke: {
                     src: 'handleSignUp',
@@ -228,7 +253,11 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                       },
                     ],
                     onError: {
-                      actions: ['setRemoteError', 'sendUpdate'],
+                      actions: [
+                        'clearUsername',
+                        'sendUpdate',
+                        'setRemoteError',
+                      ],
                       target: 'idle',
                     },
                   },

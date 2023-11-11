@@ -19,7 +19,7 @@ Feature: Sign up with SMS MFA
     Then I see "Confirmation Code"
     Then I type a valid confirmation code
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
-    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with error fixture "AWSCognitoIdentityProviderService.ResendConfirmationCode.LimitExceededException"
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with error fixture "limit-exceeded-exception"
     Then I click the "Confirm" button
     Then I see "Sign In"
     
