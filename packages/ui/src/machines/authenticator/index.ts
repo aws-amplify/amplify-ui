@@ -26,13 +26,7 @@ export type AuthenticatorMachineOptions = AuthContext['config'] & {
   services?: AuthContext['services'];
 };
 
-const getActorContext = (
-  defaultStep:
-    | InitialStep
-    | 'CONFIRM_ATTRIBUTE_WITH_CODE'
-    | 'SHOULD_VERIFY_USER_ATTRIBUTE',
-  context: AuthContext
-) => ({
+const getActorContext = (context: AuthContext, defaultStep?: InitialStep) => ({
   codeDeliveryDetails: context.actorDoneData?.codeDeliveryDetails,
   remoteError: context.actorDoneData?.remoteError,
   step: context.actorDoneData?.step ?? defaultStep,
@@ -207,33 +201,6 @@ export function createAuthenticatorMachine(
             ],
           },
         },
-        verifyUserAttributesActor: {
-          initial: 'spawnActor',
-          states: {
-            spawnActor: {
-              always: {
-                actions: 'spawnVerifyUserAttributesActor',
-                target: 'runActor',
-              },
-            },
-            runActor: {
-              entry: clearActorDoneData,
-              exit: stopActor('verifyUserAttributesActor'),
-            },
-          },
-          on: {
-            'done.invoke.verifyUserAttributesActor': [
-              {
-                cond: (context, event) => {
-                  groupLog('+++is VERIFIED???????', context, event);
-                  return event.data?.step === 'CONFIRM_ATTRIBUTE_COMPLETE';
-                },
-                actions: 'setActorDoneData',
-                target: '#authenticator.getCurrentUser',
-              },
-            ],
-          },
-        },
         signUpActor: {
           initial: 'spawnActor',
           states: {
@@ -290,6 +257,52 @@ export function createAuthenticatorMachine(
             ],
           },
         },
+        verifyUserAttributesActor: {
+          initial: 'spawnActor',
+          states: {
+            spawnActor: {
+              always: {
+                actions: 'spawnVerifyUserAttributesActor',
+                target: 'runActor',
+              },
+            },
+            runActor: {
+              entry: [
+                (c, v) => {
+                  console.log('WHAT', c, v);
+                },
+                clearActorDoneData,
+              ],
+              exit: stopActor('verifyUserAttributesActor'),
+            },
+          },
+          on: {
+            'done.invoke.verifyUserAttributesActor': [
+              {
+                cond: (context, event) => {
+                  groupLog('+++is VERIFIED???????', context, event);
+                  return event.data?.step === 'CONFIRM_ATTRIBUTE_COMPLETE';
+                },
+                actions: 'setActorDoneData',
+                target: '#authenticator.getCurrentUser',
+              },
+            ],
+          },
+        },
+        authenticated: {
+          initial: 'idle',
+          states: {
+            idle: { on: { TOKEN_REFRESH: 'refreshUser' } },
+            refreshUser: {
+              invoke: {
+                src: '#authenticator.getCurrentUser',
+                onDone: { actions: 'setUser', target: 'idle' },
+                onError: { target: '#authenticator.signOut' },
+              },
+            },
+          },
+          on: { SIGN_OUT: 'signOut' },
+        },
         signOut: {
           initial: 'spawnActor',
           states: {
@@ -310,20 +323,6 @@ export function createAuthenticatorMachine(
               target: 'setup.getConfig',
             },
           },
-        },
-        authenticated: {
-          initial: 'idle',
-          states: {
-            idle: { on: { TOKEN_REFRESH: 'refreshUser' } },
-            refreshUser: {
-              invoke: {
-                src: '#authenticator.getCurrentUser',
-                onDone: { actions: 'setUser', target: 'idle' },
-                onError: { target: '#authenticator.signOut' },
-              },
-            },
-          },
-          on: { SIGN_OUT: 'signOut' },
         },
       },
       on: {
@@ -401,7 +400,7 @@ export function createAuthenticatorMachine(
             groupLog('+++spawnSignInActor.actorRef', context);
             const { services } = context;
             const actor = signInActor({ services }).withContext(
-              getActorContext('SIGN_IN', context)
+              getActorContext(context, 'SIGN_IN')
             );
             return spawn(actor, { name: 'signInActor' });
           },
@@ -411,7 +410,7 @@ export function createAuthenticatorMachine(
             groupLog('+++spawnSignUpActor.actorRef', context);
             const { services } = context;
             const actor = signUpActor({ services }).withContext(
-              getActorContext('SIGN_UP', context)
+              getActorContext(context, 'SIGN_UP')
             );
             return spawn(actor, { name: 'signUpActor' });
           },
@@ -420,7 +419,7 @@ export function createAuthenticatorMachine(
           actorRef: (context: AuthContext, _) => {
             const { services } = context;
             const actor = forgotPasswordActor({ services }).withContext(
-              getActorContext('FORGOT_PASSWORD', context)
+              getActorContext(context, 'FORGOT_PASSWORD')
             );
             return spawn(actor, { name: 'forgotPasswordActor' });
           },
@@ -429,7 +428,7 @@ export function createAuthenticatorMachine(
           actorRef: (context) => {
             groupLog('+++spawnVerifyAttributes', context);
             const actor = verifyUserAttributesActor().withContext(
-              getActorContext('SHOULD_VERIFY_USER_ATTRIBUTE', context)
+              getActorContext(context)
             );
             return spawn(actor, { name: 'signOutActor' });
           },

@@ -55,13 +55,20 @@ export function verifyUserAttributesActor() {
         },
         confirmVerifyUserAttribute: {
           initial: 'edit',
-          exit: ['clearError', 'clearFormValues', 'clearTouched'],
+          exit: [
+            'clearError',
+            'clearFormValues',
+            'clearTouched',
+            (c, v) => {
+              console.log('OUT', c, v);
+            },
+          ],
           states: {
             edit: {
               entry: 'sendUpdate',
               on: {
                 SUBMIT: { actions: 'handleSubmit', target: 'submit' },
-                SKIP: { target: '#verifyUserAttributesActor.resolved' },
+                SKIP: '#verifyUserAttributesActor.resolved',
                 CHANGE: { actions: 'handleInput' },
               },
             },
@@ -89,6 +96,12 @@ export function verifyUserAttributesActor() {
           },
         },
         resolved: {
+          entry: (c, v) => {
+            console.log('ENTRY', c, v);
+          },
+          exit: (c, v) => {
+            console.log('EXITTTTTt', c, v);
+          },
           type: 'final',
           data: (context, event) => {
             groupLog(

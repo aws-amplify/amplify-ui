@@ -9,7 +9,7 @@ import {
   fetchUserAttributes,
 } from 'aws-amplify/auth';
 
-import { AuthActorContext, AuthEvent, SignUpContext } from '../types';
+import { AuthEvent, SignUpContext } from '../types';
 
 import { runValidators } from '../../../validators';
 
