@@ -42,9 +42,9 @@ export class AuthenticatorService implements OnDestroy {
     const machine = createAuthenticatorMachine();
     this._authService = interpret(machine).start();
 
+    this.getInitialAuthStatus();
     this.setupMachineSubscription();
     this.setupHubListener();
-    this.getInitialAuthStatus();
   }
 
   /**

@@ -6,15 +6,14 @@ import { signUp } from 'aws-amplify/auth';
 import { I18n } from 'aws-amplify/utils';
 import awsExports from './aws-exports';
 import { AuthenticatorService, translations } from '@aws-amplify/ui-angular';
+Amplify.configure(awsExports);
 
 @Component({
   selector: 'sign-up-with-email',
   templateUrl: 'sign-up-with-email.component.html',
 })
 export class SignUpWithEmailComponent implements OnInit {
-  constructor(public authenticator: AuthenticatorService) {
-    Amplify.configure(awsExports);
-  }
+  constructor(public authenticator: AuthenticatorService) {}
 
   ngOnInit() {
     I18n.putVocabularies(translations);
