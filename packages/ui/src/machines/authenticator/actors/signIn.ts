@@ -42,7 +42,12 @@ const handleSignInResponse = {
       target: '#signInActor.resendSignUpCode',
     },
     {
-      actions: ['setChallengeName', 'setNextSignInStep', 'setTotpSecretCode'],
+      actions: [
+        'setChallengeName',
+        'setMissingAttributes',
+        'setNextSignInStep',
+        'setTotpSecretCode',
+      ],
       target: '#signInActor.init',
     },
   ],
@@ -160,7 +165,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             submit: {
               tags: 'pending',
               entry: ['clearError', 'parsePhoneNumber', 'sendUpdate'],
-              exit: 'setUsername',
+              exit: ['setUsername', 'clearFormValues'],
               invoke: {
                 src: 'signIn',
                 ...handleSignInResponse,

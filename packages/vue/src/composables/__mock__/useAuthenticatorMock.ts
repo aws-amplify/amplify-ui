@@ -21,7 +21,6 @@ export const baseMockServiceFacade: UseAuthenticator = {
   toSignIn: jest.fn(),
   toSignUp: jest.fn(),
   totpSecretCode: null,
-  unverifiedContactMethods: { email: 'test#example.com' },
   unverifiedUserAttributes: { email: 'test#example.com' },
   updateBlur: jest.fn(),
   updateForm: jest.fn(),

@@ -28,7 +28,6 @@ export const getRoute = (
     case actorState?.matches('setupTotp.edit'):
     case actorState?.matches('setupTotp.submit'):
       return 'setupTotp';
-    case state.matches('signInActor.getCurrentUser'):
     case actorState?.matches('signIn'):
       return 'signIn';
     case actorState?.matches('signUp'):
@@ -43,7 +42,7 @@ export const getRoute = (
       return 'verifyUser';
     case actorState?.matches('confirmVerifyUserAttribute'):
       return 'confirmVerifyUser';
-    case state.matches('signIn.runActor'):
+    case state.matches('getCurrentUser'):
     case actorState.matches('fetchUserAttributes'):
       /**
        * This route is needed for autoSignIn to capture both the

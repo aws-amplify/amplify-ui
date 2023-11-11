@@ -5,7 +5,7 @@ import {
   AuthMachineState,
   FormFieldsArray,
   getSortedFormFields,
-  UnverifiedContactMethods,
+  UnverifiedUserAttributes,
   getActorContext,
   isString,
 } from '@aws-amplify/ui';
@@ -64,11 +64,11 @@ const flattenFormFields = (
   fields.flatMap(([name, options]) => ({ name, ...options }));
 
 const convertContactMethodsToFields = (
-  unverifiedContactMethods: UnverifiedContactMethods
+  unverifiedUserAttributes: UnverifiedUserAttributes
 ): AuthenticatorLegacyFields => {
   return (
-    unverifiedContactMethods &&
-    Object.entries(unverifiedContactMethods).map(([name, value]) => {
+    unverifiedUserAttributes &&
+    Object.entries(unverifiedUserAttributes).map(([name, value]) => {
       const valueIsString = isString(value);
       if (!valueIsString || !name) {
         return {} as AuthenticatorLegacyField;
@@ -85,11 +85,11 @@ const convertContactMethodsToFields = (
 export const getMachineFields = (
   route: AuthenticatorRoute,
   state: AuthMachineState,
-  unverifiedContactMethods: UnverifiedContactMethods
+  unverifiedUserAttributes: UnverifiedUserAttributes
 ): AuthenticatorLegacyFields => {
   if (isComponentRouteKey(route)) {
     return route === 'verifyUser'
-      ? convertContactMethodsToFields(unverifiedContactMethods)
+      ? convertContactMethodsToFields(unverifiedUserAttributes)
       : flattenFormFields(getSortedFormFields(route, state));
   }
 

@@ -32,14 +32,6 @@ export enum UnverifiedContactMethodType {
   PhoneNumber = 'phone_number',
 }
 
-/**
- * Cognito user contact methods that have not been verified as valid
- */
-export interface UnverifiedContactMethods {
-  email?: string;
-  phone_number?: string;
-}
-
 export interface UnverifiedUserAttributes {
   email?: string;
   phone_number?: string;

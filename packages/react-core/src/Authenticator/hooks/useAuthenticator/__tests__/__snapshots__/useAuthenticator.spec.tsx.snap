@@ -22,9 +22,6 @@ exports[`useAuthenticator returns the expected values 1`] = `
   "toSignIn": [MockFunction],
   "toSignUp": [MockFunction],
   "totpSecretCode": null,
-  "unverifiedContactMethods": {
-    "email": "test#example.com",
-  },
   "unverifiedUserAttributes": {
     "email": "test#example.com",
   },

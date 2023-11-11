@@ -5,7 +5,6 @@ import {
   LoginMechanism,
   SignUpAttribute,
   SocialProvider,
-  UnverifiedContactMethods,
   UnverifiedUserAttributes,
   AuthFormData,
   AuthFormFields,
@@ -81,7 +80,6 @@ export type AuthEventTypes =
   | 'FEDERATED_SIGN_IN'
   | 'RESEND'
   | 'FORGOT_PASSWORD'
-  | 'AUTO_SIGN_IN'
   | 'AUTO_SIGN_IN_FAILURE'
   | 'SIGN_IN'
   | 'SIGN_OUT'
@@ -199,9 +197,6 @@ interface BaseFormContext {
   formValues?: AuthFormData;
   touched?: AuthTouchData;
   validationError?: ValidationError;
-
-  // @todo-migration remove me
-  unverifiedContactMethods?: UnverifiedContactMethods;
 }
 
 export interface ResetPasswordContext extends BaseFormContext, ActorDoneData {}

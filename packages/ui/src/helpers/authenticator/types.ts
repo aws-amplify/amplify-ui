@@ -3,8 +3,10 @@
  * authenticator machine and its intepreter.
  */
 import { Interpreter } from 'xstate';
+import { AuthUser } from 'aws-amplify/auth';
+import { HubCapsule } from 'aws-amplify/utils';
+
 import { AuthContext, AuthEvent } from '../../machines/authenticator/types';
-import { HubCapsule } from '@aws-amplify/core';
 
 /**
  * Intefrace for `authMachine` machine interpreter
@@ -31,5 +33,8 @@ export type AuthMachineSend = AuthInterpreter['send'];
 export type AuthMachineHubHandler = (
   data: HubCapsule<any, any>,
   service: AuthInterpreter,
-  options?: { onSignIn?: () => void; onSignOut?: () => void }
+  options?: {
+    onSignIn?: (user: AuthUser) => void;
+    onSignOut?: () => void;
+  }
 ) => Promise<void>;

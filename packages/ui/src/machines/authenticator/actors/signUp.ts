@@ -29,7 +29,7 @@ const handleResetPasswordResponse = {
   onError: { actions: ['setRemoteError', 'sendUpdate'] },
 };
 
-const handleSignInResponse = {
+const handleAutoSignInResponse = {
   onDone: [
     {
       cond: 'hasCompletedSignIn',
@@ -114,7 +114,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
         },
         autoSignIn: {
           tags: 'pending',
-          invoke: { src: 'autoSignIn', ...handleSignInResponse },
+          invoke: { src: 'autoSignIn', ...handleAutoSignInResponse },
         },
         fetchUserAttributes: {
           invoke: {
@@ -209,20 +209,18 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                     onDone: [
                       {
                         cond: 'hasCompletedSignUp',
-                        actions: ['setNextSignUpStep', 'clearFormValues'],
+                        actions: 'setNextSignUpStep',
                         target: '#signUpActor.resolved',
                       },
                       {
                         cond: 'shouldAutoSignIn',
-                        actions: ['setNextSignUpStep', 'clearFormValues'],
+                        actions: 'setNextSignUpStep',
                         target: '#signUpActor.autoSignIn',
                       },
                       {
                         actions: [
-                          'setUsername',
                           'setCodeDeliveryDetails',
                           'setNextSignUpStep',
-                          'clearFormValues',
                         ],
                         target: '#signUpActor.init',
                       },

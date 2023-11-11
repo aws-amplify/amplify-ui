@@ -90,9 +90,7 @@ const clearFormValues = assign({
   },
 });
 const clearTouched = assign({ touched: (_) => ({}) });
-const clearUnverifiedContactMethods = assign({
-  unverifiedContactMethods: (_) => undefined,
-});
+
 const clearUsername = assign({ username: (_) => undefined });
 const clearValidationError = assign({ validationError: (_) => ({}) });
 
@@ -376,7 +374,6 @@ const ACTIONS: MachineOptions<AuthActorContext, AuthEvent>['actions'] = {
   clearMissingAttributes,
   clearSelectedUserAttribute,
   clearTouched,
-  clearUnverifiedContactMethods,
   clearUsername,
   clearValidationError,
   handleBlur,

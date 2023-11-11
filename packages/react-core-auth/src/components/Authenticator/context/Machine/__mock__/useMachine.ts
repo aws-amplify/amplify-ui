@@ -13,7 +13,7 @@ const setRoute = jest.fn();
 const skipAttributeVerification = jest.fn();
 const toFederatedSignIn = jest.fn();
 const totpSecretCode = undefined;
-const unverifiedContactMethods = {};
+const unverifiedUserAttributes = {};
 
 export const mockMachineContext: NextAuthenticatorServiceFacade = {
   challengeName,
@@ -29,8 +29,7 @@ export const mockMachineContext: NextAuthenticatorServiceFacade = {
   skipAttributeVerification,
   toFederatedSignIn,
   totpSecretCode,
-  unverifiedUserAttributes: unverifiedContactMethods,
-  unverifiedContactMethods,
+  unverifiedUserAttributes,
   username: 'Charles',
 };
 

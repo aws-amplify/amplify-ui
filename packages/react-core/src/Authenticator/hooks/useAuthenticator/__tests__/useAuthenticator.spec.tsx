@@ -20,7 +20,6 @@ const mockServiceFacade: AuthenticatorServiceFacade = {
   isPending: false,
   route: 'idle',
   socialProviders: [],
-  unverifiedContactMethods: { email: 'test#example.com' },
   unverifiedUserAttributes: { email: 'test#example.com' },
   user: {},
   username: 'sally',

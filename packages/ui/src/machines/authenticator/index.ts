@@ -225,7 +225,7 @@ export function createAuthenticatorMachine(
             'done.invoke.verifyUserAttributesActor': [
               {
                 cond: (context, event) => {
-                  groupLog('+++is VERIFIED', context, event);
+                  groupLog('+++is VERIFIED???????', context, event);
                   return event.data?.step === 'CONFIRM_ATTRIBUTE_COMPLETE';
                 },
                 actions: 'setActorDoneData',
@@ -331,7 +331,6 @@ export function createAuthenticatorMachine(
         BLUR: { actions: 'forwardToActor' },
         SUBMIT: { actions: 'forwardToActor' },
         FEDERATED_SIGN_IN: { actions: 'forwardToActor' },
-        AUTO_SIGN_IN: { actions: 'forwardToActor' },
         RESEND: { actions: 'forwardToActor' },
         SIGN_IN: { actions: 'forwardToActor' },
         SKIP: { actions: 'forwardToActor' },

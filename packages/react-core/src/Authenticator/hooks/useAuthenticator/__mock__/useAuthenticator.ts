@@ -25,7 +25,7 @@ const toForgotPassword = jest.fn();
 const toSignIn = jest.fn();
 const toSignUp = jest.fn();
 const totpSecretCode = null;
-const unverifiedContactMethods = {};
+const unverifiedUserAttributes = {};
 const updateBlur = jest.fn();
 const updateForm = jest.fn();
 const user = {};
@@ -53,8 +53,8 @@ export const mockMachineContext: AuthenticatorMachineContext = {
   toFederatedSignIn,
   toForgotPassword,
   totpSecretCode,
-  unverifiedContactMethods,
-  unverifiedUserAttributes: unverifiedContactMethods,
+
+  unverifiedUserAttributes,
   username: 'george',
   validationErrors,
 };

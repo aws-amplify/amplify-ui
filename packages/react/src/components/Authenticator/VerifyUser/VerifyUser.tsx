@@ -5,7 +5,7 @@ import {
   censorPhoneNumber,
   ContactMethod,
   translate,
-  UnverifiedContactMethods,
+  UnverifiedUserAttributes,
   authenticatorTextUtil,
 } from '@aws-amplify/ui';
 
@@ -47,7 +47,7 @@ const censorContactInformation = (
 };
 
 const generateRadioGroup = (
-  attributes: UnverifiedContactMethods
+  attributes: UnverifiedUserAttributes
 ): JSX.Element[] => {
   return Object.entries(attributes).map(([key, value]: [string, string]) => (
     <Radio name="unverifiedAttr" value={key} key={key}>

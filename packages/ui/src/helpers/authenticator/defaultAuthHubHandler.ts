@@ -1,3 +1,4 @@
+import { AuthUser } from 'aws-amplify/auth';
 import { Hub } from 'aws-amplify/utils';
 
 import { groupLog, isFunction } from '../../utils';
@@ -9,13 +10,14 @@ import { AuthInterpreter, AuthMachineHubHandler } from './types';
  * xstate events.
  */
 export const defaultAuthHubHandler: AuthMachineHubHandler = async (
-  { payload: { event } },
+  { payload },
   service,
   options
 ) => {
-  groupLog('+++defaultAuthHubHandler', event);
+  const { event } = payload;
+  groupLog('+++defaultAuthHubHandler', payload);
   const { send } = service;
-  const state = service.getSnapshot(); // this is just a getter and is not expensive
+  // const state = service.getSnapshot(); // this is just a getter and is not expensive
   const { onSignIn, onSignOut } = options ?? {};
 
   switch (event) {
@@ -23,13 +25,13 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = async (
       break;
     // TODO: We can add more cases here, according to
     // https://docs.amplify.aws/lib/auth/auth-events/q/platform/js/
-    case 'tokenRefresh': {
-      if (state.matches('authenticated.idle')) {
-        // just call getCurrentUser here
-        send('TOKEN_REFRESH');
-      }
-      break;
-    }
+    // case 'tokenRefresh': {
+    //   if (state.matches('authenticated.idle')) {
+    //     // just call getCurrentUser here
+    //     send('TOKEN_REFRESH');
+    //   }
+    //   break;
+    // }
     case 'signInWithRedirect': {
       // if (isFunction(onSignInWithRedirect)) {
       //   // getCurrentUser()
@@ -42,19 +44,25 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = async (
     }
     case 'signedIn': {
       if (isFunction(onSignIn)) {
-        onSignIn();
+        console.log('PAYLOAD', payload);
+        onSignIn(payload);
+
+        // const {} =
       }
       break;
     }
     case 'signedOut':
-    case 'tokenRefresh_failure':
-      if (isFunction(onSignOut)) {
+    case 'tokenRefresh_failure': {
+      if (event === 'signedOut' && isFunction(onSignOut)) {
         onSignOut();
       }
+
       send('SIGN_OUT');
       break;
-    default:
+    }
+    default: {
       break;
+    }
   }
 };
 

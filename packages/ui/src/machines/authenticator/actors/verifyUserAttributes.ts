@@ -55,13 +55,7 @@ export function verifyUserAttributesActor() {
         },
         confirmVerifyUserAttribute: {
           initial: 'edit',
-          exit: [
-            'clearError',
-            'clearFormValues',
-            'clearTouched',
-            'clearSelectedUserAttribute',
-            'sendUpdate',
-          ],
+          exit: ['clearError', 'clearFormValues', 'clearTouched'],
           states: {
             edit: {
               entry: 'sendUpdate',
@@ -77,7 +71,13 @@ export function verifyUserAttributesActor() {
               invoke: {
                 src: 'confirmVerifyUserAttribute',
                 onDone: {
-                  actions: 'setConfirmAttributeCompleteStep',
+                  actions: [
+                    'setConfirmAttributeCompleteStep',
+                    (_, res) => {
+                      console.log('res res res', res);
+                    },
+                    'clearSelectedUserAttribute',
+                  ],
                   target: '#verifyUserAttributesActor.resolved',
                 },
                 onError: {
@@ -119,7 +119,7 @@ export function verifyUserAttributesActor() {
           };
           return sendUserAttributeVerificationCode(input);
         },
-        confirmVerifyUserAttribute(context) {
+        async confirmVerifyUserAttribute(context) {
           groupLog('+++confirmVerifyUserAttribute', context);
           const { selectedUserAttribute } = context;
           const { confirmation_code } = context.formValues;

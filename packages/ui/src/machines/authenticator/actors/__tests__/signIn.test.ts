@@ -83,7 +83,7 @@ describe('signInActor', () => {
             parsePhoneNumber: jest.fn(),
             resendCode: jest.fn(),
             sendUpdate: jest.fn(() => Promise.resolve),
-            setUnverifiedContactMethods: jest.fn(),
+            setUnverifiedUserAttributes: jest.fn(),
             setUsername: jest.fn(),
           },
           services: {
@@ -126,7 +126,7 @@ describe('signInActor', () => {
             parsePhoneNumber: jest.fn(),
             resendCode: jest.fn(),
             sendUpdate: jest.fn(() => Promise.resolve),
-            setUnverifiedContactMethods: jest.fn(),
+            setUnverifiedUserAttributes: jest.fn(),
             setUsername: jest.fn(),
           },
           services: {
@@ -179,7 +179,7 @@ describe('signInActor', () => {
             parsePhoneNumber: jest.fn(),
             resendCode: jest.fn(),
             sendUpdate: jest.fn(() => Promise.resolve),
-            setUnverifiedContactMethods: jest.fn(),
+            setUnverifiedUserAttributes: jest.fn(),
             setUsername: jest.fn(),
           },
           guards: {
@@ -238,7 +238,7 @@ describe('signInActor', () => {
             clearTouched: jest.fn(),
             resendCode: jest.fn(),
             sendUpdate: jest.fn(() => Promise.resolve),
-            setUnverifiedContactMethods: jest.fn(),
+            setUnverifiedUserAttributes: jest.fn(),
             setUsername: jest.fn(),
           },
           services: {
@@ -259,7 +259,7 @@ describe('signInActor', () => {
     });
     const credentials = { username: mockUsername, password: mockPassword };
     service.send({
-      type: 'AUTO_SIGN_IN',
+      type: 'AUTO_SIGN_IN_FAILURE',
       data: credentials,
     });
     await flushPromises();
@@ -294,7 +294,7 @@ describe('signInActor', () => {
             clearTouched: jest.fn(),
             resendCode: jest.fn(),
             sendUpdate: jest.fn(() => Promise.resolve),
-            setUnverifiedContactMethods: jest.fn(),
+            setUnverifiedUserAttributes: jest.fn(),
             setUser: jest.fn(),
             setChallengeName: jest.fn(),
           },
@@ -365,7 +365,7 @@ describe('signInActor', () => {
             resendCode: jest.fn(),
             sendUpdate: jest.fn(() => Promise.resolve),
             setMissingAtttributes: jest.fn(),
-            setUnverifiedContactMethods: jest.fn(),
+            setUnverifiedUserAttributes: jest.fn(),
             setUser: jest.fn(),
             setChallengeName: jest.fn(),
           },
@@ -437,7 +437,7 @@ describe('signInActor', () => {
             resendCode: jest.fn(),
             sendUpdate: jest.fn(() => Promise.resolve),
             setMissingAtttributes: jest.fn(),
-            setUnverifiedContactMethods: jest.fn(),
+            setUnverifiedUserAttributes: jest.fn(),
             setUser: jest.fn(),
             setChallengeName: jest.fn(),
           },
@@ -501,7 +501,7 @@ describe('signInActor', () => {
             parsePhoneNumber: jest.fn(),
             resendCode: jest.fn(),
             sendUpdate: jest.fn(() => Promise.reject),
-            setUnverifiedContactMethods: jest.fn(),
+            setUnverifiedUserAttributes: jest.fn(),
             setUsernameAuthAttributes: jest.fn(() => Promise.resolve),
             setConfirmSignUpIntent: jest.fn(() => Promise.resolve),
           },
@@ -552,7 +552,7 @@ describe('signInActor', () => {
             parsePhoneNumber: jest.fn(),
             resendCode: jest.fn(),
             sendUpdate: jest.fn(() => Promise.resolve),
-            setUnverifiedContactMethods: jest.fn(),
+            setUnverifiedUserAttributes: jest.fn(),
             setUsername: jest.fn(),
             setUsernameAuthAttributes: jest.fn(() => Promise.resolve),
             setConfirmResetPasswordIntent: jest.fn(() => Promise.resolve),

@@ -55,7 +55,7 @@ describe('signUpActor', () => {
             clearTouched: jest.fn(),
             resendCode: jest.fn(),
             sendUpdate: jest.fn(() => Promise.resolve),
-            setUnverifiedContactMethods: jest.fn(),
+            setUnverifiedUserAttributes: jest.fn(),
             setUsername: jest.fn(),
           },
           services: {
@@ -129,7 +129,7 @@ describe('signUpActor', () => {
             clearTouched: jest.fn(),
             resendCode: jest.fn(),
             sendUpdate: jest.fn(() => Promise.resolve),
-            setUnverifiedContactMethods: jest.fn(),
+            setUnverifiedUserAttributes: jest.fn(),
             setUsername: jest.fn(),
           },
           services: {
@@ -174,7 +174,7 @@ describe('signUpActor', () => {
             clearTouched: jest.fn(),
             resendCode: jest.fn(),
             sendUpdate: jest.fn(() => Promise.resolve),
-            setUnverifiedContactMethods: jest.fn(),
+            setUnverifiedUserAttributes: jest.fn(),
             setUsername: jest.fn(),
           },
           services: {
@@ -230,7 +230,7 @@ describe('signUpActor', () => {
             clearTouched: jest.fn(),
             resendCode: jest.fn(),
             sendUpdate: jest.fn(() => Promise.resolve),
-            setUnverifiedContactMethods: jest.fn(),
+            setUnverifiedUserAttributes: jest.fn(),
             setUsername: jest.fn(),
           },
           services: {
