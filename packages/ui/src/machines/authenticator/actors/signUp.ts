@@ -22,9 +22,6 @@ export type SignUpMachineOptions = {
   services?: Partial<typeof defaultServices>;
 };
 
-export const sanitizePhoneNumber = (dialCode: string, phoneNumber: string) =>
-  `${dialCode}${phoneNumber}`.replace(/[^A-Z0-9+]/gi, '');
-
 const handleResetPasswordResponse = {
   onDone: [
     { actions: 'setCodeDeliveryDetails', target: '#signUpActor.resolved' },
@@ -205,29 +202,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                 },
                 handleSignUp: {
                   tags: 'pending',
-                  entry: [
-                    'sendUpdate',
-                    assign({
-                      username: ({
-                        formValues,
-                        loginMechanisms,
-                      }: AuthActorContext) => {
-                        const loginMechanism = loginMechanisms[0];
-                        const { username, country_code, phone_number, email } =
-                          formValues;
-                        if (loginMechanism === 'username') {
-                          return username;
-                        }
-                        if (loginMechanism === 'phone_number') {
-                          return sanitizePhoneNumber(
-                            country_code,
-                            phone_number
-                          );
-                        }
-                        return email;
-                      },
-                    }),
-                  ],
+                  entry: ['sendUpdate', 'setUsernameSignUp'],
                   exit: 'sendUpdate',
                   invoke: {
                     src: 'handleSignUp',

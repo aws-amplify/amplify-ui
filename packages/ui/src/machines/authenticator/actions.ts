@@ -137,6 +137,37 @@ const setChallengeName = assign({
   },
 });
 
+const sanitizePhoneNumber = (dialCode: string, phoneNumber: string) =>
+  `${dialCode}${phoneNumber}`.replace(/[^A-Z0-9+]/gi, '');
+
+const setUsernameResetPassword = assign({
+  username: ({ formValues, loginMechanisms }: AuthActorContext) => {
+    const loginMechanism = loginMechanisms[0];
+    const { username, country_code, email } = formValues;
+    if (loginMechanism === 'username') {
+      return username;
+    }
+    if (loginMechanism === 'phone_number') {
+      // Forgot Password form is called `username`
+      return sanitizePhoneNumber(country_code, username);
+    }
+    return email;
+  },
+});
+const setUsernameSignUp = assign({
+  username: ({ formValues, loginMechanisms }: AuthActorContext) => {
+    const loginMechanism = loginMechanisms[0];
+    const { username, country_code, phone_number, email } = formValues;
+    if (loginMechanism === 'username') {
+      return username;
+    }
+    if (loginMechanism === 'phone_number') {
+      return sanitizePhoneNumber(country_code, phone_number);
+    }
+    return email;
+  },
+});
+
 const setNextSignInStep = assign({
   step: (_, event: AuthEvent): SignInStep => {
     groupLog(
@@ -360,15 +391,17 @@ const ACTIONS: MachineOptions<AuthActorContext, AuthEvent>['actions'] = {
   setNextSignInStep,
   setNextSignUpStep,
   setRemoteError,
-  setSelectedUserAttribute,
-  setTotpSecretCode,
-  setShouldVerifyUserAttributeStep,
   setConfirmAttributeCompleteStep,
   setConfirmSignUpSignUpStep,
+  setShouldVerifyUserAttributeStep,
+  setSelectedUserAttribute,
   setSignInStep,
+  setTotpSecretCode,
   setUser,
   setUnverifiedUserAttributes,
   setUsername,
+  setUsernameResetPassword,
+  setUsernameSignUp,
 };
 
 export default ACTIONS;
