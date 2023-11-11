@@ -140,18 +140,18 @@ const sanitizePhoneNumber = (dialCode: string, phoneNumber: string) =>
 
 const setUsernameResetPassword = assign({
   username: ({ formValues, loginMechanisms }: AuthActorContext) => {
+    groupLog('++++ setUsernameResetPassword', formValues, loginMechanisms);
     const loginMechanism = loginMechanisms[0];
-    const { username, country_code, email } = formValues;
-    if (loginMechanism === 'username') {
-      return username;
-    }
+    const { username, country_code } = formValues;
     if (loginMechanism === 'phone_number') {
       // Forgot Password form is called `username`
       return sanitizePhoneNumber(country_code, username);
     }
-    return email;
+    // default username field for loginMechanism === 'email' is "username" for SignIn
+    return username;
   },
 });
+
 const setUsernameSignUp = assign({
   username: ({ formValues, loginMechanisms }: AuthActorContext) => {
     const loginMechanism = loginMechanisms[0];
@@ -162,7 +162,24 @@ const setUsernameSignUp = assign({
     if (loginMechanism === 'phone_number') {
       return sanitizePhoneNumber(country_code, phone_number);
     }
+    // for SignUp with Email, field is email
     return email;
+  },
+});
+
+const setUsernameSignIn = assign({
+  username: ({ formValues, loginMechanisms }: AuthActorContext) => {
+    const loginMechanism = loginMechanisms[0];
+    groupLog(`++++setUsernameSignIn`, formValues, loginMechanisms);
+    const { username, country_code, phone_number, email } = formValues;
+    if (loginMechanism === 'username') {
+      return username;
+    }
+    if (loginMechanism === 'phone_number') {
+      return sanitizePhoneNumber(country_code, phone_number);
+    }
+    // default username field for loginMechanism === 'email' is "username" for SignIn
+    return username;
   },
 });
 
@@ -398,6 +415,7 @@ const ACTIONS: MachineOptions<AuthActorContext, AuthEvent>['actions'] = {
   setUnverifiedUserAttributes,
   setUsername,
   setUsernameResetPassword,
+  setUsernameSignIn,
   setUsernameSignUp,
 };
 

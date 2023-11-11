@@ -164,8 +164,8 @@ export function signInActor({ services }: SignInMachineOptions) {
             },
             submit: {
               tags: 'pending',
-              entry: ['clearError', 'parsePhoneNumber', 'sendUpdate'],
-              exit: ['setUsername', 'clearFormValues'],
+              entry: ['clearError', 'sendUpdate'],
+              exit: ['setUsernameSignIn', 'clearFormValues'],
               invoke: {
                 src: 'signIn',
                 ...handleSignInResponse,

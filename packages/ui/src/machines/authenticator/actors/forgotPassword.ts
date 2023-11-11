@@ -80,7 +80,6 @@ export function forgotPasswordActor({
         },
         confirmResetPassword: {
           type: 'parallel',
-          entry: 'setUsernameResetPassword',
           exit: ['clearFormValues', 'clearError', 'clearTouched'],
           states: {
             validation: {
