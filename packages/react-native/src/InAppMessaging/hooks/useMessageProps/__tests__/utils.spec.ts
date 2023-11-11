@@ -2,8 +2,8 @@ import { PressableStateCallbackType, StyleProp, ViewStyle } from 'react-native';
 
 import {
   MessageComponentBaseProps,
-  MessageLayout,
-  MessageTextAlign,
+  InAppMessageLayout,
+  InAppMessageTextAlign,
 } from '@aws-amplify/ui-react-core-notifications';
 import { BUTTON_PRESSED_OPACITY } from '../../../constants';
 import { MessageDefaultStyle } from '../types';
@@ -271,9 +271,9 @@ describe('getContainerAndWrapperStyle', () => {
 describe('getPayloadStyle', () => {
   it('returns the expected output in the happy path', () => {
     const output = getPayloadStyle({
-      body: { style: { textAlign: 'left' as MessageTextAlign } },
+      body: { style: { textAlign: 'left' as InAppMessageTextAlign } },
       container: { style: { backgroundColor: 'lightgray', borderRadius: 2 } },
-      header: { style: { textAlign: 'center' as MessageTextAlign } },
+      header: { style: { textAlign: 'center' as InAppMessageTextAlign } },
       primaryButton: { style: { backgroundColor: 'salmon', color: 'olive' } },
       secondaryButton: { style: { backgroundColor: 'sand', color: 'peru' } },
     } as MessageComponentBaseProps);
@@ -299,9 +299,9 @@ describe('getMessageStyles', () => {
   };
 
   const payloadStyle: StyleParams['payloadStyle'] = {
-    body: { textAlign: 'left' as MessageTextAlign },
+    body: { textAlign: 'left' as InAppMessageTextAlign },
     container: { backgroundColor: 'lightgray', borderRadius: 2 },
-    header: { textAlign: 'center' as MessageTextAlign },
+    header: { textAlign: 'center' as InAppMessageTextAlign },
     primaryButton: { backgroundColor: 'salmon', color: 'olive' },
     secondaryButton: { backgroundColor: 'sand', color: 'peru' },
   };
@@ -350,6 +350,6 @@ describe('shouldFillDeviceScreen', () => {
     ['CAROUSEL', true],
     ['FULL_SCREEN', true],
   ])('returns the expected output for a %s layout', (layout, expected) => {
-    expect(shouldFillDeviceScreen(layout as MessageLayout)).toBe(expected);
+    expect(shouldFillDeviceScreen(layout as InAppMessageLayout)).toBe(expected);
   });
 });
