@@ -130,6 +130,7 @@ export const defaultServices = {
   async handleForgotPassword(
     input: ResetPasswordInput
   ): Promise<ResetPasswordOutput> {
+    groupLog('+++handleForgotPassword', input);
     return resetPassword(input);
   },
 

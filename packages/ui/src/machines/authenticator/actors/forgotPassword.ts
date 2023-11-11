@@ -1,15 +1,31 @@
-import { createMachine, sendUpdate } from 'xstate';
+import { assign, createMachine, sendUpdate } from 'xstate';
 
 import { groupLog } from '../../../utils';
 import { runValidators } from '../../../validators';
 import actions, { getUsernameValue } from '../actions';
 import guards from '../guards';
 import { defaultServices } from '../defaultServices';
-import { AuthEvent, ResetPasswordContext } from '../types';
+import { AuthActorContext, AuthEvent, ResetPasswordContext } from '../types';
+import { sanitizePhoneNumber } from './signUp';
 
 export type ForgotPasswordMachineOptions = {
   services?: Partial<typeof defaultServices>;
 };
+
+const setUsernameResetPassword = assign({
+  username: ({ formValues, loginMechanisms }: AuthActorContext) => {
+    const loginMechanism = loginMechanisms[0];
+    const { username, country_code, email } = formValues;
+    if (loginMechanism === 'username') {
+      return username;
+    }
+    if (loginMechanism === 'phone_number') {
+      // Forgot Password form is called `username`
+      return sanitizePhoneNumber(country_code, username);
+    }
+    return email;
+  },
+});
 
 export function forgotPasswordActor({
   services,
@@ -60,12 +76,11 @@ export function forgotPasswordActor({
             },
             submit: {
               tags: 'pending',
-              entry: ['sendUpdate', 'clearError'],
+              entry: ['sendUpdate', 'clearError', setUsernameResetPassword],
               invoke: {
                 src: 'handleResetPassword',
                 onDone: {
                   actions: [
-                    'setUsername',
                     'setCodeDeliveryDetails',
                     'setNextResetPasswordStep',
                   ],
@@ -81,6 +96,7 @@ export function forgotPasswordActor({
         },
         confirmResetPassword: {
           type: 'parallel',
+          entry: setUsernameResetPassword,
           exit: ['clearFormValues', 'clearError', 'clearTouched'],
           states: {
             validation: {
@@ -185,10 +201,7 @@ export function forgotPasswordActor({
       actions: { ...actions, sendUpdate: sendUpdate() },
       guards,
       services: {
-        handleResetPassword({ formValues }: ResetPasswordContext) {
-          groupLog('+++forgotPassword', formValues);
-          const username = getUsernameValue(formValues);
-
+        handleResetPassword({ username }: ResetPasswordContext) {
           groupLog('+++forgotPassword username:', username);
           return services.handleForgotPassword({ username });
         },
