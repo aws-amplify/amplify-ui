@@ -10,7 +10,7 @@ import {
   ThemingSection,
 } from '@/components/home/sections';
 
-const VueHomePage = ({ colorMode }) => {
+const AngularHomePage = ({ colorMode }) => {
   const {
     query: { platform = 'react' },
   } = useRouter();
@@ -27,4 +27,4 @@ const VueHomePage = ({ colorMode }) => {
   );
 };
 
-export default VueHomePage;
+export default AngularHomePage;

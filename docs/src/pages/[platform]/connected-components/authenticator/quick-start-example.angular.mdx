@@ -45,6 +45,27 @@ Wrap your template with `amplify-authenticator` inside `app.component.html`
   </ng-template>
 </amplify-authenticator>
 ```
+**Only if you are using Angular 17,** import the `AmplifyAuthenticatorModule` in `app.component.ts`
+
+```ts{3,8,9}
+import { Component } from '@angular/core';
+import { Amplify } from 'aws-amplify';
+import { AmplifyAuthenticatorModule, AuthenticatorService } from '@aws-amplify/ui-angular';
+
+import awsExports from './aws-exports';
+
+@Component({
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, AmplifyAuthenticatorModule],
+  selector: 'app-root',
+  templateUrl: 'app.component.html',
+})
+export class UseAuthenticatorComponent {
+  constructor(public authenticator: AuthenticatorService) {
+    Amplify.configure(awsExports);
+  }
+}
+```
 
 <Alert role="none" variation="info" heading="Angular Authenticator v1">
   Looking for a previous version of Authenticator? Checkout the [Authenticator v1 documentation](https://github.com/aws-amplify/amplify-ui/tree/legacy/legacy/amplify-ui-angular).
