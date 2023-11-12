@@ -11,7 +11,7 @@ import { toRefs } from 'vue';
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
-const { toResetPassword, toSignIn } = toRefs(useAuthenticator());
+const { toForgotPassword, toSignIn } = toRefs(useAuthenticator());
 
 const formFields = {
   signIn: {
@@ -36,7 +36,7 @@ const formFields = {
       placeholder: 'Enter your Password:',
     },
   },
-  resetPassword: {
+  forgotPassword: {
     username: {
       placeholder: 'Enter your email:',
     },
@@ -51,7 +51,7 @@ const formFields = {
       placeholder: 'Enter your Password Please:',
     },
   },
-  setupTOTP: {
+  setupTotp: {
     QR: {
       totpIssuer: 'test issuer',
       totpUsername: 'amplify_qr_test_user',
@@ -96,7 +96,7 @@ const formFields = {
     <template v-slot:sign-in-footer>
       <div style="text-align: center">
         <button
-          @click="toResetPassword"
+          @click="toForgotPassword"
           class="amplify-button amplify-field-group__control"
           data-fullwidth="false"
           data-size="small"

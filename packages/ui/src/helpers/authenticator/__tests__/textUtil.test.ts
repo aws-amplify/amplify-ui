@@ -1,5 +1,6 @@
+import { V6AuthDeliveryMedium } from '../../../machines/authenticator/types';
+
 import { authenticatorTextUtil } from '../textUtil';
-import { V6AuthDeliveryMedium } from '../../../types';
 
 describe('authenticatorTextUtil', () => {
   describe('getChallengeText', () => {

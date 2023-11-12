@@ -1583,9 +1583,7 @@ exports[`SignIn renders as expected with social providers 1`] = `
             {
               "color": "hsl(210, 50%, 10%)",
             },
-            [
-              undefined,
-            ],
+            undefined,
           ]
         }
       >

@@ -7,7 +7,7 @@ import awsExports from './aws-exports';
   selector: 'reset-password',
   templateUrl: 'reset-password.component.html',
 })
-export class ResetPasswordComponent {
+export class ForgotPasswordComponent {
   constructor() {
     Amplify.configure(awsExports);
   }

@@ -27,7 +27,7 @@ import ConfirmSignUp from './confirm-sign-up.vue';
 import ConfirmSignIn from './confirm-sign-in.vue';
 import SetupTotp from './setup-totp.vue';
 import ForceNewPassword from './force-new-password.vue';
-import ResetPassword from './reset-password.vue';
+import ForgotPassword from './forgot-password.vue';
 import ConfirmResetPassword from './confirm-reset-password.vue';
 import VerifyUser from './verify-user.vue';
 import ConfirmVerifyUser from './confirm-verify-user.vue';
@@ -112,9 +112,9 @@ const signInComponent = ref();
 const signUpComponent = ref();
 const confirmSignUpComponent = ref();
 const confirmSignInComponent = ref();
-const confirmSetupTOTPComponent = ref();
+const confirmSetupTotpComponent = ref();
 const forceNewPasswordComponent = ref();
-const resetPasswordComponent = ref();
+const ForgotPasswordComponent = ref();
 const confirmResetPasswordComponent = ref();
 const verifyUserComponent = ref();
 const confirmVerifyUserComponent = ref();
@@ -138,8 +138,8 @@ const hasRouteComponent = computed(() => {
     'confirmSignUp',
     'confirmVerifyUser',
     'forceNewPassword',
-    'resetPassword',
-    'setupTOTP',
+    'forgotPassword',
+    'setupTotp',
     'signIn',
     'signUp',
     'verifyUser',
@@ -247,20 +247,20 @@ const hasRouteComponent = computed(() => {
           </template>
         </confirm-sign-up>
 
-        <reset-password
-          v-if="route === 'resetPassword'"
-          ref="resetPasswordComponent"
+        <forgot-password
+          v-if="route === 'forgotPassword'"
+          ref="ForgotPasswordComponent"
         >
           <template #resetPasswordSlotI>
-            <slot name="reset-password"></slot>
+            <slot name="forgot-password"></slot>
           </template>
           <template #header>
-            <slot name="reset-password-header"></slot>
+            <slot name="forgot-password-header"></slot>
           </template>
           <template #footer>
-            <slot name="reset-password-footer"> </slot>
+            <slot name="forgot-password-footer"> </slot>
           </template>
-        </reset-password>
+        </forgot-password>
 
         <confirm-reset-password
           v-if="route === 'confirmResetPassword'"
@@ -293,10 +293,10 @@ const hasRouteComponent = computed(() => {
         </confirm-sign-in>
 
         <setup-totp
-          v-if="route === 'setupTOTP'"
-          ref="confirmSetupTOTPComponent"
+          v-if="route === 'setupTotp'"
+          ref="confirmSetupTotpComponent"
         >
-          <template #confirmSetupTOTPI>
+          <template #confirmSetupTotpI>
             <slot name="setup-totp"></slot>
           </template>
           <template #header>

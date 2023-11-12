@@ -12,6 +12,7 @@ export const routeSelector: UseAuthenticatorSelector = ({ route }) => [route];
 export default function useAuthenticatorInitMachine(
   data: AuthenticatorMachineOptions
 ): void {
+  // @todo-migration delete
   // eslint-disable-next-line no-console
   // console.group('+++useAuthenticatorInitMachine');
   // eslint-disable-next-line no-console

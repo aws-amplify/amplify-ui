@@ -174,10 +174,10 @@ Here are the various components and input names that are available for customiza
 | `signIn`               | `username` `password`                                                                                                                                                           |
 | `signUp`               | `email` `phone_number` `username` `password` `confirm_password` `preferred_username` `birthdate` `family_name` `middle_name` `given_name` `name` `nickname` `profile` `website` |
 | `confirmSignUp`        | `confirmation_code`                                                                                                                                                             |
-| `resetPassword`        | `username`                                                                                                                                                                      |
+| `forgotPassword`        | `username`                                                                                                                                                                      |
 | `confirmResetPassword` | `confirmation_code` `password` `confirm_password`                                                                                                                               |
 | `forceNewPassword`     | `password` `confirm_password`                                                                                                                                                   |
-| `setupTOTP`            | `confirmation_code`                                                                                                                                                             |
+| `setupTotp`            | `confirmation_code`                                                                                                                                                             |
 | `confirmSignIn`        | `confirmation_code`                                                                                                                                                             |
 | `confirmVerifyUser`    | `confirmation_code`                                                                                                                                                             |
 
@@ -186,8 +186,8 @@ Here are the various components and input names that are available for customiza
 ## Update Setup TOTP QR Issuer and Username
 
 When setting up TOTP you can customize the issuer and username that will be shown in TOTP applications.
-This can be done by adding the `formFields` prop to the Authenticator component with a `setupTOTP` key.
-The `setupTOTP` should have a `QR` key with a `totpIssuer` and or `totpUsername` as seen in the example below.
+This can be done by adding the `formFields` prop to the Authenticator component with a `setupTotp` key.
+The `setupTotp` should have a `QR` key with a `totpIssuer` and or `totpUsername` as seen in the example below.
 
 **Note:** Unless changed, the default `issuer` is `AWSCognito` and `username` will be the current `user.username` for the user signing up.
 

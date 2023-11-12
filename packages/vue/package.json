@@ -6,9 +6,9 @@
   "module": "dist/index.js",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.cjs"
     },
     "./styles.css": "./dist/style.css"
   },
@@ -32,9 +32,10 @@
     "dev": "vite build --watch",
     "clean": "rimraf dist node_modules",
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-vue\"'",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "lint": "yarn typecheck && eslint . --ext .vue,.js,.jsx,.ts,.tsx",
     "test": "jest",
-    "test:watch": "yarn test --watch"
+    "test:watch": "yarn test --watch",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@aws-amplify/ui": "5.8.1",

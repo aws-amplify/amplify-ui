@@ -46,8 +46,8 @@ Feature: Sign In with TOTP MFA
     Then I click the "Sign in" button
     Then I see "User does not exist"
 
-  # This tests the scenario where an admin creates a user with a temporary password
-  # and the user is forced to setup a new password + setup MFA/TOTP
+  # Tests the scenario where an admin creates a user with a temporary password
+  # and the user is forced to setup a new password then setup TOTP as MFA type
   @angular @react @vue
   Scenario: Sign in with admin created user account, user must change password on first login and setup totp/mfa
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password"
@@ -64,8 +64,8 @@ Feature: Sign In with TOTP MFA
     Then I confirm request '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }'
     Then I see "Setup TOTP"
 
-  # Test broken because we can't mock autosignin after confirmation code submission
-  @skip @angular @react @vue
+  # @todo-migration Potentially remove - Test broken due to inability to mock autosignin response
+  # @skip @angular @react @vue
   Scenario: Successful sign up shows correct username from authenticated user
     When I click the "Create Account" tab
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
