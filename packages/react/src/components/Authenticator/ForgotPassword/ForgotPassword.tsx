@@ -22,8 +22,6 @@ export const ResetPassword = ({
   className,
   variation,
 }: RouteProps): JSX.Element => {
-  // eslint-disable-next-line no-console
-  console.log('+++UI: ResetPassword');
   const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleChange, handleSubmit } = useFormHandlers();
 

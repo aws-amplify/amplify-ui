@@ -269,17 +269,7 @@ When('I click the {string} checkbox', (label: string) => {
 });
 
 When('I click the {string} radio button', (label: string) => {
-  console.log('HIIIIIIII', label);
-
-  cy.findByLabelText(new RegExp(`^${escapeRegExp(label)}`, 'i')).click({
-    // We have to force this click because the radio input type isn't visible by default
-    // and instead has ::before decoration.
-    //
-    //    cy.click() failed because this element:
-    //    <input ...> is being covered by another element:
-    //    <form ...>...</form>
-    // force: true,
-  });
+  cy.findByLabelText(new RegExp(`^${escapeRegExp(label)}`, 'i')).click();
 });
 
 When('I reload the page', () => {
