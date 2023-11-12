@@ -35,22 +35,23 @@ I18n.putVocabulariesForLanguage('en', {
 function AuthenticatorWithEmail() {
   const { authStatus } = useAuthenticator((context) => [context.authStatus]);
   const services = {
-    async handleSignUp(formData) {
-      let { username, password, attributes } = formData;
-      // custom username
-      username = username.toLowerCase();
-      attributes.email = attributes.email.toLowerCase();
+    async handleSignUp(input) {
+      // custom username and email
+      const customUsername = input.username.toLowerCase();
+      const customEmail = input.options.userAttributes.email.toLowerCase();
       return Auth.signUp({
-        username,
-        password,
+        ...input,
+        username: customUsername,
         options: {
-          userAttributes: attributes,
-          autoSignIn: true,
+          ...input.options,
+          userAttributes: {
+            ...input.options.userAttributes,
+            email: customEmail,
+          },
         },
       });
     },
   };
-
   return (
     <>
       <View>{authStatus}</View>

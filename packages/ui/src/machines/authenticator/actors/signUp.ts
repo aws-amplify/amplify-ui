@@ -23,6 +23,36 @@ export type SignUpMachineOptions = {
   services?: Partial<typeof defaultServices>;
 };
 
+const getUserAttributes = (formValues) =>
+  pickBy(formValues, (_, key) => {
+    // Allowlist of Cognito User Pool Attributes (from OpenID Connect specification)
+    // See: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html
+    switch (key) {
+      case 'address':
+      case 'birthdate':
+      case 'email':
+      case 'family_name':
+      case 'gender':
+      case 'given_name':
+      case 'locale':
+      case 'middle_name':
+      case 'name':
+      case 'nickname':
+      case 'phone_number':
+      case 'picture':
+      case 'preferred_username':
+      case 'profile':
+      case 'updated_at':
+      case 'website':
+      case 'zoneinfo':
+        return true;
+
+      // Otherwise, it's a custom attribute
+      default:
+        return key.startsWith('custom:');
+    }
+  });
+
 const handleResetPasswordResponse = {
   onDone: [
     { actions: 'setCodeDeliveryDetails', target: '#signUpActor.resolved' },
@@ -37,9 +67,7 @@ const handleAutoSignInResponse = {
       actions: 'setNextSignInStep',
       target: '#signUpActor.fetchUserAttributes',
     },
-    {
-      cond: 'shouldSetuptTotp',
-    },
+    // @todo-migration handle continue sign in with setuptotp here
     {
       cond: 'shouldConfirmSignInWithNewPassword',
       actions: 'setNextSignInStep',
@@ -177,7 +205,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
               initial: 'idle',
               states: {
                 idle: {
-                  entry: 'sendUpdate',
+                  entry: ['sendUpdate'],
                   on: {
                     SUBMIT: { actions: 'handleSubmit', target: 'validate' },
                     FEDERATED_SIGN_IN: 'federatedSignIn',
@@ -195,16 +223,15 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                   invoke: {
                     src: 'validateSignUp',
                     onDone: {
-                      target: 'handleSignUp',
+                      target: 'signUp',
                       actions: 'clearValidationError',
                     },
                     onError: { actions: 'setFieldErrors', target: 'idle' },
                   },
                 },
-                handleSignUp: {
-                  // clear error
+                signUp: {
                   tags: 'pending',
-                  entry: ['sendUpdate', 'setUsernameSignUp'],
+                  entry: ['setUsernameSignUp', 'clearError'],
                   exit: 'sendUpdate',
                   invoke: {
                     src: 'handleSignUp',
@@ -228,11 +255,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                       },
                     ],
                     onError: {
-                      actions: [
-                        'clearUsername',
-                        'sendUpdate',
-                        'setRemoteError',
-                      ],
+                      actions: ['sendUpdate', 'setRemoteError'],
                       target: 'idle',
                     },
                   },
@@ -317,45 +340,17 @@ export function signUpActor({ services }: SignUpMachineOptions) {
           console.log('+++resendSignUpCode username:', username);
           return resendSignUpCode({ username });
         },
-        async federatedSignIn(_, event) {
-          groupLog('+++signUp.signInWithRedirect', event);
-          const { provider } = event.data;
-          return signInWithRedirect({ provider });
+        async federatedSignIn(_, { data }) {
+          groupLog('+++signUp.signInWithRedirect', data);
+          return signInWithRedirect(data);
         },
         async handleSignUp(context, _event) {
-          groupLog('+++signUp', context);
+          groupLog('+++handleSignUp', context);
           const { formValues, loginMechanisms, username } = context;
-          const [loginMechanism = 'username'] = loginMechanisms;
+          const loginMechanism = loginMechanisms[0];
           const { password } = formValues;
 
-          const attributes = pickBy(formValues, (_, key) => {
-            // Allowlist of Cognito User Pool Attributes (from OpenID Connect specification)
-            // See: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html
-            switch (key) {
-              case 'address':
-              case 'birthdate':
-              case 'email':
-              case 'family_name':
-              case 'gender':
-              case 'given_name':
-              case 'locale':
-              case 'middle_name':
-              case 'name':
-              case 'nickname':
-              case 'phone_number':
-              case 'picture':
-              case 'preferred_username':
-              case 'profile':
-              case 'updated_at':
-              case 'website':
-              case 'zoneinfo':
-                return true;
-
-              // Otherwise, it's a custom attribute
-              default:
-                return key.startsWith('custom:');
-            }
-          });
+          const attributes = getUserAttributes(formValues);
 
           const input: SignUpInput = {
             username,
@@ -363,7 +358,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
             options: {
               autoSignIn: true,
               userAttributes: {
-                // replace phone_number with `username` parsed in `setUsernameSignUp`
+                // use `username` value for `phone_number`
                 ...(loginMechanism === 'phone_number'
                   ? { ...attributes, phone_number: username }
                   : attributes),
@@ -371,7 +366,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
             },
           };
 
-          return await services.handleSignUp(input);
+          return services.handleSignUp(input);
         },
         async validateSignUp(context, event) {
           // This needs to exist in the machine to reference new `services`

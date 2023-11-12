@@ -91,7 +91,6 @@ const clearFormValues = assign({
 });
 const clearTouched = assign({ touched: (_) => ({}) });
 
-const clearUsername = assign({ username: (_) => undefined });
 const clearValidationError = assign({ validationError: (_) => ({}) });
 
 /**
@@ -155,6 +154,8 @@ const setUsernameResetPassword = assign({
 const setUsernameSignUp = assign({
   username: ({ formValues, loginMechanisms }: AuthActorContext) => {
     const loginMechanism = loginMechanisms[0];
+    console.log('setUsernameSignUp formValues', formValues);
+
     const { username, country_code, email } = formValues;
 
     if (loginMechanism === 'phone_number') {
@@ -326,37 +327,6 @@ const handleBlur = assign({
   },
 });
 
-/**
- * This action occurs on the entry to a state where a form submit action
- * occurs. It combines the phone_number and country_code form values, parses
- * the result, and updates the form values with the full phone number which is
- * the required format by Cognito for form submission.
- */
-const parsePhoneNumber = assign({
-  formValues: (context: AuthActorContext, _) => {
-    const [primaryAlias = 'username'] = context?.loginMechanisms ?? [];
-
-    if (!context.formValues.phone_number && primaryAlias !== 'phone_number') {
-      return context.formValues;
-    }
-
-    const { formValues } = context;
-    const phoneAlias = formValues.phone_number ? 'phone_number' : 'username';
-
-    const parsedPhoneNumber = `${
-      formValues.country_code ?? DEFAULT_COUNTRY_CODE
-    }${formValues[phoneAlias]}`.replace(/[^A-Z0-9+]/gi, '');
-
-    const updatedFormValues = {
-      ...formValues,
-      [phoneAlias]: parsedPhoneNumber,
-    };
-    delete updatedFormValues.country_code;
-
-    return updatedFormValues;
-  },
-});
-
 const setUnverifiedUserAttributes = assign({
   unverifiedUserAttributes: (_, event: AuthEvent) => {
     groupLog('+++setUnverifiedUserAttributes', 'event', event);
@@ -392,12 +362,10 @@ const ACTIONS: MachineOptions<AuthActorContext, AuthEvent>['actions'] = {
   clearMissingAttributes,
   clearSelectedUserAttribute,
   clearTouched,
-  clearUsername,
   clearValidationError,
   handleBlur,
   handleInput,
   handleSubmit,
-  parsePhoneNumber,
   setChallengeName,
   setCodeDeliveryDetails,
   setFieldErrors,

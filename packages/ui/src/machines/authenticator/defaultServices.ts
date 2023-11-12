@@ -20,7 +20,6 @@ import {
   SocialProvider,
   ValidatorResult,
 } from '../../types';
-import { groupLog } from '../../utils';
 
 // Cognito does not allow a password length less then 8 characters
 const DEFAULT_COGNITO_PASSWORD_MIN_LENGTH = 8;

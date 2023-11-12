@@ -71,7 +71,7 @@ export function forgotPasswordActor({
                   target: '#forgotPasswordActor.confirmResetPassword',
                 },
                 onError: {
-                  actions: ['clearUsername', 'setRemoteError'],
+                  actions: 'setRemoteError',
                   target: 'edit',
                 },
               },
@@ -184,7 +184,7 @@ export function forgotPasswordActor({
       actions: { ...actions, sendUpdate: sendUpdate() },
       guards,
       services: {
-        handleForgotPassword({ username }: ResetPasswordContext) {
+        handleResetPassword({ username }: ResetPasswordContext) {
           groupLog('+++forgotPassword username:', username);
           return services.handleForgotPassword({ username });
         },
