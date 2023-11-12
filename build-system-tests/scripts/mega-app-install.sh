@@ -11,6 +11,7 @@ PKG_MANAGER="npm"
 PKG_MANAGER_VERSION="latest"
 UI_VERSION="next-release-unstable"
 AMPLIFY_VERSION="6.0.1"
+AMPLIFY_GEO_VERSION="3.0.1"
 
 # Import install function
 source "./scripts/install-with-retries.sh"
@@ -86,14 +87,14 @@ echo "##########################"
 echo "# Start Mega App Install #"
 echo "##########################"
 
-DEPENDENCIES="$FRAMEWORK@$FRAMEWORK_VERSION @aws-amplify/ui-$FRAMEWORK@$UI_VERSION aws-amplify@$AMPLIFY_VERSION"
+DEPENDENCIES="$FRAMEWORK@$FRAMEWORK_VERSION @aws-amplify/ui-$FRAMEWORK@$UI_VERSION aws-amplify@$AMPLIFY_VERSION @aws-amplify/geo@$AMPLIFY_GEO_VERSION"
 
 echo "cd ./mega-apps/${MEGA_APP_NAME}"
 cd ./mega-apps/${MEGA_APP_NAME}
 
 if [ "$FRAMEWORK" == 'react' ]; then
     # add react-dom
-    DEPENDENCIES="$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage@$UI_VERSION @aws-amplify/ui-react-geo@$UI_VERSION @aws-amplify/ui-react-notifications@$UI_VERSION"
+    DEPENDENCIES="$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage@$UI_VERSION @aws-amplify/ui-react-geo@$UI_VERSION @aws-amplify/ui-react-notifications@$UI_VERSION @aws-amplify/geo@$AMPLIFY_GEO_VERSION"
     echo "DEPENDENCIES='$DEPENDENCIES'"
 
     if [[ "$BUILD_TOOL" == 'cra' && "$LANGUAGE" == 'ts' ]]; then
@@ -105,7 +106,7 @@ elif [ "$FRAMEWORK" == 'angular' ]; then
     # remove angular since it's deprecated https://www.npmjs.com/package/angular
     # We've install @amplify/cli when creating the app
     echo "DEPENDENCIES="@aws-amplify/ui-$FRAMEWORK@$UI_VERSION aws-amplify@$AMPLIFY_VERSION""
-    DEPENDENCIES="@aws-amplify/ui-$FRAMEWORK@$UI_VERSION aws-amplify@$AMPLIFY_VERSION"
+    DEPENDENCIES="@aws-amplify/ui-$FRAMEWORK@$UI_VERSION aws-amplify@$AMPLIFY_VERSION @aws-amplify/geo@$AMPLIFY_GEO_VERSION"
 fi
 
 echo "Dependencies to be installed: $DEPENDENCIES"
