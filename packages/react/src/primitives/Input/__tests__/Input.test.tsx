@@ -149,8 +149,9 @@ describe('Input component', () => {
     const onPaste = jest.fn();
     render(<Input onChange={onChange} onInput={onInput} onPaste={onPaste} />);
     const input = await screen.findByRole('textbox');
-    userEvent.type(input, 'hello');
-    // userEvent.paste(input, 'there');
+    await userEvent.type(input, 'hello');
+    input.focus();
+    await userEvent.paste('there');
     expect(onChange).toHaveBeenCalled();
     expect(onInput).toHaveBeenCalled();
     expect(onPaste).toHaveBeenCalled();

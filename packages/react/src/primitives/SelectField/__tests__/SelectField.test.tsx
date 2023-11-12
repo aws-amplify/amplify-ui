@@ -256,7 +256,7 @@ describe('SelectField', () => {
       </SelectField>
     );
     const select = await screen.findByRole(role);
-    userEvent.selectOptions(select, '2');
+    await userEvent.selectOptions(select, '2');
     expect(onChange).toHaveBeenCalled();
   });
 

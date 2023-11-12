@@ -286,7 +286,7 @@ describe('Button test suite', () => {
     render(<Button onClick={onClick} />);
 
     const button = await screen.findByRole('button');
-    userEvent.click(button);
+    await userEvent.click(button);
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 });

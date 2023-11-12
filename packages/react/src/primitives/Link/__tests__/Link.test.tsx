@@ -105,14 +105,14 @@ describe('Link:', () => {
     });
   });
 
-  it('can integrate with react-router-dom using the "to" prop', () => {
+  it('can integrate with react-router-dom using the "to" prop', async () => {
     render(<SampleRoutingApp />);
 
     expect(screen.getByText(/you are home/i)).toBeInTheDocument();
 
     const leftClick = { button: 0 };
     const events = userEvent.setup();
-    events.click(screen.getByText(/about/i));
+    await events.click(screen.getByText(/about/i));
 
     expect(screen.getByText(/you are on the about page/i)).toBeInTheDocument();
   });
