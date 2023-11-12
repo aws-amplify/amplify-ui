@@ -525,7 +525,7 @@
     lodash "^4.17.21"
     tslib "^2.5.0"
 
-"@aws-amplify/react-native@^1.0.1":
+"@aws-amplify/react-native@1.0.1", "@aws-amplify/react-native@^1.0.1":
   version "1.0.1"
   resolved "https://registry.npmjs.org/@aws-amplify/react-native/-/react-native-1.0.1.tgz#ac30f15d2b3cb0be23f8131004dcc733da61e2dc"
   integrity sha512-2exgwmZLJUm1XME1hLwTjwe3GmFYQgPPz13/dmv5r+ovwmKTcs/Y1w3gpRm3y99DjNvwJcjDvx8XOLgvfJg2fQ==
@@ -534,9 +534,9 @@
     buffer "^6.0.3"
     react-native-url-polyfill "^2.0.0"
 
-"@aws-amplify/rtn-web-browser@^1.0.1":
+"@aws-amplify/rtn-web-browser@1.0.1":
   version "1.0.1"
-  resolved "https://registry.npmjs.org/@aws-amplify/rtn-web-browser/-/rtn-web-browser-1.0.1.tgz#075541d359abc5549c2aaf834e24b2cbf50b12cd"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/rtn-web-browser/-/rtn-web-browser-1.0.1.tgz#075541d359abc5549c2aaf834e24b2cbf50b12cd"
   integrity sha512-1XXLzcUGEsTt3XlY/px8ZbcoAQBF35GkUFgEdcUtFfVRuW5uhppr/jFvyX1RulRLa6CyWwm14jbcvrW8IXIk2g==
 
 "@aws-amplify/storage@6.0.1":
@@ -17698,9 +17698,9 @@ maplibre-gl-draw-circle@^0.1.1:
     "@turf/helpers" "^6.1.4"
     "@turf/length" "^6.0.2"
 
-maplibre-gl-js-amplify@4.0.0:
+maplibre-gl-js-amplify@^4.0.0:
   version "4.0.0"
-  resolved "https://registry.npmjs.org/maplibre-gl-js-amplify/-/maplibre-gl-js-amplify-4.0.0.tgz#285edbe6fe9dc8cf9d44472e896e3091062d558f"
+  resolved "https://registry.yarnpkg.com/maplibre-gl-js-amplify/-/maplibre-gl-js-amplify-4.0.0.tgz#285edbe6fe9dc8cf9d44472e896e3091062d558f"
   integrity sha512-Zm1D4TytJ2U0QRKAha2SwdZjxcBhxD3DYyuIaElsSjEZ99zAfZrfHw0/arH+vs9WhFgBETlwn5QwmV0vUcow7A==
   dependencies:
     "@mapbox/mapbox-gl-draw" "^1.3.0"
