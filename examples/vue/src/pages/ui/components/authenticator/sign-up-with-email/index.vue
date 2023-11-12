@@ -37,7 +37,7 @@ const services = {
     // custom username and email
     const customUsername = input.username.toLowerCase();
     const customEmail = input.options.userAttributes.email.toLowerCase();
-    return Auth.signUp({
+    return signUp({
       ...input,
       username: customUsername,
       options: {
