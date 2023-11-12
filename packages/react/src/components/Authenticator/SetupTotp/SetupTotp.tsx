@@ -25,8 +25,6 @@ export const SetupTotp = ({
   className,
   variation,
 }: RouteProps): JSX.Element => {
-  // eslint-disable-next-line no-console
-  console.log('+++UI: SetupTotp');
   const { totpSecretCode, isPending, username, QRFields } = useAuthenticator(
     (context) => [context.isPending, context.totpSecretCode, context.username]
   );

@@ -7,10 +7,6 @@ export const getRoute = (
   state: AuthMachineState,
   actorState: AuthActorState
 ) => {
-  // @todo-migration delete
-  // console.log('state', state?.value);
-  // console.log('actorState', actorState?.value);
-
   switch (true) {
     case state.matches('idle'):
       return 'idle';
@@ -51,9 +47,6 @@ export const getRoute = (
        */
       return 'transition';
     default:
-      // @todo-migration delete
-      // console.log('state', state);
-      // console.log('actorState', actorState);
       console.debug(
         'Cannot infer `route` from Authenticator state:',
         state.value
