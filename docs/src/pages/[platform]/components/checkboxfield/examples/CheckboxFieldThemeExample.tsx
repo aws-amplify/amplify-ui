@@ -13,7 +13,7 @@ const theme: Theme = {
           },
         },
         icon: {
-          backgroundColor: { value: '{colors.brand.secondary.80}' },
+          backgroundColor: { value: '{colors.secondary.80}' },
         },
       },
     },

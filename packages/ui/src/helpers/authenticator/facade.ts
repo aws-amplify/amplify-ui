@@ -7,26 +7,28 @@
 import { Sender } from 'xstate';
 
 import {
-  ActorContextWithForms,
   AmplifyUser,
+  FederatedProvider,
+  LoginMechanism,
+  SocialProvider,
+  UnverifiedUserAttributes,
+  ValidationError,
+} from '../../types';
+
+import {
+  AuthActorContext,
   AuthEvent,
   AuthEventData,
   AuthEventTypes,
   AuthMachineState,
   ChallengeName,
-  CodeDeliveryDetails,
-  FederatedProvider,
-  LoginMechanism,
   NavigableRoute,
-  SocialProvider,
-  UnverifiedContactMethods,
-  ValidationError,
-} from '../../types';
+  V5CodeDeliveryDetails,
+} from '../../machines/authenticator/types';
 
 import { getActorContext, getActorState } from './actor';
 import { NAVIGABLE_ROUTE_EVENT } from './constants';
-import { getRoute } from './utils';
-import { groupLog } from '../../utils';
+import { getRoute } from './getRoute';
 
 export type AuthenticatorRoute =
   | 'authenticated'
@@ -36,10 +38,10 @@ export type AuthenticatorRoute =
   | 'confirmVerifyUser'
   | 'forceNewPassword'
   | 'idle'
-  | 'resetPassword'
+  | 'forgotPassword'
   | 'setup'
   | 'signOut'
-  | 'setupTOTP'
+  | 'setupTotp'
   | 'signIn'
   | 'signUp'
   | 'transition'
@@ -51,15 +53,16 @@ export type AuthStatus = 'configuring' | 'authenticated' | 'unauthenticated';
 interface AuthenticatorServiceContextFacade {
   authStatus: AuthStatus;
   challengeName: ChallengeName | undefined;
-  codeDeliveryDetails: CodeDeliveryDetails;
+  codeDeliveryDetails: V5CodeDeliveryDetails;
   error: string;
   hasValidationErrors: boolean;
   isPending: boolean;
   route: AuthenticatorRoute;
   socialProviders: SocialProvider[];
   totpSecretCode: string | null;
-  unverifiedContactMethods: UnverifiedContactMethods;
+  unverifiedUserAttributes: UnverifiedUserAttributes;
   user: AmplifyUser;
+  username: string;
   validationErrors: AuthenticatorValidationErrors;
 }
 
@@ -71,7 +74,7 @@ type SendEventAlias =
   | 'updateForm'
   | 'updateBlur'
   | 'toFederatedSignIn'
-  | 'toResetPassword'
+  | 'toForgotPassword'
   | 'toSignIn'
   | 'toSignUp'
   | 'skipVerification';
@@ -87,7 +90,7 @@ export interface AuthenticatorServiceFacade
 
 interface NextAuthenticatorServiceContextFacade {
   challengeName: ChallengeName | undefined;
-  codeDeliveryDetails: CodeDeliveryDetails | undefined;
+  codeDeliveryDetails: V5CodeDeliveryDetails | undefined;
   errorMessage: string | undefined;
   federatedProviders: FederatedProvider[] | undefined;
   loginMechanism: LoginMechanism | undefined;
@@ -95,7 +98,7 @@ interface NextAuthenticatorServiceContextFacade {
   route: AuthenticatorRoute;
   totpSecretCode: string | undefined;
   username: string | undefined;
-  unverifiedContactMethods: UnverifiedContactMethods | undefined;
+  unverifiedUserAttributes: UnverifiedUserAttributes | undefined;
 }
 
 interface NextAuthenticatorSendEventAliases
@@ -140,9 +143,8 @@ export const getSendEventAliases = (
 
     // Actions that don't immediately invoke a service but instead transition to a screen
     // are prefixed with `to*`
-
     toFederatedSignIn: sendToMachine('FEDERATED_SIGN_IN'),
-    toResetPassword: sendToMachine('RESET_PASSWORD'),
+    toForgotPassword: sendToMachine('FORGOT_PASSWORD'),
     toSignIn: sendToMachine('SIGN_IN'),
     toSignUp: sendToMachine('SIGN_UP'),
     skipVerification: sendToMachine('SKIP'),
@@ -168,14 +170,15 @@ const getNextSendEventAliases = (
 export const getServiceContextFacade = (
   state: AuthMachineState
 ): AuthenticatorServiceContextFacade => {
-  const actorContext = (getActorContext(state) ?? {}) as ActorContextWithForms;
+  const actorContext = (getActorContext(state) ?? {}) as AuthActorContext;
   const {
     challengeName,
     codeDeliveryDetails,
     remoteError: error,
-    unverifiedContactMethods,
     validationError: validationErrors,
     totpSecretCode = null,
+    unverifiedUserAttributes,
+    username,
   } = actorContext;
 
   const { socialProviders = [] } = state.context?.config ?? {};
@@ -217,8 +220,9 @@ export const getServiceContextFacade = (
     route,
     socialProviders,
     totpSecretCode,
-    unverifiedContactMethods,
+    unverifiedUserAttributes,
     user,
+    username,
     validationErrors,
 
     // @v6-migration-note
@@ -236,12 +240,14 @@ export const getServiceContextFacade = (
 export const getNextServiceContextFacade = (
   state: AuthMachineState
 ): NextAuthenticatorServiceContextFacade => {
-  const actorContext = (getActorContext(state) ?? {}) as ActorContextWithForms;
+  const actorContext = (getActorContext(state) ?? {}) as AuthActorContext;
   const {
+    challengeName,
     codeDeliveryDetails,
     remoteError: errorMessage,
-    unverifiedContactMethods,
     totpSecretCode,
+    unverifiedUserAttributes,
+    username,
   } = actorContext;
 
   const { socialProviders: federatedProviders, loginMechanisms } =
@@ -249,10 +255,6 @@ export const getNextServiceContextFacade = (
 
   const loginMechanism = loginMechanisms?.[0];
 
-  // check for user in actorContext prior to state context. actorContext is more "up to date",
-  // but is not available on all states
-  const user = actorContext?.user ?? state.context?.user;
-  const { challengeName, username } = user ?? {};
   const actorState = getActorState(state);
   const isPending = state.hasTag('pending') || actorState?.hasTag('pending');
 
@@ -268,7 +270,7 @@ export const getNextServiceContextFacade = (
     loginMechanism,
     route,
     totpSecretCode,
-    unverifiedContactMethods,
+    unverifiedUserAttributes,
     username,
   };
 };

@@ -1,7 +1,6 @@
 <script setup lang="ts">
-// @todo-migration clean up imports
 import { Amplify } from 'aws-amplify';
-import * as Auth from 'aws-amplify/auth';
+import { signUp } from 'aws-amplify/auth';
 import { I18n } from 'aws-amplify/utils';
 import {
   Authenticator,
@@ -24,7 +23,7 @@ const formFields = {
     },
   },
 };
-// @todo-migration remove cast
+
 I18n.putVocabularies(translations);
 I18n.setLanguage('en');
 I18n.putVocabulariesForLanguage('en', {
@@ -34,17 +33,19 @@ I18n.putVocabulariesForLanguage('en', {
 });
 
 const services = {
-  async handleSignUp(formData) {
-    let { username, password, attributes } = formData;
-    // custom username
-    username = username.toLowerCase();
-    attributes.email = attributes.email.toLowerCase();
-    return Auth.signUp({
-      username,
-      password,
+  async handleSignUp(input) {
+    // custom username and email
+    const customUsername = input.username.toLowerCase();
+    const customEmail = input.options.userAttributes.email.toLowerCase();
+    return signUp({
+      ...input,
+      username: customUsername,
       options: {
-        userAttributes: attributes,
-        autoSignIn: true,
+        ...input.options,
+        userAttributes: {
+          ...input.options.userAttributes,
+          email: customEmail,
+        },
       },
     });
   },
@@ -53,7 +54,11 @@ const services = {
 
 <template>
   {{ authStatus }}
-  <authenticator :services="services" :form-fields="formFields" initial-state="signUp">
+  <authenticator
+    :services="services"
+    :form-fields="formFields"
+    initial-state="signUp"
+  >
     <template v-slot="{ user, signOut }">
       <h1>Hello {{ user.username }}!</h1>
       <button @click="signOut">Sign Out</button>

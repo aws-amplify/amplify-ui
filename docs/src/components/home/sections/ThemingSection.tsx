@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 import { MdOutlineAutoAwesome } from 'react-icons/md';
 import { Heading, View, Text, Flex } from '@aws-amplify/ui-react';
 import { ThemeSwitcher } from '@/components/home/ThemeSwitcher';

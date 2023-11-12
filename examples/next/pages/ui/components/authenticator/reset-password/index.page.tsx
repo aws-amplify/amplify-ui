@@ -8,7 +8,7 @@ Amplify.configure(awsExports);
 
 export default function App() {
   return (
-    <Authenticator initialState="resetPassword">
+    <Authenticator initialState="forgotPassword">
       {({ signOut, user }) => (
         <main>
           <h1>Hello {user.username}</h1>

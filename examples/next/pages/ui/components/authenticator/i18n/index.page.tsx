@@ -8,7 +8,6 @@ import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
-// @todo-migration remove cast
 I18n.putVocabularies(translations);
 I18n.setLanguage('ja');
 I18n.putVocabulariesForLanguage('ja', {

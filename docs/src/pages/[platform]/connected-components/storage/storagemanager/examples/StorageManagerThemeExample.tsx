@@ -10,7 +10,7 @@ const theme = {
     components: {
       storagemanager: {
         dropzone: {
-          borderColor: '{colors.brand.primary.60}',
+          borderColor: '{colors.primary.60}',
         },
       },
     },

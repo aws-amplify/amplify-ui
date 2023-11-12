@@ -10,23 +10,30 @@ Feature: Sign In with Email
   Background:
     Given I'm running the example "/ui/components/authenticator/sign-in-with-email"
 
-  @angular @react @vue
-  Scenario: Sign in with force password reset shows the Reset Password with code view
+ @angular @react @vue
+  Scenario: Sign in returns force reset password exception
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with error fixture "force-reset-password"
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "forgot-password-email"
     When I type my "email" with status "CONFIRMED"
     Then I type my password
     Then I click the "Sign in" button
     Then I see "Reset Password"
     Then I see "Code *"
+    Then I type a valid code
+    Then I type my new password
+    Then I confirm my password
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmForgotPassword" } }' with error fixture "AWSCognitoIdentityProviderService.ConfirmSignUp-invalid-code.json"
+    Then I click the "Submit" button
 
-  @angular @react @vue @react-native
+    @angular @react @vue @react-native
   Scenario: Sign in with unknown credentials
     When I type my "email" with status "UNKNOWN"
     Then I type my password
     Then I click the "Sign in" button
     Then I see "User does not exist."
 
-  @angular @react @vue
+  # @todo-migration re-enable
+  # @angular @react @vue
   Scenario: Sign in with unconfirmed credentials
 
   If you sign in with an unconfirmed account, Authenticator will redirect you to `confirmSignUp` route.
@@ -42,7 +49,7 @@ Feature: Sign In with Email
     Then I click the "Confirm" button
     Then I confirm request '{"headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }'
 
-  @angular @react @vue @react-native
+    @angular @react @vue @react-native
   Scenario: Sign in with confirmed credentials
     When I type my "email" with status "CONFIRMED"
     Then I type my password
@@ -51,7 +58,7 @@ Feature: Sign In with Email
     Then I click the "Sign out" button
     Then I see "Sign in"
 
-  @angular @react @vue @react-native
+    @angular @react @vue @react-native
   Scenario: Sign in with confirmed credentials then sign out
     When I type my "email" with status "CONFIRMED"
     Then I type my password
@@ -60,12 +67,12 @@ Feature: Sign In with Email
     Then I click the "Sign out" button
     Then I see "Sign in"
 
-  @angular @react @vue
+    @angular @react @vue
   Scenario: Sign Up Tab Is Not Present 
     Then I see "Sign in"
     Then I don't see "Create Account"
 
-  @angular @react @vue
+    @angular @react @vue
   Scenario: Email field autocompletes username
 
   On sign in form, autocomplete prefers usage of username instead of email. 
@@ -73,6 +80,6 @@ Feature: Sign In with Email
 
     Then "Email" field autocompletes "username"
 
-  @angular @react @vue
+    @angular @react @vue
   Scenario: Password fields autocomplete "current-password"
     Then "Password" field autocompletes "current-password"

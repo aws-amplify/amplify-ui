@@ -2,7 +2,7 @@ import * as React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Highlight, { defaultProps, Language } from 'prism-react-renderer';
 import { View, Text, Button } from '@aws-amplify/ui-react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 export const CodeHighlight = ({
   className = '',

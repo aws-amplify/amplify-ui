@@ -269,15 +269,7 @@ When('I click the {string} checkbox', (label: string) => {
 });
 
 When('I click the {string} radio button', (label: string) => {
-  cy.findByLabelText(new RegExp(`^${escapeRegExp(label)}`, 'i')).click({
-    // We have to force this click because the radio input type isn't visible by default
-    // and instead has ::before decoration.
-    //
-    //    cy.click() failed because this element:
-    //    <input ...> is being covered by another element:
-    //    <form ...>...</form>
-    force: true,
-  });
+  cy.findByLabelText(new RegExp(`^${escapeRegExp(label)}`, 'i')).click();
 });
 
 When('I reload the page', () => {
@@ -457,7 +449,11 @@ When('I type a valid code', () => {
    * now, but we can look to make them consistent on next major release.
    */
   const regex = new RegExp(`^(confirmation )?code( *)?`, 'i');
-  cy.findByRole('spinbutton', { name: regex }).type('1234');
+  cy.findByRole('textbox', { name: regex }).type('1234');
+});
+
+When('I type a valid confirmation code for attribute confirmation', () => {
+  cy.findInputField('New Label').type('1234');
 });
 
 Then('I will be redirected to the confirm forgot password page', () => {

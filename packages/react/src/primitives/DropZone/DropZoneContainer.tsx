@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 import { View } from '../View';
 import { ComponentClassName, classNameModifierByFlag } from '@aws-amplify/ui';

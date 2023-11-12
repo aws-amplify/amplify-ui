@@ -5,16 +5,16 @@ const theme = {
   tokens: {
     components: {
       stepperfield: {
-        borderColor: { value: '{colors.brand.secondary.20}' },
+        borderColor: { value: '{colors.secondary.20}' },
         input: {
-          color: { value: '{colors.brand.primary.80}' },
+          color: { value: '{colors.primary.80}' },
           fontSize: { value: '{fontSizes.large}' },
         },
         button: {
-          color: { value: '{colors.brand.primary.80}' },
+          color: { value: '{colors.primary.80}' },
           backgroundColor: { value: '{colors.neutral.20}' },
           _disabled: {
-            color: { value: '{colors.brand.primary.80}' },
+            color: { value: '{colors.primary.80}' },
           },
         },
       },

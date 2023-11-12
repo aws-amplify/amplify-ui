@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassName } from '@aws-amplify/ui';

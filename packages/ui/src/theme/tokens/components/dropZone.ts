@@ -34,7 +34,7 @@ export const dropzone: Required<DropZoneTokens<'default'>> = {
   textAlign: { value: 'center' },
 
   _active: {
-    backgroundColor: { value: '{colors.brand.primary.10}' },
+    backgroundColor: { value: '{colors.primary.10}' },
     borderRadius: { value: '{components.dropzone.borderRadius}' },
     borderColor: { value: '{colors.border.pressed}' },
     borderStyle: { value: '{components.dropzone.borderStyle}' },

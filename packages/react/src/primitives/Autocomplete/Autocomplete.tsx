@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 import * as React from 'react';
 
 import { ComponentClassName, isFunction } from '@aws-amplify/ui';

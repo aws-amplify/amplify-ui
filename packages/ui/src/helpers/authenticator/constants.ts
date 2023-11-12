@@ -2,11 +2,11 @@
  * This file contains helpers related to forms and input attributes.
  */
 
+import { DefaultFormFieldOptions } from '../../types';
 import {
   AuthEventTypes,
-  DefaultFormFieldOptions,
   NavigableRoute,
-} from '../../types';
+} from '../../machines/authenticator/types';
 import { countryDialCodes } from '../../i18n';
 
 export const defaultFormFieldOptions: DefaultFormFieldOptions = {
@@ -20,7 +20,7 @@ export const defaultFormFieldOptions: DefaultFormFieldOptions = {
   confirmation_code: {
     label: 'Confirmation Code',
     placeholder: 'Enter your Confirmation Code',
-    type: 'number',
+    type: 'text',
     autocomplete: 'one-time-code',
     isRequired: true,
   },
@@ -145,7 +145,7 @@ export const emailRegex =
 + * map navigable route keys to auth event names
 + */
 export const NAVIGABLE_ROUTE_EVENT: Record<NavigableRoute, AuthEventTypes> = {
-  resetPassword: 'RESET_PASSWORD',
+  forgotPassword: 'FORGOT_PASSWORD',
   signIn: 'SIGN_IN',
   signUp: 'SIGN_UP',
 };

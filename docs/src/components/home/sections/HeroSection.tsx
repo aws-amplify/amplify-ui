@@ -21,7 +21,7 @@ import { CardLink } from '@/components/CardLink';
 import { FRAMEWORKS, FRAMEWORK_INSTALL_SCRIPTS } from '@/data/frameworks';
 import { FrameworkLogo } from '@/components/Logo';
 import { TerminalCommand } from '@/components/InstallScripts';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 export const HeroSection = () => {
   const {

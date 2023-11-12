@@ -10,9 +10,6 @@ import * as MachineContext from '../../context/Machine';
 
 const useMachineSpy = jest.spyOn(MachineContext, 'useMachine');
 
-// mock '@aws-amplify/auth' to turn off missing `config` console errors
-jest.mock('@aws-amplify/auth');
-
 const CHILD_CONTENT = 'contented';
 
 function TestChildren() {

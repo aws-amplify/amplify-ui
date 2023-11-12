@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-notifications",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -40,13 +40,12 @@
   },
   "dependencies": {
     "@aws-amplify/ui": "5.8.1",
-    "@aws-amplify/ui-react": "5.3.1",
+    "@aws-amplify/ui-react": "5.3.2",
     "@aws-amplify/ui-react-core-notifications": "1.0.10",
-    "classnames": "2.3.1",
     "tinycolor2": "1.4.2"
   },
   "peerDependencies": {
-    "aws-amplify": "unstable",
+    "aws-amplify": "^6.0.1",
     "react": "^16.14.0 || ^17.0 || ^18.0",
     "react-dom": "^16.14.0 || ^17.0 || ^18.0"
   },

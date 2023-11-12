@@ -57,13 +57,13 @@ const components = {
       );
     },
     Footer() {
-      const { toResetPassword } = useAuthenticator();
+      const { toForgotPassword } = useAuthenticator();
 
       return (
         <View textAlign="center">
           <Button
             fontWeight="normal"
-            onClick={toResetPassword}
+            onClick={toForgotPassword}
             size="small"
             variation="link"
           >
@@ -120,7 +120,7 @@ const components = {
       return <Text>Footer Information</Text>;
     },
   },
-  SetupTOTP: {
+  SetupTotp: {
     Header() {
       const { tokens } = useTheme();
       return (
@@ -209,7 +209,7 @@ const formFields = {
       placeholder: 'Enter your Password:',
     },
   },
-  resetPassword: {
+  forgotPassword: {
     username: {
       placeholder: 'Enter your email:',
     },
@@ -224,7 +224,7 @@ const formFields = {
       placeholder: 'Enter your Password Please:',
     },
   },
-  setupTOTP: {
+  setupTotp: {
     QR: {
       totpIssuer: 'test issuer',
       totpUsername: 'amplify_qr_test_user',

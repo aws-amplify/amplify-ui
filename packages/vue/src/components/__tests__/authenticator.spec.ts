@@ -24,8 +24,8 @@ const routesWithComponent: AuthenticatorRoute[] = [
   'confirmSignUp',
   'confirmVerifyUser',
   'forceNewPassword',
-  'resetPassword',
-  'setupTOTP',
+  'forgotPassword',
+  'setupTotp',
   'signIn',
   'signUp',
   'verifyUser',
@@ -167,21 +167,21 @@ describe('authenticator', () => {
 
   it.each(routesWithComponent)('renders %s subcomponent', (route) => {
     let user = undefined as unknown as AmplifyUser;
+    const challengeName = 'SOFTWARE_TOKEN_MFA';
 
     // some routes expect specific shape of user
-    if (route === 'confirmSignIn') {
-      user = { challengeName: 'SOFTWARE_TOKEN_MFA' } as AmplifyUser;
-    } else if (route === 'setupTOTP') {
+    if (route === 'setupTotp') {
       user = { username: 'username' } as AmplifyUser;
     }
 
     useAuthenticatorSpy.mockReturnValue(
       reactive({
         ...baseMockServiceFacade,
+        challengeName,
         route,
         user,
         totpSecretCode:
-          route === 'setupTOTP' ? 'totp-mock-secret-code' : undefined,
+          route === 'setupTotp' ? 'totp-mock-secret-code' : undefined,
       })
     );
 

@@ -64,7 +64,7 @@ Cypress.Commands.add('findInputField', (field: string) => {
 
   if (isConfirmationCodeField) {
     const regex = new RegExp(`^(confirmation )?code( *)?`, 'i');
-    return cy.findByRole('spinbutton', { name: regex });
+    return cy.findByRole('textbox', { name: regex });
   } else if (isPasswordField) {
     return cy.findAllByLabelText(regex);
   } else {
