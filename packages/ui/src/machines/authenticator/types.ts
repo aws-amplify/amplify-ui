@@ -119,6 +119,7 @@ export interface ActorDoneData {
 export interface AuthContext {
   actorRef?: any;
   config?: {
+    loginMechanism?: LoginMechanism;
     loginMechanisms?: LoginMechanism[];
     signUpAttributes?: SignUpAttribute[];
     socialProviders?: SocialProvider[];

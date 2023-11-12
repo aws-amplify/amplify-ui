@@ -78,7 +78,7 @@ export function forgotPasswordActor({
             },
           },
         },
-        handleForgotPassword: {
+        confirmResetPassword: {
           type: 'parallel',
           exit: ['clearFormValues', 'clearError', 'clearTouched'],
           states: {
