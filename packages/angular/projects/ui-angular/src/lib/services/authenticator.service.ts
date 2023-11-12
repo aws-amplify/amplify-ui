@@ -42,9 +42,9 @@ export class AuthenticatorService implements OnDestroy {
     const machine = createAuthenticatorMachine();
     this._authService = interpret(machine).start();
 
+    this.getInitialAuthStatus();
     this.setupMachineSubscription();
     this.setupHubListener();
-    this.getInitialAuthStatus();
   }
 
   /**
@@ -73,6 +73,10 @@ export class AuthenticatorService implements OnDestroy {
 
   public get user(): AmplifyUser {
     return this._facade?.user;
+  }
+
+  public get username(): string {
+    return this._facade?.username;
   }
 
   public get validationErrors(): AuthenticatorServiceFacade['validationErrors'] {
@@ -123,8 +127,8 @@ export class AuthenticatorService implements OnDestroy {
     return this._facade.toFederatedSignIn;
   }
 
-  public get toResetPassword(): AuthenticatorServiceFacade['toResetPassword'] {
-    return this._facade.toResetPassword;
+  public get toForgotPassword(): AuthenticatorServiceFacade['toForgotPassword'] {
+    return this._facade.toForgotPassword;
   }
 
   public get toSignIn(): AuthenticatorServiceFacade['toSignIn'] {

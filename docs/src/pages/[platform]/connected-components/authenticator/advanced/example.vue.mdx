@@ -8,7 +8,7 @@ import aws_exports from './aws-exports';
 
 Amplify.configure(aws_exports);
 
-const { toResetPassword } = toRefs(useAuthenticator());
+const { toForgotPassword } = toRefs(useAuthenticator());
 </script>
 
 <template>
@@ -16,7 +16,7 @@ const { toResetPassword } = toRefs(useAuthenticator());
     <template v-slot:sign-in-footer>
       <div style="text-align: center">
         <button
-          @click="toResetPassword"
+          @click="toForgotPassword"
           class="amplify-button amplify-field-group__control"
           data-fullwidth="false"
           data-size="small"

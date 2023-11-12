@@ -17,9 +17,6 @@ export const ConfirmSignIn = ({
   className,
   variation,
 }: RouteProps): JSX.Element => {
-  // eslint-disable-next-line no-console
-  console.log('+++UI: ConfirmSignIn');
-
   const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleChange, handleSubmit } = useFormHandlers();
 

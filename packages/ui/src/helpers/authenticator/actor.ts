@@ -7,7 +7,7 @@ import {
   AuthActorContext,
   AuthActorState,
   AuthMachineState,
-} from '../../types';
+} from '../../machines/authenticator/types';
 
 /**
  * Get the state of current actor. This is useful for checking which screen
