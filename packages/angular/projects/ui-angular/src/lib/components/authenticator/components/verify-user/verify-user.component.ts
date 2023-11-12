@@ -11,7 +11,7 @@ import {
   SignInState,
   translate,
   authenticatorTextUtil,
-  UnverifiedContactMethods,
+  UnverifiedUserAttributes,
 } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { getAttributeMap } from '../../../../common';
@@ -28,7 +28,7 @@ export class VerifyUserComponent implements OnInit {
   @HostBinding('attr.data-amplify-authenticator-verifyuser') dataAttr = '';
   @Input() public headerText = getAccountRecoveryInfoText();
 
-  public unverifiedContactMethods = {};
+  public unverifiedUserAttributes = {};
   public labelId = nanoid(12);
 
   // translated texts
@@ -45,10 +45,10 @@ export class VerifyUserComponent implements OnInit {
     const actorState = getActorState(
       this.authenticator.authState
     ) as SignInState;
-    this.unverifiedContactMethods = actorState.context.unverifiedContactMethods;
+    this.unverifiedUserAttributes = actorState.context.unverifiedUserAttributes;
   }
 
-  getLabel(attr: keyof UnverifiedContactMethods): string {
+  getLabel(attr: keyof UnverifiedUserAttributes): string {
     const attributeMap = getAttributeMap();
     const { label } = attributeMap[attr];
     return translate(label);

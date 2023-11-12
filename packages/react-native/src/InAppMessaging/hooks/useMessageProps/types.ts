@@ -114,7 +114,7 @@ export interface MessageContainerAndWrapperStyle {
   container: [
     defaultStyle: StyleProp<ViewStyle>,
     messageStyle: StyleProp<ViewStyle>,
-    overrideStyle: StyleProp<ViewStyle>
+    overrideStyle: StyleProp<ViewStyle>,
   ];
   wrapper: StyleProp<ViewStyle>;
 }

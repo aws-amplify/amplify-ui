@@ -99,10 +99,10 @@ describe('useAuthenticator', () => {
     wrapper.unmount();
   });
 
-  it('calls getQRFields if route is setupTOTP', () => {
+  it('calls getQRFields if route is setupTotp', () => {
     getServiceFacadeSpy.mockReturnValueOnce({
       ...mockServiceFacade,
-      route: 'setupTOTP',
+      route: 'setupTotp',
     });
 
     const wrapper = mount(TestComponent);

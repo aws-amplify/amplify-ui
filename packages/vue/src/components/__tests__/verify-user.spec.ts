@@ -6,7 +6,7 @@ import {
   AuthenticatorServiceFacade,
   AuthInterpreter,
   AuthMachineState,
-  UnverifiedContactMethods,
+  UnverifiedUserAttributes,
 } from '@aws-amplify/ui';
 
 import { components } from '../../../global-spec';
@@ -31,7 +31,7 @@ jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
 const updateFormSpy = jest.fn();
 const submitFormSpy = jest.fn();
 const skipVerificationSpy = jest.fn();
-const unverifiedContactMethods: UnverifiedContactMethods = {
+const unverifiedUserAttributes: UnverifiedUserAttributes = {
   email: 'test@example.com',
 };
 
@@ -41,16 +41,16 @@ const mockServiceFacade: AuthenticatorServiceFacade = {
   updateForm: updateFormSpy,
   skipVerification: skipVerificationSpy,
   submitForm: submitFormSpy,
-  unverifiedContactMethods,
+  unverifiedUserAttributes,
 };
 
 const useAuthenticatorSpy = jest
   .spyOn(UseAuthComposables, 'useAuthenticator')
   .mockReturnValue(reactive(mockServiceFacade));
 
-jest.spyOn(UIModule, 'getActorContext').mockReturnValue({
-  country_code: '+1',
-});
+jest
+  .spyOn(UIModule, 'getActorContext')
+  .mockReturnValue({} as UIModule.AuthActorContext);
 
 describe('VerifyUser', () => {
   it('renders as expected', () => {

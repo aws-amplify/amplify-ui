@@ -1,4 +1,4 @@
-import { AuthMachineState } from '../../../../types';
+import { AuthMachineState } from '../../../../machines/authenticator/types';
 import { defaultFormFieldOptions } from '../../constants';
 import {
   getAliasDefaultFormField,
@@ -20,7 +20,7 @@ jest.mock('../../actor', () => ({
   }),
   getActorState: () => ({
     context: {
-      requiredAttributes: ['email', 'custom:test'],
+      missingAttributes: ['email', 'custom:test'],
     },
   }),
 }));
@@ -74,17 +74,14 @@ describe('defaultFormFieldsGetters', () => {
 
     expect(formFields).toStrictEqual({
       email: defaultFormFieldOptions.email,
-      phone_number: {
-        ...defaultFormFieldOptions.phone_number,
-        dialCode: undefined,
-      },
+      phone_number: { ...defaultFormFieldOptions.phone_number },
       password: defaultFormFieldOptions.password,
       confirm_password: defaultFormFieldOptions.confirm_password,
     });
   });
 
-  it('should return the correct form fields for the "resetPassword" component', () => {
-    const formFields = defaultFormFieldsGetters.resetPassword(state);
+  it('should return the correct form fields for the "forgotPassword" component', () => {
+    const formFields = defaultFormFieldsGetters.forgotPassword(state);
     expect(formFields).toStrictEqual({
       username: {
         ...defaultFormFieldOptions.email,
