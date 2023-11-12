@@ -350,23 +350,17 @@ export function signUpActor({ services }: SignUpMachineOptions) {
           const loginMechanism = loginMechanisms[0];
           const { password } = formValues;
 
-          const attributes = getUserAttributes(formValues);
-
-          const input: SignUpInput = {
-            username,
-            password,
-            options: {
-              autoSignIn: true,
-              userAttributes: {
-                // use `username` value for `phone_number`
-                ...(loginMechanism === 'phone_number'
-                  ? { ...attributes, phone_number: username }
-                  : attributes),
-              },
+          const options: SignUpInput['options'] = {
+            autoSignIn: true,
+            userAttributes: {
+              // use `username` value for `phone_number`
+              ...(loginMechanism === 'phone_number'
+                ? { ...getUserAttributes(formValues), phone_number: username }
+                : getUserAttributes(formValues)),
             },
           };
 
-          return services.handleSignUp(input);
+          return services.handleSignUp({ username, password, options });
         },
         async validateSignUp(context, event) {
           // This needs to exist in the machine to reference new `services`
