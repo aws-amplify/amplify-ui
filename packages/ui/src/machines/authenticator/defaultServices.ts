@@ -17,6 +17,7 @@ import {
   LoginMechanism,
   PasswordSettings,
   SignUpAttribute,
+  SocialProvider,
   ValidatorResult,
 } from '../../types';
 import { groupLog } from '../../utils';
