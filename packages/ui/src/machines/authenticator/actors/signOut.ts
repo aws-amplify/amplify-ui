@@ -26,11 +26,7 @@ export const signOutActor = () => {
     },
     {
       services: {
-        signOut: (context) => {
-          console.log('+++signOut', context);
-
-          return signOut();
-        },
+        signOut: () => signOut(),
       },
     }
   );

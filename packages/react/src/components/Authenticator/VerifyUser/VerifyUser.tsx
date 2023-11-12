@@ -63,8 +63,6 @@ export const VerifyUser = ({
   className,
   variation,
 }: RouteProps): JSX.Element => {
-  // eslint-disable-next-line no-console
-  console.log('+++UI: VerifyUser');
   const {
     components: {
       // @ts-ignore
