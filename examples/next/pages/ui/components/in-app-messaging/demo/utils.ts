@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import * as Analytics from '@aws-amplify/analytics';
 import { syncMessages } from 'aws-amplify/in-app-messaging';
 import {
-  Message,
-  MessageAction,
-  MessageButton,
-  MessageLayout,
-} from '@aws-amplify/ui-react-core-notifications';
-import { useInAppMessaging } from '@aws-amplify/ui-react-notifications';
+  InAppMessage,
+  InAppMessageAction,
+  InAppMessageButton,
+  InAppMessageLayout,
+  useInAppMessaging,
+} from '@aws-amplify/ui-react-notifications';
 
 type ImageOrientation = 'landscape' | 'portrait';
 
@@ -18,14 +18,14 @@ export interface GetDemoMessageParams {
   hasPrimaryButton: boolean;
   hasSecondaryButton: boolean;
   imageOrientation: ImageOrientation;
-  primaryButtonAction: MessageAction;
-  secondaryButtonAction: MessageAction;
-  layout: MessageLayout;
+  primaryButtonAction: InAppMessageAction;
+  secondaryButtonAction: InAppMessageAction;
+  layout: InAppMessageLayout;
   useAnalyticEvents: boolean;
 }
 
-export const ACTIONS: MessageAction[] = ['CLOSE', 'DEEP_LINK', 'LINK'];
-export const LAYOUTS: MessageLayout[] = [
+export const ACTIONS: InAppMessageAction[] = ['CLOSE', 'DEEP_LINK', 'LINK'];
+export const LAYOUTS: InAppMessageLayout[] = [
   'BOTTOM_BANNER',
   'CAROUSEL',
   'FULL_SCREEN',
@@ -42,9 +42,9 @@ const LANDSCAPE_IMAGE =
 const URL = 'https://ui.docs.amplify.aws/';
 
 const getButton = (
-  action: MessageAction,
+  action: InAppMessageAction,
   type: 'primary' | 'secondary'
-): MessageButton => ({
+): InAppMessageButton => ({
   title: `${type} - ${action.toLowerCase()} action`,
   action,
   url: action === 'LINK' || action === 'DEEP_LINK' ? URL : undefined,
@@ -60,7 +60,7 @@ function getDemoMessage({
   layout,
   primaryButtonAction,
   secondaryButtonAction,
-}: GetDemoMessageParams): Message {
+}: GetDemoMessageParams): InAppMessage {
   return {
     layout,
     id: layout,
