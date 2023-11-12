@@ -26,13 +26,13 @@ export async function getStaticProps() {
 
 ## Initial State
 
-By default, unauthenticated users are redirected to the Sign In flow. You can explicitly redirect to Sign Up or Reset Password:
+By default, unauthenticated users are redirected to the Sign In flow. You can explicitly redirect to Sign Up or Forgot Password:
 
 <Tabs.Container defaultValue="sign-in">
   <Tabs.List>
     <Tabs.Item value="sign-in">Sign In</Tabs.Item>
     <Tabs.Item value="sign-up">Sign Up</Tabs.Item>
-    <Tabs.Item value="reset-password">Reset Password</Tabs.Item>
+    <Tabs.Item value="forgot-password">Forgot Password</Tabs.Item>
   </Tabs.List>
   <Tabs.Panel value="sign-in">
     <Fragment>
@@ -54,13 +54,13 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
       }
     </Fragment>
   </Tabs.Panel>
-  <Tabs.Panel value="Reset Password">
+  <Tabs.Panel value="Forgot Password">
     <Fragment>
-      {({ platform }) => import(`./initialState.resetPassword.${platform}.mdx`)}
+      {({ platform }) => import(`./initialState.forgotPassword.${platform}.mdx`)}
     </Fragment>
     <Fragment platforms={['web', 'flutter']} useCommonWebContent>
       {({ platform }) =>
-        import(`./initialState.resetPassword.example.${platform}.mdx`)
+        import(`./initialState.forgotPassword.example.${platform}.mdx`)
       }
     </Fragment>
   </Tabs.Panel>
