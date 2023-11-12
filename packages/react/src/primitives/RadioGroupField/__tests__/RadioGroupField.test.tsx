@@ -115,12 +115,12 @@ describe('RadioFieldGroup', () => {
       expect(css).not.toBeChecked();
       expect(javascript).not.toBeChecked();
 
-      userEvent.click(css);
+      await userEvent.click(css);
       expect(html).not.toBeChecked();
       expect(css).toBeChecked();
       expect(javascript).not.toBeChecked();
 
-      userEvent.click(javascript);
+      await userEvent.click(javascript);
       expect(html).not.toBeChecked();
       expect(css).not.toBeChecked();
       expect(javascript).toBeChecked();

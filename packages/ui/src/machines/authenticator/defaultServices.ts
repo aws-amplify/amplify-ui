@@ -2,21 +2,12 @@ import { Amplify } from 'aws-amplify';
 
 import {
   confirmResetPassword,
-  ConfirmResetPasswordInput,
   confirmSignIn,
-  ConfirmSignInInput,
-  ConfirmSignInOutput,
   confirmSignUp,
-  ConfirmSignUpInput,
-  ConfirmSignUpOutput,
   getCurrentUser,
   resetPassword,
-  ResetPasswordInput,
   signIn,
-  SignInInput,
-  SignInOutput,
   signUp,
-  SignUpInput,
 } from 'aws-amplify/auth';
 import { hasSpecialChars } from '../../helpers';
 
@@ -29,17 +20,13 @@ import {
   SocialProvider,
   ValidatorResult,
 } from '../../types';
-import { groupLog } from '../../utils';
-// import .js directly to satisfy ESM
-import uniqueId from 'lodash/uniqueId.js';
 
-// Cognito does not allow a password length lower then 8 characters
+// Cognito does not allow a password length less then 8 characters
 const DEFAULT_COGNITO_PASSWORD_MIN_LENGTH = 8;
 
 export const defaultServices = {
   async getAmplifyConfig() {
     const result = Amplify.getConfig();
-    groupLog('+++getAmplifyConfig', 'result', result);
 
     const cliConfig = result.Auth?.Cognito;
     const { loginWith, userAttributes } = result.Auth?.Cognito ?? {};
@@ -66,6 +53,7 @@ export const defaultServices = {
           provider.toString().toLowerCase()
         ) as SocialProvider[])
       : undefined;
+
     return {
       ...cliConfig,
       loginMechanisms: parsedLoginMechanisms,
@@ -73,68 +61,13 @@ export const defaultServices = {
       socialProviders: parsedSocialProviders,
     };
   },
-  async getCurrentUser() {
-    const id = uniqueId();
-    groupLog(`+++getCurrentUser.defaultServices: ${id}`);
-    return getCurrentUser()
-      .then((user) => {
-        console.log('getCurrentUser.defaultServices success', id, user);
-        return user;
-      })
-      .catch((e) => {
-        console.log('getCurrentUser.defaultServices fail', id, e);
-        throw new Error(undefined);
-      });
-  },
-  async handleSignUp({
-    attributes: userAttributes,
-    username,
-    password,
-  }: {
-    username: string;
-    password: string;
-    attributes?: {
-      // made optional to appease TS, no plan to fix
-      email?: string;
-    };
-  }) {
-    const input: SignUpInput = {
-      username,
-      password,
-      options: {
-        userAttributes,
-        autoSignIn: true,
-      } as SignUpInput['options'],
-    };
-    return signUp(input);
-  },
-  async handleSignIn({
-    username,
-    password,
-  }: SignInInput): Promise<SignInOutput> {
-    groupLog('+++handleSignIn');
-    // #todo-migration logs error in failure use cases (fiorce new password, etc)
-    return signIn({ username, password });
-  },
-  async handleConfirmSignIn(
-    input: ConfirmSignInInput
-  ): Promise<ConfirmSignInOutput> {
-    return confirmSignIn(input);
-  },
-  async handleConfirmSignUp(
-    input: ConfirmSignUpInput
-  ): Promise<ConfirmSignUpOutput> {
-    return confirmSignUp(input);
-  },
-  async handleForgotPasswordSubmit(
-    input: ConfirmResetPasswordInput
-  ): Promise<ReturnType<typeof confirmResetPassword>> {
-    return confirmResetPassword(input);
-  },
-  async handleForgotPassword(input: ResetPasswordInput): Promise<any> {
-    // return forgotPassword(formData);
-    return resetPassword(input);
-  },
+  getCurrentUser,
+  handleSignIn: signIn,
+  handleSignUp: signUp,
+  handleConfirmSignIn: confirmSignIn,
+  handleConfirmSignUp: confirmSignUp,
+  handleForgotPasswordSubmit: confirmResetPassword,
+  handleForgotPassword: resetPassword,
 
   // Validation hooks for overriding
   async validateCustomSignUp(

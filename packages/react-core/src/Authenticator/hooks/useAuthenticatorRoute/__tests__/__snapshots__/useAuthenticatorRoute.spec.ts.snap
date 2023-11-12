@@ -91,7 +91,7 @@ exports[`useAuthenticatorRoute returns the expected values for the forceNewPassw
 }
 `;
 
-exports[`useAuthenticatorRoute returns the expected values for the resetPassword route 1`] = `
+exports[`useAuthenticatorRoute returns the expected values for the forgotPassword route 1`] = `
 {
   "Component": [Function],
   "props": {
@@ -108,7 +108,7 @@ exports[`useAuthenticatorRoute returns the expected values for the resetPassword
 }
 `;
 
-exports[`useAuthenticatorRoute returns the expected values for the setupTOTP route 1`] = `
+exports[`useAuthenticatorRoute returns the expected values for the setupTotp route 1`] = `
 {
   "Component": [Function],
   "props": {
@@ -122,6 +122,7 @@ exports[`useAuthenticatorRoute returns the expected values for the setupTOTP rou
     "isPending": false,
     "toSignIn": [MockFunction],
     "totpSecretCode": null,
+    "username": "george",
   },
 }
 `;
@@ -141,7 +142,7 @@ exports[`useAuthenticatorRoute returns the expected values for the signIn route 
     "isPending": false,
     "socialProviders": [],
     "toFederatedSignIn": [MockFunction],
-    "toResetPassword": [MockFunction],
+    "toForgotPassword": [MockFunction],
     "toSignUp": [MockFunction],
   },
 }

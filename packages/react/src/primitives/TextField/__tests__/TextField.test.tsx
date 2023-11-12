@@ -167,8 +167,9 @@ describe('TextField component', () => {
         />
       );
       const field = await screen.findByRole('textbox');
-      userEvent.type(field, 'hello');
-      // userEvent.paste(field, 'there');
+      await userEvent.type(field, 'hello');
+      field.focus();
+      await userEvent.paste('there');
       expect(onChange).toHaveBeenCalled();
       expect(onInput).toHaveBeenCalled();
       expect(onPaste).toHaveBeenCalled();

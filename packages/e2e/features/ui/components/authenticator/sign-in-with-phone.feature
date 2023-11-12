@@ -66,6 +66,8 @@ Feature: Sign In with Phone Number
     Then I type my "phone number" with status "UNCONFIRMED"
     Then I type my password
     Then I click the "Sign in" button
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with error fixture "user-not-confirmed-exception"
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ResendConfirmationCode" } }' with fixture "resend-confirmation-code-email"
     Then I see "Confirmation Code"
 
   @angular @react @vue @react-native

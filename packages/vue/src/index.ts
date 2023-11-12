@@ -17,7 +17,7 @@ import {
   ForceNewPassword,
   PasswordControl,
   RenderInfo,
-  ResetPassword,
+  ForgotPassword,
   SignIn,
   SignUp,
   VerifyUser,
@@ -36,7 +36,7 @@ export default {
     app.component('RenderInfo', RenderInfo);
     app.component('PasswordControl', PasswordControl);
     app.component('ForceNewPassword', ForceNewPassword);
-    app.component('ResetPassword', ResetPassword);
+    app.component('ForgotPassword', ForgotPassword);
     app.component('ConfirmResetPassword', ConfirmResetPassword);
     app.component('ConfirmSignUp', ConfirmSignUp);
     app.component('ConfirmSignIn', ConfirmSignIn);
@@ -68,7 +68,7 @@ export {
   RenderInfo,
   ForceNewPassword,
   PasswordControl,
-  ResetPassword,
+  ForgotPassword,
   ConfirmResetPassword,
   ConfirmSignUp,
   ConfirmSignIn,

@@ -60,7 +60,7 @@
     "tslib": "^2.5.2"
   },
   "peerDependencies": {
-    "aws-amplify": "unstable",
+    "aws-amplify": "^6.0.1",
     "react": "^16.14.0 || ^17.0 || ^18.0",
     "react-dom": "^16.14.0 || ^17.0 || ^18.0"
   },

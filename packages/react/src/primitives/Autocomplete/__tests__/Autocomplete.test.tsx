@@ -54,24 +54,24 @@ describe('Autocomplete:', () => {
 
   const expectWorkflow = async (onSubmit: jest.Mock) => {
     const textInput = await screen.findByRole('combobox');
-    userEvent.type(textInput, 'Hello world!');
+    await userEvent.type(textInput, 'Hello world!');
     // No options found
     const noOption = screen.queryByText(ComponentText.Autocomplete.emptyText);
     expect(noOption).toBeInTheDocument();
     expect(textInput).toHaveValue('Hello world!');
 
     // Close menu on ESC if menu is open
-    userEvent.keyboard('{Esc}');
+    await userEvent.keyboard('{Esc}');
     expect(textInput).toHaveValue('Hello world!');
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
 
     // Clear text on ESC if menu is closed
     expect(textInput).toHaveFocus();
-    userEvent.keyboard('{Esc}');
+    await userEvent.keyboard('{Esc}');
     expect(textInput).toHaveValue('');
 
     // Focus will not open menu
-    userEvent.click(document.body);
+    await userEvent.click(document.body);
     expect(textInput).not.toHaveFocus();
     textInput.focus();
     expect(textInput).toHaveFocus();
@@ -79,16 +79,16 @@ describe('Autocomplete:', () => {
 
     // Click will open menu
     expect(textInput).toHaveFocus();
-    userEvent.click(textInput);
+    await userEvent.click(textInput);
     expect(screen.queryByRole('listbox')).toBeInTheDocument();
 
     // Close menu when lose focus
-    userEvent.click(document.body);
+    await userEvent.click(document.body);
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
 
     // Type random text and submit
-    userEvent.type(textInput, 'Hello world!');
-    userEvent.keyboard('{Enter}');
+    await userEvent.type(textInput, 'Hello world!');
+    await userEvent.keyboard('{Enter}');
     expect(onSubmit).toHaveBeenCalledTimes(1);
     expect(onSubmit).toHaveBeenCalledWith('Hello world!');
     expect(textInput).toHaveFocus();
@@ -98,16 +98,16 @@ describe('Autocomplete:', () => {
     /**
      * Mouse testing section
      */
-    userEvent.clear(textInput);
+    await userEvent.clear(textInput);
     // Select via mouse and submit
     const listbox = await screen.findByRole('listbox');
     const appleOption = screen.getByText('apple')
       .parentElement as HTMLLIElement;
-    userEvent.selectOptions(listbox, appleOption);
+    await userEvent.selectOptions(listbox, appleOption);
     expect(textInput).toHaveFocus();
     expect(textInput).toHaveValue('apple');
 
-    userEvent.keyboard('{Enter}');
+    await userEvent.keyboard('{Enter}');
     expect(onSubmit).toHaveBeenCalledTimes(2);
     expect(onSubmit).toHaveBeenCalledWith('apple');
     expect(textInput).toHaveFocus();
@@ -117,24 +117,24 @@ describe('Autocomplete:', () => {
     /**
      * Keyboard testing section
      */
-    userEvent.clear(textInput);
+    await userEvent.clear(textInput);
     // menu open
     expect(screen.queryByRole('listbox')).toBeInTheDocument();
     // Select via keyboard and submit
-    userEvent.keyboard('{ArrowDown}');
+    await userEvent.keyboard('{ArrowDown}');
     expect(textInput).toHaveFocus();
-    userEvent.keyboard('{ArrowDown}');
+    await userEvent.keyboard('{ArrowDown}');
     expect(textInput).toHaveFocus();
-    userEvent.keyboard('{ArrowUp}');
+    await userEvent.keyboard('{ArrowUp}');
     expect(textInput).toHaveFocus();
-    userEvent.keyboard('{ArrowDown}');
+    await userEvent.keyboard('{ArrowDown}');
     expect(textInput).toHaveFocus();
 
-    userEvent.keyboard('{Enter}');
+    await userEvent.keyboard('{Enter}');
     expect(textInput).toHaveFocus();
     expect(textInput).toHaveValue('banana');
 
-    userEvent.keyboard('{Enter}');
+    await userEvent.keyboard('{Enter}');
     expect(onSubmit).toHaveBeenCalledTimes(3);
     expect(onSubmit).toHaveBeenCalledWith('banana');
     expect(textInput).toHaveFocus();
@@ -229,7 +229,7 @@ describe('Autocomplete:', () => {
     render(<Autocomplete label={label} options={options} isLoading />);
 
     const textInput = await screen.findByRole('combobox');
-    userEvent.click(textInput);
+    await userEvent.click(textInput);
     const listbox = screen.queryByRole('listbox');
     expect(listbox).not.toBeInTheDocument();
     const loading = screen.getByText(ComponentText.Autocomplete.loadingText);
@@ -240,7 +240,7 @@ describe('Autocomplete:', () => {
     render(<Autocomplete label={label} options={options} />);
 
     const textInput = await screen.findByRole('combobox');
-    userEvent.click(textInput);
+    await userEvent.click(textInput);
 
     const appleOption = screen.getByText('apple')
       .parentElement as HTMLLIElement;
@@ -259,7 +259,7 @@ describe('Autocomplete:', () => {
       classNameModifier(ComponentClassName.AutocompleteMenuOption, 'active')
     );
 
-    userEvent.hover(bananaOption);
+    await userEvent.hover(bananaOption);
     expect(appleOption).not.toHaveClass(
       classNameModifier(ComponentClassName.AutocompleteMenuOption, 'active')
     );
@@ -270,7 +270,7 @@ describe('Autocomplete:', () => {
       classNameModifier(ComponentClassName.AutocompleteMenuOption, 'active')
     );
 
-    userEvent.keyboard('{ArrowDown}');
+    await userEvent.keyboard('{ArrowDown}');
     expect(textInput).toHaveFocus();
     expect(appleOption).not.toHaveClass(
       classNameModifier(ComponentClassName.AutocompleteMenuOption, 'active')
@@ -282,8 +282,8 @@ describe('Autocomplete:', () => {
       classNameModifier(ComponentClassName.AutocompleteMenuOption, 'active')
     );
 
-    userEvent.keyboard('{ArrowUp}');
-    userEvent.keyboard('{ArrowUp}');
+    await userEvent.keyboard('{ArrowUp}');
+    await userEvent.keyboard('{ArrowUp}');
     expect(textInput).toHaveFocus();
     expect(appleOption).toHaveClass(
       classNameModifier(ComponentClassName.AutocompleteMenuOption, 'active')
@@ -300,12 +300,12 @@ describe('Autocomplete:', () => {
     render(<Autocomplete label={label} options={options} />);
 
     const textInput = await screen.findByRole('combobox');
-    userEvent.type(textInput, 'ap');
+    await userEvent.type(textInput, 'ap');
     let optionElements = await screen.findAllByRole('option');
     expect(optionElements).toHaveLength(1);
     expect(optionElements[0]).toHaveTextContent('apple');
-    userEvent.clear(textInput);
-    userEvent.type(textInput, 'AP');
+    await userEvent.clear(textInput);
+    await userEvent.type(textInput, 'AP');
     optionElements = await screen.findAllByRole('option');
     expect(optionElements).toHaveLength(1);
     expect(optionElements[0]).toHaveTextContent('apple');
@@ -322,7 +322,7 @@ describe('Autocomplete:', () => {
     );
 
     const textInput = await screen.findByRole('combobox');
-    userEvent.type(textInput, 'test');
+    await userEvent.type(textInput, 'test');
     expect(optionFilter).toHaveBeenCalled();
   });
 
@@ -337,7 +337,7 @@ describe('Autocomplete:', () => {
     );
 
     const textInput = await screen.findByRole('combobox');
-    userEvent.click(textInput);
+    await userEvent.click(textInput);
     expect(renderOption).toHaveBeenCalled();
   });
 
@@ -353,7 +353,7 @@ describe('Autocomplete:', () => {
     );
 
     const textInput = await screen.findByRole('combobox');
-    userEvent.click(textInput);
+    await userEvent.click(textInput);
 
     const loading = screen.getByText(LoadingIndicator);
     expect(loading).toBeInTheDocument();
@@ -365,7 +365,7 @@ describe('Autocomplete:', () => {
     render(<Autocomplete label={label} options={[]} menuSlots={{ Empty }} />);
 
     const textInput = await screen.findByRole('combobox');
-    userEvent.click(textInput);
+    await userEvent.click(textInput);
 
     const empty = screen.getByText(Empty);
     expect(empty).toBeInTheDocument();
@@ -384,7 +384,7 @@ describe('Autocomplete:', () => {
     );
 
     const textInput = await screen.findByRole('combobox');
-    userEvent.click(textInput);
+    await userEvent.click(textInput);
 
     const header = screen.getByText(Header);
     expect(header).toBeInTheDocument();
@@ -403,7 +403,7 @@ describe('Autocomplete:', () => {
     expect(textInput).toHaveAttribute('aria-haspopup', 'listbox');
     expect(textInput).toHaveAttribute('aria-expanded', 'false');
 
-    userEvent.click(textInput);
+    await userEvent.click(textInput);
     const menu = screen.getByRole('listbox').parentElement;
     expect(textInput).toHaveAttribute('aria-expanded', 'true');
     expect(textInput).toHaveAttribute('aria-controls', menu?.id);
@@ -420,31 +420,31 @@ describe('Autocomplete:', () => {
     expect(appleOption).toHaveAttribute('aria-selected', 'false');
     expect(bananaOption).toHaveAttribute('aria-selected', 'false');
     expect(cherryOption).toHaveAttribute('aria-selected', 'false');
-    userEvent.hover(appleOption);
+    await userEvent.hover(appleOption);
     expect(appleOption).toHaveAttribute('aria-selected', 'true');
     expect(bananaOption).toHaveAttribute('aria-selected', 'false');
     expect(cherryOption).toHaveAttribute('aria-selected', 'false');
     expect(textInput).toHaveAttribute('aria-activedescendant', appleOption.id);
 
-    userEvent.hover(bananaOption);
+    await userEvent.hover(bananaOption);
     expect(appleOption).toHaveAttribute('aria-selected', 'false');
     expect(bananaOption).toHaveAttribute('aria-selected', 'true');
     expect(cherryOption).toHaveAttribute('aria-selected', 'false');
     expect(textInput).toHaveAttribute('aria-activedescendant', bananaOption.id);
 
-    userEvent.hover(cherryOption);
+    await userEvent.hover(cherryOption);
     expect(appleOption).toHaveAttribute('aria-selected', 'false');
     expect(bananaOption).toHaveAttribute('aria-selected', 'false');
     expect(cherryOption).toHaveAttribute('aria-selected', 'true');
     expect(textInput).toHaveAttribute('aria-activedescendant', cherryOption.id);
 
-    userEvent.keyboard('{ArrowDown}');
+    await userEvent.keyboard('{ArrowDown}');
     expect(appleOption).toHaveAttribute('aria-selected', 'true');
     expect(bananaOption).toHaveAttribute('aria-selected', 'false');
     expect(cherryOption).toHaveAttribute('aria-selected', 'false');
     expect(textInput).toHaveAttribute('aria-activedescendant', appleOption.id);
 
-    userEvent.keyboard('{ArrowUp}');
+    await userEvent.keyboard('{ArrowUp}');
     expect(appleOption).toHaveAttribute('aria-selected', 'false');
     expect(bananaOption).toHaveAttribute('aria-selected', 'false');
     expect(cherryOption).toHaveAttribute('aria-selected', 'true');
