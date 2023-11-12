@@ -78,7 +78,7 @@ export function forgotPasswordActor({
             },
           },
         },
-        confirmResetPassword: {
+        handleForgotPassword: {
           type: 'parallel',
           exit: ['clearFormValues', 'clearError', 'clearTouched'],
           states: {
@@ -184,19 +184,19 @@ export function forgotPasswordActor({
       actions: { ...actions, sendUpdate: sendUpdate() },
       guards,
       services: {
-        handleResetPassword({ username }: ResetPasswordContext) {
+        handleForgotPassword({ username }: ResetPasswordContext) {
           groupLog('+++forgotPassword username:', username);
           return services.handleForgotPassword({ username });
         },
         handleConfirmResetPassword(context) {
           groupLog('+++handleConfirmResetPassword', context);
           const { username } = context;
-          const { confirmation_code: confirmationCode, password } =
+          const { confirmation_code: confirmationCode, password: newPassword } =
             context.formValues;
 
           return services.handleForgotPasswordSubmit({
             confirmationCode,
-            newPassword: password,
+            newPassword,
             username,
           });
         },

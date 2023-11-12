@@ -28,7 +28,7 @@ const handleSignInResponse = {
     },
     {
       cond: 'shouldConfirmSignInWithNewPassword',
-      actions: ['setMissingAttributes', 'setUsername', 'setNextSignInStep'],
+      actions: ['setMissingAttributes', 'setNextSignInStep'],
       target: '#signInActor.forceChangePassword',
     },
     {
@@ -96,8 +96,8 @@ const handleConfirmSignInResponse = {
 export function signInActor({ services }: SignInMachineOptions) {
   return createMachine<SignInContext, AuthEvent>(
     {
-      initial: 'init',
       id: 'signInActor',
+      initial: 'init',
       predictableActionArguments: true,
       states: {
         init: {
@@ -139,16 +139,10 @@ export function signInActor({ services }: SignInMachineOptions) {
           },
         },
         resendSignUpCode: {
-          invoke: {
-            src: 'resendSignUpCode',
-            ...handleConfirmSignInResponse,
-          },
+          invoke: { src: 'resendSignUpCode', ...handleConfirmSignInResponse },
         },
         resetPassword: {
-          invoke: {
-            src: 'resetPassword',
-            ...handleResetPasswordResponse,
-          },
+          invoke: { src: 'resetPassword', ...handleResetPasswordResponse },
         },
         signIn: {
           initial: 'edit',
@@ -164,12 +158,9 @@ export function signInActor({ services }: SignInMachineOptions) {
             },
             submit: {
               tags: 'pending',
-              entry: ['clearError', 'sendUpdate'],
-              exit: ['setUsernameSignIn', 'clearFormValues'],
-              invoke: {
-                src: 'signIn',
-                ...handleSignInResponse,
-              },
+              entry: ['clearError', 'sendUpdate', 'setUsernameSignIn'],
+              exit: ['clearFormValues'],
+              invoke: { src: 'handleSignIn', ...handleSignInResponse },
             },
           },
         },
@@ -287,10 +278,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             submit: {
               tags: 'pending',
               entry: ['sendUpdate', 'clearError'],
-              invoke: {
-                src: 'confirmSignIn',
-                ...handleSignInResponse,
-              },
+              invoke: { src: 'confirmSignIn', ...handleSignInResponse },
             },
           },
         },
@@ -302,8 +290,8 @@ export function signInActor({ services }: SignInMachineOptions) {
               codeDeliveryDetails: context.codeDeliveryDetails,
               remoteError: context.remoteError,
               step: context.step,
-              username: context.username,
               unverifiedUserAttributes: context.unverifiedUserAttributes,
+              username: context.username,
             };
           },
         },
@@ -326,9 +314,9 @@ export function signInActor({ services }: SignInMachineOptions) {
           console.log('+++resendSignUpCode username:', username);
           return resendSignUpCode({ username });
         },
-        signIn({ formValues }) {
-          const { username, password } = formValues;
-          groupLog('+++signIn', formValues);
+        handleSignIn({ formValues, username }) {
+          const { password } = formValues;
+          groupLog('+++handleSignIn', username, password);
           return services.handleSignIn({ username, password });
         },
         confirmSignIn({ formValues }) {

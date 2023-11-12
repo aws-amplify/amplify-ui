@@ -155,12 +155,14 @@ const setUsernameResetPassword = assign({
 const setUsernameSignUp = assign({
   username: ({ formValues, loginMechanisms }: AuthActorContext) => {
     const loginMechanism = loginMechanisms[0];
-    const { username, country_code, phone_number, email } = formValues;
+    const { username, country_code, email } = formValues;
+
+    if (loginMechanism === 'phone_number') {
+      return sanitizePhoneNumber(country_code, username);
+    }
+
     if (loginMechanism === 'username') {
       return username;
-    }
-    if (loginMechanism === 'phone_number') {
-      return sanitizePhoneNumber(country_code, phone_number);
     }
     // for SignUp with Email, field is email
     return email;
@@ -171,14 +173,13 @@ const setUsernameSignIn = assign({
   username: ({ formValues, loginMechanisms }: AuthActorContext) => {
     const loginMechanism = loginMechanisms[0];
     groupLog(`++++setUsernameSignIn`, formValues, loginMechanisms);
-    const { username, country_code, phone_number, email } = formValues;
-    if (loginMechanism === 'username') {
-      return username;
-    }
+    const { username, country_code } = formValues;
+
     if (loginMechanism === 'phone_number') {
-      return sanitizePhoneNumber(country_code, phone_number);
+      return sanitizePhoneNumber(country_code, username);
     }
-    // default username field for loginMechanism === 'email' is "username" for SignIn
+
+    // return `email` and `username`
     return username;
   },
 });

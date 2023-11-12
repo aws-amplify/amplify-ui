@@ -7,6 +7,7 @@ import {
   resendSignUpCode,
   signInWithRedirect,
   fetchUserAttributes,
+  SignUpInput,
 } from 'aws-amplify/auth';
 
 import { AuthEvent, SignUpContext } from '../types';
@@ -37,8 +38,11 @@ const handleAutoSignInResponse = {
       target: '#signUpActor.fetchUserAttributes',
     },
     {
+      cond: 'shouldSetuptTotp',
+    },
+    {
       cond: 'shouldConfirmSignInWithNewPassword',
-      actions: ['setUsername', 'setNextSignInStep'],
+      actions: 'setNextSignInStep',
       target: '#signUpActor.resolved',
     },
     {
@@ -56,9 +60,10 @@ const handleAutoSignInResponse = {
         'setChallengeName',
         'setMissingAttributes',
         'setNextSignInStep',
+        // @todo-migration doesn't seem to being handled correctly from auto sign in
         'setTotpSecretCode',
       ],
-      target: '#signUpActor.init',
+      target: '#signUpActor.resolved',
     },
   ],
   onError: {
@@ -104,10 +109,6 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                 return context.step === 'CONFIRM_SIGN_UP';
               },
               target: 'confirmSignUp',
-            },
-            {
-              cond: ({ step }) => step === 'SIGN_UP_COMPLETE',
-              target: 'resolved',
             },
             { target: 'signUp' },
           ],
@@ -201,6 +202,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                   },
                 },
                 handleSignUp: {
+                  // clear error
                   tags: 'pending',
                   entry: ['sendUpdate', 'setUsernameSignUp'],
                   exit: 'sendUpdate',
@@ -322,9 +324,9 @@ export function signUpActor({ services }: SignUpMachineOptions) {
         },
         async handleSignUp(context, _event) {
           groupLog('+++signUp', context);
-          const { formValues, loginMechanisms } = context;
-          const [primaryAlias = 'username'] = loginMechanisms;
-          const { [primaryAlias]: username, password } = formValues;
+          const { formValues, loginMechanisms, username } = context;
+          const [loginMechanism = 'username'] = loginMechanisms;
+          const { password } = formValues;
 
           const attributes = pickBy(formValues, (_, key) => {
             // Allowlist of Cognito User Pool Attributes (from OpenID Connect specification)
@@ -355,11 +357,21 @@ export function signUpActor({ services }: SignUpMachineOptions) {
             }
           });
 
-          return await services.handleSignUp({
+          const input: SignUpInput = {
             username,
             password,
-            attributes,
-          });
+            options: {
+              autoSignIn: true,
+              userAttributes: {
+                // replace phone_number with `username` parsed in `setUsernameSignUp`
+                ...(loginMechanism === 'phone_number'
+                  ? { ...attributes, phone_number: username }
+                  : attributes),
+              },
+            },
+          };
+
+          return await services.handleSignUp(input);
         },
         async validateSignUp(context, event) {
           // This needs to exist in the machine to reference new `services`

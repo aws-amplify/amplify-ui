@@ -26,7 +26,6 @@ Feature: Sign In with SMS MFA
     Then I click the "Sign in" button
     Then I will be redirected to the confirm sms mfa page
 
-
   @angular @react @vue
   Scenario: Redirect to sign in page
     When I select my country code with status "CONFIRMED"

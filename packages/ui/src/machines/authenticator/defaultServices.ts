@@ -75,38 +75,16 @@ export const defaultServices = {
     };
   },
   async getCurrentUser() {
-    const id = uniqueId();
-    groupLog(`+++getCurrentUser.defaultServices: ${id}`);
     return getCurrentUser();
   },
-  async handleSignUp({
-    attributes: userAttributes,
-    username,
-    password,
-  }: {
-    username: string;
-    password: string;
-    attributes?: {
-      email?: string;
-    };
-  }) {
-    const input: SignUpInput = {
-      username,
-      password,
-      options: {
-        userAttributes,
-        autoSignIn: true,
-      } as SignUpInput['options'],
-    };
+  async handleSignUp(input: SignUpInput) {
     console.log('+++handleSignUp input', input);
-
     return signUp(input);
   },
   async handleSignIn({
     username,
     password,
   }: SignInInput): Promise<SignInOutput> {
-    groupLog('+++handleSignIn');
     return signIn({ username, password });
   },
   async handleConfirmSignIn(
