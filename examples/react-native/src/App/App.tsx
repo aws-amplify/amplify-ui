@@ -54,6 +54,9 @@ const DarkModeExample = React.lazy(
 /**
  * `Authenticator` e2e Apps
  */
+const SignInTotpMfa = React.lazy(
+  () => import('../ui/components/authenticator/sign-in-totp-mfa/Example')
+);
 const SignInWithEmail = React.lazy(
   () => import('../ui/components/authenticator/sign-in-with-email/Example')
 );
@@ -114,6 +117,8 @@ export const ExampleComponent = () => {
 
     // Detox-Cucumber e2e tests
     // below apps are not meant to be run as example apps, they are part of integration testing in CI
+    case 'ui/components/authenticator/sign-in-totp-mfa':
+      return <SignInTotpMfa />;
     case '/ui/components/authenticator/sign-in-with-email':
       return <SignInWithEmail />;
     case '/ui/components/authenticator/sign-in-with-username':
