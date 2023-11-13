@@ -22,7 +22,7 @@ import {
   CodeDeliveryDetails,
   V5CodeDeliveryDetails,
 } from './types';
-import { sanitizePhoneNumber } from './utils';
+import { getUsernameSignUp, sanitizePhoneNumber } from './utils';
 
 const { assign } = xStateActions;
 
@@ -104,23 +104,7 @@ const setUsernameResetPassword = assign({
   },
 });
 
-const setUsernameSignUp = assign({
-  username: ({ formValues, loginMechanisms }: AuthActorContext) => {
-    const loginMechanism = loginMechanisms[0];
-    const { username, country_code, email } = formValues;
-    console.log('setUsernameSignUp formValues', formValues);
-
-    if (loginMechanism === 'phone_number') {
-      return sanitizePhoneNumber(country_code, username);
-    }
-
-    if (loginMechanism === 'username') {
-      return username;
-    }
-    // for SignUp with Email, field is email
-    return email;
-  },
-});
+const setUsernameSignUp = assign({ username: getUsernameSignUp });
 
 const setUsernameSignIn = assign({
   username: ({ formValues, loginMechanisms }: AuthActorContext) => {

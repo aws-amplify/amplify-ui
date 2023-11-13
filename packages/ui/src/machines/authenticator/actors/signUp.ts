@@ -312,13 +312,12 @@ export function signUpActor({ services }: SignUpMachineOptions) {
           return signInWithRedirect(data);
         },
         async handleSignUp(context, _event) {
-          groupLog('+++handleSignUp', context);
           const { formValues, loginMechanisms, username } = context;
           const loginMechanism = loginMechanisms[0];
+          const input = getSignUpInput(username, formValues, loginMechanism);
 
-          return services.handleSignUp(
-            getSignUpInput(username, formValues, loginMechanism)
-          );
+          groupLog('+++handleSignUp', input);
+          return services.handleSignUp(input);
         },
         async validateSignUp(context, _event) {
           // This needs to exist in the machine to reference new `services`
