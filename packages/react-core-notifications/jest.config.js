@@ -16,7 +16,7 @@ module.exports = {
   globals: { 'ts-jest': { tsconfig: 'tsconfig.json' } },
   moduleNameMapper: {
     '^react$': '<rootDir>/node_modules/react',
-    axios: 'axios/dist/node/axios.cjs',
+    axios: '<rootDir>/../../node_modules/axios/lib/axios.js', // required because JS v5 uses ESM verison of axios
   },
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
   preset: 'ts-jest',

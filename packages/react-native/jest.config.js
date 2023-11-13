@@ -9,7 +9,7 @@ module.exports = {
   moduleNameMapper: {
     '^react$': '<rootDir>/node_modules/react',
     '^react-native$': '<rootDir>/node_modules/react-native',
-    axios: 'axios/dist/node/axios.cjs',
+    axios: '<rootDir>/../../node_modules/axios/lib/axios.js', // required because JS v5 uses ESM verison of axios
   },
   coverageThreshold: {
     global: {
