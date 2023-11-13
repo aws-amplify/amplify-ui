@@ -1,5 +1,4 @@
 import { createMachine, sendUpdate } from 'xstate';
-import pickBy from 'lodash/pickBy.js';
 
 import {
   autoSignIn,
@@ -7,10 +6,10 @@ import {
   resendSignUpCode,
   signInWithRedirect,
   fetchUserAttributes,
-  SignUpInput,
 } from 'aws-amplify/auth';
 
 import { AuthEvent, SignUpContext } from '../types';
+import { getSignUpInput } from '../utils';
 
 import { runValidators } from '../../../validators';
 
@@ -22,36 +21,6 @@ import guards from '../guards';
 export type SignUpMachineOptions = {
   services?: Partial<typeof defaultServices>;
 };
-
-const getUserAttributes = (formValues) =>
-  pickBy(formValues, (_, key) => {
-    // Allowlist of Cognito User Pool Attributes (from OpenID Connect specification)
-    // See: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html
-    switch (key) {
-      case 'address':
-      case 'birthdate':
-      case 'email':
-      case 'family_name':
-      case 'gender':
-      case 'given_name':
-      case 'locale':
-      case 'middle_name':
-      case 'name':
-      case 'nickname':
-      case 'phone_number':
-      case 'picture':
-      case 'preferred_username':
-      case 'profile':
-      case 'updated_at':
-      case 'website':
-      case 'zoneinfo':
-        return true;
-
-      // Otherwise, it's a custom attribute
-      default:
-        return key.startsWith('custom:');
-    }
-  });
 
 const handleResetPasswordResponse = {
   onDone: [
@@ -346,21 +315,12 @@ export function signUpActor({ services }: SignUpMachineOptions) {
           groupLog('+++handleSignUp', context);
           const { formValues, loginMechanisms, username } = context;
           const loginMechanism = loginMechanisms[0];
-          const { password } = formValues;
 
-          const options: SignUpInput['options'] = {
-            autoSignIn: true,
-            userAttributes: {
-              // use `username` value for `phone_number`
-              ...(loginMechanism === 'phone_number'
-                ? { ...getUserAttributes(formValues), phone_number: username }
-                : getUserAttributes(formValues)),
-            },
-          };
-
-          return services.handleSignUp({ username, password, options });
+          return services.handleSignUp(
+            getSignUpInput(username, formValues, loginMechanism)
+          );
         },
-        async validateSignUp(context, event) {
+        async validateSignUp(context, _event) {
           // This needs to exist in the machine to reference new `services`
 
           return runValidators(

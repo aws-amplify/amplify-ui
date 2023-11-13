@@ -1,3 +1,5 @@
+import { UserAttributeKey } from 'aws-amplify/auth';
+
 /** Array of auth fields that we supply defaults with */
 export const signUpFieldsWithDefault = [
   'birthdate',
@@ -14,7 +16,7 @@ export const signUpFieldsWithDefault = [
 ] as const;
 
 /** Auth fields that we supply defaults with */
-export type SignUpFieldsWithDefaults = typeof signUpFieldsWithDefault[number];
+export type SignUpFieldsWithDefaults = (typeof signUpFieldsWithDefault)[number];
 
 /** Array of auth fields that we do not supply defaults with */
 export const signUpFieldsWithoutDefault = [
@@ -28,7 +30,7 @@ export const signUpFieldsWithoutDefault = [
 
 /** Auth fields that we do not supply defaults with */
 export type SignUpFieldsWithoutDefaults =
-  typeof signUpFieldsWithoutDefault[number];
+  (typeof signUpFieldsWithoutDefault)[number];
 
 /** All known auth fields */
 export type SignUpAttribute =
@@ -51,7 +53,7 @@ export const LoginMechanismArray = [
 export type FederatedProvider = 'amazon' | 'apple' | 'facebook' | 'google';
 
 /** Login mechanisms that can be used to sign in */
-export type LoginMechanism = typeof LoginMechanismArray[number];
+export type LoginMechanism = (typeof LoginMechanismArray)[number];
 
 /** List of social provider Authenticator supports */
 export type SocialProvider = 'amazon' | 'apple' | 'facebook' | 'google';
@@ -65,10 +67,12 @@ export const authFieldsWithDefaults = [
 ] as const;
 
 /** Input fields that we provide default fields with */
-export type AuthFieldsWithDefaults = typeof authFieldsWithDefaults[number];
+export type AuthFieldsWithDefaults = (typeof authFieldsWithDefaults)[number];
 
 export const isAuthFieldsWithDefaults = (
   field: string
 ): field is AuthFieldsWithDefaults => {
   return authFieldsWithDefaults.includes(field as AuthFieldsWithDefaults);
 };
+
+export type UserAttributes = Partial<Record<UserAttributeKey, string>>;
