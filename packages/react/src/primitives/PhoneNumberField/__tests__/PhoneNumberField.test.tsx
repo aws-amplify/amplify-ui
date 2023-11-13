@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
+import { act } from '@testing-library/react-hooks';
 import userEvent from '@testing-library/user-event';
 
 import { Flex } from '../../Flex';
@@ -158,7 +159,9 @@ describe('PhoneNumberField primitive', () => {
   it('should fire onChange handler when phone input field is changed', async () => {
     const onChange = jest.fn();
     const { phoneInput } = await setup({ onChange });
-    await userEvent.type(phoneInput, '1');
+    await act(async () => {
+      await userEvent.type(phoneInput, '1');
+    });
 
     expect(onChange).toHaveBeenCalled();
   });
@@ -166,7 +169,9 @@ describe('PhoneNumberField primitive', () => {
   it('should fire onInput handler when phone input field is changed', async () => {
     const onInput = jest.fn();
     const { phoneInput } = await setup({ onInput });
-    await userEvent.type(phoneInput, '1');
+    await act(async () => {
+      await userEvent.type(phoneInput, '1');
+    });
 
     expect(onInput).toHaveBeenCalled();
   });
@@ -174,7 +179,9 @@ describe('PhoneNumberField primitive', () => {
   it('should fire onCountryCodeChange handler when phone input field is changed', async () => {
     const onDialCodeChange = jest.fn();
     const { dialCodeSelector } = await setup({ onDialCodeChange });
-    await userEvent.selectOptions(dialCodeSelector, '+7');
+    await act(async () => {
+      await userEvent.selectOptions(dialCodeSelector, '+7');
+    });
 
     expect(onDialCodeChange).toHaveBeenCalled();
   });
@@ -197,7 +204,9 @@ describe('PhoneNumberField primitive', () => {
     const { container } = render(<ReadOnlyFormTest />);
 
     const button = container.getElementsByTagName('button')[0];
-    await userEvent.click(button);
+    await act(async () => {
+      await userEvent.click(button);
+    });
     expect(onSubmit).toHaveBeenCalled();
   });
 
@@ -334,7 +343,9 @@ describe('PhoneNumberField primitive', () => {
     it('should fire onChange handler when phone input field is changed', async () => {
       const onChange = jest.fn();
       const { phoneInput } = await dialCodeSetup({ onChange });
-      await userEvent.type(phoneInput, '1');
+      await act(async () => {
+        await userEvent.type(phoneInput, '1');
+      });
 
       expect(onChange).toHaveBeenCalled();
     });
@@ -342,7 +353,9 @@ describe('PhoneNumberField primitive', () => {
     it('should fire onInput handler when phone input field is changed', async () => {
       const onInput = jest.fn();
       const { phoneInput } = await dialCodeSetup({ onInput });
-      await userEvent.type(phoneInput, '1');
+      await act(async () => {
+        await userEvent.type(phoneInput, '1');
+      });
 
       expect(onInput).toHaveBeenCalled();
     });
@@ -350,7 +363,9 @@ describe('PhoneNumberField primitive', () => {
     it('should fire onDialCodeChange handler when phone input field is changed', async () => {
       const onDialCodeChange = jest.fn();
       const { dialCodeSelector } = await dialCodeSetup({ onDialCodeChange });
-      await userEvent.selectOptions(dialCodeSelector, '+7');
+      await act(async () => {
+        await userEvent.selectOptions(dialCodeSelector, '+7');
+      });
 
       expect(onDialCodeChange).toHaveBeenCalled();
     });
@@ -373,7 +388,9 @@ describe('PhoneNumberField primitive', () => {
       const { container } = render(<DialCodeReadOnlyFormTest />);
 
       const button = container.getElementsByTagName('button')[0];
-      await userEvent.click(button);
+      await act(async () => {
+        await userEvent.click(button);
+      });
       expect(onSubmit).toHaveBeenCalled();
     });
   });

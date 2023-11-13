@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
+import { act } from '@testing-library/react-hooks';
 import userEvent from '@testing-library/user-event';
 import kebabCase from 'lodash/kebabCase';
 
@@ -204,7 +205,9 @@ describe('Collection component', () => {
     const searchInput = await screen.findByRole('textbox');
 
     const text = 'Yosemite National Park';
-    await userEvent.type(searchInput, text);
+    await act(async () => {
+      await userEvent.type(searchInput, text);
+    });
     expect(searchInput).toHaveValue(text);
   });
 

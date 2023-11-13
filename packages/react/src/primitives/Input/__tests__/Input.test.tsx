@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
+import { act } from '@testing-library/react-hooks';
 import userEvent from '@testing-library/user-event';
 
 import { Input } from '../Input';
@@ -149,9 +150,13 @@ describe('Input component', () => {
     const onPaste = jest.fn();
     render(<Input onChange={onChange} onInput={onInput} onPaste={onPaste} />);
     const input = await screen.findByRole('textbox');
-    await userEvent.type(input, 'hello');
+    await act(async () => {
+      await userEvent.type(input, 'hello');
+    });
     input.focus();
-    await userEvent.paste('there');
+    await act(async () => {
+      await userEvent.paste('there');
+    });
     expect(onChange).toHaveBeenCalled();
     expect(onInput).toHaveBeenCalled();
     expect(onPaste).toHaveBeenCalled();

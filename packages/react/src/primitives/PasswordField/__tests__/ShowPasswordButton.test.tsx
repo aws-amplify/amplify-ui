@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
+import { act } from '@testing-library/react-hooks';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 
@@ -46,13 +47,17 @@ describe('ShowPasswordButton component', () => {
     expect(button.getAttribute('aria-checked')).toBe('false');
     expect(visuallyHidden.textContent).toBe(passwordIsHidden);
 
-    await userEvent.click(button);
+    await act(async () => {
+      await userEvent.click(button);
+    });
 
     expect(passwordField.getAttribute('type')).toBe('text');
     expect(button.getAttribute('aria-checked')).toBe('true');
     expect(visuallyHidden.textContent).toBe(passwordIsShown);
 
-    await userEvent.click(button);
+    await act(async () => {
+      await userEvent.click(button);
+    });
 
     expect(passwordField.getAttribute('type')).toBe('password');
     expect(button.getAttribute('aria-checked')).toBe('false');
@@ -94,7 +99,9 @@ describe('ShowPasswordButton component', () => {
 
     expect(visuallyHidden.textContent).toBe(passwordIsHiddenLabel);
 
-    await userEvent.click(button);
+    await act(async () => {
+      await userEvent.click(button);
+    });
 
     expect(visuallyHidden.textContent).toBe(passwordIsShownLabel);
   });

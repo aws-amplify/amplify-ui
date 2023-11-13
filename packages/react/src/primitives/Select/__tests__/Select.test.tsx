@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
+import { act } from '@testing-library/react-hooks';
 import userEvent from '@testing-library/user-event';
 
 import { Select } from '../Select';
@@ -201,17 +202,23 @@ describe('Select primitive test suite', () => {
 
     expect(placeholderOption.selected).toBeTruthy();
 
-    await userEvent.selectOptions(select, '1');
+    await act(async () => {
+      await userEvent.selectOptions(select, '1');
+    });
     expect(optionOne.selected).toBeTruthy();
     expect(optionTwo.selected).toBeFalsy();
     expect(optionThree.selected).toBeFalsy();
 
-    await userEvent.selectOptions(select, '2');
+    await act(async () => {
+      await userEvent.selectOptions(select, '2');
+    });
     expect(optionOne.selected).toBeFalsy();
     expect(optionTwo.selected).toBeTruthy();
     expect(optionThree.selected).toBeFalsy();
 
-    await userEvent.selectOptions(select, '3');
+    await act(async () => {
+      await userEvent.selectOptions(select, '3');
+    });
     expect(optionOne.selected).toBeFalsy();
     expect(optionTwo.selected).toBeFalsy();
     expect(optionThree.selected).toBeTruthy();
@@ -241,17 +248,23 @@ describe('Select primitive test suite', () => {
 
     expect(placeholderOption.selected).toBeTruthy();
 
-    await userEvent.selectOptions(select, '1');
+    await act(async () => {
+      await userEvent.selectOptions(select, '1');
+    });
     expect(optionOne.selected).toBeTruthy();
     expect(optionTwo.selected).toBeFalsy();
     expect(optionThree.selected).toBeFalsy();
 
-    await userEvent.selectOptions(select, '2');
+    await act(async () => {
+      await userEvent.selectOptions(select, '2');
+    });
     expect(optionOne.selected).toBeFalsy();
     expect(optionTwo.selected).toBeTruthy();
     expect(optionThree.selected).toBeFalsy();
 
-    await userEvent.selectOptions(select, '3');
+    await act(async () => {
+      await userEvent.selectOptions(select, '3');
+    });
     expect(optionOne.selected).toBeFalsy();
     expect(optionTwo.selected).toBeFalsy();
     expect(optionThree.selected).toBeTruthy();

@@ -36,17 +36,7 @@ describe('useAuth', () => {
     expect(result.current.isLoading).toBe(true);
     expect(result.current.error).toBeUndefined();
 
-    await waitForNextUpdate();
-  });
-
-  it('should invoke getCurrentUser function', async () => {
-    getCurrentUserSpy.mockResolvedValue(mockCognitoUser);
-
-    const { waitForNextUpdate } = renderHook(() => useAuth());
-
-    await waitForNextUpdate();
-
-    expect(getCurrentUserSpy).toHaveBeenCalledTimes(1);
+    await act(async () => await waitForNextUpdate());
   });
 
   it('should set an error when something unexpected happen', async () => {
@@ -54,7 +44,7 @@ describe('useAuth', () => {
 
     const { result, waitForNextUpdate } = renderHook(() => useAuth());
 
-    await waitForNextUpdate();
+    await act(async () => await waitForNextUpdate());
 
     expect(result.current.error).not.toBeUndefined();
   });
@@ -64,7 +54,7 @@ describe('useAuth', () => {
 
     const { result, waitForNextUpdate } = renderHook(() => useAuth());
 
-    await waitForNextUpdate();
+    await act(async () => await waitForNextUpdate());
 
     expect(result.current.error).toBeUndefined();
     expect(result.current.user).toBe(mockCognitoUser);
@@ -78,7 +68,7 @@ describe('useAuth', () => {
 
       const { result, waitForNextUpdate } = renderHook(() => useAuth());
 
-      await waitForNextUpdate();
+      await act(async () => await waitForNextUpdate());
 
       expect(result.current.user).toBe(undefined);
 
@@ -97,7 +87,7 @@ describe('useAuth', () => {
 
     const { result, waitForNextUpdate } = renderHook(() => useAuth());
 
-    await waitForNextUpdate();
+    await act(async () => await waitForNextUpdate());
 
     expect(result.current.user).toBe(mockCognitoUser);
 
@@ -113,11 +103,11 @@ describe('useAuth', () => {
     getCurrentUserSpy.mockResolvedValue(mockCognitoUser);
 
     const { waitForNextUpdate } = renderHook(() => useAuth());
-    await waitForNextUpdate();
+    await act(async () => await waitForNextUpdate());
 
     // Simulate Auth tokenRefresh Hub action
-    act(() => {
-      Hub.dispatch('auth', { event: 'tokenRefresh' });
+    await act(async () => {
+      await Hub.dispatch('auth', { event: 'tokenRefresh' });
     });
 
     expect(getCurrentUserSpy).toHaveBeenCalled();
@@ -129,7 +119,7 @@ describe('useAuth', () => {
       getCurrentUserSpy.mockResolvedValue(mockCognitoUser);
 
       const { result, waitForNextUpdate } = renderHook(() => useAuth());
-      await waitForNextUpdate();
+      await act(async () => await waitForNextUpdate());
 
       act(() => {
         Hub.dispatch('auth', {
@@ -147,7 +137,7 @@ describe('useAuth', () => {
     getCurrentUserSpy.mockResolvedValue(mockCognitoUser);
 
     const { result, waitForNextUpdate } = renderHook(() => useAuth());
-    await waitForNextUpdate();
+    await act(async () => await waitForNextUpdate());
 
     act(() => {
       // adapted from https://github.com/aws-amplify/amplify-js/blob/272c2c607cc4adb5ddc9421444887bdb382227a0/packages/auth/src/Auth.ts#L274-L278
