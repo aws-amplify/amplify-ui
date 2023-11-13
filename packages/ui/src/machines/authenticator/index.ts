@@ -27,16 +27,15 @@ export type AuthenticatorMachineOptions = AuthContext['config'] & {
 };
 
 const getActorContext = (context: AuthContext, defaultStep?: InitialStep) => ({
-  codeDeliveryDetails: context.actorDoneData?.codeDeliveryDetails,
-  remoteError: context.actorDoneData?.remoteError,
+  ...context.actorDoneData,
   step: context.actorDoneData?.step ?? defaultStep,
-  username: context.actorDoneData?.username,
-  unverifiedUserAttributes: context.actorDoneData?.unverifiedUserAttributes,
 
+  // initialize empty objects on actor start
   formValues: {},
   touched: {},
   validationError: {},
 
+  // values included on `context.config` that should be available in actors
   formFields: context.config?.formFields,
   loginMechanisms: context.config?.loginMechanisms,
   passwordSettings: context.config?.passwordSettings,
@@ -341,6 +340,7 @@ export function createAuthenticatorMachine(
               remoteError: event.data.remoteError,
               username: event.data.username,
               step: event.data.step,
+              totpSecretCode: event.data.totpSecretCode,
               unverifiedUserAttributes: event.data.unverifiedUserAttributes,
             };
           },
