@@ -84,7 +84,7 @@ echo "##########################"
 echo "# Start Mega App Install #"
 echo "##########################"
 
-DEPENDENCIES="$FRAMEWORK@$FRAMEWORK_VERSION @aws-amplify/ui-$FRAMEWORK aws-amplify"
+DEPENDENCIES="$FRAMEWORK@$FRAMEWORK_VERSION @aws-amplify/ui-$FRAMEWORK aws-amplify@6"
 
 echo "cd ./mega-apps/${MEGA_APP_NAME}"
 cd ./mega-apps/${MEGA_APP_NAME}
