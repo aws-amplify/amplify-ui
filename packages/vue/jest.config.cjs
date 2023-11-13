@@ -21,6 +21,9 @@ module.exports = {
   },
   testEnvironment: 'jsdom',
   verbose: true,
+  moduleNameMapper: {
+    axios: '<rootDir>/../../node_modules/axios/lib/axios.js', // required because JS v5 uses ESM verison of axios
+  },
   moduleFileExtensions: ['js', 'ts', 'json', 'vue', 'tsx'],
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
   setupFilesAfterEnv: ['./jest.setup.ts'],
