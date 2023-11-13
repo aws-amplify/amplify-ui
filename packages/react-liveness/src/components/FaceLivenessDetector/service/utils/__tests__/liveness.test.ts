@@ -58,7 +58,7 @@ describe('Liveness Helper', () => {
       expect(faceMatchPercentage).toBe(0);
     });
 
-    // Note: if this test ever fails just add a console log for face and do a check and copy the value here
+    // Note: if this test ever fails due to face detection updates just add a console log for face and do a check and copy the value here
     it('should return matched', () => {
       const face: Face = {
         top: 89.82275009155273,
