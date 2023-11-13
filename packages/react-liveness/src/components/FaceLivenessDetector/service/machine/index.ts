@@ -8,7 +8,6 @@ import {
   getOvalBoundingBox,
   isFaceDistanceBelowThreshold,
   generateBboxFromLandmarks,
-  captureRefImage,
 } from '../utils/liveness';
 
 import {
@@ -31,6 +30,7 @@ import {
   estimateIllumination,
   isCameraDeviceVirtual,
   FreshnessColorDisplay,
+  drawStaticOval,
 } from '../utils';
 import { nanoid } from 'nanoid';
 import { getStaticLivenessOvalDetails } from '../utils/liveness';
@@ -47,10 +47,10 @@ import {
   ClientSessionInformationEvent,
   LivenessResponseStream,
 } from '@aws-sdk/client-rekognitionstreaming';
-import { STATIC_VIDEO_CONSTRAINTS } from '../../StartLiveness/helpers';
+import { STATIC_VIDEO_CONSTRAINTS } from '../../utils/helpers';
 import { WS_CLOSURE_CODE } from '../utils/constants';
 
-export const MIN_FACE_MATCH_TIME = 500;
+export const MIN_FACE_MATCH_TIME = 1000;
 const DEFAULT_FACE_FIT_TIMEOUT = 7000;
 const CAMERA_ID_KEY = 'AmplifyLivenessCameraId';
 
@@ -158,8 +158,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             target: 'start',
             cond: 'hasDOMAndCameraDetails',
           },
-          // setting this to check every 500 ms sometimes caused detectFaceBeforeStart to be called twice
-          500: { target: 'waitForDOMAndCameraDetails' },
+          10: { target: 'waitForDOMAndCameraDetails' },
         },
       },
       start: {
@@ -472,37 +471,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       drawStaticOval: (context) => {
         const { canvasEl, videoEl, videoMediaStream } =
           context.videoAssociatedParams!;
-        const { width, height } = videoMediaStream!
-          .getTracks()[0]
-          .getSettings();
 
-        // Get width/height of video element so we can compute scaleFactor
-        // and set canvas width/height.
-        const { width: videoScaledWidth, height: videoScaledHeight } =
-          videoEl!.getBoundingClientRect();
-
-        canvasEl!.width = Math.ceil(videoScaledWidth);
-        canvasEl!.height = Math.ceil(videoScaledHeight);
-
-        const ovalDetails = getStaticLivenessOvalDetails({
-          width: width!,
-          height: height!,
-          ratioMultiplier: 0.5,
-        });
-        ovalDetails.flippedCenterX = width! - ovalDetails.centerX;
-
-        // Compute scaleFactor which is how much our video element is scaled
-        // vs the intrinsic video resolution
-        const scaleFactor = videoScaledWidth / videoEl!.videoWidth;
-
-        // Draw oval in canvas using ovalDetails and scaleFactor
-        drawLivenessOvalInCanvas({
-          canvas: canvasEl!,
-          oval: ovalDetails,
-          scaleFactor,
-          videoEl: videoEl!,
-          isStartScreen: true,
-        });
+        drawStaticOval(canvasEl!, videoEl!, videoMediaStream!);
       },
       updateRecordingStartTimestampMs: assign({
         videoAssociatedParams: (context) => {

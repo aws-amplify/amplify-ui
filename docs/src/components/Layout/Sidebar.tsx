@@ -122,7 +122,7 @@ const ExpanderTitle = ({ Icon, text }) => {
           height: tokens.fontSizes.large,
           width: tokens.fontSizes.large,
         }}
-        color={tokens.colors.brand.primary[60]}
+        color={tokens.colors.primary[60]}
       />
       <Text as="span">{text}</Text>
     </Flex>

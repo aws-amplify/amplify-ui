@@ -18,7 +18,7 @@ import {
   mockSessionInformation,
   mockVideoRecorder,
 } from '../../utils/__mocks__/testUtils';
-import { STATIC_VIDEO_CONSTRAINTS } from '../../../StartLiveness/helpers';
+import { STATIC_VIDEO_CONSTRAINTS } from '../../../utils/helpers';
 
 jest.useFakeTimers();
 jest.mock('../../utils');
@@ -113,7 +113,7 @@ describe('Liveness Machine', () => {
       currentDetectedFace: mockFace,
       startFace: mockFace,
       endFace: mockFace,
-      initialFaceMatchTime: Date.now() - 500,
+      initialFaceMatchTime: Date.now() - 1000,
     },
     freshnessColorAssociatedParams: {
       freshnessColorEl: document.createElement('canvas'),
