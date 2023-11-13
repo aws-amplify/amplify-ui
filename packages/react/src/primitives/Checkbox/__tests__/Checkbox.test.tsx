@@ -201,12 +201,12 @@ describe('Checkbox', () => {
       );
 
       const input = await screen.findByRole('checkbox');
-      userEvent.click(input);
+      await userEvent.click(input);
       expect(onBlur).not.toHaveBeenCalled();
       expect(onChange).toHaveBeenCalledTimes(1);
       expect(onFocus).toHaveBeenCalledTimes(1);
       const blur = await screen.findByTestId('blur');
-      userEvent.click(blur);
+      await userEvent.click(blur);
       expect(onBlur).toHaveBeenCalledTimes(1);
     });
   });

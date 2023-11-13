@@ -21,10 +21,10 @@ describe('displayTextEn', () => {
     expect(getCopyButtonText(false)).toMatchSnapshot();
     expect(getDescriptionText('confirmResetPassword')).toMatchSnapshot();
     expect(getProviderButtonText('Fake Provider')).toMatchSnapshot();
-    expect(getResetPasswordLinkText('resetPassword')).toMatchSnapshot();
+    expect(getResetPasswordLinkText('forgotPassword')).toMatchSnapshot();
     expect(getSecondaryButtonText('confirmResetPassword')).toMatchSnapshot();
-    expect(getSignInLinkText('resetPassword')).toMatchSnapshot();
-    expect(getSignUpLinkText('resetPassword')).toMatchSnapshot();
+    expect(getSignInLinkText('forgotPassword')).toMatchSnapshot();
+    expect(getSignUpLinkText('forgotPassword')).toMatchSnapshot();
     expect(getPrimaryButtonText('confirmResetPassword')).toMatchSnapshot();
     expect(getTitleText('confirmResetPassword')).toMatchSnapshot();
     expect(providersDividerText).toMatchSnapshot();

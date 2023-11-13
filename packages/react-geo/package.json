@@ -42,13 +42,13 @@
     "@aws-amplify/ui-react-core": "2.1.33",
     "mapbox-gl": "1.13.1",
     "maplibre-gl": "2.1.9",
-    "maplibre-gl-js-amplify": "3.0.0-geo.3",
+    "maplibre-gl-js-amplify": "^4.0.0",
     "react-map-gl": "7.0.23",
     "tslib": "^2.5.2"
   },
   "peerDependencies": {
-    "@aws-amplify/geo": "3.0.1-unstable.5b52c3a.0",
-    "aws-amplify": "unstable",
+    "@aws-amplify/geo": "^3.0.1",
+    "aws-amplify": "^6.0.1",
     "react": "^16.14.0 || ^17.0 || ^18.0",
     "react-dom": "^16.14.0 || ^17.0 || ^18.0"
   },

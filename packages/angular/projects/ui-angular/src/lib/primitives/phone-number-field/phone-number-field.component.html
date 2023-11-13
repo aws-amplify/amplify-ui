@@ -8,16 +8,10 @@
   >
     {{ label }}
   </label>
-
   <div class="amplify-flex amplify-field-group amplify-field-group--horizontal">
     <div class="amplify-field-group__outer-start">
       <div
-        class="
-          amplify-flex
-          amplify-field
-          amplify-selectfield
-          amplify-dialcodeselect
-        "
+        class="amplify-flex amplify-field amplify-selectfield amplify-dialcodeselect"
         style="flex-direction: column"
       >
         <amplify-form-select
@@ -30,7 +24,9 @@
       </div>
     </div>
 
-    <div class="amplify-field-group__field-wrapper amplify-field-group__field-wrapper--horizontal">
+    <div
+      class="amplify-field-group__field-wrapper amplify-field-group__field-wrapper--horizontal"
+    >
       <input
         class="amplify-input amplify-field-group__control"
         [id]="textFieldId"

@@ -18,7 +18,6 @@ if (!config.Auth) {
 config.Auth.Cognito.userPoolEndpoint = 'http://127.0.0.1:9091/';
 Amplify.configure(config);
 
-// @todo-migration remove cast
 I18n.putVocabularies(translations);
 I18n.setLanguage('en');
 I18n.putVocabulariesForLanguage('en', {

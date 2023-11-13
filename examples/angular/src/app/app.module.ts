@@ -12,7 +12,7 @@ import { CustomSlotsComponent } from 'src/pages/ui/components/authenticator/cust
 import { HubEventsComponent } from 'src/pages/ui/components/authenticator/hub-events/hub-events.component';
 import { I18nComponent } from 'src/pages/ui/components/authenticator/i18n/i18n.component';
 import { ModalComponent } from 'src/pages/ui/components/authenticator/modal/modal.component';
-import { ResetPasswordComponent } from 'src/pages/ui/components/authenticator/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from 'src/pages/ui/components/authenticator/forgot-password/forgot-password.component';
 import { SignInFederatedComponent } from 'src/pages/ui/components/authenticator/sign-in-federated/sign-in-federated.component';
 import { SignInSMSMFAComponent } from 'src/pages/ui/components/authenticator/sign-in-sms-mfa/sign-in-sms-mfa.component';
 import { SignInTOTPMFAComponent } from 'src/pages/ui/components/authenticator/sign-in-totp-mfa/sign-in-totp-mfa.component';
@@ -37,7 +37,7 @@ import { UseAuthenticatorHomeComponent } from 'src/pages/ui/components/authentic
     HubEventsComponent,
     I18nComponent,
     ModalComponent,
-    ResetPasswordComponent,
+    ForgotPasswordComponent,
     SignInFederatedComponent,
     SignInSMSMFAComponent,
     SignInTOTPMFAComponent,
