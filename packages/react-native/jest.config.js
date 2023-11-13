@@ -9,6 +9,7 @@ module.exports = {
   moduleNameMapper: {
     '^react$': '<rootDir>/node_modules/react',
     '^react-native$': '<rootDir>/node_modules/react-native',
+    axios: 'axios/dist/node/axios.cjs',
   },
   coverageThreshold: {
     global: {

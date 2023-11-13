@@ -18,6 +18,7 @@ module.exports = {
   globals: { 'ts-jest': { tsconfig: 'tsconfig.json' } },
   moduleNameMapper: {
     '^react$': '<rootDir>/node_modules/react',
+    axios: 'axios/dist/node/axios.cjs',
   },
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
   preset: 'ts-jest',
