@@ -36,7 +36,7 @@ describe('useAuth', () => {
     expect(result.current.isLoading).toBe(true);
     expect(result.current.error).toBeUndefined();
 
-    await act(async () => await waitForNextUpdate());
+    waitForNextUpdate();
   });
 
   it('should invoke getCurrentUser function', async () => {
@@ -44,7 +44,7 @@ describe('useAuth', () => {
 
     const { waitForNextUpdate } = renderHook(() => useAuth());
 
-    await act(async () => await waitForNextUpdate());
+    waitForNextUpdate();
 
     expect(getCurrentUserSpy).toHaveBeenCalledTimes(1);
   });
@@ -78,7 +78,7 @@ describe('useAuth', () => {
 
       const { result, waitForNextUpdate } = renderHook(() => useAuth());
 
-      await act(async () => await waitForNextUpdate());
+      waitForNextUpdate();
 
       expect(result.current.user).toBe(undefined);
 
@@ -97,7 +97,7 @@ describe('useAuth', () => {
 
     const { result, waitForNextUpdate } = renderHook(() => useAuth());
 
-    await act(async () => await waitForNextUpdate());
+    waitForNextUpdate();
 
     expect(result.current.user).toBe(mockCognitoUser);
 
@@ -113,8 +113,7 @@ describe('useAuth', () => {
     getCurrentUserSpy.mockResolvedValue(mockCognitoUser);
 
     const { waitForNextUpdate } = renderHook(() => useAuth());
-    await act(async () => await waitForNextUpdate());
-
+    waitForNextUpdate();
     // Simulate Auth tokenRefresh Hub action
     await act(async () => {
       await Hub.dispatch('auth', { event: 'tokenRefresh' });
@@ -129,7 +128,7 @@ describe('useAuth', () => {
       getCurrentUserSpy.mockResolvedValue(mockCognitoUser);
 
       const { result, waitForNextUpdate } = renderHook(() => useAuth());
-      await act(async () => await waitForNextUpdate());
+      waitForNextUpdate();
 
       act(() => {
         Hub.dispatch('auth', {
@@ -147,7 +146,7 @@ describe('useAuth', () => {
     getCurrentUserSpy.mockResolvedValue(mockCognitoUser);
 
     const { result, waitForNextUpdate } = renderHook(() => useAuth());
-    await act(async () => await waitForNextUpdate());
+    waitForNextUpdate();
 
     act(() => {
       // adapted from https://github.com/aws-amplify/amplify-js/blob/272c2c607cc4adb5ddc9421444887bdb382227a0/packages/auth/src/Auth.ts#L274-L278
