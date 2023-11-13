@@ -67,7 +67,6 @@ const handleAutoSignInResponse = {
       actions: 'setNextSignInStep',
       target: '#signUpActor.fetchUserAttributes',
     },
-    // @todo-migration handle continue sign in with setuptotp here
     {
       cond: 'shouldConfirmSignInWithNewPassword',
       actions: 'setNextSignInStep',
@@ -85,10 +84,9 @@ const handleAutoSignInResponse = {
     },
     {
       actions: [
+        'setNextSignInStep',
         'setChallengeName',
         'setMissingAttributes',
-        'setNextSignInStep',
-        // @todo-migration doesn't seem to being handled correctly from auto sign in
         'setTotpSecretCode',
       ],
       target: '#signUpActor.resolved',
