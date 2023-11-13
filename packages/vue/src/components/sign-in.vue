@@ -14,7 +14,7 @@ import FederatedSignIn from './federated-sign-in.vue';
 
 // `facade` is manually typed to `UseAuthenticator` for temporary type safety.
 const facade: UseAuthenticator = useAuthenticator();
-const { submitForm, updateForm, toResetPassword } = facade;
+const { submitForm, updateForm, toForgotPassword } = facade;
 const { error, isPending } = toRefs(facade);
 
 // Text Util
@@ -37,7 +37,7 @@ const onSignInSubmit = (e: Event): void => {
 };
 
 const onForgotPasswordClicked = (): void => {
-  toResetPassword();
+  toForgotPassword();
 };
 </script>
 

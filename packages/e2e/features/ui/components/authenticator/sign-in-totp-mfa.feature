@@ -46,8 +46,8 @@ Feature: Sign In with TOTP MFA
     Then I click the "Sign in" button
     Then I see "User does not exist"
 
-  # This tests the scenario where an admin creates a user with a temporary password
-  # and the user is forced to setup a new password + setup MFA/TOTP
+  # Tests the scenario where an admin creates a user with a temporary password
+  # and the user is forced to setup a new password then setup TOTP as MFA type
   @angular @react @vue
   Scenario: Sign in with admin created user account, user must change password on first login and setup totp/mfa
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password"
@@ -63,28 +63,3 @@ Feature: Sign In with TOTP MFA
     Then I click the "Change Password" button
     Then I confirm request '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }'
     Then I see "Setup TOTP"
-
-  # Test broken because we can't mock autosignin after confirmation code submission
-  @skip @angular @react @vue
-  Scenario: Successful sign up shows correct username from authenticated user
-    When I click the "Create Account" tab
-    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
-    Then I type a new "email"
-    Then I type my password
-    Then I confirm my password
-    Then I click the "Create Account" button
-    Then I see "Confirmation Code"
-    Then I type a valid confirmation code
-    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
-    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password-mfa-setup-software-token"
-    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with fixture "force-change-password-mfa-setup"
-    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.AssociateSoftwareToken" } }' with fixture "force-change-password-mfa-setup-associate-software-token"
-    Then I click the "Confirm" button
-    Given I confirm request '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.AssociateSoftwareToken" } }'
-    # Then I mock "autoSignIn" event with fixture "Auth.signIn-mfa-setup"
-    Then I see "Setup TOTP"
-    Then I see "Code"
-    Then I type a valid confirmation code
-    # Then I mock 'Amplify.Auth.verifyTotpToken' with fixture "Auth.verifyTOTP"
-    Then I click the "Confirm" button
-    Then I see "AmplifyUsername"

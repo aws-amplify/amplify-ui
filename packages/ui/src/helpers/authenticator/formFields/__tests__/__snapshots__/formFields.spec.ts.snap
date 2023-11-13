@@ -26,7 +26,7 @@ exports[`getCustomFormField applies defaults to fields with known auth attribute
 }
 `;
 
-exports[`getCustomFormField applies defaults to known auth fields on resetPassword with email loginMechanism 1`] = `
+exports[`getCustomFormField applies defaults to known auth fields on forgotPassword with email loginMechanism 1`] = `
 {
   "birthdate": {
     "autocomplete": "bday",

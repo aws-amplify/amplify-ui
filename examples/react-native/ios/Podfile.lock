@@ -1,7 +1,7 @@
 PODS:
-  - "AmplifyRTNCore (1.0.1-unstable.5b52c3a.0+5b52c3a)":
+  - AmplifyRTNCore (1.0.1):
     - React-Core
-  - "AmplifyRTNWebBrowser (1.0.1-unstable.5b52c3a.0+5b52c3a)":
+  - AmplifyRTNWebBrowser (1.0.1):
     - React-Core
   - boost (1.76.0)
   - CocoaAsyncSocket (7.6.5)
@@ -427,7 +427,7 @@ PODS:
     - React-perflogger (= 0.71.14)
   - RNCAsyncStorage (1.18.1):
     - React-Core
-  - SocketRocket (0.6.1)
+  - SocketRocket (0.6.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -603,8 +603,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  AmplifyRTNCore: 192a868d70840cab1caf02021b22409697363b25
-  AmplifyRTNWebBrowser: 480fb32fd60ee2ea9273dd23b974492783507265
+  AmplifyRTNCore: 831f49816e170c0e39cc84077b360c7740ea1758
+  AmplifyRTNWebBrowser: bfaf79a0ff21c275c8ad1c630ed78e7cffe38db1
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
@@ -656,10 +656,10 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: ffe826b7b1cfbc32a35ed5b64d5886c0ff75f501
   ReactCommon: 7f3dd5e98a9ec627c6b03d26c062bf37ea9fc888
   RNCAsyncStorage: b90b71f45b8b97be43bc4284e71a6af48ac9f547
-  SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
+  SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   Yoga: e71803b4c1fff832ccf9b92541e00f9b873119b9
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
 PODFILE CHECKSUM: 3e4f239e1082010c7703deb2463550734219072a
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.11.3

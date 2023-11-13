@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-// @todo-migration clean up imports
-import { Amplify } from 'aws-amplify';
 
-import { signUp } from 'aws-amplify/auth';
+import { Amplify } from 'aws-amplify';
+import { signUp, SignUpInput } from 'aws-amplify/auth';
 import { I18n } from 'aws-amplify/utils';
-import awsExports from './aws-exports';
 import { AuthenticatorService, translations } from '@aws-amplify/ui-angular';
+
+import awsExports from './aws-exports';
+Amplify.configure(awsExports);
 
 @Component({
   selector: 'sign-up-with-email',
   templateUrl: 'sign-up-with-email.component.html',
 })
 export class SignUpWithEmailComponent implements OnInit {
-  constructor(public authenticator: AuthenticatorService) {
-    Amplify.configure(awsExports);
-  }
+  constructor(public authenticator: AuthenticatorService) {}
 
   ngOnInit() {
     I18n.putVocabularies(translations);
@@ -41,17 +40,19 @@ export class SignUpWithEmailComponent implements OnInit {
   }
 
   services = {
-    async handleSignUp(formData: Record<string, any>) {
-      let { username, password, attributes } = formData;
-      // custom username
-      username = username.toLowerCase();
-      attributes.email = attributes.email.toLowerCase();
+    async handleSignUp(input: SignUpInput) {
+      // custom username and email
+      const customUsername = input.username.toLowerCase();
+      const customEmail = input.options?.userAttributes?.email?.toLowerCase();
       return signUp({
-        username,
-        password,
+        ...input,
+        username: customUsername,
         options: {
-          userAttributes: attributes,
-          autoSignIn: true,
+          ...input?.options,
+          userAttributes: {
+            ...input?.options?.userAttributes,
+            email: customEmail,
+          },
         },
       });
     },

@@ -154,7 +154,7 @@ describe('Message', () => {
     render(<Message isDismissible={true} onDismiss={onDismiss}></Message>);
 
     const button = await screen.findByRole('button');
-    userEvent.click(button);
+    await userEvent.click(button);
     expect(onDismiss).toHaveBeenCalledTimes(1);
   });
 });
