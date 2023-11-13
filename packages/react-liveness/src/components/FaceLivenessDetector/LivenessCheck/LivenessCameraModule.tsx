@@ -118,6 +118,7 @@ export const LivenessCameraModule = (
   const faceMatchPercentage = useLivenessSelector(selectFaceMatchPercentage);
   const faceMatchState = useLivenessSelector(selectFaceMatchState);
   const errorState = useLivenessSelector(selectErrorState);
+
   const showMatchIndicatorStates = [
     FaceMatchState.TOO_FAR,
     FaceMatchState.CANT_IDENTIFY,

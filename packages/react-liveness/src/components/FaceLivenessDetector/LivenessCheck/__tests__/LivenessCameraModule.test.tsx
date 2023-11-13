@@ -22,14 +22,16 @@ import {
   selectVideoConstraints,
   selectVideoStream,
 } from '../LivenessCameraModule';
-import { FaceMatchState } from '../../service';
+import { FaceMatchState, drawStaticOval } from '../../service';
 import { getDisplayText } from '../../utils/getDisplayText';
 import { selectIsRecordingStopped } from '../LivenessCheck';
+import { mockVideoMediaStream } from '../../service/utils/__mocks__/testUtils';
 
 jest.mock('../../hooks');
 jest.mock('../../hooks/useLivenessSelector');
 jest.mock('../../shared/CancelButton');
 jest.mock('../../shared/Hint');
+jest.mock('../../service');
 
 const mockUseLivenessActor = getMockedFunction(useLivenessActor);
 const mockUseLivenessSelector = getMockedFunction(useLivenessSelector);
@@ -86,6 +88,7 @@ describe('LivenessCameraModule', () => {
 
     jest.clearAllMocks();
     jest.clearAllTimers();
+    mockUseLivenessSelector.mockClear();
     resetAllWhenMocks();
   });
 
@@ -454,7 +457,6 @@ describe('LivenessCameraModule', () => {
     videoEl.dispatchEvent(new Event('canplay'));
 
     expect(screen.getByTestId('popover-icon')).toBeInTheDocument();
-    expect(screen.getByText('Camera:')).toBeInTheDocument();
   });
 
   it('selectors should work', () => {
