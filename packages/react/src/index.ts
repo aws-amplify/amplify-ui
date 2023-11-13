@@ -1,5 +1,5 @@
 export * from './components';
-export { useBreakpointValue, useTheme } from './hooks';
+export { useBreakpointValue, useTheme, useColorMode } from './hooks';
 export * from './primitives';
 
 export * as components from './components';

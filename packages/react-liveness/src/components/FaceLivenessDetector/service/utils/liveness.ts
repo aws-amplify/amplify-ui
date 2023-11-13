@@ -182,6 +182,42 @@ export function getStaticLivenessOvalDetails({
   };
 }
 
+export function drawStaticOval(
+  canvasEl: HTMLCanvasElement,
+  videoEl: HTMLVideoElement,
+  videoMediaStream: MediaStream
+) {
+  const { width, height } = videoMediaStream!.getTracks()[0].getSettings();
+
+  // Get width/height of video element so we can compute scaleFactor
+  // and set canvas width/height.
+  const { width: videoScaledWidth, height: videoScaledHeight } =
+    videoEl!.getBoundingClientRect();
+
+  canvasEl!.width = Math.ceil(videoScaledWidth);
+  canvasEl!.height = Math.ceil(videoScaledHeight);
+
+  const ovalDetails = getStaticLivenessOvalDetails({
+    width: width!,
+    height: height!,
+    ratioMultiplier: 0.5,
+  });
+  ovalDetails.flippedCenterX = width! - ovalDetails.centerX;
+
+  // Compute scaleFactor which is how much our video element is scaled
+  // vs the intrinsic video resolution
+  const scaleFactor = videoScaledWidth / videoEl!.videoWidth;
+
+  // Draw oval in canvas using ovalDetails and scaleFactor
+  drawLivenessOvalInCanvas({
+    canvas: canvasEl!,
+    oval: ovalDetails,
+    scaleFactor,
+    videoEl: videoEl!,
+    isStartScreen: true,
+  });
+}
+
 /**
  * Draws the provided liveness oval on the canvas.
  */
@@ -205,6 +241,7 @@ export function drawLivenessOvalInCanvas({
   const ctx = canvas.getContext('2d');
 
   if (ctx) {
+    ctx.restore();
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
     // fill the canvas with a transparent rectangle
@@ -246,6 +283,7 @@ export function drawLivenessOvalInCanvas({
     );
     ctx.lineWidth = 3;
     ctx.stroke();
+    ctx.save();
     ctx.clip();
 
     // Restore default canvas transform matrix

@@ -9,8 +9,9 @@ import {
   SelectField,
   Text,
   View,
+  useColorMode,
 } from '@aws-amplify/ui-react';
-import { FaceMatchState } from '../service';
+import { FaceMatchState, drawStaticOval } from '../service';
 import {
   useLivenessActor,
   useLivenessSelector,
@@ -124,6 +125,8 @@ export const LivenessCameraModule = (
     FaceMatchState.MATCHED,
   ];
 
+  const colorMode = useColorMode();
+
   const { videoRef, videoWidth, videoHeight } = useMediaStreamInVideo(
     videoStream!
   );
@@ -151,6 +154,50 @@ export const LivenessCameraModule = (
   const [aspectRatio, setAspectRatio] = useState<number>(() =>
     videoWidth && videoHeight ? videoWidth / videoHeight : 0
   );
+
+  React.useEffect(() => {
+    if (
+      canvasRef &&
+      videoRef &&
+      canvasRef.current &&
+      videoRef.current &&
+      videoStream &&
+      isStartView
+    ) {
+      drawStaticOval(canvasRef.current, videoRef.current, videoStream);
+    }
+  }, [canvasRef, videoRef, videoStream, colorMode, isStartView]);
+
+  React.useEffect(() => {
+    const updateColorModeHandler = (e: MediaQueryListEvent) => {
+      if (
+        e.matches &&
+        canvasRef &&
+        videoRef &&
+        canvasRef.current &&
+        videoRef.current &&
+        videoStream &&
+        isStartView
+      ) {
+        drawStaticOval(canvasRef.current, videoRef.current, videoStream);
+      }
+    };
+
+    const darkModePreference = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    );
+    const lightModePreference = window.matchMedia(
+      '(prefers-color-scheme: light)'
+    );
+
+    darkModePreference.addEventListener('change', updateColorModeHandler);
+    lightModePreference.addEventListener('change', updateColorModeHandler);
+
+    return () => {
+      darkModePreference.removeEventListener('change', updateColorModeHandler);
+      lightModePreference.addEventListener('change', updateColorModeHandler);
+    };
+  }, [canvasRef, videoRef, videoStream, isStartView]);
 
   React.useLayoutEffect(() => {
     if (isCameraReady) {
@@ -231,13 +278,13 @@ export const LivenessCameraModule = (
 
   return (
     <>
-      {isStartView && (
+      <View style={{ visibility: isStartView ? 'visible' : 'hidden' }}>
         <DefaultPhotosensitiveWarning
           headingText={instructionDisplayText.photosensitivyWarningHeadingText}
           bodyText={instructionDisplayText.photosensitivyWarningBodyText}
           infoText={instructionDisplayText.photosensitivyWarningInfoText}
         />
-      )}
+      </View>
 
       <Flex
         className={classNames(
@@ -334,34 +381,39 @@ export const LivenessCameraModule = (
             ) : null}
           </Overlay>
 
-          {isStartView && !isMobileScreen && (
-            <Flex className={LivenessClassNames.StartScreenCameraSelect}>
-              <View
-                className={LivenessClassNames.StartScreenCameraSelectContainer}
-              >
-                <Label
-                  htmlFor="amplify-liveness-camera-select"
-                  className={`${LivenessClassNames.StartScreenCameraSelect}__label`}
+          {isStartView &&
+            !isMobileScreen &&
+            selectableDevices &&
+            selectableDevices.length > 1 && (
+              <Flex className={LivenessClassNames.StartScreenCameraSelect}>
+                <View
+                  className={
+                    LivenessClassNames.StartScreenCameraSelectContainer
+                  }
                 >
-                  Camera:
-                </Label>
-                <SelectField
-                  id="amplify-liveness-camera-select"
-                  label="Camera"
-                  labelHidden
-                  value={selectedDeviceId}
-                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                  onChange={onCameraChange}
-                >
-                  {selectableDevices?.map((device) => (
-                    <option value={device.deviceId} key={device.deviceId}>
-                      {device.label}
-                    </option>
-                  ))}
-                </SelectField>
-              </View>
-            </Flex>
-          )}
+                  <Label
+                    htmlFor="amplify-liveness-camera-select"
+                    className={`${LivenessClassNames.StartScreenCameraSelect}__label`}
+                  >
+                    Camera:
+                  </Label>
+                  <SelectField
+                    id="amplify-liveness-camera-select"
+                    label="Camera"
+                    labelHidden
+                    value={selectedDeviceId}
+                    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                    onChange={onCameraChange}
+                  >
+                    {selectableDevices?.map((device) => (
+                      <option value={device.deviceId} key={device.deviceId}>
+                        {device.label}
+                      </option>
+                    ))}
+                  </SelectField>
+                </View>
+              </Flex>
+            )}
         </View>
       </Flex>
 
