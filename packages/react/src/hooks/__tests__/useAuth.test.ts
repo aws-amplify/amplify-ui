@@ -39,6 +39,16 @@ describe('useAuth', () => {
     await act(async () => await waitForNextUpdate());
   });
 
+  it('should invoke getCurrentUser function', async () => {
+    getCurrentUserSpy.mockResolvedValue(mockCognitoUser);
+
+    const { waitForNextUpdate } = renderHook(() => useAuth());
+
+    await act(async () => await waitForNextUpdate());
+
+    expect(getCurrentUserSpy).toHaveBeenCalledTimes(1);
+  });
+
   it('should set an error when something unexpected happen', async () => {
     getCurrentUserSpy.mockRejectedValue(new Error('Unknown error'));
 
