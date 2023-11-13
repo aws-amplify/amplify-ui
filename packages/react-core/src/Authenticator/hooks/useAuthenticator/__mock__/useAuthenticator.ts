@@ -28,7 +28,7 @@ const totpSecretCode = null;
 const unverifiedUserAttributes = {};
 const updateBlur = jest.fn();
 const updateForm = jest.fn();
-const user = {};
+const user = { username: 'username', userId: 'userId' };
 const validationErrors = {};
 
 export const mockMachineContext: AuthenticatorMachineContext = {

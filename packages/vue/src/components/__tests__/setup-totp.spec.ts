@@ -39,7 +39,7 @@ const mockServiceFacade = {
   toSignIn: toSignInSpy,
   totpSecretCode: 'totp-mock-secret-code',
   updateForm: updateFormSpy,
-  user: { username: 'testuser' } as unknown as UIModule.AmplifyUser,
+  user: { username: 'testuser', userId: 'userId' },
 } as UseAuthenticator;
 
 const useAuthenticatorSpy = jest

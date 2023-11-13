@@ -73,7 +73,8 @@ describe('ConfirmSignIn', () => {
     useAuthenticatorSpy.mockReturnValueOnce(
       reactive({
         ...mockServiceFacade,
-        user: { challengeName: 'SMS_MFA' },
+        challengeName: 'SMS_MFA',
+        user: {},
       } as UseAuthenticator)
     );
     const { container } = render(ConfirmSignIn, { global: { components } });

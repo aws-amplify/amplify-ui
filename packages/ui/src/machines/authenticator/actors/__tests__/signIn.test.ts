@@ -3,7 +3,6 @@ import { setImmediate } from 'timers';
 
 import * as AuthModule from 'aws-amplify/auth';
 
-import { AmplifyUser } from '../../../../types';
 import { SignInMachineOptions, signInActor } from '../signIn';
 
 const flushPromises = () => new Promise(setImmediate);
