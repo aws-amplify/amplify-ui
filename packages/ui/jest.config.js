@@ -17,6 +17,9 @@ module.exports = {
   },
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
+  moduleNameMapper: {
+    axios: 'axios/dist/node/axios.cjs',
+  },
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
   globals: {
     'ts-jest': {
