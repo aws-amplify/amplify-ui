@@ -136,6 +136,7 @@ if [[ "$FRAMEWORK" == 'angular' ]]; then
     echo "cp templates/components/angular/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts"
     cp templates/components/angular/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts
     echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/angular.json -e \"this.projects[\\\"$MEGA_APP_NAME\\\"].architect.build.options.styles.push(\\\"node_modules/@aws-amplify/ui-angular/theme.css\\\")\""
+    npx json -I -f mega-apps/${MEGA_APP_NAME}/angular.json -e "this.projects[\"$MEGA_APP_NAME\"].architect.build.options.styles.push(\"node_modules/@aws-amplify/ui-angular/theme.css\")"
     npx json -I -f mega-apps/${MEGA_APP_NAME}/angular.json -e "this.projects[\"$MEGA_APP_NAME\"].architect.build.configurations.production.budgets = [{\"type\":\"initial\",\"maximumWarning\":\"600kb\",\"maximumError\":\"1.5mb\"},{\"type\":\"anyComponentStyle\",\"maximumWarning\":\"2kb\",\"maximumError\":\"4kb\"}]"
 
     # The following change is to test change polyfills so that the app works in browser in local.
