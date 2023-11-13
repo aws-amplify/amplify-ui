@@ -3,10 +3,10 @@ Feature: Reset Password
   End users can reset their password through "Forgot your password?" link.
 
   Background:
-    Given I'm running the example "ui/components/authenticator/reset-password"
+    Given I'm running the example "ui/components/authenticator/forgot-password"
 
   @react @vue @angular @react-native
-  Scenario: Reset Password with valid username
+  Scenario: Forgot Password with valid username
     When I type my "username" with status "CONFIRMED"
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"
     Then I click the "Send code" button
@@ -20,19 +20,19 @@ Feature: Reset Password
     Then I see "Sign In"
     
   @react @vue @angular @react-native
-  Scenario: Reset Password with invalid username
+  Scenario: Forgot Password with invalid username
     When I type my "username" with status "UNKNOWN"
     Then I click the "Send code" button
     Then I see "Username/client id combination not found."
 
   @angular @react @vue @react-native
-  Scenario: Reset Password with valid placeholder 
+  Scenario: Forgot Password with valid placeholder 
     Then I see "Enter your username"
     Then I don't see "Enter your phone number"
     Then I don't see "Enter your email"
 
   @angular @react @vue @react-native
-  Scenario: Reset Password with wrong password requirements
+  Scenario: Forgot Password with wrong password requirements
     When I type my "username" with status "CONFIRMED"
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"
     Then I click the "Send code" button
@@ -47,7 +47,7 @@ Feature: Reset Password
     Then I see "Password must have at least 8 characters"
 
   @react-native
-  Scenario: Reset Password with wrong password requirements typed slowly
+  Scenario: Forgot Password with wrong password requirements typed slowly
     When I type my "username" with status "CONFIRMED"
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"
     Then I click the "Send code" button
@@ -62,7 +62,7 @@ Feature: Reset Password
     Then I see "Password must have at least 8 characters"
 
   @angular @react @vue @react-native
-  Scenario: Reset Password without lower case characters
+  Scenario: Forgot Password without lower case characters
     When I type my "username" with status "CONFIRMED"
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"
     Then I click the "Send code" button

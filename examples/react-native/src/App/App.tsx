@@ -78,8 +78,8 @@ const SignUpWithUsername = React.lazy(
 const SocialProviders = React.lazy(
   () => import('../ui/components/authenticator/social-providers/Example')
 );
-const ResetPassword = React.lazy(
-  () => import('../ui/components/authenticator/reset-password/Example')
+const ForgotPassword = React.lazy(
+  () => import('../ui/components/authenticator/forgot-password/Example')
 );
 const WithAuthenticator = React.lazy(
   () => import('../ui/components/authenticator/with-authenticator/Example')
@@ -130,8 +130,8 @@ export const ExampleComponent = () => {
       return <SignUpWithAttributes />;
     case '/ui/components/authenticator/social-providers':
       return <SocialProviders />;
-    case 'ui/components/authenticator/reset-password':
-      return <ResetPassword />;
+    case 'ui/components/authenticator/forgot-password':
+      return <ForgotPassword />;
     case '/ui/components/authenticator/withAuthenticator':
       return <WithAuthenticator />;
     case 'ui/components/in-app-messaging/demo':
