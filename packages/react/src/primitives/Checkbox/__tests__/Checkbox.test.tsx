@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
-import { act } from '@testing-library/react-hooks';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Checkbox } from '../Checkbox';

@@ -54,7 +54,9 @@ describe('useAuth', () => {
 
     const { result, waitForNextUpdate } = renderHook(() => useAuth());
 
-    await act(async () => await waitForNextUpdate());
+    await act(async () => {
+      await waitForNextUpdate();
+    });
 
     expect(result.current.error).not.toBeUndefined();
   });
@@ -64,7 +66,9 @@ describe('useAuth', () => {
 
     const { result, waitForNextUpdate } = renderHook(() => useAuth());
 
-    await act(async () => await waitForNextUpdate());
+    await act(async () => {
+      await waitForNextUpdate();
+    });
 
     expect(result.current.error).toBeUndefined();
     expect(result.current.user).toBe(mockCognitoUser);
