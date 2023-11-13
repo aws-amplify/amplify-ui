@@ -109,6 +109,7 @@ export interface ActorDoneData {
   missingAttributes?: string[];
   remoteError?: string;
   step: Step;
+  totpSecretCode?: string;
   username?: string;
   unverifiedUserAttributes?: UnverifiedUserAttributes;
 }
