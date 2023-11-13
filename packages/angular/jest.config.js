@@ -20,6 +20,7 @@ module.exports = {
   moduleNameMapper: {
     '^uuid$': '<rootDir>/../../node_modules/uuid',
     '^nanoid$': '<rootDir>/../../node_modules/nanoid',
+    axios: '<rootDir>/../../node_modules/axios/lib/axios.js',
   },
   transform: {
     '^.+\\.{ts|tsx}?$': [

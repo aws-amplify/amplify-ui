@@ -17,6 +17,9 @@ module.exports = {
   },
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
+  moduleNameMapper: {
+    axios: '<rootDir>/../../node_modules/axios/lib/axios.js', // required because JS v5 uses ESM verison of axios
+  },
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
   globals: {
     'ts-jest': {
