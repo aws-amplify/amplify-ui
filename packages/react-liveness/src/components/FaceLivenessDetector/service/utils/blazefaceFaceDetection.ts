@@ -5,7 +5,7 @@ import * as blazeface from '@tensorflow-models/blazeface';
 import * as tfjsWasm from '@tensorflow/tfjs-backend-wasm';
 import '@tensorflow/tfjs-backend-cpu';
 
-import { jitteredExponentialRetry } from '@aws-amplify/core';
+import { jitteredExponentialRetry } from '@aws-amplify/core/internals/utils';
 
 import { isWebAssemblySupported } from './support';
 import { FaceDetection, Face, Coordinate } from '../types';

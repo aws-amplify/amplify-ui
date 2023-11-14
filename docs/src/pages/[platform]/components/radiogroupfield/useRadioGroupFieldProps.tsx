@@ -17,9 +17,12 @@ export const useRadioGroupFieldProps: UseRadioGroupFieldProps = (
   const [isDisabled, setIsDisabled] = React.useState<
     RadioGroupFieldProps['isDisabled']
   >(initialValues.isDisabled);
-  const [label, setLabel] = React.useState<RadioGroupFieldProps['label']>(
-    initialValues.label
+  const [legend, setLegend] = React.useState<RadioGroupFieldProps['legend']>(
+    initialValues.legend
   );
+  const [variation, setVariation] = React.useState<
+    RadioGroupFieldProps['variation']
+  >(initialValues.variation);
   const [name, setName] = React.useState<RadioGroupFieldProps['name']>(
     initialValues.name
   );
@@ -34,43 +37,47 @@ export const useRadioGroupFieldProps: UseRadioGroupFieldProps = (
     demoState.set(RadioGroupField.displayName, {
       direction,
       isDisabled,
-      label,
+      legend,
       name,
       size,
       labelPosition,
     });
-  }, [direction, isDisabled, label, name, size, labelPosition]);
+  }, [direction, isDisabled, legend, name, size, labelPosition]);
 
   return React.useMemo(
     () => ({
       ...initialValues,
       direction,
-      label,
+      legend,
       labelPosition,
       name,
       size,
       isDisabled,
+      variation,
       setDirection,
       setIsDisabled,
-      setLabel,
+      setLegend,
       setName,
       setSize,
       setLabelPosition,
+      setVariation,
     }),
     [
       initialValues,
       direction,
-      label,
+      legend,
       labelPosition,
       name,
       size,
       isDisabled,
+      variation,
       setDirection,
       setIsDisabled,
-      setLabel,
+      setLegend,
       setName,
       setSize,
       setLabelPosition,
+      setVariation,
     ]
   );
 };

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Amplify, I18n } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import { I18n } from 'aws-amplify/utils';
 import { Authenticator, translations } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
 import aws_exports from './aws-exports';
@@ -31,7 +32,7 @@ const formFields = {
 <template>
   <authenticator :form-fields="formFields">
     <template v-slot="{ user, signOut }">
-      <h1>Hello {{ user.attributes?.phone_number }}!</h1>
+      <h1>Hello {{ user.username }}!</h1>
       <button @click="signOut">Sign Out</button>
     </template>
   </authenticator>

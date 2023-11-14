@@ -8,3 +8,4 @@ Feature: Storage Manager with default files
     Then I see "Browse files"
     Then I drag and drop a file with file name "test.txt"
     Then I see "test.txt"
+    Then I see "Uploaded"

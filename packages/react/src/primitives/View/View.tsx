@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useStyles } from '../shared/styleUtils';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import {
   ForwardRefPrimitive,
   Primitive,
@@ -41,6 +42,6 @@ const ViewPrimitive: Primitive<ViewProps, 'div'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/view)
  */
 export const View: ForwardRefPrimitive<BaseViewProps, 'div'> =
-  React.forwardRef(ViewPrimitive);
+  primitiveWithForwardRef(ViewPrimitive);
 
 View.displayName = 'View';

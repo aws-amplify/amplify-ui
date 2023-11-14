@@ -1,10 +1,4 @@
 /**
- * Prevents usage of T from being automatically inferred.
- * see: https://github.com/Microsoft/TypeScript/issues/14829#issuecomment-504042546
- */
-export type NoInfer<T> = [T][T extends any ? 0 : never];
-
-/**
  * Improves readability of enumerable properties of an `Object` created from another `Object`,
  * for example types that have been created using `Omit` or `Pick`.
  */

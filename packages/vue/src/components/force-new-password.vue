@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, toRefs, useAttrs } from 'vue';
+import { computed, toRefs } from 'vue';
 
 import {
   authenticatorTextUtil,
@@ -10,10 +10,6 @@ import {
 import { useAuthenticator } from '../composables/useAuth';
 import { UseAuthenticator } from '../types';
 import AuthenticatorForceNewPasswordFormFields from './authenticator-force-new-password-form-fields.vue';
-
-/** @deprecated Component events are deprecated and not maintained. */
-const emit = defineEmits(['haveAccountClicked', 'forceNewPasswordSubmit']);
-const attrs = useAttrs();
 
 // `facade` is manually typed to `UseAuthenticator` for temporary type safety.
 const facade: UseAuthenticator = useAuthenticator();
@@ -31,23 +27,11 @@ const backSignInText = computed(() => getBackToSignInText());
 
 // Methods
 const onHaveAccountClicked = (): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onHaveAccountClicked) {
-    emit('haveAccountClicked');
-  } else {
-    toSignIn();
-  }
+  toSignIn();
 };
 
 const onForceNewPasswordSubmit = (e: Event): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onForceNewPasswordSubmit) {
-    emit('forceNewPasswordSubmit', e);
-  } else {
-    submit(e);
-  }
+  submit(e);
 };
 
 const submit = (e: Event): void => {

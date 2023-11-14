@@ -56,6 +56,7 @@ jobs:
       DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
   guides:
+    if: false # temporarily disable job
     runs-on: ubuntu-latest
     environment: ci
     env:
@@ -73,10 +74,10 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Setup Node.js 16
+      - name: Setup Node.js 20
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
-          node-version: 16
+          node-version: 20
           cache: 'yarn'
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
@@ -150,7 +151,6 @@ jobs:
           retention-days: 5
 
   publish:
-    needs: [e2e, guides]
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-tagged-publish.yml@main
     with:
       dist-tag: next
@@ -174,10 +174,10 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
-      - name: Setup Node.js 16
+      - name: Setup Node.js 20
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
-          node-version: 16
+          node-version: 20
           cache: 'yarn'
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2

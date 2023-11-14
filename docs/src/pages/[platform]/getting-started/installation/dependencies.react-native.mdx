@@ -1,11 +1,15 @@
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Tabs } from '@aws-amplify/ui-react';
 import { InstallScripts } from '@/components/InstallScripts.tsx';
 import { Example, ExampleCode } from '@/components/Example';
 
 `@aws-amplify/ui-react-native` is compatible for usage with the React Native apps created using the [React Native CLI](https://github.com/react-native-community/cli) or [Expo](https://expo.dev/).
 
-<Tabs>
-<TabItem title="React Native CLI">
+<Tabs.Container defaultValue="react-native">
+<Tabs.List>
+<Tabs.Item value="react-native">React Native CLI</Tabs.Item>
+<Tabs.Item value="expo">Expo</Tabs.Item>
+</Tabs.List>
+<Tabs.Panel value="react-native">
 
 Install `@aws-amplify/ui-react-native` and its dependencies with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/):
 
@@ -34,8 +38,8 @@ AppRegistry.registerComponent(appName, () => App);
 </ExampleCode>
 </Example>
 
-</TabItem>
-<TabItem title="Expo">
+</Tabs.Panel>
+<Tabs.Panel value="expo">
 
 Add `@aws-amplify/ui-react-native` and its dependencies using the [Expo CLI](https://expo.dev/tools#cli) to ensure installation of native module dependency versions compatible with your Expo app:
 
@@ -47,8 +51,8 @@ expo install @aws-amplify/ui-react-native aws-amplify react-native-safe-area-con
 </ExampleCode>
 </Example>
 
-</TabItem>
-</Tabs>
+</Tabs.Panel>
+</Tabs.Container>
 
 
 

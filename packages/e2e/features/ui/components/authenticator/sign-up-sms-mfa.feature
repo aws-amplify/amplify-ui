@@ -19,8 +19,8 @@ Feature: Sign up with SMS MFA
     Then I see "Confirmation Code"
     Then I type a valid confirmation code
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
-    Then I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
+    # error fixture in place to validate that `autoSignIn` is called, but `autoSignIn` will always fail
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with error fixture "limit-exceeded-exception"
     Then I click the "Confirm" button
-    Then I mock "autoSignIn" event with fixture "Auth.signIn-sms-mfa"
-    Then I see "Confirm SMS Code"
+    Then I see "Sign In"
     

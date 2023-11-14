@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Amplify, Auth } from 'aws-amplify';
+import { Amplify, ResourcesConfig } from 'aws-amplify';
+import { fetchAuthSession } from 'aws-amplify/auth';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 /**
@@ -43,30 +44,39 @@ jest.mock(
     }
 );
 
-const configureSpy = jest.spyOn(Amplify, 'configure');
-const partialAmplifyConfig = {
-  geo: {
-    amazon_location_service: {
+jest.mock('aws-amplify/auth', () => {
+  const originalModule = jest.requireActual('aws-amplify/auth');
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+  return {
+    ...originalModule,
+    fetchAuthSession: jest.fn(),
+  };
+});
+
+const getConfigSpy = jest.spyOn(Amplify, 'getConfig');
+const partialAmplifyConfig: ResourcesConfig = {
+  Geo: {
+    LocationService: {
       region: 'us-east-1',
     },
   },
 };
 
-const currentUserCredentialsSpy = jest.spyOn(Auth, 'currentUserCredentials');
-const currentUserCredentials = {
-  accessKeyId: '001122',
-  authenticated: true,
-  sessionToken: 'abcabc',
-  secretAccessKey: 'abcabc',
-  identityId: 'us-east-2:abcabc',
-};
-currentUserCredentialsSpy.mockImplementation(() =>
-  Promise.resolve(currentUserCredentials)
-);
+(fetchAuthSession as jest.Mock).mockImplementationOnce(() => {
+  return Promise.resolve({
+    credentials: {
+      accessKeyId: '001122',
+      authenticated: true,
+      sessionToken: 'abcabc',
+      secretAccessKey: 'abcabc',
+      identityId: 'us-east-2:abcabc',
+    },
+  });
+});
 
 describe('Map component', () => {
   it('should render', async () => {
-    configureSpy.mockReturnValue(partialAmplifyConfig);
+    getConfigSpy.mockReturnValue(partialAmplifyConfig);
     render(<MapView />);
     expect(await screen.findByTestId('react-map-gl-mock')).toBeInTheDocument();
   });

@@ -1,1 +1,1 @@
-export { MergeProps } from './types';
+export { AnyComponent, MergeProps } from './types';

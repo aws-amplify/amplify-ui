@@ -1,26 +1,40 @@
 import React from 'react';
 
-import { deleteUser, translate, getLogger } from '@aws-amplify/ui';
+import { useSetUserAgent } from '@aws-amplify/ui-react-core';
+import { deleteUser, getLogger } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
 import { Flex } from '../../../primitives';
 import { ComponentClassName } from '../constants';
 import DEFAULTS from './defaults';
 import { DeleteUserProps, DeleteUserState } from './types';
+import { defaultDeleteUserDisplayText } from '../utils';
+import { VERSION } from '../../../version';
 
-const logger = getLogger('Auth');
+const logger = getLogger('AccountSettings');
 
 function DeleteUser({
   components,
-  onSuccess,
-  onError,
+  displayText: overrideDisplayText,
   handleDelete,
+  onError,
+  onSuccess,
 }: DeleteUserProps): JSX.Element | null {
   const [state, setState] = React.useState<DeleteUserState>('IDLE');
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
 
+  useSetUserAgent({
+    componentName: 'DeleteUser',
+    packageName: 'react',
+    version: VERSION,
+  });
+
   // translations
-  const deleteAccountText = translate('Delete Account');
+  const displayText = {
+    ...defaultDeleteUserDisplayText,
+    ...overrideDisplayText,
+  };
+  const { deleteAccountButtonText } = displayText;
 
   const { user, isLoading } = useAuth();
 
@@ -74,7 +88,7 @@ function DeleteUser({
     runDeleteUser();
   }, [runDeleteUser]);
 
-  // Return null if Auth.getCurrentAuthenticatedUser is still in progress
+  // Return null if Auth.getgetCurrentUser is still in progress
   if (isLoading) {
     return null;
   }
@@ -96,7 +110,7 @@ function DeleteUser({
         isDisabled={state === 'CONFIRMATION' || state === 'DELETING'}
         onClick={startConfirmation}
       >
-        {deleteAccountText}
+        {deleteAccountButtonText}
       </DeleteButton>
       {state === 'CONFIRMATION' || state === 'DELETING' ? (
         <WarningView

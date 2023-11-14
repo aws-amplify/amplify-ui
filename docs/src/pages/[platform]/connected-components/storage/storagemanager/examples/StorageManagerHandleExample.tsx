@@ -9,7 +9,7 @@ export const StorageManagerHandleExample = () => {
     <>
       <StorageManager
         acceptedFileTypes={['image/*']}
-        accessLevel="public"
+        accessLevel="guest"
         maxFileCount={3}
         ref={ref}
       />

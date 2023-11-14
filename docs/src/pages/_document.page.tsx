@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import type { HtmlProps } from 'next/dist/shared/lib/utils';
+import type { DocumentProps } from 'next/dist/shared/lib/utils';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ANALYTICS_CSP } from '@/data/csp';
 import { IS_DEV, IS_PROD } from '@/utils/environment';
@@ -12,7 +12,7 @@ const cspHashOf = (text) => {
 };
 
 // See: https://github.com/vercel/next.js/blob/master/examples/with-strict-csp/pages/_document.js
-const getCSPContent = (context: Readonly<HtmlProps>) => {
+const getCSPContent = (context: Readonly<DocumentProps>) => {
   const cspInlineScriptHash = cspHashOf(
     NextScript.getInlineScriptSource(context)
   );
@@ -30,8 +30,8 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
         ' '
       )} https://*.algolia.net https://*.algolianet.com https://cdn.jsdelivr.net https://tfhub.dev https://storage.googleapis.com;
       script-src 'unsafe-eval' 'self' '${cspInlineScriptHash}' ${ANALYTICS_CSP.all.script.join(
-      ' '
-    )};
+        ' '
+      )};
     `;
   }
 
@@ -52,8 +52,8 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
       ...ANALYTICS_CSP.prod.connect,
     ].join(' ')} https://*.algolia.net https://*.algolianet.com;
     script-src 'unsafe-eval' 'self' '${cspInlineScriptHash}' ${ANALYTICS_CSP.all.script.join(
-    ' '
-  )};
+      ' '
+    )};
   `;
 };
 

@@ -1,46 +1,42 @@
-import { Auth } from 'aws-amplify';
+import * as Auth from 'aws-amplify/auth';
 
 import { changePassword, deleteUser } from '../utils';
-import { AmplifyUser } from '../../../types';
 
 // mock `aws-amplify` to prevent logging auth errors during test runs
 jest.mock('aws-amplify');
 
-const changePasswordSpy = jest.spyOn(Auth, 'changePassword');
+const changePasswordSpy = jest.spyOn(Auth, 'updatePassword');
 const deleteUserSpy = jest.spyOn(Auth, 'deleteUser');
 
 describe('changePassword', () => {
-  const user = { username: 'testuser' } as AmplifyUser;
   const currentPassword = 'oldpassword';
   const newPassword = 'newpassword';
 
-  it('should resolve if Auth.changePassword is successful', async () => {
-    changePasswordSpy.mockResolvedValue('SUCCESS');
+  it('should resolve if Auth.updatePassword is successful', async () => {
+    changePasswordSpy.mockResolvedValue();
 
     await expect(
-      changePassword({ user, currentPassword, newPassword })
+      changePassword({ currentPassword, newPassword })
     ).resolves.toBeUndefined();
 
-    expect(changePasswordSpy).toHaveBeenCalledWith(
-      user,
-      currentPassword,
-      newPassword
-    );
+    expect(changePasswordSpy).toHaveBeenCalledWith({
+      newPassword: newPassword,
+      oldPassword: currentPassword,
+    });
   });
 
-  it('should reject with error if Auth.changePassword fails', async () => {
+  it('should reject with error if Auth.updatePassword fails', async () => {
     const error = new Error('change password failed');
     changePasswordSpy.mockRejectedValue(error);
 
     await expect(
-      changePassword({ user, currentPassword, newPassword })
+      changePassword({ currentPassword, newPassword })
     ).rejects.toEqual(error);
 
-    expect(changePasswordSpy).toHaveBeenCalledWith(
-      user,
-      currentPassword,
-      newPassword
-    );
+    expect(changePasswordSpy).toHaveBeenCalledWith({
+      newPassword: newPassword,
+      oldPassword: currentPassword,
+    });
   });
 });
 

@@ -1,198 +1,198 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`getMessageStyles adds a bottom padding for carousel page indicators 1`] = `
-Object {
-  "body": Array [
-    Object {
+{
+  "body": [
+    {
       "color": "fuschia",
     },
     undefined,
     undefined,
   ],
-  "buttonsContainer": Object {
+  "buttonsContainer": {
     "backgroundColor": "teal",
   },
-  "container": Array [
-    Array [
-      Object {
+  "container": [
+    [
+      {
         "borderRadius": 1,
       },
-      Object {},
-      Object {},
+      {},
+      {},
     ],
-    Object {
+    {
       "paddingBottom": 36,
     },
   ],
-  "contentContainer": Object {
+  "contentContainer": {
     "backgroundColor": "lightblue",
   },
-  "header": Array [
-    Object {
+  "header": [
+    {
       "backgroundColor": "purple",
     },
     undefined,
     undefined,
   ],
-  "iconButton": Object {
-    "container": Array [
-      Object {
+  "iconButton": {
+    "container": [
+      {
         "backgroundColor": "blue",
       },
       undefined,
     ],
     "iconColor": undefined,
   },
-  "image": Array [
-    Object {
+  "image": [
+    {
       "backgroundColor": "yellow",
     },
     undefined,
   ],
-  "imageContainer": Object {
+  "imageContainer": {
     "backgroundColor": "green",
   },
-  "primaryButton": Object {
+  "primaryButton": {
     "container": [Function],
-    "text": Array [
-      Object {
+    "text": [
+      {
         "color": "pink",
       },
-      Object {},
-      Object {},
+      {},
+      {},
     ],
   },
-  "secondaryButton": Object {
+  "secondaryButton": {
     "container": [Function],
-    "text": Array [
-      Object {
+    "text": [
+      {
         "color": "pink",
       },
-      Object {},
-      Object {},
+      {},
+      {},
     ],
   },
-  "textContainer": Object {
+  "textContainer": {
     "backgroundColor": "antiquewhite",
   },
-  "wrapper": Array [
-    Object {
+  "wrapper": [
+    {
       "backgroundColor": "gray",
     },
-    Object {
+    {
       "backgroundColor": "red",
     },
-    Object {},
-    Object {},
+    {},
+    {},
   ],
 }
 `;
 
 exports[`getMessageStyles returns the expected output in the happy path 1`] = `
-Object {
-  "body": Array [
-    Object {
+{
+  "body": [
+    {
       "color": "fuschia",
     },
-    Object {
+    {
       "textAlign": "left",
     },
-    Object {
+    {
       "color": "white",
     },
   ],
-  "buttonsContainer": Object {
+  "buttonsContainer": {
     "backgroundColor": "teal",
   },
-  "container": Array [
-    Object {
+  "container": [
+    {
       "borderRadius": 1,
     },
-    Object {
+    {
       "borderRadius": 2,
     },
-    Object {
+    {
       "borderRadius": 3,
     },
   ],
-  "contentContainer": Object {
+  "contentContainer": {
     "backgroundColor": "lightblue",
   },
-  "header": Array [
-    Object {
+  "header": [
+    {
       "backgroundColor": "purple",
     },
-    Object {
+    {
       "textAlign": "center",
     },
-    Object {
+    {
       "backgroundColor": "lightpink",
     },
   ],
-  "iconButton": Object {
-    "container": Array [
-      Object {
+  "iconButton": {
+    "container": [
+      {
         "backgroundColor": "blue",
       },
-      Object {
+      {
         "backgroundColor": "turquoise",
       },
     ],
     "iconColor": "darkcyan",
   },
-  "image": Array [
-    Object {
+  "image": [
+    {
       "backgroundColor": "yellow",
     },
-    Object {
+    {
       "backgroundColor": "royalblue",
     },
   ],
-  "imageContainer": Object {
+  "imageContainer": {
     "backgroundColor": "green",
   },
-  "primaryButton": Object {
+  "primaryButton": {
     "container": [Function],
-    "text": Array [
-      Object {
+    "text": [
+      {
         "color": "pink",
       },
-      Object {
+      {
         "color": "olive",
       },
-      Object {
+      {
         "color": "black",
       },
     ],
   },
-  "secondaryButton": Object {
+  "secondaryButton": {
     "container": [Function],
-    "text": Array [
-      Object {
+    "text": [
+      {
         "color": "pink",
       },
-      Object {
+      {
         "color": "peru",
       },
-      Object {
+      {
         "color": "orchid",
       },
     ],
   },
-  "textContainer": Object {
+  "textContainer": {
     "backgroundColor": "antiquewhite",
   },
-  "wrapper": Array [
-    Object {
+  "wrapper": [
+    {
       "backgroundColor": "gray",
     },
-    Object {
+    {
       "backgroundColor": "red",
     },
-    Object {
+    {
       "backgroundColor": "lightgray",
     },
-    Object {
+    {
       "backgroundColor": "lawngreen",
     },
   ],
@@ -200,22 +200,22 @@ Object {
 `;
 
 exports[`getPayloadStyle returns the expected output in the happy path 1`] = `
-Object {
-  "body": Object {
+{
+  "body": {
     "textAlign": "left",
   },
-  "container": Object {
+  "container": {
     "backgroundColor": "lightgray",
     "borderRadius": 2,
   },
-  "header": Object {
+  "header": {
     "textAlign": "center",
   },
-  "primaryButton": Object {
+  "primaryButton": {
     "backgroundColor": "salmon",
     "color": "olive",
   },
-  "secondaryButton": Object {
+  "secondaryButton": {
     "backgroundColor": "sand",
     "color": "peru",
   },

@@ -11,6 +11,7 @@ import {
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const MessagePrimitive: Primitive<MessageProps, 'div'> = (
   {
@@ -51,6 +52,6 @@ const MessagePrimitive: Primitive<MessageProps, 'div'> = (
  */
 
 export const Message: ForwardRefPrimitive<BaseMessageProps, 'div'> =
-  React.forwardRef(MessagePrimitive);
+  primitiveWithForwardRef(MessagePrimitive);
 
 Message.displayName = 'Message';

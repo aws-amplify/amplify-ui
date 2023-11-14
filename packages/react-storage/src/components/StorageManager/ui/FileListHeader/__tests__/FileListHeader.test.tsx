@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 
-import { ComponentClassNames } from '@aws-amplify/ui-react';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 import { FileListHeader, FileListHeaderProps } from '../FileListHeader';
 import { defaultStorageManagerDisplayText } from '../../../utils/displayText';
@@ -21,7 +21,7 @@ describe('FileListHeader', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerPreviewerText}`
+        `${ComponentClassName.StorageManagerPreviewerText}`
       )
     ).toHaveLength(1);
 

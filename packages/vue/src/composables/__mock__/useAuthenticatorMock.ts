@@ -3,6 +3,7 @@ import { UseAuthenticator } from '../../types';
 
 export const baseMockServiceFacade: UseAuthenticator = {
   authStatus: 'authenticated',
+  challengeName: 'SELECT_MFA_TYPE',
   codeDeliveryDetails: {} as AuthenticatorServiceFacade['codeDeliveryDetails'],
   error: undefined as unknown as AuthenticatorServiceFacade['error'],
   hasValidationErrors: false,
@@ -16,14 +17,15 @@ export const baseMockServiceFacade: UseAuthenticator = {
   socialProviders: [],
   submitForm: jest.fn(),
   toFederatedSignIn: jest.fn(),
-  toResetPassword: jest.fn(),
+  toForgotPassword: jest.fn(),
   toSignIn: jest.fn(),
   toSignUp: jest.fn(),
   totpSecretCode: null,
-  unverifiedContactMethods: { email: 'test#example.com' },
+  unverifiedUserAttributes: { email: 'test#example.com' },
   updateBlur: jest.fn(),
   updateForm: jest.fn(),
   user: {} as AuthenticatorServiceFacade['user'],
+  username: 'tobias',
   validationErrors:
     {} as unknown as AuthenticatorServiceFacade['validationErrors'],
 };

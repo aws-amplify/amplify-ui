@@ -37,8 +37,6 @@ exports[`StorageManager renders as expected 1`] = `
       </p>
       <button
         class="amplify-button amplify-field-group__control amplify-button--small amplify-storagemanager__file__picker"
-        data-fullwidth="false"
-        data-size="small"
         type="button"
       >
         Browse files

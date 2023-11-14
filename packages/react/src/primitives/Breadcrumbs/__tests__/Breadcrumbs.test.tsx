@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 import { Breadcrumbs } from '../Breadcrumbs';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 const breadcrumbs = [
   {
@@ -23,7 +23,7 @@ describe('Breadcrumbs:', () => {
     const { container } = render(<Breadcrumbs items={breadcrumbs} />);
     // https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/examples/breadcrumb/
     expect(
-      container.querySelector(`.${ComponentClassNames.Breadcrumbs}`)
+      container.querySelector(`.${ComponentClassName.Breadcrumbs}`)
     ).toHaveAttribute('aria-label', 'Breadcrumb');
   });
 
@@ -60,7 +60,7 @@ describe('Breadcrumbs:', () => {
   it('should apply proper aria attributes to current link', () => {
     const { container } = render(<Breadcrumbs items={[{ label: 'Test' }]} />);
     const linkElement = container.querySelector(
-      `.${ComponentClassNames.BreadcrumbsLink}`
+      `.${ComponentClassName.BreadcrumbsLink}`
     );
     expect(linkElement).toHaveAttribute('aria-current', 'page');
   });

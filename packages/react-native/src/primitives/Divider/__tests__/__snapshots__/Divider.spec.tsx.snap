@@ -3,8 +3,8 @@
 exports[`Divider applies theme and style props 1`] = `
 <View
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "center",
         "flexDirection": "row",
       },
@@ -14,13 +14,13 @@ exports[`Divider applies theme and style props 1`] = `
 >
   <View
     style={
-      Array [
-        Object {
-          "backgroundColor": "hsl(0, 0%, 0%)",
+      [
+        {
+          "backgroundColor": "hsl(210, 5%, 87%)",
           "flex": 1,
-          "height": 0.5,
+          "height": 1,
         },
-        Object {
+        {
           "backgroundColor": "blue",
         },
       ]
@@ -30,22 +30,23 @@ exports[`Divider applies theme and style props 1`] = `
   <Text
     accessibilityRole="text"
     style={
-      Array [
-        Object {
+      [
+        {
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "hsl(210, 50%, 10%)",
         },
-        Array [
-          Object {
+        [
+          {
+            "color": "hsl(210, 10%, 40%)",
             "fontSize": 16,
             "margin": 16,
             "textAlign": "center",
           },
-          Object {
+          {
             "color": "red",
           },
         ],
@@ -56,13 +57,13 @@ exports[`Divider applies theme and style props 1`] = `
   </Text>
   <View
     style={
-      Array [
-        Object {
-          "backgroundColor": "hsl(0, 0%, 0%)",
+      [
+        {
+          "backgroundColor": "hsl(210, 5%, 87%)",
           "flex": 1,
-          "height": 0.5,
+          "height": 1,
         },
-        Object {
+        {
           "backgroundColor": "blue",
         },
       ]
@@ -74,8 +75,8 @@ exports[`Divider applies theme and style props 1`] = `
 exports[`Divider renders as expected with label 1`] = `
 <View
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "center",
         "flexDirection": "row",
       },
@@ -85,11 +86,11 @@ exports[`Divider renders as expected with label 1`] = `
 >
   <View
     style={
-      Array [
-        Object {
-          "backgroundColor": "hsl(0, 0%, 0%)",
+      [
+        {
+          "backgroundColor": "hsl(210, 5%, 87%)",
           "flex": 1,
-          "height": 0.5,
+          "height": 1,
         },
         undefined,
       ]
@@ -99,17 +100,18 @@ exports[`Divider renders as expected with label 1`] = `
   <Text
     accessibilityRole="text"
     style={
-      Array [
-        Object {
+      [
+        {
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "hsl(210, 50%, 10%)",
         },
-        Array [
-          Object {
+        [
+          {
+            "color": "hsl(210, 10%, 40%)",
             "fontSize": 16,
             "margin": 16,
             "textAlign": "center",
@@ -123,11 +125,11 @@ exports[`Divider renders as expected with label 1`] = `
   </Text>
   <View
     style={
-      Array [
-        Object {
-          "backgroundColor": "hsl(0, 0%, 0%)",
+      [
+        {
+          "backgroundColor": "hsl(210, 5%, 87%)",
           "flex": 1,
-          "height": 0.5,
+          "height": 1,
         },
         undefined,
       ]
@@ -139,8 +141,8 @@ exports[`Divider renders as expected with label 1`] = `
 exports[`Divider renders as expected without label 1`] = `
 <View
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "center",
         "flexDirection": "row",
       },
@@ -150,11 +152,11 @@ exports[`Divider renders as expected without label 1`] = `
 >
   <View
     style={
-      Array [
-        Object {
-          "backgroundColor": "hsl(0, 0%, 0%)",
+      [
+        {
+          "backgroundColor": "hsl(210, 5%, 87%)",
           "flex": 1,
-          "height": 0.5,
+          "height": 1,
         },
         undefined,
       ]

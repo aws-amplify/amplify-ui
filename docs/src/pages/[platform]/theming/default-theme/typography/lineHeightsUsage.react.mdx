@@ -1,9 +1,13 @@
 import { Example, ExampleCode } from '@/components/Example';
-import { Tabs, TabItem, View } from '@aws-amplify/ui-react';
+import { Tabs, View } from '@aws-amplify/ui-react';
 import { LineHeightsExample } from './examples';
 
-<Tabs>
-  <TabItem title="Example usage">
+<Tabs.Container>
+  <Tabs.List>
+    <Tabs.Item value="Example usage">Example usage</Tabs.Item>
+    <Tabs.Item value="CSS">CSS</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="Example usage">
     <View marginTop="var(--amplify-space-large)">
       <Example>
         <LineHeightsExample  />
@@ -14,8 +18,8 @@ import { LineHeightsExample } from './examples';
         </ExampleCode>
       </Example>
     </View>
-  </TabItem>
-  <TabItem title="CSS">
+  </Tabs.Panel>
+  <Tabs.Panel value="CSS">
     <View marginTop="var(--amplify-space-large)">
     <Example>
       <ExampleCode>
@@ -25,5 +29,5 @@ import { LineHeightsExample } from './examples';
       </ExampleCode>
     </Example>
     </View>
-  </TabItem>
-</Tabs>
+  </Tabs.Panel>
+</Tabs.Container>

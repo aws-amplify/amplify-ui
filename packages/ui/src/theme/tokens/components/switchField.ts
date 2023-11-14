@@ -89,7 +89,7 @@ export const switchfield: Required<SwitchFieldTokens<'default'>> = {
     backgroundColor: { value: '{colors.background.quaternary.value}' },
     borderRadius: { value: '{radii.xxxl.value}' },
     checked: {
-      backgroundColor: { value: '{colors.brand.primary.80.value}' },
+      backgroundColor: { value: '{colors.primary.80.value}' },
     },
     height: { value: '{space.relative.medium.value}' },
     padding: { value: '{outlineWidths.medium.value}' },

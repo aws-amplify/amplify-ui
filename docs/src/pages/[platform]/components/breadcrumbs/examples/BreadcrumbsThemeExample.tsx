@@ -6,13 +6,13 @@ const theme = createTheme({
     components: {
       breadcrumbs: {
         separator: {
-          color: '{colors.brand.secondary.20}',
+          color: '{colors.secondary.20}',
           fontSize: '{fontSizes.xl}',
           paddingInline: '{space.medium}',
         },
         link: {
           current: {
-            color: '{colors.brand.secondary.80}',
+            color: '{colors.secondary.80}',
           },
         },
       },

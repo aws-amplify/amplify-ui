@@ -1,4 +1,5 @@
-import { Amplify, I18n } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import { I18n } from 'aws-amplify/utils';
 
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
@@ -11,7 +12,8 @@ I18n.putVocabularies(translations);
 I18n.setLanguage('en');
 
 I18n.putVocabulariesForLanguage('en', {
-  'Invalid code or auth state for the user.': 'translated text',
+  'CodeMismatchException: Invalid code or auth state for the user.':
+    'invalid code',
 });
 
 export default function AuthenticatorWithSmsMfa() {
@@ -19,7 +21,7 @@ export default function AuthenticatorWithSmsMfa() {
     <Authenticator>
       {({ signOut, user }) => (
         <>
-          Hello {user.attributes?.name}
+          Hello {user.username}
           <button onClick={signOut}>Sign out</button>
         </>
       )}

@@ -13,7 +13,7 @@ jest.mock('@tensorflow/tfjs-backend-wasm', () => {
     setWasmPaths: jest.fn(),
   };
 });
-jest.mock('@aws-amplify/core', () => ({
+jest.mock('@aws-amplify/core/internals/utils', () => ({
   jitteredExponentialRetry: jest.fn().mockResolvedValue({
     estimateFaces: jest.fn(),
   }),

@@ -2,7 +2,7 @@ import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
 
 export const DisabledExample = () => (
   <>
-    <RadioGroupField label="Disabled Radio" name="disabled-radio">
+    <RadioGroupField legend="Disabled Radio" name="disabled-radio">
       <Radio value="option-1">Option 1</Radio>
       <Radio value="option-2" isDisabled>
         Option 2 is disabled
@@ -11,7 +11,7 @@ export const DisabledExample = () => (
     </RadioGroupField>
 
     <RadioGroupField
-      label="Disabled RadioGroupField"
+      legend="Disabled RadioGroupField"
       name="disabled-field"
       isDisabled
     >
