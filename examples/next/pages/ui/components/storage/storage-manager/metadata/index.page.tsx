@@ -1,6 +1,5 @@
 import { Amplify } from 'aws-amplify';
 import { withAuthenticator } from '@aws-amplify/ui-react';
-// @todo-migration remove
 
 import {
   StorageManager,

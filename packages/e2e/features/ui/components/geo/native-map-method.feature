@@ -2,7 +2,7 @@ Feature: Native Map Method
 
   Using the native maplibre-gl methods.
 
-  @todo-migration @react
+  @react
   Scenario Outline: Native "flyTo" method should change map viewport
     Given I'm running the example "ui/components/geo/<example>"
     When I see the map load

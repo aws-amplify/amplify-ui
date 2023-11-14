@@ -21,10 +21,10 @@ export const TokensColorsOverlay = () => (
 
 // Colors, Brand
 export const TokensColorsBrandPrimary = () => (
-  <TokenList namespace="colors" childNamespace={['brand', 'primary']} />
+  <TokenList namespace="colors" childNamespace={['primary']} />
 );
 export const TokensColorsBrandSecondary = () => (
-  <TokenList namespace="colors" childNamespace={['brand', 'secondary']} />
+  <TokenList namespace="colors" childNamespace={['secondary']} />
 );
 
 // Colors, Palette

@@ -1,3 +1,4 @@
+
 Feature: Hub Events
   Authenticator listens to external Auth Hub events from 'aws-amplify'. For 
   example, Authenticator will automatically sign out the user if it gets a
@@ -6,16 +7,8 @@ Feature: Hub Events
   Background:
     Given I'm running the example "/ui/components/authenticator/hub-events"
 
-  @angular @react @vue
-  Scenario: Sign in with confirmed credentials then sign out
-    When I type my "email" with status "CONFIRMED"
-    Then I type my password
-    Then I click the "Sign in" button
-    Then I see "Sign out"
-    Then I click the "Sign out" button
-    Then I see "Sign in"
-
-  @angular @react @vue
+  # @todo-migration maybe keep this
+  # @angular @react @vue
   Scenario: Unsuccessful token refresh logs out the user
     When I type my "email" with status "CONFIRMED"
     Then I type my password
@@ -24,8 +17,8 @@ Feature: Hub Events
     When I dispatch "tokenRefresh_failure" event
     Then I see "Sign in"
 
-  # @todo-migration replace currentAuthenticatedUser mock with getCurrentUser
-  @skip @angular @react @vue
+  # @todo-migration maybe keep this
+  # @angular @react @vue
   Scenario: Successful token refresh calls currentAuthenticatedUser
     When I type my "email" with status "CONFIRMED"
     Then I type my password

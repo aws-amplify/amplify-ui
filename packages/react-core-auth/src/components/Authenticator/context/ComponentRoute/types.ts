@@ -8,13 +8,13 @@ export type ComponentRoute =
   | 'confirmSignUp'
   | 'confirmVerifyUser'
   | 'forceNewPassword'
-  | 'resetPassword'
-  | 'setupTOTP'
+  | 'forgotPassword'
+  | 'setupTotp'
   | 'signIn'
   | 'signUp'
   | 'verifyUser';
 
-export type InitialRoute = 'signIn' | 'signUp' | 'resetPassword';
+export type InitialRoute = 'signIn' | 'signUp' | 'forgotPassword';
 
 export interface ComponentRouteContextType
   extends Pick<UseMachine, 'setRoute'> {

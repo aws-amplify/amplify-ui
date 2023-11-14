@@ -10,16 +10,16 @@
 
     <div
       *ngFor="
-        let unverifiedContactMethod of unverifiedContactMethods | keyvalue
+        let unverifiedUserAttribute of unverifiedUserAttributes | keyvalue
       "
     >
       <input
         name="unverifiedAttr"
         type="radio"
-        [value]="unverifiedContactMethod.key"
+        [value]="unverifiedUserAttribute.key"
         [id]="labelId"
       />
-      <label [for]="labelId">{{ getLabel(unverifiedContactMethod.key) }}</label>
+      <label [for]="labelId">{{ getLabel(unverifiedUserAttribute.key) }}</label>
     </div>
 
     <button

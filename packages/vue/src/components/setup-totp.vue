@@ -14,14 +14,14 @@ import { useAuthenticator } from '../composables/useAuth';
 import { UseAuthenticator } from '../types';
 import BaseFormFields from './primitives/base-form-fields.vue';
 
-const logger = new Logger('SetupTOTP-logger');
+const logger = new Logger('SetupTotp-logger');
 
 // `facade` is manually typed to `UseAuthenticator` for temporary type safety.
 const facade: UseAuthenticator = useAuthenticator();
 const { updateForm, submitForm, toSignIn } = facade;
-const { error, isPending, QRFields, totpSecretCode, user } = toRefs(facade);
+const { error, isPending, QRFields, totpSecretCode, username } = toRefs(facade);
 
-const { totpIssuer = 'AWSCognito', totpUsername = user.value.username } =
+const { totpIssuer = 'AWSCognito', totpUsername = username.value } =
   QRFields.value ?? {};
 
 const totpCodeURL = totpSecretCode.value
@@ -48,7 +48,7 @@ function copyText() {
 
 // lifecycle hooks
 onMounted(async () => {
-  if (!user.value || !totpCodeURL) {
+  if (!username.value || !totpCodeURL) {
     return;
   }
   try {
@@ -70,7 +70,7 @@ const onInput = (e: Event): void => {
   updateForm({ name, value });
 };
 
-const onSetupTOTPSubmit = (e: Event): void => {
+const onSetupTotpSubmit = (e: Event): void => {
   submitForm(getFormDataFromEvent(e));
 };
 
@@ -80,12 +80,12 @@ const onBackToSignInClicked = (): void => {
 </script>
 
 <template>
-  <slot v-bind="$attrs" name="confirmSetupTOTPI">
+  <slot v-bind="$attrs" name="confirmSetupTotpI">
     <base-wrapper v-bind="$attrs">
       <base-form
         data-amplify-authenticator-setup-totp
         @input="onInput"
-        @submit.prevent="onSetupTOTPSubmit"
+        @submit.prevent="onSetupTotpSubmit"
       >
         <base-field-set
           class="amplify-flex amplify-authenticator__column"
@@ -128,7 +128,7 @@ const onBackToSignInClicked = (): void => {
                   </svg>
                 </base-wrapper>
               </base-wrapper>
-              <base-form-fields route="setupTOTP"></base-form-fields>
+              <base-form-fields route="setupTotp"></base-form-fields>
             </base-wrapper>
             <base-footer class="amplify-flex amplify-authenticator__column">
               <base-alert v-if="error">
