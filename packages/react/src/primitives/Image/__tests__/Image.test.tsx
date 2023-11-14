@@ -3,7 +3,7 @@ import kebabCase from 'lodash/kebabCase';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import { Image } from '../Image';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { ComponentPropsToStylePropsMap } from '../../types';
 
 const altText = 'Cool cat';
@@ -16,7 +16,7 @@ describe('Image:', () => {
     const image = await screen.findByAltText<HTMLImageElement>(altText);
     expect(image.nodeName).toBe('IMG');
     expect(image.src).toBe(src);
-    expect(image.className).toContain(ComponentClassNames.Image);
+    expect(image.className).toContain(ComponentClassName.Image);
   });
 
   it('can set sizes and srcset attributes', async () => {

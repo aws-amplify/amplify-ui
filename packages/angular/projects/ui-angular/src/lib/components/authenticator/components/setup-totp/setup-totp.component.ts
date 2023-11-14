@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import QRCode from 'qrcode';
-import { Logger } from 'aws-amplify';
+import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import {
   FormFieldsArray,
   getActorContext,
@@ -14,7 +14,7 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
 const logger = new Logger('SetupTotp');
 
 const {
-  getSetupTOTPText,
+  getSetupTotpText,
   getCopyText,
   getBackToSignInText,
   getConfirmText,
@@ -27,7 +27,7 @@ const {
 })
 export class SetupTotpComponent implements OnInit {
   @HostBinding('attr.data-amplify-authenticator-setup-totp') dataAttr = '';
-  public headerText = getSetupTOTPText();
+  public headerText = getSetupTotpText();
   public qrCodeSource = '';
   public totpSecretCode = '';
   public copyTextLabel = getCopyText();
@@ -48,10 +48,10 @@ export class SetupTotpComponent implements OnInit {
   }
 
   async generateQRCode(): Promise<void> {
-    const { authState: state, totpSecretCode, user } = this.authenticator;
+    const { authState: state, totpSecretCode, username } = this.authenticator;
     const { formFields } = getActorContext(state) as SignInContext;
-    const { totpIssuer = 'AWSCognito', totpUsername = user?.username } =
-      formFields?.setupTOTP?.QR ?? {};
+    const { totpIssuer = 'AWSCognito', totpUsername = username } =
+      formFields?.setupTotp?.QR ?? {};
 
     this.totpSecretCode = totpSecretCode;
 

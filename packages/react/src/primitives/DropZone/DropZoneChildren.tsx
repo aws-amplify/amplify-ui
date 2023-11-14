@@ -10,7 +10,9 @@ import { DropZoneContext } from './DropZoneProvider';
 /**
  * This component renders when the user is dragging ONLY accepted files on the DropZone.
  */
-const Accepted: Primitive<{}, 'div'> = ({ children }) => {
+const Accepted: Primitive<{ children?: React.ReactNode }, 'div'> = ({
+  children,
+}) => {
   const dragState = React.useContext(DropZoneContext);
   if (!dragState) {
     throw new Error('`DropZone.Accept` must be used inside a DropZone');
@@ -21,7 +23,9 @@ const Accepted: Primitive<{}, 'div'> = ({ children }) => {
 /**
  * This component renders when the user is dragging ANY rejected files on the DropZone.
  */
-const Rejected: Primitive<{}, 'div'> = ({ children }) => {
+const Rejected: Primitive<{ children?: React.ReactNode }, 'div'> = ({
+  children,
+}) => {
   const dragState = React.useContext(DropZoneContext);
   if (!dragState) {
     throw new Error('`DropZone.Rejected` must be used inside a DropZone');
@@ -32,7 +36,9 @@ const Rejected: Primitive<{}, 'div'> = ({ children }) => {
 /**
  * This component renders by default when the user is not dragging.
  */
-const Default: Primitive<{}, 'div'> = ({ children }) => {
+const Default: Primitive<{ children?: React.ReactNode }, 'div'> = ({
+  children,
+}) => {
   const dragState = React.useContext(DropZoneContext);
   if (!dragState) {
     throw new Error('`DropZone.Default` must be used inside a DropZone');

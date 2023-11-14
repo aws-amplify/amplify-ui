@@ -5,9 +5,9 @@ exports[`Authenticator behaves as expected in the happy path 1`] = `
   <View
     onLayout={[Function]}
     style={
-      Array [
-        Array [
-          Object {
+      [
+        [
+          {
             "alignContent": "center",
             "backgroundColor": "hsl(0, 0%, 100%)",
             "flex": 1,
@@ -15,7 +15,7 @@ exports[`Authenticator behaves as expected in the happy path 1`] = `
           },
           undefined,
         ],
-        Object {
+        {
           "paddingBottom": 0,
         },
       ]
@@ -24,8 +24,8 @@ exports[`Authenticator behaves as expected in the happy path 1`] = `
     <RCTScrollView
       alwaysBounceVertical={false}
       contentContainerStyle={
-        Array [
-          Object {
+        [
+          {
             "alignContent": "center",
             "flexGrow": 1,
             "justifyContent": "center",
@@ -39,8 +39,8 @@ exports[`Authenticator behaves as expected in the happy path 1`] = `
       }
       keyboardShouldPersistTaps="handled"
       style={
-        Array [
-          Object {},
+        [
+          {},
           undefined,
         ]
       }
@@ -48,7 +48,7 @@ exports[`Authenticator behaves as expected in the happy path 1`] = `
       <View>
         <View
           style={
-            Object {
+            {
               "marginHorizontal": 16,
             }
           }
@@ -77,7 +77,7 @@ exports[`Authenticator renders with custom slot components as expected 1`] = `
     />
     <View
       style={
-        Object {
+        {
           "marginHorizontal": 16,
         }
       }

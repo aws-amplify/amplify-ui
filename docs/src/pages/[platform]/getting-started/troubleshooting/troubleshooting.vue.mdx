@@ -1,22 +1,22 @@
 import { Fragment } from '@/components/Fragment';
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Tabs } from '@aws-amplify/ui-react';
 
 ## Vite
 
 When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.
 
-<Tabs>
-  <TabItem title="TypeScript">
+<Tabs.Container>
+  <Tabs.Item title="TypeScript">
     <Fragment>
       {({ platform }) => import(`./shared/vite-polyfill.mdx`)}
     </Fragment>
     <Fragment>
       {({ platform }) => import(`./shared/vite-polyfill-ts.mdx`)}
     </Fragment>
-  </TabItem>
-  <TabItem title="JavaScript">
+  </Tabs.Item>
+  <Tabs.Item title="JavaScript">
     <Fragment>
       {({ platform }) => import(`./shared/vite-polyfill.mdx`)}
     </Fragment>
-  </TabItem>
-</Tabs>
+  </Tabs.Item>
+</Tabs.Container>

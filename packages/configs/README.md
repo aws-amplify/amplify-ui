@@ -22,11 +22,11 @@ There are currently 3 types of packages that Amplify UI supports:
 
 ## Typescript
 
-To prevent drift between the `compilerOptions` of the _tsconfig.json_ files in the Amplify UI monorepo as more packages are added, base Typescript `compilerOptions` configurations are stored within the [ts](./ts) directory. The **[Base Config](./ts/tsconfig.base.json)** is extended directly or indirectly in all platform and utility packages.
+To prevent drift between the `compilerOptions` of the _tsconfig.json_ files in the Amplify UI monorepo as more packages are added, base Typescript `compilerOptions` configurations are stored within the [typescript](./typescript) directory. The **[Base Config](./typescript/tsconfig.base.json)** is extended directly or indirectly in all platform and utility packages.
 
-- Utility package _tsconfig.json_ files directly use the **[Base Config](./ts/tsconfig.base.json)**
-- React UI/React Utility package _tsconfig.json_ files use the **[React Base Config](./ts/tsconfig.react.json)**, extends from the **Base Config**
-- React Native UI package _tsconfig.json_ files use the **[React Native Base Config](./ts/tsconfig.react-native.json)**, extends from the **Base Config**
+- Utility package _tsconfig.json_ files directly use the **[Base Config](./typescript/tsconfig.base.json)**
+- React UI/React Utility package _tsconfig.json_ files use the **[React Base Config](./typescript/tsconfig.react.json)**, extends from the **Base Config**
+- React Native UI package _tsconfig.json_ files use the **[React Native Base Config](./typescript/tsconfig.react-native.json)**, extends from the **Base Config**
 
 A basic visualization of the extension hierarchy:
 
@@ -36,13 +36,33 @@ base.json
 └── react-native.json
 ```
 
-### Strict Mode
+#### Strict Mode
 
 All packages are in TS strict mode by default unless opted out at the package configuration level.
 
-### Usage of _tsconfig.dist.json_
+### Installation
 
-To allow type checking and linting in _\_\_tests\_\__ and _\_\_mocks\_\__ directories during development, package level _tsconfig.json_ include all _.ts_ and _.tsx_ files. For builds, package level _tsconfig.dist.json_ files extend from their sibling _tsconfig.json_ file overriding the `excludes` value with the _\_\_tests\_\__ and _\_\_mocks\_\__ directories.
+Add `@aws-amplify/typescript-config` to the target project _package.json_ `devDependencies`:
+
+```js
+"devDependencies": {
+  "@aws-amplify/typescript-config": "0.0.0"
+}
+```
+
+### Usage
+
+Extend from the desired `tsconfig` file in the target project _tsconfig.json_:
+
+```json
+{
+  "extends": "@aws-amplify/typescript-config/tsconfig.react.core"
+}
+```
+
+## Projects With `rollup`
+
+For projects built with `rollup`, add a project _tsconfig.dist.json_ extending from the local _tsconfig.json_:
 
 **Example:**
 
@@ -50,7 +70,7 @@ _react-core/tsconfig.json_
 
 ```json
 {
-  "extends": "../configs/ts/react.json",
+  "extends": "@aws-amplify/typescript-config/tsconfig.react.json",
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]
 }
@@ -64,6 +84,8 @@ _react-core/tsconfig.dist.json_
   "exclude": ["node_modules", "**/__mocks__", "**/__tests__"]
 }
 ```
+
+This allows type checking and linting in _\_\_tests\_\__ and _\_\_mocks\_\__ directories during development, package level _tsconfig.json_ include all _.ts_ and _.tsx_ files. For builds, package level _tsconfig.dist.json_ files extend from their sibling _tsconfig.json_ file overriding the `excludes` value with the _\_\_tests\_\__ and _\_\_mocks\_\__ directories.
 
 ## eslint
 
@@ -85,7 +107,7 @@ To use the `eslint` configs in an Amplify UI package, declare `@aws-amplify/esli
     "@aws-amplify/eslint-config-amplify-ui": "0.0.0"
   },
   "dependencies": {
-    "eslint": "^8.13.0"
+    "eslint": "^8.44.0"
   }
 }
 ```
@@ -103,7 +125,7 @@ module.exports = {
   extends: ['@aws-amplify/amplify-ui'],
   parserOptions: {
     // point to local tsconfig
-    project: ['./tsconfig.json'],
+    project: ['tsconfig.json'],
     tsconfigRootDir: __dirname,
   },
 };
@@ -116,7 +138,7 @@ module.exports = {
   extends: ['@aws-amplify/eslint-config-amplify-ui'],
   parserOptions: {
     // point to local tsconfig
-    project: ['./tsconfig.json'],
+    project: ['tsconfig.json'],
     tsconfigRootDir: __dirname,
   },
 };

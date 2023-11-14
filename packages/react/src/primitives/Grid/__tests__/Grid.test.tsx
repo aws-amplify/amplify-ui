@@ -11,7 +11,7 @@ import {
   GridContainerStyleProps,
   GridItemStyleProps,
 } from '../../types';
-import { ComponentClassNames } from '../../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { errorMessageWrapper } from '../../utils/testUtils';
 import { convertGridSpan } from '../../shared/styleUtils';
 
@@ -85,7 +85,7 @@ describe('Grid:', () => {
     render(<Grid testId={testId} className="custom-grid"></Grid>);
     const grid = await screen.findByTestId(testId);
     expect(grid).toHaveClass('custom-grid');
-    expect(grid).toHaveClass(ComponentClassNames.Grid);
+    expect(grid).toHaveClass(ComponentClassName.Grid);
   });
 
   it('should forward ref to DOM element', async () => {

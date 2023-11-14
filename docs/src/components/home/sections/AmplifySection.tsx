@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 import { Heading, Link, View, Flex } from '@aws-amplify/ui-react';
 import { AmplifyIcon, ServerIcon, LibraryIcon } from '@/components/Icons';
 import { useIntersectionObserver } from '@/components/useIntersection';

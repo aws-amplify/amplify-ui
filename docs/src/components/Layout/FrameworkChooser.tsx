@@ -1,5 +1,5 @@
 import { Flex, Button } from '@aws-amplify/ui-react';
-import Link from 'next/link';
+import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 
 import { FRAMEWORKS, FRAMEWORK_DISPLAY_NAMES } from '@/data/frameworks';
@@ -41,9 +41,9 @@ const FrameworkLink = ({
   return isDisabled ? (
     frameworkButton
   ) : (
-    <Link href={href} passHref>
+    <NextLink href={href} passHref legacyBehavior>
       {frameworkButton}
-    </Link>
+    </NextLink>
   );
 };
 

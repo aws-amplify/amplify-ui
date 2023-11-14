@@ -6,7 +6,7 @@ supportedFrameworks: react|angular|vue|react-native
 ---
 
 import { useRouter } from 'next/router';
-import { Tabs, TabItem, Table, TableHead, TableRow, TableCell, TableBody, View } from '@aws-amplify/ui-react';
+import { Tabs, Table, TableHead, TableRow, TableCell, TableBody, View } from '@aws-amplify/ui-react';
 import { Fragment } from '@/components/Fragment';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
 import { ResponsiveTable, ResponsiveTableCell } from '@/components/ResponsiveTable';
@@ -45,7 +45,7 @@ export async function getStaticProps() {
 
 ### Example
 
-Here's an example that uses the `toResetPassword` trigger transition, to create a custom button. Note that example uses the [Footer "slot" override](../authenticator/customization#headers--footers).
+Here's an example that uses the `toForgotPassword` trigger transition, to create a custom button. Note that example uses the [Footer "slot" override](../authenticator/customization#headers--footers).
 
 <Fragment>
   {({ platform }) => import(`./example.${platform}.mdx`)}
@@ -57,8 +57,8 @@ Here's an example that uses the `toResetPassword` trigger transition, to create 
   {({ platform }) => import(`./full-api.${platform}.mdx`)}
 </Fragment>
 
-<Tabs overflow="scroll">
-  <TabItem title="Access Contexts">
+<Tabs.Container overflow="scroll">
+  <Tabs.Item title="Access Contexts">
 
     These are `readonly` contexts that represent the current auth state. Any unapplicable `context` will be `undefined`.
 
@@ -74,7 +74,7 @@ Here's an example that uses the `toResetPassword` trigger transition, to create 
         <TableRow>
           <ResponsiveTableCell label="Name">`user`</ResponsiveTableCell>
           <ResponsiveTableCell label="Description">Current signed in user</ResponsiveTableCell>
-          <ResponsiveTableCell label="Type">`AmplifyUser`</ResponsiveTableCell>
+          <ResponsiveTableCell label="Type">`AuthUser`</ResponsiveTableCell>
         </TableRow>
         <TableRow>
           <ResponsiveTableCell label="Name">`route`</ResponsiveTableCell>
@@ -109,8 +109,8 @@ Here's an example that uses the `toResetPassword` trigger transition, to create 
       </TableBody>
     </ResponsiveTable>
     
-  </TabItem>
-  <TabItem title="Trigger Transition">
+  </Tabs.Item>
+  <Tabs.Item title="Trigger Transition">
 
 These helper functions trigger transition to another `route`. Note that any invalid transition (e.g. `sign-in` to `authenticated` directly) will be no-op.
 
@@ -126,7 +126,7 @@ These helper functions trigger transition to another `route`. Note that any inva
       <TableBody>
         <TableRow>
           <ResponsiveTableCell label="Name">`toSignIn`</ResponsiveTableCell>
-          <ResponsiveTableCell label="Description">Transitions to `signIn`. Allowed from `signUp`, `confirmSignUp`, `confirmSignIn`, `setupTOTP`, `resetPassword`, and `confirmResetPassword`</ResponsiveTableCell>
+          <ResponsiveTableCell label="Description">Transitions to `signIn`. Allowed from `signUp`, `confirmSignUp`, `confirmSignIn`, `setupTotp`, `forgotPassword`, and `confirmResetPassword`</ResponsiveTableCell>
           <ResponsiveTableCell label="Type">`() => void`</ResponsiveTableCell>
         </TableRow>
         <TableRow>
@@ -135,8 +135,8 @@ These helper functions trigger transition to another `route`. Note that any inva
           <ResponsiveTableCell label="Type">`() => void`</ResponsiveTableCell>
         </TableRow>
         <TableRow>
-          <ResponsiveTableCell label="Name">`toResetPassword`</ResponsiveTableCell>
-          <ResponsiveTableCell label="Description">Transitions to `resetPassword`. Allowed from `signIn`.</ResponsiveTableCell>
+          <ResponsiveTableCell label="Name">`toForgotPassword`</ResponsiveTableCell>
+          <ResponsiveTableCell label="Description">Transitions to `forgotPassword`. Allowed from `signIn`.</ResponsiveTableCell>
           <ResponsiveTableCell label="Type">`() => void`</ResponsiveTableCell>
         </TableRow>
         <Fragment>
@@ -150,5 +150,5 @@ These helper functions trigger transition to another `route`. Note that any inva
       </TableBody>
     </ResponsiveTable>
     
-  </TabItem>
-</Tabs>
+  </Tabs.Item>
+</Tabs.Container>

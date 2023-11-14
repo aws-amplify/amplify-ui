@@ -23,7 +23,7 @@ import {
 import { getStyleValue } from './getStyleValue';
 
 export const isSpanPrimitiveValue = (
-  spanValue: GridItemStyleProps['rowSpan'] | GridItemStyleProps['columnSpan']
+  spanValue: GridItemStyleProps['rowSpan' | 'columnSpan']
 ): spanValue is GridSpanType => {
   return (
     spanValue === 'auto' ||
@@ -37,7 +37,7 @@ export const getGridSpan = (spanValue: GridSpanType): string => {
 };
 
 export const convertGridSpan = (
-  spanValue?: GridItemStyleProps['rowSpan'] | GridItemStyleProps['columnSpan']
+  spanValue?: GridItemStyleProps['rowSpan' | 'columnSpan']
 ): GridItemStyleProps['row'] | GridItemStyleProps['column'] | null => {
   // PropertyType
   if (isSpanPrimitiveValue(spanValue)) {
@@ -53,16 +53,6 @@ export const convertGridSpan = (
       (acc, [key, value]) => ({ ...acc, [key]: getGridSpan(value) }),
       {} as ResponsiveObject<string>
     );
-    // let newObj: ResponsiveObject<string> = {};
-    // Object.entries(spanValue).forEach(
-    //   ([key, value]: [string, GridSpanType]) => {
-    //     newObj = {
-    //       ...newObj,
-    //       [key]: getGridSpan(value),
-    //     };
-    //   }
-    // );
-    // return newObj;
   }
   return null;
 };

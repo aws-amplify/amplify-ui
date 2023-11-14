@@ -20,12 +20,17 @@ export const typeInInputField = async (
 };
 
 Given("I'm running the example {string}", async (name: string) => {
-  await device.launchApp({
-    newInstance: true,
-    launchArgs: {
-      EXAMPLE_APP_NAME: name,
-    },
-  });
+  try {
+    await device.launchApp({
+      newInstance: true,
+      launchArgs: {
+        EXAMPLE_APP_NAME: name,
+      },
+    });
+  } catch (error) {
+    error.message = `Failed to launch app with error: ${error.message}`;
+    throw error;
+  }
 });
 
 Given(
@@ -55,6 +60,14 @@ Given(
     // don't need to do anything
   }
 );
+
+Given('I spy request {string}', (json: string) => {
+  // don't need to do anything
+});
+
+Given('I confirm request {string}', (json: string) => {
+  // don't need to do anything
+});
 
 Then('I see {string}', async (message: string) => {
   await expect(element(by.text(message))).toBeVisible();

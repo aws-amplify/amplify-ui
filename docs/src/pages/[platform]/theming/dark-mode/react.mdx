@@ -1,4 +1,4 @@
-import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Alert, Tabs } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 
 import {
@@ -38,8 +38,12 @@ Amplify UI comes with a default dark mode that you can use.
 
 _Note: the Amplify UI theme and any overrides like dark mode are scoped to the ThemeProvider. Changing the color mode in the example will only affect the example code._
 
-<Tabs>
-  <TabItem title="JavaScript">
+<Tabs.Container defaultValue="Javascript">
+  <Tabs.List>
+    <Tabs.Item value="Javascript">Javascript</Tabs.Item>
+    <Tabs.Item value="TypeScript">TypeScript</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="JavaScript">
     <Example>
       <DefaultDarkMode />
 
@@ -83,8 +87,8 @@ export const DefaultDarkMode = () => {
         
       </ExampleCode>
     </Example>
-  </TabItem>
-  <TabItem title="TypeScript">
+  </Tabs.Panel>
+  <Tabs.Panel value="TypeScript">
     <Example>
       <DefaultDarkMode />
 
@@ -94,8 +98,8 @@ export const DefaultDarkMode = () => {
         
       </ExampleCode>
     </Example>
-  </TabItem>
-</Tabs>
+  </Tabs.Panel>
+</Tabs.Container>
 
 ### System Dark Mode
 
@@ -115,8 +119,8 @@ _Note: to see dark mode applied, change your OS preferences_
 
 ### Custom dark mode
 
-<Tabs>
-  <TabItem title="JavaScript">
+<Tabs.Container>
+  <Tabs.Item title="JavaScript">
     <Example>
       <CustomDarkModeExample />
       <ExampleCode>
@@ -182,8 +186,8 @@ export const CustomDarkModeExample = () => {
 ```
       </ExampleCode>
     </Example>
-  </TabItem>
-  <TabItem title="TypeScript">
+  </Tabs.Item>
+  <Tabs.Item title="TypeScript">
     <Example>
       <CustomDarkModeExample />
 
@@ -193,8 +197,8 @@ export const CustomDarkModeExample = () => {
         
       </ExampleCode>
     </Example>
-  </TabItem>
-</Tabs>
+  </Tabs.Item>
+</Tabs.Container>
 
 
 ## CSS

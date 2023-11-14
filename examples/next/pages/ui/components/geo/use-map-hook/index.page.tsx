@@ -7,6 +7,7 @@ import '@aws-amplify/ui-react/styles.css';
 import '@aws-amplify/ui-react-geo/styles.css';
 
 import awsExports from './aws-exports';
+import './styles.css';
 
 Amplify.configure(awsExports);
 

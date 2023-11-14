@@ -42,7 +42,9 @@ export default function LivenessDefault({
           position="relative"
           style={{ zIndex: '2' }}
         >
-          <SessionIdAlert sessionId={createLivenessSessionApiData.sessionId} />
+          <SessionIdAlert
+            sessionId={createLivenessSessionApiData['sessionId']}
+          />
 
           {!!getLivenessResponse ? (
             <LivenessInlineResults
@@ -55,12 +57,12 @@ export default function LivenessDefault({
             {!getLivenessResponse ? (
               credentialProvider ? (
                 <FaceLivenessDetectorCore
-                  sessionId={createLivenessSessionApiData.sessionId}
+                  sessionId={createLivenessSessionApiData['sessionId']}
                   region={'us-east-1'}
                   onUserCancel={onUserCancel}
                   onAnalysisComplete={async () => {
                     await handleGetLivenessDetection(
-                      createLivenessSessionApiData.sessionId
+                      createLivenessSessionApiData['sessionId']
                     );
                   }}
                   onError={(error) => {
@@ -72,12 +74,12 @@ export default function LivenessDefault({
                 />
               ) : (
                 <FaceLivenessDetector
-                  sessionId={createLivenessSessionApiData.sessionId}
+                  sessionId={createLivenessSessionApiData['sessionId']}
                   region={'us-east-1'}
                   onUserCancel={onUserCancel}
                   onAnalysisComplete={async () => {
                     await handleGetLivenessDetection(
-                      createLivenessSessionApiData.sessionId
+                      createLivenessSessionApiData['sessionId']
                     );
                   }}
                   onError={(error) => {

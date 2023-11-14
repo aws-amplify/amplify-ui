@@ -53,7 +53,7 @@ describe('ForceNewPassword', () => {
 
     const button = getByText(getBackToSignInText());
     fireEvent.press(button);
-    expect(toSignInMock).toBeCalledTimes(1);
+    expect(toSignInMock).toHaveBeenCalledTimes(1);
   });
 
   it('renders correct text based on isPending', () => {

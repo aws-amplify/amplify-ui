@@ -2,9 +2,15 @@ import React from 'react';
 import { render } from '@testing-library/react-native';
 
 import { authenticatorTextUtil } from '@aws-amplify/ui';
+
 import SignIn from '../SignIn';
 
-const { getSignInText, getForgotPasswordText } = authenticatorTextUtil;
+const {
+  getSignInText,
+  getForgotPasswordText,
+  getSignInWithFederationText,
+  getOrText,
+} = authenticatorTextUtil;
 
 const username = {
   name: 'username',
@@ -33,7 +39,7 @@ const props = {
   Header: SignIn.Header,
   isPending: false,
   socialProviders: undefined,
-  toResetPassword: jest.fn(),
+  toForgotPassword: jest.fn(),
   toFederatedSignIn: jest.fn(),
   toSignUp: jest.fn(),
 };
@@ -63,5 +69,19 @@ describe('SignIn', () => {
   it('renders as expected when hideSignUp is true', () => {
     const { toJSON } = render(<SignIn {...props} hideSignUp />);
     expect(toJSON()).toMatchSnapshot();
+  });
+
+  it('renders as expected with social providers', () => {
+    const provider = 'amazon';
+    const { toJSON, getByTestId, getByText } = render(
+      <SignIn {...props} socialProviders={[provider]} />
+    );
+    expect(toJSON()).toMatchSnapshot();
+
+    expect(getByTestId('amplify__federated-provider-buttons')).toBeDefined();
+    expect(
+      getByText(getSignInWithFederationText('signIn', provider))
+    ).toBeDefined();
+    expect(getByText(getOrText())).toBeDefined();
   });
 });

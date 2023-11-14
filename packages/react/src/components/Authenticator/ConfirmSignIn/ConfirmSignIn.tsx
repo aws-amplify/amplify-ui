@@ -56,9 +56,9 @@ export const ConfirmSignIn = ({
 };
 
 function Header() {
-  const {
-    user: { challengeName },
-  } = useAuthenticator(({ user }) => [user]);
+  const { challengeName } = useAuthenticator(({ challengeName }) => [
+    challengeName,
+  ]);
 
   return <Heading level={3}>{getChallengeText(challengeName)}</Heading>;
 }

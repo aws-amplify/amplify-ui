@@ -18,8 +18,10 @@ export const getThemedStyles = (theme: StrictTheme): ButtonStyles => {
   return StyleSheet.create({
     container: {
       alignItems: 'center',
-      backgroundColor: colors.transparent,
       justifyContent: 'center',
+      flexDirection: 'row',
+      gap: space.small,
+      backgroundColor: colors.transparent,
       paddingVertical: space.small,
       paddingHorizontal: space.medium,
       borderRadius: radii.small,
@@ -31,7 +33,7 @@ export const getThemedStyles = (theme: StrictTheme): ButtonStyles => {
       ...components?.button?.containerDefault,
     },
     containerPrimary: {
-      backgroundColor: colors.brand.primary[80],
+      backgroundColor: colors.primary[80],
       ...components?.button?.containerPrimary,
     },
     containerLink: {

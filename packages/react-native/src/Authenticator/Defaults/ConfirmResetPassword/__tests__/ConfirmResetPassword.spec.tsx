@@ -75,7 +75,7 @@ describe('ConfirmResetPassword', () => {
 
     const button = getByText(getResendCodeText());
     fireEvent.press(button);
-    expect(resendCodeMock).toBeCalledTimes(1);
+    expect(resendCodeMock).toHaveBeenCalledTimes(1);
   });
 
   it('renders correct text based on isPending', () => {

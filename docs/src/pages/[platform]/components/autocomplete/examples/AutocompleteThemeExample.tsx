@@ -10,7 +10,7 @@ const theme: Theme = {
           option: {
             _active: {
               backgroundColor: {
-                value: '{colors.brand.secondary.80}',
+                value: '{colors.secondary.80}',
               },
             },
           },

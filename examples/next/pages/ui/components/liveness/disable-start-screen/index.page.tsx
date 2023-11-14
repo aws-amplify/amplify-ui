@@ -9,9 +9,7 @@ import Layout from '../components/Layout';
 
 Amplify.configure({
   ...awsExports,
-  Analytics: {
-    autoSessionRecord: false,
-  },
+  // Analytics: { autoSessionRecord: false },
 });
 
 const App = () => {
