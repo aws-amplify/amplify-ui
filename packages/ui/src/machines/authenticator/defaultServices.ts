@@ -20,11 +20,6 @@ import {
   SocialProvider,
   ValidatorResult,
 } from '../../types';
-<<<<<<< HEAD
-import { groupLog } from '../../utils';
-import { uniqueId } from 'lodash/uniqueId.js';
-=======
->>>>>>> next-release/ng-17-buildtests
 
 // Cognito does not allow a password length less then 8 characters
 const DEFAULT_COGNITO_PASSWORD_MIN_LENGTH = 8;
