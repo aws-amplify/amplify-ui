@@ -9,21 +9,6 @@ export enum FederatedIdentityProviders {
   Google = 'Google',
 }
 
-/** Known cognito user attributes */
-export interface CognitoAttributes {
-  email: string;
-  phone_number: string;
-  [key: string]: string;
-}
-
-/**
- * Amplify User Interface
- */
-export interface AmplifyUser {
-  username?: string;
-  attributes?: CognitoAttributes;
-}
-
 /**
  * Cognito user contact method types that have not been verified as valid
  */

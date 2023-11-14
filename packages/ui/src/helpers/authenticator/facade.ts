@@ -5,9 +5,9 @@
  */
 
 import { Sender } from 'xstate';
+import { AuthUser } from 'aws-amplify/auth';
 
 import {
-  AmplifyUser,
   FederatedProvider,
   LoginMechanism,
   SocialProvider,
@@ -61,7 +61,7 @@ interface AuthenticatorServiceContextFacade {
   socialProviders: SocialProvider[];
   totpSecretCode: string | null;
   unverifiedUserAttributes: UnverifiedUserAttributes;
-  user: AmplifyUser;
+  user: AuthUser;
   username: string;
   validationErrors: AuthenticatorValidationErrors;
 }

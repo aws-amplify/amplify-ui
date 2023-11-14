@@ -2,10 +2,9 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Event, interpret, Subscription } from 'xstate';
 
-import { getCurrentUser } from 'aws-amplify/auth';
+import { AuthUser, getCurrentUser } from 'aws-amplify/auth';
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import {
-  AmplifyUser,
   AuthContext,
   AuthenticatorServiceFacade,
   AuthEvent,
@@ -71,7 +70,7 @@ export class AuthenticatorService implements OnDestroy {
     return this._authStatus;
   }
 
-  public get user(): AmplifyUser {
+  public get user(): AuthUser {
     return this._facade?.user;
   }
 
