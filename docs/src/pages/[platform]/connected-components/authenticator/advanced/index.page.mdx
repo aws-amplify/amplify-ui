@@ -57,9 +57,12 @@ Here's an example that uses the `toForgotPassword` trigger transition, to create
   {({ platform }) => import(`./full-api.${platform}.mdx`)}
 </Fragment>
 
-<Tabs.Container overflow="scroll">
-  <Tabs.Item title="Access Contexts">
-
+<Tabs.Container defaultValue="Access Contexts">
+  <Tabs.List>
+    <Tabs.Item value="Access Contexts">Access Contexts</Tabs.Item>
+    <Tabs.Item value="Trigger Transition">Trigger Transition</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="Access Contexts">
     These are `readonly` contexts that represent the current auth state. Any unapplicable `context` will be `undefined`.
 
     <ResponsiveTable highlightOnHover>
@@ -109,8 +112,8 @@ Here's an example that uses the `toForgotPassword` trigger transition, to create
       </TableBody>
     </ResponsiveTable>
     
-  </Tabs.Item>
-  <Tabs.Item title="Trigger Transition">
+  </Tabs.Panel>
+  <Tabs.Panel value="Trigger Transition">
 
 These helper functions trigger transition to another `route`. Note that any invalid transition (e.g. `sign-in` to `authenticated` directly) will be no-op.
 
@@ -150,5 +153,5 @@ These helper functions trigger transition to another `route`. Note that any inva
       </TableBody>
     </ResponsiveTable>
     
-  </Tabs.Item>
+  </Tabs.Panel>
 </Tabs.Container>
