@@ -13,7 +13,6 @@
     "test:liveness": "cypress run --spec 'features/ui/components/liveness/*.feature' --browser chrome",
     "test:storage": "cypress run --spec 'features/ui/components/storage/**/*.feature' --browser chrome",
     "test:theme": "cypress run --spec 'features/ui/theme/*.feature' --browser chrome",
-    "test:guides": "cypress run --spec 'features/ui/guides/*.feature' --browser chrome",
     "precucumber": "node detox/mockServer.js &",
     "cucumber": "./node_modules/.bin/cucumber-js --config detox/cucumber.json --tags @react-native",
     "postcucumber": "kill $(lsof -t -i :9091)",
