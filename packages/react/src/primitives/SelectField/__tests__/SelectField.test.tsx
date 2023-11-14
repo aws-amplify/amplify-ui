@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { ComponentClassName } from '@aws-amplify/ui';
@@ -256,7 +256,9 @@ describe('SelectField', () => {
       </SelectField>
     );
     const select = await screen.findByRole(role);
-    await userEvent.selectOptions(select, '2');
+    await act(async () => {
+      await userEvent.selectOptions(select, '2');
+    });
     expect(onChange).toHaveBeenCalled();
   });
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { TextArea } from '../TextArea';
@@ -100,9 +100,13 @@ describe('TextArea component', () => {
       <TextArea onChange={onChange} onInput={onInput} onPaste={onPaste} />
     );
     const textarea = await screen.findByRole('textbox');
-    await userEvent.type(textarea, 'hello');
+    await act(async () => {
+      await userEvent.type(textarea, 'hello');
+    });
     // userEvent.paste(textarea, 'there');
-    userEvent.paste('there');
+    await act(async () => {
+      userEvent.paste('there');
+    });
     expect(onChange).toHaveBeenCalled();
     expect(onInput).toHaveBeenCalled();
     expect(onPaste).toHaveBeenCalled();

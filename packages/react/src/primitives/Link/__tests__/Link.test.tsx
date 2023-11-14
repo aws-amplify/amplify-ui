@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { ComponentClassName } from '@aws-amplify/ui';
@@ -112,7 +112,9 @@ describe('Link:', () => {
 
     const leftClick = { button: 0 };
     const events = userEvent.setup();
-    await events.click(screen.getByText(/about/i));
+    await act(async () => {
+      await events.click(screen.getByText(/about/i));
+    });
 
     expect(screen.getByText(/you are on the about page/i)).toBeInTheDocument();
   });
