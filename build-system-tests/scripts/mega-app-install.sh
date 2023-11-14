@@ -10,7 +10,7 @@ FRAMEWORK_VERSION="latest"
 PKG_MANAGER="npm"
 PKG_MANAGER_VERSION="latest"
 UI_VERSION="next-release-unstable"
-AMPLIFY_VERSION="6.0.1"
+AMPLIFY_VERSION="6.0.2"
 AMPLIFY_GEO_VERSION="3.0.1"
 
 # Import install function

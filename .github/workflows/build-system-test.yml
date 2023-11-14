@@ -7,7 +7,7 @@ permissions:
 
 on:
   pull_request:
-    branches: [next-release/merge-main-to-migration]
+    branches: [next-release/main]
     types: [opened, synchronize, labeled]
 
 jobs:
