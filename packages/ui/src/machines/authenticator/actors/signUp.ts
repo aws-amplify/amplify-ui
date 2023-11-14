@@ -13,7 +13,6 @@ import { getSignUpInput } from '../utils';
 
 import { runValidators } from '../../../validators';
 
-import { groupLog } from '../../../utils';
 import actions from '../actions';
 import { defaultServices } from '../defaultServices';
 import guards from '../guards';
@@ -89,7 +88,6 @@ const handleFetchUserAttributesResponse = {
 };
 
 export function signUpActor({ services }: SignUpMachineOptions) {
-  groupLog('+++createSignUpMachine');
   return createMachine<SignUpContext, AuthEvent>(
     {
       id: 'signUpActor',
@@ -98,13 +96,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
       states: {
         init: {
           always: [
-            {
-              cond: (context, event) => {
-                groupLog('go to CONFIRM_SIGN_UP ', context);
-                return context.step === 'CONFIRM_SIGN_UP';
-              },
-              target: 'confirmSignUp',
-            },
+            { cond: 'isConfirmSignUpStep', target: 'confirmSignUp' },
             { target: 'signUp' },
           ],
         },
@@ -119,10 +111,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
           },
         },
         resetPassword: {
-          invoke: {
-            src: 'resetPassword',
-            ...handleResetPasswordResponse,
-          },
+          invoke: { src: 'resetPassword', ...handleResetPasswordResponse },
         },
         resendSignUpCode: {
           tags: 'pending',
@@ -269,17 +258,14 @@ export function signUpActor({ services }: SignUpMachineOptions) {
         },
         resolved: {
           type: 'final',
-          data: (context, event) => {
-            groupLog('+++signUpActor.resolved.final', context, event);
-            return {
-              challengeName: context.challengeName,
-              missingAttributes: context.missingAttributes,
-              remoteError: context.remoteError,
-              step: context.step,
-              totpSecretCode: context.totpSecretCode,
-              unverifiedUserAttributes: context.unverifiedUserAttributes,
-            };
-          },
+          data: (context) => ({
+            challengeName: context.challengeName,
+            missingAttributes: context.missingAttributes,
+            remoteError: context.remoteError,
+            step: context.step,
+            totpSecretCode: context.totpSecretCode,
+            unverifiedUserAttributes: context.unverifiedUserAttributes,
+          }),
         },
       },
     },
@@ -288,27 +274,21 @@ export function signUpActor({ services }: SignUpMachineOptions) {
       actions: { ...actions, sendUpdate: sendUpdate() },
       guards,
       services: {
-        autoSignIn: () => {
-          console.log('+++autoSignIn');
+        autoSignIn() {
           return autoSignIn();
         },
-        async fetchUserAttributes(context) {
-          groupLog('+++fetchUserAttributes', context);
+        async fetchUserAttributes() {
           return fetchUserAttributes();
         },
-        confirmSignUp(context, event) {
-          groupLog('+++confirmSignUp', context, event);
-          const { formValues, username } = context;
+        confirmSignUp({ formValues, username }) {
           const { confirmation_code: confirmationCode } = formValues;
           const input: ConfirmSignUpInput = { username, confirmationCode };
           return services.handleConfirmSignUp(input);
         },
         resendSignUpCode({ username }) {
-          console.log('+++resendSignUpCode username:', username);
           return resendSignUpCode({ username });
         },
         async federatedSignIn(_, { data }) {
-          groupLog('+++signUp.signInWithRedirect', data);
           return signInWithRedirect(data);
         },
         async handleSignUp(context, _event) {
@@ -316,7 +296,6 @@ export function signUpActor({ services }: SignUpMachineOptions) {
           const loginMechanism = loginMechanisms[0];
           const input = getSignUpInput(username, formValues, loginMechanism);
 
-          groupLog('+++handleSignUp', input);
           return services.handleSignUp(input);
         },
         async validateSignUp(context, _event) {

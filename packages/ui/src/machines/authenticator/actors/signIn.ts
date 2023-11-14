@@ -12,7 +12,7 @@ import { runValidators } from '../../../validators';
 import actions from '../actions';
 import { defaultServices } from '../defaultServices';
 import guards from '../guards';
-import { groupLog } from '../../../utils';
+
 import { AuthEvent, ActorDoneData, SignInContext } from '../types';
 
 export interface SignInMachineOptions {
@@ -103,17 +103,11 @@ export function signInActor({ services }: SignInMachineOptions) {
         init: {
           always: [
             {
-              cond: ({ step }) =>
-                step === 'CONFIRM_SIGN_IN_WITH_SMS_CODE' ||
-                step === 'CONFIRM_SIGN_IN_WITH_TOTP_CODE',
+              cond: 'isConfirmSignInStep',
               target: 'confirmSignIn',
             },
             {
-              cond: ({ step }) => {
-                console.log('to CONTINUE_SIGN_IN_WITH_TOTP_SETUP', step);
-
-                return step === 'CONTINUE_SIGN_IN_WITH_TOTP_SETUP';
-              },
+              cond: 'isContinueSignInWthTotpSetupStep',
               target: 'setupTotp',
             },
             {
@@ -284,16 +278,13 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         resolved: {
           type: 'final',
-          data: (context, event): ActorDoneData => {
-            groupLog('+++signIn.resolved.final', context, event);
-            return {
-              codeDeliveryDetails: context.codeDeliveryDetails,
-              remoteError: context.remoteError,
-              step: context.step,
-              unverifiedUserAttributes: context.unverifiedUserAttributes,
-              username: context.username,
-            };
-          },
+          data: (context): ActorDoneData => ({
+            codeDeliveryDetails: context.codeDeliveryDetails,
+            remoteError: context.remoteError,
+            step: context.step,
+            unverifiedUserAttributes: context.unverifiedUserAttributes,
+            username: context.username,
+          }),
         },
       },
     },
@@ -302,32 +293,26 @@ export function signInActor({ services }: SignInMachineOptions) {
       actions: { ...actions, sendUpdate: sendUpdate() },
       guards,
       services: {
-        async fetchUserAttributes(context) {
-          groupLog('+++fetchUserAttributes', context);
+        async fetchUserAttributes() {
           return fetchUserAttributes();
         },
         resetPassword({ username }) {
-          groupLog('+++resetPassword', username);
           return resetPassword({ username });
         },
         resendSignUpCode({ username }) {
-          console.log('+++resendSignUpCode username:', username);
           return resendSignUpCode({ username });
         },
         handleSignIn({ formValues, username }) {
           const { password } = formValues;
-          groupLog('+++handleSignIn', username, password);
           return services.handleSignIn({ username, password });
         },
         confirmSignIn({ formValues }) {
-          groupLog('+++confirmSignIn', formValues);
           const { confirmation_code: challengeResponse } = formValues;
           return services.handleConfirmSignIn({ challengeResponse });
         },
         async handleForceChangePassword({ formValues }) {
-          groupLog('+++handleForceChangePassword', formValues);
           let {
-            password,
+            password: challengeResponse,
             phone_number,
             country_code,
             // destructure and toss UI confirm_password field
@@ -347,24 +332,14 @@ export function signInActor({ services }: SignInMachineOptions) {
           }
 
           const input: ConfirmSignInInput = {
-            challengeResponse: password,
+            challengeResponse,
             options: { userAttributes },
           };
 
           return confirmSignIn(input);
         },
-        getTotpSecretCode(_, event) {
-          groupLog(
-            '+++getTotpSecretCode',
-            'event',
-            event.data?.nextStep?.totpSetupDetails?.sharedSecret
-          );
-          return event.data?.nextStep?.totpSetupDetails?.sharedSecret;
-        },
-        signInWithRedirect(context, event) {
-          groupLog('+++signIn.signInWithRedirect', context, event);
-          const { provider } = event.data;
-          return signInWithRedirect({ provider });
+        signInWithRedirect(_, { data }) {
+          return signInWithRedirect(data);
         },
         async validateFields(context) {
           return runValidators(

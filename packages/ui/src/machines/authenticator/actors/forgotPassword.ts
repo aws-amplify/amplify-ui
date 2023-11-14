@@ -1,6 +1,5 @@
 import { createMachine, sendUpdate } from 'xstate';
 
-import { groupLog } from '../../../utils';
 import { runValidators } from '../../../validators';
 import actions from '../actions';
 import guards from '../guards';
@@ -23,24 +22,15 @@ export function forgotPasswordActor({
         init: {
           always: [
             {
-              cond: (context) => {
-                groupLog('is FORGOT_PASSWORD', context);
-                return context.step === 'FORGOT_PASSWORD';
-              },
+              cond: 'isForgotPasswordStep',
               target: 'forgotPassword',
             },
             {
-              cond: ({ step }) => {
-                groupLog('is RESET_PASSWORD', step);
-                return step === 'RESET_PASSWORD';
-              },
+              cond: 'isResetPasswordStep',
               target: 'confirmResetPassword',
             },
             {
-              cond: ({ step }) => {
-                groupLog('is CONFIRM_RESET_PASSWORD_WITH_CODE', step);
-                return step === 'CONFIRM_RESET_PASSWORD_WITH_CODE';
-              },
+              cond: 'isConfirmResetPasswordStep',
               target: 'confirmResetPassword',
             },
           ],
@@ -60,7 +50,7 @@ export function forgotPasswordActor({
             },
             submit: {
               tags: 'pending',
-              entry: ['sendUpdate', 'clearError', 'setUsernameResetPassword'],
+              entry: ['sendUpdate', 'clearError', 'setUsernameForgotPassword'],
               invoke: {
                 src: 'handleResetPassword',
                 onDone: {
@@ -172,10 +162,7 @@ export function forgotPasswordActor({
         },
         resolved: {
           type: 'final',
-          data: (context, event) => {
-            groupLog('+++forgotPassword.resolved.final', context, event);
-            return { step: context.step };
-          },
+          data: ({ step }) => ({ step }),
         },
       },
     },
@@ -185,14 +172,11 @@ export function forgotPasswordActor({
       guards,
       services: {
         handleResetPassword({ username }: ResetPasswordContext) {
-          groupLog('+++forgotPassword username:', username);
           return services.handleForgotPassword({ username });
         },
-        handleConfirmResetPassword(context) {
-          groupLog('+++handleConfirmResetPassword', context);
-          const { username } = context;
+        handleConfirmResetPassword({ formValues, username }) {
           const { confirmation_code: confirmationCode, password: newPassword } =
-            context.formValues;
+            formValues;
 
           return services.handleForgotPasswordSubmit({
             confirmationCode,

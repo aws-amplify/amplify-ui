@@ -157,7 +157,7 @@ export type SignUpStep =
   | 'SIGN_UP_COMPLETE'; // 'DONE'
 
 export type UserAttributeStep =
-  | 'SHOULD_VERIFY_USER_ATTRIBUTE'
+  | 'SHOULD_CONFIRM_USER_ATTRIBUTE'
   | 'CONFIRM_ATTRIBUTE_WITH_CODE'
   | 'CONFIRM_ATTRIBUTE_COMPLETE'; // 'DONE'
 

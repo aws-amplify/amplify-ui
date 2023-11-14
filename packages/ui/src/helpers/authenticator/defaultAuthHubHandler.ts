@@ -1,6 +1,6 @@
 import { Hub } from 'aws-amplify/utils';
 
-import { groupLog, isFunction } from '../../utils';
+import { isFunction } from '../../utils';
 
 import { AuthInterpreter, AuthMachineHubHandler } from './types';
 
@@ -14,33 +14,10 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = async (
   options
 ) => {
   const { event } = payload;
-  groupLog('+++defaultAuthHubHandler', payload);
   const { send } = service;
-  // const state = service.getSnapshot(); // this is just a getter and is not expensive
   const { onSignIn, onSignOut } = options ?? {};
 
   switch (event) {
-    case 'signInWithRedirect_failure':
-      break;
-    // TODO: We can add more cases here, according to
-    // https://docs.amplify.aws/lib/auth/auth-events/q/platform/js/
-    // case 'tokenRefresh': {
-    //   if (state.matches('authenticated.idle')) {
-    //     // just call getCurrentUser here
-    //     send('TOKEN_REFRESH');
-    //   }
-    //   break;
-    // }
-    case 'signInWithRedirect': {
-      // if (isFunction(onSignInWithRedirect)) {
-      //   // getCurrentUser()
-      //   //   .then('onSignInWithRedirect')
-      //   //   .catch((e) => {
-      //   //     return;
-      //   //   });
-      // }
-      break;
-    }
     case 'signedIn': {
       if (isFunction(onSignIn)) {
         onSignIn(payload);

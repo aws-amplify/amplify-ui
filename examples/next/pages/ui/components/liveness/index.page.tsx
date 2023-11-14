@@ -9,10 +9,7 @@ import Layout from './components/Layout';
 
 Amplify.configure({
   ...awsExports,
-  // @todo-migration re-enable
-  // Analytics: {
-  //   autoSessionRecord: false,
-  // },
+  // Analytics: { autoSessionRecord: false },
 });
 
 const App = () => {

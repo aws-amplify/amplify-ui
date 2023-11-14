@@ -8,7 +8,7 @@ import {
 
 import { AuthFormFields, PasswordSettings } from '../../types';
 import { AuthEvent, AuthContext, ActorDoneData, InitialStep } from './types';
-import { groupLog, isEmptyObject } from '../../utils';
+import { isEmptyObject } from '../../utils';
 
 import actions from './actions';
 import guards from './guards';
@@ -28,7 +28,7 @@ export type AuthenticatorMachineOptions = AuthContext['config'] & {
 
 const getActorContext = (context: AuthContext, defaultStep?: InitialStep) => ({
   ...context.actorDoneData,
-  step: context.actorDoneData?.step ?? defaultStep,
+  step: context?.actorDoneData?.step ?? defaultStep,
 
   // initialize empty objects on actor start
   formValues: {},
@@ -59,16 +59,8 @@ const LEGACY_WAIT_CONFIG = {
 
 // setup step proceeds directly to configure
 const NEXT_WAIT_CONFIG = {
-  always: {
-    actions: ['configure'],
-    target: 'getConfig',
-  },
+  always: { actions: ['configure'], target: 'getConfig' },
 };
-
-const clearActorDoneData = assign((ctx, e) => {
-  groupLog('+++clearActorDoneData', e);
-  return { actorDoneData: undefined };
-});
 
 export function createAuthenticatorMachine(
   options?: AuthenticatorMachineOptions & {
@@ -143,7 +135,7 @@ export function createAuthenticatorMachine(
               always: { actions: 'spawnSignInActor', target: 'runActor' },
             },
             runActor: {
-              entry: clearActorDoneData,
+              entry: 'clearActorDoneData',
               exit: stopActor('signInActor'),
             },
           },
@@ -153,47 +145,21 @@ export function createAuthenticatorMachine(
             SIGN_UP: 'signUpActor',
             'done.invoke.signInActor': [
               {
-                cond: (context, { data }) => {
-                  groupLog(
-                    '+++to CONFIRM_ATTRIBUTE_COMPLETE',
-                    data.step,
-                    context
-                  );
-                  return data.step === 'CONFIRM_ATTRIBUTE_COMPLETE';
-                },
+                cond: 'isCompletedAttributeConfirmationStep',
                 target: '#authenticator.getCurrentUser',
               },
               {
-                cond: (context, event) => {
-                  groupLog(
-                    '+++is SHOULD_VERIFY_USER_ATTRIBUTE ',
-                    context,
-                    event
-                  );
-
-                  return event.data?.step === 'SHOULD_VERIFY_USER_ATTRIBUTE';
-                },
+                cond: 'isShouldConfirmUserAttributeStep',
                 actions: 'setActorDoneData',
                 target: '#authenticator.verifyUserAttributesActor',
               },
               {
-                cond: (context, event) => {
-                  groupLog('+++is RESET_PASSWORD', context, event);
-                  return event.data?.step === 'RESET_PASSWORD';
-                },
+                cond: 'isResetPasswordStep',
                 actions: 'setActorDoneData',
                 target: '#authenticator.forgotPasswordActor',
               },
               {
-                cond: (context, event) => {
-                  groupLog(
-                    '+++is CONFIRM_SIGN_UP',
-                    event.data?.step === 'CONFIRM_SIGN_UP',
-                    context,
-                    event
-                  );
-                  return event.data?.step === 'CONFIRM_SIGN_UP';
-                },
+                cond: 'isConfirmSignUpStep',
                 actions: 'setActorDoneData',
                 target: '#authenticator.signUpActor',
               },
@@ -207,7 +173,7 @@ export function createAuthenticatorMachine(
               always: { actions: 'spawnSignUpActor', target: 'runActor' },
             },
             runActor: {
-              entry: clearActorDoneData,
+              entry: 'clearActorDoneData',
               exit: stopActor('signUpActor'),
             },
           },
@@ -215,17 +181,11 @@ export function createAuthenticatorMachine(
             SIGN_IN: 'signInActor',
             'done.invoke.signUpActor': [
               {
-                cond: (context, event) => {
-                  groupLog('+++is VERIFIED', context, event);
-                  return event.data?.step === 'CONFIRM_ATTRIBUTE_COMPLETE';
-                },
+                cond: 'isCompletedAttributeConfirmationStep',
                 target: '#authenticator.getCurrentUser',
               },
               {
-                cond: (context, event) => {
-                  groupLog('+++go to verify attrs ', context, event);
-                  return event.data?.step === 'CONFIRM_ATTRIBUTE_WITH_CODE';
-                },
+                cond: 'isConfirmUserAttributeStep',
                 target: '#authenticator.verifyUserAttributesActor',
               },
               {
@@ -245,7 +205,7 @@ export function createAuthenticatorMachine(
               },
             },
             runActor: {
-              entry: clearActorDoneData,
+              entry: 'clearActorDoneData',
               exit: stopActor('forgotPasswordActor'),
             },
           },
@@ -266,7 +226,7 @@ export function createAuthenticatorMachine(
               },
             },
             runActor: {
-              entry: clearActorDoneData,
+              entry: 'clearActorDoneData',
               exit: stopActor('verifyUserAttributesActor'),
             },
           },
@@ -303,7 +263,7 @@ export function createAuthenticatorMachine(
               },
             },
             runActor: {
-              entry: clearActorDoneData,
+              entry: 'clearActorDoneData',
               exit: stopActor('signOutActor'),
             },
           },
@@ -332,31 +292,18 @@ export function createAuthenticatorMachine(
           { cond: 'hasActor', actions: forwardTo(({ actorRef }) => actorRef) },
         ]),
         setActorDoneData: assign({
-          actorDoneData: (context, event): ActorDoneData => {
-            groupLog('+++setActorDoneData', context, event);
-            return {
-              codeDeliveryDetails: event.data.codeDeliveryDetails,
-              missingAttributes: event.data.missingAttributes,
-              remoteError: event.data.remoteError,
-              username: event.data.username,
-              step: event.data.step,
-              totpSecretCode: event.data.totpSecretCode,
-              unverifiedUserAttributes: event.data.unverifiedUserAttributes,
-            };
-          },
-        }),
-        clearUser: assign((ctx, e) => {
-          groupLog('+++clearUser', e);
-          return { user: undefined };
-        }),
-        clearActorDoneData: assign((ctx, e) => {
-          groupLog('+++clearActorDoneData', e);
-          return { actorDoneData: undefined };
+          actorDoneData: (context, event): ActorDoneData => ({
+            codeDeliveryDetails: event.data.codeDeliveryDetails,
+            missingAttributes: event.data.missingAttributes,
+            remoteError: event.data.remoteError,
+            username: event.data.username,
+            step: event.data.step,
+            totpSecretCode: event.data.totpSecretCode,
+            unverifiedUserAttributes: event.data.unverifiedUserAttributes,
+          }),
         }),
         applyAmplifyConfig: assign({
           config(context, { data: cliConfig }) {
-            groupLog('+++applyAmplifyConfig', cliConfig);
-
             // Prefer explicitly configured settings over default CLI values\
             const {
               loginMechanisms = cliConfig.loginMechanisms ?? [],
@@ -388,7 +335,6 @@ export function createAuthenticatorMachine(
         }),
         spawnSignInActor: assign({
           actorRef: (context, _) => {
-            groupLog('+++spawnSignInActor.actorRef', context);
             const { services } = context;
             const actor = signInActor({ services }).withContext(
               getActorContext(context, 'SIGN_IN')
@@ -398,7 +344,6 @@ export function createAuthenticatorMachine(
         }),
         spawnSignUpActor: assign({
           actorRef: (context, _) => {
-            groupLog('+++spawnSignUpActor.actorRef', context);
             const { services } = context;
             const actor = signUpActor({ services }).withContext(
               getActorContext(context, 'SIGN_UP')
@@ -417,7 +362,6 @@ export function createAuthenticatorMachine(
         }),
         spawnVerifyUserAttributesActor: assign({
           actorRef: (context) => {
-            groupLog('+++spawnVerifyAttributes', context);
             const actor = verifyUserAttributesActor().withContext(
               getActorContext(context)
             );
@@ -426,7 +370,6 @@ export function createAuthenticatorMachine(
         }),
         spawnSignOutActor: assign({
           actorRef: (context) => {
-            groupLog('+++spawnSignOutActor', context);
             const actor = signOutActor().withContext({ user: context?.user });
             return spawn(actor, { name: 'signOutActor' });
           },
@@ -447,32 +390,15 @@ export function createAuthenticatorMachine(
       },
       guards: {
         ...guards,
-        isInitialStateSignUp: (context) =>
-          context.config.initialState === 'signUp',
-        isInitialStateResetPassword: (context) =>
-          context.config.initialState === 'forgotPassword',
-        shouldSetup: (context) => {
-          groupLog('+++shouldSetup', context);
-          return context.hasSetup === false;
-        },
-        // other context guards
-        hasActor: (context) => !!context.actorRef,
+        hasActor: ({ actorRef }) => !!actorRef,
+        isInitialStateSignUp: ({ config }) => config.initialState === 'signUp',
+        isInitialStateResetPassword: ({ config }) =>
+          config.initialState === 'forgotPassword',
+        shouldSetup: ({ hasSetup }) => !hasSetup,
       },
       services: {
-        handleGetCurrentUser: (context, event) => {
-          groupLog('+++getCurrentUser.top', context, event);
-          return context.services
-            .getCurrentUser()
-            .then((user) => {
-              console.log('getCurrentUser.top success', user);
-              return user;
-            })
-            .catch((e) => {
-              console.log('getCurrentUser.top fail', e);
-              throw new Error(undefined);
-            });
-        },
-        getAmplifyConfig: (context, _) => context.services.getAmplifyConfig(),
+        getAmplifyConfig: ({ services }) => services.getAmplifyConfig(),
+        handleGetCurrentUser: ({ services }) => services.getCurrentUser(),
       },
     }
   );
