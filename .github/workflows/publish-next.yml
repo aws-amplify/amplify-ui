@@ -151,7 +151,6 @@ jobs:
           retention-days: 5
 
   publish:
-    needs: [e2e, guides]
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-tagged-publish.yml@main
     with:
       dist-tag: next
