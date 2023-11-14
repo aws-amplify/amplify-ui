@@ -4,7 +4,7 @@
 
 ### Major Changes
 
-- Major version bump for all Amplify UI packages due to uprade of peerDependency aws-amplify to v6
+Major version bump for all Amplify UI packages due to upgrade of peerDependency aws-amplify to v6
 
 ### Patch Changes
 
