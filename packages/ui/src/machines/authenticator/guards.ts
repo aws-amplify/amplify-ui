@@ -1,5 +1,4 @@
 import {
-  ConfirmSignUpOutput,
   FetchUserAttributesOutput,
   ResetPasswordOutput,
   SignInOutput,
@@ -15,19 +14,18 @@ const SIGN_IN_STEP_MFA_CONFIRMATION: string[] = [
   'CONFIRM_SIGN_IN_WITH_TOTP_CODE',
 ];
 
-// reponse next step guards
-const shouldConfirmSignIn = (_: AuthActorContext, event: AuthEvent): boolean =>
-  SIGN_IN_STEP_MFA_CONFIRMATION.includes(event.data?.nextStep?.signInStep);
-
+// response next step guards
 const shouldConfirmSignInWithNewPassword = (
   _: AuthActorContext,
-  event: AuthEvent
+  { data }: AuthEvent
 ): boolean =>
-  (event.data as SignInOutput)?.nextStep.signInStep ===
+  (data as SignInOutput)?.nextStep.signInStep ===
   'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED';
 
-const shouldResetPassword = (_: AuthActorContext, event: AuthEvent): boolean =>
-  (event.data as SignInOutput)?.nextStep?.signInStep === 'RESET_PASSWORD';
+const shouldResetPasswordFromSignIn = (
+  _: AuthActorContext,
+  { data }: AuthEvent
+): boolean => (data as SignInOutput)?.nextStep?.signInStep === 'RESET_PASSWORD';
 
 const shouldConfirmSignUpFromSignIn = (
   _: AuthActorContext,
@@ -46,40 +44,41 @@ const hasCompletedSignUp = (_: AuthActorContext, { data }: AuthEvent) =>
 const hasCompletedResetPassword = (_: AuthActorContext, { data }: AuthEvent) =>
   (data as ResetPasswordOutput)?.nextStep.resetPasswordStep === 'DONE';
 
-const shouldConfirmSignUp = (_: AuthActorContext, { data }: AuthEvent) =>
-  (data as ConfirmSignUpOutput)?.nextStep.signUpStep === 'CONFIRM_SIGN_UP';
-
-// actor entry guards
-const isCompletedAttributeConfirmationStep = (
+// actor done guards read `step` from actor exit event
+const hasCompletedAttributeConfirmation = (
   _: AuthActorContext,
   { data }: AuthEvent
-) => {
-  return data.step === 'CONFIRM_ATTRIBUTE_COMPLETE';
-};
-const isForgotPasswordStep = ({ step }: AuthActorContext) =>
-  step === 'FORGOT_PASSWORD';
+) => data?.step === 'CONFIRM_ATTRIBUTE_COMPLETE';
 
-const isConfirmUserAttributeStep = ({ step }: AuthActorContext) =>
-  step === 'CONFIRM_ATTRIBUTE_WITH_CODE';
+const isConfirmUserAttributeStep = (_: AuthActorContext, { data }: AuthEvent) =>
+  data?.step === 'CONFIRM_ATTRIBUTE_WITH_CODE';
 
-const isShouldConfirmUserAttributeStep = ({ step }: AuthActorContext) =>
-  step === 'SHOULD_CONFIRM_USER_ATTRIBUTE';
+const isShouldConfirmUserAttributeStep = (
+  _: AuthActorContext,
+  { data }: AuthEvent
+) => data?.step === 'SHOULD_CONFIRM_USER_ATTRIBUTE';
 
-// create force update password flow
-const isResetPasswordStep = ({ step }: AuthActorContext) =>
-  step === 'RESET_PASSWORD';
+const isResetPasswordStep = (_: AuthActorContext, { data }: AuthEvent) =>
+  data?.step === 'RESET_PASSWORD';
 
-const isConfirmResetPasswordStep = ({ step }: AuthActorContext) =>
-  step === 'CONFIRM_RESET_PASSWORD_WITH_CODE';
+const isConfirmSignUpStep = (_: AuthActorContext, { data }: AuthEvent) =>
+  data?.step === 'CONFIRM_SIGN_UP';
 
-const isConfirmSignInStep = ({ step }: AuthActorContext) =>
+// actor entry guards read `step` from actor context
+const shouldConfirmSignIn = ({ step }: AuthActorContext) =>
   SIGN_IN_STEP_MFA_CONFIRMATION.includes(step);
 
-const isConfirmSignUpStep = ({ step }: AuthActorContext) =>
-  step === 'CONFIRM_SIGN_UP';
-
-const isContinueSignInWthTotpSetupStep = ({ step }: AuthActorContext) =>
+const shouldSetupTotp = ({ step }: AuthActorContext) =>
   step === 'CONTINUE_SIGN_IN_WITH_TOTP_SETUP';
+
+const shouldResetPassword = ({ step }: AuthActorContext) =>
+  step === 'RESET_PASSWORD';
+
+const shouldConfirmResetPassword = ({ step }: AuthActorContext) =>
+  step === 'CONFIRM_RESET_PASSWORD_WITH_CODE';
+
+const shouldConfirmSignUp = ({ step }: AuthActorContext) =>
+  step === 'CONFIRM_SIGN_UP';
 
 // miscellaneous guards
 const shouldVerifyAttribute = (
@@ -115,25 +114,24 @@ const isUserAlreadyConfirmed = (_: AuthActorContext, { data }: AuthEvent) =>
   data.message === 'User is already confirmed.';
 
 const GUARDS: MachineOptions<AuthActorContext, AuthEvent>['guards'] = {
+  hasCompletedAttributeConfirmation,
   hasCompletedResetPassword,
   hasCompletedSignIn,
   hasCompletedSignUp,
-  isCompletedAttributeConfirmationStep,
-  isConfirmResetPasswordStep,
-  isConfirmSignInStep,
   isConfirmSignUpStep,
   isConfirmUserAttributeStep,
-  isContinueSignInWthTotpSetupStep,
-  isForgotPasswordStep,
   isResetPasswordStep,
   isShouldConfirmUserAttributeStep,
   isUserAlreadyConfirmed,
   shouldAutoSignIn,
+  shouldConfirmResetPassword,
   shouldConfirmSignIn,
   shouldConfirmSignInWithNewPassword,
   shouldConfirmSignUp,
   shouldConfirmSignUpFromSignIn,
   shouldResetPassword,
+  shouldResetPasswordFromSignIn,
+  shouldSetupTotp,
   shouldVerifyAttribute,
 };
 

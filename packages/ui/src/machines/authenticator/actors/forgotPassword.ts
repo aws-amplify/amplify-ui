@@ -22,16 +22,15 @@ export function forgotPasswordActor({
         init: {
           always: [
             {
-              cond: 'isForgotPasswordStep',
+              cond: 'shouldResetPassword',
+              target: 'confirmResetPassword',
+            },
+            {
+              cond: 'shouldConfirmResetPassword',
+              target: 'confirmResetPassword',
+            },
+            {
               target: 'forgotPassword',
-            },
-            {
-              cond: 'isResetPasswordStep',
-              target: 'confirmResetPassword',
-            },
-            {
-              cond: 'isConfirmResetPasswordStep',
-              target: 'confirmResetPassword',
             },
           ],
         },
@@ -184,7 +183,7 @@ export function forgotPasswordActor({
             username,
           });
         },
-        validateFields(context, event) {
+        validateFields(context) {
           return runValidators(
             context.formValues,
             context.touched,

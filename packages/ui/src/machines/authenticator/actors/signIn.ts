@@ -32,7 +32,7 @@ const handleSignInResponse = {
       target: '#signInActor.forceChangePassword',
     },
     {
-      cond: 'shouldResetPassword',
+      cond: 'shouldResetPasswordFromSignIn',
       actions: 'setNextSignInStep',
       target: '#signInActor.resetPassword',
     },
@@ -52,13 +52,6 @@ const handleSignInResponse = {
     },
   ],
   onError: { actions: 'setRemoteError', target: 'edit' },
-};
-
-const handleResetPasswordResponse = {
-  onDone: [
-    { actions: 'setCodeDeliveryDetails', target: '#signInActor.resolved' },
-  ],
-  onError: { actions: ['setRemoteError', 'sendUpdate'] },
 };
 
 const handleFetchUserAttributesResponse = {
@@ -82,17 +75,6 @@ const handleFetchUserAttributesResponse = {
   },
 };
 
-const handleConfirmSignInResponse = {
-  onDone: {
-    actions: ['setConfirmSignUpSignUpStep', 'setCodeDeliveryDetails'],
-    target: '#signInActor.resolved',
-  },
-  onError: {
-    actions: 'setRemoteError',
-    target: '#signInActor.signIn',
-  },
-};
-
 export function signInActor({ services }: SignInMachineOptions) {
   return createMachine<SignInContext, AuthEvent>(
     {
@@ -103,11 +85,11 @@ export function signInActor({ services }: SignInMachineOptions) {
         init: {
           always: [
             {
-              cond: 'isConfirmSignInStep',
+              cond: 'shouldConfirmSignIn',
               target: 'confirmSignIn',
             },
             {
-              cond: 'isContinueSignInWthTotpSetupStep',
+              cond: 'shouldSetupTotp',
               target: 'setupTotp',
             },
             {
@@ -133,10 +115,29 @@ export function signInActor({ services }: SignInMachineOptions) {
           },
         },
         resendSignUpCode: {
-          invoke: { src: 'resendSignUpCode', ...handleConfirmSignInResponse },
+          invoke: {
+            src: 'handleResendSignUpCode',
+            onDone: {
+              actions: 'setCodeDeliveryDetails',
+              target: '#signInActor.resolved',
+            },
+            onError: {
+              actions: 'setRemoteError',
+              target: '#signInActor.signIn',
+            },
+          },
         },
         resetPassword: {
-          invoke: { src: 'resetPassword', ...handleResetPasswordResponse },
+          invoke: {
+            src: 'resetPassword',
+            onDone: [
+              {
+                actions: 'setCodeDeliveryDetails',
+                target: '#signInActor.resolved',
+              },
+            ],
+            onError: { actions: ['setRemoteError', 'sendUpdate'] },
+          },
         },
         signIn: {
           initial: 'edit',
@@ -153,7 +154,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             submit: {
               tags: 'pending',
               entry: ['clearError', 'sendUpdate', 'setUsernameSignIn'],
-              exit: ['clearFormValues'],
+              exit: 'clearFormValues',
               invoke: { src: 'handleSignIn', ...handleSignInResponse },
             },
           },
@@ -299,7 +300,7 @@ export function signInActor({ services }: SignInMachineOptions) {
         resetPassword({ username }) {
           return resetPassword({ username });
         },
-        resendSignUpCode({ username }) {
+        handleResendSignUpCode({ username }) {
           return resendSignUpCode({ username });
         },
         handleSignIn({ formValues, username }) {

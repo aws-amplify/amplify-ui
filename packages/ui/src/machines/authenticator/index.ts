@@ -145,7 +145,7 @@ export function createAuthenticatorMachine(
             SIGN_UP: 'signUpActor',
             'done.invoke.signInActor': [
               {
-                cond: 'isCompletedAttributeConfirmationStep',
+                cond: 'hasCompletedAttributeConfirmation',
                 target: '#authenticator.getCurrentUser',
               },
               {
@@ -181,7 +181,7 @@ export function createAuthenticatorMachine(
             SIGN_IN: 'signInActor',
             'done.invoke.signUpActor': [
               {
-                cond: 'isCompletedAttributeConfirmationStep',
+                cond: 'hasCompletedAttributeConfirmation',
                 target: '#authenticator.getCurrentUser',
               },
               {

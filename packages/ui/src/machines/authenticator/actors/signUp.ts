@@ -41,7 +41,7 @@ const handleAutoSignInResponse = {
       target: '#signUpActor.resolved',
     },
     {
-      cond: 'shouldResetPassword',
+      cond: 'shouldResetPasswordFromSignIn',
       actions: 'setNextSignInStep',
       target: '#signUpActor.resetPassword',
     },
@@ -96,7 +96,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
       states: {
         init: {
           always: [
-            { cond: 'isConfirmSignUpStep', target: 'confirmSignUp' },
+            { cond: 'shouldConfirmSignUp', target: 'confirmSignUp' },
             { target: 'signUp' },
           ],
         },
@@ -189,6 +189,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                   tags: 'pending',
                   entry: ['setUsernameSignUp', 'clearError'],
                   exit: 'sendUpdate',
+
                   invoke: {
                     src: 'handleSignUp',
                     onDone: [
@@ -235,6 +236,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
             submit: {
               tags: 'pending',
               entry: ['clearError', 'sendUpdate'],
+
               invoke: {
                 src: 'confirmSignUp',
                 onDone: [
