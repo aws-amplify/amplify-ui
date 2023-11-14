@@ -81,6 +81,7 @@ export type AuthEventTypes =
   | 'RESEND'
   | 'FORGOT_PASSWORD'
   | 'AUTO_SIGN_IN_FAILURE'
+  | 'SIGN_IN_WITH_REDIRECT'
   | 'SIGN_IN'
   | 'SIGN_OUT'
   | 'SIGN_UP'
