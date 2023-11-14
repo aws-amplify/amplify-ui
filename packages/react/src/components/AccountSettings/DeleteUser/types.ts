@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { AmplifyUser } from '@aws-amplify/ui';
+import { AuthUser } from 'aws-amplify/auth';
 
 import { ButtonComponent, ErrorMessageComponent } from '../types';
 import { DeleteUserDisplayText } from '../utils';
@@ -35,7 +34,7 @@ export interface DeleteUserComponents {
 
 export interface DeleteUserProps {
   /** custom delete user service override */
-  handleDelete?: (user: AmplifyUser) => Promise<void> | void;
+  handleDelete?: (user: AuthUser) => Promise<void> | void;
 
   /** callback for successful user deletion */
   onSuccess?: () => void;

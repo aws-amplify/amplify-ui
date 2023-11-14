@@ -1,12 +1,12 @@
 import React from 'react';
-import { Authenticator, AuthenticatorProps, SignOut } from './Authenticator';
-import { AmplifyUser } from '@aws-amplify/ui';
+import { AuthUser } from 'aws-amplify/auth';
 
+import { Authenticator, AuthenticatorProps, SignOut } from './Authenticator';
 export type WithAuthenticatorOptions = Omit<AuthenticatorProps, 'children'>;
 
 export interface WithAuthenticatorProps {
   signOut?: SignOut;
-  user?: AmplifyUser;
+  user?: AuthUser;
 }
 
 /**

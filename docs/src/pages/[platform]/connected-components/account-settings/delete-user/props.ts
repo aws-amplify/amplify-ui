@@ -13,7 +13,7 @@ export const DELETE_USER = [
   {
     name: `handleDelete?`,
     description: 'Custom delete user handler',
-    type: `(user: AmplifyUser) => Promise<void> | void`,
+    type: `(user: AuthUser) => Promise<void> | void`,
   },
   {
     name: `components?`,

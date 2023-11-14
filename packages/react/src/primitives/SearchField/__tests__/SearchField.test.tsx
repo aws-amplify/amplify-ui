@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { ComponentClassName } from '@aws-amplify/ui';
@@ -122,7 +122,9 @@ describe('SearchField component', () => {
     render(<SearchField label={label} name="q" onSubmit={onSubmit} />);
 
     const searchField = await screen.findByLabelText(label);
-    await userEvent.type(searchField, searchQuery);
+    await act(async () => {
+      await userEvent.type(searchField, searchQuery);
+    });
 
     fireEvent.keyDown(searchField, { key: 'Enter', code: 'Enter' });
 
@@ -135,7 +137,9 @@ describe('SearchField component', () => {
 
     const searchField = await screen.findByLabelText(label);
 
-    await userEvent.type(searchField, searchQuery);
+    await act(async () => {
+      await userEvent.type(searchField, searchQuery);
+    });
     expect(searchField).toHaveValue(searchQuery);
 
     fireEvent.keyDown(searchField, { key: 'Esc', code: 'Esc' });
@@ -147,7 +151,9 @@ describe('SearchField component', () => {
 
     const searchField = await screen.findByLabelText(label);
 
-    await userEvent.type(searchField, searchQuery);
+    await act(async () => {
+      await userEvent.type(searchField, searchQuery);
+    });
     expect(searchField).toHaveValue(searchQuery);
 
     fireEvent.keyDown(searchField, { key: 'Esc', code: 'Esc' });
@@ -161,8 +167,12 @@ describe('SearchField component', () => {
 
       const button = await screen.findByRole('button');
       const searchField = await screen.findByLabelText(label);
-      await userEvent.type(searchField, searchQuery);
-      await userEvent.click(button);
+      await act(async () => {
+        await userEvent.type(searchField, searchQuery);
+      });
+      await act(async () => {
+        await userEvent.click(button);
+      });
 
       expect(onSubmit).toHaveBeenCalledTimes(1);
       expect(onSubmit).toHaveBeenCalledWith(searchQuery);
@@ -178,7 +188,9 @@ describe('SearchField component', () => {
 
       expect(clearButton).toBeNull();
 
-      await userEvent.type(searchField, searchQuery);
+      await act(async () => {
+        await userEvent.type(searchField, searchQuery);
+      });
       clearButton = await screen.findByLabelText(clearButtonLabel);
 
       expect(clearButton).toBeDefined();
@@ -188,12 +200,16 @@ describe('SearchField component', () => {
       render(<SearchField label={label} name="q" />);
 
       const searchField = await screen.findByLabelText(label);
-      await userEvent.type(searchField, searchQuery);
+      await act(async () => {
+        await userEvent.type(searchField, searchQuery);
+      });
 
       const clearButton = await screen.findByLabelText(clearButtonLabel);
 
       expect(searchField).toHaveValue(searchQuery);
-      await userEvent.click(clearButton);
+      await act(async () => {
+        await userEvent.click(clearButton);
+      });
       expect(searchField).toHaveValue('');
       expect(searchField).toHaveFocus();
     });
@@ -202,12 +218,16 @@ describe('SearchField component', () => {
       render(<ControlledSearchField />);
 
       const searchField = await screen.findByLabelText(label);
-      await userEvent.type(searchField, searchQuery);
+      await act(async () => {
+        await userEvent.type(searchField, searchQuery);
+      });
 
       const clearButton = await screen.findByLabelText(clearButtonLabel);
 
       expect(searchField).toHaveValue(searchQuery);
-      await userEvent.click(clearButton);
+      await act(async () => {
+        await userEvent.click(clearButton);
+      });
       expect(searchField).toHaveValue('');
       expect(searchField).toHaveFocus();
     });
@@ -223,7 +243,9 @@ describe('SearchField component', () => {
       );
 
       const searchField = await screen.findByLabelText(label);
-      await userEvent.type(searchField, searchQuery);
+      await act(async () => {
+        await userEvent.type(searchField, searchQuery);
+      });
 
       const clearButton = await screen.findByLabelText(clearButtonLabel);
       expect(clearButton).toHaveAttribute('aria-label', clearButtonLabel);

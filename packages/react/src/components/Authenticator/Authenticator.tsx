@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {
   AuthenticatorMachineOptions,
-  AmplifyUser,
   isFunction,
   FormFieldComponents,
   FormFieldOptions,
 } from '@aws-amplify/ui';
+import { AuthUser } from 'aws-amplify/auth';
 
 import {
   AuthenticatorProvider as Provider,
@@ -37,7 +37,7 @@ export type AuthenticatorProps = Partial<
     RouterProps & {
       children:
         | React.ReactNode
-        | ((props: { signOut?: SignOut; user?: AmplifyUser }) => JSX.Element);
+        | ((props: { signOut?: SignOut; user?: AuthUser }) => JSX.Element);
       formFields: {
         [key in FormFieldComponents]?: {
           [field_name: string]: ReactFormFieldOptions;
