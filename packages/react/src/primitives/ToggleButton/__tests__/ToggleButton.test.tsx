@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as React from 'react';
 
@@ -76,25 +76,35 @@ describe('ToggleButton:', () => {
     const onClick = jest.fn();
     render(<ToggleButton onClick={onClick} />);
     const toggleButton = await screen.findByRole('button');
-    await userEvent.click(toggleButton);
+    await act(async () => {
+      await userEvent.click(toggleButton);
+    });
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
   it('should works in uncontrolled way', async () => {
     render(<ToggleButton defaultPressed={false} />);
     const toggleButton = await screen.findByRole('button');
-    await userEvent.click(toggleButton);
+    await act(async () => {
+      await userEvent.click(toggleButton);
+    });
     expect(toggleButton).toHaveAttribute('aria-pressed', 'true');
-    await userEvent.click(toggleButton);
+    await act(async () => {
+      await userEvent.click(toggleButton);
+    });
     expect(toggleButton).toHaveAttribute('aria-pressed', 'false');
   });
 
   it('should works in controlled way', async () => {
     render(<ControlledToggleButton />);
     const toggleButton = await screen.findByRole('button');
-    await userEvent.click(toggleButton);
+    await act(async () => {
+      await userEvent.click(toggleButton);
+    });
     expect(toggleButton).toHaveAttribute('aria-pressed', 'true');
-    await userEvent.click(toggleButton);
+    await act(async () => {
+      await userEvent.click(toggleButton);
+    });
     expect(toggleButton).toHaveAttribute('aria-pressed', 'false');
   });
 

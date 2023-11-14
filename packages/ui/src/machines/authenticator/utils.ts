@@ -65,9 +65,6 @@ export const getSignUpInput = (
   formValues: AuthActorContext['formValues'],
   loginMechanism: LoginMechanism
 ): SignUpInput => {
-  console.log('username', username);
-  console.log('formValues', formValues);
-  console.log('loginMechanism', loginMechanism);
   const { password, ...values } = formValues;
   const attributes = getUserAttributes(values);
 
@@ -89,7 +86,6 @@ export const getUsernameSignUp = ({
   loginMechanisms,
 }: AuthActorContext) => {
   const loginMechanism = loginMechanisms[0];
-  console.log('setUsernameSignUp formValues', formValues);
 
   if (loginMechanism === 'phone_number') {
     const { country_code, phone_number } = formValues;

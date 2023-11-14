@@ -56,6 +56,7 @@ jobs:
       DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
   guides:
+    if: false # temporarily disable job
     runs-on: ubuntu-latest
     environment: ci
     env:

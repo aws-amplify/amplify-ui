@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Radio } from '../../Radio';
@@ -115,12 +115,16 @@ describe('RadioFieldGroup', () => {
       expect(css).not.toBeChecked();
       expect(javascript).not.toBeChecked();
 
-      await userEvent.click(css);
+      await act(async () => {
+        await userEvent.click(css);
+      });
       expect(html).not.toBeChecked();
       expect(css).toBeChecked();
       expect(javascript).not.toBeChecked();
 
-      await userEvent.click(javascript);
+      await act(async () => {
+        await userEvent.click(javascript);
+      });
       expect(html).not.toBeChecked();
       expect(css).not.toBeChecked();
       expect(javascript).toBeChecked();

@@ -3,7 +3,6 @@ import { setImmediate } from 'timers';
 
 import * as AuthModule from 'aws-amplify/auth';
 
-import { AmplifyUser } from '../../../../types';
 import { SignInMachineOptions, signInActor } from '../signIn';
 
 const flushPromises = () => new Promise(setImmediate);
@@ -243,7 +242,6 @@ describe('signInActor', () => {
             verifyUser: jest.fn(async () => Promise.resolve),
           },
           guards: {
-            shouldContinueSignInWithSetupTotp: jest.fn(() => false),
             shouldConfirmSignInWithNewPassword: jest.fn(() => false),
           },
         })
@@ -301,7 +299,7 @@ describe('signInActor', () => {
           },
           guards: {
             shouldRequestVerification: jest.fn(() => false),
-            shouldContinueSignInWithSetupTotp: jest.fn(() => false),
+
             shouldConfirmSignInWithNewPassword: jest.fn(() => false),
             shouldConfirmSignIn: jest.fn(() => true),
           },
@@ -373,7 +371,7 @@ describe('signInActor', () => {
           },
           guards: {
             shouldRequestVerification: jest.fn(() => false),
-            shouldContinueSignInWithSetupTotp: jest.fn(() => false),
+
             shouldConfirmSignInWithNewPassword: jest.fn(() => true),
             shouldConfirmSignIn: jest.fn(() => false),
           },
@@ -445,7 +443,7 @@ describe('signInActor', () => {
           },
           guards: {
             shouldRequestVerification: jest.fn(() => false),
-            shouldContinueSignInWithSetupTotp: jest.fn(() => true),
+
             shouldConfirmSignInWithNewPassword: jest.fn(() => false),
             shouldConfirmSignIn: jest.fn(() => false),
           },
