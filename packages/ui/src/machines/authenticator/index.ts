@@ -276,6 +276,7 @@ export function createAuthenticatorMachine(
         },
       },
       on: {
+        SIGN_IN_WITH_REDIRECT: { target: '#authenticator.getCurrentUser' },
         CHANGE: { actions: 'forwardToActor' },
         BLUR: { actions: 'forwardToActor' },
         SUBMIT: { actions: 'forwardToActor' },
