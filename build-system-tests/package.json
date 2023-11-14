@@ -27,7 +27,7 @@
     "react-latest-vite-latest-ts": "npm run setup:react:vite",
     "react-16-cra-latest-ts": "npm run setup:react:cra -- -f 16",
     "react-latest-cra-latest-js": "npm run setup:react:cra -- -l js",
-    "react-17-next-11-ts": "npm run setup:react:next -- -f 17 -b 11",
+    "react-18-next-12-ts": "npm run setup:react:next -- -f 18 -b 12",
     "react-latest-vite-2-ts": "npm run setup:react:vite -- -b 2",
     "angular-latest-angular-cli-16-ts": "npm run setup:angular:cli -- -b 16",
     "angular-14-angular-cli-14-ts": "npm run setup:angular:cli -- -f 14 -b 14 -n angular-latest-angular-cli-v14-ts",
