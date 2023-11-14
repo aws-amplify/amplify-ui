@@ -21,9 +21,7 @@ Feature: Custom Slots
     Then I see "Enter Information:"
     Then I see "Footer Information"
 
-  # @todo-migration failing on @angular, @vue
-  # @angular @react @vue
-  @react
+  @angular @react @vue
   Scenario: Has Confirm Reset Password Verify User Footer and Header slot text
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "verify-user-email"
     When I click the "Reset Password" button
@@ -50,9 +48,7 @@ Feature: Custom Slots
     Then I see "Enter Information:"
     Then I see "Footer Information"
 
-  # @todo-migration failing on @angular, @vue
-  # @angular @react @vue
-  @react
+  @angular @react @vue
   Scenario: Has reset password in Footer and Header slot text
     When I click the "Reset Password" button
     Then I see "Enter Information:"

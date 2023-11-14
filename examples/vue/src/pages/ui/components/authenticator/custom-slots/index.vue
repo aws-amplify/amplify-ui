@@ -181,7 +181,7 @@ const formFields = {
       <div>Footer Information</div>
     </template>
 
-    <template v-slot:reset-password-header>
+    <template v-slot:forgot-password-header>
       <h3
         class="amplify-heading"
         style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
@@ -190,7 +190,7 @@ const formFields = {
       </h3>
     </template>
 
-    <template v-slot:reset-password-footer>
+    <template v-slot:forgot-password-footer>
       <div>Footer Information</div>
     </template>
 

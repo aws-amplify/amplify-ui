@@ -8,7 +8,8 @@ import {
 } from 'aws-amplify/auth';
 
 import { actions as xStateActions, MachineOptions } from 'xstate';
-import { DEFAULT_COUNTRY_CODE, trimValues } from '../../helpers';
+import { trimValues } from '../../helpers';
+import { groupLog } from '../../utils';
 
 import {
   AuthEvent,
@@ -16,59 +17,14 @@ import {
   ResetPasswordStep,
   SignInStep,
   SignUpStep,
-} from './types';
-
-import {
   AuthTOTPSetupDetails,
   ChallengeName,
   CodeDeliveryDetails,
   V5CodeDeliveryDetails,
 } from './types';
-import { groupLog } from '../../utils';
+import { getUsernameSignUp, sanitizePhoneNumber } from './utils';
 
 const { assign } = xStateActions;
-
-/**
- * https://github.com/statelyai/xstate/issues/866
- *
- * Actions in Xstate take in two arguments - a `context` and
- * an `event`.
- *
- * When writing reusable actions in a separate file for Xstate,
- * you cannot specify the type for both the `context` and the `event`.
- * The bug has been around for 2 years with seemingly no resolution
- * in sight.
- *
- * TypeScript apparently has trouble inferring Xstate properly.
- * So, when writing actions, only specify the type for either `context`
- * or `event` - but not both.
- *
- * https://xstate.js.org/docs/guides/typescript.html#assign-action-behaving-strangely
- *
- * Each of the actions NEEDS at least the `context` argument in the
- * `assign` body - even if it is unused. This is another known bug in
- * how TypeScript integrate with Xstate.
- */
-
-export const getUsernameValue = (
-  formValues: AuthActorContext['formValues']
-) => {
-  console.log('getUsernameValue', formValues);
-
-  const { phone_number, email, username } = formValues;
-
-  if (phone_number) {
-    return phone_number;
-  }
-
-  if (username) {
-    console.log('- username', username);
-    return username;
-  }
-
-  console.log('- email', email);
-  return email;
-};
 
 const clearChallengeName = assign({
   challengeName: (_, e) => {
@@ -134,9 +90,6 @@ const setChallengeName = assign({
   },
 });
 
-const sanitizePhoneNumber = (dialCode: string, phoneNumber: string) =>
-  `${dialCode}${phoneNumber}`.replace(/[^A-Z0-9+]/gi, '');
-
 const setUsernameResetPassword = assign({
   username: ({ formValues, loginMechanisms }: AuthActorContext) => {
     groupLog('++++ setUsernameResetPassword', formValues, loginMechanisms);
@@ -151,24 +104,7 @@ const setUsernameResetPassword = assign({
   },
 });
 
-const setUsernameSignUp = assign({
-  username: ({ formValues, loginMechanisms }: AuthActorContext) => {
-    const loginMechanism = loginMechanisms[0];
-    console.log('setUsernameSignUp formValues', formValues);
-
-    const { username, country_code, email } = formValues;
-
-    if (loginMechanism === 'phone_number') {
-      return sanitizePhoneNumber(country_code, username);
-    }
-
-    if (loginMechanism === 'username') {
-      return username;
-    }
-    // for SignUp with Email, field is email
-    return email;
-  },
-});
+const setUsernameSignUp = assign({ username: getUsernameSignUp });
 
 const setUsernameSignIn = assign({
   username: ({ formValues, loginMechanisms }: AuthActorContext) => {
@@ -246,13 +182,6 @@ const setUser = assign({
   user: (_, event: AuthEvent) => {
     groupLog('+++setUser', event);
     return event.data;
-  },
-});
-
-const setUsername = assign({
-  username: (context: AuthActorContext, _) => {
-    groupLog('+++setUsername', context);
-    return getUsernameValue(context.formValues);
   },
 });
 
@@ -382,7 +311,6 @@ const ACTIONS: MachineOptions<AuthActorContext, AuthEvent>['actions'] = {
   setTotpSecretCode,
   setUser,
   setUnverifiedUserAttributes,
-  setUsername,
   setUsernameResetPassword,
   setUsernameSignIn,
   setUsernameSignUp,

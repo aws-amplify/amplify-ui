@@ -54,6 +54,9 @@ const DarkModeExample = React.lazy(
 /**
  * `Authenticator` e2e Apps
  */
+const SignInTotpMfa = React.lazy(
+  () => import('../ui/components/authenticator/sign-in-totp-mfa/Example')
+);
 const SignInWithEmail = React.lazy(
   () => import('../ui/components/authenticator/sign-in-with-email/Example')
 );
@@ -78,8 +81,8 @@ const SignUpWithUsername = React.lazy(
 const SocialProviders = React.lazy(
   () => import('../ui/components/authenticator/social-providers/Example')
 );
-const ResetPassword = React.lazy(
-  () => import('../ui/components/authenticator/reset-password/Example')
+const ForgotPassword = React.lazy(
+  () => import('../ui/components/authenticator/forgot-password/Example')
 );
 const WithAuthenticator = React.lazy(
   () => import('../ui/components/authenticator/with-authenticator/Example')
@@ -114,6 +117,8 @@ export const ExampleComponent = () => {
 
     // Detox-Cucumber e2e tests
     // below apps are not meant to be run as example apps, they are part of integration testing in CI
+    case 'ui/components/authenticator/sign-in-totp-mfa':
+      return <SignInTotpMfa />;
     case '/ui/components/authenticator/sign-in-with-email':
       return <SignInWithEmail />;
     case '/ui/components/authenticator/sign-in-with-username':
@@ -130,8 +135,8 @@ export const ExampleComponent = () => {
       return <SignUpWithAttributes />;
     case '/ui/components/authenticator/social-providers':
       return <SocialProviders />;
-    case 'ui/components/authenticator/reset-password':
-      return <ResetPassword />;
+    case 'ui/components/authenticator/forgot-password':
+      return <ForgotPassword />;
     case '/ui/components/authenticator/withAuthenticator':
       return <WithAuthenticator />;
     case 'ui/components/in-app-messaging/demo':
