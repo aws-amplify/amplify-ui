@@ -28,7 +28,7 @@
     "@mdx-js/loader": "^2.1.0",
     "@mdx-js/mdx": "^2.1.0",
     "@mdx-js/react": "^2.1.0",
-    "aws-amplify": "^6.0.1",
+    "aws-amplify": "^6.0.2",
     "countries-list": "^2.6.1",
     "dotenv": "^16.0.0",
     "gray-matter": "^4.0.3",
