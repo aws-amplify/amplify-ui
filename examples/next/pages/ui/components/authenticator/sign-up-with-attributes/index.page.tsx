@@ -13,25 +13,42 @@ export default function AuthenticatorWithAttributes() {
     <Authenticator
       initialState="signUp"
       components={{
+        SignUp: {
+          FormFields() {
+            return (
+              <>
+                <Authenticator.SignUp.FormFields />
+                <TextField label="Zone Info" name="zoneinfo" />
+                <TextField label="Gender" name="gender" />
+                <TextField
+                  label="Updated At"
+                  name="updated_at"
+                  placeholder="1699880541"
+                />
+                <TextField label="Locale" name="locale" />
+                <TextField label="Address" name="address" />
+                <TextField label="Picture" name="picture" />
+              </>
+            );
+          },
+        },
         ForceNewPassword: {
           FormFields() {
             return (
               <>
                 <Authenticator.ForceNewPassword.FormFields />
-                <TextField
-                  label="Zone Info"
-                  id="12233"
-                  placeholder="Zone Info"
-                  name="zoneinfo"
-                  type="text"
-                ></TextField>
               </>
             );
           },
         },
       }}
     >
-      {({ signOut }) => <button onClick={signOut}>Sign out</button>}
+      {({ signOut, user }) => (
+        <>
+          <h1>Hello {user.username}</h1>
+          <button onClick={signOut}>Sign out</button>
+        </>
+      )}
     </Authenticator>
   );
 }

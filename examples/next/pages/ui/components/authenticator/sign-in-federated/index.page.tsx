@@ -8,7 +8,12 @@ Amplify.configure(awsExports);
 export default function AuthenticatorWithFederation() {
   return (
     <Authenticator>
-      {({ signOut }) => <button onClick={signOut}>Sign out</button>}
+      {({ signOut, user }) => (
+        <>
+          <h1>{user.username}</h1>
+          <button onClick={signOut}>Sign out</button>
+        </>
+      )}
     </Authenticator>
   );
 }

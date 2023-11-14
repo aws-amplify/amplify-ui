@@ -1,14 +1,23 @@
 <amplify-authenticator initialState="signUp">
-  <ng-template amplifySlot="force-new-form-fields">
-    <amplify-force-new-password-form-fields></amplify-force-new-password-form-fields>
+  <ng-template amplifySlot="sign-up-form-fields">
+    <amplify-sign-up-form-fields></amplify-sign-up-form-fields>
     <amplify-text-field
       label="Zone Info"
-      id="12233"
-      autocomplete="false"
       placeholder="Zone Info"
       name="zoneinfo"
-      type="text"
     ></amplify-text-field>
+    <amplify-text-field label="Gender" name="gender"></amplify-text-field>
+    <amplify-text-field
+      label="Updated At"
+      placeholder="1699880541"
+      name="updated_at"
+    ></amplify-text-field>
+    <amplify-text-field label="Address" name="address"></amplify-text-field>
+    <amplify-text-field label="Locale" name="locale"></amplify-text-field>
+    <amplify-text-field label="Picture" name="picture"></amplify-text-field>
+  </ng-template>
+  <ng-template amplifySlot="force-new-form-fields">
+    <amplify-force-new-password-form-fields></amplify-force-new-password-form-fields>
   </ng-template>
   <ng-template
     amplifySlot="authenticated"

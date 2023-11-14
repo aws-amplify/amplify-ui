@@ -3,6 +3,7 @@ import React from 'react';
 import { Amplify } from 'aws-amplify';
 
 import {
+  Alert,
   Button,
   Card,
   Flex,
@@ -31,13 +32,25 @@ const components = {
 };
 
 function App({ signOut }) {
+  const [isSuccessful, setIsSuccessful] = React.useState(false);
+
   return (
     <Card width="800px">
       <Flex direction="column">
         <Card variation="outlined">
           <Flex direction="column">
             <Heading>Change Password:</Heading>
-            <AccountSettings.ChangePassword components={components} />
+            <AccountSettings.ChangePassword
+              components={components}
+              onSuccess={() => {
+                setIsSuccessful(true);
+              }}
+            />
+            {isSuccessful ? (
+              <Alert variation="success" isDismissible>
+                Password has been changed successfully.
+              </Alert>
+            ) : null}
           </Flex>
         </Card>
         <Button onClick={signOut}>Sign Out</Button>
