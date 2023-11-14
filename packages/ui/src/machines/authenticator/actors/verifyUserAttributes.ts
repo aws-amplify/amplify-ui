@@ -11,7 +11,6 @@ import { runValidators } from '../../../validators';
 import { AuthEvent, VerifyUserContext } from '../types';
 import actions from '../actions';
 import { defaultServices } from '../defaultServices';
-import { groupLog } from '../../../utils';
 
 export function verifyUserAttributesActor() {
   return createMachine<VerifyUserContext, AuthEvent>(
@@ -85,44 +84,26 @@ export function verifyUserAttributesActor() {
             },
           },
         },
-        resolved: {
-          type: 'final',
-          data: (context, event) => {
-            groupLog(
-              '+++verifyUserAttributesActor.resolved.final',
-              context,
-              event
-            );
-            return { step: context.step };
-          },
-        },
+        resolved: { type: 'final', data: ({ step }) => ({ step }) },
       },
     },
     {
       // sendUpdate is a HOC
       actions: { ...actions, sendUpdate: sendUpdate() },
       services: {
-        sendUserAttributeVerificationCode(context) {
-          const { unverifiedAttr } = context.formValues;
-          groupLog(
-            '+++sendUserAttributeVerificationCode',
-            unverifiedAttr,
-            context
-          );
-
+        sendUserAttributeVerificationCode({ formValues: { unverifiedAttr } }) {
           const input: SendUserAttributeVerificationCodeInput = {
             userAttributeKey:
               unverifiedAttr as SendUserAttributeVerificationCodeInput['userAttributeKey'],
           };
           return sendUserAttributeVerificationCode(input);
         },
-        async confirmVerifyUserAttribute(context) {
-          groupLog('+++confirmVerifyUserAttribute', context);
-          const { selectedUserAttribute } = context;
-          const { confirmation_code } = context.formValues;
-
+        async confirmVerifyUserAttribute({
+          formValues: { confirmation_code: confirmationCode },
+          selectedUserAttribute,
+        }) {
           const input: ConfirmUserAttributeInput = {
-            confirmationCode: confirmation_code,
+            confirmationCode,
             userAttributeKey:
               selectedUserAttribute as ConfirmUserAttributeInput['userAttributeKey'],
           };

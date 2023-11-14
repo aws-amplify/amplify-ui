@@ -1,5 +1,4 @@
 import {
-  ConfirmSignUpOutput,
   FetchUserAttributesOutput,
   ResetPasswordOutput,
   SignInOutput,
@@ -8,8 +7,6 @@ import {
 
 import { MachineOptions } from 'xstate';
 
-import { groupLog } from '../../utils';
-
 import { AuthActorContext, AuthEvent } from './types';
 
 const SIGN_IN_STEP_MFA_CONFIRMATION: string[] = [
@@ -17,102 +14,79 @@ const SIGN_IN_STEP_MFA_CONFIRMATION: string[] = [
   'CONFIRM_SIGN_IN_WITH_TOTP_CODE',
 ];
 
-const shouldConfirmSignIn = (_, event): boolean => {
-  groupLog(
-    '+++shouldConfirmSignIn',
-    SIGN_IN_STEP_MFA_CONFIRMATION.includes(event.data?.nextStep?.signInStep)
-  );
-  return SIGN_IN_STEP_MFA_CONFIRMATION.includes(
-    event.data?.nextStep?.signInStep
-  );
-};
+// response next step guards
+const shouldConfirmSignInWithNewPassword = (
+  _: AuthActorContext,
+  { data }: AuthEvent
+): boolean =>
+  (data as SignInOutput)?.nextStep.signInStep ===
+  'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED';
 
-const shouldConfirmSignInWithNewPassword = (_, event): boolean => {
-  groupLog(
-    '+++shouldConfirmSignInWithNewPassword',
-    event.data?.nextStep?.signInStep ===
-      'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED'
-  );
-  return (
-    (event.data as SignInOutput)?.nextStep.signInStep ===
-    'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED'
-  );
-};
+const shouldResetPasswordFromSignIn = (
+  _: AuthActorContext,
+  { data }: AuthEvent
+): boolean => (data as SignInOutput)?.nextStep?.signInStep === 'RESET_PASSWORD';
 
-const shouldContinueSignInWithSetupTotp = (context, event): boolean => {
-  groupLog(
-    '+++shouldContinueSignInWithSetupTotp',
-    event.data?.nextStep?.signInStep === 'CONTINUE_SIGN_IN_WITH_TOTP_SETUP',
-    context,
-    event
-  );
-  return (
-    (event.data as SignInOutput)?.nextStep.signInStep ===
-    'CONTINUE_SIGN_IN_WITH_TOTP_SETUP'
-  );
-};
+const shouldConfirmSignUpFromSignIn = (
+  _: AuthActorContext,
+  { data }: AuthEvent
+) => (data as SignInOutput)?.nextStep.signInStep === 'CONFIRM_SIGN_UP';
 
-const shouldResetPassword = (_, event): boolean => {
-  groupLog(
-    '+++shouldResetPassword',
-    event.data?.nextStep?.signInStep === 'RESET_PASSWORD',
-    _,
-    event
-  );
-  return (
-    (event.data as SignInOutput)?.nextStep?.signInStep === 'RESET_PASSWORD'
-  );
-};
+const shouldAutoSignIn = (_: AuthActorContext, { data }: AuthEvent) =>
+  (data as SignUpOutput)?.nextStep.signUpStep === 'COMPLETE_AUTO_SIGN_IN';
 
-const shouldConfirmSignUpFromSignIn = (context, { data }: AuthEvent) => {
-  groupLog(
-    '+++shouldConfirmSignUpFromSignIn',
-    (data as SignInOutput)?.nextStep.signInStep === 'CONFIRM_SIGN_UP',
-    context,
-    data
-  );
-  return (data as SignInOutput)?.nextStep.signInStep === 'CONFIRM_SIGN_UP';
-};
+const hasCompletedSignIn = (_: AuthActorContext, { data }: AuthEvent) =>
+  (data as SignInOutput)?.nextStep.signInStep === 'DONE';
 
-const shouldAutoSignIn = (context, { data }: AuthEvent) => {
-  groupLog('+++shouldAutoSignIn', data);
-  return (
-    (data as SignUpOutput)?.nextStep.signUpStep === 'COMPLETE_AUTO_SIGN_IN'
-  );
-};
+const hasCompletedSignUp = (_: AuthActorContext, { data }: AuthEvent) =>
+  (data as SignUpOutput)?.nextStep.signUpStep === 'DONE';
 
-const hasCompletedSignIn = (_, event): boolean => {
-  groupLog('+++hasCompletedSignIn', event);
-  return (event.data as SignInOutput)?.nextStep.signInStep === 'DONE';
-};
+const hasCompletedResetPassword = (_: AuthActorContext, { data }: AuthEvent) =>
+  (data as ResetPasswordOutput)?.nextStep.resetPasswordStep === 'DONE';
 
-const hasCompletedSignUp = (_, event: AuthEvent) => {
-  groupLog('+++hasCompletedSignUp', event);
-  return (event.data as SignUpOutput)?.nextStep.signUpStep === 'DONE';
-};
+// actor done guards read `step` from actor exit event
+const hasCompletedAttributeConfirmation = (
+  _: AuthActorContext,
+  { data }: AuthEvent
+) => data?.step === 'CONFIRM_ATTRIBUTE_COMPLETE';
 
-const hasCompletedResetPassword = (_, event) => {
-  return (
-    (event.data as ResetPasswordOutput)?.nextStep.resetPasswordStep === 'DONE'
-  );
-};
+const isConfirmUserAttributeStep = (_: AuthActorContext, { data }: AuthEvent) =>
+  data?.step === 'CONFIRM_ATTRIBUTE_WITH_CODE';
 
-const shouldConfirmSignUp = (context, { data }: AuthEvent) => {
-  groupLog(
-    '+++shouldConfirmSignUp',
-    (data as ConfirmSignUpOutput)?.nextStep.signUpStep === 'CONFIRM_SIGN_UP',
-    context,
-    data
-  );
-  return (
-    (data as ConfirmSignUpOutput)?.nextStep.signUpStep === 'CONFIRM_SIGN_UP'
-  );
-};
+const isShouldConfirmUserAttributeStep = (
+  _: AuthActorContext,
+  { data }: AuthEvent
+) => data?.step === 'SHOULD_CONFIRM_USER_ATTRIBUTE';
 
-const shouldVerifyAttribute = (_, event): boolean => {
+const isResetPasswordStep = (_: AuthActorContext, { data }: AuthEvent) =>
+  data?.step === 'RESET_PASSWORD';
+
+const isConfirmSignUpStep = (_: AuthActorContext, { data }: AuthEvent) =>
+  data?.step === 'CONFIRM_SIGN_UP';
+
+// actor entry guards read `step` from actor context
+const shouldConfirmSignIn = ({ step }: AuthActorContext) =>
+  SIGN_IN_STEP_MFA_CONFIRMATION.includes(step);
+
+const shouldSetupTotp = ({ step }: AuthActorContext) =>
+  step === 'CONTINUE_SIGN_IN_WITH_TOTP_SETUP';
+
+const shouldResetPassword = ({ step }: AuthActorContext) =>
+  step === 'RESET_PASSWORD';
+
+const shouldConfirmResetPassword = ({ step }: AuthActorContext) =>
+  step === 'CONFIRM_RESET_PASSWORD_WITH_CODE';
+
+const shouldConfirmSignUp = ({ step }: AuthActorContext) =>
+  step === 'CONFIRM_SIGN_UP';
+
+// miscellaneous guards
+const shouldVerifyAttribute = (
+  _: AuthActorContext,
+  { data }: AuthEvent
+): boolean => {
   const { phone_number_verified, email_verified } =
-    event.data as FetchUserAttributesOutput;
-  groupLog('+++shouldVerifyAttribute', event);
+    data as FetchUserAttributesOutput;
 
   // email/phone_verified is returned as a string
   const emailNotVerified =
@@ -120,10 +94,6 @@ const shouldVerifyAttribute = (_, event): boolean => {
   const phoneNotVerified =
     phone_number_verified === undefined || phone_number_verified === 'false';
 
-  groupLog(
-    '+++shouldVerifyAttribute evaluated:',
-    emailNotVerified && phoneNotVerified
-  );
   // only request verification if both email and phone are not verified
   return emailNotVerified && phoneNotVerified;
 };
@@ -140,25 +110,29 @@ const shouldVerifyAttribute = (_, event): boolean => {
  *
  * https://github.com/aws-amplify/amplify-ui/issues/219
  */
-// @todo-migration make an e2e test for this, use response user-already-confirmed-error.json
-const isUserAlreadyConfirmed = (_, event) => {
-  console.log('+++isUserAlreadyConfirmed', event);
-  return event.data.message === 'User is already confirmed.';
-};
+const isUserAlreadyConfirmed = (_: AuthActorContext, { data }: AuthEvent) =>
+  data.message === 'User is already confirmed.';
 
 const GUARDS: MachineOptions<AuthActorContext, AuthEvent>['guards'] = {
+  hasCompletedAttributeConfirmation,
+  hasCompletedResetPassword,
+  hasCompletedSignIn,
+  hasCompletedSignUp,
+  isConfirmSignUpStep,
+  isConfirmUserAttributeStep,
+  isResetPasswordStep,
+  isShouldConfirmUserAttributeStep,
+  isUserAlreadyConfirmed,
+  shouldAutoSignIn,
+  shouldConfirmResetPassword,
   shouldConfirmSignIn,
   shouldConfirmSignInWithNewPassword,
-  hasCompletedSignIn,
-  shouldContinueSignInWithSetupTotp,
-  shouldResetPassword,
-  shouldConfirmSignUpFromSignIn,
-  shouldAutoSignIn,
-  hasCompletedSignUp,
   shouldConfirmSignUp,
-  hasCompletedResetPassword,
+  shouldConfirmSignUpFromSignIn,
+  shouldResetPassword,
+  shouldResetPasswordFromSignIn,
+  shouldSetupTotp,
   shouldVerifyAttribute,
-  isUserAlreadyConfirmed,
 };
 
 export default GUARDS;
