@@ -1,5 +1,18 @@
 # @aws-amplify/ui-react-geo
 
+## 2.0.0
+
+### Major Changes
+
+- Major version bump for all Amplify UI packages due to uprade of peerDependency aws-amplify to v6
+
+### Patch Changes
+
+- [#4716](https://github.com/aws-amplify/amplify-ui/pull/4716) [`5bd721183`](https://github.com/aws-amplify/amplify-ui/commit/5bd72118342c4a3040c13e923024d476a643a795) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(deps): upgrade aws-amplify deps
+
+- Updated dependencies [[`5bd721183`](https://github.com/aws-amplify/amplify-ui/commit/5bd72118342c4a3040c13e923024d476a643a795)]:
+  - @aws-amplify/ui-react-core@3.0.0
+
 ## 1.0.2
 
 ### Patch Changes

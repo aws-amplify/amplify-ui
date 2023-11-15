@@ -1,7 +1,6 @@
-import { Alert, Authenticator } from '@aws-amplify/ui-react';
+import { Alert, Authenticator, Tabs } from '@aws-amplify/ui-react';
 import { Example } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
 
 <Alert role="none" heading="Zero Configuration">
 
@@ -17,24 +16,29 @@ You can provide an alternative `username` such as `email` or `phone_number`.
 
 > **Note**: A `username`, `email`, or `phone_number` value is required for Cognito User Pools.
 
-<Tabs>
-  <TabItem title="Username">
+<Tabs.Container defaultValue="Username">
+  <Tabs.List>
+    <Tabs.Item value="Username">Username</Tabs.Item>
+    <Tabs.Item value="Email">Email</Tabs.Item>
+    <Tabs.Item value="Phone Number">Phone Number</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="Username">
     <Fragment>
       {({ platform }) => import(`./loginMechanisms.username.${platform}.mdx`)}
     </Fragment>
     <Example>
       <Authenticator />
     </Example>
-  </TabItem>
-  <TabItem title="Email">
+  </Tabs.Panel>
+  <Tabs.Panel value="Email">
     <Fragment>
       {({ platform }) => import(`./loginMechanisms.email.${platform}.mdx`)}
     </Fragment>
     <Example>
       <Authenticator loginMechanisms={['email']} />
     </Example>
-  </TabItem>
-  <TabItem title="Phone Number">
+  </Tabs.Panel>
+  <Tabs.Panel value="Phone Number">
     <Fragment>
       {({ platform }) =>
         import(`./loginMechanisms.phone_number.${platform}.mdx`)
@@ -43,5 +47,5 @@ You can provide an alternative `username` such as `email` or `phone_number`.
     <Example>
       <Authenticator loginMechanisms={['phone_number']} />
     </Example>
-  </TabItem>
-</Tabs>
+  </Tabs.Panel>
+</Tabs.Container>

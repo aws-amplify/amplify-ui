@@ -7,7 +7,7 @@ Feature: Custom Sign Up Fields
     Then I see "Preferred Username" as an input field
     Then I see "I agree with the Terms & Conditions"
 
- @angular @react @vue
+  @angular @react @vue
   Scenario: Form is invalid by default
     When I see "You must agree to the Terms & Conditions"
     Then the "Create Account" button is disabled

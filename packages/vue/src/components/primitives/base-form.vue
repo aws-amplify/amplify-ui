@@ -14,5 +14,5 @@
 import { InternalSlots } from '../../types';
 import { useSlots } from 'vue';
 
-let mySlots: Readonly<InternalSlots> = useSlots();
+const mySlots: Readonly<InternalSlots> = useSlots();
 </script>

@@ -3,4 +3,3 @@ export * from './user';
 export * from './utils';
 export * from './form';
 export * from './attributes';
-export * from './stateMachine';

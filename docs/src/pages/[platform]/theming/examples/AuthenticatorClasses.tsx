@@ -1,10 +1,4 @@
-import {
-  Collection,
-  Card,
-  Text,
-  Expander,
-  ExpanderItem,
-} from '@aws-amplify/ui-react';
+import { Accordion, Card, Collection, Text } from '@aws-amplify/ui-react';
 
 export const AuthenticatorClasses = () => {
   const classList = [
@@ -34,26 +28,32 @@ export const AuthenticatorClasses = () => {
   const search = (className, searchText) => className.includes(searchText);
 
   return (
-    <Expander>
-      <ExpanderItem title="Available Classes" value="classNames">
-        <Collection
-          type="list"
-          items={classList}
-          gap="1.5rem"
-          direction="row"
-          isSearchable={true}
-          searchFilter={search}
-          searchPlaceholder="Type to search..."
-          wrap="wrap"
-          justifyContent="start"
-        >
-          {(className, index) => (
-            <Card key={index} padding="1rem">
-              <Text>{className}</Text>
-            </Card>
-          )}
-        </Collection>
-      </ExpanderItem>
-    </Expander>
+    <Accordion.Container>
+      <Accordion.Item value="classNames">
+        <Accordion.Trigger>
+          Available Classes
+          <Accordion.Icon />
+        </Accordion.Trigger>
+        <Accordion.Content>
+          <Collection
+            type="list"
+            items={classList}
+            gap="1.5rem"
+            direction="row"
+            isSearchable={true}
+            searchFilter={search}
+            searchPlaceholder="Type to search..."
+            wrap="wrap"
+            justifyContent="start"
+          >
+            {(className, index) => (
+              <Card key={index} padding="1rem">
+                <Text>{className}</Text>
+              </Card>
+            )}
+          </Collection>
+        </Accordion.Content>
+      </Accordion.Item>
+    </Accordion.Container>
   );
 };

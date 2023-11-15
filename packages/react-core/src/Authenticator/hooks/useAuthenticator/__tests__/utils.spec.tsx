@@ -1,6 +1,4 @@
-import { Auth } from 'aws-amplify';
 import {
-  AmplifyUser,
   AuthenticatorServiceFacade,
   AuthMachineState,
   AuthActorContext,
@@ -13,17 +11,14 @@ import {
   defaultComparator,
   getComparator,
   getMachineFields,
-  getTotpSecretCodeCallback,
   getQRFields,
 } from '../utils';
-
-const setupTOTPSpy = jest.spyOn(Auth, 'setupTOTP').mockImplementation();
 
 const totpIssuer = 'testIssuer';
 const totpUsername = 'testUsername';
 const mockActorReturnActorContextValues = {
   formFields: {
-    setupTOTP: {
+    setupTotp: {
       QR: {
         totpIssuer,
         totpUsername,
@@ -101,23 +96,6 @@ describe('defaultComparator', () => {
   });
 });
 
-describe('getTotpSecretCodeCallback', () => {
-  const user = {} as AmplifyUser;
-  it('returns a getTotpSecretCode function', () => {
-    const getTotpSecretCode = getTotpSecretCodeCallback(user);
-
-    expect(getTotpSecretCode).toStrictEqual(expect.any(Function));
-  });
-
-  it('returns a function that calls Auth.setupTOTP with the user', async () => {
-    const getTotpSecretCode = getTotpSecretCodeCallback(user);
-
-    await getTotpSecretCode();
-
-    expect(setupTOTPSpy).toBeCalledWith(user);
-  });
-});
-
 describe('getMachineFields', () => {
   const state = {} as unknown as AuthMachineState;
   it('calls getSortedFormFields when route is a valid component route', () => {
@@ -178,7 +156,7 @@ describe('getMachineFields', () => {
     });
 
     it('returns an empty object if no QRfields are present', () => {
-      getActorContextSpy.mockReturnValue({});
+      getActorContextSpy.mockReturnValue({} as AuthActorContext);
       const QRFields = getQRFields(state);
       expect(QRFields).toEqual({});
     });

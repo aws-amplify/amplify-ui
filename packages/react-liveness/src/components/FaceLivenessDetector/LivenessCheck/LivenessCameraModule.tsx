@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 import { Flex, Loader, View } from '@aws-amplify/ui-react';
 import { FaceMatchState } from '../service';

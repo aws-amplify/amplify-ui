@@ -61,8 +61,8 @@ describe('withAuthenticator', () => {
     useAuthenticatorSpy.mockImplementation(
       () =>
         ({
-          authStatus: 'authenticated',
-        } as unknown as UIReactCoreModule.UseAuthenticator)
+          route: 'authenticated',
+        }) as unknown as UIReactCoreModule.UseAuthenticator
     );
 
     const { toJSON, getByTestId } = render(<TestApp />);

@@ -39,8 +39,8 @@ describe('useDropZone', () => {
       result.current.onDragOver?.(event);
     });
 
-    expect(event.preventDefault).toBeCalled();
-    expect(event.stopPropagation).toBeCalled();
+    expect(event.preventDefault).toHaveBeenCalled();
+    expect(event.stopPropagation).toHaveBeenCalled();
     expect(event.dataTransfer.dropEffect).toEqual('copy');
     expect(result.current.dragState).toBe('accept');
   });
@@ -56,7 +56,7 @@ describe('useDropZone', () => {
       result.current.onDragStart?.(event);
     });
 
-    expect(clearDataSpy).toBeCalledTimes(1);
+    expect(clearDataSpy).toHaveBeenCalledTimes(1);
   });
 
   it('should call onDropComplete function with the event object when drop event occurs inside the drop zone', () => {
@@ -72,9 +72,9 @@ describe('useDropZone', () => {
       result.current.onDrop?.(event);
     });
 
-    expect(event.preventDefault).toBeCalled();
-    expect(event.stopPropagation).toBeCalled();
-    expect(mockOnDropComplete).toBeCalled();
+    expect(event.preventDefault).toHaveBeenCalled();
+    expect(event.stopPropagation).toHaveBeenCalled();
+    expect(mockOnDropComplete).toHaveBeenCalled();
   });
 
   it('prevents and stops event onDragEnter', () => {
@@ -88,8 +88,8 @@ describe('useDropZone', () => {
       result.current.onDragEnter?.(event);
     });
 
-    expect(event.preventDefault).toBeCalled();
-    expect(event.stopPropagation).toBeCalled();
+    expect(event.preventDefault).toHaveBeenCalled();
+    expect(event.stopPropagation).toHaveBeenCalled();
   });
 
   it('prevents default and propagation onDragLeave', () => {
@@ -103,8 +103,8 @@ describe('useDropZone', () => {
       result.current.onDragLeave?.(event);
     });
 
-    expect(event.preventDefault).toBeCalled();
-    expect(event.stopPropagation).toBeCalled();
+    expect(event.preventDefault).toHaveBeenCalled();
+    expect(event.stopPropagation).toHaveBeenCalled();
     expect(result.current.dragState).toBe('inactive');
   });
 });

@@ -36,6 +36,8 @@ Feature: Sign In with Username
     When I type my "username" with status "UNCONFIRMED"
     Then I type my password
     Then I click the "Sign in" button
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with error fixture "user-not-confirmed-exception"
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ResendConfirmationCode" } }' with fixture "resend-confirmation-code-email"
     Then I see "Confirmation Code"
 
   @angular @react @vue @react-native
@@ -79,7 +81,7 @@ Feature: Sign In with Username
 
   # FORCE_CHANGE_PASSWORD tests are skipped as the temporary passwords used for these
   # test accounts will expire in Cognito.
-  @angular @react @vue
+  # @angular @react @vue
   Scenario: Sign in with force change password credentials
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password"
     When I type my "username" with status "FORCE_CHANGE_PASSWORD"
@@ -87,7 +89,7 @@ Feature: Sign In with Username
     Then I click the "Sign in" button
     Then I see "Change Password"
 
-@angular @react @vue
+  @angular @react @vue
   Scenario: Sign in with untrimmed username
     When I type my username with untrimmed spaces
     Then I type my password

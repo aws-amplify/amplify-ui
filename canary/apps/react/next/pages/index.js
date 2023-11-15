@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  AmplifyProvider,
+  ThemeProvider,
   Button,
   Card,
   Heading,
@@ -16,7 +16,7 @@ Amplify.configure(aws_exports);
 function App() {
   const { signOut } = useAuthenticator();
   return (
-    <AmplifyProvider colorMode="dark">
+    <ThemeProvider colorMode="dark">
       <Card>
         <Heading>Amplify Sample App</Heading>
         <Button variation="primary">Click me!</Button>
@@ -27,7 +27,7 @@ function App() {
         region="us-east-1"
         handleGetLivenessDetection={async () => {}}
       />
-    </AmplifyProvider>
+    </ThemeProvider>
   );
 }
 

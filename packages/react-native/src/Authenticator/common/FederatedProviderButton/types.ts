@@ -7,7 +7,9 @@ import {
 
 import { ButtonProps } from '../../../primitives';
 
-export interface FederatedProviderButtonProps extends ButtonProps {
+export interface FederatedProviderButtonProps
+  extends Omit<ButtonProps, 'children'> {
+  children?: React.ReactNode;
   source: ImageSourcePropType;
 }
 

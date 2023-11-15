@@ -113,9 +113,6 @@ describe('Hint', () => {
     renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
     expect(
-      screen.queryByText(hintDisplayText.hintHoldFacePositionCountdownText)
-    ).not.toBeInTheDocument();
-    expect(
       screen.queryByText(hintDisplayText.hintMoveFaceFrontOfCameraText)
     ).not.toBeInTheDocument();
   });
@@ -126,9 +123,6 @@ describe('Hint', () => {
 
     renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
-    expect(
-      screen.queryByText(hintDisplayText.hintHoldFacePositionCountdownText)
-    ).not.toBeInTheDocument();
     expect(
       screen.queryByText(hintDisplayText.hintMoveFaceFrontOfCameraText)
     ).not.toBeInTheDocument();

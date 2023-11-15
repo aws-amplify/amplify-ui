@@ -3,8 +3,9 @@ import 'web-streams-polyfill';
 import 'blob-polyfill';
 
 import { TextDecoder } from 'util';
-import { Amplify } from '@aws-amplify/core';
 import { RekognitionStreamingClient } from '@aws-sdk/client-rekognitionstreaming';
+import { Amplify } from 'aws-amplify';
+
 import { LivenessStreamProvider } from '../streamProvider';
 import { VideoRecorder } from '../videoRecorder';
 import { mockClientSessionInformationEvent } from '../__mocks__/testUtils';
@@ -12,7 +13,7 @@ import { AwsCredentialProvider } from '../../types';
 
 jest.mock('../videoRecorder');
 jest.mock('@aws-sdk/client-rekognitionstreaming');
-jest.mock('@aws-amplify/core');
+jest.mock('aws-amplify');
 
 Object.defineProperty(window, 'TextDecoder', {
   writable: true,
@@ -29,7 +30,9 @@ const mockGet = jest.fn().mockImplementation(() => {
     expiration: new Date(),
   };
 });
-Amplify.Credentials.get = mockGet;
+
+// @todo-migration remove cast and fix mock if needed
+(Amplify as any).Credentials.get = mockGet;
 
 let SWITCH = false;
 

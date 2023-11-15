@@ -129,7 +129,7 @@ describe('MessageLayout component', () => {
 
     const closeButton = screen.getByRole('button');
     userEvent.click(closeButton);
-    expect(mockOnClose).toBeCalled();
+    expect(mockOnClose).toHaveBeenCalled();
   });
 
   it('should render a primary button', () => {
@@ -152,8 +152,9 @@ describe('MessageLayout component', () => {
   });
 
   it('should apply the correct button modifiers', () => {
-    (getButtonModifier as jest.Mock).mockImplementation(({ backgroundColor }) =>
-      backgroundColor === DARK_BACKGROUND_COLOR ? 'dark' : 'light'
+    (getButtonModifier as jest.Mock).mockImplementation(
+      ({ backgroundColor }) =>
+        backgroundColor === DARK_BACKGROUND_COLOR ? 'dark' : 'light'
     );
     render(
       <MessageLayout
@@ -181,10 +182,10 @@ describe('MessageLayout component', () => {
     );
 
     userEvent.click(screen.getByText(PRIMARY_BUTTON));
-    expect(mockPrimaryButtonOnAction).toBeCalled();
-    expect(mockSecondaryButtonOnAction).not.toBeCalled();
+    expect(mockPrimaryButtonOnAction).toHaveBeenCalled();
+    expect(mockSecondaryButtonOnAction).not.toHaveBeenCalled();
     userEvent.click(screen.getByText(SECONDARY_BUTTON));
-    expect(mockSecondaryButtonOnAction).toBeCalled();
+    expect(mockSecondaryButtonOnAction).toHaveBeenCalled();
   });
 
   it('should apply additional styles to components', () => {

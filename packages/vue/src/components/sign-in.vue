@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, toRefs, useAttrs } from 'vue';
+import { computed, toRefs } from 'vue';
 
 import {
   authenticatorTextUtil,
@@ -14,17 +14,8 @@ import FederatedSignIn from './federated-sign-in.vue';
 
 // `facade` is manually typed to `UseAuthenticator` for temporary type safety.
 const facade: UseAuthenticator = useAuthenticator();
-const { submitForm, updateForm, toResetPassword } = facade;
+const { submitForm, updateForm, toForgotPassword } = facade;
 const { error, isPending } = toRefs(facade);
-
-const attrs = useAttrs();
-
-/** @deprecated Component events are deprecated and not maintained. */
-const emit = defineEmits([
-  'signInSubmit',
-  'forgotPasswordClicked',
-  'createAccountClicked',
-]);
 
 // Text Util
 const { getForgotPasswordText, getSignInText, getSigningInText } =
@@ -42,23 +33,11 @@ const onInput = (e: Event): void => {
 };
 
 const onSignInSubmit = (e: Event): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onSignInSubmit) {
-    emit('signInSubmit', e);
-  } else {
-    submitForm(getFormDataFromEvent(e));
-  }
+  submitForm(getFormDataFromEvent(e));
 };
 
 const onForgotPasswordClicked = (): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onForgotPasswordClicked) {
-    emit('forgotPasswordClicked');
-  } else {
-    toResetPassword();
-  }
+  toForgotPassword();
 };
 </script>
 

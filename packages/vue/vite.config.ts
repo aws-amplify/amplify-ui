@@ -1,6 +1,4 @@
-// vite.config.js
-
-import { defineConfig } from 'vite';
+import { defineConfig, PluginOption } from 'vite';
 import dynamicImportVars from '@rollup/plugin-dynamic-import-vars';
 import path from 'path';
 import vue from '@vitejs/plugin-vue';
@@ -27,9 +25,15 @@ export default defineConfig({
           declaration: true,
           declarationMap: true,
         },
-        exclude: ['vite.config.ts', '__tests__'],
+        exclude: [
+          'vite.config.ts',
+          '*.ts',
+          '__tests__',
+          '**/__mock__',
+          '**/__tests__',
+        ],
       },
-    }),
+    }) as PluginOption,
   ],
   resolve: {
     alias: [
@@ -50,7 +54,16 @@ export default defineConfig({
     },
     rollupOptions: {
       plugins: [dynamicImportVars],
-      external: ['aws-amplify', 'vue', '@aws-amplify/auth'],
+      external: [
+        '@aws-amplify/auth',
+        '@aws-amplify/core',
+        '@aws-amplify/core/internals/utils',
+        'aws-amplify',
+        'aws-amplify/auth',
+        'aws-amplify/core',
+        'aws-amplify/utils',
+        'vue',
+      ],
       output: {
         globals: {
           vue: 'Vue',

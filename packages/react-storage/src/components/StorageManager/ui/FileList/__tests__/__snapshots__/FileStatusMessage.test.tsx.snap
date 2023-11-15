@@ -102,3 +102,5 @@ exports[`FileStatusMessage renders custom icons from IconProvider 1`] = `
   </p>
 </div>
 `;
+
+exports[`FileStatusMessage renders nothing when status is queued 1`] = `<div />`;

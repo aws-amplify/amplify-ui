@@ -1,4 +1,4 @@
-import { Alert, Expander, ExpanderItem } from '@aws-amplify/ui-react';
+import { Alert, Accordion } from '@aws-amplify/ui-react';
 
 import { AppDirectoryAlert } from '@/components/AppDirectoryAlert';
 
@@ -170,11 +170,16 @@ All text in the StorageManager component is customizable with the `displayText` 
   </ExampleCode>
 </Example>
 
-<Expander isCollapsible>
-  <ExpanderItem title="Display text props" value="display-text">
+
+<Accordion.Item>
+  <Accordion.Trigger>
+    Display text props
+    <Accordion.Icon />
+  </Accordion.Trigger>
+  <Accordion.Content>
     <ReactPropsTable props={DISPLAY_TEXT} />
-  </ExpanderItem>
-</Expander>
+  </Accordion.Content>
+</Accordion.Item>
 
 ### Internationalization
 
@@ -202,14 +207,26 @@ _You can even use a completely different UI kit like MUI, Chakra, or your own de
   </ExampleCode>
 </Example>
 
-<Expander type="multiple">
-  <ExpanderItem title="FilePicker props" value="filepicker">
-    <ReactPropsTable props={FILE_PICKER} />
-  </ExpanderItem>
-  <ExpanderItem title="DropZone props" value="dropzone">
-    <ReactPropsTable props={DROPZONE_PROPS} />
-  </ExpanderItem>
-</Expander>
+<Accordion.Container>
+  <Accordion.Item value="filepicker">
+    <Accordion.Trigger>
+      FilePicker props
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
+      <ReactPropsTable props={FILE_PICKER} />
+    </Accordion.Content>
+  </Accordion.Item>
+  <Accordion.Item value="dropzone">
+    <Accordion.Trigger>
+      DropZone props
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
+      <ReactPropsTable props={DROPZONE_PROPS} />
+    </Accordion.Content>
+  </Accordion.Item>
+</Accordion.Container>
 
 ### Imperative handles
 
@@ -236,6 +253,6 @@ The `files` state is managed within the `StorageManager` component itself. To al
 
 ### Target Classes
 
-If you like, you can target classes directly or use CSS variables to make changes to the look and feel of the File Uploader. 
+If you like, you can target classes directly or use CSS variables to make changes to the look and feel of the Storage Manager. 
 
 <ComponentStyleDisplay componentName="StorageManager" />

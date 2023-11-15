@@ -1,10 +1,13 @@
 import React, { Suspense } from 'react';
 import { Text } from 'react-native';
 
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
 import { LaunchArguments } from 'react-native-launch-arguments';
 
 import { EXAMPLE_APP_NAME } from '@env';
+
+// .env file or launch argument passed from Detox
+const getExampleAppName = () =>
+  EXAMPLE_APP_NAME ?? LaunchArguments.value().EXAMPLE_APP_NAME;
 
 /**
  * `Authenticator` Example and Demo Apps
@@ -55,6 +58,9 @@ const DarkModeExample = React.lazy(
 /**
  * `Authenticator` e2e Apps
  */
+const SignInTotpMfa = React.lazy(
+  () => import('../ui/components/authenticator/sign-in-totp-mfa/Example')
+);
 const SignInWithEmail = React.lazy(
   () => import('../ui/components/authenticator/sign-in-with-email/Example')
 );
@@ -76,19 +82,22 @@ const SignUpWithPhone = React.lazy(
 const SignUpWithUsername = React.lazy(
   () => import('../ui/components/authenticator/sign-up-with-username/Example')
 );
-const ResetPassword = React.lazy(
-  () => import('../ui/components/authenticator/reset-password/Example')
+const SocialProviders = React.lazy(
+  () => import('../ui/components/authenticator/social-providers/Example')
+);
+const ForgotPassword = React.lazy(
+  () => import('../ui/components/authenticator/forgot-password/Example')
 );
 const WithAuthenticator = React.lazy(
   () => import('../ui/components/authenticator/with-authenticator/Example')
 );
 
-const logger = new Logger('RNExample-logger');
-
 export const ExampleComponent = () => {
-  // .env file or launch argument passed from Detox
-  const APP = EXAMPLE_APP_NAME ?? LaunchArguments.value().EXAMPLE_APP_NAME;
-  switch (APP) {
+  const appName = getExampleAppName();
+
+  console.log(`Running Example App: ${appName}`);
+
+  switch (appName) {
     case 'DemoExample':
       return <DemoExample />;
     case 'BasicExample':
@@ -114,6 +123,8 @@ export const ExampleComponent = () => {
 
     // Detox-Cucumber e2e tests
     // below apps are not meant to be run as example apps, they are part of integration testing in CI
+    case 'ui/components/authenticator/sign-in-totp-mfa':
+      return <SignInTotpMfa />;
     case '/ui/components/authenticator/sign-in-with-email':
       return <SignInWithEmail />;
     case '/ui/components/authenticator/sign-in-with-username':
@@ -128,14 +139,16 @@ export const ExampleComponent = () => {
       return <SignUpWithUsername />;
     case 'ui/components/authenticator/sign-up-with-attributes':
       return <SignUpWithAttributes />;
-    case 'ui/components/authenticator/reset-password':
-      return <ResetPassword />;
+    case '/ui/components/authenticator/social-providers':
+      return <SocialProviders />;
+    case 'ui/components/authenticator/forgot-password':
+      return <ForgotPassword />;
     case '/ui/components/authenticator/withAuthenticator':
       return <WithAuthenticator />;
     case 'ui/components/in-app-messaging/demo':
       return <InAppMessaging />;
     default:
-      logger.warn(
+      console.warn(
         'EXAMPLE_APP_NAME environment variable not configured correctly, running default example app'
       );
       return null;

@@ -40,7 +40,7 @@ const randomPhone = Math.floor(Math.random() * 999999);
 
 <template>
   <base-wrapper
-    class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield amplify-authenticator__column"
+    class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield"
   >
     <base-label
       :for="'amplify-field-' + random"
@@ -71,19 +71,18 @@ const randomPhone = Math.floor(Math.random() * 999999);
               autocomplete="tel-country-code"
               aria-label="country code"
               name="country_code"
-              :options="dialCodeList"
+              :options="dialCodeList!"
               :select-value="dialCode"
             >
             </base-select>
             <base-wrapper
-              class="amplify-flex amplify-select__icon-wrapper amplify-authenticator__icon-wrapper"
+              class="amplify-flex amplify-select__icon"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                data-size="large"
                 fill="currentColor"
                 viewBox="0 0 24 24"
-                class="amplify-icon amplify-icon--large"
+                class="amplify-icon"
               >
                 <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
               </svg>

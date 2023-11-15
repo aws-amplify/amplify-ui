@@ -1,11 +1,4 @@
-import {
-  Alert,
-  Link,
-  Loader,
-  TabItem,
-  Tabs,
-  View,
-} from '@aws-amplify/ui-react';
+import { Alert, Loader, Tabs, View } from '@aws-amplify/ui-react';
 import React, { useCallback } from 'react';
 
 export function FlutterAuthenticatorExample({
@@ -89,11 +82,16 @@ export function FlutterAuthenticatorExample({
           'The Authenticator demo below uses a mock backend. Any users you create are stored in memory. You can verify accounts that you create with the code "123456".'
         }
       </Alert>
-      <Tabs justifyContent="flex-start">
-        <TabItem title="iOS">{getDeviceView('ios')}</TabItem>
-        <TabItem title="Android">{getDeviceView('android')}</TabItem>
-        <TabItem title="Web & Desktop">{getDeviceView('web')}</TabItem>
-      </Tabs>
+      <Tabs.Container defaultValue="ios">
+        <Tabs.List>
+          <Tabs.Item value="ios">iOS</Tabs.Item>
+          <Tabs.Item value="android">Android</Tabs.Item>
+          <Tabs.Item value="web">Web &amp; Desktop</Tabs.Item>
+        </Tabs.List>
+        <Tabs.Panel value="ios">{getDeviceView('ios')}</Tabs.Panel>
+        <Tabs.Panel value="android">{getDeviceView('android')}</Tabs.Panel>
+        <Tabs.Panel value="web">{getDeviceView('web')}</Tabs.Panel>
+      </Tabs.Container>
     </div>
   );
 }

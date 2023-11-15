@@ -2,7 +2,7 @@ import * as React from 'react';
 import { render } from '@testing-library/react';
 
 import { Field } from '../Field';
-import { ComponentClassNames } from '../../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 describe('Field component', () => {
   it('should match snapshot', () => {
@@ -22,7 +22,7 @@ describe('Field component', () => {
   it('should render a label', () => {
     const { getByText } = render(<Field label="label" />);
     const descriptionElement = getByText('label');
-    expect(descriptionElement).toHaveClass(ComponentClassNames.Label);
+    expect(descriptionElement).toHaveClass(ComponentClassName.Label);
   });
 
   it('should render descriptive text', () => {
@@ -30,9 +30,7 @@ describe('Field component', () => {
       <Field label="label" descriptiveText="description" />
     );
     const descriptionElement = getByText('description');
-    expect(descriptionElement).toHaveClass(
-      ComponentClassNames.FieldDescription
-    );
+    expect(descriptionElement).toHaveClass(ComponentClassName.FieldDescription);
   });
 
   it('should render error message', () => {
@@ -41,7 +39,7 @@ describe('Field component', () => {
     );
     const descriptionElement = getByText('error');
     expect(descriptionElement).toHaveClass(
-      ComponentClassNames.FieldErrorMessage
+      ComponentClassName.FieldErrorMessage
     );
   });
 
@@ -50,7 +48,7 @@ describe('Field component', () => {
       <Field label="label" descriptiveText="some description" labelHidden />
     );
     const descriptionElement = getByText('some description');
-    expect(descriptionElement).toHaveClass(ComponentClassNames.VisuallyHidden);
+    expect(descriptionElement).toHaveClass(ComponentClassName.VisuallyHidden);
   });
 
   it('should not be hidden if it has a "labelHidden" prop is `false`', () => {
@@ -63,7 +61,7 @@ describe('Field component', () => {
     );
     const descriptionElement = getByText('some description');
     expect(descriptionElement).not.toHaveClass(
-      ComponentClassNames.VisuallyHidden
+      ComponentClassName.VisuallyHidden
     );
   });
 });
