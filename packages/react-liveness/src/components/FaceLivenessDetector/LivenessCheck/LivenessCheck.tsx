@@ -20,8 +20,8 @@ import {
   defaultErrorDisplayText,
 } from '../displayText';
 import { LandscapeErrorModal } from '../shared/LandscapeErrorModal';
-import { CheckScreenComponents } from '../shared/FaceLivenessErrorModal';
 import { selectErrorState } from '../shared';
+import { FaceLivenessDetectorComponents } from '../shared/DefaultStartScreenComponents';
 
 const CHECK_CLASS_NAME = 'liveness-detector-check';
 
@@ -35,7 +35,7 @@ interface LivenessCheckProps {
   cameraDisplayText: Required<CameraDisplayText>;
   streamDisplayText: Required<StreamDisplayText>;
   errorDisplayText: Required<ErrorDisplayText>;
-  components?: CheckScreenComponents;
+  components?: FaceLivenessDetectorComponents;
 }
 
 export const LivenessCheck: React.FC<LivenessCheckProps> = ({

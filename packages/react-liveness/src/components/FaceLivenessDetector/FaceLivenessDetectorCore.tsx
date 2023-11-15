@@ -8,15 +8,11 @@ import { View, Flex } from '@aws-amplify/ui-react';
 
 import { FaceLivenessDetectorProvider } from './providers';
 import { LivenessCheck } from './LivenessCheck';
-import { StartScreenComponents } from './shared/DefaultStartScreenComponents';
+import { FaceLivenessDetectorComponents } from './shared/DefaultStartScreenComponents';
 import { LivenessDisplayText } from './displayText';
 import { getDisplayText } from './utils/getDisplayText';
-import { CheckScreenComponents } from './shared/FaceLivenessErrorModal';
 
 const DETECTOR_CLASS_NAME = 'liveness-detector';
-
-export type FaceLivenessDetectorComponents = StartScreenComponents &
-  CheckScreenComponents;
 
 export interface FaceLivenessDetectorCoreProps
   extends FaceLivenessDetectorPropsFromUi {

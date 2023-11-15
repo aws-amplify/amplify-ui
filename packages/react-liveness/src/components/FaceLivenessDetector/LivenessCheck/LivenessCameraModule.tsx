@@ -27,21 +27,18 @@ import {
   CameraDisplayText,
 } from '../displayText';
 
-import {
-  CancelButton,
-  Hint,
-  RecordingIcon,
-  Overlay,
-  selectErrorState,
-  MatchIndicator,
-} from '../shared';
+import { Hint, Overlay, selectErrorState, MatchIndicator } from '../shared';
 import { LivenessClassNames } from '../types/classNames';
 import {
-  CheckScreenComponents,
   FaceLivenessErrorModal,
   renderErrorModal,
 } from '../shared/FaceLivenessErrorModal';
-import { DefaultPhotosensitiveWarning } from '../shared/DefaultStartScreenComponents';
+import {
+  DefaultPhotosensitiveWarning,
+  FaceLivenessDetectorComponents,
+  DefaultCancelButton,
+  DefaultRecordingIcon,
+} from '../shared/DefaultStartScreenComponents';
 
 export const selectVideoConstraints = createLivenessSelector(
   (state) => state.context.videoAssociatedParams?.videoConstraints
@@ -70,7 +67,7 @@ export interface LivenessCameraModuleProps {
   hintDisplayText: Required<HintDisplayText>;
   errorDisplayText: Required<ErrorDisplayText>;
   cameraDisplayText: Required<CameraDisplayText>;
-  components?: CheckScreenComponents;
+  components?: FaceLivenessDetectorComponents;
   testId?: string;
 }
 
@@ -106,7 +103,11 @@ export const LivenessCameraModule = (
 
   const { cancelLivenessCheckText, recordingIndicatorText } = streamDisplayText;
 
-  const { ErrorView = FaceLivenessErrorModal } = customComponents ?? {};
+  const {
+    ErrorView = FaceLivenessErrorModal,
+    CancelButton = DefaultCancelButton,
+    RecordingIcon = DefaultRecordingIcon,
+  } = customComponents ?? {};
 
   const [state, send] = useLivenessActor();
 
@@ -332,15 +333,11 @@ export const LivenessCameraModule = (
           </Flex>
 
           {isRecording && (
-            <View className={LivenessClassNames.RecordingIconContainer}>
-              <RecordingIcon>{recordingIndicatorText}</RecordingIcon>
-            </View>
+            <RecordingIcon recordingIndicatorText={recordingIndicatorText} />
           )}
 
           {!isStartView && !isWaitingForCamera && !isCheckSucceeded && (
-            <View className={LivenessClassNames.CancelContainer}>
-              <CancelButton ariaLabel={cancelLivenessCheckText}></CancelButton>
-            </View>
+            <CancelButton cancelLivenessCheckText={cancelLivenessCheckText} />
           )}
 
           <Overlay
