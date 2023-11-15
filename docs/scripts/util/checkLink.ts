@@ -32,17 +32,6 @@ async function returnStatus({
 }: LinkInfo): Promise<LinkInfo> {
   if ([...DEFAULT_GOOD_STATUS_CODES, 301, 308].includes(statusCode)) {
     /**
-     * If 301 and from 'https://docs.amplify.aws/', add a "/" and check again.
-     * Because 'https://docs.amplify.aws/' adds a "/" and return a 301 to all the links not ending with "/".
-     * e.g. https://docs.amplify.aws/lib/auth/getarted/q/platform/js returns 301 but we should catch it as 404.
-     */
-    if (statusCode === 301 && href.startsWith(DOCS_AMPLIFY_HOST)) {
-      return await checkLink(
-        { href: `${href}/`, tagName, tagText, pageIdx, pageUrl },
-        linkIdx
-      );
-    }
-    /**
      * If 308, check if it's an internal redirection to add [platform] prefix. See docs/next.config.js redirects logic.
      * If it's an internal redirection to add [platform] prefix, after adding the platform, it should be 200.
      * Otherwise, the link needs to be updated.
@@ -87,7 +76,7 @@ export async function checkLink(
     const linkData = { href, linkIdx, pageIdx, pageUrl, tagName, tagText };
     if (!href) {
       console.log(
-        `⚠️[WARNING...] page #${pageIdx} link #${linkIdx} "${tagName}" tag "${tagText}" doesn't have a href.`
+        `⚠️[WARNING...] page #${pageIdx} link #${linkIdx} "${tagName}" tag "${tagText}" doesn't have a href on ${pageUrl}.`
       );
       res({ ...linkData, statusCode: 0 });
     } else if (
