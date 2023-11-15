@@ -18,7 +18,8 @@
   padding-inline: var(--docs-horizontal-padding);
   padding-block-end: var(--docs-horizontal-padding);
 
-  & > * + * {
+  & > * + *,
+  & .amplify-tabs__panel > * + * {
     margin-top: var(--amplify-space-medium);
   }
 

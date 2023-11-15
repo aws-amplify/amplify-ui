@@ -152,7 +152,7 @@ const components = {
       return <Text>Footer Information</Text>;
     },
   },
-  ResetPassword: {
+  ForgotPassword: {
     Header() {
       const { tokens } = useTheme();
       return (
