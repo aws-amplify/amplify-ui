@@ -11,7 +11,7 @@
 
 .docs-header {
   display: flex;
-  position: sticky;
+  position: fixed;
   top: var(--docs-dev-center-nav-height);
   width: 100%;
   flex-direction: row;
