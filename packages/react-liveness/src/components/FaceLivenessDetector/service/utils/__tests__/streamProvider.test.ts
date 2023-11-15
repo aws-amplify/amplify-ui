@@ -5,6 +5,7 @@ import 'blob-polyfill';
 import { TextDecoder } from 'util';
 import { RekognitionStreamingClient } from '@aws-sdk/client-rekognitionstreaming';
 import { Amplify } from 'aws-amplify';
+import { fetchAuthSession } from 'aws-amplify/auth';
 
 import { LivenessStreamProvider } from '../streamProvider';
 import { VideoRecorder } from '../videoRecorder';
@@ -20,19 +21,25 @@ Object.defineProperty(window, 'TextDecoder', {
   value: TextDecoder,
 });
 
-const mockGet = jest.fn().mockImplementation(() => {
+jest.mock('aws-amplify/auth', () => {
+  const originalModule = jest.requireActual('aws-amplify/auth');
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return {
-    accessKeyId: 'accessKeyId',
-    sessionToken: 'sessionTokenId',
-    secretAccessKey: 'secretAccessKey',
-    identityId: 'identityId',
-    authenticated: true,
-    expiration: new Date(),
+    ...originalModule,
+    fetchAuthSession: jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        credentials: {
+          accessKeyId: 'accessKeyId',
+          sessionToken: 'sessionTokenId',
+          secretAccessKey: 'secretAccessKey',
+          identityId: 'identityId',
+          authenticated: true,
+          expiration: new Date(),
+        },
+      });
+    }),
   };
 });
-
-// @todo-migration remove cast and fix mock if needed
-(Amplify as any).Credentials.get = mockGet;
 
 let SWITCH = false;
 
