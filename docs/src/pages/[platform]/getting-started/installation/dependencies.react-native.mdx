@@ -1,5 +1,5 @@
 import { Tabs } from '@aws-amplify/ui-react';
-import { InstallScripts } from '@/components/InstallScripts.tsx';
+import { InstallScripts, TerminalCommand } from '@/components/InstallScripts.tsx';
 import { Example, ExampleCode } from '@/components/Example';
 
 `@aws-amplify/ui-react-native` is compatible for usage with the React Native apps created using the [React Native CLI](https://github.com/react-native-community/cli) or [Expo](https://expo.dev/).
@@ -15,12 +15,22 @@ Install `@aws-amplify/ui-react-native` and its dependencies with [npm](https://w
 
 <InstallScripts framework="react-native" />
 
-For iOS, additionally run:
-```
-npx pod-install
+If your project will support Federated Sign In using the React Native `Authenticator` the `@aws-amplify/rtn-web-browser` package is also required:
+
+<InstallScripts command="npm install @aws-amplify/rtn-web-browser" framework="react-native" />
+
+`@aws-amplify/react-native` and `@aws-amplify/rtn-web-browser` require a minimum iOS deployment target of `13.0`, open the _Podfile_ located in the _ios_ directory and update the `target` value:
+
+```diff
+- platform :ios, min_ios_version_supported
++ platform :ios, 13.0
 ```
 
-> The AWS SDK requires React Native applications to polyfill `crypto.getRandomValues` and `URL`. Import the [`react-native-get-random-values`](https://github.com/LinusU/react-native-get-random-values) and [`react-native-url-polyfill`](https://github.com/charpeni/react-native-url-polyfill) polyfills and them to the top of your application's root entry point (in most React Native apps this will be the top level `index.js`).
+Then install the iOS cocoapods, by running:
+
+<InstallScripts command="npx pod-install" framework="react-native" />
+
+The AWS SDK requires React Native applications to polyfill `crypto.getRandomValues` and `URL`. Import the [`react-native-get-random-values`](https://github.com/LinusU/react-native-get-random-values) and [`react-native-url-polyfill`](https://github.com/charpeni/react-native-url-polyfill) polyfills and them to the top of your application's root entry point (in most React Native apps this will be the top level `index.js`).
 
 <Example>
 <ExampleCode>
@@ -43,17 +53,14 @@ AppRegistry.registerComponent(appName, () => App);
 
 Add `@aws-amplify/ui-react-native` and its dependencies using the [Expo CLI](https://expo.dev/tools#cli) to ensure installation of native module dependency versions compatible with your Expo app:
 
-<Example>
-<ExampleCode>
-```shell
-expo install @aws-amplify/ui-react-native aws-amplify react-native-safe-area-context @react-native-async-storage/async-storage @react-native-community/netinfo
-```
-</ExampleCode>
-</Example>
+<br />
+<TerminalCommand command="npx expo install @aws-amplify/ui-react-native aws-amplify @aws-amplify/react-native react-native-safe-area-context @react-native-async-storage/async-storage @react-native-community/netinfo" />
+<br />
+
+If your project will support Federated Sign In using the React Native `Authenticator` the `@aws-amplify/rtn-web-browser` package is also required:
+
+<br />
+<TerminalCommand command="npx expo install @aws-amplify/rtn-web-browser" />
 
 </Tabs.Panel>
 </Tabs.Container>
-
-
-
-
