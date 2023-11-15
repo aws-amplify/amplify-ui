@@ -19,7 +19,7 @@ const {
   getBackToSignInText,
 } = authenticatorTextUtil;
 
-const ResetPassword = ({
+const ForgotPassword = ({
   fields,
   handleBlur,
   handleChange,
@@ -77,9 +77,9 @@ const ResetPassword = ({
   );
 };
 
-ResetPassword.Footer = DefaultFooter;
-ResetPassword.FormFields = DefaultTextFormFields;
-ResetPassword.Header = DefaultHeader;
+ForgotPassword.Footer = DefaultFooter;
+ForgotPassword.FormFields = DefaultTextFormFields;
+ForgotPassword.Header = DefaultHeader;
 
-ResetPassword.displayName = COMPONENT_NAME;
-export default ResetPassword;
+ForgotPassword.displayName = COMPONENT_NAME;
+export default ForgotPassword;

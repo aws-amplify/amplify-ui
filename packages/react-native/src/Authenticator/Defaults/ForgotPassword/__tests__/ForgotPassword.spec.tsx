@@ -34,7 +34,7 @@ const {
   getBackToSignInText,
 } = authenticatorTextUtil;
 
-describe('ResetPassword', () => {
+describe('ForgotPassword', () => {
   it('renders as expected', () => {
     const { toJSON, getAllByRole, getByText } = render(
       <ForgotPassword {...props} />

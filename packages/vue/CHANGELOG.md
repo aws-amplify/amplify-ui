@@ -1,5 +1,91 @@
 # @aws-amplify/ui-vue
 
+## 4.0.0
+
+### Major Changes
+
+- Major version bump for all Amplify UI packages due to upgrade of peerDependency aws-amplify to v6
+
+- `Authenticator` Breaking Changes
+
+  ```diff
+  - <authenticator initial-state="resetPassword">
+  - </authenticator>
+  + <authenticator initial-state="forgotPassword">
+  + </authenticator>
+  ```
+
+  ***
+
+  The `user` object provided after an end user has been authenticated has been updated to reflect the `AuthUser` interface available from `aws-amplify/auth`:
+
+  ```diff
+  - interface AmplifyUser {
+  -   challengeName?: ChallengeName;
+  -   attributes?: CognitpAttributes;
+  -   username: string;
+  - }
+  + interface AuthUser  {
+  +   username: string;
+  +   userId: string;
+  +   signInDetails?: CognitoAuthSignInDetails;
+  + }
+  ```
+
+  `AuthUser` can be imported from `aws-amplify/auth`:
+
+  ```ts
+  import { AuthUser } from 'aws-amplify/auth';
+  ```
+
+  User attributes are now available by directly calling `fetchUserAttribues`:
+
+  ```ts
+  import { fetchUserAttributes } from 'aws-amplify/auth';
+  ```
+
+  ***
+
+  The function signatures of the `services` interface have been updated to align with the shape of the underlying `aws-amplify/auth` APIs used by the `Authenticator` and provide improved typescript support:
+
+  ```diff
+  interface AuthenticatorProps {
+    services?: {
+  -    getCurrentUser: () => Promise<any>,
+  +    getCurrentUser: () => Promise<AuthUser>,
+
+  -    handleSignIn: ({ username, password, }: { username: string;password: string; }) => Promise<any>,
+  +    handleSignIn: (input: SignInInput) => Promise<SignInOutput>,
+
+  -    handleSignUp: (formData: any) => Promise<ISignUpResult>,
+  +    handleSignUp: (input: SignUpInput) => Promise<SignUpOutput>,
+
+  -    handleConfirmSignIn: ({ user, code, mfaType, }: { user: any; code: string; mfaType: ChallengeName; }) =>Promise<any>),
+  +    handleConfirmSignIn: (input: ConfirmSignInInput) => Promise<ConfirmSignInOutput>,
+
+  -    handleConfirmSignUp: ({ username, code, }: { username: string; code: string; }) => Promise<any>,
+  +    handleConfirmSignUp: (input: ConfirmSignUpInput) => Promise<ConfirmSignUpOutput>,
+
+  -    handleForgotPasswordSubmit: ({ username, code, password, }: { username: string; code: string; password:string; }) => Promise<string>),
+  +    handleForgotPasswordSubmit: (input: ConfirmResetPasswordInput) => Promise<void>,
+
+  -    handleForgotPassword: (formData: any) => Promise<any>,
+  +    handleForgotPassword: (input: ResetPasswordInput) => Promise<ResetPasswordOutput>,
+    }
+  }
+  ```
+
+  The input and return type interfaces are available as imports from `aws-amplify/auth`:
+
+  ```ts
+  import { ConfirmSignInInput } from 'aws-amplify';
+  ```
+
+### Patch Changes
+
+- Updated dependencies [[`55d1f4940`](https://github.com/aws-amplify/amplify-ui/commit/55d1f49401359bb0b75756742658b173edc0fb72), [`7b55f4f78`](https://github.com/aws-amplify/amplify-ui/commit/7b55f4f781c3adab19c3d91ef9f293647566ecd9), [`27783d65a`](https://github.com/aws-amplify/amplify-ui/commit/27783d65a06e712bb3ca8c116798a52db3d4a3a4), [`59c042c17`](https://github.com/aws-amplify/amplify-ui/commit/59c042c170358c6cc2ca09d13ffcc7e517586ef2), [`91372387c`](https://github.com/aws-amplify/amplify-ui/commit/91372387c29f5d68526070e4c3b8a13bbf079e5c), [`f9e4fa838`](https://github.com/aws-amplify/amplify-ui/commit/f9e4fa8388a1994996a132f50261f431d1a52e43), [`27be6ccf5`](https://github.com/aws-amplify/amplify-ui/commit/27be6ccf51ce093d3589f9f36b4530e6825a317b), [`5bd721183`](https://github.com/aws-amplify/amplify-ui/commit/5bd72118342c4a3040c13e923024d476a643a795)]:
+  - @aws-amplify/ui@6.0.0
+
 ## 3.1.29
 
 ### Patch Changes
