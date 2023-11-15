@@ -4,8 +4,6 @@ import 'blob-polyfill';
 
 import { TextDecoder } from 'util';
 import { RekognitionStreamingClient } from '@aws-sdk/client-rekognitionstreaming';
-import { Amplify } from 'aws-amplify';
-import { fetchAuthSession } from 'aws-amplify/auth';
 
 import { LivenessStreamProvider } from '../streamProvider';
 import { VideoRecorder } from '../videoRecorder';
