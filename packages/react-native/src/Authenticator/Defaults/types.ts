@@ -118,7 +118,7 @@ type ForceNewPasswordComponent<P = {}> = OverrideComponents<
   { style?: ForceNewPasswordStyle } & P
 >['ForceNewPassword'];
 
-type ResetPasswordComponent<P = {}> = OverrideComponents<
+type ForgotPasswordComponent<P = {}> = OverrideComponents<
   TextFieldOptionsType,
   { style?: ResetPasswordStyle } & P
 >['ForgotPassword'];
@@ -152,7 +152,7 @@ export interface Components {
   ConfirmResetPassword?: ConfirmResetPasswordComponent;
   ConfirmVerifyUser?: ConfirmVerifyUserComponent;
   ForceNewPassword?: ForceNewPasswordComponent;
-  ResetPassword?: ResetPasswordComponent;
+  ForgotPassword?: ForgotPasswordComponent;
   SetupTotp?: SetupTotpComponent;
   SignIn?: SignInComponent;
   SignUp?: SignUpComponent;

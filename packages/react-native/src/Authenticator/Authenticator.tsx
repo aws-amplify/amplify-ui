@@ -75,7 +75,7 @@ function Authenticator({
 
   useAuthenticatorInitMachine(options);
 
-  const { authStatus, fields, route } = useAuthenticator(routePropSelector);
+  const { fields, route } = useAuthenticator(routePropSelector);
 
   const components = useMemo(
     // allow any to prevent TS from assuming that all fields are of type `TextFieldOptions`
@@ -86,8 +86,9 @@ function Authenticator({
   const { Component, props } = useAuthenticatorRoute({ components });
 
   const typedFields = getRouteTypedFields({ fields, route });
+  const isAuthenticatedRoute = route === 'authenticated' || route === 'signOut';
 
-  if (authStatus === 'authenticated') {
+  if (isAuthenticatedRoute) {
     return children ? <>{children}</> : null;
   }
 

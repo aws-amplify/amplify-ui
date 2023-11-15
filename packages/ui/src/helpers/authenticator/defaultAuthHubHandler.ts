@@ -24,6 +24,10 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = async (
       }
       break;
     }
+    case 'signInWithRedirect': {
+      send('SIGN_IN_WITH_REDIRECT');
+      break;
+    }
     case 'signedOut':
     case 'tokenRefresh_failure': {
       if (event === 'signedOut' && isFunction(onSignOut)) {
