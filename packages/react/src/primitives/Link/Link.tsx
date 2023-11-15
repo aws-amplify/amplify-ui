@@ -11,6 +11,8 @@ import {
 import { View } from '../View';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
+import { ExternalLinkIcon } from './ExternalLinkIcon';
+
 const LinkPrimitive: Primitive<LinkProps, 'a'> = (
   { as = 'a', children, className, isExternal, ...rest },
   ref
@@ -25,6 +27,7 @@ const LinkPrimitive: Primitive<LinkProps, 'a'> = (
       {...rest}
     >
       {children}
+      {isExternal && <ExternalLinkIcon />} {}
     </View>
   );
 };
