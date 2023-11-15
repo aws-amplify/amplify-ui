@@ -196,7 +196,8 @@ module.exports = withNextPluginPreval({
     const defaultRemarkPlugins = [
       // This needs to come first to import the code before other plugins
       require('remark-code-import'),
-      require('./src/plugins/remark-snackplayer'),
+      // Disabling snack until we fix it
+      // require('./src/plugins/remark-snackplayer'),
       require('remark-gfm'),
       require('remark-mdx-images'),
       [
