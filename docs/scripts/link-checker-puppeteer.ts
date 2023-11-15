@@ -4,6 +4,7 @@ import { checkLink, crawlAllLinks, isInternalLink } from './util';
 import type { LinkInfo } from './util';
 import {
   DEFAULT_GOOD_STATUS_CODES,
+  DOCS_AMPLIFY_HOST,
   PROMISE_POOL_CONCURRENCY,
 } from './data/constants';
 
@@ -18,7 +19,8 @@ const testPaths = end ? sitePaths.slice(+start, +end) : sitePaths.slice(+start);
 function reportResult(links: LinkInfo[]) {
   const errorLinks = links.filter((link) => {
     const isInternalRedirection =
-      link.statusCode === 308 && isInternalLink(link.href);
+      (link.statusCode === 308 && isInternalLink(link.href)) ||
+      (link.statusCode === 301 && link.href.startsWith(DOCS_AMPLIFY_HOST));
     const goodStatusCodes = [0, ...DEFAULT_GOOD_STATUS_CODES];
     return !goodStatusCodes.includes(link.statusCode) && !isInternalRedirection;
   });
