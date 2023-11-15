@@ -12,8 +12,6 @@ export interface Face {
   leftEye: Coordinate;
   mouth: Coordinate;
   nose: Coordinate;
-  rightEar: Coordinate;
-  leftEar: Coordinate;
 }
 
 export type Coordinate = [number, number];
