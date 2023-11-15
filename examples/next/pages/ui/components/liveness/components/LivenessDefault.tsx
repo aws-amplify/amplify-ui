@@ -1,5 +1,8 @@
 import { View, Flex, Loader, Text } from '@aws-amplify/ui-react';
-import { FaceLivenessDetectorCore } from '@aws-amplify/ui-react-liveness';
+import {
+  FaceLivenessDetectorCore,
+  FaceLivenessDetector,
+} from '@aws-amplify/ui-react-liveness';
 import { useLiveness } from './useLiveness';
 import { SessionIdAlert } from './SessionIdAlert';
 import LivenessInlineResults from './LivenessInlineResults';
@@ -10,7 +13,6 @@ export default function LivenessDefault({
   credentialProvider = undefined,
 }) {
   const {
-    cameraPermissionsLoading,
     getLivenessResponse,
     createLivenessSessionApiError,
     createLivenessSessionApiData,
@@ -29,7 +31,7 @@ export default function LivenessDefault({
 
   return (
     <View maxWidth="640px" margin="0 auto">
-      {createLivenessSessionApiLoading || cameraPermissionsLoading ? (
+      {createLivenessSessionApiLoading ? (
         <Flex justifyContent="center" alignItems="center">
           <Loader /> <Text as="span">Loading...</Text>
         </Flex>

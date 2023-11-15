@@ -50,7 +50,10 @@ export function ThemeProvider({
   nonce,
   theme,
 }: ThemeProviderProps): JSX.Element {
-  const value = React.useMemo(() => ({ theme: createTheme(theme) }), [theme]);
+  const value = React.useMemo(
+    () => ({ theme: createTheme(theme), colorMode }),
+    [theme, colorMode]
+  );
   const {
     theme: { name, cssText },
   } = value;

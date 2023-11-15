@@ -8,7 +8,7 @@ import { useMediaStreamInVideo, useLivenessActor } from '../hooks';
 
 jest.mock('../../../styles.css', () => ({}));
 jest.mock('@xstate/react');
-jest.mock('../StartLiveness/helpers');
+jest.mock('../utils/helpers');
 jest.mock('../hooks');
 
 const mockUseActor = getMockedFunction(useActor);
