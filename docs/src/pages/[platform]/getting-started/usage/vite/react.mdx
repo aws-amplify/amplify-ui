@@ -12,8 +12,12 @@ In this brief tutorial, we're going to build a basic shopping cart component usi
 
 First, execute the command below in your terminal. When prompted for the name of your project, enter `amplify-ui-demo`.  Also see [Vite Guide](https://vitejs.dev/guide/).
 
-<Tabs.Container>
-  <Tabs.Item title="JavaScript">
+<Tabs.Container defaultValue="JavaScript">
+  <Tabs.List>
+    <Tabs.Item value="JavaScript">JavaScript</Tabs.Item>
+    <Tabs.Item value="TypeScript">TypeScript</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="JavaScript">
     #### npm 7+
     <TerminalCommand command="npm create vite@latest amplify-ui-demo -- --template react && cd amplify-ui-demo"/>
 
@@ -27,8 +31,8 @@ First, execute the command below in your terminal. When prompted for the name of
       {({ platform }) => import(`../../troubleshooting/shared/vite-polyfill.mdx`)}
     </Fragment>
 
-  </Tabs.Item>
-  <Tabs.Item title="TypeScript">
+  </Tabs.Panel>
+  <Tabs.Panel value="TypeScript">
     #### npm 7+
     <TerminalCommand command="npm create vite@latest amplify-ui-demo -- --template react-ts && cd amplify-ui-demo"/>
     **Next, install the Amplify UI React package:**
@@ -43,7 +47,7 @@ First, execute the command below in your terminal. When prompted for the name of
     <Fragment>
       {({ platform }) => import(`../../troubleshooting/shared/vite-polyfill-ts.mdx`)}
     </Fragment>
-  </Tabs.Item>
+  </Tabs.Panel>
 </Tabs.Container>
 
 > If you are still having issues, please see comments on the following issue for additional [Vite workarounds](https://github.com/aws-amplify/amplify-js/issues/9639). Note that there is active ongoing work to make these modifications unnecessary.

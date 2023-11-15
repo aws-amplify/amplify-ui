@@ -1,11 +1,10 @@
 import * as React from 'react';
 
 import { Hub, HubCallback } from '@aws-amplify/core';
-import { AmplifyUser } from '@aws-amplify/ui';
-import { getCurrentUser } from 'aws-amplify/auth';
+import { AuthUser, getCurrentUser } from 'aws-amplify/auth';
 
 export interface UseAuthResult {
-  user?: AmplifyUser;
+  user?: AuthUser;
   isLoading: boolean;
   error?: Error;
   /** @deprecated Fetch is handled automatically, do not use this directly */
@@ -46,7 +45,7 @@ export const useAuth = (): UseAuthResult => {
         case 'signedIn':
         case 'signUp':
         case 'autoSignIn': {
-          setResult({ user: payload.data as AmplifyUser, isLoading: false });
+          setResult({ user: payload.data as AuthUser, isLoading: false });
           break;
         }
         case 'signedOut': {

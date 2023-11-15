@@ -5,7 +5,6 @@ import {
   StorageManagerProps,
 } from '@aws-amplify/ui-react-storage';
 import '@aws-amplify/ui-react/styles.css';
-// @todo-migration remove
 
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);

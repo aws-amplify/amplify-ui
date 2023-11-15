@@ -2,10 +2,9 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Event, interpret, Subscription } from 'xstate';
 
-import { getCurrentUser } from 'aws-amplify/auth';
+import { AuthUser, getCurrentUser } from 'aws-amplify/auth';
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import {
-  AmplifyUser,
   AuthContext,
   AuthenticatorServiceFacade,
   AuthEvent,
@@ -42,9 +41,9 @@ export class AuthenticatorService implements OnDestroy {
     const machine = createAuthenticatorMachine();
     this._authService = interpret(machine).start();
 
+    this.getInitialAuthStatus();
     this.setupMachineSubscription();
     this.setupHubListener();
-    this.getInitialAuthStatus();
   }
 
   /**
@@ -71,8 +70,12 @@ export class AuthenticatorService implements OnDestroy {
     return this._authStatus;
   }
 
-  public get user(): AmplifyUser {
+  public get user(): AuthUser {
     return this._facade?.user;
+  }
+
+  public get username(): string {
+    return this._facade?.username;
   }
 
   public get validationErrors(): AuthenticatorServiceFacade['validationErrors'] {
@@ -123,8 +126,8 @@ export class AuthenticatorService implements OnDestroy {
     return this._facade.toFederatedSignIn;
   }
 
-  public get toResetPassword(): AuthenticatorServiceFacade['toResetPassword'] {
-    return this._facade.toResetPassword;
+  public get toForgotPassword(): AuthenticatorServiceFacade['toForgotPassword'] {
+    return this._facade.toForgotPassword;
   }
 
   public get toSignIn(): AuthenticatorServiceFacade['toSignIn'] {

@@ -36,7 +36,7 @@ const components: ChangePasswordComponents = {
   SubmitButton: (props) => <Button {...props}>Custom Submit Button</Button>,
 };
 
-const user = {} as unknown as UIModule.AmplifyUser;
+const user = {};
 jest.mock('../../../../internal', () => ({
   useAuth: () => ({
     user,

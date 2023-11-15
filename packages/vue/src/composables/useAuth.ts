@@ -20,7 +20,7 @@ import { UseAuth } from '../types';
 export const getQRFields = (
   state: AuthMachineState
 ): { totpIssuer?: string; totpUsername?: string } => ({
-  ...getActorContext(state)?.formFields?.setupTOTP?.QR,
+  ...getActorContext(state)?.formFields?.setupTotp?.QR,
 });
 
 export const useAuth = createSharedComposable((): UseAuth => {
@@ -81,9 +81,9 @@ export const useAuthenticator = createSharedComposable(() => {
       useAuthenticatorValue[key] = facade[key];
     }
 
-    // legacy `QRFields` values only used for SetupTOTP page to retrieve issuer information, will be removed in future
+    // legacy `QRFields` values only used for SetupTotp page to retrieve issuer information, will be removed in future
     const qrFields =
-      facade.route === 'setupTOTP' ? getQRFields(state.value) : null;
+      facade.route === 'setupTotp' ? getQRFields(state.value) : null;
 
     useAuthenticatorValue.QRFields = qrFields;
 

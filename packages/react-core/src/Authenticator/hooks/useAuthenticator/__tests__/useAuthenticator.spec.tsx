@@ -20,8 +20,9 @@ const mockServiceFacade: AuthenticatorServiceFacade = {
   isPending: false,
   route: 'idle',
   socialProviders: [],
-  unverifiedContactMethods: { email: 'test#example.com' },
-  user: {} as UseAuthenticator['user'],
+  unverifiedUserAttributes: { email: 'test#example.com' },
+  user: { userId: 'userId', username: 'username' },
+  username: 'sally',
   validationErrors:
     undefined as unknown as UseAuthenticator['validationErrors'],
   totpSecretCode: null,
@@ -32,7 +33,7 @@ const mockServiceFacade: AuthenticatorServiceFacade = {
   updateForm: jest.fn(),
   updateBlur: jest.fn(),
   toFederatedSignIn: jest.fn(),
-  toResetPassword: jest.fn(),
+  toForgotPassword: jest.fn(),
   toSignIn: jest.fn(),
   toSignUp: jest.fn(),
   skipVerification: jest.fn(),
@@ -112,7 +113,7 @@ describe('useAuthenticator', () => {
     expect(getComparatorSpy).not.toHaveBeenCalled();
   });
 
-  it('calls getQRFields only for the setupTOTP route', async () => {
+  it('calls getQRFields only for the setupTotp route', async () => {
     getServiceFacadeSpy.mockReturnValueOnce({
       ...mockServiceFacade,
       route: 'signIn',
@@ -129,7 +130,7 @@ describe('useAuthenticator', () => {
 
     getServiceFacadeSpy.mockReturnValueOnce({
       ...mockServiceFacade,
-      route: 'setupTOTP',
+      route: 'setupTotp',
     });
 
     await waitForNextUpdate();

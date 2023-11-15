@@ -17,7 +17,9 @@ export function storageManagerStateReducer(
         const errorText = action.getFileErrorMessage(file);
 
         return {
-          id: file.name,
+          // make sure id is unique,
+          // we only use it internally and don't send it to Storage
+          id: `${Date.now()}-${file.name}`,
           file,
           error: errorText,
           key: file.name,

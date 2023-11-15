@@ -254,12 +254,16 @@ export function noop(..._: any[]): void {
 export function groupLog(groupName: string, ...events: any[]): void {
   const hasEvents = !!events?.length;
   if (hasEvents) {
+    // eslint-disable-next-line no-console
     console.groupCollapsed(groupName);
     events?.forEach((event) => {
+      // eslint-disable-next-line no-console
       console.log(event);
     });
+    // eslint-disable-next-line no-console
     console.groupEnd();
   } else {
+    // eslint-disable-next-line no-console
     console.log(groupName);
   }
 }

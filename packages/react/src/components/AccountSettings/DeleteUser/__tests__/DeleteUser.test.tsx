@@ -23,7 +23,7 @@ import { defaultDeleteUserDisplayText } from '../../utils';
 
 jest.mock('../../../../internal', () => ({
   useAuth: () => ({
-    user: {} as unknown as UIModule.AmplifyUser,
+    user: {},
     isLoading: false,
   }),
 }));

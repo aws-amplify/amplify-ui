@@ -1,298 +1,248 @@
 import {
   FetchUserAttributesOutput,
-  SignUpOutput,
+  ResendSignUpCodeOutput,
   ResetPasswordOutput,
-  ResetPasswordInput,
-  resetPassword,
+  SendUserAttributeVerificationCodeOutput,
+  SignInOutput,
+  SignUpOutput,
 } from 'aws-amplify/auth';
-import { actions } from 'xstate';
+
+import { actions as xStateActions, MachineOptions } from 'xstate';
 import { trimValues } from '../../helpers';
 
 import {
-  ActorContextWithForms,
   AuthEvent,
-  SignInContext,
-  SignUpContext,
-  CodeDeliveryDetails,
-  V6AuthDeliveryMedium,
+  AuthActorContext,
+  ResetPasswordStep,
+  SignInStep,
+  SignUpStep,
+  AuthTOTPSetupDetails,
   ChallengeName,
-} from '../../types';
-import { groupLog } from '../../utils';
+  CodeDeliveryDetails,
+  V5CodeDeliveryDetails,
+} from './types';
+import { getUsernameSignUp, sanitizePhoneNumber } from './utils';
 
-const { assign, stop } = actions;
+const { assign } = xStateActions;
 
-export const stopActor = (machineId: string) => {
-  return stop(machineId);
-};
-
-/**
- * https://github.com/statelyai/xstate/issues/866
- *
- * Actions in Xstate take in two arguments - a `context` and
- * an `event`.
- *
- * When writing reusable actions in a separate file for Xstate,
- * you cannot specify the type for both the `context` and the `event`.
- * The bug has been around for 2 years with seemingly no resolution
- * in sight.
- *
- * TypeScript apparently has trouble inferring Xstate properly.
- * So, when writing actions, only specify the type for either `context`
- * or `event` - but not both.
- *
- * https://xstate.js.org/docs/guides/typescript.html#assign-action-behaving-strangely
- *
- * Each of the actions NEEDS at least the `context` argument in the
- * `assign` body - even if it is unused. This is another known bug in
- * how TypeScript integrate with Xstate.
- */
-
-/**
- * "clear" actions
- */
-export const clearAttributeToVerify = assign({
-  attributeToVerify: (_) => undefined,
-});
-export const clearChallengeName = assign({
-  challengeName: (_) => {
-    groupLog('+++clearChallengeName');
-    return undefined;
-  },
-});
-export const clearRequiredAttributes = assign({
-  requiredAttributes: (_) => {
-    groupLog('+++clearRequiredAttributes');
-    return undefined;
-  },
-});
-export const clearError = assign({ remoteError: (_) => '' });
-export const clearFormValues = assign({ formValues: (_) => ({}) });
-export const clearTouched = assign({ touched: (_) => ({}) });
-export const clearUnverifiedContactMethods = assign({
-  unverifiedContactMethods: (_) => undefined,
-});
-export const clearUsername = assign({ username: (_) => undefined });
-export const clearValidationError = assign({ validationError: (_) => ({}) });
+const clearActorDoneData = assign({ actorDoneData: undefined });
+const clearChallengeName = assign({ challengeName: undefined });
+const clearMissingAttributes = assign({ missingAttributes: undefined });
+const clearError = assign({ remoteError: undefined });
+const clearFormValues = assign({ formValues: {} });
+const clearTouched = assign({ touched: {} });
+const clearUser = assign({ user: undefined });
+const clearValidationError = assign({ validationError: {} });
 
 /**
  * "set" actions
  */
-export const setTotpSecretCode = assign({
-  totpSecretCode: (ctx, event: AuthEvent) => {
-    groupLog('+++setTotpSecretCode', ctx, event);
-    return event.data;
+const setTotpSecretCode = assign({
+  totpSecretCode: (_, { data }: AuthEvent) => {
+    const { sharedSecret } = (data.nextStep?.totpSetupDetails ??
+      {}) as AuthTOTPSetupDetails;
+    return sharedSecret;
   },
 });
 
-export const setChallengeName = assign({
-  challengeName: (_, event: AuthEvent): ChallengeName | string => {
-    groupLog(`+++setChallengeName: ${event.data.nextStep.signInStep}`);
+const setSignInStep = assign({ step: 'SIGN_IN' });
 
-    // map v6 `signInStep` to v5 `challengeName`
-    const { signInStep } = event.data.nextStep;
+const setShouldVerifyUserAttributeStep = assign({
+  step: 'SHOULD_CONFIRM_USER_ATTRIBUTE',
+});
+
+const setConfirmAttributeCompleteStep = assign({
+  step: 'CONFIRM_ATTRIBUTE_COMPLETE',
+});
+
+// map v6 `signInStep` to v5 `challengeName`
+const setChallengeName = assign({
+  challengeName: (_, { data }: AuthEvent): ChallengeName | undefined => {
+    const { signInStep } = (data as SignInOutput).nextStep;
     return signInStep === 'CONFIRM_SIGN_IN_WITH_SMS_CODE'
       ? 'SMS_MFA'
       : signInStep === 'CONFIRM_SIGN_IN_WITH_TOTP_CODE'
       ? 'SOFTWARE_TOKEN_MFA'
-      : signInStep;
+      : undefined;
   },
 });
 
-export const setRequiredAttributes = assign({
-  requiredAttributes: (_, event: AuthEvent) => {
-    groupLog('+++setRequiredAttributes', 'event', event);
-    return event.data?.nextStep?.missingAttributes;
-  },
-});
-
-export const setConfirmResetPasswordIntent = assign({
-  redirectIntent: (_, __) => {
-    groupLog('+++setConfirmResetPasswordIntent', 'event', __);
-    return 'confirmPasswordReset';
-  },
-});
-
-export const setConfirmSignUpIntent = assign({
-  redirectIntent: (_, event) => {
-    groupLog('+++setConfirmSignUpIntent', 'event', event);
-    return 'confirmSignUp';
-  },
-});
-
-export const setCredentials = assign({
-  /**
-   * @migration does not require updates
-   */
-  authAttributes: (context: SignInContext | SignUpContext) => {
-    groupLog('+++setCredentials');
-    const [primaryAlias] = context.loginMechanisms;
-    const username =
-      context.formValues[primaryAlias] ?? context.formValues['username'];
-    const password = context.formValues?.password;
-
-    return { username, password };
-  },
-});
-
-export const setFieldErrors = assign({
-  validationError: (_, event: AuthEvent) => event.data,
-});
-
-export const setRemoteError = assign({
-  remoteError: (_, event: AuthEvent) => {
-    groupLog('+++setRemoteError', 'event', event);
-    if (event.data.name === 'NoUserPoolError') {
-      return `Configuration error (see console) – please contact the administrator`;
+const setUsernameForgotPassword = assign({
+  username: ({ formValues, loginMechanisms }: AuthActorContext) => {
+    const loginMechanism = loginMechanisms[0];
+    const { username, country_code } = formValues;
+    if (loginMechanism === 'phone_number') {
+      // forgot password `formValues` uses `username` for base phone number value
+      // prefix `country_code` for full `username`
+      return sanitizePhoneNumber(country_code, username);
     }
-    return event.data?.message || event.data;
-  },
-});
-
-export const setUnverifiedContactMethods = assign({
-  unverifiedContactMethods: (_, event: AuthEvent) => {
-    groupLog('+++setUnverifiedContactMethods', 'event', event);
-    const { phone_number_verified, email_verified, email, phone_number } =
-      event.data as FetchUserAttributesOutput;
-
-    return {
-      ...(email_verified === 'false' && email && { email }),
-      ...(phone_number_verified === 'false' &&
-        phone_number && { phone_number }),
-    };
-  },
-});
-
-// @todo-migration fix-me
-export const setUser = assign({
-  user: (_, event: AuthEvent) => {
-    groupLog('+++setUser.source', 'event.data', event.data);
-
-    /**
-     * @migration Cannot be called if unauthenticated. Maybe try/catch?
-     */
-    // const user = await getCurrentUser();
-    /**
-     * @migration event.data was the fallback here,
-     *  setting the entire event.data as user
-     */
-    return { ...event.data };
-  },
-});
-
-export const setUsername = assign({
-  username: (context: ActorContextWithForms, _) => {
-    groupLog('+++setUsername', 'context', context);
-    let {
-      formValues: { username, country_code },
-    } = context;
-    if (country_code) {
-      username = `${country_code}${username}`;
-    }
+    // default username field for loginMechanism === 'email' is "username" for SignIn
     return username;
   },
 });
 
-export const setCodeDeliveryDetails = assign({
-  codeDeliveryDetails: (_, { data }: { data: SignUpOutput }) => {
-    groupLog('+++setCodeDeliveryDetails', 'data', data);
-    const { codeDeliveryDetails: details } = data.nextStep as {
-      codeDeliveryDetails: {
-        destination?: string;
-        deliveryMedium?: V6AuthDeliveryMedium;
-        attributName?: string;
-      };
-    };
+const setUsernameSignUp = assign({ username: getUsernameSignUp });
 
-    // map `details` property names to PascalCase to prevent changes in UI layer
-    const mappedDetails: CodeDeliveryDetails = {
-      Destination: details.destination,
-      DeliveryMedium: details.deliveryMedium,
-      AttributeName: details.attributName,
-    };
+const setUsernameSignIn = assign({
+  username: ({ formValues, loginMechanisms }: AuthActorContext) => {
+    const loginMechanism = loginMechanisms[0];
+    const { username, country_code } = formValues;
 
-    return mappedDetails;
+    if (loginMechanism === 'phone_number') {
+      // sign in `formValues` uses `username` for base phone number value
+      // prefix `country_code` for full `username`
+      return sanitizePhoneNumber(country_code, username);
+    }
+
+    // return `email` and `username`
+    return username;
   },
 });
 
-export const setUsernameAuthAttributes = assign({
-  authAttributes: (context: ActorContextWithForms, _) => {
-    groupLog('+++setUsernameAuthAttributes', 'context', context, 'event', _);
-    return {
-      username: context.formValues.username,
-    };
+const setNextSignInStep = assign({
+  step: (_, { data }: AuthEvent): SignInStep =>
+    (data as SignInOutput).nextStep.signInStep === 'DONE'
+      ? 'SIGN_IN_COMPLETE'
+      : data.nextStep.signInStep,
+});
+
+const setNextSignUpStep = assign({
+  step: (_, { data }: AuthEvent): SignUpStep =>
+    (data as SignUpOutput).nextStep.signUpStep === 'DONE'
+      ? 'SIGN_UP_COMPLETE'
+      : data.nextStep.signUpStep,
+});
+
+const setNextResetPasswordStep = assign({
+  step: (_, { data }: AuthEvent): ResetPasswordStep =>
+    (data as ResetPasswordOutput).nextStep.resetPasswordStep === 'DONE'
+      ? 'RESET_PASSWORD_COMPLETE'
+      : data.nextStep.resetPasswordStep,
+});
+
+const setMissingAttributes = assign({
+  missingAttributes: (_, { data }: AuthEvent) =>
+    data.nextStep?.missingAttributes,
+});
+
+const setFieldErrors = assign({
+  validationError: (_, { data }: AuthEvent) => data,
+});
+
+const setRemoteError = assign({
+  remoteError: (_, { data }: AuthEvent) => {
+    if (data.name === 'NoUserPoolError') {
+      return `Configuration error (see console) – please contact the administrator`;
+    }
+    return data?.message || data;
   },
 });
 
-export const handleInput = assign({
-  formValues: (context, event: AuthEvent) => {
-    const { name, value } = event.data;
+const setUser = assign({ user: (_, { data }: AuthEvent) => data });
 
-    return {
-      ...context['formValues'],
-      [name]: value,
-    };
+const resolveCodeDeliveryDetails = (
+  details: CodeDeliveryDetails
+): V5CodeDeliveryDetails => ({
+  Destination: details.destination,
+  DeliveryMedium: details.deliveryMedium,
+  AttributeName: details.attributName,
+});
+
+type OutputWithDetails =
+  | ResetPasswordOutput
+  | ResendSignUpCodeOutput
+  | SendUserAttributeVerificationCodeOutput
+  | SignUpOutput;
+const setCodeDeliveryDetails = assign({
+  codeDeliveryDetails: (_, { data }: { data: OutputWithDetails }) => {
+    if (
+      (data as { nextStep?: { codeDeliveryDetails?: CodeDeliveryDetails } })
+        ?.nextStep?.codeDeliveryDetails
+    ) {
+      return resolveCodeDeliveryDetails(
+        (data as { nextStep?: { codeDeliveryDetails?: CodeDeliveryDetails } })
+          .nextStep.codeDeliveryDetails
+      );
+    }
+    return resolveCodeDeliveryDetails(data as CodeDeliveryDetails);
   },
 });
 
-export const handleSubmit = assign({
-  formValues: (context, event: AuthEvent) => {
-    const formValues = {
-      ...context['formValues'],
-      ...event.data,
-    };
-    return trimValues(formValues, 'password'); // do not trim password
+const handleInput = assign({
+  formValues: (context, { data }: AuthEvent) => {
+    const { name, value } = data;
+    return { ...context['formValues'], [name]: value };
   },
 });
 
-export const handleBlur = assign({
-  touched: (context, event: AuthEvent) => {
-    const { name } = event.data;
-    return {
-      ...context['touched'],
-      [`${name}`]: true,
+const handleSubmit = assign({
+  formValues: (context: AuthActorContext, { data }: AuthEvent) =>
+    // do not trim password
+    trimValues({ ...context['formValues'], ...data }, 'password'),
+});
+
+const handleBlur = assign({
+  touched: (context: AuthActorContext, { data }: AuthEvent) => ({
+    ...context['touched'],
+    [data.name]: true,
+  }),
+});
+
+const setUnverifiedUserAttributes = assign({
+  unverifiedUserAttributes: (_, { data }: AuthEvent) => {
+    const { email, phone_number } = data as FetchUserAttributesOutput;
+
+    const unverifiedUserAttributes = {
+      ...(email && { email }),
+      ...(phone_number && { phone_number }),
     };
+
+    return unverifiedUserAttributes;
   },
 });
 
-// export const resendCode = async (context) => {
-//   const { username } = context;
-//   return await forgotPassword(username);
-// };
-/**
- *
- * @migration is working as expected
- */
-export const resendCode = async (context): Promise<ResetPasswordOutput> => {
-  const input: ResetPasswordInput = { ...context };
-  return await resetPassword(input);
+const clearSelectedUserAttribute = assign({ selectedUserAttribute: undefined });
+
+const setSelectedUserAttribute = assign({
+  selectedUserAttribute: (context: AuthActorContext) =>
+    context.formValues?.unverifiedAttr,
+});
+
+// Maps to unexposed `ConfirmSignUpSignUpStep`
+const setConfirmSignUpSignUpStep = assign({ step: 'CONFIRM_SIGN_UP' });
+
+const ACTIONS: MachineOptions<AuthActorContext, AuthEvent>['actions'] = {
+  clearActorDoneData,
+  clearChallengeName,
+  clearError,
+  clearFormValues,
+  clearMissingAttributes,
+  clearSelectedUserAttribute,
+  clearTouched,
+  clearUser,
+  clearValidationError,
+  handleBlur,
+  handleInput,
+  handleSubmit,
+  setChallengeName,
+  setCodeDeliveryDetails,
+  setFieldErrors,
+  setMissingAttributes,
+  setNextResetPasswordStep,
+  setNextSignInStep,
+  setNextSignUpStep,
+  setRemoteError,
+  setConfirmAttributeCompleteStep,
+  setConfirmSignUpSignUpStep,
+  setShouldVerifyUserAttributeStep,
+  setSelectedUserAttribute,
+  setSignInStep,
+  setTotpSecretCode,
+  setUser,
+  setUnverifiedUserAttributes,
+  setUsernameForgotPassword,
+  setUsernameSignIn,
+  setUsernameSignUp,
 };
 
-/**
- * This action occurs on the entry to a state where a form submit action
- * occurs. It combines the phone_number and country_code form values, parses
- * the result, and updates the form values with the full phone number which is
- * the required format by Cognito for form submission.
- */
-export const parsePhoneNumber = assign({
-  formValues: (context: SignInContext | SignUpContext, _) => {
-    const [primaryAlias = 'username'] = context.loginMechanisms;
-
-    if (!context.formValues.phone_number && primaryAlias !== 'phone_number')
-      return context.formValues;
-
-    const { formValues, country_code: defaultCountryCode } = context;
-    const phoneAlias = formValues.phone_number ? 'phone_number' : 'username';
-
-    const parsedPhoneNumber = `${
-      formValues.country_code ?? defaultCountryCode
-    }${formValues[phoneAlias]}`.replace(/[^A-Z0-9+]/gi, '');
-
-    const updatedFormValues = {
-      ...formValues,
-      [phoneAlias]: parsedPhoneNumber,
-    };
-    delete updatedFormValues.country_code;
-
-    return updatedFormValues;
-  },
-});
+export default ACTIONS;

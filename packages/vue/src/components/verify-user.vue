@@ -14,7 +14,7 @@ import { useAuthenticator } from '../composables/useAuth';
 
 // `facade` is manually typed to `UseAuthenticator` for temporary type safety.
 const facade: UseAuthenticator = useAuthenticator();
-const { isPending, unverifiedContactMethods, error } = toRefs(facade);
+const { isPending, unverifiedUserAttributes, error } = toRefs(facade);
 const { skipVerification, submitForm, updateForm } = facade;
 
 // Text Util
@@ -81,7 +81,7 @@ const onSkipClicked = (): void => {
                 class="amplify-flex amplify-radio"
                 data-amplify-verify-label
                 id="verify"
-                v-for="(value, key) in unverifiedContactMethods"
+                v-for="(value, key) in unverifiedUserAttributes"
                 :key="value"
               >
                 <base-input

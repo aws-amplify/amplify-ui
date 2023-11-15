@@ -66,15 +66,15 @@ export function SignIn(): JSX.Element {
 }
 
 const DefaultFooter = () => {
-  const { toResetPassword } = useAuthenticator((context) => [
-    context.toResetPassword,
+  const { toForgotPassword } = useAuthenticator((context) => [
+    context.toForgotPassword,
   ]);
 
   return (
     <View data-amplify-footer="">
       <Button
         fontWeight="normal"
-        onClick={toResetPassword}
+        onClick={toForgotPassword}
         size="small"
         variation="link"
       >
