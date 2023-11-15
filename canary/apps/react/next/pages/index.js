@@ -7,7 +7,8 @@ import {
   withAuthenticator,
   useAuthenticator,
 } from '@aws-amplify/ui-react';
-import { FaceLivenessDetector } from '@aws-amplify/ui-react-liveness';
+// Todo-migration re-enable once liveness has been updated
+// import { FaceLivenessDetector } from '@aws-amplify/ui-react-liveness';
 import '@aws-amplify/ui-react/styles.css';
 import { Amplify } from 'aws-amplify';
 import aws_exports from '../../../../environments/auth-with-email/src/aws-exports.js';
@@ -22,11 +23,11 @@ function App() {
         <Button variation="primary">Click me!</Button>
         <Button onClick={signOut}>Sign out</Button>
       </Card>
-      <FaceLivenessDetector
+      {/* <FaceLivenessDetector
         sessionId="123"
         region="us-east-1"
         handleGetLivenessDetection={async () => {}}
-      />
+      /> */}
     </ThemeProvider>
   );
 }
