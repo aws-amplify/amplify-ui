@@ -18,7 +18,7 @@ const {
   getResetYourPasswordText,
 } = authenticatorTextUtil;
 
-export const ResetPassword = ({
+export const ForgotPassword = ({
   className,
   variation,
 }: RouteProps): JSX.Element => {
@@ -28,9 +28,9 @@ export const ResetPassword = ({
   const {
     components: {
       // @ts-ignore
-      ResetPassword: {
-        Header = ResetPassword.Header,
-        Footer = ResetPassword.Footer,
+      ForgotPassword: {
+        Header = ForgotPassword.Header,
+        Footer = ForgotPassword.Footer,
       },
     },
   } = useCustomComponents();
@@ -39,7 +39,7 @@ export const ResetPassword = ({
     <RouteContainer className={className} variation={variation}>
       <form
         data-amplify-form=""
-        data-amplify-authenticator-resetpassword=""
+        data-amplify-authenticator-Forgotpassword=""
         method="post"
         onChange={handleChange}
         onSubmit={handleSubmit}
@@ -70,11 +70,11 @@ export const ResetPassword = ({
   );
 };
 
-ResetPassword.Header = function Header(): JSX.Element {
+ForgotPassword.Header = function Header(): JSX.Element {
   return <Heading level={3}>{getResetYourPasswordText()}</Heading>;
 };
 
-ResetPassword.Footer = function Footer(): JSX.Element {
+ForgotPassword.Footer = function Footer(): JSX.Element {
   // @ts-ignore
   return null;
 };
