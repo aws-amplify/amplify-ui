@@ -89,9 +89,9 @@ function MyApp({ Component, pageProps }) {
         <ThemeProvider theme={baseTheme} colorMode={colorMode}>
           {
             <GlobalNav
+              mainId="docs-main"
               rightLinks={RIGHT_NAV_LINKS as NavMenuItem[]}
               leftLinks={LEFT_NAV_LINKS as NavMenuItem[]}
-              socialLinks={SOCIAL_LINKS as NavMenuItem[]}
               currentSite="UI Library"
             />
           }
@@ -102,7 +102,7 @@ function MyApp({ Component, pageProps }) {
             setColorMode={handleColorModeChange}
             platform={platform}
           />
-          <main className="docs-main">
+          <main className="docs-main" id="docs-main">
             <div
               className={classNames(
                 'docs-sidebar-spacer',
