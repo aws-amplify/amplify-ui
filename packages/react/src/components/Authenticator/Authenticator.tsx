@@ -27,7 +27,7 @@ import { SetupTotp } from './SetupTotp';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
 import { ForceNewPassword } from './ForceNewPassword';
-import { ResetPassword } from './ForgotPassword';
+import { ForgotPassword } from './ForgotPassword';
 import { defaultComponents } from './hooks/useCustomComponents/defaultComponents';
 
 export type SignOut = UseAuthenticator['signOut'];
@@ -152,7 +152,7 @@ export function Authenticator(props: AuthenticatorProps): JSX.Element {
 }
 
 Authenticator.Provider = Provider;
-Authenticator.ResetPassword = ResetPassword;
+Authenticator.ForgotPassword = ForgotPassword;
 Authenticator.SetupTotp = SetupTotp;
 Authenticator.SignIn = SignIn;
 Authenticator.SignUp = SignUp;

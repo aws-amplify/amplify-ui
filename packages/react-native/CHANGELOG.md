@@ -1,5 +1,109 @@
 # @aws-amplify/ui-react-native
 
+## 2.0.1
+
+### Patch Changes
+
+- [#4730](https://github.com/aws-amplify/amplify-ui/pull/4730) [`2ab62defe`](https://github.com/aws-amplify/amplify-ui/commit/2ab62defe14da3dce3bc960aeae47b2342e36da1) Thanks [@calebpollman](https://github.com/calebpollman)! - fix: rename ResetPassword to ForgotPassword
+
+## 2.0.0
+
+### Major Changes
+
+- `Authenticator` Breaking Changes
+
+The `initialState` property now accepts `forgotPassword` in place of `resetPassword`:
+
+```diff
+- <Authenticator initialState="resetPassword" />
++ <Authenticator initialState="forgotPassword" />
+```
+
+---
+
+The `user` object provided after an end user has been authenticated has been updated to reflect the `AuthUser` interface available from `aws-amplify/auth`:
+
+```diff
+- interface AmplifyUser {
+-   challengeName?: ChallengeName;
+-   attributes?: CognitpAttributes;
+-   username: string;
+- }
++ interface AuthUser  {
++   username: string;
++   userId: string;
++   signInDetails?: CognitoAuthSignInDetails;
++ }
+```
+
+`AuthUser` can be imported from `aws-amplify/auth`:
+
+```ts
+import { AuthUser } from 'aws-amplify/auth';
+```
+
+User attributes are now available by directly calling `fetchUserAttribues`:
+
+```ts
+import { fetchUserAttributes } from 'aws-amplify/auth';
+```
+
+---
+
+The function signatures of the `services` interface have been updated to align with the shape of the underlying `aws-amplify/auth` APIs used by the `Authenticator` and provide improved typescript support:
+
+```diff
+interface AuthenticatorProps {
+  services?: {
+-    getCurrentUser: () => Promise<any>,
++    getCurrentUser: () => Promise<AuthUser>,
+
+-    handleSignIn: ({ username, password, }: { username: string;password: string; }) => Promise<any>,
++    handleSignIn: (input: SignInInput) => Promise<SignInOutput>,
+
+-    handleSignUp: (formData: any) => Promise<ISignUpResult>,
++    handleSignUp: (input: SignUpInput) => Promise<SignUpOutput>,
+
+-    handleConfirmSignIn: ({ user, code, mfaType, }: { user: any; code: string; mfaType: ChallengeName; }) =>Promise<any>),
++    handleConfirmSignIn: (input: ConfirmSignInInput) => Promise<ConfirmSignInOutput>,
+
+-    handleConfirmSignUp: ({ username, code, }: { username: string; code: string; }) => Promise<any>,
++    handleConfirmSignUp: (input: ConfirmSignUpInput) => Promise<ConfirmSignUpOutput>,
+
+-    handleForgotPasswordSubmit: ({ username, code, password, }: { username: string; code: string; password:string; }) => Promise<string>),
++    handleForgotPasswordSubmit: (input: ConfirmResetPasswordInput) => Promise<void>,
+
+-    handleForgotPassword: (formData: any) => Promise<any>,
++    handleForgotPassword: (input: ResetPasswordInput) => Promise<ResetPasswordOutput>,
+  }
+}
+```
+
+The input and return type interfaces are available as imports from `aws-amplify/auth`:
+
+```ts
+import { ConfirmSignInInput } from 'aws-amplify';
+```
+
+- Major version bump for all Amplify UI packages due to uprade of peerDependency aws-amplify to v6
+
+### Minor Changes
+
+- [#4445](https://github.com/aws-amplify/amplify-ui/pull/4445) [`7b55f4f78`](https://github.com/aws-amplify/amplify-ui/commit/7b55f4f781c3adab19c3d91ef9f293647566ecd9) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat: allow themes to have arbitrary tokens
+
+### Patch Changes
+
+- [#4719](https://github.com/aws-amplify/amplify-ui/pull/4719) [`f9e4fa838`](https://github.com/aws-amplify/amplify-ui/commit/f9e4fa8388a1994996a132f50261f431d1a52e43) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(rna): refactor fed sign in
+
+- [#4712](https://github.com/aws-amplify/amplify-ui/pull/4712) [`02d2cde68`](https://github.com/aws-amplify/amplify-ui/commit/02d2cde686929bce7965c3b547173f0a03b87aaa) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(rna): prefer route over authStatus for rendering children
+
+- [#4716](https://github.com/aws-amplify/amplify-ui/pull/4716) [`5bd721183`](https://github.com/aws-amplify/amplify-ui/commit/5bd72118342c4a3040c13e923024d476a643a795) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(deps): upgrade aws-amplify deps
+
+- Updated dependencies [[`55d1f4940`](https://github.com/aws-amplify/amplify-ui/commit/55d1f49401359bb0b75756742658b173edc0fb72), [`7b55f4f78`](https://github.com/aws-amplify/amplify-ui/commit/7b55f4f781c3adab19c3d91ef9f293647566ecd9), [`27783d65a`](https://github.com/aws-amplify/amplify-ui/commit/27783d65a06e712bb3ca8c116798a52db3d4a3a4), [`59c042c17`](https://github.com/aws-amplify/amplify-ui/commit/59c042c170358c6cc2ca09d13ffcc7e517586ef2), [`91372387c`](https://github.com/aws-amplify/amplify-ui/commit/91372387c29f5d68526070e4c3b8a13bbf079e5c), [`f9e4fa838`](https://github.com/aws-amplify/amplify-ui/commit/f9e4fa8388a1994996a132f50261f431d1a52e43), [`27be6ccf5`](https://github.com/aws-amplify/amplify-ui/commit/27be6ccf51ce093d3589f9f36b4530e6825a317b), [`5bd721183`](https://github.com/aws-amplify/amplify-ui/commit/5bd72118342c4a3040c13e923024d476a643a795)]:
+  - @aws-amplify/ui@6.0.0
+  - @aws-amplify/ui-react-core@3.0.0
+  - @aws-amplify/ui-react-core-notifications@2.0.0
+
 ## 1.2.28
 
 ### Patch Changes
