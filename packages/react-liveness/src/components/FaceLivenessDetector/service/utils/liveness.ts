@@ -190,11 +190,13 @@ export function drawLivenessOvalInCanvas({
   oval,
   scaleFactor,
   videoEl,
+  isStartScreen,
 }: {
   canvas: HTMLCanvasElement;
   oval: LivenessOvalDetails;
   scaleFactor: number;
   videoEl: HTMLVideoElement;
+  isStartScreen?: boolean;
 }): void {
   const { flippedCenterX, centerY, width, height } = oval;
 
@@ -206,7 +208,11 @@ export function drawLivenessOvalInCanvas({
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
     // fill the canvas with a transparent rectangle
-    ctx.fillStyle = 'rgba(255, 255, 255, 1.0)';
+    ctx.fillStyle = getComputedStyle(canvas).getPropertyValue(
+      isStartScreen
+        ? '--amplify-colors-background-primary'
+        : '--amplify-colors-white'
+    );
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
     // On mobile our canvas is the width/height of the full screen.
@@ -235,7 +241,9 @@ export function drawLivenessOvalInCanvas({
     );
 
     // add stroke to the oval path
-    ctx.strokeStyle = '#AEB3B7';
+    ctx.strokeStyle = getComputedStyle(canvas).getPropertyValue(
+      '--amplify-colors-border-secondary'
+    );
     ctx.lineWidth = 3;
     ctx.stroke();
     ctx.clip();
@@ -307,7 +315,7 @@ export function getFaceMatchStateInLivenessOval(
     ovalBoundingBox
   );
 
-  const intersectionThreshold = OvalIouThreshold;
+  const intersectionThreshold = 0.6;
   const ovalMatchWidthThreshold = ovalDetails.width * OvalIouWidthThreshold;
   const ovalMatchHeightThreshold = ovalDetails.height * OvalIouHeightThreshold;
   const faceDetectionWidthThreshold = ovalDetails.width * FaceIouWidthThreshold;
@@ -827,4 +835,19 @@ export function getBoundingBox({
     Top: top / deviceHeight,
     Left: left / deviceWidth,
   };
+}
+
+export function captureRefImage(videoElement: HTMLVideoElement) {
+  return new Promise<Blob>((resolve) => {
+    const canvasElement = document.createElement('canvas');
+    const canvas2dContext = canvasElement.getContext('2d')!;
+
+    canvasElement.width = videoElement.videoWidth;
+    canvasElement.height = videoElement.videoHeight;
+    canvas2dContext.drawImage(videoElement, 0, 0);
+
+    canvasElement.toBlob((blob) => {
+      resolve(blob!);
+    });
+  });
 }

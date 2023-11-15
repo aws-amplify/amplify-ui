@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { useActor, useInterpret } from '@xstate/react';
+import { useInterpret } from '@xstate/react';
 import {
   livenessMachine,
   FaceLivenessDetectorCoreProps as FaceLivenessDetectorPropsFromUi,
 } from './service';
-import { View, Flex } from '@aws-amplify/ui-react';
+import { View, Flex, useTheme } from '@aws-amplify/ui-react';
 
 import { FaceLivenessDetectorProvider } from './providers';
-import { StartLiveness } from './StartLiveness';
 import { LivenessCheck } from './LivenessCheck';
 import { StartScreenComponents } from './shared/DefaultStartScreenComponents';
 import { LivenessDisplayText } from './displayText';
@@ -28,13 +27,9 @@ export interface FaceLivenessDetectorCoreProps
 export default function FaceLivenessDetectorCore(
   props: FaceLivenessDetectorCoreProps
 ): JSX.Element {
-  const {
-    disableInstructionScreen = false,
-    components,
-    config,
-    displayText,
-  } = props;
+  const { components, config, displayText } = props;
   const currElementRef = React.useRef<HTMLDivElement>(null);
+  const theme = useTheme();
   const {
     hintDisplayText,
     cameraDisplayText,
@@ -50,43 +45,22 @@ export default function FaceLivenessDetectorCore(
         ...props,
         config: config ?? {},
       },
+      theme,
     },
   });
-
-  const [state, send] = useActor(service);
-  const isStartView = state.matches('start') || state.matches('userCancel');
-
-  const beginLivenessCheck = React.useCallback(() => {
-    send({
-      type: 'BEGIN',
-    });
-  }, [send]);
-
-  React.useLayoutEffect(() => {
-    if (disableInstructionScreen && isStartView) {
-      beginLivenessCheck();
-    }
-  }, [beginLivenessCheck, disableInstructionScreen, isStartView]);
 
   return (
     <View className={DETECTOR_CLASS_NAME} testId={DETECTOR_CLASS_NAME}>
       <FaceLivenessDetectorProvider componentProps={props} service={service}>
         <Flex direction="column" ref={currElementRef}>
-          {isStartView ? (
-            <StartLiveness
-              beginLivenessCheck={beginLivenessCheck}
-              components={components}
-              instructionDisplayText={instructionDisplayText}
-            />
-          ) : (
-            <LivenessCheck
-              hintDisplayText={hintDisplayText}
-              cameraDisplayText={cameraDisplayText}
-              streamDisplayText={streamDisplayText}
-              errorDisplayText={errorDisplayText}
-              components={components}
-            />
-          )}
+          <LivenessCheck
+            instructionDisplayText={instructionDisplayText}
+            hintDisplayText={hintDisplayText}
+            cameraDisplayText={cameraDisplayText}
+            streamDisplayText={streamDisplayText}
+            errorDisplayText={errorDisplayText}
+            components={components}
+          />
         </Flex>
       </FaceLivenessDetectorProvider>
     </View>

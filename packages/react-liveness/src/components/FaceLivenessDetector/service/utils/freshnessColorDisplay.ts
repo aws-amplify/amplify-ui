@@ -35,6 +35,9 @@ export class FreshnessColorDisplay {
   }
 
   public async displayColorTick(): Promise<boolean> {
+    if (this.isFirstTick) {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    }
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         this.displayNextColorTick(resolve, reject);

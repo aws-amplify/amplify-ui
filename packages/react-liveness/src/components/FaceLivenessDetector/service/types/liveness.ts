@@ -31,10 +31,12 @@ export interface FaceLivenessDetectorCoreProps {
    */
   onError?: (livenessError: LivenessError) => void;
 
+  onReferenceImage?: (blob: Blob) => void;
+
   /**
    * Optional parameter for the disabling the Start/Get Ready Screen, default: false
    */
-  disableInstructionScreen?: boolean;
+  disableStartScreen?: boolean;
 
   /**
    * Optional parameter for advanced options for the component

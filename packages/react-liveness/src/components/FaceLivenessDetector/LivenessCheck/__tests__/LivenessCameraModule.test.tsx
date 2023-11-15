@@ -15,11 +15,16 @@ import {
 } from '../../hooks';
 import {
   LivenessCameraModule,
+  selectFaceMatchPercentage,
+  selectFaceMatchState,
+  selectSelectableDevices,
+  selectSelectedDeviceId,
   selectVideoConstraints,
   selectVideoStream,
 } from '../LivenessCameraModule';
 import { FaceMatchState } from '../../service';
 import { getDisplayText } from '../../utils/getDisplayText';
+import { selectIsRecordingStopped } from '../LivenessCheck';
 
 jest.mock('../../hooks');
 jest.mock('../../hooks/useLivenessSelector');
@@ -39,9 +44,15 @@ describe('LivenessCameraModule', () => {
   let isCheckingCamera = false;
   let isNotRecording = false;
   let isRecording = false;
+  let isStart = false;
 
-  const { hintDisplayText, streamDisplayText, errorDisplayText } =
-    getDisplayText(undefined);
+  const {
+    hintDisplayText,
+    streamDisplayText,
+    errorDisplayText,
+    cameraDisplayText,
+    instructionDisplayText,
+  } = getDisplayText(undefined);
   const { cancelLivenessCheckText, recordingIndicatorText } = streamDisplayText;
 
   function mockStateMatchesAndSelectors() {
@@ -50,6 +61,8 @@ describe('LivenessCameraModule', () => {
       .mockReturnValue(isCheckingCamera)
       .calledWith('notRecording')
       .mockReturnValue(isNotRecording)
+      .calledWith('start')
+      .mockReturnValue(isStart)
       .calledWith('recording')
       .mockReturnValue(isRecording);
   }
@@ -69,6 +82,7 @@ describe('LivenessCameraModule', () => {
     isCheckingCamera = false;
     isNotRecording = false;
     isRecording = false;
+    isStart = false;
 
     jest.clearAllMocks();
     jest.clearAllTimers();
@@ -86,6 +100,8 @@ describe('LivenessCameraModule', () => {
         hintDisplayText={hintDisplayText}
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        instructionDisplayText={instructionDisplayText}
       />
     );
 
@@ -103,6 +119,8 @@ describe('LivenessCameraModule', () => {
         hintDisplayText={hintDisplayText}
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        instructionDisplayText={instructionDisplayText}
       />
     );
 
@@ -145,6 +163,8 @@ describe('LivenessCameraModule', () => {
         hintDisplayText={hintDisplayText}
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        instructionDisplayText={instructionDisplayText}
       />
     );
     const videoEl = screen.getByTestId('video');
@@ -170,6 +190,8 @@ describe('LivenessCameraModule', () => {
         hintDisplayText={hintDisplayText}
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        instructionDisplayText={instructionDisplayText}
         testId={testId}
       />
     );
@@ -199,6 +221,8 @@ describe('LivenessCameraModule', () => {
         hintDisplayText={hintDisplayText}
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        instructionDisplayText={instructionDisplayText}
         testId={testId}
       />
     );
@@ -228,6 +252,8 @@ describe('LivenessCameraModule', () => {
         hintDisplayText={hintDisplayText}
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        instructionDisplayText={instructionDisplayText}
         testId={testId}
       />
     );
@@ -257,6 +283,8 @@ describe('LivenessCameraModule', () => {
         hintDisplayText={hintDisplayText}
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        instructionDisplayText={instructionDisplayText}
         testId={testId}
       />
     );
@@ -286,6 +314,8 @@ describe('LivenessCameraModule', () => {
         hintDisplayText={hintDisplayText}
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        instructionDisplayText={instructionDisplayText}
         testId={testId}
       />
     );
@@ -315,6 +345,8 @@ describe('LivenessCameraModule', () => {
         hintDisplayText={hintDisplayText}
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        instructionDisplayText={instructionDisplayText}
         testId={testId}
       />
     );
@@ -337,14 +369,105 @@ describe('LivenessCameraModule', () => {
         videoAssociatedParams: {
           videoConstraints: expectedConstraints,
           videoMediaStream: expectedStream,
+          selectedDeviceId: 'foobar',
+          selectableDevices: ['foobar'],
+        },
+        faceMatchAssociatedParams: {
+          faceMatchPercentage: 100,
+          faceMatchState: FaceMatchState.MATCHED,
         },
       },
     };
 
     const actualConstraints = selectVideoConstraints(state);
     const actualStream = selectVideoStream(state);
+    const actualPercentage = selectFaceMatchPercentage(state);
+    const actualDeviceId = selectSelectedDeviceId(state);
+    const actualSelectableDevices = selectSelectableDevices(state);
+    const actualFaceMatchState = selectFaceMatchState(state);
 
     expect(actualConstraints).toEqual(expectedConstraints);
     expect(actualStream).toEqual(expectedStream);
+    expect(actualPercentage).toEqual(100);
+    expect(actualDeviceId).toEqual('foobar');
+    expect(actualSelectableDevices).toEqual(['foobar']);
+    expect(actualFaceMatchState).toEqual(FaceMatchState.MATCHED);
+  });
+
+  it('selectors should work with undefined values', () => {
+    const state: any = {
+      context: {},
+    };
+
+    const actualConstraints = selectVideoConstraints(state);
+    const actualStream = selectVideoStream(state);
+    const actualPercentage = selectFaceMatchPercentage(state);
+    const actualDeviceId = selectSelectedDeviceId(state);
+    const actualSelectableDevices = selectSelectableDevices(state);
+    const actualFaceMatchState = selectFaceMatchState(state);
+
+    expect(actualConstraints).toEqual(undefined);
+    expect(actualStream).toEqual(undefined);
+    expect(actualPercentage).toEqual(undefined);
+    expect(actualDeviceId).toEqual(undefined);
+    expect(actualSelectableDevices).toEqual(undefined);
+    expect(actualFaceMatchState).toEqual(undefined);
+  });
+
+  it('should render with custom components', () => {
+    isCheckingCamera = true;
+    mockStateMatchesAndSelectors();
+
+    renderWithLivenessProvider(
+      <LivenessCameraModule
+        isMobileScreen={false}
+        isRecordingStopped={false}
+        hintDisplayText={hintDisplayText}
+        streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        instructionDisplayText={instructionDisplayText}
+        components={{ ErrorView: undefined }}
+      />
+    );
+
+    expect(screen.getByTestId('centered-loader')).toBeInTheDocument();
+  });
+
+  it('should render hair check screen when isStart = true', () => {
+    isStart = true;
+    mockStateMatchesAndSelectors();
+    mockUseLivenessSelector.mockReturnValue(25).mockReturnValue(['device-id']);
+
+    renderWithLivenessProvider(
+      <LivenessCameraModule
+        isMobileScreen={false}
+        isRecordingStopped={false}
+        hintDisplayText={hintDisplayText}
+        streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        instructionDisplayText={instructionDisplayText}
+      />
+    );
+    const videoEl = screen.getByTestId('video');
+    videoEl.dispatchEvent(new Event('canplay'));
+
+    expect(screen.getByTestId('popover-icon')).toBeInTheDocument();
+    expect(screen.getByText('Camera:')).toBeInTheDocument();
+  });
+
+  it('selectors should work', () => {
+    mockUseLivenessSelector.mockReturnValueOnce({}).mockReturnValueOnce({});
+    const state: any = {
+      context: {
+        isRecordingStopped: true,
+      },
+    };
+
+    console.log(selectIsRecordingStopped);
+    const isRecordingStopped = selectIsRecordingStopped(state);
+
+    expect(isRecordingStopped).toEqual(true);
   });
 });

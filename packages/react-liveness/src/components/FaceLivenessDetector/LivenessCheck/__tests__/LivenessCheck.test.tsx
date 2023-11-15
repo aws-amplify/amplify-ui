@@ -29,6 +29,7 @@ const {
   cameraDisplayText,
   streamDisplayText,
   errorDisplayText,
+  instructionDisplayText,
 } = getDisplayText(undefined);
 
 const {
@@ -89,6 +90,7 @@ describe('LivenessCheck', () => {
         cameraDisplayText={cameraDisplayText}
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
+        instructionDisplayText={instructionDisplayText}
       />
     );
 
@@ -115,6 +117,7 @@ describe('LivenessCheck', () => {
         cameraDisplayText={cameraDisplayText}
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
+        instructionDisplayText={instructionDisplayText}
       />
     );
 
@@ -142,6 +145,7 @@ describe('LivenessCheck', () => {
         cameraDisplayText={cameraDisplayText}
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
+        instructionDisplayText={instructionDisplayText}
       />
     );
 
@@ -167,6 +171,7 @@ describe('LivenessCheck', () => {
         cameraDisplayText={cameraDisplayText}
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
+        instructionDisplayText={instructionDisplayText}
       />
     );
 

@@ -6,6 +6,7 @@ import {
   ServiceQuotaExceededException,
   SessionInformation,
 } from '@aws-sdk/client-rekognitionstreaming';
+import { WebTheme } from '@aws-amplify/ui';
 
 import {
   FaceLivenessDetectorCoreProps,
@@ -53,6 +54,8 @@ export interface VideoAssociatedParams {
   videoRecorder?: VideoRecorder;
   recordingStartTimestampMs?: number;
   isMobile?: boolean;
+  selectedDeviceId?: string;
+  selectableDevices?: MediaDeviceInfo[];
 }
 
 export type LivenessContext = Partial<HydratedLivenessContext>;
@@ -74,6 +77,7 @@ export interface HydratedLivenessContext {
   faceMatchStateBeforeStart: FaceMatchState;
   isFaceFarEnoughBeforeRecording: boolean;
   isRecordingStopped: boolean;
+  theme: WebTheme;
 }
 
 export type LivenessEventTypes =
@@ -85,6 +89,7 @@ export type LivenessEventTypes =
   | 'SET_SESSION_INFO'
   | 'DISCONNECT_EVENT'
   | 'SET_DOM_AND_CAMERA_DETAILS'
+  | 'UPDATE_DEVICE_AND_STREAM'
   | 'SERVER_ERROR'
   | 'RUNTIME_ERROR'
   | 'RETRY_CAMERA_CHECK'
