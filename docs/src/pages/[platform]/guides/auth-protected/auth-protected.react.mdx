@@ -36,13 +36,17 @@ cd new-auth-app
 
 Next, install the Amplify libraries and React Router.
 
-<Tabs.Container>
-  <Tabs.Item title="npm">
+<Tabs.Container defaultValue="npm">
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="npm">
     <TerminalCommand command="npm install @aws-amplify/ui-react aws-amplify react-router-dom@6" />
-  </Tabs.Item>
-  <Tabs.Item title="yarn">
+  </Tabs.Panel>
+  <Tabs.Panel value="yarn">
     <TerminalCommand command="yarn add @aws-amplify/ui-react aws-amplify react-router-dom@6" />
-  </Tabs.Item>
+  </Tabs.Panel>
 </Tabs.Container>
 
 To add authentication to your application we'll need to install the Amplify CLI. This tool gives us a command line utility to add AWS services.

@@ -199,10 +199,11 @@ export const AuthenticationSection = ({ platform }) => {
         </Flex>
 
         {platform === 'react-native' ? (
-          <ExpoSnackWithExports
-            name="Authenticator"
-            code={authenticatorCode[platform]}
-          />
+          // <ExpoSnackWithExports
+          //   name="Authenticator"
+          //   code={authenticatorCode[platform]}
+          // />
+          <></>
         ) : (
           <Flex
             direction={{
