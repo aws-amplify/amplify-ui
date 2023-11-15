@@ -40,7 +40,7 @@ export default function LivenessInlineResults({
           <ol>
             <li>Maximize you screen&apos;s brightness</li>
             <li>
-              Avoud very bright lightinh conditions, such as direct sunkight.
+              Avoid very bright lighting conditions, such as direct sunlight.
             </li>
             <li>
               Remove sunglasses, mask, hat, or anything blocking you face.
