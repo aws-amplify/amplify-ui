@@ -7,7 +7,7 @@ export { FederatedSignInButtonComponent } from './federated-sign-in-button/feder
 export { FederatedSignInComponent } from './federated-sign-in/federated-sign-in.component';
 export { ForceNewPasswordComponent } from './force-new-password/force-new-password.component';
 export { FormFieldComponent } from './form-field/form-field.component';
-export { ResetPasswordComponent } from './reset-password/reset-password.component';
+export { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 export { SetupTotpComponent } from './setup-totp/setup-totp.component';
 export { SignInComponent } from './sign-in/sign-in.component';
 export { SignUpComponent } from './sign-up/sign-up.component';

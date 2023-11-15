@@ -60,7 +60,7 @@ describe('FormField', () => {
     const describedById = inputField.getAttribute('aria-describedBy');
 
     // now, follow the id this id just like a screen reader would
-    const errors = container.querySelector(`#${describedById}`);
+    const errors = container.querySelector(`[id="${describedById}"]`);
 
     expect(errors).toHaveTextContent(ERROR_MESSAGE);
   });

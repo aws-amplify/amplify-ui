@@ -8,7 +8,6 @@ import awsExports from './aws-exports';
 
 Amplify.configure(awsExports);
 
-// @todo-migration remove cast
 I18n.putVocabularies(translations);
 I18n.setLanguage('en');
 I18n.putVocabulariesForLanguage('en', {
@@ -33,7 +32,7 @@ const formFields = {
 function App({ user, signOut }) {
   return (
     <>
-      <h2>Welcome, {user.attributes?.phone_number}</h2>
+      <h2>Welcome, {user.username}</h2>
       <button onClick={signOut}>Sign out</button>
     </>
   );

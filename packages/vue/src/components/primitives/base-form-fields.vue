@@ -22,11 +22,12 @@ let formFields: FormFieldsArray = [];
 onBeforeMount(() => {
   formFields = getSortedFormFields(route.value, state.value);
 });
-
-console.log('formFields', formFields);
-
 </script>
 <template>
-  <base-form-field v-for="[name, formField] in formFields" :name="name" :key="name"
-    :formField="formField"></base-form-field>
+  <base-form-field
+    v-for="[name, formField] in formFields"
+    :name="name"
+    :key="name"
+    :formField="formField"
+  ></base-form-field>
 </template>

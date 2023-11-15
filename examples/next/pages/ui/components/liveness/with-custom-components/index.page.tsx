@@ -10,10 +10,7 @@ import { Alert, Card, Heading, View, Text } from '@aws-amplify/ui-react';
 
 Amplify.configure({
   ...awsExports,
-  // @todo-migration re-enable
-  // Analytics: {
-  //   autoSessionRecord: false,
-  // },
+  // Analytics: { autoSessionRecord: false },
 });
 
 const App = () => {

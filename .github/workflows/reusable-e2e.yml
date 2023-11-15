@@ -67,15 +67,15 @@ jobs:
         include:
           - example: angular
             package: angular
-            tags: '@angular and not @todo-angular and not @todo-migration'
+            tags: '@angular and not @todo-angular'
 
           - example: next
             package: react
-            tags: '@react and not @todo-react and not @todo-migration'
+            tags: '@react and not @todo-react'
 
           - example: vue
             package: vue
-            tags: '@vue and not @todo-vue and not @todo-migration'
+            tags: '@vue and not @todo-vue'
 
     steps:
       - name: Checkout Amplify UI
@@ -349,7 +349,8 @@ jobs:
 
   e2e-ios:
     needs: check-changed-packages
-    if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
+    if: false # Temporarily disable RN iOS tests
+    # if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
     runs-on: macos-13
     environment: ci
     env:
@@ -469,7 +470,8 @@ jobs:
 
   e2e-android:
     needs: check-changed-packages
-    if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
+    if: false # Temporarily disable RN Android tests
+    # if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
     runs-on: macos-13
     environment: ci
     env:

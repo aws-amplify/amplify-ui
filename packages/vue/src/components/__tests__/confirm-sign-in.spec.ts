@@ -34,9 +34,9 @@ const useAuthenticatorSpy = jest
   .spyOn(UseAuthComposables, 'useAuthenticator')
   .mockReturnValue(reactive(mockServiceFacade));
 
-jest.spyOn(UIModule, 'getActorContext').mockReturnValue({
-  country_code: '+1',
-});
+jest
+  .spyOn(UIModule, 'getActorContext')
+  .mockReturnValue({} as UIModule.AuthActorContext);
 
 jest.spyOn(UIModule, 'getSortedFormFields').mockReturnValue([
   [
@@ -73,7 +73,8 @@ describe('ConfirmSignIn', () => {
     useAuthenticatorSpy.mockReturnValueOnce(
       reactive({
         ...mockServiceFacade,
-        user: { challengeName: 'SMS_MFA' },
+        challengeName: 'SMS_MFA',
+        user: {},
       } as UseAuthenticator)
     );
     const { container } = render(ConfirmSignIn, { global: { components } });

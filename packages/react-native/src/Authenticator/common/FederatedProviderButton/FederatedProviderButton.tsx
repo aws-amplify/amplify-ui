@@ -19,7 +19,7 @@ export default function FederatedProviderButton({
   return (
     <Button {...rest} style={pressableStyle}>
       <Icon source={source} size={20} />
-      <Label style={[textStyle]}>{children}</Label>
+      <Label style={textStyle}>{children}</Label>
     </Button>
   );
 }

@@ -113,6 +113,8 @@ class MyCredentialsProvider : AWSCredentialsProvider<AWSCredentials> {
         onError: Consumer<AuthException>
     ) {
         // Fetch the credentials
+        // Note that these credentials must be of type AWSTemporaryCredentials
+        // And then call `onSuccess.accept(creds)`
     }
 }
 ```

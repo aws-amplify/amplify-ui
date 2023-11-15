@@ -11,13 +11,19 @@ Feature: Sign In with Email
     Given I'm running the example "/ui/components/authenticator/sign-in-with-email"
 
   @angular @react @vue
-  Scenario: Sign in with force password reset shows the Reset Password with code view
+  Scenario: Sign in returns force reset password exception
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with error fixture "force-reset-password"
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "forgot-password-email"
     When I type my "email" with status "CONFIRMED"
     Then I type my password
     Then I click the "Sign in" button
     Then I see "Reset Password"
     Then I see "Code *"
+    Then I type a valid code
+    Then I type my new password
+    Then I confirm my password
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmForgotPassword" } }' with error fixture "AWSCognitoIdentityProviderService.ConfirmSignUp-invalid-code.json"
+    Then I click the "Submit" button
 
   @angular @react @vue @react-native
   Scenario: Sign in with unknown credentials
@@ -26,8 +32,7 @@ Feature: Sign In with Email
     Then I click the "Sign in" button
     Then I see "User does not exist."
 
-  # @todo-migration re-enable
-  # @angular @react @vue
+
   Scenario: Sign in with unconfirmed credentials
 
   If you sign in with an unconfirmed account, Authenticator will redirect you to `confirmSignUp` route.

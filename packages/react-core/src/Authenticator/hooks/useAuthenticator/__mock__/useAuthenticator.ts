@@ -21,18 +21,15 @@ const signOut = jest.fn();
 const socialProviders = [] as AuthenticatorMachineContext['socialProviders'];
 const submitForm = jest.fn();
 const toFederatedSignIn = jest.fn();
-const toResetPassword = jest.fn();
+const toForgotPassword = jest.fn();
 const toSignIn = jest.fn();
 const toSignUp = jest.fn();
 const totpSecretCode = null;
-const unverifiedContactMethods = {};
+const unverifiedUserAttributes = {};
 const updateBlur = jest.fn();
 const updateForm = jest.fn();
+const user = { username: 'username', userId: 'userId' };
 const validationErrors = {};
-
-const user = {
-  challengeName,
-} as AuthenticatorMachineContext['user'];
 
 export const mockMachineContext: AuthenticatorMachineContext = {
   authStatus,
@@ -54,9 +51,11 @@ export const mockMachineContext: AuthenticatorMachineContext = {
   skipVerification,
   socialProviders,
   toFederatedSignIn,
-  toResetPassword,
+  toForgotPassword,
   totpSecretCode,
-  unverifiedContactMethods,
+
+  unverifiedUserAttributes,
+  username: 'george',
   validationErrors,
 };
 

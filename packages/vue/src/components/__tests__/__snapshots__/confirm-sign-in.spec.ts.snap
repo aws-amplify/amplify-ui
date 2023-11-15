@@ -22,7 +22,7 @@ exports[`ConfirmSignIn renders as expected for SMS challenge 1`] = `
           class="amplify-heading amplify-heading--3"
           data-amplify-heading=""
         >
-          Confirm TOTP Code
+          Confirm SMS Code
         </h3>
         
         <div

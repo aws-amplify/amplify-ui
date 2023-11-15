@@ -20,7 +20,8 @@ export class SignInSMSMFAComponent implements OnInit {
     I18n.putVocabularies(translations);
     I18n.setLanguage('en');
     I18n.putVocabulariesForLanguage('en', {
-      'Invalid code or auth state for the user.': 'translated text',
+      'CodeMismatchException: Invalid code or auth state for the user.':
+        'invalid code',
     });
   }
 }

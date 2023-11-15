@@ -36,9 +36,9 @@ const useAuthenticatorSpy = jest
   .spyOn(UseAuthComposables, 'useAuthenticator')
   .mockReturnValue(reactive(mockServiceFacade));
 
-jest.spyOn(UIModule, 'getActorContext').mockReturnValue({
-  country_code: '+1',
-});
+jest
+  .spyOn(UIModule, 'getActorContext')
+  .mockReturnValue({} as UIModule.AuthActorContext);
 
 const getSortedFormFieldsSpy = jest
   .spyOn(UIModule, 'getSortedFormFields')
@@ -94,9 +94,8 @@ describe('SignUp', () => {
     render(SignUp, { global: { components } });
     const usernameField = await screen.findByLabelText('Username');
     const passwordField = await screen.findByLabelText('Password');
-    const confirmPasswordField = await screen.findByLabelText(
-      'Confirm Password'
-    );
+    const confirmPasswordField =
+      await screen.findByLabelText('Confirm Password');
     const emailField = await screen.findByLabelText('Email');
 
     await fireEvent.input(usernameField, { target: usernameInputParams });
@@ -148,9 +147,8 @@ describe('SignUp', () => {
     render(SignUp, { global: { components } });
     const usernameField = await screen.findByLabelText('Username');
     const passwordField = await screen.findByLabelText('Password');
-    const confirmPasswordField = await screen.findByLabelText(
-      'Confirm Password'
-    );
+    const confirmPasswordField =
+      await screen.findByLabelText('Confirm Password');
     const emailField = await screen.findByLabelText('Email');
 
     await fireEvent.input(usernameField, { target: usernameInputParams });

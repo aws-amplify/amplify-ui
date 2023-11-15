@@ -5,6 +5,7 @@
 node_modules
 aws-exports.js
 aws-exports.ts
+amplifyconfiguration.json
 
 # We have mock exports in the following locations
 !examples/angular/src/pages/ui/components/*/*/aws-exports.js

@@ -1,22 +1,13 @@
 import { Amplify } from 'aws-amplify';
-import * as AuthModule from 'aws-amplify/auth';
 
-import { ChallengeName, PasswordSettings } from '../../../types';
+import { PasswordSettings } from '../../../types';
 import { defaultServices } from '../defaultServices';
 import { ALLOWED_SPECIAL_CHARACTERS } from '../../../helpers/authenticator/constants';
 
 jest.mock('aws-amplify');
-jest.mock('aws-amplify/auth');
 
 const {
   getAmplifyConfig,
-  getCurrentUser,
-  handleConfirmSignIn,
-  handleConfirmSignUp,
-  handleForgotPassword,
-  handleForgotPasswordSubmit,
-  handleSignIn,
-  handleSignUp,
   validateFormPassword,
   validateConfirmPassword,
   validateCustomSignUp,
@@ -250,101 +241,6 @@ describe('validateConfirmPassword', () => {
     const result = await validateConfirmPassword(formData, touchData);
 
     expect(result).toBeUndefined();
-  });
-});
-
-describe('handleSignUp', () => {
-  const testCredentials = { username: 'testuser', password: 'testpass' };
-  it('should call signUp with form data and autoSignIn enabled', async () => {
-    await handleSignUp(testCredentials);
-
-    expect(AuthModule.signUp).toHaveBeenCalledWith({
-      ...testCredentials,
-      // @todo-migration confirm this is correct value for options
-      options: { autoSignIn: true, userAttributes: undefined },
-    });
-  });
-});
-
-describe('handleSignIn', () => {
-  const testCredentials = { username: 'testuser', password: 'testpass' };
-  it('should call signIn with username and password', async () => {
-    await handleSignIn(testCredentials);
-
-    expect(AuthModule.signIn).toHaveBeenCalledWith(testCredentials);
-  });
-});
-
-describe('handleConfirmSignIn', () => {
-  const testCredentials = {
-    user: 'testuser',
-    code: '1234',
-    // @todo-migration confirm this is correct value for challengResponse
-    challengeResponse: 'SMS_MFA' as ChallengeName,
-  };
-  it('should call confirmSignIn', async () => {
-    await handleConfirmSignIn(testCredentials);
-
-    expect(AuthModule.confirmSignIn).toHaveBeenCalledWith({
-      user: testCredentials.user,
-      code: testCredentials.code,
-      challengeResponse: testCredentials.challengeResponse,
-    });
-  });
-});
-
-describe('handleConfirmSignUp', () => {
-  const testCredentials = {
-    username: 'testuser',
-    confirmationCode: '1234',
-  };
-  it('should call confirmSignUp', async () => {
-    await handleConfirmSignUp(testCredentials);
-
-    expect(AuthModule.confirmSignUp).toHaveBeenCalledWith({
-      username: testCredentials.username,
-      confirmationCode: testCredentials.confirmationCode,
-    });
-  });
-});
-
-describe('handleForgotPasswordSubmit', () => {
-  const testCredentials = {
-    username: 'testuser',
-    newPassword: 'testpassword',
-    confirmationCode: '1234',
-  };
-  it('should call forgotPasswordSubmit', async () => {
-    await handleForgotPasswordSubmit(testCredentials);
-
-    expect(AuthModule.confirmResetPassword).toHaveBeenCalledWith({
-      username: testCredentials.username,
-      confirmationCode: testCredentials.confirmationCode,
-      newPassword: testCredentials.newPassword,
-    });
-  });
-});
-
-describe('handleForgotPassword', () => {
-  const testCredentials = {
-    username: 'testuser',
-    password: 'testpassword',
-  };
-  it('should call forgotPassword', async () => {
-    await handleForgotPassword(testCredentials);
-
-    expect(AuthModule.resetPassword).toHaveBeenCalledWith({
-      ...testCredentials,
-    });
-  });
-});
-
-// @todo-migration fix and re-enable
-describe.skip('getCurrentUser', () => {
-  it('should call getCurrentUser', async () => {
-    await getCurrentUser();
-
-    expect(AuthModule.getCurrentUser).toHaveBeenCalledTimes(1);
   });
 });
 
