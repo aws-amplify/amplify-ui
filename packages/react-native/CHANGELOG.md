@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-native
 
+## 2.0.1
+
+### Patch Changes
+
+- [#4730](https://github.com/aws-amplify/amplify-ui/pull/4730) [`2ab62defe`](https://github.com/aws-amplify/amplify-ui/commit/2ab62defe14da3dce3bc960aeae47b2342e36da1) Thanks [@calebpollman](https://github.com/calebpollman)! - fix: rename ResetPassword to ForgotPassword
+
 ## 2.0.0
 
 ### Major Changes
