@@ -22,10 +22,9 @@ import {
   selectVideoConstraints,
   selectVideoStream,
 } from '../LivenessCameraModule';
-import { FaceMatchState, drawStaticOval } from '../../service';
+import { FaceMatchState } from '../../service';
 import { getDisplayText } from '../../utils/getDisplayText';
 import { selectIsRecordingStopped } from '../LivenessCheck';
-import { mockVideoMediaStream } from '../../service/utils/__mocks__/testUtils';
 
 jest.mock('../../hooks');
 jest.mock('../../hooks/useLivenessSelector');
