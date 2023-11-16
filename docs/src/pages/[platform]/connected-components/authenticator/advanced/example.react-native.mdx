@@ -7,9 +7,9 @@ import awsExports from './src/aws-exports';
 Amplify.configure(awsExports);
 
 function Footer() {
-  const { toResetPassword } = useAuthenticator();
+  const { toForgotPassword } = useAuthenticator();
   return (
-    <Button onPress={toResetPassword} title="Custom Reset Password" />
+    <Button onPress={toForgotPassword} title="Forgot Password???" />
   );
 },
 

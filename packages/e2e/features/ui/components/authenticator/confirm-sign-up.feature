@@ -45,6 +45,7 @@ Feature: Confirm Sign Up
     Then I type my password
     Then I confirm my password
     Then I click the "Create Account" button
+    Then I see "We Emailed You"
     Then I see "Confirmation Code"
     Then I type a valid confirmation code
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
@@ -54,7 +55,7 @@ Feature: Confirm Sign Up
     Then I confirm request '{"headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }'
 
   @angular @react @vue
-  Scenario: Supports "One-Time Code"
+  Scenario: Confirmation Code field has type "one-time-code"
 
     See: https://developer.apple.com/documentation/security/password_autofill/enabling_password_autofill_on_an_html_input_element
 

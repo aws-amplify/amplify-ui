@@ -1,7 +1,7 @@
 PODS:
-  - "AmplifyRTNCore (1.0.1-unstable.588b76b.0+588b76b)":
+  - AmplifyRTNCore (1.0.2):
     - React-Core
-  - "AmplifyRTNWebBrowser (1.0.1-unstable.588b76b.0+588b76b)":
+  - AmplifyRTNWebBrowser (1.0.2):
     - React-Core
   - boost (1.76.0)
   - CocoaAsyncSocket (7.6.5)
@@ -482,7 +482,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-get-random-values (from `../../../node_modules/react-native-get-random-values`)
   - react-native-launch-arguments (from `../../../node_modules/react-native-launch-arguments`)
-  - "react-native-netinfo (from `../../../node_modules/@react-native-community/netinfo`)"
+  - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -568,7 +568,7 @@ EXTERNAL SOURCES:
   react-native-launch-arguments:
     :path: "../../../node_modules/react-native-launch-arguments"
   react-native-netinfo:
-    :path: "../../../node_modules/@react-native-community/netinfo"
+    :path: "../node_modules/@react-native-community/netinfo"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   React-perflogger:
@@ -603,8 +603,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  AmplifyRTNCore: 48a938efcf4b5aad51e1537d77c9a0bb2c4d99c3
-  AmplifyRTNWebBrowser: be69b21ab1064fbee4035cd13dcd974e212376c1
+  AmplifyRTNCore: b7c34aac2f570f195a76d081f00ace499230cb62
+  AmplifyRTNWebBrowser: c2d7fe98140226eb8f56ce974c600018f3f4534c
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
@@ -660,6 +660,6 @@ SPEC CHECKSUMS:
   Yoga: e71803b4c1fff832ccf9b92541e00f9b873119b9
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: f7c8f4ded50877217c4595b83eaa30fc6a145138
+PODFILE CHECKSUM: 3e4f239e1082010c7703deb2463550734219072a
 
 COCOAPODS: 1.12.1

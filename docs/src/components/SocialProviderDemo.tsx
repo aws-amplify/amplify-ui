@@ -1,7 +1,6 @@
 import { translations } from '@aws-amplify/ui';
 import { Authenticator } from '@aws-amplify/ui-react';
 
-// @todo-migration fix import
 import { I18n } from 'aws-amplify/utils';
 import * as React from 'react';
 

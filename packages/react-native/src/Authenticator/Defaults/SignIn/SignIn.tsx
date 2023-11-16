@@ -22,7 +22,7 @@ const SignIn = ({
   hideSignUp,
   socialProviders,
   toFederatedSignIn,
-  toResetPassword,
+  toForgotPassword,
   toSignUp,
   validationErrors,
   ...rest
@@ -64,7 +64,7 @@ const SignIn = ({
   const buttons = useMemo(() => {
     const forgotPassword = {
       children: forgotPasswordText,
-      onPress: toResetPassword,
+      onPress: toForgotPassword,
     };
     return {
       primary: { children: signInText, disabled, onPress: handleFormSubmit },
@@ -79,7 +79,7 @@ const SignIn = ({
     hideSignUp,
     signInText,
     signUpText,
-    toResetPassword,
+    toForgotPassword,
     toSignUp,
   ]);
 

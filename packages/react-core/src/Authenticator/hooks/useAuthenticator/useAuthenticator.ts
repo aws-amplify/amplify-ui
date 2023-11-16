@@ -41,21 +41,21 @@ export default function useAuthenticator(
   const { authStatus } = context;
   const facade = useSelector(service, xstateSelector, comparator);
 
-  const { route, totpSecretCode, unverifiedContactMethods, user, ...rest } =
+  const { route, totpSecretCode, unverifiedUserAttributes, user, ...rest } =
     facade;
 
   // do not memoize output. `service.getSnapshot` reference remains stable preventing
   // `fields` from updating with current form state on value changes
   const serviceSnapshot = service.getSnapshot() as AuthMachineState;
 
-  // legacy `QRFields` values only used for SetupTOTP page to retrieve issuer information, will be removed in future
-  const QRFields = route === 'setupTOTP' ? getQRFields(serviceSnapshot) : null;
+  // legacy `QRFields` values only used for SetupTotp page to retrieve issuer information, will be removed in future
+  const QRFields = route === 'setupTotp' ? getQRFields(serviceSnapshot) : null;
 
   // legacy `formFields` values required until form state is removed from state machine
   const fields = getMachineFields(
     route,
     serviceSnapshot,
-    unverifiedContactMethods
+    unverifiedUserAttributes
   );
 
   return {
@@ -63,7 +63,7 @@ export default function useAuthenticator(
     authStatus,
     route,
     totpSecretCode,
-    unverifiedContactMethods,
+    unverifiedUserAttributes,
     user,
     /** @deprecated For internal use only */
     fields,

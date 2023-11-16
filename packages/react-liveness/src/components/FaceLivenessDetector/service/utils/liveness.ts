@@ -245,11 +245,11 @@ export function drawLivenessOvalInCanvas({
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
     // fill the canvas with a transparent rectangle
-    ctx.fillStyle = getComputedStyle(canvas).getPropertyValue(
-      isStartScreen
-        ? '--amplify-colors-background-primary'
-        : '--amplify-colors-white'
-    );
+    ctx.fillStyle = isStartScreen
+      ? getComputedStyle(canvas).getPropertyValue(
+          '--amplify-colors-background-primary'
+        )
+      : '#fff';
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
     // On mobile our canvas is the width/height of the full screen.
@@ -353,7 +353,7 @@ export function getFaceMatchStateInLivenessOval(
     ovalBoundingBox
   );
 
-  const intersectionThreshold = 0.6;
+  const intersectionThreshold = OvalIouThreshold;
   const ovalMatchWidthThreshold = ovalDetails.width * OvalIouWidthThreshold;
   const ovalMatchHeightThreshold = ovalDetails.height * OvalIouHeightThreshold;
   const faceDetectionWidthThreshold = ovalDetails.width * FaceIouWidthThreshold;
@@ -451,7 +451,7 @@ export function generateBboxFromLandmarks(
   const faceBottom = faceTop + faceHeight;
   const top = faceBottom - oh;
   const left = Math.min(cx - ow / 2, rightEar[0]);
-  const right = Math.min(cx + ow / 2, leftEar[0]);
+  const right = Math.max(cx + ow / 2, leftEar[0]);
 
   return {
     left: left,

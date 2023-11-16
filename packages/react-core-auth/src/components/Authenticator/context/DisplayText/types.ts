@@ -1,8 +1,4 @@
-import {
-  ChallengeName,
-  NavigationRoute,
-  DisplayTextTemplate,
-} from '@aws-amplify/ui';
+import { ChallengeName, DisplayTextTemplate } from '@aws-amplify/ui';
 
 import { ComponentRoute } from '../ComponentRoute';
 
@@ -36,6 +32,7 @@ type GetSubHeadingText = (
   route: ComponentRoute | undefined
 ) => string | undefined;
 
+type NavigationRoute = 'signIn' | 'signUp' | 'forgotPassword';
 type GetSignInLinkText = (route: NavigationRoute) => string | undefined;
 
 type GetResetPasswordLinkText = (route: NavigationRoute) => string | undefined;

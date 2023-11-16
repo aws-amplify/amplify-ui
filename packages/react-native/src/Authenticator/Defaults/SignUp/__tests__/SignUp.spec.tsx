@@ -44,7 +44,7 @@ const props = {
   Header: SignUp.Header,
   isPending: false,
   socialProviders: [],
-  toResetPassword: jest.fn(),
+  toForgotPassword: jest.fn(),
   toFederatedSignIn: jest.fn(),
   toSignIn: jest.fn(),
   validationErrors: undefined,

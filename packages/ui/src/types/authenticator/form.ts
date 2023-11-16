@@ -18,8 +18,8 @@ export type FormFieldComponents =
   | 'confirmSignIn'
   | 'confirmSignUp'
   | 'confirmVerifyUser'
-  | 'resetPassword'
-  | 'setupTOTP';
+  | 'forgotPassword'
+  | 'setupTotp';
 
 /**
  * Used to customize form field attributes for each authenticator screen.

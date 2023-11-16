@@ -18,8 +18,6 @@ export const ForceNewPassword = ({
   className,
   variation,
 }: RouteProps): JSX.Element => {
-  // eslint-disable-next-line no-console
-  console.log('+++UI: ForceNewPassword');
   const { isPending, toSignIn } = useAuthenticator((context) => [
     context.isPending,
     context.toSignIn,

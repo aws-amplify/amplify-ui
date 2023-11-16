@@ -52,7 +52,6 @@ import { WS_CLOSURE_CODE } from '../utils/constants';
 
 export const MIN_FACE_MATCH_TIME = 1000;
 const DEFAULT_FACE_FIT_TIMEOUT = 7000;
-const CAMERA_ID_KEY = 'AmplifyLivenessCameraId';
 
 // timer metrics variables
 let faceDetectedTimestamp: number;
@@ -60,6 +59,16 @@ let ovalDrawnTimestamp: number;
 let streamConnectionOpenTimestamp: number;
 
 let responseStream: Promise<AsyncIterable<LivenessResponseStream>>;
+
+const CAMERA_ID_KEY = 'AmplifyLivenessCameraId';
+
+function getLastSelectedCameraId(): string | null {
+  return localStorage.getItem(CAMERA_ID_KEY);
+}
+
+function setLastSelectedCameraId(deviceId: string) {
+  localStorage.setItem(CAMERA_ID_KEY, deviceId);
+}
 
 export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
   {
@@ -460,7 +469,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       updateDeviceAndStream: assign({
         videoAssociatedParams: (context, event) => {
-          localStorage.setItem(CAMERA_ID_KEY, event.data?.newDeviceId);
+          setLastSelectedCameraId(event.data?.newDeviceId);
           return {
             ...context.videoAssociatedParams,
             selectedDeviceId: event.data?.newDeviceId,
@@ -894,7 +903,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const { videoConstraints } = context.videoAssociatedParams!;
 
         // Get initial stream to enumerate devices with non-empty labels
-        const existingDeviceId = localStorage.getItem(CAMERA_ID_KEY);
+        const existingDeviceId = getLastSelectedCameraId();
         const initialStream = await navigator.mediaDevices.getUserMedia({
           video: {
             ...videoConstraints,
@@ -942,7 +951,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             audio: false,
           });
         }
-        localStorage.setItem(CAMERA_ID_KEY, deviceId!);
+        setLastSelectedCameraId(deviceId!);
 
         return {
           stream: realVideoDeviceStream,

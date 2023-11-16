@@ -18,16 +18,20 @@ exports[`useAuthenticator returns the expected values 1`] = `
   "socialProviders": [],
   "submitForm": [MockFunction],
   "toFederatedSignIn": [MockFunction],
-  "toResetPassword": [MockFunction],
+  "toForgotPassword": [MockFunction],
   "toSignIn": [MockFunction],
   "toSignUp": [MockFunction],
   "totpSecretCode": null,
-  "unverifiedContactMethods": {
+  "unverifiedUserAttributes": {
     "email": "test#example.com",
   },
   "updateBlur": [MockFunction],
   "updateForm": [MockFunction],
-  "user": {},
+  "user": {
+    "userId": "userId",
+    "username": "username",
+  },
+  "username": "sally",
   "validationErrors": undefined,
 }
 `;

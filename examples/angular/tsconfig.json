@@ -15,8 +15,6 @@
     "lib": ["es2020", "dom", "dom.iterable"],
     "esModuleInterop": true,
     "strict": true,
-    // @todo-migration remove
-    "skipLibCheck": true,
     "paths": {
       "@aws-amplify/ui-angular": ["../../packages/angular/dist/ui-angular"],
       "@aws-amplify/ui-angular/*": ["../../packages/angular/dist/ui-angular/*"],

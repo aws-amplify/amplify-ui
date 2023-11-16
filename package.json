@@ -53,6 +53,7 @@
       "packages/configs/*"
     ],
     "nohoist": [
+      "**/@react-native-community/**",
       "**/react-native",
       "**/react-native-safe-area-context",
       "**/react-native-url-polyfill",
@@ -120,6 +121,6 @@
     "ts-morph": "^17.0.0",
     "turbo": "^1.2.8",
     "typescript": "^5.2.2",
-    "wait-on": "^6.0.0"
+    "wait-on": "^7.2.0"
   }
 }

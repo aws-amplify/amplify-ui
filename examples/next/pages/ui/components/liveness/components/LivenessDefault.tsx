@@ -36,12 +36,7 @@ export default function LivenessDefault({
           <Loader /> <Text as="span">Loading...</Text>
         </Flex>
       ) : (
-        <Flex
-          direction="column"
-          gap="xl"
-          position="relative"
-          style={{ zIndex: '2' }}
-        >
+        <Flex direction="column" gap="xl">
           <SessionIdAlert
             sessionId={createLivenessSessionApiData['sessionId']}
           />
@@ -55,40 +50,24 @@ export default function LivenessDefault({
 
           <Flex gap="0" direction="column" position="relative">
             {!getLivenessResponse ? (
-              credentialProvider ? (
-                <FaceLivenessDetectorCore
-                  sessionId={createLivenessSessionApiData['sessionId']}
-                  region={'us-east-1'}
-                  onUserCancel={onUserCancel}
-                  onAnalysisComplete={async () => {
-                    await handleGetLivenessDetection(
-                      createLivenessSessionApiData['sessionId']
-                    );
-                  }}
-                  onError={(error) => {
-                    console.error(error);
-                  }}
-                  disableStartScreen={disableStartScreen}
-                  components={components}
-                  config={{ credentialProvider }}
-                />
-              ) : (
-                <FaceLivenessDetector
-                  sessionId={createLivenessSessionApiData['sessionId']}
-                  region={'us-east-1'}
-                  onUserCancel={onUserCancel}
-                  onAnalysisComplete={async () => {
-                    await handleGetLivenessDetection(
-                      createLivenessSessionApiData['sessionId']
-                    );
-                  }}
-                  onError={(error) => {
-                    console.error(error);
-                  }}
-                  disableStartScreen={disableStartScreen}
-                  components={components}
-                />
-              )
+              <FaceLivenessDetectorCore
+                sessionId={createLivenessSessionApiData['sessionId']}
+                region={'us-east-1'}
+                onUserCancel={onUserCancel}
+                onAnalysisComplete={async () => {
+                  await handleGetLivenessDetection(
+                    createLivenessSessionApiData['sessionId']
+                  );
+                }}
+                onError={(error) => {
+                  console.error(error);
+                }}
+                disableStartScreen={disableStartScreen}
+                components={components}
+                {...(credentialProvider
+                  ? { config: { credentialProvider } }
+                  : {})}
+              />
             ) : null}
           </Flex>
         </Flex>

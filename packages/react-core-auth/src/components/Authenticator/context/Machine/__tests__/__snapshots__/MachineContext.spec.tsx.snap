@@ -15,7 +15,7 @@ exports[`useMachine returns the expected values 1`] = `
   "skipAttributeVerification": [MockFunction],
   "toFederatedSignIn": [MockFunction],
   "totpSecretCode": undefined,
-  "unverifiedContactMethods": {
+  "unverifiedUserAttributes": {
     "email": "test#example.com",
   },
   "username": undefined,

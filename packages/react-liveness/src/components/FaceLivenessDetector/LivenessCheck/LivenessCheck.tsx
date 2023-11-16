@@ -20,10 +20,12 @@ import {
   defaultErrorDisplayText,
 } from '../displayText';
 import { LandscapeErrorModal } from '../shared/LandscapeErrorModal';
-import { CheckScreenComponents } from '../shared/FaceLivenessErrorModal';
 import { selectErrorState } from '../shared';
+import { FaceLivenessDetectorComponents } from '../shared/DefaultStartScreenComponents';
 
 const CHECK_CLASS_NAME = 'liveness-detector-check';
+
+const CAMERA_ERROR_TEXT_WIDTH = 420;
 
 export const selectIsRecordingStopped = createLivenessSelector(
   (state) => state.context.isRecordingStopped
@@ -35,7 +37,7 @@ interface LivenessCheckProps {
   cameraDisplayText: Required<CameraDisplayText>;
   streamDisplayText: Required<StreamDisplayText>;
   errorDisplayText: Required<ErrorDisplayText>;
-  components?: CheckScreenComponents;
+  components?: FaceLivenessDetectorComponents;
 }
 
 export const LivenessCheck: React.FC<LivenessCheckProps> = ({
@@ -146,7 +148,7 @@ export const LivenessCheck: React.FC<LivenessCheckProps> = ({
               ? cameraMinSpecificationsHeadingText
               : cameraNotFoundHeadingText}
           </Text>
-          <Text maxWidth={420}>
+          <Text maxWidth={CAMERA_ERROR_TEXT_WIDTH}>
             {errorState === LivenessErrorState.CAMERA_FRAMERATE_ERROR
               ? cameraMinSpecificationsMessageText
               : cameraNotFoundMessageText}

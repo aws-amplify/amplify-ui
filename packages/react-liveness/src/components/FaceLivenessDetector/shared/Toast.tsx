@@ -21,12 +21,6 @@ export const Toast: React.FC<ToastProps> = ({
   return (
     <View
       className={`${LivenessClassNames.Toast} ${LivenessClassNames.Toast}--${variation} ${LivenessClassNames.Toast}--${size}`}
-      maxWidth={{ base: '100%' }}
-      {...((variation === 'primary' || variation === 'error') && {
-        borderRadius: 'unset',
-        fontSize: 'xxl',
-        padding: '0 var(--amplify-space-xs)',
-      })}
       {...(isInitial && { backgroundColor: tokens.colors.background.primary })}
       {...rest}
     >

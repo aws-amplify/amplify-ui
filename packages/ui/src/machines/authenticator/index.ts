@@ -1,47 +1,65 @@
-import { ResourcesConfig } from 'aws-amplify';
-import { assign, createMachine, forwardTo, spawn } from 'xstate';
-import { actions } from 'xstate';
-
 import {
-  AuthContext,
-  AuthEvent,
-  AmplifyUser,
-  AuthFormFields,
-  PasswordSettings,
-  LoginMechanism,
-  SignUpAttribute,
-  SocialProvider,
-} from '../../types';
-import { groupLog, isEmptyObject } from '../../utils';
+  actions as xStateActions,
+  assign,
+  createMachine,
+  forwardTo,
+  spawn,
+} from 'xstate';
 
-import { stopActor } from './actions';
-import { resetPasswordActor, signInActor, signOutActor } from './actors';
+import { AuthFormFields, PasswordSettings } from '../../types';
+import { AuthEvent, AuthContext, ActorDoneData, InitialStep } from './types';
+import { isEmptyObject } from '../../utils';
+
+import actions from './actions';
+import guards from './guards';
+import {
+  forgotPasswordActor,
+  signInActor,
+  signOutActor,
+  signUpActor,
+  verifyUserAttributesActor,
+} from './actors';
+
 import { defaultServices } from './defaultServices';
-import { createSignUpMachine } from './signUp';
-
-const { choose } = actions;
-const DEFAULT_COUNTRY_CODE = '+1';
 
 export type AuthenticatorMachineOptions = AuthContext['config'] & {
   services?: AuthContext['services'];
 };
 
+const getActorContext = (context: AuthContext, defaultStep?: InitialStep) => ({
+  ...context.actorDoneData,
+  step: context?.actorDoneData?.step ?? defaultStep,
+
+  // initialize empty objects on actor start
+  formValues: {},
+  touched: {},
+  validationError: {},
+
+  // values included on `context.config` that should be available in actors
+  formFields: context.config?.formFields,
+  loginMechanisms: context.config?.loginMechanisms,
+  passwordSettings: context.config?.passwordSettings,
+  signUpAttributes: context.config?.signUpAttributes,
+  socialProviders: context.config?.socialProviders,
+});
+
+const { choose, stop } = xStateActions;
+
+const stopActor = (machineId: string) => stop(machineId);
+
 // setup step waits for ui to emit INIT action to proceed to configure
 const LEGACY_WAIT_CONFIG = {
   on: {
     INIT: {
-      actions: ['configure', 'setHasSetup'],
-      target: 'applyConfig',
+      actions: ['configure'],
+      target: 'getConfig',
     },
   },
 };
 
 // setup step proceeds directly to configure
 const NEXT_WAIT_CONFIG = {
-  always: {
-    actions: ['configure', 'setHasSetup'],
-    target: 'applyConfig',
-  },
+  always: { actions: ['configure'], target: 'getConfig' },
 };
 
 export function createAuthenticatorMachine(
@@ -49,9 +67,8 @@ export function createAuthenticatorMachine(
     useNextWaitConfig?: boolean;
   }
 ) {
-  groupLog('+++createAuthenticatorMachine');
   const { useNextWaitConfig, ...overrideConfigServices } = options ?? {};
-  const waitConfig = useNextWaitConfig ? NEXT_WAIT_CONFIG : LEGACY_WAIT_CONFIG;
+  const initConfig = useNextWaitConfig ? NEXT_WAIT_CONFIG : LEGACY_WAIT_CONFIG;
   return createMachine<AuthContext, AuthEvent>(
     {
       id: 'authenticator',
@@ -68,26 +85,20 @@ export function createAuthenticatorMachine(
         // See: https://xstate.js.org/docs/guides/communication.html#invoking-promises
         idle: {
           invoke: {
-            src: 'getCurrentUser',
-            onDone: {
-              actions: 'setUser',
-              target: 'authenticated',
-            },
-            onError: {
-              target: 'setup',
-            },
+            src: 'handleGetCurrentUser',
+            onDone: { actions: 'setUser', target: 'authenticated' },
+            onError: { target: 'setup' },
           },
         },
         setup: {
-          initial: 'waitConfig',
+          initial: 'initConfig',
           states: {
-            waitConfig,
-            applyConfig: {
+            initConfig,
+            getConfig: {
               invoke: {
-                // TODO Wait for Auth to be configured
                 src: 'getAmplifyConfig',
                 onDone: {
-                  actions: 'applyAmplifyConfig',
+                  actions: ['applyAmplifyConfig', 'setHasSetup'],
                   target: 'goToInitialState',
                 },
               },
@@ -95,19 +106,29 @@ export function createAuthenticatorMachine(
             goToInitialState: {
               always: [
                 {
-                  target: '#authenticator.signUp',
                   cond: 'isInitialStateSignUp',
+                  target: '#authenticator.signUpActor',
                 },
                 {
-                  target: '#authenticator.resetPassword',
                   cond: 'isInitialStateResetPassword',
+                  target: '#authenticator.forgotPasswordActor',
                 },
-                { target: '#authenticator.signIn' },
+                { target: '#authenticator.signInActor' },
               ],
             },
           },
         },
-        signIn: {
+        getCurrentUser: {
+          invoke: {
+            src: 'handleGetCurrentUser',
+            onDone: {
+              actions: 'setUser',
+              target: '#authenticator.authenticated',
+            },
+            onError: { target: '#authenticator.setup' },
+          },
+        },
+        signInActor: {
           initial: 'spawnActor',
           states: {
             spawnActor: {
@@ -115,31 +136,37 @@ export function createAuthenticatorMachine(
             },
             runActor: {
               entry: 'clearActorDoneData',
-              exit: 'stopSignInActor',
+              exit: stopActor('signInActor'),
             },
           },
           on: {
-            SIGN_UP: 'signUp',
-            RESET_PASSWORD: 'resetPassword',
+            FORGOT_PASSWORD: 'forgotPasswordActor',
+            SIGN_IN: 'signInActor',
+            SIGN_UP: 'signUpActor',
             'done.invoke.signInActor': [
               {
-                target: 'signUp',
-                actions: 'setActorDoneData',
-                cond: 'shouldRedirectToSignUp',
+                cond: 'hasCompletedAttributeConfirmation',
+                target: '#authenticator.getCurrentUser',
               },
               {
-                target: 'resetPassword',
+                cond: 'isShouldConfirmUserAttributeStep',
                 actions: 'setActorDoneData',
-                cond: 'shouldRedirectToResetPassword',
+                target: '#authenticator.verifyUserAttributesActor',
               },
               {
-                target: 'authenticated',
+                cond: 'isResetPasswordStep',
                 actions: 'setActorDoneData',
+                target: '#authenticator.forgotPasswordActor',
+              },
+              {
+                cond: 'isConfirmSignUpStep',
+                actions: 'setActorDoneData',
+                target: '#authenticator.signUpActor',
               },
             ],
           },
         },
-        signUp: {
+        signUpActor: {
           initial: 'spawnActor',
           states: {
             spawnActor: {
@@ -147,93 +174,113 @@ export function createAuthenticatorMachine(
             },
             runActor: {
               entry: 'clearActorDoneData',
-              exit: 'stopSignUpActor',
-            },
-            autoSignIn: {
-              invoke: {
-                src: 'getCurrentUser',
-                onDone: '#authenticator.authenticated',
-                onError: '#authenticator.setup.goToInitialState',
-              },
+              exit: stopActor('signUpActor'),
             },
           },
           on: {
-            SIGN_IN: 'signIn',
-            'done.invoke.signUpActor': {
-              target: '#authenticator.signIn',
-              actions: 'setActorDoneData',
-              cond: 'shouldAutoSignIn',
-            },
+            SIGN_IN: 'signInActor',
+            'done.invoke.signUpActor': [
+              {
+                cond: 'hasCompletedAttributeConfirmation',
+                target: '#authenticator.getCurrentUser',
+              },
+              {
+                cond: 'isConfirmUserAttributeStep',
+                target: '#authenticator.verifyUserAttributesActor',
+              },
+              {
+                actions: 'setActorDoneData',
+                target: '#authenticator.signInActor',
+              },
+            ],
           },
         },
-        resetPassword: {
+        forgotPasswordActor: {
           initial: 'spawnActor',
           states: {
             spawnActor: {
               always: {
-                actions: 'spawnResetPasswordActor',
+                actions: 'spawnForgotPasswordActor',
                 target: 'runActor',
               },
             },
             runActor: {
               entry: 'clearActorDoneData',
-              exit: 'stopResetPasswordActor',
+              exit: stopActor('forgotPasswordActor'),
             },
           },
           on: {
-            SIGN_IN: 'signIn',
-            'done.invoke.resetPasswordActor': {
-              target: 'signIn',
-              actions: 'setActorDoneData',
-            },
+            SIGN_IN: 'signInActor',
+            'done.invoke.forgotPasswordActor': [
+              { target: '#authenticator.signInActor' },
+            ],
           },
         },
-        signOut: {
+        verifyUserAttributesActor: {
           initial: 'spawnActor',
           states: {
             spawnActor: {
-              always: { actions: 'spawnSignOutActor', target: 'runActor' },
+              always: {
+                actions: 'spawnVerifyUserAttributesActor',
+                target: 'runActor',
+              },
             },
             runActor: {
-              entry: ['clearActorDoneData', 'clearUser'],
-              exit: ['stopSignOutActor'],
+              entry: 'clearActorDoneData',
+              exit: stopActor('verifyUserAttributesActor'),
             },
           },
           on: {
-            'done.invoke.signOutActor': [
-              { target: 'setup', cond: 'shouldSetup' },
-              { target: 'setup.goToInitialState' },
+            'done.invoke.verifyUserAttributesActor': [
+              {
+                actions: 'setActorDoneData',
+                target: '#authenticator.getCurrentUser',
+              },
             ],
           },
         },
         authenticated: {
           initial: 'idle',
           states: {
-            idle: {
-              on: {
-                TOKEN_REFRESH: 'refreshUser',
-              },
-            },
+            idle: { on: { TOKEN_REFRESH: 'refreshUser' } },
             refreshUser: {
               invoke: {
-                src: 'getCurrentUser',
-                onDone: {
-                  actions: 'setUser',
-                  target: 'idle',
-                },
+                src: '#authenticator.getCurrentUser',
+                onDone: { actions: 'setUser', target: 'idle' },
                 onError: { target: '#authenticator.signOut' },
               },
             },
           },
           on: { SIGN_OUT: 'signOut' },
         },
+        signOut: {
+          initial: 'spawnActor',
+          states: {
+            spawnActor: {
+              always: {
+                actions: 'spawnSignOutActor',
+                target: 'runActor',
+              },
+            },
+            runActor: {
+              entry: 'clearActorDoneData',
+              exit: stopActor('signOutActor'),
+            },
+          },
+          on: {
+            'done.invoke.signOutActor': {
+              actions: 'clearUser',
+              target: 'setup.getConfig',
+            },
+          },
+        },
       },
       on: {
+        SIGN_IN_WITH_REDIRECT: { target: '#authenticator.getCurrentUser' },
         CHANGE: { actions: 'forwardToActor' },
         BLUR: { actions: 'forwardToActor' },
         SUBMIT: { actions: 'forwardToActor' },
         FEDERATED_SIGN_IN: { actions: 'forwardToActor' },
-        AUTO_SIGN_IN: { actions: 'forwardToActor' },
         RESEND: { actions: 'forwardToActor' },
         SIGN_IN: { actions: 'forwardToActor' },
         SKIP: { actions: 'forwardToActor' },
@@ -241,47 +288,23 @@ export function createAuthenticatorMachine(
     },
     {
       actions: {
+        ...actions,
         forwardToActor: choose([
-          {
-            cond: 'hasActor',
-            actions: forwardTo((context) => context.actorRef),
-          },
+          { cond: 'hasActor', actions: forwardTo(({ actorRef }) => actorRef) },
         ]),
-        setUser: assign({
-          user: (_, event) => {
-            groupLog('+++createMachine.setUser', 'event', event);
-            return event.data as AmplifyUser;
-          },
-        }),
         setActorDoneData: assign({
-          /**
-           * @migration potentially update flows here
-           */
-          actorDoneData: (_, event) => {
-            groupLog('+++setActorDoneData actorDoneData', 'event', event);
-            return {
-              authAttributes: { ...event.data?.authAttributes },
-              intent: event.data?.intent,
-            };
-          },
-          user: (_, event) => {
-            groupLog('+++setActorDoneData user', event.data);
-
-            return { ...event.data };
-          },
-        }),
-        clearUser: assign((ctx, e) => {
-          groupLog('+++clearUser', e);
-          return { user: undefined };
-        }),
-        clearActorDoneData: assign((ctx, e) => {
-          groupLog('+++clearActorDoneData', e);
-          return { actorDoneData: undefined };
+          actorDoneData: (context, event): ActorDoneData => ({
+            codeDeliveryDetails: event.data.codeDeliveryDetails,
+            missingAttributes: event.data.missingAttributes,
+            remoteError: event.data.remoteError,
+            username: event.data.username,
+            step: event.data.step,
+            totpSecretCode: event.data.totpSecretCode,
+            unverifiedUserAttributes: event.data.unverifiedUserAttributes,
+          }),
         }),
         applyAmplifyConfig: assign({
           config(context, { data: cliConfig }) {
-            groupLog('+++applyAmplifyConfig', cliConfig);
-
             // Prefer explicitly configured settings over default CLI values\
             const {
               loginMechanisms = cliConfig.loginMechanisms ?? [],
@@ -313,80 +336,45 @@ export function createAuthenticatorMachine(
         }),
         spawnSignInActor: assign({
           actorRef: (context, _) => {
-            groupLog(
-              '+++spawnSignInActor.actorRef',
-              'looking for context.actorDoneData?.intent',
-              context
-            );
-
             const { services } = context;
-            const actor = signInActor({ services }).withContext({
-              authAttributes: context.actorDoneData?.authAttributes ?? {},
-              user: context.user,
-              intent: context.actorDoneData?.intent,
-              country_code: DEFAULT_COUNTRY_CODE,
-              formValues: {},
-              touched: {},
-              validationError: {},
-              passwordSettings: context.config?.passwordSettings,
-              loginMechanisms: context.config?.loginMechanisms,
-              socialProviders: context.config?.socialProviders,
-              formFields: context.config?.formFields,
-              signUpAttributes: context.config?.signUpAttributes,
-            });
+            const actor = signInActor({ services }).withContext(
+              getActorContext(context, 'SIGN_IN')
+            );
             return spawn(actor, { name: 'signInActor' });
           },
         }),
         spawnSignUpActor: assign({
           actorRef: (context, _) => {
-            groupLog(
-              '+++spawnSignUpActor.actorRef',
-              'looking for context.actorDoneData?.intent',
-              context
-            );
             const { services } = context;
-            const actor = createSignUpMachine({ services }).withContext({
-              authAttributes: context.actorDoneData?.authAttributes ?? {},
-              country_code: DEFAULT_COUNTRY_CODE,
-              intent: context.actorDoneData?.intent,
-              formValues: {},
-              touched: {},
-              validationError: {},
-              loginMechanisms: context.config?.loginMechanisms,
-              socialProviders: context.config?.socialProviders,
-              formFields: context.config?.formFields,
-              passwordSettings: context.config?.passwordSettings,
-            });
+            const actor = signUpActor({ services }).withContext(
+              getActorContext(context, 'SIGN_UP')
+            );
             return spawn(actor, { name: 'signUpActor' });
           },
         }),
-        spawnResetPasswordActor: assign({
-          actorRef: (context, _) => {
+        spawnForgotPasswordActor: assign({
+          actorRef: (context: AuthContext, _) => {
             const { services } = context;
-            const actor = resetPasswordActor({ services }).withContext({
-              formValues: {},
-              touched: {},
-              intent: context.actorDoneData?.intent,
-              username: context.actorDoneData?.authAttributes?.username,
-              formFields: context.config?.formFields,
-              validationError: {},
-              passwordSettings: context.config?.passwordSettings,
-            });
-            return spawn(actor, { name: 'resetPasswordActor' });
+            const actor = forgotPasswordActor({ services }).withContext(
+              getActorContext(context, 'FORGOT_PASSWORD')
+            );
+            return spawn(actor, { name: 'forgotPasswordActor' });
+          },
+        }),
+        spawnVerifyUserAttributesActor: assign({
+          actorRef: (context) => {
+            const actor = verifyUserAttributesActor().withContext(
+              getActorContext(context)
+            );
+            return spawn(actor, { name: 'verifyUserAttributesActor' });
           },
         }),
         spawnSignOutActor: assign({
           actorRef: (context) => {
-            const actor = signOutActor().withContext({
-              user: context.user,
-            });
+            const actor = signOutActor().withContext({ user: context?.user });
             return spawn(actor, { name: 'signOutActor' });
           },
         }),
-        stopSignInActor: stopActor('signInActor'),
-        stopSignUpActor: stopActor('signUpActor'),
-        stopResetPasswordActor: stopActor('resetPasswordActor'),
-        stopSignOutActor: stopActor('signOutActor'),
         configure: assign((_, event) => {
           const { services: customServices, ...config } = !isEmptyObject(
             overrideConfigServices
@@ -399,55 +387,19 @@ export function createAuthenticatorMachine(
             config,
           };
         }),
-        setHasSetup: assign({
-          hasSetup: true,
-        }),
+        setHasSetup: assign({ hasSetup: true }),
       },
       guards: {
-        // guards for initial states
-        isInitialStateSignUp: (context) =>
-          context.config.initialState === 'signUp',
-        isInitialStateResetPassword: (context) =>
-          context.config.initialState === 'resetPassword',
-        // guards for redirections
-        shouldRedirectToSignUp: (_, event) => {
-          groupLog('+++shouldRedirectToSignUp', event);
-          return event.data?.intent === 'confirmSignUp';
-        },
-        shouldRedirectToResetPassword: (context, event) => {
-          groupLog('+++shouldRedirectToResetPassword');
-
-          return event.data?.intent === 'confirmPasswordReset';
-        },
-        shouldAutoSignIn: (context, event) => {
-          groupLog('+++shouldAutoSignIn.top', 'event', event);
-          return (
-            event.data?.intent === 'autoSignIn' ||
-            event.data?.intent === 'autoSignInSubmit'
-          );
-        },
-        shouldSetup: (context) => {
-          groupLog('+++shouldSetup', 'context', context);
-          return context.hasSetup === false;
-        },
-        // other context guards
-        hasActor: (context) => !!context.actorRef,
+        ...guards,
+        hasActor: ({ actorRef }) => !!actorRef,
+        isInitialStateSignUp: ({ config }) => config.initialState === 'signUp',
+        isInitialStateResetPassword: ({ config }) =>
+          config.initialState === 'forgotPassword',
+        shouldSetup: ({ hasSetup }) => !hasSetup,
       },
       services: {
-        getCurrentUser: (context, event) => {
-          groupLog('+++getCurrentUser.top', context, event);
-          return context.services
-            .getCurrentUser()
-            .then((user) => {
-              console.log('getCurrentUser.top success', user);
-              return user;
-            })
-            .catch((e) => {
-              console.log('getCurrentUser.top fail', e);
-              throw new Error(undefined);
-            });
-        },
-        getAmplifyConfig: (context, _) => context.services.getAmplifyConfig(),
+        getAmplifyConfig: ({ services }) => services.getAmplifyConfig(),
+        handleGetCurrentUser: ({ services }) => services.getCurrentUser(),
       },
     }
   );

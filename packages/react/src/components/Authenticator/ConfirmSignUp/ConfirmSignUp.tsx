@@ -23,9 +23,6 @@ export function ConfirmSignUp({
   className,
   variation,
 }: RouteProps): JSX.Element {
-  // eslint-disable-next-line no-console
-  console.log('+++UI: ConfirmSignUp');
-
   const { isPending, resendCode, codeDeliveryDetails } = useAuthenticator(
     (context) => [
       context.isPending,

@@ -6,7 +6,7 @@
 }
 
 .amplify-liveness-cancel-button {
-  background-color: var(--amplify-colors-white);
+  background-color: #fff;
   color: hsl(190, 95%, 30%);
 }
 
@@ -50,6 +50,7 @@
   left: 0;
   width: 100%;
   height: 100%;
+  transform: scaleX(-1);
 }
 
 .amplify-liveness-freshness-canvas {
@@ -98,7 +99,7 @@
 .amplify-liveness-recording-icon {
   flex-direction: column;
   align-items: center;
-  background-color: var(--amplify-colors-white);
+  background-color: #fff;
   padding: var(--amplify-space-xxs);
   gap: var(--amplify-space-xxs);
   border-radius: var(--amplify-radii-small);
@@ -128,7 +129,7 @@
 .amplify-liveness-toast {
   background-color: var(--amplify-colors-background-primary);
   padding: var(--amplify-space-small);
-  border-radius: var(--amplify-radii-medium);
+  max-width: 100%;
 }
 .amplify-liveness-toast__message {
   color: var(--amplify-colors-font-primary);
@@ -136,8 +137,13 @@
   flex-direction: column;
 }
 
+.amplify-liveness-toast--medium {
+  border-radius: var(--amplify-radii-medium);
+}
+
 .amplify-liveness-toast--large {
-  font-size: var(--amplify-font-sizes-xl);
+  font-size: var(--amplify-font-sizes-xxl);
+  padding: 0 var(--amplify-space-xs);
 }
 
 .amplify-liveness-toast--primary {
@@ -297,6 +303,7 @@
   color: var(--amplify-colors-blue-90);
   background-color: var(--amplify-colors-blue-20);
   align-items: center;
+  z-index: 3;
 }
 
 .amplify-liveness-start-screen-instructions__heading {

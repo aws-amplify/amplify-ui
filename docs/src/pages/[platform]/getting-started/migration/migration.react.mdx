@@ -28,15 +28,88 @@ The 6.x version of `@aws-amplify/ui-react` has a minimum dependency of 6.x on `a
 
 `@aws-amplify/ui-react@6.x` introduces the following breaking changes:
 
-#### 1. `@aws-amplify/ui-react@6.x` drops `AmplifyProvider`.
+#### 1. Updates to the Authenticator
 
-`AmplifyProvider` was renamed to `ThemeProvider` in version 2.18.3 but kept for compatibility. No API changes other than export name. If still using `AmplifyProvider`, replace directly with `ThemeProvider`:
+The `initialState` property now accepts `forgotPassword` in place of `resetPassword`:
 
 ```diff
-- import { AmplifyProvider } from '@aws-amplify/ui-react';
-+ import { ThemeProvider } from '@aws-amplify/ui-react';
-- const App = ( <AmplifyProvider><App /></AmplifyProvider>);
-+ const App = ( <ThemeProvider><App /></ThemeProvider>);
+- <Authenticator initialState="resetPassword" />
++ <Authenticator initialState="forgotPassword" />
+```
+
+The corresponding key of the `components` prop has been updated to reflect the change as well:
+
+```diff
+- <Authenticator components={{ ResetPassword: MyResetPassword }} />
++ <Authenticator components={{ ForgotPassword: MyForgotPassword }} />
+```
+
+---
+
+The `user` object provided after an end user has been authenticated has been updated to reflect the `AuthUser` interface available from `aws-amplify/auth`:
+
+```diff
+- interface AmplifyUser {
+-   challengeName?: ChallengeName;
+-   attributes?: CognitpAttributes;
+-   username: string;  
+- }
++ interface AuthUser  {
++   username: string;
++   userId: string;
++   signInDetails?: CognitoAuthSignInDetails;
++ }
+```
+
+`AuthUser` can be imported from `aws-amplify/auth`:
+
+```ts
+import { AuthUser } from 'aws-amplify/auth';
+```
+
+User attributes are now available by directly calling `fetchUserAttribues`:
+
+```ts
+import { fetchUserAttributes } from 'aws-amplify/auth';
+
+const userAttributes = await fetchUserAttributes();
+```
+
+---
+
+The function signatures of the `services` interface have been updated to align with the shape of the underlying `aws-amplify/auth` APIs used by the `Authenticator` and provide improved typescript support:
+
+```diff
+interface AuthenticatorProps {
+  services?: {
+-    getCurrentUser?: () => Promise<any>,
++    getCurrentUser?: () => Promise<AuthUser>,
+
+-    handleSignIn?: ({ username, password, }: { username: string;password: string; }) => Promise<any>,
++    handleSignIn?: (input: SignInInput) => Promise<SignInOutput>,
+
+-    handleSignUp?: (formData: any) => Promise<ISignUpResult>,
++    handleSignUp?: (input: SignUpInput) => Promise<SignUpOutput>,
+
+-    handleConfirmSignIn?: ({ user, code, mfaType, }: { user: any; code: string; mfaType: ChallengeName; }) =>Promise<any>),
++    handleConfirmSignIn?: (input: ConfirmSignInInput) => Promise<ConfirmSignInOutput>,
+
+-    handleConfirmSignUp?: ({ username, code, }: { username: string; code: string; }) => Promise<any>,
++    handleConfirmSignUp?: (input: ConfirmSignUpInput) => Promise<ConfirmSignUpOutput>,
+
+-    handleForgotPasswordSubmit?: ({ username, code, password, }: { username: string; code: string; password:string; }) => Promise<string>),
++    handleForgotPasswordSubmit?: (input: ConfirmResetPasswordInput) => Promise<void>,
+
+-    handleForgotPassword?: (formData: any) => Promise<any>,
++    handleForgotPassword?: (input: ResetPasswordInput) => Promise<ResetPasswordOutput>,
+  }
+}
+```
+
+The input and return type interfaces are available as imports from `aws-amplify/auth`:
+
+```ts
+import { ConfirmSignInInput } from 'aws-amplify';
 ```
 
 #### 2. Expander is now Accordion
@@ -171,7 +244,7 @@ There are also more design tokens and better CSS classes for easier customizatio
 
 #### 4. In-App Messaging
 
-Starting with `aws-amplify@6` the Amplify categories like Auth and Notifications are no longer exported from the base `aws-amplify` package. If you are using in-app messaging you will need to change your imports accordingly and run `initializeInAppMessaging` before your application code:
+Starting with `aws-amplify@6`, the Auth and categories like Auth and Notifications are no longer exported from the base `aws-amplify` package. If you are using in-app messaging you will need to change your imports accordingly and run `initializeInAppMessaging` before your application code:
 
 ```diff
 - import { Amplify, Notifications } from 'aws-amplify'
@@ -267,13 +340,17 @@ const theme = createTheme({
 #### Installation
 Install the 5.x version of the `@aws-amplify/ui-react` library.
 
-<Tabs.Container>
-<Tabs.Item title="npm">
-<TerminalCommand command="npm install @aws-amplify/ui-react@5.x" />
-</Tabs.Item>
-<Tabs.Item title="yarn">
-<TerminalCommand command="yarn add @aws-amplify/ui-react@5.x" />
-</Tabs.Item>
+<Tabs.Container defaultValue="npm">
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="npm">
+    <TerminalCommand command="npm install @aws-amplify/ui-react@5.x" />
+  </Tabs.Panel>
+  <Tabs.Panel value="yarn">
+    <TerminalCommand command="yarn add @aws-amplify/ui-react@5.x" />
+  </Tabs.Panel>
 </Tabs.Container>
 
 #### Update and usage
@@ -283,13 +360,17 @@ Install the 5.x version of the `@aws-amplify/ui-react` library.
 #### 1. `@aws-amplify/ui-react@5.x` drops Amplify Geo components. They are moved to a separate new package `@aws-amplify/ui-react-geo`.
 Install the 1.x version of the `@aws-amplify/ui-react-geo` library and update your existing imports accordingly.
 
-<Tabs.Container>
-<Tabs.Item title="npm">
-<TerminalCommand command="npm install @aws-amplify/ui-react-geo@1.x" />
-</Tabs.Item>
-<Tabs.Item title="yarn">
-<TerminalCommand command="yarn add @aws-amplify/ui-react-geo@1.x" />
-</Tabs.Item>
+<Tabs.Container defaultValue="npm">
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="npm">
+    <TerminalCommand command="npm install @aws-amplify/ui-react-geo@1.x" />
+  </Tabs.Panel>
+  <Tabs.Panel value="yarn">
+    <TerminalCommand command="yarn add @aws-amplify/ui-react-geo@1.x" />
+  </Tabs.Panel>
 </Tabs.Container>
 
 Styles supporting Amplify Geo UI components are moved to `@aws-amplify/ui-react-geo` library and are not available through `@aws-amplify/ui-react` library anymore.
@@ -319,13 +400,17 @@ export default function BasicMap() {
 #### 2. `@aws-amplify/ui-react@5.x` drops Amplify Notifications components. They are moved to a separate new package `@aws-amplify/ui-react-notifications`.
 Install the 1.x version of the `@aws-amplify/ui-react-notifications` library and update your existing imports accordingly.
 
-<Tabs.Container>
-<Tabs.Item title="npm">
-<TerminalCommand command="npm install @aws-amplify/ui-react-notifications@1.x" />
-</Tabs.Item>
-<Tabs.Item title="yarn">
-<TerminalCommand command="yarn add @aws-amplify/ui-react-notifications@1.x" />
-</Tabs.Item>
+<Tabs.Container defaultValue="npm">
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="npm">
+    <TerminalCommand command="npm install @aws-amplify/ui-react-notifications@1.x" />
+  </Tabs.Panel>
+  <Tabs.Panel value="yarn">
+    <TerminalCommand command="yarn add @aws-amplify/ui-react-notifications@1.x" />
+  </Tabs.Panel>
 </Tabs.Container>
 
 For example, you can import the In-App messaging components like InAppMessageDisplay and InAppMessagingProvider from `@aws-amplify/ui-react-notifications` library.
@@ -374,13 +459,17 @@ import { Link as ReactRouterLink } from 'react-router-dom';
 #### Installation
 Install the 4.x version of the `@aws-amplify/ui-react` library and the 5.x version of the `aws-amplify` library.
 
-<Tabs.Container>
-<Tabs.Item title="npm">
-<TerminalCommand command="npm install aws-amplify@5.x @aws-amplify/ui-react@4.x" />
-</Tabs.Item>
-<Tabs.Item title="yarn">
-<TerminalCommand command="yarn add aws-amplify@5.x @aws-amplify/ui-react@4.x" />
-</Tabs.Item>
+<Tabs.Container defaultValue="npm">
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="npm">
+    <TerminalCommand command="npm install aws-amplify@5.x @aws-amplify/ui-react@4.x" />
+  </Tabs.Panel>
+  <Tabs.Panel value="yarn">
+    <TerminalCommand command="yarn add aws-amplify@5.x @aws-amplify/ui-react@4.x" />
+  </Tabs.Panel>
 </Tabs.Container>
 
 #### Update and usage
@@ -482,13 +571,17 @@ If you were using `I18n` to translate those keys, please update your translation
 #### Installation
 Install the 3.x version of the `@aws-amplify/ui-react` library.
 
-<Tabs.Container>
-<Tabs.Item title="npm">
-<TerminalCommand command="npm install aws-amplify @aws-amplify/ui-react@3.x" />
-</Tabs.Item>
-<Tabs.Item title="yarn">
-<TerminalCommand command="yarn add aws-amplify @aws-amplify/ui-react@3.x" />
-</Tabs.Item>
+<Tabs.Container defaultValue="npm">
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="npm">
+    <TerminalCommand command="npm install aws-amplify @aws-amplify/ui-react@3.x" />
+  </Tabs.Panel>
+  <Tabs.Panel value="yarn">
+    <TerminalCommand command="yarn add aws-amplify @aws-amplify/ui-react@3.x" />
+  </Tabs.Panel>
 </Tabs.Container>
 
 #### Update and usage
@@ -515,13 +608,17 @@ This export has been removed and should no longer be used.
 
 Install the 2.x version of the `@aws-amplify/ui-react` library.
 
-<Tabs.Container>
-<Tabs.Item title="npm">
-<TerminalCommand command="npm install aws-amplify @aws-amplify/ui-react@2.x" />
-</Tabs.Item>
-<Tabs.Item title="yarn">
-<TerminalCommand command="yarn add aws-amplify @aws-amplify/ui-react@2.x" />
-</Tabs.Item>
+<Tabs.Container defaultValue="npm">
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="npm">
+    <TerminalCommand command="npm install aws-amplify @aws-amplify/ui-react@2.x" />
+  </Tabs.Panel>
+  <Tabs.Panel value="yarn">
+    <TerminalCommand command="yarn add aws-amplify @aws-amplify/ui-react@2.x" />
+  </Tabs.Panel>
 </Tabs.Container>
 
 #### Update and Usage
@@ -584,18 +681,71 @@ The latest version of the `Authenticator` has a completely different set of CSS 
 Previous versions of `Authenticator` exposed a `onAuthUIStateChange` handler to detect Auth state changes. For similar functionality see [useAuthenticator](/react/connected-components/authenticator/advanced#access-auth-state).
 
 ## `@aws-amplify/ui-react-liveness`
+### Migrate from 2.x to 3.x
+#### Installation
+
+Install the 3.x version of the `@aws-amplify/ui-react-liveness` library.
+
+<Tabs.Container defaultValue="npm">
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="npm">
+    <TerminalCommand command="npm install aws-amplify@6.x @aws-amplify/ui-react-liveness@3.x" />
+  </Tabs.Panel>
+  <Tabs.Panel value="yarn">
+    <TerminalCommand command="yarn add aws-amplify@6.x @aws-amplify/ui-react-liveness@3.x" />
+  </Tabs.Panel>
+</Tabs.Container>
+
+#### Update and Usage
+
+Optionally update your App with the new prop usage:
+
+**App.js**
+
+```diff
+ const App = () => (
+  return (
+    <ThemeProvider>
+      {loading ? (
+        <Loader />
+      ) : (
+        <FaceLivenessDetector
+          sessionId={createLivenessApiData.sessionId}
+          region="us-east-1"
+          onAnalysisComplete={handleAnalysisComplete}
+-         disableInstructionScreen={true}
++         disableStartScreen={true}
+        />
+      )}
+    </ThemeProvider>
+  );
+);
+
+```
+
+#### CDN CSP Policy
+
+The 3.x version of the `FaceLivenessDetector` has been updated to use the latest version of TensorFlow and Blazeface, thus the default CDN paths have changed. If your application has an existing CSP policy, ensure your policy allows https://cdn.liveness.rekognition.amazonaws.com. If you are using a custom CDN make sure to update your CDN versions to match [@tensorflow/tfjs-backend-wasm](https://www.npmjs.com/package/@tensorflow/tfjs-backend-wasm/v/4.11.0) and [@tensorflow-models/face-detection](https://www.npmjs.com/package/@tensorflow-models/face-detection/v/1.0.2).Please look over the [Liveness Config](../connected-components/liveness/customization#facelivenessdetectorconfig) section for more information.
+
 ### Migrate from 1.x to 2.x
 #### Installation
 
 Install the 2.x version of the `@aws-amplify/ui-react-liveness` library.
 
-<Tabs.Container>
-<Tabs.Item title="npm">
-<TerminalCommand command="npm install aws-amplify@5.x @aws-amplify/ui-react-liveness@2.x" />
-</Tabs.Item>
-<Tabs.Item title="yarn">
-<TerminalCommand command="yarn add aws-amplify@5.x @aws-amplify/ui-react-liveness@2.x" />
-</Tabs.Item>
+<Tabs.Container defaultValue="npm">
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="npm">
+    <TerminalCommand command="npm install aws-amplify@5.x @aws-amplify/ui-react-liveness@2.x" />
+  </Tabs.Panel>
+  <Tabs.Panel value="yarn">
+    <TerminalCommand command="yarn add aws-amplify@5.x @aws-amplify/ui-react-liveness@2.x" />
+  </Tabs.Panel>
 </Tabs.Container>
 
 #### Update and Usage

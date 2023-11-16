@@ -58,26 +58,25 @@ describe('Liveness Helper', () => {
       expect(faceMatchPercentage).toBe(0);
     });
 
-    // Note: if this test ever fails just add a console log for face and do a check and copy the value here
+    // Note: if this test ever fails due to face detection updates just add a console log for face and do a check and copy the value here
     it('should return matched', () => {
       const face: Face = {
-        top: 155.67390441894534,
-        left: 150.18686294555664,
-        width: 308.7495231628418,
-        height: 308.7055206298828,
-        timestampMs: 1683674498221,
-        probability: 0.9998714923858643,
-        rightEye: [249.71416473388672, 231.34775161743164],
-        leftEye: [369.01573181152344, 234.44118499755862],
-        mouth: [305.5531311035156, 377.31029510498047],
-        nose: [309.24442291259766, 308.65787506103516],
-        rightEar: [181.92646026611328, 265.05077362060547],
-        leftEar: [427.19539642333984, 272.8925323486328],
+        top: 89.82275009155273,
+        left: 188.85473251342773,
+        width: 375.7287788391113,
+        height: 375.66087722778315,
+        timestampMs: 1696575105415,
+        rightEye: [291.9423294067383, 241.10103607177734],
+        leftEye: [435.9743881225586, 264.43485260009766],
+        mouth: [336.0434341430664, 417.43167877197266],
+        nose: [336.7517852783203, 387.286376953125],
+        rightEar: [236.0750961303711, 193.77853393554685],
+        leftEar: [520.6099700927734, 238.4494781494141],
       };
       const ovalDetails: LivenessOvalDetails = {
-        centerX: 305,
-        centerY: 237,
-        flippedCenterX: 335,
+        centerX: 320,
+        centerY: 240,
+        flippedCenterX: 320,
         height: 512,
         width: 316,
       };

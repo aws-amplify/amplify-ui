@@ -89,9 +89,7 @@ exports[`FederatedProviderButton applies style props 1`] = `
         {
           "color": "hsl(210, 50%, 10%)",
         },
-        [
-          undefined,
-        ],
+        undefined,
       ]
     }
   >
@@ -187,9 +185,7 @@ exports[`FederatedProviderButton renders default button as expected 1`] = `
         {
           "color": "hsl(210, 50%, 10%)",
         },
-        [
-          undefined,
-        ],
+        undefined,
       ]
     }
   >
