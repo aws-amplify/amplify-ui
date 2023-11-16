@@ -10,6 +10,7 @@ import {
 } from '../types';
 import { View } from '../View';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
+import { BiLinkExternal } from 'react-icons/bi';
 
 const LinkPrimitive: Primitive<LinkProps, 'a'> = (
   { as = 'a', children, className, isExternal, ...rest },
@@ -25,6 +26,7 @@ const LinkPrimitive: Primitive<LinkProps, 'a'> = (
       {...rest}
     >
       {children}
+      {isExternal && <BiLinkExternal />}
     </View>
   );
 };
