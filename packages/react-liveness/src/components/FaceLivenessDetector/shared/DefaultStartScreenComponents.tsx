@@ -33,9 +33,9 @@ export const DefaultPhotosensitiveWarning = ({
       style={{ zIndex: '3' }}
     >
       <View flex="1">
-        {headingText && (
+        {headingText ? (
           <View className={ComponentClassName.AlertHeading}>{headingText}</View>
-        )}
+        ) : undefined}
         <View className={ComponentClassName.AlertBody}>{bodyText}</View>
       </View>
       <LivenessIconWithPopover>{infoText}</LivenessIconWithPopover>

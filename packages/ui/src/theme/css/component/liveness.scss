@@ -7,7 +7,7 @@
 
 .amplify-liveness-cancel-button {
   background-color: var(--amplify-colors-white);
-  color: hsl(190, 95%, 30%);
+  color: var(--amplify-colors-teal-80);
 }
 
 .amplify-liveness-fade-out {
@@ -128,7 +128,8 @@
 .amplify-liveness-toast {
   background-color: var(--amplify-colors-background-primary);
   padding: var(--amplify-space-small);
-  border-radius: var(--amplify-radii-medium);
+  max-width: 100%;
+  padding: 0 var(--amplify-space-xs);
 }
 .amplify-liveness-toast__message {
   color: var(--amplify-colors-font-primary);
@@ -137,7 +138,7 @@
 }
 
 .amplify-liveness-toast--large {
-  font-size: var(--amplify-font-sizes-xl);
+  font-size: var(--amplify-font-sizes-xxl);
 }
 
 .amplify-liveness-toast--primary {
