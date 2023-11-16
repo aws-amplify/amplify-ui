@@ -61,16 +61,6 @@ export const FACE_LIVENESS_DETECTOR_COMPONENTS = [
     description: 'Overrides the rendered component for error view.',
     type: `React.ComponentType`,
   },
-  {
-    name: `RecordingIcon?`,
-    description: 'Overrides the rendered component for the recording icon.',
-    type: `React.ComponentType`,
-  },
-  {
-    name: `CancelButton?`,
-    description: 'Overrides the rendered component for the cancel button.',
-    type: `React.ComponentType`,
-  },
 ];
 
 export const LIVENESS_ERROR = [

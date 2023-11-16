@@ -110,11 +110,7 @@ export const LivenessCameraModule = (
 
   const { cancelLivenessCheckText, recordingIndicatorText } = streamDisplayText;
 
-  const {
-    ErrorView = FaceLivenessErrorModal,
-    CancelButton = DefaultCancelButton,
-    RecordingIcon = DefaultRecordingIcon,
-  } = customComponents ?? {};
+  const { ErrorView = FaceLivenessErrorModal } = customComponents ?? {};
 
   const [state, send] = useLivenessActor();
 
@@ -341,11 +337,15 @@ export const LivenessCameraModule = (
           </Flex>
 
           {isRecording && (
-            <RecordingIcon recordingIndicatorText={recordingIndicatorText} />
+            <DefaultRecordingIcon
+              recordingIndicatorText={recordingIndicatorText}
+            />
           )}
 
           {!isStartView && !isWaitingForCamera && !isCheckSucceeded && (
-            <CancelButton cancelLivenessCheckText={cancelLivenessCheckText} />
+            <DefaultCancelButton
+              cancelLivenessCheckText={cancelLivenessCheckText}
+            />
           )}
 
           <Overlay

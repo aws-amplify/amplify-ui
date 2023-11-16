@@ -353,7 +353,7 @@ export function getFaceMatchStateInLivenessOval(
     ovalBoundingBox
   );
 
-  const intersectionThreshold = 0.6;
+  const intersectionThreshold = OvalIouThreshold;
   const ovalMatchWidthThreshold = ovalDetails.width * OvalIouWidthThreshold;
   const ovalMatchHeightThreshold = ovalDetails.height * OvalIouHeightThreshold;
   const faceDetectionWidthThreshold = ovalDetails.width * FaceIouWidthThreshold;
@@ -873,4 +873,14 @@ export function getBoundingBox({
     Top: top / deviceHeight,
     Left: left / deviceWidth,
   };
+}
+
+const CAMERA_ID_KEY = 'AmplifyLivenessCameraId';
+
+export function getLastSelectedCameraId(): string | null {
+  return localStorage.getItem(CAMERA_ID_KEY);
+}
+
+export function setLastSelectedCameraId(deviceId: string) {
+  localStorage.setItem(CAMERA_ID_KEY, deviceId);
 }

@@ -31,6 +31,8 @@ import {
   isCameraDeviceVirtual,
   FreshnessColorDisplay,
   drawStaticOval,
+  setLastSelectedCameraId,
+  getLastSelectedCameraId,
 } from '../utils';
 import { nanoid } from 'nanoid';
 import { getStaticLivenessOvalDetails } from '../utils/liveness';
@@ -52,7 +54,6 @@ import { WS_CLOSURE_CODE } from '../utils/constants';
 
 export const MIN_FACE_MATCH_TIME = 1000;
 const DEFAULT_FACE_FIT_TIMEOUT = 7000;
-const CAMERA_ID_KEY = 'AmplifyLivenessCameraId';
 
 // timer metrics variables
 let faceDetectedTimestamp: number;
@@ -460,7 +461,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       updateDeviceAndStream: assign({
         videoAssociatedParams: (context, event) => {
-          localStorage.setItem(CAMERA_ID_KEY, event.data?.newDeviceId);
+          setLastSelectedCameraId(event.data?.newDeviceId);
           return {
             ...context.videoAssociatedParams,
             selectedDeviceId: event.data?.newDeviceId,
@@ -894,7 +895,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const { videoConstraints } = context.videoAssociatedParams!;
 
         // Get initial stream to enumerate devices with non-empty labels
-        const existingDeviceId = localStorage.getItem(CAMERA_ID_KEY);
+        const existingDeviceId = getLastSelectedCameraId();
         const initialStream = await navigator.mediaDevices.getUserMedia({
           video: {
             ...videoConstraints,
@@ -942,7 +943,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             audio: false,
           });
         }
-        localStorage.setItem(CAMERA_ID_KEY, deviceId!);
+        setLastSelectedCameraId(deviceId!);
 
         return {
           stream: realVideoDeviceStream,

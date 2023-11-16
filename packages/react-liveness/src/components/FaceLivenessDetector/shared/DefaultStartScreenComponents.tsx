@@ -12,8 +12,6 @@ export type FaceLivenessDetectorComponents = StartScreenComponents &
 
 export interface StartScreenComponents {
   PhotosensitiveWarning?: React.ComponentType;
-  RecordingIcon?: React.ComponentType<DefaultRecordingIconProps>;
-  CancelButton?: React.ComponentType<CancelButtonProps>;
 }
 
 interface DefaultPhotosensitiveWarningProps {
