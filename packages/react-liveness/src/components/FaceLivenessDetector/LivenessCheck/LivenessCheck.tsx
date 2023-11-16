@@ -25,6 +25,8 @@ import { FaceLivenessDetectorComponents } from '../shared/DefaultStartScreenComp
 
 const CHECK_CLASS_NAME = 'liveness-detector-check';
 
+const CAMERA_ERROR_TEXT_WIDTH = 420;
+
 export const selectIsRecordingStopped = createLivenessSelector(
   (state) => state.context.isRecordingStopped
 );
@@ -146,7 +148,7 @@ export const LivenessCheck: React.FC<LivenessCheckProps> = ({
               ? cameraMinSpecificationsHeadingText
               : cameraNotFoundHeadingText}
           </Text>
-          <Text maxWidth={420}>
+          <Text maxWidth={CAMERA_ERROR_TEXT_WIDTH}>
             {errorState === LivenessErrorState.CAMERA_FRAMERATE_ERROR
               ? cameraMinSpecificationsMessageText
               : cameraNotFoundMessageText}

@@ -79,6 +79,13 @@ const centeredLoader = (
   />
 );
 
+const showMatchIndicatorStates = [
+  FaceMatchState.TOO_FAR,
+  FaceMatchState.CANT_IDENTIFY,
+  FaceMatchState.FACE_IDENTIFIED,
+  FaceMatchState.MATCHED,
+];
+
 /**
  * For now we want to memoize the HOC for MatchIndicator because to optimize renders
  * The LivenessCameraModule still needs to be optimized for re-renders and at that time
@@ -119,13 +126,6 @@ export const LivenessCameraModule = (
   const faceMatchPercentage = useLivenessSelector(selectFaceMatchPercentage);
   const faceMatchState = useLivenessSelector(selectFaceMatchState);
   const errorState = useLivenessSelector(selectErrorState);
-
-  const showMatchIndicatorStates = [
-    FaceMatchState.TOO_FAR,
-    FaceMatchState.CANT_IDENTIFY,
-    FaceMatchState.FACE_IDENTIFIED,
-    FaceMatchState.MATCHED,
-  ];
 
   const colorMode = useColorMode();
 
@@ -223,6 +223,18 @@ export const LivenessCameraModule = (
     }
   }, [send, videoRef, isCameraReady, isMobileScreen]);
 
+  const photoSensitivtyWarning = React.useMemo(() => {
+    return (
+      <View style={{ visibility: isStartView ? 'visible' : 'hidden' }}>
+        <DefaultPhotosensitiveWarning
+          headingText={instructionDisplayText.photosensitivyWarningHeadingText}
+          bodyText={instructionDisplayText.photosensitivyWarningBodyText}
+          infoText={instructionDisplayText.photosensitivyWarningInfoText}
+        />
+      </View>
+    );
+  }, [instructionDisplayText, isStartView]);
+
   const handleMediaPlay = () => {
     setIsCameraReady(true);
   };
@@ -234,19 +246,22 @@ export const LivenessCameraModule = (
   }, [send]);
 
   const onCameraChange = React.useCallback(
-    async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
       const newDeviceId = e.target.value;
-      const newStream = await navigator.mediaDevices.getUserMedia({
-        video: {
-          ...videoConstraints,
-          deviceId: { exact: newDeviceId },
-        },
-        audio: false,
-      });
-      send({
-        type: 'UPDATE_DEVICE_AND_STREAM',
-        data: { newDeviceId, newStream },
-      });
+      const changeCamera = async () => {
+        const newStream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            ...videoConstraints,
+            deviceId: { exact: newDeviceId },
+          },
+          audio: false,
+        });
+        send({
+          type: 'UPDATE_DEVICE_AND_STREAM',
+          data: { newDeviceId, newStream },
+        });
+      };
+      changeCamera();
     },
     [videoConstraints, send]
   );
@@ -280,13 +295,7 @@ export const LivenessCameraModule = (
 
   return (
     <>
-      <View style={{ visibility: isStartView ? 'visible' : 'hidden' }}>
-        <DefaultPhotosensitiveWarning
-          headingText={instructionDisplayText.photosensitivyWarningHeadingText}
-          bodyText={instructionDisplayText.photosensitivyWarningBodyText}
-          infoText={instructionDisplayText.photosensitivyWarningInfoText}
-        />
-      </View>
+      {photoSensitivtyWarning}
 
       <Flex
         className={classNames(
@@ -315,7 +324,6 @@ export const LivenessCameraModule = (
             muted
             autoPlay
             playsInline
-            style={{ transform: 'scaleX(-1)' }}
             width={mediaWidth}
             height={mediaHeight}
             onCanPlay={handleMediaPlay}
@@ -341,11 +349,10 @@ export const LivenessCameraModule = (
           )}
 
           <Overlay
-            anchorOrigin={{
-              horizontal: 'center',
-              vertical:
-                isRecording && !isFlashingFreshness ? 'start' : 'space-between',
-            }}
+            horizontal="center"
+            vertical={
+              isRecording && !isFlashingFreshness ? 'start' : 'space-between'
+            }
             className={LivenessClassNames.InstructionOverlay}
           >
             <Hint hintDisplayText={hintDisplayText} />
@@ -400,7 +407,6 @@ export const LivenessCameraModule = (
                     label="Camera"
                     labelHidden
                     value={selectedDeviceId}
-                    // eslint-disable-next-line @typescript-eslint/no-misused-promises
                     onChange={onCameraChange}
                   >
                     {selectableDevices?.map((device) => (

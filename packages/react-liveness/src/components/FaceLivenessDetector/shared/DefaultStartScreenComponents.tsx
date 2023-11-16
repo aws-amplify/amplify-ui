@@ -17,7 +17,7 @@ export interface StartScreenComponents {
 }
 
 interface DefaultPhotosensitiveWarningProps {
-  headingText?: string;
+  headingText: string;
   bodyText: string;
   infoText: string;
 }
@@ -33,9 +33,7 @@ export const DefaultPhotosensitiveWarning = ({
       style={{ zIndex: '3' }}
     >
       <View flex="1">
-        {headingText ? (
-          <View className={ComponentClassName.AlertHeading}>{headingText}</View>
-        ) : undefined}
+        <View className={ComponentClassName.AlertHeading}>{headingText}</View>
         <View className={ComponentClassName.AlertBody}>{bodyText}</View>
       </View>
       <LivenessIconWithPopover>{infoText}</LivenessIconWithPopover>

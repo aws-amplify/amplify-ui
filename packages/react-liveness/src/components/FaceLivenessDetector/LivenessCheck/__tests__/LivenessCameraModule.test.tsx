@@ -87,7 +87,6 @@ describe('LivenessCameraModule', () => {
 
     jest.clearAllMocks();
     jest.clearAllTimers();
-    mockUseLivenessSelector.mockClear();
     resetAllWhenMocks();
   });
 
