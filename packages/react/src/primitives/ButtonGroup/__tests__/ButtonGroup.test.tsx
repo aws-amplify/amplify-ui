@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { Button } from '../../Button';
 import { ButtonGroup } from '../ButtonGroup';
-import { ButtonGroupProps, PrimitiveProps } from '../../types';
+import { ButtonGroupProps } from '../../types';
 import { ComponentClassName } from '@aws-amplify/ui';
 import {
   testFlexProps,
