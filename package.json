@@ -74,7 +74,6 @@
     "@types/react": "^18.2.22",
     "@types/react-dom": "^18.2.7",
     "browserslist": "^4.16.15",
-    "cmake-js/axios": "^1.6.0",
     "docs/next-plugin-preval/webpack": "^5.76.0",
     "json5": "^2.2.1",
     "loader-utils": "2.0.4",
@@ -123,9 +122,5 @@
     "turbo": "^1.2.8",
     "typescript": "^5.2.2",
     "wait-on": "^7.2.0"
-  },
-  "dependencies": {
-    "aws-crt": "^1.19.0",
-    "cmake-js": "^7.2.1"
   }
 }
