@@ -1,13 +1,12 @@
 /* eslint-disable  */
 import 'jest-canvas-mock';
-import * as blazeface from '@tensorflow-models/blazeface';
+import * as blazeface from '@tensorflow-models/face-detection';
 import { isWebAssemblySupported } from '../support';
 
 import { BlazeFaceFaceDetection } from '../blazefaceFaceDetection';
 
 const mockEstimateFace = jest.fn();
-jest.mock('@tensorflow/tfjs-core');
-jest.mock('@tensorflow-models/blazeface');
+jest.mock('@tensorflow-models/face-detection');
 jest.mock('@tensorflow/tfjs-backend-wasm', () => {
   return {
     setWasmPaths: jest.fn(),
@@ -20,15 +19,22 @@ jest.mock('@aws-amplify/core/internals/utils', () => ({
 }));
 jest.mock('../support');
 
-const MOCK_NORMALIZED_FACE: blazeface.NormalizedFace = {
-  bottomRight: [100, 0],
-  topLeft: [0, 100],
-  probability: 90,
-  landmarks: [
-    [50, 50],
-    [50, 50],
-    [50, 50],
-    [50, 50],
+const MOCK_NORMALIZED_FACE: blazeface.Face = {
+  box: {
+    xMin: 0,
+    yMin: 0,
+    xMax: 100,
+    yMax: 100,
+    width: 100,
+    height: 100,
+  },
+  keypoints: [
+    { x: 50, y: 50, name: 'rightEye' },
+    { x: 50, y: 50, name: 'leftEye' },
+    { x: 50, y: 50, name: 'noseTip' },
+    { x: 50, y: 50, name: 'mouthCenter' },
+    { x: 50, y: 50, name: 'leftEarTragion' },
+    { x: 50, y: 50, name: 'rightEarTragion' },
   ],
 };
 
@@ -40,7 +46,7 @@ describe('blazefaceFaceDetection', () => {
       mockIsWebAssemblySupported
     );
     mockIsWebAssemblySupported.mockReturnValue(true);
-    mockEstimateFace.mockResolvedValue([{}, MOCK_NORMALIZED_FACE]);
+    mockEstimateFace.mockResolvedValue([MOCK_NORMALIZED_FACE]);
   });
 
   it('can be initialized', () => {
@@ -70,8 +76,8 @@ describe('blazefaceFaceDetection', () => {
 
     expect(face.height).toBe(100);
     expect(face.width).toBe(100);
-    expect(face.top).toBe(100);
-    expect(face.left).toBe(100);
+    expect(face.top).toBe(0);
+    expect(face.left).toBe(0);
     expect(face.leftEye).toStrictEqual([50, 50]);
     expect(face.rightEye).toStrictEqual([50, 50]);
     expect(face.mouth).toStrictEqual([50, 50]);
