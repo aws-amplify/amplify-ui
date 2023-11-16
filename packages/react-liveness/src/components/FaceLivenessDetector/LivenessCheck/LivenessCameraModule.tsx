@@ -422,7 +422,7 @@ export const LivenessCameraModule = (
             type="button"
             onClick={beginLivenessCheck}
           >
-            {instructionDisplayText.instructionsBeginCheckText}
+            {instructionDisplayText.startScreenBeginCheckText}
           </Button>
         </Flex>
       )}

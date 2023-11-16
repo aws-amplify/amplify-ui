@@ -63,7 +63,7 @@ export default function LivenessDefault({
                   console.error(error);
                 }}
                 disableStartScreen={disableStartScreen}
-                components={components}
+                components={{ components }}
                 {...(credentialProvider
                   ? { config: { credentialProvider } }
                   : {})}

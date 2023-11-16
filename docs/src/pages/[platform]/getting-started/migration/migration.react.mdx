@@ -681,6 +681,55 @@ The latest version of the `Authenticator` has a completely different set of CSS 
 Previous versions of `Authenticator` exposed a `onAuthUIStateChange` handler to detect Auth state changes. For similar functionality see [useAuthenticator](/react/connected-components/authenticator/advanced#access-auth-state).
 
 ## `@aws-amplify/ui-react-liveness`
+### Migrate from 2.x to 3.x
+#### Installation
+
+Install the 3.x version of the `@aws-amplify/ui-react-liveness` library.
+
+<Tabs.Container defaultValue="npm">
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="npm">
+    <TerminalCommand command="npm install aws-amplify@6.x @aws-amplify/ui-react-liveness@3.x" />
+  </Tabs.Panel>
+  <Tabs.Panel value="yarn">
+    <TerminalCommand command="yarn add aws-amplify@6.x @aws-amplify/ui-react-liveness@3.x" />
+  </Tabs.Panel>
+</Tabs.Container>
+
+#### Update and Usage
+
+Optionally update your App with the new prop usage:
+
+**App.js**
+
+```diff
+ const App = () => (
+  return (
+    <ThemeProvider>
+      {loading ? (
+        <Loader />
+      ) : (
+        <FaceLivenessDetector
+          sessionId={createLivenessApiData.sessionId}
+          region="us-east-1"
+          onAnalysisComplete={handleAnalysisComplete}
+-         disableInstructionScreen={true}
++         disableStartScreen={true}
+        />
+      )}
+    </ThemeProvider>
+  );
+);
+
+```
+
+#### CDN CSP Policy
+
+The 3.x version of the `FaceLivenessDetector` has been updated to use the latest version of TensorFlow and Blazefacee thus the default CDN's have changed to a new URL. If your application has an existing CSP policy, ensure your policy allows https://cdn.liveness.rekognition.amazonaws.com. If you are using a custom CDN make sure to update your CDN versions to match [@tensorflow/tfjs-backend-wasm](https://www.npmjs.com/package/@tensorflow/tfjs-backend-wasm/v/4.11.0) and [@tensorflow-models/face-detection](https://www.npmjs.com/package/@tensorflow-models/face-detection/v/1.0.2).Please look over the [Liveness Config](../connected-components/liveness/customization#facelivenessdetectorconfig) section for more information.
+
 ### Migrate from 1.x to 2.x
 #### Installation
 

@@ -82,7 +82,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
     if (isStartView) {
       return (
         <Toast size="large" variation="primary" isInitial>
-          Center your face
+          {hintDisplayText.hintCenterFaceText}
         </Toast>
       );
     }

@@ -11,6 +11,7 @@ export type HintDisplayText = {
   hintIlluminationTooDarkText?: string;
   hintIlluminationNormalText?: string;
   hintHoldFaceForFreshnessText?: string;
+  hintCenterFaceText?: string;
 };
 
 export type CameraDisplayText = {
@@ -23,21 +24,14 @@ export type CameraDisplayText = {
 };
 
 export type InstructionDisplayText = {
-  instructionsHeaderHeadingText?: string;
-  instructionsHeaderBodyText?: string;
-  instructionsBeginCheckText?: string;
   photosensitivyWarningHeadingText?: string;
   photosensitivyWarningBodyText?: string;
   photosensitivyWarningInfoText?: string;
-  instructionListHeadingText?: string;
   goodFitCaptionText?: string;
   goodFitAltText?: string;
   tooFarCaptionText?: string;
   tooFarAltText?: string;
-  instructionListStepOneText?: string;
-  instructionListStepTwoText?: string;
-  instructionListStepThreeText?: string;
-  instructionListStepFourText?: string;
+  startScreenBeginCheckText?: string;
 };
 
 export type StreamDisplayText = {
@@ -70,29 +64,19 @@ export type ErrorDisplayTextFoo = typeof defaultErrorDisplayText;
 export type ErrorDisplayText = Partial<ErrorDisplayTextFoo>;
 
 export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
-  instructionsHeaderHeadingText: 'Liveness check',
-  instructionsHeaderBodyText:
-    'You will go through a face verification process to prove that you are a real person.',
-  instructionsBeginCheckText: 'Start video check',
+  hintCenterFaceText: 'Center your face',
+  startScreenBeginCheckText: 'Start video check',
   photosensitivyWarningHeadingText: 'Photosensitivity warning',
   photosensitivyWarningBodyText:
     'This check flashes different colors. Use caution if you are photosensitive.',
   photosensitivyWarningInfoText:
     'Some people may experience may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
-  instructionListHeadingText: 'Follow the instructions to complete the check:',
   goodFitCaptionText: 'Good fit',
   goodFitAltText:
     "Ilustration of a person's face, perfectly fitting inside of an oval.",
   tooFarCaptionText: 'Too far',
   tooFarAltText:
     "Illustration of a person's face inside of an oval; there is a gap between the perimeter of the face and the boundaries of the oval.",
-  instructionListStepOneText:
-    'When an oval appears, follow the instructions to fit your face in it.',
-  instructionListStepTwoText: 'Maximize your screen brightness setting.',
-  instructionListStepThreeText:
-    'Make sure your face is not covered with sunglasses or a mask.',
-  instructionListStepFourText:
-    'Move to a well-lit place that is not in direct sunlight.',
   cameraMinSpecificationsHeadingText:
     'Camera does not meet minimum specifications',
   cameraMinSpecificationsMessageText:

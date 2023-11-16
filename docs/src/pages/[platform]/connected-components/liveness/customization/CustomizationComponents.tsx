@@ -30,6 +30,14 @@ export function CustomizationComponents() {
             </View>
           );
         },
+        CancelButton: (): JSX.Element => {
+          // Hides the cancel button
+          return undefined;
+        },
+        RecordingIcon: (): JSX.Element => {
+          // Hides the recording icon
+          return undefined;
+        },
       }}
     />
   );

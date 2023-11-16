@@ -32,21 +32,13 @@ export function getDisplayText(
   };
 
   const {
-    instructionsHeaderHeadingText,
-    instructionsHeaderBodyText,
-    instructionsBeginCheckText,
     photosensitivyWarningHeadingText,
     photosensitivyWarningBodyText,
     photosensitivyWarningInfoText,
-    instructionListHeadingText,
     goodFitCaptionText,
     goodFitAltText,
     tooFarCaptionText,
     tooFarAltText,
-    instructionListStepOneText,
-    instructionListStepTwoText,
-    instructionListStepThreeText,
-    instructionListStepFourText,
     cameraMinSpecificationsHeadingText,
     cameraMinSpecificationsMessageText,
     cameraNotFoundHeadingText,
@@ -81,6 +73,8 @@ export function getDisplayText(
     landscapeMessageText,
     portraitMessageText,
     tryAgainText,
+    startScreenBeginCheckText,
+    hintCenterFaceText,
   } = displayText;
 
   const hintDisplayText: Required<HintDisplayText> = {
@@ -96,6 +90,7 @@ export function getDisplayText(
     hintIlluminationTooDarkText,
     hintIlluminationNormalText,
     hintHoldFaceForFreshnessText,
+    hintCenterFaceText,
   };
 
   const cameraDisplayText: Required<CameraDisplayText> = {
@@ -108,21 +103,14 @@ export function getDisplayText(
   };
 
   const instructionDisplayText: Required<InstructionDisplayText> = {
-    instructionsHeaderHeadingText,
-    instructionsHeaderBodyText,
-    instructionsBeginCheckText,
     photosensitivyWarningHeadingText,
     photosensitivyWarningBodyText,
     photosensitivyWarningInfoText,
-    instructionListHeadingText,
     goodFitCaptionText,
     goodFitAltText,
     tooFarCaptionText,
     tooFarAltText,
-    instructionListStepOneText,
-    instructionListStepTwoText,
-    instructionListStepThreeText,
-    instructionListStepFourText,
+    startScreenBeginCheckText,
   };
 
   const streamDisplayText: Required<StreamDisplayText> = {
