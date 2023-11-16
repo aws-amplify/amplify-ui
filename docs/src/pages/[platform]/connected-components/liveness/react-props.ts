@@ -27,9 +27,9 @@ export const FACE_LIVENESS_DETECTOR_PROPS = [
     type: `(error: LivenessError) => void`,
   },
   {
-    name: `disableInstructionScreen?`,
+    name: `disableStartScreen?`,
     description:
-      'Optional parameter for the disabling the Start/Get Ready Screen, default: false.',
+      'Optional parameter for the disabling the start screen, default: false.',
     type: `boolean`,
   },
   {
@@ -51,25 +51,24 @@ export const FACE_LIVENESS_DETECTOR_PROPS = [
 
 export const FACE_LIVENESS_DETECTOR_COMPONENTS = [
   {
-    name: `Header?`,
-    description: 'Overrides the rendered component in the header section.',
-    type: `React.ComponentType`,
-  },
-  {
     name: `PhotosensitiveWarning?`,
     description:
       'Overrides the rendered component for the photosensitivity warning.',
     type: `React.ComponentType`,
   },
   {
-    name: `Instructions?`,
-    description:
-      'Overrides the rendered component for the instruction section.',
+    name: `ErrorView?`,
+    description: 'Overrides the rendered component for error view.',
     type: `React.ComponentType`,
   },
   {
-    name: `ErrorView?`,
-    description: 'Overrides the rendered component for error view.',
+    name: `RecordingIcon?`,
+    description: 'Overrides the rendered component for the recording icon.',
+    type: `React.ComponentType`,
+  },
+  {
+    name: `CancelButton?`,
+    description: 'Overrides the rendered component for the cancel button.',
     type: `React.ComponentType`,
   },
 ];
