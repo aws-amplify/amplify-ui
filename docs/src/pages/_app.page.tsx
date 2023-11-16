@@ -89,9 +89,9 @@ function MyApp({ Component, pageProps }) {
         <ThemeProvider theme={baseTheme} colorMode={colorMode}>
           {
             <GlobalNav
+              mainId="docs-content"
               rightLinks={RIGHT_NAV_LINKS as NavMenuItem[]}
               leftLinks={LEFT_NAV_LINKS as NavMenuItem[]}
-              socialLinks={SOCIAL_LINKS as NavMenuItem[]}
               currentSite="UI Library"
             />
           }
@@ -102,7 +102,7 @@ function MyApp({ Component, pageProps }) {
             setColorMode={handleColorModeChange}
             platform={platform}
           />
-          <main className="docs-main">
+          <div className="docs-main">
             <div
               className={classNames(
                 'docs-sidebar-spacer',
@@ -115,7 +115,7 @@ function MyApp({ Component, pageProps }) {
               setExpanded={setExpanded}
               colorMode={colorMode}
             />
-          </main>
+          </div>
         </ThemeProvider>
       </div>
       <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
