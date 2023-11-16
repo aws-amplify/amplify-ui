@@ -451,7 +451,7 @@ export function generateBboxFromLandmarks(
   const faceBottom = faceTop + faceHeight;
   const top = faceBottom - oh;
   const left = Math.min(cx - ow / 2, rightEar[0]);
-  const right = Math.min(cx + ow / 2, leftEar[0]);
+  const right = Math.max(cx + ow / 2, leftEar[0]);
 
   return {
     left: left,
