@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-storage
 
+## 3.0.2
+
+### Patch Changes
+
+- [#4760](https://github.com/aws-amplify/amplify-ui/pull/4760) [`74f834422`](https://github.com/aws-amplify/amplify-ui/commit/74f83442276c73af60da740acf4b7bc2b2878544) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(storagemanager): upload action now displays state properly (#4666)
+
 ## 3.0.1
 
 ### Patch Changes
