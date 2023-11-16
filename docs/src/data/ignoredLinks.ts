@@ -26,6 +26,7 @@ export const IGNORED_LINKS = [
   'https://twitter.com/AWSAmplify',
   'https://tfhub.dev/tensorflow/tfjs-model/blazeface/1/default/1/model.json?tfjs-format=file', // 302 to a google cdn
   'https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow/tfjs-backend-wasm/3.11.0/', // 404 this is the intentional path as the tfjs library will append the correct file name
+  'https://tfhub.dev/mediapipe/tfjs-model/face_detection/short/1', // 302 redirects to kaggle/models/mediapipe/face-detection/frameworks/tfJs/variations/short/versions/1
   'https://cdn.liveness.rekognition.amazonaws.com',
   'https://www.figma.com/community/file/1047600760128127424',
   'https://www.figma.com/community/plugin/1040722185526429545/AWS-Amplify-Theme-Editor',
@@ -39,8 +40,4 @@ export const IGNORED_LINKS = [
   'https://pub.dev/documentation/amplify_authenticator/latest/amplify_authenticator/AuthenticatorState-class.html',
   'https://pub.dev/documentation/amplify_authenticator/latest/amplify_authenticator/amplify_authenticator-library.html',
   'https://docs.flutter.dev/ui/accessibility-and-localization/internationalization',
-
-  // @todo-migration remove after releasing ui-react v6
-  'https://github.com/aws-amplify/amplify-ui//blob/main/packages/ui/src/theme/tokens/components/accordion.ts',
-  'https://github.com/aws-amplify/amplify-ui//blob/main/packages/react/src/primitives/Accordion/Accordion.tsx',
 ];
