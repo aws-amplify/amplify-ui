@@ -37,7 +37,6 @@
     "@nuintun/qrcode": "^3.3.0",
     "@testing-library/cypress": "^10.0.1",
     "esbuild": "^0.19.3",
-    "aws-crt": "^1.19.0",
     "cypress": "^12.17.3",
     "detox": "^20.13.1",
     "dotenv": "^16.0.2"
