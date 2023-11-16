@@ -110,7 +110,6 @@ describe('Link:', () => {
 
     expect(screen.getByText(/you are home/i)).toBeInTheDocument();
 
-    const leftClick = { button: 0 };
     const events = userEvent.setup();
     await act(async () => {
       await events.click(screen.getByText(/about/i));
