@@ -4,6 +4,10 @@
   // all:unset removes this, so we have to add it back.
   cursor: pointer;
 
+  display: flex;
+  align-items: center;
+  gap: 2px;
+
   &:visited {
     color: var(--amplify-components-link-visited-color);
     text-decoration: var(--amplify-components-link-visited-text-decoration);

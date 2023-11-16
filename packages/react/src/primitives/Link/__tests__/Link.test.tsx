@@ -77,6 +77,14 @@ describe('Link:', () => {
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
   });
 
+  it('should render svg icon when link is external', async () => {
+    render(<Link isExternal>{linkText}</Link>);
+
+    const link = await screen.findByText(linkText);
+    expect(link.children.length).toBe(1);
+    expect(link.children[0].tagName).toBe('svg');
+  });
+
   it('can render the Link tag as other components', async () => {
     render(<Link as={Text}>{linkText}</Link>);
 
