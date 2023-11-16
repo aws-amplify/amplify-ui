@@ -5,7 +5,7 @@ describe('getDisplayText', () => {
     const customDisplayText = {
       hintTooCloseText: 'Way too close!',
       cancelLivenessCheckText: 'Cancel verification process',
-      instructionsHeaderHeadingText: 'Verification process',
+      startScreenBeginCheckText: 'Verification process',
       cameraNotFoundHeadingText: 'Camera was not found',
     };
 
@@ -22,8 +22,8 @@ describe('getDisplayText', () => {
     expect(streamDisplayText.cancelLivenessCheckText).toBe(
       customDisplayText.cancelLivenessCheckText
     );
-    expect(instructionDisplayText.instructionsHeaderHeadingText).toBe(
-      customDisplayText.instructionsHeaderHeadingText
+    expect(instructionDisplayText.startScreenBeginCheckText).toBe(
+      customDisplayText.startScreenBeginCheckText
     );
     expect(cameraDisplayText.cameraNotFoundHeadingText).toBe(
       customDisplayText.cameraNotFoundHeadingText

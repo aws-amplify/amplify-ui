@@ -9,29 +9,15 @@ const config: Config = {
     // do not collect from top level version and styles files
     '!<rootDir>/src/(styles|version).(ts|tsx)',
   ],
-  // coverageThreshold: {
-  //   global: {
-  //     branches: 80,
-  //     functions: 82,
-  //     lines: 89,
-  //     statements: 89,
-  //   },
-  // },
   coverageThreshold: {
     global: {
-      branches: 77.0,
-      functions: 57.74,
-      lines: 72.0,
-      statements: 73.0,
+      branches: 80,
+      functions: 82,
+      lines: 89,
+      statements: 89,
     },
   },
-  // @todo-migration update test API usage and remove temp thresholds
-  testPathIgnorePatterns: [
-    'src/components/FaceLivenessDetector/service/utils/__tests__/streamProvider.test.ts',
-    'src/components/FaceLivenessDetector/StartLiveness/__tests__/StartLiveness.test.tsx',
-    'src/components/FaceLivenessDetector/shared/__tests__/CancelButton.test.tsx',
-    'src/components/FaceLivenessDetector/shared/__tests__/LivenessIconWithPopover.test.tsx',
-  ],
+  testPathIgnorePatterns: [],
   moduleNameMapper: {
     '^nanoid$': '<rootDir>/../../node_modules/nanoid',
     '^uuid$': '<rootDir>/../../node_modules/uuid',
