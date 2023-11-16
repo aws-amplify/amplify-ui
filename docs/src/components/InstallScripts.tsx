@@ -60,13 +60,16 @@ export const TerminalCommand = ({
 };
 
 interface InstallScriptsProps {
+  command?: string;
   framework?: Framework;
   component?: string;
 }
 
 export const InstallScripts = ({
-  framework,
+  // override framework default platform install command
+  command,
   component,
+  framework,
 }: InstallScriptsProps) => {
   const {
     query: { platform = 'react' },
@@ -86,6 +89,7 @@ export const InstallScripts = ({
       <Tabs.Panel value="npm">
         <TerminalCommand
           framework={framework}
+          command={command}
           component={component}
           packageManager="npm"
         />
@@ -93,6 +97,7 @@ export const InstallScripts = ({
       <Tabs.Panel value="yarn">
         <TerminalCommand
           framework={framework}
+          command={command}
           component={component}
           packageManager="yarn"
         />
