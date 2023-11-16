@@ -8,4 +8,7 @@ module.exports = {
       tsconfig: 'tsconfig.json',
     },
   },
+  moduleNameMapper: {
+    axios: '<rootDir>/../../node_modules/axios/lib/axios.js', // required because JS v5 uses ESM version of axios
+  },
 };
