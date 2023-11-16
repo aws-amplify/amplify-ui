@@ -874,13 +874,3 @@ export function getBoundingBox({
     Left: left / deviceWidth,
   };
 }
-
-const CAMERA_ID_KEY = 'AmplifyLivenessCameraId';
-
-export function getLastSelectedCameraId(): string | null {
-  return localStorage.getItem(CAMERA_ID_KEY);
-}
-
-export function setLastSelectedCameraId(deviceId: string) {
-  localStorage.setItem(CAMERA_ID_KEY, deviceId);
-}

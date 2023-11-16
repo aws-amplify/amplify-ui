@@ -31,8 +31,6 @@ import {
   isCameraDeviceVirtual,
   FreshnessColorDisplay,
   drawStaticOval,
-  setLastSelectedCameraId,
-  getLastSelectedCameraId,
 } from '../utils';
 import { nanoid } from 'nanoid';
 import { getStaticLivenessOvalDetails } from '../utils/liveness';
@@ -61,6 +59,16 @@ let ovalDrawnTimestamp: number;
 let streamConnectionOpenTimestamp: number;
 
 let responseStream: Promise<AsyncIterable<LivenessResponseStream>>;
+
+const CAMERA_ID_KEY = 'AmplifyLivenessCameraId';
+
+function getLastSelectedCameraId(): string | null {
+  return localStorage.getItem(CAMERA_ID_KEY);
+}
+
+function setLastSelectedCameraId(deviceId: string) {
+  localStorage.setItem(CAMERA_ID_KEY, deviceId);
+}
 
 export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
   {
