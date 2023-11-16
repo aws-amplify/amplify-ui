@@ -9,8 +9,8 @@ import {
   SelectField,
   Text,
   View,
-  useColorMode,
 } from '@aws-amplify/ui-react';
+import { useColorMode } from '@aws-amplify/ui-react/internal';
 import { FaceMatchState, drawStaticOval } from '../service';
 import {
   useLivenessActor,
