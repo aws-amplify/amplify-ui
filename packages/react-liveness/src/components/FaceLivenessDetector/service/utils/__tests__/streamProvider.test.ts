@@ -21,7 +21,6 @@ Object.defineProperty(window, 'TextDecoder', {
 
 jest.mock('aws-amplify/auth', () => {
   const originalModule = jest.requireActual('aws-amplify/auth');
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return {
     ...originalModule,
     fetchAuthSession: jest.fn().mockImplementation(() => {
