@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 6.0.1
+
+### Patch Changes
+
+- [#4761](https://github.com/aws-amplify/amplify-ui/pull/4761) [`9dd0e58e5`](https://github.com/aws-amplify/amplify-ui/commit/9dd0e58e5167d307c2154b3280de3c0e52f607e1) Thanks [@thaddmt](https://github.com/thaddmt)! - fix: Manual version bump to fix liveness major version 3.0.1 issue
+
 ## 6.0.0
 
 ### Major Changes
