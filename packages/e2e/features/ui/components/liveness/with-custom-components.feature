@@ -10,4 +10,6 @@ Feature: Liveness with Custom Components
     Then I see "SessionId:"
     Then I see "Photosensitivity warning"
     Then I see "Center your face"
+    Then I see "Caution"
+    Then I see "This check displays colored lights. Use caution if you are photosensitive."
     Then I see the "Start video check" button
