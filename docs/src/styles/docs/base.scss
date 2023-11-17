@@ -23,24 +23,9 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/fonts/Inter-Regular.woff2') format('woff2'),
+  src:
+    url('/fonts/Inter-Regular.woff2') format('woff2'),
     url('/fonts/Inter-Regular.woff') format('woff');
-}
-
-@font-face {
-  font-family: 'Amazon Ember';
-  src: url('/fonts/AmazonEmber_W_Lt.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Amazon Ember';
-  src: url('/fonts/AmazonEmber_W_Rg.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
 }
 
 @media screen and (prefers-reduced-motion: no-preference) {
@@ -159,7 +144,7 @@ h3[id] {
   margin-top: var(--amplify-space-xl);
   margin-bottom: var(--amplify-space-small);
   // to offset sticky header
-  scroll-margin-block-start: 6rem;
+  scroll-margin-block-start: var(--docs-main-offset);
 }
 
 // :not[class] because we don't want this applied to custom styled headings (like in CardLinkGroup)
@@ -200,7 +185,7 @@ h4[id] > a {
 
 h4[id] {
   position: relative;
-  scroll-margin-block-start: 6rem;
+  scroll-margin-block-start: var(--docs-main-offset);
   > a {
     left: -1rem;
     top: -0.1rem;
@@ -240,8 +225,11 @@ h4:hover > a .icon-link {
     var(--amplify-colors-border-tertiary);
 
   /* custom vars */
-  --docs-dev-center-nav-height: 3rem;
+  --docs-dev-center-nav-height: 4rem;
   --docs-header-height: 4rem;
+  --docs-main-offset: calc(
+    var(--docs-dev-center-nav-height) + var(--docs-header-height)
+  );
   --docs-gradient-color-hsl: 210, 0%, 100%;
   --docs-callout-bg: var(--amplify-colors-primary-10);
   --docs-font-mono: 'Source Code Pro', 'Fira Code', 'Fira Mono', ui-monospace,

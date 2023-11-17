@@ -235,7 +235,7 @@ const SecondaryNav = (props) => {
 export const Sidebar = ({ expanded, setExpanded, platform }) => {
   const onClick = () => setExpanded(false);
   return (
-    <nav
+    <aside
       aria-label="Main navigation"
       id="docs-sidebar"
       className={`docs-sidebar ${expanded ? 'expanded' : 'collapsed'}`}
@@ -244,6 +244,7 @@ export const Sidebar = ({ expanded, setExpanded, platform }) => {
       <div className="docs-sidebar-inner">
         <Flex direction="column" className="docs-sidebar-nav">
           <Flex
+            as="nav"
             direction="row"
             alignItems="center"
             justifyContent="space-between"
@@ -255,6 +256,6 @@ export const Sidebar = ({ expanded, setExpanded, platform }) => {
           <SecondaryNav onClick={onClick} platform={platform} />
         </Flex>
       </div>
-    </nav>
+    </aside>
   );
 };

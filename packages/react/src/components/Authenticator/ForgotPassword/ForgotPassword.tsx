@@ -39,7 +39,7 @@ export const ForgotPassword = ({
     <RouteContainer className={className} variation={variation}>
       <form
         data-amplify-form=""
-        data-amplify-authenticator-Forgotpassword=""
+        data-amplify-authenticator-forgotpassword=""
         method="post"
         onChange={handleChange}
         onSubmit={handleSubmit}

@@ -11,14 +11,14 @@
 
 .docs-header {
   display: flex;
-  position: sticky;
+  position: fixed;
   top: var(--docs-dev-center-nav-height);
   width: 100%;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding-block: var(--amplify-space-small);
-  padding-inline: var(--amplify-space-large);
+  padding-inline: var(--amplify-space-medium);
   z-index: 100;
   gap: var(--amplify-space-small);
   background-color: var(--amplify-colors-background-primary);
@@ -34,6 +34,13 @@
     border-bottom: var(--amplify-borders-secondary);
     box-shadow: var(--amplify-shadows-small);
   }
+}
+
+.docs-logo-link {
+  color: var(--amplify-colors-font-primary);
+  text-decoration: none;
+  font-size: var(--amplify-font-sizes-large);
+  font-weight: var(--amplify-font-weights-medium);
 }
 
 .docs-header > .docs-logo-link,

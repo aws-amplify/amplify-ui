@@ -105,10 +105,9 @@
   position: fixed;
   top: var(--docs-dev-center-nav-height);
   left: 0;
-  padding: var(--amplify-space-medium) var(--amplify-space-large);
+  padding: var(--amplify-space-medium) var(--amplify-space-medium);
   border-right: var(--amplify-border-widths-small) solid
-    var(--amplify-colors-border-primary);
-  box-shadow: var(--amplify-shadows-medium);
+    var(--amplify-colors-border-secondary);
   background-color: var(--amplify-colors-background-primary);
   z-index: 99999;
   transform: translateX(calc(-1 * var(--width)));

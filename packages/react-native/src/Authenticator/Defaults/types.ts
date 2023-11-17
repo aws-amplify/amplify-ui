@@ -10,7 +10,7 @@ export interface ConfirmSignInStyle {}
 export interface ConfirmSignUpStyle {}
 export interface ConfirmVerifyUserStyle {}
 export interface ForceNewPasswordStyle {}
-export interface ResetPasswordStyle {}
+export interface ForgotPasswordStyle {}
 export interface SetupTotpStyle {}
 export interface SignInStyle {}
 export interface SignUpStyle {}
@@ -59,7 +59,7 @@ export type DefaultForceNewPasswordProps = React.ComponentPropsWithoutRef<
 export type DefaultForgotPasswordProps = React.ComponentPropsWithoutRef<
   DefaultComponents<
     TextFieldOptionsType,
-    { style?: ResetPasswordStyle }
+    { style?: ForgotPasswordStyle }
   >['ForgotPassword']
 >;
 
@@ -120,7 +120,7 @@ type ForceNewPasswordComponent<P = {}> = OverrideComponents<
 
 type ForgotPasswordComponent<P = {}> = OverrideComponents<
   TextFieldOptionsType,
-  { style?: ResetPasswordStyle } & P
+  { style?: ForgotPasswordStyle } & P
 >['ForgotPassword'];
 
 type SetupTotpComponent<P = {}> = OverrideComponents<
