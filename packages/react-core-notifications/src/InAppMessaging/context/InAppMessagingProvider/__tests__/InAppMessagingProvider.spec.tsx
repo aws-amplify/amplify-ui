@@ -1,18 +1,13 @@
 import React from 'react';
 import TestRenderer, { ReactTestRenderer } from 'react-test-renderer';
-import { onMessageReceived } from 'aws-amplify/in-app-messaging';
+import * as InAppModule from 'aws-amplify/in-app-messaging';
 import { RenderNothing } from '@aws-amplify/ui-react-core';
 
 import { useInAppMessaging } from '../../../hooks/useInAppMessaging';
 import { InAppMessagingContextType } from '../..';
 import { InAppMessagingProvider } from '..';
 
-jest.mock('aws-amplify/in-app-messaging', () => ({
-  ...jest.requireActual<typeof import('aws-amplify/in-app-messaging')>(
-    'aws-amplify/in-app-messaging'
-  ),
-  onMessageReceived: jest.fn(),
-}));
+const onMessageReceivedSpy = jest.spyOn(InAppModule, 'onMessageReceived');
 
 let onMessageReceivedCallback =
   null as unknown as InAppMessagingContextType['displayMessage'];
@@ -42,7 +37,7 @@ describe('InAppMessagingProvider', () => {
   beforeEach(() => {
     jest.resetAllMocks();
 
-    (onMessageReceived as jest.Mock).mockImplementation(mockOnMessageReceived);
+    onMessageReceivedSpy.mockImplementation(mockOnMessageReceived);
 
     TestRenderer.act(() => {
       renderer = TestRenderer.create(
@@ -71,8 +66,8 @@ describe('InAppMessagingProvider', () => {
   });
 
   it('registers a listener to InAppMessaging.onMessageReceived as expected', () => {
-    expect(onMessageReceived).toHaveBeenCalledTimes(1);
-    expect(onMessageReceived).toHaveBeenCalledWith(
+    expect(onMessageReceivedSpy).toHaveBeenCalledTimes(1);
+    expect(onMessageReceivedSpy).toHaveBeenCalledWith(
       expect.any(Function) as InAppMessagingContextType['displayMessage']
     );
   });

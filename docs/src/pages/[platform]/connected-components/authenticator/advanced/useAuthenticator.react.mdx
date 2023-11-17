@@ -8,7 +8,6 @@ import { Alert, Tabs } from '@aws-amplify/ui-react';
   >
   You must render the `Authenticator` UI component before using the `useAuthenticator` hook. This hook was designed to retrieve `Authenticator` UI specific state such as `route` and `user` and should not be used without the UI component.
   <br/>
-  For a full example of `useAuthenticator`, see the [protected routes guide](../../guides/auth-protected)
 </Alert>
 
 
@@ -39,7 +38,7 @@ const App = () => {
 
 ## Authenticator Provider
 
-In advanced use cases where usage of the [`useAuthenticator` hook](advanced#useauthenticator-hook) outside the scope of the [`Authenticator`](../authenticator) is needed, wrap your application inside an `Authenticator.Provider`. The `Authenticator.Provider` guarantees that the [useAuthenticator hook](advanced#useauthenticator-hook) is available throughout your application. You can see an example of this pattern in the [Protected Routes Guide.](../../guides/auth-protected)
+In advanced use cases where usage of the [`useAuthenticator` hook](advanced#useauthenticator-hook) outside the scope of the [`Authenticator`](../authenticator) is needed, wrap your application inside an `Authenticator.Provider`. The `Authenticator.Provider` guarantees that the [useAuthenticator hook](advanced#useauthenticator-hook) is available throughout your application.
 
 <Tabs.Container defaultValue="Create React App">
   <Tabs.List>

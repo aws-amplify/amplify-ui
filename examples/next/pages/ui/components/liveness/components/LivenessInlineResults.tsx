@@ -19,7 +19,7 @@ export default function LivenessInlineResults({
   ).toString('base64');
   const displayScore = truncateNumber(confidenceScore, 4);
   return (
-    <>
+    <Flex direction="column" gap="medium">
       <Flex as="span" style={{ whiteSpace: 'nowrap' }}>
         <Text>Liveness result:</Text>
         <Text fontWeight="bold" margin="0 0.5rem">
@@ -28,11 +28,26 @@ export default function LivenessInlineResults({
       </Flex>
 
       <Text as="span" style={{ whiteSpace: 'nowrap' }}>
-        Confidence score:
+        Liveness confidence score:
         <Badge variation={isLive ? 'success' : 'error'} margin="0 0.5rem">
           {displayScore}
         </Badge>
       </Text>
+
+      {!isLive && (
+        <Text as="span">
+          <Text fontWeight="bold">Tips to pass the video check:</Text>
+          <ol>
+            <li>Maximize you screen&apos;s brightness</li>
+            <li>
+              Avoid very bright lighting conditions, such as direct sunlight.
+            </li>
+            <li>
+              Remove sunglasses, mask, hat, or anything blocking your face.
+            </li>
+          </ol>
+        </Text>
+      )}
 
       <Flex justifyContent="start">
         <Button variation="primary" type="button" onClick={onUserCancel}>
@@ -46,6 +61,6 @@ export default function LivenessInlineResults({
         src={`data:image/jpeg;base64,${base64string}`}
         alt="Audit image"
       />
-    </>
+    </Flex>
   );
 }

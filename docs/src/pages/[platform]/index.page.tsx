@@ -78,7 +78,12 @@ const HomePage = ({ colorMode }) => {
   }
 
   return (
-    <>
+    <main
+      className="docs-content-body"
+      id="docs-content"
+      tabIndex={-1}
+      aria-label="Main content"
+    >
       {/* Hero/intro */}
       <HeroSection />
 
@@ -87,7 +92,7 @@ const HomePage = ({ colorMode }) => {
 
       {/* Shared content */}
       <Footer />
-    </>
+    </main>
   );
 };
 
