@@ -40,10 +40,10 @@ const onBackToSignInClicked = (): void => {
 </script>
 
 <template>
-  <slot v-bind="$attrs" name="resetPasswordSlotI">
+  <slot v-bind="$attrs" name="forgotPasswordSlotI">
     <base-form
       v-bind="$attrs"
-      data-amplify-authenticator-resetpassword
+      data-amplify-authenticator-forgotpassword
       @input="onInput"
       @submit.prevent="onResetPasswordSubmit"
     >
