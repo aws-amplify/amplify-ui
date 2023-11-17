@@ -8,7 +8,7 @@ export const RIGHT_NAV_LINKS = [
   {
     type: 'EXTERNAL',
     label: 'Pricing',
-    url: 'https://aws.amazon.com/amplify/pricing',
+    url: 'https://aws.amazon.com/amplify/pricing/',
     order: 7,
   },
 ];
