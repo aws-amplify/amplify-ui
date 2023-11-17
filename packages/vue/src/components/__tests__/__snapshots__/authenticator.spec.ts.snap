@@ -635,7 +635,7 @@ exports[`authenticator renders forgotPassword subcomponent 1`] = `
         
         
         <form
-          data-amplify-authenticator-resetpassword=""
+          data-amplify-authenticator-forgotpassword=""
           data-amplify-form=""
         >
           
