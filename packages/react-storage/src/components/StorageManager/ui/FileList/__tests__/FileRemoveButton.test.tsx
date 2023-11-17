@@ -32,15 +32,13 @@ describe('FileRemoveButton', () => {
     expect(container).toMatchSnapshot();
   });
 
-  // @todo-migration fix
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip('should fire onClick function if the button is clicked on', async () => {
+  it('should fire onClick function if the button is clicked on', async () => {
     const { findByRole } = render(
       <FileRemoveButton {...fileRemoveButtonProps} />
     );
 
     const button = await findByRole('button');
-    userEvent.click(button);
+    await userEvent.click(button);
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
