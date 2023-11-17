@@ -14,7 +14,7 @@ const { getResetYourPasswordText, getSendCodeText, getBackToSignInText } =
   templateUrl: './forgot-password.component.html',
 })
 export class ForgotPasswordComponent {
-  @HostBinding('attr.data-amplify-authenticator-forgotPassword') dataAttr = '';
+  @HostBinding('attr.data-amplify-authenticator-forgotpassword') dataAttr = '';
   @Input() public headerText = getResetYourPasswordText();
 
   // translated texts
