@@ -1,8 +1,5 @@
 import { View, Flex, Loader, Text } from '@aws-amplify/ui-react';
-import {
-  FaceLivenessDetectorCore,
-  FaceLivenessDetector,
-} from '@aws-amplify/ui-react-liveness';
+import { FaceLivenessDetectorCore } from '@aws-amplify/ui-react-liveness';
 import { useLiveness } from './useLiveness';
 import { SessionIdAlert } from './SessionIdAlert';
 import LivenessInlineResults from './LivenessInlineResults';
