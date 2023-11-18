@@ -16,19 +16,12 @@ _app.component.html_
 _app.component.ts_
 
 ```js
-import { Component } from '@angular/core';
-import { Amplify } from 'aws-amplify';
-
-import awsExports from './aws-exports';
-
 @Component({
   selector: 'app',
   templateUrl: 'app.component.html',
 })
 export class AppComponent {
-  constructor() {
-    Amplify.configure(awsExports);
-  }
+  constructor() {}
   public formFields = {
     setupTotp: {
       QR: {

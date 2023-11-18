@@ -15,23 +15,14 @@ import { Alert } from '@aws-amplify/ui-react';
 
 _app.component.ts_
 
-```ts{3,12}
-import { Component } from '@angular/core';
-import { Amplify } from 'aws-amplify';
-import { AuthenticatorService } from '@aws-amplify/ui-angular';
-
-import awsExports from './aws-exports';
-
+```ts
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
 })
 export class UseAuthenticatorComponent {
-  constructor(public authenticator: AuthenticatorService) {
-    Amplify.configure(awsExports);
-  }
+  constructor(public authenticator: AuthenticatorService) {}
 }
-
 ```
 
 Then you can use the `authenticator` value in your component or template:

@@ -1,4 +1,5 @@
 import { Alert, Tabs } from '@aws-amplify/ui-react';
+import { Example, ExampleCode } from '@/components/Example';
 import { AppDirectoryAlert } from '@/components/AppDirectoryAlert';
 
 import { InstallScripts } from '@/components/InstallScripts';
@@ -52,4 +53,45 @@ yarn global add @aws-amplify/cli@latest
 
 ### Step 3. Add Account Settings Components 
 
-Get started by using AccountSettings with either the [`ChangePassword`](/connected-components/account-settings/change-password) or [`DeleteUser`](/connected-components/account-settings/delete-user) components. 
+Get started by using AccountSettings with either the [`ChangePassword`](/connected-components/account-settings/change-password) or [`DeleteUser`](/connected-components/account-settings/delete-user) components.
+<Example>
+<ExampleCode>
+```tsx
+import { Amplify } from 'aws-amplify';
+
+import {
+  Authenticator,
+  Button,
+  Card,
+  Flex,
+  Heading,
+  AccountSettings,
+} from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+import config from './amplifyconfiguration';
+Amplify.configure(config);
+
+export default function App() {
+  return (
+    <Authenticator>
+      {({ signOut, user }) => (
+        <Card width="800px">
+          <h1>Hello {user?.username}</h1>
+          <Flex direction="column">
+            <Card variation="outlined">
+              <Heading>Delete Account:</Heading>
+              <AccountSettings.DeleteUser />
+              <Heading>Change Password?</Heading>
+              <AccountSettings.ChangePassword />
+            </Card>
+            <Button onClick={signOut}>Sign Out</Button>
+          </Flex>
+        </Card>
+      )}
+    </Authenticator>
+  );
+}
+```
+</ExampleCode>
+</Example>

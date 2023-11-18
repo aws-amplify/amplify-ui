@@ -8,9 +8,9 @@ For Vue 3, import the `Authenticator` and the `styles.css` into your single file
   import "@aws-amplify/ui-vue/styles.css";
 
   import { Amplify } from 'aws-amplify';
-  import awsconfig from './aws-exports';
+  import config from './amplifyconfiguration.json';
 
-  Amplify.configure(awsconfig);
+  Amplify.configure(config);
 </script>
 
 <template>

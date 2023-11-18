@@ -13,6 +13,7 @@ export default function ReactNativeHomePage({ colorMode }) {
 
   return (
     <>
+      {/* FXI THIS */}
       <AuthenticationSection platform={platform} />
       <AmplifySection platform={platform} />
       <CompatibleSection platform={platform} />

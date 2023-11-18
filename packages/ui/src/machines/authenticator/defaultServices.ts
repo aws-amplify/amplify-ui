@@ -8,6 +8,7 @@ import {
   resetPassword,
   signIn,
   signUp,
+  signOut,
 } from 'aws-amplify/auth';
 import { hasSpecialChars } from '../../helpers';
 
@@ -20,6 +21,8 @@ import {
   SocialProvider,
   ValidatorResult,
 } from '../../types';
+
+export interface DefaultServices extends Partial<typeof defaultServices> {}
 
 // Cognito does not allow a password length less then 8 characters
 const DEFAULT_COGNITO_PASSWORD_MIN_LENGTH = 8;
@@ -68,6 +71,7 @@ export const defaultServices = {
   handleConfirmSignUp: confirmSignUp,
   handleForgotPasswordSubmit: confirmResetPassword,
   handleForgotPassword: resetPassword,
+  signOut: signOut,
 
   // Validation hooks for overriding
   async validateCustomSignUp(

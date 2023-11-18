@@ -36,8 +36,8 @@ const authenticatorCode = {
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-import awsExports from './aws-exports';
-Amplify.configure(awsExports);
+import config from './amplifyconfiguration.json';
+Amplify.configure(config);
 
 export default function App() {
   return (
@@ -56,9 +56,9 @@ export default function App() {
   import "@aws-amplify/ui-vue/styles.css";
 
   import { Amplify } from 'aws-amplify';
-  import awsconfig from './aws-exports';
+  import config from './amplifyconfiguration.json';
 
-  Amplify.configure(awsconfig);
+  Amplify.configure(config);
 </script>
 
 <template>
@@ -113,8 +113,8 @@ import { Button } from 'react-native';
 import { Amplify } from 'aws-amplify';
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
 
-import awsExports from './aws-exports';
-Amplify.configure(awsExports);
+import config from './amplifyconfiguration.json';
+Amplify.configure(config);
 
 function SignOutButton() {
   const { signOut } = useAuthenticator();

@@ -1,3 +1,14 @@
-```js{2,4,11} file=../../../../../../../examples/next/pages/ui/components/geo/basic-map/index.page.tsx
+```tsx
+import { Amplify } from 'aws-amplify';
+import { MapView } from '@aws-amplify/ui-react-geo';
 
+import '@aws-amplify/ui-react-geo/styles.css';
+
+import config from './amplifyconfiguration';
+
+Amplify.configure(config);
+
+export default function BasicMap() {
+  return <MapView />;
+}
 ```

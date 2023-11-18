@@ -14,24 +14,17 @@ _app.component.html_
     <button (click)="signOut()">Sign Out</button>
   </ng-template>
 </amplify-authenticator>
-
 ```
 
 _app.component.ts_
 
 ```js{14}
-import { Component, OnInit } from '@angular/core';
-import { Amplify, Auth } from 'aws-amplify';
-import awsExports from './aws-exports';
-
 @Component({
   selector: 'sign-up-with-email',
   templateUrl: 'sign-up-with-email.component.html',
 })
 export class SignUpWithEmailComponent implements OnInit {
-  constructor() {
-    Amplify.configure(awsExports);
-  }
+  constructor() {}
 
   services = {
     async handleSignUp(formData: Record<string, any>) {

@@ -9,7 +9,28 @@ You can use the `Authenticator` component directly, or wrap your app in `withAut
   <Tabs.Item value="withAuthenticator">withAuthenticator</Tabs.Item>
 </Tabs.List>
   <Tabs.Panel value="Authenticator">
-    ```js{3-4,11-12} file=../../../../../../examples/next/pages/ui/components/authenticator/sign-in-with-username/index.page.tsx
+    ```tsx
+    import React from 'react';
+    import { Amplify } from 'aws-amplify';
+
+    import { Authenticator } from '@aws-amplify/ui-react';
+    import '@aws-amplify/ui-react/styles.css';
+
+    import config from './amplifyconfiguration.json';
+    Amplify.configure(config);
+
+    export default function App() {
+      return (
+        <Authenticator>
+          {({ signOut, user }) => (
+            <main>
+              <h1>Hello {user.username}</h1>
+              <button onClick={signOut}>Sign out</button>
+            </main>
+          )}
+        </Authenticator>
+      );
+    }
 
     ```
   </Tabs.Panel>
@@ -28,14 +49,10 @@ You can use the `Authenticator` component directly, or wrap your app in `withAut
     import { withAuthenticator } from '@aws-amplify/ui-react';
     import '@aws-amplify/ui-react/styles.css';
 
-    import awsExports from './aws-exports';
-    Amplify.configure(awsExports);
+    import config from './amplifyconfiguration.json';
+    Amplify.configure(config);
 
-    function App({ isPassedToWithAuthenticator, signOut, user }) {
-      if (!isPassedToWithAuthenticator) {
-        throw new Error(`isPassedToWithAuthenticator was not provided`);
-      }
-
+    function App({ signOut, user }) {
       return (
         <>
           <h1>Hello {user.username}</h1>
@@ -45,19 +62,33 @@ You can use the `Authenticator` component directly, or wrap your app in `withAut
     }
 
     export default withAuthenticator(App);
-
-    export async function getStaticProps() {
-      return {
-        props: {
-          isPassedToWithAuthenticator: true,
-        },
-      };
-    }
     ```
     </Tabs.Panel>
     <Tabs.Panel value="TypeScript">
-      ```js{3-4,9,18} file=../../../../../../examples/next/pages/ui/components/authenticator/withAuthenticator/index.page.tsx
+      ```tsx
+      import { Amplify } from 'aws-amplify';
+      
+      import {
+        withAuthenticator,
+        WithAuthenticatorProps,
+      } from '@aws-amplify/ui-react';
+      import '@aws-amplify/ui-react/styles.css';
 
+      import config from './amplifyconfiguration.json';
+      Amplify.configure(config);
+
+      interface Props extends WithAuthenticatorProps {}
+
+      function App({ signOut, user }: Props) {
+        return (
+          <>
+            <h1>Hello {user?.username}</h1>
+            <button onClick={signOut}>Sign out</button>
+          </>
+        );
+      }
+
+      export default withAuthenticator(App);
       ```
     </Tabs.Panel>
   </Tabs.Container>

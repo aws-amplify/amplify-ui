@@ -177,11 +177,11 @@ Update the **main.js** file and remove the references to the older `ui-component
 
 import App from "./App.vue";
 import { Amplify } from 'aws-amplify';
-import awsconfig from './aws-exports';
+import config from './amplifyconfiguration.json';
 import { createApp } from 'vue';
 + import '@aws-amplify/ui-vue/styles.css';
 
-Amplify.configure(awsconfig);
+Amplify.configure(config);
 
 createApp(App).mount('#app');
 

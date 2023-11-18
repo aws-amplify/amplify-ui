@@ -370,8 +370,8 @@ export function createAuthenticatorMachine(
           },
         }),
         spawnSignOutActor: assign({
-          actorRef: (context) => {
-            const actor = signOutActor().withContext({ user: context?.user });
+          actorRef: ({ services, user }) => {
+            const actor = signOutActor({ services }).withContext({ user });
             return spawn(actor, { name: 'signOutActor' });
           },
         }),
