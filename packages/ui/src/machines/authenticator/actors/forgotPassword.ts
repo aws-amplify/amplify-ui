@@ -1,3 +1,4 @@
+import { resendSignUpCode } from 'aws-amplify/auth';
 import { createMachine, sendUpdate } from 'xstate';
 
 import { runValidators } from '../../../validators';
@@ -5,7 +6,6 @@ import actions from '../actions';
 import guards from '../guards';
 import { defaultServices } from '../defaultServices';
 import { AuthEvent, ResetPasswordContext } from '../types';
-import { resendSignUpCode } from 'aws-amplify/auth';
 
 export type ForgotPasswordMachineOptions = {
   services?: Partial<typeof defaultServices>;
