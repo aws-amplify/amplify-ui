@@ -126,7 +126,7 @@ export const authenticatorTextUtil = {
   /** ConfirmSignIn */
   getChallengeText,
 
-  /** ResetPassword */
+  /** ForgotPassword */
   getResetYourPasswordText: () => translate(DefaultTexts.RESET_PASSWORD),
 
   /** SetupTotp */
