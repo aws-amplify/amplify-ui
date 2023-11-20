@@ -5,6 +5,7 @@ import actions from '../actions';
 import guards from '../guards';
 import { defaultServices } from '../defaultServices';
 import { AuthEvent, ResetPasswordContext } from '../types';
+import { resendSignUpCode } from 'aws-amplify/auth';
 
 export type ForgotPasswordMachineOptions = {
   services?: Partial<typeof defaultServices>;
@@ -13,6 +14,7 @@ export type ForgotPasswordMachineOptions = {
 export function forgotPasswordActor({
   services,
 }: ForgotPasswordMachineOptions) {
+  console.log(services);
   return createMachine<ResetPasswordContext, AuthEvent>(
     {
       id: 'forgotPasswordActor',
@@ -108,7 +110,7 @@ export function forgotPasswordActor({
                   entry: 'sendUpdate',
                   on: {
                     SUBMIT: { actions: 'handleSubmit', target: 'validate' },
-                    RESEND: 'resendCode',
+                    RESEND: 'handleResendCode',
                     CHANGE: { actions: 'handleInput' },
                     BLUR: { actions: 'handleBlur' },
                   },
@@ -127,11 +129,11 @@ export function forgotPasswordActor({
                     },
                   },
                 },
-                resendCode: {
+                handleResendCode: {
                   tags: 'pending',
                   entry: ['clearError', 'sendUpdate'],
                   invoke: {
-                    src: 'resetPassword',
+                    src: 'handleResetPassword',
                     onDone: { target: 'idle' },
                     onError: { actions: 'setRemoteError', target: 'idle' },
                   },
@@ -182,6 +184,9 @@ export function forgotPasswordActor({
             newPassword,
             username,
           });
+        },
+        handleResendCode({ username }) {
+          return resendSignUpCode({ username });
         },
         validateFields(context) {
           return runValidators(
