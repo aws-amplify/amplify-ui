@@ -135,14 +135,24 @@ describe('ConfirmResetPassword', () => {
     expect(updateBlurSpy).toHaveBeenCalledWith({ name: 'confirm_password' });
   });
 
-  // @todo-migration fix?
-  it.skip('sends submit event on form submit', async () => {
+  it('sends submit event on form submit', async () => {
     render(ConfirmResetPassword, { global: { components } });
-
+    // we need to first fill out the form
+    const codeField = await screen.findByLabelText('Code *');
+    const newPasswordField = await screen.findByLabelText('New Password');
+    const confirmPasswordField =
+      await screen.findByLabelText('Confirm Password');
+    await fireEvent.input(codeField, { target: codeInputPrams });
+    await fireEvent.input(newPasswordField, {
+      target: newPasswordInputParams,
+    });
+    await fireEvent.input(confirmPasswordField, {
+      target: confirmPasswordInputParams,
+    });
+    // then we can submit the form
     const submitButton = await screen.findByRole('button', {
       name: 'Submit',
     });
-
     await fireEvent.click(submitButton);
     expect(submitFormSpy).toHaveBeenCalledTimes(1);
   });

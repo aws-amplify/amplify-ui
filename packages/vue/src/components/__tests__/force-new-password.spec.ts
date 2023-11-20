@@ -140,14 +140,25 @@ describe('ConfirmResetPassword', () => {
     expect(updateBlurSpy).toHaveBeenCalledWith({ name: 'preferred_username' });
   });
 
-  // @todo-migration fix
-  it.skip('sends submit event on form submit', async () => {
+  it('sends submit event on form submit', async () => {
     render(ForceNewPassword, { global: { components } });
-
+    // we first need to fill out the form
+    const passwordField = await screen.findByLabelText('Password');
+    const confirmPasswordField =
+      await screen.findByLabelText('Confirm Password');
+    const preferredUsernameField =
+      await screen.findByLabelText('Preferred Username');
+    await fireEvent.input(passwordField, { target: passwordInputParams });
+    await fireEvent.input(confirmPasswordField, {
+      target: confirmPasswordInputParams,
+    });
+    await fireEvent.input(preferredUsernameField, {
+      target: preferredUsernameInputParams,
+    });
+    // then we can submit the form
     const submitButton = await screen.findByRole('button', {
       name: 'Change Password',
     });
-
     await fireEvent.click(submitButton);
     expect(submitFormSpy).toHaveBeenCalledTimes(1);
   });
