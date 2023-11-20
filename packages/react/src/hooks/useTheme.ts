@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { createTheme, WebTheme } from '@aws-amplify/ui';
+import { ColorMode } from '../components/ThemeProvider/ThemeProvider';
 import {
   ThemeContext,
   ThemeContextType,
@@ -26,4 +27,12 @@ export const getThemeFromContext = (
 export const useTheme = (): WebTheme => {
   const context = React.useContext(ThemeContext);
   return getThemeFromContext(context);
+};
+
+/**
+ * Internal use only
+ */
+export const useColorMode = (): ColorMode | undefined => {
+  const context = React.useContext(ThemeContext);
+  return context.colorMode;
 };

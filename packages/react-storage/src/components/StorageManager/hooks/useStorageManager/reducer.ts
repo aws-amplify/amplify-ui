@@ -50,7 +50,9 @@ export function storageManagerStateReducer(
           ...files,
           {
             ...currentFile,
-            status: FileStatus.QUEUED,
+            ...(currentFile.status === FileStatus.ADDED
+              ? { status: FileStatus.QUEUED }
+              : {}),
           },
         ];
       }, []);

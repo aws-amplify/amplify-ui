@@ -1,6 +1,7 @@
 export * from './hooks/useAuth';
 export * from './hooks/useStorageURL';
 export * from './hooks/useThemeBreakpoint';
+export { useColorMode } from './hooks/useTheme';
 
 export { AlertIcon } from './primitives/Alert/AlertIcon';
 export * from './primitives/Icon/internal';

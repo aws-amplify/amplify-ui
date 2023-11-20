@@ -220,7 +220,7 @@ export const mockSessionInformation: SessionInformation = {
         FaceIouWidthThreshold: 0.15000000596046448,
         OvalHeightWidthRatio: 1.6180000305175781,
         OvalIouHeightThreshold: 0.25,
-        OvalIouThreshold: 0.699999988079071,
+        OvalIouThreshold: 0.6,
         OvalIouWidthThreshold: 0.25,
       },
       OvalParameters: {

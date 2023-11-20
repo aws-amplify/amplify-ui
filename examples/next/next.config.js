@@ -1,4 +1,3 @@
-const path = require('path');
 const { patchWebpackConfig } = require('next-global-css');
 
 module.exports = {
