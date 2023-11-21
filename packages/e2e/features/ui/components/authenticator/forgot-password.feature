@@ -25,7 +25,6 @@ Feature: Reset Password
     Then I click the "Send code" button
     Then I see "Username/client id combination not found."
 
-
   @angular @react @vue @react-native
   Scenario: Forgot Password with valid placeholder 
     Then I see "Enter your username"
