@@ -290,6 +290,12 @@ Then('I see {string} element', (id: string) => {
   cy.findByTestId(id).should('exist');
 });
 
+Then('I see {string} is not disabled', (message: string) => {
+  cy.findByRole('document')
+    .contains(new RegExp(escapeRegExp(message), 'i'))
+    .should('not.be.disabled');
+});
+
 Then('I see placeholder {string}', (message: string) => {
   cy.findByPlaceholderText(message).should('exist');
 });
