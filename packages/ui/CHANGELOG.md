@@ -1,5 +1,13 @@
 # @aws-amplify/ui
 
+## 6.0.2
+
+### Patch Changes
+
+- [#4767](https://github.com/aws-amplify/amplify-ui/pull/4767) [`4ff26e27e`](https://github.com/aws-amplify/amplify-ui/commit/4ff26e27e4bc8909cc2b86c738eca5085b2a42d1) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): forgot password clean up
+
+- [#4773](https://github.com/aws-amplify/amplify-ui/pull/4773) [`bb141a719`](https://github.com/aws-amplify/amplify-ui/commit/bb141a719fd9bc2d7680e539f2ff047deb88ee7e) Thanks [@thaddmt](https://github.com/thaddmt)! - fix: resend code forgot password
+
 ## 6.0.1
 
 ### Patch Changes
