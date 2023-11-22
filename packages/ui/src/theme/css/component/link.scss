@@ -4,9 +4,9 @@
   // all:unset removes this, so we have to add it back.
   cursor: pointer;
 
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 2px;
+  gap: var(--amplify-space-xxxs);
 
   &:visited {
     color: var(--amplify-components-link-visited-color);
