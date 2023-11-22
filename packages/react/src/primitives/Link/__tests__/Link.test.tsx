@@ -81,8 +81,9 @@ describe('Link:', () => {
     render(<Link isExternal>{linkText}</Link>);
 
     const link = await screen.findByText(linkText);
-    expect(link.children.length).toBe(1);
-    expect(link.children[0].tagName).toBe('svg');
+    const span = link.children[0];
+    expect(span.children.length).toBe(1);
+    expect(span.children[0].tagName).toBe('svg');
   });
 
   it('can render the Link tag as other components', async () => {
