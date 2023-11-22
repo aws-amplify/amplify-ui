@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { fetchAuthSession } from 'aws-amplify/auth';
 import { FaceLivenessDetectorProps as FaceLivenessDetectorPropsFromUi } from './service';
-import FaceLivenessDetectorCore, {
-  FaceLivenessDetectorComponents,
-} from './FaceLivenessDetectorCore';
+import FaceLivenessDetectorCore from './FaceLivenessDetectorCore';
 import { LivenessDisplayText } from './displayText';
+import { FaceLivenessDetectorComponents } from './shared/DefaultStartScreenComponents';
 
 export interface FaceLivenessDetectorProps
   extends FaceLivenessDetectorPropsFromUi {

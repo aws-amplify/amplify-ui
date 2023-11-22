@@ -556,11 +556,6 @@ export const guides: ComponentNavItem[] = [
     label: 'CSS in JS',
     platforms: ['react', 'vue', 'angular'],
   },
-  {
-    href: '/guides/auth-protected',
-    label: 'Protected Routes',
-    platforms: ['react'],
-  },
 ];
 
 export const gettingStarted: ComponentNavItem[] = [

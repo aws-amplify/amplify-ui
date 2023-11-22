@@ -1,3 +1,7 @@
+.docs-main {
+  margin-top: var(--docs-main-offset);
+}
+
 .docs-description {
   color: var(--amplify-colors-font-secondary);
   font-size: var(--amplify-font-sizes-large);
@@ -11,12 +15,19 @@
 
 .docs-content {
   max-width: 80rem;
-}
-
-.docs-content-body {
   padding-block-start: var(--amplify-space-medium);
   padding-inline: var(--docs-horizontal-padding);
   padding-block-end: var(--docs-horizontal-padding);
+}
+
+.docs-content-body {
+  scroll-margin-block-start: var(--docs-main-offset);
+
+  &:focus-visible {
+    outline: 2px solid var(--amplify-colors-border-focus);
+    outline-offset: var(--amplify-space-xs);
+    z-index: 2;
+  }
 
   & > * + *,
   & .amplify-tabs__panel > * + * {

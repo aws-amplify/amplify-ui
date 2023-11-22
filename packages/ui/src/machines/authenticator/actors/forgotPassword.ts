@@ -131,7 +131,7 @@ export function forgotPasswordActor({
                   tags: 'pending',
                   entry: ['clearError', 'sendUpdate'],
                   invoke: {
-                    src: 'resetPassword',
+                    src: 'handleResetPassword',
                     onDone: { target: 'idle' },
                     onError: { actions: 'setRemoteError', target: 'idle' },
                   },

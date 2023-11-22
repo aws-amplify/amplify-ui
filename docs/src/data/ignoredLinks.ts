@@ -40,8 +40,6 @@ export const IGNORED_LINKS = [
   'https://pub.dev/documentation/amplify_authenticator/latest/amplify_authenticator/AuthenticatorState-class.html',
   'https://pub.dev/documentation/amplify_authenticator/latest/amplify_authenticator/amplify_authenticator-library.html',
   'https://docs.flutter.dev/ui/accessibility-and-localization/internationalization',
-
-  // @todo-migration remove after releasing ui-react v6
-  'https://github.com/aws-amplify/amplify-ui//blob/main/packages/ui/src/theme/tokens/components/accordion.ts',
-  'https://github.com/aws-amplify/amplify-ui//blob/main/packages/react/src/primitives/Accordion/Accordion.tsx',
+  'https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow/tfjs-backend-wasm/4.11.0/',
+  'https://tfhub.dev/mediapipe/tfjs-model/face_detection/short/1',
 ];

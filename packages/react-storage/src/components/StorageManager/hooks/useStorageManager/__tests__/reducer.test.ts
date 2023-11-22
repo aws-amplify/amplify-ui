@@ -309,4 +309,59 @@ describe('storageManagerStateReducer', () => {
 
     expect(result.current.state.files).toEqual([file]);
   });
+
+  it('should only change added files to queued in QUEUE_FILES action', () => {
+    const { result } = renderHook(() => {
+      const [state, dispatch] = useReducer(storageManagerStateReducer, {
+        files: [
+          {
+            id: imageFile.name,
+            file: imageFile,
+            error: '',
+            key: imageFile.name,
+            status: FileStatus.ADDED,
+            isImage: true,
+            progress: -1,
+          },
+          {
+            id: imageFile.name,
+            file: imageFile,
+            error: '',
+            key: imageFile.name,
+            status: FileStatus.UPLOADED,
+            isImage: true,
+            progress: 100,
+          },
+        ],
+      });
+      return { state, dispatch };
+    });
+
+    const queueFilesAction: Action = {
+      type: StorageManagerActionTypes.QUEUE_FILES,
+    };
+
+    act(() => result.current.dispatch(queueFilesAction));
+
+    expect(result.current.state.files).toEqual([
+      {
+        id: imageFile.name,
+        file: imageFile,
+        error: '',
+        key: imageFile.name,
+        status: FileStatus.QUEUED,
+        isImage: true,
+        progress: -1,
+      },
+      {
+        id: imageFile.name,
+        file: imageFile,
+        error: '',
+        key: imageFile.name,
+        status: FileStatus.UPLOADED,
+        isImage: true,
+        progress: 100,
+      },
+    ]);
+  });
 });

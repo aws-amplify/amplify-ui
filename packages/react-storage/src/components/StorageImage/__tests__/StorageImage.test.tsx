@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import * as Storage from 'aws-amplify/storage';
 
 import { ComponentClassName } from '@aws-amplify/ui';
@@ -64,9 +64,7 @@ describe('StorageImage', () => {
     expect(img).toHaveAttribute('src', imgURL);
   });
 
-  // @todo-migration fix
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip('should set image src attribute to fallbackSrc and invoke onGetStorageError when Storage.get is rejected', async () => {
+  it('should set image src attribute to fallbackSrc and invoke onGetStorageError when Storage.get is rejected', async () => {
     jest.restoreAllMocks();
     jest.spyOn(Storage, 'getUrl').mockRejectedValue(errorMessage);
     const onStorageError = jest.fn();
@@ -79,10 +77,12 @@ describe('StorageImage', () => {
         onStorageGetError={onStorageError}
       />
     );
+    await waitFor(() => {
+      const img = screen.getByRole('img');
+      expect(img).toHaveAttribute('src', fallbackSrc);
 
-    const img = await screen.findByRole('img');
-    expect(onStorageError).toHaveBeenCalledTimes(1);
-    expect(onStorageError).toHaveBeenCalledWith(errorMessage);
-    expect(img).toHaveAttribute('src', fallbackSrc);
+      expect(onStorageError).toHaveBeenCalledTimes(1);
+      expect(onStorageError).toHaveBeenCalledWith(errorMessage);
+    });
   });
 });

@@ -1,6 +1,10 @@
 import { Tabs, Message } from '@aws-amplify/ui-react';
 import { TerminalCommand } from '@/components/InstallScripts';
 
+<Message colorTheme="info" title="Link to other packages' migration guides">
+Migration guides for [`Liveness`](#aws-amplifyui-react-liveness), [`In-App Messaging`](#aws-amplifyui-react-notifications) and [`Storage`](#aws-amplifyui-react-storage) packages can be found towards the bottom of this page.
+</Message>
+
 ## `@aws-amplify/ui-react`
 
 ### Migrate from 5.x to 6.x
@@ -242,33 +246,7 @@ Some notable differences:
 
 There are also more design tokens and better CSS classes for easier customization. 
 
-#### 4. In-App Messaging
-
-Starting with `aws-amplify@6`, the Auth and categories like Auth and Notifications are no longer exported from the base `aws-amplify` package. If you are using in-app messaging you will need to change your imports accordingly and run `initializeInAppMessaging` before your application code:
-
-```diff
-- import { Amplify, Notifications } from 'aws-amplify'
-+ import { Amplify } from 'aws-amplify';
-+ import { initializeInAppMessaging, syncMessages } from 'aws-amplify/in-app-messaging';
-- import exports from './aws-exports';
-+ import config from './amplifyconfiguration';
-
-Amplify.configure(config);
-
-- const { InAppMessaging } = Notifications;
-+ initializeInAppMessaging()
-
-const MyApp = () => {
-  React.useEffect(() => {
--    InAppMessaging.syncMessages()
-+    syncMessages();
-  }, []}
-
-  // ..
-}
-```
-
-#### 5. Removal of extraneous `data` attributes and updating classNames
+#### 4. Removal of extraneous `data` attributes and updating classNames
 
 https://github.com/aws-amplify/amplify-ui/pull/4452
 
@@ -293,16 +271,7 @@ ClassName updates:
 * `.amplify-switch-thumb` -> `.amplify-switch__thumb`
 * `.amplify-switch-track` -> `.amplify-switch__track`
 
-
-#### 6. public accessLevel becomes 'guest' in Storage components
-
-Starting in v6 of the Amplify JS libraries, `'public'` access level, meaning unauthentiated users can access it, became `'guest'`. The `accessLevel` property on StorageManager and StorageImage components have been updated to reflect this change. 
-
-#### 7. Removal of FileUploader
-
-The FileUploader component was the predecessor to the [`StorageManager`](../connected-components/storage/storagemanager) component. In this major version we are removing the FileUploader component. Please use the StorageManager component which covers all of the use-cases of FileUploader and more. 
-
-#### 8. Moving brand.primary and brand.secondary up a level
+#### 5. Moving brand.primary and brand.secondary up a level
 
 To make it easier to access the primary and secondary colors in the Theme, we removed the `brand` namespace and moved `primary` and `secondary` up a level.
 
@@ -334,7 +303,6 @@ const theme = createTheme({
   secondaryColor: 'green'
 });
 ```
-
 
 ### Migrate from 4.x to 5.x
 #### Installation
@@ -681,6 +649,55 @@ The latest version of the `Authenticator` has a completely different set of CSS 
 Previous versions of `Authenticator` exposed a `onAuthUIStateChange` handler to detect Auth state changes. For similar functionality see [useAuthenticator](/react/connected-components/authenticator/advanced#access-auth-state).
 
 ## `@aws-amplify/ui-react-liveness`
+### Migrate from 2.x to 3.x
+#### Installation
+
+Install the 3.x version of the `@aws-amplify/ui-react-liveness` library.
+
+<Tabs.Container defaultValue="npm">
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="npm">
+    <TerminalCommand command="npm install aws-amplify@6.x @aws-amplify/ui-react-liveness@3.x" />
+  </Tabs.Panel>
+  <Tabs.Panel value="yarn">
+    <TerminalCommand command="yarn add aws-amplify@6.x @aws-amplify/ui-react-liveness@3.x" />
+  </Tabs.Panel>
+</Tabs.Container>
+
+#### Update and Usage
+
+Optionally update your App with the new prop usage:
+
+**App.js**
+
+```diff
+ const App = () => (
+  return (
+    <ThemeProvider>
+      {loading ? (
+        <Loader />
+      ) : (
+        <FaceLivenessDetector
+          sessionId={createLivenessApiData.sessionId}
+          region="us-east-1"
+          onAnalysisComplete={handleAnalysisComplete}
+-         disableInstructionScreen={true}
++         disableStartScreen={true}
+        />
+      )}
+    </ThemeProvider>
+  );
+);
+
+```
+
+#### CDN CSP Policy
+
+The 3.x version of the `FaceLivenessDetector` has been updated to use the latest version of TensorFlow and Blazeface, thus the default CDN paths have changed. If your application has an existing CSP policy, ensure your policy allows https://cdn.liveness.rekognition.amazonaws.com. If you are using a custom CDN make sure to update your CDN versions to match [@tensorflow/tfjs-backend-wasm](https://www.npmjs.com/package/@tensorflow/tfjs-backend-wasm/v/4.11.0) and [@tensorflow-models/face-detection](https://www.npmjs.com/package/@tensorflow-models/face-detection/v/1.0.2).Please look over the [Liveness Config](../connected-components/liveness/customization#facelivenessdetectorconfig) section for more information.
+
 ### Migrate from 1.x to 2.x
 #### Installation
 
@@ -733,3 +750,88 @@ Optionally update your App with the new prop usage:
 #### CDN CSP Policy
 
 The 2.x version of the `FaceLivenessDetector` has updated the default CDN for TensorFlow and Blazeface to a new URL. If your application has an existing CSP policy, update your policy to allow https://cdn.liveness.rekognition.amazonaws.com. Please look over the [Liveness Config](../connected-components/liveness/customization#facelivenessdetectorconfig) section for more information.
+
+
+## `@aws-amplify/ui-react-notifications`
+#### Installation
+Install the 2.x version of `@aws-amplify/ui-react-notifications` and the 6.x version of `aws-amplify`.
+
+<Message colorTheme="warning" title="Upgrade both @aws-amplify/ui-react and aws-amplify">
+The 2.x version of `@aws-amplify/ui-react-notifications` has a minimum dependency of 6.x on `aws-amplify`. `aws-amplify@6` introduced breaking API changes.
+</Message>
+
+<Tabs.Container defaultValue='npm'>
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="npm">
+    <TerminalCommand command="npm install @aws-amplify/ui-react-notifications@2.x aws-amplify@6.x" />
+  </Tabs.Panel>
+  <Tabs.Panel value="yarn">
+    <TerminalCommand command="yarn add @aws-amplify/ui-react-notifications@2.x aws-amplify@6.x" />
+  </Tabs.Panel>
+</Tabs.Container>
+
+#### Update and usage
+
+`@aws-amplify/ui-react-notifications@2.x` introduces the following breaking changes:
+## Migrate from 1.x to 2.x
+
+Starting with `aws-amplify@6`, the Notifications category is no longer exported from the base `aws-amplify` package. If you are using in-app messaging you will need to change your imports accordingly and run `initializeInAppMessaging` before your application code:
+
+```diff
+- import { Amplify, Notifications } from 'aws-amplify'
++ import { Amplify } from 'aws-amplify';
++ import { initializeInAppMessaging, syncMessages } from 'aws-amplify/in-app-messaging';
+- import exports from './aws-exports';
++ import config from './amplifyconfiguration';
+
+Amplify.configure(config);
+
+- const { InAppMessaging } = Notifications;
++ initializeInAppMessaging()
+
+const MyApp = () => {
+  React.useEffect(() => {
+-    InAppMessaging.syncMessages()
++    syncMessages();
+  }, [])
+
+  // ..
+}
+```
+
+## `@aws-amplify/ui-react-storage`
+### Migrate from 2.x to 3.x
+#### Installation
+Install the 3.x version of `@aws-amplify/ui-react-storage` and the 6.x version of `aws-amplify`.
+
+<Message colorTheme="warning" title="Upgrade both @aws-amplify/ui-react-storage and aws-amplify">
+The 3.x version of `@aws-amplify/ui-react-storage` has a minimum dependency of 6.x on `aws-amplify`. `aws-amplify@6` introduced breaking API changes.
+</Message>
+
+<Tabs.Container defaultValue='npm'>
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="npm">
+    <TerminalCommand command="npm install @aws-amplify/ui-react-storage@3.x aws-amplify@6.x" />
+  </Tabs.Panel>
+  <Tabs.Panel value="yarn">
+    <TerminalCommand command="yarn add @aws-amplify/ui-react-storage@3.x aws-amplify@6.x" />
+  </Tabs.Panel>
+</Tabs.Container>
+
+#### Update and usage
+
+`@aws-amplify/ui-react-storage@3.x` introduces the following breaking changes:
+
+#### 1. public accessLevel becomes 'guest' in Storage components
+
+Starting in v6 of the Amplify JS libraries, `'public'` access level, meaning unauthentiated users can access it, became `'guest'`. The `accessLevel` property on StorageManager and StorageImage components have been updated to reflect this change. 
+
+#### 2. Removal of FileUploader
+
+The FileUploader component was the predecessor to the [`StorageManager`](../connected-components/storage/storagemanager) component. In this major version we are removing the FileUploader component. Please use the StorageManager component which covers all of the use-cases of FileUploader and more. 
