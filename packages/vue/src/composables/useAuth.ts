@@ -38,9 +38,9 @@ export const useAuth = createSharedComposable((): UseAuth => {
     authStatus.value = 'unauthenticated';
   };
 
-  const unsubscribeHub = listenToAuthHub(service, async (data, service) => {
-    await defaultAuthHubHandler(data, service, { onSignIn, onSignOut });
-  });
+  const unsubscribeHub = listenToAuthHub(service, (data, service) =>
+    defaultAuthHubHandler(data, service, { onSignIn, onSignOut })
+  );
 
   getCurrentUser()
     .then(() => {
