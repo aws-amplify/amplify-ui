@@ -21,6 +21,13 @@
     );
     color: var(--amplify-components-breadcrumbs__item-disabled-color);
     cursor: not-allowed;
+    .amplify-breadcrumbs__link {
+      background-color: var(
+        --amplify-components-breadcrumbs__link-disabled-color
+      );
+      color: var(--amplify-components-breadcrumbs__link-disabled-color);
+      pointer-events: none;
+    }
   }
 }
 
