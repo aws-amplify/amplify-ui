@@ -1,5 +1,5 @@
 import { Alert } from '@aws-amplify/ui-react';
 
-export const DefaultAlertExample = () => {
+export default function DefaultAlertExample() {
   return <Alert>Default Alert</Alert>;
-};
+}
