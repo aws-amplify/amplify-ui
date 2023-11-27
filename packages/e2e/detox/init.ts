@@ -27,7 +27,7 @@ dotenv.config();
 // https://wix.github.io/Detox/docs/guide/cucumber-js-integration
 // anything lower than 8min has caused flakiness in CI, especially for initial bundling
 // TODO: review when more powerful mac-os runtimes are available in github workflows
-setDefaultTimeout(8 * 60 * 1000);
+setDefaultTimeout(1000 * 60 * 8);
 
 BeforeAll(async () => {
   try {
