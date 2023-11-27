@@ -24,7 +24,7 @@ const LinkPrimitive: Primitive<LinkProps, 'a'> = (
       {...rest}
     >
       {children}
-      {isExternal && <IconBoxArrowUpRight />}
+      {isExternal ? <IconBoxArrowUpRight /> : null}
     </View>
   );
 };
