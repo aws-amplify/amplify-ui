@@ -15,11 +15,7 @@
   line-height: var(--amplify-components-breadcrumbs-item-line-height);
   color: var(--amplify-components-breadcrumbs-item-color);
   font-size: var(--amplify-components-breadcrumbs-item-font-size);
-  &[disabled] {
-    background-color: var(
-      --amplify-components-breadcrumbs__item-disabled-color
-    );
-    color: var(--amplify-components-breadcrumbs__item-disabled-color);
+  &--disabled {
     cursor: not-allowed;
     .amplify-breadcrumbs__link {
       background-color: var(
@@ -46,7 +42,7 @@
   padding-inline: var(--amplify-components-breadcrumbs-link-padding-inline);
   padding-block: var(--amplify-components-breadcrumbs-link-padding-block);
   text-decoration: var(--amplify-components-breadcrumbs-link-text-decoration);
-  &[disabled] {
+  &--disabled {
     background-color: var(
       --amplify-components-breadcrumbs__link-disabled-color
     );

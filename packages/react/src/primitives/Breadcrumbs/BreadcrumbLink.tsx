@@ -17,7 +17,7 @@ import { Link } from '../Link';
 import { Text } from '../Text';
 
 const BreadcrumbLinkPrimitive: Primitive<BreadcrumbsLinkProps, 'a'> = (
-  { className, children, href, isCurrent, ...rest },
+  { className, children, href, isCurrent, isDisabled, ...rest },
   ref
 ) => {
   const componentClasses = classNames(
@@ -26,6 +26,11 @@ const BreadcrumbLinkPrimitive: Primitive<BreadcrumbsLinkProps, 'a'> = (
       ComponentClassName.BreadcrumbsLink,
       'current',
       isCurrent
+    ),
+    classNameModifierByFlag(
+      ComponentClassName.BreadcrumbsLink,
+      'disabled',
+      isDisabled
     ),
     className
   );
@@ -47,7 +52,13 @@ const BreadcrumbLinkPrimitive: Primitive<BreadcrumbsLinkProps, 'a'> = (
     );
   } else {
     return (
-      <Link {...rest} className={componentClasses} ref={ref} href={href}>
+      <Link
+        {...rest}
+        className={componentClasses}
+        href={href}
+        isDisabled={isDisabled}
+        ref={ref}
+      >
         {children}
       </Link>
     );

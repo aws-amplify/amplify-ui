@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Breadcrumbs } from '../Breadcrumbs';
 import { ComponentClassName } from '@aws-amplify/ui';
 
@@ -10,6 +10,14 @@ const breadcrumbs = [
   },
   {
     label: 'test',
+  },
+];
+
+const breadcrumbsWithDisabled = [
+  {
+    isDisabled: true,
+    label: 'test',
+    testId: 'disabled',
   },
 ];
 
@@ -55,6 +63,30 @@ describe('Breadcrumbs:', () => {
     expect(
       container.querySelector('.custom-breadcrumbs__link')
     ).toBeInTheDocument();
+  });
+
+  it('should add the disabled class with the disabled attribute to items', async () => {
+    render(<Breadcrumbs items={breadcrumbsWithDisabled} />);
+
+    const disabled = await screen.findByTestId('disabled');
+
+    expect(disabled.classList).toContain('amplify-breadcrumbs__item--disabled');
+  });
+
+  it('should add the disabled class with the disabled attribute to link', async () => {
+    render(
+      <Breadcrumbs.Container>
+        <Breadcrumbs.Item>
+          <Breadcrumbs.Link testId="disabled" href="/test" isDisabled={true}>
+            Test
+          </Breadcrumbs.Link>
+        </Breadcrumbs.Item>
+      </Breadcrumbs.Container>
+    );
+
+    const disabled = await screen.findByTestId('disabled');
+
+    expect(disabled.classList).toContain('amplify-breadcrumbs__link--disabled');
   });
 
   it('should apply proper aria attributes to current link', () => {
