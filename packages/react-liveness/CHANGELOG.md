@@ -1,5 +1,35 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.0.2
+
+### Patch Changes
+
+- Updated dependencies [[`4ff26e27e`](https://github.com/aws-amplify/amplify-ui/commit/4ff26e27e4bc8909cc2b86c738eca5085b2a42d1), [`bb141a719`](https://github.com/aws-amplify/amplify-ui/commit/bb141a719fd9bc2d7680e539f2ff047deb88ee7e)]:
+  - @aws-amplify/ui-react@6.0.3
+  - @aws-amplify/ui@6.0.2
+
+## 3.0.1
+
+### Patch Changes
+
+- Updated dependencies [[`9dd0e58e5`](https://github.com/aws-amplify/amplify-ui/commit/9dd0e58e5167d307c2154b3280de3c0e52f607e1)]:
+  - @aws-amplify/ui@6.0.1
+  - @aws-amplify/ui-react@6.0.2
+
+## 3.0.0
+
+### Major Changes
+
+- [#4728](https://github.com/aws-amplify/amplify-ui/pull/4728) [`872e27db5`](https://github.com/aws-amplify/amplify-ui/commit/872e27db598e36c017028fc0af1e5f34e7adffb4) Thanks [@thaddmt](https://github.com/thaddmt)! - breaking(liveness): update liveness UX
+
+  Replace start screen with instructions with a new hair check start screen that lets end users interface with the camera. Also added camera selection and upgraded the blazeface model.
+
+  Updated `disableInstructionScreen` to `disableStartScreen`
+
+### Patch Changes
+
+- [#4737](https://github.com/aws-amplify/amplify-ui/pull/4737) [`f5338f6c2`](https://github.com/aws-amplify/amplify-ui/commit/f5338f6c23c5228b1a44f9fb26e81fb805704949) Thanks [@reesscot](https://github.com/reesscot)! - chore(liveness): upgrade blazeface model
+
 ## 2.0.12
 
 ### Patch Changes

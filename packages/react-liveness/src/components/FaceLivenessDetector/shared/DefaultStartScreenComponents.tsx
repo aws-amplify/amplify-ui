@@ -1,36 +1,18 @@
 import React from 'react';
 import { ComponentClassName } from '@aws-amplify/ui';
-import { Flex, View, Text } from '@aws-amplify/ui-react';
-import { GoodFitIllustration, TooFarIllustration, StartScreenFigure } from './';
+import { Flex, View } from '@aws-amplify/ui-react';
+import { RecordingIcon } from './';
 import { LivenessIconWithPopover } from './LivenessIconWithPopover';
+import { CancelButton as CancelButtonComponent } from './CancelButton';
 import { LivenessClassNames } from '../types/classNames';
+import { CheckScreenComponents } from './FaceLivenessErrorModal';
+
+export type FaceLivenessDetectorComponents = StartScreenComponents &
+  CheckScreenComponents;
 
 export interface StartScreenComponents {
-  Header?: React.ComponentType;
   PhotosensitiveWarning?: React.ComponentType;
-  Instructions?: React.ComponentType;
 }
-
-interface DefaultHeaderProps {
-  headingText: string;
-  bodyText: string;
-}
-
-export const DefaultHeader = ({
-  headingText,
-  bodyText,
-}: DefaultHeaderProps): JSX.Element => {
-  return (
-    <View className={LivenessClassNames.StartScreenHeader}>
-      <View className={LivenessClassNames.StartScreenHeaderHeading}>
-        {headingText}
-      </View>
-      <View className={LivenessClassNames.StartScreenHeaderBody}>
-        {bodyText}
-      </View>
-    </View>
-  );
-};
 
 interface DefaultPhotosensitiveWarningProps {
   headingText: string;
@@ -46,6 +28,7 @@ export const DefaultPhotosensitiveWarning = ({
   return (
     <Flex
       className={`${ComponentClassName.Alert} ${LivenessClassNames.StartScreenWarning}`}
+      style={{ zIndex: '3' }}
     >
       <View flex="1">
         <View className={ComponentClassName.AlertHeading}>{headingText}</View>
@@ -56,48 +39,32 @@ export const DefaultPhotosensitiveWarning = ({
   );
 };
 
-interface DefaultInstructionsProps {
-  headingText: string;
-  goodFitCaptionText: string;
-  goodFitAltText: string;
-  tooFarCaptionText: string;
-  tooFarAltText: string;
-  steps: string[];
+interface DefaultRecordingIconProps {
+  recordingIndicatorText: string;
 }
 
-export const DefaultInstructions = ({
-  headingText,
-  goodFitCaptionText,
-  goodFitAltText,
-  tooFarCaptionText,
-  tooFarAltText,
-  steps,
-}: DefaultInstructionsProps): JSX.Element => {
+export const DefaultRecordingIcon = ({
+  recordingIndicatorText,
+}: DefaultRecordingIconProps): JSX.Element => {
   return (
-    <Flex direction="column">
-      <Text className={LivenessClassNames.StartScreenInstructionsHeading}>
-        {headingText}
-      </Text>
-      <Flex className={LivenessClassNames.Figures}>
-        <StartScreenFigure variation="success" caption={goodFitCaptionText}>
-          <GoodFitIllustration title={goodFitAltText} />
-        </StartScreenFigure>
-        <StartScreenFigure variation="error" caption={tooFarCaptionText}>
-          <TooFarIllustration title={tooFarAltText} />
-        </StartScreenFigure>
-      </Flex>
-      <Flex as="ol" className={LivenessClassNames.InstructionList}>
-        {steps.map((item, index) => {
-          return (
-            <Flex as="li" key={index + 1}>
-              <Text as="span" aria-hidden="true">
-                {index + 1}.
-              </Text>
-              <Text as="span">{item}</Text>
-            </Flex>
-          );
-        })}
-      </Flex>
-    </Flex>
+    <View className={LivenessClassNames.RecordingIconContainer}>
+      <RecordingIcon>{recordingIndicatorText}</RecordingIcon>
+    </View>
+  );
+};
+
+interface CancelButtonProps {
+  cancelLivenessCheckText: string;
+}
+
+export const DefaultCancelButton = ({
+  cancelLivenessCheckText,
+}: CancelButtonProps): JSX.Element => {
+  return (
+    <View className={LivenessClassNames.CancelContainer}>
+      <CancelButtonComponent
+        ariaLabel={cancelLivenessCheckText}
+      ></CancelButtonComponent>
+    </View>
   );
 };

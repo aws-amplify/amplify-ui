@@ -251,7 +251,7 @@ const hasRouteComponent = computed(() => {
           v-if="route === 'forgotPassword'"
           ref="ForgotPasswordComponent"
         >
-          <template #resetPasswordSlotI>
+          <template #forgotPasswordSlotI>
             <slot name="forgot-password"></slot>
           </template>
           <template #header>

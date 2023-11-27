@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 
 import {
   renderWithLivenessProvider,
@@ -44,7 +43,10 @@ describe('CancelButton', () => {
   it('should call the send method on cancel', () => {
     renderWithLivenessProvider(<CancelButton ariaLabel={buttonAriaLabel} />);
 
-    userEvent.click(screen.getByRole('button', { name: buttonAriaLabel }));
+    expect(
+      screen.getByRole('button', { name: buttonAriaLabel })
+    ).toBeInTheDocument();
+    screen.getByRole('button', { name: buttonAriaLabel }).click();
 
     expect(mockActorSend).toHaveBeenCalledWith({
       type: 'CANCEL',

@@ -17,7 +17,7 @@ const App = () => {
   return (
     <Layout>
       <LivenessDefault
-        disableInstructionScreen={false}
+        disableStartScreen={false}
         components={{
           Header: () => {
             return (
