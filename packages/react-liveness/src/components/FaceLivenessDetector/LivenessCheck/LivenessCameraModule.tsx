@@ -83,7 +83,6 @@ const showMatchIndicatorStates = [
   FaceMatchState.TOO_FAR,
   FaceMatchState.CANT_IDENTIFY,
   FaceMatchState.FACE_IDENTIFIED,
-  FaceMatchState.MATCHED,
 ];
 
 /**
