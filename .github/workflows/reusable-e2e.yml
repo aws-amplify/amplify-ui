@@ -349,8 +349,7 @@ jobs:
 
   e2e-ios:
     needs: check-changed-packages
-    if: false # Temporarily disable RN iOS tests
-    # if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
+    if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
     runs-on: macos-13
     environment: ci
     env:
@@ -470,8 +469,7 @@ jobs:
 
   e2e-android:
     needs: check-changed-packages
-    if: false # Temporarily disable RN Android tests
-    # if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
+    if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
     runs-on: macos-13
     environment: ci
     env:
