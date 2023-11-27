@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.0.3
+
+### Patch Changes
+
+- [#4780](https://github.com/aws-amplify/amplify-ui/pull/4780) [`33256ee32`](https://github.com/aws-amplify/amplify-ui/commit/33256ee32ff801ff302332a4bb8aa95dad0ac6db) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): update hold still text to show when matched
+
 ## 3.0.2
 
 ### Patch Changes
