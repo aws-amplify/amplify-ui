@@ -26,10 +26,10 @@ const BreadcrumbsPrimitive: Primitive<BreadcrumbsProps, 'nav'> = (
       className={className}
       ref={ref}
     >
-      {items?.map(({ href, label }, idx) => {
+      {items?.map(({ href, label, ...rest }, idx) => {
         const isCurrent = items.length - 1 === idx;
         return (
-          <BreadcrumbItem key={`${href}${idx}`}>
+          <BreadcrumbItem key={`${href}${idx}`} {...rest}>
             <BreadcrumbLink href={href} isCurrent={isCurrent}>
               {label}
             </BreadcrumbLink>
