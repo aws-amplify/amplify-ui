@@ -109,7 +109,10 @@ export const LivenessCameraModule = (
 
   const { cancelLivenessCheckText, recordingIndicatorText } = streamDisplayText;
 
-  const { ErrorView = FaceLivenessErrorModal } = customComponents ?? {};
+  const {
+    ErrorView = FaceLivenessErrorModal,
+    PhotosensitiveWarning = DefaultPhotosensitiveWarning,
+  } = customComponents ?? {};
 
   const [state, send] = useLivenessActor();
 
@@ -221,14 +224,14 @@ export const LivenessCameraModule = (
   const photoSensitivtyWarning = React.useMemo(() => {
     return (
       <View style={{ visibility: isStartView ? 'visible' : 'hidden' }}>
-        <DefaultPhotosensitiveWarning
+        <PhotosensitiveWarning
           headingText={instructionDisplayText.photosensitivyWarningHeadingText}
           bodyText={instructionDisplayText.photosensitivyWarningBodyText}
           infoText={instructionDisplayText.photosensitivyWarningInfoText}
         />
       </View>
     );
-  }, [instructionDisplayText, isStartView]);
+  }, [PhotosensitiveWarning, instructionDisplayText, isStartView]);
 
   const handleMediaPlay = () => {
     setIsCameraReady(true);
