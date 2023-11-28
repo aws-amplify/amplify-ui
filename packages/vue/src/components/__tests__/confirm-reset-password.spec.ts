@@ -138,17 +138,14 @@ describe('ConfirmResetPassword', () => {
   it('sends submit event on form submit', async () => {
     render(ConfirmResetPassword, { global: { components } });
     // we need to first fill out the form
-    const codeField = await screen.findByLabelText('Code *');
-    const newPasswordField = await screen.findByLabelText('New Password');
-    const confirmPasswordField =
-      await screen.findByLabelText('Confirm Password');
-    await fireEvent.input(codeField, { target: codeInputPrams });
-    await fireEvent.input(newPasswordField, {
-      target: newPasswordInputParams,
-    });
-    await fireEvent.input(confirmPasswordField, {
-      target: confirmPasswordInputParams,
-    });
+    const form = (await screen.findByRole('form')) as HTMLFormElement;
+    (form.elements.namedItem('confirmation_code') as HTMLInputElement).value =
+      '123456';
+    (form.elements.namedItem('password') as HTMLInputElement).value =
+      'newPassword';
+    (form.elements.namedItem('confirm_password') as HTMLInputElement).value =
+      'newPassword';
+
     // then we can submit the form
     const submitButton = await screen.findByRole('button', {
       name: 'Submit',
