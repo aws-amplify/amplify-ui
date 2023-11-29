@@ -449,10 +449,10 @@ jobs:
         run: yarn detox rebuild-framework-cache
 
       - name: Build ios example
-        run: yarn e2e detox:build:ios:release
+        run: yarn e2e detox:build:ios:debug
 
       - name: Run E2E tests against react-native example
-        run: yarn e2e detox:e2e:ios:release --retry 1 --fail-fast --headless
+        run: yarn e2e detox:e2e:ios:debug --retry 1 --fail-fast --headless
         env:
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
@@ -580,11 +580,11 @@ jobs:
         run: yarn react-native-example dev --reset-cache &
 
       - name: Build android example
-        run: yarn e2e detox:build:android:release
+        run: yarn e2e detox:build:android:debug
 
       - name: Run E2E tests against react-native example
         run: |
-          yarn e2e detox:e2e:android:release --retry 1 --fail-fast --parallel 2 --headless
+          yarn e2e detox:e2e:android:debug --retry 1 --fail-fast --parallel 2 --headless
         env:
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
