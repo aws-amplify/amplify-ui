@@ -82,7 +82,7 @@ export async function checkLink(
     } else if (
       IGNORED_LINKS.includes(href) ||
       requestedUrl.has(href) ||
-      !isInternalLink(href)
+      (href as string).includes('www.w3.org')
     ) {
       res({ ...linkData, statusCode: 0 });
     } else {
