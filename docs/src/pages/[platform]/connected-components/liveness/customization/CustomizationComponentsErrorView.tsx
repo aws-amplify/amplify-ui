@@ -29,8 +29,8 @@ export function CustomizationComponentsErrorView() {
 
   return (
     <FaceLivenessDetector
-      sessionId={'sessionId'}
-      region={'us-east-1'}
+      sessionId="sessionId"
+      region="us-east-1"
       onAnalysisComplete={async () => {}}
       onError={(error) => {
         setError(error);
