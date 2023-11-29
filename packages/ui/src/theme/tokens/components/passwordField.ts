@@ -8,6 +8,7 @@ type StateTokens<Output> = DesignTokenProperties<
 type ButtonTokens<Output> = DesignTokenProperties<'color', Output> & {
   _active?: StateTokens<Output>;
   _disabled?: StateTokens<Output>;
+  _error?: StateTokens<Output>;
   _focus?: StateTokens<Output>;
   _hover?: StateTokens<Output>;
 };
@@ -36,6 +37,15 @@ export const passwordfield: Required<PasswordFieldTokens<'default'>> = {
         value: '{components.button._disabled.borderColor.value}',
       },
       color: { value: '{components.button._disabled.color.value}' },
+    },
+    _error: {
+      color: { value: '{components.button.outlined.error.color.value}' },
+      backgroundColor: {
+        value: '{components.button.outlined.error.backgroundColor.value}',
+      },
+      borderColor: {
+        value: '{components.button.outlined.error.backgroundColor.value}',
+      },
     },
     _focus: {
       backgroundColor: {
