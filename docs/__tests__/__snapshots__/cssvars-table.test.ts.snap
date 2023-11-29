@@ -3887,6 +3887,18 @@ exports[`CSS Variables Table 1`] = `
         "value": "var(--amplify-components-button-disabled-color)"
     },
     {
+        "variable": "--amplify-components-passwordfield-button-error-background-color",
+        "value": "var(--amplify-components-button-outlined-error-background-color)"
+    },
+    {
+        "variable": "--amplify-components-passwordfield-button-error-border-color",
+        "value": "var(--amplify-components-button-outlined-error-background-color)"
+    },
+    {
+        "variable": "--amplify-components-passwordfield-button-error-color",
+        "value": "var(--amplify-components-button-outlined-error-color)"
+    },
+    {
         "variable": "--amplify-components-passwordfield-button-focus-background-color",
         "value": "var(--amplify-components-button-focus-background-color)"
     },
