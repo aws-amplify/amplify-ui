@@ -3,8 +3,9 @@
     "baseUrl": "http://localhost:3000/",
     "target": "esnext",
     "lib": ["esnext", "dom"],
-    "types": ["cypress", "@testing-library/cypress"],
-    "moduleResolution": "node"
+    "types": ["cypress", "@testing-library/cypress", "jest", "node"],
+    "moduleResolution": "node",
+    "esModuleInterop": true
   },
   "include": ["**/*.ts"]
 }
