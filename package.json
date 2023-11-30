@@ -4,6 +4,7 @@
     "build": "turbo run build --filter=./packages/* --filter=!./packages/angular --filter=./packages/angular/projects/ui-angular",
     "clean": "turbo run clean && rimraf node_modules",
     "lint": "turbo run lint --filter=./packages/* --filter=!./packages/angular --filter=./packages/angular/projects/ui-angular",
+    "size": "turbo run size --filter=./packages/* --filter=!./packages/angular --filter=./packages/angular/projects/ui-angular",
     "test": "turbo run test --filter=./packages/* --filter=!./packages/angular --filter=./packages/angular/projects/ui-angular",
     "setup": "yarn install && yarn build",
     "refresh": "yarn clean && yarn setup",
