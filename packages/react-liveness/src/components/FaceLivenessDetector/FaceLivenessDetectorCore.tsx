@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useInterpret } from '@xstate/react';
+import { useActor, useInterpret } from '@xstate/react';
 import {
   livenessMachine,
   FaceLivenessDetectorCoreProps as FaceLivenessDetectorPropsFromUi,
@@ -23,7 +23,7 @@ export interface FaceLivenessDetectorCoreProps
 export default function FaceLivenessDetectorCore(
   props: FaceLivenessDetectorCoreProps
 ): JSX.Element {
-  const { components, config, displayText } = props;
+  const { components, config, displayText, disableStartScreen } = props;
   const currElementRef = React.useRef<HTMLDivElement>(null);
   const {
     hintDisplayText,
@@ -42,6 +42,21 @@ export default function FaceLivenessDetectorCore(
       },
     },
   });
+
+  const [state, send] = useActor(service);
+  const isStartView = state.matches('start');
+
+  const beginLivenessCheck = React.useCallback(() => {
+    send({
+      type: 'BEGIN',
+    });
+  }, [send]);
+
+  React.useLayoutEffect(() => {
+    if (disableStartScreen && isStartView) {
+      beginLivenessCheck();
+    }
+  }, [beginLivenessCheck, disableStartScreen, isStartView]);
 
   return (
     <View className={DETECTOR_CLASS_NAME} testId={DETECTOR_CLASS_NAME}>
