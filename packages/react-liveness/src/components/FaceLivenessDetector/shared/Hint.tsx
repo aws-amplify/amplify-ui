@@ -162,8 +162,15 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
       // During face matching, we want to only show the TOO_CLOSE or
       // TOO_FAR texts. If FaceMatchState matches TOO_CLOSE, we'll show
       // the TOO_CLOSE text, but for FACE_IDENTIFED, CANT_IDENTIFY, TOO_MANY
-      // we are defaulting to the TOO_FAR text (for now). For MATCHED state,
-      // we don't want to show any toasts.
+      // we are defaulting to the TOO_FAR text (for now).
+      let resultHintString = FaceMatchStateStringMap[FaceMatchState.TOO_FAR];
+      if (
+        faceMatchState === FaceMatchState.TOO_CLOSE ||
+        faceMatchState === FaceMatchState.MATCHED
+      ) {
+        resultHintString = FaceMatchStateStringMap[faceMatchState];
+      }
+
       return (
         <Toast
           size="large"
@@ -171,9 +178,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
             faceMatchState === FaceMatchState.TOO_CLOSE ? 'error' : 'primary'
           }
         >
-          {faceMatchState === FaceMatchState.TOO_CLOSE
-            ? FaceMatchStateStringMap[FaceMatchState.TOO_CLOSE]
-            : FaceMatchStateStringMap[FaceMatchState.TOO_FAR]}
+          {resultHintString}
         </Toast>
       );
     }
