@@ -78,6 +78,7 @@ export async function checkLink(
         `⚠️[WARNING...] page #${pageIdx} link #${linkIdx} "${tagName}" tag "${tagText}" doesn't have a href on ${pageUrl}.`
       );
       res({ ...linkData, statusCode: 0 });
+      // skip all external links
     } else if (requestedUrl.has(href) || !isInternalLink(href)) {
       res({ ...linkData, statusCode: 0 });
     } else {
