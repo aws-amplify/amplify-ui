@@ -383,7 +383,7 @@ jobs:
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
-      - name: Install Detox Utils
+      - name: Install Detox iOS utils
         run: |
           brew tap wix/brew
           brew install applesimutils
@@ -452,7 +452,7 @@ jobs:
         run: yarn e2e detox:build:ios:debug
 
       - name: Run E2E tests against react-native example
-        run: yarn e2e detox:e2e:ios:debug --retry 1 --fail-fast --headless
+        run: yarn e2e detox:e2e:ios:debug --retry 1
         env:
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
@@ -575,7 +575,7 @@ jobs:
         run: yarn e2e detox:build:ios:debug
 
       - name: Run E2E tests against react-native example
-        run: yarn e2e detox:e2e-jest:ios:debug --headless
+        run: yarn e2e detox:e2e-jest:ios:debug --headless --cleanup
         env:
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
@@ -707,7 +707,7 @@ jobs:
 
       - name: Run E2E tests against react-native example
         run: |
-          yarn e2e detox:e2e:android:debug --retry 1 --fail-fast --parallel 2 --headless
+          yarn e2e detox:e2e:android:debug --retry 1 --parallel 2
         env:
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
