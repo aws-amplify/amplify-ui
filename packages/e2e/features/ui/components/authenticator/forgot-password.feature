@@ -84,7 +84,6 @@ Feature: Reset Password
     Then I click the "Send code" button
     Then I will be redirected to the confirm forgot password page
     Then I click the "Resend Code" button
-    Then I see "Code *"
     Then I see "Code *" is not disabled
     Then I type a valid code
     Then I type my new password
