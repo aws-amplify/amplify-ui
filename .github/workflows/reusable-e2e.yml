@@ -405,7 +405,7 @@ jobs:
       - name: Build react-native package
         run: yarn react-native build
 
-      - name: Update CocoaPods
+      - name: Update CocoaPods and install pods
         run: |
           gem update cocoapods xcodeproj
           yarn react-native-example ios:pod-install
