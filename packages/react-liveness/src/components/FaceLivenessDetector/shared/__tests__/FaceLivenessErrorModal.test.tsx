@@ -26,12 +26,9 @@ describe('FaceLivenessErrorModal', () => {
         {renderErrorModal({ errorState })}
       </FaceLivenessErrorModal>
     );
-    const timeoutModal = screen.getByRole('dialog');
-    expect(timeoutModal).toBeInTheDocument();
-    expect(timeoutModal).toHaveAttribute(
-      'aria-labelledby',
-      'timeout-error-heading'
-    );
+
+    expect(screen.getByText(serverHeaderText)).toBeInTheDocument();
+    expect(screen.getByText(serverMessageText)).toBeInTheDocument();
   });
 
   it('should render the timeout message appropriately', () => {
@@ -54,8 +51,9 @@ describe('FaceLivenessErrorModal', () => {
       </FaceLivenessErrorModal>
     );
 
-    expect(screen.getByText(timeoutHeaderText)).toBeInTheDocument();
-    expect(screen.getByText(timeoutMessageText)).toBeInTheDocument();
+    const timeoutModal = screen.getByRole('dialog');
+    expect(timeoutModal).toBeInTheDocument();
+    expect(timeoutModal).toHaveAttribute('aria-labelledby', 'error-heading');
   });
 
   it('should render the runtime error message appropriately', () => {
