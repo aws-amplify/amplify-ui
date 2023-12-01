@@ -1,7 +1,7 @@
 {
   "skipLegacyWorkersInjection": true,
   "logger": {
-    "level": "trace"
+    "level": "info"
   },
   "artifacts": {
     "rootDir": "./detox/screenshots",

@@ -350,7 +350,7 @@ jobs:
   e2e-ios:
     needs: check-changed-packages
     if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
-    runs-on: macos-latest
+    runs-on: macos-13
     environment: ci
     env:
       NODE_ENV: test
@@ -491,7 +491,7 @@ jobs:
   e2e-ios-jest:
     needs: check-changed-packages
     if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
-    runs-on: macos-latest
+    runs-on: macos-13
     environment: ci
     env:
       NODE_ENV: test
@@ -633,7 +633,7 @@ jobs:
   e2e-android:
     needs: check-changed-packages
     if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
-    runs-on: macos-latest
+    runs-on: macos-13
     environment: ci
     env:
       NODE_ENV: test
@@ -790,7 +790,7 @@ jobs:
   e2e-android-jest:
     needs: check-changed-packages
     if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
-    runs-on: macos-latest
+    runs-on: macos-13
     environment: ci
     env:
       NODE_ENV: test
