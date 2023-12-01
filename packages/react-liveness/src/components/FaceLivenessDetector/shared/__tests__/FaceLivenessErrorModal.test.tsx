@@ -26,12 +26,27 @@ describe('FaceLivenessErrorModal', () => {
         {renderErrorModal({ errorState })}
       </FaceLivenessErrorModal>
     );
-
-    expect(screen.getByText(serverHeaderText)).toBeInTheDocument();
-    expect(screen.getByText(serverMessageText)).toBeInTheDocument();
+    const timeoutModal = screen.getByRole('dialog');
+    expect(timeoutModal).toBeInTheDocument();
+    expect(timeoutModal).toHaveAttribute(
+      'aria-labelledby',
+      'timeout-error-heading'
+    );
   });
 
   it('should render the timeout message appropriately', () => {
+    const errorState = LivenessErrorState.TIMEOUT;
+    render(
+      <FaceLivenessErrorModal onRetry={() => {}}>
+        {renderErrorModal({ errorState })}
+      </FaceLivenessErrorModal>
+    );
+
+    expect(screen.getByText(timeoutHeaderText)).toBeInTheDocument();
+    expect(screen.getByText(timeoutMessageText)).toBeInTheDocument();
+  });
+
+  it('should render the timeout message with proper accessibility attributes', () => {
     const errorState = LivenessErrorState.TIMEOUT;
     render(
       <FaceLivenessErrorModal onRetry={() => {}}>

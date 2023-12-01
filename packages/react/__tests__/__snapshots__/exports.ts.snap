@@ -126,6 +126,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -380,6 +383,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -670,6 +676,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -1018,6 +1027,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -1274,6 +1286,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -1528,6 +1543,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -1825,6 +1843,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -2096,6 +2117,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -2351,6 +2375,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -2687,6 +2714,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -2964,6 +2994,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -3222,6 +3255,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -3470,6 +3506,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -3723,6 +3762,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -3991,6 +4033,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -4283,6 +4328,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -4556,6 +4604,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -4835,6 +4886,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -5093,6 +5147,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -5341,6 +5398,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -5601,6 +5661,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -5870,6 +5933,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -6164,6 +6230,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -6412,6 +6481,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -6665,6 +6737,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -6939,6 +7014,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -7225,6 +7303,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -7516,6 +7597,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -7805,6 +7889,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -8088,6 +8175,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -8366,6 +8456,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -8902,6 +8995,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -9432,6 +9528,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -9683,6 +9782,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -9989,6 +10091,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -10325,6 +10430,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -10610,6 +10718,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -10864,6 +10975,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -11223,6 +11337,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -11540,6 +11657,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -11925,6 +12045,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -12285,6 +12408,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -12619,6 +12745,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -12878,6 +13007,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -13123,6 +13255,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -13372,6 +13507,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -13617,6 +13755,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -13866,6 +14007,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -14111,6 +14255,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -14361,6 +14508,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -14624,6 +14774,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -14956,6 +15109,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {
@@ -15305,6 +15461,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -15603,6 +15762,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -15883,6 +16045,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaLabel": {
         "type": "string",
       },
+      "ariaLabelledBy": {
+        "type": "string",
+      },
       "ariaValuetext": {
         "type": "string",
       },
@@ -16128,6 +16293,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "ariaLabel": {
+        "type": "string",
+      },
+      "ariaLabelledBy": {
         "type": "string",
       },
       "ariaValuetext": {

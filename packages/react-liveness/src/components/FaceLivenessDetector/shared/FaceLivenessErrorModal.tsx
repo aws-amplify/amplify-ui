@@ -69,7 +69,12 @@ const renderToastErrorModal = (props: {
     <>
       <Flex className={LivenessClassNames.ErrorModal}>
         <AlertIcon ariaHidden variation="error" />
-        <Text className={LivenessClassNames.ErrorModalHeading}>{heading}</Text>
+        <Text
+          className={LivenessClassNames.ErrorModalHeading}
+          id="timeout-error-heading"
+        >
+          {heading}
+        </Text>
       </Flex>
       {message}
     </>
@@ -116,7 +121,7 @@ export const FaceLivenessErrorModal: React.FC<FaceLivenessErrorModalProps> = (
 
   return (
     <Overlay className={LivenessClassNames.OpaqueOverlay}>
-      <Toast>
+      <Toast ariaLabelledBy="timeout-error-heading" role="dialog">
         {children}
         <Flex justifyContent="center">
           <Button variation="primary" type="button" onClick={onRetry}>

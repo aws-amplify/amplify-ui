@@ -14,6 +14,7 @@ const ViewPrimitive: Primitive<ViewProps, 'div'> = (
     children,
     testId,
     ariaLabel,
+    ariaLabelledBy,
     isDisabled,
     style,
     inert,
@@ -27,6 +28,7 @@ const ViewPrimitive: Primitive<ViewProps, 'div'> = (
     as,
     {
       'aria-label': ariaLabel,
+      'aria-labelledby': ariaLabelledBy,
       'data-testid': testId,
       disabled: isDisabled,
       ref,
