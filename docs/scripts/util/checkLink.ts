@@ -1,6 +1,5 @@
 import https from 'https';
 import http from 'http';
-import { IGNORED_LINKS } from '../../src/data/ignoredLinks';
 import {
   DEFAULT_GOOD_STATUS_CODES,
   DOCS_AMPLIFY_HOST,
@@ -79,11 +78,8 @@ export async function checkLink(
         `⚠️[WARNING...] page #${pageIdx} link #${linkIdx} "${tagName}" tag "${tagText}" doesn't have a href on ${pageUrl}.`
       );
       res({ ...linkData, statusCode: 0 });
-    } else if (
-      IGNORED_LINKS.includes(href) ||
-      requestedUrl.has(href) ||
-      (href as string).includes('www.w3.org')
-    ) {
+      // skip all external links
+    } else if (requestedUrl.has(href) || !isInternalLink(href)) {
       res({ ...linkData, statusCode: 0 });
     } else {
       const { get } = href.includes('https:') ? https : http;

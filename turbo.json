@@ -10,6 +10,7 @@
       "cache": false
     },
     "lint": {},
+    "size": {},
     "test": {}
   }
 }
