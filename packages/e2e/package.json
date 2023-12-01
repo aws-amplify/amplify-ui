@@ -18,9 +18,10 @@
     "postcucumber": "kill $(lsof -t -i :9091)",
     "detox:build:ios:debug": "detox build --configuration ios.simulator.debug",
     "detox:e2e:ios:debug": "DETOX_CONFIGURATION=ios.simulator.debug yarn cucumber",
-    "detox:e2e-jest:ios:debug": "detox test --configuration=ios.simulator.jest.debug",
+    "detox:e2e-jest:ios:debug": "detox test --configuration=ios.simulator.jest.debug --record-logs all",
     "detox:build:android:debug": "detox build --configuration android.emulator.debug",
-    "detox:e2e:android:debug": "DETOX_CONFIGURATION=android.emulator.debug yarn cucumber"
+    "detox:e2e:android:debug": "DETOX_CONFIGURATION=android.emulator.debug yarn cucumber",
+    "detox:e2e-jest:android:debug": "detox test --configuration=android.emulator.jest.debug --record-logs all"
   },
   "cypress-cucumber-preprocessor": {
     "filterSpecs": true,

@@ -84,6 +84,19 @@
     "android.emulator.release": {
       "device": "emulator",
       "app": "android.release"
+    },
+    "android.emulator.jest.debug": {
+      "device": "emulator",
+      "app": "android.debug",
+      "testRunner": {
+        "args": {
+          "$0": "jest",
+          "config": "detox-jest/jest.config.ts"
+        },
+        "jest": {
+          "setupTimeout": 120000
+        }
+      }
     }
   }
 }
