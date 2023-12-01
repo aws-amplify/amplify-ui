@@ -436,6 +436,21 @@ jobs:
       - name: Pull down Auth AWS environments
         run: yarn environments auth pull
 
+      - name: Configure in-app-messaging credentials
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.IN_APP_MESSAGING_E2E_ROLE_ARN }}
+
+      # Amplify CLI does not support headless pull with temporary credentials
+      # when useProfile is false.
+      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      - name: Create temp AWS Profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
       - name: Pull down In-app-messaging AWS environments
         run: yarn environments in-app-messaging pull
 
@@ -562,6 +577,22 @@ jobs:
       - name: Pull down Auth AWS environments
         run: yarn environments auth pull
 
+      - name: Configure in-app-messaging credentials
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.IN_APP_MESSAGING_E2E_ROLE_ARN }}
+
+      # Amplify CLI does not support headless pull with temporary credentials
+      # when useProfile is false.
+      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      - name: Create temp AWS Profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
+
       - name: Pull down In-app-messaging AWS environments
         run: yarn environments in-app-messaging pull
 
@@ -675,6 +706,22 @@ jobs:
 
       - name: Pull down Auth AWS environments
         run: yarn environments auth pull
+
+      - name: Configure in-app-messaging credentials
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.IN_APP_MESSAGING_E2E_ROLE_ARN }}
+
+      # Amplify CLI does not support headless pull with temporary credentials
+      # when useProfile is false.
+      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      - name: Create temp AWS Profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
 
       - name: Pull down In-app-messaging AWS environments
         run: yarn environments in-app-messaging pull
@@ -816,6 +863,22 @@ jobs:
 
       - name: Pull down Auth AWS environments
         run: yarn environments auth pull
+
+      - name: Configure in-app-messaging credentials
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.IN_APP_MESSAGING_E2E_ROLE_ARN }}
+
+      # Amplify CLI does not support headless pull with temporary credentials
+      # when useProfile is false.
+      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      - name: Create temp AWS Profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
 
       - name: Pull down In-app-messaging AWS environments
         run: yarn environments in-app-messaging pull
