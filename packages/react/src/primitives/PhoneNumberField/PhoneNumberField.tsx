@@ -11,6 +11,7 @@ import {
 import { ComponentText } from '../shared/constants';
 import { TextField } from '../TextField';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
+import { formatPhoneNumber } from './utils';
 
 const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
   {
@@ -28,10 +29,40 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
     onInput,
     size,
     variation,
+    defaultValue,
+    onChange,
+    value,
     ...rest
   },
   ref
 ) => {
+  // state for the current dial code and default to the defaultDialCode
+  const [dialCode, setDialCode] = React.useState<string>(
+    (defaultDialCode as string) ?? ''
+  );
+  // state for the formatted phone number and default to the defaultValue
+  const [formattedPhoneNumber, setFormattedPhoneNumber] =
+    React.useState<string>(
+      formatPhoneNumber(dialCode, (value as string) ?? defaultValue ?? '')
+    );
+  const onNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const phoneNumber = event.target.value;
+    // format the phone number with the current dial code
+    const formatted = formatPhoneNumber(dialCode, phoneNumber);
+    setFormattedPhoneNumber(formatted);
+    onChange?.(event);
+  };
+  const onDialCodeChangeWrapper = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const code = event.target.value;
+    // Call the onDialCodeChange prop if it exists
+    setDialCode(code);
+    // Reformat the phone number with the new dial code
+    const formatted = formatPhoneNumber(code, formattedPhoneNumber);
+    setFormattedPhoneNumber(formatted);
+    onDialCodeChange?.(event);
+  };
   return (
     <TextField
       outerStartComponent={
@@ -44,7 +75,8 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
           isReadOnly={isReadOnly}
           label={dialCodeLabel}
           name={dialCodeName}
-          onChange={onDialCodeChange}
+          // Pass the onDialCodeChangeWrapper function to the DialCodeSelect
+          onChange={onDialCodeChangeWrapper}
           ref={dialCodeRef}
           size={size}
           variation={variation}
@@ -56,6 +88,9 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
       isDisabled={isDisabled}
       isReadOnly={isReadOnly}
       onInput={onInput}
+      // Pass the onChange function to the TextField and use the formattedPhoneNumber state as the value
+      onChange={onNumberChange}
+      value={formattedPhoneNumber}
       ref={ref}
       size={size}
       type="tel"
