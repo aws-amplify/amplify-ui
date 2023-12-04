@@ -1,16 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import { Image } from 'react-native';
+import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
 import {
-  MessageImage,
-  MessageLayout,
+  InAppMessageImage,
+  InAppMessageLayout,
 } from '@aws-amplify/ui-react-core-notifications';
 
 import { ImageDimensions, ImagePrefetchStatus, UseMessageImage } from './types';
 import { getLayoutImageDimensions, prefetchNetworkImage } from './utils';
 
-const logger = new Logger('Notifications.InAppMessaging');
+const logger = new Logger('InAppMessaging');
 
 /**
  * Handles prefetching and dimension setting for message images
@@ -20,8 +20,8 @@ const logger = new Logger('Notifications.InAppMessaging');
  * @returns message image dimensions and rendering related booleans
  */
 export default function useMessageImage(
-  image: MessageImage | undefined,
-  layout: MessageLayout
+  image: InAppMessageImage | undefined,
+  layout: InAppMessageLayout
 ): UseMessageImage {
   const { src } = image ?? {};
   const shouldPrefetch = !!src;

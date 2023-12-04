@@ -4,7 +4,7 @@ export const StorageManagerDisplayTextExample = () => {
   return (
     <StorageManager
       acceptedFileTypes={['image/*']}
-      accessLevel="public"
+      accessLevel="guest"
       maxFileCount={1}
       displayText={{
         // some text are plain strings
@@ -15,7 +15,6 @@ export const StorageManagerDisplayTextExample = () => {
           return `${count} images uploaded`;
         },
       }}
-      provider="fast" // IGNORE
     />
   );
 };

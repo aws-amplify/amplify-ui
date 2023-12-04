@@ -12,6 +12,16 @@ const getUserAlias = (status: string) =>
     status === 'UNKNOWN' ? status + Date.now() : status
   }`;
 
+const getInputByLoginMechanism = (loginMechanism: string) => {
+  if (loginMechanism === 'email') {
+    return `${process.env.USERNAME}+${Date.now()}@${process.env.DOMAIN}`;
+  } else if (loginMechanism === 'username') {
+    return `${process.env.USERNAME}+${Date.now()}`;
+  } else if (loginMechanism === 'phone number') {
+    return `+1${process.env.PHONE_NUMBER}`;
+  }
+};
+
 const getCountryCode = (status: string) => {
   switch (status) {
     case 'CONFIRMED':
@@ -124,7 +134,7 @@ When('I type an invalid no lower case new password', async () => {
 When('I type a new {string}', async (field: string) => {
   await typeInInputField(
     by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-${field}`),
-    `${Date.now()}`
+    getInputByLoginMechanism(field)
   );
 });
 

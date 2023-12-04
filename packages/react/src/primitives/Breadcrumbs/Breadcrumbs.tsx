@@ -6,6 +6,7 @@ import {
   Primitive,
   ForwardRefPrimitive,
 } from '../types';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 import { BreadcrumbItem } from './BreadcrumbItem';
 import { BreadcrumbLink } from './BreadcrumbLink';
@@ -52,7 +53,7 @@ type BreadcrumbsType = ForwardRefPrimitive<BaseBreadcrumbProps, 'nav'> & {
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/breadcrumbs)
  */
 const Breadcrumbs: BreadcrumbsType = Object.assign(
-  React.forwardRef(BreadcrumbsPrimitive),
+  primitiveWithForwardRef(BreadcrumbsPrimitive),
   {
     Item: BreadcrumbItem,
     Link: BreadcrumbLink,

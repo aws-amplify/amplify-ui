@@ -86,7 +86,12 @@ export default function Page({
   return (
     <>
       <div className="docs-content">
-        <section className="docs-content-body">
+        <main
+          className="docs-content-body"
+          id="docs-content"
+          tabIndex={-1}
+          aria-label="Main content"
+        >
           <section className="docs-meta">
             <Heading level={1}>{title}</Heading>
             {description ? (
@@ -147,7 +152,7 @@ export default function Page({
           </section>
 
           {children}
-        </section>
+        </main>
         <Footer />
       </div>
 

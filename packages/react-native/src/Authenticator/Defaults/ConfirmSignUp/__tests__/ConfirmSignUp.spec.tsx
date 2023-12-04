@@ -1,13 +1,13 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 
-import { authenticatorTextUtil } from '@aws-amplify/ui';
+import { authenticatorTextUtil, V6AuthDeliveryMedium } from '@aws-amplify/ui';
 import { ConfirmSignUp } from '..';
 
 const props = {
   codeDeliveryDetails: {
     AttributeName: 'email',
-    DeliveryMedium: 'EMAIL',
+    DeliveryMedium: 'EMAIL' as V6AuthDeliveryMedium,
     Destination: 'a***@e***.com',
   },
   fields: [],

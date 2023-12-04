@@ -61,7 +61,7 @@ export const sliderfield: Required<SliderFieldTokens<'default'>> = {
 
   // The range is the filled part of the track
   range: {
-    backgroundColor: { value: '{colors.brand.primary.80.value}' },
+    backgroundColor: { value: '{colors.primary.80.value}' },
     borderRadius: { value: '9999px' },
     _disabled: {
       backgroundColor: { value: '{colors.background.disabled.value}' },

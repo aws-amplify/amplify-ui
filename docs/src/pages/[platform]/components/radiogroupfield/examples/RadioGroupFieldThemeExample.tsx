@@ -5,9 +5,6 @@ const theme = {
   tokens: {
     components: {
       radiogroup: {
-        label: {
-          color: { value: '{colors.blue.80}' },
-        },
         radio: {
           borderWidth: { value: '{borderWidths.small}' },
           borderColor: { value: '{colors.blue.60}' },
@@ -19,6 +16,10 @@ const theme = {
             color: { value: '{colors.blue.80}' },
           },
         },
+        legend: {
+          color: { value: '{colors.blue.80}' },
+          fontWeight: { value: '{fontWeights.bold}' },
+        },
       },
     },
   },
@@ -26,7 +27,7 @@ const theme = {
 
 export const RadioGroupFieldThemeExample = () => (
   <ThemeProvider theme={theme} colorMode="light">
-    <RadioGroupField label="Themed example" name="themed" defaultValue="blue">
+    <RadioGroupField legend="Themed example" name="themed" defaultValue="blue">
       <Radio value="blue">Blue</Radio>
       <Radio value="navy">Navy</Radio>
       <Radio value="cerulean">Cerulean</Radio>

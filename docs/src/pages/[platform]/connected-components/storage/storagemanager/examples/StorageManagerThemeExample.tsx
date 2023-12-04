@@ -10,7 +10,7 @@ const theme = {
     components: {
       storagemanager: {
         dropzone: {
-          borderColor: '{colors.brand.primary.60}',
+          borderColor: '{colors.primary.60}',
         },
       },
     },
@@ -22,9 +22,8 @@ export const StorageManagerThemeExample = () => {
     <ThemeProvider theme={theme}>
       <StorageManager
         acceptedFileTypes={['image/*']}
-        accessLevel="public"
+        accessLevel="guest"
         maxFileCount={5}
-        provider="fast" // IGNORE
       />
     </ThemeProvider>
   );

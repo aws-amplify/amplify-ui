@@ -32,26 +32,19 @@ export function getDisplayText(
   };
 
   const {
-    instructionsHeaderHeadingText,
-    instructionsHeaderBodyText,
-    instructionsBeginCheckText,
     photosensitivyWarningHeadingText,
     photosensitivyWarningBodyText,
     photosensitivyWarningInfoText,
-    instructionListHeadingText,
     goodFitCaptionText,
     goodFitAltText,
     tooFarCaptionText,
     tooFarAltText,
-    instructionListStepOneText,
-    instructionListStepTwoText,
-    instructionListStepThreeText,
-    instructionListStepFourText,
     cameraMinSpecificationsHeadingText,
     cameraMinSpecificationsMessageText,
     cameraNotFoundHeadingText,
     cameraNotFoundMessageText,
     retryCameraPermissionsText,
+    waitingCameraPermissionText,
     cancelLivenessCheckText,
     recordingIndicatorText,
     hintMoveFaceFrontOfCameraText,
@@ -60,7 +53,6 @@ export function getDisplayText(
     hintCanNotIdentifyText,
     hintTooCloseText,
     hintTooFarText,
-    hintHoldFacePositionCountdownText,
     hintConnectingText,
     hintVerifyingText,
     hintIlluminationTooBrightText,
@@ -81,6 +73,8 @@ export function getDisplayText(
     landscapeMessageText,
     portraitMessageText,
     tryAgainText,
+    startScreenBeginCheckText,
+    hintCenterFaceText,
   } = displayText;
 
   const hintDisplayText: Required<HintDisplayText> = {
@@ -90,13 +84,13 @@ export function getDisplayText(
     hintCanNotIdentifyText,
     hintTooCloseText,
     hintTooFarText,
-    hintHoldFacePositionCountdownText,
     hintConnectingText,
     hintVerifyingText,
     hintIlluminationTooBrightText,
     hintIlluminationTooDarkText,
     hintIlluminationNormalText,
     hintHoldFaceForFreshnessText,
+    hintCenterFaceText,
   };
 
   const cameraDisplayText: Required<CameraDisplayText> = {
@@ -105,24 +99,18 @@ export function getDisplayText(
     cameraNotFoundHeadingText,
     cameraNotFoundMessageText,
     retryCameraPermissionsText,
+    waitingCameraPermissionText,
   };
 
   const instructionDisplayText: Required<InstructionDisplayText> = {
-    instructionsHeaderHeadingText,
-    instructionsHeaderBodyText,
-    instructionsBeginCheckText,
     photosensitivyWarningHeadingText,
     photosensitivyWarningBodyText,
     photosensitivyWarningInfoText,
-    instructionListHeadingText,
     goodFitCaptionText,
     goodFitAltText,
     tooFarCaptionText,
     tooFarAltText,
-    instructionListStepOneText,
-    instructionListStepTwoText,
-    instructionListStepThreeText,
-    instructionListStepFourText,
+    startScreenBeginCheckText,
   };
 
   const streamDisplayText: Required<StreamDisplayText> = {

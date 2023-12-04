@@ -26,7 +26,7 @@ class MockAuthService {
 }
 
 const mockFacade = {} as unknown as ReturnType<
-  typeof UIModule['getServiceFacade']
+  (typeof UIModule)['getServiceFacade']
 >;
 
 jest.spyOn(UIModule, 'getServiceFacade').mockReturnValue(mockFacade);
@@ -52,7 +52,7 @@ describe('AuthenticatorService', () => {
     // trigger a mock transition
     authService.send('INIT');
 
-    expect(handler).toBeCalledTimes(1);
+    expect(handler).toHaveBeenCalledTimes(1);
 
     expect(handler).toHaveBeenCalledWith(mockFacade);
 

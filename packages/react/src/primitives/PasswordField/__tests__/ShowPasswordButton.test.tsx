@@ -1,9 +1,11 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
+
+import { ComponentClassName } from '@aws-amplify/ui';
 
 import { PasswordField } from '../PasswordField';
 import { ShowPasswordButton } from '../ShowPasswordButton';
-import { ComponentClassNames, ComponentText } from '../../shared/constants';
+import { ComponentText } from '../../shared/constants';
 import userEvent from '@testing-library/user-event';
 
 const { passwordIsHidden, passwordIsShown } = ComponentText.PasswordField;
@@ -14,7 +16,7 @@ describe('ShowPasswordButton component', () => {
 
     const button = await screen.findByRole('switch');
 
-    expect(button).toHaveClass(ComponentClassNames.FieldShowPassword);
+    expect(button).toHaveClass(ComponentClassName.FieldShowPassword);
   });
 
   it('should forward ref to DOM element', async () => {
@@ -44,13 +46,17 @@ describe('ShowPasswordButton component', () => {
     expect(button.getAttribute('aria-checked')).toBe('false');
     expect(visuallyHidden.textContent).toBe(passwordIsHidden);
 
-    userEvent.click(button);
+    await act(async () => {
+      await userEvent.click(button);
+    });
 
     expect(passwordField.getAttribute('type')).toBe('text');
     expect(button.getAttribute('aria-checked')).toBe('true');
     expect(visuallyHidden.textContent).toBe(passwordIsShown);
 
-    userEvent.click(button);
+    await act(async () => {
+      await userEvent.click(button);
+    });
 
     expect(passwordField.getAttribute('type')).toBe('password');
     expect(button.getAttribute('aria-checked')).toBe('false');
@@ -92,7 +98,9 @@ describe('ShowPasswordButton component', () => {
 
     expect(visuallyHidden.textContent).toBe(passwordIsHiddenLabel);
 
-    userEvent.click(button);
+    await act(async () => {
+      await userEvent.click(button);
+    });
 
     expect(visuallyHidden.textContent).toBe(passwordIsShownLabel);
   });

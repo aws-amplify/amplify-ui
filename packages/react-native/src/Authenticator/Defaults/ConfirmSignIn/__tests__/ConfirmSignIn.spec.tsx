@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
-import { AuthChallengeName, authenticatorTextUtil } from '@aws-amplify/ui';
+import { ChallengeName, authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { ConfirmSignIn } from '..';
 
@@ -14,7 +14,7 @@ const code = {
 const fields = [code];
 
 const props = {
-  challengeName: 'SMS_MFA' as AuthChallengeName,
+  challengeName: 'SMS_MFA' as ChallengeName,
   fields,
   Footer: ConfirmSignIn.Footer,
   FormFields: ConfirmSignIn.FormFields,
@@ -66,7 +66,7 @@ describe('ConfirmSignIn', () => {
 
     const button = getByText(getBackToSignInText());
     fireEvent.press(button);
-    expect(toSignInMock).toBeCalledTimes(1);
+    expect(toSignInMock).toHaveBeenCalledTimes(1);
   });
 
   it('renders correct text based on isPending', () => {

@@ -15,7 +15,7 @@ export const ColorThemeTokenExample = () => {
   return (
     <Alert
       backgroundColor={tokens.colors.white}
-      color={tokens.colors.brand.primary[60]}
+      color={tokens.colors.primary[60]}
     >
       Color Styling Example
     </Alert>

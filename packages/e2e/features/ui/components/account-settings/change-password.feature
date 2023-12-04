@@ -7,6 +7,7 @@ Feature: Change Password
 
   @react
   Scenario: Change password of an authenticated user
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ChangePassword" } }' with fixture 'AWSCognitoIdentityProviderService.ChangePassword.success'
     When I type my "email" with status "CONFIRMED"
     Then I type my password
     Then I click the "Sign in" button

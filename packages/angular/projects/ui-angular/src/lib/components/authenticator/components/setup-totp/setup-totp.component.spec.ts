@@ -12,7 +12,7 @@ import { MockComponent } from 'ng-mocks';
 const mockUser = { username: 'username' };
 const mockContext = {
   country_code: '100',
-  formFields: { setupTOTP: { QR: null } },
+  formFields: { setupTotp: { QR: null } },
   user: mockUser,
 };
 

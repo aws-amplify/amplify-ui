@@ -1,15 +1,15 @@
+import { SocialProvider } from '../../types';
 import {
-  AuthChallengeName,
-  CodeDeliveryDetails,
-  SocialProvider,
-} from '../../types';
+  ChallengeName,
+  V5CodeDeliveryDetails,
+} from '../../machines/authenticator/types';
 import { translate, DefaultTexts } from '../../i18n';
 import { AuthenticatorRoute } from './facade';
 
 /**
  * ConfirmSignIn
  */
-const getChallengeText = (challengeName?: AuthChallengeName): string => {
+const getChallengeText = (challengeName?: ChallengeName): string => {
   switch (challengeName) {
     case 'SMS_MFA':
       return translate(DefaultTexts.CONFIRM_SMS);
@@ -28,7 +28,7 @@ const getChallengeText = (challengeName?: AuthChallengeName): string => {
  * ConfirmSignUp
  */
 const getDeliveryMessageText = (
-  codeDeliveryDetails: CodeDeliveryDetails
+  codeDeliveryDetails: V5CodeDeliveryDetails
 ): string => {
   const { DeliveryMedium, Destination } = codeDeliveryDetails ?? {};
   const isEmailMessage = DeliveryMedium === 'EMAIL';
@@ -48,7 +48,7 @@ const getDeliveryMessageText = (
 };
 
 const getDeliveryMethodText = (
-  codeDeliveryDetails: CodeDeliveryDetails
+  codeDeliveryDetails: V5CodeDeliveryDetails
 ): string => {
   const { DeliveryMedium } = codeDeliveryDetails ?? {};
   const isEmailMessage = DeliveryMedium === 'EMAIL';
@@ -126,13 +126,13 @@ export const authenticatorTextUtil = {
   /** ConfirmSignIn */
   getChallengeText,
 
-  /** ResetPassword */
+  /** ForgotPassword */
   getResetYourPasswordText: () => translate(DefaultTexts.RESET_PASSWORD),
 
-  /** SetupTOTP */
-  getSetupTOTPText: () => translate(DefaultTexts.SETUP_TOTP),
+  /** SetupTotp */
+  getSetupTotpText: () => translate(DefaultTexts.SETUP_TOTP),
   // TODO: add defaultText for below
-  getSetupTOTPInstructionsText: () =>
+  getSetupTotpInstructionsText: () =>
     translate(
       'Copy and paste the secret key below into an authenticator app and then enter the code in the text field below.'
     ),

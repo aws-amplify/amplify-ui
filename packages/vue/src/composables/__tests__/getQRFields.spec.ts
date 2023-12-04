@@ -6,7 +6,7 @@ const totpIssuer = 'testIssuer';
 const totpUsername = 'testUsername';
 const mockActorReturnActorContextValues = {
   formFields: {
-    setupTOTP: {
+    setupTotp: {
       QR: {
         totpIssuer,
         totpUsername,
@@ -31,7 +31,7 @@ describe('getQRFields', () => {
   });
 
   it('returns an empty object if no QRfields are present', () => {
-    getActorContextSpy.mockReturnValue({});
+    getActorContextSpy.mockReturnValue({} as AuthActorContext);
     const QRFields = getQRFields(state);
     expect(QRFields).toEqual({});
   });

@@ -4,8 +4,6 @@ exports[`FileRemoveButton renders as expected 1`] = `
 <div>
   <button
     class="amplify-button amplify-field-group__control amplify-button--small"
-    data-fullwidth="false"
-    data-size="small"
     type="button"
   >
     <span
@@ -42,8 +40,6 @@ exports[`FileRemoveButton renders custom icons from IconProvider 1`] = `
 <div>
   <button
     class="amplify-button amplify-field-group__control amplify-button--small"
-    data-fullwidth="false"
-    data-size="small"
     type="button"
   >
     <span

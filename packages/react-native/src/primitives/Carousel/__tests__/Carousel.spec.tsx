@@ -26,21 +26,12 @@ describe('Carousel', () => {
     jest.clearAllMocks();
   });
 
-  /* eslint-disable no-console */
-  // turn off console errors during tests, can be safely removed once React Native v0.64 is no longer supported
-  const consoleWarn = console.warn;
-  console.warn = jest.fn();
-  afterAll(() => {
-    console.warn = consoleWarn;
-    /* eslint-enable no-console */
-  });
-
   it('renders with multiple items in the data', () => {
     const data = [
       { key: 1, str: 'foo' },
       { key: 2, str: 'bar' },
     ];
-    const { container, getByText, toJSON } = render(
+    const { UNSAFE_root, getByText, toJSON } = render(
       <Carousel data={data} renderItem={renderItem} />
     );
 
@@ -48,23 +39,23 @@ describe('Carousel', () => {
     expect(getByText(data[0].str)).toBeDefined();
     expect(getByText(data[1].str)).toBeDefined();
 
-    const carouselPageIndicator = container.children[1] as ReactTestInstance;
+    const carouselPageIndicator = UNSAFE_root.children[1] as ReactTestInstance;
     expect(carouselPageIndicator.type).toBe('CarouselPageIndicator');
     expect(carouselPageIndicator.props.numberOfItems).toBe(2);
   });
 
   it('renders with just one item in the data', () => {
     const data = [{ key: 1, str: 'qux' }];
-    const { container, toJSON, getByText } = render(
+    const { UNSAFE_root, toJSON, getByText } = render(
       <Carousel data={data} renderItem={renderItem} />
     );
 
     expect(toJSON()).toMatchSnapshot();
     expect(getByText(data[0].str)).toBeDefined();
-    const flatList = container.children[0] as ReactTestInstance;
+    const flatList = UNSAFE_root.children[0] as ReactTestInstance;
     expect(flatList.props.data).toStrictEqual(data);
 
-    const carouselPageIndicator = container.children[1] as ReactTestInstance;
+    const carouselPageIndicator = UNSAFE_root.children[1] as ReactTestInstance;
     expect(carouselPageIndicator.type).toBe('CarouselPageIndicator');
     expect(carouselPageIndicator.props.numberOfItems).toBe(1);
   });
@@ -93,12 +84,14 @@ describe('Carousel', () => {
     // Get a reference to the orientation handler by spying on the `addEventListener` call
     addEventListenerSpy.mockImplementation(((_, handler) => {
       orientationHandler = handler;
+      return { remove: jest.fn() } as unknown as EmitterSubscription;
     }) as Dimensions['addEventListener']);
-    const { container, toJSON } = render(
+
+    const { UNSAFE_root, toJSON } = render(
       <Carousel data={data} renderItem={renderItem} />
     );
 
-    const flatList = container.children[0] as ReactTestInstance;
+    const flatList = UNSAFE_root.children[0] as ReactTestInstance;
     expect(flatList.props.snapToInterval).not.toBe(window.width);
 
     // Call the orientation handler with an arbitrary `ScaledSize`
@@ -111,33 +104,17 @@ describe('Carousel', () => {
     expect(toJSON()).toMatchSnapshot();
   });
 
-  it('cleans up the orientation change listener (React Native < v0.65)', () => {
-    // ensure that `addEventListener` returns `undefined`
-    jest
-      .spyOn(Dimensions, 'addEventListener')
-      .mockReturnValue(undefined as unknown as EmitterSubscription);
-
-    const removeEventListener = jest.spyOn(Dimensions, 'removeEventListener');
-
-    const { unmount } = render(<Carousel data={[]} renderItem={renderItem} />);
-
-    act(() => {
-      unmount();
-    });
-
-    expect(removeEventListener).toBeCalled();
-  });
-
-  it('cleans up the orientation change listener (React Native v0.65+)', () => {
+  it('cleans up the orientation change listener', () => {
     const mockSubscription = { remove: jest.fn() };
     const addEventListenerSpy = jest.spyOn(Dimensions, 'addEventListener');
     (addEventListenerSpy as jest.Mock).mockReturnValue(mockSubscription);
+
     const { unmount } = render(<Carousel data={[]} renderItem={renderItem} />);
 
     act(() => {
       unmount();
     });
-    expect(mockSubscription.remove).toBeCalled();
+    expect(mockSubscription.remove).toHaveBeenCalled();
   });
 
   it('sets the index when viewable items change', () => {
@@ -145,12 +122,12 @@ describe('Carousel', () => {
       { key: 1, str: 'foo' },
       { key: 2, str: 'bar' },
     ];
-    const { container } = render(
+    const { UNSAFE_root } = render(
       <Carousel data={data} renderItem={renderItem} />
     );
 
-    const flatList = container.children[0] as ReactTestInstance;
-    const carouselPageIndicator = container.children[1] as ReactTestInstance;
+    const flatList = UNSAFE_root.children[0] as ReactTestInstance;
+    const carouselPageIndicator = UNSAFE_root.children[1] as ReactTestInstance;
 
     const { onViewableItemsChanged } = flatList.props as FlatList['props'];
 

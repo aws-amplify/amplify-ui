@@ -23,7 +23,6 @@ exports[`FileList renders an alert in case of error 1`] = `
         />
         <svg
           class="amplify-loader amplify-loader--linear amplify-loader--determinate amplify-storagemanager__loader"
-          data-variation="linear"
           role="img"
         >
           <g>
@@ -45,7 +44,7 @@ exports[`FileList renders an alert in case of error 1`] = `
             />
             <text
               aria-live="polite"
-              class="amplify-loader__percentage-text amplify-visually-hidden"
+              class="amplify-loader__label amplify-visually-hidden"
               x="-1%"
               y="200%"
             >
@@ -55,8 +54,6 @@ exports[`FileList renders an alert in case of error 1`] = `
         </svg>
         <button
           class="amplify-button amplify-field-group__control amplify-button--small"
-          data-fullwidth="false"
-          data-size="small"
           type="button"
         >
           <span
@@ -95,7 +92,6 @@ exports[`FileList renders an alert in case of error 1`] = `
     </div>
     <div
       class="amplify-flex amplify-alert amplify-alert--error"
-      data-variation="error"
       role="alert"
     >
       <span
@@ -160,7 +156,6 @@ exports[`FileList renders as expected 1`] = `
         />
         <svg
           class="amplify-loader amplify-loader--linear amplify-loader--determinate amplify-storagemanager__loader"
-          data-variation="linear"
           role="img"
         >
           <g>
@@ -182,7 +177,7 @@ exports[`FileList renders as expected 1`] = `
             />
             <text
               aria-live="polite"
-              class="amplify-loader__percentage-text amplify-visually-hidden"
+              class="amplify-loader__label amplify-visually-hidden"
               x="-1%"
               y="200%"
             >
@@ -192,8 +187,6 @@ exports[`FileList renders as expected 1`] = `
         </svg>
         <button
           class="amplify-button amplify-field-group__control amplify-button--small"
-          data-fullwidth="false"
-          data-size="small"
           type="button"
         >
           <span
@@ -257,7 +250,6 @@ exports[`FileList renders as expected when upload is resumable 1`] = `
         />
         <svg
           class="amplify-loader amplify-loader--linear amplify-storagemanager__loader"
-          data-variation="linear"
           role="img"
         >
           <g>
@@ -280,17 +272,12 @@ exports[`FileList renders as expected when upload is resumable 1`] = `
         </svg>
         <button
           class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small"
-          data-fullwidth="false"
-          data-size="small"
-          data-variation="link"
           type="button"
         >
           Pause
         </button>
         <button
           class="amplify-button amplify-field-group__control amplify-button--small"
-          data-fullwidth="false"
-          data-size="small"
           type="button"
         >
           <span
@@ -330,3 +317,5 @@ exports[`FileList renders as expected when upload is resumable 1`] = `
   </div>
 </div>
 `;
+
+exports[`FileList renders nothing when there are no files 1`] = `<div />`;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BaseFieldErrorMessageProps } from '../types/field';
 import { Text } from '../Text';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 export const FieldErrorMessage: React.FC<BaseFieldErrorMessageProps> = ({
   errorMessage,
@@ -9,7 +9,7 @@ export const FieldErrorMessage: React.FC<BaseFieldErrorMessageProps> = ({
   ...rest
 }) => {
   return hasError && errorMessage ? (
-    <Text className={ComponentClassNames.FieldErrorMessage} {...rest}>
+    <Text className={ComponentClassName.FieldErrorMessage} {...rest}>
       {errorMessage}
     </Text>
   ) : null;

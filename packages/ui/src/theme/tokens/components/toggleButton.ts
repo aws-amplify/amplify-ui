@@ -103,8 +103,8 @@ export const togglebutton: Required<ToggleButtonTokens<'default'>> = {
       color: { value: '{colors.font.disabled.value}' },
     },
     _pressed: {
-      backgroundColor: { value: '{colors.brand.primary.80.value}' },
-      borderColor: { value: '{colors.brand.primary.80.value}' },
+      backgroundColor: { value: '{colors.primary.80.value}' },
+      borderColor: { value: '{colors.primary.80.value}' },
       color: { value: '{colors.background.primary.value}' },
       _focus: {
         backgroundColor: {
@@ -114,11 +114,11 @@ export const togglebutton: Required<ToggleButtonTokens<'default'>> = {
         color: { value: '{colors.background.primary.value}' },
       },
       _hover: {
-        borderColor: { value: '{colors.brand.primary.60.value}' },
+        borderColor: { value: '{colors.primary.60.value}' },
         backgroundColor: {
-          value: '{colors.brand.primary.60.value}',
+          value: '{colors.primary.60.value}',
         },
-        boxShadow: { value: '{colors.brand.primary.60.value}' },
+        boxShadow: { value: '{colors.primary.60.value}' },
         color: { value: '{colors.background.primary.value}' },
       },
     },

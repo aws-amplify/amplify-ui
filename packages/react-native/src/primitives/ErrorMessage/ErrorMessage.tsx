@@ -13,6 +13,8 @@ export const CLOSE_BUTTON_TEST_ID =
   'authenticator--error-message--close-button';
 
 export default function ErrorMessage({
+  accessible = true,
+  accessibilityRole = 'alert',
   children,
   iconStyle,
   labelStyle,
@@ -26,7 +28,8 @@ export default function ErrorMessage({
   return (
     <View
       {...rest}
-      accessibilityRole="alert"
+      accessible={accessible}
+      accessibilityRole={accessibilityRole}
       style={[themedStyle.container, style]}
     >
       <Icon

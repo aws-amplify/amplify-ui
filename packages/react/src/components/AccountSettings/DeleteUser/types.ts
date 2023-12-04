@@ -1,8 +1,8 @@
 import React from 'react';
-
-import { AmplifyUser } from '@aws-amplify/ui';
+import { AuthUser } from 'aws-amplify/auth';
 
 import { ButtonComponent, ErrorMessageComponent } from '../types';
+import { DeleteUserDisplayText } from '../utils';
 
 export interface WarningViewProps {
   /** called when end user cancels account deletion */
@@ -11,6 +11,8 @@ export interface WarningViewProps {
   onConfirm: () => void;
   /** whether account deletion is in progress */
   isDisabled: boolean;
+  /** overrides default display text */
+  displayText?: DeleteUserDisplayText;
 }
 
 export type WarningViewComponent<Props = {}> = React.ComponentType<
@@ -32,7 +34,7 @@ export interface DeleteUserComponents {
 
 export interface DeleteUserProps {
   /** custom delete user service override */
-  handleDelete?: (user: AmplifyUser) => Promise<void> | void;
+  handleDelete?: (user: AuthUser) => Promise<void> | void;
 
   /** callback for successful user deletion */
   onSuccess?: () => void;
@@ -42,4 +44,7 @@ export interface DeleteUserProps {
 
   /** custom component overrides */
   components?: DeleteUserComponents;
+
+  /** overrides default display text*/
+  displayText?: DeleteUserDisplayText;
 }

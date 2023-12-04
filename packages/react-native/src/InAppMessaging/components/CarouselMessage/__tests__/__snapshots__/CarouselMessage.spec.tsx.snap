@@ -5,31 +5,31 @@ exports[`CarouselMessage allows style overrides 1`] = `
   disableSafeAreaView={true}
 >
   <Carousel
-    data={Array []}
+    data={[]}
     indicatorActiveStyle={
-      Array [
-        Object {
+      [
+        {
           "backgroundColor": "#a1a1a1",
           "borderRadius": 6,
           "height": 12,
           "margin": 4,
           "width": 12,
         },
-        Object {
+        {
           "backgroundColor": "red",
         },
       ]
     }
     indicatorInactiveStyle={
-      Array [
-        Object {
+      [
+        {
           "backgroundColor": "#d8d8d8",
           "borderRadius": 6,
           "height": 12,
           "margin": 4,
           "width": 12,
         },
-        Object {
+        {
           "backgroundColor": "blue",
         },
       ]
@@ -45,10 +45,10 @@ exports[`CarouselMessage renders as expected 1`] = `
   disableSafeAreaView={true}
 >
   <Carousel
-    data={Array []}
+    data={[]}
     indicatorActiveStyle={
-      Array [
-        Object {
+      [
+        {
           "backgroundColor": "#a1a1a1",
           "borderRadius": 6,
           "height": 12,
@@ -59,8 +59,8 @@ exports[`CarouselMessage renders as expected 1`] = `
       ]
     }
     indicatorInactiveStyle={
-      Array [
-        Object {
+      [
+        {
           "backgroundColor": "#d8d8d8",
           "borderRadius": 6,
           "height": 12,
@@ -81,10 +81,10 @@ exports[`CarouselMessage renders as expected with minimal props 1`] = `
   disableSafeAreaView={true}
 >
   <Carousel
-    data={Array []}
+    data={[]}
     indicatorActiveStyle={
-      Array [
-        Object {
+      [
+        {
           "backgroundColor": "#a1a1a1",
           "borderRadius": 6,
           "height": 12,
@@ -95,8 +95,8 @@ exports[`CarouselMessage renders as expected with minimal props 1`] = `
       ]
     }
     indicatorInactiveStyle={
-      Array [
-        Object {
+      [
+        {
           "backgroundColor": "#d8d8d8",
           "borderRadius": 6,
           "height": 12,
@@ -115,7 +115,7 @@ exports[`CarouselMessage renders as expected with minimal props 1`] = `
 exports[`CarouselMessage renders items 1`] = `
 <CarouselMessageItem
   image={
-    Object {
+    {
       "src": "image-src",
     }
   }

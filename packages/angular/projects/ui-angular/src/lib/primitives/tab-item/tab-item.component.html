@@ -1,9 +1,9 @@
 <div
-  data-orientation="horizontal"
   role="tabpanel"
+  class="amplify-tabs__panel"
+  [class]="active ? 'amplify-tabs__panel--active' : ''"
   [id]="id"
   [attr.aria-labelledby]="labelledById"
-  [attr.data-state]="active ? 'active' : 'inactive'"
   [attr.tabindex]="tabIndex"
 >
   <ng-content *ngIf="active"></ng-content>

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {
   Card,
-  VisuallyHidden,
   Button,
   Flex,
   Text,
@@ -16,9 +15,8 @@ export const StorageManagerComponentOverridesExample = () => {
   return (
     <StorageManager
       acceptedFileTypes={['image/*']}
-      accessLevel="public"
+      accessLevel="guest"
       maxFileCount={100}
-      provider="fast" // IGNORE
       components={{
         Container({ children }) {
           return <Card variation="elevated">{children}</Card>;

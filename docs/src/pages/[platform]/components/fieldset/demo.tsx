@@ -36,7 +36,7 @@ const defaultFieldsetProps: FieldsetProps = {
   legendHidden: false,
   isDisabled: false,
   direction: 'column',
-  variation: 'outlined',
+  variation: 'plain',
 };
 
 export const FieldsetDemo = () => {

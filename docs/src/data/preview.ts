@@ -9,4 +9,4 @@ export const PREVIEW_LINK_COLOR = '#5C6670';
  * if we need to change the image in future, we have to change the image names.
  *  ref: https://developers.facebook.com/docs/sharing/webmasters/images/
  */
-export const PREVIEW_VERSION = '3';
+export const PREVIEW_VERSION = '4';

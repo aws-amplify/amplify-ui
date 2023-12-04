@@ -1,8 +1,4 @@
-import Link from 'next/link';
-
-import { VisuallyHidden } from '@aws-amplify/ui-react';
-
-import { Logo } from '../Logo';
+import NextLink from 'next/link';
 
 interface LogoLinkProps {
   platform: string;
@@ -11,11 +7,10 @@ interface LogoLinkProps {
 
 export const LogoLink = ({ platform, onClick }: LogoLinkProps) => {
   return (
-    <Link href={`/${platform}`} passHref>
+    <NextLink href={`/${platform}`} passHref legacyBehavior>
       <a onClick={onClick} className="docs-logo-link">
-        <VisuallyHidden>Amplify UI Home</VisuallyHidden>
-        <Logo />
+        Amplify UI
       </a>
-    </Link>
+    </NextLink>
   );
 };
