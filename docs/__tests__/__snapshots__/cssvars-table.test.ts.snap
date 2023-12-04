@@ -1284,7 +1284,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-link-error-focus-box-shadow",
-        "value": "0px 0px 0px 1px var(--amplify-colors-red-100)"
+        "value": "var(--amplify-components-fieldcontrol-error-focus-box-shadow)"
     },
     {
         "variable": "--amplify-components-button-link-error-focus-color",
@@ -1364,7 +1364,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-link-info-focus-box-shadow",
-        "value": "0px 0px 0px 1px var(--amplify-colors-blue-100)"
+        "value": "var(--amplify-components-fieldcontrol-info-focus-box-shadow)"
     },
     {
         "variable": "--amplify-components-button-link-info-focus-color",
@@ -1428,7 +1428,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-link-overlay-focus-box-shadow",
-        "value": "0px 0px 0px 1px var(--amplify-colors-overlay-90)"
+        "value": "var(--amplify-components-fieldcontrol-overlay-focus-box-shadow)"
     },
     {
         "variable": "--amplify-components-button-link-overlay-focus-color",
@@ -1480,7 +1480,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-link-success-focus-box-shadow",
-        "value": "0px 0px 0px 1px var(--amplify-colors-green-100)"
+        "value": "var(--amplify-components-fieldcontrol-success-focus-box-shadow)"
     },
     {
         "variable": "--amplify-components-button-link-success-focus-color",
@@ -1532,7 +1532,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-link-warning-focus-box-shadow",
-        "value": "0px 0px 0px 1px var(--amplify-colors-orange-100)"
+        "value": "var(--amplify-components-fieldcontrol-warning-focus-box-shadow)"
     },
     {
         "variable": "--amplify-components-button-link-warning-focus-color",
@@ -1644,7 +1644,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-outlined-error-focus-box-shadow",
-        "value": "0px 0px 0px 1px var(--amplify-colors-red-100)"
+        "value": "var(--amplify-components-fieldcontrol-error-focus-box-shadow)"
     },
     {
         "variable": "--amplify-components-button-outlined-error-focus-color",
@@ -1696,7 +1696,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-outlined-info-focus-box-shadow",
-        "value": "0px 0px 0px 1px var(--amplify-colors-blue-100)"
+        "value": "var(--amplify-components-fieldcontrol-info-focus-box-shadow)"
     },
     {
         "variable": "--amplify-components-button-outlined-info-focus-color",
@@ -1748,7 +1748,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-outlined-overlay-focus-box-shadow",
-        "value": "0px 0px 0px 1px var(--amplify-colors-overlay-90)"
+        "value": "var(--amplify-components-fieldcontrol-overlay-focus-box-shadow)"
     },
     {
         "variable": "--amplify-components-button-outlined-overlay-focus-color",
@@ -1800,7 +1800,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-outlined-success-focus-box-shadow",
-        "value": "0px 0px 0px 1px var(--amplify-colors-green-100)"
+        "value": "var(--amplify-components-fieldcontrol-success-focus-box-shadow)"
     },
     {
         "variable": "--amplify-components-button-outlined-success-focus-color",
@@ -1852,7 +1852,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-outlined-warning-focus-box-shadow",
-        "value": "0px 0px 0px 1px var(--amplify-colors-orange-100)"
+        "value": "var(--amplify-components-fieldcontrol-warning-focus-box-shadow)"
     },
     {
         "variable": "--amplify-components-button-outlined-warning-focus-color",
@@ -1964,7 +1964,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-primary-error-focus-box-shadow",
-        "value": "0px 0px 0px 1px var(--amplify-colors-red-100)"
+        "value": "var(--amplify-components-fieldcontrol-error-focus-box-shadow)"
     },
     {
         "variable": "--amplify-components-button-primary-error-focus-color",
@@ -2044,7 +2044,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-primary-info-focus-box-shadow",
-        "value": "0px 0px 0px 1px var(--amplify-colors-blue-100)"
+        "value": "var(--amplify-components-fieldcontrol-info-focus-box-shadow)"
     },
     {
         "variable": "--amplify-components-button-primary-info-focus-color",
@@ -2108,7 +2108,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-primary-overlay-focus-box-shadow",
-        "value": "0px 0px 0px 1px var(--amplify-colors-overlay-90)"
+        "value": "var(--amplify-components-fieldcontrol-overlay-focus-box-shadow)"
     },
     {
         "variable": "--amplify-components-button-primary-overlay-focus-color",
@@ -2160,7 +2160,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-primary-success-focus-box-shadow",
-        "value": "0px 0px 0px 1px var(--amplify-colors-green-100)"
+        "value": "var(--amplify-components-fieldcontrol-success-focus-box-shadow)"
     },
     {
         "variable": "--amplify-components-button-primary-success-focus-color",
@@ -2212,7 +2212,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-primary-warning-focus-box-shadow",
-        "value": "0px 0px 0px 1px var(--amplify-colors-orange-100)"
+        "value": "var(--amplify-components-fieldcontrol-overlay-focus-box-shadow)"
     },
     {
         "variable": "--amplify-components-button-primary-warning-focus-color",
@@ -2460,7 +2460,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-checkbox-button-error-focus-box-shadow",
-        "value": "0px 0px 0px 2px var(--amplify-colors-border-error)"
+        "value": "var(--amplify-components-fieldcontrol-error-focus-box-shadow)"
     },
     {
         "variable": "--amplify-components-checkbox-button-focus-border-color",
@@ -2468,7 +2468,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-checkbox-button-focus-box-shadow",
-        "value": "0px 0px 0px 2px var(--amplify-colors-border-focus)"
+        "value": "var(--amplify-components-fieldcontrol-focus-box-shadow)"
     },
     {
         "variable": "--amplify-components-checkbox-button-focus-outline-color",
@@ -2936,7 +2936,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-fieldcontrol-error-focus-box-shadow",
-        "value": "0px 0px 0px 1px var(--amplify-colors-border-error)"
+        "value": "0px 0px 0px 2px var(--amplify-colors-border-error)"
     },
     {
         "variable": "--amplify-components-fieldcontrol-focus-border-color",
@@ -2944,11 +2944,15 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-fieldcontrol-focus-box-shadow",
-        "value": "0px 0px 0px 1px var(--amplify-colors-border-focus)"
+        "value": "0px 0px 0px 2px var(--amplify-colors-border-focus)"
     },
     {
         "variable": "--amplify-components-fieldcontrol-font-size",
         "value": "var(--amplify-components-field-font-size)"
+    },
+    {
+        "variable": "--amplify-components-fieldcontrol-info-focus-box-shadow",
+        "value": "0px 0px 0px 2px var(--amplify-colors-blue-100)"
     },
     {
         "variable": "--amplify-components-fieldcontrol-large-font-size",
@@ -2991,6 +2995,10 @@ exports[`CSS Variables Table 1`] = `
         "value": "var(--amplify-outline-widths-medium)"
     },
     {
+        "variable": "--amplify-components-fieldcontrol-overlay-focus-box-shadow",
+        "value": "0px 0px 0px 2px var(--amplify-colors-overlay-90)"
+    },
+    {
         "variable": "--amplify-components-fieldcontrol-padding-block-end",
         "value": "var(--amplify-space-xs)"
     },
@@ -3031,16 +3039,20 @@ exports[`CSS Variables Table 1`] = `
         "value": "var(--amplify-colors-border-error)"
     },
     {
+        "variable": "--amplify-components-fieldcontrol-quiet-error-focus-border-block-end-color",
+        "value": "transparent"
+    },
+    {
         "variable": "--amplify-components-fieldcontrol-quiet-error-focus-box-shadow",
-        "value": "0px 1px 0px  var(--amplify-colors-border-error)"
+        "value": "var(--amplify-components-fieldcontrol-error-focus-box-shadow)"
     },
     {
         "variable": "--amplify-components-fieldcontrol-quiet-focus-border-block-end-color",
-        "value": "var(--amplify-colors-border-focus)"
+        "value": "transparent"
     },
     {
         "variable": "--amplify-components-fieldcontrol-quiet-focus-box-shadow",
-        "value": "0px 1px 0px  var(--amplify-colors-border-focus)"
+        "value": "var(--amplify-components-fieldcontrol-focus-box-shadow)"
     },
     {
         "variable": "--amplify-components-fieldcontrol-small-font-size",
@@ -3063,8 +3075,16 @@ exports[`CSS Variables Table 1`] = `
         "value": "var(--amplify-space-small)"
     },
     {
+        "variable": "--amplify-components-fieldcontrol-success-focus-box-shadow",
+        "value": "0px 0px 0px 2px var(--amplify-colors-green-100)"
+    },
+    {
         "variable": "--amplify-components-fieldcontrol-transition-duration",
         "value": "var(--amplify-time-medium)"
+    },
+    {
+        "variable": "--amplify-components-fieldcontrol-warning-focus-box-shadow",
+        "value": "0px 0px 0px 2px var(--amplify-colors-orange-100)"
     },
     {
         "variable": "--amplify-components-fieldgroup-gap",
@@ -4440,7 +4460,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-sliderfield-thumb-focus-box-shadow",
-        "value": "0 0 0 2px var(--amplify-colors-border-focus)"
+        "value": "var(--amplify-components-fieldcontrol-focus-box-shadow)"
     },
     {
         "variable": "--amplify-components-sliderfield-thumb-height",
@@ -4784,7 +4804,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-switchfield-focused-shadow",
-        "value": "0px 0px 0px 2px var(--amplify-colors-border-focus)"
+        "value": "var(--amplify-components-fieldcontrol-focus-box-shadow)"
     },
     {
         "variable": "--amplify-components-switchfield-font-size",
