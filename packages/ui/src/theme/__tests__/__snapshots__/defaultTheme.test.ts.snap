@@ -493,11 +493,11 @@ exports[`@aws-amplify/ui defaultTheme should match snapshot 1`] = `
 --amplify-components-checkbox-button-focus-outline-style: solid;
 --amplify-components-checkbox-button-focus-outline-width: var(--amplify-outline-widths-medium);
 --amplify-components-checkbox-button-focus-outline-offset: var(--amplify-outline-offsets-medium);
---amplify-components-checkbox-button-focus-border-color: var(--amplify-colors-transparent);
+--amplify-components-checkbox-button-focus-border-color: var(--amplify-colors-border-focus);
 --amplify-components-checkbox-button-focus-box-shadow: var(--amplify-components-fieldcontrol-focus-box-shadow);
 --amplify-components-checkbox-button-disabled-border-color: var(--amplify-colors-border-disabled);
 --amplify-components-checkbox-button-error-border-color: var(--amplify-colors-border-error);
---amplify-components-checkbox-button-error-focus-border-color: var(--amplify-colors-transparent);
+--amplify-components-checkbox-button-error-focus-border-color: var(--amplify-colors-border-error);
 --amplify-components-checkbox-button-error-focus-box-shadow: var(--amplify-components-fieldcontrol-error-focus-box-shadow);
 --amplify-components-checkbox-icon-background-color: var(--amplify-colors-primary-80);
 --amplify-components-checkbox-icon-border-radius: 20%;
