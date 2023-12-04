@@ -293,14 +293,14 @@ export function signUpActor({ services }: SignUpMachineOptions) {
         async federatedSignIn(_, { data }) {
           return signInWithRedirect(data);
         },
-        async handleSignUp(context, _event) {
+        async handleSignUp(context) {
           const { formValues, loginMechanisms, username } = context;
           const loginMechanism = loginMechanisms[0];
           const input = getSignUpInput(username, formValues, loginMechanism);
 
           return services.handleSignUp(input);
         },
-        async validateSignUp(context, _event) {
+        async validateSignUp(context) {
           // This needs to exist in the machine to reference new `services`
 
           return runValidators(

@@ -13,12 +13,25 @@ describe('getUserAttributes', () => {
 
   it('does not returns the phone_number attribute when undefined', () => {
     const formValues = {
-      email: 'example#example.com',
+      email: 'example@example.com',
+      country_code: '+1',
       phone_number: undefined,
     };
     const output = getUserAttributes(formValues);
 
-    const expected = { email: 'example#example.com' };
+    const expected = { email: 'example@example.com' };
+    expect(output).toStrictEqual(expected);
+  });
+
+  it('returns an undefined value phone_number attribute when phone_number is an empty string', () => {
+    const formValues = {
+      email: 'example@example.com',
+      country_code: '+1',
+      phone_number: '',
+    };
+    const output = getUserAttributes(formValues);
+
+    const expected = { email: 'example@example.com' };
     expect(output).toStrictEqual(expected);
   });
 });
@@ -31,7 +44,7 @@ describe('getSignUpInput', () => {
       phone_number: '8002428976',
       password: 'a_password',
       confirm_password: 'a_password',
-      email: 'example#example.com',
+      email: 'example@example.com',
       country_code: '+26',
     };
 
@@ -41,7 +54,7 @@ describe('getSignUpInput', () => {
       options: {
         autoSignIn: true,
         userAttributes: {
-          email: 'example#example.com',
+          email: 'example@example.com',
           phone_number: '+268002428976',
         },
       },
@@ -58,7 +71,7 @@ describe('getUsernameSignUp', () => {
       phone_number: '8002428976',
       password: 'a_password',
       confirm_password: 'a_password',
-      email: 'example#example.com',
+      email: 'example@example.com',
       country_code: '+26',
     };
 
