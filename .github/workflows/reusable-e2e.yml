@@ -451,14 +451,12 @@ jobs:
           aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
           aws configure set aws_session_token $AWS_SESSION_TOKEN && \
           aws configure set default.region $AWS_REGION
+
       - name: Pull down In-app-messaging AWS environments
         run: yarn environments in-app-messaging pull
 
       - name: Delete AWS profile
         run: rm -rf ~/.aws
-
-      - name: Boot iOS simulator in background
-        run: xcrun simctl boot "iPhone 14" &
 
       - name: Start Metro Bundler in background
         run: yarn react-native-example dev --reset-cache &
@@ -524,7 +522,7 @@ jobs:
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
-      - name: Install Detox Utils
+      - name: Install Detox utils
         run: |
           brew tap wix/brew
           brew install applesimutils
@@ -598,9 +596,6 @@ jobs:
 
       - name: Delete AWS profile
         run: rm -rf ~/.aws
-
-      - name: Boot iOS simulator in background
-        run: xcrun simctl boot "iPhone 14" &
 
       - name: Start Metro Bundler in background
         run: yarn react-native-example dev --reset-cache &
