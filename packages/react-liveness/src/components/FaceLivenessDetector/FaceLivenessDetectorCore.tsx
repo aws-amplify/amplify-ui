@@ -69,6 +69,7 @@ export default function FaceLivenessDetectorCore(
             streamDisplayText={streamDisplayText}
             errorDisplayText={errorDisplayText}
             components={components}
+            beginLivenessCheck={beginLivenessCheck}
           />
         </Flex>
       </FaceLivenessDetectorProvider>

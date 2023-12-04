@@ -91,6 +91,7 @@ describe('LivenessCheck', () => {
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
         instructionDisplayText={instructionDisplayText}
+        beginLivenessCheck={() => {}}
       />
     );
 
@@ -118,6 +119,7 @@ describe('LivenessCheck', () => {
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
         instructionDisplayText={instructionDisplayText}
+        beginLivenessCheck={() => {}}
       />
     );
 
@@ -146,6 +148,7 @@ describe('LivenessCheck', () => {
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
         instructionDisplayText={instructionDisplayText}
+        beginLivenessCheck={() => {}}
       />
     );
 
@@ -172,6 +175,7 @@ describe('LivenessCheck', () => {
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
         instructionDisplayText={instructionDisplayText}
+        beginLivenessCheck={() => {}}
       />
     );
 

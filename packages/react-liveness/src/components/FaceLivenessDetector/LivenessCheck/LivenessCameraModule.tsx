@@ -69,6 +69,7 @@ export interface LivenessCameraModuleProps {
   cameraDisplayText: Required<CameraDisplayText>;
   components?: FaceLivenessDetectorComponents;
   testId?: string;
+  beginLivenessCheck: () => void;
 }
 
 const centeredLoader = (
@@ -104,6 +105,7 @@ export const LivenessCameraModule = (
     errorDisplayText,
     cameraDisplayText,
     components: customComponents,
+    beginLivenessCheck,
     testId,
   } = props;
 
@@ -236,12 +238,6 @@ export const LivenessCameraModule = (
   const handleMediaPlay = () => {
     setIsCameraReady(true);
   };
-
-  const beginLivenessCheck = React.useCallback(() => {
-    send({
-      type: 'BEGIN',
-    });
-  }, [send]);
 
   const onCameraChange = React.useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
