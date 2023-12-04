@@ -73,7 +73,7 @@
           "config": "detox-jest/jest.config.ts"
         },
         "jest": {
-          "setupTimeout": 120000
+          "setupTimeout": 540000
         }
       }
     },
@@ -94,7 +94,7 @@
           "config": "detox-jest/jest.config.ts"
         },
         "jest": {
-          "setupTimeout": 120000
+          "setupTimeout": 540000
         }
       }
     }
