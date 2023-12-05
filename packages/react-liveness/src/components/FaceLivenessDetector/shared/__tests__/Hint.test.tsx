@@ -251,6 +251,18 @@ describe('Hint', () => {
     ).toBeInTheDocument();
   });
 
+  it('should render HOLD_STILL text if faceMatchState = MATCHED and recording', () => {
+    faceMatchState = FaceMatchState.MATCHED;
+    isRecording = true;
+    mockStateMatchesAndSelectors();
+
+    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
+
+    expect(
+      screen.getByText(hintDisplayText.hintHoldFaceForFreshnessText)
+    ).toBeInTheDocument();
+  });
+
   it('should render TOO_FAR text if faceMatchState = CANT_IDENTIFY and recording', () => {
     faceMatchState = FaceMatchState.CANT_IDENTIFY;
     isRecording = true;

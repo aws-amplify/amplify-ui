@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-geo",
-  "version": "2.0.1",
+  "version": "2.0.3",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -39,7 +39,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui-react-core": "3.0.1",
+    "@aws-amplify/ui-react-core": "3.0.3",
     "mapbox-gl": "1.13.1",
     "maplibre-gl": "2.1.9",
     "maplibre-gl-js-amplify": "^4.0.0",
@@ -60,10 +60,16 @@
   ],
   "size-limit": [
     {
-      "name": "Geo",
+      "name": "LocationSearch",
       "path": "dist/esm/index.mjs",
-      "import": "{ MapView, LocationSearch }",
-      "limit": "330 kB"
+      "import": "{ LocationSearch }",
+      "limit": "260 kB"
+    },
+    {
+      "name": "MapView",
+      "path": "dist/esm/index.mjs",
+      "import": "{ MapView }",
+      "limit": "258 kB"
     }
   ]
 }
