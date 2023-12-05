@@ -73,8 +73,6 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   cameraNotFoundHeadingText: 'Camera is not accessible.',
   cameraNotFoundMessageText:
     'Check that a camera is connected and there is not another application using the camera. You may have to go into settings to grant camera permissions and close out all instances of your browser and retry.',
-  retryCameraPermissionsText: 'Retry',
-  waitingCameraPermissionText: 'Waiting for you to allow camera permission.',
   a11yVideoLabelText: 'Webcam for liveness check',
   cancelLivenessCheckText: 'Cancel Liveness check',
   goodFitCaptionText: 'Good fit',
