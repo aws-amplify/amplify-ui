@@ -365,6 +365,7 @@ export const LivenessCameraModule = (
                 onRetry={() => {
                   send({ type: 'CANCEL' });
                 }}
+                displayText={errorDisplayText}
               >
                 {renderErrorModal({
                   errorState,
