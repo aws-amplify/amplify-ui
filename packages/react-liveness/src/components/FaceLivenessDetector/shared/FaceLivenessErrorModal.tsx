@@ -121,8 +121,12 @@ export const FaceLivenessErrorModal: React.FC<FaceLivenessErrorModalProps> = (
 
   return (
     <Overlay className={LivenessClassNames.OpaqueOverlay}>
-      <Toast ariaLabelledBy="error-heading" role="dialog">
-        {children}
+      <Toast
+        aria-labelledby="error-heading"
+        aria-describedby="error-description"
+        role="alertdialog"
+      >
+        <div id="error-description">{children}</div>
         <Flex justifyContent="center">
           <Button variation="primary" type="button" onClick={onRetry}>
             {tryAgainText}
