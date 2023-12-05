@@ -23,7 +23,6 @@ export function CustomizationComponents() {
           );
         },
         ErrorView: ({ children }) => {
-          // children contains a default error component based on the LivenessError, you can use our default rendered components or render your own error message
           return (
             <View flex="1" backgroundColor="white">
               <Heading color="black">My Custom Error View</Heading>
