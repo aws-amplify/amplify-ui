@@ -51,8 +51,12 @@ describe('FaceLivenessErrorModal', () => {
       </FaceLivenessErrorModal>
     );
 
-    const timeoutModal = screen.getByRole('dialog');
+    const timeoutModal = screen.getByRole('alertdialog');
     expect(timeoutModal).toBeInTheDocument();
+    expect(timeoutModal).toHaveAttribute(
+      'aria-describedby',
+      'error-description'
+    );
     expect(timeoutModal).toHaveAttribute('aria-labelledby', 'error-heading');
   });
 
