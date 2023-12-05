@@ -34,7 +34,6 @@ export const MatchIndicator: React.FC<MatchIndicatorProps> = ({
       <div
         className={`${LivenessClassNames.MatchIndicator}__bar`}
         style={percentageStyles}
-        aria-live="polite"
         role="progressbar"
         aria-label="MatchIndicator"
         aria-valuenow={percentage}
