@@ -2,4 +2,4 @@
 "@aws-amplify/ui-react-liveness": patch
 ---
 
-Update LivenessCameraModule.tsx
+fix(liveness): pass displayText to LivenessCameraModule
