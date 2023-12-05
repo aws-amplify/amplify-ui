@@ -45,6 +45,7 @@ export function getDisplayText(
     cameraNotFoundMessageText,
     retryCameraPermissionsText,
     waitingCameraPermissionText,
+    a11yVideoLabelText,
     cancelLivenessCheckText,
     recordingIndicatorText,
     hintMoveFaceFrontOfCameraText,
@@ -100,6 +101,7 @@ export function getDisplayText(
     cameraNotFoundMessageText,
     retryCameraPermissionsText,
     waitingCameraPermissionText,
+    a11yVideoLabelText,
   };
 
   const instructionDisplayText: Required<InstructionDisplayText> = {
