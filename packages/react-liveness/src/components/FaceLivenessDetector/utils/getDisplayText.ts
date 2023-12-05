@@ -32,6 +32,7 @@ export function getDisplayText(
   };
 
   const {
+    a11yVideoLabelText,
     cameraMinSpecificationsHeadingText,
     cameraMinSpecificationsMessageText,
     cameraNotFoundHeadingText,
@@ -101,6 +102,7 @@ export function getDisplayText(
     cameraNotFoundMessageText,
     retryCameraPermissionsText,
     waitingCameraPermissionText,
+    a11yVideoLabelText,
   };
 
   const instructionDisplayText: Required<InstructionDisplayText> = {
