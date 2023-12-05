@@ -15,15 +15,17 @@ export interface StartScreenComponents {
 }
 
 interface DefaultPhotosensitiveWarningProps {
-  headingText: string;
   bodyText: string;
+  headingText: string;
   infoText: string;
+  labelText: string;
 }
 
 export const DefaultPhotosensitiveWarning = ({
-  headingText,
   bodyText,
+  headingText,
   infoText,
+  labelText,
 }: DefaultPhotosensitiveWarningProps): JSX.Element => {
   return (
     <Flex
@@ -34,7 +36,9 @@ export const DefaultPhotosensitiveWarning = ({
         <View className={ComponentClassName.AlertHeading}>{headingText}</View>
         <View className={ComponentClassName.AlertBody}>{bodyText}</View>
       </View>
-      <LivenessIconWithPopover>{infoText}</LivenessIconWithPopover>
+      <LivenessIconWithPopover labelText={labelText} headingText={headingText}>
+        {infoText}
+      </LivenessIconWithPopover>
     </Flex>
   );
 };

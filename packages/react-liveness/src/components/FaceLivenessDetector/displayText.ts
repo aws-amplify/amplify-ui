@@ -24,14 +24,15 @@ export type CameraDisplayText = {
 };
 
 export type InstructionDisplayText = {
-  photosensitivyWarningHeadingText?: string;
-  photosensitivyWarningBodyText?: string;
-  photosensitivyWarningInfoText?: string;
   goodFitCaptionText?: string;
   goodFitAltText?: string;
+  photosensitivityWarningBodyText?: string;
+  photosensitivityWarningHeadingText?: string;
+  photosensitivityWarningInfoText?: string;
+  photosensitivityWarningLabelText?: string;
+  startScreenBeginCheckText?: string;
   tooFarCaptionText?: string;
   tooFarAltText?: string;
-  startScreenBeginCheckText?: string;
 };
 
 export type StreamDisplayText = {
@@ -64,19 +65,6 @@ export type ErrorDisplayTextFoo = typeof defaultErrorDisplayText;
 export type ErrorDisplayText = Partial<ErrorDisplayTextFoo>;
 
 export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
-  hintCenterFaceText: 'Center your face',
-  startScreenBeginCheckText: 'Start video check',
-  photosensitivyWarningHeadingText: 'Photosensitivity warning',
-  photosensitivyWarningBodyText:
-    'This check flashes different colors. Use caution if you are photosensitive.',
-  photosensitivyWarningInfoText:
-    'Some people may experience may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
-  goodFitCaptionText: 'Good fit',
-  goodFitAltText:
-    "Ilustration of a person's face, perfectly fitting inside of an oval.",
-  tooFarCaptionText: 'Too far',
-  tooFarAltText:
-    "Illustration of a person's face inside of an oval; there is a gap between the perimeter of the face and the boundaries of the oval.",
   cameraMinSpecificationsHeadingText:
     'Camera does not meet minimum specifications',
   cameraMinSpecificationsMessageText:
@@ -84,10 +72,11 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   cameraNotFoundHeadingText: 'Camera is not accessible.',
   cameraNotFoundMessageText:
     'Check that a camera is connected and there is not another application using the camera. You may have to go into settings to grant camera permissions and close out all instances of your browser and retry.',
-  retryCameraPermissionsText: 'Retry',
-  waitingCameraPermissionText: 'Waiting for you to allow camera permission.',
   cancelLivenessCheckText: 'Cancel Liveness check',
-  recordingIndicatorText: 'Rec',
+  goodFitCaptionText: 'Good fit',
+  goodFitAltText:
+    "Ilustration of a person's face, perfectly fitting inside of an oval.",
+  hintCenterFaceText: 'Center your face',
   hintMoveFaceFrontOfCameraText: 'Move face in front of camera',
   hintTooManyFacesText: 'Ensure only one face is in front of camera',
   hintFaceDetectedText: 'Face detected',
@@ -100,6 +89,19 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   hintIlluminationTooDarkText: 'Move to brighter area',
   hintIlluminationNormalText: 'Lighting conditions normal',
   hintHoldFaceForFreshnessText: 'Hold still',
+  photosensitivityWarningBodyText:
+    'This check flashes different colors. Use caution if you are photosensitive.',
+  photosensitivityWarningHeadingText: 'Photosensitivity warning',
+  photosensitivityWarningInfoText:
+    'Some people may experience may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
+  photosensitivityWarningLabelText: 'More information about photosensitivity',
+  retryCameraPermissionsText: 'Retry',
+  recordingIndicatorText: 'Rec',
+  startScreenBeginCheckText: 'Start video check',
+  tooFarCaptionText: 'Too far',
+  tooFarAltText:
+    "Illustration of a person's face inside of an oval; there is a gap between the perimeter of the face and the boundaries of the oval.",
+  waitingCameraPermissionText: 'Waiting for you to allow camera permission.',
   ...defaultErrorDisplayText,
 };
 
