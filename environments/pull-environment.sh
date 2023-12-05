@@ -42,4 +42,3 @@ cd $dir
 # See https://github.com/aws-amplify/amplify-cli/issues/5275
 echo n | yarn pull --amplify $AMPLIFY --frontend $FRONTEND --providers $PROVIDERS
 
-exit $?
