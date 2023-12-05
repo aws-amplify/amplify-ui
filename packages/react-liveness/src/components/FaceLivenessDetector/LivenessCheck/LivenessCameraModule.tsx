@@ -327,7 +327,7 @@ export const LivenessCameraModule = (
             onCanPlay={handleMediaPlay}
             data-testid="video"
             className={LivenessClassNames.Video}
-            aria-label="webcam for liveness check"
+            aria-label={cameraDisplayText.a11yVideoLabelText}
           />
           <Flex
             className={classNames(
