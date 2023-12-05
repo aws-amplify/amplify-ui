@@ -46,7 +46,7 @@ export const LivenessIconWithPopover: React.FC<
         aria-expanded={shouldShowPopover}
         aria-haspopup="dialog"
         aria-label={labelText}
-        colorTheme="warning"
+        colorTheme="info"
         id="popover-button"
         onClick={() => setShouldShowPopover(!shouldShowPopover)}
         testId="popover-icon"
