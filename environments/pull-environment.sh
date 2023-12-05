@@ -38,22 +38,8 @@ PROVIDERS="{\
 
 cd $dir
 
-# pull environments with retries
-for i in {1..3}; do
-  echo "===================="
-  echo "Attempt $i out of 3 for env $dir:"
-  echo "===================="
-  # 'echo n' is used to answer "No" to the prompt "Do you plan on modifying this backend?"
-  # See https://github.com/aws-amplify/amplify-cli/issues/5275
-  if echo n | yarn pull --amplify $AMPLIFY --frontend $FRONTEND --providers $PROVIDERS; then
-    break
-  else
-    echo "[ERROR]: amplify pull failed for env $dir, waiting to retry..."
-  fi
+# 'echo n' is used to answer "No" to the prompt "Do you plan on modifying this backend?"
+# See https://github.com/aws-amplify/amplify-cli/issues/5275
+echo n | yarn pull --amplify $AMPLIFY --frontend $FRONTEND --providers $PROVIDERS
 
-  # Sleep 5 seconds before retrying
-  sleep 5
-done
-
-# exit 0 if last `yarn pull` was successful, non-zero otherwise
-exit $return_value
+exit $?
