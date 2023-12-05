@@ -95,7 +95,7 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
     'This check flashes different colors. Use caution if you are photosensitive.',
   photosensitivityWarningHeadingText: 'Photosensitivity warning',
   photosensitivityWarningInfoText:
-    'Some people may experience may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
+    'Some people may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
   photosensitivityWarningLabelText: 'More information about photosensitivity',
   retryCameraPermissionsText: 'Retry',
   recordingIndicatorText: 'Rec',

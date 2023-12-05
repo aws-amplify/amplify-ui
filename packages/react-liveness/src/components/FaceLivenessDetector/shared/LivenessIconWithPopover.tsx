@@ -44,8 +44,9 @@ export const LivenessIconWithPopover: React.FC<
       <Button
         aria-controls="photosensitivity-description"
         aria-expanded={shouldShowPopover}
-        aria-haspopup="dialog"
+        role="alertdialog"
         aria-label={labelText}
+        aria-describedby="photosensitivity-description"
         colorTheme="info"
         id="popover-button"
         onClick={() => setShouldShowPopover(!shouldShowPopover)}
@@ -64,7 +65,7 @@ export const LivenessIconWithPopover: React.FC<
             data-testid="popover-text"
             id="photosensitivity-description"
             left={isMobileScreen ? -190 : -108}
-            role="dialog"
+            role="alertdialog"
           >
             {children}
           </Flex>
