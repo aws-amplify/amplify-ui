@@ -14428,13 +14428,6 @@ exports[`Props Table 1`] = `
                         "category": "Base",
                         "isOptional": true
                     },
-                    "ariaLabelledBy": {
-                        "name": "ariaLabelledBy",
-                        "type": "AriaAttributes['aria-labelledby']",
-                        "description": "Identifies the element (or elements) that labels the element it is applied to.",
-                        "category": "Base",
-                        "isOptional": true
-                    },
                     "ariaValuetext": {
                         "name": "ariaValuetext",
                         "type": "AriaAttributes['aria-valuetext']",

@@ -43,12 +43,6 @@ export interface AriaProps {
 
   /**
    * @description
-   * Identifies the element (or elements) that labels the element it is applied to.
-   */
-  ariaLabelledBy?: AriaAttributes['aria-labelledby'];
-
-  /**
-   * @description
    * Defines the human readable text alternative of `aria-valuenow` for a range widget
    */
   ariaValuetext?: AriaAttributes['aria-valuetext'];
