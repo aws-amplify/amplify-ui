@@ -17,7 +17,7 @@ describe('useInAppMessaging', () => {
     const original = console.error;
     console.error = () => {};
 
-    expect(() => TestRenderer.create(<TestComponent />)).toThrowError();
+    expect(() => TestRenderer.create(<TestComponent />)).toThrow();
 
     console.error = original;
   });

@@ -2,7 +2,7 @@
   display: inline-block;
   font-size: var(--amplify-components-switchfield-font-size);
   cursor: pointer;
-  
+
   &--small {
     font-size: var(--amplify-components-switchfield-small-font-size);
   }
@@ -29,7 +29,7 @@
   }
 }
 
-.amplify-switch-track {
+.amplify-switch__track {
   display: inline-flex;
   justify-content: flex-start;
   box-sizing: content-box;
@@ -62,7 +62,7 @@
   }
 }
 
-.amplify-switch-thumb {
+.amplify-switch__thumb {
   background-color: var(
     --amplify-components-switchfield-thumb-background-color
   );
@@ -84,7 +84,7 @@
   }
 }
 
-.amplify-switch-label {
+.amplify-switch__label {
   padding: var(--amplify-components-switchfield-label-padding);
   cursor: pointer;
 }

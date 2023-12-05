@@ -2,17 +2,18 @@
  * This file contains helpers that generate default form fields, given the
  * current Authenticator / Zero Config configuration.
  */
+import { AuthMachineState } from '../../../machines/authenticator/types';
 import {
-  AuthMachineState,
   FormFields,
   FormFieldComponents,
   FormFieldsArray,
   isAuthFieldsWithDefaults,
 } from '../../../types';
+
 import { getActorContext } from '../actor';
 import { defaultFormFieldOptions } from '../constants';
 import { defaultFormFieldsGetters, getAliasDefaultFormField } from './defaults';
-import { applyTranslation, sortFormFields } from './util';
+import { applyTranslation, sortFormFields } from './utils';
 
 // Gets the default formFields for given route
 export const getDefaultFormFields = (
@@ -37,10 +38,10 @@ export const getCustomFormFields = (
   return Object.entries(customFormFields).reduce(
     (acc, [fieldName, customOptions]) => {
       if (
-        (route === 'signIn' || route === 'resetPassword') &&
+        (route === 'signIn' || route === 'forgotPassword') &&
         fieldName === 'username'
       ) {
-        // Unlike other screens, `signIn` and `resetPassword` screens default login
+        // Unlike other screens, `signIn` and `forgotPassword` screens default login
         // alias field names to "username", even if it's a phone number or email.
         // In this case, we get the default formFieldOptions based on loginMechanism.
         const defaultOptions = getAliasDefaultFormField(state);

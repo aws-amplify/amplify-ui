@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-  AuthChallengeName,
+  ChallengeName,
   AuthenticatorServiceFacade,
   LegacyFormFieldOptions,
 } from '@aws-amplify/ui';
@@ -14,8 +14,8 @@ export type AuthenticatorRouteComponentKey =
   | 'confirmSignUp'
   | 'confirmVerifyUser'
   | 'forceNewPassword'
-  | 'resetPassword'
-  | 'setupTOTP'
+  | 'forgotPassword'
+  | 'setupTotp'
   | 'signIn'
   | 'signUp'
   | 'verifyUser';
@@ -92,7 +92,7 @@ export type ConfirmResetPasswordBaseProps<FieldType = {}> = {
   ValidationProps;
 
 export type ConfirmSignInBaseProps<FieldType = {}> = {
-  challengeName: AuthChallengeName;
+  challengeName: ChallengeName | undefined;
   toSignIn: UseAuthenticator['toSignIn'];
 } & CommonRouteProps &
   ComponentSlots<FieldType> &
@@ -123,17 +123,19 @@ export type ResetPasswordBaseProps<FieldType = {}> = {
   ComponentSlots<FieldType> &
   ValidationProps;
 
-export type SetupTOTPBaseProps<FieldType = {}> = {
+export type SetupTotpBaseProps<FieldType = {}> = {
   toSignIn: UseAuthenticator['toSignIn'];
   totpSecretCode: UseAuthenticator['totpSecretCode'];
+  username: UseAuthenticator['username'];
 } & CommonRouteProps &
   ComponentSlots<FieldType> &
   ValidationProps;
 
 export type SignInBaseProps<FieldType = {}> = {
   hideSignUp?: boolean;
+  socialProviders?: UseAuthenticator['socialProviders'];
   toFederatedSignIn: UseAuthenticator['toFederatedSignIn'];
-  toResetPassword: UseAuthenticator['toResetPassword'];
+  toForgotPassword: UseAuthenticator['toForgotPassword'];
   toSignUp: UseAuthenticator['toSignUp'];
 } & CommonRouteProps &
   ComponentSlots<FieldType> &
@@ -141,6 +143,7 @@ export type SignInBaseProps<FieldType = {}> = {
 
 export type SignUpBaseProps<FieldType = {}> = {
   hideSignIn?: boolean;
+  socialProviders?: UseAuthenticator['socialProviders'];
   toFederatedSignIn: UseAuthenticator['toFederatedSignIn'];
   toSignIn: UseAuthenticator['toSignIn'];
 } & CommonRouteProps &
@@ -159,8 +162,8 @@ export interface DefaultProps<FieldType = {}> {
   ConfirmResetPassword: ConfirmResetPasswordBaseProps<FieldType>;
   ConfirmVerifyUser: ConfirmVerifyUserProps<FieldType>;
   ForceNewPassword: ForceResetPasswordBaseProps<FieldType>;
-  ResetPassword: ResetPasswordBaseProps<FieldType>;
-  SetupTOTP: SetupTOTPBaseProps<FieldType>;
+  ForgotPassword: ResetPasswordBaseProps<FieldType>;
+  SetupTotp: SetupTotpBaseProps<FieldType>;
   SignIn: SignInBaseProps<FieldType>;
   SignUp: SignUpBaseProps<FieldType>;
   VerifyUser: VerifyUserProps<FieldType>;
@@ -175,7 +178,7 @@ type BaseComponent<
   // Route specific `FieldType`
   FieldType = {},
   // additional props assigned in the UI layer
-  Props = {}
+  Props = {},
 > = React.ComponentType<
   ComponentSlots<FieldType> &
     ComponentRouteProps & { fields: FieldType[] } & Props

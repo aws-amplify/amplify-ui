@@ -10,8 +10,7 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
  * and limitations under the License.
  */
-import { I18n } from 'aws-amplify';
-import { NoInfer } from '../types';
+import { I18n } from 'aws-amplify/utils';
 import {
   deDict,
   enDict,
@@ -48,7 +47,7 @@ import {
 export const DefaultTexts = { ...defaultTexts } as const;
 
 // type Phrase = "Back to Sign In" | "Change Password" | ...
-export type Phrase = typeof DefaultTexts[keyof typeof DefaultTexts];
+export type Phrase = (typeof DefaultTexts)[keyof typeof DefaultTexts];
 
 /**
  * TODO: Translation keys for dictionaries can be inferred from DefaultTexts
@@ -67,7 +66,7 @@ export type Dict = Record<string, string>;
  *
  * You can also use translate<string> to handle custom strings or dynamic content.
  */
-export function translate<T = Phrase>(phrase: NoInfer<T>): string {
+export function translate<T extends string>(phrase: T): string {
   return I18n.get(phrase);
 }
 

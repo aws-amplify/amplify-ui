@@ -24,3 +24,5 @@ UI is not rendered in the DOM tree.
     Then I see "unauthenticated"
     When I reload the page
     Then I see "unauthenticated"
+
+  

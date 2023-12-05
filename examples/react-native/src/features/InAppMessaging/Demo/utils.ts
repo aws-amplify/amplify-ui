@@ -4,7 +4,7 @@ import {
   InAppMessageAction,
   InAppMessageButton,
   InAppMessageLayout,
-} from '@aws-amplify/notifications';
+} from '@aws-amplify/ui-react-native';
 import { useInAppMessaging } from '@aws-amplify/ui-react-native';
 
 type ImageOrientation = 'landscape' | 'portrait';

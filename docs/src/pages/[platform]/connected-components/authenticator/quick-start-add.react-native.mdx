@@ -1,4 +1,4 @@
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Tabs } from '@aws-amplify/ui-react';
 import { Fragment } from '@/components/Fragment';
 
 The quickest way to get started is by wrapping your application with the Authenticator component.
@@ -7,15 +7,19 @@ Once an end-user has created an account & signed in, the underlying component is
 You can use the `Authenticator` component directly, or wrap your app in `withAuthenticator`
 [Higher-Order Component](https://legacy.reactjs.org/docs/higher-order-components.html):
 
-<Tabs>
-  <TabItem title="Authenticator">
+<Tabs.Container defaultValue="Authenticator">
+  <Tabs.List>
+    <Tabs.Item value="Authenticator">Authenticator</Tabs.Item>
+    <Tabs.Item value="withAuthenticator">withAuthenticator</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="Authenticator">
     ```js expoSnack file=../../../../../../examples/react-native/src/features/Authenticator/Basic/Example.tsx
 
     ```
-  </TabItem>
-  <TabItem title="withAuthenticator">
+  </Tabs.Panel>
+  <Tabs.Panel value="withAuthenticator">
     ```js expoSnack file=../../../../../../examples/react-native/src/features/Authenticator/WithAuthenticator/Example.tsx
 
     ```
-  </TabItem>
-</Tabs>
+  </Tabs.Panel>
+</Tabs.Container>

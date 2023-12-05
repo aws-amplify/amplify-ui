@@ -6,6 +6,7 @@ import {
   DefaultTextFormFields,
   DefaultHeader,
   DefaultContent,
+  FederatedProviderButtons,
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
@@ -19,7 +20,9 @@ const SignIn = ({
   handleChange,
   handleSubmit,
   hideSignUp,
-  toResetPassword,
+  socialProviders,
+  toFederatedSignIn,
+  toForgotPassword,
   toSignUp,
   validationErrors,
   ...rest
@@ -50,10 +53,18 @@ const SignIn = ({
   const signInText = getSignInText();
   const signUpText = getSignUpTabText();
 
+  const body = socialProviders ? (
+    <FederatedProviderButtons
+      route="signIn"
+      socialProviders={socialProviders}
+      toFederatedSignIn={toFederatedSignIn}
+    />
+  ) : null;
+
   const buttons = useMemo(() => {
     const forgotPassword = {
       children: forgotPasswordText,
-      onPress: toResetPassword,
+      onPress: toForgotPassword,
     };
     return {
       primary: { children: signInText, disabled, onPress: handleFormSubmit },
@@ -68,13 +79,14 @@ const SignIn = ({
     hideSignUp,
     signInText,
     signUpText,
-    toResetPassword,
+    toForgotPassword,
     toSignUp,
   ]);
 
   return (
     <DefaultContent
       {...rest}
+      body={body}
       buttons={buttons}
       fields={fieldsWithHandlers}
       headerText={headerText}

@@ -73,7 +73,7 @@
       <amplify-slot
         name="setup-totp"
         [context]="context"
-        *ngIf="route === 'setupTOTP'"
+        *ngIf="route === 'setupTotp'"
       >
         <amplify-setup-totp></amplify-setup-totp>
       </amplify-slot>
@@ -87,13 +87,13 @@
         <amplify-force-new-password></amplify-force-new-password>
       </amplify-slot>
 
-      <!-- resetPassword content -->
+      <!-- forgotPassword content -->
       <amplify-slot
-        name="reset-password"
+        name="forgot-password"
         [context]="context"
-        *ngIf="route === 'resetPassword'"
+        *ngIf="route === 'forgotPassword'"
       >
-        <amplify-reset-password></amplify-reset-password>
+        <amplify-forgot-password></amplify-forgot-password>
       </amplify-slot>
 
       <!-- confirmResetPassword content -->

@@ -2,6 +2,7 @@ import {
   DesignTokenValues,
   FontWeightValue,
   OutputVariantKey,
+  RecursiveDesignToken,
 } from './types/designToken';
 
 type FontWeight =
@@ -17,13 +18,14 @@ type FontWeight =
 
 export type FontWeights<
   Output extends OutputVariantKey = unknown,
-  Platform = unknown
+  Platform = unknown,
 > = DesignTokenValues<
   FontWeight,
   FontWeightValue<Platform, Output>,
   Output,
   Platform
->;
+> &
+  RecursiveDesignToken<FontWeightValue<Platform, Output>, Output, Platform>;
 
 export const fontWeights: FontWeights<'default'> = {
   hairline: { value: 100 },

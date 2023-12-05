@@ -1,12 +1,17 @@
 import merge from 'lodash/merge.js';
 
-import { AuthFormData, PasswordSettings, Validator } from '../types';
+import {
+  AuthFormData,
+  AuthTouchData,
+  PasswordSettings,
+  Validator,
+} from '../types';
 import { isEmpty } from '../utils';
 
 // Runs all validators given. Resolves if there are no error. Rejects otherwise.
 export const runValidators = async (
   formData: AuthFormData,
-  touchData: AuthFormData,
+  touchData: AuthTouchData,
   passwordSettings: PasswordSettings,
   validators: Validator[]
 ) => {

@@ -9,15 +9,13 @@ import Layout from '../components/Layout';
 
 Amplify.configure({
   ...awsExports,
-  Analytics: {
-    autoSessionRecord: false,
-  },
+  // Analytics: { autoSessionRecord: false },
 });
 
 const App = () => {
   return (
     <Layout>
-      <LivenessDefault disableInstructionScreen={true} />
+      <LivenessDefault disableStartScreen={true} />
     </Layout>
   );
 };

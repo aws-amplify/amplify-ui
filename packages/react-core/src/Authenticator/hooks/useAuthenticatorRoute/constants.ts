@@ -14,7 +14,7 @@ import {
   ResetPasswordMachineKey,
   SignInMachineKey,
   SignUpMachineKey,
-  SetupTOTPMachineKey,
+  SetupTotpMachineKey,
   VerifyUserMachineKey,
 } from './types';
 
@@ -43,8 +43,8 @@ const CONFIRM_RESET_PASSWORD_MACHINE_KEYS: ConfirmResetPasswordMachineKey[] = [
 ];
 const CONFIRM_SIGN_IN_MACHINE_KEYS: ConfirmSignInMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,
+  'challengeName',
   'toSignIn',
-  'user',
 ];
 const CONFIRM_SIGN_UP_MACHINE_KEYS: ConfirmSignUpMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,
@@ -67,20 +67,23 @@ const RESET_PASSWORD_MACHINE_KEYS: ResetPasswordMachineKey[] = [
 ];
 const SIGN_IN_MACHINE_KEYS: SignInMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,
+  'socialProviders',
   'toFederatedSignIn',
-  'toResetPassword',
+  'toForgotPassword',
   'toSignUp',
 ];
 const SIGN_UP_MACHINE_KEYS: SignUpMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,
   'hasValidationErrors',
+  'socialProviders',
   'toSignIn',
   'validationErrors',
 ];
-const SETUP_TOTP_MACHINE_KEYS: SetupTOTPMachineKey[] = [
+const SETUP_TOTP_MACHINE_KEYS: SetupTotpMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,
   'toSignIn',
   'totpSecretCode',
+  'username',
 ];
 const VERIFY_USER_MACHINE_KEYS: VerifyUserMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,
@@ -98,7 +101,7 @@ export const MACHINE_PROP_KEYS: Record<
   forceNewPassword: FORCE_NEW_PASSWORD_MACHINE_KEYS,
   signIn: SIGN_IN_MACHINE_KEYS,
   signUp: SIGN_UP_MACHINE_KEYS,
-  resetPassword: RESET_PASSWORD_MACHINE_KEYS,
-  setupTOTP: SETUP_TOTP_MACHINE_KEYS,
+  forgotPassword: RESET_PASSWORD_MACHINE_KEYS,
+  setupTotp: SETUP_TOTP_MACHINE_KEYS,
   verifyUser: VERIFY_USER_MACHINE_KEYS,
 };

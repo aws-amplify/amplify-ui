@@ -58,23 +58,25 @@ describe('Liveness Helper', () => {
       expect(faceMatchPercentage).toBe(0);
     });
 
+    // Note: if this test ever fails due to face detection updates just add a console log for face and do a check and copy the value here
     it('should return matched', () => {
       const face: Face = {
-        top: 150.07504272460938,
-        left: 106.4375,
-        width: 432.6287078857422,
-        height: 324.4761657714844,
-        timestampMs: 1683674498221,
-        probability: 0.9998714923858643,
-        rightEye: [409.51867485046387, 253.7000298500061],
-        leftEye: [251.89466857910156, 246.67850017547607],
-        mouth: [320.84685707092285, 404.4503116607666],
-        nose: [326.97374725341797, 341.47182762622833],
+        top: 89.82275009155273,
+        left: 188.85473251342773,
+        width: 375.7287788391113,
+        height: 375.66087722778315,
+        timestampMs: 1696575105415,
+        rightEye: [291.9423294067383, 241.10103607177734],
+        leftEye: [435.9743881225586, 264.43485260009766],
+        mouth: [336.0434341430664, 417.43167877197266],
+        nose: [336.7517852783203, 387.286376953125],
+        rightEar: [236.0750961303711, 193.77853393554685],
+        leftEar: [520.6099700927734, 238.4494781494141],
       };
       const ovalDetails: LivenessOvalDetails = {
-        centerX: 305,
-        centerY: 237,
-        flippedCenterX: 335,
+        centerX: 320,
+        centerY: 240,
+        flippedCenterX: 320,
         height: 512,
         width: 316,
       };
@@ -105,6 +107,8 @@ describe('Liveness Helper', () => {
         leftEye: [318.5161700248718, 253.94269466400146],
         mouth: [339.64158596098423, 298.5959941148758],
         nose: [342.7122294306755, 277.0021167397499],
+        rightEar: [400.5564064979553, 258.19776356220245],
+        leftEar: [300.5161700248718, 253.94269466400146],
       };
       const ovalDetails: LivenessOvalDetails = {
         flippedCenterX: 346,
@@ -235,6 +239,8 @@ describe('Liveness Helper', () => {
         leftEye: [150, 100],
         mouth: [100, 100],
         nose: [100, 100],
+        rightEar: [0, 100],
+        leftEar: [150, 100],
       };
       mockBlazeFace.detectFaces.mockResolvedValue([mockCloseFace]);
 

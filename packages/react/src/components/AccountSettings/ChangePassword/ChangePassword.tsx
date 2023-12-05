@@ -1,14 +1,14 @@
 import React from 'react';
 import isEqual from 'lodash/isEqual.js';
 
-import { Logger } from 'aws-amplify';
+import { useSetUserAgent } from '@aws-amplify/ui-react-core';
 import {
   changePassword,
   ValidatorOptions,
   getDefaultConfirmPasswordValidators,
   getDefaultPasswordValidators,
+  getLogger,
   runFieldValidators,
-  translate,
 } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
@@ -17,8 +17,10 @@ import { ComponentClassName } from '../constants';
 import { FormValues, BlurredFields, ValidationError } from '../types';
 import { ChangePasswordProps, ValidateParams } from './types';
 import DEFAULTS from './defaults';
+import { defaultChangePasswordDisplayText } from '../utils';
+import { VERSION } from '../../../version';
 
-const logger = new Logger('ChangePassword');
+const logger = getLogger('AccountSettings');
 
 const getIsDisabled = (
   formValues: FormValues,
@@ -39,10 +41,11 @@ const getIsDisabled = (
 };
 
 function ChangePassword({
-  onSuccess,
-  onError,
-  validators,
   components,
+  displayText: overrideDisplayText,
+  onError,
+  onSuccess,
+  validators,
 }: ChangePasswordProps): JSX.Element | null {
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
   const [formValues, setFormValues] = React.useState<FormValues>({});
@@ -57,6 +60,12 @@ function ChangePassword({
   const passwordValidators: ValidatorOptions[] = React.useMemo(() => {
     return validators ?? getDefaultPasswordValidators();
   }, [validators]);
+
+  useSetUserAgent({
+    componentName: 'ChangePassword',
+    packageName: 'react',
+    version: VERSION,
+  });
 
   /*
    * Note that formValues and other states are passed in as props so that
@@ -114,11 +123,16 @@ function ChangePassword({
   );
 
   /* Translations */
-  // TODO: add AccountSettingsTextUtil to collect these strings
-  const currentPasswordLabel = translate('Current Password');
-  const newPasswordLabel = translate('New Password');
-  const confirmPasswordLabel = translate('Confirm Password');
-  const updatePasswordText = translate('Update password');
+  const displayText = {
+    ...defaultChangePasswordDisplayText,
+    ...overrideDisplayText,
+  };
+  const {
+    confirmPasswordFieldLabel,
+    currentPasswordFieldLabel,
+    newPasswordFieldLabel,
+    updatePasswordButtonText,
+  } = displayText;
 
   /* Subcomponents */
   const {
@@ -167,7 +181,7 @@ function ChangePassword({
       setErrorMessage(null);
     }
 
-    changePassword({ user, currentPassword, newPassword })
+    changePassword({ currentPassword, newPassword })
       .then(() => {
         // notify success to the parent
         onSuccess?.();
@@ -180,7 +194,7 @@ function ChangePassword({
       });
   };
 
-  // Return null if Auth.getCurrentAuthenticatedUser is still in progress
+  // Return null if Auth.getgetCurrentUser is still in progress
   if (isLoading) {
     return null;
   }
@@ -201,7 +215,7 @@ function ChangePassword({
         <CurrentPasswordField
           autoComplete="current-password"
           isRequired
-          label={currentPasswordLabel}
+          label={currentPasswordFieldLabel}
           name="currentPassword"
           onBlur={handleBlur}
           onChange={handleChange}
@@ -210,7 +224,7 @@ function ChangePassword({
           autoComplete="new-password"
           fieldValidationErrors={validationError?.newPassword}
           isRequired
-          label={newPasswordLabel}
+          label={newPasswordFieldLabel}
           name="newPassword"
           onBlur={handleBlur}
           onChange={handleChange}
@@ -219,13 +233,13 @@ function ChangePassword({
           autoComplete="new-password"
           fieldValidationErrors={validationError?.confirmPassword}
           isRequired
-          label={confirmPasswordLabel}
+          label={confirmPasswordFieldLabel}
           name="confirmPassword"
           onBlur={handleBlur}
           onChange={handleChange}
         />
         <SubmitButton isDisabled={isDisabled} type="submit">
-          {updatePasswordText}
+          {updatePasswordButtonText}
         </SubmitButton>
         {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
       </Flex>

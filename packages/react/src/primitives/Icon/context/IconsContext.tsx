@@ -5,9 +5,9 @@ type ComponentIcons<Keys extends string> = {
 };
 
 export type IconsContextInterface = {
+  accordion?: ComponentIcons<'more'>;
   alert?: ComponentIcons<'close' | 'info' | 'error' | 'success' | 'warning'>;
   checkbox?: ComponentIcons<'indeterminate' | 'checked'>;
-  expander?: ComponentIcons<'more'>;
   field?: ComponentIcons<'clear'>;
   menu?: ComponentIcons<'menu'>;
   message?: ComponentIcons<'close' | 'info' | 'error' | 'success' | 'warning'>;

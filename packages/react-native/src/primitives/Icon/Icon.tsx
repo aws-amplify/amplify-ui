@@ -6,6 +6,7 @@ import { getThemedStyles } from './styles';
 import { IconProps } from './types';
 
 export default function Icon({
+  accessible = true,
   accessibilityRole = 'image',
   animated,
   color,
@@ -21,6 +22,7 @@ export default function Icon({
 
   const imageProps: IconProps = {
     ...rest,
+    accessible,
     accessibilityRole,
     style: [themedStyle.icon, style],
   };

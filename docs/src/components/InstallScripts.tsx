@@ -1,5 +1,5 @@
 import { CopyButton } from '@/components/CopyButton';
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Tabs } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/router';
 import { Framework, REACT_NATIVE_DEPENDENCIES } from '../data/frameworks';
 
@@ -19,6 +19,8 @@ const frameworkInstallScript = (
   component?: string
 ) => {
   const isReactNative = framework === 'react-native';
+  const isLivenessReactComponent =
+    component === 'liveness' && framework === 'react';
 
   const packageManagerPrefix = `${
     packageManager === 'npm' ? 'npm install' : 'yarn add'
@@ -26,7 +28,7 @@ const frameworkInstallScript = (
 
   const extraDependencies = `${
     isReactNative ? ` ${REACT_NATIVE_DEPENDENCIES}` : ''
-  }`;
+  }${isLivenessReactComponent ? `@5.x` : ''}`;
 
   const componentSubpackage = component ? `-${component}` : '';
 
@@ -58,13 +60,16 @@ export const TerminalCommand = ({
 };
 
 interface InstallScriptsProps {
+  command?: string;
   framework?: Framework;
   component?: string;
 }
 
 export const InstallScripts = ({
-  framework,
+  // override framework default platform install command
+  command,
   component,
+  framework,
 }: InstallScriptsProps) => {
   const {
     query: { platform = 'react' },
@@ -76,21 +81,27 @@ export const InstallScripts = ({
   }
 
   return (
-    <Tabs>
-      <TabItem title="npm">
+    <Tabs.Container defaultValue="npm">
+      <Tabs.List>
+        <Tabs.Item value="npm">npm</Tabs.Item>
+        <Tabs.Item value="yarn">yarn</Tabs.Item>
+      </Tabs.List>
+      <Tabs.Panel value="npm">
         <TerminalCommand
           framework={framework}
+          command={command}
           component={component}
           packageManager="npm"
         />
-      </TabItem>
-      <TabItem title="yarn">
+      </Tabs.Panel>
+      <Tabs.Panel value="yarn">
         <TerminalCommand
           framework={framework}
+          command={command}
           component={component}
           packageManager="yarn"
         />
-      </TabItem>
-    </Tabs>
+      </Tabs.Panel>
+    </Tabs.Container>
   );
 };

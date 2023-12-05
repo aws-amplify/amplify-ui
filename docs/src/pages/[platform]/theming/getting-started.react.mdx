@@ -1,4 +1,4 @@
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Tabs } from '@aws-amplify/ui-react';
 
 Step 1: Wrap your App with `ThemeProvider`
 
@@ -30,8 +30,12 @@ const MyComponent = ({ children }) => {
 
 Optional: To extend or override a token in the default theme, create a custom theme:
 
-<Tabs>
-  <TabItem title="JavaScript">
+<Tabs.Container defaultValue="Javascript">
+  <Tabs.List>
+    <Tabs.Item value="Javascript">Javascript</Tabs.Item>
+    <Tabs.Item value="TypeScript">TypeScript</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="Javascript">
     ```jsx
     import { ThemeProvider, Theme } from '@aws-amplify/ui-react';
 
@@ -57,8 +61,8 @@ Optional: To extend or override a token in the default theme, create a custom th
     );
     ```
 
-  </TabItem>
-  <TabItem title="TypeScript">
+  </Tabs.Panel>
+  <Tabs.Panel value="TypeScript">
     ```tsx
     import { ThemeProvider, Theme } from '@aws-amplify/ui-react';
 
@@ -84,5 +88,5 @@ Optional: To extend or override a token in the default theme, create a custom th
     );
     ```
 
-  </TabItem>
-</Tabs>
+  </Tabs.Panel>
+</Tabs.Container>

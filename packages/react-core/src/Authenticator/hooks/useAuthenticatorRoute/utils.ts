@@ -81,13 +81,10 @@ export function resolveConfirmSignInRoute<FieldType = {}>(
   Component: Defaults<FieldType>['ConfirmSignIn'],
   props: UseAuthenticator
 ): UseAuthenticatorRoute<'ConfirmSignIn', FieldType> {
-  const { user, ...machineProps } = getConvertedMachineProps(
+  const { challengeName, ...machineProps } = getConvertedMachineProps(
     'confirmSignIn',
     props
   );
-
-  // prior to the `confirmSignIn` route, `user.username` is populated
-  const challengeName = user.challengeName!;
 
   return { Component, props: { ...Component, ...machineProps, challengeName } };
 }
@@ -131,28 +128,28 @@ export function resolveForceNewPasswordRoute<FieldType = {}>(
   };
 }
 
-export function resolveResetPasswordRoute<FieldType = {}>(
-  Component: Defaults<FieldType>['ResetPassword'],
+export function resolveForgotPasswordRoute<FieldType = {}>(
+  Component: Defaults<FieldType>['ForgotPassword'],
   props: UseAuthenticator
-): UseAuthenticatorRoute<'ResetPassword', FieldType> {
+): UseAuthenticatorRoute<'ForgotPassword', FieldType> {
   return {
     Component,
     props: {
       ...Component,
-      ...getConvertedMachineProps('resetPassword', props),
+      ...getConvertedMachineProps('forgotPassword', props),
     },
   };
 }
 
-export function resolveSetupTOTPRoute<FieldType = {}>(
-  Component: Defaults<FieldType>['SetupTOTP'],
+export function resolveSetupTotpRoute<FieldType = {}>(
+  Component: Defaults<FieldType>['SetupTotp'],
   props: UseAuthenticator
-): UseAuthenticatorRoute<'SetupTOTP', FieldType> {
+): UseAuthenticatorRoute<'SetupTotp', FieldType> {
   return {
     Component,
     props: {
       ...Component,
-      ...getConvertedMachineProps('setupTOTP', props),
+      ...getConvertedMachineProps('setupTotp', props),
     },
   };
 }
@@ -198,7 +195,7 @@ export function resolveVerifyUserRoute<FieldType = {}>(
 }
 
 export function resolveDefault<
-  FieldType = {}
+  FieldType = {},
 >(): UseAuthenticatorRouteDefault<FieldType> {
   return {
     Component: RenderNothing as DefaultComponentType<FieldType>,

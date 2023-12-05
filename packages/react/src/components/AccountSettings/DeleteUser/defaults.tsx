@@ -1,23 +1,28 @@
 import React from 'react';
-import { translate } from '@aws-amplify/ui';
 
 import { Button, Card, Flex, Text } from '../../../primitives';
 import { ButtonComponent } from '../types';
 import { DefaultErrorMessage } from '../shared/Defaults';
-import { DeleteUserComponents, WarningViewComponent } from './types';
+import {
+  DeleteUserComponents,
+  WarningViewComponent,
+  WarningViewProps,
+} from './types';
+import { defaultDeleteUserDisplayText } from '../utils';
 
 const DefaultWarningView: WarningViewComponent = ({
+  displayText: overrideDisplayText,
+  isDisabled,
   onCancel,
   onConfirm,
-  isDisabled,
-}) => {
+}: WarningViewProps) => {
   // translations
-  // TODO: consolodiate translations to accountSettingsTextUtil
-  const warningText = translate(
-    'Deleting your account is not reversable. You will lose access to your account and all data associated with it.'
-  );
-  const cancelText = translate('Cancel');
-  const deleteMyAccountText = translate('Delete my account');
+  const displayText = {
+    ...defaultDeleteUserDisplayText,
+    ...overrideDisplayText,
+  };
+  const { cancelButtonText, confirmDeleteButtonText, warningText } =
+    displayText;
 
   return (
     <Card>
@@ -25,14 +30,14 @@ const DefaultWarningView: WarningViewComponent = ({
         <Text color="font.error">{warningText}</Text>
         <Flex>
           <Button variation="link" onClick={onCancel} isDisabled={isDisabled}>
-            {cancelText}
+            {cancelButtonText}
           </Button>
           <Button
             variation="destructive"
             onClick={onConfirm}
             isDisabled={isDisabled}
           >
-            {deleteMyAccountText}
+            {confirmDeleteButtonText}
           </Button>
         </Flex>
       </Flex>

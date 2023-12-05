@@ -1,4 +1,6 @@
-import { Amplify, Auth, I18n } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import { signUp, SignUpInput } from 'aws-amplify/auth';
+import { I18n } from 'aws-amplify/utils';
 
 import {
   Authenticator,
@@ -6,6 +8,7 @@ import {
   useAuthenticator,
   View,
 } from '@aws-amplify/ui-react';
+
 import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
@@ -28,25 +31,26 @@ I18n.putVocabulariesForLanguage('en', {
   'It may take a minute to arrive': 'It will take several minutes to arrive',
 });
 
-export default function AuthenticatorWithEmail() {
+function AuthenticatorWithEmail() {
   const { authStatus } = useAuthenticator((context) => [context.authStatus]);
   const services = {
-    async handleSignUp(formData) {
-      let { username, password, attributes } = formData;
-      // custom username
-      username = username.toLowerCase();
-      attributes.email = attributes.email.toLowerCase();
-      return Auth.signUp({
-        username,
-        password,
-        attributes,
-        autoSignIn: {
-          enabled: true,
+    async handleSignUp(input: SignUpInput) {
+      // custom username and email
+      const customUsername = input.username.toLowerCase();
+      const customEmail = input.options?.userAttributes?.email.toLowerCase();
+      return signUp({
+        ...input,
+        username: customUsername,
+        options: {
+          ...input.options,
+          userAttributes: {
+            ...input.options?.userAttributes,
+            email: customEmail,
+          },
         },
       });
     },
   };
-
   return (
     <>
       <View>{authStatus}</View>
@@ -55,8 +59,23 @@ export default function AuthenticatorWithEmail() {
         initialState="signUp"
         services={services}
       >
-        {({ signOut }) => <button onClick={signOut}>Sign out</button>}
+        {({ signOut, user }) => {
+          return (
+            <main>
+              <h1>Hello {user.username}</h1>
+              <button onClick={signOut}>Sign out</button>
+            </main>
+          );
+        }}
       </Authenticator>
     </>
+  );
+}
+
+export default function ProviderWrappedApp() {
+  return (
+    <Authenticator.Provider>
+      <AuthenticatorWithEmail />
+    </Authenticator.Provider>
   );
 }

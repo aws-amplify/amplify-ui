@@ -6,7 +6,7 @@ import {
   View,
 } from '@aws-amplify/ui-react';
 
-import { I18n } from 'aws-amplify';
+import { I18n } from 'aws-amplify/utils';
 import * as React from 'react';
 
 type ScreenProps = {

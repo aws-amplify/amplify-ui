@@ -2,14 +2,16 @@ import * as React from 'react';
 
 import { FlexContainerStyleProps } from './flex';
 import { BaseFieldProps, LabelPositions } from './field';
+import { BaseFieldsetProps } from './fieldset';
 import { BaseInputProps } from './input';
 import { ElementType, PrimitiveProps } from './view';
 
 /** @deprecated For internal use only */
 export interface BaseRadioGroupFieldProps
-  extends BaseFieldProps,
+  extends Omit<BaseFieldProps, 'label' | 'labelHidden'>,
     FlexContainerStyleProps,
-    BaseInputProps {
+    BaseFieldsetProps,
+    Omit<BaseInputProps, 'variation'> {
   name: string;
   value?: string;
   defaultValue?: string;

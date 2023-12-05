@@ -2,13 +2,14 @@ import {
   DesignTokenValues,
   FontValue,
   OutputVariantKey,
+  RecursiveDesignToken,
 } from './types/designToken';
 
 type FontVariant = 'variable' | 'static';
 
 type BaseFonts<
   Output extends OutputVariantKey = unknown,
-  Platform = unknown
+  Platform = unknown,
 > = {
   default?: DesignTokenValues<FontVariant, FontValue, Output, Platform>;
 };
@@ -16,10 +17,11 @@ type BaseFonts<
 // `Fonts` tokens requires special handling for `required` output due to nested tokens
 export type Fonts<
   Output extends OutputVariantKey = unknown,
-  Platform = unknown
-> = Output extends 'required' | 'default'
+  Platform = unknown,
+> = (Output extends 'required' | 'default'
   ? Required<BaseFonts<Output, Platform>>
-  : BaseFonts<Output, Platform>;
+  : BaseFonts<Output, Platform>) &
+  RecursiveDesignToken<FontValue, Output, Platform>;
 
 // TODO: update the design tokens to use an array
 // export interface FontDesignToken {

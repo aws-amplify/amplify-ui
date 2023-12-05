@@ -3,14 +3,14 @@
 exports[`FullScreenMessage renders as expected in landscape mode 1`] = `
 <MessageWrapper
   style={
-    Array [
-      Object {
+    [
+      {
         "backgroundColor": "#fff",
         "flex": 1,
       },
-      Object {},
-      Object {},
-      Object {},
+      {},
+      {},
+      {},
     ]
   }
 >
@@ -23,44 +23,44 @@ exports[`FullScreenMessage renders as expected in landscape mode 1`] = `
     orientation="landscape"
     shouldRenderMessage={true}
     styles={
-      Object {
-        "body": Array [
-          Object {
+      {
+        "body": [
+          {
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Object {},
+          {},
           undefined,
         ],
-        "buttonsContainer": Object {
+        "buttonsContainer": {
           "flexDirection": "row",
           "justifyContent": "center",
         },
-        "container": Array [
-          Object {
+        "container": [
+          {
             "flex": 1,
             "padding": 16,
           },
-          Object {},
-          Object {},
+          {},
+          {},
         ],
-        "contentContainer": Object {
+        "contentContainer": {
           "flex": 1,
           "flexDirection": "row",
         },
-        "header": Array [
-          Object {
+        "header": [
+          {
             "fontSize": 18,
             "fontWeight": "600",
             "lineHeight": 27,
           },
-          Object {},
+          {},
           undefined,
         ],
-        "iconButton": Object {
-          "container": Array [
-            Object {
+        "iconButton": {
+          "container": [
+            {
               "alignSelf": "flex-start",
               "marginBottom": 8,
               "marginLeft": "auto",
@@ -70,45 +70,45 @@ exports[`FullScreenMessage renders as expected in landscape mode 1`] = `
           ],
           "iconColor": undefined,
         },
-        "image": Array [
-          Object {
+        "image": [
+          {
             "height": null,
             "width": null,
           },
           undefined,
         ],
-        "imageContainer": Object {
+        "imageContainer": {
           "alignItems": "center",
           "justifyContent": "center",
           "margin": 12,
         },
-        "primaryButton": Object {
+        "primaryButton": {
           "container": [Function],
-          "text": Array [
-            Object {
+          "text": [
+            {
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
               "textAlign": "center",
             },
-            Object {},
-            Object {},
+            {},
+            {},
           ],
         },
-        "secondaryButton": Object {
+        "secondaryButton": {
           "container": [Function],
-          "text": Array [
-            Object {
+          "text": [
+            {
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
               "textAlign": "center",
             },
-            Object {},
-            Object {},
+            {},
+            {},
           ],
         },
-        "textContainer": Object {
+        "textContainer": {
           "flex": 1,
           "justifyContent": "center",
           "paddingHorizontal": 8,
@@ -123,13 +123,13 @@ exports[`FullScreenMessage renders as expected in landscape mode 1`] = `
 exports[`FullScreenMessage renders as expected in portrait mode 1`] = `
 <MessageWrapper
   style={
-    Array [
-      Object {
+    [
+      {
         "backgroundColor": "#fff",
       },
-      Object {},
-      Object {},
-      Object {},
+      {},
+      {},
+      {},
     ]
   }
 >
@@ -142,44 +142,44 @@ exports[`FullScreenMessage renders as expected in portrait mode 1`] = `
     orientation="portrait"
     shouldRenderMessage={true}
     styles={
-      Object {
-        "body": Array [
-          Object {
+      {
+        "body": [
+          {
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Object {},
+          {},
           undefined,
         ],
-        "buttonsContainer": Object {
+        "buttonsContainer": {
           "flexDirection": "row",
           "justifyContent": "center",
           "marginTop": "auto",
         },
-        "container": Array [
-          Object {
+        "container": [
+          {
             "flex": 1,
             "padding": 16,
           },
-          Object {},
-          Object {},
+          {},
+          {},
         ],
-        "contentContainer": Object {
+        "contentContainer": {
           "flex": 1,
         },
-        "header": Array [
-          Object {
+        "header": [
+          {
             "fontSize": 18,
             "fontWeight": "600",
             "lineHeight": 27,
           },
-          Object {},
+          {},
           undefined,
         ],
-        "iconButton": Object {
-          "container": Array [
-            Object {
+        "iconButton": {
+          "container": [
+            {
               "alignSelf": "flex-start",
               "marginBottom": 8,
               "marginLeft": "auto",
@@ -189,44 +189,44 @@ exports[`FullScreenMessage renders as expected in portrait mode 1`] = `
           ],
           "iconColor": undefined,
         },
-        "image": Array [
-          Object {
+        "image": [
+          {
             "height": null,
             "width": null,
           },
           undefined,
         ],
-        "imageContainer": Object {
+        "imageContainer": {
           "alignItems": "center",
           "margin": 12,
         },
-        "primaryButton": Object {
+        "primaryButton": {
           "container": [Function],
-          "text": Array [
-            Object {
+          "text": [
+            {
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
               "textAlign": "center",
             },
-            Object {},
-            Object {},
+            {},
+            {},
           ],
         },
-        "secondaryButton": Object {
+        "secondaryButton": {
           "container": [Function],
-          "text": Array [
-            Object {
+          "text": [
+            {
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
               "textAlign": "center",
             },
-            Object {},
-            Object {},
+            {},
+            {},
           ],
         },
-        "textContainer": Object {
+        "textContainer": {
           "marginVertical": 12,
           "paddingHorizontal": 8,
         },
