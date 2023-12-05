@@ -30,11 +30,7 @@ export async function getStaticProps() {
 <PageTabLayout 
   tabComponents={[{
     title: "Documentation", 
-    children: <>
-      <InlineFilter filters={["react"]}>
-        <ReactPage />
-      </InlineFilter>
-    </>
+    children: <ReactPage />
   },
   {
     title: "Props", 
