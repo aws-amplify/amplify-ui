@@ -1,5 +1,15 @@
 # @aws-amplify/ui
 
+## 6.0.3
+
+### Patch Changes
+
+- [#4801](https://github.com/aws-amplify/amplify-ui/pull/4801) [`ed55a6a36`](https://github.com/aws-amplify/amplify-ui/commit/ed55a6a36b9250db50e3edaf31b53ce4fc35edfe) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): exclude empty phone_number values from sign up submit
+
+- [#4807](https://github.com/aws-amplify/amplify-ui/pull/4807) [`272a05edc`](https://github.com/aws-amplify/amplify-ui/commit/272a05edcafa8f9e0e53ed1eb66f566f308d09b3) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(ui): update/normalize focus indicator across primitives to improve accessibility.
+
+  In some instances, the focus indicator ring has been updated from 1px to 2px and/or the color of the focus indicator ring has been changed to have at least a 3:1 contrast ratio in the area of contrast.
+
 ## 6.0.2
 
 ### Patch Changes
