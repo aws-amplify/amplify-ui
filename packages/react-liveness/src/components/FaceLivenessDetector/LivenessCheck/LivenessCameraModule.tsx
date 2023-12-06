@@ -327,6 +327,7 @@ export const LivenessCameraModule = (
             onCanPlay={handleMediaPlay}
             data-testid="video"
             className={LivenessClassNames.Video}
+            aria-label={cameraDisplayText.a11yVideoLabelText}
           />
           <Flex
             className={classNames(
@@ -364,6 +365,7 @@ export const LivenessCameraModule = (
                 onRetry={() => {
                   send({ type: 'CANCEL' });
                 }}
+                displayText={errorDisplayText}
               >
                 {renderErrorModal({
                   errorState,

@@ -94,6 +94,9 @@
         --amplify-components-fieldcontrol-quiet-error-border-block-end-color
       );
       &:focus {
+        border-block-end-color: var(
+          --amplify-components-fieldcontrol-quiet-error-focus-border-block-end-color
+        );
         box-shadow: var(
           --amplify-components-fieldcontrol-quiet-error-focus-box-shadow
         );
