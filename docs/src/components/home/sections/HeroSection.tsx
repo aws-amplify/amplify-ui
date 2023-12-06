@@ -21,7 +21,7 @@ import { CardLink } from '@/components/CardLink';
 import { FRAMEWORKS, FRAMEWORK_INSTALL_SCRIPTS } from '@/data/frameworks';
 import { FrameworkLogo } from '@/components/Logo';
 import { TerminalCommand } from '@/components/InstallScripts';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 export const HeroSection = () => {
   const {
@@ -63,7 +63,12 @@ export const HeroSection = () => {
             <View as="span" display="inline-block">
               (and more!
               {FRAMEWORKS.map((framework) => (
-                <NextLink key={framework} href={`/${framework}`} scroll={false}>
+                <NextLink
+                  key={framework}
+                  href={`/${framework}`}
+                  legacyBehavior
+                  scroll={false}
+                >
                   <a>
                     <FrameworkLogo
                       framework={framework}

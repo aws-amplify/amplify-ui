@@ -136,17 +136,19 @@ export function getStaticLivenessOvalDetails({
   widthSeed = 1.0,
   centerXSeed = 0.5,
   centerYSeed = 0.5,
+  ratioMultiplier = 0.8,
 }: {
   width: number;
   height: number;
   widthSeed?: number;
   centerXSeed?: number;
   centerYSeed?: number;
+  ratioMultiplier?: number;
 }): LivenessOvalDetails {
   const videoHeight = height;
   let videoWidth = width;
 
-  const ovalRatio = widthSeed * 0.8;
+  const ovalRatio = widthSeed * ratioMultiplier;
 
   const minOvalCenterX = Math.floor((7 * width) / 16);
   const maxOvalCenterX = Math.floor((9 * width) / 16);
@@ -180,6 +182,42 @@ export function getStaticLivenessOvalDetails({
   };
 }
 
+export function drawStaticOval(
+  canvasEl: HTMLCanvasElement,
+  videoEl: HTMLVideoElement,
+  videoMediaStream: MediaStream
+) {
+  const { width, height } = videoMediaStream!.getTracks()[0].getSettings();
+
+  // Get width/height of video element so we can compute scaleFactor
+  // and set canvas width/height.
+  const { width: videoScaledWidth, height: videoScaledHeight } =
+    videoEl!.getBoundingClientRect();
+
+  canvasEl!.width = Math.ceil(videoScaledWidth);
+  canvasEl!.height = Math.ceil(videoScaledHeight);
+
+  const ovalDetails = getStaticLivenessOvalDetails({
+    width: width!,
+    height: height!,
+    ratioMultiplier: 0.5,
+  });
+  ovalDetails.flippedCenterX = width! - ovalDetails.centerX;
+
+  // Compute scaleFactor which is how much our video element is scaled
+  // vs the intrinsic video resolution
+  const scaleFactor = videoScaledWidth / videoEl!.videoWidth;
+
+  // Draw oval in canvas using ovalDetails and scaleFactor
+  drawLivenessOvalInCanvas({
+    canvas: canvasEl!,
+    oval: ovalDetails,
+    scaleFactor,
+    videoEl: videoEl!,
+    isStartScreen: true,
+  });
+}
+
 /**
  * Draws the provided liveness oval on the canvas.
  */
@@ -188,11 +226,13 @@ export function drawLivenessOvalInCanvas({
   oval,
   scaleFactor,
   videoEl,
+  isStartScreen,
 }: {
   canvas: HTMLCanvasElement;
   oval: LivenessOvalDetails;
   scaleFactor: number;
   videoEl: HTMLVideoElement;
+  isStartScreen?: boolean;
 }): void {
   const { flippedCenterX, centerY, width, height } = oval;
 
@@ -201,10 +241,15 @@ export function drawLivenessOvalInCanvas({
   const ctx = canvas.getContext('2d');
 
   if (ctx) {
+    ctx.restore();
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
     // fill the canvas with a transparent rectangle
-    ctx.fillStyle = 'rgba(255, 255, 255, 1.0)';
+    ctx.fillStyle = isStartScreen
+      ? getComputedStyle(canvas).getPropertyValue(
+          '--amplify-colors-background-primary'
+        )
+      : '#fff';
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
     // On mobile our canvas is the width/height of the full screen.
@@ -233,9 +278,12 @@ export function drawLivenessOvalInCanvas({
     );
 
     // add stroke to the oval path
-    ctx.strokeStyle = '#AEB3B7';
+    ctx.strokeStyle = getComputedStyle(canvas).getPropertyValue(
+      '--amplify-colors-border-secondary'
+    );
     ctx.lineWidth = 3;
     ctx.stroke();
+    ctx.save();
     ctx.clip();
 
     // Restore default canvas transform matrix
@@ -350,7 +398,15 @@ export function generateBboxFromLandmarks(
   face: Face,
   oval: LivenessOvalDetails
 ): BoundingBox {
-  const { leftEye, rightEye, nose } = face;
+  const {
+    leftEye,
+    rightEye,
+    nose,
+    leftEar,
+    rightEar,
+    top: faceTop,
+    height: faceHeight,
+  } = face;
   const { height: ovalHeight, centerY } = oval;
   const ovalTop = centerY! - ovalHeight! / 2;
 
@@ -366,26 +422,24 @@ export function generateBboxFromLandmarks(
   const ow = (alpha * pd + gamma * fh) / 2;
   const oh = 1.618 * ow;
 
-  let cx: number, cy: number;
+  let cx: number;
 
   if (eyeCenter[1] <= (ovalTop + ovalHeight!) / 2) {
     cx = (eyeCenter[0] + nose[0]) / 2;
-    cy = (eyeCenter[1] + nose[1]) / 2;
   } else {
     cx = eyeCenter[0];
-    cy = eyeCenter[1];
   }
 
-  const left = cx - ow / 2,
-    top = cy - oh / 2;
-  const width = ow,
-    height = oh;
+  const faceBottom = faceTop + faceHeight;
+  const top = faceBottom - oh;
+  const left = Math.min(cx - ow / 2, rightEar[0]);
+  const right = Math.max(cx + ow / 2, leftEar[0]);
 
   return {
     left: left,
     top: top,
-    right: left + width,
-    bottom: top + height,
+    right: right,
+    bottom: faceBottom,
   };
 }
 

@@ -70,8 +70,8 @@ export const select: Required<SelectTokens<'default'>> = {
       right: { value: '{space.medium.value}' },
     },
   },
-  // It's important to test these option values on Chrome/FireFox/Edge 
-  // on Windows because they allow styling of the option element. 
+  // It's important to test these option values on Chrome/FireFox/Edge
+  // on Windows because they allow styling of the option element.
   // Chrome/Safari/Firefox on Mac uses the system ui.
   option: {
     backgroundColor: { value: 'transparent' },

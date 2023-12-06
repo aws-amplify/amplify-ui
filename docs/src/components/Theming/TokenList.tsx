@@ -82,7 +82,7 @@ export function TokenList({ namespace, childNamespace }: TokenListProps) {
   /**
    * Get the tokens from useTheme() depending on namespace and childNamespace(s).
    * e.g. for namespace: 'colors' and childNamespace: ['brand', 'primary'],
-   * tokenNamespace will equal tokens.colors.brand.primary
+   * tokenNamespace will equal tokens.colors.primary
    */
   const tokenNamespace = childNamespace
     ? childNamespace.reduce((namespace, childNamespace) => {

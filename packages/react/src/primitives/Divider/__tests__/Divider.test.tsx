@@ -2,7 +2,7 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { Divider } from '../Divider';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 describe('Divider component', () => {
   it('should add the size classes', async () => {
@@ -17,10 +17,10 @@ describe('Divider component', () => {
     const large = await screen.findByTestId(`large`);
 
     expect(small.classList).toContain(
-      `${ComponentClassNames['Divider']}--small`
+      `${ComponentClassName['Divider']}--small`
     );
     expect(large.classList).toContain(
-      `${ComponentClassNames['Divider']}--large`
+      `${ComponentClassName['Divider']}--large`
     );
   });
 
@@ -36,14 +36,14 @@ describe('Divider component', () => {
     const vertical = await screen.findByTestId(`vertical`);
 
     expect(horizontal.classList).toContain(
-      `${ComponentClassNames['Divider']}--horizontal`
+      `${ComponentClassName['Divider']}--horizontal`
     );
     expect(vertical.classList).toContain(
-      `${ComponentClassNames['Divider']}--vertical`
+      `${ComponentClassName['Divider']}--vertical`
     );
   });
 
-  it('renders <hr> with expected data attributes and classname', async () => {
+  it('renders <hr> with expected attributes and classes', async () => {
     const dividerTestId = 'dividerTest';
     render(<Divider id={dividerTestId} />);
 
@@ -52,7 +52,7 @@ describe('Divider component', () => {
     expect(divider.id).toBe(dividerTestId);
     expect(divider.dataset['size']).toBeUndefined();
     expect(divider.getAttribute('aria-orientation')).toBe('horizontal');
-    expect(divider.className).toContain(ComponentClassNames.Divider);
+    expect(divider.className).toContain(ComponentClassName.Divider);
   });
 
   it('renders a vertical divider', async () => {
@@ -66,7 +66,7 @@ describe('Divider component', () => {
 
     const divider = await screen.findByRole('separator');
     expect(divider.className).toContain('my-divider');
-    expect(divider.className).toContain(ComponentClassNames.Divider);
+    expect(divider.className).toContain(ComponentClassName.Divider);
   });
 
   it('should forward ref to DOM element', async () => {

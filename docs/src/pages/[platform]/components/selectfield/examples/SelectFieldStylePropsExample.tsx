@@ -7,7 +7,7 @@ export const SelectFieldStylePropsExample = () => {
       <SelectField
         label="Fruit"
         padding="xl"
-        border={`1px solid ${tokens.colors.brand.primary[60]}`}
+        border={`1px solid ${tokens.colors.primary[60]}`}
       >
         <option value="apple">Apple</option>
         <option value="banana">Banana</option>
@@ -17,7 +17,7 @@ export const SelectFieldStylePropsExample = () => {
         label="Fruit"
         inputStyles={{
           backgroundColor: 'brand.primary.10',
-          border: `1px solid ${tokens.colors.brand.primary[60]}`,
+          border: `1px solid ${tokens.colors.primary[60]}`,
         }}
       >
         <option value="apple">Apple</option>

@@ -53,6 +53,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
   const isCheckFaceDistanceBeforeRecording = state.matches(
     'checkFaceDistanceBeforeRecording'
   );
+  const isStartView = state.matches('start') || state.matches('userCancel');
   const isRecording = state.matches('recording');
   const isNotRecording = state.matches('notRecording');
   const isUploading = state.matches('uploading');
@@ -78,7 +79,15 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
   };
 
   const getInstructionContent = () => {
-    if (errorState || isCheckFailed || isCheckSuccessful) {
+    if (isStartView) {
+      return (
+        <Toast size="large" variation="primary" isInitial>
+          {hintDisplayText.hintCenterFaceText}
+        </Toast>
+      );
+    }
+
+    if (errorState ?? (isCheckFailed || isCheckSuccessful)) {
       return;
     }
 
@@ -86,10 +95,16 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
       if (isCheckFaceDetectedBeforeStart) {
         if (faceMatchStateBeforeStart === FaceMatchState.TOO_MANY) {
           return (
-            <Toast>{FaceMatchStateStringMap[faceMatchStateBeforeStart]}</Toast>
+            <Toast size="large" variation="primary">
+              {FaceMatchStateStringMap[faceMatchStateBeforeStart]}
+            </Toast>
           );
         }
-        return <Toast>{hintDisplayText.hintMoveFaceFrontOfCameraText}</Toast>;
+        return (
+          <Toast size="large" variation="primary">
+            {hintDisplayText.hintMoveFaceFrontOfCameraText}
+          </Toast>
+        );
       }
 
       // Specifically checking for false here because initially the value is undefined and we do not want to show the instruction
@@ -97,7 +112,11 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
         isCheckFaceDistanceBeforeRecording &&
         isFaceFarEnoughBeforeRecordingState === false
       ) {
-        return <Toast>{hintDisplayText.hintTooCloseText}</Toast>;
+        return (
+          <Toast size="large" variation="primary">
+            {hintDisplayText.hintTooCloseText}
+          </Toast>
+        );
       }
 
       if (isNotRecording) {
@@ -116,7 +135,11 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
       }
 
       if (illuminationState && illuminationState !== IlluminationState.NORMAL) {
-        return <Toast>{IlluminationStateStringMap[illuminationState]}</Toast>;
+        return (
+          <Toast size="large" variation="primary">
+            {IlluminationStateStringMap[illuminationState]}
+          </Toast>
+        );
       }
     }
 
@@ -132,8 +155,15 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
       // During face matching, we want to only show the TOO_CLOSE or
       // TOO_FAR texts. If FaceMatchState matches TOO_CLOSE, we'll show
       // the TOO_CLOSE text, but for FACE_IDENTIFED, CANT_IDENTIFY, TOO_MANY
-      // we are defaulting to the TOO_FAR text (for now). For MATCHED state,
-      // we don't want to show any toasts.
+      // we are defaulting to the TOO_FAR text (for now).
+      let resultHintString = FaceMatchStateStringMap[FaceMatchState.TOO_FAR];
+      if (
+        faceMatchState === FaceMatchState.TOO_CLOSE ||
+        faceMatchState === FaceMatchState.MATCHED
+      ) {
+        resultHintString = FaceMatchStateStringMap[faceMatchState];
+      }
+
       return (
         <Toast
           size="large"
@@ -141,9 +171,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
             faceMatchState === FaceMatchState.TOO_CLOSE ? 'error' : 'primary'
           }
         >
-          {faceMatchState === FaceMatchState.TOO_CLOSE
-            ? FaceMatchStateStringMap[FaceMatchState.TOO_CLOSE]
-            : FaceMatchStateStringMap[FaceMatchState.TOO_FAR]}
+          {resultHintString}
         </Toast>
       );
     }

@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 import { Grid, Link, Heading } from '@aws-amplify/ui-react';
 
 interface CardLinkProps {

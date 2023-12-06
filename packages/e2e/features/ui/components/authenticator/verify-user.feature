@@ -7,7 +7,9 @@ Feature: Verify User
    
   Background:
     Given I'm running the example "/ui/components/authenticator/sign-in-with-email"
-    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.GetUserAttributeVerificationCode" } }' with fixture "verify-user-email"
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.GetUser" } }' with fixture "fetch-user-attributes-unverified-email"
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.GetUserAttributeVerificationCode" } }' with fixture "user-attribute-verification-code"
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.VerifyUserAttribute" } }' with fixture "confirm-user-attribute"
 
   @angular @react @vue
   Scenario: Redirect to "Confirm Verify" page and replace label and placeholder
@@ -20,17 +22,9 @@ Feature: Verify User
     Then I see "New Label"
     Then "New Label" field does not have class "amplify-visually-hidden"
     Then I see placeholder "Enter your Confirmation Code:"
-
-  @todo-react-native
-  Scenario: Redirect to "Confirm Verify" page and replace label
-    When I type my "email" with status "UNVERIFIED"
-    Then I type my password
-    Then I click the "Sign in" button
-    Then I click the "Email" radio button
-    Then I click the "Verify" button
-    Then I see "New Label"
-    Then I click the "Skip" button
-    Then I click the "Sign out" button
+    Then I type a valid confirmation code for attribute confirmation
+    Then I click the "Submit" button
+    Then I see "Sign out"
 
   @angular @react @vue @todo-react-native
   Scenario: Redirect to "Verify" page and verify custom header and footer text

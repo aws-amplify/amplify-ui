@@ -1,4 +1,4 @@
-import { Badge, Icon, Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Badge, Icon, Tabs } from '@aws-amplify/ui-react';
 
 const IconEmail = () => {
   return (
@@ -10,27 +10,19 @@ const IconEmail = () => {
 };
 
 export const BadgeIcons = () => (
-  <Tabs>
-    <TabItem
-      title={
-        <>
-          Email{' '}
-          <Badge size="small" variation="info">
-            21
-          </Badge>
-        </>
-      }
-    >
-      Content of the first tab
-    </TabItem>
-    <TabItem
-      title={
-        <>
-          <IconEmail /> Email
-        </>
-      }
-    >
-      Content of the second tab
-    </TabItem>
-  </Tabs>
+  <Tabs.Container defaultValue="1">
+    <Tabs.List>
+      <Tabs.Item value="1">
+        Email{' '}
+        <Badge size="small" variation="info">
+          21
+        </Badge>
+      </Tabs.Item>
+      <Tabs.Item value="2">
+        <IconEmail /> Email
+      </Tabs.Item>
+    </Tabs.List>
+    <Tabs.Panel value="1">Content of the first tab</Tabs.Panel>
+    <Tabs.Panel value="2">Content of the second tab</Tabs.Panel>
+  </Tabs.Container>
 );

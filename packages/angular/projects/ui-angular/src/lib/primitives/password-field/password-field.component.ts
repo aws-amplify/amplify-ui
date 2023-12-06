@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { translate, ComponentClassName } from '@aws-amplify/ui';
 import { nanoid } from 'nanoid';
-import classnames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-password-field',
@@ -27,7 +27,7 @@ export class PasswordFieldComponent {
   public showPasswordButtonlabel = translate('Show password');
 
   // re-export utilities so that template html can use them
-  public classnames = classnames;
+  public classnames = classNames;
   public ComponentClassName = ComponentClassName;
 
   togglePasswordText(): void {

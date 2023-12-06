@@ -3,8 +3,8 @@
 exports[`TextField doesn't render the errorMessage if error prop is false 1`] = `
 <View
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "flex-start",
         "marginBottom": 8,
       },
@@ -17,17 +17,17 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
     accessibilityLabel="Label"
     accessibilityRole="text"
     style={
-      Array [
-        Object {
+      [
+        {
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "hsl(210, 50%, 10%)",
         },
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(210, 25%, 25%)",
             "paddingVertical": 8,
           },
@@ -41,7 +41,7 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
   <View
     accessible={true}
     style={
-      Object {
+      {
         "alignItems": "center",
         "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
@@ -54,7 +54,7 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
   >
     <TextInput
       accessibilityState={
-        Object {
+        {
           "disabled": undefined,
         }
       }
@@ -64,8 +64,8 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
       placeholder="Placeholder"
       placeholderTextColor="hsl(210, 10%, 40%)"
       style={
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
@@ -84,8 +84,8 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
 exports[`TextField renders as expected 1`] = `
 <View
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "flex-start",
         "marginBottom": 8,
       },
@@ -98,17 +98,17 @@ exports[`TextField renders as expected 1`] = `
     accessibilityLabel="Label"
     accessibilityRole="text"
     style={
-      Array [
-        Object {
+      [
+        {
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "hsl(210, 50%, 10%)",
         },
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(210, 25%, 25%)",
             "paddingVertical": 8,
           },
@@ -122,7 +122,7 @@ exports[`TextField renders as expected 1`] = `
   <View
     accessible={true}
     style={
-      Object {
+      {
         "alignItems": "center",
         "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
@@ -135,7 +135,7 @@ exports[`TextField renders as expected 1`] = `
   >
     <TextInput
       accessibilityState={
-        Object {
+        {
           "disabled": undefined,
         }
       }
@@ -145,8 +145,8 @@ exports[`TextField renders as expected 1`] = `
       placeholder="Placeholder"
       placeholderTextColor="hsl(210, 10%, 40%)"
       style={
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
@@ -165,8 +165,8 @@ exports[`TextField renders as expected 1`] = `
 exports[`TextField renders as expected as password field 1`] = `
 <View
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "flex-start",
         "marginBottom": 8,
       },
@@ -179,17 +179,17 @@ exports[`TextField renders as expected as password field 1`] = `
     accessibilityLabel="Label"
     accessibilityRole="text"
     style={
-      Array [
-        Object {
+      [
+        {
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "hsl(210, 50%, 10%)",
         },
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(210, 25%, 25%)",
             "paddingVertical": 8,
           },
@@ -203,7 +203,7 @@ exports[`TextField renders as expected as password field 1`] = `
   <View
     accessible={true}
     style={
-      Object {
+      {
         "alignItems": "center",
         "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
@@ -216,7 +216,7 @@ exports[`TextField renders as expected as password field 1`] = `
   >
     <TextInput
       accessibilityState={
-        Object {
+        {
           "disabled": undefined,
         }
       }
@@ -227,8 +227,8 @@ exports[`TextField renders as expected as password field 1`] = `
       placeholderTextColor="hsl(210, 10%, 40%)"
       secureTextEntry={true}
       style={
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
@@ -247,8 +247,8 @@ exports[`TextField renders as expected as password field 1`] = `
 exports[`TextField renders as expected when disabled 1`] = `
 <View
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "flex-start",
         "marginBottom": 8,
       },
@@ -261,17 +261,17 @@ exports[`TextField renders as expected when disabled 1`] = `
     accessibilityLabel="Label"
     accessibilityRole="text"
     style={
-      Array [
-        Object {
+      [
+        {
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "hsl(210, 50%, 10%)",
         },
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(210, 25%, 25%)",
             "paddingVertical": 8,
           },
@@ -285,7 +285,7 @@ exports[`TextField renders as expected when disabled 1`] = `
   <View
     accessible={true}
     style={
-      Object {
+      {
         "alignItems": "center",
         "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
@@ -299,7 +299,7 @@ exports[`TextField renders as expected when disabled 1`] = `
   >
     <TextInput
       accessibilityState={
-        Object {
+        {
           "disabled": true,
         }
       }
@@ -309,8 +309,8 @@ exports[`TextField renders as expected when disabled 1`] = `
       placeholder="Placeholder"
       placeholderTextColor="hsl(210, 10%, 40%)"
       style={
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
@@ -329,8 +329,8 @@ exports[`TextField renders as expected when disabled 1`] = `
 exports[`TextField renders as expected with error message 1`] = `
 <View
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "flex-start",
         "marginBottom": 8,
       },
@@ -343,17 +343,17 @@ exports[`TextField renders as expected with error message 1`] = `
     accessibilityLabel="Label"
     accessibilityRole="text"
     style={
-      Array [
-        Object {
+      [
+        {
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "hsl(210, 50%, 10%)",
         },
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(210, 25%, 25%)",
             "paddingVertical": 8,
           },
@@ -367,7 +367,7 @@ exports[`TextField renders as expected with error message 1`] = `
   <View
     accessible={true}
     style={
-      Object {
+      {
         "alignItems": "center",
         "borderColor": "hsl(0, 95%, 30%)",
         "borderRadius": 4,
@@ -380,7 +380,7 @@ exports[`TextField renders as expected with error message 1`] = `
   >
     <TextInput
       accessibilityState={
-        Object {
+        {
           "disabled": undefined,
         }
       }
@@ -390,8 +390,8 @@ exports[`TextField renders as expected with error message 1`] = `
       placeholder="Placeholder"
       placeholderTextColor="hsl(210, 10%, 40%)"
       style={
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
@@ -407,13 +407,13 @@ exports[`TextField renders as expected with error message 1`] = `
   <Text
     accessibilityRole="text"
     style={
-      Array [
-        Object {
+      [
+        {
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "hsl(210, 50%, 10%)",
         },
         undefined,
@@ -428,8 +428,8 @@ exports[`TextField renders as expected with error message 1`] = `
 exports[`TextField shows error style, but doesn't render the errorMessage if errorMessage prop is undefined 1`] = `
 <View
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "flex-start",
         "marginBottom": 8,
       },
@@ -442,17 +442,17 @@ exports[`TextField shows error style, but doesn't render the errorMessage if err
     accessibilityLabel="Label"
     accessibilityRole="text"
     style={
-      Array [
-        Object {
+      [
+        {
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "hsl(210, 50%, 10%)",
         },
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(210, 25%, 25%)",
             "paddingVertical": 8,
           },
@@ -466,7 +466,7 @@ exports[`TextField shows error style, but doesn't render the errorMessage if err
   <View
     accessible={true}
     style={
-      Object {
+      {
         "alignItems": "center",
         "borderColor": "hsl(0, 95%, 30%)",
         "borderRadius": 4,
@@ -479,7 +479,7 @@ exports[`TextField shows error style, but doesn't render the errorMessage if err
   >
     <TextInput
       accessibilityState={
-        Object {
+        {
           "disabled": undefined,
         }
       }
@@ -489,8 +489,8 @@ exports[`TextField shows error style, but doesn't render the errorMessage if err
       placeholder="Placeholder"
       placeholderTextColor="hsl(210, 10%, 40%)"
       style={
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,

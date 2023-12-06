@@ -1,9 +1,11 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { ComponentClassName } from '@aws-amplify/ui';
+
 import { Pagination } from '../Pagination';
-import { ComponentClassNames, ComponentText } from '../../shared/constants';
+import { ComponentText } from '../../shared/constants';
 import {
   PaginationItem,
   PAGINATION_CURRENT_TEST_ID,
@@ -29,10 +31,12 @@ describe('Pagination component:', () => {
     expect(pagination.id).toBe(id);
     expect(pagination.nodeName).toBe('NAV');
     expect(pagination.childNodes.length).toBe(1);
-    expect(pagination).toHaveClass(ComponentClassNames.Pagination);
+    expect(pagination).toHaveClass(ComponentClassName.Pagination);
 
     const firstPage = await screen.findByText('1');
-    expect(firstPage).toHaveClass(ComponentClassNames.PaginationItemCurrent);
+    expect(firstPage).toHaveClass(
+      `${ComponentClassName.PaginationItem}--current`
+    );
 
     const lastPage = await screen.findByLabelText(
       `${ComponentText.PaginationItem.pageLabel} ${totalPages}`
@@ -173,13 +177,17 @@ describe('Pagination component:', () => {
     const pageTwo = await screen.findByLabelText(
       `${ComponentText.PaginationItem.pageLabel} ${page2}`
     );
-    userEvent.click(pageTwo);
+    await act(async () => {
+      await userEvent.click(pageTwo);
+    });
     expect(mockOnChange).toHaveBeenCalledTimes(1);
     expect(mockOnChange).toHaveBeenCalledWith(2, 3);
 
     // current page
     const pageThree = await screen.findByText('3');
-    userEvent.click(pageThree);
+    await act(async () => {
+      await userEvent.click(pageThree);
+    });
     expect(mockOnChange).toHaveBeenCalledTimes(1);
     expect(mockOnChange).toHaveBeenLastCalledWith(2, 3);
 
@@ -188,7 +196,9 @@ describe('Pagination component:', () => {
     const pageFour = await screen.findByLabelText(
       `${ComponentText.PaginationItem.pageLabel} ${page4}`
     );
-    userEvent.click(pageFour);
+    await act(async () => {
+      await userEvent.click(pageFour);
+    });
     expect(mockOnChange).toHaveBeenCalledTimes(2);
     expect(mockOnChange).toHaveBeenCalledWith(4, 3);
 
@@ -196,7 +206,9 @@ describe('Pagination component:', () => {
     const previous = await screen.findByLabelText(
       ComponentText.PaginationItem.previousLabel
     );
-    userEvent.click(previous);
+    await act(async () => {
+      await userEvent.click(previous);
+    });
     expect(mockOnPrevious).toHaveBeenCalledTimes(1);
     expect(mockOnPrevious).toHaveBeenCalledWith();
 
@@ -204,7 +216,9 @@ describe('Pagination component:', () => {
     const next = await screen.findByLabelText(
       ComponentText.PaginationItem.nextLabel
     );
-    userEvent.click(next);
+    await act(async () => {
+      await userEvent.click(next);
+    });
     expect(mockOnNext).toHaveBeenCalledTimes(1);
     expect(mockOnNext).toHaveBeenCalledWith();
   });
@@ -327,14 +341,18 @@ describe('Pagination component:', () => {
       );
       const pageItem = await screen.findByText('1');
       expect(pageItem.nodeName).toBe('BUTTON');
-      expect(pageItem).toHaveClass(ComponentClassNames.PaginationItemCurrent);
+      expect(pageItem).toHaveClass(
+        `${ComponentClassName.PaginationItem}--current`
+      );
       const invisibleLabel = await screen.findByText(
         `${ComponentText.PaginationItem.currentPageLabel}:`
       );
-      expect(invisibleLabel).toHaveClass(ComponentClassNames.VisuallyHidden);
+      expect(invisibleLabel).toHaveClass(ComponentClassName.VisuallyHidden);
       expect(pageItem.getAttribute('aria-current')).toBe('page');
 
-      userEvent.click(pageItem);
+      await act(async () => {
+        await userEvent.click(pageItem);
+      });
       expect(mockOnClick).not.toHaveBeenCalled();
     });
     it('should render previous page button with provided props', async () => {
@@ -353,7 +371,9 @@ describe('Pagination component:', () => {
       expect(previous.nodeName).toBe('BUTTON');
       expect(previous).not.toBeDisabled();
       expect(previous.getAttribute('aria-current')).toBe(null);
-      userEvent.click(previous);
+      await act(async () => {
+        await userEvent.click(previous);
+      });
       expect(mockOnClick).toHaveBeenCalledTimes(1);
       expect(mockOnClick).toHaveBeenCalledWith();
     });
@@ -374,7 +394,9 @@ describe('Pagination component:', () => {
       expect(next).not.toBeDisabled();
       expect(next.getAttribute('aria-current')).toBe(null);
 
-      userEvent.click(next);
+      await act(async () => {
+        await userEvent.click(next);
+      });
       expect(mockOnClick).toHaveBeenCalledTimes(1);
       expect(mockOnClick).toHaveBeenCalledWith();
     });
@@ -382,7 +404,9 @@ describe('Pagination component:', () => {
       render(<PaginationItem type="ellipsis" ariaLabel="ellipsis" />);
       const ellipsis = await screen.findByTestId(PAGINATION_ELLIPSIS_TEST_ID);
       expect(ellipsis.nodeName).toBe('SPAN');
-      expect(ellipsis).toHaveClass(ComponentClassNames.PaginationItemEllipsis);
+      expect(ellipsis).toHaveClass(
+        `${ComponentClassName.PaginationItem}--ellipsis`
+      );
       expect(ellipsis.innerHTML).toBe('\u2026');
     });
   });

@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 import {
   MdFormatAlignCenter,
   MdFormatAlignJustify,
@@ -20,7 +20,6 @@ import {
   SearchField,
   SwitchField,
   Tabs,
-  TabItem,
   Badge,
   ToggleButtonGroup,
   ToggleButton,
@@ -101,20 +100,17 @@ const Preview = () => {
       </Flex>
       <Flex direction={direction}>
         <Card variation="elevated" flex="2">
-          <Tabs>
-            <TabItem title="Sports"></TabItem>
-
-            <TabItem
-              title={
-                <View>
-                  Donuts{' '}
-                  <Badge size="small" variation="success">
-                    new
-                  </Badge>
-                </View>
-              }
-            ></TabItem>
-          </Tabs>
+          <Tabs.Container defaultValue="sports">
+            <Tabs.List>
+              <Tabs.Item value="sports">Sports</Tabs.Item>
+              <Tabs.Item value="donuts">
+                Donuts{' '}
+                <Badge size="small" variation="success">
+                  new
+                </Badge>
+              </Tabs.Item>
+            </Tabs.List>
+          </Tabs.Container>
         </Card>
         <Card variation="elevated" flex="1">
           <Center>
@@ -126,12 +122,12 @@ const Preview = () => {
         <Card variation="elevated" flex="1">
           <Center>
             <RadioGroupField
-              label="Language"
+              legend="Language"
               name="primitive-language"
               defaultValue="css"
               direction="row"
               gap="small"
-              labelHidden
+              legendHidden
             >
               <Radio value="html">HTML</Radio>
               <Radio value="css">CSS</Radio>

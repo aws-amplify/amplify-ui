@@ -1,18 +1,19 @@
-import { Storage } from 'aws-amplify';
-import type { StorageAccessLevel, UploadTask } from '@aws-amplify/storage';
+import { StorageAccessLevel } from '@aws-amplify/core';
+import {
+  uploadData,
+  TransferProgressEvent,
+  UploadDataInput,
+  UploadDataOutput,
+} from 'aws-amplify/storage';
 
 export type UploadFileProps = {
   file: File;
   key: string;
   level: StorageAccessLevel;
-  isResumable?: boolean;
-  progressCallback: (progress: { loaded: number; total: number }) => void;
+  progressCallback: (event: TransferProgressEvent) => void;
   errorCallback: (error: string) => void;
   completeCallback: (event: { key: string | undefined }) => void;
-  provider?: string;
 } & Record<string, any>;
-
-type UploadFile = Promise<void> | UploadTask;
 
 export function uploadFile({
   file,
@@ -21,37 +22,32 @@ export function uploadFile({
   progressCallback,
   errorCallback,
   completeCallback,
-  isResumable = false,
-  provider,
   ...rest
-}: UploadFileProps): UploadFile {
+}: UploadFileProps): UploadDataOutput {
   const contentType = file.type || 'binary/octet-stream';
-  if (isResumable === true) {
-    return Storage.put(key, file, {
-      level,
-      resumable: true, // Ensures correct typing for resumable behavior
-      progressCallback,
-      errorCallback,
-      // @ts-ignore
-      completeCallback,
+
+  const input: UploadDataInput = {
+    key,
+    data: file,
+    options: {
+      accessLevel: level,
       contentType,
-      /**
-       * This type cast is required because _S3ProviderPutConfig['provider']
-       * type only allows `AWSS3` which is not accurate. We cast in order to make
-       * TS happy while still allowing a different provider to be used.
-       * https://github.com/aws-amplify/amplify-js/blob/main/packages/storage/src/types/AWSS3Provider.ts#L59
-       */
-      provider: provider as `AWSS3`,
+      onProgress: ({ transferredBytes, totalBytes }) =>
+        progressCallback({ transferredBytes, totalBytes }),
       ...rest,
+    },
+  };
+  const output = uploadData(input);
+
+  output.result
+    .then(() => {
+      if (output.state === 'SUCCESS') {
+        completeCallback?.({ key });
+      }
+    })
+    .catch((e) => {
+      const error = e as Error;
+      errorCallback?.(error.message);
     });
-  } else {
-    return Storage.put(key, file, {
-      level,
-      resumable: false,
-      progressCallback,
-      contentType,
-      provider: provider as `AWSS3`,
-      ...rest,
-    }).then(completeCallback, errorCallback);
-  }
+  return output;
 }

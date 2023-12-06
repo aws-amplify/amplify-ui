@@ -10,7 +10,7 @@ import {
   DefaultProps,
   ForceResetPasswordBaseProps,
   ResetPasswordBaseProps,
-  SetupTOTPBaseProps,
+  SetupTotpBaseProps,
   SignInBaseProps,
   SignUpBaseProps,
   VerifyUserProps,
@@ -22,7 +22,7 @@ export type UseAuthenticatorRouteParams<FieldType> = {
 };
 export type UseAuthenticatorRoute<
   ComponentName extends AuthenticatorRouteComponentName,
-  FieldType = {}
+  FieldType = {},
 > = {
   Component: Defaults<FieldType>[ComponentName];
   props: DefaultProps<FieldType>[ComponentName];
@@ -64,9 +64,7 @@ export type ConfirmResetPasswordMachineKey =
 
 export type ConfirmSignInMachineKey =
   | ExtractMachineKey<ConfirmSignInBaseProps>
-  | CommonRouteMachineKey
-  // ConfirmSignIn requires `user` to extract value needed for `challengeName`
-  | 'user';
+  | CommonRouteMachineKey;
 
 export type ConfirmSignUpMachineKey =
   | ExtractMachineKey<ConfirmSignUpBaseProps>
@@ -84,8 +82,8 @@ export type ResetPasswordMachineKey =
   | ExtractMachineKey<ResetPasswordBaseProps>
   | CommonRouteMachineKey;
 
-export type SetupTOTPMachineKey =
-  | ExtractMachineKey<SetupTOTPBaseProps>
+export type SetupTotpMachineKey =
+  | ExtractMachineKey<SetupTotpBaseProps>
   | CommonRouteMachineKey;
 
 export type SignInMachineKey =

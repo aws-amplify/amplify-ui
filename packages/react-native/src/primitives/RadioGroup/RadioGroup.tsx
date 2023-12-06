@@ -20,6 +20,7 @@ import { getThemedStyles } from './styles';
 import { RadioGroupProps } from './types';
 
 export default function RadioGroup<T>({
+  accessible = true,
   accessibilityRole = 'radiogroup',
   children,
   direction = 'vertical',
@@ -73,7 +74,11 @@ export default function RadioGroup<T>({
 
   return (
     <View {...rest} style={[themedStyle.container, containerStyle, style]}>
-      <View accessibilityRole={accessibilityRole} style={childContainerStyle}>
+      <View
+        accessible={accessible}
+        accessibilityRole={accessibilityRole}
+        style={childContainerStyle}
+      >
         {Children.map(children, (child) => {
           if (isValidElement<RadioProps<T>>(child)) {
             const {

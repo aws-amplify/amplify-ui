@@ -53,13 +53,13 @@ export const Head = () => {
       <meta property="og:url" content={`${process.env.SITE_URL}${asPath}`} />
       <meta
         property="og:image"
-        content={process.env.SITE_URL + getImagePath(asPathname)}
+        content={process.env.SITE_URL + getImagePath(platform as string)}
       />
       <meta property="og:image:width" content={String(PREVIEW_WIDTH)} />
       <meta property="og:image:height" content={String(PREVIEW_HEIGHT)} />
       <meta
         property="og:image:secure_url"
-        content={process.env.SITE_URL + getImagePath(asPathname)}
+        content={process.env.SITE_URL + getImagePath(platform as string)}
       />
       <meta property="og:image:type" content="image/png" />
       <meta property="og:image:alt" content={_description} />
@@ -71,7 +71,7 @@ export const Head = () => {
       <meta name="twitter:description" content={_description} />
       <meta
         name="twitter:image"
-        content={process.env.SITE_URL + getImagePath(asPathname)}
+        content={process.env.SITE_URL + getImagePath(platform as string)}
       />
     </NextHead>
   );

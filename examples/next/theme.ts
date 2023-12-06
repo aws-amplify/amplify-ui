@@ -46,7 +46,7 @@ export const theme: Theme = {
     // component-specific overrides
     components: {
       card: {
-        borderColor: { value: '{colors.brand.primary.60.value}' },
+        borderColor: { value: '{colors.primary.60.value}' },
         boxShadow: { value: '{shadows.large.value}' },
       },
     },

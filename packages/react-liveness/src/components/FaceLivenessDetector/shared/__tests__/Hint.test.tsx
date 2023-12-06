@@ -113,9 +113,6 @@ describe('Hint', () => {
     renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
     expect(
-      screen.queryByText(hintDisplayText.hintHoldFacePositionCountdownText)
-    ).not.toBeInTheDocument();
-    expect(
       screen.queryByText(hintDisplayText.hintMoveFaceFrontOfCameraText)
     ).not.toBeInTheDocument();
   });
@@ -126,9 +123,6 @@ describe('Hint', () => {
 
     renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
-    expect(
-      screen.queryByText(hintDisplayText.hintHoldFacePositionCountdownText)
-    ).not.toBeInTheDocument();
     expect(
       screen.queryByText(hintDisplayText.hintMoveFaceFrontOfCameraText)
     ).not.toBeInTheDocument();
@@ -243,6 +237,18 @@ describe('Hint', () => {
 
     expect(
       screen.getByText(hintDisplayText.hintTooFarText)
+    ).toBeInTheDocument();
+  });
+
+  it('should render HOLD_STILL text if faceMatchState = MATCHED and recording', () => {
+    faceMatchState = FaceMatchState.MATCHED;
+    isRecording = true;
+    mockStateMatchesAndSelectors();
+
+    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
+
+    expect(
+      screen.getByText(hintDisplayText.hintHoldFaceForFreshnessText)
     ).toBeInTheDocument();
   });
 

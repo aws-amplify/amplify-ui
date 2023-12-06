@@ -10,9 +10,7 @@ import awsExports from './aws-exports';
 
 Amplify.configure({
   ...awsExports,
-  Analytics: {
-    autoSessionRecord: false,
-  },
+  // Analytics: { autoSessionRecord: false },
 });
 
 const App = () => {

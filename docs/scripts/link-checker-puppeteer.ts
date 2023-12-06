@@ -4,6 +4,7 @@ import { checkLink, crawlAllLinks, isInternalLink } from './util';
 import type { LinkInfo } from './util';
 import {
   DEFAULT_GOOD_STATUS_CODES,
+  DOCS_AMPLIFY_HOST,
   PROMISE_POOL_CONCURRENCY,
 } from './data/constants';
 
@@ -18,7 +19,8 @@ const testPaths = end ? sitePaths.slice(+start, +end) : sitePaths.slice(+start);
 function reportResult(links: LinkInfo[]) {
   const errorLinks = links.filter((link) => {
     const isInternalRedirection =
-      link.statusCode === 308 && isInternalLink(link.href);
+      (link.statusCode === 308 && isInternalLink(link.href)) ||
+      (link.statusCode === 301 && link.href.startsWith(DOCS_AMPLIFY_HOST));
     const goodStatusCodes = [0, ...DEFAULT_GOOD_STATUS_CODES];
     return !goodStatusCodes.includes(link.statusCode) && !isInternalRedirection;
   });
@@ -50,7 +52,9 @@ function reportResult(links: LinkInfo[]) {
         }
       }
     );
-    const failedLinks = errorLinks.filter((link) => link.statusCode >= 400);
+    const failedLinks = errorLinks.filter(
+      (link) => link.statusCode >= 400 && isInternalLink(link.href)
+    );
     if (failedLinks.length) {
       throw new Error(`${failedLinks.length} broken links were found`);
     } else {
@@ -60,6 +64,7 @@ function reportResult(links: LinkInfo[]) {
     }
   } else {
     console.log('🎉 All links look good!');
+    process.exit();
   }
 }
 
@@ -93,7 +98,7 @@ async function runLinkChecker() {
     };
   });
 
-  await console.table(allPagesPathsNum);
+  console.table(allPagesPathsNum);
 
   const links = results.reduce((acc, curr) => [...acc, ...curr.links], []);
   reportResult(links);
@@ -102,5 +107,6 @@ async function runLinkChecker() {
 try {
   runLinkChecker();
 } catch (err) {
+  console.log(`Docs link check failure: ${err.message}`);
   process.exit(1);
 }

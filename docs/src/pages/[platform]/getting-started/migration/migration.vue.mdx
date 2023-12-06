@@ -1,18 +1,104 @@
-import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Alert, Message, Tabs } from '@aws-amplify/ui-react';
 import { TerminalCommand } from '@/components/InstallScripts';
+
+## Migrate from 3.x to 4.x
+### Installation
+Install the 4.x version of `@aws-amplify/ui-vue` and 6.x version of `aws-amplify`.
+
+<Message colorTheme="warning" title="Upgrade both @aws-amplify/ui-vue and aws-amplify">
+The 4.x version of `@aws-amplify/ui-vue` has a minimum dependency of 6.x on `aws-amplify`. `aws-amplify@6` introduced breaking API changes.
+</Message>
+
+<Tabs.Container defaultValue='npm'>
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="npm">
+    <TerminalCommand command="npm install @aws-amplify/ui-vue@4.x aws-amplify@6.x" />
+  </Tabs.Panel>
+  <Tabs.Panel value="yarn">
+    <TerminalCommand command="yarn add @aws-amplify/ui-vue@4.x aws-amplify@6.x" />
+  </Tabs.Panel>
+</Tabs.Container>
+
+#### 1. Updates to the Authenticator
+
+The Authenticator has the following breaking changes:
+
+The `initialState` property now accepts `forgotPassword` in place of `resetPassword`:
+
+```diff
+- <authenticator initial-state="resetPassword">
+- </authenticator>
++ <authenticator initial-state="forgotPassword">
++ </authenticator>
+```
+
+The corresponding component slot has been updated to reflect the change as well:
+
+```diff
+-    <template v-slot:reset-password-header>
+-      <h3
+-        class="amplify-heading"
+-        style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
+-      >
+-        Did you forgot something?
+-      </h3>
+-    </template>
++    <template v-slot:forgot-password-header>
++      <h3
++        class="amplify-heading"
++        style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
++      >
++        Did you forgot something?
++      </h3>
++    </template>
+```
+
+---
+
+The `user` object provided after an end user has been authenticated has been updated to reflect the `AuthUser` interface available from `aws-amplify/auth`:
+
+```diff
+- interface AmplifyUser {
+-   challengeName?: ChallengeName;
+-   attributes?: CognitpAttributes;
+-   username: string;  
+- }
++ interface AuthUser  {
++   username: string;
++   userId: string;
++   signInDetails?: CognitoAuthSignInDetails;
++ }
+```
+
+`AuthUser` can be imported from `aws-amplify/auth`:
+
+```ts
+import { AuthUser } from 'aws-amplify/auth';
+```
+
+User attributes are now available by directly calling `fetchUserAttribues`:
+
+```ts
+import { fetchUserAttributes } from 'aws-amplify/auth';
+
+const userAttributes = await fetchUserAttributes();
+```
 
 ## 2.x to 3.x
 ### Installation
 Install the 3.x version of the `@aws-amplify/ui-vue` library and the 5.x version of the `aws-amplify` library.
 
-<Tabs>
-<TabItem title="npm">
+<Tabs.Container>
+<Tabs.Item title="npm">
 <TerminalCommand command="npm install aws-amplify@5.x @aws-amplify/ui-vue@3.x" />
-</TabItem>
-<TabItem title="yarn">
+</Tabs.Item>
+<Tabs.Item title="yarn">
 <TerminalCommand command="yarn add aws-amplify@5.x @aws-amplify/ui-vue@3.x" />
-</TabItem>
-</Tabs>
+</Tabs.Item>
+</Tabs.Container>
 
 ### Update and usage
 
@@ -53,17 +139,17 @@ If you were using `I18n` to translate those keys, please update your translation
 ## Installation
 Install the 2.x version of the `@aws-amplify/ui-vue` library.
 
-<Tabs>
-<TabItem title="npm">
+<Tabs.Container>
+<Tabs.Item title="npm">
 
 <TerminalCommand command="npm install aws-amplify @aws-amplify/ui-vue@2" />
 
-</TabItem>
-<TabItem title="yarn">
+</Tabs.Item>
+<Tabs.Item title="yarn">
 <TerminalCommand command="yarn add aws-amplify @aws-amplify/ui-vue@2" />
 
-</TabItem>
-</Tabs>
+</Tabs.Item>
+</Tabs.Container>
 
 <Alert role="none" variation="info" heading="UI Components">
   If `@aws-amplify/ui-components` is in your `package.json`, please remove that

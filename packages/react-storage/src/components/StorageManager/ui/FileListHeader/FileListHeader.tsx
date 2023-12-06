@@ -1,10 +1,11 @@
 import React from 'react';
-import { StorageManagerDisplayText } from '../../utils/displayText';
-import { ComponentClassNames, Text } from '@aws-amplify/ui-react';
+import { StorageManagerDisplayTextDefault } from '../../utils';
+import { ComponentClassName } from '@aws-amplify/ui';
+import { Text } from '@aws-amplify/ui-react';
 
 export interface FileListHeaderProps {
   allUploadsSuccessful: boolean;
-  displayText: StorageManagerDisplayText;
+  displayText: StorageManagerDisplayTextDefault;
   fileCount: number;
   remainingFilesCount: number;
   selectedFilesCount?: number;
@@ -21,7 +22,7 @@ export function FileListHeader({
     displayText;
 
   return (
-    <Text className={ComponentClassNames.StorageManagerPreviewerText}>
+    <Text className={ComponentClassName.StorageManagerPreviewerText}>
       {selectedFilesCount
         ? getSelectedFilesText(selectedFilesCount)
         : allUploadsSuccessful

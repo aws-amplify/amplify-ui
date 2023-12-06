@@ -3,16 +3,16 @@ import { render, screen } from '@testing-library/react';
 
 import { Placeholder } from '../Placeholder';
 import { Text } from '../../Text';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 describe('Placeholder:', () => {
   it('renders correct defaults', async () => {
     render(<Placeholder testId="placeholderId" />);
 
     const placeholder = await screen.findByTestId('placeholderId');
-    expect(
-      placeholder.classList.contains(ComponentClassNames.Placeholder)
-    ).toBe(true);
+    expect(placeholder.classList.contains(ComponentClassName.Placeholder)).toBe(
+      true
+    );
     expect(placeholder.dataset['size']).toBeUndefined();
   });
 
@@ -28,10 +28,10 @@ describe('Placeholder:', () => {
     const large = await screen.findByTestId('large');
 
     expect(small.classList).toContain(
-      `${ComponentClassNames['Placeholder']}--small`
+      `${ComponentClassName['Placeholder']}--small`
     );
     expect(large.classList).toContain(
-      `${ComponentClassNames['Placeholder']}--large`
+      `${ComponentClassName['Placeholder']}--large`
     );
   });
 
@@ -77,9 +77,13 @@ describe('Placeholder:', () => {
     const placeholder2 = await screen.findByTestId('placeholder2');
     const placeholder3 = await screen.findByTestId('placeholder3');
 
-    expect(placeholder1.dataset['size']).toBe('small');
-    expect(placeholder2.dataset['size']).toBeUndefined();
-    expect(placeholder3.dataset['size']).toBe('large');
+    expect(placeholder1).toHaveClass(
+      `${ComponentClassName['Placeholder']}--small`
+    );
+    expect(placeholder2).toHaveClass(`${ComponentClassName['Placeholder']}`);
+    expect(placeholder3).toHaveClass(
+      `${ComponentClassName['Placeholder']}--large`
+    );
   });
 
   it('can apply styling via props', async () => {
@@ -95,9 +99,9 @@ describe('Placeholder:', () => {
     );
     const placeholder = await screen.findByTestId('placeholderId');
     expect(placeholder.classList.contains('custom-placeholder')).toBe(true);
-    expect(
-      placeholder.classList.contains(ComponentClassNames.Placeholder)
-    ).toBe(true);
+    expect(placeholder.classList.contains(ComponentClassName.Placeholder)).toBe(
+      true
+    );
   });
 
   it('can render any arbitrary data-* attribute', async () => {

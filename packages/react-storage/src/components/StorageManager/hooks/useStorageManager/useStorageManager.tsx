@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { UploadTask } from '@aws-amplify/storage';
+import { UploadDataOutput } from 'aws-amplify/storage';
+import { isObject } from '@aws-amplify/ui';
 
 import { StorageFiles, FileStatus, DefaultFile } from '../../types';
 import { Action, GetFileErrorMessage, UseStorageManagerState } from './types';
@@ -14,7 +15,6 @@ import {
   setUploadProgressAction,
   setUploadStatusAction,
 } from './actions';
-import { isObject } from '@aws-amplify/ui';
 
 export interface UseStorageManager {
   addFiles: (params: {
@@ -24,7 +24,10 @@ export interface UseStorageManager {
   }) => void;
   clearFiles: () => void;
   queueFiles: () => void;
-  setUploadingFile: (params: { id: string; uploadTask?: UploadTask }) => void;
+  setUploadingFile: (params: {
+    id: string;
+    uploadTask?: UploadDataOutput;
+  }) => void;
   setUploadProgress: (params: { id: string; progress: number }) => void;
   setUploadSuccess: (params: { id: string }) => void;
   setUploadResumed: (params: { id: string }) => void;

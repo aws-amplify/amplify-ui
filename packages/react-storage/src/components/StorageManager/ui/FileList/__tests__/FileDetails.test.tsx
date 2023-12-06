@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 
-import { ComponentClassNames } from '@aws-amplify/ui-react';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 import { UploadDetails } from '../FileDetails';
 import { UploadDetailsProps } from '../types';
@@ -22,19 +22,19 @@ describe('FileDetails', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileMain}`
+        `${ComponentClassName.StorageManagerFileMain}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileName}`
+        `${ComponentClassName.StorageManagerFileName}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileSize}`
+        `${ComponentClassName.StorageManagerFileSize}`
       )
     ).toHaveLength(1);
 

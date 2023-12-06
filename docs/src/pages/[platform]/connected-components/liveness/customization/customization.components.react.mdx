@@ -1,5 +1,6 @@
 import { Example } from '@/components/Example';
 import { CustomizationComponents } from './CustomizationComponents';
+import { CustomizationComponentsErrorView } from './CustomizationComponentsErrorView';
 
 ## Components
 
@@ -7,14 +8,24 @@ FaceLivenessDetector allows overriding some UI components using the `components`
 
 The following code snippet demonstrates how to pass in custom HTML rendering functions:
 
-- Custom Header
 - Custom Photo Sensitivity Warning
-- Custom Instruction List
 - Custom Error View
+  - The children prop in ErrorView contains a default error component based on the LivenessError, you can use our default rendered components or render your own error message
 
 ```tsx file=./CustomizationComponents.tsx
 ```
 
 <Example>
   <CustomizationComponents />
+</Example>
+
+### Error View Example
+
+The following code snippet demonstrates using a more customized error view which does not utilize the children component and instead renders your own full modal.
+
+```tsx file=./CustomizationComponentsErrorView.tsx
+```
+
+<Example>
+  <CustomizationComponentsErrorView />
 </Example>

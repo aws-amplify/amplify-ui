@@ -1,5 +1,61 @@
 # @aws-amplify/ui-react-notifications
 
+## 2.0.4
+
+### Patch Changes
+
+- Updated dependencies [[`ed55a6a36`](https://github.com/aws-amplify/amplify-ui/commit/ed55a6a36b9250db50e3edaf31b53ce4fc35edfe), [`272a05edc`](https://github.com/aws-amplify/amplify-ui/commit/272a05edcafa8f9e0e53ed1eb66f566f308d09b3)]:
+  - @aws-amplify/ui@6.0.3
+  - @aws-amplify/ui-react@6.0.4
+  - @aws-amplify/ui-react-core-notifications@2.0.3
+
+## 2.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`4ff26e27e`](https://github.com/aws-amplify/amplify-ui/commit/4ff26e27e4bc8909cc2b86c738eca5085b2a42d1), [`bb141a719`](https://github.com/aws-amplify/amplify-ui/commit/bb141a719fd9bc2d7680e539f2ff047deb88ee7e)]:
+  - @aws-amplify/ui-react@6.0.3
+  - @aws-amplify/ui@6.0.2
+  - @aws-amplify/ui-react-core-notifications@2.0.2
+
+## 2.0.2
+
+### Patch Changes
+
+- Updated dependencies [[`9dd0e58e5`](https://github.com/aws-amplify/amplify-ui/commit/9dd0e58e5167d307c2154b3280de3c0e52f607e1)]:
+  - @aws-amplify/ui@6.0.1
+  - @aws-amplify/ui-react@6.0.2
+  - @aws-amplify/ui-react-core-notifications@2.0.1
+
+## 2.0.1
+
+### Patch Changes
+
+- Updated dependencies [[`2ab62defe`](https://github.com/aws-amplify/amplify-ui/commit/2ab62defe14da3dce3bc960aeae47b2342e36da1)]:
+  - @aws-amplify/ui-react@6.0.1
+
+## 2.0.0
+
+### Major Changes
+
+- Major version bump for all Amplify UI packages due to uprade of peerDependency aws-amplify to v6
+
+### Patch Changes
+
+- [#4716](https://github.com/aws-amplify/amplify-ui/pull/4716) [`5bd721183`](https://github.com/aws-amplify/amplify-ui/commit/5bd72118342c4a3040c13e923024d476a643a795) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(deps): upgrade aws-amplify deps
+
+- Updated dependencies [[`de87be6d3`](https://github.com/aws-amplify/amplify-ui/commit/de87be6d3b5dfa87f5e295a7bfd42cb21b3198d8), [`55d1f4940`](https://github.com/aws-amplify/amplify-ui/commit/55d1f49401359bb0b75756742658b173edc0fb72), [`7b55f4f78`](https://github.com/aws-amplify/amplify-ui/commit/7b55f4f781c3adab19c3d91ef9f293647566ecd9), [`27783d65a`](https://github.com/aws-amplify/amplify-ui/commit/27783d65a06e712bb3ca8c116798a52db3d4a3a4), [`59c042c17`](https://github.com/aws-amplify/amplify-ui/commit/59c042c170358c6cc2ca09d13ffcc7e517586ef2), [`91372387c`](https://github.com/aws-amplify/amplify-ui/commit/91372387c29f5d68526070e4c3b8a13bbf079e5c), [`23c0910d0`](https://github.com/aws-amplify/amplify-ui/commit/23c0910d00d92441f9b23b37726fafcbef28f2d2), [`f9e4fa838`](https://github.com/aws-amplify/amplify-ui/commit/f9e4fa8388a1994996a132f50261f431d1a52e43), [`27be6ccf5`](https://github.com/aws-amplify/amplify-ui/commit/27be6ccf51ce093d3589f9f36b4530e6825a317b), [`5bd721183`](https://github.com/aws-amplify/amplify-ui/commit/5bd72118342c4a3040c13e923024d476a643a795)]:
+  - @aws-amplify/ui-react@6.0.0
+  - @aws-amplify/ui@6.0.0
+  - @aws-amplify/ui-react-core-notifications@2.0.0
+
+## 1.0.14
+
+### Patch Changes
+
+- Updated dependencies [[`1dbe3f46c`](https://github.com/aws-amplify/amplify-ui/commit/1dbe3f46c2423c407aa2e499f383745b45b2e640)]:
+  - @aws-amplify/ui-react@5.3.2
+
 ## 1.0.13
 
 ### Patch Changes

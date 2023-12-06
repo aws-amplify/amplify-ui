@@ -6,6 +6,7 @@ import {
   DefaultFooter,
   DefaultTextFormFields,
   DefaultHeader,
+  FederatedProviderButtons,
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
@@ -28,6 +29,8 @@ const SignUp = ({
   hasValidationErrors,
   hideSignIn,
   isPending,
+  socialProviders,
+  toFederatedSignIn,
   toSignIn,
   validationErrors,
   ...rest
@@ -53,6 +56,14 @@ const SignUp = ({
     : getCreateAccountText();
   const secondaryButtonText = getSignInTabText();
 
+  const body = socialProviders ? (
+    <FederatedProviderButtons
+      route="signUp"
+      socialProviders={socialProviders}
+      toFederatedSignIn={toFederatedSignIn}
+    />
+  ) : null;
+
   const buttons = useMemo(
     () => ({
       primary: {
@@ -77,6 +88,7 @@ const SignUp = ({
   return (
     <DefaultContent
       {...rest}
+      body={body}
       buttons={buttons}
       fields={fieldsWithHandlers}
       headerText={headerText}

@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import NextLink from 'next/link';
 import { Breadcrumbs } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/router';
 
@@ -27,9 +27,9 @@ export default function NextBreadcrumbsExample() {
         const isCurrent = i === breadcrumbs.length - 1;
         return (
           <Breadcrumbs.Item key={href}>
-            <Link href={href} passHref>
+            <NextLink href={href} passHref legacyBehavior>
               <Breadcrumbs.Link isCurrent={isCurrent}>{text}</Breadcrumbs.Link>
-            </Link>
+            </NextLink>
             {isCurrent ? null : <Breadcrumbs.Separator />}
           </Breadcrumbs.Item>
         );

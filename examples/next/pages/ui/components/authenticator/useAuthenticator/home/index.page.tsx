@@ -1,12 +1,12 @@
 import { Amplify } from 'aws-amplify';
-import { useAuthenticator } from '@aws-amplify/ui-react';
+import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react';
 import * as React from 'react';
 import awsExports from '../aws-exports';
 import router from 'next/router';
 
 Amplify.configure(awsExports);
 
-export default function App() {
+function App() {
   const { user, signOut } = useAuthenticator();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -20,5 +20,13 @@ export default function App() {
       <div>Hello, {user?.username}!</div>
       <button onClick={handleClick}>Sign Out</button>
     </>
+  );
+}
+
+export default function ProviderWrappedApp() {
+  return (
+    <Authenticator.Provider>
+      <App />
+    </Authenticator.Provider>
   );
 }

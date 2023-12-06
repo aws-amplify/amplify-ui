@@ -3,7 +3,7 @@ import kebabCase from 'lodash/kebabCase';
 import { render, screen } from '@testing-library/react';
 
 import { Heading } from '../Heading';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { ComponentPropsToStylePropsMap } from '../../types';
 
 describe('Heading:', () => {
@@ -45,12 +45,12 @@ describe('Heading:', () => {
     const h5 = await screen.findByTestId('h5');
     const h6 = await screen.findByTestId('h6');
 
-    expect(h1.classList).toContain(`${ComponentClassNames['Heading']}--1`);
-    expect(h2.classList).toContain(`${ComponentClassNames['Heading']}--2`);
-    expect(h3.classList).toContain(`${ComponentClassNames['Heading']}--3`);
-    expect(h4.classList).toContain(`${ComponentClassNames['Heading']}--4`);
-    expect(h5.classList).toContain(`${ComponentClassNames['Heading']}--5`);
-    expect(h6.classList).toContain(`${ComponentClassNames['Heading']}--6`);
+    expect(h1.classList).toContain(`${ComponentClassName['Heading']}--1`);
+    expect(h2.classList).toContain(`${ComponentClassName['Heading']}--2`);
+    expect(h3.classList).toContain(`${ComponentClassName['Heading']}--3`);
+    expect(h4.classList).toContain(`${ComponentClassName['Heading']}--4`);
+    expect(h5.classList).toContain(`${ComponentClassName['Heading']}--5`);
+    expect(h6.classList).toContain(`${ComponentClassName['Heading']}--6`);
   });
 
   it('renders h1-h6 tags by passing level prop', async () => {
@@ -107,7 +107,7 @@ describe('Heading:', () => {
     render(<Heading className="custom-heading" testId="headingId"></Heading>);
     const heading = await screen.findByTestId('headingId');
     expect(heading.classList.contains('custom-heading')).toBe(true);
-    expect(heading.classList.contains(ComponentClassNames.Heading)).toBe(true);
+    expect(heading.classList.contains(ComponentClassName.Heading)).toBe(true);
   });
 
   it('can forward ref to DOM element', async () => {
@@ -141,7 +141,7 @@ describe('Heading:', () => {
     const truncated = await screen.findByTestId('truncated');
 
     expect(truncated.classList).toContain(
-      `${ComponentClassNames['Heading']}--truncated`
+      `${ComponentClassName['Heading']}--truncated`
     );
   });
 });

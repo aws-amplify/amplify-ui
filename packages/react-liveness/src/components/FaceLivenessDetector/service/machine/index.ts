@@ -29,6 +29,7 @@ import {
   estimateIllumination,
   isCameraDeviceVirtual,
   FreshnessColorDisplay,
+  drawStaticOval,
 } from '../utils';
 import { nanoid } from 'nanoid';
 import { getStaticLivenessOvalDetails } from '../utils/liveness';
@@ -45,14 +46,11 @@ import {
   ClientSessionInformationEvent,
   LivenessResponseStream,
 } from '@aws-sdk/client-rekognitionstreaming';
-import { getLivenessUserAgent } from '../../utils/platform';
-import {
-  getVideoConstraints,
-  STATIC_VIDEO_CONSTRAINTS,
-} from '../../StartLiveness/helpers';
+import { getVideoConstraints } from '../../utils/helpers';
 import { WS_CLOSURE_CODE } from '../utils/constants';
+import { getLivenessUserAgent } from '../../utils/platform';
 
-export const MIN_FACE_MATCH_TIME = 500;
+export const MIN_FACE_MATCH_TIME = 1000;
 const DEFAULT_FACE_FIT_TIMEOUT = 7000;
 
 // timer metrics variables
@@ -69,10 +67,20 @@ let freshnessColorStartTimestamp: number;
 let freshnessColorEndTimestamp: number;
 let videoSettingsBeforeStopping: any;
 
+const CAMERA_ID_KEY = 'AmplifyLivenessCameraId';
+
+function getLastSelectedCameraId(): string | null {
+  return localStorage.getItem(CAMERA_ID_KEY);
+}
+
+function setLastSelectedCameraId(deviceId: string) {
+  localStorage.setItem(CAMERA_ID_KEY, deviceId);
+}
+
 export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
   {
     id: 'livenessMachine',
-    initial: 'start',
+    initial: 'cameraCheck',
     predictableActionArguments: true,
     context: {
       challengeId: nanoid(),
@@ -82,6 +90,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       serverSessionInformation: undefined,
       videoAssociatedParams: {
         videoConstraints: getVideoConstraints(),
+        selectableDevices: [],
       },
       ovalAssociatedParams: undefined,
       faceMatchAssociatedParams: {
@@ -130,6 +139,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       SET_DOM_AND_CAMERA_DETAILS: {
         actions: 'setDOMAndCameraDetails',
       },
+      UPDATE_DEVICE_AND_STREAM: {
+        actions: 'updateDeviceAndStream',
+      },
       SERVER_ERROR: {
         target: 'error',
         actions: 'updateErrorStateForServer',
@@ -143,13 +155,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
     },
     states: {
-      start: {
-        on: {
-          BEGIN: 'cameraCheck',
-        },
-      },
       cameraCheck: {
-        entry: ['resetErrorState', 'initializeFaceDetector'],
+        entry: ['resetErrorState'],
         invoke: {
           src: 'checkVirtualCameraAndGetStream',
           onDone: {
@@ -164,11 +171,22 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       waitForDOMAndCameraDetails: {
         after: {
           0: {
-            target: 'detectFaceBeforeStart',
+            target: 'start',
             cond: 'hasDOMAndCameraDetails',
           },
-          // setting this to check every 500 ms sometimes caused detectFaceBeforeStart to be called twice
-          500: { target: 'waitForDOMAndCameraDetails' },
+          10: { target: 'waitForDOMAndCameraDetails' },
+        },
+      },
+      start: {
+        entry: ['drawStaticOval', 'initializeFaceDetector'],
+        always: [
+          {
+            target: 'detectFaceBeforeStart',
+            cond: 'shouldSkipStartScreen',
+          },
+        ],
+        on: {
+          BEGIN: 'detectFaceBeforeStart',
         },
       },
       detectFaceBeforeStart: {
@@ -216,6 +234,20 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               'updateLivenessStreamProvider',
               'spawnResponseStreamActor',
             ],
+          },
+        },
+      },
+      notRecording: {
+        initial: 'waitForSessionInfo',
+        states: {
+          waitForSessionInfo: {
+            after: {
+              0: {
+                target: '#livenessMachine.recording',
+                cond: 'hasServerSessionInfo',
+              },
+              100: { target: 'waitForSessionInfo' },
+            },
           },
         },
       },
@@ -375,7 +407,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       userCancel: {
         entry: ['cleanUpResources', 'callUserCancelCallback', 'resetContext'],
-        always: [{ target: 'start' }],
+        always: [{ target: 'cameraCheck' }],
       },
     },
   },
@@ -391,6 +423,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         videoAssociatedParams: (context, event) => ({
           ...context.videoAssociatedParams,
           videoMediaStream: event.data?.stream,
+          selectedDeviceId: event.data?.selectedDeviceId,
+          selectableDevices: event.data?.selectableDevices,
         }),
       }),
       initializeFaceDetector: assign({
@@ -429,6 +463,22 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           freshnessColorEl: event.data?.freshnessColorEl,
         }),
       }),
+      updateDeviceAndStream: assign({
+        videoAssociatedParams: (context, event) => {
+          setLastSelectedCameraId(event.data?.newDeviceId);
+          return {
+            ...context.videoAssociatedParams,
+            selectedDeviceId: event.data?.newDeviceId,
+            videoMediaStream: event.data?.newStream,
+          };
+        },
+      }),
+      drawStaticOval: (context) => {
+        const { canvasEl, videoEl, videoMediaStream } =
+          context.videoAssociatedParams!;
+
+        drawStaticOval(canvasEl!, videoEl!, videoMediaStream!);
+      },
       updateRecordingStartTimestampMs: assign({
         videoAssociatedParams: (context) => {
           const {
@@ -820,6 +870,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           undefined
         );
       },
+      shouldSkipStartScreen: (context) => {
+        return !!context.componentProps?.disableStartScreen;
+      },
     },
     services: {
       async checkVirtualCameraAndGetStream(context) {
@@ -828,8 +881,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         cameraCheckTimeStamp = Date.now();
 
         // Get initial stream to enumerate devices with non-empty labels
+        const existingDeviceId = getLastSelectedCameraId();
         const initialStream = await navigator.mediaDevices.getUserMedia({
-          video: videoConstraints,
+          video: {
+            ...videoConstraints,
+            ...(existingDeviceId ? { deviceId: existingDeviceId } : {}),
+          },
           audio: false,
         });
         const devices = await navigator.mediaDevices.enumerateDevices();
@@ -860,8 +917,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           (device) => device.deviceId === initialStreamDeviceId
         );
 
+        let deviceId = initialStreamDeviceId;
         let realVideoDeviceStream = initialStream;
         if (!isInitialStreamFromRealDevice) {
+          deviceId = realVideoDevices[0].deviceId;
           realVideoDeviceStream = await navigator.mediaDevices.getUserMedia({
             video: {
               ...videoConstraints,
@@ -870,10 +929,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             audio: false,
           });
         }
+        setLastSelectedCameraId(deviceId!);
 
-        userCamera = realVideoDevices[0];
-
-        return { stream: realVideoDeviceStream };
+        return {
+          stream: realVideoDeviceStream,
+          selectedDeviceId: initialStreamDeviceId,
+          selectableDevices: realVideoDevices,
+        };
       },
       async openLivenessStreamConnection(context) {
         const { config } = context.componentProps!;
