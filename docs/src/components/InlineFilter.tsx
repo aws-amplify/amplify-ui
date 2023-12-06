@@ -29,12 +29,8 @@ export const InlineFilter = ({ filters, children }: InlineFilterProps) => {
     filterKey = router.query.platform as string;
   }
 
-  for (let i = 0; i < filters.length; i++) {
-    const filter = filters[i];
-    if (filter === filterKey || filter === 'all') {
-      return children;
-    }
-  }
-
-  return null;
+  const showContent = filters.some(
+    (filter) => filter === filterKey || filter === 'all'
+  );
+  return showContent ? children : null;
 };
