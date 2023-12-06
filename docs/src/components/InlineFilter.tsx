@@ -18,10 +18,11 @@ type InlineFilterProps = {
  * </InlineFilter>
  */
 export const InlineFilter = ({ filters, children }: InlineFilterProps) => {
+  const router = useRouter();
+
   if (!filters || !Array.isArray(filters) || filters.length < 1) {
     return null;
   }
-  const router = useRouter();
 
   let filterKey = '';
 
