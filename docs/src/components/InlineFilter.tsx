@@ -11,7 +11,7 @@ type InlineFilterProps = {
 };
 
 /**
- *
+ * Used to show content for filtered platforms
  * Usage:
  * <InlineFilter filters={['react', 'android']}>
  *  This content will only render for react and angular platforms
