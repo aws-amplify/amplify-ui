@@ -1,11 +1,22 @@
-import { Fragment } from 'react';
 import { useRouter } from 'next/router';
+import { Framework } from '@/data/frameworks';
 
 type InlineFilterProps = {
   children: React.ReactNode;
-  filters: string[];
+  /**
+   * List of platforms that will render this content. If the current platform
+   * is not in this list then the content will not be render
+   */
+  filters: (Framework | 'all')[];
 };
 
+/**
+ *
+ * Usage:
+ * <InlineFilter filters={['react', 'android']}>
+ *  This content will only render for react and angular platforms
+ * </InlineFilter>
+ */
 export const InlineFilter = ({ filters, children }: InlineFilterProps) => {
   if (!filters || !Array.isArray(filters) || filters.length < 1) {
     return null;
@@ -18,13 +29,12 @@ export const InlineFilter = ({ filters, children }: InlineFilterProps) => {
     filterKey = router.query.platform as string;
   }
 
-  let filteredChildren: Array<React.JSX.Element> = [];
-
-  filters.forEach((filter) => {
+  for (let i = 0; i < filters.length; i++) {
+    const filter = filters[i];
     if (filter === filterKey || filter === 'all') {
-      filteredChildren.push(<Fragment key={filter}>{children}</Fragment>);
+      return children;
     }
-  });
+  }
 
-  return filteredChildren;
+  return null;
 };
