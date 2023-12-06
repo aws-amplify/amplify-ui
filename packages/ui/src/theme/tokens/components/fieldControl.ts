@@ -36,7 +36,7 @@ type FieldControlQuietTokens<Output> = DesignTokenProperties<
 > & {
   _focus?: DesignTokenProperties<'borderBlockEndColor' | 'boxShadow', Output>;
   _error?: DesignTokenProperties<'borderBlockEndColor', Output> & {
-    _focus?: DesignTokenProperties<'boxShadow', Output>;
+    _focus?: DesignTokenProperties<'borderBlockEndColor' | 'boxShadow', Output>;
   };
 };
 
@@ -66,6 +66,18 @@ export type FieldControlTokens<Output extends OutputVariantKey> =
     _focus?: FieldControlFocusTokens<Output>;
     _disabled?: FieldControlDisabledTokens<Output>;
     _error?: FieldControlErrorTokens<Output>;
+    info?: {
+      _focus?: DesignTokenProperties<'boxShadow', Output>;
+    };
+    warning?: {
+      _focus?: DesignTokenProperties<'boxShadow', Output>;
+    };
+    success?: {
+      _focus?: DesignTokenProperties<'boxShadow', Output>;
+    };
+    overlay?: {
+      _focus?: DesignTokenProperties<'boxShadow', Output>;
+    };
   };
 
 export const fieldcontrol: Required<FieldControlTokens<'default'>> = {
@@ -133,47 +145,38 @@ export const fieldcontrol: Required<FieldControlTokens<'default'>> = {
     borderBlockStart: { value: 'none' },
     borderRadius: { value: '0' },
     _focus: {
-      borderBlockEndColor: { value: '{colors.border.focus.value}' },
+      borderBlockEndColor: { value: 'transparent' },
       boxShadow: {
-        value: {
-          offsetX: '0px',
-          offsetY: '1px',
-          color: '{colors.border.focus.value}',
-          blurRadius: '0px',
-        },
+        value: '{components.fieldcontrol._focus.boxShadow.value}',
       },
     },
     _error: {
       borderBlockEndColor: { value: '{colors.border.error.value}' },
       _focus: {
+        borderBlockEndColor: { value: 'transparent' },
         boxShadow: {
-          value: {
-            offsetX: '0px',
-            offsetY: '1px',
-            color: '{colors.border.error.value}',
-            blurRadius: '0px',
-          },
+          value: '{components.fieldcontrol._error._focus.boxShadow.value}',
         },
       },
     },
   },
   _focus: {
     // These focus styles have been calibrated to create
-    // a highly visible focus indicator per WCAG 2.1 guidliness:
-    // See: https://www.w3.org/WAI/WCAG21/Techniques/general/G195.html
+    // a highly visible focus indicator per WCAG 2.2 guidlines:
+    // See: https://www.w3.org/TR/WCAG22/#focus-appearance
     //
     // Key features:
-    // * Focus indicator area is at least the 1 CSS px border around the component.
-    // * Contrast between focused and unfocused states has a ratio of 3:1
+    // * Focus indicator area is at least the 2 CSS px perimeter around the component.
+    // * Contrast between focused and unfocused area of contrast has a ratio of 3:1
     //
-    // IMPORTANT: Must recalibrate if `colors.border.primary` or `colors.focus` are changed
+    // IMPORTANT: Must recalibrate if `colors.border.focus` are changed
     borderColor: { value: '{colors.border.focus.value}' },
     boxShadow: {
       value: {
         offsetX: '0px',
         offsetY: '0px',
         blurRadius: '0px',
-        spreadRadius: '1px',
+        spreadRadius: '2px',
         color: '{colors.border.focus.value}',
       },
     },
@@ -193,8 +196,60 @@ export const fieldcontrol: Required<FieldControlTokens<'default'>> = {
           offsetX: '0px',
           offsetY: '0px',
           blurRadius: '0px',
-          spreadRadius: '1px',
+          spreadRadius: '2px',
           color: '{colors.border.error.value}',
+        },
+      },
+    },
+  },
+  info: {
+    _focus: {
+      boxShadow: {
+        value: {
+          offsetX: '0px',
+          offsetY: '0px',
+          blurRadius: '0px',
+          spreadRadius: '2px',
+          color: '{colors.blue.100.value}',
+        },
+      },
+    },
+  },
+  warning: {
+    _focus: {
+      boxShadow: {
+        value: {
+          offsetX: '0px',
+          offsetY: '0px',
+          blurRadius: '0px',
+          spreadRadius: '2px',
+          color: '{colors.orange.100.value}',
+        },
+      },
+    },
+  },
+  success: {
+    _focus: {
+      boxShadow: {
+        value: {
+          offsetX: '0px',
+          offsetY: '0px',
+          blurRadius: '0px',
+          spreadRadius: '2px',
+          color: '{colors.green.100.value}',
+        },
+      },
+    },
+  },
+  overlay: {
+    _focus: {
+      boxShadow: {
+        value: {
+          offsetX: '0px',
+          offsetY: '0px',
+          blurRadius: '0px',
+          spreadRadius: '2px',
+          color: '{colors.overlay.90.value}',
         },
       },
     },
