@@ -55,6 +55,7 @@ export default function Page({
       );
     });
 
+    updateHeaders();
     const observer = new MutationObserver(updateHeaders);
 
     observer.observe(document.querySelector(nextRootSelector), {
