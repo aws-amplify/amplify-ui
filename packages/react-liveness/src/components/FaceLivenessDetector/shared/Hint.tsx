@@ -34,6 +34,16 @@ export interface HintProps {
   hintDisplayText: Required<HintDisplayText>;
 }
 
+const defaultToast = (text: string, isInitial = false) => {
+  return (
+    <Toast size="large" variation="primary" isInitial={isInitial}>
+      <View aria-live="polite" aria-label={text}>
+        {text}
+      </View>
+    </Toast>
+  );
+};
+
 export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
   const [state] = useLivenessActor();
 
@@ -80,11 +90,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
 
   const getInstructionContent = () => {
     if (isStartView) {
-      return (
-        <Toast size="large" variation="primary" isInitial>
-          {hintDisplayText.hintCenterFaceText}
-        </Toast>
-      );
+      return defaultToast(hintDisplayText.hintCenterFaceText, true);
     }
 
     if (errorState ?? (isCheckFailed || isCheckSuccessful)) {
@@ -94,17 +100,11 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
     if (!isRecording) {
       if (isCheckFaceDetectedBeforeStart) {
         if (faceMatchStateBeforeStart === FaceMatchState.TOO_MANY) {
-          return (
-            <Toast size="large" variation="primary">
-              {FaceMatchStateStringMap[faceMatchStateBeforeStart]}
-            </Toast>
+          return defaultToast(
+            FaceMatchStateStringMap[faceMatchStateBeforeStart]!
           );
         }
-        return (
-          <Toast size="large" variation="primary">
-            {hintDisplayText.hintMoveFaceFrontOfCameraText}
-          </Toast>
-        );
+        return defaultToast(hintDisplayText.hintMoveFaceFrontOfCameraText);
       }
 
       // Specifically checking for false here because initially the value is undefined and we do not want to show the instruction
@@ -112,16 +112,15 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
         isCheckFaceDistanceBeforeRecording &&
         isFaceFarEnoughBeforeRecordingState === false
       ) {
-        return (
-          <Toast size="large" variation="primary">
-            {hintDisplayText.hintTooCloseText}
-          </Toast>
-        );
+        return defaultToast(hintDisplayText.hintTooCloseText);
       }
 
       if (isNotRecording) {
         return (
-          <Toast>
+          <Toast
+            aria-live="polite"
+            aria-label={hintDisplayText.hintConnectingText}
+          >
             <Flex className={LivenessClassNames.HintText}>
               <Loader />
               <View>{hintDisplayText.hintConnectingText}</View>
@@ -132,7 +131,10 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
 
       if (isUploading) {
         return (
-          <Toast>
+          <Toast
+            aria-live="polite"
+            aria-label={hintDisplayText.hintVerifyingText}
+          >
             <Flex className={LivenessClassNames.HintText}>
               <Loader />
               <View>{hintDisplayText.hintVerifyingText}</View>
@@ -142,20 +144,12 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
       }
 
       if (illuminationState && illuminationState !== IlluminationState.NORMAL) {
-        return (
-          <Toast size="large" variation="primary">
-            {IlluminationStateStringMap[illuminationState]}
-          </Toast>
-        );
+        return defaultToast(IlluminationStateStringMap[illuminationState]);
       }
     }
 
     if (isFlashingFreshness) {
-      return (
-        <Toast size="large" variation="primary">
-          {hintDisplayText.hintHoldFaceForFreshnessText}
-        </Toast>
-      );
+      return defaultToast(hintDisplayText.hintHoldFaceForFreshnessText);
     }
 
     if (isRecording && !isFlashingFreshness) {
@@ -178,7 +172,9 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
             faceMatchState === FaceMatchState.TOO_CLOSE ? 'error' : 'primary'
           }
         >
-          {resultHintString}
+          <View aria-live="polite" aria-label={resultHintString}>
+            {resultHintString}
+          </View>
         </Toast>
       );
     }
