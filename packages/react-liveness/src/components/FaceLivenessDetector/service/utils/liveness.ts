@@ -133,7 +133,7 @@ export function getOvalDetailsFromSessionInformation({
 export function getStaticLivenessOvalDetails({
   width,
   height,
-  widthSeed = 1.0,
+  widthSeed = 1.1,
   centerXSeed = 0.5,
   centerYSeed = 0.5,
   ratioMultiplier = 0.8,
@@ -148,7 +148,7 @@ export function getStaticLivenessOvalDetails({
   const videoHeight = height;
   let videoWidth = width;
 
-  const ovalRatio = widthSeed * ratioMultiplier;
+  const ovalRatio = widthSeed * 0.8;
 
   const minOvalCenterX = Math.floor((7 * width) / 16);
   const maxOvalCenterX = Math.floor((9 * width) / 16);
@@ -171,7 +171,7 @@ export function getStaticLivenessOvalDetails({
   }
 
   const ovalWidth = ovalRatio * videoWidth;
-  const ovalHeight = 1.333 * ovalWidth;
+  const ovalHeight = 1.618 * ovalWidth;
 
   return {
     flippedCenterX: Math.floor(centerX),
