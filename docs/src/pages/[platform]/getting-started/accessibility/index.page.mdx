@@ -7,6 +7,10 @@ supportedFrameworks: react|angular|vue
 
 import { Fragment } from '@/components/Fragment';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+import { InlineFilter } from '@/components/InlineFilter';
+import AccessibilityAngular from './accessibility.angular.mdx';
+import AccessibilityReact from './accessibility.react.mdx';
+import AccessibilityVue from './accessibility.vue.mdx';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -18,4 +22,12 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-<Fragment>{({ platform }) => import(`./accessibility.${platform}.mdx`)}</Fragment>
+<InlineFilter filters={['angular']}>
+  <AccessibilityAngular />
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <AccessibilityReact />
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+  <AccessibilityVue />
+</InlineFilter>
