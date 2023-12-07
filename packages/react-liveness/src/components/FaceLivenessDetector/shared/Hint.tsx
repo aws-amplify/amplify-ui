@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Flex, Loader, View } from '@aws-amplify/ui-react';
+import { View } from '@aws-amplify/ui-react';
 
 import { IlluminationState, FaceMatchState } from '../service';
 
@@ -11,7 +11,7 @@ import {
 } from '../hooks';
 import { Toast } from './Toast';
 import { HintDisplayText } from '../displayText';
-import { LivenessClassNames } from '../types/classNames';
+import { ToastWithLoader } from './ToastWithLoader';
 
 export const selectErrorState = createLivenessSelector(
   (state) => state.context.errorState
@@ -117,29 +117,13 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
 
       if (isNotRecording) {
         return (
-          <Toast
-            aria-live="polite"
-            aria-label={hintDisplayText.hintConnectingText}
-          >
-            <Flex className={LivenessClassNames.HintText}>
-              <Loader />
-              <View>{hintDisplayText.hintConnectingText}</View>
-            </Flex>
-          </Toast>
+          <ToastWithLoader displayText={hintDisplayText.hintConnectingText} />
         );
       }
 
       if (isUploading) {
         return (
-          <Toast
-            aria-live="polite"
-            aria-label={hintDisplayText.hintVerifyingText}
-          >
-            <Flex className={LivenessClassNames.HintText}>
-              <Loader />
-              <View>{hintDisplayText.hintVerifyingText}</View>
-            </Flex>
-          </Toast>
+          <ToastWithLoader displayText={hintDisplayText.hintVerifyingText} />
         );
       }
 
