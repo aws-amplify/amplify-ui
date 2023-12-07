@@ -1,6 +1,6 @@
 import type { MetaInfo } from '@/data/meta';
 import type { GetPageFromSlug } from '@/utils/getPageFromSlug';
-import type { GetContentPaths } from 'scripts/getContentPaths';
+import type { GetContentPaths } from '@/utils/getContentPaths';
 
 function pluckMeta({ frontmatter, href, slug }) {
   return { frontmatter, href, slug };

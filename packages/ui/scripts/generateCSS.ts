@@ -2,7 +2,7 @@ import sass from 'sass';
 import autoprefixer from 'autoprefixer';
 import postcss from 'postcss';
 import fs from 'fs-extra';
-import { glob } from 'glob';
+import { globSync } from 'glob';
 import { createTheme } from '../src/theme';
 
 const CSS_VARIABLE_SCOPE = ':root, [data-amplify-theme]';
@@ -17,11 +17,6 @@ fs.writeFileSync(
     CSS_VARIABLE_SCOPE
   )
 );
-
-async function getComponentFiles(pattern: string) {
-  const componentFiles: string[] = await glob(pattern);
-  return componentFiles;
-}
 
 function writeCSS(props: {
   file: string;
@@ -62,31 +57,28 @@ writeCSS({
 });
 
 // get all files ending with .scss in src/theme/component directory using glob
-getComponentFiles('src/theme/css/component/*.scss').then((componentFiles) => {
-  // loop through files and compile each one
-  for (const file of componentFiles) {
-    writeCSS({
-      file,
-      outputPath: `styles/${file.split('/').pop()?.replace('.scss', '')}`,
-      layerName: 'amplify.components',
-    });
-  }
-});
+const componentFiles: string[] = globSync('src/theme/css/component/*.scss');
+
+// loop through files and compile each one
+for (const file of componentFiles) {
+  writeCSS({
+    file,
+    outputPath: `styles/${file.split('/').pop()?.replace('.scss', '')}`,
+    layerName: 'amplify.components',
+  });
+}
 
 // TODO: handle connected components
 // any directory inside css/component should have an index.scss file,
 // we will use that for connected component stylesheets
-getComponentFiles('src/theme/css/component/**/index.scss').then(
-  (connectedComponentFiles) => {
-    for (const file of connectedComponentFiles) {
-      writeCSS({
-        file,
-        outputPath: `styles/${file
-          .replace('/index.scss', '')
-          .split('/')
-          .pop()}`,
-        layerName: 'amplify.components',
-      });
-    }
-  }
+const connectedComponentFiles: string[] = globSync(
+  'src/theme/css/component/**/index.scss'
 );
+
+for (const file of connectedComponentFiles) {
+  writeCSS({
+    file,
+    outputPath: `styles/${file.replace('/index.scss', '').split('/').pop()}`,
+    layerName: 'amplify.components',
+  });
+}

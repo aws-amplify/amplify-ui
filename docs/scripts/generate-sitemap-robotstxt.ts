@@ -11,8 +11,8 @@ import prettier from 'prettier';
 import { writeFileSync } from 'fs';
 import path from 'path';
 
-import { getAllPaths } from './getAllPaths';
-import { getContentPaths } from './getContentPaths';
+import { getAllPaths } from '../src/utils/getAllPaths';
+import { getContentPaths } from '../src/utils/getContentPaths';
 import { getPageFromSlug } from '../src/utils/getPageFromSlug';
 import { getPagesManifest } from '../src/utils/getPagesManifest';
 import { META_INFO } from '../src/data/meta';

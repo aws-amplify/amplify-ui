@@ -1,4 +1,4 @@
-import { glob } from 'glob';
+import { globSync } from 'glob';
 import path from 'path';
 
 const cwd = path.resolve(process.cwd(), 'src/pages');
@@ -10,8 +10,7 @@ export type GetContentPaths = (pattern?: string) => Promise<string[]>;
 export const getContentPaths: GetContentPaths = async (
   pattern = '**/*.page.mdx'
 ) => {
-  const contentPaths = await glob(pattern, { cwd });
-  return contentPaths
+  return globSync(pattern, { cwd })
     .map((contentPath) => {
       return path.normalize(`/${path.dirname(contentPath)}`);
     })
