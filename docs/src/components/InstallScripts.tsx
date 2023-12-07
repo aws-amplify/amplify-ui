@@ -19,8 +19,6 @@ const frameworkInstallScript = (
   component?: string
 ) => {
   const isReactNative = framework === 'react-native';
-  const isLivenessReactComponent =
-    component === 'liveness' && framework === 'react';
 
   const packageManagerPrefix = `${
     packageManager === 'npm' ? 'npm install' : 'yarn add'
@@ -28,7 +26,7 @@ const frameworkInstallScript = (
 
   const extraDependencies = `${
     isReactNative ? ` ${REACT_NATIVE_DEPENDENCIES}` : ''
-  }${isLivenessReactComponent ? `@5.x` : ''}`;
+  }`;
 
   const componentSubpackage = component ? `-${component}` : '';
 
