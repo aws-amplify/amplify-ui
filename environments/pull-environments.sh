@@ -85,7 +85,7 @@ done
 # max number of parallel tasks at a time
 numParallelTasks=8 # Future improvement: could set this to # of logical cores in localdevice
 if [[ "$uname" == "Darwin" ]]; then
-  numParallelTasks=16
+  numParallelTasks=4
 fi
 
 # Get the path to this shell file relative to cwd
