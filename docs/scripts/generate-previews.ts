@@ -16,10 +16,10 @@ import {
   PREVIEW_TEXT_COLOR,
   PREVIEW_WIDTH,
 } from '../src/data/preview';
-import { getContentPaths } from '../src/utils/getContentPaths';
+import { getContentPaths } from './getContentPaths';
 import { getPageFromSlug } from '../src/utils/getPageFromSlug';
 import { getImagePath } from '../src/utils/previews';
-import { getAllPaths } from '../src/utils/getAllPaths';
+import { getAllPaths } from './getAllPaths';
 import { FRAMEWORKS } from '../src/data/frameworks';
 import { getPagesManifest } from '../src/utils/getPagesManifest';
 import { META_INFO } from '../src/data/meta';
