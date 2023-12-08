@@ -309,7 +309,6 @@ export const LivenessCameraModule = (
           as="canvas"
           ref={freshnessColorRef}
           className={LivenessClassNames.FreshnessCanvas}
-          hidden
         />
         <View
           className={LivenessClassNames.VideoAnchor}
