@@ -12,8 +12,9 @@ concurrency:
   cancel-in-progress: true
 
 on:
-  push:
+  pull_request:
     branches: [fake-branch]
+    types: [opened, synchronize, labeled]
 
 jobs:
   setup:
