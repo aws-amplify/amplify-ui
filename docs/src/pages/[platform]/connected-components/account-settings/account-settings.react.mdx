@@ -1,8 +1,8 @@
 import { Alert, Tabs } from '@aws-amplify/ui-react';
-import { AppDirectoryAlert } from '@/components/AppDirectoryAlert';
 
 import { InstallScripts } from '@/components/InstallScripts';
-import { Fragment } from '@/components/Fragment';
+import { InlineFilter } from '@/components/InlineFilter';
+import AppDirectoryAlert from '@/components/AppDirectoryAlert';
 
 Account Settings components are a set of standalone components that add [user management](https://docs.amplify.aws/lib/auth/manageusers/q/platform/js/) flows to your application with minimal boilerplate.
 
@@ -12,9 +12,9 @@ Account Settings components are a set of standalone components that add [user ma
 
 ## Quick Start
 
-<Fragment platforms={['react']}>
-  {({ platform }) => import('@/components/AppDirectoryAlert')}
-</Fragment>
+<InlineFilter filters={['react']}>
+  <AppDirectoryAlert />
+</InlineFilter>
 
 
 ### Step 1. Configure Backend

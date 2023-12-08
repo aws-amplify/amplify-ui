@@ -4,13 +4,21 @@ description: Authenticator component adds complete authentication flows to your 
 supportedFrameworks: android|angular|flutter|react|react-native|swift|vue
 ---
 
-import { Fragment } from '@/components/Fragment';
-import { AppDirectoryAlert } from '@/components/AppDirectoryAlert';
+import { InlineFilter } from '@/components/InlineFilter';
+import AppDirectoryAlert from '@/components/AppDirectoryAlert';
 
 import { Alert, Tabs } from '@aws-amplify/ui-react';
 import { NextSteps } from './NextSteps';
 import { FRAMEWORKS } from '@/data/frameworks';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+import WebIntro from './intro.web.mdx';
+import AndroidIntro from './intro.android.mdx';
+import FlutterIntro from './intro.flutter.mdx';
+import ReactNativeIntro from './intro.react-native.mdx';
+import SwiftIntro from './intro.swift.mdx';
+import QuickStart from './quick-start.mdx';
+import QuickStartAngular from './quick-start.angular.mdx';
+import QuickStartVue from './quick-start.vue.mdx';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -22,26 +30,38 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-<Fragment useCommonWebContent>
-  {({ platform }) => import(`./intro.${platform}.mdx`)}
-</Fragment>
+<InlineFilter filters={['angular', 'react', 'vue']}>
+  <WebIntro />
+</InlineFilter>
+<InlineFilter filters={['android']}>
+  <AndroidIntro />
+</InlineFilter>
+<InlineFilter filters={['flutter']}>
+  <FlutterIntro />
+</InlineFilter>
+<InlineFilter filters={['react-native']}>
+  <ReactNativeIntro />
+</InlineFilter>
+<InlineFilter filters={['swift']}>
+  <SwiftIntro />
+</InlineFilter>
 
 ## Quick start
 
-<Fragment platforms={['react']}>
-  {({ platform }) => import('@/components/AppDirectoryAlert')}
-</Fragment>
+<InlineFilter filters={['react']}>
+  <AppDirectoryAlert />
+</InlineFilter>
 
-<Fragment platforms={['android','flutter','react','react-native','swift']}>
-  {({ platform }) => import('./quick-start.mdx')}
-</Fragment>
+<InlineFilter filters={['android', 'flutter', 'react', 'react-native', 'swift']}>
+  <QuickStart />
+</InlineFilter>
 
-<Fragment platforms={['angular']}>
-  {({ platform }) => import('./quick-start.angular.mdx')}
-</Fragment>
+<InlineFilter filters={['angular']}>
+  <QuickStartAngular />
+</InlineFilter>
 
-<Fragment platforms={['vue']}>
-  {({ platform }) => import('./quick-start.vue.mdx')}
-</Fragment>
+<InlineFilter filters={['vue']}>
+  <QuickStartVue />
+</InlineFilter>
 
 <NextSteps />
