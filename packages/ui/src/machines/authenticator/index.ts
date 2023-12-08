@@ -54,6 +54,7 @@ const LEGACY_WAIT_CONFIG = {
       actions: ['configure'],
       target: 'getConfig',
     },
+    SIGN_OUT: '#authenticator.signOut',
   },
 };
 
@@ -387,7 +388,7 @@ export function createAuthenticatorMachine(
             overrideConfigServices
           )
             ? overrideConfigServices
-            : event.data;
+            : event.data ?? {};
 
           return {
             services: { ...defaultServices, ...customServices },

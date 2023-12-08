@@ -12,6 +12,11 @@ export class SignInWithEmailComponent {
   }
 
   public formFields = {
+    signIn: {
+      password: {
+        placeholder: 'Enter your cool password',
+      },
+    },
     confirmVerifyUser: {
       confirmation_code: {
         label: 'New Label',
