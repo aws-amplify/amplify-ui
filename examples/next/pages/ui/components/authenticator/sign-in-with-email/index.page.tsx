@@ -9,6 +9,11 @@ import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
 const formFields = {
+  signIn: {
+    password: {
+      placeholder: 'Enter your cool password',
+    },
+  },
   confirmVerifyUser: {
     confirmation_code: {
       label: 'New Label',
