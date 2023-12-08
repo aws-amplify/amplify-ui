@@ -1,5 +1,12 @@
 # @aws-amplify/ui-angular
 
+## 4.0.10
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @aws-amplify/ui@5.9.0
+
 ## 4.0.9
 
 ### Patch Changes
