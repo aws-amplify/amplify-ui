@@ -65,6 +65,7 @@
     "canvas": "^2.11.2",
     "dotenv-safe": "^8.2.0",
     "eslint-config-next": "^13.5.5",
+    "glob": "^10.3.10",
     "globby": "^13.1.1",
     "postcss": "^8.4.31",
     "puppeteer": "^19.7.2",
