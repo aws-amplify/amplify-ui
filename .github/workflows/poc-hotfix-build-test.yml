@@ -1,0 +1,75 @@
+# Description: this workflow publishes UI packages to `latest` tag on NPM.
+#
+# Triggered by: whenever a PR is merged to `hotfix` branch
+
+# If successful, we will publish all updated UI packages to NPM.
+
+name: Test and Publish / hotfix
+
+on: pull_request
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: write # Used to push tags to GitHub
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      has-changesets: ${{ steps.has-changesets.outputs.has-changesets }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+        with:
+          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
+          fetch-depth: 0
+      - name: Check if repo has unconsumed changesets
+        id: has-changesets
+        uses: ./.github/actions/has-changesets
+
+  build-test:
+    runs-on: ubuntu-latest
+    environment: ci
+    if: ${{ needs.setup.outputs.has-changesets != 'true' }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+        with:
+          ref: hotfix
+      - name: Setup Node.js 20
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        with:
+          node-version: 20
+          cache: 'yarn'
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+      - name: Add Amplify CLI
+        run: yarn global add @aws-amplify/cli
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+      # Amplify CLI does not support headless pull with temporary credentials
+      # when useProfile is false.
+      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      - name: Create temp AWS profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
+      - name: Pull down AWS environments
+        run: yarn pull
+        working-directory: ./canary
+      - name: Delete AWS Profile
+        run: rm -rf ~/.aws
+      - name: Setup canary apps against @hotfix
+        run: yarn setup:hotfix
+        working-directory: ./canary
+      - name: Run yarn install on each sample app
+        run: yarn install
+        working-directory: ./canary
+      - name: Run yarn build on each sample app
+        run: yarn build
+        working-directory: ./canary
