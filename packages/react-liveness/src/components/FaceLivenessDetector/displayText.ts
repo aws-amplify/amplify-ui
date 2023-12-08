@@ -31,6 +31,11 @@ export type InstructionDisplayText = {
   photosensitivityWarningHeadingText?: string;
   photosensitivityWarningInfoText?: string;
   photosensitivityWarningLabelText?: string;
+  // TODO remove this typo in next MV bump
+  photosensitivyWarningBodyText?: string;
+  photosensitivyWarningHeadingText?: string;
+  photosensitivyWarningInfoText?: string;
+  photosensitivyWarningLabelText?: string;
   startScreenBeginCheckText?: string;
   tooFarCaptionText?: string;
   tooFarAltText?: string;
@@ -97,6 +102,12 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   photosensitivityWarningInfoText:
     'Some people may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
   photosensitivityWarningLabelText: 'More information about photosensitivity',
+  photosensitivyWarningBodyText:
+    'This check flashes different colors. Use caution if you are photosensitive.',
+  photosensitivyWarningHeadingText: 'Photosensitivity warning',
+  photosensitivyWarningInfoText:
+    'Some people may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
+  photosensitivyWarningLabelText: 'More information about photosensitivity',
   retryCameraPermissionsText: 'Retry',
   recordingIndicatorText: 'Rec',
   startScreenBeginCheckText: 'Start video check',
