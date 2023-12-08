@@ -93,4 +93,4 @@ Feature: Sign In with Email
     Then I see "Sign out"
     Then I click the "Sign out" button
     Then I see "Sign in"
-    Then I see placeholder "Enter your cool password"
+    Then I see placeholder "Enter your cool email"

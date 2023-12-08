@@ -10,8 +10,8 @@ Amplify.configure(awsExports);
 
 const formFields = {
   signIn: {
-    password: {
-      placeholder: 'Enter your cool password',
+    username: {
+      placeholder: 'Enter your cool email',
     },
   },
   confirmVerifyUser: {

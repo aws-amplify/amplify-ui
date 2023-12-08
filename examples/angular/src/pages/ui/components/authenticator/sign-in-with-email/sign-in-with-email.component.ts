@@ -13,8 +13,8 @@ export class SignInWithEmailComponent {
 
   public formFields = {
     signIn: {
-      password: {
-        placeholder: 'Enter your cool password',
+      username: {
+        placeholder: 'Enter your cool email',
       },
     },
     confirmVerifyUser: {

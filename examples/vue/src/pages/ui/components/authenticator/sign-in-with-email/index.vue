@@ -7,8 +7,8 @@ import aws_exports from './aws-exports';
 Amplify.configure(aws_exports);
 const formFields = {
   signIn: {
-    password: {
-      placeholder: 'Enter your cool password',
+    username: {
+      placeholder: 'Enter your cool email',
     },
   },
   confirmVerifyUser: {
