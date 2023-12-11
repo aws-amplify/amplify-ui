@@ -133,7 +133,7 @@ export function getOvalDetailsFromSessionInformation({
 export function getStaticLivenessOvalDetails({
   width,
   height,
-  widthSeed = 1.1,
+  widthSeed = 1.0,
   centerXSeed = 0.5,
   centerYSeed = 0.5,
   ratioMultiplier = 0.8,
