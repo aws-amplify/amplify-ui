@@ -312,7 +312,7 @@ export function getFaceMatchStateInLivenessOval(
 ): FaceMatchStateInLivenessOval {
   let faceMatchState: FaceMatchState;
 
-  const OvalIouThreshold = 0.75;
+  const OvalIouThreshold = 0.6;
   const OvalIouHeightThreshold = 0.25;
   const OvalIouWidthThreshold = 0.25;
   const FaceIouHeightThreshold = 0.15;
