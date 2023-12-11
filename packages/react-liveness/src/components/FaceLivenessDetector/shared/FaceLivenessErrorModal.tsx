@@ -67,7 +67,10 @@ const renderToastErrorModal = (props: {
 
   return (
     <>
-      <Flex className={LivenessClassNames.ErrorModal}>
+      <Flex
+        className={LivenessClassNames.ErrorModal}
+        id="amplify-liveness-error-description"
+      >
         <AlertIcon ariaHidden variation="error" />
         <Text
           className={LivenessClassNames.ErrorModalHeading}
@@ -126,7 +129,7 @@ export const FaceLivenessErrorModal: React.FC<FaceLivenessErrorModalProps> = (
         aria-describedby="amplify-liveness-error-description"
         role="alertdialog"
       >
-        <div id="amplify-liveness-error-description">{children}</div>
+        {children}
         <Flex justifyContent="center">
           <Button variation="primary" type="button" onClick={onRetry}>
             {tryAgainText}
