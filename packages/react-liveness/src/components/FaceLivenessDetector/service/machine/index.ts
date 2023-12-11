@@ -1094,6 +1094,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           height: videoEl!.height,
           centerXSeed: context.componentProps?.config?.centerXSeed,
           centerYSeed: context.componentProps?.config?.centerYSeed,
+          widthSeed: context.componentProps?.config?.widthSeed,
+          ovalHeightMagicNumber:
+            context.componentProps?.config?.ovalHeightMagicNumber,
         });
 
         // renormalize initial face

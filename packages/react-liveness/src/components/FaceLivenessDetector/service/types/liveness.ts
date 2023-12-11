@@ -80,6 +80,8 @@ export interface FaceLivenessDetectorCoreConfig {
 
   centerXSeed?: number;
   centerYSeed?: number;
+  widthSeed?: number;
+  ovalHeightMagicNumber?: number;
   /**
    * Internal use only - parameter for overriding the liveness endpoint
    */

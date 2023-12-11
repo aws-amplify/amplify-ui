@@ -137,6 +137,7 @@ export function getStaticLivenessOvalDetails({
   centerXSeed = 0.5,
   centerYSeed = 0.5,
   ratioMultiplier = 0.8,
+  ovalHeightMagicNumber = 1.618,
 }: {
   width: number;
   height: number;
@@ -144,6 +145,7 @@ export function getStaticLivenessOvalDetails({
   centerXSeed?: number;
   centerYSeed?: number;
   ratioMultiplier?: number;
+  ovalHeightMagicNumber?: number;
 }): LivenessOvalDetails {
   const videoHeight = height;
   let videoWidth = width;
@@ -171,7 +173,7 @@ export function getStaticLivenessOvalDetails({
   }
 
   const ovalWidth = ovalRatio * videoWidth;
-  const ovalHeight = 1.618 * ovalWidth;
+  const ovalHeight = ovalHeightMagicNumber * ovalWidth;
 
   return {
     flippedCenterX: Math.floor(centerX),
