@@ -55,7 +55,7 @@ describe('FaceLivenessErrorModal', () => {
     expect(timeoutModal).toBeInTheDocument();
     expect(timeoutModal).toHaveAttribute(
       'aria-describedby',
-      'amplify-liveness-error-description'
+      'amplify-liveness-error-message'
     );
     expect(timeoutModal).toHaveAttribute(
       'aria-labelledby',
