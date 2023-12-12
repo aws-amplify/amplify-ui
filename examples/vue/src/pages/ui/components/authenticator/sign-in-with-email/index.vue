@@ -6,6 +6,11 @@ import aws_exports from './aws-exports';
 
 Amplify.configure(aws_exports);
 const formFields = {
+  signIn: {
+    username: {
+      placeholder: 'Enter your cool email',
+    },
+  },
   confirmVerifyUser: {
     confirmation_code: {
       label: 'New Label',
@@ -24,7 +29,10 @@ const formFields = {
     </template>
 
     <template v-slot:verify-user-header>
-      <h3 class="amplify-heading" style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)">
+      <h3
+        class="amplify-heading"
+        style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
+      >
         Enter Information:
       </h3>
     </template>
@@ -34,7 +42,10 @@ const formFields = {
     </template>
 
     <template v-slot:confirm-verify-user-header>
-      <h3 class="amplify-heading" style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)">
+      <h3
+        class="amplify-heading"
+        style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
+      >
         Enter Information:
       </h3>
     </template>

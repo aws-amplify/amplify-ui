@@ -6,9 +6,13 @@ import { CustomizationCdn } from './CustomizationCdn';
 
 FaceLivenessDetector allows overriding the default hosted CDN and providing your own. The CDN files are used by the TensorFlow library to load in files at runtime. You can host your own CDN by following the instructions below:
 
-1. Download the TFJS wasm and blazeface files:
-    - Download the wasm file for tfjs here: https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@4.11.0/dist/tfjs-backend-wasm-simd.wasm
-    - Download https://tfhub.dev/mediapipe/tfjs-model/face_detection/short/1 and unzip the tar file. It should contain a `model.json` file and a `group1-shard1of1.bin` file.
+1. Download the TFJS wasm and blazeface files for the corresponding version of `@aws-amplify/ui-react-liveness`
+    - Download the wasm file for tfjs here.
+        - \<= v2.x - https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@3.11.0/dist/tfjs-backend-wasm-simd.wasm
+        - v3.x - https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@4.11.0/dist/tfjs-backend-wasm-simd.wasm
+    - Download and unzip the tar file. It should contain a `model.json` file and a `group1-shard1of1.bin` file.
+        - \<= v2.x - https://tfhub.dev/tensorflow/tfjs-model/blazeface/1/default/1
+        - v3.x - https://tfhub.dev/mediapipe/tfjs-model/face_detection/short/1
 1. Host all three files alongside your JS files on your own server
 1. Update FaceLivenessDetector code:
 
