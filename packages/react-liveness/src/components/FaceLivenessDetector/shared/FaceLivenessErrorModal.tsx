@@ -76,7 +76,7 @@ const renderToastErrorModal = (props: {
           {heading}
         </Text>
       </Flex>
-      <div id="amplify-liveness-error-description">{message}</div>
+      <text id="amplify-liveness-error-message">{message}</text>
     </>
   );
 };
@@ -123,7 +123,7 @@ export const FaceLivenessErrorModal: React.FC<FaceLivenessErrorModalProps> = (
     <Overlay className={LivenessClassNames.OpaqueOverlay}>
       <Toast
         aria-labelledby="amplify-liveness-error-heading"
-        aria-describedby="amplify-liveness-error-description"
+        aria-describedby="amplify-liveness-error-message"
         role="alertdialog"
       >
         {children}
