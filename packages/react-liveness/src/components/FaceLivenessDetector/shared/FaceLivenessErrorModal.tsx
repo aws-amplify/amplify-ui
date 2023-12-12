@@ -76,7 +76,7 @@ const renderToastErrorModal = (props: {
           {heading}
         </Text>
       </Flex>
-      <text id="amplify-liveness-error-message">{message}</text>
+      <Text id="amplify-liveness-error-message">{message}</Text>
     </>
   );
 };
