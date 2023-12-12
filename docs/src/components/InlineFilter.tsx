@@ -1,14 +1,14 @@
 import { useRouter } from 'next/router';
 import { Framework } from '@/data/frameworks';
 
-type InlineFilterProps = {
+interface InlineFilterProps {
   children: React.ReactNode;
   /**
    * List of platforms that will render this content. If the current platform
-   * is not in this list then the content will not be render
+   * is not in this list then the content will not be rendered
    */
   filters: (Framework | 'all')[];
-};
+}
 
 /**
  * Used to show content for filtered platforms
@@ -20,7 +20,13 @@ type InlineFilterProps = {
 export const InlineFilter = ({ filters, children }: InlineFilterProps) => {
   const router = useRouter();
 
-  if (!filters || !Array.isArray(filters) || filters.length < 1) {
+  if (
+    !filters ||
+    !Array.isArray(filters) ||
+    filters.length < 1 ||
+    !router ||
+    !router.query
+  ) {
     return null;
   }
 
