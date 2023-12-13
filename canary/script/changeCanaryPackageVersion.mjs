@@ -1,6 +1,7 @@
 /*
  * This Script change all package.json fils under canary/ .
- * It changes `@aws-amplify/ui-{framework}` version to `next`.
+ * It changes `@aws-amplify/ui-{framework}` version to `v5-unstable`
+ * (or whatever is supplied as a command line arg).
  */
 
 import { globbyStream } from 'globby';
