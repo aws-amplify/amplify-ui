@@ -8,7 +8,7 @@ name: Test and Publish / hotfix
 
 on:
   push:
-    branches: [hotfix]
+    branches: [hotfix-v5]
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -45,6 +45,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+        with:
+          ref: hotfix-v5
       - name: Setup Node.js 16
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
