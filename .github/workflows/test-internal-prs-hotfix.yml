@@ -13,7 +13,7 @@ concurrency:
 
 on:
   pull_request:
-    branches: [hotfix]
+    branches: [hotfix-v5]
     types: [opened, synchronize, labeled]
 
 jobs:
@@ -113,7 +113,7 @@ jobs:
       repository: ${{ github.repository }}
 
   e2e:
-    uses: ./.github/workflows/reusable-e2e-hotfix.yml
+    uses: ./.github/workflows/reusable-e2e-hotfix.yml@hotfix-workflows
     needs: unit
     with:
       commit: ${{ github.event.pull_request.head.sha }}
