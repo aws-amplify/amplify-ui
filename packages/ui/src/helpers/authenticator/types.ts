@@ -37,4 +37,4 @@ export type AuthMachineHubHandler = (
     onSignIn?: (user: AuthUser) => void;
     onSignOut?: () => void;
   }
-) => Promise<void>;
+) => void;

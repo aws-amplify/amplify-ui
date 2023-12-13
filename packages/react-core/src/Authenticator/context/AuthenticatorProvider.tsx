@@ -16,8 +16,8 @@ type Options = Parameters<AuthMachineHubHandler>[2];
 
 const createHubHandler =
   (options: Options): AuthMachineHubHandler =>
-  async (data, service) => {
-    await defaultAuthHubHandler(data, service, options);
+  (data, service) => {
+    defaultAuthHubHandler(data, service, options);
   };
 
 export default function AuthenticatorProvider({
