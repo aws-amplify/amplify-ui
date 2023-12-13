@@ -25,7 +25,8 @@ export const InlineFilter = ({ filters, children }: InlineFilterProps) => {
     !Array.isArray(filters) ||
     filters.length < 1 ||
     !router ||
-    !router.query
+    !router.query ||
+    Array.isArray(router.query.platform) // platform array not supported by the filter so dropout if it is found
   ) {
     return null;
   }
@@ -33,7 +34,7 @@ export const InlineFilter = ({ filters, children }: InlineFilterProps) => {
   let filterKey = '';
 
   if ('platform' in router.query) {
-    filterKey = router.query.platform as string;
+    filterKey = router.query.platform;
   }
 
   const showContent = filters.some(
