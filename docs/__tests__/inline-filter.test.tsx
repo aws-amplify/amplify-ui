@@ -1,6 +1,5 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { InlineFilter } from '../src/components/InlineFilter';
-// import * as React from 'react';
 import { useRouter } from 'next/router';
 
 jest.mock('next/router', () => ({
