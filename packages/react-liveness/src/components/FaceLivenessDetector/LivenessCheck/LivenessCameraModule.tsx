@@ -221,13 +221,16 @@ export const LivenessCameraModule = (
     }
   }, [send, videoRef, isCameraReady, isMobileScreen]);
 
-  const photoSensitivtyWarning = React.useMemo(() => {
+  const photoSensitivityWarning = React.useMemo(() => {
     return (
       <View style={{ visibility: isStartView ? 'visible' : 'hidden' }}>
         <PhotosensitiveWarning
-          headingText={instructionDisplayText.photosensitivyWarningHeadingText}
-          bodyText={instructionDisplayText.photosensitivyWarningBodyText}
-          infoText={instructionDisplayText.photosensitivyWarningInfoText}
+          bodyText={instructionDisplayText.photosensitivityWarningBodyText}
+          headingText={
+            instructionDisplayText.photosensitivityWarningHeadingText
+          }
+          infoText={instructionDisplayText.photosensitivityWarningInfoText}
+          labelText={instructionDisplayText.photosensitivityWarningLabelText}
         />
       </View>
     );
@@ -293,7 +296,7 @@ export const LivenessCameraModule = (
 
   return (
     <>
-      {photoSensitivtyWarning}
+      {photoSensitivityWarning}
 
       <Flex
         className={classNames(

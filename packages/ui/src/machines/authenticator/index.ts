@@ -54,6 +54,7 @@ const LEGACY_WAIT_CONFIG = {
       actions: ['configure'],
       target: 'getConfig',
     },
+    SIGN_OUT: '#authenticator.signOut',
   },
 };
 
@@ -86,7 +87,7 @@ export function createAuthenticatorMachine(
         idle: {
           invoke: {
             src: 'handleGetCurrentUser',
-            onDone: { actions: 'setUser', target: 'authenticated' },
+            onDone: { actions: 'setUser', target: 'setup' },
             onError: { target: 'setup' },
           },
         },
@@ -97,10 +98,17 @@ export function createAuthenticatorMachine(
             getConfig: {
               invoke: {
                 src: 'getAmplifyConfig',
-                onDone: {
-                  actions: ['applyAmplifyConfig', 'setHasSetup'],
-                  target: 'goToInitialState',
-                },
+                onDone: [
+                  {
+                    actions: ['applyAmplifyConfig', 'setHasSetup'],
+                    cond: 'hasUser',
+                    target: '#authenticator.authenticated',
+                  },
+                  {
+                    actions: ['applyAmplifyConfig', 'setHasSetup'],
+                    target: 'goToInitialState',
+                  },
+                ],
               },
             },
             goToInitialState: {
@@ -380,7 +388,7 @@ export function createAuthenticatorMachine(
             overrideConfigServices
           )
             ? overrideConfigServices
-            : event.data;
+            : event.data ?? {};
 
           return {
             services: { ...defaultServices, ...customServices },
@@ -396,6 +404,9 @@ export function createAuthenticatorMachine(
         isInitialStateResetPassword: ({ config }) =>
           config.initialState === 'forgotPassword',
         shouldSetup: ({ hasSetup }) => !hasSetup,
+        hasUser: ({ user }) => {
+          return !!user;
+        },
       },
       services: {
         getAmplifyConfig: ({ services }) => services.getAmplifyConfig(),
