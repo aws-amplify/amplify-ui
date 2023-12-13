@@ -38,9 +38,9 @@ Amplify UI comes with a default dark mode that you can use.
 
 _Note: the Amplify UI theme and any overrides like dark mode are scoped to the ThemeProvider. Changing the color mode in the example will only affect the example code._
 
-<Tabs.Container defaultValue="Javascript">
+<Tabs.Container defaultValue="JavaScript">
   <Tabs.List>
-    <Tabs.Item value="Javascript">Javascript</Tabs.Item>
+    <Tabs.Item value="JavaScript">JavaScript</Tabs.Item>
     <Tabs.Item value="TypeScript">TypeScript</Tabs.Item>
   </Tabs.List>
   <Tabs.Panel value="JavaScript">
@@ -119,75 +119,79 @@ _Note: to see dark mode applied, change your OS preferences_
 
 ### Custom dark mode
 
-<Tabs.Container>
-  <Tabs.Item title="JavaScript">
+<Tabs.Container defaultValue="JavaScript">
+    <Tabs.List>
+      <Tabs.Item value="JavaScript">JavaScript</Tabs.Item>
+      <Tabs.Item value="TypeScript">TypeScript</Tabs.Item>
+    </Tabs.List>
+    <Tabs.Panel value="JavaScript">
     <Example>
       <CustomDarkModeExample />
       <ExampleCode>
-```jsx
-import * as React from 'react';
-import {
-  ThemeProvider,
-  Card,
-  Text,
-  ToggleButton,
-  ToggleButtonGroup,
-} from '@aws-amplify/ui-react';
+          ```jsx
+          import * as React from 'react';
+          import {
+            ThemeProvider,
+            Card,
+            Text,
+            ToggleButton,
+            ToggleButtonGroup,
+          } from '@aws-amplify/ui-react';
 
-export const CustomDarkModeExample = () => {
-  const [colorMode, setColorMode] = React.useState('system');
-  const theme = {
-    name: 'my-theme',
-    overrides: [
-      {
-        colorMode: 'dark',
-        tokens: {
-          colors: {
-            font: {
-              primary: { value: '{colors.pink.100}' },
-              secondary: { value: '{colors.pink.90}' },
-              tertiary: { value: '{colors.pink.80}' },
-            },
-            background: {
-              primary: { value: '{colors.purple.10}' },
-              secondary: { value: '{colors.purple.20}' },
-              tertiary: { value: '{colors.purple.40}' },
-            },
-            border: {
-              primary: { value: '{colors.pink.60}' },
-              secondary: { value: '{colors.pink.40}' },
-              tertiary: { value: '{colors.pink.20}' },
-            },
-          },
-        },
-      },
-    ],
-  };
+          export const CustomDarkModeExample = () => {
+            const [colorMode, setColorMode] = React.useState('system');
+            const theme = {
+              name: 'my-theme',
+              overrides: [
+                {
+                  colorMode: 'dark',
+                  tokens: {
+                    colors: {
+                      font: {
+                        primary: { value: '{colors.pink.100}' },
+                        secondary: { value: '{colors.pink.90}' },
+                        tertiary: { value: '{colors.pink.80}' },
+                      },
+                      background: {
+                        primary: { value: '{colors.purple.10}' },
+                        secondary: { value: '{colors.purple.20}' },
+                        tertiary: { value: '{colors.purple.40}' },
+                      },
+                      border: {
+                        primary: { value: '{colors.pink.60}' },
+                        secondary: { value: '{colors.pink.40}' },
+                        tertiary: { value: '{colors.pink.20}' },
+                      },
+                    },
+                  },
+                },
+              ],
+            };
 
-  return (
-    // Note: color mode overrides are scoped to the ThemeProvider
-    // if you use multiple providers
-    <ThemeProvider theme={theme} colorMode={colorMode}>
-      <Card>
-        <ToggleButtonGroup
-          value={colorMode}
-          isExclusive
-          onChange={(value) => setColorMode(value)}
-        >
-          <ToggleButton value="light">Light</ToggleButton>
-          <ToggleButton value="dark">Dark</ToggleButton>
-          <ToggleButton value="system">System</ToggleButton>
-        </ToggleButtonGroup>
-        <Text>Current color mode: {colorMode}</Text>
-      </Card>
-    </ThemeProvider>
-  );
-};
-```
+            return (
+              // Note: color mode overrides are scoped to the ThemeProvider
+              // if you use multiple providers
+              <ThemeProvider theme={theme} colorMode={colorMode}>
+                <Card>
+                  <ToggleButtonGroup
+                    value={colorMode}
+                    isExclusive
+                    onChange={(value) => setColorMode(value)}
+                  >
+                    <ToggleButton value="light">Light</ToggleButton>
+                    <ToggleButton value="dark">Dark</ToggleButton>
+                    <ToggleButton value="system">System</ToggleButton>
+                  </ToggleButtonGroup>
+                  <Text>Current color mode: {colorMode}</Text>
+                </Card>
+              </ThemeProvider>
+            );
+          };
+          ```
       </ExampleCode>
     </Example>
-  </Tabs.Item>
-  <Tabs.Item title="TypeScript">
+  </Tabs.Panel>
+  <Tabs.Panel value="TypeScript">
     <Example>
       <CustomDarkModeExample />
 
@@ -197,7 +201,7 @@ export const CustomDarkModeExample = () => {
         
       </ExampleCode>
     </Example>
-  </Tabs.Item>
+  </Tabs.Panel>
 </Tabs.Container>
 
 
