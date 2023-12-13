@@ -8,7 +8,7 @@ import { AuthInterpreter, AuthMachineHubHandler } from './types';
  * Handles Amplify JS Auth hub events, by forwarding hub events as appropriate
  * xstate events.
  */
-export const defaultAuthHubHandler: AuthMachineHubHandler = async (
+export const defaultAuthHubHandler: AuthMachineHubHandler = (
   { payload },
   service,
   options
@@ -42,29 +42,19 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = async (
   }
 };
 
-type HubHandler = Parameters<typeof Hub.listen>[1];
-const getHubEventHandler =
-  (service: AuthInterpreter, handler: AuthMachineHubHandler): HubHandler =>
-  (data) => {
-    handler(data, service);
-  };
-
 /**
  * Listens to external auth Hub events and sends corresponding event to
- * the `authService` of interest
+ * the `service.send` of interest
  *
- * @param send - `send` function associated with the `authService` of interest
- *
+ * @param service - contains state machine `send` function
+ * @param handler - auth event handler
  * @returns function that unsubscribes to the hub evenmt
  */
 export const listenToAuthHub = (
   service: AuthInterpreter,
-  // angular passes its own `handler` param
   handler: AuthMachineHubHandler = defaultAuthHubHandler
 ) => {
-  return Hub.listen(
-    'auth',
-    getHubEventHandler(service, handler),
-    'authenticator-hub-handler'
-  );
+  const eventHandler: Parameters<typeof Hub.listen>[1] = (data) =>
+    handler(data, service);
+  return Hub.listen('auth', eventHandler, 'authenticator-hub-handler');
 };

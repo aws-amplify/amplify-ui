@@ -81,8 +81,7 @@ describe('DeleteUser', () => {
     expect(deleteUser).toHaveLength(1);
   });
 
-  // @todo-migration
-  it.skip('calls deleteUser with expected arguments', async () => {
+  it('calls deleteUser with expected arguments', async () => {
     deleteUserSpy.mockResolvedValue();
 
     const onSuccess = jest.fn();
@@ -92,9 +91,9 @@ describe('DeleteUser', () => {
       name: deleteAccountButtonText,
     });
 
-    await act(async () => {
-      fireEvent.click(deleteAccountButton);
+    fireEvent.click(deleteAccountButton);
 
+    await act(async () => {
       const confirmDeleteButton = await screen.findByRole('button', {
         name: confirmDeleteButtonText,
       });
@@ -212,8 +211,7 @@ describe('DeleteUser', () => {
     expect(await screen.findByText('Custom Warning Message')).toBeDefined();
   });
 
-  // @todo-migration fix
-  it.skip('onSuccess is called with component overrides after successful user deletion', async () => {
+  it('onSuccess is called with component overrides after successful user deletion', async () => {
     deleteUserSpy.mockResolvedValue();
 
     const onSuccess = jest.fn();
@@ -222,10 +220,9 @@ describe('DeleteUser', () => {
     const deleteAccountButton = await screen.findByRole('button', {
       name: 'Custom Delete Button',
     });
+    fireEvent.click(deleteAccountButton);
 
     await act(async () => {
-      fireEvent.click(deleteAccountButton);
-
       const confirmDeleteButton = await screen.findByRole('button', {
         name: 'Custom Confirm Button',
       });
@@ -238,8 +235,7 @@ describe('DeleteUser', () => {
     await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(1));
   });
 
-  // @todo-migration fix
-  it.skip('calls deleteUser with expected arguments and component overrides', async () => {
+  it('calls deleteUser with expected arguments and component overrides', async () => {
     deleteUserSpy.mockResolvedValue();
 
     const onSuccess = jest.fn();
@@ -248,9 +244,9 @@ describe('DeleteUser', () => {
     const deleteAccountButton = await screen.findByRole('button', {
       name: 'Custom Delete Button',
     });
-    await act(async () => {
-      fireEvent.click(deleteAccountButton);
+    fireEvent.click(deleteAccountButton);
 
+    await act(async () => {
       const confirmDeleteButton = await screen.findByRole('button', {
         name: 'Custom Confirm Button',
       });
@@ -262,8 +258,7 @@ describe('DeleteUser', () => {
     expect(deleteUserSpy).toHaveBeenCalledTimes(1);
   });
 
-  // @todo-migration
-  it.skip('error message is displayed with component overrides after unsuccessful submit', async () => {
+  it('error message is displayed with component overrides after unsuccessful submit', async () => {
     deleteUserSpy.mockRejectedValue(new Error('Mock Error'));
 
     render(<DeleteUser components={components} />);
@@ -271,9 +266,8 @@ describe('DeleteUser', () => {
     const deleteAccountButton = await screen.findByRole('button', {
       name: 'Custom Delete Button',
     });
+    fireEvent.click(deleteAccountButton);
     await act(async () => {
-      fireEvent.click(deleteAccountButton);
-
       const confirmDeleteButton = await screen.findByRole('button', {
         name: 'Custom Confirm Button',
       });
