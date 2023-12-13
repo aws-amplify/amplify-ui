@@ -69,9 +69,14 @@ const renderToastErrorModal = (props: {
     <>
       <Flex className={LivenessClassNames.ErrorModal}>
         <AlertIcon ariaHidden variation="error" />
-        <Text className={LivenessClassNames.ErrorModalHeading}>{heading}</Text>
+        <Text
+          className={LivenessClassNames.ErrorModalHeading}
+          id="amplify-liveness-error-heading"
+        >
+          {heading}
+        </Text>
       </Flex>
-      {message}
+      <Text id="amplify-liveness-error-message">{message}</Text>
     </>
   );
 };
@@ -116,7 +121,11 @@ export const FaceLivenessErrorModal: React.FC<FaceLivenessErrorModalProps> = (
 
   return (
     <Overlay className={LivenessClassNames.OpaqueOverlay}>
-      <Toast>
+      <Toast
+        aria-labelledby="amplify-liveness-error-heading"
+        aria-describedby="amplify-liveness-error-message"
+        role="alertdialog"
+      >
         {children}
         <Flex justifyContent="center">
           <Button variation="primary" type="button" onClick={onRetry}>
