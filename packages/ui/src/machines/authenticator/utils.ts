@@ -7,6 +7,7 @@ import { isString } from '../../utils';
 
 // default `autoSignIn` flag is `true`
 const DEFAULT_AUTO_SIGN_IN = true;
+const EMPTY_STRING = '';
 
 export const sanitizePhoneNumber = (dialCode: string, phoneNumber: string) =>
   `${dialCode}${phoneNumber}`.replace(/[^A-Z0-9+]/gi, '');
@@ -49,7 +50,7 @@ export const getUserAttributes = (
   );
 
   // only include `phone_number` attribute in `userAttributes` if it has a value
-  if (isString(phone_number)) {
+  if (isString(phone_number) && phone_number !== EMPTY_STRING) {
     const { country_code } = formValues;
     return {
       ...userAttributes,

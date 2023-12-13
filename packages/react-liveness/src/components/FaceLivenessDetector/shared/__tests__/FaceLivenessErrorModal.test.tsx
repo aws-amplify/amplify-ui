@@ -43,6 +43,26 @@ describe('FaceLivenessErrorModal', () => {
     expect(screen.getByText(timeoutMessageText)).toBeInTheDocument();
   });
 
+  it('should render the timeout message with proper accessibility attributes', () => {
+    const errorState = LivenessErrorState.TIMEOUT;
+    render(
+      <FaceLivenessErrorModal onRetry={() => {}}>
+        {renderErrorModal({ errorState })}
+      </FaceLivenessErrorModal>
+    );
+
+    const timeoutModal = screen.getByRole('alertdialog');
+    expect(timeoutModal).toBeInTheDocument();
+    expect(timeoutModal).toHaveAttribute(
+      'aria-describedby',
+      'amplify-liveness-error-message'
+    );
+    expect(timeoutModal).toHaveAttribute(
+      'aria-labelledby',
+      'amplify-liveness-error-heading'
+    );
+  });
+
   it('should render the runtime error message appropriately', () => {
     const errorState = LivenessErrorState.RUNTIME_ERROR;
     render(
