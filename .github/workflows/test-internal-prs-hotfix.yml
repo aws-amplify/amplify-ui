@@ -113,7 +113,7 @@ jobs:
       repository: ${{ github.repository }}
 
   e2e:
-    uses: ./.github/workflows/reusable-e2e-hotfix.yml@hotfix-workflows
+    uses: ./.github/workflows/reusable-e2e-hotfix.yml
     needs: unit
     with:
       commit: ${{ github.event.pull_request.head.sha }}
