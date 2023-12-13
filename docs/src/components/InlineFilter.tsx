@@ -20,25 +20,11 @@ interface InlineFilterProps {
 export const InlineFilter = ({ filters, children }: InlineFilterProps) => {
   const router = useRouter();
 
-  if (
-    !filters ||
-    !Array.isArray(filters) ||
-    filters.length < 1 ||
-    !router ||
-    !router.query ||
-    Array.isArray(router.query.platform) // platform array not supported by the filter so dropout if it is found
-  ) {
-    return null;
-  }
-
-  let filterKey = '';
-
-  if ('platform' in router.query) {
-    filterKey = router.query.platform;
-  }
-
-  const showContent = filters.some(
-    (filter) => filter === filterKey || filter === 'all'
-  );
+  const platform = router?.query?.platform;
+  
+  const showContent =
+    typeof platform === 'string' &&
+    Array.isArray(filters) &&
+    filters.some((filter) => filter === platform || filter === 'all');
   return showContent ? children : null;
 };
