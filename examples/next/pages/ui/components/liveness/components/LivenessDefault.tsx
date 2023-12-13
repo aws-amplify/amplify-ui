@@ -25,6 +25,16 @@ export default function LivenessDefault({
   function onUserCancel() {
     stopLiveness();
   }
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  const aspectRatio = width / height;
+
+  console.log({
+    width,
+    height,
+    aspectRatio,
+    aspectRatioString: `${width} / ${height}`,
+  });
 
   return (
     <View maxWidth="640px" margin="0 auto">

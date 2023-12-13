@@ -9,7 +9,12 @@ import {
   useLivenessActor,
   useLivenessSelector,
 } from '../hooks';
-import { isMobileScreen, getLandscapeMediaQuery } from '../utils/device';
+import {
+  isMobileScreen,
+  getLandscapeMediaQuery,
+  getMinAspectRatioMediaQuery,
+  doesDeviceMeetMinLandscapeAspectRatio,
+} from '../utils/device';
 import { CancelButton } from '../shared/CancelButton';
 import {
   InstructionDisplayText,
@@ -77,21 +82,36 @@ export const LivenessCheck: React.FC<LivenessCheckProps> = ({
         }
       };
 
+      const handleMediaQueryChange = () => {
+        const shouldShowWarning = !doesDeviceMeetMinLandscapeAspectRatio();
+        sendLandscapeWarning(shouldShowWarning);
+      };
+
       // Get orientation: landscape media query
       const landscapeMediaQuery = getLandscapeMediaQuery();
+      const minAspectRatioMediaQuery = getMinAspectRatioMediaQuery();
 
       // Send warning based on initial orientation
-      sendLandscapeWarning(landscapeMediaQuery.matches);
+      handleMediaQueryChange();
 
       // Listen for future orientation changes and send warning
-      landscapeMediaQuery.addEventListener('change', (e) => {
-        sendLandscapeWarning(e.matches);
-      });
+      landscapeMediaQuery.addEventListener('change', handleMediaQueryChange);
+
+      // Listen for future min asepct ratio changes and send warning
+      minAspectRatioMediaQuery.addEventListener(
+        'change',
+        handleMediaQueryChange
+      );
 
       // Remove matchMedia event listener
       return () => {
-        landscapeMediaQuery.removeEventListener('change', (e) =>
-          sendLandscapeWarning(e.matches)
+        landscapeMediaQuery.removeEventListener(
+          'change',
+          handleMediaQueryChange
+        );
+        minAspectRatioMediaQuery.removeEventListener(
+          'change',
+          handleMediaQueryChange
         );
       };
     }

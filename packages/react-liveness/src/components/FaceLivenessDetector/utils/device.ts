@@ -33,3 +33,15 @@ export function isPortrait(): boolean {
 export function getLandscapeMediaQuery(): MediaQueryList {
   return window.matchMedia('(orientation: landscape)');
 }
+
+const MINIMUM_ASPECT_RATIO = 1;
+
+export function getMinAspectRatioMediaQuery(): MediaQueryList {
+  return window.matchMedia(`(min-aspect-ratio: ${MINIMUM_ASPECT_RATIO})`);
+}
+
+export function doesDeviceMeetMinLandscapeAspectRatio(): boolean {
+  const landscapeMediaQuery = getLandscapeMediaQuery();
+  const minAspectRatioMediaQuery = getMinAspectRatioMediaQuery();
+  return !(landscapeMediaQuery.matches && !minAspectRatioMediaQuery.matches);
+}

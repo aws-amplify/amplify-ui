@@ -1228,6 +1228,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           .getTracks()[0]
           .getSettings();
 
+        console.log({ videoWidth: width, videoHeight: height });
+
         const flippedInitialFaceLeft =
           width! - initialFace!.left - initialFace!.width;
 
