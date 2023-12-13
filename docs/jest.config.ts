@@ -1,8 +1,10 @@
 import { Config } from 'jest';
 
 const jestConfig: Config = {
-  preset: 'ts-jest',
   setupFiles: ['<rootDir>/jest.setup.ts'],
+  testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
+  moduleDirectories: ['node_modules', 'src'],
+  testEnvironment: 'jsdom',
 };
 
 export default jestConfig;
