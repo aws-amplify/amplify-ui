@@ -12,7 +12,6 @@ export const PrimitiveTabs = ({ children, htmlElement, mdnUrl, title }) => {
           children: (
             <PropsTableTab
               componentName={title}
-              PropsData={data}
               htmlElement={htmlElement}
               mdnUrl={mdnUrl}
             />
