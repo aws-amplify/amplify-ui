@@ -49,6 +49,7 @@ import {
 } from '@aws-sdk/client-rekognitionstreaming';
 import { STATIC_VIDEO_CONSTRAINTS } from '../../utils/helpers';
 import { WS_CLOSURE_CODE } from '../utils/constants';
+import { isPortrait } from '../../utils/device';
 
 export const MIN_FACE_MATCH_TIME = 1000;
 const DEFAULT_FACE_FIT_TIMEOUT = 7000;
@@ -1099,7 +1100,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const { width: videoScaledWidth, height: videoScaledHeight } =
           videoEl!.getBoundingClientRect();
 
-        if (isMobile) {
+        if (isMobile && isPortrait()) {
           canvasEl!.width = window.innerWidth;
           canvasEl!.height = window.innerHeight;
         } else {

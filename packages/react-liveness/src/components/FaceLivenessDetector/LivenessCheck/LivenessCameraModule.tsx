@@ -39,6 +39,7 @@ import {
   DefaultCancelButton,
   DefaultRecordingIcon,
 } from '../shared/DefaultStartScreenComponents';
+import { isPortrait } from '../utils/device';
 
 export const selectVideoConstraints = createLivenessSelector(
   (state) => state.context.videoAssociatedParams?.videoConstraints
@@ -292,7 +293,11 @@ export const LivenessCameraModule = (
   }
 
   const isRecordingOnMobile =
-    isMobileScreen && !isStartView && !isWaitingForCamera && isRecording;
+    isMobileScreen &&
+    !isStartView &&
+    !isWaitingForCamera &&
+    isRecording &&
+    isPortrait();
 
   return (
     <>
@@ -300,8 +305,8 @@ export const LivenessCameraModule = (
 
       <Flex
         className={classNames(
-          LivenessClassNames.CameraModule,
-          isRecordingOnMobile && `${LivenessClassNames.CameraModule}--mobile`
+          LivenessClassNames.CameraModule
+          // isRecordingOnMobile && `${LivenessClassNames.CameraModule}--mobile`
         )}
         data-testid={testId}
         gap="zero"
