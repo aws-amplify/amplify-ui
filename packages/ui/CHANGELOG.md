@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 5.6.5
+
+### Patch Changes
+
+- Upgrade style-dictionary dependency
+
 ## 5.6.4
 
 ### Patch Changes

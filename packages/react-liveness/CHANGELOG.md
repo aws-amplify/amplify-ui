@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react-liveness
 
+## 1.0.6
+
+### Patch Changes
+
+- Upgrade style-dictionary dependency
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react@4.6.6
+  - @aws-amplify/ui@5.6.5
+
 ## 1.0.5
 
 ### Patch Changes

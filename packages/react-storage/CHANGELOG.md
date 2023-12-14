@@ -1,5 +1,16 @@
 # @aws-amplify/ui-react-storage
 
+## 1.2.5
+
+### Patch Changes
+
+- Upgrade style-dictionary dependency
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react@4.6.6
+  - @aws-amplify/ui@5.6.5
+  - @aws-amplify/ui-react-core@2.1.24
+
 ## 1.2.4
 
 ### Patch Changes

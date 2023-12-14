@@ -1,5 +1,16 @@
 # @aws-amplify/ui-react-notifications
 
+## 1.0.2
+
+### Patch Changes
+
+- Upgrade style-dictionary dependency
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react@4.6.6
+  - @aws-amplify/ui@5.6.5
+  - @aws-amplify/ui-react-core-notifications@1.0.1
+
 ## 1.0.1
 
 ### Patch Changes

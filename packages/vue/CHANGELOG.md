@@ -1,5 +1,12 @@
 # @aws-amplify/ui-vue
 
+## 3.1.19
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @aws-amplify/ui@5.6.5
+
 ## 3.1.18
 
 ### Patch Changes
