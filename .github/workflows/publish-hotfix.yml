@@ -4,11 +4,11 @@
 
 # If successful, we will publish all updated UI packages to NPM.
 
-name: Test and Publish / hotfix
+name: Test and Publish / hotfix-v4
 
 on:
   push:
-    branches: [hotfix]
+    branches: [hotfix-v4]
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -45,6 +45,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+        with:
+          ref: hotfix-v4
       - name: Setup Node.js 16
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
@@ -107,10 +109,10 @@ jobs:
           skip-cypress-binary: true # publishing doesn't need cypress
       - name: Build packages
         run: yarn build
-      - name: Publish to @latest
+      - name: Publish to hotfix tag # each publish requires a tag so we use hotfix here just to get the version out
         uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
         with:
-          publish: yarn publish:latest
+          publish: yarn publish:hotfix
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react",
-  "version": "4.6.5",
+  "version": "4.6.6",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -108,6 +108,9 @@
     "size-limit": "^7.0.8",
     "ts-jest": "^27.0.3",
     "ts-morph": "^12.0.0"
+  },
+  "resolutions": {
+    "style-dictionary": "3.9.1"
   },
   "sideEffects": [
     "dist/**/*.css"

@@ -12,7 +12,7 @@
     "setup:hotfix": "yarn script:install && yarn updatePackage:hotfix",
     "setup:next-release": "yarn script:install && yarn updatePackage:next-release",
     "test": "yarn --cwd e2e test",
-    "updatePackage:hotfix": "node script/changeCanaryPackageVersion.mjs hotfix",
+    "updatePackage:hotfix": "node script/changeCanaryPackageVersion.mjs hotfix && node script/changePackageVersion.mjs aws-amplify 5",
     "updatePackage:next": "node script/changeCanaryPackageVersion.mjs next",
     "updatePackage:reactv4": "node script/changeCanaryPackageVersion.mjs react-v4-next",
     "updatePackage:next-release": "node script/changeCanaryPackageVersion.mjs next-release",

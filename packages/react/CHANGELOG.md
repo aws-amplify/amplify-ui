@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react
 
+## 4.6.6
+
+### Patch Changes
+
+- Upgrade style-dictionary version
+
 ## 4.6.5
 
 ### Patch Changes
