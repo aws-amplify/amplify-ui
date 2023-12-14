@@ -8,12 +8,8 @@ htmlElement: hr
 supportedFrameworks: react
 ---
 
-import { Fragment } from '@/components/Fragment';
-import { PageTabLayout } from '@/components/Layout/PageTabLayout';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
-import { PropsTableTab } from '@/components/propsTable/PropsTableTab';
-import { InlineFilter } from '@/components/InlineFilter';
-import data from '@/data/props-table.json';
+import { PrimitiveTabs } from '@/components/PrimitiveTabs';
 import ReactPage from './react.mdx';
 
 export async function getStaticPaths() {
@@ -26,18 +22,6 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-<PageTabLayout 
-  tabComponents={[{
-    title: "Documentation", 
-    children: <ReactPage />
-  },
-  {
-    title: "Props", 
-    children: <PropsTableTab 
-                componentName={frontmatter.title} 
-                PropsData={data} 
-                htmlElement={frontmatter.htmlElement} 
-                mdnUrl={frontmatter.mdnUrl}
-              />
-  }]}
-/> 
+<PrimitiveTabs {...frontmatter}>
+  <ReactPage />
+</PrimitiveTabs> 

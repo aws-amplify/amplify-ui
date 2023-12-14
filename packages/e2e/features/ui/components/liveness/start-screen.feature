@@ -15,4 +15,4 @@ Feature: Liveness Start Screen
   @react
   Scenario: Click the pop-over icon and see the notes
     Then I click the "popover-icon"
-    Then I see "Some people may experience may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition."
+    Then I see "Some people may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition."
