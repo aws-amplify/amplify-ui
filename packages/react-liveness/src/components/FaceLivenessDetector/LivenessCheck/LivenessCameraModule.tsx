@@ -305,8 +305,8 @@ export const LivenessCameraModule = (
 
       <Flex
         className={classNames(
-          LivenessClassNames.CameraModule
-          // isRecordingOnMobile && `${LivenessClassNames.CameraModule}--mobile`
+          LivenessClassNames.CameraModule,
+          isRecordingOnMobile && `${LivenessClassNames.CameraModule}--mobile`
         )}
         data-testid={testId}
         gap="zero"
