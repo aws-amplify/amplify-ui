@@ -4,7 +4,7 @@
 
 # If successful, we will publish all updated UI packages to NPM.
 
-name: Test and Publish / hotfix
+name: Test and Publish / hotfix-v5
 
 on:
   push:
@@ -109,28 +109,13 @@ jobs:
           skip-cypress-binary: true # publishing doesn't need cypress
       - name: Build packages
         run: yarn build
-      - name: Publish to @latest
+      - name: Publish to hotfix tag # each publish requires a tag so we use hotfix here just to get the version out
         uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
         with:
-          publish: yarn publish:latest
+          publish: yarn publish:hotfix
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-  log-failure-metric:
-    # Send a failure data point to metric PublishLatestFailure in github-workflows@ us-east-2
-    runs-on: ubuntu-latest
-    environment: ci
-    needs: publish
-    if: ${{ failure() }}
-    steps:
-      - name: Log failure data point to metric PublishLatestFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
-        with:
-          metric-name: PublishLatestFailure
-          value: 1
-          role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
-          aws-region: us-east-2
 
   log-success-metric:
     # Send a success data point to metric PublishLatestFailure in github-workflows@ us-east-2
