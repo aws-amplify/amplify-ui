@@ -6,47 +6,22 @@ import { Tabs, View } from '@aws-amplify/ui-react';
 export const PageTabLayout = ({
   tabComponents,
 }: {
-  tabComponents: [{ title: string; children: React.ReactNode }];
+  tabComponents: { title: string; children: React.ReactNode }[];
 }) => {
-  const {
-    query: { tab = '', platform },
-    pathname,
-    push,
-  } = useRouter();
-  const tabComponentsMap = tabComponents.map(({ title }) =>
-    title.toLocaleLowerCase()
-  );
+  const { query, pathname, push } = useRouter();
 
-  const getValue = React.useCallback(
-    (tab: string) => (tab === '' ? tabComponentsMap[0] : tab),
-    [tabComponentsMap]
-  );
-  const defaultValue = getValue(tab as string);
+  const defaultValue = tabComponents[0]['title'].toLocaleLowerCase();
 
-  const [currentTab, setCurrentTab] = React.useState(defaultValue);
-  const changeURL = (tab) => {
-    push(
-      {
-        pathname,
-        query: {
-          platform,
-          ...(tab !== tabComponentsMap[0] ? { tab: tab.toLowerCase() } : null),
-        },
-      },
-      undefined,
-      { shallow: true }
-    );
-    setCurrentTab(tab);
+  const handleValueChange = (value: string) => {
+    const { platform } = query;
+    const tab = value !== defaultValue ? value.toLocaleLowerCase() : undefined;
+    push({ pathname, query: { platform, tab } }, undefined, { shallow: true });
   };
-
-  React.useEffect(() => {
-    setCurrentTab(getValue(tab as string));
-  }, [tab, getValue]);
 
   return (
     <Tabs.Container
       defaultValue={defaultValue}
-      onValueChange={changeURL}
+      onValueChange={handleValueChange}
       isLazy
     >
       <Tabs.List>
