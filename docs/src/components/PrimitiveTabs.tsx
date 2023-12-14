@@ -1,6 +1,5 @@
 import { PageTabLayout } from '@/components/Layout/PageTabLayout';
 import { PropsTableTab } from '@/components/propsTable/PropsTableTab';
-import data from '@/data/props-table.json';
 
 export const PrimitiveTabs = ({ children, htmlElement, mdnUrl, title }) => {
   return (
