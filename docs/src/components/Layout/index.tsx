@@ -56,7 +56,6 @@ export default function Page({
     });
     updateHeaders(); // with static rendering the mutation observer is no longer triggered on initial page view because the content has already been rendered
 
-    updateHeaders();
     const observer = new MutationObserver(updateHeaders);
 
     observer.observe(document.querySelector(nextRootSelector), {
