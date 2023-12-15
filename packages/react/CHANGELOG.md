@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- Upgrade style-dictionary version
+- Add style-dictionary resolution
 
 ## 4.6.5
 
