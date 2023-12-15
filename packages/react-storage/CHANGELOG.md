@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- Upgrade style-dictionary version
+- Add style-dictionary resolution
 
 - Updated dependencies []:
   - @aws-amplify/ui-react@4.6.6
