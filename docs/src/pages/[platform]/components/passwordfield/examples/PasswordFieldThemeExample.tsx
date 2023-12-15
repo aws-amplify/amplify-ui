@@ -1,22 +1,31 @@
-import { PasswordField, ThemeProvider, Theme } from '@aws-amplify/ui-react';
+import {
+  PasswordField,
+  ThemeProvider,
+  Theme,
+  Button,
+} from '@aws-amplify/ui-react';
 
 const theme: Theme = {
   name: 'passwordfield-theme',
   tokens: {
     components: {
+      button: {
+        primary: {
+          error: {
+            backgroundColor: { value: 'orange' },
+            _focus: { backgroundColor: { value: 'orange' } },
+            _hover: { backgroundColor: { value: 'blue' } },
+            _active: { backgroundColor: { value: 'yellow' } },
+          },
+        },
+      },
       passwordfield: {
         button: {
-          color: { value: 'red' },
-          _hover: {
-            backgroundColor: { value: '{colors.blue.60}' },
-            color: { value: 'white' },
-          },
-          _active: {
-            backgroundColor: { value: '{colors.green.60}' },
-            color: { value: 'white' },
-          },
-          _focus: {
-            color: { value: 'white' },
+          _error: {
+            backgroundColor: { value: 'orange' },
+            _focus: { backgroundColor: { value: 'orange' } },
+            _hover: { backgroundColor: { value: 'blue' } },
+            _active: { backgroundColor: { value: 'yellow' } },
           },
         },
       },
@@ -35,7 +44,8 @@ const theme: Theme = {
 export const PasswordFieldThemeExample = () => {
   return (
     <ThemeProvider theme={theme} colorMode="light">
-      <PasswordField label="Password" />
+      <PasswordField hasError={true} label="Password" />
+      <Button variation="primary" colorTheme="error"></Button>
     </ThemeProvider>
   );
 };
