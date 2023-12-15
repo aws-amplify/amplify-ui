@@ -124,11 +124,11 @@ describe('MessageLayout component', () => {
     expect(textContainer).toHaveClass(`${TEXT_CONTAINER_CLASS}--horizontal`);
   });
 
-  it('should trigger onClose function', () => {
+  it('should trigger onClose function', async () => {
     render(<MessageLayout {...TEST_PROPS} />);
 
     const closeButton = screen.getByRole('button');
-    userEvent.click(closeButton);
+    await userEvent.click(closeButton);
     expect(mockOnClose).toHaveBeenCalled();
   });
 
@@ -172,7 +172,7 @@ describe('MessageLayout component', () => {
     );
   });
 
-  it('should trigger the button onAction functions', () => {
+  it('should trigger the button onAction functions', async () => {
     render(
       <MessageLayout
         {...TEST_PROPS}
@@ -181,10 +181,11 @@ describe('MessageLayout component', () => {
       />
     );
 
-    userEvent.click(screen.getByText(PRIMARY_BUTTON));
+    await userEvent.click(screen.getByText(PRIMARY_BUTTON));
     expect(mockPrimaryButtonOnAction).toHaveBeenCalled();
     expect(mockSecondaryButtonOnAction).not.toHaveBeenCalled();
-    userEvent.click(screen.getByText(SECONDARY_BUTTON));
+
+    await userEvent.click(screen.getByText(SECONDARY_BUTTON));
     expect(mockSecondaryButtonOnAction).toHaveBeenCalled();
   });
 
