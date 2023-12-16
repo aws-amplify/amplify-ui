@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { Framework } from '@/data/frameworks';
 
-interface InlineFilterProps {
+export interface InlineFilterProps {
   children: React.ReactNode;
   /**
    * List of platforms that will render this content. If the current platform
@@ -21,7 +21,7 @@ export const InlineFilter = ({ filters, children }: InlineFilterProps) => {
   const router = useRouter();
 
   const platform = router?.query?.platform;
-  
+
   const showContent =
     typeof platform === 'string' &&
     Array.isArray(filters) &&
