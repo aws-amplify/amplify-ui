@@ -82,3 +82,15 @@ Feature: Sign In with Email
   @angular @react @vue
   Scenario: Password fields autocomplete "current-password"
     Then "Password" field autocompletes "current-password"
+
+  @angular @react @vue @react-native
+  Scenario: Sign in with confirmed credentials, reload, sign out, then see custom form fields
+    When I type my "email" with status "CONFIRMED"
+    Then I type my password
+    Then I click the "Sign in" button
+    Then I see "Sign out"
+    When I reload the page
+    Then I see "Sign out"
+    Then I click the "Sign out" button
+    Then I see "Sign in"
+    Then I see placeholder "Enter your cool email"

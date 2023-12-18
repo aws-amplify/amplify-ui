@@ -41,7 +41,7 @@ Feature: Sign In with Phone Number
   @angular @react @vue
   Scenario: Sign up and replace dial code list
     When I click the "Create Account" tab
-    Then the 'Country code' select drop down should have a length of '5'
+    Then the 'Country code' select drop down should have a length of '4'
     Then the 'Country code' select drop down is '+227'
 
   @angular @react @vue @react-native

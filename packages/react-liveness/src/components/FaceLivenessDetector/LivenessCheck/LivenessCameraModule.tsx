@@ -83,7 +83,6 @@ const showMatchIndicatorStates = [
   FaceMatchState.TOO_FAR,
   FaceMatchState.CANT_IDENTIFY,
   FaceMatchState.FACE_IDENTIFIED,
-  FaceMatchState.MATCHED,
 ];
 
 /**
@@ -110,7 +109,10 @@ export const LivenessCameraModule = (
 
   const { cancelLivenessCheckText, recordingIndicatorText } = streamDisplayText;
 
-  const { ErrorView = FaceLivenessErrorModal } = customComponents ?? {};
+  const {
+    ErrorView = FaceLivenessErrorModal,
+    PhotosensitiveWarning = DefaultPhotosensitiveWarning,
+  } = customComponents ?? {};
 
   const [state, send] = useLivenessActor();
 
@@ -219,17 +221,20 @@ export const LivenessCameraModule = (
     }
   }, [send, videoRef, isCameraReady, isMobileScreen]);
 
-  const photoSensitivtyWarning = React.useMemo(() => {
+  const photoSensitivityWarning = React.useMemo(() => {
     return (
       <View style={{ visibility: isStartView ? 'visible' : 'hidden' }}>
-        <DefaultPhotosensitiveWarning
-          headingText={instructionDisplayText.photosensitivyWarningHeadingText}
-          bodyText={instructionDisplayText.photosensitivyWarningBodyText}
-          infoText={instructionDisplayText.photosensitivyWarningInfoText}
+        <PhotosensitiveWarning
+          bodyText={instructionDisplayText.photosensitivityWarningBodyText}
+          headingText={
+            instructionDisplayText.photosensitivityWarningHeadingText
+          }
+          infoText={instructionDisplayText.photosensitivityWarningInfoText}
+          labelText={instructionDisplayText.photosensitivityWarningLabelText}
         />
       </View>
     );
-  }, [instructionDisplayText, isStartView]);
+  }, [PhotosensitiveWarning, instructionDisplayText, isStartView]);
 
   const handleMediaPlay = () => {
     setIsCameraReady(true);
@@ -291,7 +296,7 @@ export const LivenessCameraModule = (
 
   return (
     <>
-      {photoSensitivtyWarning}
+      {photoSensitivityWarning}
 
       <Flex
         className={classNames(
@@ -325,6 +330,7 @@ export const LivenessCameraModule = (
             onCanPlay={handleMediaPlay}
             data-testid="video"
             className={LivenessClassNames.Video}
+            aria-label={cameraDisplayText.a11yVideoLabelText}
           />
           <Flex
             className={classNames(
@@ -362,6 +368,7 @@ export const LivenessCameraModule = (
                 onRetry={() => {
                   send({ type: 'CANCEL' });
                 }}
+                displayText={errorDisplayText}
               >
                 {renderErrorModal({
                   errorState,
