@@ -1,5 +1,48 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.0.6
+
+### Patch Changes
+
+- [#4822](https://github.com/aws-amplify/amplify-ui/pull/4822) [`4a5dcb0af`](https://github.com/aws-amplify/amplify-ui/commit/4a5dcb0af14aa71568d3890acf232d03a132442c) Thanks [@thaddmt](https://github.com/thaddmt)! - chore: add explicit aria tags to hints
+
+- [#4803](https://github.com/aws-amplify/amplify-ui/pull/4803) [`a1b4c5464`](https://github.com/aws-amplify/amplify-ui/commit/a1b4c54648bdaf2909beec25472cc0be76eda4bf) Thanks [@esauerbo](https://github.com/esauerbo)! - fix(liveness): add a11y tags to `FaceLivenessErrorModal`
+
+- [#4811](https://github.com/aws-amplify/amplify-ui/pull/4811) [`38bae5ee5`](https://github.com/aws-amplify/amplify-ui/commit/38bae5ee522bf572cc065953b2a94710e6913cc2) Thanks [@esauerbo](https://github.com/esauerbo)! - fix(liveness): adding aria attributes for photosensitivity warning
+
+  Use a button for photosensitivity warning toggle instead of div to it make keyboard navigable.
+  Add aria roles to make the warning accessible for screen readers.
+
+- Updated dependencies [[`38bae5ee5`](https://github.com/aws-amplify/amplify-ui/commit/38bae5ee522bf572cc065953b2a94710e6913cc2)]:
+  - @aws-amplify/ui-react@6.0.6
+  - @aws-amplify/ui@6.0.5
+
+## 3.0.5
+
+### Patch Changes
+
+- [#4802](https://github.com/aws-amplify/amplify-ui/pull/4802) [`c526cf53b`](https://github.com/aws-amplify/amplify-ui/commit/c526cf53bc07bb85c0789aa5edfdfcb4485fa5f5) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(liveness): add a11y tags to match indicator bar
+
+- Updated dependencies [[`c526cf53b`](https://github.com/aws-amplify/amplify-ui/commit/c526cf53bc07bb85c0789aa5edfdfcb4485fa5f5), [`cc2740b9a`](https://github.com/aws-amplify/amplify-ui/commit/cc2740b9a033e587715a37c379166388b267ff4e)]:
+  - @aws-amplify/ui-react@6.0.5
+  - @aws-amplify/ui@6.0.4
+
+## 3.0.4
+
+### Patch Changes
+
+- [#4770](https://github.com/aws-amplify/amplify-ui/pull/4770) [`91ffe6329`](https://github.com/aws-amplify/amplify-ui/commit/91ffe6329a7106190c1e0bd1dd139a09b7f88a8f) Thanks [@thaddmt](https://github.com/thaddmt)! - fix: liveness fix customizing photosensitivity warning
+
+- [#4809](https://github.com/aws-amplify/amplify-ui/pull/4809) [`04dc191a6`](https://github.com/aws-amplify/amplify-ui/commit/04dc191a692cf05b88d9f755744261806bb89e81) Thanks [@thaddmt](https://github.com/thaddmt)! - chore: add i18n for a11y video text
+
+- [#4808](https://github.com/aws-amplify/amplify-ui/pull/4808) [`6860190b3`](https://github.com/aws-amplify/amplify-ui/commit/6860190b3e1adff4df65df38bf5c716b31e7a379) Thanks [@thaddmt](https://github.com/thaddmt)! - chore: added aria label for video element on liveness
+
+- [#4792](https://github.com/aws-amplify/amplify-ui/pull/4792) [`fe68b66c9`](https://github.com/aws-amplify/amplify-ui/commit/fe68b66c932d64cbd338daed408ef76b39d49f45) Thanks [@ahnucl](https://github.com/ahnucl)! - fix(liveness): pass displayText to LivenessCameraModule
+
+- Updated dependencies [[`ed55a6a36`](https://github.com/aws-amplify/amplify-ui/commit/ed55a6a36b9250db50e3edaf31b53ce4fc35edfe), [`272a05edc`](https://github.com/aws-amplify/amplify-ui/commit/272a05edcafa8f9e0e53ed1eb66f566f308d09b3)]:
+  - @aws-amplify/ui@6.0.3
+  - @aws-amplify/ui-react@6.0.4
+
 ## 3.0.3
 
 ### Patch Changes

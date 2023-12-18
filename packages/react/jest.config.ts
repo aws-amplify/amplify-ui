@@ -11,20 +11,12 @@ const config: Config = {
     // do not collect coverage for the Authenticator
     '!<rootDir>/src/components/Authenticator/**/*.(ts|tsx)',
   ],
-  // coverageThreshold: {
-  //   global: {
-  //     branches: 80,
-  //     functions: 80,
-  //     lines: 91,
-  //     statements: 91,
-  //   },
-  // },
   coverageThreshold: {
     global: {
-      branches: 61.11,
-      functions: 30.79,
-      lines: 42.73,
-      statements: 44.58,
+      branches: 80,
+      functions: 80,
+      lines: 91,
+      statements: 95,
     },
   },
   moduleNameMapper: { '^uuid$': '<rootDir>/../../node_modules/uuid' },

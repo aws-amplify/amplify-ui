@@ -34,6 +34,10 @@ export const MatchIndicator: React.FC<MatchIndicatorProps> = ({
       <div
         className={`${LivenessClassNames.MatchIndicator}__bar`}
         style={percentageStyles}
+        role="progressbar"
+        aria-label="MatchIndicator"
+        aria-valuenow={percentage}
+        aria-valuetext={`${percentage}% face fit`}
       ></div>
     </div>
   );

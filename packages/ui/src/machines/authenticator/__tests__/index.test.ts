@@ -425,21 +425,53 @@ describe('authenticator', () => {
 
   it('should refresh token', async () => {
     service = interpret(
-      createAuthenticatorMachine().withConfig({
-        actions: {
-          setUser: jest.fn(() => Promise.resolve),
-        },
-        services: {
-          handleGetCurrentUser: jest.fn(async () => Promise.resolve),
-        },
-        guards: {},
-      })
+      createAuthenticatorMachine()
+        .withConfig({
+          actions: {
+            setUser: jest.fn(() => Promise.resolve),
+          },
+          services: {
+            handleGetCurrentUser: jest.fn(async () => Promise.resolve),
+            getAmplifyConfig: () =>
+              Promise.resolve({}) as ReturnType<
+                (typeof defaultServices)['getAmplifyConfig']
+              >,
+          },
+          guards: {
+            hasUser: () => true,
+          },
+        })
+        .withConfig({
+          actions: {
+            forwardToActor: jest.fn(() => Promise.resolve),
+            setActorDoneData: jest.fn(() => Promise.resolve),
+            clearUser: jest.fn(() => Promise.resolve),
+            clearActorDoneData: jest.fn(() => Promise.resolve),
+            applyAmplifyConfig: jest.fn(() => Promise.resolve),
+            setUser: jest.fn(() => Promise.resolve),
+            spawnForgotPasswordActor: jest.fn(() => Promise.resolve),
+            spawnSignOutActor: jest.fn(() => Promise.resolve),
+            stopSignInActor: jest.fn(() => Promise.resolve),
+            stopResetPasswordActor: jest.fn(() => Promise.resolve),
+            stopSignOutActor: jest.fn(() => Promise.resolve),
+            configure: jest.fn(() => Promise.resolve),
+            setHasSetup: jest.fn(() => Promise.resolve),
+          },
+        })
     );
 
     service.start();
 
     expect(service.getSnapshot().value).toStrictEqual('idle');
 
+    await flushPromises();
+    expect(service.getSnapshot().value).toStrictEqual({
+      setup: 'initConfig',
+    });
+
+    service.send({
+      type: 'INIT',
+    });
     await flushPromises();
     expect(service.getSnapshot().value).toStrictEqual({
       authenticated: 'idle',
