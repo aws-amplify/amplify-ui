@@ -26,6 +26,7 @@ export const ComponentClassName = {
   Button: 'amplify-button',
   ButtonGroup: 'amplify-buttongroup',
   ButtonLoaderWrapper: 'amplify-button__loader-wrapper',
+  ButtonBadge: 'amplify-button__badge',
   Card: 'amplify-card',
   Checkbox: 'amplify-checkbox',
   CheckboxButton: 'amplify-checkbox__button',
