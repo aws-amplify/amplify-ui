@@ -220,8 +220,8 @@ export class AuthenticatorService implements OnDestroy {
 
     this._unsubscribeHub = listenToAuthHub(
       this._authService,
-      async (data, service) => {
-        await defaultAuthHubHandler(data, service, { onSignIn, onSignOut });
+      (data, service) => {
+        defaultAuthHubHandler(data, service, { onSignIn, onSignOut });
         this._hubSubject.next();
       }
     );

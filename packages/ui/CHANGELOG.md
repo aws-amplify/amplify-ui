@@ -1,5 +1,22 @@
 # @aws-amplify/ui
 
+## 6.0.6
+
+### Patch Changes
+
+- [#4777](https://github.com/aws-amplify/amplify-ui/pull/4777) [`4f643b05b`](https://github.com/aws-amplify/amplify-ui/commit/4f643b05b010901226bf200f8d0b06601d0ecab5) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui): fix defaultAuthHubListener unit tests, remove asynchronous declaration
+
+- [#4861](https://github.com/aws-amplify/amplify-ui/pull/4861) [`190bf28d1`](https://github.com/aws-amplify/amplify-ui/commit/190bf28d1b570329f415d2d4c03e608a3b30412b) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): fix user attribute parsing for amplify >= v6.0.6
+
+## 6.0.5
+
+### Patch Changes
+
+- [#4811](https://github.com/aws-amplify/amplify-ui/pull/4811) [`38bae5ee5`](https://github.com/aws-amplify/amplify-ui/commit/38bae5ee522bf572cc065953b2a94710e6913cc2) Thanks [@esauerbo](https://github.com/esauerbo)! - fix(liveness): adding aria attributes for photosensitivity warning
+
+  Use a button for photosensitivity warning toggle instead of div to it make keyboard navigable.
+  Add aria roles to make the warning accessible for screen readers.
+
 ## 6.0.4
 
 ### Patch Changes
