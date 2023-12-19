@@ -27,7 +27,6 @@ exports[`authenticator renders confirmResetPassword subcomponent 1`] = `
           <form
             data-amplify-authenticator-confirmresetpassword=""
             data-amplify-form=""
-            role="form"
           >
             
             
@@ -521,7 +520,6 @@ exports[`authenticator renders forceNewPassword subcomponent 1`] = `
           <form
             data-amplify-authenticator-forcenewpassword=""
             data-amplify-form=""
-            role="form"
           >
             
             

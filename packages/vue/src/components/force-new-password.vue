@@ -57,7 +57,6 @@ function onBlur(e: Event) {
         @input="onInput"
         @blur.capture="onBlur"
         @submit.prevent="onForceNewPasswordSubmit"
-        role="form"
       >
         <base-field-set
           class="amplify-flex amplify-authenticator__column"
