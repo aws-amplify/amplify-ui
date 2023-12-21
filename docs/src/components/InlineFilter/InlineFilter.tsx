@@ -1,4 +1,7 @@
 import { useRouter } from 'next/router';
+import { FilterChildren } from '@aws-amplify/ui-react/internal';
+import { isString } from '@aws-amplify/ui';
+
 import { Framework } from '@/data/frameworks';
 
 export interface InlineFilterProps {
@@ -19,12 +22,15 @@ export interface InlineFilterProps {
  */
 export const InlineFilter = ({ filters, children }: InlineFilterProps) => {
   const router = useRouter();
-
   const platform = router?.query?.platform;
 
-  const showContent =
-    typeof platform === 'string' &&
-    Array.isArray(filters) &&
-    filters.some((filter) => filter === platform || filter === 'all');
-  return showContent ? children : null;
+  if (!isString(platform)) {
+    return null;
+  }
+
+  return (
+    <FilterChildren allowedFilters={filters} targetFilter={platform}>
+      {children}
+    </FilterChildren>
+  );
 };
