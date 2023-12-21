@@ -1,8 +1,5 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
-
-import { ComponentClassName } from '@aws-amplify/ui';
-
+import { classNames, ComponentClassName } from '@aws-amplify/ui';
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import {
   BaseButtonProps,
@@ -17,6 +14,7 @@ import { useFieldset } from '../Fieldset/useFieldset';
 import { Flex } from '../Flex';
 import { Loader } from '../Loader';
 import { View } from '../View';
+import { Badge } from '../Badge';
 
 // These variations support colorThemes. 'undefined' accounts for our
 // 'default' variation which is not named.
@@ -34,6 +32,10 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
     size,
     type = 'button',
     variation,
+    hasBadge = false,
+    badgeContent = '',
+    badgePosition = 'top-right',
+    badgeVariation,
     ...rest
   },
   ref
@@ -70,6 +72,16 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
     className
   );
 
+  const badgeClasses = classNames(
+    ComponentClassName.ButtonBadge,
+    classNameModifier(ComponentClassName.ButtonBadge, badgePosition),
+    // Add padding to the badge if the button is not a link
+    classNameModifier(
+      ComponentClassName.ButtonBadge,
+      variation === 'link' ? badgePosition : `${badgePosition}--padding`
+    )
+  );
+
   return (
     <View
       ref={ref}
@@ -79,6 +91,12 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
       type={type}
       {...rest}
     >
+      {hasBadge ? (
+        <Badge className={badgeClasses} variation={badgeVariation}>
+          {badgeContent}
+        </Badge>
+      ) : null}
+
       {isLoading ? (
         <Flex as="span" className={ComponentClassName.ButtonLoaderWrapper}>
           <Loader size={size} />

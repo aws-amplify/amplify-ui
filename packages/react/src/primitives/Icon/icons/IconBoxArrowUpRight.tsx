@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
-import { ComponentClassName } from '@aws-amplify/ui';
+import { classNames, ComponentClassName } from '@aws-amplify/ui';
 import { View } from '../../View';
 import { InternalIcon } from './types';
 /**

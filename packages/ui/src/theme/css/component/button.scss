@@ -37,6 +37,7 @@
   padding-inline-end: var(--amplify-components-button-padding-inline-end);
   transition: all var(--amplify-components-button-transition-duration);
   user-select: none;
+  position: relative;
 
   // These are the internal css variables that are used to update the values that are updated by multiple modifiers
   // Disabled
@@ -1237,6 +1238,45 @@
   &__loader-wrapper {
     align-items: var(--amplify-components-button-loader-wrapper-align-items);
     gap: var(--amplify-components-button-loader-wrapper-gap);
+  }
+
+  &__badge {
+    position: absolute;
+    gap: var(--amplify-components-button-loader-wrapper-gap);
+    // The badge padding has the same value so that an empty badge is a circle instead of a pill shape
+    padding: var(--amplify-components-badge-padding-vertical);
+  }
+
+  &__badge--top-right {
+    top: 0px;
+    right: 0px;
+    &--padding {
+      transform: translate(50%, -50%);
+    }
+  }
+
+  &__badge--top-left {
+    top: 0px;
+    left: 0px;
+    &--padding {
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &__badge--bottom-right {
+    bottom: 0px;
+    right: 0px;
+    &--padding {
+      transform: translate(50%, 50%);
+    }
+  }
+
+  &__badge--bottom-left {
+    bottom: 0px;
+    left: 0px;
+    &--padding {
+      transform: translate(-50%, 50%);
+    }
   }
 }
 
