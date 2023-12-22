@@ -1,11 +1,14 @@
 import { Tabs } from '@aws-amplify/ui-react';
-import { Fragment } from '@/components/Fragment';
+import { ExampleCode } from '@/components/Example';
+import Liveness from './liveness-service-setup.mdx';
+import CognitoCallout from './cognito-callout.mdx';
+import QuickStart from './quick-start-pull-cli.mdx';
+import AddAndroid from './quick-start-add.android.mdx';
+import Credentials from './credentials-provider-callout.mdx';
 
 There are four methods to setup the Amazon Cognito resources needed for Amplify Auth. The most common is the Amplify CLI create flow which asks a series of questions and will configure both a User Pool and Identity Pool automatically. The second option is the Amplify CLI import flow which adds an existing Cognito resource into Amplify. The third is to reuse or create a Cognito Identity Pool manually and to add it into your application. Finally the fourth is to pass a credentials provider which obtains the AWS credentials under your control.
 
-<Fragment>
-  {({}) => import(`./cognito-callout.mdx`)}
-</Fragment>
+<CognitoCallout />
 
 <Tabs.Container defaultValue="Amplify CLI">
   <Tabs.List>
@@ -32,9 +35,7 @@ Please tell us about your project
 ? Where is your Res directory:  app/src/main/res
 ```
 
-<Fragment>
-  {({ platform }) => import(`./quick-start-pull-cli.mdx`)}
-</Fragment>
+<QuickStart />
 
 #### Push to create the resources
 
@@ -53,9 +54,7 @@ _If you have an existing backend, run `amplify pull` to sync your `amplifyconfig
 
 You should now have an `amplifyconfiguration.json` file in your `app/src/main/res/raw` directory with your latest backend configuration.
 
-<Fragment>
-  {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}
-</Fragment>
+<AddAndroid />
 
   </Tabs.Panel>
   <Tabs.Panel value="Existing Cognito Resource">
@@ -63,9 +62,7 @@ You should now have an `amplifyconfiguration.json` file in your `app/src/main/re
 
 FaceLivenessDetector uses Amplify Auth by default to authorize users to perform the Face Liveness check. Follow the instructions for [importing existing resources](https://docs.amplify.aws/lib/auth/getting-started/q/platform/android/#set-up-backend-resources).
 
-<Fragment>
-  {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}
-</Fragment>
+<AddAndroid />
 
   </Tabs.Panel>
   <Tabs.Panel value="Self Managed Cognito Resource">
@@ -96,9 +93,7 @@ When initially configuring Amplify (assuming you are using no pieces of Amplify 
 }
 ```
 
-<Fragment>
-  {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}
-</Fragment>
+<AddAndroid />
 
   </Tabs.Panel>
   <Tabs.Panel value="Custom Credentials Provider">
@@ -133,13 +128,122 @@ FaceLivenessDetector(
 )
 ```
 
-<Fragment>
-  {({}) => import(`./credentials-provider-callout.mdx`)}
-</Fragment>
+<Credentials />
 
-<Fragment>
-  {({ platform }) => import(`./quick-start-add-with-credentials-provider.android.mdx`)}
-</Fragment>
+  <Liveness />
+
+  ### Step 2. Install dependencies
+
+  FaceLivenessDetector component is built using [Jetpack Compose](https://developer.android.com/jetpack/compose). Enable Jetpack Compose by adding the following to the `android` section of your **app**'s `build.gradle` file:
+
+  ```groovy
+  compileOptions {
+      // Support for Java 8 features
+      coreLibraryDesugaringEnabled true
+      sourceCompatibility JavaVersion.VERSION_1_8
+      targetCompatibility JavaVersion.VERSION_1_8
+  }
+  buildFeatures {
+      compose true
+  }
+  composeOptions {
+    kotlinCompilerExtensionVersion '1.2.0'
+  }
+  ```
+
+  Add the following dependencies to your **app**'s `build.gradle` file and click "Sync Now" when prompted:
+
+  ```groovy
+  dependencies {
+      // FaceLivenessDetector dependency
+      implementation 'com.amplifyframework.ui:liveness:1.2.0'
+      
+      // Material3 dependency for theming FaceLivenessDetector
+      implementation 'androidx.compose.material3:material3:1.1.2'
+      
+      // Support for Java 8 features
+      coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+  }
+  ```
+
+  ### Step 3. Request camera permissions
+
+  FaceLivenessDetector requires access to the camera on the user's device in order to perform the Face Liveness check. Before displaying FaceLivenessDetector, prompt the user to grant camera permission. Please follow these guides for examples of requesting camera permission using either [Android](https://developer.android.com/training/permissions/requesting) or [Jetpack Compose](https://google.github.io/accompanist/permissions/).
+
+  ### Step 4. Add FaceLivenessDetector
+
+  <Tabs.Container defaultValue="Kotlin" justifyContent="flex-start">
+  <Tabs.List>
+  <Tabs.Item value="Kotlin">Kotlin</Tabs.Item>
+  <Tabs.Item value="Java">Java</Tabs.Item>
+  </Tabs.List>
+    <Tabs.Panel value="Kotlin">
+      In the `onCreate` of your app's `MainActivity`, add the following code to display FaceLivenessDetector, replacing `<session ID>` with the session ID returned from creating the Face Liveness session and replacing `<region>` with the region you would like to use for the Face Liveness check. The list of supported regions is in the [Amazon Rekognition Face Liveness developer guide](https://docs.aws.amazon.com/general/latest/gr/rekognition.html). The code below wraps FaceLivenessDetector in a MaterialTheme that uses the Face Liveness color scheme. More information about theming is in the [Face Liveness Customization page](./liveness/customization).
+      <ExampleCode>
+      ```kotlin
+      setContent {
+          MaterialTheme(
+              colorScheme = LivenessColorScheme.default()
+          ) {
+              FaceLivenessDetector(
+                  sessionId = <session ID>,
+                  region = <region>,
+                  onComplete = {
+                      Log.i("MyApp", "Face Liveness flow is complete")
+                      // The Face Liveness flow is complete and the session
+                      // results are ready. Use your backend to retrieve the
+                      // results for the Face Liveness session.
+                  },
+                  onError = { error ->
+                      Log.e("MyApp", "Error during Face Liveness flow", error)
+                      // An error occurred during the Face Liveness flow, such as
+                      // time out or missing the required permissions.
+                  }
+              )
+          }
+      }
+      ```
+      </ExampleCode>
+    </Tabs.Panel>
+    <Tabs.Panel value="Java">
+      FaceLivenessDetector must be created in Kotlin but can still be used in a Java-based app. First, create a new Kotlin file called `MyView` and add the following code to create FaceLivenessDetector, replacing `<session ID>` with the session ID returned from creating the Face Liveness session and replacing `<region>` with the region you would like to use for the Face Liveness check. The list of supported regions is in the [Amazon Rekognition Face Liveness developer guide](https://docs.aws.amazon.com/general/latest/gr/rekognition.html). The code below wraps FaceLivenessDetector in a MaterialTheme that uses the Liveness color scheme. More information about theming is in the [Liveness Customization page](./liveness/customization).
+      <ExampleCode>
+      ```kotlin
+      object MyView {
+          fun setViewContent(activity: ComponentActivity) {
+              activity.setContent {
+                  MaterialTheme(
+                      colorScheme = LivenessColorScheme.default()
+                  ) {
+                      FaceLivenessDetector(
+                          sessionId = <session ID>,
+                          region = <region>,
+                          onComplete = {
+                              Log.i("MyApp", "Face Liveness flow is complete")
+                              // The Face Liveness flow is complete and the
+                              // session results are ready. Use your backend to
+                              // retrieve the results for the Face Liveness session.
+                          },
+                          onError = { error ->
+                              Log.e("MyApp", "Error during Face Liveness flow", error)
+                              // An error occurred during the Face Liveness flow, such
+                              // as time out or missing the required permissions.
+                          }
+                      )
+                  }
+              }
+          }
+      }
+      ```
+      </ExampleCode>
+      In the `onCreate` of your app's `MainActivity`, add the following code to display FaceLivenessDetector:
+      <ExampleCode>
+      ```java
+      MyView.setViewContent(this);
+      ```
+      </ExampleCode>
+    </Tabs.Panel>
+  </Tabs.Container>
 
   </Tabs.Panel>
 </Tabs.Container>

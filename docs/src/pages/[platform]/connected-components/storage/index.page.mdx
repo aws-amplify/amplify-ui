@@ -4,8 +4,8 @@ description: Cloud-connected UI components for managing user content in your app
 supportedFrameworks: react
 ---
 
-import { Fragment } from '@/components/Fragment';
 import { getCustomStaticPath } from "@/utils/getCustomStaticPath";
+import ReactPage from './react.mdx';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -17,4 +17,4 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+<ReactPage />
