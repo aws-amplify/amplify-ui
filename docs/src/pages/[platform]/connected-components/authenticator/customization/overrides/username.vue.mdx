@@ -16,10 +16,12 @@
       return signUp({
         username,
         password,
-        attributes,
-        autoSignIn: {
-          enabled: true,
-        },
+        options: {
+          userAttributes: {
+            ...attributes
+          },
+          autoSignIn: true
+        }
       });
     },
   };
