@@ -1,10 +1,11 @@
 ```html
 <script setup lang="ts">
-  import { Amplify, Auth } from 'aws-amplify';
+  import { Amplify } from 'aws-amplify';
+  import { signUp } from 'aws-amplify/auth';
   import { Authenticator } from '@aws-amplify/ui-vue';
   import '@aws-amplify/ui-vue/styles.css';
-  import aws_exports from './aws-exports';
-  Amplify.configure(aws_exports);
+  import amplifyconfig from './amplifyconfiguration';
+  Amplify.configure(amplifyconfig);
 
   const services = {
     async handleSignUp(formData) {
@@ -12,7 +13,7 @@
       // custom username
       username = username.toLowerCase();
       attributes.email = attributes.email.toLowerCase();
-      return Auth.signUp({
+      return signUp({
         username,
         password,
         attributes,

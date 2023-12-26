@@ -21,8 +21,9 @@ _app.component.ts_
 
 ```js{14}
 import { Component, OnInit } from '@angular/core';
-import { Amplify, Auth } from 'aws-amplify';
-import awsExports from './aws-exports';
+import { Amplify } from 'aws-amplify';
+import { signUp } from 'aws-amplify/auth'
+import amplifyconfig from './amplifyconfiguration.json';
 
 @Component({
   selector: 'sign-up-with-email',
@@ -30,7 +31,7 @@ import awsExports from './aws-exports';
 })
 export class SignUpWithEmailComponent implements OnInit {
   constructor() {
-    Amplify.configure(awsExports);
+    Amplify.configure(amplifyconfig);
   }
 
   services = {
@@ -39,7 +40,7 @@ export class SignUpWithEmailComponent implements OnInit {
       // custom username
       username = username.toLowerCase();
       attributes.email = attributes.email.toLowerCase();
-      return Auth.signUp({
+      return signUp({
         username,
         password,
         attributes,
