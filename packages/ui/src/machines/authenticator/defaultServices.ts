@@ -1,4 +1,5 @@
-import { Amplify } from 'aws-amplify';
+import { Amplify, ResourcesConfig } from 'aws-amplify';
+import { UserAttributeKey } from 'aws-amplify/auth';
 
 import {
   confirmResetPassword,
@@ -16,13 +17,37 @@ import {
   AuthTouchData,
   LoginMechanism,
   PasswordSettings,
-  SignUpAttribute,
   SocialProvider,
   ValidatorResult,
 } from '../../types';
 
 // Cognito does not allow a password length less then 8 characters
 const DEFAULT_COGNITO_PASSWORD_MIN_LENGTH = 8;
+
+type UserAttributes = ResourcesConfig['Auth']['Cognito']['userAttributes'];
+type InvalidUserAttributes =
+  ResourcesConfig['Auth']['Cognito']['userAttributes'][];
+
+const isInvalidUserAtributes = (
+  userAttributes: UserAttributes | InvalidUserAttributes
+): userAttributes is InvalidUserAttributes => Array.isArray(userAttributes);
+
+const parseUserAttributes = (
+  userAttributes: UserAttributes | InvalidUserAttributes
+): UserAttributeKey[] => {
+  if (!userAttributes) {
+    return undefined;
+  }
+
+  // `aws-amplify` versions <= 6.0.5 return an array of `userAttributes` rather than an object
+  if (isInvalidUserAtributes(userAttributes)) {
+    return Object.entries(userAttributes).map(
+      ([_, value]) => Object.keys(value)[0]
+    );
+  }
+
+  return Object.keys(userAttributes);
+};
 
 export const defaultServices = {
   async getAmplifyConfig() {
@@ -42,11 +67,7 @@ export const defaultServices = {
           }) as LoginMechanism[])
       : undefined;
 
-    const parsedSignupAttributes = userAttributes
-      ? (Object.entries(userAttributes).map(
-          ([_key, value]) => Object.keys(value)[0]
-        ) as SignUpAttribute[])
-      : undefined;
+    const parsedSignupAttributes = parseUserAttributes(userAttributes);
 
     const parsedSocialProviders = loginWith?.oauth?.providers
       ? (loginWith.oauth.providers?.map((provider) =>
