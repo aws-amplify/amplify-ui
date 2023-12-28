@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
-
-import { ComponentClassName } from '@aws-amplify/ui';
+import { classNames, ComponentClassName, isFunction } from '@aws-amplify/ui';
 import { DialCodeSelect } from './DialCodeSelect';
 import {
   PhoneNumberFieldProps,
@@ -32,27 +30,41 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
     defaultValue,
     onChange,
     value,
+    formatValue,
     ...rest
   },
   ref
 ) => {
   // state for the current dial code and default to the defaultDialCode
   const [dialCode, setDialCode] = React.useState<string>(defaultDialCode ?? '');
-
   // state for the formatted phone number and default to the defaultValue
-  const [formattedNumber, setFormattedNumber] = React.useState<string>(
-    formatPhoneNumber(dialCode, defaultValue?.toString() ?? '')
+  const [formattedValue, setFormattedValue] = React.useState<string>(
+    formatPhoneNumber(
+      dialCode,
+      value?.toString() ?? defaultValue?.toString() ?? ''
+    )
   );
 
-  const onNumberChange = React.useCallback(
+  React.useEffect(() => {
+    if (value !== undefined) {
+      // We are controlled component
+      setFormattedValue(value.toString());
+    }
+  }, [value, setFormattedValue]);
+
+  const onValueChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const phoneNumber = event.target.value;
-      // format the phone number with the current dial code
-      const formatted = formatPhoneNumber(dialCode, phoneNumber);
-      setFormattedNumber(formatted);
       onChange?.(event);
+      if (value === undefined) {
+        // We are a uncontrolled component
+        const number = event.target.value ?? defaultValue?.toString();
+        const formatted = isFunction(formatValue)
+          ? formatValue(dialCode, number)
+          : formatPhoneNumber(dialCode, number);
+        setFormattedValue(formatted);
+      }
     },
-    [dialCode, onChange]
+    [dialCode, formatValue, onChange, value, defaultValue]
   );
 
   const onDialCodeChangeWrapper = React.useCallback(
@@ -60,12 +72,17 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
       const code = event.target.value;
       // Call the onDialCodeChange prop if it exists
       setDialCode(code);
-      // Reformat the phone number with the new dial code
-      const formatted = formatPhoneNumber(code, formattedNumber);
-      setFormattedNumber(formatted);
       onDialCodeChange?.(event);
+      if (value === undefined) {
+        // We are a uncontrolled component
+        const number = formattedValue ?? defaultValue?.toString();
+        const formatted = isFunction(formatValue)
+          ? formatValue(code, number)
+          : formatPhoneNumber(code, number);
+        setFormattedValue(formatted);
+      }
     },
-    [formattedNumber, onDialCodeChange]
+    [formattedValue, defaultValue, value, onDialCodeChange, formatValue]
   );
 
   return (
@@ -93,9 +110,8 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
       isDisabled={isDisabled}
       isReadOnly={isReadOnly}
       onInput={onInput}
-      // Pass the onChange function to the TextField and use the formattedNumber state as the value
-      onChange={onNumberChange}
-      value={formattedNumber}
+      onChange={onValueChange}
+      value={formattedValue}
       ref={ref}
       size={size}
       type="tel"
@@ -104,7 +120,6 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
     />
   );
 };
-
 /**
  * [:book: Docs](https://ui.docs.amplify.aws/react/components/phonenumberfield)
  */
@@ -112,5 +127,4 @@ export const PhoneNumberField: ForwardRefPrimitive<
   PhoneNumberFieldProps,
   'input'
 > = primitiveWithForwardRef(PhoneNumberFieldPrimitive);
-
 PhoneNumberField.displayName = 'PhoneNumberField';

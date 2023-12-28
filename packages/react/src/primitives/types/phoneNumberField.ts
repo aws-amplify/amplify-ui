@@ -42,6 +42,12 @@ interface optionalPhoneNumberFieldProps
    * Forwarded ref for access to Dial Code select DOM element
    */
   dialCodeRef?: React.Ref<HTMLSelectElement>;
+
+  /**
+   * @description
+   * Function to format the value of the input
+   */
+  formatValue?: (dialCode, value: string) => string;
 }
 
 interface CountryCodeFieldProps {
