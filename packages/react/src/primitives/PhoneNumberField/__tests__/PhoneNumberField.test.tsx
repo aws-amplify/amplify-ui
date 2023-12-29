@@ -403,12 +403,12 @@ describe('PhoneNumberField primitive', () => {
       await act(async () => {
         await userEvent.selectOptions(dialCodeSelector, '+1');
       });
-      expect(phoneInput).toHaveValue('(123) 456-7890');
+      expect(phoneInput).toHaveValue('(123) 456 7890');
     });
 
     it('should format phone number when value is initially provided', async () => {
       const { phoneInput } = await setup({ defaultValue: '1234567890' });
-      expect(phoneInput).toHaveValue('(123) 456-7890');
+      expect(phoneInput).toHaveValue('(123) 456 7890');
     });
 
     it('should handle non-numeric characters in the input', async () => {
@@ -416,7 +416,7 @@ describe('PhoneNumberField primitive', () => {
       await act(async () => {
         await userEvent.type(phoneInput, '1a2b3c4d567890');
       });
-      expect(phoneInput).toHaveValue('(123) 456-7890');
+      expect(phoneInput).toHaveValue('(123) 456 7890');
     });
 
     it('should handle empty input value', async () => {

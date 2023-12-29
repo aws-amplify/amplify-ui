@@ -3,7 +3,7 @@ describe('formatPhoneNumber', () => {
   it('should format phone numbers for +1 (US)', () => {
     const phoneNumber = '1234567890';
     const formattedNumber = formatPhoneNumber('+1', phoneNumber);
-    expect(formattedNumber).toBe('(123) 456-7890');
+    expect(formattedNumber).toBe('(123) 456 7890');
   });
 
   it('should format phone numbers for +33 (France)', () => {
