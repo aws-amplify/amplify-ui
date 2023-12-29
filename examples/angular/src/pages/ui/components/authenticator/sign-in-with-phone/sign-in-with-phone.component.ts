@@ -32,7 +32,7 @@ export class SignInWithPhoneComponent implements OnInit {
     signUp: {
       phone_number: {
         dialCode: '+227',
-        dialCodeList: ['+1', '+82', '+227', '+100', '+227'],
+        dialCodeList: ['+1', '+82', '+227', '+100'],
       },
     },
   };
