@@ -37,7 +37,7 @@ export interface HintProps {
 const defaultToast = (text: string, isInitial = false) => {
   return (
     <Toast size="large" variation="primary" isInitial={isInitial}>
-      <View aria-live="polite" aria-label={text}>
+      <View aria-live="assertive" aria-label={text}>
         {text}
       </View>
     </Toast>
@@ -156,7 +156,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
             faceMatchState === FaceMatchState.TOO_CLOSE ? 'error' : 'primary'
           }
         >
-          <View aria-live="polite" aria-label={resultHintString}>
+          <View aria-live="assertive" aria-label={resultHintString}>
             {resultHintString}
           </View>
         </Toast>
