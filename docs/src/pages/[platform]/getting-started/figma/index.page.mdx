@@ -5,8 +5,8 @@ description: Amplify Studio offers an integration with Figma, allowing you to ge
 supportedFrameworks: react
 ---
 
-import { Fragment } from '@/components/Fragment';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+import ReactPage from './index.react.mdx';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -18,4 +18,4 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-<Fragment>{({ platform }) => import(`./index.${platform}.mdx`)}</Fragment>
+<ReactPage />

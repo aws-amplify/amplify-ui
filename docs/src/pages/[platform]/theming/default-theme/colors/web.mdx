@@ -1,4 +1,4 @@
-import { Fragment } from '@/components/Fragment';
+import { InlineFilter } from '@/components/InlineFilter';
 import { 
   TokensColorsFont, 
   TokensColorsBackground, 
@@ -19,10 +19,61 @@ import {
   TokensColorsBlack,
   TokensColorsWhite,
   TokensColorsTransparent } from '@/components/Theming/TokenGroups';
+import { Example, ExampleCode } from '@/components/Example';
+import { Tabs, View } from '@aws-amplify/ui-react';
+import { ColorsExample } from './examples';
 
 ## Semantic
 
-<Fragment>{({ platform }) => import(`./colorUsage.${platform}.mdx`)}</Fragment>
+<InlineFilter filters={['angular']}>
+  <Example>
+    <ExampleCode>
+  ```css file=./examples/ColorsExample.css
+
+  ```
+    </ExampleCode>
+  </Example>
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <Tabs.Container defaultValue="Example usage">
+    <Tabs.List>
+      <Tabs.Item value="Example usage">Example usage</Tabs.Item>
+      <Tabs.Item value="CSS">CSS</Tabs.Item>
+    </Tabs.List>
+    <Tabs.Panel value="Example usage">
+      <View marginTop="var(--amplify-space-large)">
+        <Example>
+          <ColorsExample  />
+          <ExampleCode>
+  ```tsx file=./examples/ColorsExample.tsx
+
+  ```
+          </ExampleCode>
+        </Example>
+      </View>
+    </Tabs.Panel>
+    <Tabs.Panel value="CSS">
+      <View marginTop="var(--amplify-space-large)">
+      <Example>
+        <ExampleCode>
+  ```css file=./examples/ColorsExample.css
+
+  ```
+        </ExampleCode>
+      </Example>
+      </View>
+    </Tabs.Panel>
+  </Tabs.Container>
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+  <Example>
+    <ExampleCode>
+  ```css file=./examples/ColorsExample.css
+
+  ```
+    </ExampleCode>
+  </Example>
+</InlineFilter>
 
 ### Font
 <TokensColorsFont />

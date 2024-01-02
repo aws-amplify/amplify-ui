@@ -5,11 +5,25 @@ supportedFrameworks: react|react-native
 ---
 import { Alert } from '@aws-amplify/ui-react';
 
-import { AppDirectoryAlert } from '@/components/AppDirectoryAlert';
+import AppDirectoryAlert from '@/components/AppDirectoryAlert';
 
-import { Fragment } from '@/components/Fragment';
+import { InlineFilter } from '@/components/InlineFilter';
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+import OverviewReactNative from './fragments/overview.react-native.mdx';
+import OverviewReact from './fragments/overview.react.mdx';
+import PreReqReact from './fragments/prereqs.react.mdx';
+import PreReqReactNative from './fragments/prereqs.react-native.mdx';
+import ExampleReact from './examples/getting-started.react.mdx';
+import ExampleReactNative from './examples/getting-started.react-native.mdx';
+import ExampleUsageReact from './examples/use-messaging.react.mdx';
+import ExampleUsageReactNative from './examples/use-messaging.react-native.mdx';
+import ExampleCustomReact from './examples/custom-components.react.mdx';
+import ExampleCustomReactNative from './examples/custom-components.react-native.mdx';
+import ExampleStyleReact from './examples/custom-style.react.mdx';
+import ExampleStyleReactNative from './examples/custom-style.react-native.mdx';
+import PropsReact from './props/styles.react.mdx';
+import PropsReactNative from './props/styles.react-native.mdx';
 
 import { 
   IN_APP_MESSAGE_DISPLAY_PROPS, 
@@ -31,22 +45,37 @@ export async function getStaticProps() {
 
 In-App Messaging allows you to better engage users with contextually appropriate messages rendered on events triggered by their activity while using your application. Create messages that look native to your application and deliver them to your users all without additional code changes.
 
-<Fragment platforms={['react', 'react-native']}>{({ platform }) => import(`./fragments/overview.${platform}.mdx`)}</Fragment>
+<InlineFilter filters={['react']}>
+  <OverviewReact />
+</InlineFilter>
+<InlineFilter filters={['react-native']}>
+  <OverviewReactNative />
+</InlineFilter>
 
 ## Prerequisites
 
-<Fragment platforms={['react', 'react-native']}>{({ platform }) => import(`./fragments/prereqs.${platform}.mdx`)}</Fragment>
+<InlineFilter filters={['react']}>
+  <PreReqReact />
+</InlineFilter>
+<InlineFilter filters={['react-native']}>
+  <PreReqReactNative />
+</InlineFilter>
 
 ## Getting Started
 
-<Fragment platforms={['react']}>
-  {({ platform }) => import('@/components/AppDirectoryAlert')}
-</Fragment>
+<InlineFilter filters={['react']}>
+  <AppDirectoryAlert />
+</InlineFilter>
 
 Integration with your application can be done with the `InAppMessagingProvider` and `InAppMessageDisplay` components directly, 
 or wrap your app in `withInAppMessaging` (a [React Higher-Order Component](https://legacy.reactjs.org/docs/higher-order-components.html)):
 
-<Fragment platforms={['react', 'react-native']}>{({ platform }) => import(`./examples/getting-started.${platform}.mdx`)}</Fragment>
+<InlineFilter filters={['react']}>
+  <ExampleReact />
+</InlineFilter>
+<InlineFilter filters={['react-native']}>
+  <ExampleReactNative />
+</InlineFilter>
 
 >[`InAppMessaging.syncMessages`](https://docs.amplify.aws/lib/in-app-messaging/sync-messages/q/platform/react-native) is an asynchronous function that handles syncing remote in-app messages with the end user application.
 
@@ -61,7 +90,12 @@ to its `children`. `useInAppMessaging` can be used to directly interact with `In
 
 In some use cases, you may want to forgo the usage of the default UI handling altogether while still leveraging the Amplify provided In-App Messaging React context and provider for in-app message context state. This can be achieved by wrapping your application in an `InAppMessagingProvider` and utilizing the `useInAppMessaging` hook to expose the values of the `InAppMessagingContext`.
 
-<Fragment platforms={['react', 'react-native']}>{({ platform }) => import(`./examples/use-messaging.${platform}.mdx`)}</Fragment>
+<InlineFilter filters={['react']}>
+  <ExampleUsageReact />
+</InlineFilter>
+<InlineFilter filters={['react-native']}>
+  <ExampleUsageReactNative />
+</InlineFilter>
 
 ## `InAppMessageDisplay`
 
@@ -79,14 +113,29 @@ Functional UI components that render in-app message content
 
 You may provide your own In-App Messaging UI components to override the default Amplify provided UI components by utilizing the components prop of InAppMessagingProvider.
 
-<Fragment platforms={['react', 'react-native']}>{({ platform }) => import(`./examples/custom-components.${platform}.mdx`)}</Fragment>
+<InlineFilter filters={['react']}>
+  <ExampleCustomReact />
+</InlineFilter>
+<InlineFilter filters={['react-native']}>
+  <ExampleCustomReactNative />
+</InlineFilter>
 
 ### Style Override
 
 The default Amplify UI components handle custom style using the `styles` prop:
 
-<Fragment platforms={['react', 'react-native']}>{({ platform }) => import(`./examples/custom-style.${platform}.mdx`)}</Fragment>
+<InlineFilter filters={['react']}>
+  <ExampleStyleReact />
+</InlineFilter>
+<InlineFilter filters={['react-native']}>
+  <ExampleStyleReactNative />
+</InlineFilter>
 
 Available style props:
 
-<Fragment platforms={['react', 'react-native']}>{({ platform }) => import(`./props/styles.${platform}.mdx`)}</Fragment>
+<InlineFilter filters={['react']}>
+  <PropsReact />
+</InlineFilter>
+<InlineFilter filters={['react-native']}>
+  <PropsReactNative />
+</InlineFilter>
