@@ -3,6 +3,10 @@ import { FaceLivenessDetector } from '@aws-amplify/ui-react-liveness';
 import { Theme, ThemeProvider, useTheme } from '@aws-amplify/ui-react';
 
 export function CustomizationTheme() {
+  const [showLiveness, setShowLiveness] = React.useState(false);
+  React.useEffect(() => {
+    setShowLiveness(true);
+  }, []);
   const { tokens } = useTheme();
   const theme: Theme = {
     name: 'Face Liveness Example Theme',
@@ -35,11 +39,13 @@ export function CustomizationTheme() {
 
   return (
     <ThemeProvider theme={theme}>
-      <FaceLivenessDetector
-        sessionId={'sessionId'}
-        region={'us-east-1'}
-        onAnalysisComplete={async () => {}}
-      />
+      {showLiveness && (
+        <FaceLivenessDetector
+          sessionId={'sessionId'}
+          region={'us-east-1'}
+          onAnalysisComplete={async () => {}}
+        />
+      )}
     </ThemeProvider>
   );
 }

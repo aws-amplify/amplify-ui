@@ -1,4 +1,10 @@
-import { Fragment } from '@/components/Fragment';
+import { InlineFilter } from '@/components/InlineFilter';
+import { View, Flex, Text } from '@aws-amplify/ui-react';
+import { Example, ExampleCode } from '@/components/Example';
+import {
+  UseBreakpointValueArrayExample,
+  UseBreakpointValueObjectExample,
+} from './examples';
 
 Responsive styling is supported out of the box using our default breakpoints. Our responsive support uses a mobile first approach, so `@media(min-width)` rules
 are used for all breakpoints.
@@ -18,4 +24,146 @@ are used for all breakpoints.
 
 [Code](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/theme/breakpoints.ts)
 
-<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+<InlineFilter filters={['react']}>
+  ## Example
+
+  Import any of our primitives and use either the object or array syntax to changes styles responsively. Resize your browser window window to see the styles change.
+
+  ```jsx
+  import { Flex, View } from '@aws-amplify/ui-react';
+  import '@aws-amplify/ui-react/styles.css';
+
+  <Flex direction={{ base: 'column', large: 'row' }}>
+    <View width="100%" backgroundColor={{ base: 'orange', large: 'yellow' }}>
+      Hello
+    </View>
+    <View width="100%" backgroundColor={['orange', 'orange', 'orange', 'yellow']}>
+      there!
+    </View>
+  </Flex>;
+  ```
+
+  <Example>
+    <Flex direction={{ base: 'column', large: 'row' }}>
+      <View backgroundColor={{ base: 'orange', large: 'yellow' }} width="100%">
+        Hello
+      </View>
+      <View
+        backgroundColor={['orange', 'orange', 'orange', 'yellow']}
+        width="100%"
+      >
+        there!
+      </View>
+    </Flex>
+  </Example>
+
+  ## Object Syntax
+
+  When using the object syntax, you can specify a style for multiple viewpoint ranges. The example below shows setting a style of `orange` from `base` (0em) through `small`, and `yellow` from `medium` (48em) upwards.
+
+  ```jsx
+  // View will be orange from 0 to 47em, then change to yellow from 48em upwards.
+  <View backgroundColor={{ base: 'orange', medium: 'yellow' }} />
+  ```
+
+  <View backgroundColor={{ base: 'orange', medium: 'yellow' }} />
+
+  Or you can use the object syntax to specify styling for each breakpoint individually
+
+  ```jsx
+  // View background color and text color will change at each breakpoint
+  <View
+    color={{
+      base: 'black',
+      small: 'black',
+      medium: 'black',
+      large: 'white',
+      xl: 'white',
+      xxl: 'white',
+    }}
+    backgroundColor={{
+      base: 'red',
+      small: 'orange',
+      medium: 'yellow',
+      large: 'green',
+      xl: 'blue',
+      xxl: 'purple',
+    }}
+  >
+    Hello
+  </View>
+  ```
+
+  <Example>
+    <View
+      testId="responsive-object-syntax-breakpoints"
+      color={{
+        base: 'black',
+        small: 'black',
+        medium: 'black',
+        large: 'white',
+        xl: 'white',
+        xxl: 'white',
+      }}
+      backgroundColor={{
+        base: 'red',
+        small: 'orange',
+        medium: 'yellow',
+        large: 'green',
+        xl: 'blue',
+        xxl: 'purple',
+      }}
+    >
+      Hello
+    </View>
+  </Example>
+
+  ## Array syntax
+
+  When using the array syntax, specify each breakpoint styling in order from `base` up to `xxl`. If only a few styles are specified, all the breakpoints above will have the same style.
+
+  ```jsx
+    <Text
+      as="span"
+      fontSize={['1rem', '2rem', '3rem', '4rem', '5rem', '6rem']}
+      lineHeight="normal"
+    >
+      {' 🐈 '}
+    </Text>
+    <Text as="span" fontSize={['1rem', '2rem', '3rem']} lineHeight="normal">
+      {' 🐕 '}
+    </Text>
+  ```
+
+  <Example>
+    <Text
+      as="span"
+      fontSize={['1rem', '2rem', '3rem', '4rem', '5rem', '6rem']}
+      lineHeight="normal"
+    >
+      {' 🐈 '}
+    </Text>
+    <Text as="span" fontSize={['1rem', '2rem', '3rem']} lineHeight="normal">
+      {' 🐕 '}
+    </Text>
+  </Example>
+
+  ## useBreakpointValue
+
+  A responsive design can be achieved for all properties using the `useBreakpointValue` hook.
+  The hook will accept the object or array syntax and return the value of the current breakpoint.
+
+  <Example>
+    <UseBreakpointValueObjectExample />
+    <ExampleCode>
+    ```jsx file=./examples/UseBreakpointValueObjectExample.tsx
+    ```
+    </ExampleCode>
+    <UseBreakpointValueArrayExample />
+    <ExampleCode>
+    ```jsx file=./examples/UseBreakpointValueArrayExample.tsx
+    ```
+    </ExampleCode>
+
+  </Example>
+</InlineFilter>

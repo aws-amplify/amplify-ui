@@ -5,9 +5,14 @@ metaDescription: A Theme is a structured collection of design decisions that cha
 supportedFrameworks: angular|flutter|react|react-native|vue
 ---
 
-import { Fragment } from '@/components/Fragment';
+import { InlineFilter } from '@/components/InlineFilter';
 import { FRAMEWORKS } from '@/data/frameworks';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+import AngularPage from './theming.angular.mdx';
+import FlutterPage from './theming.flutter.mdx';
+import ReactPage from './theming.react.mdx';
+import ReactNativePage from './theming.react-native.mdx';
+import VuePage from './theming.vue.mdx';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -19,6 +24,18 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-<Fragment useCommonWebContent>
-  {({ platform }) => import(`./theming.${platform}.mdx`)}
-</Fragment>
+<InlineFilter filters={['angular']}>
+  <AngularPage />
+</InlineFilter>
+<InlineFilter filters={['flutter']}>
+  <FlutterPage />
+</InlineFilter>
+<InlineFilter filters={['react-native']}>
+  <ReactNativePage />
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <ReactPage />
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+  <VuePage />
+</InlineFilter>

@@ -1,4 +1,3 @@
-import { Fragment } from '@/components/Fragment';
 import { ResponsiveTable, ResponsiveTableCell } from '@/components/ResponsiveTable';
 import { TableCell, TableBody, TableHead, TableRow, Alert } from '@aws-amplify/ui-react';
 
@@ -14,9 +13,9 @@ This would be overriden like so:
   When overriding `signUp` you must include the `autoSignIn` key and set `enabled` to true, as show in the example below.
 </Alert>
 
-<Fragment>
-  {({ platform }) => import(`./overrides/username.${platform}.mdx`)}
-</Fragment>
+```jsx expoSnack file=../../../../../../../examples/react-native/src/features/Authenticator/OverrideServices/Example.tsx
+
+```
 
 
 

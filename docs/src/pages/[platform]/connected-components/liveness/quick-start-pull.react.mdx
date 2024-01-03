@@ -1,11 +1,14 @@
-import { Tabs } from '@aws-amplify/ui-react';
-import { Fragment } from '@/components/Fragment';
+import CognitoCallout from './cognito-callout.mdx';
+import CLI from './quick-start-pull-cli.mdx';
+import Callout from './credentials-provider-callout.mdx';
+import { Alert, Tabs } from '@aws-amplify/ui-react';
+import AppDirectoryAlert from '@/components/AppDirectoryAlert';
+import { InstallScripts } from '@/components/InstallScripts';
+import Liveness from './liveness-service-setup.mdx';
 
 There are three methods to setup the Amazon Cognito resources needed for Amplify Auth. The most common is the Amplify CLI create flow which asks a series of questions and will configure both a User Pool and Identity Pool automatically. The second option is the Amplify CLI import flow which adds an existing Cognito resource into Amplify. Finally the third is to reuse or create a Cognito Identity Pool manually and to add it into your application.
 
-<Fragment>
-  {({}) => import(`./cognito-callout.mdx`)}
-</Fragment>
+<CognitoCallout />
 
 <Tabs.Container defaultValue="Amplify CLI">
   <Tabs.List>
@@ -34,9 +37,7 @@ Please tell us about your project
 ? Start Command: npm run-script start
 ```
 
-<Fragment>
-  {({ platform }) => import(`./quick-start-pull-cli.mdx`)}
-</Fragment>
+<CLI />
 
 #### Push to create the resources
 
@@ -115,12 +116,54 @@ return (
 );
 ```
 
-<Fragment>
-  {({}) => import(`./credentials-provider-callout.mdx`)}
-</Fragment>
+  <Callout />
   </Tabs.Panel>
 </Tabs.Container>
 
-<Fragment>
-  {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}
-</Fragment>
+<Liveness />
+
+### Step 2. Install dependencies
+
+<InstallScripts component='liveness' />
+
+### Step 3. Initialize Amplify
+
+<AppDirectoryAlert />
+
+```jsx
+import React from 'react';
+import { ThemeProvider } from '@aws-amplify/ui-react';
+import { Amplify } from 'aws-amplify';
+import '@aws-amplify/ui-react/styles.css';
+import awsexports from './aws-exports';
+
+Amplify.configure(awsexports);
+
+export default function App() {
+  return (
+    <ThemeProvider>
+    </ThemeProvider>
+  );
+}
+```
+
+### Step 4. Add FaceLivenessDetector
+
+To get started you will need to make a request to your backend to receive a `sessionId` and pass that to the `FaceLivenessDetector` component.
+
+Once a valid sessionId, region, and callback has been passed, FaceLivenessDetector will take care of streaming video and presenting Face Liveness challenges.
+
+<Tabs.Container defaultValue="Javascript">
+  <Tabs.List>
+    <Tabs.Item value="Javascript">Javascript</Tabs.Item>
+    <Tabs.Item value="TypeScript">TypeScript</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="TypeScript">
+```tsx file=./QuickStartReact.tsx
+```
+  </Tabs.Panel>
+  <Tabs.Panel value="Javascript">
+```tsx file=./QuickStartReact.jsx
+```
+  </Tabs.Panel>
+</Tabs.Container>
