@@ -1,6 +1,6 @@
 #!/bin/bash
 # using bin/bash for macOS and Linux compatibility
-
+set -e
 dirs=""
 
 # Get Options from CLI
@@ -84,6 +84,9 @@ done
 
 # max number of parallel tasks at a time
 numParallelTasks=8 # Future improvement: could set this to # of logical cores in localdevice
+if [[ "$uname" == "Darwin" ]]; then
+  numParallelTasks=3
+fi
 
 # Get the path to this shell file relative to cwd
 # (1) bash_source[0] contains the filename of this shell relative to cwd
@@ -97,3 +100,4 @@ shell_path="$(dirname "${BASH_SOURCE[0]}")" # under normal use, this points to `
 # Pull environments in parallel
 # Note that printf is used because echo dosn't handle `\n` by default in bash.
 printf $dirs | xargs -P $numParallelTasks -I {} sh -c ""$shell_path"/pull-environment.sh {} "$region""
+

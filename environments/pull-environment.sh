@@ -41,3 +41,4 @@ cd $dir
 # 'echo n' is used to answer "No" to the prompt "Do you plan on modifying this backend?"
 # See https://github.com/aws-amplify/amplify-cli/issues/5275
 echo n | yarn pull --amplify $AMPLIFY --frontend $FRONTEND --providers $PROVIDERS
+

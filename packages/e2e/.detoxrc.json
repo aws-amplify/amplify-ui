@@ -1,5 +1,8 @@
 {
   "skipLegacyWorkersInjection": true,
+  "logger": {
+    "level": "info"
+  },
   "artifacts": {
     "rootDir": "./detox/screenshots",
     "plugins": {
@@ -30,7 +33,7 @@
       "type": "android.apk",
       "binaryPath": "../../examples/react-native/android/app/build/outputs/apk/debug/app-debug.apk",
       "build": "cd ../../examples/react-native/android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && cd ../../..",
-      "reversePorts": [9091]
+      "reversePorts": [8081, 9091]
     },
     "android.release": {
       "type": "android.apk",
@@ -49,8 +52,7 @@
       "type": "android.emulator",
       "device": {
         "avdName": "Pixel_5_API_27"
-      },
-      "headless": true
+      }
     }
   },
   "configurations": {
@@ -62,6 +64,19 @@
       "device": "simulator",
       "app": "ios.release"
     },
+    "ios.simulator.jest.debug": {
+      "device": "simulator",
+      "app": "ios.debug",
+      "testRunner": {
+        "args": {
+          "$0": "jest",
+          "config": "detox-jest/jest.config.ts"
+        },
+        "jest": {
+          "setupTimeout": 540000
+        }
+      }
+    },
     "android.emulator.debug": {
       "device": "emulator",
       "app": "android.debug"
@@ -69,6 +84,19 @@
     "android.emulator.release": {
       "device": "emulator",
       "app": "android.release"
+    },
+    "android.emulator.jest.debug": {
+      "device": "emulator",
+      "app": "android.debug",
+      "testRunner": {
+        "args": {
+          "$0": "jest",
+          "config": "detox-jest/jest.config.ts"
+        },
+        "jest": {
+          "setupTimeout": 540000
+        }
+      }
     }
   }
 }
