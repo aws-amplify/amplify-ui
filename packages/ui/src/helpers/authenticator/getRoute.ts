@@ -18,6 +18,7 @@ export const getRoute = (
       return 'authenticated';
     case actorState?.matches('confirmSignUp'):
     case actorState?.matches('confirmSignUp.resendConfirmationCode'):
+    case actorState?.matches('resendSignUpCode'):
       return 'confirmSignUp';
     case actorState?.matches('confirmSignIn'):
       return 'confirmSignIn';
@@ -40,6 +41,7 @@ export const getRoute = (
       return 'confirmVerifyUser';
     case state.matches('getCurrentUser'):
     case actorState.matches('fetchUserAttributes'):
+    case actorState.matches('autoSignIn'):
       /**
        * This route is needed for autoSignIn to capture both the
        * autoSignIn.pending and the resolved states when the
