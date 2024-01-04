@@ -1,5 +1,21 @@
 # @aws-amplify/ui-angular
 
+## 5.0.6
+
+### Patch Changes
+
+- [#4777](https://github.com/aws-amplify/amplify-ui/pull/4777) [`4f643b05b`](https://github.com/aws-amplify/amplify-ui/commit/4f643b05b010901226bf200f8d0b06601d0ecab5) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui): fix defaultAuthHubListener unit tests, remove asynchronous declaration
+
+- Updated dependencies [[`4f643b05b`](https://github.com/aws-amplify/amplify-ui/commit/4f643b05b010901226bf200f8d0b06601d0ecab5), [`190bf28d1`](https://github.com/aws-amplify/amplify-ui/commit/190bf28d1b570329f415d2d4c03e608a3b30412b)]:
+  - @aws-amplify/ui@6.0.6
+
+## 5.0.5
+
+### Patch Changes
+
+- Updated dependencies [[`38bae5ee5`](https://github.com/aws-amplify/amplify-ui/commit/38bae5ee522bf572cc065953b2a94710e6913cc2)]:
+  - @aws-amplify/ui@6.0.5
+
 ## 5.0.4
 
 ### Patch Changes

@@ -6,7 +6,7 @@ import type {
   Category,
   ComponentName,
   Properties,
-  PropsTableSubComponentData,
+  ComponentPropsData,
   SortedPropertiesByCategory,
 } from './types/catalog';
 import { TypeFileName } from './types/allTypesData';
@@ -23,9 +23,9 @@ createAllPropsTablesData().then((allPropsTablesData) => {
 });
 
 async function createAllPropsTablesData(): Promise<
-  Map<string, PropsTableSubComponentData>
+  Map<string, ComponentPropsData>
 > {
-  const data: Map<string, PropsTableSubComponentData> = new Map();
+  const data: Map<string, ComponentPropsData> = new Map();
   for await (const componentFilepath of globbyStream(
     path.join(
       __dirname,
@@ -48,7 +48,7 @@ async function createAllPropsTablesData(): Promise<
     );
     data.set(componentName, {
       [componentName]: propsSortedByCategory,
-    } as PropsTableSubComponentData);
+    } as ComponentPropsData);
 
     if (componentName in componentsWithChildren) {
       const subComponentProps = {};
