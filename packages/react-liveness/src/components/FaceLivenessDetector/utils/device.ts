@@ -40,8 +40,9 @@ export function getMinAspectRatioMediaQuery(): MediaQueryList {
   return window.matchMedia(`(min-aspect-ratio: ${MINIMUM_ASPECT_RATIO})`);
 }
 
-export function doesDeviceMeetMinLandscapeAspectRatio(): boolean {
-  const landscapeMediaQuery = getLandscapeMediaQuery();
-  const minAspectRatioMediaQuery = getMinAspectRatioMediaQuery();
-  return !(landscapeMediaQuery.matches && !minAspectRatioMediaQuery.matches);
+// 480px is the max viewport width (in portrait) for most mobile devices
+// using max-height here since the orientation is landscape
+export function isMobileDeviceInLandscape(): boolean {
+  return window.matchMedia(`(orientation: landscape) and (max-height: 480px)`)
+    .matches;
 }

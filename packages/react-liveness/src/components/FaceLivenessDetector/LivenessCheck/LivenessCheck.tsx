@@ -13,7 +13,7 @@ import {
   isMobileScreen,
   getLandscapeMediaQuery,
   getMinAspectRatioMediaQuery,
-  doesDeviceMeetMinLandscapeAspectRatio,
+  isMobileDeviceInLandscape,
 } from '../utils/device';
 import { CancelButton } from '../shared/CancelButton';
 import {
@@ -83,7 +83,7 @@ export const LivenessCheck: React.FC<LivenessCheckProps> = ({
       };
 
       const handleMediaQueryChange = () => {
-        const shouldShowWarning = !doesDeviceMeetMinLandscapeAspectRatio();
+        const shouldShowWarning = isMobileDeviceInLandscape();
         sendLandscapeWarning(shouldShowWarning);
       };
 
