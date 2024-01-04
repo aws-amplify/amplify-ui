@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "name": "@aws-amplify/ui-react-theme",
+  "main": "../dist/theme.js",
+  "module": "../dist/esm/theme.mjs",
+  "types": "../dist/types/theme.d.ts"
+}

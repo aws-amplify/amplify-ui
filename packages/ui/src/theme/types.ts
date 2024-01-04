@@ -1,6 +1,7 @@
 import { PartialDeep } from '../types';
 import { DefaultTokens, Tokens, WebTokens } from './tokens';
 import { Breakpoints } from './breakpoints';
+import { ComponentsTheme } from './components';
 
 export * from './tokens/types/designToken';
 export type { BorderWidths } from './tokens/borderWidths';
@@ -26,6 +27,7 @@ export type Override =
 
 interface BaseOverride {
   tokens?: PartialDeep<Tokens>;
+  components?: ComponentsTheme;
 }
 
 /**
@@ -112,6 +114,8 @@ export interface Theme {
    * and a generic selector override.
    */
   overrides?: Array<Override>;
+
+  components?: ComponentsTheme;
 }
 
 /**
@@ -120,7 +124,7 @@ export interface Theme {
 export interface DefaultTheme
   extends Pick<
     Theme,
-    'name' | 'overrides' | 'primaryColor' | 'secondaryColor'
+    'name' | 'overrides' | 'primaryColor' | 'secondaryColor' | 'components'
   > {
   tokens: DefaultTokens;
   breakpoints: Breakpoints;
@@ -132,7 +136,10 @@ export interface DefaultTheme
  * to be used in Javascript/Typescript.
  */
 export interface WebTheme
-  extends Pick<DefaultTheme, 'breakpoints' | 'name' | 'overrides'> {
+  extends Pick<
+    DefaultTheme,
+    'breakpoints' | 'name' | 'overrides' | 'components'
+  > {
   primaryColor?: string;
   secondaryColor?: string;
   cssText: string;
