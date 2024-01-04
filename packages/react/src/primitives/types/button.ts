@@ -1,7 +1,6 @@
 import { Sizes } from './base';
 import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 import { FlexContainerStyleProps } from './flex';
-import { BadgeVariations } from './badge';
 
 export type ButtonSizes = Sizes;
 export type ButtonTypes = 'button' | 'reset' | 'submit';
@@ -18,12 +17,6 @@ export type ButtonColorTheme =
   | 'warning'
   | 'success'
   | 'overlay';
-
-export type ButtonBadgePosition =
-  | 'top-right'
-  | 'top-left'
-  | 'bottom-right'
-  | 'bottom-left';
 
 /** @deprecated For internal use only */
 export interface BaseButtonProps
@@ -87,30 +80,6 @@ export interface BaseButtonProps
    * Changes the visual weight of the button.
    */
   variation?: ButtonVariations;
-
-  /**
-   * @description
-   * If true the button will have a badge
-   */
-  hasBadge?: boolean;
-
-  /**
-   * @description
-   * The label to show in the badge associated with the button
-   */
-  badgeContent?: string;
-
-  /**
-   * @description
-   * The badge position
-   */
-  badgePosition?: ButtonBadgePosition;
-
-  /**
-   * @description
-   * The badge variation
-   */
-  badgeVariation?: BadgeVariations;
 }
 
 export type ButtonProps<Element extends ElementType = 'button'> =

@@ -121,7 +121,7 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
   );
 };
 /**
- * [:book: Docs](https://ui.docs.amplify.aws/react/components/phonenumberfield)
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/phonenumberfield)
  */
 export const PhoneNumberField: ForwardRefPrimitive<
   PhoneNumberFieldProps,
