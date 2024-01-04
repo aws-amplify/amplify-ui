@@ -1,5 +1,5 @@
-import { Fragment } from '@/components/Fragment';
 import { Example } from '@/components/Example';
+import { Tabs } from '@aws-amplify/ui-react';
 
 A Theme is a structured collection of design decisions that change the appearance of a UI library. An Amplify UI theme is a structured object of [design tokens](#design-tokens), [breakpoints](#breakpoints), and [overrides](#overrides). The goals of the Amplify UI theme are:
 
@@ -8,9 +8,96 @@ A Theme is a structured collection of design decisions that change the appearanc
 
 ## Getting started
 
-<Fragment>
-  {({ platform }) => import(`./getting-started.${platform}.mdx`)}
-</Fragment>
+Step 1: Wrap your App with `ThemeProvider`
+
+```jsx
+import { ThemeProvider } from '@aws-amplify/ui-react';
+const App = (
+  <ThemeProvider>
+    <MyApp>/* AmplifyUI */</MyApp>
+  </ThemeProvider>
+);
+```
+
+Step 2: Use the theme to style components
+
+```jsx
+// Option 1: Use the theme through component variations
+import { Text } from '@aws-amplify/ui-react';
+const MyComponent = ({ children }) => {
+  return <Text variation="primary">{children}</Text>;
+};
+
+// Option 2: Get the theme object through the useTheme hook and style components with it
+import { Text, useTheme } from '@aws-amplify/ui-react';
+const MyComponent = ({ children }) => {
+  const { tokens } = useTheme();
+  return <Text color={tokens.colors.font.tertiary}>{children}</Text>;
+};
+```
+
+Optional: To extend or override a token in the default theme, create a custom theme:
+
+<Tabs.Container defaultValue="Javascript">
+  <Tabs.List>
+    <Tabs.Item value="Javascript">Javascript</Tabs.Item>
+    <Tabs.Item value="TypeScript">TypeScript</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="Javascript">
+    ```jsx
+    import { ThemeProvider, Theme } from '@aws-amplify/ui-react';
+
+    // Step 1: Create a new Theme with your custom values
+    const theme = {
+      name: 'my-theme',
+      tokens: {
+        colors: {
+          font: {
+            primary: { value: '#008080' },
+            // ...
+          },
+        },
+      },
+    };
+
+    // Step 2: Pass the new theme to `ThemeProvider`
+    // this will apply the theme to all Amplify UI components
+    const App = (
+      <ThemeProvider theme={theme}>
+        <MyApp>/* AmplifyUI */</MyApp>
+      </ThemeProvider>
+    );
+    ```
+
+  </Tabs.Panel>
+  <Tabs.Panel value="TypeScript">
+    ```tsx
+    import { ThemeProvider, Theme } from '@aws-amplify/ui-react';
+
+    // Step 1: Create a new Theme with your custom values
+    const theme: Theme = {
+      name: 'my-theme',
+      tokens: {
+        colors: {
+          font: {
+            primary: { value: '#008080' },
+            // ...
+          },
+        },
+      },
+    };
+
+    // Step 2: Pass the new theme to `ThemeProvider`
+    // this will apply the theme to all Amplify UI components
+    const App = (
+      <ThemeProvider theme={theme}>
+        <MyApp>/* AmplifyUI */</MyApp>
+      </ThemeProvider>
+    );
+    ```
+
+  </Tabs.Panel>
+</Tabs.Container>
 
 ### Theme object
 

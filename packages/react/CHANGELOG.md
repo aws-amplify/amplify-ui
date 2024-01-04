@@ -1,5 +1,19 @@
 # @aws-amplify/ui-react
 
+## 6.1.0
+
+### Minor Changes
+
+- [#4869](https://github.com/aws-amplify/amplify-ui/pull/4869) [`8d41213bc`](https://github.com/aws-amplify/amplify-ui/commit/8d41213bc96f3f37342c09756cf16a07ea4e2090) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(docs): remove dynamic imports from React primitive pages, add FilterChildren internal component
+
+## 6.0.7
+
+### Patch Changes
+
+- Updated dependencies [[`4f643b05b`](https://github.com/aws-amplify/amplify-ui/commit/4f643b05b010901226bf200f8d0b06601d0ecab5), [`190bf28d1`](https://github.com/aws-amplify/amplify-ui/commit/190bf28d1b570329f415d2d4c03e608a3b30412b)]:
+  - @aws-amplify/ui-react-core@3.0.6
+  - @aws-amplify/ui@6.0.6
+
 ## 6.0.6
 
 ### Patch Changes

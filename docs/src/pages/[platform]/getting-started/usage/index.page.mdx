@@ -4,8 +4,12 @@ metaDescription: How to get started using Amplify UI.
 supportedFrameworks: react|angular|vue|react-native
 ---
 
-import { Fragment } from '@/components/Fragment';
+import { InlineFilter } from '@/components/InlineFilter';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+import AngularPage from './usage.angular.mdx';
+import ReactNativePage from './usage.react-native.mdx';
+import ReactPage from './usage.react.mdx';
+import VuePage from './usage.vue.mdx';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -17,4 +21,15 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-<Fragment>{({ platform }) => import(`./usage.${platform}.mdx`)}</Fragment>
+<InlineFilter filters={['angular']}>
+  <AngularPage />
+</InlineFilter>
+<InlineFilter filters={['react-native']}>
+  <ReactNativePage />
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <ReactPage />
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+  <VuePage />
+</InlineFilter>

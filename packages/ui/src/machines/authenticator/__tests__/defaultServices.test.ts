@@ -1,10 +1,10 @@
-import { Amplify } from 'aws-amplify';
+import { Amplify, ResourcesConfig } from 'aws-amplify';
 
 import { PasswordSettings } from '../../../types';
 import { defaultServices } from '../defaultServices';
 import { ALLOWED_SPECIAL_CHARACTERS } from '../../../helpers/authenticator/constants';
 
-jest.mock('aws-amplify');
+const getConfigSpy = jest.spyOn(Amplify, 'getConfig');
 
 const {
   getAmplifyConfig,
@@ -245,14 +245,80 @@ describe('validateConfirmPassword', () => {
 });
 
 describe('getAmplifyConfig', () => {
-  // @todo-migration
-  // think we need to mock result here:
-  //     TypeError: Cannot read properties of undefined (reading 'Auth')
-  // > 21 |     const cliConfig = result.Cognito;
-  it.skip('should call Amplify.configure', async () => {
+  it('should call Amplify.getConfig', async () => {
     await getAmplifyConfig();
 
     expect(Amplify.getConfig).toHaveBeenCalledTimes(1);
+  });
+
+  it('correctly handles invalid user attributes returned from Amplify.getConfig', async () => {
+    // previous to aws-amplify@6.0.6, `Amplify.getConfig` returns the wrong shape for `userAttributes`
+    const invalidConfig: ResourcesConfig = {
+      Auth: {
+        Cognito: {
+          identityPoolId: 'xxxxxx',
+          allowGuestAccess: true,
+          // @ts-expect-error
+          userAttributes: [{ email: { required: true } }],
+          userPoolClientId: 'xxxxxx',
+          userPoolId: 'xxxxxx',
+          mfa: { status: 'off', totpEnabled: false, smsEnabled: true },
+          passwordFormat: {
+            minLength: 8,
+            requireLowercase: false,
+            requireUppercase: false,
+            requireNumbers: false,
+            requireSpecialCharacters: false,
+          },
+          loginWith: { username: true, email: false, phone: false },
+        },
+      },
+    };
+
+    getConfigSpy.mockReturnValueOnce(invalidConfig);
+
+    const output = await getAmplifyConfig();
+
+    expect(output).toStrictEqual({
+      ...invalidConfig.Auth.Cognito,
+      loginMechanisms: ['username'],
+      socialProviders: undefined,
+      signUpAttributes: ['email'],
+    });
+  });
+
+  it('correctly handles user attributes returned from Amplify.getConfig', async () => {
+    const validConfig: ResourcesConfig = {
+      Auth: {
+        Cognito: {
+          identityPoolId: 'xxxxxx',
+          allowGuestAccess: true,
+          userAttributes: { email: { required: true } },
+          userPoolClientId: 'xxxxxx',
+          userPoolId: 'xxxxxx',
+          mfa: { status: 'off', totpEnabled: false, smsEnabled: true },
+          passwordFormat: {
+            minLength: 8,
+            requireLowercase: false,
+            requireUppercase: false,
+            requireNumbers: false,
+            requireSpecialCharacters: false,
+          },
+          loginWith: { username: true, email: false, phone: false },
+        },
+      },
+    };
+
+    getConfigSpy.mockReturnValueOnce(validConfig);
+
+    const output = await getAmplifyConfig();
+
+    expect(output).toStrictEqual({
+      ...validConfig.Auth.Cognito,
+      loginMechanisms: ['username'],
+      socialProviders: undefined,
+      signUpAttributes: ['email'],
+    });
   });
 });
 

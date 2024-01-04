@@ -4,8 +4,8 @@ description: Amplify UI provides tokens for font weight, font size and line heig
 supportedFrameworks: react|angular|vue
 ---
 
-import { Fragment } from '@/components/Fragment';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+import WebPage from './web.mdx';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -17,5 +17,4 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-<Fragment useCommonWebContent>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
-
+<WebPage />

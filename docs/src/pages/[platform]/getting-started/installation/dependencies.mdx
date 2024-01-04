@@ -1,0 +1,185 @@
+import { InlineFilter } from '@/components/InlineFilter';
+import { Example, ExampleCode } from '@/components/Example';
+import { Alert, Link, Text, Tabs } from '@aws-amplify/ui-react';
+import { InstallScripts, TerminalCommand } from '@/components/InstallScripts.tsx';
+
+<InlineFilter filters={['android']}>
+  Amplify UI Android requires Android API level 24 (Android 7.0) or above. The Amplify UI Android connected components are built using [Jetpack Compose](https://developer.android.com/jetpack/compose). You will need to update the app's `build.gradle` file as shown below to use Jetpack Compose.
+
+  <ExampleCode>
+      ```groovy
+        android {
+            compileOptions {
+                // Support for Java 8 features
+                coreLibraryDesugaringEnabled true
+                sourceCompatibility JavaVersion.VERSION_1_8
+                targetCompatibility JavaVersion.VERSION_1_8
+            }
+            buildFeatures {
+                compose true
+            }
+            composeOptions {
+              kotlinCompilerExtensionVersion '1.2.0'
+            }
+        }
+        
+        dependencies {
+            // Material3 dependency for theming the connected components
+            implementation 'androidx.compose.material3:material3:1.1.0'
+                                
+            // Support for Java 8 features
+            coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+        }
+      ```
+  </ExampleCode>
+</InlineFilter>
+
+<InlineFilter filters={['angular']}>
+  Install `@aws-amplify/ui-angular` with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/):
+
+  <InstallScripts framework="angular" />
+
+  *Note*: `@aws-amplify/ui-angular` support aligns with Angular's official LTS [support window](https://angular.io/guide/releases#actively-supported-versions).
+</InlineFilter>
+
+<InlineFilter filters={['flutter']}>
+  You will need to add dependencies for the `amplify_authenticator` to the `pubspec.yaml` file as shown below.
+
+  <ExampleCode>
+  ```yaml
+    environment:
+      sdk: ">=2.18.0 <4.0.0"
+      flutter: ">=3.3.0"
+    
+    dependencies:
+      amplify_flutter: ^1.0.0
+      amplify_auth_cognito: ^1.0.0
+      amplify_authenticator: ^1.0.0
+  ```
+  </ExampleCode>
+
+  <Alert role="none" variation="info">
+  <Text color="inherit">
+    The authenticator component is currently the only supported component for flutter.
+  </Text>
+  <Link href="/flutter/connected-components/authenticator">
+    View Authenticator Component docs
+  </Link>
+  </Alert>
+</InlineFilter>
+
+<InlineFilter filters={['react-native']}>
+  `@aws-amplify/ui-react-native` is compatible for usage with the React Native apps created using the [React Native CLI](https://github.com/react-native-community/cli) or [Expo](https://expo.dev/).
+
+  <Tabs.Container defaultValue="react-native">
+  <Tabs.List>
+  <Tabs.Item value="react-native">React Native CLI</Tabs.Item>
+  <Tabs.Item value="expo">Expo</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="react-native">
+
+  Install `@aws-amplify/ui-react-native` and its dependencies with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/):
+
+  <InstallScripts framework="react-native" />
+
+  If your project will support Federated Sign In using the React Native `Authenticator` the `@aws-amplify/rtn-web-browser` package is also required:
+
+  <InstallScripts command="npm install @aws-amplify/rtn-web-browser" framework="react-native" />
+
+  `@aws-amplify/react-native` and `@aws-amplify/rtn-web-browser` require a minimum iOS deployment target of `13.0`, open the _Podfile_ located in the _ios_ directory and update the `target` value:
+
+  ```diff
+  - platform :ios, min_ios_version_supported
+  + platform :ios, 13.0
+  ```
+
+  Then install the iOS cocoapods, by running:
+
+  <InstallScripts command="npx pod-install" framework="react-native" />
+
+  The AWS SDK requires React Native applications to polyfill `crypto.getRandomValues` and `URL`. Import the [`react-native-get-random-values`](https://github.com/LinusU/react-native-get-random-values) and [`react-native-url-polyfill`](https://github.com/charpeni/react-native-url-polyfill) polyfills and them to the top of your application's root entry point (in most React Native apps this will be the top level `index.js`).
+
+  <Example>
+  <ExampleCode>
+  ```jsx
+  // index.js
+  import 'react-native-url-polyfill/auto';
+  import 'react-native-get-random-values';
+
+  import { AppRegistry } from 'react-native';
+  import App from './App';
+  import { name as appName } from './app.json';
+
+  AppRegistry.registerComponent(appName, () => App);
+  ```
+  </ExampleCode>
+  </Example>
+
+  </Tabs.Panel>
+  <Tabs.Panel value="expo">
+
+  Add `@aws-amplify/ui-react-native` and its dependencies using the [Expo CLI](https://expo.dev/tools#cli) to ensure installation of native module dependency versions compatible with your Expo app:
+
+  <br />
+  <TerminalCommand command="npx expo install @aws-amplify/ui-react-native aws-amplify @aws-amplify/react-native react-native-safe-area-context @react-native-async-storage/async-storage @react-native-community/netinfo" />
+  <br />
+
+  If your project will support Federated Sign In using the React Native `Authenticator` the `@aws-amplify/rtn-web-browser` package is also required:
+
+  <br />
+  <TerminalCommand command="npx expo install @aws-amplify/rtn-web-browser" />
+
+  </Tabs.Panel>
+  </Tabs.Container>
+</InlineFilter>
+
+<InlineFilter filters={['react']}>
+  Install `@aws-amplify/ui-react` with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/):
+
+  <InstallScripts framework="react" />
+
+  After adding the `aws-amplify` and `@aws-amplify/ui-react` dependencies you are now ready to add any of our [components](../components) to your application.
+</InlineFilter>
+
+<InlineFilter filters={['swift']}>
+  Add info here on how to install FaceLivenessDetector for Swift.
+
+  <Alert role="none" variation="info">
+    <Text color="inherit">
+      The Face Liveness component is currently the only supported component for
+      Swift.
+    </Text>
+    <Link href="/swift/connected-components/liveness">
+      View Face Liveness Component docs
+    </Link>
+  </Alert>
+</InlineFilter>
+
+<InlineFilter filters={['vue']}>
+  For Vue 3 install `@aws-amplify/ui-vue` with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/):
+
+  <InstallScripts framework="vue" />
+
+  <Alert role="none" variation="info" heading="Vue 2">
+    If you're looking for the [Vue 2
+    documentation](https://github.com/aws-amplify/amplify-ui/tree/legacy/legacy/amplify-ui-vue)
+    please click here.
+  </Alert>
+
+  ### Register as a global plugin (Optional)
+
+  Optionally, you can register all the `@aws-amplify/ui-vue` components at once.
+
+  ```js
+  // main.js
+  import { createApp } from 'vue';
+  import App from './App.vue';
+  import AmplifyVue from '@aws-amplify/ui-vue';
+
+  const app = createApp(App);
+  app.use(AmplifyVue);
+  app.mount('#app');
+  ```
+
+  Otherwise, you can import individual components from the `@aws-amplify/ui-vue` package in each one of your components.
+</InlineFilter>
