@@ -30,6 +30,10 @@ export const selectFaceMatchStateBeforeStart = createLivenessSelector(
   (state) => state.context.faceMatchStateBeforeStart
 );
 
+const selectFaceMatchPercentage = createLivenessSelector(
+  (state) => state.context.faceMatchAssociatedParams?.faceMatchPercentage
+);
+
 export interface HintProps {
   hintDisplayText: Required<HintDisplayText>;
 }
@@ -57,6 +61,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
   const isFaceFarEnoughBeforeRecordingState = useLivenessSelector(
     selectIsFaceFarEnoughBeforeRecording
   );
+  const faceMatchPercentage = useLivenessSelector(selectFaceMatchPercentage);
   const isCheckFaceDetectedBeforeStart = state.matches(
     'checkFaceDetectedBeforeStart'
   );
@@ -80,6 +85,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
     [FaceMatchState.TOO_CLOSE]: hintDisplayText.hintTooCloseText,
     [FaceMatchState.TOO_FAR]: hintDisplayText.hintTooFarText,
     [FaceMatchState.MATCHED]: hintDisplayText.hintHoldFaceForFreshnessText,
+    [FaceMatchState.OFF_CENTER]: hintDisplayText.hintFaceOffCenterText,
   };
 
   const IlluminationStateStringMap: Record<IlluminationState, string> = {
@@ -100,9 +106,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
     if (!isRecording) {
       if (isCheckFaceDetectedBeforeStart) {
         if (faceMatchStateBeforeStart === FaceMatchState.TOO_MANY) {
-          return defaultToast(
-            FaceMatchStateStringMap[faceMatchStateBeforeStart]!
-          );
+          return defaultToast(hintDisplayText.hintTooManyFacesText);
         }
         return defaultToast(hintDisplayText.hintMoveFaceFrontOfCameraText);
       }
@@ -149,6 +153,19 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
         resultHintString = FaceMatchStateStringMap[faceMatchState];
       }
 
+      // If the face is outside the oval set the aria-label to a string about centering face in oval
+      let a11yHintString = resultHintString;
+      if (faceMatchState === FaceMatchState.OFF_CENTER) {
+        a11yHintString = FaceMatchStateStringMap[faceMatchState];
+      }
+
+      // If the face match percentage reaches a 50% or 100% marks append it to the a11y label
+      if (faceMatchState === FaceMatchState.MATCHED) {
+        a11yHintString = `${a11yHintString}. 100% face fit.`;
+      } else if (faceMatchPercentage! > 50) {
+        a11yHintString = `${a11yHintString}. 50% face fit.`;
+      }
+
       return (
         <Toast
           size="large"
@@ -156,9 +173,14 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
             faceMatchState === FaceMatchState.TOO_CLOSE ? 'error' : 'primary'
           }
         >
-          <View aria-live="assertive" aria-label={resultHintString}>
-            {resultHintString}
+          <View
+            aria-live="assertive"
+            aria-label={a11yHintString}
+            className="amplify-visually-hidden"
+          >
+            {a11yHintString}
           </View>
+          <View aria-label={a11yHintString}>{resultHintString}</View>
         </Toast>
       );
     }

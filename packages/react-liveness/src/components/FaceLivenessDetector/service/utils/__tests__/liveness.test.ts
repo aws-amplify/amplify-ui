@@ -54,8 +54,43 @@ describe('Liveness Helper', () => {
           sessionInfo
         );
 
-      expect(faceMatchState).toBe(FaceMatchState.TOO_CLOSE);
+      expect(faceMatchState).toBe(FaceMatchState.OFF_CENTER);
       expect(faceMatchPercentage).toBe(0);
+    });
+
+    it('should return TOO FAR', () => {
+      const face: Face = {
+        height: 586,
+        width: 586,
+        left: -6,
+        top: 21,
+        timestampMs: 1,
+        rightEye: [185, 231],
+        leftEye: [427, 224],
+        mouth: [330, 493],
+        nose: [334, 400],
+        rightEar: [36, 243],
+        leftEar: [518, 217],
+      };
+      const ovalDetails: LivenessOvalDetails = {
+        height: 465,
+        width: 288,
+        flippedCenterX: 320,
+        centerX: 320,
+        centerY: 240,
+      };
+      const initialIntersection: number = 0.3;
+      const sessionInfo = mockSessionInformation;
+
+      const { faceMatchState, faceMatchPercentage } =
+        getFaceMatchStateInLivenessOval(
+          face,
+          ovalDetails,
+          initialIntersection,
+          sessionInfo
+        );
+
+      expect(faceMatchState).toBe(FaceMatchState.TOO_CLOSE);
     });
 
     // Note: if this test ever fails due to face detection updates just add a console log for face and do a check and copy the value here

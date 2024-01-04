@@ -42,6 +42,7 @@ export function getDisplayText(
     clientMessageText,
     hintCanNotIdentifyText,
     hintCenterFaceText,
+    hintFaceOffCenterText,
     hintConnectingText,
     hintFaceDetectedText,
     hintHoldFaceForFreshnessText,
@@ -97,6 +98,7 @@ export function getDisplayText(
     hintIlluminationNormalText,
     hintHoldFaceForFreshnessText,
     hintCenterFaceText,
+    hintFaceOffCenterText,
   };
 
   const cameraDisplayText: Required<CameraDisplayText> = {

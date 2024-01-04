@@ -382,6 +382,11 @@ export function getFaceMatchStateInLivenessOval(
   ) {
     faceMatchState = FaceMatchState.MATCHED;
   } else if (
+    (minOvalX > minFaceX && maxOvalX > maxFaceX) ||
+    (minFaceX > minOvalX && maxFaceX > maxOvalX)
+  ) {
+    faceMatchState = FaceMatchState.OFF_CENTER;
+  } else if (
     minOvalY - minFaceY > faceDetectionHeightThreshold ||
     maxFaceY - maxOvalY > faceDetectionHeightThreshold ||
     (minOvalX - minFaceX > faceDetectionWidthThreshold &&
