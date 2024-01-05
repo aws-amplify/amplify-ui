@@ -1954,34 +1954,6 @@ exports[`Props Table 1`] = `
                         "category": "BaseButtonProps",
                         "isOptional": true
                     },
-                    "hasBadge": {
-                        "name": "hasBadge",
-                        "type": "boolean | undefined",
-                        "description": "If true the button will have a badge",
-                        "category": "BaseButtonProps",
-                        "isOptional": true
-                    },
-                    "badgeContent": {
-                        "name": "badgeContent",
-                        "type": "string | undefined",
-                        "description": "The label to show in the badge associated with the button",
-                        "category": "BaseButtonProps",
-                        "isOptional": true
-                    },
-                    "badgePosition": {
-                        "name": "badgePosition",
-                        "type": "| 'top-right'\\n  | 'top-left'\\n  | 'bottom-right'\\n  | 'bottom-left'",
-                        "description": "The badge position",
-                        "category": "BaseButtonProps",
-                        "isOptional": true
-                    },
-                    "badgeVariation": {
-                        "name": "badgeVariation",
-                        "type": "BadgeVariations | undefined",
-                        "description": "The badge variation",
-                        "category": "BaseButtonProps",
-                        "isOptional": true
-                    },
                     "style": {
                         "name": "style",
                         "type": "React.CSSProperties | undefined",
@@ -6081,34 +6053,6 @@ exports[`Props Table 1`] = `
                         "category": "BaseButtonProps",
                         "isOptional": true
                     },
-                    "hasBadge": {
-                        "name": "hasBadge",
-                        "type": "boolean | undefined",
-                        "description": "If true the button will have a badge",
-                        "category": "BaseButtonProps",
-                        "isOptional": true
-                    },
-                    "badgeContent": {
-                        "name": "badgeContent",
-                        "type": "string | undefined",
-                        "description": "The label to show in the badge associated with the button",
-                        "category": "BaseButtonProps",
-                        "isOptional": true
-                    },
-                    "badgePosition": {
-                        "name": "badgePosition",
-                        "type": "| 'top-right'\\n  | 'top-left'\\n  | 'bottom-right'\\n  | 'bottom-left'",
-                        "description": "The badge position",
-                        "category": "BaseButtonProps",
-                        "isOptional": true
-                    },
-                    "badgeVariation": {
-                        "name": "badgeVariation",
-                        "type": "BadgeVariations | undefined",
-                        "description": "The badge variation",
-                        "category": "BaseButtonProps",
-                        "isOptional": true
-                    },
                     "style": {
                         "name": "style",
                         "type": "React.CSSProperties | undefined",
@@ -6368,34 +6312,6 @@ exports[`Props Table 1`] = `
                         "name": "loadingText",
                         "type": "string | undefined",
                         "description": "The label to show in the button when \`loading\` is true\\nIf no text is passed, it only shows the spinner",
-                        "category": "BaseButtonProps",
-                        "isOptional": true
-                    },
-                    "hasBadge": {
-                        "name": "hasBadge",
-                        "type": "boolean | undefined",
-                        "description": "If true the button will have a badge",
-                        "category": "BaseButtonProps",
-                        "isOptional": true
-                    },
-                    "badgeContent": {
-                        "name": "badgeContent",
-                        "type": "string | undefined",
-                        "description": "The label to show in the badge associated with the button",
-                        "category": "BaseButtonProps",
-                        "isOptional": true
-                    },
-                    "badgePosition": {
-                        "name": "badgePosition",
-                        "type": "| 'top-right'\\n  | 'top-left'\\n  | 'bottom-right'\\n  | 'bottom-left'",
-                        "description": "The badge position",
-                        "category": "BaseButtonProps",
-                        "isOptional": true
-                    },
-                    "badgeVariation": {
-                        "name": "badgeVariation",
-                        "type": "BadgeVariations | undefined",
-                        "description": "The badge variation",
                         "category": "BaseButtonProps",
                         "isOptional": true
                     },
@@ -14025,34 +13941,6 @@ exports[`Props Table 1`] = `
                         "name": "loadingText",
                         "type": "string | undefined",
                         "description": "The label to show in the button when \`loading\` is true\\nIf no text is passed, it only shows the spinner",
-                        "category": "BaseButtonProps",
-                        "isOptional": true
-                    },
-                    "hasBadge": {
-                        "name": "hasBadge",
-                        "type": "boolean | undefined",
-                        "description": "If true the button will have a badge",
-                        "category": "BaseButtonProps",
-                        "isOptional": true
-                    },
-                    "badgeContent": {
-                        "name": "badgeContent",
-                        "type": "string | undefined",
-                        "description": "The label to show in the badge associated with the button",
-                        "category": "BaseButtonProps",
-                        "isOptional": true
-                    },
-                    "badgePosition": {
-                        "name": "badgePosition",
-                        "type": "| 'top-right'\\n  | 'top-left'\\n  | 'bottom-right'\\n  | 'bottom-left'",
-                        "description": "The badge position",
-                        "category": "BaseButtonProps",
-                        "isOptional": true
-                    },
-                    "badgeVariation": {
-                        "name": "badgeVariation",
-                        "type": "BadgeVariations | undefined",
-                        "description": "The badge variation",
                         "category": "BaseButtonProps",
                         "isOptional": true
                     },
