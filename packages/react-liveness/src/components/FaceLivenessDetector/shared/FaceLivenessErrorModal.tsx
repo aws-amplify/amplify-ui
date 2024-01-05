@@ -68,7 +68,7 @@ const renderToastErrorModal = (props: {
   return (
     <>
       <Flex className={LivenessClassNames.ErrorModal}>
-        <AlertIcon ariaHidden variation="error" />
+        <AlertIcon role="img" aria-label="Error" variation="error" />
         <Text
           className={LivenessClassNames.ErrorModalHeading}
           id="amplify-liveness-error-heading"
