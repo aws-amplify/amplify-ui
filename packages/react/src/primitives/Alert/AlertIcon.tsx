@@ -47,13 +47,7 @@ export const AlertIcon = ({
   }
 
   return icon ? (
-    <span
-      className={ComponentClassName.AlertIcon}
-      aria-hidden={ariaHidden}
-      {...rest}
-    >
-      {icon}
-    </span>
+    <span className={ComponentClassName.AlertIcon}>{icon}</span>
   ) : null;
 };
 

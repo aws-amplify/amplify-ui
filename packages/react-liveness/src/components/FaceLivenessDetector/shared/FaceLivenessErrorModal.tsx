@@ -27,6 +27,7 @@ const renderToastErrorModal = (props: {
   const { error: errorState, displayText } = props;
 
   const {
+    errorLabelText,
     timeoutHeaderText,
     timeoutMessageText,
     faceDistanceHeaderText,
@@ -41,34 +42,40 @@ const renderToastErrorModal = (props: {
 
   let heading: string;
   let message: string;
+  let label: string;
 
   switch (errorState) {
     case LivenessErrorState.TIMEOUT:
       heading = timeoutHeaderText;
       message = timeoutMessageText;
+      label = errorLabelText;
       break;
     case LivenessErrorState.FACE_DISTANCE_ERROR:
       heading = faceDistanceHeaderText;
       message = faceDistanceMessageText;
+      label = errorLabelText;
       break;
     case LivenessErrorState.MULTIPLE_FACES_ERROR:
       heading = multipleFacesHeaderText;
       message = multipleFacesMessageText;
+      label = errorLabelText;
       break;
     case LivenessErrorState.RUNTIME_ERROR:
       heading = clientHeaderText;
       message = clientMessageText;
+      label = errorLabelText;
       break;
     case LivenessErrorState.SERVER_ERROR:
     default:
       heading = serverHeaderText;
       message = serverMessageText;
+      label = errorLabelText;
   }
 
   return (
     <>
       <Flex className={LivenessClassNames.ErrorModal}>
-        <AlertIcon aria-label="Error" role="img" variation="error" />
+        <AlertIcon aria-label={label} role="img" variation="error" />
         <Text
           className={LivenessClassNames.ErrorModalHeading}
           id="amplify-liveness-error-heading"
