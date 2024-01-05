@@ -3,6 +3,7 @@ export * from './hooks/useStorageURL';
 export * from './hooks/useThemeBreakpoint';
 export { useColorMode } from './hooks/useTheme';
 
+export * from './components/FilterChildren';
 export { AlertIcon } from './primitives/Alert/AlertIcon';
 export * from './primitives/Icon/internal';
 export { useDropZone } from './primitives/DropZone/useDropZone';

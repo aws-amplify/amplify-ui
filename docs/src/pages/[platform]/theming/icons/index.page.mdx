@@ -4,9 +4,9 @@ description: Customize the icons used in components across your application.
 supportedFrameworks: react
 ---
 
-import { Fragment } from '@/components/Fragment';
 import { FRAMEWORKS } from '@/data/frameworks';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+import ReactPage from './react.mdx';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -18,4 +18,4 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+<ReactPage />

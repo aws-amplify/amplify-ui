@@ -2,7 +2,8 @@ import { Tabs } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { BasicShoppingCard, AdvancedShoppingCard } from '../shared';
 import { InstallScripts, TerminalCommand } from '@/components/InstallScripts.tsx';
-import { Fragment } from '@/components/Fragment';
+import VitePolyfill from '../../troubleshooting/shared/vite-polyfill.mdx';
+import VitePolyfillTS from '../../troubleshooting/shared/vite-polyfill-ts.mdx';
 
 ## Tutorial
 
@@ -27,9 +28,7 @@ First, execute the command below in your terminal. When prompted for the name of
 
     **When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.**
 
-    <Fragment>
-      {({ platform }) => import(`../../troubleshooting/shared/vite-polyfill.mdx`)}
-    </Fragment>
+    <VitePolyfill />
 
   </Tabs.Panel>
   <Tabs.Panel value="TypeScript">
@@ -41,12 +40,8 @@ First, execute the command below in your terminal. When prompted for the name of
 
     **When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.**
 
-    <Fragment>
-      {({ platform }) => import(`../../troubleshooting/shared/vite-polyfill.mdx`)}
-    </Fragment>
-    <Fragment>
-      {({ platform }) => import(`../../troubleshooting/shared/vite-polyfill-ts.mdx`)}
-    </Fragment>
+    <VitePolyfill />
+    <VitePolyfillTS />
   </Tabs.Panel>
 </Tabs.Container>
 

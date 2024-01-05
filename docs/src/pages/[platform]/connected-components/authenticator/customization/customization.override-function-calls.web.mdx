@@ -1,4 +1,4 @@
-import { Fragment } from '@/components/Fragment';
+import { InlineFilter } from '@/components/InlineFilter';
 import { ResponsiveTable, ResponsiveTableCell } from '@/components/ResponsiveTable';
 import { TableCell, TableBody, TableHead, TableRow, Alert } from '@aws-amplify/ui-react';
 
@@ -14,9 +14,132 @@ This would be overriden like so:
   When overriding `signUp` you must include the `autoSignIn` key and set `enabled` to true, as show in the example below.
 </Alert>
 
-<Fragment>
-  {({ platform }) => import(`./overrides/username.${platform}.mdx`)}
-</Fragment>
+<InlineFilter filters={['angular']}>
+_app.component.html_
+
+```html{1}
+<amplify-authenticator
+  [services]="services"
+  initialState="signUp"
+>
+  <ng-template
+    amplifySlot="authenticated"
+    let-user="user"
+    let-signOut="signOut"
+  >
+    <h2>Welcome, {{ user.username }}!</h2>
+    <button (click)="signOut()">Sign Out</button>
+  </ng-template>
+</amplify-authenticator>
+
+```
+
+_app.component.ts_
+
+```js{14}
+import { Component, OnInit } from '@angular/core';
+import { Amplify, Auth } from 'aws-amplify';
+import awsExports from './aws-exports';
+
+@Component({
+  selector: 'sign-up-with-email',
+  templateUrl: 'sign-up-with-email.component.html',
+})
+export class SignUpWithEmailComponent implements OnInit {
+  constructor() {
+    Amplify.configure(awsExports);
+  }
+
+  services = {
+    async handleSignUp(formData: Record<string, any>) {
+      let { username, password, attributes } = formData;
+      // custom username
+      username = username.toLowerCase();
+      attributes.email = attributes.email.toLowerCase();
+      return Auth.signUp({
+        username,
+        password,
+        attributes,
+        autoSignIn: {
+          enabled: true,
+        },
+      });
+    },
+  };
+
+```
+</InlineFilter>
+<InlineFilter filters={['react']}>
+```jsx{8}
+import { Amplify, Auth } from 'aws-amplify';
+import { Authenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+import awsExports from './aws-exports';
+Amplify.configure(awsExports);
+
+export default function AuthenticatorWithEmail() {
+  const services = {
+    async handleSignUp(formData) {
+      let { username, password, attributes } = formData;
+      // custom username
+      username = username.toLowerCase();
+      attributes.email = attributes.email.toLowerCase();
+      return Auth.signUp({
+        username,
+        password,
+        attributes,
+        autoSignIn: {
+          enabled: true,
+        },
+      });
+    },
+  };
+
+  return (
+    <Authenticator services={services} initialState="signUp">
+      {({ signOut }) => <button onClick={signOut}>Sign out</button>}
+    </Authenticator>
+  );
+}
+```
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+```html
+<script setup lang="ts">
+  import { Amplify, Auth } from 'aws-amplify';
+  import { Authenticator } from '@aws-amplify/ui-vue';
+  import '@aws-amplify/ui-vue/styles.css';
+  import aws_exports from './aws-exports';
+  Amplify.configure(aws_exports);
+
+  const services = {
+    async handleSignUp(formData) {
+      let { username, password, attributes } = formData;
+      // custom username
+      username = username.toLowerCase();
+      attributes.email = attributes.email.toLowerCase();
+      return Auth.signUp({
+        username,
+        password,
+        attributes,
+        autoSignIn: {
+          enabled: true,
+        },
+      });
+    },
+  };
+</script>
+
+<template>
+  <authenticator :services="services" initial-state="signUp">
+    <template v-slot="{ user, signOut }">
+      <h1>Hello {{ user.username }}!</h1>
+      <button @click="signOut">Sign Out</button>
+    </template>
+  </authenticator>
+</template>
+```
+</InlineFilter>
 
 
 

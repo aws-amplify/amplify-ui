@@ -1,6 +1,7 @@
 import { Alert, Tabs } from '@aws-amplify/ui-react';
 import { TerminalCommand } from '@/components/InstallScripts';
-import { Fragment } from '@/components/Fragment';
+import VitePolyfill from './shared/vite-polyfill.mdx';
+import VitePolyfillTS from './shared/vite-polyfill-ts.mdx';
 
 ## Astro
 
@@ -238,17 +239,10 @@ When working with a [Vite](https://vitejs.dev) project you must make a few modif
     <Tabs.Item value="JavaScript">JavaScript</Tabs.Item>
   </Tabs.List>
   <Tabs.Panel value="TypeScript">
-    <Fragment>
-      {({ platform }) => import(`./shared/vite-polyfill.mdx`)}
-    </Fragment>
-    <Fragment>
-      {({ platform }) => import(`./shared/vite-polyfill-ts.mdx`)}
-    </Fragment>
+    <VitePolyfillTS />
   </Tabs.Panel>
   <Tabs.Panel value="JavaScript">
-    <Fragment>
-      {({ platform }) => import(`./shared/vite-polyfill.mdx`)}
-    </Fragment>
+    <VitePolyfill />
   </Tabs.Panel>
 </Tabs.Container>
 

@@ -4,6 +4,10 @@ import { Button, Flex, Heading, Text } from '@aws-amplify/ui-react';
 
 export function CustomizationComponentsErrorView() {
   const [error, setError] = useState(undefined);
+  const [showLiveness, setShowLiveness] = React.useState(false);
+  React.useEffect(() => {
+    setShowLiveness(true);
+  }, []);
 
   const CustomError = useCallback(() => {
     return (
@@ -27,7 +31,7 @@ export function CustomizationComponentsErrorView() {
     );
   }, [error]);
 
-  return (
+  return showLiveness ? (
     <FaceLivenessDetector
       sessionId="sessionId"
       region="us-east-1"
@@ -37,5 +41,5 @@ export function CustomizationComponentsErrorView() {
         ErrorView: CustomError,
       }}
     />
-  );
+  ) : null;
 }

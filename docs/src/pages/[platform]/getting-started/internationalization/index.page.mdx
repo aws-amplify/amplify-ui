@@ -4,7 +4,7 @@ description: How to build localized apps with Amplify UI.
 supportedFrameworks: react
 ---
 
-import { Fragment } from '@/components/Fragment';
+import ReactPage from './internationalization.react.mdx';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
 
 export async function getStaticPaths() {
@@ -17,4 +17,4 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-<Fragment>{({ platform }) => import(`./internationalization.${platform}.mdx`)}</Fragment>
+<ReactPage />
