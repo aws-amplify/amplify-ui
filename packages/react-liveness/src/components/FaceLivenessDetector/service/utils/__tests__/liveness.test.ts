@@ -58,7 +58,7 @@ describe('Liveness Helper', () => {
       expect(faceMatchPercentage).toBe(0);
     });
 
-    it('should return TOO FAR', () => {
+    it('should return TOO CLOSE', () => {
       const face: Face = {
         height: 586,
         width: 586,
