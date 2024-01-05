@@ -42,34 +42,29 @@ const renderToastErrorModal = (props: {
 
   let heading: string;
   let message: string;
-  let label: string;
+  const label = errorLabelText;
 
   switch (errorState) {
     case LivenessErrorState.TIMEOUT:
       heading = timeoutHeaderText;
       message = timeoutMessageText;
-      label = errorLabelText;
       break;
     case LivenessErrorState.FACE_DISTANCE_ERROR:
       heading = faceDistanceHeaderText;
       message = faceDistanceMessageText;
-      label = errorLabelText;
       break;
     case LivenessErrorState.MULTIPLE_FACES_ERROR:
       heading = multipleFacesHeaderText;
       message = multipleFacesMessageText;
-      label = errorLabelText;
       break;
     case LivenessErrorState.RUNTIME_ERROR:
       heading = clientHeaderText;
       message = clientMessageText;
-      label = errorLabelText;
       break;
     case LivenessErrorState.SERVER_ERROR:
     default:
       heading = serverHeaderText;
       message = serverMessageText;
-      label = errorLabelText;
   }
 
   return (
