@@ -291,8 +291,9 @@ export const LivenessCameraModule = (
     );
   }
 
-  const isRecordingOnMobile =
-    isMobileScreen && !isStartView && !isWaitingForCamera && isRecording;
+  // We don't show full screen camera on the pre check screen (isStartView/isWaitingForCamera)
+  const shouldShowFullScreenCamera =
+    isMobileScreen && !isStartView && !isWaitingForCamera;
 
   return (
     <>
@@ -301,7 +302,8 @@ export const LivenessCameraModule = (
       <Flex
         className={classNames(
           LivenessClassNames.CameraModule,
-          isRecordingOnMobile && `${LivenessClassNames.CameraModule}--mobile`
+          shouldShowFullScreenCamera &&
+            `${LivenessClassNames.CameraModule}--mobile`
         )}
         data-testid={testId}
         gap="zero"
@@ -335,7 +337,8 @@ export const LivenessCameraModule = (
           <Flex
             className={classNames(
               LivenessClassNames.OvalCanvas,
-              isRecordingOnMobile && `${LivenessClassNames.OvalCanvas}--mobile`,
+              shouldShowFullScreenCamera &&
+                `${LivenessClassNames.OvalCanvas}--mobile`,
               isRecordingStopped && LivenessClassNames.FadeOut
             )}
           >

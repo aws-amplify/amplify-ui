@@ -296,6 +296,21 @@ export function drawLivenessOvalInCanvas({
   }
 }
 
+export function clearOvalCanvas({
+  canvas,
+}: {
+  canvas: HTMLCanvasElement;
+}): void {
+  const ctx = canvas.getContext('2d');
+
+  if (ctx) {
+    ctx.restore();
+    ctx.clearRect(0, 0, Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER);
+  } else {
+    throw new Error('Cannot find Canvas.');
+  }
+}
+
 interface FaceMatchStateInLivenessOval {
   faceMatchState: FaceMatchState;
   faceMatchPercentage: number;

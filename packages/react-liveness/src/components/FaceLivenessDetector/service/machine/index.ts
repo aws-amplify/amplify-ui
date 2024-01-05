@@ -31,6 +31,7 @@ import {
   isCameraDeviceVirtual,
   FreshnessColorDisplay,
   drawStaticOval,
+  clearOvalCanvas,
 } from '../utils';
 import { nanoid } from 'nanoid';
 import { getStaticLivenessOvalDetails } from '../utils/liveness';
@@ -183,6 +184,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       },
       detectFaceBeforeStart: {
+        entry: ['hideOvalCanvas'],
         invoke: {
           src: 'detectFace',
           onDone: {
@@ -249,7 +251,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         initial: 'ovalDrawing',
         states: {
           ovalDrawing: {
-            entry: ['sendTimeoutAfterOvalDrawingDelay'],
+            entry: ['showOvalCanvas', 'sendTimeoutAfterOvalDrawingDelay'],
             invoke: {
               src: 'detectInitialFaceAndDrawOval',
               onDone: {
@@ -482,6 +484,17 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           context.videoAssociatedParams!;
 
         drawStaticOval(canvasEl!, videoEl!, videoMediaStream!);
+      },
+      hideOvalCanvas: (context) => {
+        const { canvasEl } = context.videoAssociatedParams!;
+
+        clearOvalCanvas({ canvas: canvasEl! });
+        canvasEl!.style.display = 'none';
+      },
+      showOvalCanvas: (context) => {
+        const { canvasEl } = context.videoAssociatedParams!;
+
+        canvasEl!.style.display = 'unset';
       },
       updateRecordingStartTimestampMs: assign({
         videoAssociatedParams: (context) => {
