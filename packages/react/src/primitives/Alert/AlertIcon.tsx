@@ -14,6 +14,7 @@ import {
 interface AlertIconProps {
   variation?: AlertVariations;
   ariaHidden?: boolean;
+  role?: 'img';
 }
 
 /**

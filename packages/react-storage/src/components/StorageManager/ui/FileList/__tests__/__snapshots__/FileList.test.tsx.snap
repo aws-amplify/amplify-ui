@@ -95,6 +95,7 @@ exports[`FileList renders an alert in case of error 1`] = `
       role="alert"
     >
       <span
+        aria-hidden="true"
         class="amplify-alert__icon"
       >
         <span
