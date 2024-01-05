@@ -82,13 +82,12 @@ describe('Liveness Helper', () => {
       const initialIntersection: number = 0.3;
       const sessionInfo = mockSessionInformation;
 
-      const { faceMatchState, faceMatchPercentage } =
-        getFaceMatchStateInLivenessOval(
-          face,
-          ovalDetails,
-          initialIntersection,
-          sessionInfo
-        );
+      const { faceMatchState } = getFaceMatchStateInLivenessOval(
+        face,
+        ovalDetails,
+        initialIntersection,
+        sessionInfo
+      );
 
       expect(faceMatchState).toBe(FaceMatchState.TOO_CLOSE);
     });
