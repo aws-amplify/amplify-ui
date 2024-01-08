@@ -7,9 +7,6 @@ export const getRoute = (
   state: AuthMachineState,
   actorState: AuthActorState
 ) => {
-  if (state?.matches('signUpActor.runActor')) {
-    console.log(state.value);
-  }
   switch (true) {
     case state.matches('idle'):
       return 'idle';
@@ -20,7 +17,6 @@ export const getRoute = (
     case state.matches('authenticated'):
       return 'authenticated';
     case actorState?.matches('confirmSignUp'):
-    case actorState?.matches('confirmSignUp.resendConfirmationCode'):
     case actorState?.matches('resendSignUpCode'):
       return 'confirmSignUp';
     case actorState?.matches('confirmSignIn'):
@@ -33,12 +29,10 @@ export const getRoute = (
       return 'signIn';
     case actorState?.matches('signUp'):
     case actorState?.matches('autoSignIn'):
-    case state?.matches('signUpActor.runActor'):
       return 'signUp';
     case actorState?.matches('forceChangePassword'):
       return 'forceNewPassword';
     case actorState?.matches('forgotPassword'):
-    case state?.matches('forgotPasswordActor.runActor'):
       return 'forgotPassword';
     case actorState?.matches('confirmResetPassword'):
       return 'confirmResetPassword';
@@ -54,11 +48,12 @@ export const getRoute = (
        * signIn actor is running.
        */
       return 'transition';
+    case state?.matches('signUpActor.runActor'):
+      return 'signUp';
     default:
       console.debug(
-        'Cannot infer `route` from Authenticator state:',
-        state.value
+        `Cannot infer 'route' from Authenticator state:
+       ${state?.value} and actor state: ${actorState?.value}`
       );
-      return null;
   }
 };
