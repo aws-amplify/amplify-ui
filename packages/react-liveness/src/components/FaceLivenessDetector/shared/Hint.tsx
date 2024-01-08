@@ -161,9 +161,13 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
 
       // If the face match percentage reaches a 50% or 100% marks append it to the a11y label
       if (faceMatchState === FaceMatchState.MATCHED) {
-        a11yHintString = `${a11yHintString}. 100% ${hintDisplayText.hintMatchIndicatorA11yText}`;
+        a11yHintString = `${a11yHintString}. ${hintDisplayText.hintMatchIndicatorText(
+          100
+        )}`;
       } else if (faceMatchPercentage! > 50) {
-        a11yHintString = `${a11yHintString}. 50% ${hintDisplayText.hintMatchIndicatorA11yText}`;
+        a11yHintString = `${a11yHintString}. ${hintDisplayText.hintMatchIndicatorText(
+          50
+        )}`;
       }
 
       return (

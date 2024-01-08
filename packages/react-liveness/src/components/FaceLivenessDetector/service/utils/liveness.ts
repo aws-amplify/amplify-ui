@@ -374,6 +374,10 @@ export function getFaceMatchStateInLivenessOval(
       0
     ) * 100;
 
+  const faceIsOutsideOvalToTheLeft = minOvalX > minFaceX && maxOvalX > maxFaceX;
+  const faceIsOutsideOvalToTheRight =
+    minFaceX > minOvalX && maxFaceX > maxOvalX;
+
   if (
     intersection > intersectionThreshold &&
     Math.abs(minOvalX - minFaceX) < ovalMatchWidthThreshold &&
@@ -381,10 +385,7 @@ export function getFaceMatchStateInLivenessOval(
     Math.abs(maxOvalY - maxFaceY) < ovalMatchHeightThreshold
   ) {
     faceMatchState = FaceMatchState.MATCHED;
-  } else if (
-    (minOvalX > minFaceX && maxOvalX > maxFaceX) ||
-    (minFaceX > minOvalX && maxFaceX > maxOvalX)
-  ) {
+  } else if (faceIsOutsideOvalToTheLeft || faceIsOutsideOvalToTheRight) {
     faceMatchState = FaceMatchState.OFF_CENTER;
   } else if (
     minOvalY - minFaceY > faceDetectionHeightThreshold ||
