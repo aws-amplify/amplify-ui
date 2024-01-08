@@ -11,10 +11,9 @@ import {
   useIcons,
 } from '../Icon';
 
-interface AlertIconProps extends Pick<ViewProps, 'role'> {
+interface AlertIconProps extends Pick<ViewProps, 'role' | 'ariaLabel'> {
   variation?: AlertVariations;
   ariaHidden?: boolean;
-  ariaLabel?: string;
 }
 
 /**
