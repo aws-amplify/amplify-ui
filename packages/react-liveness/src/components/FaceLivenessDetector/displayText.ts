@@ -13,6 +13,7 @@ export type HintDisplayText = {
   hintHoldFaceForFreshnessText?: string;
   hintCenterFaceText?: string;
   hintFaceOffCenterText?: string;
+  hintMatchIndicatorA11yText?: string;
 };
 
 export type CameraDisplayText = {
@@ -99,6 +100,7 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   hintIlluminationTooDarkText: 'Move to brighter area',
   hintIlluminationNormalText: 'Lighting conditions normal',
   hintHoldFaceForFreshnessText: 'Hold still',
+  hintMatchIndicatorA11yText: 'face fit.',
   photosensitivityWarningBodyText:
     'This check flashes different colors. Use caution if you are photosensitive.',
   photosensitivityWarningHeadingText: 'Photosensitivity warning',

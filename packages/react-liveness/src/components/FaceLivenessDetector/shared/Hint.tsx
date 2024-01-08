@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { View } from '@aws-amplify/ui-react';
+import { View, VisuallyHidden } from '@aws-amplify/ui-react';
 
 import { IlluminationState, FaceMatchState } from '../service';
 
@@ -161,9 +161,9 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
 
       // If the face match percentage reaches a 50% or 100% marks append it to the a11y label
       if (faceMatchState === FaceMatchState.MATCHED) {
-        a11yHintString = `${a11yHintString}. 100% face fit.`;
+        a11yHintString = `${a11yHintString}. 100% ${hintDisplayText.hintMatchIndicatorA11yText}`;
       } else if (faceMatchPercentage! > 50) {
-        a11yHintString = `${a11yHintString}. 50% face fit.`;
+        a11yHintString = `${a11yHintString}. 50% ${hintDisplayText.hintMatchIndicatorA11yText}`;
       }
 
       return (
@@ -173,13 +173,9 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
             faceMatchState === FaceMatchState.TOO_CLOSE ? 'error' : 'primary'
           }
         >
-          <View
-            aria-live="assertive"
-            aria-label={a11yHintString}
-            className="amplify-visually-hidden"
-          >
+          <VisuallyHidden aria-live="assertive" aria-label={a11yHintString}>
             {a11yHintString}
-          </View>
+          </VisuallyHidden>
           <View aria-label={a11yHintString}>{resultHintString}</View>
         </Toast>
       );
