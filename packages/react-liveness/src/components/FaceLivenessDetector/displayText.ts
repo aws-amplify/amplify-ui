@@ -13,7 +13,7 @@ export type HintDisplayText = {
   hintHoldFaceForFreshnessText?: string;
   hintCenterFaceText?: string;
   hintFaceOffCenterText?: string;
-  hintMatchIndicatorA11yText?: string;
+  hintMatchIndicatorText?: string;
 };
 
 export type CameraDisplayText = {
