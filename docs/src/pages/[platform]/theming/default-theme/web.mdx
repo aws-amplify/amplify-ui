@@ -1,9 +1,12 @@
 import React from 'react';
 import { CardLink, CardLinkGroup } from '@/components/CardLink';
-import { Fragment } from '@/components/Fragment';
+import { InlineFilter } from '@/components/InlineFilter';
 import { Grid, Icon, Link } from '@aws-amplify/ui-react';
 import { ColorsIcon, TypographyIcon, SizesIcon } from './icons';
 import { MdOutlineAutoAwesome } from 'react-icons/md';
+import AngularPage from './tokenUsage.angular.mdx';
+import ReactPage from './tokenUsage.react.mdx';
+import VuePage from './tokenUsage.vue.mdx';
 
 Amplify UI follows a consistent pattern when defining our default tokens for properties such as color, font size, border radius, and more. In addition to the reference here, you can browse our <Link isExternal href="https://github.com/aws-amplify/amplify-ui/tree/main/packages/ui/src/theme/tokens">default tokens</Link> and their corresponding types on GitHub.
 
@@ -51,4 +54,12 @@ If we use `space` as an example, we'd discover its token definition looks simila
 
 All of our tokens follow this pattern: a top level namespace that is further defined by a scale, each which has their own unique value. In the case of our space design tokens, that scale is based on a size: small, medium, large, etc. Our [color tokens](/react/theming/default-theme/colors#neutral), on the other hand, are further defined by hue (red, blue, yellow, etc), and then by a numerical scale based on lightness (10-100). 
 
-<Fragment>{({ platform }) => import(`./tokenUsage.${platform}.mdx`)}</Fragment>
+<InlineFilter filters={['angular']}>
+  <AngularPage />
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <ReactPage />
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+  <VuePage />
+</InlineFilter>

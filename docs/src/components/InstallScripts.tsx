@@ -19,8 +19,6 @@ const frameworkInstallScript = (
   component?: string
 ) => {
   const isReactNative = framework === 'react-native';
-  const isLivenessReactComponent =
-    component === 'liveness' && framework === 'react';
 
   const packageManagerPrefix = `${
     packageManager === 'npm' ? 'npm install' : 'yarn add'
@@ -28,7 +26,7 @@ const frameworkInstallScript = (
 
   const extraDependencies = `${
     isReactNative ? ` ${REACT_NATIVE_DEPENDENCIES}` : ''
-  }${isLivenessReactComponent ? `@5.x` : ''}`;
+  }`;
 
   const componentSubpackage = component ? `-${component}` : '';
 
@@ -49,12 +47,7 @@ export const TerminalCommand = ({
   return (
     <div className={`install-code__container ${variant}`}>
       <code className="install-code__content">{terminalCommand}</code>
-      <CopyButton
-        className="install-code__button"
-        copyText={terminalCommand}
-        size="small"
-        variation="link"
-      />
+      <CopyButton className="install-code__button" target={terminalCommand} />
     </div>
   );
 };

@@ -1,11 +1,14 @@
 import { Tabs } from '@aws-amplify/ui-react';
-import { Fragment } from '@/components/Fragment';
+import { ExampleCode } from '@/components/Example';
+import Liveness from './liveness-service-setup.mdx';
+import CognitoCallout from './cognito-callout.mdx';
+import CLI from './quick-start-pull-cli.mdx';
+import QuickAddSwift from './quick-start-add.swift.mdx';
+import Credentials from './credentials-provider-callout.mdx';
 
 There are four methods to setup the Amazon Cognito resources needed for Amplify Auth. The most common is the Amplify CLI create flow which asks a series of questions and will configure both a User Pool and Identity Pool automatically. The second option is the Amplify CLI import flow which adds an existing Cognito resource into Amplify. The third is to reuse or create a Cognito Identity Pool manually and to add it into your application. Finally the fourth is to pass a credentials provider which obtains the AWS credentials under your control.
 
-<Fragment>
-  {({}) => import(`./cognito-callout.mdx`)}
-</Fragment>
+<CognitoCallout />
 
 <Tabs.Container defaultValue="Amplify CLI">
   <Tabs.List>
@@ -30,9 +33,7 @@ $ amplify init
 ? Choose the type of app that you're building ios
 ```
 
-<Fragment>
-  {({ platform }) => import(`./quick-start-pull-cli.mdx`)}
-</Fragment>
+<CLI />
 
 #### Push to create the resources
 
@@ -50,17 +51,13 @@ Current Environment: dev
 _If you have an existing backend, run `amplify pull` to sync your `amplifyconfiguration.json` with your cloud backend._
 
 You should now have an `amplifyconfiguration.json` file in your `app/src/main/res/raw` directory with your latest backend configuration.
-  <Fragment>
-  {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}
-</Fragment>
+  <QuickAddSwift />
   </Tabs.Panel>
   <Tabs.Panel value="Existing Cognito Resource">
 > If you previously had unmanaged resources that you want to manage with Amplify you can use the CLI to import your Cognito resources.
 
 FaceLivenessDetector uses Amplify Auth by default to authorize users to perform the Face Liveness check. Follow the instructions for [importing existing resources](https://docs.amplify.aws/lib/auth/getting-started/q/platform/android/#set-up-backend-resources).
- <Fragment>
-  {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}
-</Fragment> 
+ <QuickAddSwift />
   </Tabs.Panel>
   <Tabs.Panel value="Self Managed Cognito Resource">
 > Use this option if you already have a Cognito identity/user pools that you do not want to import to Amplify, or want to manage Cognito resources yourself or with a 3rd party resource management tool.
@@ -89,9 +86,7 @@ When initially configuring Amplify (assuming you are using no pieces of Amplify 
   }
 }
 ```
-<Fragment>
-  {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}
-</Fragment>
+<QuickAddSwift />
   </Tabs.Panel>
   <Tabs.Panel value="Custom Credentials Provider">
 > Use this option if you want more control over the process of obtaining AWS credentials.
@@ -137,11 +132,49 @@ struct MyView: View {
 }
 ```
 
-<Fragment>
-  {({}) => import(`./credentials-provider-callout.mdx`)}
-</Fragment>
-<Fragment>
-  {({ platform }) => import(`./quick-start-add-with-credentials-provider.swift.mdx`)}
-</Fragment>
+<Credentials />
+<Liveness />
+
+### Step 2. Install dependencies
+
+In Xcode, navigate to **File > Add Packages...**
+Enter the **Amplify UI Swift Liveness** GitHub repo URL (`https://github.com/aws-amplify/amplify-ui-swift-liveness`) into the search bar and hit **Enter**. Wait for the result to load.
+
+You'll see the **Amplify UI Swift Liveness** repository rules for which version of Liveness you want Swift Package Manager to install. Choose the dependency rule **Up to Next Major Version**, as it will use the latest compatible version of the dependency that can be detected in the repository. Then click **Add Package**.
+
+Lastly, select the `FaceLiveness` product and click **Add Package**.
+
+### Step 3. Request camera permissions
+
+FaceLivenessDetectorView requires access to the camera on the user's device in order to perform the Face Liveness check. Before displaying FaceLivenessDetectorView, prompt the user to grant camera permission. Please follow these guides for guidelines around requesting camera permission [iOS Human Interface Guidelines | Accessing private data](https://developer.apple.com/design/human-interface-guidelines/patterns/accessing-private-data/).
+
+### Step 4. Add FaceLivenessDetectorView
+
+```swift
+import SwiftUI
+import FaceLiveness
+
+struct MyView: View { 
+  @State private var isPresentingLiveness = true
+
+  var body: some View { 
+    FaceLivenessDetectorView(
+      sessionID: <session ID>,
+      region: <region>,
+      isPresented: $isPresentingLiveness,
+      onCompletion: { result in
+        switch result {
+        case .success: 
+          // ...
+        case .failure(let error):
+          // ...
+        default:
+          // ...
+        }
+      }
+    )
+  }
+}
+```
   </Tabs.Panel>
 </Tabs.Container>

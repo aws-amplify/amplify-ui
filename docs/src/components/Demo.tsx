@@ -21,13 +21,6 @@ export const Demo = ({
   const [copied, setCopied] = React.useState(false);
   const { tokens } = useTheme();
 
-  const copy = () => {
-    setCopied(true);
-    setTimeout(() => {
-      setCopied(false);
-    }, 2000);
-  };
-
   return (
     <View
       className="docs-component-demo"
@@ -58,11 +51,7 @@ export const Demo = ({
           position="relative"
           backgroundColor={tokens.colors.background.secondary}
         >
-          <CopyButton
-            className="example-copy-button"
-            copyText={code}
-            size="small"
-          />
+          <CopyButton className="example-copy-button" target={code} />
           <Highlight Prism={defaultProps.Prism} code={code} language="jsx">
             {({ className, style, tokens, getLineProps, getTokenProps }) => (
               <pre
