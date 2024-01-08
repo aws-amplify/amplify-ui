@@ -100,7 +100,7 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   hintIlluminationTooDarkText: 'Move to brighter area',
   hintIlluminationNormalText: 'Lighting conditions normal',
   hintHoldFaceForFreshnessText: 'Hold still',
-  hintMatchIndicatorA11yText: 'face fit.',
+  hintMatchIndicatorText: 'face fit.',
   photosensitivityWarningBodyText:
     'This check flashes different colors. Use caution if you are photosensitive.',
   photosensitivityWarningHeadingText: 'Photosensitivity warning',
