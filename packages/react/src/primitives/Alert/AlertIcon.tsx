@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { ComponentClassName } from '@aws-amplify/ui';
-import { AlertVariations } from '../types';
+import { AlertVariations, ViewProps } from '../types';
 
 import {
   IconInfo,
@@ -11,10 +11,10 @@ import {
   useIcons,
 } from '../Icon';
 
-interface AlertIconProps {
+interface AlertIconProps extends Pick<ViewProps, 'role'> {
   variation?: AlertVariations;
   ariaHidden?: boolean;
-  role?: 'img';
+  ariaLabel?: string;
 }
 
 /**
@@ -23,25 +23,42 @@ interface AlertIconProps {
 export const AlertIcon = ({
   variation,
   ariaHidden,
-  ...rest
+  ariaLabel,
+  role,
 }: AlertIconProps): JSX.Element | null => {
   const icons = useIcons('alert');
   let icon;
   switch (variation) {
     case 'info':
-      icon = icons?.info ?? <IconInfo aria-hidden={ariaHidden} {...rest} />;
+      icon = icons?.info ?? (
+        <IconInfo aria-hidden={ariaHidden} aria-label={ariaLabel} role={role} />
+      );
       break;
     case 'error':
-      icon = icons?.error ?? <IconError aria-hidden={ariaHidden} {...rest} />;
+      icon = icons?.error ?? (
+        <IconError
+          aria-hidden={ariaHidden}
+          aria-label={ariaLabel}
+          role={role}
+        />
+      );
       break;
     case 'warning':
       icon = icons?.warning ?? (
-        <IconWarning aria-hidden={ariaHidden} {...rest} />
+        <IconWarning
+          aria-hidden={ariaHidden}
+          aria-label={ariaLabel}
+          role={role}
+        />
       );
       break;
     case 'success':
       icon = icons?.success ?? (
-        <IconCheckCircle aria-hidden={ariaHidden} {...rest} />
+        <IconCheckCircle
+          aria-hidden={ariaHidden}
+          aria-label={ariaLabel}
+          role={role}
+        />
       );
       break;
   }

@@ -42,7 +42,6 @@ const renderToastErrorModal = (props: {
 
   let heading: string;
   let message: string;
-  const label = errorLabelText;
 
   switch (errorState) {
     case LivenessErrorState.TIMEOUT:
@@ -70,7 +69,7 @@ const renderToastErrorModal = (props: {
   return (
     <>
       <Flex className={LivenessClassNames.ErrorModal}>
-        <AlertIcon aria-label={label} role="img" variation="error" />
+        <AlertIcon ariaLabel={errorLabelText} role="img" variation="error" />
         <Text
           className={LivenessClassNames.ErrorModalHeading}
           id="amplify-liveness-error-heading"
