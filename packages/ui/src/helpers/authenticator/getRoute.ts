@@ -25,6 +25,7 @@ export const getRoute = (
     case actorState?.matches('setupTotp.submit'):
       return 'setupTotp';
     case actorState?.matches('signIn'):
+    case actorState?.matches('federatedSignIn'):
       return 'signIn';
     case actorState?.matches('signUp'):
     case actorState?.matches('autoSignIn'):
@@ -53,8 +54,7 @@ export const getRoute = (
       return 'signUp';
     default:
       console.debug(
-        `Cannot infer 'route' from Authenticator state:
-       ${state?.value} and actor state: ${actorState?.value}`
+        `Cannot infer 'route' from Authenticator state: ${state?.value} and actor state: ${actorState?.value}`
       );
   }
 };
