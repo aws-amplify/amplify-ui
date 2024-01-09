@@ -5,9 +5,9 @@ import { LaunchArguments } from 'react-native-launch-arguments';
 
 import { EXAMPLE_APP_NAME } from '@env';
 
-// .env file or launch argument passed from Detox
+// prefer launch argument passed from Detox, then local .env file
 const getExampleAppName = () =>
-  EXAMPLE_APP_NAME ?? LaunchArguments.value().EXAMPLE_APP_NAME;
+  LaunchArguments.value().EXAMPLE_APP_NAME ?? EXAMPLE_APP_NAME;
 
 /**
  * `Authenticator` Example and Demo Apps

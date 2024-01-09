@@ -1,6 +1,5 @@
 import { Alert, Authenticator, Tabs } from '@aws-amplify/ui-react';
 import { Example } from '@/components/Example';
-import { Fragment } from '@/components/Fragment';
 
 <Alert role="none" heading="Zero Configuration">
 
@@ -23,20 +22,90 @@ You can provide an alternative `username` such as `email` or `phone_number`.
     <Tabs.Item value="Phone Number">Phone Number</Tabs.Item>
   </Tabs.List>
   <Tabs.Panel value="Username">
-    <Fragment>
-      {({ platform }) => import(`./loginMechanisms.username.${platform}.mdx`)}
-    </Fragment>
+    ```jsx expoSnack
+    import React from 'react';
+    import { Button } from 'react-native';
+
+    import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
+    import { Amplify } from 'aws-amplify';
+    import awsconfig from './aws-exports';
+
+    Amplify.configure(awsconfig);
+
+    function SignOutButton() {
+      const { signOut } = useAuthenticator();
+      return <Button title="Sign Out" onPress={signOut} />;
+    }
+
+    function App() {
+      return (
+        <Authenticator.Provider>
+          <Authenticator loginMechanisms={['username']}>
+            <SignOutButton />
+          </Authenticator>
+        </Authenticator.Provider>
+      );
+    }
+
+    export default App;
+    ```
   </Tabs.Panel>
   <Tabs.Panel value="Email">
-    <Fragment>
-      {({ platform }) => import(`./loginMechanisms.email.${platform}.mdx`)}
-    </Fragment>
+    ```jsx expoSnack
+    import React from 'react';
+    import { Button } from 'react-native';
+
+    import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
+    import { Amplify } from 'aws-amplify';
+    import awsconfig from './aws-exports';
+
+    Amplify.configure(awsconfig);
+
+    function SignOutButton() {
+      const { signOut } = useAuthenticator();
+      return <Button title="Sign Out" onPress={signOut} />;
+    }
+
+    function App() {
+      return (
+        <Authenticator.Provider>
+          <Authenticator loginMechanisms={['email']}>
+            <SignOutButton />
+          </Authenticator>
+        </Authenticator.Provider>
+      );
+    }
+
+    export default App;
+    ```
   </Tabs.Panel>
   <Tabs.Panel value="Phone Number">
-    <Fragment>
-      {({ platform }) =>
-        import(`./loginMechanisms.phone_number.${platform}.mdx`)
-      }
-    </Fragment>
+    ```jsx expoSnack
+    import React from 'react';
+    import { Button } from 'react-native';
+
+    import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
+    import { Amplify } from 'aws-amplify';
+    import awsconfig from './aws-exports';
+
+    Amplify.configure(awsconfig);
+
+    function SignOutButton() {
+      const { signOut } = useAuthenticator();
+      return <Button title="Sign Out" onPress={signOut} />;
+    }
+
+    function App() {
+      return (
+        <Authenticator.Provider>
+          <Authenticator loginMechanisms={['phone_number']}>
+            <SignOutButton />
+          </Authenticator>
+        </Authenticator.Provider>
+      );
+    }
+
+    export default App;
+    ```
   </Tabs.Panel>
 </Tabs.Container>

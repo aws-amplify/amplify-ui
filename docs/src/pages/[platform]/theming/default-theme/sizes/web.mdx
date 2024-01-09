@@ -1,23 +1,174 @@
-import { Fragment } from '@/components/Fragment';
+import { InlineFilter } from '@/components/InlineFilter';
 import { 
   TokensSizeSpace,
   TokensSizeBorderWidths,
   TokensSizeRadii } from '@/components/Theming/TokenGroups';
+import { Example, ExampleCode } from '@/components/Example';
+import { Tabs, View } from '@aws-amplify/ui-react';
+import { SpaceExample, SpaceCSSExample } from './examples';
+import { BorderWidthExample } from './examples';
+import { RadiiExample } from './examples';
 
 ## Space
 
-<Fragment>{({ platform }) => import(`./spaceUsage.${platform}.mdx`)}</Fragment>
+<InlineFilter filters={['angular']}>
+  <Example>
+    <ExampleCode>
+  ```css file=./examples/SpaceExample.css
+
+  ```
+    </ExampleCode>
+  </Example>
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <Tabs.Container defaultValue="Example usage">
+    <Tabs.List>
+      <Tabs.Item value="Example usage">Example usage</Tabs.Item>
+      <Tabs.Item value="CSS">CSS</Tabs.Item>
+    </Tabs.List>
+    <Tabs.Panel value="Example usage">
+      <View marginTop="var(--amplify-space-large)">
+        <Example>
+          <SpaceExample  />
+          <ExampleCode>
+  ```tsx file=./examples/SpaceExample.tsx
+
+  ```
+          </ExampleCode>
+        </Example>
+      </View>
+    </Tabs.Panel>
+    <Tabs.Panel value="CSS">
+      <View marginTop="var(--amplify-space-large)">
+      <Example>
+        <ExampleCode>
+  ```css file=./examples/SpaceExample.css
+
+  ```
+        </ExampleCode>
+      </Example>
+      </View>
+
+
+    </Tabs.Panel>
+  </Tabs.Container>
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+  <Example>
+    <ExampleCode>
+  ```css file=./examples/SpaceExample.css
+
+  ```
+    </ExampleCode>
+  </Example>
+</InlineFilter>
 
 <TokensSizeSpace />
 
 ## Border Widths
 
-<Fragment>{({ platform }) => import(`./borderWidthUsage.${platform}.mdx`)}</Fragment>
+<InlineFilter filters={['angular']}>
+  <Example>
+    <ExampleCode>
+  ```css file=./examples/BorderExample.css
+
+  ```
+    </ExampleCode>
+  </Example>
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <Tabs.Container defaultValue="Example usage">
+    <Tabs.List>
+      <Tabs.Item value="Example usage">Example usage</Tabs.Item>
+      <Tabs.Item value="CSS">CSS</Tabs.Item>
+    </Tabs.List>
+    <Tabs.Panel value="Example usage">
+      <View marginTop="var(--amplify-space-large)">
+        <Example>
+          <BorderWidthExample />
+          <ExampleCode>
+  ```tsx file=./examples/BorderWidthExample.tsx
+
+  ```
+          </ExampleCode>
+        </Example>
+      </View>
+    </Tabs.Panel>
+    <Tabs.Panel value="CSS">
+      <View marginTop="var(--amplify-space-large)">
+      <Example>
+        <ExampleCode>
+  ```css file=./examples/BorderExample.css
+
+  ```
+        </ExampleCode>
+      </Example>
+      </View>
+    </Tabs.Panel>
+  </Tabs.Container>
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+  <Example>
+    <ExampleCode>
+  ```css file=./examples/BorderExample.css
+
+  ```
+    </ExampleCode>
+  </Example>
+</InlineFilter>
 
 <TokensSizeBorderWidths />
 
 ## Radii
 
-<Fragment>{({ platform }) => import(`./radiiUsage.${platform}.mdx`)}</Fragment>
+<InlineFilter filters={['angular']}>
+  <Example>
+    <ExampleCode>
+  ```css file=./examples/RadiiExample.css
+
+  ```
+    </ExampleCode>
+  </Example>
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <Tabs.Container defaultValue="Example usage">
+    <Tabs.List>
+      <Tabs.Item value="Example usage">Example usage</Tabs.Item>
+      <Tabs.Item value="CSS">CSS</Tabs.Item>
+    </Tabs.List>
+    <Tabs.Panel value="Example usage">
+      <View marginTop="var(--amplify-space-large)">
+        <Example>
+          <RadiiExample />
+          <ExampleCode>
+  ```tsx file=./examples/RadiiExample.tsx
+
+  ```
+          </ExampleCode>
+        </Example>
+      </View>
+    </Tabs.Panel>
+    <Tabs.Panel value="CSS">
+      <View marginTop="var(--amplify-space-large)">
+      <Example>
+        <ExampleCode>
+  ```css file=./examples/RadiiExample.css
+
+  ```
+        </ExampleCode>
+      </Example>
+      </View>
+    </Tabs.Panel>
+  </Tabs.Container>
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+  <Example>
+    <ExampleCode>
+  ```css file=./examples/RadiiExample.css
+
+  ```
+    </ExampleCode>
+  </Example>
+</InlineFilter>
 
 <TokensSizeRadii />
