@@ -40,6 +40,7 @@ export function getDisplayText(
     cancelLivenessCheckText,
     clientHeaderText,
     clientMessageText,
+    errorLabelText,
     hintCanNotIdentifyText,
     hintCenterFaceText,
     hintCenterFaceInstructionText,
@@ -139,6 +140,7 @@ export function getDisplayText(
   };
 
   const errorDisplayText: Required<ErrorDisplayText> = {
+    errorLabelText,
     timeoutHeaderText,
     timeoutMessageText,
     faceDistanceHeaderText,
