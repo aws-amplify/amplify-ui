@@ -310,6 +310,64 @@ export const LivenessCameraModule = (
       >
         {!isCameraReady && centeredLoader}
 
+        <Overlay
+          horizontal="center"
+          vertical={
+            isRecording && !isFlashingFreshness ? 'start' : 'space-between'
+          }
+          className={LivenessClassNames.InstructionOverlay}
+        >
+          {isRecording && (
+            <DefaultRecordingIcon
+              recordingIndicatorText={recordingIndicatorText}
+            />
+          )}
+
+          {!isStartView && !isWaitingForCamera && !isCheckSucceeded && (
+            <DefaultCancelButton
+              cancelLivenessCheckText={cancelLivenessCheckText}
+            />
+          )}
+
+          <Flex
+            className={classNames(
+              LivenessClassNames.Hint,
+              shouldShowFullScreenCamera && `${LivenessClassNames.Hint}--mobile`
+            )}
+          >
+            <Hint hintDisplayText={hintDisplayText} />
+          </Flex>
+
+          {errorState && (
+            <ErrorView
+              onRetry={() => {
+                send({ type: 'CANCEL' });
+              }}
+              displayText={errorDisplayText}
+            >
+              {renderErrorModal({
+                errorState,
+                overrideErrorDisplayText: errorDisplayText,
+              })}
+            </ErrorView>
+          )}
+
+          {/* 
+              We only want to show the MatchIndicator when we're recording
+              and when the face is in either the too far state, or the 
+              initial face identified state. Using the a memoized MatchIndicator here
+              so that even when this component re-renders the indicator is only
+              re-rendered if the percentage prop changes.
+            */}
+          {isRecording &&
+          !isFlashingFreshness &&
+          showMatchIndicatorStates.includes(faceMatchState!) ? (
+            <MemoizedMatchIndicator
+              percentage={Math.ceil(faceMatchPercentage!)}
+            />
+          ) : null}
+        </Overlay>
+
         <View
           as="canvas"
           ref={freshnessColorRef}
@@ -344,57 +402,6 @@ export const LivenessCameraModule = (
           >
             <View as="canvas" ref={canvasRef} />
           </Flex>
-
-          {isRecording && (
-            <DefaultRecordingIcon
-              recordingIndicatorText={recordingIndicatorText}
-            />
-          )}
-
-          {!isStartView && !isWaitingForCamera && !isCheckSucceeded && (
-            <DefaultCancelButton
-              cancelLivenessCheckText={cancelLivenessCheckText}
-            />
-          )}
-
-          <Overlay
-            horizontal="center"
-            vertical={
-              isRecording && !isFlashingFreshness ? 'start' : 'space-between'
-            }
-            className={LivenessClassNames.InstructionOverlay}
-          >
-            <Hint hintDisplayText={hintDisplayText} />
-
-            {errorState && (
-              <ErrorView
-                onRetry={() => {
-                  send({ type: 'CANCEL' });
-                }}
-                displayText={errorDisplayText}
-              >
-                {renderErrorModal({
-                  errorState,
-                  overrideErrorDisplayText: errorDisplayText,
-                })}
-              </ErrorView>
-            )}
-
-            {/* 
-              We only want to show the MatchIndicator when we're recording
-              and when the face is in either the too far state, or the 
-              initial face identified state. Using the a memoized MatchIndicator here
-              so that even when this component re-renders the indicator is only
-              re-rendered if the percentage prop changes.
-            */}
-            {isRecording &&
-            !isFlashingFreshness &&
-            showMatchIndicatorStates.includes(faceMatchState!) ? (
-              <MemoizedMatchIndicator
-                percentage={Math.ceil(faceMatchPercentage!)}
-              />
-            ) : null}
-          </Overlay>
 
           {isStartView &&
             !isMobileScreen &&

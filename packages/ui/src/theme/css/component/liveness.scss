@@ -42,6 +42,7 @@
   left: 0;
   height: 100%;
   width: 100%;
+  z-index: 2;
 }
 
 .amplify-liveness-video {
@@ -110,7 +111,7 @@
 }
 
 .amplify-liveness-instruction-overlay {
-  z-index: 1;
+  z-index: 2;
 }
 
 .amplify-liveness-countdown-container {
@@ -131,6 +132,7 @@
   padding: var(--amplify-space-small);
   max-width: 100%;
 }
+
 .amplify-liveness-toast__message {
   color: var(--amplify-colors-font-primary);
   text-align: center;
@@ -336,6 +338,10 @@
   font-weight: var(--amplify-font-weights-bold);
 }
 
+.amplify-liveness-hint--mobile {
+  margin-top: var(--amplify-space-xxxl);
+}
+
 .amplify-liveness-hint__text {
   align-items: center;
   gap: var(--amplify-space-xs);
@@ -415,5 +421,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
   height: 480px;
 }
