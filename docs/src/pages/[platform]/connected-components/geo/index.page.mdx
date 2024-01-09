@@ -4,8 +4,8 @@ description: Amplify UI Geo provides UI components for maps and location search 
 supportedFrameworks: react
 ---
 
-import { Fragment } from '@/components/Fragment';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+import ReactPage from './react.mdx';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -17,4 +17,4 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+<ReactPage />

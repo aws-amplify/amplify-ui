@@ -2,7 +2,7 @@ import sass from 'sass';
 import autoprefixer from 'autoprefixer';
 import postcss from 'postcss';
 import fs from 'fs-extra';
-import glob from 'glob';
+import { globSync } from 'glob';
 import { createTheme } from '../src/theme';
 
 const CSS_VARIABLE_SCOPE = ':root, [data-amplify-theme]';
@@ -57,7 +57,7 @@ writeCSS({
 });
 
 // get all files ending with .scss in src/theme/component directory using glob
-const componentFiles: string[] = glob.sync('src/theme/css/component/*.scss');
+const componentFiles: string[] = globSync('src/theme/css/component/*.scss');
 
 // loop through files and compile each one
 for (const file of componentFiles) {
@@ -71,7 +71,7 @@ for (const file of componentFiles) {
 // TODO: handle connected components
 // any directory inside css/component should have an index.scss file,
 // we will use that for connected component stylesheets
-const connectedComponentFiles: string[] = glob.sync(
+const connectedComponentFiles: string[] = globSync(
   'src/theme/css/component/**/index.scss'
 );
 

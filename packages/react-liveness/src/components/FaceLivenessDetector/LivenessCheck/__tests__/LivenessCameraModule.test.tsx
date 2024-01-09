@@ -327,7 +327,7 @@ describe('LivenessCameraModule', () => {
     const matchIndicator = cameraModule.getElementsByClassName(
       LivenessClassNames.MatchIndicator
     );
-    expect(matchIndicator).toHaveLength(1);
+    expect(matchIndicator).toHaveLength(0);
   });
 
   it('should not render MatchIndicator when isRecording and faceMatchState is TOO_MANY', async () => {

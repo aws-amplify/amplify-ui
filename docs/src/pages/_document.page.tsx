@@ -28,7 +28,7 @@ const getCSPContent = (context: Readonly<DocumentProps>) => {
       img-src 'self' blob: ${ANALYTICS_CSP.all.img.join(' ')};
       connect-src 'self' *.shortbread.aws.dev ${ANALYTICS_CSP.all.connect.join(
         ' '
-      )} https://*.algolia.net https://*.algolianet.com https://cdn.jsdelivr.net https://tfhub.dev https://storage.googleapis.com;
+      )} https://*.algolia.net https://*.algolianet.com https://cdn.jsdelivr.net https://tfhub.dev https://storage.googleapis.com https://cdn.liveness.rekognition.amazonaws.com;
       script-src 'unsafe-eval' 'self' '${cspInlineScriptHash}' ${ANALYTICS_CSP.all.script.join(
         ' '
       )};
@@ -66,20 +66,11 @@ class MyDocument extends Document {
             httpEquiv="Content-Security-Policy"
             content={getCSPContent(this.props)}
           />
-
           <link rel="icon" type="image/svg+xml" href={favicon} />
           <link rel="apple-touch-icon" href={favicon}></link>
-
           <link
             rel="preload"
             href="/fonts/AmazonEmber_W_Rg.woff2"
-            as="font"
-            type="font/woff2"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
-            href="/fonts/AmazonEmber_W_Lt.woff2"
             as="font"
             type="font/woff2"
             crossOrigin="anonymous"

@@ -3,7 +3,11 @@ import { FaceLivenessDetector } from '@aws-amplify/ui-react-liveness';
 import { View, Heading, Alert } from '@aws-amplify/ui-react';
 
 export function CustomizationComponents() {
-  return (
+  const [showLiveness, setShowLiveness] = React.useState(false);
+  React.useEffect(() => {
+    setShowLiveness(true);
+  }, []);
+  return showLiveness ? (
     <FaceLivenessDetector
       sessionId={'sessionId'}
       region={'us-east-1'}
@@ -32,5 +36,5 @@ export function CustomizationComponents() {
         },
       }}
     />
-  );
+  ) : null;
 }

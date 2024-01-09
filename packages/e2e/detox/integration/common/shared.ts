@@ -92,6 +92,10 @@ Then(
   }
 );
 
+Then('I see placeholder {string}', async (placeholder: string) => {
+  await expect(element(by.text(placeholder))).toExist();
+});
+
 Then(
   'I see {string} as a {string} field',
   async (label: string, type: string) => {

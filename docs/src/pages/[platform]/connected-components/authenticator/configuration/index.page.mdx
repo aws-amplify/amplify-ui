@@ -5,11 +5,42 @@ description: How to setup and configure your Authenticator component.
 supportedFrameworks: android|angular|flutter|react|react-native|swift|vue
 ---
 
-import { Fragment } from '@/components/Fragment';
+import { InlineFilter } from '@/components/InlineFilter';
 import { Alert, Tabs } from '@aws-amplify/ui-react';
 import { FRAMEWORKS } from '@/data/frameworks';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
 import { InitialStateTabs } from './InitialStateTabs';
+import LoginWeb from './loginMechanisms.web.mdx';
+import LoginAndroid from './loginMechanisms.android.mdx';
+import LoginFlutter from './loginMechanisms.flutter.mdx';
+import LoginReactNative from './loginMechanisms.react-native.mdx';
+import LoginSwift from './loginMechanisms.swift.mdx';
+import SignupAndroid from './signUpAttributes.default.android.mdx';
+import SignupAngular from './signUpAttributes.default.angular.mdx';
+import SignupFlutter from './signUpAttributes.default.flutter.mdx';
+import SignupReactNative from './signUpAttributes.default.react-native.mdx';
+import SignupReact from './signUpAttributes.default.react.mdx';
+import SignupSwift from './signUpAttributes.default.swift.mdx';
+import SignupVue from './signUpAttributes.default.vue.mdx';
+import SignupExampleFlutter from './signUpAttributes.default.example.flutter.mdx';
+import SignupExampleWeb from './signUpAttributes.default.example.web.mdx';
+import SignupAllAndroid from './signUpAttributes.all.android.mdx';
+import SignupAllAngular from './signUpAttributes.all.angular.mdx';
+import SignupAllFlutter from './signUpAttributes.all.flutter.mdx';
+import SignupAllReactNative from './signUpAttributes.all.react-native.mdx';
+import SignupAllReact from './signUpAttributes.all.react.mdx';
+import SignupAllSwift from './signUpAttributes.all.swift.mdx';
+import SignupAllVue from './signUpAttributes.all.vue.mdx';
+import SignupAllExampleFlutter from './signUpAttributes.all.example.flutter.mdx';
+import SignupAllExampleWeb from './signUpAttributes.all.example.web.mdx';
+import SocialProviderFlutter from './socialProviders.flutter.mdx';
+import SocialProviderReactNative from './socialProviders.react-native.mdx';
+import SocialProviderWeb from './socialProviders.web.mdx';
+import VariationWeb from './variation.web.mdx';
+import HideSignupReactNative from './hidesignup.react-native.mdx';
+import HideSignupSwift from './hidesignup.swift.mdx';
+import HideSignupWeb from './hidesignup.web.mdx';
+import TotpSwift from './totpIssuer.swift.mdx';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -33,9 +64,21 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
 
 ## Login Mechanisms
 
-<Fragment useCommonWebContent>
-  {({ platform }) => import(`./loginMechanisms.${platform}.mdx`)}
-</Fragment>
+<InlineFilter filters={['angular', 'react', 'vue']}>
+  <LoginWeb />
+</InlineFilter>
+<InlineFilter filters={['android']}>
+  <LoginAndroid />
+</InlineFilter>
+<InlineFilter filters={['flutter']}>
+  <LoginFlutter />
+</InlineFilter>
+<InlineFilter filters={['react-native']}>
+  <LoginReactNative />
+</InlineFilter>
+<InlineFilter filters={['swift']}>
+  <LoginSwift />
+</InlineFilter>
 
 ## Sign Up Attributes
 
@@ -57,39 +100,92 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
   <Tabs.Panel value="verification-attributes">
     By default, the Authenticator will still require any attributes required for
     verification, such as `email`, _even if `signUpAttributes` is empty_:
-    <Fragment>
-      {({ platform }) => import(`./signUpAttributes.default.${platform}.mdx`)}
-    </Fragment>
-    <Fragment platforms={['web', 'flutter']} useCommonWebContent>
-      {({ platform }) =>
-        import(`./signUpAttributes.default.example.${platform}.mdx`)
-      }
-    </Fragment>
+    <InlineFilter filters={['android']}>
+      <SignupAndroid />
+    </InlineFilter>
+    <InlineFilter filters={['angular']}>
+      <SignupAngular />
+      <SignupExampleWeb />
+    </InlineFilter>
+    <InlineFilter filters={['flutter']}>
+      <SignupFlutter />
+      <SignupExampleFlutter />
+    </InlineFilter>
+    <InlineFilter filters={['react-native']}>
+      <SignupReactNative />
+    </InlineFilter>
+    <InlineFilter filters={['react']}>
+      <SignupReact />
+      <SignupExampleWeb />
+    </InlineFilter>
+    <InlineFilter filters={['swift']}>
+      <SignupSwift />
+    </InlineFilter>
+    <InlineFilter filters={['vue']}>
+      <SignupVue />
+      <SignupExampleWeb />
+    </InlineFilter>
   </Tabs.Panel>
   <Tabs.Panel value="all-attributes">
-    <Fragment>
-      {({ platform }) => import(`./signUpAttributes.all.${platform}.mdx`)}
-    </Fragment>
-    <Fragment platforms={['web', 'flutter']} useCommonWebContent>
-      {({ platform }) =>
-        import(`./signUpAttributes.all.example.${platform}.mdx`)
-      }
-    </Fragment>
+    <InlineFilter filters={['android']}>
+      <SignupAllAndroid />
+    </InlineFilter>
+    <InlineFilter filters={['angular']}>
+      <SignupAllAngular />
+      <SignupAllExampleWeb />
+    </InlineFilter>
+    <InlineFilter filters={['flutter']}>
+      <SignupAllFlutter />
+      <SignupAllExampleFlutter />
+    </InlineFilter>
+    <InlineFilter filters={['react-native']}>
+      <SignupAllReactNative />
+    </InlineFilter>
+    <InlineFilter filters={['react']}>
+      <SignupAllReact />
+      <SignupAllExampleWeb />
+    </InlineFilter>
+    <InlineFilter filters={['swift']}>
+      <SignupAllSwift />
+    </InlineFilter>
+    <InlineFilter filters={['vue']}>
+      <SignupAllVue />
+      <SignupAllExampleWeb />
+    </InlineFilter>
   </Tabs.Panel>
 </Tabs.Container>
 
-<Fragment useCommonWebContent platforms={['web', 'flutter', 'react-native']}>
-  {({ platform }) => import(`./socialProviders.${platform}.mdx`)}
-</Fragment>
+<InlineFilter filters={['angular']}>
+  <SocialProviderWeb />
 
-<Fragment useCommonWebContent platforms={['web']}>
-  {({ platform }) => import(`./variation.${platform}.mdx`)}
-</Fragment>
+  <VariationWeb />
 
-<Fragment useCommonWebContent platforms={['web', 'react-native', 'swift']}>
-  {({ platform }) => import(`./hidesignup.${platform}.mdx`)}
-</Fragment>
+  <HideSignupWeb />
+</InlineFilter>
+<InlineFilter filters={['flutter']}>
+  <SocialProviderFlutter />
+</InlineFilter>
+<InlineFilter filters={['react-native']}>
+  <SocialProviderReactNative />
 
-<Fragment useCommonWebContent platforms={['swift']}>
-  {({ platform }) => import(`./totpIssuer.${platform}.mdx`)}
-</Fragment>
+  <HideSignupReactNative />
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <SocialProviderWeb />
+
+  <VariationWeb />
+
+  <HideSignupWeb />
+</InlineFilter>
+<InlineFilter filters={['swift']}>
+  <HideSignupSwift />
+
+  <TotpSwift />
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+  <SocialProviderWeb />
+
+  <VariationWeb />
+
+  <HideSignupWeb />
+</InlineFilter>

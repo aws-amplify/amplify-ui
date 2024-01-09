@@ -31,12 +31,7 @@ export function ExampleCode({ children }) {
 
   return (
     <div className="example-code">
-      <CopyButton
-        className="example-copy-button"
-        copyText={text}
-        size="small"
-        variation="link"
-      />
+      <CopyButton className="example-copy-button" target={text} />
       <div ref={ref}>{children}</div>
     </div>
   );

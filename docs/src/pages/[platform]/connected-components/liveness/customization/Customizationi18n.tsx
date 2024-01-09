@@ -18,6 +18,10 @@ const dictionary = {
 
 export function Customizationi18n() {
   const [language, setLanguage] = React.useState<string>('en');
+  const [showLiveness, setShowLiveness] = React.useState(false);
+  React.useEffect(() => {
+    setShowLiveness(true);
+  }, []);
   return (
     <>
       <ToggleButtonGroup
@@ -29,12 +33,14 @@ export function Customizationi18n() {
         <ToggleButton value="en">En</ToggleButton>
         <ToggleButton value="es">Es</ToggleButton>
       </ToggleButtonGroup>
-      <FaceLivenessDetector
-        sessionId={'sessionId'}
-        region="us-east-1"
-        onAnalysisComplete={async () => {}}
-        displayText={dictionary[language]}
-      />
+      {showLiveness && (
+        <FaceLivenessDetector
+          sessionId={'sessionId'}
+          region="us-east-1"
+          onAnalysisComplete={async () => {}}
+          displayText={dictionary[language]}
+        />
+      )}
     </>
   );
 }

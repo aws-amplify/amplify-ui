@@ -1,3 +1,5 @@
+import { DisplayTextTemplate } from '@aws-amplify/ui';
+
 export type HintDisplayText = {
   hintMoveFaceFrontOfCameraText?: string;
   hintTooManyFacesText?: string;
@@ -21,17 +23,37 @@ export type CameraDisplayText = {
   cameraNotFoundMessageText?: string;
   retryCameraPermissionsText?: string;
   waitingCameraPermissionText?: string;
+  a11yVideoLabelText?: string;
 };
 
 export type InstructionDisplayText = {
-  photosensitivyWarningHeadingText?: string;
-  photosensitivyWarningBodyText?: string;
-  photosensitivyWarningInfoText?: string;
   goodFitCaptionText?: string;
   goodFitAltText?: string;
+  photosensitivityWarningBodyText?: string;
+  photosensitivityWarningHeadingText?: string;
+  photosensitivityWarningInfoText?: string;
+  photosensitivityWarningLabelText?: string;
+  startScreenBeginCheckText?: string;
   tooFarCaptionText?: string;
   tooFarAltText?: string;
-  startScreenBeginCheckText?: string;
+
+  // TODO remove this typo in next MV bump
+  /**
+   * @deprecated `photosensitivyWarningBodyText` has been replaced with `photosensitivityWarningBodyText` amd will be removed in a future major version of `@aws-amplify/ui-react-liveness`
+   */
+  photosensitivyWarningBodyText?: string;
+  /**
+   * @deprecated `photosensitivyWarningHeadingText` has been replaced with `photosensitivityWarningHeadingText` amd will be removed in a future major version of `@aws-amplify/ui-react-liveness`
+   */
+  photosensitivyWarningHeadingText?: string;
+  /**
+   * @deprecated `photosensitivyWarningInfoText` has been replaced with `photosensitivityWarningInfoText` amd will be removed in a future major version of `@aws-amplify/ui-react-liveness`
+   */
+  photosensitivyWarningInfoText?: string;
+  /**
+   * @deprecated `photosensitivyWarningLabelText` has been replaced with `photosensitivityWarningLabelText` amd will be removed in a future major version of `@aws-amplify/ui-react-liveness`
+   */
+  photosensitivyWarningLabelText?: string;
 };
 
 export type StreamDisplayText = {
@@ -40,6 +62,7 @@ export type StreamDisplayText = {
 };
 
 export const defaultErrorDisplayText = {
+  errorLabelText: 'Error',
   timeoutHeaderText: 'Time out',
   timeoutMessageText:
     "Face didn't fit inside oval in time limit. Try again and completely fill the oval with face in it.",
@@ -60,23 +83,9 @@ export const defaultErrorDisplayText = {
   tryAgainText: 'Try again',
 };
 
-export type ErrorDisplayTextFoo = typeof defaultErrorDisplayText;
-export type ErrorDisplayText = Partial<ErrorDisplayTextFoo>;
+export type ErrorDisplayText = Partial<typeof defaultErrorDisplayText>;
 
 export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
-  hintCenterFaceText: 'Center your face',
-  startScreenBeginCheckText: 'Start video check',
-  photosensitivyWarningHeadingText: 'Photosensitivity warning',
-  photosensitivyWarningBodyText:
-    'This check flashes different colors. Use caution if you are photosensitive.',
-  photosensitivyWarningInfoText:
-    'Some people may experience may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
-  goodFitCaptionText: 'Good fit',
-  goodFitAltText:
-    "Ilustration of a person's face, perfectly fitting inside of an oval.",
-  tooFarCaptionText: 'Too far',
-  tooFarAltText:
-    "Illustration of a person's face inside of an oval; there is a gap between the perimeter of the face and the boundaries of the oval.",
   cameraMinSpecificationsHeadingText:
     'Camera does not meet minimum specifications',
   cameraMinSpecificationsMessageText:
@@ -84,10 +93,12 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   cameraNotFoundHeadingText: 'Camera is not accessible.',
   cameraNotFoundMessageText:
     'Check that a camera is connected and there is not another application using the camera. You may have to go into settings to grant camera permissions and close out all instances of your browser and retry.',
-  retryCameraPermissionsText: 'Retry',
-  waitingCameraPermissionText: 'Waiting for you to allow camera permission.',
+  a11yVideoLabelText: 'Webcam for liveness check',
   cancelLivenessCheckText: 'Cancel Liveness check',
-  recordingIndicatorText: 'Rec',
+  goodFitCaptionText: 'Good fit',
+  goodFitAltText:
+    "Ilustration of a person's face, perfectly fitting inside of an oval.",
+  hintCenterFaceText: 'Center your face',
   hintMoveFaceFrontOfCameraText: 'Move face in front of camera',
   hintTooManyFacesText: 'Ensure only one face is in front of camera',
   hintFaceDetectedText: 'Face detected',
@@ -100,12 +111,32 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   hintIlluminationTooDarkText: 'Move to brighter area',
   hintIlluminationNormalText: 'Lighting conditions normal',
   hintHoldFaceForFreshnessText: 'Hold still',
+  photosensitivityWarningBodyText:
+    'This check flashes different colors. Use caution if you are photosensitive.',
+  photosensitivityWarningHeadingText: 'Photosensitivity warning',
+  photosensitivityWarningInfoText:
+    'Some people may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
+  photosensitivityWarningLabelText: 'More information about photosensitivity',
+  photosensitivyWarningBodyText:
+    'This check flashes different colors. Use caution if you are photosensitive.',
+  photosensitivyWarningHeadingText: 'Photosensitivity warning',
+  photosensitivyWarningInfoText:
+    'Some people may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
+  photosensitivyWarningLabelText: 'More information about photosensitivity',
+  retryCameraPermissionsText: 'Retry',
+  recordingIndicatorText: 'Rec',
+  startScreenBeginCheckText: 'Start video check',
+  tooFarCaptionText: 'Too far',
+  tooFarAltText:
+    "Illustration of a person's face inside of an oval; there is a gap between the perimeter of the face and the boundaries of the oval.",
+  waitingCameraPermissionText: 'Waiting for you to allow camera permission.',
   ...defaultErrorDisplayText,
 };
 
-export interface LivenessDisplayText
-  extends HintDisplayText,
-    CameraDisplayText,
-    InstructionDisplayText,
-    ErrorDisplayText,
-    StreamDisplayText {}
+export type LivenessDisplayText = DisplayTextTemplate<
+  HintDisplayText &
+    CameraDisplayText &
+    InstructionDisplayText &
+    ErrorDisplayText &
+    StreamDisplayText
+>;

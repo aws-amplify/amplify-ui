@@ -7,9 +7,34 @@ supportedFrameworks: react|angular|vue|react-native
 
 import { useRouter } from 'next/router';
 import { Tabs, Table, TableHead, TableRow, TableCell, TableBody, View } from '@aws-amplify/ui-react';
-import { Fragment } from '@/components/Fragment';
+import { InlineFilter } from '@/components/InlineFilter';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
 import { ResponsiveTable, ResponsiveTableCell } from '@/components/ResponsiveTable';
+import FederatedSignin from './to-federated-sign-in.mdx';
+import UseAuthenticatorAngular from './useAuthenticator.angular.mdx';
+import UseAuthenticatorReactNative from './useAuthenticator.react-native.mdx';
+import UseAuthenticatorReact from './useAuthenticator.react.mdx';
+import UseAuthenticatorVue from './useAuthenticator.vue.mdx';
+import CurrentRouteAngular from './current-route.angular.mdx';
+import CurrentRouteReactNative from './current-route.react-native.mdx';
+import CurrentRouteReact from './current-route.react.mdx';
+import CurrentRouteVue from './current-route.vue.mdx';
+import CurrentUserAngular from './current-user.angular.mdx';
+import CurrentUserReactNative from './current-user.react-native.mdx';
+import CurrentUserReact from './current-user.react.mdx';
+import CurrentUserVue from './current-user.vue.mdx';
+import TriggerAngular from './trigger-transitions.angular.mdx';
+import TriggerReactNative from './trigger-transitions.react-native.mdx';
+import TriggerReact from './trigger-transitions.react.mdx';
+import TriggerVue from './trigger-transitions.vue.mdx';
+import ExampleAngular from './example.angular.mdx';
+import ExampleReactNative from './example.react-native.mdx';
+import ExampleReact from './example.react.mdx';
+import ExampleVue from './example.vue.mdx';
+import ApiAngular from './full-api.angular.mdx';
+import ApiReactNative from './full-api.react-native.mdx';
+import ApiReact from './full-api.react.mdx';
+import ApiVue from './full-api.vue.mdx';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -21,41 +46,95 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-<Fragment>
-  {({ platform }) => import(`./useAuthenticator.${platform}.mdx`)}
-</Fragment>
+<InlineFilter filters={['angular']}>
+  <UseAuthenticatorAngular />
+</InlineFilter>
+<InlineFilter filters={['react-native']}>
+  <UseAuthenticatorReactNative />
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <UseAuthenticatorReact />
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+  <UseAuthenticatorVue />
+</InlineFilter>
 
 ## Access Auth State
 
-<Fragment>
-  {({ platform }) => import(`./current-route.${platform}.mdx`)}
-</Fragment>
+<InlineFilter filters={['angular']}>
+  <CurrentRouteAngular />
+</InlineFilter>
+<InlineFilter filters={['react-native']}>
+  <CurrentRouteReactNative />
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <CurrentRouteReact />
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+  <CurrentRouteVue />
+</InlineFilter>
 
 ## Access Authenticated User
 
-<Fragment>
-  {({ platform }) => import(`./current-user.${platform}.mdx`)}
-</Fragment>
+<InlineFilter filters={['angular']}>
+  <CurrentUserAngular />
+</InlineFilter>
+<InlineFilter filters={['react-native']}>
+  <CurrentUserReactNative />
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <CurrentUserReact />
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+  <CurrentUserVue />
+</InlineFilter>
 
 ## Trigger Transitions
 
-<Fragment>
-  {({ platform }) => import(`./trigger-transitions.${platform}.mdx`)}
-</Fragment>
+<InlineFilter filters={['angular']}>
+  <TriggerAngular />
+</InlineFilter>
+<InlineFilter filters={['react-native']}>
+  <TriggerReactNative />
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <TriggerReact />
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+  <TriggerVue />
+</InlineFilter>
 
 ### Example
 
 Here's an example that uses the `toForgotPassword` trigger transition, to create a custom button. Note that example uses the [Footer "slot" override](../authenticator/customization#headers--footers).
 
-<Fragment>
-  {({ platform }) => import(`./example.${platform}.mdx`)}
-</Fragment>
+<InlineFilter filters={['angular']}>
+  <ExampleAngular />
+</InlineFilter>
+<InlineFilter filters={['react-native']}>
+  <ExampleReactNative />
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <ExampleReact />
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+  <ExampleVue />
+</InlineFilter>
 
 ## Full API
 
-<Fragment>
-  {({ platform }) => import(`./full-api.${platform}.mdx`)}
-</Fragment>
+<InlineFilter filters={['angular']}>
+  <ApiAngular />
+</InlineFilter>
+<InlineFilter filters={['react-native']}>
+  <ApiReactNative />
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <ApiReact />
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+  <ApiVue />
+</InlineFilter>
 
 <Tabs.Container defaultValue="Access Contexts">
   <Tabs.List>
@@ -142,9 +221,9 @@ These helper functions trigger transition to another `route`. Note that any inva
           <ResponsiveTableCell label="Description">Transitions to `forgotPassword`. Allowed from `signIn`.</ResponsiveTableCell>
           <ResponsiveTableCell label="Type">`() => void`</ResponsiveTableCell>
         </TableRow>
-        <Fragment>
-          {({ platform }) => platform === 'angular' || platform === 'vue' ? import(`./to-federated-sign-in.mdx`) : Promise.resolve(() => null)}
-        </Fragment>
+        <InlineFilter filters={['angular', 'vue']}>
+          <FederatedSignin />
+        </InlineFilter>
         <TableRow>
           <ResponsiveTableCell label="Name">`skipVerification`</ResponsiveTableCell>
           <ResponsiveTableCell label="Description">Skips verification process. Allowed from `verifyUser` and `confirmVerifyUser`</ResponsiveTableCell>
