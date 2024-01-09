@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Link, LinkProps } from '@aws-amplify/ui-react';
-
 import { Demo } from '@/components/Demo';
 import { LinkPropControls } from './LinkPropControls';
 import { useLinkProps } from './useLinkProps';
@@ -15,6 +14,12 @@ const propsToCode = (props: LinkProps) => {
       ? `\n textDecoration="${props.textDecoration}"`
       : '') +
     (props.isExternal ? `\n isExternal={${props.isExternal}}` : '') +
+    (props.isExternal && props.hideIcon
+      ? `\n hideIcon={${props.hideIcon}}`
+      : '') +
+    (props.isExternal && !props.hideIcon && props.linkIconPosition !== 'right'
+      ? `\n linkIconPosition="${props.linkIconPosition}"`
+      : '') +
     '\n>' +
     `\n ${props.children}\n</Link>`
   );
@@ -22,8 +27,10 @@ const propsToCode = (props: LinkProps) => {
 
 const defaultLinkProps = {
   isExternal: false,
-  color: '#007EB9',
+  hideIcon: false,
+  color: '#007eb9',
   textDecoration: 'none',
+  linkIconPosition: 'right',
   children: 'My Demo Link',
 };
 
@@ -41,7 +48,9 @@ export const LinkDemo = () => {
         href="https://ui.docs.amplify.aws/react/components/link"
         color={linkProps.color}
         isExternal={linkProps.isExternal}
+        hideIcon={linkProps.hideIcon}
         textDecoration={linkProps.textDecoration}
+        linkIconPosition={linkProps.linkIconPosition}
       >
         {linkProps.children}
       </Link>

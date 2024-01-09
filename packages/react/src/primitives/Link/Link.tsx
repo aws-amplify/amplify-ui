@@ -9,11 +9,22 @@ import {
 import { View } from '../View';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { IconBoxArrowUpRight } from '../Icon/icons/IconBoxArrowUpRight';
+import { classNameModifier } from '@aws-amplify/ui';
 
 const LinkPrimitive: Primitive<LinkProps, 'a'> = (
-  { as = 'a', children, className, isExternal, ...rest },
+  {
+    as = 'a',
+    children,
+    className,
+    isExternal,
+    linkIconPosition,
+    hideIcon = false,
+    ...rest
+  },
   ref
 ) => {
+  const shouldDisplayIcon = isExternal && !hideIcon;
+
   return (
     <View
       as={as}
@@ -23,15 +34,21 @@ const LinkPrimitive: Primitive<LinkProps, 'a'> = (
       target={isExternal ? '_blank' : undefined}
       {...rest}
     >
-      {children}
-      {isExternal ? <IconBoxArrowUpRight /> : null}
+      {linkIconPosition !== 'left' && children}
+      {shouldDisplayIcon && (
+        <IconBoxArrowUpRight
+          className={classNameModifier(ComponentClassName.Link, 'link-icon')}
+        />
+      )}
+      {linkIconPosition === 'left' && children}
     </View>
   );
 };
 
 /**
- * [📖 Docs](https://ui.docs.amplify.aws/react/components/link)
+ * [:book: Docs](https://ui.docs.amplify.aws/react/components/link)
  */
+
 export const Link: ForwardRefPrimitive<BaseLinkProps, 'a'> =
   primitiveWithForwardRef(LinkPrimitive);
 

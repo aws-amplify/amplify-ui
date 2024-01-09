@@ -11,6 +11,20 @@ export interface LinkOptions {
 
   /**
    * @description
+   * string litteral value indicating the position of the icon
+   * position the icon to the left or to the right of the link text
+   */
+  linkIconPosition?: 'left' | 'right';
+
+  /**
+   * @description
+   * Boolean value indicating to hide the icon
+   * hide the icon from the link if true
+   */
+  hideIcon?: boolean;
+
+  /**
+   * @description
    * a stringifier that returns a string containing the whole URL, and allows the href to be updated.
    * @see
    * [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLAnchorElement/href)

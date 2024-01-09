@@ -7,7 +7,6 @@ import { Link } from '../Link';
 import { Text } from '../../Text/Text';
 import { Flex } from '../../Flex';
 import { Heading } from '../../Heading';
-
 import {
   BrowserRouter as Router,
   Link as ReactRouterLink,
@@ -34,7 +33,6 @@ function SampleRoutingApp() {
           About
         </Link>
       </Flex>
-
       <Routes>
         <Route path="/about" element={<About />} />
         <Route path="/" element={<Home />} />
@@ -81,9 +79,19 @@ describe('Link:', () => {
     render(<Link isExternal>{linkText}</Link>);
 
     const link = await screen.findByText(linkText);
-    const span = link.children[0];
-    expect(span.children.length).toBe(1);
-    expect(span.children[0].tagName).toBe('svg');
+    expect(link.children.length).toBe(1);
+    expect(link.children[0].tagName).toBe('SPAN');
+  });
+
+  it('should not render svg icon when link is external and hideIcon props is set', async () => {
+    render(
+      <Link isExternal hideIcon>
+        {linkText}
+      </Link>
+    );
+
+    const link = await screen.findByText(linkText);
+    expect(link.children.length).toBe(0);
   });
 
   it('can render the Link tag as other components', async () => {

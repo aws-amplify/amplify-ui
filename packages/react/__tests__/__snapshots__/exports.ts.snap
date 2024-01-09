@@ -1540,6 +1540,15 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "backgroundImage": {
         "type": "string",
       },
+      "badgeContent": {
+        "type": "string",
+      },
+      "badgePosition": {
+        "type": "string",
+      },
+      "badgeVariation": {
+        "type": "string",
+      },
       "basis": {
         "type": "string",
       },
@@ -1618,6 +1627,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       },
       "grow": {
         "type": "string",
+      },
+      "hasBadge": {
+        "type": "boolean",
       },
       "height": {
         "type": "string",
@@ -6493,6 +6505,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "height": {
         "type": "string",
       },
+      "hideIcon": {
+        "type": "boolean",
+      },
       "href": {
         "type": "string",
       },
@@ -6515,6 +6530,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "lineHeight": {
+        "type": "string",
+      },
+      "linkIconPosition": {
         "type": "string",
       },
       "margin": {
@@ -7237,6 +7255,15 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "backgroundImage": {
         "type": "string",
       },
+      "badgeContent": {
+        "type": "string",
+      },
+      "badgePosition": {
+        "type": "string",
+      },
+      "badgeVariation": {
+        "type": "string",
+      },
       "basis": {
         "type": "string",
       },
@@ -7311,6 +7338,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       },
       "grow": {
         "type": "string",
+      },
+      "hasBadge": {
+        "type": "boolean",
       },
       "height": {
         "type": "string",
@@ -7526,6 +7556,15 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "backgroundImage": {
         "type": "string",
       },
+      "badgeContent": {
+        "type": "string",
+      },
+      "badgePosition": {
+        "type": "string",
+      },
+      "badgeVariation": {
+        "type": "string",
+      },
       "basis": {
         "type": "string",
       },
@@ -7600,6 +7639,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       },
       "grow": {
         "type": "string",
+      },
+      "hasBadge": {
+        "type": "boolean",
       },
       "height": {
         "type": "string",
@@ -15315,6 +15357,15 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "backgroundImage": {
         "type": "string",
       },
+      "badgeContent": {
+        "type": "string",
+      },
+      "badgePosition": {
+        "type": "string",
+      },
+      "badgeVariation": {
+        "type": "string",
+      },
       "basis": {
         "type": "string",
       },
@@ -15392,6 +15443,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       },
       "grow": {
         "type": "string",
+      },
+      "hasBadge": {
+        "type": "boolean",
       },
       "height": {
         "type": "string",

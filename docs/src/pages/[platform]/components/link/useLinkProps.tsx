@@ -1,7 +1,6 @@
 import { Link, LinkProps } from '@aws-amplify/ui-react';
 import * as React from 'react';
 import { demoState } from '@/utils/demoState';
-
 import { LinkPropControlsProps } from './LinkPropControls';
 
 interface UseLinkProps {
@@ -12,6 +11,12 @@ export const useLinkProps: UseLinkProps = (initialValues) => {
   const [isExternal, setIsExternal] = React.useState<LinkProps['isExternal']>(
     initialValues.isExternal
   );
+  const [hideIcon, setHideIcon] = React.useState<LinkProps['hideIcon']>(
+    initialValues.hideIcon
+  );
+  const [linkIconPosition, setLinkIconPosition] = React.useState<
+    LinkProps['linkIconPosition']
+  >(initialValues.linkIconPosition);
   const [color, setColor] = React.useState<LinkProps['color']>(
     initialValues.color
   );
@@ -25,16 +30,22 @@ export const useLinkProps: UseLinkProps = (initialValues) => {
   React.useEffect(() => {
     demoState.set(Link.displayName, {
       isExternal,
+      hideIcon,
+      linkIconPosition,
       color,
       textDecoration,
       children,
     });
-  }, [isExternal, color, textDecoration, children]);
+  }, [isExternal, hideIcon, linkIconPosition, color, textDecoration, children]);
 
   return React.useMemo(
     () => ({
       isExternal,
       setIsExternal,
+      hideIcon,
+      setHideIcon,
+      linkIconPosition,
+      setLinkIconPosition,
       color,
       setColor,
       textDecoration,
@@ -45,6 +56,10 @@ export const useLinkProps: UseLinkProps = (initialValues) => {
     [
       isExternal,
       setIsExternal,
+      hideIcon,
+      setHideIcon,
+      linkIconPosition,
+      setLinkIconPosition,
       color,
       setColor,
       textDecoration,

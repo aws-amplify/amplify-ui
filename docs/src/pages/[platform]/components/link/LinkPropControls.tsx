@@ -10,6 +10,10 @@ import {
 export interface LinkPropControlsProps extends LinkProps {
   setColor: (value: React.SetStateAction<LinkProps['color']>) => void;
   setIsExternal: (value: React.SetStateAction<LinkProps['isExternal']>) => void;
+  setHideIcon: (value: React.SetStateAction<LinkProps['hideIcon']>) => void;
+  setLinkIconPosition: (
+    value: React.SetStateAction<LinkProps['linkIconPosition']>
+  ) => void;
   setTextDecoration: (
     value: React.SetStateAction<LinkProps['textDecoration']>
   ) => void;
@@ -25,6 +29,10 @@ export const LinkPropControls: LinkPropControlsInterface = ({
   setColor,
   isExternal,
   setIsExternal,
+  hideIcon,
+  setHideIcon,
+  linkIconPosition,
+  setLinkIconPosition,
   textDecoration,
   setTextDecoration,
   children,
@@ -49,8 +57,8 @@ export const LinkPropControls: LinkPropControlsInterface = ({
       >
         <option value="none">none</option>
         <option value="underline">underline</option>
-        <option value="underline overline #FF3028">
-          underline overline #FF3028
+        <option value="underline overline #ff3028">
+          underline overline #ff3028
         </option>
         <option value="underline dotted">underline dotted</option>
         <option value="underline dotted red">underline dotted red</option>
@@ -58,9 +66,36 @@ export const LinkPropControls: LinkPropControlsInterface = ({
       </SelectField>
       <SwitchField
         checked={isExternal}
-        onChange={(e) => setIsExternal(e.target.checked)}
+        onChange={(e) => {
+          setIsExternal(e.target.checked);
+          setHideIcon(false);
+          setLinkIconPosition('right');
+        }}
         label="isExternal"
       />
+
+      {isExternal ? (
+        <>
+          <SwitchField
+            checked={hideIcon}
+            onChange={(e) => setHideIcon(e.target.checked)}
+            label="hideIcon"
+          />
+
+          {!hideIcon ? (
+            <SelectField
+              value={linkIconPosition as string}
+              onChange={(event) =>
+                setLinkIconPosition(event.target.value as string)
+              }
+              label="linkIconPosition"
+            >
+              <option value="left">left</option>
+              <option value="right">right</option>
+            </SelectField>
+          ) : null}
+        </>
+      ) : null}
     </Flex>
   );
 };

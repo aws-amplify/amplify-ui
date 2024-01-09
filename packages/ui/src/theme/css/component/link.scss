@@ -24,4 +24,7 @@
     color: var(--amplify-components-link-hover-color);
     text-decoration: var(--amplify-components-link-hover-text-decoration);
   }
+  &--link-icon {
+    scale: 0.8;
+  }
 }
