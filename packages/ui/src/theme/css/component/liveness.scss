@@ -5,6 +5,15 @@
   right: var(--amplify-space-medium);
 }
 
+.liveness-detector .amplify-button--primary {
+  &:focus {
+    box-shadow: unset;
+    outline: var(--amplify-components-button-focus-color) solid 2px;
+    outline-offset: 2px;
+    box-shadow: unset;
+  }
+}
+
 .amplify-liveness-cancel-button {
   background-color: #fff;
   color: hsl(190, 95%, 30%);
