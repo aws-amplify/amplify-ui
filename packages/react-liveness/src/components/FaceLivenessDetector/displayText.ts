@@ -47,6 +47,7 @@ export type StreamDisplayText = {
 };
 
 export const defaultErrorDisplayText = {
+  errorLabelText: 'Error',
   timeoutHeaderText: 'Time out',
   timeoutMessageText:
     "Face didn't fit inside oval in time limit. Try again and completely fill the oval with face in it.",
