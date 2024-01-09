@@ -244,9 +244,8 @@ describe('Hint', () => {
     expect(textElements.length).toBe(2);
     expect(textElements[0]).toBeInTheDocument();
     expect(textElements[1]).toBeInTheDocument();
-    expect(labelElements.length).toBe(2);
+    expect(labelElements.length).toBe(1);
     expect(labelElements[0]).toBeInTheDocument();
-    expect(labelElements[1]).toBeInTheDocument();
   });
 
   it('should render TOO_FAR text if faceMatchState = TOO_FAR and recording', () => {
@@ -263,9 +262,8 @@ describe('Hint', () => {
     expect(textElements.length).toBe(2);
     expect(textElements[0]).toBeInTheDocument();
     expect(textElements[1]).toBeInTheDocument();
-    expect(labelElements.length).toBe(2);
+    expect(labelElements.length).toBe(1);
     expect(labelElements[0]).toBeInTheDocument();
-    expect(labelElements[1]).toBeInTheDocument();
   });
 
   it('should render a11y messages about percentage matched if above 50', () => {
@@ -277,11 +275,10 @@ describe('Hint', () => {
     renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
     const labelElements = screen.getAllByLabelText(
-      hintDisplayText.hintTooFarText + '. 50% face fit.'
+      hintDisplayText.hintMatchIndicatorText
     );
-    expect(labelElements.length).toBe(2);
+    expect(labelElements.length).toBe(1);
     expect(labelElements[0]).toBeInTheDocument();
-    expect(labelElements[1]).toBeInTheDocument();
   });
 
   it('should render TOO_FAR text if faceMatchState = OFF_CENTER and recording', () => {
@@ -297,9 +294,8 @@ describe('Hint', () => {
     );
     expect(textElements.length).toBe(1);
     expect(textElements[0]).toBeInTheDocument();
-    expect(labelElements.length).toBe(2);
+    expect(labelElements.length).toBe(1);
     expect(labelElements[0]).toBeInTheDocument();
-    expect(labelElements[1]).toBeInTheDocument();
   });
 
   it('should render HOLD_STILL text if faceMatchState = MATCHED and recording', () => {
@@ -309,9 +305,10 @@ describe('Hint', () => {
 
     renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
-    expect(
-      screen.getByText(hintDisplayText.hintHoldFaceForFreshnessText)
-    ).toBeInTheDocument();
+    const textElements = screen.getAllByText(
+      hintDisplayText.hintHoldFaceForFreshnessText
+    );
+    expect(textElements[0]).toBeInTheDocument();
   });
 
   it('should render TOO_FAR text if faceMatchState = CANT_IDENTIFY and recording', () => {
@@ -328,9 +325,8 @@ describe('Hint', () => {
     expect(textElements.length).toBe(2);
     expect(textElements[0]).toBeInTheDocument();
     expect(textElements[1]).toBeInTheDocument();
-    expect(labelElements.length).toBe(2);
+    expect(labelElements.length).toBe(1);
     expect(labelElements[0]).toBeInTheDocument();
-    expect(labelElements[1]).toBeInTheDocument();
   });
 
   it('should render TOO_FAR text if faceMatchState = FACE_IDENTIFIED and recording', () => {
@@ -347,9 +343,8 @@ describe('Hint', () => {
     expect(textElements.length).toBe(2);
     expect(textElements[0]).toBeInTheDocument();
     expect(textElements[1]).toBeInTheDocument();
-    expect(labelElements.length).toBe(2);
+    expect(labelElements.length).toBe(1);
     expect(labelElements[0]).toBeInTheDocument();
-    expect(labelElements[1]).toBeInTheDocument();
   });
 
   it('should create appropriate selectors', () => {

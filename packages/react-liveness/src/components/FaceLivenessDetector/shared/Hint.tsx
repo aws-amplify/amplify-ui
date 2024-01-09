@@ -41,9 +41,7 @@ export interface HintProps {
 const defaultToast = (text: string, isInitial = false) => {
   return (
     <Toast size="large" variation="primary" isInitial={isInitial}>
-      <View aria-live="assertive" aria-label={text}>
-        {text}
-      </View>
+      <View aria-live="assertive">{text}</View>
     </Toast>
   );
 };
@@ -96,7 +94,14 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
 
   const getInstructionContent = () => {
     if (isStartView) {
-      return defaultToast(hintDisplayText.hintCenterFaceText, true);
+      return (
+        <>
+          <VisuallyHidden aria-live="assertive">
+            {hintDisplayText.hintCenterFaceInstructionText}
+          </VisuallyHidden>
+          {defaultToast(hintDisplayText.hintCenterFaceText, true)}
+        </>
+      );
     }
 
     if (errorState ?? (isCheckFailed || isCheckSuccessful)) {
@@ -127,7 +132,12 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
 
       if (isUploading) {
         return (
-          <ToastWithLoader displayText={hintDisplayText.hintVerifyingText} />
+          <>
+            <VisuallyHidden aria-live="assertive">
+              {hintDisplayText.hintCheckCompleteText}
+            </VisuallyHidden>
+            <ToastWithLoader displayText={hintDisplayText.hintVerifyingText} />
+          </>
         );
       }
 
@@ -159,15 +169,12 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
         a11yHintString = FaceMatchStateStringMap[faceMatchState];
       }
 
-      // If the face match percentage reaches a 50% or 100% marks append it to the a11y label
-      if (faceMatchState === FaceMatchState.MATCHED) {
-        a11yHintString = `${a11yHintString}. ${hintDisplayText.hintMatchIndicatorText(
-          100
-        )}`;
-      } else if (faceMatchPercentage! > 50) {
-        a11yHintString = `${a11yHintString}. ${hintDisplayText.hintMatchIndicatorText(
-          50
-        )}`;
+      // If the face match percentage reaches 50% append it to the a11y label
+      if (
+        faceMatchState === FaceMatchState.TOO_FAR &&
+        faceMatchPercentage! > 50
+      ) {
+        a11yHintString = hintDisplayText.hintMatchIndicatorText;
       }
 
       return (
@@ -177,7 +184,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
             faceMatchState === FaceMatchState.TOO_CLOSE ? 'error' : 'primary'
           }
         >
-          <VisuallyHidden aria-live="assertive" aria-label={a11yHintString}>
+          <VisuallyHidden aria-live="assertive">
             {a11yHintString}
           </VisuallyHidden>
           <View aria-label={a11yHintString}>{resultHintString}</View>
