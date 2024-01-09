@@ -56,7 +56,7 @@ export const passwordfield: Required<PasswordFieldTokens<'default'>> = {
         value: '{components.button.outlined.error.backgroundColor.value}',
       },
       borderColor: {
-        value: '{components.button.error.backgroundColor.value}',
+        value: '{components.button.outlined.error.backgroundColor.value}',
       },
       _active: {
         borderColor: {
