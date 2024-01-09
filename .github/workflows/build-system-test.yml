@@ -72,7 +72,7 @@ jobs:
           - framework: angular
             framework-version: latest
             build-tool: angular-cli
-            build-tool-version: 16
+            build-tool-version: latest
             pkg-manager: npm
             language: ts
             node-version: 20

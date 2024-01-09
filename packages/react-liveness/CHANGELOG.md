@@ -1,5 +1,14 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.0.8
+
+### Patch Changes
+
+- [#4877](https://github.com/aws-amplify/amplify-ui/pull/4877) [`94d05cbff`](https://github.com/aws-amplify/amplify-ui/commit/94d05cbffe407f0880a68b819b3c7d75016ff65a) Thanks [@thaddmt](https://github.com/thaddmt)! - chore: update toasts to be assertive
+
+- Updated dependencies [[`8d41213bc`](https://github.com/aws-amplify/amplify-ui/commit/8d41213bc96f3f37342c09756cf16a07ea4e2090)]:
+  - @aws-amplify/ui-react@6.1.0
+
 ## 3.0.7
 
 ### Patch Changes

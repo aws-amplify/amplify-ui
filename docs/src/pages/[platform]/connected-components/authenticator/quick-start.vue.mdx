@@ -1,17 +1,18 @@
-import { Fragment } from '@/components/Fragment';
 import { Tabs } from '@aws-amplify/ui-react';
+import QuickStartPullWeb from './quick-start-pull.web.mdx';
+import QuickStartInstallWeb from './quick-start-install.web.mdx';
+import QuickStartAddWeb from './quick-start-add.web.mdx';
+import TroubleshootingWeb from './trouble-shooting-alert.web.mdx';
+import VitePolyfill from '../../getting-started/troubleshooting/shared/vite-polyfill.mdx';
+import VitePolyfillTS from '../../getting-started/troubleshooting/shared/vite-polyfill-ts.mdx';
 
 ### Step 1. Configure backend
 
-<Fragment useCommonWebContent>
-  {({ platform }) => import(`./quick-start-pull.${platform}.mdx`)}
-</Fragment>
+<QuickStartPullWeb />
 
 ### Step 2. Install dependencies
 
-<Fragment useCommonWebContent>
-  {({ platform }) => import(`./quick-start-install.${platform}.mdx`)}
-</Fragment>
+<QuickStartInstallWeb />
 
 ### Step 3. Update Vite config and index.html
 
@@ -19,26 +20,16 @@ When working with Vite in a Vue project, you must make a few modifications. Plea
 
 <Tabs.Container>
   <Tabs.Item title="TypeScript">
-    <Fragment>
-      {({ platform }) => import(`../../getting-started/troubleshooting/shared/vite-polyfill.mdx`)}
-    </Fragment>
-    <Fragment>
-      {({ platform }) => import(`../../getting-started/troubleshooting/shared/vite-polyfill-ts.mdx`)}
-    </Fragment>
+    <VitePolyfill />
+    <VitePolyfillTS />
   </Tabs.Item>
   <Tabs.Item title="JavaScript">
-    <Fragment>
-      {({ platform }) => import(`../../getting-started/troubleshooting/shared/vite-polyfill.mdx`)}
-    </Fragment>
+    <VitePolyfill />
   </Tabs.Item>
 </Tabs.Container>
 
 ### Step 4. Add the Authenticator
 
-<Fragment useCommonWebContent>
-  {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}
-</Fragment>
+<QuickStartAddWeb />
 
-<Fragment useCommonWebContent platforms={['web']}>
-  {({ platform }) => import(`./trouble-shooting-alert.${platform}.mdx`)}
-</Fragment>
+<TroubleshootingWeb />

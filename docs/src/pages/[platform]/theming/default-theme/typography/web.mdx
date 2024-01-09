@@ -1,25 +1,172 @@
-import { Fragment } from '@/components/Fragment';
+import { InlineFilter } from '@/components/InlineFilter';
 import { 
   TokensTypographyFontWeights,
   TokensTypographyFontSizes,
   TokensTypographyLineHeights,
   TokensTypographyFonts } from '@/components/Theming/TokenGroups';
+import { Example, ExampleCode } from '@/components/Example';
+import { Tabs, View } from '@aws-amplify/ui-react';
+import { FontWeightExample, FontSizesExample, LineHeightsExample } from './examples';
 
 ## Font weights
 
-<Fragment>{({ platform }) => import(`./fontWeightUsage.${platform}.mdx`)}</Fragment>
+<InlineFilter filters={['angular']}>
+  <Example>
+    <ExampleCode>
+  ```css file=./examples/FontWeightExample.css
+
+  ```
+    </ExampleCode>
+  </Example>
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <Tabs.Container defaultValue="Example usage">
+    <Tabs.List>
+      <Tabs.Item value="Example usage">Example usage</Tabs.Item>
+      <Tabs.Item value="CSS">CSS</Tabs.Item>
+    </Tabs.List>
+    <Tabs.Panel value="Example usage">
+      <View marginTop="var(--amplify-space-large)">
+        <Example>
+          <FontWeightExample  />
+          <ExampleCode>
+  ```tsx file=./examples/FontWeightExample.tsx
+
+  ```
+          </ExampleCode>
+        </Example>
+      </View>
+    </Tabs.Panel>
+    <Tabs.Panel value="CSS">
+      <View marginTop="var(--amplify-space-large)">
+      <Example>
+        <ExampleCode>
+  ```css file=./examples/FontWeightExample.css
+
+  ```
+        </ExampleCode>
+      </Example>
+      </View>
+    </Tabs.Panel>
+  </Tabs.Container>
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+  <Example>
+    <ExampleCode>
+  ```css file=./examples/FontWeightExample.css
+
+  ```
+    </ExampleCode>
+  </Example>
+</InlineFilter>
 
 <TokensTypographyFontWeights />
 
 ## Font sizes
 
-<Fragment>{({ platform }) => import(`./fontSizeUsage.${platform}.mdx`)}</Fragment>
+<InlineFilter filters={['angular']}>
+  <Example>
+    <ExampleCode>
+  ```css file=./examples/FontSizesExample.css
+
+  ```
+    </ExampleCode>
+  </Example>
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <Tabs.Container defaultValue="Example usage">
+    <Tabs.List>
+      <Tabs.Item value="Example usage">Example usage</Tabs.Item>
+      <Tabs.Item value="CSS">CSS</Tabs.Item>
+    </Tabs.List>
+    <Tabs.Panel value="Example usage">
+      <View marginTop="var(--amplify-space-large)">
+        <Example>
+          <FontSizesExample  />
+          <ExampleCode>
+  ```tsx file=./examples/FontSizesExample.tsx
+
+  ```
+          </ExampleCode>
+        </Example>
+      </View>
+    </Tabs.Panel>
+    <Tabs.Panel value="CSS">
+      <View marginTop="var(--amplify-space-large)">
+      <Example>
+        <ExampleCode>
+  ```css file=./examples/FontSizesExample.css
+
+  ```
+        </ExampleCode>
+      </Example>
+      </View>
+    </Tabs.Panel>
+  </Tabs.Container>
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+  <Example>
+    <ExampleCode>
+  ```css file=./examples/FontSizesExample.css
+
+  ```
+    </ExampleCode>
+  </Example>
+</InlineFilter>
 
 <TokensTypographyFontSizes />
 
 ## Line heights
 
-<Fragment>{({ platform }) => import(`./lineHeightsUsage.${platform}.mdx`)}</Fragment>
+<InlineFilter filters={['angular']}>
+  <Example>
+    <ExampleCode>
+  ```css file=./examples/LineHeightsExample.css
+
+  ```
+    </ExampleCode>
+  </Example>
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <Tabs.Container defaultValue="Example usage">
+    <Tabs.List>
+      <Tabs.Item value="Example usage">Example usage</Tabs.Item>
+      <Tabs.Item value="CSS">CSS</Tabs.Item>
+    </Tabs.List>
+    <Tabs.Panel value="Example usage">
+      <View marginTop="var(--amplify-space-large)">
+        <Example>
+          <LineHeightsExample  />
+          <ExampleCode>
+  ```tsx file=./examples/LineHeightsExample.tsx
+
+  ```
+          </ExampleCode>
+        </Example>
+      </View>
+    </Tabs.Panel>
+    <Tabs.Panel value="CSS">
+      <View marginTop="var(--amplify-space-large)">
+      <Example>
+        <ExampleCode>
+  ```css file=./examples/LineHeightsExample.css
+
+  ```
+        </ExampleCode>
+      </Example>
+      </View>
+    </Tabs.Panel>
+  </Tabs.Container>
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+  <Example>
+    <ExampleCode>
+  ```css file=./examples/LineHeightsExample.css
+
+  ```
+    </ExampleCode>
+  </Example>
+</InlineFilter>
 
 <TokensTypographyLineHeights />
 
