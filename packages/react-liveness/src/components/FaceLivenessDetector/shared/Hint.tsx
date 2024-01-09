@@ -96,7 +96,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
     if (isStartView) {
       return (
         <>
-          <VisuallyHidden aria-live="assertive">
+          <VisuallyHidden role="alert">
             {hintDisplayText.hintCenterFaceInstructionText}
           </VisuallyHidden>
           {defaultToast(hintDisplayText.hintCenterFaceText, true)}
