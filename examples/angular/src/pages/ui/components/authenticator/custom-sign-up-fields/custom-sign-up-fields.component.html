@@ -7,14 +7,14 @@
     <!-- Re-use default `Authenticator.SignUp.FormFields` -->
     <amplify-sign-up-form-fields></amplify-sign-up-form-fields>
 
-    <!-- Append & require Terms & Conditions field to sign up -->
+    <!-- Append & require Terms and Conditions field to sign up -->
     <amplify-checkbox
       [errorMessage]="validationErrors.acknowledgement"
       [hasError]="!!validationErrors.acknowledgement"
       name="acknowledgement"
       value="yes"
     >
-      I agree with the Terms & Conditions
+      I agree with the Terms and Conditions
     </amplify-checkbox>
   </ng-template>
 
