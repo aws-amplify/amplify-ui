@@ -38,7 +38,10 @@ export interface HintProps {
   hintDisplayText: Required<HintDisplayText>;
 }
 
-const defaultToast = (text: string, isInitial = false) => {
+const DefaultToast: React.FC<{ text: string; isInitial?: boolean }> = ({
+  text,
+  isInitial = false,
+}) => {
   return (
     <Toast size="large" variation="primary" isInitial={isInitial}>
       <View aria-live="assertive">{text}</View>
@@ -99,7 +102,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
           <VisuallyHidden role="alert">
             {hintDisplayText.hintCenterFaceInstructionText}
           </VisuallyHidden>
-          {defaultToast(hintDisplayText.hintCenterFaceText, true)}
+          <DefaultToast text={hintDisplayText.hintCenterFaceText} isInitial />
         </>
       );
     }
@@ -111,9 +114,11 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
     if (!isRecording) {
       if (isCheckFaceDetectedBeforeStart) {
         if (faceMatchStateBeforeStart === FaceMatchState.TOO_MANY) {
-          return defaultToast(hintDisplayText.hintTooManyFacesText);
+          return <DefaultToast text={hintDisplayText.hintTooManyFacesText} />;
         }
-        return defaultToast(hintDisplayText.hintMoveFaceFrontOfCameraText);
+        return (
+          <DefaultToast text={hintDisplayText.hintMoveFaceFrontOfCameraText} />
+        );
       }
 
       // Specifically checking for false here because initially the value is undefined and we do not want to show the instruction
@@ -121,7 +126,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
         isCheckFaceDistanceBeforeRecording &&
         isFaceFarEnoughBeforeRecordingState === false
       ) {
-        return defaultToast(hintDisplayText.hintTooCloseText);
+        return <DefaultToast text={hintDisplayText.hintTooCloseText} />;
       }
 
       if (isNotRecording) {
@@ -142,12 +147,16 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
       }
 
       if (illuminationState && illuminationState !== IlluminationState.NORMAL) {
-        return defaultToast(IlluminationStateStringMap[illuminationState]);
+        return (
+          <DefaultToast text={IlluminationStateStringMap[illuminationState]} />
+        );
       }
     }
 
     if (isFlashingFreshness) {
-      return defaultToast(hintDisplayText.hintHoldFaceForFreshnessText);
+      return (
+        <DefaultToast text={hintDisplayText.hintHoldFaceForFreshnessText} />
+      );
     }
 
     if (isRecording && !isFlashingFreshness) {
