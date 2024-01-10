@@ -176,10 +176,8 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
       let a11yHintString = resultHintString;
       if (faceMatchState === FaceMatchState.OFF_CENTER) {
         a11yHintString = FaceMatchStateStringMap[faceMatchState];
-      }
-
-      // If the face match percentage reaches 50% append it to the a11y label
-      if (
+      } else if (
+        // If the face match percentage reaches 50% append it to the a11y label
         faceMatchState === FaceMatchState.TOO_FAR &&
         faceMatchPercentage! > 50
       ) {
