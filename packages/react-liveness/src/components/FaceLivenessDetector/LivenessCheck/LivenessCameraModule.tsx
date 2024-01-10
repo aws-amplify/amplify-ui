@@ -11,7 +11,7 @@ import {
   View,
 } from '@aws-amplify/ui-react';
 import { useColorMode } from '@aws-amplify/ui-react/internal';
-import { FaceMatchState, drawStaticOval } from '../service';
+import { FaceMatchState, clearOvalCanvas, drawStaticOval } from '../service';
 import {
   useLivenessActor,
   useLivenessSelector,
@@ -138,6 +138,7 @@ export const LivenessCameraModule = (
   const isCheckingCamera = state.matches('cameraCheck');
   const isWaitingForCamera = state.matches('waitForDOMAndCameraDetails');
   const isStartView = state.matches('start') || state.matches('userCancel');
+  const isDetectFaceBeforeStart = state.matches('detectFaceBeforeStart');
   const isRecording = state.matches('recording');
   const isCheckSucceeded = state.matches('checkSucceeded');
   const isFlashingFreshness = state.matches({
@@ -220,6 +221,12 @@ export const LivenessCameraModule = (
       );
     }
   }, [send, videoRef, isCameraReady, isMobileScreen]);
+
+  React.useEffect(() => {
+    if (isDetectFaceBeforeStart) {
+      clearOvalCanvas({ canvas: canvasRef.current! });
+    }
+  }, [send, videoRef, isDetectFaceBeforeStart]);
 
   const photoSensitivityWarning = React.useMemo(() => {
     return (
