@@ -107,7 +107,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
   }
 
   if (errorState ?? (isCheckFailed || isCheckSuccessful)) {
-    return;
+    return null;
   }
 
   if (!isRecording) {
