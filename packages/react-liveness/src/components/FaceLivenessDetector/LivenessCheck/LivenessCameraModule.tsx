@@ -226,7 +226,7 @@ export const LivenessCameraModule = (
     if (isDetectFaceBeforeStart) {
       clearOvalCanvas({ canvas: canvasRef.current! });
     }
-  }, [send, videoRef, isDetectFaceBeforeStart]);
+  }, [isDetectFaceBeforeStart]);
 
   const photoSensitivityWarning = React.useMemo(() => {
     return (
