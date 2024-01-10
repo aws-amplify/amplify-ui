@@ -184,7 +184,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       },
       detectFaceBeforeStart: {
-        entry: ['hideOvalCanvas'],
+        entry: ['clearOvalCanvas'],
         invoke: {
           src: 'detectFace',
           onDone: {
@@ -251,7 +251,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         initial: 'ovalDrawing',
         states: {
           ovalDrawing: {
-            entry: ['showOvalCanvas', 'sendTimeoutAfterOvalDrawingDelay'],
+            entry: ['sendTimeoutAfterOvalDrawingDelay'],
             invoke: {
               src: 'detectInitialFaceAndDrawOval',
               onDone: {
@@ -485,16 +485,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         drawStaticOval(canvasEl!, videoEl!, videoMediaStream!);
       },
-      hideOvalCanvas: (context) => {
+      clearOvalCanvas: (context) => {
         const { canvasEl } = context.videoAssociatedParams!;
 
         clearOvalCanvas({ canvas: canvasEl! });
-        canvasEl!.style.display = 'none';
-      },
-      showOvalCanvas: (context) => {
-        const { canvasEl } = context.videoAssociatedParams!;
-
-        canvasEl!.style.display = 'unset';
       },
       updateRecordingStartTimestampMs: assign({
         videoAssociatedParams: (context) => {
