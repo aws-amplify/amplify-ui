@@ -48,13 +48,7 @@ export const getRoute = (
        * signIn actor is running.
        */
       return 'transition';
-    case state?.matches('signInActor.runActor'):
-      return 'signIn';
-    case state?.matches('signUpActor.runActor'):
-      return 'signUp';
     default:
-      console.debug(
-        `Cannot infer 'route' from Authenticator state: ${state?.value} and actor state: ${actorState?.value}`
-      );
+      return null;
   }
 };
