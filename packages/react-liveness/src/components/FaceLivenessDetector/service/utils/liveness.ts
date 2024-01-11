@@ -296,6 +296,21 @@ export function drawLivenessOvalInCanvas({
   }
 }
 
+export function clearOvalCanvas({
+  canvas,
+}: {
+  canvas: HTMLCanvasElement;
+}): void {
+  const ctx = canvas.getContext('2d');
+
+  if (ctx) {
+    ctx.restore();
+    ctx.clearRect(0, 0, Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER);
+  } else {
+    throw new Error('Cannot find Canvas.');
+  }
+}
+
 interface FaceMatchStateInLivenessOval {
   faceMatchState: FaceMatchState;
   faceMatchPercentage: number;
@@ -374,6 +389,10 @@ export function getFaceMatchStateInLivenessOval(
       0
     ) * 100;
 
+  const faceIsOutsideOvalToTheLeft = minOvalX > minFaceX && maxOvalX > maxFaceX;
+  const faceIsOutsideOvalToTheRight =
+    minFaceX > minOvalX && maxFaceX > maxOvalX;
+
   if (
     intersection > intersectionThreshold &&
     Math.abs(minOvalX - minFaceX) < ovalMatchWidthThreshold &&
@@ -381,6 +400,8 @@ export function getFaceMatchStateInLivenessOval(
     Math.abs(maxOvalY - maxFaceY) < ovalMatchHeightThreshold
   ) {
     faceMatchState = FaceMatchState.MATCHED;
+  } else if (faceIsOutsideOvalToTheLeft || faceIsOutsideOvalToTheRight) {
+    faceMatchState = FaceMatchState.OFF_CENTER;
   } else if (
     minOvalY - minFaceY > faceDetectionHeightThreshold ||
     maxFaceY - maxOvalY > faceDetectionHeightThreshold ||

@@ -1,3 +1,5 @@
+import { DisplayTextTemplate } from '@aws-amplify/ui';
+
 export type HintDisplayText = {
   hintMoveFaceFrontOfCameraText?: string;
   hintTooManyFacesText?: string;
@@ -7,11 +9,15 @@ export type HintDisplayText = {
   hintTooFarText?: string;
   hintConnectingText?: string;
   hintVerifyingText?: string;
+  hintCheckCompleteText?: string;
   hintIlluminationTooBrightText?: string;
   hintIlluminationTooDarkText?: string;
   hintIlluminationNormalText?: string;
   hintHoldFaceForFreshnessText?: string;
   hintCenterFaceText?: string;
+  hintCenterFaceInstructionText?: string;
+  hintFaceOffCenterText?: string;
+  hintMatchIndicatorText?: string;
 };
 
 export type CameraDisplayText = {
@@ -31,14 +37,27 @@ export type InstructionDisplayText = {
   photosensitivityWarningHeadingText?: string;
   photosensitivityWarningInfoText?: string;
   photosensitivityWarningLabelText?: string;
-  // TODO remove this typo in next MV bump
-  photosensitivyWarningBodyText?: string;
-  photosensitivyWarningHeadingText?: string;
-  photosensitivyWarningInfoText?: string;
-  photosensitivyWarningLabelText?: string;
   startScreenBeginCheckText?: string;
   tooFarCaptionText?: string;
   tooFarAltText?: string;
+
+  // TODO remove this typo in next MV bump
+  /**
+   * @deprecated `photosensitivyWarningBodyText` has been replaced with `photosensitivityWarningBodyText` amd will be removed in a future major version of `@aws-amplify/ui-react-liveness`
+   */
+  photosensitivyWarningBodyText?: string;
+  /**
+   * @deprecated `photosensitivyWarningHeadingText` has been replaced with `photosensitivityWarningHeadingText` amd will be removed in a future major version of `@aws-amplify/ui-react-liveness`
+   */
+  photosensitivyWarningHeadingText?: string;
+  /**
+   * @deprecated `photosensitivyWarningInfoText` has been replaced with `photosensitivityWarningInfoText` amd will be removed in a future major version of `@aws-amplify/ui-react-liveness`
+   */
+  photosensitivyWarningInfoText?: string;
+  /**
+   * @deprecated `photosensitivyWarningLabelText` has been replaced with `photosensitivityWarningLabelText` amd will be removed in a future major version of `@aws-amplify/ui-react-liveness`
+   */
+  photosensitivyWarningLabelText?: string;
 };
 
 export type StreamDisplayText = {
@@ -47,6 +66,7 @@ export type StreamDisplayText = {
 };
 
 export const defaultErrorDisplayText = {
+  errorLabelText: 'Error',
   timeoutHeaderText: 'Time out',
   timeoutMessageText:
     "Face didn't fit inside oval in time limit. Try again and completely fill the oval with face in it.",
@@ -67,8 +87,7 @@ export const defaultErrorDisplayText = {
   tryAgainText: 'Try again',
 };
 
-export type ErrorDisplayTextFoo = typeof defaultErrorDisplayText;
-export type ErrorDisplayText = Partial<ErrorDisplayTextFoo>;
+export type ErrorDisplayText = Partial<typeof defaultErrorDisplayText>;
 
 export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   cameraMinSpecificationsHeadingText:
@@ -84,6 +103,10 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   goodFitAltText:
     "Ilustration of a person's face, perfectly fitting inside of an oval.",
   hintCenterFaceText: 'Center your face',
+  hintCenterFaceInstructionText:
+    'Instruction: Before starting the check, make sure your camera is at the center top of your screen and center your face to the camera. When the check starts an oval will show up in the center. You will be prompted to move forward into the oval and then prompted to hold still. After holding still for a few seconds, you should hear check complete.',
+  hintFaceOffCenterText:
+    'Face is not in the oval, center your face to the camera.',
   hintMoveFaceFrontOfCameraText: 'Move face in front of camera',
   hintTooManyFacesText: 'Ensure only one face is in front of camera',
   hintFaceDetectedText: 'Face detected',
@@ -92,10 +115,12 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   hintTooFarText: 'Move closer',
   hintConnectingText: 'Connecting...',
   hintVerifyingText: 'Verifying...',
+  hintCheckCompleteText: 'Check complete',
   hintIlluminationTooBrightText: 'Move to dimmer area',
   hintIlluminationTooDarkText: 'Move to brighter area',
   hintIlluminationNormalText: 'Lighting conditions normal',
   hintHoldFaceForFreshnessText: 'Hold still',
+  hintMatchIndicatorText: '50% completed. Keep moving closer.',
   photosensitivityWarningBodyText:
     'This check flashes different colors. Use caution if you are photosensitive.',
   photosensitivityWarningHeadingText: 'Photosensitivity warning',
@@ -118,9 +143,10 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   ...defaultErrorDisplayText,
 };
 
-export interface LivenessDisplayText
-  extends HintDisplayText,
-    CameraDisplayText,
-    InstructionDisplayText,
-    ErrorDisplayText,
-    StreamDisplayText {}
+export type LivenessDisplayText = DisplayTextTemplate<
+  HintDisplayText &
+    CameraDisplayText &
+    InstructionDisplayText &
+    ErrorDisplayText &
+    StreamDisplayText
+>;

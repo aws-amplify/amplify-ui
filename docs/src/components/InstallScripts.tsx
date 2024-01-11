@@ -47,12 +47,7 @@ export const TerminalCommand = ({
   return (
     <div className={`install-code__container ${variant}`}>
       <code className="install-code__content">{terminalCommand}</code>
-      <CopyButton
-        className="install-code__button"
-        copyText={terminalCommand}
-        size="small"
-        variation="link"
-      />
+      <CopyButton className="install-code__button" target={terminalCommand} />
     </div>
   );
 };

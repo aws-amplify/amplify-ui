@@ -1,5 +1,23 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.0.9
+
+### Patch Changes
+
+- [#4887](https://github.com/aws-amplify/amplify-ui/pull/4887) [`832677acd`](https://github.com/aws-amplify/amplify-ui/commit/832677acdbb7cdd6cf7a1ab202504795e718fd45) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(liveness): fix styling when no face on screen by not showing oval canvas and ensuring full screen camera
+
+- [#4894](https://github.com/aws-amplify/amplify-ui/pull/4894) [`7b0666036`](https://github.com/aws-amplify/amplify-ui/commit/7b0666036863f47417959aeaa054a84a35cdbea9) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(liveness): type Liveness DisplayText with DisplayTextTemplate
+
+- [#4884](https://github.com/aws-amplify/amplify-ui/pull/4884) [`8c613ef20`](https://github.com/aws-amplify/amplify-ui/commit/8c613ef20472a390c2b6a89ec227769514ab566b) Thanks [@thaddmt](https://github.com/thaddmt)! - chore: updated a11y texts for oval fitting, updated error text to mention camera's center
+
+- [#4888](https://github.com/aws-amplify/amplify-ui/pull/4888) [`da41cca8c`](https://github.com/aws-amplify/amplify-ui/commit/da41cca8c62fb2c77c1f251ebc5071b947416959) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(liveness): adding a11y error label to alert icon in timeout message
+
+- [#4900](https://github.com/aws-amplify/amplify-ui/pull/4900) [`430dae7ca`](https://github.com/aws-amplify/amplify-ui/commit/430dae7ca32494da5c5f577762c842f8a4e09020) Thanks [@thaddmt](https://github.com/thaddmt)! - fix: reduce re-renders on hint component
+
+- Updated dependencies [[`ad070697b`](https://github.com/aws-amplify/amplify-ui/commit/ad070697ba81871e26905d08f049b3486a0ce6f9), [`067e2b1cf`](https://github.com/aws-amplify/amplify-ui/commit/067e2b1cf435db2acb1c25ca3e50a65b53478530), [`7b0666036`](https://github.com/aws-amplify/amplify-ui/commit/7b0666036863f47417959aeaa054a84a35cdbea9), [`da41cca8c`](https://github.com/aws-amplify/amplify-ui/commit/da41cca8c62fb2c77c1f251ebc5071b947416959)]:
+  - @aws-amplify/ui@6.0.7
+  - @aws-amplify/ui-react@6.1.1
+
 ## 3.0.8
 
 ### Patch Changes

@@ -59,15 +59,38 @@ type DisplayTextBody = string;
 // aggregate display text suffixes
 type DisplayTextSuffix = FieldSuffix | TextSuffix;
 
-type GetDisplayTextKey = `${GetPrefix}${DisplayTextBody}${DisplayTextSuffix}`;
-type DisplayTextKey = `${DisplayTextBody}${DisplayTextSuffix}`;
+// example: `getSomeText`
+type DisplayTextFunctionKey =
+  `${GetPrefix}${DisplayTextBody}${DisplayTextSuffix}`;
 
-type DisplayTextBase =
-  // Keys matching `GetDisplayTextKey` must be a function returning
-  // a display `string` or `undefined` for flexibility
-  | Record<GetDisplayTextKey, (...args: any) => string | undefined>
-  // Keys matching `DisplayTextKey` must be a `string``
-  | Record<DisplayTextKey, string>;
+// example: `someText`
+type DisplayTextStringKey = `${DisplayTextBody}${DisplayTextSuffix}`;
+
+// example: `(isCopied: boolean) => string`
+type DisplayTextFunction = (...args: any) => string | undefined;
+
+// keys matching `DisplayTextFunctionKey` must be a function returning
+// a display `string` or `undefined` for flexibility
+type DisplayTextFunctions = Record<DisplayTextFunctionKey, DisplayTextFunction>;
+
+// keys matching `DisplayTextStringKey` must be a `string``
+type DisplayTextStrings = Record<DisplayTextStringKey, string>;
+
+type IsDisplayTextFunction<T, K> = T extends DisplayTextFunctionKey
+  ? K extends DisplayTextFunction
+    ? T
+    : never
+  : never;
+
+type IsDisplayTextString<T, K> = T extends DisplayTextStringKey
+  ? K extends string
+    ? T
+    : never
+  : never;
+
+type FilterDisplayText<T, K> =
+  | IsDisplayTextFunction<T, K>
+  | IsDisplayTextString<T, K>;
 
 /**
  * Display Text type utility for creating standardized `DisplayText` interfaces
@@ -81,6 +104,7 @@ type DisplayTextBase =
  * type SomeComponentDisplayText = DisplayTextTemplate<{
  *   getCopyButtonText?: GetCopyButtonText;
  *   submitButtonText?: string;
+ *   usernameFieldLabel?: string;
  * }>;
  *
  * // default interface
@@ -89,11 +113,14 @@ type DisplayTextBase =
  * // default values
  * const someComponentDisplayText: SomeComponentDisplayTextDefault = {
  *   getCopyButtonText: (hasCopied) => (hasCopied ? 'Copied' : 'Copy'),
- *   submitButtonText: 'Submit'
+ *   submitButtonText: 'Submit',
+ *   usernameFieldLabel: 'Username',
  * };
  * ```
  */
-export type DisplayTextTemplate<T extends DisplayTextBase> = {
-  // filter out disallowed keys
-  [K in keyof T]: K extends GetDisplayTextKey | DisplayTextKey ? T[K] : never;
+export type DisplayTextTemplate<
+  T extends DisplayTextFunctions | DisplayTextStrings,
+> = {
+  // remove disallowed `displayText` keys
+  [K in keyof T as FilterDisplayText<K, T[K]>]: T[K];
 };
