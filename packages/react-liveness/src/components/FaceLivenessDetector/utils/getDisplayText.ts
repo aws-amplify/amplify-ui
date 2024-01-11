@@ -43,6 +43,8 @@ export function getDisplayText(
     errorLabelText,
     hintCanNotIdentifyText,
     hintCenterFaceText,
+    hintCenterFaceInstructionText,
+    hintFaceOffCenterText,
     hintConnectingText,
     hintFaceDetectedText,
     hintHoldFaceForFreshnessText,
@@ -54,6 +56,8 @@ export function getDisplayText(
     hintTooCloseText,
     hintTooFarText,
     hintVerifyingText,
+    hintCheckCompleteText,
+    hintMatchIndicatorText,
     faceDistanceHeaderText,
     faceDistanceMessageText,
     goodFitCaptionText,
@@ -93,11 +97,15 @@ export function getDisplayText(
     hintTooFarText,
     hintConnectingText,
     hintVerifyingText,
+    hintCheckCompleteText,
     hintIlluminationTooBrightText,
     hintIlluminationTooDarkText,
     hintIlluminationNormalText,
     hintHoldFaceForFreshnessText,
     hintCenterFaceText,
+    hintCenterFaceInstructionText,
+    hintFaceOffCenterText,
+    hintMatchIndicatorText,
   };
 
   const cameraDisplayText: Required<CameraDisplayText> = {
