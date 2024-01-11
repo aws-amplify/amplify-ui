@@ -63,12 +63,12 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
     selectIsFaceFarEnoughBeforeRecording
   );
   const faceMatchPercentage = useLivenessSelector(selectFaceMatchPercentage);
-  const isCheckFaceDetectedBeforeStart = state.matches(
-    'checkFaceDetectedBeforeStart'
-  );
-  const isCheckFaceDistanceBeforeRecording = state.matches(
-    'checkFaceDistanceBeforeRecording'
-  );
+  const isCheckFaceDetectedBeforeStart =
+    state.matches('checkFaceDetectedBeforeStart') ||
+    state.matches('detectFaceBeforeStart');
+  const isCheckFaceDistanceBeforeRecording =
+    state.matches('checkFaceDistanceBeforeRecording') ||
+    state.matches('detectFaceDistanceBeforeRecording');
   const isStartView = state.matches('start') || state.matches('userCancel');
   const isRecording = state.matches('recording');
   const isNotRecording = state.matches('notRecording');
@@ -95,113 +95,104 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
     [IlluminationState.NORMAL]: hintDisplayText.hintIlluminationNormalText,
   };
 
-  const getInstructionContent = () => {
-    if (isStartView) {
+  if (isStartView) {
+    return (
+      <>
+        <VisuallyHidden role="alert">
+          {hintDisplayText.hintCenterFaceInstructionText}
+        </VisuallyHidden>
+        <DefaultToast text={hintDisplayText.hintCenterFaceText} isInitial />
+      </>
+    );
+  }
+
+  if (errorState ?? (isCheckFailed || isCheckSuccessful)) {
+    return null;
+  }
+
+  if (!isRecording) {
+    if (isCheckFaceDetectedBeforeStart) {
+      if (faceMatchStateBeforeStart === FaceMatchState.TOO_MANY) {
+        return <DefaultToast text={hintDisplayText.hintTooManyFacesText} />;
+      }
+      return (
+        <DefaultToast text={hintDisplayText.hintMoveFaceFrontOfCameraText} />
+      );
+    }
+
+    // Specifically checking for false here because initially the value is undefined and we do not want to show the instruction
+    if (
+      isCheckFaceDistanceBeforeRecording &&
+      isFaceFarEnoughBeforeRecordingState === false
+    ) {
+      return <DefaultToast text={hintDisplayText.hintTooCloseText} />;
+    }
+
+    if (isNotRecording) {
+      return (
+        <ToastWithLoader displayText={hintDisplayText.hintConnectingText} />
+      );
+    }
+
+    if (isUploading) {
       return (
         <>
-          <VisuallyHidden role="alert">
-            {hintDisplayText.hintCenterFaceInstructionText}
+          <VisuallyHidden aria-live="assertive">
+            {hintDisplayText.hintCheckCompleteText}
           </VisuallyHidden>
-          <DefaultToast text={hintDisplayText.hintCenterFaceText} isInitial />
+          <ToastWithLoader displayText={hintDisplayText.hintVerifyingText} />
         </>
       );
     }
 
-    if (errorState ?? (isCheckFailed || isCheckSuccessful)) {
-      return;
+    if (illuminationState && illuminationState !== IlluminationState.NORMAL) {
+      return (
+        <DefaultToast text={IlluminationStateStringMap[illuminationState]} />
+      );
+    }
+  }
+
+  if (isFlashingFreshness) {
+    return <DefaultToast text={hintDisplayText.hintHoldFaceForFreshnessText} />;
+  }
+
+  if (isRecording && !isFlashingFreshness) {
+    // During face matching, we want to only show the TOO_CLOSE or
+    // TOO_FAR texts. If FaceMatchState matches TOO_CLOSE, we'll show
+    // the TOO_CLOSE text, but for FACE_IDENTIFED, CANT_IDENTIFY, TOO_MANY
+    // we are defaulting to the TOO_FAR text (for now).
+    let resultHintString = FaceMatchStateStringMap[FaceMatchState.TOO_FAR];
+    if (
+      faceMatchState === FaceMatchState.TOO_CLOSE ||
+      faceMatchState === FaceMatchState.MATCHED
+    ) {
+      resultHintString = FaceMatchStateStringMap[faceMatchState];
     }
 
-    if (!isRecording) {
-      if (isCheckFaceDetectedBeforeStart) {
-        if (faceMatchStateBeforeStart === FaceMatchState.TOO_MANY) {
-          return <DefaultToast text={hintDisplayText.hintTooManyFacesText} />;
+    // If the face is outside the oval set the aria-label to a string about centering face in oval
+    let a11yHintString = resultHintString;
+    if (faceMatchState === FaceMatchState.OFF_CENTER) {
+      a11yHintString = FaceMatchStateStringMap[faceMatchState];
+    } else if (
+      // If the face match percentage reaches 50% append it to the a11y label
+      faceMatchState === FaceMatchState.TOO_FAR &&
+      faceMatchPercentage! > 50
+    ) {
+      a11yHintString = hintDisplayText.hintMatchIndicatorText;
+    }
+
+    return (
+      <Toast
+        size="large"
+        variation={
+          faceMatchState === FaceMatchState.TOO_CLOSE ? 'error' : 'primary'
         }
-        return (
-          <DefaultToast text={hintDisplayText.hintMoveFaceFrontOfCameraText} />
-        );
-      }
+      >
+        <VisuallyHidden aria-live="assertive">{a11yHintString}</VisuallyHidden>
+        <View aria-label={a11yHintString}>{resultHintString}</View>
+      </Toast>
+    );
+  }
 
-      // Specifically checking for false here because initially the value is undefined and we do not want to show the instruction
-      if (
-        isCheckFaceDistanceBeforeRecording &&
-        isFaceFarEnoughBeforeRecordingState === false
-      ) {
-        return <DefaultToast text={hintDisplayText.hintTooCloseText} />;
-      }
-
-      if (isNotRecording) {
-        return (
-          <ToastWithLoader displayText={hintDisplayText.hintConnectingText} />
-        );
-      }
-
-      if (isUploading) {
-        return (
-          <>
-            <VisuallyHidden aria-live="assertive">
-              {hintDisplayText.hintCheckCompleteText}
-            </VisuallyHidden>
-            <ToastWithLoader displayText={hintDisplayText.hintVerifyingText} />
-          </>
-        );
-      }
-
-      if (illuminationState && illuminationState !== IlluminationState.NORMAL) {
-        return (
-          <DefaultToast text={IlluminationStateStringMap[illuminationState]} />
-        );
-      }
-    }
-
-    if (isFlashingFreshness) {
-      return (
-        <DefaultToast text={hintDisplayText.hintHoldFaceForFreshnessText} />
-      );
-    }
-
-    if (isRecording && !isFlashingFreshness) {
-      // During face matching, we want to only show the TOO_CLOSE or
-      // TOO_FAR texts. If FaceMatchState matches TOO_CLOSE, we'll show
-      // the TOO_CLOSE text, but for FACE_IDENTIFED, CANT_IDENTIFY, TOO_MANY
-      // we are defaulting to the TOO_FAR text (for now).
-      let resultHintString = FaceMatchStateStringMap[FaceMatchState.TOO_FAR];
-      if (
-        faceMatchState === FaceMatchState.TOO_CLOSE ||
-        faceMatchState === FaceMatchState.MATCHED
-      ) {
-        resultHintString = FaceMatchStateStringMap[faceMatchState];
-      }
-
-      // If the face is outside the oval set the aria-label to a string about centering face in oval
-      let a11yHintString = resultHintString;
-      if (faceMatchState === FaceMatchState.OFF_CENTER) {
-        a11yHintString = FaceMatchStateStringMap[faceMatchState];
-      } else if (
-        // If the face match percentage reaches 50% append it to the a11y label
-        faceMatchState === FaceMatchState.TOO_FAR &&
-        faceMatchPercentage! > 50
-      ) {
-        a11yHintString = hintDisplayText.hintMatchIndicatorText;
-      }
-
-      return (
-        <Toast
-          size="large"
-          variation={
-            faceMatchState === FaceMatchState.TOO_CLOSE ? 'error' : 'primary'
-          }
-        >
-          <VisuallyHidden aria-live="assertive">
-            {a11yHintString}
-          </VisuallyHidden>
-          <View aria-label={a11yHintString}>{resultHintString}</View>
-        </Toast>
-      );
-    }
-
-    return null;
-  };
-
-  const instructionContent = getInstructionContent();
-  return instructionContent ? instructionContent : null;
+  return null;
 };
