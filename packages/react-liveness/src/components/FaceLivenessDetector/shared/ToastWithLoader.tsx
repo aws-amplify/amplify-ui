@@ -5,15 +5,13 @@ import { Toast } from './Toast';
 
 interface ToastWithLoaderProps {
   displayText: string;
-  labelText?: string;
 }
 
 export const ToastWithLoader: React.FC<ToastWithLoaderProps> = ({
   displayText,
-  labelText,
 }) => {
   return (
-    <Toast aria-live="polite" aria-label={labelText ?? displayText}>
+    <Toast aria-live="polite">
       <Flex className={LivenessClassNames.HintText}>
         <Loader />
         <View>{displayText}</View>

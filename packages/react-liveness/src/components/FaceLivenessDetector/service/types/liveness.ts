@@ -126,6 +126,7 @@ export enum FaceMatchState {
   CANT_IDENTIFY = 'CANNOT IDENTIFY',
   FACE_IDENTIFIED = 'ONE FACE IDENTIFIED',
   TOO_MANY = 'TOO MANY FACES',
+  OFF_CENTER = 'OFF CENTER',
 }
 
 export interface LivenessError {
