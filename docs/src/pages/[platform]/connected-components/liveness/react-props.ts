@@ -18,7 +18,8 @@ export const FACE_LIVENESS_DETECTOR_PROPS = [
   },
   {
     name: `onUserCancel?`,
-    description: 'Callback called when the user cancels the flow.',
+    description:
+      'Callback called when the user cancels the flow. This callback is also used by the Try Again button in the default error modal.',
     type: `() => void`,
   },
   {
