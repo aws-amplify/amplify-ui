@@ -1628,7 +1628,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-outlined-error-border-color",
-        "value": "var(--amplify-colors-red-60)"
+        "value": "var(--amplify-colors-red-80)"
     },
     {
         "variable": "--amplify-components-button-outlined-error-color",
@@ -1656,7 +1656,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-outlined-error-hover-border-color",
-        "value": "var(--amplify-colors-red-60)"
+        "value": "var(--amplify-colors-red-80)"
     },
     {
         "variable": "--amplify-components-button-outlined-error-hover-color",

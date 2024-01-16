@@ -23,7 +23,7 @@ const theme: Theme = {
           _focus: {
             color: { value: 'white' },
           },
-          error: {
+          _error: {
             backgroundColor: { value: 'orange' },
             _hover: { backgroundColor: { value: 'lavender' } },
             _focus: { borderColor: { value: 'green' } },
