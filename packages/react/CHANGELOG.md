@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react
 
+## 6.1.1
+
+### Patch Changes
+
+- [#4888](https://github.com/aws-amplify/amplify-ui/pull/4888) [`da41cca8c`](https://github.com/aws-amplify/amplify-ui/commit/da41cca8c62fb2c77c1f251ebc5071b947416959) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(liveness): adding a11y error label to alert icon in timeout message
+
+- Updated dependencies [[`ad070697b`](https://github.com/aws-amplify/amplify-ui/commit/ad070697ba81871e26905d08f049b3486a0ce6f9), [`067e2b1cf`](https://github.com/aws-amplify/amplify-ui/commit/067e2b1cf435db2acb1c25ca3e50a65b53478530), [`7b0666036`](https://github.com/aws-amplify/amplify-ui/commit/7b0666036863f47417959aeaa054a84a35cdbea9)]:
+  - @aws-amplify/ui@6.0.7
+  - @aws-amplify/ui-react-core@3.0.7
+
 ## 6.1.0
 
 ### Minor Changes
