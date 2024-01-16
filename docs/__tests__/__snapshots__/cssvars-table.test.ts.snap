@@ -3924,7 +3924,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-passwordfield-button-error-border-color",
-        "value": "var(--amplify-components-button-error-background-color)"
+        "value": "var(--amplify-components-button-outlined-error-border-color)"
     },
     {
         "variable": "--amplify-components-passwordfield-button-error-color",

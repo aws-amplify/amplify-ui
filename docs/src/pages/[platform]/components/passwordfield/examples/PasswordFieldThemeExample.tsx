@@ -9,23 +9,25 @@ const theme: Theme = {
   name: 'passwordfield-theme',
   tokens: {
     components: {
-      button: {
-        primary: {
-          error: {
-            backgroundColor: { value: 'orange' },
-            _focus: { backgroundColor: { value: 'orange' } },
-            _hover: { backgroundColor: { value: 'blue' } },
-            _active: { backgroundColor: { value: 'yellow' } },
-          },
-        },
-      },
       passwordfield: {
         button: {
-          _error: {
+          color: { value: 'red' },
+          _hover: {
+            backgroundColor: { value: '{colors.blue.60}' },
+            color: { value: 'white' },
+          },
+          _active: {
+            backgroundColor: { value: '{colors.green.60}' },
+            color: { value: 'white' },
+          },
+          _focus: {
+            color: { value: 'white' },
+          },
+          error: {
             backgroundColor: { value: 'orange' },
-            _focus: { backgroundColor: { value: 'orange' } },
-            _hover: { backgroundColor: { value: 'blue' } },
-            _active: { backgroundColor: { value: 'yellow' } },
+            _hover: { backgroundColor: { value: 'lavender' } },
+            _focus: { borderColor: { value: 'green' } },
+            _active: { borderColor: { value: 'white' } },
           },
         },
       },
@@ -44,8 +46,8 @@ const theme: Theme = {
 export const PasswordFieldThemeExample = () => {
   return (
     <ThemeProvider theme={theme} colorMode="light">
-      <PasswordField hasError={true} label="Password" />
-      <Button variation="primary" colorTheme="error"></Button>
+      <PasswordField label="Password" />
+      <PasswordField hasError={true} label="Password with Error" />
     </ThemeProvider>
   );
 };
