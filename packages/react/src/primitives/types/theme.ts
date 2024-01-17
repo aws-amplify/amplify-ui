@@ -186,8 +186,8 @@ export type ColorKeys<PropertyType> =
   | PinkKeys
   | NeutralKeys
   | OverlayKeys
-  | PrimaryColorKeys
-  | SecondaryColorKeys
+  | PrimaryColorKey
+  | SecondaryColorKey
   | FontColorKeys
   | BackgroundColorKeys
   | BorderColorKeys
