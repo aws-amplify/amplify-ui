@@ -23,13 +23,11 @@ export function AuthStyle() {
             value: tokens.colors.white.value,
           },
         },
-        brand: {
-          primary: {
-            '10': tokens.colors.teal['100'],
-            '80': tokens.colors.teal['40'],
-            '90': tokens.colors.teal['20'],
-            '100': tokens.colors.teal['10'],
-          },
+        primary: {
+          '10': tokens.colors.teal['100'],
+          '80': tokens.colors.teal['40'],
+          '90': tokens.colors.teal['20'],
+          '100': tokens.colors.teal['10'],
         },
       },
       components: {
