@@ -76,7 +76,6 @@
     "@types/react": "^18.2.22",
     "@types/react-dom": "^18.2.7",
     "browserslist": "^4.16.15",
-    "follow-redirects": "^1.15.4",
     "docs/next-plugin-preval/webpack": "^5.76.0",
     "json5": "^2.2.1",
     "loader-utils": "2.0.4",
