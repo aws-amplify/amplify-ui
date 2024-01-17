@@ -6,7 +6,8 @@ const config: Config = {
   collectCoverage: true,
   collectCoverageFrom: [
     '<rootDir>/src/**/*.{js,jsx,ts,tsx}',
-    '!<rootDir>/src/**/*{c,C}onstants.ts',
+    // exclude top level version.ts
+    '!<rootDir>/src/version.ts',
   ],
   moduleNameMapper: {
     '^react-native$': '<rootDir>/node_modules/react-native',

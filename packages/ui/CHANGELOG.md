@@ -1,5 +1,15 @@
 # @aws-amplify/ui
 
+## 6.0.7
+
+### Patch Changes
+
+- [#4895](https://github.com/aws-amplify/amplify-ui/pull/4895) [`ad070697b`](https://github.com/aws-amplify/amplify-ui/commit/ad070697ba81871e26905d08f049b3486a0ce6f9) Thanks [@thaddmt](https://github.com/thaddmt)! - fix: update liveness button focus border to have a gap
+
+- [#4889](https://github.com/aws-amplify/amplify-ui/pull/4889) [`067e2b1cf`](https://github.com/aws-amplify/amplify-ui/commit/067e2b1cf435db2acb1c25ca3e50a65b53478530) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - Fix table styling for striped variation
+
+- [#4894](https://github.com/aws-amplify/amplify-ui/pull/4894) [`7b0666036`](https://github.com/aws-amplify/amplify-ui/commit/7b0666036863f47417959aeaa054a84a35cdbea9) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(liveness): type Liveness DisplayText with DisplayTextTemplate
+
 ## 6.0.6
 
 ### Patch Changes
