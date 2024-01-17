@@ -20,7 +20,7 @@ export const StepperFieldStylePropsExample = () => {
         max={10}
         step={1}
         inputStyles={{
-          backgroundColor: 'brand.primary.10',
+          backgroundColor: 'primary.10',
         }}
       />
     </>
