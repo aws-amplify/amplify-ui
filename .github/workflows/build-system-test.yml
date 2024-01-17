@@ -101,7 +101,7 @@ jobs:
           - framework: vue
             framework-version: latest
             build-tool: vite
-            build-tool-version: 2
+            build-tool-version: 3
             pkg-manager: npm
             language: ts
             node-version: 20
