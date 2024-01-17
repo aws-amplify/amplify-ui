@@ -112,7 +112,7 @@ type OverlayKeys =
   | 'overlay.80'
   | 'overlay.90';
 
-type PrimaryColorKeys =
+type PrimaryColorKey =
   | 'primary.10'
   | 'primary.20'
   | 'primary.40'
