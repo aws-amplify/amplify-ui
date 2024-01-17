@@ -6,90 +6,148 @@ import {
 import { getRoute } from '../getRoute';
 
 describe('getRoute', () => {
-  let mockState: AuthMachineState;
-  let mockActorState: AuthActorState;
-
-  beforeEach(() => {
-    mockState = {
-      value: 'unknown',
+  const getState = (value = 'unknown') => {
+    return {
+      value,
       matches: function (this: AuthMachineState, targetState: string) {
         return this.value === targetState;
       },
     } as AuthMachineState;
+  };
 
-    mockActorState = {
-      value: 'unknown',
-      matches: function (this: AuthActorState, targetState: string) {
+  const getActorState = (value = 'unknown') => {
+    return {
+      value,
+      matches: function (targetState: string) {
         return this.value === targetState;
       },
     } as AuthActorState;
+  };
+
+  it(`should return null when the current state is unknown`, () => {
+    const state = getState();
+    const actorState = getActorState();
+
+    expect(getRoute(state, actorState)).toBe(null);
   });
 
-  it.each(['idle', 'setup', 'signOut', 'authenticated'])(
-    'should return the correct route for state %s',
+  it.each(['idle', 'setup'])(
+    `should return the '%s' route when the current state is '%s'`,
     (route: string) => {
-      mockState.value = route;
-      expect(getRoute(mockState, mockActorState)).toBe(route);
+      const state = getState(route);
+      const actorState = getActorState(); // actor state is undefined here
+
+      expect(getRoute(state, actorState)).toBe(route);
     }
   );
 
-  it.each([
-    'confirmSignUp',
-    'confirmSignIn',
-    'signIn',
-    'signUp',
-    'forgotPassword',
-    'confirmResetPassword',
-  ])('should return the correct route for actorState %s', (route: string) => {
-    mockActorState.value = route;
-    expect(getRoute(mockState, mockActorState)).toBe(route);
+  it(`should return the 'signOut' route when the current state is 'signOut'`, () => {
+    const state = getState('signOut');
+    const actorState = getActorState('pending');
+
+    expect(getRoute(state, actorState)).toBe('signOut');
   });
 
-  it('should return the correct route for actorState resendSignUpCode', () => {
-    mockActorState.value = 'resendSignUpCode';
-    expect(getRoute(mockState, mockActorState)).toBe('confirmSignUp');
+  it(`should return the 'authenticated' route when the current state is 'authenticated'`, () => {
+    const state = getState('authenticated');
+    const actorState = getActorState('resolved');
+
+    expect(getRoute(state, actorState)).toBe('authenticated');
   });
 
-  it('should return the correct route for actorState setupTotp', () => {
-    mockActorState.value = 'setupTotp.edit';
-    expect(getRoute(mockState, mockActorState)).toBe('setupTotp');
+  it.each(['confirmSignUp', 'resendSignUpCode'])(
+    `should return the 'confirmSignUp' route when the current actorState is '%s'`,
+    (route: string) => {
+      const state = getState('signInActor.runActor');
+      const actorState = getActorState(route);
 
-    mockActorState.value = 'setupTotp.submit';
-    expect(getRoute(mockState, mockActorState)).toBe('setupTotp');
+      expect(getRoute(state, actorState)).toBe('confirmSignUp');
+    }
+  );
+
+  it(`should return the 'confirmSignIn' route when the current actorState is 'confirmSignIn'`, () => {
+    const state = getState('signInActor.runActor');
+    const actorState = getActorState('confirmSignIn');
+
+    expect(getRoute(state, actorState)).toBe('confirmSignIn');
   });
 
-  it('should return the correct route for actorState federatedSignIn', () => {
-    mockActorState.value = 'federatedSignIn';
-    expect(getRoute(mockState, mockActorState)).toBe('signIn');
+  it.each(['setupTotp.edit', 'setupTotp.submit'])(
+    `should return the 'setupTotp' route when the current actorState is '%s'`,
+    (route: string) => {
+      const state = getState('signInActor.runActor');
+      const actorState = getActorState(route);
+
+      expect(getRoute(state, actorState)).toBe('setupTotp');
+    }
+  );
+
+  it.each(['signIn', 'federatedSignIn'])(
+    `should return the 'signIn' route when actorState is '%s'`,
+    (route: string) => {
+      const state = getState('signInActor.runActor');
+      const actorState = getActorState(route);
+
+      expect(getRoute(state, actorState)).toBe('signIn');
+    }
+  );
+
+  it.each(['signUp', 'autoSignIn'])(
+    `should return the 'signUp' route when actorState is '%s'`,
+    (route: string) => {
+      const state = getState('signUpActor.runActor');
+      const actorState = getActorState(route);
+
+      expect(getRoute(state, actorState)).toBe('signUp');
+    }
+  );
+
+  it(`should return the 'forceNewPassword' route when the current actorState is 'forceChangePassword'`, () => {
+    const state = getState('signInActor.runActor');
+    const actorState = getActorState('forceChangePassword');
+
+    expect(getRoute(state, actorState)).toBe('forceNewPassword');
   });
 
-  it('should return the correct route for actorState autoSignIn', () => {
-    mockActorState.value = 'autoSignIn';
-    expect(getRoute(mockState, mockActorState)).toBe('signUp');
+  it(`should return the 'forgotPassword' route when the current actorState is 'forgotPassword'`, () => {
+    const state = getState('forgotPasswordActor.runActor');
+    const actorState = getActorState('forgotPassword');
+
+    expect(getRoute(state, actorState)).toBe('forgotPassword');
   });
 
-  it('should return the correct route for actorState forceChangePassword', () => {
-    mockActorState.value = 'forceChangePassword';
-    expect(getRoute(mockState, mockActorState)).toBe('forceNewPassword');
+  it(`should return the 'confirmResetPassword' route when the current actorState is 'confirmResetPassword'`, () => {
+    const state = getState('forgotPasswordActor.runActor');
+    const actorState = getActorState('confirmResetPassword');
+
+    expect(getRoute(state, actorState)).toBe('confirmResetPassword');
   });
 
-  it('should return the correct route for actorState selectUserAttributes', () => {
-    mockActorState.value = 'selectUserAttributes';
-    expect(getRoute(mockState, mockActorState)).toBe('verifyUser');
+  it(`should return the 'verifyUser' route when the current actorState is 'selectUserAttributes'`, () => {
+    const state = getState('verifyUserAttributesActor.runActor');
+    const actorState = getActorState('selectUserAttributes');
+
+    expect(getRoute(state, actorState)).toBe('verifyUser');
   });
 
-  it('should return the correct route for actorState confirmVerifyUserAttribute', () => {
-    mockActorState.value = 'confirmVerifyUserAttribute';
-    expect(getRoute(mockState, mockActorState)).toBe('confirmVerifyUser');
+  it(`should return the 'confirmVerifyUser' route when the current actorState is 'confirmVerifyUserAttribute'`, () => {
+    const state = getState('verifyUserAttributesActor.runActor');
+    const actorState = getActorState('confirmVerifyUserAttribute');
+
+    expect(getRoute(state, actorState)).toBe('confirmVerifyUser');
   });
 
-  it('should return the correct route for actorState getCurrentUser', () => {
-    mockState.value = 'getCurrentUser';
-    expect(getRoute(mockState, mockActorState)).toBe('transition');
+  it(`should return the 'transition' route when the current state is 'getCurrentUser'`, () => {
+    const state = getState('getCurrentUser');
+    const actorState = getActorState('resolved');
+
+    expect(getRoute(state, actorState)).toBe('transition');
   });
 
-  it('should return the correct route for actorState fetchUserAttributes', () => {
-    mockActorState.value = 'fetchUserAttributes';
-    expect(getRoute(mockState, mockActorState)).toBe('transition');
+  it(`should return the 'transition' route when the current actorState is 'fetchUserAttributes'`, () => {
+    const state = getState('signInActor.runActor');
+    const actorState = getActorState('fetchUserAttributes');
+
+    expect(getRoute(state, actorState)).toBe('transition');
   });
 });
