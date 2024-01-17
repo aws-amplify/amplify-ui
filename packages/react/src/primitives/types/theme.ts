@@ -121,7 +121,7 @@ type PrimaryColorKey =
   | 'primary.90'
   | 'primary.100';
 
-type SecondaryColorKeys =
+type SecondaryColorKey =
   | 'secondary.10'
   | 'secondary.20'
   | 'secondary.40'
