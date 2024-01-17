@@ -112,14 +112,16 @@ type OverlayKeys =
   | 'overlay.80'
   | 'overlay.90';
 
-type BrandColorKeys =
+type PrimaryColorKeys =
   | 'primary.10'
   | 'primary.20'
   | 'primary.40'
   | 'primary.60'
   | 'primary.80'
   | 'primary.90'
-  | 'primary.100'
+  | 'primary.100';
+
+type SecondaryColorKeys =
   | 'secondary.10'
   | 'secondary.20'
   | 'secondary.40'
@@ -184,7 +186,8 @@ export type ColorKeys<PropertyType> =
   | PinkKeys
   | NeutralKeys
   | OverlayKeys
-  | BrandColorKeys
+  | PrimaryColorKeys
+  | SecondaryColorKeys
   | FontColorKeys
   | BackgroundColorKeys
   | BorderColorKeys
