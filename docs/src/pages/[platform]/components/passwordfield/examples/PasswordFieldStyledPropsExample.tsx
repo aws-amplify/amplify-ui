@@ -16,7 +16,7 @@ export const PasswordFieldStyledPropsExample = () => {
       <PasswordField
         label="Password"
         inputStyles={{
-          backgroundColor: 'brand.primary.10',
+          backgroundColor: 'primary.10',
         }}
       />
     </>

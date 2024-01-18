@@ -13,16 +13,14 @@ function App() {
       theme={{
         tokens: {
           colors: {
-            brand: {
-              primary: {
-                10: '{colors.pink.10}',
-                20: '{colors.pink.20}',
-                40: '{colors.pink.40}',
-                60: '{colors.pink.60}',
-                80: '{colors.pink.80}',
-                90: '{colors.pink.90}',
-                100: '{colors.pink.100}',
-              },
+            primary: {
+              10: '{colors.pink.10}',
+              20: '{colors.pink.20}',
+              40: '{colors.pink.40}',
+              60: '{colors.pink.60}',
+              80: '{colors.pink.80}',
+              90: '{colors.pink.90}',
+              100: '{colors.pink.100}',
             },
           },
         },

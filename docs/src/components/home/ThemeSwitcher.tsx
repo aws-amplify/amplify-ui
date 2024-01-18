@@ -150,12 +150,12 @@ const Preview = ({ platform }) => {
               </Flex>
               <Flex direction="row" gap="xs">
                 {colorKeys.map((key) => (
-                  <Swatch key={key} color={`brand.primary.${key}`} />
+                  <Swatch key={key} color={`primary.${key}`} />
                 ))}
               </Flex>
               <Flex direction="row" gap="xs">
                 {colorKeys.map((key) => (
-                  <Swatch key={key} color={`brand.secondary.${key}`} />
+                  <Swatch key={key} color={`secondary.${key}`} />
                 ))}
               </Flex>
             </Flex>
