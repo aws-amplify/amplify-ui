@@ -18,6 +18,8 @@ jobs:
       matrix:
         framework: [react-native]
         framework-version: [latest]
+        # uncomment to re-enable
+        # build-tool: [cli, expo]
         build-tool: [expo]
         build-tool-version: [latest]
         pkg-manager: [npm]
