@@ -25,7 +25,7 @@ export const BackgroundThemeTokenExample = () => {
 // use a design token name
 export const BackgroundTokenNameExample = () => {
   return (
-    <Card backgroundColor="brand.primary.80" color="white">
+    <Card backgroundColor="primary.80" color="white">
       Background Styling Example
     </Card>
   );

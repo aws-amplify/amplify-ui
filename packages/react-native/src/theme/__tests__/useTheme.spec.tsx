@@ -11,10 +11,8 @@ describe('useTheme', () => {
       name: 'my-theme',
       tokens: {
         colors: {
-          brand: {
-            primary: {
-              10: 'red',
-            },
+          primary: {
+            10: 'red',
           },
         },
       },

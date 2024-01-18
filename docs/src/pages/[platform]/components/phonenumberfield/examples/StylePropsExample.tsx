@@ -19,7 +19,7 @@ export const StylePropsExample = () => {
         defaultDialCode="+1"
         label="Phone number"
         inputStyles={{
-          backgroundColor: 'brand.primary.10',
+          backgroundColor: 'primary.10',
         }}
       />
     </>

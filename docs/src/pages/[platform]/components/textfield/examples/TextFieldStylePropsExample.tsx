@@ -19,7 +19,7 @@ export const TextFieldStylePropsExample = () => {
       <TextField
         label="Special Field"
         inputStyles={{
-          backgroundColor: 'brand.primary.10',
+          backgroundColor: 'primary.10',
           border: `1px solid ${tokens.colors.primary[60]}`,
         }}
       />

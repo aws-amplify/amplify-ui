@@ -7,7 +7,7 @@ export const StyleProps = () => {
         <Tabs.Item value="1" color="font.secondary">
           Tab 1
         </Tabs.Item>
-        <Tabs.Item value="2" color="brand.secondary.60">
+        <Tabs.Item value="2" color="secondary.60">
           Tab 2
         </Tabs.Item>
       </Tabs.List>

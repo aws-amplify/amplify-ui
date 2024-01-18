@@ -26,7 +26,7 @@ export const InputStylePropsExample = () => {
         <Label htmlFor="special">Special Field</Label>
         <Input
           id="special"
-          backgroundColor="brand.primary.10"
+          backgroundColor="primary.10"
           border={`1px solid ${tokens.colors.primary[60]}`}
         />
       </Flex>
