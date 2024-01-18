@@ -24,7 +24,8 @@ const { error, isPending } = toRefs(facade);
 
 const { totpIssuer = 'AWSCognito', totpUsername = username } = QRFields ?? {};
 
-const totpCodeURL = getTotpCodeURL(totpIssuer, totpUsername, totpSecretCode);
+// `totpSecretCode` is typed as `string | null` but will always be populated by the machine here
+const totpCodeURL = getTotpCodeURL(totpIssuer, totpUsername, totpSecretCode!);
 
 const qrCode = reactive({
   qrCodeImageSource: '',
