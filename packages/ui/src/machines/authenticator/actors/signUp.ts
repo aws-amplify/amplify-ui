@@ -266,6 +266,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
             remoteError: context.remoteError,
             step: context.step,
             totpSecretCode: context.totpSecretCode,
+            username: context.username,
             unverifiedUserAttributes: context.unverifiedUserAttributes,
           }),
         },
