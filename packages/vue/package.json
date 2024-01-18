@@ -35,7 +35,7 @@
     "lint": "yarn typecheck && eslint . --ext .vue,.js,.jsx,.ts,.tsx",
     "test": "jest",
     "test:watch": "yarn test --watch",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
     "@aws-amplify/ui": "6.0.7",
