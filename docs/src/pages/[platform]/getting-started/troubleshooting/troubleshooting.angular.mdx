@@ -9,6 +9,10 @@ import AWSExports from './shared/add-aws-exports-type.mdx';
 
 <AWSExports />
 
+### Problems with `OnPush` Change Detection Strategy
+
+The Authenticator component currently does not support use of the `OnPush` Change Detection Strategy. Please use `Default` instead.
+
 ### Warning: CommonJS or AMD dependencies
 
 If you see CommonJS or AMD dependencies optimization bailouts warnings, add the following [content](https://gist.github.com/wlee221/6d98d96740bea6f53327b4db4a432616) to your `angular.json`.
