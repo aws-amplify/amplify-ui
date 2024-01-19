@@ -35,9 +35,11 @@
     "@cucumber/cucumber": "^10.0.1",
     "@nuintun/qrcode": "^3.3.0",
     "@testing-library/cypress": "^10.0.1",
-    "esbuild": "^0.19.3",
+    "axe-core": "^4.8.3",
     "cypress": "^12.17.3",
+    "cypress-axe": "^1.5.0",
     "detox": "^20.13.1",
-    "dotenv": "^16.0.2"
+    "dotenv": "^16.0.2",
+    "esbuild": "^0.19.3"
   }
 }
