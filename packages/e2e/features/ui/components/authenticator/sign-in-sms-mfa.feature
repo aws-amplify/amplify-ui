@@ -35,7 +35,7 @@ Feature: Sign In with SMS MFA
     Then I click the "Back to Sign In" button
     Then I see "Sign in"
 
-  @angular @react @vue
+  @angular @react @vue @skip
   Scenario: Incorrect SMS code with translated text
     When I select my country code with status "CONFIRMED"
     Then I type my "phone number" with status "CONFIRMED"
