@@ -197,6 +197,11 @@ Given(
   }
 );
 
+Given('I am testing a11y', () => {
+  // Have to set the path here because it by default looks in /packages/e2e/node_modules
+  cy.injectAxe({ axeCorePath: '../../node_modules/axe-core/axe.min.js' });
+});
+
 When('Sign in was called with {string}', (username: string) => {
   let tempStub = stub.calledWith(username, Cypress.env('VALID_PASSWORD'));
   stub = null;
@@ -544,3 +549,34 @@ Then(
     }).type(`{${key}}`, { force: true });
   }
 );
+
+function terminalLog(violations) {
+  cy.task(
+    'log',
+    `${violations.length} accessibility violation${
+      violations.length === 1 ? '' : 's'
+    } ${violations.length === 1 ? 'was' : 'were'} detected`
+  );
+  // pluck specific keys to keep the table readable
+  const violationData = violations.map(
+    ({ id, impact, description, nodes }) => ({
+      id,
+      impact,
+      description,
+      nodes: nodes.length,
+    })
+  );
+
+  cy.task('table', violationData);
+  cy.task('log', `Full violation data: ${JSON.stringify(violations)}`);
+}
+
+When('I check the page for a11y issues', () => {
+  cy.checkA11y(
+    null,
+    {
+      runOnly: ['wcag2aaa'], // determines which rules to set
+    },
+    terminalLog
+  );
+});
