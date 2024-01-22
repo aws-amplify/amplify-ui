@@ -18,15 +18,14 @@ const logger = new Logger('SetupTotp-logger');
 
 // `facade` is manually typed to `UseAuthenticator` for temporary type safety.
 const facade: UseAuthenticator = useAuthenticator();
-const { updateForm, submitForm, toSignIn } = facade;
-const { error, isPending, QRFields, totpSecretCode, username } = toRefs(facade);
+const { updateForm, submitForm, toSignIn, totpSecretCode, username, QRFields } =
+  facade;
+const { error, isPending } = toRefs(facade);
 
-const { totpIssuer = 'AWSCognito', totpUsername = username.value } =
-  QRFields.value ?? {};
+const { totpIssuer = 'AWSCognito', totpUsername = username } = QRFields ?? {};
 
-const totpCodeURL = totpSecretCode.value
-  ? getTotpCodeURL(totpIssuer, totpUsername!, totpSecretCode.value)
-  : null;
+// `totpSecretCode` is typed as `string | null` but will always be populated by the machine here
+const totpCodeURL = getTotpCodeURL(totpIssuer, totpUsername, totpSecretCode!);
 
 const qrCode = reactive({
   qrCodeImageSource: '',
@@ -40,17 +39,14 @@ const { getCopyText, getCopiedText, getBackToSignInText, getConfirmText } =
 const copyTextLabel = ref(getCopyText());
 
 function copyText() {
-  if (totpSecretCode.value) {
-    navigator.clipboard.writeText(totpSecretCode.value);
+  if (totpSecretCode) {
+    navigator.clipboard.writeText(totpSecretCode);
   }
   copyTextLabel.value = getCopiedText();
 }
 
 // lifecycle hooks
 onMounted(async () => {
-  if (!username.value || !totpCodeURL) {
-    return;
-  }
   try {
     qrCode.qrCodeImageSource = await QRCode.toDataURL(totpCodeURL);
   } catch (error) {

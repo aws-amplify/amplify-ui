@@ -64,7 +64,7 @@
     "eslint-plugin-vue": "^9.17.0",
     "rollup-plugin-typescript2": "^0.31.2",
     "unplugin-vue-components": "^0.25.0",
-    "vite": "^2.9.16",
+    "vite": "^2.9.17",
     "vite-jest": "^0.1.4",
     "vue-tsc": "~0.40.10"
   },
