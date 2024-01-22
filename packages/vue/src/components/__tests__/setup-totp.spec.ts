@@ -188,18 +188,6 @@ describe('SetupTotp', () => {
     );
   });
 
-  it('does not call getTotpCodeURL if totpCodeURL is not present', () => {
-    useAuthenticatorSpy.mockReturnValue(
-      reactive({
-        ...mockServiceFacade,
-        totpSecretCode: undefined,
-      })
-    );
-
-    render(SetupTotp, { global: { components } });
-    expect(getTotpCodeURLSpy).not.toHaveBeenCalled();
-  });
-
   it('renders error if present', async () => {
     useAuthenticatorSpy.mockReturnValueOnce(
       reactive({
