@@ -14,7 +14,8 @@
 
 # production
 /build
-/public/previews
+# temporary, uncomment when previews are fixed
+# /public/previews
 
 # sitemap
 /public/robots.txt
