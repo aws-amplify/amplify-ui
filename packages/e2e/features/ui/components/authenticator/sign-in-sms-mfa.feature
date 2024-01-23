@@ -35,8 +35,8 @@ Feature: Sign In with SMS MFA
     Then I type my password
     Then I click the "Sign in" button
     Then I type an invalid SMS code
-    Then I click the "Confirm" button
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with error fixture "code-mismatch-exception"
+    Then I click the "Confirm" button
     Then I see "invalid code"
     
   @angular @react @vue
