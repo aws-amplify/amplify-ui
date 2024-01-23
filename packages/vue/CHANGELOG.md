@@ -1,5 +1,16 @@
 # @aws-amplify/ui-vue
 
+## 4.0.8
+
+### Patch Changes
+
+- [#4923](https://github.com/aws-amplify/amplify-ui/pull/4923) [`d61690d01`](https://github.com/aws-amplify/amplify-ui/commit/d61690d0170eba69b23a785832e107db05a038ca) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): propagate username from signUp actor to top level machine
+
+- [#4897](https://github.com/aws-amplify/amplify-ui/pull/4897) [`f98565a8c`](https://github.com/aws-amplify/amplify-ui/commit/f98565a8c110aceb0994e53daec487da6e913cfe) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(vue): translate checkbox label
+
+- Updated dependencies [[`0f767c7fa`](https://github.com/aws-amplify/amplify-ui/commit/0f767c7fa9d106e8be34aa53edd9f5afe064ac6a), [`9dc52eb1b`](https://github.com/aws-amplify/amplify-ui/commit/9dc52eb1b2f4ad8c1f2956c7ad8a5073cf203172), [`d61690d01`](https://github.com/aws-amplify/amplify-ui/commit/d61690d0170eba69b23a785832e107db05a038ca)]:
+  - @aws-amplify/ui@6.0.8
+
 ## 4.0.7
 
 ### Patch Changes
