@@ -1,4 +1,6 @@
 export { default as Authenticator } from './Authenticator';
 export { AuthenticatorProps, WithAuthenticatorOptions } from './types';
-export { useAuthenticator, UseAuthenticator } from './useAuthenticator';
 export { default as withAuthenticator } from './withAuthenticator';
+
+// re-export shared `Authenticator` exports
+export { useAuthenticator, UseAuthenticator } from '@aws-amplify/ui-react-core';
