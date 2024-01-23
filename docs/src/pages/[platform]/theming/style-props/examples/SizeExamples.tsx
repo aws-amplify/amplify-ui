@@ -25,7 +25,5 @@ export const SizeThemeTokenExample = () => {
 
 // use a design token name
 export const SizeTokenNameExample = () => {
-  return (
-    <View backgroundColor="brand.primary.60" width="xxxl" height="xxxl"></View>
-  );
+  return <View backgroundColor="primary.60" width="xxxl" height="xxxl"></View>;
 };

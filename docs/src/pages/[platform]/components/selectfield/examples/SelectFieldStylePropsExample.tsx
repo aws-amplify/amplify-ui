@@ -16,7 +16,7 @@ export const SelectFieldStylePropsExample = () => {
       <SelectField
         label="Fruit"
         inputStyles={{
-          backgroundColor: 'brand.primary.10',
+          backgroundColor: 'primary.10',
           border: `1px solid ${tokens.colors.primary[60]}`,
         }}
       >

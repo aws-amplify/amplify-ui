@@ -1,5 +1,20 @@
 # @aws-amplify/ui-react-native
 
+## 2.1.0
+
+### Minor Changes
+
+- [#4943](https://github.com/aws-amplify/amplify-ui/pull/4943) [`4c54e75dc`](https://github.com/aws-amplify/amplify-ui/commit/4c54e75dc9344d32e939f7d5eafa4ba9031fc942) Thanks [@calebpollman](https://github.com/calebpollman)! - Add react-native@0.73 to allowed peerDep range
+
+### Patch Changes
+
+- [#4942](https://github.com/aws-amplify/amplify-ui/pull/4942) [`ad125951b`](https://github.com/aws-amplify/amplify-ui/commit/ad125951b2c3b25f1893b48f1315bd8a992169d5) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(rna): replace useAuthenticator signOut with default version
+
+- Updated dependencies [[`0f767c7fa`](https://github.com/aws-amplify/amplify-ui/commit/0f767c7fa9d106e8be34aa53edd9f5afe064ac6a), [`9dc52eb1b`](https://github.com/aws-amplify/amplify-ui/commit/9dc52eb1b2f4ad8c1f2956c7ad8a5073cf203172), [`d61690d01`](https://github.com/aws-amplify/amplify-ui/commit/d61690d0170eba69b23a785832e107db05a038ca)]:
+  - @aws-amplify/ui@6.0.8
+  - @aws-amplify/ui-react-core@3.0.8
+  - @aws-amplify/ui-react-core-notifications@2.0.8
+
 ## 2.0.8
 
 ### Patch Changes
