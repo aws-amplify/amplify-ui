@@ -1,25 +1,31 @@
 import { setupComponentTheme } from '../setupComponentTheme';
 import { createTheme } from '../createTheme';
 
-const { tokens } = createTheme();
+const { tokens, breakpoints } = createTheme();
 
 describe('@aws-amplify/ui', () => {
   describe('setupComponentTheme', () => {
     it('should pass through raw values', () => {
       const css = setupComponentTheme(
-        `[data-amplify-theme="test"]`,
-        {
-          badge: {
-            backgroundColor: 'pink',
-            borderRadius: '{radii.small}',
-            modifier: {
-              small: {
-                borderRadius: '0',
-              },
+        `test`,
+        [
+          {
+            name: 'badge',
+            theme: (tokens) => {
+              return {
+                backgroundColor: 'pink',
+                borderRadius: '{radii.small}',
+                _modifier: {
+                  small: {
+                    borderRadius: '0',
+                  },
+                },
+              };
             },
           },
-        },
-        tokens
+        ],
+        tokens,
+        breakpoints
       );
       expect(css).toMatchSnapshot();
     });
@@ -27,10 +33,40 @@ describe('@aws-amplify/ui', () => {
     it('should button', () => {
       expect(
         setupComponentTheme(
-          `[data-amplify-theme="test"]`,
+          `test`,
+          [
+            {
+              name: 'button',
+              theme: {
+                _modifier: {
+                  primary: {
+                    background: 'red',
+                    ':hover': {
+                      background: 'pink',
+                      color: '{colors.font.primary}',
+                    },
+                  },
+                },
+              },
+            },
+          ],
+          tokens,
+          breakpoints
+        )
+      ).toMatchSnapshot();
+    });
+
+    it('can use custom primitives', () => {
+      const css = setupComponentTheme(
+        'test',
+        [
           {
-            button: {
-              modifier: {
+            name: 'chip',
+            theme: {
+              paddingInline: '{space.xs}',
+              paddingBlock: '{space.xs}',
+              borderRadius: '{radii.small}',
+              _modifier: {
                 primary: {
                   background: 'red',
                   ':hover': {
@@ -41,31 +77,9 @@ describe('@aws-amplify/ui', () => {
               },
             },
           },
-          tokens
-        )
-      ).toMatchSnapshot();
-    });
-
-    it('can use custom primitives', () => {
-      const css = setupComponentTheme(
-        `[data-amplify-theme="test"]`,
-        {
-          chip: {
-            paddingInline: '{space.xs}',
-            paddingBlock: '{space.xs}',
-            borderRadius: '{radii.small}',
-            modifier: {
-              primary: {
-                background: 'red',
-                ':hover': {
-                  background: 'pink',
-                  color: '{colors.font.primary}',
-                },
-              },
-            },
-          },
-        },
-        createTheme().tokens
+        ],
+        tokens,
+        breakpoints
       );
       expect(css).toMatchSnapshot();
     });
