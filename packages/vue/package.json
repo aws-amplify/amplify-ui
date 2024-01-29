@@ -28,14 +28,14 @@
   ],
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vite build",
     "dev": "vite build --watch",
     "clean": "rimraf dist node_modules",
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-vue\"'",
     "lint": "yarn typecheck && eslint . --ext .vue,.js,.jsx,.ts,.tsx",
     "test": "jest",
     "test:watch": "yarn test --watch",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
     "@aws-amplify/ui": "6.0.8",
