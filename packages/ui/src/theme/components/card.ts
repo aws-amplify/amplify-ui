@@ -1,13 +1,7 @@
-import {
-  ComponentTheme,
-  BaseThemeDefinition,
-  BaseComponentTheme,
-} from './utils';
+import { BaseThemeDefinition } from './utils';
 
-export type CardTheme = ComponentTheme<
-  {
-    modifier?: {
-      [key in 'elevated' | 'outlined']?: BaseThemeDefinition;
-    };
-  } & BaseComponentTheme
->;
+export interface CardTheme extends BaseThemeDefinition {
+  _modifier?: {
+    [key in 'elevated' | 'outlined']?: BaseThemeDefinition;
+  };
+}

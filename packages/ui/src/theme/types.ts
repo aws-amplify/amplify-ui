@@ -27,7 +27,6 @@ export type Override =
 
 interface BaseOverride {
   tokens?: PartialDeep<Tokens>;
-  components?: ComponentsTheme;
 }
 
 /**
@@ -115,7 +114,7 @@ export interface Theme {
    */
   overrides?: Array<Override>;
 
-  components?: ComponentsTheme;
+  components?: Array<ComponentsTheme>;
 }
 
 /**

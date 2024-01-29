@@ -16,10 +16,8 @@ type Variations =
 
 type ColorThemeVariations = `${ColorThemes}--${Variations}`;
 
-export type ButtonTheme = ComponentTheme<
-  {
-    modifier?: {
-      [key in Variations | Sizes | ColorThemeVariations]?: BaseThemeDefinition;
-    };
-  } & BaseComponentTheme
->;
+export interface ButtonTheme extends BaseThemeDefinition {
+  _modifier?: {
+    [key in Variations | Sizes | ColorThemeVariations]?: BaseThemeDefinition;
+  };
+}

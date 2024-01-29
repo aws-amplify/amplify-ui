@@ -1,22 +1,15 @@
-import {
-  ComponentTheme,
-  BaseThemeDefinition,
-  BaseComponentTheme,
-} from './utils';
+import { BaseThemeDefinition } from './utils';
 
-export type RatingTheme = ComponentTheme<
-  {
-    modifier?: {
-      [key in 'small' | 'large']?: BaseThemeDefinition;
-    };
-    element?: {
-      item?: BaseThemeDefinition;
-      icon?: BaseThemeDefinition & {
-        modifier?: {
-          filled?: BaseThemeDefinition;
-          empty?: BaseThemeDefinition;
-        };
+export interface RatingTheme extends BaseThemeDefinition {
+  _modifier?: {
+    [key in 'small' | 'large']?: BaseThemeDefinition;
+  };
+  _element?: {
+    item?: BaseThemeDefinition;
+    icon?: BaseThemeDefinition & {
+      _modifier?: {
+        [key in 'filled' | 'empty']?: BaseThemeDefinition;
       };
     };
-  } & BaseComponentTheme
->;
+  };
+}

@@ -72,9 +72,10 @@ export function createTheme(
 
   if (theme?.components) {
     cssText += setupComponentTheme(
-      `[data-amplify-theme="${name}"]`,
+      name,
       theme.components,
-      tokens
+      tokens,
+      mergedTheme.breakpoints
     );
   }
 
@@ -125,13 +126,6 @@ export function createTheme(
           ${customProperties}
           color-scheme: ${override.colorMode};
         }\n`;
-        if (override.components) {
-          cssText += setupComponentTheme(
-            `[data-amplify-theme="${name}"][data-amplify-color-mode="${override.colorMode}"]`,
-            override.components,
-            tokens
-          );
-        }
       }
 
       return {

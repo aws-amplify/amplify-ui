@@ -1,15 +1,9 @@
-import {
-  ComponentTheme,
-  BaseComponentTheme,
-  BaseThemeDefinition,
-} from './utils';
+import { BaseThemeDefinition } from './utils';
 
 type Elements = 'list' | 'separator' | 'item' | 'link';
 
-export type BreadcrumbsTheme = ComponentTheme<
-  {
-    element?: {
-      [key in Elements]?: BaseThemeDefinition;
-    };
-  } & BaseComponentTheme
->;
+export interface BreadcrumbsTheme extends BaseThemeDefinition {
+  _element?: {
+    [key in Elements]?: BaseThemeDefinition;
+  };
+}

@@ -1,26 +1,20 @@
-import {
-  ComponentTheme,
-  BaseComponentTheme,
-  BaseThemeDefinition,
-} from './utils';
+import { BaseThemeDefinition } from './utils';
 
-export type AutoCompleteTheme = ComponentTheme<
-  {
-    element?: {
-      menu?: BaseThemeDefinition & {
-        modifier?: {
-          empty?: BaseThemeDefinition;
-          loading?: BaseThemeDefinition;
-        };
-        element?: {
-          option?: BaseThemeDefinition & {
-            modifier?: {
-              active?: BaseThemeDefinition;
-            };
+export interface AutoCompleteTheme extends BaseThemeDefinition {
+  _element?: {
+    menu?: BaseThemeDefinition & {
+      _modifier?: {
+        empty?: BaseThemeDefinition;
+        loading?: BaseThemeDefinition;
+      };
+      _element?: {
+        option?: BaseThemeDefinition & {
+          _modifier?: {
+            active?: BaseThemeDefinition;
           };
-          options?: BaseThemeDefinition;
         };
+        options?: BaseThemeDefinition;
       };
     };
-  } & BaseComponentTheme
->;
+  };
+}

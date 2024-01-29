@@ -1,3 +1,4 @@
+import { Breakpoints } from '../breakpoints';
 import { AlertTheme } from './alert';
 import { AutoCompleteTheme } from './autocomplete';
 import { BadgeTheme } from './badge';
@@ -10,17 +11,15 @@ import { ComponentTheme, BaseComponentTheme } from './utils';
 
 export type { ComponentTheme, BaseComponentTheme };
 
-export type ComponentsTheme = {
-  [key: string]: ComponentTheme<BaseComponentTheme>;
-  alert?: AlertTheme;
-  autocomplete?: AutoCompleteTheme;
-  badge?: BadgeTheme;
-  breadcrumbs?: BreadcrumbsTheme;
-  button?: ButtonTheme;
-  card?: CardTheme;
-  checkbox?: CheckboxTheme;
-  rating?: RatingTheme;
-};
+export type ComponentsTheme =
+  | BaseComponentTheme
+  | BaseComponentTheme<AlertTheme, 'alert'>
+  | BaseComponentTheme<AutoCompleteTheme, 'autocomplete'>
+  | BaseComponentTheme<BadgeTheme, 'badge'>
+  | BaseComponentTheme<ButtonTheme, 'button'>
+  | BaseComponentTheme<CardTheme, 'card'>
+  | BaseComponentTheme<CheckboxTheme, 'checkbox'>
+  | BaseComponentTheme<RatingTheme, 'rating'>;
 
 export type {
   AlertTheme,

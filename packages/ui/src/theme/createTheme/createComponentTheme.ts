@@ -1,26 +1,27 @@
-import { BaseComponentTheme, ComponentTheme } from '../components';
+import { ComponentsTheme } from '../components';
 import { createComponentClasses } from './createComponentClasses';
 
-type CreactComponentThemeProps<ThemeType> = {
-  name?: string;
-  prefix?: string;
-  theme: ThemeType;
-};
+type ClassNameProp = undefined | (string | undefined)[];
 
-export function createComponentTheme<
-  ThemeType extends
-    ComponentTheme<BaseComponentTheme> = ComponentTheme<BaseComponentTheme>,
->({
+export function createComponentTheme({
   name = '',
-  prefix = 'amplify-',
   theme,
-}: CreactComponentThemeProps<ThemeType>): {
-  className: (props?: { modifier?: string[]; element?: string[] }) => string;
-  theme: ThemeType;
+  overrides,
+}: ComponentsTheme): {
+  className: (props?: {
+    modifier?: ClassNameProp;
+    element?: ClassNameProp;
+  }) => string;
+  theme: typeof theme;
+  name: string;
+  overrides?: typeof overrides;
 } {
+  const prefix = 'amplify-';
   const className = createComponentClasses({ name, prefix });
   return {
     className,
     theme,
+    overrides,
+    name,
   };
 }

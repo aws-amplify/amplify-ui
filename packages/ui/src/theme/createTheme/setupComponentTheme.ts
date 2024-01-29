@@ -1,10 +1,10 @@
 import kebabCase from 'lodash/kebabCase.js';
-import { WebTheme } from '../types';
+import { DefaultTheme, WebTheme } from '../types';
 import { cssValue } from './cssValue';
-import { BaseComponentTheme, ComponentsTheme } from '../components';
+import { ComponentsTheme } from '../components';
 import { isFunction } from '../../utils';
 import { isDesignToken } from './isDesignToken';
-import { CSSProperties } from '../components/utils';
+import { BaseThemeDefinition, CSSProperties } from '../components/utils';
 
 // we need to handle psuedo elements like ::before
 
@@ -43,10 +43,10 @@ function splitObject(
   return [left, right] as const;
 }
 
-function createComponentCSS(baseSelector: string, theme: BaseComponentTheme) {
+function createComponentCSS(baseSelector: string, theme: BaseThemeDefinition) {
   if (!theme) return '';
   let str = '';
-  const { modifier = {}, element = {}, vars, ...props } = theme;
+  const { _modifier = {}, _element = {}, vars, ...props } = theme;
 
   // if there are no props, skip
   if (Object.keys(props).length) {
@@ -69,13 +69,13 @@ function createComponentCSS(baseSelector: string, theme: BaseComponentTheme) {
     });
   }
 
-  Object.entries(modifier).forEach(([key, value]) => {
+  Object.entries(_modifier).forEach(([key, value]) => {
     if (value && Object.keys(value).length) {
       str += createComponentCSS(`${baseSelector}--${key}`, value);
     }
   });
 
-  Object.entries(element).forEach(([key, value]) => {
+  Object.entries(_element).forEach(([key, value]) => {
     if (value && Object.keys(value).length) {
       str += createComponentCSS(`${baseSelector}__${key}`, value);
     }
@@ -85,22 +85,68 @@ function createComponentCSS(baseSelector: string, theme: BaseComponentTheme) {
 }
 
 export function setupComponentTheme(
-  str: string,
-  components: ComponentsTheme,
-  tokens: WebTheme['tokens']
+  themeName: string,
+  components: Array<ComponentsTheme>,
+  tokens: WebTheme['tokens'],
+  breakpoints: DefaultTheme['breakpoints']
 ) {
   let cssText = '';
 
-  Object.entries(components).forEach(([key, component]) => {
-    const baseComponentClassName = `amplify-${key}`;
-    const componentClassName = `${str} .${baseComponentClassName}`;
+  components.forEach(({ name, theme, overrides }) => {
+    const baseComponentClassName = `amplify-${name}`;
+    const componentClassName = `[data-amplify-theme="${themeName}"] .${baseComponentClassName}`;
     // unwrap the component theme
     // if it is a function: call it with the defaultTheme to get a static object
-    const componentTheme: BaseComponentTheme = isFunction(component)
-      ? (component(tokens) as BaseComponentTheme)
-      : component;
+    const componentTheme: BaseThemeDefinition = isFunction(theme)
+      ? (theme(tokens) as BaseThemeDefinition)
+      : theme;
 
     cssText += createComponentCSS(componentClassName, componentTheme);
+
+    // if the component theme has overrides
+    // generate the appropriate CSS for each of them
+    if (overrides) {
+      overrides.forEach((override) => {
+        // unwrap the override component theme just like above
+        const componentTheme: BaseThemeDefinition = isFunction(override.theme)
+          ? (override.theme(tokens) as BaseThemeDefinition)
+          : override.theme;
+
+        if ('mediaQuery' in override) {
+          cssText += `@media (${override.mediaQuery}) {\n ${createComponentCSS(
+            componentClassName,
+            componentTheme
+          )} \n}`;
+        }
+        if ('breakpoint' in override) {
+          const breakpoint = breakpoints.values[override.breakpoint];
+          cssText += `\n@media (min-width: ${breakpoint}px) {\n ${createComponentCSS(
+            componentClassName,
+            componentTheme
+          )} \n}`;
+        }
+        if ('selector' in override) {
+          cssText += createComponentCSS(
+            `${override.selector} .${baseComponentClassName}`,
+            componentTheme
+          );
+        }
+        if ('colorMode' in override) {
+          cssText += `
+@media (prefers-color-scheme: ${override.colorMode}) {
+  ${createComponentCSS(
+    `[data-amplify-theme="${themeName}"][data-amplify-color-mode="system"] .${baseComponentClassName}`,
+    componentTheme
+  )}
+}
+`;
+          cssText += createComponentCSS(
+            `[data-amplify-theme="${themeName}"][data-amplify-color-mode="${override.colorMode}"] .${baseComponentClassName}`,
+            componentTheme
+          );
+        }
+      });
+    }
   });
 
   return cssText;
