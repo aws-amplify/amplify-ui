@@ -2,6 +2,7 @@ import {
   DesignTokenValues,
   OutputVariantKey,
   RadiusValue,
+  RecursiveDesignToken,
 } from './types/designToken';
 
 type RadiusSize = 'xs' | 'small' | 'medium' | 'large' | 'xl' | 'xxl' | 'xxxl';
@@ -14,7 +15,8 @@ export type Radii<
   RadiusValue<Platform, Output>,
   Output,
   Platform
->;
+> &
+  RecursiveDesignToken<RadiusValue<Platform, Output>, Output, Platform>;
 
 export const radii: Radii<'default'> = {
   xs: { value: '0.125rem' },

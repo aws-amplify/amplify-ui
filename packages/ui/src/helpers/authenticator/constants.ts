@@ -3,6 +3,10 @@
  */
 
 import { DefaultFormFieldOptions } from '../../types';
+import {
+  AuthEventTypes,
+  NavigableRoute,
+} from '../../machines/authenticator/types';
 import { countryDialCodes } from '../../i18n';
 
 export const defaultFormFieldOptions: DefaultFormFieldOptions = {
@@ -16,7 +20,7 @@ export const defaultFormFieldOptions: DefaultFormFieldOptions = {
   confirmation_code: {
     label: 'Confirmation Code',
     placeholder: 'Enter your Confirmation Code',
-    type: 'number',
+    type: 'text',
     autocomplete: 'one-time-code',
     isRequired: true,
   },
@@ -136,3 +140,12 @@ export const ALLOWED_SPECIAL_CHARACTERS = [
  */
 export const emailRegex =
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
+/**
++ * map navigable route keys to auth event names
++ */
+export const NAVIGABLE_ROUTE_EVENT: Record<NavigableRoute, AuthEventTypes> = {
+  forgotPassword: 'FORGOT_PASSWORD',
+  signIn: 'SIGN_IN',
+  signUp: 'SIGN_UP',
+};

@@ -1,6 +1,6 @@
 import { globby } from 'globby';
 import { FRAMEWORKS } from '@/data/frameworks';
-import { getContentPaths } from '@/utils/getContentPaths';
+import { getContentPaths } from './getContentPaths';
 import { getPageFromSlug } from '@/utils/getPageFromSlug';
 import { getPagesManifest } from '@/utils/getPagesManifest';
 import { META_INFO } from '@/data/meta';

@@ -4,10 +4,13 @@ metaDescription: Installation Guide - How to install Amplify UI Packages, Styles
 supportedFrameworks: android|angular|flutter|react|react-native|vue
 ---
 
-import Link from 'next/link';
-import { Fragment } from '@/components/Fragment';
 import { FRAMEWORKS } from '@/data/frameworks';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+import { InlineFilter } from '@/components/InlineFilter';
+import AngularShims from './shims.angular.mdx';
+import WebStyles from './styles.web.mdx';
+import WebFonts from './fonts.web.mdx';
+import Dependencies from './dependencies.mdx';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -23,18 +26,14 @@ export async function getStaticProps() {
 
 ### Packages
 
-<Fragment>
-  {({ platform }) => import(`./dependencies.${platform}.mdx`)}
-</Fragment>
+<Dependencies />
 
-<Fragment platforms={['angular']}>
-  {({ platform }) => import(`./shims.${platform}.mdx`)}
-</Fragment>
+<InlineFilter filters={['angular', 'react', 'vue']}>
+  <InlineFilter filters={['angular']}>
+    <AngularShims />
+  </InlineFilter>
 
-<Fragment platforms={['web']} useCommonWebContent>
-  {({ platform }) => import(`./styles.${platform}.mdx`)}
-</Fragment>
+  <WebStyles />
 
-<Fragment platforms={['web']} useCommonWebContent>
-  {({ platform }) => import(`./fonts.${platform}.mdx`)}
-</Fragment>
+  <WebFonts />
+</InlineFilter>

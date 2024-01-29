@@ -2,7 +2,8 @@ import React from 'react';
 import { Button } from 'react-native';
 
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
-import { Amplify, Auth } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import { SignUpInput, signUp } from 'aws-amplify/auth';
 
 import awsconfig from './aws-exports';
 
@@ -18,20 +19,18 @@ function App() {
     <Authenticator.Provider>
       <Authenticator
         services={{
-          handleSignUp: (formData) => {
-            let { username, password, attributes } = formData;
-            // custom username
-            username = username.toLowerCase();
-            attributes.email = attributes.email.toLowerCase();
-            return Auth.signUp({
-              username,
+          handleSignUp: ({ username, password, options }: SignUpInput) =>
+            signUp({
+              username: username.toLowerCase(),
               password,
-              attributes,
-              autoSignIn: {
-                enabled: true,
+              options: {
+                ...options,
+                userAttributes: {
+                  ...options?.userAttributes,
+                  email: options?.userAttributes?.email?.toLowerCase(),
+                },
               },
-            });
-          },
+            }),
         }}
       >
         <SignOutButton />

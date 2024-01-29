@@ -5,7 +5,7 @@ import {
   censorPhoneNumber,
   ContactMethod,
   translate,
-  UnverifiedContactMethods,
+  UnverifiedUserAttributes,
   authenticatorTextUtil,
 } from '@aws-amplify/ui';
 
@@ -47,7 +47,7 @@ const censorContactInformation = (
 };
 
 const generateRadioGroup = (
-  attributes: UnverifiedContactMethods
+  attributes: UnverifiedUserAttributes
 ): JSX.Element[] => {
   return Object.entries(attributes).map(([key, value]: [string, string]) => (
     <Radio name="unverifiedAttr" value={key} key={key}>
@@ -70,10 +70,10 @@ export const VerifyUser = ({
     },
   } = useCustomComponents();
 
-  const { isPending, unverifiedContactMethods } = useAuthenticator(
-    ({ isPending, unverifiedContactMethods }) => [
+  const { isPending, unverifiedUserAttributes } = useAuthenticator(
+    ({ isPending, unverifiedUserAttributes }) => [
       isPending,
-      unverifiedContactMethods,
+      unverifiedUserAttributes,
     ]
   );
   const { handleChange, handleSubmit } = useFormHandlers();
@@ -86,12 +86,12 @@ export const VerifyUser = ({
 
   const verificationRadioGroup = (
     <RadioGroupField
-      label={getVerifyContactText()}
-      labelHidden
+      legend={getVerifyContactText()}
       name="verify_context"
       isDisabled={isPending}
+      legendHidden
     >
-      {generateRadioGroup(unverifiedContactMethods)}
+      {generateRadioGroup(unverifiedUserAttributes)}
     </RadioGroupField>
   );
 

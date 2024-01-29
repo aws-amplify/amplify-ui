@@ -2,7 +2,7 @@ import { Authenticator, ThemeProvider } from '@aws-amplify/ui-react';
 import { AuthStyle } from './AuthStyle';
 
 import { Example } from '@/components/Example';
-import { Fragment } from '@/components/Fragment';
+import { InlineFilter } from '@/components/InlineFilter';
 
 ## Styling
 
@@ -16,10 +16,10 @@ The example below uses a `<style>` tag to change the default colors to a dark th
 [data-amplify-authenticator] {
   --amplify-colors-background-primary: var(--amplify-colors-neutral-90);
   --amplify-colors-background-secondary: var(--amplify-colors-neutral-100);
-  --amplify-colors-brand-primary-10: var(--amplify-colors-teal-100);
-  --amplify-colors-brand-primary-80: var(--amplify-colors-teal-40);
-  --amplify-colors-brand-primary-90: var(--amplify-colors-teal-20);
-  --amplify-colors-brand-primary-100: var(--amplify-colors-teal-10);
+  --amplify-colors-primary-10: var(--amplify-colors-teal-100);
+  --amplify-colors-primary-80: var(--amplify-colors-teal-40);
+  --amplify-colors-primary-90: var(--amplify-colors-teal-20);
+  --amplify-colors-primary-100: var(--amplify-colors-teal-10);
   --amplify-colors-font-interactive: var(--amplify-colors-white);
   --amplify-components-tabs-item-active-color: var(--amplify-colors-white);
   --amplify-components-tabs-item-focus-color: var(--amplify-colors-white);
@@ -32,9 +32,26 @@ The example below uses a `<style>` tag to change the default colors to a dark th
 
 </Example>
 
-<Fragment platforms={['react']}>
-  {({ platform }) => import(`./customization.styling.${platform}.mdx`)}
-</Fragment>
+<InlineFilter filters={['react']}>
+### Theme Provider Theme
+
+You can update the style of the Authenticator by using the [ThemeProvider](/react/theming) [theme object](/react/theming#theme-object). To do this, you must surround the `Authenticator` in the `ThemeProvider`.
+
+Then create a [theme object](/react/theming#theme-object), with all your font and color updates. Feel free to use [design tokens](/react/theming#design-tokens), as a way of designing your theme further.
+
+Below is an example of changing the default colors to a dark theme.
+
+```jsx file=./AuthStyle.tsx
+
+```
+
+<Example>
+<AuthStyle />
+
+</Example>
+
+> If you have TypeScript enabled, all the object keys will be present when creating the [theme object](/react/theming#theme-object). This will help speed up your development time while creating themes.
+</InlineFilter>
 
 ## Additional CSS Styling
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Amplify, I18n } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import { I18n } from 'aws-amplify/utils';
 import { translations } from '@aws-amplify/ui-angular';
 import awsExports from './aws-exports';
 
@@ -31,7 +32,7 @@ export class SignInWithPhoneComponent implements OnInit {
     signUp: {
       phone_number: {
         dialCode: '+227',
-        dialCodeList: ['+1', '+82', '+227', '+100', '+227'],
+        dialCodeList: ['+1', '+82', '+227', '+100'],
       },
     },
   };

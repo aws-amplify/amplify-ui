@@ -14,7 +14,6 @@ import {
   View,
   SwitchField,
   SliderField,
-  TabItem,
   Tabs,
   Alert,
   Loader,
@@ -115,11 +114,11 @@ const Preview = ({ platform }) => {
               />
               <CheckboxField label="Frosting" value="Frosting" name="topping" />
               <RadioGroupField
-                label="Language"
+                legend="Language"
                 name="theme-language"
                 defaultValue="css"
                 gap="small"
-                labelHidden
+                legendHidden
               >
                 <Radio value="html">HTML</Radio>
                 <Radio value="css">CSS</Radio>
@@ -151,12 +150,12 @@ const Preview = ({ platform }) => {
               </Flex>
               <Flex direction="row" gap="xs">
                 {colorKeys.map((key) => (
-                  <Swatch key={key} color={`brand.primary.${key}`} />
+                  <Swatch key={key} color={`primary.${key}`} />
                 ))}
               </Flex>
               <Flex direction="row" gap="xs">
                 {colorKeys.map((key) => (
-                  <Swatch key={key} color={`brand.secondary.${key}`} />
+                  <Swatch key={key} color={`secondary.${key}`} />
                 ))}
               </Flex>
             </Flex>
@@ -172,20 +171,17 @@ const Preview = ({ platform }) => {
             </Flex>
           </Card>
           <Card variation="elevated" columnStart="2" columnEnd="-1">
-            <Tabs>
-              <TabItem title="Amplify"></TabItem>
-
-              <TabItem
-                title={
-                  <View>
-                    Studio{' '}
-                    <Badge size="small" variation="success">
-                      new
-                    </Badge>
-                  </View>
-                }
-              ></TabItem>
-            </Tabs>
+            <Tabs.Container defaultValue="amplify">
+              <Tabs.List>
+                <Tabs.Item value="amplify">Amplify</Tabs.Item>
+                <Tabs.Item value="studio">
+                  Studio{' '}
+                  <Badge size="small" variation="success">
+                    new
+                  </Badge>
+                </Tabs.Item>
+              </Tabs.List>
+            </Tabs.Container>
           </Card>
         </>
       )}

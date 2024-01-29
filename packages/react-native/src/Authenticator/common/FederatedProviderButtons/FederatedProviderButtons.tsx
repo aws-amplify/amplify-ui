@@ -1,25 +1,48 @@
 import React, { useMemo } from 'react';
 import { View } from 'react-native';
-import { capitalize } from '@aws-amplify/ui';
+import { signInWithRedirect } from 'aws-amplify/auth';
 
-import { icons } from '../../../assets';
-import { FederatedProviderButton } from '../FederatedProviderButton';
+import {
+  SocialProvider,
+  authenticatorTextUtil,
+  capitalize,
+} from '@aws-amplify/ui';
+
 import { Divider } from '../../../primitives';
-
-import { styles } from './styles';
+import { useTheme } from '../../../theme';
+import { FederatedProviderButton } from '../FederatedProviderButton';
 import { FederatedProviderButtonsProps } from './types';
+import { icons } from '../../../assets';
+import { getThemedStyles } from './styles';
+
+const { getSignInWithFederationText, getOrText } = authenticatorTextUtil;
+
+// use `signInWithRedirect` directly instead of `toFederatedSignIn`
+// exposed on `useAuthenticator` for RN. `@aws-amplify/rtn-web-browser`
+// does not emit an event on federated sign in flow cancellation,
+// preventing the `Authenticator` from updating state and leaving the
+// UI in a "pending" state
+const handleSignInWithRedirect = (
+  provider: 'amazon' | 'apple' | 'facebook' | 'google'
+) => signInWithRedirect({ provider: capitalize(provider) });
 
 export default function FederatedProviderButtons({
+  buttonStyle,
+  dividerLabelStyle,
+  route,
   socialProviders,
-  toFederatedSignIn,
+  style,
 }: FederatedProviderButtonsProps): JSX.Element | null {
+  const theme = useTheme();
+  const themedStyle = getThemedStyles(theme);
+
   const providerButtons = useMemo(
     () =>
-      socialProviders?.map((provider) => {
+      socialProviders?.map((provider: SocialProvider) => {
         const providerIconSource = icons[`${provider}Logo`];
 
         const handlePress = () => {
-          toFederatedSignIn({ provider });
+          handleSignInWithRedirect(provider);
         };
 
         return (
@@ -27,19 +50,24 @@ export default function FederatedProviderButtons({
             key={provider}
             onPress={handlePress}
             source={providerIconSource}
-            style={styles.button}
+            style={[themedStyle.button, buttonStyle]}
           >
-            {`Sign In with ${capitalize(provider)}`}
+            {getSignInWithFederationText(route, provider)}
           </FederatedProviderButton>
         );
       }),
-    [socialProviders, toFederatedSignIn]
+    [route, socialProviders, themedStyle, buttonStyle]
   );
 
   return providerButtons?.length ? (
-    <View style={styles.container}>
+    <View
+      style={[themedStyle.container, style]}
+      testID="amplify__federated-provider-buttons"
+    >
       {providerButtons}
-      <Divider labelStyle={styles.text}>Or</Divider>
+      <Divider labelStyle={[themedStyle.dividerLabel, dividerLabelStyle]}>
+        {getOrText()}
+      </Divider>
     </View>
   ) : null;
 }

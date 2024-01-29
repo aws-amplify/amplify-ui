@@ -1,14 +1,26 @@
-import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Alert, Tabs, Message } from '@aws-amplify/ui-react';
 import { TerminalCommand } from '@/components/InstallScripts';
-import { Fragment } from '@/components/Fragment';
+import VitePolyfill from './shared/vite-polyfill.mdx';
+import VitePolyfillTS from './shared/vite-polyfill-ts.mdx';
 
 ## Astro
 
 ### `Uncaught ReferenceError: global is not defined`
 
+<Message
+  variation="filled"
+  colorTheme="info"
+  >
+  Note: this issue was fixed in `aws-amplify` version 6
+</Message>
+
 When working with a [Astro](https://astro.build/) project you must make a few modifications. Please follow the steps below.
-<Tabs>
-  <TabItem title="TypeScript">
+<Tabs.Container defaultValue="TypeScript">
+  <Tabs.List>
+    <Tabs.Item value="TypeScript">TypeScript</Tabs.Item>
+    <Tabs.Item value="JavaScript">JavaScript</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="TypeScript">
 **1.** Add the following script to the bottom of the `index.astro` file. This will only run on the client side and will polyfill Node globals.
 
 ```html
@@ -36,8 +48,8 @@ export default defineConfig({
   }
 })
 ```
-  </TabItem>
-  <TabItem title="JavaScript">
+  </Tabs.Panel>
+  <Tabs.Panel value="JavaScript">
 **1.** Add the following script to the bottom of the `index.astro` file. This will only run on the client side and will polyfill Node globals.
 
 ```html
@@ -65,8 +77,8 @@ export default defineConfig({
   }
 })
 ```
-  </TabItem>
-</Tabs>
+  </Tabs.Panel>
+</Tabs.Container>
 
 
 ## Create React App
@@ -178,32 +190,32 @@ These errors will not affect the use and functionality of the client, nor will e
 
 ### Webpack 5+: `Uncaught ReferenceError: process is not defined`
 
-Follow the instructions below to if you are using Webpack 5:
+<Message
+  variation="filled"
+  colorTheme="info"
+  >
+  Note: this issue has been fixed in `aws-amplify` version 6. The polyfill is only required for projects that use `aws-amplify` version 5 (or earlier) with Webpack version 5 (or later).
+</Message>
 
-<Alert role="none" variation="info">
-*Note:*
-Polyfill is only required for Webpack 5+. In this version Node.js global variable shims required by the `aws-amplify` package were removed, which results in the following error message:
+Follow the instructions below if you are using Webpack 5:
 
-```
-Uncaught ReferenceError: process is not defined
-```
-
-Webpack 4 already includes this polyfill.
-
-</Alert>
 
 1. Add
    [node-polyfill-webpack-plugin](https://www.npmjs.com/package/node-polyfill-webpack-plugin)
    as dev dependency:
 
-<Tabs>
-<TabItem title="npm">
-<TerminalCommand command="npm install node-polyfill-webpack-plugin -D" />
-</TabItem>
-<TabItem title="yarn">
-<TerminalCommand command="yarn add node-polyfill-webpack-plugin -D" />
-</TabItem>
-</Tabs>
+<Tabs.Container defaultValue="npm">
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="npm">
+    <TerminalCommand command="npm install node-polyfill-webpack-plugin -D" />
+  </Tabs.Panel>
+  <Tabs.Panel value="yarn">
+    <TerminalCommand command="yarn add node-polyfill-webpack-plugin -D" />
+  </Tabs.Panel>
+</Tabs.Container>
 
 2. Add the plugin to your `webpack.config.js` plugins list:\_
 
@@ -222,22 +234,26 @@ Follow [here](#cra-4-cant-import-the-named-export-amplify-from-non-ecmascript-mo
 
 ### `Uncaught ReferenceError: global is not defined`
 
+<Message
+  variation="filled"
+  colorTheme="info"
+  >
+  Note: this issue was fixed in `aws-amplify` version 6
+</Message>
+
 When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.
 
-<Tabs>
-  <TabItem title="TypeScript">
-    <Fragment>
-      {({ platform }) => import(`./shared/vite-polyfill.mdx`)}
-    </Fragment>
-    <Fragment>
-      {({ platform }) => import(`./shared/vite-polyfill-ts.mdx`)}
-    </Fragment>
-  </TabItem>
-  <TabItem title="JavaScript">
-    <Fragment>
-      {({ platform }) => import(`./shared/vite-polyfill.mdx`)}
-    </Fragment>
-  </TabItem>
-</Tabs>
+<Tabs.Container defaultValue="TypeScript">
+  <Tabs.List>
+    <Tabs.Item value="TypeScript">TypeScript</Tabs.Item>
+    <Tabs.Item value="JavaScript">JavaScript</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="TypeScript">
+    <VitePolyfillTS />
+  </Tabs.Panel>
+  <Tabs.Panel value="JavaScript">
+    <VitePolyfill />
+  </Tabs.Panel>
+</Tabs.Container>
 
 > If you are still having issues, please see comments on the following issue for additional [Vite workarounds](https://github.com/aws-amplify/amplify-js/issues/9639). Note that there is active ongoing work to make these modifications unnecessary.

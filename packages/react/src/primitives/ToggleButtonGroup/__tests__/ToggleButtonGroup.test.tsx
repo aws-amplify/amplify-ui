@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { ToggleButton } from '../../ToggleButton';
 import { ToggleButtonGroup } from '../ToggleButtonGroup';
 import { ToggleButtonGroupProps } from '../../types';
@@ -65,15 +65,19 @@ describe('ToggleButtonGroup', () => {
     );
     const toggleButtonGroup = await screen.findByRole('group');
     expect(toggleButtonGroup).toHaveClass(
-      ComponentClassNames.ToggleButtonGroup,
+      ComponentClassName.ToggleButtonGroup,
       testClass
     );
     expect(toggleButtonGroup).toHaveAttribute('aria-label', testLabel);
 
     const toggleButton = await screen.findByRole('button');
-    expect(toggleButton).toHaveAttribute('data-size', size);
-    expect(toggleButton).toHaveAttribute('data-variation', variation);
-    userEvent.click(toggleButton);
+    expect(toggleButton).toHaveClass(`${ComponentClassName.Button}--${size}`);
+    expect(toggleButton).toHaveClass(
+      `${ComponentClassName.Button}--${variation}`
+    );
+    await act(async () => {
+      await userEvent.click(toggleButton);
+    });
     expect(onChange).toHaveBeenCalledTimes(1);
   });
 
@@ -85,22 +89,30 @@ describe('ToggleButtonGroup', () => {
     expect(toggleButtons[2]).toHaveAttribute('aria-pressed', 'false');
 
     // the only selected option can be unselected
-    userEvent.click(toggleButtons[0]);
+    await act(async () => {
+      await userEvent.click(toggleButtons[0]);
+    });
     expect(toggleButtons[0]).toHaveAttribute('aria-pressed', 'false');
     expect(toggleButtons[1]).toHaveAttribute('aria-pressed', 'false');
     expect(toggleButtons[2]).toHaveAttribute('aria-pressed', 'false');
 
-    userEvent.click(toggleButtons[0]);
+    await act(async () => {
+      await userEvent.click(toggleButtons[0]);
+    });
     expect(toggleButtons[0]).toHaveAttribute('aria-pressed', 'true');
     expect(toggleButtons[1]).toHaveAttribute('aria-pressed', 'false');
     expect(toggleButtons[2]).toHaveAttribute('aria-pressed', 'false');
 
-    userEvent.click(toggleButtons[1]);
+    await act(async () => {
+      await userEvent.click(toggleButtons[1]);
+    });
     expect(toggleButtons[0]).toHaveAttribute('aria-pressed', 'true');
     expect(toggleButtons[1]).toHaveAttribute('aria-pressed', 'true');
     expect(toggleButtons[2]).toHaveAttribute('aria-pressed', 'false');
 
-    userEvent.click(toggleButtons[2]);
+    await act(async () => {
+      await userEvent.click(toggleButtons[2]);
+    });
     expect(toggleButtons[0]).toHaveAttribute('aria-pressed', 'true');
     expect(toggleButtons[1]).toHaveAttribute('aria-pressed', 'true');
     expect(toggleButtons[2]).toHaveAttribute('aria-pressed', 'true');
@@ -114,19 +126,25 @@ describe('ToggleButtonGroup', () => {
     expect(toggleButtons[2]).toHaveAttribute('aria-pressed', 'false');
 
     // the only selected option cannot be unselected
-    userEvent.click(toggleButtons[0]);
+    await act(async () => {
+      await userEvent.click(toggleButtons[0]);
+    });
     expect(toggleButtons[0]).toHaveAttribute('aria-pressed', 'true');
     expect(toggleButtons[1]).toHaveAttribute('aria-pressed', 'false');
     expect(toggleButtons[2]).toHaveAttribute('aria-pressed', 'false');
 
     // select one more option
-    userEvent.click(toggleButtons[1]);
+    await act(async () => {
+      await userEvent.click(toggleButtons[1]);
+    });
     expect(toggleButtons[0]).toHaveAttribute('aria-pressed', 'true');
     expect(toggleButtons[1]).toHaveAttribute('aria-pressed', 'true');
     expect(toggleButtons[2]).toHaveAttribute('aria-pressed', 'false');
 
     // now the first option can be unselected
-    userEvent.click(toggleButtons[0]);
+    await act(async () => {
+      await userEvent.click(toggleButtons[0]);
+    });
     expect(toggleButtons[0]).toHaveAttribute('aria-pressed', 'false');
     expect(toggleButtons[1]).toHaveAttribute('aria-pressed', 'true');
     expect(toggleButtons[2]).toHaveAttribute('aria-pressed', 'false');
@@ -139,18 +157,24 @@ describe('ToggleButtonGroup', () => {
     expect(toggleButtons[1]).toHaveAttribute('aria-pressed', 'false');
     expect(toggleButtons[2]).toHaveAttribute('aria-pressed', 'false');
 
-    userEvent.click(toggleButtons[1]);
+    await act(async () => {
+      await userEvent.click(toggleButtons[1]);
+    });
     expect(toggleButtons[0]).toHaveAttribute('aria-pressed', 'false');
     expect(toggleButtons[1]).toHaveAttribute('aria-pressed', 'true');
     expect(toggleButtons[2]).toHaveAttribute('aria-pressed', 'false');
 
-    userEvent.click(toggleButtons[2]);
+    await act(async () => {
+      await userEvent.click(toggleButtons[2]);
+    });
     expect(toggleButtons[0]).toHaveAttribute('aria-pressed', 'false');
     expect(toggleButtons[1]).toHaveAttribute('aria-pressed', 'false');
     expect(toggleButtons[2]).toHaveAttribute('aria-pressed', 'true');
 
     // the only selected option can be unselected
-    userEvent.click(toggleButtons[2]);
+    await act(async () => {
+      await userEvent.click(toggleButtons[2]);
+    });
     expect(toggleButtons[0]).toHaveAttribute('aria-pressed', 'false');
     expect(toggleButtons[1]).toHaveAttribute('aria-pressed', 'false');
     expect(toggleButtons[2]).toHaveAttribute('aria-pressed', 'false');
@@ -164,19 +188,25 @@ describe('ToggleButtonGroup', () => {
     expect(toggleButtons[2]).toHaveAttribute('aria-pressed', 'false');
 
     // the only selected option cannot be unselected
-    userEvent.click(toggleButtons[0]);
+    await act(async () => {
+      await userEvent.click(toggleButtons[0]);
+    });
     expect(toggleButtons[0]).toHaveAttribute('aria-pressed', 'true');
     expect(toggleButtons[1]).toHaveAttribute('aria-pressed', 'false');
     expect(toggleButtons[2]).toHaveAttribute('aria-pressed', 'false');
 
     // select other option
-    userEvent.click(toggleButtons[2]);
+    await act(async () => {
+      await userEvent.click(toggleButtons[2]);
+    });
     expect(toggleButtons[0]).toHaveAttribute('aria-pressed', 'false');
     expect(toggleButtons[1]).toHaveAttribute('aria-pressed', 'false');
     expect(toggleButtons[2]).toHaveAttribute('aria-pressed', 'true');
 
     // the selected new option cannot be unselected
-    userEvent.click(toggleButtons[2]);
+    await act(async () => {
+      await userEvent.click(toggleButtons[2]);
+    });
     expect(toggleButtons[0]).toHaveAttribute('aria-pressed', 'false');
     expect(toggleButtons[1]).toHaveAttribute('aria-pressed', 'false');
     expect(toggleButtons[2]).toHaveAttribute('aria-pressed', 'true');

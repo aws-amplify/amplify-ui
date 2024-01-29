@@ -1,5 +1,5 @@
 import { Flex, Heading, View } from '@aws-amplify/ui-react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 import { SiTypescript } from 'react-icons/si';
 import { MdOutlineFlashOff, MdOutlineSupport } from 'react-icons/md';
 

@@ -195,7 +195,7 @@ export default function IconProviderExample() {
             <Rating value={3.5} />
           </Flex>
         </Flex>
-        <StorageManager accessLevel="public" maxFileCount={5} />
+        <StorageManager accessLevel="guest" maxFileCount={5} />
       </Flex>
     </IconsProvider>
   );

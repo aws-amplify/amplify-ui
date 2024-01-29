@@ -1,5 +1,141 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.0.10
+
+### Patch Changes
+
+- Updated dependencies [[`0f767c7fa`](https://github.com/aws-amplify/amplify-ui/commit/0f767c7fa9d106e8be34aa53edd9f5afe064ac6a), [`9dc52eb1b`](https://github.com/aws-amplify/amplify-ui/commit/9dc52eb1b2f4ad8c1f2956c7ad8a5073cf203172), [`d61690d01`](https://github.com/aws-amplify/amplify-ui/commit/d61690d0170eba69b23a785832e107db05a038ca), [`6721c15f8`](https://github.com/aws-amplify/amplify-ui/commit/6721c15f88e9a465a12a3b79557859c8390ae944)]:
+  - @aws-amplify/ui-react@6.1.2
+  - @aws-amplify/ui@6.0.8
+
+## 3.0.9
+
+### Patch Changes
+
+- [#4887](https://github.com/aws-amplify/amplify-ui/pull/4887) [`832677acd`](https://github.com/aws-amplify/amplify-ui/commit/832677acdbb7cdd6cf7a1ab202504795e718fd45) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(liveness): fix styling when no face on screen by not showing oval canvas and ensuring full screen camera
+
+- [#4894](https://github.com/aws-amplify/amplify-ui/pull/4894) [`7b0666036`](https://github.com/aws-amplify/amplify-ui/commit/7b0666036863f47417959aeaa054a84a35cdbea9) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(liveness): type Liveness DisplayText with DisplayTextTemplate
+
+- [#4884](https://github.com/aws-amplify/amplify-ui/pull/4884) [`8c613ef20`](https://github.com/aws-amplify/amplify-ui/commit/8c613ef20472a390c2b6a89ec227769514ab566b) Thanks [@thaddmt](https://github.com/thaddmt)! - chore: updated a11y texts for oval fitting, updated error text to mention camera's center
+
+- [#4888](https://github.com/aws-amplify/amplify-ui/pull/4888) [`da41cca8c`](https://github.com/aws-amplify/amplify-ui/commit/da41cca8c62fb2c77c1f251ebc5071b947416959) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(liveness): adding a11y error label to alert icon in timeout message
+
+- [#4900](https://github.com/aws-amplify/amplify-ui/pull/4900) [`430dae7ca`](https://github.com/aws-amplify/amplify-ui/commit/430dae7ca32494da5c5f577762c842f8a4e09020) Thanks [@thaddmt](https://github.com/thaddmt)! - fix: reduce re-renders on hint component
+
+- Updated dependencies [[`ad070697b`](https://github.com/aws-amplify/amplify-ui/commit/ad070697ba81871e26905d08f049b3486a0ce6f9), [`067e2b1cf`](https://github.com/aws-amplify/amplify-ui/commit/067e2b1cf435db2acb1c25ca3e50a65b53478530), [`7b0666036`](https://github.com/aws-amplify/amplify-ui/commit/7b0666036863f47417959aeaa054a84a35cdbea9), [`da41cca8c`](https://github.com/aws-amplify/amplify-ui/commit/da41cca8c62fb2c77c1f251ebc5071b947416959)]:
+  - @aws-amplify/ui@6.0.7
+  - @aws-amplify/ui-react@6.1.1
+
+## 3.0.8
+
+### Patch Changes
+
+- [#4877](https://github.com/aws-amplify/amplify-ui/pull/4877) [`94d05cbff`](https://github.com/aws-amplify/amplify-ui/commit/94d05cbffe407f0880a68b819b3c7d75016ff65a) Thanks [@thaddmt](https://github.com/thaddmt)! - chore: update toasts to be assertive
+
+- Updated dependencies [[`8d41213bc`](https://github.com/aws-amplify/amplify-ui/commit/8d41213bc96f3f37342c09756cf16a07ea4e2090)]:
+  - @aws-amplify/ui-react@6.1.0
+
+## 3.0.7
+
+### Patch Changes
+
+- Updated dependencies [[`4f643b05b`](https://github.com/aws-amplify/amplify-ui/commit/4f643b05b010901226bf200f8d0b06601d0ecab5), [`190bf28d1`](https://github.com/aws-amplify/amplify-ui/commit/190bf28d1b570329f415d2d4c03e608a3b30412b)]:
+  - @aws-amplify/ui@6.0.6
+  - @aws-amplify/ui-react@6.0.7
+
+## 3.0.6
+
+### Patch Changes
+
+- [#4822](https://github.com/aws-amplify/amplify-ui/pull/4822) [`4a5dcb0af`](https://github.com/aws-amplify/amplify-ui/commit/4a5dcb0af14aa71568d3890acf232d03a132442c) Thanks [@thaddmt](https://github.com/thaddmt)! - chore: add explicit aria tags to hints
+
+- [#4803](https://github.com/aws-amplify/amplify-ui/pull/4803) [`a1b4c5464`](https://github.com/aws-amplify/amplify-ui/commit/a1b4c54648bdaf2909beec25472cc0be76eda4bf) Thanks [@esauerbo](https://github.com/esauerbo)! - fix(liveness): add a11y tags to `FaceLivenessErrorModal`
+
+- [#4811](https://github.com/aws-amplify/amplify-ui/pull/4811) [`38bae5ee5`](https://github.com/aws-amplify/amplify-ui/commit/38bae5ee522bf572cc065953b2a94710e6913cc2) Thanks [@esauerbo](https://github.com/esauerbo)! - fix(liveness): adding aria attributes for photosensitivity warning
+
+  Use a button for photosensitivity warning toggle instead of div to it make keyboard navigable.
+  Add aria roles to make the warning accessible for screen readers.
+
+- Updated dependencies [[`38bae5ee5`](https://github.com/aws-amplify/amplify-ui/commit/38bae5ee522bf572cc065953b2a94710e6913cc2)]:
+  - @aws-amplify/ui-react@6.0.6
+  - @aws-amplify/ui@6.0.5
+
+## 3.0.5
+
+### Patch Changes
+
+- [#4802](https://github.com/aws-amplify/amplify-ui/pull/4802) [`c526cf53b`](https://github.com/aws-amplify/amplify-ui/commit/c526cf53bc07bb85c0789aa5edfdfcb4485fa5f5) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(liveness): add a11y tags to match indicator bar
+
+- Updated dependencies [[`c526cf53b`](https://github.com/aws-amplify/amplify-ui/commit/c526cf53bc07bb85c0789aa5edfdfcb4485fa5f5), [`cc2740b9a`](https://github.com/aws-amplify/amplify-ui/commit/cc2740b9a033e587715a37c379166388b267ff4e)]:
+  - @aws-amplify/ui-react@6.0.5
+  - @aws-amplify/ui@6.0.4
+
+## 3.0.4
+
+### Patch Changes
+
+- [#4770](https://github.com/aws-amplify/amplify-ui/pull/4770) [`91ffe6329`](https://github.com/aws-amplify/amplify-ui/commit/91ffe6329a7106190c1e0bd1dd139a09b7f88a8f) Thanks [@thaddmt](https://github.com/thaddmt)! - fix: liveness fix customizing photosensitivity warning
+
+- [#4809](https://github.com/aws-amplify/amplify-ui/pull/4809) [`04dc191a6`](https://github.com/aws-amplify/amplify-ui/commit/04dc191a692cf05b88d9f755744261806bb89e81) Thanks [@thaddmt](https://github.com/thaddmt)! - chore: add i18n for a11y video text
+
+- [#4808](https://github.com/aws-amplify/amplify-ui/pull/4808) [`6860190b3`](https://github.com/aws-amplify/amplify-ui/commit/6860190b3e1adff4df65df38bf5c716b31e7a379) Thanks [@thaddmt](https://github.com/thaddmt)! - chore: added aria label for video element on liveness
+
+- [#4792](https://github.com/aws-amplify/amplify-ui/pull/4792) [`fe68b66c9`](https://github.com/aws-amplify/amplify-ui/commit/fe68b66c932d64cbd338daed408ef76b39d49f45) Thanks [@ahnucl](https://github.com/ahnucl)! - fix(liveness): pass displayText to LivenessCameraModule
+
+- Updated dependencies [[`ed55a6a36`](https://github.com/aws-amplify/amplify-ui/commit/ed55a6a36b9250db50e3edaf31b53ce4fc35edfe), [`272a05edc`](https://github.com/aws-amplify/amplify-ui/commit/272a05edcafa8f9e0e53ed1eb66f566f308d09b3)]:
+  - @aws-amplify/ui@6.0.3
+  - @aws-amplify/ui-react@6.0.4
+
+## 3.0.3
+
+### Patch Changes
+
+- [#4780](https://github.com/aws-amplify/amplify-ui/pull/4780) [`33256ee32`](https://github.com/aws-amplify/amplify-ui/commit/33256ee32ff801ff302332a4bb8aa95dad0ac6db) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): update hold still text to show when matched
+
+## 3.0.2
+
+### Patch Changes
+
+- Updated dependencies [[`4ff26e27e`](https://github.com/aws-amplify/amplify-ui/commit/4ff26e27e4bc8909cc2b86c738eca5085b2a42d1), [`bb141a719`](https://github.com/aws-amplify/amplify-ui/commit/bb141a719fd9bc2d7680e539f2ff047deb88ee7e)]:
+  - @aws-amplify/ui-react@6.0.3
+  - @aws-amplify/ui@6.0.2
+
+## 3.0.1
+
+### Patch Changes
+
+- Updated dependencies [[`9dd0e58e5`](https://github.com/aws-amplify/amplify-ui/commit/9dd0e58e5167d307c2154b3280de3c0e52f607e1)]:
+  - @aws-amplify/ui@6.0.1
+  - @aws-amplify/ui-react@6.0.2
+
+## 3.0.0
+
+### Major Changes
+
+- [#4728](https://github.com/aws-amplify/amplify-ui/pull/4728) [`872e27db5`](https://github.com/aws-amplify/amplify-ui/commit/872e27db598e36c017028fc0af1e5f34e7adffb4) Thanks [@thaddmt](https://github.com/thaddmt)! - breaking(liveness): update liveness UX
+
+  Replace start screen with instructions with a new hair check start screen that lets end users interface with the camera. Also added camera selection and upgraded the blazeface model.
+
+  Updated `disableInstructionScreen` to `disableStartScreen`
+
+### Patch Changes
+
+- [#4737](https://github.com/aws-amplify/amplify-ui/pull/4737) [`f5338f6c2`](https://github.com/aws-amplify/amplify-ui/commit/f5338f6c23c5228b1a44f9fb26e81fb805704949) Thanks [@reesscot](https://github.com/reesscot)! - chore(liveness): upgrade blazeface model
+
+## 2.0.12
+
+### Patch Changes
+
+- Updated dependencies [[`2ab62defe`](https://github.com/aws-amplify/amplify-ui/commit/2ab62defe14da3dce3bc960aeae47b2342e36da1)]:
+  - @aws-amplify/ui-react@6.0.1
+
+## 2.0.11
+
+### Patch Changes
+
+- Updated dependencies [[`1dbe3f46c`](https://github.com/aws-amplify/amplify-ui/commit/1dbe3f46c2423c407aa2e499f383745b45b2e640)]:
+  - @aws-amplify/ui-react@5.3.2
+
 ## 2.0.10
 
 ### Patch Changes

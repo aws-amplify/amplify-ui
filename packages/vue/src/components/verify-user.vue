@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, toRefs, useAttrs } from 'vue';
+import { computed, toRefs } from 'vue';
 
 import {
   authenticatorTextUtil,
@@ -14,13 +14,8 @@ import { useAuthenticator } from '../composables/useAuth';
 
 // `facade` is manually typed to `UseAuthenticator` for temporary type safety.
 const facade: UseAuthenticator = useAuthenticator();
-const { isPending, unverifiedContactMethods, error } = toRefs(facade);
+const { isPending, unverifiedUserAttributes, error } = toRefs(facade);
 const { skipVerification, submitForm, updateForm } = facade;
-
-const attrs = useAttrs();
-
-/** @deprecated Component events are deprecated and not maintained. */
-const emit = defineEmits(['verifyUserSubmit', 'skipClicked']);
 
 // Text Util
 const {
@@ -43,13 +38,7 @@ const onInput = (e: Event): void => {
 };
 
 const onVerifyUserSubmit = (e: Event): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onVerifyUserSubmit) {
-    emit('verifyUserSubmit', e);
-  } else {
-    submit(e);
-  }
+  submit(e);
 };
 
 const submit = (e: Event): void => {
@@ -57,13 +46,7 @@ const submit = (e: Event): void => {
 };
 
 const onSkipClicked = (): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onSkipClicked) {
-    emit('skipClicked');
-  } else {
-    skipVerification();
-  }
+  skipVerification();
 };
 </script>
 
@@ -98,7 +81,7 @@ const onSkipClicked = (): void => {
                 class="amplify-flex amplify-radio"
                 data-amplify-verify-label
                 id="verify"
-                v-for="(value, key) in unverifiedContactMethods"
+                v-for="(value, key) in unverifiedUserAttributes"
                 :key="value"
               >
                 <base-input
@@ -145,12 +128,7 @@ const onSkipClicked = (): void => {
             >
               {{ skipText }}
             </amplify-button>
-            <slot
-              name="footer"
-              :onSkipClicked="onSkipClicked"
-              :onVerifyUserSubmit="onVerifyUserSubmit"
-            >
-            </slot>
+            <slot name="footer"> </slot>
           </base-footer>
         </base-field-set>
       </base-form>

@@ -20,7 +20,7 @@ To run existing tests on `react-native` framework, first navigate to the React N
 
 Sign up and reset password flows are mocked by overriding the `Auth` endpoint when calling `Amplify.configure` to point to a local express mock server running on port 9091. The `precucumber` and `postcucumber` scripts in the `package.json` file take care of starting and terminating the mock server.
 
-**iOS**
+## iOS
 
 If not previously installed locally, install `applesimutils`:
 
@@ -36,7 +36,7 @@ brew install applesimutils
 1. Run `yarn e2e detox:build:ios:debug`
 1. Run `yarn e2e detox:e2e:ios:debug`
 
-**Android**
+## Android
 
 1. Navigate to the _root_ of your local clone of [aws-amplify/amplify-ui](https://github.com/aws-amplify/amplify-ui)
 1. Run `yarn setup`
@@ -44,7 +44,7 @@ brew install applesimutils
 1. Run `yarn e2e detox:build:android:debug`
 1. Run `yarn e2e detox:e2e:android:debug`
 
-Troubleshooting
+**Troubleshooting**
 
 If the emulator fails to connect to Metro server, run:
 

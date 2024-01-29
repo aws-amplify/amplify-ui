@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { Logger } from 'aws-amplify';
 
-import { UploadTask } from '@aws-amplify/storage';
-import { ComponentClassNames, VisuallyHidden } from '@aws-amplify/ui-react';
+import { UploadDataOutput } from 'aws-amplify/storage';
+import { getLogger, ComponentClassName } from '@aws-amplify/ui';
+import { VisuallyHidden } from '@aws-amplify/ui-react';
+import { useSetUserAgent } from '@aws-amplify/ui-react-core';
 import { useDropZone } from '@aws-amplify/ui-react/internal';
 
 import { useStorageManager, useUploadFiles } from './hooks';
@@ -20,8 +21,9 @@ import {
   defaultStorageManagerDisplayText,
   filterAllowedFiles,
 } from './utils';
+import { VERSION } from '../../version';
 
-const logger = new Logger('Storage.StorageManager');
+const logger = getLogger('Storage');
 
 function StorageManagerBase(
   {
@@ -40,13 +42,12 @@ function StorageManagerBase(
     showThumbnails = true,
     processFile,
     components,
-    provider,
     path,
   }: StorageManagerProps,
   ref: React.ForwardedRef<StorageManagerHandle>
 ): JSX.Element {
   if (!accessLevel || !maxFileCount) {
-    logger.warn('FileUploader requires accessLevel and maxFileCount props');
+    logger.warn('StorageManager requires accessLevel and maxFileCount props');
   }
 
   const Components = {
@@ -125,7 +126,6 @@ function StorageManagerBase(
     setUploadProgress,
     setUploadSuccess,
     processFile,
-    provider,
     path,
   });
 
@@ -155,7 +155,7 @@ function StorageManagerBase(
     uploadTask,
   }: {
     id: string;
-    uploadTask: UploadTask;
+    uploadTask: UploadDataOutput;
   }) => {
     uploadTask.pause();
     setUploadPaused({ id });
@@ -166,7 +166,7 @@ function StorageManagerBase(
     uploadTask,
   }: {
     id: string;
-    uploadTask: UploadTask;
+    uploadTask: UploadDataOutput;
   }) => {
     uploadTask.resume();
     setUploadResumed({ id });
@@ -177,7 +177,7 @@ function StorageManagerBase(
     uploadTask,
   }: {
     id: string;
-    uploadTask: UploadTask;
+    uploadTask: UploadDataOutput;
   }) => {
     // At this time we don't know if the delete
     // permissions are enabled (required to cancel upload),
@@ -230,10 +230,16 @@ function StorageManagerBase(
     }
   }
 
+  useSetUserAgent({
+    componentName: 'StorageManager',
+    packageName: 'react-storage',
+    version: VERSION,
+  });
+
   return (
     <Components.Container
-      className={`${ComponentClassNames.StorageManager} ${
-        hasFiles ? ComponentClassNames.StorageManagerPreviewer : ''
+      className={`${ComponentClassName.StorageManager} ${
+        hasFiles ? ComponentClassName.StorageManagerPreviewer : ''
       }`}
     >
       <Components.DropZone

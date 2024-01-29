@@ -5,20 +5,40 @@ import {
 } from '@aws-amplify/ui-react';
 
 import { Example, ExampleCode } from '@/components/Example';
-import { Fragment } from '@/components/Fragment';
+import { InlineFilter } from '@/components/InlineFilter';
 
 ## Sign Up Fields
 
 The following example customizes the Sign Up screen by:
 
 - Re-using the default Sign Up form fields
-- Appending a custom "Terms & Conditions" checkbox with a `validateCustomSignUp` service
+- Appending a custom "Terms and Conditions" checkbox with a `validateCustomSignUp` service
 
 **Note**: In the example code below, `preferred_username` is not set as an attribute because it has already been defined through [Zero Configuration](./configuration#sign-up-attributes). You may also notice that the `acknowledgement` field is not being sent. This occurs since `acknowledgement` is not a known attribute to Cognito. To assign it as a custom attribute instead, the name field must have the `custom:` prefix.
 
-<Fragment>
-  {({ platform }) => import(`./sign-up-fields.${platform}.mdx`)}
-</Fragment>
+<InlineFilter filters={['angular']}>
+_app.component.ts_
+
+```ts{14-22} file=../../../../../../../examples/angular/src/pages/ui/components/authenticator/custom-sign-up-fields/custom-sign-up-fields.component.ts
+
+```
+
+_app.component.html_
+
+```html{1-14} file=../../../../../../../examples/angular/src/pages/ui/components/authenticator/custom-sign-up-fields/custom-sign-up-fields.component.html
+
+```
+</InlineFilter>
+<InlineFilter filters={['react']}>
+```tsx{7-9,24} file=../../../../../../../examples/next/pages/ui/components/authenticator/custom-sign-up-fields/index.page.tsx#L13-
+
+```
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+```html file=../../../../../../../examples/vue/src/pages/ui/components/authenticator/custom-sign-up-fields/index.vue
+
+```
+</InlineFilter>
 
 <Example>
   <Authenticator
@@ -38,7 +58,7 @@ The following example customizes the Sign Up screen by:
                 hasError={!!validationErrors.acknowledgement}
                 name="acknowledgement"
                 value="yes"
-                label="I agree with the Terms & Conditions"
+                label="I agree with the Terms and Conditions"
               />
             </>
           );
@@ -49,7 +69,7 @@ The following example customizes the Sign Up screen by:
       async validateCustomSignUp(formData) {
         if (!formData.acknowledgement) {
           return {
-            acknowledgement: 'You must agree to the Terms & Conditions',
+            acknowledgement: 'You must agree to the Terms and Conditions',
           };
         }
       },

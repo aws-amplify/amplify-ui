@@ -1,0 +1,1 @@
+export { exported } from './exported';

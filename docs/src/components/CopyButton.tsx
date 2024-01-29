@@ -6,14 +6,15 @@ import { trackCopy } from '@/utils/track';
 
 interface CopyButtonProps
   extends Pick<ButtonProps, 'className' | 'size' | 'variation'> {
-  copyText: string;
+  target: string;
 }
 
 export const CopyButton = ({
   className,
-  copyText,
-  size,
-  variation,
+  target,
+  size = 'small',
+  variation = 'link',
+  ...rest
 }: CopyButtonProps) => {
   const [copied, setCopied] = React.useState(false);
 
@@ -22,12 +23,13 @@ export const CopyButton = ({
     setTimeout(() => {
       setCopied(false);
     }, 2000);
-    trackCopy(copyText);
+    trackCopy(target);
   };
 
   return (
-    <CopyToClipboard text={copyText} onCopy={copy}>
+    <CopyToClipboard text={target} onCopy={copy}>
       <Button
+        {...rest}
         className={className}
         isDisabled={copied}
         size={size}

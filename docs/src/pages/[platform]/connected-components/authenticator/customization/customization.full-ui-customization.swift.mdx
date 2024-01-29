@@ -56,3 +56,30 @@ struct CustomSignInView: View {
 }
 
 ```
+
+### TOTP Setup
+
+You can also customize the TOTP setup experience. We make available arguments in the `ContinueSignInWithTOTPSetupView` i.e. `qrCodeContent` and `copyKeyContent` that can help you provide custom content for the TOTP Setup Experience. In the example below, examine how you could customize the setup screen.
+
+```swift
+Authenticator(
+    continueSignInWithTOTPSetupContent: { state in
+        ContinueSignInWithTOTPSetupView(
+            state: state,
+
+            // Example of how a customer can pass a custom QR code
+            qrCodeContent: { state in
+                // Your custom QR Code implementation goes here
+
+            },
+            copyKeyContent: { state in
+                // YOUR custom implementation goes here
+            }
+        )
+    },
+    content: { state in
+        Text("Signed In Content")
+    }
+)
+
+```

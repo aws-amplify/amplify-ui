@@ -1,0 +1,89 @@
+// https://chriscoyier.net/2023/10/03/being-picky-about-a-css-reset-for-fun-pleasure/
+// https://andy-bell.co.uk/a-more-modern-css-reset/
+// https://piccalil.li/blog/a-modern-css-reset/
+// https://www.joshwcomeau.com/css/custom-css-reset/
+
+// Note: This rule can be easily overwritten when
+// needed due to very low specificity of 0 0 0
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html:focus-within {
+  // https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior
+  scroll-behavior: smooth;
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  line-height: var(--amplify-line-heights-medium, 1.5);
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+// Remove default margins
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+  color: currentColor;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+}
+
+// Allows both users with and without ThemeProvider to use or override default font
+// html => customers w/o ThemeProvider still get default font
+// [data-amplify-theme] => customers with ThemeProvider can override default font
+html,
+[data-amplify-theme] {
+  font-family: var(--amplify-fonts-default-static);
+}
+
+@supports (font-variation-settings: normal) {
+  html,
+  [data-amplify-theme] {
+    font-family: var(--amplify-fonts-default-variable);
+  }
+}

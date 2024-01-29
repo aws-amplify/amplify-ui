@@ -25,17 +25,18 @@ Feature: Sign Up with Username
     Then I confirm my password
     Then I type my "email" with status "UNCONFIRMED"
     Then I click the "Create Account" button
-    Then I see "Your code is on the way"
+    Then I see "We Emailed You"
     Then I see "Confirmation Code"
 
   @react-native
   Scenario: Sign up a new username & password
+    # Note: For RN tests, mocking of "AWSCognitoIdentityProviderService.SignUp" is done with mockServer.js
     When I type a new "username"
     Then I type my password
     Then I confirm my password
     Then I type my "email" with status "UNCONFIRMED"
     Then I click the "Create Account" button
-    Then I see "Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive."
+    Then I see "We Emailed You"
     Then I see "Confirmation Code"
 
   @angular @react @vue

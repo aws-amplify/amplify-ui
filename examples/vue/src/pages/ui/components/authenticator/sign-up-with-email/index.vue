@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { Amplify, Auth, I18n } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import { signUp } from 'aws-amplify/auth';
+import { I18n } from 'aws-amplify/utils';
 import {
   Authenticator,
   translations,
@@ -21,6 +23,7 @@ const formFields = {
     },
   },
 };
+
 I18n.putVocabularies(translations);
 I18n.setLanguage('en');
 I18n.putVocabulariesForLanguage('en', {
@@ -30,17 +33,19 @@ I18n.putVocabulariesForLanguage('en', {
 });
 
 const services = {
-  async handleSignUp(formData) {
-    let { username, password, attributes } = formData;
-    // custom username
-    username = username.toLowerCase();
-    attributes.email = attributes.email.toLowerCase();
-    return Auth.signUp({
-      username,
-      password,
-      attributes,
-      autoSignIn: {
-        enabled: true,
+  async handleSignUp(input) {
+    // custom username and email
+    const customUsername = input.username.toLowerCase();
+    const customEmail = input.options.userAttributes.email.toLowerCase();
+    return signUp({
+      ...input,
+      username: customUsername,
+      options: {
+        ...input.options,
+        userAttributes: {
+          ...input.options.userAttributes,
+          email: customEmail,
+        },
       },
     });
   },

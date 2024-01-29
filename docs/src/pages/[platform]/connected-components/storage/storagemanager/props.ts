@@ -23,7 +23,7 @@ export const STORAGE_MANAGER = [
     name: `accessLevel`,
     description:
       'Access level for files in Storage. See https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/',
-    type: `'public' | 'private' | 'protected'`,
+    type: `'guest' | 'protected' | 'private'`,
   },
   {
     name: `acceptedFileTypes?`,
@@ -86,7 +86,7 @@ export const STORAGE_MANAGER = [
   {
     name: `displayText?`,
     description: 'Text to override in the component.',
-    type: 'Partial<StorageManagerDisplayText>',
+    type: 'StorageManagerDisplayText',
   },
   {
     name: `components?.Container?`,
@@ -244,12 +244,12 @@ export const DISPLAY_TEXT = [
     type: `string`,
   },
   {
-    name: 'pauseText?',
+    name: 'pauseButtonText?',
     description: 'Default: "Pause"',
     type: `string`,
   },
   {
-    name: 'resumeText?',
+    name: 'resumeButtonText?',
     description: 'Default: "Resume"',
     type: `string`,
   },

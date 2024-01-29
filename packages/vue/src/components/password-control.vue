@@ -37,7 +37,7 @@ const {
   required,
 } = toRefs(props);
 
-let password = ref('');
+const password = ref('');
 
 function togglePasswordText(): void {
   showHideLabel.value =
@@ -61,7 +61,6 @@ export default {
       ComponentClassName.Field,
       ComponentClassName.TextField,
       ComponentClassName.PasswordField,
-      'amplify-authenticator__column', // TODO(breaking,parity): remove this
     ]"
   >
     <base-label

@@ -4,9 +4,14 @@ metaDescription: Dark Mode uses a darker color palette for all screens, making f
 supportedFrameworks: angular|flutter|react|react-native|vue
 ---
 
-import { Fragment } from '@/components/Fragment';
+import { InlineFilter } from '@/components/InlineFilter';
 import { FRAMEWORKS } from '@/data/frameworks';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+import AngularPage from './angular.mdx';
+import FlutterPage from './flutter.mdx';
+import ReactPage from './react.mdx';
+import ReactNativePage from './react-native.mdx';
+import VuePage from './vue.mdx';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -18,4 +23,18 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+<InlineFilter filters={['angular']}>
+  <AngularPage />
+</InlineFilter>
+<InlineFilter filters={['flutter']}>
+  <FlutterPage />
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <ReactPage />
+</InlineFilter>
+<InlineFilter filters={['react-native']}>
+  <ReactNativePage />
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+  <VuePage />
+</InlineFilter>

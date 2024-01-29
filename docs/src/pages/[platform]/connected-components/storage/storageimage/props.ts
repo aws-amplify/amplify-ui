@@ -13,7 +13,7 @@ export const STORAGE_IMAGE = [
     name: 'accessLevel',
     description:
       'Access level for files in Storage. See https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/',
-    type: `'public' | 'private' | 'protected'`,
+    type: `'guest' | 'protected' | 'private'`,
   },
   {
     name: 'identityId?',

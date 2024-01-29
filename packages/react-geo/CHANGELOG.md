@@ -1,5 +1,74 @@
 # @aws-amplify/ui-react-geo
 
+## 2.0.8
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react-core@3.0.8
+
+## 2.0.7
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react-core@3.0.7
+
+## 2.0.6
+
+### Patch Changes
+
+- Updated dependencies [[`4f643b05b`](https://github.com/aws-amplify/amplify-ui/commit/4f643b05b010901226bf200f8d0b06601d0ecab5)]:
+  - @aws-amplify/ui-react-core@3.0.6
+
+## 2.0.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react-core@3.0.5
+
+## 2.0.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react-core@3.0.4
+
+## 2.0.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react-core@3.0.3
+
+## 2.0.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react-core@3.0.2
+
+## 2.0.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react-core@3.0.1
+
+## 2.0.0
+
+### Major Changes
+
+- Major version bump for all Amplify UI packages due to uprade of peerDependency aws-amplify to v6
+
+### Patch Changes
+
+- [#4716](https://github.com/aws-amplify/amplify-ui/pull/4716) [`5bd721183`](https://github.com/aws-amplify/amplify-ui/commit/5bd72118342c4a3040c13e923024d476a643a795) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(deps): upgrade aws-amplify deps
+
+- Updated dependencies [[`5bd721183`](https://github.com/aws-amplify/amplify-ui/commit/5bd72118342c4a3040c13e923024d476a643a795)]:
+  - @aws-amplify/ui-react-core@3.0.0
+
 ## 1.0.2
 
 ### Patch Changes

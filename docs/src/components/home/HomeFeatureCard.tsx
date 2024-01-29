@@ -24,15 +24,10 @@ export const HomeFeatureCard = ({
         <View
           as="span"
           padding="1rem"
-          backgroundColor="brand.secondary.10"
+          backgroundColor="secondary.10"
           borderRadius="small"
         >
-          <Icon
-            ariaLabel=""
-            as={icon}
-            fontSize="xl"
-            color="brand.secondary.60"
-          />
+          <Icon ariaLabel="" as={icon} fontSize="xl" color="secondary.60" />
         </View>
       ) : null}
       <View>

@@ -1,10 +1,9 @@
 import * as React from 'react';
-import type { UploadTask } from '@aws-amplify/storage';
+
+import { TransferProgressEvent } from 'aws-amplify/storage';
 
 import { uploadFile } from '../../utils/uploadFile';
-
 import { FileStatus } from '../../types';
-
 import { StorageManagerProps } from '../../types';
 import { UseStorageManager } from '../useStorageManager';
 import { resolveFile } from './resolveFile';
@@ -19,7 +18,6 @@ export interface UseUploadFilesProps
       | 'onUploadStart'
       | 'maxFileCount'
       | 'processFile'
-      | 'provider'
       | 'path'
     >,
     Pick<
@@ -39,7 +37,6 @@ export function useUploadFiles({
   onUploadStart,
   maxFileCount,
   processFile,
-  provider,
   path = '',
 }: UseUploadFilesProps): void {
   React.useEffect(() => {
@@ -57,41 +54,41 @@ export function useUploadFiles({
         setUploadSuccess({ id });
       };
 
-      const onProgress: (progress: { loaded: number; total: number }) => void =
-        (progress) => {
-          /**
-           * When a file is zero bytes, the progress.total will equal zero.
-           * Therefore, this will prevent a divide by zero error.
-           */
-          const progressPercentage =
-            progress.total === 0
-              ? 100
-              : Math.floor((progress.loaded / progress.total) * 100);
-          setUploadProgress({ id, progress: progressPercentage });
-        };
+      const onProgress: (event: TransferProgressEvent) => void = (event) => {
+        /**
+         * When a file is zero bytes, the progress.total will equal zero.
+         * Therefore, this will prevent a divide by zero error.
+         */
+        const progressPercentage =
+          event.totalBytes === undefined || event.totalBytes === 0
+            ? 100
+            : Math.floor((event.transferredBytes / event.totalBytes) * 100);
+        setUploadProgress({ id, progress: progressPercentage });
+      };
 
       const onError = (error: string) => {
         onUploadError?.(error, { key });
       };
 
       if (file) {
-        resolveFile({ processFile, file, key }).then(({ key, ...rest }) => {
-          onUploadStart?.({ key });
-          const uploadTask = uploadFile({
-            ...rest,
-            isResumable,
-            provider,
-            key: path + key,
-            level: accessLevel,
-            completeCallback: onComplete,
-            progressCallback: onProgress,
-            errorCallback: onError,
-          }) as unknown as UploadTask;
-          setUploadingFile({
-            id,
-            uploadTask: isResumable ? uploadTask : undefined,
-          });
-        });
+        resolveFile({ processFile, file, key }).then(
+          ({ key: processedKey, ...rest }) => {
+            onUploadStart?.({ key: processedKey });
+            const uploadTask = uploadFile({
+              ...rest,
+              key: processedKey,
+              level: accessLevel,
+              progressCallback: onProgress,
+              errorCallback: onError,
+              completeCallback: onComplete,
+            });
+
+            setUploadingFile({
+              id,
+              uploadTask,
+            });
+          }
+        );
       }
     }
   }, [
@@ -106,7 +103,6 @@ export function useUploadFiles({
     maxFileCount,
     setUploadSuccess,
     processFile,
-    provider,
     path,
   ]);
 }

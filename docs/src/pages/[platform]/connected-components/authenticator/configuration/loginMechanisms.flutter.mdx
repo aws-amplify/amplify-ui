@@ -1,7 +1,6 @@
-import { Alert } from '@aws-amplify/ui-react';
+import { Alert, Tabs } from '@aws-amplify/ui-react';
 import { FlutterAuthenticatorExample } from '@/components/FlutterAuthenticatorExample';
 import { Fragment } from '@/components/Fragment';
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
 
 <Alert role="none" heading="Zero Configuration">
 
@@ -12,23 +11,28 @@ Below are examples of username, email, and phone number based login.
 
 > **Note**: A `username`, `email`, or `phone_number` value is required for Cognito User Pools.
 
-<Tabs>
-  <TabItem title="Username">
+<Tabs.Container defaultValue="Username">
+  <Tabs.List>
+    <Tabs.Item value="Username">Username</Tabs.Item>
+    <Tabs.Item value="Email">Email</Tabs.Item>
+    <Tabs.Item value="Phone Number">Phone Number</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="Username">
     <FlutterAuthenticatorExample
       id="flutter-authenticator-login-username"
       usernameAttribute={'USERNAME'}
     />
-  </TabItem>
-  <TabItem title="Email">
+  </Tabs.Panel>
+  <Tabs.Panel value="Email">
     <FlutterAuthenticatorExample
       id="flutter-authenticator-login-email"
       usernameAttribute={'EMAIL'}
     />
-  </TabItem>
-  <TabItem title="Phone Number">
+  </Tabs.Panel>
+  <Tabs.Panel value="Phone Number">
     <FlutterAuthenticatorExample
       id="flutter-authenticator-login-phone-number"
       usernameAttribute={'PHONE_NUMBER'}
     />
-  </TabItem>
-</Tabs>
+  </Tabs.Panel>
+</Tabs.Container>

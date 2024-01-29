@@ -14,7 +14,7 @@ describe('ValidationErrors', () => {
 
   it('renders nothing if there are no errors', async () => {
     const { container } = render(<ValidationErrors errors={[]} />);
-    expect(container).toMatchInlineSnapshot(`<div />`);
+    expect(container).toMatchSnapshot();
   });
 
   it('renders dataAttr as expected', () => {

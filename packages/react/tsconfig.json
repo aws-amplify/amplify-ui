@@ -1,8 +1,14 @@
 {
-  "extends": "../configs/ts/tsconfig.react.json",
+  "extends": "@aws-amplify/typescript-config/tsconfig.react.json",
   "compilerOptions": {
     "noImplicitAny": false
   },
-  "include": ["scripts", "src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "jest.config.ts",
+    "jest.setup.ts",
+    "scripts",
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": ["node_modules", "rollup.config.ts"]
 }

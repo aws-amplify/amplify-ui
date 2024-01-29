@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks';
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
+import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 
 import useMessageImage from '../useMessageImage';
 

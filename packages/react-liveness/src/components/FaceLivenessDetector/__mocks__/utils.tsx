@@ -20,7 +20,7 @@ export function renderWithLivenessProvider(
   };
   const mockService: LivenessInterpreter = {} as LivenessInterpreter;
 
-  const Wrapper: React.FC = ({ children }) => (
+  const Wrapper: React.FC = ({ children }: { children?: React.ReactNode }) => (
     <FaceLivenessDetectorProvider
       componentProps={mockComponentProps}
       service={mockService}

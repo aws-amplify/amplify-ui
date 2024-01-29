@@ -57,7 +57,7 @@ describe('ConfirmVerifyUser', () => {
 
     const button = getByText(getSkipText());
     fireEvent.press(button);
-    expect(skipVerificationMock).toBeCalledTimes(1);
+    expect(skipVerificationMock).toHaveBeenCalledTimes(1);
   });
 
   it('renders as expected when isPending is true', () => {

@@ -1,5 +1,228 @@
 # @aws-amplify/ui
 
+## 6.0.8
+
+### Patch Changes
+
+- [#4789](https://github.com/aws-amplify/amplify-ui/pull/4789) [`0f767c7fa`](https://github.com/aws-amplify/amplify-ui/commit/0f767c7fa9d106e8be34aa53edd9f5afe064ac6a) Thanks [@esauerbo](https://github.com/esauerbo)! - fix(ui): add tokens for ShowPassword button error state.
+
+  Added 'error' color theme for `ShowPassword` button (part of `PasswordField`)
+
+- [#4892](https://github.com/aws-amplify/amplify-ui/pull/4892) [`9dc52eb1b`](https://github.com/aws-amplify/amplify-ui/commit/9dc52eb1b2f4ad8c1f2956c7ad8a5073cf203172) Thanks [@esauerbo](https://github.com/esauerbo)! - fix(authenticator): fix unhandled authenticator route console warning
+
+- [#4923](https://github.com/aws-amplify/amplify-ui/pull/4923) [`d61690d01`](https://github.com/aws-amplify/amplify-ui/commit/d61690d0170eba69b23a785832e107db05a038ca) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): propagate username from signUp actor to top level machine
+
+## 6.0.7
+
+### Patch Changes
+
+- [#4895](https://github.com/aws-amplify/amplify-ui/pull/4895) [`ad070697b`](https://github.com/aws-amplify/amplify-ui/commit/ad070697ba81871e26905d08f049b3486a0ce6f9) Thanks [@thaddmt](https://github.com/thaddmt)! - fix: update liveness button focus border to have a gap
+
+- [#4889](https://github.com/aws-amplify/amplify-ui/pull/4889) [`067e2b1cf`](https://github.com/aws-amplify/amplify-ui/commit/067e2b1cf435db2acb1c25ca3e50a65b53478530) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - Fix table styling for striped variation
+
+- [#4894](https://github.com/aws-amplify/amplify-ui/pull/4894) [`7b0666036`](https://github.com/aws-amplify/amplify-ui/commit/7b0666036863f47417959aeaa054a84a35cdbea9) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(liveness): type Liveness DisplayText with DisplayTextTemplate
+
+## 6.0.6
+
+### Patch Changes
+
+- [#4777](https://github.com/aws-amplify/amplify-ui/pull/4777) [`4f643b05b`](https://github.com/aws-amplify/amplify-ui/commit/4f643b05b010901226bf200f8d0b06601d0ecab5) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui): fix defaultAuthHubListener unit tests, remove asynchronous declaration
+
+- [#4861](https://github.com/aws-amplify/amplify-ui/pull/4861) [`190bf28d1`](https://github.com/aws-amplify/amplify-ui/commit/190bf28d1b570329f415d2d4c03e608a3b30412b) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): fix user attribute parsing for amplify >= v6.0.6
+
+## 6.0.5
+
+### Patch Changes
+
+- [#4811](https://github.com/aws-amplify/amplify-ui/pull/4811) [`38bae5ee5`](https://github.com/aws-amplify/amplify-ui/commit/38bae5ee522bf572cc065953b2a94710e6913cc2) Thanks [@esauerbo](https://github.com/esauerbo)! - fix(liveness): adding aria attributes for photosensitivity warning
+
+  Use a button for photosensitivity warning toggle instead of div to it make keyboard navigable.
+  Add aria roles to make the warning accessible for screen readers.
+
+## 6.0.4
+
+### Patch Changes
+
+- [#4802](https://github.com/aws-amplify/amplify-ui/pull/4802) [`c526cf53b`](https://github.com/aws-amplify/amplify-ui/commit/c526cf53bc07bb85c0789aa5edfdfcb4485fa5f5) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(liveness): add a11y tags to match indicator bar
+
+- [#4823](https://github.com/aws-amplify/amplify-ui/pull/4823) [`cc2740b9a`](https://github.com/aws-amplify/amplify-ui/commit/cc2740b9a033e587715a37c379166388b267ff4e) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(auth): fix refreshing page not hydrating custom formfields/services into the auth machine
+
+## 6.0.3
+
+### Patch Changes
+
+- [#4801](https://github.com/aws-amplify/amplify-ui/pull/4801) [`ed55a6a36`](https://github.com/aws-amplify/amplify-ui/commit/ed55a6a36b9250db50e3edaf31b53ce4fc35edfe) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): exclude empty phone_number values from sign up submit
+
+- [#4807](https://github.com/aws-amplify/amplify-ui/pull/4807) [`272a05edc`](https://github.com/aws-amplify/amplify-ui/commit/272a05edcafa8f9e0e53ed1eb66f566f308d09b3) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(ui): update/normalize focus indicator across primitives to improve accessibility.
+
+  In some instances, the focus indicator ring has been updated from 1px to 2px and/or the color of the focus indicator ring has been changed to have at least a 3:1 contrast ratio in the area of contrast.
+
+## 6.0.2
+
+### Patch Changes
+
+- [#4767](https://github.com/aws-amplify/amplify-ui/pull/4767) [`4ff26e27e`](https://github.com/aws-amplify/amplify-ui/commit/4ff26e27e4bc8909cc2b86c738eca5085b2a42d1) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): forgot password clean up
+
+- [#4773](https://github.com/aws-amplify/amplify-ui/pull/4773) [`bb141a719`](https://github.com/aws-amplify/amplify-ui/commit/bb141a719fd9bc2d7680e539f2ff047deb88ee7e) Thanks [@thaddmt](https://github.com/thaddmt)! - fix: resend code forgot password
+
+## 6.0.1
+
+### Patch Changes
+
+- [#4761](https://github.com/aws-amplify/amplify-ui/pull/4761) [`9dd0e58e5`](https://github.com/aws-amplify/amplify-ui/commit/9dd0e58e5167d307c2154b3280de3c0e52f607e1) Thanks [@thaddmt](https://github.com/thaddmt)! - fix: Manual version bump to fix liveness major version 3.0.1 issue
+
+## 6.0.0
+
+### Major Changes
+
+- [#4509](https://github.com/aws-amplify/amplify-ui/pull/4509) [`55d1f4940`](https://github.com/aws-amplify/amplify-ui/commit/55d1f49401359bb0b75756742658b173edc0fb72) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - breaking: refactoring Tabs component to remove Radix dependency and allow more composability and customization.
+
+  ```diff
+  - import { Tabs, TabItem } from '@aws-amplify/ui-react'
+  + import { Tabs } from '@aws-amplify/ui-react'
+
+  - <Tabs>
+  -  <TabItem title="Tab 1">
+  -    Tab 1 Content
+  -  </TabItem>
+
+  + <Tabs.Container defaultValue="Tab 1">
+  +  <Tabs.List>
+  +    <Tabs.Item value="Tab 1">Tab 1</Tabs.Item>
+  +  </Tabs.List>
+  +  <Tabs.Panel value="Tab 1">
+  +    Tab 1 Content
+  +  </Tabs.Panel>
+  + </Tabs.Container>
+  ```
+
+  You can also use the Tabs in a uncomposed way too:
+
+  ```jsx
+  <Tabs
+    defaultValue={'Tab 1'}
+    items={[
+      { label: 'Tab 1', value: 'Tab 1', content: 'Tab content #1' },
+      { label: 'Tab 2', value: 'Tab 2', content: 'Tab content #2' },
+      { label: 'Tab 3', value: 'Tab 3', content: 'Tab content #3' },
+    ]}
+  />
+  ```
+
+  Some notable differences:
+
+  - Instead of providing a `defaultIndex` or `currentIndex` you provide a `defaultValue` or `value`. Each Tabs.Item and Tabs.Panel should have a `value` that matches with the corresponding element.
+  - `onChange` becomes `onValueChange`
+  - You should supply a `defaultValue` or `value` or else there will be no default selected tab. Previously the Tabs component would default to the first tab.
+
+  There are also more design tokens and better CSS classes for easier customization.
+
+- [#4474](https://github.com/aws-amplify/amplify-ui/pull/4474) [`27783d65a`](https://github.com/aws-amplify/amplify-ui/commit/27783d65a06e712bb3ca8c116798a52db3d4a3a4) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - breaking: updating classnames for better BEM syntax
+
+  - `amplify-loader__percentage-text` -> `amplify-loader__label`
+  - `amplify-menu-content-wrapper` -> `amplify-menu__wrapper`
+  - `amplify-menu-trigger` -> `amplify-menu__trigger`
+  - `amplify-menu-content` -> `amplify-menu__content`
+  - `amplify-menu-content__item` -> `amplify-menu__content__item`
+  - `amplify-pagination__item-button` -> `amplify-pagination__item`
+  - `amplify-pagination__item-current` -> `amplify-pagination__item--current`
+  - `amplify-pagination__item-ellipsis` -> `amplify-pagination__item--ellipsis`
+  - `amplify-rating-icon-container` -> `amplify-rating__item`
+  - `amplify-rating-icon` -> `amplify-rating__icon`
+  - `amplify-rating-icon-filled` -> `amplify-rating__icon--filled`
+  - `amplify-rating-icon-empty` -> `amplify-rating__icon--empty`
+  - `amplify-select__icon-wrapper` -> `amplify-select__icon`
+
+- [#4476](https://github.com/aws-amplify/amplify-ui/pull/4476) [`59c042c17`](https://github.com/aws-amplify/amplify-ui/commit/59c042c170358c6cc2ca09d13ffcc7e517586ef2) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - breaking: renaming Expander to Accordion and removing Radix dependency. The Accordion component is now built with `<details>` and `<summary>` elements to handle showing/hiding content.
+
+  ```jsx
+  <Accordion.Container>
+    <Accordion.Item value="item-1">
+      <Accordion.Trigger>
+        Click me first!
+        <Accordion.Icon />
+      </Accordion.Trigger>
+      <Accordion.Content>
+        Now when you click the second item, this item will automatically
+        collapse.
+      </Accordion.Content>
+    </Accordion.Item>
+    <Accordion.Item value="item-2">
+      <Accordion.Trigger>
+        Then click me!
+        <Accordion.Icon />
+      </Accordion.Trigger>
+      <Accordion.Content>
+        Notice how only one item can be open at a time for the single Accordion
+        type.
+      </Accordion.Content>
+    </Accordion.Item>
+  </Accordion.Container>
+  ```
+
+  The Accordion can be controlled or uncontrolled (with a default value)
+
+- Major version bump for all Amplify UI packages due to uprade of peerDependency aws-amplify to v6
+
+- [#4635](https://github.com/aws-amplify/amplify-ui/pull/4635) [`91372387c`](https://github.com/aws-amplify/amplify-ui/commit/91372387c29f5d68526070e4c3b8a13bbf079e5c) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - breaking(theme): removing brand namespace from the theme tokens
+
+  ```diff
+  - tokens.colors.brand.primary[10]
+  + tokens.colors.primary[10]
+  ```
+
+  ```diff
+  const theme = createTheme({
+    tokens: {
+      colors: {
+  -       brand: {
+          primary: {
+            //...
+          }
+  -       }
+      }
+    }
+  })
+  ```
+
+  We also added the ability to easily set the entire range of primary and secondary colors at the theme level
+
+  ```ts
+  const theme = createTheme({
+    primaryColor: 'red',
+    secondaryColor: 'green',
+  });
+  ```
+
+### Minor Changes
+
+- [#4445](https://github.com/aws-amplify/amplify-ui/pull/4445) [`7b55f4f78`](https://github.com/aws-amplify/amplify-ui/commit/7b55f4f781c3adab19c3d91ef9f293647566ecd9) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat: allow themes to have arbitrary tokens
+
+- [#4578](https://github.com/aws-amplify/amplify-ui/pull/4578) [`27be6ccf5`](https://github.com/aws-amplify/amplify-ui/commit/27be6ccf51ce093d3589f9f36b4530e6825a317b) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat: add CSS layers support and CSS file splitting. The default style import '@aws-amplify/ui-react/styles.css' remains unchanged so these features are opt-in.
+  We are now exposing each different component CSS file if you want fine-grained control over what CSS is loaded. Additionally, we will have a CSS reset and a base CSS file.
+  If you only wanted the button CSS you could do this:
+
+  ```javascript
+  import '@aws-amplify/ui-react/styles/reset.css';
+  import '@aws-amplify/ui-react/styles/base.css';
+  import '@aws-amplify/ui-react/styles/button.css';
+  ```
+
+  You can also use the main 'styles.css' import with the new reset file too.
+
+  To use CSS layers, replace '.css' with '.layer.css' for any CSS import.
+
+  ```diff
+  - import '@aws-amplify/ui-react/styles.css'
+  + import '@aws-amplify/ui-react/styles.layer.css'
+  ```
+
+### Patch Changes
+
+- [#4719](https://github.com/aws-amplify/amplify-ui/pull/4719) [`f9e4fa838`](https://github.com/aws-amplify/amplify-ui/commit/f9e4fa8388a1994996a132f50261f431d1a52e43) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(rna): refactor fed sign in
+
+- [#4716](https://github.com/aws-amplify/amplify-ui/pull/4716) [`5bd721183`](https://github.com/aws-amplify/amplify-ui/commit/5bd72118342c4a3040c13e923024d476a643a795) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(deps): upgrade aws-amplify deps
+
 ## 5.8.1
 
 ### Patch Changes

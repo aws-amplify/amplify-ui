@@ -15,7 +15,7 @@ export class CustomSignUpFieldsComponent {
     async validateCustomSignUp(formData: Record<string, string>) {
       if (!formData.acknowledgement) {
         return {
-          acknowledgement: 'You must agree to the Terms & Conditions',
+          acknowledgement: 'You must agree to the Terms and Conditions',
         };
       }
     },

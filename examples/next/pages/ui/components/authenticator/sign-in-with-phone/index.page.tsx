@@ -1,9 +1,11 @@
-import { Amplify, I18n } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import { I18n } from 'aws-amplify/utils';
 
 import { withAuthenticator, translations } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
+
 Amplify.configure(awsExports);
 
 I18n.putVocabularies(translations);
@@ -22,7 +24,7 @@ const formFields = {
   signUp: {
     phone_number: {
       dialCode: '+227',
-      dialCodeList: ['+1', '+82', '+227', '+100', '+227'],
+      dialCodeList: ['+1', '+82', '+227', '+100'],
     },
   },
 };
@@ -30,10 +32,12 @@ const formFields = {
 function App({ user, signOut }) {
   return (
     <>
-      <h2>Welcome, {user.attributes?.phone_number}</h2>
+      <h2>Welcome, {user.username}</h2>
       <button onClick={signOut}>Sign out</button>
     </>
   );
 }
 
-export default withAuthenticator(App, { formFields: formFields });
+export default withAuthenticator(App, {
+  formFields: formFields,
+});

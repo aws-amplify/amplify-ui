@@ -34,7 +34,7 @@ export interface FaceLivenessDetectorCoreProps {
   /**
    * Optional parameter for the disabling the Start/Get Ready Screen, default: false
    */
-  disableInstructionScreen?: boolean;
+  disableStartScreen?: boolean;
 
   /**
    * Optional parameter for advanced options for the component
@@ -126,6 +126,7 @@ export enum FaceMatchState {
   CANT_IDENTIFY = 'CANNOT IDENTIFY',
   FACE_IDENTIFIED = 'ONE FACE IDENTIFIED',
   TOO_MANY = 'TOO MANY FACES',
+  OFF_CENTER = 'OFF CENTER',
 }
 
 export interface LivenessError {
