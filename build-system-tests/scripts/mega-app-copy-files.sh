@@ -154,8 +154,8 @@ if [[ "$FRAMEWORK" == 'angular' ]]; then
     fi
     if [[ "$FRAMEWORK_VERSION" == 14 ]]; then
         echo "pin @types/node version in mega-apps/${MEGA_APP_NAME}/package.json"
-        echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/package.json -e 'this.overrides = { "@types/node": "20.11.7" }'"
-        npx json -I -f mega-apps/${MEGA_APP_NAME}/package.json -e 'this.overrides = { "@types/node": "20.11.7" }' 
+        echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/package.json -e 'this.dependencies["@types/node"] = "20.11.7"'"
+        npx json -I -f mega-apps/${MEGA_APP_NAME}/package.json -e 'this.dependencies["@types/node"] = "20.11.7"'
     fi
 
 fi
