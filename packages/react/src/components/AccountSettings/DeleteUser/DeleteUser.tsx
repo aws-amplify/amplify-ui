@@ -114,8 +114,9 @@ function DeleteUser({
       </DeleteButton>
       {state === 'CONFIRMATION' || state === 'DELETING' ? (
         <WarningView
-          onCancel={handleCancel}
+          displayText={displayText}
           isDisabled={state === 'DELETING'}
+          onCancel={handleCancel}
           onConfirm={handleConfirmDelete}
         />
       ) : null}
