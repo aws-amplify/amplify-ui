@@ -1,5 +1,11 @@
 # @aws-amplify/ui-vue
 
+## 4.1.0
+
+### Minor Changes
+
+- [#4964](https://github.com/aws-amplify/amplify-ui/pull/4964) [`ac703f49d`](https://github.com/aws-amplify/amplify-ui/commit/ac703f49d7403c716ffe443139a79fb8d8647c2c) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(vue): add vue peerDep
+
 ## 4.0.8
 
 ### Patch Changes
