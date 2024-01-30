@@ -10,7 +10,7 @@ import {
 
 import { components } from '../../../global-spec';
 import * as UseAuthComposables from '../../composables/useAuth';
-import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
+import { baseMockServiceFacade } from '../../composables/__mocks__/useAuthenticatorMock';
 import SignUp from '../sign-up.vue';
 
 jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
