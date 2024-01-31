@@ -40,6 +40,7 @@ import VariationWeb from './variation.web.mdx';
 import HideSignupReactNative from './hidesignup.react-native.mdx';
 import HideSignupSwift from './hidesignup.swift.mdx';
 import HideSignupWeb from './hidesignup.web.mdx';
+import TotpAndroid from './totpIssuer.android.mdx';
 import TotpSwift from './totpIssuer.swift.mdx';
 
 export async function getStaticPaths() {
@@ -155,6 +156,9 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
   </Tabs.Panel>
 </Tabs.Container>
 
+<InlineFilter filters={['android']}>
+  <TotpAndroid />
+</InlineFilter>
 <InlineFilter filters={['angular']}>
   <SocialProviderWeb />
 
