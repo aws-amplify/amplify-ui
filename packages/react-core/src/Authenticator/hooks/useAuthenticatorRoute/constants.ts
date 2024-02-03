@@ -76,6 +76,7 @@ const SIGN_UP_MACHINE_KEYS: SignUpMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,
   'hasValidationErrors',
   'socialProviders',
+  'toFederatedSignIn',
   'toSignIn',
   'validationErrors',
 ];

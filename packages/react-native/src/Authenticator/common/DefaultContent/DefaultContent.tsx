@@ -14,7 +14,7 @@ function useThemedStyles<Style>(getStyle: (theme: StrictTheme) => Style) {
 }
 
 export default function DefaultContent<
-  FieldsType extends TextFieldOptionsType | RadioFieldOptions
+  FieldsType extends TextFieldOptionsType | RadioFieldOptions,
 >({
   body,
   buttons: { primary, links, secondary },
