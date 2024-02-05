@@ -1,7 +1,12 @@
 import { CopyButton } from '@/components/CopyButton';
-import { Tabs } from '@aws-amplify/ui-react';
+import { Alert, Tabs, Text } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/router';
-import { Framework, REACT_NATIVE_DEPENDENCIES } from '../data/frameworks';
+import {
+  Framework,
+  FRAMEWORK_DISPLAY_NAMES,
+  REACT_NATIVE_DEPENDENCIES,
+  MAJOR_VERSIONS,
+} from '../data/frameworks';
 
 type PackageManager = 'npm' | 'yarn';
 
@@ -31,6 +36,48 @@ const frameworkInstallScript = (
   const componentSubpackage = component ? `-${component}` : '';
 
   return `${packageManagerPrefix} @aws-amplify/ui-${framework}${componentSubpackage} aws-amplify${extraDependencies}`;
+};
+
+export const PrevVersionInstallAlert = ({ framework }) => {
+  const {
+    query: { platform = 'react' },
+  } = useRouter();
+
+  if (!framework) {
+    framework = platform as Framework;
+  }
+
+  const prevFrameworkVersion = MAJOR_VERSIONS[framework][1];
+  const heading = `${FRAMEWORK_DISPLAY_NAMES[framework]} ${prevFrameworkVersion}`;
+
+  const isReactNative = framework === 'react-native';
+  if (isReactNative) {
+    return (
+      <Alert role="none" variation="info" heading={heading}>
+        <Text>
+          Using version {prevFrameworkVersion} of{' '}
+          <code>@aws-amplify/ui-{framework}</code>? *Omit* `@aws-amplify/
+          {framework} and *specify* versions{' '}
+          <code>
+            @aws-amplify/ui-{framework}@{prevFrameworkVersion}.x
+          </code>{' '}
+          and <code>aws-amplify@{MAJOR_VERSIONS['aws-amplify'][1]}.x</code>.
+        </Text>
+      </Alert>
+    );
+  }
+  return (
+    <Alert role="none" variation="info" heading={heading}>
+      <Text>
+        Using version {prevFrameworkVersion} of{' '}
+        <code>@aws-amplify/ui-{framework}</code>? Specify versions{' '}
+        <code>
+          @aws-amplify/ui-{framework}@{prevFrameworkVersion}.x
+        </code>{' '}
+        and <code>aws-amplify@{MAJOR_VERSIONS['aws-amplify'][1]}.x</code>.
+      </Text>
+    </Alert>
+  );
 };
 
 export const TerminalCommand = ({

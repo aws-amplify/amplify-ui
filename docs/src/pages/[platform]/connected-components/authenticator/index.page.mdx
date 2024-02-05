@@ -7,9 +7,9 @@ supportedFrameworks: android|angular|flutter|react|react-native|swift|vue
 import { InlineFilter } from '@/components/InlineFilter';
 import AppDirectoryAlert from '@/components/AppDirectoryAlert';
 
-import { Alert, Tabs } from '@aws-amplify/ui-react';
 import { NextSteps } from './NextSteps';
-import { FRAMEWORKS } from '@/data/frameworks';
+import { MajorVersionsList } from '@/components/MigrationCallouts';
+import { MAJOR_VERSIONS } from '@/data/frameworks';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
 import WebIntro from './intro.web.mdx';
 import AndroidIntro from './intro.android.mdx';
@@ -30,8 +30,21 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-<InlineFilter filters={['angular', 'react', 'vue']}>
-  <WebIntro />
+<InlineFilter filters={['angular', 'react', 'vue', 'react-native']} >
+  ### Major Versions
+</InlineFilter>
+
+<InlineFilter filters={['angular']}>
+  <MajorVersionsList framework="angular" component="Authenticator"/>
+  <WebIntro framework='ui-angular' prevVersion={MAJOR_VERSIONS['angular'][1]}/>
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <MajorVersionsList framework="react" component="Authenticator"/>
+  <WebIntro framework='ui-react' prevVersion={MAJOR_VERSIONS['react'][1]}/>
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+  <MajorVersionsList framework="vue" component="Authenticator"/>
+  <WebIntro framework='ui-vue' prevVersion={MAJOR_VERSIONS['vue'][1]}/>
 </InlineFilter>
 <InlineFilter filters={['android']}>
   <AndroidIntro />
@@ -40,7 +53,8 @@ export async function getStaticProps() {
   <FlutterIntro />
 </InlineFilter>
 <InlineFilter filters={['react-native']}>
-  <ReactNativeIntro />
+  <MajorVersionsList framework="react-native" component="Authenticator"/>
+  <ReactNativeIntro prevVersion={MAJOR_VERSIONS['react-native'][1]}/>
 </InlineFilter>
 <InlineFilter filters={['swift']}>
   <SwiftIntro />
