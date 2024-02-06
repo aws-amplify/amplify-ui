@@ -7,6 +7,18 @@ export const getRoute = (
   state: AuthMachineState,
   actorState: AuthActorState
 ) => {
+  // 'federatedSignIn' exists as a state on both the 'signInActor' and 'signUpActor',
+  // match against the `actorState` initially to determine if the federated sign in flow
+  // has begun, then which actor has begun the flow and return the corresponding `route`
+  if (actorState?.matches('federatedSignIn')) {
+    if (state.matches('signUpActor')) {
+      return 'signUp';
+    }
+    if (state.matches('signInActor')) {
+      return 'signIn';
+    }
+  }
+
   switch (true) {
     case state.matches('idle'):
       return 'idle';
@@ -25,7 +37,6 @@ export const getRoute = (
     case actorState?.matches('setupTotp.submit'):
       return 'setupTotp';
     case actorState?.matches('signIn'):
-    case actorState?.matches('federatedSignIn'):
       return 'signIn';
     case actorState?.matches('signUp'):
     case actorState?.matches('autoSignIn'):

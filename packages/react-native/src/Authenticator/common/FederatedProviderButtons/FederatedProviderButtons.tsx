@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { View } from 'react-native';
-import { signInWithRedirect } from 'aws-amplify/auth';
 
 import {
   SocialProvider,
@@ -17,21 +16,13 @@ import { getThemedStyles } from './styles';
 
 const { getSignInWithFederationText, getOrText } = authenticatorTextUtil;
 
-// use `signInWithRedirect` directly instead of `toFederatedSignIn`
-// exposed on `useAuthenticator` for RN. `@aws-amplify/rtn-web-browser`
-// does not emit an event on federated sign in flow cancellation,
-// preventing the `Authenticator` from updating state and leaving the
-// UI in a "pending" state
-const handleSignInWithRedirect = (
-  provider: 'amazon' | 'apple' | 'facebook' | 'google'
-) => signInWithRedirect({ provider: capitalize(provider) });
-
 export default function FederatedProviderButtons({
   buttonStyle,
   dividerLabelStyle,
   route,
   socialProviders,
   style,
+  toFederatedSignIn,
 }: FederatedProviderButtonsProps): JSX.Element | null {
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
@@ -42,7 +33,7 @@ export default function FederatedProviderButtons({
         const providerIconSource = icons[`${provider}Logo`];
 
         const handlePress = () => {
-          handleSignInWithRedirect(provider);
+          toFederatedSignIn({ provider: capitalize(provider) });
         };
 
         return (
@@ -56,7 +47,7 @@ export default function FederatedProviderButtons({
           </FederatedProviderButton>
         );
       }),
-    [route, socialProviders, themedStyle, buttonStyle]
+    [route, socialProviders, themedStyle, buttonStyle, toFederatedSignIn]
   );
 
   return providerButtons?.length ? (
