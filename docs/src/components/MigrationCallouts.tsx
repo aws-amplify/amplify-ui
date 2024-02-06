@@ -1,4 +1,4 @@
-import { Alert, Link, Text } from '@aws-amplify/ui-react';
+import { Alert, Link, Tabs, Text } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/router';
 import {
   Framework,
@@ -6,7 +6,7 @@ import {
   MAJOR_VERSIONS,
 } from '../data/frameworks';
 
-export const ForgotPasswordAlert = ({ framework }) => {
+export const ForgotPasswordRenameAlert = ({ framework }) => {
   const {
     query: { platform = 'react' },
   } = useRouter();
@@ -121,5 +121,24 @@ export const AngularSlotsRename = () => {
         <code>reset-password-footer</code> in their place.
       </Text>
     </Alert>
+  );
+};
+
+export const TabsComponent = ({ children }) => {
+  return (
+    <Tabs.Container defaultValue={`${MAJOR_VERSIONS['angular'][0]}`}>
+      <Tabs.List>
+        <Tabs.Item value={`${MAJOR_VERSIONS['angular'][0]}`}>
+          Version {MAJOR_VERSIONS['angular'][0]}
+        </Tabs.Item>
+        <Tabs.Item value={`${MAJOR_VERSIONS['angular'][0]}`}>
+          Version {MAJOR_VERSIONS['angular'][1]}
+        </Tabs.Item>
+      </Tabs.List>
+      <Tabs.Panel value={`${MAJOR_VERSIONS['angular'][0]}`}>
+        {children}
+      </Tabs.Panel>
+      .
+    </Tabs.Container>
   );
 };

@@ -1,0 +1,106 @@
+import { Tabs, Alert } from '@aws-amplify/ui-react';
+import { MAJOR_VERSIONS } from '@/data/frameworks';
+
+export let latestVersion = MAJOR_VERSIONS['angular'][0];
+export let prevVersion = MAJOR_VERSIONS['angular'][1];
+
+_app.component.html_
+
+```html{1}
+<amplify-authenticator
+  [services]="services"
+  initialState="signUp"
+>
+  <ng-template
+    amplifySlot="authenticated"
+    let-user="user"
+    let-signOut="signOut"
+  >
+    <h2>Welcome, {{ user.username }}!</h2>
+    <button (click)="signOut()">Sign Out</button>
+  </ng-template>
+</amplify-authenticator>
+
+```
+
+_app.component.ts_
+<Tabs.Container defaultValue={latestVersion}>
+  <Tabs.List>
+    <Tabs.Item value={latestVersion}>Version {latestVersion}</Tabs.Item>
+    <Tabs.Item value={prevVersion}>Version {prevVersion}</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value={latestVersion}>
+    In version {latestVersion}, `Auth` function calls are imported directly as shown below. 
+    ```js{3}
+    import { Component, OnInit } from '@angular/core';
+    import { Amplify } from 'aws-amplify';
+    import { signUp } from 'aws-amplify/auth';
+    import awsExports from './aws-exports';
+
+    @Component({
+      selector: 'sign-up-with-email',
+      templateUrl: 'sign-up-with-email.component.html',
+    })
+    export class SignUpWithEmailComponent implements OnInit {
+      constructor() {
+        Amplify.configure(awsExports);
+      }
+      services = {
+        async handleSignUp(formData: Record<string, any>) {
+          let { username, password, options } = formData;
+          // custom username and email
+          username = username.toLowerCase();
+          const customEmail = options?.userAttributes?.email?.toLowerCase();
+          return signUp({
+            ...formData,
+            options: {
+              ...formData?.options,
+              userAttributes: {
+                ...formData?.options?.userAttributes,
+                email: customEmail,
+              },
+            },
+          });
+        },
+      };
+    }
+    ```
+  </Tabs.Panel>
+  <Tabs.Panel value={prevVersion}>
+    <Alert role="none" variation="warning" heading="Sign Up Auto Sign In">
+    If you're overriding `signUp` in **version {prevVersion} or earlier**, you must include the `autoSignIn` key and set `enabled` to true, as show in the example below.
+    </Alert>
+    In earlier versions, `Auth` function calls are imported from the `Auth` object.
+    ```jsx{2,25}
+      import { Component, OnInit } from '@angular/core';
+      import { Amplify, Auth } from 'aws-amplify';
+      import awsExports from './aws-exports';
+
+      @Component({
+        selector: 'sign-up-with-email',
+        templateUrl: 'sign-up-with-email.component.html',
+      })
+      export class SignUpWithEmailComponent implements OnInit {
+        constructor() {
+          Amplify.configure(awsExports);
+        }
+
+        services = {
+        async handleSignUp(formData: Record<string, any>) {
+          let { username, password, attributes } = formData;
+          // custom username and email
+          username = username.toLowerCase();
+          attributes.email = attributes.email.toLowerCase();
+          return Auth.signUp({
+            username,
+            password,
+            attributes,
+            autoSignIn: {
+              enabled: true,
+            },
+          });
+        },
+      };
+    ```
+  </Tabs.Panel>
+</Tabs.Container>
