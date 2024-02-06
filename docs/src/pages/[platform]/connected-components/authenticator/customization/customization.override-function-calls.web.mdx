@@ -1,6 +1,9 @@
 import { InlineFilter } from '@/components/InlineFilter';
-import { useVersion } from '@/utils/useVersion';
+import { useLatestVersion, usePrevVersion } from '@/utils/useVersion';
 import { ResponsiveTable, ResponsiveTableCell } from '@/components/ResponsiveTable';
+import {
+  MAJOR_VERSIONS,
+} from '@/data/frameworks';
 import { Tabs, TableCell, TableBody, TableHead, TableRow, Alert } from '@aws-amplify/ui-react';
 
 ## Override Function Calls
@@ -10,10 +13,6 @@ To override a call you must create a new `services` object with an `async` `hand
 
 The service object must then be passed into the `authenticator` component as a `services` prop. For example, let's imagine you'd like to lowercase the `username` and the `email` attributes during `signUp`.
 This would be overriden like so:
-
-<Alert role="none" variation="warning" heading="Sign Up Auto Sign In">
-  When overriding `signUp` you must include the `autoSignIn` key and set `enabled` to true, as show in the example below.
-</Alert>
 
 <InlineFilter filters={['angular']}>
 _app.component.html_
@@ -37,120 +36,272 @@ _app.component.html_
 
 _app.component.ts_
 
-```js{14}
-import { Component, OnInit } from '@angular/core';
-import { Amplify, Auth } from 'aws-amplify';
-import awsExports from './aws-exports';
+<Tabs.Container defaultValue={MAJOR_VERSIONS['angular'][0]}>
+  <Tabs.List>
+    <Tabs.Item value={MAJOR_VERSIONS['angular'][0]}>Version {MAJOR_VERSIONS['angular'][0]}</Tabs.Item>
+    <Tabs.Item value={MAJOR_VERSIONS['angular'][1]}>Version {MAJOR_VERSIONS['angular'][1]}</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value={MAJOR_VERSIONS['angular'][0]}>
+    In version {MAJOR_VERSIONS['angular'][0]}, `Auth` function calls are imported directly as shown below. 
+    ```js{3}
+    import { Component, OnInit } from '@angular/core';
+    import { Amplify } from 'aws-amplify';
+    import { signUp } from 'aws-amplify/auth';
+    import awsExports from './aws-exports';
 
-@Component({
-  selector: 'sign-up-with-email',
-  templateUrl: 'sign-up-with-email.component.html',
-})
-export class SignUpWithEmailComponent implements OnInit {
-  constructor() {
-    Amplify.configure(awsExports);
-  }
-
-  services = {
-    async handleSignUp(formData: Record<string, any>) {
-      let { username, password, attributes } = formData;
-      // custom username
-      username = username.toLowerCase();
-      attributes.email = attributes.email.toLowerCase();
-      return Auth.signUp({
-        username,
-        password,
-        attributes,
-        autoSignIn: {
-          enabled: true,
+    @Component({
+      selector: 'sign-up-with-email',
+      templateUrl: 'sign-up-with-email.component.html',
+    })
+    export class SignUpWithEmailComponent implements OnInit {
+      constructor() {
+        Amplify.configure(awsExports);
+      }
+      services = {
+        async handleSignUp(formData: Record<string, any>) {
+          let { username, password, options } = formData;
+          // custom username and email
+          username = username.toLowerCase();
+          const customEmail = options?.userAttributes?.email?.toLowerCase();
+          return signUp({
+            ...formData,
+            options: {
+              ...formData?.options,
+              userAttributes: {
+                ...formData?.options?.userAttributes,
+                email: customEmail,
+              },
+            },
+          });
         },
-      });
-    },
-  };
+      };
+    }
+    ```
+  </Tabs.Panel>
+  <Tabs.Panel value={MAJOR_VERSIONS['angular'][1]}>
+    <Alert role="none" variation="warning" heading="Sign Up Auto Sign In">
+    If you're overriding `signUp` in **version {MAJOR_VERSIONS['angular'][1]} or earlier**, you must include the `autoSignIn` key and set `enabled` to true, as show in the example below.
+    </Alert>
+    In earlier versions, `Auth` function calls are imported from the `Auth` object.
+    ```jsx{2,25}
+      import { Component, OnInit } from '@angular/core';
+      import { Amplify, Auth } from 'aws-amplify';
+      import awsExports from './aws-exports';
 
-```
+      @Component({
+        selector: 'sign-up-with-email',
+        templateUrl: 'sign-up-with-email.component.html',
+      })
+      export class SignUpWithEmailComponent implements OnInit {
+        constructor() {
+          Amplify.configure(awsExports);
+        }
+
+        services = {
+        async handleSignUp(formData: Record<string, any>) {
+          let { username, password, attributes } = formData;
+          // custom username and email
+          username = username.toLowerCase();
+          attributes.email = attributes.email.toLowerCase();
+          return Auth.signUp({
+            username,
+            password,
+            attributes,
+            autoSignIn: {
+              enabled: true,
+            },
+          });
+        },
+      };
+    ```
+  </Tabs.Panel>
+</Tabs.Container>
+
 </InlineFilter>
 <InlineFilter filters={['react']}>
-```jsx{8}
-import { Amplify, Auth } from 'aws-amplify';
-import { Authenticator } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-import awsExports from './aws-exports';
-Amplify.configure(awsExports);
+  <Tabs.Container defaultValue={MAJOR_VERSIONS['react'][0]}>
+    <Tabs.List>
+      <Tabs.Item value={MAJOR_VERSIONS['react'][0]}>Version {MAJOR_VERSIONS['react'][0]}</Tabs.Item>
+      <Tabs.Item value={MAJOR_VERSIONS['react'][1]}>Version {MAJOR_VERSIONS['react'][1]}</Tabs.Item>
+    </Tabs.List>
+    <Tabs.Panel value={MAJOR_VERSIONS['react'][0]}>
+      In version {MAJOR_VERSIONS['react'][0]}, `Auth` function calls are imported directly as shown below. 
+      ```jsx{2}
+      import { Amplify } from 'aws-amplify';
+      import { signUp, SignUpInput } from 'aws-amplify/auth';
+      import { Authenticator } from '@aws-amplify/ui-react';
+      import '@aws-amplify/ui-react/styles.css';
+      import awsExports from './aws-exports';
+      Amplify.configure(awsExports);
 
-export default function AuthenticatorWithEmail() {
-  const services = {
-    async handleSignUp(formData) {
-      let { username, password, attributes } = formData;
-      // custom username
-      username = username.toLowerCase();
-      attributes.email = attributes.email.toLowerCase();
-      return Auth.signUp({
-        username,
-        password,
-        attributes,
-        autoSignIn: {
-          enabled: true,
+      export default function AuthenticatorWithEmail() {
+        const services = {
+          async handleSignUp(input: SignUpInput) {
+            // custom username and email
+            const customUsername = input.username.toLowerCase();
+            const customEmail = input.options?.userAttributes?.email.toLowerCase();
+            return signUp({
+              ...input,
+              username: customUsername,
+              options: {
+                ...input.options,
+                userAttributes: {
+                  ...input.options?.userAttributes,
+                  email: customEmail,
+                },
+              },
+            });
+          },
+        };
+        return (
+          <Authenticator services={services} initialState="signUp">
+            {({ signOut }) => <button onClick={signOut}>Sign out</button>}
+          </Authenticator>
+        );
+      }
+      ```
+    </Tabs.Panel>
+    <Tabs.Panel value={MAJOR_VERSIONS['react'][1]}>
+      <Alert role="none" variation="warning" heading="Sign Up Auto Sign In">
+        If you're overriding `signUp` in **version {MAJOR_VERSIONS['react'][1]} or earlier**, you must include the `autoSignIn` key and set `enabled` to true, as show in the example below.
+      </Alert>
+      In earlier versions, `Auth` function calls are imported from the `Auth` object.
+    ```jsx{1,19}
+    import { Amplify, Auth } from 'aws-amplify';
+    import { Authenticator } from '@aws-amplify/ui-react';
+    import '@aws-amplify/ui-react/styles.css';
+    import awsExports from './aws-exports';
+    Amplify.configure(awsExports);
+
+    export default function AuthenticatorWithEmail() {
+      const services = {
+        async handleSignUp(formData) {
+          let { username, password, attributes } = formData;
+          // custom username and email
+          username = username.toLowerCase();
+          attributes.email = attributes.email.toLowerCase();
+          return Auth.signUp({
+            username,
+            password,
+            attributes,
+            autoSignIn: {
+              enabled: true,
+            },
+          });
         },
-      });
-    },
-  };
+      };
 
-  return (
-    <Authenticator services={services} initialState="signUp">
-      {({ signOut }) => <button onClick={signOut}>Sign out</button>}
-    </Authenticator>
-  );
-}
-```
+      return (
+        <Authenticator services={services} initialState="signUp">
+          {({ signOut }) => <button onClick={signOut}>Sign out</button>}
+        </Authenticator>
+      );
+    }
+    ```
+    </Tabs.Panel>
+  </Tabs.Container>
+
 </InlineFilter>
 <InlineFilter filters={['vue']}>
-```html
-<script setup lang="ts">
-  import { Amplify, Auth } from 'aws-amplify';
-  import { Authenticator } from '@aws-amplify/ui-vue';
-  import '@aws-amplify/ui-vue/styles.css';
-  import aws_exports from './aws-exports';
-  Amplify.configure(aws_exports);
+  <Tabs.Container defaultValue={MAJOR_VERSIONS['vue'][0]}>
+    <Tabs.List>
+      <Tabs.Item value={MAJOR_VERSIONS['vue'][0]}>Version {MAJOR_VERSIONS['vue'][0]}</Tabs.Item>
+      <Tabs.Item value={MAJOR_VERSIONS['vue'][1]}>Version {MAJOR_VERSIONS['vue'][1]}</Tabs.Item>
+    </Tabs.List>
+    <Tabs.Panel value={MAJOR_VERSIONS['vue'][0]}>
+    In version {MAJOR_VERSIONS['vue'][0]}, `Auth` function calls are imported directly as shown below. 
+    ```html
+      <script setup lang="ts">
+      import { Amplify } from 'aws-amplify';
+      import { signUp } from 'aws-amplify/auth';
+      import { Authenticator } from '@aws-amplify/ui-vue';
+      import '@aws-amplify/ui-vue/styles.css';
+      import aws_exports from './aws-exports';
+      Amplify.configure(aws_exports);
 
-  const services = {
-    async handleSignUp(formData) {
-      let { username, password, attributes } = formData;
-      // custom username
-      username = username.toLowerCase();
-      attributes.email = attributes.email.toLowerCase();
-      return Auth.signUp({
-        username,
-        password,
-        attributes,
-        autoSignIn: {
-          enabled: true,
+      const services = {
+        async handleSignUp(formData) {
+          let { username, password, options } = formData;
+          // custom username
+          username = username.toLowerCase();
+          const customEmail = options?.userAttributes?.email?.toLowerCase();
+          return signUp({
+            username,
+            password,
+            options: {
+              ...formData?.options,
+              userAttributes: {
+                ...formData?.options?.userAttributes,
+                email: customEmail,
+              },
+            },
+          });
         },
-      });
-    },
-  };
-</script>
+      };
+      </script>
 
-<template>
-  <authenticator :services="services" initial-state="signUp">
-    <template v-slot="{ user, signOut }">
-      <h1>Hello {{ user.username }}!</h1>
-      <button @click="signOut">Sign Out</button>
-    </template>
-  </authenticator>
-</template>
-```
+      <template>
+        <authenticator :services="services" initial-state="signUp">
+          <template v-slot="{ user, signOut }">
+            <h1>Hello {{ user.username }}!</h1>
+            <button @click="signOut">Sign Out</button>
+          </template>
+        </authenticator>
+      </template>
+    ```
+    </Tabs.Panel>
+    <Tabs.Panel value={MAJOR_VERSIONS['vue'][1]}>
+      <Alert role="none" variation="warning" heading="Sign Up Auto Sign In">
+        If you're overriding `signUp` in **version {MAJOR_VERSIONS['vue'][1]} or earlier**, you must include the `autoSignIn` key and set `enabled` to true, as show in the example below.
+      </Alert>
+      In earlier versions, `Auth` function calls are imported from the `Auth` object.
+      ```html{}
+      <script setup lang="ts">
+        import { Amplify, Auth } from 'aws-amplify';
+        import { Authenticator } from '@aws-amplify/ui-vue';
+        import '@aws-amplify/ui-vue/styles.css';
+        import aws_exports from './aws-exports';
+        Amplify.configure(aws_exports);
+
+        const services = {
+          async handleSignUp(formData) {
+            let { username, password, attributes } = formData;
+            // custom username
+            username = username.toLowerCase();
+            attributes.email = attributes.email.toLowerCase();
+            return Auth.signUp({
+              username,
+              password,
+              attributes,
+              autoSignIn: {
+                enabled: true,
+              },
+            });
+          },
+        };
+      </script>
+
+      <template>
+        <authenticator :services="services" initial-state="signUp">
+          <template v-slot="{ user, signOut }">
+            <h1>Hello {{ user.username }}!</h1>
+            <button @click="signOut">Sign Out</button>
+          </template>
+        </authenticator>
+      </template>
+      ```
+    </Tabs.Panel>
+  </Tabs.Container>
+
 </InlineFilter>
 
-
-
 Each `handle*` function will return the neccessary values you'll need to make the call to the `Auth` function call. Here is a table of each override function name, and the values returned from `formData`.
-<Tabs.Container defaultValue={useVersion() + 1}>
+<Tabs.Container defaultValue={useLatestVersion()}>
   <Tabs.List>
-    <Tabs.Item value={useVersion() + 1}>Version {useVersion() + 1}</Tabs.Item>
-  <Tabs.Item value={useVersion()}>Version {useVersion()}</Tabs.Item>
+    <Tabs.Item value={useLatestVersion()}>Version {useLatestVersion()}</Tabs.Item>
+  <Tabs.Item value={usePrevVersion()}>Version {usePrevVersion()}</Tabs.Item>
   </Tabs.List>
-  <Tabs.Panel value={useVersion() + 1}>
+  <Tabs.Panel value={useLatestVersion()}>
     <ResponsiveTable labelWidth="10rem">
       <TableHead>
         <TableRow>
@@ -193,7 +344,7 @@ Each `handle*` function will return the neccessary values you'll need to make th
       </TableBody>
     </ResponsiveTable>
   </Tabs.Panel>
-  <Tabs.Panel value={useVersion()}>
+  <Tabs.Panel value={usePrevVersion()}>
   <ResponsiveTable labelWidth="10rem">
     <TableHead>
       <TableRow>

@@ -77,7 +77,7 @@ export const MajorVersionsList = ({ framework, component }) => {
   }
 
   const latest = (
-    <li>
+    <li key={0}>
       <code>
         @aws-amplify/ui-{framework}@{MAJOR_VERSIONS[framework][0]}.x (latest)
       </code>
@@ -93,19 +93,33 @@ export const MajorVersionsList = ({ framework, component }) => {
         </code>
       </li>
     ));
-
+  const listItems = [latest, ...otherVersions];
   return (
     <div>
-      <Text>
-        The <code>{component}</code> component for{' '}
-        {FRAMEWORK_DISPLAY_NAMES[framework]} currently offers the following
-        major versions:
-        <ul>
-          {latest}
-          {otherVersions}
-        </ul>
-      </Text>
+      The <code>{component}</code> component for{' '}
+      {FRAMEWORK_DISPLAY_NAMES[framework]} currently offers the following major
+      versions:
+      <ul>{listItems}</ul>
       <MigrationGuideCallout framework={framework} />
     </div>
+  );
+};
+
+export const AngularSlotsRename = () => {
+  return (
+    <Alert
+      role="none"
+      variation="info"
+      heading={`Angular ${MAJOR_VERSIONS['angular'][1]}`}
+    >
+      <Text>
+        <code>forgot-password-header</code> and{' '}
+        <code>forgot-password-footer</code> were renamed in version{' '}
+        {MAJOR_VERSIONS['angular'][0]}. In versions{' '}
+        {MAJOR_VERSIONS['angular'][1]} and earlier, use
+        <code>reset-password-header</code> and{' '}
+        <code>reset-password-footer</code> in their place.
+      </Text>
+    </Alert>
   );
 };
