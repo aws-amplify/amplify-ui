@@ -3,50 +3,43 @@ import {
   ThemeProvider,
   Theme,
   useTheme,
+  View,
 } from '@aws-amplify/ui-react';
 export function AuthStyle() {
   const { tokens } = useTheme();
   const theme: Theme = {
     name: 'Auth Example Theme',
     tokens: {
-      colors: {
-        background: {
-          primary: {
-            value: tokens.colors.neutral['90'].value,
-          },
-          secondary: {
-            value: tokens.colors.neutral['100'].value,
-          },
-        },
-        font: {
-          interactive: {
-            value: tokens.colors.white.value,
-          },
-        },
-        primary: {
-          '10': tokens.colors.teal['100'],
-          '80': tokens.colors.teal['40'],
-          '90': tokens.colors.teal['20'],
-          '100': tokens.colors.teal['10'],
-        },
-      },
       components: {
+        authenticator: {
+          router: {
+            boxShadow: '0 0 16px hsla(0, 0%, 0%, 0.1)',
+            borderWidth: '0',
+          },
+          form: {
+            padding:
+              'var(--amplify-space-medium) var(--amplify-space-xl) var(--amplify-space-xl)',
+          },
+        },
+        button: {
+          primary: {
+            backgroundColor: { value: '{colors.neutral.100}' },
+          },
+          link: {
+            color: { value: '{colors.purple.80}' },
+          },
+        },
+        fieldcontrol: {
+          _focus: {
+            boxShadow: '0 0 0 2px var(--amplify-colors-purple-60)',
+          },
+        },
         tabs: {
           item: {
-            _focus: {
-              color: {
-                value: tokens.colors.white.value,
-              },
-            },
-            _hover: {
-              color: {
-                value: tokens.colors.yellow['80'].value,
-              },
-            },
+            color: { value: '{colors.neutral.80}' },
             _active: {
-              color: {
-                value: tokens.colors.white.value,
-              },
+              borderColor: { value: '{colors.neutral.100}' },
+              color: { value: '{colors.purple.100}' },
             },
           },
         },
@@ -56,7 +49,9 @@ export function AuthStyle() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Authenticator></Authenticator>
+      <View padding="xxl">
+        <Authenticator></Authenticator>
+      </View>
     </ThemeProvider>
   );
 }

@@ -10,21 +10,22 @@ You can customize the Authenticator's default style by using [CSS variables](../
 
 ### CSS style
 
-The example below uses a `<style>` tag to change the default colors to a dark theme:
+The example below uses a `<style>` tag to change the appearance of some of the components used for the Authenticator:
 
 ```css
+
 [data-amplify-authenticator] {
-  --amplify-colors-background-primary: var(--amplify-colors-neutral-90);
-  --amplify-colors-background-secondary: var(--amplify-colors-neutral-100);
-  --amplify-colors-primary-10: var(--amplify-colors-teal-100);
-  --amplify-colors-primary-80: var(--amplify-colors-teal-40);
-  --amplify-colors-primary-90: var(--amplify-colors-teal-20);
-  --amplify-colors-primary-100: var(--amplify-colors-teal-10);
-  --amplify-colors-font-interactive: var(--amplify-colors-white);
-  --amplify-components-tabs-item-active-color: var(--amplify-colors-white);
-  --amplify-components-tabs-item-focus-color: var(--amplify-colors-white);
-  --amplify-components-tabs-item-hover-color: var(--amplify-colors-orange);
+  --amplify-components-authenticator-router-box-shadow: 0 0 16px hsla(0, 0%, 0%, 0.1);
+  --amplify-components-authenticator-router-border-width: 0;
+  --amplify-components-authenticator-form-padding: var(--amplify-space-medium) var(--amplify-space-xl) var(--amplify-space-xl);
+  --amplify-components-button-primary-background-color: var(--amplify-colors-neutral-100);
+  --amplify-components-fieldcontrol-focus-box-shadow: 0 0 0 2px var(--amplify-colors-purple-60);
+  --amplify-components-tabs-item-active-border-color: var(--amplify-colors-neutral-100);
+  --amplify-components-tabs-item-color: var(--amplify-colors-neutral-80);
+  --amplify-components-tabs-item-active-color: var(--amplify-colors-purple-100);
+  --amplify-components-button-link-color: var(--amplify-colors-purple-80);
 }
+
 ```
 
 <Example>
@@ -39,7 +40,7 @@ You can update the style of the Authenticator by using the [ThemeProvider](/reac
 
 Then create a [theme object](/react/theming#theme-object), with all your font and color updates. Feel free to use [design tokens](/react/theming#design-tokens), as a way of designing your theme further.
 
-Below is an example of changing the default colors to a dark theme.
+Below is an example of changing the appearance of the Authenticator and its related components using the theme object.
 
 ```jsx file=./AuthStyle.tsx
 
@@ -57,17 +58,17 @@ Below is an example of changing the default colors to a dark theme.
 
 You can also override the authenticator's `amplify-*` classes.
 
-For example, if you'd like to hide the sign up tab, you can override the `amplify-tabs` class.
+For example, if you'd like to hide the sign up tab, you can override the `amplify-tabs__list` class.
 
 ```css
-.amplify-tabs {
+.amplify-tabs__list {
   display: none;
 }
 ```
 
 <Example>
   <style>{`
-    .customization-hide-sign-up .amplify-tabs {
+    .customization-hide-sign-up .amplify-tabs__list {
       display: none;
     }
   `}</style>
@@ -77,7 +78,7 @@ For example, if you'd like to hide the sign up tab, you can override the `amplif
 If you'd like to update the primary color of your submit button you can override the `amplify-button` class.
 
 ```css
-.amplify-button[data-variation='primary'] {
+.amplify-button--primary {
   background: linear-gradient(
     to right,
     var(--amplify-colors-green-80),
@@ -87,10 +88,6 @@ If you'd like to update the primary color of your submit button you can override
 ```
 
 <Example>
-  <style>{`
-    .customization-button .amplify-button[data-variation="primary"] {
-      background:linear-gradient(to right, var(--amplify-colors-green-80),var(--amplify-colors-orange-40) );
-    }
-  `}</style>
+  <style>{`.customization-button .amplify-button--primary { background: linear-gradient(to right, var(--amplify-colors-green-80), var(--amplify-colors-orange-40));}`}</style>
   <Authenticator className="customization-button" />
 </Example>
