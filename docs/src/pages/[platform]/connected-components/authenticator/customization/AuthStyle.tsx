@@ -13,33 +13,32 @@ export function AuthStyle() {
       components: {
         authenticator: {
           router: {
-            boxShadow: '0 0 16px hsla(0, 0%, 0%, 0.1)',
+            boxShadow: `0 0 16px ${tokens.colors.overlay['10']}`,
             borderWidth: '0',
           },
           form: {
-            padding:
-              'var(--amplify-space-medium) var(--amplify-space-xl) var(--amplify-space-xl)',
+            padding: `${tokens.space.medium} ${tokens.space.xl} ${tokens.space.medium}`,
           },
         },
         button: {
           primary: {
-            backgroundColor: { value: '{colors.neutral.100}' },
+            backgroundColor: tokens.colors.neutral['100'],
           },
           link: {
-            color: { value: '{colors.purple.80}' },
+            color: tokens.colors.purple['80'],
           },
         },
         fieldcontrol: {
           _focus: {
-            boxShadow: '0 0 0 2px var(--amplify-colors-purple-60)',
+            boxShadow: `0 0 0 2px ${tokens.colors.purple['60']}`,
           },
         },
         tabs: {
           item: {
-            color: { value: '{colors.neutral.80}' },
+            color: tokens.colors.neutral['80'],
             _active: {
-              borderColor: { value: '{colors.neutral.100}' },
-              color: { value: '{colors.purple.100}' },
+              borderColor: tokens.colors.neutral['100'],
+              color: tokens.colors.purple['100'],
             },
           },
         },
