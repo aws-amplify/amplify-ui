@@ -50,7 +50,7 @@ export function AuthStyle() {
   return (
     <ThemeProvider theme={theme}>
       <View padding="xxl">
-        <Authenticator></Authenticator>
+        <Authenticator />
       </View>
     </ThemeProvider>
   );
