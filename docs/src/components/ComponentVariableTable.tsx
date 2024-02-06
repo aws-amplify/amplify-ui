@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Alert, Grid, ScrollView, useTheme } from '@aws-amplify/ui-react';
 
 function extractClasses(themeObject) {
-  console.log('themeObject: ', themeObject);
   if (!themeObject || typeof themeObject !== 'object') return [];
   const themeKeys = Object.keys(themeObject);
   let classNames = [];
@@ -21,7 +20,6 @@ function extractClasses(themeObject) {
 
 export const ComponentVariableTable = ({ componentName }) => {
   const { tokens } = useTheme();
-  console.log(componentName);
   const variableNames = extractClasses(
     tokens?.components?.[componentName.toLowerCase()]
   ).sort();
