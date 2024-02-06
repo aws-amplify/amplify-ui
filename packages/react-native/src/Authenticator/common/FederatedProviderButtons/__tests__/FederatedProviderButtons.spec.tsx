@@ -1,6 +1,5 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
-import * as AuthModule from 'aws-amplify/auth';
 
 import {
   AuthenticatorRoute,
@@ -44,13 +43,7 @@ describe('FederatedProviderButtons', () => {
     expect(toJSON()).toBe(null);
   });
 
-  it('calls signInWithRedirect with the expected provider on press', () => {
-    const signInWithRedirectSpy = jest
-      .spyOn(AuthModule, 'signInWithRedirect')
-      .mockImplementation((_?: AuthModule.SignInWithRedirectInput) =>
-        Promise.resolve(undefined)
-      );
-
+  it('calls toFederatedSignIn with the expected provider on press', () => {
     const { getByText } = render(
       <FederatedProviderButtons {...defaultProps} />
     );
@@ -62,7 +55,7 @@ describe('FederatedProviderButtons', () => {
 
     fireEvent.press(providerButton);
 
-    expect(signInWithRedirectSpy).toHaveBeenCalledWith({
+    expect(toFederatedSignIn).toHaveBeenCalledWith({
       provider: capitalize(provider),
     });
   });

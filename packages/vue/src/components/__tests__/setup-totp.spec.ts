@@ -6,7 +6,7 @@ import * as UIModule from '@aws-amplify/ui';
 
 import { components } from '../../../global-spec';
 import * as UseAuthComposables from '../../composables/useAuth';
-import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
+import { baseMockServiceFacade } from '../../composables/__mocks__/useAuthenticatorMock';
 import { UseAuthenticator } from '../../types';
 import SetupTotp from '../setup-totp.vue';
 

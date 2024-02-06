@@ -70,7 +70,6 @@
     "postcss": "^8.4.31",
     "puppeteer": "^19.7.2",
     "react-markdown": "^8.0.3",
-    "sitemap-urls": "^3.0.0",
     "ts-node": "^10.9.1"
   }
 }

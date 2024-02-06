@@ -6,7 +6,7 @@ import { AuthInterpreter, AuthMachineState } from '@aws-amplify/ui';
 
 import { components } from '../../../global-spec';
 import * as UseAuthComposables from '../../composables/useAuth';
-import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
+import { baseMockServiceFacade } from '../../composables/__mocks__/useAuthenticatorMock';
 import SignIn from '../sign-in.vue';
 
 jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({

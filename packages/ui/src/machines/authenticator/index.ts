@@ -265,10 +265,7 @@ export function createAuthenticatorMachine(
           initial: 'spawnActor',
           states: {
             spawnActor: {
-              always: {
-                actions: 'spawnSignOutActor',
-                target: 'runActor',
-              },
+              always: { actions: 'spawnSignOutActor', target: 'runActor' },
             },
             runActor: {
               entry: 'clearActorDoneData',

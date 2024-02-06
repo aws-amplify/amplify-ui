@@ -1,3 +1,6 @@
+import { ExampleCode } from '@/components/Example';
+import { Link } from '@aws-amplify/ui-react';
+
 A Theme is a structured collection of design decisions that change the appearance of a UI library. An Amplify UI theme is a structured object of [design tokens](#design-tokens) and [overrides](#overrides).
 
 
@@ -95,3 +98,36 @@ const theme = {
   }]
 }
 ```
+
+## Using tokens to style react-native components
+
+You can use `useTheme()` to use Amplify UI theme tokens to style other elements in your app. For example, to style the React Native `<Text />` element, import `useTheme()` from `@aws-amplify/ui-react-native`:
+
+
+<ExampleCode>
+
+```jsx
+import React from 'react';
+import { useTheme } from '@aws-amplify/ui-react-native';
+import { StyleSheet, Text } from 'react-native';
+
+function MyComponent() {
+  // Get tokens from theme using useTheme()
+  const { tokens } = useTheme();
+
+  // Use tokens as part of your component styles
+  const styles = StyleSheet.create({
+    text: {
+      color: tokens.colors.primary.80,
+    },
+  });
+
+  return (
+    <Text style={styles.text}>Test</Text>   
+  );
+}
+```
+</ExampleCode>
+
+More styling and theme related examples can be found in our react-native example app code: <Link isExternal={true} href="https://github.com/aws-amplify/amplify-ui/tree/main/examples/react-native/src/features/Theming">Theming examples</Link> and <Link isExternal={true} href="https://github.com/aws-amplify/amplify-ui/tree/main/examples/react-native/src/features/Authenticator/Styles">Authenticator styling example</Link>
+

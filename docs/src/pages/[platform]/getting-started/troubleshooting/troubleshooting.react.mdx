@@ -1,4 +1,4 @@
-import { Alert, Tabs } from '@aws-amplify/ui-react';
+import { Alert, Tabs, Message } from '@aws-amplify/ui-react';
 import { TerminalCommand } from '@/components/InstallScripts';
 import VitePolyfill from './shared/vite-polyfill.mdx';
 import VitePolyfillTS from './shared/vite-polyfill-ts.mdx';
@@ -6,6 +6,13 @@ import VitePolyfillTS from './shared/vite-polyfill-ts.mdx';
 ## Astro
 
 ### `Uncaught ReferenceError: global is not defined`
+
+<Message
+  variation="filled"
+  colorTheme="info"
+  >
+  Note: this issue was fixed in `aws-amplify` version 6
+</Message>
 
 When working with a [Astro](https://astro.build/) project you must make a few modifications. Please follow the steps below.
 <Tabs.Container defaultValue="TypeScript">
@@ -183,19 +190,15 @@ These errors will not affect the use and functionality of the client, nor will e
 
 ### Webpack 5+: `Uncaught ReferenceError: process is not defined`
 
-Follow the instructions below to if you are using Webpack 5:
+<Message
+  variation="filled"
+  colorTheme="info"
+  >
+  Note: this issue has been fixed in `aws-amplify` version 6. The polyfill is only required for projects that use `aws-amplify` version 5 (or earlier) with Webpack version 5 (or later).
+</Message>
 
-<Alert role="none" variation="info">
-*Note:*
-Polyfill is only required for Webpack 5+. In this version Node.js global variable shims required by the `aws-amplify` package were removed, which results in the following error message:
+Follow the instructions below if you are using Webpack 5:
 
-```
-Uncaught ReferenceError: process is not defined
-```
-
-Webpack 4 already includes this polyfill.
-
-</Alert>
 
 1. Add
    [node-polyfill-webpack-plugin](https://www.npmjs.com/package/node-polyfill-webpack-plugin)
@@ -230,6 +233,13 @@ Follow [here](#cra-4-cant-import-the-named-export-amplify-from-non-ecmascript-mo
 ## Vite
 
 ### `Uncaught ReferenceError: global is not defined`
+
+<Message
+  variation="filled"
+  colorTheme="info"
+  >
+  Note: this issue was fixed in `aws-amplify` version 6
+</Message>
 
 When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.
 
