@@ -1,5 +1,16 @@
 # @aws-amplify/ui-vue
 
+## 4.2.0
+
+### Minor Changes
+
+- [#4966](https://github.com/aws-amplify/amplify-ui/pull/4966) [`a82bc69f3`](https://github.com/aws-amplify/amplify-ui/commit/a82bc69f301cee4458b8061ec2a87f3e39b2d603) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(vue): migrate to standardized tsconfig and align exports test
+
+### Patch Changes
+
+- Updated dependencies [[`7eeb0ae7c`](https://github.com/aws-amplify/amplify-ui/commit/7eeb0ae7c0ee651a0a2ec0e6e945732219dbacf2)]:
+  - @aws-amplify/ui@6.0.9
+
 ## 4.1.0
 
 ### Minor Changes

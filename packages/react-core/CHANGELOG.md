@@ -1,5 +1,14 @@
 # @aws-amplify/ui-react-core
 
+## 3.0.9
+
+### Patch Changes
+
+- [#4978](https://github.com/aws-amplify/amplify-ui/pull/4978) [`7eeb0ae7c`](https://github.com/aws-amplify/amplify-ui/commit/7eeb0ae7c0ee651a0a2ec0e6e945732219dbacf2) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(Authenticator): update state machine to include onDone in federated sign in flow
+
+- Updated dependencies [[`7eeb0ae7c`](https://github.com/aws-amplify/amplify-ui/commit/7eeb0ae7c0ee651a0a2ec0e6e945732219dbacf2)]:
+  - @aws-amplify/ui@6.0.9
+
 ## 3.0.8
 
 ### Patch Changes
