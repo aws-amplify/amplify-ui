@@ -65,7 +65,7 @@ The `user` object provided after an end user has been authenticated has been upd
 ```diff
 - interface AmplifyUser {
 -   challengeName?: ChallengeName;
--   attributes?: CognitpAttributes;
+-   attributes?: CognitoAttributes;
 -   username: string;  
 - }
 + interface AuthUser  {
@@ -126,7 +126,7 @@ The input and return type interfaces are available as imports from `aws-amplify/
 import { ConfirmSignInInput } from 'aws-amplify';
 ```
 
-##$ 3.x to 4.x
+## 3.x to 4.x
 ### Installation
 Install the 4.x version of the `@aws-amplify/ui-angular` library.
 

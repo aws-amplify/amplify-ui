@@ -23,8 +23,11 @@ const config: Config = {
   },
   testEnvironment: 'jsdom',
   verbose: true,
-  moduleFileExtensions: ['js', 'ts', 'json', 'vue', 'tsx'],
-  moduleNameMapper: { '^nanoid$': '<rootDir>/../../node_modules/nanoid' },
+  moduleFileExtensions: ['js', 'ts', 'vue'],
+  moduleNameMapper: {
+    '\\.css$': '<rootDir>/__mocks__/styleMock.js',
+    '^nanoid$': '<rootDir>/../../node_modules/nanoid',
+  },
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
   setupFilesAfterEnv: ['./jest.setup.ts'],
   transform: {

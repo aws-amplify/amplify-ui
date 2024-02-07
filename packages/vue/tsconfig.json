@@ -1,22 +1,12 @@
 {
-  "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "strict": true,
-    "jsx": "preserve",
-    "importHelpers": true,
-    "moduleResolution": "node",
-    // see: https://github.com/vuejs/test-utils/issues/1538
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "allowJs": true,
-    "sourceMap": true,
-    "baseUrl": ".",
-    "outDir": "dist",
-    "resolveJsonModule": true,
-    "types": ["webpack-env", "vite/client"]
-  },
-  "include": ["jest.setup.ts", "src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "extends": "@aws-amplify/typescript-config/tsconfig.vue.json",
+  "include": [
+    "__mocks__",
+    "__tests__",
+    "*.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue"
+  ],
   "exclude": ["node_modules"]
 }

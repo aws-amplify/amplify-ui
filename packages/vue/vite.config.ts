@@ -25,13 +25,7 @@ export default defineConfig({
           declaration: true,
           declarationMap: true,
         },
-        exclude: [
-          'vite.config.ts',
-          '*.ts',
-          '__tests__',
-          '**/__mock__',
-          '**/__tests__',
-        ],
+        exclude: ['*.ts', '**/__mocks__', '**/__tests__'],
       },
     }) as PluginOption,
   ],
@@ -64,11 +58,7 @@ export default defineConfig({
         'aws-amplify/utils',
         'vue',
       ],
-      output: {
-        globals: {
-          vue: 'Vue',
-        },
-      },
+      output: { globals: { vue: 'Vue' } },
     },
   },
 });

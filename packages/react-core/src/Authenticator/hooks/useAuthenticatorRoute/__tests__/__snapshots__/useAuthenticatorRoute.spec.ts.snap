@@ -162,6 +162,7 @@ exports[`useAuthenticatorRoute returns the expected values for the signUp route 
     "hasValidationErrors": false,
     "isPending": false,
     "socialProviders": [],
+    "toFederatedSignIn": [MockFunction],
     "toSignIn": [MockFunction],
     "validationErrors": {},
   },
