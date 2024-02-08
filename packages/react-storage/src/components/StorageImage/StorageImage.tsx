@@ -24,7 +24,7 @@ export const StorageImage = ({
   const options = React.useMemo(
     () => ({
       accessLevel,
-      identityId,
+      targetIdentityId: identityId,
       validateObjectExistence: resolvedValidateObjectExistence,
     }),
     [accessLevel, identityId, resolvedValidateObjectExistence]
