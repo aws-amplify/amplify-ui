@@ -6,8 +6,8 @@ export const prevVersion = MAJOR_VERSIONS['react-native'][1];
 
 <Tabs.Container defaultValue={latestVersion}>
   <Tabs.List>
-    <Tabs.Item value={latestVersion}>Version {latestVersion}</Tabs.Item>
-    <Tabs.Item value={prevVersion}>Version {prevVersion}</Tabs.Item>
+    <Tabs.Item value={latestVersion}>ui-react-native v{latestVersion} (latest)</Tabs.Item>
+    <Tabs.Item value={prevVersion}>ui-react-native v{prevVersion}</Tabs.Item>
   </Tabs.List>
   <Tabs.Panel value={latestVersion}>
     ```jsx{6} expoSnack file=../../../../../../../../examples/react-native/src/features/Authenticator/OverrideServices/Example.tsx
@@ -16,7 +16,7 @@ export const prevVersion = MAJOR_VERSIONS['react-native'][1];
   </Tabs.Panel>
     <Tabs.Panel value={prevVersion}>
       <Alert role="none" variation="warning" heading="Sign Up Auto Sign In">
-        When overriding `signUp` in **version {prevVersion}** you must include the `autoSignIn` key and set `enabled` to true, as show in the example below.
+        When overriding `signUp` in **version {prevVersion}** you must include the `autoSignIn` key and set `enabled` to true, as shown in the example below.
       </Alert>
       ```jsx{4, 24}
         import React from 'react';

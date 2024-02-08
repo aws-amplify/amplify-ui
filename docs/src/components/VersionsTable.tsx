@@ -27,8 +27,12 @@ export const VersionsTable = ({ framework }) => {
   return (
     <Tabs.Container defaultValue={latestVersion}>
       <Tabs.List>
-        <Tabs.Item value={latestVersion}>Version {latestVersion}</Tabs.Item>
-        <Tabs.Item value={prevVersion}>Version {prevVersion}</Tabs.Item>
+        <Tabs.Item value={latestVersion}>
+          ui-{framework} v{latestVersion} (latest)
+        </Tabs.Item>
+        <Tabs.Item value={prevVersion}>
+          ui-{framework} v{prevVersion}
+        </Tabs.Item>
       </Tabs.List>
       <Tabs.Panel value={latestVersion}>
         <ResponsiveTable labelWidth="10rem">

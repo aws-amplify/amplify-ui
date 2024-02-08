@@ -16,7 +16,8 @@ const MigrationGuideCallout = ({ framework }) => {
   }
   return (
     <Alert role="none" variation="info">
-      Working with version {MAJOR_VERSIONS[framework][1]} or earlier?{' '}
+      Working with version ui-{framework}@{MAJOR_VERSIONS[framework][1]}.x or
+      earlier?{' '}
       <Link href="../../getting-started/migration">
         See our migration guide.
       </Link>

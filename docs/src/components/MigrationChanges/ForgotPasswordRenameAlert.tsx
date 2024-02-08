@@ -23,7 +23,7 @@ export const ForgotPasswordRenameAlert = ({ framework }) => {
       <Alert
         role="none"
         variation="info"
-        heading={`${FRAMEWORK_DISPLAY_NAMES[framework]} ${prevFrameworkVersion}`}
+        heading={`ui-${framework}@${prevFrameworkVersion}.x`}
       >
         <Text>
           Use <code>resetPassword</code> in place of <code>forgotPassword</code>{' '}
@@ -38,7 +38,7 @@ export const ForgotPasswordRenameAlert = ({ framework }) => {
     <Alert
       role="none"
       variation="info"
-      heading={`${FRAMEWORK_DISPLAY_NAMES[framework]} ${prevFrameworkVersion}`}
+      heading={`ui-${framework}@${prevFrameworkVersion}.x`}
     >
       <Text>
         Use <code>resetPassword</code> in place of <code>forgotPassword</code>{' '}
