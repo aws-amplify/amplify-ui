@@ -6,8 +6,7 @@ supportedFrameworks: android|angular|flutter|react|react-native|swift|vue
 
 import { InlineFilter } from '@/components/InlineFilter';
 import AppDirectoryAlert from '@/components/AppDirectoryAlert';
-import { MajorVersionsList } from '@/components/MigrationChanges/MajorVersionsList';
-import { MAJOR_VERSIONS } from '@/data/frameworks';
+import { MigrationGuideCallout } from '@/components/MigrationChanges/MigrationGuideCallout';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
 
 import { NextSteps } from './NextSteps';
@@ -30,20 +29,16 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-<InlineFilter filters={['angular', 'react', 'vue', 'react-native']} >
-  ## Major Versions
-</InlineFilter>
-
 <InlineFilter filters={['angular']}>
-  <MajorVersionsList framework="angular" component="Authenticator"/>
+  <MigrationGuideCallout framework="angular"/>
   <WebIntro />
 </InlineFilter>
 <InlineFilter filters={['react']}>
-  <MajorVersionsList framework="react" component="Authenticator"/>
+  <MigrationGuideCallout framework="react" />
   <WebIntro />
 </InlineFilter>
 <InlineFilter filters={['vue']}>
-  <MajorVersionsList framework="vue" component="Authenticator"/>
+  <MigrationGuideCallout framework="vue" />
   <WebIntro />
 </InlineFilter>
 <InlineFilter filters={['android']}>
@@ -53,7 +48,7 @@ export async function getStaticProps() {
   <FlutterIntro />
 </InlineFilter>
 <InlineFilter filters={['react-native']}>
-  <MajorVersionsList framework="react-native" component="Authenticator"/>
+  <MigrationGuideCallout framework="react-native" />
   <ReactNativeIntro />
 </InlineFilter>
 <InlineFilter filters={['swift']}>

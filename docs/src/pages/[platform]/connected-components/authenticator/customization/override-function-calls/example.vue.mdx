@@ -1,8 +1,8 @@
 import { Tabs, Alert } from '@aws-amplify/ui-react';
-import { MAJOR_VERSIONS } from '@/data/frameworks';
+import { CURRENT_MAJOR_VERSIONS, PREV_MAJOR_VERSIONS } from '@/data/frameworks';
 
-export const latestVersion = MAJOR_VERSIONS['vue'][0];
-export const prevVersion = MAJOR_VERSIONS['vue'][1];
+export const latestVersion = CURRENT_MAJOR_VERSIONS['vue'];
+export const prevVersion = PREV_MAJOR_VERSIONS['vue'];
 
   <Tabs.Container defaultValue={latestVersion}>
     <Tabs.List>

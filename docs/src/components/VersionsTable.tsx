@@ -10,7 +10,11 @@ import {
   TableRow,
 } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/router';
-import { Framework, MAJOR_VERSIONS } from '../data/frameworks';
+import {
+  Framework,
+  PREV_MAJOR_VERSIONS,
+  CURRENT_MAJOR_VERSIONS,
+} from '../data/frameworks';
 
 export const VersionsTable = ({ framework }) => {
   const {
@@ -21,8 +25,8 @@ export const VersionsTable = ({ framework }) => {
     framework = platform as Framework;
   }
 
-  const latestVersion = MAJOR_VERSIONS[framework][0].toString();
-  const prevVersion = MAJOR_VERSIONS[framework][1].toString();
+  const latestVersion = CURRENT_MAJOR_VERSIONS[framework].toString();
+  const prevVersion = PREV_MAJOR_VERSIONS[framework].toString();
 
   return (
     <Tabs.Container defaultValue={latestVersion}>

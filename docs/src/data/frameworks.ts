@@ -28,12 +28,20 @@ export const FRAMEWORK_DISPLAY_NAMES: Record<Framework, string> = {
   vue: 'Vue',
 };
 
-export const MAJOR_VERSIONS: Record<string, number[]> = {
-  angular: [5, 4, 3, 2, 1],
-  'aws-amplify': [6, 5, 4, 3, 2, 1],
-  react: [6, 5, 4, 3, 2, 1],
-  'react-native': [2, 1],
-  vue: [4, 3, 2, 1],
+export const PREV_MAJOR_VERSIONS: Record<string, number> = {
+  angular: 4,
+  'aws-amplify': 5,
+  react: 5,
+  'react-native': 1,
+  vue: 3,
+};
+
+export const CURRENT_MAJOR_VERSIONS: Record<string, number> = {
+  angular: 5,
+  'aws-amplify': 6,
+  react: 6,
+  'react-native': 2,
+  vue: 4,
 };
 
 // React Native requires direct installation of dependencies with native modules

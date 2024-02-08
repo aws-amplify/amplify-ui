@@ -1,10 +1,6 @@
 import { Alert, Text } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/router';
-import {
-  Framework,
-  FRAMEWORK_DISPLAY_NAMES,
-  MAJOR_VERSIONS,
-} from '../../data/frameworks';
+import { Framework, PREV_MAJOR_VERSIONS } from '../../data/frameworks';
 
 export const ForgotPasswordRenameAlert = ({ framework }) => {
   const {
@@ -16,7 +12,7 @@ export const ForgotPasswordRenameAlert = ({ framework }) => {
   }
 
   const isReactNative = framework === 'react-native';
-  const prevFrameworkVersion = MAJOR_VERSIONS[framework][1];
+  const prevFrameworkVersion = PREV_MAJOR_VERSIONS[framework];
 
   if (isReactNative) {
     return (

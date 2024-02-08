@@ -1,8 +1,8 @@
 import { Alert, Tabs } from '@aws-amplify/ui-react';
-import { MAJOR_VERSIONS } from '@/data/frameworks';
+import { CURRENT_MAJOR_VERSIONS, PREV_MAJOR_VERSIONS } from '@/data/frameworks';
 
-export const latestVersion = MAJOR_VERSIONS['react-native'][0];
-export const prevVersion = MAJOR_VERSIONS['react-native'][1];
+export const latestVersion = CURRENT_MAJOR_VERSIONS['react-native'];
+export const prevVersion = PREV_MAJOR_VERSIONS['react-native'];
 
 <Tabs.Container defaultValue={latestVersion}>
   <Tabs.List>
