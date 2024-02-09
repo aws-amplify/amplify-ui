@@ -87,7 +87,10 @@ export class AuthenticatorComponent
 
     const { initializeMachine } = this.authenticator;
 
-    // subscribe to the auth state observable to handle changes in machine state
+    /**
+     * Subscribes to state machine changes and sends INIT event
+     * once machine reaches 'setup' state.
+     */
     this.unsubscribeMachine = this.authenticator.authStateObservable$.subscribe(
       () => {
         const { route } = this.authenticator;
