@@ -58,7 +58,9 @@ export type CheckboxTokens<Output extends OutputVariantKey> =
     _disabled?: DesignTokenProperties<'cursor', Output>;
     button?: ButtonToken<Output>;
     icon?: IconToken<Output>;
-    label?: { _disabled?: DesignTokenProperties<'color', Output> };
+    label?: DesignTokenProperties<'color', Output> & {
+      _disabled?: DesignTokenProperties<'color', Output>;
+    };
   };
 
 export const checkbox: Required<CheckboxTokens<'default'>> = {
@@ -127,8 +129,11 @@ export const checkbox: Required<CheckboxTokens<'default'>> = {
     },
   },
   label: {
+    color: { value: '{components.text.color.value}' },
     _disabled: {
-      color: { value: '{colors.font.disabled.value}' },
+      color: {
+        value: '{colors.font.disabled.value}',
+      },
     },
   },
 };
