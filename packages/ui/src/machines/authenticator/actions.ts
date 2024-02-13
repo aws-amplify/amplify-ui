@@ -31,7 +31,6 @@ const clearMissingAttributes = assign({ missingAttributes: undefined });
 const clearError = assign({ remoteError: undefined });
 const clearFormValues = assign({ formValues: {} });
 const clearTouched = assign({ touched: {} });
-const clearUser = assign({ user: undefined });
 const clearValidationError = assign({ validationError: {} });
 
 /**
@@ -219,7 +218,6 @@ const ACTIONS: MachineOptions<AuthActorContext, AuthEvent>['actions'] = {
   clearMissingAttributes,
   clearSelectedUserAttribute,
   clearTouched,
-  clearUser,
   clearValidationError,
   handleBlur,
   handleInput,

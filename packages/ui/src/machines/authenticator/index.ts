@@ -51,7 +51,7 @@ const stopActor = (machineId: string) => stop(machineId);
 const LEGACY_WAIT_CONFIG = {
   on: {
     INIT: {
-      actions: ['configure'],
+      actions: 'configure',
       target: 'getConfig',
     },
     SIGN_OUT: '#authenticator.signOut',
@@ -60,7 +60,16 @@ const LEGACY_WAIT_CONFIG = {
 
 // setup step proceeds directly to configure
 const NEXT_WAIT_CONFIG = {
-  always: { actions: ['configure'], target: 'getConfig' },
+  always: { actions: 'configure', target: 'getConfig' },
+};
+
+// initial machine context values, used on machine start and on sign out
+const DEFAULT_MACHINE_CONTEXT = {
+  actorRef: undefined,
+  config: {},
+  hasSetup: false,
+  services: defaultServices,
+  user: undefined,
 };
 
 export function createAuthenticatorMachine(
@@ -74,13 +83,7 @@ export function createAuthenticatorMachine(
     {
       id: 'authenticator',
       initial: 'idle',
-      context: {
-        user: undefined,
-        config: {},
-        services: defaultServices,
-        actorRef: undefined,
-        hasSetup: false,
-      },
+      context: DEFAULT_MACHINE_CONTEXT,
       predictableActionArguments: true,
       states: {
         // See: https://xstate.js.org/docs/guides/communication.html#invoking-promises
@@ -193,6 +196,11 @@ export function createAuthenticatorMachine(
                 target: '#authenticator.getCurrentUser',
               },
               {
+                cond: 'isShouldConfirmUserAttributeStep',
+                actions: 'setActorDoneData',
+                target: '#authenticator.verifyUserAttributesActor',
+              },
+              {
                 cond: 'isConfirmUserAttributeStep',
                 target: '#authenticator.verifyUserAttributesActor',
               },
@@ -274,7 +282,7 @@ export function createAuthenticatorMachine(
           },
           on: {
             'done.invoke.signOutActor': {
-              actions: 'clearUser',
+              actions: 'resetContext',
               target: 'setup.getConfig',
             },
           },
@@ -294,6 +302,7 @@ export function createAuthenticatorMachine(
     {
       actions: {
         ...actions,
+        resetContext: assign(DEFAULT_MACHINE_CONTEXT),
         forwardToActor: choose([
           { cond: 'hasActor', actions: forwardTo(({ actorRef }) => actorRef) },
         ]),
