@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 import awsExports from './aws-exports';
 
 @Component({
   selector: 'custom-sign-up-fields',
   templateUrl: 'custom-sign-up-fields.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomSignUpFieldsComponent {
   constructor() {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 import { AuthenticatorService } from '@aws-amplify/ui-angular';
 
@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'use-authenticator',
   templateUrl: 'useAuthenticator.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UseAuthenticatorComponent {
   constructor(

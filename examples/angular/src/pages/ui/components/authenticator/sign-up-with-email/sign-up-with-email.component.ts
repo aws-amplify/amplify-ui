@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { Amplify } from 'aws-amplify';
 import { signUp, SignUpInput } from 'aws-amplify/auth';
@@ -11,6 +11,7 @@ Amplify.configure(awsExports);
 @Component({
   selector: 'sign-up-with-email',
   templateUrl: 'sign-up-with-email.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignUpWithEmailComponent implements OnInit {
   constructor(public authenticator: AuthenticatorService) {}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { translations } from '@aws-amplify/ui-angular';
 import awsExports from './aws-exports';
 import { Amplify } from 'aws-amplify';
@@ -6,6 +6,7 @@ import { I18n } from 'aws-amplify/utils';
 @Component({
   selector: 'i18n',
   templateUrl: 'i18n.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class I18nComponent implements OnInit {
   constructor() {
