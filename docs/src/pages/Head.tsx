@@ -19,7 +19,7 @@ export const Head = () => {
     .split('/')
     .filter((n) => n && n !== '[platform]')
     .join('/')}`;
-  const { title, metaTitle, description, metaDescription } =
+  const { title, metaTitle, description, metaDescription, canonicalUrlPath } =
     metaData[pathname]?.frontmatter ?? {};
 
   if ((!description && !metaDescription) || (!title && !metaTitle)) {
@@ -40,6 +40,12 @@ export const Head = () => {
     <NextHead>
       {homepagePaths.includes(pathname) ? (
         <link rel="canonical" href={process.env.SITE_URL} />
+      ) : null}
+      {canonicalUrlPath ? (
+        <link
+          rel="canonical"
+          href={`${process.env.SITE_URL}${canonicalUrlPath}`}
+        />
       ) : null}
       <title>{pageTitle}</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
