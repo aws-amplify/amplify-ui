@@ -9,7 +9,7 @@
 
 feat(angular): add support for onpush change detection strategy. 
 
-You can now use `OnPush` with the Angular `authenticator` like so:
+The `OnPush` change detection strategy can now be used with the Angular `authenticator` like so:
 ```
 @Component({
   selector: 'sign-in-with-email-onpush',
