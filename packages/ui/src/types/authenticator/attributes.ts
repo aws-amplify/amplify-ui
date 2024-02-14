@@ -1,7 +1,8 @@
 import { UserAttributeKey } from 'aws-amplify/auth';
 
-/** Array of auth fields that we supply defaults with */
-export const signUpFieldsWithDefault = [
+// sign up attributes keys that have default UI properties (placeholder, label, etc)
+// if included in Authenticator configuration
+const SUPPORTED_SIGNUP_ATTRIBUTE = [
   'birthdate',
   'email',
   'family_name',
@@ -15,11 +16,9 @@ export const signUpFieldsWithDefault = [
   'website',
 ] as const;
 
-/** Auth fields that we supply defaults with */
-export type SignUpFieldsWithDefaults = (typeof signUpFieldsWithDefault)[number];
-
-/** Array of auth fields that we do not supply defaults with */
-export const signUpFieldsWithoutDefault = [
+// sign up attributes keys that DO NOT have default UI properties (placeholder, label, etc)
+// if included in Authenticator configuration
+const UNSUPPORTED_SIGNUP_ATTRIBUTE = [
   'address',
   'gender',
   'locale',
@@ -28,24 +27,23 @@ export const signUpFieldsWithoutDefault = [
   'zoneinfo',
 ] as const;
 
-/** Auth fields that we do not supply defaults with */
-export type SignUpFieldsWithoutDefaults =
-  (typeof signUpFieldsWithoutDefault)[number];
+export const SIGN_UP_ATTRIBUTES = [
+  ...SUPPORTED_SIGNUP_ATTRIBUTE,
+  ...UNSUPPORTED_SIGNUP_ATTRIBUTE,
+] as const;
+
+export type CustomSignUpAttribute = `custom:${string}`;
 
 /** All known auth fields */
 export type SignUpAttribute =
-  | SignUpFieldsWithDefaults
-  | SignUpFieldsWithoutDefaults;
+  | (typeof SIGN_UP_ATTRIBUTES)[number]
+  | CustomSignUpAttribute;
 
 /** Fields that are common in all routes */
 export type CommonFields = 'username' | 'password' | 'confirm_password';
 
 /** Array of known login mechanisms */
-export const LoginMechanismArray = [
-  'username',
-  'email',
-  'phone_number',
-] as const;
+export const LOGIN_MECHANISMS = ['username', 'email', 'phone_number'] as const;
 
 /**
  * Default supported federated sign sn providers
@@ -53,14 +51,21 @@ export const LoginMechanismArray = [
 export type FederatedProvider = 'amazon' | 'apple' | 'facebook' | 'google';
 
 /** Login mechanisms that can be used to sign in */
-export type LoginMechanism = (typeof LoginMechanismArray)[number];
+export type LoginMechanism = (typeof LOGIN_MECHANISMS)[number];
+
+export const SOCIAL_PROVIDERS = [
+  'apple',
+  'amazon',
+  'facebook',
+  'google',
+] as const;
 
 /** List of social provider Authenticator supports */
-export type SocialProvider = 'amazon' | 'apple' | 'facebook' | 'google';
+export type SocialProvider = (typeof SOCIAL_PROVIDERS)[number];
 
 export const authFieldsWithDefaults = [
-  ...LoginMechanismArray,
-  ...signUpFieldsWithDefault,
+  ...LOGIN_MECHANISMS,
+  ...SUPPORTED_SIGNUP_ATTRIBUTE,
   'confirmation_code',
   'password',
   'confirm_password',

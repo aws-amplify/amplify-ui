@@ -1,5 +1,4 @@
 import { Amplify, ResourcesConfig } from 'aws-amplify';
-import { UserAttributeKey } from 'aws-amplify/auth';
 
 import {
   confirmResetPassword,
@@ -15,10 +14,15 @@ import { hasSpecialChars } from '../../helpers';
 import {
   AuthFormData,
   AuthTouchData,
+  CustomSignUpAttribute,
   LoginMechanism,
+  LOGIN_MECHANISMS,
   PasswordSettings,
+  SOCIAL_PROVIDERS,
+  SIGN_UP_ATTRIBUTES,
   SocialProvider,
   ValidatorResult,
+  SignUpAttribute,
 } from '../../types';
 
 // Cognito does not allow a password length less then 8 characters
@@ -27,60 +31,87 @@ const DEFAULT_COGNITO_PASSWORD_MIN_LENGTH = 8;
 type UserAttributes = ResourcesConfig['Auth']['Cognito']['userAttributes'];
 type InvalidUserAttributes =
   ResourcesConfig['Auth']['Cognito']['userAttributes'][];
+type LoginWith = ResourcesConfig['Auth']['Cognito']['loginWith'];
 
-const isInvalidUserAtributes = (
+const isInvalidUserAttributes = (
   userAttributes: UserAttributes | InvalidUserAttributes
 ): userAttributes is InvalidUserAttributes => Array.isArray(userAttributes);
 
-const parseUserAttributes = (
+const isSignUpAttribute = (
+  value: string | undefined
+): value is SignUpAttribute =>
+  SIGN_UP_ATTRIBUTES.includes(
+    value as Exclude<SignUpAttribute, CustomSignUpAttribute>
+  ) || value?.startsWith('custom:');
+
+const getUserAttributes = (
   userAttributes: UserAttributes | InvalidUserAttributes
-): UserAttributeKey[] => {
+): SignUpAttribute[] => {
   if (!userAttributes) {
-    return undefined;
+    return [];
   }
 
   // `aws-amplify` versions <= 6.0.5 return an array of `userAttributes` rather than an object
-  if (isInvalidUserAtributes(userAttributes)) {
-    return Object.entries(userAttributes).map(
-      ([_, value]) => Object.keys(value)[0]
-    );
+  if (isInvalidUserAttributes(userAttributes)) {
+    return Object.values(userAttributes).reduce((acc, value) => {
+      const attribute = Object.keys(value)[0];
+      return isSignUpAttribute(attribute) ? [...acc, attribute] : acc;
+    }, []);
   }
 
-  return Object.keys(userAttributes);
+  return Object.keys(userAttributes).filter(isSignUpAttribute);
+};
+
+const isLoginMechanism = (value: string | undefined): value is LoginMechanism =>
+  LOGIN_MECHANISMS.includes(value as LoginMechanism);
+
+const getLoginMechanisms = (values: LoginWith = {}): LoginMechanism[] =>
+  Object.entries(values).reduce((acc, [key, includeMechanism]) => {
+    // the key for phone_number is phone in getConfig but everywhere else we treat is as phone_number
+    const loginMechanism = key === 'phone' ? 'phone_number' : key;
+    return includeMechanism && isLoginMechanism(loginMechanism)
+      ? [...acc, loginMechanism]
+      : acc;
+  }, []);
+
+const isSocialProvider = (value: unknown): value is SocialProvider =>
+  SOCIAL_PROVIDERS.includes(value as SocialProvider);
+
+const getSocialProviders = (values: LoginWith): SocialProvider[] =>
+  (values?.oauth?.providers ?? []).reduce((acc, provider) => {
+    const socialProvider = provider.toString().toLowerCase();
+    return isSocialProvider(socialProvider) ? [...acc, socialProvider] : acc;
+  }, []);
+
+export const getConfig = (): {
+  loginMechanisms: LoginMechanism[];
+  signUpAttributes: SignUpAttribute[];
+  socialProviders: SocialProvider[];
+  passwordSettings: PasswordSettings;
+} => {
+  const { Auth } = Amplify.getConfig();
+
+  const {
+    loginWith,
+    userAttributes,
+    passwordFormat: passwordSettings = {},
+  } = Auth?.Cognito ?? {};
+
+  const loginMechanisms = getLoginMechanisms(loginWith);
+  const signUpAttributes = getUserAttributes(userAttributes);
+  const socialProviders = getSocialProviders(loginWith);
+
+  return {
+    loginMechanisms,
+    passwordSettings,
+    signUpAttributes,
+    socialProviders,
+  };
 };
 
 export const defaultServices = {
   async getAmplifyConfig() {
-    const result = Amplify.getConfig();
-
-    const cliConfig = result.Auth?.Cognito;
-    const { loginWith, userAttributes } = result.Auth?.Cognito ?? {};
-
-    const parsedLoginMechanisms = loginWith
-      ? (Object.entries(loginWith)
-          .filter(([key, _value]) => key !== 'oauth')
-          .filter(([_key, value]) => !!value)
-          .map((keyValueArray) => {
-            return keyValueArray[0] === 'phone' // the key for phone_number is phone in getConfig but everywhere else we treat is as phone_number
-              ? 'phone_number'
-              : keyValueArray[0];
-          }) as LoginMechanism[])
-      : undefined;
-
-    const parsedSignupAttributes = parseUserAttributes(userAttributes);
-
-    const parsedSocialProviders = loginWith?.oauth?.providers
-      ? (loginWith.oauth.providers?.map((provider) =>
-          provider.toString().toLowerCase()
-        ) as SocialProvider[])
-      : undefined;
-
-    return {
-      ...cliConfig,
-      loginMechanisms: parsedLoginMechanisms,
-      signUpAttributes: parsedSignupAttributes,
-      socialProviders: parsedSocialProviders,
-    };
+    return getConfig();
   },
   getCurrentUser,
   handleSignIn: signIn,

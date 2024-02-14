@@ -1,11 +1,15 @@
 import { LoginMechanism } from '../../../types';
 import { AuthActorContext } from '../types';
-import { getUserAttributes, getSignUpInput, getUsernameSignUp } from '../utils';
+import {
+  getUserAttributesFormValues,
+  getSignUpInput,
+  getUsernameSignUp,
+} from '../utils';
 
-describe('getUserAttributes', () => {
+describe('getUserAttributesFormValues', () => {
   it('returns the phone_number attribute as expected when provided', () => {
     const formValues = { country_code: '+26', phone_number: '8002428976' };
-    const output = getUserAttributes(formValues);
+    const output = getUserAttributesFormValues(formValues);
 
     const expected = { phone_number: '+268002428976' };
     expect(output).toStrictEqual(expected);
@@ -17,7 +21,7 @@ describe('getUserAttributes', () => {
       country_code: '+1',
       phone_number: undefined,
     };
-    const output = getUserAttributes(formValues);
+    const output = getUserAttributesFormValues(formValues);
 
     const expected = { email: 'example@example.com' };
     expect(output).toStrictEqual(expected);
@@ -29,7 +33,7 @@ describe('getUserAttributes', () => {
       country_code: '+1',
       phone_number: '',
     };
-    const output = getUserAttributes(formValues);
+    const output = getUserAttributesFormValues(formValues);
 
     const expected = { email: 'example@example.com' };
     expect(output).toStrictEqual(expected);

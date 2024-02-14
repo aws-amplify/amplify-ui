@@ -9,9 +9,19 @@ jest.mock('aws-amplify');
 
 const flushPromises = () => new Promise(setImmediate);
 
-let service;
+type Config = Awaited<ReturnType<(typeof defaultServices)['getAmplifyConfig']>>;
+const DEFAULT_CONFIG: Config = {
+  socialProviders: [],
+  signUpAttributes: [],
+  passwordSettings: {},
+  loginMechanisms: [],
+};
+
+const getAmplifyConfig = () => Promise.resolve(DEFAULT_CONFIG);
 
 describe('authenticator', () => {
+  let service;
+
   afterEach(() => {
     jest.clearAllMocks();
     jest.clearAllTimers();
@@ -35,10 +45,7 @@ describe('authenticator', () => {
           },
           services: {
             getCurrentUser: () => Promise.reject(),
-            getAmplifyConfig: () =>
-              Promise.resolve({}) as ReturnType<
-                (typeof defaultServices)['getAmplifyConfig']
-              >,
+            getAmplifyConfig,
           },
         })
         .withConfig({
@@ -89,10 +96,7 @@ describe('authenticator', () => {
           },
           services: {
             getCurrentUser: () => Promise.reject(),
-            getAmplifyConfig: () =>
-              Promise.resolve({}) as ReturnType<
-                (typeof defaultServices)['getAmplifyConfig']
-              >,
+            getAmplifyConfig,
           },
         })
         .withConfig({
@@ -141,10 +145,7 @@ describe('authenticator', () => {
           },
           services: {
             getCurrentUser: () => Promise.reject(),
-            getAmplifyConfig: () =>
-              Promise.resolve({}) as ReturnType<
-                (typeof defaultServices)['getAmplifyConfig']
-              >,
+            getAmplifyConfig,
           },
         })
         .withConfig({
@@ -201,10 +202,7 @@ describe('authenticator', () => {
           },
           services: {
             getCurrentUser: () => Promise.reject(),
-            getAmplifyConfig: () =>
-              Promise.resolve({}) as ReturnType<
-                (typeof defaultServices)['getAmplifyConfig']
-              >,
+            getAmplifyConfig,
           },
         })
         .withConfig({
@@ -253,10 +251,7 @@ describe('authenticator', () => {
           },
           services: {
             getCurrentUser: () => Promise.reject(),
-            getAmplifyConfig: () =>
-              Promise.resolve({}) as ReturnType<
-                (typeof defaultServices)['getAmplifyConfig']
-              >,
+            getAmplifyConfig,
           },
         })
         .withConfig({
@@ -309,10 +304,7 @@ describe('authenticator', () => {
           },
           services: {
             getCurrentUser: () => Promise.reject(),
-            getAmplifyConfig: () =>
-              Promise.resolve({}) as ReturnType<
-                (typeof defaultServices)['getAmplifyConfig']
-              >,
+            getAmplifyConfig,
           },
         })
         .withConfig({
@@ -370,10 +362,7 @@ describe('authenticator', () => {
           },
           services: {
             getCurrentUser: () => Promise.reject(),
-            getAmplifyConfig: () =>
-              Promise.resolve({}) as ReturnType<
-                (typeof defaultServices)['getAmplifyConfig']
-              >,
+            getAmplifyConfig,
           },
         })
         .withConfig({
@@ -432,13 +421,7 @@ describe('authenticator', () => {
           },
           services: {
             handleGetCurrentUser: jest.fn(async () => Promise.resolve),
-            getAmplifyConfig: () =>
-              Promise.resolve({}) as ReturnType<
-                (typeof defaultServices)['getAmplifyConfig']
-              >,
-          },
-          guards: {
-            hasUser: () => true,
+            getAmplifyConfig,
           },
         })
         .withConfig({
@@ -466,7 +449,7 @@ describe('authenticator', () => {
 
     await flushPromises();
     expect(service.getSnapshot().value).toStrictEqual({
-      setup: 'initConfig',
+      authenticated: 'idle',
     });
 
     service.send({

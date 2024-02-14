@@ -1,5 +1,5 @@
 import { I18n } from 'aws-amplify/utils';
-import { SocialProvider } from '../../../types';
+import { SOCIAL_PROVIDERS } from '../../../types';
 import {
   ChallengeName,
   V5CodeDeliveryDetails,
@@ -7,13 +7,6 @@ import {
 import { authenticatorTextUtil } from '../textUtil';
 
 const AUTH_CHALLENGE_NAMES: ChallengeName[] = ['SMS_MFA', 'SOFTWARE_TOKEN_MFA'];
-
-const SOCIAL_PROVIDERS: SocialProvider[] = [
-  'apple',
-  'amazon',
-  'facebook',
-  'google',
-];
 
 const CODE_DELIVERY_DETAILS: Array<V5CodeDeliveryDetails['DeliveryMedium']> = [
   'SMS',
