@@ -89,6 +89,7 @@
     "react-native": "0.71.14",
     "react-devtools-core": "^4.28.4",
     "shell-quote": "1.7.3",
+    "socks": "^2.7.3",
     "tough-cookie": "4.1.3",
     "trim-newlines": "3.0.1",
     "yaml": "2.2.2"
