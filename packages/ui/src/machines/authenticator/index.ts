@@ -63,15 +63,6 @@ const NEXT_WAIT_CONFIG = {
   always: { actions: 'configure', target: 'getConfig' },
 };
 
-// initial machine context values, used on machine start and on sign out
-const DEFAULT_MACHINE_CONTEXT = {
-  actorRef: undefined,
-  config: {},
-  hasSetup: false,
-  services: defaultServices,
-  user: undefined,
-};
-
 export function createAuthenticatorMachine(
   options?: AuthenticatorMachineOptions & {
     useNextWaitConfig?: boolean;
@@ -83,7 +74,13 @@ export function createAuthenticatorMachine(
     {
       id: 'authenticator',
       initial: 'idle',
-      context: DEFAULT_MACHINE_CONTEXT,
+      context: {
+        user: undefined,
+        config: {},
+        services: defaultServices,
+        actorRef: undefined,
+        hasSetup: false,
+      },
       predictableActionArguments: true,
       states: {
         // See: https://xstate.js.org/docs/guides/communication.html#invoking-promises
@@ -282,7 +279,7 @@ export function createAuthenticatorMachine(
           },
           on: {
             'done.invoke.signOutActor': {
-              actions: 'resetContext',
+              actions: 'clearUser',
               target: 'setup.getConfig',
             },
           },
@@ -302,7 +299,6 @@ export function createAuthenticatorMachine(
     {
       actions: {
         ...actions,
-        resetContext: assign(DEFAULT_MACHINE_CONTEXT),
         forwardToActor: choose([
           { cond: 'hasActor', actions: forwardTo(({ actorRef }) => actorRef) },
         ]),
