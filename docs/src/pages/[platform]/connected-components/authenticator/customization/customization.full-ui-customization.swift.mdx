@@ -1,6 +1,6 @@
 ## Full UI Customization
 
-### Step customization
+### Customize the UI for the Authenticator flows
 
 In addition to customizing fields and theming, you can also provide a custom UI for one or more of the Authenticator steps.
 
@@ -22,7 +22,7 @@ Authenticator(
 
 For more complex cases, you can completely replace the UI for any particular step. 
 
-Every view has an associated `*State` class that they observe, and that can be used to implement a custom UI. These steps have `@Published` properties for their fields, which you can bind to your custom view.
+Every view has an associated `*State` class that they observe, and that can be used to implement a custom UI. These states have `@Published` properties for their fields, which you can bind to your custom view.
 
 This example shows how to fully replace the content displayed for the Sign In step, but a similar approach can be used for most steps:
 
@@ -60,11 +60,11 @@ struct CustomSignInView: View {
 
 ```
 
-#### Sign Up Step
+#### Customize the UI for the Sign Up flow
 
-Customizing the Sign Up step is slightly different, as the `SignUpState` does not individually publish each of its fields, but rather has one `fields: [SignUpState.Field]` property. 
+Customizing the Sign Up step is slightly different, as `SignUpState` does not individually publish each of its fields, but rather has one `fields: [SignUpState.Field]` property. 
 
-A `SignUpState.Field` is an `@ObservableObject` that has the `SignUpField` that it represents, and the `@Published` property you need to set (called `value`). 
+A `SignUpState.Field` is itself an `@ObservableObject` that has the `SignUpField` that it represents, and the `@Published` property (called `value`) that you need to bind to your view. 
 
 The following example shows how to fully replace the content displayed for the Sign Up step by iterating through the array of fields:
 
@@ -84,7 +84,7 @@ struct CustomSignUpView: View {
     var body: some View {
         VStack {
             ForEach(state.fields, id: \.self) { field in
-                createField(for: field)
+                createCustomField(for: field)
             }
 
             Button("Sign Up") {
@@ -97,7 +97,7 @@ struct CustomSignUpView: View {
 
     /// Creates a view for a SignUpField according to its SignUpAttribute
     @ViewBuilder
-    private func createField(for signUpField: SignUpState.Field) -> some View {
+    private func createCustomField(for signUpField: SignUpState.Field) -> some View {
         @ObservedObject var observedField = signUpField
         switch signUpField.field.attributeType {
         case .username:
@@ -110,7 +110,7 @@ struct CustomSignUpView: View {
             TextField("Phone Number", text: $observedField.value)
         case .email:
             TextField("Email", text: $observedField.value)
-        /// ... etc.
+        /// ... An so on for all cases of SignUpAttribute
         }
     }
 }
