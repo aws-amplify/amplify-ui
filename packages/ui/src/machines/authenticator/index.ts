@@ -6,9 +6,9 @@ import {
   spawn,
 } from 'xstate';
 
-import { AuthFormFields } from '../../types';
+import { AuthFormFields, PasswordSettings } from '../../types';
 import { AuthEvent, AuthContext, ActorDoneData, InitialStep } from './types';
-import { isEmptyObject } from '../../utils';
+import { groupLog, isEmptyObject } from '../../utils';
 
 import actions from './actions';
 import guards from './guards';
@@ -24,27 +24,6 @@ import { defaultServices } from './defaultServices';
 
 export type AuthenticatorMachineOptions = AuthContext['config'] & {
   services?: AuthContext['services'];
-};
-
-// setup step waits for ui to emit INIT action to proceed to configure
-const LEGACY_WAIT_CONFIG = {
-  on: {
-    INIT: { actions: 'configure', target: 'getConfig' },
-    SIGN_OUT: '#authenticator.signOut',
-  },
-};
-
-// setup step proceeds directly to configure
-const NEXT_WAIT_CONFIG = {
-  always: { actions: 'configure', target: 'getConfig' },
-};
-
-// initial machine context values, used on machine start and on sign out
-const DEFAULT_MACHINE_CONTEXT = {
-  actorRef: undefined,
-  config: {},
-  services: defaultServices,
-  user: undefined,
 };
 
 const getActorContext = (context: AuthContext, defaultStep?: InitialStep) => ({
@@ -65,7 +44,32 @@ const getActorContext = (context: AuthContext, defaultStep?: InitialStep) => ({
 });
 
 const { choose, stop } = xStateActions;
+
 const stopActor = (machineId: string) => stop(machineId);
+
+// setup step waits for ui to emit INIT action to proceed to configure
+const LEGACY_WAIT_CONFIG = {
+  on: {
+    INIT: {
+      actions: 'configure',
+      target: 'getConfig',
+    },
+    SIGN_OUT: '#authenticator.signOut',
+  },
+};
+
+// setup step proceeds directly to configure
+const NEXT_WAIT_CONFIG = {
+  always: { actions: 'configure', target: 'getConfig' },
+};
+
+// initial machine context values, used on machine start and on sign out
+const DEFAULT_MACHINE_CONTEXT = {
+  actorRef: undefined,
+  config: {},
+  services: defaultServices,
+  user: undefined,
+};
 
 export function createAuthenticatorMachine(
   options?: AuthenticatorMachineOptions & {
@@ -302,7 +306,7 @@ export function createAuthenticatorMachine(
           { cond: 'hasActor', actions: forwardTo(({ actorRef }) => actorRef) },
         ]),
         setActorDoneData: assign({
-          actorDoneData: (_, event): ActorDoneData => ({
+          actorDoneData: (context, event): ActorDoneData => ({
             codeDeliveryDetails: event.data.codeDeliveryDetails,
             missingAttributes: event.data.missingAttributes,
             remoteError: event.data.remoteError,
@@ -347,7 +351,7 @@ export function createAuthenticatorMachine(
           },
         }),
         spawnSignInActor: assign({
-          actorRef: (context) => {
+          actorRef: (context, _) => {
             const { services } = context;
             const actor = signInActor({ services }).withContext(
               getActorContext(context, 'SIGN_IN')
@@ -356,7 +360,7 @@ export function createAuthenticatorMachine(
           },
         }),
         spawnSignUpActor: assign({
-          actorRef: (context) => {
+          actorRef: (context, _) => {
             const { services } = context;
             const actor = signUpActor({ services }).withContext(
               getActorContext(context, 'SIGN_UP')

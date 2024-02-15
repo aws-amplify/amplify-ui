@@ -68,6 +68,27 @@ const handleAutoSignInResponse = {
   },
 };
 
+const handleFetchUserAttributesResponse = {
+  onDone: [
+    {
+      cond: 'shouldVerifyAttribute',
+      actions: [
+        'setShouldVerifyUserAttributeStep',
+        'setUnverifiedUserAttributes',
+      ],
+      target: '#signUpActor.resolved',
+    },
+    {
+      actions: 'setConfirmAttributeCompleteStep',
+      target: '#signUpActor.resolved',
+    },
+  ],
+  onError: {
+    actions: 'setConfirmAttributeCompleteStep',
+    target: '#signUpActor.resolved',
+  },
+};
+
 export function signUpActor({ services }: SignUpMachineOptions) {
   return createMachine<SignUpContext, AuthEvent>(
     {
@@ -88,24 +109,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
         fetchUserAttributes: {
           invoke: {
             src: 'fetchUserAttributes',
-            onDone: [
-              {
-                cond: 'shouldVerifyAttribute',
-                actions: [
-                  'setShouldVerifyUserAttributeStep',
-                  'setUnverifiedUserAttributes',
-                ],
-                target: '#signUpActor.resolved',
-              },
-              {
-                actions: 'setConfirmAttributeCompleteStep',
-                target: '#signUpActor.resolved',
-              },
-            ],
-            onError: {
-              actions: 'setConfirmAttributeCompleteStep',
-              target: '#signUpActor.resolved',
-            },
+            ...handleFetchUserAttributesResponse,
           },
         },
         federatedSignIn: getFederatedSignInState('signUp'),
