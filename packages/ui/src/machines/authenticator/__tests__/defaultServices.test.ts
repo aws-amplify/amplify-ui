@@ -1,12 +1,13 @@
 import { Amplify, ResourcesConfig } from 'aws-amplify';
 
 import { PasswordSettings } from '../../../types';
-import { defaultServices, getConfig } from '../defaultServices';
+import { defaultServices } from '../defaultServices';
 import { ALLOWED_SPECIAL_CHARACTERS } from '../../../helpers/authenticator/constants';
 
 const getConfigSpy = jest.spyOn(Amplify, 'getConfig');
 
 const {
+  getAmplifyConfig,
   validateFormPassword,
   validateConfirmPassword,
   validateCustomSignUp,
@@ -243,14 +244,14 @@ describe('validateConfirmPassword', () => {
   });
 });
 
-describe('getConfig', () => {
-  it('should call Amplify.getConfig', () => {
-    getConfig();
+describe('getAmplifyConfig', () => {
+  it('should call Amplify.getConfig', async () => {
+    await getAmplifyConfig();
 
     expect(Amplify.getConfig).toHaveBeenCalledTimes(1);
   });
 
-  it('correctly handles invalid user attributes returned from Amplify.getConfig', () => {
+  it('correctly handles invalid user attributes returned from Amplify.getConfig', async () => {
     // previous to aws-amplify@6.0.6, `Amplify.getConfig` returns the wrong shape for `userAttributes`
     const invalidConfig: ResourcesConfig = {
       Auth: {
@@ -276,17 +277,17 @@ describe('getConfig', () => {
 
     getConfigSpy.mockReturnValueOnce(invalidConfig);
 
-    const output = getConfig();
+    const output = await getAmplifyConfig();
 
     expect(output).toStrictEqual({
-      passwordSettings: invalidConfig.Auth.Cognito.passwordFormat,
+      ...invalidConfig.Auth.Cognito,
       loginMechanisms: ['username'],
-      socialProviders: [],
+      socialProviders: undefined,
       signUpAttributes: ['email'],
     });
   });
 
-  it('correctly handles user attributes returned from Amplify.getConfig', () => {
+  it('correctly handles user attributes returned from Amplify.getConfig', async () => {
     const validConfig: ResourcesConfig = {
       Auth: {
         Cognito: {
@@ -310,54 +311,13 @@ describe('getConfig', () => {
 
     getConfigSpy.mockReturnValueOnce(validConfig);
 
-    const output = getConfig();
+    const output = await getAmplifyConfig();
 
     expect(output).toStrictEqual({
-      passwordSettings: validConfig.Auth.Cognito.passwordFormat,
+      ...validConfig.Auth.Cognito,
       loginMechanisms: ['username'],
-      socialProviders: [],
+      socialProviders: undefined,
       signUpAttributes: ['email'],
-    });
-  });
-
-  it('returns custom user attribute keys as expected', () => {
-    const customAttribute = 'custom:prop';
-    const resourcesConfig: ResourcesConfig = {
-      Auth: {
-        Cognito: {
-          userPoolClientId: '',
-          userPoolId: '',
-          userAttributes: {
-            // auth configuration only allows "standard" auth keys currently
-            // @ts-expect-error
-            [customAttribute]: { required: true },
-          },
-        },
-      },
-    };
-    getConfigSpy.mockReturnValueOnce(resourcesConfig);
-
-    const output = getConfig();
-
-    expect(output).toStrictEqual({
-      passwordSettings: {},
-      loginMechanisms: [],
-      socialProviders: [],
-      signUpAttributes: ['custom:prop'],
-    });
-  });
-
-  it('returns the expected default values for undefined properties', () => {
-    const resourcesConfig: ResourcesConfig = {};
-    getConfigSpy.mockReturnValueOnce(resourcesConfig);
-
-    const output = getConfig();
-
-    expect(output).toStrictEqual({
-      passwordSettings: {},
-      loginMechanisms: [],
-      socialProviders: [],
-      signUpAttributes: [],
     });
   });
 });

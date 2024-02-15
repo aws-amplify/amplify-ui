@@ -1,8 +1,7 @@
 import { UserAttributeKey } from 'aws-amplify/auth';
 
-// sign up attributes keys that have default UI properties (placeholder, label, etc)
-// if included in Authenticator configuration
-const SUPPORTED_SIGNUP_ATTRIBUTE = [
+/** Array of auth fields that we supply defaults with */
+export const signUpFieldsWithDefault = [
   'birthdate',
   'email',
   'family_name',
@@ -16,9 +15,11 @@ const SUPPORTED_SIGNUP_ATTRIBUTE = [
   'website',
 ] as const;
 
-// sign up attributes keys that DO NOT have default UI properties (placeholder, label, etc)
-// if included in Authenticator configuration
-const UNSUPPORTED_SIGNUP_ATTRIBUTE = [
+/** Auth fields that we supply defaults with */
+export type SignUpFieldsWithDefaults = (typeof signUpFieldsWithDefault)[number];
+
+/** Array of auth fields that we do not supply defaults with */
+export const signUpFieldsWithoutDefault = [
   'address',
   'gender',
   'locale',
@@ -27,23 +28,24 @@ const UNSUPPORTED_SIGNUP_ATTRIBUTE = [
   'zoneinfo',
 ] as const;
 
-export const SIGN_UP_ATTRIBUTES = [
-  ...SUPPORTED_SIGNUP_ATTRIBUTE,
-  ...UNSUPPORTED_SIGNUP_ATTRIBUTE,
-] as const;
-
-export type CustomSignUpAttribute = `custom:${string}`;
+/** Auth fields that we do not supply defaults with */
+export type SignUpFieldsWithoutDefaults =
+  (typeof signUpFieldsWithoutDefault)[number];
 
 /** All known auth fields */
 export type SignUpAttribute =
-  | (typeof SIGN_UP_ATTRIBUTES)[number]
-  | CustomSignUpAttribute;
+  | SignUpFieldsWithDefaults
+  | SignUpFieldsWithoutDefaults;
 
 /** Fields that are common in all routes */
 export type CommonFields = 'username' | 'password' | 'confirm_password';
 
 /** Array of known login mechanisms */
-export const LOGIN_MECHANISMS = ['username', 'email', 'phone_number'] as const;
+export const LoginMechanismArray = [
+  'username',
+  'email',
+  'phone_number',
+] as const;
 
 /**
  * Default supported federated sign sn providers
@@ -51,21 +53,14 @@ export const LOGIN_MECHANISMS = ['username', 'email', 'phone_number'] as const;
 export type FederatedProvider = 'amazon' | 'apple' | 'facebook' | 'google';
 
 /** Login mechanisms that can be used to sign in */
-export type LoginMechanism = (typeof LOGIN_MECHANISMS)[number];
-
-export const SOCIAL_PROVIDERS = [
-  'apple',
-  'amazon',
-  'facebook',
-  'google',
-] as const;
+export type LoginMechanism = (typeof LoginMechanismArray)[number];
 
 /** List of social provider Authenticator supports */
-export type SocialProvider = (typeof SOCIAL_PROVIDERS)[number];
+export type SocialProvider = 'amazon' | 'apple' | 'facebook' | 'google';
 
 export const authFieldsWithDefaults = [
-  ...LOGIN_MECHANISMS,
-  ...SUPPORTED_SIGNUP_ATTRIBUTE,
+  ...LoginMechanismArray,
+  ...signUpFieldsWithDefault,
   'confirmation_code',
   'password',
   'confirm_password',

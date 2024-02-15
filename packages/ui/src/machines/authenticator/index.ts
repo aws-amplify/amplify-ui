@@ -8,7 +8,7 @@ import {
 
 import { AuthFormFields, PasswordSettings } from '../../types';
 import { AuthEvent, AuthContext, ActorDoneData, InitialStep } from './types';
-import { groupLog, isEmptyObject } from '../../utils';
+import { isEmptyObject } from '../../utils';
 
 import actions from './actions';
 import guards from './guards';
@@ -67,6 +67,7 @@ const NEXT_WAIT_CONFIG = {
 const DEFAULT_MACHINE_CONTEXT = {
   actorRef: undefined,
   config: {},
+  hasSetup: false,
   services: defaultServices,
   user: undefined,
 };
@@ -89,10 +90,7 @@ export function createAuthenticatorMachine(
         idle: {
           invoke: {
             src: 'handleGetCurrentUser',
-            onDone: {
-              actions: 'setUser',
-              target: '#authenticator.authenticated',
-            },
+            onDone: { actions: 'setUser', target: 'setup' },
             onError: { target: 'setup' },
           },
         },
@@ -103,10 +101,17 @@ export function createAuthenticatorMachine(
             getConfig: {
               invoke: {
                 src: 'getAmplifyConfig',
-                onDone: {
-                  actions: 'setConfiguration',
-                  target: 'goToInitialState',
-                },
+                onDone: [
+                  {
+                    actions: ['applyAmplifyConfig', 'setHasSetup'],
+                    cond: 'hasUser',
+                    target: '#authenticator.authenticated',
+                  },
+                  {
+                    actions: ['applyAmplifyConfig', 'setHasSetup'],
+                    target: 'goToInitialState',
+                  },
+                ],
               },
             },
             goToInitialState: {
@@ -278,7 +283,7 @@ export function createAuthenticatorMachine(
           on: {
             'done.invoke.signOutActor': {
               actions: 'resetContext',
-              target: 'setup.goToInitialState',
+              target: 'setup.getConfig',
             },
           },
         },
@@ -297,11 +302,7 @@ export function createAuthenticatorMachine(
     {
       actions: {
         ...actions,
-        resetContext: assign(({ config }) => ({
-          ...DEFAULT_MACHINE_CONTEXT,
-          // do not reset previously set configuration
-          config,
-        })),
+        resetContext: assign(DEFAULT_MACHINE_CONTEXT),
         forwardToActor: choose([
           { cond: 'hasActor', actions: forwardTo(({ actorRef }) => actorRef) },
         ]),
@@ -316,21 +317,18 @@ export function createAuthenticatorMachine(
             unverifiedUserAttributes: event.data.unverifiedUserAttributes,
           }),
         }),
-        setConfiguration: assign({
-          // `overrideConfig` derived from config properties passed directly
-          // in to UI component
-          // `defaultConfig` contains config properties from the project
-          // configuration file
-          config({ config: overrideConfig }, { data: defaultConfig }) {
+        applyAmplifyConfig: assign({
+          config(context, { data: cliConfig }) {
+            // Prefer explicitly configured settings over default CLI values\
             const {
-              loginMechanisms = defaultConfig.loginMechanisms,
-              signUpAttributes = defaultConfig.signUpAttributes,
-              socialProviders = defaultConfig.socialProviders,
-              passwordSettings = defaultConfig.passwordFormat,
-              // `formFields`and `initialState` only included in `overrideConfig`
-              formFields: _formFields,
+              loginMechanisms = cliConfig.loginMechanisms ?? [],
+              signUpAttributes = cliConfig.signUpAttributes ?? [],
+              socialProviders = cliConfig.socialProviders ?? [],
               initialState,
-            } = overrideConfig;
+              formFields: _formFields,
+              passwordSettings = cliConfig.passwordFormat ??
+                ({} as PasswordSettings),
+            } = context.config;
 
             // By default, Cognito assumes `username`, so there isn't a different username attribute like `email`.
             // We explicitly add it as a login mechanism to be consistent with Admin UI's language.
@@ -403,6 +401,7 @@ export function createAuthenticatorMachine(
             config,
           };
         }),
+        setHasSetup: assign({ hasSetup: true }),
       },
       guards: {
         ...guards,
@@ -410,6 +409,10 @@ export function createAuthenticatorMachine(
         isInitialStateSignUp: ({ config }) => config.initialState === 'signUp',
         isInitialStateResetPassword: ({ config }) =>
           config.initialState === 'forgotPassword',
+        shouldSetup: ({ hasSetup }) => !hasSetup,
+        hasUser: ({ user }) => {
+          return !!user;
+        },
       },
       services: {
         getAmplifyConfig: ({ services }) => services.getAmplifyConfig(),

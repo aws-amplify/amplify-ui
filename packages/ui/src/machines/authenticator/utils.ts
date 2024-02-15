@@ -41,7 +41,7 @@ const selectUserAttributes = (_: string | undefined, key: UserAttributeKey) => {
   }
 };
 
-export const getUserAttributesFormValues = (
+export const getUserAttributes = (
   formValues: AuthActorContext['formValues']
 ): UserAttributes => {
   const { phone_number, ...userAttributes } = pickBy(
@@ -67,7 +67,7 @@ export const getSignUpInput = (
   loginMechanism: LoginMechanism
 ): SignUpInput => {
   const { password, ...values } = formValues;
-  const attributes = getUserAttributesFormValues(values);
+  const attributes = getUserAttributes(values);
 
   const options: SignUpInput['options'] = {
     autoSignIn: DEFAULT_AUTO_SIGN_IN,
