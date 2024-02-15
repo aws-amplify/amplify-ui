@@ -1,14 +1,22 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { waitFor } from '@testing-library/react';
-import { setImmediate } from 'timers';
+
 import * as Storage from 'aws-amplify/storage';
 
 import { FileStatus, StorageFile, StorageManagerProps } from '../../../types';
 import { useUploadFiles, UseUploadFilesProps } from '../useUploadFiles';
 
-const uploadDataSpy = jest.spyOn(Storage, 'uploadData');
-
-const flushPromises = () => new Promise(setImmediate);
+const uploadDataSpy = jest
+  .spyOn(Storage, 'uploadData')
+  .mockImplementation((input: Storage.UploadDataInput) => {
+    return {
+      cancel: jest.fn(),
+      pause: jest.fn(),
+      resume: jest.fn(),
+      state: 'SUCCESS',
+      result: Promise.resolve({ key: input.key, data: input.data }),
+    };
+  });
 
 const mockUploadingFile: StorageFile = {
   id: 'uploading',
@@ -48,28 +56,15 @@ const props: Omit<UseUploadFilesProps, 'files'> = {
 
 describe('useUploadFiles', () => {
   beforeEach(() => {
-    uploadDataSpy.mockClear();
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   it('should upload all queued files', async () => {
-    uploadDataSpy.mockImplementationOnce((input: Storage.UploadDataInput) => {
-      return {
-        cancel: jest.fn(),
-        pause: jest.fn(),
-        resume: jest.fn(),
-        state: 'SUCCESS',
-        result: Promise.resolve({ key: input.key, data: input.data }),
-      };
-    });
-    renderHook(() =>
-      useUploadFiles({
-        ...props,
-        files: [mockUploadingFile, mockQueuedFile],
-      })
+    const { waitForNextUpdate } = renderHook(() =>
+      useUploadFiles({ ...props, files: [mockUploadingFile, mockQueuedFile] })
     );
 
-    await flushPromises();
+    waitForNextUpdate();
 
     await waitFor(() => {
       expect(mockSetUploadingFile).toHaveBeenCalledTimes(1);
@@ -92,23 +87,15 @@ describe('useUploadFiles', () => {
   });
 
   it('should upload all resumable queued files', async () => {
-    uploadDataSpy.mockImplementationOnce((input: Storage.UploadDataInput) => {
-      return {
-        cancel: jest.fn(),
-        pause: jest.fn(),
-        resume: jest.fn(),
-        state: 'SUCCESS',
-        result: Promise.resolve({ key: input.key, data: input.data }),
-      };
-    });
-    renderHook(() =>
+    const { waitForNextUpdate } = renderHook(() =>
       useUploadFiles({
         ...props,
         isResumable: true,
         files: [mockUploadingFile, mockQueuedFile],
       })
     );
-    await flushPromises();
+
+    waitForNextUpdate();
 
     await waitFor(() => {
       expect(mockSetUploadingFile).toHaveBeenCalledTimes(1);
@@ -123,19 +110,11 @@ describe('useUploadFiles', () => {
   });
 
   it('should do nothing if number of queued files exceeds max number of files', async () => {
-    uploadDataSpy.mockImplementationOnce((input: Storage.UploadDataInput) => {
-      return {
-        cancel: jest.fn(),
-        pause: jest.fn(),
-        resume: jest.fn(),
-        state: 'SUCCESS',
-        result: Promise.resolve({ key: input.key, data: input.data }),
-      };
-    });
-    renderHook(() =>
+    const { waitForNextUpdate } = renderHook(() =>
       useUploadFiles({ ...props, maxFileCount: 0, files: [mockQueuedFile] })
     );
-    await flushPromises();
+
+    waitForNextUpdate();
 
     expect(mockSetUploadingFile).not.toHaveBeenCalled();
 
@@ -155,9 +134,11 @@ describe('useUploadFiles', () => {
         result: Promise.reject(errorMessage),
       };
     });
-    renderHook(() => useUploadFiles({ ...props, files: [mockQueuedFile] }));
+    const { waitForNextUpdate } = renderHook(() =>
+      useUploadFiles({ ...props, files: [mockQueuedFile] })
+    );
 
-    await flushPromises();
+    waitForNextUpdate();
 
     await waitFor(() => {
       expect(mockOnUploadError).toHaveBeenCalledTimes(1);
@@ -166,22 +147,12 @@ describe('useUploadFiles', () => {
   });
 
   it('should start upload after processFile', async () => {
-    uploadDataSpy.mockImplementationOnce((input: Storage.UploadDataInput) => {
-      return {
-        cancel: jest.fn(),
-        pause: jest.fn(),
-        resume: jest.fn(),
-        state: 'SUCCESS',
-        result: Promise.resolve({ key: input.key, data: input.data }),
-      };
+    const processFile: StorageManagerProps['processFile'] = ({ file }) => ({
+      file,
+      key: 'test.png',
     });
-    const processFile: StorageManagerProps['processFile'] = ({ file }) => {
-      return {
-        file,
-        key: 'test.png',
-      };
-    };
-    renderHook(() =>
+
+    const { waitForNextUpdate } = renderHook(() =>
       useUploadFiles({
         ...props,
         isResumable: true,
@@ -190,7 +161,27 @@ describe('useUploadFiles', () => {
       })
     );
 
-    await flushPromises();
+    waitForNextUpdate();
+
+    await waitFor(() => {
+      expect(mockOnUploadStart).toHaveBeenCalledWith({ key: 'test.png' });
+    });
+  });
+
+  it('should start upload after processFile promise resolves', async () => {
+    const processFile: StorageManagerProps['processFile'] = ({ file }) =>
+      new Promise((resolve) => resolve({ file, key: 'test.png' }));
+
+    const { waitForNextUpdate } = renderHook(() =>
+      useUploadFiles({
+        ...props,
+        isResumable: true,
+        processFile,
+        files: [mockQueuedFile],
+      })
+    );
+
+    waitForNextUpdate();
 
     await waitFor(() => {
       expect(mockOnUploadStart).toHaveBeenCalledWith({
@@ -199,43 +190,26 @@ describe('useUploadFiles', () => {
     });
   });
 
-  it('should start upload after processFile promise resolves', async () => {
-    uploadDataSpy.mockImplementationOnce((input: Storage.UploadDataInput) => {
-      return {
-        cancel: jest.fn(),
-        pause: jest.fn(),
-        resume: jest.fn(),
-        state: 'SUCCESS',
-        result: Promise.resolve({ key: input.key, data: input.data }),
-      };
-    });
-    const processFile: StorageManagerProps['processFile'] = ({ file }) => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve({ file, key: 'test.png' });
-        }, 100);
-      });
-    };
-    renderHook(() =>
+  it('prepends valid provided `path` to `processedKey`', async () => {
+    const path = 'test-path/';
+    const { waitForNextUpdate } = renderHook(() =>
       useUploadFiles({
         ...props,
         isResumable: true,
-        processFile,
         files: [mockQueuedFile],
+        path,
       })
     );
+    const expected = { key: `${path}${mockQueuedFile.key}` };
 
-    await flushPromises();
+    waitForNextUpdate();
 
-    await waitFor(
-      () => {
-        expect(mockOnUploadStart).toHaveBeenCalledWith({
-          key: 'test.png',
-        });
-      },
-      {
-        timeout: 200,
-      }
-    );
+    await waitFor(() => {
+      expect(mockOnUploadStart).toHaveBeenCalledWith(expected);
+      expect(uploadDataSpy).toHaveBeenCalledTimes(1);
+      expect(uploadDataSpy).toHaveBeenCalledWith(
+        expect.objectContaining(expected)
+      );
+    });
   });
 });
