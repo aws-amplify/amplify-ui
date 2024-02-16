@@ -1,5 +1,16 @@
 # @aws-amplify/ui-react-storage
 
+## 3.0.14
+
+### Patch Changes
+
+- [#5013](https://github.com/aws-amplify/amplify-ui/pull/5013) [`d5ea9a773`](https://github.com/aws-amplify/amplify-ui/commit/d5ea9a773930e6694529e763bfc8cbb7250f4585) Thanks [@calebpollman](https://github.com/calebpollman)! - Fix/update storage manager path handling
+
+- Updated dependencies [[`80ad8cda6`](https://github.com/aws-amplify/amplify-ui/commit/80ad8cda66800f88150054fa51a7bbcdd0730566)]:
+  - @aws-amplify/ui@6.0.10
+  - @aws-amplify/ui-react@6.1.4
+  - @aws-amplify/ui-react-core@3.0.10
+
 ## 3.0.13
 
 ### Patch Changes
