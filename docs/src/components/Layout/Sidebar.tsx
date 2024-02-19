@@ -141,9 +141,12 @@ const SecondaryNav = (props) => {
   const isReactNative = platform === 'react-native';
   const isAndroid = platform === 'android';
   const isSwift = platform === 'swift';
+  const isAngular = platform === 'angular';
+  const isVue = platform === 'vue';
 
   const hideTheming = isAndroid || isSwift;
-  const hideGuidesExpander = isFlutter || isReactNative || isAndroid || isSwift;
+  const hideGuidesExpander =
+    isFlutter || isReactNative || isAndroid || isSwift || isAngular || isVue;
 
   return (
     <Accordion.Container value={value} onValueChange={setValue}>
