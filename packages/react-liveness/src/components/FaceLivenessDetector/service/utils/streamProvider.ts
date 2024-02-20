@@ -217,7 +217,7 @@ export class LivenessStreamProvider {
     const livenessRequestGenerator = this.getAsyncGeneratorFromReadableStream(
       this.videoRecorder.videoStream
     )();
-
+    // 4. establish connection to rekognition streaming service
     const response = await this._client.send(
       new StartFaceLivenessSessionCommand({
         ChallengeVersions: 'FaceMovementAndLightChallenge_1.0.0',

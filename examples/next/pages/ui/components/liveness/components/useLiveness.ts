@@ -14,12 +14,14 @@ export function useLiveness() {
   } = useSWR(
     'CreateStreamingLivenessSession',
     async () => {
+      // 2. Create a liveness session from client side?
       const response = await post({
         apiName: 'BYOB',
         path: '/liveness/create',
         options: {},
       }).response;
       const { body } = response;
+      // returns a session id here
       return body.json();
     },
     {
@@ -51,6 +53,7 @@ export function useLiveness() {
     mutate();
   };
 
+  // 7. call customer backend? to get boolean flag if user was live or not
   const handleGetLivenessDetection = async (sessionId) => {
     const response = await get({
       apiName: 'BYOB',
@@ -60,6 +63,7 @@ export function useLiveness() {
     const { body } = response;
     const livenessResponse = await body.json();
     setGetLivenessResponse(livenessResponse);
+    // 8. passes response to facelivenessdetector component which appropriately renders success or failure
     return { isLive: livenessResponse['isLive'] };
   };
 

@@ -1,5 +1,5 @@
 import { View, Flex, Loader, Text } from '@aws-amplify/ui-react';
-import { FaceLivenessDetectorCore } from '@aws-amplify/ui-react-liveness';
+import { FaceLivenessDetector } from '@aws-amplify/ui-react-liveness';
 import { useLiveness } from './useLiveness';
 import { SessionIdAlert } from './SessionIdAlert';
 import LivenessInlineResults from './LivenessInlineResults';
@@ -11,12 +11,20 @@ export default function LivenessDefault({
 }) {
   const {
     getLivenessResponse,
+    // client application will handle error
     createLivenessSessionApiError,
+    // session id
     createLivenessSessionApiData,
     createLivenessSessionApiLoading,
     handleGetLivenessDetection,
     stopLiveness,
   } = useLiveness();
+  console.log('createLivenessSessionApiData', createLivenessSessionApiData);
+  console.log('createLivenessSessionApiError', createLivenessSessionApiError);
+  console.log(
+    'createLivenessSessionApiLoading',
+    createLivenessSessionApiLoading
+  );
 
   if (createLivenessSessionApiError) {
     return <div>Some error occured...</div>;
@@ -25,6 +33,20 @@ export default function LivenessDefault({
   function onUserCancel() {
     stopLiveness();
   }
+
+  const dictionary = {
+    // use default strings for english
+    en: null,
+    es: {
+      photosensitivyWarningHeadingText: 'Advertencia de fotosensibilidad',
+      photosensitivityWarningBodyText:
+        'Esta verificación muestra luces de colores. Tenga cuidado si es fotosensible.',
+      goodFitCaptionText: 'Buen ajuste',
+      tooFarCaptionText: 'Demasiado lejos',
+      hintCenterFaceText: 'Centra tu cara',
+      startScreenBeginCheckText: 'Comenzar a verificar',
+    },
+  };
 
   return (
     <View maxWidth="640px" margin="0 auto">
@@ -46,11 +68,13 @@ export default function LivenessDefault({
           ) : null}
 
           <Flex gap="0" direction="column" position="relative">
+            {/* 3. client app renders liveness component using session ID and appropriate callbacks */}
             {!getLivenessResponse ? (
-              <FaceLivenessDetectorCore
+              <FaceLivenessDetector
                 sessionId={createLivenessSessionApiData['sessionId']}
                 region={'us-east-1'}
                 onUserCancel={onUserCancel}
+                // 7. handles score
                 onAnalysisComplete={async () => {
                   await handleGetLivenessDetection(
                     createLivenessSessionApiData['sessionId']
@@ -61,9 +85,7 @@ export default function LivenessDefault({
                 }}
                 disableStartScreen={disableStartScreen}
                 components={components}
-                {...(credentialProvider
-                  ? { config: { credentialProvider } }
-                  : {})}
+                displayText={dictionary['es']}
               />
             ) : null}
           </Flex>

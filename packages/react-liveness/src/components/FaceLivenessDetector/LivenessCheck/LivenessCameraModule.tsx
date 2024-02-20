@@ -112,6 +112,7 @@ export const LivenessCameraModule = (
 
   const {
     ErrorView = FaceLivenessErrorModal,
+    // TODO find a way to disable this warning
     PhotosensitiveWarning = DefaultPhotosensitiveWarning,
   } = customComponents ?? {};
 

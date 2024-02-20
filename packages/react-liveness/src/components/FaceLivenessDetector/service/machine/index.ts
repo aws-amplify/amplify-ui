@@ -53,6 +53,7 @@ import { WS_CLOSURE_CODE } from '../utils/constants';
 export const MIN_FACE_MATCH_TIME = 1000;
 const DEFAULT_FACE_FIT_TIMEOUT = 7000;
 
+// 4. render the oval and display colored lights, record video and stream in real-time to rekognition logic I think is in here
 // timer metrics variables
 let faceDetectedTimestamp: number;
 let ovalDrawnTimestamp: number;
@@ -353,12 +354,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               },
             },
           },
+          // 5. rekognition service sends disconnect event when streaming is complete
           waitForDisconnectEvent: {
             after: {
               0: {
                 target: 'getLivenessResult',
                 cond: 'getShouldDisconnect',
               },
+              // q. what do these numbers mean? is it waiting for 100 seconds? is that how long the session is?
               100: { target: 'waitForDisconnectEvent' },
             },
           },
@@ -1275,11 +1278,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         await livenessStreamProvider!.dispatchStopVideoEvent();
       },
+      // 6. FaceLivenessDetector component calls onAnalysisComplete to signal to client app that streaming is complete and scores are ready for retrieval
       async getLiveness(context) {
         const { onAnalysisComplete } = context.componentProps!;
 
         // Get liveness result
         await onAnalysisComplete();
+        // 8. this callback returns whether they are live or not
+        // q. where is the handling of the response?
       },
     },
   }
@@ -1287,6 +1293,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
 const responseStreamActor = async (callback: StreamActorCallback) => {
   try {
+    // 4. we will also have a ChallengeEvent now that will need to be handled
     const stream = await responseStream;
     for await (const event of stream) {
       if (isServerSesssionInformationEvent(event)) {
