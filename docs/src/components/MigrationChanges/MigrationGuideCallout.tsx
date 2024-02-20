@@ -24,7 +24,7 @@ export const MigrationGuideCallout = ({ framework }) => {
       The ui-{framework} package is currently on version{' '}
       {CURRENT_MAJOR_VERSIONS[framework]}. Working with version ui-{framework}@
       {PREV_MAJOR_VERSIONS[framework]}.x or earlier?{' '}
-      <Link href="../../getting-started/migration">
+      <Link href={`../../${framework}/getting-started/migration`}>
         See our migration guide.
       </Link>
     </Alert>
