@@ -1,7 +1,7 @@
 {
   "name": "@aws-amplify/ui-react-native-auth",
   "private": true,
-  "version": "0.0.12",
+  "version": "0.0.13",
   "main": "lib/index.js",
   "module": "dist/index.js",
   "react-native": "src/index.ts",
@@ -28,9 +28,9 @@
     "metro-react-native-babel-preset": "^0.77.0"
   },
   "dependencies": {
-    "@aws-amplify/ui": "6.0.9",
-    "@aws-amplify/ui-react-core-auth": "0.0.11",
-    "@aws-amplify/ui-react-native": "2.1.1",
+    "@aws-amplify/ui": "6.0.10",
+    "@aws-amplify/ui-react-core-auth": "0.0.12",
+    "@aws-amplify/ui-react-native": "2.1.2",
     "qrcode": "1.5.0"
   },
   "peerDependencies": {

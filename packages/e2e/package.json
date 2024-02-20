@@ -29,7 +29,7 @@
     ]
   },
   "devDependencies": {
-    "@aws-amplify/ui": "^6.0.9",
+    "@aws-amplify/ui": "^6.0.10",
     "@badeball/cypress-cucumber-preprocessor": "^18.0.6",
     "@bahmutov/cypress-esbuild-preprocessor": "~2.2.0",
     "@cucumber/cucumber": "^10.0.1",

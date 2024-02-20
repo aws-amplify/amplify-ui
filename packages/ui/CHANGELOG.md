@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 6.0.10
+
+### Patch Changes
+
+- [#5006](https://github.com/aws-amplify/amplify-ui/pull/5006) [`80ad8cda6`](https://github.com/aws-amplify/amplify-ui/commit/80ad8cda66800f88150054fa51a7bbcdd0730566) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): add handling for external sign up events
+
 ## 6.0.9
 
 ### Patch Changes

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { TransferProgressEvent } from 'aws-amplify/storage';
+import { isFunction, isString } from '@aws-amplify/ui';
 
 import { uploadFile } from '../../utils/uploadFile';
 import { FileStatus } from '../../types';
@@ -37,7 +38,7 @@ export function useUploadFiles({
   onUploadStart,
   maxFileCount,
   processFile,
-  path = '',
+  path,
 }: UseUploadFilesProps): void {
   React.useEffect(() => {
     const filesReadyToUpload = files.filter(
@@ -50,7 +51,9 @@ export function useUploadFiles({
 
     for (const { file, key, id } of filesReadyToUpload) {
       const onComplete: (event: { key?: string }) => void = (event) => {
-        onUploadSuccess?.(event);
+        if (isFunction(onUploadSuccess)) {
+          onUploadSuccess(event);
+        }
         setUploadSuccess({ id });
       };
 
@@ -66,27 +69,32 @@ export function useUploadFiles({
         setUploadProgress({ id, progress: progressPercentage });
       };
 
-      const onError = (error: string) => {
-        onUploadError?.(error, { key });
-      };
-
       if (file) {
         resolveFile({ processFile, file, key }).then(
           ({ key: processedKey, ...rest }) => {
-            onUploadStart?.({ key: processedKey });
+            // prepend `path` to `processedKey`
+            const resolvedKey = isString(path)
+              ? `${path}${processedKey}`
+              : processedKey;
+
+            if (isFunction(onUploadStart)) {
+              onUploadStart({ key: resolvedKey });
+            }
+
             const uploadTask = uploadFile({
               ...rest,
-              key: processedKey,
+              key: resolvedKey,
               level: accessLevel,
               progressCallback: onProgress,
-              errorCallback: onError,
+              errorCallback: (error: string) => {
+                if (isFunction(onUploadError)) {
+                  onUploadError(error, { key: resolvedKey });
+                }
+              },
               completeCallback: onComplete,
             });
 
-            setUploadingFile({
-              id,
-              uploadTask,
-            });
+            setUploadingFile({ id, uploadTask });
           }
         );
       }
