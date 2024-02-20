@@ -1,4 +1,4 @@
-import { cssNameTransform } from '../utils';
+import { cssNameTransform } from '../cssNameTransform';
 
 describe('@aws-amplify/ui', () => {
   describe('cssNameTransform', () => {
@@ -14,6 +14,16 @@ describe('@aws-amplify/ui', () => {
       expect(cssNameTransform({ path: ['fontPrimary', 'c'] })).toEqual(
         'amplify-font-primary-c'
       );
+    });
+
+    it('should transform a single cssName to kebab case', () => {
+      expect(cssNameTransform({ path: ['myVar'] })).toEqual('amplify-my-var');
+    });
+
+    it('should handle nested paths', () => {
+      expect(
+        cssNameTransform({ path: ['theme', 'colors', 'primary'] })
+      ).toEqual('amplify-theme-colors-primary');
     });
   });
 });
