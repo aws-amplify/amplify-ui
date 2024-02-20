@@ -199,3 +199,11 @@ yarn react-native-example dev --reset-cache
 ```bash
 adb reverse tcp:8081 tcp:8081
 ```
+
+### error Failed to launch emulator. Reason: No emulators found as an output of `emulator -list-avds`.
+
+```bash
+npx react-native doctor
+```
+
+Press f to attempt to fix. You should be given the option to select an emulator. If none show up, make sure you followed the setup instructions [here](https://reactnative.dev/docs/environment-setup?guide=native&platform=android), specifically "Install the Android SDK"
