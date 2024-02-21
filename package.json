@@ -86,7 +86,7 @@
     "prismjs": "^1.25.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-native": "0.71.14",
+    "react-native": "0.71.16",
     "react-devtools-core": "^4.28.4",
     "shell-quote": "1.7.3",
     "socks": "^2.7.3",
