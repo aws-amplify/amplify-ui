@@ -40,6 +40,7 @@ const ariaDescribedBy = computed(() => (hasError.value ? errorId : undefined));
     :required="formField.isRequired!"
     :label-hidden="formField.labelHidden!"
     :autocomplete="formField.autocomplete!"
+    :autocapitalize="formField.autocapitalize!"
     :hasError="hasError"
     :describedBy="ariaDescribedBy"
   ></password-control>
@@ -53,6 +54,7 @@ const ariaDescribedBy = computed(() => (hasError.value ? errorId : undefined));
     :required="formField.isRequired"
     :label-hidden="formField.labelHidden"
     :autocomplete="formField.autocomplete"
+    :autocapitalize="formField.autocapitalize"
     :dial-code="formField.dialCode"
     :dial-code-list="formField.dialCodeList"
     :type="formField.type"

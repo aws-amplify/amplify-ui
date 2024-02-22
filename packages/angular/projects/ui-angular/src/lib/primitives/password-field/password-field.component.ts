@@ -9,6 +9,7 @@ import { classNames } from '@aws-amplify/ui';
 })
 export class PasswordFieldComponent {
   @Input() autocomplete = 'new-password';
+  @Input() autocapitalize = 'off';
   @Input() disabled = false;
   @Input() fieldId = `amplify-field-${nanoid(12)}`;
   @Input() initialValue = '';

@@ -15,6 +15,7 @@ export interface FormFieldProps extends Omit<FormFieldOptions, 'label'> {
 }
 
 export function FormField({
+  autocapitalize = 'off',
   autocomplete: autoComplete,
   dialCode,
   name,
@@ -58,6 +59,7 @@ export function FormField({
         <PasswordField
           {...props}
           name={name}
+          autoCapitalize={autocapitalize}
           autoComplete={autoComplete}
           hasError={hasError}
           aria-describedby={ariaDescribedBy}
@@ -75,6 +77,7 @@ export function FormField({
         <TextField
           {...props}
           name={name}
+          autoCapitalize={autocapitalize}
           autoComplete={autoComplete}
           hasError={hasError}
           type={type}

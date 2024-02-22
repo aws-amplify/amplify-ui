@@ -19,6 +19,7 @@ exports[`FormField renders as expected in the happy path 1`] = `
       >
         <input
           aria-invalid="false"
+          autocapitalize="off"
           autocomplete="username"
           class="amplify-input amplify-field-group__control"
           id="mock-id-0"
@@ -40,7 +41,7 @@ exports[`FormField renders as expected in the unhappy path 1`] = `
   >
     <label
       class="amplify-label"
-      for="amplify-id-:r1:"
+      for="amplify-id-:r4:"
     >
       Username
     </label>
@@ -51,11 +52,12 @@ exports[`FormField renders as expected in the unhappy path 1`] = `
         class="amplify-field-group__field-wrapper amplify-field-group__field-wrapper--horizontal"
       >
         <input
-          aria-describedby="amplify-id-:r0:"
+          aria-describedby="amplify-id-:r3:"
           aria-invalid="true"
+          autocapitalize="off"
           autocomplete="username"
           class="amplify-input amplify-field-group__control amplify-input--error"
-          id="amplify-id-:r1:"
+          id="amplify-id-:r4:"
           name="username"
           placeholder="Enter your Username"
           required=""
@@ -66,7 +68,7 @@ exports[`FormField renders as expected in the unhappy path 1`] = `
   </div>
   <div
     data-amplify-sign-up-errors="true"
-    id="amplify-id-:r0:"
+    id="amplify-id-:r3:"
   >
     <p
       class="amplify-text amplify-text--error"
