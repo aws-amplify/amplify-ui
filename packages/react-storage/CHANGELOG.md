@@ -1,5 +1,24 @@
 # @aws-amplify/ui-react-storage
 
+## 3.0.14
+
+### Patch Changes
+
+- [#5013](https://github.com/aws-amplify/amplify-ui/pull/5013) [`d5ea9a773`](https://github.com/aws-amplify/amplify-ui/commit/d5ea9a773930e6694529e763bfc8cbb7250f4585) Thanks [@calebpollman](https://github.com/calebpollman)! - Fix/update storage manager path handling
+
+- Updated dependencies [[`80ad8cda6`](https://github.com/aws-amplify/amplify-ui/commit/80ad8cda66800f88150054fa51a7bbcdd0730566)]:
+  - @aws-amplify/ui@6.0.10
+  - @aws-amplify/ui-react@6.1.4
+  - @aws-amplify/ui-react-core@3.0.10
+
+## 3.0.13
+
+### Patch Changes
+
+- [#4993](https://github.com/aws-amplify/amplify-ui/pull/4993) [`ab29d9618`](https://github.com/aws-amplify/amplify-ui/commit/ab29d9618bc2c949c5c8872ebae89601cb1b7369) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(react-storage): use targetIdentityId instead of identityId to get URL of image
+
+  Fixes an issue in `<StorageImage />` where users could not load an image with `accessLevel` of "protected" even when an `identityId` was supplied.
+
 ## 3.0.12
 
 ### Patch Changes

@@ -2,24 +2,25 @@ import { Config } from 'jest';
 
 const config: Config = {
   collectCoverage: true,
-  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
-  coveragePathIgnorePatterns: [
+  collectCoverageFrom: [
+    '<rootDir>/src/**/*.ts',
     // ignore coverage for top level "export"
-    '<rootDir>/src/index.ts',
+    '!<rootDir>/src/index.ts',
+    // ignore internal `debugUtils` from coverage thresholds
+    '!<rootDir>/**/debugUtils.ts',
     // ignore coverage for style-dictionary type declaration file
-    '<rootDir>/src/theme/types/style-dictionary.d.ts',
+    '!<rootDir>/src/theme/types/style-dictionary.d.ts',
   ],
   coverageThreshold: {
     global: {
-      branches: 77,
-      functions: 70,
-      lines: 87,
-      statements: 88,
+      branches: 80,
       // @todo-migration: put back after fixing tests
-      // branches: 80,
       // functions: 85,
+      functions: 70,
+      // @todo-migration: put back after fixing tests
       // lines: 90,
-      // statements: 90,
+      lines: 87,
+      statements: 90,
     },
   },
   preset: 'ts-jest',
