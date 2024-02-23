@@ -7,7 +7,6 @@ import { nanoid } from 'nanoid';
 })
 export class TextFieldComponent {
   @Input() autocomplete = 'new-password';
-  @Input() autocapitalize = 'off';
   @Input() disabled = false;
   @Input() fieldId = `amplify-field-${nanoid(12)}`;
   @Input() initialValue = '';

@@ -5,7 +5,6 @@ interface PropsInterface {
   name: string;
   placeholder?: string;
   autocomplete?: string;
-  autocapitalize?: string;
   labelHidden?: boolean;
   required?: boolean;
   dialCode?: string;
@@ -20,7 +19,6 @@ const props = withDefaults(defineProps<PropsInterface>(), {
   name: 'username',
   placeholder: '',
   autocomplete: '',
-  autocapitalize: 'off',
   required: true,
   type: 'text',
 });
@@ -30,7 +28,6 @@ const {
   name,
   placeholder,
   autocomplete,
-  autocapitalize,
   labelHidden,
   required,
   dialCode,
@@ -98,13 +95,13 @@ const randomPhone = Math.floor(Math.random() * 999999);
           class="amplify-input amplify-field-group__control"
           :id="'amplify-field-' + random"
           :autocomplete="autocomplete"
-          :autocapitalize="autocapitalize"
           :name="name"
           :required="required ?? true"
           :type="type"
           :placeholder="placeholder"
           :aria-invalid="hasError"
           :aria-describedBy="describedBy"
+          autocapitalize="off"
         ></base-input>
       </base-wrapper>
     </base-wrapper>
