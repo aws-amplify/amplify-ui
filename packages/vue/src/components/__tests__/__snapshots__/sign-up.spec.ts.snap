@@ -58,6 +58,7 @@ exports[`SignUp renders as expected 1`] = `
                 <!--Phone input-->
                 <input
                   aria-invalid="false"
+                  autocapitalize="off"
                   autocomplete=""
                   class="amplify-input amplify-field-group__control"
                   data-amplify-input=""
@@ -102,6 +103,7 @@ exports[`SignUp renders as expected 1`] = `
                 
                 <input
                   aria-invalid="false"
+                  autocapitalize="off"
                   autocomplete="new-password"
                   class="amplify-input amplify-field-group__control"
                   data-amplify-input=""
@@ -172,6 +174,7 @@ exports[`SignUp renders as expected 1`] = `
                 
                 <input
                   aria-invalid="false"
+                  autocapitalize="off"
                   autocomplete="new-password"
                   class="amplify-input amplify-field-group__control"
                   data-amplify-input=""
@@ -251,6 +254,7 @@ exports[`SignUp renders as expected 1`] = `
                 <!--Phone input-->
                 <input
                   aria-invalid="false"
+                  autocapitalize="off"
                   autocomplete=""
                   class="amplify-input amplify-field-group__control"
                   data-amplify-input=""
