@@ -37,6 +37,16 @@ describe('FormField', () => {
     expect(container).toMatchSnapshot();
   });
 
+  it('renders as expected in the unhappy path', () => {
+    useStableIdSpy.mockReturnValue('mock-id-0');
+    useAuthenticatorSpy.mockReturnValue({
+      validationErrors: { username: ERROR_MESSAGE },
+    } as unknown as UIReactCore.UseAuthenticator);
+
+    const { container } = render(<FormField {...usernameFormFieldProps} />);
+    expect(container).toMatchSnapshot();
+  });
+
   it('renders with autocapitalize disabled by default', async () => {
     useStableIdSpy.mockReturnValue('mock-id-0');
     useAuthenticatorSpy.mockReturnValue({
@@ -46,16 +56,6 @@ describe('FormField', () => {
     const { container } = render(<FormField {...usernameFormFieldProps} />);
     const inputField = await screen.findByLabelText('Username');
     expect(inputField.getAttribute('autocapitalize')).toBe('off');
-  });
-
-  it('renders as expected in the unhappy path', () => {
-    useStableIdSpy.mockReturnValue('mock-id-0');
-    useAuthenticatorSpy.mockReturnValue({
-      validationErrors: { username: ERROR_MESSAGE },
-    } as unknown as UIReactCore.UseAuthenticator);
-
-    const { container } = render(<FormField {...usernameFormFieldProps} />);
-    expect(container).toMatchSnapshot();
   });
 
   it('Invalid field is described by validation error', async () => {
