@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-core",
-  "version": "3.0.9",
+  "version": "3.0.10",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "react-native": "src/index.ts",
@@ -33,7 +33,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "6.0.9",
+    "@aws-amplify/ui": "6.0.10",
     "@xstate/react": "^3.2.2",
     "lodash": "4.17.21",
     "react-hook-form": "^7.43.5",

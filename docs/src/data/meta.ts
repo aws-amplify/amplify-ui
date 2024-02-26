@@ -9,6 +9,7 @@ export interface MetaInfo {
       htmlElement?: string;
       supportedFrameworks?: string;
       slug?: string;
+      canonicalUrlPath?: string;
     };
     slug?: string;
     href?: string;

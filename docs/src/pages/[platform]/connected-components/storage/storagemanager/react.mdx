@@ -14,12 +14,13 @@ import {
   StorageManagerDisplayTextExample,
   StorageManagerEventExample,
   StorageManagerFileTypesExample,
+  StorageManagerHandleExample,
   StorageManagerHashExample,
   StorageManageri18nExample,
   StorageManagerMetadataExample,
+  StorageManagerPathPropExample,
   StorageManagerResumableExample,
   StorageManagerThemeExample,
-  StorageManagerHandleExample,
   StorageManagerUploadActionsExample,
 } from './examples'
 
@@ -139,6 +140,17 @@ The StorageManager component has several event handlers: `onUploadStart`, `onUpl
 <Alert variation="warning" heading="Use a previousState">
 Be careful setting state in the `onUploadSuccess` because that function is bound when the upload _starts_. Make sure to use the previous state argument rather than the current state in the component.
 </Alert>
+
+## `path` Usage
+
+The `path` prop of the `StorageManager` is prepended to the `key` value (resolved from either the file itself or the returned `key` of `processFile`) submitted to S3. Using a `'/'` as the last character of `path` allows uploading to a specific folder inside the provided `accessLevel` folder.
+
+<Example>
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerPathPropExample.tsx
+    ```
+  </ExampleCode>
+</Example>
 
 ## Adding metadata
 
