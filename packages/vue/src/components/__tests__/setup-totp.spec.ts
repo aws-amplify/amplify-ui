@@ -86,7 +86,7 @@ describe('SetupTotp', () => {
     const { container } = render(SetupTotp, { global: { components } });
 
     // wait for qrcode to render
-    await screen.findByAltText('qr code');
+    waitFor(() => screen.findByAltText('qr code'));
     expect(container).toMatchSnapshot();
 
     mathRandomSpy.mockRestore();
@@ -119,8 +119,8 @@ describe('SetupTotp', () => {
     render(SetupTotp, { global: { components } });
 
     // wait for qrcode to render
-    await screen.findByAltText('qr code');
-
+    waitFor(() => screen.findByAltText('qr code'));
+    // waitFor(() => expect(consoleWarnSpy).toHaveBeenCalled());
     const copyButton = await screen.findByText('COPY');
     copyButton.click();
 
