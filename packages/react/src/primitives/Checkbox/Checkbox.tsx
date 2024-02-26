@@ -183,9 +183,17 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
       {label && (
         <Text
           as="span"
-          className={classNames(ComponentClassName.CheckboxLabel, {
-            [ComponentClassName.VisuallyHidden]: labelHidden,
-          })}
+          className={classNames(
+            ComponentClassName.CheckboxLabel,
+            classNameModifierByFlag(
+              ComponentClassName.CheckboxLabel,
+              `disabled`,
+              shouldBeDisabled
+            ),
+            {
+              [ComponentClassName.VisuallyHidden]: labelHidden,
+            }
+          )}
           data-disabled={shouldBeDisabled}
           testId={labelTestId}
         >
