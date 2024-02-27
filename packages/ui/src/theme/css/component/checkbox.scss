@@ -138,5 +138,8 @@
 }
 
 .amplify-checkbox__label {
-  color: inherit;
+  color: var(--amplify-components-checkbox-label-color);
+  &--disabled {
+    color: var(--amplify-components-checkbox-label-disabled-color);
+  }
 }
