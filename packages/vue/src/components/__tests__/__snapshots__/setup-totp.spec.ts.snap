@@ -217,9 +217,14 @@ exports[`SetupTotp renders qrcode image as expected after onMounted is done 1`] 
             class="amplify-flex amplify-authenticator__column"
           >
             
-            <p>
-              Loading...
-            </p>
+            <img
+              alt="qr code"
+              class="amplify-image"
+              data-amplify-qrcode=""
+              height="228"
+              src="data:image/png;base64,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"
+              width="228"
+            />
             <div
               class="amplify-flex"
               data-amplify-copy=""
