@@ -31,6 +31,7 @@ jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
 const updateFormSpy = jest.fn();
 const submitFormSpy = jest.fn();
 const skipVerificationSpy = jest.fn();
+
 const unverifiedUserAttributes: UnverifiedUserAttributes = {
   email: 'test@example.com',
 };
@@ -118,6 +119,12 @@ describe('VerifyUser', () => {
     render(VerifyUser, { global: { components } });
 
     expect(await screen.findByText('mockError')).toBeInTheDocument();
+  });
+
+  it('calls censorContactInformation', async () => {
+    render(VerifyUser, { global: { components } });
+
+    expect(skipVerificationSpy).toHaveBeenCalledTimes(1);
   });
 
   it('disables the submit button if sign up is pending', async () => {
