@@ -65,6 +65,7 @@ export interface HydratedLivenessContext {
   componentProps: FaceLivenessDetectorCoreProps;
   serverSessionInformation: SessionInformation;
   challengeId: string;
+  challengeType: string;
   videoAssociatedParams: VideoAssociatedParams;
   ovalAssociatedParams: OvalAssociatedParams;
   faceMatchAssociatedParams: FaceMatchAssociatedParams;
@@ -84,6 +85,7 @@ export type LivenessEventTypes =
   | 'TIMEOUT'
   | 'ERROR'
   | 'CANCEL'
+  | 'SET_CHALLENGE_TYPE'
   | 'SET_SESSION_INFO'
   | 'DISCONNECT_EVENT'
   | 'SET_DOM_AND_CAMERA_DETAILS'

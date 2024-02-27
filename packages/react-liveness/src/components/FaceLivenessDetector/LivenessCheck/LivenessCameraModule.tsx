@@ -37,7 +37,7 @@ import {
   DefaultPhotosensitiveWarning,
   FaceLivenessDetectorComponents,
   DefaultCancelButton,
-  DefaultRecordingIcon,
+  DefaultRecordingIcon, 
 } from '../shared/DefaultStartScreenComponents';
 
 export const selectVideoConstraints = createLivenessSelector(
@@ -147,6 +147,12 @@ export const LivenessCameraModule = (
     recording: 'flashFreshnessColors',
   });
 
+  const beginLivenessCheck = () => {
+    send({
+      type: 'BEGIN',
+    });
+  }
+
   // Android/Firefox and iOS flip the values of width/height returned from
   // getUserMedia, so we'll reset these in useLayoutEffect with the videoRef
   // element's intrinsic videoWidth and videoHeight attributes
@@ -249,12 +255,6 @@ export const LivenessCameraModule = (
     setIsCameraReady(true);
   };
 
-  const beginLivenessCheck = React.useCallback(() => {
-    send({
-      type: 'BEGIN',
-    });
-  }, [send]);
-
   const onCameraChange = React.useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
       const newDeviceId = e.target.value;
@@ -276,6 +276,10 @@ export const LivenessCameraModule = (
     [videoConstraints, send]
   );
 
+  // TODO add loading screen for challenge type check 
+  /* 
+  if (isCheckingChallengeType) {}
+  */ 
   if (isCheckingCamera) {
     return (
       <Flex
@@ -306,6 +310,7 @@ export const LivenessCameraModule = (
 
   return (
     <>
+    {/* TODO add conditional */}
       {photoSensitivityWarning}
 
       <Flex
@@ -452,7 +457,7 @@ export const LivenessCameraModule = (
           <Button
             variation="primary"
             type="button"
-            onClick={beginLivenessCheck}
+            onClick={() => beginLivenessCheck()}
           >
             {instructionDisplayText.startScreenBeginCheckText}
           </Button>

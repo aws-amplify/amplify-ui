@@ -84,7 +84,8 @@ export class LivenessStreamProvider {
     this.videoEl = videoEl;
     this.videoRecorder = new VideoRecorder(stream);
     this.credentialProvider = credentialProvider;
-    this.endpointOverride = endpointOverride;
+   // this.endpointOverride = 'alankrp-moa.dev.streaming.reventlov.rekognition.aws.dev';
+   this.endpointOverride = endpointOverride;
     this.initPromise = this.init();
   }
 
@@ -220,6 +221,8 @@ export class LivenessStreamProvider {
     // 4. establish connection to rekognition streaming service
     const response = await this._client.send(
       new StartFaceLivenessSessionCommand({
+        // TODO is this the right string for movement only
+        // ChallengeVersions: ['FaceMovementAndLightChallenge_1.0.0', 'FaceMovementChallenge_1.0.0'],
         ChallengeVersions: 'FaceMovementAndLightChallenge_1.0.0',
         SessionId: this.sessionId,
         LivenessRequestStream: livenessRequestGenerator,

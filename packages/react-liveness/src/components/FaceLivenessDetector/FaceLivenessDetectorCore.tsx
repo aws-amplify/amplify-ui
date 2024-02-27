@@ -33,15 +33,22 @@ export default function FaceLivenessDetectorCore(
     errorDisplayText,
   } = getDisplayText(displayText);
 
-  const service = useInterpret(livenessMachine, {
-    devTools: process.env.NODE_ENV === 'development',
-    context: {
-      componentProps: {
-        ...props,
-        config: config ?? {},
+  const service = useInterpret(
+    livenessMachine,
+    {
+      devTools: process.env.NODE_ENV === 'development',
+      context: {
+        componentProps: {
+          ...props,
+          config: config ?? {},
+        },
       },
     },
-  });
+    (state) => {
+      // subscribes to state changes
+      console.log(state.value);
+    }
+  );
 
   return (
     <View className={DETECTOR_CLASS_NAME} testId={DETECTOR_CLASS_NAME}>

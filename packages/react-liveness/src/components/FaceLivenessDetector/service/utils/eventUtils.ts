@@ -1,6 +1,13 @@
 import { LivenessResponseStream } from '@aws-sdk/client-rekognitionstreaming';
 
-export const isServerSesssionInformationEvent = (
+export const isChallengeEvent = (
+  value: unknown
+): value is LivenessResponseStream.ChallengeEventMember => {
+  return !!(value as LivenessResponseStream.ChallengeEventMember)
+    ?.ChallengeEvent;
+};
+
+export const isServerSessionInformationEvent = (
   value: unknown
 ): value is LivenessResponseStream.ServerSessionInformationEventMember => {
   return !!(value as LivenessResponseStream.ServerSessionInformationEventMember)

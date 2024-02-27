@@ -19,12 +19,12 @@ export default function LivenessDefault({
     handleGetLivenessDetection,
     stopLiveness,
   } = useLiveness();
-  console.log('createLivenessSessionApiData', createLivenessSessionApiData);
-  console.log('createLivenessSessionApiError', createLivenessSessionApiError);
-  console.log(
-    'createLivenessSessionApiLoading',
-    createLivenessSessionApiLoading
-  );
+  // console.log('createLivenessSessionApiData', createLivenessSessionApiData);
+  // console.log('createLivenessSessionApiError', createLivenessSessionApiError);
+  // console.log(
+  //   'createLivenessSessionApiLoading',
+  //   createLivenessSessionApiLoading
+  // );
 
   if (createLivenessSessionApiError) {
     return <div>Some error occured...</div>;
@@ -33,20 +33,6 @@ export default function LivenessDefault({
   function onUserCancel() {
     stopLiveness();
   }
-
-  const dictionary = {
-    // use default strings for english
-    en: null,
-    es: {
-      photosensitivyWarningHeadingText: 'Advertencia de fotosensibilidad',
-      photosensitivityWarningBodyText:
-        'Esta verificación muestra luces de colores. Tenga cuidado si es fotosensible.',
-      goodFitCaptionText: 'Buen ajuste',
-      tooFarCaptionText: 'Demasiado lejos',
-      hintCenterFaceText: 'Centra tu cara',
-      startScreenBeginCheckText: 'Comenzar a verificar',
-    },
-  };
 
   return (
     <View maxWidth="640px" margin="0 auto">
@@ -85,7 +71,6 @@ export default function LivenessDefault({
                 }}
                 disableStartScreen={disableStartScreen}
                 components={components}
-                displayText={dictionary['es']}
               />
             ) : null}
           </Flex>

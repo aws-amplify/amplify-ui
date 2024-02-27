@@ -54,10 +54,18 @@ export const LivenessCheck: React.FC<LivenessCheckProps> = ({
 
   const isPermissionDenied = state.matches('permissionDenied');
   const isMobile = isMobileScreen();
+  // add a variable for flow type 
 
   const recheckCameraPermissions = () => {
     send({ type: 'RETRY_CAMERA_CHECK' });
   };
+
+  // Move StartFaceLivenessSession API call to component mount of controlling component
+  const beginLivenessCheck = () => {
+    send({
+      type: 'BEGIN',
+    });
+  }
 
   const {
     cameraMinSpecificationsHeadingText,
@@ -166,6 +174,8 @@ export const LivenessCheck: React.FC<LivenessCheckProps> = ({
         </Flex>
       );
     } else {
+      // beginLivenessCheck();
+
       return (
         <LivenessCameraModule
           isMobileScreen={isMobile}

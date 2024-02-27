@@ -39,7 +39,7 @@ import {
   isServiceQuotaExceededExceptionEvent,
   isValidationExceptionEvent,
   isInternalServerExceptionEvent,
-  isServerSesssionInformationEvent,
+  isServerSessionInformationEvent,
   isDisconnectionEvent,
   isInvalidSignatureRegionException,
 } from '../utils/eventUtils';
@@ -78,6 +78,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
     predictableActionArguments: true,
     context: {
       challengeId: nanoid(),
+      challengeType: undefined,
       maxFailedAttempts: 0, // Set to 0 for now as we are not allowing front end based retries for streaming
       failedAttempts: 0,
       componentProps: undefined,
@@ -122,6 +123,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         target: 'retryableTimeout',
         actions: 'updateErrorStateForTimeout',
       },
+      SET_CHALLENGE_TYPE: {
+        actions: 'updateChallengeType',
+      },
       SET_SESSION_INFO: {
         internal: true,
         actions: 'updateSessionInfo',
@@ -165,10 +169,25 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       waitForDOMAndCameraDetails: {
         after: {
           0: {
-            target: 'start',
+            target: 'initializeLivenessStream',
             cond: 'hasDOMAndCameraDetails',
           },
           10: { target: 'waitForDOMAndCameraDetails' },
+        },
+      },
+      // HERE OPEN LIVENESS STREAM BEFORE START
+      // then draw start screen
+      // then on begin do the video check 
+      initializeLivenessStream: {
+        invoke: {
+          src: 'openLivenessStreamConnection',
+          onDone: {
+            target: 'start',
+            actions: [
+              'updateLivenessStreamProvider',
+              'spawnResponseStreamActor',
+            ],
+          },
         },
       },
       start: {
@@ -213,22 +232,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       checkFaceDistanceBeforeRecording: {
         after: {
           0: {
-            target: 'initializeLivenessStream',
+            target: 'notRecording',
             cond: 'hasEnoughFaceDistanceBeforeRecording',
           },
           100: { target: 'detectFaceDistanceBeforeRecording' },
-        },
-      },
-      initializeLivenessStream: {
-        invoke: {
-          src: 'openLivenessStreamConnection',
-          onDone: {
-            target: 'notRecording',
-            actions: [
-              'updateLivenessStreamProvider',
-              'spawnResponseStreamActor',
-            ],
-          },
         },
       },
       notRecording: {
@@ -644,6 +651,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       clearErrorState: assign({
         errorState: (_) => undefined,
       }),
+      updateChallengeType: assign({
+        challengeType: (context, event) => {
+          return event.data!.challengeType;
+        },
+      }),
       updateSessionInfo: assign({
         serverSessionInformation: (context, event) => {
           return event.data!.sessionInfo;
@@ -879,6 +891,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       hasFreshnessColorShown: (context) =>
         context.freshnessColorAssociatedParams!.freshnessColorsComplete!,
       hasServerSessionInfo: (context) => {
+        // console.log("context.serverSessionInformation", context.serverSessionInformation);
         return context.serverSessionInformation !== undefined;
       },
       hasDOMAndCameraDetails: (context) => {
@@ -962,6 +975,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           selectableDevices: realVideoDevices,
         };
       },
+      // open liveness stream 
       async openLivenessStreamConnection(context) {
         const { config } = context.componentProps!;
         const { credentialProvider, endpointOverride } = config!;
@@ -1296,7 +1310,14 @@ const responseStreamActor = async (callback: StreamActorCallback) => {
     // 4. we will also have a ChallengeEvent now that will need to be handled
     const stream = await responseStream;
     for await (const event of stream) {
-      if (isServerSesssionInformationEvent(event)) {
+      // if (isChallengeEvent(event)) {
+      //   callback({
+      //     type: 'SET_CHALLENGE_TYPE',
+      //     data: { challengeType: event.ChallengeEvent.Type },
+      //   });
+      // }
+      if (isServerSessionInformationEvent(event)) {
+        console.log("setting session info");
         callback({
           type: 'SET_SESSION_INFO',
           data: {
