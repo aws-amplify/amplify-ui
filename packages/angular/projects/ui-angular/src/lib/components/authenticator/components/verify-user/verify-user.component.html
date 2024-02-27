@@ -19,7 +19,9 @@
         [value]="unverifiedUserAttribute.key"
         [id]="labelId"
       />
-      <label [for]="labelId">{{ getLabel(unverifiedUserAttribute.key) }}</label>
+      <label [for]="labelId">{{
+        getLabel(unverifiedUserAttribute.key, unverifiedUserAttribute.value)
+      }}</label>
     </div>
 
     <button

@@ -1,4 +1,5 @@
 import { ALLOWED_SPECIAL_CHARACTERS, emailRegex } from './constants';
+import type { ContactMethod } from '../../types';
 
 // replaces all characters in a string with '*', except for the first and last char
 export const censorAllButFirstAndLast = (value: string): string => {
@@ -24,6 +25,24 @@ export const censorPhoneNumber = (val: string): string => {
   }
 
   return split.join('');
+};
+
+export const censorContactInformation = (
+  type: ContactMethod,
+  value: string
+): string => {
+  let newVal = value;
+
+  if (type === 'Phone Number') {
+    newVal = censorPhoneNumber(value);
+  } else if (type === 'Email') {
+    const splitEmail = value.split('@');
+    const censoredName = censorAllButFirstAndLast(splitEmail[0]);
+
+    newVal = `${censoredName}@${splitEmail[1]}`;
+  }
+
+  return newVal;
 };
 
 export const hasSpecialChars = (password: string) =>

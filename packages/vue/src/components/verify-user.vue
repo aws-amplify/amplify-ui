@@ -3,8 +3,7 @@ import { computed, toRefs } from 'vue';
 
 import {
   authenticatorTextUtil,
-  censorAllButFirstAndLast,
-  censorPhoneNumber,
+  censorContactInformation,
   ContactMethod,
   defaultFormFieldOptions,
   getFormDataFromEvent,
@@ -26,25 +25,6 @@ const {
   getVerifyText,
   getVerifyContactText,
 } = authenticatorTextUtil;
-
-const censorContactInformation = (
-  type: ContactMethod,
-  value: string
-): string => {
-  const translated = translate(type);
-  let newVal = value;
-
-  if (type === 'Phone Number') {
-    newVal = censorPhoneNumber(value);
-  } else if (type === 'Email') {
-    const splitEmail = value.split('@');
-    const censoredName = censorAllButFirstAndLast(splitEmail[0]);
-
-    newVal = `${censoredName}@${splitEmail[1]}`;
-  }
-
-  return `${translated}: ${newVal}`;
-};
 
 // Computed Properties
 const verifyHeading = computed(() => getAccountRecoveryInfoText());
@@ -108,6 +88,9 @@ const onSkipClicked = (): void => {
                   v-if="value"
                 >
                   <base-text class="amplify-text amplify-radio__label">
+                    {{
+                      translate(defaultFormFieldOptions[key].label as string)
+                    }}:
                     {{
                       censorContactInformation(
                         defaultFormFieldOptions[key].label as ContactMethod,
