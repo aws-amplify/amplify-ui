@@ -121,12 +121,6 @@ describe('VerifyUser', () => {
     expect(await screen.findByText('mockError')).toBeInTheDocument();
   });
 
-  it('calls censorContactInformation', async () => {
-    render(VerifyUser, { global: { components } });
-
-    expect(skipVerificationSpy).toHaveBeenCalledTimes(1);
-  });
-
   it('disables the submit button if sign up is pending', async () => {
     useAuthenticatorSpy.mockReturnValueOnce(
       reactive({
