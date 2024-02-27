@@ -3,9 +3,11 @@ import { computed, toRefs } from 'vue';
 
 import {
   authenticatorTextUtil,
+  censorAllButFirstAndLast,
+  censorPhoneNumber,
+  ContactMethod,
   defaultFormFieldOptions,
   getFormDataFromEvent,
-  LoginMechanism,
   translate,
 } from '@aws-amplify/ui';
 
@@ -24,6 +26,25 @@ const {
   getVerifyText,
   getVerifyContactText,
 } = authenticatorTextUtil;
+
+const censorContactInformation = (
+  type: ContactMethod,
+  value: string
+): string => {
+  const translated = translate(type);
+  let newVal = value;
+
+  if (type === 'Phone Number') {
+    newVal = censorPhoneNumber(value);
+  } else if (type === 'Email') {
+    const splitEmail = value.split('@');
+    const censoredName = censorAllButFirstAndLast(splitEmail[0]);
+
+    newVal = `${censoredName}@${splitEmail[1]}`;
+  }
+
+  return `${translated}: ${newVal}`;
+};
 
 // Computed Properties
 const verifyHeading = computed(() => getAccountRecoveryInfoText());
@@ -77,31 +98,38 @@ const onSkipClicked = (): void => {
               class="amplify-flex amplify-field amplify-radiogroupfield amplify-authenticator__column"
               aria-labelledby="amplify-field-493c"
             >
-              <base-label
-                class="amplify-flex amplify-radio"
-                data-amplify-verify-label
-                id="verify"
+              <template
                 v-for="(value, key) in unverifiedUserAttributes"
                 :key="value"
               >
-                <base-input
-                  class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
-                  aria-invalid="false"
-                  data-amplify-verify-input
-                  id="verify"
-                  name="unverifiedAttr"
-                  type="radio"
-                  :value="key"
+                <base-label
+                  class="amplify-flex amplify-radio"
+                  data-amplify-verify-label
+                  v-if="value"
                 >
-                </base-input>
-                <base-text
-                  class="amplify-flex amplify-radio__button"
-                  aria-hidden="true"
-                ></base-text>
-                <base-text class="amplify-text amplify-radio__label">
-                  {{ defaultFormFieldOptions[key as LoginMechanism].label }}
-                </base-text>
-              </base-label>
+                  <base-text class="amplify-text amplify-radio__label">
+                    {{
+                      censorContactInformation(
+                        defaultFormFieldOptions[key].label as ContactMethod,
+                        value
+                      )
+                    }}
+                  </base-text>
+                  <base-input
+                    class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
+                    aria-invalid="false"
+                    data-amplify-verify-input
+                    name="unverifiedAttr"
+                    type="radio"
+                    :value="key"
+                  >
+                  </base-input>
+                  <base-text
+                    class="amplify-flex amplify-radio__button"
+                    aria-hidden="true"
+                  ></base-text>
+                </base-label>
+              </template>
             </base-wrapper>
           </base-wrapper>
           <base-footer class="amplify-flex amplify-authenticator__column">
