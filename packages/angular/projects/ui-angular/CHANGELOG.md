@@ -1,5 +1,18 @@
 # @aws-amplify/ui-angular
 
+## 5.0.11
+
+### Patch Changes
+
+- [#5034](https://github.com/aws-amplify/amplify-ui/pull/5034) [`1d9c5c862`](https://github.com/aws-amplify/amplify-ui/commit/1d9c5c8629fd94b4e1b5fa045afe0dd1ccc1b21d) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(web/react-native/ui): use translated strings for VerifyUser screen and use censorContactMethod util
+
+  **ui/Angular/React/Vue/ReactNative:** adds a `censorContactMethod()` utility to the `ui` package and refactors the VerifyUser screen in Angular, React, Vue, and ReactNative packages to use this utility.
+
+  **Vue:** Fixes an issue where translated strings were not being properly used for the VerifyUser screen. Additionally, removes duplicate "verify" id that was on multiple elements.
+
+- Updated dependencies [[`1d9c5c862`](https://github.com/aws-amplify/amplify-ui/commit/1d9c5c8629fd94b4e1b5fa045afe0dd1ccc1b21d), [`4eae32e91`](https://github.com/aws-amplify/amplify-ui/commit/4eae32e91ecc64b24a0092c4aee234b87420ce07), [`32702d9c9`](https://github.com/aws-amplify/amplify-ui/commit/32702d9c976e81b23b4e8f1c7e935b48288e058d)]:
+  - @aws-amplify/ui@6.0.11
+
 ## 5.0.10
 
 ### Patch Changes
