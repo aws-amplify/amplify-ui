@@ -6,7 +6,7 @@
 "@aws-amplify/ui-vue": patch
 ---
 
-fix(web/react-native/ui): use translated strings for VerifyUser screen and use censoredContactInformation util 
+fix(web/react-native/ui): use translated strings for VerifyUser screen and use censorContactMethod util 
 
 **ui/Angular/React/Vue/ReactNative:** adds a `censorContactMethod()` utility to the `ui` package and refactors the VerifyUser screen in Angular, React, Vue, and ReactNative packages to use this utility.
 
