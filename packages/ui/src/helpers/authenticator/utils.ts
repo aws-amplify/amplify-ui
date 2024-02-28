@@ -27,22 +27,22 @@ export const censorPhoneNumber = (val: string): string => {
   return split.join('');
 };
 
-export const censorContactInformation = (
+// censors all but the first and last of the name of an email and keeps domain
+export const censorEmail = (val: string): string => {
+  const splitEmail = val.split('@');
+  const censoredName = censorAllButFirstAndLast(splitEmail[0]);
+
+  return `${censoredName}@${splitEmail[1]}`;
+};
+
+// based on the ContactMethod type, returns a censored contact value
+export const censorContactMethod = (
   type: ContactMethod,
   value: string
 ): string => {
-  let newVal = value;
-
-  if (type === 'Phone Number') {
-    newVal = censorPhoneNumber(value);
-  } else if (type === 'Email') {
-    const splitEmail = value.split('@');
-    const censoredName = censorAllButFirstAndLast(splitEmail[0]);
-
-    newVal = `${censoredName}@${splitEmail[1]}`;
-  }
-
-  return newVal;
+  return type === 'Phone Number'
+    ? censorPhoneNumber(value)
+    : censorEmail(value);
 };
 
 export const hasSpecialChars = (password: string) =>
