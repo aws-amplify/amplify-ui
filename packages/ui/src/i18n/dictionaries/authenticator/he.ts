@@ -23,7 +23,7 @@ export const heDict: AuthenticatorDictionary = {
   'Enter your Email': 'הכנס את המייל שלך',
   'Enter your phone number': 'הכנס את מספר הטלפון שלך',
   'Enter your username': 'הכנס את שם המתמש שלך',
-  'Forgot your password?': 'שחכת סיסמא ?',
+  'Forgot your password?': 'שכחת סיסמא ?',
   'Hide password': 'הסתר סיסמא',
   Loading: 'טוען',
   'New password': 'סיסמא חדשה',
