@@ -67,11 +67,9 @@ describe('VerifyUser', () => {
   it('sends change event on form input', async () => {
     render(VerifyUser, { global: { components } });
 
-    const checkboxField = await screen.findByLabelText(
-      'Email: t**t@example.com'
-    );
+    const radioField = await screen.findByLabelText('Email: t**t@example.com');
 
-    await fireEvent.click(checkboxField);
+    await fireEvent.click(radioField);
     expect(updateFormSpy).toHaveBeenCalledWith({
       name: 'unverifiedAttr',
       value: 'email',
@@ -81,11 +79,9 @@ describe('VerifyUser', () => {
   it('sends submit event on form submit', async () => {
     render(VerifyUser, { global: { components } });
 
-    const checkboxField = await screen.findByLabelText(
-      'Email: t**t@example.com'
-    );
+    const radioField = await screen.findByLabelText('Email: t**t@example.com');
 
-    await fireEvent.click(checkboxField);
+    await fireEvent.click(radioField);
     expect(updateFormSpy).toHaveBeenCalledWith({
       name: 'unverifiedAttr',
       value: 'email',
