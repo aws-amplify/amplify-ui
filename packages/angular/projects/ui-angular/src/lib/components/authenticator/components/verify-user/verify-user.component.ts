@@ -12,6 +12,8 @@ import {
   translate,
   authenticatorTextUtil,
   UnverifiedUserAttributes,
+  censorContactMethod,
+  ContactMethod,
 } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { getAttributeMap } from '../../../../common';
@@ -48,10 +50,15 @@ export class VerifyUserComponent implements OnInit {
     this.unverifiedUserAttributes = actorState.context.unverifiedUserAttributes;
   }
 
-  getLabel(attr: keyof UnverifiedUserAttributes): string {
+  getLabel(attr: keyof UnverifiedUserAttributes, value: string): string {
     const attributeMap = getAttributeMap();
     const { label } = attributeMap[attr];
-    return translate(label);
+    const translatedTypeLabel = translate(label);
+    const censoredAttributeValue = censorContactMethod(
+      label as ContactMethod,
+      value
+    );
+    return `${translatedTypeLabel}: ${censoredAttributeValue}`;
   }
 
   onInput(event: Event): void {
