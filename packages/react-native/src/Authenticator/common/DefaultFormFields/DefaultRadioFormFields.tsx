@@ -1,5 +1,5 @@
 import React from 'react';
-import { censorContactInformation, ContactMethod } from '@aws-amplify/ui';
+import { censorContactMethod, ContactMethod } from '@aws-amplify/ui';
 
 import { Radio, RadioGroup } from '../../../primitives';
 import { DefaultRadioFormFieldsProps } from './types';
@@ -33,7 +33,7 @@ const DefaultRadioFormFields = ({
             // value has to be name, because Auth is only interested in the
             // string "email" or "phone_number", not the actual value
             value={name}
-            label={censorContactInformation(attributeType, value)}
+            label={censorContactMethod(attributeType, value)}
             labelStyle={fieldLabelStyle}
             style={fieldContainerStyle}
           />

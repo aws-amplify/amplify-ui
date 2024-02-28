@@ -3,7 +3,7 @@ import { computed, toRefs } from 'vue';
 
 import {
   authenticatorTextUtil,
-  censorContactInformation,
+  censorContactMethod,
   ContactMethod,
   defaultFormFieldOptions,
   getFormDataFromEvent,
@@ -92,7 +92,7 @@ const onSkipClicked = (): void => {
                       translate(defaultFormFieldOptions[key].label as string)
                     }}:
                     {{
-                      censorContactInformation(
+                      censorContactMethod(
                         defaultFormFieldOptions[key].label as ContactMethod,
                         value
                       )

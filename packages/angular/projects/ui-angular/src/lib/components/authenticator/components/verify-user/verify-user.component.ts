@@ -12,7 +12,7 @@ import {
   translate,
   authenticatorTextUtil,
   UnverifiedUserAttributes,
-  censorContactInformation,
+  censorContactMethod,
   ContactMethod,
 } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
@@ -54,7 +54,7 @@ export class VerifyUserComponent implements OnInit {
     const attributeMap = getAttributeMap();
     const { label } = attributeMap[attr];
     const translatedTypeLabel = translate(label);
-    const censoredAttributeValue = censorContactInformation(
+    const censoredAttributeValue = censorContactMethod(
       label as ContactMethod,
       value
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   defaultFormFieldOptions,
-  censorContactInformation,
+  censorContactMethod,
   ContactMethod,
   translate,
   UnverifiedUserAttributes,
@@ -36,7 +36,7 @@ const generateRadioGroup = (
     return (
       <Radio name="unverifiedAttr" value={key} key={key}>
         {translate(verificationType)}:{' '}
-        {censorContactInformation(verificationType, value)}
+        {censorContactMethod(verificationType, value)}
       </Radio>
     );
   });
