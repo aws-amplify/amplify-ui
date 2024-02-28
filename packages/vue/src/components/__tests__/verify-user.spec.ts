@@ -105,6 +105,26 @@ describe('VerifyUser', () => {
     expect(skipVerificationSpy).toHaveBeenCalledTimes(1);
   });
 
+  it("doesn't display radio elements if unverifiedAttribute value is missing", async () => {
+    useAuthenticatorSpy.mockReturnValueOnce(
+      reactive({
+        ...baseMockServiceFacade,
+        route: 'verifyUser',
+        updateForm: updateFormSpy,
+        skipVerification: skipVerificationSpy,
+        submitForm: submitFormSpy,
+        unverifiedUserAttributes: {
+          email: '',
+        },
+      })
+    );
+    render(VerifyUser, { global: { components } });
+
+    const radios = screen.queryAllByRole('radio');
+
+    expect(radios).toHaveLength(0);
+  });
+
   it('displays error if it is present', async () => {
     useAuthenticatorSpy.mockReturnValueOnce(
       reactive({
