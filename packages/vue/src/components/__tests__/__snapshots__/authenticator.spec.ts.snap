@@ -1278,7 +1278,7 @@ exports[`authenticator renders verifyUser subcomponent 1`] = `
                       data-amplify-text=""
                     >
                       
-                      Email: t**************m@undefined
+                      Email: t**t@example.com
                       
                     </span>
                     
