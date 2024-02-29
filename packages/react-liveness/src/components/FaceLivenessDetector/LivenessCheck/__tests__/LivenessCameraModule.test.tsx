@@ -103,6 +103,7 @@ describe('LivenessCameraModule', () => {
         errorDisplayText={errorDisplayText}
         cameraDisplayText={cameraDisplayText}
         instructionDisplayText={instructionDisplayText}
+        beginLivenessCheck={() => {}}
       />
     );
 
@@ -122,6 +123,7 @@ describe('LivenessCameraModule', () => {
         errorDisplayText={errorDisplayText}
         cameraDisplayText={cameraDisplayText}
         instructionDisplayText={instructionDisplayText}
+        beginLivenessCheck={() => {}}
       />
     );
 
@@ -166,6 +168,7 @@ describe('LivenessCameraModule', () => {
         errorDisplayText={errorDisplayText}
         cameraDisplayText={cameraDisplayText}
         instructionDisplayText={instructionDisplayText}
+        beginLivenessCheck={() => {}}
       />
     );
     const videoEl = screen.getByTestId('video');
@@ -194,6 +197,7 @@ describe('LivenessCameraModule', () => {
         cameraDisplayText={cameraDisplayText}
         instructionDisplayText={instructionDisplayText}
         testId={testId}
+        beginLivenessCheck={() => {}}
       />
     );
     const videoEl = screen.getByTestId('video');
@@ -225,6 +229,7 @@ describe('LivenessCameraModule', () => {
         cameraDisplayText={cameraDisplayText}
         instructionDisplayText={instructionDisplayText}
         testId={testId}
+        beginLivenessCheck={() => {}}
       />
     );
     const videoEl = screen.getByTestId('video');
@@ -256,6 +261,7 @@ describe('LivenessCameraModule', () => {
         cameraDisplayText={cameraDisplayText}
         instructionDisplayText={instructionDisplayText}
         testId={testId}
+        beginLivenessCheck={() => {}}
       />
     );
     const videoEl = screen.getByTestId('video');
@@ -287,6 +293,7 @@ describe('LivenessCameraModule', () => {
         cameraDisplayText={cameraDisplayText}
         instructionDisplayText={instructionDisplayText}
         testId={testId}
+        beginLivenessCheck={() => {}}
       />
     );
     const videoEl = screen.getByTestId('video');
@@ -318,6 +325,7 @@ describe('LivenessCameraModule', () => {
         cameraDisplayText={cameraDisplayText}
         instructionDisplayText={instructionDisplayText}
         testId={testId}
+        beginLivenessCheck={() => {}}
       />
     );
     const videoEl = screen.getByTestId('video');
@@ -349,6 +357,7 @@ describe('LivenessCameraModule', () => {
         cameraDisplayText={cameraDisplayText}
         instructionDisplayText={instructionDisplayText}
         testId={testId}
+        beginLivenessCheck={() => {}}
       />
     );
     const videoEl = screen.getByTestId('video');
@@ -429,6 +438,7 @@ describe('LivenessCameraModule', () => {
         cameraDisplayText={cameraDisplayText}
         instructionDisplayText={instructionDisplayText}
         components={{ ErrorView: undefined }}
+        beginLivenessCheck={() => {}}
       />
     );
 
@@ -449,6 +459,7 @@ describe('LivenessCameraModule', () => {
         errorDisplayText={errorDisplayText}
         cameraDisplayText={cameraDisplayText}
         instructionDisplayText={instructionDisplayText}
+        beginLivenessCheck={() => {}}
       />
     );
     const videoEl = screen.getByTestId('video');

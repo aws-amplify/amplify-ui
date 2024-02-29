@@ -172,12 +172,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       start: {
         entry: ['drawStaticOval', 'initializeFaceDetector'],
-        always: [
-          {
-            target: 'detectFaceBeforeStart',
-            cond: 'shouldSkipStartScreen',
-          },
-        ],
         on: {
           BEGIN: 'detectFaceBeforeStart',
         },
@@ -893,9 +887,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           context.livenessStreamProvider!.videoRecorder.firstChunkTimestamp !==
           undefined
         );
-      },
-      shouldSkipStartScreen: (context) => {
-        return !!context.componentProps?.disableStartScreen;
       },
     },
     services: {
