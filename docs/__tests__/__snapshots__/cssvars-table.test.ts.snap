@@ -2555,6 +2555,10 @@ exports[`CSS Variables Table 1`] = `
         "value": "ease-in-out"
     },
     {
+        "variable": "--amplify-components-checkbox-label-color",
+        "value": "var(--amplify-components-text-color)"
+    },
+    {
         "variable": "--amplify-components-checkbox-label-disabled-color",
         "value": "var(--amplify-colors-font-disabled)"
     },
