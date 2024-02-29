@@ -1,4 +1,4 @@
-import { Alert, Link, Text, Tabs } from '@aws-amplify/ui-react';
+import { Accordion, Alert, Link, Text, Tabs } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { InstallScripts } from '@/components/InstallScripts';
 import { TerminalCommand } from '@/components/InstallScripts';
@@ -117,12 +117,21 @@ import AmplifyCLI from './amplify-cli.mdx';
 
   <InstallScripts command="npm install @aws-amplify/rtn-web-browser" framework="react-native" />
 
-  `@aws-amplify/react-native` and `@aws-amplify/rtn-web-browser` require a minimum iOS deployment target of `13.0`, open the _Podfile_ located in the _ios_ directory and update the `target` value:
-
-  ```diff
-  - platform :ios, min_ios_version_supported
-  + platform :ios, 13.0
-  ```
+  <Accordion.Container>
+    <Accordion.Item value="Accordion-item">
+      <Accordion.Trigger>
+        Important note for integration with React Native projects using version `0.72` or below
+        <Accordion.Icon />
+      </Accordion.Trigger>
+    <Accordion.Content>
+      `@aws-amplify/react-native` and `@aws-amplify/rtn-web-browser` require a minimum iOS deployment target of `13.0`, open the _Podfile_ located in the _ios_ directory and update the `target` value:
+      ```diff
+      - platform :ios, min_ios_version_supported
+      + platform :ios, 13.0
+      ```
+    </Accordion.Content>
+    </Accordion.Item>
+  </Accordion.Container>
 
   Then install the iOS cocoapods, by running:
 
