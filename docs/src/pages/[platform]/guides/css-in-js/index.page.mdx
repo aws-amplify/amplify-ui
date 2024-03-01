@@ -1,11 +1,10 @@
 ---
 title: CSS in JS
 metaDescription: One of the goals of Amplify is to be a good citizen of the environment it exists in. As such, Amplify works hard to not interfere with other tools that are being used.
-supportedFrameworks: react|angular|vue
+supportedFrameworks: react
 ---
 
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
-import { InlineFilter } from '@/components/InlineFilter';
 import WebContent from './web.mdx';
 
 export async function getStaticPaths() {
@@ -18,6 +17,4 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-<InlineFilter filters={['react', 'angular', 'vue']}>
-  <WebContent />
-</InlineFilter>
+<WebContent />

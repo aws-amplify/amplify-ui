@@ -15,6 +15,12 @@ const theme: Theme = {
         icon: {
           backgroundColor: { value: '{colors.secondary.80}' },
         },
+        label: {
+          color: { value: '{colors.purple.80}' },
+          _disabled: {
+            color: { value: '{colors.purple.60}' },
+          },
+        },
       },
     },
   },
@@ -22,6 +28,12 @@ const theme: Theme = {
 
 export const CheckboxFieldThemeExample = () => (
   <ThemeProvider theme={theme} colorMode="light">
-    <CheckboxField label="Subscribe" name="subscribe" value="yes" />
+    <CheckboxField label="Subscribe" name="subscribe" />
+    <CheckboxField
+      label="Disabled example"
+      name="disabledExample"
+      value="yes"
+      isDisabled={true}
+    />
   </ThemeProvider>
 );
