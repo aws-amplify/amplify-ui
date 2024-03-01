@@ -1,19 +1,13 @@
-import {
-  AmplifyProjectInfo,
-  AmplifyRootStackTemplate,
-} from '@aws-amplify/cli-extensibility-helper';
+import { AmplifyRootStackTemplate } from '@aws-amplify/cli-extensibility-helper';
 
-export function override(
-  resources: AmplifyRootStackTemplate,
-  amplifyProjectInfo: AmplifyProjectInfo
-) {
-  const unauthRole = resources.unauthRole;
+export function override(resources: AmplifyRootStackTemplate) {
+  const authRole = resources.authRole;
 
-  const basePolicies = Array.isArray(unauthRole.policies)
-    ? unauthRole.policies
-    : [unauthRole.policies];
+  const basePolicies = Array.isArray(authRole.policies)
+    ? authRole.policies
+    : [authRole.policies];
 
-  unauthRole.policies = [
+  authRole.policies = [
     ...basePolicies,
     {
       policyName: 'liveness-streaming-api-access',

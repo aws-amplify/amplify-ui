@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"12.4.0\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"12.6.0\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
   "Parameters": {
     "CloudWatchRule": {
       "Type": "String",
@@ -14,6 +14,9 @@
       "Type": "String"
     },
     "s3Key": {
+      "Type": "String"
+    },
+    "personalStackId": {
       "Type": "String"
     }
   },
@@ -47,12 +50,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "livenessenvironmentb20a0fc6",
+            "livenesssamplewebapp2d83120d",
             {
               "Fn::Join": [
                 "",
                 [
-                  "livenessenvironmentb20a0fc6",
+                  "livenesssamplewebapp2d83120d",
                   "-",
                   {
                     "Ref": "env"
@@ -69,6 +72,9 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
+            },
+            "PERSONAL_STACK_ID": {
+              "Ref": "personalStackId"
             }
           }
         },
@@ -78,7 +84,7 @@
             "Arn"
           ]
         },
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs18.x",
         "Layers": [],
         "Timeout": 25
       }
@@ -89,12 +95,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "livenessenvironmentLambdaRole0703be17",
+            "livenesssamplewebappLambdaRole613ef997",
             {
               "Fn::Join": [
                 "",
                 [
-                  "livenessenvironmentLambdaRole0703be17",
+                  "livenesssamplewebappLambdaRole613ef997",
                   "-",
                   {
                     "Ref": "env"

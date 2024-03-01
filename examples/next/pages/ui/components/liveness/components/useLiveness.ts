@@ -16,7 +16,7 @@ export function useLiveness() {
     async () => {
       // 2. Create a liveness session from client side?
       const response = await post({
-        apiName: 'BYOB',
+        apiName: 'LivenessByobApi',
         path: '/liveness/create',
         options: {},
       }).response;
@@ -56,7 +56,7 @@ export function useLiveness() {
   // 7. call customer backend? to get boolean flag if user was live or not
   const handleGetLivenessDetection = async (sessionId) => {
     const response = await get({
-      apiName: 'BYOB',
+      apiName: 'LivenessByobApi',
       path: `/liveness/${sessionId}`,
       options: {},
     }).response;
