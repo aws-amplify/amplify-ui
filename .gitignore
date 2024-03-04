@@ -17,6 +17,8 @@ docs/public/previews
 !examples/react-native/src/features/*/*/aws-exports.js
 !examples/react-native/src/ui/*/*/*/aws-exports.js
 
+packages/react-liveness/JsSdkV3
+
 # .npmrc is used in our deployment procedure to login to npm. Ignored for security.
 .npmrc
 # used by turbo for logs
