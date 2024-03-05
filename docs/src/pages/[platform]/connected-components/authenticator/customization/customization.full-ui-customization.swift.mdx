@@ -1,5 +1,7 @@
 ## Full UI Customization
 
+### Customize the UI for the Authenticator flows
+
 In addition to customizing fields and theming, you can also provide a custom UI for one or more of the Authenticator steps.
 
 For simple use cases (such as adding additional information), you can use a combination of default views from the **Authenticator** library and views that you define yourself:
@@ -19,16 +21,17 @@ Authenticator(
 ```
 
 For more complex cases, you can completely replace the UI for any particular step. 
-Every view has an associated `*State` class that they observe, and that can be used to implement a custom UI.
 
-This example shows how to fully replace the content displayed for the Sign In step:
+Every view has an associated `*State` class that they observe, and that can be used to implement a custom UI. These states have `@Published` properties for their fields, which you can bind to your custom view.
+
+This example shows how to fully replace the content displayed for the Sign In step, but a similar approach can be used for most steps:
 
 ```swift
 Authenticator(
     signInContent: { state in
         CustomSignInView(state: state)
     }
-) {
+) { _ in
     // ...
 }
 
@@ -57,6 +60,62 @@ struct CustomSignInView: View {
 
 ```
 
+#### Customize the UI for the Sign Up flow
+
+Customizing the Sign Up step is slightly different, as `SignUpState` does not individually publish each of its fields, but rather has one `fields: [SignUpState.Field]` property. 
+
+A `SignUpState.Field` is itself an `@ObservableObject` that has the `SignUpField` that it represents, and the `@Published` property (called `value`) that you need to bind to your view. 
+
+The following example shows how to fully replace the content displayed for the Sign Up step by iterating through the array of fields:
+
+```swift
+Authenticator(
+    signUpContent: { state in
+        CustomSignUpView(state: state)
+    }
+) { _ in
+    // ...
+}
+
+/// Custom Sign Up view
+struct CustomSignUpView: View {
+    @ObservedObject var state: SignUpState
+
+    var body: some View {
+        VStack {
+            ForEach(state.fields, id: \.self) { field in
+                createCustomField(for: field)
+            }
+
+            Button("Sign Up") {
+                Task {
+                    try? await state.signUp()
+                }
+            }
+        }
+    }
+
+    /// Creates a view for a SignUpField according to its SignUpAttribute
+    @ViewBuilder
+    private func createCustomField(for signUpField: SignUpState.Field) -> some View {
+        @ObservedObject var observedField = signUpField
+        switch signUpField.field.attributeType {
+        case .username:
+            TextField("Username", text: $observedField.value)
+        case .password:
+            SecureField("Password", text: $observedField.value)
+        case .passwordConfirmation:
+            SecureField("Confirm password", text: $observedField.value)
+        case .phoneNumber:
+            TextField("Phone Number", text: $observedField.value)
+        case .email:
+            TextField("Email", text: $observedField.value)
+        /// ... An so on for all cases of SignUpAttribute
+        }
+    }
+}
+```
+
 ### TOTP Setup
 
 You can also customize the TOTP setup experience. We make available arguments in the `ContinueSignInWithTOTPSetupView` i.e. `qrCodeContent` and `copyKeyContent` that can help you provide custom content for the TOTP Setup Experience. In the example below, examine how you could customize the setup screen.
@@ -73,13 +132,12 @@ Authenticator(
 
             },
             copyKeyContent: { state in
-                // YOUR custom implementation goes here
+                // Your custom implementation goes here
             }
         )
-    },
-    content: { state in
-        Text("Signed In Content")
     }
-)
+) { _ in
+    // ...
+}
 
 ```

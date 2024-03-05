@@ -1,8 +1,7 @@
 import React from 'react';
 import {
   defaultFormFieldOptions,
-  censorAllButFirstAndLast,
-  censorPhoneNumber,
+  censorContactMethod,
   ContactMethod,
   translate,
   UnverifiedUserAttributes,
@@ -27,36 +26,20 @@ const {
   getAccountRecoveryInfoText,
 } = authenticatorTextUtil;
 
-const censorContactInformation = (
-  type: ContactMethod,
-  value: string
-): string => {
-  const translated = translate(type);
-  let newVal = value;
-
-  if (type === 'Phone Number') {
-    newVal = censorPhoneNumber(value);
-  } else if (type === 'Email') {
-    const splitEmail = value.split('@');
-    const censoredName = censorAllButFirstAndLast(splitEmail[0]);
-
-    newVal = `${censoredName}@${splitEmail[1]}`;
-  }
-
-  return `${translated}: ${newVal}`;
-};
-
 const generateRadioGroup = (
   attributes: UnverifiedUserAttributes
 ): JSX.Element[] => {
-  return Object.entries(attributes).map(([key, value]: [string, string]) => (
-    <Radio name="unverifiedAttr" value={key} key={key}>
-      {censorContactInformation(
-        (defaultFormFieldOptions[key] as { label: ContactMethod }).label,
-        value
-      )}
-    </Radio>
-  ));
+  return Object.entries(attributes).map(([key, value]: [string, string]) => {
+    const verificationType = (
+      defaultFormFieldOptions[key] as { label: ContactMethod }
+    ).label;
+    return (
+      <Radio name="unverifiedAttr" value={key} key={key}>
+        {translate(verificationType)}:{' '}
+        {censorContactMethod(verificationType, value)}
+      </Radio>
+    );
+  });
 };
 
 export const VerifyUser = ({

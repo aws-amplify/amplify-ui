@@ -7,6 +7,7 @@ import {
   AuthEvent,
   AuthInterpreter,
   AuthMachineState,
+  UnverifiedUserAttributes,
 } from '@aws-amplify/ui';
 
 import { components } from '../../../global-spec';
@@ -58,6 +59,10 @@ const idleState = {
 const setupState = {
   matches: (state: string) => state === 'setup',
 } as unknown as AuthMachineState;
+
+const unverifiedUserAttributes: UnverifiedUserAttributes = {
+  email: 'test@example.com',
+};
 
 const mockStateRef = ref(idleState) as unknown as Ref<AuthMachineState>;
 
@@ -181,6 +186,7 @@ describe('authenticator', () => {
         user,
         totpSecretCode:
           route === 'setupTotp' ? 'totp-mock-secret-code' : undefined,
+        unverifiedUserAttributes,
       })
     );
 
