@@ -221,9 +221,7 @@ export class LivenessStreamProvider {
     // 4. establish connection to rekognition streaming service
     const response = await this._client.send(
       new StartFaceLivenessSessionCommand({
-        // TODO is this the right string for movement only
-        // ChallengeVersions: ['FaceMovementAndLightChallenge_1.0.0', 'FaceMovementChallenge_1.0.0'],
-        ChallengeVersions: 'FaceMovementAndLightChallenge_1.0.0',
+        ChallengeVersions: 'FaceMovementAndLightChallenge_1.0.0,FaceMovementChallenge_1.0.0',
         SessionId: this.sessionId,
         LivenessRequestStream: livenessRequestGenerator,
         VideoWidth: this.videoEl.videoWidth.toString(),

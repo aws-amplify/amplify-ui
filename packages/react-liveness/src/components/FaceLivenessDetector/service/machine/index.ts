@@ -891,7 +891,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       hasFreshnessColorShown: (context) =>
         context.freshnessColorAssociatedParams!.freshnessColorsComplete!,
       hasServerSessionInfo: (context) => {
-        // console.log("context.serverSessionInformation", context.serverSessionInformation);
         return context.serverSessionInformation !== undefined;
       },
       hasDOMAndCameraDetails: (context) => {
@@ -1317,7 +1316,6 @@ const responseStreamActor = async (callback: StreamActorCallback) => {
       //   });
       // }
       if (isServerSessionInformationEvent(event)) {
-        console.log("setting session info");
         callback({
           type: 'SET_SESSION_INFO',
           data: {
