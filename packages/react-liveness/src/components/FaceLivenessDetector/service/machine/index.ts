@@ -35,6 +35,7 @@ import {
 import { nanoid } from 'nanoid';
 import { getStaticLivenessOvalDetails } from '../utils/liveness';
 import {
+  isChallengeEvent,
   isThrottlingExceptionEvent,
   isServiceQuotaExceededExceptionEvent,
   isValidationExceptionEvent,
@@ -177,7 +178,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       // HERE OPEN LIVENESS STREAM BEFORE START
       // then draw start screen
-      // then on begin do the video check 
+      // then on begin do the video check
       initializeLivenessStream: {
         invoke: {
           src: 'openLivenessStreamConnection',
@@ -653,6 +654,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       updateChallengeType: assign({
         challengeType: (context, event) => {
+          console.log('current challenge', context.challengeType);
+          console.log('challenge data passed in', event);
           return event.data!.challengeType;
         },
       }),
@@ -974,7 +977,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           selectableDevices: realVideoDevices,
         };
       },
-      // open liveness stream 
+      // open liveness stream
       async openLivenessStreamConnection(context) {
         const { config } = context.componentProps!;
         const { credentialProvider, endpointOverride } = config!;
@@ -1309,12 +1312,13 @@ const responseStreamActor = async (callback: StreamActorCallback) => {
     // 4. we will also have a ChallengeEvent now that will need to be handled
     const stream = await responseStream;
     for await (const event of stream) {
-      // if (isChallengeEvent(event)) {
-      //   callback({
-      //     type: 'SET_CHALLENGE_TYPE',
-      //     data: { challengeType: event.ChallengeEvent.Type },
-      //   });
-      // }
+      if (isChallengeEvent(event)) {
+        callback({
+          type: 'SET_CHALLENGE_TYPE',
+          data: { challengeType: event.ChallengeEvent.Type },
+        });
+        console.log('after set challenge type');
+      }
       if (isServerSessionInformationEvent(event)) {
         callback({
           type: 'SET_SESSION_INFO',

@@ -5,6 +5,7 @@ import {
   ThrottlingException,
   ServiceQuotaExceededException,
   SessionInformation,
+  ChallengeType,
 } from '@aws-sdk/client-rekognitionstreaming';
 
 import {
@@ -134,5 +135,9 @@ export interface StreamActorCallback {
   (params: {
     type: 'SET_SESSION_INFO';
     data: { sessionInfo: SessionInformation | undefined };
+  }): void;
+  (params: {
+    type: 'SET_CHALLENGE_TYPE';
+    data: { challengeType: ChallengeType | undefined };
   }): void;
 }
