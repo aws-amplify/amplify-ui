@@ -49,7 +49,7 @@ export default function LivenessDefault({
             {!getLivenessResponse ? (
               <FaceLivenessDetectorCore
                 sessionId={createLivenessSessionApiData['sessionId']}
-                region={'us-east-1'}
+                region={'us-west-2'}
                 onUserCancel={onUserCancel}
                 onAnalysisComplete={async () => {
                   await handleGetLivenessDetection(
@@ -61,9 +61,10 @@ export default function LivenessDefault({
                 }}
                 disableStartScreen={disableStartScreen}
                 components={components}
-                {...(credentialProvider
-                  ? { config: { credentialProvider } }
-                  : {})}
+                config={{
+                  endpointOverride:
+                    'wss://alankrp-moa.dev.streaming.reventlov.rekognition.aws.dev:443',
+                }}
               />
             ) : null}
           </Flex>

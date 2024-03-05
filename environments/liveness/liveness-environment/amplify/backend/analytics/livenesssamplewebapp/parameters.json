@@ -1,0 +1,21 @@
+{
+    "appName": "livenesssamplewebapp",
+    "roleName": "pinpointLambdaRole3f9a8a12",
+    "cloudformationPolicyName": "cloudformationPolicy3f9a8a12",
+    "cloudWatchPolicyName": "cloudWatchPolicy3f9a8a12",
+    "pinpointPolicyName": "pinpointPolicy3f9a8a12",
+    "authPolicyName": "pinpoint_amplify_3f9a8a12",
+    "unauthPolicyName": "pinpoint_amplify_3f9a8a12",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
+}

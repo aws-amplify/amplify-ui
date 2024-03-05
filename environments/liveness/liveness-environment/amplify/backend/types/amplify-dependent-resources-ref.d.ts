@@ -1,13 +1,20 @@
 export type AmplifyDependentResourcesAttributes = {
+  "analytics": {
+    "livenesssamplewebapp": {
+      "Id": "string",
+      "Region": "string",
+      "appName": "string"
+    }
+  },
   "api": {
-    "BYOB": {
+    "LivenessByobApi": {
       "ApiId": "string",
       "ApiName": "string",
       "RootUrl": "string"
     }
   },
   "auth": {
-    "livenessenvironmentf8e63f1af8e63f1a": {
+    "livenesssamplewebapp0ab5b675": {
       "AppClientID": "string",
       "AppClientIDWeb": "string",
       "IdentityPoolId": "string",
@@ -18,14 +25,14 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "function": {
-    "livenessenvironment3477af97": {
+    "livenesssamplewebapp2d83120d": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",
       "Name": "string",
       "Region": "string"
     },
-    "livenessenvironmentb20a0fc6": {
+    "livenesssamplewebapp5f3511e8": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",

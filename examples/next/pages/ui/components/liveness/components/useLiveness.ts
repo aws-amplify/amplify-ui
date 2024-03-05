@@ -15,7 +15,7 @@ export function useLiveness() {
     'CreateStreamingLivenessSession',
     async () => {
       const response = await post({
-        apiName: 'BYOB',
+        apiName: 'LivenessByobApi',
         path: '/liveness/create',
         options: {},
       }).response;
@@ -53,7 +53,7 @@ export function useLiveness() {
 
   const handleGetLivenessDetection = async (sessionId) => {
     const response = await get({
-      apiName: 'BYOB',
+      apiName: 'LivenessByobApi',
       path: `/liveness/${sessionId}`,
       options: {},
     }).response;
