@@ -20,6 +20,25 @@ import {
   REDUCED_THRESHOLD_MOBILE,
 } from './constants';
 
+/* Returns the current challenge from the session */
+function getChallengeFromSessionInformation(
+  sessionInformation: SessionInformation
+) {
+  switch (
+    sessionInformation.Challenge
+      ? Object.keys(sessionInformation.Challenge)[0]
+      : ''
+  ) {
+    case 'FaceMovementAndLightChallenge':
+      return sessionInformation!.Challenge!.FaceMovementAndLightChallenge;
+    case 'FaceMovementChallenge':
+      return sessionInformation!.Challenge!.FaceMovementChallenge;
+    default:
+      // TODO-nolight return null? handle the error somehow
+      throw new Error('Challenge type not returned from session information.');
+  }
+}
+
 /**
  * Returns the random number between min and max
  * seeded with the provided random seed.
@@ -102,8 +121,7 @@ export function getOvalDetailsFromSessionInformation({
   videoWidth: number;
 }): LivenessOvalDetails {
   const ovalParameters =
-    sessionInformation?.Challenge?.FaceMovementAndLightChallenge
-      ?.OvalParameters;
+    getChallengeFromSessionInformation(sessionInformation)!.OvalParameters;
 
   if (
     !ovalParameters ||
@@ -328,8 +346,7 @@ export function getFaceMatchStateInLivenessOval(
   let faceMatchState: FaceMatchState;
 
   const challengeConfig =
-    sessionInformation?.Challenge?.FaceMovementAndLightChallenge
-      ?.ChallengeConfig;
+    getChallengeFromSessionInformation(sessionInformation)!.ChallengeConfig;
   if (
     !challengeConfig ||
     !challengeConfig.OvalIouThreshold ||

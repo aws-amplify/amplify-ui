@@ -77,6 +77,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
     predictableActionArguments: true,
     context: {
       challengeId: nanoid(),
+      challengeType: undefined,
       maxFailedAttempts: 0, // Set to 0 for now as we are not allowing front end based retries for streaming
       failedAttempts: 0,
       componentProps: undefined,
@@ -124,6 +125,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       SET_SESSION_INFO: {
         internal: true,
         actions: 'updateSessionInfo',
+      },
+      SET_CHALLENGE_TYPE: {
+        internal: true,
+        actions: 'updateChallengeType',
       },
       DISCONNECT_EVENT: {
         internal: true,
@@ -640,6 +645,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       clearErrorState: assign({
         errorState: (_) => undefined,
+      }),
+      updateChallengeType: assign({
+        challengeType: (context, event) => {
+          return event.data!.challengeType;
+        },
       }),
       updateSessionInfo: assign({
         serverSessionInformation: (context, event) => {

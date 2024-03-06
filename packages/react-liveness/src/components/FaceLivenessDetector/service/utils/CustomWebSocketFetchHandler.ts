@@ -20,12 +20,20 @@ import {
   RequestHandler,
   RequestHandlerMetadata,
 } from '@smithy/types';
-import { WS_CLOSURE_CODE } from './constants';
 
 const DEFAULT_WS_CONNECTION_TIMEOUT_MS = 2000;
 
 const isWebSocketRequest = (request: HttpRequest) =>
   request.protocol === 'ws:' || request.protocol === 'wss:';
+
+/**
+ * Convert async iterable to a ReadableStream when ReadableStream API
+ * is available(browsers). Otherwise, leave as it is(ReactNative).
+ */
+const toReadableStream = <T>(asyncIterable: AsyncIterable<T>) =>
+  typeof ReadableStream === 'function'
+    ? iterableToReadableStream(asyncIterable)
+    : asyncIterable;
 
 const isReadableStream = (payload: any): payload is ReadableStream =>
   typeof ReadableStream === 'function' && payload instanceof ReadableStream;
@@ -55,15 +63,6 @@ const getIterator = (stream: any): AsyncIterable<any> => {
   };
 };
 
-/**
- * Convert async iterable to a ReadableStream when ReadableStream API
- * is available(browsers). Otherwise, leave as it is(ReactNative).
- */
-const toReadableStream = <T>(asyncIterable: AsyncIterable<T>) =>
-  typeof ReadableStream === 'function'
-    ? iterableToReadableStream(asyncIterable)
-    : asyncIterable;
-
 export interface WebSocketFetchHandlerOptions {
   /**
    * The maximum time in milliseconds that the connection phase of a request
@@ -82,10 +81,10 @@ export class CustomWebSocketFetchHandler {
   public readonly metadata: RequestHandlerMetadata = {
     handlerProtocol: 'websocket/h1.1',
   };
-  private readonly configPromise: Promise<WebSocketFetchHandlerOptions>;
+  private config: WebSocketFetchHandlerOptions;
+  private configPromise: Promise<WebSocketFetchHandlerOptions>;
   private readonly httpHandler: RequestHandler<any, any>;
   private readonly sockets: Record<string, WebSocket[]> = {};
-  private readonly utf8decoder = new TextDecoder(); // default 'utf-8' or 'utf8'
 
   constructor(
     options?:
@@ -95,10 +94,37 @@ export class CustomWebSocketFetchHandler {
   ) {
     this.httpHandler = httpHandler;
     if (typeof options === 'function') {
-      this.configPromise = options().then((opts) => opts ?? {});
+      this.config = {};
+      this.configPromise = options().then((opts) => (this.config = opts ?? {}));
     } else {
-      this.configPromise = Promise.resolve(options ?? {});
+      this.config = options ?? {};
+      this.configPromise = Promise.resolve(this.config);
     }
+  }
+
+  /**
+   * @returns the input if it is an HttpHandler of any class,
+   * or instantiates a new instance of this handler.
+   */
+  public static create(
+    instanceOrOptions?:
+      | CustomWebSocketFetchHandler
+      | WebSocketFetchHandlerOptions
+      | Provider<WebSocketFetchHandlerOptions | void>,
+    httpHandler: RequestHandler<any, any> = new FetchHttpHandler()
+  ): CustomWebSocketFetchHandler {
+    if (typeof (instanceOrOptions as any)?.handle === 'function') {
+      // is already an instance of HttpHandler.
+      return instanceOrOptions as CustomWebSocketFetchHandler;
+    }
+    // input is ctor options or undefined.
+    return new CustomWebSocketFetchHandler(
+      instanceOrOptions as
+        | undefined
+        | WebSocketFetchHandlerOptions
+        | Provider<WebSocketFetchHandlerOptions>,
+      httpHandler
+    );
   }
 
   /**
@@ -128,8 +154,9 @@ export class CustomWebSocketFetchHandler {
     this.sockets[url].push(socket);
 
     socket.binaryType = 'arraybuffer';
-    const { connectionTimeout = DEFAULT_WS_CONNECTION_TIMEOUT_MS } = await this
-      .configPromise;
+    this.config = await this.configPromise;
+    const { connectionTimeout = DEFAULT_WS_CONNECTION_TIMEOUT_MS } =
+      this.config;
     await this.waitForReady(socket, connectionTimeout);
     const { body } = request;
     const bodyStream = getIterator(body);
@@ -143,15 +170,27 @@ export class CustomWebSocketFetchHandler {
     };
   }
 
+  updateHttpClientConfig(
+    key: keyof WebSocketFetchHandlerOptions,
+    value: WebSocketFetchHandlerOptions[typeof key]
+  ): void {
+    this.configPromise = this.configPromise.then((config) => {
+      (config as Record<typeof key, typeof value>)[key] = value;
+      return config;
+    });
+  }
+
+  httpHandlerConfigs(): WebSocketFetchHandlerOptions {
+    return this.config ?? {};
+  }
+
   /**
    * Removes all closing/closed sockets from the socket pool for URL.
    */
   private removeNotUsableSockets(url: string): void {
     this.sockets[url] = (this.sockets[url] ?? []).filter(
       (socket) =>
-        ![WebSocket.CLOSING, WebSocket.CLOSED].includes(
-          socket.readyState as 2 | 3
-        )
+        ![WebSocket.CLOSING, WebSocket.CLOSED].includes(socket.readyState)
     );
   }
 
@@ -238,16 +277,6 @@ export class CustomWebSocketFetchHandler {
     const send = async (): Promise<void> => {
       try {
         for await (const inputChunk of data) {
-          const decodedString = this.utf8decoder.decode(inputChunk);
-          if (decodedString.includes('closeCode')) {
-            const match = decodedString.match(/"closeCode":([0-9]*)/);
-            if (match) {
-              const closeCode = match[1];
-              socket.close(parseInt(closeCode));
-            }
-            continue;
-          }
-
           socket.send(inputChunk);
         }
       } catch (err) {
@@ -255,10 +284,10 @@ export class CustomWebSocketFetchHandler {
         // would already be settled by the time sending chunk throws error.
         // Instead, the notify the output stream to throw if there's
         // exceptions
-        streamError = err as Error | undefined;
+        streamError = err;
       } finally {
         // WS status code: https://tools.ietf.org/html/rfc6455#section-7.4
-        socket.close(WS_CLOSURE_CODE.SUCCESS_CODE);
+        socket.close(1000);
       }
     };
 
