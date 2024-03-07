@@ -39,7 +39,8 @@ import {
   isServiceQuotaExceededExceptionEvent,
   isValidationExceptionEvent,
   isInternalServerExceptionEvent,
-  isServerSesssionInformationEvent,
+  isChallengeEvent,
+  isServerSessionInformationEvent,
   isDisconnectionEvent,
   isInvalidSignatureRegionException,
 } from '../utils/eventUtils';
@@ -824,6 +825,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         maxFailedAttempts: 0, // Set to 0 for now as we are not allowing front end based retries for streaming
         failedAttempts: 0,
         componentProps: (context) => context.componentProps,
+        challengeType: (_) => undefined,
         serverSessionInformation: (_) => undefined,
         videoAssociatedParams: (_) => {
           return {
@@ -1299,7 +1301,15 @@ const responseStreamActor = async (callback: StreamActorCallback) => {
   try {
     const stream = await responseStream;
     for await (const event of stream) {
-      if (isServerSesssionInformationEvent(event)) {
+      if (isChallengeEvent(event)) {
+        callback({
+          type: 'SET_CHALLENGE_TYPE',
+          data: {
+            sessionInfo: event.ChallengeEvent.Type,
+          },
+        });
+      }
+      if (isServerSessionInformationEvent(event)) {
         callback({
           type: 'SET_SESSION_INFO',
           data: {
