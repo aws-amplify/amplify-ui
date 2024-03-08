@@ -134,7 +134,7 @@ export interface StreamActorCallback {
   }): void;
   (params: {
     type: 'SET_CHALLENGE_TYPE';
-    data: { sessionInfo: ChallengeType | undefined };
+    data: { challengeType: ChallengeType | undefined };
   }): void;
   (params: {
     type: 'SET_SESSION_INFO';

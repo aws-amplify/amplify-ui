@@ -85,6 +85,7 @@ export function getDisplayText(
     tooFarCaptionText,
     tooFarAltText,
     tryAgainText,
+    waitingChallengeTypeText,
     waitingCameraPermissionText,
   } = displayText;
 
@@ -114,6 +115,7 @@ export function getDisplayText(
     cameraNotFoundHeadingText,
     cameraNotFoundMessageText,
     retryCameraPermissionsText,
+    waitingChallengeTypeText,
     waitingCameraPermissionText,
     a11yVideoLabelText,
   };

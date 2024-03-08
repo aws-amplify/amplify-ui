@@ -26,6 +26,7 @@ export type CameraDisplayText = {
   cameraNotFoundHeadingText?: string;
   cameraNotFoundMessageText?: string;
   retryCameraPermissionsText?: string;
+  waitingChallengeTypeText?: string;
   waitingCameraPermissionText?: string;
   a11yVideoLabelText?: string;
 };
@@ -139,6 +140,7 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   tooFarCaptionText: 'Too far',
   tooFarAltText:
     "Illustration of a person's face inside of an oval; there is a gap between the perimeter of the face and the boundaries of the oval.",
+  waitingChallengeTypeText: 'Connecting',
   waitingCameraPermissionText: 'Waiting for you to allow camera permission.',
   ...defaultErrorDisplayText,
 };

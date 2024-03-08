@@ -138,6 +138,7 @@ export const LivenessCameraModule = (
   const [isCameraReady, setIsCameraReady] = useState<boolean>(false);
   const isCheckingCamera = state.matches('cameraCheck');
   const isWaitingForCamera = state.matches('waitForDOMAndCameraDetails');
+  const isWaitingForChallengeType = state.matches('waitForChallengeType');
   const isStartView = state.matches('start') || state.matches('userCancel');
   const isDetectFaceBeforeStart = state.matches('detectFaceBeforeStart');
   const isRecording = state.matches('recording');
@@ -275,7 +276,7 @@ export const LivenessCameraModule = (
     [videoConstraints, send]
   );
 
-  if (isCheckingCamera) {
+  if (isCheckingCamera || isWaitingForChallengeType) {
     return (
       <Flex
         justifyContent={'center'}
@@ -293,7 +294,9 @@ export const LivenessCameraModule = (
           data-testid="waiting-camera-permission"
           className={`${LivenessClassNames.StartScreenCameraWaiting}__text`}
         >
-          {cameraDisplayText.waitingCameraPermissionText}
+          {isCheckingCamera
+            ? cameraDisplayText.waitingCameraPermissionText
+            : cameraDisplayText.waitingChallengeTypeText}
         </Text>
       </Flex>
     );
@@ -361,12 +364,12 @@ export const LivenessCameraModule = (
           )}
 
           {/* 
-              We only want to show the MatchIndicator when we're recording
-              and when the face is in either the too far state, or the 
-              initial face identified state. Using the a memoized MatchIndicator here
-              so that even when this component re-renders the indicator is only
-              re-rendered if the percentage prop changes.
-            */}
+            We only want to show the MatchIndicator when we're recording
+            and when the face is in either the too far state, or the 
+            initial face identified state. Using the a memoized MatchIndicator here
+            so that even when this component re-renders the indicator is only
+            re-rendered if the percentage prop changes.
+          */}
           {isRecording &&
           !isFlashingFreshness &&
           showMatchIndicatorStates.includes(faceMatchState!) ? (
@@ -445,7 +448,6 @@ export const LivenessCameraModule = (
             )}
         </View>
       </Flex>
-
       {isStartView && (
         <Flex justifyContent="center">
           <Button

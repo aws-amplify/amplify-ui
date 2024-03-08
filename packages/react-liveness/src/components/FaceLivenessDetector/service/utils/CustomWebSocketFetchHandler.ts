@@ -190,6 +190,7 @@ export class CustomWebSocketFetchHandler {
   private removeNotUsableSockets(url: string): void {
     this.sockets[url] = (this.sockets[url] ?? []).filter(
       (socket) =>
+        // @ts-ignore
         ![WebSocket.CLOSING, WebSocket.CLOSED].includes(socket.readyState)
     );
   }
@@ -284,6 +285,7 @@ export class CustomWebSocketFetchHandler {
         // would already be settled by the time sending chunk throws error.
         // Instead, the notify the output stream to throw if there's
         // exceptions
+        // @ts-ignore
         streamError = err;
       } finally {
         // WS status code: https://tools.ietf.org/html/rfc6455#section-7.4
