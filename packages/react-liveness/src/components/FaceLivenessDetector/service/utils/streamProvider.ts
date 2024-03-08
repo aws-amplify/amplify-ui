@@ -220,7 +220,8 @@ export class LivenessStreamProvider {
 
     const response = await this._client.send(
       new StartFaceLivenessSessionCommand({
-        ChallengeVersions: 'FaceMovementAndLightChallenge_1.0.0',
+        ChallengeVersions:
+          'FaceMovementAndLightChallenge_1.0.0,FaceMovementChallenge_1.0.0',
         SessionId: this.sessionId,
         LivenessRequestStream: livenessRequestGenerator,
         VideoWidth: this.videoEl.videoWidth.toString(),
