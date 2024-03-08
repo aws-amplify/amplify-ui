@@ -93,6 +93,14 @@ describe('amplify-password-field', () => {
     expect(input).toHaveAttribute('autocomplete', 'new-password');
   });
 
+  it('should render input with autocapitalize disabled by default', async () => {
+    await render(PasswordFieldComponent, {
+      componentProperties: { name: 'password', label: 'Password' },
+    });
+    const input = screen.getByLabelText('Password');
+    expect(input).toHaveAttribute('autocapitalize', 'off');
+  });
+
   it('should have aria-invalid when error is present', async () => {
     await render(PasswordFieldComponent, {
       componentProperties: {

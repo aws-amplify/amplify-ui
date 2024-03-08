@@ -100,6 +100,15 @@ describe('PasswordControl', () => {
     expect(input).toHaveAttribute('autocomplete', 'new-password');
   });
 
+  it('should render input with autocapitalize disabled by default', async () => {
+    render(PasswordControl, {
+      global: { components },
+      props: { name: 'password', label: 'Password' },
+    });
+    const input = screen.getByLabelText('Password');
+    expect(input).toHaveAttribute('autocapitalize', 'off');
+  });
+
   it('should have aria-describedby when describedBy is present', async () => {
     render(PasswordControl, {
       global: { components },
