@@ -1,4 +1,3 @@
-/* eslint-disable  */
 import 'web-streams-polyfill';
 import 'blob-polyfill';
 
@@ -7,7 +6,11 @@ import { RekognitionStreamingClient } from '@aws-sdk/client-rekognitionstreaming
 
 import { LivenessStreamProvider } from '../streamProvider';
 import { VideoRecorder } from '../videoRecorder';
-import { mockClientSessionInformationEvent } from '../__mocks__/testUtils';
+import {
+  mockClientSessionInformationEvent,
+  mockCameraDevice,
+  mockVideoRecorder as mockVideoRecorderBase,
+} from '../__mocks__/testUtils';
 import { AwsCredentialProvider } from '../../types';
 
 jest.mock('../videoRecorder');
@@ -82,20 +85,11 @@ describe('LivenessStreamProvider', () => {
     },
   } as unknown as ReadableStream<Blob>;
   const mockVideoRecorder: any = {
-    start: jest.fn(),
-    stop: jest.fn(),
-    getBlob: jest.fn(),
-    dispatch: jest.fn(),
+    ...mockVideoRecorderBase,
     getState: jest.fn().mockReturnValue('recording'),
     videoStream: mockReadableStream,
   };
-  const mockCameraDevice: MediaDeviceInfo = {
-    deviceId: 'some-device-id',
-    groupId: 'some-group-id',
-    kind: 'videoinput',
-    label: 'some-label',
-    toJSON: () => ({}),
-  };
+
   const mockVideoMediaStream = {
     getTracks: () => [
       {
