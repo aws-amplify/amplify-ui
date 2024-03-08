@@ -1305,7 +1305,7 @@ const responseStreamActor = async (callback: StreamActorCallback) => {
         callback({
           type: 'SET_CHALLENGE_TYPE',
           data: {
-            sessionInfo: event.ChallengeEvent.Type,
+            challengeType: event.ChallengeEvent.Type,
           },
         });
       }
