@@ -1,10 +1,11 @@
 import { ActorRef, Interpreter, State } from 'xstate';
 import {
-  ValidationException,
+  ChallengeType as ChallengeTypeSdk,
   InternalServerException,
-  ThrottlingException,
   ServiceQuotaExceededException,
   SessionInformation,
+  ThrottlingException,
+  ValidationException,
 } from '@aws-sdk/client-rekognitionstreaming';
 
 import {
@@ -56,6 +57,8 @@ export interface VideoAssociatedParams {
   selectedDeviceId?: string;
   selectableDevices?: MediaDeviceInfo[];
 }
+
+export type ChallengeType = ChallengeTypeSdk;
 
 export type LivenessContext = Partial<HydratedLivenessContext>;
 

@@ -8,7 +8,8 @@ export {
 } from './FaceLivenessDetectorCore';
 export {
   AwsCredentialProvider,
-  AwsTemporaryCredentials,
   AwsCredentials,
+  AwsTemporaryCredentials,
+  ChallengeType,
   ErrorState,
 } from './service';
