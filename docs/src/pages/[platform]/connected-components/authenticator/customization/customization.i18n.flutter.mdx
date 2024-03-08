@@ -2,8 +2,8 @@ To use localization, start by following the steps in the [Flutter Localization g
 
 ```json
 {
-  "signin": "Sign In - Localized!",
-  "@signin": {
+  "signIn": "Sign In - Localized!",
+  "@signIn": {
     "description": "Label of the button to sign in the user."
   }
 }
@@ -13,7 +13,7 @@ Then, to add support for another language, create a another file for that langua
 
 ```json
 {
-  "signin": "Iniciar Sesión"
+  "signIn": "Iniciar Sesión"
 }
 ```
 
@@ -32,10 +32,10 @@ Then create a `ButtonResolver` and pass it to an `AuthStringResolver`, and in tu
 class LocalizedButtonResolver extends ButtonResolver {
   const LocalizedButtonResolver();
 
-  /// Override the signin function with a localized value
+  /// Override the signIn function with a localized value
   @override
-  String signin(BuildContext context) {
-    return AppLocalizations.of(context).signin;
+  String signIn(BuildContext context) {
+    return AppLocalizations.of(context).signIn;
   }
 }
 
