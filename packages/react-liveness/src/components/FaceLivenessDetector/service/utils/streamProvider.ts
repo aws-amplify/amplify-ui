@@ -12,6 +12,7 @@ import { VideoRecorder } from './videoRecorder';
 import { getLivenessUserAgent } from '../../utils/platform';
 import { AwsCredentialProvider } from '../types';
 import { CustomWebSocketFetchHandler } from './CustomWebSocketFetchHandler';
+import { Signer } from './Signer';
 
 export interface StartLivenessStreamInput {
   sessionId: string;
@@ -133,6 +134,7 @@ export class LivenessStreamProvider {
     const clientconfig: RekognitionStreamingClientConfig = {
       credentials,
       region: this.region,
+      signer: new Signer({ credentials, region: this.region }),
       customUserAgent: `${getAmplifyUserAgent()} ${getLivenessUserAgent()}`,
       requestHandler: new CustomWebSocketFetchHandler({
         connectionTimeout: 10_000,
