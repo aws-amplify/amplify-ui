@@ -22,6 +22,7 @@ export const jaDict: AuthenticatorDictionary = {
   'Enter your code': 'コードを入力',
   'Enter your Email': 'メールアドレスを入力',
   'Enter your phone number': '電話番号を入力',
+  'Enter your Username': 'ユーザー名を入力 ',
   'Enter your username': 'ユーザー名を入力 ',
   'Forgot your password?': 'パスワードを忘れましたか？ ',
   'Hide password': 'パスワードを非表示',
