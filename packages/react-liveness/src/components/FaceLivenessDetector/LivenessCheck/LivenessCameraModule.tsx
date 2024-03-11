@@ -158,14 +158,7 @@ export const LivenessCameraModule = (
   );
 
   React.useEffect(() => {
-    if (
-      canvasRef &&
-      videoRef &&
-      canvasRef.current &&
-      videoRef.current &&
-      videoStream &&
-      isStartView
-    ) {
+    if (canvasRef?.current && videoRef?.current && videoStream && isStartView) {
       drawStaticOval(canvasRef.current, videoRef.current, videoStream);
     }
   }, [canvasRef, videoRef, videoStream, colorMode, isStartView]);
@@ -174,10 +167,8 @@ export const LivenessCameraModule = (
     const updateColorModeHandler = (e: MediaQueryListEvent) => {
       if (
         e.matches &&
-        canvasRef &&
-        videoRef &&
-        canvasRef.current &&
-        videoRef.current &&
+        canvasRef?.current &&
+        videoRef?.current &&
         videoStream &&
         isStartView
       ) {

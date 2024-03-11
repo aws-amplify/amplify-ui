@@ -14,6 +14,7 @@ exports[`amplify-text-field renders as expected 1`] = `
   </label>
   <input
     aria-invalid="false"
+    autocapitalize="off"
     autocomplete="new-password"
     class="amplify-input"
     id="input"

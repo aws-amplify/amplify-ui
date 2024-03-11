@@ -11,10 +11,11 @@ import {
   isFaceDistanceBelowThreshold,
 } from '../liveness';
 import {
-  mockContext,
+  getMockContext,
   mockFace,
   mockOvalDetails,
   mockSessionInformation,
+  mockCameraDevice,
 } from '../__mocks__/testUtils';
 import {
   Face,
@@ -23,6 +24,8 @@ import {
   LivenessErrorState,
   LivenessOvalDetails,
 } from '../../types';
+
+const context = getMockContext();
 
 describe('Liveness Helper', () => {
   describe('getOvalDetailsFromSessionInformation', () => {
@@ -383,14 +386,6 @@ describe('Liveness Helper', () => {
   });
 
   describe('isCameraDeviceVirtual', () => {
-    const mockCameraDevice: MediaDeviceInfo = {
-      deviceId: 'some-device-id',
-      groupId: 'some-group-id',
-      kind: 'videoinput',
-      label: 'some-label',
-      toJSON: () => ({}),
-    };
-
     it('should return true if device is virtual', () => {
       const device = {
         ...mockCameraDevice,
@@ -412,7 +407,6 @@ describe('Liveness Helper', () => {
 
   describe('drawLivenessOvalInCanvas', () => {
     it('should call canvas functions for drawing the provided oval', () => {
-      const context = mockContext();
       const canvas = context.videoAssociatedParams?.canvasEl!;
       const oval = mockOvalDetails;
       const scaleFactor = 1;
@@ -437,7 +431,6 @@ describe('Liveness Helper', () => {
 
   describe('fillOverlayCanvasFractional', () => {
     it('should fail if canvas context is undefined', () => {
-      const context = mockContext();
       const mockGetContext = jest.fn().mockReturnValue(undefined);
       const canvas = context.videoAssociatedParams?.canvasEl!;
       (canvas as any).getContext = mockGetContext;
@@ -460,7 +453,6 @@ describe('Liveness Helper', () => {
 
   describe('estimateIllumination', () => {
     it('should fail if canvas context is undefined', () => {
-      const context = mockContext();
       const mockGetContext = jest.fn().mockReturnValue(undefined);
       const canvas = context.videoAssociatedParams?.canvasEl!;
       (canvas as any).getContext = mockGetContext;
@@ -469,7 +461,6 @@ describe('Liveness Helper', () => {
     });
 
     it('should return too dark on an empty video element ', () => {
-      const context = mockContext();
       const videoEl = context.videoAssociatedParams?.videoEl!;
       Object.defineProperty(videoEl, 'videoWidth', { value: 100 });
       Object.defineProperty(videoEl, 'videoHeight', { value: 100 });
