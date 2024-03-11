@@ -13,7 +13,8 @@ concurrency:
 
 on:
   pull_request:
-    branches: [main, hotfix]
+    # branches: [main, hotfix]
+    branches: [gen2-storage/main]
     types: [opened, synchronize, labeled]
 
 jobs:
