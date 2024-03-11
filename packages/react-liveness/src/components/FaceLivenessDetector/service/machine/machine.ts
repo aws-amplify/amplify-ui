@@ -1,7 +1,6 @@
 import type {
-  ClientSessionInformationEvent,
   LivenessResponseStream,
-  SessionInformation,
+  SessionInformation as ServerSessionInformation,
 } from '@aws-sdk/client-rekognitionstreaming';
 import { nanoid } from 'nanoid';
 import { createMachine, assign, actions, spawn } from 'xstate';
@@ -9,11 +8,12 @@ import { createMachine, assign, actions, spawn } from 'xstate';
 import {
   getColorsSequencesFromSessionInformation,
   getFaceMatchState,
-  getBoundingBox,
   getIntersectionOverUnion,
   getOvalBoundingBox,
+  getStaticLivenessOvalDetails,
   isFaceDistanceBelowThreshold,
   generateBboxFromLandmarks,
+  fillOverlayCanvasFractional,
 } from '../utils/liveness';
 
 import type {
@@ -32,30 +32,40 @@ import type {
 import { FaceMatchState, LivenessErrorState } from '../types';
 import {
   BlazeFaceFaceDetection,
+  createRequestStreamGenerator,
+  createStreamingClient,
+  createSessionInfoFromServerSessionInformation,
   drawLivenessOvalInCanvas,
   getFaceMatchStateInLivenessOval,
   getOvalDetailsFromSessionInformation,
-  LivenessStreamProvider,
+  StreamRecorder,
   estimateIllumination,
   isCameraDeviceVirtual,
-  FreshnessColorDisplay,
-  drawStaticOval,
+  ColorSequenceDisplay,
+  createSessionStartEvent,
+  createColorDisplayEvent,
+  createSessionEndEvent,
+  getTrackDimensions,
 } from '../utils';
 
-import { getStaticLivenessOvalDetails } from '../utils/liveness';
 import {
   isConnectionTimeoutError,
-  isThrottlingExceptionEvent,
-  isServiceQuotaExceededExceptionEvent,
-  isValidationExceptionEvent,
-  isInternalServerExceptionEvent,
-  isServerSesssionInformationEvent,
   isDisconnectionEvent,
+  isInternalServerExceptionEvent,
   isInvalidSignatureRegionException,
-} from '../utils/eventUtils';
+  isServerSessionInformationEvent,
+  isServiceQuotaExceededExceptionEvent,
+  isThrottlingExceptionEvent,
+  isValidationExceptionEvent,
+} from '../utils/responseStreamEvent';
 
 import { STATIC_VIDEO_CONSTRAINTS } from '../../utils/helpers';
-import { WS_CLOSURE_CODE } from '../utils/constants';
+import {
+  FACE_MOVEMENT_CHALLENGE,
+  FACE_MOVEMENT_AND_LIGHT_CHALLENGE,
+  WS_CLOSURE_CODE,
+} from '../utils/constants';
+import { TelemetryReporter } from '../utils/TelemetryReporter/TelemetryReporter';
 
 const CAMERA_ID_KEY = 'AmplifyLivenessCameraId';
 const DEFAULT_FACE_FIT_TIMEOUT = 7000;
@@ -65,11 +75,12 @@ const responseStreamActor = async (callback: StreamActorCallback) => {
   try {
     const stream = await responseStream;
     for await (const event of stream) {
-      if (isServerSesssionInformationEvent(event)) {
+      if (isServerSessionInformationEvent(event)) {
         callback({
           type: 'SET_SESSION_INFO',
           data: {
-            sessionInfo: event.ServerSessionInformationEvent.SessionInformation,
+            serverSessionInformation:
+              event.ServerSessionInformationEvent.SessionInformation,
           },
         });
       } else if (isDisconnectionEvent(event)) {
@@ -117,10 +128,6 @@ const responseStreamActor = async (callback: StreamActorCallback) => {
   }
 };
 
-function getLastSelectedCameraId(): string | null {
-  return localStorage.getItem(CAMERA_ID_KEY);
-}
-
 function setLastSelectedCameraId(deviceId: string) {
   localStorage.setItem(CAMERA_ID_KEY, deviceId);
 }
@@ -128,13 +135,15 @@ function setLastSelectedCameraId(deviceId: string) {
 export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
   {
     id: 'livenessMachine',
-    initial: 'cameraCheck',
+    initial: 'initCamera',
     predictableActionArguments: true,
     context: {
       challengeId: nanoid(),
+      errorMessage: undefined,
       maxFailedAttempts: 0, // Set to 0 for now as we are not allowing front end based retries for streaming
       failedAttempts: 0,
       componentProps: undefined,
+      parsedSessionInformation: undefined,
       serverSessionInformation: undefined,
       videoAssociatedParams: {
         videoConstraints: STATIC_VIDEO_CONSTRAINTS,
@@ -159,8 +168,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         freshnessColorEl: undefined,
         freshnessColors: [],
         freshnessColorsComplete: false,
-        freshnessColorDisplay: undefined,
       },
+      colorSequenceDisplay: undefined,
       errorState: undefined,
       livenessStreamProvider: undefined,
       responseStreamActorRef: undefined,
@@ -175,24 +184,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         target: 'retryableTimeout',
         actions: 'updateErrorStateForTimeout',
       },
-      SET_SESSION_INFO: {
-        internal: true,
-        actions: 'updateSessionInfo',
-      },
-      DISCONNECT_EVENT: {
-        internal: true,
-        actions: 'updateShouldDisconnect',
-      },
-      SET_DOM_AND_CAMERA_DETAILS: {
-        actions: 'setDOMAndCameraDetails',
-      },
+      SET_SESSION_INFO: { internal: true, actions: 'updateSessionInfo' },
+      DISCONNECT_EVENT: { internal: true, actions: 'updateShouldDisconnect' },
+      SET_DOM_AND_CAMERA_DETAILS: { actions: 'setDOMAndCameraDetails' },
       UPDATE_DEVICE_AND_STREAM: {
         actions: 'updateDeviceAndStream',
+        target: 'start',
       },
-      SERVER_ERROR: {
-        target: 'error',
-        actions: 'updateErrorStateForServer',
-      },
+      SERVER_ERROR: { target: 'error', actions: 'updateErrorStateForServer' },
       CONNECTION_TIMEOUT: {
         target: 'error',
         actions: 'updateErrorStateForConnectionTimeout',
@@ -207,30 +206,73 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
     },
     states: {
-      cameraCheck: {
-        entry: 'resetErrorState',
-        invoke: {
-          src: 'checkVirtualCameraAndGetStream',
-          onDone: {
-            target: 'waitForDOMAndCameraDetails',
-            actions: 'updateVideoMediaStream',
-          },
-          onError: {
-            target: 'permissionDenied',
+      initCamera: {
+        initial: 'cameraCheck',
+        on: {
+          SET_DOM_AND_CAMERA_DETAILS: {
+            actions: 'setDOMAndCameraDetails',
+            target: '#livenessMachine.initWebsocket',
           },
         },
-      },
-      waitForDOMAndCameraDetails: {
-        after: {
-          0: {
-            target: 'start',
-            cond: 'hasDOMAndCameraDetails',
+        states: {
+          cameraCheck: {
+            entry: 'resetErrorState',
+            invoke: {
+              src: 'checkVirtualCameraAndGetStream',
+              onDone: {
+                target: 'waitForDOMAndCameraDetails',
+                actions: 'updateVideoMediaStream',
+              },
+              onError: {
+                target: '#livenessMachine.permissionDenied',
+              },
+            },
           },
-          10: { target: 'waitForDOMAndCameraDetails' },
+          waitForDOMAndCameraDetails: {},
+        },
+      },
+      initWebsocket: {
+        entry: () => {
+          // eslint-disable-next-line no-console
+          console.log('initWebsocket');
+        },
+        initial: 'initializeLivenessStream',
+        states: {
+          initializeLivenessStream: {
+            invoke: {
+              src: 'openLivenessStreamConnection',
+              onDone: {
+                target: 'waitForSessionInfo',
+                actions: [
+                  'updateLivenessStreamProvider',
+                  'spawnResponseStreamActor',
+                ],
+              },
+            },
+          },
+          waitForSessionInfo: {
+            entry: () => {
+              // eslint-disable-next-line no-console
+              console.log('waitForSessionInfo');
+            },
+            after: {
+              0: {
+                target: '#livenessMachine.start',
+                cond: 'hasParsedSessionInfo',
+              },
+              100: { target: 'waitForSessionInfo' },
+            },
+          },
         },
       },
       start: {
-        entry: ['drawStaticOval', 'initializeFaceDetector'],
+        entry: [
+          'initializeFaceDetector',
+          () => {
+            // eslint-disable-next-line no-console
+            console.log('start');
+          },
+        ],
         always: [
           {
             target: 'detectFaceBeforeStart',
@@ -271,36 +313,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       checkFaceDistanceBeforeRecording: {
         after: {
           0: {
-            target: 'initializeLivenessStream',
+            target: 'recording',
             cond: 'hasEnoughFaceDistanceBeforeRecording',
           },
           100: { target: 'detectFaceDistanceBeforeRecording' },
-        },
-      },
-      initializeLivenessStream: {
-        invoke: {
-          src: 'openLivenessStreamConnection',
-          onDone: {
-            target: 'notRecording',
-            actions: [
-              'updateLivenessStreamProvider',
-              'spawnResponseStreamActor',
-            ],
-          },
-        },
-      },
-      notRecording: {
-        initial: 'waitForSessionInfo',
-        states: {
-          waitForSessionInfo: {
-            after: {
-              0: {
-                target: '#livenessMachine.recording',
-                cond: 'hasServerSessionInfo',
-              },
-              100: { target: 'waitForSessionInfo' },
-            },
-          },
         },
       },
       recording: {
@@ -348,11 +364,15 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           checkRecordingStarted: {
+            entry: () => {
+              // eslint-disable-next-line no-console
+              console.log('checkRecordingStarted');
+            },
             after: {
               0: {
                 target: 'ovalMatching',
                 cond: 'hasRecordingStarted',
-                actions: 'updateRecordingStartTimestampMs',
+                actions: 'updateRecordingStartTimestamp',
               },
               100: { target: 'checkRecordingStarted' },
             },
@@ -373,27 +393,47 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           // for one second to show "Hold still" text before moving to `flashFreshnessColors`.
           // If not, move back to ovalMatching and re-evaluate match state
           checkMatch: {
+            entry: () => {
+              // eslint-disable-next-line no-console
+              console.log('checkMatch');
+            },
             after: {
               0: {
-                target: 'delayBeforeFlash',
+                target: 'handleChallenge',
                 cond: 'hasFaceMatchedInOval',
                 actions: [
                   'setFaceMatchTimeAndStartFace',
                   'updateEndFaceMatch',
-                  'setupFlashFreshnessColors',
+                  'setColorDisplay',
                   'cancelOvalMatchTimeout',
                   'cancelOvalDrawingTimeout',
                 ],
               },
-              1: {
-                target: 'ovalMatching',
-              },
+              1: { target: 'ovalMatching' },
             },
           },
-          delayBeforeFlash: {
-            after: {
-              1000: 'flashFreshnessColors',
+          handleChallenge: {
+            entry: () => {
+              // eslint-disable-next-line no-console
+              console.log('handleChallenge');
             },
+            always: [
+              {
+                target: 'delayBeforeFlash',
+                cond: 'isFaceMovementAndLightChallenge',
+              },
+              {
+                target: 'success',
+                cond: 'isFaceMovementChallenge',
+              },
+            ],
+          },
+          delayBeforeFlash: {
+            entry: () => {
+              // eslint-disable-next-line no-console
+              console.log('delayBeforeFlash');
+            },
+            after: { 1000: 'flashFreshnessColors' },
           },
           flashFreshnessColors: {
             invoke: {
@@ -432,11 +472,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           waitForDisconnectEvent: {
+            entry: () => {
+              // eslint-disable-next-line no-console
+              console.log('waitForDisconnectEvent');
+            },
             after: {
-              0: {
-                target: 'getLivenessResult',
-                cond: 'getShouldDisconnect',
-              },
+              0: { cond: 'getShouldDisconnect', target: 'getLivenessResult' },
               100: { target: 'waitForDisconnectEvent' },
             },
           },
@@ -459,12 +500,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             target: 'timeout',
             cond: 'shouldTimeoutOnFailedAttempts',
           },
-          { target: 'notRecording' },
+          { target: 'start' },
         ],
       },
       permissionDenied: {
         entry: 'callUserPermissionDeniedCallback',
-        on: { RETRY_CAMERA_CHECK: 'cameraCheck' },
+        on: { RETRY_CAMERA_CHECK: 'initCamera' },
       },
       mobileLandscapeWarning: {
         entry: 'callMobileLandscapeWarningCallback',
@@ -485,7 +526,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       userCancel: {
         entry: ['cleanUpResources', 'callUserCancelCallback', 'resetContext'],
-        always: { target: 'cameraCheck' },
+        always: { target: 'initCamera' },
       },
     },
   },
@@ -524,7 +565,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       updateLivenessStreamProvider: assign({
         livenessStreamProvider: (context, event) =>
-          event.data?.livenessStreamProvider as LivenessStreamProvider,
+          event.data?.livenessStreamProvider as StreamRecorder,
       }),
       setDOMAndCameraDetails: assign({
         videoAssociatedParams: (context, event) => ({
@@ -542,6 +583,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       updateDeviceAndStream: assign({
         videoAssociatedParams: (context, event) => {
           setLastSelectedCameraId(event.data?.newDeviceId as string);
+          context.livenessStreamProvider?.setNewVideoStream(
+            event.data?.newStream as MediaStream
+          );
+
           return {
             ...context.videoAssociatedParams,
             selectedDeviceId: event.data
@@ -551,87 +596,53 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           };
         },
       }),
-      drawStaticOval: (context) => {
-        const { canvasEl, videoEl, videoMediaStream } =
-          context.videoAssociatedParams!;
-
-        drawStaticOval(canvasEl!, videoEl!, videoMediaStream!);
-      },
-      updateRecordingStartTimestampMs: assign({
+      updateRecordingStartTimestamp: assign({
         videoAssociatedParams: (context) => {
           const {
             challengeId,
-            videoAssociatedParams,
             ovalAssociatedParams,
+            videoAssociatedParams,
             livenessStreamProvider,
+            parsedSessionInformation,
           } = context;
-          const { recordingStartApiTimestamp, recorderStartTimestamp } =
-            livenessStreamProvider!.videoRecorder;
           const { videoMediaStream } = videoAssociatedParams!;
-          const { initialFace } = ovalAssociatedParams!;
 
-          /**
-           * This calculation is provided by Science team after doing analysis
-           * of unreliable .onstart() (recorderStartTimestamp) timestamp that is
-           * returned from mediaRecorder.
-           */
-          const timestamp = Math.round(
-            0.73 * (recorderStartTimestamp! - recordingStartApiTimestamp!) +
-              recordingStartApiTimestamp!
-          );
+          const recordingStartedTimestamp =
+            livenessStreamProvider!.getRecordingStartTimestamp();
 
-          // Send client info for initial face position
-          const { width, height } = videoMediaStream!
-            .getTracks()[0]
-            .getSettings();
-          const flippedInitialFaceLeft =
-            width! - initialFace!.left - initialFace!.width;
-
-          context.livenessStreamProvider!.sendClientInfo({
-            Challenge: {
-              FaceMovementAndLightChallenge: {
-                ChallengeId: challengeId,
-                VideoStartTimestamp: timestamp,
-                InitialFace: {
-                  InitialFaceDetectedTimestamp: initialFace!.timestampMs,
-                  BoundingBox: getBoundingBox({
-                    deviceHeight: height!,
-                    deviceWidth: width!,
-                    height: initialFace!.height,
-                    width: initialFace!.width,
-                    top: initialFace!.top,
-                    left: flippedInitialFaceLeft,
-                  }),
-                },
-              },
-            },
+          context.livenessStreamProvider!.dispatchStreamEvent({
+            type: 'sessionInfo',
+            data: createSessionStartEvent({
+              parsedSessionInformation: parsedSessionInformation!,
+              ...getTrackDimensions(videoMediaStream!),
+              challengeId: challengeId!,
+              ovalAssociatedParams: ovalAssociatedParams!,
+              recordingStartedTimestamp,
+            }),
           });
 
           return {
             ...context.videoAssociatedParams,
-            recordingStartTimestampMs: timestamp,
+            recordingStartedTimestamp,
           };
         },
       }),
       startRecording: assign({
         videoAssociatedParams: (context) => {
-          if (!context.serverSessionInformation) {
-            throw new Error(
-              'Session information was not received from response stream'
-            );
-          }
           if (
-            context.livenessStreamProvider!.videoRecorder &&
-            context.livenessStreamProvider!.videoRecorder.getState() !==
-              'recording'
+            context.livenessStreamProvider &&
+            !context.livenessStreamProvider.isRecording()
           ) {
-            context.livenessStreamProvider!.startRecordingLivenessVideo();
+            context.livenessStreamProvider.startRecording();
           }
 
           return { ...context.videoAssociatedParams };
         },
       }),
-      stopRecording: () => {},
+      stopRecording: () => {
+        // eslint-disable-next-line no-console
+        console.log('stop recording');
+      },
       updateFaceMatchBeforeStartDetails: assign({
         faceMatchStateBeforeStart: (_, event) =>
           event.data!.faceMatchState as FaceMatchState,
@@ -712,8 +723,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       clearErrorState: assign({ errorState: (_) => undefined }),
       updateSessionInfo: assign({
-        serverSessionInformation: (_, event) => {
-          return event.data!.sessionInfo as SessionInformation;
+        parsedSessionInformation: (_, event) => {
+          const { serverSessionInformation } = event.data! as {
+            serverSessionInformation: ServerSessionInformation;
+          };
+          return createSessionInfoFromServerSessionInformation(
+            serverSessionInformation
+          );
         },
       }),
       updateShouldDisconnect: assign({ shouldDisconnect: () => true }),
@@ -726,22 +742,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           };
         },
       }),
-      setupFlashFreshnessColors: assign({
-        freshnessColorAssociatedParams: (context) => {
-          const { serverSessionInformation } = context;
-          const freshnessColors = getColorsSequencesFromSessionInformation(
-            serverSessionInformation!
-          );
-          const freshnessColorDisplay = new FreshnessColorDisplay(
-            context as unknown as LivenessContext,
-            freshnessColors
-          );
-
-          return {
-            ...context.freshnessColorAssociatedParams,
-            freshnessColorDisplay,
-          };
-        },
+      setColorDisplay: assign({
+        colorSequenceDisplay: ({ parsedSessionInformation }) =>
+          new ColorSequenceDisplay(
+            getColorsSequencesFromSessionInformation(parsedSessionInformation!)
+          ),
       }),
 
       // timeouts
@@ -781,8 +786,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         {
           delay: (context) => {
             return (
-              context.serverSessionInformation?.Challenge
-                ?.FaceMovementAndLightChallenge?.ChallengeConfig
+              context.parsedSessionInformation!.Challenge!.ChallengeConfig
                 ?.OvalFitTimeout ?? DEFAULT_FACE_FIT_TIMEOUT
             );
           },
@@ -843,21 +847,26 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           freshnessColorEl.style.display = 'none';
         }
 
-        let closureCode = WS_CLOSURE_CODE.DEFAULT_ERROR_CODE;
+        let closeCode = WS_CLOSURE_CODE.DEFAULT_ERROR_CODE;
         if (context.errorState === LivenessErrorState.TIMEOUT) {
-          closureCode = WS_CLOSURE_CODE.FACE_FIT_TIMEOUT;
+          closeCode = WS_CLOSURE_CODE.FACE_FIT_TIMEOUT;
         } else if (context.errorState === LivenessErrorState.RUNTIME_ERROR) {
-          closureCode = WS_CLOSURE_CODE.RUNTIME_ERROR;
+          closeCode = WS_CLOSURE_CODE.RUNTIME_ERROR;
         } else if (
           context.errorState === LivenessErrorState.FACE_DISTANCE_ERROR ||
           context.errorState === LivenessErrorState.MULTIPLE_FACES_ERROR
         ) {
-          closureCode = WS_CLOSURE_CODE.USER_ERROR_DURING_CONNECTION;
+          closeCode = WS_CLOSURE_CODE.USER_ERROR_DURING_CONNECTION;
         } else if (context.errorState === undefined) {
-          closureCode = WS_CLOSURE_CODE.USER_CANCEL;
+          closeCode = WS_CLOSURE_CODE.USER_CANCEL;
         }
 
-        context.livenessStreamProvider?.endStreamWithCode(closureCode);
+        context.livenessStreamProvider?.stopRecording().then(() => {
+          context.livenessStreamProvider?.dispatchStreamEvent({
+            type: 'closeCode',
+            data: { closeCode },
+          });
+        });
       },
       freezeStream: (context) => {
         const { videoMediaStream, videoEl } = context.videoAssociatedParams!;
@@ -877,7 +886,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         maxFailedAttempts: 0, // Set to 0 for now as we are not allowing front end based retries for streaming
         failedAttempts: 0,
         componentProps: (context) => context.componentProps,
-        serverSessionInformation: (_) => undefined,
+        parsedSessionInformation: (_) => undefined,
         videoAssociatedParams: (_) => {
           return {
             videoConstraints: STATIC_VIDEO_CONSTRAINTS,
@@ -914,15 +923,34 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         );
       },
       hasEnoughFaceDistanceBeforeRecording: (context) => {
+        // eslint-disable-next-line no-console
+        console.log(
+          'hasEnoughFaceDistanceBeforeRecording: ',
+          context.isFaceFarEnoughBeforeRecording
+        );
+
         return context.isFaceFarEnoughBeforeRecording!;
       },
       hasNotEnoughFaceDistanceBeforeRecording: (context) => {
         return !context.isFaceFarEnoughBeforeRecording;
       },
-      hasFreshnessColorShown: (context) =>
-        context.freshnessColorAssociatedParams!.freshnessColorsComplete!,
-      hasServerSessionInfo: (context) => {
-        return context.serverSessionInformation !== undefined;
+      hasFreshnessColorShown: (context) => {
+        // eslint-disable-next-line no-console
+        console.log(
+          'hasFreshnessColorShown: ',
+          context.freshnessColorAssociatedParams!.freshnessColorsComplete!
+        );
+
+        return context.freshnessColorAssociatedParams!.freshnessColorsComplete!;
+      },
+      hasParsedSessionInfo: (context) => {
+        // eslint-disable-next-line no-console
+        console.log(
+          'hasParsedSessionInfo',
+          context.parsedSessionInformation !== undefined
+        );
+
+        return context.parsedSessionInformation !== undefined;
       },
       hasDOMAndCameraDetails: (context) => {
         return (
@@ -931,14 +959,32 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           context.freshnessColorAssociatedParams!.freshnessColorEl !== undefined
         );
       },
+      isFaceMovementChallenge: (context) => {
+        return (
+          context.parsedSessionInformation?.Challenge?.Name ===
+          FACE_MOVEMENT_CHALLENGE.type
+        );
+      },
+      isFaceMovementAndLightChallenge: (context) => {
+        return (
+          context.parsedSessionInformation?.Challenge?.Name ===
+          FACE_MOVEMENT_AND_LIGHT_CHALLENGE.type
+        );
+      },
       getShouldDisconnect: (context) => {
+        // eslint-disable-next-line no-console
+        console.log('getShouldDisconnect', !!context.shouldDisconnect);
+
         return !!context.shouldDisconnect;
       },
       hasRecordingStarted: (context) => {
-        return (
-          context.livenessStreamProvider!.videoRecorder.firstChunkTimestamp !==
-          undefined
+        // eslint-disable-next-line no-console
+        console.log(
+          'hasRecordingStarted: ',
+          context.livenessStreamProvider!.hasRecordingStarted()
         );
+
+        return context.livenessStreamProvider!.hasRecordingStarted();
       },
       shouldSkipStartScreen: (context) => {
         return !!context.componentProps?.disableStartScreen;
@@ -949,11 +995,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const { videoConstraints } = context.videoAssociatedParams!;
 
         // Get initial stream to enumerate devices with non-empty labels
-        const existingDeviceId = getLastSelectedCameraId();
         const initialStream = await navigator.mediaDevices.getUserMedia({
           video: {
             ...videoConstraints,
-            ...(existingDeviceId ? { deviceId: existingDeviceId } : {}),
           },
           audio: false,
         });
@@ -1009,20 +1053,37 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       // eslint-disable-next-line @typescript-eslint/require-await
       async openLivenessStreamConnection(context) {
-        const { config } = context.componentProps!;
+        const { config, disableStartScreen } = context.componentProps!;
         const { credentialProvider, endpointOverride, systemClockOffset } =
           config!;
-        const livenessStreamProvider = new LivenessStreamProvider({
-          sessionId: context.componentProps!.sessionId,
-          region: context.componentProps!.region,
-          systemClockOffset,
-          stream: context.videoAssociatedParams!.videoMediaStream!,
-          videoEl: context.videoAssociatedParams!.videoEl!,
-          credentialProvider,
+
+        const { videoHeight, videoWidth } =
+          context.videoAssociatedParams!.videoEl!;
+
+        const livenessStreamProvider = new StreamRecorder(
+          context.videoAssociatedParams!.videoMediaStream!
+        );
+
+        const requestStream = createRequestStreamGenerator(
+          livenessStreamProvider.getVideoStream()
+        ).getRequestStream();
+
+        const { getResponseStream } = await createStreamingClient({
+          credentialsProvider: credentialProvider,
           endpointOverride,
+          region: context.componentProps!.region,
+          attemptCount: TelemetryReporter.getAttemptCountAndUpdateTimestamp(),
+          preCheckViewEnabled: !disableStartScreen,
+          systemClockOffset,
         });
 
-        responseStream = livenessStreamProvider.getResponseStream();
+        responseStream = getResponseStream({
+          requestStream,
+          sessionId: context.componentProps!.sessionId,
+          videoHeight: videoHeight.toString(),
+          videoWidth: videoWidth.toString(),
+        });
+
         return { livenessStreamProvider };
       },
       async detectFace(context) {
@@ -1044,72 +1105,44 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       async detectFaceDistance(context) {
         const {
+          parsedSessionInformation,
           isFaceFarEnoughBeforeRecording: faceDistanceCheckBeforeRecording,
         } = context;
-        const { videoEl, videoMediaStream, isMobile } =
-          context.videoAssociatedParams!;
+        const { videoEl, videoMediaStream } = context.videoAssociatedParams!;
         const { faceDetector } = context.ovalAssociatedParams!;
 
         const { width, height } = videoMediaStream!
           .getTracks()[0]
           .getSettings();
 
+        const challengeConfig =
+          parsedSessionInformation!.Challenge!.ChallengeConfig;
+
         const ovalDetails = getStaticLivenessOvalDetails({
           width: width!,
           height: height!,
+          ovalHeightWidthRatio: challengeConfig!.OvalHeightWidthRatio!,
         });
 
         const { isDistanceBelowThreshold: isFaceFarEnoughBeforeRecording } =
           await isFaceDistanceBelowThreshold({
+            parsedSessionInformation: parsedSessionInformation!,
             faceDetector: faceDetector!,
             videoEl: videoEl!,
             ovalDetails,
             reduceThreshold: faceDistanceCheckBeforeRecording, // if this is the second face distance check reduce the threshold
-            isMobile,
           });
 
         return { isFaceFarEnoughBeforeRecording };
       },
-      async detectFaceDistanceWhileLoading(context) {
-        const {
-          isFaceFarEnoughBeforeRecording: faceDistanceCheckBeforeRecording,
-        } = context;
-        const { videoEl, videoMediaStream, isMobile } =
-          context.videoAssociatedParams!;
-        const { faceDetector } = context.ovalAssociatedParams!;
-
-        const { width, height } = videoMediaStream!
-          .getTracks()[0]
-          .getSettings();
-
-        const ovalDetails = getStaticLivenessOvalDetails({
-          width: width!,
-          height: height!,
-        });
-
-        const {
-          isDistanceBelowThreshold: isFaceFarEnoughBeforeRecording,
-          error,
-        } = await isFaceDistanceBelowThreshold({
-          faceDetector: faceDetector!,
-          isMobile,
-          ovalDetails,
-          videoEl: videoEl!,
-          // if this is the second face distance check reduce the threshold
-          reduceThreshold: faceDistanceCheckBeforeRecording,
-        });
-
-        return { isFaceFarEnoughBeforeRecording, error };
-      },
       async detectInitialFaceAndDrawOval(context) {
-        const { serverSessionInformation, livenessStreamProvider } = context;
+        const { parsedSessionInformation } = context;
         const { videoEl, canvasEl, isMobile } = context.videoAssociatedParams!;
         const { faceDetector } = context.ovalAssociatedParams!;
 
         // initialize models
         try {
           await faceDetector!.modelLoadingPromise;
-          await livenessStreamProvider!.videoRecorder.recorderStarted;
         } catch (err) {
           // eslint-disable-next-line no-console
           console.log({ err });
@@ -1165,16 +1198,20 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         // generate oval details from initialFace and video dimensions
         const ovalDetails = getOvalDetailsFromSessionInformation({
-          sessionInformation: serverSessionInformation!,
+          parsedSessionInformation: parsedSessionInformation!,
           videoWidth: videoEl!.width,
         });
 
+        const challengeConfig =
+          parsedSessionInformation!.Challenge!.ChallengeConfig;
+
         // renormalize initial face
-        const renormalizedFace = generateBboxFromLandmarks(
-          initialFace,
-          ovalDetails,
-          videoEl!.videoHeight
-        );
+        const renormalizedFace = generateBboxFromLandmarks({
+          ovalHeightWidthRatio: challengeConfig!.OvalHeightWidthRatio,
+          face: initialFace,
+          oval: ovalDetails,
+          frameHeight: videoEl!.videoHeight,
+        });
         initialFace.top = renormalizedFace.top;
         initialFace.left = renormalizedFace.left;
         initialFace.height = renormalizedFace.bottom - renormalizedFace.top;
@@ -1196,7 +1233,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         };
       },
       async detectFaceAndMatchOval(context) {
-        const { serverSessionInformation } = context;
+        const { parsedSessionInformation } = context;
         const { videoEl } = context.videoAssociatedParams!;
         const { faceDetector, ovalDetails, initialFace } =
           context.ovalAssociatedParams!;
@@ -1208,11 +1245,15 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         let detectedFace: Face | undefined;
         let illuminationState: IlluminationState | undefined;
 
-        const initialFaceBoundingBox = generateBboxFromLandmarks(
-          initialFace!,
-          ovalDetails!,
-          videoEl!.videoHeight
-        );
+        const challengeConfig =
+          parsedSessionInformation!.Challenge!.ChallengeConfig;
+
+        const initialFaceBoundingBox = generateBboxFromLandmarks({
+          ovalHeightWidthRatio: challengeConfig!.OvalHeightWidthRatio,
+          face: initialFace!,
+          oval: ovalDetails!,
+          frameHeight: videoEl!.videoHeight,
+        });
 
         const { ovalBoundingBox } = getOvalBoundingBox(ovalDetails!);
 
@@ -1238,7 +1279,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               face: detectedFace,
               ovalDetails: ovalDetails!,
               initialFaceIntersection,
-              sessionInformation: serverSessionInformation!,
+              parsedSessionInformation: parsedSessionInformation!,
               frameHeight: videoEl!.videoHeight,
             });
 
@@ -1260,74 +1301,90 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           detectedFace,
         };
       },
-      async flashColors(context) {
-        const { freshnessColorsComplete, freshnessColorDisplay } =
-          context.freshnessColorAssociatedParams!;
-
+      async flashColors({
+        challengeId,
+        colorSequenceDisplay,
+        freshnessColorAssociatedParams,
+        livenessStreamProvider,
+        ovalAssociatedParams,
+        videoAssociatedParams,
+      }) {
+        const { freshnessColorsComplete, freshnessColorEl } =
+          freshnessColorAssociatedParams!;
         if (freshnessColorsComplete) {
           return;
         }
 
-        const completed = await freshnessColorDisplay!.displayColorTick();
+        const { ovalDetails, scaleFactor } = ovalAssociatedParams!;
+        const { videoEl } = videoAssociatedParams!;
+
+        const completed = await colorSequenceDisplay!.startSequences({
+          onSequenceColorChange: ({
+            sequenceColor,
+            prevSequenceColor,
+            heightFraction,
+          }) => {
+            fillOverlayCanvasFractional({
+              heightFraction,
+              overlayCanvas: freshnessColorEl!,
+              ovalDetails: ovalDetails!,
+              nextColor: sequenceColor,
+              prevColor: prevSequenceColor,
+              scaleFactor: scaleFactor!,
+              videoEl: videoEl!,
+            });
+          },
+          onSequenceStart: () => {
+            freshnessColorEl!.style.display = 'block';
+          },
+          onSequencesComplete: () => {
+            freshnessColorEl!.style.display = 'none';
+          },
+          onSequenceChange: (params) => {
+            livenessStreamProvider!.dispatchStreamEvent({
+              type: 'sessionInfo',
+              data: createColorDisplayEvent({
+                ...params,
+                challengeId: challengeId!,
+              }),
+            });
+          },
+        });
 
         return { freshnessColorsComplete: completed };
       },
       async stopVideo(context) {
-        const { challengeId, livenessStreamProvider } = context;
-        const { videoMediaStream } = context.videoAssociatedParams!;
-        const { initialFace, ovalDetails } = context.ovalAssociatedParams!;
-        const { startFace, endFace } = context.faceMatchAssociatedParams!;
+        const {
+          challengeId,
+          parsedSessionInformation,
+          faceMatchAssociatedParams,
+          ovalAssociatedParams,
+          livenessStreamProvider,
+          videoAssociatedParams,
+        } = context;
+        const { videoMediaStream } = videoAssociatedParams!;
 
-        const { width, height } = videoMediaStream!
-          .getTracks()[0]
-          .getSettings();
+        // if not awaited, `getRecordingEndTimestamp` will throw
+        await livenessStreamProvider!.stopRecording();
 
-        const flippedInitialFaceLeft =
-          width! - initialFace!.left - initialFace!.width;
-
-        await livenessStreamProvider!.stopVideo();
-
-        const livenessActionDocument: ClientSessionInformationEvent = {
-          Challenge: {
-            FaceMovementAndLightChallenge: {
-              ChallengeId: challengeId,
-              InitialFace: {
-                InitialFaceDetectedTimestamp: initialFace!.timestampMs,
-                BoundingBox: getBoundingBox({
-                  deviceHeight: height!,
-                  deviceWidth: width!,
-                  height: initialFace!.height,
-                  width: initialFace!.width,
-                  top: initialFace!.top,
-                  left: flippedInitialFaceLeft,
-                }),
-              },
-              TargetFace: {
-                FaceDetectedInTargetPositionStartTimestamp:
-                  startFace!.timestampMs,
-                FaceDetectedInTargetPositionEndTimestamp: endFace!.timestampMs,
-                BoundingBox: getBoundingBox({
-                  deviceHeight: height!,
-                  deviceWidth: width!,
-                  height: ovalDetails!.height,
-                  width: ovalDetails!.width,
-                  top: ovalDetails!.centerY - ovalDetails!.height / 2,
-                  left: ovalDetails!.centerX - ovalDetails!.width / 2,
-                }),
-              },
-              VideoEndTimestamp:
-                livenessStreamProvider!.videoRecorder.recorderEndTimestamp,
-            },
-          },
-        };
-
-        if (livenessStreamProvider!.videoRecorder.getVideoChunkSize() === 0) {
+        if (livenessStreamProvider!.getChunksLength() === 0) {
           throw new Error('Video chunks not recorded successfully.');
         }
 
-        livenessStreamProvider!.sendClientInfo(livenessActionDocument);
+        livenessStreamProvider!.dispatchStreamEvent({
+          type: 'sessionInfo',
+          data: createSessionEndEvent({
+            ...getTrackDimensions(videoMediaStream!),
+            parsedSessionInformation: parsedSessionInformation!,
+            challengeId: challengeId!,
+            faceMatchAssociatedParams: faceMatchAssociatedParams!,
+            ovalAssociatedParams: ovalAssociatedParams!,
+            recordingEndedTimestamp:
+              livenessStreamProvider!.getRecordingEndedTimestamp(),
+          }),
+        });
 
-        livenessStreamProvider!.dispatchStopVideoEvent();
+        livenessStreamProvider!.dispatchStreamEvent({ type: 'streamStop' });
       },
       async getLiveness(context) {
         const { onAnalysisComplete } = context.componentProps!;
