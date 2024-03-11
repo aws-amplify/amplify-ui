@@ -2,17 +2,7 @@ import 'web-streams-polyfill';
 import 'blob-polyfill';
 
 import { VideoRecorder } from '../videoRecorder';
-
-const mockMediaRecorder = {
-  start: jest.fn(),
-  ondataavailable: jest.fn(),
-  onerror: jest.fn(),
-  state: '',
-  stop: jest.fn(),
-  addEventListener: jest.fn(),
-  pause: jest.fn(),
-  dispatchEvent: jest.fn(),
-};
+import { mockMediaRecorder } from '../__mocks__/testUtils';
 
 describe('VideoRecorder', () => {
   const stream = {} as MediaStream;

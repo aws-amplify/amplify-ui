@@ -15,19 +15,12 @@ import { CustomWebSocketFetchHandler } from './CustomWebSocketFetchHandler';
 export interface StartLivenessStreamInput {
   sessionId: string;
 }
-export interface StartLivenessStreamOutput {
-  sessionId: string;
+
+export interface StartLivenessStreamOutput extends StartLivenessStreamInput {
   stream: WebSocket;
 }
 
-export interface Credentials {
-  accessKeyId: string;
-  secretAccessKey: string;
-  sessionToken: string;
-}
-
-export interface StreamProviderArgs {
-  sessionId: string;
+interface StreamProviderArgs extends StartLivenessStreamInput {
   region: string;
   stream: MediaStream;
   videoEl: HTMLVideoElement;
@@ -35,7 +28,7 @@ export interface StreamProviderArgs {
   endpointOverride?: string;
 }
 
-export const TIME_SLICE = 1000;
+const TIME_SLICE = 1000;
 
 function isBlob(obj: unknown): obj is Blob {
   return (obj as Blob).arrayBuffer !== undefined;

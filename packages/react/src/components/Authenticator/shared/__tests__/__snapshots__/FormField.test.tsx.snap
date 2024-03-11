@@ -19,6 +19,7 @@ exports[`FormField renders as expected in the happy path 1`] = `
       >
         <input
           aria-invalid="false"
+          autocapitalize="off"
           autocomplete="username"
           class="amplify-input amplify-field-group__control"
           id="mock-id-0"
@@ -53,6 +54,7 @@ exports[`FormField renders as expected in the unhappy path 1`] = `
         <input
           aria-describedby="amplify-id-:r0:"
           aria-invalid="true"
+          autocapitalize="off"
           autocomplete="username"
           class="amplify-input amplify-field-group__control amplify-input--error"
           id="amplify-id-:r1:"
