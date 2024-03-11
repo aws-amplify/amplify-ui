@@ -22,6 +22,7 @@ exports[`Sitemap Snapshot 1`] = `
 /angular/getting-started/migration, 
 /angular/getting-started/troubleshooting, 
 /angular/getting-started/usage, 
+/angular/guides/css-in-js, 
 /angular/theming, 
 /angular/theming/css-variables, 
 /angular/theming/dark-mode, 
@@ -29,6 +30,7 @@ exports[`Sitemap Snapshot 1`] = `
 /angular/theming/default-theme/colors, 
 /angular/theming/default-theme/sizes, 
 /angular/theming/default-theme/typography, 
+/angular/theming/responsive, 
 /flutter, 
 /flutter/connected-components/authenticator, 
 /flutter/connected-components/authenticator/configuration, 
@@ -152,11 +154,13 @@ exports[`Sitemap Snapshot 1`] = `
 /vue/getting-started/migration, 
 /vue/getting-started/troubleshooting, 
 /vue/getting-started/usage, 
+/vue/guides/css-in-js, 
 /vue/theming, 
 /vue/theming/css-variables, 
 /vue/theming/dark-mode, 
 /vue/theming/default-theme, 
 /vue/theming/default-theme/colors, 
 /vue/theming/default-theme/sizes, 
-/vue/theming/default-theme/typography"
+/vue/theming/default-theme/typography, 
+/vue/theming/responsive"
 `;
