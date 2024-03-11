@@ -18,7 +18,7 @@ Feature: Liveness Detector
       Then I click the "close-icon"
       Then I see the "Start video check" button
 
-  @react @skip
+  @react
   Scenario: See camera module and instructions
       Then I click the "Start video check" button
       Then I see "liveness-detector" element

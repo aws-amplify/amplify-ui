@@ -9,7 +9,7 @@ Feature: Disable Start Screen
   Scenario: See camera module and close with the close icon
       Then I see "Loading"
 
-  @react @skip
+  @react
   Scenario: See camera module and instructions
       Then I see "liveness-detector" element
       Then I see "connecting"
