@@ -6,7 +6,7 @@ import VueOverrideExample from './override-function-calls/example.vue.mdx';
 
 ## Override Function Calls
 
-You can override the call to `signUp`, `signIn`, `confirmSignIn`, `confirmSignUp`, `resetPassword` and `resetPasswordSubmit` functions.
+You can override the call to `signUp`, `signIn`, `confirmSignIn`, `confirmSignUp`, `forgotPassword` and `forgotPasswordSubmit` functions.
 To override a call you must create a new `services` object with an `async` `handle*` function that returns an `aws-amplify` `Auth.*` promise.
 
 The service object must then be passed into the `authenticator` component as a `services` prop. For example, let's imagine you'd like to lowercase the `username` and the `email` attributes during `signUp`.
