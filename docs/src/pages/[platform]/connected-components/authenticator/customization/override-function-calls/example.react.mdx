@@ -12,38 +12,39 @@ export const prevVersion = PREV_MAJOR_VERSIONS['react'][1];
     <Tabs.Panel value={latestVersion}>
       In version {latestVersion}, `Auth` function calls are imported directly as shown below. 
       ```jsx{2}
-      import { Amplify } from 'aws-amplify';
-      import { signUp, SignUpInput } from 'aws-amplify/auth';
-      import { Authenticator } from '@aws-amplify/ui-react';
-      import '@aws-amplify/ui-react/styles.css';
-      import awsExports from './aws-exports';
-      Amplify.configure(awsExports);
+import { Amplify } from 'aws-amplify';
+import { signUp, SignUpInput } from 'aws-amplify/auth';
+import { Authenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+import awsExports from './aws-exports';
+Amplify.configure(awsExports);
 
-      export default function AuthenticatorWithEmail() {
-        const services = {
-          async handleSignUp(input: SignUpInput) {
-            // custom username and email
-            const customUsername = input.username.toLowerCase();
-            const customEmail = input.options?.userAttributes?.email.toLowerCase();
-            return signUp({
-              ...input,
-              username: customUsername,
-              options: {
-                ...input.options,
-                userAttributes: {
-                  ...input.options?.userAttributes,
-                  email: customEmail,
-                },
-              },
-            });
+export default function AuthenticatorWithEmail() {
+  const services = {
+    async handleSignUp(input: SignUpInput) {
+      // custom username and email
+      const { username, password, options } = input;
+      const customUsername = username.toLowerCase();
+      const customEmail = options?.userAttributes?.email.toLowerCase();
+      return signUp({
+        username: customUsername,
+        password,
+        options: {
+          ...input.options,
+          userAttributes: {
+            ...input.options?.userAttributes,
+            email: customEmail,
           },
-        };
-        return (
-          <Authenticator services={services} initialState="signUp">
-            {({ signOut }) => <button onClick={signOut}>Sign out</button>}
-          </Authenticator>
-        );
-      }
+        },
+      });
+    },
+  };
+  return (
+    <Authenticator services={services} initialState="signUp">
+      {({ signOut }) => <button onClick={signOut}>Sign out</button>}
+    </Authenticator>
+  );
+}
       ```
     </Tabs.Panel>
     <Tabs.Panel value={prevVersion}>
@@ -52,36 +53,36 @@ export const prevVersion = PREV_MAJOR_VERSIONS['react'][1];
       </Alert>
       In earlier versions, `Auth` function calls are imported from the `Auth` object.
     ```jsx{1,19}
-    import { Amplify, Auth } from 'aws-amplify';
-    import { Authenticator } from '@aws-amplify/ui-react';
-    import '@aws-amplify/ui-react/styles.css';
-    import awsExports from './aws-exports';
-    Amplify.configure(awsExports);
+      import { Amplify, Auth } from 'aws-amplify';
+      import { Authenticator } from '@aws-amplify/ui-react';
+      import '@aws-amplify/ui-react/styles.css';
+      import awsExports from './aws-exports';
+      Amplify.configure(awsExports);
 
-    export default function AuthenticatorWithEmail() {
-      const services = {
-        async handleSignUp(formData) {
-          let { username, password, attributes } = formData;
-          // custom username and email
-          username = username.toLowerCase();
-          attributes.email = attributes.email.toLowerCase();
-          return Auth.signUp({
-            username,
-            password,
-            attributes,
-            autoSignIn: {
-              enabled: true,
-            },
-          });
-        },
-      };
+      export default function AuthenticatorWithEmail() {
+        const services = {
+          async handleSignUp(formData) {
+            let { username, password, attributes } = formData;
+            // custom username and email
+            username = username.toLowerCase();
+            attributes.email = attributes.email.toLowerCase();
+            return Auth.signUp({
+              username,
+              password,
+              attributes,
+              autoSignIn: {
+                enabled: true,
+              },
+            });
+          },
+        };
 
-      return (
-        <Authenticator services={services} initialState="signUp">
-          {({ signOut }) => <button onClick={signOut}>Sign out</button>}
-        </Authenticator>
-      );
-    }
+        return (
+          <Authenticator services={services} initialState="signUp">
+            {({ signOut }) => <button onClick={signOut}>Sign out</button>}
+          </Authenticator>
+        );
+      }
     ```
     </Tabs.Panel>
   </Tabs.Container>

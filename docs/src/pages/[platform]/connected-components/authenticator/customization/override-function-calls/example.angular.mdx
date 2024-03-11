@@ -52,7 +52,8 @@ _app.component.ts_
           username = username.toLowerCase();
           const customEmail = options?.userAttributes?.email?.toLowerCase();
           return signUp({
-            ...formData,
+            username,
+            password,
             options: {
               ...formData?.options,
               userAttributes: {
