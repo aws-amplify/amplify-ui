@@ -197,7 +197,9 @@ export class LivenessStreamProvider {
           yield {
             VideoEvent: {
               VideoChunk: new Uint8Array([]),
-              TimestampMillis: { closeCode: value.code },
+              // this is a custom type that does not match LivenessRequestStream.
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+              TimestampMillis: { closeCode: value.code } as any,
             },
           };
         }
