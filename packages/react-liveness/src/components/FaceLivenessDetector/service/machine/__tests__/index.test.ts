@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { interpret } from 'xstate';
 import { setImmediate } from 'timers';
 
@@ -6,10 +5,8 @@ import { livenessMachine } from '..';
 import {
   FaceLivenessDetectorProps,
   FaceMatchState,
-  Face,
   LivenessErrorState,
   LivenessInterpreter,
-  LivenessOvalDetails,
   IlluminationState,
 } from '../../types';
 import * as helpers from '../../utils';
@@ -17,27 +14,26 @@ import {
   mockLivenessStreamProvider,
   mockSessionInformation,
   mockVideoRecorder,
+  mockBlazeFace,
+  mockVideoConstaints,
+  mockCameraDevice,
+  mockFace,
+  mockVideoMediaStream,
+  mockOvalDetails,
 } from '../../utils/__mocks__/testUtils';
-import { STATIC_VIDEO_CONSTRAINTS } from '../../../utils/helpers';
 
 jest.useFakeTimers();
 jest.mock('../../utils');
 
 const mockedHelpers = helpers as jest.Mocked<typeof helpers>;
 const flushPromises = () => new Promise(setImmediate);
-const testTimestampMs = 1640995200000;
 
 describe('Liveness Machine', () => {
   const mockNavigatorMediaDevices: any = {
     getUserMedia: jest.fn(),
     enumerateDevices: jest.fn(),
   };
-  const mockBlazeFace: any = {
-    modelLoadingPromise: Promise.resolve(),
-    triggerModelLoading: jest.fn(),
-    loadModels: jest.fn(),
-    detectFaces: jest.fn(),
-  };
+
   const mockFreshnessColorDisplay: any = {
     displayColorTick: () => true,
   };
@@ -51,56 +47,10 @@ describe('Liveness Machine', () => {
     config: {},
   };
 
-  const mockVideoConstaints: MediaTrackConstraints = {
-    deviceId: 'some-device-id',
-    ...STATIC_VIDEO_CONSTRAINTS,
-  };
-  const mockCameraDevice: MediaDeviceInfo = {
-    deviceId: 'some-device-id',
-    groupId: 'some-group-id',
-    kind: 'videoinput',
-    label: 'some-label',
-    toJSON: () => ({}),
-  };
   const mockVideoEl = document.createElement('video');
   const mockCanvasEl = document.createElement('canvas');
   const mockFreshnessColorEl = document.createElement('canvas');
   window.HTMLMediaElement.prototype.pause = () => jest.fn();
-
-  const mockVideoTrack = {
-    getSettings: () => ({
-      width: 640,
-      height: 480,
-      deviceId: mockCameraDevice.deviceId,
-      frameRate: 30,
-    }),
-    stop: jest.fn(),
-  } as any as MediaStreamTrack;
-
-  const mockVideoMediaStream = {
-    getTracks: () => [mockVideoTrack],
-  } as MediaStream;
-
-  const mockFace: Face = {
-    height: 100,
-    width: 100,
-    left: 150,
-    top: 200,
-    timestampMs: testTimestampMs,
-    rightEye: [200, 200],
-    leftEye: [200, 200],
-    mouth: [200, 200],
-    nose: [200, 200],
-    rightEar: [200, 200],
-    leftEar: [200, 200],
-  };
-  const mockOvalDetails: LivenessOvalDetails = {
-    height: 100,
-    width: 100,
-    flippedCenterX: 50,
-    centerX: 50,
-    centerY: 50,
-  };
 
   const machine = livenessMachine.withContext({
     ...livenessMachine.context,

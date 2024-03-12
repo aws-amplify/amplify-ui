@@ -547,65 +547,6 @@ export const LivenessErrorStateStringMap = {
   [LivenessErrorState.FRESHNESS_TIMEOUT]: 'FRESHNESS_TIMEOUT',
 };
 
-export const MOCK_COLOR_SEQUENCES: ColorSequence[] = [
-  {
-    FreshnessColor: {
-      RGB: [0, 0, 0], // black
-    },
-    DownscrollDuration: 300,
-    FlatDisplayDuration: 100,
-  },
-  {
-    FreshnessColor: {
-      RGB: [255, 255, 255], // white
-    },
-    DownscrollDuration: 300,
-    FlatDisplayDuration: 100,
-  },
-  {
-    FreshnessColor: {
-      RGB: [255, 0, 0], // red
-    },
-    DownscrollDuration: 300,
-    FlatDisplayDuration: 100,
-  },
-  {
-    FreshnessColor: {
-      RGB: [255, 255, 0], // yellow
-    },
-    DownscrollDuration: 300,
-    FlatDisplayDuration: 100,
-  },
-  {
-    FreshnessColor: {
-      RGB: [0, 255, 0], // lime
-    },
-    DownscrollDuration: 300,
-    FlatDisplayDuration: 100,
-  },
-  {
-    FreshnessColor: {
-      RGB: [0, 255, 255], // cyan
-    },
-    DownscrollDuration: 300,
-    FlatDisplayDuration: 100,
-  },
-  {
-    FreshnessColor: {
-      RGB: [0, 0, 255], // blue,
-    },
-    DownscrollDuration: 300,
-    FlatDisplayDuration: 100,
-  },
-  {
-    FreshnessColor: {
-      RGB: [255, 0, 255], // violet
-    },
-    DownscrollDuration: 300,
-    FlatDisplayDuration: 100,
-  },
-];
-
 const INITIAL_ALPHA = 0.9;
 const SECONDARY_ALPHA = 0.75;
 

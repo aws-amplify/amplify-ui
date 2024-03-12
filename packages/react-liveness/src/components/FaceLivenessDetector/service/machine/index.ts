@@ -971,8 +971,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           endpointOverride: endpointOverride,
         });
 
-        streamConnectionOpenTimestamp = Date.now();
-
         responseStream = livenessStreamProvider.getResponseStream();
         return { livenessStreamProvider };
       },
