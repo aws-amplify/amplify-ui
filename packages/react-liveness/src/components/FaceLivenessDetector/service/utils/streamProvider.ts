@@ -2,6 +2,7 @@ import { getAmplifyUserAgent } from '@aws-amplify/core/internals/utils';
 import { fetchAuthSession } from 'aws-amplify/auth';
 import {
   ClientSessionInformationEvent,
+  LivenessRequestStream,
   LivenessResponseStream,
   RekognitionStreamingClient,
   RekognitionStreamingClientConfig,
@@ -154,7 +155,7 @@ export class LivenessStreamProvider {
   // Creates a generator from a stream of video chunks and livenessActionDocuments and yields VideoEvent and ClientEvents
   private getAsyncGeneratorFromReadableStream(
     stream: ReadableStream
-  ): () => AsyncGenerator<any> {
+  ): () => AsyncGenerator<LivenessRequestStream> {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const current = this;
     this._reader = stream.getReader();
@@ -171,7 +172,7 @@ export class LivenessStreamProvider {
           // sending an empty video chunk signals that we have ended sending video
           yield {
             VideoEvent: {
-              VideoChunk: [],
+              VideoChunk: new Uint8Array([]),
               TimestampMillis: Date.now(),
             },
           };
@@ -195,7 +196,7 @@ export class LivenessStreamProvider {
         } else if (isEndStreamWithCodeEvent(value)) {
           yield {
             VideoEvent: {
-              VideoChunk: [],
+              VideoChunk: new Uint8Array([]),
               TimestampMillis: { closeCode: value.code },
             },
           };
