@@ -160,8 +160,14 @@ export class LivenessStreamProvider {
     this._reader = stream.getReader();
     return async function* () {
       while (true) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        const { done, value } = await current._reader.read();
+        const { done, value } = (await current._reader.read()) as {
+          done: boolean;
+          value:
+            | 'stopVideo'
+            | Uint8Array
+            | ClientSessionInformationEvent
+            | EndStreamWithCodeEvent;
+        };
         if (done) {
           return;
         }
