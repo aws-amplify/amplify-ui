@@ -16,13 +16,11 @@ describe('authenticatorTextUtil', () => {
       ).toEqual('Confirm TOTP Code');
     });
 
-    it('throws an error for unexpected challenge names', () => {
-      expect(() =>
+    it('returns default text for unexpected challenge names', () => {
+      expect(
         // @ts-expect-error
         authenticatorTextUtil.getChallengeText('invalidChallenge')
-      ).toThrow(
-        'Unexpected challengeName encountered in ConfirmSignIn: invalidChallenge'
-      );
+      ).toEqual('Confirm MFA Code');
     });
   });
 
