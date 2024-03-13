@@ -1,46 +1,48 @@
 import { fetchAuthSession } from 'aws-amplify/auth';
 import { AwsCredentialProvider, AwsCredentials } from '../../types';
 
-const isValidCredentialsProvider = (
+const isCredentialsProvider = (
   credentialsProvider?: AwsCredentialProvider
 ): credentialsProvider is AwsCredentialProvider =>
   typeof credentialsProvider === 'function';
 
+// the return interface of `fetchAuthSession` includes `credentials` as
+// optional, but `credentials` is always returned. If `fetchAuthSession`
+// is called for an unauthenticated end user, values of `accessKeyId`
+// and `secretAccessKey` are `undefined`
+const isCredentials = (
+  credentials?: AwsCredentials | Record<keyof AwsCredentials, undefined>
+): credentials is AwsCredentials =>
+  !!(credentials?.accessKeyId && credentials?.secretAccessKey);
+
 /**
- * Resolves `credentials` to be passed to both the `RekognitionStreamingClient` and `Signer`
+ * Resolves the `credentials` param to be passed to `RekognitionStreamingClient` which accepts either:
+ * - a `credentials` object
+ * - a `credentialsProvider` callback
  *
- * @param credentialsProvider optional async `credentials` provider
- * @returns {Promise<AwsCredentials>} `credentials` object
+ * @param credentialsProvider optional `credentialsProvider` callback
+ * @returns {Promise<AwsCredentials | AwsCredentialProvider>} `credentials` object or valid `credentialsProvider` callback
  */
 export async function resolveCredentials(
   credentialsProvider?: AwsCredentialProvider
-): Promise<AwsCredentials> {
-  const hasValidCredentialsProvider =
-    isValidCredentialsProvider(credentialsProvider);
+): Promise<AwsCredentials | AwsCredentialProvider> {
+  const hasCredentialsProvider = isCredentialsProvider(credentialsProvider);
 
-  if (credentialsProvider && !hasValidCredentialsProvider) {
+  if (hasCredentialsProvider) {
+    return credentialsProvider;
+  }
+
+  if (credentialsProvider && !hasCredentialsProvider) {
     throw new Error('Invalid credentialsProvider');
   }
 
   try {
-    let result: AwsCredentials;
-
-    if (hasValidCredentialsProvider) {
-      result = await credentialsProvider();
-    } else {
-      // @ts-expect-error
-      // the return interface of `fetchAuthSession` includes `credentials` as
-      // optional, but `credentials` is always returned. If `fetchAuthSession`
-      // is called for an unauthenticated end user, values of `accessKeyId`
-      // and `secretAccessKey` are `undefined`
-      result = (await fetchAuthSession()).credentials;
+    const result = (await fetchAuthSession()).credentials;
+    if (isCredentials(result)) {
+      return result;
     }
 
-    if (!result.accessKeyId || !result.secretAccessKey) {
-      throw new Error('Missing credentials');
-    }
-
-    return result;
+    throw new Error('Missing credentials');
   } catch (e) {
     const { message } = e as Error;
     throw new Error(`Invalid credentials: ${message}`);
