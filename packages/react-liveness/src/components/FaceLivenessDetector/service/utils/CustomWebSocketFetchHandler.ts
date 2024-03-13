@@ -20,6 +20,7 @@ import {
   RequestHandler,
   RequestHandlerMetadata,
 } from '@smithy/types';
+import { WS_CLOSURE_CODE } from './constants';
 
 const DEFAULT_WS_CONNECTION_TIMEOUT_MS = 2000;
 
@@ -42,11 +43,11 @@ const getIterator = (stream: any): AsyncIterable<any> => {
   }
 
   if (isReadableStream(stream)) {
-    //If stream is a ReadableStream, transfer the ReadableStream to async iterable.
+    // If stream is a ReadableStream, transfer the ReadableStream to async iterable.
     return readableStreamtoIterable(stream);
   }
 
-  //For other types, just wrap them with an async iterable.
+  // For other types, just wrap them with an async iterable.
   return {
     [Symbol.asyncIterator]: async function* () {
       yield stream;
@@ -190,8 +191,9 @@ export class CustomWebSocketFetchHandler {
   private removeNotUsableSockets(url: string): void {
     this.sockets[url] = (this.sockets[url] ?? []).filter(
       (socket) =>
-        // @ts-ignore
-        ![WebSocket.CLOSING, WebSocket.CLOSED].includes(socket.readyState)
+        ![WebSocket.CLOSING, WebSocket.CLOSED].includes(
+          socket.readyState as 2 | 3
+        )
     );
   }
 
@@ -285,11 +287,10 @@ export class CustomWebSocketFetchHandler {
         // would already be settled by the time sending chunk throws error.
         // Instead, the notify the output stream to throw if there's
         // exceptions
-        // @ts-ignore
-        streamError = err;
+        streamError = err as Error | undefined;
       } finally {
         // WS status code: https://tools.ietf.org/html/rfc6455#section-7.4
-        socket.close(1000);
+        socket.close(WS_CLOSURE_CODE.SUCCESS_CODE);
       }
     };
 
