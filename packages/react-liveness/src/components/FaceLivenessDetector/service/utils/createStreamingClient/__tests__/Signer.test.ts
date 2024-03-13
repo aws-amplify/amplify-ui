@@ -12,11 +12,23 @@ const credentials: AwsCredentialIdentity = {
   secretAccessKey: 'secretAccessKey',
 };
 
+type SignatureV4Params = ConstructorParameters<typeof SignatureV4>[0];
+
+// const DEFAULT_PARAMS: SignatureV4Params = {
+//   sha256: jest.fn(),
+//   service: 'rekognition',
+// };
+
 describe('Signer.presign', () => {
   let signer: Signer;
 
   beforeEach(() => {
-    signer = new Signer({ region: 'region', credentials });
+    signer = new Signer({
+      region: 'region',
+      credentials,
+      sha256: jest.fn(),
+      service: 'rekognition',
+    });
     signatureV4PresignSpy.mockClear();
   });
 
@@ -39,6 +51,7 @@ describe('Signer.presign', () => {
       unxpectedOptions
     );
   });
+
   it('filters host headers from unsignableHeaders passed to SignatureV4.presign', () => {
     const request = {
       headers: { host: 'host', notHost: 'notHost' },
