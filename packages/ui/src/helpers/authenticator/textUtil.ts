@@ -16,11 +16,7 @@ const getChallengeText = (challengeName?: ChallengeName): string => {
     case 'SOFTWARE_TOKEN_MFA':
       return translate(DefaultTexts.CONFIRM_TOTP);
     default:
-      throw new Error(
-        `${translate(
-          'Unexpected challengeName encountered in ConfirmSignIn:'
-        )} ${challengeName}`
-      );
+      return translate(DefaultTexts.CONFIRM_MFA_DEFAULT);
   }
 };
 
