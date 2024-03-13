@@ -1,5 +1,12 @@
-/* eslint-disable */
+/* eslint-disable index/only-import-export */
+import {
+  ClientSessionInformationEvent,
+  LivenessResponseStream,
+  SessionInformation,
+} from '@aws-sdk/client-rekognitionstreaming';
+import { nanoid } from 'nanoid';
 import { createMachine, assign, actions, spawn } from 'xstate';
+
 import {
   getColorsSequencesFromSessionInformation,
   getFaceMatchState,
@@ -11,15 +18,19 @@ import {
 } from '../utils/liveness';
 
 import {
-  Face,
-  LivenessContext,
-  LivenessEvent,
-  FaceMatchState,
-  LivenessErrorState,
-  IlluminationState,
-  StreamActorCallback,
-  LivenessError,
   ErrorState,
+  Face,
+  FaceMatchAssociatedParams,
+  FaceMatchState,
+  FreshnessColorAssociatedParams,
+  IlluminationState,
+  LivenessContext,
+  LivenessError,
+  LivenessErrorState,
+  LivenessEvent,
+  OvalAssociatedParams,
+  StreamActorCallback,
+  VideoAssociatedParams,
 } from '../types';
 import {
   BlazeFaceFaceDetection,
@@ -32,7 +43,7 @@ import {
   FreshnessColorDisplay,
   drawStaticOval,
 } from '../utils';
-import { nanoid } from 'nanoid';
+
 import { getStaticLivenessOvalDetails } from '../utils/liveness';
 import {
   isThrottlingExceptionEvent,
@@ -43,24 +54,66 @@ import {
   isDisconnectionEvent,
   isInvalidSignatureRegionException,
 } from '../utils/eventUtils';
-import {
-  ClientSessionInformationEvent,
-  LivenessResponseStream,
-} from '@aws-sdk/client-rekognitionstreaming';
+
 import { STATIC_VIDEO_CONSTRAINTS } from '../../utils/helpers';
 import { WS_CLOSURE_CODE } from '../utils/constants';
 
-export const MIN_FACE_MATCH_TIME = 1000;
+const CAMERA_ID_KEY = 'AmplifyLivenessCameraId';
 const DEFAULT_FACE_FIT_TIMEOUT = 7000;
-
-// timer metrics variables
-let faceDetectedTimestamp: number;
-let ovalDrawnTimestamp: number;
-let streamConnectionOpenTimestamp: number;
+const MIN_FACE_MATCH_TIME = 1000;
 
 let responseStream: Promise<AsyncIterable<LivenessResponseStream>>;
+const responseStreamActor = async (callback: StreamActorCallback) => {
+  try {
+    const stream = await responseStream;
+    for await (const event of stream) {
+      if (isServerSesssionInformationEvent(event)) {
+        callback({
+          type: 'SET_SESSION_INFO',
+          data: {
+            sessionInfo: event.ServerSessionInformationEvent.SessionInformation,
+          },
+        });
+      } else if (isDisconnectionEvent(event)) {
+        callback({ type: 'DISCONNECT_EVENT' });
+      } else if (isValidationExceptionEvent(event)) {
+        callback({
+          type: 'SERVER_ERROR',
+          data: { error: { ...event.ValidationException } },
+        });
+      } else if (isInternalServerExceptionEvent(event)) {
+        callback({
+          type: 'SERVER_ERROR',
+          data: { error: { ...event.InternalServerException } },
+        });
+      } else if (isThrottlingExceptionEvent(event)) {
+        callback({
+          type: 'SERVER_ERROR',
+          data: { error: { ...event.ThrottlingException } },
+        });
+      } else if (isServiceQuotaExceededExceptionEvent(event)) {
+        callback({
+          type: 'SERVER_ERROR',
+          data: { error: { ...event.ServiceQuotaExceededException } },
+        });
+      }
+    }
+  } catch (error: unknown) {
+    let returnedError = error;
+    if (isInvalidSignatureRegionException(error)) {
+      returnedError = new Error(
+        'Invalid region in FaceLivenessDetector or credentials are scoped to the wrong region.'
+      );
+    }
 
-const CAMERA_ID_KEY = 'AmplifyLivenessCameraId';
+    if (returnedError instanceof Error) {
+      callback({
+        type: 'SERVER_ERROR',
+        data: { error: returnedError },
+      });
+    }
+  }
+};
 
 function getLastSelectedCameraId(): string | null {
   return localStorage.getItem(CAMERA_ID_KEY);
@@ -149,12 +202,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
     },
     states: {
       cameraCheck: {
-        entry: ['resetErrorState'],
+        entry: 'resetErrorState',
         invoke: {
           src: 'checkVirtualCameraAndGetStream',
           onDone: {
             target: 'waitForDOMAndCameraDetails',
-            actions: ['updateVideoMediaStream'],
+            actions: 'updateVideoMediaStream',
           },
           onError: {
             target: 'permissionDenied',
@@ -187,7 +240,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           src: 'detectFace',
           onDone: {
             target: 'checkFaceDetectedBeforeStart',
-            actions: ['updateFaceMatchBeforeStartDetails'],
+            actions: 'updateFaceMatchBeforeStartDetails',
           },
         },
       },
@@ -205,7 +258,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           src: 'detectFaceDistance',
           onDone: {
             target: 'checkFaceDistanceBeforeRecording',
-            actions: ['updateFaceDistanceBeforeRecording'],
+            actions: 'updateFaceDistanceBeforeRecording',
           },
         },
       },
@@ -249,7 +302,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         initial: 'ovalDrawing',
         states: {
           ovalDrawing: {
-            entry: ['sendTimeoutAfterOvalDrawingDelay'],
+            entry: 'sendTimeoutAfterOvalDrawingDelay',
             invoke: {
               src: 'detectInitialFaceAndDrawOval',
               onDone: {
@@ -279,13 +332,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               0: {
                 target: 'ovalMatching',
                 cond: 'hasRecordingStarted',
-                actions: ['updateRecordingStartTimestampMs'],
+                actions: 'updateRecordingStartTimestampMs',
               },
               100: { target: 'checkRecordingStarted' },
             },
           },
           ovalMatching: {
-            entry: ['cancelOvalDrawingTimeout'],
+            entry: 'cancelOvalDrawingTimeout',
             invoke: {
               src: 'detectFaceAndMatchOval',
               onDone: {
@@ -333,7 +386,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           success: {
-            entry: ['stopRecording'],
+            entry: 'stopRecording',
             type: 'final',
           },
         },
@@ -386,13 +439,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       permissionDenied: {
         entry: 'callUserPermissionDeniedCallback',
-        on: {
-          RETRY_CAMERA_CHECK: 'cameraCheck',
-        },
+        on: { RETRY_CAMERA_CHECK: 'cameraCheck' },
       },
       mobileLandscapeWarning: {
         entry: 'callMobileLandscapeWarningCallback',
-        always: [{ target: 'error' }],
+        always: { target: 'error' },
       },
       timeout: {
         entry: ['cleanUpResources', 'callUserTimeoutCallback', 'freezeStream'],
@@ -409,7 +460,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       userCancel: {
         entry: ['cleanUpResources', 'callUserCancelCallback', 'resetContext'],
-        always: [{ target: 'cameraCheck' }],
+        always: { target: 'cameraCheck' },
       },
     },
   },
@@ -419,16 +470,17 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         responseStreamActorRef: () => spawn(responseStreamActor),
       }),
       updateFailedAttempts: assign({
-        failedAttempts: (context) => {
-          return context.failedAttempts! + 1;
-        },
+        failedAttempts: (context) => context.failedAttempts! + 1,
       }),
       updateVideoMediaStream: assign({
         videoAssociatedParams: (context, event) => ({
           ...context.videoAssociatedParams,
-          videoMediaStream: event.data?.stream,
-          selectedDeviceId: event.data?.selectedDeviceId,
-          selectableDevices: event.data?.selectableDevices,
+          videoMediaStream: event.data
+            ?.stream as VideoAssociatedParams['videoMediaStream'],
+          selectedDeviceId: event.data
+            ?.selectedDeviceId as VideoAssociatedParams['selectedDeviceId'],
+          selectableDevices: event.data
+            ?.selectableDevices as VideoAssociatedParams['selectableDevices'],
         }),
       }),
       initializeFaceDetector: assign({
@@ -442,38 +494,35 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           );
           faceDetector.triggerModelLoading();
 
-          return {
-            ...context.ovalAssociatedParams,
-            faceDetector,
-          };
+          return { ...context.ovalAssociatedParams, faceDetector };
         },
       }),
       updateLivenessStreamProvider: assign({
-        livenessStreamProvider: (context, event) => {
-          return event.data?.livenessStreamProvider;
-        },
+        livenessStreamProvider: (context, event) =>
+          event.data?.livenessStreamProvider as LivenessStreamProvider,
       }),
       setDOMAndCameraDetails: assign({
-        videoAssociatedParams: (context, event) => {
-          return {
-            ...context.videoAssociatedParams,
-            videoEl: event.data?.videoEl,
-            canvasEl: event.data?.canvasEl,
-            isMobile: event.data?.isMobile,
-          };
-        },
+        videoAssociatedParams: (context, event) => ({
+          ...context.videoAssociatedParams,
+          videoEl: event.data?.videoEl as VideoAssociatedParams['videoEl'],
+          canvasEl: event.data?.canvasEl as VideoAssociatedParams['canvasEl'],
+          isMobile: event.data?.isMobile as VideoAssociatedParams['isMobile'],
+        }),
         freshnessColorAssociatedParams: (context, event) => ({
           ...context.freshnessColorAssociatedParams,
-          freshnessColorEl: event.data?.freshnessColorEl,
+          freshnessColorEl: event.data
+            ?.freshnessColorEl as FreshnessColorAssociatedParams['freshnessColorEl'],
         }),
       }),
       updateDeviceAndStream: assign({
         videoAssociatedParams: (context, event) => {
-          setLastSelectedCameraId(event.data?.newDeviceId);
+          setLastSelectedCameraId(event.data?.newDeviceId as string);
           return {
             ...context.videoAssociatedParams,
-            selectedDeviceId: event.data?.newDeviceId,
-            videoMediaStream: event.data?.newStream,
+            selectedDeviceId: event.data
+              ?.newDeviceId as VideoAssociatedParams['selectedDeviceId'],
+            videoMediaStream: event.data
+              ?.newStream as VideoAssociatedParams['videoMediaStream'],
           };
         },
       }),
@@ -554,50 +603,52 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             context.livenessStreamProvider!.startRecordingLivenessVideo();
           }
 
-          return {
-            ...context.videoAssociatedParams,
-          };
+          return { ...context.videoAssociatedParams };
         },
       }),
-      stopRecording: (context) => {},
+      stopRecording: () => {},
       updateFaceMatchBeforeStartDetails: assign({
-        faceMatchStateBeforeStart: (_, event) => {
-          return event.data!.faceMatchState;
-        },
+        faceMatchStateBeforeStart: (_, event) =>
+          event.data!.faceMatchState as FaceMatchState,
       }),
       updateFaceDistanceBeforeRecording: assign({
-        isFaceFarEnoughBeforeRecording: (_, event) => {
-          return event.data!.isFaceFarEnoughBeforeRecording;
-        },
+        isFaceFarEnoughBeforeRecording: (_, event) =>
+          !!event.data!.isFaceFarEnoughBeforeRecording,
       }),
       updateFaceDistanceWhileLoading: assign({
-        isFaceFarEnoughBeforeRecording: (_, event) => {
-          return event.data!.isFaceFarEnoughBeforeRecording;
-        },
-        errorState: (_, event) => {
-          return event.data?.error;
-        },
+        isFaceFarEnoughBeforeRecording: (_, event) =>
+          !!event.data!.isFaceFarEnoughBeforeRecording,
+        errorState: (_, event) => event.data?.error as ErrorState,
       }),
       updateOvalAndFaceDetailsPostDraw: assign({
         ovalAssociatedParams: (context, event) => ({
           ...context.ovalAssociatedParams,
-          initialFace: event.data!.initialFace,
-          ovalDetails: event.data!.ovalDetails,
-          scaleFactor: event.data!.scaleFactor,
+          initialFace: event.data!
+            .initialFace as OvalAssociatedParams['initialFace'],
+          ovalDetails: event.data!
+            .ovalDetails as OvalAssociatedParams['ovalDetails'],
+          scaleFactor: event.data!
+            .scaleFactor as OvalAssociatedParams['scaleFactor'],
         }),
         faceMatchAssociatedParams: (context, event) => ({
           ...context.faceMatchAssociatedParams,
-          faceMatchState: event.data!.faceMatchState,
-          illuminationState: event.data!.illuminationState,
+          faceMatchState: event.data!
+            .faceMatchState as FaceMatchAssociatedParams['faceMatchState'],
+          illuminationState: event.data!
+            .illuminationState as FaceMatchAssociatedParams['illuminationState'],
         }),
       }),
       updateFaceDetailsPostMatch: assign({
         faceMatchAssociatedParams: (context, event) => ({
           ...context.faceMatchAssociatedParams,
-          faceMatchState: event.data!.faceMatchState,
-          faceMatchPercentage: event.data!.faceMatchPercentage,
-          illuminationState: event.data!.illuminationState,
-          currentDetectedFace: event.data!.detectedFace,
+          faceMatchState: event.data!
+            .faceMatchState as FaceMatchAssociatedParams['faceMatchState'],
+          faceMatchPercentage: event.data!
+            .faceMatchPercentage as FaceMatchAssociatedParams['faceMatchPercentage'],
+          illuminationState: event.data!
+            .illuminationState as FaceMatchAssociatedParams['illuminationState'],
+          currentDetectedFace: event.data!
+            .detectedFace as FaceMatchAssociatedParams['currentDetectedFace'],
         }),
       }),
       updateEndFaceMatch: assign({
@@ -622,40 +673,32 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           };
         },
       }),
-      resetErrorState: assign({
-        errorState: (_) => undefined,
-      }),
+      resetErrorState: assign({ errorState: (_) => undefined }),
       updateErrorStateForTimeout: assign({
-        errorState: (_, event) => {
-          return event.data?.errorState || LivenessErrorState.TIMEOUT;
-        },
+        errorState: (_, event) =>
+          (event.data?.errorState as ErrorState) || LivenessErrorState.TIMEOUT,
       }),
       updateErrorStateForRuntime: assign({
-        errorState: (_, event) => {
-          return event.data?.errorState || LivenessErrorState.RUNTIME_ERROR;
-        },
+        errorState: (_, event) =>
+          (event.data?.errorState as ErrorState) ||
+          LivenessErrorState.RUNTIME_ERROR,
       }),
       updateErrorStateForServer: assign({
         errorState: (_) => LivenessErrorState.SERVER_ERROR,
       }),
-      clearErrorState: assign({
-        errorState: (_) => undefined,
-      }),
+      clearErrorState: assign({ errorState: (_) => undefined }),
       updateSessionInfo: assign({
-        serverSessionInformation: (context, event) => {
-          return event.data!.sessionInfo;
+        serverSessionInformation: (_, event) => {
+          return event.data!.sessionInfo as SessionInformation;
         },
       }),
-      updateShouldDisconnect: assign({
-        shouldDisconnect: (context) => {
-          return true;
-        },
-      }),
+      updateShouldDisconnect: assign({ shouldDisconnect: () => true }),
       updateFreshnessDetails: assign({
         freshnessColorAssociatedParams: (context, event) => {
           return {
             ...context.freshnessColorAssociatedParams,
-            freshnessColorsComplete: event.data!.freshnessColorsComplete,
+            freshnessColorsComplete: event.data!
+              .freshnessColorsComplete as FreshnessColorAssociatedParams['freshnessColorsComplete'],
           };
         },
       }),
@@ -693,7 +736,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             return (
               context.serverSessionInformation?.Challenge
                 ?.FaceMovementAndLightChallenge?.ChallengeConfig
-                ?.OvalFitTimeout || DEFAULT_FACE_FIT_TIMEOUT
+                ?.OvalFitTimeout ?? DEFAULT_FACE_FIT_TIMEOUT
             );
           },
           id: 'ovalMatchTimeout',
@@ -738,7 +781,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             errorState = LivenessErrorState.CAMERA_ACCESS_ERROR;
           }
 
-          const errorMessage = event.data!.message || event.data!.Message;
+          const errorMessage =
+            (event.data!.message as ErrorState) || event.data!.Message;
           const error = new Error(errorMessage);
 
           const livenessError: LivenessError = {
@@ -751,14 +795,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       }),
       callMobileLandscapeWarningCallback: assign({
-        errorState: (context) => {
-          return LivenessErrorState.MOBILE_LANDSCAPE_ERROR;
-        },
+        errorState: () => LivenessErrorState.MOBILE_LANDSCAPE_ERROR,
       }),
-      callUserCancelCallback: async (context) => {
+      callUserCancelCallback: (context) => {
         context.componentProps!.onUserCancel?.();
       },
-      callUserTimeoutCallback: async (context) => {
+      callUserTimeoutCallback: (context) => {
         const error = new Error('Client Timeout');
         error.name = context.errorState!;
         const livenessError: LivenessError = {
@@ -767,14 +809,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         };
         context.componentProps!.onError?.(livenessError);
       },
-      callErrorCallback: async (context, event) => {
+      callErrorCallback: (context, event) => {
         const livenessError: LivenessError = {
           state: context.errorState!,
-          error: event.data?.error || event.data,
+          error: (event.data?.error as Error) || event.data,
         };
         context.componentProps!.onError?.(livenessError);
       },
-      cleanUpResources: async (context) => {
+      cleanUpResources: (context) => {
         const { freshnessColorEl } = context.freshnessColorAssociatedParams!;
         if (freshnessColorEl) {
           freshnessColorEl.style.display = 'none';
@@ -794,9 +836,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           closureCode = WS_CLOSURE_CODE.USER_CANCEL;
         }
 
-        await context.livenessStreamProvider?.endStreamWithCode(closureCode);
+        context.livenessStreamProvider?.endStreamWithCode(closureCode);
       },
-      freezeStream: async (context) => {
+      freezeStream: (context) => {
         const { videoMediaStream, videoEl } = context.videoAssociatedParams!;
         context.isRecordingStopped = true;
         videoEl?.pause();
@@ -804,7 +846,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           track.stop();
         });
       },
-      pauseVideoStream: async (context) => {
+      pauseVideoStream: (context) => {
         const { videoEl } = context.videoAssociatedParams!;
         context.isRecordingStopped = true;
         videoEl!.pause();
@@ -872,7 +914,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       hasNotEnoughFaceDistanceBeforeRecording: (context) => {
         return !context.isFaceFarEnoughBeforeRecording;
       },
-      hasLivenessCheckSucceeded: (_, __, meta) => meta.state.event.data!.isLive,
       hasFreshnessColorShown: (context) =>
         context.freshnessColorAssociatedParams!.freshnessColorsComplete!,
       hasServerSessionInfo: (context) => {
@@ -939,14 +980,16 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           (device) => device.deviceId === initialStreamDeviceId
         );
 
-        let deviceId = initialStreamDeviceId;
+        const deviceId = isInitialStreamFromRealDevice
+          ? initialStreamDeviceId
+          : realVideoDevices[0].deviceId;
+
         let realVideoDeviceStream = initialStream;
         if (!isInitialStreamFromRealDevice) {
-          deviceId = realVideoDevices[0].deviceId;
           realVideoDeviceStream = await navigator.mediaDevices.getUserMedia({
             video: {
               ...videoConstraints,
-              deviceId: { exact: realVideoDevices[0].deviceId },
+              deviceId: { exact: deviceId },
             },
             audio: false,
           });
@@ -959,6 +1002,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           selectableDevices: realVideoDevices,
         };
       },
+      // eslint-disable-next-line @typescript-eslint/require-await
       async openLivenessStreamConnection(context) {
         const { config } = context.componentProps!;
         const { credentialProvider, endpointOverride } = config!;
@@ -982,6 +1026,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         try {
           await faceDetector!.modelLoadingPromise;
         } catch (err) {
+          // eslint-disable-next-line no-console
           console.log({ err });
         }
 
@@ -1040,10 +1085,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           error,
         } = await isFaceDistanceBelowThreshold({
           faceDetector: faceDetector!,
-          videoEl: videoEl!,
-          ovalDetails,
-          reduceThreshold: faceDistanceCheckBeforeRecording, // if this is the second face distance check reduce the threshold
           isMobile,
+          ovalDetails,
+          videoEl: videoEl!,
+          // if this is the second face distance check reduce the threshold
+          reduceThreshold: faceDistanceCheckBeforeRecording,
         });
 
         return { isFaceFarEnoughBeforeRecording, error };
@@ -1058,6 +1104,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           await faceDetector!.modelLoadingPromise;
           await livenessStreamProvider!.videoRecorder.recorderStarted;
         } catch (err) {
+          // eslint-disable-next-line no-console
           console.log({ err });
         }
 
@@ -1076,7 +1123,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           }
           case 1: {
             //exactly one face detected;
-            faceDetectedTimestamp = Date.now();
+
             faceMatchState = FaceMatchState.FACE_IDENTIFIED;
             initialFace = detectedFaces[0];
             break;
@@ -1132,7 +1179,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           scaleFactor,
           videoEl: videoEl!,
         });
-        ovalDrawnTimestamp = Date.now();
 
         return {
           faceMatchState,
@@ -1271,7 +1317,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         livenessStreamProvider!.sendClientInfo(livenessActionDocument);
 
-        await livenessStreamProvider!.dispatchStopVideoEvent();
+        livenessStreamProvider!.dispatchStopVideoEvent();
       },
       async getLiveness(context) {
         const { onAnalysisComplete } = context.componentProps!;
@@ -1282,55 +1328,3 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
     },
   }
 );
-
-const responseStreamActor = async (callback: StreamActorCallback) => {
-  try {
-    const stream = await responseStream;
-    for await (const event of stream) {
-      if (isServerSesssionInformationEvent(event)) {
-        callback({
-          type: 'SET_SESSION_INFO',
-          data: {
-            sessionInfo: event.ServerSessionInformationEvent.SessionInformation,
-          },
-        });
-      } else if (isDisconnectionEvent(event)) {
-        callback({ type: 'DISCONNECT_EVENT' });
-      } else if (isValidationExceptionEvent(event)) {
-        callback({
-          type: 'SERVER_ERROR',
-          data: { error: { ...event.ValidationException } },
-        });
-      } else if (isInternalServerExceptionEvent(event)) {
-        callback({
-          type: 'SERVER_ERROR',
-          data: { error: { ...event.InternalServerException } },
-        });
-      } else if (isThrottlingExceptionEvent(event)) {
-        callback({
-          type: 'SERVER_ERROR',
-          data: { error: { ...event.ThrottlingException } },
-        });
-      } else if (isServiceQuotaExceededExceptionEvent(event)) {
-        callback({
-          type: 'SERVER_ERROR',
-          data: { error: { ...event.ServiceQuotaExceededException } },
-        });
-      }
-    }
-  } catch (error: unknown) {
-    let returnedError = error;
-    if (isInvalidSignatureRegionException(error)) {
-      returnedError = new Error(
-        'Invalid region in FaceLivenessDetector or credentials are scoped to the wrong region.'
-      );
-    }
-
-    if (returnedError instanceof Error) {
-      callback({
-        type: 'SERVER_ERROR',
-        data: { error: returnedError },
-      });
-    }
-  }
-};
