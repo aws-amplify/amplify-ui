@@ -304,6 +304,7 @@ export function createAuthenticatorMachine(
         ]),
         setActorDoneData: assign({
           actorDoneData: (context, event): ActorDoneData => ({
+            challengeName: event.data.challengeName,
             codeDeliveryDetails: event.data.codeDeliveryDetails,
             missingAttributes: event.data.missingAttributes,
             remoteError: event.data.remoteError,
