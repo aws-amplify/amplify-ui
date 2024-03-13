@@ -28,6 +28,16 @@ describe('resolveCredentials', () => {
     ).rejects.toThrow('Invalid credentialsProvider');
   });
 
+  it('it throws when provided an invalid `credentialsProvider` async function param', () => {
+    const message = 'Oh no!';
+    const credentialsProvider: AwsCredentialProvider = () =>
+      Promise.reject({ message });
+
+    expect(
+      async () => await resolveCredentials(credentialsProvider)
+    ).rejects.toThrow(`Invalid credentials: ${message}`);
+  });
+
   it('behaves as expected when not provided a `credentialsProvider` param', async () => {
     fetchAuthSessionSpy.mockResolvedValueOnce({ credentials });
     const result = await resolveCredentials();

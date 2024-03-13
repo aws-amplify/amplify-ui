@@ -12,13 +12,6 @@ const credentials: AwsCredentialIdentity = {
   secretAccessKey: 'secretAccessKey',
 };
 
-type SignatureV4Params = ConstructorParameters<typeof SignatureV4>[0];
-
-// const DEFAULT_PARAMS: SignatureV4Params = {
-//   sha256: jest.fn(),
-//   service: 'rekognition',
-// };
-
 describe('Signer.presign', () => {
   let signer: Signer;
 
