@@ -1,17 +1,14 @@
-import { getAmplifyUserAgent } from '@aws-amplify/core/internals/utils';
-import { fetchAuthSession } from 'aws-amplify/auth';
 import {
   ClientSessionInformationEvent,
   LivenessRequestStream,
   LivenessResponseStream,
   RekognitionStreamingClient,
-  RekognitionStreamingClientConfig,
   StartFaceLivenessSessionCommand,
 } from '@aws-sdk/client-rekognitionstreaming';
 import { VideoRecorder } from './videoRecorder';
-import { getLivenessUserAgent } from '../../utils/platform';
+
 import { AwsCredentialProvider } from '../types';
-import { CustomWebSocketFetchHandler } from './CustomWebSocketFetchHandler';
+import { createStreamingClient } from './createStreamingClient';
 
 export interface StartLivenessStreamInput {
   sessionId: string;
@@ -95,9 +92,7 @@ export class LivenessStreamProvider {
 
   public sendClientInfo(clientInfo: ClientSessionInformationEvent): void {
     this.videoRecorder.dispatch(
-      new MessageEvent('clientSesssionInfo', {
-        data: { clientInfo },
-      })
+      new MessageEvent('clientSesssionInfo', { data: { clientInfo } })
     );
   }
 
@@ -114,40 +109,17 @@ export class LivenessStreamProvider {
       await this.stopVideo();
     }
     this.videoRecorder.dispatch(
-      new MessageEvent('endStreamWithCode', {
-        data: { code: code },
-      })
+      new MessageEvent('endStreamWithCode', { data: { code } })
     );
 
     return;
   }
 
   private async init() {
-    const credentials =
-      this.credentialProvider ?? (await fetchAuthSession()).credentials;
-
-    if (!credentials) {
-      throw new Error('No credentials');
-    }
-
-    const clientconfig: RekognitionStreamingClientConfig = {
-      credentials,
+    this._client = await createStreamingClient({
+      credentialsProvider: this.credentialProvider,
       region: this.region,
-      customUserAgent: `${getAmplifyUserAgent()} ${getLivenessUserAgent()}`,
-      requestHandler: new CustomWebSocketFetchHandler({
-        connectionTimeout: 10_000,
-      }),
-    };
-
-    if (this.endpointOverride) {
-      const override = this.endpointOverride;
-      clientconfig.endpointProvider = () => {
-        const url = new URL(override);
-        return { url };
-      };
-    }
-
-    this._client = new RekognitionStreamingClient(clientconfig);
+    });
 
     this.responseStream = await this.startLivenessVideoConnection();
   }
