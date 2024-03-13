@@ -1,4 +1,3 @@
-/* eslint-disable */
 import {
   LivenessOvalDetails,
   IlluminationState,
@@ -10,10 +9,7 @@ import {
 } from '../types';
 import { FaceDetection } from '../types/faceDetection';
 import { ClientFreshnessColorSequence } from '../types/service';
-import {
-  ColorSequence,
-  SessionInformation,
-} from '@aws-sdk/client-rekognitionstreaming';
+import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
 import {
   FACE_DISTANCE_THRESHOLD,
   REDUCED_THRESHOLD,
@@ -182,42 +178,6 @@ export function getStaticLivenessOvalDetails({
   };
 }
 
-export function drawStaticOval(
-  canvasEl: HTMLCanvasElement,
-  videoEl: HTMLVideoElement,
-  videoMediaStream: MediaStream
-) {
-  const { width, height } = videoMediaStream!.getTracks()[0].getSettings();
-
-  // Get width/height of video element so we can compute scaleFactor
-  // and set canvas width/height.
-  const { width: videoScaledWidth, height: videoScaledHeight } =
-    videoEl!.getBoundingClientRect();
-
-  canvasEl!.width = Math.ceil(videoScaledWidth);
-  canvasEl!.height = Math.ceil(videoScaledHeight);
-
-  const ovalDetails = getStaticLivenessOvalDetails({
-    width: width!,
-    height: height!,
-    ratioMultiplier: 0.5,
-  });
-  ovalDetails.flippedCenterX = width! - ovalDetails.centerX;
-
-  // Compute scaleFactor which is how much our video element is scaled
-  // vs the intrinsic video resolution
-  const scaleFactor = videoScaledWidth / videoEl!.videoWidth;
-
-  // Draw oval in canvas using ovalDetails and scaleFactor
-  drawLivenessOvalInCanvas({
-    canvas: canvasEl!,
-    oval: ovalDetails,
-    scaleFactor,
-    videoEl: videoEl!,
-    isStartScreen: true,
-  });
-}
-
 /**
  * Draws the provided liveness oval on the canvas.
  */
@@ -268,10 +228,10 @@ export function drawLivenessOvalInCanvas({
     // draw the oval path
     ctx.beginPath();
     ctx.ellipse(
-      flippedCenterX!,
-      centerY!,
-      width! / 2,
-      height! / 2,
+      flippedCenterX,
+      centerY,
+      width / 2,
+      height / 2,
       0,
       0,
       2 * Math.PI
@@ -296,6 +256,42 @@ export function drawLivenessOvalInCanvas({
   }
 }
 
+export function drawStaticOval(
+  canvasEl: HTMLCanvasElement,
+  videoEl: HTMLVideoElement,
+  videoMediaStream: MediaStream
+): void {
+  const { width, height } = videoMediaStream.getTracks()[0].getSettings();
+
+  // Get width/height of video element so we can compute scaleFactor
+  // and set canvas width/height.
+  const { width: videoScaledWidth, height: videoScaledHeight } =
+    videoEl.getBoundingClientRect();
+
+  canvasEl.width = Math.ceil(videoScaledWidth);
+  canvasEl.height = Math.ceil(videoScaledHeight);
+
+  const ovalDetails = getStaticLivenessOvalDetails({
+    width: width!,
+    height: height!,
+    ratioMultiplier: 0.5,
+  });
+  ovalDetails.flippedCenterX = width! - ovalDetails.centerX;
+
+  // Compute scaleFactor which is how much our video element is scaled
+  // vs the intrinsic video resolution
+  const scaleFactor = videoScaledWidth / videoEl.videoWidth;
+
+  // Draw oval in canvas using ovalDetails and scaleFactor
+  drawLivenessOvalInCanvas({
+    canvas: canvasEl,
+    oval: ovalDetails,
+    scaleFactor,
+    videoEl: videoEl,
+    isStartScreen: true,
+  });
+}
+
 export function clearOvalCanvas({
   canvas,
 }: {
@@ -311,20 +307,80 @@ export function clearOvalCanvas({
   }
 }
 
-interface FaceMatchStateInLivenessOval {
-  faceMatchState: FaceMatchState;
-  faceMatchPercentage: number;
+function getPupilDistanceAndFaceHeight(face: Face) {
+  const { leftEye, rightEye, mouth } = face;
+
+  const eyeCenter = [];
+  eyeCenter[0] = (leftEye[0] + rightEye[0]) / 2;
+  eyeCenter[1] = (leftEye[1] + rightEye[1]) / 2;
+
+  const pupilDistance = Math.sqrt(
+    (leftEye[0] - rightEye[0]) ** 2 + (leftEye[1] - rightEye[1]) ** 2
+  );
+  const faceHeight = Math.sqrt(
+    (eyeCenter[0] - mouth[0]) ** 2 + (eyeCenter[1] - mouth[1]) ** 2
+  );
+
+  return { pupilDistance, faceHeight };
+}
+
+export function generateBboxFromLandmarks(
+  face: Face,
+  oval: LivenessOvalDetails
+): BoundingBox {
+  const {
+    leftEye,
+    rightEye,
+    nose,
+    leftEar,
+    rightEar,
+    top: faceTop,
+    height: faceHeight,
+  } = face;
+  const { height: ovalHeight, centerY } = oval;
+  const ovalTop = centerY - ovalHeight / 2;
+
+  const eyeCenter = [];
+  eyeCenter[0] = (leftEye[0] + rightEye[0]) / 2;
+  eyeCenter[1] = (leftEye[1] + rightEye[1]) / 2;
+
+  const { pupilDistance: pd, faceHeight: fh } =
+    getPupilDistanceAndFaceHeight(face);
+
+  const alpha = 2.0,
+    gamma = 1.8;
+  const ow = (alpha * pd + gamma * fh) / 2;
+  const oh = 1.618 * ow;
+
+  let cx: number;
+
+  if (eyeCenter[1] <= (ovalTop + ovalHeight) / 2) {
+    cx = (eyeCenter[0] + nose[0]) / 2;
+  } else {
+    cx = eyeCenter[0];
+  }
+
+  const bottom = faceTop + faceHeight;
+  const top = bottom - oh;
+  const left = Math.min(cx - ow / 2, rightEar[0]);
+  const right = Math.max(cx + ow / 2, leftEar[0]);
+
+  return { bottom, left, right, top };
 }
 
 /**
  * Returns the state of the provided face with respect to the provided liveness oval.
  */
+// eslint-disable-next-line max-params
 export function getFaceMatchStateInLivenessOval(
   face: Face,
   ovalDetails: LivenessOvalDetails,
   initialFaceIntersection: number,
   sessionInformation: SessionInformation
-): FaceMatchStateInLivenessOval {
+): {
+  faceMatchState: FaceMatchState;
+  faceMatchPercentage: number;
+} {
   let faceMatchState: FaceMatchState;
 
   const challengeConfig =
@@ -376,7 +432,7 @@ export function getFaceMatchStateInLivenessOval(
     ovalDetails.height * FaceIouHeightThreshold;
 
   /** From Science
-   * p=max(min(1,0.75∗(si​−s0​)/(st​−s0​)+0.25)),0)
+   * p=max(min(1,0.75∗(si−s0)/(st−s0)+0.25)),0)
    */
   const faceMatchPercentage =
     Math.max(
@@ -414,72 +470,6 @@ export function getFaceMatchStateInLivenessOval(
   }
 
   return { faceMatchState, faceMatchPercentage };
-}
-
-function getPupilDistanceAndFaceHeight(face: Face) {
-  const { leftEye, rightEye, mouth } = face;
-
-  const eyeCenter = [];
-  eyeCenter[0] = (leftEye[0] + rightEye[0]) / 2;
-  eyeCenter[1] = (leftEye[1] + rightEye[1]) / 2;
-
-  const pupilDistance = Math.sqrt(
-    (leftEye[0] - rightEye[0]) ** 2 + (leftEye[1] - rightEye[1]) ** 2
-  );
-  const faceHeight = Math.sqrt(
-    (eyeCenter[0] - mouth[0]) ** 2 + (eyeCenter[1] - mouth[1]) ** 2
-  );
-
-  return { pupilDistance, faceHeight };
-}
-
-export function generateBboxFromLandmarks(
-  face: Face,
-  oval: LivenessOvalDetails
-): BoundingBox {
-  const {
-    leftEye,
-    rightEye,
-    nose,
-    leftEar,
-    rightEar,
-    top: faceTop,
-    height: faceHeight,
-  } = face;
-  const { height: ovalHeight, centerY } = oval;
-  const ovalTop = centerY! - ovalHeight! / 2;
-
-  const eyeCenter = [];
-  eyeCenter[0] = (leftEye[0] + rightEye[0]) / 2;
-  eyeCenter[1] = (leftEye[1] + rightEye[1]) / 2;
-
-  const { pupilDistance: pd, faceHeight: fh } =
-    getPupilDistanceAndFaceHeight(face);
-
-  const alpha = 2.0,
-    gamma = 1.8;
-  const ow = (alpha * pd + gamma * fh) / 2;
-  const oh = 1.618 * ow;
-
-  let cx: number;
-
-  if (eyeCenter[1] <= (ovalTop + ovalHeight!) / 2) {
-    cx = (eyeCenter[0] + nose[0]) / 2;
-  } else {
-    cx = eyeCenter[0];
-  }
-
-  const faceBottom = faceTop + faceHeight;
-  const top = faceBottom - oh;
-  const left = Math.min(cx - ow / 2, rightEar[0]);
-  const right = Math.max(cx + ow / 2, leftEar[0]);
-
-  return {
-    left: left,
-    top: top,
-    right: right,
-    bottom: faceBottom,
-  };
 }
 
 /**
@@ -601,8 +591,8 @@ export function fillOverlayCanvasFractional({
 
   const { flippedCenterX, centerY, width, height } = ovalDetails;
 
-  const updatedCenterX = flippedCenterX! * scaleFactor + videoX;
-  const updatedCenterY = centerY! * scaleFactor + videoY;
+  const updatedCenterX = flippedCenterX * scaleFactor + videoX;
+  const updatedCenterY = centerY * scaleFactor + videoY;
 
   const canvasWidth = overlayCanvas.width;
   const canvasHeight = overlayCanvas.height;
@@ -646,8 +636,8 @@ export function fillOverlayCanvasFractional({
     ctx.ellipse(
       updatedCenterX,
       updatedCenterY,
-      (width! * scaleFactor) / 2,
-      (height! * scaleFactor) / 2,
+      (width * scaleFactor) / 2,
+      (height * scaleFactor) / 2,
       0,
       0,
       2 * Math.PI
@@ -684,7 +674,7 @@ export function getColorsSequencesFromSessionInformation(
 ): ClientFreshnessColorSequence[] {
   const colorSequenceFromSessionInfo =
     sessionInformation.Challenge!.FaceMovementAndLightChallenge!
-      .ColorSequences || [];
+      .ColorSequences ?? [];
   const colorSequences: (ClientFreshnessColorSequence | undefined)[] =
     colorSequenceFromSessionInfo.map(
       ({
@@ -776,7 +766,7 @@ export async function isFaceDistanceBelowThreshold({
       //exactly one face detected, match face with oval;
       detectedFace = detectedFaces[0];
 
-      const width = ovalDetails.width;
+      const { width } = ovalDetails;
       const { pupilDistance, faceHeight } =
         getPupilDistanceAndFaceHeight(detectedFace);
 
