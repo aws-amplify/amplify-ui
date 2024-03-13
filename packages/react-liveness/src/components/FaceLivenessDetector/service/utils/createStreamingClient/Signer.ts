@@ -15,7 +15,7 @@ export class Signer extends SignatureV4 {
     return super.presign(request, {
       ...options,
       expiresIn: REQUEST_EXPIRY,
-      // `headers` that should not be signed. Transcribe-streaming WebSocket
+      // `headers` that should not be signed. Liveness WebSocket
       // request omits `headers` except for required `host` header. Signature
       // could be a mismatch if other `headers` are signed
       unsignableHeaders: new Set(
