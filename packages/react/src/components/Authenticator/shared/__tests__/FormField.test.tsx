@@ -47,6 +47,17 @@ describe('FormField', () => {
     expect(container).toMatchSnapshot();
   });
 
+  it('renders with autocapitalize disabled by default', async () => {
+    useStableIdSpy.mockReturnValue('mock-id-0');
+    useAuthenticatorSpy.mockReturnValue({
+      validationErrors: {},
+    } as UIReactCore.UseAuthenticator);
+
+    const { container } = render(<FormField {...usernameFormFieldProps} />);
+    const inputField = await screen.findByLabelText('Username');
+    expect(inputField.getAttribute('autocapitalize')).toBe('off');
+  });
+
   it('Invalid field is described by validation error', async () => {
     useAuthenticatorSpy.mockReturnValue({
       validationErrors: { username: ERROR_MESSAGE },

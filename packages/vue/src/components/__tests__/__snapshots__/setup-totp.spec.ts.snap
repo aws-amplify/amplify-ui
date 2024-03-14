@@ -102,6 +102,7 @@ exports[`SetupTotp renders loading text as expected on init 1`] = `
                   <!--Phone input-->
                   <input
                     aria-invalid="false"
+                    autocapitalize="off"
                     autocomplete=""
                     class="amplify-input amplify-field-group__control"
                     data-amplify-input=""
@@ -290,6 +291,7 @@ exports[`SetupTotp renders qrcode image as expected after onMounted is done 1`] 
                   <!--Phone input-->
                   <input
                     aria-invalid="false"
+                    autocapitalize="off"
                     autocomplete=""
                     class="amplify-input amplify-field-group__control"
                     data-amplify-input=""

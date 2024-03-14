@@ -64,6 +64,7 @@ exports[`ConfirmSignIn renders as expected for SMS challenge 1`] = `
                 <!--Phone input-->
                 <input
                   aria-invalid="false"
+                  autocapitalize="off"
                   autocomplete=""
                   class="amplify-input amplify-field-group__control"
                   data-amplify-input=""
@@ -207,6 +208,7 @@ exports[`ConfirmSignIn renders as expected for TOTP challenge 1`] = `
                 <!--Phone input-->
                 <input
                   aria-invalid="false"
+                  autocapitalize="off"
                   autocomplete=""
                   class="amplify-input amplify-field-group__control"
                   data-amplify-input=""
