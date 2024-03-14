@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-geo",
-  "version": "2.0.11",
+  "version": "2.0.12",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -39,7 +39,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui-react-core": "3.0.11",
+    "@aws-amplify/ui-react-core": "3.0.12",
     "mapbox-gl": "1.13.1",
     "maplibre-gl": "2.1.9",
     "maplibre-gl-js-amplify": "^4.0.0",
