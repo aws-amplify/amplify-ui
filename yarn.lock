@@ -1613,7 +1613,7 @@
     "@smithy/util-endpoints" "^1.1.4"
     tslib "^2.5.0"
 
-"@aws-sdk/util-format-url@3.523.0", "@aws-sdk/util-format-url@^3.523.0":
+"@aws-sdk/util-format-url@3.523.0":
   version "3.523.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/util-format-url/-/util-format-url-3.523.0.tgz#4c769d46f34dd351051d7f10c2cdd4499244219d"
   integrity sha512-OWi+8bsEfxG4DvHkWauxyWVZMbYrezC49DbGDEu1lJgk9eqQALlyGkZHt9O8KKfyT/mdqQbR8qbpkxqYcGuHVA==
@@ -6380,6 +6380,15 @@
     "@smithy/util-hex-encoding" "^2.1.1"
     tslib "^2.5.0"
 
+"@smithy/eventstream-serde-browser@2.1.4", "@smithy/eventstream-serde-browser@^2.1.3":
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/@smithy/eventstream-serde-browser/-/eventstream-serde-browser-2.1.4.tgz#e3b4873969740cbcf67ac4bfcddb36ed31c0097d"
+  integrity sha512-K0SyvrUu/vARKzNW+Wp9HImiC/cJ6K88/n7FTH1slY+MErdKoiSbRLaXbJ9qD6x1Hu28cplHMlhADwZelUx/Ww==
+  dependencies:
+    "@smithy/eventstream-serde-universal" "^2.1.4"
+    "@smithy/types" "^2.11.0"
+    tslib "^2.5.0"
+
 "@smithy/eventstream-serde-browser@^2.0.5":
   version "2.0.5"
   resolved "https://registry.npmjs.org/@smithy/eventstream-serde-browser/-/eventstream-serde-browser-2.0.5.tgz#5f4d3d78a9fcb0a5a6f5b20f69141c8cc6b0ef6b"
@@ -6387,15 +6396,6 @@
   dependencies:
     "@smithy/eventstream-serde-universal" "^2.0.5"
     "@smithy/types" "^2.2.2"
-    tslib "^2.5.0"
-
-"@smithy/eventstream-serde-browser@^2.1.3", "@smithy/eventstream-serde-browser@^2.1.4":
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/@smithy/eventstream-serde-browser/-/eventstream-serde-browser-2.1.4.tgz#e3b4873969740cbcf67ac4bfcddb36ed31c0097d"
-  integrity sha512-K0SyvrUu/vARKzNW+Wp9HImiC/cJ6K88/n7FTH1slY+MErdKoiSbRLaXbJ9qD6x1Hu28cplHMlhADwZelUx/Ww==
-  dependencies:
-    "@smithy/eventstream-serde-universal" "^2.1.4"
-    "@smithy/types" "^2.11.0"
     tslib "^2.5.0"
 
 "@smithy/eventstream-serde-config-resolver@^2.0.5":
@@ -6450,6 +6450,17 @@
     "@smithy/types" "^2.11.0"
     tslib "^2.5.0"
 
+"@smithy/fetch-http-handler@2.4.5", "@smithy/fetch-http-handler@^2.4.3", "@smithy/fetch-http-handler@^2.4.5":
+  version "2.4.5"
+  resolved "https://registry.yarnpkg.com/@smithy/fetch-http-handler/-/fetch-http-handler-2.4.5.tgz#e036f6653259e742841d10280fc049c337e739e8"
+  integrity sha512-FR1IMGdo0yRFs1tk71zRGSa1MznVLQOVNaPjyNtx6dOcy/u0ovEnXN5NVz6slw5KujFlg3N1w4+UbO8F3WyYUg==
+  dependencies:
+    "@smithy/protocol-http" "^3.2.2"
+    "@smithy/querystring-builder" "^2.1.4"
+    "@smithy/types" "^2.11.0"
+    "@smithy/util-base64" "^2.2.1"
+    tslib "^2.5.0"
+
 "@smithy/fetch-http-handler@^2.0.5":
   version "2.0.5"
   resolved "https://registry.npmjs.org/@smithy/fetch-http-handler/-/fetch-http-handler-2.0.5.tgz#822510720598b4306e7c71e839eea34b6928c66b"
@@ -6459,17 +6470,6 @@
     "@smithy/querystring-builder" "^2.0.5"
     "@smithy/types" "^2.2.2"
     "@smithy/util-base64" "^2.0.0"
-    tslib "^2.5.0"
-
-"@smithy/fetch-http-handler@^2.4.3", "@smithy/fetch-http-handler@^2.4.5":
-  version "2.4.5"
-  resolved "https://registry.yarnpkg.com/@smithy/fetch-http-handler/-/fetch-http-handler-2.4.5.tgz#e036f6653259e742841d10280fc049c337e739e8"
-  integrity sha512-FR1IMGdo0yRFs1tk71zRGSa1MznVLQOVNaPjyNtx6dOcy/u0ovEnXN5NVz6slw5KujFlg3N1w4+UbO8F3WyYUg==
-  dependencies:
-    "@smithy/protocol-http" "^3.2.2"
-    "@smithy/querystring-builder" "^2.1.4"
-    "@smithy/types" "^2.11.0"
-    "@smithy/util-base64" "^2.2.1"
     tslib "^2.5.0"
 
 "@smithy/hash-node@^2.0.5":
@@ -6690,20 +6690,20 @@
     "@smithy/types" "^2.11.0"
     tslib "^2.5.0"
 
+"@smithy/protocol-http@3.2.2", "@smithy/protocol-http@^3.2.1", "@smithy/protocol-http@^3.2.2":
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/@smithy/protocol-http/-/protocol-http-3.2.2.tgz#af001dcc61e6ce6374315c907ad5bbd09bd3c810"
+  integrity sha512-xYBlllOQcOuLoxzhF2u8kRHhIFGQpDeTQj/dBSnw4kfI29WMKL5RnW1m9YjnJAJ49miuIvrkJR+gW5bCQ+Mchw==
+  dependencies:
+    "@smithy/types" "^2.11.0"
+    tslib "^2.5.0"
+
 "@smithy/protocol-http@^2.0.5":
   version "2.0.5"
   resolved "https://registry.npmjs.org/@smithy/protocol-http/-/protocol-http-2.0.5.tgz#ff7779fc8fcd3fe52e71fd07565b518f0937e8ba"
   integrity sha512-d2hhHj34mA2V86doiDfrsy2fNTnUOowGaf9hKb0hIPHqvcnShU4/OSc4Uf1FwHkAdYF3cFXTrj5VGUYbEuvMdw==
   dependencies:
     "@smithy/types" "^2.2.2"
-    tslib "^2.5.0"
-
-"@smithy/protocol-http@^3.2.1", "@smithy/protocol-http@^3.2.2":
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/@smithy/protocol-http/-/protocol-http-3.2.2.tgz#af001dcc61e6ce6374315c907ad5bbd09bd3c810"
-  integrity sha512-xYBlllOQcOuLoxzhF2u8kRHhIFGQpDeTQj/dBSnw4kfI29WMKL5RnW1m9YjnJAJ49miuIvrkJR+gW5bCQ+Mchw==
-  dependencies:
-    "@smithy/types" "^2.11.0"
     tslib "^2.5.0"
 
 "@smithy/querystring-builder@^2.0.5":
