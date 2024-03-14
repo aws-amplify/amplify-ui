@@ -2,4 +2,4 @@
 "@aws-amplify/ui": patch
 ---
 
-fix(Authenticator): fix sms no challengeName
+fix(Authenticator): fix issue in sms mfa signup flow where challengeName is undefined
