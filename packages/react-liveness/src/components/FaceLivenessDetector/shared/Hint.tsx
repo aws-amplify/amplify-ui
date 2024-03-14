@@ -22,9 +22,6 @@ export const selectFaceMatchState = createLivenessSelector(
 export const selectIlluminationState = createLivenessSelector(
   (state) => state.context.faceMatchAssociatedParams!.illuminationState
 );
-export const selectIsFaceFarEnoughBeforeRecording = createLivenessSelector(
-  (state) => state.context.isFaceFarEnoughBeforeRecording
-);
 
 export const selectFaceMatchStateBeforeStart = createLivenessSelector(
   (state) => state.context.faceMatchStateBeforeStart
@@ -59,16 +56,10 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
   const faceMatchStateBeforeStart = useLivenessSelector(
     selectFaceMatchStateBeforeStart
   );
-  const isFaceFarEnoughBeforeRecordingState = useLivenessSelector(
-    selectIsFaceFarEnoughBeforeRecording
-  );
   const faceMatchPercentage = useLivenessSelector(selectFaceMatchPercentage);
   const isCheckFaceDetectedBeforeStart =
     state.matches('checkFaceDetectedBeforeStart') ||
     state.matches('detectFaceBeforeStart');
-  const isCheckFaceDistanceBeforeRecording =
-    state.matches('checkFaceDistanceBeforeRecording') ||
-    state.matches('detectFaceDistanceBeforeRecording');
   const isStartView = state.matches('start') || state.matches('userCancel');
   const isRecording = state.matches('recording');
   const isNotRecording = state.matches('notRecording');
@@ -83,7 +74,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
     [FaceMatchState.CANT_IDENTIFY]: hintDisplayText.hintCanNotIdentifyText,
     [FaceMatchState.FACE_IDENTIFIED]: hintDisplayText.hintTooFarText,
     [FaceMatchState.TOO_MANY]: hintDisplayText.hintTooManyFacesText,
-    [FaceMatchState.TOO_CLOSE]: hintDisplayText.hintTooCloseText,
+    [FaceMatchState.FRAME_YOUR_FACE]: hintDisplayText.hintFrameFaceText,
     [FaceMatchState.TOO_FAR]: hintDisplayText.hintTooFarText,
     [FaceMatchState.MATCHED]: hintDisplayText.hintHoldFaceForFreshnessText,
     [FaceMatchState.OFF_CENTER]: hintDisplayText.hintFaceOffCenterText,
@@ -120,14 +111,6 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
       );
     }
 
-    // Specifically checking for false here because initially the value is undefined and we do not want to show the instruction
-    if (
-      isCheckFaceDistanceBeforeRecording &&
-      isFaceFarEnoughBeforeRecordingState === false
-    ) {
-      return <DefaultToast text={hintDisplayText.hintTooCloseText} />;
-    }
-
     if (isNotRecording) {
       return (
         <ToastWithLoader displayText={hintDisplayText.hintConnectingText} />
@@ -157,13 +140,13 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
   }
 
   if (isRecording && !isFlashingFreshness) {
-    // During face matching, we want to only show the TOO_CLOSE or
-    // TOO_FAR texts. If FaceMatchState matches TOO_CLOSE, we'll show
-    // the TOO_CLOSE text, but for FACE_IDENTIFED, CANT_IDENTIFY, TOO_MANY
+    // During face matching, we want to only show the FRAME_YOUR_FACE or
+    // TOO_FAR texts. If FaceMatchState matches FRAME_YOUR_FACE, we'll show
+    // the FRAME_YOUR_FACE text, but for FACE_IDENTIFIED, CANT_IDENTIFY, TOO_MANY
     // we are defaulting to the TOO_FAR text (for now).
     let resultHintString = FaceMatchStateStringMap[FaceMatchState.TOO_FAR];
     if (
-      faceMatchState === FaceMatchState.TOO_CLOSE ||
+      faceMatchState === FaceMatchState.FRAME_YOUR_FACE ||
       faceMatchState === FaceMatchState.MATCHED
     ) {
       resultHintString = FaceMatchStateStringMap[faceMatchState];
@@ -185,7 +168,9 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
       <Toast
         size="large"
         variation={
-          faceMatchState === FaceMatchState.TOO_CLOSE ? 'error' : 'primary'
+          faceMatchState === FaceMatchState.FRAME_YOUR_FACE
+            ? 'error'
+            : 'primary'
         }
       >
         <VisuallyHidden aria-live="assertive">{a11yHintString}</VisuallyHidden>

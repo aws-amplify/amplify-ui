@@ -5,7 +5,7 @@ export type HintDisplayText = {
   hintTooManyFacesText?: string;
   hintFaceDetectedText?: string;
   hintCanNotIdentifyText?: string;
-  hintTooCloseText?: string;
+  hintFrameFaceText?: string;
   hintTooFarText?: string;
   hintConnectingText?: string;
   hintVerifyingText?: string;
@@ -111,7 +111,7 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   hintTooManyFacesText: 'Ensure only one face is in front of camera',
   hintFaceDetectedText: 'Face detected',
   hintCanNotIdentifyText: 'Move face in front of camera',
-  hintTooCloseText: 'Move back',
+  hintFrameFaceText: 'Frame your face inside the oval',
   hintTooFarText: 'Move closer',
   hintConnectingText: 'Connecting...',
   hintVerifyingText: 'Verifying...',
