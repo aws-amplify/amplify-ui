@@ -1,4 +1,7 @@
 import 'jest-canvas-mock';
+
+import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
+
 import {
   drawLivenessOvalInCanvas,
   estimateIllumination,
@@ -311,7 +314,7 @@ describe('Liveness Helper', () => {
     });
 
     it('should work even if there are no color sequences', async () => {
-      const mockSessionInfo = {
+      const mockSessionInfo: SessionInformation = {
         Challenge: {
           FaceMovementAndLightChallenge: {
             ChallengeConfig: {
@@ -344,7 +347,7 @@ describe('Liveness Helper', () => {
     });
 
     it('should not return values if color sequences do not contain durations', async () => {
-      const mockSessionInfo = {
+      const mockSessionInfo: SessionInformation = {
         Challenge: {
           FaceMovementAndLightChallenge: {
             ChallengeConfig: {
