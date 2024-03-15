@@ -1,5 +1,4 @@
 import {
-  Coordinate,
   LivenessOvalDetails,
   Face,
   FaceMatchState,
@@ -11,26 +10,6 @@ import {
   getIntersectionOverUnion,
   getOvalBoundingBox,
 } from './liveness';
-
-// Calculate the angle between three points using trigonometry
-function calculateAngle(
-  point1: Coordinate,
-  center: Coordinate,
-  point2: Coordinate
-) {
-  const dx1 = -(point1[0] - center[0]);
-  const dy1 = point1[1] - center[1];
-  const dx2 = -(point2[0] - center[0]);
-  const dy2 = point2[1] - center[1];
-  const angle = Math.atan2(dx1 * dy2 - dy1 * dx2, dx1 * dx2 + dy1 * dy2);
-  return angle * (180 / Math.PI);
-}
-
-// Function to calculate the angle between two eyes and nose.
-function calculateFaceAngle(face: Face) {
-  const { leftEye, rightEye, nose } = face;
-  return calculateAngle(leftEye, nose, rightEye);
-}
 
 /**
  * Returns the state of the provided face with respect to the provided liveness oval.
@@ -102,13 +81,7 @@ export function getFaceMatchStateInLivenessOval(
       0
     ) * 100;
 
-  //  if the angle is too large or too small, it indicates the face is not framed well
-  // (e.g turned left/right/up/down)
-  const angle = calculateFaceAngle(face);
-
-  if (65 >= angle || angle > 120) {
-    faceMatchState = FaceMatchState.FRAME_YOUR_FACE;
-  } else if (intersection > intersectionThreshold) {
+  if (intersection > intersectionThreshold) {
     faceMatchState = FaceMatchState.MATCHED;
   } else if (
     minOvalY - minFaceY > faceDetectionHeightThreshold ||

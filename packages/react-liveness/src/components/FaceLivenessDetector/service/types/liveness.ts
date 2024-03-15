@@ -120,9 +120,9 @@ export enum IlluminationState {
  * The detected face states with respect to the liveness oval
  */
 export enum FaceMatchState {
-  FRAME_YOUR_FACE = 'FRAME YOUR FACE',
   MATCHED = 'MATCHED',
   TOO_FAR = 'TOO FAR',
+  TOO_CLOSE = 'TOO CLOSE',
   CANT_IDENTIFY = 'CANNOT IDENTIFY',
   FACE_IDENTIFIED = 'ONE FACE IDENTIFIED',
   TOO_MANY = 'TOO MANY FACES',
