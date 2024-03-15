@@ -1,19 +1,20 @@
-import { CredentialsAndIdentityId } from 'aws-amplify/auth';
+/**
+ * These types are copied over / adapted from the aws-sdk/types package as they do not semantic versioning and we do not want these changing unexpectedly.
+ * When Amplify Auth exports these types this file should be removed and the type definitions should come from the Amplify auth package
+ */
 
-export type AwsCredentials = CredentialsAndIdentityId['credentials'];
-
-export interface IdentityProvider<IdentityT extends AwsCredentials> {
-  (identityProperties?: Record<string, any>): Promise<IdentityT>;
+export interface AwsCredentials {
+  readonly accessKeyId: string;
+  readonly secretAccessKey: string;
 }
 
-/**
- * @deprecated `AwsTemporaryCredentials` has been replaced with `AwsCredentials`.
- *
- * The `AwsTemporaryCredentials` type may be removed in a future major version of _@aws-amplify/ui-react-liveness_.
- */
 export interface AwsTemporaryCredentials extends AwsCredentials {
   readonly sessionToken?: string;
   readonly expiration?: Date;
 }
 
-export type AwsCredentialProvider = IdentityProvider<AwsCredentials>;
+export interface IdentityProvider<IdentityT extends AwsTemporaryCredentials> {
+  (identityProperties?: Record<string, any>): Promise<IdentityT>;
+}
+
+export type AwsCredentialProvider = IdentityProvider<AwsTemporaryCredentials>;
