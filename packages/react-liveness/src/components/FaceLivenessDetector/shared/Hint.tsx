@@ -157,9 +157,8 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
   }
 
   if (isRecording && !isFlashingFreshness) {
-    // During face matching, we want to only show the TOO_CLOSE or
-    // TOO_FAR texts. If FaceMatchState matches TOO_CLOSE, we'll show
-    // the TOO_CLOSE text, but for FACE_IDENTIFED, CANT_IDENTIFY, TOO_MANY
+    // During face matching, we want to only show the
+    // TOO_FAR texts. For FACE_IDENTIFIED, CANT_IDENTIFY, TOO_MANY
     // we are defaulting to the TOO_FAR text (for now).
     let resultHintString = FaceMatchStateStringMap[FaceMatchState.TOO_FAR];
     if (

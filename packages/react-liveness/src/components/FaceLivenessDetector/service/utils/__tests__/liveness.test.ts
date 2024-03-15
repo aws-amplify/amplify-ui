@@ -1,11 +1,11 @@
 import 'jest-canvas-mock';
+import { getFaceMatchStateInLivenessOval } from '../getFaceMatchStateInLivenessOval';
 import {
   drawLivenessOvalInCanvas,
   estimateIllumination,
   fillOverlayCanvasFractional,
   getColorsSequencesFromSessionInformation,
   getFaceMatchState,
-  getFaceMatchStateInLivenessOval,
   getOvalDetailsFromSessionInformation,
   isCameraDeviceVirtual,
   isFaceDistanceBelowThreshold,
@@ -92,7 +92,7 @@ describe('Liveness Helper', () => {
         sessionInfo
       );
 
-      expect(faceMatchState).toBe(FaceMatchState.TOO_CLOSE);
+      expect(faceMatchState).toBe(FaceMatchState.MATCHED);
     });
 
     // Note: if this test ever fails due to face detection updates just add a console log for face and do a check and copy the value here
