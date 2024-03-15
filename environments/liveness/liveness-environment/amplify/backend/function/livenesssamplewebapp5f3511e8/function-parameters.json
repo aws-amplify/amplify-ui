@@ -1,0 +1,9 @@
+{
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "personalStackId",
+      "environmentVariableName": "PERSONAL_STACK_ID"
+    }
+  ]
+}

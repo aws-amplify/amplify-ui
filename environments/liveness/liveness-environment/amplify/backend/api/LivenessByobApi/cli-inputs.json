@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "paths": {
+    "/liveness/create": {
+      "name": "/liveness/create",
+      "lambdaFunction": "livenesssamplewebapp2d83120d",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    },
+    "/liveness/{sessionId}": {
+      "name": "/liveness/{sessionId}",
+      "lambdaFunction": "livenesssamplewebapp5f3511e8",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    }
+  }
+}
