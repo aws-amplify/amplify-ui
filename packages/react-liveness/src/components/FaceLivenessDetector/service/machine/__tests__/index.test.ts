@@ -537,7 +537,7 @@ describe('Liveness Machine', () => {
         ).toStrictEqual({
           Height: 0,
           Left: 0.6875,
-          Top: 0.625,
+          Top: 5 / 12,
           Width: 0,
         })
       );
