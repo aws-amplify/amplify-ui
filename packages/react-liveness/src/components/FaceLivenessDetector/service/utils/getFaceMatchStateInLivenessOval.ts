@@ -92,22 +92,23 @@ export function getFaceMatchStateInLivenessOval(
   const faceIsOutsideOvalToTheRight =
     minFaceX > minOvalX && maxFaceX > maxOvalX;
 
-  if (
+  const faceIsMatched =
     intersection > intersectionThreshold &&
     Math.abs(minOvalX - minFaceX) < ovalMatchWidthThreshold &&
     Math.abs(maxOvalX - maxFaceX) < ovalMatchWidthThreshold &&
-    Math.abs(maxOvalY - maxFaceY) < ovalMatchHeightThreshold
-  ) {
-    faceMatchState = FaceMatchState.MATCHED;
-  } else if (faceIsOutsideOvalToTheLeft || faceIsOutsideOvalToTheRight) {
-    faceMatchState = FaceMatchState.OFF_CENTER;
-  } else if (
-    // previously TOO_CLOSE
+    Math.abs(maxOvalY - maxFaceY) < ovalMatchHeightThreshold;
+
+  const faceIsTooClose =
     minOvalY - minFaceY > faceDetectionHeightThreshold ||
     maxFaceY - maxOvalY > faceDetectionHeightThreshold ||
     (minOvalX - minFaceX > faceDetectionWidthThreshold &&
-      maxFaceX - maxOvalX > faceDetectionWidthThreshold)
-  ) {
+      maxFaceX - maxOvalX > faceDetectionWidthThreshold);
+
+  if (faceIsMatched) {
+    faceMatchState = FaceMatchState.MATCHED;
+  } else if (faceIsOutsideOvalToTheLeft || faceIsOutsideOvalToTheRight) {
+    faceMatchState = FaceMatchState.OFF_CENTER;
+  } else if (faceIsTooClose) {
     faceMatchState = FaceMatchState.MATCHED;
   } else {
     faceMatchState = FaceMatchState.TOO_FAR;

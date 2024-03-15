@@ -1,5 +1,5 @@
 import 'jest-canvas-mock';
-import { getFaceMatchStateInLivenessOval } from '../getFaceMatchState';
+import { getFaceMatchStateInLivenessOval } from '../getFaceMatchStateInLivenessOval';
 import {
   drawLivenessOvalInCanvas,
   estimateIllumination,
