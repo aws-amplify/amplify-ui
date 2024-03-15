@@ -42,8 +42,13 @@ export function getFaceMatchStateInLivenessOval(
     );
   }
 
-  const { OvalIouThreshold, FaceIouHeightThreshold, FaceIouWidthThreshold } =
-    challengeConfig;
+  const {
+    OvalIouThreshold,
+    OvalIouHeightThreshold,
+    OvalIouWidthThreshold,
+    FaceIouHeightThreshold,
+    FaceIouWidthThreshold,
+  } = challengeConfig;
 
   const faceBoundingBox: BoundingBox = generateBboxFromLandmarks(
     face,
@@ -63,6 +68,8 @@ export function getFaceMatchStateInLivenessOval(
   );
 
   const intersectionThreshold = OvalIouThreshold;
+  const ovalMatchWidthThreshold = ovalDetails.width * OvalIouWidthThreshold;
+  const ovalMatchHeightThreshold = ovalDetails.height * OvalIouHeightThreshold;
   const faceDetectionWidthThreshold = ovalDetails.width * FaceIouWidthThreshold;
   const faceDetectionHeightThreshold =
     ovalDetails.height * FaceIouHeightThreshold;
@@ -81,9 +88,21 @@ export function getFaceMatchStateInLivenessOval(
       0
     ) * 100;
 
-  if (intersection > intersectionThreshold) {
+  const faceIsOutsideOvalToTheLeft = minOvalX > minFaceX && maxOvalX > maxFaceX;
+  const faceIsOutsideOvalToTheRight =
+    minFaceX > minOvalX && maxFaceX > maxOvalX;
+
+  if (
+    intersection > intersectionThreshold &&
+    Math.abs(minOvalX - minFaceX) < ovalMatchWidthThreshold &&
+    Math.abs(maxOvalX - maxFaceX) < ovalMatchWidthThreshold &&
+    Math.abs(maxOvalY - maxFaceY) < ovalMatchHeightThreshold
+  ) {
     faceMatchState = FaceMatchState.MATCHED;
+  } else if (faceIsOutsideOvalToTheLeft || faceIsOutsideOvalToTheRight) {
+    faceMatchState = FaceMatchState.OFF_CENTER;
   } else if (
+    // previously TOO_CLOSE
     minOvalY - minFaceY > faceDetectionHeightThreshold ||
     maxFaceY - maxOvalY > faceDetectionHeightThreshold ||
     (minOvalX - minFaceX > faceDetectionWidthThreshold &&
