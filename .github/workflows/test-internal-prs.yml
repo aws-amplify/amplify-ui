@@ -84,17 +84,17 @@ jobs:
         uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@d23060145bc9131d50558d5d4185494a20208101 # v2.12.5 https://github.com/github/codeql-action/commit/d23060145bc9131d50558d5d4185494a20208101
+        uses: github/codeql-action/init@423a04bb2cb7cd2643007122588f1387778f14d0 # v3.24.9 https://github.com/github/codeql-action/commit/423a04bb2cb7cd2643007122588f1387778f14d0
         with:
           languages: ${{ matrix.language }}
           config-file: ./.github/codeql/codeql-config.yml
           queries: +security-and-quality
 
       - name: Autobuild
-        uses: github/codeql-action/autobuild@d23060145bc9131d50558d5d4185494a20208101 # v2.12.5 https://github.com/github/codeql-action/commit/d23060145bc9131d50558d5d4185494a20208101
+        uses: github/codeql-action/autobuild@423a04bb2cb7cd2643007122588f1387778f14d0 # v3.24.9 https://github.com/github/codeql-action/commit/423a04bb2cb7cd2643007122588f1387778f14d0
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@d23060145bc9131d50558d5d4185494a20208101 # v2.12.5 https://github.com/github/codeql-action/commit/d23060145bc9131d50558d5d4185494a20208101
+        uses: github/codeql-action/analyze@423a04bb2cb7cd2643007122588f1387778f14d0 # v3.24.9 https://github.com/github/codeql-action/commit/423a04bb2cb7cd2643007122588f1387778f14d0
         with:
           category: '/language:${{ matrix.language }}'
 
