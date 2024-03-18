@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.0.15
+
+### Patch Changes
+
+- [#5081](https://github.com/aws-amplify/amplify-ui/pull/5081) [`4fd4de82d`](https://github.com/aws-amplify/amplify-ui/commit/4fd4de82d38041120f8c8997a89231aabeaf96b3) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(liveness): add custom signer to client (#5063)
+
 ## 3.0.14
 
 ### Patch Changes
