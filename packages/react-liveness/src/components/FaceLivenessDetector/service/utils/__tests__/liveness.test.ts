@@ -16,6 +16,8 @@ import {
   mockCameraDevice,
   mockCloselyMatchedFace,
   mockFace,
+  mockFaceHeight,
+  mockFaceCenterY,
   mockMatchedFace,
   mockMatchedFaceCenterX,
   mockMatchedFaceOcularWidth,
@@ -95,8 +97,8 @@ describe('Liveness Helper', () => {
         mockOvalDetails,
         frameHeight
       );
-      const cy = 200; // from equation in generateBboxFromLandmarks
-      const faceBoxBottom = cy + 0 / 2;
+
+      const faceBoxBottom = mockFaceCenterY + 0 / 2;
       expect(bottom).toEqual(faceBoxBottom); // expect calculated value to be returned as it is within frame
     });
 
@@ -117,9 +119,8 @@ describe('Liveness Helper', () => {
         mockOvalDetails,
         frameHeight
       );
-      const cy = 200; // from equation in generateBboxFromLandmarks
-      const faceHeight = 0;
-      const faceBoxTop = cy - faceHeight / 2;
+
+      const faceBoxTop = mockFaceCenterY - mockFaceHeight / 2;
 
       expect(top).toEqual(faceBoxTop);
     });
