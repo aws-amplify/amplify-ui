@@ -15,7 +15,7 @@ import {
   mockSessionInformation,
   mockVideoRecorder,
   mockBlazeFace,
-  mockVideoConstaints,
+  mockVideoConstraints,
   mockCameraDevice,
   mockFace,
   mockVideoMediaStream,
@@ -205,7 +205,7 @@ describe('Liveness Machine', () => {
         service.state.context.videoAssociatedParams!.videoMediaStream
       ).toEqual(mockVideoMediaStream);
       expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenCalledWith({
-        video: mockVideoConstaints,
+        video: mockVideoConstraints,
         audio: false,
       });
       expect(mockNavigatorMediaDevices.enumerateDevices).toHaveBeenCalledTimes(
@@ -241,7 +241,7 @@ describe('Liveness Machine', () => {
       expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenNthCalledWith(
         1,
         {
-          video: mockVideoConstaints,
+          video: mockVideoConstraints,
           audio: false,
         }
       );
@@ -530,12 +530,14 @@ describe('Liveness Machine', () => {
       const clientInfo =
         mockLivenessStreamProvider.sendClientInfo.mock.calls[0][0];
 
+      const videoEl = service.state.context.videoAssociatedParams?.videoEl!;
+      Object.defineProperty(videoEl, 'videoHeight', { value: 100 });
       expect(
         expect(
           clientInfo.Challenge.FaceMovementAndLightChallenge.InitialFace
             .BoundingBox
         ).toStrictEqual({
-          Height: 0,
+          Height: -5 / 12,
           Left: 0.6875,
           Top: 5 / 12,
           Width: 0,

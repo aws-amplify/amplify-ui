@@ -10,22 +10,30 @@ import {
   getIntersectionOverUnion,
   getOvalBoundingBox,
 } from './liveness';
+import { RANGE_MIN, RANGE_MAX, WEIGHT_MAX, WEIGHT_MIN } from './constants';
+
+interface MatchStateInOvalParams {
+  face: Face;
+  ovalDetails: LivenessOvalDetails;
+  initialFaceIntersection: number;
+  sessionInformation: SessionInformation;
+  frameHeight: number;
+}
 
 /**
  * Returns the state of the provided face with respect to the provided liveness oval.
  */
-// eslint-disable-next-line max-params
-export function getFaceMatchStateInLivenessOval(
-  face: Face,
-  ovalDetails: LivenessOvalDetails,
-  initialFaceIntersection: number,
-  sessionInformation: SessionInformation
-): {
+export function getFaceMatchStateInLivenessOval({
+  face,
+  ovalDetails,
+  initialFaceIntersection,
+  sessionInformation,
+  frameHeight,
+}: MatchStateInOvalParams): {
   faceMatchState: FaceMatchState;
   faceMatchPercentage: number;
 } {
   let faceMatchState: FaceMatchState;
-
   const challengeConfig =
     sessionInformation?.Challenge?.FaceMovementAndLightChallenge
       ?.ChallengeConfig;
@@ -52,7 +60,8 @@ export function getFaceMatchStateInLivenessOval(
 
   const faceBoundingBox: BoundingBox = generateBboxFromLandmarks(
     face,
-    ovalDetails
+    ovalDetails,
+    frameHeight
   );
   const minFaceX = faceBoundingBox.left;
   const maxFaceX = faceBoundingBox.right;
@@ -80,12 +89,12 @@ export function getFaceMatchStateInLivenessOval(
   const faceMatchPercentage =
     Math.max(
       Math.min(
-        1,
-        (0.75 * (intersection - initialFaceIntersection)) /
+        RANGE_MAX,
+        (WEIGHT_MAX * (intersection - initialFaceIntersection)) /
           (intersectionThreshold - initialFaceIntersection) +
-          0.25
+          WEIGHT_MIN
       ),
-      0
+      RANGE_MIN
     ) * 100;
 
   const faceIsOutsideOvalToTheLeft = minOvalX > minFaceX && maxOvalX > maxFaceX;
@@ -98,7 +107,7 @@ export function getFaceMatchStateInLivenessOval(
     Math.abs(maxOvalX - maxFaceX) < ovalMatchWidthThreshold &&
     Math.abs(maxOvalY - maxFaceY) < ovalMatchHeightThreshold;
 
-  const faceIsTooClose =
+  const faceIsMatchedClosely =
     minOvalY - minFaceY > faceDetectionHeightThreshold ||
     maxFaceY - maxOvalY > faceDetectionHeightThreshold ||
     (minOvalX - minFaceX > faceDetectionWidthThreshold &&
@@ -108,7 +117,7 @@ export function getFaceMatchStateInLivenessOval(
     faceMatchState = FaceMatchState.MATCHED;
   } else if (faceIsOutsideOvalToTheLeft || faceIsOutsideOvalToTheRight) {
     faceMatchState = FaceMatchState.OFF_CENTER;
-  } else if (faceIsTooClose) {
+  } else if (faceIsMatchedClosely) {
     faceMatchState = FaceMatchState.MATCHED;
   } else {
     faceMatchState = FaceMatchState.TOO_FAR;

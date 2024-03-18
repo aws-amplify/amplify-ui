@@ -1165,7 +1165,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         // renormalize initial face
         const renormalizedFace = generateBboxFromLandmarks(
           initialFace,
-          ovalDetails
+          ovalDetails,
+          videoEl!.videoHeight
         );
         initialFace.top = renormalizedFace.top;
         initialFace.left = renormalizedFace.left;
@@ -1202,7 +1203,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         const initialFaceBoundingBox = generateBboxFromLandmarks(
           initialFace!,
-          ovalDetails!
+          ovalDetails!,
+          videoEl!.videoHeight
         );
 
         const { ovalBoundingBox } = getOvalBoundingBox(ovalDetails!);
@@ -1225,12 +1227,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             const {
               faceMatchState: faceMatchStateInLivenessOval,
               faceMatchPercentage: faceMatchPercentageInLivenessOval,
-            } = getFaceMatchStateInLivenessOval(
-              detectedFace,
-              ovalDetails!,
+            } = getFaceMatchStateInLivenessOval({
+              face: detectedFace,
+              ovalDetails: ovalDetails!,
               initialFaceIntersection,
-              serverSessionInformation!
-            );
+              sessionInformation: serverSessionInformation!,
+              frameHeight: videoEl!.videoHeight,
+            });
 
             faceMatchState = faceMatchStateInLivenessOval;
             faceMatchPercentage = faceMatchPercentageInLivenessOval;

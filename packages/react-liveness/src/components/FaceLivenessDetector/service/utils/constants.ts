@@ -7,6 +7,16 @@ export const FACE_DISTANCE_THRESHOLD = 0.32;
 export const REDUCED_THRESHOLD = 0.4;
 export const REDUCED_THRESHOLD_MOBILE = 0.37;
 
+// Constants from science team to determine ocular distance (space between eyes)
+export const ALPHA = 2.0;
+export const GAMMA = 1.8;
+
+// Constants from science team to find face match percentage
+export const RANGE_MIN = 0;
+export const RANGE_MAX = 1;
+export const WEIGHT_MIN = 0.25;
+export const WEIGHT_MAX = 0.75;
+
 export const WS_CLOSURE_CODE = {
   SUCCESS_CODE: 1000,
   DEFAULT_ERROR_CODE: 4000,

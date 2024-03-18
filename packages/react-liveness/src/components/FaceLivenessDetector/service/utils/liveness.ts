@@ -11,6 +11,8 @@ import { FaceDetection } from '../types/faceDetection';
 import { ClientFreshnessColorSequence } from '../types/service';
 import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
 import {
+  ALPHA,
+  GAMMA,
   FACE_DISTANCE_THRESHOLD,
   REDUCED_THRESHOLD,
   REDUCED_THRESHOLD_MOBILE,
@@ -326,7 +328,8 @@ function getPupilDistanceAndFaceHeight(face: Face) {
 
 export function generateBboxFromLandmarks(
   face: Face,
-  oval: LivenessOvalDetails
+  oval: LivenessOvalDetails,
+  frameHeight: number
 ): BoundingBox {
   const { leftEye, rightEye, nose, leftEar, rightEar } = face;
   const { height: ovalHeight, centerY } = oval;
@@ -339,26 +342,26 @@ export function generateBboxFromLandmarks(
   const { pupilDistance: pd, faceHeight: fh } =
     getPupilDistanceAndFaceHeight(face);
 
-  const alpha = 2.0,
-    gamma = 1.8;
-  const ow = (alpha * pd + gamma * fh) / 2;
-  const oh = 1.618 * ow;
+  const ocularWidth = (ALPHA * pd + GAMMA * fh) / 2;
 
-  let cx, cy: number;
+  let centerFaceX, centerFaceY: number;
 
   if (eyeCenter[1] <= (ovalTop + ovalHeight) / 2) {
-    cx = (eyeCenter[0] + nose[0]) / 2;
-    cy = (eyeCenter[1] + nose[1]) / 2;
+    centerFaceX = (eyeCenter[0] + nose[0]) / 2;
+    centerFaceY = (eyeCenter[1] + nose[1]) / 2;
   } else {
     // when face tilts down
-    cx = eyeCenter[0];
-    cy = eyeCenter[1];
+    centerFaceX = eyeCenter[0];
+    centerFaceY = eyeCenter[1];
   }
 
-  const bottom = cy + oh / 2;
-  const top = cy - oh / 2;
-  const left = Math.min(cx - ow / 2, rightEar[0]);
-  const right = Math.max(cx + ow / 2, leftEar[0]);
+  const faceWidth = ocularWidth;
+  const faceHeight = 1.68 * faceWidth;
+
+  const top = Math.max(centerFaceY - faceHeight / 2, 0);
+  const bottom = Math.min(centerFaceY + faceHeight / 2, frameHeight);
+  const left = Math.min(centerFaceX - ocularWidth / 2, rightEar[0]);
+  const right = Math.max(centerFaceX + ocularWidth / 2, leftEar[0]);
 
   return { bottom, left, right, top };
 }

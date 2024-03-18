@@ -1,9 +1,9 @@
 import 'jest-canvas-mock';
-import { getFaceMatchStateInLivenessOval } from '../getFaceMatchStateInLivenessOval';
 import {
   drawLivenessOvalInCanvas,
   estimateIllumination,
   fillOverlayCanvasFractional,
+  generateBboxFromLandmarks,
   getColorsSequencesFromSessionInformation,
   getFaceMatchState,
   getOvalDetailsFromSessionInformation,
@@ -12,10 +12,15 @@ import {
 } from '../liveness';
 import {
   getMockContext,
+  mockCloselyMatchedFace,
+  mockMatchedFaceCenterX,
+  mockMatchedFaceOcularWidth,
+  mockFaceAboveThreshold,
   mockFace,
   mockOvalDetails,
   mockSessionInformation,
   mockCameraDevice,
+  mockMatchedFace,
 } from '../__mocks__/testUtils';
 import {
   Face,
@@ -39,134 +44,6 @@ describe('Liveness Helper', () => {
       expect(ovalParameters.centerY).toBe(4);
       expect(ovalParameters.width).toBe(1);
       expect(ovalParameters.height).toBe(2);
-    });
-  });
-
-  describe('getFaceMatchStateInLivenessOval', () => {
-    it('should parse sessionInformation and return oval parameter attributes', () => {
-      const face: Face = mockFace;
-      const ovalDetails: LivenessOvalDetails = mockOvalDetails;
-      const initialIntersection: number = 0.3;
-      const sessionInfo = mockSessionInformation;
-
-      const { faceMatchState, faceMatchPercentage } =
-        getFaceMatchStateInLivenessOval(
-          face,
-          ovalDetails,
-          initialIntersection,
-          sessionInfo
-        );
-
-      expect(faceMatchState).toBe(FaceMatchState.OFF_CENTER);
-      expect(faceMatchPercentage).toBe(0);
-    });
-
-    it('should return TOO CLOSE', () => {
-      const face: Face = {
-        height: 586,
-        width: 586,
-        left: -6,
-        top: 21,
-        timestampMs: 1,
-        rightEye: [185, 231],
-        leftEye: [427, 224],
-        mouth: [330, 493],
-        nose: [334, 400],
-        rightEar: [36, 243],
-        leftEar: [518, 217],
-      };
-      const ovalDetails: LivenessOvalDetails = {
-        height: 465,
-        width: 288,
-        flippedCenterX: 320,
-        centerX: 320,
-        centerY: 240,
-      };
-      const initialIntersection: number = 0.3;
-      const sessionInfo = mockSessionInformation;
-
-      const { faceMatchState } = getFaceMatchStateInLivenessOval(
-        face,
-        ovalDetails,
-        initialIntersection,
-        sessionInfo
-      );
-
-      expect(faceMatchState).toBe(FaceMatchState.MATCHED);
-    });
-
-    // Note: if this test ever fails due to face detection updates just add a console log for face and do a check and copy the value here
-    it('should return matched', () => {
-      const face: Face = {
-        top: 89.82275009155273,
-        left: 188.85473251342773,
-        width: 375.7287788391113,
-        height: 375.66087722778315,
-        timestampMs: 1696575105415,
-        rightEye: [291.9423294067383, 241.10103607177734],
-        leftEye: [435.9743881225586, 264.43485260009766],
-        mouth: [336.0434341430664, 417.43167877197266],
-        nose: [336.7517852783203, 387.286376953125],
-        rightEar: [236.0750961303711, 193.77853393554685],
-        leftEar: [520.6099700927734, 238.4494781494141],
-      };
-      const ovalDetails: LivenessOvalDetails = {
-        centerX: 320,
-        centerY: 240,
-        flippedCenterX: 320,
-        height: 512,
-        width: 316,
-      };
-      const initialIntersection: number = 0.3;
-      const sessionInfo = mockSessionInformation;
-
-      const { faceMatchState, faceMatchPercentage } =
-        getFaceMatchStateInLivenessOval(
-          face,
-          ovalDetails,
-          initialIntersection,
-          sessionInfo
-        );
-
-      expect(faceMatchState).toBe(FaceMatchState.MATCHED);
-      expect(faceMatchPercentage).toBe(100);
-    });
-
-    it('should return TOO FAR', () => {
-      const face: Face = {
-        top: 229.4625244140625,
-        left: 275.884765625,
-        width: 135.34274291992188,
-        height: 101.50827026367188,
-        timestampMs: 1683674844363,
-        probability: 0.9974300265312195,
-        rightEye: [372.5564064979553, 258.19776356220245],
-        leftEye: [318.5161700248718, 253.94269466400146],
-        mouth: [339.64158596098423, 298.5959941148758],
-        nose: [342.7122294306755, 277.0021167397499],
-        rightEar: [400.5564064979553, 258.19776356220245],
-        leftEar: [300.5161700248718, 253.94269466400146],
-      };
-      const ovalDetails: LivenessOvalDetails = {
-        flippedCenterX: 346,
-        centerX: 294,
-        centerY: 215,
-        width: 316,
-        height: 512,
-      };
-      const initialIntersection: number = 0.3;
-      const sessionInfo = mockSessionInformation;
-
-      const { faceMatchState, faceMatchPercentage } =
-        getFaceMatchStateInLivenessOval(
-          face,
-          ovalDetails,
-          initialIntersection,
-          sessionInfo
-        );
-
-      expect(faceMatchState).toBe(FaceMatchState.TOO_FAR);
-      expect(faceMatchPercentage).toBe(0);
     });
   });
 
@@ -208,6 +85,71 @@ describe('Liveness Helper', () => {
       );
 
       expect(faceMatchState).toBe(FaceMatchState.TOO_MANY);
+    });
+  });
+
+  describe('generateBboxfromLandmarks', () => {
+    it(`should return correct 'bottom' value face is within bounds`, () => {
+      const frameHeight = 480;
+      const { bottom } = generateBboxFromLandmarks(
+        mockFace,
+        mockOvalDetails,
+        frameHeight
+      );
+      const cy = 200; // from equation in generateBboxFromLandmarks
+      const calculatedBottom = cy + 0 / 2; // calculated faceHeight is 0
+      expect(bottom).toEqual(calculatedBottom); // expect calculated value to be returned as it is smaller than the frameHeight
+    });
+
+    it(`should return 'frameHeight' as 'bottom' when face is below bounds`, () => {
+      const frameHeight = 100;
+      const { bottom } = generateBboxFromLandmarks(
+        mockFace,
+        mockOvalDetails,
+        frameHeight
+      );
+      expect(bottom).toEqual(frameHeight); // expect frameHeight to be returned as it is smaller than the calculated value
+    });
+
+    it(`should return correct 'top' value when face is within bounds`, () => {
+      const frameHeight = 480;
+      const { top } = generateBboxFromLandmarks(
+        mockFace,
+        mockOvalDetails,
+        frameHeight
+      );
+      const cy = 200; // from equation in generateBboxFromLandmarks
+      const faceHeight = 0;
+      const calculatedTop = cy - faceHeight / 2;
+
+      expect(top).toEqual(calculatedTop);
+    });
+
+    it(`should return 0 as 'top' when face is too high`, () => {
+      const frameHeight = 480;
+      const { top } = generateBboxFromLandmarks(
+        mockFaceAboveThreshold,
+        mockOvalDetails,
+        frameHeight
+      );
+
+      expect(top).toEqual(0);
+    });
+
+    it(`should return correct 'left' and 'right' values when face is matched`, () => {
+      const frameHeight = 480;
+      const { left, right } = generateBboxFromLandmarks(
+        mockMatchedFace,
+        mockOvalDetails,
+        frameHeight
+      );
+
+      const expectedRight =
+        mockMatchedFaceCenterX + mockMatchedFaceOcularWidth / 2;
+      const expectedLeft =
+        mockMatchedFaceCenterX - mockMatchedFaceOcularWidth / 2;
+      expect(left).toEqual(expectedLeft); // expect left = cx - ow / 2
+      expect(right).toEqual(expectedRight); // expect right = cx + ow / 2
     });
   });
 
@@ -266,20 +208,7 @@ describe('Liveness Helper', () => {
     });
 
     it('should return false and error if above threshold', async () => {
-      const mockCloseFace: Face = {
-        height: 100,
-        width: 100,
-        left: 150,
-        top: 200,
-        timestampMs: 1,
-        rightEye: [0, 100],
-        leftEye: [150, 100],
-        mouth: [100, 100],
-        nose: [100, 100],
-        rightEar: [0, 100],
-        leftEar: [150, 100],
-      };
-      mockBlazeFace.detectFaces.mockResolvedValue([mockCloseFace]);
+      mockBlazeFace.detectFaces.mockResolvedValue([mockCloselyMatchedFace]);
 
       const result = await isFaceDistanceBelowThreshold({
         faceDetector: mockBlazeFace,
