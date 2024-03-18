@@ -118,6 +118,7 @@ export class LivenessStreamProvider {
   private async init() {
     this._client = await createStreamingClient({
       credentialsProvider: this.credentialProvider,
+      endpointOverride: this.endpointOverride,
       region: this.region,
     });
 

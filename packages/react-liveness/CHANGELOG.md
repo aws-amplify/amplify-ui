@@ -1,5 +1,21 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.0.15
+
+### Patch Changes
+
+- [#5081](https://github.com/aws-amplify/amplify-ui/pull/5081) [`4fd4de82d`](https://github.com/aws-amplify/amplify-ui/commit/4fd4de82d38041120f8c8997a89231aabeaf96b3) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(liveness): add custom signer to client (#5063)
+
+## 3.0.14
+
+### Patch Changes
+
+- [#5065](https://github.com/aws-amplify/amplify-ui/pull/5065) [`c186b44aa`](https://github.com/aws-amplify/amplify-ui/commit/c186b44aa4e118e5cec63198dba8c8af25c26cce) Thanks [@kuhe](https://github.com/kuhe)! - fix type of empty VideoChunk
+
+- Updated dependencies [[`3cc2f8fc1`](https://github.com/aws-amplify/amplify-ui/commit/3cc2f8fc121e818d68c7d10abc863eebd5620902), [`f64ea459e`](https://github.com/aws-amplify/amplify-ui/commit/f64ea459e5008ebb764697177958ee8307ce7542)]:
+  - @aws-amplify/ui@6.0.12
+  - @aws-amplify/ui-react@6.1.6
+
 ## 3.0.13
 
 ### Patch Changes
