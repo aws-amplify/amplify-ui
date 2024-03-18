@@ -98,7 +98,7 @@ describe('Liveness Helper', () => {
         frameHeight
       );
 
-      const faceBoxBottom = mockFaceCenterY + 0 / 2;
+      const faceBoxBottom = mockFaceCenterY + mockFaceHeight / 2;
       expect(bottom).toEqual(faceBoxBottom); // expect calculated value to be returned as it is within frame
     });
 
