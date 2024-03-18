@@ -138,7 +138,7 @@ export const mockFace: Face = {
   leftEar: [200, 200],
 };
 
-export const mockAboveThresholdFace: Face = {
+export const mockAboveFrameFace: Face = {
   height: 215,
   left: 200,
   leftEar: [420, 155],
@@ -214,6 +214,21 @@ export const mockTooFarFace: Face = {
   nose: [342.7122294306755, 277.0021167397499],
   rightEar: [400.5564064979553, 258.19776356220245],
   leftEar: [300.5161700248718, 253.94269466400146],
+};
+
+export const mockTurnedFace: Face = {
+  height: 215.05796432495114,
+  left: 235.08899688720703,
+  leftEar: [433.8389587402344, 233.52020263671872],
+  leftEye: [379.2174530029297, 205.73320388793942],
+  mouth: [340.50960540771484, 304.9227523803711],
+  nose: [337.0632553100586, 257.2260284423828],
+  probability: 90,
+  rightEar: [250.12165069580078, 249.12113189697263],
+  rightEye: [292.9753875732422, 215.29994964599607],
+  timestampMs: MOCK_TIMESTAMP,
+  top: 158.50336074829102,
+  width: 215.0579833984375,
 };
 
 export const mockLivenessStreamProvider: any = {

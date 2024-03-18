@@ -12,22 +12,21 @@ import {
 } from '../liveness';
 import {
   getMockContext,
+  mockAboveFrameFace,
+  mockCameraDevice,
   mockCloselyMatchedFace,
+  mockFace,
+  mockMatchedFace,
   mockMatchedFaceCenterX,
   mockMatchedFaceOcularWidth,
-  mockAboveThresholdFace,
-  mockFace,
   mockOvalDetails,
   mockSessionInformation,
-  mockCameraDevice,
-  mockMatchedFace,
+  mockTurnedFace,
 } from '../__mocks__/testUtils';
 import {
-  Face,
   FaceMatchState,
   IlluminationState,
   LivenessErrorState,
-  LivenessOvalDetails,
 } from '../../types';
 
 const context = getMockContext();
@@ -89,7 +88,7 @@ describe('Liveness Helper', () => {
   });
 
   describe('generateBboxfromLandmarks', () => {
-    it(`should return correct 'bottom' value face is within bounds`, () => {
+    it(`should return face box bottom as 'bottom' when face is within frame`, () => {
       const frameHeight = 480;
       const { bottom } = generateBboxFromLandmarks(
         mockFace,
@@ -97,11 +96,11 @@ describe('Liveness Helper', () => {
         frameHeight
       );
       const cy = 200; // from equation in generateBboxFromLandmarks
-      const calculatedBottom = cy + 0 / 2; // calculated faceHeight is 0
-      expect(bottom).toEqual(calculatedBottom); // expect calculated value to be returned as it is smaller than the frameHeight
+      const faceBoxBottom = cy + 0 / 2;
+      expect(bottom).toEqual(faceBoxBottom); // expect calculated value to be returned as it is within frame
     });
 
-    it(`should return 'frameHeight' as 'bottom' when face is below bounds`, () => {
+    it(`should return 'frameHeight' as 'bottom' when bottom of face is below frame`, () => {
       const frameHeight = 100;
       const { bottom } = generateBboxFromLandmarks(
         mockFace,
@@ -111,7 +110,7 @@ describe('Liveness Helper', () => {
       expect(bottom).toEqual(frameHeight); // expect frameHeight to be returned as it is smaller than the calculated value
     });
 
-    it(`should return correct 'top' value when face is within bounds`, () => {
+    it(`should return face box top as 'top' when face is within frame`, () => {
       const frameHeight = 480;
       const { top } = generateBboxFromLandmarks(
         mockFace,
@@ -120,15 +119,15 @@ describe('Liveness Helper', () => {
       );
       const cy = 200; // from equation in generateBboxFromLandmarks
       const faceHeight = 0;
-      const calculatedTop = cy - faceHeight / 2;
+      const faceBoxTop = cy - faceHeight / 2;
 
-      expect(top).toEqual(calculatedTop);
+      expect(top).toEqual(faceBoxTop);
     });
 
-    it(`should return 0 as 'top' when face is too high`, () => {
+    it(`should return 0 as 'top' when top of face is above frame`, () => {
       const frameHeight = 480;
       const { top } = generateBboxFromLandmarks(
-        mockAboveThresholdFace,
+        mockAboveFrameFace,
         mockOvalDetails,
         frameHeight
       );
@@ -144,12 +143,24 @@ describe('Liveness Helper', () => {
         frameHeight
       );
 
-      const expectedRight =
+      const faceBoxRight =
         mockMatchedFaceCenterX + mockMatchedFaceOcularWidth / 2;
-      const expectedLeft =
+      const faceBoxLeft =
         mockMatchedFaceCenterX - mockMatchedFaceOcularWidth / 2;
-      expect(left).toEqual(expectedLeft); // expect left = cx - ow / 2
-      expect(right).toEqual(expectedRight); // expect right = cx + ow / 2
+      expect(left).toEqual(faceBoxLeft); // expect left = cx - ow / 2
+      expect(right).toEqual(faceBoxRight); // expect right = cx + ow / 2
+    });
+
+    it(`should return correct 'left' and 'right' values when face is turned`, () => {
+      const frameHeight = 480;
+      const { left, right } = generateBboxFromLandmarks(
+        mockTurnedFace,
+        mockOvalDetails,
+        frameHeight
+      );
+
+      expect(left).toEqual(mockTurnedFace.rightEar[0]); // expect right ear to be used to limit left edge of face
+      expect(right).toEqual(mockTurnedFace.leftEar[0]); // expect left ear to be used to limit right edge of face
     });
   });
 
