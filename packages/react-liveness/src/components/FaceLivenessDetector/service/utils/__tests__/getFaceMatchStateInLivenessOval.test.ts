@@ -19,9 +19,9 @@ describe('getFaceMatchStateInLivenessOval', () => {
     const face: Face = mockOffCenterFace;
     const ovalDetails: LivenessOvalDetails = mockOvalDetails;
     const initialFaceIntersection: number = 0.3;
-    // @ts-expect-error
     const undefinedConfigSessionInformation: SessionInformation = {
       ...mockSessionInformation,
+      // @ts-expect-error
       Challenge: { FaceMovementAndLightChallenge: {} },
     };
 

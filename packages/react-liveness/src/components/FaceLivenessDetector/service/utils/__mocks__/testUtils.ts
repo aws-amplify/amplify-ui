@@ -116,6 +116,14 @@ export const mockVideoRecorder = {
   dispatch: jest.fn(),
 } as unknown as VideoRecorder;
 
+export const mockOvalDetails: LivenessOvalDetails = {
+  flippedCenterX: 320,
+  centerX: 320,
+  centerY: 240,
+  width: 288,
+  height: 465,
+};
+
 export const mockFace: Face = {
   height: 100,
   width: 100,
@@ -130,7 +138,7 @@ export const mockFace: Face = {
   leftEar: [200, 200],
 };
 
-export const mockFaceAboveThreshold: Face = {
+export const mockAboveThresholdFace: Face = {
   height: 215,
   left: 200,
   leftEar: [420, 155],
@@ -140,9 +148,24 @@ export const mockFaceAboveThreshold: Face = {
   probability: 90,
   rightEar: [215, 170],
   rightEye: [260, 115],
-  timestampMs: 1710783006566,
+  timestampMs: MOCK_TIMESTAMP,
   top: 70,
   width: 215,
+};
+
+export const mockCloselyMatchedFace: Face = {
+  top: 46.751117706298814,
+  left: -5.630989074707031,
+  width: 572.6491546630859,
+  height: 572.7001762390136,
+  timestampMs: MOCK_TIMESTAMP,
+  probability: 90,
+  rightEye: [187.4885559082032, 218.63224029541013],
+  leftEye: [433.75030517578125, 227.35191345214847],
+  mouth: [313.39622497558594, 485.65040588378895],
+  nose: [330.15281677246094, 371.40689849853516],
+  rightEar: [28.786602020263672, 237.78337478637698],
+  leftEar: [515.0150299072266, 262.62935638427734],
 };
 
 export const mockMatchedFace: Face = {
@@ -163,36 +186,6 @@ export const mockMatchedFace: Face = {
 export const mockMatchedFaceCenterX = 323.19064140319824;
 export const mockMatchedFaceOcularWidth = 253.17949214956178;
 
-export const mockTooFarFace: Face = {
-  top: 230,
-  left: 275,
-  width: 135,
-  height: 100,
-  timestampMs: MOCK_TIMESTAMP,
-  probability: 0.9974300265312195,
-  rightEye: [372.5564064979553, 258.19776356220245],
-  leftEye: [318.5161700248718, 253.94269466400146],
-  mouth: [339.64158596098423, 298.5959941148758],
-  nose: [342.7122294306755, 277.0021167397499],
-  rightEar: [400.5564064979553, 258.19776356220245],
-  leftEar: [300.5161700248718, 253.94269466400146],
-};
-
-export const mockCloselyMatchedFace: Face = {
-  top: 46.751117706298814,
-  left: -5.630989074707031,
-  width: 572.6491546630859,
-  height: 572.7001762390136,
-  timestampMs: MOCK_TIMESTAMP,
-  probability: 90,
-  rightEye: [187.4885559082032, 218.63224029541013],
-  leftEye: [433.75030517578125, 227.35191345214847],
-  mouth: [313.39622497558594, 485.65040588378895],
-  nose: [330.15281677246094, 371.40689849853516],
-  rightEar: [28.786602020263672, 237.78337478637698],
-  leftEar: [515.0150299072266, 262.62935638427734],
-};
-
 export const mockOffCenterFace: Face = {
   top: 200,
   left: 360,
@@ -208,12 +201,19 @@ export const mockOffCenterFace: Face = {
   leftEar: [540, 300],
 };
 
-export const mockOvalDetails: LivenessOvalDetails = {
-  flippedCenterX: 320,
-  centerX: 320,
-  centerY: 240,
-  width: 288,
-  height: 465,
+export const mockTooFarFace: Face = {
+  top: 230,
+  left: 275,
+  width: 135,
+  height: 100,
+  timestampMs: MOCK_TIMESTAMP,
+  probability: 0.9974300265312195,
+  rightEye: [372.5564064979553, 258.19776356220245],
+  leftEye: [318.5161700248718, 253.94269466400146],
+  mouth: [339.64158596098423, 298.5959941148758],
+  nose: [342.7122294306755, 277.0021167397499],
+  rightEar: [400.5564064979553, 258.19776356220245],
+  leftEar: [300.5161700248718, 253.94269466400146],
 };
 
 export const mockLivenessStreamProvider: any = {

@@ -15,7 +15,7 @@ import {
   mockCloselyMatchedFace,
   mockMatchedFaceCenterX,
   mockMatchedFaceOcularWidth,
-  mockFaceAboveThreshold,
+  mockAboveThresholdFace,
   mockFace,
   mockOvalDetails,
   mockSessionInformation,
@@ -128,7 +128,7 @@ describe('Liveness Helper', () => {
     it(`should return 0 as 'top' when face is too high`, () => {
       const frameHeight = 480;
       const { top } = generateBboxFromLandmarks(
-        mockFaceAboveThreshold,
+        mockAboveThresholdFace,
         mockOvalDetails,
         frameHeight
       );
