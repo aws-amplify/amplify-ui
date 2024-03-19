@@ -63,7 +63,6 @@ describe('Liveness Machine', () => {
       currentDetectedFace: mockFace,
       startFace: mockFace,
       endFace: mockFace,
-      initialFaceMatchTime: Date.now() - 1000,
     },
     freshnessColorAssociatedParams: {
       freshnessColorEl: document.createElement('canvas'),

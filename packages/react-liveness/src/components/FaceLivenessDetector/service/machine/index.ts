@@ -60,7 +60,6 @@ import { WS_CLOSURE_CODE } from '../utils/constants';
 
 const CAMERA_ID_KEY = 'AmplifyLivenessCameraId';
 const DEFAULT_FACE_FIT_TIMEOUT = 7000;
-const MIN_FACE_MATCH_TIME = 1000;
 
 let responseStream: Promise<AsyncIterable<LivenessResponseStream>>;
 const responseStreamActor = async (callback: StreamActorCallback) => {
@@ -152,7 +151,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         currentDetectedFace: undefined,
         startFace: undefined,
         endFace: undefined,
-        initialFaceMatchTime: undefined,
       },
       freshnessColorAssociatedParams: {
         freshnessColorEl: undefined,
@@ -351,22 +349,17 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             after: {
               0: {
                 target: 'flashFreshnessColors',
-                cond: 'hasFaceMatchedInOvalWithMinTime',
+                cond: 'hasFaceMatchedInOval',
                 actions: [
+                  'setFaceMatchTimeAndStartFace',
                   'updateEndFaceMatch',
                   'setupFlashFreshnessColors',
                   'cancelOvalMatchTimeout',
                   'cancelOvalDrawingTimeout',
                 ],
               },
-              0.1: {
-                target: 'ovalMatching',
-                cond: 'hasFaceMatchedInOval',
-                actions: 'setFaceMatchTimeAndStartFace',
-              },
               1: {
                 target: 'ovalMatching',
-                cond: 'hasNotFaceMatchedInOval',
               },
             },
           },
@@ -665,11 +658,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               context.faceMatchAssociatedParams!.startFace === undefined
                 ? context.faceMatchAssociatedParams!.currentDetectedFace
                 : context.faceMatchAssociatedParams!.startFace,
-            initialFaceMatchTime:
-              context.faceMatchAssociatedParams!.initialFaceMatchTime ===
-              undefined
-                ? Date.now()
-                : context.faceMatchAssociatedParams!.initialFaceMatchTime,
           };
         },
       }),
@@ -875,27 +863,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
     guards: {
       shouldTimeoutOnFailedAttempts: (context) =>
         context.failedAttempts! >= context.maxFailedAttempts!,
-      hasFaceMatchedInOvalWithMinTime: (context) => {
-        const { faceMatchState, initialFaceMatchTime } =
-          context.faceMatchAssociatedParams!;
-        const timeSinceInitialFaceMatch = Date.now() - initialFaceMatchTime!;
-        const hasMatched =
-          faceMatchState === FaceMatchState.MATCHED &&
-          timeSinceInitialFaceMatch >= MIN_FACE_MATCH_TIME;
-
-        return hasMatched;
-      },
       hasFaceMatchedInOval: (context) => {
-        return (
+        const hasMatched =
           context.faceMatchAssociatedParams!.faceMatchState ===
-          FaceMatchState.MATCHED
-        );
-      },
-      hasNotFaceMatchedInOval: (context) => {
-        return (
-          context.faceMatchAssociatedParams!.faceMatchState !==
-          FaceMatchState.MATCHED
-        );
+          FaceMatchState.MATCHED;
+        return hasMatched;
       },
       hasSingleFace: (context) => {
         return (
