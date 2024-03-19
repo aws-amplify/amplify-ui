@@ -228,7 +228,7 @@ export const getServiceContextFacade = (
     // @v6-migration-note
     // While most of the properties
     // on `AuthenticatorServiceContextFacade` can resolve to `undefined`, updating
-    // the interface requires material changes in consumers (namely `useAutenticator`)
+    // the interface requires material changes in consumers (namely `useAuthenticator`)
     // which will have implications on the UI layer as typeguards and non-null checks
     // are required to pass type checking. As the `Authenticator` is behaving as expected
     // with the `AuthenticatorServiceContextFacade` interface, prefer to cast
