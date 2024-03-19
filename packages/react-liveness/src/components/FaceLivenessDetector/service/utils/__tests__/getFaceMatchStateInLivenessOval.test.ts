@@ -18,7 +18,7 @@ describe('getFaceMatchStateInLivenessOval', () => {
     const initialFaceIntersection: number = 0.3;
     const undefinedConfigSessionInformation: SessionInformation = {
       ...mockSessionInformation,
-      // @ts-expect-error
+      // @ts-expect-error intentional invalid value
       Challenge: { FaceMovementAndLightChallenge: {} },
     };
 
