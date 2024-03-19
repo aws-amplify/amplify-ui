@@ -1,7 +1,6 @@
 import 'jest-canvas-mock';
 import { getFaceMatchStateInLivenessOval } from '../getFaceMatchStateInLivenessOval';
 import {
-  getMockContext,
   mockCloselyMatchedFace,
   mockMatchedFace,
   mockOffCenterFace,
