@@ -591,7 +591,7 @@ describe('Liveness Machine', () => {
 
     it('should reach checkMatch state after detectFaceAndMatchOval does not match', async () => {
       mockedHelpers.getFaceMatchStateInLivenessOval.mockImplementation(() => {
-        const faceMatchState = FaceMatchState.TOO_CLOSE;
+        const faceMatchState = FaceMatchState.OFF_CENTER;
         const faceMatchPercentage = 0;
         return { faceMatchState, faceMatchPercentage };
       });
@@ -608,7 +608,7 @@ describe('Liveness Machine', () => {
       expect(service.state.value).toEqual({ recording: 'checkMatch' });
       expect(
         service.state.context.faceMatchAssociatedParams!.faceMatchState
-      ).toBe(FaceMatchState.TOO_CLOSE);
+      ).toBe(FaceMatchState.OFF_CENTER);
     });
   });
 
