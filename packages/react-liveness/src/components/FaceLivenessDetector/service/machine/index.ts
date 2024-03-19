@@ -864,10 +864,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       shouldTimeoutOnFailedAttempts: (context) =>
         context.failedAttempts! >= context.maxFailedAttempts!,
       hasFaceMatchedInOval: (context) => {
-        const hasMatched =
+        return (
           context.faceMatchAssociatedParams!.faceMatchState ===
-          FaceMatchState.MATCHED;
-        return hasMatched;
+          FaceMatchState.MATCHED
+        );
       },
       hasSingleFace: (context) => {
         return (
