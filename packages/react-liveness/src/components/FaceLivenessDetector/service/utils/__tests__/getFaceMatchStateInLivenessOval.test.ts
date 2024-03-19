@@ -12,8 +12,6 @@ import {
 import { Face, FaceMatchState, LivenessOvalDetails } from '../../types';
 import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
 
-const context = getMockContext();
-
 describe('getFaceMatchStateInLivenessOval', () => {
   it('should throw an error if the challenge config is undefined', () => {
     const face: Face = mockOffCenterFace;
@@ -74,7 +72,7 @@ describe('getFaceMatchStateInLivenessOval', () => {
     expect(faceMatchState).toBe(FaceMatchState.MATCHED);
   });
 
-  // Note: if this test ever fails due to face detection updates just add a console log for face and do a check and copy the value here
+  // Note: if this test ever fails due to face detection updates just add a console log for face and do a check and copy the value
   it('should return MATCHED when face is in frame', () => {
     const face: Face = mockMatchedFace;
     const ovalDetails: LivenessOvalDetails = mockOvalDetails;
