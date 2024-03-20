@@ -59,7 +59,6 @@ import { WS_CLOSURE_CODE } from '../utils/constants';
 
 const CAMERA_ID_KEY = 'AmplifyLivenessCameraId';
 const DEFAULT_FACE_FIT_TIMEOUT = 7000;
-const MIN_FACE_MATCH_TIME = 1000;
 
 let responseStream: Promise<AsyncIterable<LivenessResponseStream>>;
 const responseStreamActor = async (callback: StreamActorCallback) => {
