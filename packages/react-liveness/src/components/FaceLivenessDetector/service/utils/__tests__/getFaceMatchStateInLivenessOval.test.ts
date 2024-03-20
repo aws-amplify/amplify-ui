@@ -91,7 +91,7 @@ describe('getFaceMatchStateInLivenessOval', () => {
     expect(faceMatchPercentage).toBe(100);
   });
 
-  it('should return TOO FAR when face is too far', () => {
+  it('should return TOO_FAR when face is too far', () => {
     const face: Face = mockTooFarFace;
     const ovalDetails: LivenessOvalDetails = mockOvalDetails;
     const initialFaceIntersection: number = 0.3;

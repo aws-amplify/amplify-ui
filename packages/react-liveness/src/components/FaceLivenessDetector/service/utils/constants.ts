@@ -8,8 +8,8 @@ export const REDUCED_THRESHOLD = 0.4;
 export const REDUCED_THRESHOLD_MOBILE = 0.37;
 
 // Constants from science team to determine ocular distance (space between eyes)
-export const ALPHA = 2.0;
-export const GAMMA = 1.8;
+export const PUPIL_DISTANCE_WEIGHT = 2.0;
+export const FACE_HEIGHT_WEIGHT = 1.8;
 
 // Constants from science team to find face match percentage
 export const RANGE_MIN = 0;

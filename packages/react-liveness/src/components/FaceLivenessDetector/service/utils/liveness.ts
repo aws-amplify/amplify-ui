@@ -11,8 +11,8 @@ import { FaceDetection } from '../types/faceDetection';
 import { ClientFreshnessColorSequence } from '../types/service';
 import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
 import {
-  ALPHA,
-  GAMMA,
+  FACE_HEIGHT_WEIGHT,
+  PUPIL_DISTANCE_WEIGHT,
   FACE_DISTANCE_THRESHOLD,
   REDUCED_THRESHOLD,
   REDUCED_THRESHOLD_MOBILE,
@@ -342,7 +342,8 @@ export function generateBboxFromLandmarks(
   const { pupilDistance: pd, faceHeight: fh } =
     getPupilDistanceAndFaceHeight(face);
 
-  const ocularWidth = (ALPHA * pd + GAMMA * fh) / 2;
+  const ocularWidth =
+    (PUPIL_DISTANCE_WEIGHT * pd + FACE_HEIGHT_WEIGHT * fh) / 2;
 
   let centerFaceX, centerFaceY: number;
 
@@ -664,10 +665,11 @@ export async function isFaceDistanceBelowThreshold({
       const { pupilDistance, faceHeight } =
         getPupilDistanceAndFaceHeight(detectedFace);
 
-      const alpha = 2.0,
-        gamma = 1.8;
       const calibratedPupilDistance =
-        (alpha * pupilDistance + gamma * faceHeight) / 2 / alpha;
+        (PUPIL_DISTANCE_WEIGHT * pupilDistance +
+          FACE_HEIGHT_WEIGHT * faceHeight) /
+        2 /
+        PUPIL_DISTANCE_WEIGHT;
 
       if (width) {
         isDistanceBelowThreshold =

@@ -50,13 +50,8 @@ export function getFaceMatchStateInLivenessOval({
     );
   }
 
-  const {
-    OvalIouThreshold,
-    OvalIouHeightThreshold,
-    OvalIouWidthThreshold,
-    FaceIouHeightThreshold,
-    FaceIouWidthThreshold,
-  } = challengeConfig;
+  const { OvalIouThreshold, FaceIouHeightThreshold, FaceIouWidthThreshold } =
+    challengeConfig;
 
   const faceBoundingBox: BoundingBox = generateBboxFromLandmarks(
     face,
@@ -77,8 +72,6 @@ export function getFaceMatchStateInLivenessOval({
   );
 
   const intersectionThreshold = OvalIouThreshold;
-  const ovalMatchWidthThreshold = ovalDetails.width * OvalIouWidthThreshold;
-  const ovalMatchHeightThreshold = ovalDetails.height * OvalIouHeightThreshold;
   const faceDetectionWidthThreshold = ovalDetails.width * FaceIouWidthThreshold;
   const faceDetectionHeightThreshold =
     ovalDetails.height * FaceIouHeightThreshold;
@@ -97,27 +90,23 @@ export function getFaceMatchStateInLivenessOval({
       RANGE_MIN
     ) * 100;
 
-  const faceIsOutsideOvalToTheLeft = minOvalX > minFaceX && maxOvalX > maxFaceX;
-  const faceIsOutsideOvalToTheRight =
+  const isFaceOutsideOvalToTheLeft = minOvalX > minFaceX && maxOvalX > maxFaceX;
+  const isFaceOutsideOvalToTheRight =
     minFaceX > minOvalX && maxFaceX > maxOvalX;
 
-  const faceIsMatched =
-    intersection > intersectionThreshold &&
-    Math.abs(minOvalX - minFaceX) < ovalMatchWidthThreshold &&
-    Math.abs(maxOvalX - maxFaceX) < ovalMatchWidthThreshold &&
-    Math.abs(maxOvalY - maxFaceY) < ovalMatchHeightThreshold;
+  const isFaceMatched = intersection > intersectionThreshold;
 
-  const faceIsMatchedClosely =
+  const isFaceMatchedClosely =
     minOvalY - minFaceY > faceDetectionHeightThreshold ||
     maxFaceY - maxOvalY > faceDetectionHeightThreshold ||
     (minOvalX - minFaceX > faceDetectionWidthThreshold &&
       maxFaceX - maxOvalX > faceDetectionWidthThreshold);
 
-  if (faceIsMatched) {
+  if (isFaceMatched) {
     faceMatchState = FaceMatchState.MATCHED;
-  } else if (faceIsOutsideOvalToTheLeft || faceIsOutsideOvalToTheRight) {
+  } else if (isFaceOutsideOvalToTheLeft || isFaceOutsideOvalToTheRight) {
     faceMatchState = FaceMatchState.OFF_CENTER;
-  } else if (faceIsMatchedClosely) {
+  } else if (isFaceMatchedClosely) {
     faceMatchState = FaceMatchState.MATCHED;
   } else {
     faceMatchState = FaceMatchState.TOO_FAR;
