@@ -1,7 +1,7 @@
 import { interpret } from 'xstate';
 import { setImmediate } from 'timers';
 
-import { livenessMachine } from '..';
+import { livenessMachine } from '../machine';
 import {
   FaceLivenessDetectorProps,
   FaceMatchState,
