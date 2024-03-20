@@ -30,7 +30,7 @@ _app.component.ts_
     <Tabs.Item value={prevVersion}>ui-angular v{prevVersion}</Tabs.Item>
   </Tabs.List>
   <Tabs.Panel value={latestVersion}>
-    In version {latestVersion}, `Auth` function calls are imported directly as shown below. 
+    In `@aws-amplify/ui-angular` version {latestVersion}, `Auth` function calls are imported directly as shown below. 
     ```js{3}
     import { Component, OnInit } from '@angular/core';
     import { Amplify } from 'aws-amplify';
@@ -69,9 +69,9 @@ _app.component.ts_
   </Tabs.Panel>
   <Tabs.Panel value={prevVersion}>
     <Alert role="none" variation="warning" heading="Sign Up Auto Sign In">
-    If you're overriding `signUp` in **version {prevVersion} or earlier**, you must include the `autoSignIn` key and set `enabled` to true, as shown in the example below.
+    If you're overriding `signUp` in `@aws-amplify/ui-angular` **version {prevVersion} or earlier**, you must include the `autoSignIn` key and set `enabled` to true, as shown in the example below.
     </Alert>
-    In earlier versions, `Auth` function calls are imported from the `Auth` object.
+    In `@aws-amplify/ui-angular` version {prevVersion} or earlier, `Auth` function calls are imported from the `Auth` object.
     ```jsx{2,25}
       import { Component, OnInit } from '@angular/core';
       import { Amplify, Auth } from 'aws-amplify';
