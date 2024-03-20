@@ -536,9 +536,9 @@ describe('Liveness Machine', () => {
           clientInfo.Challenge.FaceMovementAndLightChallenge.InitialFace
             .BoundingBox
         ).toStrictEqual({
-          Height: -5 / 12,
+          Height: -0.4166666666666667,
           Left: 0.6875,
-          Top: 5 / 12,
+          Top: 0.4166666666666667,
           Width: 0,
         })
       );
