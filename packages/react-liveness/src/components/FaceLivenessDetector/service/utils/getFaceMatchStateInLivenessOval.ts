@@ -10,7 +10,12 @@ import {
   getIntersectionOverUnion,
   getOvalBoundingBox,
 } from './liveness';
-import { RANGE_MIN, RANGE_MAX, WEIGHT_MAX, WEIGHT_MIN } from './constants';
+import {
+  FACE_MATCH_RANGE_MIN,
+  FACE_MATCH_RANGE_MAX,
+  FACE_MATCH_WEIGHT_MAX,
+  FACE_MATCH_WEIGHT_MIN,
+} from './constants';
 
 interface MatchStateInOvalParams {
   face: Face;
@@ -82,12 +87,12 @@ export function getFaceMatchStateInLivenessOval({
   const faceMatchPercentage =
     Math.max(
       Math.min(
-        RANGE_MAX,
-        (WEIGHT_MAX * (intersection - initialFaceIntersection)) /
+        FACE_MATCH_RANGE_MAX,
+        (FACE_MATCH_WEIGHT_MAX * (intersection - initialFaceIntersection)) /
           (intersectionThreshold - initialFaceIntersection) +
-          WEIGHT_MIN
+          FACE_MATCH_WEIGHT_MIN
       ),
-      RANGE_MIN
+      FACE_MATCH_RANGE_MIN
     ) * 100;
 
   const isFaceOutsideOvalToTheLeft = minOvalX > minFaceX && maxOvalX > maxFaceX;
