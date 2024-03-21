@@ -15,7 +15,7 @@ import {
   mockSessionInformation,
   mockVideoRecorder,
   mockBlazeFace,
-  mockVideoConstaints,
+  mockVideoConstraints,
   mockCameraDevice,
   mockFace,
   mockVideoMediaStream,
@@ -204,7 +204,7 @@ describe('Liveness Machine', () => {
         service.state.context.videoAssociatedParams!.videoMediaStream
       ).toEqual(mockVideoMediaStream);
       expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenCalledWith({
-        video: mockVideoConstaints,
+        video: mockVideoConstraints,
         audio: false,
       });
       expect(mockNavigatorMediaDevices.enumerateDevices).toHaveBeenCalledTimes(
@@ -240,7 +240,7 @@ describe('Liveness Machine', () => {
       expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenNthCalledWith(
         1,
         {
-          video: mockVideoConstaints,
+          video: mockVideoConstraints,
           audio: false,
         }
       );
@@ -529,14 +529,16 @@ describe('Liveness Machine', () => {
       const clientInfo =
         mockLivenessStreamProvider.sendClientInfo.mock.calls[0][0];
 
+      const videoEl = service.state.context.videoAssociatedParams?.videoEl!;
+      Object.defineProperty(videoEl, 'videoHeight', { value: 100 });
       expect(
         expect(
           clientInfo.Challenge.FaceMovementAndLightChallenge.InitialFace
             .BoundingBox
         ).toStrictEqual({
-          Height: 0,
+          Height: -0.4166666666666667,
           Left: 0.6875,
-          Top: 0.625,
+          Top: 0.4166666666666667,
           Width: 0,
         })
       );
@@ -588,7 +590,7 @@ describe('Liveness Machine', () => {
 
     it('should reach checkMatch state after detectFaceAndMatchOval does not match', async () => {
       mockedHelpers.getFaceMatchStateInLivenessOval.mockImplementation(() => {
-        const faceMatchState = FaceMatchState.TOO_CLOSE;
+        const faceMatchState = FaceMatchState.OFF_CENTER;
         const faceMatchPercentage = 0;
         return { faceMatchState, faceMatchPercentage };
       });
@@ -605,7 +607,7 @@ describe('Liveness Machine', () => {
       expect(service.state.value).toEqual({ recording: 'checkMatch' });
       expect(
         service.state.context.faceMatchAssociatedParams!.faceMatchState
-      ).toBe(FaceMatchState.TOO_CLOSE);
+      ).toBe(FaceMatchState.OFF_CENTER);
     });
   });
 

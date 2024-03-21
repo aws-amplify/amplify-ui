@@ -334,8 +334,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               100: { target: 'checkRecordingStarted' },
             },
           },
-          // Evaluates face match and moves to checkMatch
-          // which continually checks for match until either timeout or face match
           ovalMatching: {
             entry: 'cancelOvalDrawingTimeout',
             invoke: {
@@ -346,8 +344,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               },
             },
           },
-          // If hasFaceMatchedInOval is true, then move to flashFreshnessColors
-          // If not, move back to ovalMatching and re-evaluate match state
           checkMatch: {
             after: {
               0: {
@@ -1140,7 +1136,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         // renormalize initial face
         const renormalizedFace = generateBboxFromLandmarks(
           initialFace,
-          ovalDetails
+          ovalDetails,
+          videoEl!.videoHeight
         );
         initialFace.top = renormalizedFace.top;
         initialFace.left = renormalizedFace.left;
@@ -1177,7 +1174,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         const initialFaceBoundingBox = generateBboxFromLandmarks(
           initialFace!,
-          ovalDetails!
+          ovalDetails!,
+          videoEl!.videoHeight
         );
 
         const { ovalBoundingBox } = getOvalBoundingBox(ovalDetails!);
@@ -1200,12 +1198,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             const {
               faceMatchState: faceMatchStateInLivenessOval,
               faceMatchPercentage: faceMatchPercentageInLivenessOval,
-            } = getFaceMatchStateInLivenessOval(
-              detectedFace,
-              ovalDetails!,
+            } = getFaceMatchStateInLivenessOval({
+              face: detectedFace,
+              ovalDetails: ovalDetails!,
               initialFaceIntersection,
-              serverSessionInformation!
-            );
+              sessionInformation: serverSessionInformation!,
+              frameHeight: videoEl!.videoHeight,
+            });
 
             faceMatchState = faceMatchStateInLivenessOval;
             faceMatchPercentage = faceMatchPercentageInLivenessOval;
