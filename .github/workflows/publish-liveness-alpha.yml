@@ -72,7 +72,7 @@ jobs:
     environment: deployment
     needs: publish
     steps:
-      - name: Trigger build for beta liveness sample app pointing at next tag
+      - name: Trigger build for alpha liveness sample app pointing at next tag
         run: curl -X POST -d {} $ENDPOINT -H "Content-Type:application/json"
         env:
           ENDPOINT: ${{ secrets.LIVENESS_ALPHA_SAMPLE_APP_BUILD_TRIGGER }}
