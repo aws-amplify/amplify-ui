@@ -347,7 +347,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           checkMatch: {
             after: {
               0: {
-                target: 'flashFreshnessColors',
+                target: 'delayBeforeFlash',
                 cond: 'hasFaceMatchedInOval',
                 actions: [
                   'setFaceMatchTimeAndStartFace',
@@ -360,6 +360,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               1: {
                 target: 'ovalMatching',
               },
+            },
+          },
+          delayBeforeFlash: {
+            after: {
+              1000: 'flashFreshnessColors',
             },
           },
           flashFreshnessColors: {
