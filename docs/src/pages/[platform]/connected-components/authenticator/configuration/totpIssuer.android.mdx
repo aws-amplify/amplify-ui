@@ -1,0 +1,15 @@
+## TOTP Issuer
+
+The TOTP issuer is the name that will be shown in TOTP applications preceding the account name. In most cases, this should be the name of your app. For example, if your app is called "My App", your user will see "My App" - "username" in their TOTP app. This can be customized by adding the `totpOptions` argument to the Authenticator state with a value for `issuer`. 
+
+Note: Unless changed, the default issuer is the application label retrieved from [package manager](https://developer.android.com/reference/android/content/pm/PackageManager#getApplicationLabel(android.content.pm.ApplicationInfo)).
+
+```kotlin
+val authenticatorState = rememberAuthenticatorState(
+    totpOptions = TotpOptions(issuer = "My App")
+)
+
+Authenticator(state = authenticatorState) {
+    // ...
+}
+```

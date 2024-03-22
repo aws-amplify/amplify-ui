@@ -1,5 +1,44 @@
 # @aws-amplify/ui
 
+## 6.0.12
+
+### Patch Changes
+
+- [#5069](https://github.com/aws-amplify/amplify-ui/pull/5069) [`3cc2f8fc1`](https://github.com/aws-amplify/amplify-ui/commit/3cc2f8fc121e818d68c7d10abc863eebd5620902) Thanks [@esauerbo](https://github.com/esauerbo)! - fix(Authenticator): fix issue in sms mfa signup flow where challengeName is undefined
+
+- [#5038](https://github.com/aws-amplify/amplify-ui/pull/5038) [`f64ea459e`](https://github.com/aws-amplify/amplify-ui/commit/f64ea459e5008ebb764697177958ee8307ce7542) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(ui/liveness): fix flex-direction of landscape error message in FaceLiveness component
+
+## 6.0.11
+
+### Patch Changes
+
+- [#5034](https://github.com/aws-amplify/amplify-ui/pull/5034) [`1d9c5c862`](https://github.com/aws-amplify/amplify-ui/commit/1d9c5c8629fd94b4e1b5fa045afe0dd1ccc1b21d) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(web/react-native/ui): use translated strings for VerifyUser screen and use censorContactMethod util
+
+  **ui/Angular/React/Vue/ReactNative:** adds a `censorContactMethod()` utility to the `ui` package and refactors the VerifyUser screen in Angular, React, Vue, and ReactNative packages to use this utility.
+
+  **Vue:** Fixes an issue where translated strings were not being properly used for the VerifyUser screen. Additionally, removes duplicate "verify" id that was on multiple elements.
+
+- [#5007](https://github.com/aws-amplify/amplify-ui/pull/5007) [`4eae32e91`](https://github.com/aws-amplify/amplify-ui/commit/4eae32e91ecc64b24a0092c4aee234b87420ce07) Thanks [@talik077](https://github.com/talik077)! - fix(ui): Update Hebrew translation for `Forgot your password?` string
+
+- [#5003](https://github.com/aws-amplify/amplify-ui/pull/5003) [`32702d9c9`](https://github.com/aws-amplify/amplify-ui/commit/32702d9c976e81b23b4e8f1c7e935b48288e058d) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(ui/react): add missing color token for CheckboxField label
+
+  The CheckboxField label color (and disabled color) can now be themed correctly via:
+
+  ```
+  label: {
+    color: { value: '{colors.purple.80}' },
+    _disabled: {
+      color: { value: '{colors.purple.60}' },
+    },
+  },
+  ```
+
+## 6.0.10
+
+### Patch Changes
+
+- [#5006](https://github.com/aws-amplify/amplify-ui/pull/5006) [`80ad8cda6`](https://github.com/aws-amplify/amplify-ui/commit/80ad8cda66800f88150054fa51a7bbcdd0730566) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): add handling for external sign up events
+
 ## 6.0.9
 
 ### Patch Changes

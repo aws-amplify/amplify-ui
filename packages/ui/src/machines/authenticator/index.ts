@@ -51,7 +51,7 @@ const stopActor = (machineId: string) => stop(machineId);
 const LEGACY_WAIT_CONFIG = {
   on: {
     INIT: {
-      actions: ['configure'],
+      actions: 'configure',
       target: 'getConfig',
     },
     SIGN_OUT: '#authenticator.signOut',
@@ -60,7 +60,7 @@ const LEGACY_WAIT_CONFIG = {
 
 // setup step proceeds directly to configure
 const NEXT_WAIT_CONFIG = {
-  always: { actions: ['configure'], target: 'getConfig' },
+  always: { actions: 'configure', target: 'getConfig' },
 };
 
 export function createAuthenticatorMachine(
@@ -193,6 +193,11 @@ export function createAuthenticatorMachine(
                 target: '#authenticator.getCurrentUser',
               },
               {
+                cond: 'isShouldConfirmUserAttributeStep',
+                actions: 'setActorDoneData',
+                target: '#authenticator.verifyUserAttributesActor',
+              },
+              {
                 cond: 'isConfirmUserAttributeStep',
                 target: '#authenticator.verifyUserAttributesActor',
               },
@@ -299,6 +304,7 @@ export function createAuthenticatorMachine(
         ]),
         setActorDoneData: assign({
           actorDoneData: (context, event): ActorDoneData => ({
+            challengeName: event.data.challengeName,
             codeDeliveryDetails: event.data.codeDeliveryDetails,
             missingAttributes: event.data.missingAttributes,
             remoteError: event.data.remoteError,

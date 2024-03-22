@@ -117,4 +117,19 @@ describe('AliasControl', () => {
     const field = await screen.findByRole('textbox');
     expect(field).toHaveAttribute('aria-invalid');
   });
+
+  it('renders text field with autocapitalize disabled by default', async () => {
+    render(AliasControl, {
+      global: {
+        components,
+      },
+      props: {
+        label: 'Username',
+        name: 'username',
+        placeholder: 'Username',
+      },
+    });
+    const field = await screen.findByRole('textbox');
+    expect(field).toHaveAttribute('autocapitalize', 'off');
+  });
 });

@@ -1,5 +1,48 @@
 # @aws-amplify/ui-react
 
+## 6.1.6
+
+### Patch Changes
+
+- Updated dependencies [[`3cc2f8fc1`](https://github.com/aws-amplify/amplify-ui/commit/3cc2f8fc121e818d68c7d10abc863eebd5620902), [`f64ea459e`](https://github.com/aws-amplify/amplify-ui/commit/f64ea459e5008ebb764697177958ee8307ce7542)]:
+  - @aws-amplify/ui@6.0.12
+  - @aws-amplify/ui-react-core@3.0.12
+
+## 6.1.5
+
+### Patch Changes
+
+- [#5034](https://github.com/aws-amplify/amplify-ui/pull/5034) [`1d9c5c862`](https://github.com/aws-amplify/amplify-ui/commit/1d9c5c8629fd94b4e1b5fa045afe0dd1ccc1b21d) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(web/react-native/ui): use translated strings for VerifyUser screen and use censorContactMethod util
+
+  **ui/Angular/React/Vue/ReactNative:** adds a `censorContactMethod()` utility to the `ui` package and refactors the VerifyUser screen in Angular, React, Vue, and ReactNative packages to use this utility.
+
+  **Vue:** Fixes an issue where translated strings were not being properly used for the VerifyUser screen. Additionally, removes duplicate "verify" id that was on multiple elements.
+
+- [#5003](https://github.com/aws-amplify/amplify-ui/pull/5003) [`32702d9c9`](https://github.com/aws-amplify/amplify-ui/commit/32702d9c976e81b23b4e8f1c7e935b48288e058d) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(ui/react): add missing color token for CheckboxField label
+
+  The CheckboxField label color (and disabled color) can now be themed correctly via:
+
+  ```
+  label: {
+    color: { value: '{colors.purple.80}' },
+    _disabled: {
+      color: { value: '{colors.purple.60}' },
+    },
+  },
+  ```
+
+- Updated dependencies [[`1d9c5c862`](https://github.com/aws-amplify/amplify-ui/commit/1d9c5c8629fd94b4e1b5fa045afe0dd1ccc1b21d), [`4eae32e91`](https://github.com/aws-amplify/amplify-ui/commit/4eae32e91ecc64b24a0092c4aee234b87420ce07), [`32702d9c9`](https://github.com/aws-amplify/amplify-ui/commit/32702d9c976e81b23b4e8f1c7e935b48288e058d)]:
+  - @aws-amplify/ui@6.0.11
+  - @aws-amplify/ui-react-core@3.0.11
+
+## 6.1.4
+
+### Patch Changes
+
+- Updated dependencies [[`80ad8cda6`](https://github.com/aws-amplify/amplify-ui/commit/80ad8cda66800f88150054fa51a7bbcdd0730566)]:
+  - @aws-amplify/ui@6.0.10
+  - @aws-amplify/ui-react-core@3.0.10
+
 ## 6.1.3
 
 ### Patch Changes

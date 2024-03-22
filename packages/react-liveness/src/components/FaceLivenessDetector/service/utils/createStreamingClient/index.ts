@@ -1,0 +1,1 @@
+export { createStreamingClient } from './createStreamingClient';

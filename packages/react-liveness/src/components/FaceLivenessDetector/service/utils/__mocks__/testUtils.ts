@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { PassThrough } from 'stream';
 import { ActorRef } from 'xstate';
 import {
@@ -6,6 +5,8 @@ import {
   ColorSequence,
   SessionInformation,
 } from '@aws-sdk/client-rekognitionstreaming';
+
+import { STATIC_VIDEO_CONSTRAINTS } from '../../../utils/helpers';
 import {
   FaceMatchState,
   Face,
@@ -13,10 +14,61 @@ import {
   IlluminationState,
   LivenessContext,
 } from '../../types';
+import { VideoRecorder } from '../videoRecorder';
 
-const mockedStream = new PassThrough(); // TODO: a following PR after PR634 will be made to have the stream emit the proper mock data.
+const MOCK_TIMESTAMP = 1640995200000;
 
-export const testTimestampMs = 1640995200000;
+const SEQUENCE_DEFAULTS = { DownscrollDuration: 300, FlatDisplayDuration: 100 };
+export const MOCK_COLOR_SEQUENCES: ColorSequence[] = [
+  {
+    FreshnessColor: {
+      RGB: [0, 0, 0], // black
+    },
+    ...SEQUENCE_DEFAULTS,
+  },
+  {
+    FreshnessColor: {
+      RGB: [255, 255, 255], // white
+    },
+    ...SEQUENCE_DEFAULTS,
+  },
+  {
+    FreshnessColor: {
+      RGB: [255, 0, 0], // red
+    },
+    ...SEQUENCE_DEFAULTS,
+  },
+  {
+    FreshnessColor: {
+      RGB: [255, 255, 0], // yellow
+    },
+    ...SEQUENCE_DEFAULTS,
+  },
+  {
+    FreshnessColor: {
+      RGB: [0, 255, 0], // lime
+    },
+    ...SEQUENCE_DEFAULTS,
+  },
+  {
+    FreshnessColor: {
+      RGB: [0, 255, 255], // cyan
+    },
+    ...SEQUENCE_DEFAULTS,
+  },
+  {
+    FreshnessColor: {
+      RGB: [0, 0, 255], // blue,
+    },
+    ...SEQUENCE_DEFAULTS,
+  },
+  {
+    FreshnessColor: {
+      RGB: [255, 0, 255], // violet
+    },
+    ...SEQUENCE_DEFAULTS,
+  },
+];
 
 export const mockBlazeFace: any = {
   modelLoadingPromise: Promise.resolve(),
@@ -24,11 +76,12 @@ export const mockBlazeFace: any = {
   loadModels: jest.fn(),
   detectFaces: jest.fn(),
 };
+
 export const mockVideoConstaints: MediaTrackConstraints = {
-  width: { min: 320, ideal: 640, max: 1920 },
-  height: { min: 240, ideal: 480, max: 1080 },
-  facingMode: 'user',
+  deviceId: 'some-device-id',
+  ...STATIC_VIDEO_CONSTRAINTS,
 };
+
 export const mockCameraDevice: MediaDeviceInfo = {
   deviceId: 'some-device-id',
   groupId: 'some-group-id',
@@ -36,34 +89,39 @@ export const mockCameraDevice: MediaDeviceInfo = {
   label: 'some-label',
   toJSON: () => ({}),
 };
+
+const mockVideoTrack = {
+  getSettings: () => ({
+    width: 640,
+    height: 480,
+    deviceId: mockCameraDevice.deviceId,
+    frameRate: 30,
+  }),
+  stop: jest.fn(),
+} as any as MediaStreamTrack;
+
 export const mockVideoMediaStream = {
-  getTracks: () => [
-    {
-      getSettings: () => ({
-        width: 640,
-        height: 480,
-        deviceId: mockCameraDevice.deviceId,
-      }),
-    },
-  ],
+  getTracks: () => [mockVideoTrack],
 } as MediaStream;
-export const mockVideoRecorder: any = {
+
+export const mockVideoRecorder = {
   start: jest.fn(),
   stop: jest.fn(),
-  getBlob: jest.fn(),
   recordingStartApiTimestamp: Date.now(),
   recorderStartTimestamp: Date.now(),
   recorderEndTimestamp: Date.now(),
   firstChunkTimestamp: Date.now(),
   getVideoChunkSize: jest.fn(),
   getState: () => 'idle',
-};
+  dispatch: jest.fn(),
+} as unknown as VideoRecorder;
+
 export const mockFace: Face = {
   height: 100,
   width: 100,
   left: 150,
   top: 200,
-  timestampMs: testTimestampMs,
+  timestampMs: MOCK_TIMESTAMP,
   rightEye: [200, 200],
   leftEye: [200, 200],
   mouth: [200, 200],
@@ -71,6 +129,7 @@ export const mockFace: Face = {
   rightEar: [200, 200],
   leftEar: [200, 200],
 };
+
 export const mockOvalDetails: LivenessOvalDetails = {
   height: 100,
   width: 100,
@@ -78,135 +137,20 @@ export const mockOvalDetails: LivenessOvalDetails = {
   centerX: 50,
   centerY: 50,
 };
+
 export const mockLivenessStreamProvider: any = {
   sendClientInfo: jest.fn(),
   endStreamWithCode: jest.fn(),
   stopVideo: jest.fn(),
   dispatchStopVideoEvent: jest.fn(),
-  getResponseStream: jest.fn().mockResolvedValue([mockedStream]), // TODO: a following PR after PR634 will be made to have the stream emit the proper mock data.
+  getResponseStream: jest.fn().mockResolvedValue([new PassThrough()]),
   startRecordingLivenessVideo: jest.fn(),
   videoRecorder: mockVideoRecorder,
 };
+
 export const mockFreshnessColorDisplay: any = {
   displayColorTick: () => true,
 };
-export const mockResponseStreamActorRef: ActorRef<any> = {
-  send: jest.fn(),
-  id: 'mockactor',
-  getSnapshot: jest.fn(),
-  subscribe: jest.fn(),
-  [Symbol.observable]: jest.fn(),
-};
-
-export const mockContext = (): LivenessContext => {
-  return {
-    challengeId: 'foobar',
-    maxFailedAttempts: 3,
-    failedAttempts: 0,
-    componentProps: {
-      sessionId: 'foobar',
-      region: 'us-east-1',
-      onAnalysisComplete: jest.fn(),
-    },
-    videoAssociatedParams: {
-      videoConstraints: mockVideoConstaints,
-      videoEl: document.createElement('video'),
-      canvasEl: document.createElement('canvas'),
-      videoMediaStream: mockVideoMediaStream,
-      videoRecorder: mockVideoRecorder,
-      recordingStartTimestampMs: 1,
-      isMobile: false,
-    },
-    ovalAssociatedParams: {
-      faceDetector: mockBlazeFace,
-      initialFace: mockFace,
-      ovalDetails: mockOvalDetails,
-      scaleFactor: 1,
-    },
-    faceMatchAssociatedParams: {
-      illuminationState: IlluminationState.NORMAL,
-      faceMatchState: FaceMatchState.MATCHED,
-      faceMatchPercentage: 100,
-      currentDetectedFace: mockFace,
-      startFace: mockFace,
-      endFace: mockFace,
-      initialFaceMatchTime: Date.now() - 1000,
-    },
-    freshnessColorAssociatedParams: {
-      freshnessColorEl: document.createElement('canvas'),
-      freshnessColors: [],
-      freshnessColorsComplete: false,
-      freshnessColorDisplay: mockFreshnessColorDisplay,
-    },
-    errorState: undefined,
-    livenessStreamProvider: mockLivenessStreamProvider,
-    serverSessionInformation: mockSessionInformation,
-    responseStreamActorRef: mockResponseStreamActorRef,
-    shouldDisconnect: false,
-    faceMatchStateBeforeStart: FaceMatchState.MATCHED,
-    isFaceFarEnoughBeforeRecording: true,
-    isRecordingStopped: false,
-  };
-};
-
-export const MOCK_COLOR_SEQUENCES: ColorSequence[] = [
-  {
-    FreshnessColor: {
-      RGB: [0, 0, 0], // black
-    },
-    DownscrollDuration: 300,
-    FlatDisplayDuration: 100,
-  },
-  {
-    FreshnessColor: {
-      RGB: [255, 255, 255], // white
-    },
-    DownscrollDuration: 300,
-    FlatDisplayDuration: 100,
-  },
-  {
-    FreshnessColor: {
-      RGB: [255, 0, 0], // red
-    },
-    DownscrollDuration: 300,
-    FlatDisplayDuration: 100,
-  },
-  {
-    FreshnessColor: {
-      RGB: [255, 255, 0], // yellow
-    },
-    DownscrollDuration: 300,
-    FlatDisplayDuration: 100,
-  },
-  {
-    FreshnessColor: {
-      RGB: [0, 255, 0], // lime
-    },
-    DownscrollDuration: 300,
-    FlatDisplayDuration: 100,
-  },
-  {
-    FreshnessColor: {
-      RGB: [0, 255, 255], // cyan
-    },
-    DownscrollDuration: 300,
-    FlatDisplayDuration: 100,
-  },
-  {
-    FreshnessColor: {
-      RGB: [0, 0, 255], // blue,
-    },
-    DownscrollDuration: 300,
-    FlatDisplayDuration: 100,
-  },
-  {
-    FreshnessColor: {
-      RGB: [255, 0, 255], // violet
-    },
-    DownscrollDuration: 300,
-    FlatDisplayDuration: 100,
-  },
-];
 
 export const mockSessionInformation: SessionInformation = {
   Challenge: {
@@ -235,7 +179,64 @@ export const mockSessionInformation: SessionInformation = {
   },
 };
 
-export const MOCK_NO_FLAT_COLOR_SEQUENCES: ColorSequence[] = [
+const mockResponseStreamActorRef: ActorRef<any> = {
+  send: jest.fn(),
+  id: 'mockactor',
+  getSnapshot: jest.fn(),
+  subscribe: jest.fn(),
+  [Symbol.observable]: jest.fn(),
+};
+
+export const getMockContext = (): LivenessContext => ({
+  challengeId: 'foobar',
+  maxFailedAttempts: 3,
+  failedAttempts: 0,
+  componentProps: {
+    sessionId: 'foobar',
+    region: 'us-east-1',
+    onAnalysisComplete: jest.fn(),
+  },
+  videoAssociatedParams: {
+    videoConstraints: mockVideoConstaints,
+    videoEl: document.createElement('video'),
+    canvasEl: document.createElement('canvas'),
+    videoMediaStream: mockVideoMediaStream,
+    videoRecorder: mockVideoRecorder,
+    recordingStartTimestampMs: 1,
+    isMobile: false,
+  },
+  ovalAssociatedParams: {
+    faceDetector: mockBlazeFace,
+    initialFace: mockFace,
+    ovalDetails: mockOvalDetails,
+    scaleFactor: 1,
+  },
+  faceMatchAssociatedParams: {
+    illuminationState: IlluminationState.NORMAL,
+    faceMatchState: FaceMatchState.MATCHED,
+    faceMatchPercentage: 100,
+    currentDetectedFace: mockFace,
+    startFace: mockFace,
+    endFace: mockFace,
+    initialFaceMatchTime: Date.now() - 1000,
+  },
+  freshnessColorAssociatedParams: {
+    freshnessColorEl: document.createElement('canvas'),
+    freshnessColors: [],
+    freshnessColorsComplete: false,
+    freshnessColorDisplay: mockFreshnessColorDisplay,
+  },
+  errorState: undefined,
+  livenessStreamProvider: mockLivenessStreamProvider,
+  serverSessionInformation: mockSessionInformation,
+  responseStreamActorRef: mockResponseStreamActorRef,
+  shouldDisconnect: false,
+  faceMatchStateBeforeStart: FaceMatchState.MATCHED,
+  isFaceFarEnoughBeforeRecording: true,
+  isRecordingStopped: false,
+});
+
+const MOCK_NO_FLAT_COLOR_SEQUENCES: ColorSequence[] = [
   {
     FreshnessColor: {
       RGB: [0, 0, 0], // black
@@ -335,3 +336,14 @@ export const mockClientSessionInformationEvent: ClientSessionInformationEvent =
       },
     },
   };
+
+export const mockMediaRecorder = {
+  start: jest.fn(),
+  ondataavailable: jest.fn(),
+  onerror: jest.fn(),
+  state: '',
+  stop: jest.fn(),
+  addEventListener: jest.fn(),
+  pause: jest.fn(),
+  dispatchEvent: jest.fn(),
+};

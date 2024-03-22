@@ -554,7 +554,7 @@ export const guides: ComponentNavItem[] = [
   {
     href: '/guides/css-in-js',
     label: 'CSS in JS',
-    platforms: ['react', 'vue', 'angular'],
+    platforms: ['react'],
   },
 ];
 

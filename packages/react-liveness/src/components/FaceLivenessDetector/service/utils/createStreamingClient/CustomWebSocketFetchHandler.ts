@@ -20,7 +20,7 @@ import {
   RequestHandler,
   RequestHandlerMetadata,
 } from '@smithy/types';
-import { WS_CLOSURE_CODE } from './constants';
+import { WS_CLOSURE_CODE } from '../constants';
 
 const DEFAULT_WS_CONNECTION_TIMEOUT_MS = 2000;
 
@@ -43,11 +43,11 @@ const getIterator = (stream: any): AsyncIterable<any> => {
   }
 
   if (isReadableStream(stream)) {
-    //If stream is a ReadableStream, transfer the ReadableStream to async iterable.
+    // If stream is a ReadableStream, transfer the ReadableStream to async iterable.
     return readableStreamtoIterable(stream);
   }
 
-  //For other types, just wrap them with an async iterable.
+  // For other types, just wrap them with an async iterable.
   return {
     [Symbol.asyncIterator]: async function* () {
       yield stream;
@@ -128,8 +128,8 @@ export class CustomWebSocketFetchHandler {
     this.sockets[url].push(socket);
 
     socket.binaryType = 'arraybuffer';
-    const { connectionTimeout = DEFAULT_WS_CONNECTION_TIMEOUT_MS } = await this
-      .configPromise;
+    const { connectionTimeout = DEFAULT_WS_CONNECTION_TIMEOUT_MS } =
+      await this.configPromise;
     await this.waitForReady(socket, connectionTimeout);
     const { body } = request;
     const bodyStream = getIterator(body);

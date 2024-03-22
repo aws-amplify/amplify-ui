@@ -279,7 +279,7 @@
 
 .amplify-liveness-landscape-error-modal {
   background-color: var(--amplify-colors-background-primary);
-  direction: column;
+  flex-direction: column;
   text-align: center;
   align-items: center;
   justify-content: center;

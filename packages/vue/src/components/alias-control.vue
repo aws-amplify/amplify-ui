@@ -91,7 +91,7 @@ const randomPhone = Math.floor(Math.random() * 999999);
         </base-wrapper>
       </base-wrapper>
       <base-wrapper class="amplify-field-group__field-wrapper">
-        <!--Phone input-->
+      <!--Phone input-->
         <base-input
           class="amplify-input amplify-field-group__control"
           :id="'amplify-field-' + random"
@@ -102,6 +102,7 @@ const randomPhone = Math.floor(Math.random() * 999999);
           :placeholder="placeholder"
           :aria-invalid="hasError"
           :aria-describedBy="describedBy"
+          autocapitalize="off"
         ></base-input>
       </base-wrapper>
     </base-wrapper>
