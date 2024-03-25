@@ -129,6 +129,7 @@ describe('Liveness Machine', () => {
     jest.advanceTimersToNextTimer(); // checkFaceDetected
     jest.advanceTimersToNextTimer(); // checkRecordingStarted
     await advanceMinFaceMatches(); // detectFaceAndMatchOval
+    jest.advanceTimersToNextTimer(); // delayBeforeFlash
     await flushPromises(); // flashFreshnessColors
   }
 
@@ -544,13 +545,33 @@ describe('Liveness Machine', () => {
       );
     });
 
-    it('should reach flashFreshnessColors state after detectFaceAndMatchOval success', async () => {
+    it('should reach delayBeforeFlash state after detectFaceAndMatchOval success', async () => {
       await transitionToRecording(service);
       await flushPromises(); // detectInitialFaceAndDrawOval
       jest.advanceTimersToNextTimer(); // checkFaceDetected
       jest.advanceTimersToNextTimer(); // checkRecordingStarted
 
       await advanceMinFaceMatches(); // detectFaceAndMatchOval
+
+      expect(service.state.value).toEqual({
+        recording: 'delayBeforeFlash',
+      });
+      expect(
+        service.state.context.faceMatchAssociatedParams!.faceMatchState
+      ).toBe(FaceMatchState.MATCHED);
+      expect(service.state.context.faceMatchAssociatedParams!.endFace).toBe(
+        mockFace
+      );
+    });
+
+    it('should reach flashFreshnessColors state after detectFaceAndMatchOval success and delayBeforeFlash', async () => {
+      await transitionToRecording(service);
+      await flushPromises(); // detectInitialFaceAndDrawOval
+      jest.advanceTimersToNextTimer(); // checkFaceDetected
+      jest.advanceTimersToNextTimer(); // checkRecordingStarted
+
+      await advanceMinFaceMatches(); // detectFaceAndMatchOval
+      jest.advanceTimersToNextTimer(); // delayBeforeFlash
 
       expect(service.state.value).toEqual({
         recording: 'flashFreshnessColors',
@@ -569,6 +590,7 @@ describe('Liveness Machine', () => {
       jest.advanceTimersToNextTimer(); // checkFaceDetected
       jest.advanceTimersToNextTimer(); // checkRecordingStarted
       await advanceMinFaceMatches(); // detectFaceAndMatchOval
+      jest.advanceTimersToNextTimer(); // delayBeforeFlash
       await flushPromises(); // flashFreshnessColors
 
       expect(service.state.value).toEqual({
