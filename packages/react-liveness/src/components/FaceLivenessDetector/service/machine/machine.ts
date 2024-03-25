@@ -334,6 +334,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               100: { target: 'checkRecordingStarted' },
             },
           },
+          // Evaluates face match and moves to checkMatch
+          // which continually checks for match until either timeout or face match
           ovalMatching: {
             entry: 'cancelOvalDrawingTimeout',
             invoke: {
@@ -344,6 +346,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               },
             },
           },
+          // If hasFaceMatchedInOval is true, then move to flashFreshnessColors
+          // and pause for one second to show "Hold still" text
+          // If not, move back to ovalMatching and re-evaluate match state
           checkMatch: {
             after: {
               0: {
