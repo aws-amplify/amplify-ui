@@ -346,8 +346,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               },
             },
           },
-          // If hasFaceMatchedInOval is true, then move to flashFreshnessColors
-          // and pause for one second to show "Hold still" text
+          // If `hasFaceMatchedInOval` is true, then move to `delayBeforeFlash`, which pauses 
+          // for one second to show "Hold still" text before moving to `flashFreshnessColors`.
           // If not, move back to ovalMatching and re-evaluate match state
           checkMatch: {
             after: {
