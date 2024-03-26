@@ -186,13 +186,11 @@ export function drawLivenessOvalInCanvas({
   oval,
   scaleFactor,
   videoEl,
-  isStartScreen,
 }: {
   canvas: HTMLCanvasElement;
   oval: LivenessOvalDetails;
   scaleFactor: number;
   videoEl: HTMLVideoElement;
-  isStartScreen?: boolean;
 }): void {
   const { flippedCenterX, centerY, width, height } = oval;
 
@@ -205,11 +203,9 @@ export function drawLivenessOvalInCanvas({
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
     // fill the canvas with a transparent rectangle
-    ctx.fillStyle = isStartScreen
-      ? getComputedStyle(canvas).getPropertyValue(
-          '--amplify-colors-background-primary'
-        )
-      : '#fff';
+    ctx.fillStyle = getComputedStyle(canvas).getPropertyValue(
+      '--amplify-colors-background-primary'
+    );
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
     // On mobile our canvas is the width/height of the full screen.
@@ -288,7 +284,6 @@ export function drawStaticOval(
     oval: ovalDetails,
     scaleFactor,
     videoEl: videoEl,
-    isStartScreen: true,
   });
 }
 
