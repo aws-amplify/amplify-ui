@@ -28,7 +28,6 @@ export interface FaceMatchAssociatedParams {
   currentDetectedFace?: Face;
   startFace?: Face;
   endFace?: Face;
-  initialFaceMatchTime?: number;
 }
 
 export interface FreshnessColorAssociatedParams {

@@ -20,7 +20,7 @@ import {
   RequestHandler,
   RequestHandlerMetadata,
 } from '@smithy/types';
-import { WS_CLOSURE_CODE } from './constants';
+import { WS_CLOSURE_CODE } from '../constants';
 
 const DEFAULT_WS_CONNECTION_TIMEOUT_MS = 2000;
 

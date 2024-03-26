@@ -42,11 +42,11 @@ jobs:
             build-tool: vuecli
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+        uses: actions/checkout@cd7d8d697e10461458bc61a30d094dc601a8b017 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
         with:
           persist-credentials: false
       - name: Setup Node.js 20
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
         with:
           node-version: 20
           cache: 'yarn'
@@ -84,7 +84,7 @@ jobs:
       # This steps attempts to restore cypress runner. It will not create any new
       # cache entries however, because cypress runner isn't available yet.
       - name: Restore cypress runner from Cache
-        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
@@ -103,7 +103,7 @@ jobs:
       # step, so we go ahead and update the cache entry.
       - name: Cache cypress runner
         if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
-        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-canary-cypress-${{ hashFiles('canary/e2e/yarn.lock') }}

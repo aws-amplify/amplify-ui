@@ -11,6 +11,8 @@ import { FaceDetection } from '../types/faceDetection';
 import { ClientFreshnessColorSequence } from '../types/service';
 import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
 import {
+  FACE_HEIGHT_WEIGHT,
+  PUPIL_DISTANCE_WEIGHT,
   FACE_DISTANCE_THRESHOLD,
   REDUCED_THRESHOLD,
   REDUCED_THRESHOLD_MOBILE,
@@ -326,17 +328,10 @@ function getPupilDistanceAndFaceHeight(face: Face) {
 
 export function generateBboxFromLandmarks(
   face: Face,
-  oval: LivenessOvalDetails
+  oval: LivenessOvalDetails,
+  frameHeight: number
 ): BoundingBox {
-  const {
-    leftEye,
-    rightEye,
-    nose,
-    leftEar,
-    rightEar,
-    top: faceTop,
-    height: faceHeight,
-  } = face;
+  const { leftEye, rightEye, nose, leftEar, rightEar } = face;
   const { height: ovalHeight, centerY } = oval;
   const ovalTop = centerY - ovalHeight / 2;
 
@@ -347,129 +342,29 @@ export function generateBboxFromLandmarks(
   const { pupilDistance: pd, faceHeight: fh } =
     getPupilDistanceAndFaceHeight(face);
 
-  const alpha = 2.0,
-    gamma = 1.8;
-  const ow = (alpha * pd + gamma * fh) / 2;
-  const oh = 1.618 * ow;
+  const ocularWidth =
+    (PUPIL_DISTANCE_WEIGHT * pd + FACE_HEIGHT_WEIGHT * fh) / 2;
 
-  let cx: number;
+  let centerFaceX, centerFaceY: number;
 
   if (eyeCenter[1] <= (ovalTop + ovalHeight) / 2) {
-    cx = (eyeCenter[0] + nose[0]) / 2;
+    centerFaceX = (eyeCenter[0] + nose[0]) / 2;
+    centerFaceY = (eyeCenter[1] + nose[1]) / 2;
   } else {
-    cx = eyeCenter[0];
+    // when face tilts down
+    centerFaceX = eyeCenter[0];
+    centerFaceY = eyeCenter[1];
   }
 
-  const bottom = faceTop + faceHeight;
-  const top = bottom - oh;
-  const left = Math.min(cx - ow / 2, rightEar[0]);
-  const right = Math.max(cx + ow / 2, leftEar[0]);
+  const faceWidth = ocularWidth;
+  const faceHeight = 1.68 * faceWidth;
+
+  const top = Math.max(centerFaceY - faceHeight / 2, 0);
+  const bottom = Math.min(centerFaceY + faceHeight / 2, frameHeight);
+  const left = Math.min(centerFaceX - ocularWidth / 2, rightEar[0]);
+  const right = Math.max(centerFaceX + ocularWidth / 2, leftEar[0]);
 
   return { bottom, left, right, top };
-}
-
-/**
- * Returns the state of the provided face with respect to the provided liveness oval.
- */
-// eslint-disable-next-line max-params
-export function getFaceMatchStateInLivenessOval(
-  face: Face,
-  ovalDetails: LivenessOvalDetails,
-  initialFaceIntersection: number,
-  sessionInformation: SessionInformation
-): {
-  faceMatchState: FaceMatchState;
-  faceMatchPercentage: number;
-} {
-  let faceMatchState: FaceMatchState;
-
-  const challengeConfig =
-    sessionInformation?.Challenge?.FaceMovementAndLightChallenge
-      ?.ChallengeConfig;
-  if (
-    !challengeConfig ||
-    !challengeConfig.OvalIouThreshold ||
-    !challengeConfig.OvalIouHeightThreshold ||
-    !challengeConfig.OvalIouWidthThreshold ||
-    !challengeConfig.FaceIouHeightThreshold ||
-    !challengeConfig.FaceIouWidthThreshold
-  ) {
-    throw new Error(
-      'Challenge information not returned from session information.'
-    );
-  }
-
-  const {
-    OvalIouThreshold,
-    OvalIouHeightThreshold,
-    OvalIouWidthThreshold,
-    FaceIouHeightThreshold,
-    FaceIouWidthThreshold,
-  } = challengeConfig;
-
-  const faceBoundingBox: BoundingBox = generateBboxFromLandmarks(
-    face,
-    ovalDetails
-  );
-  const minFaceX = faceBoundingBox.left;
-  const maxFaceX = faceBoundingBox.right;
-  const minFaceY = faceBoundingBox.top;
-  const maxFaceY = faceBoundingBox.bottom;
-
-  const { ovalBoundingBox, minOvalX, minOvalY, maxOvalX, maxOvalY } =
-    getOvalBoundingBox(ovalDetails);
-
-  const intersection = getIntersectionOverUnion(
-    faceBoundingBox,
-    ovalBoundingBox
-  );
-
-  const intersectionThreshold = OvalIouThreshold;
-  const ovalMatchWidthThreshold = ovalDetails.width * OvalIouWidthThreshold;
-  const ovalMatchHeightThreshold = ovalDetails.height * OvalIouHeightThreshold;
-  const faceDetectionWidthThreshold = ovalDetails.width * FaceIouWidthThreshold;
-  const faceDetectionHeightThreshold =
-    ovalDetails.height * FaceIouHeightThreshold;
-
-  /** From Science
-   * p=max(min(1,0.75∗(si−s0)/(st−s0)+0.25)),0)
-   */
-  const faceMatchPercentage =
-    Math.max(
-      Math.min(
-        1,
-        (0.75 * (intersection - initialFaceIntersection)) /
-          (intersectionThreshold - initialFaceIntersection) +
-          0.25
-      ),
-      0
-    ) * 100;
-
-  const faceIsOutsideOvalToTheLeft = minOvalX > minFaceX && maxOvalX > maxFaceX;
-  const faceIsOutsideOvalToTheRight =
-    minFaceX > minOvalX && maxFaceX > maxOvalX;
-
-  if (
-    intersection > intersectionThreshold &&
-    Math.abs(minOvalX - minFaceX) < ovalMatchWidthThreshold &&
-    Math.abs(maxOvalX - maxFaceX) < ovalMatchWidthThreshold &&
-    Math.abs(maxOvalY - maxFaceY) < ovalMatchHeightThreshold
-  ) {
-    faceMatchState = FaceMatchState.MATCHED;
-  } else if (faceIsOutsideOvalToTheLeft || faceIsOutsideOvalToTheRight) {
-    faceMatchState = FaceMatchState.OFF_CENTER;
-  } else if (
-    minOvalY - minFaceY > faceDetectionHeightThreshold ||
-    maxFaceY - maxOvalY > faceDetectionHeightThreshold ||
-    (minOvalX - minFaceX > faceDetectionWidthThreshold &&
-      maxFaceX - maxOvalX > faceDetectionWidthThreshold)
-  ) {
-    faceMatchState = FaceMatchState.TOO_CLOSE;
-  } else {
-    faceMatchState = FaceMatchState.TOO_FAR;
-  }
-
-  return { faceMatchState, faceMatchPercentage };
 }
 
 /**
@@ -770,10 +665,11 @@ export async function isFaceDistanceBelowThreshold({
       const { pupilDistance, faceHeight } =
         getPupilDistanceAndFaceHeight(detectedFace);
 
-      const alpha = 2.0,
-        gamma = 1.8;
       const calibratedPupilDistance =
-        (alpha * pupilDistance + gamma * faceHeight) / 2 / alpha;
+        (PUPIL_DISTANCE_WEIGHT * pupilDistance +
+          FACE_HEIGHT_WEIGHT * faceHeight) /
+        2 /
+        PUPIL_DISTANCE_WEIGHT;
 
       if (width) {
         isDistanceBelowThreshold =
