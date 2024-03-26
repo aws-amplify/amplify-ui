@@ -77,7 +77,7 @@ export const mockBlazeFace: any = {
   detectFaces: jest.fn(),
 };
 
-export const mockVideoConstaints: MediaTrackConstraints = {
+export const mockVideoConstraints: MediaTrackConstraints = {
   deviceId: 'some-device-id',
   ...STATIC_VIDEO_CONSTRAINTS,
 };
@@ -116,6 +116,14 @@ export const mockVideoRecorder = {
   dispatch: jest.fn(),
 } as unknown as VideoRecorder;
 
+export const mockOvalDetails: LivenessOvalDetails = {
+  flippedCenterX: 320,
+  centerX: 320,
+  centerY: 240,
+  width: 288,
+  height: 465,
+};
+
 export const mockFace: Face = {
   height: 100,
   width: 100,
@@ -128,14 +136,6 @@ export const mockFace: Face = {
   nose: [200, 200],
   rightEar: [200, 200],
   leftEar: [200, 200],
-};
-
-export const mockOvalDetails: LivenessOvalDetails = {
-  height: 100,
-  width: 100,
-  flippedCenterX: 50,
-  centerX: 50,
-  centerY: 50,
 };
 
 export const mockLivenessStreamProvider: any = {
@@ -197,7 +197,7 @@ export const getMockContext = (): LivenessContext => ({
     onAnalysisComplete: jest.fn(),
   },
   videoAssociatedParams: {
-    videoConstraints: mockVideoConstaints,
+    videoConstraints: mockVideoConstraints,
     videoEl: document.createElement('video'),
     canvasEl: document.createElement('canvas'),
     videoMediaStream: mockVideoMediaStream,
@@ -218,7 +218,6 @@ export const getMockContext = (): LivenessContext => ({
     currentDetectedFace: mockFace,
     startFace: mockFace,
     endFace: mockFace,
-    initialFaceMatchTime: Date.now() - 1000,
   },
   freshnessColorAssociatedParams: {
     freshnessColorEl: document.createElement('canvas'),
