@@ -83,7 +83,6 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
     [FaceMatchState.CANT_IDENTIFY]: hintDisplayText.hintCanNotIdentifyText,
     [FaceMatchState.FACE_IDENTIFIED]: hintDisplayText.hintTooFarText,
     [FaceMatchState.TOO_MANY]: hintDisplayText.hintTooManyFacesText,
-    [FaceMatchState.TOO_CLOSE]: hintDisplayText.hintTooCloseText,
     [FaceMatchState.TOO_FAR]: hintDisplayText.hintTooFarText,
     [FaceMatchState.MATCHED]: hintDisplayText.hintHoldFaceForFreshnessText,
     [FaceMatchState.OFF_CENTER]: hintDisplayText.hintFaceOffCenterText,
@@ -157,15 +156,11 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
   }
 
   if (isRecording && !isFlashingFreshness) {
-    // During face matching, we want to only show the TOO_CLOSE or
-    // TOO_FAR texts. If FaceMatchState matches TOO_CLOSE, we'll show
-    // the TOO_CLOSE text, but for FACE_IDENTIFED, CANT_IDENTIFY, TOO_MANY
+    // During face matching, we want to only show the
+    // TOO_FAR texts. For FACE_IDENTIFIED, CANT_IDENTIFY, TOO_MANY
     // we are defaulting to the TOO_FAR text (for now).
     let resultHintString = FaceMatchStateStringMap[FaceMatchState.TOO_FAR];
-    if (
-      faceMatchState === FaceMatchState.TOO_CLOSE ||
-      faceMatchState === FaceMatchState.MATCHED
-    ) {
+    if (faceMatchState === FaceMatchState.MATCHED) {
       resultHintString = FaceMatchStateStringMap[faceMatchState];
     }
 
@@ -182,12 +177,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
     }
 
     return (
-      <Toast
-        size="large"
-        variation={
-          faceMatchState === FaceMatchState.TOO_CLOSE ? 'error' : 'primary'
-        }
-      >
+      <Toast size="large" variation={'primary'}>
         <VisuallyHidden aria-live="assertive">{a11yHintString}</VisuallyHidden>
         <View aria-label={a11yHintString}>{resultHintString}</View>
       </Toast>
