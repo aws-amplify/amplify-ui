@@ -124,7 +124,7 @@ jobs:
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
       - name: Upload videos and screenshots
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
         if: ${{ failure() && steps.e2e.outcome != 'success' }}
         with:
           name: canary-cypress-error-${{ matrix.framework }}-${{ matrix.build-tool }}
