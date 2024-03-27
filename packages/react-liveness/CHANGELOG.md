@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.0.16
+
+### Patch Changes
+
+- [#5105](https://github.com/aws-amplify/amplify-ui/pull/5105) [`3a3805f6c`](https://github.com/aws-amplify/amplify-ui/commit/3a3805f6cc22eea34d69d40919ab177eb05add49) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(Liveness): update face match algorithm. Removes `TOO_CLOSE` face match state, so "Move back" text can only appear _before_ recording. Once recording, user will not be prompted to move back.
+
+- [#5105](https://github.com/aws-amplify/amplify-ui/pull/5105) [`3a3805f6c`](https://github.com/aws-amplify/amplify-ui/commit/3a3805f6cc22eea34d69d40919ab177eb05add49) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(liveness): Add a one second pause between face match and flashing lights, giving time to read "Hold still" text.
+
+- [#5105](https://github.com/aws-amplify/amplify-ui/pull/5105) [`3a3805f6c`](https://github.com/aws-amplify/amplify-ui/commit/3a3805f6cc22eea34d69d40919ab177eb05add49) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(liveness): remove one second oval match criteria. "Hold still" text will still appear after face match, but we no longer wait for the user to hold still before flashing colors; this happens immediately after a match.
+
 ## 3.0.15
 
 ### Patch Changes
