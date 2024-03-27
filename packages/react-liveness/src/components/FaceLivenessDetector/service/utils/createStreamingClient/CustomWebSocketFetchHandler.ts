@@ -20,9 +20,10 @@ import {
   RequestHandler,
   RequestHandlerMetadata,
 } from '@smithy/types';
-import { WS_CLOSURE_CODE } from '../constants';
-
-const DEFAULT_WS_CONNECTION_TIMEOUT_MS = 2000;
+import {
+  WS_CLOSURE_CODE,
+  DEFAULT_WS_CONNECTION_TIMEOUT_MS,
+} from '../constants';
 
 const isWebSocketRequest = (request: HttpRequest) =>
   request.protocol === 'ws:' || request.protocol === 'wss:';

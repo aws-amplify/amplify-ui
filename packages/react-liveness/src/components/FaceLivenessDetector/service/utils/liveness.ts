@@ -560,7 +560,7 @@ export function fillOverlayCanvasFractional({
   }
 }
 
-export const isClientFreshnessColorSequence = (
+const isClientFreshnessColorSequence = (
   obj: ClientFreshnessColorSequence | undefined
 ): obj is ClientFreshnessColorSequence => !!obj;
 
@@ -592,13 +592,6 @@ export function getColorsSequencesFromSessionInformation(
     );
 
   return colorSequences.filter(isClientFreshnessColorSequence);
-}
-
-export function getRGBArrayFromColorString(colorStr: string): number[] {
-  return colorStr
-    .slice(colorStr.indexOf('(') + 1, colorStr.indexOf(')'))
-    .split(',')
-    .map((str) => parseInt(str));
 }
 
 export async function getFaceMatchState(
@@ -693,32 +686,4 @@ export async function isFaceDistanceBelowThreshold({
   }
 
   return { isDistanceBelowThreshold, error };
-}
-
-export function getBoundingBox({
-  deviceHeight,
-  deviceWidth,
-  height,
-  width,
-  top,
-  left,
-}: {
-  deviceHeight: number;
-  deviceWidth: number;
-  height: number;
-  width: number;
-  top: number;
-  left: number;
-}): {
-  Height: number;
-  Width: number;
-  Top: number;
-  Left: number;
-} {
-  return {
-    Height: height / deviceHeight,
-    Width: width / deviceWidth,
-    Top: top / deviceHeight,
-    Left: left / deviceWidth,
-  };
 }

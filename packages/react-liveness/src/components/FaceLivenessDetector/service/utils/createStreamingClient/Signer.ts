@@ -4,8 +4,7 @@ import {
   RequestPresigningArguments,
 } from '@smithy/types';
 
-// override aws sdk default value of 60
-export const REQUEST_EXPIRY = 299;
+import { REQUEST_EXPIRY } from '../constants';
 
 export class Signer extends SignatureV4 {
   public presign(

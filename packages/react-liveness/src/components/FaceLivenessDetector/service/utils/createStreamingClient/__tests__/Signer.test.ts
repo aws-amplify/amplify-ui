@@ -1,7 +1,8 @@
 import { SignatureV4 } from '@smithy/signature-v4';
 import { AwsCredentialIdentity, HttpRequest } from '@smithy/types';
 
-import { REQUEST_EXPIRY, Signer } from '../Signer';
+import { REQUEST_EXPIRY } from '../../constants';
+import { Signer } from '../Signer';
 
 const signatureV4PresignSpy = jest
   .spyOn(SignatureV4.prototype, 'presign')

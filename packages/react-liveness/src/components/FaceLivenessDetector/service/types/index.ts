@@ -3,3 +3,4 @@ export * from './liveness';
 export * from './machine';
 export * from './error';
 export * from './credentials';
+export * from './service';
