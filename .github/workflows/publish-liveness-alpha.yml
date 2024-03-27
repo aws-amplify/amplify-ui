@@ -63,6 +63,16 @@ jobs:
     uses: ./.github/workflows/reusable-tagged-publish.yml
     needs: e2e
     with:
-      dist-tag: liveness-beta
+      dist-tag: liveness-alpha
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  deploy-sample-app-alpha:
+    runs-on: ubuntu-latest
+    environment: deployment
+    needs: publish
+    steps:
+      - name: Trigger build for alpha liveness sample app pointing at liveness-alpha tag
+        run: curl -X POST -d {} $ENDPOINT -H "Content-Type:application/json"
+        env:
+          ENDPOINT: ${{ secrets.LIVENESS_ALPHA_SAMPLE_APP_BUILD_TRIGGER }}
