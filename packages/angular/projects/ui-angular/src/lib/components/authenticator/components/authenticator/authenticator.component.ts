@@ -1,6 +1,7 @@
 import {
   AfterContentInit,
   ChangeDetectorRef,
+  ChangeDetectionStrategy,
   Component,
   ContentChildren,
   Input,
@@ -28,6 +29,7 @@ const { getSignInTabText, getSignUpTabText } = authenticatorTextUtil;
   templateUrl: './authenticator.component.html',
   providers: [CustomComponentsService], // make sure custom components are scoped to this authenticator only
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthenticatorComponent
   implements OnInit, AfterContentInit, OnDestroy
@@ -49,7 +51,6 @@ export class AuthenticatorComponent
   public signUpTitle = getSignUpTabText();
 
   private hasInitialized = false;
-  private isHandlingHubEvent = false;
   private unsubscribeMachine: () => void;
   private clearUserAgent: () => void;
 
@@ -86,58 +87,30 @@ export class AuthenticatorComponent
 
     const { initializeMachine } = this.authenticator;
 
-    this.authenticator.hubSubject.subscribe(() => {
-      /*
-       * Hub events aren't properly caught by Angular, because they are
-       * synchronous events. Angular tracks async network events and
-       * html events, but not synchronous events like hub.
-       *
-       * On any notable hub events, we run change detection manually.
-       */
-      this.changeDetector.detectChanges();
-
-      /*
-       * Hub events that we handle can lead to multiple state changes:
-       * e.g. `authenticated` -> `signOut` -> initialState.
-       *
-       * We want to ensure change detection runs all the way, until
-       * we reach back to the initial state. Setting the below flag
-       * to true to until we reach initial state.
-       */
-      this.isHandlingHubEvent = true;
-    });
-
     /**
      * Subscribes to state machine changes and sends INIT event
      * once machine reaches 'setup' state.
      */
-    this.unsubscribeMachine = this.authenticator.subscribe(() => {
-      const { route } = this.authenticator;
+    this.unsubscribeMachine = this.authenticator.authStateObservable$.subscribe(
+      () => {
+        const { route } = this.authenticator;
 
-      if (this.isHandlingHubEvent) {
-        this.changeDetector.detectChanges();
+        if (!this.hasInitialized && route === 'setup') {
+          initializeMachine({
+            initialState,
+            loginMechanisms,
+            services,
+            signUpAttributes,
+            socialProviders,
+            formFields,
+          });
 
-        const initialStateWithDefault = initialState ?? 'signIn';
-
-        // We can stop manual change detection if we're back to the initial state
-        if (route === initialStateWithDefault) {
-          this.isHandlingHubEvent = false;
+          this.hasInitialized = true;
         }
+        // manually run change detection when machine state changes
+        this.changeDetector.detectChanges();
       }
-
-      if (!this.hasInitialized && route === 'setup') {
-        initializeMachine({
-          initialState,
-          loginMechanisms,
-          services,
-          signUpAttributes,
-          socialProviders,
-          formFields,
-        });
-
-        this.hasInitialized = true;
-      }
-    }).unsubscribe;
+    ).unsubscribe;
 
     /**
      * handling translations after content init, because authenticator and its

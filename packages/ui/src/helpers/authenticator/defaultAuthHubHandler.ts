@@ -48,7 +48,7 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = (
  *
  * @param service - contains state machine `send` function
  * @param handler - auth event handler
- * @returns function that unsubscribes to the hub evenmt
+ * @returns function that unsubscribes to the hub event
  */
 export const listenToAuthHub = (
   service: AuthInterpreter,
