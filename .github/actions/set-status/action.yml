@@ -25,6 +25,7 @@ runs:
     - name: Set a commit status
       id: set-status
       uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1 https://github.com/actions/github-script/commit/60a0d83039c74a4aee543508d2ffcb1c3799cdea
+      env:
         status_context: ${{ inputs.context }}
         description: ${{ inputs.description }}
         state: ${{ inputs.state }}
