@@ -28,6 +28,22 @@ export const FRAMEWORK_DISPLAY_NAMES: Record<Framework, string> = {
   vue: 'Vue',
 };
 
+export const PREV_MAJOR_VERSIONS: Record<string, number> = {
+  angular: 4,
+  'aws-amplify': 5,
+  react: 5,
+  'react-native': 1,
+  vue: 3,
+};
+
+export const CURRENT_MAJOR_VERSIONS: Record<string, number> = {
+  angular: 5,
+  'aws-amplify': 6,
+  react: 6,
+  'react-native': 2,
+  vue: 4,
+};
+
 // React Native requires direct installation of dependencies with native modules
 export const REACT_NATIVE_DEPENDENCIES =
   '@aws-amplify/react-native react-native-safe-area-context @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill';

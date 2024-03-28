@@ -6,11 +6,10 @@ supportedFrameworks: android|angular|flutter|react|react-native|swift|vue
 
 import { InlineFilter } from '@/components/InlineFilter';
 import AppDirectoryAlert from '@/components/AppDirectoryAlert';
-
-import { Alert, Tabs } from '@aws-amplify/ui-react';
-import { NextSteps } from './NextSteps';
-import { FRAMEWORKS } from '@/data/frameworks';
+import { MigrationGuideCallout } from '@/components/MigrationChanges/MigrationGuideCallout';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+
+import { NextSteps } from './NextSteps';
 import WebIntro from './intro.web.mdx';
 import AndroidIntro from './intro.android.mdx';
 import FlutterIntro from './intro.flutter.mdx';
@@ -30,7 +29,16 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-<InlineFilter filters={['angular', 'react', 'vue']}>
+<InlineFilter filters={['angular']}>
+  <MigrationGuideCallout framework="angular"/>
+  <WebIntro />
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <MigrationGuideCallout framework="react" />
+  <WebIntro />
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+  <MigrationGuideCallout framework="vue" />
   <WebIntro />
 </InlineFilter>
 <InlineFilter filters={['android']}>
@@ -40,6 +48,7 @@ export async function getStaticProps() {
   <FlutterIntro />
 </InlineFilter>
 <InlineFilter filters={['react-native']}>
+  <MigrationGuideCallout framework="react-native" />
   <ReactNativeIntro />
 </InlineFilter>
 <InlineFilter filters={['swift']}>
