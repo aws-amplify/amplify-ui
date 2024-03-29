@@ -1,16 +1,14 @@
-import { getAmplifyUserAgent } from '@aws-amplify/core/internals/utils';
-import { fetchAuthSession } from 'aws-amplify/auth';
 import {
   ClientSessionInformationEvent,
+  LivenessRequestStream,
   LivenessResponseStream,
   RekognitionStreamingClient,
-  RekognitionStreamingClientConfig,
   StartFaceLivenessSessionCommand,
 } from '@aws-sdk/client-rekognitionstreaming';
 import { VideoRecorder } from './videoRecorder';
-import { getLivenessUserAgent } from '../../utils/platform';
+
 import { AwsCredentialProvider } from '../types';
-import { CustomWebSocketFetchHandler } from './CustomWebSocketFetchHandler';
+import { createStreamingClient } from './createStreamingClient';
 
 export interface StartLivenessStreamInput {
   sessionId: string;
@@ -94,9 +92,7 @@ export class LivenessStreamProvider {
 
   public sendClientInfo(clientInfo: ClientSessionInformationEvent): void {
     this.videoRecorder.dispatch(
-      new MessageEvent('clientSesssionInfo', {
-        data: { clientInfo },
-      })
+      new MessageEvent('clientSesssionInfo', { data: { clientInfo } })
     );
   }
 
@@ -113,40 +109,18 @@ export class LivenessStreamProvider {
       await this.stopVideo();
     }
     this.videoRecorder.dispatch(
-      new MessageEvent('endStreamWithCode', {
-        data: { code: code },
-      })
+      new MessageEvent('endStreamWithCode', { data: { code } })
     );
 
     return;
   }
 
   private async init() {
-    const credentials =
-      this.credentialProvider ?? (await fetchAuthSession()).credentials;
-
-    if (!credentials) {
-      throw new Error('No credentials');
-    }
-
-    const clientconfig: RekognitionStreamingClientConfig = {
-      credentials,
+    this._client = await createStreamingClient({
+      credentialsProvider: this.credentialProvider,
+      endpointOverride: this.endpointOverride,
       region: this.region,
-      customUserAgent: `${getAmplifyUserAgent()} ${getLivenessUserAgent()}`,
-      requestHandler: new CustomWebSocketFetchHandler({
-        connectionTimeout: 10_000,
-      }),
-    };
-
-    if (this.endpointOverride) {
-      const override = this.endpointOverride;
-      clientconfig.endpointProvider = () => {
-        const url = new URL(override);
-        return { url };
-      };
-    }
-
-    this._client = new RekognitionStreamingClient(clientconfig);
+    });
 
     this.responseStream = await this.startLivenessVideoConnection();
   }
@@ -154,14 +128,20 @@ export class LivenessStreamProvider {
   // Creates a generator from a stream of video chunks and livenessActionDocuments and yields VideoEvent and ClientEvents
   private getAsyncGeneratorFromReadableStream(
     stream: ReadableStream
-  ): () => AsyncGenerator<any> {
+  ): () => AsyncGenerator<LivenessRequestStream> {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const current = this;
     this._reader = stream.getReader();
     return async function* () {
       while (true) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        const { done, value } = await current._reader.read();
+        const { done, value } = (await current._reader.read()) as {
+          done: boolean;
+          value:
+            | 'stopVideo'
+            | Uint8Array
+            | ClientSessionInformationEvent
+            | EndStreamWithCodeEvent;
+        };
         if (done) {
           return;
         }
@@ -171,7 +151,7 @@ export class LivenessStreamProvider {
           // sending an empty video chunk signals that we have ended sending video
           yield {
             VideoEvent: {
-              VideoChunk: [],
+              VideoChunk: new Uint8Array([]),
               TimestampMillis: Date.now(),
             },
           };
@@ -195,8 +175,10 @@ export class LivenessStreamProvider {
         } else if (isEndStreamWithCodeEvent(value)) {
           yield {
             VideoEvent: {
-              VideoChunk: [],
-              TimestampMillis: { closeCode: value.code },
+              VideoChunk: new Uint8Array([]),
+              // this is a custom type that does not match LivenessRequestStream.
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+              TimestampMillis: { closeCode: value.code } as any,
             },
           };
         }
