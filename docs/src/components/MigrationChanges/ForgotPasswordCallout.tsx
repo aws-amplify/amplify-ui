@@ -18,7 +18,7 @@ export const ForgotPasswordCallout = ({ framework }) => {
     <Alert
       role="none"
       variation="info"
-      heading={`ui-${framework}@${prevFrameworkVersion}.x`}
+      heading={`@aws-amplify/ui-${framework}@${prevFrameworkVersion}.x`}
     >
       <Text>
         Use <code>resetPassword</code> in place of <code>forgotPassword</code>{' '}

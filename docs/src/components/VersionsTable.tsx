@@ -32,10 +32,10 @@ export const VersionsTable = ({ framework }) => {
     <Tabs.Container defaultValue={latestVersion}>
       <Tabs.List>
         <Tabs.Item value={latestVersion}>
-          ui-{framework} v{latestVersion} (latest)
+          `@aws-amplify/ui-{framework}` v{latestVersion} (latest)
         </Tabs.Item>
         <Tabs.Item value={prevVersion}>
-          ui-{framework} v{prevVersion}
+          `@aws-amplify/ui-{framework}` v{prevVersion}
         </Tabs.Item>
       </Tabs.List>
       <Tabs.Panel value={latestVersion}>

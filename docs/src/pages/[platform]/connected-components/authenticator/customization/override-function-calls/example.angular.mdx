@@ -26,28 +26,28 @@ _app.component.html_
 _app.component.ts_
 <Tabs.Container defaultValue={latestVersion}>
   <Tabs.List>
-    <Tabs.Item value={latestVersion}>ui-angular v{latestVersion} (latest)</Tabs.Item>
-    <Tabs.Item value={prevVersion}>ui-angular v{prevVersion}</Tabs.Item>
+    <Tabs.Item value={latestVersion}>`@aws-amplify/ui-angular` v{latestVersion} (latest)</Tabs.Item>
+    <Tabs.Item value={prevVersion}>`@aws-amplify/ui-angular` v{prevVersion}</Tabs.Item>
   </Tabs.List>
   <Tabs.Panel value={latestVersion}>
     In `@aws-amplify/ui-angular` version {latestVersion}, `Auth` function calls are imported directly as shown below. 
     ```js{3}
     import { Component, OnInit } from '@angular/core';
     import { Amplify } from 'aws-amplify';
-    import { signUp } from 'aws-amplify/auth';
+    import { signUp, SignUpInput } from 'aws-amplify/auth';
     import awsExports from './aws-exports';
 
     @Component({
-      selector: 'sign-up-with-email',
-      templateUrl: 'sign-up-with-email.component.html',
+      selector: 'app',
+      templateUrl: 'app.component.html',
     })
-    export class SignUpWithEmailComponent implements OnInit {
+    export class App {
       constructor() {
         Amplify.configure(awsExports);
       }
       services = {
-        async handleSignUp(formData: Record<string, any>) {
-          let { username, password, options } = formData;
+        async handleSignUp(input: SignUpInput) {
+          let { username, password, options } = input;
           // custom username and email
           username = username.toLowerCase();
           const customEmail = options?.userAttributes?.email?.toLowerCase();
@@ -55,9 +55,9 @@ _app.component.ts_
             username,
             password,
             options: {
-              ...formData?.options,
+              ...options,
               userAttributes: {
-                ...formData?.options?.userAttributes,
+                ...options?.userAttributes,
                 email: customEmail,
               },
             },
@@ -78,17 +78,17 @@ _app.component.ts_
       import awsExports from './aws-exports';
 
       @Component({
-        selector: 'sign-up-with-email',
-        templateUrl: 'sign-up-with-email.component.html',
+        selector: 'app',
+        templateUrl: 'app.component.html',
       })
-      export class SignUpWithEmailComponent implements OnInit {
+      export class App {
         constructor() {
           Amplify.configure(awsExports);
         }
 
         services = {
-          async handleSignUp(formData: Record<string, any>) {
-            let { username, password, attributes } = formData;
+          async handleSignUp(input: SignUpInput) {
+            let { username, password, attributes } = input;
             // custom username and email
             username = username.toLowerCase();
             attributes.email = attributes.email.toLowerCase();

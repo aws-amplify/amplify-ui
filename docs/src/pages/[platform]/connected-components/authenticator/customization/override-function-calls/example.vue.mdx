@@ -6,49 +6,50 @@ export const prevVersion = PREV_MAJOR_VERSIONS['vue'];
 
   <Tabs.Container defaultValue={latestVersion}>
     <Tabs.List>
-      <Tabs.Item value={latestVersion}>ui-vue v{latestVersion} (latest)</Tabs.Item>
-      <Tabs.Item value={prevVersion}>ui-vue v{prevVersion}</Tabs.Item>
+      <Tabs.Item value={latestVersion}>`@aws-amplify/ui-vue` v{latestVersion} (latest)</Tabs.Item>
+      <Tabs.Item value={prevVersion}>`@aws-amplify/ui-vue` v{prevVersion}</Tabs.Item>
     </Tabs.List>
     <Tabs.Panel value={latestVersion}>
     In `@aws-amplify/ui-vue` version {latestVersion}, `Auth` function calls are imported directly as shown below. 
     ```html
-      <script setup lang="ts">
-      import { Amplify } from 'aws-amplify';
-      import { signUp } from 'aws-amplify/auth';
-      import { Authenticator } from '@aws-amplify/ui-vue';
-      import '@aws-amplify/ui-vue/styles.css';
-      import aws_exports from './aws-exports';
-      Amplify.configure(aws_exports);
+    <script setup lang="ts">
+    import { Amplify } from 'aws-amplify';
+    import { signUp, SignUpInput } from 'aws-amplify/auth';
+    import { Authenticator } from '@aws-amplify/ui-vue';
+    import '@aws-amplify/ui-vue/styles.css';
+    import aws_exports from './aws-exports';
 
-      const services = {
-        async handleSignUp(formData) {
-          let { username, password, options } = formData;
-          // custom username
-          username = username.toLowerCase();
-          const customEmail = options?.userAttributes?.email?.toLowerCase();
-          return signUp({
-            username,
-            password,
-            options: {
-              ...formData?.options,
-              userAttributes: {
-                ...formData?.options?.userAttributes,
-                email: customEmail,
-              },
+    Amplify.configure(aws_exports);
+
+    const services = {
+      async handleSignUp(input: SignUpInput) {
+        // custom username and email
+        const { username, options } = input
+        const customUsername = username.toLowerCase();
+        const customEmail = options?.userAttributes?.email?.toLowerCase();
+        return signUp({
+          ...input,
+          username: customUsername,
+          options: {
+            ...options,
+            userAttributes: {
+              ...options?.userAttributes,
+              email: customEmail,
             },
-          });
-        },
-      };
-      </script>
+          },
+        });
+      },
+    };
+    </script>
 
-      <template>
-        <authenticator :services="services" initial-state="signUp">
-          <template v-slot="{ user, signOut }">
-            <h1>Hello {{ user.username }}!</h1>
-            <button @click="signOut">Sign Out</button>
-          </template>
-        </authenticator>
-      </template>
+    <template>
+      <authenticator :services="services" initial-state="signUp">
+        <template v-slot="{ user, signOut }">
+          <h1>Hello {{ user.username }}!</h1>
+          <button @click="signOut">Sign Out</button>
+        </template>
+      </authenticator>
+    </template>
     ```
     </Tabs.Panel>
     <Tabs.Panel value={prevVersion}>

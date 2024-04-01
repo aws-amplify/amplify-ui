@@ -6,8 +6,8 @@ export const prevVersion = PREV_MAJOR_VERSIONS['react'];
 
   <Tabs.Container defaultValue={latestVersion}>
     <Tabs.List>
-      <Tabs.Item value={latestVersion}>ui-react v{latestVersion} (latest)</Tabs.Item>
-      <Tabs.Item value={prevVersion}>ui-react v{prevVersion}</Tabs.Item>
+      <Tabs.Item value={latestVersion}>`@aws-amplify/ui-react` v{latestVersion} (latest)</Tabs.Item>
+      <Tabs.Item value={prevVersion}>`@aws-amplify/ui-react` v{prevVersion}</Tabs.Item>
     </Tabs.List>
     <Tabs.Panel value={latestVersion}>
       In `@aws-amplify/ui-react` version {latestVersion}, `Auth` function calls are imported directly as shown below. 
@@ -19,7 +19,7 @@ export const prevVersion = PREV_MAJOR_VERSIONS['react'];
       import awsExports from './aws-exports';
       Amplify.configure(awsExports);
 
-      export default function AuthenticatorWithEmail() {
+      export default function App() {
         const services = {
           async handleSignUp(input: SignUpInput) {
             // custom username and email
@@ -59,10 +59,10 @@ export const prevVersion = PREV_MAJOR_VERSIONS['react'];
       import awsExports from './aws-exports';
       Amplify.configure(awsExports);
 
-      export default function AuthenticatorWithEmail() {
+      export default function App() {
         const services = {
-          async handleSignUp(formData) {
-            let { username, password, attributes } = formData;
+          async handleSignUp(input) {
+            let { username, password, attributes } = input;
             // custom username and email
             username = username.toLowerCase();
             attributes.email = attributes.email.toLowerCase();
