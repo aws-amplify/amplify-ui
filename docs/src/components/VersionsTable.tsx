@@ -44,7 +44,7 @@ export const VersionsTable = ({ framework }) => {
             <TableRow>
               <TableCell as="th">Function Call</TableCell>
               <TableCell as="th">Override Name</TableCell>
-              <TableCell as="th">formData Properties</TableCell>
+              <TableCell as="th">input Properties</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -55,8 +55,8 @@ export const VersionsTable = ({ framework }) => {
               <ResponsiveTableCell label="Override Name">
                 <code>handleSignUp</code>
               </ResponsiveTableCell>
-              <ResponsiveTableCell label="formData Properties">
-                <code>{'{(username, password)}'}</code>
+              <ResponsiveTableCell label="input Properties">
+                <code>{`{username, password}`}</code>
               </ResponsiveTableCell>
             </TableRow>
             <TableRow>
@@ -66,8 +66,8 @@ export const VersionsTable = ({ framework }) => {
               <ResponsiveTableCell label="Override Name">
                 <code>handleSignIn</code>
               </ResponsiveTableCell>
-              <ResponsiveTableCell label="formData Properties">
-                <code>{'{(username, password)}'}</code>
+              <ResponsiveTableCell label="input Properties">
+                <code>{'{username, password}'}</code>
               </ResponsiveTableCell>
             </TableRow>
             <TableRow>
@@ -77,7 +77,7 @@ export const VersionsTable = ({ framework }) => {
               <ResponsiveTableCell label="Override Name">
                 <code>handleConfirmSignIn</code>
               </ResponsiveTableCell>
-              <ResponsiveTableCell label="formData Properties">
+              <ResponsiveTableCell label="input Properties">
                 <code>{'{challengeResponse}'}</code>
               </ResponsiveTableCell>
             </TableRow>
@@ -88,8 +88,8 @@ export const VersionsTable = ({ framework }) => {
               <ResponsiveTableCell label="Override Name">
                 <code>handleConfirmSignUp</code>
               </ResponsiveTableCell>
-              <ResponsiveTableCell label="formData Properties">
-                <code>{'{(username, confirmationCode)}'}</code>
+              <ResponsiveTableCell label="input Properties">
+                <code>{'{username, confirmationCode}'}</code>
               </ResponsiveTableCell>
             </TableRow>
             <TableRow>
@@ -99,7 +99,7 @@ export const VersionsTable = ({ framework }) => {
               <ResponsiveTableCell label="Override Name">
                 <code>handleResetPassword</code>
               </ResponsiveTableCell>
-              <ResponsiveTableCell label="formData Properties">
+              <ResponsiveTableCell label="input Properties">
                 <code>{'{username}'}</code>
               </ResponsiveTableCell>
             </TableRow>
@@ -110,8 +110,8 @@ export const VersionsTable = ({ framework }) => {
               <ResponsiveTableCell label="Override Name">
                 <code>handleConfirmResetPassword</code>
               </ResponsiveTableCell>
-              <ResponsiveTableCell label="formData Properties">
-                <code>{'{(username, newPassword, confirmationCode)}'}</code>
+              <ResponsiveTableCell label="input Properties">
+                <code>{'{username, newPassword, confirmationCode}'}</code>
               </ResponsiveTableCell>
             </TableRow>
           </TableBody>
@@ -135,7 +135,7 @@ export const VersionsTable = ({ framework }) => {
                 <code>handleSignUp</code>
               </ResponsiveTableCell>
               <ResponsiveTableCell label="formData Properties">
-                <code>{'{(username, password, attributes)}'}</code>
+                <code>{'{username, password, attributes}'}</code>
               </ResponsiveTableCell>
             </TableRow>
             <TableRow>
@@ -146,7 +146,7 @@ export const VersionsTable = ({ framework }) => {
                 <code>handleSignIn</code>
               </ResponsiveTableCell>
               <ResponsiveTableCell label="formData Properties">
-                <code>{'{(username, password)}'}</code>
+                <code>{'{username, password}'}</code>
               </ResponsiveTableCell>
             </TableRow>
             <TableRow>
@@ -157,7 +157,7 @@ export const VersionsTable = ({ framework }) => {
                 <code>handleConfirmSignIn</code>
               </ResponsiveTableCell>
               <ResponsiveTableCell label="formData Properties">
-                <code>{'{(user, code, mfaType)}'}</code>
+                <code>{'{user, code, mfaType}'}</code>
               </ResponsiveTableCell>
             </TableRow>
             <TableRow>
@@ -168,7 +168,7 @@ export const VersionsTable = ({ framework }) => {
                 <code>handleConfirmSignUp</code>
               </ResponsiveTableCell>
               <ResponsiveTableCell label="formData Properties">
-                <code>{'{(username, code)}'}</code>
+                <code>{'{username, code}'}</code>
               </ResponsiveTableCell>
             </TableRow>
             <TableRow>
@@ -190,7 +190,7 @@ export const VersionsTable = ({ framework }) => {
                 <code>handleForgotPasswordSubmit</code>
               </ResponsiveTableCell>
               <ResponsiveTableCell label="formData Properties">
-                <code>{'{(username, code, password)}'}</code>
+                <code>{'{username, code, password}'}</code>
               </ResponsiveTableCell>
             </TableRow>
           </TableBody>
