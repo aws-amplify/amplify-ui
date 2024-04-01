@@ -4,7 +4,7 @@ import {
   PREV_MAJOR_VERSIONS,
 } from '../../data/frameworks';
 
-export const AngularSlotsRename = () => {
+export const AngularSlotsRenameCallout = () => {
   return (
     <Alert
       role="none"

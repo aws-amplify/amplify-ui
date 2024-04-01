@@ -10,7 +10,7 @@ import {
 
 import { Example } from '@/components/Example';
 import { InlineFilter } from '@/components/InlineFilter';
-import { AngularSlotsRename } from '@/components/MigrationChanges/AngularSlotsRename';
+import { AngularSlotsRenameCallout } from '@/components/MigrationChanges/AngularSlotsRenameCallout';
 import { SocialProviderDemo } from '@/components/SocialProviderDemo';
 
 ## Headers & Footers
@@ -55,7 +55,7 @@ _app.component.html_
 ```tsx{2,8,14,30,36,52,60,66,70} file=../../../../../../../examples/angular/src/pages/ui/components/authenticator/custom-slots/custom-slots.component.html
 
 ```
-<AngularSlotsRename />
+<AngularSlotsRenameCallout />
 </InlineFilter>
 <InlineFilter filters={['react']}>
 ```tsx{1,2,12,24,25,34,47,48,57,69,70,78,86} file=../../../../../../../examples/next/pages/ui/components/authenticator/custom-slots/index.page.tsx#L20-
