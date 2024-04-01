@@ -87,20 +87,20 @@ _app.component.ts_
         }
 
         services = {
-        async handleSignUp(formData: Record<string, any>) {
-          let { username, password, attributes } = formData;
-          // custom username and email
-          username = username.toLowerCase();
-          attributes.email = attributes.email.toLowerCase();
-          return Auth.signUp({
-            username,
-            password,
-            attributes,
-            autoSignIn: {
-              enabled: true,
-            },
-          });
-        },
+          async handleSignUp(formData: Record<string, any>) {
+            let { username, password, attributes } = formData;
+            // custom username and email
+            username = username.toLowerCase();
+            attributes.email = attributes.email.toLowerCase();
+            return Auth.signUp({
+              username,
+              password,
+              attributes,
+              autoSignIn: {
+                enabled: true,
+              },
+            });
+          },
       };
     ```
   </Tabs.Panel>
