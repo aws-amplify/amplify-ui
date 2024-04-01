@@ -2,7 +2,7 @@ import { Alert, Text } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/router';
 import { Framework, PREV_MAJOR_VERSIONS } from '../../data/frameworks';
 
-export const ForgotPasswordRenameAlert = ({ framework }) => {
+export const ForgotPasswordCallout = ({ framework }) => {
   const {
     query: { platform = 'react' },
   } = useRouter();
