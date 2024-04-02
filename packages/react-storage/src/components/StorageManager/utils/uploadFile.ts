@@ -19,7 +19,7 @@ export function uploadFile({
   file,
   key,
   level = 'private',
-  progressCallback,
+  progressCallback: onProgress,
   errorCallback,
   completeCallback,
   ...rest
@@ -32,8 +32,7 @@ export function uploadFile({
     options: {
       accessLevel: level,
       contentType,
-      onProgress: ({ transferredBytes, totalBytes }) =>
-        progressCallback({ transferredBytes, totalBytes }),
+      onProgress,
       ...rest,
     },
   };
