@@ -8,7 +8,7 @@ import { useUploadFiles, UseUploadFilesProps } from '../useUploadFiles';
 
 const uploadDataSpy = jest
   .spyOn(Storage, 'uploadData')
-  .mockImplementation((input: Storage.UploadDataInput) => {
+  .mockImplementation((input) => {
     return {
       cancel: jest.fn(),
       pause: jest.fn(),

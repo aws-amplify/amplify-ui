@@ -15,7 +15,15 @@ import { defaultStorageManagerDisplayText } from '../utils';
 
 const warnSpy = jest.spyOn(console, 'warn').mockImplementation();
 
-const uploadDataSpy = jest.spyOn(Storage, 'uploadData');
+const uploadDataSpy = jest
+  .spyOn(Storage, 'uploadData')
+  .mockImplementation((input) => ({
+    cancel: jest.fn(),
+    pause: jest.fn(),
+    resume: jest.fn(),
+    state: 'SUCCESS',
+    result: Promise.resolve({ key: input.key, data: input.data }),
+  }));
 
 const storeManagerProps: StorageManagerProps = {
   accessLevel: 'guest',
@@ -23,8 +31,7 @@ const storeManagerProps: StorageManagerProps = {
 };
 describe('StorageManager', () => {
   beforeEach(() => {
-    uploadDataSpy.mockClear();
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   it('renders as expected', () => {
@@ -143,15 +150,6 @@ describe('StorageManager', () => {
   });
 
   it('calls onUploadSuccess callback when file is successfully uploaded', async () => {
-    uploadDataSpy.mockImplementationOnce((input: Storage.UploadDataInput) => {
-      return {
-        cancel: jest.fn(),
-        pause: jest.fn(),
-        resume: jest.fn(),
-        state: 'SUCCESS',
-        result: Promise.resolve({ key: input.key, data: input.data }),
-      };
-    });
     const onUploadSuccess = jest.fn();
     render(
       <StorageManager
@@ -185,15 +183,6 @@ describe('StorageManager', () => {
   });
 
   it('calls onUploadStart callback when file starts uploading', async () => {
-    uploadDataSpy.mockImplementationOnce((input: Storage.UploadDataInput) => {
-      return {
-        cancel: jest.fn(),
-        pause: jest.fn(),
-        resume: jest.fn(),
-        state: 'SUCCESS',
-        result: Promise.resolve({ key: input.key, data: input.data }),
-      };
-    });
     const onUploadStart = jest.fn();
     render(
       <StorageManager {...storeManagerProps} onUploadStart={onUploadStart} />
