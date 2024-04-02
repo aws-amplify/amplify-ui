@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@aws-amplify/ui-vue": "^4.2.3",
-    "aws-amplify": "gen2-storage",
     "vue": "^3.0.5",
     "vue-router": "4"
   },
