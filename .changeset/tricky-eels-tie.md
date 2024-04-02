@@ -15,4 +15,4 @@
 "@aws-amplify/ui-angular": patch
 ---
 
-[DRAFT] chore(deps): update peerDep versions in public packages, point to latest for examples and docs
+chore(deps): update peerDep versions in public packages, point to 6.0.26 for examples and docs
