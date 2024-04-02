@@ -518,7 +518,7 @@
     rxjs "^7.8.1"
     ulid "^2.3.0"
 
-"@aws-amplify/geo@^3.0.26", "@aws-amplify/geo@latest":
+"@aws-amplify/geo@latest":
   version "3.0.26"
   resolved "https://registry.npmjs.org/@aws-amplify/geo/-/geo-3.0.26.tgz#8b9a6d3749638ac2db57123fbf62d930a8dbfdc0"
   integrity sha512-Pbj70HmZAvA848H8d+7k5g8v3nM+X1OY8eR/nMyFjoavbVHDom3cvVzz3lMQXRhm8UGQ3PPawfG8PEjD+UqnXw==
