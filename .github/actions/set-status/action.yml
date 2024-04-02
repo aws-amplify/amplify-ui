@@ -24,7 +24,7 @@ runs:
   steps:
     - name: Set a commit status
       id: set-status
-      uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975 # v6.4.0 https://github.com/actions/github-script/commit/98814c53be79b1d30f795b907e553d8679345975
+      uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1 https://github.com/actions/github-script/commit/60a0d83039c74a4aee543508d2ffcb1c3799cdea
       env:
         status_context: ${{ inputs.context }}
         description: ${{ inputs.description }}
