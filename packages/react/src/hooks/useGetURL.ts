@@ -48,6 +48,7 @@ export const useGetURL: UseGetUrl = (
 
     let ignore = false;
 
+    // @ts-ignore TODO why is this having an issue
     getUrl(getUrlInput)
       .then((response) => {
         if (ignore) {
