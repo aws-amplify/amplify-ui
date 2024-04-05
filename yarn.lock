@@ -436,10 +436,10 @@
   resolved "https://registry.npmjs.org/@assemblyscript/loader/-/loader-0.10.1.tgz#70e45678f06c72fa2e350e8553ec4a4d72b92e06"
   integrity sha512-H71nDOOL8Y7kWRLqf6Sums+01Q5msqBW2KhDUTemh1tvY04eSkSXrK0uj/4mmY0Xr16/3zyZmsrxN7CKuRbNRg==
 
-"@aws-amplify/analytics@7.0.21-gen2-storage.6104ab7.0+6104ab7":
-  version "7.0.21-gen2-storage.6104ab7.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/analytics/-/analytics-7.0.21-gen2-storage.6104ab7.0.tgz#94b7511107463fe435efd536755fbfaac7aec8b4"
-  integrity sha512-Mil44AFLmiOl4JEX36z/QvgR8dHeyk1rbygHnZcub9ao2FZJ4PXd7c4FYxY8lJpsFb04+HnVxXUwKK8UP7Fatw==
+"@aws-amplify/analytics@7.0.21-gen2-storage.a94480d.0+a94480d":
+  version "7.0.21-gen2-storage.a94480d.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/analytics/-/analytics-7.0.21-gen2-storage.a94480d.0.tgz#7f64bcb0b09ef7d473f1c61d74249314df86a432"
+  integrity sha512-0fXw+1y9kHuyIX32+mppMsrGIp/yl59C35zmv/0uj8Yt3oW59D/2dYVfjg8ISMkd8xZXeWZpwLLmFrQhAJB6xA==
   dependencies:
     "@aws-sdk/client-firehose" "3.398.0"
     "@aws-sdk/client-kinesis" "3.398.0"
@@ -447,13 +447,13 @@
     "@smithy/util-utf8" "2.0.0"
     tslib "^2.5.0"
 
-"@aws-amplify/api-graphql@4.0.21-gen2-storage.6104ab7.0+6104ab7":
-  version "4.0.21-gen2-storage.6104ab7.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/api-graphql/-/api-graphql-4.0.21-gen2-storage.6104ab7.0.tgz#25e311bf7be8a2805b67f1be7d90d3b8d3b535de"
-  integrity sha512-7l6a6dXWv0zJHEqC4FEG7Mn7HV3bMF+vsuWAivCADVnkntBvxEs6IxR9wH22AHL2IU3QlhiMwPmSg987PmZltQ==
+"@aws-amplify/api-graphql@4.0.21-gen2-storage.a94480d.0+a94480d":
+  version "4.0.21-gen2-storage.a94480d.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/api-graphql/-/api-graphql-4.0.21-gen2-storage.a94480d.0.tgz#09baba1fbaf55b9d4870f7e92288a570984756b3"
+  integrity sha512-MymXy5hUZ9I5BJe2q1ckhN20YWT7ue10xYOnZc+rk3jpIF9YKfRjWwSvnwo2P3K/Qkl6Ugt+ARhGxCqJPCp/TA==
   dependencies:
-    "@aws-amplify/api-rest" "4.0.21-gen2-storage.6104ab7.0+6104ab7"
-    "@aws-amplify/core" "6.0.21-gen2-storage.6104ab7.0+6104ab7"
+    "@aws-amplify/api-rest" "4.0.21-gen2-storage.a94480d.0+a94480d"
+    "@aws-amplify/core" "6.0.21-gen2-storage.a94480d.0+a94480d"
     "@aws-amplify/data-schema-types" "^0.7.6"
     "@aws-sdk/types" "3.387.0"
     graphql "15.8.0"
@@ -461,33 +461,33 @@
     tslib "^2.5.0"
     uuid "^9.0.0"
 
-"@aws-amplify/api-rest@4.0.21-gen2-storage.6104ab7.0+6104ab7":
-  version "4.0.21-gen2-storage.6104ab7.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/api-rest/-/api-rest-4.0.21-gen2-storage.6104ab7.0.tgz#11aa0878f0692d003b1a1d92669f7d3197ba471b"
-  integrity sha512-WkarbTZT18DZ/LWDWKJ0O9odzf46zeaPMNZnAZnxX6A6LMEJmVlWGOOPTAC9BjU7aZCx7mMlNTrGSQS2/nxrEQ==
+"@aws-amplify/api-rest@4.0.21-gen2-storage.a94480d.0+a94480d":
+  version "4.0.21-gen2-storage.a94480d.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/api-rest/-/api-rest-4.0.21-gen2-storage.a94480d.0.tgz#274840966d8e956bebb20aaa5cfee2150a2eface"
+  integrity sha512-KXkYE93AJ4eS8CYm85ubjUXRKWT0/KI2H0ka8viQwB8tDvsW4i2LuK92Oow7Qt9iakaeOPU4EekJ/duezPP1rg==
   dependencies:
     tslib "^2.5.0"
 
-"@aws-amplify/api@6.0.21-gen2-storage.6104ab7.0+6104ab7":
-  version "6.0.21-gen2-storage.6104ab7.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/api/-/api-6.0.21-gen2-storage.6104ab7.0.tgz#eaa6ccfef11d06eb7d731e78ac8bd41c318024a8"
-  integrity sha512-mJarCOfJxqUUgsWy94NOBSuOsrAJr/z44YtGRmLbIaG6WAkmEgbwI1pNnqxc2h7WWJ+IX3WF+bm04qtcnIwvIA==
+"@aws-amplify/api@6.0.21-gen2-storage.a94480d.0+a94480d":
+  version "6.0.21-gen2-storage.a94480d.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/api/-/api-6.0.21-gen2-storage.a94480d.0.tgz#c98a0ebf737e7afa524ac45ad0edf88f0865852d"
+  integrity sha512-K2WxpxtuGEHUZZw6f0WjPjmqndkm3JguNvYJFkEXVjfaNRqFw7LkiQi/9Z1mGyEysUvleM8hplIuVn95Ssq+tA==
   dependencies:
-    "@aws-amplify/api-graphql" "4.0.21-gen2-storage.6104ab7.0+6104ab7"
-    "@aws-amplify/api-rest" "4.0.21-gen2-storage.6104ab7.0+6104ab7"
+    "@aws-amplify/api-graphql" "4.0.21-gen2-storage.a94480d.0+a94480d"
+    "@aws-amplify/api-rest" "4.0.21-gen2-storage.a94480d.0+a94480d"
     tslib "^2.5.0"
 
-"@aws-amplify/auth@6.0.21-gen2-storage.6104ab7.0+6104ab7":
-  version "6.0.21-gen2-storage.6104ab7.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/auth/-/auth-6.0.21-gen2-storage.6104ab7.0.tgz#6dfb8bae3566db02d918dbbad77c52f2e2c25301"
-  integrity sha512-+nIKCNwaUHB1I9MoGHbjjfL7Ci1BOXjngBnzUjMnsRC2EFJYDK1A8/Ob8x9gdK7wklzlRc9tC88NTmiUh94XnQ==
+"@aws-amplify/auth@6.0.21-gen2-storage.a94480d.0+a94480d":
+  version "6.0.21-gen2-storage.a94480d.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/auth/-/auth-6.0.21-gen2-storage.a94480d.0.tgz#fc62cc4c6a59d0773a1412fb937ed542380db24c"
+  integrity sha512-mkE2Vsa3vtlUyeEf/RAwNx0bCzSXKwbOurJ/AQ84fg3mR2KYpm8w6CCBGPARB+T3zn+Bv5dYzjhV7d22FlroZA==
   dependencies:
     tslib "^2.5.0"
 
-"@aws-amplify/core@6.0.21-gen2-storage.6104ab7.0+6104ab7":
-  version "6.0.21-gen2-storage.6104ab7.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/core/-/core-6.0.21-gen2-storage.6104ab7.0.tgz#04c60aeb1e65221a793a7d16782627750024cd54"
-  integrity sha512-ztgpQLop/hGUvucDGlGjPHpxkIptOyVPj0B7HsmyPzGNWRVppfJ1JJxWtRFGn3407//OaY94o3HQNvaHQWXJlQ==
+"@aws-amplify/core@6.0.21-gen2-storage.a94480d.0+a94480d":
+  version "6.0.21-gen2-storage.a94480d.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/core/-/core-6.0.21-gen2-storage.a94480d.0.tgz#c5c975e41534fe7552b5b64fe8a4e51e1c7ffbf2"
+  integrity sha512-4VQHtSrUmcuOiuMCDkZFoiqZFabz+FkOY5tTLTmVFgODQB4sKCdYmlj1tvq8C4FVTKCmDAmLsz0P0+nhD5qzig==
   dependencies:
     "@aws-crypto/sha256-js" "5.2.0"
     "@aws-sdk/types" "3.398.0"
@@ -506,12 +506,12 @@
     "@aws-amplify/plugin-types" "^0.9.0-beta.1"
     rxjs "^7.8.1"
 
-"@aws-amplify/datastore@5.0.21-gen2-storage.6104ab7.0+6104ab7":
-  version "5.0.21-gen2-storage.6104ab7.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/datastore/-/datastore-5.0.21-gen2-storage.6104ab7.0.tgz#bcf8de4ecefcbe2459415fcc5cbff9b1b995075a"
-  integrity sha512-j0f1nxOGUT5BPqwa1QHZN3cyu+orjWSUOyyOvOocJOLb/fxSFUEgXMnXDIoH8+YU3xI0FpsNxyqR4KSQbvc9ug==
+"@aws-amplify/datastore@5.0.21-gen2-storage.a94480d.0+a94480d":
+  version "5.0.21-gen2-storage.a94480d.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/datastore/-/datastore-5.0.21-gen2-storage.a94480d.0.tgz#54ce85aab37f75bd899c3bf8d5ff6af521e94c22"
+  integrity sha512-gqkjTzQv2Quk0fbBAp373HWEIF5EZYTzRCwGC0e2wlDKdDcgQHZXUnkTAVwjOoNknv0CVICTJfv0EJOx5KqOIA==
   dependencies:
-    "@aws-amplify/api" "6.0.21-gen2-storage.6104ab7.0+6104ab7"
+    "@aws-amplify/api" "6.0.21-gen2-storage.a94480d.0+a94480d"
     buffer "4.9.2"
     idb "5.0.6"
     immer "9.0.6"
@@ -528,10 +528,10 @@
     camelcase-keys "6.2.2"
     tslib "^2.5.0"
 
-"@aws-amplify/notifications@2.0.21-gen2-storage.6104ab7.0+6104ab7":
-  version "2.0.21-gen2-storage.6104ab7.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/notifications/-/notifications-2.0.21-gen2-storage.6104ab7.0.tgz#9d8d30dc86e5bef9c3bc2c59469bb443e538dfa8"
-  integrity sha512-aneR5KT9Z1+u1iiB/LT4dKN42ir15atDLvJcPWS9LbWnXCjjWiaie8TFhOF7heZXVMPZIQg0iAIx2mUGa5DzBA==
+"@aws-amplify/notifications@2.0.21-gen2-storage.a94480d.0+a94480d":
+  version "2.0.21-gen2-storage.a94480d.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/notifications/-/notifications-2.0.21-gen2-storage.a94480d.0.tgz#41f503b0935d23144e2313c9daa7f236d6898ab7"
+  integrity sha512-ixbq/G6NSVjHJSA9CKwgVCbDwCFUze7KbxUg2VKjtzsPRvip96ykjDCkay5MviYrXpZLuWg8d4wnAiCbk4VMaw==
   dependencies:
     lodash "^4.17.21"
     tslib "^2.5.0"
@@ -564,10 +564,10 @@
   resolved "https://registry.npmjs.org/@aws-amplify/rtn-web-browser/-/rtn-web-browser-1.0.27.tgz#a2b21b85e3e1a3d36a9e04357f062a3c6f83bf6f"
   integrity sha512-k7e1BREqiRwzlOUH4KkDlsTVX4D3PLfUlOH86xWzIBe+2nZkqcFLjkOcgKemhl1EWjVymg2eiUT3d4q7jmeI8A==
 
-"@aws-amplify/storage@6.0.21-gen2-storage.6104ab7.0+6104ab7":
-  version "6.0.21-gen2-storage.6104ab7.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/storage/-/storage-6.0.21-gen2-storage.6104ab7.0.tgz#55ab1610f2df0ced81dbe3c7ddca92c3c7ef13b4"
-  integrity sha512-FOPjXSMmbzWS5p/mp8i6JIPgTrTNFFgfXYDY99gs/lr+yVRcscs1CfBeA9OWFaCfEDRBDjmLTZmIO3C4JcXxlQ==
+"@aws-amplify/storage@6.0.21-gen2-storage.a94480d.0+a94480d":
+  version "6.0.21-gen2-storage.a94480d.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/storage/-/storage-6.0.21-gen2-storage.a94480d.0.tgz#6ada6f408ebc8cb3b32a9aa837249e601d0e024b"
+  integrity sha512-/qvABDSSfmERzOCDnCdAS0CYUB3GJGPoPMYv9voTFlaKgvrVTZ2UDOdgBFqnCslcGHLTaJ8PG6/vJJy3emB6PQ==
   dependencies:
     "@aws-sdk/types" "3.398.0"
     "@smithy/md5-js" "2.0.7"
@@ -10062,17 +10062,17 @@ available-typed-arrays@^1.0.5:
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
 aws-amplify@gen2-storage:
-  version "6.0.21-gen2-storage.6104ab7.0"
-  resolved "https://registry.npmjs.org/aws-amplify/-/aws-amplify-6.0.21-gen2-storage.6104ab7.0.tgz#ad8e8717dc697c0c74f3727042f258f8d1f36594"
-  integrity sha512-sHS2YFJKgAGurGUnhQ5L/dAwJlkcIu3vJ3D5jFQC+biJUgVp2gTSKGG2SdAY1NaomFhefFxs0QlG2eKRsXGYfQ==
+  version "6.0.21-gen2-storage.a94480d.0"
+  resolved "https://registry.npmjs.org/aws-amplify/-/aws-amplify-6.0.21-gen2-storage.a94480d.0.tgz#e2d170fc694845e3366bcd32ced5f6d52b021d73"
+  integrity sha512-1qIZN2simM9ABfovrByTrGhXR2UbqOHKJLchWYmDEaLlbxWwenL8dfx1LNx1Qfxjjc9XaOgnsqg7n20j3lV28w==
   dependencies:
-    "@aws-amplify/analytics" "7.0.21-gen2-storage.6104ab7.0+6104ab7"
-    "@aws-amplify/api" "6.0.21-gen2-storage.6104ab7.0+6104ab7"
-    "@aws-amplify/auth" "6.0.21-gen2-storage.6104ab7.0+6104ab7"
-    "@aws-amplify/core" "6.0.21-gen2-storage.6104ab7.0+6104ab7"
-    "@aws-amplify/datastore" "5.0.21-gen2-storage.6104ab7.0+6104ab7"
-    "@aws-amplify/notifications" "2.0.21-gen2-storage.6104ab7.0+6104ab7"
-    "@aws-amplify/storage" "6.0.21-gen2-storage.6104ab7.0+6104ab7"
+    "@aws-amplify/analytics" "7.0.21-gen2-storage.a94480d.0+a94480d"
+    "@aws-amplify/api" "6.0.21-gen2-storage.a94480d.0+a94480d"
+    "@aws-amplify/auth" "6.0.21-gen2-storage.a94480d.0+a94480d"
+    "@aws-amplify/core" "6.0.21-gen2-storage.a94480d.0+a94480d"
+    "@aws-amplify/datastore" "5.0.21-gen2-storage.a94480d.0+a94480d"
+    "@aws-amplify/notifications" "2.0.21-gen2-storage.a94480d.0+a94480d"
+    "@aws-amplify/storage" "6.0.21-gen2-storage.a94480d.0+a94480d"
     tslib "^2.5.0"
 
 aws-sign2@~0.7.0:
