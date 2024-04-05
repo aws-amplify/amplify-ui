@@ -1,4 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks';
+import { waitFor } from '@testing-library/react';
 import { getUrl, GetUrlInput } from 'aws-amplify/storage';
 
 import { useGetURL } from '../useGetURL';
@@ -34,11 +35,13 @@ describe('useGetURL', () => {
 
   it.each(paramType)(
     `should return true for isLoading at initialization $description`,
-    ({ useGetURLParams, description }) => {
+    async ({ useGetURLParams, description }) => {
       let result;
       (getUrl as jest.Mock).mockResolvedValue({ url });
       ({ result } = renderHook(() => useGetURL(useGetURLParams)));
-      expect(result.current.isLoading).toBe(true);
+      await waitFor(() => {
+        expect(result.current.isLoading).toBe(true);
+      });
     }
   );
 
