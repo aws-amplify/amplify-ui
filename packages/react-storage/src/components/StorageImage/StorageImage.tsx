@@ -1,53 +1,23 @@
-import * as React from 'react';
+import { StorageImageWithPath } from './StorageImageWithPath';
+import { StorageImageWithKey } from './StorageImageWithKey';
+import type { StorageImageProps, StorageImagePathProps } from './types';
 
-import { classNames, ComponentClassName, isUndefined } from '@aws-amplify/ui';
-import { Image } from '@aws-amplify/ui-react';
-import { useStorageURL } from '@aws-amplify/ui-react/internal';
-import { useSetUserAgent } from '@aws-amplify/ui-react-core';
+interface StorageImage {
+  (props: StorageImageProps): JSX.Element;
+  (props: StorageImagePathProps): JSX.Element;
+  (props: StorageImageProps | StorageImagePathProps): JSX.Element;
+}
 
-import { VERSION } from '../../version';
-import type { StorageImageProps } from './types';
+function isStorageImagePathProps(
+  props: StorageImageProps | StorageImagePathProps
+): props is StorageImagePathProps {
+  return !!(props as StorageImagePathProps)?.path;
+}
 
-export const StorageImage = ({
-  accessLevel,
-  className,
-  fallbackSrc,
-  identityId,
-  imgKey,
-  onStorageGetError,
-  validateObjectExistence,
-  ...rest
-}: StorageImageProps): JSX.Element => {
-  const resolvedValidateObjectExistence = isUndefined(validateObjectExistence)
-    ? true
-    : validateObjectExistence;
-  const options = React.useMemo(
-    () => ({
-      accessLevel,
-      targetIdentityId: identityId,
-      validateObjectExistence: resolvedValidateObjectExistence,
-    }),
-    [accessLevel, identityId, resolvedValidateObjectExistence]
-  );
-
-  useSetUserAgent({
-    componentName: 'StorageImage',
-    packageName: 'react-storage',
-    version: VERSION,
-  });
-
-  const url = useStorageURL({
-    key: imgKey,
-    options,
-    fallbackURL: fallbackSrc,
-    onStorageGetError,
-  });
-
-  return (
-    <Image
-      {...rest}
-      className={classNames(ComponentClassName.StorageImage, className)}
-      src={url}
-    />
-  );
+export const StorageImage = (
+  props: StorageImageProps | StorageImagePathProps
+): JSX.Element => {
+  return isStorageImagePathProps(props)
+    ? StorageImageWithPath(props)
+    : StorageImageWithKey(props);
 };

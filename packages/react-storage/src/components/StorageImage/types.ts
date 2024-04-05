@@ -11,4 +11,11 @@ export interface StorageImageProps extends Omit<ImageProps, 'src'> {
   fallbackSrc?: string;
   validateObjectExistence?: boolean;
   onStorageGetError?: (error: Error) => void;
+  // Creates a discriminated union between StorageImageProps and StorageImagePathProps
+  path?: never;
+}
+
+export interface StorageImagePathProps extends Omit<ImageProps, 'src'> {
+  path: string | ((input: { identityId?: string }) => string);
+  onGetUrlError?: (error: Error) => void;
 }
