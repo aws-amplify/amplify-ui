@@ -21,7 +21,6 @@ export const StorageImageWithPath = ({
     version: VERSION,
   });
 
-  // TODO isloading
   const { url } = useGetURL({
     path,
     onError: onGetUrlError,

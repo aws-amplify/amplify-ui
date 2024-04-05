@@ -38,7 +38,6 @@ export const StorageImageWithKey = ({
     version: VERSION,
   });
 
-  // TODO isloading
   const { url } = useGetURL({
     key: imgKey,
     options,
