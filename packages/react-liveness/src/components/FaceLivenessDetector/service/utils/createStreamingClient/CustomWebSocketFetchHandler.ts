@@ -159,14 +159,9 @@ export class CustomWebSocketFetchHandler {
     socket: WebSocket,
     connectionTimeout: number
   ): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const timeout = setTimeout(() => {
         this.removeNotUsableSockets(socket.url);
-        reject({
-          $metadata: {
-            httpStatusCode: 500,
-          },
-        });
       }, connectionTimeout);
 
       socket.onopen = () => {
