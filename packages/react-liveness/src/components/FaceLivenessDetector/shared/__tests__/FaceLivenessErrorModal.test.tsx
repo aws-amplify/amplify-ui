@@ -9,6 +9,8 @@ import {
 import { defaultErrorDisplayText } from '../../displayText';
 
 const {
+  connectionTimeoutHeaderText,
+  connectionTimeoutMessageText,
   serverHeaderText,
   serverMessageText,
   timeoutHeaderText,

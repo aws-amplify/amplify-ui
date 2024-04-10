@@ -7,6 +7,11 @@ export const isServerSesssionInformationEvent = (
     ?.ServerSessionInformationEvent;
 };
 
+export const isConnectionTimeoutError = (error: unknown): error is Error => {
+  const { message } = error as Error;
+  return message.includes('Websocket connection timeout');
+};
+
 export const isDisconnectionEvent = (
   value: unknown
 ): value is LivenessResponseStream.DisconnectionEventMember => {

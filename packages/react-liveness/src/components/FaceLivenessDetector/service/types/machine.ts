@@ -77,6 +77,7 @@ export interface LivenessContext {
 
 export type LivenessEventTypes =
   | 'BEGIN'
+  | 'CONNECTION_TIMEOUT'
   | 'START_RECORDING'
   | 'TIMEOUT'
   | 'ERROR'
@@ -130,4 +131,5 @@ export interface StreamActorCallback {
     type: 'SET_SESSION_INFO';
     data: { sessionInfo: SessionInformation | undefined };
   }): void;
+  (params: { type: 'CONNECTION_TIMEOUT'; data: { error: Error } }): void;
 }
