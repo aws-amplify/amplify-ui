@@ -108,7 +108,7 @@ exports[`@aws-amplify/ui-react/internal exports should match snapshot 1`] = `
   "useAuth",
   "useColorMode",
   "useDropZone",
-  "useGetURL",
+  "useGetUrl",
   "useIcons",
   "useStorageURL",
   "useThemeBreakpoint",
