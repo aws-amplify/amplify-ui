@@ -1,4 +1,5 @@
 import { LivenessResponseStream } from '@aws-sdk/client-rekognitionstreaming';
+import { WEBSOCKET_CONNECTION_TIMEOUT_MESSAGE } from './createStreamingClient/CustomWebSocketFetchHandler';
 
 export const isServerSesssionInformationEvent = (
   value: unknown
@@ -9,7 +10,7 @@ export const isServerSesssionInformationEvent = (
 
 export const isConnectionTimeoutError = (error: unknown): error is Error => {
   const { message } = error as Error;
-  return message.includes('Websocket connection timeout');
+  return message.includes(WEBSOCKET_CONNECTION_TIMEOUT_MESSAGE);
 };
 
 export const isDisconnectionEvent = (
