@@ -516,6 +516,26 @@ describe('Liveness Machine', () => {
       expect(livenessError.state).toBe(LivenessErrorState.SERVER_ERROR);
     });
 
+    it('should reach connection timeout state after receiving a connection timeout error from the websocket stream', async () => {
+      await transitionToRecording(service);
+
+      const error = new Error('test');
+      service.send({
+        type: 'CONNECTION_TIMEOUT',
+        data: { error },
+      });
+      await flushPromises();
+      jest.advanceTimersToNextTimer();
+      expect(service.state.value).toEqual('error');
+      expect(service.state.context.errorState).toBe(
+        LivenessErrorState.CONNECTION_TIMEOUT
+      );
+      expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
+      const livenessError = (mockcomponentProps.onError as jest.Mock).mock
+        .calls[0][0];
+      expect(livenessError.state).toBe(LivenessErrorState.CONNECTION_TIMEOUT);
+    });
+
     it('should reach ovalMatching state and send client sessionInformation', async () => {
       await transitionToRecording(service);
       await flushPromises();

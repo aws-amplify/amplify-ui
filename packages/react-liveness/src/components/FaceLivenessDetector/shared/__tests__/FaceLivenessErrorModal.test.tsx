@@ -45,6 +45,18 @@ describe('FaceLivenessErrorModal', () => {
     expect(screen.getByText(timeoutMessageText)).toBeInTheDocument();
   });
 
+  it('should render the connection timeout message appropriately', () => {
+    const errorState = LivenessErrorState.CONNECTION_TIMEOUT;
+    render(
+      <FaceLivenessErrorModal onRetry={() => {}}>
+        {renderErrorModal({ errorState })}
+      </FaceLivenessErrorModal>
+    );
+
+    expect(screen.getByText(connectionTimeoutHeaderText)).toBeInTheDocument();
+    expect(screen.getByText(connectionTimeoutMessageText)).toBeInTheDocument();
+  });
+
   it('should render the timeout message with proper accessibility attributes', () => {
     const errorState = LivenessErrorState.TIMEOUT;
     render(
