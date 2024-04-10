@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import { getUrl, GetUrlInput, GetUrlOutput } from 'aws-amplify/storage';
+import { getUrl, GetUrlInput } from 'aws-amplify/storage';
 
 import { isFunction } from '@aws-amplify/ui';
 import { useHasValueUpdated } from '@aws-amplify/ui-react-core';
 
-type UseGetUrlInput = GetUrlInput & {
+export type UseGetUrlInput = GetUrlInput & {
   onError?: (error: Error) => void;
 };
 
@@ -14,10 +14,6 @@ interface UseGetUrlOutput {
   url?: URL;
   expiresAt?: Date;
 }
-
-// interface UseGetUrlOutput extends GetUrlOutput{
-//     isLoading: boolean;
-// }
 
 function getKeyOrPath(
   input: UseGetUrlInput
@@ -28,24 +24,19 @@ function getKeyOrPath(
   return input.path;
 }
 
-type UseGetUrl = (input: UseGetUrlInput) => UseGetUrlOutput;
-
-export const useGetURL: UseGetUrl = (
-  input: UseGetUrlInput
-): UseGetUrlOutput => {
-  const [result, setResult] = React.useState<GetUrlOutput>();
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const imgLocation = getKeyOrPath(input);
-  const hasImgUpdated = useHasValueUpdated(imgLocation);
+export const useGetUrl = (input: UseGetUrlInput): UseGetUrlOutput => {
+  const [result, setResult] = React.useState<UseGetUrlOutput>({
+    isLoading: false,
+  });
+  const keyOrPath = getKeyOrPath(input);
+  const hasImgUpdated = useHasValueUpdated(keyOrPath);
   const { onError, ...getUrlInput } = input;
 
   React.useEffect(() => {
     if (!hasImgUpdated) {
       return;
     }
-
-    setIsLoading(true);
-
+    setResult((prevResult) => ({ ...prevResult, isLoading: true }));
     let ignore = false;
 
     getUrl(getUrlInput)
@@ -53,8 +44,7 @@ export const useGetURL: UseGetUrl = (
         if (ignore) {
           return;
         }
-
-        setResult(response);
+        setResult((prevResult) => ({ ...prevResult, ...response }));
       })
       .catch((error: Error) => {
         if (ignore) {
@@ -69,8 +59,8 @@ export const useGetURL: UseGetUrl = (
         };
       })
       .finally(() => {
-        setIsLoading(false);
+        setResult((prevResult) => ({ ...prevResult, isLoading: false }));
       });
-  }, [input, getUrlInput, onError, hasImgUpdated]);
-  return { ...result, isLoading };
+  }, [input, getUrlInput, onError, hasImgUpdated, keyOrPath, result]);
+  return result;
 };

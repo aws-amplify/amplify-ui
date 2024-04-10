@@ -1,16 +1,12 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { waitFor } from '@testing-library/react';
-import { getUrl, GetUrlInput } from 'aws-amplify/storage';
+import { getUrl } from 'aws-amplify/storage';
 
-import { useGetURL } from '../useGetURL';
+import { useGetUrl, UseGetUrlInput } from '../useGetUrl';
 
 jest.mock('aws-amplify/storage');
 
-type UseGetUrlInput = GetUrlInput & {
-  onError?: (error: Error) => void;
-};
-
-describe('useGetURL', () => {
+describe('useGetUrl', () => {
   afterEach(() => jest.clearAllMocks());
 
   const url = 'https://amplify.s3.amazonaws.com/path/to/the/file.jpg';
@@ -18,27 +14,35 @@ describe('useGetURL', () => {
   const onStorageGetError = jest.fn();
   const onGetUrlError = jest.fn();
 
-  const useGetURLKeyParams: UseGetUrlInput = {
+  const useGetUrlKeyParams: UseGetUrlInput = {
     key: 'file.jpg',
     options: { accessLevel: 'guest' },
     onError: onStorageGetError,
   };
-  const useGetURLPathParams: UseGetUrlInput = {
+  const useGetUrlPathParams: UseGetUrlInput = {
     path: 'guest/file.jpg',
     onError: onGetUrlError,
   };
 
   const paramType = [
-    { useGetURLParams: useGetURLKeyParams, description: 'with key params' },
-    { useGetURLParams: useGetURLPathParams, description: 'with path params' },
+    {
+      useGetUrlParams: useGetUrlKeyParams,
+      description: 'with key params',
+      errorHandler: 'onStorageGetError',
+    },
+    {
+      useGetUrlParams: useGetUrlPathParams,
+      description: 'with path params',
+      errorHandler: 'onGetUrlError',
+    },
   ];
 
   it.each(paramType)(
     `should return true for isLoading at initialization $description`,
-    async ({ useGetURLParams, description }) => {
+    async ({ useGetUrlParams, description }) => {
       let result;
       (getUrl as jest.Mock).mockResolvedValue({ url });
-      ({ result } = renderHook(() => useGetURL(useGetURLParams)));
+      ({ result } = renderHook(() => useGetUrl(useGetUrlParams)));
       await waitFor(() => {
         expect(result.current.isLoading).toBe(true);
       });
@@ -47,14 +51,14 @@ describe('useGetURL', () => {
 
   it.each(paramType)(
     'should return a Storage URL $description',
-    async ({ useGetURLParams, description }) => {
+    async ({ useGetUrlParams, description }) => {
       (getUrl as jest.Mock).mockResolvedValue({ url });
 
-      const { onError, ...getUrlParams } = useGetURLParams;
+      const { onError, ...getUrlParams } = useGetUrlParams;
       let result, waitForNextUpdate;
 
       ({ result, waitForNextUpdate } = renderHook(() =>
-        useGetURL(useGetURLParams)
+        useGetUrl(useGetUrlParams)
       ));
 
       expect(getUrl).toHaveBeenCalledWith(getUrlParams);
@@ -70,14 +74,14 @@ describe('useGetURL', () => {
   );
 
   it.each(paramType)(
-    'should invoke onStorageGetError when getUrl fails $description',
-    async ({ useGetURLParams, description }) => {
+    'should invoke $errorHandler when getUrl fails $description',
+    async ({ useGetUrlParams, description, errorHandler }) => {
       const customError = new Error('Something went wrong');
-      const { onError, ...getUrlParams } = useGetURLParams;
+      const { onError, ...getUrlParams } = useGetUrlParams;
       (getUrl as jest.Mock).mockRejectedValue(customError);
 
       let waitForNextUpdate;
-      ({ waitForNextUpdate } = renderHook(() => useGetURL(useGetURLParams)));
+      ({ waitForNextUpdate } = renderHook(() => useGetUrl(useGetUrlParams)));
 
       expect(getUrl).toHaveBeenCalledWith(getUrlParams);
 

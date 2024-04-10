@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { classNames, ComponentClassName, isUndefined } from '@aws-amplify/ui';
 import { Image } from '@aws-amplify/ui-react';
-import { useGetURL } from '@aws-amplify/ui-react/internal';
+import { useGetUrl } from '@aws-amplify/ui-react/internal';
 import { useSetUserAgent } from '@aws-amplify/ui-react-core';
 
 import { VERSION } from '../../version';
@@ -38,7 +38,7 @@ export const StorageImageWithKey = ({
     version: VERSION,
   });
 
-  const { url } = useGetURL({
+  const { url } = useGetUrl({
     key: imgKey,
     options,
     onError: onStorageGetError,

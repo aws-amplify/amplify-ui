@@ -1,5 +1,5 @@
 export * from './hooks/useAuth';
-export * from './hooks/useGetURL';
+export * from './hooks/useGetUrl';
 export * from './hooks/useStorageURL';
 export * from './hooks/useThemeBreakpoint';
 export { useColorMode } from './hooks/useTheme';
