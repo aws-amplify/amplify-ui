@@ -11,8 +11,8 @@ export type UseGetUrlInput = GetUrlInput & {
 
 interface UseGetUrlOutput {
   isLoading: boolean;
-  url?: URL;
-  expiresAt?: Date;
+  url: URL | undefined;
+  expiresAt: Date | undefined;
 }
 
 function getKeyOrPath(
@@ -26,16 +26,18 @@ function getKeyOrPath(
 
 export const useGetUrl = (input: UseGetUrlInput): UseGetUrlOutput => {
   const [result, setResult] = React.useState<UseGetUrlOutput>({
+    url: undefined,
+    expiresAt: undefined,
     isLoading: false,
   });
   const keyOrPath = getKeyOrPath(input);
   const hasImgUpdated = useHasValueUpdated(keyOrPath);
-  const { onError, ...getUrlInput } = input;
 
   React.useEffect(() => {
     if (!hasImgUpdated) {
       return;
     }
+    const { onError, ...getUrlInput } = input;
     setResult((prevResult) => ({ ...prevResult, isLoading: true }));
     let ignore = false;
 
@@ -61,6 +63,6 @@ export const useGetUrl = (input: UseGetUrlInput): UseGetUrlOutput => {
       .finally(() => {
         setResult((prevResult) => ({ ...prevResult, isLoading: false }));
       });
-  }, [input, getUrlInput, onError, hasImgUpdated, keyOrPath, result]);
+  }, [input, hasImgUpdated, keyOrPath, result]);
   return result;
 };
