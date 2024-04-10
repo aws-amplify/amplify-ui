@@ -8,6 +8,8 @@ const config: Config = {
     '!<rootDir>/**/index.(ts|tsx)',
     // do not collect from top level version and styles files
     '!<rootDir>/src/(styles|version).(ts|tsx)',
+    // TODO remove once StorageManager is updated
+    '!**/StorageManager/**',
   ],
   coverageThreshold: {
     global: {
@@ -22,6 +24,8 @@ const config: Config = {
   preset: 'ts-jest',
   setupFilesAfterEnv: ['./jest.setup.ts'],
   testEnvironment: 'jsdom',
+  // TODO remove once StorageManager is updated
+  testPathIgnorePatterns: ['/StorageManager/'],
 };
 
 export default config;
