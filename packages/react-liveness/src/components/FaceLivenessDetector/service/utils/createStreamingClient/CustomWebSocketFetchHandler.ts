@@ -159,9 +159,10 @@ export class CustomWebSocketFetchHandler {
     socket: WebSocket,
     connectionTimeout: number
   ): Promise<void> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {
         this.removeNotUsableSockets(socket.url);
+        reject(new Error(`Websocket connection timeout`));
       }, connectionTimeout);
 
       socket.onopen = () => {
