@@ -62,4 +62,28 @@ export const ptDict: AuthenticatorDictionary = {
     'Seu código está a caminho. Para fazer login, insira o código que enviamos para você',
   'Your code is on the way. To log in, enter the code we texted to':
     'Seu código está a caminho. Para fazer login, insira o código para o qual enviamos uma mensagem de texto',
+
+    // Additional translations provided by customers
+    'An account with the given email already exists.':
+      'Já existe uma conta com o email utilizado.',
+    'Confirm a Code': 'Confirmar um Código',
+    'Confirm Sign In': 'Confirmar Início de Sessão',
+    'Forgot Password': 'Esqueci Minha Senha',
+    'Incorrect username or password.':
+      'Nome de usuário ou senha incorreta',
+    'Invalid password format': 'Formato de senha inválido',
+    'Invalid phone number format': 'Formato de número de telefone inválido',
+    'Loading...': 'Carregando...',
+    'New Password': 'Nova Senha',
+    'Resend a Code': 'Reenviar um Código',
+    'Sign Out': 'Sair',
+    'Sign Up with Amazon': 'Criar Conta com Amazon',
+    'Sign Up with Apple': 'Criar Conta com Apple',
+    'Sign Up with Facebook': 'Criar Conta com Facebook',
+    'Sign Up with Google': 'Criar Conta com Google',
+    'Sign Up': 'Criar Conta',
+    'User already exists': 'Usuário já existe',
+    'User does not exist': 'Usuário não existe',
+    'Username cannot be empty': 'Nome de usuário não pode estar vazio',
+    'Your passwords must match': 'Suas senhas devem ser iguais',
 };
