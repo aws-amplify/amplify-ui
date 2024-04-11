@@ -7,7 +7,9 @@ import { useGetUrl, UseGetUrlInput } from '../useGetUrl';
 jest.mock('aws-amplify/storage');
 
 describe('useGetUrl', () => {
-  afterEach(() => jest.clearAllMocks());
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
   const url = 'https://amplify.s3.amazonaws.com/path/to/the/file.jpg';
 
