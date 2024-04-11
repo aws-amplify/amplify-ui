@@ -1,7 +1,7 @@
 import { InlineFilter } from '@/components/InlineFilter';
 import { ResponsiveTable, ResponsiveTableCell } from '@/components/ResponsiveTable';
 import { TableCell, TableBody, TableHead, TableRow, Alert } from '@aws-amplify/ui-react';
-import { VersionsTable } from '@/components/VersionsTable';
+import { FunctionOverridesTable } from '@/components/FunctionOverridesTable';
 
 ## Override Function Calls
 
@@ -144,4 +144,4 @@ export default function AuthenticatorWithEmail() {
 
 Each `handle*` function accepts as input the expected input of its corresponding `Auth` function, allowing you to override the `Auth` function call from within the `handle*` function. Here is a table of each override function name, and the values passed as `input`.
 
-<VersionsTable />
+<FunctionOverridesTable />
