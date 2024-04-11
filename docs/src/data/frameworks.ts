@@ -44,14 +44,6 @@ export const PREV_MAJOR_VERSIONS: Record<string, number> = {
   vue: 3,
 };
 
-export const AMPLIFY_6_UI_VERSIONS: Record<string, number> = {
-  angular: 5,
-  'aws-amplify': 6,
-  react: 6,
-  'react-native': 2,
-  vue: 4,
-};
-
 export const AMPLIFY_5_UI_VERSIONS: Record<string, number> = {
   angular: 4,
   'aws-amplify': 5,
