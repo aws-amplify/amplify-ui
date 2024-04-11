@@ -46,7 +46,11 @@ export const useGetUrl = (input: UseGetUrlInput): UseGetUrlOutput => {
         if (ignore) {
           return;
         }
-        setResult((prevResult) => ({ ...prevResult, ...response }));
+        setResult((prevResult) => ({
+          ...prevResult,
+          ...response,
+          isLoading: false,
+        }));
       })
       .catch((error: Error) => {
         if (ignore) {
@@ -55,13 +59,10 @@ export const useGetUrl = (input: UseGetUrlInput): UseGetUrlOutput => {
         if (isFunction(onError)) {
           onError(error);
         }
-
+        setResult((prevResult) => ({ ...prevResult, isLoading: false }));
         return () => {
           ignore = true;
         };
-      })
-      .finally(() => {
-        setResult((prevResult) => ({ ...prevResult, isLoading: false }));
       });
   }, [input, hasImgUpdated, keyOrPath, result]);
   return result;

@@ -41,10 +41,10 @@ describe('useGetUrl', () => {
 
   it.each(paramType)(
     `should return true for isLoading at initialization $description`,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async ({ useGetUrlParams, description }) => {
-      let result;
       (getUrl as jest.Mock).mockResolvedValue({ url });
-      ({ result } = renderHook(() => useGetUrl(useGetUrlParams)));
+      const { result } = renderHook(() => useGetUrl(useGetUrlParams));
       await waitFor(() => {
         expect(result.current.isLoading).toBe(true);
       });
@@ -53,15 +53,15 @@ describe('useGetUrl', () => {
 
   it.each(paramType)(
     'should return a Storage URL $description',
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async ({ useGetUrlParams, description }) => {
       (getUrl as jest.Mock).mockResolvedValue({ url });
 
       const { onError, ...getUrlParams } = useGetUrlParams;
-      let result, waitForNextUpdate;
 
-      ({ result, waitForNextUpdate } = renderHook(() =>
+      const { result, waitForNextUpdate } = renderHook(() =>
         useGetUrl(useGetUrlParams)
-      ));
+      );
 
       expect(getUrl).toHaveBeenCalledWith(getUrlParams);
       expect(result.current.isLoading).toBe(true);
@@ -77,13 +77,15 @@ describe('useGetUrl', () => {
 
   it.each(paramType)(
     'should invoke $errorHandler when getUrl fails $description',
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async ({ useGetUrlParams, description, errorHandler }) => {
       const customError = new Error('Something went wrong');
       const { onError, ...getUrlParams } = useGetUrlParams;
       (getUrl as jest.Mock).mockRejectedValue(customError);
 
-      let waitForNextUpdate;
-      ({ waitForNextUpdate } = renderHook(() => useGetUrl(useGetUrlParams)));
+      const { waitForNextUpdate } = renderHook(() =>
+        useGetUrl(useGetUrlParams)
+      );
 
       expect(getUrl).toHaveBeenCalledWith(getUrlParams);
 
