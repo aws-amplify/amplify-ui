@@ -100,8 +100,6 @@ const responseStreamActor = async (callback: StreamActorCallback) => {
   } catch (error: unknown) {
     let returnedError = error;
 
-    const isConnectionTimeout = isConnectionTimeoutError(error);
-
     if (isInvalidSignatureRegionException(error)) {
       returnedError = new Error(
         'Invalid region in FaceLivenessDetector or credentials are scoped to the wrong region.'
@@ -109,7 +107,7 @@ const responseStreamActor = async (callback: StreamActorCallback) => {
     }
 
     if (returnedError instanceof Error) {
-      if (isConnectionTimeout) {
+      if (isConnectionTimeoutError(error)) {
         callback({
           type: 'CONNECTION_TIMEOUT',
           data: { error: returnedError },

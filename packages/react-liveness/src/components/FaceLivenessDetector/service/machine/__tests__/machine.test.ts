@@ -518,8 +518,8 @@ describe('Liveness Machine', () => {
 
     it('should reach connection timeout state after receiving a connection timeout error from the websocket stream', async () => {
       await transitionToRecording(service);
-
-      const error = new Error('test');
+      const errorMessage = 'Websocket connection timeout';
+      const error = new Error(errorMessage);
       service.send({
         type: 'CONNECTION_TIMEOUT',
         data: { error },
@@ -533,6 +533,7 @@ describe('Liveness Machine', () => {
       expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
       const livenessError = (mockcomponentProps.onError as jest.Mock).mock
         .calls[0][0];
+      expect(livenessError.error.message).toContain(errorMessage);
       expect(livenessError.state).toBe(LivenessErrorState.CONNECTION_TIMEOUT);
     });
 
