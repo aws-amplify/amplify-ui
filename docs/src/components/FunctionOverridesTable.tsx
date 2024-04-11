@@ -10,15 +10,11 @@ import {
   TableRow,
 } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/router';
-import { Framework, CURRENT_MAJOR_VERSIONS } from '../data/frameworks';
-
-const PREV_MAJOR_VERSIONS: Record<string, number> = {
-  angular: 4,
-  'aws-amplify': 5,
-  react: 5,
-  'react-native': 1,
-  vue: 3,
-};
+import {
+  Framework,
+  CURRENT_MAJOR_VERSIONS,
+  AMPLIFY_5_UI_VERSIONS,
+} from '../data/frameworks';
 
 export const FunctionOverridesTable = ({ framework }) => {
   const {
@@ -30,15 +26,15 @@ export const FunctionOverridesTable = ({ framework }) => {
   }
 
   const latestVersion = CURRENT_MAJOR_VERSIONS[framework].toString();
-  const prevVersion = PREV_MAJOR_VERSIONS[framework].toString();
+  const amplify5FrameworkVersion = AMPLIFY_5_UI_VERSIONS[framework].toString();
   return (
     <Tabs.Container defaultValue={latestVersion}>
       <Tabs.List>
         <Tabs.Item value={latestVersion}>
           <code>@aws-amplify/ui-{framework}</code> v{latestVersion} (latest)
         </Tabs.Item>
-        <Tabs.Item value={prevVersion}>
-          <code>@aws-amplify/ui-{framework}</code> v{prevVersion}
+        <Tabs.Item value={amplify5FrameworkVersion}>
+          <code>@aws-amplify/ui-{framework}</code> v{amplify5FrameworkVersion}
         </Tabs.Item>
       </Tabs.List>
       <Tabs.Panel value={latestVersion}>
@@ -120,7 +116,7 @@ export const FunctionOverridesTable = ({ framework }) => {
           </TableBody>
         </ResponsiveTable>
       </Tabs.Panel>
-      <Tabs.Panel value={prevVersion}>
+      <Tabs.Panel value={amplify5FrameworkVersion}>
         <ResponsiveTable labelWidth="10rem">
           <TableHead>
             <TableRow>
