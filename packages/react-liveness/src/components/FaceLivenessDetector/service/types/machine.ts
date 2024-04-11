@@ -130,7 +130,6 @@ export interface StreamActorCallback {
     type: 'SERVER_ERROR';
     data: { error: ServiceQuotaExceededException };
   }): void;
-  // (params: { type: 'CONNECTION_TIMEOUT'; data: { error: Error } }): void;
   (params: {
     type: 'SET_SESSION_INFO';
     data: { sessionInfo: SessionInformation | undefined };
