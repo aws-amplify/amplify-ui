@@ -2,23 +2,23 @@ import { Tabs, Alert } from '@aws-amplify/ui-react';
 import { CURRENT_MAJOR_VERSIONS } from '@/data/frameworks';
 
 export const latestVersion = CURRENT_MAJOR_VERSIONS['vue'];
-export const prevVersion = 3
+export const amplify5UIVersion = 3
 
   <Tabs.Container defaultValue={latestVersion}>
     <Tabs.List>
       <Tabs.Item value={latestVersion}>`@aws-amplify/ui-vue` v{latestVersion} (latest)</Tabs.Item>
-      <Tabs.Item value={prevVersion}>`@aws-amplify/ui-vue` v{prevVersion} and below</Tabs.Item>
+      <Tabs.Item value={amplify5UIVersion}>`@aws-amplify/ui-vue` v{amplify5UIVersion} and below</Tabs.Item>
     </Tabs.List>
     <Tabs.Panel value={latestVersion}>
     In `@aws-amplify/ui-vue` version {latestVersion}, `Auth` function calls are imported directly as shown below. 
     ```typescript{3,16} file=../../../../../../../../examples/vue/src/pages/ui/components/authenticator/override-function-calls/index.vue
     ```
     </Tabs.Panel>
-    <Tabs.Panel value={prevVersion}>
+    <Tabs.Panel value={amplify5UIVersion}>
       <Alert role="none" variation="warning" heading="Sign Up Auto Sign In">
-        If you're overriding `signUp` in `@aws-amplify/ui-vue` **version {prevVersion} or earlier**, you must include the `autoSignIn` key and set `enabled` to true, as shown in the example below.
+        If you're overriding `signUp` in `@aws-amplify/ui-vue` **version {amplify5UIVersion} or earlier**, you must include the `autoSignIn` key and set `enabled` to true, as shown in the example below.
       </Alert>
-      In `@aws-amplify/ui-vue` version {prevVersion} or earlier, `Auth` function calls are imported from the `Auth` object.
+      In `@aws-amplify/ui-vue` version {amplify5UIVersion} or earlier, `Auth` function calls are imported from the `Auth` object.
       ```typescript{2,14,19}
       <script setup lang="ts">
         import { Amplify, Auth } from 'aws-amplify';
