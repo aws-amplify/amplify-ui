@@ -1,0 +1,31 @@
+import { Alert, Text } from '@aws-amplify/ui-react';
+import { useRouter } from 'next/router';
+import { Framework, AMPLIFY_5_UI_VERSIONS } from '../../data/frameworks';
+
+export const ForgotPasswordCallout = ({ framework }) => {
+  const {
+    query: { platform = 'react' },
+  } = useRouter();
+
+  if (!framework) {
+    framework = platform as Framework;
+  }
+
+  const isReactNative = framework === 'react-native';
+  const amplify5FrameworkVersion = AMPLIFY_5_UI_VERSIONS[framework];
+
+  return (
+    <Alert
+      role="none"
+      variation="info"
+      heading={`@aws-amplify/ui-${framework}@${amplify5FrameworkVersion}.x`}
+    >
+      <Text>
+        Use <code>resetPassword</code> in place of <code>forgotPassword</code>{' '}
+        in version{isReactNative ? '' : 's'} {amplify5FrameworkVersion}{' '}
+        {isReactNative ? '' : 'and earlier of'} of{' '}
+        <code>@aws-amplify/ui-{framework}</code>.
+      </Text>
+    </Alert>
+  );
+};
