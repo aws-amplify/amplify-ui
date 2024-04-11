@@ -37,7 +37,7 @@ jobs:
         run: yarn --frozen-lockfile
       - name: Create or update Version Packages PR
         if: ${{ steps.has-changesets.outputs.has-changesets == 'true' }}
-        uses: changesets/action@e2f8e964d080ae97c874b19e27b12e0a8620fb6c
+        uses: changesets/action@c62ef9792fd0502c89479ed856efe28575010472
         with:
           version: yarn changeset version
         env:
