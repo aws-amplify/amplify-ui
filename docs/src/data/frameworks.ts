@@ -30,13 +30,13 @@ export const FRAMEWORK_DISPLAY_NAMES: Record<Framework, string> = {
 
 // React Native requires direct installation of dependencies with native modules
 export const REACT_NATIVE_DEPENDENCIES =
-  '@aws-amplify/react-native react-native-safe-area-context @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill';
+  '@aws-amplify/react-native react-native-safe-area-context @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values';
 
 export const FRAMEWORK_INSTALL_SCRIPTS = {
   react: 'npm i @aws-amplify/ui-react aws-amplify',
   vue: 'npm i @aws-amplify/ui-vue aws-amplify',
   angular: 'npm i @aws-amplify/ui-angular aws-amplify',
   flutter: 'flutter pub add amplify_authenticator',
-  android: "implementation 'com.amplifyframework.ui:liveness:1.2.2'",
+  android: "implementation 'com.amplifyframework.ui:liveness:1.2.4'",
   'react-native': `npm i @aws-amplify/ui-react-native aws-amplify ${REACT_NATIVE_DEPENDENCIES}`,
 };
