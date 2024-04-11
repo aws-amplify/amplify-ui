@@ -110,7 +110,10 @@ export type LivenessInterpreter = Interpreter<
 
 export interface StreamActorCallback {
   (params: { type: 'DISCONNECT_EVENT' }): void;
-  (params: { type: 'SERVER_ERROR'; data: { error: Error } }): void;
+  (params: {
+    type: 'SERVER_ERROR' | 'CONNECTION_TIMEOUT';
+    data: { error: Error };
+  }): void;
   (params: {
     type: 'SERVER_ERROR';
     data: { error: ValidationException };
@@ -127,9 +130,9 @@ export interface StreamActorCallback {
     type: 'SERVER_ERROR';
     data: { error: ServiceQuotaExceededException };
   }): void;
+  // (params: { type: 'CONNECTION_TIMEOUT'; data: { error: Error } }): void;
   (params: {
     type: 'SET_SESSION_INFO';
     data: { sessionInfo: SessionInformation | undefined };
   }): void;
-  (params: { type: 'CONNECTION_TIMEOUT'; data: { error: Error } }): void;
 }

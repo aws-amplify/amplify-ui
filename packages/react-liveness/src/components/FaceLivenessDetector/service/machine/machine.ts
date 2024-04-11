@@ -98,26 +98,22 @@ const responseStreamActor = async (callback: StreamActorCallback) => {
       }
     }
   } catch (error: unknown) {
-    let returnedError = error;
-
     if (isInvalidSignatureRegionException(error)) {
-      returnedError = new Error(
-        'Invalid region in FaceLivenessDetector or credentials are scoped to the wrong region.'
-      );
-    }
-
-    if (returnedError instanceof Error) {
-      if (isConnectionTimeoutError(error)) {
-        callback({
-          type: 'CONNECTION_TIMEOUT',
-          data: { error: returnedError },
-        });
-      } else {
-        callback({
-          type: 'SERVER_ERROR',
-          data: { error: returnedError },
-        });
-      }
+      callback({
+        type: 'SERVER_ERROR',
+        data: {
+          error: new Error(
+            'Invalid region in FaceLivenessDetector or credentials are scoped to the wrong region.'
+          ),
+        },
+      });
+    } else if (error instanceof Error) {
+      callback({
+        type: isConnectionTimeoutError(error)
+          ? 'CONNECTION_TIMEOUT'
+          : 'SERVER_ERROR',
+        data: { error },
+      });
     }
   }
 };
