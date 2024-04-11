@@ -2,7 +2,7 @@ import { Alert, Text } from '@aws-amplify/ui-react';
 
 export const AngularSlotsRenameCallout = () => {
   return (
-    <Alert role="none" variation="info" heading={`@aws-amplify/ui-angular@4.x`}>
+    <Alert role="none" variation="info" heading={`@aws-amplify/ui-angular v4`}>
       <Text>
         <code>forgot-password-header</code> and{' '}
         <code>forgot-password-footer</code> are updated slot names in version 5
