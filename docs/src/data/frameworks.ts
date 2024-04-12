@@ -36,6 +36,14 @@ export const CURRENT_MAJOR_VERSIONS: Record<string, number> = {
   vue: 4,
 };
 
+export const AMPLIFY_5_UI_VERSIONS: Record<string, number> = {
+  angular: 4,
+  'aws-amplify': 5,
+  react: 5,
+  'react-native': 1,
+  vue: 3,
+};
+
 // React Native requires direct installation of dependencies with native modules
 export const REACT_NATIVE_DEPENDENCIES =
   '@aws-amplify/react-native react-native-safe-area-context @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values';
