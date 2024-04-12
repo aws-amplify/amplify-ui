@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 6.0.14
+
+### Patch Changes
+
+- [#5154](https://github.com/aws-amplify/amplify-ui/pull/5154) [`2925c53e6`](https://github.com/aws-amplify/amplify-ui/commit/2925c53e684af109f2f00517ae5ae49ce9d5fac4) Thanks [@reesscot](https://github.com/reesscot)! - Version bump for ui package
+
 ## 6.0.13
 
 ### Patch Changes
