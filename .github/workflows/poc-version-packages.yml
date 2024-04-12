@@ -3,11 +3,9 @@
 # Triggered by: whenever a commit is merged onto main and there are
 #               new changesets to consume.
 
-name: Version Packages
+name: POC / Version Packages
 
-on:
-  push:
-    branches: [main]
+on: pull_request
 
 permissions:
   contents: write # Used to commit to "Version Packages" PR
@@ -42,5 +40,6 @@ jobs:
         uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894 # v1.4.7 https://github.com/changesets/action/commit/b98cec97583b917ff1dc6179dd4d230d3e439894
         with:
           version: yarn bumpVersions
+          branch: 'main'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
