@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { screen, render } from '@testing-library/react';
-
+import { fireEvent, screen, render, waitFor } from '@testing-library/react';
 import { ComponentClassName } from '@aws-amplify/ui';
+import { Button } from '@aws-amplify/ui-react';
 import { Menu, MENU_ITEMS_GROUP_TEST_ID } from '../Menu';
+import { MenuButton } from '../MenuButton';
 import { MenuItem, MENU_ITEM_TEST_ID } from '../MenuItem';
 import { MENU_TRIGGER_TEST_ID } from '../Menu';
 
@@ -115,6 +116,67 @@ describe('Menu', () => {
       const menu = await screen.findByTestId(MENU_TRIGGER_TEST_ID);
 
       expect(menu).toHaveClass('amplify-button--large');
+    });
+
+    it('should render a clickable trigger by default', async () => {
+      const { getByTestId } = render(
+        <Menu>
+          <MenuItem>Option 1</MenuItem>
+          <MenuItem>Option 2</MenuItem>
+          <MenuItem>Option 3</MenuItem>
+        </Menu>
+      );
+
+      const menuButton = getByTestId(MENU_TRIGGER_TEST_ID);
+
+      expect(menuButton).toBeDefined();
+      fireEvent.click(menuButton);
+
+      expect(menuButton).toHaveAttribute('data-state', 'open');
+      expect(screen.queryByText('Option 1')).toBeInTheDocument();
+    });
+
+    it('should disable the trigger with `disabled` prop', async () => {
+      render(
+        <Menu
+          trigger={<Button disabled={true} testId={MENU_TRIGGER_TEST_ID} />}
+        >
+          <MenuItem>Option 1</MenuItem>
+          <MenuItem>Option 2</MenuItem>
+          <MenuItem>Option 3</MenuItem>
+        </Menu>
+      );
+
+      await waitFor(async () => {
+        const disabled = await screen.findByTestId(MENU_TRIGGER_TEST_ID);
+        expect(disabled).toHaveClass('amplify-button--disabled');
+
+        fireEvent.click(disabled);
+        expect(disabled).toHaveAttribute('data-state', 'closed');
+        expect(screen.queryByText('Option 1')).toBeNull();
+      });
+    });
+
+    it('should disable the trigger with `isDisabled` prop', async () => {
+      render(
+        <Menu
+          trigger={
+            <MenuButton isDisabled={true} testId={MENU_TRIGGER_TEST_ID} />
+          }
+        >
+          <MenuItem>Option 1</MenuItem>
+          <MenuItem>Option 2</MenuItem>
+          <MenuItem>Option 3</MenuItem>
+        </Menu>
+      );
+      await waitFor(async () => {
+        const disabled = await screen.findByTestId(MENU_TRIGGER_TEST_ID);
+        expect(disabled).toHaveClass('amplify-button--disabled');
+
+        fireEvent.click(disabled);
+        expect(disabled).toHaveAttribute('data-state', 'closed');
+        expect(screen.queryByText('Option 1')).toBeNull();
+      });
     });
   });
 
