@@ -23,7 +23,7 @@ export const ForgotPasswordCallout = ({ framework }) => {
       <Text>
         Use <code>resetPassword</code> in place of <code>forgotPassword</code>{' '}
         in version{isReactNative ? '' : 's'} {prevFrameworkVersion}{' '}
-        {isReactNative ? '' : 'and earlier of'} of{' '}
+        {isReactNative ? '' : 'and earlier of '}
         <code>@aws-amplify/ui-{framework}</code>.
       </Text>
     </Alert>
