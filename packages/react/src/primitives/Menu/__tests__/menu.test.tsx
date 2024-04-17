@@ -215,7 +215,7 @@ describe('Menu', () => {
           <Menu
             isOpen
             trigger={
-              <MenuButton isDisabled={true} testId={MENU_TRIGGER_TEST_ID} />
+              <MenuButton disabled={true} testId={MENU_TRIGGER_TEST_ID} />
             }
           >
             <MenuItem>Option 1</MenuItem>
