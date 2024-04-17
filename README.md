@@ -41,8 +41,10 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 | Authenticator            |    ✅     |        ✅        |     ✅      |   ✅    |
 | In-App Messaging         |    ✅     |        ✅        |             |         |
 | Geo (MapView)            |    ✅     |                  |             |         |
-| Account Settings         |    🚧     |                  |             |         |
+| Account Settings         |    ✅     |                  |             |         |
 | Storage (StorageManager) |    ✅     |                  |             |         |
+| Liveness (FaceLivenessDetector) |    ✅     |                  |             |         |
+
 
 | **Primitives**   | **React** | **Angular** | **Vue** |
 | :--------------- | :-------: | :---------: | :-----: |
