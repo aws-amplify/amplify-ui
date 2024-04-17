@@ -1,5 +1,11 @@
 # @aws-amplify/ui-vue
 
+## 4.2.5
+
+### Patch Changes
+
+- [#5161](https://github.com/aws-amplify/amplify-ui/pull/5161) [`b821d4ae6`](https://github.com/aws-amplify/amplify-ui/commit/b821d4ae69c5eb4b5971cdc211e206e6f23698f7) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(vue): downgrade @vitejs/plugin-vue
+
 ## 4.2.4
 
 ### Patch Changes
