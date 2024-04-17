@@ -116,7 +116,7 @@ describe('Menu', () => {
       expect(menu).toHaveClass('amplify-button--large');
     });
 
-    it('should render a clickable trigger by default', async () => {
+    it('should render by default a menu that can be expanded on keyboard press', async () => {
       render(
         <Menu>
           <MenuItem>Option 1</MenuItem>
@@ -151,22 +151,71 @@ describe('Menu', () => {
       });
     });
 
-    it('should disable the trigger with `disabled` prop', async () => {
+    it('should add `disabled` to an html element passed as trigger with `disabled` prop', async () => {
+      render(
+        <Menu trigger={<button disabled={true} id={MENU_TRIGGER_TEST_ID} />}>
+          <MenuItem>Option 1</MenuItem>
+          <MenuItem>Option 2</MenuItem>
+          <MenuItem>Option 3</MenuItem>
+        </Menu>
+      );
+
+      const disabled = await screen.findByRole('button');
+      // Native html elements should only have the `disabled` attribute
+      expect(disabled).toHaveAttribute('disabled');
+    });
+
+    it('should add disabled classnames to an Amplify UI component passed as trigger with `isDisabled` prop', async () => {
       render(
         <div style={{ pointerEvents: 'auto' }}>
-          <Menu trigger={<button disabled={true} id={MENU_TRIGGER_TEST_ID} />}>
+          <Menu
+            trigger={
+              <MenuButton isDisabled={true} testId={MENU_TRIGGER_TEST_ID} />
+            }
+          >
             <MenuItem>Option 1</MenuItem>
             <MenuItem>Option 2</MenuItem>
             <MenuItem>Option 3</MenuItem>
           </Menu>
         </div>
       );
+      const disabled = await screen.findByTestId(MENU_TRIGGER_TEST_ID);
+      expect(disabled).toHaveClass('amplify-button--disabled');
+      expect(disabled).toHaveAttribute('disabled');
+    });
+
+    it('should add disabled classnames to an Amplify UI component passed as trigger with `disabled` prop', async () => {
+      render(
+        <div style={{ pointerEvents: 'auto' }}>
+          <Menu
+            trigger={
+              <MenuButton disabled={true} testId={MENU_TRIGGER_TEST_ID} />
+            }
+          >
+            <MenuItem>Option 1</MenuItem>
+            <MenuItem>Option 2</MenuItem>
+            <MenuItem>Option 3</MenuItem>
+          </Menu>
+        </div>
+      );
+      const disabled = await screen.findByTestId(MENU_TRIGGER_TEST_ID);
+      expect(disabled).toHaveClass('amplify-button--disabled');
+      expect(disabled).toHaveAttribute('disabled');
+    });
+
+    it('should prevent keyboard events with the `disabled` prop', async () => {
+      render(
+        <Menu
+          trigger={<MenuButton disabled={true} testId={MENU_TRIGGER_TEST_ID} />}
+        >
+          <MenuItem>Option 1</MenuItem>
+          <MenuItem>Option 2</MenuItem>
+          <MenuItem>Option 3</MenuItem>
+        </Menu>
+      );
 
       await waitFor(async () => {
-        const disabled = await screen.findByRole('button');
-        // Native html elements should only have the `disabled` attribute
-        expect(disabled).toHaveAttribute('disabled');
-
+        const disabled = await screen.findByTestId(MENU_TRIGGER_TEST_ID);
         disabled.dispatchEvent(
           new KeyboardEvent('keydown', {
             bubbles: true,
@@ -178,7 +227,7 @@ describe('Menu', () => {
       });
     });
 
-    it('should disable the trigger with `isDisabled` prop', async () => {
+    it('should prevent keyboard events with `isDisabled` prop', async () => {
       render(
         <div style={{ pointerEvents: 'auto' }}>
           <Menu
@@ -194,9 +243,6 @@ describe('Menu', () => {
       );
       await waitFor(async () => {
         const disabled = await screen.findByTestId(MENU_TRIGGER_TEST_ID);
-        // Amplify UI components should have the disabled class
-        expect(disabled).toHaveClass('amplify-button--disabled');
-        expect(disabled).toHaveAttribute('disabled');
 
         disabled.dispatchEvent(
           new KeyboardEvent('keydown', {
@@ -209,7 +255,7 @@ describe('Menu', () => {
       });
     });
 
-    it('should disable the trigger with `disabled` prop when menu is open', async () => {
+    it('should prevent keyboard events with `disabled` prop when menu is open', async () => {
       render(
         <div style={{ pointerEvents: 'auto' }}>
           <Menu
@@ -226,9 +272,6 @@ describe('Menu', () => {
       );
       await waitFor(async () => {
         const disabled = await screen.findByTestId(MENU_TRIGGER_TEST_ID);
-
-        expect(disabled).toHaveClass('amplify-button--disabled');
-        expect(disabled).toHaveAttribute('disabled');
 
         disabled.dispatchEvent(
           new KeyboardEvent('keydown', {
