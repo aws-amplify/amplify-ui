@@ -23,12 +23,11 @@
     "test:links": "node --require esbuild-register ./scripts/link-checker-puppeteer.ts"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "6.1.1",
+    "@aws-amplify/ui-react": "6.1.7",
     "@docsearch/react": "3",
     "@mdx-js/loader": "^2.1.0",
     "@mdx-js/mdx": "^2.1.0",
     "@mdx-js/react": "^2.1.0",
-    "aws-amplify": "^6.0.6",
     "countries-list": "^2.6.1",
     "dotenv": "^16.0.0",
     "gray-matter": "^4.0.3",
@@ -70,7 +69,6 @@
     "postcss": "^8.4.31",
     "puppeteer": "^19.7.2",
     "react-markdown": "^8.0.3",
-    "sitemap-urls": "^3.0.0",
     "ts-node": "^10.9.1"
   }
 }

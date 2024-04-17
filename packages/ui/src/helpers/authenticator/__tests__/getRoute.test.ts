@@ -24,7 +24,7 @@ describe('getRoute', () => {
     } as AuthActorState;
   };
 
-  it(`should return null when the current state is unknown`, () => {
+  it('should return `null` when the current state is unknown', () => {
     const state = getState();
     const actorState = getActorState();
 
@@ -32,7 +32,7 @@ describe('getRoute', () => {
   });
 
   it.each(['idle', 'setup'])(
-    `should return the '%s' route when the current state is '%s'`,
+    "should return the '%s' route when the current state is '%s'",
     (route: string) => {
       const state = getState(route);
       const actorState = getActorState(); // actor state is undefined here
@@ -41,14 +41,14 @@ describe('getRoute', () => {
     }
   );
 
-  it(`should return the 'signOut' route when the current state is 'signOut'`, () => {
+  it("should return the 'signOut' route when the current state is 'signOut'", () => {
     const state = getState('signOut');
     const actorState = getActorState('pending');
 
     expect(getRoute(state, actorState)).toBe('signOut');
   });
 
-  it(`should return the 'authenticated' route when the current state is 'authenticated'`, () => {
+  it("should return the 'authenticated' route when the current state is 'authenticated'", () => {
     const state = getState('authenticated');
     const actorState = getActorState('resolved');
 
@@ -56,7 +56,7 @@ describe('getRoute', () => {
   });
 
   it.each(['confirmSignUp', 'resendSignUpCode'])(
-    `should return the 'confirmSignUp' route when the current actorState is '%s'`,
+    "should return the 'confirmSignUp' route when the current actorState is '%s'",
     (route: string) => {
       const state = getState('signInActor.runActor');
       const actorState = getActorState(route);
@@ -65,7 +65,7 @@ describe('getRoute', () => {
     }
   );
 
-  it(`should return the 'confirmSignIn' route when the current actorState is 'confirmSignIn'`, () => {
+  it("should return the 'confirmSignIn' route when the current actorState is 'confirmSignIn'", () => {
     const state = getState('signInActor.runActor');
     const actorState = getActorState('confirmSignIn');
 
@@ -73,7 +73,7 @@ describe('getRoute', () => {
   });
 
   it.each(['setupTotp.edit', 'setupTotp.submit'])(
-    `should return the 'setupTotp' route when the current actorState is '%s'`,
+    "should return the 'setupTotp' route when the current actorState is '%s'",
     (route: string) => {
       const state = getState('signInActor.runActor');
       const actorState = getActorState(route);
@@ -82,18 +82,25 @@ describe('getRoute', () => {
     }
   );
 
-  it.each(['signIn', 'federatedSignIn'])(
-    `should return the 'signIn' route when actorState is '%s'`,
+  it.each(['signIn', 'signUp'])(
+    "should return the '%s' route when actorState is 'federatedSignIn",
     (route: string) => {
-      const state = getState('signInActor.runActor');
-      const actorState = getActorState(route);
+      const state = getState(`${route}Actor`);
+      const actorState = getActorState('federatedSignIn');
 
-      expect(getRoute(state, actorState)).toBe('signIn');
+      expect(getRoute(state, actorState)).toBe(route);
     }
   );
 
+  it("should return the 'signIn' route when actorState is 'signIn'", () => {
+    const state = getState('signInActor.runActor');
+    const actorState = getActorState('signIn');
+
+    expect(getRoute(state, actorState)).toBe('signIn');
+  });
+
   it.each(['signUp', 'autoSignIn'])(
-    `should return the 'signUp' route when actorState is '%s'`,
+    "should return the 'signUp' route when actorState is '%s'",
     (route: string) => {
       const state = getState('signUpActor.runActor');
       const actorState = getActorState(route);
@@ -102,49 +109,49 @@ describe('getRoute', () => {
     }
   );
 
-  it(`should return the 'forceNewPassword' route when the current actorState is 'forceChangePassword'`, () => {
+  it("should return the 'forceNewPassword' route when the current actorState is 'forceChangePassword'", () => {
     const state = getState('signInActor.runActor');
     const actorState = getActorState('forceChangePassword');
 
     expect(getRoute(state, actorState)).toBe('forceNewPassword');
   });
 
-  it(`should return the 'forgotPassword' route when the current actorState is 'forgotPassword'`, () => {
+  it("should return the 'forgotPassword' route when the current actorState is 'forgotPassword'", () => {
     const state = getState('forgotPasswordActor.runActor');
     const actorState = getActorState('forgotPassword');
 
     expect(getRoute(state, actorState)).toBe('forgotPassword');
   });
 
-  it(`should return the 'confirmResetPassword' route when the current actorState is 'confirmResetPassword'`, () => {
+  it("should return the 'confirmResetPassword' route when the current actorState is 'confirmResetPassword'", () => {
     const state = getState('forgotPasswordActor.runActor');
     const actorState = getActorState('confirmResetPassword');
 
     expect(getRoute(state, actorState)).toBe('confirmResetPassword');
   });
 
-  it(`should return the 'verifyUser' route when the current actorState is 'selectUserAttributes'`, () => {
+  it("should return the 'verifyUser' route when the current actorState is 'selectUserAttributes'", () => {
     const state = getState('verifyUserAttributesActor.runActor');
     const actorState = getActorState('selectUserAttributes');
 
     expect(getRoute(state, actorState)).toBe('verifyUser');
   });
 
-  it(`should return the 'confirmVerifyUser' route when the current actorState is 'confirmVerifyUserAttribute'`, () => {
+  it("should return the 'confirmVerifyUser' route when the current actorState is 'confirmVerifyUserAttribute'", () => {
     const state = getState('verifyUserAttributesActor.runActor');
     const actorState = getActorState('confirmVerifyUserAttribute');
 
     expect(getRoute(state, actorState)).toBe('confirmVerifyUser');
   });
 
-  it(`should return the 'transition' route when the current state is 'getCurrentUser'`, () => {
+  it("should return the 'transition' route when the current state is 'getCurrentUser'", () => {
     const state = getState('getCurrentUser');
     const actorState = getActorState('resolved');
 
     expect(getRoute(state, actorState)).toBe('transition');
   });
 
-  it(`should return the 'transition' route when the current actorState is 'fetchUserAttributes'`, () => {
+  it("should return the 'transition' route when the current actorState is 'fetchUserAttributes'", () => {
     const state = getState('signInActor.runActor');
     const actorState = getActorState('fetchUserAttributes');
 

@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref, toRefs } from 'vue';
+import { translate } from '@aws-amplify/ui';
+
 const checked = ref(false);
+// one off translation for Vue only, default value was initially hard coded
+const checkboxLabel = ref(translate('I agree with the Terms and Conditions'));
 
 const props = withDefaults(defineProps<{ errorMessage: string }>(), {
   errorMessage: '',
@@ -14,11 +18,7 @@ const { errorMessage } = toRefs(props);
       ><span class="amplify-visually-hidden"
         ><input
           @click="checked = !checked"
-          class="
-            amplify-input
-            amplify-field-group__control
-            amplify-checkbox__input
-          "
+          class="amplify-input amplify-field-group__control amplify-checkbox__input"
           aria-invalid="false"
           type="checkbox"
           name="acknowledgement"
@@ -46,7 +46,7 @@ const { errorMessage } = toRefs(props);
             d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
           ></path></svg></span
       ><span class="amplify-text amplify-checkbox__label">
-        I agree with the Terms &amp; Conditions</span
+        {{ checkboxLabel }}</span
       ></label
     >
     <p v-if="!checked" class="amplify-text amplify-field__error-message">

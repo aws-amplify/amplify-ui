@@ -66,6 +66,8 @@ export interface FormFieldOptions {
   type?: string;
   /** Desired autocomplete HTML attribute */
   autocomplete?: string;
+  /** Whether the first character is auto-capitalized */
+  autocapitalize?: string;
 }
 
 export interface LegacyFormFieldOptions extends FormFieldOptions {

@@ -1,4 +1,9 @@
-import { censorAllButFirstAndLast, censorPhoneNumber } from '..';
+import {
+  censorAllButFirstAndLast,
+  censorContactMethod,
+  censorEmail,
+  censorPhoneNumber,
+} from '..';
 
 describe('censorAllButFirstAndLast', () => {
   it('should only censor characters between the first and last indexes of a string', () => {
@@ -51,5 +56,29 @@ describe('censorPhoneNumber', () => {
 
     const phone6 = censorPhoneNumber('+12');
     expect(phone6).toEqual('+12');
+  });
+});
+
+describe('censorEmail', () => {
+  it('should return a censored email', () => {
+    const censoredEmail = censorEmail('example@example.com');
+    expect(censoredEmail).toEqual('e*****e@example.com');
+  });
+});
+
+describe('censorContactMethod', () => {
+  it('should return a censored phone number when passed type of Phone Number', () => {
+    const censoredPhoneNumber = censorContactMethod(
+      'Phone Number',
+      '+11231234567'
+    );
+    expect(censoredPhoneNumber).toEqual('********4567');
+  });
+  it('should return a censored email when passed type of Email', () => {
+    const censoredPhoneNumber = censorContactMethod(
+      'Email',
+      'example@example.com'
+    );
+    expect(censoredPhoneNumber).toEqual('e*****e@example.com');
   });
 });

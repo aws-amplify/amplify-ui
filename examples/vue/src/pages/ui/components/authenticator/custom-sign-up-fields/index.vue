@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Amplify } from 'aws-amplify';
+import { I18n } from 'aws-amplify/utils';
 import {
   Authenticator,
   AuthenticatorSignUpFormFields,
@@ -20,7 +21,7 @@ const services = {
   async validateCustomSignUp(formData) {
     if (!formData.acknowledgement) {
       return {
-        acknowledgement: 'You must agree to the Terms & Conditions',
+        acknowledgement: 'You must agree to the Terms and Conditions',
       };
     }
   },

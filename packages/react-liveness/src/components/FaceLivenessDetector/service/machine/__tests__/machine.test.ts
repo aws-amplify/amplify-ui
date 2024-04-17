@@ -1,15 +1,12 @@
-/* eslint-disable */
 import { interpret } from 'xstate';
 import { setImmediate } from 'timers';
 
-import { livenessMachine } from '..';
+import { livenessMachine } from '../machine';
 import {
   FaceLivenessDetectorProps,
   FaceMatchState,
-  Face,
   LivenessErrorState,
   LivenessInterpreter,
-  LivenessOvalDetails,
   IlluminationState,
 } from '../../types';
 import * as helpers from '../../utils';
@@ -17,27 +14,26 @@ import {
   mockLivenessStreamProvider,
   mockSessionInformation,
   mockVideoRecorder,
+  mockBlazeFace,
+  mockVideoConstraints,
+  mockCameraDevice,
+  mockFace,
+  mockVideoMediaStream,
+  mockOvalDetails,
 } from '../../utils/__mocks__/testUtils';
-import { STATIC_VIDEO_CONSTRAINTS } from '../../../utils/helpers';
 
 jest.useFakeTimers();
 jest.mock('../../utils');
 
 const mockedHelpers = helpers as jest.Mocked<typeof helpers>;
 const flushPromises = () => new Promise(setImmediate);
-const testTimestampMs = 1640995200000;
 
 describe('Liveness Machine', () => {
   const mockNavigatorMediaDevices: any = {
     getUserMedia: jest.fn(),
     enumerateDevices: jest.fn(),
   };
-  const mockBlazeFace: any = {
-    modelLoadingPromise: Promise.resolve(),
-    triggerModelLoading: jest.fn(),
-    loadModels: jest.fn(),
-    detectFaces: jest.fn(),
-  };
+
   const mockFreshnessColorDisplay: any = {
     displayColorTick: () => true,
   };
@@ -51,56 +47,10 @@ describe('Liveness Machine', () => {
     config: {},
   };
 
-  const mockVideoConstaints: MediaTrackConstraints = {
-    deviceId: 'some-device-id',
-    ...STATIC_VIDEO_CONSTRAINTS,
-  };
-  const mockCameraDevice: MediaDeviceInfo = {
-    deviceId: 'some-device-id',
-    groupId: 'some-group-id',
-    kind: 'videoinput',
-    label: 'some-label',
-    toJSON: () => ({}),
-  };
   const mockVideoEl = document.createElement('video');
   const mockCanvasEl = document.createElement('canvas');
   const mockFreshnessColorEl = document.createElement('canvas');
   window.HTMLMediaElement.prototype.pause = () => jest.fn();
-
-  const mockVideoTrack = {
-    getSettings: () => ({
-      width: 640,
-      height: 480,
-      deviceId: mockCameraDevice.deviceId,
-      frameRate: 30,
-    }),
-    stop: jest.fn(),
-  } as any as MediaStreamTrack;
-
-  const mockVideoMediaStream = {
-    getTracks: () => [mockVideoTrack],
-  } as MediaStream;
-
-  const mockFace: Face = {
-    height: 100,
-    width: 100,
-    left: 150,
-    top: 200,
-    timestampMs: testTimestampMs,
-    rightEye: [200, 200],
-    leftEye: [200, 200],
-    mouth: [200, 200],
-    nose: [200, 200],
-    rightEar: [200, 200],
-    leftEar: [200, 200],
-  };
-  const mockOvalDetails: LivenessOvalDetails = {
-    height: 100,
-    width: 100,
-    flippedCenterX: 50,
-    centerX: 50,
-    centerY: 50,
-  };
 
   const machine = livenessMachine.withContext({
     ...livenessMachine.context,
@@ -113,7 +63,6 @@ describe('Liveness Machine', () => {
       currentDetectedFace: mockFace,
       startFace: mockFace,
       endFace: mockFace,
-      initialFaceMatchTime: Date.now() - 1000,
     },
     freshnessColorAssociatedParams: {
       freshnessColorEl: document.createElement('canvas'),
@@ -180,6 +129,7 @@ describe('Liveness Machine', () => {
     jest.advanceTimersToNextTimer(); // checkFaceDetected
     jest.advanceTimersToNextTimer(); // checkRecordingStarted
     await advanceMinFaceMatches(); // detectFaceAndMatchOval
+    jest.advanceTimersToNextTimer(); // delayBeforeFlash
     await flushPromises(); // flashFreshnessColors
   }
 
@@ -255,7 +205,7 @@ describe('Liveness Machine', () => {
         service.state.context.videoAssociatedParams!.videoMediaStream
       ).toEqual(mockVideoMediaStream);
       expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenCalledWith({
-        video: mockVideoConstaints,
+        video: mockVideoConstraints,
         audio: false,
       });
       expect(mockNavigatorMediaDevices.enumerateDevices).toHaveBeenCalledTimes(
@@ -291,7 +241,7 @@ describe('Liveness Machine', () => {
       expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenNthCalledWith(
         1,
         {
-          video: mockVideoConstaints,
+          video: mockVideoConstraints,
           audio: false,
         }
       );
@@ -566,6 +516,27 @@ describe('Liveness Machine', () => {
       expect(livenessError.state).toBe(LivenessErrorState.SERVER_ERROR);
     });
 
+    it('should reach connection timeout state after receiving a connection timeout error from the websocket stream', async () => {
+      await transitionToRecording(service);
+      const errorMessage = 'Websocket connection timeout';
+      const error = new Error(errorMessage);
+      service.send({
+        type: 'CONNECTION_TIMEOUT',
+        data: { error },
+      });
+      await flushPromises();
+      jest.advanceTimersToNextTimer();
+      expect(service.state.value).toEqual('error');
+      expect(service.state.context.errorState).toBe(
+        LivenessErrorState.CONNECTION_TIMEOUT
+      );
+      expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
+      const livenessError = (mockcomponentProps.onError as jest.Mock).mock
+        .calls[0][0];
+      expect(livenessError.error.message).toContain(errorMessage);
+      expect(livenessError.state).toBe(LivenessErrorState.CONNECTION_TIMEOUT);
+    });
+
     it('should reach ovalMatching state and send client sessionInformation', async () => {
       await transitionToRecording(service);
       await flushPromises();
@@ -580,26 +551,48 @@ describe('Liveness Machine', () => {
       const clientInfo =
         mockLivenessStreamProvider.sendClientInfo.mock.calls[0][0];
 
+      const videoEl = service.state.context.videoAssociatedParams?.videoEl!;
+      Object.defineProperty(videoEl, 'videoHeight', { value: 100 });
       expect(
         expect(
           clientInfo.Challenge.FaceMovementAndLightChallenge.InitialFace
             .BoundingBox
         ).toStrictEqual({
-          Height: 0,
+          Height: -0.4166666666666667,
           Left: 0.6875,
-          Top: 0.625,
+          Top: 0.4166666666666667,
           Width: 0,
         })
       );
     });
 
-    it('should reach flashFreshnessColors state after detectFaceAndMatchOval success', async () => {
+    it('should reach delayBeforeFlash state after detectFaceAndMatchOval success', async () => {
       await transitionToRecording(service);
       await flushPromises(); // detectInitialFaceAndDrawOval
       jest.advanceTimersToNextTimer(); // checkFaceDetected
       jest.advanceTimersToNextTimer(); // checkRecordingStarted
 
       await advanceMinFaceMatches(); // detectFaceAndMatchOval
+
+      expect(service.state.value).toEqual({
+        recording: 'delayBeforeFlash',
+      });
+      expect(
+        service.state.context.faceMatchAssociatedParams!.faceMatchState
+      ).toBe(FaceMatchState.MATCHED);
+      expect(service.state.context.faceMatchAssociatedParams!.endFace).toBe(
+        mockFace
+      );
+    });
+
+    it('should reach flashFreshnessColors state after detectFaceAndMatchOval success and delayBeforeFlash', async () => {
+      await transitionToRecording(service);
+      await flushPromises(); // detectInitialFaceAndDrawOval
+      jest.advanceTimersToNextTimer(); // checkFaceDetected
+      jest.advanceTimersToNextTimer(); // checkRecordingStarted
+
+      await advanceMinFaceMatches(); // detectFaceAndMatchOval
+      jest.advanceTimersToNextTimer(); // delayBeforeFlash
 
       expect(service.state.value).toEqual({
         recording: 'flashFreshnessColors',
@@ -618,6 +611,7 @@ describe('Liveness Machine', () => {
       jest.advanceTimersToNextTimer(); // checkFaceDetected
       jest.advanceTimersToNextTimer(); // checkRecordingStarted
       await advanceMinFaceMatches(); // detectFaceAndMatchOval
+      jest.advanceTimersToNextTimer(); // delayBeforeFlash
       await flushPromises(); // flashFreshnessColors
 
       expect(service.state.value).toEqual({
@@ -639,7 +633,7 @@ describe('Liveness Machine', () => {
 
     it('should reach checkMatch state after detectFaceAndMatchOval does not match', async () => {
       mockedHelpers.getFaceMatchStateInLivenessOval.mockImplementation(() => {
-        const faceMatchState = FaceMatchState.TOO_CLOSE;
+        const faceMatchState = FaceMatchState.OFF_CENTER;
         const faceMatchPercentage = 0;
         return { faceMatchState, faceMatchPercentage };
       });
@@ -656,7 +650,7 @@ describe('Liveness Machine', () => {
       expect(service.state.value).toEqual({ recording: 'checkMatch' });
       expect(
         service.state.context.faceMatchAssociatedParams!.faceMatchState
-      ).toBe(FaceMatchState.TOO_CLOSE);
+      ).toBe(FaceMatchState.OFF_CENTER);
     });
   });
 

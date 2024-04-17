@@ -1,4 +1,4 @@
-import { render } from '@testing-library/angular';
+import { render, screen } from '@testing-library/angular';
 
 import { TextFieldComponent } from '../text-field.component';
 
@@ -13,5 +13,13 @@ describe('amplify-text-field', () => {
       },
     });
     expect(container).toMatchSnapshot();
+  });
+
+  it('should render input with autocapitalize disabled by default', async () => {
+    await render(TextFieldComponent, {
+      componentProperties: { name: 'username', label: 'Username' },
+    });
+    const input = screen.getByLabelText('Username');
+    expect(input).toHaveAttribute('autocapitalize', 'off');
   });
 });

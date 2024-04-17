@@ -12,8 +12,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "@aws-amplify/react-native": "1.0.2",
-    "@aws-amplify/rtn-web-browser": "1.0.2",
+    "@aws-amplify/react-native": "latest",
+    "@aws-amplify/rtn-web-browser": "latest",
     "@aws-amplify/ui": "*",
     "@aws-amplify/ui-react-core": "*",
     "@aws-amplify/ui-react-core-notifications": "*",
@@ -21,9 +21,8 @@
     "@react-native-async-storage/async-storage": "^1.17.5",
     "@react-native-community/netinfo": "^8.3.0",
     "@xstate/react": "^3.2.2",
-    "aws-amplify": "^6.0.6",
     "react": "18.2.0",
-    "react-native": "0.71.14",
+    "react-native": "0.71.16",
     "react-native-get-random-values": "^1.9.0",
     "react-native-safe-area-context": "^4.7.3",
     "react-native-url-polyfill": "^2.0.0"

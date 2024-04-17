@@ -1,23 +1,16 @@
-/* eslint-disable  */
 import 'jest-canvas-mock';
 
 import { FreshnessColorDisplay } from '../freshnessColorDisplay';
 import {
-  mockContext,
+  getMockContext,
   mockSessionInformation,
   mockSessionInformationNoFlatColors,
   MOCK_COLOR_SEQUENCES,
+  mockMediaRecorder,
 } from '../__mocks__/testUtils';
 import { getColorsSequencesFromSessionInformation } from '../liveness';
 
-const mockMediaRecorder = {
-  start: jest.fn(),
-  ondataavailable: jest.fn(),
-  onerror: jest.fn(),
-  state: '',
-  stop: jest.fn(),
-  addEventListener: jest.fn(),
-};
+const context = getMockContext();
 
 describe('FreshnessColorDisplay', () => {
   beforeEach(() => {
@@ -33,11 +26,10 @@ describe('FreshnessColorDisplay', () => {
   });
 
   it('can be initialized', () => {
-    expect(new FreshnessColorDisplay(mockContext(), [])).toBeTruthy();
+    expect(new FreshnessColorDisplay(getMockContext(), [])).toBeTruthy();
   });
 
   it('can display freshness colors, sends a clientInfo event for the first flat color displayed', async () => {
-    const context = mockContext();
     const display = new FreshnessColorDisplay(
       context,
       getColorsSequencesFromSessionInformation(mockSessionInformation)
@@ -74,7 +66,6 @@ describe('FreshnessColorDisplay', () => {
   });
 
   it('can change from flat display to scrolling display, sends client info event for a new color', async () => {
-    const context = mockContext();
     const display = new FreshnessColorDisplay(
       context,
       getColorsSequencesFromSessionInformation(mockSessionInformation)
@@ -103,7 +94,6 @@ describe('FreshnessColorDisplay', () => {
   });
 
   it('can change from scrolling display to flat display, sends client info event with same colors for current and prev', async () => {
-    const context = mockContext();
     const display = new FreshnessColorDisplay(
       context,
       getColorsSequencesFromSessionInformation(mockSessionInformation)
@@ -135,7 +125,6 @@ describe('FreshnessColorDisplay', () => {
   });
 
   it('can display freshness colors, returns true when all stages are complete', async () => {
-    const context = mockContext();
     const display = new FreshnessColorDisplay(
       context,
       getColorsSequencesFromSessionInformation(mockSessionInformation)
@@ -149,7 +138,7 @@ describe('FreshnessColorDisplay', () => {
     expect(response).toBe(true);
 
     const canvasContext =
-      context.freshnessColorAssociatedParams!.freshnessColorEl!.getContext(
+      getMockContext().freshnessColorAssociatedParams!.freshnessColorEl!.getContext(
         '2d'
       );
     const drawCalls = (canvasContext as any).__getDrawCalls();
@@ -157,7 +146,6 @@ describe('FreshnessColorDisplay', () => {
   });
 
   it('can skip a flat stage if the flat display duration is 0', async () => {
-    const context = mockContext();
     const display = new FreshnessColorDisplay(
       context,
       getColorsSequencesFromSessionInformation(

@@ -554,7 +554,7 @@ export const guides: ComponentNavItem[] = [
   {
     href: '/guides/css-in-js',
     label: 'CSS in JS',
-    platforms: ['react', 'vue', 'angular'],
+    platforms: ['react'],
   },
 ];
 
@@ -619,7 +619,7 @@ export const gettingStarted: ComponentNavItem[] = [
   {
     href: '/getting-started/migration',
     label: 'Migration',
-    platforms: ['react', 'vue', 'angular'],
+    platforms: ['react', 'vue', 'angular', 'react-native'],
   },
   {
     href: '/getting-started/troubleshooting',
