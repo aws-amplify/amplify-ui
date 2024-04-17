@@ -24,10 +24,6 @@ const { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent } =
 export const MENU_TRIGGER_TEST_ID = 'amplify-menu-trigger-test-id';
 export const MENU_ITEMS_GROUP_TEST_ID = 'amplify-menu-items-group-test-id';
 
-const isReactElement = (
-  child: React.ReactNode
-): child is React.ReactElement<any> => React.isValidElement<any>(child);
-
 const MenuPrimitive: Primitive<MenuProps, 'div'> = (
   {
     menuAlign = 'start',
@@ -46,12 +42,10 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
   const icons = useIcons('menu');
 
   const shouldBeDisabled =
-    isReactElement(trigger) &&
     // This defaults to false if isDisabled and disabled are undefined
+    // @ts-ignore: Property 'props' does not exist on type 'string'.
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    trigger.props?.isDisabled | trigger.props?.disabled
-      ? true
-      : false;
+    trigger?.props?.isDisabled || trigger?.props?.disabled ? true : false;
 
   return (
     <DropdownMenu onOpenChange={onOpenChange} open={isOpen}>

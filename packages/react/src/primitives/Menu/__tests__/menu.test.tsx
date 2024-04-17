@@ -1,11 +1,9 @@
 import * as React from 'react';
-import { fireEvent, screen, render, waitFor } from '@testing-library/react';
+import { screen, render, waitFor } from '@testing-library/react';
 import { ComponentClassName } from '@aws-amplify/ui';
-import { Button } from '@aws-amplify/ui-react';
-import { Menu, MENU_ITEMS_GROUP_TEST_ID } from '../Menu';
+import { Menu, MENU_ITEMS_GROUP_TEST_ID, MENU_TRIGGER_TEST_ID } from '../Menu';
 import { MenuButton } from '../MenuButton';
 import { MenuItem, MENU_ITEM_TEST_ID } from '../MenuItem';
-import { MENU_TRIGGER_TEST_ID } from '../Menu';
 
 // Needed because of the Radix Popper used by Menu
 // https://github.com/radix-ui/primitives/blob/main/packages/react/popper/src/Popper.tsx#L127
@@ -119,7 +117,7 @@ describe('Menu', () => {
     });
 
     it('should render a clickable trigger by default', async () => {
-      const { getByTestId } = render(
+      render(
         <Menu>
           <MenuItem>Option 1</MenuItem>
           <MenuItem>Option 2</MenuItem>
@@ -127,31 +125,54 @@ describe('Menu', () => {
         </Menu>
       );
 
-      const menuButton = getByTestId(MENU_TRIGGER_TEST_ID);
+      await waitFor(async () => {
+        const menuButton = await screen.findByTestId(MENU_TRIGGER_TEST_ID);
 
-      expect(menuButton).toBeDefined();
-      fireEvent.click(menuButton);
+        menuButton.dispatchEvent(
+          new KeyboardEvent('keydown', {
+            bubbles: true,
+            key: 'Enter',
+          })
+        );
 
-      expect(menuButton).toHaveAttribute('data-state', 'open');
-      expect(screen.queryByText('Option 1')).toBeInTheDocument();
+        expect(menuButton).toHaveAttribute('data-state', 'open');
+        expect(screen.queryByText('Option 1')).toBeVisible();
+
+        const openMenuButton = await screen.findByTestId(MENU_TRIGGER_TEST_ID);
+        openMenuButton.dispatchEvent(
+          new KeyboardEvent('keydown', {
+            bubbles: true,
+            key: 'Enter',
+          })
+        );
+
+        expect(openMenuButton).toHaveAttribute('data-state', 'closed');
+        expect(screen.queryByText('Option 1')).toBeNull();
+      });
     });
 
     it('should disable the trigger with `disabled` prop', async () => {
       render(
-        <Menu
-          trigger={<Button disabled={true} testId={MENU_TRIGGER_TEST_ID} />}
-        >
-          <MenuItem>Option 1</MenuItem>
-          <MenuItem>Option 2</MenuItem>
-          <MenuItem>Option 3</MenuItem>
-        </Menu>
+        <div style={{ pointerEvents: 'auto' }}>
+          <Menu trigger={<button disabled={true} id={MENU_TRIGGER_TEST_ID} />}>
+            <MenuItem>Option 1</MenuItem>
+            <MenuItem>Option 2</MenuItem>
+            <MenuItem>Option 3</MenuItem>
+          </Menu>
+        </div>
       );
 
       await waitFor(async () => {
-        const disabled = await screen.findByTestId(MENU_TRIGGER_TEST_ID);
-        expect(disabled).toHaveClass('amplify-button--disabled');
+        const disabled = await screen.findByRole('button');
+        // Native html elements should only have the `disabled` attribute
+        expect(disabled).toHaveAttribute('disabled');
 
-        fireEvent.click(disabled);
+        disabled.dispatchEvent(
+          new KeyboardEvent('keydown', {
+            bubbles: true,
+            key: 'Enter',
+          })
+        );
         expect(disabled).toHaveAttribute('data-state', 'closed');
         expect(screen.queryByText('Option 1')).toBeNull();
       });
@@ -159,23 +180,64 @@ describe('Menu', () => {
 
     it('should disable the trigger with `isDisabled` prop', async () => {
       render(
-        <Menu
-          trigger={
-            <MenuButton isDisabled={true} testId={MENU_TRIGGER_TEST_ID} />
-          }
-        >
-          <MenuItem>Option 1</MenuItem>
-          <MenuItem>Option 2</MenuItem>
-          <MenuItem>Option 3</MenuItem>
-        </Menu>
+        <div style={{ pointerEvents: 'auto' }}>
+          <Menu
+            trigger={
+              <MenuButton isDisabled={true} testId={MENU_TRIGGER_TEST_ID} />
+            }
+          >
+            <MenuItem>Option 1</MenuItem>
+            <MenuItem>Option 2</MenuItem>
+            <MenuItem>Option 3</MenuItem>
+          </Menu>
+        </div>
       );
       await waitFor(async () => {
         const disabled = await screen.findByTestId(MENU_TRIGGER_TEST_ID);
+        // Amplify UI components should have the disabled class
         expect(disabled).toHaveClass('amplify-button--disabled');
+        expect(disabled).toHaveAttribute('disabled');
 
-        fireEvent.click(disabled);
+        disabled.dispatchEvent(
+          new KeyboardEvent('keydown', {
+            bubbles: true,
+            key: 'Enter',
+          })
+        );
         expect(disabled).toHaveAttribute('data-state', 'closed');
         expect(screen.queryByText('Option 1')).toBeNull();
+      });
+    });
+
+    it('should disable the trigger with `isDisabled` prop when menu is open', async () => {
+      render(
+        <div style={{ pointerEvents: 'auto' }}>
+          <Menu
+            isOpen
+            trigger={
+              <MenuButton isDisabled={true} testId={MENU_TRIGGER_TEST_ID} />
+            }
+          >
+            <MenuItem>Option 1</MenuItem>
+            <MenuItem>Option 2</MenuItem>
+            <MenuItem>Option 3</MenuItem>
+          </Menu>
+        </div>
+      );
+      await waitFor(async () => {
+        const disabled = await screen.findByTestId(MENU_TRIGGER_TEST_ID);
+
+        expect(disabled).toHaveClass('amplify-button--disabled');
+        expect(disabled).toHaveAttribute('disabled');
+
+        disabled.dispatchEvent(
+          new KeyboardEvent('keydown', {
+            bubbles: true,
+            key: 'Enter',
+          })
+        );
+        expect(disabled).toHaveAttribute('data-state', 'open');
+        expect(screen.queryByText('Option 1')).toBeVisible();
       });
     });
   });
