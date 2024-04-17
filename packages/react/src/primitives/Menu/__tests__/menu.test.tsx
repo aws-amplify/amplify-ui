@@ -277,7 +277,6 @@ describe('Menu', () => {
         <MenuButton
           isDisabled={true}
           testId={MENU_BUTTON_TEST_ID}
-          onClick={clickHandler}
         />
       );
 
