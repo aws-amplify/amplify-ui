@@ -209,7 +209,7 @@ describe('Menu', () => {
       });
     });
 
-    it('should disable the trigger with `isDisabled` prop when menu is open', async () => {
+    it('should disable the trigger with `disabled` prop when menu is open', async () => {
       render(
         <div style={{ pointerEvents: 'auto' }}>
           <Menu
