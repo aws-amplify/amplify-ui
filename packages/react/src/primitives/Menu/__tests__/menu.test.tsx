@@ -273,7 +273,6 @@ describe('Menu', () => {
   describe('MenuButton', () => {
     it('has the expected class when disabled', async () => {
       const MENU_BUTTON_TEST_ID = 'amplify-menu-button-test-id';
-      const clickHandler = jest.fn();
       render(
         <MenuButton
           isDisabled={true}
