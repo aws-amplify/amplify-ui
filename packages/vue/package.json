@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-vue",
-  "version": "4.2.4",
+  "version": "4.2.5",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",

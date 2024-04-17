@@ -1,5 +1,13 @@
 # @aws-amplify/ui-react
 
+## 6.1.8
+
+### Patch Changes
+
+- [#5167](https://github.com/aws-amplify/amplify-ui/pull/5167) [`18da6aede`](https://github.com/aws-amplify/amplify-ui/commit/18da6aede31bf7d82939542f1646f06c577bd2c4) Thanks [@esauerbo](https://github.com/esauerbo)! - fix(Menu): Fix ability to disable menu component
+
+  This fixes a bug where the `Menu` component was not respecting the `isDisabled` prop.
+
 ## 6.1.7
 
 ### Patch Changes
