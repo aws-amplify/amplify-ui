@@ -208,7 +208,7 @@ describe('Menu', () => {
       expect(disabled).toHaveClass('amplify-button--disabled');
     });
 
-    it('should add the Amplify UI Button disabled class to when Menu is disabled', async () => {
+    it('has the expected class when disabled and open', async () => {
       render(
         <Menu isOpen isDisabled>
           {/* Force open to test menu items */}
