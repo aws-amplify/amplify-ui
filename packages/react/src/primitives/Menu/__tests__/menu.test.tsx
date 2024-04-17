@@ -223,7 +223,7 @@ describe('Menu', () => {
       expect(disabled).toHaveClass('amplify-button--disabled');
     });
 
-    it('should behave as expected when Menu is disabled', async () => {
+    it('behaves as expected when `isDisabled` is updated from `false` to `true`', async () => {
       const clickHandler = jest.fn();
       const { rerender } = render(
         <Menu isOpen isDisabled={false}>
