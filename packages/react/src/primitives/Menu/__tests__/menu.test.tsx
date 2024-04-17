@@ -274,7 +274,7 @@ describe('Menu', () => {
     it('should add the Amplify UI Button disabled class to disabled MenuButton', async () => {
       const MENU_BUTTON_TEST_ID = 'amplify-menu-button-test-id';
       const clickHandler = jest.fn();
-      const { rerender } = render(
+      render(
         <MenuButton
           isDisabled={true}
           testId={MENU_BUTTON_TEST_ID}
