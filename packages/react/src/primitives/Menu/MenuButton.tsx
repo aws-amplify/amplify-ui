@@ -44,6 +44,7 @@ const MenuButtonPrimitive: Primitive<MenuButtonProps, 'button'> = (
     <Button
       ref={ref}
       className={componentClasses}
+      disabled={isDisabled ?? isLoading}
       isDisabled={isDisabled ?? isLoading}
       type={type}
       testId={testId}
