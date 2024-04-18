@@ -1,4 +1,5 @@
 import { InlineFilter } from '@/components/InlineFilter';
+import { ForgotPasswordCallout } from '@/components/MigrationChanges/ForgotPasswordCallout';
 import { ResponsiveTable, ResponsiveTableCell } from '@/components/ResponsiveTable';
 import { TableCell, TableBody, TableHead, TableRow, Alert } from '@aws-amplify/ui-react';
 import { FunctionOverridesTable } from '@/components/FunctionOverridesTable';
@@ -7,7 +8,7 @@ import { FunctionOverridesTable } from '@/components/FunctionOverridesTable';
 
 You can override the call to `signUp`, `signIn`, `confirmSignIn`, `confirmSignUp`, `forgotPassword` and `forgotPasswordSubmit` functions.
 To override a call you must create a new `services` object with an `async` `handle*` function that returns an `aws-amplify` `Auth.*` promise.
-
+<ForgotPasswordCallout />
 The service object must then be passed into the `authenticator` component as a `services` prop. For example, let's imagine you'd like to lowercase the `username` and the `email` attributes during `signUp`.
 This would be overriden like so:
 
