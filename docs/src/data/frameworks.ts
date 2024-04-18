@@ -36,6 +36,14 @@ export const CURRENT_MAJOR_VERSIONS: Record<string, number> = {
   vue: 4,
 };
 
+export const PREV_MAJOR_VERSIONS: Record<string, number> = {
+  angular: 4,
+  'aws-amplify': 5,
+  react: 5,
+  'react-native': 1,
+  vue: 3,
+};
+
 export const AMPLIFY_5_UI_VERSIONS: Record<string, number> = {
   angular: 4,
   'aws-amplify': 5,
@@ -53,6 +61,6 @@ export const FRAMEWORK_INSTALL_SCRIPTS = {
   vue: 'npm i @aws-amplify/ui-vue aws-amplify',
   angular: 'npm i @aws-amplify/ui-angular aws-amplify',
   flutter: 'flutter pub add amplify_authenticator',
-  android: "implementation 'com.amplifyframework.ui:liveness:1.2.4'",
+  android: "implementation 'com.amplifyframework.ui:liveness:1.2.5'",
   'react-native': `npm i @aws-amplify/ui-react-native aws-amplify ${REACT_NATIVE_DEPENDENCIES}`,
 };

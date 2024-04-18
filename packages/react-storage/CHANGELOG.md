@@ -1,5 +1,12 @@
 # @aws-amplify/ui-react-storage
 
+## 3.0.18
+
+### Patch Changes
+
+- Updated dependencies [[`18da6aede`](https://github.com/aws-amplify/amplify-ui/commit/18da6aede31bf7d82939542f1646f06c577bd2c4)]:
+  - @aws-amplify/ui-react@6.1.8
+
 ## 3.0.17
 
 ### Patch Changes
