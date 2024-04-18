@@ -1,13 +1,25 @@
-import kebabCase from 'lodash/kebabCase.js';
 // internal style dictionary function
 import usesReference from 'style-dictionary/lib/utils/references/usesReference.js';
-
-import { isObject, isString, has } from '../utils';
-import { ShadowValue, WebDesignToken } from './tokens/types/designToken';
-
-type ShadowPropertyKey = keyof Exclude<ShadowValue, string>;
+import kebabCase from 'lodash/kebabCase.js';
+import { has, isObject, isString } from '../../utils';
+import { WebDesignToken } from '../types';
+import { ShadowValue } from '../tokens/types/designToken';
 
 export const CSS_VARIABLE_PREFIX = 'amplify';
+
+interface NameTransformProps {
+  path?: Array<string>;
+}
+
+export function cssNameTransform({ path = [] }: NameTransformProps): string {
+  return `${kebabCase([CSS_VARIABLE_PREFIX, ...path].join(' '))}`;
+}
+
+type BaseDesignToken = {
+  value: string | number;
+};
+
+type ShadowPropertyKey = keyof Exclude<ShadowValue, string>;
 
 // Important: these properties should not be altered in
 // order to maintain the expected order of the CSS `box-shadow` property
@@ -19,15 +31,12 @@ const SHADOW_PROPERTIES: ShadowPropertyKey[] = [
   'color',
 ];
 
-function referenceValue(value?: string) {
-  if (!value) return '';
-  if (usesReference(value)) {
-    const path = value.replace(/\{|\}/g, '').replace('.value', '').split('.');
-    return `var(--${cssNameTransform({ path })})`;
-  }
-  return value;
-}
-
+/**
+ * Will take a design token in a theme and return its value as CSS
+ *
+ * @param token
+ * @returns
+ */
 export function cssValue(token: BaseDesignToken): string | number {
   const { value } = token;
   if (isString(value)) {
@@ -47,14 +56,6 @@ export function cssValue(token: BaseDesignToken): string | number {
   return value;
 }
 
-interface NameTransformProps {
-  path?: Array<string>;
-}
-
-export function cssNameTransform({ path = [] }: NameTransformProps): string {
-  return `${kebabCase([CSS_VARIABLE_PREFIX, ...path].join(' '))}`;
-}
-
 /**
  * Helper function to test if something is a design token or not.
  * Used in the React component style props.
@@ -72,19 +73,47 @@ export function isShadowTokenObject(
   return isObject(value) && has(value, 'offsetX');
 }
 
-type SetupTokensProps = {
-  tokens?: Record<string | number, any>;
-  path?: Array<string>;
-  setupToken: SetupToken;
-};
+/**
+ * Function that sees if a string contains a design token reference
+ * and if so will turn that into a CSS variable.
+ *
+ * @param {string} value
+ * @returns string
+ */
+export function referenceValue(value?: string) {
+  if (!value) return '';
+  if (usesReference(value)) {
+    const path = value.replace(/\{|\}/g, '').replace('.value', '').split('.');
+    return `var(--${cssNameTransform({ path })})`;
+  }
+  return value;
+}
 
 export type SetupToken<ReturnType = any> = (args: {
   token: BaseDesignToken;
   path: Array<string>;
 }) => ReturnType;
 
-type BaseDesignToken = {
-  value: string | number;
+/**
+ * This will take a design token and add some data to it for it
+ * to be used in JS/CSS. It will create its CSS var name and update
+ * the value to use a CSS var if it is a reference. It will also
+ * add a `.toString()` method to make it easier to use in JS.
+ *
+ * We should see if there is a way to share this logic with style dictionary...
+ */
+export const setupToken: SetupToken<WebDesignToken> = ({ token, path }) => {
+  const name = `--${cssNameTransform({ path })}`;
+  const { value: original } = token;
+  const value = cssValue(token);
+
+  return { name, original, path, value, toString: () => `var(${name})` };
+};
+
+type SetupTokensProps = {
+  tokens?: Record<string | number, any>;
+  path?: Array<string>;
+  setupToken: SetupToken;
 };
 
 /**

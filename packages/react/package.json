@@ -13,6 +13,11 @@
       "import": "./dist/esm/internal.mjs",
       "require": "./dist/internal.js"
     },
+    "./theme": {
+      "types": "./dist/types/theme.d.ts",
+      "import": "./dist/esm/theme.mjs",
+      "require": "./dist/theme.js"
+    },
     "./styles.css": "./dist/styles.css",
     "./styles.layer.css": "./dist/styles.layer.css",
     "./styles/*": "./dist/styles/*",

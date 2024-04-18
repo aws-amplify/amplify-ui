@@ -267,3 +267,26 @@ export function groupLog(groupName: string, ...events: any[]): void {
     console.log(groupName);
   }
 }
+
+/**
+ * Splits an object into 2 objects based on a predicate
+ *
+ * @param {object} obj an object to split into two
+ * @param {function} predicate function to determin where an element should go
+ * @returns
+ */
+export function splitObject(
+  obj: Record<string, any>,
+  predicate: (key: string) => boolean
+) {
+  const left = {};
+  const right = {};
+  Object.entries(obj).forEach(([key, value]) => {
+    if (predicate(key)) {
+      left[key] = value;
+    } else {
+      right[key] = value;
+    }
+  });
+  return [left, right] as const;
+}

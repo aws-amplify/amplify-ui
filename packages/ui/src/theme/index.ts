@@ -1,4 +1,12 @@
-export { createTheme } from './createTheme';
+export {
+  createTheme,
+  createComponentTheme,
+  createComponentClasses,
+  cssNameTransform,
+  isDesignToken,
+  setupTokens,
+  SetupToken,
+} from './createTheme';
 export { defaultTheme } from './defaultTheme';
 export {
   defaultDarkModeOverride,
@@ -6,9 +14,4 @@ export {
 } from './defaultDarkModeOverride';
 export { reactNativeTokens, ReactNativeTokens } from './tokens';
 export * from './types';
-export {
-  cssNameTransform,
-  isDesignToken,
-  setupTokens,
-  SetupToken,
-} from './utils';
+export * from './components';
