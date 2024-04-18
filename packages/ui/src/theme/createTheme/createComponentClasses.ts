@@ -7,7 +7,7 @@ type ElementNames<T extends BaseTheme> = T extends { _element?: any }
   : never;
 
 // Gets the modifiers of an element within a theme
-type ModifierNames<T extends BaseTheme> = T extends { _modifiers?: any }
+type ModifierNames<T extends unknown> = T extends { _modifiers?: any }
   ? Arrayify<keyof T['_modifiers']>
   : never;
 
@@ -28,16 +28,19 @@ type ClassNameArgs<T extends BaseTheme> = {
   _modifiers?: RootModifierNames<T>;
 };
 
-export type ClassNameFunction<T extends ComponentTheme = ComponentTheme> = (
+export type ClassNameFunction<T extends BaseTheme = BaseTheme> = (
   props?: ClassNameArgs<UnwrapTheme<T>>
 ) => string;
 
 // This will take a theme which could be either a plain object or a function that returns a plain object
 // and makes it the plain object
-type UnwrapTheme<ThemeType extends ComponentTheme = ComponentTheme> =
-  ThemeType extends (...args: any) => any ? ReturnType<ThemeType> : ThemeType;
+type UnwrapTheme<ThemeType extends BaseTheme = BaseTheme> = ThemeType extends (
+  ...args: any
+) => any
+  ? ReturnType<ThemeType>
+  : ThemeType;
 
-export function createComponentClasses<ThemeType extends ComponentTheme>({
+export function createComponentClasses<ThemeType extends BaseTheme>({
   name = '',
   prefix = 'amplify-',
 }) {
