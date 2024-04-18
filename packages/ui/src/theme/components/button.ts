@@ -1,10 +1,4 @@
-import type {
-  ColorThemes,
-  Sizes,
-  ComponentTheme,
-  BaseThemeDefinition,
-  BaseComponentTheme,
-} from './utils';
+import type { ColorTheme, Size, Modifiers, BaseProperties } from './utils';
 
 type Variations =
   | 'primary'
@@ -14,10 +8,8 @@ type Variations =
   | 'menu'
   | 'link';
 
-type ColorThemeVariations = `${ColorThemes}--${Variations}`;
+type ColorThemeVariations = `${ColorTheme | 'overlay'}--${Variations}`;
 
-export interface ButtonTheme extends BaseThemeDefinition {
-  _modifier?: {
-    [key in Variations | Sizes | ColorThemeVariations]?: BaseThemeDefinition;
-  };
-}
+export interface ButtonTheme
+  extends BaseProperties,
+    Modifiers<Variations | Size | ColorThemeVariations> {}

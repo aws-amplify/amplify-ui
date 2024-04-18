@@ -1,10 +1,6 @@
-import { BaseThemeDefinition } from './utils';
+import { Modifiers, BaseProperties, Elements, ColorTheme, Size } from './utils';
 
-type Variations = 'info' | 'success';
-type Sizes = 'small' | 'large';
-
-export interface BadgeTheme extends BaseThemeDefinition {
-  _modifier?: {
-    [key in Variations | Sizes]?: BaseThemeDefinition;
-  };
-}
+export interface BadgeTheme
+  extends BaseProperties,
+    Modifiers<Size | ColorTheme>,
+    Elements<'icon' | 'heading' | 'body' | 'dismiss'> {}

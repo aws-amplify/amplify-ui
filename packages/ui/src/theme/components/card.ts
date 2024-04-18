@@ -1,7 +1,5 @@
-import { BaseThemeDefinition } from './utils';
+import { BaseProperties, Modifiers } from './utils';
 
-export interface CardTheme extends BaseThemeDefinition {
-  _modifier?: {
-    [key in 'elevated' | 'outlined']?: BaseThemeDefinition;
-  };
-}
+export interface CardTheme
+  extends BaseProperties,
+    Modifiers<'elevated' | 'outlined'> {}

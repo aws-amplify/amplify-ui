@@ -2,11 +2,9 @@ import kebabCase from 'lodash/kebabCase.js';
 import { DefaultTheme, WebTheme } from '../types';
 import { cssValue } from './cssValue';
 import { ComponentsTheme } from '../components';
-import { isFunction } from '../../utils';
+import { isFunction, splitObject } from '../../utils';
 import { isDesignToken } from './isDesignToken';
-import { BaseThemeDefinition, CSSProperties } from '../components/utils';
-
-// we need to handle psuedo elements like ::before
+import { BaseTheme, CSSProperties } from '../components/utils';
 
 /**
  * This will take an object like:
@@ -26,27 +24,17 @@ function propsToString(props: CSSProperties): string {
     .join(' ');
 }
 
-// function to split an object in 2 by a predicate on the keys
-function splitObject(
-  obj: Record<string, any>,
-  predicate: (key: string) => boolean
-) {
-  const left = {};
-  const right = {};
-  Object.entries(obj).forEach(([key, value]) => {
-    if (predicate(key)) {
-      left[key] = value;
-    } else {
-      right[key] = value;
-    }
-  });
-  return [left, right] as const;
+function addVars(selector: string, vars: Record<string, unknown>) {
+  if (!vars) return '';
+
+  return `${selector} { ${Object.entries(vars).map(([key, value]) => {
+    return `--${key}:${value}; `;
+  })}}\n`;
 }
 
-function createComponentCSS(baseSelector: string, theme: BaseThemeDefinition) {
-  if (!theme) return '';
+function recursiveComponentCSS(baseSelector: string, theme: BaseTheme) {
   let str = '';
-  const { _modifier = {}, _element = {}, vars, ...props } = theme;
+  const { _modifiers = {}, _element = {}, _vars, ...props } = theme;
 
   // if there are no props, skip
   if (Object.keys(props).length) {
@@ -56,35 +44,43 @@ function createComponentCSS(baseSelector: string, theme: BaseThemeDefinition) {
       (key) => key.startsWith(':') || key.startsWith('[')
     );
 
-    Object.entries(selectors).forEach(([key, value]) => {
-      str += `${baseSelector}${key} { ${propsToString(value)} }\n`;
+    Object.entries(selectors).forEach(([selector, value]) => {
+      // need to remove nested things like vars and elements
+      const {
+        _modifiers = {},
+        _element = {},
+        _vars,
+        ...props
+      } = value as BaseTheme;
+      str += `${baseSelector}${selector} { ${propsToString(props)} }\n`;
+      str += addVars(`${baseSelector}${selector}`, _vars);
     });
 
     str += `${baseSelector} { ${propsToString(other)} }\n`;
   }
 
-  if (vars) {
-    Object.entries(vars).forEach(([key, value]) => {
-      str += `${baseSelector} { --${key}:${value}; }\n`;
-    });
-  }
+  str += addVars(baseSelector, _vars);
 
-  Object.entries(_modifier).forEach(([key, value]) => {
+  Object.entries(_modifiers).forEach(([key, value]) => {
     if (value && Object.keys(value).length) {
-      str += createComponentCSS(`${baseSelector}--${key}`, value);
+      str += recursiveComponentCSS(`${baseSelector}--${key}`, value);
     }
   });
 
   Object.entries(_element).forEach(([key, value]) => {
     if (value && Object.keys(value).length) {
-      str += createComponentCSS(`${baseSelector}__${key}`, value);
+      str += recursiveComponentCSS(`${baseSelector}__${key}`, value);
     }
   });
 
   return str;
 }
 
-export function setupComponentTheme(
+/**
+ * This will take a component theme and create the appropriate CSS for it.
+ *
+ */
+export function createComponentCSS(
   themeName: string,
   components: Array<ComponentsTheme>,
   tokens: WebTheme['tokens'],
@@ -97,36 +93,38 @@ export function setupComponentTheme(
     const componentClassName = `[data-amplify-theme="${themeName}"] .${baseComponentClassName}`;
     // unwrap the component theme
     // if it is a function: call it with the defaultTheme to get a static object
-    const componentTheme: BaseThemeDefinition = isFunction(theme)
-      ? (theme(tokens) as BaseThemeDefinition)
+    const componentTheme: BaseTheme = isFunction(theme)
+      ? (theme(tokens) as BaseTheme)
       : theme;
 
-    cssText += createComponentCSS(componentClassName, componentTheme);
+    cssText += recursiveComponentCSS(componentClassName, componentTheme);
 
     // if the component theme has overrides
     // generate the appropriate CSS for each of them
     if (overrides) {
       overrides.forEach((override) => {
         // unwrap the override component theme just like above
-        const componentTheme: BaseThemeDefinition = isFunction(override.theme)
-          ? (override.theme(tokens) as BaseThemeDefinition)
+        const componentTheme: BaseTheme = isFunction(override.theme)
+          ? (override.theme(tokens) as BaseTheme)
           : override.theme;
 
         if ('mediaQuery' in override) {
-          cssText += `@media (${override.mediaQuery}) {\n ${createComponentCSS(
+          cssText += `@media (${
+            override.mediaQuery
+          }) {\n ${recursiveComponentCSS(
             componentClassName,
             componentTheme
           )} \n}`;
         }
         if ('breakpoint' in override) {
           const breakpoint = breakpoints.values[override.breakpoint];
-          cssText += `\n@media (min-width: ${breakpoint}px) {\n ${createComponentCSS(
+          cssText += `\n@media (min-width: ${breakpoint}px) {\n ${recursiveComponentCSS(
             componentClassName,
             componentTheme
           )} \n}`;
         }
         if ('selector' in override) {
-          cssText += createComponentCSS(
+          cssText += recursiveComponentCSS(
             `${override.selector} .${baseComponentClassName}`,
             componentTheme
           );
@@ -134,13 +132,13 @@ export function setupComponentTheme(
         if ('colorMode' in override) {
           cssText += `
 @media (prefers-color-scheme: ${override.colorMode}) {
-  ${createComponentCSS(
+  ${recursiveComponentCSS(
     `[data-amplify-theme="${themeName}"][data-amplify-color-mode="system"] .${baseComponentClassName}`,
     componentTheme
   )}
 }
 `;
-          cssText += createComponentCSS(
+          cssText += recursiveComponentCSS(
             `[data-amplify-theme="${themeName}"][data-amplify-color-mode="${override.colorMode}"] .${baseComponentClassName}`,
             componentTheme
           );

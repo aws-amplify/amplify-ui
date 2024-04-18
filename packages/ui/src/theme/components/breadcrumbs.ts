@@ -1,9 +1,5 @@
-import { BaseThemeDefinition } from './utils';
+import { BaseProperties, Elements } from './utils';
 
-type Elements = 'list' | 'separator' | 'item' | 'link';
-
-export interface BreadcrumbsTheme extends BaseThemeDefinition {
-  _element?: {
-    [key in Elements]?: BaseThemeDefinition;
-  };
-}
+export interface BreadcrumbsTheme
+  extends BaseProperties,
+    Elements<'list' | 'separator' | 'item' | 'link'> {}

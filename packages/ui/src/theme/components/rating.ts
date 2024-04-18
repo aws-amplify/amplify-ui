@@ -1,15 +1,8 @@
-import { BaseThemeDefinition } from './utils';
+import { BaseProperties, Modifiers, Size } from './utils';
 
-export interface RatingTheme extends BaseThemeDefinition {
-  _modifier?: {
-    [key in 'small' | 'large']?: BaseThemeDefinition;
-  };
+export interface RatingTheme extends BaseProperties, Modifiers<Size> {
   _element?: {
-    item?: BaseThemeDefinition;
-    icon?: BaseThemeDefinition & {
-      _modifier?: {
-        [key in 'filled' | 'empty']?: BaseThemeDefinition;
-      };
-    };
+    item?: BaseProperties;
+    icon?: BaseProperties & Modifiers<'filled' | 'empty'>;
   };
 }

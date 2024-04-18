@@ -12,6 +12,8 @@ export type { Radii } from './tokens/radii';
 export type { Shadows } from './tokens/shadows';
 export type { SpaceSizes } from './tokens/space';
 
+export { Tokens };
+
 /**
  * An override is a set of tokens that override others
  * in certain contexts. On Android, these are like resource
@@ -96,7 +98,7 @@ export interface ColorModeOverride extends BaseOverride {
  * They can define any tokens or breakpoints they need, but they don't need a
  * complete theme with all tokens.
  */
-export interface Theme {
+export interface Theme<TokensType extends WebTokens = WebTokens> {
   /**
    * The name of the theme. This is used to create scoped CSS to allow for
    * multiple themes on a page.
@@ -114,7 +116,7 @@ export interface Theme {
    */
   overrides?: Array<Override>;
 
-  components?: Array<ComponentsTheme>;
+  components?: Array<ComponentsTheme<TokensType>>;
 }
 
 /**

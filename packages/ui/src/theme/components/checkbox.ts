@@ -1,21 +1,9 @@
-import { BaseThemeDefinition, BaseComponentTheme } from './utils';
+import { Modifiers, BaseProperties, ColorTheme } from './utils';
 
-export interface CheckboxTheme extends BaseThemeDefinition {
+export interface CheckboxTheme extends BaseProperties, Modifiers<ColorTheme> {
   _element?: {
-    button?: BaseThemeDefinition & {
-      _modifier?: BaseThemeDefinition & {
-        focused?: BaseThemeDefinition;
-        error?: BaseThemeDefinition;
-        disabled?: BaseThemeDefinition;
-      };
-    };
-    icon?: BaseThemeDefinition & {
-      _modifier?: {
-        checked?: BaseThemeDefinition;
-        indeterminite?: BaseThemeDefinition;
-        disabled?: BaseThemeDefinition;
-      };
-    };
-    label?: BaseThemeDefinition;
+    button?: BaseProperties & Modifiers<'focused' | 'error' | 'disabled'>;
+    icon?: BaseProperties & Modifiers<'checked' | 'indeterminite' | 'disabled'>;
+    label?: BaseProperties;
   };
 }

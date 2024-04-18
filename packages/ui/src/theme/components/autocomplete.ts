@@ -1,20 +1,9 @@
-import { BaseThemeDefinition } from './utils';
+import { Modifiers, BaseProperties } from './utils';
 
-export interface AutoCompleteTheme extends BaseThemeDefinition {
+export interface AutoCompleteTheme extends BaseProperties {
   _element?: {
-    menu?: BaseThemeDefinition & {
-      _modifier?: {
-        empty?: BaseThemeDefinition;
-        loading?: BaseThemeDefinition;
-      };
-      _element?: {
-        option?: BaseThemeDefinition & {
-          _modifier?: {
-            active?: BaseThemeDefinition;
-          };
-        };
-        options?: BaseThemeDefinition;
-      };
-    };
+    menu?: BaseProperties & Modifiers<'empty' | 'loading'>;
+    menu__option?: BaseProperties & Modifiers<'active'>;
+    menu__options?: BaseProperties;
   };
 }

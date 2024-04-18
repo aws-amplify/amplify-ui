@@ -6,9 +6,10 @@ import { defaultTheme } from '../defaultTheme';
 import { Theme, DefaultTheme, WebTheme, Override } from '../types';
 import { setupToken, setupTokens } from './setupToken';
 import { WebDesignToken } from '../tokens/types/designToken';
-import { setupComponentTheme } from './setupComponentTheme';
+import { createComponentCSS } from './createComponentCSS';
 import { isString } from '../../utils';
 import { createColorPalette } from './createColorPalette';
+import { WebTokens } from '../tokens';
 
 /**
  * This will be used like `const myTheme = createTheme({})`
@@ -17,8 +18,8 @@ import { createColorPalette } from './createColorPalette';
  * const myTheme = createTheme({})
  * const myOtherTheme = createTheme({}, myTheme);
  */
-export function createTheme(
-  theme?: Theme | WebTheme,
+export function createTheme<TokensType extends WebTokens = WebTokens>(
+  theme?: Theme<TokensType> | WebTheme,
   DefaultTheme: DefaultTheme | WebTheme = defaultTheme
 ): WebTheme {
   // merge theme and DefaultTheme to get a complete theme
@@ -71,7 +72,7 @@ export function createTheme(
     `\n}\n`;
 
   if (theme?.components) {
-    cssText += setupComponentTheme(
+    cssText += createComponentCSS(
       name,
       theme.components,
       tokens,
