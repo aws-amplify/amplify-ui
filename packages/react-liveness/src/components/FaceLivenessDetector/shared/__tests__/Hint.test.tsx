@@ -39,6 +39,7 @@ describe('Hint', () => {
   let illuminationState: IlluminationState | null = null;
   let faceMatchStateBeforeStart: FaceMatchState | null = null;
   let isFaceFarEnoughBeforeRecordingState: boolean | null = null;
+  let faceMatchPercentage: number | null = null;
 
   let isNotRecording = false;
   let isRecording = false;
@@ -58,7 +59,8 @@ describe('Hint', () => {
       .mockReturnValueOnce(faceMatchState)
       .mockReturnValueOnce(illuminationState)
       .mockReturnValueOnce(faceMatchStateBeforeStart)
-      .mockReturnValueOnce(isFaceFarEnoughBeforeRecordingState);
+      .mockReturnValueOnce(isFaceFarEnoughBeforeRecordingState)
+      .mockReturnValueOnce(faceMatchPercentage);
 
     when(mockActorState.matches)
       .calledWith('notRecording')
@@ -91,6 +93,7 @@ describe('Hint', () => {
     illuminationState = null;
     faceMatchStateBeforeStart = null;
     isFaceFarEnoughBeforeRecordingState = null;
+    faceMatchPercentage = null;
 
     isNotRecording = false;
     isRecording = false;
@@ -227,18 +230,6 @@ describe('Hint', () => {
     ).not.toBeInTheDocument();
   });
 
-  it('should render TOO_CLOSE text if faceMatchState = TOO_CLOSE and recording', () => {
-    faceMatchState = FaceMatchState.TOO_CLOSE;
-    isRecording = true;
-    mockStateMatchesAndSelectors();
-
-    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
-
-    expect(
-      screen.getByText(hintDisplayText.hintTooCloseText)
-    ).toBeInTheDocument();
-  });
-
   it('should render TOO_FAR text if faceMatchState = TOO_FAR and recording', () => {
     faceMatchState = FaceMatchState.TOO_FAR;
     isRecording = true;
@@ -246,9 +237,47 @@ describe('Hint', () => {
 
     renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
-    expect(
-      screen.getByText(hintDisplayText.hintTooFarText)
-    ).toBeInTheDocument();
+    const textElements = screen.getAllByText(hintDisplayText.hintTooFarText);
+    const labelElements = screen.getAllByLabelText(
+      hintDisplayText.hintTooFarText
+    );
+    expect(textElements.length).toBe(2);
+    expect(textElements[0]).toBeInTheDocument();
+    expect(textElements[1]).toBeInTheDocument();
+    expect(labelElements.length).toBe(1);
+    expect(labelElements[0]).toBeInTheDocument();
+  });
+
+  it('should render a11y messages about percentage matched if above 50', () => {
+    faceMatchState = FaceMatchState.TOO_FAR;
+    isRecording = true;
+    faceMatchPercentage = 51;
+    mockStateMatchesAndSelectors();
+
+    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
+
+    const labelElements = screen.getAllByLabelText(
+      hintDisplayText.hintMatchIndicatorText
+    );
+    expect(labelElements.length).toBe(1);
+    expect(labelElements[0]).toBeInTheDocument();
+  });
+
+  it('should render TOO_FAR text if faceMatchState = OFF_CENTER and recording', () => {
+    faceMatchState = FaceMatchState.OFF_CENTER;
+    isRecording = true;
+    mockStateMatchesAndSelectors();
+
+    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
+
+    const textElements = screen.getAllByText(hintDisplayText.hintTooFarText);
+    const labelElements = screen.getAllByLabelText(
+      hintDisplayText.hintFaceOffCenterText
+    );
+    expect(textElements.length).toBe(1);
+    expect(textElements[0]).toBeInTheDocument();
+    expect(labelElements.length).toBe(1);
+    expect(labelElements[0]).toBeInTheDocument();
   });
 
   it('should render HOLD_STILL text if faceMatchState = MATCHED and recording', () => {
@@ -258,9 +287,10 @@ describe('Hint', () => {
 
     renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
-    expect(
-      screen.getByText(hintDisplayText.hintHoldFaceForFreshnessText)
-    ).toBeInTheDocument();
+    const textElements = screen.getAllByText(
+      hintDisplayText.hintHoldFaceForFreshnessText
+    );
+    expect(textElements[0]).toBeInTheDocument();
   });
 
   it('should render TOO_FAR text if faceMatchState = CANT_IDENTIFY and recording', () => {
@@ -270,9 +300,15 @@ describe('Hint', () => {
 
     renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
-    expect(
-      screen.getByText(hintDisplayText.hintTooFarText)
-    ).toBeInTheDocument();
+    const textElements = screen.getAllByText(hintDisplayText.hintTooFarText);
+    const labelElements = screen.getAllByLabelText(
+      hintDisplayText.hintTooFarText
+    );
+    expect(textElements.length).toBe(2);
+    expect(textElements[0]).toBeInTheDocument();
+    expect(textElements[1]).toBeInTheDocument();
+    expect(labelElements.length).toBe(1);
+    expect(labelElements[0]).toBeInTheDocument();
   });
 
   it('should render TOO_FAR text if faceMatchState = FACE_IDENTIFIED and recording', () => {
@@ -282,14 +318,20 @@ describe('Hint', () => {
 
     renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
-    expect(
-      screen.getByText(hintDisplayText.hintTooFarText)
-    ).toBeInTheDocument();
+    const textElements = screen.getAllByText(hintDisplayText.hintTooFarText);
+    const labelElements = screen.getAllByLabelText(
+      hintDisplayText.hintTooFarText
+    );
+    expect(textElements.length).toBe(2);
+    expect(textElements[0]).toBeInTheDocument();
+    expect(textElements[1]).toBeInTheDocument();
+    expect(labelElements.length).toBe(1);
+    expect(labelElements[0]).toBeInTheDocument();
   });
 
   it('should create appropriate selectors', () => {
     const expectedErrorState = LivenessErrorState.RUNTIME_ERROR;
-    const expectedFaceMatchState = FaceMatchState.TOO_CLOSE;
+    const expectedFaceMatchState = FaceMatchState.OFF_CENTER;
     const expectedIlluminationState = IlluminationState.DARK;
 
     const state: any = {

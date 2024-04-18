@@ -5,6 +5,14 @@
   right: var(--amplify-space-medium);
 }
 
+.liveness-detector .amplify-button--primary {
+  &:focus {
+    box-shadow: unset;
+    outline: var(--amplify-components-button-focus-color) solid 2px;
+    outline-offset: 2px;
+  }
+}
+
 .amplify-liveness-cancel-button {
   background-color: #fff;
   color: hsl(190, 95%, 30%);
@@ -42,6 +50,7 @@
   left: 0;
   height: 100%;
   width: 100%;
+  z-index: 2;
 }
 
 .amplify-liveness-video {
@@ -110,7 +119,7 @@
 }
 
 .amplify-liveness-instruction-overlay {
-  z-index: 1;
+  z-index: 2;
 }
 
 .amplify-liveness-countdown-container {
@@ -131,6 +140,7 @@
   padding: var(--amplify-space-small);
   max-width: 100%;
 }
+
 .amplify-liveness-toast__message {
   color: var(--amplify-colors-font-primary);
   text-align: center;
@@ -269,7 +279,7 @@
 
 .amplify-liveness-landscape-error-modal {
   background-color: var(--amplify-colors-background-primary);
-  direction: column;
+  flex-direction: column;
   text-align: center;
   align-items: center;
   justify-content: center;
@@ -334,6 +344,10 @@
 
 .amplify-liveness-error-modal__heading {
   font-weight: var(--amplify-font-weights-bold);
+}
+
+.amplify-liveness-hint--mobile {
+  margin-top: var(--amplify-space-xxxl);
 }
 
 .amplify-liveness-hint__text {
@@ -415,5 +429,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
   height: 480px;
 }

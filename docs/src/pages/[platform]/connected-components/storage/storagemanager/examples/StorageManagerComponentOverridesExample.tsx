@@ -27,7 +27,7 @@ export const StorageManagerComponentOverridesExample = () => {
               alignItems="center"
               direction="column"
               padding="medium"
-              backgroundColor={inDropZone ? 'brand.primary.10' : ''}
+              backgroundColor={inDropZone ? 'primary.10' : ''}
               {...rest}
             >
               <Text>Drop files here</Text>

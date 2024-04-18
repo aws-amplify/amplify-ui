@@ -1,9 +1,7 @@
 import { Tabs } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { BasicShoppingCard, AdvancedShoppingCard } from '../shared';
-import { InstallScripts, TerminalCommand } from '@/components/InstallScripts.tsx';
-import VitePolyfill from '../../troubleshooting/shared/vite-polyfill.mdx';
-import VitePolyfillTS from '../../troubleshooting/shared/vite-polyfill-ts.mdx';
+import { TerminalCommand } from '@/components/InstallScripts.tsx';
 
 ## Tutorial
 
@@ -26,10 +24,6 @@ First, execute the command below in your terminal. When prompted for the name of
 
     <TerminalCommand command="npm install @aws-amplify/ui-react aws-amplify"/>
 
-    **When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.**
-
-    <VitePolyfill />
-
   </Tabs.Panel>
   <Tabs.Panel value="TypeScript">
     #### npm 7+
@@ -38,15 +32,8 @@ First, execute the command below in your terminal. When prompted for the name of
 
     <TerminalCommand command="npm install @aws-amplify/ui-react aws-amplify"/>
 
-    **When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.**
-
-    <VitePolyfill />
-    <VitePolyfillTS />
   </Tabs.Panel>
 </Tabs.Container>
-
-> If you are still having issues, please see comments on the following issue for additional [Vite workarounds](https://github.com/aws-amplify/amplify-js/issues/9639). Note that there is active ongoing work to make these modifications unnecessary.
-
 
 ### Basic Demo
 

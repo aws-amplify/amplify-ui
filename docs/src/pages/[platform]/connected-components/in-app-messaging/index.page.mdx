@@ -8,6 +8,7 @@ import { Alert } from '@aws-amplify/ui-react';
 import AppDirectoryAlert from '@/components/AppDirectoryAlert';
 
 import { InlineFilter } from '@/components/InlineFilter';
+import { MigrationGuideCallout } from '@/components/MigrationChanges/MigrationGuideCallout';
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
 import OverviewReactNative from './fragments/overview.react-native.mdx';
@@ -46,9 +47,11 @@ export async function getStaticProps() {
 In-App Messaging allows you to better engage users with contextually appropriate messages rendered on events triggered by their activity while using your application. Create messages that look native to your application and deliver them to your users all without additional code changes.
 
 <InlineFilter filters={['react']}>
+  <MigrationGuideCallout framework="react" />
   <OverviewReact />
 </InlineFilter>
 <InlineFilter filters={['react-native']}>
+  <MigrationGuideCallout framework="react-native" />
   <OverviewReactNative />
 </InlineFilter>
 

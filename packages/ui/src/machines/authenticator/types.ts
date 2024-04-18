@@ -106,6 +106,7 @@ export interface AuthEvent {
  * Data that actor returns when they are done and reach the final state
  */
 export interface ActorDoneData {
+  challengeName?: ChallengeName;
   codeDeliveryDetails?: V5CodeDeliveryDetails;
   missingAttributes?: string[];
   remoteError?: string;
@@ -173,7 +174,7 @@ type Step =
  * Base context for all actors that have auth forms associated
  */
 interface BaseFormContext {
-  // key/values dereived directly from Auth API return values
+  // key/values derived directly from Auth API return values
   challengeName?: ChallengeName;
   missingAttributes?: Array<string>;
   remoteError?: string;

@@ -1628,7 +1628,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-outlined-error-border-color",
-        "value": "var(--amplify-colors-red-60)"
+        "value": "var(--amplify-colors-red-80)"
     },
     {
         "variable": "--amplify-components-button-outlined-error-color",
@@ -1656,7 +1656,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-button-outlined-error-hover-border-color",
-        "value": "var(--amplify-colors-red-60)"
+        "value": "var(--amplify-colors-red-80)"
     },
     {
         "variable": "--amplify-components-button-outlined-error-hover-color",
@@ -2555,6 +2555,10 @@ exports[`CSS Variables Table 1`] = `
         "value": "ease-in-out"
     },
     {
+        "variable": "--amplify-components-checkbox-label-color",
+        "value": "var(--amplify-components-text-color)"
+    },
+    {
         "variable": "--amplify-components-checkbox-label-disabled-color",
         "value": "var(--amplify-colors-font-disabled)"
     },
@@ -3376,7 +3380,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-liveness-camera-module-background-color",
-        "value": "var(--amplify-colors-black)"
+        "value": "var(--amplify-colors-background-primary)"
     },
     {
         "variable": "--amplify-components-loader-animation-duration",
@@ -3905,6 +3909,58 @@ exports[`CSS Variables Table 1`] = `
     {
         "variable": "--amplify-components-passwordfield-button-disabled-color",
         "value": "var(--amplify-components-button-disabled-color)"
+    },
+    {
+        "variable": "--amplify-components-passwordfield-button-error-active-background-color",
+        "value": "var(--amplify-components-button-outlined-error-active-background-color)"
+    },
+    {
+        "variable": "--amplify-components-passwordfield-button-error-active-border-color",
+        "value": "var(--amplify-components-button-outlined-error-active-border-color)"
+    },
+    {
+        "variable": "--amplify-components-passwordfield-button-error-active-color",
+        "value": "var(--amplify-components-button-outlined-error-active-color)"
+    },
+    {
+        "variable": "--amplify-components-passwordfield-button-error-background-color",
+        "value": "var(--amplify-components-button-outlined-error-background-color)"
+    },
+    {
+        "variable": "--amplify-components-passwordfield-button-error-border-color",
+        "value": "var(--amplify-components-button-outlined-error-border-color)"
+    },
+    {
+        "variable": "--amplify-components-passwordfield-button-error-color",
+        "value": "var(--amplify-components-button-outlined-error-color)"
+    },
+    {
+        "variable": "--amplify-components-passwordfield-button-error-focus-background-color",
+        "value": "var(--amplify-components-button-outlined-error-focus-background-color)"
+    },
+    {
+        "variable": "--amplify-components-passwordfield-button-error-focus-border-color",
+        "value": "var(--amplify-components-button-outlined-error-focus-border-color)"
+    },
+    {
+        "variable": "--amplify-components-passwordfield-button-error-focus-box-shadow",
+        "value": "var(--amplify-components-button-outlined-error-focus-box-shadow)"
+    },
+    {
+        "variable": "--amplify-components-passwordfield-button-error-focus-color",
+        "value": "var(--amplify-components-button-outlined-error-focus-color)"
+    },
+    {
+        "variable": "--amplify-components-passwordfield-button-error-hover-background-color",
+        "value": "var(--amplify-components-button-outlined-error-hover-background-color)"
+    },
+    {
+        "variable": "--amplify-components-passwordfield-button-error-hover-border-color",
+        "value": "var(--amplify-components-button-outlined-error-hover-border-color)"
+    },
+    {
+        "variable": "--amplify-components-passwordfield-button-error-hover-color",
+        "value": "var(--amplify-components-button-outlined-error-hover-color)"
     },
     {
         "variable": "--amplify-components-passwordfield-button-focus-background-color",

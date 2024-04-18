@@ -11,7 +11,7 @@ import {
   View,
 } from '@aws-amplify/ui-react';
 import { useColorMode } from '@aws-amplify/ui-react/internal';
-import { FaceMatchState, drawStaticOval } from '../service';
+import { FaceMatchState, clearOvalCanvas, drawStaticOval } from '../service';
 import {
   useLivenessActor,
   useLivenessSelector,
@@ -83,6 +83,7 @@ const showMatchIndicatorStates = [
   FaceMatchState.TOO_FAR,
   FaceMatchState.CANT_IDENTIFY,
   FaceMatchState.FACE_IDENTIFIED,
+  FaceMatchState.OFF_CENTER,
 ];
 
 /**
@@ -138,6 +139,7 @@ export const LivenessCameraModule = (
   const isCheckingCamera = state.matches('cameraCheck');
   const isWaitingForCamera = state.matches('waitForDOMAndCameraDetails');
   const isStartView = state.matches('start') || state.matches('userCancel');
+  const isDetectFaceBeforeStart = state.matches('detectFaceBeforeStart');
   const isRecording = state.matches('recording');
   const isCheckSucceeded = state.matches('checkSucceeded');
   const isFlashingFreshness = state.matches({
@@ -156,14 +158,7 @@ export const LivenessCameraModule = (
   );
 
   React.useEffect(() => {
-    if (
-      canvasRef &&
-      videoRef &&
-      canvasRef.current &&
-      videoRef.current &&
-      videoStream &&
-      isStartView
-    ) {
+    if (canvasRef?.current && videoRef?.current && videoStream && isStartView) {
       drawStaticOval(canvasRef.current, videoRef.current, videoStream);
     }
   }, [canvasRef, videoRef, videoStream, colorMode, isStartView]);
@@ -172,10 +167,8 @@ export const LivenessCameraModule = (
     const updateColorModeHandler = (e: MediaQueryListEvent) => {
       if (
         e.matches &&
-        canvasRef &&
-        videoRef &&
-        canvasRef.current &&
-        videoRef.current &&
+        canvasRef?.current &&
+        videoRef?.current &&
         videoStream &&
         isStartView
       ) {
@@ -220,6 +213,12 @@ export const LivenessCameraModule = (
       );
     }
   }, [send, videoRef, isCameraReady, isMobileScreen]);
+
+  React.useEffect(() => {
+    if (isDetectFaceBeforeStart) {
+      clearOvalCanvas({ canvas: canvasRef.current! });
+    }
+  }, [isDetectFaceBeforeStart]);
 
   const photoSensitivityWarning = React.useMemo(() => {
     return (
@@ -291,8 +290,9 @@ export const LivenessCameraModule = (
     );
   }
 
-  const isRecordingOnMobile =
-    isMobileScreen && !isStartView && !isWaitingForCamera && isRecording;
+  // We don't show full screen camera on the pre check screen (isStartView/isWaitingForCamera)
+  const shouldShowFullScreenCamera =
+    isMobileScreen && !isStartView && !isWaitingForCamera;
 
   return (
     <>
@@ -301,12 +301,71 @@ export const LivenessCameraModule = (
       <Flex
         className={classNames(
           LivenessClassNames.CameraModule,
-          isRecordingOnMobile && `${LivenessClassNames.CameraModule}--mobile`
+          shouldShowFullScreenCamera &&
+            `${LivenessClassNames.CameraModule}--mobile`
         )}
         data-testid={testId}
         gap="zero"
       >
         {!isCameraReady && centeredLoader}
+
+        <Overlay
+          horizontal="center"
+          vertical={
+            isRecording && !isFlashingFreshness ? 'start' : 'space-between'
+          }
+          className={LivenessClassNames.InstructionOverlay}
+        >
+          {isRecording && (
+            <DefaultRecordingIcon
+              recordingIndicatorText={recordingIndicatorText}
+            />
+          )}
+
+          {!isStartView && !isWaitingForCamera && !isCheckSucceeded && (
+            <DefaultCancelButton
+              cancelLivenessCheckText={cancelLivenessCheckText}
+            />
+          )}
+
+          <Flex
+            className={classNames(
+              LivenessClassNames.Hint,
+              shouldShowFullScreenCamera && `${LivenessClassNames.Hint}--mobile`
+            )}
+          >
+            <Hint hintDisplayText={hintDisplayText} />
+          </Flex>
+
+          {errorState && (
+            <ErrorView
+              onRetry={() => {
+                send({ type: 'CANCEL' });
+              }}
+              displayText={errorDisplayText}
+            >
+              {renderErrorModal({
+                errorState,
+                overrideErrorDisplayText: errorDisplayText,
+              })}
+            </ErrorView>
+          )}
+
+          {/* 
+              We only want to show the MatchIndicator when we're recording
+              and when the face is in either the too far state, or the 
+              initial face identified state. Using the a memoized MatchIndicator here
+              so that even when this component re-renders the indicator is only
+              re-rendered if the percentage prop changes.
+            */}
+          {isRecording &&
+          !isFlashingFreshness &&
+          showMatchIndicatorStates.includes(faceMatchState!) ? (
+            <MemoizedMatchIndicator
+              percentage={Math.ceil(faceMatchPercentage!)}
+            />
+          ) : null}
+        </Overlay>
 
         <View
           as="canvas"
@@ -335,63 +394,13 @@ export const LivenessCameraModule = (
           <Flex
             className={classNames(
               LivenessClassNames.OvalCanvas,
-              isRecordingOnMobile && `${LivenessClassNames.OvalCanvas}--mobile`,
+              shouldShowFullScreenCamera &&
+                `${LivenessClassNames.OvalCanvas}--mobile`,
               isRecordingStopped && LivenessClassNames.FadeOut
             )}
           >
             <View as="canvas" ref={canvasRef} />
           </Flex>
-
-          {isRecording && (
-            <DefaultRecordingIcon
-              recordingIndicatorText={recordingIndicatorText}
-            />
-          )}
-
-          {!isStartView && !isWaitingForCamera && !isCheckSucceeded && (
-            <DefaultCancelButton
-              cancelLivenessCheckText={cancelLivenessCheckText}
-            />
-          )}
-
-          <Overlay
-            horizontal="center"
-            vertical={
-              isRecording && !isFlashingFreshness ? 'start' : 'space-between'
-            }
-            className={LivenessClassNames.InstructionOverlay}
-          >
-            <Hint hintDisplayText={hintDisplayText} />
-
-            {errorState && (
-              <ErrorView
-                onRetry={() => {
-                  send({ type: 'CANCEL' });
-                }}
-                displayText={errorDisplayText}
-              >
-                {renderErrorModal({
-                  errorState,
-                  overrideErrorDisplayText: errorDisplayText,
-                })}
-              </ErrorView>
-            )}
-
-            {/* 
-              We only want to show the MatchIndicator when we're recording
-              and when the face is in either the too far state, or the 
-              initial face identified state. Using the a memoized MatchIndicator here
-              so that even when this component re-renders the indicator is only
-              re-rendered if the percentage prop changes.
-            */}
-            {isRecording &&
-            !isFlashingFreshness &&
-            showMatchIndicatorStates.includes(faceMatchState!) ? (
-              <MemoizedMatchIndicator
-                percentage={Math.ceil(faceMatchPercentage!)}
-              />
-            ) : null}
-          </Overlay>
 
           {isStartView &&
             !isMobileScreen &&

@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui",
-  "version": "6.0.6",
+  "version": "6.0.13",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -50,7 +50,7 @@
     "tslib": "^2.5.2"
   },
   "peerDependencies": {
-    "aws-amplify": "^6.0.2",
+    "aws-amplify": "^6.0.26",
     "xstate": "^4.33.6"
   },
   "peerDependenciesMeta": {

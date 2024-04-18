@@ -1,5 +1,80 @@
 # @aws-amplify/ui
 
+## 6.0.13
+
+### Patch Changes
+
+- [#5125](https://github.com/aws-amplify/amplify-ui/pull/5125) [`a26e9eb86`](https://github.com/aws-amplify/amplify-ui/commit/a26e9eb86b5e78cad0aaf6ee5230f46900b0a016) Thanks [@esauerbo](https://github.com/esauerbo)! - fix(Liveness): Update camera module background on verifying step to match theme
+
+- [#5120](https://github.com/aws-amplify/amplify-ui/pull/5120) [`842c00ad4`](https://github.com/aws-amplify/amplify-ui/commit/842c00ad42701659228aea2fc526e34125a7e3d0) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(deps): update peerDep versions in public packages, point to 6.0.26 for examples and docs
+
+## 6.0.12
+
+### Patch Changes
+
+- [#5069](https://github.com/aws-amplify/amplify-ui/pull/5069) [`3cc2f8fc1`](https://github.com/aws-amplify/amplify-ui/commit/3cc2f8fc121e818d68c7d10abc863eebd5620902) Thanks [@esauerbo](https://github.com/esauerbo)! - fix(Authenticator): fix issue in sms mfa signup flow where challengeName is undefined
+
+- [#5038](https://github.com/aws-amplify/amplify-ui/pull/5038) [`f64ea459e`](https://github.com/aws-amplify/amplify-ui/commit/f64ea459e5008ebb764697177958ee8307ce7542) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(ui/liveness): fix flex-direction of landscape error message in FaceLiveness component
+
+## 6.0.11
+
+### Patch Changes
+
+- [#5034](https://github.com/aws-amplify/amplify-ui/pull/5034) [`1d9c5c862`](https://github.com/aws-amplify/amplify-ui/commit/1d9c5c8629fd94b4e1b5fa045afe0dd1ccc1b21d) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(web/react-native/ui): use translated strings for VerifyUser screen and use censorContactMethod util
+
+  **ui/Angular/React/Vue/ReactNative:** adds a `censorContactMethod()` utility to the `ui` package and refactors the VerifyUser screen in Angular, React, Vue, and ReactNative packages to use this utility.
+
+  **Vue:** Fixes an issue where translated strings were not being properly used for the VerifyUser screen. Additionally, removes duplicate "verify" id that was on multiple elements.
+
+- [#5007](https://github.com/aws-amplify/amplify-ui/pull/5007) [`4eae32e91`](https://github.com/aws-amplify/amplify-ui/commit/4eae32e91ecc64b24a0092c4aee234b87420ce07) Thanks [@talik077](https://github.com/talik077)! - fix(ui): Update Hebrew translation for `Forgot your password?` string
+
+- [#5003](https://github.com/aws-amplify/amplify-ui/pull/5003) [`32702d9c9`](https://github.com/aws-amplify/amplify-ui/commit/32702d9c976e81b23b4e8f1c7e935b48288e058d) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(ui/react): add missing color token for CheckboxField label
+
+  The CheckboxField label color (and disabled color) can now be themed correctly via:
+
+  ```
+  label: {
+    color: { value: '{colors.purple.80}' },
+    _disabled: {
+      color: { value: '{colors.purple.60}' },
+    },
+  },
+  ```
+
+## 6.0.10
+
+### Patch Changes
+
+- [#5006](https://github.com/aws-amplify/amplify-ui/pull/5006) [`80ad8cda6`](https://github.com/aws-amplify/amplify-ui/commit/80ad8cda66800f88150054fa51a7bbcdd0730566) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): add handling for external sign up events
+
+## 6.0.9
+
+### Patch Changes
+
+- [#4978](https://github.com/aws-amplify/amplify-ui/pull/4978) [`7eeb0ae7c`](https://github.com/aws-amplify/amplify-ui/commit/7eeb0ae7c0ee651a0a2ec0e6e945732219dbacf2) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(Authenticator): update state machine to include onDone in federated sign in flow
+
+## 6.0.8
+
+### Patch Changes
+
+- [#4789](https://github.com/aws-amplify/amplify-ui/pull/4789) [`0f767c7fa`](https://github.com/aws-amplify/amplify-ui/commit/0f767c7fa9d106e8be34aa53edd9f5afe064ac6a) Thanks [@esauerbo](https://github.com/esauerbo)! - fix(ui): add tokens for ShowPassword button error state.
+
+  Added 'error' color theme for `ShowPassword` button (part of `PasswordField`)
+
+- [#4892](https://github.com/aws-amplify/amplify-ui/pull/4892) [`9dc52eb1b`](https://github.com/aws-amplify/amplify-ui/commit/9dc52eb1b2f4ad8c1f2956c7ad8a5073cf203172) Thanks [@esauerbo](https://github.com/esauerbo)! - fix(authenticator): fix unhandled authenticator route console warning
+
+- [#4923](https://github.com/aws-amplify/amplify-ui/pull/4923) [`d61690d01`](https://github.com/aws-amplify/amplify-ui/commit/d61690d0170eba69b23a785832e107db05a038ca) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): propagate username from signUp actor to top level machine
+
+## 6.0.7
+
+### Patch Changes
+
+- [#4895](https://github.com/aws-amplify/amplify-ui/pull/4895) [`ad070697b`](https://github.com/aws-amplify/amplify-ui/commit/ad070697ba81871e26905d08f049b3486a0ce6f9) Thanks [@thaddmt](https://github.com/thaddmt)! - fix: update liveness button focus border to have a gap
+
+- [#4889](https://github.com/aws-amplify/amplify-ui/pull/4889) [`067e2b1cf`](https://github.com/aws-amplify/amplify-ui/commit/067e2b1cf435db2acb1c25ca3e50a65b53478530) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - Fix table styling for striped variation
+
+- [#4894](https://github.com/aws-amplify/amplify-ui/pull/4894) [`7b0666036`](https://github.com/aws-amplify/amplify-ui/commit/7b0666036863f47417959aeaa054a84a35cdbea9) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(liveness): type Liveness DisplayText with DisplayTextTemplate
+
 ## 6.0.6
 
 ### Patch Changes

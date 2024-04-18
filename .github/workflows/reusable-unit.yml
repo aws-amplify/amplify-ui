@@ -38,14 +38,14 @@ jobs:
 
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+        uses: actions/checkout@cd7d8d697e10461458bc61a30d094dc601a8b017 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
         with:
           ref: ${{ inputs.commit }}
           repository: ${{ inputs.repository }}
           persist-credentials: false
 
       - name: Setup Node.js 20
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
         with:
           node-version: 20
           cache: 'yarn'
@@ -53,7 +53,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
 
       - name: Restore node_modules cache
-        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
         id: restore-cache
         with:
           path: |
@@ -64,7 +64,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
 
       - name: Restore ui/dist cache
-        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
         id: restore-ui-cache
         with:
           path: ./packages/ui/dist
@@ -151,7 +151,7 @@ jobs:
         run: yarn ${{ matrix.package }} size
 
       - name: Cache ${{ matrix.package }}/dist
-        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
         with:
           path: ./packages/${{ matrix.package }}/dist
           key: ${{ runner.os }}-${{ matrix.package }}-${{ inputs.commit }}

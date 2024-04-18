@@ -90,6 +90,7 @@ export default {
           :type="showHideType"
           :aria-invalid="hasError"
           :aria-describedBy="describedBy"
+          autocapitalize="off"
         />
       </base-wrapper>
       <base-wrapper :class="ComponentClassName.FieldGroupOuterEnd">

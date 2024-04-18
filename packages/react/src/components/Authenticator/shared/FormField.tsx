@@ -58,6 +58,7 @@ export function FormField({
         <PasswordField
           {...props}
           name={name}
+          autoCapitalize="off"
           autoComplete={autoComplete}
           hasError={hasError}
           aria-describedby={ariaDescribedBy}
@@ -75,6 +76,7 @@ export function FormField({
         <TextField
           {...props}
           name={name}
+          autoCapitalize="off"
           autoComplete={autoComplete}
           hasError={hasError}
           type={type}

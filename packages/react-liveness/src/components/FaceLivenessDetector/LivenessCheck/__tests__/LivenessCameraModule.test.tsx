@@ -268,37 +268,6 @@ describe('LivenessCameraModule', () => {
     expect(matchIndicator).toHaveLength(1);
   });
 
-  it('should not render MatchIndicator when isRecording and faceMatchState is TOO_CLOSE', async () => {
-    isRecording = true;
-    mockStateMatchesAndSelectors();
-    mockUseLivenessSelector
-      .mockReturnValue(25)
-      .mockReturnValue(FaceMatchState.TOO_CLOSE);
-
-    const testId = 'cameraModule';
-
-    renderWithLivenessProvider(
-      <LivenessCameraModule
-        isMobileScreen={false}
-        isRecordingStopped={false}
-        hintDisplayText={hintDisplayText}
-        streamDisplayText={streamDisplayText}
-        errorDisplayText={errorDisplayText}
-        cameraDisplayText={cameraDisplayText}
-        instructionDisplayText={instructionDisplayText}
-        testId={testId}
-      />
-    );
-    const videoEl = screen.getByTestId('video');
-    videoEl.dispatchEvent(new Event('canplay'));
-
-    const cameraModule = await screen.findByTestId(testId);
-    const matchIndicator = cameraModule.getElementsByClassName(
-      LivenessClassNames.MatchIndicator
-    );
-    expect(matchIndicator).toHaveLength(0);
-  });
-
   it('should render MatchIndicator when isRecording and faceMatchState is MATCHED', async () => {
     isRecording = true;
     mockStateMatchesAndSelectors();

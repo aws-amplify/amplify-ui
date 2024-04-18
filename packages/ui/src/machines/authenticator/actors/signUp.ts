@@ -17,6 +17,8 @@ import actions from '../actions';
 import { defaultServices } from '../defaultServices';
 import guards from '../guards';
 
+import { getFederatedSignInState } from './utils';
+
 export type SignUpMachineOptions = {
   services?: Partial<typeof defaultServices>;
 };
@@ -110,6 +112,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
             ...handleFetchUserAttributesResponse,
           },
         },
+        federatedSignIn: getFederatedSignInState('signUp'),
         resetPassword: {
           invoke: { src: 'resetPassword', ...handleResetPasswordResponse },
         },
@@ -135,6 +138,9 @@ export function signUpActor({ services }: SignUpMachineOptions) {
         signUp: {
           type: 'parallel',
           exit: 'clearTouched',
+          on: {
+            FEDERATED_SIGN_IN: { target: 'federatedSignIn' },
+          },
           states: {
             validation: {
               initial: 'pending',
@@ -153,8 +159,8 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                 invalid: { entry: 'sendUpdate' },
               },
               on: {
-                CHANGE: { actions: 'handleInput', target: '.pending' },
                 BLUR: { actions: 'handleBlur', target: '.pending' },
+                CHANGE: { actions: 'handleInput', target: '.pending' },
               },
             },
             submission: {
@@ -164,14 +170,6 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                   entry: ['sendUpdate'],
                   on: {
                     SUBMIT: { actions: 'handleSubmit', target: 'validate' },
-                    FEDERATED_SIGN_IN: 'federatedSignIn',
-                  },
-                },
-                federatedSignIn: {
-                  entry: ['sendUpdate', 'clearError'],
-                  invoke: {
-                    src: 'federatedSignIn',
-                    onError: { actions: 'setRemoteError' },
                   },
                 },
                 validate: {
@@ -179,13 +177,13 @@ export function signUpActor({ services }: SignUpMachineOptions) {
                   invoke: {
                     src: 'validateSignUp',
                     onDone: {
-                      target: 'signUp',
+                      target: 'handleSignUp',
                       actions: 'clearValidationError',
                     },
                     onError: { actions: 'setFieldErrors', target: 'idle' },
                   },
                 },
-                signUp: {
+                handleSignUp: {
                   tags: 'pending',
                   entry: ['setUsernameSignUp', 'clearError'],
                   exit: 'sendUpdate',
@@ -266,6 +264,7 @@ export function signUpActor({ services }: SignUpMachineOptions) {
             remoteError: context.remoteError,
             step: context.step,
             totpSecretCode: context.totpSecretCode,
+            username: context.username,
             unverifiedUserAttributes: context.unverifiedUserAttributes,
           }),
         },
@@ -290,10 +289,10 @@ export function signUpActor({ services }: SignUpMachineOptions) {
         resendSignUpCode({ username }) {
           return resendSignUpCode({ username });
         },
-        async federatedSignIn(_, { data }) {
+        signInWithRedirect(_, { data }) {
           return signInWithRedirect(data);
         },
-        async handleSignUp(context) {
+        handleSignUp(context) {
           const { formValues, loginMechanisms, username } = context;
           const loginMechanism = loginMechanisms[0];
           const input = getSignUpInput(username, formValues, loginMechanism);

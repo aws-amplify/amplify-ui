@@ -122,10 +122,10 @@ export enum IlluminationState {
 export enum FaceMatchState {
   MATCHED = 'MATCHED',
   TOO_FAR = 'TOO FAR',
-  TOO_CLOSE = 'TOO CLOSE',
   CANT_IDENTIFY = 'CANNOT IDENTIFY',
   FACE_IDENTIFIED = 'ONE FACE IDENTIFIED',
   TOO_MANY = 'TOO MANY FACES',
+  OFF_CENTER = 'OFF CENTER',
 }
 
 export interface LivenessError {

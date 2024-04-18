@@ -112,21 +112,23 @@ type OverlayKeys =
   | 'overlay.80'
   | 'overlay.90';
 
-type BrandColorKeys =
-  | 'brand.primary.10'
-  | 'brand.primary.20'
-  | 'brand.primary.40'
-  | 'brand.primary.60'
-  | 'brand.primary.80'
-  | 'brand.primary.90'
-  | 'brand.primary.100'
-  | 'brand.secondary.10'
-  | 'brand.secondary.20'
-  | 'brand.secondary.40'
-  | 'brand.secondary.60'
-  | 'brand.secondary.80'
-  | 'brand.secondary.90'
-  | 'brand.secondary.100';
+type PrimaryColorKey =
+  | 'primary.10'
+  | 'primary.20'
+  | 'primary.40'
+  | 'primary.60'
+  | 'primary.80'
+  | 'primary.90'
+  | 'primary.100';
+
+type SecondaryColorKey =
+  | 'secondary.10'
+  | 'secondary.20'
+  | 'secondary.40'
+  | 'secondary.60'
+  | 'secondary.80'
+  | 'secondary.90'
+  | 'secondary.100';
 
 type FontColorKeys =
   | 'font.primary'
@@ -184,7 +186,8 @@ export type ColorKeys<PropertyType> =
   | PinkKeys
   | NeutralKeys
   | OverlayKeys
-  | BrandColorKeys
+  | PrimaryColorKey
+  | SecondaryColorKey
   | FontColorKeys
   | BackgroundColorKeys
   | BorderColorKeys

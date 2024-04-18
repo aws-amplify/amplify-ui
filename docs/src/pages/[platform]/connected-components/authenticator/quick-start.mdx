@@ -1,4 +1,4 @@
-import { Alert, Link, Text, Tabs } from '@aws-amplify/ui-react';
+import { Accordion, Alert, Link, Text, Tabs } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { InstallScripts } from '@/components/InstallScripts';
 import { TerminalCommand } from '@/components/InstallScripts';
@@ -84,7 +84,7 @@ import AmplifyCLI from './amplify-cli.mdx';
   ```groovy
   dependencies {    
       // Authenticator dependency
-      implementation 'com.amplifyframework.ui:authenticator:1.0.1'
+      implementation 'com.amplifyframework.ui:authenticator:1.1.0'
       
       // Support for Java 8 features
       coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
@@ -115,36 +115,27 @@ import AmplifyCLI from './amplify-cli.mdx';
 
   If your project will support Federated Sign In using the React Native `Authenticator` the `@aws-amplify/rtn-web-browser` package is also required:
 
-  <InstallScripts command="npm install @aws-amplify/rtn-web-browser" framework="react-native" />
+  <TerminalCommand command="npm install @aws-amplify/rtn-web-browser" />
 
-  `@aws-amplify/react-native` and `@aws-amplify/rtn-web-browser` require a minimum iOS deployment target of `13.0`, open the _Podfile_ located in the _ios_ directory and update the `target` value:
+  <Accordion.Container>
+    <Accordion.Item value="Accordion-item">
+      <Accordion.Trigger>
+        Important note for integration with React Native projects using version `0.72` or below
+        <Accordion.Icon />
+      </Accordion.Trigger>
+    <Accordion.Content>
+      `@aws-amplify/react-native` and `@aws-amplify/rtn-web-browser` require a minimum iOS deployment target of `13.0`, open the _Podfile_ located in the _ios_ directory and update the `target` value:
+      ```diff
+      - platform :ios, min_ios_version_supported
+      + platform :ios, 13.0
+      ```
+    </Accordion.Content>
+    </Accordion.Item>
+  </Accordion.Container>
 
-  ```diff
-  - platform :ios, min_ios_version_supported
-  + platform :ios, 13.0
-  ```
-
-  Then install the iOS cocoapods, by running:
+  Then install the iOS cocoapods by running:
 
   <InstallScripts command="npx pod-install" framework="react-native" />
-
-  The AWS SDK requires React Native applications to polyfill `crypto.getRandomValues` and `URL`. Import the [`react-native-get-random-values`](https://github.com/LinusU/react-native-get-random-values) and [`react-native-url-polyfill`](https://github.com/charpeni/react-native-url-polyfill) polyfills and them to the top of your application's root entry point (in most React Native apps this will be the top level `index.js`).
-
-  <Example>
-  <ExampleCode>
-  ```jsx
-  // index.js
-  import 'react-native-url-polyfill/auto';
-  import 'react-native-get-random-values';
-
-  import { AppRegistry } from 'react-native';
-  import App from './App';
-  import { name as appName } from './app.json';
-
-  AppRegistry.registerComponent(appName, () => App);
-  ```
-  </ExampleCode>
-  </Example>
 </InlineFilter>
 <InlineFilter filters={['swift']}>
   Open your project in Xcode and select **File > Add Packages...** and add the following dependencies:

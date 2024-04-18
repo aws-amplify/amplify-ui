@@ -234,11 +234,11 @@ export const button: Required<ButtonTokens<'default'>> = {
       },
     },
     error: {
-      borderColor: { value: '{colors.red.60.value}' },
+      borderColor: { value: '{colors.red.80.value}' },
       backgroundColor: { value: 'transparent' },
       color: { value: '{colors.red.100}' },
       _hover: {
-        borderColor: { value: '{colors.red.60.value}' },
+        borderColor: { value: '{colors.red.80.value}' },
         backgroundColor: { value: '{colors.red.10.value}' },
         color: { value: '{colors.red.100.value}' },
       },
