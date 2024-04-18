@@ -22,7 +22,6 @@ const INIT_STATE: UseGetUrlOutput = {
 export const useGetUrl = (input: UseGetUrlInput): UseGetUrlOutput => {
   const [result, setResult] = React.useState(() => INIT_STATE);
   React.useEffect(() => {
-    console.log("rendering")
     const { onError, ...getUrlInput } = input;
     let ignore = false;
 
@@ -36,20 +35,17 @@ export const useGetUrl = (input: UseGetUrlInput): UseGetUrlOutput => {
       })
       .catch((error: Error) => {
         if (ignore) {
-          console.log("ignore, return")
           return;
         }
-        console.log('catch block onError:', onError)
+
         if (isFunction(onError)) {
-          console.log('is function')
           onError(error);
         }
+
         setResult({ ...INIT_STATE, isLoading: false });
-        console.log('after set result')
       });
 
     return () => {
-      console.log('cleanup')
       ignore = true;
     };
   }, [input]);

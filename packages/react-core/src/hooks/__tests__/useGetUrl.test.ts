@@ -169,15 +169,17 @@ describe('useGetUrl', () => {
     expect(onError).toHaveBeenCalledWith(secondError);
   });
 
-  it.only('does not call `onError`if it is not a function', async () => {
+  it('does not call `onError` if it is not a function', async () => {
     const customError = new Error('Something went wrong');
     const { onError, ...getUrlParams } = KEY_INPUT;
 
     (getUrl as jest.Mock).mockRejectedValueOnce(customError);
 
+    const input = { ...KEY_INPUT, onError: null };
+
     const { result, waitForNextUpdate } = renderHook(() =>
       // @ts-expect-error test against invalid input
-      useGetUrl({...KEY_INPUT, onError: null})
+      useGetUrl(input)
     );
 
     expect(result.current.isLoading).toBe(true);
@@ -189,6 +191,5 @@ describe('useGetUrl', () => {
     expect(result.current.isLoading).toBe(false);
     expect(result.current.url).toBe(undefined);
     expect(onError).toHaveBeenCalledTimes(0);
-  })
-
+  });
 });
