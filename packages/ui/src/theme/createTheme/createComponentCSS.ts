@@ -1,9 +1,8 @@
 import kebabCase from 'lodash/kebabCase.js';
 import { DefaultTheme, WebTheme } from '../types';
-import { cssValue } from './cssValue';
+import { cssValue, isDesignToken } from './utils';
 import { ComponentsTheme } from '../components';
 import { isFunction, splitObject } from '../../utils';
-import { isDesignToken } from './isDesignToken';
 import { BaseTheme, CSSProperties } from '../components/utils';
 
 /**

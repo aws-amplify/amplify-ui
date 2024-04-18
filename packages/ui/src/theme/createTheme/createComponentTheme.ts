@@ -1,14 +1,14 @@
-import { PartialDeep } from '../../types';
-import { AlertTheme, BaseComponentTheme, ComponentsTheme } from '../components';
+import { ComponentsTheme } from '../components';
 import {
   BaseTheme,
   ComponentTheme,
   ComponentThemeOverride,
 } from '../components/utils';
 import { WebTokens } from '../tokens';
-import { WebTheme } from '../types';
-import { createComponentClasses } from './createComponentClasses';
-import { ClassNameFunction } from './utils';
+import {
+  createComponentClasses,
+  ClassNameFunction,
+} from './createComponentClasses';
 
 interface CreateComponentThemeProps<
   ThemeType extends BaseTheme,
@@ -29,6 +29,8 @@ interface CreateComponentThemeProps<
  * to both completely customize built-in components and
  * build your own components!
  *
+ * @experimental
+ *
  * ```ts
  * // built-in component styling
  * const alertTheme = createComponentTheme<AlertTheme>({
@@ -38,6 +40,11 @@ interface CreateComponentThemeProps<
  *       padding: tokens.space.large
  *     }
  *   }
+ * });
+ *
+ * const theme = createTheme({
+ *   name: 'my-theme',
+ *   components: [alertTheme]
  * })
  * ```
  *

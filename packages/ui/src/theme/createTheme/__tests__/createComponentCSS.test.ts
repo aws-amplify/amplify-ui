@@ -66,7 +66,7 @@ const avatarTheme = createComponentTheme({
       theme(tokens) {
         return {
           _vars: {
-            color: 'pink',
+            bgColor: 'pink',
           },
           _element: {
             icon: {},
@@ -207,7 +207,7 @@ describe('@aws-amplify/ui', () => {
               _modifiers: {
                 primary: {
                   _vars: {
-                    red: 'blue',
+                    color: 'blue',
                   },
                   background: 'red',
                   ':hover': {

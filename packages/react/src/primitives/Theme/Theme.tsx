@@ -48,9 +48,11 @@ type ThemeType = ForwardRefPrimitive<BaseThemeProps, 'div'> & {
 };
 
 /**
+ * @experimental
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/theme)
  */
 export const Theme: ThemeType = Object.assign(
+  {},
   primitiveWithForwardRef(ThemePrimitive),
   {
     Container: ThemeContainer,

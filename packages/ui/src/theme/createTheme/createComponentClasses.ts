@@ -1,7 +1,41 @@
 import { isObject, isString } from '../../utils';
-import { ButtonTheme } from '../components';
-import { ComponentTheme } from '../components/utils';
-import { ClassNameFunction } from './utils';
+import { BaseTheme, ComponentTheme } from '../components/utils';
+
+// Gets the element names in a theme
+type ElementNames<T extends BaseTheme> = T extends { _element?: any }
+  ? keyof T['_element']
+  : never;
+
+// Gets the modifiers of an element within a theme
+type ModifierNames<T extends BaseTheme> = T extends { _modifiers?: any }
+  ? Arrayify<keyof T['_modifiers']>
+  : never;
+
+// Gets the root modifiers of a theme
+type RootModifierNames<T extends BaseTheme> = Arrayify<
+  keyof T['_modifiers'] | undefined
+>;
+type Arrayify<T> = T | T[];
+
+type ClassNameArgs<T extends BaseTheme> = {
+  _element?: ElementNames<T> extends never
+    ? never
+    :
+        | ElementNames<T>
+        | {
+            [Key in ElementNames<T>]?: ModifierNames<T['_element'][Key]>;
+          };
+  _modifiers?: RootModifierNames<T>;
+};
+
+export type ClassNameFunction<T extends ComponentTheme = ComponentTheme> = (
+  props?: ClassNameArgs<UnwrapTheme<T>>
+) => string;
+
+// This will take a theme which could be either a plain object or a function that returns a plain object
+// and makes it the plain object
+type UnwrapTheme<ThemeType extends ComponentTheme = ComponentTheme> =
+  ThemeType extends (...args: any) => any ? ReturnType<ThemeType> : ThemeType;
 
 export function createComponentClasses<ThemeType extends ComponentTheme>({
   name = '',
@@ -12,18 +46,6 @@ export function createComponentClasses<ThemeType extends ComponentTheme>({
     if (!props) {
       return baseComponentClassName;
     }
-    // an element could be a string
-    // or a key of an object
-    // if there is an element
-
-    // or there could just be top-level modifiers
-
-    // TODO: make this work with new signature!
-    const element = isString(props._element)
-      ? props._element
-      : Array.isArray(props._element)
-      ? props._element.join('__')
-      : undefined;
 
     // this is kinda weird
     const el = isString(props._element)

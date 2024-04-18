@@ -5,7 +5,7 @@ exports[`@aws-amplify/ui createComponentCSS can use custom primitives 1`] = `
 [data-amplify-theme="test"] .amplify-chip { --color:red; }
 [data-amplify-theme="test"] .amplify-chip--primary:hover { background:pink;  color:var(--amplify-colors-font-primary);  }
 [data-amplify-theme="test"] .amplify-chip--primary { background:red;  }
-[data-amplify-theme="test"] .amplify-chip--primary { --red:blue; }
+[data-amplify-theme="test"] .amplify-chip--primary { --color:blue; }
 [data-amplify-theme="test"] .amplify-chip__icon { font-size:var(--amplify-font-sizes-xl);  color:var(--color);  }
 "
 `;
@@ -37,10 +37,10 @@ exports[`@aws-amplify/ui createComponentCSS should work with built-in components
 [data-amplify-theme="test"] .amplify-avatar__icon { background-color:white;  }
 
 @media (prefers-color-scheme: dark) {
-  [data-amplify-theme="test"][data-amplify-color-mode="system"] .amplify-avatar { --color:pink; }
+  [data-amplify-theme="test"][data-amplify-color-mode="system"] .amplify-avatar { --bgColor:pink; }
 
 }
-[data-amplify-theme="test"][data-amplify-color-mode="dark"] .amplify-avatar { --color:pink; }
+[data-amplify-theme="test"][data-amplify-color-mode="dark"] .amplify-avatar { --bgColor:pink; }
 
 @media (min-width: 992px) {
   

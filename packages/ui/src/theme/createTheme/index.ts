@@ -1,6 +1,9 @@
 export { createTheme } from './createTheme';
 export { createComponentTheme } from './createComponentTheme';
-export { cssNameTransform } from './cssNameTransform';
-export { setupTokens, SetupToken } from './setupToken';
-export { isDesignToken } from './isDesignToken';
+export {
+  cssNameTransform,
+  setupTokens,
+  SetupToken,
+  isDesignToken,
+} from './utils';
 export { createComponentClasses } from './createComponentClasses';
