@@ -1,6 +1,7 @@
 export * from './hooks/useAuth';
 export * from './hooks/useStorageURL';
 export * from './hooks/useThemeBreakpoint';
+export * from './hooks/useDeprecationWarning';
 export { useColorMode } from './hooks/useTheme';
 
 export * from './components/FilterChildren';

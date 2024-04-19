@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { classNames, ComponentClassName } from '@aws-amplify/ui';
 import { Image } from '@aws-amplify/ui-react';
+import { useDeprecationWarning } from '@aws-amplify/ui-react/internal';
 import { useGetUrl, useSetUserAgent } from '@aws-amplify/ui-react-core';
 
 import { VERSION } from '../../version';
@@ -17,6 +18,12 @@ export const StorageImageWithKey = ({
   validateObjectExistence,
   ...rest
 }: StorageImageProps): JSX.Element => {
+  useDeprecationWarning({
+    message:
+      'The `imgKey` prop has been deprecated and will be removed in a future major version of Amplify UI.',
+    shouldWarn: true,
+  });
+
   const input = React.useMemo(() => {
     return {
       key: imgKey,
