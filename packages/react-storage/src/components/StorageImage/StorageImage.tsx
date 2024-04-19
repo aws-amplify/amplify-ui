@@ -57,6 +57,7 @@ export const StorageImageWithPath = ({
   className,
   path,
   onGetUrlError,
+  fallbackSrc,
   validateObjectExistence = false,
   ...rest
 }: StorageImagePathProps): JSX.Element => {
@@ -76,7 +77,7 @@ export const StorageImageWithPath = ({
     <Image
       {...rest}
       className={classNames(ComponentClassName.StorageImage, className)}
-      src={url?.toString()}
+      src={url?.toString() ?? fallbackSrc}
     />
   );
 };

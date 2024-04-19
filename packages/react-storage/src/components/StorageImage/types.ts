@@ -20,10 +20,6 @@ export interface StorageImageProps extends Omit<ImageProps, 'src'> {
    * `identityId` will be replaced with `path` in future major versions of Amplify UI
    */
   identityId?: string;
-  /**
-   * @deprecated
-   * `fallbackSrc` will be removed in future major versions of Amplify UI
-   */
   fallbackSrc?: string;
   validateObjectExistence?: boolean;
   /**
@@ -38,4 +34,5 @@ export interface StorageImagePathProps extends Omit<ImageProps, 'src'> {
   path: string | ((input: { identityId?: string }) => string);
   onGetUrlError?: (error: Error) => void;
   validateObjectExistence?: boolean;
+  fallbackSrc?: string;
 }

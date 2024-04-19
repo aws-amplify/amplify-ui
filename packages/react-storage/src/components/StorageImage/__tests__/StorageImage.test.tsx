@@ -148,7 +148,27 @@ describe('StorageImage', () => {
       expect(img).toHaveAttribute('src', imgURL);
     });
 
-    it('should invoke onGetUrlError when Storage getUrl is rejected', async () => {
+    it('should set image src attribute to fallbackSrc and invoke onGetUrlError when Storage getUrl is rejected', async () => {
+      jest.spyOn(Storage, 'getUrl').mockRejectedValue(errorMessage);
+      const onGetUrlError = jest.fn();
+      render(
+        <StorageImage
+          alt="StorageImage"
+          path={path}
+          fallbackSrc={fallbackSrc}
+          onGetUrlError={onGetUrlError}
+        />
+      );
+      await waitFor(() => {
+        const img = screen.getByRole('img');
+        expect(img).toHaveAttribute('src', fallbackSrc);
+
+        expect(onGetUrlError).toHaveBeenCalledTimes(1);
+        expect(onGetUrlError).toHaveBeenCalledWith(errorMessage);
+      });
+    });
+
+    it('should not set image src when Storage getUrl is rejected and no fallbackSrc is specified', async () => {
       jest.spyOn(Storage, 'getUrl').mockRejectedValue(errorMessage);
       const onGetUrlError = jest.fn();
       render(
