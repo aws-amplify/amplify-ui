@@ -276,11 +276,11 @@ export function groupLog(groupName: string, ...events: any[]): void {
  * @returns
  */
 export function splitObject(
-  obj: Record<string, any>,
+  obj: Record<string, unknown>,
   predicate: (key: string) => boolean
 ) {
-  const left = {};
-  const right = {};
+  const left: Record<string, unknown> = {};
+  const right: Record<string, unknown> = {};
   Object.entries(obj).forEach(([key, value]) => {
     if (predicate(key)) {
       left[key] = value;
