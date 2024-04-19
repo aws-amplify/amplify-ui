@@ -23,11 +23,11 @@ export function StorageImageExample() {
         path="guest/this-image-does-not-exist.jpeg"
         onLoad={onLoad}
         onGetUrlError={(error) => {
-          console.log('onGetUrlError implementation');
+          console.log('onGetUrlError');
           console.log(error);
         }}
         onError={(error) => {
-          console.log('onError implementation');
+          console.log('onError');
           console.log(error);
         }}
       />
