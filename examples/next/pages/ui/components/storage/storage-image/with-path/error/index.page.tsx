@@ -30,6 +30,7 @@ export function StorageImageExample() {
           console.log('onError');
           console.log(error);
         }}
+        fallbackSrc="https://placekitten.com/g/200/300"
       />
       {isLoaded ? (
         <Text>The image is loaded.</Text>
