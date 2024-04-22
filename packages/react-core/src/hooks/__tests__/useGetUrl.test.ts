@@ -126,17 +126,17 @@ describe('useGetUrl', () => {
       .mockResolvedValueOnce({ url, expiresAt: new Date() })
       .mockResolvedValueOnce({ url: secondUrl, expiresAt: new Date() });
 
-    const { onError, ...getUrlParams } = KEY_INPUT;
+    const { onError, ...getUrlParams } = PATH_INPUT;
 
     const { result, waitForNextUpdate, rerender } = renderHook(
-      (input: UseGetUrlInput = KEY_INPUT) => useGetUrl(input)
+      (input: UseGetUrlInput = PATH_INPUT) => useGetUrl(input)
     );
 
     expect(getUrlSpy).toHaveBeenCalledWith(getUrlParams);
     expect(result.current.isLoading).toBe(true);
     expect(result.current.url).toBe(undefined);
 
-    rerender({ ...KEY_INPUT, key: 'second-file.jpg' });
+    rerender({ ...PATH_INPUT, path: 'guest/second-file.jpg' });
     expect(result.current.isLoading).toBe(true);
     expect(result.current.url).toBe(undefined);
 
@@ -145,7 +145,7 @@ describe('useGetUrl', () => {
 
     expect(getUrlSpy).toHaveBeenCalledWith({
       ...getUrlParams,
-      key: 'second-file.jpg',
+      path: 'guest/second-file.jpg',
     });
 
     expect(getUrlSpy).toHaveBeenCalledTimes(2);
@@ -192,11 +192,11 @@ describe('useGetUrl', () => {
 
   it('does not call `onError` if it is not a function', async () => {
     const customError = new Error('Something went wrong');
-    const { onError, ...getUrlParams } = KEY_INPUT;
+    const { onError, ...getUrlParams } = PATH_INPUT;
 
     getUrlSpy.mockRejectedValueOnce(customError);
 
-    const input = { ...KEY_INPUT, onError: null };
+    const input = { ...PATH_INPUT, onError: null };
 
     const { result, waitForNextUpdate } = renderHook(() =>
       // @ts-expect-error test against invalid input
