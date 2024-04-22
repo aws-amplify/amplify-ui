@@ -19,7 +19,7 @@ const INIT_STATE: UseGetUrlOutput = {
   isLoading: true,
 };
 
-export const useGetUrl = (input: UseGetUrlInput): UseGetUrlOutput => {
+const useGetUrl = (input: UseGetUrlInput): UseGetUrlOutput => {
   const [result, setResult] = React.useState(() => INIT_STATE);
   React.useEffect(() => {
     const { onError, ...getUrlInput } = input;
@@ -52,3 +52,5 @@ export const useGetUrl = (input: UseGetUrlInput): UseGetUrlOutput => {
 
   return result;
 };
+
+export default useGetUrl;

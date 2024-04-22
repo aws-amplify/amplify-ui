@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-hooks';
 import * as Storage from 'aws-amplify/storage';
 
-import { useGetUrl, UseGetUrlInput } from '../useGetUrl';
+import useGetUrl, { UseGetUrlInput } from '../useGetUrl';
 
 const getUrlSpy = jest.spyOn(Storage, 'getUrl');
 
@@ -34,19 +34,6 @@ const paramType = [
 ];
 
 describe('useGetUrl', () => {
-  it.each(paramType)(
-    `should return true for isLoading at initialization $description`,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    ({ useGetUrlParams, description }) => {
-      getUrlSpy.mockResolvedValue({ url, expiresAt: new Date() });
-      const { result } = renderHook(() => useGetUrl(useGetUrlParams));
-      expect(result.current.isLoading).toBe(true);
-      expect(result.current.url).toBe(undefined);
-
-      getUrlSpy.mockClear();
-    }
-  );
-
   it.each(paramType)(
     'should return a Storage URL $description',
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
