@@ -7,24 +7,24 @@ export interface StorageImageProps extends Omit<ImageProps, 'src'> {
   // Note: a new Storage.get request is made only when the imgKey gets updated after the initial
   /**
    * @deprecated
-   * `imgKey` will be replaced with `path` in future major versions of Amplify UI
+   * `imgKey` will be replaced with `path` in the next major version of Amplify UI
    */
   imgKey: string;
   /**
    * @deprecated
-   * `accessLevel` will be replaced with `path` in future major versions of Amplify UI
+   * `accessLevel` will be replaced with `path` in the next major version of Amplify UI
    */
   accessLevel: StorageAccessLevel;
   /**
    * @deprecated
-   * `identityId` will be replaced with `path` in future major versions of Amplify UI
+   * `identityId` will be replaced with `path` in the next major version of Amplify UI
    */
   identityId?: string;
   fallbackSrc?: string;
   validateObjectExistence?: boolean;
   /**
    * @deprecated
-   * `onStorageGetError` will be replaced with `onGetUrlError` in future major versions of Amplify UI
+   * `onStorageGetError` will be replaced with `onGetUrlError` in the next major version of Amplify UI
    */
   onStorageGetError?: (error: Error) => void;
   // Creates a discriminated union between StorageImageProps and StorageImagePathProps
