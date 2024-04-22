@@ -20,7 +20,7 @@ export const StorageImageWithKey = ({
 }: StorageImageProps): JSX.Element => {
   useDeprecationWarning({
     message:
-      'The `imgKey` prop has been deprecated and will be removed in a future major version of Amplify UI.',
+      'The `imgKey` prop has been deprecated and will be removed in the next major version of Amplify UI.',
     shouldWarn: true,
   });
 
