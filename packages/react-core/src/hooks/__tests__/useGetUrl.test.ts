@@ -21,6 +21,11 @@ const PATH_INPUT: UseGetUrlInput = {
 };
 
 describe('useGetUrl', () => {
+  beforeEach(() => {
+    getUrlSpy.mockClear();
+    onErrorMock.mockClear();
+  });
+
   describe('with key params', () => {
     it('should return a Storage URL', async () => {
       getUrlSpy.mockResolvedValue({ url, expiresAt: new Date() });
@@ -41,8 +46,6 @@ describe('useGetUrl', () => {
       expect(getUrlSpy).toHaveBeenCalledTimes(1);
       expect(result.current.isLoading).toBe(false);
       expect(result.current.url).toBe(url);
-
-      getUrlSpy.mockClear();
     });
 
     it('should invoke onStorageGetError when getUrl fails', async () => {
@@ -63,9 +66,6 @@ describe('useGetUrl', () => {
       expect(result.current.url).toBe(undefined);
       expect(onError).toHaveBeenCalledTimes(1);
       expect(onError).toHaveBeenCalledWith(customError);
-
-      getUrlSpy.mockClear();
-      onErrorMock.mockClear();
     });
   });
 
@@ -89,8 +89,6 @@ describe('useGetUrl', () => {
       expect(getUrlSpy).toHaveBeenCalledTimes(1);
       expect(result.current.isLoading).toBe(false);
       expect(result.current.url).toBe(url);
-
-      getUrlSpy.mockClear();
     });
 
     it('should invoke onGetUrlError when getUrl fails', async () => {
@@ -111,9 +109,6 @@ describe('useGetUrl', () => {
       expect(result.current.url).toBe(undefined);
       expect(onError).toHaveBeenCalledTimes(1);
       expect(onError).toHaveBeenCalledWith(customError);
-
-      getUrlSpy.mockClear();
-      onErrorMock.mockClear();
     });
   });
 
@@ -151,8 +146,6 @@ describe('useGetUrl', () => {
     expect(getUrlSpy).toHaveBeenCalledTimes(2);
     expect(result.current.isLoading).toBe(false);
     expect(result.current.url).toBe(secondUrl);
-
-    getUrlSpy.mockClear();
   });
 
   it('ignores the first response if rerun a second time before the first call resolves in the unhappy path', async () => {
@@ -185,9 +178,6 @@ describe('useGetUrl', () => {
     expect(result.current.url).toBe(undefined);
     expect(onError).toHaveBeenCalledTimes(1);
     expect(onError).toHaveBeenCalledWith(secondError);
-
-    getUrlSpy.mockClear();
-    onErrorMock.mockClear();
   });
 
   it('does not call `onError` if it is not a function', async () => {
@@ -212,7 +202,5 @@ describe('useGetUrl', () => {
     expect(result.current.isLoading).toBe(false);
     expect(result.current.url).toBe(undefined);
     expect(onError).toHaveBeenCalledTimes(0);
-
-    getUrlSpy.mockClear();
   });
 });
