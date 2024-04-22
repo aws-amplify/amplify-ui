@@ -126,7 +126,6 @@ describe('useUploadFiles', () => {
 
   it('should call onUploadError when upload fails', async () => {
     const errorMessage = new Error('Error');
-    // @ts-expect-error remove this once StorageManager types are fixed
     uploadDataSpy.mockImplementationOnce(() => {
       return {
         cancel: jest.fn(),

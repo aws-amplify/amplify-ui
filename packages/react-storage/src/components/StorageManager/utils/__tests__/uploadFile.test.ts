@@ -24,6 +24,7 @@ const uploadDataOutput: Storage.UploadDataOutput = {
   pause: jest.fn(),
   resume: jest.fn(),
   state: 'SUCCESS',
+  // @ts-expect-error remove this once StorageManager types are fixed
   result: Promise.resolve({
     key: defaultProps.key,
     data: defaultProps.data,
@@ -62,7 +63,6 @@ describe('uploadFile', () => {
   it('calls errorCallback on upload error', async () => {
     uploadDataSpy.mockReturnValueOnce({
       ...uploadDataOutput,
-      // @ts-expect-error remove this once StorageManager types are fixed
       result: Promise.reject(new Error('Error')),
       state: 'ERROR',
     });
