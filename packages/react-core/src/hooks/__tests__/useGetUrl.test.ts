@@ -1,55 +1,49 @@
 import { renderHook } from '@testing-library/react-hooks';
-import { waitFor } from '@testing-library/react';
-import { getUrl } from 'aws-amplify/storage';
+import * as Storage from 'aws-amplify/storage';
 
 import { useGetUrl, UseGetUrlInput } from '../useGetUrl';
 
-jest.mock('aws-amplify/storage');
+const getUrlSpy = jest.spyOn(Storage, 'getUrl');
+
+const url = new URL('https://amplify.s3.amazonaws.com/path/to/the/file.jpg');
+
+const onErrorMock = jest.fn();
+
+const KEY_INPUT: UseGetUrlInput = {
+  key: 'file.jpg',
+  options: { accessLevel: 'guest' },
+  onError: onErrorMock,
+};
+
+const PATH_INPUT: UseGetUrlInput = {
+  path: 'guest/file.jpg',
+  onError: onErrorMock,
+};
+
+const paramType = [
+  {
+    useGetUrlParams: KEY_INPUT,
+    description: 'with key params',
+    errorHandler: 'onStorageGetError',
+  },
+  {
+    useGetUrlParams: PATH_INPUT,
+    description: 'with path params',
+    errorHandler: 'onGetUrlError',
+  },
+];
 
 describe('useGetUrl', () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
-  const url = 'https://amplify.s3.amazonaws.com/path/to/the/file.jpg';
-
-  const onStorageGetError = jest.fn();
-  const onGetUrlError = jest.fn();
-
-  const KEY_INPUT: UseGetUrlInput = {
-    key: 'file.jpg',
-    options: { accessLevel: 'guest' },
-    onError: onStorageGetError,
-  };
-
-  const PATH_INPUT: UseGetUrlInput = {
-    path: 'guest/file.jpg',
-    onError: onGetUrlError,
-  };
-
-  const paramType = [
-    {
-      useGetUrlParams: KEY_INPUT,
-      description: 'with key params',
-      errorHandler: 'onStorageGetError',
-    },
-    {
-      useGetUrlParams: PATH_INPUT,
-      description: 'with path params',
-      errorHandler: 'onGetUrlError',
-    },
-  ];
-
   it.each(paramType)(
     `should return true for isLoading at initialization $description`,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    async ({ useGetUrlParams, description }) => {
-      (getUrl as jest.Mock).mockResolvedValue({ url });
+    ({ useGetUrlParams, description }) => {
+      getUrlSpy.mockResolvedValue({ url, expiresAt: new Date() });
       const { result } = renderHook(() => useGetUrl(useGetUrlParams));
-      await waitFor(() => {
-        expect(result.current.isLoading).toBe(true);
-        expect(result.current.url).toBe(undefined);
-      });
+      expect(result.current.isLoading).toBe(true);
+      expect(result.current.url).toBe(undefined);
+
+      getUrlSpy.mockClear();
     }
   );
 
@@ -57,7 +51,7 @@ describe('useGetUrl', () => {
     'should return a Storage URL $description',
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async ({ useGetUrlParams, description }) => {
-      (getUrl as jest.Mock).mockResolvedValue({ url });
+      getUrlSpy.mockResolvedValue({ url, expiresAt: new Date() });
 
       const { onError, ...getUrlParams } = useGetUrlParams;
 
@@ -65,16 +59,18 @@ describe('useGetUrl', () => {
         useGetUrl(useGetUrlParams)
       );
 
-      expect(getUrl).toHaveBeenCalledWith(getUrlParams);
+      expect(getUrlSpy).toHaveBeenCalledWith(getUrlParams);
       expect(result.current.isLoading).toBe(true);
       expect(result.current.url).toBe(undefined);
 
       // Next update will happen when getUrl resolves
       await waitForNextUpdate();
 
-      expect(getUrl).toHaveBeenCalledTimes(1);
+      expect(getUrlSpy).toHaveBeenCalledTimes(1);
       expect(result.current.isLoading).toBe(false);
       expect(result.current.url).toBe(url);
+
+      getUrlSpy.mockClear();
     }
   );
 
@@ -84,13 +80,13 @@ describe('useGetUrl', () => {
     async ({ useGetUrlParams, description, errorHandler }) => {
       const customError = new Error('Something went wrong');
       const { onError, ...getUrlParams } = useGetUrlParams;
-      (getUrl as jest.Mock).mockRejectedValue(customError);
+      getUrlSpy.mockRejectedValue(customError);
 
       const { result, waitForNextUpdate } = renderHook(() =>
         useGetUrl(useGetUrlParams)
       );
 
-      expect(getUrl).toHaveBeenCalledWith(getUrlParams);
+      expect(getUrlSpy).toHaveBeenCalledWith(getUrlParams);
 
       // Next update will happen when getUrl resolves
       await waitForNextUpdate();
@@ -99,16 +95,20 @@ describe('useGetUrl', () => {
       expect(result.current.url).toBe(undefined);
       expect(onError).toHaveBeenCalledTimes(1);
       expect(onError).toHaveBeenCalledWith(customError);
+
+      getUrlSpy.mockClear();
+      onErrorMock.mockClear();
     }
   );
 
   it('ignores the first response if rerun a second time before the first call resolves in the happy path', async () => {
-    const secondUrl =
-      'https://amplify.s3.amazonaws.com/path/to/the/second-file.jpg';
+    const secondUrl = new URL(
+      'https://amplify.s3.amazonaws.com/path/to/the/second-file.jpg'
+    );
 
-    (getUrl as jest.Mock)
-      .mockResolvedValueOnce({ url })
-      .mockResolvedValueOnce({ url: secondUrl });
+    getUrlSpy
+      .mockResolvedValueOnce({ url, expiresAt: new Date() })
+      .mockResolvedValueOnce({ url: secondUrl, expiresAt: new Date() });
 
     const { onError, ...getUrlParams } = KEY_INPUT;
 
@@ -116,7 +116,7 @@ describe('useGetUrl', () => {
       (input: UseGetUrlInput = KEY_INPUT) => useGetUrl(input)
     );
 
-    expect(getUrl).toHaveBeenCalledWith(getUrlParams);
+    expect(getUrlSpy).toHaveBeenCalledWith(getUrlParams);
     expect(result.current.isLoading).toBe(true);
     expect(result.current.url).toBe(undefined);
 
@@ -127,14 +127,16 @@ describe('useGetUrl', () => {
     // Next update will happen when getUrl resolves
     await waitForNextUpdate();
 
-    expect(getUrl).toHaveBeenCalledWith({
+    expect(getUrlSpy).toHaveBeenCalledWith({
       ...getUrlParams,
       key: 'second-file.jpg',
     });
 
-    expect(getUrl).toHaveBeenCalledTimes(2);
+    expect(getUrlSpy).toHaveBeenCalledTimes(2);
     expect(result.current.isLoading).toBe(false);
     expect(result.current.url).toBe(secondUrl);
+
+    getUrlSpy.mockClear();
   });
 
   it('ignores the first response if rerun a second time before the first call resolves in the unhappy path', async () => {
@@ -142,7 +144,7 @@ describe('useGetUrl', () => {
     const secondError = new Error('Something went wrong again');
 
     const { onError } = PATH_INPUT;
-    (getUrl as jest.Mock)
+    getUrlSpy
       .mockRejectedValueOnce(firstError)
       .mockRejectedValueOnce(secondError);
 
@@ -163,17 +165,20 @@ describe('useGetUrl', () => {
     await waitForNextUpdate();
 
     expect(result.current.isLoading).toBe(false);
-    expect(getUrl).toHaveBeenCalledTimes(2);
+    expect(getUrlSpy).toHaveBeenCalledTimes(2);
     expect(result.current.url).toBe(undefined);
     expect(onError).toHaveBeenCalledTimes(1);
     expect(onError).toHaveBeenCalledWith(secondError);
+
+    getUrlSpy.mockClear();
+    onErrorMock.mockClear();
   });
 
   it('does not call `onError` if it is not a function', async () => {
     const customError = new Error('Something went wrong');
     const { onError, ...getUrlParams } = KEY_INPUT;
 
-    (getUrl as jest.Mock).mockRejectedValueOnce(customError);
+    getUrlSpy.mockRejectedValueOnce(customError);
 
     const input = { ...KEY_INPUT, onError: null };
 
@@ -183,7 +188,7 @@ describe('useGetUrl', () => {
     );
 
     expect(result.current.isLoading).toBe(true);
-    expect(getUrl).toHaveBeenCalledWith(getUrlParams);
+    expect(getUrlSpy).toHaveBeenCalledWith(getUrlParams);
     expect(result.current.url).toBe(undefined);
 
     await waitForNextUpdate();
@@ -191,5 +196,7 @@ describe('useGetUrl', () => {
     expect(result.current.isLoading).toBe(false);
     expect(result.current.url).toBe(undefined);
     expect(onError).toHaveBeenCalledTimes(0);
+
+    getUrlSpy.mockClear();
   });
 });
