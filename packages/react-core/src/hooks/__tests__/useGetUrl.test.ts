@@ -20,30 +20,15 @@ const PATH_INPUT: UseGetUrlInput = {
   onError: onErrorMock,
 };
 
-const paramType = [
-  {
-    useGetUrlParams: KEY_INPUT,
-    description: 'with key params',
-    errorHandler: 'onStorageGetError',
-  },
-  {
-    useGetUrlParams: PATH_INPUT,
-    description: 'with path params',
-    errorHandler: 'onGetUrlError',
-  },
-];
-
 describe('useGetUrl', () => {
-  it.each(paramType)(
-    'should return a Storage URL $description',
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    async ({ useGetUrlParams, description }) => {
+  describe('with key params', () => {
+    it('should return a Storage URL', async () => {
       getUrlSpy.mockResolvedValue({ url, expiresAt: new Date() });
 
-      const { onError, ...getUrlParams } = useGetUrlParams;
+      const { onError, ...getUrlParams } = KEY_INPUT;
 
       const { result, waitForNextUpdate } = renderHook(() =>
-        useGetUrl(useGetUrlParams)
+        useGetUrl(KEY_INPUT)
       );
 
       expect(getUrlSpy).toHaveBeenCalledWith(getUrlParams);
@@ -58,19 +43,15 @@ describe('useGetUrl', () => {
       expect(result.current.url).toBe(url);
 
       getUrlSpy.mockClear();
-    }
-  );
+    });
 
-  it.each(paramType)(
-    'should invoke $errorHandler when getUrl fails $description',
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    async ({ useGetUrlParams, description, errorHandler }) => {
+    it('should invoke onStorageGetError when getUrl fails', async () => {
       const customError = new Error('Something went wrong');
-      const { onError, ...getUrlParams } = useGetUrlParams;
+      const { onError, ...getUrlParams } = KEY_INPUT;
       getUrlSpy.mockRejectedValue(customError);
 
       const { result, waitForNextUpdate } = renderHook(() =>
-        useGetUrl(useGetUrlParams)
+        useGetUrl(KEY_INPUT)
       );
 
       expect(getUrlSpy).toHaveBeenCalledWith(getUrlParams);
@@ -85,8 +66,56 @@ describe('useGetUrl', () => {
 
       getUrlSpy.mockClear();
       onErrorMock.mockClear();
-    }
-  );
+    });
+  });
+
+  describe('with path params', () => {
+    it('should return a Storage URL', async () => {
+      getUrlSpy.mockResolvedValue({ url, expiresAt: new Date() });
+
+      const { onError, ...getUrlParams } = PATH_INPUT;
+
+      const { result, waitForNextUpdate } = renderHook(() =>
+        useGetUrl(PATH_INPUT)
+      );
+
+      expect(getUrlSpy).toHaveBeenCalledWith(getUrlParams);
+      expect(result.current.isLoading).toBe(true);
+      expect(result.current.url).toBe(undefined);
+
+      // Next update will happen when getUrl resolves
+      await waitForNextUpdate();
+
+      expect(getUrlSpy).toHaveBeenCalledTimes(1);
+      expect(result.current.isLoading).toBe(false);
+      expect(result.current.url).toBe(url);
+
+      getUrlSpy.mockClear();
+    });
+
+    it('should invoke onGetUrlError when getUrl fails', async () => {
+      const customError = new Error('Something went wrong');
+      const { onError, ...getUrlParams } = PATH_INPUT;
+      getUrlSpy.mockRejectedValue(customError);
+
+      const { result, waitForNextUpdate } = renderHook(() =>
+        useGetUrl(PATH_INPUT)
+      );
+
+      expect(getUrlSpy).toHaveBeenCalledWith(getUrlParams);
+
+      // Next update will happen when getUrl resolves
+      await waitForNextUpdate();
+
+      expect(result.current.isLoading).toBe(false);
+      expect(result.current.url).toBe(undefined);
+      expect(onError).toHaveBeenCalledTimes(1);
+      expect(onError).toHaveBeenCalledWith(customError);
+
+      getUrlSpy.mockClear();
+      onErrorMock.mockClear();
+    });
+  });
 
   it('ignores the first response if rerun a second time before the first call resolves in the happy path', async () => {
     const secondUrl = new URL(
