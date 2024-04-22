@@ -7,23 +7,23 @@ const getUrlSpy = jest.spyOn(Storage, 'getUrl');
 
 const url = new URL('https://amplify.s3.amazonaws.com/path/to/the/file.jpg');
 
-const onErrorMock = jest.fn();
+const onError = jest.fn();
 
 const KEY_INPUT: UseGetUrlInput = {
   key: 'file.jpg',
   options: { accessLevel: 'guest' },
-  onError: onErrorMock,
+  onError: onError,
 };
 
 const PATH_INPUT: UseGetUrlInput = {
   path: 'guest/file.jpg',
-  onError: onErrorMock,
+  onError: onError,
 };
 
 describe('useGetUrl', () => {
   beforeEach(() => {
     getUrlSpy.mockClear();
-    onErrorMock.mockClear();
+    onError.mockClear();
   });
 
   describe('with key params', () => {
