@@ -62,6 +62,7 @@ describe('uploadFile', () => {
   it('calls errorCallback on upload error', async () => {
     uploadDataSpy.mockReturnValueOnce({
       ...uploadDataOutput,
+      // @ts-expect-error remove this once StorageManager types are fixed
       result: Promise.reject(new Error('Error')),
       state: 'ERROR',
     });

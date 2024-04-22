@@ -14,6 +14,7 @@ exports[`@aws-amplify/ui-react-core exports should match snapshot 1`] = `
   "useDeprecationWarning",
   "useField",
   "useForm",
+  "useGetUrl",
   "useHasValueUpdated",
   "usePreviousValue",
   "useSetUserAgent",

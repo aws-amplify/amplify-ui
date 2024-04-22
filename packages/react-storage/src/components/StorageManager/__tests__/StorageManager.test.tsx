@@ -17,6 +17,7 @@ const warnSpy = jest.spyOn(console, 'warn').mockImplementation();
 
 const uploadDataSpy = jest
   .spyOn(Storage, 'uploadData')
+  // @ts-expect-error remove this once StorageManager types are fixed
   .mockImplementation((input) => ({
     cancel: jest.fn(),
     pause: jest.fn(),
