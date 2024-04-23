@@ -1,10 +1,12 @@
 import * as React from 'react';
 
+import { GetUrlInput } from 'aws-amplify/storage';
+
 import { classNames, ComponentClassName } from '@aws-amplify/ui';
 import { Image } from '@aws-amplify/ui-react';
 import { useDeprecationWarning } from '@aws-amplify/ui-react/internal';
 import { useGetUrl, useSetUserAgent } from '@aws-amplify/ui-react-core';
-import { GetUrlInput } from 'aws-amplify/storage';
+
 import { VERSION } from '../../version';
 import type { StorageImageProps, StorageImagePathProps } from './types';
 
@@ -39,7 +41,6 @@ export const StorageImage = ({
     version: VERSION,
   });
 
-  // @ts-ignore
   const input: UseGetUrlInput = React.useMemo(() => {
     const hasKey = !!imgKey;
     return {

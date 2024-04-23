@@ -10,6 +10,7 @@ import type { UploadDataInput, UploadDataOutput } from '@aws-amplify/storage';
 
 type UploadData = (props: UploadDataInput) => UploadDataOutput;
 
+// @ts-expect-error remove once StorageManager types are fixed
 const uploadData: UploadData = (props) => {
   const delay = 100;
   const { key, options } = props;
