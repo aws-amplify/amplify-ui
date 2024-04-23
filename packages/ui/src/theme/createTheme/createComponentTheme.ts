@@ -1,4 +1,4 @@
-import { ComponentsTheme } from '../components';
+import { ComponentThemeFromName, ComponentsTheme } from '../components';
 import {
   BaseTheme,
   ComponentTheme,
@@ -10,19 +10,18 @@ import {
   ClassNameFunction,
 } from './createComponentClasses';
 
-interface CreateComponentThemeProps<
-  ThemeType extends BaseTheme,
-  TokensType extends WebTokens,
+type CreateComponentThemeProps<
+  TokensType extends WebTokens = WebTokens,
+  ThemeType extends BaseTheme = BaseTheme,
+  NameType extends string = string,
   OverridesType extends BaseTheme = BaseTheme,
-> {
-  name: string;
+> = {
+  name: NameType;
   theme?: ComponentTheme<ThemeType, TokensType>;
   overrides?: ComponentThemeOverride<
     ComponentTheme<OverridesType, TokensType>
   >[];
-  // overrides do not need to specify all the modifiers and elements
-  // need to fix this
-}
+} & ComponentsTheme<TokensType>;
 
 /**
  * Use this to create the theme of a component. You can use this
@@ -53,22 +52,21 @@ interface CreateComponentThemeProps<
  * @returns
  */
 export function createComponentTheme<
-  TokensType extends WebTokens,
   ThemeType extends BaseTheme = BaseTheme,
+  TokensType extends WebTokens = WebTokens,
+  NameType extends string = string,
 >({
   name,
   theme,
   overrides,
-}:
-  | CreateComponentThemeProps<ThemeType, TokensType>
-  | ComponentsTheme<TokensType>): {
-  className: ClassNameFunction<ThemeType>;
+}: CreateComponentThemeProps<TokensType, ThemeType, NameType>): {
+  className: ClassNameFunction<ComponentThemeFromName<NameType, ThemeType>>;
   theme: typeof theme;
   name: string;
   overrides?: typeof overrides;
 } {
   const prefix = 'amplify-';
-  const className = createComponentClasses<ThemeType>({
+  const className = createComponentClasses<ThemeType, NameType>({
     name,
     prefix,
   });

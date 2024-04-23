@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '@aws-amplify/ui-react/styles.css';
+
+* {
+  --hover-off: initial;
+  --hover-on: ;
+  --active-off: initial;
+  --active-on: ;
+  --hover: ;
+  --color-mode-light: initial;
+  --color-mode-dark: ;
+
+  --breakpoint-large: ;
+}
+*:hover {
+  --hover-off: ;
+  --hover-on: initial;
+  --hover: initial;
+}
+
+*:active {
+  --active-off: ;
+  --active-on: initial;
+}
+
+[data-amplify-color-mode='dark'] {
+  --color-mode-light: ;
+  --color-mode-dark: initial;
+}
+
+@media (min-width: 992px) {
+  [data-amplify-theme='my-theme'] {
+    --breakpoint-large: initial;
+  }
+}

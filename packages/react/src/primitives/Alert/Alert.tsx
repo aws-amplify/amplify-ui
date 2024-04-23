@@ -1,9 +1,11 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
-import { ComponentClassName, isFunction } from '@aws-amplify/ui';
+import {
+  isFunction,
+  createComponentClasses,
+  classNames,
+} from '@aws-amplify/ui';
 
 import { ComponentText } from '../shared/constants';
-import { classNameModifier } from '../shared/utils';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import {
   AlertProps,
@@ -16,6 +18,8 @@ import { Flex } from '../Flex';
 import { Button } from '../Button';
 import { AlertIcon } from './AlertIcon';
 import { IconClose, useIcons } from '../Icon';
+
+const alertClassnames = createComponentClasses({ name: 'alert' });
 
 const AlertPrimitive: Primitive<AlertProps, 'div'> = (
   {
@@ -46,9 +50,8 @@ const AlertPrimitive: Primitive<AlertProps, 'div'> = (
   return !dismissed ? (
     <Flex
       className={classNames(
-        ComponentClassName.Alert,
-        className,
-        classNameModifier(ComponentClassName.Alert, variation)
+        alertClassnames({ _modifiers: variation }),
+        className
       )}
       ref={ref}
       role="alert"
@@ -57,15 +60,19 @@ const AlertPrimitive: Primitive<AlertProps, 'div'> = (
       {hasIcon && <AlertIcon variation={variation} ariaHidden />}
       <View flex="1">
         {heading && (
-          <View className={ComponentClassName.AlertHeading}>{heading}</View>
+          <View className={alertClassnames({ _element: 'heading' })}>
+            {heading}
+          </View>
         )}
-        <View className={ComponentClassName.AlertBody}>{children}</View>
+        <View className={alertClassnames({ _element: 'body' })}>
+          {children}
+        </View>
       </View>
       {isDismissible && (
         <Button
           ariaLabel={dismissButtonLabel}
           variation="link"
-          className={ComponentClassName.AlertDismiss}
+          className={alertClassnames({ _element: 'dismiss' })}
           onClick={dismissAlert}
           ref={buttonRef}
         >

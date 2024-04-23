@@ -1,6 +1,5 @@
-import { Breakpoints } from '../breakpoints';
 import { WebTokens } from '../tokens';
-import { AlertTheme } from './alert';
+import { AlertTheme, alertTheme } from './alert';
 import { AutoCompleteTheme } from './autocomplete';
 import { BadgeTheme } from './badge';
 import { BreadcrumbsTheme } from './breadcrumbs';
@@ -9,9 +8,11 @@ import { CardTheme } from './card';
 import { CheckboxTheme } from './checkbox';
 import { RatingTheme } from './rating';
 import { ComponentTheme, BaseComponentTheme, BaseTheme } from './utils';
+export { ClassNameFunction } from '../createTheme/createComponentClasses';
+export type { ComponentTheme, BaseComponentTheme, BaseTheme };
 
-export type { ComponentTheme, BaseComponentTheme };
-
+// Union type of all built-in component themes and base theme
+// for the createTheme function
 export type ComponentsTheme<TokensType extends WebTokens = WebTokens> =
   | BaseComponentTheme<BaseTheme, string, TokensType>
   | BaseComponentTheme<AlertTheme, 'alert', TokensType>
@@ -22,13 +23,21 @@ export type ComponentsTheme<TokensType extends WebTokens = WebTokens> =
   | BaseComponentTheme<CheckboxTheme, 'checkbox', TokensType>
   | BaseComponentTheme<RatingTheme, 'rating', TokensType>;
 
-export type {
-  AlertTheme,
-  AutoCompleteTheme,
-  BadgeTheme,
-  BreadcrumbsTheme,
-  ButtonTheme,
-  CardTheme,
-  CheckboxTheme,
-  RatingTheme,
+// A mapped type of all built-in components
+// if the name extends from a known name, like 'alert' this should return the specific shape
+type AllComponentThemes = {
+  alert: AlertTheme;
+  autocomplete: AutoCompleteTheme;
+  badge: BadgeTheme;
+  button: ButtonTheme;
+  card: CardTheme;
+  checkbox: CheckboxTheme;
+  rating: RatingTheme;
 };
+
+export type ComponentThemeFromName<
+  T extends string,
+  Theme extends BaseTheme = BaseTheme,
+> = T extends keyof AllComponentThemes ? AllComponentThemes[T] : Theme;
+
+export { alertTheme };

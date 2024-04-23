@@ -1,35 +1,35 @@
 import { isObject, isString } from '../../utils';
-import { BaseTheme, ComponentTheme } from '../components/utils';
+import { ComponentThemeFromName } from '../components';
+import { BaseTheme } from '../components/utils';
 
 // Gets the element names in a theme
-type ElementNames<T extends BaseTheme> = T extends { _element?: any }
-  ? keyof T['_element']
+type ElementNames<T extends unknown> = T extends { _element?: any }
+  ? keyof Required<T['_element']>
   : never;
 
 // Gets the modifiers of an element within a theme
 type ModifierNames<T extends unknown> = T extends { _modifiers?: any }
-  ? Arrayify<keyof T['_modifiers']>
+  ? Arrayify<keyof Required<T['_modifiers']>>
   : never;
 
-// Gets the root modifiers of a theme
-type RootModifierNames<T extends BaseTheme> = Arrayify<
-  keyof T['_modifiers'] | undefined
->;
 type Arrayify<T> = T | T[];
 
 type ClassNameArgs<T extends BaseTheme> = {
-  _element?: ElementNames<T> extends never
-    ? never
-    :
-        | ElementNames<T>
-        | {
-            [Key in ElementNames<T>]?: ModifierNames<T['_element'][Key]>;
-          };
-  _modifiers?: RootModifierNames<T>;
+  _element?:
+    | ElementNames<Required<T>>
+    | {
+        [Key in ElementNames<Required<T>>]?: ModifierNames<
+          Required<Required<T['_element']>[Key]>
+        >;
+      };
+  _modifiers?: ModifierNames<Required<T>>;
 };
 
-export type ClassNameFunction<T extends BaseTheme = BaseTheme> = (
-  props?: ClassNameArgs<UnwrapTheme<T>>
+export type ClassNameFunction<
+  T extends BaseTheme = BaseTheme,
+  NameType extends string = string,
+> = (
+  props?: ClassNameArgs<UnwrapTheme<ComponentThemeFromName<NameType, T>>>
 ) => string;
 
 // This will take a theme which could be either a plain object or a function that returns a plain object
@@ -40,11 +40,11 @@ type UnwrapTheme<ThemeType extends BaseTheme = BaseTheme> = ThemeType extends (
   ? ReturnType<ThemeType>
   : ThemeType;
 
-export function createComponentClasses<ThemeType extends BaseTheme>({
-  name = '',
-  prefix = 'amplify-',
-}) {
-  const className: ClassNameFunction<ThemeType> = (props) => {
+export function createComponentClasses<
+  ThemeType extends BaseTheme,
+  NameType extends string = string,
+>({ name, prefix = 'amplify-' }: { name: NameType; prefix?: string }) {
+  const className: ClassNameFunction<ThemeType, NameType> = (props) => {
     const baseComponentClassName = `${prefix}${name}`;
     if (!props) {
       return baseComponentClassName;
@@ -94,3 +94,5 @@ export function createComponentClasses<ThemeType extends BaseTheme>({
   };
   return className;
 }
+
+const c = createComponentClasses({ name: 'alert' });

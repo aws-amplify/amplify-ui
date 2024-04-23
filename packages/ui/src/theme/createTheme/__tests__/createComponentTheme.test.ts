@@ -1,4 +1,3 @@
-import { AlertTheme } from '../../components';
 import { Tokens, WebTokens } from '../../tokens';
 import { createComponentTheme } from '../createComponentTheme';
 
@@ -68,9 +67,9 @@ describe('createComponentTheme', () => {
     });
 
     it('should work with custom tokens type', () => {
-      const alertTheme = createComponentTheme<CustomDesignTokens>({
+      const alertTheme = createComponentTheme({
         name: 'alert',
-        theme: (tokens) => {
+        theme: (tokens: CustomDesignTokens) => {
           return {
             // this does work probably?
             fontSize: `${tokens.fontSizes.bar}`,

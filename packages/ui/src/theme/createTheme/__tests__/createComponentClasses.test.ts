@@ -1,10 +1,9 @@
-import { RatingTheme } from '../../components';
 import { BaseProperties, Modifiers, Size } from '../../components/utils';
 import { createComponentClasses } from '../createComponentClasses';
 
 describe('createComponentClasses:', () => {
   describe('built-in components', () => {
-    const ratingClassnames = createComponentClasses<RatingTheme>({
+    const ratingClassnames = createComponentClasses({
       name: 'rating',
     });
 

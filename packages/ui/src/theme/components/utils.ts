@@ -21,20 +21,34 @@ export interface BaseProperties extends CSSProperties, Selectors {
   _vars?: Record<string, DesignToken | string>;
 }
 
-export interface Modifiers<Keys extends string = string> {
-  _modifiers?: { [key in Keys]?: BaseProperties };
-}
+export type Modifiers<
+  Keys extends string = string,
+  Required extends boolean = false,
+> = Required extends true
+  ? {
+      _modifiers: { [key in Keys]: BaseProperties };
+    }
+  : {
+      _modifiers?: { [key in Keys]?: BaseProperties };
+    };
 
 // This type assumes all elements have the same shape
 // but some elements could have different modifiers
-export interface Elements<
+export type Elements<
   Keys extends string = string,
+  Required extends boolean = false,
   Properties extends BaseProperties = BaseProperties,
-> {
-  _element?: {
-    [key in Keys]?: Properties;
-  };
-}
+> = Required extends true
+  ? {
+      _element: {
+        [key in Keys]: Properties;
+      };
+    }
+  : {
+      _element?: {
+        [key in Keys]?: Properties;
+      };
+    };
 
 export interface BaseTheme extends CSSProperties, Selectors {
   _vars?: Record<string, DesignToken | string>;
@@ -53,7 +67,7 @@ export interface BaseTheme extends CSSProperties, Selectors {
 export type ComponentTheme<
   ThemeType extends BaseTheme = BaseTheme,
   TokensType extends WebTokens = WebTokens,
-> = ThemeType | ((tokens: TokensType) => ThemeType) | undefined;
+> = ThemeType | ((tokens: TokensType) => ThemeType);
 
 export type ComponentThemeOverride<ThemeType> = {
   theme: ThemeType;
