@@ -27,12 +27,19 @@ export interface StorageImageProps extends Omit<ImageProps, 'src'> {
    * `onStorageGetError` will be replaced with `onGetUrlError` in the next major version of Amplify UI
    */
   onStorageGetError?: (error: Error) => void;
+  // Allow user to migrate from `onStorageGetError` without changing to `path` props
+  onGetUrlError?: (error: Error) => void;
   // Creates a discriminated union between StorageImageProps and StorageImagePathProps
   path?: never;
 }
-export interface StorageImagePathProps extends Omit<ImageProps, 'src'> {
+
+type OmittedPropKey =
+  | 'accessLevel'
+  | 'imgKey'
+  | 'identityId'
+  | 'onStorageGetError'
+  | 'path'; // include `path` to disallow `never` in `StorageImagePathProps`
+export interface StorageImagePathProps
+  extends Omit<StorageImageProps, OmittedPropKey> {
   path: string | ((input: { identityId?: string }) => string);
-  onGetUrlError?: (error: Error) => void;
-  validateObjectExistence?: boolean;
-  fallbackSrc?: string;
 }
