@@ -14,10 +14,14 @@ export const StorageImageWithKey = ({
   fallbackSrc,
   identityId,
   imgKey,
+  path,
   onStorageGetError,
-  validateObjectExistence,
+  validateObjectExistence = true,
   ...rest
 }: StorageImageProps): JSX.Element => {
+  if (imgKey && path) {
+    throw new Error('StorageImage cannot have both imgKey and path props.');
+  }
   useDeprecationWarning({
     message:
       'The `imgKey` prop has been deprecated and will be removed in the next major version of Amplify UI.',
@@ -58,7 +62,7 @@ export const StorageImageWithPath = ({
   path,
   onGetUrlError,
   fallbackSrc,
-  validateObjectExistence = false,
+  validateObjectExistence = true,
   ...rest
 }: StorageImagePathProps): JSX.Element => {
   const input = React.useMemo(() => {
@@ -85,12 +89,6 @@ export const StorageImageWithPath = ({
 const hasKey = (
   props: StorageImageProps | StorageImagePathProps
 ): props is StorageImageProps => {
-  if (
-    (props as StorageImageProps).imgKey &&
-    (props as StorageImagePathProps).path
-  ) {
-    throw new Error('StorageImage cannot have both imgKey and path props.');
-  }
   return !!(props as StorageImageProps).imgKey;
 };
 
