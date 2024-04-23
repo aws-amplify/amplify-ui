@@ -23,7 +23,7 @@ export interface StorageImageProps extends Omit<ImageProps, 'src'> {
   fallbackSrc?: string;
   validateObjectExistence?: boolean;
   /**
-   * @deprecated
+   * @deprecated use `onGetUrlError`
    * `onStorageGetError` will be replaced with `onGetUrlError` in the next major version of Amplify UI
    */
   onStorageGetError?: (error: Error) => void;
