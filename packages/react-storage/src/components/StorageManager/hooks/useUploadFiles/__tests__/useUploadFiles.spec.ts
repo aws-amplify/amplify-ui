@@ -14,7 +14,10 @@ const uploadDataSpy = jest
       pause: jest.fn(),
       resume: jest.fn(),
       state: 'SUCCESS',
-      result: Promise.resolve({ key: input.key, data: input.data }),
+      result: Promise.resolve({
+        key: input.key,
+        data: input.data,
+      }),
     };
   });
 
@@ -209,6 +212,31 @@ describe('useUploadFiles', () => {
       expect(uploadDataSpy).toHaveBeenCalledTimes(1);
       expect(uploadDataSpy).toHaveBeenCalledWith(
         expect.objectContaining(expected)
+      );
+    });
+  });
+
+  it('prepends valid provided `prefix` to `processedKey`', async () => {
+    const prefix = 'test-prefix/';
+    const { waitForNextUpdate } = renderHook(() =>
+      useUploadFiles({
+        ...props,
+        isResumable: true,
+        files: [mockQueuedFile],
+        prefix,
+        accessLevel: undefined,
+      })
+    );
+
+    waitForNextUpdate();
+
+    await waitFor(() => {
+      expect(mockOnUploadStart).toHaveBeenCalledWith({
+        key: `${prefix}${mockQueuedFile.key}`,
+      });
+      expect(uploadDataSpy).toHaveBeenCalledTimes(1);
+      expect(uploadDataSpy).toHaveBeenCalledWith(
+        expect.objectContaining({ path: `${prefix}${mockQueuedFile.key}` })
       );
     });
   });

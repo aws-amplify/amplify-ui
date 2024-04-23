@@ -1,6 +1,9 @@
 import * as React from 'react';
 
-import type { UploadDataOutput } from 'aws-amplify/storage';
+import type {
+  UploadDataOutput,
+  UploadDataWithPathOutput,
+} from 'aws-amplify/storage';
 import type { StorageAccessLevel } from '@aws-amplify/core';
 
 import {
@@ -27,7 +30,7 @@ export interface StorageFile {
   file?: File;
   status: FileStatus;
   progress: number;
-  uploadTask?: UploadDataOutput;
+  uploadTask?: UploadDataOutput | UploadDataWithPathOutput;
   key: string;
   error: string;
   isImage: boolean;
@@ -55,10 +58,10 @@ export interface StorageManagerProps {
    */
   acceptedFileTypes?: string[];
   /**
-   * Access level for file uploads
-   * @see https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/
+   * @deprectaed
+   * `accessLevel` has been deprecated in favor of `prefix` and will be removed in a future major version
    */
-  accessLevel: StorageAccessLevel;
+  accessLevel?: StorageAccessLevel;
 
   /**
    * Determines if the upload will automatically start after a file is selected, default value: true
@@ -120,9 +123,12 @@ export interface StorageManagerProps {
    */
   showThumbnails?: boolean;
   /**
-   * A path to put files in the s3 bucket.
-   * This will be prepended to the key sent to
-   * s3 for each file.
+   * @deprectaed
+   * `path` has been deprecated in favor of `prefix` and will be removed in a future major version
    */
   path?: string;
+  /**
+   * A string prefixed to the key of each file
+   */
+  prefix?: string;
 }

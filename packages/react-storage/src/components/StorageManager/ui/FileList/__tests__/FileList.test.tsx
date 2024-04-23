@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 
-import { UploadDataOutput } from 'aws-amplify/storage';
+import {
+  UploadDataOutput,
+  UploadDataWithPathOutput,
+} from 'aws-amplify/storage';
 import { ComponentClassName } from '@aws-amplify/ui';
 
 import { FileList } from '../FileList';
@@ -16,7 +19,7 @@ const mockFile: StorageFile = {
   error: '',
   isImage: false,
   key: '',
-  uploadTask: {} as UploadDataOutput,
+  uploadTask: {} as UploadDataOutput | UploadDataWithPathOutput,
 };
 
 const mockOnCancelUpload = jest.fn();
