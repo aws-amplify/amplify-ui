@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { screen, render } from '@testing-library/react';
+import { act, screen, render } from '@testing-library/react';
 
 import { ComponentClassName } from '@aws-amplify/ui';
-import { Menu, MENU_ITEMS_GROUP_TEST_ID } from '../Menu';
+import { Menu, MENU_ITEMS_GROUP_TEST_ID, MENU_TRIGGER_TEST_ID } from '../Menu';
+import { MenuButton } from '../MenuButton';
 import { MenuItem, MENU_ITEM_TEST_ID } from '../MenuItem';
-import { MENU_TRIGGER_TEST_ID } from '../Menu';
 
 // Needed because of the Radix Popper used by Menu
 // https://github.com/radix-ui/primitives/blob/main/packages/react/popper/src/Popper.tsx#L127
@@ -88,6 +88,52 @@ describe('Menu', () => {
     expect(menuItemsGroupClosed).toBeNull();
   });
 
+  it('behaves as expected when disabled', async () => {
+    const { rerender } = render(
+      <Menu isDisabled={false}>
+        <MenuItem>Option 1</MenuItem>
+        <MenuItem>Option 2</MenuItem>
+        <MenuItem isDisabled testId="disabled_option">
+          Option 3
+        </MenuItem>
+      </Menu>
+    );
+
+    const menuTrigger = await screen.findByTestId(MENU_TRIGGER_TEST_ID);
+    expect(menuTrigger).toHaveAttribute('data-state', 'closed');
+    expect(screen.queryByTestId(MENU_ITEMS_GROUP_TEST_ID)).toBeNull();
+
+    act(() => {
+      // Using keydown event because of the specific way radix-ui handles click
+      // https://github.com/radix-ui/primitives/blob/b32a93318cdfce383c2eec095710d35ffbd33a1c/packages/react/dropdown-menu/src/DropdownMenu.tsx#L127
+      menuTrigger.dispatchEvent(
+        new KeyboardEvent('keydown', { bubbles: true, key: 'Enter' })
+      );
+    });
+
+    expect(menuTrigger).toHaveAttribute('data-state', 'open');
+    expect(screen.queryByTestId(MENU_ITEMS_GROUP_TEST_ID)).not.toBeNull();
+
+    rerender(
+      <Menu isDisabled>
+        <MenuItem>Option 1</MenuItem>
+        <MenuItem>Option 2</MenuItem>
+        <MenuItem isDisabled testId="disabled_option">
+          Option 3
+        </MenuItem>
+      </Menu>
+    );
+
+    act(() => {
+      menuTrigger.dispatchEvent(
+        new KeyboardEvent('keydown', { bubbles: true, key: 'Enter' })
+      );
+    });
+
+    expect(menuTrigger).toHaveAttribute('data-state', 'open');
+    expect(screen.queryByTestId(MENU_ITEMS_GROUP_TEST_ID)).not.toBeNull();
+  });
+
   describe('trigger', () => {
     it('should have default and custom classnames', async () => {
       const triggerClassName = 'trigger-class-test';
@@ -160,6 +206,84 @@ describe('Menu', () => {
       const disabled = await screen.findByTestId('disabled_option');
 
       expect(disabled).toHaveClass('amplify-button--disabled');
+    });
+
+    it('has the expected class when disabled and open', async () => {
+      render(
+        <Menu isOpen isDisabled>
+          {/* Force open to test menu items */}
+          <MenuItem>Option 1</MenuItem>
+          <MenuItem>Option 2</MenuItem>
+          <MenuItem testId="disabled_option">Option 3</MenuItem>
+        </Menu>
+      );
+
+      const disabled = await screen.findByTestId('disabled_option');
+
+      expect(disabled).toHaveClass('amplify-button--disabled');
+    });
+
+    it('behaves as expected when `isDisabled` is updated from `false` to `true`', async () => {
+      const clickHandler = jest.fn();
+      const { rerender } = render(
+        <Menu isOpen isDisabled={false}>
+          <MenuItem>Option 1</MenuItem>
+          <MenuItem>Option 2</MenuItem>
+          <MenuItem testId="enabled_menu_item" onClick={clickHandler}>
+            Option 3
+          </MenuItem>
+        </Menu>
+      );
+
+      const menuItem = await screen.findByTestId('enabled_menu_item');
+      expect(menuItem).not.toHaveAttribute('disabled');
+      expect(menuItem).not.toHaveClass('amplify-button--disabled');
+
+      act(() => {
+        menuItem.dispatchEvent(
+          new KeyboardEvent('keydown', { bubbles: true, key: 'Enter' })
+        );
+      });
+
+      expect(clickHandler).toHaveBeenCalledTimes(1);
+
+      rerender(
+        <Menu isOpen isDisabled>
+          <MenuItem>Option 1</MenuItem>
+          <MenuItem>Option 2</MenuItem>
+          <MenuItem testId="enabled_menu_item" onClick={clickHandler}>
+            Option 3
+          </MenuItem>
+        </Menu>
+      );
+
+      expect(menuItem).toHaveAttribute('disabled');
+      expect(menuItem).toHaveClass('amplify-button--disabled');
+
+      act(() => {
+        menuItem.dispatchEvent(
+          new KeyboardEvent('keydown', { bubbles: true, key: 'Enter' })
+        );
+      });
+
+      expect(clickHandler).toHaveBeenCalledTimes(1); // Should not be called an additional time
+    });
+  });
+
+  describe('MenuButton', () => {
+    it('has the expected class when disabled', async () => {
+      const MENU_BUTTON_TEST_ID = 'amplify-menu-button-test-id';
+      render(
+        <MenuButton
+          isDisabled={true}
+          testId={MENU_BUTTON_TEST_ID}
+        />
+      );
+
+      const menuButton = await screen.findByTestId(MENU_BUTTON_TEST_ID);
+
+      expect(menuButton).toHaveAttribute('disabled');
+      expect(menuButton).toHaveClass('amplify-button--disabled');
     });
   });
 });
