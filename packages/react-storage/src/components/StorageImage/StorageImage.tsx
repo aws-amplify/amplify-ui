@@ -4,11 +4,15 @@ import { classNames, ComponentClassName } from '@aws-amplify/ui';
 import { Image } from '@aws-amplify/ui-react';
 import { useDeprecationWarning } from '@aws-amplify/ui-react/internal';
 import { useGetUrl, useSetUserAgent } from '@aws-amplify/ui-react-core';
-
+import { GetUrlInput } from 'aws-amplify/storage';
 import { VERSION } from '../../version';
 import type { StorageImageProps, StorageImagePathProps } from './types';
 
-export const StorageImageWithKey = ({
+type UseGetUrlInput = GetUrlInput & {
+  onError?: (error: Error) => void;
+};
+
+export const StorageImage = ({
   accessLevel,
   className,
   fallbackSrc,
@@ -16,34 +20,45 @@ export const StorageImageWithKey = ({
   imgKey,
   path,
   onStorageGetError,
+  onGetUrlError,
   validateObjectExistence = true,
   ...rest
-}: StorageImageProps): JSX.Element => {
+}: StorageImageProps | StorageImagePathProps): JSX.Element => {
   if (imgKey && path) {
     throw new Error('StorageImage cannot have both imgKey and path props.');
   }
   useDeprecationWarning({
     message:
       'The `imgKey` prop has been deprecated and will be removed in the next major version of Amplify UI.',
-    shouldWarn: true,
+    shouldWarn: !!imgKey,
   });
 
-  const input = React.useMemo(() => {
+  useSetUserAgent({
+    componentName: 'StorageImage',
+    packageName: 'react-storage',
+    version: VERSION,
+  });
+
+  // @ts-ignore
+  const input: UseGetUrlInput = React.useMemo(() => {
+    const hasKey = !!imgKey;
     return {
-      key: imgKey,
-      onError: onStorageGetError,
+      ...(hasKey ? { key: imgKey } : { path }),
+      onError: onGetUrlError ?? onStorageGetError,
       options: {
-        accessLevel,
-        targetIdentityId: identityId,
+        ...(accessLevel ? { accessLevel } : {}),
+        ...(hasKey ? { targetIdentityId: identityId } : {}),
         validateObjectExistence,
       },
     };
   }, [
     accessLevel,
     imgKey,
-    onStorageGetError,
+    path,
     identityId,
     validateObjectExistence,
+    onGetUrlError,
+    onStorageGetError,
   ]);
 
   const { url } = useGetUrl(input);
@@ -54,56 +69,5 @@ export const StorageImageWithKey = ({
       className={classNames(ComponentClassName.StorageImage, className)}
       src={url?.toString() ?? fallbackSrc}
     />
-  );
-};
-
-export const StorageImageWithPath = ({
-  className,
-  path,
-  onGetUrlError,
-  fallbackSrc,
-  validateObjectExistence = true,
-  ...rest
-}: StorageImagePathProps): JSX.Element => {
-  const input = React.useMemo(() => {
-    return {
-      path,
-      onError: onGetUrlError,
-      options: {
-        validateObjectExistence,
-      },
-    };
-  }, [path, onGetUrlError, validateObjectExistence]);
-
-  const { url } = useGetUrl(input);
-
-  return (
-    <Image
-      {...rest}
-      className={classNames(ComponentClassName.StorageImage, className)}
-      src={url?.toString() ?? fallbackSrc}
-    />
-  );
-};
-
-const hasKey = (
-  props: StorageImageProps | StorageImagePathProps
-): props is StorageImageProps => {
-  return !!(props as StorageImageProps).imgKey;
-};
-
-export const StorageImage = (
-  props: StorageImageProps | StorageImagePathProps
-): JSX.Element => {
-  useSetUserAgent({
-    componentName: 'StorageImage',
-    packageName: 'react-storage',
-    version: VERSION,
-  });
-
-  return hasKey(props) ? (
-    <StorageImageWithKey {...props} />
-  ) : (
-    <StorageImageWithPath {...props} />
   );
 };

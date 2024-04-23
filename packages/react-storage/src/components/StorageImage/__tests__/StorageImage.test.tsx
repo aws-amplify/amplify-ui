@@ -60,10 +60,10 @@ describe('StorageImage', () => {
 
     expect(() =>
       render(
+        // @ts-expect-error testing invalid input
         <StorageImage
           alt="StorageImage"
           path={path}
-          // @ts-expect-error testing invalid input
           imgKey={imgKey}
           onGetUrlError={onError}
         />
@@ -71,6 +71,52 @@ describe('StorageImage', () => {
     ).toThrow('StorageImage cannot have both imgKey and path props.');
 
     errorSpy.mockClear();
+  });
+
+  it('should show console warning if `imgKey` prop is passed in', () => {
+    warnSpy.mockImplementation(() => {});
+    const { rerender } = render(
+      <StorageImage alt="StorageImage" path={path} onGetUrlError={onError} />
+    );
+
+    expect(warnSpy).toHaveBeenCalledTimes(0);
+
+    rerender(
+      <StorageImage
+        alt="StorageImage"
+        accessLevel="guest"
+        imgKey={imgKey}
+        onGetUrlError={onError}
+      />
+    );
+
+    expect(warnSpy).toHaveBeenCalledTimes(1);
+    expect(warnSpy).toHaveBeenCalledWith(
+      'The `imgKey` prop has been deprecated and will be removed in the next major version of Amplify UI.'
+    );
+    warnSpy.mockClear();
+  });
+
+  it('should validateObjectExistence by default', () => {
+    getUrlSpy.mockResolvedValue({
+      url: new URL(imgURL),
+      expiresAt: new Date(),
+    });
+    render(
+      <StorageImage
+        alt="StorageImage"
+        imgKey={imgKey}
+        accessLevel={accessLevel}
+      />
+    );
+
+    expect(getUrlSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        options: expect.objectContaining({
+          validateObjectExistence: true,
+        }),
+      })
+    );
   });
 
   describe('with `imgKey`', () => {

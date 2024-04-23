@@ -42,4 +42,8 @@ type OmittedPropKey =
 export interface StorageImagePathProps
   extends Omit<StorageImageProps, OmittedPropKey> {
   path: string | ((input: { identityId?: string }) => string);
+  imgKey?: never;
+  accessLevel?: never;
+  identityId?: never;
+  onStorageGetError?: never;
 }
