@@ -14,18 +14,28 @@ type UseGetUrlInput = GetUrlInput & {
   onError?: (error: Error) => void;
 };
 
-export const StorageImage = ({
-  accessLevel,
-  className,
-  fallbackSrc,
-  identityId,
-  imgKey,
-  path,
-  onStorageGetError,
-  onGetUrlError,
-  validateObjectExistence = true,
-  ...rest
-}: StorageImageProps | StorageImagePathProps): JSX.Element => {
+const hasKeyProps = (
+  props: StorageImageProps | StorageImagePathProps
+): props is StorageImageProps => {
+  return !!(props as StorageImageProps).imgKey;
+};
+
+export const StorageImage = (
+  props: StorageImageProps | StorageImagePathProps
+): JSX.Element => {
+  const {
+    accessLevel,
+    className,
+    fallbackSrc,
+    identityId,
+    imgKey,
+    path,
+    onStorageGetError,
+    onGetUrlError,
+    validateObjectExistence = true,
+    ...rest
+  } = props;
+
   if (imgKey && path) {
     throw new Error('StorageImage cannot have both imgKey and path props.');
   }
@@ -41,14 +51,15 @@ export const StorageImage = ({
     version: VERSION,
   });
 
+  // @ts-expect-error Remove once storage types are updated
   const input: UseGetUrlInput = React.useMemo(() => {
-    const hasKey = !!imgKey;
+    const hasKey = hasKeyProps(props);
     return {
       ...(hasKey ? { key: imgKey } : { path }),
       onError: onGetUrlError ?? onStorageGetError,
       options: {
-        ...(accessLevel ? { accessLevel } : {}),
-        ...(hasKey ? { targetIdentityId: identityId } : {}),
+        ...(accessLevel ? { accessLevel } : undefined),
+        ...(hasKey ? { targetIdentityId: identityId } : undefined),
         validateObjectExistence,
       },
     };
@@ -60,6 +71,7 @@ export const StorageImage = ({
     validateObjectExistence,
     onGetUrlError,
     onStorageGetError,
+    props,
   ]);
 
   const { url } = useGetUrl(input);

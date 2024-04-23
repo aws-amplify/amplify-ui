@@ -24,6 +24,7 @@ export interface StorageImageProps extends Omit<ImageProps, 'src'> {
   validateObjectExistence?: boolean;
   /**
    * @deprecated use `onGetUrlError`
+   *
    * `onStorageGetError` will be replaced with `onGetUrlError` in the next major version of Amplify UI
    */
   onStorageGetError?: (error: Error) => void;
@@ -39,6 +40,7 @@ type OmittedPropKey =
   | 'identityId'
   | 'onStorageGetError'
   | 'path'; // include `path` to disallow `never` in `StorageImagePathProps`
+
 export interface StorageImagePathProps
   extends Omit<StorageImageProps, OmittedPropKey> {
   path: string | ((input: { identityId?: string }) => string);
