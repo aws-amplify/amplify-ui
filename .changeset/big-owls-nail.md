@@ -1,5 +1,5 @@
 ---
-"@aws-amplify/ui-react-storage": patch
+"@aws-amplify/ui-react-storage": minor
 "@aws-amplify/ui-react": patch
 ---
 
