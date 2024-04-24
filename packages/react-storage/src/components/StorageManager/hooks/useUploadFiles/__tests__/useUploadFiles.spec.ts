@@ -8,7 +8,6 @@ import { useUploadFiles, UseUploadFilesProps } from '../useUploadFiles';
 
 const uploadDataSpy = jest
   .spyOn(Storage, 'uploadData')
-  // @ts-expect-error remove this once StorageManager types are fixed
   .mockImplementation((input) => {
     return {
       cancel: jest.fn(),
