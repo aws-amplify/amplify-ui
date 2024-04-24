@@ -51,7 +51,6 @@ export const StorageImage = (
     version: VERSION,
   });
 
-  // @ts-expect-error Remove once storage types are updated
   const input: UseGetUrlInput = React.useMemo(() => {
     const hasKey = hasKeyProps(props);
     return {
