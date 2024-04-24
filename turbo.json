@@ -1,6 +1,6 @@
 {
   "$schema": "https://turborepo.org/schema.json",
-  "baseBranch": "origin/main",
+  // "baseBranch": "origin/main",
   "pipeline": {
     "build": {
       "outputs": [".next/**", "dist/**"],
