@@ -42,6 +42,7 @@ export interface ProcessFileParams extends Record<string, any> {
   file: File;
   key: string;
   useAccelerateEndpoint?: boolean;
+  error?: string
 }
 
 export type ProcessFile = (
@@ -140,6 +141,8 @@ export interface StorageManagerPathProps
    *    resolved value is prefixed to the file `key` for each file
    */
   path: string | PathCallback;
+
   accessLevel?: never;
+
   useAccelerateEndpoint?: boolean;
 }

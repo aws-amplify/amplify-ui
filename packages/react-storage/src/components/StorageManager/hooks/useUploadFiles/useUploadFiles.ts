@@ -5,7 +5,7 @@ import { isFunction } from '@aws-amplify/ui';
 
 import { PathCallback, uploadFile } from '../../utils';
 import { getInput } from '../../utils';
-import { FileStatus } from '../../types';
+import { FileStatus, ProcessFileParams } from '../../types';
 import { StorageManagerProps } from '../../types';
 import { UseStorageManager } from '../useStorageManager';
 
@@ -22,7 +22,11 @@ export interface UseUploadFilesProps
     >,
     Pick<
       UseStorageManager,
-      'setUploadingFile' | 'setUploadProgress' | 'setUploadSuccess' | 'files'
+      | 'setUploadingFile'
+      | 'setUploadProgress'
+      | 'setUploadSuccess'
+      | 'files'
+      | 'removeUpload'
     > {
   accessLevel?: StorageManagerProps['accessLevel'];
   onProcessFileSuccess: (input: { id: string; processedKey: string }) => void;
@@ -34,6 +38,7 @@ export function useUploadFiles({
   files,
   isResumable,
   maxFileCount,
+  removeUpload,
   onProcessFileSuccess,
   onUploadError,
   onUploadStart,
@@ -67,7 +72,8 @@ export function useUploadFiles({
         setUploadProgress({ id, progress });
       };
 
-      if (file) {
+      if (file)
+      {
         const handleProcessFileSuccess = (input: { processedKey: string }) =>
           onProcessFileSuccess({ id, ...input });
 
@@ -80,7 +86,7 @@ export function useUploadFiles({
           path,
           processFile,
           useAccelerateEndpoint,
-        });
+        })
 
         uploadFile({
           input,
@@ -115,6 +121,7 @@ export function useUploadFiles({
     setUploadProgress,
     setUploadingFile,
     onUploadError,
+    removeUpload,
     onProcessFileSuccess,
     onUploadSuccess,
     onUploadStart,
