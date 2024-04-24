@@ -12,7 +12,7 @@ export function CustomizationCdn() {
       region="us-east-1"
       onAnalysisComplete={async () => {}}
       config={{
-        binaryPath: 'http://example.com/path/to/your/wasm/file/',
+        binaryPath: 'http://example.com/path/to/your/wasm/files/',
         faceModelUrl:
           'http://example.com/path/to/your/blazeface/file/model.json',
       }}

@@ -24,6 +24,9 @@ import { WS_CLOSURE_CODE } from '../constants';
 
 const DEFAULT_WS_CONNECTION_TIMEOUT_MS = 2000;
 
+export const WEBSOCKET_CONNECTION_TIMEOUT_MESSAGE =
+  'Websocket connection timeout';
+
 const isWebSocketRequest = (request: HttpRequest) =>
   request.protocol === 'ws:' || request.protocol === 'wss:';
 
@@ -162,11 +165,7 @@ export class CustomWebSocketFetchHandler {
     return new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {
         this.removeNotUsableSockets(socket.url);
-        reject({
-          $metadata: {
-            httpStatusCode: 500,
-          },
-        });
+        reject(new Error(WEBSOCKET_CONNECTION_TIMEOUT_MESSAGE));
       }, connectionTimeout);
 
       socket.onopen = () => {
