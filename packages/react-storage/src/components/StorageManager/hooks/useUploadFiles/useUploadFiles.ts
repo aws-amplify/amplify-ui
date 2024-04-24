@@ -4,7 +4,7 @@ import { TransferProgressEvent } from 'aws-amplify/storage';
 import { isFunction, isString } from '@aws-amplify/ui';
 
 import { uploadFile } from '../../utils/uploadFile';
-import { FileStatus } from '../../types';
+import { FileStatus, ProcessFileParams } from '../../types';
 import { StorageManagerProps } from '../../types';
 import { UseStorageManager } from '../useStorageManager';
 import { resolveFile } from './resolveFile';
@@ -23,7 +23,11 @@ export interface UseUploadFilesProps
     >,
     Pick<
       UseStorageManager,
-      'setUploadingFile' | 'setUploadProgress' | 'setUploadSuccess' | 'files'
+      | 'setUploadingFile'
+      | 'setUploadProgress'
+      | 'setUploadSuccess'
+      | 'files'
+      | 'removeUpload'
     > {}
 
 export function useUploadFiles({
@@ -34,6 +38,7 @@ export function useUploadFiles({
   setUploadingFile,
   setUploadSuccess,
   onUploadError,
+  removeUpload,
   onUploadSuccess,
   onUploadStart,
   maxFileCount,
@@ -70,8 +75,8 @@ export function useUploadFiles({
       };
 
       if (file) {
-        resolveFile({ processFile, file, key }).then(
-          ({ key: processedKey, ...rest }) => {
+        resolveFile({ processFile, file, key })
+          .then(({ key: processedKey, ...rest }) => {
             // prepend `path` to `processedKey`
             const resolvedKey = isString(path)
               ? `${path}${processedKey}`
@@ -95,8 +100,14 @@ export function useUploadFiles({
             });
 
             setUploadingFile({ id, uploadTask });
-          }
-        );
+          })
+          .catch(({ key, error }: ProcessFileParams) => {
+            if (isFunction(onUploadError)) {
+              //TODO: localize this error.
+              onUploadError(error ?? `Error processing: ${key}`, { key: key });
+            }
+            removeUpload({ id });
+          });
       }
     }
   }, [
@@ -106,6 +117,7 @@ export function useUploadFiles({
     setUploadProgress,
     setUploadingFile,
     onUploadError,
+    removeUpload,
     onUploadSuccess,
     onUploadStart,
     maxFileCount,

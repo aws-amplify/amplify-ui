@@ -125,6 +125,7 @@ function StorageManagerBase(
     setUploadingFile,
     setUploadProgress,
     setUploadSuccess,
+    removeUpload,
     processFile,
     path,
   });

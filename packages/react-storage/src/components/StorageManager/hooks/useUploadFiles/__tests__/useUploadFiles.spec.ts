@@ -44,12 +44,15 @@ const mockSetUploadProgress = jest.fn();
 const mockSetUploadSuccess = jest.fn();
 const mockOnUploadError = jest.fn();
 const mockOnUploadStart = jest.fn();
+const mockRemoveUpload = jest.fn();
 const props: Omit<UseUploadFilesProps, 'files'> = {
   accessLevel: 'guest',
   maxFileCount: 2,
   setUploadingFile: mockSetUploadingFile,
   setUploadProgress: mockSetUploadProgress,
   setUploadSuccess: mockSetUploadSuccess,
+  removeUpload: mockRemoveUpload,
+  isResumable: false,
   onUploadError: mockOnUploadError,
   onUploadStart: mockOnUploadStart,
 };
@@ -187,6 +190,32 @@ describe('useUploadFiles', () => {
       expect(mockOnUploadStart).toHaveBeenCalledWith({
         key: 'test.png',
       });
+    });
+  });
+
+  it('should remove upload after processFile promise rejects', async () => {
+    const processFile: StorageManagerProps['processFile'] = ({ file }) =>
+      Promise.reject({ file, key: 'test.png', error: 'forced test error' });
+
+    const { waitForNextUpdate } = renderHook(() =>
+      useUploadFiles({
+        ...props,
+        isResumable: true,
+        processFile,
+        files: [mockQueuedFile],
+      })
+    );
+
+    waitForNextUpdate();
+
+    await waitFor(() => {
+      expect(mockOnUploadError).toHaveBeenCalledWith('forced test error', {
+        key: 'test.png',
+      });
+    });
+
+    await waitFor(() => {
+      expect(mockRemoveUpload).toHaveBeenCalled();
     });
   });
 
