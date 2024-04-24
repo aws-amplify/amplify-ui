@@ -3,7 +3,9 @@
 ## Getting Started
 
 1. Navigate to the _root_ of your local clone of [aws-amplify/amplify-ui](https://github.com/aws-amplify/amplify-ui)
-1. Run `yarn setup`
+1. [`nvm install`](https://github.com/nvm-sh/nvm)
+1. [`nvm use`](https://github.com/nvm-sh/nvm)
+1. Run `yarn setup` - _NOTE:_ if Cypress Fails to download during this step, delete `yarn.lock` and try again.
 1. Run `yarn react dev`
 
 This will start building `@aws-amplify/ui-react` in watch mode. To test your changes, you can utilize [`examples/next`](../../examples/next) to run examples on `next.js`. Please see examples [README](../../examples/README.md) and e2e [README](../e2e/README.md#contributing) to get started.
