@@ -83,7 +83,7 @@ describe('StorageImage', () => {
     rerender(
       <StorageImage
         alt="StorageImage"
-        accessLevel="guest"
+        accessLevel={accessLevel}
         imgKey={imgKey}
         onGetUrlError={onError}
       />
