@@ -835,3 +835,44 @@ Starting in v6 of the Amplify JS libraries, `'public'` access level, meaning una
 #### 2. Removal of FileUploader
 
 The FileUploader component was the predecessor to the [`StorageManager`](../connected-components/storage/storagemanager) component. In this major version we are removing the FileUploader component. Please use the StorageManager component which covers all of the use-cases of FileUploader and more. 
+
+### Migrate from Gen 1 to Gen 2
+#### Installation
+
+Follow the steps in [this guide](https://docs.amplify.aws/react/build-a-backend/storage/) to set up your Amplify Storage Gen 2 backend.
+
+#### Update and usage
+Gen 2 of Amplify Storage introduces the following changes. These are non-breaking, meaning you can continue to use the Storage components as before. However, this may change in future versions of Amplify UI, so we strongly recommend migrating your components as shown below. 
+
+#### 1. Storage Image
+**The [`StorageImage`](../connected-components/storage/storageimage) component now uses the `path` prop in place of `imgKey`, `accessLevel`, and `identityId`.** 
+```tsx
+path: string | ((input: { identityId?: string }) => string);
+```
+
+```diff
+ <StorageImage
+   alt="private cat"
+-  imgKey="private-cat.jpeg"
+-  accessLevel="private"
+-  identityId={identityId}
++  path={({ identityId }) => `private/${identityId}/private-cat.jpeg`}
+   onLoad={() => setIsFirstImgLoaded(true)}
+  />
+```
+
+**`onStorageGetError` has been replaced with `onGetUrlError`**
+
+```diff 
+ <StorageImage
+   alt="public cat"
+   path={() => "guest/public-cat.jpeg"}
+   onLoad={onLoad}
+-  onStorageGetError={onStorageGetError}
++  onGetUrlError={onGetUrlError}
+  />
+```
+
+
+
+
