@@ -23,6 +23,7 @@ describe('StorageImage', () => {
     getUrlSpy.mockClear();
     warnSpy.mockClear();
     onError.mockClear();
+    errorSpy.mockClear();
 
     warnSpy.mockImplementation(() => {});
   });
@@ -69,8 +70,6 @@ describe('StorageImage', () => {
         />
       )
     ).toThrow('StorageImage cannot have both imgKey and path props.');
-
-    errorSpy.mockClear();
   });
 
   it('should show console warning if `imgKey` prop is passed in', () => {
@@ -94,7 +93,6 @@ describe('StorageImage', () => {
     expect(warnSpy).toHaveBeenCalledWith(
       'The `imgKey` prop has been deprecated and will be removed in the next major version of Amplify UI.'
     );
-    warnSpy.mockClear();
   });
 
   it('should validateObjectExistence by default', () => {
