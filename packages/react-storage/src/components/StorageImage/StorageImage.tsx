@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { GetUrlInput } from 'aws-amplify/storage';
+import { GetUrlInput, GetUrlWithPathInput } from 'aws-amplify/storage';
 
 import { classNames, ComponentClassName } from '@aws-amplify/ui';
 import { Image } from '@aws-amplify/ui-react';
@@ -10,7 +10,7 @@ import { useGetUrl, useSetUserAgent } from '@aws-amplify/ui-react-core';
 import { VERSION } from '../../version';
 import type { StorageImageProps, StorageImagePathProps } from './types';
 
-type UseGetUrlInput = GetUrlInput & {
+type UseGetUrlInput = (GetUrlInput | GetUrlWithPathInput) & {
   onError?: (error: Error) => void;
 };
 
