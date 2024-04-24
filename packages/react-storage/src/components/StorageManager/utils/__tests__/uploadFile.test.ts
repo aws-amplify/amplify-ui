@@ -24,7 +24,6 @@ const uploadDataOutput: Storage.UploadDataOutput = {
   pause: jest.fn(),
   resume: jest.fn(),
   state: 'SUCCESS',
-  // @ts-expect-error remove this once StorageManager types are fixed
   result: Promise.resolve({
     key: defaultProps.key,
     data: defaultProps.data,
