@@ -13,8 +13,6 @@ type UploadData = (props: UploadDataInput) => UploadDataOutput;
 const uploadData: UploadData = (props) => {
   const delay = 100;
   const { key, options } = props;
-  // is currently incorrect. Once the overloadshave been fixed the
-  // ts-expect-error can be safely removed
   const { onProgress = () => {}, accessLevel } = options;
 
   let progress = 0;
