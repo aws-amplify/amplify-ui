@@ -21,7 +21,7 @@ const {
 } = defaultErrorDisplayText;
 
 describe('FaceLivenessErrorModal', () => {
-  it('should render the component content appropriately', () => {
+  it('should render the component content sappropriately', () => {
     const errorState = LivenessErrorState.SERVER_ERROR;
     render(
       <FaceLivenessErrorModal onRetry={() => {}}>
