@@ -33,7 +33,7 @@ import '@aws-amplify/ui-react/styles.css';
 ```
 </ExampleCode>
 
-At a minimum you must include the `alt`, `imgKey` and `accessLevel` props. `accessLevel` refers to the [Amplify Storage access level](https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/), which is `'guest' | 'protected' | 'private'`.
+At a minimum you must include the `alt` and `path` props. `path` refers to the [Amplify Storage path](TODO add link), which is `string | ((input: { identityId?: string }) => string)`.
 
 <Example>
   <Image alt='cat' src='/cats/1.jpg' width="400px" height="400px" />
@@ -47,11 +47,11 @@ At a minimum you must include the `alt`, `imgKey` and `accessLevel` props. `acce
 
 <ReactPropsTable props={STORAGE_IMAGE} />
 
-Note: A new `Storage.get` request is made only when the `imgKey` changes.
+Note: A new `Storage.get` request is made only when the `path` changes.
 
 ## Error Handling
 
-To handle the error caused by `Storage.get`, you can pass a `onStorageGetError` handler and optionally provide a `fallbackSrc` for the component to load a fallback image.
+To handle the error caused by `Storage.get`, you can pass a `onGetUrlError` handler and optionally provide a `fallbackSrc` for the component to load a fallback image.
 
 <Example>
  <Image alt='fallback cat' src='/cats/2.jpg' width="400px" height="400px" />

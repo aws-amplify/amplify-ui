@@ -5,21 +5,9 @@ export const STORAGE_IMAGE = [
     type: 'string',
   },
   {
-    name: 'imgKey',
-    description: 'The key of an image.',
-    type: 'string',
-  },
-  {
-    name: 'accessLevel',
-    description:
-      'Access level for files in Storage. See https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/',
-    type: `'guest' | 'protected' | 'private'`,
-  },
-  {
-    name: 'identityId?',
-    description:
-      'The unique Amazon Cognito Identity ID of the image owner. Required when loading a protected image.',
-    type: 'string',
+    name: 'path',
+    description: 'The path to the image in Storage. See TODO add link',
+    type: 'string | ((input: { identityId?: string }) => string);',
   },
   {
     name: 'fallbackSrc?',

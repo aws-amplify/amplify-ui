@@ -4,10 +4,9 @@ export const StorageImageErrorHandlingExample = () => {
   return (
     <StorageImage
       alt="fallback cat"
-      imgKey="cat.jpg"
-      accessLevel="guest"
+      path="guest/cat.jpg"
       fallbackSrc="/fallback_cat.jpg"
-      onStorageGetError={(error) => console.error(error)}
+      onGetUrlError={(error) => console.error(error)}
     />
   );
 };
