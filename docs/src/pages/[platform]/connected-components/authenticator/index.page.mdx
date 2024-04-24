@@ -6,6 +6,7 @@ supportedFrameworks: android|angular|flutter|react|react-native|swift|vue
 
 import { InlineFilter } from '@/components/InlineFilter';
 import AppDirectoryAlert from '@/components/AppDirectoryAlert';
+import { MigrationGuideCallout } from '@/components/MigrationChanges/MigrationGuideCallout';
 
 import { Alert, Tabs } from '@aws-amplify/ui-react';
 import { NextSteps } from './NextSteps';
@@ -30,8 +31,16 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-<InlineFilter filters={['angular', 'react', 'vue']}>
+<InlineFilter filters={['angular']}>
+  <MigrationGuideCallout framework="angular"/>
   <WebIntro />
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <MigrationGuideCallout framework="react" />
+  <WebIntro />
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+  <MigrationGuideCallout framework="vue" />
 </InlineFilter>
 <InlineFilter filters={['android']}>
   <AndroidIntro />
@@ -40,6 +49,7 @@ export async function getStaticProps() {
   <FlutterIntro />
 </InlineFilter>
 <InlineFilter filters={['react-native']}>
+  <MigrationGuideCallout framework="react-native" />
   <ReactNativeIntro />
 </InlineFilter>
 <InlineFilter filters={['swift']}>

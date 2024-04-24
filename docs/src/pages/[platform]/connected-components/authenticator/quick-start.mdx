@@ -115,7 +115,7 @@ import AmplifyCLI from './amplify-cli.mdx';
 
   If your project will support Federated Sign In using the React Native `Authenticator` the `@aws-amplify/rtn-web-browser` package is also required:
 
-  <InstallScripts command="npm install @aws-amplify/rtn-web-browser" framework="react-native" />
+  <TerminalCommand command="npm install @aws-amplify/rtn-web-browser" />
 
   <Accordion.Container>
     <Accordion.Item value="Accordion-item">
@@ -133,27 +133,9 @@ import AmplifyCLI from './amplify-cli.mdx';
     </Accordion.Item>
   </Accordion.Container>
 
-  Then install the iOS cocoapods, by running:
+  Then install the iOS cocoapods by running:
 
   <InstallScripts command="npx pod-install" framework="react-native" />
-
-  The AWS SDK requires React Native applications to polyfill `crypto.getRandomValues` and `URL`. Import the [`react-native-get-random-values`](https://github.com/LinusU/react-native-get-random-values) and [`react-native-url-polyfill`](https://github.com/charpeni/react-native-url-polyfill) polyfills and them to the top of your application's root entry point (in most React Native apps this will be the top level `index.js`).
-
-  <Example>
-  <ExampleCode>
-  ```jsx
-  // index.js
-  import 'react-native-url-polyfill/auto';
-  import 'react-native-get-random-values';
-
-  import { AppRegistry } from 'react-native';
-  import App from './App';
-  import { name as appName } from './app.json';
-
-  AppRegistry.registerComponent(appName, () => App);
-  ```
-  </ExampleCode>
-  </Example>
 </InlineFilter>
 <InlineFilter filters={['swift']}>
   Open your project in Xcode and select **File > Add Packages...** and add the following dependencies:
@@ -194,19 +176,39 @@ import AmplifyCLI from './amplify-cli.mdx';
   Add the Authenticator to your app by wrapping your component (represented here by the `@Composable` function `SignedInContent`) with the `Authenticator` component.
 
   ```kotlin
-  import com.amplifyframework.ui.authenticator.rememberAuthenticatorState
+  import android.os.Bundle
+  import androidx.activity.ComponentActivity
+  import androidx.activity.compose.setContent
+  import androidx.compose.foundation.layout.Column
+  import androidx.compose.material3.Button
+  import androidx.compose.material3.Text
+  import androidx.compose.runtime.Composable
+  import androidx.compose.runtime.rememberCoroutineScope
+  import com.amplifyframework.ui.authenticator.SignedInState
   import com.amplifyframework.ui.authenticator.ui.Authenticator
+  import kotlinx.coroutines.launch
 
   class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-      super.onCreate(savedInstanceState)
+      override fun onCreate(savedInstanceState: Bundle?) {
+          super.onCreate(savedInstanceState)
 
-      setContent {
-        Authenticator { state ->
-            SignedInContent(state)
-        }
+          setContent {
+              Authenticator { state ->
+                  SignedInContent(state)
+              }
+          }
       }
-    }
+  }
+
+  @Composable
+  fun SignedInContent(state: SignedInState) {
+      val scope = rememberCoroutineScope()
+      Column {
+          Text("You've signed in as ${state.user.username}")
+          Button(onClick = { scope.launch { state.signOut() } }) {
+              Text("Sign Out")
+          }
+      }
   }
   ```
 </InlineFilter>

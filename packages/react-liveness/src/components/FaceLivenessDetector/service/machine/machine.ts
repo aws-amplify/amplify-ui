@@ -45,6 +45,7 @@ import {
 
 import { getStaticLivenessOvalDetails } from '../utils/liveness';
 import {
+  isConnectionTimeoutError,
   isThrottlingExceptionEvent,
   isServiceQuotaExceededExceptionEvent,
   isValidationExceptionEvent,
@@ -97,17 +98,21 @@ const responseStreamActor = async (callback: StreamActorCallback) => {
       }
     }
   } catch (error: unknown) {
-    let returnedError = error;
     if (isInvalidSignatureRegionException(error)) {
-      returnedError = new Error(
-        'Invalid region in FaceLivenessDetector or credentials are scoped to the wrong region.'
-      );
-    }
-
-    if (returnedError instanceof Error) {
       callback({
         type: 'SERVER_ERROR',
-        data: { error: returnedError },
+        data: {
+          error: new Error(
+            'Invalid region in FaceLivenessDetector or credentials are scoped to the wrong region.'
+          ),
+        },
+      });
+    } else if (error instanceof Error) {
+      callback({
+        type: isConnectionTimeoutError(error)
+          ? 'CONNECTION_TIMEOUT'
+          : 'SERVER_ERROR',
+        data: { error },
       });
     }
   }
@@ -188,6 +193,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       SERVER_ERROR: {
         target: 'error',
         actions: 'updateErrorStateForServer',
+      },
+      CONNECTION_TIMEOUT: {
+        target: 'error',
+        actions: 'updateErrorStateForConnectionTimeout',
       },
       RUNTIME_ERROR: {
         target: 'error',
@@ -346,7 +355,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               },
             },
           },
-          // If `hasFaceMatchedInOval` is true, then move to `delayBeforeFlash`, which pauses 
+          // If `hasFaceMatchedInOval` is true, then move to `delayBeforeFlash`, which pauses
           // for one second to show "Hold still" text before moving to `flashFreshnessColors`.
           // If not, move back to ovalMatching and re-evaluate match state
           checkMatch: {
@@ -671,6 +680,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       }),
       resetErrorState: assign({ errorState: (_) => undefined }),
+      updateErrorStateForConnectionTimeout: assign({
+        errorState: (_) => LivenessErrorState.CONNECTION_TIMEOUT,
+      }),
       updateErrorStateForTimeout: assign({
         errorState: (_, event) =>
           (event.data?.errorState as ErrorState) || LivenessErrorState.TIMEOUT,
