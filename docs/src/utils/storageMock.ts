@@ -105,7 +105,6 @@ export default class MyStorageProvider {
           clearInterval(interval);
         },
         state: 'SUCCESS',
-        // @ts-expect-error remove this once StorageManager types are fixed
         result: Promise.resolve({ key: 'key' }),
       };
       return uploadTask;
