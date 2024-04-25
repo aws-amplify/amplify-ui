@@ -1,4 +1,7 @@
-import { UploadDataOutput } from 'aws-amplify/storage';
+import {
+  UploadDataOutput,
+  UploadDataWithPathOutput,
+} from 'aws-amplify/storage';
 
 import { StorageManagerDisplayTextDefault } from '../../utils';
 import { FileStatus, StorageFile } from '../../types';
@@ -9,11 +12,17 @@ export interface FileListProps {
   isResumable: boolean;
   onCancelUpload: (params: {
     id: string;
-    uploadTask: UploadDataOutput;
+    uploadTask: UploadDataOutput | UploadDataWithPathOutput;
   }) => void;
   onDeleteUpload: (params: { id: string }) => void;
-  onPause: (params: { id: string; uploadTask: UploadDataOutput }) => void;
-  onResume: (params: { id: string; uploadTask: UploadDataOutput }) => void;
+  onPause: (params: {
+    id: string;
+    uploadTask: UploadDataOutput | UploadDataWithPathOutput;
+  }) => void;
+  onResume: (params: {
+    id: string;
+    uploadTask: UploadDataOutput | UploadDataWithPathOutput;
+  }) => void;
   showThumbnails: boolean;
   hasMaxFilesError: boolean;
   maxFileCount: number;

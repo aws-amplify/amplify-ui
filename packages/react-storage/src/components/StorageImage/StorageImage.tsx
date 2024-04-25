@@ -1,11 +1,5 @@
 import * as React from 'react';
 
-import {
-  GetUrlInput,
-  GetUrlWithPathInput,
-  GetUrlOutput,
-} from 'aws-amplify/storage';
-
 import { classNames, ComponentClassName } from '@aws-amplify/ui';
 import { Image } from '@aws-amplify/ui-react';
 import { useDeprecationWarning } from '@aws-amplify/ui-react/internal';
@@ -14,44 +8,66 @@ import { useGetUrl, useSetUserAgent } from '@aws-amplify/ui-react-core';
 import { VERSION } from '../../version';
 import type { StorageImageProps, StorageImagePathProps } from './types';
 
-type UseGetUrlInput = (GetUrlInput | GetUrlWithPathInput) & {
-  onError?: (error: Error) => void;
-};
+export const MISSING_REQUIRED_PROP_MESSAGE =
+  '`StorageImage` requires either an `imgKey` or `path` prop.';
 
-type UseGetUrl = (
-  input: UseGetUrlInput
-) => GetUrlOutput & { isLoading: boolean };
+export const HAS_DEPRECATED_PROPS_MESSAGE =
+  '`imgKey`, `accessLevel`, and `identityId` will be replaced with `path` in a future major version.';
 
-const hasKeyProps = (
-  props: StorageImageProps | StorageImagePathProps
-): props is StorageImageProps => {
-  return !!(props as StorageImageProps).imgKey;
-};
+export const HAS_PATH_AND_KEY_MESSAGE =
+  '`imgKey` is ignored when both `imgKey` and `path` props are provided.';
 
-export const StorageImage = (
-  props: StorageImageProps | StorageImagePathProps
-): JSX.Element => {
-  const {
-    accessLevel,
-    className,
-    fallbackSrc,
-    identityId,
-    imgKey,
-    path,
-    onStorageGetError,
-    onGetUrlError,
-    validateObjectExistence = true,
-    ...rest
-  } = props;
+export const HAS_PATH_AND_UNSUPPORTED_OPTIONS_MESSAGE =
+  '``accessLevel` and `identityId` are ignored when the `path` prop is provided.';
 
-  if (imgKey && path) {
-    throw new Error('StorageImage cannot have both imgKey and path props.');
+const getDeprecationMessage = ({
+  hasImgkey,
+  hasPath,
+  hasDeprecatedOptions,
+}: {
+  hasImgkey: boolean;
+  hasPath: boolean;
+  hasDeprecatedOptions: boolean;
+}): string => {
+  let message = '';
+
+  if (hasPath && hasImgkey) {
+    message = HAS_PATH_AND_KEY_MESSAGE;
+  } else if (hasPath && hasDeprecatedOptions) {
+    message = HAS_PATH_AND_UNSUPPORTED_OPTIONS_MESSAGE;
+  } else if (hasImgkey) {
+    message = HAS_DEPRECATED_PROPS_MESSAGE;
   }
-  useDeprecationWarning({
-    message:
-      'The `imgKey` prop has been deprecated and will be removed in the next major version of Amplify UI.',
-    shouldWarn: !!imgKey,
+
+  return message;
+};
+
+export const StorageImage = ({
+  accessLevel,
+  className,
+  fallbackSrc,
+  identityId,
+  imgKey,
+  path,
+  onStorageGetError,
+  onGetUrlError,
+  validateObjectExistence = true,
+  ...rest
+}: StorageImageProps | StorageImagePathProps): JSX.Element => {
+  const hasImgkey = !!imgKey;
+  const hasPath = !!path;
+  const hasDeprecatedOptions = !!accessLevel || !!identityId;
+
+  const message = getDeprecationMessage({
+    hasDeprecatedOptions,
+    hasImgkey,
+    hasPath,
   });
+  useDeprecationWarning({ message, shouldWarn: !!message });
+
+  if (!hasImgkey && !hasPath) {
+    throw new Error(MISSING_REQUIRED_PROP_MESSAGE);
+  }
 
   useSetUserAgent({
     componentName: 'StorageImage',
@@ -59,30 +75,21 @@ export const StorageImage = (
     version: VERSION,
   });
 
-  // @ts-expect-error `imgKey` and `path` are mutually exclusive
-  const input: UseGetUrlInput = React.useMemo(() => {
-    const hasKey = hasKeyProps(props);
-    return {
-      ...(hasKey ? { key: imgKey } : { path }),
-      onError: onGetUrlError ?? onStorageGetError,
+  const onError = onGetUrlError ?? onStorageGetError;
+  const input = React.useMemo(
+    () => ({
+      ...(path ? { path } : { key: imgKey! }), // if `path` is falsy `imgKey` exists
+      onError,
       options: {
-        ...(hasKey ? { accessLevel } : undefined),
-        ...(hasKey ? { targetIdentityId: identityId } : undefined),
+        accessLevel,
+        targetIdentityId: identityId,
         validateObjectExistence,
       },
-    };
-  }, [
-    accessLevel,
-    imgKey,
-    path,
-    identityId,
-    validateObjectExistence,
-    onGetUrlError,
-    onStorageGetError,
-    props,
-  ]);
+    }),
+    [accessLevel, imgKey, identityId, onError, path, validateObjectExistence]
+  );
 
-  const { url } = (useGetUrl as UseGetUrl)(input);
+  const { url } = useGetUrl(input);
 
   return (
     <Image
