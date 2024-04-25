@@ -1,10 +1,15 @@
 import * as React from 'react';
 
-import { getUrl, GetUrlInput } from 'aws-amplify/storage';
+import {
+  getUrl,
+  GetUrlInput,
+  GetUrlOutput,
+  GetUrlWithPathInput,
+} from 'aws-amplify/storage';
 
 import { isFunction } from '@aws-amplify/ui';
 
-export type UseGetUrlInput = GetUrlInput & {
+export type UseGetUrlInput = (GetUrlInput | GetUrlWithPathInput) & {
   onError?: (error: Error) => void;
 };
 interface UseGetUrlOutput {
@@ -19,13 +24,17 @@ const INIT_STATE: UseGetUrlOutput = {
   isLoading: true,
 };
 
-export const useGetUrl = (input: UseGetUrlInput): UseGetUrlOutput => {
+type GetUrl = (
+  input: GetUrlInput | GetUrlWithPathInput
+) => Promise<GetUrlOutput>;
+
+export default function useGetUrl(input: UseGetUrlInput): UseGetUrlOutput {
   const [result, setResult] = React.useState(() => INIT_STATE);
   React.useEffect(() => {
     const { onError, ...getUrlInput } = input;
     let ignore = false;
 
-    getUrl(getUrlInput)
+    (getUrl as GetUrl)(getUrlInput)
       .then((response) => {
         if (ignore) {
           return;
@@ -51,4 +60,4 @@ export const useGetUrl = (input: UseGetUrlInput): UseGetUrlOutput => {
   }, [input]);
 
   return result;
-};
+}

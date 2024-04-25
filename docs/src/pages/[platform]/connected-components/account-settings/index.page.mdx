@@ -4,6 +4,7 @@ description: Amplify UI provides account settings components to manage account s
 supportedFrameworks: react
 ---
 
+import { MigrationGuideCallout } from '@/components/MigrationChanges/MigrationGuideCallout';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
 import ReactPage from './account-settings.react.mdx';
 
@@ -17,4 +18,5 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
+<MigrationGuideCallout framework="react"/>
 <ReactPage />
