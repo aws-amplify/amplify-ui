@@ -92,9 +92,9 @@ describe('StorageImage', () => {
 
   it('should show a console warning if a `imgKey` prop is provided', () => {
     render(
+      // @ts-expect-error force invalid input
       <StorageImage
         alt="StorageImage"
-        accessLevel={accessLevel}
         imgKey={imgKey}
         onGetUrlError={onError}
       />

@@ -35,7 +35,7 @@ const getDeprecationMessage = ({
     message = HAS_PATH_AND_KEY_MESSAGE;
   } else if (hasPath && hasDeprecatedOptions) {
     message = HAS_PATH_AND_UNSUPPORTED_OPTIONS_MESSAGE;
-  } else if (hasDeprecatedOptions) {
+  } else if (hasImgkey) {
     message = HAS_DEPRECATED_PROPS_MESSAGE;
   }
 
