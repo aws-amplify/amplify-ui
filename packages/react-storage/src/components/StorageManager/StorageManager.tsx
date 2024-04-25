@@ -66,8 +66,10 @@ function StorageManagerBase(
   }
 
   if (!prefix && !accessLevel) {
-    // set accessLevel to private to respect the current default
+    // set accessLevel to private to respect the default before adding the `prefix` prop
     accessLevel = 'private';
+    // accessLevel has been depreacted so only guide the user to pass the `prefix` prop
+    logger.warn('`StorageManager` requires the `prefix` prop to be specified');
   }
 
   if (prefix && accessLevel) {

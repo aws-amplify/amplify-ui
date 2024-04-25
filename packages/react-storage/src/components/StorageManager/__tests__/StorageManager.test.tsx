@@ -290,6 +290,20 @@ describe('StorageManager', () => {
     expect(mockClearFiles).toHaveBeenCalledWith();
   });
 
+  it('should set accessLevel to private if neither prefix nor accessLevel is specified', () => {
+    const mockUseUploadFiles = jest.fn();
+    jest
+      .spyOn(StorageHooks, 'useUploadFiles')
+      .mockImplementationOnce(mockUseUploadFiles);
+
+    render(<StorageManager maxFileCount={1} />);
+
+    expect(warnSpy).toHaveBeenCalled();
+    expect(mockUseUploadFiles).toHaveBeenCalledWith(
+      expect.objectContaining({ accessLevel: 'private' })
+    );
+  });
+
   it('should throw an error if both prefix and accessLevel are specified', () => {
     expect(() =>
       render(
