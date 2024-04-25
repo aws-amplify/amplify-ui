@@ -1,6 +1,10 @@
 import * as React from 'react';
 
-import { GetUrlInput, GetUrlWithPathInput } from 'aws-amplify/storage';
+import {
+  GetUrlInput,
+  GetUrlWithPathInput,
+  GetUrlOutput,
+} from 'aws-amplify/storage';
 
 import { classNames, ComponentClassName } from '@aws-amplify/ui';
 import { Image } from '@aws-amplify/ui-react';
@@ -13,6 +17,10 @@ import type { StorageImageProps, StorageImagePathProps } from './types';
 type UseGetUrlInput = (GetUrlInput | GetUrlWithPathInput) & {
   onError?: (error: Error) => void;
 };
+
+type UseGetUrl = (
+  input: UseGetUrlInput
+) => GetUrlOutput & { isLoading: boolean };
 
 const hasKeyProps = (
   props: StorageImageProps | StorageImagePathProps
@@ -51,13 +59,14 @@ export const StorageImage = (
     version: VERSION,
   });
 
+  // @ts-expect-error `imgKey` and `path` are mutually exclusive
   const input: UseGetUrlInput = React.useMemo(() => {
     const hasKey = hasKeyProps(props);
     return {
       ...(hasKey ? { key: imgKey } : { path }),
       onError: onGetUrlError ?? onStorageGetError,
       options: {
-        ...(accessLevel ? { accessLevel } : undefined),
+        ...(hasKey ? { accessLevel } : undefined),
         ...(hasKey ? { targetIdentityId: identityId } : undefined),
         validateObjectExistence,
       },
@@ -73,7 +82,7 @@ export const StorageImage = (
     props,
   ]);
 
-  const { url } = useGetUrl(input);
+  const { url } = (useGetUrl as UseGetUrl)(input);
 
   return (
     <Image
