@@ -290,11 +290,6 @@ describe('StorageManager', () => {
     expect(mockClearFiles).toHaveBeenCalledWith();
   });
 
-  it('should throw an error if both prefix and accessLevel are missing', () => {
-    expect(() => render(<StorageManager maxFileCount={1} />)).toThrow();
-    expect(errorSpy).toHaveBeenCalled();
-  });
-
   it('should throw an error if both prefix and accessLevel are specified', () => {
     expect(() =>
       render(

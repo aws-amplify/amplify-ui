@@ -53,6 +53,12 @@ function StorageManagerBase(
   }: StorageManagerProps,
   ref: React.ForwardedRef<StorageManagerHandle>
 ): JSX.Element {
+  useDeprecationWarning({
+    message:
+      'The `accessLevel` and `path` props have been deprecated in favor of the `prefix` prop.',
+    shouldWarn: Boolean(accessLevel ?? path),
+  });
+
   if (!maxFileCount) {
     logger.warn(
       '`StorageManager` requires the `maxFileCount` prop to be specified'
@@ -60,10 +66,8 @@ function StorageManagerBase(
   }
 
   if (!prefix && !accessLevel) {
-    // accessLevel will be depreacted so only guide users to pass prefix prop
-    throw new Error(
-      '`StorageManager` requires the `prefix` prop to be specified'
-    );
+    // set accessLevel to private to respect the current default
+    accessLevel = 'private';
   }
 
   if (prefix && accessLevel) {
@@ -77,12 +81,6 @@ function StorageManagerBase(
       'The `prefix` and `path` props cannot be specified at the same time. Prefer usage of `prefix` as `path` has been deprecated and will be removed in a future major version'
     );
   }
-
-  useDeprecationWarning({
-    message:
-      'The `accessLevel` and `path` props have been deprecated in favor of the `prefix` prop.',
-    shouldWarn: Boolean(accessLevel ?? path),
-  });
 
   const Components = {
     Container,

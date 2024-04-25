@@ -36,7 +36,7 @@ export function uploadFile({
 
   const input: UploadDataInput | UploadDataWithPathInput = level
     ? {
-        // key will be deprecated in the future
+        // key will be deprecated in aws-amplify@v7
         key,
         data: file,
         options: {

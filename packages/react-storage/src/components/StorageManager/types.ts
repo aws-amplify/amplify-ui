@@ -58,7 +58,7 @@ export interface StorageManagerProps {
    */
   acceptedFileTypes?: string[];
   /**
-   * @deprectaed
+   * @deprecated
    * `accessLevel` has been deprecated in favor of `prefix` and will be removed in a future major version
    */
   accessLevel?: StorageAccessLevel;
@@ -123,7 +123,7 @@ export interface StorageManagerProps {
    */
   showThumbnails?: boolean;
   /**
-   * @deprectaed
+   * @deprecated
    * `path` has been deprecated in favor of `prefix` and will be removed in a future major version
    */
   path?: string;
