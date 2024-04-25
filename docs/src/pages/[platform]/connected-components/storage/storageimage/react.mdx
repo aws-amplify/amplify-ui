@@ -33,7 +33,7 @@ import '@aws-amplify/ui-react/styles.css';
 ```
 </ExampleCode>
 
-At a minimum you must include the `alt` and `path` props. `path` refers to the [Amplify Storage path](TODO add link), which is `string | ((input: { identityId?: string }) => string)`.
+At a minimum you must include the `alt` and `path` props. `path` refers to the [Amplify Storage path](TODO add link), which is either a `string`, or a callback function that returns a `string`.
 
 <Example>
   <Image alt='cat' src='/cats/1.jpg' width="400px" height="400px" />
@@ -46,8 +46,6 @@ At a minimum you must include the `alt` and `path` props. `path` refers to the [
 ## Props
 
 <ReactPropsTable props={STORAGE_IMAGE} />
-
-Note: A new `Storage.get` request is made only when the `path` changes.
 
 ## Error Handling
 
