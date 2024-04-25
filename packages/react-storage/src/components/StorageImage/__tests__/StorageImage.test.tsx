@@ -4,7 +4,13 @@ import * as Storage from 'aws-amplify/storage';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 
-import { StorageImage } from '../StorageImage';
+import {
+  MISSING_REQUIRED_PROP_MESSAGE,
+  HAS_DEPRECATED_PROPS_MESSAGE,
+  HAS_PATH_AND_KEY_MESSAGE,
+  HAS_PATH_AND_UNSUPPORTED_OPTIONS_MESSAGE,
+  StorageImage,
+} from '../StorageImage';
 
 const imgKey = 'test.jpg';
 const path = 'guest/test.jpg';
@@ -24,8 +30,6 @@ describe('StorageImage', () => {
     warnSpy.mockClear();
     onError.mockClear();
     errorSpy.mockClear();
-
-    warnSpy.mockImplementation(() => {});
   });
 
   it('should render default className', async () => {
@@ -56,24 +60,16 @@ describe('StorageImage', () => {
     expect(img).toHaveClass(className);
   });
 
-  it('should throw an error if both `imgKey` and `path` props are passed in', () => {
-    errorSpy.mockImplementation(() => {});
-
+  it('should throw an error if neither `imgKey` or `path` props are provided', () => {
     expect(() =>
       render(
-        // @ts-expect-error testing invalid input
-        <StorageImage
-          alt="StorageImage"
-          path={path}
-          imgKey={imgKey}
-          onGetUrlError={onError}
-        />
+        // @ts-expect-error force invalid input
+        <StorageImage alt="StorageImage" onGetUrlError={onError} />
       )
-    ).toThrow('StorageImage cannot have both imgKey and path props.');
+    ).toThrow(MISSING_REQUIRED_PROP_MESSAGE);
   });
 
-  it('should show console warning if `imgKey` prop is passed in', () => {
-    warnSpy.mockImplementation(() => {});
+  it('should show a console warning if both `imgKey` and `path` props are provided', () => {
     const { rerender } = render(
       <StorageImage alt="StorageImage" path={path} onGetUrlError={onError} />
     );
@@ -81,6 +77,21 @@ describe('StorageImage', () => {
     expect(warnSpy).toHaveBeenCalledTimes(0);
 
     rerender(
+      // @ts-expect-error force invalid input
+      <StorageImage
+        alt="StorageImage"
+        imgKey={imgKey}
+        path={path}
+        onGetUrlError={onError}
+      />
+    );
+
+    expect(warnSpy).toHaveBeenCalledTimes(1);
+    expect(warnSpy).toHaveBeenCalledWith(HAS_PATH_AND_KEY_MESSAGE);
+  });
+
+  it('should show a console warning if a `imgKey` prop is provided', () => {
+    render(
       <StorageImage
         alt="StorageImage"
         accessLevel={accessLevel}
@@ -90,8 +101,52 @@ describe('StorageImage', () => {
     );
 
     expect(warnSpy).toHaveBeenCalledTimes(1);
+    expect(warnSpy).toHaveBeenCalledWith(HAS_DEPRECATED_PROPS_MESSAGE);
+  });
+
+  it('should show a console warning if a `accessLevel` prop is provided', () => {
+    render(
+      <StorageImage
+        alt="StorageImage"
+        imgKey={imgKey}
+        accessLevel={accessLevel}
+        onGetUrlError={onError}
+      />
+    );
+
+    expect(warnSpy).toHaveBeenCalledTimes(1);
+    expect(warnSpy).toHaveBeenCalledWith(HAS_DEPRECATED_PROPS_MESSAGE);
+  });
+
+  it('should show a console warning if a `identityId` prop is provided', () => {
+    render(
+      // @ts-expect-error force invalid input
+      <StorageImage
+        alt="StorageImage"
+        imgKey={imgKey}
+        identityId="identity"
+        onGetUrlError={onError}
+      />
+    );
+
+    expect(warnSpy).toHaveBeenCalledTimes(1);
+    expect(warnSpy).toHaveBeenCalledWith(HAS_DEPRECATED_PROPS_MESSAGE);
+  });
+
+  it('should show a console warning if a `path` prop is provided with a deprecated prop', () => {
+    render(
+      // @ts-expect-error force invalid input
+      <StorageImage
+        alt="StorageImage"
+        path={path}
+        identityId="identity"
+        onGetUrlError={onError}
+      />
+    );
+
+    expect(warnSpy).toHaveBeenCalledTimes(1);
     expect(warnSpy).toHaveBeenCalledWith(
-      'The `imgKey` prop has been deprecated and will be removed in the next major version of Amplify UI.'
+      HAS_PATH_AND_UNSUPPORTED_OPTIONS_MESSAGE
     );
   });
 
@@ -110,9 +165,7 @@ describe('StorageImage', () => {
 
     expect(getUrlSpy).toHaveBeenCalledWith(
       expect.objectContaining({
-        options: expect.objectContaining({
-          validateObjectExistence: true,
-        }),
+        options: expect.objectContaining({ validateObjectExistence: true }),
       })
     );
   });
