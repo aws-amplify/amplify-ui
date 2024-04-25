@@ -1,4 +1,7 @@
-import { UploadDataOutput } from 'aws-amplify/storage';
+import {
+  UploadDataOutput,
+  UploadDataWithPathOutput,
+} from 'aws-amplify/storage';
 
 import { FileStatus, StorageFiles } from '../../types';
 
@@ -39,7 +42,7 @@ export type Action =
   | {
       type: StorageManagerActionTypes.SET_STATUS_UPLOADING;
       id: string;
-      uploadTask?: UploadDataOutput;
+      uploadTask?: UploadDataOutput | UploadDataWithPathOutput;
     }
   | {
       type: StorageManagerActionTypes.SET_UPLOAD_PROGRESS;

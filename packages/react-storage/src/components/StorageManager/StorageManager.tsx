@@ -1,10 +1,16 @@
 import * as React from 'react';
 
-import { UploadDataOutput } from 'aws-amplify/storage';
+import {
+  UploadDataOutput,
+  UploadDataWithPathOutput,
+} from 'aws-amplify/storage';
 import { getLogger, ComponentClassName } from '@aws-amplify/ui';
 import { VisuallyHidden } from '@aws-amplify/ui-react';
 import { useSetUserAgent } from '@aws-amplify/ui-react-core';
-import { useDropZone } from '@aws-amplify/ui-react/internal';
+import {
+  useDropZone,
+  useDeprecationWarning,
+} from '@aws-amplify/ui-react/internal';
 
 import { useStorageManager, useUploadFiles } from './hooks';
 import { FileStatus, StorageManagerProps, StorageManagerHandle } from './types';
@@ -43,11 +49,39 @@ function StorageManagerBase(
     processFile,
     components,
     path,
+    prefix,
   }: StorageManagerProps,
   ref: React.ForwardedRef<StorageManagerHandle>
 ): JSX.Element {
-  if (!accessLevel || !maxFileCount) {
-    logger.warn('StorageManager requires accessLevel and maxFileCount props');
+  useDeprecationWarning({
+    message:
+      'The `accessLevel` and `path` props have been deprecated in favor of the `prefix` prop.',
+    shouldWarn: Boolean(accessLevel ?? path),
+  });
+
+  if (!maxFileCount) {
+    logger.warn(
+      '`StorageManager` requires the `maxFileCount` prop to be specified'
+    );
+  }
+
+  if (!prefix && !accessLevel) {
+    // set accessLevel to private to respect the default before adding the `prefix` prop
+    accessLevel = 'private';
+    // accessLevel has been depreacted so only guide the user to pass the `prefix` prop
+    logger.warn('`StorageManager` requires the `prefix` prop to be specified');
+  }
+
+  if (prefix && accessLevel) {
+    throw new Error(
+      'The `prefix` and `accessLevel` props cannot be specified at the same time. Prefer usage of `prefix` as `accessLevel` has been deprecated and will be removed in a future major version'
+    );
+  }
+
+  if (prefix && path) {
+    throw new Error(
+      'The `prefix` and `path` props cannot be specified at the same time. Prefer usage of `prefix` as `path` has been deprecated and will be removed in a future major version'
+    );
   }
 
   const Components = {
@@ -127,6 +161,7 @@ function StorageManagerBase(
     setUploadSuccess,
     processFile,
     path,
+    prefix,
   });
 
   const onFilePickerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -155,7 +190,7 @@ function StorageManagerBase(
     uploadTask,
   }: {
     id: string;
-    uploadTask: UploadDataOutput;
+    uploadTask: UploadDataOutput | UploadDataWithPathOutput;
   }) => {
     uploadTask.pause();
     setUploadPaused({ id });
@@ -166,7 +201,7 @@ function StorageManagerBase(
     uploadTask,
   }: {
     id: string;
-    uploadTask: UploadDataOutput;
+    uploadTask: UploadDataOutput | UploadDataWithPathOutput;
   }) => {
     uploadTask.resume();
     setUploadResumed({ id });
@@ -177,7 +212,7 @@ function StorageManagerBase(
     uploadTask,
   }: {
     id: string;
-    uploadTask: UploadDataOutput;
+    uploadTask: UploadDataOutput | UploadDataWithPathOutput;
   }) => {
     // At this time we don't know if the delete
     // permissions are enabled (required to cancel upload),

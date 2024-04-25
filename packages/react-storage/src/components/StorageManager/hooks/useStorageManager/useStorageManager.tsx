@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { UploadDataOutput } from 'aws-amplify/storage';
+import {
+  UploadDataOutput,
+  UploadDataWithPathOutput,
+} from 'aws-amplify/storage';
 import { isObject } from '@aws-amplify/ui';
 
 import { StorageFiles, FileStatus, DefaultFile } from '../../types';
@@ -26,7 +29,7 @@ export interface UseStorageManager {
   queueFiles: () => void;
   setUploadingFile: (params: {
     id: string;
-    uploadTask?: UploadDataOutput;
+    uploadTask?: UploadDataOutput | UploadDataWithPathOutput;
   }) => void;
   setUploadProgress: (params: { id: string; progress: number }) => void;
   setUploadSuccess: (params: { id: string }) => void;
