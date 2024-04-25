@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { TransferProgressEvent } from 'aws-amplify/storage';
-import { isFunction, isString } from '@aws-amplify/ui';
+import { isFunction } from '@aws-amplify/ui';
 
 import { uploadFile } from '../../utils/uploadFile';
 import { FileStatus } from '../../types';
@@ -20,6 +20,7 @@ export interface UseUploadFilesProps
       | 'maxFileCount'
       | 'processFile'
       | 'path'
+      | 'prefix'
     >,
     Pick<
       UseStorageManager,
@@ -39,6 +40,7 @@ export function useUploadFiles({
   maxFileCount,
   processFile,
   path,
+  prefix,
 }: UseUploadFilesProps): void {
   React.useEffect(() => {
     const filesReadyToUpload = files.filter(
@@ -72,10 +74,9 @@ export function useUploadFiles({
       if (file) {
         resolveFile({ processFile, file, key }).then(
           ({ key: processedKey, ...rest }) => {
-            // prepend `path` to `processedKey`
-            const resolvedKey = isString(path)
-              ? `${path}${processedKey}`
-              : processedKey;
+            // prepend `prefix` or `path` to `processedKey`
+            // TODO: path will be deprecated in the future
+            const resolvedKey = `${prefix ?? path ?? ''}${processedKey}`;
 
             if (isFunction(onUploadStart)) {
               onUploadStart({ key: resolvedKey });
@@ -83,7 +84,9 @@ export function useUploadFiles({
 
             const uploadTask = uploadFile({
               ...rest,
+              // key will be deprecated in the future
               key: resolvedKey,
+              path: resolvedKey,
               level: accessLevel,
               progressCallback: onProgress,
               errorCallback: (error: string) => {
@@ -112,5 +115,6 @@ export function useUploadFiles({
     setUploadSuccess,
     processFile,
     path,
+    prefix,
   ]);
 }
