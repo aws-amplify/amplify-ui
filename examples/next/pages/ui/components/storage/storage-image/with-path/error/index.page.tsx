@@ -6,7 +6,6 @@ import { StorageImage } from '@aws-amplify/ui-react-storage';
 
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
-import { element } from 'detox';
 
 Amplify.configure(awsExports);
 
