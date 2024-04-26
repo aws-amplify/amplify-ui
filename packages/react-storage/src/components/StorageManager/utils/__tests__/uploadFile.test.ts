@@ -4,6 +4,7 @@ import { UploadFileProps, uploadFile } from '../uploadFile';
 
 const imageFile = new File(['hello'], 'hello.png', { type: 'image/png' });
 const key = imageFile.name;
+const path = imageFile.name;
 const file = imageFile;
 
 const errorCallback = jest.fn();
@@ -13,6 +14,7 @@ const progressCallback = jest.fn();
 const defaultProps: UploadFileProps = {
   file,
   key,
+  path,
   level: 'guest',
   progressCallback,
   errorCallback,
@@ -59,10 +61,27 @@ describe('uploadFile', () => {
     expect(errorCallback).not.toHaveBeenCalled();
   });
 
+  it('should uploads a file with path prop', async () => {
+    const { result } = uploadFile({ ...defaultProps, level: undefined });
+
+    await result;
+
+    expect(uploadDataSpy).toHaveBeenCalledWith({
+      path,
+      data: file,
+      options: {
+        contentType: imageFile.type,
+        onProgress: expect.any(Function),
+      },
+    });
+
+    expect(completeCallback).toHaveBeenCalledWith({ key });
+    expect(errorCallback).not.toHaveBeenCalled();
+  });
+
   it('calls errorCallback on upload error', async () => {
     uploadDataSpy.mockReturnValueOnce({
       ...uploadDataOutput,
-      // @ts-expect-error remove this once StorageManager types are fixed
       result: Promise.reject(new Error('Error')),
       state: 'ERROR',
     });

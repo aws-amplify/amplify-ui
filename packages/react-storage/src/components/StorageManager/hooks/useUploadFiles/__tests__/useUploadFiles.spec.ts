@@ -8,14 +8,16 @@ import { useUploadFiles, UseUploadFilesProps } from '../useUploadFiles';
 
 const uploadDataSpy = jest
   .spyOn(Storage, 'uploadData')
-  // @ts-expect-error remove this once StorageManager types are fixed
   .mockImplementation((input) => {
     return {
       cancel: jest.fn(),
       pause: jest.fn(),
       resume: jest.fn(),
       state: 'SUCCESS',
-      result: Promise.resolve({ key: input.key, data: input.data }),
+      result: Promise.resolve({
+        key: input.key,
+        data: input.data,
+      }),
     };
   });
 
@@ -126,7 +128,6 @@ describe('useUploadFiles', () => {
 
   it('should call onUploadError when upload fails', async () => {
     const errorMessage = new Error('Error');
-    // @ts-expect-error remove this once StorageManager types are fixed
     uploadDataSpy.mockImplementationOnce(() => {
       return {
         cancel: jest.fn(),
@@ -211,6 +212,31 @@ describe('useUploadFiles', () => {
       expect(uploadDataSpy).toHaveBeenCalledTimes(1);
       expect(uploadDataSpy).toHaveBeenCalledWith(
         expect.objectContaining(expected)
+      );
+    });
+  });
+
+  it('prepends valid provided `prefix` to `processedKey`', async () => {
+    const prefix = 'test-prefix/';
+    const { waitForNextUpdate } = renderHook(() =>
+      useUploadFiles({
+        ...props,
+        isResumable: true,
+        files: [mockQueuedFile],
+        prefix,
+        accessLevel: undefined,
+      })
+    );
+
+    waitForNextUpdate();
+
+    await waitFor(() => {
+      expect(mockOnUploadStart).toHaveBeenCalledWith({
+        key: `${prefix}${mockQueuedFile.key}`,
+      });
+      expect(uploadDataSpy).toHaveBeenCalledTimes(1);
+      expect(uploadDataSpy).toHaveBeenCalledWith(
+        expect.objectContaining({ path: `${prefix}${mockQueuedFile.key}` })
       );
     });
   });

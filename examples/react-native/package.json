@@ -12,8 +12,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "@aws-amplify/react-native": "latest",
-    "@aws-amplify/rtn-web-browser": "latest",
+    "@aws-amplify/react-native": "1.0.27",
+    "@aws-amplify/rtn-web-browser": "1.0.27",
     "@aws-amplify/ui": "*",
     "@aws-amplify/ui-react-core": "*",
     "@aws-amplify/ui-react-core-notifications": "*",

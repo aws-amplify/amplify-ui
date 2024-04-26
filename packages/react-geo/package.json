@@ -48,7 +48,7 @@
   },
   "peerDependencies": {
     "@aws-amplify/geo": "^3.0.26",
-    "aws-amplify": "^6.0.26",
+    "aws-amplify": "^6.0.30",
     "react": "^16.14.0 || ^17.0 || ^18.0",
     "react-dom": "^16.14.0 || ^17.0 || ^18.0"
   },
@@ -63,7 +63,7 @@
       "name": "LocationSearch",
       "path": "dist/esm/index.mjs",
       "import": "{ LocationSearch }",
-      "limit": "260 kB"
+      "limit": "261 kB"
     },
     {
       "name": "MapView",
