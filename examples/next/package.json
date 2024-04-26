@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-amplify/geo": "latest",
+    "@aws-amplify/geo": "^3.0.26",
     "@aws-amplify/ui-react": "^6.1.8",
     "@aws-amplify/ui-react-geo": "^2.0.13",
     "@aws-amplify/ui-react-liveness": "^3.0.18",

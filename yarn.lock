@@ -499,9 +499,9 @@
     uuid "^9.0.0"
 
 "@aws-amplify/data-schema-types@*":
-  version "0.10.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/data-schema-types/-/data-schema-types-0.10.0.tgz#ac5bcf51992210534fd7ece9de69932baf0c4bb8"
-  integrity sha512-HIfSGPcqDu7ZyHzncGiTPDElOKl7N/ZGBF1T0RWlm7jqNVOl6AYzr9dMyPSw7/e8p5SxlKNxhUoyvo7iwkWXww==
+  version "0.9.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/data-schema-types/-/data-schema-types-0.9.0.tgz#aff434696b71bda325f8aa7131d728c8746ab65b"
+  integrity sha512-hA5M6D+4ET25h9y9+VZ4VRbh/KGdtpm8/skyMvhvAwPmE//kYpuP1x3JDl5A8RiAhqZiYLVK/ckNRnWMYSeyfg==
   dependencies:
     "@aws-amplify/plugin-types" "^0.9.0-beta.1"
     graphql "15.8.0"
@@ -528,10 +528,10 @@
     rxjs "^7.8.1"
     ulid "^2.3.0"
 
-"@aws-amplify/geo@latest":
-  version "3.0.26"
-  resolved "https://registry.npmjs.org/@aws-amplify/geo/-/geo-3.0.26.tgz#8b9a6d3749638ac2db57123fbf62d930a8dbfdc0"
-  integrity sha512-Pbj70HmZAvA848H8d+7k5g8v3nM+X1OY8eR/nMyFjoavbVHDom3cvVzz3lMQXRhm8UGQ3PPawfG8PEjD+UqnXw==
+"@aws-amplify/geo@^3.0.26":
+  version "3.0.28"
+  resolved "https://registry.npmjs.org/@aws-amplify/geo/-/geo-3.0.28.tgz#b8ac83e0309b6668db186d59458d261f9bf7c829"
+  integrity sha512-s2V1uu6CPKdCsqchV+jeus030kLfhs6KiA0Q5xkIsSeDB61VBb+zAhJU8gp78jXLTRhX0OtY39mU2gHJ7xawgQ==
   dependencies:
     "@aws-sdk/client-location" "3.398.0"
     "@turf/boolean-clockwise" "6.5.0"
@@ -551,6 +551,15 @@
   resolved "https://registry.npmjs.org/@aws-amplify/plugin-types/-/plugin-types-0.9.0-beta.1.tgz#066af0646b379b4c999668253e87754e67fc7427"
   integrity sha512-5eJ2SYoXbq4ZSvBjCgStXSejNOKuBkxYVXqOXZP4xP5C9iIpUYG36s9xP+IdhWDm9K/yxklp8OUMr8YGc0g7tw==
 
+"@aws-amplify/react-native@1.0.27":
+  version "1.0.27"
+  resolved "https://registry.npmjs.org/@aws-amplify/react-native/-/react-native-1.0.27.tgz#a0b0d33ab095183f74ab8e495f203d6338addb69"
+  integrity sha512-lIUDE92ML0ZwJev6mnHCGCWFLGihlJXEB8YfE8tv+ek+uGxbfjhOlHwY2jTCG0C88ZMN8y9uvAXsEjt2fZPPoQ==
+  dependencies:
+    base-64 "^1.0.0"
+    buffer "^6.0.3"
+    react-native-url-polyfill "^2.0.0"
+
 "@aws-amplify/react-native@^1.0.1":
   version "1.0.17"
   resolved "https://registry.yarnpkg.com/@aws-amplify/react-native/-/react-native-1.0.17.tgz#776f28d0b6873e10e93e98c1a87e822c51d2babf"
@@ -560,16 +569,7 @@
     buffer "^6.0.3"
     react-native-url-polyfill "^2.0.0"
 
-"@aws-amplify/react-native@latest":
-  version "1.0.27"
-  resolved "https://registry.npmjs.org/@aws-amplify/react-native/-/react-native-1.0.27.tgz#a0b0d33ab095183f74ab8e495f203d6338addb69"
-  integrity sha512-lIUDE92ML0ZwJev6mnHCGCWFLGihlJXEB8YfE8tv+ek+uGxbfjhOlHwY2jTCG0C88ZMN8y9uvAXsEjt2fZPPoQ==
-  dependencies:
-    base-64 "^1.0.0"
-    buffer "^6.0.3"
-    react-native-url-polyfill "^2.0.0"
-
-"@aws-amplify/rtn-web-browser@latest":
+"@aws-amplify/rtn-web-browser@1.0.27":
   version "1.0.27"
   resolved "https://registry.npmjs.org/@aws-amplify/rtn-web-browser/-/rtn-web-browser-1.0.27.tgz#a2b21b85e3e1a3d36a9e04357f062a3c6f83bf6f"
   integrity sha512-k7e1BREqiRwzlOUH4KkDlsTVX4D3PLfUlOH86xWzIBe+2nZkqcFLjkOcgKemhl1EWjVymg2eiUT3d4q7jmeI8A==
@@ -23642,11 +23642,6 @@ ts-node@~8.3.0:
     make-error "^1.1.1"
     source-map-support "^0.5.6"
     yn "^3.0.0"
-
-tsc-files@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.npmjs.org/tsc-files/-/tsc-files-1.1.4.tgz#e0b2042a9494500f528769f52a0d0105a48457dd"
-  integrity sha512-RePsRsOLru3BPpnf237y1Xe1oCGta8rmSYzM76kYo5tLGsv5R2r3s64yapYorGTPuuLyfS9NVbh9ydzmvNie2w==
 
 tsconfig-paths@^3.14.2, tsconfig-paths@^3.9.0:
   version "3.14.2"
