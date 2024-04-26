@@ -11,3 +11,4 @@ Feature: Load an image from S3 with public access level settings
     Then I see the "public cat 2" image
     Then I see "The first public image is loaded."
     Then I see "The second public image is loaded."
+    

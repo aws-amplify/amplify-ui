@@ -17,3 +17,4 @@ Feature: Load an image from S3 with private access level settings
     Then I see "Sign out"
     Then I click "Sign out"
     Then I see "Sign in"
+    
