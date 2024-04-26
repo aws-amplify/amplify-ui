@@ -47,7 +47,7 @@ export const STORAGE_IMAGE = [
   {
     name: 'validateObjectExistence?',
     description:
-      'Whether to check for the existence of a file. Defaults to true. See TODO may need update https://docs.amplify.aws/javascript/build-a-backend/storage/download/#check-for-existence-of-a-file',
+      'Whether to check for the existence of a file. Defaults to true. See https://docs.amplify.aws/javascript/build-a-backend/storage/download/#check-for-existence-of-a-file',
     type: `boolean`,
   },
 ];
