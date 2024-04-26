@@ -6,7 +6,8 @@ export const STORAGE_IMAGE = [
   },
   {
     name: 'path',
-    description: 'The path to the image in Storage. See TODO add link',
+    description:
+      'The path to the image in Storage, representing a full S3 object key. See https://docs.amplify.aws/react/build-a-backend/storage/download-files/',
     type: 'string | ((input: { identityId?: string }) => string);',
   },
   {
