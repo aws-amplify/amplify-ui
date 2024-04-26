@@ -6,29 +6,27 @@ import { StorageImage } from '@aws-amplify/ui-react-storage';
 
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
+import { element } from 'detox';
 
 Amplify.configure(awsExports);
 
 export function StorageImageExample() {
   const [isLoaded, setIsLoaded] = React.useState(false);
+  const [errorText, setErrorText] = React.useState('');
 
   const onLoad = () => {
     setIsLoaded(true);
+    setErrorText('');
   };
 
   return (
     <>
       <StorageImage
-        alt="private cat"
+        alt="error cat"
         path="guest/this-image-does-not-exist.jpeg"
         onLoad={onLoad}
         onGetUrlError={(error) => {
-          console.log('onGetUrlError');
-          console.log(error);
-        }}
-        onError={(error) => {
-          console.log('onError');
-          console.log(error);
+          setErrorText(`Error getting image: ${error.message}`);
         }}
         fallbackSrc="https://placekitten.com/g/200/300"
       />
@@ -37,6 +35,7 @@ export function StorageImageExample() {
       ) : (
         <Loader testId="Loader" />
       )}
+      <Text>{errorText}</Text>
     </>
   );
 }
