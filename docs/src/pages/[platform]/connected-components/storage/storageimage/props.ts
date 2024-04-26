@@ -18,7 +18,7 @@ export const STORAGE_IMAGE = [
   {
     name: 'accessLevel',
     description:
-      'Deprecated, use path instead. Access level for files in Storage. See https://docs.amplify.aws/gen1/javascript/build-a-backend/storage/configure-access/',
+      'Deprecated, use path instead. Access level for files in Storage.',
     type: `'guest' | 'protected' | 'private'`,
   },
   {
