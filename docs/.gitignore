@@ -42,3 +42,6 @@ yarn-error.log*
 # data
 /src/data/props-table.json
 /src/data/cssvars-table.json
+
+# mock aws-exports
+!src/pages/\[platform]\/connected-components/storage/storageimage/examples/aws-exports.js

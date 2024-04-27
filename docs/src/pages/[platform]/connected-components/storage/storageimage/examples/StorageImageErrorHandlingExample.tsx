@@ -10,3 +10,5 @@ export const StorageImageErrorHandlingExample = () => {
     />
   );
 };
+
+export default StorageImageErrorHandlingExample;
