@@ -9,7 +9,7 @@ export const App = () => {
       <StorageManager
         acceptedFileTypes={['image/*']}
         // private uploads will fail intentionally in docs // IGNORE
-        path="private/"
+        path={({ identityId }) => `private/${identityId}/`}
         maxFileCount={3}
         onFileRemove={({ key }) => {
           setFiles((prevFiles) => {
