@@ -56,7 +56,21 @@ To use Storage UI components with Amplify, you'll need to call `Amplify.configur
 <Example>
   <Image alt='cat' src='/cats/1.jpg' width="400px" height="400px" />
   <ExampleCode>
-    ```jsx file=./ConfigureAmplify.tsx
+    ```tsx
+    import { Amplify } from 'aws-amplify';
+    import { StorageImage, StorageManager } from '@aws-amplify/ui-react-storage';
+    import awsExports from './aws-exports';
+
+    Amplify.configure(awsExports);
+
+    export const App = () => {
+      return (
+        <>
+          <StorageImage alt="sleepy-cat" path="public/cat.jpeg" />
+          <StorageManager path="my_prefix/public" maxFileCount={3} />
+        </>
+      );
+    };
     ```
   </ExampleCode>
 </Example>
