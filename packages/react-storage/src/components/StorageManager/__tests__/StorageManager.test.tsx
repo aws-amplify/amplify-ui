@@ -5,7 +5,12 @@ import * as Storage from 'aws-amplify/storage';
 import { ComponentClassName } from '@aws-amplify/ui';
 
 import * as StorageHooks from '../hooks';
-import { StorageManager } from '../StorageManager';
+import {
+  StorageManager,
+  MISSING_REQUIRED_PROPS_MESSAGE,
+  ACCESS_LEVEL_WITH_PATH_CALLBACK_MESSAGE,
+  ACCESS_LEVEL_DEPRECATION_MESSAGE,
+} from '../StorageManager';
 import {
   StorageManagerProps,
   StorageManagerHandle,
@@ -14,7 +19,6 @@ import {
 import { defaultStorageManagerDisplayText } from '../utils';
 
 const warnSpy = jest.spyOn(console, 'warn').mockImplementation();
-const errorSpy = jest.spyOn(console, 'error').mockImplementation();
 
 const uploadDataSpy = jest
   .spyOn(Storage, 'uploadData')
@@ -35,7 +39,7 @@ describe('StorageManager', () => {
     jest.clearAllMocks();
   });
 
-  it('renders as expected', () => {
+  it('behaves as expected with an accessLevel prop', () => {
     const { container, getByText } = render(
       <StorageManager {...storeManagerProps} />
     );
@@ -72,8 +76,47 @@ describe('StorageManager', () => {
       getByText(defaultStorageManagerDisplayText.dropFilesText)
     ).toBeVisible();
 
-    // acceessLevel prop deprecation warning
     expect(warnSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('behaves as expected with a path prop', () => {
+    const { container, getByText } = render(
+      <StorageManager maxFileCount={3} path={() => 'my-path'} />
+    );
+    expect(container).toMatchSnapshot();
+
+    expect(
+      container.getElementsByClassName(
+        `${ComponentClassName.StorageManagerDropZone}`
+      )
+    ).toHaveLength(1);
+
+    expect(
+      container.getElementsByClassName(
+        `${ComponentClassName.StorageManagerDropZoneText}`
+      )
+    ).toHaveLength(1);
+
+    expect(
+      container.getElementsByClassName(
+        `${ComponentClassName.StorageManagerDropZoneIcon}`
+      )
+    ).toHaveLength(1);
+
+    expect(
+      container.getElementsByClassName(
+        `${ComponentClassName.StorageManagerFilePicker}`
+      )
+    ).toHaveLength(1);
+
+    expect(
+      getByText(defaultStorageManagerDisplayText.browseFilesText)
+    ).toBeVisible();
+    expect(
+      getByText(defaultStorageManagerDisplayText.dropFilesText)
+    ).toBeVisible();
+
+    expect(warnSpy).not.toHaveBeenCalled();
   });
 
   it('renders as expected with autoUpload turned off', () => {
@@ -214,11 +257,19 @@ describe('StorageManager', () => {
     });
   });
 
-  it('renders a warning if maxFileCount is zero', () => {
+  it('logs a warning if maxFileCount is zero', () => {
     render(<StorageManager {...storeManagerProps} maxFileCount={0} />);
 
-    // missing maxFileCount prop + accessLevel prop deprecation = 2
     expect(warnSpy).toHaveBeenCalledTimes(2);
+    expect(warnSpy.mock.calls[0][0]).toBe(MISSING_REQUIRED_PROPS_MESSAGE);
+    expect(warnSpy.mock.calls[1][0]).toBe(ACCESS_LEVEL_DEPRECATION_MESSAGE);
+  });
+
+  it('logs a warning if provided an accessLevel prop', () => {
+    render(<StorageManager {...storeManagerProps} maxFileCount={1} />);
+
+    expect(warnSpy).toHaveBeenCalledTimes(1);
+    expect(warnSpy.mock.calls[0][0]).toBe(ACCESS_LEVEL_DEPRECATION_MESSAGE);
   });
 
   it('should trigger hidden input onChange', async () => {
@@ -288,39 +339,5 @@ describe('StorageManager', () => {
     act(() => ref.current?.clearFiles());
     expect(mockClearFiles).toHaveBeenCalledTimes(1);
     expect(mockClearFiles).toHaveBeenCalledWith();
-  });
-
-  it('should set accessLevel to private if neither prefix nor accessLevel is specified', () => {
-    const mockUseUploadFiles = jest.fn();
-    jest
-      .spyOn(StorageHooks, 'useUploadFiles')
-      .mockImplementationOnce(mockUseUploadFiles);
-
-    render(<StorageManager maxFileCount={1} />);
-
-    expect(warnSpy).toHaveBeenCalled();
-    expect(mockUseUploadFiles).toHaveBeenCalledWith(
-      expect.objectContaining({ accessLevel: 'private' })
-    );
-  });
-
-  it('should throw an error if both prefix and accessLevel are specified', () => {
-    expect(() =>
-      render(
-        <StorageManager
-          prefix="prefix/"
-          accessLevel="private"
-          maxFileCount={1}
-        />
-      )
-    ).toThrow();
-    expect(errorSpy).toHaveBeenCalled();
-  });
-
-  it('should throw an error if both prefix and path are specified', () => {
-    expect(() =>
-      render(<StorageManager prefix="prefix/" path="path/" maxFileCount={1} />)
-    ).toThrow();
-    expect(errorSpy).toHaveBeenCalled();
   });
 });

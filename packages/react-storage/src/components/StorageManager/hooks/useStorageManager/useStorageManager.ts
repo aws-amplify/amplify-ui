@@ -1,9 +1,5 @@
 import React from 'react';
 
-import {
-  UploadDataOutput,
-  UploadDataWithPathOutput,
-} from 'aws-amplify/storage';
 import { isObject } from '@aws-amplify/ui';
 
 import { StorageFiles, FileStatus, DefaultFile } from '../../types';
@@ -18,6 +14,7 @@ import {
   setUploadProgressAction,
   setUploadStatusAction,
 } from './actions';
+import { TaskHandler } from '../../utils';
 
 export interface UseStorageManager {
   addFiles: (params: {
@@ -27,10 +24,7 @@ export interface UseStorageManager {
   }) => void;
   clearFiles: () => void;
   queueFiles: () => void;
-  setUploadingFile: (params: {
-    id: string;
-    uploadTask?: UploadDataOutput | UploadDataWithPathOutput;
-  }) => void;
+  setUploadingFile: TaskHandler;
   setUploadProgress: (params: { id: string; progress: number }) => void;
   setUploadSuccess: (params: { id: string }) => void;
   setUploadResumed: (params: { id: string }) => void;
