@@ -1,11 +1,9 @@
 import { StorageManager } from '@aws-amplify/ui-react-storage';
 
-export const StorageManagerPathPropExample = () => {
+export const App = () => {
   return (
     <StorageManager
-      accessLevel="guest"
-      // uploaded files can be found in S3 inside `public/images/`
-      path="images/"
+      path="images/public/"
       acceptedFileTypes={['image/*']}
       maxFileCount={1}
     />

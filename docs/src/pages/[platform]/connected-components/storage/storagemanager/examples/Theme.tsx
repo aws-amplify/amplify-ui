@@ -17,12 +17,12 @@ const theme = {
   },
 };
 
-export const StorageManagerThemeExample = () => {
+export const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <StorageManager
         acceptedFileTypes={['image/*']}
-        accessLevel="guest"
+        path="public/"
         maxFileCount={5}
       />
     </ThemeProvider>

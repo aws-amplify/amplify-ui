@@ -2,14 +2,14 @@ import * as React from 'react';
 import { Button } from '@aws-amplify/ui-react';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
 
-export const StorageManagerHandleExample = () => {
+export const App = () => {
   const ref = React.useRef(null);
 
   return (
     <>
       <StorageManager
         acceptedFileTypes={['image/*']}
-        accessLevel="guest"
+        path="public/"
         maxFileCount={3}
         ref={ref}
       />

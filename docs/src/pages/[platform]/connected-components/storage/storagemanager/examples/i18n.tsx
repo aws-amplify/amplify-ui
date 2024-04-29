@@ -45,7 +45,7 @@ const dictionary = {
   },
 };
 
-export const StorageManageri18nExample = () => {
+export const App = () => {
   const [language, setLanguage] = React.useState('en');
   return (
     <>
@@ -60,7 +60,7 @@ export const StorageManageri18nExample = () => {
       </ToggleButtonGroup>
       <StorageManager
         acceptedFileTypes={['image/*']}
-        accessLevel="guest"
+        path="public/"
         maxFileCount={1}
         displayText={dictionary[language]}
       />

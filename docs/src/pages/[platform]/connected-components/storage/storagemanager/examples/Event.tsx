@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
 
-export const StorageManagerEventExample = () => {
+export const App = () => {
   const [files, setFiles] = React.useState({});
 
   return (
@@ -9,7 +9,7 @@ export const StorageManagerEventExample = () => {
       <StorageManager
         acceptedFileTypes={['image/*']}
         // private uploads will fail intentionally in docs // IGNORE
-        accessLevel="private"
+        path="private/"
         maxFileCount={3}
         onFileRemove={({ key }) => {
           setFiles((prevFiles) => {
