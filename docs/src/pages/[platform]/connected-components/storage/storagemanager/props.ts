@@ -27,7 +27,7 @@ export const STORAGE_MANAGER = [
   {
     name: `accessLevel`,
     description:
-      'Deprecated, use `path` instead. Access level for files in Storage. See https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/',
+      'Deprecated, use `path` instead. Access level for files in Storage. See https://docs.amplify.aws/javascript/build-a-backend/storage/configure-access/',
     type: `'guest' | 'protected' | 'private'`,
   },
   {

@@ -3,7 +3,7 @@ import { StorageManager } from '@aws-amplify/ui-react-storage';
 export const App = () => {
   return (
     <StorageManager
-      path="images/public/"
+      path="public/images/"
       acceptedFileTypes={['image/*']}
       maxFileCount={1}
     />
