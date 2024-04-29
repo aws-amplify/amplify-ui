@@ -1,9 +1,5 @@
 import * as React from 'react';
 
-import type {
-  UploadDataOutput,
-  UploadDataWithPathOutput,
-} from 'aws-amplify/storage';
 import type { StorageAccessLevel } from '@aws-amplify/core';
 
 import {
@@ -14,7 +10,7 @@ import {
   FileListProps,
   FilePickerProps,
 } from './ui';
-import { StorageManagerDisplayText } from './utils';
+import { StorageManagerDisplayText, PathCallback, UploadTask } from './utils';
 
 export enum FileStatus {
   ADDED = 'added',
@@ -30,7 +26,7 @@ export interface StorageFile {
   file?: File;
   status: FileStatus;
   progress: number;
-  uploadTask?: UploadDataOutput | UploadDataWithPathOutput;
+  uploadTask?: UploadTask;
   key: string;
   error: string;
   isImage: boolean;
@@ -40,8 +36,10 @@ export type StorageFiles = StorageFile[];
 
 export type DefaultFile = Pick<StorageFile, 'key'>;
 
-export type ProcessFileParams = Required<Pick<StorageFile, 'file' | 'key'>> &
-  Record<string, any>;
+export interface ProcessFileParams extends Record<string, any> {
+  file: File;
+  key: string;
+}
 
 export type ProcessFile = (
   params: ProcessFileParams
@@ -58,10 +56,10 @@ export interface StorageManagerProps {
    */
   acceptedFileTypes?: string[];
   /**
-   * @deprecated
-   * `accessLevel` has been deprecated in favor of `prefix` and will be removed in a future major version
+   * Access level for file uploads
+   * @see https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/
    */
-  accessLevel?: StorageAccessLevel;
+  accessLevel: StorageAccessLevel;
 
   /**
    * Determines if the upload will automatically start after a file is selected, default value: true
@@ -123,12 +121,19 @@ export interface StorageManagerProps {
    */
   showThumbnails?: boolean;
   /**
-   * @deprecated
-   * `path` has been deprecated in favor of `prefix` and will be removed in a future major version
+   * Provided value is prefixed to the file `key` for each file
    */
   path?: string;
+}
+
+export interface StorageManagerPathProps
+  extends Omit<StorageManagerProps, 'accessLevel' | 'path'> {
   /**
-   * A string prefixed to the key of each file
+   * S3 bucket key, allows either a `string` or a `PathCallback`:
+   * - `string`: `path` is prefixed to the file `key` for each file
+   * - `PathCallback`: callback provided an input containing the current `identityId`,
+   *    resolved value is prefixed to the file `key` for each file
    */
-  prefix?: string;
+  path: string | PathCallback;
+  accessLevel?: never;
 }

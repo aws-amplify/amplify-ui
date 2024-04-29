@@ -12,13 +12,13 @@ export const MISSING_REQUIRED_PROP_MESSAGE =
   '`StorageImage` requires either an `imgKey` or `path` prop.';
 
 export const HAS_DEPRECATED_PROPS_MESSAGE =
-  '`imgKey`, `accessLevel`, and `identityId` will be replaced with `path` in a future major version.';
+  '`imgKey`, `accessLevel`, and `identityId` will be replaced with `path` in a future major version. See https://ui.docs.amplify.aws/react/connected-components/storage/storageimage#props';
 
 export const HAS_PATH_AND_KEY_MESSAGE =
   '`imgKey` is ignored when both `imgKey` and `path` props are provided.';
 
 export const HAS_PATH_AND_UNSUPPORTED_OPTIONS_MESSAGE =
-  '``accessLevel` and `identityId` are ignored when the `path` prop is provided.';
+  '`accessLevel` and `identityId` are ignored when the `path` prop is provided.';
 
 const getDeprecationMessage = ({
   hasImgkey,
