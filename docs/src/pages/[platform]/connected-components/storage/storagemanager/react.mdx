@@ -107,7 +107,7 @@ When uploading to private or protected S3 buckets, you'll need to wrap your app 
       <StorageManager
     -   accessLevel="private"
     -   path="images/"
-    +   path={({identityId}) => `private/images/${identityId}/`}
+    +   path={({ identityId }) => `private/${identityId}/images/`}
         maxFileCount={1}
       />
     ```
