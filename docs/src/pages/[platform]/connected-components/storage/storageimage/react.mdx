@@ -35,17 +35,17 @@ At a minimum you must include the `alt` and `path` props. `path` is a full S3 ob
 <Example>
   <Image alt='cat' src='/cats/1.jpg' width="400px" height="400px" />
   <ExampleCode>
-    ```jsx file=./examples/DefaultStorageImageExample.tsx
+    ```jsx file=./examples/Default.tsx
     ```
   </ExampleCode>
 </Example>
 
 #### Private or Protected Image
-When using private or protected images, you will need to wrap your app in the `Authenticator` component, as shown in [Using Storage with the Authenticator](/connected-components/storage#using-storage-with-the-authenticator)
+When using private or protected images, you'll need to wrap your app in the `Authenticator`, allowing the `StorageImage` component to infer the Cognito `identityId` of the currently signed-in user. This can be done directly with the `Authenticator` component or with `withAuthenticator`, as shown in [Add the Authenticator](/connected-components/authenticator#step-3-add-the-authenticator).
 <Example>
   <Image alt='cat' src='/cats/1.jpg' width="400px" height="400px" />
   <ExampleCode>
-    ```jsx file=./examples/ProtectedStorageImageExample.tsx
+    ```jsx file=./examples/Protected.tsx
     ```
   </ExampleCode>
 </Example>
@@ -87,7 +87,7 @@ To handle the error caused by `Storage.get`, you can pass a `onGetUrlError` hand
 <Example>
  <Image alt='fallback cat' src='/cats/2.jpg' width="400px" height="400px" />
   <ExampleCode>
-    ```jsx file=./examples/StorageImageErrorHandlingExample.tsx
+    ```jsx file=./examples/ErrorHandling.tsx
     ```
   </ExampleCode>
 </Example>

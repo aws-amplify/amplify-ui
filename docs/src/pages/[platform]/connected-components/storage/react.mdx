@@ -52,12 +52,11 @@ After setting up Amplify make sure to install the Amplify libraries.
 <InstallScripts component="storage" />
 
 ## Using Storage with the Authenticator
-When using private or protected images, you'll need to wrap the `StorageImage` or `StorageManager` component in the `Authenticator`. This allows the components to infer the Cognito `identityId` of the currently signed-in user.
-
+To use Storage components with the Authenticator, such as when loading private or protected images, you'll first need to configure Amplify as shown below. 
 <Example>
   <Image alt='cat' src='/cats/1.jpg' width="400px" height="400px" />
   <ExampleCode>
-    ```jsx file=./storageimage/examples/WithAuthenticator.tsx
+    ```jsx file=./ConfigureAmplify.tsx
     ```
   </ExampleCode>
 </Example>
