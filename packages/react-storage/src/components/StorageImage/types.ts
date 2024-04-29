@@ -7,17 +7,17 @@ export interface StorageImageProps extends Omit<ImageProps, 'src'> {
   // Note: a new Storage.get request is made only when the imgKey gets updated after the initial
   /**
    * @deprecated
-   * `imgKey` will be replaced with `path` in the next major version of Amplify UI. See https://ui.docs.amplify.aws/react/connected-components/storage/storageimage#props
+   * `imgKey` will be replaced with `path` in a future major version of Amplify UI. See https://ui.docs.amplify.aws/react/connected-components/storage/storageimage#props
    */
   imgKey: string;
   /**
    * @deprecated
-   * `accessLevel` will be replaced with `path` in the next major version of Amplify UI. See https://ui.docs.amplify.aws/react/connected-components/storage/storageimage#props
+   * `accessLevel` will be replaced with `path` in a future major version of Amplify UI. See https://ui.docs.amplify.aws/react/connected-components/storage/storageimage#props
    */
   accessLevel: StorageAccessLevel;
   /**
    * @deprecated
-   * `identityId` will be replaced with `path` in the next major version of Amplify UI. See https://ui.docs.amplify.aws/react/connected-components/storage/storageimage#props
+   * `identityId` will be replaced with `path` in a future major version of Amplify UI. See https://ui.docs.amplify.aws/react/connected-components/storage/storageimage#props
    */
   identityId?: string;
   fallbackSrc?: string;
@@ -25,7 +25,7 @@ export interface StorageImageProps extends Omit<ImageProps, 'src'> {
   /**
    * @deprecated use `onGetUrlError`
    *
-   * `onStorageGetError` will be replaced with `onGetUrlError` in the next major version of Amplify UI. See https://ui.docs.amplify.aws/react/connected-components/storage/storageimage#props
+   * `onStorageGetError` will be replaced with `onGetUrlError` in a future major version of Amplify UI. See https://ui.docs.amplify.aws/react/connected-components/storage/storageimage#props
    */
   onStorageGetError?: (error: Error) => void;
   // Allow user to migrate from `onStorageGetError` without changing to `path` props
