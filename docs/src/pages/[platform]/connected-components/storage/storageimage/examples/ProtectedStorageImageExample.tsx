@@ -1,11 +1,6 @@
-import { Amplify } from 'aws-amplify';
-import { withAuthenticator } from '@aws-amplify/ui-react';
 import { StorageImage } from '@aws-amplify/ui-react-storage';
-import awsExports from './aws-exports';
 
-Amplify.configure(awsExports);
-
-export function ProtectedStorageImageExample() {
+export function App() {
   return (
     <StorageImage
       alt="protected cat"
@@ -13,4 +8,4 @@ export function ProtectedStorageImageExample() {
     />
   );
 }
-export default withAuthenticator(ProtectedStorageImageExample);
+export default App;

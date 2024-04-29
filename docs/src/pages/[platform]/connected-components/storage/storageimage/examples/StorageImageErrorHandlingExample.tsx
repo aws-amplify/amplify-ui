@@ -1,6 +1,6 @@
 import { StorageImage } from '@aws-amplify/ui-react-storage';
 
-export const StorageImageErrorHandlingExample = () => {
+export const App = () => {
   return (
     <StorageImage
       alt="fallback cat"
@@ -11,4 +11,4 @@ export const StorageImageErrorHandlingExample = () => {
   );
 };
 
-export default StorageImageErrorHandlingExample;
+export default App;
