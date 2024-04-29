@@ -8,7 +8,6 @@ import * as StorageHooks from '../hooks';
 import {
   StorageManager,
   MISSING_REQUIRED_PROPS_MESSAGE,
-  ACCESS_LEVEL_WITH_PATH_CALLBACK_MESSAGE,
   ACCESS_LEVEL_DEPRECATION_MESSAGE,
 } from '../StorageManager';
 import {
