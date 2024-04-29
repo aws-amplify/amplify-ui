@@ -46,6 +46,11 @@ import '@aws-amplify/ui-react/styles.css';
 </ExampleCode>
 
 At a minimum you must include the `path` and `maxFileCount` props. `path` refers to the S3 image path that will be prefixed to each file key. It is either a `string` or a callback function that accepts the current user's Cognito `identityId` and returns a `string`. See [upload files](https://docs.amplify.aws/react/build-a-backend/storage/upload-files/) 
+
+<Alert variation="info" heading="Version 3.0.18">
+  Using `@aws-amplify/ui-react-storage` version 3.0.18 or below and looking for docs on `accessLevel`? See [`accessLevel`](#accesslevel-props)
+</Alert>
+
 <Example>
   <DefaultExample />
   <ExampleCode>
@@ -54,7 +59,7 @@ At a minimum you must include the `path` and `maxFileCount` props. `path` refers
   </ExampleCode>
 </Example>
 
-#### Private or Protected Buckets
+### Private or Protected Buckets
 When uploading to private or protected S3 buckets, you'll need to wrap your app in the `Authenticator`, allowing the `StorageManager` component to infer the Cognito `identityId` of the currently signed-in user. This can be done directly with the `Authenticator` component or with `withAuthenticator`, as shown in [Add the Authenticator](/connected-components/authenticator#step-3-add-the-authenticator).
 <Example>
   <ExampleCode>
@@ -69,6 +74,7 @@ When uploading to private or protected S3 buckets, you'll need to wrap your app 
   </ExampleCode>
 </Example>
 
+### `accessLevel` props
 <Accordion.Container>
   <Accordion.Item key={"title"} value={"title"}>
     <Accordion.Trigger>
@@ -88,6 +94,7 @@ When uploading to private or protected S3 buckets, you'll need to wrap your app 
       maxFileCount={1}
     />
     ```
+
     To migrate to a later version, replace `accessLevel` with `path`. If you were using `path` already, append the `accessLevel` to the end of the path.
     ```diff
       <StorageManager
