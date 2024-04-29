@@ -88,6 +88,22 @@ When uploading to private or protected S3 buckets, you'll need to wrap your app 
       maxFileCount={1}
     />
     ```
+    To migrate to a later version, replace `accessLevel` with `path`. If you were using `path` already, append the `accessLevel` to the end of the path.
+    ```diff
+      <StorageManager
+    -   accessLevel="guest"
+    +   path="guest"
+        maxFileCount={1}
+      />
+    ```
+    ```diff
+      <StorageManager
+    -   accessLevel="private"
+    -   path="images/"
+    +   path={({identityId}) => `images/private/${identityId}`}
+        maxFileCount={1}
+      />
+    ```
     </Accordion.Content>
   </Accordion.Item>
 </Accordion.Container>
