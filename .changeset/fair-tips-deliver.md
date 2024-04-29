@@ -3,4 +3,6 @@
 "@aws-amplify/ui-react": patch
 ---
 
-feat(storage-manager): add the `prefix` prop to support gen2 use cases
+feat(storage-manager): update `StorageManager` to support differing usages of `path` prop:
+- existing: `accessLevel` prop provided with or without optional `path` prop
+- additive: no `accessLevel` prop provided with required `path` as either a `string` or a callback provided the current `identityId`
