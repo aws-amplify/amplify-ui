@@ -90,7 +90,15 @@ describe('useUploadFiles', () => {
     act(() =>
       result.current.setUploadingFile({
         id: 'file1',
-        uploadTask: undefined,
+        uploadTask: {
+          cancel: jest.fn(),
+          pause: jest.fn(),
+          resume: jest.fn(),
+          state: 'IN_PROGRESS',
+          result: Promise.resolve({
+            key: 'key',
+          }),
+        },
       })
     );
 

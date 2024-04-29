@@ -1,72 +1,76 @@
-import { StorageAccessLevel } from '@aws-amplify/core';
 import {
   uploadData,
-  TransferProgressEvent,
   UploadDataInput,
-  UploadDataOutput,
-  UploadDataWithPathInput,
   UploadDataWithPathOutput,
+  UploadDataWithPathInput,
+  UploadDataOutput,
 } from 'aws-amplify/storage';
+import { isFunction } from '@aws-amplify/ui';
 
-export type UploadFileProps = {
-  file: File;
-  key: string;
+/**
+ * Callback provided an input containing the current `identityId`
+ *
+ * @param {{identityId: string | undefined}} input - Input parameters
+ * @returns target S3 bucket key
+ */
+export type PathCallback = (input: {
+  identityId: string | undefined;
+}) => string;
+
+export type UploadTask = UploadDataOutput | UploadDataWithPathOutput;
+export interface TaskEvent {
+  id: string;
+  uploadTask: UploadTask;
+}
+
+// omit `path` callback, `path` must always be a string to support resolving
+// `path` callback with `fileKey` and `identityId`
+export type PathInput = Omit<UploadDataWithPathInput, 'path'> & {
   path: string;
-  level?: StorageAccessLevel;
-  progressCallback: (event: TransferProgressEvent) => void;
-  errorCallback: (error: string) => void;
-  completeCallback: (event: { key: string | undefined }) => void;
-} & Record<string, any>;
+};
+
+export type TaskHandler = (event: TaskEvent) => void;
+export interface UploadFileProps {
+  input: () => Promise<PathInput | UploadDataInput>;
+  onComplete?: (
+    result: Awaited<(UploadDataWithPathOutput | UploadDataOutput)['result']>
+  ) => void;
+  onError?: (event: { key: string; error: Error }) => void;
+  onStart?: (event: { key: string; uploadTask: UploadTask }) => void;
+}
 
 type UploadData = (
-  input: UploadDataInput | UploadDataWithPathInput
-) => UploadDataOutput | UploadDataWithPathOutput;
+  input: PathInput | UploadDataInput
+) => UploadDataWithPathOutput | UploadDataOutput;
 
-export function uploadFile({
-  file,
-  key,
-  path,
-  level,
-  progressCallback: onProgress,
-  errorCallback,
-  completeCallback,
-  ...rest
-}: UploadFileProps): UploadDataOutput | UploadDataWithPathOutput {
-  const contentType = file.type || 'binary/octet-stream';
+export async function uploadFile({
+  input,
+  onError,
+  onStart,
+  onComplete,
+}: UploadFileProps): Promise<UploadDataWithPathOutput | UploadDataOutput> {
+  const resolvedInput = await input();
 
-  const input: UploadDataInput | UploadDataWithPathInput = level
-    ? {
-        // key will be deprecated in aws-amplify@v7
-        key,
-        data: file,
-        options: {
-          accessLevel: level,
-          contentType,
-          onProgress,
-          ...rest,
-        },
-      }
-    : {
-        path,
-        data: file,
-        options: {
-          contentType,
-          onProgress,
-          ...rest,
-        },
-      };
+  const uploadTask = (uploadData as UploadData)(resolvedInput);
 
-  const output = (uploadData as UploadData)(input);
+  const key =
+    (resolvedInput as { key: string })?.key ??
+    (resolvedInput as { path: string })?.path;
 
-  output.result
-    .then(() => {
-      if (output.state === 'SUCCESS') {
-        completeCallback?.({ key });
+  if (isFunction(onStart)) {
+    onStart({ key, uploadTask });
+  }
+
+  uploadTask.result
+    .then((result) => {
+      if (isFunction(onComplete) && uploadTask.state === 'SUCCESS') {
+        onComplete(result);
       }
     })
-    .catch((e) => {
-      const error = e as Error;
-      errorCallback?.(error.message);
+    .catch((error: Error) => {
+      if (isFunction(onError)) {
+        onError({ key, error });
+      }
     });
-  return output;
+  return uploadTask;
 }
