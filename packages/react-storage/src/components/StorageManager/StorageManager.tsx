@@ -63,7 +63,7 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
 ): JSX.Element {
   if (!maxFileCount) {
     // eslint-disable-next-line no-console
-    console.warn(MISSING_REQUIRED_PROPS_MESSAGE);
+    logger.warn(MISSING_REQUIRED_PROPS_MESSAGE);
   }
 
   if (accessLevel && typeof path === 'function') {
