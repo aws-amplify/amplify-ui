@@ -22,12 +22,13 @@ export function StorageImageExample() {
     <>
       <StorageImage
         alt="error cat"
-        path="guest/this-image-does-not-exist.jpeg"
+        imgKey="this-image-does-not-exist.jpeg"
+        fallbackSrc="https://placekitten.com/g/200/300"
+        accessLevel="guest"
         onLoad={onLoad}
-        onGetUrlError={(error) => {
+        onStorageGetError={(error) => {
           setErrorText(`Error getting image: ${error.message}`);
         }}
-        fallbackSrc="https://placekitten.com/g/200/300"
       />
       {isLoaded ? (
         <Text>The image is loaded.</Text>
@@ -35,6 +36,13 @@ export function StorageImageExample() {
         <Loader testId="Loader" />
       )}
       <Text>{errorText}</Text>
+      <StorageImage
+        alt="error cat"
+        imgKey="this-image-does-not-exist-2.jpeg"
+        fallbackSrc="https://placekitten.com/g/200/300"
+        accessLevel="guest"
+        validateObjectExistence={false}
+      />
     </>
   );
 }

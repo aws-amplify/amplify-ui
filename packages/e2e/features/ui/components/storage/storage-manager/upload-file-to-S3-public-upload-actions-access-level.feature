@@ -1,7 +1,7 @@
 Feature: Storage Manager with footer and upload actions
 
   Background:
-    Given I'm running the example "ui/components/storage/storage-manager/with-path/upload-actions"
+    Given I'm running the example "ui/components/storage/storage-manager/upload-actions-access-level"
 
   @react
   Scenario: I select a file and upload it on click

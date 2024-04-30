@@ -1,7 +1,7 @@
 Feature: Storage Manager with default files
 
   Background:
-    Given I'm running the example "ui/components/storage/storage-manager/accept-all-files"
+    Given I'm running the example "ui/components/storage/storage-manager/accept-all-file-types-access-level"
    
   @react
   Scenario: I should be able to click and drag any files

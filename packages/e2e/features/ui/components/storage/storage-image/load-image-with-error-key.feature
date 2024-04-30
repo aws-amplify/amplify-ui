@@ -1,7 +1,7 @@
 Feature: Load an image from S3 with error
 
   Background:
-    Given I'm running the example "ui/components/storage/storage-image/with-path/error"
+    Given I'm running the example "ui/components/storage/storage-image/error-key"
 
   @react
   Scenario: I load an image with error
