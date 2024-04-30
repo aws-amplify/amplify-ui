@@ -22,7 +22,7 @@ export const STORAGE_MANAGER = [
   {
     name: `path`,
     description:
-      'Path in s3 to put the file under. If `accessLevel` is undefined, then `path` must be provided. If `accessLevel` is provided, then `path` is optional and must be a `string`.',
+      'Path in s3 to put the file under. If `accessLevel` is undefined, then `path` must be provided, and can be either a string or callback. If `accessLevel` is provided, then `path` is optional and must be a `string`.',
     type: `string | (input: { identityId: string | undefined }) => string`,
   },
   {
