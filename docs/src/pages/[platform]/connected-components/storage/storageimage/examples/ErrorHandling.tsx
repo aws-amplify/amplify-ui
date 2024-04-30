@@ -1,13 +1,12 @@
 import { StorageImage } from '@aws-amplify/ui-react-storage';
 
-export const StorageImageErrorHandlingExample = () => {
+export function App() {
   return (
     <StorageImage
       alt="fallback cat"
-      imgKey="cat.jpg"
-      accessLevel="guest"
+      path="guest/cat-in-basket.jpg"
       fallbackSrc="/fallback_cat.jpg"
-      onStorageGetError={(error) => console.error(error)}
+      onGetUrlError={(error) => console.error(error)}
     />
   );
-};
+}
