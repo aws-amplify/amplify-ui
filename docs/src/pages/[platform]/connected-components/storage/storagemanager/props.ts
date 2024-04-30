@@ -25,7 +25,7 @@ export const STORAGE_MANAGER = [
     type: `string | (input: { identityId: string | undefined }) => string`,
   },
   {
-    name: `accessLevel`,
+    name: `accessLevel?`,
     description:
       'Deprecated, use `path` instead. Access level for files in Storage. See https://docs.amplify.aws/javascript/build-a-backend/storage/configure-access/',
     type: `'guest' | 'protected' | 'private'`,
