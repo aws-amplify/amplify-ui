@@ -1,7 +1,7 @@
 Feature: Storage Manager with default files
 
   Background:
-    Given I'm running the example "ui/components/storage/storage-manager-gen2/default-files"
+    Given I'm running the example "ui/components/storage/storage-manager/with-path/default-files"
 
   @react
   Scenario: Storage Manager renders with default files

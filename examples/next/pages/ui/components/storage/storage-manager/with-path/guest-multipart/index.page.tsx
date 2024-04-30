@@ -7,9 +7,10 @@ Amplify.configure(awsExports);
 export function StorageManagerExample() {
   return (
     <StorageManager
-      acceptedFileTypes={['*']}
-      prefix="public/"
-      maxFileCount={1}
+      acceptedFileTypes={['image/*']}
+      path="public/"
+      maxFileCount={3}
+      isResumable
       showThumbnails
     />
   );

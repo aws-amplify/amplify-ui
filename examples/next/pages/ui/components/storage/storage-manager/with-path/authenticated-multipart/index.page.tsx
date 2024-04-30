@@ -16,7 +16,7 @@ export function StorageManagerExample() {
     <>
       <StorageManager
         acceptedFileTypes={['image/*']}
-        prefix="private/us-east-2:6cbbe090-3d63-4c32-a580-2b4f462d4372/"
+        path={({ identityId }) => `private/${identityId}/`}
         maxFileCount={3}
         isResumable
         showThumbnails

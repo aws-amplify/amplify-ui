@@ -1,7 +1,7 @@
 Feature: Upload a file to S3 with guest access and multipart settings
 
   Background:
-    Given I'm running the example "ui/components/storage/storage-manager-gen2/guest-multipart"
+    Given I'm running the example "ui/components/storage/storage-manager/with-path/guest-multipart"
 
   @react
   Scenario: I select a file and upload it
