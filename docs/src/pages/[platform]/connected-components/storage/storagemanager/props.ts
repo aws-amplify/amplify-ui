@@ -26,7 +26,7 @@ export const STORAGE_MANAGER = [
     type: `string | (input: { identityId: string | undefined }) => string`,
   },
   {
-    name: `accessLevel`,
+    name: `accessLevel?`,
     description:
       'Deprecated, use `path` instead. Access level for files in Storage. If `accessLevel` is provided, then the `path` prop is optional and must be a `string`. If `accessLevel` is undefined, then `path` must be provided. See https://docs.amplify.aws/javascript/build-a-backend/storage/configure-access/',
     type: `'guest' | 'protected' | 'private'`,

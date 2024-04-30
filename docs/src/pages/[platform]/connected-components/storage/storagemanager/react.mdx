@@ -61,6 +61,9 @@ At a minimum you must include the `path` and `maxFileCount` props. `path` refers
 
 ### Private or Protected Buckets
 When uploading to private or protected S3 buckets, you'll need to wrap your app in the `Authenticator`, allowing the `StorageManager` component to infer the Cognito `identityId` of the currently signed-in user. This can be done directly with the `Authenticator` component or with `withAuthenticator`, as shown in [Add the Authenticator](/connected-components/authenticator#step-3-add-the-authenticator).
+
+The example below shows configuring the StorageManager to upload to the `protected` folder under the users' identity id.
+
 <Example>
   <ExampleCode>
     ```jsx
@@ -95,7 +98,7 @@ When uploading to private or protected S3 buckets, you'll need to wrap your app 
     />
     ```
 
-    To migrate to a later version, replace `accessLevel` with `path`. If you were using `path` already, append the `accessLevel` to the beginning of the path.
+    To migrate to a newer version, replace `accessLevel` with `path`. If you were using `path` already, append `public`, `private` or `protected` to the beginning of the path.
     ```diff
       <StorageManager
     -   accessLevel="guest"
