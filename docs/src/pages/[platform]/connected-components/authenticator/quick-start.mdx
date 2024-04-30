@@ -176,19 +176,39 @@ import AmplifyCLI from './amplify-cli.mdx';
   Add the Authenticator to your app by wrapping your component (represented here by the `@Composable` function `SignedInContent`) with the `Authenticator` component.
 
   ```kotlin
-  import com.amplifyframework.ui.authenticator.rememberAuthenticatorState
+  import android.os.Bundle
+  import androidx.activity.ComponentActivity
+  import androidx.activity.compose.setContent
+  import androidx.compose.foundation.layout.Column
+  import androidx.compose.material3.Button
+  import androidx.compose.material3.Text
+  import androidx.compose.runtime.Composable
+  import androidx.compose.runtime.rememberCoroutineScope
+  import com.amplifyframework.ui.authenticator.SignedInState
   import com.amplifyframework.ui.authenticator.ui.Authenticator
+  import kotlinx.coroutines.launch
 
   class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-      super.onCreate(savedInstanceState)
+      override fun onCreate(savedInstanceState: Bundle?) {
+          super.onCreate(savedInstanceState)
 
-      setContent {
-        Authenticator { state ->
-            SignedInContent(state)
-        }
+          setContent {
+              Authenticator { state ->
+                  SignedInContent(state)
+              }
+          }
       }
-    }
+  }
+
+  @Composable
+  fun SignedInContent(state: SignedInState) {
+      val scope = rememberCoroutineScope()
+      Column {
+          Text("You've signed in as ${state.user.username}")
+          Button(onClick = { scope.launch { state.signOut() } }) {
+              Text("Sign Out")
+          }
+      }
   }
   ```
 </InlineFilter>

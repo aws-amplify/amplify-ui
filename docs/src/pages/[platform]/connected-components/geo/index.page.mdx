@@ -4,6 +4,7 @@ description: Amplify UI Geo provides UI components for maps and location search 
 supportedFrameworks: react
 ---
 
+import { MigrationGuideCallout } from '@/components/MigrationChanges/MigrationGuideCallout';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
 import ReactPage from './react.mdx';
 
@@ -17,4 +18,5 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
+<MigrationGuideCallout framework="react" />
 <ReactPage />

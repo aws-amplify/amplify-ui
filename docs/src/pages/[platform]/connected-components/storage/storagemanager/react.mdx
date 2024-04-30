@@ -9,22 +9,22 @@ import { Fragment } from '@/components/Fragment';
 import { InstallScripts } from '@/components/InstallScripts';
 import { STORAGE_MANAGER, FILE_PICKER, DROPZONE_PROPS, DISPLAY_TEXT } from './props';
 import {
-  DefaultStorageManagerExample,
-  StorageManagerComponentOverridesExample,
-  StorageManagerDisplayTextExample,
-  StorageManagerEventExample,
-  StorageManagerFileTypesExample,
-  StorageManagerHandleExample,
-  StorageManagerHashExample,
-  StorageManageri18nExample,
-  StorageManagerMetadataExample,
-  StorageManagerPathPropExample,
-  StorageManagerResumableExample,
-  StorageManagerThemeExample,
-  StorageManagerUploadActionsExample,
+  DefaultExample,
+  ComponentOverridesExample,
+  DisplayTextExample,
+  EventExample,
+  FileTypesExample,
+  HandleExample,
+  HashExample,
+  I18nExample,
+  MetadataExample,
+  PathPropExample,
+  ResumableExample,
+  ThemeExample,
+  UploadActionsExample,
 } from './examples'
 
-<DefaultStorageManagerExample />
+<DefaultExample />
 
 ## Basic Usage
 
@@ -45,15 +45,78 @@ import '@aws-amplify/ui-react/styles.css';
 ```
 </ExampleCode>
 
-At a minimum you must include the `accessLevel` and `maxFileCount` props. `accessLevel` refers to the [Amplify Storage access level](https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/), which is `'guest' | 'protected' | 'private'`.
+At a minimum you must include the `path` and `maxFileCount` props. `path` refers to the S3 image path that will be prefixed to each file key. It is either a `string` or a callback function that accepts the current user's Cognito `identityId` and returns a `string`. See [upload files](https://docs.amplify.aws/react/build-a-backend/storage/upload-files/) 
+
+<Alert variation="info" heading="Version 3.0.18">
+  Using `@aws-amplify/ui-react-storage` version 3.0.18 or below and looking for docs on `accessLevel`? See [`accessLevel`](#accesslevel-props)
+</Alert>
 
 <Example>
-  <DefaultStorageManagerExample />
+  <DefaultExample />
   <ExampleCode>
-    ```jsx file=./examples/DefaultStorageManagerExample.tsx
+    ```jsx file=./examples/Default.tsx
     ```
   </ExampleCode>
 </Example>
+
+### Private or Protected Buckets
+When uploading to private or protected S3 buckets, you'll need to wrap your app in the `Authenticator`, allowing the `StorageManager` component to infer the Cognito `identityId` of the currently signed-in user. This can be done directly with the `Authenticator` component or with `withAuthenticator`, as shown in [Add the Authenticator](/connected-components/authenticator#step-3-add-the-authenticator).
+
+The example below shows configuring the StorageManager to upload to the `protected` folder under the users' identity id.
+
+<Example>
+  <ExampleCode>
+    ```jsx
+    <StorageManager
+      acceptedFileTypes={['image/*']}
+      path={({ identityId }) => `protected/${identityId}/`}
+      maxFileCount={1}
+      isResumable
+    />
+    ```
+  </ExampleCode>
+</Example>
+
+### Deprecated props
+<Accordion.Container>
+  <Accordion.Item key={"title"} value={"title"}>
+    <Accordion.Trigger>
+      Using `@aws-amplify/ui-react-storage` version 3.0.18 or below?
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
+      Versions 3.0.18 and earlier use `accessLevel` and an optional `path` prop in place of the required `path`. `accessLevel` refers to the [Amplify Storage access level](https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/), which is `'guest' | 'protected' | 'private'`, and `path` is a `string`.
+    ```tsx
+    <StorageManager
+      accessLevel="guest"
+      path="images/"
+      maxFileCount={1}
+    />
+    <StorageManager
+      accessLevel="private"
+      maxFileCount={1}
+    />
+    ```
+
+    To migrate to a newer version, replace `accessLevel` with `path`. If you were using `path` already, append `public`, `private` or `protected` to the beginning of the path.
+    ```diff
+      <StorageManager
+    -   accessLevel="guest"
+    +   path="public/"
+        maxFileCount={1}
+      />
+    ```
+    ```diff
+      <StorageManager
+    -   accessLevel="private"
+    -   path="images/"
+    +   path={({ identityId }) => `private/${identityId}/images/`}
+        maxFileCount={1}
+      />
+    ```
+    </Accordion.Content>
+  </Accordion.Item>
+</Accordion.Container>
 
 <Alert variation="info">
   The uploading capabilities in these examples are stubbed out so they don't actually upload files anywhere!
@@ -68,9 +131,9 @@ At a minimum you must include the `accessLevel` and `maxFileCount` props. `acces
 The default behavior of the Storage Manager component is to automatically start the upload after a file is selected. If you wish to change that, set the value of the `autoUpload` prop to false.
 
 <Example>
-  <StorageManagerUploadActionsExample />
+  <UploadActionsExample />
   <ExampleCode>
-    ```jsx file=./examples/StorageManagerUploadActionsExample.tsx
+    ```jsx file=./examples/UploadActions.tsx
     ```
   </ExampleCode>
 </Example>
@@ -84,9 +147,9 @@ You can limit what users upload with these 3 props:
 * `acceptedFileTypes`: an array of file type strings that follow the [HTML `accept` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept).
 
 <Example>
-  <StorageManagerFileTypesExample />
+  <FileTypesExample />
   <ExampleCode>
-    ```jsx file=./examples/StorageManagerFileTypesExample.tsx
+    ```jsx file=./examples/FileTypes.tsx
     ```
   </ExampleCode>
 </Example>
@@ -97,9 +160,9 @@ You can limit what users upload with these 3 props:
 A resumable upload will upload the file in chunks. This allows users to pause an upload and resume it at a later time. You will typically want to do this only when the expected files are larger than the chunk size, which is 5MB.
 
 <Example>
-  <StorageManagerResumableExample />
+  <ResumableExample />
   <ExampleCode>
-    ```jsx file=./examples/StorageManagerResumableExample.tsx
+    ```jsx file=./examples/Resumable.tsx
     ```
   </ExampleCode>
 </Example>
@@ -111,9 +174,9 @@ You might want to process or modify the file(s) and/or file name(s) before they 
 You can pass a `processFile` function to the StorageManager which accepts an object with `file`: [File](https://developer.mozilla.org/en-US/docs/Web/API/File), and `key`: string, and should return an object with file, key, and any other Storage configurations. The `processFile` can either return synchronously or return a Promise. This example uses a Promise to read the contents of the file and create a hash for the key.
 
 <Example>
-  <StorageManagerHashExample />
+  <HashExample />
   <ExampleCode>
-    ```jsx file=./examples/StorageManagerHashExample.tsx
+    ```jsx file=./examples/Hash.tsx
     ```
   </ExampleCode>
 </Example>
@@ -130,9 +193,9 @@ You can also add any other [Amplify Storage options](https://docs.amplify.aws/li
 The StorageManager component has several event handlers: `onUploadStart`, `onUploadSuccess`, `onUploadError`, and `onFileRemove`
 
 <Example>
-  <StorageManagerEventExample />
+  <EventExample />
   <ExampleCode>
-    ```jsx file=./examples/StorageManagerEventExample.tsx
+    ```jsx file=./examples/Event.tsx
     ```
   </ExampleCode>
 </Example>
@@ -147,7 +210,7 @@ The `path` prop of the `StorageManager` is prepended to the `key` value (resolve
 
 <Example>
   <ExampleCode>
-    ```jsx file=./examples/StorageManagerPathPropExample.tsx
+    ```jsx file=./examples/PathProp.tsx
     ```
   </ExampleCode>
 </Example>
@@ -159,9 +222,9 @@ Metadata is added as an object with string key-value pairs. It is sent as custom
 You can add metadata by adding a `metadata` object in the return object of `processFile`. 
 
 <Example>
-  <StorageManagerMetadataExample />
+  <MetadataExample />
   <ExampleCode>
-    ```jsx file=./examples/StorageManagerMetadataExample.tsx
+    ```jsx file=./examples/Metadata.tsx
     ```
   </ExampleCode>
 </Example>
@@ -173,9 +236,9 @@ You can add metadata by adding a `metadata` object in the return object of `proc
 All text in the StorageManager component is customizable with the `displayText` prop. 
 
 <Example>
-  <StorageManagerDisplayTextExample />
+  <DisplayTextExample />
   <ExampleCode>
-    ```jsx file=./examples/StorageManagerDisplayTextExample.tsx
+    ```jsx file=./examples/DisplayText.tsx
     ```
   </ExampleCode>
 </Example>
@@ -196,9 +259,9 @@ All text in the StorageManager component is customizable with the `displayText` 
 You can use the `displayText` prop to also support different languages. Use an open source library like i18next, react-intl, or make your own:
 
 <Example>
-  <StorageManageri18nExample />
+  <I18nExample />
   <ExampleCode>
-    ```jsx file=./examples/StorageManageri18nExample.tsx
+    ```jsx file=./examples/i18n.tsx
     ```
   </ExampleCode>
 </Example>
@@ -210,9 +273,9 @@ Don't like how things look? Use your own components inside the StorageManager! Y
 _You can even use a completely different UI kit like MUI, Chakra, or your own design system!_
 
 <Example>
-  <StorageManagerComponentOverridesExample />
+  <ComponentOverridesExample />
   <ExampleCode>
-    ```jsx file=./examples/StorageManagerComponentOverridesExample.tsx
+    ```jsx file=./examples/ComponentOverrides.tsx
     ```
   </ExampleCode>
 </Example>
@@ -243,9 +306,9 @@ _You can even use a completely different UI kit like MUI, Chakra, or your own de
 The `files` state is managed within the `StorageManager` component itself. To allow for clearing the internal `files` state, `StorageManager` exposes a custom ref handle to the parent component with a `clearFiles` method.
 
 <Example>
-  <StorageManagerHandleExample />
+  <HandleExample />
   <ExampleCode>
-    ```jsx file=./examples/StorageManagerHandleExample.tsx
+    ```jsx file=./examples/Handle.tsx
     ```
   </ExampleCode>
 </Example>
@@ -253,9 +316,9 @@ The `files` state is managed within the `StorageManager` component itself. To al
 ### Theming
 
 <Example>
-  <StorageManagerThemeExample />
+  <ThemeExample />
   <ExampleCode>
-    ```jsx file=./examples/StorageManagerThemeExample.tsx
+    ```jsx file=./examples/Theme.tsx
     ```
   </ExampleCode>
 </Example>
