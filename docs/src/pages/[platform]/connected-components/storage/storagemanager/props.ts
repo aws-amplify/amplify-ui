@@ -22,13 +22,19 @@ export const STORAGE_MANAGER = [
   {
     name: `path`,
     description:
-      'Path in s3 to put the file under. If `accessLevel` is undefined, then `path` must be provided, and can be either a string or callback. If `accessLevel` is provided, then `path` is optional and must be a `string`.',
+      "S3 bucket key prefixed to each upload target file `key`, allows either a `string` or a callback provided the value of the current user's `identityId`.",
     type: `string | (input: { identityId: string | undefined }) => string`,
+  },
+  {
+    name: `path?`,
+    description:
+      'Optional when `accessLevel` is provided.  S3 bucket key prefixed to each upload target file `key`',
+    type: `string`,
   },
   {
     name: `accessLevel`,
     description:
-      'Deprecated in favor of `path`. S3 access level of upload target files. See https://docs.amplify.aws/javascript/build-a-backend/storage/configure-access/'
+      'Deprecated in favor of `path`. S3 access level of upload target files. See https://docs.amplify.aws/javascript/build-a-backend/storage/configure-access/',
     type: `'guest' | 'protected' | 'private'`,
   },
   {
