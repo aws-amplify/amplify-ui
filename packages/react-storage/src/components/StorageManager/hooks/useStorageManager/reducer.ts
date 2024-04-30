@@ -73,7 +73,7 @@ export function storageManagerStateReducer(
               ...currentFile,
               status: FileStatus.UPLOADING,
               progress: 0,
-              uploadTask: uploadTask ? uploadTask : undefined,
+              uploadTask,
             },
           ];
         }

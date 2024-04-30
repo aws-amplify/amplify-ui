@@ -5,20 +5,26 @@ export const STORAGE_IMAGE = [
     type: 'string',
   },
   {
+    name: 'path',
+    description:
+      'The path to the image in Storage, representing a full S3 object key. See https://docs.amplify.aws/react/build-a-backend/storage/download-files/',
+    type: 'string | ((input: { identityId?: string }) => string);',
+  },
+  {
     name: 'imgKey',
-    description: 'The key of an image.',
+    description: 'Deprecated, use path instead. The key of an image.',
     type: 'string',
   },
   {
     name: 'accessLevel',
     description:
-      'Access level for files in Storage. See https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/',
+      'Deprecated, use path instead. Access level for files in Storage.',
     type: `'guest' | 'protected' | 'private'`,
   },
   {
     name: 'identityId?',
     description:
-      'The unique Amazon Cognito Identity ID of the image owner. Required when loading a protected image.',
+      'Deprecated, use path instead. The unique Amazon Cognito Identity ID of the image owner. Required when loading a protected or private image.',
     type: 'string',
   },
   {
@@ -28,8 +34,20 @@ export const STORAGE_IMAGE = [
     type: 'string',
   },
   {
-    name: 'onStorageGetError?',
+    name: 'onGetUrlError?',
     description: 'Triggered when an error happens calling Storage.get',
     type: `(error: Error) => void;`,
+  },
+  {
+    name: 'onStorageGetError?',
+    description:
+      'Deprecated, use onGetUrlError instead. Triggered when an error happens calling Storage.get',
+    type: `(error: Error) => void;`,
+  },
+  {
+    name: 'validateObjectExistence?',
+    description:
+      'Whether to check for the existence of a file. Defaults to true. See https://docs.amplify.aws/javascript/build-a-backend/storage/download/#check-for-existence-of-a-file',
+    type: `boolean`,
   },
 ];
