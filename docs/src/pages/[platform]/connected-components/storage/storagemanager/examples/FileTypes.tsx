@@ -1,6 +1,6 @@
 import { StorageManager } from '@aws-amplify/ui-react-storage';
 
-export const StorageManagerFileTypesExample = () => {
+export const App = () => {
   return (
     <StorageManager
       acceptedFileTypes={[
@@ -14,7 +14,7 @@ export const StorageManagerFileTypesExample = () => {
         'image/png',
         'video/*',
       ]}
-      accessLevel="guest"
+      path="public/"
       maxFileCount={5}
       // Size is in bytes
       maxFileSize={10000}

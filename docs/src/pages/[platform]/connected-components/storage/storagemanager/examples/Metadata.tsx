@@ -10,11 +10,11 @@ const processFile = ({ file, key }) => {
   };
 };
 
-export function StorageManagerMetadataExample() {
+export function App() {
   return (
     <StorageManager
       acceptedFileTypes={['image/*']}
-      accessLevel="guest"
+      path="public/"
       maxFileCount={3}
       showThumbnails={true}
       processFile={processFile}

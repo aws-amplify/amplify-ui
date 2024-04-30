@@ -1,10 +1,11 @@
 import { StorageManager } from '@aws-amplify/ui-react-storage';
 
-export const DefaultStorageManagerExample = () => {
+export const App = () => {
   return (
     <StorageManager
       acceptedFileTypes={['image/*']}
-      accessLevel="guest"
+      path="public/"
+      autoUpload={false}
       maxFileCount={1}
       isResumable
     />
