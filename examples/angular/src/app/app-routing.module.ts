@@ -7,6 +7,7 @@ import { CustomSlotsComponent } from 'src/pages/ui/components/authenticator/cust
 import { HubEventsComponent } from 'src/pages/ui/components/authenticator/hub-events/hub-events.component';
 import { I18nComponent } from 'src/pages/ui/components/authenticator/i18n/i18n.component';
 import { ModalComponent } from 'src/pages/ui/components/authenticator/modal/modal.component';
+import { OverrideFunctionCallsComponent } from 'src/pages/ui/components/authenticator/override-function-calls/override-function-calls.component';
 import { ForgotPasswordComponent } from 'src/pages/ui/components/authenticator/forgot-password/forgot-password.component';
 import { SignInFederatedComponent } from 'src/pages/ui/components/authenticator/sign-in-federated/sign-in-federated.component';
 import { SignInSMSMFAComponent } from 'src/pages/ui/components/authenticator/sign-in-sms-mfa/sign-in-sms-mfa.component';
@@ -43,6 +44,10 @@ const routes: Routes = [
   {
     path: 'ui/components/authenticator/modal',
     component: ModalComponent,
+  },
+  {
+    path: 'ui/components/authenticator/override-function-calls',
+    component: OverrideFunctionCallsComponent,
   },
   {
     path: 'ui/components/authenticator/forgot-password',

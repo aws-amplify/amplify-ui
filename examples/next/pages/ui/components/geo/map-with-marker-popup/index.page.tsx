@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Marker, Popup } from 'react-map-gl';
+import { Marker, Popup } from 'react-map-gl'; // Note: this dependency should NOT be installed separately
 import { Amplify } from 'aws-amplify';
 import { Heading, Text } from '@aws-amplify/ui-react';
 import { MapView } from '@aws-amplify/ui-react-geo';
