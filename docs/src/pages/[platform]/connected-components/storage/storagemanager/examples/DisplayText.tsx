@@ -1,10 +1,10 @@
 import { StorageManager } from '@aws-amplify/ui-react-storage';
 
-export const StorageManagerDisplayTextExample = () => {
+export const App = () => {
   return (
     <StorageManager
       acceptedFileTypes={['image/*']}
-      accessLevel="guest"
+      path="public/"
       maxFileCount={1}
       displayText={{
         // some text are plain strings

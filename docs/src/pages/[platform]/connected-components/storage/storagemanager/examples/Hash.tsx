@@ -15,11 +15,11 @@ const processFile = async ({ file }) => {
     });
 };
 
-export const StorageManagerHashExample = () => {
+export const App = () => {
   return (
     <StorageManager
       acceptedFileTypes={['image/*']}
-      accessLevel="guest"
+      path="public/"
       maxFileCount={1}
       processFile={processFile}
     />

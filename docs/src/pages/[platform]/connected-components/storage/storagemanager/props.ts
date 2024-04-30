@@ -20,9 +20,21 @@ const eventHandler = `(file: {key: string}) => void;`;
 
 export const STORAGE_MANAGER = [
   {
+    name: `path`,
+    description:
+      "S3 bucket key prefixed to each upload target file `key`, allows either a `string` or a callback provided the value of the current user's `identityId`.",
+    type: `string | (input: { identityId: string | undefined }) => string`,
+  },
+  {
+    name: `path?`,
+    description:
+      'Optional when `accessLevel` is provided.  S3 bucket key prefixed to each upload target file `key`',
+    type: `string`,
+  },
+  {
     name: `accessLevel`,
     description:
-      'Access level for files in Storage. See https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/',
+      'Deprecated in favor of `path`. S3 access level of upload target files. See https://docs.amplify.aws/javascript/build-a-backend/storage/configure-access/',
     type: `'guest' | 'protected' | 'private'`,
   },
   {
@@ -72,11 +84,6 @@ export const STORAGE_MANAGER = [
     description:
       'Called immediately before uploading a file to allow you to edit the key or the file itself. The function can return synchronously or return a promise.',
     type: `(params: {key: string, file: Blob}) => Promise<{key: string, file: Blob} & Record<string, any>> | {key: string, file: Blob} & Record<string, string>;`,
-  },
-  {
-    name: `path?`,
-    description: 'Path in s3 to put the file under',
-    type: `string`,
   },
   {
     name: `defaultFiles?`,

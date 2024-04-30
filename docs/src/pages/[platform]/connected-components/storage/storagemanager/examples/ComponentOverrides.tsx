@@ -11,11 +11,11 @@ import {
 } from '@aws-amplify/ui-react';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
 
-export const StorageManagerComponentOverridesExample = () => {
+export const App = () => {
   return (
     <StorageManager
       acceptedFileTypes={['image/*']}
-      accessLevel="guest"
+      path="public/"
       maxFileCount={100}
       components={{
         Container({ children }) {
