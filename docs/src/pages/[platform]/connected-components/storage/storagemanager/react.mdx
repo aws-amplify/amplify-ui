@@ -45,7 +45,7 @@ import '@aws-amplify/ui-react/styles.css';
 ```
 </ExampleCode>
 
-At a minimum you must include the `path` and `maxFileCount` props. `path` refers to the S3 image path that will be prefixed to each file key. It is either a `string` or a callback function that accepts the current user's Cognito `identityId` and returns a `string`. See [upload files](https://docs.amplify.aws/react/build-a-backend/storage/upload-files/) 
+At a minimum you must include the `path` and `maxFileCount` props. `path` refers to the S3 image path that will be prefixed to each file key. It is either a `string` or a callback function that accepts the current user's Cognito `identityId` and returns a `string`. See [upload files](https://docs.amplify.aws/react/build-a-backend/storage/upload) 
 
 <Alert variation="info" heading="Version 3.0.18">
   Using `@aws-amplify/ui-react-storage` version 3.0.18 or below and looking for docs on `accessLevel`? See [`accessLevel`](#accesslevel-props)
@@ -186,7 +186,7 @@ Other uses-cases for processing the file before upload:
 1. Performing file optimizations like removing unnecessary metadata.
 1. Performing custom file validations like reading the contents of a file to ensure it is in the proper structure.
 
-You can also add any other [Amplify Storage options](https://docs.amplify.aws/lib/storage/upload/q/platform/js/#encrypted-uploads) by adding them to the return object of `processFile`
+You can also add any other [Amplify Storage options](https://docs.amplify.aws/javascript/build-a-backend/storage/upload/#encrypted-uploads) by adding them to the return object of `processFile`
 
 ## Event Handling
 
