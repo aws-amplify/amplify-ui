@@ -21,13 +21,14 @@ const eventHandler = `(file: {key: string}) => void;`;
 export const STORAGE_MANAGER = [
   {
     name: `path`,
-    description: 'Path in s3 to put the file under',
+    description:
+      'Path in s3 to put the file under. If `accessLevel` is undefined, then `path` must be provided. If `accessLevel` is provided, then `path` is optional and must be a `string`.',
     type: `string | (input: { identityId: string | undefined }) => string`,
   },
   {
     name: `accessLevel`,
     description:
-      'Deprecated, use `path` instead. Access level for files in Storage. See https://docs.amplify.aws/javascript/build-a-backend/storage/configure-access/',
+      'Deprecated, use `path` instead. Access level for files in Storage. If `accessLevel` is provided, then the `path` prop is optional and must be a `string`. If `accessLevel` is undefined, then `path` must be provided. See https://docs.amplify.aws/javascript/build-a-backend/storage/configure-access/',
     type: `'guest' | 'protected' | 'private'`,
   },
   {
