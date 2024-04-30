@@ -95,7 +95,7 @@ When uploading to private or protected S3 buckets, you'll need to wrap your app 
     />
     ```
 
-    To migrate to a later version, replace `accessLevel` with `path`. If you were using `path` already, append the `accessLevel` to the beginning of the path.
+    To migrate to a newer version, replace `accessLevel` with `path`. If you were using `path` already, append the `public`, `private` or `protected` to the beginning of the path.
     ```diff
       <StorageManager
     -   accessLevel="guest"
