@@ -64,7 +64,7 @@ jobs:
       - name: 'Checkout Repository'
         uses: actions/checkout@cd7d8d697e10461458bc61a30d094dc601a8b017 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
       - name: 'Dependency Review'
-        uses: actions/dependency-review-action@9129d7d40b8c12c1ed0f60400d00c92d437adcce # v4.1.3 https://github.com/actions/dependency-review-action/commit/9129d7d40b8c12c1ed0f60400d00c92d437adcce
+        uses: actions/dependency-review-action@0c155c5e8556a497adf53f2c18edabf945ed8e70 # v4.1.3 https://github.com/actions/dependency-review-action/commit/9129d7d40b8c12c1ed0f60400d00c92d437adcce
         with:
           config-file: '.github/dependency-review/config.yml'
 
