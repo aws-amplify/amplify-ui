@@ -11,26 +11,23 @@ Amplify.configure(awsExports);
 
 export function StorageImageExample() {
   const [isLoaded, setIsLoaded] = React.useState(false);
+  const [errorText, setErrorText] = React.useState('');
 
   const onLoad = () => {
     setIsLoaded(true);
+    setErrorText('');
   };
 
   return (
     <>
       <StorageImage
-        alt="private cat"
+        alt="error cat"
         imgKey="this-image-does-not-exist.jpeg"
         fallbackSrc="https://placekitten.com/g/200/300"
         accessLevel="guest"
         onLoad={onLoad}
         onStorageGetError={(error) => {
-          console.log('onStorageGetError');
-          console.log(error);
-        }}
-        onError={(error) => {
-          console.log('onError');
-          console.log(error);
+          setErrorText(`Error getting image: ${error.message}`);
         }}
       />
       {isLoaded ? (
@@ -38,8 +35,9 @@ export function StorageImageExample() {
       ) : (
         <Loader testId="Loader" />
       )}
+      <Text>{errorText}</Text>
       <StorageImage
-        alt="private cat"
+        alt="error cat"
         imgKey="this-image-does-not-exist-2.jpeg"
         fallbackSrc="https://placekitten.com/g/200/300"
         accessLevel="guest"

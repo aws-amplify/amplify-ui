@@ -1,8 +1,9 @@
-import { Tabs, Alert } from '@aws-amplify/ui-react';
+import { Alert, Image, Tabs } from '@aws-amplify/ui-react';
+import { Example, ExampleCode } from '@/components/Example';
 import { InstallScripts } from '@/components/InstallScripts';
 import { NextSteps } from './NextSteps';
 
-Amplify UI Storage components use [Amplify Storage](https://docs.amplify.aws/lib/storage/getting-started/q/platform/js/) to allow your users to upload and interact with files stored in Amazon S3 with minimal boilerplate.
+Amplify UI Storage components use [Amplify Storage](https://docs.amplify.aws/javascript/build-a-backend/storage/set-up-storage/) to allow your users to upload and interact with files stored in Amazon S3 with minimal boilerplate.
 
 ## Quick start
 
@@ -49,5 +50,29 @@ You should now have an `aws-exports.js` file in your `src/` directory with your 
 After setting up Amplify make sure to install the Amplify libraries.
 
 <InstallScripts component="storage" />
+
+## Configuring Amplify for Storage UI Components
+To use Storage UI components with Amplify, you'll need to call `Amplify.configure()` as shown below. 
+<Example>
+  <Image alt='cat' src='/cats/1.jpg' width="400px" height="400px" />
+  <ExampleCode>
+    ```tsx
+    import { Amplify } from 'aws-amplify';
+    import { StorageImage, StorageManager } from '@aws-amplify/ui-react-storage';
+    import awsExports from './aws-exports';
+
+    Amplify.configure(awsExports);
+
+    export const App = () => {
+      return (
+        <>
+          <StorageImage alt="sleepy-cat" path="public/cat.jpeg" />
+          <StorageManager path="my_prefix/public" maxFileCount={3} />
+        </>
+      );
+    };
+    ```
+  </ExampleCode>
+</Example>
 
 <NextSteps />
