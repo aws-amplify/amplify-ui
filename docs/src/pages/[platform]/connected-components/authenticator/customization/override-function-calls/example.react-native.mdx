@@ -23,8 +23,6 @@ export const amplify5UIVersion = 1;
         import { Button } from 'react-native';
         import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
         import { Amplify, Auth } from 'aws-amplify';
-        import awsconfig from './aws-exports';
-        Amplify.configure(awsconfig);
 
         function SignOutButton() {
           const { signOut } = useAuthenticator();

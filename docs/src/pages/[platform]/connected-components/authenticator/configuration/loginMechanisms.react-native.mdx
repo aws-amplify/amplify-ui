@@ -27,10 +27,6 @@ You can provide an alternative `username` such as `email` or `phone_number`.
     import { Button } from 'react-native';
 
     import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
-    import { Amplify } from 'aws-amplify';
-    import awsconfig from './aws-exports';
-
-    Amplify.configure(awsconfig);
 
     function SignOutButton() {
       const { signOut } = useAuthenticator();
@@ -57,9 +53,10 @@ You can provide an alternative `username` such as `email` or `phone_number`.
 
     import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
     import { Amplify } from 'aws-amplify';
-    import awsconfig from './aws-exports';
+    // import config from './aws-exports'; // Amplify Gen 1 config
+    import config from './amplify_outputs.json'
 
-    Amplify.configure(awsconfig);
+    Amplify.configure(config);
 
     function SignOutButton() {
       const { signOut } = useAuthenticator();
@@ -86,9 +83,10 @@ You can provide an alternative `username` such as `email` or `phone_number`.
 
     import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
     import { Amplify } from 'aws-amplify';
-    import awsconfig from './aws-exports';
+    // import config from './aws-exports'; // Amplify Gen 1 config
+    import config from './amplify_outputs.json'
 
-    Amplify.configure(awsconfig);
+    Amplify.configure(config);
 
     function SignOutButton() {
       const { signOut } = useAuthenticator();
