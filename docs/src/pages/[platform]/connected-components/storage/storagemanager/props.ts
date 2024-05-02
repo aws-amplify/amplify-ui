@@ -34,7 +34,7 @@ export const STORAGE_MANAGER = [
   {
     name: `accessLevel`,
     description:
-      'Deprecated in favor of `path`. S3 access level of upload target files. See https://docs.amplify.aws/javascript/build-a-backend/storage/configure-access/',
+      'Deprecated in favor of `path`. S3 access level of upload target files. See https://docs.amplify.aws/gen1/react/build-a-backend/storage/configure-access/',
     type: `'guest' | 'protected' | 'private'`,
   },
   {
