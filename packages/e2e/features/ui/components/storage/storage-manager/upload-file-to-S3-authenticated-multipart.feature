@@ -2,7 +2,7 @@
 Feature: Upload a file to S3 with authenticated access and multipart settings
 
   Background:
-    Given I'm running the example "ui/components/storage/storage-manager/with-path/authenticated-multipart"
+    Given I'm running the example "ui/components/storage/storage-manager/authenticated-multipart"
 
   @react
   Scenario: I authenticate, then select a file and upload it
