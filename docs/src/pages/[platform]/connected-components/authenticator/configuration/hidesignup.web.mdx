@@ -8,12 +8,11 @@ The Authenticator has an option to hide the sign up page including the `Create A
 
 <InlineFilter filters={['angular']}>
   ```html{1} file=../../../../../../../examples/angular/src/pages/ui/components/authenticator/sign-in-with-email/sign-in-with-email.component.html
-
   ```
 </InlineFilter>
 <InlineFilter filters={['react']}>
-  ```tsx{3} file=../../../../../../../examples/next/pages/ui/components/authenticator/sign-in-with-email/index.page.tsx#L9-
-
+  ```tsx{3} 
+  <Authenticator hideSignUp={true} />
   ```
 </InlineFilter>
 <InlineFilter filters={['vue']}>
