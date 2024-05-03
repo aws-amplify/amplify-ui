@@ -55,9 +55,10 @@ import { MapView } from '@aws-amplify/ui-react-geo';
 
 import '@aws-amplify/ui-react-geo/styles.css';
 
-import awsExports from './aws-exports';
+// import config from './aws-exports'; // Amplify Gen 1 config
+import config from './amplify_outputs.json'
 
-Amplify.configure(awsExports);
+Amplify.configure(config);
 
 export default function InitialViewport() {
   return (
@@ -134,9 +135,10 @@ import { MapView, LocationSearch } from '@aws-amplify/ui-react-geo';
 
 import '@aws-amplify/ui-react-geo/styles.css';
 
-import awsExports from './aws-exports';
+// import config from './aws-exports'; // Amplify Gen 1 config
+import config from './amplify_outputs.json'
+Amplify.configure(config);
 
-Amplify.configure(awsExports);
 export default function LocationSearchPosition() {
   return (
     <MapView>
