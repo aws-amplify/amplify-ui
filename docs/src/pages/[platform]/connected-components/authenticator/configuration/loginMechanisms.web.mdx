@@ -9,11 +9,11 @@ but can be explicitly defined as seen below.
 
 </Alert>
 
-By default, the Authenticator creates new users in the Amazon Cognito UserPool based on a unique `username`.
+Without the zero configuration, the Authenticator by default creates new users in the Amazon Cognito UserPool based on a unique `username`.
 
-You can provide an alternative `username` such as `email` or `phone_number`.
+You can provide an alternative to `username` such as `email` or `phone_number`.
 
-> **Note**: A `username`, `email`, or `phone_number` value is required for Cognito User Pools.
+> **Note**: A `username`, `email`, or `phone_number` value is required for Cognito User Pools. The `username` field will only work with Gen 1 Auth. For more information about using `username` see the [docs](https://docs.amplify.aws/react/build-a-backend/auth/concepts/usernames/).
 
 <Tabs.Container defaultValue="Email">
   <Tabs.List>
