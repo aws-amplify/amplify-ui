@@ -42,7 +42,9 @@ _app.component.ts_
     ```jsx{2,20,25}
       import { Component, OnInit } from '@angular/core';
       import { Amplify, Auth } from 'aws-amplify';
-      import awsExports from './aws-exports';
+      // import config from './aws-exports'; // Amplify Gen 1 config
+      import config from './amplify_outputs.json'
+
 
       @Component({
         selector: 'app',
@@ -50,7 +52,7 @@ _app.component.ts_
       })
       export class App {
         constructor() {
-          Amplify.configure(awsExports);
+          Amplify.configure(config);
         }
 
         services = {

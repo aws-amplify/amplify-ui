@@ -1,9 +1,9 @@
-import { Amplify } from 'aws-amplify';
-import { signUp, SignUpInput } from 'aws-amplify/auth';
+import { Amplify } from 'aws-amplify'; // IGNORE
 import { Authenticator } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-import awsExports from './aws-exports';
-Amplify.configure(awsExports);
+import { signUp, SignUpInput } from 'aws-amplify/auth';
+import '@aws-amplify/ui-react/styles.css'; // IGNORE
+import awsExports from './aws-exports'; // IGNORE
+Amplify.configure(awsExports); // IGNORE
 
 export default function App() {
   const services = {
