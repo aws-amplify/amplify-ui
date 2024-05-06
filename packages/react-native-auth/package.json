@@ -36,7 +36,7 @@
   "peerDependencies": {
     "aws-amplify": "^6.2.0",
     "react": "^18",
-    "react-native": "^0.70 || ^0.71 || ^0.72"
+    "react-native": "^0.70 || ^0.71 || ^0.72 || ^0.73 || ^0.74"
   },
   "files": [
     "dist",
