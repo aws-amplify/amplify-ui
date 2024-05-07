@@ -3380,7 +3380,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         "variable": "--amplify-components-liveness-camera-module-background-color",
-        "value": "var(--amplify-colors-black)"
+        "value": "var(--amplify-colors-background-primary)"
     },
     {
         "variable": "--amplify-components-loader-animation-duration",

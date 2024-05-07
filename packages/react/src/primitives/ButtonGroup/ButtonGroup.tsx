@@ -17,6 +17,7 @@ const ButtonGroupPrimitive: Primitive<ButtonGroupProps, 'div'> = (
   {
     className,
     children,
+    isDisabled: _isDisabled = false,
     role = 'group',
     size: _size,
     variation: _variation,
@@ -32,8 +33,12 @@ const ButtonGroupPrimitive: Primitive<ButtonGroupProps, 'div'> = (
   >
     {React.Children.map(children, (child) => {
       if (React.isValidElement<ButtonProps>(child)) {
-        const { size = _size, variation = _variation } = child.props;
-        return React.cloneElement(child, { size, variation });
+        const {
+          size = _size,
+          variation = _variation,
+          isDisabled = _isDisabled,
+        } = child.props;
+        return React.cloneElement(child, { isDisabled, size, variation });
       }
       return child;
     })}

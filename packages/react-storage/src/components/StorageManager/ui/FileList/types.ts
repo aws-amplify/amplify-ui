@@ -1,19 +1,14 @@
-import { UploadDataOutput } from 'aws-amplify/storage';
-
-import { StorageManagerDisplayTextDefault } from '../../utils';
+import { StorageManagerDisplayTextDefault, TaskHandler } from '../../utils';
 import { FileStatus, StorageFile } from '../../types';
 
 export interface FileListProps {
   displayText: StorageManagerDisplayTextDefault;
   files: StorageFile[];
   isResumable: boolean;
-  onCancelUpload: (params: {
-    id: string;
-    uploadTask: UploadDataOutput;
-  }) => void;
+  onCancelUpload: TaskHandler;
   onDeleteUpload: (params: { id: string }) => void;
-  onPause: (params: { id: string; uploadTask: UploadDataOutput }) => void;
-  onResume: (params: { id: string; uploadTask: UploadDataOutput }) => void;
+  onPause: TaskHandler;
+  onResume: TaskHandler;
   showThumbnails: boolean;
   hasMaxFilesError: boolean;
   maxFileCount: number;

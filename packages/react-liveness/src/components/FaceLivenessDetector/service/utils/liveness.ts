@@ -421,6 +421,7 @@ export function isCameraDeviceVirtual(device: MediaDeviceInfo): boolean {
 }
 
 export const LivenessErrorStateStringMap = {
+  [LivenessErrorState.CONNECTION_TIMEOUT]: 'CONNECTION_TIMEOUT',
   [LivenessErrorState.RUNTIME_ERROR]: 'RUNTIME_ERROR',
   [LivenessErrorState.SERVER_ERROR]: 'SERVER_ERROR',
   [LivenessErrorState.TIMEOUT]: 'TIMEOUT',
