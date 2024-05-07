@@ -14,11 +14,7 @@ import {
   IlluminationState,
 } from './liveness';
 import { ErrorState } from './error';
-import {
-  VideoRecorder,
-  LivenessStreamProvider,
-  FreshnessColorDisplay,
-} from '../utils';
+import { StreamRecorder, ColorSequenceDisplay } from '../utils';
 import { Face, FaceDetection } from './faceDetection';
 
 export interface FaceMatchAssociatedParams {
@@ -34,7 +30,6 @@ export interface FreshnessColorAssociatedParams {
   freshnessColorEl?: HTMLCanvasElement;
   freshnessColors?: string[];
   freshnessColorsComplete?: boolean;
-  freshnessColorDisplay?: FreshnessColorDisplay;
 }
 
 export interface OvalAssociatedParams {
@@ -49,30 +44,30 @@ export interface VideoAssociatedParams {
   videoEl?: HTMLVideoElement;
   canvasEl?: HTMLCanvasElement;
   videoMediaStream?: MediaStream;
-  videoRecorder?: VideoRecorder;
-  recordingStartTimestampMs?: number;
+  recordingStartTimestamp?: number;
   isMobile?: boolean;
   selectedDeviceId?: string;
   selectableDevices?: MediaDeviceInfo[];
 }
 
 export interface LivenessContext {
-  challengeId?: string;
-  componentProps?: FaceLivenessDetectorCoreProps;
-  errorState?: ErrorState;
-  faceMatchAssociatedParams?: FaceMatchAssociatedParams;
-  faceMatchStateBeforeStart?: FaceMatchState;
-  failedAttempts?: number;
-  freshnessColorAssociatedParams?: FreshnessColorAssociatedParams;
-  isFaceFarEnoughBeforeRecording?: boolean;
-  isRecordingStopped?: boolean;
-  livenessStreamProvider?: LivenessStreamProvider;
-  maxFailedAttempts?: number;
-  ovalAssociatedParams?: OvalAssociatedParams;
-  responseStreamActorRef?: ActorRef<any>;
-  serverSessionInformation?: SessionInformation;
-  shouldDisconnect?: boolean;
-  videoAssociatedParams?: VideoAssociatedParams;
+  challengeId: string | undefined;
+  colorSequenceDisplay: ColorSequenceDisplay | undefined;
+  componentProps: FaceLivenessDetectorCoreProps | undefined;
+  errorState: ErrorState | undefined;
+  faceMatchAssociatedParams: FaceMatchAssociatedParams | undefined;
+  faceMatchStateBeforeStart: FaceMatchState | undefined;
+  failedAttempts: number | undefined;
+  freshnessColorAssociatedParams: FreshnessColorAssociatedParams | undefined;
+  isFaceFarEnoughBeforeRecording: boolean | undefined;
+  isRecordingStopped: boolean | undefined;
+  livenessStreamProvider: StreamRecorder | undefined;
+  maxFailedAttempts: number | undefined;
+  ovalAssociatedParams: OvalAssociatedParams | undefined;
+  responseStreamActorRef: ActorRef<any> | undefined;
+  serverSessionInformation: SessionInformation | undefined;
+  shouldDisconnect: boolean | undefined;
+  videoAssociatedParams: VideoAssociatedParams | undefined;
 }
 
 export type LivenessEventTypes =
