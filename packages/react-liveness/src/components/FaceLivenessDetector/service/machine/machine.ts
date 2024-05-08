@@ -223,10 +223,22 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       waitForDOMAndCameraDetails: {
         after: {
           0: {
-            target: 'start',
+            target: 'initializeLivenessStream',
             cond: 'hasDOMAndCameraDetails',
           },
           10: { target: 'waitForDOMAndCameraDetails' },
+        },
+      },
+      initializeLivenessStream: {
+        invoke: {
+          src: 'openLivenessStreamConnection',
+          onDone: {
+            target: 'start',
+            actions: [
+              'updateLivenessStreamProvider',
+              'spawnResponseStreamActor',
+            ],
+          },
         },
       },
       start: {
@@ -271,22 +283,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       checkFaceDistanceBeforeRecording: {
         after: {
           0: {
-            target: 'initializeLivenessStream',
+            target: 'notRecording',
             cond: 'hasEnoughFaceDistanceBeforeRecording',
           },
           100: { target: 'detectFaceDistanceBeforeRecording' },
-        },
-      },
-      initializeLivenessStream: {
-        invoke: {
-          src: 'openLivenessStreamConnection',
-          onDone: {
-            target: 'notRecording',
-            actions: [
-              'updateLivenessStreamProvider',
-              'spawnResponseStreamActor',
-            ],
-          },
         },
       },
       notRecording: {

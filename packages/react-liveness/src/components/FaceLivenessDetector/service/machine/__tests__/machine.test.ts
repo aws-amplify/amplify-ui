@@ -81,9 +81,7 @@ describe('Liveness Machine', () => {
     });
   }
 
-  async function transitionToInitializeLivenessStream(
-    service: LivenessInterpreter
-  ) {
+  async function transitionToNotRecording(service: LivenessInterpreter) {
     transitionToCameraCheck(service);
     await flushPromises(); // waitForDOMAndCameraDetails
 
@@ -95,7 +93,8 @@ describe('Liveness Machine', () => {
         freshnessColorEl: mockFreshnessColorEl,
       },
     });
-    jest.advanceTimersToNextTimer(); // start
+    jest.advanceTimersToNextTimer(); // initializeLivenessStream
+    await flushPromises();
 
     service.send({
       type: 'BEGIN',
@@ -106,7 +105,7 @@ describe('Liveness Machine', () => {
     jest.advanceTimersToNextTimer(); // initializeLivenessStream
   }
   async function transitionToRecording(service: LivenessInterpreter) {
-    await transitionToInitializeLivenessStream(service);
+    await transitionToNotRecording(service);
     await flushPromises(); // notRecording: 'waitForSessionInfo'
 
     service.send({
@@ -324,7 +323,7 @@ describe('Liveness Machine', () => {
       });
       jest.advanceTimersToNextTimer();
 
-      expect(service.state.value).toEqual('start');
+      expect(service.state.value).toEqual('initializeLivenessStream');
     });
   });
 
@@ -341,7 +340,8 @@ describe('Liveness Machine', () => {
           freshnessColorEl: mockFreshnessColorEl,
         },
       });
-      jest.advanceTimersToNextTimer(); // start
+      jest.advanceTimersToNextTimer(); // initializeLivenessStream
+      await flushPromises();
 
       service.send({
         type: 'BEGIN',
@@ -362,7 +362,8 @@ describe('Liveness Machine', () => {
           freshnessColorEl: mockFreshnessColorEl,
         },
       });
-      jest.advanceTimersToNextTimer(); // start
+      jest.advanceTimersToNextTimer(); // initializeLivenessStream
+      await flushPromises();
 
       service.send({
         type: 'BEGIN',
@@ -381,7 +382,7 @@ describe('Liveness Machine', () => {
 
   describe('notRecording', () => {
     it('should reach recording state on START_RECORDING', async () => {
-      await transitionToInitializeLivenessStream(service);
+      await transitionToNotRecording(service);
       await flushPromises(); // notRecording: 'waitForSessionInfo'
 
       service.send({
