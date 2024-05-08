@@ -8,7 +8,7 @@ export function StorageManagerExample() {
   return (
     <StorageManager
       acceptedFileTypes={['image/*']}
-      accessLevel="guest"
+      path="public/"
       autoUpload={false}
       maxFileCount={10}
       showThumbnails

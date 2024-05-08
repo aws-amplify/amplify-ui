@@ -1,12 +1,9 @@
-import React from 'react';
+import React from 'react'; // IGNORE
+import { Amplify } from 'aws-amplify'; // IGNORE
+import awsconfig from './aws-exports'; // IGNORE
 import { Button } from 'react-native';
-
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
-import { Amplify } from 'aws-amplify';
-
-import awsconfig from './aws-exports';
-
-Amplify.configure(awsconfig);
+Amplify.configure(awsconfig); // IGNORE
 
 function SignOutButton() {
   const { signOut } = useAuthenticator();
@@ -18,9 +15,7 @@ function App() {
     <Authenticator.Provider>
       <Authenticator
         components={{
-          SignIn: (props) => (
-            <Authenticator.SignIn {...props} hideSignUp />
-          ),
+          SignIn: (props) => <Authenticator.SignIn {...props} hideSignUp />,
         }}
       >
         <SignOutButton />

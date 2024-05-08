@@ -1,6 +1,5 @@
-import { UploadDataOutput } from 'aws-amplify/storage';
-
 import { FileStatus, StorageFiles } from '../../types';
+import { UploadTask } from '../../utils';
 
 export interface UseStorageManagerState {
   files: StorageFiles;
@@ -39,7 +38,7 @@ export type Action =
   | {
       type: StorageManagerActionTypes.SET_STATUS_UPLOADING;
       id: string;
-      uploadTask?: UploadDataOutput;
+      uploadTask?: UploadTask;
     }
   | {
       type: StorageManagerActionTypes.SET_UPLOAD_PROGRESS;

@@ -41,7 +41,8 @@ _app.component.ts_
 import { Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 
-import awsExports from './aws-exports';
+// import config from './aws-exports'; // Amplify Gen 1 config
+import config from './amplify_outputs.json'
 
 @Component({
   selector: 'app',
@@ -49,7 +50,7 @@ import awsExports from './aws-exports';
 })
 export class AppComponent {
   constructor() {
-    Amplify.configure(awsExports);
+    Amplify.configure(config);
   }
 
   public formFields = {
@@ -236,7 +237,9 @@ _app.component.ts_
 import { Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 
-import awsExports from './aws-exports';
+// import config from './aws-exports'; // Amplify Gen 1 config
+import config from './amplify_outputs.json'
+
 
 @Component({
   selector: 'app',
@@ -244,7 +247,7 @@ import awsExports from './aws-exports';
 })
 export class AppComponent {
   constructor() {
-    Amplify.configure(awsExports);
+    Amplify.configure(config);
   }
   public formFields = {
     signIn: {
@@ -363,7 +366,9 @@ _app.component.ts_
 import { Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 
-import awsExports from './aws-exports';
+// import config from './aws-exports'; // Amplify Gen 1 config
+import config from './amplify_outputs.json'
+
 
 @Component({
   selector: 'app',
@@ -371,7 +376,7 @@ import awsExports from './aws-exports';
 })
 export class AppComponent {
   constructor() {
-    Amplify.configure(awsExports);
+    Amplify.configure(config);
   }
   public formFields = {
     signIn: {
@@ -488,7 +493,8 @@ _app.component.ts_
 import { Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 
-import awsExports from './aws-exports';
+// import config from './aws-exports'; // Amplify Gen 1 config
+import config from './amplify_outputs.json'
 
 @Component({
   selector: 'app',
@@ -496,7 +502,7 @@ import awsExports from './aws-exports';
 })
 export class AppComponent {
   constructor() {
-    Amplify.configure(awsExports);
+    Amplify.configure(config);
   }
   public formFields = {
     signIn: {
@@ -632,7 +638,8 @@ _app.component.ts_
 import { Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 
-import awsExports from './aws-exports';
+// import config from './aws-exports'; // Amplify Gen 1 config
+import config from './amplify_outputs.json'
 
 @Component({
   selector: 'app',
@@ -640,7 +647,7 @@ import awsExports from './aws-exports';
 })
 export class AppComponent {
   constructor() {
-    Amplify.configure(awsExports);
+    Amplify.configure(config);
   }
   public formFields = {
     setupTotp: {
