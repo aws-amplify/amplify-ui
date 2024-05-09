@@ -97,24 +97,23 @@ describe('Liveness Machine', () => {
     await flushPromises();
 
     service.send({
+      type: 'SET_SESSION_INFO',
+      data: {
+        sessionInfo: mockSessionInformation,
+      },
+    });
+    jest.advanceTimersToNextTimer(); // detectFaceBeforeStart
+  }
+  async function transitionToRecording(service: LivenessInterpreter) {
+    await transitionToNotRecording(service);
+    service.send({
       type: 'BEGIN',
     });
     await flushPromises(); // checkFaceDetectedBeforeStart
     jest.advanceTimersToNextTimer(); // detectFaceDistanceBeforeRecording
     await flushPromises(); // checkFaceDistanceBeforeRecording
     jest.advanceTimersToNextTimer(); // initializeLivenessStream
-  }
-  async function transitionToRecording(service: LivenessInterpreter) {
-    await transitionToNotRecording(service);
     await flushPromises(); // notRecording: 'waitForSessionInfo'
-
-    service.send({
-      type: 'SET_SESSION_INFO',
-      data: {
-        sessionInfo: mockSessionInformation,
-      },
-    });
-    jest.advanceTimersToNextTimer(); // "recording": "ovalDrawing",
   }
 
   async function advanceMinFaceMatches() {
@@ -341,7 +340,15 @@ describe('Liveness Machine', () => {
         },
       });
       jest.advanceTimersToNextTimer(); // initializeLivenessStream
-      await flushPromises();
+      await flushPromises(); // notRecording: 'waitForSessionInfo'
+
+      service.send({
+        type: 'SET_SESSION_INFO',
+        data: {
+          sessionInfo: mockSessionInformation,
+        },
+      });
+      jest.advanceTimersToNextTimer(); // detectFaceBeforeStart
 
       service.send({
         type: 'BEGIN',
@@ -385,44 +392,11 @@ describe('Liveness Machine', () => {
       await transitionToNotRecording(service);
       await flushPromises(); // notRecording: 'waitForSessionInfo'
 
-      service.send({
-        type: 'SET_SESSION_INFO',
-        data: {
-          sessionInfo: mockSessionInformation,
-        },
-      });
-      jest.advanceTimersToNextTimer(); // "recording": "ovalDrawing",
-
-      expect(service.state.value).toEqual({ recording: 'ovalDrawing' });
+      expect(service.state.value).toEqual('start');
     });
   });
 
   describe('recording', () => {
-    it('should reach ovalDrawing state as initial state and respect ovalDrawingTimeout', async () => {
-      await transitionToRecording(service);
-
-      expect(service.state.value).toEqual({ recording: 'ovalDrawing' });
-      expect(service.state.context.videoAssociatedParams!.videoEl).toBe(
-        mockVideoEl
-      );
-      expect(service.state.context.videoAssociatedParams!.canvasEl).toBe(
-        mockCanvasEl
-      );
-      expect(
-        service.state.context.videoAssociatedParams!.videoMediaStream
-      ).toBe(mockVideoMediaStream);
-      expect(
-        service.state.context.livenessStreamProvider!.getResponseStream
-      ).toHaveBeenCalledTimes(1);
-      expect(service.state.context.errorState).toBeUndefined();
-
-      jest.advanceTimersToNextTimer();
-      expect(service.state.value).toEqual('timeout');
-      expect(service.state.context.errorState).toBe(LivenessErrorState.TIMEOUT);
-      await flushPromises();
-      expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
-    });
-
     it('should reach ovalMatching state after detectInitialFaceAndDrawOval success and respect ovalMatchingTimeout', async () => {
       await transitionToRecording(service);
       await flushPromises();

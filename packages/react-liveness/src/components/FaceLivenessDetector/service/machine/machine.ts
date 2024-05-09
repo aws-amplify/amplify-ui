@@ -233,11 +233,25 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         invoke: {
           src: 'openLivenessStreamConnection',
           onDone: {
-            target: 'start',
+            target: 'notRecording',
             actions: [
               'updateLivenessStreamProvider',
               'spawnResponseStreamActor',
             ],
+          },
+        },
+      },
+      notRecording: {
+        initial: 'waitForSessionInfo',
+        states: {
+          waitForSessionInfo: {
+            after: {
+              0: {
+                target: '#livenessMachine.start',
+                cond: 'hasServerSessionInfo',
+              },
+              100: { target: 'waitForSessionInfo' },
+            },
           },
         },
       },
@@ -283,24 +297,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       checkFaceDistanceBeforeRecording: {
         after: {
           0: {
-            target: 'notRecording',
+            target: 'recording',
             cond: 'hasEnoughFaceDistanceBeforeRecording',
           },
           100: { target: 'detectFaceDistanceBeforeRecording' },
-        },
-      },
-      notRecording: {
-        initial: 'waitForSessionInfo',
-        states: {
-          waitForSessionInfo: {
-            after: {
-              0: {
-                target: '#livenessMachine.recording',
-                cond: 'hasServerSessionInfo',
-              },
-              100: { target: 'waitForSessionInfo' },
-            },
-          },
         },
       },
       recording: {
