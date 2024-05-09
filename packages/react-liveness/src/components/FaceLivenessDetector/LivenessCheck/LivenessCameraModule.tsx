@@ -71,14 +71,6 @@ export interface LivenessCameraModuleProps {
   testId?: string;
 }
 
-const centeredLoader = (
-  <Loader
-    size="large"
-    className={LivenessClassNames.Loader}
-    data-testid="centered-loader"
-  />
-);
-
 const showMatchIndicatorStates = [
   FaceMatchState.TOO_FAR,
   FaceMatchState.CANT_IDENTIFY,
@@ -136,8 +128,12 @@ export const LivenessCameraModule = (
   const freshnessColorRef = useRef<HTMLCanvasElement | null>(null);
 
   const [isCameraReady, setIsCameraReady] = useState<boolean>(false);
-  const isCheckingCamera = state.matches('cameraCheck');
-  const isWaitingForCamera = state.matches('waitForDOMAndCameraDetails');
+  const isInitCamera = state.matches('initCamera');
+  const isInitWebsocket = state.matches('initWebsocket');
+  const isCheckingCamera = state.matches({ initCamera: 'cameraCheck' });
+  const isWaitingForCamera = state.matches({
+    initCamera: 'waitForDOMAndCameraDetails',
+  });
   const isStartView = state.matches('start') || state.matches('userCancel');
   const isDetectFaceBeforeStart = state.matches('detectFaceBeforeStart');
   const isRecording = state.matches('recording');
@@ -274,7 +270,7 @@ export const LivenessCameraModule = (
       >
         <Loader
           size="large"
-          className={LivenessClassNames.Loader}
+          className={LivenessClassNames.CenteredLoader}
           data-testid="centered-loader"
           position="unset"
         />
@@ -290,13 +286,31 @@ export const LivenessCameraModule = (
     );
   }
 
+  const shouldShowCenteredLoader = isInitCamera || isInitWebsocket;
+
   // We don't show full screen camera on the pre check screen (isStartView/isWaitingForCamera)
   const shouldShowFullScreenCamera =
-    isMobileScreen && !isStartView && !isWaitingForCamera;
+    isMobileScreen &&
+    !isStartView &&
+    !isWaitingForCamera &&
+    !shouldShowCenteredLoader;
 
   return (
     <>
       {photoSensitivityWarning}
+
+      {shouldShowCenteredLoader && (
+        <Flex className={LivenessClassNames.ConnectingLoader}>
+          <Loader
+            size="large"
+            className={LivenessClassNames.Loader}
+            data-testid="centered-loader"
+          />
+          <Text className={LivenessClassNames.LandscapeErrorModalHeader}>
+            {hintDisplayText.hintConnectingText}
+          </Text>
+        </Flex>
+      )}
 
       <Flex
         className={classNames(
@@ -307,8 +321,6 @@ export const LivenessCameraModule = (
         data-testid={testId}
         gap="zero"
       >
-        {!isCameraReady && centeredLoader}
-
         <Overlay
           horizontal="center"
           vertical={

@@ -181,7 +181,7 @@ describe('Liveness Machine', () => {
 
   it('should be in the cameraCheck state', () => {
     service.start();
-    expect(service.state.value).toBe('cameraCheck');
+    expect(service.state.value).toStrictEqual({ initCamera: 'cameraCheck' });
   });
 
   it('should reach start state on CANCEL', async () => {
@@ -189,7 +189,9 @@ describe('Liveness Machine', () => {
     service.send('CANCEL');
     await flushPromises();
 
-    expect(service.state.value).toBe('waitForDOMAndCameraDetails');
+    expect(service.state.value).toStrictEqual({
+      initCamera: 'waitForDOMAndCameraDetails',
+    });
     expect(mockcomponentProps.onUserCancel).toHaveBeenCalledTimes(1);
   });
 
@@ -198,7 +200,9 @@ describe('Liveness Machine', () => {
       transitionToCameraCheck(service);
 
       await flushPromises();
-      expect(service.state.value).toBe('waitForDOMAndCameraDetails');
+      expect(service.state.value).toStrictEqual({
+        initCamera: 'waitForDOMAndCameraDetails',
+      });
       expect(
         service.state.context.videoAssociatedParams!.videoMediaStream
       ).toEqual(mockVideoMediaStream);
@@ -232,7 +236,9 @@ describe('Liveness Machine', () => {
       transitionToCameraCheck(service);
 
       await flushPromises();
-      expect(service.state.value).toBe('waitForDOMAndCameraDetails');
+      expect(service.state.value).toStrictEqual({
+        initCamera: 'waitForDOMAndCameraDetails',
+      });
       expect(
         service.state.context.videoAssociatedParams!.videoMediaStream?.getTracks
       ).toBeDefined();
@@ -303,7 +309,7 @@ describe('Liveness Machine', () => {
       service.send({
         type: 'RETRY_CAMERA_CHECK',
       });
-      expect(service.state.value).toBe('cameraCheck');
+      expect(service.state.value).toStrictEqual({ initCamera: 'cameraCheck' });
     });
   });
 
@@ -322,7 +328,9 @@ describe('Liveness Machine', () => {
       });
       jest.advanceTimersToNextTimer();
 
-      expect(service.state.value).toEqual('initializeLivenessStream');
+      expect(service.state.value).toStrictEqual({
+        initWebsocket: 'initializeLivenessStream',
+      });
     });
   });
 
@@ -382,7 +390,7 @@ describe('Liveness Machine', () => {
       await flushPromises(); // notRecording
 
       expect(service.state.value).toEqual({
-        notRecording: 'waitForSessionInfo',
+        initWebsocket: 'waitForSessionInfo',
       });
     });
   });
