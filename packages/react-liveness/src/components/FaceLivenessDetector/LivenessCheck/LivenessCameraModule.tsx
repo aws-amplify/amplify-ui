@@ -292,7 +292,6 @@ export const LivenessCameraModule = (
   const shouldShowFullScreenCamera =
     isMobileScreen &&
     !isStartView &&
-    !isWaitingForCamera &&
     !shouldShowCenteredLoader;
 
   return (
