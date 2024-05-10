@@ -1,5 +1,51 @@
 # @aws-amplify/ui-react-core
 
+## 3.0.14
+
+### Patch Changes
+
+- [#5193](https://github.com/aws-amplify/amplify-ui/pull/5193) [`de2402842`](https://github.com/aws-amplify/amplify-ui/commit/de2402842c75e186e2c5515d20cb1873bbabc4a0) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(aws-amplify): point amplify to 6.2.0
+
+- [#5186](https://github.com/aws-amplify/amplify-ui/pull/5186) [`9ce5f9d88`](https://github.com/aws-amplify/amplify-ui/commit/9ce5f9d88dce131fe15870bda9545915e72e7e01) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(@aws-amplify/ui-react-storage): Add handling for `aws-amplify/storage` improvements:
+
+  **Update `StorageManager` to support differing usages of `path` prop** - existing: `accessLevel` prop provided with or without optional `path` prop - additive: no `accessLevel` prop provided with required `path` as either a `string` or a callback provided the current `identityId`
+
+  Migrate from `accessLevel` to `path` as a `string`:
+
+  ```diff
+    <StorageManager
+  -   accessLevel="guest"
+  +   path="public/"
+      maxFileCount={1}
+    />
+  ```
+
+  Migrate from `accessLevel` to `path` as a callback:
+
+  ```diff
+    <StorageManager
+  -   accessLevel="private"
+  -   path="images/"
+  +   path={({ identityId }) => `private/${identityId}/images/`}
+      maxFileCount={1}
+    />
+  ```
+
+  **Update `StorageImage` to support `path` prop**
+
+  Migrate from `imagKey` and `accessLevel` to `path`:
+
+  ```diff
+    <StorageImage
+  -   imgKey="cat.jpeg"
+  -   accessLevel="public"
+  +   path="public/cat.jpeg"
+    />
+  ```
+
+- Updated dependencies [[`de2402842`](https://github.com/aws-amplify/amplify-ui/commit/de2402842c75e186e2c5515d20cb1873bbabc4a0)]:
+  - @aws-amplify/ui@6.0.14
+
 ## 3.0.13
 
 ### Patch Changes

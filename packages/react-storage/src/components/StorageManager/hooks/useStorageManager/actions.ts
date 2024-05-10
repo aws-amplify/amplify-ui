@@ -1,5 +1,3 @@
-import { UploadDataOutput } from 'aws-amplify/storage';
-
 import { FileStatus } from '../../types';
 
 import {
@@ -7,45 +5,35 @@ import {
   AddFilesActionParams,
   StorageManagerActionTypes,
 } from './types';
+import { TaskEvent } from '../../utils';
 
 export const addFilesAction = ({
   files,
   status,
   getFileErrorMessage,
-}: AddFilesActionParams): Action => {
-  return {
-    type: StorageManagerActionTypes.ADD_FILES,
-    files,
-    status,
-    getFileErrorMessage,
-  };
-};
+}: AddFilesActionParams): Action => ({
+  type: StorageManagerActionTypes.ADD_FILES,
+  files,
+  status,
+  getFileErrorMessage,
+});
 
-export const clearFilesAction = (): Action => {
-  return {
-    type: StorageManagerActionTypes.CLEAR_FILES,
-  };
-};
+export const clearFilesAction = (): Action => ({
+  type: StorageManagerActionTypes.CLEAR_FILES,
+});
 
-export const queueFilesAction = (): Action => {
-  return {
-    type: StorageManagerActionTypes.QUEUE_FILES,
-  };
-};
+export const queueFilesAction = (): Action => ({
+  type: StorageManagerActionTypes.QUEUE_FILES,
+});
 
 export const setUploadingFileAction = ({
   id,
   uploadTask,
-}: {
-  id: string;
-  uploadTask: UploadDataOutput | undefined;
-}): Action => {
-  return {
-    type: StorageManagerActionTypes.SET_STATUS_UPLOADING,
-    id,
-    uploadTask,
-  };
-};
+}: TaskEvent): Action => ({
+  type: StorageManagerActionTypes.SET_STATUS_UPLOADING,
+  id,
+  uploadTask,
+});
 
 export const setUploadProgressAction = ({
   id,
@@ -53,13 +41,11 @@ export const setUploadProgressAction = ({
 }: {
   id: string;
   progress: number;
-}): Action => {
-  return {
-    type: StorageManagerActionTypes.SET_UPLOAD_PROGRESS,
-    id,
-    progress,
-  };
-};
+}): Action => ({
+  type: StorageManagerActionTypes.SET_UPLOAD_PROGRESS,
+  id,
+  progress,
+});
 
 export const setUploadStatusAction = ({
   id,
@@ -67,17 +53,13 @@ export const setUploadStatusAction = ({
 }: {
   id: string;
   status: FileStatus;
-}): Action => {
-  return {
-    type: StorageManagerActionTypes.SET_STATUS,
-    id,
-    status,
-  };
-};
+}): Action => ({
+  type: StorageManagerActionTypes.SET_STATUS,
+  id,
+  status,
+});
 
-export const removeUploadAction = ({ id }: { id: string }): Action => {
-  return {
-    type: StorageManagerActionTypes.REMOVE_UPLOAD,
-    id,
-  };
-};
+export const removeUploadAction = ({ id }: { id: string }): Action => ({
+  type: StorageManagerActionTypes.REMOVE_UPLOAD,
+  id,
+});

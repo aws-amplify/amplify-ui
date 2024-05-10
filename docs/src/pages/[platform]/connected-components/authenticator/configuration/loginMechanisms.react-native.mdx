@@ -8,104 +8,43 @@ but can be explicitly defined as seen below.
 
 </Alert>
 
-By default, the Authenticator creates new users in the Amazon Cognito UserPool based on a unique `username` using
-[`Auth.signUp`](https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js).
-
-You can provide an alternative `username` such as `email` or `phone_number`.
+By default, the Authenticator creates new users in the Amazon Cognito UserPool based on a unique `username`, `email` or `phone_number`.
 
 > **Note**: A `username`, `email`, or `phone_number` value is required for Cognito User Pools.
 
-<Tabs.Container defaultValue="Username">
+<Tabs.Container defaultValue="Email">
   <Tabs.List>
-    <Tabs.Item value="Username">Username</Tabs.Item>
     <Tabs.Item value="Email">Email</Tabs.Item>
     <Tabs.Item value="Phone Number">Phone Number</Tabs.Item>
+    <Tabs.Item value="Username">Username</Tabs.Item>
   </Tabs.List>
-  <Tabs.Panel value="Username">
-    ```jsx expoSnack
-    import React from 'react';
-    import { Button } from 'react-native';
-
-    import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
-    import { Amplify } from 'aws-amplify';
-    import awsconfig from './aws-exports';
-
-    Amplify.configure(awsconfig);
-
-    function SignOutButton() {
-      const { signOut } = useAuthenticator();
-      return <Button title="Sign Out" onPress={signOut} />;
-    }
-
-    function App() {
-      return (
-        <Authenticator.Provider>
-          <Authenticator loginMechanisms={['username']}>
-            <SignOutButton />
-          </Authenticator>
-        </Authenticator.Provider>
-      );
-    }
-
-    export default App;
-    ```
-  </Tabs.Panel>
   <Tabs.Panel value="Email">
     ```jsx expoSnack
-    import React from 'react';
-    import { Button } from 'react-native';
-
-    import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
-    import { Amplify } from 'aws-amplify';
-    import awsconfig from './aws-exports';
-
-    Amplify.configure(awsconfig);
-
-    function SignOutButton() {
-      const { signOut } = useAuthenticator();
-      return <Button title="Sign Out" onPress={signOut} />;
-    }
-
-    function App() {
-      return (
-        <Authenticator.Provider>
-          <Authenticator loginMechanisms={['email']}>
-            <SignOutButton />
-          </Authenticator>
-        </Authenticator.Provider>
-      );
-    }
-
-    export default App;
+    <Authenticator.Provider>
+      <Authenticator loginMechanisms={['email']}>
+        <SignOutButton />
+      </Authenticator>
+    </Authenticator.Provider>
     ```
   </Tabs.Panel>
   <Tabs.Panel value="Phone Number">
     ```jsx expoSnack
-    import React from 'react';
-    import { Button } from 'react-native';
-
-    import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
-    import { Amplify } from 'aws-amplify';
-    import awsconfig from './aws-exports';
-
-    Amplify.configure(awsconfig);
-
-    function SignOutButton() {
-      const { signOut } = useAuthenticator();
-      return <Button title="Sign Out" onPress={signOut} />;
-    }
-
-    function App() {
-      return (
-        <Authenticator.Provider>
-          <Authenticator loginMechanisms={['phone_number']}>
-            <SignOutButton />
-          </Authenticator>
-        </Authenticator.Provider>
-      );
-    }
-
-    export default App;
+    <Authenticator.Provider>
+      <Authenticator loginMechanisms={['phone_number']}>
+        <SignOutButton />
+      </Authenticator>
+    </Authenticator.Provider>
+    ```
+  </Tabs.Panel>
+    <Tabs.Panel value="Username">
+    Note: Configuring sign in with `username` is not supported by Amplify Gen2 backends
+    
+    ```jsx expoSnack
+    <Authenticator.Provider>
+      <Authenticator loginMechanisms={['username']}>
+        <SignOutButton />
+      </Authenticator>
+    </Authenticator.Provider>
     ```
   </Tabs.Panel>
 </Tabs.Container>

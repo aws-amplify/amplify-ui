@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-native",
-  "version": "2.1.5",
+  "version": "2.2.0",
   "main": "lib/index.js",
   "module": "dist/index.js",
   "react-native": "src/index.ts",
@@ -29,13 +29,13 @@
     "react-native-safe-area-context": "^4.7.3"
   },
   "dependencies": {
-    "@aws-amplify/ui": "6.0.13",
-    "@aws-amplify/ui-react-core": "3.0.13",
-    "@aws-amplify/ui-react-core-notifications": "2.0.13"
+    "@aws-amplify/ui": "6.0.14",
+    "@aws-amplify/ui-react-core": "3.0.14",
+    "@aws-amplify/ui-react-core-notifications": "2.0.14"
   },
   "peerDependencies": {
-    "aws-amplify": "^6.0.30",
-    "react-native": "^0.70 || ^0.71 || ^0.72 || ^0.73",
+    "aws-amplify": "^6.2.0",
+    "react-native": "^0.70 || ^0.71 || ^0.72 || ^0.73 || ^0.74",
     "react-native-safe-area-context": "^4.2.5"
   },
   "files": [
