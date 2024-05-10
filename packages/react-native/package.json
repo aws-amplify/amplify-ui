@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-native",
-  "version": "2.1.6",
+  "version": "2.2.0",
   "main": "lib/index.js",
   "module": "dist/index.js",
   "react-native": "src/index.ts",
@@ -35,7 +35,7 @@
   },
   "peerDependencies": {
     "aws-amplify": "^6.2.0",
-    "react-native": "^0.70 || ^0.71 || ^0.72 || ^0.73",
+    "react-native": "^0.70 || ^0.71 || ^0.72 || ^0.73 || ^0.74",
     "react-native-safe-area-context": "^4.2.5"
   },
   "files": [

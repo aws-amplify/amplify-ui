@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-native
 
+## 2.2.0
+
+### Minor Changes
+
+- [#5226](https://github.com/aws-amplify/amplify-ui/pull/5226) [`80822552c`](https://github.com/aws-amplify/amplify-ui/commit/80822552c4040d797a3516cdcec8aa83987cfb96) Thanks [@calebpollman](https://github.com/calebpollman)! - deps(react-native): include 0.74.x in allowed peerDep range
+
 ## 2.1.6
 
 ### Patch Changes

@@ -7,8 +7,8 @@ import {
 import { StorageManager } from '@aws-amplify/ui-react-storage';
 
 import '@aws-amplify/ui-react/styles.css';
-import amplifyconfig from './aws-exports';
-Amplify.configure(amplifyconfig);
+import amplifyOutputs from './amplify_outputs';
+Amplify.configure(amplifyOutputs);
 
 export function StorageManagerExample() {
   const { signOut } = useAuthenticator((context) => [context.signOut]);
