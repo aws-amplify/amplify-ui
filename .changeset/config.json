@@ -7,7 +7,7 @@
   "commit": false,
   "linked": [],
   "access": "public",
-  "baseBranch": "main",
+  "baseBranch": "ui-react/v4-stable-test",
   "updateInternalDependencies": "patch",
   "ignore": [
     "@aws-amplify/ui-angular-mono",
