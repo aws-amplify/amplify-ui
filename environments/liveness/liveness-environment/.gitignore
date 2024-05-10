@@ -1,4 +1,4 @@
-
+!amplify/backend/awscloudformation/**
 
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
@@ -21,4 +21,3 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
-!amplify/backend/awscloudformation/**
