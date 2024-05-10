@@ -31,5 +31,3 @@ export const handler = async (event, req) => {
     body: JSON.stringify({ sessionId: response.SessionId }),
   };
 };
-
-handler({});
