@@ -46,6 +46,9 @@ describe('LivenessCameraModule', () => {
   let isNotRecording = false;
   let isRecording = false;
   let isStart = false;
+  let isInitCamera = false;
+  let isInitWebsocket = false;
+  let isWaitingForCamera = false;
 
   const {
     hintDisplayText,
@@ -58,8 +61,16 @@ describe('LivenessCameraModule', () => {
 
   function mockStateMatchesAndSelectors() {
     when(mockActorState.matches)
-      .calledWith('cameraCheck')
+      .calledWith('initCamera')
+      .mockReturnValue(isInitCamera)
+      .calledWith('initWebsocket')
+      .mockReturnValue(isInitWebsocket)
+      .calledWith({ initCamera: 'cameraCheck' })
       .mockReturnValue(isCheckingCamera)
+      .calledWith({
+        initCamera: 'waitForDOMAndCameraDetails',
+      })
+      .mockReturnValue(isWaitingForCamera)
       .calledWith('notRecording')
       .mockReturnValue(isNotRecording)
       .calledWith('start')
@@ -90,8 +101,27 @@ describe('LivenessCameraModule', () => {
     resetAllWhenMocks();
   });
 
-  it('should render centered loader when isCheckingCamera true', () => {
-    isCheckingCamera = true;
+  it('should render centered loader when isInitCamera true', () => {
+    isInitCamera = true;
+    mockStateMatchesAndSelectors();
+
+    renderWithLivenessProvider(
+      <LivenessCameraModule
+        isMobileScreen={false}
+        isRecordingStopped={false}
+        hintDisplayText={hintDisplayText}
+        streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        instructionDisplayText={instructionDisplayText}
+      />
+    );
+
+    expect(screen.getByTestId('centered-loader')).toBeInTheDocument();
+  });
+
+  it('should render centered loader when isInitWebsocket true', () => {
+    isInitWebsocket = true;
     mockStateMatchesAndSelectors();
 
     renderWithLivenessProvider(
@@ -437,5 +467,34 @@ describe('LivenessCameraModule', () => {
     const isRecordingStopped = selectIsRecordingStopped(state);
 
     expect(isRecordingStopped).toEqual(true);
+  });
+
+  it('should show a full screen camera', async () => {
+    isStart = false;
+    isInitCamera = false;
+    isInitWebsocket = false;
+    isWaitingForCamera = false;
+    mockStateMatchesAndSelectors();
+
+    const testId = 'cameraModule';
+
+    renderWithLivenessProvider(
+      <LivenessCameraModule
+        isMobileScreen={true}
+        isRecordingStopped={false}
+        hintDisplayText={hintDisplayText}
+        streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        instructionDisplayText={instructionDisplayText}
+        testId={testId}
+      />
+    );
+
+    const cameraModule = await screen.findByTestId(testId);
+
+    expect(cameraModule.className).toContain(
+      `${LivenessClassNames.CameraModule}--mobile`
+    );
   });
 });

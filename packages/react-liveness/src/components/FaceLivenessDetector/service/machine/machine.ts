@@ -134,7 +134,7 @@ function setLastSelectedCameraId(deviceId: string) {
 export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
   {
     id: 'livenessMachine',
-    initial: 'cameraCheck',
+    initial: 'initCamera',
     predictableActionArguments: true,
     context: {
       challengeId: nanoid(),
@@ -200,24 +200,55 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
     },
     states: {
-      cameraCheck: {
-        entry: 'resetErrorState',
-        invoke: {
-          src: 'checkVirtualCameraAndGetStream',
-          onDone: {
-            target: 'waitForDOMAndCameraDetails',
-            actions: 'updateVideoMediaStream',
+      initCamera: {
+        initial: 'cameraCheck',
+        on: {
+          SET_DOM_AND_CAMERA_DETAILS: {
+            actions: 'setDOMAndCameraDetails',
+            target: '#livenessMachine.initWebsocket',
           },
-          onError: { target: 'permissionDenied' },
+        },
+        states: {
+          cameraCheck: {
+            entry: 'resetErrorState',
+            invoke: {
+              src: 'checkVirtualCameraAndGetStream',
+              onDone: {
+                target: 'waitForDOMAndCameraDetails',
+                actions: 'updateVideoMediaStream',
+              },
+              onError: {
+                target: '#livenessMachine.permissionDenied',
+              },
+            },
+          },
+          waitForDOMAndCameraDetails: {},
         },
       },
-      waitForDOMAndCameraDetails: {
-        after: {
-          0: {
-            cond: 'hasDOMAndCameraDetails',
-            target: 'start',
+      initWebsocket: {
+        initial: 'initializeLivenessStream',
+        states: {
+          initializeLivenessStream: {
+            invoke: {
+              src: 'openLivenessStreamConnection',
+              onDone: {
+                target: 'waitForSessionInfo',
+                actions: [
+                  'updateLivenessStreamProvider',
+                  'spawnResponseStreamActor',
+                ],
+              },
+            },
           },
-          10: { target: 'waitForDOMAndCameraDetails' },
+          waitForSessionInfo: {
+            after: {
+              0: {
+                target: '#livenessMachine.start',
+                cond: 'hasServerSessionInfo',
+              },
+              100: { target: 'waitForSessionInfo' },
+            },
+          },
         },
       },
       start: {
@@ -262,36 +293,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       checkFaceDistanceBeforeRecording: {
         after: {
           0: {
-            target: 'initializeLivenessStream',
+            target: 'recording',
             cond: 'hasEnoughFaceDistanceBeforeRecording',
           },
           100: { target: 'detectFaceDistanceBeforeRecording' },
-        },
-      },
-      initializeLivenessStream: {
-        invoke: {
-          src: 'openLivenessStreamConnection',
-          onDone: {
-            target: 'notRecording',
-            actions: [
-              'updateLivenessStreamProvider',
-              'spawnResponseStreamActor',
-            ],
-          },
-        },
-      },
-      notRecording: {
-        initial: 'waitForSessionInfo',
-        states: {
-          waitForSessionInfo: {
-            after: {
-              0: {
-                target: '#livenessMachine.recording',
-                cond: 'hasServerSessionInfo',
-              },
-              100: { target: 'waitForSessionInfo' },
-            },
-          },
         },
       },
       recording: {
@@ -432,12 +437,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             target: 'timeout',
             cond: 'shouldTimeoutOnFailedAttempts',
           },
-          { target: 'notRecording' },
+          { target: 'start' },
         ],
       },
       permissionDenied: {
         entry: 'callUserPermissionDeniedCallback',
-        on: { RETRY_CAMERA_CHECK: 'cameraCheck' },
+        on: { RETRY_CAMERA_CHECK: 'initCamera' },
       },
       mobileLandscapeWarning: {
         entry: 'callMobileLandscapeWarningCallback',
@@ -458,7 +463,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       userCancel: {
         entry: ['cleanUpResources', 'callUserCancelCallback', 'resetContext'],
-        always: { target: 'cameraCheck' },
+        always: { target: 'initCamera' },
       },
     },
   },
@@ -561,11 +566,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       startRecording: assign({
         videoAssociatedParams: (context) => {
-          if (!context.serverSessionInformation) {
-            throw new Error(
-              'Session information was not received from response stream'
-            );
-          }
           if (
             context.livenessStreamProvider &&
             !context.livenessStreamProvider.isRecording()

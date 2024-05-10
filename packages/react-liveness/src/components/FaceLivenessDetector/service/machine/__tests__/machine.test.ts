@@ -81,9 +81,7 @@ describe('Liveness Machine', () => {
     });
   }
 
-  async function transitionToInitializeLivenessStream(
-    service: LivenessInterpreter
-  ) {
+  async function transitionToNotRecording(service: LivenessInterpreter) {
     transitionToCameraCheck(service);
     await flushPromises(); // waitForDOMAndCameraDetails
 
@@ -95,19 +93,8 @@ describe('Liveness Machine', () => {
         freshnessColorEl: mockFreshnessColorEl,
       },
     });
-    jest.advanceTimersToNextTimer(); // start
-
-    service.send({
-      type: 'BEGIN',
-    });
-    await flushPromises(); // checkFaceDetectedBeforeStart
-    jest.advanceTimersToNextTimer(); // detectFaceDistanceBeforeRecording
-    await flushPromises(); // checkFaceDistanceBeforeRecording
     jest.advanceTimersToNextTimer(); // initializeLivenessStream
-  }
-  async function transitionToRecording(service: LivenessInterpreter) {
-    await transitionToInitializeLivenessStream(service);
-    await flushPromises(); // notRecording: 'waitForSessionInfo'
+    await flushPromises();
 
     service.send({
       type: 'SET_SESSION_INFO',
@@ -115,7 +102,18 @@ describe('Liveness Machine', () => {
         sessionInfo: mockSessionInformation,
       },
     });
-    jest.advanceTimersToNextTimer(); // "recording": "ovalDrawing",
+    jest.advanceTimersToNextTimer(); // detectFaceBeforeStart
+  }
+  async function transitionToRecording(service: LivenessInterpreter) {
+    await transitionToNotRecording(service);
+    service.send({
+      type: 'BEGIN',
+    });
+    await flushPromises(); // checkFaceDetectedBeforeStart
+    jest.advanceTimersToNextTimer(); // detectFaceDistanceBeforeRecording
+    await flushPromises(); // checkFaceDistanceBeforeRecording
+    jest.advanceTimersToNextTimer(); // initializeLivenessStream
+    await flushPromises(); // notRecording: 'waitForSessionInfo'
   }
 
   async function advanceMinFaceMatches() {
@@ -221,7 +219,7 @@ describe('Liveness Machine', () => {
 
   it('should be in the cameraCheck state', () => {
     service.start();
-    expect(service.state.value).toBe('cameraCheck');
+    expect(service.state.value).toStrictEqual({ initCamera: 'cameraCheck' });
   });
 
   it('should reach start state on CANCEL', async () => {
@@ -229,7 +227,9 @@ describe('Liveness Machine', () => {
     service.send('CANCEL');
     await flushPromises();
 
-    expect(service.state.value).toBe('waitForDOMAndCameraDetails');
+    expect(service.state.value).toStrictEqual({
+      initCamera: 'waitForDOMAndCameraDetails',
+    });
     expect(mockComponentProps.onUserCancel).toHaveBeenCalledTimes(1);
   });
 
@@ -238,7 +238,9 @@ describe('Liveness Machine', () => {
       transitionToCameraCheck(service);
 
       await flushPromises();
-      expect(service.state.value).toBe('waitForDOMAndCameraDetails');
+      expect(service.state.value).toStrictEqual({
+        initCamera: 'waitForDOMAndCameraDetails',
+      });
       expect(
         service.state.context.videoAssociatedParams!.videoMediaStream
       ).toEqual(mockVideoMediaStream);
@@ -272,7 +274,9 @@ describe('Liveness Machine', () => {
       transitionToCameraCheck(service);
 
       await flushPromises();
-      expect(service.state.value).toBe('waitForDOMAndCameraDetails');
+      expect(service.state.value).toStrictEqual({
+        initCamera: 'waitForDOMAndCameraDetails',
+      });
       expect(
         service.state.context.videoAssociatedParams!.videoMediaStream?.getTracks
       ).toBeDefined();
@@ -343,7 +347,7 @@ describe('Liveness Machine', () => {
       service.send({
         type: 'RETRY_CAMERA_CHECK',
       });
-      expect(service.state.value).toBe('cameraCheck');
+      expect(service.state.value).toStrictEqual({ initCamera: 'cameraCheck' });
     });
   });
 
@@ -362,7 +366,9 @@ describe('Liveness Machine', () => {
       });
       jest.advanceTimersToNextTimer();
 
-      expect(service.state.value).toEqual('start');
+      expect(service.state.value).toStrictEqual({
+        initWebsocket: 'initializeLivenessStream',
+      });
     });
   });
 
@@ -379,30 +385,7 @@ describe('Liveness Machine', () => {
           freshnessColorEl: mockFreshnessColorEl,
         },
       });
-      jest.advanceTimersToNextTimer(); // start
-
-      service.send({ type: 'BEGIN' });
-
-      expect(service.state.value).toEqual('detectFaceBeforeStart');
-      await flushPromises(); // checkFaceDetectedBeforeStart
-      expect(service.state.value).toBe('checkFaceDetectedBeforeStart');
-      jest.advanceTimersToNextTimer(); // detectFaceDistanceBeforeRecording
-      expect(service.state.value).toBe('detectFaceDistanceBeforeRecording');
-      await flushPromises(); // checkFaceDistanceBeforeRecording
-      expect(service.state.value).toBe('checkFaceDistanceBeforeRecording');
       jest.advanceTimersToNextTimer(); // initializeLivenessStream
-      expect(service.state.value).toBe('initializeLivenessStream');
-      await flushPromises(); // notRecording
-
-      expect(service.state.value).toEqual({
-        notRecording: 'waitForSessionInfo',
-      });
-    });
-  });
-
-  describe('notRecording', () => {
-    it('should reach recording state on START_RECORDING', async () => {
-      await transitionToInitializeLivenessStream(service);
       await flushPromises(); // notRecording: 'waitForSessionInfo'
 
       service.send({
@@ -411,36 +394,61 @@ describe('Liveness Machine', () => {
           sessionInfo: mockSessionInformation,
         },
       });
-      jest.advanceTimersToNextTimer(); // "recording": "ovalDrawing",
+      jest.advanceTimersToNextTimer(); // detectFaceBeforeStart
 
+      service.send({ type: 'BEGIN' });
+
+      expect(service.state.value).toEqual('detectFaceBeforeStart');
+    });
+
+    it('should reach recording state after detecting face', async () => {
+      transitionToCameraCheck(service);
+      await flushPromises(); // waitForDOMAndCameraDetails
+
+      service.send({
+        type: 'SET_DOM_AND_CAMERA_DETAILS',
+        data: {
+          videoEl: mockVideoEl,
+          canvasEl: mockCanvasEl,
+          freshnessColorEl: mockFreshnessColorEl,
+        },
+      });
+      jest.advanceTimersToNextTimer(); // initializeLivenessStream
+      await flushPromises();
+
+      service.send({
+        type: 'SET_SESSION_INFO',
+        data: {
+          sessionInfo: mockSessionInformation,
+        },
+      });
+      jest.advanceTimersToNextTimer(); // detectFaceBeforeStart
+
+      service.send({
+        type: 'BEGIN',
+      });
+      await flushPromises(); // checkFaceDetectedBeforeStart
+      expect(service.state.value).toBe('checkFaceDetectedBeforeStart');
+      jest.advanceTimersToNextTimer(); // detectFaceDistanceBeforeRecording
+      expect(service.state.value).toBe('detectFaceDistanceBeforeRecording');
+      await flushPromises(); // checkFaceDistanceBeforeRecording
+      expect(service.state.value).toBe('checkFaceDistanceBeforeRecording');
+      jest.advanceTimersToNextTimer(); // initializeLivenessStream
       expect(service.state.value).toEqual({ recording: 'ovalDrawing' });
     });
   });
 
-  describe('recording', () => {
-    it('should reach ovalDrawing state as initial state and respect ovalDrawingTimeout', async () => {
-      await transitionToRecording(service);
+  describe('notRecording', () => {
+    it('should reach recording state on START_RECORDING', async () => {
+      await transitionToNotRecording(service);
+      await flushPromises(); // notRecording: 'waitForSessionInfo'
 
-      expect(service.state.value).toEqual({ recording: 'ovalDrawing' });
-      expect(service.state.context.videoAssociatedParams!.videoEl).toBe(
-        mockVideoEl
-      );
-      expect(service.state.context.videoAssociatedParams!.canvasEl).toBe(
-        mockCanvasEl
-      );
-      expect(
-        service.state.context.videoAssociatedParams!.videoMediaStream
-      ).toBe(mockVideoMediaStream);
-      expect(service.state.context.errorState).toBeUndefined();
-
-      jest.advanceTimersToNextTimer();
-      expect(service.state.value).toEqual('timeout');
-      expect(service.state.context.errorState).toBe(LivenessErrorState.TIMEOUT);
-      await flushPromises();
-      expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
+      expect(service.state.value).toEqual('start');
     });
+  });
 
-    it('should reach ovalMatching state after detectInitialFaceAndDrawOval success and timeout', async () => {
+  describe('recording', () => {
+    it('should reach ovalMatching state after detectInitialFaceAndDrawOval success and respect ovalMatchingTimeout', async () => {
       await transitionToRecording(service);
       await flushPromises();
 
