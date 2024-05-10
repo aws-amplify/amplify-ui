@@ -1,5 +1,6 @@
 import 'jest-canvas-mock';
 import {
+  clearOvalCanvas,
   drawLivenessOvalInCanvas,
   estimateIllumination,
   fillOverlayCanvasFractional,
@@ -106,6 +107,41 @@ describe('Liveness Helper', () => {
       expect(ovalParameters.centerY).toBe(4);
       expect(ovalParameters.width).toBe(1);
       expect(ovalParameters.height).toBe(2);
+    });
+
+    it('should throw an error if some oval parameters are not defined', () => {
+      const badSessionInfo = {
+        Challenge: {
+          FaceMovementAndLightChallenge: {
+            ChallengeConfig: {
+              BlazeFaceDetectionThreshold: 0.75,
+              FaceDistanceThreshold: 0.4000000059604645,
+              FaceDistanceThresholdMax: 0,
+              FaceDistanceThresholdMin: 0.4000000059604645,
+              FaceIouHeightThreshold: 0.15000000596046448,
+              FaceIouWidthThreshold: 0.15000000596046448,
+              OvalHeightWidthRatio: 1.6180000305175781,
+              OvalIouHeightThreshold: 0.25,
+              OvalIouThreshold: 0.6,
+              OvalIouWidthThreshold: 0.25,
+            },
+            OvalParameters: {
+              Width: undefined,
+              Height: undefined,
+              CenterX: undefined,
+              CenterY: undefined,
+            },
+            LightChallengeType: 'SEQUENTIAL',
+            ColorSequences: [],
+          },
+        },
+      };
+      expect(() => {
+        getOvalDetailsFromSessionInformation({
+          sessionInformation: badSessionInfo,
+          videoWidth: 1,
+        });
+      }).toThrow();
     });
   });
 
@@ -468,6 +504,29 @@ describe('Liveness Helper', () => {
       Object.defineProperty(videoEl, 'videoWidth', { value: 100 });
       Object.defineProperty(videoEl, 'videoHeight', { value: 100 });
       expect(estimateIllumination(videoEl)).toBe(IlluminationState.DARK);
+    });
+  });
+
+  describe('clearOvalCanvas', () => {
+    it('should attempt to clear the oval canvas', () => {
+      const canvas = getMockContext().videoAssociatedParams?.canvasEl!;
+
+      clearOvalCanvas({ canvas });
+
+      const canvasContext = canvas.getContext('2d');
+
+      expect(canvasContext!.restore).toBeCalled();
+      expect(canvasContext!.clearRect).toBeCalled();
+    });
+
+    it('should fail if no context is found', () => {
+      const mockGetContext = jest.fn().mockReturnValue(undefined);
+      const canvas = context.videoAssociatedParams?.canvasEl!;
+      (canvas as any).getContext = mockGetContext;
+
+      expect(() => {
+        clearOvalCanvas({ canvas });
+      }).toThrow();
     });
   });
 });

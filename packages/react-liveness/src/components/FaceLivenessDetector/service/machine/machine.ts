@@ -202,6 +202,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
     states: {
       initCamera: {
         initial: 'cameraCheck',
+        on: {
+          SET_DOM_AND_CAMERA_DETAILS: {
+            actions: 'setDOMAndCameraDetails',
+            target: '#livenessMachine.initWebsocket',
+          },
+        },
         states: {
           cameraCheck: {
             entry: 'resetErrorState',
@@ -216,15 +222,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               },
             },
           },
-          waitForDOMAndCameraDetails: {
-            after: {
-              0: {
-                target: '#livenessMachine.initWebsocket',
-                cond: 'hasDOMAndCameraDetails',
-              },
-              10: { target: 'waitForDOMAndCameraDetails' },
-            },
-          },
+          waitForDOMAndCameraDetails: {},
         },
       },
       initWebsocket: {
@@ -568,11 +566,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       startRecording: assign({
         videoAssociatedParams: (context) => {
-          if (!context.serverSessionInformation) {
-            throw new Error(
-              'Session information was not received from response stream'
-            );
-          }
           if (
             context.livenessStreamProvider &&
             !context.livenessStreamProvider.isRecording()
