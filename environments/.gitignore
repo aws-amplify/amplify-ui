@@ -17,6 +17,7 @@
 **/node_modules/
 **/aws-exports.js
 **/awsconfiguration.json
+**/amplify_outputs.json
 **/amplifyconfiguration.json
 **/amplifyconfiguration.dart
 **/amplify-build-config.json

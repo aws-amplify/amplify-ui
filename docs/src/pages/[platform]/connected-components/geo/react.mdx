@@ -5,7 +5,7 @@ import AppDirectoryAlert from '@/components/AppDirectoryAlert';
 import { Example } from '@/components/Example';
 
 Amplify UI Geo is powered by
-[Geo APIs](https://docs.amplify.aws/lib/geo/getting-started/q/platform/js/) and
+[Geo APIs](https://docs.amplify.aws/react/build-a-backend/add-aws-services/geo/) and
 [Amazon Location Service](https://aws.amazon.com/location/).
 
 ### Quick Start
@@ -19,7 +19,7 @@ There's a known issue for users of Create React App v4 where the default prod `b
 > Prerequisites:
 >
 > 1. Install `@aws-amplify/ui-react-geo` and `@aws-amplify/geo` with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/). ( e.g. `npm install @aws-amplify/ui-react-geo @aws-amplify/geo`)
-> 2. Create map resources by following the [Amplify Geo documentation](https://docs.amplify.aws/lib/geo/getting-started/q/platform/js/).
+> 2. Create map resources by following the [Amplify Geo documentation](https://docs.amplify.aws/react/build-a-backend/add-aws-services/geo/set-up-geo/).
 
 ## MapView
 
@@ -55,9 +55,10 @@ import { MapView } from '@aws-amplify/ui-react-geo';
 
 import '@aws-amplify/ui-react-geo/styles.css';
 
-import awsExports from './aws-exports';
+// import config from './aws-exports'; // Amplify Gen 1 config
+import config from './amplify_outputs.json'
 
-Amplify.configure(awsExports);
+Amplify.configure(config);
 
 export default function InitialViewport() {
   return (
@@ -134,9 +135,10 @@ import { MapView, LocationSearch } from '@aws-amplify/ui-react-geo';
 
 import '@aws-amplify/ui-react-geo/styles.css';
 
-import awsExports from './aws-exports';
+// import config from './aws-exports'; // Amplify Gen 1 config
+import config from './amplify_outputs.json'
+Amplify.configure(config);
 
-Amplify.configure(awsExports);
 export default function LocationSearchPosition() {
   return (
     <MapView>
