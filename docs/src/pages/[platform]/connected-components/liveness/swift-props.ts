@@ -113,4 +113,9 @@ export const FACE_LIVENESS_DETECTOR_ERROR_STATES = [
       'Service-wide throttling to recover from an operational event or service is not able to scale.',
     type: `Error`,
   },
+  {
+    name: `.invalidSignature`,
+    description: 'The signature on the request is invalid.',
+    type: `Error`,
+  },
 ];
