@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react
 
+## 4.7.0
+
+### Minor Changes
+
+- [#5238](https://github.com/aws-amplify/amplify-ui/pull/5238) [`1d676b407`](https://github.com/aws-amplify/amplify-ui/commit/1d676b40770f0270bd274274dc324262bb5668f0) Thanks [@thaddmt](https://github.com/thaddmt)! - tets change
+
 ## 4.6.5
 
 ### Patch Changes
