@@ -1,6 +1,5 @@
 ---
-"@aws-amplify/ui": patch
-"@aws-amplify/ui-react": patch
+"@aws-amplify/ui-react": minor
 ---
 
 tets change
