@@ -3,6 +3,7 @@
   "name": "@aws-amplify/ui-auth-with-all-attributes-environment",
   "version": "0.0.1",
   "scripts": {
-    "pull": "amplify pull --appId d401a6flvh7gn --envName dev"
+    "pull": "amplify pull --appId d401a6flvh7gn --envName dev",
+    "generate": "AWS_REGION=us-east-2 npx @aws-amplify/backend-cli@latest generate outputs --branch gen2-auth-with-all-attributes --app-id d3lukld24augjv"
   }
 }

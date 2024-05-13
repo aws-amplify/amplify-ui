@@ -53,14 +53,6 @@ Feature: Sign In with Phone Number
     Then I see "User does not exist."
 
   @angular @react @vue @react-native
-  Scenario: Sign in with unknown credentials
-    When I select my country code with status "UNKNOWN"
-    Then I type my "phone number" with status "UNKNOWN"
-    Then I type my password
-    Then I click the "Sign in" button
-    Then I see "User does not exist."
-
-  @angular @react @vue @react-native
   Scenario: Sign in with unconfirmed credentials
     When I select my country code with status "UNCONFIRMED"
     Then I type my "phone number" with status "UNCONFIRMED"
@@ -105,6 +97,6 @@ Feature: Sign In with Phone Number
     Then "Phone Number" field autocompletes "username"
 
   @angular @react @vue
-  Scenario: Password fields autocomplete "new-password"
+  Scenario: Password fields autocomplete "current-password"
     Then "Password" field autocompletes "current-password"
 

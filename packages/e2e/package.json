@@ -25,6 +25,7 @@
     "filterSpecs": true,
     "stepDefinitions": [
       "cypress/integration/ui/[filepath]/*.steps.ts",
+      "cypress/integration/ui/components/**/*.steps.ts",
       "cypress/integration/common/*.ts"
     ]
   },
