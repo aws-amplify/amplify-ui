@@ -21,16 +21,25 @@ Note: to set up local environment
 cp ./docs/.env.example ./docs/.env
 ```
 
-Then set values to the variables.
+Then set values to the variables in the `./docs/.env` file. The values don't matter for local testing. They only matter if you are actually trying to make the Search work.
 
 Note, if you're not using `nvm`, you'll need to set the environment variable: `export NODE_OPTIONS=--openssl-legacy-provider`
 
 ### Test
 
-- Run `yarn test` to test.
-- If the snapshot test fails, run `yarn test -- -u`.
+From the monorepo root run:
 
-Test runs after build.
+```sh
+$ yarn docs test
+```
+
+#### Updating Props Table Snapshot
+
+To update the Props Table snapshot run:
+
+```sh
+$ yarn docs test -u __tests__/props-table.test.ts
+```
 
 ### Creating a Page
 

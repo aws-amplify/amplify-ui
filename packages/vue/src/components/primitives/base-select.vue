@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { toRefs } from 'vue';
 const props = withDefaults(
-  defineProps<{ selectValue: string; options: string[] }>(),
+  defineProps<{ selectValue: string; options: string[] | undefined }>(),
   {
     selectValue: '',
   }

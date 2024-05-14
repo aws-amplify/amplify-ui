@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-  AuthChallengeName,
+  ChallengeName,
   AuthenticatorServiceFacade,
   LegacyFormFieldOptions,
 } from '@aws-amplify/ui';
@@ -14,8 +14,8 @@ export type AuthenticatorRouteComponentKey =
   | 'confirmSignUp'
   | 'confirmVerifyUser'
   | 'forceNewPassword'
-  | 'resetPassword'
-  | 'setupTOTP'
+  | 'forgotPassword'
+  | 'setupTotp'
   | 'signIn'
   | 'signUp'
   | 'verifyUser';
@@ -92,21 +92,24 @@ export type ConfirmResetPasswordBaseProps<FieldType = {}> = {
   ValidationProps;
 
 export type ConfirmSignInBaseProps<FieldType = {}> = {
-  challengeName: AuthChallengeName;
+  challengeName: ChallengeName | undefined;
   toSignIn: UseAuthenticator['toSignIn'];
 } & CommonRouteProps &
-  ComponentSlots<FieldType>;
+  ComponentSlots<FieldType> &
+  ValidationProps;
 
 export type ConfirmSignUpBaseProps<FieldType = {}> = {
   codeDeliveryDetails: UseAuthenticator['codeDeliveryDetails'];
   resendCode: UseAuthenticator['resendCode'];
 } & CommonRouteProps &
-  ComponentSlots<FieldType>;
+  ComponentSlots<FieldType> &
+  ValidationProps;
 
 export type ConfirmVerifyUserProps<FieldType = {}> = {
   skipVerification: UseAuthenticator['skipVerification'];
 } & CommonRouteProps &
-  ComponentSlots<FieldType>;
+  ComponentSlots<FieldType> &
+  ValidationProps;
 
 export type ForceResetPasswordBaseProps<FieldType = {}> = {
   toSignIn: UseAuthenticator['toSignIn'];
@@ -117,24 +120,30 @@ export type ForceResetPasswordBaseProps<FieldType = {}> = {
 export type ResetPasswordBaseProps<FieldType = {}> = {
   toSignIn: UseAuthenticator['toSignIn'];
 } & CommonRouteProps &
-  ComponentSlots<FieldType>;
+  ComponentSlots<FieldType> &
+  ValidationProps;
 
-export type SetupTOTPBaseProps<FieldType = {}> = {
+export type SetupTotpBaseProps<FieldType = {}> = {
   toSignIn: UseAuthenticator['toSignIn'];
   totpSecretCode: UseAuthenticator['totpSecretCode'];
+  username: UseAuthenticator['username'];
 } & CommonRouteProps &
-  ComponentSlots<FieldType>;
+  ComponentSlots<FieldType> &
+  ValidationProps;
 
 export type SignInBaseProps<FieldType = {}> = {
   hideSignUp?: boolean;
+  socialProviders?: UseAuthenticator['socialProviders'];
   toFederatedSignIn: UseAuthenticator['toFederatedSignIn'];
-  toResetPassword: UseAuthenticator['toResetPassword'];
+  toForgotPassword: UseAuthenticator['toForgotPassword'];
   toSignUp: UseAuthenticator['toSignUp'];
 } & CommonRouteProps &
-  ComponentSlots<FieldType>;
+  ComponentSlots<FieldType> &
+  ValidationProps;
 
 export type SignUpBaseProps<FieldType = {}> = {
   hideSignIn?: boolean;
+  socialProviders?: UseAuthenticator['socialProviders'];
   toFederatedSignIn: UseAuthenticator['toFederatedSignIn'];
   toSignIn: UseAuthenticator['toSignIn'];
 } & CommonRouteProps &
@@ -144,7 +153,8 @@ export type SignUpBaseProps<FieldType = {}> = {
 export type VerifyUserProps<FieldType = {}> = {
   skipVerification: UseAuthenticator['skipVerification'];
 } & CommonRouteProps &
-  ComponentSlots<FieldType>;
+  ComponentSlots<FieldType> &
+  ValidationProps;
 
 export interface DefaultProps<FieldType = {}> {
   ConfirmSignIn: ConfirmSignInBaseProps<FieldType>;
@@ -152,8 +162,8 @@ export interface DefaultProps<FieldType = {}> {
   ConfirmResetPassword: ConfirmResetPasswordBaseProps<FieldType>;
   ConfirmVerifyUser: ConfirmVerifyUserProps<FieldType>;
   ForceNewPassword: ForceResetPasswordBaseProps<FieldType>;
-  ResetPassword: ResetPasswordBaseProps<FieldType>;
-  SetupTOTP: SetupTOTPBaseProps<FieldType>;
+  ForgotPassword: ResetPasswordBaseProps<FieldType>;
+  SetupTotp: SetupTotpBaseProps<FieldType>;
   SignIn: SignInBaseProps<FieldType>;
   SignUp: SignUpBaseProps<FieldType>;
   VerifyUser: VerifyUserProps<FieldType>;
@@ -168,7 +178,7 @@ type BaseComponent<
   // Route specific `FieldType`
   FieldType = {},
   // additional props assigned in the UI layer
-  Props = {}
+  Props = {},
 > = React.ComponentType<
   ComponentSlots<FieldType> &
     ComponentRouteProps & { fields: FieldType[] } & Props

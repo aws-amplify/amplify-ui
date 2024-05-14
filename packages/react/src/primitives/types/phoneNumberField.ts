@@ -110,10 +110,12 @@ interface DialCodeRequired extends optionalPhoneNumberFieldProps {
   defaultDialCode: string;
 }
 
+/** @deprecated For internal use only */
 export type BasePhoneNumberFieldProps = CountryCodeRequired | DialCodeRequired;
 export type PhoneNumberFieldProps<Element extends ElementType = 'input'> =
   PrimitiveProps<BasePhoneNumberFieldProps, Element>;
 
+/** @deprecated For internal use only */
 export interface BaseDialCodeSelectProps extends BaseSelectFieldProps {
   defaultValue?: string;
   dialCodeList?: Array<string>;

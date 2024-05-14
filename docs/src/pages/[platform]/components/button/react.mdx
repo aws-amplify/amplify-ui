@@ -79,24 +79,86 @@ Use the `size` prop to change the Button size. Available options are `small`, `l
 Use the `variation` prop to change the Button variation. Available options are `primary`, `link`, `menu`, `warning`, `destructive` and none (default).
 
 <Example>
-  <View>
+  <Flex>
+    <Button>Default</Button>
     <Button variation="primary">Primary</Button>
     <Button variation="link">Link</Button>
-    <Button variation="menu">Menu</Button>
-    <Button variation="warning">Warning</Button>
-    <Button variation="destructive">Destructive</Button>
-    <Button>Default</Button>
-  </View>
+    
+  </Flex>
 
 <ExampleCode>
 
 ```jsx
+<Button>Default</Button>
 <Button variation="primary">Primary</Button>
 <Button variation="link">Link</Button>
-<Button variation="menu">Menu</Button>
-<Button variation="warning">Warning</Button>
-<Button variation="destructive">Destructive</Button>
+```
+
+</ExampleCode>
+</Example>
+
+### Color themes
+
+Use the `colorTheme` prop to change the Button's color theme. Available options are `error`, `info`, `warning`, `success`, and `overlay`.
+
+<Example>
+  <Flex>
+    <Button>Default</Button>
+    <Button colorTheme="success">Success</Button>
+    <Button colorTheme="warning">Warning</Button>
+    <Button colorTheme="error">Error</Button>
+    <Button colorTheme="warning">Info</Button>
+    <Button colorTheme="overlay">Overlay</Button>
+  </Flex>
+
+<ExampleCode>
+
+```jsx
 <Button>Default</Button>
+<Button colorTheme="success">Success</Button>
+<Button colorTheme="warning">Warning</Button>
+<Button colorTheme="error">Error</Button>
+<Button colorTheme="warning">Info</Button>
+<Button colorTheme="overlay">Overlay</Button>
+```
+
+</ExampleCode>
+</Example>
+
+The `colorTheme` prop can be combined with `variation` to provide more Button options.
+
+<Example>
+  <Flex>
+    <Button variation="primary" colorTheme="success">Success</Button>
+    <Button variation="primary" colorTheme="error">error</Button>
+    <Button variation="primary" colorTheme="warning">Warning</Button>
+    <Button variation="primary" colorTheme="info">Info</Button>
+    <Button variation="primary" colorTheme="overlay">Overlay</Button>
+  </Flex>
+  <Flex>
+    <Button variation="link" colorTheme="success">Success</Button>
+    <Button variation="link" colorTheme="error">error</Button>
+    <Button variation="link" colorTheme="warning">Warning</Button>
+    <Button variation="link" colorTheme="info">Info</Button>
+    <Button variation="link" colorTheme="overlay">Overlay</Button>
+  </Flex>
+
+<ExampleCode>
+
+```jsx
+// Primary variation with color themes
+<Button variation="primary" colorTheme="success">Success</Button>
+<Button variation="primary" colorTheme="error">error</Button>
+<Button variation="primary" colorTheme="warning">Warning</Button>
+<Button variation="primary" colorTheme="info">Info</Button>
+<Button variation="primary" colorTheme="overlay">Overlay</Button>
+
+// Link variation with color themes
+<Button variation="link" colorTheme="success">Success</Button>
+<Button variation="link" colorTheme="error">error</Button>
+<Button variation="link" colorTheme="warning">Warning</Button>
+<Button variation="link" colorTheme="info">Info</Button>
+<Button variation="link" colorTheme="overlay">Overlay</Button>
 ```
 
 </ExampleCode>

@@ -1,5 +1,6 @@
 export { CheckboxFieldControlledExample } from './CheckboxFieldControlledExample';
 export { CheckboxFieldDisabledExample } from './CheckboxFieldDisabledExample';
+export { CheckboxFieldIconExample } from './CheckboxFieldIconExample';
 export { CheckboxFieldIndeterminateExample } from './CheckboxFieldIndeterminateExample';
 export { CheckboxFieldLabelHiddenExample } from './CheckboxFieldLabelHiddenExample';
 export { CheckboxFieldSizesExample } from './CheckboxFieldSizesExample';

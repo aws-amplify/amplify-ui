@@ -1,3 +1,5 @@
+@import './_fieldControl.scss';
+
 .amplify-input {
   @include amplify-field-control;
   // The user-select property has been added to fix
@@ -6,4 +8,17 @@
   // the property as inherited.
   user-select: text;
   display: inline-block;
+
+  --amplify-components-fieldcontrol-color: var(
+    --amplify-components-input-color
+  );
+  --amplify-components-fieldcontrol-border-color: var(
+    --amplify-components-input-border-color
+  );
+  --amplify-components-fieldcontrol-font-size: var(
+    --amplify-components-input-font-size
+  );
+  --amplify-components-fieldcontrol-focus-border-color: var(
+    --amplify-components-input-focus-border-color
+  );
 }

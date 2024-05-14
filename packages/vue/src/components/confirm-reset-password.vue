@@ -1,27 +1,20 @@
 <script setup lang="ts">
-import { computed, ComputedRef, useAttrs, defineEmits } from 'vue';
+import { computed, toRefs } from 'vue';
 
 import {
   authenticatorTextUtil,
-  getActorState,
-  ResetPasswordState,
-  translate,
   getFormDataFromEvent,
+  translate,
 } from '@aws-amplify/ui';
 
-import { useAuth, useAuthenticator } from '../composables/useAuth';
+import { useAuthenticator } from '../composables/useAuth';
+import { UseAuthenticator } from '../types';
 import BaseFormFields from './primitives/base-form-fields.vue';
 
-const { state, send } = useAuth();
-
-const props = useAuthenticator();
-
-const attrs = useAttrs();
-const emit = defineEmits(['confirmResetPasswordSubmit', 'backToSignInClicked']);
-
-const actorState: ComputedRef<ResetPasswordState> = computed(() =>
-  getActorState(state.value)
-) as ComputedRef<ResetPasswordState>;
+// `facade` is manually typed to `UseAuthenticator` for temporary type safety.
+const facade: UseAuthenticator = useAuthenticator();
+const { resendCode, submitForm, updateBlur, updateForm } = facade;
+const { error, isPending } = toRefs(facade);
 
 // Text Util
 const { getResendCodeText, getResetYourPasswordText, getSubmitText } =
@@ -34,34 +27,25 @@ const confirmResetPasswordText = computed(() => getSubmitText());
 
 // Methods
 const onConfirmResetPasswordSubmit = (e: Event): void => {
-  if (attrs?.onConfirmResetPasswordSubmit) {
-    emit('confirmResetPasswordSubmit', e);
-  } else {
-    submit(e);
-  }
+  submit(e);
 };
 
 const submit = (e: Event): void => {
-  props.submitForm(getFormDataFromEvent(e));
+  submitForm(getFormDataFromEvent(e));
 };
 
 const onLostYourCodeClicked = (): void => {
-  send({
-    type: 'RESEND',
-  });
+  resendCode();
 };
 
 const onInput = (e: Event) => {
   const { name, value } = e.target as HTMLInputElement;
-  send({
-    type: 'CHANGE',
-    data: { name, value },
-  });
+  updateForm({ name, value });
 };
 
 function onBlur(e: Event) {
   const { name } = e.target as HTMLInputElement;
-  props.updateBlur({ name });
+  updateBlur({ name });
 }
 </script>
 
@@ -76,7 +60,7 @@ function onBlur(e: Event) {
       >
         <base-field-set
           class="amplify-flex amplify-authenticator__column"
-          :disabled="actorState.matches('confirmResetPassword.pending')"
+          :disabled="isPending"
         >
           <slot name="header">
             <base-heading class="amplify-heading" :level="3">
@@ -88,17 +72,18 @@ function onBlur(e: Event) {
             <base-form-fields route="confirmResetPassword"></base-form-fields>
           </base-wrapper>
           <base-footer class="amplify-flex amplify-authenticator__column">
-            <base-alert v-if="actorState?.context?.remoteError">
-              {{ translate(actorState?.context?.remoteError) }}
+            <base-alert v-if="error">
+              {{ translate(error) }}
             </base-alert>
             <amplify-button
               class="amplify-field-group__control amplify-authenticator__font"
               :variation="'primary'"
               :fullwidth="false"
               type="submit"
-              :disabled="actorState.matches('confirmResetPassword.pending')"
-              >{{ confirmResetPasswordText }}</amplify-button
+              :disabled="isPending"
             >
+              {{ confirmResetPasswordText }}
+            </amplify-button>
             <amplify-button
               class="amplify-field-group__control amplify-authenticator__font"
               :variation="'link'"
@@ -109,12 +94,7 @@ function onBlur(e: Event) {
             >
               {{ resendCodeText }}
             </amplify-button>
-            <slot
-              name="footer"
-              :onConfirmResetPasswordSubmit="onConfirmResetPasswordSubmit"
-              :onLostYourCodeClicked="onLostYourCodeClicked"
-            >
-            </slot>
+            <slot name="footer"> </slot>
           </base-footer>
         </base-field-set>
       </base-form>

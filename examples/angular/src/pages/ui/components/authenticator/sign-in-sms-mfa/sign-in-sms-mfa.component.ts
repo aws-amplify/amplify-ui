@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Amplify, I18n } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import { I18n } from 'aws-amplify/utils';
 
 import { translations } from '@aws-amplify/ui';
 
@@ -19,7 +20,8 @@ export class SignInSMSMFAComponent implements OnInit {
     I18n.putVocabularies(translations);
     I18n.setLanguage('en');
     I18n.putVocabulariesForLanguage('en', {
-      'Invalid code or auth state for the user.': 'translated text',
+      'CodeMismatchException: Invalid code or auth state for the user.':
+        'invalid code',
     });
   }
 }

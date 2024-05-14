@@ -1,25 +1,18 @@
 import React from 'react';
 import { FaceLivenessDetector } from '@aws-amplify/ui-react-liveness';
-import { View, Heading, Alert, Card, Text } from '@aws-amplify/ui-react';
+import { View, Heading, Alert } from '@aws-amplify/ui-react';
 
 export function CustomizationComponents() {
-  return (
+  const [showLiveness, setShowLiveness] = React.useState(false);
+  React.useEffect(() => {
+    setShowLiveness(true);
+  }, []);
+  return showLiveness ? (
     <FaceLivenessDetector
       sessionId={'sessionId'}
       region={'us-east-1'}
       onAnalysisComplete={async () => {}}
       components={{
-        Header: () => {
-          return (
-            <View flex="1">
-              <Heading>Face Liveness check</Heading>
-              <Text>
-                You will go through a face verification process to prove that
-                you are a real person.
-              </Text>
-            </View>
-          );
-        },
         PhotosensitiveWarning: (): JSX.Element => {
           return (
             <Alert
@@ -33,25 +26,6 @@ export function CustomizationComponents() {
             </Alert>
           );
         },
-        Instructions: (): JSX.Element => {
-          return (
-            <Card variation="elevated">
-              Instructions to follow to use Face Liveness detector
-              <ol>
-                <li>
-                  Make sure your face is not covered with sunglasses or a mask.
-                </li>
-                <li>
-                  Move to a well-lit place that is not dark or in direct
-                  sunlight.
-                </li>
-                <li>
-                  Fill onscreen oval with your face and hold for colored lights.
-                </li>
-              </ol>
-            </Card>
-          );
-        },
         ErrorView: ({ children }) => {
           return (
             <View flex="1" backgroundColor="white">
@@ -62,5 +36,5 @@ export function CustomizationComponents() {
         },
       }}
     />
-  );
+  ) : null;
 }

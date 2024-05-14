@@ -3,14 +3,14 @@ import { renderHook } from '@testing-library/react-hooks';
 import useHasValueUpdated from '../useHasValueUpdated';
 
 describe('useHasValueUpdated', () => {
-  it('return true on initial render and ignoring first render', () => {
+  it('return true on initial render and not ignoring first render', () => {
     const value = 'value';
     const { result } = renderHook(() => useHasValueUpdated(value));
 
     expect(result.current).toBe(true);
   });
 
-  it('return false on initial render when not ignoring first render', () => {
+  it('return false on initial render when ignoring first render', () => {
     const value = 'value';
     const { result } = renderHook(() => useHasValueUpdated(value, true));
 

@@ -1,3 +1,7 @@
+.docs-main {
+  margin-top: var(--docs-main-offset);
+}
+
 .docs-description {
   color: var(--amplify-colors-font-secondary);
   font-size: var(--amplify-font-sizes-large);
@@ -11,22 +15,44 @@
 
 .docs-content {
   max-width: 80rem;
+  padding-block-start: var(--amplify-space-medium);
+  padding-inline: var(--docs-horizontal-padding);
+  padding-block-end: var(--docs-horizontal-padding);
 }
 
 .docs-content-body {
-  padding: var(--docs-horizontal-padding);
+  scroll-margin-block-start: var(--docs-main-offset);
 
-  & > * + * {
+  &:focus-visible {
+    outline: 2px solid var(--amplify-colors-border-focus);
+    outline-offset: var(--amplify-space-xs);
+    z-index: 2;
+  }
+
+  & > * + *,
+  & .amplify-tabs__panel > * + * {
     margin-top: var(--amplify-space-medium);
   }
 
   // Targeting tabs
-  & > [data-orientation] > [role='tabpanel'] {
-    padding-top: var(--amplify-space-medium);
-    // Don't add top margin to h2's since they already
-    // have top margin
-    & > * + *:not(h2) {
-      margin-top: var(--amplify-space-medium);
+  & > [data-orientation] {
+    & > [role='tablist'] button {
+      // 20rem is kind of magic here; it's at least the height of the page above the page tabs.
+      // Since we add a scroll-margin-block-start to tabpanel below, we need to add
+      // this here to scroll the top of the page when reverse keyboard navigating
+      // so elements aren't hidden by sticky nav.
+      scroll-margin-block-start: 20rem;
+    }
+    & > [role='tabpanel'] {
+      // Prevent demo from getting cut off by sticky nav
+      // when keyboard navigating.
+      scroll-margin-block-start: 7rem;
+      padding-top: var(--amplify-space-medium);
+      // Don't add top margin to h2's since they already
+      // have top margin
+      & > * + *:not(h2) {
+        margin-top: var(--amplify-space-medium);
+      }
     }
   }
 

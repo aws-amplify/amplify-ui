@@ -1,17 +1,15 @@
 import { Heading, Link, Text } from '@aws-amplify/ui-react';
-import {
-  PropsTableData,
-  PropsTableSubComponentData,
-} from '../../../scripts/types/catalog';
+import { ComponentPropsData } from '../../../scripts/types/catalog';
 import { PropsTable } from './PropsTable';
 import { PropsTableExpander } from './PropsTableExpander';
+import PROPS_TABLE from '@/data/props-table.json';
 
 function PropsTableSet({
   componentName,
   componentPropsData,
 }: {
   componentName: string;
-  componentPropsData: PropsTableSubComponentData;
+  componentPropsData: ComponentPropsData;
 }) {
   return (
     <>
@@ -32,17 +30,14 @@ function PropsTableSet({
 
 export function PropsTableTab({
   componentName,
-  PropsData,
   htmlElement,
   mdnUrl,
 }: {
   componentName: string;
-  PropsData: PropsTableData;
   htmlElement: string;
   mdnUrl: string;
 }) {
-  const componentPropsData: PropsTableSubComponentData =
-    PropsData[componentName];
+  const componentPropsData: ComponentPropsData = PROPS_TABLE[componentName];
   return (
     <>
       <PropsTableSet

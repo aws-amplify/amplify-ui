@@ -2,6 +2,7 @@ import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type CardVariations = 'outlined' | 'elevated';
 
+/** @deprecated For internal use only */
 export interface BaseCardProps extends BaseViewProps {
   /**
    * @description

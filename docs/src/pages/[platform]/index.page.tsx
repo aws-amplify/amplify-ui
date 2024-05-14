@@ -27,19 +27,19 @@ export async function getStaticProps() {
   return { props: {} };
 }
 
+const handleScroll = debounce((e) => {
+  const bodyScroll = e.target.documentElement.scrollTop;
+  if (bodyScroll > 50) {
+    document.body.classList.add('scrolled');
+  } else if (document.body.classList.contains('scrolled')) {
+    document.body.classList.remove('scrolled');
+  }
+});
+
 const HomePage = ({ colorMode }) => {
   const {
     query: { platform = 'react' },
   } = useRouter();
-
-  const handleScroll = debounce((e) => {
-    const bodyScroll = e.target.documentElement.scrollTop;
-    if (bodyScroll > 50) {
-      document.body.classList.add('scrolled');
-    } else if (document.body.classList.contains('scrolled')) {
-      document.body.classList.remove('scrolled');
-    }
-  });
 
   React.useEffect(() => {
     document.addEventListener('scroll', handleScroll);
@@ -78,7 +78,12 @@ const HomePage = ({ colorMode }) => {
   }
 
   return (
-    <>
+    <main
+      className="docs-content-body"
+      id="docs-content"
+      tabIndex={-1}
+      aria-label="Main content"
+    >
       {/* Hero/intro */}
       <HeroSection />
 
@@ -87,7 +92,7 @@ const HomePage = ({ colorMode }) => {
 
       {/* Shared content */}
       <Footer />
-    </>
+    </main>
   );
 };
 

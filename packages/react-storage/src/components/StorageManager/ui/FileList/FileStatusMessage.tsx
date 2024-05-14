@@ -1,8 +1,9 @@
 import React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
-import { Text, ComponentClassNames } from '@aws-amplify/ui-react';
-import { IconCheck, IconError } from '@aws-amplify/ui-react/internal';
+import { ComponentClassName } from '@aws-amplify/ui';
+import { Text, View } from '@aws-amplify/ui-react';
+import { IconCheck, IconError, useIcons } from '@aws-amplify/ui-react/internal';
 import { classNameModifier } from '@aws-amplify/ui';
 import { FileStatus } from '../../types';
 import { FileStatusMessageProps } from './types';
@@ -15,17 +16,18 @@ export const FileStatusMessage = ({
   status,
   uploadSuccessfulText,
 }: FileStatusMessageProps): JSX.Element | null => {
+  const icons = useIcons('storageManager');
   switch (status) {
     case FileStatus.UPLOADING: {
       return (
-        <Text className={ComponentClassNames.StorageManagerFileStatus}>
+        <Text className={ComponentClassName.StorageManagerFileStatus}>
           {getUploadingText(percentage)}
         </Text>
       );
     }
     case FileStatus.PAUSED:
       return (
-        <Text className={ComponentClassNames.StorageManagerFileStatus}>
+        <Text className={ComponentClassName.StorageManagerFileStatus}>
           {getPausedText(percentage)}
         </Text>
       );
@@ -33,28 +35,34 @@ export const FileStatusMessage = ({
       return (
         <Text
           className={classNames(
-            ComponentClassNames.StorageManagerFileStatus,
+            ComponentClassName.StorageManagerFileStatus,
             classNameModifier(
-              ComponentClassNames.StorageManagerFileStatus,
+              ComponentClassName.StorageManagerFileStatus,
               'success'
             )
           )}
         >
-          <IconCheck fontSize="xl" /> {uploadSuccessfulText}
+          <View as="span" fontSize="xl">
+            {icons?.success ?? <IconCheck />}
+          </View>
+          {uploadSuccessfulText}
         </Text>
       );
     case FileStatus.ERROR:
       return (
         <Text
           className={classNames(
-            ComponentClassNames.StorageManagerFileStatus,
+            ComponentClassName.StorageManagerFileStatus,
             classNameModifier(
-              ComponentClassNames.StorageManagerFileStatus,
+              ComponentClassName.StorageManagerFileStatus,
               'error'
             )
           )}
         >
-          <IconError fontSize="xl" /> {errorMessage}
+          <View as="span" fontSize="xl">
+            {icons?.error ?? <IconError />}
+          </View>
+          {errorMessage}
         </Text>
       );
     default:

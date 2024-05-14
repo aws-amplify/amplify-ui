@@ -18,6 +18,7 @@ const props = {
   handleBlur: jest.fn(),
   handleChange: jest.fn(),
   handleSubmit: jest.fn(),
+  hasValidationErrors: false,
   Header: ConfirmVerifyUser.Header,
   isPending: false,
   skipVerification: jest.fn(),
@@ -56,7 +57,7 @@ describe('ConfirmVerifyUser', () => {
 
     const button = getByText(getSkipText());
     fireEvent.press(button);
-    expect(skipVerificationMock).toBeCalledTimes(1);
+    expect(skipVerificationMock).toHaveBeenCalledTimes(1);
   });
 
   it('renders as expected when isPending is true', () => {

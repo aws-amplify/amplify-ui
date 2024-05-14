@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { ComponentClassNames } from '@aws-amplify/ui-react';
+import { ComponentClassName } from '@aws-amplify/ui';
+import { IconsProvider, View } from '@aws-amplify/ui-react';
 import { classNameModifier } from '@aws-amplify/ui';
 
 import { defaultStorageManagerDisplayText } from '../../../utils/displayText';
@@ -41,7 +42,7 @@ describe('DropZone', () => {
 
     const dropZoneElement = await screen.findByTestId(testId);
     expect(dropZoneElement).toHaveClass(
-      classNameModifier(ComponentClassNames.StorageManagerDropZone, 'active')
+      classNameModifier(ComponentClassName.StorageManagerDropZone, 'active')
     );
   });
 
@@ -65,5 +66,29 @@ describe('DropZone', () => {
 
     const dropZoneChildren = await screen.findByTestId(testId);
     expect(dropZoneChildren).toHaveTextContent(testText);
+  });
+
+  it('renders custom icons from IconProvider', () => {
+    const { container } = render(
+      <IconsProvider
+        icons={{
+          storageManager: {
+            upload: <View testId="upload" />,
+          },
+        }}
+      >
+        <DropZone
+          inDropZone={false}
+          onDragEnter={() => {}}
+          onDragLeave={() => {}}
+          onDragOver={() => {}}
+          onDragStart={() => {}}
+          onDrop={() => {}}
+          displayText={defaultStorageManagerDisplayText}
+        />
+      </IconsProvider>
+    );
+    expect(screen.getByTestId('upload')).toBeInTheDocument();
+    expect(container).toMatchSnapshot();
   });
 });

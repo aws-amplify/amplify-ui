@@ -1,10 +1,9 @@
-import {
-  StorageProvider,
-  UploadTask,
-  StorageOptions,
-} from '@aws-amplify/storage';
+// import `UploadDataOutput` directly from '@aws-amplify/storage' scoped package as
+// this file acts as `aws-amplify/storage`, meaning `UploadDataOutput` is `undefined`
+// if importing from the subpath
+import { UploadDataOutput } from '@aws-amplify/storage';
 
-interface StorageProviderConfig extends StorageOptions {
+interface StorageProviderConfig {
   delay?: number;
   networkError?: boolean;
 }
@@ -16,10 +15,11 @@ const defaultConfig = {
 
 /**
  * https://docs.amplify.aws/lib/storage/custom-plugin/q/platform/js/
- * Mocking out the Storage class so we can render the FileUploader component
+ * Mocking out the Storage class so we can render the StorageManager component
  * without an Amplify backend.
  */
-export default class MyStorageProvider implements StorageProvider {
+// export default class MyStorageProvider implements StorageProvider {
+export default class MyStorageProvider {
   // category and provider name
   static category = 'Storage';
   providerName = 'MOCK';
@@ -53,7 +53,7 @@ export default class MyStorageProvider implements StorageProvider {
   }
 
   // upload storage object
-  put(key: string, object, options?): Promise<Object> | UploadTask {
+  put(key: string, object, options?): Promise<Object> | UploadDataOutput {
     const opt = Object.assign({}, options);
     const { delay, networkError } = this._config;
     const { progressCallback, resumable, errorCallback, completeCallback } =
@@ -94,15 +94,18 @@ export default class MyStorageProvider implements StorageProvider {
       // this will make the progress go in 4 chunks of 25%
       tick = tickCreator(null, 25);
       interval = setInterval(tick, delay);
-      const uploadTask: UploadTask = {
+      const uploadTask: UploadDataOutput = {
         pause() {
           clearInterval(interval);
         },
         resume() {
           interval = setInterval(tick, delay);
         },
-        percent: progress,
-        isInProgress: true,
+        cancel() {
+          clearInterval(interval);
+        },
+        state: 'SUCCESS',
+        result: Promise.resolve({ key: 'key' }),
       };
       return uploadTask;
     } else {

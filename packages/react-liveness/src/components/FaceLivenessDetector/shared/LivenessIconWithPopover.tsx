@@ -5,90 +5,74 @@
 
 import * as React from 'react';
 
-import { Flex, useTheme } from '@aws-amplify/ui-react';
+import { Button, Flex } from '@aws-amplify/ui-react';
 import { AlertIcon, useThemeBreakpoint } from '@aws-amplify/ui-react/internal';
+import { LivenessClassNames } from '../types/classNames';
 
 export interface LivenessIconWithPopoverProps {
   children: string;
+  headingText: string;
+  labelText: string;
 }
 
-export const LivenessIconWithPopover: React.FC<LivenessIconWithPopoverProps> =
-  ({ children }) => {
-    const { tokens } = useTheme();
-    const breakpoint = useThemeBreakpoint();
-    const [shouldShowPopover, setShouldShowPopover] = React.useState(false);
-    const wrapperRef = React.useRef<HTMLDivElement | null>(null);
-    const isMobileScreen = breakpoint === 'base';
+export const LivenessIconWithPopover: React.FC<
+  LivenessIconWithPopoverProps
+> = ({ children, headingText, labelText }) => {
+  const breakpoint = useThemeBreakpoint();
+  const [shouldShowPopover, setShouldShowPopover] = React.useState(false);
+  const wrapperRef = React.useRef<HTMLDivElement | null>(null);
+  const isMobileScreen = breakpoint === 'base';
 
-    React.useEffect(() => {
-      function handleClickOutside(event: MouseEvent) {
-        if (
-          shouldShowPopover &&
-          wrapperRef.current &&
-          !wrapperRef.current.contains(event.target as Node)
-        ) {
-          setShouldShowPopover(false);
-        }
+  React.useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        shouldShowPopover &&
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
+        setShouldShowPopover(false);
       }
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => {
-        document.removeEventListener('mousedown', handleClickOutside);
-      };
-    }, [wrapperRef, shouldShowPopover]);
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [wrapperRef, shouldShowPopover]);
 
-    return (
-      <Flex
-        position="relative"
+  return (
+    <div className={LivenessClassNames.Popover} ref={wrapperRef}>
+      <Button
+        aria-controls="photosensitivity-description"
+        aria-expanded={shouldShowPopover}
+        role="alertdialog"
+        aria-label={labelText}
+        aria-describedby="photosensitivity-description"
+        colorTheme="info"
+        id="popover-button"
         onClick={() => setShouldShowPopover(!shouldShowPopover)}
-        ref={wrapperRef}
-        style={{ cursor: 'pointer' }}
         testId="popover-icon"
       >
         <AlertIcon ariaHidden variation="info" />
-        {shouldShowPopover && (
-          <>
-            <Flex
-              position={'absolute'}
-              top={26}
-              left={3}
-              style={{
-                zIndex: 3,
-                borderStyle: 'solid',
-                borderWidth: '0 9px 9px 9px',
-                borderColor: `transparent transparent ${tokens.colors.background.primary} transparent`,
-              }}
-            />
-            <Flex
-              position={'absolute'}
-              top={24}
-              left={2}
-              style={{
-                zIndex: 2,
-                borderStyle: 'solid',
-                borderWidth: '0 10px 10px 10px',
-                borderColor: `transparent transparent ${tokens.colors.border.secondary} transparent`,
-              }}
-            />
-            <Flex
-              position={'absolute'}
-              backgroundColor={`${tokens.colors.background.primary}`}
-              color={`${tokens.colors.font.primary}`}
-              direction={'row'}
-              fontSize={tokens.fontSizes.xs}
-              padding={tokens.space.small}
-              top={33}
-              minWidth={240}
-              left={isMobileScreen ? -190 : -108}
-              border={`1px solid ${tokens.colors.border.secondary}`}
-              borderRadius={2}
-              data-testid="popover-text"
-            >
-              {children}
-            </Flex>
-          </>
-        )}
-      </Flex>
-    );
-  };
+      </Button>
+      {shouldShowPopover && (
+        <>
+          <Flex className={LivenessClassNames.PopoverAnchor} />
+          <Flex className={LivenessClassNames.PopoverAnchorSecondary} />
+          <Flex
+            aria-hidden={!shouldShowPopover}
+            aria-label={headingText}
+            className={LivenessClassNames.PopoverContainer}
+            data-testid="popover-text"
+            id="photosensitivity-description"
+            left={isMobileScreen ? -190 : -108}
+            role="alertdialog"
+          >
+            {children}
+          </Flex>
+        </>
+      )}
+    </div>
+  );
+};
 
 LivenessIconWithPopover.displayName = 'LivenessIconWithPopover';

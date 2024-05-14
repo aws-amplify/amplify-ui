@@ -60,10 +60,7 @@ export type DefaultContentProps<
     | TextFieldOptionsType
     | RadioFieldOptions
     | unknown = unknown
-> = Pick<
-  DefaultComponentProps<FieldsType>,
-  'error' | 'Footer' | 'isPending'
-> & {
+> = Pick<DefaultComponentProps<FieldsType>, 'error' | 'isPending'> & {
   buttons: DefaultButtons;
   body?: React.ReactNode;
   fields: FieldsType[];

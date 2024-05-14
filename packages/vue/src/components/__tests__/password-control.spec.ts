@@ -1,7 +1,9 @@
-import PasswordControl from '../password-control.vue';
-import { components } from '../../../global-spec';
 import { fireEvent, render, screen } from '@testing-library/vue';
+
 import { ComponentClassName } from '@aws-amplify/ui';
+
+import { components } from '../../../global-spec';
+import PasswordControl from '../password-control.vue';
 
 describe('PasswordControl', () => {
   it('should render as expected', () => {
@@ -96,6 +98,15 @@ describe('PasswordControl', () => {
     });
     const input = screen.getByLabelText('Password');
     expect(input).toHaveAttribute('autocomplete', 'new-password');
+  });
+
+  it('should render input with autocapitalize disabled by default', async () => {
+    render(PasswordControl, {
+      global: { components },
+      props: { name: 'password', label: 'Password' },
+    });
+    const input = screen.getByLabelText('Password');
+    expect(input).toHaveAttribute('autocapitalize', 'off');
   });
 
   it('should have aria-describedby when describedBy is present', async () => {

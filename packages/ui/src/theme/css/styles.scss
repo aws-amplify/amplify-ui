@@ -1,59 +1,4 @@
-/*
- * Amplify UI Basic Theme
- */
-
-@import 'dist/theme';
-
-// Allows both users with and without ThemeProvider to use or override default font
-// html => customers w/o ThemeProvider still get default font
-// [data-amplify-theme] => customers with ThemeProvider can override default font
-html,
-[data-amplify-theme] {
-  font-family: var(--amplify-fonts-default-static);
-}
-
-@supports (font-variation-settings: normal) {
-  html,
-  [data-amplify-theme] {
-    font-family: var(--amplify-fonts-default-variable);
-  }
-}
-
-// https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior
-html:focus-within {
-  scroll-behavior: smooth;
-}
-
-// https://piccalil.li/blog/a-modern-css-reset/
-body {
-  min-height: 100vh;
-  text-rendering: optimizeSpeed;
-  line-height: var(--amplify-line-heights-medium);
-}
-
-// Note: This rule can be easily overwritten when
-// needed due to very low specificity of 0 0 0
-* {
-  box-sizing: border-box;
-}
-
-input,
-button,
-textarea,
-select {
-  font: inherit;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html:focus-within {
-    scroll-behavior: auto;
-  }
-}
-
-[class*='amplify'] {
-  all: unset; /* protect against external styles */
-  box-sizing: border-box; /* set box-sizing after unset above */
-}
+@import './base.scss';
 
 // Layout
 // They are commonly used in other primitives
@@ -66,6 +11,7 @@ select {
 @import './component/text.scss'; // text styling must be imported to allow override
 @import './component/badge.scss';
 @import './component/button.scss';
+@import './component/dropZone.scss';
 @import './component/fieldMessages.scss';
 @import './component/heading.scss';
 @import './component/icon.scss';
@@ -79,21 +25,23 @@ select {
 @import './component/copy.scss';
 
 // Composed components
+@import './component/accordion.scss';
 @import './component/alert.scss';
 @import './component/autocomplete.scss';
 @import './component/authenticator.scss';
+@import './component/breadcrumbs.scss';
 @import './component/card.scss';
 @import './component/collection.scss';
 @import './component/checkbox.scss';
 @import './component/checkboxField.scss';
 @import './component/dialCodeSelect.scss';
 @import './component/divider.scss';
-@import './component/expander.scss';
 @import './component/field.scss';
 @import './component/fieldGroup.scss';
+@import './component/fieldset.scss';
 @import './component/liveness.scss';
-@import './component/fileUploader.scss';
 @import './component/menu.scss';
+@import './component/message.scss';
 @import './component/pagination.scss';
 @import './component/passwordField.scss';
 @import './component/phoneNumberField.scss';
@@ -114,14 +62,9 @@ select {
 @import './component/toggleButton.scss';
 @import './component/toggleButtonGroup.scss';
 // In-App Messaging components
-@import './component/inAppMessaging/backdrop.scss';
-@import './component/inAppMessaging/bannerMessage.scss';
-@import './component/inAppMessaging/fullScreenMessage.scss';
-@import './component/inAppMessaging/messageLayout.scss';
-@import './component/inAppMessaging/modalMessage.scss';
+@import './component/inAppMessaging/index.scss';
 // StorageManager component
-@import './component/fileUploader.scss';
-@import './component/StorageManager/storageManager.scss';
+@import './component/StorageManager/index.scss';
 
 // This comes after the field styles so it can override them
 @import './component/fieldModifiers.scss';

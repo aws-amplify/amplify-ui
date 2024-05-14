@@ -10,8 +10,9 @@ import {
 } from '@aws-amplify/ui-react';
 
 import { Example } from '@/components/Example';
-import { Fragment } from '@/components/Fragment';
-import {SocialProviderDemo} from '@/components/SocialProviderDemo' 
+import { InlineFilter } from '@/components/InlineFilter';
+import { AngularSlotsRenameCallout } from '@/components/MigrationChanges/AngularSlotsRenameCallout';
+import {SocialProviderDemo} from '@/components/SocialProviderDemo';
 
 ## Headers & Footers
 
@@ -28,9 +29,46 @@ The following example customizes these slots with:
 - Custom Confirm Sign Up header with an _Enter Information_ header
 - Custom Confirm Sign Up footer with a _Footer Information_ message
 
-<Fragment>
-  {({ platform }) => import(`./headers-and-footers.${platform}.mdx`)}
-</Fragment>
+<InlineFilter filters={['angular']}>
+_app.component.ts_
+
+```ts{3,12}
+import { Component } from '@angular/core';
+import { Amplify } from 'aws-amplify';
+import { AuthenticatorService } from '@aws-amplify/ui-angular';
+
+// import config from './aws-exports'; // Amplify Gen 1 config
+import config from './amplify_outputs.json'
+
+@Component({
+  selector: 'app-root',
+  templateUrl: 'app.component.html',
+})
+export class UseAuthenticatorComponent {
+  constructor(public authenticator: AuthenticatorService) {
+    Amplify.configure(config);
+  }
+}
+
+```
+
+_app.component.html_
+
+```tsx{2,8,14,30,36,52,60,66,70} file=../../../../../../../examples/angular/src/pages/ui/components/authenticator/custom-slots/custom-slots.component.html
+
+```
+<AngularSlotsRenameCallout />
+</InlineFilter>
+<InlineFilter filters={['react']}>
+```tsx{1,2,12,24,25,34,47,48,57,69,70,78,86} file=../../../../../../../examples/next/pages/ui/components/authenticator/custom-slots/index.page.tsx#L20-
+
+```
+</InlineFilter>
+<InlineFilter filters={['vue']}>
+```tsx{3,9,15,31,37,53,61,67} file=../../../../../../../examples/vue/src/pages/ui/components/authenticator/custom-slots/index.vue#L17-
+
+```
+</InlineFilter>
 
 <Example>
   <SocialProviderDemo components={{
@@ -65,12 +103,12 @@ The following example customizes these slots with:
           );
         },
         Footer() {
-          const { toResetPassword } = useAuthenticator();
+          const { toForgotPassword } = useAuthenticator();
           return (
             <View textAlign="center">
               <Button
                 fontWeight="normal"
-                onClick={toResetPassword}
+                onClick={toForgotPassword}
                 size="small"
                 variation="link"
               >

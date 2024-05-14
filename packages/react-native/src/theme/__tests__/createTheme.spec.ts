@@ -21,6 +21,54 @@ describe('createTheme', () => {
     });
   });
 
+  describe('number conversions', () => {
+    it('should convert strings to numbers where applicable', () => {
+      const { tokens } = createTheme({
+        tokens: {
+          borderWidths: {
+            small: '4',
+            medium: '1rem',
+            large: 6,
+          },
+          opacities: {
+            '10': '0.2',
+          },
+          space: {
+            small: 4,
+            medium: '6',
+            large: '{space.small.value}',
+          },
+          fontSizes: {
+            small: '1rem',
+          },
+        },
+      });
+      expect(tokens.borderWidths.small).toBe(4);
+      expect(tokens.borderWidths.medium).toBe(16);
+      expect(tokens.borderWidths.large).toBe(6);
+      expect(tokens.opacities['10']).toBe(0.2);
+      expect(tokens.space.small).toBe(4);
+      expect(tokens.space.medium).toBe(6);
+      expect(tokens.space.large).toBe(4);
+      expect(tokens.fontSizes.small).toBe(16);
+    });
+
+    it('should use the spaceModifier for space tokens with rem', () => {
+      const { tokens } = createTheme({
+        spaceModifier: 1.25,
+        tokens: {
+          space: {
+            small: 4,
+            medium: '1rem',
+          },
+        },
+      });
+
+      expect(tokens.space.small).toEqual(4);
+      expect(tokens.space.medium).toEqual(20);
+    });
+  });
+
   describe('with mixture of value and no value', () => {
     const { tokens } = createTheme({
       tokens: {

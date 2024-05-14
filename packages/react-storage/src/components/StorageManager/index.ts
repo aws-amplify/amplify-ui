@@ -6,4 +6,5 @@ export {
   FileListProps,
   FilePickerProps,
   FileListHeaderProps,
+  FileListFooterProps,
 } from './ui';

@@ -23,6 +23,7 @@ export interface FlexContainerStyleProps extends CSSLayoutStyleProps {
   wrap?: ResponsiveStyle<Property.FlexWrap>;
 }
 
+/** @deprecated For internal use only */
 export interface BaseFlexProps extends BaseViewProps, FlexContainerStyleProps {}
 
 export type FlexProps<Element extends ElementType = 'div'> = PrimitiveProps<

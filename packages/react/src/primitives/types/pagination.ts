@@ -10,6 +10,7 @@ export type PaginationLabelType =
   | 'previousLabel'
   | 'nextLabel';
 
+/** @deprecated For internal use only */
 export interface BasePaginationProps extends BaseViewProps {
   /**
    * @description
@@ -103,6 +104,7 @@ export interface UsePaginationResult
     Omit<BasePaginationProps, PaginationLabelType | keyof BaseViewProps>
   > {}
 
+/** @deprecated For internal use only */
 export interface BasePaginationItemProps
   extends BaseComponentProps,
     BaseStyleProps,

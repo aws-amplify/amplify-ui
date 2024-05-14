@@ -2,6 +2,7 @@ import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 type ScrollViewOrientation = 'horizontal' | 'vertical';
 
+/** @deprecated For internal use only */
 export interface BaseScrollViewProps extends BaseViewProps {
   /**
    * @deprecated This prop has been deprecated. To get horizontal or vertical scrollbars,

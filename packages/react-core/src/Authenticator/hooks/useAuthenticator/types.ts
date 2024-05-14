@@ -18,8 +18,8 @@ export type AuthenticatorRouteComponentKey =
   | 'confirmSignIn'
   | 'confirmSignUp'
   | 'confirmVerifyUser'
-  | 'resetPassword'
-  | 'setupTOTP'
+  | 'forgotPassword'
+  | 'setupTotp'
   | 'verifyUser';
 
 export type AuthenticatorLegacyFields = LegacyFormFieldOptions[];
@@ -37,9 +37,6 @@ export type UseAuthenticatorSelector = (
 export interface UseAuthenticator extends AuthenticatorServiceFacade {
   /** @deprecated For internal use only */
   fields: AuthenticatorLegacyFields;
-
-  /** @deprecated For internal use only */
-  getTotpSecretCode: () => Promise<string>;
 
   /** @deprecated For internal use only */
   QRFields: { totpIssuer?: string; totpUsername?: string } | null;

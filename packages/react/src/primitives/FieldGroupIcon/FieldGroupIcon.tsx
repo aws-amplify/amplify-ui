@@ -1,19 +1,17 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseFieldGroupIconProps,
   FieldGroupIconProps,
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { View } from '../View';
 
-const FieldGroupIconPrimitive: Primitive<
-  FieldGroupIconProps,
-  'button' | 'div'
-> = (
+const FieldGroupIconPrimitive: Primitive<FieldGroupIconProps, 'div'> = (
   {
     className,
     children,
@@ -25,7 +23,7 @@ const FieldGroupIconPrimitive: Primitive<
 ) => {
   return isVisible ? (
     <View
-      className={classNames(ComponentClassNames.FieldGroupIcon, className)}
+      className={classNames(ComponentClassName.FieldGroupIcon, className)}
       ref={ref}
       tabIndex={excludeFromTabOrder ? -1 : undefined}
       {...rest}
@@ -37,7 +35,7 @@ const FieldGroupIconPrimitive: Primitive<
 
 export const FieldGroupIcon: ForwardRefPrimitive<
   BaseFieldGroupIconProps,
-  'button' | 'div'
-> = React.forwardRef(FieldGroupIconPrimitive);
+  'div'
+> = primitiveWithForwardRef(FieldGroupIconPrimitive);
 
 FieldGroupIcon.displayName = 'FieldGroupIcon';

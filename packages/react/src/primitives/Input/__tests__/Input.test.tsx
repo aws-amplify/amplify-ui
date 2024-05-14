@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Input } from '../Input';
-import { ComponentClassNames } from '../../shared';
+import { Fieldset } from '../../Fieldset';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 describe('Input component', () => {
   it('should render custom classname for Input', async () => {
@@ -11,7 +12,7 @@ describe('Input component', () => {
 
     const input = await screen.findByRole('textbox');
     expect(input).toHaveClass('custom-class');
-    expect(input).toHaveClass(ComponentClassNames.Input);
+    expect(input).toHaveClass(ComponentClassName.Input);
   });
 
   it('should render variation classes for Input', async () => {
@@ -23,7 +24,7 @@ describe('Input component', () => {
 
     const quiet = await screen.findByTestId('quiet');
 
-    expect(quiet.classList).toContain(`${ComponentClassNames['Input']}--quiet`);
+    expect(quiet.classList).toContain(`${ComponentClassName['Input']}--quiet`);
   });
 
   it('should render error classes for Input', async () => {
@@ -35,7 +36,7 @@ describe('Input component', () => {
 
     const error = await screen.findByTestId('error');
 
-    expect(error.classList).toContain(`${ComponentClassNames['Input']}--error`);
+    expect(error.classList).toContain(`${ComponentClassName['Input']}--error`);
   });
 
   it('should render size classes for Input', async () => {
@@ -49,8 +50,8 @@ describe('Input component', () => {
     const small = await screen.findByTestId('small');
     const large = await screen.findByTestId('large');
 
-    expect(small.classList).toContain(`${ComponentClassNames['Input']}--small`);
-    expect(large.classList).toContain(`${ComponentClassNames['Input']}--large`);
+    expect(small.classList).toContain(`${ComponentClassName['Input']}--small`);
+    expect(large.classList).toContain(`${ComponentClassName['Input']}--large`);
   });
 
   it('should render expected classname, id Input field', async () => {
@@ -85,12 +86,26 @@ describe('Input component', () => {
     expect(input).toHaveAttribute('required');
   });
 
-  it('should set size and variation data attributes', async () => {
+  it('should always be disabled if parent Fieldset isDisabled', async () => {
+    render(
+      <Fieldset legend="legend" isDisabled>
+        <Input testId="input" />
+        <Input testId="inputWithDisabledProp" isDisabled={false} />
+      </Fieldset>
+    );
+
+    const input = await screen.findByTestId('input');
+    const inputDisabled = await screen.findByTestId('inputWithDisabledProp');
+    expect(input).toHaveAttribute('disabled');
+    expect(inputDisabled).toHaveAttribute('disabled');
+  });
+
+  it('should set size and variation classes', async () => {
     render(<Input size="small" variation="quiet" />);
 
     const input = await screen.findByRole('textbox');
-    expect(input.dataset['size']).toBe('small');
-    expect(input.dataset['variation']).toBe('quiet');
+    expect(input).toHaveClass(`${ComponentClassName.Input}--small`);
+    expect(input).toHaveClass(`${ComponentClassName.Input}--quiet`);
   });
 
   it('can set defaultChecked (uncontrolled)', async () => {
@@ -134,8 +149,13 @@ describe('Input component', () => {
     const onPaste = jest.fn();
     render(<Input onChange={onChange} onInput={onInput} onPaste={onPaste} />);
     const input = await screen.findByRole('textbox');
-    userEvent.type(input, 'hello');
-    userEvent.paste(input, 'there');
+    await act(async () => {
+      await userEvent.type(input, 'hello');
+    });
+    input.focus();
+    await act(async () => {
+      await userEvent.paste('there');
+    });
     expect(onChange).toHaveBeenCalled();
     expect(onInput).toHaveBeenCalled();
     expect(onPaste).toHaveBeenCalled();

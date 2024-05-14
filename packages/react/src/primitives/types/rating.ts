@@ -62,6 +62,7 @@ export interface RatingOptions {
   value?: number;
 }
 
+/** @deprecated For internal use only */
 export interface BaseRatingProps extends RatingOptions, BaseFlexProps {}
 
 export type RatingProps<Element extends ElementType = 'div'> = PrimitiveProps<

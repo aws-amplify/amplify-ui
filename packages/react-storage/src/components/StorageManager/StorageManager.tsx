@@ -1,50 +1,79 @@
 import * as React from 'react';
-import { Logger } from 'aws-amplify';
 
-import { UploadTask } from '@aws-amplify/storage';
-import { ComponentClassNames, VisuallyHidden } from '@aws-amplify/ui-react';
+import { getLogger, ComponentClassName } from '@aws-amplify/ui';
+import { VisuallyHidden } from '@aws-amplify/ui-react';
+import {
+  useDeprecationWarning,
+  useSetUserAgent,
+} from '@aws-amplify/ui-react-core';
+import { useDropZone } from '@aws-amplify/ui-react/internal';
 
-import { useStorageManager, useUploadFiles, useDropZone } from './hooks';
-import { FileStatus, StorageManagerProps, StorageManagerHandle } from './types';
+import { useStorageManager, useUploadFiles } from './hooks';
+import {
+  FileStatus,
+  StorageManagerProps,
+  StorageManagerPathProps,
+  StorageManagerHandle,
+} from './types';
 import {
   Container,
   DropZone,
   FileList,
   FileListHeader,
+  FileListFooter,
   FilePicker,
 } from './ui';
 import {
   checkMaxFileSize,
   defaultStorageManagerDisplayText,
   filterAllowedFiles,
+  TaskHandler,
 } from './utils';
+import { VERSION } from '../../version';
 
-const logger = new Logger('Storage.StorageManager');
+const logger = getLogger('Storage');
 
-function StorageManagerBase(
+export const MISSING_REQUIRED_PROPS_MESSAGE =
+  '`StorageManager` requires a `maxFileCount` prop to be provided.';
+export const ACCESS_LEVEL_WITH_PATH_CALLBACK_MESSAGE =
+  '`StorageManager` does not allow usage of a `path` callback prop with an `accessLevel` prop.';
+export const ACCESS_LEVEL_DEPRECATION_MESSAGE =
+  '`accessLevel` has been deprecated and will be removed in a future major version. See migration notes at https://ui.docs.amplify.aws/react/connected-components/storage/storagemanager';
+
+const StorageManagerBase = React.forwardRef(function StorageManager(
   {
     acceptedFileTypes = [],
     accessLevel,
+    autoUpload = true,
+    components,
     defaultFiles,
     displayText: overrideDisplayText,
     isResumable = false,
     maxFileCount,
     maxFileSize,
-    onUploadError,
-    onUploadSuccess,
     onFileRemove,
+    onUploadError,
     onUploadStart,
-    showThumbnails = true,
-    processFile,
-    components,
-    provider,
+    onUploadSuccess,
     path,
-  }: StorageManagerProps,
+    processFile,
+    showThumbnails = true,
+  }: StorageManagerPathProps | StorageManagerProps,
   ref: React.ForwardedRef<StorageManagerHandle>
 ): JSX.Element {
-  if (!accessLevel || !maxFileCount) {
-    logger.warn('FileUploader requires accessLevel and maxFileCount props');
+  if (!maxFileCount) {
+    // eslint-disable-next-line no-console
+    console.warn(MISSING_REQUIRED_PROPS_MESSAGE);
   }
+
+  if (accessLevel && typeof path === 'function') {
+    throw new Error(ACCESS_LEVEL_WITH_PATH_CALLBACK_MESSAGE);
+  }
+
+  useDeprecationWarning({
+    message: ACCESS_LEVEL_DEPRECATION_MESSAGE,
+    shouldWarn: !!accessLevel,
+  });
 
   const Components = {
     Container,
@@ -52,6 +81,7 @@ function StorageManagerBase(
     FileList,
     FilePicker,
     FileListHeader,
+    FileListFooter,
     ...components,
   };
 
@@ -79,6 +109,7 @@ function StorageManagerBase(
     clearFiles,
     files,
     removeUpload,
+    queueFiles,
     setUploadingFile,
     setUploadPaused,
     setUploadProgress,
@@ -88,19 +119,21 @@ function StorageManagerBase(
 
   React.useImperativeHandle(ref, () => ({ clearFiles }));
 
-  const dropZoneProps = useDropZone({
-    onChange: (event: React.DragEvent<HTMLDivElement>) => {
-      const { files } = event.dataTransfer;
-      if (!files || files.length === 0) {
-        return;
+  const { dragState, ...dropZoneProps } = useDropZone({
+    acceptedFileTypes,
+    onDropComplete: ({ acceptedFiles, rejectedFiles }) => {
+      if (rejectedFiles && rejectedFiles.length > 0) {
+        logger.warn('Rejected files: ', rejectedFiles);
       }
-
-      const filteredFiles = filterAllowedFiles(
-        Array.from(files),
+      // We need to filter out files by extension here,
+      // we don't get filenames on the drag event, only on drop
+      const _acceptedFiles = filterAllowedFiles(
+        acceptedFiles,
         acceptedFileTypes
       );
       addFiles({
-        files: filteredFiles,
+        files: _acceptedFiles,
+        status: autoUpload ? FileStatus.QUEUED : FileStatus.ADDED,
         getFileErrorMessage: getMaxFileSizeErrorMessage,
       });
     },
@@ -118,7 +151,6 @@ function StorageManagerBase(
     setUploadProgress,
     setUploadSuccess,
     processFile,
-    provider,
     path,
   });
 
@@ -130,39 +162,30 @@ function StorageManagerBase(
 
     addFiles({
       files: Array.from(files),
+      status: autoUpload ? FileStatus.QUEUED : FileStatus.ADDED,
       getFileErrorMessage: getMaxFileSizeErrorMessage,
     });
   };
 
-  const onPauseUpload = ({
-    id,
-    uploadTask,
-  }: {
-    id: string;
-    uploadTask: UploadTask;
-  }) => {
+  const onClearAll = () => {
+    clearFiles();
+  };
+
+  const onUploadAll = () => {
+    queueFiles();
+  };
+
+  const onPauseUpload: TaskHandler = ({ id, uploadTask }) => {
     uploadTask.pause();
     setUploadPaused({ id });
   };
 
-  const onResumeUpload = ({
-    id,
-    uploadTask,
-  }: {
-    id: string;
-    uploadTask: UploadTask;
-  }) => {
+  const onResumeUpload: TaskHandler = ({ id, uploadTask }) => {
     uploadTask.resume();
     setUploadResumed({ id });
   };
 
-  const onCancelUpload = ({
-    id,
-    uploadTask,
-  }: {
-    id: string;
-    uploadTask: UploadTask;
-  }) => {
+  const onCancelUpload: TaskHandler = ({ id, uploadTask }) => {
     // At this time we don't know if the delete
     // permissions are enabled (required to cancel upload),
     // so we do a pause instead and remove from files
@@ -199,7 +222,12 @@ function StorageManagerBase(
 
   const remainingFilesCount = files.length - uploadedFilesLength;
 
+  // number of files selected for upload when autoUpload is turned off
+  const selectedFilesCount = autoUpload ? 0 : remainingFilesCount;
+
   const hasFiles = files.length > 0;
+
+  const hasUploadActions = !autoUpload && remainingFilesCount > 0;
 
   const hiddenInput = React.useRef<HTMLInputElement>(null);
   function handleClick() {
@@ -209,13 +237,23 @@ function StorageManagerBase(
     }
   }
 
+  useSetUserAgent({
+    componentName: 'StorageManager',
+    packageName: 'react-storage',
+    version: VERSION,
+  });
+
   return (
     <Components.Container
-      className={`${ComponentClassNames.StorageManager} ${
-        hasFiles ? ComponentClassNames.StorageManagerPreviewer : ''
+      className={`${ComponentClassName.StorageManager} ${
+        hasFiles ? ComponentClassName.StorageManagerPreviewer : ''
       }`}
     >
-      <Components.DropZone {...dropZoneProps} displayText={displayText}>
+      <Components.DropZone
+        inDropZone={dragState !== 'inactive'}
+        {...dropZoneProps}
+        displayText={displayText}
+      >
         <>
           <Components.FilePicker onClick={handleClick}>
             {displayText.browseFilesText}
@@ -238,6 +276,7 @@ function StorageManagerBase(
           displayText={displayText}
           fileCount={files.length}
           remainingFilesCount={remainingFilesCount}
+          selectedFilesCount={selectedFilesCount}
         />
       ) : null}
       <Components.FileList
@@ -252,21 +291,26 @@ function StorageManagerBase(
         hasMaxFilesError={hasMaxFilesError}
         maxFileCount={maxFileCount}
       />
+      {hasUploadActions ? (
+        <Components.FileListFooter
+          displayText={displayText}
+          remainingFilesCount={remainingFilesCount}
+          onClearAll={onClearAll}
+          onUploadAll={onUploadAll}
+        />
+      ) : null}
     </Components.Container>
   );
-}
+});
 
-const StorageManager = Object.assign(
-  React.forwardRef<StorageManagerHandle, StorageManagerProps>(
-    StorageManagerBase
-  ),
-  {
-    Container,
-    DropZone,
-    FileList,
-    FileListHeader,
-    FilePicker,
-  }
-);
+// pass an empty object as first param to avoid destructive action on `StorageManagerBase`
+const StorageManager = Object.assign({}, StorageManagerBase, {
+  Container,
+  DropZone,
+  FileList,
+  FileListHeader,
+  FileListFooter,
+  FilePicker,
+});
 
 export { StorageManager };

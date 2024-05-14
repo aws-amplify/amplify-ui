@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
-import { ComponentClassNames } from '@aws-amplify/ui-react';
+import { ComponentClassName } from '@aws-amplify/ui';
+import { IconsProvider, View } from '@aws-amplify/ui-react';
 
 import { FileStatusMessage } from '../FileStatusMessage';
 import { FileStatusMessageProps } from '../types';
@@ -27,7 +28,7 @@ describe('FileStatusMessage', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileStatus}`
+        `${ComponentClassName.StorageManagerFileStatus}`
       )
     ).toHaveLength(1);
     expect(
@@ -43,7 +44,7 @@ describe('FileStatusMessage', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileStatus}`
+        `${ComponentClassName.StorageManagerFileStatus}`
       )
     ).toHaveLength(1);
     expect(await findByText(uploadingPausedText)).toBeVisible();
@@ -57,7 +58,7 @@ describe('FileStatusMessage', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileStatus}`
+        `${ComponentClassName.StorageManagerFileStatus}`
       )
     ).toHaveLength(1);
     expect(await findByText(uploadSuccessful)).toBeVisible();
@@ -71,7 +72,7 @@ describe('FileStatusMessage', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileStatus}`
+        `${ComponentClassName.StorageManagerFileStatus}`
       )
     ).toHaveLength(1);
     expect(await findByText(errorUploading)).toBeVisible();
@@ -82,6 +83,26 @@ describe('FileStatusMessage', () => {
     const { container } = render(
       <FileStatusMessage {...defaultProps} status={FileStatus.QUEUED} />
     );
-    expect(container).toMatchInlineSnapshot(`<div />`);
+    expect(container).toMatchSnapshot();
+  });
+
+  it('renders custom icons from IconProvider', () => {
+    const { container } = render(
+      <IconsProvider
+        icons={{
+          storageManager: {
+            success: <View as="span" testId="success" />,
+            error: <View as="span" testId="error" />,
+          },
+        }}
+      >
+        <FileStatusMessage {...defaultProps} status={FileStatus.ERROR} />
+        <FileStatusMessage {...defaultProps} status={FileStatus.UPLOADED} />
+      </IconsProvider>
+    );
+
+    expect(screen.getByTestId('success')).toBeInTheDocument();
+    expect(screen.getByTestId('error')).toBeInTheDocument();
+    expect(container).toMatchSnapshot();
   });
 });

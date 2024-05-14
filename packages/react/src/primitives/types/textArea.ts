@@ -12,6 +12,7 @@ export interface TextAreaStyleProps {
   resize?: Property.Resize;
 }
 
+/** @deprecated For internal use only */
 export interface BaseTextAreaProps extends TextAreaStyleProps, BaseViewProps {
   /**
    * @description

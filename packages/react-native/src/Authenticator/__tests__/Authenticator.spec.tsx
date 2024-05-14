@@ -82,10 +82,10 @@ describe('Authenticator', () => {
   });
 
   it.each(['authenticated', 'signOut'])(
-    'handles the %s route as expected with children',
+    'handles a `route` value of %s as expected',
     (route) => {
       useAuthenticatorSpy.mockImplementation(
-        () => ({ route } as unknown as UseAuthenticator)
+        () => ({ route }) as unknown as UseAuthenticator
       );
 
       const { getByTestId, toJSON } = render(
@@ -103,16 +103,16 @@ describe('Authenticator', () => {
     }
   );
 
-  it.each(['authenticated', 'signOut'])(
-    'handles the %s route as expected without children',
+  it.each(['unauthenticated', 'configuring'])(
+    'handles an authStatus of %s as expected',
     (route) => {
       useAuthenticatorSpy.mockImplementation(
-        () => ({ route } as unknown as UseAuthenticator)
+        () => ({ route }) as unknown as UseAuthenticator
       );
 
-      const { container } = render(<Authenticator />);
+      const { root } = render(<Authenticator />);
 
-      expect(container.instance).toBeNull();
+      expect(root.instance).toBeNull();
     }
   );
 

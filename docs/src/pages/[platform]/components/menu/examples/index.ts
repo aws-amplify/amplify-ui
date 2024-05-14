@@ -6,3 +6,4 @@ export { MenuItemsExample } from './menuItemsExample';
 export { SizeExample } from './sizeExample';
 export { StylePropsExample } from './stylePropsExample';
 export { MenuThemeExample } from './MenuThemeExample';
+export { MenuIconExample } from './MenuIconExample';

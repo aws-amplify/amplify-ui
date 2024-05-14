@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`@aws-amplify/ui-react-native exports should match snapshot 1`] = `
-Array [
+[
   "Authenticator",
   "AuthenticatorProps",
   "Theme",
@@ -16,7 +16,15 @@ Array [
   "BannerMessageProps",
   "CarouselMessageProps",
   "FullScreenMessageProps",
+  "InAppMessage",
+  "InAppMessageAction",
+  "InAppMessageButton",
+  "InAppMessageContent",
   "InAppMessageDisplay",
+  "InAppMessageImage",
+  "InAppMessageLayout",
+  "InAppMessageStyle",
+  "InAppMessageTextAlign",
   "InAppMessagingProvider",
   "MessageComponents",
   "ModalMessageProps",

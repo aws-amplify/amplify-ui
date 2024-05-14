@@ -62,7 +62,7 @@ describe('withAuthenticator', () => {
       () =>
         ({
           route: 'authenticated',
-        } as unknown as UIReactCoreModule.UseAuthenticator)
+        }) as unknown as UIReactCoreModule.UseAuthenticator
     );
 
     const { toJSON, getByTestId } = render(<TestApp />);

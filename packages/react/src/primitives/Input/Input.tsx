@@ -1,8 +1,8 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
-import { ComponentClassNames } from '../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseInputProps,
   InputProps,
@@ -10,6 +10,8 @@ import {
   Primitive,
 } from '../types';
 import { View } from '../View';
+import { useFieldset } from '../Fieldset/useFieldset';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const InputPrimitive: Primitive<InputProps, 'input'> = (
   {
@@ -27,27 +29,19 @@ const InputPrimitive: Primitive<InputProps, 'input'> = (
     hasError = false,
     value,
     variation,
-    onBlur,
-    onChange,
-    onCopy,
-    onCut,
-    onFocus,
-    onInput,
-    onPaste,
-    onSelect,
-    onWheel,
     ...rest
   },
   ref
 ) => {
   const componentClasses = classNames(
-    ComponentClassNames.Input,
-    ComponentClassNames.FieldGroupControl,
-    classNameModifier(ComponentClassNames.Input, variation),
-    classNameModifierByFlag(ComponentClassNames.Input, 'error', hasError),
-    classNameModifier(ComponentClassNames.Input, size),
+    ComponentClassName.Input,
+    ComponentClassName.FieldGroupControl,
+    classNameModifier(ComponentClassName.Input, variation),
+    classNameModifierByFlag(ComponentClassName.Input, 'error', hasError),
+    classNameModifier(ComponentClassName.Input, size),
     className
   );
+  const { isFieldsetDisabled } = useFieldset();
 
   return (
     <View
@@ -56,21 +50,10 @@ const InputPrimitive: Primitive<InputProps, 'input'> = (
       autoComplete={autoComplete}
       checked={checked}
       className={componentClasses}
-      data-size={size}
-      data-variation={variation}
       defaultChecked={defaultChecked}
       defaultValue={defaultValue}
-      isDisabled={isDisabled}
+      isDisabled={isFieldsetDisabled ? isFieldsetDisabled : isDisabled}
       id={id}
-      onBlur={onBlur}
-      onChange={onChange}
-      onCopy={onCopy}
-      onCut={onCut}
-      onFocus={onFocus}
-      onInput={onInput}
-      onPaste={onPaste}
-      onSelect={onSelect}
-      onWheel={onWheel}
       readOnly={isReadOnly}
       ref={ref}
       required={isRequired}
@@ -82,6 +65,6 @@ const InputPrimitive: Primitive<InputProps, 'input'> = (
 };
 
 export const Input: ForwardRefPrimitive<BaseInputProps, 'input'> =
-  React.forwardRef(InputPrimitive);
+  primitiveWithForwardRef(InputPrimitive);
 
 Input.displayName = 'Input';

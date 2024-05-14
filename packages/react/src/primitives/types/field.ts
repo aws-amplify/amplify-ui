@@ -6,6 +6,7 @@ import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 /**
  * Shared type across all field types
+ * @deprecated For internal use only
  */
 export interface BaseFieldProps extends BaseViewProps {
   /**
@@ -49,17 +50,20 @@ export type FieldProps<Element extends ElementType = 'div'> = PrimitiveProps<
   Element
 >;
 
+/** @deprecated For internal use only */
 export interface BaseFieldClearButtonProps
   extends Partial<BaseFieldGroupIconButtonProps> {}
 export type FieldClearButtonProps<Element extends ElementType = 'button'> =
   PrimitiveProps<BaseFieldClearButtonProps, Element>;
 
+/** @deprecated For internal use only */
 export interface BaseFieldDescriptionProps
   extends BaseTextProps,
     Pick<BaseFieldProps, 'descriptiveText' | 'labelHidden'> {}
 export type FieldDescriptionProps<Element extends ElementType = 'p'> =
   PrimitiveProps<BaseFieldDescriptionProps, Element>;
 
+/** @deprecated For internal use only */
 export interface BaseFieldErrorMessageProps
   extends BaseTextProps,
     Pick<BaseFieldProps, 'errorMessage'>,

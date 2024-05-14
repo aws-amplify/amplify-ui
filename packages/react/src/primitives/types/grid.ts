@@ -123,6 +123,7 @@ export interface GridItemStyleProps {
   rowStart?: ResponsiveStyle<Property.GridRowStart>;
 }
 
+/** @deprecated For internal use only */
 export interface BaseGridProps extends GridContainerStyleProps, BaseViewProps {}
 
 export type GridProps<Element extends ElementType = 'div'> = PrimitiveProps<

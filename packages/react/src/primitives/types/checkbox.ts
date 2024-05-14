@@ -5,6 +5,7 @@ import { FieldProps, LabelPositions } from './field';
 import { BaseStyleProps } from './style';
 import { ElementType, PrimitiveProps } from './view';
 
+/** @deprecated For internal use only */
 export interface BaseCheckboxProps extends BaseFlexProps, BaseInputProps {
   /**
    * @description
@@ -28,7 +29,7 @@ export interface BaseCheckboxProps extends BaseFlexProps, BaseInputProps {
    * The submitted value when checked
    * Shows on form submission as key pair `name:value`
    */
-  value: string;
+  value?: string;
 
   /**
    * @description

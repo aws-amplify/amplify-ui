@@ -11,6 +11,7 @@ import {
   SizeExample,
   StylePropsExample,
   MenuThemeExample,
+  MenuIconExample,
 } from './examples/';
 
 import { Example, ExampleCode } from '@/components/Example';
@@ -29,8 +30,7 @@ Import the `Menu` and `MenuItem` components. Note that the Menu component is ren
   <BasicExample />
   <ExampleCode>
 ```tsx file=./examples/basicExample.tsx
-
-````
+```
   </ExampleCode>
 </Example>
 
@@ -42,9 +42,7 @@ Use the `MenuItem` component to configure Menu options. The example below demons
   <MenuItemsExample />
   <ExampleCode>
 ```tsx file=./examples/menuItemsExample.tsx
-
-````
-
+```
   </ExampleCode>
 </Example>
 
@@ -56,9 +54,7 @@ The default Menu button can be customized by importing the `MenuButton` componen
   <MenuExample />
   <ExampleCode>
 ```tsx file=./examples/menuExample.tsx
-
-````
-
+```
   </ExampleCode>
 </Example>
 
@@ -70,9 +66,7 @@ To control the alignment of the Menu with the Menu button, use the `menuAlign` p
   <MenuAlignExample />
   <ExampleCode>
 ```tsx file=./examples/menuAlignExample.tsx
-
-````
-
+```
   </ExampleCode>
 </Example>
 
@@ -84,9 +78,7 @@ Control the size of the Menu button and items using the `size` prop. Available o
   <SizeExample />
   <ExampleCode>
 ```tsx file=./examples/sizeExample.tsx
-
-````
-
+```
   </ExampleCode>
 </Example>
 
@@ -98,13 +90,12 @@ Create a controlled `Menu` using the `isOpen` and `onOpenChange` props.
   <ControlledExample />
   <ExampleCode>
 ```tsx file=./examples/controlledExample.tsx
-
-````
+```
 
   </ExampleCode>
 </Example>
 
-## CSS Styling
+## Styling
 
 <ThemeExample component="Menu">
   <Example>
@@ -120,6 +111,16 @@ Create a controlled `Menu` using the `isOpen` and `onOpenChange` props.
   </Example>
 </ThemeExample>
 
+### Icons
+
+<Example>
+  <MenuIconExample />
+  <ExampleCode>
+```tsx file=./examples/MenuIconExample.tsx
+```
+  </ExampleCode>
+</Example>
+
 ### Target classes
 
 <ComponentStyleDisplay componentName="Menu" />
@@ -131,13 +132,13 @@ To override styling on all Menus, you can set the Amplify CSS variables with the
 ```css
 /* styles.css */
 .amplify-menu-content {
-  --amplify-components-button-color: var(--amplify-colors-brand-secondary-90);
+  --amplify-components-button-color: var(--amplify-colors-secondary-90);
 }
 .amplify-menu-trigger {
   --amplify-components-button-border-color: var(
-    --amplify-colors-brand-secondary-90
+    --amplify-colors-secondary-90
   );
-  --amplify-components-button-color: var(--amplify-colors-brand-secondary-90);
+  --amplify-components-button-color: var(--amplify-colors-secondary-90);
 }
 ```
 
@@ -180,14 +181,14 @@ Note: The `classname` prop is applied to the Menu dropdown content. Use the `tri
 ```css
 /* styles.css */
 .my-menu-trigger.amplify-menu-trigger {
-  border-color: var(--amplify-colors-brand-secondary-90);
-  color: var(--amplify-colors-brand-secondary-90);
+  border-color: var(--amplify-colors-secondary-90);
+  color: var(--amplify-colors-secondary-90);
 }
 .my-menu-content .amplify-menu-content__item {
-  color: var(--amplify-colors-brand-secondary-90);
+  color: var(--amplify-colors-secondary-90);
 }
 .my-menu-content .amplify-menu-content__item:hover {
-  background-color: var(--amplify-colors-brand-secondary-90);
+  background-color: var(--amplify-colors-secondary-90);
 }
 ```
 

@@ -8,10 +8,10 @@ Feature: Change Password With Overrides
   @react
   Scenario: Customize defsault components
     When I type my "email" with status "CONFIRMED"
-    And I type my password
-    And I click the "Sign in" button
+    Then I type my password
+    Then I click the "Sign in" button
     Then I see "Change Password:"
-    And I see "Custom Current Password label"
-    And I see "Custom New Password label"
-    And I click the "Sign out" button
+    Then I see "Custom Current Password label"
+    Then I see "Custom New Password label"
+    Then I click the "Sign out" button
     Then I see "Sign in"

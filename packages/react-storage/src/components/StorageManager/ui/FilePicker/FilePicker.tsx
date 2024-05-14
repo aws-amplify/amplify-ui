@@ -1,15 +1,13 @@
 import React from 'react';
-import {
-  Button,
-  ComponentClassNames,
-  ButtonProps,
-} from '@aws-amplify/ui-react';
+
+import { ComponentClassName } from '@aws-amplify/ui';
+import { Button, ButtonProps } from '@aws-amplify/ui-react';
 
 export type FilePickerProps = ButtonProps;
 
 export function FilePicker({
   children,
-  className = ComponentClassNames.StorageManagerFilePicker,
+  className = ComponentClassName.StorageManagerFilePicker,
   size = 'small',
   ...props
 }: FilePickerProps): JSX.Element {

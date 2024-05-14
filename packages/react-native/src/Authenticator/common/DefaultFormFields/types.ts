@@ -1,5 +1,8 @@
 import { StyleProp, TextStyle, ViewStyle } from 'react-native';
-import { AuthenticatorFormFieldsComponent } from '@aws-amplify/ui-react-core';
+import {
+  AuthenticatorFormFieldsComponent,
+  UseAuthenticator,
+} from '@aws-amplify/ui-react-core';
 
 import { RadioFieldOptions, TextFieldOptionsType } from '../../hooks';
 
@@ -25,8 +28,15 @@ export interface DefaultFormFieldsStyle {
 export type DefaultFormFieldsComponent<FieldsType> =
   AuthenticatorFormFieldsComponent<FieldsType, DefaultFormFieldsStyle>;
 
-export type DefaultTextFormFieldsComponent =
-  DefaultFormFieldsComponent<TextFieldOptionsType>;
+interface FormFieldsProps extends DefaultFormFieldsStyle {
+  isPending?: UseAuthenticator['isPending'];
+  validationErrors?: UseAuthenticator['validationErrors'];
+}
 
-export type DefaultRadioFormFieldsComponent =
-  DefaultFormFieldsComponent<RadioFieldOptions>;
+export interface DefaultTextFormFieldsProps extends FormFieldsProps {
+  fields?: TextFieldOptionsType[];
+}
+
+export interface DefaultRadioFormFieldsProps extends FormFieldsProps {
+  fields?: RadioFieldOptions[];
+}

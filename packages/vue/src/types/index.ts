@@ -1,3 +1,6 @@
+import { ComputedRef, InjectionKey, Ref, Slot } from 'vue';
+import { Interpreter } from 'xstate';
+
 import {
   AuthContext,
   AuthEvent,
@@ -5,12 +8,11 @@ import {
   AuthMachineSend,
   AuthMachineState,
   AuthStatus,
+  AuthenticatorServiceFacade,
   DefaultFormFieldOptions,
   SignInState,
   SignUpState,
 } from '@aws-amplify/ui';
-import { ComputedRef, InjectionKey, Ref, Slot } from 'vue';
-import { Interpreter } from 'xstate';
 
 export interface UseAuth {
   authStatus: Ref<AuthStatus>;
@@ -66,3 +68,8 @@ export type InterpretService = Interpreter<
 
 export const InterpretServiceInjectionKeyTypes: InjectionKey<InterpretService> =
   Symbol('interpret.service');
+
+export type UseAuthenticator = AuthenticatorServiceFacade & {
+  /** @deprecated For internal use only */
+  QRFields: { totpIssuer?: string; totpUsername?: string } | null;
+};

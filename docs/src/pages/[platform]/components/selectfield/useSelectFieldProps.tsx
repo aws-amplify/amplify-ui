@@ -33,6 +33,12 @@ export const useSelectFieldProps: UseSelectFieldProps = (initialValues) => {
   const [variation, setVariation] = React.useState<
     SelectFieldProps['variation']
   >(initialValues.variation);
+  const [isMultiple, setIsMultiple] = React.useState<
+    SelectFieldProps['isMultiple']
+  >(initialValues.isMultiple);
+  const [selectSize, setSelectSize] = React.useState<
+    SelectFieldProps['selectSize']
+  >(initialValues.selectSize);
 
   React.useEffect(() => {
     demoState.set(SelectField.displayName, {
@@ -44,6 +50,8 @@ export const useSelectFieldProps: UseSelectFieldProps = (initialValues) => {
       labelHidden,
       size,
       variation,
+      isMultiple,
+      selectSize,
     });
   }, [
     descriptiveText,
@@ -54,6 +62,8 @@ export const useSelectFieldProps: UseSelectFieldProps = (initialValues) => {
     labelHidden,
     size,
     variation,
+    isMultiple,
+    selectSize,
   ]);
 
   return React.useMemo(
@@ -66,6 +76,8 @@ export const useSelectFieldProps: UseSelectFieldProps = (initialValues) => {
       size,
       variation,
       isDisabled,
+      isMultiple,
+      selectSize,
       setDescriptiveText,
       setErrorMessage,
       setHasError,
@@ -74,6 +86,8 @@ export const useSelectFieldProps: UseSelectFieldProps = (initialValues) => {
       setLabelHidden,
       setSize,
       setVariation,
+      setIsMultiple,
+      setSelectSize,
     }),
     [
       descriptiveText,
@@ -84,6 +98,8 @@ export const useSelectFieldProps: UseSelectFieldProps = (initialValues) => {
       size,
       variation,
       isDisabled,
+      isMultiple,
+      selectSize,
       setDescriptiveText,
       setErrorMessage,
       setHasError,
@@ -92,6 +108,8 @@ export const useSelectFieldProps: UseSelectFieldProps = (initialValues) => {
       setLabelHidden,
       setSize,
       setVariation,
+      setIsMultiple,
+      setSelectSize,
     ]
   );
 };

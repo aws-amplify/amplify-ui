@@ -5,10 +5,20 @@ description: Customize your FaceLivenessDetector
 supportedFrameworks: react|android|swift
 ---
 
-import { Fragment } from '@/components/Fragment';
+import { InlineFilter } from '@/components/InlineFilter';
 import { Example } from '@/components/Example';
 import { FRAMEWORKS } from '@/data/frameworks';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+import StartAndroid from './customization.start-view.android.mdx';
+import StartReact from './customization.start-view.react.mdx';
+import StartSwift from './customization.start-view.swift.mdx';
+import I18Android from './customization.i18n.android.mdx';
+import I18React from './customization.i18n.react.mdx';
+import I18Swift from './customization.i18n.swift.mdx';
+import ThemeAndroid from './customization.theming.android.mdx';
+import ThemeReact from './customization.theming.react.mdx';
+import ComponentsReact from './customization.components.react.mdx';
+import CdnReact from './customization.cdn.react.mdx';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -22,23 +32,35 @@ export async function getStaticProps() {
 
 ## Start View
 
-<Fragment>
-  {({ platform }) => import(`./customization.start-view.${platform}.mdx`)}
-</Fragment>
+<InlineFilter filters={['android']}>
+  <StartAndroid />
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <StartReact />
+</InlineFilter>
+<InlineFilter filters={['swift']}>
+  <StartSwift />
+</InlineFilter>
 
 ## Internationalization (I18n)
 
-<Fragment>
-  {({ platform }) => import(`./customization.i18n.${platform}.mdx`)}
-</Fragment>
+<InlineFilter filters={['android']}>
+  <I18Android />
 
-<Fragment platforms={['react', 'android']}>
-  {({ platform }) => import(`./customization.theming.${platform}.mdx`)}
-</Fragment>
+  <ThemeAndroid />
+</InlineFilter>
+<InlineFilter filters={['react']}>
+  <I18React />
 
-<Fragment platforms={['react']}>
-  {({ platform }) => import(`./customization.components.${platform}.mdx`)}
-</Fragment>
+  <ThemeReact />
+
+  <ComponentsReact />
+
+  <CdnReact />
+</InlineFilter>
+<InlineFilter filters={['swift']}>
+  <I18Swift />
+</InlineFilter>
 
 ## Best Practices
 

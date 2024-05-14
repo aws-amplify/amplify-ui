@@ -84,7 +84,7 @@ export const Fragment = ({
         );
       },
     });
-  }, [children, platform]);
+  }, [children, platform, platforms]);
 
   return Component ? <Component /> : null;
 };

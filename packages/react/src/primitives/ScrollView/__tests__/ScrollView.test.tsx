@@ -2,16 +2,13 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { ScrollView } from '../ScrollView';
-import { ComponentClassNames } from '../../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 describe('ScrollView:', () => {
   it('should render classname and custom classname', async () => {
     render(<ScrollView className="class-test" testId="test-id" />);
     const scrollView = await screen.findByTestId('test-id');
-    expect(scrollView).toHaveClass(
-      ComponentClassNames.ScrollView,
-      'class-test'
-    );
+    expect(scrollView).toHaveClass(ComponentClassName.ScrollView, 'class-test');
   });
 
   it('should render orientation classes for ScrollView', async () => {
@@ -26,10 +23,10 @@ describe('ScrollView:', () => {
     const vertical = await screen.findByTestId('vertical');
 
     expect(horizontal.classList).toContain(
-      `${ComponentClassNames['ScrollView']}--horizontal`
+      `${ComponentClassName['ScrollView']}--horizontal`
     );
     expect(vertical.classList).toContain(
-      `${ComponentClassNames['ScrollView']}--vertical`
+      `${ComponentClassName['ScrollView']}--vertical`
     );
   });
 
@@ -44,6 +41,6 @@ describe('ScrollView:', () => {
   it('should set data-orientation correctly', async () => {
     render(<ScrollView orientation="horizontal" testId="test-id" />);
     const scrollView = await screen.findByTestId('test-id');
-    expect(scrollView).toHaveAttribute('data-orientation', 'horizontal');
+    expect(scrollView).toHaveClass('amplify-scrollview--horizontal');
   });
 });

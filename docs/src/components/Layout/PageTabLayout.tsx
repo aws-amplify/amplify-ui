@@ -1,56 +1,41 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
 
-import { Tabs, TabItem, View } from '@aws-amplify/ui-react';
+import { Tabs, View } from '@aws-amplify/ui-react';
 
 export const PageTabLayout = ({
   tabComponents,
 }: {
-  tabComponents: [{ title: string; children: React.Component }];
+  tabComponents: { title: string; children: React.ReactNode }[];
 }) => {
-  const {
-    query: { tab = '', platform },
-    pathname,
-    push,
-  } = useRouter();
-  const tabComponentsMap = tabComponents.map(({ title }) =>
-    title.toLocaleLowerCase()
-  );
+  const { query, pathname, push } = useRouter();
 
-  const getIndex = (tab: string) =>
-    tab === '' ? 0 : tabComponentsMap.indexOf(tab);
-  const defaultIndex = getIndex(tab as string);
-  const [tabIndex, setTabIndex] = React.useState(defaultIndex);
-  const changeURL = (index) => {
-    push(
-      {
-        pathname,
-        query: {
-          platform,
-          ...(index != 0 && { tab: tabComponents[index].title.toLowerCase() }),
-        },
-      },
-      undefined,
-      { shallow: true }
-    );
-    setTabIndex(index);
+  const defaultValue = tabComponents[0]['title'].toLocaleLowerCase();
+
+  const handleValueChange = (value: string) => {
+    const { platform } = query;
+    const tab = value !== defaultValue ? value.toLocaleLowerCase() : undefined;
+    push({ pathname, query: { platform, tab } }, undefined, { shallow: true });
   };
 
-  React.useEffect(() => {
-    setTabIndex(getIndex(tab as string));
-  }, [tab, getIndex]);
-
   return (
-    <Tabs
-      currentIndex={tabIndex}
-      justifyContent="flex-start"
-      onChange={changeURL}
+    <Tabs.Container
+      defaultValue={defaultValue}
+      onValueChange={handleValueChange}
+      isLazy
     >
+      <Tabs.List>
+        {tabComponents.map(({ title }, idx) => (
+          <Tabs.Item key={idx} value={title.toLocaleLowerCase()}>
+            {title}
+          </Tabs.Item>
+        ))}
+      </Tabs.List>
       {tabComponents.map(({ title, children }, idx) => (
-        <TabItem key={idx} title={title}>
+        <Tabs.Panel key={idx} value={title.toLocaleLowerCase()}>
           <View className="docs-page-tab">{children}</View>
-        </TabItem>
+        </Tabs.Panel>
       ))}
-    </Tabs>
+    </Tabs.Container>
   );
 };

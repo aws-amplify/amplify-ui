@@ -17,6 +17,8 @@ export const defaultTexts = {
   CONFIRM_RESET_PASSWORD_HEADING: 'Reset your Password',
   CONFIRM_SIGNUP_HEADING: 'Confirm Sign Up',
   CONFIRM_SMS: 'Confirm SMS Code',
+  // If challenge name is not returned
+  CONFIRM_MFA_DEFAULT: 'Confirm MFA Code',
   CONFIRM_TOTP: 'Confirm TOTP Code',
   CONFIRM: 'Confirm',
   CONFIRMATION_CODE: 'Confirmation Code',

@@ -24,20 +24,20 @@ permissions:
 jobs:
   # You can skip tests based on your use case.
   setup-cache:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@<BRANCH>
+    uses: ./.github/workflows/reusable-setup-cache.yml
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
 
   unit:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@<BRANCH>
+    uses: ./.github/workflows/reusable-unit.yml
     needs: setup-cache
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
 
   e2e:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@<BRANCH>
+    uses: ./.github/workflows/reusable-e2e.yml
     needs: unit
     with:
       commit: ${{ github.sha }}

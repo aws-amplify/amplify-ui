@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { API } from 'aws-amplify';
+import { post, get } from 'aws-amplify/api';
 import useSWR from 'swr';
 
 export function useLiveness() {
@@ -13,8 +13,18 @@ export function useLiveness() {
     mutate,
   } = useSWR(
     'CreateStreamingLivenessSession',
-    () => API.post('BYOB', '/liveness/create', {}),
-    { revalidateOnFocus: false }
+    async () => {
+      const response = await post({
+        apiName: 'BYOB',
+        path: '/liveness/create',
+        options: {},
+      }).response;
+      const { body } = response;
+      return body.json();
+    },
+    {
+      revalidateOnFocus: false,
+    }
   );
 
   const handleCreateLivenessSession = () => {
@@ -42,9 +52,15 @@ export function useLiveness() {
   };
 
   const handleGetLivenessDetection = async (sessionId) => {
-    const response = await API.get('BYOB', `/liveness/${sessionId}`, {});
-    setGetLivenessResponse(response);
-    return { isLive: response.isLive };
+    const response = await get({
+      apiName: 'BYOB',
+      path: `/liveness/${sessionId}`,
+      options: {},
+    }).response;
+    const { body } = response;
+    const livenessResponse = await body.json();
+    setGetLivenessResponse(livenessResponse);
+    return { isLive: livenessResponse['isLive'] };
   };
 
   return {

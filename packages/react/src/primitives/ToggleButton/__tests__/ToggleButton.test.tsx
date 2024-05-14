@@ -1,8 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as React from 'react';
 
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { ToggleButton } from '../ToggleButton';
 
 describe('ToggleButton:', () => {
@@ -18,7 +18,7 @@ describe('ToggleButton:', () => {
     render(<ToggleButton className="test-class" />);
     const toggleButton = await screen.findByRole('button');
     expect(toggleButton).toHaveClass(
-      ComponentClassNames.ToggleButton,
+      ComponentClassName.ToggleButton,
       className
     );
   });
@@ -43,21 +43,21 @@ describe('ToggleButton:', () => {
     const menu = await screen.findByTestId('menu');
 
     expect(primary.classList).toContain(
-      `${ComponentClassNames['ToggleButton']}--primary`
+      `${ComponentClassName['ToggleButton']}--primary`
     );
     expect(link.classList).toContain(
-      `${ComponentClassNames['ToggleButton']}--link`
+      `${ComponentClassName['ToggleButton']}--link`
     );
     expect(menu.classList).toContain(
-      `${ComponentClassNames['ToggleButton']}--menu`
+      `${ComponentClassName['ToggleButton']}--menu`
     );
   });
 
   it('should set size and variation correctly', async () => {
     render(<ToggleButton size="large" variation="primary" />);
     const toggleButton = await screen.findByRole('button');
-    expect(toggleButton).toHaveAttribute('data-size', 'large');
-    expect(toggleButton).toHaveAttribute('data-variation', 'primary');
+    expect(toggleButton).toHaveClass(`${ComponentClassName.Button}--large`);
+    expect(toggleButton).toHaveClass(`${ComponentClassName.Button}--primary`);
   });
 
   it('should be disabled if isDisabled is set to true', async () => {
@@ -76,25 +76,35 @@ describe('ToggleButton:', () => {
     const onClick = jest.fn();
     render(<ToggleButton onClick={onClick} />);
     const toggleButton = await screen.findByRole('button');
-    userEvent.click(toggleButton);
-    expect(onClick).toBeCalledTimes(1);
+    await act(async () => {
+      await userEvent.click(toggleButton);
+    });
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 
   it('should works in uncontrolled way', async () => {
     render(<ToggleButton defaultPressed={false} />);
     const toggleButton = await screen.findByRole('button');
-    userEvent.click(toggleButton);
+    await act(async () => {
+      await userEvent.click(toggleButton);
+    });
     expect(toggleButton).toHaveAttribute('aria-pressed', 'true');
-    userEvent.click(toggleButton);
+    await act(async () => {
+      await userEvent.click(toggleButton);
+    });
     expect(toggleButton).toHaveAttribute('aria-pressed', 'false');
   });
 
   it('should works in controlled way', async () => {
     render(<ControlledToggleButton />);
     const toggleButton = await screen.findByRole('button');
-    userEvent.click(toggleButton);
+    await act(async () => {
+      await userEvent.click(toggleButton);
+    });
     expect(toggleButton).toHaveAttribute('aria-pressed', 'true');
-    userEvent.click(toggleButton);
+    await act(async () => {
+      await userEvent.click(toggleButton);
+    });
     expect(toggleButton).toHaveAttribute('aria-pressed', 'false');
   });
 

@@ -8,8 +8,8 @@ Feature: Sign Up with Errors
 @angular @react @vue @react-native
 Scenario: Sign up with a new email & password with wrong password requirements
   When I type a new "email"
-  And I type an invalid wrong complexity password
-  And I confirm my password
+  Then I type an invalid wrong complexity password
+  Then I confirm my password
   Then I see "Password must have numbers"
   Then I see "Password must have special characters"
   Then I see "Password must have upper case letters"
@@ -18,10 +18,10 @@ Scenario: Sign up with a new email & password with wrong password requirements
 @angular @react @vue @react-native
 Scenario: Sign up with a new email & password without lower case characters
   When I type a new "email"
-  And I type an invalid no lower case password
-  And I confirm my password
+  Then I type an invalid no lower case password
+  Then I confirm my password
   Then I see "Password must have numbers"
   Then I see "Password must have special characters"
   Then I see "Password must have lower case letters"
   Then I see "Password must have at least 8 characters"
-  And I confirm "Password must have numbers" error is accessible in password field
+  Then I confirm "Password must have numbers" error is accessible in password field

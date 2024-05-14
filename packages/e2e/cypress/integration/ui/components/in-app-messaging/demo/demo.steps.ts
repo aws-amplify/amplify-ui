@@ -11,8 +11,7 @@ Given('{string} layout radio option is selected', (radioOption: string) => {
 });
 
 When('I click the {string} layout radio option', (radioOption: string) => {
-  // another span element wraps over this so had to add force:true on check
-  cy.findByText(radioOption).next().check({ force: true });
+  cy.findByText(radioOption).click();
 });
 
 When('I toggle {string} checkbox', (checkboxName: string) => {

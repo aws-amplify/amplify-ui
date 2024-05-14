@@ -18,7 +18,12 @@ export type SwitchFieldTokens<OutputType extends OutputVariantKey> =
     small?: SwitchFieldSizeTokens<OutputType>;
     label?: DesignTokenProperties<'padding', OutputType>;
     thumb?: DesignTokenProperties<
-      'backgroundColor' | 'borderColor' | 'borderRadius' | 'width',
+      | 'backgroundColor'
+      | 'borderColor'
+      | 'borderStyle'
+      | 'borderWidth'
+      | 'borderRadius'
+      | 'width',
       OutputType
     > & {
       checked?: DesignTokenProperties<'transform', OutputType>;
@@ -41,13 +46,7 @@ export const switchfield: Required<SwitchFieldTokens<'default'>> = {
   },
   _focused: {
     shadow: {
-      value: {
-        offsetX: '0px',
-        offsetY: '0px',
-        blurRadius: '0px',
-        spreadRadius: '2px',
-        color: '{colors.border.focus.value}',
-      },
+      value: '{components.fieldcontrol._focus.boxShadow.value}',
     },
   },
 
@@ -67,7 +66,9 @@ export const switchfield: Required<SwitchFieldTokens<'default'>> = {
 
   thumb: {
     backgroundColor: { value: '{colors.background.primary.value}' },
-    borderColor: { value: '{colors.border.tertiary.value}' },
+    borderColor: { value: 'transparent' },
+    borderWidth: { value: '{borderWidths.small.value}' },
+    borderStyle: { value: 'solid' },
     borderRadius: { value: '{radii.xxxl.value}' },
     checked: {
       transform: { value: '{transforms.slideX.medium.value}' },
@@ -82,7 +83,7 @@ export const switchfield: Required<SwitchFieldTokens<'default'>> = {
     backgroundColor: { value: '{colors.background.quaternary.value}' },
     borderRadius: { value: '{radii.xxxl.value}' },
     checked: {
-      backgroundColor: { value: '{colors.brand.primary.80.value}' },
+      backgroundColor: { value: '{colors.primary.80.value}' },
     },
     height: { value: '{space.relative.medium.value}' },
     padding: { value: '{outlineWidths.medium.value}' },

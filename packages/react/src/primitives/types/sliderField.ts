@@ -8,6 +8,7 @@ import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 type SliderOrientation = 'horizontal' | 'vertical';
 type Direction = 'ltr' | 'rtl';
 
+/** @deprecated For internal use only */
 export interface BaseSliderFieldProps
   extends BaseTextFieldProps,
     BaseViewProps {

@@ -1,5 +1,6 @@
 import { IconType } from 'react-icons/lib';
 import {
+  MdFeedback,
   MdFormatSize,
   MdTextFormat,
   MdOutlineImage,
@@ -37,6 +38,9 @@ import {
   MdSystemUpdateAlt,
   MdCheckCircle,
   MdHighlight,
+  MdChevronRight,
+  MdPanToolAlt,
+  MdLabel,
 } from 'react-icons/md';
 
 export interface ComponentNavItem {
@@ -200,16 +204,16 @@ export const connectedComponents: ComponentNavItem[] = [
     platforms: ['react'],
   },
   {
-    href: '/connected-components/storage/storagemanager',
-    label: 'Storage Manager',
-    body: 'StorageManager component allows users to upload and manage files in your Amplify backend.',
+    href: '/connected-components/storage/storageimage',
+    label: 'Storage Image',
+    body: 'StorageImage component allows users to load an image managed by Amplify Storage.',
     platforms: ['react'],
     tertiary: true,
   },
   {
-    href: '/connected-components/storage/fileuploader',
-    label: 'File Uploader',
-    body: 'FileUploader component allows users to upload files to your Amplify backend.',
+    href: '/connected-components/storage/storagemanager',
+    label: 'Storage Manager',
+    body: 'StorageManager component allows users to upload and manage files in your Amplify backend.',
     platforms: ['react'],
     tertiary: true,
   },
@@ -247,6 +251,13 @@ export const feedbackComponents: ComponentNavItem[] = [
     icon: MdWarning,
   },
   {
+    href: '/components/message',
+    label: 'Message',
+    body: `A Message can be used to display feedback to the user.`,
+    platforms: ['react'],
+    icon: MdFeedback,
+  },
+  {
     href: '/components/placeholder',
     label: 'Placeholder',
     body: `The Placeholder component is used to fill out the interface while content is loaded asynchronously.`,
@@ -271,6 +282,27 @@ export const inputComponents: ComponentNavItem[] = [
     icon: MdSearch,
   },
   {
+    href: '/components/fieldset',
+    label: 'Fieldset',
+    body: `Fieldsets are used to group related form fields.`,
+    platforms: ['react'],
+    icon: MdSearch,
+  },
+  {
+    href: '/components/input',
+    label: 'Input',
+    body: `Input primitive allows creating interactive form controls`,
+    platforms: ['react'],
+    icon: MdInput,
+  },
+  {
+    href: '/components/label',
+    label: 'Label',
+    body: `Label primitive enables captioning a user interface item`,
+    platforms: ['react'],
+    icon: MdLabel,
+  },
+  {
     href: '/components/textareafield',
     label: 'TextArea Field',
     body: `The TextAreaField form primitive can be used allow users to input multiline text content.`,
@@ -280,7 +312,7 @@ export const inputComponents: ComponentNavItem[] = [
   {
     href: '/components/textfield',
     label: 'Text Field',
-    body: `The TextField form primitive can be used allow users to input text content.`,
+    body: `The TextField form primitive allows users to input text content.`,
     platforms: ['react'],
     icon: MdInput,
   },
@@ -361,6 +393,13 @@ export const inputComponents: ComponentNavItem[] = [
     platforms: ['react'],
     icon: MdTouchApp,
   },
+  {
+    href: '/components/dropzone',
+    label: 'DropZone',
+    body: `The Dropzone component captures files from user with drag and drop`,
+    platforms: ['react'],
+    icon: MdPanToolAlt,
+  },
 ].sort(sortByLabel);
 
 export const layoutComponents: ComponentNavItem[] = [
@@ -400,9 +439,9 @@ export const layoutComponents: ComponentNavItem[] = [
     icon: MdTableChart,
   },
   {
-    href: '/components/expander',
-    label: 'Expander',
-    body: `The Expander primitive enables users to expand or collapse a set of sections.`,
+    href: '/components/accordion',
+    label: 'Accordion',
+    body: `The Accordion primitive enables users to expand or collapse a set of sections.`,
     platforms: ['react'],
     icon: MdExpand,
   },
@@ -453,6 +492,13 @@ export const navigationComponents: ComponentNavItem[] = [
     body: `Tabs organize content into multiple sections and allow users to navigate between them.`,
     platforms: ['react'],
     icon: MdTab,
+  },
+  {
+    href: '/components/breadcrumbs',
+    label: 'Breadcrumbs',
+    body: `The breadcrumbs component is a navigation list used to visualize the information architecture of a website and the user's current place in the hierarchy.`,
+    platforms: ['react'],
+    icon: MdChevronRight,
   },
 ].sort(sortByLabel);
 
@@ -508,11 +554,6 @@ export const guides: ComponentNavItem[] = [
   {
     href: '/guides/css-in-js',
     label: 'CSS in JS',
-    platforms: ['react', 'vue', 'angular'],
-  },
-  {
-    href: '/guides/auth-protected',
-    label: 'Protected Routes',
     platforms: ['react'],
   },
 ];
@@ -561,12 +602,6 @@ export const gettingStarted: ComponentNavItem[] = [
     tertiary: true,
   },
   {
-    href: '/getting-started/usage/create-react-app',
-    label: 'Create React App',
-    platforms: ['react'],
-    tertiary: true,
-  },
-  {
     href: '/getting-started/figma',
     platforms: ['react'],
     label: 'Figma',
@@ -584,7 +619,7 @@ export const gettingStarted: ComponentNavItem[] = [
   {
     href: '/getting-started/migration',
     label: 'Migration',
-    platforms: ['react', 'vue', 'angular'],
+    platforms: ['react', 'vue', 'angular', 'react-native'],
   },
   {
     href: '/getting-started/troubleshooting',
@@ -626,6 +661,11 @@ export const theming: ComponentNavItem[] = [
     label: 'Sizes',
     platforms: ['react', 'vue', 'angular'],
     tertiary: true,
+  },
+  {
+    href: '/theming/icons',
+    label: 'Icons',
+    platforms: ['react'],
   },
   {
     href: '/theming/theme-provider',

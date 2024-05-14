@@ -1,0 +1,5 @@
+const process = {
+  env: {},
+};
+
+exports.process = process;

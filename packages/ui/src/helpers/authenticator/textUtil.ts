@@ -1,26 +1,22 @@
+import { SocialProvider } from '../../types';
 import {
-  AuthChallengeName,
-  CodeDeliveryDetails,
-  SocialProvider,
-} from '../../types';
+  ChallengeName,
+  V5CodeDeliveryDetails,
+} from '../../machines/authenticator/types';
 import { translate, DefaultTexts } from '../../i18n';
 import { AuthenticatorRoute } from './facade';
 
 /**
  * ConfirmSignIn
  */
-const getChallengeText = (challengeName?: AuthChallengeName): string => {
+const getChallengeText = (challengeName?: ChallengeName): string => {
   switch (challengeName) {
     case 'SMS_MFA':
       return translate(DefaultTexts.CONFIRM_SMS);
     case 'SOFTWARE_TOKEN_MFA':
       return translate(DefaultTexts.CONFIRM_TOTP);
     default:
-      throw new Error(
-        `${translate(
-          'Unexpected challengeName encountered in ConfirmSignIn:'
-        )} ${challengeName}`
-      );
+      return translate(DefaultTexts.CONFIRM_MFA_DEFAULT);
   }
 };
 
@@ -28,7 +24,7 @@ const getChallengeText = (challengeName?: AuthChallengeName): string => {
  * ConfirmSignUp
  */
 const getDeliveryMessageText = (
-  codeDeliveryDetails: CodeDeliveryDetails
+  codeDeliveryDetails: V5CodeDeliveryDetails
 ): string => {
   const { DeliveryMedium, Destination } = codeDeliveryDetails ?? {};
   const isEmailMessage = DeliveryMedium === 'EMAIL';
@@ -48,7 +44,7 @@ const getDeliveryMessageText = (
 };
 
 const getDeliveryMethodText = (
-  codeDeliveryDetails: CodeDeliveryDetails
+  codeDeliveryDetails: V5CodeDeliveryDetails
 ): string => {
   const { DeliveryMedium } = codeDeliveryDetails ?? {};
   const isEmailMessage = DeliveryMedium === 'EMAIL';
@@ -126,13 +122,13 @@ export const authenticatorTextUtil = {
   /** ConfirmSignIn */
   getChallengeText,
 
-  /** ResetPassword */
+  /** ForgotPassword */
   getResetYourPasswordText: () => translate(DefaultTexts.RESET_PASSWORD),
 
-  /** SetupTOTP */
-  getSetupTOTPText: () => translate(DefaultTexts.SETUP_TOTP),
+  /** SetupTotp */
+  getSetupTotpText: () => translate(DefaultTexts.SETUP_TOTP),
   // TODO: add defaultText for below
-  getSetupTOTPInstructionsText: () =>
+  getSetupTotpInstructionsText: () =>
     translate(
       'Copy and paste the secret key below into an authenticator app and then enter the code in the text field below.'
     ),
@@ -147,4 +143,10 @@ export const authenticatorTextUtil = {
   getVerifyText: () => translate(DefaultTexts.VERIFY),
   getVerifyContactText: () => translate(DefaultTexts.VERIFY_CONTACT),
   getAccountRecoveryInfoText: () => translate(DefaultTexts.VERIFY_HEADING),
+
+  /** Validations */
+  // TODO: add defaultText
+  getInvalidEmailText: () => translate('Please enter a valid email'),
+  // TODO: add defaultText
+  getRequiredFieldText: () => translate('This field is required'),
 } as const; // using `as const` so that keys are strongly typed

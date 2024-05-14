@@ -1,8 +1,7 @@
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Tabs } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { BasicShoppingCard, AdvancedShoppingCard } from '../shared';
-import { InstallScripts, TerminalCommand } from '@/components/InstallScripts.tsx';
-import { Fragment } from '@/components/Fragment';
+import { TerminalCommand } from '@/components/InstallScripts.tsx';
 
 ## Tutorial
 
@@ -12,8 +11,12 @@ In this brief tutorial, we're going to build a basic shopping cart component usi
 
 First, execute the command below in your terminal. When prompted for the name of your project, enter `amplify-ui-demo`.  Also see [Vite Guide](https://vitejs.dev/guide/).
 
-<Tabs>
-  <TabItem title="JavaScript">
+<Tabs.Container defaultValue="JavaScript">
+  <Tabs.List>
+    <Tabs.Item value="JavaScript">JavaScript</Tabs.Item>
+    <Tabs.Item value="TypeScript">TypeScript</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="JavaScript">
     #### npm 7+
     <TerminalCommand command="npm create vite@latest amplify-ui-demo -- --template react && cd amplify-ui-demo"/>
 
@@ -21,33 +24,16 @@ First, execute the command below in your terminal. When prompted for the name of
 
     <TerminalCommand command="npm install @aws-amplify/ui-react aws-amplify"/>
 
-    **When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.**
-
-    <Fragment>
-      {({ platform }) => import(`../../troubleshooting/shared/vite-polyfill.mdx`)}
-    </Fragment>
-
-  </TabItem>
-  <TabItem title="TypeScript">
+  </Tabs.Panel>
+  <Tabs.Panel value="TypeScript">
     #### npm 7+
     <TerminalCommand command="npm create vite@latest amplify-ui-demo -- --template react-ts && cd amplify-ui-demo"/>
     **Next, install the Amplify UI React package:**
 
     <TerminalCommand command="npm install @aws-amplify/ui-react aws-amplify"/>
 
-    **When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.**
-
-    <Fragment>
-      {({ platform }) => import(`../../troubleshooting/shared/vite-polyfill.mdx`)}
-    </Fragment>
-    <Fragment>
-      {({ platform }) => import(`../../troubleshooting/shared/vite-polyfill-ts.mdx`)}
-    </Fragment>
-  </TabItem>
-</Tabs>
-
-> If you are still having issues, please see comments on the following issue for additional [Vite workarounds](https://github.com/aws-amplify/amplify-js/issues/9639). Note that there is active ongoing work to make these modifications unnecessary.
-
+  </Tabs.Panel>
+</Tabs.Container>
 
 ### Basic Demo
 

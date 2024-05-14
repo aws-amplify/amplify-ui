@@ -39,6 +39,7 @@ export interface TextFieldOptions
   type?: BaseInputProps['type'];
 }
 
+/** @deprecated For internal use only */
 export interface BaseTextFieldProps extends TextFieldOptions, BaseInputProps {}
 
 export type TextFieldProps<Element extends ElementType = 'input'> =

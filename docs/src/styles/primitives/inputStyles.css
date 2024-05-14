@@ -1,0 +1,6 @@
+.globally-styled-input.amplify-input {
+  --amplify-components-input-border-color: rebeccapurple;
+}
+.custom-input-class.amplify-input {
+  border-radius: 0;
+}

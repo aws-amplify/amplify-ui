@@ -5,19 +5,22 @@ import { getErrors } from '@aws-amplify/ui';
 
 import Field from './Field';
 import { FieldErrors } from './FieldErrors';
-import { DefaultTextFormFieldsComponent } from './types';
+import {
+  // DefaultTextFormFieldsComponent,
+  DefaultTextFormFieldsProps,
+} from './types';
 
-const DefaultTextFormFields: DefaultTextFormFieldsComponent = ({
+const DefaultTextFormFields = ({
   fieldContainerStyle,
   fieldErrorsContainer,
   fieldErrorStyle,
   fieldStyle,
-  fields = [],
-  isPending,
+  fields,
+  isPending = false,
   style,
   validationErrors,
-}) => {
-  const formFields = fields.map(({ name, type, ...field }) => {
+}: DefaultTextFormFieldsProps): JSX.Element => {
+  const formFields = (fields ?? []).map(({ name, type, ...field }) => {
     const errors = validationErrors ? getErrors(validationErrors?.[name]) : [];
 
     const hasError = errors?.length > 0;
@@ -44,6 +47,6 @@ const DefaultTextFormFields: DefaultTextFormFieldsComponent = ({
   return <View style={style}>{formFields}</View>;
 };
 
-DefaultTextFormFields.displayName = 'DefaultTextFormFields';
+DefaultTextFormFields.displayName = 'FormFields';
 
 export default DefaultTextFormFields;

@@ -9,7 +9,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultConfirmResetPasswordComponent } from '../types';
+import { DefaultConfirmResetPasswordProps } from '../types';
 
 const COMPONENT_NAME = 'ConfirmResetPassword';
 
@@ -20,7 +20,7 @@ const {
   getResendCodeText,
 } = authenticatorTextUtil;
 
-const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
+const ConfirmResetPassword = ({
   fields,
   handleBlur,
   handleChange,
@@ -28,11 +28,13 @@ const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
   hasValidationErrors,
   isPending,
   resendCode,
+  validationErrors,
   ...rest
-}) => {
+}: DefaultConfirmResetPasswordProps): JSX.Element => {
   const {
     disableFormSubmit,
     fields: fieldsWithHandlers,
+    fieldValidationErrors,
     handleFormSubmit,
   } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -40,6 +42,7 @@ const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
   const disabled = hasValidationErrors || disableFormSubmit;
@@ -72,6 +75,7 @@ const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
       headerText={headerText}
       fields={fieldsWithHandlers}
       isPending={isPending}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

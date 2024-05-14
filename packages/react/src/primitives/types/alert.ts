@@ -5,6 +5,7 @@ import { ElementType, PrimitiveProps } from './view';
 
 export type AlertVariations = 'info' | 'error' | 'warning' | 'success';
 
+/** @deprecated For internal use only */
 export interface BaseAlertProps extends BaseFlexProps {
   /**
    * @description

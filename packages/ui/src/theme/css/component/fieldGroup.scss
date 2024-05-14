@@ -45,6 +45,7 @@
 .amplify-field-group__outer-start,
 .amplify-field-group__outer-end {
   display: flex;
+  flex-shrink: 0;
   align-items: var(--amplify-components-fieldgroup-outer-align-items);
   .amplify-field-group__control {
     height: 100%;

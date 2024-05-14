@@ -2,6 +2,7 @@ import { AlertTokens, alert } from './alert';
 import { AutocompleteTokens, autocomplete } from './autocomplete';
 import { AuthenticatorTokens, authenticator } from './authenticator';
 import { badge, BadgeTokens } from './badge';
+import { breadcrumbs, BreadcrumbsTokens } from './breadcrumbs';
 import { button, ButtonTokens } from './button';
 import { card, CardTokens } from './card';
 import { checkbox, CheckboxTokens } from './checkbox';
@@ -10,22 +11,25 @@ import { collection, CollectionTokens } from './collection';
 import { copy, CopyTokens } from './copy';
 import { dialcodeselect, DialCodeSelectTokens } from './dialCodeSelect';
 import { divider, DividerTokens } from './divider';
-import { expander, ExpanderTokens } from './expander';
+import { dropzone, DropZoneTokens } from './dropZone';
+import { accordion, AccordionTokens } from './accordion';
 import { field, FieldTokens } from './field';
 import { fieldcontrol, FieldControlTokens } from './fieldControl';
 import { fieldgroup, FieldGroupTokens } from './fieldGroup';
+import { fieldset, FieldsetTokens } from './fieldset';
 import { fieldmessages, FieldMessagesTokens } from './fieldMessages';
-import { fileuploader, FileUploaderTokens } from './fileUploader';
 import { flex, FlexTokens } from './flex';
 import { heading, HeadingTokens } from './heading';
 import { highlightmatch, HighlightMatchTokens } from './highlightMatch';
 import { icon, IconTokens } from './icon';
+import { input, InputTokens } from './input';
 import { image, ImageTokens } from './image';
 import { inappmessaging, InAppMessagingTokens } from './inAppMessaging';
 import { link, LinkTokens } from './link';
 import { liveness, LivenessTokens } from './liveness';
 import { loader, LoaderTokens } from './loader';
 import { menu, MenuTokens } from './menu';
+import { message, MessageTokens } from './message';
 import { pagination, PaginationTokens } from './pagination';
 import { passwordfield, PasswordFieldTokens } from './passwordField';
 import { phonenumberfield, PhoneNumberFieldTokens } from './phoneNumberField';
@@ -54,10 +58,12 @@ import {
 import { OutputVariantKey } from '../types/designToken';
 
 type BaseComponentTokens<Output extends OutputVariantKey> = {
+  accordion?: AccordionTokens<Output>;
   alert?: AlertTokens<Output>;
   authenticator?: AuthenticatorTokens<Output>;
   autocomplete?: AutocompleteTokens<Output>;
   badge?: BadgeTokens<Output>;
+  breadcrumbs?: BreadcrumbsTokens<Output>;
   button?: ButtonTokens<Output>;
   card?: CardTokens<Output>;
   checkbox?: CheckboxTokens<Output>;
@@ -66,22 +72,24 @@ type BaseComponentTokens<Output extends OutputVariantKey> = {
   copy?: CopyTokens<Output>;
   countrycodeselect?: DialCodeSelectTokens<Output>;
   divider?: DividerTokens<Output>;
-  expander?: ExpanderTokens<Output>;
+  dropzone?: DropZoneTokens<Output>;
   field?: FieldTokens<Output>;
+  fieldset?: FieldsetTokens<Output>;
   fieldcontrol?: FieldControlTokens<Output>;
   fieldgroup?: FieldGroupTokens<Output>;
   fieldmessages?: FieldMessagesTokens<Output>;
-  fileuploader?: FileUploaderTokens<Output>;
   flex?: FlexTokens<Output>;
   heading?: HeadingTokens<Output>;
   highlightmatch?: HighlightMatchTokens<Output>;
   icon?: IconTokens<Output>;
   image?: ImageTokens<Output>;
   inappmessaging?: InAppMessagingTokens<Output>;
+  input?: InputTokens<Output>;
   link?: LinkTokens<Output>;
   liveness?: LivenessTokens<Output>;
   loader?: LoaderTokens<Output>;
   menu?: MenuTokens<Output>;
+  message?: MessageTokens<Output>;
   pagination?: PaginationTokens<Output>;
   passwordfield?: PasswordFieldTokens<Output>;
   phonenumberfield?: PhoneNumberFieldTokens<Output>;
@@ -118,10 +126,12 @@ export type WebComponentTokens = Required<{
 }>;
 
 export const components: DefaultComponentTokens = {
+  accordion,
   alert,
   authenticator,
   autocomplete,
   badge,
+  breadcrumbs,
   button,
   card,
   checkbox,
@@ -130,22 +140,24 @@ export const components: DefaultComponentTokens = {
   copy,
   countrycodeselect: dialcodeselect, // This to be renamed to dialcodeselect in the next major version
   divider,
-  expander,
+  dropzone,
   field,
   fieldcontrol,
   fieldgroup,
   fieldmessages,
-  fileuploader,
+  fieldset,
   flex,
   heading,
   icon,
   highlightmatch,
   image,
   inappmessaging,
+  input,
   link,
   liveness,
   loader,
   menu,
+  message,
   pagination,
   passwordfield,
   phonenumberfield,

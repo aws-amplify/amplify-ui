@@ -61,7 +61,7 @@ export const sliderfield: Required<SliderFieldTokens<'default'>> = {
 
   // The range is the filled part of the track
   range: {
-    backgroundColor: { value: '{colors.brand.primary.80.value}' },
+    backgroundColor: { value: '{colors.primary.80.value}' },
     borderRadius: { value: '9999px' },
     _disabled: {
       backgroundColor: { value: '{colors.background.disabled.value}' },
@@ -89,15 +89,7 @@ export const sliderfield: Required<SliderFieldTokens<'default'>> = {
     },
     _focus: {
       borderColor: { value: '{colors.border.focus.value}' },
-      boxShadow: {
-        value: {
-          offsetX: '0',
-          offsetY: '0',
-          blurRadius: '0',
-          spreadRadius: '2px',
-          color: '{colors.border.focus.value}',
-        },
-      },
+      boxShadow: { value: '{components.fieldcontrol._focus.boxShadow.value}' },
     },
   },
 

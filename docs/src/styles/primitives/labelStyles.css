@@ -1,0 +1,6 @@
+.globally-styled-label.amplify-label {
+  font-style: italic;
+}
+.custom-label-class.amplify-label {
+  color: rebeccapurple;
+}

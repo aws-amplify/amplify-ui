@@ -1,14 +1,23 @@
 export type ComponentName =
+  | 'Accordion'
+  | 'Accordion.Item'
   | 'Alert'
   | 'Badge'
+  | 'Breadcrumbs'
+  | 'Breadcrumbs.Link'
+  | 'Breadcrumbs.Item'
+  | 'Breadcrumbs.Separator'
   | 'Button'
   | 'ButtonGroup'
   | 'Card'
   | 'CheckboxField'
   | 'Collection'
   | 'Divider'
-  | 'Expander'
-  | 'ExpanderItem'
+  | 'DropZone'
+  | 'DropZone.Accepted'
+  | 'DropZone.Rejected'
+  | 'DropZone.Default'
+  | 'ExpanderGroup'
   | 'FieldGroupIcon'
   | 'FieldGroupIconButton'
   | 'Flex'
@@ -21,6 +30,12 @@ export type ComponentName =
   | 'Menu'
   | 'MenuButton'
   | 'MenuItem'
+  | 'Message'
+  | 'Message.Container'
+  | 'Message.Content'
+  | 'Message.Dismiss'
+  | 'Message.Icon'
+  | 'Message.Heading'
   | 'Pagination'
   | 'PasswordField'
   | 'PhoneNumberField'
@@ -35,7 +50,10 @@ export type ComponentName =
   | 'StepperField'
   | 'SwitchField'
   | 'Tabs'
-  | 'TabItem'
+  | 'Tabs.Container'
+  | 'Tabs.Item'
+  | 'Tabs.List'
+  | 'Tabs.Panel'
   | 'Text'
   | 'TextAreaField'
   | 'TextField'
@@ -124,8 +142,6 @@ export type Properties = Record<string, Property>;
 export type Catalog = Record<ComponentName, Properties>;
 
 export type SortedPropertiesByCategory = { [key: string]: Properties }[];
-export type PropsTableSubComponentData = {
+export type ComponentPropsData = {
   [key in ComponentName]: SortedPropertiesByCategory;
 };
-
-export type PropsTableData = { [key in ComponentName]: PropsTableSubComponentData }

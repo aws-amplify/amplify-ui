@@ -1,4 +1,6 @@
 export {
+  StorageImage,
+  StorageImageProps,
   StorageManager,
   StorageManagerProps,
   DropZoneProps,
@@ -6,4 +8,5 @@ export {
   FileListProps,
   FilePickerProps,
   FileListHeaderProps,
+  FileListFooterProps,
 } from './components';

@@ -10,20 +10,19 @@ export const RefExample = () => {
   }, []);
 
   React.useEffect(() => {
-    if (showPasswordButtonRef && showPasswordButtonRef.current) {
-      showPasswordButtonRef.current.addEventListener(
+    const showPasswordButtonRefCurrent = showPasswordButtonRef.current;
+    if (showPasswordButtonRefCurrent) {
+      showPasswordButtonRefCurrent.addEventListener(
         'click',
         onShowPasswordClick,
         false
       );
       return () => {
-        if (showPasswordButtonRef && showPasswordButtonRef.current) {
-          showPasswordButtonRef.current.removeEventListener(
-            'click',
-            onShowPasswordClick,
-            false
-          );
-        }
+        showPasswordButtonRefCurrent.removeEventListener(
+          'click',
+          onShowPasswordClick,
+          false
+        );
       };
     }
   }, [onShowPasswordClick]);

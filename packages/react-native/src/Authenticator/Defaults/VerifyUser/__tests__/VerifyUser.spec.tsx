@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 
-import { Logger } from 'aws-amplify';
+import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import {
   authenticatorTextUtil,
   UnverifiedContactMethodType,
@@ -44,6 +44,7 @@ const props = {
   handleBlur: jest.fn(),
   handleChange: jest.fn(),
   handleSubmit,
+  hasValidationErrors: false,
   Header: VerifyUser.Header,
   isPending: false,
   skipVerification: jest.fn(),
@@ -100,7 +101,7 @@ describe('VerifyUser', () => {
     });
     fireEvent.press(submitButton);
 
-    expect(handleSubmit).toBeCalledTimes(1);
-    expect(handleSubmit).toBeCalledWith({ unverifiedAttr: 'email' });
+    expect(handleSubmit).toHaveBeenCalledTimes(1);
+    expect(handleSubmit).toHaveBeenCalledWith({ unverifiedAttr: 'email' });
   });
 });

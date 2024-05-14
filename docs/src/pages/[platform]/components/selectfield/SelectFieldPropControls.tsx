@@ -29,6 +29,12 @@ export interface SelectFieldPropControlsProps extends SelectFieldProps {
   setVariation: (
     value: React.SetStateAction<SelectFieldProps['variation']>
   ) => void;
+  setIsMultiple: (
+    value: React.SetStateAction<SelectFieldProps['isMultiple']>
+  ) => void;
+  setSelectSize: (
+    value: React.SetStateAction<SelectFieldProps['selectSize']>
+  ) => void;
 }
 
 interface SelectFieldPropControlsInterface {
@@ -44,6 +50,8 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
   labelHidden,
   size,
   variation,
+  isMultiple,
+  selectSize,
   setDescriptiveText,
   setErrorMessage,
   setHasError,
@@ -52,6 +60,8 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
   setLabelHidden,
   setSize,
   setVariation,
+  setIsMultiple,
+  setSelectSize,
 }) => {
   return (
     <Flex direction="column">
@@ -114,6 +124,24 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
         }
       />
 
+      <SelectField
+        label="selectSize"
+        name="selectSize"
+        value={String(selectSize)}
+        onChange={(event) => {
+          setSelectSize(
+            parseInt(event.target.value) as SelectFieldProps['selectSize']
+          );
+        }}
+      >
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+      </SelectField>
+
       <CheckboxField
         name="labelHidden"
         value="yes"
@@ -148,6 +176,18 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
           );
         }}
         label="isDisabled"
+      />
+
+      <CheckboxField
+        name="isMultiple"
+        value="yes"
+        checked={isMultiple}
+        onChange={(event) => {
+          setIsMultiple(
+            Boolean(event.target.checked) as SelectFieldProps['isMultiple']
+          );
+        }}
+        label="isMultiple"
       />
     </Flex>
   );

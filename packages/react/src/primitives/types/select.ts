@@ -5,6 +5,7 @@ import { Sizes } from './base';
 
 export type SelectVariation = 'quiet';
 
+/** @deprecated For internal use only */
 export interface BaseSelectProps extends BaseViewProps {
   /**
    * @description
@@ -71,6 +72,18 @@ export interface BaseSelectProps extends BaseViewProps {
    * A Boolean attribute indicating that the user cannot interact with the control
    */
   isDisabled?: boolean;
+
+  /**
+   * @description
+   * A Boolean attribute indicating that multiple options can be selected at once
+   */
+  isMultiple?: boolean;
+
+  /**
+   * @description
+   * Sets the number of visible options in a drop-down list
+   */
+  selectSize?: number;
 
   /**
    * @description

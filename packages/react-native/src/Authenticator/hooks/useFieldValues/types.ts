@@ -1,7 +1,9 @@
 import {
   AuthenticatorComponentDefaultProps,
   AuthenticatorRouteComponentName,
+  AuthenticatorMachineContext,
 } from '@aws-amplify/ui-react-core';
+import { ValidationError } from '@aws-amplify/ui';
 
 import { TypedField } from '../types';
 
@@ -26,10 +28,13 @@ export interface UseFieldValuesParams<FieldType extends TypedField> {
    * machine "SUBMIT"" event handler, validates `field` value against machine validation rules
    */
   handleSubmit: MachineEventHandlers['handleSubmit'];
+
+  validationErrors?: AuthenticatorMachineContext['validationErrors'];
 }
 
 export interface UseFieldValues<FieldType extends TypedField> {
   fields: FieldType[]; // return either radio or text
+  fieldValidationErrors: ValidationError | undefined;
   disableFormSubmit: boolean;
   handleFormSubmit: () => void;
 }

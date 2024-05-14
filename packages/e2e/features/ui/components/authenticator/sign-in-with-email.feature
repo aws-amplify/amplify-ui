@@ -11,55 +11,59 @@ Feature: Sign In with Email
     Given I'm running the example "/ui/components/authenticator/sign-in-with-email"
 
   @angular @react @vue
-  Scenario: Sign in with force password reset calls forgot password
+  Scenario: Sign in returns force reset password exception
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with error fixture "force-reset-password"
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "forgot-password-email"
     When I type my "email" with status "CONFIRMED"
-    And I type my password
-    Given I spy "Amplify.Auth.forgotPassword" method
-    And I click the "Sign in" button
+    Then I type my password
+    Then I click the "Sign in" button
+    Then I see "Reset Password"
     Then I see "Code *"
-    And "Amplify.Auth.forgotPassword" method is called
+    Then I type a valid code
+    Then I type my new password
+    Then I confirm my password
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmForgotPassword" } }' with error fixture "AWSCognitoIdentityProviderService.ConfirmSignUp-invalid-code.json"
+    Then I click the "Submit" button
 
   @angular @react @vue @react-native
   Scenario: Sign in with unknown credentials
     When I type my "email" with status "UNKNOWN"
-    And I type my password
-    And I click the "Sign in" button
+    Then I type my password
+    Then I click the "Sign in" button
     Then I see "User does not exist."
 
-  @angular @react @vue
+
   Scenario: Sign in with unconfirmed credentials
 
   If you sign in with an unconfirmed account, Authenticator will redirect you to `confirmSignUp` route.
 
-    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
     When I type my "email" with status "UNCONFIRMED"
-    And I type my password
-    And I click the "Sign in" button
+    Then I type my password
+    Then I click the "Sign in" button
+    Then I spy request '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }'
+    Then I confirm request '{"headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }'
     Then I see "Confirmation Code"
-    And I type a valid confirmation code
-    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
-    # Mocking these two calls is much easier than intercepting 6+ network calls with tokens that are validated & expire within the hour
-    And I mock 'Amplify.Auth.signIn' with fixture "Auth.signIn-verified-email"
-    And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
-    And I click the "Confirm" button
-    Then I see "Sign out"
+    Then I type a valid confirmation code
+    Then I spy request '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }'
+    Then I click the "Confirm" button
+    Then I confirm request '{"headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }'
 
   @angular @react @vue @react-native
   Scenario: Sign in with confirmed credentials
     When I type my "email" with status "CONFIRMED"
-    And I type my password
-    And I click the "Sign in" button
+    Then I type my password
+    Then I click the "Sign in" button
     Then I see "Sign out"
-    And I click the "Sign out" button
+    Then I click the "Sign out" button
+    Then I see "Sign in"
 
   @angular @react @vue @react-native
   Scenario: Sign in with confirmed credentials then sign out
     When I type my "email" with status "CONFIRMED"
-    And I type my password
-    And I click the "Sign in" button
+    Then I type my password
+    Then I click the "Sign in" button
     Then I see "Sign out"
-    And I click the "Sign out" button
+    Then I click the "Sign out" button
     Then I see "Sign in"
 
   @angular @react @vue
@@ -73,8 +77,20 @@ Feature: Sign In with Email
   On sign in form, autocomplete prefers usage of username instead of email. 
   See https://www.chromium.org/developers/design-documents/form-styles-that-chromium-understands/.
 
-    And "Email" field autocompletes "username"
+    Then "Email" field autocompletes "username"
 
   @angular @react @vue
   Scenario: Password fields autocomplete "current-password"
-    And "Password" field autocompletes "current-password"
+    Then "Password" field autocompletes "current-password"
+
+  @angular @react @vue @react-native
+  Scenario: Sign in with confirmed credentials, reload, sign out, then see custom form fields
+    When I type my "email" with status "CONFIRMED"
+    Then I type my password
+    Then I click the "Sign in" button
+    Then I see "Sign out"
+    When I reload the page
+    Then I see "Sign out"
+    Then I click the "Sign out" button
+    Then I see "Sign in"
+    Then I see placeholder "Enter your cool email"

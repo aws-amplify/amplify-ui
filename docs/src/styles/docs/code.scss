@@ -3,11 +3,10 @@
  * Based on Atom's One Light theme: https://github.com/atom/atom/tree/master/packages/one-light-syntax
  */
 
-
 .docs-home code.prism-code {
   font-size: inherit;
 }
- 
+
 code[class*='language-'],
 pre[class*='language-'] {
   background: var(--amplify-colors-background-secondary);
@@ -121,20 +120,20 @@ section > pre[class*='language-'] {
   & .token.selector {
     color: var(--amplify-colors-purple-80);
   }
-  
+
   & .token.property {
     color: var(--amplify-colors-teal-80);
   }
-  
+
   & .token.function,
   & .token.url > .token.function {
     color: var(--amplify-colors-teal-80);
   }
-  
+
   & .token.url > .token.string.url {
     color: var(--amplify-colors-green-80);
   }
-  
+
   & .token.important,
   & .token.atrule .token.rule {
     color: var(--amplify-colors-pink-80);
@@ -387,7 +386,6 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
   color: var(--amplify-colors-font-secondary);
 }
 
-
 .token.class-name {
   color: var(--amplify-colors-pink-80);
 }
@@ -446,4 +444,13 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
   margin-right: calc(var(--amplify-space-medium) * -1);
   padding-left: var(--amplify-space-medium);
   background-color: hsla(190, 95%, 50%, 0.125);
+}
+
+.snack-player {
+  overflow: hidden;
+  background: var(--amplify-colors-background-secondary);
+  border: 1px solid var(--amplify-colors-border-secondary);
+  border-radius: var(--amplify-radii-small);
+  height: 600px;
+  width: 100%;
 }

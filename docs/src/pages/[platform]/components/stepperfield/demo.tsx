@@ -23,7 +23,7 @@ const propsToCode = (props: StepperFieldPropControlsProps) => {
     `
   label="${props.label}"` +
     (props.labelHidden ? `\n  labelHidden=${props.labelHidden}` : '') +
-    `
+    `${props.isDisabled ? '\n  isDisabled' : ''}
 />`
   );
 };
@@ -56,6 +56,7 @@ export const StepperFieldDemo = () => {
         variation={stepperFieldProps.variation}
         step={stepperFieldProps.step}
         labelHidden={stepperFieldProps.labelHidden}
+        isDisabled={stepperFieldProps.isDisabled}
       />
     </Demo>
   );

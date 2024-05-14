@@ -3,18 +3,16 @@ import { render, screen } from '@testing-library/react';
 import { useActor } from '@xstate/react';
 
 import { FaceLivenessDetector, FaceLivenessDetectorProps } from '..';
-import { getMockedFunction, mockMatchMedia } from '../__mocks__';
-import { getVideoConstraints } from '../StartLiveness/helpers';
+import { getMockedFunction, mockMatchMedia } from '../__mocks__/utils';
 import { useMediaStreamInVideo, useLivenessActor } from '../hooks';
 
 jest.mock('../../../styles.css', () => ({}));
 jest.mock('@xstate/react');
-jest.mock('../StartLiveness/helpers');
+jest.mock('../utils/helpers');
 jest.mock('../hooks');
 
 const mockUseActor = getMockedFunction(useActor);
 const mockUseLivenessActor = getMockedFunction(useLivenessActor);
-const mockGetVideoConstraints = getMockedFunction(getVideoConstraints);
 const mockUseMediaStreamInVideo = getMockedFunction(useMediaStreamInVideo);
 const mockMatches = jest.fn().mockImplementation(() => {
   return true;
@@ -34,8 +32,6 @@ describe('FaceLivenessDetector', () => {
     videoWidth: 100,
   });
 
-  const mockVideoConstraints = {};
-  mockGetVideoConstraints.mockReturnValue(mockVideoConstraints);
   mockMatches.mockReturnValue(false);
 
   const defaultProps: FaceLivenessDetectorProps = {
@@ -98,20 +94,8 @@ describe('FaceLivenessDetector', () => {
 
   it('should show the check screen if disableInstructionScreen is true', () => {
     render(
-      <FaceLivenessDetector {...defaultProps} disableInstructionScreen={true} />
+      <FaceLivenessDetector {...defaultProps} disableStartScreen={true} />
     );
     expect(screen.queryByTestId(livenessCheckTestId)).toBeInTheDocument();
-  });
-
-  it('should not show the instruction if disableInstructionScreen is true and xstate is at the start', async () => {
-    mockMatches.mockReturnValueOnce(true);
-    render(
-      <FaceLivenessDetector {...defaultProps} disableInstructionScreen={true} />
-    );
-
-    expect(mockActorSend).toHaveBeenCalledWith({
-      type: 'BEGIN',
-      data: { videoConstraints: {} },
-    });
   });
 });

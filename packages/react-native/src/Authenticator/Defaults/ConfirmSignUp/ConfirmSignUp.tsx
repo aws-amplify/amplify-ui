@@ -9,7 +9,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultConfirmSignUpComponent } from '../types';
+import { DefaultConfirmSignUpProps } from '../types';
 
 const COMPONENT_NAME = 'ConfirmSignUp';
 
@@ -21,7 +21,7 @@ const {
   getResendCodeText,
 } = authenticatorTextUtil;
 
-const ConfirmSignUp: DefaultConfirmSignUpComponent = ({
+const ConfirmSignUp = ({
   codeDeliveryDetails,
   fields,
   handleBlur,
@@ -29,11 +29,13 @@ const ConfirmSignUp: DefaultConfirmSignUpComponent = ({
   handleSubmit,
   isPending,
   resendCode,
+  validationErrors,
   ...rest
-}) => {
+}: DefaultConfirmSignUpProps): JSX.Element => {
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
+    fieldValidationErrors,
     handleFormSubmit,
   } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -41,6 +43,7 @@ const ConfirmSignUp: DefaultConfirmSignUpComponent = ({
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
   const headerText = getDeliveryMethodText(codeDeliveryDetails);
@@ -74,6 +77,7 @@ const ConfirmSignUp: DefaultConfirmSignUpComponent = ({
       headerText={headerText}
       fields={fieldsWithHandlers}
       isPending={isPending}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

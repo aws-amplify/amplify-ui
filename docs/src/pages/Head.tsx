@@ -19,7 +19,7 @@ export const Head = () => {
     .split('/')
     .filter((n) => n && n !== '[platform]')
     .join('/')}`;
-  const { title, metaTitle, description, metaDescription } =
+  const { title, metaTitle, description, metaDescription, canonicalUrlPath } =
     metaData[pathname]?.frontmatter ?? {};
 
   if ((!description && !metaDescription) || (!title && !metaTitle)) {
@@ -41,6 +41,12 @@ export const Head = () => {
       {homepagePaths.includes(pathname) ? (
         <link rel="canonical" href={process.env.SITE_URL} />
       ) : null}
+      {canonicalUrlPath ? (
+        <link
+          rel="canonical"
+          href={`${process.env.SITE_URL}${canonicalUrlPath}`}
+        />
+      ) : null}
       <title>{pageTitle}</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="description" content={_description} />
@@ -53,13 +59,13 @@ export const Head = () => {
       <meta property="og:url" content={`${process.env.SITE_URL}${asPath}`} />
       <meta
         property="og:image"
-        content={process.env.SITE_URL + getImagePath(asPathname)}
+        content={process.env.SITE_URL + getImagePath(platform as string)}
       />
       <meta property="og:image:width" content={String(PREVIEW_WIDTH)} />
       <meta property="og:image:height" content={String(PREVIEW_HEIGHT)} />
       <meta
         property="og:image:secure_url"
-        content={process.env.SITE_URL + getImagePath(asPathname)}
+        content={process.env.SITE_URL + getImagePath(platform as string)}
       />
       <meta property="og:image:type" content="image/png" />
       <meta property="og:image:alt" content={_description} />
@@ -71,7 +77,7 @@ export const Head = () => {
       <meta name="twitter:description" content={_description} />
       <meta
         name="twitter:image"
-        content={process.env.SITE_URL + getImagePath(asPathname)}
+        content={process.env.SITE_URL + getImagePath(platform as string)}
       />
     </NextHead>
   );

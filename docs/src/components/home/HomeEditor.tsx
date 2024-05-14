@@ -80,7 +80,7 @@ const HomeEditor = () => {
               if (e.keyCode === 9) {
                 // tab key
                 e.preventDefault();
-                e.target.blur();
+                e.currentTarget.blur();
                 return;
               }
               if (!edited) {
@@ -103,4 +103,7 @@ const HomeEditor = () => {
   );
 };
 
-export default HomeEditor;
+HomeEditor.displayName = 'HomeEditor';
+
+const MemoHomeEditor = React.memo(HomeEditor);
+export default MemoHomeEditor;

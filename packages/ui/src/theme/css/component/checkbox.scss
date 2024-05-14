@@ -9,6 +9,7 @@
   position: relative;
   &--disabled {
     cursor: var(--amplify-components-checkbox-disabled-cursor);
+    color: var(--amplify-components-checkbox-label-disabled-color);
   }
 }
 
@@ -87,6 +88,10 @@
 }
 
 .amplify-checkbox__icon {
+  // These styles are to ensure custom icons work as expected
+  line-height: 1;
+  width: 1em;
+  height: 1em;
   background-color: var(--amplify-components-checkbox-icon-background-color);
   opacity: var(--amplify-components-checkbox-icon-opacity);
   transform: var(--amplify-components-checkbox-icon-transform);
@@ -132,6 +137,9 @@
   }
 }
 
-.amplify-checkbox__label[data-disabled='true'] {
-  color: var(--amplify-components-checkbox-label-disabled-color);
+.amplify-checkbox__label {
+  color: var(--amplify-components-checkbox-label-color);
+  &--disabled {
+    color: var(--amplify-components-checkbox-label-disabled-color);
+  }
 }

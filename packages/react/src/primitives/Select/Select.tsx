@@ -1,13 +1,15 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { Flex } from '../Flex';
-import { IconExpandMore } from '../Icon/internal';
+import { IconExpandMore, useIcons } from '../Icon';
 import { ForwardRefPrimitive, Primitive } from '../types';
 import { BaseSelectProps, SelectProps } from '../types/select';
 import { View } from '../View';
+import { useFieldset } from '../Fieldset/useFieldset';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const SelectPrimitive: Primitive<SelectProps, 'select'> = (
   {
@@ -18,12 +20,14 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
     value,
     defaultValue,
     hasError,
-    icon = <IconExpandMore />,
+    icon,
     iconColor,
     children,
     placeholder,
     isDisabled,
     isRequired,
+    isMultiple = false,
+    selectSize = 1,
     ...rest
   },
   ref
@@ -32,17 +36,23 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
   // value === undefined is to make sure that component is used in uncontrolled way so that setting defaultValue is valid
   const shouldSetDefaultPlaceholderValue =
     value === undefined && defaultValue === undefined && placeholder;
+
+  const isExpanded = isMultiple || selectSize > 1;
+
   const componentClasses = classNames(
-    ComponentClassNames.Select,
-    ComponentClassNames.FieldGroupControl,
-    classNameModifier(ComponentClassNames.Select, size),
-    classNameModifier(ComponentClassNames.Select, variation),
-    classNameModifierByFlag(ComponentClassNames.Select, 'error', hasError),
+    ComponentClassName.Select,
+    ComponentClassName.FieldGroupControl,
+    classNameModifier(ComponentClassName.Select, size),
+    classNameModifier(ComponentClassName.Select, variation),
+    classNameModifierByFlag(ComponentClassName.Select, 'error', hasError),
+    classNameModifierByFlag(ComponentClassName.Select, 'expanded', isExpanded),
     className
   );
+  const icons = useIcons('select');
+  const { isFieldsetDisabled } = useFieldset();
 
   return (
-    <View className={ComponentClassNames.SelectWrapper}>
+    <View className={ComponentClassName.SelectWrapper}>
       <View
         aria-invalid={hasError}
         as="select"
@@ -53,10 +63,10 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
             ? DEFAULT_PLACEHOLDER_VALUE
             : defaultValue
         }
-        isDisabled={isDisabled}
+        isDisabled={isFieldsetDisabled ? isFieldsetDisabled : isDisabled}
+        multiple={isMultiple}
+        size={selectSize}
         required={isRequired}
-        data-size={size}
-        data-variation={variation}
         className={componentClasses}
         ref={ref}
         {...rest}
@@ -64,14 +74,22 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
         {placeholder && <option value="">{placeholder}</option>}
         {children}
       </View>
-      <Flex className={ComponentClassNames.SelectIconWrapper} color={iconColor}>
-        {icon}
-      </Flex>
+      {isExpanded ? null : (
+        <Flex
+          className={classNames(
+            ComponentClassName.SelectIcon,
+            classNameModifier(ComponentClassName.SelectIcon, size)
+          )}
+          color={iconColor}
+        >
+          {icon ?? icons?.expand ?? <IconExpandMore />}
+        </Flex>
+      )}
     </View>
   );
 };
 
 export const Select: ForwardRefPrimitive<BaseSelectProps, 'select'> =
-  React.forwardRef(SelectPrimitive);
+  primitiveWithForwardRef(SelectPrimitive);
 
 Select.displayName = 'Select';

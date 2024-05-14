@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { TextArea } from '../TextArea';
-import { ComponentClassNames } from '../../shared';
+import { Fieldset } from '../../Fieldset';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 describe('TextArea component', () => {
   it('should render custom classname for TextArea', async () => {
@@ -11,7 +12,7 @@ describe('TextArea component', () => {
 
     const textarea = await screen.findByRole('textbox');
     expect(textarea).toHaveClass('custom-class');
-    expect(textarea).toHaveClass(ComponentClassNames.Textarea);
+    expect(textarea).toHaveClass(ComponentClassName.Textarea);
   });
 
   it('should render expected classname, id TextArea field', async () => {
@@ -46,12 +47,28 @@ describe('TextArea component', () => {
     expect(textarea).toHaveAttribute('required', '');
   });
 
-  it('should set size and variation data attributes', async () => {
+  it('should always be disabled if parent Fieldset isDisabled', async () => {
+    render(
+      <Fieldset legend="legend" isDisabled>
+        <TextArea testId="textarea" />
+        <TextArea testId="textareaWithDisabledProp" isDisabled={false} />
+      </Fieldset>
+    );
+
+    const textarea = await screen.findByTestId('textarea');
+    const textareaDisabled = await screen.findByTestId(
+      'textareaWithDisabledProp'
+    );
+    expect(textarea).toHaveAttribute('disabled');
+    expect(textareaDisabled).toHaveAttribute('disabled');
+  });
+
+  it('should set size and variation classes', async () => {
     render(<TextArea size="small" variation="quiet" />);
 
     const textarea = await screen.findByRole('textbox');
-    expect(textarea).toHaveAttribute('data-size', 'small');
-    expect(textarea).toHaveAttribute('data-variation', 'quiet');
+    expect(textarea).toHaveClass(`${ComponentClassName.Textarea}--small`);
+    expect(textarea).toHaveClass(`${ComponentClassName.Textarea}--quiet`);
   });
 
   it('can set defaultValue (uncontrolled)', async () => {
@@ -83,8 +100,13 @@ describe('TextArea component', () => {
       <TextArea onChange={onChange} onInput={onInput} onPaste={onPaste} />
     );
     const textarea = await screen.findByRole('textbox');
-    userEvent.type(textarea, 'hello');
-    userEvent.paste(textarea, 'there');
+    await act(async () => {
+      await userEvent.type(textarea, 'hello');
+    });
+    // userEvent.paste(textarea, 'there');
+    await act(async () => {
+      userEvent.paste('there');
+    });
     expect(onChange).toHaveBeenCalled();
     expect(onInput).toHaveBeenCalled();
     expect(onPaste).toHaveBeenCalled();

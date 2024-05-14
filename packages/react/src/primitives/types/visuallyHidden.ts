@@ -4,6 +4,7 @@ import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 // @TODO change to extending the following type once `[key: string]: any` has been removed:
 // type ViewPropsMinusStyleProps = Omit<ViewProps, keyof BaseStyleProps>;
 // ref: https://app.asana.com/0/1200141963577341/1200985244607786/f
+/** @deprecated For internal use only */
 export interface BaseVisuallyHiddenProps extends BaseViewProps {}
 
 export type VisuallyHiddenProps<Element extends ElementType = 'span'> =

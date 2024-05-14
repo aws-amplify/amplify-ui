@@ -93,7 +93,7 @@ class AmplifyStub extends AmplifyClass {
   }
 
   @override
-  Future<void> configurePlatform(String config) async {
+  Future<void> addPluginPlatform(AmplifyPluginInterface plugin) async {
     // no-op
   }
 }

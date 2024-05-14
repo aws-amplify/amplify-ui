@@ -1,8 +1,5 @@
-/// <reference types="@testing-library/cypress" />
-/// <reference types="cypress" />
-/// <reference types="../../support/commands" />
+import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
-import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { escapeRegExp } from 'lodash';
 
 Given("I'm running the example {string}", (example: string) => {

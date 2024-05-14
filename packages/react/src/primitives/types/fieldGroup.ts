@@ -4,6 +4,7 @@ import { ElementType, PrimitiveProps } from './view';
 
 export type FieldGroupOrientation = 'horizontal' | 'vertical';
 
+/** @deprecated For internal use only */
 export interface BaseFieldGroupOptions extends BaseFlexProps {
   children?: React.ReactNode;
   orientation?: FieldGroupOrientation;

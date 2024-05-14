@@ -14,15 +14,6 @@
       border-color: var(--amplify-components-button-active-border-color);
       color: var(--amplify-components-button-active-color);
     }
-    &:disabled {
-      background-color: var(
-        --amplify-components-searchfield-button-disabled-background-color
-      );
-      border-color: var(
-        --amplify-components-searchfield-button-disabled-border-color
-      );
-      color: var(--amplify-components-searchfield-button-disabled-color);
-    }
     &:focus {
       background-color: var(
         --amplify-components-searchfield-button-focus-background-color
@@ -40,6 +31,15 @@
         --amplify-components-searchfield-button-hover-border-color
       );
       color: var(--amplify-components-searchfield-button-hover-color);
+    }
+    &:disabled {
+      background-color: var(
+        --amplify-components-searchfield-button-disabled-background-color
+      );
+      border-color: var(
+        --amplify-components-searchfield-button-disabled-border-color
+      );
+      color: var(--amplify-components-searchfield-button-disabled-color);
     }
   }
 }

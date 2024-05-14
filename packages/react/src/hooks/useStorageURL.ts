@@ -1,44 +1,60 @@
 import * as React from 'react';
 
-import { S3ProviderGetConfig, Storage } from '@aws-amplify/storage';
+import * as Storage from 'aws-amplify/storage';
 
-export interface UseStorageURLResult {
-  url?: string;
-  error?: Error;
-  isLoading: boolean;
+import { isFunction } from '@aws-amplify/ui';
+import { useHasValueUpdated } from '@aws-amplify/ui-react-core';
+
+interface UseStorageURLParams {
+  key: string;
+  options?: Storage.GetUrlInput['options'];
+  fallbackURL?: string;
+  onStorageGetError?: (error: Error) => void;
 }
 
-/**
- * Computes a public URL for an Amplify Storage file
- * @internal
- */
-export const useStorageURL = (
-  key: string,
-  options?: S3ProviderGetConfig
-): UseStorageURLResult & { fetch: () => () => void } => {
-  const [result, setResult] = React.useState<UseStorageURLResult>({
-    isLoading: true,
-  });
+export const useStorageURL = ({
+  key,
+  options,
+  fallbackURL,
+  onStorageGetError,
+}: UseStorageURLParams): string | undefined => {
+  const [url, setURL] = React.useState<string>();
+  const hasKeyUpdated = useHasValueUpdated(key);
 
-  // Used to prevent an infinite loop on useEffect, because `options`
-  // will have a different reference on every render
-  const serializedOptions = JSON.stringify(options);
+  React.useEffect(() => {
+    if (!hasKeyUpdated) {
+      return;
+    }
 
-  const fetch = () => {
-    setResult({ isLoading: true });
+    let ignore = false;
 
-    const promise = Storage.get(key, options);
+    const input: Storage.GetUrlInput = { key, options };
 
-    // Attempt to fetch storage object url
-    promise
-      .then((url) => setResult({ url, isLoading: false }))
-      .catch((error: Error) => setResult({ error, isLoading: false }));
+    Storage.getUrl(input)
+      .then(({ url }) => {
+        if (ignore) {
+          return;
+        }
 
-    // Cancel current promise on unmount
-    return () => Storage.cancel(promise);
-  };
+        setURL(url.toString());
+      })
+      .catch((error: Error) => {
+        if (ignore) {
+          return;
+        }
 
-  React.useEffect(fetch, [key, options, serializedOptions]);
+        if (isFunction(onStorageGetError)) {
+          onStorageGetError(error);
+        }
+        if (fallbackURL) {
+          setURL(fallbackURL);
+        }
 
-  return { ...result, fetch };
+        return () => {
+          ignore = true;
+        };
+      });
+  }, [key, options, fallbackURL, onStorageGetError, hasKeyUpdated]);
+
+  return url;
 };

@@ -1,15 +1,17 @@
 import * as React from 'react';
 
-import { ComponentClassNames } from '../shared/constants';
-import { AlertVariations } from '../types';
+import { ComponentClassName } from '@aws-amplify/ui';
+import { AlertVariations, ViewProps } from '../types';
+
 import {
   IconInfo,
   IconError,
   IconWarning,
   IconCheckCircle,
-} from '../Icon/internal';
+  useIcons,
+} from '../Icon';
 
-interface AlertIconProps {
+interface AlertIconProps extends Pick<ViewProps, 'role' | 'ariaLabel'> {
   variation?: AlertVariations;
   ariaHidden?: boolean;
 }
@@ -17,42 +19,52 @@ interface AlertIconProps {
 /**
  * @internal For internal Amplify UI use only. May be removed in a future release.
  */
-export const AlertIcon: React.FC<AlertIconProps> = ({
+export const AlertIcon = ({
   variation,
   ariaHidden,
-}) => {
+  ariaLabel,
+  role,
+}: AlertIconProps): JSX.Element | null => {
+  const icons = useIcons('alert');
+  let icon;
   switch (variation) {
     case 'info':
-      return (
-        <IconInfo
-          aria-hidden={ariaHidden}
-          className={ComponentClassNames.AlertIcon}
-        />
+      icon = icons?.info ?? (
+        <IconInfo aria-hidden={ariaHidden} aria-label={ariaLabel} role={role} />
       );
+      break;
     case 'error':
-      return (
+      icon = icons?.error ?? (
         <IconError
           aria-hidden={ariaHidden}
-          className={ComponentClassNames.AlertIcon}
+          aria-label={ariaLabel}
+          role={role}
         />
       );
+      break;
     case 'warning':
-      return (
+      icon = icons?.warning ?? (
         <IconWarning
           aria-hidden={ariaHidden}
-          className={ComponentClassNames.AlertIcon}
+          aria-label={ariaLabel}
+          role={role}
         />
       );
+      break;
     case 'success':
-      return (
+      icon = icons?.success ?? (
         <IconCheckCircle
           aria-hidden={ariaHidden}
-          className={ComponentClassNames.AlertIcon}
+          aria-label={ariaLabel}
+          role={role}
         />
       );
-    default:
-      return null;
+      break;
   }
+
+  return icon ? (
+    <span className={ComponentClassName.AlertIcon}>{icon}</span>
+  ) : null;
 };
 
 AlertIcon.displayName = 'AlertIcon';

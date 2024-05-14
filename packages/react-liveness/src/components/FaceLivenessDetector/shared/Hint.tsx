@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Flex, Loader, View } from '@aws-amplify/ui-react';
+import { View, VisuallyHidden } from '@aws-amplify/ui-react';
 
 import { IlluminationState, FaceMatchState } from '../service';
 
@@ -10,8 +10,8 @@ import {
   createLivenessSelector,
 } from '../hooks';
 import { Toast } from './Toast';
-import { Overlay } from './Overlay';
 import { HintDisplayText } from '../displayText';
+import { ToastWithLoader } from './ToastWithLoader';
 
 export const selectErrorState = createLivenessSelector(
   (state) => state.context.errorState
@@ -30,9 +30,24 @@ export const selectFaceMatchStateBeforeStart = createLivenessSelector(
   (state) => state.context.faceMatchStateBeforeStart
 );
 
+const selectFaceMatchPercentage = createLivenessSelector(
+  (state) => state.context.faceMatchAssociatedParams?.faceMatchPercentage
+);
+
 export interface HintProps {
   hintDisplayText: Required<HintDisplayText>;
 }
+
+const DefaultToast: React.FC<{ text: string; isInitial?: boolean }> = ({
+  text,
+  isInitial = false,
+}) => {
+  return (
+    <Toast size="large" variation="primary" isInitial={isInitial}>
+      <View aria-live="assertive">{text}</View>
+    </Toast>
+  );
+};
 
 export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
   const [state] = useLivenessActor();
@@ -47,15 +62,16 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
   const isFaceFarEnoughBeforeRecordingState = useLivenessSelector(
     selectIsFaceFarEnoughBeforeRecording
   );
-  const isCheckFaceDetectedBeforeStart = state.matches(
-    'checkFaceDetectedBeforeStart'
-  );
-  const isCheckFaceDistanceBeforeRecording = state.matches(
-    'checkFaceDistanceBeforeRecording'
-  );
+  const faceMatchPercentage = useLivenessSelector(selectFaceMatchPercentage);
+  const isCheckFaceDetectedBeforeStart =
+    state.matches('checkFaceDetectedBeforeStart') ||
+    state.matches('detectFaceBeforeStart');
+  const isCheckFaceDistanceBeforeRecording =
+    state.matches('checkFaceDistanceBeforeRecording') ||
+    state.matches('detectFaceDistanceBeforeRecording');
+  const isStartView = state.matches('start') || state.matches('userCancel');
   const isRecording = state.matches('recording');
   const isNotRecording = state.matches('notRecording');
-  const isWaitingForSessionInfo = state.matches('waitForSessionInfo');
   const isUploading = state.matches('uploading');
   const isCheckSuccessful = state.matches('checkSucceeded');
   const isCheckFailed = state.matches('checkFailed');
@@ -67,9 +83,9 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
     [FaceMatchState.CANT_IDENTIFY]: hintDisplayText.hintCanNotIdentifyText,
     [FaceMatchState.FACE_IDENTIFIED]: hintDisplayText.hintTooFarText,
     [FaceMatchState.TOO_MANY]: hintDisplayText.hintTooManyFacesText,
-    [FaceMatchState.TOO_CLOSE]: hintDisplayText.hintTooCloseText,
     [FaceMatchState.TOO_FAR]: hintDisplayText.hintTooFarText,
     [FaceMatchState.MATCHED]: hintDisplayText.hintHoldFaceForFreshnessText,
+    [FaceMatchState.OFF_CENTER]: hintDisplayText.hintFaceOffCenterText,
   };
 
   const IlluminationStateStringMap: Record<IlluminationState, string> = {
@@ -78,98 +94,95 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
     [IlluminationState.NORMAL]: hintDisplayText.hintIlluminationNormalText,
   };
 
-  const getInstructionContent = () => {
-    if (errorState || isCheckFailed || isCheckSuccessful) {
-      return;
-    }
+  if (isStartView) {
+    return (
+      <>
+        <VisuallyHidden role="alert">
+          {hintDisplayText.hintCenterFaceInstructionText}
+        </VisuallyHidden>
+        <DefaultToast text={hintDisplayText.hintCenterFaceText} isInitial />
+      </>
+    );
+  }
 
-    if (!isRecording) {
-      if (isCheckFaceDetectedBeforeStart) {
-        if (faceMatchStateBeforeStart === FaceMatchState.TOO_MANY) {
-          return (
-            <Toast>{FaceMatchStateStringMap[faceMatchStateBeforeStart]}</Toast>
-          );
-        }
-        return <Toast>{hintDisplayText.hintMoveFaceFrontOfCameraText}</Toast>;
-      }
-
-      // Specifically checking for false here because initially the value is undefined and we do not want to show the instruction
-      if (
-        isCheckFaceDistanceBeforeRecording &&
-        isFaceFarEnoughBeforeRecordingState === false
-      ) {
-        return <Toast>{hintDisplayText.hintTooCloseText}</Toast>;
-      }
-
-      if (isNotRecording) {
-        return (
-          <Toast>{hintDisplayText.hintHoldFacePositionCountdownText}</Toast>
-        );
-      }
-
-      if (isWaitingForSessionInfo) {
-        return (
-          <Toast>
-            <Flex alignItems="center" gap="xs">
-              <Loader />
-              <View>{hintDisplayText.hintConnectingText}</View>
-            </Flex>
-          </Toast>
-        );
-      }
-
-      if (isUploading) {
-        return (
-          <Overlay
-            backgroundColor="overlay.40"
-            anchorOrigin={{ horizontal: 'center', vertical: 'end' }}
-          >
-            <Toast>
-              <Flex alignItems="center" gap="xs">
-                <Loader />
-                <View>{hintDisplayText.hintVerifyingText}</View>
-              </Flex>
-            </Toast>
-          </Overlay>
-        );
-      }
-
-      if (illuminationState && illuminationState !== IlluminationState.NORMAL) {
-        return <Toast>{IlluminationStateStringMap[illuminationState]}</Toast>;
-      }
-    }
-
-    if (isFlashingFreshness) {
-      return (
-        <Toast size="large" variation="primary">
-          {hintDisplayText.hintHoldFaceForFreshnessText}
-        </Toast>
-      );
-    }
-
-    if (isRecording && !isFlashingFreshness) {
-      // During face matching, we want to only show the TOO_CLOSE or
-      // TOO_FAR texts. If FaceMatchState matches TOO_CLOSE, we'll show
-      // the TOO_CLOSE text, but for FACE_IDENTIFED, CANT_IDENTIFY, TOO_MANY
-      // we are defaulting to the TOO_FAR text (for now). For MATCHED state,
-      // we don't want to show any toasts.
-      return (
-        <Toast
-          size="large"
-          variation={
-            faceMatchState === FaceMatchState.TOO_CLOSE ? 'error' : 'primary'
-          }
-        >
-          {faceMatchState === FaceMatchState.TOO_CLOSE
-            ? FaceMatchStateStringMap[FaceMatchState.TOO_CLOSE]
-            : FaceMatchStateStringMap[FaceMatchState.TOO_FAR]}
-        </Toast>
-      );
-    }
-
+  if (errorState ?? (isCheckFailed || isCheckSuccessful)) {
     return null;
-  };
+  }
 
-  const instructionContent = getInstructionContent();
-  return instructionContent ? instructionContent : null;
+  if (!isRecording) {
+    if (isCheckFaceDetectedBeforeStart) {
+      if (faceMatchStateBeforeStart === FaceMatchState.TOO_MANY) {
+        return <DefaultToast text={hintDisplayText.hintTooManyFacesText} />;
+      }
+      return (
+        <DefaultToast text={hintDisplayText.hintMoveFaceFrontOfCameraText} />
+      );
+    }
+
+    // Specifically checking for false here because initially the value is undefined and we do not want to show the instruction
+    if (
+      isCheckFaceDistanceBeforeRecording &&
+      isFaceFarEnoughBeforeRecordingState === false
+    ) {
+      return <DefaultToast text={hintDisplayText.hintTooCloseText} />;
+    }
+
+    if (isNotRecording) {
+      return (
+        <ToastWithLoader displayText={hintDisplayText.hintConnectingText} />
+      );
+    }
+
+    if (isUploading) {
+      return (
+        <>
+          <VisuallyHidden aria-live="assertive">
+            {hintDisplayText.hintCheckCompleteText}
+          </VisuallyHidden>
+          <ToastWithLoader displayText={hintDisplayText.hintVerifyingText} />
+        </>
+      );
+    }
+
+    if (illuminationState && illuminationState !== IlluminationState.NORMAL) {
+      return (
+        <DefaultToast text={IlluminationStateStringMap[illuminationState]} />
+      );
+    }
+  }
+
+  if (isFlashingFreshness) {
+    return <DefaultToast text={hintDisplayText.hintHoldFaceForFreshnessText} />;
+  }
+
+  if (isRecording && !isFlashingFreshness) {
+    // During face matching, we want to only show the
+    // TOO_FAR texts. For FACE_IDENTIFIED, CANT_IDENTIFY, TOO_MANY
+    // we are defaulting to the TOO_FAR text (for now).
+    let resultHintString = FaceMatchStateStringMap[FaceMatchState.TOO_FAR];
+    if (faceMatchState === FaceMatchState.MATCHED) {
+      resultHintString = FaceMatchStateStringMap[faceMatchState];
+    }
+
+    // If the face is outside the oval set the aria-label to a string about centering face in oval
+    let a11yHintString = resultHintString;
+    if (faceMatchState === FaceMatchState.OFF_CENTER) {
+      a11yHintString = FaceMatchStateStringMap[faceMatchState];
+    } else if (
+      // If the face match percentage reaches 50% append it to the a11y label
+      faceMatchState === FaceMatchState.TOO_FAR &&
+      faceMatchPercentage! > 50
+    ) {
+      a11yHintString = hintDisplayText.hintMatchIndicatorText;
+    }
+
+    return (
+      <Toast size="large" variation={'primary'}>
+        <VisuallyHidden aria-live="assertive">{a11yHintString}</VisuallyHidden>
+        <View aria-label={a11yHintString}>{resultHintString}</View>
+      </Toast>
+    );
+  }
+
+  return null;
 };

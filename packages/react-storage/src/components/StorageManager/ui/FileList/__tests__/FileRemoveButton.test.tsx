@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { ComponentClassNames } from '@aws-amplify/ui-react';
+import { ComponentClassName } from '@aws-amplify/ui';
+import { IconsProvider, View } from '@aws-amplify/ui-react';
 
 import { FileRemoveButton } from '../FileRemoveButton';
 import { FileRemoveButtonProps } from '../types';
@@ -20,7 +21,7 @@ describe('FileRemoveButton', () => {
     );
 
     const button = await findByRole('button');
-    expect(button).toHaveClass(`${ComponentClassNames.Button}--small`);
+    expect(button).toHaveClass(`${ComponentClassName.Button}--small`);
 
     const image = await findByText(fileRemoveButtonProps.altText);
     expect(image).toHaveClass('amplify-visually-hidden');
@@ -37,7 +38,24 @@ describe('FileRemoveButton', () => {
     );
 
     const button = await findByRole('button');
-    userEvent.click(button);
+    await userEvent.click(button);
     expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('renders custom icons from IconProvider', () => {
+    const { container } = render(
+      <IconsProvider
+        icons={{
+          storageManager: {
+            remove: <View testId="remove" />,
+          },
+        }}
+      >
+        <FileRemoveButton {...fileRemoveButtonProps} />
+      </IconsProvider>
+    );
+
+    expect(screen.getByTestId('remove')).toBeInTheDocument();
+    expect(container).toMatchSnapshot();
   });
 });

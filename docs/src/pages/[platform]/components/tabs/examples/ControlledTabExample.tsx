@@ -1,20 +1,31 @@
 import { useState } from 'react';
-import { Tabs, TabItem, Button } from '@aws-amplify/ui-react';
+import { Tabs, Button } from '@aws-amplify/ui-react';
 
 export const ControlledTabExample = () => {
-  const [index, setIndex] = useState(0);
+  const [tab, setTab] = useState('1');
   return (
-    <Tabs currentIndex={index} onChange={(i: number) => setIndex(i)}>
-      <TabItem title="First">Content of the first tab</TabItem>
-      <TabItem title="Second">
-        <p>
-          The content of the second tab is initially shown because we passed in
-          index 1 to defaultIndex (notice that the tabs are zero-indexed).
-        </p>
-        <Button isFullWidth onClick={() => setIndex(0)}>
-          Go to first tab
-        </Button>
-      </TabItem>
-    </Tabs>
+    <Tabs
+      value={tab}
+      onValueChange={(tab) => setTab(tab)}
+      items={[
+        {
+          label: 'First',
+          value: '1',
+          content: 'Content of the first tab',
+        },
+        {
+          label: 'Second',
+          value: '2',
+          content: (
+            <>
+              <p>Content of the second tab.</p>
+              <Button isFullWidth onClick={() => setTab('1')}>
+                Go to first tab
+              </Button>
+            </>
+          ),
+        },
+      ]}
+    />
   );
 };

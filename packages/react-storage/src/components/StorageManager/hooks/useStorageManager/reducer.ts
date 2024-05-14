@@ -11,17 +11,19 @@ export function storageManagerStateReducer(
 ): UseStorageManagerState {
   switch (action.type) {
     case StorageManagerActionTypes.ADD_FILES: {
-      const { files } = action;
+      const { files, status } = action;
 
       const newUploads: StorageFiles = files.map((file) => {
         const errorText = action.getFileErrorMessage(file);
 
         return {
-          id: file.name,
+          // make sure id is unique,
+          // we only use it internally and don't send it to Storage
+          id: `${Date.now()}-${file.name}`,
           file,
           error: errorText,
           key: file.name,
-          status: errorText ? FileStatus.ERROR : FileStatus.QUEUED,
+          status: errorText ? FileStatus.ERROR : status,
           isImage: file.type.startsWith('image/'),
           progress: -1,
         };
@@ -40,6 +42,25 @@ export function storageManagerStateReducer(
         files: [],
       };
     }
+    case StorageManagerActionTypes.QUEUE_FILES: {
+      const { files } = state;
+
+      const newFiles = files.reduce<StorageFiles>((files, currentFile) => {
+        return [
+          ...files,
+          {
+            ...currentFile,
+            ...(currentFile.status === FileStatus.ADDED
+              ? { status: FileStatus.QUEUED }
+              : {}),
+          },
+        ];
+      }, []);
+      return {
+        ...state,
+        files: newFiles,
+      };
+    }
     case StorageManagerActionTypes.SET_STATUS_UPLOADING: {
       const { id, uploadTask } = action;
       const { files } = state;
@@ -52,7 +73,7 @@ export function storageManagerStateReducer(
               ...currentFile,
               status: FileStatus.UPLOADING,
               progress: 0,
-              uploadTask: uploadTask ? uploadTask : undefined,
+              uploadTask,
             },
           ];
         }

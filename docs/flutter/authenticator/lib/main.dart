@@ -112,15 +112,16 @@ class _MyAppState extends State<MyApp> {
         'name': 'loaded',
         'id': widget.config.id,
       };
-      window.parent?.postMessage(jsonEncode(message), "*");
+      window.parent?.postMessage(jsonEncode(message), '*');
     } on Exception catch (e) {
       safePrint('An error occurred configuring Amplify: $e');
     }
   }
 
   ThemeData get theme {
-    final theme =
-        widget.config.useCustomTheme ? customLightTheme : ThemeData.light();
+    final theme = widget.config.useCustomTheme
+        ? customLightTheme
+        : ThemeData.light(useMaterial3: true);
     return widget.config.device == Device.web
         ? theme
         : theme.copyWith(
@@ -130,8 +131,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   ThemeData get darkTheme {
-    final theme =
-        widget.config.useCustomTheme ? customDarkTheme : ThemeData.dark();
+    final theme = widget.config.useCustomTheme
+        ? customDarkTheme
+        : ThemeData.dark(useMaterial3: true);
     return widget.config.device == Device.web
         ? theme
         : theme.copyWith(
@@ -152,7 +154,6 @@ class _MyAppState extends State<MyApp> {
       initialStep: widget.config.initialStep,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        useInheritedMediaQuery: true,
         title: 'Authenticator Demo',
         builder: Authenticator.builder(),
         theme: theme,
@@ -189,10 +190,10 @@ class _HomeWidgetState extends State<HomeWidget> {
       children: [
         Scaffold(
           appBar: AppBar(),
-          body: Center(
+          body: const Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 Text(
                   'You are logged in!',
                   style: TextStyle(fontSize: 16),
@@ -324,6 +325,7 @@ Widget? customBuilder(BuildContext context, AuthenticatorState state) {
 
 // light theme
 ThemeData customLightTheme = ThemeData(
+  useMaterial3: true,
   // app's colors scheme and brightness
   colorScheme: ColorScheme.fromSwatch(
     brightness: Brightness.light,
@@ -362,6 +364,7 @@ ThemeData customLightTheme = ThemeData(
 
 // dark theme
 ThemeData customDarkTheme = ThemeData(
+  useMaterial3: true,
   colorScheme: ColorScheme.fromSwatch(
     brightness: Brightness.dark,
     primarySwatch: Colors.indigo,

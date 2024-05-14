@@ -72,7 +72,6 @@ export const RatingPropControls: RatingPropControlsInterface = ({
 
       <SelectField
         name="size"
-        id="size"
         label="size"
         value={size}
         onChange={(event) =>

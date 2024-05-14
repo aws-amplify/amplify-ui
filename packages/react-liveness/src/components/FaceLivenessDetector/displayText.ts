@@ -1,3 +1,5 @@
+import { DisplayTextTemplate } from '@aws-amplify/ui';
+
 export type HintDisplayText = {
   hintMoveFaceFrontOfCameraText?: string;
   hintTooManyFacesText?: string;
@@ -5,13 +7,17 @@ export type HintDisplayText = {
   hintCanNotIdentifyText?: string;
   hintTooCloseText?: string;
   hintTooFarText?: string;
-  hintHoldFacePositionCountdownText?: string;
   hintConnectingText?: string;
   hintVerifyingText?: string;
+  hintCheckCompleteText?: string;
   hintIlluminationTooBrightText?: string;
   hintIlluminationTooDarkText?: string;
   hintIlluminationNormalText?: string;
   hintHoldFaceForFreshnessText?: string;
+  hintCenterFaceText?: string;
+  hintCenterFaceInstructionText?: string;
+  hintFaceOffCenterText?: string;
+  hintMatchIndicatorText?: string;
 };
 
 export type CameraDisplayText = {
@@ -20,24 +26,38 @@ export type CameraDisplayText = {
   cameraNotFoundHeadingText?: string;
   cameraNotFoundMessageText?: string;
   retryCameraPermissionsText?: string;
+  waitingCameraPermissionText?: string;
+  a11yVideoLabelText?: string;
 };
 
 export type InstructionDisplayText = {
-  instructionsHeaderHeadingText?: string;
-  instructionsHeaderBodyText?: string;
-  instructionsBeginCheckText?: string;
-  photosensitivyWarningHeadingText?: string;
-  photosensitivyWarningBodyText?: string;
-  photosensitivyWarningInfoText?: string;
-  instructionListHeadingText?: string;
   goodFitCaptionText?: string;
   goodFitAltText?: string;
+  photosensitivityWarningBodyText?: string;
+  photosensitivityWarningHeadingText?: string;
+  photosensitivityWarningInfoText?: string;
+  photosensitivityWarningLabelText?: string;
+  startScreenBeginCheckText?: string;
   tooFarCaptionText?: string;
   tooFarAltText?: string;
-  instructionListStepOneText?: string;
-  instructionListStepTwoText?: string;
-  instructionListStepThreeText?: string;
-  instructionListStepFourText?: string;
+
+  // TODO remove this typo in next MV bump
+  /**
+   * @deprecated `photosensitivyWarningBodyText` has been replaced with `photosensitivityWarningBodyText` amd will be removed in a future major version of `@aws-amplify/ui-react-liveness`
+   */
+  photosensitivyWarningBodyText?: string;
+  /**
+   * @deprecated `photosensitivyWarningHeadingText` has been replaced with `photosensitivityWarningHeadingText` amd will be removed in a future major version of `@aws-amplify/ui-react-liveness`
+   */
+  photosensitivyWarningHeadingText?: string;
+  /**
+   * @deprecated `photosensitivyWarningInfoText` has been replaced with `photosensitivityWarningInfoText` amd will be removed in a future major version of `@aws-amplify/ui-react-liveness`
+   */
+  photosensitivyWarningInfoText?: string;
+  /**
+   * @deprecated `photosensitivyWarningLabelText` has been replaced with `photosensitivityWarningLabelText` amd will be removed in a future major version of `@aws-amplify/ui-react-liveness`
+   */
+  photosensitivyWarningLabelText?: string;
 };
 
 export type StreamDisplayText = {
@@ -46,12 +66,17 @@ export type StreamDisplayText = {
 };
 
 export const defaultErrorDisplayText = {
+  errorLabelText: 'Error',
+  connectionTimeoutHeaderText: 'Connection time out',
+  connectionTimeoutMessageText: 'Connection has timed out.',
   timeoutHeaderText: 'Time out',
   timeoutMessageText:
-    "Face didn't fill oval within time limit. Try again and completely fill oval with face within 7 seconds.",
-  faceDistanceHeaderText: 'Check failed during countdown',
-  faceDistanceMessageText:
-    'Avoid moving closer during countdown and ensure only one face is in front of camera.',
+    "Face didn't fit inside oval in time limit. Try again and completely fill the oval with face in it.",
+  faceDistanceHeaderText: 'Forward movement detected',
+  faceDistanceMessageText: 'Avoid moving closer when connecting.',
+  multipleFacesHeaderText: 'Multiple faces detected',
+  multipleFacesMessageText:
+    'Ensure only one face is present in front of the camera when connecting.',
   clientHeaderText: 'Client error',
   clientMessageText: 'Check failed due to client issue',
   serverHeaderText: 'Server issue',
@@ -64,62 +89,66 @@ export const defaultErrorDisplayText = {
   tryAgainText: 'Try again',
 };
 
-export type ErrorDisplayTextFoo = typeof defaultErrorDisplayText;
-export type ErrorDisplayText = Partial<ErrorDisplayTextFoo>;
+export type ErrorDisplayText = Partial<typeof defaultErrorDisplayText>;
 
 export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
-  instructionsHeaderHeadingText: 'Liveness check',
-  instructionsHeaderBodyText:
-    'You will go through a face verification process to prove that you are a real person.',
-  instructionsBeginCheckText: 'Begin check',
-  photosensitivyWarningHeadingText: 'Photosensitivity warning',
-  photosensitivyWarningBodyText:
-    'This check displays colored lights. Use caution if you are photosensitive.',
-  photosensitivyWarningInfoText:
-    'A small percentage of individuals may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
-  instructionListHeadingText: 'Follow the instructions to complete the check:',
-  goodFitCaptionText: 'Good fit',
-  goodFitAltText:
-    "Ilustration of a person's face, perfectly fitting inside of an oval.",
-  tooFarCaptionText: 'Too far',
-  tooFarAltText:
-    "Illustration of a person's face inside of an oval; there is a gap between the perimeter of the face and the boundaries of the oval.",
-  instructionListStepOneText:
-    'When an oval appears, fill the oval with your face within 7 seconds.',
-  instructionListStepTwoText: "Maximize your screen's brightness.",
-  instructionListStepThreeText:
-    'Make sure your face is not covered with sunglasses or a mask.',
-  instructionListStepFourText:
-    'Move to a well-lit place that is not in direct sunlight.',
   cameraMinSpecificationsHeadingText:
     'Camera does not meet minimum specifications',
   cameraMinSpecificationsMessageText:
     'Camera must support at least 320*240 resolution and 15 frames per second.',
-  cameraNotFoundHeadingText: 'Camera not accessible.',
+  cameraNotFoundHeadingText: 'Camera is not accessible.',
   cameraNotFoundMessageText:
-    'Check that camera is connected and camera permissions are enabled in settings before retrying.',
-  retryCameraPermissionsText: 'Retry',
+    'Check that a camera is connected and there is not another application using the camera. You may have to go into settings to grant camera permissions and close out all instances of your browser and retry.',
+  a11yVideoLabelText: 'Webcam for liveness check',
   cancelLivenessCheckText: 'Cancel Liveness check',
-  recordingIndicatorText: 'Rec',
+  goodFitCaptionText: 'Good fit',
+  goodFitAltText:
+    "Ilustration of a person's face, perfectly fitting inside of an oval.",
+  hintCenterFaceText: 'Center your face',
+  hintCenterFaceInstructionText:
+    'Instruction: Before starting the check, make sure your camera is at the center top of your screen and center your face to the camera. When the check starts an oval will show up in the center. You will be prompted to move forward into the oval and then prompted to hold still. After holding still for a few seconds, you should hear check complete.',
+  hintFaceOffCenterText:
+    'Face is not in the oval, center your face to the camera.',
   hintMoveFaceFrontOfCameraText: 'Move face in front of camera',
   hintTooManyFacesText: 'Ensure only one face is in front of camera',
   hintFaceDetectedText: 'Face detected',
   hintCanNotIdentifyText: 'Move face in front of camera',
   hintTooCloseText: 'Move back',
   hintTooFarText: 'Move closer',
-  hintHoldFacePositionCountdownText: 'Hold face position during countdown',
   hintConnectingText: 'Connecting...',
   hintVerifyingText: 'Verifying...',
+  hintCheckCompleteText: 'Check complete',
   hintIlluminationTooBrightText: 'Move to dimmer area',
   hintIlluminationTooDarkText: 'Move to brighter area',
   hintIlluminationNormalText: 'Lighting conditions normal',
   hintHoldFaceForFreshnessText: 'Hold still',
+  hintMatchIndicatorText: '50% completed. Keep moving closer.',
+  photosensitivityWarningBodyText:
+    'This check flashes different colors. Use caution if you are photosensitive.',
+  photosensitivityWarningHeadingText: 'Photosensitivity warning',
+  photosensitivityWarningInfoText:
+    'Some people may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
+  photosensitivityWarningLabelText: 'More information about photosensitivity',
+  photosensitivyWarningBodyText:
+    'This check flashes different colors. Use caution if you are photosensitive.',
+  photosensitivyWarningHeadingText: 'Photosensitivity warning',
+  photosensitivyWarningInfoText:
+    'Some people may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
+  photosensitivyWarningLabelText: 'More information about photosensitivity',
+  retryCameraPermissionsText: 'Retry',
+  recordingIndicatorText: 'Rec',
+  startScreenBeginCheckText: 'Start video check',
+  tooFarCaptionText: 'Too far',
+  tooFarAltText:
+    "Illustration of a person's face inside of an oval; there is a gap between the perimeter of the face and the boundaries of the oval.",
+  waitingCameraPermissionText: 'Waiting for you to allow camera permission.',
   ...defaultErrorDisplayText,
 };
 
-export interface LivenessDisplayText
-  extends HintDisplayText,
-    CameraDisplayText,
-    InstructionDisplayText,
-    ErrorDisplayText,
-    StreamDisplayText {}
+export type LivenessDisplayText = DisplayTextTemplate<
+  HintDisplayText &
+    CameraDisplayText &
+    InstructionDisplayText &
+    ErrorDisplayText &
+    StreamDisplayText
+>;

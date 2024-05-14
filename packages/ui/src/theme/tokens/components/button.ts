@@ -5,6 +5,15 @@ type StateTokens<Output> = DesignTokenProperties<
   Output
 >;
 
+type ColorThemeTokens<Output> = DesignTokenProperties<
+  'backgroundColor' | 'borderColor' | 'color',
+  Output
+> & {
+  _hover?: StateTokens<Output>;
+  _focus?: StateWithShadowTokens<Output>;
+  _active?: StateTokens<Output>;
+};
+
 type StateWithShadowTokens<Output> = StateTokens<Output> &
   DesignTokenProperties<'boxShadow', Output>;
 
@@ -17,6 +26,11 @@ type PrimaryVariationTokens<Output> = StateTokens<Output> &
     _hover?: StateTokens<Output>;
     _focus?: StateWithShadowTokens<Output>;
     _active?: StateTokens<Output>;
+    info?: ColorThemeTokens<Output>;
+    error?: ColorThemeTokens<Output>;
+    success?: ColorThemeTokens<Output>;
+    warning?: ColorThemeTokens<Output>;
+    overlay?: ColorThemeTokens<Output>;
   };
 
 type MenuVariationTokens<Output> = DesignTokenProperties<
@@ -38,6 +52,19 @@ type LinkVariationTokens<Output> = DesignTokenProperties<
   _active?: StateTokens<Output>;
   _disabled?: StateTokens<Output>;
   _loading?: StateTokens<Output>;
+  info?: ColorThemeTokens<Output>;
+  error?: ColorThemeTokens<Output>;
+  success?: ColorThemeTokens<Output>;
+  warning?: ColorThemeTokens<Output>;
+  overlay?: ColorThemeTokens<Output>;
+};
+
+type OutlinedVariationTokens<Output> = {
+  info?: ColorThemeTokens<Output>;
+  error?: ColorThemeTokens<Output>;
+  success?: ColorThemeTokens<Output>;
+  warning?: ColorThemeTokens<Output>;
+  overlay?: ColorThemeTokens<Output>;
 };
 
 type ButtonSizeTokens<Output> = DesignTokenProperties<
@@ -59,6 +86,7 @@ export type ButtonTokens<Output extends OutputVariantKey> =
     | 'paddingBlockEnd'
     | 'paddingInlineStart'
     | 'paddingInlineEnd'
+    | 'backgroundColor'
     | 'borderColor'
     | 'borderWidth'
     | 'borderStyle'
@@ -76,6 +104,7 @@ export type ButtonTokens<Output extends OutputVariantKey> =
     destructive?: PrimaryVariationTokens<Output>;
     menu?: MenuVariationTokens<Output>;
     link?: LinkVariationTokens<Output>;
+    outlined?: OutlinedVariationTokens<Output>;
     small?: ButtonSizeTokens<Output>;
     large?: ButtonSizeTokens<Output>;
     loaderWrapper?: DesignTokenProperties<'alignItems' | 'gap', Output>;
@@ -101,27 +130,27 @@ export const button: Required<ButtonTokens<'default'>> = {
   paddingInlineEnd: {
     value: '{components.fieldcontrol.paddingInlineEnd.value}',
   },
+  backgroundColor: { value: 'transparent' },
   borderColor: { value: '{components.fieldcontrol.borderColor.value}' },
   borderWidth: { value: '{components.fieldcontrol.borderWidth.value}' },
   borderStyle: { value: '{components.fieldcontrol.borderStyle.value}' },
   borderRadius: { value: '{components.fieldcontrol.borderRadius.value}' },
   color: { value: '{colors.font.primary.value}' },
-
   _hover: {
     color: { value: '{colors.font.focus.value}' },
-    backgroundColor: { value: '{colors.brand.primary.10.value}' },
-    borderColor: { value: '{colors.brand.primary.60.value}' },
+    backgroundColor: { value: '{colors.primary.10.value}' },
+    borderColor: { value: '{colors.primary.60.value}' },
   },
   _focus: {
     color: { value: '{colors.font.focus.value}' },
-    backgroundColor: { value: '{colors.brand.primary.10.value}' },
+    backgroundColor: { value: '{colors.primary.10.value}' },
     borderColor: { value: '{colors.border.focus.value}' },
     boxShadow: { value: '{components.fieldcontrol._focus.boxShadow.value}' },
   },
   _active: {
     color: { value: '{colors.font.active.value}' },
-    backgroundColor: { value: '{colors.brand.primary.20.value}' },
-    borderColor: { value: '{colors.brand.primary.100.value}' },
+    backgroundColor: { value: '{colors.primary.20.value}' },
+    borderColor: { value: '{colors.primary.100.value}' },
   },
   _loading: {
     color: { value: '{colors.font.disabled.value}' },
@@ -133,13 +162,130 @@ export const button: Required<ButtonTokens<'default'>> = {
     backgroundColor: { value: 'transparent' },
     borderColor: { value: '{colors.border.tertiary.value}' },
   },
-
   // variations
+  outlined: {
+    info: {
+      borderColor: { value: '{colors.blue.60.value}' },
+      backgroundColor: { value: 'transparent' },
+      color: { value: '{colors.blue.100}' },
+      _hover: {
+        borderColor: { value: '{colors.blue.60.value}' },
+        backgroundColor: { value: '{colors.blue.10.value}' },
+        color: { value: '{colors.blue.100.value}' },
+      },
+      _focus: {
+        borderColor: { value: '{colors.blue.100.value}' },
+        backgroundColor: { value: '{colors.blue.10.value}' },
+        color: { value: '{colors.blue.100.value}' },
+        boxShadow: {
+          value: '{components.fieldcontrol.info._focus.boxShadow.value}',
+        },
+      },
+      _active: {
+        borderColor: { value: '{colors.blue.100.value}' },
+        backgroundColor: { value: '{colors.blue.20.value}' },
+        color: { value: '{colors.blue.100.value}' },
+      },
+    },
+    warning: {
+      borderColor: { value: '{colors.orange.60.value}' },
+      backgroundColor: { value: 'transparent' },
+      color: { value: '{colors.orange.100}' },
+      _hover: {
+        borderColor: { value: '{colors.orange.60.value}' },
+        backgroundColor: { value: '{colors.orange.10.value}' },
+        color: { value: '{colors.orange.100.value}' },
+      },
+      _focus: {
+        borderColor: { value: '{colors.orange.100.value}' },
+        backgroundColor: { value: '{colors.orange.10.value}' },
+        color: { value: '{colors.orange.100.value}' },
+        boxShadow: {
+          value: '{components.fieldcontrol.warning._focus.boxShadow.value}',
+        },
+      },
+      _active: {
+        borderColor: { value: '{colors.orange.100.value}' },
+        backgroundColor: { value: '{colors.orange.20.value}' },
+        color: { value: '{colors.orange.100.value}' },
+      },
+    },
+    success: {
+      borderColor: { value: '{colors.green.60.value}' },
+      backgroundColor: { value: 'transparent' },
+      color: { value: '{colors.green.100}' },
+      _hover: {
+        borderColor: { value: '{colors.green.60.value}' },
+        backgroundColor: { value: '{colors.green.10.value}' },
+        color: { value: '{colors.green.100.value}' },
+      },
+      _focus: {
+        borderColor: { value: '{colors.green.100.value}' },
+        backgroundColor: { value: '{colors.green.10.value}' },
+        color: { value: '{colors.green.100.value}' },
+        boxShadow: {
+          value: '{components.fieldcontrol.success._focus.boxShadow.value}',
+        },
+      },
+      _active: {
+        borderColor: { value: '{colors.green.100.value}' },
+        backgroundColor: { value: '{colors.green.20.value}' },
+        color: { value: '{colors.green.100.value}' },
+      },
+    },
+    error: {
+      borderColor: { value: '{colors.red.80.value}' },
+      backgroundColor: { value: 'transparent' },
+      color: { value: '{colors.red.100}' },
+      _hover: {
+        borderColor: { value: '{colors.red.80.value}' },
+        backgroundColor: { value: '{colors.red.10.value}' },
+        color: { value: '{colors.red.100.value}' },
+      },
+      _focus: {
+        borderColor: { value: '{colors.red.100.value}' },
+        backgroundColor: { value: '{colors.red.10.value}' },
+        color: { value: '{colors.red.100.value}' },
+        boxShadow: {
+          value: '{components.fieldcontrol._error._focus.boxShadow.value}',
+        },
+      },
+      _active: {
+        borderColor: { value: '{colors.red.100.value}' },
+        backgroundColor: { value: '{colors.red.20.value}' },
+        color: { value: '{colors.red.100.value}' },
+      },
+    },
+    overlay: {
+      borderColor: { value: '{colors.overlay.60.value}' },
+      backgroundColor: { value: 'transparent' },
+      color: { value: '{colors.font.primary.value}' },
+      _hover: {
+        borderColor: { value: '{colors.overlay.60.value}' },
+        backgroundColor: { value: '{colors.overlay.5.value}' },
+        color: { value: '{colors.neutral.90.value}' },
+      },
+      _focus: {
+        borderColor: { value: '{colors.overlay.90.value}' },
+        backgroundColor: { value: '{colors.overlay.5.value}' },
+        color: { value: '{colors.neutral.90.value}' },
+        boxShadow: {
+          value: '{components.fieldcontrol.overlay._focus.boxShadow.value}',
+        },
+      },
+      _active: {
+        borderColor: { value: '{colors.overlay.90.value}' },
+        backgroundColor: { value: '{colors.overlay.10.value}' },
+        color: { value: '{colors.neutral.100.value}' },
+      },
+    },
+  },
+
   primary: {
     borderColor: { value: 'transparent' },
     borderWidth: { value: '{borderWidths.small.value}' },
     borderStyle: { value: 'solid' },
-    backgroundColor: { value: '{colors.brand.primary.80.value}' },
+    backgroundColor: { value: '{colors.primary.80.value}' },
     color: { value: '{colors.font.inverse.value}' },
     _disabled: {
       borderColor: { value: 'transparent' },
@@ -153,19 +299,134 @@ export const button: Required<ButtonTokens<'default'>> = {
     },
     _hover: {
       borderColor: { value: 'transparent' },
-      backgroundColor: { value: '{colors.brand.primary.90.value}' },
+      backgroundColor: { value: '{colors.primary.90.value}' },
       color: { value: '{colors.font.inverse.value}' },
     },
     _focus: {
       borderColor: { value: 'transparent' },
-      backgroundColor: { value: '{colors.brand.primary.90.value}' },
+      backgroundColor: { value: '{colors.primary.90.value}' },
       color: { value: '{colors.font.inverse.value}' },
       boxShadow: { value: '{components.fieldcontrol._focus.boxShadow.value}' },
     },
     _active: {
       borderColor: { value: 'transparent' },
-      backgroundColor: { value: '{colors.brand.primary.100.value}' },
+      backgroundColor: { value: '{colors.primary.100.value}' },
       color: { value: '{colors.font.inverse.value}' },
+    },
+    info: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.blue.80}' },
+      color: { value: '{colors.font.inverse.value}' },
+      _hover: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.blue.90.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+      },
+      _focus: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.blue.90.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+        boxShadow: {
+          value: '{components.fieldcontrol.info._focus.boxShadow.value}',
+        },
+      },
+      _active: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.blue.100.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+      },
+    },
+    warning: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.orange.80}' },
+      color: { value: '{colors.font.inverse.value}' },
+      _hover: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.orange.90.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+      },
+      _focus: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.orange.90.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+        boxShadow: {
+          value: '{components.fieldcontrol.overlay._focus.boxShadow.value}',
+        },
+      },
+      _active: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.orange.100.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+      },
+    },
+    error: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.red.80}' },
+      color: { value: '{colors.font.inverse.value}' },
+      _hover: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.red.90.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+      },
+      _focus: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.red.90.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+        boxShadow: {
+          value: '{components.fieldcontrol._error._focus.boxShadow.value}',
+        },
+      },
+      _active: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.red.100.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+      },
+    },
+    success: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.green.80}' },
+      color: { value: '{colors.font.inverse.value}' },
+      _hover: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.green.90.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+      },
+      _focus: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.green.90.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+        boxShadow: {
+          value: '{components.fieldcontrol.success._focus.boxShadow.value}',
+        },
+      },
+      _active: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.green.100.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+      },
+    },
+    overlay: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.overlay.70}' },
+      color: { value: '{colors.font.inverse.value}' },
+      _hover: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.overlay.90.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+      },
+      _focus: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.overlay.90.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+        boxShadow: {
+          value: '{components.fieldcontrol.overlay._focus.boxShadow.value}',
+        },
+      },
+      _active: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.overlay.90.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+      },
     },
   },
 
@@ -178,15 +439,15 @@ export const button: Required<ButtonTokens<'default'>> = {
     // for mouse interactions, making it impossible to distinguish the two interactions
     _hover: {
       color: { value: '{colors.font.inverse.value}' },
-      backgroundColor: { value: '{colors.brand.primary.80.value}' },
+      backgroundColor: { value: '{colors.primary.80.value}' },
     },
     _focus: {
       color: { value: '{colors.font.inverse.value}' },
-      backgroundColor: { value: '{colors.brand.primary.80.value}' },
+      backgroundColor: { value: '{colors.primary.80.value}' },
     },
     _active: {
       color: { value: '{colors.font.inverse.value}' },
-      backgroundColor: { value: '{colors.brand.primary.90.value}' },
+      backgroundColor: { value: '{colors.primary.90.value}' },
     },
     _disabled: {
       color: { value: '{colors.font.disabled.value}' },
@@ -196,22 +457,22 @@ export const button: Required<ButtonTokens<'default'>> = {
   link: {
     backgroundColor: { value: 'transparent' },
     borderColor: { value: 'transparent' },
-    borderWidth: { value: '{space.zero.value}' },
+    borderWidth: { value: '{borderWidths.small.value}' },
     color: { value: '{colors.font.interactive.value}' },
     _hover: {
       borderColor: { value: 'transparent' },
-      backgroundColor: { value: '{colors.brand.primary.10.value}' },
+      backgroundColor: { value: '{colors.primary.10.value}' },
       color: { value: '{colors.font.hover.value}' },
     },
     _focus: {
       borderColor: { value: 'transparent' },
-      backgroundColor: { value: '{colors.brand.primary.10.value}' },
+      backgroundColor: { value: '{colors.primary.10.value}' },
       color: { value: '{colors.font.focus.value}' },
       boxShadow: { value: '{components.fieldcontrol._focus.boxShadow.value}' },
     },
     _active: {
       borderColor: { value: 'transparent' },
-      backgroundColor: { value: '{colors.brand.primary.20.value}' },
+      backgroundColor: { value: '{colors.primary.20.value}' },
       color: { value: '{colors.font.active.value}' },
     },
     _disabled: {
@@ -223,6 +484,121 @@ export const button: Required<ButtonTokens<'default'>> = {
       borderColor: { value: 'transparent' },
       backgroundColor: { value: 'transparent' },
       color: { value: '{colors.font.disabled.value}' },
+    },
+    info: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: 'transparent' },
+      color: { value: '{colors.blue.100}' },
+      _hover: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.blue.10.value}' },
+        color: { value: '{colors.blue.90.value}' },
+      },
+      _focus: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.blue.10.value}' },
+        color: { value: '{colors.blue.100.value}' },
+        boxShadow: {
+          value: '{components.fieldcontrol.info._focus.boxShadow.value}',
+        },
+      },
+      _active: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.blue.20.value}' },
+        color: { value: '{colors.blue.100.value}' },
+      },
+    },
+    warning: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: 'transparent' },
+      color: { value: '{colors.orange.100}' },
+      _hover: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.orange.10.value}' },
+        color: { value: '{colors.orange.90.value}' },
+      },
+      _focus: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.orange.10.value}' },
+        color: { value: '{colors.orange.100.value}' },
+        boxShadow: {
+          value: '{components.fieldcontrol.warning._focus.boxShadow.value}',
+        },
+      },
+      _active: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.orange.20.value}' },
+        color: { value: '{colors.orange.100.value}' },
+      },
+    },
+    success: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: 'transparent' },
+      color: { value: '{colors.green.100}' },
+      _hover: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.green.10.value}' },
+        color: { value: '{colors.green.90.value}' },
+      },
+      _focus: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.green.10.value}' },
+        color: { value: '{colors.green.100.value}' },
+        boxShadow: {
+          value: '{components.fieldcontrol.success._focus.boxShadow.value}',
+        },
+      },
+      _active: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.green.20.value}' },
+        color: { value: '{colors.green.100.value}' },
+      },
+    },
+    error: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: 'transparent' },
+      color: { value: '{colors.red.100}' },
+      _hover: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.red.10.value}' },
+        color: { value: '{colors.red.90.value}' },
+      },
+      _focus: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.red.10.value}' },
+        color: { value: '{colors.red.100.value}' },
+        boxShadow: {
+          value: '{components.fieldcontrol._error._focus.boxShadow.value}',
+        },
+      },
+      _active: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.red.20.value}' },
+        color: { value: '{colors.red.100.value}' },
+      },
+    },
+    overlay: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: 'transparent' },
+      color: { value: '{colors.neutral.100}' },
+      _hover: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.overlay.5.value}' },
+        color: { value: '{colors.overlay.80.value}' },
+      },
+      _focus: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.overlay.5.value}' },
+        color: { value: '{colors.overlay.90.value}' },
+        boxShadow: {
+          value: '{components.fieldcontrol.overlay._focus.boxShadow.value}',
+        },
+      },
+      _active: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.overlay.10.value}' },
+        color: { value: '{colors.overlay.90.value}' },
+      },
     },
   },
 

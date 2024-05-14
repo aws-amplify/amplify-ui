@@ -3,12 +3,13 @@
 exports[`PhoneNumberField applies theming 1`] = `
 <View
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "flex-start",
+        "marginBottom": 8,
       },
-      Array [
-        Object {},
+      [
+        {},
         undefined,
       ],
     ]
@@ -18,7 +19,7 @@ exports[`PhoneNumberField applies theming 1`] = `
   <View
     accessible={true}
     style={
-      Object {
+      {
         "alignItems": "center",
         "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
@@ -31,7 +32,7 @@ exports[`PhoneNumberField applies theming 1`] = `
   >
     <TextInput
       accessibilityState={
-        Object {
+        {
           "disabled": undefined,
         }
       }
@@ -41,15 +42,16 @@ exports[`PhoneNumberField applies theming 1`] = `
       keyboardType="phone-pad"
       placeholderTextColor="hsl(210, 10%, 40%)"
       style={
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
+            "paddingHorizontal": 4,
             "paddingVertical": 12,
           },
-          Array [
-            Object {},
+          [
+            {},
             undefined,
           ],
         ]
@@ -63,12 +65,13 @@ exports[`PhoneNumberField applies theming 1`] = `
 exports[`PhoneNumberField renders as expected 1`] = `
 <View
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "flex-start",
+        "marginBottom": 8,
       },
-      Array [
-        Object {},
+      [
+        {},
         undefined,
       ],
     ]
@@ -78,7 +81,7 @@ exports[`PhoneNumberField renders as expected 1`] = `
   <View
     accessible={true}
     style={
-      Object {
+      {
         "alignItems": "center",
         "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
@@ -91,7 +94,7 @@ exports[`PhoneNumberField renders as expected 1`] = `
   >
     <TextInput
       accessibilityState={
-        Object {
+        {
           "disabled": undefined,
         }
       }
@@ -101,15 +104,16 @@ exports[`PhoneNumberField renders as expected 1`] = `
       keyboardType="phone-pad"
       placeholderTextColor="hsl(210, 10%, 40%)"
       style={
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
+            "paddingHorizontal": 4,
             "paddingVertical": 12,
           },
-          Array [
-            Object {},
+          [
+            {},
             undefined,
           ],
         ]
@@ -123,12 +127,13 @@ exports[`PhoneNumberField renders as expected 1`] = `
 exports[`PhoneNumberField renders as expected when disabled 1`] = `
 <View
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "flex-start",
+        "marginBottom": 8,
       },
-      Array [
-        Object {},
+      [
+        {},
         undefined,
       ],
     ]
@@ -138,7 +143,7 @@ exports[`PhoneNumberField renders as expected when disabled 1`] = `
   <View
     accessible={true}
     style={
-      Object {
+      {
         "alignItems": "center",
         "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
@@ -152,7 +157,7 @@ exports[`PhoneNumberField renders as expected when disabled 1`] = `
   >
     <TextInput
       accessibilityState={
-        Object {
+        {
           "disabled": true,
         }
       }
@@ -162,15 +167,16 @@ exports[`PhoneNumberField renders as expected when disabled 1`] = `
       keyboardType="phone-pad"
       placeholderTextColor="hsl(210, 10%, 40%)"
       style={
-        Array [
-          Object {
+        [
+          {
             "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
+            "paddingHorizontal": 4,
             "paddingVertical": 12,
           },
-          Array [
-            Object {},
+          [
+            {},
             undefined,
           ],
         ]

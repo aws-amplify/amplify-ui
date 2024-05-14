@@ -3,11 +3,12 @@ import React from 'react';
 import { Flex, Button, Text } from '@aws-amplify/ui-react';
 import { AlertIcon } from '@aws-amplify/ui-react/internal';
 
-import { LivenessErrorState } from '../service';
+import { LivenessErrorState, ErrorState } from '../service';
 
 import { Toast } from './Toast';
 import { Overlay } from './Overlay';
 import { defaultErrorDisplayText, ErrorDisplayText } from '../displayText';
+import { LivenessClassNames } from '../types/classNames';
 
 export interface CheckScreenComponents {
   ErrorView?: React.ComponentType<FaceLivenessErrorModalProps>;
@@ -20,16 +21,21 @@ export interface FaceLivenessErrorModalProps {
 }
 
 const renderToastErrorModal = (props: {
-  error: LivenessErrorState;
+  error: ErrorState;
   displayText: Required<ErrorDisplayText>;
 }) => {
   const { error: errorState, displayText } = props;
 
   const {
+    connectionTimeoutHeaderText,
+    connectionTimeoutMessageText,
+    errorLabelText,
     timeoutHeaderText,
     timeoutMessageText,
     faceDistanceHeaderText,
     faceDistanceMessageText,
+    multipleFacesHeaderText,
+    multipleFacesMessageText,
     clientHeaderText,
     clientMessageText,
     serverHeaderText,
@@ -40,6 +46,10 @@ const renderToastErrorModal = (props: {
   let message: string;
 
   switch (errorState) {
+    case LivenessErrorState.CONNECTION_TIMEOUT:
+      heading = connectionTimeoutHeaderText;
+      message = connectionTimeoutMessageText;
+      break;
     case LivenessErrorState.TIMEOUT:
       heading = timeoutHeaderText;
       message = timeoutMessageText;
@@ -47,6 +57,10 @@ const renderToastErrorModal = (props: {
     case LivenessErrorState.FACE_DISTANCE_ERROR:
       heading = faceDistanceHeaderText;
       message = faceDistanceMessageText;
+      break;
+    case LivenessErrorState.MULTIPLE_FACES_ERROR:
+      heading = multipleFacesHeaderText;
+      message = multipleFacesMessageText;
       break;
     case LivenessErrorState.RUNTIME_ERROR:
       heading = clientHeaderText;
@@ -60,16 +74,16 @@ const renderToastErrorModal = (props: {
 
   return (
     <>
-      <Flex
-        gap="xs"
-        alignItems="center"
-        justifyContent="center"
-        color="font.error"
-      >
-        <AlertIcon ariaHidden variation="error" />
-        <Text fontWeight="bold">{heading}</Text>
+      <Flex className={LivenessClassNames.ErrorModal}>
+        <AlertIcon ariaLabel={errorLabelText} role="img" variation="error" />
+        <Text
+          className={LivenessClassNames.ErrorModalHeading}
+          id="amplify-liveness-error-heading"
+        >
+          {heading}
+        </Text>
       </Flex>
-      {message}
+      <Text id="amplify-liveness-error-message">{message}</Text>
     </>
   );
 };
@@ -78,7 +92,7 @@ export const renderErrorModal = ({
   errorState,
   overrideErrorDisplayText,
 }: {
-  errorState: LivenessErrorState;
+  errorState: ErrorState;
   overrideErrorDisplayText?: ErrorDisplayText;
 }): JSX.Element | null => {
   const displayText: Required<ErrorDisplayText> = {
@@ -113,8 +127,12 @@ export const FaceLivenessErrorModal: React.FC<FaceLivenessErrorModalProps> = (
   const { tryAgainText } = displayText;
 
   return (
-    <Overlay backgroundColor="overlay.40">
-      <Toast>
+    <Overlay className={LivenessClassNames.OpaqueOverlay}>
+      <Toast
+        aria-labelledby="amplify-liveness-error-heading"
+        aria-describedby="amplify-liveness-error-message"
+        role="alertdialog"
+      >
         {children}
         <Flex justifyContent="center">
           <Button variation="primary" type="button" onClick={onRetry}>

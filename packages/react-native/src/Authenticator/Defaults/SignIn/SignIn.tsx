@@ -6,23 +6,27 @@ import {
   DefaultTextFormFields,
   DefaultHeader,
   DefaultContent,
+  FederatedProviderButtons,
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultSignInComponent } from '../types';
+import { DefaultSignInProps } from '../types';
 
 const COMPONENT_NAME = 'SignIn';
 
-const SignIn: DefaultSignInComponent = ({
+const SignIn = ({
   fields,
   handleBlur,
   handleChange,
   handleSubmit,
   hideSignUp,
-  toResetPassword,
+  socialProviders,
+  toFederatedSignIn,
+  toForgotPassword,
   toSignUp,
+  validationErrors,
   ...rest
-}) => {
+}: DefaultSignInProps): JSX.Element => {
   const {
     getSignInTabText,
     getSignInText,
@@ -33,6 +37,7 @@ const SignIn: DefaultSignInComponent = ({
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
+    fieldValidationErrors,
     handleFormSubmit,
   } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -40,6 +45,7 @@ const SignIn: DefaultSignInComponent = ({
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
   const headerText = getSignInTabText();
@@ -47,10 +53,18 @@ const SignIn: DefaultSignInComponent = ({
   const signInText = getSignInText();
   const signUpText = getSignUpTabText();
 
+  const body = socialProviders ? (
+    <FederatedProviderButtons
+      route="signIn"
+      socialProviders={socialProviders}
+      toFederatedSignIn={toFederatedSignIn}
+    />
+  ) : null;
+
   const buttons = useMemo(() => {
     const forgotPassword = {
       children: forgotPasswordText,
-      onPress: toResetPassword,
+      onPress: toForgotPassword,
     };
     return {
       primary: { children: signInText, disabled, onPress: handleFormSubmit },
@@ -65,16 +79,18 @@ const SignIn: DefaultSignInComponent = ({
     hideSignUp,
     signInText,
     signUpText,
-    toResetPassword,
+    toForgotPassword,
     toSignUp,
   ]);
 
   return (
     <DefaultContent
       {...rest}
+      body={body}
       buttons={buttons}
       fields={fieldsWithHandlers}
       headerText={headerText}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

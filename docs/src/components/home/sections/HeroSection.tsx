@@ -21,7 +21,7 @@ import { CardLink } from '@/components/CardLink';
 import { FRAMEWORKS, FRAMEWORK_INSTALL_SCRIPTS } from '@/data/frameworks';
 import { FrameworkLogo } from '@/components/Logo';
 import { TerminalCommand } from '@/components/InstallScripts';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 
 export const HeroSection = () => {
   const {
@@ -63,7 +63,12 @@ export const HeroSection = () => {
             <View as="span" display="inline-block">
               (and more!
               {FRAMEWORKS.map((framework) => (
-                <NextLink key={framework} href={`/${framework}`} scroll={false}>
+                <NextLink
+                  key={framework}
+                  href={`/${framework}`}
+                  legacyBehavior
+                  scroll={false}
+                >
                   <a>
                     <FrameworkLogo
                       framework={framework}
@@ -113,7 +118,6 @@ export const HeroSection = () => {
                 variation="primary"
                 className="docs-home-cta"
                 as="a"
-                // @ts-ignore // IGNORE
                 href={`/${platform}/getting-started/installation`}
               >
                 Get started building
@@ -124,7 +128,6 @@ export const HeroSection = () => {
                   size="large"
                   className="docs-home-cta"
                   as="a"
-                  // @ts-ignore // IGNORE
                   href="#live"
                 >
                   Or try it out

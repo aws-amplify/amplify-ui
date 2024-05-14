@@ -1,67 +1,46 @@
 <script setup lang="ts">
+import { computed, toRefs } from 'vue';
+
 import {
   authenticatorTextUtil,
-  getActorState,
   getFormDataFromEvent,
-  SignInState,
   translate,
 } from '@aws-amplify/ui';
-import { computed, ComputedRef, useAttrs } from 'vue';
 
-import { useAuth, useAuthenticator } from '../composables/useAuth';
+import { useAuthenticator } from '../composables/useAuth';
+import { UseAuthenticator } from '../types';
 import BaseFormFields from './primitives/base-form-fields.vue';
 
-const emit = defineEmits(['confirmSignInSubmit', 'backToSignInClicked']);
-const attrs = useAttrs();
+// `facade` is manually typed to `UseAuthenticator` for temporary type safety.
+const facade: UseAuthenticator = useAuthenticator();
+const { submitForm, toSignIn, updateForm } = facade;
+const { error, isPending, challengeName: challengeNameRef } = toRefs(facade);
 
-const { state, send } = useAuth();
-
-const props = useAuthenticator();
-
-const actorState = computed(() =>
-  getActorState(state.value)
-) as ComputedRef<SignInState>;
-const challengeName = actorState.value.context.challengeName;
+const challengeName = computed(() => challengeNameRef.value);
 
 // Text Util
 const { getBackToSignInText, getConfirmText, getChallengeText } =
   authenticatorTextUtil;
 
 // Computed Properties
-const confirmSignInHeading = computed(() => getChallengeText(challengeName));
+const confirmSignInHeading = computed(() =>
+  getChallengeText(challengeName.value)
+);
 const backSignInText = computed(() => getBackToSignInText());
 const confirmText = computed(() => getConfirmText());
 
 // Methods
 const onInput = (e: Event): void => {
   const { name, value } = e.target as HTMLInputElement;
-  send({
-    type: 'CHANGE',
-    //@ts-ignore
-    data: { name, value },
-  });
+  updateForm({ name, value });
 };
 
 const onConfirmSignInSubmit = (e: Event): void => {
-  if (attrs?.onConfirmSignInSubmit) {
-    emit('confirmSignInSubmit', e);
-  } else {
-    submit(e);
-  }
-};
-
-const submit = (e: Event): void => {
-  props.submitForm(getFormDataFromEvent(e));
+  submitForm(getFormDataFromEvent(e));
 };
 
 const onBackToSignInClicked = (): void => {
-  if (attrs?.onBackToSignInClicked) {
-    emit('backToSignInClicked');
-  } else {
-    send({
-      type: 'SIGN_IN',
-    });
-  }
+  toSignIn();
 };
 </script>
 
@@ -75,7 +54,7 @@ const onBackToSignInClicked = (): void => {
       >
         <base-field-set
           class="amplify-flex amplify-authenticator__column"
-          :disabled="actorState.matches('confirmSignIn.pending')"
+          :disabled="isPending"
         >
           <slot name="header">
             <base-heading :level="3" class="amplify-heading">
@@ -86,8 +65,8 @@ const onBackToSignInClicked = (): void => {
             <base-form-fields route="confirmSignIn"></base-form-fields>
           </base-wrapper>
           <base-footer class="amplify-flex amplify-authenticator__column">
-            <base-alert v-if="actorState?.context?.remoteError">
-              {{ translate(actorState?.context?.remoteError) }}
+            <base-alert v-if="error">
+              {{ translate(error) }}
             </base-alert>
             <amplify-button
               class="amplify-field-group__control amplify-authenticator__font"
@@ -95,9 +74,10 @@ const onBackToSignInClicked = (): void => {
               :loading="false"
               :variation="'primary'"
               style="font-weight: normal"
-              :disabled="actorState.matches('confirmSignIn.pending')"
-              >{{ confirmText }}</amplify-button
+              :disabled="isPending"
             >
+              {{ confirmText }}
+            </amplify-button>
             <amplify-button
               class="amplify-field-group__control amplify-authenticator__font"
               :fullwidth="false"
@@ -107,14 +87,9 @@ const onBackToSignInClicked = (): void => {
               type="button"
               @click.prevent="onBackToSignInClicked"
             >
-              {{ backSignInText }}</amplify-button
-            >
-            <slot
-              name="footer"
-              :onBackToSignInClicked="onBackToSignInClicked"
-              :onConfirmSignInSubmit="onConfirmSignInSubmit"
-            >
-            </slot>
+              {{ backSignInText }}
+            </amplify-button>
+            <slot name="footer"> </slot>
           </base-footer>
         </base-field-set>
       </base-form>

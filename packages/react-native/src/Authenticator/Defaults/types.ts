@@ -10,73 +10,87 @@ export interface ConfirmSignInStyle {}
 export interface ConfirmSignUpStyle {}
 export interface ConfirmVerifyUserStyle {}
 export interface ForceNewPasswordStyle {}
-export interface ResetPasswordStyle {}
-export interface SetupTOTPStyle {}
+export interface ForgotPasswordStyle {}
+export interface SetupTotpStyle {}
 export interface SignInStyle {}
 export interface SignUpStyle {}
 export interface VerifyUserStyle {}
 
 export type DefaultComponents<
   FieldType = {},
-  Props = {}
+  Props = {},
 > = AuthenticatorComponentDefaults<FieldType, Props>;
 
-export type DefaultConfirmResetPasswordComponent = DefaultComponents<
-  TextFieldOptionsType,
-  { style?: ConfirmResetPasswordStyle }
->['ConfirmResetPassword'];
+export type DefaultConfirmResetPasswordProps = React.ComponentPropsWithoutRef<
+  DefaultComponents<
+    TextFieldOptionsType,
+    { style?: ConfirmResetPasswordStyle }
+  >['ConfirmResetPassword']
+>;
 
-export type DefaultConfirmSignInComponent = DefaultComponents<
-  TextFieldOptionsType,
-  { style?: ConfirmSignInStyle }
->['ConfirmSignIn'];
+export type DefaultConfirmSignInProps = React.ComponentPropsWithoutRef<
+  DefaultComponents<
+    TextFieldOptionsType,
+    { style?: ConfirmSignInStyle }
+  >['ConfirmSignIn']
+>;
 
-export type DefaultConfirmSignUpComponent = DefaultComponents<
-  TextFieldOptionsType,
-  { style?: ConfirmSignUpStyle }
->['ConfirmSignUp'];
+export type DefaultConfirmSignUpProps = React.ComponentPropsWithoutRef<
+  DefaultComponents<
+    TextFieldOptionsType,
+    { style?: ConfirmSignUpStyle }
+  >['ConfirmSignUp']
+>;
 
-export type DefaultConfirmVerifyUserComponent = DefaultComponents<
-  TextFieldOptionsType,
-  { style?: ConfirmVerifyUserStyle }
->['ConfirmVerifyUser'];
+export type DefaultConfirmVerifyUserProps = React.ComponentPropsWithoutRef<
+  DefaultComponents<
+    TextFieldOptionsType,
+    { style?: ConfirmVerifyUserStyle }
+  >['ConfirmVerifyUser']
+>;
 
-export type DefaultForceNewPasswordComponent = DefaultComponents<
-  TextFieldOptionsType,
-  { style?: ForceNewPasswordStyle }
->['ForceNewPassword'];
+export type DefaultForceNewPasswordProps = React.ComponentPropsWithoutRef<
+  DefaultComponents<
+    TextFieldOptionsType,
+    { style?: ForceNewPasswordStyle }
+  >['ForceNewPassword']
+>;
 
-export type DefaultResetPasswordComponent = DefaultComponents<
-  TextFieldOptionsType,
-  { style?: ResetPasswordStyle }
->['ResetPassword'];
+export type DefaultForgotPasswordProps = React.ComponentPropsWithoutRef<
+  DefaultComponents<
+    TextFieldOptionsType,
+    { style?: ForgotPasswordStyle }
+  >['ForgotPassword']
+>;
 
-export type DefaultSetupTOTPComponent = DefaultComponents<
-  TextFieldOptionsType,
-  { style?: SetupTOTPStyle }
->['SetupTOTP'];
+export type DefaultSetupTotpProps = React.ComponentPropsWithoutRef<
+  DefaultComponents<
+    TextFieldOptionsType,
+    { style?: SetupTotpStyle }
+  >['SetupTotp']
+>;
 
-export type DefaultSignInComponent = DefaultComponents<
-  TextFieldOptionsType,
-  { style?: SignInStyle }
->['SignIn'];
+export type DefaultSignInProps = React.ComponentPropsWithoutRef<
+  DefaultComponents<TextFieldOptionsType, { style?: SignInStyle }>['SignIn']
+>;
 
-export type DefaultSignUpComponent = DefaultComponents<
-  TextFieldOptionsType,
-  { style?: SignUpStyle }
->['SignUp'];
+export type DefaultSignUpProps = React.ComponentPropsWithoutRef<
+  DefaultComponents<TextFieldOptionsType, { style?: SignUpStyle }>['SignUp']
+>;
 
-export type DefaultVerifyUserComponent = DefaultComponents<
-  RadioFieldOptions,
-  { style?: VerifyUserStyle }
->['VerifyUser'];
+export type DefaultVerifyUserProps = React.ComponentPropsWithoutRef<
+  DefaultComponents<
+    RadioFieldOptions,
+    { style?: VerifyUserStyle }
+  >['VerifyUser']
+>;
 
 /**
  * Custom Authenticator components
  */
 type OverrideComponents<
   FieldType = {},
-  Props = {}
+  Props = {},
 > = AuthenticatorComponentOverrides<FieldType, Props>;
 
 type ConfirmSignInComponent<P = {}> = OverrideComponents<
@@ -104,15 +118,15 @@ type ForceNewPasswordComponent<P = {}> = OverrideComponents<
   { style?: ForceNewPasswordStyle } & P
 >['ForceNewPassword'];
 
-type ResetPasswordComponent<P = {}> = OverrideComponents<
+type ForgotPasswordComponent<P = {}> = OverrideComponents<
   TextFieldOptionsType,
-  { style?: ResetPasswordStyle } & P
->['ResetPassword'];
+  { style?: ForgotPasswordStyle } & P
+>['ForgotPassword'];
 
-type SetupTOTPComponent<P = {}> = OverrideComponents<
+type SetupTotpComponent<P = {}> = OverrideComponents<
   TextFieldOptionsType,
-  { style?: SetupTOTPStyle } & P
->['SetupTOTP'];
+  { style?: SetupTotpStyle } & P
+>['SetupTotp'];
 
 type SignInComponent<P = {}> = OverrideComponents<
   TextFieldOptionsType,
@@ -138,8 +152,8 @@ export interface Components {
   ConfirmResetPassword?: ConfirmResetPasswordComponent;
   ConfirmVerifyUser?: ConfirmVerifyUserComponent;
   ForceNewPassword?: ForceNewPasswordComponent;
-  ResetPassword?: ResetPasswordComponent;
-  SetupTOTP?: SetupTOTPComponent;
+  ForgotPassword?: ForgotPasswordComponent;
+  SetupTotp?: SetupTotpComponent;
   SignIn?: SignInComponent;
   SignUp?: SignUpComponent;
   VerifyUser?: VerifyUserComponent;

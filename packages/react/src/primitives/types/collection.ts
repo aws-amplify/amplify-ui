@@ -77,9 +77,9 @@ export interface CollectionBaseProps<Item> extends CollectionChildren<Item> {
   items: Array<Item>;
 }
 
-export type ListCollectionProps<Item> = BaseFlexProps &
+export type ListCollectionProps<Item> = Omit<BaseFlexProps, 'children'> &
   CollectionBaseProps<Item>;
-export type GridCollectionProps<Item> = BaseGridProps &
+export type GridCollectionProps<Item> = Omit<BaseGridProps, 'children'> &
   CollectionBaseProps<Item>;
 
 /**
@@ -90,9 +90,10 @@ export type GridCollectionProps<Item> = BaseGridProps &
 type ReplaceChildren<T, Item> = Omit<T, 'children'> & CollectionChildren<Item>;
 
 // Note: `BaseCollectionProps` is used directly as the expected props interface of `Collection`
+/** @deprecated For internal use only */
 export type BaseCollectionProps<
   Item,
-  Element extends ElementType
+  Element extends ElementType,
 > = PrimitivePropsWithAs<CollectionWrapperProps, Element> &
   (
     | ReplaceChildren<{ type: 'list' } & ListCollectionProps<Item>, Item>
@@ -101,7 +102,7 @@ export type BaseCollectionProps<
 
 export type CollectionProps<
   Item,
-  Element extends ElementType = 'div'
+  Element extends ElementType = 'div',
 > = ReplaceChildren<
   PrimitiveProps<
     BaseCollectionProps<Item, Element> & { children: React.ReactNode },

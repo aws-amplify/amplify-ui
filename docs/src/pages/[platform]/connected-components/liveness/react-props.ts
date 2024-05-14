@@ -18,18 +18,19 @@ export const FACE_LIVENESS_DETECTOR_PROPS = [
   },
   {
     name: `onUserCancel?`,
-    description: 'Callback called when the user cancels the flow.',
+    description:
+      'Callback called when the user cancels the flow. This callback is also called when users click the "Try Again" button in the default error modal.',
     type: `() => void`,
   },
   {
     name: `onError?`,
     description: 'Callback called when there is error occured on any step.',
-    type: `(error: Error) => void`,
+    type: `(error: LivenessError) => void`,
   },
   {
-    name: `disableInstructionScreen?`,
+    name: `disableStartScreen?`,
     description:
-      'Optional parameter for the disabling the Start/Get Ready Screen, default: false.',
+      'Optional parameter for the disabling the start screen, default: false.',
     type: `boolean`,
   },
   {
@@ -51,20 +52,9 @@ export const FACE_LIVENESS_DETECTOR_PROPS = [
 
 export const FACE_LIVENESS_DETECTOR_COMPONENTS = [
   {
-    name: `Header?`,
-    description: 'Overrides the rendered component in the header section.',
-    type: `React.ComponentType`,
-  },
-  {
     name: `PhotosensitiveWarning?`,
     description:
       'Overrides the rendered component for the photosensitivity warning.',
-    type: `React.ComponentType`,
-  },
-  {
-    name: `Instructions?`,
-    description:
-      'Overrides the rendered component for the instruction section.',
     type: `React.ComponentType`,
   },
   {
@@ -74,18 +64,18 @@ export const FACE_LIVENESS_DETECTOR_COMPONENTS = [
   },
 ];
 
-export const FACE_LIVENESS_DETECTOR_CONFIG = [
+export const LIVENESS_ERROR = [
   {
-    name: `binaryPath?`,
+    name: `state`,
     description:
-      'Overrides the WASM backend binary CDN path, the default is https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@3.11.0/dist/. When overriding this path ensure that the wasm version matches the version of @tensorflow/tfjs-backend-wasm installed by npm.',
-    type: `string`,
+      'The LivenessErrorState value which indicates the general error type as seen from the component.',
+    type: `LivenessErrorState`,
   },
   {
-    name: `faceModelUrl?`,
+    name: `error`,
     description:
-      'Overrides the Blazeface model and weights bin CDN URL default is https://tfhub.dev/tensorflow/tfjs-model/blazeface/1/default/1/model.json?tfjs-format=file.',
-    type: `string`,
+      'The error object containing the more specific error name and stack trace.',
+    type: `Error`,
   },
 ];
 
@@ -99,6 +89,12 @@ export const FACE_LIVENESS_DETECTOR_ERROR_STATES = [
     name: `SERVER_ERROR`,
     description:
       'Indicates an error occurred from the Rekognition streaming API or in the onAnalysisComplete callback.',
+    type: `Error`,
+  },
+  {
+    name: `CONNECTION_TIMEOUT`,
+    description:
+      'Indicates a timeout occurred during the initial websocket connection.',
     type: `Error`,
   },
   {
@@ -128,7 +124,7 @@ export const FACE_LIVENESS_DETECTOR_ERROR_STATES = [
   {
     name: `FRESHNESS_TIMEOUT`,
     description:
-      'Indicates that the component timed out when attempting attempting to determine freshness of the video via colors flashing on the screen.',
+      'Indicates that the component timed out when attempting to determine freshness of the video via colors flashing on the screen.',
     type: `Error`,
   },
   {

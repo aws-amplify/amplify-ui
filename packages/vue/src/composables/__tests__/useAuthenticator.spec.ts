@@ -20,6 +20,7 @@ class MockAuthService {
 
 const mockServiceFacade = {
   authStatus: 'authenticated',
+  socialProviders: ['amazon'],
 } as unknown as AuthenticatorServiceFacade;
 
 const getServiceFacadeSpy = jest
@@ -36,6 +37,10 @@ jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
   service: mockService,
   send: mockSend,
 });
+
+const getQRFieldsSpy = jest
+  .spyOn(UseAuthComposables, 'getQRFields')
+  .mockReturnValue({});
 
 const TestComponent = defineComponent({
   setup() {
@@ -54,21 +59,27 @@ describe('useAuthenticator', () => {
   it('returns the expected values', () => {
     const wrapper = mount(TestComponent);
 
-    expect(getServiceFacadeSpy).toBeCalledTimes(1);
-    expect(getServiceFacadeSpy).toBeCalledWith({
+    expect(wrapper.vm.authStatus).toBe('unauthenticated');
+    expect(wrapper.vm.socialProviders).toStrictEqual(['amazon']);
+    wrapper.unmount();
+  });
+
+  it('calls getServiceFacade once on initial mount', () => {
+    const wrapper = mount(TestComponent);
+
+    expect(getServiceFacadeSpy).toHaveBeenCalledTimes(1);
+    expect(getServiceFacadeSpy).toHaveBeenCalledWith({
       send: mockSend,
       state: mockState.value,
     });
-
-    expect(wrapper.vm.authStatus).toBe('unauthenticated');
     wrapper.unmount();
   });
 
   it('getServiceFacadeValue is called again when state changes', async () => {
     const wrapper = mount(TestComponent);
 
-    expect(getServiceFacadeSpy).toBeCalledTimes(1);
-    expect(getServiceFacadeSpy).toBeCalledWith({
+    expect(getServiceFacadeSpy).toHaveBeenCalledTimes(1);
+    expect(getServiceFacadeSpy).toHaveBeenCalledWith({
       send: mockSend,
       state: mockState.value,
     });
@@ -79,11 +90,24 @@ describe('useAuthenticator', () => {
     mockState.value = newStateValue as unknown as UIModule.AuthMachineState;
     await flushPromises();
 
-    expect(getServiceFacadeSpy).toBeCalledTimes(1);
-    expect(getServiceFacadeSpy).toBeCalledWith({
+    expect(getServiceFacadeSpy).toHaveBeenCalledTimes(1);
+    expect(getServiceFacadeSpy).toHaveBeenCalledWith({
       send: mockSend,
       state: newStateValue,
     });
+
+    wrapper.unmount();
+  });
+
+  it('calls getQRFields if route is setupTotp', () => {
+    getServiceFacadeSpy.mockReturnValueOnce({
+      ...mockServiceFacade,
+      route: 'setupTotp',
+    });
+
+    const wrapper = mount(TestComponent);
+
+    expect(getQRFieldsSpy).toHaveBeenCalledWith(mockState.value);
 
     wrapper.unmount();
   });

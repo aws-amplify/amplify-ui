@@ -2,21 +2,33 @@ import deepExtend from 'style-dictionary/lib/utils/deepExtend';
 import resolveObject from 'style-dictionary/lib/utils/resolveObject';
 import usesReference from 'style-dictionary/lib/utils/references/usesReference';
 import { isFunction, setupTokens } from '@aws-amplify/ui';
-import { Theme, StrictTheme, ColorMode, Components } from './types';
+import {
+  Theme,
+  StrictTheme,
+  ColorMode,
+  Components,
+  StrictTokens,
+} from './types';
 import { defaultTheme } from './defaultTheme';
 
 // This will resolve all references in component themes by either
 // calling the component theme function with the already resolved base tokens
 // OR
 // resolving the component theme object
-const setupComponents = ({ components, tokens }: StrictTheme) => {
+const setupComponents = ({
+  components,
+  tokens,
+}: {
+  components: Components;
+  tokens: StrictTokens;
+}) => {
   const output = components
     ? Object.entries(components).reduce(
         (acc, [key, value]) => ({
           ...acc,
           [key]: isFunction(value) ? (value(tokens) as typeof value) : value,
         }),
-        {} as Components<'components'>
+        {}
       )
     : {};
 
@@ -25,6 +37,16 @@ const setupComponents = ({ components, tokens }: StrictTheme) => {
     components: output,
   }).components;
 };
+
+const shouldParseFloatValue = (pathKey: string) =>
+  [
+    'space',
+    'borderWidths',
+    'opacities',
+    'fontSizes',
+    'lineHeights',
+    'radii',
+  ].includes(pathKey);
 
 const setupToken = ({
   token,
@@ -39,27 +61,28 @@ const setupToken = ({
 }): string | number => {
   const { value } = token;
   if (typeof value === 'string') {
-    // Perform transforms
-    if (path[0] === 'space') {
-      if (value.includes('rem')) {
-        return Math.floor(parseFloat(value) * 16 * spaceModifier);
-      }
-    }
-    if (value.includes('rem')) {
-      return Math.floor(parseFloat(value) * 16);
-    }
-    if (value.includes('px')) {
-      return parseInt(value, 10);
-    }
-    if (path[0] === 'opacities') {
-      return parseFloat(value);
-    }
     // Remove .value from references if there is a reference
+    // this needs to come first so we don't get NaNs for references
     if (usesReference(value)) {
       return value.replace('.value', '');
     }
+
+    if (shouldParseFloatValue(path[0])) {
+      if (value.includes('rem')) {
+        if (path[0] === 'space') {
+          return Math.floor(parseFloat(value) * 16 * spaceModifier);
+        }
+        return Math.floor(parseFloat(value) * 16);
+      }
+      if (value.includes('px')) {
+        return parseInt(value, 10);
+      }
+      return parseFloat(value);
+    }
+
     return value;
   }
+
   // Font Weights in RN are strings
   if (path[0] === 'fontWeights') {
     return `${value}`;
@@ -118,14 +141,14 @@ export const createTheme = (
     }) as StrictTheme['tokens']
   );
 
-  let { components } = mergedTheme;
+  let components;
 
   // Resolve component token references too
   if (mergedTheme.components) {
     components = setupComponents({
-      ...mergedTheme,
+      components: mergedTheme.components,
       tokens,
-    }) as Components<'output'>;
+    });
   }
 
   return { ...mergedTheme, tokens, components };

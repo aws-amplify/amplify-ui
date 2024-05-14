@@ -1,83 +1,110 @@
 .amplify-tabs {
-  background-color: var(--amplify-components-tabs-background-color);
-  box-shadow: var(--amplify-components-tabs-box-shadow);
-  border-width: 0 0 var(--amplify-components-tabs-border-width) 0;
-  border-style: var(--amplify-components-tabs-border-style);
-  border-color: var(--amplify-components-tabs-border-color);
-  gap: var(--amplify-components-tabs-gap);
-
-  &[data-indicator-position='top'] {
-    border-width: var(--amplify-components-tabs-border-width) 0 0 0;
-  }
-}
-
-.amplify-tabs-item {
-  background-color: var(--amplify-components-tabs-item-background-color);
-  box-sizing: border-box;
-  color: var(--amplify-components-tabs-item-color);
-  font-size: var(--amplify-components-tabs-item-font-size);
-  font-weight: var(--amplify-components-tabs-item-font-weight);
-  padding: var(--amplify-components-tabs-item-padding-vertical)
-    var(--amplify-components-tabs-item-padding-horizontal);
-  text-align: var(--amplify-components-tabs-item-text-align);
-  transition: all var(--amplify-components-tabs-item-transition-duration);
-  border-width: 0 0 var(--amplify-components-tabs-item-border-width) 0;
-  border-style: var(--amplify-components-tabs-item-border-style);
-  border-color: var(--amplify-components-tabs-item-border-color);
-
-  // negative margin so border of tab items and tab bar overlap
-  margin-bottom: calc(-1 * var(--amplify-components-tabs-item-border-width));
-
-  [data-indicator-position='top'] > & {
-    border-width: var(--amplify-components-tabs-border-width) 0 0 0;
-    // negative margin so border of tab items and tab bar overlap
-    margin-top: calc(-1 * var(--amplify-components-tabs-item-border-width));
-    margin-bottom: 0;
-  }
-
-  // Radix data attribute
-  &[data-state='active'] {
-    color: var(--amplify-components-tabs-item-active-color);
-    border-color: var(--amplify-components-tabs-item-active-border-color);
-    background-color: var(
-      --amplify-components-tabs-item-active-background-color
+  &__list {
+    --internal-item-margin-start: 0;
+    --internal-item-margin-end: calc(
+      -1 * var(--amplify-components-tabs-item-border-width)
     );
-    transition-property: none;
+    --internal-item-border-width: 0 0
+      var(--amplify-components-tabs-border-width) 0;
+    --internal-item-flex: initial;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--amplify-components-tabs-background-color);
+    box-shadow: var(--amplify-components-tabs-box-shadow);
+    border-width: var(--internal-item-border-width);
+    border-style: var(--amplify-components-tabs-border-style);
+    border-color: var(--amplify-components-tabs-border-color);
+    gap: var(--amplify-components-tabs-gap);
+
+    &--top {
+      --internal-item-border-width: var(--amplify-components-tabs-border-width)
+        0 0 0;
+      --internal-item-margin-start: calc(
+        -1 * var(--amplify-components-tabs-item-border-width)
+      );
+      --internal-item-margin-end: 0;
+    }
+
+    &--equal {
+      --internal-item-flex: 1 1 0;
+    }
+
+    &--relative {
+      --internal-item-flex: 1 1 auto;
+    }
   }
 
-  &:hover {
-    color: var(--amplify-components-tabs-item-hover-color);
-    cursor: pointer;
+  &__panel {
+    display: none;
+    background-color: var(--amplify-components-tabs-panel-background-color);
+    padding-inline: var(--amplify-components-tabs-panel-padding-inline);
+    padding-block: var(--amplify-components-tabs-panel-padding-block);
+    &--active {
+      display: block;
+    }
   }
 
-  &:focus {
-    color: var(--amplify-components-tabs-item-focus-color);
-  }
+  &__item {
+    position: relative; // this is needed for z-index on focus
+    background-color: var(--amplify-components-tabs-item-background-color);
+    box-sizing: border-box;
+    color: var(--amplify-components-tabs-item-color);
+    font-size: var(--amplify-components-tabs-item-font-size);
+    font-weight: var(--amplify-components-tabs-item-font-weight);
+    padding: var(--amplify-components-tabs-item-padding-vertical)
+      var(--amplify-components-tabs-item-padding-horizontal);
+    text-align: var(--amplify-components-tabs-item-text-align);
+    transition: all var(--amplify-components-tabs-item-transition-duration);
+    border-width: var(--internal-item-border-width);
+    border-style: var(--amplify-components-tabs-item-border-style);
+    border-color: var(--amplify-components-tabs-item-border-color);
+    flex: var(--internal-item-flex);
 
-  &:focus-visible {
-    outline: var(--amplify-components-tabs-item-border-width)
-      var(--amplify-components-tabs-item-border-style)
-      var(--amplify-components-tabs-item-border-color);
-  }
+    // negative margin so border of tab tabs and tab bar overlap
+    margin-block-start: var(--internal-item-margin-start);
+    margin-block-end: var(--internal-item-margin-end);
 
-  &:active {
-    color: var(--amplify-components-tabs-item-active-color);
-  }
+    &--active {
+      color: var(--amplify-components-tabs-item-active-color);
+      border-color: var(--amplify-components-tabs-item-active-border-color);
+      background-color: var(
+        --amplify-components-tabs-item-active-background-color
+      );
+      transition-property: none;
+    }
 
-  &[data-disabled] {
-    background-color: var(
-      --amplify-components-tabs-item-disabled-background-color
-    );
-    // border-color: var(--amplify-components-tabs-item-disabled-border-color);
-    color: var(--amplify-components-tabs-item-disabled-color);
-    cursor: not-allowed;
-  }
+    &:hover {
+      color: var(--amplify-components-tabs-item-hover-color);
+      cursor: pointer;
+    }
 
-  &[data-spacing='equal'] {
-    flex: 1 1 0;
-  }
+    &:focus-visible {
+      z-index: 2;
+      color: var(--amplify-components-tabs-item-focus-color);
+      background-color: var(
+        --amplify-components-tabs-item-focus-background-color
+      );
+      border-color: var(--amplify-components-tabs-item-focus-border-color);
+      box-shadow: var(--amplify-components-tabs-item-focus-box-shadow);
+    }
 
-  &[data-spacing='relative'] {
-    flex-grow: 1;
+    &:active {
+      background-color: var(
+        --amplify-components-tabs-item-active-background-color
+      );
+      border-color: var(--amplify-components-tabs-item-active-border-color);
+      box-shadow: var(--amplify-components-tabs-item-active-box-shadow);
+      color: var(--amplify-components-tabs-item-active-color);
+    }
+
+    &[disabled] {
+      background-color: var(
+        --amplify-components-tabs-item-disabled-background-color
+      );
+      border-color: var(--amplify-components-tabs-item-disabled-border-color);
+      box-shadow: var(--amplify-components-tabs-item-disabled-box-shadow);
+      color: var(--amplify-components-tabs-item-disabled-color);
+      cursor: not-allowed;
+    }
   }
 }

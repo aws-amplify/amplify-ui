@@ -12,6 +12,7 @@ export type ViewBox = {
 
 export type IconSize = Sizes;
 
+/** @deprecated For internal use only */
 export interface BaseIconProps extends BaseViewProps {
   /**
    * @description

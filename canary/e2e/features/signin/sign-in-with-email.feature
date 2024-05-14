@@ -13,15 +13,15 @@ Feature: Sign In with Email
   @angular @react @vue
   Scenario: Sign in with unknown credentials
     When I type my "email" with status "UNKNOWN"
-    And I type my password
-    And I click the "Sign in" button
+    Then I type my password
+    Then I click the "Sign in" button
     Then I see "User does not exist"
 
 @angular @react @vue
   Scenario: Sign in with confirmed credentials then sign out
     When I type my "email" with status "CONFIRMED"
-    And I type my password
-    And I click the "Sign in" button
+    Then I type my password
+    Then I click the "Sign in" button
     Then I see "Sign out"
-    And I click the "Sign out" button
+    Then I click the "Sign out" button
     Then I see "Sign in"

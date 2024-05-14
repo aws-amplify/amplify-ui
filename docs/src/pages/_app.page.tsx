@@ -1,15 +1,12 @@
 import * as React from 'react';
-import { Storage, Amplify } from 'aws-amplify';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 
 import { ThemeProvider, ColorMode, defaultTheme } from '@aws-amplify/ui-react';
 
-import MyStorageProvider from '@/utils/storageMock';
 import { configure, trackPageVisit } from '@/utils/track';
 import { Header } from '@/components/Layout/Header';
 import { baseTheme } from '../theme';
-import { mockConfig } from '../mockConfig';
 
 import { Head } from './Head';
 
@@ -20,13 +17,9 @@ globalThis.Prism = Prism;
 require('prismjs/components/prism-dart');
 
 import '../styles/index.scss';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 import { GlobalNav, NavMenuItem } from '@/components/Layout/GlobalNav';
-import {
-  LEFT_NAV_LINKS,
-  RIGHT_NAV_LINKS,
-  SOCIAL_LINKS,
-} from '@/data/globalnav';
+import { LEFT_NAV_LINKS, RIGHT_NAV_LINKS } from '@/data/globalnav';
 
 if (typeof window === 'undefined') {
   // suppress useLayoutEffect warnings when running outside a browser
@@ -44,12 +37,6 @@ if (typeof window === 'undefined') {
   ✨ you can explore the Amplify UI theme object by typing \`theme\` in the console.
  `);
   window['theme'] = defaultTheme;
-  Amplify.configure(mockConfig);
-  Storage.addPluggable(new MyStorageProvider('fast', { delay: 10 }));
-  Storage.addPluggable(new MyStorageProvider('slow', { delay: 1000 }));
-  Storage.addPluggable(
-    new MyStorageProvider('error', { delay: 50, networkError: true })
-  );
 }
 
 function MyApp({ Component, pageProps }) {
@@ -98,9 +85,9 @@ function MyApp({ Component, pageProps }) {
         <ThemeProvider theme={baseTheme} colorMode={colorMode}>
           {
             <GlobalNav
+              mainId="docs-content"
               rightLinks={RIGHT_NAV_LINKS as NavMenuItem[]}
               leftLinks={LEFT_NAV_LINKS as NavMenuItem[]}
-              socialLinks={SOCIAL_LINKS as NavMenuItem[]}
               currentSite="UI Library"
             />
           }
@@ -111,7 +98,7 @@ function MyApp({ Component, pageProps }) {
             setColorMode={handleColorModeChange}
             platform={platform}
           />
-          <main className="docs-main">
+          <div className="docs-main">
             <div
               className={classNames(
                 'docs-sidebar-spacer',
@@ -124,7 +111,7 @@ function MyApp({ Component, pageProps }) {
               setExpanded={setExpanded}
               colorMode={colorMode}
             />
-          </main>
+          </div>
         </ThemeProvider>
       </div>
       <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />

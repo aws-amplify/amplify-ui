@@ -17,13 +17,14 @@ module.exports = {
     node: true,
     'vue/setup-compiler-macros': true,
   },
-
-  ignorePatterns: ['useUtils.ts'],
+  ignorePatterns: ['dist'],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     'vue/script-setup-uses-vars': 'error',
+    // we intentionally use non-null assertion where types are inaccurate.
+    '@typescript-eslint/no-non-null-assertion': 'off',
   },
   overrides: [
     {

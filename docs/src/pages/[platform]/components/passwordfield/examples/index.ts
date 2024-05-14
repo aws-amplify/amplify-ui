@@ -15,3 +15,4 @@ export { SizeExample } from './SizeExample';
 export { PasswordFieldThemeExample } from './PasswordFieldThemeExample';
 export { ValidationErrorExample } from './ValidationErrorExample';
 export { VariationExample } from './VariationExample';
+export { PasswordFieldIconExample } from './PasswordFieldIconExample';

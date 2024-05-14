@@ -23,7 +23,7 @@ export const Footer = () => {
           rel="noopener noreferrer"
           gap="xs"
         >
-          <GithubIcon ariaLabel="" />
+          <GithubIcon aria-hidden="true" />
           Contribute on GitHub
         </Button>
         <Button
@@ -33,7 +33,7 @@ export const Footer = () => {
           rel="noopener noreferrer"
           gap="xs"
         >
-          <DiscordIcon ariaLabel="" />
+          <DiscordIcon aria-hidden="true" />
           Discuss on Discord
         </Button>
       </Flex>

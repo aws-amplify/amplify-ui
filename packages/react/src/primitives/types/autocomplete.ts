@@ -29,6 +29,7 @@ export interface ComboBoxOption {
   label: string;
 }
 
+/** @deprecated For internal use only */
 export interface BaseAutocompleteOptionProps extends BaseViewProps {
   /**
    * React node that will be wrapped inside a li element
@@ -43,6 +44,7 @@ export interface BaseAutocompleteOptionProps extends BaseViewProps {
 export type AutocompleteOptionProps<Element extends ElementType = 'li'> =
   PrimitiveProps<BaseAutocompleteOptionProps, Element>;
 
+/** @deprecated For internal use only */
 export interface BaseAutocompleteMenuProps extends BaseViewProps {
   /**
    * @description
@@ -97,6 +99,7 @@ export interface BaseAutocompleteMenuProps extends BaseViewProps {
 export type AutocompleteMenuProps<Element extends ElementType = 'div'> =
   PrimitiveProps<BaseAutocompleteMenuProps, Element>;
 
+/** @deprecated For internal use only */
 export interface BaseAutocompleteProps extends BaseSearchFieldProps {
   /**
    * @description

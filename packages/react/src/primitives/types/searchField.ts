@@ -4,6 +4,7 @@ import { FieldGroupIconButtonProps } from './fieldGroupIcon';
 import { BaseTextFieldProps } from './textField';
 import { ElementType, PrimitiveProps } from './view';
 
+/** @deprecated For internal use only */
 export interface BaseSearchFieldProps extends BaseTextFieldProps {
   /**
    * @description
@@ -69,6 +70,7 @@ export interface BaseSearchFieldProps extends BaseTextFieldProps {
 export type SearchFieldProps<Element extends ElementType = 'input'> =
   PrimitiveProps<BaseSearchFieldProps, Element>;
 
+/** @deprecated For internal use only */
 export interface BaseSearchFieldButtonProps
   extends Partial<FieldGroupIconButtonProps> {}
 

@@ -5,7 +5,6 @@ import {
   FontValue,
   LineHeightValue,
   FontSizeValue,
-  BorderWidthValue,
   SpaceValue,
   RadiusValue,
 } from '@aws-amplify/ui';
@@ -31,7 +30,7 @@ export function SpaceBlock({ value }: SpaceBlockProps) {
 }
 
 type BorderWidthBlockProps = {
-  value: BorderWidthValue;
+  value: SpaceValue;
 };
 
 export function BorderWidthBlock({ value }: BorderWidthBlockProps) {

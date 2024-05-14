@@ -4,16 +4,16 @@ exports[`Heading applies theme and style props 1`] = `
 <Text
   accessibilityRole="header"
   style={
-    Array [
-      Object {
+    [
+      {
         "color": "hsl(210, 50%, 10%)",
       },
-      Object {
+      {
         "fontSize": 14,
-        "fontWeight": "900",
+        "fontWeight": "700",
         "lineHeight": 21,
       },
-      Object {
+      {
         "color": "red",
       },
     ]
@@ -27,13 +27,13 @@ exports[`Heading renders a level 1 Heading as expected 1`] = `
 <Text
   accessibilityRole="header"
   style={
-    Array [
-      Object {
+    [
+      {
         "color": "hsl(210, 50%, 10%)",
       },
-      Object {
+      {
         "fontSize": 40,
-        "fontWeight": "100",
+        "fontWeight": "300",
         "lineHeight": 60,
       },
       undefined,
@@ -48,13 +48,13 @@ exports[`Heading renders a level 2 Heading as expected 1`] = `
 <Text
   accessibilityRole="header"
   style={
-    Array [
-      Object {
+    [
+      {
         "color": "hsl(210, 50%, 10%)",
       },
-      Object {
+      {
         "fontSize": 32,
-        "fontWeight": "200",
+        "fontWeight": "400",
         "lineHeight": 48,
       },
       undefined,
@@ -69,13 +69,13 @@ exports[`Heading renders a level 3 Heading as expected 1`] = `
 <Text
   accessibilityRole="header"
   style={
-    Array [
-      Object {
+    [
+      {
         "color": "hsl(210, 50%, 10%)",
       },
-      Object {
+      {
         "fontSize": 24,
-        "fontWeight": "300",
+        "fontWeight": "500",
         "lineHeight": 36,
       },
       undefined,
@@ -90,11 +90,11 @@ exports[`Heading renders a level 4 Heading as expected 1`] = `
 <Text
   accessibilityRole="header"
   style={
-    Array [
-      Object {
+    [
+      {
         "color": "hsl(210, 50%, 10%)",
       },
-      Object {
+      {
         "fontSize": 20,
         "fontWeight": "500",
         "lineHeight": 30,
@@ -111,13 +111,13 @@ exports[`Heading renders a level 5 Heading as expected 1`] = `
 <Text
   accessibilityRole="header"
   style={
-    Array [
-      Object {
+    [
+      {
         "color": "hsl(210, 50%, 10%)",
       },
-      Object {
+      {
         "fontSize": 16,
-        "fontWeight": "700",
+        "fontWeight": "600",
         "lineHeight": 24,
       },
       undefined,
@@ -132,13 +132,13 @@ exports[`Heading renders a level 6 Heading as expected 1`] = `
 <Text
   accessibilityRole="header"
   style={
-    Array [
-      Object {
+    [
+      {
         "color": "hsl(210, 50%, 10%)",
       },
-      Object {
+      {
         "fontSize": 14,
-        "fontWeight": "900",
+        "fontWeight": "700",
         "lineHeight": 21,
       },
       undefined,
@@ -153,13 +153,13 @@ exports[`Heading renders a level 6 Heading by default 1`] = `
 <Text
   accessibilityRole="header"
   style={
-    Array [
-      Object {
+    [
+      {
         "color": "hsl(210, 50%, 10%)",
       },
-      Object {
+      {
         "fontSize": 14,
-        "fontWeight": "900",
+        "fontWeight": "700",
         "lineHeight": 21,
       },
       undefined,

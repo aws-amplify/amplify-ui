@@ -20,6 +20,9 @@ import {
   SelectFieldOptionsExample,
   SelectFieldThemeExample,
   SelectFieldStylePropsExample,
+  SelectFieldIconProviderExample,
+  SelectFieldMultipleStateExample,
+  SelectFieldSelectSizeExample,
 } from './examples';
 
 ## Demo
@@ -174,6 +177,40 @@ A disabled field will not be focusable or mutable, and it will not be submitted 
   </ExampleCode>
 </Example>
 
+### Multiple selections
+
+Use the `isMultiple` prop to specify that multiple options can be selected at once.
+* For Mac: Hold down the command button to select multiple options
+* For Windows: Hold down the control button to select multiple options
+
+<Example>
+  <SelectFieldMultipleStateExample />
+  
+  <ExampleCode>
+
+```jsx file=./examples/SelectFieldMultipleStateExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+### Select size
+
+ Use the `selectSize` prop to set the number of visible options in a drop-down list. If the value of the `selectSize` attribute is greater than 1, but lower than the total number of options in the list, the browser will add a scroll bar to indicate that there are more options to view.
+
+<Example>
+  <SelectFieldSelectSizeExample />
+  
+  <ExampleCode>
+
+```jsx file=./examples/SelectFieldSelectSizeExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
 ### Validation error
 
 Use the `hasError` and `errorMessage` props to mark a SelectField as having a validation error.
@@ -213,7 +250,7 @@ Use the `hasError` and `errorMessage` props to mark a SelectField as having a va
   </Example>
 </StandardHTMLAttributes>
 
-## CSS Styling
+## Styling
 
 <ThemeExample component="SelectField" link="select">
   <Example>
@@ -228,6 +265,19 @@ Use the `hasError` and `errorMessage` props to mark a SelectField as having a va
     </ExampleCode>
   </Example>
 </ThemeExample>
+
+### Icons
+
+
+<Example>
+  <SelectFieldIconProviderExample />
+  
+  <ExampleCode>
+  ```tsx file=./examples/SelectFieldIconProviderExample.tsx
+  ```
+  </ExampleCode>
+</Example>
+
 
 ### Target classes
 

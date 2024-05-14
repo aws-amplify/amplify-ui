@@ -3,12 +3,15 @@ import { screen } from '@testing-library/react';
 import { useThemeBreakpoint } from '@aws-amplify/ui-react/internal';
 
 import { LivenessErrorState } from '../../service';
-import { renderWithLivenessProvider, getMockedFunction } from '../../__mocks__';
+import {
+  renderWithLivenessProvider,
+  getMockedFunction,
+} from '../../__mocks__/utils';
 import { LivenessCheck } from '../LivenessCheck';
 import { useLivenessSelector, useLivenessActor } from '../../hooks';
 import { getDisplayText } from '../../utils/getDisplayText';
 import { defaultErrorDisplayText } from '../../displayText';
-import { mockMatchMedia } from '../../__mocks__';
+import { mockMatchMedia } from '../../__mocks__/utils';
 
 jest.mock('../../hooks');
 jest.mock('@aws-amplify/ui-react/internal');
@@ -26,6 +29,7 @@ const {
   cameraDisplayText,
   streamDisplayText,
   errorDisplayText,
+  instructionDisplayText,
 } = getDisplayText(undefined);
 
 const {
@@ -43,6 +47,30 @@ describe('LivenessCheck', () => {
     matches: jest.fn(),
   };
   const mockActorSend = jest.fn();
+
+  const { userAgent: originalUserAgent } = window.navigator;
+
+  beforeAll(() => {
+    Object.defineProperty(
+      window.navigator,
+      'userAgent',
+      ((value) => ({
+        get() {
+          return value;
+        },
+        set(v) {
+          value = v;
+        },
+      }))(window.navigator['userAgent'])
+    );
+  });
+
+  afterAll(() => {
+    Object.defineProperty(window, 'navigator', {
+      configurable: true,
+      value: originalUserAgent,
+    });
+  });
 
   beforeEach(() => {
     mockUseLivenessActor.mockReturnValue([mockActorState, mockActorSend]);
@@ -62,6 +90,7 @@ describe('LivenessCheck', () => {
         cameraDisplayText={cameraDisplayText}
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
+        instructionDisplayText={instructionDisplayText}
       />
     );
 
@@ -88,6 +117,7 @@ describe('LivenessCheck', () => {
         cameraDisplayText={cameraDisplayText}
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
+        instructionDisplayText={instructionDisplayText}
       />
     );
 
@@ -115,6 +145,7 @@ describe('LivenessCheck', () => {
         cameraDisplayText={cameraDisplayText}
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
+        instructionDisplayText={instructionDisplayText}
       />
     );
 
@@ -125,6 +156,9 @@ describe('LivenessCheck', () => {
   });
 
   it('should render the component content for mobile landscape errors', () => {
+    mockActorState.matches.mockReturnValue(true);
+    (global.navigator as any).userAgent =
+      'Mozilla/5.0 (Linux; Android 12; Pixel 6 Build/SD1A.210817.023; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Firefox/94.0.4606.71 Mobile Safari/537.36';
     mockMatchMedia('(orientation: landscape)', true);
     mockActorState.matches.mockReturnValue(true);
     mockUseLivenessSelector.mockReturnValue(
@@ -137,6 +171,7 @@ describe('LivenessCheck', () => {
         cameraDisplayText={cameraDisplayText}
         streamDisplayText={streamDisplayText}
         errorDisplayText={errorDisplayText}
+        instructionDisplayText={instructionDisplayText}
       />
     );
 

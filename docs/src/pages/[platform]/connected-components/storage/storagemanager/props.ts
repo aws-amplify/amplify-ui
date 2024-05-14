@@ -20,21 +20,39 @@ const eventHandler = `(file: {key: string}) => void;`;
 
 export const STORAGE_MANAGER = [
   {
-    name: `accessLevel`,
+    name: `path`,
     description:
-      'Access level for files in Storage. See https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/',
-    type: `'public' | 'private' | 'protected'`,
+      "S3 bucket key prefixed to each upload target file `key`, allows either a `string` or a callback provided the value of the current user's `identityId`.",
+    type: `string | (input: { identityId: string | undefined }) => string`,
   },
   {
-    name: `maxFileCount`,
-    description: '',
-    type: 'integer',
+    name: `path?`,
+    description:
+      'Optional when `accessLevel` is provided.  S3 bucket key prefixed to each upload target file `key`',
+    type: `string`,
+  },
+  {
+    name: `accessLevel`,
+    description:
+      'Deprecated in favor of `path`. S3 access level of upload target files. See https://docs.amplify.aws/gen1/react/build-a-backend/storage/configure-access/',
+    type: `'guest' | 'protected' | 'private'`,
   },
   {
     name: `acceptedFileTypes?`,
     description:
       "List of accepted file types, values of `['*']` or undefined allow any files",
     type: `string[]`,
+  },
+  {
+    name: `autoUpload?`,
+    description:
+      'Determines if the upload will automatically start after a file is selected. The default value is `true`',
+    type: 'boolean',
+  },
+  {
+    name: `maxFileCount`,
+    description: '',
+    type: 'integer',
   },
   {
     name: `maxFileSize?`,
@@ -68,11 +86,6 @@ export const STORAGE_MANAGER = [
     type: `(params: {key: string, file: Blob}) => Promise<{key: string, file: Blob} & Record<string, any>> | {key: string, file: Blob} & Record<string, string>;`,
   },
   {
-    name: `path?`,
-    description: 'Path in s3 to put the file under',
-    type: `string`,
-  },
-  {
     name: `defaultFiles?`,
     description: 'An array of files that already exist in the cloud.',
     type: 'Array<{s3key: string}>',
@@ -80,7 +93,7 @@ export const STORAGE_MANAGER = [
   {
     name: `displayText?`,
     description: 'Text to override in the component.',
-    type: 'Partial<StorageManagerDisplayText>',
+    type: 'StorageManagerDisplayText',
   },
   {
     name: `components?.Container?`,
@@ -106,6 +119,11 @@ export const STORAGE_MANAGER = [
     name: `components?.FileListHeader?`,
     description: 'The heading above the list of files',
     type: `React.ComponentType<FileListHeaderProps>`,
+  },
+  {
+    name: `components?.FileListFooter?`,
+    description: 'The footer below the list of files',
+    type: `React.ComponentType<FileListFooterProps>`,
   },
   {
     name: `ref?`,
@@ -233,12 +251,12 @@ export const DISPLAY_TEXT = [
     type: `string`,
   },
   {
-    name: 'pauseText?',
+    name: 'pauseButtonText?',
     description: 'Default: "Pause"',
     type: `string`,
   },
   {
-    name: 'resumeText?',
+    name: 'resumeButtonText?',
     description: 'Default: "Resume"',
     type: `string`,
   },

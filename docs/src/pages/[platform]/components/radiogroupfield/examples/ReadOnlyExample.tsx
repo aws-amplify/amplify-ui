@@ -2,7 +2,7 @@ import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
 
 export const ReadOnlyExample = () => (
   <RadioGroupField
-    label="Read-only"
+    legend="Read-only"
     name="read-only"
     defaultValue="love"
     isReadOnly

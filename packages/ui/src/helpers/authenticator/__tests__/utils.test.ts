@@ -1,6 +1,4 @@
-import { configureComponent, getTotpCodeURL, trimValues } from '../utils';
-
-import * as AuthModule from '@aws-amplify/auth';
+import { getTotpCodeURL, isValidEmail, trimValues } from '../utils';
 
 const SECRET_KEY = 'shhhhh';
 const USERNAME = 'username';
@@ -58,19 +56,23 @@ describe('trimValues', () => {
   });
 });
 
-describe('configureComponent', () => {
-  it('appends package name and version to Cognito user agent', () => {
-    const appendToCognitoUserAgentSpy = jest.spyOn(
-      AuthModule,
-      'appendToCognitoUserAgent'
-    );
-    const packageName = '@aws-amplify/ui-react';
-    const version = '3.5.10';
+describe('isValidEmail', () => {
+  it('should return true for a valid email address', () => {
+    expect(isValidEmail('test@example.com')).toBe(true);
+    expect(isValidEmail('TEST@EXAMPLE.COM')).toBe(true);
+  });
 
-    configureComponent({ packageName, version });
+  it('should return false for an invalid email address', () => {
+    expect(isValidEmail('testexample.com')).toBe(false);
+    expect(isValidEmail('test@')).toBe(false);
+    expect(isValidEmail('test@.')).toBe(false);
+    expect(isValidEmail('test@example@test.com')).toBe(false);
+    expect(isValidEmail('test @example.com')).toBe(false);
+  });
 
-    expect(appendToCognitoUserAgentSpy).toHaveBeenCalledWith(
-      `${packageName}/${version}`
-    );
+  it('should return false if there is no email address', () => {
+    expect(isValidEmail(null)).toBe(false);
+    expect(isValidEmail(undefined)).toBe(false);
+    expect(isValidEmail('')).toBe(false);
   });
 });

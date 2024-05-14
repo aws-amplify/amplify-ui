@@ -1,7 +1,7 @@
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 import * as React from 'react';
 
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BasePasswordFieldProps,
   PasswordFieldProps,
@@ -11,6 +11,7 @@ import {
 } from '../types';
 import { ShowPasswordButton } from './ShowPasswordButton';
 import { TextField } from '../TextField';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const PasswordFieldPrimitive: Primitive<PasswordFieldProps, 'input'> = (
   {
@@ -23,6 +24,7 @@ const PasswordFieldPrimitive: Primitive<PasswordFieldProps, 'input'> = (
     showPasswordButtonLabel,
     showPasswordButtonRef,
     size,
+    hasError,
     ...rest
   },
   ref
@@ -50,14 +52,16 @@ const PasswordFieldPrimitive: Primitive<PasswordFieldProps, 'input'> = (
             ref={showPasswordButtonRef}
             size={size}
             showPasswordButtonLabel={showPasswordButtonLabel}
+            hasError={hasError}
           />
         )
       }
       size={size}
       type={type}
       label={label}
-      className={classNames(ComponentClassNames.PasswordField, className)}
+      className={classNames(ComponentClassName.PasswordField, className)}
       ref={ref}
+      hasError={hasError}
       {...rest}
     />
   );
@@ -69,6 +73,6 @@ const PasswordFieldPrimitive: Primitive<PasswordFieldProps, 'input'> = (
 export const PasswordField: ForwardRefPrimitive<
   BasePasswordFieldProps,
   'input'
-> = React.forwardRef(PasswordFieldPrimitive);
+> = primitiveWithForwardRef(PasswordFieldPrimitive);
 
 PasswordField.displayName = 'PasswordField';

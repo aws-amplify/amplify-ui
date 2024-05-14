@@ -3,6 +3,7 @@ import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type PlaceholderSizes = Sizes;
 
+/** @deprecated For internal use only */
 export interface BasePlaceholderProps extends BaseViewProps {
   /**
    * @description

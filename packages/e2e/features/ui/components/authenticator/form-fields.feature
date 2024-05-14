@@ -49,9 +49,9 @@ Feature: Form Fields
   @angular @react @vue
   Scenario: Confirm Force New Password replaced placeholder and label is visible
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password"
-    And I type my "email" with status "FORCE_CHANGE_PASSWORD"
-    And I type my password
-    And I click the "Sign in" button
+    Then I type my "email" with status "FORCE_CHANGE_PASSWORD"
+    Then I type my password
+    Then I click the "Sign in" button
     Then "Password" field does not have class "amplify-visually-hidden"
     Then I see placeholder "Enter your Password:"
 
@@ -66,7 +66,7 @@ Feature: Form Fields
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "verify-user-email"
     When I click the "Reset Password" button
     Then I type my "email" with status "UNVERIFIED"
-    And I click the "Send Code" button
+    Then I click the "Send Code" button
     Then I see "New Label"
     Then I see placeholder "Enter your Password Please:"
     Then "New Label" field does not have class "amplify-visually-hidden"
@@ -76,8 +76,8 @@ Feature: Form Fields
   @angular @react @vue
   Scenario: Setup TOTP Sign in replace placeholder, and label
     When I type my "email" with status "CONFIRMED"
-    And I type my password
-    And I click the "Sign in" button
+    Then I type my password
+    Then I click the "Sign in" button
     Then 'New Label' field does not have "required"
     Then I see "New Label"
     Then "New Label" field does not have class "amplify-visually-hidden"
@@ -86,8 +86,8 @@ Feature: Form Fields
   @angular @react @vue
   Scenario: Confirm sign in and replace placeholder, and label
     When I type my "email" with status "UNVERIFIED"
-    And I type my password
-    And I click the "Sign in" button
+    Then I type my password
+    Then I click the "Sign in" button
     Then 'New Label' field does not have "required"
     Then I see "New Label"
     Then "New Label" field does not have class "amplify-visually-hidden"

@@ -1,18 +1,146 @@
-import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Alert, Message, Tabs } from '@aws-amplify/ui-react';
 import { TerminalCommand } from '@/components/InstallScripts';
+
+## `@aws-amplify/ui-angular`
+
+### Migrate from 4.x to 5.x
+#### Installation
+Install the 5.x version of `@aws-amplify/ui-angular` and 6.x version of `aws-amplify`.
+
+<Message colorTheme="warning" title="Upgrade both @aws-amplify/ui-angular and aws-amplify">
+The 5.x version of `@aws-amplify/ui-angular` has a minimum dependency of 6.x on `aws-amplify`. `aws-amplify@6` introduced breaking API changes.
+</Message>
+
+<Tabs.Container defaultValue='npm'>
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="npm">
+    <TerminalCommand command="npm install @aws-amplify/ui-angular@5.x aws-amplify@6.x" />
+  </Tabs.Panel>
+  <Tabs.Panel value="yarn">
+    <TerminalCommand command="yarn add @aws-amplify/ui-angular@5.x aws-amplify@6.x" />
+  </Tabs.Panel>
+</Tabs.Container>
+
+#### 1. Updates to the Authenticator
+
+The Authenticator has the following breaking changes:
+
+The `initialState` property now accepts `forgotPassword` in place of `resetPassword`:
+
+```diff
+- <amplify-authenticator initialState="resetPassword">
+- </amplify-authenticator>
++ <amplify-authenticator initialState="forgotPassword">
++ </amplify-authenticator>
+```
+
+The corresponding component slot has been updated to reflect the change as well:
+
+```diff
+- <ng-template amplifySlot="reset-password-header">
+-   <h3
+-     class="amplify-heading"
+-     style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
+-   >
+-     Did you forget something?
+-   </h3>
+- </ng-template>
++ <ng-template amplifySlot="forgot-password-header">
++   <h3
++     class="amplify-heading"
++     style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
++   >
++     Did you forget something?
++   </h3>
++ </ng-template>
+```
+
+---
+
+The `user` object provided after an end user has been authenticated has been updated to reflect the `AuthUser` interface available from `aws-amplify/auth`:
+
+```diff
+- interface AmplifyUser {
+-   challengeName?: ChallengeName;
+-   attributes?: CognitoAttributes;
+-   username: string;  
+- }
++ interface AuthUser  {
++   username: string;
++   userId: string;
++   signInDetails?: CognitoAuthSignInDetails;
++ }
+```
+
+`AuthUser` can be imported from `aws-amplify/auth`:
+
+```ts
+import { AuthUser } from 'aws-amplify/auth';
+```
+
+User attributes are now available by directly calling `fetchUserAttribues`:
+
+```ts
+import { fetchUserAttributes } from 'aws-amplify/auth';
+
+const userAttributes = await fetchUserAttributes();
+```
+
+---
+
+The function signatures of the `services` interface have been updated to align with the shape of the underlying `aws-amplify/auth` APIs used by the `Authenticator` and provide improved typescript support:
+
+```diff
+interface AuthenticatorServices {
+  services?: {
+-    getCurrentUser?: () => Promise<any>,
++    getCurrentUser?: () => Promise<AuthUser>,
+
+-    handleSignIn?: ({ username, password, }: { username: string;password: string; }) => Promise<any>,
++    handleSignIn?: (input: SignInInput) => Promise<SignInOutput>,
+
+-    handleSignUp?: (formData: any) => Promise<ISignUpResult>,
++    handleSignUp?: (input: SignUpInput) => Promise<SignUpOutput>,
+
+-    handleConfirmSignIn?: ({ user, code, mfaType, }: { user: any; code: string; mfaType: ChallengeName; }) =>Promise<any>),
++    handleConfirmSignIn?: (input: ConfirmSignInInput) => Promise<ConfirmSignInOutput>,
+
+-    handleConfirmSignUp?: ({ username, code, }: { username: string; code: string; }) => Promise<any>,
++    handleConfirmSignUp?: (input: ConfirmSignUpInput) => Promise<ConfirmSignUpOutput>,
+
+-    handleForgotPasswordSubmit?: ({ username, code, password, }: { username: string; code: string; password:string; }) => Promise<string>),
++    handleForgotPasswordSubmit?: (input: ConfirmResetPasswordInput) => Promise<void>,
+
+-    handleForgotPassword?: (formData: any) => Promise<any>,
++    handleForgotPassword?: (input: ResetPasswordInput) => Promise<ResetPasswordOutput>,
+  }
+}
+```
+
+The input and return type interfaces are available as imports from `aws-amplify/auth`:
+
+```ts
+import { ConfirmSignInInput } from 'aws-amplify';
+```
 
 ## 3.x to 4.x
 ### Installation
 Install the 4.x version of the `@aws-amplify/ui-angular` library.
 
-<Tabs>
-<TabItem title="npm">
-<TerminalCommand command="npm install @aws-amplify/ui-angular@4.x" />
-</TabItem>
-<TabItem title="yarn">
-<TerminalCommand command="yarn add @aws-amplify/ui-angular@4.x" />
-</TabItem>
-</Tabs>
+<Tabs.Container defaultValue="npm">
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="npm">
+    <TerminalCommand command="npm install @aws-amplify/ui-angular@4.x" />
+  </Tabs.Panel>
+  <Tabs.Panel value="yarn">
+  <TerminalCommand command="yarn add @aws-amplify/ui-angular@4.x" /></Tabs.Panel>
+</Tabs.Container>
 
 ### Update and usage
 
@@ -43,14 +171,19 @@ Then open your `angular.json` file, and add `node_modules/@aws-amplify/ui-angula
 ### Installation
 Install the 3.x version of the `@aws-amplify/ui-angular` library and the 5.x version of the `aws-amplify` library.
 
-<Tabs>
-<TabItem title="npm">
-<TerminalCommand command="npm install aws-amplify@5.x @aws-amplify/ui-angular@3.x" />
-</TabItem>
-<TabItem title="yarn">
-<TerminalCommand command="yarn add aws-amplify@5.x @aws-amplify/ui-angular@3.x" />
-</TabItem>
-</Tabs>
+
+<Tabs.Container defaultValue="npm">
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="npm">
+    <TerminalCommand command="npm install aws-amplify@5.x @aws-amplify/ui-angular@3.x" />
+  </Tabs.Panel>
+  <Tabs.Panel value="yarn">
+    <TerminalCommand command="yarn add aws-amplify@5.x @aws-amplify/ui-angular@3.x" />
+  </Tabs.Panel>
+</Tabs.Container>
 
 ### Update and usage
 
@@ -123,14 +256,18 @@ The following deprecated components imported from `@aws-amplify/ui-angular/legac
 
 If you wish to still use the legacy components, you can do so by installing `@aws-amplify@2.x` under an alias:
 
-<Tabs>
-<TabItem title="npm">
-<TerminalCommand command="npm install @aws-amplify/ui-angular-v2@npm:@aws-amplify/ui-angular@^2.4.27" />
-</TabItem>
-<TabItem title="yarn">
-<TerminalCommand command="yarn add @aws-amplify/ui-angular-v2@npm:@aws-amplify/ui-angular@^2.4.27" />
-</TabItem>
-</Tabs>
+<Tabs.Container defaultValue="npm">
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="npm">
+    <TerminalCommand command="npm install @aws-amplify/ui-angular-v2@npm:@aws-amplify/ui-angular@^2.4.27" />
+  </Tabs.Panel>
+  <Tabs.Panel value="yarn">
+    <TerminalCommand command="yarn add @aws-amplify/ui-angular-v2@npm:@aws-amplify/ui-angular@^2.4.27" />
+  </Tabs.Panel>
+</Tabs.Container>
 
 Then you can use the legacy components by registering `LegacyAmplifyUiModule` in your `app.module.ts`:
 
@@ -160,14 +297,18 @@ For more details on how to use the components, please see the [v1 documentation]
 
 Install the 2.x version of the `@aws-amplify/ui-angular` library.
 
-<Tabs>
-<TabItem title="npm">
-<TerminalCommand command="npm install aws-amplify @aws-amplify/ui-angular@2.x" />
-</TabItem>
-<TabItem title="yarn">
-<TerminalCommand command="yarn add aws-amplify @aws-amplify/ui-angular@2.x" />
-</TabItem>
-</Tabs>
+<Tabs.Container defaultValue="npm">
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="npm">
+    <TerminalCommand command="npm install aws-amplify @aws-amplify/ui-angular@2.x" />
+  </Tabs.Panel>
+  <Tabs.Panel value="yarn">
+    <TerminalCommand command="yarn add aws-amplify @aws-amplify/ui-angular@2.x" />
+  </Tabs.Panel>
+</Tabs.Container>
 
 ### Update
 

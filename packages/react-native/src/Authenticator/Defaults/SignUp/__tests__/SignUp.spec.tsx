@@ -1,8 +1,9 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 
-import { SignUp } from '..';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
+
+import { SignUp } from '..';
 
 const USERNAME = 'username';
 const username = {
@@ -43,13 +44,14 @@ const props = {
   Header: SignUp.Header,
   isPending: false,
   socialProviders: [],
-  toResetPassword: jest.fn(),
+  toForgotPassword: jest.fn(),
   toFederatedSignIn: jest.fn(),
   toSignIn: jest.fn(),
   validationErrors: undefined,
 };
 
-const { getCreatingAccountText } = authenticatorTextUtil;
+const { getCreatingAccountText, getSignInWithFederationText, getOrText } =
+  authenticatorTextUtil;
 
 describe('SignUp', () => {
   it('renders as expected', () => {
@@ -98,5 +100,19 @@ describe('SignUp', () => {
 
     expect(getByText('error')).toBeDefined();
     expect(getByText('another error')).toBeDefined();
+  });
+
+  it('renders as expected with social providers', () => {
+    const provider = 'amazon';
+    const { toJSON, getByTestId, getByText } = render(
+      <SignUp {...props} socialProviders={[provider]} />
+    );
+    expect(toJSON()).toMatchSnapshot();
+
+    expect(getByTestId('amplify__federated-provider-buttons')).toBeDefined();
+    expect(
+      getByText(getSignInWithFederationText('signUp', provider))
+    ).toBeDefined();
+    expect(getByText(getOrText())).toBeDefined();
   });
 });

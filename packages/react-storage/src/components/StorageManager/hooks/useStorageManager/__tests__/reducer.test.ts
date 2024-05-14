@@ -1,6 +1,8 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 import { useReducer } from 'react';
 
+import { UploadDataOutput } from 'aws-amplify/storage';
+
 import { storageManagerStateReducer } from '../reducer';
 import {
   Action,
@@ -8,24 +10,31 @@ import {
   UseStorageManagerState,
 } from '../types';
 import { FileStatus, StorageFile, StorageFiles } from '../../../types';
-import { UploadTask } from '@aws-amplify/storage';
 
 const imageFile = new File(['hello'], 'hello.png', { type: 'image/png' });
 const initialState: UseStorageManagerState = {
   files: [],
 };
 
+// mock Date.now() so we can get accurate file IDs
+const dateSpy = jest.spyOn(Date, 'now').mockImplementation(() => 1487076708000);
+
 describe('storageManagerStateReducer', () => {
+  beforeEach(() => {
+    dateSpy.mockClear();
+  });
+
   it('should add files to state on ADD_FILES action', () => {
     const addFilesAction: Action = {
       type: StorageManagerActionTypes.ADD_FILES,
       files: [imageFile],
+      status: FileStatus.QUEUED,
       getFileErrorMessage: jest.fn().mockReturnValue('Test error'),
     };
 
     const expectedFiles: StorageFiles = [
       {
-        id: imageFile.name,
+        id: `${Date.now()}-${imageFile.name}`,
         file: imageFile,
         error: 'Test error',
         key: imageFile.name,
@@ -93,7 +102,7 @@ describe('storageManagerStateReducer', () => {
       return { state, dispatch };
     });
 
-    const testUploadTask = {} as UploadTask;
+    const testUploadTask = {} as UploadDataOutput;
     const uploadingAction: Action = {
       type: StorageManagerActionTypes.SET_STATUS_UPLOADING,
       id: imageFile.name,
@@ -299,5 +308,60 @@ describe('storageManagerStateReducer', () => {
     act(() => result.current.dispatch(removeUploadAction));
 
     expect(result.current.state.files).toEqual([file]);
+  });
+
+  it('should only change added files to queued in QUEUE_FILES action', () => {
+    const { result } = renderHook(() => {
+      const [state, dispatch] = useReducer(storageManagerStateReducer, {
+        files: [
+          {
+            id: imageFile.name,
+            file: imageFile,
+            error: '',
+            key: imageFile.name,
+            status: FileStatus.ADDED,
+            isImage: true,
+            progress: -1,
+          },
+          {
+            id: imageFile.name,
+            file: imageFile,
+            error: '',
+            key: imageFile.name,
+            status: FileStatus.UPLOADED,
+            isImage: true,
+            progress: 100,
+          },
+        ],
+      });
+      return { state, dispatch };
+    });
+
+    const queueFilesAction: Action = {
+      type: StorageManagerActionTypes.QUEUE_FILES,
+    };
+
+    act(() => result.current.dispatch(queueFilesAction));
+
+    expect(result.current.state.files).toEqual([
+      {
+        id: imageFile.name,
+        file: imageFile,
+        error: '',
+        key: imageFile.name,
+        status: FileStatus.QUEUED,
+        isImage: true,
+        progress: -1,
+      },
+      {
+        id: imageFile.name,
+        file: imageFile,
+        error: '',
+        key: imageFile.name,
+        status: FileStatus.UPLOADED,
+        isImage: true,
+        progress: 100,
+      },
+    ]);
   });
 });

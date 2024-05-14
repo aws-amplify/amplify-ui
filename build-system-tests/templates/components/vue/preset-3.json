@@ -1,0 +1,9 @@
+{
+  "useConfigFiles": false,
+  "plugins": {
+    "@vue/cli-plugin-typescript": {
+      "classComponent": false
+    }
+  },
+  "vueVersion": "3"
+}

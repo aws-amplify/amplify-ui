@@ -7,6 +7,7 @@ import {
 
 export type MachineFieldTypeKey = 'password' | 'tel';
 export type AuthenticatorFieldTypeKey =
+  | 'email'
   | 'password'
   | 'phone'
   | 'default'
@@ -23,10 +24,12 @@ type FieldOptions<FieldProps, Type extends AuthenticatorFieldTypeKey> = {
   type: Type;
 } & Omit<FieldProps, 'disabled' | 'onBlur'>;
 
+type EmailFieldOptions = FieldOptions<PhoneNumberFieldProps, 'email'>;
 type PasswordFieldOptions = FieldOptions<PasswordFieldProps, 'password'>;
 type PhoneFieldOptions = FieldOptions<PhoneNumberFieldProps, 'phone'>;
 type DefaultFieldOptions = FieldOptions<TextFieldProps, 'default'>;
 export type TextFieldOptionsType = (
+  | EmailFieldOptions
   | PasswordFieldOptions
   | PhoneFieldOptions
   | DefaultFieldOptions
