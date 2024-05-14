@@ -92,6 +92,12 @@ export const FACE_LIVENESS_DETECTOR_ERROR_STATES = [
     type: `Error`,
   },
   {
+    name: `CONNECTION_TIMEOUT`,
+    description:
+      'Indicates a timeout occurred during the initial websocket connection.',
+    type: `Error`,
+  },
+  {
     name: `TIMEOUT`,
     description:
       'Indicates a timeout occurred when user attempted a liveness check.',

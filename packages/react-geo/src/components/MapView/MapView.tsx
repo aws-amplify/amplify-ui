@@ -1,11 +1,12 @@
-import { Amplify } from 'aws-amplify';
-import { fetchAuthSession } from 'aws-amplify/auth';
 import React, { forwardRef, useEffect, useMemo, useState } from 'react';
+import { Amplify, ResourcesConfig } from 'aws-amplify';
+import { fetchAuthSession } from 'aws-amplify/auth';
 import maplibregl from 'maplibre-gl';
 import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';
 import ReactMapGL from 'react-map-gl';
 import type { MapProps, MapRef, TransformRequestFunction } from 'react-map-gl';
-import { GeoConfig } from '@aws-amplify/geo';
+
+interface GeoConfig extends NonNullable<ResourcesConfig['Geo']> {}
 
 interface MapViewProps extends Omit<MapProps, 'mapLib' | 'transformRequest'> {
   // replace `any` typed MapProps.mapLib

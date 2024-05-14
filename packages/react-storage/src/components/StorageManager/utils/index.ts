@@ -6,4 +6,12 @@ export {
 } from './displayText';
 export { filterAllowedFiles } from './filterAllowedFiles';
 export { humanFileSize } from './humanFileSize';
-export { uploadFile } from './uploadFile';
+export { getInput } from './getInput';
+
+export {
+  PathCallback,
+  TaskEvent,
+  TaskHandler,
+  uploadFile,
+  UploadTask,
+} from './uploadFile';

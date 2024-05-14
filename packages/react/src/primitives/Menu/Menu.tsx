@@ -35,6 +35,7 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
     triggerClassName,
     ariaLabel,
     onOpenChange,
+    isDisabled,
     ...rest
   },
   ref
@@ -42,7 +43,7 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
   const icons = useIcons('menu');
   return (
     <DropdownMenu onOpenChange={onOpenChange} open={isOpen}>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger disabled={isDisabled} asChild>
         {trigger ?? (
           <MenuButton
             ariaLabel={ariaLabel}
@@ -64,6 +65,7 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
         <ButtonGroup
           className={classNames(ComponentClassName.MenuContent, className)}
           ref={ref}
+          isDisabled={isDisabled}
           size={size}
           testId={MENU_ITEMS_GROUP_TEST_ID}
           {...rest}
