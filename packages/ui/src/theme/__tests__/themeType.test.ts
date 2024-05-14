@@ -30,6 +30,7 @@ describe('Amplify UI Theme', () => {
             image: {},
             inappmessaging: {},
             link: {},
+            liveness: {},
             loader: {},
             menu: {},
             pagination: {},

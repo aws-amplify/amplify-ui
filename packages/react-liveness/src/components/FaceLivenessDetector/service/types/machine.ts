@@ -28,7 +28,6 @@ export interface FaceMatchAssociatedParams {
   currentDetectedFace?: Face;
   startFace?: Face;
   endFace?: Face;
-  initialFaceMatchTime?: number;
 }
 
 export interface FreshnessColorAssociatedParams {
@@ -78,6 +77,7 @@ export interface LivenessContext {
 
 export type LivenessEventTypes =
   | 'BEGIN'
+  | 'CONNECTION_TIMEOUT'
   | 'START_RECORDING'
   | 'TIMEOUT'
   | 'ERROR'
@@ -110,7 +110,10 @@ export type LivenessInterpreter = Interpreter<
 
 export interface StreamActorCallback {
   (params: { type: 'DISCONNECT_EVENT' }): void;
-  (params: { type: 'SERVER_ERROR'; data: { error: Error } }): void;
+  (params: {
+    type: 'SERVER_ERROR' | 'CONNECTION_TIMEOUT';
+    data: { error: Error };
+  }): void;
   (params: {
     type: 'SERVER_ERROR';
     data: { error: ValidationException };

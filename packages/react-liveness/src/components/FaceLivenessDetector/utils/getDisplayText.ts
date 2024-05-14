@@ -38,6 +38,8 @@ export function getDisplayText(
     cameraNotFoundHeadingText,
     cameraNotFoundMessageText,
     cancelLivenessCheckText,
+    connectionTimeoutHeaderText,
+    connectionTimeoutMessageText,
     clientHeaderText,
     clientMessageText,
     errorLabelText,
@@ -140,6 +142,8 @@ export function getDisplayText(
   };
 
   const errorDisplayText: Required<ErrorDisplayText> = {
+    connectionTimeoutHeaderText,
+    connectionTimeoutMessageText,
     errorLabelText,
     timeoutHeaderText,
     timeoutMessageText,

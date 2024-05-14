@@ -5,7 +5,11 @@ import * as Storage from 'aws-amplify/storage';
 import { ComponentClassName } from '@aws-amplify/ui';
 
 import * as StorageHooks from '../hooks';
-import { StorageManager } from '../StorageManager';
+import {
+  StorageManager,
+  MISSING_REQUIRED_PROPS_MESSAGE,
+  ACCESS_LEVEL_DEPRECATION_MESSAGE,
+} from '../StorageManager';
 import {
   StorageManagerProps,
   StorageManagerHandle,
@@ -15,7 +19,15 @@ import { defaultStorageManagerDisplayText } from '../utils';
 
 const warnSpy = jest.spyOn(console, 'warn').mockImplementation();
 
-const uploadDataSpy = jest.spyOn(Storage, 'uploadData');
+const uploadDataSpy = jest
+  .spyOn(Storage, 'uploadData')
+  .mockImplementation((input) => ({
+    cancel: jest.fn(),
+    pause: jest.fn(),
+    resume: jest.fn(),
+    state: 'SUCCESS',
+    result: Promise.resolve({ key: input.key, data: input.data }),
+  }));
 
 const storeManagerProps: StorageManagerProps = {
   accessLevel: 'guest',
@@ -23,13 +35,52 @@ const storeManagerProps: StorageManagerProps = {
 };
 describe('StorageManager', () => {
   beforeEach(() => {
-    uploadDataSpy.mockClear();
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
-  it('renders as expected', () => {
+  it('behaves as expected with an accessLevel prop', () => {
     const { container, getByText } = render(
       <StorageManager {...storeManagerProps} />
+    );
+    expect(container).toMatchSnapshot();
+
+    expect(
+      container.getElementsByClassName(
+        `${ComponentClassName.StorageManagerDropZone}`
+      )
+    ).toHaveLength(1);
+
+    expect(
+      container.getElementsByClassName(
+        `${ComponentClassName.StorageManagerDropZoneText}`
+      )
+    ).toHaveLength(1);
+
+    expect(
+      container.getElementsByClassName(
+        `${ComponentClassName.StorageManagerDropZoneIcon}`
+      )
+    ).toHaveLength(1);
+
+    expect(
+      container.getElementsByClassName(
+        `${ComponentClassName.StorageManagerFilePicker}`
+      )
+    ).toHaveLength(1);
+
+    expect(
+      getByText(defaultStorageManagerDisplayText.browseFilesText)
+    ).toBeVisible();
+    expect(
+      getByText(defaultStorageManagerDisplayText.dropFilesText)
+    ).toBeVisible();
+
+    expect(warnSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('behaves as expected with a path prop', () => {
+    const { container, getByText } = render(
+      <StorageManager maxFileCount={3} path={() => 'my-path'} />
     );
     expect(container).toMatchSnapshot();
 
@@ -143,15 +194,6 @@ describe('StorageManager', () => {
   });
 
   it('calls onUploadSuccess callback when file is successfully uploaded', async () => {
-    uploadDataSpy.mockImplementationOnce((input: Storage.UploadDataInput) => {
-      return {
-        cancel: jest.fn(),
-        pause: jest.fn(),
-        resume: jest.fn(),
-        state: 'SUCCESS',
-        result: Promise.resolve({ key: input.key, data: input.data }),
-      };
-    });
     const onUploadSuccess = jest.fn();
     render(
       <StorageManager
@@ -185,15 +227,6 @@ describe('StorageManager', () => {
   });
 
   it('calls onUploadStart callback when file starts uploading', async () => {
-    uploadDataSpy.mockImplementationOnce((input: Storage.UploadDataInput) => {
-      return {
-        cancel: jest.fn(),
-        pause: jest.fn(),
-        resume: jest.fn(),
-        state: 'SUCCESS',
-        result: Promise.resolve({ key: input.key, data: input.data }),
-      };
-    });
     const onUploadStart = jest.fn();
     render(
       <StorageManager {...storeManagerProps} onUploadStart={onUploadStart} />
@@ -223,10 +256,19 @@ describe('StorageManager', () => {
     });
   });
 
-  it('renders a warning if maxFileCount is zero', () => {
+  it('logs a warning if maxFileCount is zero', () => {
     render(<StorageManager {...storeManagerProps} maxFileCount={0} />);
 
+    expect(warnSpy).toHaveBeenCalledTimes(2);
+    expect(warnSpy.mock.calls[0][0]).toBe(MISSING_REQUIRED_PROPS_MESSAGE);
+    expect(warnSpy.mock.calls[1][0]).toBe(ACCESS_LEVEL_DEPRECATION_MESSAGE);
+  });
+
+  it('logs a warning if provided an accessLevel prop', () => {
+    render(<StorageManager {...storeManagerProps} maxFileCount={1} />);
+
     expect(warnSpy).toHaveBeenCalledTimes(1);
+    expect(warnSpy.mock.calls[0][0]).toBe(ACCESS_LEVEL_DEPRECATION_MESSAGE);
   });
 
   it('should trigger hidden input onChange', async () => {

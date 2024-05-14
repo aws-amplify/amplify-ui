@@ -1,5 +1,23 @@
 # @aws-amplify/ui-angular
 
+## 5.0.14
+
+### Patch Changes
+
+- [#5193](https://github.com/aws-amplify/amplify-ui/pull/5193) [`de2402842`](https://github.com/aws-amplify/amplify-ui/commit/de2402842c75e186e2c5515d20cb1873bbabc4a0) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(aws-amplify): point amplify to 6.2.0
+
+- Updated dependencies [[`de2402842`](https://github.com/aws-amplify/amplify-ui/commit/de2402842c75e186e2c5515d20cb1873bbabc4a0)]:
+  - @aws-amplify/ui@6.0.14
+
+## 5.0.13
+
+### Patch Changes
+
+- [#5120](https://github.com/aws-amplify/amplify-ui/pull/5120) [`842c00ad4`](https://github.com/aws-amplify/amplify-ui/commit/842c00ad42701659228aea2fc526e34125a7e3d0) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(deps): update peerDep versions in public packages, point to 6.0.26 for examples and docs
+
+- Updated dependencies [[`a26e9eb86`](https://github.com/aws-amplify/amplify-ui/commit/a26e9eb86b5e78cad0aaf6ee5230f46900b0a016), [`842c00ad4`](https://github.com/aws-amplify/amplify-ui/commit/842c00ad42701659228aea2fc526e34125a7e3d0)]:
+  - @aws-amplify/ui@6.0.13
+
 ## 5.0.12
 
 ### Patch Changes

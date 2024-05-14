@@ -91,8 +91,8 @@ describe('FileStatusMessage', () => {
       <IconsProvider
         icons={{
           storageManager: {
-            success: <View testId="success" />,
-            error: <View testId="error" />,
+            success: <View as="span" testId="success" />,
+            error: <View as="span" testId="error" />,
           },
         }}
       >

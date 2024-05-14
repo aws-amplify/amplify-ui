@@ -11,10 +11,10 @@ const config: Config = {
   ],
   coverageThreshold: {
     global: {
-      branches: 80,
-      functions: 80,
-      lines: 80,
-      statements: 80,
+      branches: 86,
+      functions: 87,
+      lines: 93,
+      statements: 93,
     },
   },
   moduleNameMapper: { '^uuid$': '<rootDir>/../../node_modules/uuid' },
