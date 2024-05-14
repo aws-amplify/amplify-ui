@@ -45,7 +45,6 @@ export const deDict: AuthenticatorDictionary = {
   or: 'oder',
   Password: 'Passwort',
   'Phone Number': 'Telefonnummer',
-  'Please confirm your Password': 'Bitte bestätigen Sie Ihr Passwort',
   'Resend Code': 'Code erneut senden',
   'Reset your Password': 'Zurücksetzen des Passworts',
   'Reset your password': 'Zurücksetzen des passworts',
