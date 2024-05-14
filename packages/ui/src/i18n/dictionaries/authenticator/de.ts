@@ -100,7 +100,6 @@ export const deDict: AuthenticatorDictionary = {
   'Password attempts exceeded':
     'Die maximale Anzahl der fehlerhaften Anmeldeversuche wurde erreicht',
   'Reset password': 'Passwort zurücksetzen',
-  'Reset Password': 'Passwort Zurücksetzen',
   'Sign Out': 'Abmelden',
   'Sign Up': 'Registrieren',
   'User already exists': 'Dieser Benutzer existiert bereits',
