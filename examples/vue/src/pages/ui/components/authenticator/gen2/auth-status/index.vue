@@ -15,10 +15,11 @@ const isAuthenticated = computed(() => authStatus.value === 'authenticated');
 
 const handleSignOut = () => signOut();
 
-const onSubmit = (event: Event) => {
-  signIn(
-    Object.fromEntries(new FormData(event.target as HTMLFormElement)) as any
-  );
+const onSubmit = (event: any) => {
+  signIn({
+    username: event.target.email.value,
+    password: event.target.password.value,
+  });
 };
 </script>
 
