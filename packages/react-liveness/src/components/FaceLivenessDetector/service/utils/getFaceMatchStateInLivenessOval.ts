@@ -58,11 +58,12 @@ export function getFaceMatchStateInLivenessOval({
   const { OvalIouThreshold, FaceIouHeightThreshold, FaceIouWidthThreshold } =
     challengeConfig;
 
-  const faceBoundingBox: BoundingBox = generateBboxFromLandmarks(
+  const faceBoundingBox: BoundingBox = generateBboxFromLandmarks({
+    sessionInformation,
     face,
-    ovalDetails,
-    frameHeight
-  );
+    oval: ovalDetails,
+    frameHeight,
+  });
   const minFaceX = faceBoundingBox.left;
   const maxFaceX = faceBoundingBox.right;
   const minFaceY = faceBoundingBox.top;
