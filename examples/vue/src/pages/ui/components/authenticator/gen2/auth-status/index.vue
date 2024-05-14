@@ -30,8 +30,8 @@ const onSubmit = (event: Event) => {
       v-if="!isAuthenticated"
       :style="{ display: 'flex', 'flex-direction': 'column', gap: '1rem' }"
     >
-      <label for="username">Username</label>
-      <input id="username" name="username" />
+      <label for="email">Email</label>
+      <input id="email" name="email" />
       <label for="password">Password</label>
       <input id="password" name="password" type="password" />
       <button type="submit">Sign In</button>
