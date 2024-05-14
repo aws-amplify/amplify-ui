@@ -1,5 +1,22 @@
 # @aws-amplify/ui-react-native
 
+## 2.2.0
+
+### Minor Changes
+
+- [#5226](https://github.com/aws-amplify/amplify-ui/pull/5226) [`80822552c`](https://github.com/aws-amplify/amplify-ui/commit/80822552c4040d797a3516cdcec8aa83987cfb96) Thanks [@calebpollman](https://github.com/calebpollman)! - deps(react-native): include 0.74.x in allowed peerDep range
+
+## 2.1.6
+
+### Patch Changes
+
+- [#5193](https://github.com/aws-amplify/amplify-ui/pull/5193) [`de2402842`](https://github.com/aws-amplify/amplify-ui/commit/de2402842c75e186e2c5515d20cb1873bbabc4a0) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(aws-amplify): point amplify to 6.2.0
+
+- Updated dependencies [[`de2402842`](https://github.com/aws-amplify/amplify-ui/commit/de2402842c75e186e2c5515d20cb1873bbabc4a0), [`9ce5f9d88`](https://github.com/aws-amplify/amplify-ui/commit/9ce5f9d88dce131fe15870bda9545915e72e7e01)]:
+  - @aws-amplify/ui-react-core-notifications@2.0.14
+  - @aws-amplify/ui-react-core@3.0.14
+  - @aws-amplify/ui@6.0.14
+
 ## 2.1.5
 
 ### Patch Changes
