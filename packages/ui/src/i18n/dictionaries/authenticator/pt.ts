@@ -12,7 +12,7 @@ export const ptDict: AuthenticatorDictionary = {
   'Confirm Password': 'Confirme a Senha',
   'Confirm Sign Up': 'Confirmar inscrição',
   'Confirm SMS Code': 'Confirme o código SMS',
-  'Confirm MFA Code': 'Confirm MFA Code',
+  'Confirm MFA Code': 'Confirme o código MFA',
   'Confirm TOTP Code': 'Confirme o código TOTP',
   Confirm: 'confirme',
   'Confirmation Code': 'Código de confirmação',
