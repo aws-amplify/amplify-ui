@@ -3,8 +3,8 @@ import { AuthenticatorDictionary } from './types';
 export const ptDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     'A recuperação da conta requer informações de contato verificadas',
-  'Add your Profile': 'Add your Profile',
-  'Add your Website': 'Add your Website',
+  'Add your Profile': 'Adicione seu Perfil',
+  'Add your Website': 'Adicione seu Website',
   'Back to Sign In': 'Voltar para Entrar',
   'Change Password': 'Mudar senha',
   Changing: 'Mudando',
