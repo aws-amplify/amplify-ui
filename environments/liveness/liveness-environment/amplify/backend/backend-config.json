@@ -17,6 +17,22 @@
           ],
           "category": "function",
           "resourceName": "livenessenvironment3477af97"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "livenessenvironment09873267"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "livenessenvironment6105cfac"
         }
       ],
       "providerPlugin": "awscloudformation",
