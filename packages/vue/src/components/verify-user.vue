@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { computed, toRefs, useAttrs } from 'vue';
+import { computed, toRefs } from 'vue';
 
 import {
   authenticatorTextUtil,
+  censorContactMethod,
+  ContactMethod,
   defaultFormFieldOptions,
   getFormDataFromEvent,
-  LoginMechanism,
   translate,
 } from '@aws-amplify/ui';
 
@@ -14,13 +15,8 @@ import { useAuthenticator } from '../composables/useAuth';
 
 // `facade` is manually typed to `UseAuthenticator` for temporary type safety.
 const facade: UseAuthenticator = useAuthenticator();
-const { isPending, unverifiedContactMethods, error } = toRefs(facade);
+const { isPending, unverifiedUserAttributes, error } = toRefs(facade);
 const { skipVerification, submitForm, updateForm } = facade;
-
-const attrs = useAttrs();
-
-/** @deprecated Component events are deprecated and not maintained. */
-const emit = defineEmits(['verifyUserSubmit', 'skipClicked']);
 
 // Text Util
 const {
@@ -43,13 +39,7 @@ const onInput = (e: Event): void => {
 };
 
 const onVerifyUserSubmit = (e: Event): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onVerifyUserSubmit) {
-    emit('verifyUserSubmit', e);
-  } else {
-    submit(e);
-  }
+  submit(e);
 };
 
 const submit = (e: Event): void => {
@@ -57,13 +47,7 @@ const submit = (e: Event): void => {
 };
 
 const onSkipClicked = (): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onSkipClicked) {
-    emit('skipClicked');
-  } else {
-    skipVerification();
-  }
+  skipVerification();
 };
 </script>
 
@@ -94,31 +78,41 @@ const onSkipClicked = (): void => {
               class="amplify-flex amplify-field amplify-radiogroupfield amplify-authenticator__column"
               aria-labelledby="amplify-field-493c"
             >
-              <base-label
-                class="amplify-flex amplify-radio"
-                data-amplify-verify-label
-                id="verify"
-                v-for="(value, key) in unverifiedContactMethods"
+              <template
+                v-for="(value, key) in unverifiedUserAttributes"
                 :key="value"
               >
-                <base-input
-                  class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
-                  aria-invalid="false"
-                  data-amplify-verify-input
-                  id="verify"
-                  name="unverifiedAttr"
-                  type="radio"
-                  :value="key"
+                <base-label
+                  class="amplify-flex amplify-radio"
+                  data-amplify-verify-label
+                  v-if="value"
                 >
-                </base-input>
-                <base-text
-                  class="amplify-flex amplify-radio__button"
-                  aria-hidden="true"
-                ></base-text>
-                <base-text class="amplify-text amplify-radio__label">
-                  {{ defaultFormFieldOptions[key as LoginMechanism].label }}
-                </base-text>
-              </base-label>
+                  <base-text class="amplify-text amplify-radio__label">
+                    {{
+                      translate(defaultFormFieldOptions[key].label as string)
+                    }}:
+                    {{
+                      censorContactMethod(
+                        defaultFormFieldOptions[key].label as ContactMethod,
+                        value
+                      )
+                    }}
+                  </base-text>
+                  <base-input
+                    class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
+                    aria-invalid="false"
+                    data-amplify-verify-input
+                    name="unverifiedAttr"
+                    type="radio"
+                    :value="key"
+                  >
+                  </base-input>
+                  <base-text
+                    class="amplify-flex amplify-radio__button"
+                    aria-hidden="true"
+                  ></base-text>
+                </base-label>
+              </template>
             </base-wrapper>
           </base-wrapper>
           <base-footer class="amplify-flex amplify-authenticator__column">
@@ -145,12 +139,7 @@ const onSkipClicked = (): void => {
             >
               {{ skipText }}
             </amplify-button>
-            <slot
-              name="footer"
-              :onSkipClicked="onSkipClicked"
-              :onVerifyUserSubmit="onVerifyUserSubmit"
-            >
-            </slot>
+            <slot name="footer"> </slot>
           </base-footer>
         </base-field-set>
       </base-form>

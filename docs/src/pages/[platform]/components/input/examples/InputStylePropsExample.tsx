@@ -18,7 +18,7 @@ export const InputStylePropsExample = () => {
           fontWeight={tokens.fontWeights.bold}
           fontSize={tokens.fontSizes.xl}
           padding="xl"
-          border={`1px solid ${tokens.colors.brand.primary[60]}`}
+          border={`1px solid ${tokens.colors.primary[60]}`}
         />
       </Flex>
 
@@ -26,8 +26,8 @@ export const InputStylePropsExample = () => {
         <Label htmlFor="special">Special Field</Label>
         <Input
           id="special"
-          backgroundColor="brand.primary.10"
-          border={`1px solid ${tokens.colors.brand.primary[60]}`}
+          backgroundColor="primary.10"
+          border={`1px solid ${tokens.colors.primary[60]}`}
         />
       </Flex>
     </Flex>

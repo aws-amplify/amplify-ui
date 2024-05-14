@@ -10,7 +10,7 @@ import {
 
 import { components } from '../../../global-spec';
 import * as UseAuthComposables from '../../composables/useAuth';
-import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
+import { baseMockServiceFacade } from '../../composables/__mocks__/useAuthenticatorMock';
 import ConfirmVerifyUser from '../confirm-verify-user.vue';
 
 jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
@@ -43,9 +43,9 @@ const useAuthenticatorSpy = jest
   .spyOn(UseAuthComposables, 'useAuthenticator')
   .mockReturnValue(reactive(mockServiceFacade));
 
-jest.spyOn(UIModule, 'getActorContext').mockReturnValue({
-  country_code: '+1',
-});
+jest
+  .spyOn(UIModule, 'getActorContext')
+  .mockReturnValue({} as UIModule.AuthActorContext);
 
 jest.spyOn(UIModule, 'getSortedFormFields').mockReturnValue([
   [

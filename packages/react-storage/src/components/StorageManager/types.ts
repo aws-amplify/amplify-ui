@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import type { StorageAccessLevel, UploadTask } from '@aws-amplify/storage';
+import type { StorageAccessLevel } from '@aws-amplify/core';
 
 import {
   ContainerProps,
@@ -10,7 +10,7 @@ import {
   FileListProps,
   FilePickerProps,
 } from './ui';
-import { StorageManagerDisplayText } from './utils';
+import { StorageManagerDisplayText, PathCallback, UploadTask } from './utils';
 
 export enum FileStatus {
   ADDED = 'added',
@@ -36,8 +36,10 @@ export type StorageFiles = StorageFile[];
 
 export type DefaultFile = Pick<StorageFile, 'key'>;
 
-export type ProcessFileParams = Required<Pick<StorageFile, 'file' | 'key'>> &
-  Record<string, any>;
+export interface ProcessFileParams extends Record<string, any> {
+  file: File;
+  key: string;
+}
 
 export type ProcessFile = (
   params: ProcessFileParams
@@ -58,6 +60,7 @@ export interface StorageManagerProps {
    * @see https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/
    */
   accessLevel: StorageAccessLevel;
+
   /**
    * Determines if the upload will automatically start after a file is selected, default value: true
    */
@@ -80,7 +83,7 @@ export interface StorageManagerProps {
   /**
    * Overrides default display text
    */
-  displayText?: Partial<StorageManagerDisplayText>;
+  displayText?: StorageManagerDisplayText;
   /**
    * Determines if upload can be paused / resumed
    */
@@ -118,15 +121,19 @@ export interface StorageManagerProps {
    */
   showThumbnails?: boolean;
   /**
-   * Storage provider name
-   * @see https://docs.amplify.aws/lib/storage/custom-plugin/q/platform/js/
-   */
-  provider?: string;
-
-  /**
-   * A path to put files in the s3 bucket.
-   * This will be prepended to the key sent to
-   * s3 for each file.
+   * Provided value is prefixed to the file `key` for each file
    */
   path?: string;
+}
+
+export interface StorageManagerPathProps
+  extends Omit<StorageManagerProps, 'accessLevel' | 'path'> {
+  /**
+   * S3 bucket key, allows either a `string` or a `PathCallback`:
+   * - `string`: `path` is prefixed to the file `key` for each file
+   * - `PathCallback`: callback provided an input containing the current `identityId`,
+   *    resolved value is prefixed to the file `key` for each file
+   */
+  path: string | PathCallback;
+  accessLevel?: never;
 }

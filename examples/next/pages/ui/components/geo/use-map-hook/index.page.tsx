@@ -1,4 +1,4 @@
-import { useMap } from 'react-map-gl';
+import { useMap } from 'react-map-gl'; // Note: this dependency should NOT be installed separately
 import { Amplify } from 'aws-amplify';
 import { Button } from '@aws-amplify/ui-react';
 import { MapView } from '@aws-amplify/ui-react-geo';
@@ -7,6 +7,7 @@ import '@aws-amplify/ui-react/styles.css';
 import '@aws-amplify/ui-react-geo/styles.css';
 
 import awsExports from './aws-exports';
+import './styles.css';
 
 Amplify.configure(awsExports);
 

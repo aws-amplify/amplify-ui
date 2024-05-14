@@ -15,7 +15,7 @@ export const ColorThemeTokenExample = () => {
   return (
     <Alert
       backgroundColor={tokens.colors.white}
-      color={tokens.colors.brand.primary[60]}
+      color={tokens.colors.primary[60]}
     >
       Color Styling Example
     </Alert>
@@ -25,7 +25,7 @@ export const ColorThemeTokenExample = () => {
 // use a design token name
 export const ColorTokenNameExample = () => {
   return (
-    <Alert backgroundColor="white" color="brand.primary.60">
+    <Alert backgroundColor="white" color="primary.60">
       Color Styling Example
     </Alert>
   );

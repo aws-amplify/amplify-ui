@@ -4,6 +4,10 @@ import { View } from '@aws-amplify/ui-react';
 
 import { withInAppMessaging } from '..';
 
+jest.mock('aws-amplify/in-app-messaging', () => ({
+  onMessageReceived: jest.fn(() => ({ remove: jest.fn() })),
+}));
+
 const TestComponent = ({ title }: { title: string }) => (
   <View testId="testID">{title}</View>
 );

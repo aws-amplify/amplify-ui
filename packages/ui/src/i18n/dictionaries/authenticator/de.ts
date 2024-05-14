@@ -32,6 +32,7 @@ export const deDict: AuthenticatorDictionary = {
   'Enter your Name': 'Geben Sie Ihren Namen ein',
   'Enter your Nickname': 'Geben Sie Ihren Spitznamen ein',
   'Enter your Password': 'Geben Sie Ihr Passwort ein',
+  'Enter your email': 'Geben Sie Ihre e-mail ein',
   'Enter your phone number': 'Geben Sie Ihre Telefonnummer ein',
   'Enter your Preferred Username': 'Geben Sie Ihren bevorzugten Benutzernamen ein',
   'Enter your username': 'Geben Sie Ihren Benutzernamen ein',
@@ -100,6 +101,7 @@ export const deDict: AuthenticatorDictionary = {
   'Password attempts exceeded':
     'Die maximale Anzahl der fehlerhaften Anmeldeversuche wurde erreicht',
   'Reset password': 'Passwort zurücksetzen',
+  'Reset Password': 'Passwort Zurücksetzen',
   'Sign Out': 'Abmelden',
   'Sign Up': 'Registrieren',
   'User already exists': 'Dieser Benutzer existiert bereits',

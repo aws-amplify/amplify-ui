@@ -10,15 +10,15 @@ export interface ConfirmSignInStyle {}
 export interface ConfirmSignUpStyle {}
 export interface ConfirmVerifyUserStyle {}
 export interface ForceNewPasswordStyle {}
-export interface ResetPasswordStyle {}
-export interface SetupTOTPStyle {}
+export interface ForgotPasswordStyle {}
+export interface SetupTotpStyle {}
 export interface SignInStyle {}
 export interface SignUpStyle {}
 export interface VerifyUserStyle {}
 
 export type DefaultComponents<
   FieldType = {},
-  Props = {}
+  Props = {},
 > = AuthenticatorComponentDefaults<FieldType, Props>;
 
 export type DefaultConfirmResetPasswordProps = React.ComponentPropsWithoutRef<
@@ -56,18 +56,18 @@ export type DefaultForceNewPasswordProps = React.ComponentPropsWithoutRef<
   >['ForceNewPassword']
 >;
 
-export type DefaultResetPasswordProps = React.ComponentPropsWithoutRef<
+export type DefaultForgotPasswordProps = React.ComponentPropsWithoutRef<
   DefaultComponents<
     TextFieldOptionsType,
-    { style?: ResetPasswordStyle }
-  >['ResetPassword']
+    { style?: ForgotPasswordStyle }
+  >['ForgotPassword']
 >;
 
-export type DefaultSetupTOTPProps = React.ComponentPropsWithoutRef<
+export type DefaultSetupTotpProps = React.ComponentPropsWithoutRef<
   DefaultComponents<
     TextFieldOptionsType,
-    { style?: SetupTOTPStyle }
-  >['SetupTOTP']
+    { style?: SetupTotpStyle }
+  >['SetupTotp']
 >;
 
 export type DefaultSignInProps = React.ComponentPropsWithoutRef<
@@ -90,7 +90,7 @@ export type DefaultVerifyUserProps = React.ComponentPropsWithoutRef<
  */
 type OverrideComponents<
   FieldType = {},
-  Props = {}
+  Props = {},
 > = AuthenticatorComponentOverrides<FieldType, Props>;
 
 type ConfirmSignInComponent<P = {}> = OverrideComponents<
@@ -118,15 +118,15 @@ type ForceNewPasswordComponent<P = {}> = OverrideComponents<
   { style?: ForceNewPasswordStyle } & P
 >['ForceNewPassword'];
 
-type ResetPasswordComponent<P = {}> = OverrideComponents<
+type ForgotPasswordComponent<P = {}> = OverrideComponents<
   TextFieldOptionsType,
-  { style?: ResetPasswordStyle } & P
->['ResetPassword'];
+  { style?: ForgotPasswordStyle } & P
+>['ForgotPassword'];
 
-type SetupTOTPComponent<P = {}> = OverrideComponents<
+type SetupTotpComponent<P = {}> = OverrideComponents<
   TextFieldOptionsType,
-  { style?: SetupTOTPStyle } & P
->['SetupTOTP'];
+  { style?: SetupTotpStyle } & P
+>['SetupTotp'];
 
 type SignInComponent<P = {}> = OverrideComponents<
   TextFieldOptionsType,
@@ -152,8 +152,8 @@ export interface Components {
   ConfirmResetPassword?: ConfirmResetPasswordComponent;
   ConfirmVerifyUser?: ConfirmVerifyUserComponent;
   ForceNewPassword?: ForceNewPasswordComponent;
-  ResetPassword?: ResetPasswordComponent;
-  SetupTOTP?: SetupTOTPComponent;
+  ForgotPassword?: ForgotPasswordComponent;
+  SetupTotp?: SetupTotpComponent;
   SignIn?: SignInComponent;
   SignUp?: SignUpComponent;
   VerifyUser?: VerifyUserComponent;

@@ -1,35 +1,45 @@
-/* eslint-disable  */
 import 'web-streams-polyfill';
 import 'blob-polyfill';
 
 import { TextDecoder } from 'util';
-import { Amplify } from '@aws-amplify/core';
 import { RekognitionStreamingClient } from '@aws-sdk/client-rekognitionstreaming';
+
 import { LivenessStreamProvider } from '../streamProvider';
 import { VideoRecorder } from '../videoRecorder';
-import { mockClientSessionInformationEvent } from '../__mocks__/testUtils';
+import {
+  mockClientSessionInformationEvent,
+  mockCameraDevice,
+  mockVideoRecorder as mockVideoRecorderBase,
+} from '../__mocks__/testUtils';
 import { AwsCredentialProvider } from '../../types';
 
 jest.mock('../videoRecorder');
 jest.mock('@aws-sdk/client-rekognitionstreaming');
-jest.mock('@aws-amplify/core');
+jest.mock('aws-amplify');
 
 Object.defineProperty(window, 'TextDecoder', {
   writable: true,
   value: TextDecoder,
 });
 
-const mockGet = jest.fn().mockImplementation(() => {
+jest.mock('aws-amplify/auth', () => {
+  const originalModule = jest.requireActual('aws-amplify/auth');
   return {
-    accessKeyId: 'accessKeyId',
-    sessionToken: 'sessionTokenId',
-    secretAccessKey: 'secretAccessKey',
-    identityId: 'identityId',
-    authenticated: true,
-    expiration: new Date(),
+    ...originalModule,
+    fetchAuthSession: jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        credentials: {
+          accessKeyId: 'accessKeyId',
+          sessionToken: 'sessionTokenId',
+          secretAccessKey: 'secretAccessKey',
+          identityId: 'identityId',
+          authenticated: true,
+          expiration: new Date(),
+        },
+      });
+    }),
   };
 });
-Amplify.Credentials.get = mockGet;
 
 let SWITCH = false;
 
@@ -75,20 +85,11 @@ describe('LivenessStreamProvider', () => {
     },
   } as unknown as ReadableStream<Blob>;
   const mockVideoRecorder: any = {
-    start: jest.fn(),
-    stop: jest.fn(),
-    getBlob: jest.fn(),
-    dispatch: jest.fn(),
+    ...mockVideoRecorderBase,
     getState: jest.fn().mockReturnValue('recording'),
     videoStream: mockReadableStream,
   };
-  const mockCameraDevice: MediaDeviceInfo = {
-    deviceId: 'some-device-id',
-    groupId: 'some-group-id',
-    kind: 'videoinput',
-    label: 'some-label',
-    toJSON: () => ({}),
-  };
+
   const mockVideoMediaStream = {
     getTracks: () => [
       {

@@ -1,11 +1,4 @@
 /**
- * The options for the video recorder.
- */
-export interface VideoRecorderOptions {
-  // TODO:: add options
-}
-
-/**
  * Helper wrapper class over the native MediaRecorder.
  */
 export class VideoRecorder {
@@ -20,17 +13,16 @@ export class VideoRecorder {
 
   private _recorder: MediaRecorder;
   private _stream: MediaStream;
-  private _options: VideoRecorderOptions;
+
   private _chunks: Blob[];
   private _recorderStopped!: Promise<void>;
 
-  constructor(stream: MediaStream, options: VideoRecorderOptions = {}) {
+  constructor(stream: MediaStream) {
     if (typeof MediaRecorder === 'undefined') {
       throw Error('MediaRecorder is not supported by this browser');
     }
 
     this._stream = stream;
-    this._options = options;
     this._chunks = [];
     this._recorder = new MediaRecorder(stream, { bitsPerSecond: 1000000 });
 

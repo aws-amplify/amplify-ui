@@ -1,25 +1,5 @@
-/**
- * This file contains general helpers that state machine or authenticator
- * implementations can use.
- */
-
-import { Hub } from 'aws-amplify';
-import { appendToCognitoUserAgent } from '@aws-amplify/auth';
-import { waitFor } from 'xstate/lib/waitFor.js';
-
-import { AuthInterpreter, AuthMachineHubHandler } from '../../types';
 import { ALLOWED_SPECIAL_CHARACTERS, emailRegex } from './constants';
-import { getActorState } from './actor';
-import { isFunction } from '../../utils';
-
-type ConfigureOptions = { packageName: string; version: string };
-export const configureComponent = ({
-  packageName,
-  version,
-}: ConfigureOptions) => {
-  // "@aws-amplify/ui-react" + "/" + "3.5.10"
-  appendToCognitoUserAgent(`${packageName}/${version}`);
-};
+import type { ContactMethod } from '../../types';
 
 // replaces all characters in a string with '*', except for the first and last char
 export const censorAllButFirstAndLast = (value: string): string => {
@@ -47,113 +27,22 @@ export const censorPhoneNumber = (val: string): string => {
   return split.join('');
 };
 
-const waitForAutoSignInState = async (service: AuthInterpreter) => {
-  // https://xstate.js.org/docs/guides/interpretation.html#waitfor
-  try {
-    await waitFor(service, (state) =>
-      getActorState(state).matches('autoSignIn')
-    );
-  } catch (e) {
-    /**
-     * AutoSignIn can be called in unrelated state, or after user has already
-     * signed in, because Amplify JS can send duplicate hub events.
-     *
-     * In that case, we do no-op and ignore the second event.
-     */
-  }
+// censors all but the first and last of the name of an email and keeps domain
+export const censorEmail = (val: string): string => {
+  const splitEmail = val.split('@');
+  const censoredName = censorAllButFirstAndLast(splitEmail[0]);
+
+  return `${censoredName}@${splitEmail[1]}`;
 };
 
-/**
- * Handles Amplify JS Auth hub events, by forwarding hub events as appropriate
- * xstate events.
- */
-export const defaultAuthHubHandler: AuthMachineHubHandler = async (
-  { payload: { data, event } },
-  service,
-  options
-) => {
-  const { send } = service;
-  const state = service.getSnapshot(); // this is just a getter and is not expensive
-
-  const { onSignIn, onSignOut } = options ?? {};
-
-  switch (event) {
-    // TODO: We can add more cases here, according to
-    // https://docs.amplify.aws/lib/auth/auth-events/q/platform/js/
-    case 'tokenRefresh':
-      if (state.matches('authenticated.idle')) {
-        send('TOKEN_REFRESH');
-      }
-      break;
-    case 'autoSignIn':
-      if (!state.matches('authenticated')) {
-        /**
-         * We wait for state machine to reach `autoSignIn` before sending
-         * this event.
-         *
-         * This will ensure that xstate is ready to handle autoSignIn by
-         * the time we send this event, and prevent race conditions between
-         * hub events and state machine transitions.
-         */
-        await waitForAutoSignInState(service);
-        const currentActorState = getActorState(service.getSnapshot());
-        if (currentActorState?.matches('autoSignIn')) {
-          send({ type: 'AUTO_SIGN_IN', data });
-        }
-      }
-      break;
-    case 'autoSignIn_failure': {
-      await waitForAutoSignInState(service);
-      const currentActorState = getActorState(service.getSnapshot());
-      if (currentActorState?.matches('autoSignIn')) {
-        send({ type: 'AUTO_SIGN_IN_FAILURE', data });
-      }
-      break;
-    }
-    case 'signIn':
-      if (isFunction(onSignIn)) {
-        onSignIn();
-      }
-      break;
-    case 'signOut':
-    case 'tokenRefresh_failure':
-      if (isFunction(onSignOut)) {
-        onSignOut();
-      }
-      if (state.matches('authenticated.idle')) {
-        send('SIGN_OUT');
-      }
-      break;
-    default:
-      break;
-  }
-};
-
-type HubHandler = Parameters<typeof Hub.listen>[1];
-const getHubEventHandler =
-  (service: AuthInterpreter, handler: AuthMachineHubHandler): HubHandler =>
-  (data) => {
-    handler(data, service);
-  };
-
-/**
- * Listens to external auth Hub events and sends corresponding event to
- * the `authService` of interest
- *
- * @param send - `send` function associated with the `authService` of interest
- *
- * @returns function that unsubscribes to the hub evenmt
- */
-export const listenToAuthHub = (
-  service: AuthInterpreter,
-  // angular passes its own `handler` param
-  handler: AuthMachineHubHandler = defaultAuthHubHandler
-) => {
-  return Hub.listen(
-    'auth',
-    getHubEventHandler(service, handler),
-    'authenticator-hub-handler'
-  );
+// based on the ContactMethod type, returns a censored contact value
+export const censorContactMethod = (
+  type: ContactMethod,
+  value: string
+): string => {
+  return type === 'Phone Number'
+    ? censorPhoneNumber(value)
+    : censorEmail(value);
 };
 
 export const hasSpecialChars = (password: string) =>

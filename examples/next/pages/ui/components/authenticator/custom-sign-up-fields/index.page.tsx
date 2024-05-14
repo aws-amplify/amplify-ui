@@ -26,13 +26,13 @@ export default function App() {
                 {/* Re-use default `Authenticator.SignUp.FormFields` */}
                 <Authenticator.SignUp.FormFields />
 
-                {/* Append & require Terms & Conditions field to sign up  */}
+                {/* Append & require Terms and Conditions field to sign up  */}
                 <CheckboxField
                   errorMessage={validationErrors.acknowledgement as string}
                   hasError={!!validationErrors.acknowledgement}
                   name="acknowledgement"
                   value="yes"
-                  label="I agree with the Terms & Conditions"
+                  label="I agree with the Terms and Conditions"
                 />
               </>
             );
@@ -43,7 +43,7 @@ export default function App() {
         async validateCustomSignUp(formData) {
           if (!formData.acknowledgement) {
             return {
-              acknowledgement: 'You must agree to the Terms & Conditions',
+              acknowledgement: 'You must agree to the Terms and Conditions',
             };
           }
         },

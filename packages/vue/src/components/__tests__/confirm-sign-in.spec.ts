@@ -2,15 +2,11 @@ import { reactive, Ref, ref } from 'vue';
 import { fireEvent, render, screen } from '@testing-library/vue';
 
 import * as UIModule from '@aws-amplify/ui';
-import {
-  AmplifyUser,
-  AuthInterpreter,
-  AuthMachineState,
-} from '@aws-amplify/ui';
+import { AuthInterpreter, AuthMachineState } from '@aws-amplify/ui';
 
 import { components } from '../../../global-spec';
 import * as UseAuthComposables from '../../composables/useAuth';
-import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
+import { baseMockServiceFacade } from '../../composables/__mocks__/useAuthenticatorMock';
 import { UseAuthenticator } from '../../types';
 import ConfirmSignIn from '../confirm-sign-in.vue';
 
@@ -28,19 +24,19 @@ const toSignInSpy = jest.fn();
 const mockServiceFacade: UseAuthenticator = {
   ...baseMockServiceFacade,
   route: 'confirmSignIn',
+  challengeName: 'SOFTWARE_TOKEN_MFA',
   updateForm: updateFormSpy,
   submitForm: submitFormSpy,
   toSignIn: toSignInSpy,
-  user: { challengeName: 'SOFTWARE_TOKEN_MFA' } as AmplifyUser,
 };
 
 const useAuthenticatorSpy = jest
   .spyOn(UseAuthComposables, 'useAuthenticator')
   .mockReturnValue(reactive(mockServiceFacade));
 
-jest.spyOn(UIModule, 'getActorContext').mockReturnValue({
-  country_code: '+1',
-});
+jest
+  .spyOn(UIModule, 'getActorContext')
+  .mockReturnValue({} as UIModule.AuthActorContext);
 
 jest.spyOn(UIModule, 'getSortedFormFields').mockReturnValue([
   [
@@ -77,7 +73,8 @@ describe('ConfirmSignIn', () => {
     useAuthenticatorSpy.mockReturnValueOnce(
       reactive({
         ...mockServiceFacade,
-        user: { challengeName: 'SMS_MFA' },
+        challengeName: 'SMS_MFA',
+        user: {},
       } as UseAuthenticator)
     );
     const { container } = render(ConfirmSignIn, { global: { components } });

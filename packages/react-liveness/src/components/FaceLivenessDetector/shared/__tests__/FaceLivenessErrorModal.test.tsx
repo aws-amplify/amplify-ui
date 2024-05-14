@@ -9,6 +9,8 @@ import {
 import { defaultErrorDisplayText } from '../../displayText';
 
 const {
+  connectionTimeoutHeaderText,
+  connectionTimeoutMessageText,
   serverHeaderText,
   serverMessageText,
   timeoutHeaderText,
@@ -41,6 +43,38 @@ describe('FaceLivenessErrorModal', () => {
 
     expect(screen.getByText(timeoutHeaderText)).toBeInTheDocument();
     expect(screen.getByText(timeoutMessageText)).toBeInTheDocument();
+  });
+
+  it('should render the connection timeout message appropriately', () => {
+    const errorState = LivenessErrorState.CONNECTION_TIMEOUT;
+    render(
+      <FaceLivenessErrorModal onRetry={() => {}}>
+        {renderErrorModal({ errorState })}
+      </FaceLivenessErrorModal>
+    );
+
+    expect(screen.getByText(connectionTimeoutHeaderText)).toBeInTheDocument();
+    expect(screen.getByText(connectionTimeoutMessageText)).toBeInTheDocument();
+  });
+
+  it('should render the timeout message with proper accessibility attributes', () => {
+    const errorState = LivenessErrorState.TIMEOUT;
+    render(
+      <FaceLivenessErrorModal onRetry={() => {}}>
+        {renderErrorModal({ errorState })}
+      </FaceLivenessErrorModal>
+    );
+
+    const timeoutModal = screen.getByRole('alertdialog');
+    expect(timeoutModal).toBeInTheDocument();
+    expect(timeoutModal).toHaveAttribute(
+      'aria-describedby',
+      'amplify-liveness-error-message'
+    );
+    expect(timeoutModal).toHaveAttribute(
+      'aria-labelledby',
+      'amplify-liveness-error-heading'
+    );
   });
 
   it('should render the runtime error message appropriately', () => {

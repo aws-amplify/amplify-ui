@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ref, toRefs, useAttrs, onMounted, reactive } from 'vue';
+import { computed, ref, toRefs, onMounted, reactive } from 'vue';
 import QRCode from 'qrcode';
 
-import { Logger } from 'aws-amplify';
+import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import {
   authenticatorTextUtil,
   getFormDataFromEvent,
@@ -14,25 +14,18 @@ import { useAuthenticator } from '../composables/useAuth';
 import { UseAuthenticator } from '../types';
 import BaseFormFields from './primitives/base-form-fields.vue';
 
-const logger = new Logger('SetupTOTP-logger');
+const logger = new Logger('SetupTotp-logger');
 
 // `facade` is manually typed to `UseAuthenticator` for temporary type safety.
 const facade: UseAuthenticator = useAuthenticator();
-const { updateForm, submitForm, toSignIn } = facade;
-const { error, isPending, QRFields, totpSecretCode, user } = toRefs(facade);
+const { updateForm, submitForm, toSignIn, totpSecretCode, username, QRFields } =
+  facade;
+const { error, isPending } = toRefs(facade);
 
-const attrs = useAttrs();
+const { totpIssuer = 'AWSCognito', totpUsername = username } = QRFields ?? {};
 
-/** @deprecated Component events are deprecated and not maintained. */
-const emit = defineEmits(['confirmSetupTOTPSubmit', 'backToSignInClicked']);
-
-const { totpIssuer = 'AWSCognito', totpUsername = user.value.username } =
-  QRFields.value ?? {};
-
-const totpCodeURL =
-  totpSecretCode.value && totpUsername
-    ? getTotpCodeURL(totpIssuer, totpUsername, totpSecretCode.value)
-    : null;
+// `totpSecretCode` is typed as `string | null` but will always be populated by the machine here
+const totpCodeURL = getTotpCodeURL(totpIssuer, totpUsername, totpSecretCode!);
 
 const qrCode = reactive({
   qrCodeImageSource: '',
@@ -46,17 +39,14 @@ const { getCopyText, getCopiedText, getBackToSignInText, getConfirmText } =
 const copyTextLabel = ref(getCopyText());
 
 function copyText() {
-  if (totpSecretCode.value) {
-    navigator.clipboard.writeText(totpSecretCode.value);
+  if (totpSecretCode) {
+    navigator.clipboard.writeText(totpSecretCode);
   }
   copyTextLabel.value = getCopiedText();
 }
 
 // lifecycle hooks
 onMounted(async () => {
-  if (!user.value || !totpCodeURL) {
-    return;
-  }
   try {
     qrCode.qrCodeImageSource = await QRCode.toDataURL(totpCodeURL);
   } catch (error) {
@@ -76,34 +66,22 @@ const onInput = (e: Event): void => {
   updateForm({ name, value });
 };
 
-const onSetupTOTPSubmit = (e: Event): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onConfirmSetupTOTPSubmit) {
-    emit('confirmSetupTOTPSubmit', e);
-  } else {
-    submitForm(getFormDataFromEvent(e));
-  }
+const onSetupTotpSubmit = (e: Event): void => {
+  submitForm(getFormDataFromEvent(e));
 };
 
 const onBackToSignInClicked = (): void => {
-  // TODO(BREAKING): remove unused emit
-  // istanbul ignore next
-  if (attrs?.onBackToSignInClicked) {
-    emit('backToSignInClicked');
-  } else {
-    toSignIn();
-  }
+  toSignIn();
 };
 </script>
 
 <template>
-  <slot v-bind="$attrs" name="confirmSetupTOTPI">
+  <slot v-bind="$attrs" name="confirmSetupTotpI">
     <base-wrapper v-bind="$attrs">
       <base-form
         data-amplify-authenticator-setup-totp
         @input="onInput"
-        @submit.prevent="onSetupTOTPSubmit"
+        @submit.prevent="onSetupTotpSubmit"
       >
         <base-field-set
           class="amplify-flex amplify-authenticator__column"
@@ -146,7 +124,7 @@ const onBackToSignInClicked = (): void => {
                   </svg>
                 </base-wrapper>
               </base-wrapper>
-              <base-form-fields route="setupTOTP"></base-form-fields>
+              <base-form-fields route="setupTotp"></base-form-fields>
             </base-wrapper>
             <base-footer class="amplify-flex amplify-authenticator__column">
               <base-alert v-if="error">
@@ -173,12 +151,7 @@ const onBackToSignInClicked = (): void => {
               >
                 {{ backSignInText }}
               </amplify-button>
-              <slot
-                name="footer"
-                :onBackToSignInClicked="onBackToSignInClicked"
-                :onSetupTOTPSubmit="onSetupTOTPSubmit"
-              >
-              </slot>
+              <slot name="footer"> </slot>
             </base-footer>
           </base-wrapper>
         </base-field-set>

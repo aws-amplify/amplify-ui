@@ -6,12 +6,12 @@ import {
   AuthenticatorServiceFacade,
   AuthInterpreter,
   AuthMachineState,
-  UnverifiedContactMethods,
+  UnverifiedUserAttributes,
 } from '@aws-amplify/ui';
 
 import { components } from '../../../global-spec';
 import * as UseAuthComposables from '../../composables/useAuth';
-import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
+import { baseMockServiceFacade } from '../../composables/__mocks__/useAuthenticatorMock';
 import VerifyUser from '../verify-user.vue';
 
 jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
@@ -31,7 +31,8 @@ jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
 const updateFormSpy = jest.fn();
 const submitFormSpy = jest.fn();
 const skipVerificationSpy = jest.fn();
-const unverifiedContactMethods: UnverifiedContactMethods = {
+
+const unverifiedUserAttributes: UnverifiedUserAttributes = {
   email: 'test@example.com',
 };
 
@@ -41,16 +42,16 @@ const mockServiceFacade: AuthenticatorServiceFacade = {
   updateForm: updateFormSpy,
   skipVerification: skipVerificationSpy,
   submitForm: submitFormSpy,
-  unverifiedContactMethods,
+  unverifiedUserAttributes,
 };
 
 const useAuthenticatorSpy = jest
   .spyOn(UseAuthComposables, 'useAuthenticator')
   .mockReturnValue(reactive(mockServiceFacade));
 
-jest.spyOn(UIModule, 'getActorContext').mockReturnValue({
-  country_code: '+1',
-});
+jest
+  .spyOn(UIModule, 'getActorContext')
+  .mockReturnValue({} as UIModule.AuthActorContext);
 
 describe('VerifyUser', () => {
   it('renders as expected', () => {
@@ -66,9 +67,9 @@ describe('VerifyUser', () => {
   it('sends change event on form input', async () => {
     render(VerifyUser, { global: { components } });
 
-    const checkboxField = await screen.findByLabelText('Email');
+    const radioField = await screen.findByLabelText('Email: t**t@example.com');
 
-    await fireEvent.click(checkboxField);
+    await fireEvent.click(radioField);
     expect(updateFormSpy).toHaveBeenCalledWith({
       name: 'unverifiedAttr',
       value: 'email',
@@ -78,9 +79,9 @@ describe('VerifyUser', () => {
   it('sends submit event on form submit', async () => {
     render(VerifyUser, { global: { components } });
 
-    const checkboxField = await screen.findByLabelText('Email');
+    const radioField = await screen.findByLabelText('Email: t**t@example.com');
 
-    await fireEvent.click(checkboxField);
+    await fireEvent.click(radioField);
     expect(updateFormSpy).toHaveBeenCalledWith({
       name: 'unverifiedAttr',
       value: 'email',
@@ -102,6 +103,26 @@ describe('VerifyUser', () => {
     await fireEvent.click(skipButton);
 
     expect(skipVerificationSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it("doesn't display radio elements if unverifiedAttribute value is missing", async () => {
+    useAuthenticatorSpy.mockReturnValueOnce(
+      reactive({
+        ...baseMockServiceFacade,
+        route: 'verifyUser',
+        updateForm: updateFormSpy,
+        skipVerification: skipVerificationSpy,
+        submitForm: submitFormSpy,
+        unverifiedUserAttributes: {
+          email: '',
+        },
+      })
+    );
+    render(VerifyUser, { global: { components } });
+
+    const radios = screen.queryAllByRole('radio');
+
+    expect(radios).toHaveLength(0);
   });
 
   it('displays error if it is present', async () => {

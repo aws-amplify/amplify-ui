@@ -1,6 +1,11 @@
 import fs from 'fs';
 import path from 'path';
-import { Project, PropertySignature, TypeAliasDeclaration } from 'ts-morph';
+import {
+  Project,
+  PropertySignature,
+  SyntaxKind,
+  TypeAliasDeclaration,
+} from 'ts-morph';
 import { capitalizeString } from '../../src/utils/capitalizeString';
 import {
   AllTypeFileData,
@@ -8,7 +13,6 @@ import {
   TypeFileName,
   TypeData,
 } from '../types/allTypesData';
-import { SyntaxKind } from 'typescript';
 
 export const getAllTypesData = () => {
   const project = new Project({

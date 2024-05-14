@@ -31,7 +31,7 @@ describe('useSwitch:', () => {
     } as React.ChangeEvent<HTMLInputElement>;
 
     act(() => result.current.changeHandler(mockChangeEvent));
-    expect(onChange).toBeCalledTimes(1);
+    expect(onChange).toHaveBeenCalledTimes(1);
     expect(result.current.isOn).toBe(true);
   });
 

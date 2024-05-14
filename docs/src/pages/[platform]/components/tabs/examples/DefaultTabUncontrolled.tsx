@@ -1,11 +1,12 @@
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Tabs } from '@aws-amplify/ui-react';
 
 export const DefaultTabUncontrolled = () => (
-  <Tabs defaultIndex={1}>
-    <TabItem title="First">Content of the first tab</TabItem>
-    <TabItem title="Second">
-      The content of the second tab is initially shown because we passed in
-      index 1 to defaultIndex (notice that the tabs are zero-indexed).
-    </TabItem>
-  </Tabs>
+  <Tabs
+    defaultValue={'Tab 1'}
+    items={[
+      { label: 'Tab 1', value: 'Tab 1', content: 'Tab content #1' },
+      { label: 'Tab 2', value: 'Tab 2', content: 'Tab content #2' },
+      { label: 'Tab 3', value: 'Tab 3', content: 'Tab content #3' },
+    ]}
+  />
 );

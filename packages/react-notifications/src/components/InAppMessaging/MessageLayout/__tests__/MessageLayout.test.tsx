@@ -124,12 +124,12 @@ describe('MessageLayout component', () => {
     expect(textContainer).toHaveClass(`${TEXT_CONTAINER_CLASS}--horizontal`);
   });
 
-  it('should trigger onClose function', () => {
+  it('should trigger onClose function', async () => {
     render(<MessageLayout {...TEST_PROPS} />);
 
     const closeButton = screen.getByRole('button');
-    userEvent.click(closeButton);
-    expect(mockOnClose).toBeCalled();
+    await userEvent.click(closeButton);
+    expect(mockOnClose).toHaveBeenCalled();
   });
 
   it('should render a primary button', () => {
@@ -152,8 +152,9 @@ describe('MessageLayout component', () => {
   });
 
   it('should apply the correct button modifiers', () => {
-    (getButtonModifier as jest.Mock).mockImplementation(({ backgroundColor }) =>
-      backgroundColor === DARK_BACKGROUND_COLOR ? 'dark' : 'light'
+    (getButtonModifier as jest.Mock).mockImplementation(
+      ({ backgroundColor }) =>
+        backgroundColor === DARK_BACKGROUND_COLOR ? 'dark' : 'light'
     );
     render(
       <MessageLayout
@@ -171,7 +172,7 @@ describe('MessageLayout component', () => {
     );
   });
 
-  it('should trigger the button onAction functions', () => {
+  it('should trigger the button onAction functions', async () => {
     render(
       <MessageLayout
         {...TEST_PROPS}
@@ -180,11 +181,12 @@ describe('MessageLayout component', () => {
       />
     );
 
-    userEvent.click(screen.getByText(PRIMARY_BUTTON));
-    expect(mockPrimaryButtonOnAction).toBeCalled();
-    expect(mockSecondaryButtonOnAction).not.toBeCalled();
-    userEvent.click(screen.getByText(SECONDARY_BUTTON));
-    expect(mockSecondaryButtonOnAction).toBeCalled();
+    await userEvent.click(screen.getByText(PRIMARY_BUTTON));
+    expect(mockPrimaryButtonOnAction).toHaveBeenCalled();
+    expect(mockSecondaryButtonOnAction).not.toHaveBeenCalled();
+
+    await userEvent.click(screen.getByText(SECONDARY_BUTTON));
+    expect(mockSecondaryButtonOnAction).toHaveBeenCalled();
   });
 
   it('should apply additional styles to components', () => {

@@ -1,5 +1,11 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+} from '@testing-library/react';
 
 import * as UIModule from '@aws-amplify/ui';
 
@@ -13,15 +19,19 @@ import {
 import { ComponentClassName } from '../../constants';
 import { DeleteUserComponents, WarningViewProps } from '../types';
 import DeleteUser from '../DeleteUser';
+import { defaultDeleteUserDisplayText } from '../../utils';
 
 jest.mock('../../../../internal', () => ({
   useAuth: () => ({
-    user: {} as unknown as UIModule.AmplifyUser,
+    user: {},
     isLoading: false,
   }),
 }));
 
 const deleteUserSpy = jest.spyOn(UIModule, 'deleteUser');
+
+const { cancelButtonText, deleteAccountButtonText, confirmDeleteButtonText } =
+  defaultDeleteUserDisplayText;
 
 function CustomWarningView({ onCancel, onConfirm }: WarningViewProps) {
   return (
@@ -78,18 +88,20 @@ describe('DeleteUser', () => {
     render(<DeleteUser onSuccess={onSuccess} />);
 
     const deleteAccountButton = await screen.findByRole('button', {
-      name: 'Delete Account',
+      name: deleteAccountButtonText,
     });
 
     fireEvent.click(deleteAccountButton);
 
-    const confirmDeleteButton = await screen.findByRole('button', {
-      name: 'Delete my account',
+    await act(async () => {
+      const confirmDeleteButton = await screen.findByRole('button', {
+        name: confirmDeleteButtonText,
+      });
+
+      fireEvent.click(confirmDeleteButton);
     });
 
-    fireEvent.click(confirmDeleteButton);
-
-    expect(deleteUserSpy).toBeCalledTimes(1);
+    expect(deleteUserSpy).toHaveBeenCalledTimes(1);
   });
 
   it('onSuccess is called after successful account deletion', async () => {
@@ -99,20 +111,20 @@ describe('DeleteUser', () => {
     render(<DeleteUser onSuccess={onSuccess} />);
 
     const deleteAccountButton = await screen.findByRole('button', {
-      name: 'Delete Account',
+      name: deleteAccountButtonText,
     });
 
     fireEvent.click(deleteAccountButton);
 
     const confirmDeleteButton = await screen.findByRole('button', {
-      name: 'Delete my account',
+      name: confirmDeleteButtonText,
     });
 
     fireEvent.click(confirmDeleteButton);
 
     // submit handling is async, wait for onSuccess to be called
     // https://testing-library.com/docs/dom-testing-library/api-async/#waitfor
-    await waitFor(() => expect(onSuccess).toBeCalledTimes(1));
+    await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(1));
   });
 
   it('onError is called after unsuccessful submit', async () => {
@@ -122,19 +134,19 @@ describe('DeleteUser', () => {
     render(<DeleteUser onError={onError} />);
 
     const deleteAccountButton = await screen.findByRole('button', {
-      name: 'Delete Account',
+      name: deleteAccountButtonText,
     });
 
     fireEvent.click(deleteAccountButton);
 
     const confirmDeleteButton = await screen.findByRole('button', {
-      name: 'Delete my account',
+      name: confirmDeleteButtonText,
     });
 
     fireEvent.click(confirmDeleteButton);
 
     // submit handling is async, wait for onError to be called
-    await waitFor(() => expect(onError).toBeCalledTimes(1));
+    await waitFor(() => expect(onError).toHaveBeenCalledTimes(1));
   });
 
   it('hides warning component if cancel is clicked', async () => {
@@ -143,21 +155,23 @@ describe('DeleteUser', () => {
     render(<DeleteUser />);
 
     const deleteAccountButton = await screen.findByRole('button', {
-      name: 'Delete Account',
+      name: deleteAccountButtonText,
     });
     fireEvent.click(deleteAccountButton);
 
     // warning window now should be visible
-    await screen.findByText('Delete my account');
+    await screen.findByText(confirmDeleteButtonText);
 
     const cancelButton = await screen.findByRole('button', {
-      name: 'Cancel',
+      name: cancelButtonText,
     });
     fireEvent.click(cancelButton);
 
     // warning window should be gone now
     await waitFor(() =>
-      expect(screen.queryByText('Delete my account')).not.toBeInTheDocument()
+      expect(
+        screen.queryByText(confirmDeleteButtonText)
+      ).not.toBeInTheDocument()
     );
   });
 
@@ -168,13 +182,13 @@ describe('DeleteUser', () => {
     render(<DeleteUser onError={onError} />);
 
     const deleteAccountButton = await screen.findByRole('button', {
-      name: 'Delete Account',
+      name: deleteAccountButtonText,
     });
 
     fireEvent.click(deleteAccountButton);
 
     const confirmDeleteButton = await screen.findByRole('button', {
-      name: 'Delete my account',
+      name: confirmDeleteButtonText,
     });
 
     fireEvent.click(confirmDeleteButton);
@@ -206,18 +220,19 @@ describe('DeleteUser', () => {
     const deleteAccountButton = await screen.findByRole('button', {
       name: 'Custom Delete Button',
     });
-
     fireEvent.click(deleteAccountButton);
 
-    const confirmDeleteButton = await screen.findByRole('button', {
-      name: 'Custom Confirm Button',
-    });
+    await act(async () => {
+      const confirmDeleteButton = await screen.findByRole('button', {
+        name: 'Custom Confirm Button',
+      });
 
-    fireEvent.click(confirmDeleteButton);
+      fireEvent.click(confirmDeleteButton);
+    });
 
     // submit handling is async, wait for onSuccess to be called
     // https://testing-library.com/docs/dom-testing-library/api-async/#waitfor
-    await waitFor(() => expect(onSuccess).toBeCalledTimes(1));
+    await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(1));
   });
 
   it('calls deleteUser with expected arguments and component overrides', async () => {
@@ -229,17 +244,18 @@ describe('DeleteUser', () => {
     const deleteAccountButton = await screen.findByRole('button', {
       name: 'Custom Delete Button',
     });
-
     fireEvent.click(deleteAccountButton);
 
-    const confirmDeleteButton = await screen.findByRole('button', {
-      name: 'Custom Confirm Button',
+    await act(async () => {
+      const confirmDeleteButton = await screen.findByRole('button', {
+        name: 'Custom Confirm Button',
+      });
+
+      fireEvent.click(confirmDeleteButton);
     });
 
-    fireEvent.click(confirmDeleteButton);
-
-    expect(deleteUserSpy).toBeCalledWith();
-    expect(deleteUserSpy).toBeCalledTimes(1);
+    expect(deleteUserSpy).toHaveBeenCalledWith();
+    expect(deleteUserSpy).toHaveBeenCalledTimes(1);
   });
 
   it('error message is displayed with component overrides after unsuccessful submit', async () => {
@@ -250,17 +266,28 @@ describe('DeleteUser', () => {
     const deleteAccountButton = await screen.findByRole('button', {
       name: 'Custom Delete Button',
     });
-
     fireEvent.click(deleteAccountButton);
+    await act(async () => {
+      const confirmDeleteButton = await screen.findByRole('button', {
+        name: 'Custom Confirm Button',
+      });
 
-    const confirmDeleteButton = await screen.findByRole('button', {
-      name: 'Custom Confirm Button',
+      fireEvent.click(confirmDeleteButton);
     });
-
-    fireEvent.click(confirmDeleteButton);
-
     await screen.findByText('Mock Error');
 
     expect(await screen.findByText('Custom Error Message')).toBeDefined();
+  });
+
+  it('renders as expected with override display text', () => {
+    const deleteAccountButtonTextOverride = 'Custom delete account label';
+    const displayTextOverride = {
+      deleteAccountButtonText: deleteAccountButtonTextOverride,
+    };
+    const { getByText, queryByText } = render(
+      <DeleteUser displayText={displayTextOverride} />
+    );
+    expect(getByText(deleteAccountButtonTextOverride)).toBeVisible();
+    expect(queryByText(deleteAccountButtonText)).toBe(null);
   });
 });

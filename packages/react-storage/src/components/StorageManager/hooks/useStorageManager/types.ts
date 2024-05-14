@@ -1,5 +1,5 @@
-import type { UploadTask } from '@aws-amplify/storage';
 import { FileStatus, StorageFiles } from '../../types';
+import { UploadTask } from '../../utils';
 
 export interface UseStorageManagerState {
   files: StorageFiles;

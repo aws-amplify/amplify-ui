@@ -58,7 +58,9 @@ export type CheckboxTokens<Output extends OutputVariantKey> =
     _disabled?: DesignTokenProperties<'cursor', Output>;
     button?: ButtonToken<Output>;
     icon?: IconToken<Output>;
-    label?: { _disabled?: DesignTokenProperties<'color', Output> };
+    label?: DesignTokenProperties<'color', Output> & {
+      _disabled?: DesignTokenProperties<'color', Output>;
+    };
   };
 
 export const checkbox: Required<CheckboxTokens<'default'>> = {
@@ -87,16 +89,8 @@ export const checkbox: Required<CheckboxTokens<'default'>> = {
       outlineStyle: { value: 'solid' },
       outlineWidth: { value: '{outlineWidths.medium.value}' },
       outlineOffset: { value: '{outlineOffsets.medium.value}' },
-      borderColor: { value: '{colors.transparent.value}' },
-      boxShadow: {
-        value: {
-          offsetX: '0px',
-          offsetY: '0px',
-          blurRadius: '0px',
-          spreadRadius: '2px',
-          color: '{colors.border.focus.value}',
-        },
-      },
+      borderColor: { value: '{colors.border.focus.value}' },
+      boxShadow: { value: '{components.fieldcontrol._focus.boxShadow.value}' },
     },
     _disabled: {
       borderColor: { value: '{colors.border.disabled.value}' },
@@ -104,21 +98,15 @@ export const checkbox: Required<CheckboxTokens<'default'>> = {
     _error: {
       borderColor: { value: '{colors.border.error.value}' },
       _focus: {
-        borderColor: { value: '{colors.transparent.value}' },
+        borderColor: { value: '{colors.border.error.value}' },
         boxShadow: {
-          value: {
-            offsetX: '0px',
-            offsetY: '0px',
-            blurRadius: '0px',
-            spreadRadius: '2px',
-            color: '{colors.border.error.value}',
-          },
+          value: '{components.fieldcontrol._error._focus.boxShadow.value}',
         },
       },
     },
   },
   icon: {
-    backgroundColor: { value: '{colors.brand.primary.80.value}' },
+    backgroundColor: { value: '{colors.primary.80.value}' },
     borderRadius: { value: '20%' },
     opacity: { value: '{opacities.0.value}' },
     transform: { value: 'scale(0)' },
@@ -141,8 +129,11 @@ export const checkbox: Required<CheckboxTokens<'default'>> = {
     },
   },
   label: {
+    color: { value: '{components.text.color.value}' },
     _disabled: {
-      color: { value: '{colors.font.disabled.value}' },
+      color: {
+        value: '{colors.font.disabled.value}',
+      },
     },
   },
 };

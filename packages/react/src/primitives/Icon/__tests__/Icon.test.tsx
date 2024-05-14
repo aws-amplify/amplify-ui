@@ -2,7 +2,7 @@ import * as React from 'react';
 import { render, screen, within } from '@testing-library/react';
 
 import { Icon } from '../Icon';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 describe('Icon component', () => {
   const iconTestId = 'iconSearch';
@@ -18,7 +18,7 @@ describe('Icon component', () => {
     expect(icon.nodeName).toBe('svg');
     expect(icon.dataset['size']).toBeUndefined();
     expect(icon.getAttribute('viewBox')).toBe('0 0 24 24');
-    expect(icon.classList[0]).toContain(ComponentClassNames.Icon);
+    expect(icon.classList[0]).toContain(ComponentClassName.Icon);
   });
 
   it('should render <path> with provided path data', async () => {
@@ -42,7 +42,7 @@ describe('Icon component', () => {
 
     const icon = await screen.findByTestId(iconTestId);
     expect(icon.classList.length).toBe(2);
-    expect(icon.classList[0]).toContain(ComponentClassNames.Icon);
+    expect(icon.classList[0]).toContain(ComponentClassName.Icon);
     expect(icon.classList[1]).toContain('my-icon-component');
   });
 

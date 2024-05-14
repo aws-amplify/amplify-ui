@@ -1,5 +1,3 @@
-export { useAmplify } from './useAmplify';
-
-export { useTheme } from './useTheme';
+export { useTheme, useColorMode } from './useTheme';
 
 export { useBreakpointValue } from './useBreakpointValue';

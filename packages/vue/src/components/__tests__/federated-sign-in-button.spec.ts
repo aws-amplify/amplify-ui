@@ -2,7 +2,7 @@ import { reactive } from 'vue';
 import { screen, render, fireEvent } from '@testing-library/vue';
 
 import { components } from '../../../global-spec';
-import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
+import { baseMockServiceFacade } from '../../composables/__mocks__/useAuthenticatorMock';
 import * as UseAuthComposables from '../../composables/useAuth';
 import FederatedSignInButton from '../federated-sign-in-button.vue';
 
@@ -37,6 +37,7 @@ describe('FederatedSignInButton', () => {
   it('does not render anything if there is no provider', () => {
     const { container } = render(FederatedSignInButton, {
       global: { components },
+      props: { provider: 'amazon' },
     });
 
     expect(container.firstChild?.hasChildNodes()).toBe(false);

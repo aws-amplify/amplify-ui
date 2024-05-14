@@ -1,31 +1,31 @@
 import * as React from 'react';
-import type { UploadTask } from '@aws-amplify/storage';
 
-import { uploadFile } from '../../utils/uploadFile';
+import { TransferProgressEvent } from 'aws-amplify/storage';
+import { isFunction } from '@aws-amplify/ui';
 
+import { PathCallback, uploadFile } from '../../utils';
+import { getInput } from '../../utils';
 import { FileStatus } from '../../types';
-
 import { StorageManagerProps } from '../../types';
 import { UseStorageManager } from '../useStorageManager';
-import { resolveFile } from './resolveFile';
 
 export interface UseUploadFilesProps
   extends Pick<
       StorageManagerProps,
-      | 'accessLevel'
       | 'isResumable'
       | 'onUploadSuccess'
       | 'onUploadError'
       | 'onUploadStart'
       | 'maxFileCount'
       | 'processFile'
-      | 'provider'
-      | 'path'
     >,
     Pick<
       UseStorageManager,
       'setUploadingFile' | 'setUploadProgress' | 'setUploadSuccess' | 'files'
-    > {}
+    > {
+  accessLevel?: StorageManagerProps['accessLevel'];
+  path?: string | PathCallback;
+}
 
 export function useUploadFiles({
   files,
@@ -39,8 +39,7 @@ export function useUploadFiles({
   onUploadStart,
   maxFileCount,
   processFile,
-  provider,
-  path = '',
+  path,
 }: UseUploadFilesProps): void {
   React.useEffect(() => {
     const filesReadyToUpload = files.filter(
@@ -52,45 +51,51 @@ export function useUploadFiles({
     }
 
     for (const { file, key, id } of filesReadyToUpload) {
-      const onComplete: (event: { key?: string }) => void = (event) => {
-        onUploadSuccess?.(event);
-        setUploadSuccess({ id });
-      };
-
-      const onProgress: (progress: { loaded: number; total: number }) => void =
-        (progress) => {
-          /**
-           * When a file is zero bytes, the progress.total will equal zero.
-           * Therefore, this will prevent a divide by zero error.
-           */
-          const progressPercentage =
-            progress.total === 0
-              ? 100
-              : Math.floor((progress.loaded / progress.total) * 100);
-          setUploadProgress({ id, progress: progressPercentage });
-        };
-
-      const onError = (error: string) => {
-        onUploadError?.(error, { key });
+      const onProgress = (event: TransferProgressEvent): void => {
+        /**
+         * When a file is zero bytes, the progress.total will equal zero.
+         * Therefore, this will prevent a divide by zero error.
+         */
+        const progress =
+          event.totalBytes === undefined || event.totalBytes === 0
+            ? 100
+            : Math.floor((event.transferredBytes / event.totalBytes) * 100);
+        setUploadProgress({ id, progress });
       };
 
       if (file) {
-        resolveFile({ processFile, file, key }).then(({ key, ...rest }) => {
-          onUploadStart?.({ key });
-          const uploadTask = uploadFile({
-            ...rest,
-            isResumable,
-            provider,
-            key: path + key,
-            level: accessLevel,
-            completeCallback: onComplete,
-            progressCallback: onProgress,
-            errorCallback: onError,
-          }) as unknown as UploadTask;
-          setUploadingFile({
-            id,
-            uploadTask: isResumable ? uploadTask : undefined,
-          });
+        const input = getInput({
+          accessLevel,
+          file,
+          key,
+          onProgress,
+          path,
+          processFile,
+        });
+
+        uploadFile({
+          input,
+          onComplete: (event) => {
+            if (isFunction(onUploadSuccess)) {
+              onUploadSuccess({
+                key:
+                  (event as { key: string }).key ??
+                  (event as { path: string }).path,
+              });
+            }
+            setUploadSuccess({ id });
+          },
+          onError: ({ key, error }) => {
+            if (isFunction(onUploadError)) {
+              onUploadError(error.message, { key });
+            }
+          },
+          onStart: ({ key, uploadTask }) => {
+            if (isFunction(onUploadStart)) {
+              onUploadStart({ key });
+            }
+            setUploadingFile({ id, uploadTask });
+          },
         });
       }
     }
@@ -106,7 +111,6 @@ export function useUploadFiles({
     maxFileCount,
     setUploadSuccess,
     processFile,
-    provider,
     path,
   ]);
 }

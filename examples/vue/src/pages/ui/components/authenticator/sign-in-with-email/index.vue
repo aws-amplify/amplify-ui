@@ -1,11 +1,16 @@
 <script setup lang="ts">
-import { Amplify, Auth } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
 import { Authenticator } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
 import aws_exports from './aws-exports';
 
 Amplify.configure(aws_exports);
 const formFields = {
+  signIn: {
+    username: {
+      placeholder: 'Enter your cool email',
+    },
+  },
   confirmVerifyUser: {
     confirmation_code: {
       label: 'New Label',

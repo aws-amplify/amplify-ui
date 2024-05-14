@@ -1,18 +1,18 @@
 import * as React from 'react';
 import {
   AuthenticatorMachineOptions,
-  AmplifyUser,
-  configureComponent,
   isFunction,
   FormFieldComponents,
   FormFieldOptions,
 } from '@aws-amplify/ui';
+import { AuthUser } from 'aws-amplify/auth';
 
 import {
   AuthenticatorProvider as Provider,
   useAuthenticator,
   UseAuthenticator,
   useAuthenticatorInitMachine,
+  useSetUserAgent,
 } from '@aws-amplify/ui-react-core';
 
 import { VERSION } from '../../version';
@@ -23,11 +23,11 @@ import {
   ComponentsProviderProps,
 } from './hooks/useCustomComponents';
 import { Router, RouterProps } from './Router';
-import { SetupTOTP } from './SetupTOTP';
+import { SetupTotp } from './SetupTotp';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
 import { ForceNewPassword } from './ForceNewPassword';
-import { ResetPassword } from './ResetPassword';
+import { ForgotPassword } from './ForgotPassword';
 import { defaultComponents } from './hooks/useCustomComponents/defaultComponents';
 
 export type SignOut = UseAuthenticator['signOut'];
@@ -37,7 +37,7 @@ export type AuthenticatorProps = Partial<
     RouterProps & {
       children:
         | React.ReactNode
-        | ((props: { signOut?: SignOut; user?: AmplifyUser }) => JSX.Element);
+        | ((props: { signOut?: SignOut; user?: AuthUser }) => JSX.Element);
       formFields: {
         [key in FormFieldComponents]?: {
           [field_name: string]: ReactFormFieldOptions;
@@ -80,7 +80,11 @@ export function AuthenticatorInternal({
   useDeprecationWarning({
     message:
       'The `passwordSettings` prop has been deprecated and will be removed in a future major version of Amplify UI.',
-    shouldWarn: !!passwordSettings,
+    // shouldWarn: !!passwordSettings,
+    /**
+     * @migration turn off until getConfig returns zero config
+     */
+    shouldWarn: false,
   });
 
   const { route, signOut, user } = useAuthenticator(
@@ -90,6 +94,7 @@ export function AuthenticatorInternal({
   useAuthenticatorInitMachine({
     initialState,
     loginMechanisms,
+    passwordSettings,
     services,
     signUpAttributes,
     socialProviders,
@@ -133,12 +138,11 @@ export function AuthenticatorInternal({
  * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/authenticator)
  */
 export function Authenticator(props: AuthenticatorProps): JSX.Element {
-  React.useEffect(() => {
-    configureComponent({
-      packageName: '@aws-amplify/ui-react',
-      version: VERSION,
-    });
-  }, []);
+  useSetUserAgent({
+    componentName: 'Authenticator',
+    packageName: 'react',
+    version: VERSION,
+  });
 
   return (
     <Provider>
@@ -148,8 +152,8 @@ export function Authenticator(props: AuthenticatorProps): JSX.Element {
 }
 
 Authenticator.Provider = Provider;
-Authenticator.ResetPassword = ResetPassword;
-Authenticator.SetupTOTP = SetupTOTP;
+Authenticator.ForgotPassword = ForgotPassword;
+Authenticator.SetupTotp = SetupTotp;
 Authenticator.SignIn = SignIn;
 Authenticator.SignUp = SignUp;
 Authenticator.ForceNewPassword = ForceNewPassword;

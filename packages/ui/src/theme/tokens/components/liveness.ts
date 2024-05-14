@@ -13,6 +13,6 @@ export type LivenessTokens<OutputType extends OutputVariantKey> = {
 
 export const liveness: Required<LivenessTokens<'default'>> = {
   cameraModule: {
-    backgroundColor: { value: '{colors.black}' },
+    backgroundColor: { value: '{colors.background.primary.value}' },
   },
 };

@@ -1,12 +1,15 @@
 import React from 'react';
 import { fireEvent, render, waitFor, act } from '@testing-library/react';
+import * as Storage from 'aws-amplify/storage';
 
-import { Logger } from 'aws-amplify';
-import { ComponentClassNames } from '@aws-amplify/ui-react';
-import { Storage } from 'aws-amplify';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 import * as StorageHooks from '../hooks';
-import { StorageManager } from '../StorageManager';
+import {
+  StorageManager,
+  MISSING_REQUIRED_PROPS_MESSAGE,
+  ACCESS_LEVEL_DEPRECATION_MESSAGE,
+} from '../StorageManager';
 import {
   StorageManagerProps,
   StorageManagerHandle,
@@ -14,22 +17,28 @@ import {
 } from '../types';
 import { defaultStorageManagerDisplayText } from '../utils';
 
-const storageSpy = jest
-  .spyOn(Storage, 'put')
-  .mockImplementation(() => Promise.resolve({ key: 'file' }));
+const warnSpy = jest.spyOn(console, 'warn').mockImplementation();
 
-const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
+const uploadDataSpy = jest
+  .spyOn(Storage, 'uploadData')
+  .mockImplementation((input) => ({
+    cancel: jest.fn(),
+    pause: jest.fn(),
+    resume: jest.fn(),
+    state: 'SUCCESS',
+    result: Promise.resolve({ key: input.key, data: input.data }),
+  }));
 
 const storeManagerProps: StorageManagerProps = {
-  accessLevel: 'public',
+  accessLevel: 'guest',
   maxFileCount: 100,
 };
 describe('StorageManager', () => {
-  afterEach(() => {
+  beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('renders as expected', () => {
+  it('behaves as expected with an accessLevel prop', () => {
     const { container, getByText } = render(
       <StorageManager {...storeManagerProps} />
     );
@@ -37,25 +46,65 @@ describe('StorageManager', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerDropZone}`
+        `${ComponentClassName.StorageManagerDropZone}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerDropZoneText}`
+        `${ComponentClassName.StorageManagerDropZoneText}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerDropZoneIcon}`
+        `${ComponentClassName.StorageManagerDropZoneIcon}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFilePicker}`
+        `${ComponentClassName.StorageManagerFilePicker}`
+      )
+    ).toHaveLength(1);
+
+    expect(
+      getByText(defaultStorageManagerDisplayText.browseFilesText)
+    ).toBeVisible();
+    expect(
+      getByText(defaultStorageManagerDisplayText.dropFilesText)
+    ).toBeVisible();
+
+    expect(warnSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('behaves as expected with a path prop', () => {
+    const { container, getByText } = render(
+      <StorageManager maxFileCount={3} path={() => 'my-path'} />
+    );
+    expect(container).toMatchSnapshot();
+
+    expect(
+      container.getElementsByClassName(
+        `${ComponentClassName.StorageManagerDropZone}`
+      )
+    ).toHaveLength(1);
+
+    expect(
+      container.getElementsByClassName(
+        `${ComponentClassName.StorageManagerDropZoneText}`
+      )
+    ).toHaveLength(1);
+
+    expect(
+      container.getElementsByClassName(
+        `${ComponentClassName.StorageManagerDropZoneIcon}`
+      )
+    ).toHaveLength(1);
+
+    expect(
+      container.getElementsByClassName(
+        `${ComponentClassName.StorageManagerFilePicker}`
       )
     ).toHaveLength(1);
 
@@ -164,12 +213,14 @@ describe('StorageManager', () => {
 
     // Wait for the file to be uploaded
     await waitFor(() => {
-      expect(storageSpy).toBeCalledWith(file.name, file, {
-        contentType: 'text/plain',
-        level: 'public',
-        progressCallback: expect.any(Function),
-        provider: undefined,
-        resumable: false,
+      expect(uploadDataSpy).toHaveBeenCalledWith({
+        key: file.name,
+        data: file,
+        options: {
+          accessLevel: 'guest',
+          contentType: 'text/plain',
+          onProgress: expect.any(Function),
+        },
       });
       expect(onUploadSuccess).toHaveBeenCalledTimes(1);
     });
@@ -192,21 +243,32 @@ describe('StorageManager', () => {
 
     // Wait for the file to be uploaded
     await waitFor(() => {
-      expect(storageSpy).toBeCalledWith(file.name, file, {
-        contentType: 'text/plain',
-        level: 'public',
-        progressCallback: expect.any(Function),
-        provider: undefined,
-        resumable: false,
+      expect(uploadDataSpy).toHaveBeenCalledWith({
+        key: file.name,
+        data: file,
+        options: {
+          accessLevel: 'guest',
+          contentType: 'text/plain',
+          onProgress: expect.any(Function),
+        },
       });
       expect(onUploadStart).toHaveBeenCalledTimes(1);
     });
   });
 
-  it('renders a warning if maxFileCount is zero', () => {
+  it('logs a warning if maxFileCount is zero', () => {
     render(<StorageManager {...storeManagerProps} maxFileCount={0} />);
 
+    expect(warnSpy).toHaveBeenCalledTimes(2);
+    expect(warnSpy.mock.calls[0][0]).toBe(MISSING_REQUIRED_PROPS_MESSAGE);
+    expect(warnSpy.mock.calls[1][0]).toBe(ACCESS_LEVEL_DEPRECATION_MESSAGE);
+  });
+
+  it('logs a warning if provided an accessLevel prop', () => {
+    render(<StorageManager {...storeManagerProps} maxFileCount={1} />);
+
     expect(warnSpy).toHaveBeenCalledTimes(1);
+    expect(warnSpy.mock.calls[0][0]).toBe(ACCESS_LEVEL_DEPRECATION_MESSAGE);
   });
 
   it('should trigger hidden input onChange', async () => {

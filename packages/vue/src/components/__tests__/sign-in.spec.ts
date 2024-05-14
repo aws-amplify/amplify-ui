@@ -6,7 +6,7 @@ import { AuthInterpreter, AuthMachineState } from '@aws-amplify/ui';
 
 import { components } from '../../../global-spec';
 import * as UseAuthComposables from '../../composables/useAuth';
-import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
+import { baseMockServiceFacade } from '../../composables/__mocks__/useAuthenticatorMock';
 import SignIn from '../sign-in.vue';
 
 jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
@@ -25,16 +25,16 @@ const mockServiceFacade = {
   route: 'signIn',
   updateForm: updateFormSpy,
   submitForm: submitFormSpy,
-  toResetPassword: toResetPasswordSpy,
+  toForgotPassword: toResetPasswordSpy,
 };
 
 const useAuthenticatorSpy = jest
   .spyOn(UseAuthComposables, 'useAuthenticator')
   .mockReturnValue(reactive(mockServiceFacade));
 
-jest.spyOn(UIModule, 'getActorContext').mockReturnValue({
-  country_code: '+1',
-});
+jest
+  .spyOn(UIModule, 'getActorContext')
+  .mockReturnValue({} as UIModule.AuthActorContext);
 
 jest.spyOn(UIModule, 'getSortedFormFields').mockReturnValue([
   ['username', { label: 'Username', placeholder: 'Enter your Username' }],

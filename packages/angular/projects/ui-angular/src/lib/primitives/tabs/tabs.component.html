@@ -1,30 +1,21 @@
-<div
-  tabindex="0"
-  aria-orientation="horizontal"
-  data-orientation="horizontal"
-  role="tablist"
-  style="outline: none"
->
+<div class="amplify-tabs">
   <div
-    class="amplify-flex amplify-tabs"
-    data-indicator-position="top"
-    style="gap: 0px; justify-content: center"
+    class="amplify-tabs__list amplify-tabs__list--top amplify-tabs__list--equal"
+    role="tablist"
   >
-    <div
+    <button
       *ngFor="let tab of tabs"
-      class="amplify-tabs-item"
-      data-spacing="equal"
-      data-orientation="horizontal"
+      class="amplify-tabs__item"
       role="tab"
       [id]="tab.labelledById"
-      [tabindex]="tab.active ? '0' : '1'"
+      [tabindex]="tab.active ? '0' : '-1'"
       [attr.aria-selected]="tab.active"
       [attr.aria-controls]="tab.id"
-      [attr.data-state]="tab.active ? 'active' : 'inactive'"
+      [class]="tab.active ? 'amplify-tabs__item--active' : ''"
       (click)="handleTabClick(tab)"
     >
       {{ tab.title }}
-    </div>
+    </button>
   </div>
 </div>
 

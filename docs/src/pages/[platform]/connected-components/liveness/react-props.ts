@@ -18,7 +18,8 @@ export const FACE_LIVENESS_DETECTOR_PROPS = [
   },
   {
     name: `onUserCancel?`,
-    description: 'Callback called when the user cancels the flow.',
+    description:
+      'Callback called when the user cancels the flow. This callback is also called when users click the "Try Again" button in the default error modal.',
     type: `() => void`,
   },
   {
@@ -27,9 +28,9 @@ export const FACE_LIVENESS_DETECTOR_PROPS = [
     type: `(error: LivenessError) => void`,
   },
   {
-    name: `disableInstructionScreen?`,
+    name: `disableStartScreen?`,
     description:
-      'Optional parameter for the disabling the Start/Get Ready Screen, default: false.',
+      'Optional parameter for the disabling the start screen, default: false.',
     type: `boolean`,
   },
   {
@@ -51,20 +52,9 @@ export const FACE_LIVENESS_DETECTOR_PROPS = [
 
 export const FACE_LIVENESS_DETECTOR_COMPONENTS = [
   {
-    name: `Header?`,
-    description: 'Overrides the rendered component in the header section.',
-    type: `React.ComponentType`,
-  },
-  {
     name: `PhotosensitiveWarning?`,
     description:
       'Overrides the rendered component for the photosensitivity warning.',
-    type: `React.ComponentType`,
-  },
-  {
-    name: `Instructions?`,
-    description:
-      'Overrides the rendered component for the instruction section.',
     type: `React.ComponentType`,
   },
   {
@@ -99,6 +89,12 @@ export const FACE_LIVENESS_DETECTOR_ERROR_STATES = [
     name: `SERVER_ERROR`,
     description:
       'Indicates an error occurred from the Rekognition streaming API or in the onAnalysisComplete callback.',
+    type: `Error`,
+  },
+  {
+    name: `CONNECTION_TIMEOUT`,
+    description:
+      'Indicates a timeout occurred during the initial websocket connection.',
     type: `Error`,
   },
   {

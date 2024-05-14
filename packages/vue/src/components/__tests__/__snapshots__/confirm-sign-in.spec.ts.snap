@@ -35,7 +35,7 @@ exports[`ConfirmSignIn renders as expected for SMS challenge 1`] = `
           
           <!-- textfield input -->
           <div
-            class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield amplify-authenticator__column"
+            class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield"
           >
             
             <label
@@ -64,6 +64,7 @@ exports[`ConfirmSignIn renders as expected for SMS challenge 1`] = `
                 <!--Phone input-->
                 <input
                   aria-invalid="false"
+                  autocapitalize="off"
                   autocomplete=""
                   class="amplify-input amplify-field-group__control"
                   data-amplify-input=""
@@ -94,7 +95,7 @@ exports[`ConfirmSignIn renders as expected for SMS challenge 1`] = `
           <!--v-if-->
           
           <button
-            class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+            class="amplify-button amplify-field-group__control amplify-button--primary amplify-field-group__control amplify-authenticator__font"
             data-amplify-button=""
             data-disabled="false"
             data-fullwidth="false"
@@ -110,7 +111,7 @@ exports[`ConfirmSignIn renders as expected for SMS challenge 1`] = `
           
           
           <button
-            class="amplify-button amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+            class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
             data-amplify-button=""
             data-disabled="false"
             data-fullwidth="false"
@@ -178,7 +179,7 @@ exports[`ConfirmSignIn renders as expected for TOTP challenge 1`] = `
           
           <!-- textfield input -->
           <div
-            class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield amplify-authenticator__column"
+            class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield"
           >
             
             <label
@@ -207,6 +208,7 @@ exports[`ConfirmSignIn renders as expected for TOTP challenge 1`] = `
                 <!--Phone input-->
                 <input
                   aria-invalid="false"
+                  autocapitalize="off"
                   autocomplete=""
                   class="amplify-input amplify-field-group__control"
                   data-amplify-input=""
@@ -237,7 +239,7 @@ exports[`ConfirmSignIn renders as expected for TOTP challenge 1`] = `
           <!--v-if-->
           
           <button
-            class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+            class="amplify-button amplify-field-group__control amplify-button--primary amplify-field-group__control amplify-authenticator__font"
             data-amplify-button=""
             data-disabled="false"
             data-fullwidth="false"
@@ -253,7 +255,7 @@ exports[`ConfirmSignIn renders as expected for TOTP challenge 1`] = `
           
           
           <button
-            class="amplify-button amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+            class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
             data-amplify-button=""
             data-disabled="false"
             data-fullwidth="false"

@@ -3,7 +3,7 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import { DefaultFile, FileStatus } from '../../../types';
 import { useStorageManager } from '../useStorageManager';
 
-jest.mock('@aws-amplify/storage');
+jest.mock('aws-amplify/storage');
 
 const defaultFiles: DefaultFile[] = [{ key: 'file1' }, { key: 'file2' }];
 
@@ -90,7 +90,15 @@ describe('useUploadFiles', () => {
     act(() =>
       result.current.setUploadingFile({
         id: 'file1',
-        uploadTask: undefined,
+        uploadTask: {
+          cancel: jest.fn(),
+          pause: jest.fn(),
+          resume: jest.fn(),
+          state: 'IN_PROGRESS',
+          result: Promise.resolve({
+            key: 'key',
+          }),
+        },
       })
     );
 

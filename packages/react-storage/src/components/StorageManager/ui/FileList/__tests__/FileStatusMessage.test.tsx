@@ -1,11 +1,8 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import {
-  ComponentClassNames,
-  IconsProvider,
-  View,
-} from '@aws-amplify/ui-react';
+import { ComponentClassName } from '@aws-amplify/ui';
+import { IconsProvider, View } from '@aws-amplify/ui-react';
 
 import { FileStatusMessage } from '../FileStatusMessage';
 import { FileStatusMessageProps } from '../types';
@@ -31,7 +28,7 @@ describe('FileStatusMessage', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileStatus}`
+        `${ComponentClassName.StorageManagerFileStatus}`
       )
     ).toHaveLength(1);
     expect(
@@ -47,7 +44,7 @@ describe('FileStatusMessage', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileStatus}`
+        `${ComponentClassName.StorageManagerFileStatus}`
       )
     ).toHaveLength(1);
     expect(await findByText(uploadingPausedText)).toBeVisible();
@@ -61,7 +58,7 @@ describe('FileStatusMessage', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileStatus}`
+        `${ComponentClassName.StorageManagerFileStatus}`
       )
     ).toHaveLength(1);
     expect(await findByText(uploadSuccessful)).toBeVisible();
@@ -75,7 +72,7 @@ describe('FileStatusMessage', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileStatus}`
+        `${ComponentClassName.StorageManagerFileStatus}`
       )
     ).toHaveLength(1);
     expect(await findByText(errorUploading)).toBeVisible();
@@ -86,7 +83,7 @@ describe('FileStatusMessage', () => {
     const { container } = render(
       <FileStatusMessage {...defaultProps} status={FileStatus.QUEUED} />
     );
-    expect(container).toMatchInlineSnapshot(`<div />`);
+    expect(container).toMatchSnapshot();
   });
 
   it('renders custom icons from IconProvider', () => {
@@ -94,8 +91,8 @@ describe('FileStatusMessage', () => {
       <IconsProvider
         icons={{
           storageManager: {
-            success: <View testId="success" />,
-            error: <View testId="error" />,
+            success: <View as="span" testId="success" />,
+            error: <View as="span" testId="error" />,
           },
         }}
       >

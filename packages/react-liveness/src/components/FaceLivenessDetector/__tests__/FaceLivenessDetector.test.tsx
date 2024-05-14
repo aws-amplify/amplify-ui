@@ -8,7 +8,7 @@ import { useMediaStreamInVideo, useLivenessActor } from '../hooks';
 
 jest.mock('../../../styles.css', () => ({}));
 jest.mock('@xstate/react');
-jest.mock('../StartLiveness/helpers');
+jest.mock('../utils/helpers');
 jest.mock('../hooks');
 
 const mockUseActor = getMockedFunction(useActor);
@@ -94,19 +94,8 @@ describe('FaceLivenessDetector', () => {
 
   it('should show the check screen if disableInstructionScreen is true', () => {
     render(
-      <FaceLivenessDetector {...defaultProps} disableInstructionScreen={true} />
+      <FaceLivenessDetector {...defaultProps} disableStartScreen={true} />
     );
     expect(screen.queryByTestId(livenessCheckTestId)).toBeInTheDocument();
-  });
-
-  it('should not show the instruction if disableInstructionScreen is true and xstate is at the start', async () => {
-    mockMatches.mockReturnValueOnce(true);
-    render(
-      <FaceLivenessDetector {...defaultProps} disableInstructionScreen={true} />
-    );
-
-    expect(mockActorSend).toHaveBeenCalledWith({
-      type: 'BEGIN',
-    });
   });
 });

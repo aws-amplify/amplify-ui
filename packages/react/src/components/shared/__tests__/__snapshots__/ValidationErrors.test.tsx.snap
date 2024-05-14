@@ -7,14 +7,12 @@ exports[`ValidationErrors renders dataAttr as expected 1`] = `
   >
     <p
       class="amplify-text amplify-text--error"
-      data-variation="error"
       role="alert"
     >
       mock error 1
     </p>
     <p
       class="amplify-text amplify-text--error"
-      data-variation="error"
       role="alert"
     >
       mock error 2
@@ -28,14 +26,12 @@ exports[`ValidationErrors renders errors as expected 1`] = `
   <div>
     <p
       class="amplify-text amplify-text--error"
-      data-variation="error"
       role="alert"
     >
       mock error 1
     </p>
     <p
       class="amplify-text amplify-text--error"
-      data-variation="error"
       role="alert"
     >
       mock error 2
@@ -43,3 +39,5 @@ exports[`ValidationErrors renders errors as expected 1`] = `
   </div>
 </div>
 `;
+
+exports[`ValidationErrors renders nothing if there are no errors 1`] = `<div />`;

@@ -1,47 +1,155 @@
-import { Alert, Authenticator } from '@aws-amplify/ui-react';
+import { Alert, Authenticator, Tabs } from '@aws-amplify/ui-react';
 import { Example } from '@/components/Example';
-import { Fragment } from '@/components/Fragment';
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { InlineFilter } from '@/components/InlineFilter';
 
 <Alert role="none" heading="Zero Configuration">
 
-The Authenticator [automatically infers](/connected-components/authenticator#step-1-configure-backend) `loginMechanisms` from `amplify pull`,
+The Authenticator [automatically infers](/connected-components/authenticator#step-1-configure-backend) `loginMechanisms` from the current Amplify configuration, 
 but can be explicitly defined as seen below.
 
 </Alert>
 
-By default, the Authenticator creates new users in the Amazon Cognito UserPool based on a unique `username` using
-[`Auth.signUp`](https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js).
+Without the zero configuration, the Authenticator by default creates new users in the Amazon Cognito UserPool based on a unique `username`.
 
-You can provide an alternative `username` such as `email` or `phone_number`.
+You can provide an alternative to `username` such as `email` or `phone_number`.
 
-> **Note**: A `username`, `email`, or `phone_number` value is required for Cognito User Pools.
+> **Note**: A `username`, `email`, or `phone_number` value is required for Cognito User Pools. The `username` field will only work with Gen 1 Auth. For more information about using `username` see the [docs](https://docs.amplify.aws/react/build-a-backend/auth/concepts/usernames/).
 
-<Tabs>
-  <TabItem title="Username">
-    <Fragment>
-      {({ platform }) => import(`./loginMechanisms.username.${platform}.mdx`)}
-    </Fragment>
+<Tabs.Container defaultValue="Email">
+  <Tabs.List>
+    <Tabs.Item value="Email">Email</Tabs.Item>
+    <Tabs.Item value="Phone Number">Phone Number</Tabs.Item>
+    <Tabs.Item value="Username">Username</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="Username">
+    Note: Login with Username is not currently supported using Amplify Gen2 backends
+
+    <InlineFilter filters={['angular']}>
+      ```html{1}
+      <amplify-authenticator [loginMechanisms]="['username']">
+        <ng-template
+          amplifySlot="authenticated"
+          let-user="user"
+          let-signOut="signOut"
+        >
+          <h2>Welcome, {{ user.username }}!</h2>
+          <button (click)="signOut()">Sign Out</button>
+        </ng-template>
+      </amplify-authenticator>
+      ```
+    </InlineFilter>
+    <InlineFilter filters={['react']}>
+      ```js{3}
+      <Authenticator loginMechanisms={['username']}>
+        {({ signOut, user }) => (
+          <main>
+            <h1>Hello {user.username}</h1>
+            <button onClick={signOut}>Sign out</button>
+          </main>
+        )}
+      </Authenticator>
+      ```
+    </InlineFilter>
+    <InlineFilter filters={['vue']}>
+      ```html{2}
+      <template>
+        <authenticator :login-mechanisms="['username']">
+          <template v-slot="{ user, signOut }">
+            <h1>Hello {{ user.username }}!</h1>
+            <button @click="signOut">Sign Out</button>
+          </template>
+        </authenticator>
+      </template>
+      ```
+    </InlineFilter>
     <Example>
       <Authenticator />
     </Example>
-  </TabItem>
-  <TabItem title="Email">
-    <Fragment>
-      {({ platform }) => import(`./loginMechanisms.email.${platform}.mdx`)}
-    </Fragment>
+  </Tabs.Panel>
+  <Tabs.Panel value="Email">
+    <InlineFilter filters={['angular']}>
+      ```html{1}
+      <amplify-authenticator [loginMechanisms]="['email']">
+        <ng-template
+          amplifySlot="authenticated"
+          let-user="user"
+          let-signOut="signOut"
+        >
+          <h2>Welcome, {{ user.username }}!</h2>
+          <button (click)="signOut()">Sign Out</button>
+        </ng-template>
+      </amplify-authenticator>
+      ```
+    </InlineFilter>
+    <InlineFilter filters={['react']}>
+      ```js{3}
+      <Authenticator loginMechanisms={['email']}>
+        {({ signOut, user }) => (
+          <main>
+            <h1>Hello {user.username}</h1>
+            <button onClick={signOut}>Sign out</button>
+          </main>
+        )}
+      </Authenticator>
+      ```
+    </InlineFilter>
+    <InlineFilter filters={['vue']}>
+      ```html{2}
+      <template>
+        <authenticator :login-mechanisms="['email']">
+          <template v-slot="{ user, signOut }">
+            <h1>Hello {{ user.username }}!</h1>
+            <button @click="signOut">Sign Out</button>
+          </template>
+        </authenticator>
+      </template>
+      ```
+    </InlineFilter>
     <Example>
       <Authenticator loginMechanisms={['email']} />
     </Example>
-  </TabItem>
-  <TabItem title="Phone Number">
-    <Fragment>
-      {({ platform }) =>
-        import(`./loginMechanisms.phone_number.${platform}.mdx`)
-      }
-    </Fragment>
+  </Tabs.Panel>
+  <Tabs.Panel value="Phone Number">
+    <InlineFilter filters={['angular']}>
+      ```html{1}
+      <amplify-authenticator [loginMechanisms]="['phone_number']">
+        <ng-template
+          amplifySlot="authenticated"
+          let-user="user"
+          let-signOut="signOut"
+        >
+          <h2>Welcome, {{ user.username }}!</h2>
+          <button (click)="signOut()">Sign Out</button>
+        </ng-template>
+      </amplify-authenticator>
+      ```
+    </InlineFilter>
+    <InlineFilter filters={['react']}>
+      ```js{3}
+      <Authenticator loginMechanisms={['phone_number']}>
+        {({ signOut, user }) => (
+          <main>
+            <h1>Hello {user.username}</h1>
+            <button onClick={signOut}>Sign out</button>
+          </main>
+        )}
+      </Authenticator>
+      ```
+    </InlineFilter>
+    <InlineFilter filters={['vue']}>
+      ```html{2}
+      <template>
+        <authenticator :login-mechanisms="['phone_number']">
+          <template v-slot="{ user, signOut }">
+            <h1>Hello {{ user.username }}!</h1>
+            <button @click="signOut">Sign Out</button>
+          </template>
+        </authenticator>
+      </template>
+      ```
+    </InlineFilter>
     <Example>
       <Authenticator loginMechanisms={['phone_number']} />
     </Example>
-  </TabItem>
-</Tabs>
+  </Tabs.Panel>
+</Tabs.Container>

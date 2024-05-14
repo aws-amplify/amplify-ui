@@ -27,6 +27,9 @@ const renderToastErrorModal = (props: {
   const { error: errorState, displayText } = props;
 
   const {
+    connectionTimeoutHeaderText,
+    connectionTimeoutMessageText,
+    errorLabelText,
     timeoutHeaderText,
     timeoutMessageText,
     faceDistanceHeaderText,
@@ -43,6 +46,10 @@ const renderToastErrorModal = (props: {
   let message: string;
 
   switch (errorState) {
+    case LivenessErrorState.CONNECTION_TIMEOUT:
+      heading = connectionTimeoutHeaderText;
+      message = connectionTimeoutMessageText;
+      break;
     case LivenessErrorState.TIMEOUT:
       heading = timeoutHeaderText;
       message = timeoutMessageText;
@@ -68,10 +75,15 @@ const renderToastErrorModal = (props: {
   return (
     <>
       <Flex className={LivenessClassNames.ErrorModal}>
-        <AlertIcon ariaHidden variation="error" />
-        <Text className={LivenessClassNames.ErrorModalHeading}>{heading}</Text>
+        <AlertIcon ariaLabel={errorLabelText} role="img" variation="error" />
+        <Text
+          className={LivenessClassNames.ErrorModalHeading}
+          id="amplify-liveness-error-heading"
+        >
+          {heading}
+        </Text>
       </Flex>
-      {message}
+      <Text id="amplify-liveness-error-message">{message}</Text>
     </>
   );
 };
@@ -116,7 +128,11 @@ export const FaceLivenessErrorModal: React.FC<FaceLivenessErrorModalProps> = (
 
   return (
     <Overlay className={LivenessClassNames.OpaqueOverlay}>
-      <Toast>
+      <Toast
+        aria-labelledby="amplify-liveness-error-heading"
+        aria-describedby="amplify-liveness-error-message"
+        role="alertdialog"
+      >
         {children}
         <Flex justifyContent="center">
           <Button variation="primary" type="button" onClick={onRetry}>

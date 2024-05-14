@@ -1,5 +1,7 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
+
+import { ComponentClassName } from '@aws-amplify/ui';
 
 import {
   ButtonProps,
@@ -8,13 +10,14 @@ import {
   Primitive,
   ForwardRefPrimitive,
 } from '../types';
-import { ComponentClassNames } from '../shared/constants';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { Flex } from '../Flex';
 
 const ButtonGroupPrimitive: Primitive<ButtonGroupProps, 'div'> = (
   {
     className,
     children,
+    isDisabled: _isDisabled = false,
     role = 'group',
     size: _size,
     variation: _variation,
@@ -23,15 +26,19 @@ const ButtonGroupPrimitive: Primitive<ButtonGroupProps, 'div'> = (
   ref
 ) => (
   <Flex
-    className={classNames(ComponentClassNames.ButtonGroup, className)}
+    className={classNames(ComponentClassName.ButtonGroup, className)}
     role={role}
     ref={ref}
     {...rest}
   >
     {React.Children.map(children, (child) => {
       if (React.isValidElement<ButtonProps>(child)) {
-        const { size = _size, variation = _variation } = child.props;
-        return React.cloneElement(child, { size, variation });
+        const {
+          size = _size,
+          variation = _variation,
+          isDisabled = _isDisabled,
+        } = child.props;
+        return React.cloneElement(child, { isDisabled, size, variation });
       }
       return child;
     })}
@@ -42,6 +49,6 @@ const ButtonGroupPrimitive: Primitive<ButtonGroupProps, 'div'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/button#buttongroup)
  */
 export const ButtonGroup: ForwardRefPrimitive<BaseButtonGroupProps, 'div'> =
-  React.forwardRef(ButtonGroupPrimitive);
+  primitiveWithForwardRef(ButtonGroupPrimitive);
 
 ButtonGroup.displayName = 'ButtonGroup';

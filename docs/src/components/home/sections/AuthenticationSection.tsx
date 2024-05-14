@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 import {
   Flex,
   Heading,
@@ -199,10 +199,11 @@ export const AuthenticationSection = ({ platform }) => {
         </Flex>
 
         {platform === 'react-native' ? (
-          <ExpoSnackWithExports
-            name="Authenticator"
-            code={authenticatorCode[platform]}
-          />
+          // <ExpoSnackWithExports
+          //   name="Authenticator"
+          //   code={authenticatorCode[platform]}
+          // />
+          <></>
         ) : (
           <Flex
             direction={{

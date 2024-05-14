@@ -1,11 +1,11 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import { classNames } from '@aws-amplify/ui';
 import * as Dropdown from '@radix-ui/react-dropdown-menu';
 
 import { sanitizeNamespaceImport } from '@aws-amplify/ui';
 
 import { ButtonGroup } from '../ButtonGroup';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { IconMenu, useIcons } from '../Icon';
 import { MenuButton } from './MenuButton';
 import {
@@ -14,6 +14,7 @@ import {
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
+import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 // Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
 // We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
@@ -34,6 +35,7 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
     triggerClassName,
     ariaLabel,
     onOpenChange,
+    isDisabled,
     ...rest
   },
   ref
@@ -41,14 +43,14 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
   const icons = useIcons('menu');
   return (
     <DropdownMenu onOpenChange={onOpenChange} open={isOpen}>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger disabled={isDisabled} asChild>
         {trigger ?? (
           <MenuButton
             ariaLabel={ariaLabel}
             size={size}
             testId={MENU_TRIGGER_TEST_ID}
             className={classNames(
-              ComponentClassNames.MenuTrigger,
+              ComponentClassName.MenuTrigger,
               triggerClassName
             )}
           >
@@ -58,11 +60,12 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align={menuAlign}
-        className={ComponentClassNames.MenuContentWrapper}
+        className={ComponentClassName.MenuWrapper}
       >
         <ButtonGroup
-          className={classNames(ComponentClassNames.MenuContent, className)}
+          className={classNames(ComponentClassName.MenuContent, className)}
           ref={ref}
+          isDisabled={isDisabled}
           size={size}
           testId={MENU_ITEMS_GROUP_TEST_ID}
           {...rest}
@@ -78,6 +81,6 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/menu)
  */
 export const Menu: ForwardRefPrimitive<BaseMenuProps, 'div'> =
-  React.forwardRef(MenuPrimitive);
+  primitiveWithForwardRef(MenuPrimitive);
 
 Menu.displayName = 'Menu';

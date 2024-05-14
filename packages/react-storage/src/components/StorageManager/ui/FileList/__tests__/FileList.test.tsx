@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 
-import { UploadTask } from '@aws-amplify/storage';
-import { ComponentClassNames } from '@aws-amplify/ui-react';
+import { UploadDataOutput } from 'aws-amplify/storage';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 import { FileList } from '../FileList';
 import { FileListProps } from '../types';
@@ -16,7 +16,7 @@ const mockFile: StorageFile = {
   error: '',
   isImage: false,
   key: '',
-  uploadTask: {} as UploadTask,
+  uploadTask: {} as UploadDataOutput,
 };
 
 const mockOnCancelUpload = jest.fn();
@@ -49,19 +49,19 @@ describe('FileList', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileList}`
+        `${ComponentClassName.StorageManagerFileList}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFile}`
+        `${ComponentClassName.StorageManagerFile}`
       )
     ).toHaveLength(fileListProps.files.length);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileStatus}`
+        `${ComponentClassName.StorageManagerFileStatus}`
       )
     ).toHaveLength(1);
   });
@@ -75,18 +75,18 @@ describe('FileList', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFileList}`
+        `${ComponentClassName.StorageManagerFileList}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerFile}`
+        `${ComponentClassName.StorageManagerFile}`
       )
     ).toHaveLength(fileListProps.files.length);
 
     expect(
-      getByText(defaultStorageManagerDisplayText.pauseText)
+      getByText(defaultStorageManagerDisplayText.pauseButtonText)
     ).toBeInTheDocument();
   });
 
@@ -98,13 +98,13 @@ describe('FileList', () => {
     expect(container).toMatchSnapshot();
 
     expect(
-      container.getElementsByClassName(`${ComponentClassNames.Alert}--error`)
+      container.getElementsByClassName(`${ComponentClassName.Alert}--error`)
     ).toHaveLength(1);
   });
 
   it('renders nothing when there are no files', () => {
     const { container } = render(<FileList {...fileListProps} files={[]} />);
-    expect(container).toMatchInlineSnapshot(`<div />`);
+    expect(container).toMatchSnapshot();
   });
 
   it('should call onDeleteUpload when remove button is clicked', () => {
@@ -116,7 +116,9 @@ describe('FileList', () => {
 
   it('should call onPause when pause button is clicked', () => {
     const { getByText } = render(<FileList {...fileListProps} isResumable />);
-    const pauseButton = getByText(defaultStorageManagerDisplayText.pauseText);
+    const pauseButton = getByText(
+      defaultStorageManagerDisplayText.pauseButtonText
+    );
     fireEvent.click(pauseButton);
     expect(mockOnPause).toHaveBeenCalledTimes(1);
   });

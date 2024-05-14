@@ -13,7 +13,6 @@
     "test:liveness": "cypress run --spec 'features/ui/components/liveness/*.feature' --browser chrome",
     "test:storage": "cypress run --spec 'features/ui/components/storage/**/*.feature' --browser chrome",
     "test:theme": "cypress run --spec 'features/ui/theme/*.feature' --browser chrome",
-    "test:guides": "cypress run --spec 'features/ui/guides/*.feature' --browser chrome",
     "precucumber": "node detox/mockServer.js &",
     "cucumber": "./node_modules/.bin/cucumber-js --config detox/cucumber.json --tags @react-native",
     "postcucumber": "kill $(lsof -t -i :9091)",
@@ -30,17 +29,15 @@
     ]
   },
   "devDependencies": {
-    "@aws-amplify/ui": "^5.8.1",
-    "@badeball/cypress-cucumber-preprocessor": "^16.0.3",
+    "@aws-amplify/ui": "^6.0.14",
+    "@badeball/cypress-cucumber-preprocessor": "^18.0.6",
     "@bahmutov/cypress-esbuild-preprocessor": "~2.2.0",
-    "@cucumber/cucumber": "^9.3.0",
+    "@cucumber/cucumber": "^10.0.1",
     "@nuintun/qrcode": "^3.3.0",
-    "@testing-library/cypress": "^9.0.0",
+    "@testing-library/cypress": "^10.0.1",
     "esbuild": "^0.19.3",
-    "aws-crt": "^1.10.6",
     "cypress": "^12.17.3",
-    "detox": "^20.11.2",
-    "dotenv": "^16.0.2",
-    "rimraf": "^3.0.2"
+    "detox": "^20.13.1",
+    "dotenv": "^16.0.2"
   }
 }

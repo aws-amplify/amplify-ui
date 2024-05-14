@@ -85,7 +85,7 @@ export const radio: Required<RadioTokens<'default'>> = {
 
     _checked: {
       color: {
-        value: '{colors.brand.primary.80.value}',
+        value: '{colors.primary.80.value}',
       },
       _disabled: { color: { value: '{colors.background.disabled.value}' } },
     },

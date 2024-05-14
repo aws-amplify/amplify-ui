@@ -3,15 +3,15 @@ import { cleanup, render, screen } from '@testing-library/vue';
 
 import * as UIModule from '@aws-amplify/ui';
 import {
-  AmplifyUser,
   AuthenticatorRoute,
   AuthEvent,
   AuthInterpreter,
   AuthMachineState,
+  UnverifiedUserAttributes,
 } from '@aws-amplify/ui';
 
 import { components } from '../../../global-spec';
-import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
+import { baseMockServiceFacade } from '../../composables/__mocks__/useAuthenticatorMock';
 import * as UseAuthComposables from '../../composables/useAuth';
 import Authenticator from '../authenticator';
 
@@ -24,8 +24,8 @@ const routesWithComponent: AuthenticatorRoute[] = [
   'confirmSignUp',
   'confirmVerifyUser',
   'forceNewPassword',
-  'resetPassword',
-  'setupTOTP',
+  'forgotPassword',
+  'setupTotp',
   'signIn',
   'signUp',
   'verifyUser',
@@ -60,6 +60,10 @@ const setupState = {
   matches: (state: string) => state === 'setup',
 } as unknown as AuthMachineState;
 
+const unverifiedUserAttributes: UnverifiedUserAttributes = {
+  email: 'test@example.com',
+};
+
 const mockStateRef = ref(idleState) as unknown as Ref<AuthMachineState>;
 
 const sendSpy = jest.fn();
@@ -91,7 +95,7 @@ describe('authenticator', () => {
 
     listener(setupState);
 
-    expect(sendSpy).toBeCalledTimes(1);
+    expect(sendSpy).toHaveBeenCalledTimes(1);
     expect(sendSpy).toHaveBeenCalledWith({
       type: 'INIT',
       data: {
@@ -119,7 +123,7 @@ describe('authenticator', () => {
     const listener = mockService['listeners'][0];
     listener(setupState);
 
-    expect(sendSpy).toBeCalledTimes(1);
+    expect(sendSpy).toHaveBeenCalledTimes(1);
     expect(sendSpy).toHaveBeenCalledWith({
       type: 'INIT',
       data: props,
@@ -133,7 +137,7 @@ describe('authenticator', () => {
     const listener = mockService['listeners'][0];
     listener(setupState);
 
-    expect(sendSpy).toBeCalledTimes(1);
+    expect(sendSpy).toHaveBeenCalledTimes(1);
     expect(sendSpy).toHaveBeenCalledWith({
       type: 'INIT',
       data: props,
@@ -166,22 +170,23 @@ describe('authenticator', () => {
   });
 
   it.each(routesWithComponent)('renders %s subcomponent', (route) => {
-    let user = undefined as unknown as AmplifyUser;
+    let user = undefined;
+    const challengeName = 'SOFTWARE_TOKEN_MFA';
 
     // some routes expect specific shape of user
-    if (route === 'confirmSignIn') {
-      user = { challengeName: 'SOFTWARE_TOKEN_MFA' } as AmplifyUser;
-    } else if (route === 'setupTOTP') {
-      user = { username: 'username' } as AmplifyUser;
+    if (route === 'setupTotp') {
+      user = { username: 'username' };
     }
 
     useAuthenticatorSpy.mockReturnValue(
       reactive({
         ...baseMockServiceFacade,
+        challengeName,
         route,
         user,
         totpSecretCode:
-          route === 'setupTOTP' ? 'totp-mock-secret-code' : undefined,
+          route === 'setupTotp' ? 'totp-mock-secret-code' : undefined,
+        unverifiedUserAttributes,
       })
     );
 

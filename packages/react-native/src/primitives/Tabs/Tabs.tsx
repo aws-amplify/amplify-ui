@@ -6,6 +6,8 @@ import { getThemedStyles } from './styles';
 import { TabProps, TabsProps } from './types';
 
 export default function Tabs({
+  accessible = true,
+  accessibilityRole = 'tablist',
   children,
   indicatorPosition = 'bottom',
   onChange,
@@ -23,7 +25,8 @@ export default function Tabs({
   return (
     <View
       {...rest}
-      accessibilityRole="tablist"
+      accessible={accessible}
+      accessibilityRole={accessibilityRole}
       style={[themedStyle.tabList, style]}
     >
       {Children.map(children, (child, index) => {
