@@ -61,9 +61,11 @@ export default function LivenessDefault({
                 }}
                 disableStartScreen={disableStartScreen}
                 components={components}
-                {...(credentialProvider
-                  ? { config: { credentialProvider } }
-                  : {})}
+                config={{
+                  ...(credentialProvider ? { credentialProvider } : {}),
+                  endpointOverride:
+                    'wss://streaming-rekognition-gamma.us-east-1.amazonaws.com',
+                }}
               />
             ) : null}
           </Flex>
