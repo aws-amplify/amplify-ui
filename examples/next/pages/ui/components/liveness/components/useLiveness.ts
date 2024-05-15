@@ -16,7 +16,7 @@ export function useLiveness() {
     async () => {
       const response = await post({
         apiName: 'BYOB',
-        path: '/liveness/create',
+        path: '/livenessnolight/create',
         options: {},
       }).response;
       const { body } = response;
@@ -54,7 +54,7 @@ export function useLiveness() {
   const handleGetLivenessDetection = async (sessionId) => {
     const response = await get({
       apiName: 'BYOB',
-      path: `/liveness/${sessionId}`,
+      path: `/livenessnolight/${sessionId}`,
       options: {},
     }).response;
     const { body } = response;

@@ -1,5 +1,5 @@
 /**
- * Note: This file was copied from https://github.com/aws/aws-sdk-js-v3/blob/main/packages/middleware-websocket/src/websocket-fetch-handler.ts#L176
+ * Note: This file was copied from https://github.com/aws/aws-sdk-js-v3/blob/main/packages/middleware-websocket/src/websocket-fetch-handler.ts
  * Because of this the file is not fully typed at this time but we should eventually work on fully typing this file.
  */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
@@ -86,10 +86,10 @@ export class CustomWebSocketFetchHandler {
   public readonly metadata: RequestHandlerMetadata = {
     handlerProtocol: 'websocket/h1.1',
   };
-  private readonly configPromise: Promise<WebSocketFetchHandlerOptions>;
+  private config: WebSocketFetchHandlerOptions;
+  private configPromise: Promise<WebSocketFetchHandlerOptions>;
   private readonly httpHandler: RequestHandler<any, any>;
   private readonly sockets: Record<string, WebSocket[]> = {};
-  private readonly utf8decoder = new TextDecoder(); // default 'utf-8' or 'utf8'
 
   constructor(
     options?:
@@ -99,12 +99,38 @@ export class CustomWebSocketFetchHandler {
   ) {
     this.httpHandler = httpHandler;
     if (typeof options === 'function') {
-      this.configPromise = options().then((opts) => opts ?? {});
+      this.config = {};
+      this.configPromise = options().then((opts) => (this.config = opts ?? {}));
     } else {
-      this.configPromise = Promise.resolve(options ?? {});
+      this.config = options ?? {};
+      this.configPromise = Promise.resolve(this.config);
     }
   }
 
+  /**
+   * @returns the input if it is an HttpHandler of any class,
+   * or instantiates a new instance of this handler.
+   */
+  public static create(
+    instanceOrOptions?:
+      | CustomWebSocketFetchHandler
+      | WebSocketFetchHandlerOptions
+      | Provider<WebSocketFetchHandlerOptions | void>,
+    httpHandler: RequestHandler<any, any> = new FetchHttpHandler()
+  ): CustomWebSocketFetchHandler {
+    if (typeof (instanceOrOptions as any)?.handle === 'function') {
+      // is already an instance of HttpHandler.
+      return instanceOrOptions as CustomWebSocketFetchHandler;
+    }
+    // input is ctor options or undefined.
+    return new CustomWebSocketFetchHandler(
+      instanceOrOptions as
+        | undefined
+        | WebSocketFetchHandlerOptions
+        | Provider<WebSocketFetchHandlerOptions>,
+      httpHandler
+    );
+  }
   /**
    * Destroys the WebSocketHandler.
    * Closes all sockets from the socket pool.
@@ -132,8 +158,9 @@ export class CustomWebSocketFetchHandler {
     this.sockets[url].push(socket);
 
     socket.binaryType = 'arraybuffer';
+    this.config = await this.configPromise;
     const { connectionTimeout = DEFAULT_WS_CONNECTION_TIMEOUT_MS } =
-      await this.configPromise;
+      this.config;
     await this.waitForReady(socket, connectionTimeout);
     const { body } = request;
     const bodyStream = getIterator(body);
@@ -145,6 +172,20 @@ export class CustomWebSocketFetchHandler {
         body: outputPayload,
       }),
     };
+  }
+
+  updateHttpClientConfig(
+    key: keyof WebSocketFetchHandlerOptions,
+    value: WebSocketFetchHandlerOptions[typeof key]
+  ): void {
+    this.configPromise = this.configPromise.then((config) => {
+      (config as Record<typeof key, typeof value>)[key] = value;
+      return config;
+    });
+  }
+
+  httpHandlerConfigs(): WebSocketFetchHandlerOptions {
+    return this.config ?? {};
   }
 
   /**
@@ -238,16 +279,6 @@ export class CustomWebSocketFetchHandler {
     const send = async (): Promise<void> => {
       try {
         for await (const inputChunk of data) {
-          const decodedString = this.utf8decoder.decode(inputChunk);
-          if (decodedString.includes('closeCode')) {
-            const match = decodedString.match(/"closeCode":([0-9]*)/);
-            if (match) {
-              const closeCode = match[1];
-              socket.close(parseInt(closeCode));
-            }
-            continue;
-          }
-
           socket.send(inputChunk);
         }
       } catch (err) {
