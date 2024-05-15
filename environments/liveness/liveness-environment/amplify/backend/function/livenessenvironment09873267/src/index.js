@@ -10,7 +10,7 @@ export const handler = async (event, req) => {
 
   const client = new RekognitionLiveness({
     region: 'us-east-1',
-    endpoint: `https://streaming-rekognition-gamma.us-east-1.amazonaws.com`,
+    endpoint: `https://us-east-1.gamma.frontend.reventlov.rekognition.aws.dev`,
   });
 
   const response = await client
