@@ -14,8 +14,7 @@ on:
   # This can be useful for publishing hotfixes quickly to unblock customers,
   # but otherwise, we recommend to use a release branch.
   push:
-    # branches: [liveness/alpha]
-    branches: []
+    branches: [none]
 
 # This permission block is only required if you're running e2e tests.
 permissions:
@@ -60,20 +59,20 @@ jobs:
       DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
       DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
-  publish:
-    uses: ./.github/workflows/reusable-tagged-publish.yml
-    needs: e2e
-    with:
-      dist-tag: liveness-alpha
-    secrets:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  # publish:
+  #   uses: ./.github/workflows/reusable-tagged-publish.yml
+  #   needs: e2e
+  #   with:
+  #     dist-tag: liveness-alpha
+  #   secrets:
+  #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-  deploy-sample-app-alpha:
-    runs-on: ubuntu-latest
-    environment: deployment
-    needs: publish
-    steps:
-      - name: Trigger build for alpha liveness sample app pointing at liveness-alpha tag
-        run: curl -X POST -d {} $ENDPOINT -H "Content-Type:application/json"
-        env:
-          ENDPOINT: ${{ secrets.LIVENESS_ALPHA_SAMPLE_APP_BUILD_TRIGGER }}
+  # deploy-sample-app-alpha:
+  #   runs-on: ubuntu-latest
+  #   environment: deployment
+  #   needs: publish
+  #   steps:
+  #     - name: Trigger build for alpha liveness sample app pointing at liveness-alpha tag
+  #       run: curl -X POST -d {} $ENDPOINT -H "Content-Type:application/json"
+  #       env:
+  #         ENDPOINT: ${{ secrets.LIVENESS_ALPHA_SAMPLE_APP_BUILD_TRIGGER }}
