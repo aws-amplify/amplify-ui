@@ -13,8 +13,9 @@ on:
   # You may change this to `pull_request` if you want to run this on a PRs.
   # This can be useful for publishing hotfixes quickly to unblock customers,
   # but otherwise, we recommend to use a release branch.
-  # push:
-  #   branches: [liveness/alpha]
+  push:
+    # branches: [liveness/alpha]
+    branches: []
 
 # This permission block is only required if you're running e2e tests.
 permissions:
