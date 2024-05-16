@@ -179,7 +179,7 @@ jobs:
         run: yarn react-liveness build
 
       - name: Add Amplify CLI
-        run: yarn global add @aws-amplify/cli && yarn add @aws-amplify/backend-cli aws-cdk-lib constructs -W -D
+        run: yarn global add @aws-amplify/cli && npm cache add @aws-amplify/backend-cli@latest
 
       - name: Configure auth credentials
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
@@ -412,7 +412,7 @@ jobs:
           yarn react-native-example ios:pod-install
 
       - name: Add Amplify CLI
-        run: yarn global add @aws-amplify/cli && yarn add @aws-amplify/backend-cli aws-cdk-lib constructs -W -D
+        run: yarn global add @aws-amplify/cli && npm cache add @aws-amplify/backend-cli@latest
 
       - name: Get CLI versions
         id: cli-version
@@ -521,7 +521,7 @@ jobs:
         run: yarn react-native build
 
       - name: Add Amplify CLI
-        run: yarn global add @aws-amplify/cli && yarn add @aws-amplify/backend-cli aws-cdk-lib constructs -W -D
+        run: yarn global add @aws-amplify/cli && npm cache add @aws-amplify/backend-cli@latest
 
       - name: Get CLI versions
         id: cli-version
