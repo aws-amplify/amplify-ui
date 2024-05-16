@@ -40,7 +40,7 @@ describe(CustomWebSocketFetchHandler.name, () => {
 
     it('populates socket in socket pool based on handle() requests', async () => {
       const handler = new CustomWebSocketFetchHandler();
-      const server = new WS(mockUrl);
+      new WS(mockUrl);
 
       // @ts-expect-error Property 'sockets' is private and only accessible within class 'WebSocketHandler'.
       expect(handler.sockets[mockUrl]).not.toBeDefined();
@@ -72,7 +72,7 @@ describe(CustomWebSocketFetchHandler.name, () => {
 
     it('closes socket in socket pool on handler.destroy()', async () => {
       const handler = new CustomWebSocketFetchHandler();
-      const server = new WS(mockUrl);
+      new WS(mockUrl);
 
       await handler.handle(
         new HttpRequest({
