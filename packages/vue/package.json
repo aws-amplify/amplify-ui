@@ -65,7 +65,7 @@
     "vite-jest": "^0.1.4"
   },
   "peerDependencies": {
-    "aws-amplify": "^6.2.0",
+    "aws-amplify": "^6.3.2",
     "vue": "^3.0"
   }
 }
