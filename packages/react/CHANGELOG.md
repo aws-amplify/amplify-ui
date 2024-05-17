@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react
 
+## 6.1.12
+
+### Patch Changes
+
+- [#5256](https://github.com/aws-amplify/amplify-ui/pull/5256) [`d7098c2fd`](https://github.com/aws-amplify/amplify-ui/commit/d7098c2fda994fc1ef285b349108c0e8ada9cc34) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(ui-react): add aria-hidden to Select expand icon
+
 ## 6.1.11
 
 ### Patch Changes
