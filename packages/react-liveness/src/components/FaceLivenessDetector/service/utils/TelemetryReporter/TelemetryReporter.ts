@@ -2,6 +2,7 @@ import {
   StartFaceLivenessSessionCommandInput,
   StartFaceLivenessSessionCommandOutput,
 } from '@aws-sdk/client-rekognitionstreaming';
+import { HttpRequest } from '@smithy/protocol-http';
 import {
   BuildHandler,
   BuildHandlerArguments,
@@ -53,14 +54,10 @@ export const createTelemetryReporterMiddleware =
   async (
     args: BuildHandlerArguments<StartFaceLivenessSessionCommandInput>
   ): Promise<BuildHandlerOutput<StartFaceLivenessSessionCommandOutput>> => {
-    // @ts-ignore
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    args.request.query['attempt-count'] = attemptCount.toString();
-    // @ts-ignore
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    args.request.query['precheck-view-enabled'] = preCheckViewEnabled
-      ? '1'
-      : '0';
+    (args.request as HttpRequest).query['attempt-count'] =
+      attemptCount.toString();
+    (args.request as HttpRequest).query['precheck-view-enabled'] =
+      preCheckViewEnabled ? '1' : '0';
 
     const result = await next(args);
     return result;
