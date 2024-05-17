@@ -1100,9 +1100,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           videoWidth: videoEl!.width,
         });
 
+        const challengeConfig =
+          serverSessionInformation?.Challenge?.FaceMovementAndLightChallenge
+            ?.ChallengeConfig;
+
         // renormalize initial face
         const renormalizedFace = generateBboxFromLandmarks({
-          sessionInformation: serverSessionInformation!,
+          ovalHeightWidthRatio: challengeConfig!.OvalHeightWidthRatio,
           face: initialFace,
           oval: ovalDetails,
           frameHeight: videoEl!.videoHeight,
@@ -1140,8 +1144,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         let detectedFace: Face | undefined;
         let illuminationState: IlluminationState | undefined;
 
+        const challengeConfig =
+          serverSessionInformation?.Challenge?.FaceMovementAndLightChallenge
+            ?.ChallengeConfig;
+
         const initialFaceBoundingBox = generateBboxFromLandmarks({
-          sessionInformation: serverSessionInformation!,
+          ovalHeightWidthRatio: challengeConfig!.OvalHeightWidthRatio,
           face: initialFace!,
           oval: ovalDetails!,
           frameHeight: videoEl!.videoHeight,

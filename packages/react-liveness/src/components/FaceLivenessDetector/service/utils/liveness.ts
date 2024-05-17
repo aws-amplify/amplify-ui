@@ -327,27 +327,16 @@ function getPupilDistanceAndFaceHeight(face: Face) {
 }
 
 export function generateBboxFromLandmarks({
-  sessionInformation,
+  ovalHeightWidthRatio = OVAL_HEIGHT_WIDTH_RATIO,
   face,
   oval,
   frameHeight,
 }: {
-  sessionInformation: SessionInformation;
+  ovalHeightWidthRatio?: number;
   face: Face;
   oval: LivenessOvalDetails;
   frameHeight: number;
 }): BoundingBox {
-  const challengeConfig =
-    sessionInformation?.Challenge?.FaceMovementAndLightChallenge
-      ?.ChallengeConfig;
-
-  if (!challengeConfig || !challengeConfig.OvalHeightWidthRatio) {
-    throw new Error('Challenge config not returned from session information.');
-  }
-
-  const { OvalHeightWidthRatio } = challengeConfig;
-  const ovalHWRatio = OvalHeightWidthRatio ?? OVAL_HEIGHT_WIDTH_RATIO;
-
   const { leftEye, rightEye, nose, leftEar, rightEar } = face;
   const { height: ovalHeight, centerY } = oval;
   const ovalTop = centerY - ovalHeight / 2;
@@ -374,7 +363,7 @@ export function generateBboxFromLandmarks({
   }
 
   const faceWidth = ocularWidth;
-  const faceHeight = ovalHWRatio * faceWidth;
+  const faceHeight = ovalHeightWidthRatio * faceWidth;
 
   const top = Math.max(centerFaceY - faceHeight / 2, 0);
   const bottom = Math.min(centerFaceY + faceHeight / 2, frameHeight);

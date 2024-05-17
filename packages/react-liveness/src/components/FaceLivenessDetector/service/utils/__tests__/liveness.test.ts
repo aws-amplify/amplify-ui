@@ -193,7 +193,7 @@ describe('Liveness Helper', () => {
         face: mockFace,
         oval: mockOvalDetails,
         frameHeight: frameHeight,
-        sessionInformation: mockSessionInformation,
+        ovalHeightWidthRatio: 1.6180000305175781,
       });
 
       const faceBoxBottom = mockFaceCenterY + mockFaceHeight / 2;
@@ -206,7 +206,7 @@ describe('Liveness Helper', () => {
         face: mockFace,
         oval: mockOvalDetails,
         frameHeight: frameHeight,
-        sessionInformation: mockSessionInformation,
+        ovalHeightWidthRatio: 1.6180000305175781,
       });
       expect(bottom).toEqual(frameHeight); // expect frameHeight to be returned as it is smaller than the calculated value
     });
@@ -217,7 +217,7 @@ describe('Liveness Helper', () => {
         face: mockFace,
         oval: mockOvalDetails,
         frameHeight: frameHeight,
-        sessionInformation: mockSessionInformation,
+        ovalHeightWidthRatio: 1.6180000305175781,
       });
 
       const faceBoxTop = mockFaceCenterY - mockFaceHeight / 2;
@@ -231,7 +231,7 @@ describe('Liveness Helper', () => {
         face: mockAboveFrameFace,
         oval: mockOvalDetails,
         frameHeight: frameHeight,
-        sessionInformation: mockSessionInformation,
+        ovalHeightWidthRatio: 1.6180000305175781,
       });
 
       expect(top).toEqual(0);
@@ -244,7 +244,7 @@ describe('Liveness Helper', () => {
         face: mockMatchedFace,
         oval: mockOvalDetails,
         frameHeight: frameHeight,
-        sessionInformation: mockSessionInformation,
+        ovalHeightWidthRatio: 1.6180000305175781,
       });
 
       const faceBoxRight =
@@ -261,7 +261,7 @@ describe('Liveness Helper', () => {
         face: mockTurnedFace,
         oval: mockOvalDetails,
         frameHeight: frameHeight,
-        sessionInformation: mockSessionInformation,
+        ovalHeightWidthRatio: 1.6180000305175781,
       });
 
       expect(left).toEqual(mockTurnedFace.rightEar[0]); // expect right ear to be used to limit left edge of face
