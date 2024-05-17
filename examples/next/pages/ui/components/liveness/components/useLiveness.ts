@@ -5,7 +5,7 @@ import useSWR from 'swr';
 export function useLiveness() {
   const [isLivenessActive, setLivenessActive] = useState(false);
   const [getLivenessResponse, setGetLivenessResponse] = useState(null);
-
+  const challengeType = 'FaceMovementAndLightChallenge';
   const {
     data: createLivenessSessionApiData,
     error: createLivenessSessionApiError,
@@ -16,7 +16,7 @@ export function useLiveness() {
     async () => {
       const response = await post({
         apiName: 'BYOB',
-        path: '/livenessnolight/create',
+        path: `/livenessnolight/create?challengeType=${challengeType}`,
         options: {},
       }).response;
       const { body } = response;
