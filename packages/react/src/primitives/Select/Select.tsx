@@ -81,6 +81,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
             classNameModifier(ComponentClassName.SelectIcon, size)
           )}
           color={iconColor}
+          aria-hidden="true"
         >
           {icon ?? icons?.expand ?? <IconExpandMore />}
         </Flex>
