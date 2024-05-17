@@ -1,5 +1,3 @@
-// type TelemetryDataKey = `${Lowercase<string>}-${Lowercase<string>}`;
-// type TelemetryData = Record<TelemetryDataKey, string>;
 import {
   StartFaceLivenessSessionCommandInput,
   StartFaceLivenessSessionCommandOutput,
