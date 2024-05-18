@@ -1,6 +1,7 @@
-import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
 import {
   BoundingBox,
+  CustomMovementAndLightServerChallenge,
+  CustomServerChallenge,
   ErrorState,
   Face,
   FaceDetection,
@@ -92,16 +93,14 @@ export function getIntersectionOverUnion(
  * Returns the details of a randomly generated liveness oval
  * from SDK
  */
-export function getOvalDetailsFromSessionInformation({
-  sessionInformation,
+export function getOvalDetailsFromServerChallenge({
+  serverChallenge,
   videoWidth,
 }: {
-  sessionInformation: SessionInformation;
+  serverChallenge: CustomServerChallenge;
   videoWidth: number;
 }): LivenessOvalDetails {
-  const ovalParameters =
-    sessionInformation?.Challenge?.FaceMovementAndLightChallenge
-      ?.OvalParameters;
+  const ovalParameters = serverChallenge.OvalParameters;
 
   if (
     !ovalParameters ||
@@ -565,14 +564,12 @@ const isColorSequence = (
   obj: ColorSequence | undefined
 ): obj is ColorSequence => !!obj;
 
-export function getColorsSequencesFromSessionInformation(
-  sessionInformation: SessionInformation
+export function getColorsSequencesFromServerChallenge(
+  serverChallenge: CustomMovementAndLightServerChallenge
 ): ColorSequence[] {
-  const colorSequenceFromSessionInfo =
-    sessionInformation.Challenge!.FaceMovementAndLightChallenge!
-      .ColorSequences ?? [];
+  const colorSequenceFromServerChallenge = serverChallenge.ColorSequences ?? [];
   const colorSequences: (ColorSequence | undefined)[] =
-    colorSequenceFromSessionInfo.map(
+    colorSequenceFromServerChallenge.map(
       ({
         FreshnessColor,
         DownscrollDuration: downscrollDuration,

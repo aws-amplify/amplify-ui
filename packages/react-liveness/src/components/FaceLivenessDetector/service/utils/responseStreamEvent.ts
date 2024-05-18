@@ -1,7 +1,33 @@
-import { LivenessResponseStream } from '@aws-sdk/client-rekognitionstreaming';
+import {
+  FaceMovementAndLightServerChallenge,
+  FaceMovementServerChallenge,
+  LivenessResponseStream,
+  ServerChallenge,
+} from '@aws-sdk/client-rekognitionstreaming';
 import { WEBSOCKET_CONNECTION_TIMEOUT_MESSAGE } from './createStreamingClient/CustomWebSocketFetchHandler';
 
-export const isServerSesssionInformationEvent = (
+// export const isChallengeEvent = (
+//   value: unknown
+// ): value is LivenessResponseStream.ChallengeEventMember => {
+//   return !!(value as LivenessResponseStream.ChallengeEventMember)
+//     ?.ChallengeEvent;
+// };
+
+export const isFaceMovementAndLightServerChallenge = (
+  value: unknown
+): value is FaceMovementAndLightServerChallenge => {
+  return !!(value as ServerChallenge.FaceMovementAndLightChallengeMember)
+    ?.FaceMovementAndLightChallenge;
+};
+
+export const isFaceMovementServerChallenge = (
+  value: unknown
+): value is FaceMovementServerChallenge => {
+  return !!(value as ServerChallenge.FaceMovementChallengeMember)
+    ?.FaceMovementChallenge;
+};
+
+export const isServerSessionInformationEvent = (
   value: unknown
 ): value is LivenessResponseStream.ServerSessionInformationEventMember => {
   return !!(value as LivenessResponseStream.ServerSessionInformationEventMember)

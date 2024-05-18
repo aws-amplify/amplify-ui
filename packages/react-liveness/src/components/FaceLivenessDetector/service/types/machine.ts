@@ -1,10 +1,14 @@
 import { ActorRef, Interpreter, State } from 'xstate';
 import {
-  ValidationException,
   InternalServerException,
-  ThrottlingException,
+  ChallengeConfig,
+  ColorSequence,
+  LightChallengeType,
+  OvalParameters,
+  ServerChallenge as rServerChallenge,
   ServiceQuotaExceededException,
-  SessionInformation,
+  ValidationException,
+  ThrottlingException,
 } from '@aws-sdk/client-rekognitionstreaming';
 
 import {
@@ -17,6 +21,27 @@ import { ErrorState } from './error';
 import { StreamRecorder, ColorSequenceDisplay } from '../utils';
 import { Face, FaceDetection } from './faceDetection';
 
+interface Challenge {
+  name: string;
+}
+
+export interface CustomMovementAndLightServerChallenge extends Challenge {
+  name: 'FaceMovementAndLightServerChallenge';
+  ChallengeConfig: ChallengeConfig | undefined;
+  ColorSequences: ColorSequence[] | undefined;
+  LightChallengeType: LightChallengeType | undefined;
+  OvalParameters: OvalParameters | undefined;
+}
+
+export interface CustomMovementServerChallenge extends Challenge {
+  name: 'FaceMovementServerChallenge';
+  ChallengeConfig: ChallengeConfig | undefined;
+  OvalParameters: OvalParameters | undefined;
+}
+
+export type CustomServerChallenge =
+  | CustomMovementServerChallenge
+  | CustomMovementAndLightServerChallenge;
 export interface FaceMatchAssociatedParams {
   illuminationState?: IlluminationState;
   faceMatchState?: FaceMatchState;
@@ -65,7 +90,7 @@ export interface LivenessContext {
   maxFailedAttempts: number | undefined;
   ovalAssociatedParams: OvalAssociatedParams | undefined;
   responseStreamActorRef: ActorRef<any> | undefined;
-  serverSessionInformation: SessionInformation | undefined;
+  serverChallenge: CustomServerChallenge | undefined;
   shouldDisconnect: boolean | undefined;
   videoAssociatedParams: VideoAssociatedParams | undefined;
 }
@@ -77,7 +102,8 @@ export type LivenessEventTypes =
   | 'TIMEOUT'
   | 'ERROR'
   | 'CANCEL'
-  | 'SET_SESSION_INFO'
+  | 'SET_CHALLENGE_TYPE'
+  | 'SET_SERVER_CHALLENGE'
   | 'DISCONNECT_EVENT'
   | 'SET_DOM_AND_CAMERA_DETAILS'
   | 'UPDATE_DEVICE_AND_STREAM'
@@ -126,7 +152,7 @@ export interface StreamActorCallback {
     data: { error: ServiceQuotaExceededException };
   }): void;
   (params: {
-    type: 'SET_SESSION_INFO';
-    data: { sessionInfo: SessionInformation | undefined };
+    type: 'SET_SERVER_CHALLENGE';
+    data: { challenge: rServerChallenge | undefined };
   }): void;
 }

@@ -166,16 +166,20 @@ export function createSessionStartEvent({
     ...initialFace!,
   });
 
+  const challengeDetails = {
+    ChallengeId: challengeId,
+    VideoStartTimestamp: recordingStartedTimestamp,
+    InitialFace: {
+      InitialFaceDetectedTimestamp: initialFace!.timestampMs,
+      BoundingBox: initialFaceBoundingBox,
+    },
+  };
+
   return {
     Challenge: {
-      FaceMovementAndLightChallenge: {
-        ChallengeId: challengeId,
-        VideoStartTimestamp: recordingStartedTimestamp,
-        InitialFace: {
-          InitialFaceDetectedTimestamp: initialFace!.timestampMs,
-          BoundingBox: initialFaceBoundingBox,
-        },
-      },
+      ...(challengeType === 'FaceMovementAndLightChallenge'
+        ? { FaceMovementAndLightChallenge: challengeDetails }
+        : { FaceMovementChallenge: challengeDetails }),
     },
   };
 }

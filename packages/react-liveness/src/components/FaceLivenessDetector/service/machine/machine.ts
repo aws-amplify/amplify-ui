@@ -1,21 +1,20 @@
-import {
-  LivenessResponseStream,
-  SessionInformation,
-} from '@aws-sdk/client-rekognitionstreaming';
+import { LivenessResponseStream } from '@aws-sdk/client-rekognitionstreaming';
 import { nanoid } from 'nanoid';
 import { createMachine, assign, actions, spawn } from 'xstate';
 
 import {
-  getColorsSequencesFromSessionInformation,
+  getColorsSequencesFromServerChallenge,
   getFaceMatchState,
   getIntersectionOverUnion,
   getOvalBoundingBox,
+  getStaticLivenessOvalDetails,
   isFaceDistanceBelowThreshold,
   generateBboxFromLandmarks,
   fillOverlayCanvasFractional,
 } from '../utils/liveness';
 
 import {
+  CustomMovementAndLightServerChallenge,
   ErrorState,
   Face,
   FaceMatchAssociatedParams,
@@ -27,6 +26,7 @@ import {
   LivenessErrorState,
   LivenessEvent,
   OvalAssociatedParams,
+  CustomServerChallenge,
   StreamActorCallback,
   VideoAssociatedParams,
 } from '../types';
@@ -36,7 +36,7 @@ import {
   createStreamingClient,
   drawLivenessOvalInCanvas,
   getFaceMatchStateInLivenessOval,
-  getOvalDetailsFromSessionInformation,
+  getOvalDetailsFromServerChallenge,
   StreamRecorder,
   estimateIllumination,
   isCameraDeviceVirtual,
@@ -48,16 +48,16 @@ import {
   getTrackDimensions,
 } from '../utils';
 
-import { getStaticLivenessOvalDetails } from '../utils/liveness';
 import {
   isConnectionTimeoutError,
-  isThrottlingExceptionEvent,
-  isServiceQuotaExceededExceptionEvent,
-  isValidationExceptionEvent,
-  isInternalServerExceptionEvent,
-  isServerSesssionInformationEvent,
   isDisconnectionEvent,
+  isInternalServerExceptionEvent,
   isInvalidSignatureRegionException,
+  isFaceMovementAndLightServerChallenge,
+  isServerSessionInformationEvent,
+  isServiceQuotaExceededExceptionEvent,
+  isThrottlingExceptionEvent,
+  isValidationExceptionEvent,
 } from '../utils/responseStreamEvent';
 
 import { STATIC_VIDEO_CONSTRAINTS } from '../../utils/helpers';
@@ -71,11 +71,12 @@ const responseStreamActor = async (callback: StreamActorCallback) => {
   try {
     const stream = await responseStream;
     for await (const event of stream) {
-      if (isServerSesssionInformationEvent(event)) {
+      if (isServerSessionInformationEvent(event)) {
         callback({
-          type: 'SET_SESSION_INFO',
+          type: 'SET_SERVER_CHALLENGE',
           data: {
-            sessionInfo: event.ServerSessionInformationEvent.SessionInformation,
+            challenge:
+              event.ServerSessionInformationEvent.SessionInformation?.Challenge,
           },
         });
       } else if (isDisconnectionEvent(event)) {
@@ -141,7 +142,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       maxFailedAttempts: 0, // Set to 0 for now as we are not allowing front end based retries for streaming
       failedAttempts: 0,
       componentProps: undefined,
-      serverSessionInformation: undefined,
+      serverChallenge: undefined,
       videoAssociatedParams: {
         videoConstraints: STATIC_VIDEO_CONSTRAINTS,
         selectableDevices: [],
@@ -181,7 +182,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         target: 'retryableTimeout',
         actions: 'updateErrorStateForTimeout',
       },
-      SET_SESSION_INFO: { internal: true, actions: 'updateSessionInfo' },
+      SET_SERVER_CHALLENGE: {
+        internal: true,
+        actions: 'updateServerChallenge',
+      },
       DISCONNECT_EVENT: { internal: true, actions: 'updateShouldDisconnect' },
       SET_DOM_AND_CAMERA_DETAILS: { actions: 'setDOMAndCameraDetails' },
       UPDATE_DEVICE_AND_STREAM: { actions: 'updateDeviceAndStream' },
@@ -244,7 +248,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             after: {
               0: {
                 target: '#livenessMachine.start',
-                cond: 'hasServerSessionInfo',
+                cond: 'hasServerChallenge',
               },
               100: { target: 'waitForSessionInfo' },
             },
@@ -655,9 +659,17 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         errorState: (_) => LivenessErrorState.SERVER_ERROR,
       }),
       clearErrorState: assign({ errorState: (_) => undefined }),
-      updateSessionInfo: assign({
-        serverSessionInformation: (_, event) => {
-          return event.data!.sessionInfo as SessionInformation;
+      updateServerChallenge: assign({
+        serverChallenge: (_, event) => {
+          return isFaceMovementAndLightServerChallenge(event.data!.challenge)
+            ? ({
+                ...event.data!.challenge,
+                name: 'FaceMovementAndLightServerChallenge',
+              } as CustomServerChallenge)
+            : ({
+                ...event.data!.challenge,
+                name: 'FaceMovementServerChallenge',
+              } as CustomServerChallenge);
         },
       }),
       updateShouldDisconnect: assign({ shouldDisconnect: () => true }),
@@ -671,9 +683,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       }),
       setColorDisplay: assign({
-        colorSequenceDisplay: ({ serverSessionInformation }) =>
+        colorSequenceDisplay: ({ serverChallenge }) =>
           new ColorSequenceDisplay(
-            getColorsSequencesFromSessionInformation(serverSessionInformation!)
+            getColorsSequencesFromServerChallenge(
+              serverChallenge as CustomMovementAndLightServerChallenge
+            )
           ),
       }),
 
@@ -691,9 +705,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         {
           delay: (context) => {
             return (
-              context.serverSessionInformation?.Challenge
-                ?.FaceMovementAndLightChallenge?.ChallengeConfig
-                ?.OvalFitTimeout ?? DEFAULT_FACE_FIT_TIMEOUT
+              context.serverChallenge?.ChallengeConfig?.OvalFitTimeout ??
+              DEFAULT_FACE_FIT_TIMEOUT
             );
           },
           id: 'ovalMatchTimeout',
@@ -818,7 +831,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         maxFailedAttempts: 0, // Set to 0 for now as we are not allowing front end based retries for streaming
         failedAttempts: 0,
         componentProps: (context) => context.componentProps,
-        serverSessionInformation: (_) => undefined,
+        serverChallenge: (_) => undefined,
         videoAssociatedParams: (_) => {
           return {
             videoConstraints: STATIC_VIDEO_CONSTRAINTS,
@@ -862,8 +875,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       hasFreshnessColorShown: (context) =>
         context.freshnessColorAssociatedParams!.freshnessColorsComplete!,
-      hasServerSessionInfo: (context) => {
-        return context.serverSessionInformation !== undefined;
+      hasServerChallenge: (context) => {
+        return context.serverChallenge !== undefined;
       },
       hasDOMAndCameraDetails: (context) => {
         return (
@@ -1053,7 +1066,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         return { isFaceFarEnoughBeforeRecording, error };
       },
       async detectInitialFaceAndDrawOval(context) {
-        const { serverSessionInformation } = context;
+        const { serverChallenge } = context;
         const { videoEl, canvasEl, isMobile } = context.videoAssociatedParams!;
         const { faceDetector } = context.ovalAssociatedParams!;
 
@@ -1114,8 +1127,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const scaleFactor = videoScaledWidth / videoEl!.videoWidth;
 
         // generate oval details from initialFace and video dimensions
-        const ovalDetails = getOvalDetailsFromSessionInformation({
-          sessionInformation: serverSessionInformation!,
+        const ovalDetails = getOvalDetailsFromServerChallenge({
+          serverChallenge: serverChallenge!,
           videoWidth: videoEl!.width,
         });
 
@@ -1146,7 +1159,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         };
       },
       async detectFaceAndMatchOval(context) {
-        const { serverSessionInformation } = context;
+        const { serverChallenge } = context;
         const { videoEl } = context.videoAssociatedParams!;
         const { faceDetector, ovalDetails, initialFace } =
           context.ovalAssociatedParams!;
@@ -1188,7 +1201,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               face: detectedFace,
               ovalDetails: ovalDetails!,
               initialFaceIntersection,
-              sessionInformation: serverSessionInformation!,
+              serverChallenge: serverChallenge!,
               frameHeight: videoEl!.videoHeight,
             });
 
