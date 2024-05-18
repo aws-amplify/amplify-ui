@@ -1,10 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { post, get } from 'aws-amplify/api';
 import useSWR from 'swr';
 
 export function useLiveness(challengeType: string) {
   const [isLivenessActive, setLivenessActive] = useState(false);
   const [getLivenessResponse, setGetLivenessResponse] = useState(null);
+
+  useEffect(() => {
+    mutate();
+  }, [challengeType]);
+
   const {
     data: createLivenessSessionApiData,
     error: createLivenessSessionApiError,
