@@ -1,13 +1,15 @@
 import { View, Flex, Loader, Text } from '@aws-amplify/ui-react';
 import { FaceLivenessDetectorCore } from '@aws-amplify/ui-react-liveness';
 import { useLiveness } from './useLiveness';
+import { ChallengeSelection } from './ChallengeSelection';
 import { SessionIdAlert } from './SessionIdAlert';
 import LivenessInlineResults from './LivenessInlineResults';
 
 export default function LivenessDefault({
-  disableStartScreen = false,
+  challengeType,
   components = undefined,
   credentialProvider = undefined,
+  disableStartScreen = false,
 }) {
   const {
     getLivenessResponse,
@@ -16,7 +18,7 @@ export default function LivenessDefault({
     createLivenessSessionApiLoading,
     handleGetLivenessDetection,
     stopLiveness,
-  } = useLiveness();
+  } = useLiveness(challengeType);
 
   if (createLivenessSessionApiError) {
     return <div>Some error occured...</div>;
@@ -34,6 +36,7 @@ export default function LivenessDefault({
         </Flex>
       ) : (
         <Flex direction="column" gap="xl">
+          <ChallengeSelection selectedChallenge={challengeType} />
           <SessionIdAlert
             sessionId={createLivenessSessionApiData['sessionId']}
           />
