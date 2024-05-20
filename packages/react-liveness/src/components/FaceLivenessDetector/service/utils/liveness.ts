@@ -648,15 +648,8 @@ export async function isFaceDistanceBelowThreshold({
   const challengeConfig =
     sessionInformation?.Challenge?.FaceMovementAndLightChallenge
       ?.ChallengeConfig;
-  if (
-    !challengeConfig ||
-    !challengeConfig.FaceDistanceThreshold ||
-    !challengeConfig.FaceDistanceThresholdMin
-  ) {
-    throw new Error('Challenge config not returned from session information.');
-  }
 
-  const { FaceDistanceThresholdMin, FaceDistanceThreshold } = challengeConfig;
+  const { FaceDistanceThresholdMin, FaceDistanceThreshold } = challengeConfig!;
 
   const detectedFaces = await faceDetector.detectFaces(videoEl);
   let detectedFace: Face;
@@ -687,7 +680,9 @@ export async function isFaceDistanceBelowThreshold({
       if (width) {
         isDistanceBelowThreshold =
           calibratedPupilDistance / width <
-          (!reduceThreshold ? FaceDistanceThresholdMin : FaceDistanceThreshold);
+          (!reduceThreshold
+            ? FaceDistanceThresholdMin!
+            : FaceDistanceThreshold!);
         if (!isDistanceBelowThreshold) {
           error = LivenessErrorState.FACE_DISTANCE_ERROR;
         }

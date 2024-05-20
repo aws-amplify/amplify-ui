@@ -657,6 +657,20 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       clearErrorState: assign({ errorState: (_) => undefined }),
       updateSessionInfo: assign({
         serverSessionInformation: (_, event) => {
+          const challengeConfig = (
+            event.data!.sessionInfo as SessionInformation
+          )?.Challenge?.FaceMovementAndLightChallenge?.ChallengeConfig;
+
+          if (
+            !challengeConfig ||
+            !challengeConfig.FaceDistanceThreshold ||
+            !challengeConfig.FaceDistanceThresholdMin ||
+            !challengeConfig.OvalHeightWidthRatio
+          ) {
+            throw new Error(
+              'Challenge config not returned from session information.'
+            );
+          }
           return event.data!.sessionInfo as SessionInformation;
         },
       }),
@@ -1009,22 +1023,15 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           serverSessionInformation?.Challenge?.FaceMovementAndLightChallenge
             ?.ChallengeConfig;
 
-        if (!challengeConfig || !challengeConfig.OvalHeightWidthRatio) {
-          throw new Error(
-            'Challenge config not returned from session information.'
-          );
-        }
-
-        const { OvalHeightWidthRatio } = challengeConfig;
         const ovalDetails = getStaticLivenessOvalDetails({
           width: width!,
           height: height!,
-          ovalHeightWidthRatio: OvalHeightWidthRatio,
+          ovalHeightWidthRatio: challengeConfig!.OvalHeightWidthRatio!,
         });
 
         const { isDistanceBelowThreshold: isFaceFarEnoughBeforeRecording } =
           await isFaceDistanceBelowThreshold({
-            sessionInformation: serverSessionInformation,
+            sessionInformation: serverSessionInformation!,
             faceDetector: faceDetector!,
             videoEl: videoEl!,
             ovalDetails,
