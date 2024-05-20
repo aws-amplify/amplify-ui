@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Alert, Button, Heading, SelectField } from '@aws-amplify/ui-react';
+import { Alert, Heading, SelectField } from '@aws-amplify/ui-react';
 
 interface ChallengeSelectionProps {
   selectedChallenge: string;
