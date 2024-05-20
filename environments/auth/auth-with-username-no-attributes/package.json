@@ -3,6 +3,6 @@
   "name": "@aws-amplify/ui-auth-with-username-no-attributes-environment",
   "version": "0.0.1",
   "scripts": {
-    "pull": "echo n | amplify pull --appId d19uoxfo0qrigq --envName staging"
+    "pull": "echo n | /usr/local/bin/amplify pull --appId d19uoxfo0qrigq --envName staging"
   }
 }
