@@ -3,6 +3,6 @@
   "name": "@aws-amplify/ui-auth-with-optional-totp-and-sms-mfa-environment",
   "version": "0.0.1",
   "scripts": {
-    "pull": "AWS_REGION=us-east-2 npx @aws-amplify/backend-cli generate outputs --branch gen2-auth-with-optional-totp-and-sms-mfa --app-id d3lukld24augjv && echo n | amplify pull --appId d2vk0gw2nmhjow --envName staging"
+    "pull": "AWS_REGION=us-east-2 npx ampx generate outputs --branch gen2-auth-with-optional-totp-and-sms-mfa --app-id d3lukld24augjv && echo n | amplify pull --appId d2vk0gw2nmhjow --envName staging"
   }
 }
