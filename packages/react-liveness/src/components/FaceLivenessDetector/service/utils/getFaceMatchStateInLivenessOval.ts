@@ -3,7 +3,7 @@ import {
   Face,
   FaceMatchState,
   BoundingBox,
-  CustomServerChallenge,
+  ServerChallenge,
 } from '../types';
 import {
   generateBboxFromLandmarks,
@@ -21,7 +21,7 @@ interface MatchStateInOvalParams {
   face: Face;
   ovalDetails: LivenessOvalDetails;
   initialFaceIntersection: number;
-  serverChallenge: CustomServerChallenge;
+  challenge: ServerChallenge;
   frameHeight: number;
 }
 
@@ -32,14 +32,14 @@ export function getFaceMatchStateInLivenessOval({
   face,
   ovalDetails,
   initialFaceIntersection,
-  serverChallenge,
+  challenge,
   frameHeight,
 }: MatchStateInOvalParams): {
   faceMatchState: FaceMatchState;
   faceMatchPercentage: number;
 } {
   let faceMatchState: FaceMatchState;
-  const challengeConfig = serverChallenge.ChallengeConfig;
+  const challengeConfig = challenge.ChallengeConfig;
 
   if (
     !challengeConfig ||

@@ -1,6 +1,6 @@
 import {
-  FaceMovementAndLightServerChallenge,
-  FaceMovementServerChallenge,
+  FaceMovementAndLightServerChallenge as RekognitionFaceMovementAndLightServerChallenge,
+  FaceMovementServerChallenge as RekognitionFaceMovementServerChallenge,
   LivenessResponseStream,
   ServerChallenge,
 } from '@aws-sdk/client-rekognitionstreaming';
@@ -13,16 +13,16 @@ import { WEBSOCKET_CONNECTION_TIMEOUT_MESSAGE } from './createStreamingClient/Cu
 //     ?.ChallengeEvent;
 // };
 
-export const isFaceMovementAndLightServerChallenge = (
+export const isRekognitionFaceMovementAndLightServerChallenge = (
   value: unknown
-): value is FaceMovementAndLightServerChallenge => {
+): value is RekognitionFaceMovementAndLightServerChallenge => {
   return !!(value as ServerChallenge.FaceMovementAndLightChallengeMember)
     ?.FaceMovementAndLightChallenge;
 };
 
-export const isFaceMovementServerChallenge = (
+export const isRekognitionFaceMovementServerChallenge = (
   value: unknown
-): value is FaceMovementServerChallenge => {
+): value is RekognitionFaceMovementServerChallenge => {
   return !!(value as ServerChallenge.FaceMovementChallengeMember)
     ?.FaceMovementChallenge;
 };

@@ -1,7 +1,7 @@
 import {
   BoundingBox,
-  CustomMovementAndLightServerChallenge,
-  CustomServerChallenge,
+  FaceMovementAndLightServerChallenge,
+  ServerChallenge,
   ErrorState,
   Face,
   FaceDetection,
@@ -93,15 +93,14 @@ export function getIntersectionOverUnion(
  * Returns the details of a randomly generated liveness oval
  * from SDK
  */
-export function getOvalDetailsFromServerChallenge({
-  serverChallenge,
+export function getOvalDetailsFromChallenge({
+  challenge,
   videoWidth,
 }: {
-  serverChallenge: CustomServerChallenge;
+  challenge: ServerChallenge;
   videoWidth: number;
 }): LivenessOvalDetails {
-  const ovalParameters = serverChallenge.OvalParameters;
-
+  const ovalParameters = challenge.OvalParameters;
   if (
     !ovalParameters ||
     !ovalParameters.CenterX ||
@@ -564,10 +563,10 @@ const isColorSequence = (
   obj: ColorSequence | undefined
 ): obj is ColorSequence => !!obj;
 
-export function getColorsSequencesFromServerChallenge(
-  serverChallenge: CustomMovementAndLightServerChallenge
+export function getColorsSequencesFromChallenge(
+  challenge: FaceMovementAndLightServerChallenge
 ): ColorSequence[] {
-  const colorSequenceFromServerChallenge = serverChallenge.ColorSequences ?? [];
+  const colorSequenceFromServerChallenge = challenge.ColorSequences ?? [];
   const colorSequences: (ColorSequence | undefined)[] =
     colorSequenceFromServerChallenge.map(
       ({

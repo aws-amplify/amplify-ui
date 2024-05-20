@@ -96,6 +96,7 @@ const getTargetFaceBoundingBox = (
 };
 
 interface CreateSessionEndEventParams extends TrackDimensions {
+  challengeType: 'FaceMovementChallenge' | 'FaceMovementAndLightChallenge';
   challengeId: NonNullable<LivenessContext['challengeId']>;
   faceMatchAssociatedParams: NonNullable<
     LivenessContext['faceMatchAssociatedParams']
@@ -104,6 +105,7 @@ interface CreateSessionEndEventParams extends TrackDimensions {
   recordingEndedTimestamp: number;
 }
 export function createSessionEndEvent({
+  challengeType,
   challengeId,
   faceMatchAssociatedParams,
   ovalAssociatedParams,
@@ -126,32 +128,36 @@ export function createSessionEndEvent({
     ...ovalDetails!,
   });
 
+  const challengeDetails = {
+    ChallengeId: challengeId,
+    InitialFace: {
+      InitialFaceDetectedTimestamp: initialFace!.timestampMs,
+      BoundingBox: initialFaceBoundingBox,
+    },
+    TargetFace: {
+      FaceDetectedInTargetPositionStartTimestamp: startFace!.timestampMs,
+      FaceDetectedInTargetPositionEndTimestamp: endFace!.timestampMs,
+      BoundingBox: targetFaceBoundingBox,
+    },
+    VideoEndTimestamp: recordingEndedTimestamp,
+  };
   return {
     Challenge: {
-      FaceMovementAndLightChallenge: {
-        ChallengeId: challengeId,
-        InitialFace: {
-          InitialFaceDetectedTimestamp: initialFace!.timestampMs,
-          BoundingBox: initialFaceBoundingBox,
-        },
-        TargetFace: {
-          FaceDetectedInTargetPositionStartTimestamp: startFace!.timestampMs,
-          FaceDetectedInTargetPositionEndTimestamp: endFace!.timestampMs,
-          BoundingBox: targetFaceBoundingBox,
-        },
-        VideoEndTimestamp: recordingEndedTimestamp,
-      },
+      ...(challengeType === 'FaceMovementAndLightChallenge'
+        ? { FaceMovementAndLightChallenge: challengeDetails }
+        : { FaceMovementChallenge: challengeDetails }),
     },
   };
 }
 
 interface CreateSessionStartEventParams extends TrackDimensions {
+  challengeType: 'FaceMovementChallenge' | 'FaceMovementAndLightChallenge';
   challengeId: NonNullable<LivenessContext['challengeId']>;
-
   ovalAssociatedParams: NonNullable<LivenessContext['ovalAssociatedParams']>;
   recordingStartedTimestamp: number;
 }
 export function createSessionStartEvent({
+  challengeType,
   challengeId,
   ovalAssociatedParams,
   recordingStartedTimestamp,
