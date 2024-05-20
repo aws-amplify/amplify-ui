@@ -3,6 +3,6 @@
   "name": "@aws-amplify/ui-action-hooks-environment",
   "version": "0.0.1",
   "scripts": {
-    "pull": "echo n | /usr/local/bin/amplify pull --appId d1c6vwjkmuz6ml --envName dev"
+    "pull": "echo n | amplify pull --appId d1c6vwjkmuz6ml --envName dev"
   }
 }

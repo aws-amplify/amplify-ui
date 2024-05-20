@@ -58,7 +58,13 @@ jobs:
           no-lockfile: true
           working-directory: ./canary/apps/${{ matrix.framework }}/${{ matrix.build-tool }}
       - name: Add Amplify CLI
-        run: yarn global add @aws-amplify/cli && yarn add @aws-amplify/backend-cli@latest aws-cdk-lib constructs -D -W
+        run: |
+          yarn global add @aws-amplify/cli && \
+          yarn add @aws-amplify/backend-cli@latest aws-cdk-lib constructs -D -W
+      # The Amplify Gen 2 CLI has been renamed to "ampx"
+      # Delete the legacy "amplify" alias which conflicts with Gen 1 command
+      - name: Delete the legacy amplify alias
+        run: rm -f ./node_modules/.bin/amplify
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
         with:
