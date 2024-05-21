@@ -10,14 +10,13 @@ export const handler = async (event, req) => {
     endpoint: `https://us-east-1.gamma.frontend.reventlov.rekognition.aws.dev`,
   });
 
+  const challengeType = event.queryStringParameters?.challengeType;
+
   const response = await client
     .createFaceLivenessSession({
       AwsAccountId: '845721723350',
       Settings: {
-        ChallengePreferences: [
-          { Type: 'FaceMovementChallenge' },
-          { Type: 'FaceMovementAndLightChallenge' },
-        ],
+        ChallengePreferences: [{ Type: challengeType }],
       },
     })
     .promise();
