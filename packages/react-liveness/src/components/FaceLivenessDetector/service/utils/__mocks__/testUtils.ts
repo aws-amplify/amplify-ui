@@ -1,7 +1,7 @@
 import { ActorRef } from 'xstate';
 import {
   ColorSequence,
-  SessionInformation as RekSessionInformation,
+  SessionInformation as RekognitionSessionInformation,
 } from '@aws-sdk/client-rekognitionstreaming';
 
 import { STATIC_VIDEO_CONSTRAINTS } from '../../../utils/helpers';
@@ -164,34 +164,35 @@ export const mockFaceMovementAndLightSessionInfo: SessionInformation = {
   },
 };
 
-export const mockRekFaceMovementAndLightSessionInfo: RekSessionInformation = {
-  Challenge: {
-    FaceMovementAndLightChallenge: {
-      ChallengeConfig: {
-        BlazeFaceDetectionThreshold: 0.75,
-        FaceDistanceThreshold: 0.4000000059604645,
-        FaceDistanceThresholdMax: 0,
-        FaceDistanceThresholdMin: 0.4000000059604645,
-        FaceIouHeightThreshold: 0.15000000596046448,
-        FaceIouWidthThreshold: 0.15000000596046448,
-        OvalHeightWidthRatio: 1.6180000305175781,
-        OvalIouHeightThreshold: 0.25,
-        OvalIouThreshold: 0.6,
-        OvalIouWidthThreshold: 0.25,
+export const mockRekFaceMovementAndLightSessionInfo: RekognitionSessionInformation =
+  {
+    Challenge: {
+      FaceMovementAndLightChallenge: {
+        ChallengeConfig: {
+          BlazeFaceDetectionThreshold: 0.75,
+          FaceDistanceThreshold: 0.4000000059604645,
+          FaceDistanceThresholdMax: 0,
+          FaceDistanceThresholdMin: 0.4000000059604645,
+          FaceIouHeightThreshold: 0.15000000596046448,
+          FaceIouWidthThreshold: 0.15000000596046448,
+          OvalHeightWidthRatio: 1.6180000305175781,
+          OvalIouHeightThreshold: 0.25,
+          OvalIouThreshold: 0.6,
+          OvalIouWidthThreshold: 0.25,
+        },
+        OvalParameters: {
+          Width: 1,
+          Height: 2,
+          CenterX: 3,
+          CenterY: 4,
+        },
+        LightChallengeType: 'SEQUENTIAL',
+        ColorSequences: MOCK_COLOR_SEQUENCES,
       },
-      OvalParameters: {
-        Width: 1,
-        Height: 2,
-        CenterX: 3,
-        CenterY: 4,
-      },
-      LightChallengeType: 'SEQUENTIAL',
-      ColorSequences: MOCK_COLOR_SEQUENCES,
     },
-  },
-};
+  };
 
-export const mockRekFaceMovementSessionInfo: RekSessionInformation = {
+export const mockRekFaceMovementSessionInfo: RekognitionSessionInformation = {
   Challenge: {
     FaceMovementChallenge: {
       ChallengeConfig: {

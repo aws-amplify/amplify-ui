@@ -1,8 +1,4 @@
-import {
-  FaceMovementAndLightClientChallenge,
-  FaceMovementClientChallenge,
-  ClientSessionInformationEvent,
-} from '@aws-sdk/client-rekognitionstreaming';
+import { ClientSessionInformationEvent } from '@aws-sdk/client-rekognitionstreaming';
 import {
   FaceMatchAssociatedParams,
   OvalAssociatedParams,
