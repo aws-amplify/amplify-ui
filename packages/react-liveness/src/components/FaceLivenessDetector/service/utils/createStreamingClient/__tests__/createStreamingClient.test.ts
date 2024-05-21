@@ -5,7 +5,7 @@ import {
 
 import { AwsCredentials } from '../../../types';
 
-import { FACE_MOVEMENT_CHALLENGE_NAME } from '../../constants';
+import { ACCEPTED_CHALLENGE_VERSIONS } from '../../constants';
 import { CustomWebSocketFetchHandler } from '../CustomWebSocketFetchHandler';
 import { resolveCredentials } from '../resolveCredentials';
 import { Signer } from '../Signer';
@@ -156,7 +156,7 @@ describe('createStreamingClient', () => {
 
       expect(mockStartFaceLivenessSessionCommand).toBeCalledTimes(1);
       expect(mockStartFaceLivenessSessionCommand).toHaveBeenCalledWith({
-        ChallengeVersions: FACE_MOVEMENT_CHALLENGE_NAME,
+        ChallengeVersions: ACCEPTED_CHALLENGE_VERSIONS,
         SessionId: sessionId,
         LivenessRequestStream: requestStream,
         VideoWidth: videoWidth,

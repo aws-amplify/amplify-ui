@@ -5,7 +5,7 @@ import {
   ColorSequence,
   LightChallengeType,
   OvalParameters,
-  ServerChallenge as RekognitionServerChallenge,
+  SessionInformation as RekognitionSessionInformation,
   ServiceQuotaExceededException,
   ValidationException,
   ThrottlingException,
@@ -42,6 +42,10 @@ export interface FaceMovementServerChallenge extends Challenge {
 export type ServerChallenge =
   | FaceMovementServerChallenge
   | FaceMovementAndLightServerChallenge;
+
+export interface SessionInformation {
+  Challenge: ServerChallenge | undefined;
+}
 
 export interface FaceMatchAssociatedParams {
   illuminationState?: IlluminationState;
@@ -91,7 +95,7 @@ export interface LivenessContext {
   maxFailedAttempts: number | undefined;
   ovalAssociatedParams: OvalAssociatedParams | undefined;
   responseStreamActorRef: ActorRef<any> | undefined;
-  challenge: ServerChallenge | undefined;
+  serverSessionInformation: SessionInformation | undefined;
   shouldDisconnect: boolean | undefined;
   videoAssociatedParams: VideoAssociatedParams | undefined;
 }
@@ -103,7 +107,7 @@ export type LivenessEventTypes =
   | 'TIMEOUT'
   | 'ERROR'
   | 'CANCEL'
-  | 'SET_CHALLENGE'
+  | 'SET_SESSION_INFO'
   | 'DISCONNECT_EVENT'
   | 'SET_DOM_AND_CAMERA_DETAILS'
   | 'UPDATE_DEVICE_AND_STREAM'
@@ -152,7 +156,7 @@ export interface StreamActorCallback {
     data: { error: ServiceQuotaExceededException };
   }): void;
   (params: {
-    type: 'SET_CHALLENGE';
-    data: { challenge: RekognitionServerChallenge | undefined };
+    type: 'SET_SESSION_INFO';
+    data: { sessionInfo: RekognitionSessionInformation | undefined };
   }): void;
 }

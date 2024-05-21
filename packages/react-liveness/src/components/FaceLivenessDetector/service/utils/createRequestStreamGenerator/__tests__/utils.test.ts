@@ -72,38 +72,70 @@ describe('createColorDisplayEvent', () => {
 });
 
 describe('createSessionStartEvent', () => {
-  const output = createSessionStartEvent({
-    challengeId: 'challengeId',
+  it('constructs a valid ClientSessionInformationEvent for FaceMovementAndLightChallenge', () => {
+    const output = createSessionStartEvent({
+      challengeId: 'challengeId',
+      challengeType: 'FaceMovementAndLightChallenge',
+      ovalAssociatedParams,
+      recordingStartedTimestamp: 82918281982,
+      trackHeight: 121212,
+      trackWidth: 37288,
+    });
 
-    ovalAssociatedParams,
-    recordingStartedTimestamp: 82918281982,
-    trackHeight: 121212,
-    trackWidth: 37288,
+    expect(output).toStrictEqual({
+      Challenge: {
+        FaceMovementAndLightChallenge: {
+          ChallengeId: 'challengeId',
+          InitialFace: {
+            BoundingBox: {
+              Height: 0.010725010725010725,
+              Left: 0.9698830723020812,
+              Top: 0.010395010395010396,
+              Width: 0.026818279339197598,
+            },
+            InitialFaceDetectedTimestamp: undefined,
+          },
+          VideoStartTimestamp: 82918281982,
+        },
+      },
+    });
   });
 
-  expect(output).toStrictEqual({
-    Challenge: {
-      FaceMovementAndLightChallenge: {
-        ChallengeId: 'challengeId',
-        InitialFace: {
-          BoundingBox: {
-            Height: 0.010725010725010725,
-            Left: 0.9698830723020812,
-            Top: 0.010395010395010396,
-            Width: 0.026818279339197598,
+  it('constructs a valid ClientSessionInformationEvent for FaceMovementChallenge', () => {
+    const output = createSessionStartEvent({
+      challengeId: 'challengeId',
+      challengeType: 'FaceMovementChallenge',
+      ovalAssociatedParams,
+      recordingStartedTimestamp: 82918281982,
+      trackHeight: 121212,
+      trackWidth: 37288,
+    });
+
+    expect(output).toStrictEqual({
+      Challenge: {
+        FaceMovementChallenge: {
+          ChallengeId: 'challengeId',
+          InitialFace: {
+            BoundingBox: {
+              Height: 0.010725010725010725,
+              Left: 0.9698830723020812,
+              Top: 0.010395010395010396,
+              Width: 0.026818279339197598,
+            },
+            InitialFaceDetectedTimestamp: undefined,
           },
-          InitialFaceDetectedTimestamp: undefined,
+          VideoStartTimestamp: 82918281982,
         },
-        VideoStartTimestamp: 82918281982,
       },
-    },
+    });
   });
 });
 
 describe('createSessionEndEvent', () => {
-  it('contructs a valid ClientSessionInformationEvent', () => {
+  it('contructs a valid ClientSessionInformationEvent for FaceMovementAndLightChallenge', () => {
     const output = createSessionEndEvent({
       challengeId: 'challengeId',
+      challengeType: 'FaceMovementAndLightChallenge',
       faceMatchAssociatedParams: {
         endFace: { timestampMs: 1600 },
         startFace: { timestampMs: 1200 },
@@ -117,6 +149,49 @@ describe('createSessionEndEvent', () => {
     expect(output).toStrictEqual({
       Challenge: {
         FaceMovementAndLightChallenge: {
+          ChallengeId: 'challengeId',
+          InitialFace: {
+            BoundingBox: {
+              Height: 0.7784431137724551,
+              Left: 0.16505576208178438,
+              Top: 0.7544910179640718,
+              Width: 0.7434944237918215,
+            },
+            InitialFaceDetectedTimestamp: undefined,
+          },
+          TargetFace: {
+            BoundingBox: {
+              Height: 0.0718562874251497,
+              Left: -0.12490706319702602,
+              Top: -0.008982035928143712,
+              Width: 0.26765799256505574,
+            },
+            FaceDetectedInTargetPositionEndTimestamp: 1600,
+            FaceDetectedInTargetPositionStartTimestamp: 1200,
+          },
+          VideoEndTimestamp: 8392839239,
+        },
+      },
+    });
+  });
+
+  it('contructs a valid ClientSessionInformationEvent for FaceMovementChallenge', () => {
+    const output = createSessionEndEvent({
+      challengeId: 'challengeId',
+      challengeType: 'FaceMovementChallenge',
+      faceMatchAssociatedParams: {
+        endFace: { timestampMs: 1600 },
+        startFace: { timestampMs: 1200 },
+      } as FaceMatchAssociatedParams,
+      ovalAssociatedParams,
+      trackHeight: 1670,
+      trackWidth: 1345,
+      recordingEndedTimestamp: 8392839239,
+    });
+
+    expect(output).toStrictEqual({
+      Challenge: {
+        FaceMovementChallenge: {
           ChallengeId: 'challengeId',
           InitialFace: {
             BoundingBox: {

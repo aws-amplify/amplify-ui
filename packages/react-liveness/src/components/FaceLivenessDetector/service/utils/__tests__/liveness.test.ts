@@ -7,7 +7,7 @@ import {
   generateBboxFromLandmarks,
   getColorsSequencesFromSessionInformation,
   getFaceMatchState,
-  getOvalDetailsFromSessionInformation,
+  getOvalDetailsFromChallenge,
   isCameraDeviceVirtual,
   isFaceDistanceBelowThreshold,
 } from '../liveness';
@@ -16,11 +16,12 @@ import {
   mockCameraDevice,
   mockFace,
   mockOvalDetails,
-  mockSessionInformation,
+  mockFaceMovementAndLightSessionInfo,
 } from '../__mocks__/testUtils';
 import {
   Face,
   FaceMatchState,
+  FaceMovementAndLightServerChallenge,
   IlluminationState,
   LivenessErrorState,
 } from '../../types';
@@ -98,8 +99,8 @@ const mockTurnedFace: Face = {
 describe('Liveness Helper', () => {
   describe('getOvalDetailsFromSessionInformation', () => {
     it('should parse sessionInformation and return oval parameter attributes', () => {
-      const ovalParameters = getOvalDetailsFromSessionInformation({
-        sessionInformation: mockSessionInformation,
+      const ovalParameters = getOvalDetailsFromChallenge({
+        sessionInformation: mockFaceMovementAndLightSessionInfo,
         videoWidth: 1,
       });
 
@@ -111,33 +112,20 @@ describe('Liveness Helper', () => {
 
     it('should throw an error if some oval parameters are not defined', () => {
       const badSessionInfo = {
+        ...mockFaceMovementAndLightSessionInfo,
         Challenge: {
-          FaceMovementAndLightChallenge: {
-            ChallengeConfig: {
-              BlazeFaceDetectionThreshold: 0.75,
-              FaceDistanceThreshold: 0.4000000059604645,
-              FaceDistanceThresholdMax: 0,
-              FaceDistanceThresholdMin: 0.4000000059604645,
-              FaceIouHeightThreshold: 0.15000000596046448,
-              FaceIouWidthThreshold: 0.15000000596046448,
-              OvalHeightWidthRatio: 1.6180000305175781,
-              OvalIouHeightThreshold: 0.25,
-              OvalIouThreshold: 0.6,
-              OvalIouWidthThreshold: 0.25,
-            },
-            OvalParameters: {
-              Width: undefined,
-              Height: undefined,
-              CenterX: undefined,
-              CenterY: undefined,
-            },
-            LightChallengeType: 'SEQUENTIAL',
-            ColorSequences: [],
+          ...mockFaceMovementAndLightSessionInfo.Challenge,
+          OvalParameters: {
+            Width: undefined,
+            Height: undefined,
+            CenterX: undefined,
+            CenterY: undefined,
           },
-        },
+        } as FaceMovementAndLightServerChallenge,
       };
+
       expect(() => {
-        getOvalDetailsFromSessionInformation({
+        getOvalDetailsFromChallenge({
           sessionInformation: badSessionInfo,
           videoWidth: 1,
         });
@@ -338,7 +326,7 @@ describe('Liveness Helper', () => {
   describe('getColorsSequencesFromSessionInformation', () => {
     it('should return a parsed color sequence', async () => {
       const colorSequence = getColorsSequencesFromSessionInformation(
-        mockSessionInformation
+        mockFaceMovementAndLightSessionInfo
       );
 
       expect(colorSequence.length).toBe(8);
@@ -350,75 +338,37 @@ describe('Liveness Helper', () => {
     });
 
     it('should work even if there are no color sequences', async () => {
-      const mockSessionInfo = {
+      const colorSequence = getColorsSequencesFromSessionInformation({
+        ...mockFaceMovementAndLightSessionInfo,
         Challenge: {
-          FaceMovementAndLightChallenge: {
-            ChallengeConfig: {
-              BlazeFaceDetectionThreshold: 0.75,
-              FaceDistanceThreshold: 0.4000000059604645,
-              FaceDistanceThresholdMax: 0,
-              FaceDistanceThresholdMin: 0.4000000059604645,
-              FaceIouHeightThreshold: 0.15000000596046448,
-              FaceIouWidthThreshold: 0.15000000596046448,
-              OvalHeightWidthRatio: 1.6180000305175781,
-              OvalIouHeightThreshold: 0.25,
-              OvalIouThreshold: 0.699999988079071,
-              OvalIouWidthThreshold: 0.25,
-            },
-            OvalParameters: {
-              Width: 1,
-              Height: 2,
-              CenterX: 3,
-              CenterY: 4,
-            },
-            LightChallengeType: 'SEQUENTIAL',
-            ColorSequences: undefined,
-          },
-        },
-      };
-      const colorSequence =
-        getColorsSequencesFromSessionInformation(mockSessionInfo);
+          ...mockFaceMovementAndLightSessionInfo.Challenge,
+          ColorSequences: undefined,
+        } as FaceMovementAndLightServerChallenge,
+      });
 
       expect(colorSequence.length).toBe(0);
     });
 
     it('should not return values if color sequences do not contain durations', async () => {
-      const mockSessionInfo = {
+      const mockMissingDurationSessionInfo = {
+        ...mockFaceMovementAndLightSessionInfo,
         Challenge: {
-          FaceMovementAndLightChallenge: {
-            ChallengeConfig: {
-              BlazeFaceDetectionThreshold: 0.75,
-              FaceDistanceThreshold: 0.4000000059604645,
-              FaceDistanceThresholdMax: 0,
-              FaceDistanceThresholdMin: 0.4000000059604645,
-              FaceIouHeightThreshold: 0.15000000596046448,
-              FaceIouWidthThreshold: 0.15000000596046448,
-              OvalHeightWidthRatio: 1.6180000305175781,
-              OvalIouHeightThreshold: 0.25,
-              OvalIouThreshold: 0.699999988079071,
-              OvalIouWidthThreshold: 0.25,
-            },
-            OvalParameters: {
-              Width: 1,
-              Height: 2,
-              CenterX: 3,
-              CenterY: 4,
-            },
-            LightChallengeType: 'SEQUENTIAL',
-            ColorSequences: [
-              {
-                FreshnessColor: {
-                  RGB: [0, 0, 0], // black
-                },
-                DownscrollDuration: undefined,
-                FlatDisplayDuration: undefined,
+          ...mockFaceMovementAndLightSessionInfo.Challenge,
+          ColorSequences: [
+            {
+              FreshnessColor: {
+                RGB: [0, 0, 0], // black
               },
-            ],
-          },
-        },
+              DownscrollDuration: undefined,
+              FlatDisplayDuration: undefined,
+            },
+          ],
+        } as FaceMovementAndLightServerChallenge,
       };
-      const colorSequence =
-        getColorsSequencesFromSessionInformation(mockSessionInfo);
+
+      const colorSequence = getColorsSequencesFromSessionInformation(
+        mockMissingDurationSessionInfo
+      );
 
       expect(colorSequence.length).toBe(0);
     });

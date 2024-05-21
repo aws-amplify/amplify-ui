@@ -1,6 +1,9 @@
 import { interpret } from 'xstate';
 import { setImmediate } from 'timers';
 
+import { ActorRef } from 'xstate';
+import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
+
 import { livenessMachine } from '../machine';
 import {
   FaceLivenessDetectorProps,
@@ -11,7 +14,6 @@ import {
 } from '../../types';
 import * as helpers from '../../utils';
 import {
-  mockSessionInformation,
   mockBlazeFace,
   mockVideoConstraints,
   mockCameraDevice,
@@ -19,6 +21,7 @@ import {
   mockVideoMediaStream,
   mockOvalDetails,
   mockStreamRecorder,
+  mockRekFaceMovementAndLightSessionInfo,
 } from '../../utils/__mocks__/testUtils';
 
 jest.useFakeTimers();
@@ -99,7 +102,7 @@ describe('Liveness Machine', () => {
     service.send({
       type: 'SET_SESSION_INFO',
       data: {
-        sessionInfo: mockSessionInformation,
+        sessionInfo: mockRekFaceMovementAndLightSessionInfo,
       },
     });
     jest.advanceTimersToNextTimer(); // detectFaceBeforeStart
@@ -193,7 +196,7 @@ describe('Liveness Machine', () => {
     mockedHelpers.estimateIllumination.mockImplementation(
       () => IlluminationState.NORMAL
     );
-    mockedHelpers.getOvalDetailsFromSessionInformation.mockImplementation(
+    mockedHelpers.getOvalDetailsFromChallenge.mockImplementation(
       () => mockOvalDetails
     );
     mockedHelpers.getFaceMatchStateInLivenessOval.mockImplementation(() => {
@@ -391,7 +394,7 @@ describe('Liveness Machine', () => {
       service.send({
         type: 'SET_SESSION_INFO',
         data: {
-          sessionInfo: mockSessionInformation,
+          sessionInfo: mockRekFaceMovementAndLightSessionInfo,
         },
       });
       jest.advanceTimersToNextTimer(); // detectFaceBeforeStart
@@ -419,7 +422,7 @@ describe('Liveness Machine', () => {
       service.send({
         type: 'SET_SESSION_INFO',
         data: {
-          sessionInfo: mockSessionInformation,
+          sessionInfo: mockRekFaceMovementAndLightSessionInfo,
         },
       });
       jest.advanceTimersToNextTimer(); // detectFaceBeforeStart
