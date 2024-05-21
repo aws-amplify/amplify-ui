@@ -3,6 +3,7 @@
   "name": "@aws-amplify/ui-basic-map-environment",
   "version": "0.0.1",
   "scripts": {
-    "pull": "echo n | amplify pull --appId d1xll51xlvl8ri --envName staging"
+    "pull": "amplify pull --appId d1xll51xlvl8ri --envName staging",
+    "generate": "Not available yet"
   }
 }

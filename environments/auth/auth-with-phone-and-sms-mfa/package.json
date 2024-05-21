@@ -3,6 +3,7 @@
   "name": "@aws-amplify/ui-auth-with-phone-and-sms-mfa-environment",
   "version": "0.0.1",
   "scripts": {
-    "pull": "AWS_REGION=us-east-2 npx ampx generate outputs --branch gen2-auth-with-phone-and-sms-mfa --app-id d3lukld24augjv && echo n | amplify pull --appId d1xz3uui039hi --envName staging"
+    "pull": "amplify pull --appId d1xz3uui039hi --envName staging",
+    "generate": "AWS_REGION=us-east-2 npx ampx generate outputs --branch gen2-auth-with-phone-and-sms-mfa --app-id d3lukld24augjv"
   }
 }

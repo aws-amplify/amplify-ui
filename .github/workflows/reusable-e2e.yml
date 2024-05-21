@@ -68,14 +68,32 @@ jobs:
           - example: angular
             package: angular
             tags: '@angular and not @todo-angular'
+            version: gen1
 
           - example: next
             package: react
             tags: '@react and not @todo-react'
+            version: gen1
 
           - example: vue
             package: vue
             tags: '@vue and not @todo-vue'
+            version: gen1
+
+          - example: angular
+            package: angular
+            tags: '@angular and not @todo-angular'
+            version: gen2
+
+          - example: next
+            package: react
+            tags: '@react and not @todo-react'
+            version: gen2
+
+          - example: vue
+            package: vue
+            tags: '@vue and not @todo-vue'
+            version: gen2
 
     steps:
       - name: Checkout Amplify UI
@@ -178,15 +196,13 @@ jobs:
         if: ${{ matrix.package == 'react' }}
         run: yarn react-liveness build
 
-      - name: Add Amplify CLI
-        run: |
-          yarn global add @aws-amplify/cli && \
-          yarn add @aws-amplify/backend-cli@latest aws-cdk-lib constructs -D -W
+      - name: Add Amplify Gen1 CLI
+        if: ${{ matrix.version == 'gen1' }}
+        run: yarn global add @aws-amplify/cli
 
-      # The Amplify Gen 2 CLI has been renamed to "ampx"
-      # Delete the legacy alias "amplify" which conflicts with Gen 1 command
-      - name: Delete the legacy amplify alias
-        run: rm -f ./node_modules/.bin/amplify
+      - name: Add Amplify Gen2 CLI
+        if: ${{ matrix.version == 'gen2' }}
+        run: yarn add @aws-amplify/backend-cli@latest aws-cdk-lib constructs -D -W
 
       - name: Configure auth credentials
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
@@ -204,8 +220,13 @@ jobs:
           aws configure set aws_session_token $AWS_SESSION_TOKEN && \
           aws configure set default.region $AWS_REGION
 
-      - name: Pull down Auth AWS environments
+      - name: Pull down Gen1 Auth AWS environments
+        if: ${{ matrix.version == 'gen1' }}
         run: yarn environments auth pull
+
+      - name: Pull down Gen2 Auth AWS environments
+        if: ${{ matrix.version == 'gen2' }}
+        run: yarn environments auth pull -v gen2
 
       - name: Configure geo credentials
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
@@ -236,8 +257,13 @@ jobs:
           aws configure set aws_session_token $AWS_SESSION_TOKEN && \
           aws configure set default.region $AWS_REGION
 
-      - name: Pull down Storage AWS environments
+      - name: Pull down Gen1 Storage AWS environments
+        if: ${{ matrix.version == 'gen1' }}
         run: yarn environments storage pull
+
+      - name: Pull down Gen2 Storage AWS environments
+        if: ${{ matrix.version == 'gen2' }}
+        run: yarn environments storage pull -v gen2
 
       - name: Configure datastore credentials
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502

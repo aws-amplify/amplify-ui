@@ -3,6 +3,7 @@
   "name": "@aws-amplify/ui-auth-with-phone-number-environment",
   "version": "0.0.1",
   "scripts": {
-    "pull": "AWS_REGION=us-east-2 npx ampx generate outputs --branch gen2-auth-with-phone-number --app-id d3lukld24augjv && echo n | amplify pull --appId d2dikkn69t8i9n --envName staging"
+    "pull": "amplify pull --appId d2dikkn69t8i9n --envName staging",
+    "generate": "AWS_REGION=us-east-2 ampx generate outputs --branch gen2-auth-with-phone-number --app-id d3lukld24augjv"
   }
 }
