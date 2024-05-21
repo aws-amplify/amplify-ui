@@ -12,10 +12,8 @@ import {
 import { ColorSequence, SequenceColorValue } from './ColorSequenceDisplay';
 import {
   FACE_HEIGHT_WEIGHT,
+  OVAL_HEIGHT_WIDTH_RATIO,
   PUPIL_DISTANCE_WEIGHT,
-  FACE_DISTANCE_THRESHOLD,
-  REDUCED_THRESHOLD,
-  REDUCED_THRESHOLD_MOBILE,
 } from './constants';
 
 /**
@@ -135,6 +133,7 @@ export function getStaticLivenessOvalDetails({
   centerXSeed = 0.5,
   centerYSeed = 0.5,
   ratioMultiplier = 0.8,
+  ovalHeightWidthRatio = OVAL_HEIGHT_WIDTH_RATIO,
 }: {
   width: number;
   height: number;
@@ -142,6 +141,7 @@ export function getStaticLivenessOvalDetails({
   centerXSeed?: number;
   centerYSeed?: number;
   ratioMultiplier?: number;
+  ovalHeightWidthRatio?: number;
 }): LivenessOvalDetails {
   const videoHeight = height;
   let videoWidth = width;
@@ -169,7 +169,7 @@ export function getStaticLivenessOvalDetails({
   }
 
   const ovalWidth = ovalRatio * videoWidth;
-  const ovalHeight = 1.618 * ovalWidth;
+  const ovalHeight = ovalHeightWidthRatio * ovalWidth;
 
   return {
     flippedCenterX: Math.floor(videoWidth - centerX),
@@ -326,11 +326,17 @@ function getPupilDistanceAndFaceHeight(face: Face) {
   return { pupilDistance, faceHeight };
 }
 
-export function generateBboxFromLandmarks(
-  face: Face,
-  oval: LivenessOvalDetails,
-  frameHeight: number
-): BoundingBox {
+export function generateBboxFromLandmarks({
+  ovalHeightWidthRatio = OVAL_HEIGHT_WIDTH_RATIO,
+  face,
+  oval,
+  frameHeight,
+}: {
+  ovalHeightWidthRatio?: number;
+  face: Face;
+  oval: LivenessOvalDetails;
+  frameHeight: number;
+}): BoundingBox {
   const { leftEye, rightEye, nose, leftEar, rightEar } = face;
   const { height: ovalHeight, centerY } = oval;
   const ovalTop = centerY - ovalHeight / 2;
@@ -357,7 +363,7 @@ export function generateBboxFromLandmarks(
   }
 
   const faceWidth = ocularWidth;
-  const faceHeight = 1.68 * faceWidth;
+  const faceHeight = ovalHeightWidthRatio * faceWidth;
 
   const top = Math.max(centerFaceY - faceHeight / 2, 0);
   const bottom = Math.min(centerFaceY + faceHeight / 2, frameHeight);
@@ -624,21 +630,27 @@ export async function getFaceMatchState(
 }
 
 export async function isFaceDistanceBelowThreshold({
+  sessionInformation,
   faceDetector,
   videoEl,
   ovalDetails,
   reduceThreshold = false,
-  isMobile = false,
 }: {
+  sessionInformation: SessionInformation;
   faceDetector: FaceDetection;
   videoEl: HTMLVideoElement;
   ovalDetails: LivenessOvalDetails;
   reduceThreshold?: boolean;
-  isMobile?: boolean;
 }): Promise<{
   isDistanceBelowThreshold: boolean;
   error?: ErrorState;
 }> {
+  const challengeConfig =
+    sessionInformation?.Challenge?.FaceMovementAndLightChallenge
+      ?.ChallengeConfig;
+
+  const { FaceDistanceThresholdMin, FaceDistanceThreshold } = challengeConfig!;
+
   const detectedFaces = await faceDetector.detectFaces(videoEl);
   let detectedFace: Face;
 
@@ -669,10 +681,8 @@ export async function isFaceDistanceBelowThreshold({
         isDistanceBelowThreshold =
           calibratedPupilDistance / width <
           (!reduceThreshold
-            ? FACE_DISTANCE_THRESHOLD
-            : isMobile
-            ? REDUCED_THRESHOLD_MOBILE
-            : REDUCED_THRESHOLD);
+            ? FaceDistanceThresholdMin!
+            : FaceDistanceThreshold!);
         if (!isDistanceBelowThreshold) {
           error = LivenessErrorState.FACE_DISTANCE_ERROR;
         }
