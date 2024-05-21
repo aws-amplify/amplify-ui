@@ -39,10 +39,6 @@ export interface FaceMovementServerChallenge extends Challenge {
   OvalParameters: OvalParameters | undefined;
 }
 
-// export type ServerChallenge =
-//   | FaceMovementServerChallenge
-//   | FaceMovementAndLightServerChallenge;
-
 export interface SessionInformation {
   Challenge:
     | FaceMovementServerChallenge
