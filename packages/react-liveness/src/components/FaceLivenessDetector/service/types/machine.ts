@@ -5,8 +5,8 @@ import {
   ColorSequence,
   LightChallengeType,
   OvalParameters,
-  SessionInformation as RekognitionSessionInformation,
   ServiceQuotaExceededException,
+  SessionInformation as RekognitionSessionInformation,
   ValidationException,
   ThrottlingException,
 } from '@aws-sdk/client-rekognitionstreaming';
@@ -39,12 +39,15 @@ export interface FaceMovementServerChallenge extends Challenge {
   OvalParameters: OvalParameters | undefined;
 }
 
-export type ServerChallenge =
-  | FaceMovementServerChallenge
-  | FaceMovementAndLightServerChallenge;
+// export type ServerChallenge =
+//   | FaceMovementServerChallenge
+//   | FaceMovementAndLightServerChallenge;
 
 export interface SessionInformation {
-  Challenge: ServerChallenge | undefined;
+  Challenge:
+    | FaceMovementServerChallenge
+    | FaceMovementAndLightServerChallenge
+    | undefined;
 }
 
 export interface FaceMatchAssociatedParams {

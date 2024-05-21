@@ -1,4 +1,7 @@
-import { LivenessResponseStream } from '@aws-sdk/client-rekognitionstreaming';
+import {
+  LivenessResponseStream,
+  SessionInformation as RekognitionSessionInformation,
+} from '@aws-sdk/client-rekognitionstreaming';
 import { nanoid } from 'nanoid';
 import { createMachine, assign, actions, spawn } from 'xstate';
 
@@ -27,7 +30,6 @@ import {
   LivenessErrorState,
   LivenessEvent,
   OvalAssociatedParams,
-  ServerChallenge,
   StreamActorCallback,
   VideoAssociatedParams,
 } from '../types';
@@ -37,7 +39,7 @@ import {
   createStreamingClient,
   drawLivenessOvalInCanvas,
   getFaceMatchStateInLivenessOval,
-  getOvalDetailsFromChallenge,
+  getOvalDetailsFromSessionInformation,
   StreamRecorder,
   estimateIllumination,
   isCameraDeviceVirtual,
@@ -64,7 +66,6 @@ import {
 
 import { STATIC_VIDEO_CONSTRAINTS } from '../../utils/helpers';
 import { WS_CLOSURE_CODE } from '../utils/constants';
-import { SessionInformation as RekognitionSessionInformation } from '@aws-sdk/client-rekognitionstreaming';
 
 const CAMERA_ID_KEY = 'AmplifyLivenessCameraId';
 const DEFAULT_FACE_FIT_TIMEOUT = 7000;
@@ -184,10 +185,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         target: 'retryableTimeout',
         actions: 'updateErrorStateForTimeout',
       },
-      SET_SESSION_INFO: {
-        internal: true,
-        actions: 'updateSessionInfo',
-      },
+      SET_SESSION_INFO: { internal: true, actions: 'updateSessionInfo' },
       DISCONNECT_EVENT: { internal: true, actions: 'updateShouldDisconnect' },
       SET_DOM_AND_CAMERA_DETAILS: { actions: 'setDOMAndCameraDetails' },
       UPDATE_DEVICE_AND_STREAM: { actions: 'updateDeviceAndStream' },
@@ -668,7 +666,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           const { sessionInfo } = event.data! as {
             sessionInfo: RekognitionSessionInformation;
           };
-          let challenge: ServerChallenge;
+          let challenge:
+            | FaceMovementAndLightServerChallenge
+            | FaceMovementServerChallenge;
           if (isRekFaceMovementAndLightChallenge(sessionInfo.Challenge)) {
             challenge = {
               ...sessionInfo.Challenge.FaceMovementAndLightChallenge,
@@ -1152,7 +1152,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const scaleFactor = videoScaledWidth / videoEl!.videoWidth;
 
         // generate oval details from initialFace and video dimensions
-        const ovalDetails = getOvalDetailsFromChallenge({
+        const ovalDetails = getOvalDetailsFromSessionInformation({
           sessionInformation: serverSessionInformation!,
           videoWidth: videoEl!.width,
         });

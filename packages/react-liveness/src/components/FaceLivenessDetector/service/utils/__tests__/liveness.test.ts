@@ -7,7 +7,7 @@ import {
   generateBboxFromLandmarks,
   getColorsSequencesFromSessionInformation,
   getFaceMatchState,
-  getOvalDetailsFromChallenge,
+  getOvalDetailsFromSessionInformation,
   isCameraDeviceVirtual,
   isFaceDistanceBelowThreshold,
 } from '../liveness';
@@ -99,7 +99,7 @@ const mockTurnedFace: Face = {
 describe('Liveness Helper', () => {
   describe('getOvalDetailsFromSessionInformation', () => {
     it('should parse sessionInformation and return oval parameter attributes', () => {
-      const ovalParameters = getOvalDetailsFromChallenge({
+      const ovalParameters = getOvalDetailsFromSessionInformation({
         sessionInformation: mockFaceMovementAndLightSessionInfo,
         videoWidth: 1,
       });
@@ -125,7 +125,7 @@ describe('Liveness Helper', () => {
       };
 
       expect(() => {
-        getOvalDetailsFromChallenge({
+        getOvalDetailsFromSessionInformation({
           sessionInformation: badSessionInfo,
           videoWidth: 1,
         });

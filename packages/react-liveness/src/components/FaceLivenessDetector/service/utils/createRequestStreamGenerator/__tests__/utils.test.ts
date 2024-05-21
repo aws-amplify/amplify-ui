@@ -1,4 +1,9 @@
 import {
+  FaceMovementAndLightClientChallenge,
+  FaceMovementClientChallenge,
+  ClientSessionInformationEvent,
+} from '@aws-sdk/client-rekognitionstreaming';
+import {
   FaceMatchAssociatedParams,
   OvalAssociatedParams,
 } from '../../../types';
@@ -55,7 +60,7 @@ describe('createColorDisplayEvent', () => {
       sequenceStartTime: 1000,
     });
 
-    expect(output).toStrictEqual({
+    const expectedOutput: ClientSessionInformationEvent = {
       Challenge: {
         FaceMovementAndLightChallenge: {
           ChallengeId: 'challengeId',
@@ -67,7 +72,9 @@ describe('createColorDisplayEvent', () => {
           },
         },
       },
-    });
+    };
+
+    expect(output).toStrictEqual(expectedOutput);
   });
 });
 
@@ -82,7 +89,7 @@ describe('createSessionStartEvent', () => {
       trackWidth: 37288,
     });
 
-    expect(output).toStrictEqual({
+    const expectedOutput: ClientSessionInformationEvent = {
       Challenge: {
         FaceMovementAndLightChallenge: {
           ChallengeId: 'challengeId',
@@ -98,7 +105,9 @@ describe('createSessionStartEvent', () => {
           VideoStartTimestamp: 82918281982,
         },
       },
-    });
+    };
+
+    expect(output).toStrictEqual(expectedOutput);
   });
 
   it('constructs a valid ClientSessionInformationEvent for FaceMovementChallenge', () => {
@@ -111,7 +120,7 @@ describe('createSessionStartEvent', () => {
       trackWidth: 37288,
     });
 
-    expect(output).toStrictEqual({
+    const expectedOutput: ClientSessionInformationEvent = {
       Challenge: {
         FaceMovementChallenge: {
           ChallengeId: 'challengeId',
@@ -127,7 +136,9 @@ describe('createSessionStartEvent', () => {
           VideoStartTimestamp: 82918281982,
         },
       },
-    });
+    };
+
+    expect(output).toStrictEqual(expectedOutput);
   });
 });
 
@@ -189,7 +200,7 @@ describe('createSessionEndEvent', () => {
       recordingEndedTimestamp: 8392839239,
     });
 
-    expect(output).toStrictEqual({
+    const expectedOutput: ClientSessionInformationEvent = {
       Challenge: {
         FaceMovementChallenge: {
           ChallengeId: 'challengeId',
@@ -215,6 +226,8 @@ describe('createSessionEndEvent', () => {
           VideoEndTimestamp: 8392839239,
         },
       },
-    });
+    };
+
+    expect(output).toStrictEqual(expectedOutput);
   });
 });

@@ -1,20 +1,20 @@
 import {
   BoundingBox,
-  FaceMovementAndLightServerChallenge,
-  SessionInformation,
   ErrorState,
   Face,
   FaceDetection,
   FaceMatchState,
+  FaceMovementAndLightServerChallenge,
   IlluminationState,
   LivenessErrorState,
   LivenessOvalDetails,
+  SessionInformation,
 } from '../types';
 import { ColorSequence, SequenceColorValue } from './ColorSequenceDisplay';
 import {
+  FACE_DISTANCE_THRESHOLD,
   FACE_HEIGHT_WEIGHT,
   PUPIL_DISTANCE_WEIGHT,
-  FACE_DISTANCE_THRESHOLD,
   REDUCED_THRESHOLD,
   REDUCED_THRESHOLD_MOBILE,
 } from './constants';
@@ -93,7 +93,7 @@ export function getIntersectionOverUnion(
  * Returns the details of a randomly generated liveness oval
  * from SDK
  */
-export function getOvalDetailsFromChallenge({
+export function getOvalDetailsFromSessionInformation({
   sessionInformation,
   videoWidth,
 }: {

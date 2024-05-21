@@ -69,7 +69,7 @@ const mockTooFarFace: Face = {
 };
 
 describe('getFaceMatchStateInLivenessOval', () => {
-  it('should throw an error if the challenge is undefined', () => {
+  it('should throw an error if the challenge config is undefined', () => {
     const face = mockOffCenterFace;
     const ovalDetails: LivenessOvalDetails = mockOvalDetails;
     const initialFaceIntersection: number = 0.3;
@@ -88,7 +88,26 @@ describe('getFaceMatchStateInLivenessOval', () => {
     );
   });
 
-  it('should parse challenge and return oval parameter attributes', () => {
+  it('should throw an error if the challenge is undefined', () => {
+    const face = mockOffCenterFace;
+    const ovalDetails: LivenessOvalDetails = mockOvalDetails;
+    const initialFaceIntersection: number = 0.3;
+
+    expect(() => {
+      getFaceMatchStateInLivenessOval({
+        face,
+        ovalDetails,
+        initialFaceIntersection,
+        // @ts-expect-error testing invalid input
+        sessionInformation: {},
+        frameHeight: 480,
+      });
+    }).toThrowError(
+      'Challenge information not returned from session information.'
+    );
+  });
+
+  it('should parse sessionInformation and return oval parameter attributes', () => {
     const face = mockOffCenterFace;
     const ovalDetails: LivenessOvalDetails = mockOvalDetails;
     const initialFaceIntersection: number = 0.3;

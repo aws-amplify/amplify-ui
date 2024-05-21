@@ -128,7 +128,7 @@ export function createSessionEndEvent({
     ...ovalDetails!,
   });
 
-  const challengeDetails = {
+  const challengeConfig = {
     ChallengeId: challengeId,
     InitialFace: {
       InitialFaceDetectedTimestamp: initialFace!.timestampMs,
@@ -144,8 +144,8 @@ export function createSessionEndEvent({
   return {
     Challenge: {
       ...(challengeType === 'FaceMovementAndLightChallenge'
-        ? { FaceMovementAndLightChallenge: challengeDetails }
-        : { FaceMovementChallenge: challengeDetails }),
+        ? { FaceMovementAndLightChallenge: challengeConfig }
+        : { FaceMovementChallenge: challengeConfig }),
     },
   };
 }
@@ -172,7 +172,7 @@ export function createSessionStartEvent({
     ...initialFace!,
   });
 
-  const challengeDetails = {
+  const challengeConfig = {
     ChallengeId: challengeId,
     VideoStartTimestamp: recordingStartedTimestamp,
     InitialFace: {
@@ -184,8 +184,8 @@ export function createSessionStartEvent({
   return {
     Challenge: {
       ...(challengeType === 'FaceMovementAndLightChallenge'
-        ? { FaceMovementAndLightChallenge: challengeDetails }
-        : { FaceMovementChallenge: challengeDetails }),
+        ? { FaceMovementAndLightChallenge: challengeConfig }
+        : { FaceMovementChallenge: challengeConfig }),
     },
   };
 }

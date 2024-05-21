@@ -1,9 +1,6 @@
 import { interpret } from 'xstate';
 import { setImmediate } from 'timers';
 
-import { ActorRef } from 'xstate';
-import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
-
 import { livenessMachine } from '../machine';
 import {
   FaceLivenessDetectorProps,
@@ -196,7 +193,7 @@ describe('Liveness Machine', () => {
     mockedHelpers.estimateIllumination.mockImplementation(
       () => IlluminationState.NORMAL
     );
-    mockedHelpers.getOvalDetailsFromChallenge.mockImplementation(
+    mockedHelpers.getOvalDetailsFromSessionInformation.mockImplementation(
       () => mockOvalDetails
     );
     mockedHelpers.getFaceMatchStateInLivenessOval.mockImplementation(() => {
