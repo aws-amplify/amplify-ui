@@ -657,6 +657,20 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       clearErrorState: assign({ errorState: (_) => undefined }),
       updateSessionInfo: assign({
         serverSessionInformation: (_, event) => {
+          const challengeConfig = (
+            event.data!.sessionInfo as SessionInformation
+          )?.Challenge?.FaceMovementAndLightChallenge?.ChallengeConfig;
+
+          if (
+            !challengeConfig ||
+            !challengeConfig.FaceDistanceThreshold ||
+            !challengeConfig.FaceDistanceThresholdMin ||
+            !challengeConfig.OvalHeightWidthRatio
+          ) {
+            throw new Error(
+              'Challenge config not returned from session information.'
+            );
+          }
           return event.data!.sessionInfo as SessionInformation;
         },
       }),
@@ -995,62 +1009,36 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       async detectFaceDistance(context) {
         const {
+          serverSessionInformation,
           isFaceFarEnoughBeforeRecording: faceDistanceCheckBeforeRecording,
         } = context;
-        const { videoEl, videoMediaStream, isMobile } =
-          context.videoAssociatedParams!;
+        const { videoEl, videoMediaStream } = context.videoAssociatedParams!;
         const { faceDetector } = context.ovalAssociatedParams!;
 
         const { width, height } = videoMediaStream!
           .getTracks()[0]
           .getSettings();
 
+        const challengeConfig =
+          serverSessionInformation?.Challenge?.FaceMovementAndLightChallenge
+            ?.ChallengeConfig;
+
         const ovalDetails = getStaticLivenessOvalDetails({
           width: width!,
           height: height!,
+          ovalHeightWidthRatio: challengeConfig!.OvalHeightWidthRatio!,
         });
 
         const { isDistanceBelowThreshold: isFaceFarEnoughBeforeRecording } =
           await isFaceDistanceBelowThreshold({
+            sessionInformation: serverSessionInformation!,
             faceDetector: faceDetector!,
             videoEl: videoEl!,
             ovalDetails,
             reduceThreshold: faceDistanceCheckBeforeRecording, // if this is the second face distance check reduce the threshold
-            isMobile,
           });
 
         return { isFaceFarEnoughBeforeRecording };
-      },
-      async detectFaceDistanceWhileLoading(context) {
-        const {
-          isFaceFarEnoughBeforeRecording: faceDistanceCheckBeforeRecording,
-        } = context;
-        const { videoEl, videoMediaStream, isMobile } =
-          context.videoAssociatedParams!;
-        const { faceDetector } = context.ovalAssociatedParams!;
-
-        const { width, height } = videoMediaStream!
-          .getTracks()[0]
-          .getSettings();
-
-        const ovalDetails = getStaticLivenessOvalDetails({
-          width: width!,
-          height: height!,
-        });
-
-        const {
-          isDistanceBelowThreshold: isFaceFarEnoughBeforeRecording,
-          error,
-        } = await isFaceDistanceBelowThreshold({
-          faceDetector: faceDetector!,
-          isMobile,
-          ovalDetails,
-          videoEl: videoEl!,
-          // if this is the second face distance check reduce the threshold
-          reduceThreshold: faceDistanceCheckBeforeRecording,
-        });
-
-        return { isFaceFarEnoughBeforeRecording, error };
       },
       async detectInitialFaceAndDrawOval(context) {
         const { serverSessionInformation } = context;
@@ -1119,12 +1107,17 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           videoWidth: videoEl!.width,
         });
 
+        const challengeConfig =
+          serverSessionInformation?.Challenge?.FaceMovementAndLightChallenge
+            ?.ChallengeConfig;
+
         // renormalize initial face
-        const renormalizedFace = generateBboxFromLandmarks(
-          initialFace,
-          ovalDetails,
-          videoEl!.videoHeight
-        );
+        const renormalizedFace = generateBboxFromLandmarks({
+          ovalHeightWidthRatio: challengeConfig!.OvalHeightWidthRatio,
+          face: initialFace,
+          oval: ovalDetails,
+          frameHeight: videoEl!.videoHeight,
+        });
         initialFace.top = renormalizedFace.top;
         initialFace.left = renormalizedFace.left;
         initialFace.height = renormalizedFace.bottom - renormalizedFace.top;
@@ -1158,11 +1151,16 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         let detectedFace: Face | undefined;
         let illuminationState: IlluminationState | undefined;
 
-        const initialFaceBoundingBox = generateBboxFromLandmarks(
-          initialFace!,
-          ovalDetails!,
-          videoEl!.videoHeight
-        );
+        const challengeConfig =
+          serverSessionInformation?.Challenge?.FaceMovementAndLightChallenge
+            ?.ChallengeConfig;
+
+        const initialFaceBoundingBox = generateBboxFromLandmarks({
+          ovalHeightWidthRatio: challengeConfig!.OvalHeightWidthRatio,
+          face: initialFace!,
+          oval: ovalDetails!,
+          frameHeight: videoEl!.videoHeight,
+        });
 
         const { ovalBoundingBox } = getOvalBoundingBox(ovalDetails!);
 
