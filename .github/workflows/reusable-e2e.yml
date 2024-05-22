@@ -67,32 +67,32 @@ jobs:
         include:
           - example: angular
             package: angular
-            tags: '@angular and not @todo-angular'
+            tags: '@gen1 and @angular and not @todo-angular'
             version: gen1
 
           - example: next
             package: react
-            tags: '@react and not @todo-react'
+            tags: '@gen1 and @react and not @todo-react'
             version: gen1
 
           - example: vue
             package: vue
-            tags: '@vue and not @todo-vue'
+            tags: '@gen1 and @vue and not @todo-vue'
             version: gen1
 
-          - example: angular
+          - example: angular-gen2
             package: angular
-            tags: '@angular and not @todo-angular'
+            tags: '@gen2 and @angular and not @todo-angular'
             version: gen2
 
-          - example: next
+          - example: next-gen2
             package: react
-            tags: '@react and not @todo-react'
+            tags: '@gen2 and @react and not @todo-react'
             version: gen2
 
-          - example: vue
+          - example: vue-gen2
             package: vue
-            tags: '@vue and not @todo-vue'
+            tags: '@gen2 and @vue and not @todo-vue'
             version: gen2
 
     steps:
@@ -241,7 +241,8 @@ jobs:
           aws configure set aws_session_token $AWS_SESSION_TOKEN && \
           aws configure set default.region $AWS_REGION
 
-      - name: Pull down Geo AWS environments
+      - name: Pull down Gen1 Geo AWS environments
+        if: ${{ matrix.version == 'gen1' }}
         run: yarn environments geo pull
 
       - name: Configure AWS Credentials
@@ -278,7 +279,8 @@ jobs:
           aws configure set aws_session_token $AWS_SESSION_TOKEN && \
           aws configure set default.region $AWS_REGION
 
-      - name: Pull down Datastore AWS environments
+      - name: Pull down Gen1 Datastore AWS environments
+        if: ${{ matrix.version == 'gen1' }}
         run: yarn environments datastore pull
 
       - name: Configure liveness credentials
@@ -294,7 +296,8 @@ jobs:
           aws configure set aws_session_token $AWS_SESSION_TOKEN && \
           aws configure set default.region $AWS_REGION
 
-      - name: Pull down Liveness AWS environments
+      - name: Pull down Gen1 Liveness AWS environments
+        if: ${{ matrix.version == 'gen1' }}
         run: yarn environments liveness pull
 
       - name: Configure in-app-messaging credentials
@@ -313,7 +316,8 @@ jobs:
           aws configure set aws_session_token $AWS_SESSION_TOKEN && \
           aws configure set default.region $AWS_REGION
 
-      - name: Pull down In-app-messaging AWS environments
+      - name: Pull down Gen1 In-app-messaging AWS environments
+        if: ${{ matrix.version == 'gen1' }}
         run: yarn environments in-app-messaging pull
 
       - name: Delete AWS profile
@@ -323,7 +327,7 @@ jobs:
         run: yarn ${{ matrix.example }}-example build
 
       - name: Start ${{ matrix.example }} example
-        run: yarn ${{ matrix.example }}-example start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/ui/components/authenticator/sign-in-with-username
+        run: yarn ${{ matrix.example }}-example start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/ui/components/authenticator/sign-in-with-email
         env:
           # Setting this value temporarily since the beta liveness sample app hits the gamma endpoint
           NEXT_PUBLIC_STREAMING_API_URL: wss://streaming-rekognition-gamma.us-east-1.amazonaws.com
@@ -445,14 +449,7 @@ jobs:
           yarn react-native-example ios:pod-install
 
       - name: Add Amplify CLI
-        run: |
-          yarn global add @aws-amplify/cli && \
-          yarn add @aws-amplify/backend-cli@latest aws-cdk-lib constructs -D -W
-
-      # The Amplify Gen 2 CLI has been renamed to "ampx"
-      # Delete the legacy alias "amplify" which conflicts with Gen 1 command
-      - name: Delete the legacy amplify alias
-        run: rm -f ./node_modules/.bin/amplify
+        run: yarn global add @aws-amplify/cli
 
       - name: Get CLI versions
         id: cli-version
@@ -561,14 +558,7 @@ jobs:
         run: yarn react-native build
 
       - name: Add Amplify CLI
-        run: |
-          yarn global add @aws-amplify/cli && \
-          yarn add @aws-amplify/backend-cli@latest aws-cdk-lib constructs -D -W
-
-      # The Amplify Gen 2 CLI has been renamed to "ampx"
-      # Delete the legacy "amplify" alias which conflicts with Gen 1 command
-      - name: Delete the legacy amplify alias
-        run: rm -f ./node_modules/.bin/amplify
+        run: yarn global add @aws-amplify/cli
 
       - name: Get CLI versions
         id: cli-version

@@ -5,13 +5,13 @@ Feature: Sign Up with Email
   Background:
     Given I'm running the example "ui/components/authenticator/sign-up-with-email"
 
-  @angular @react @vue @react-native
+  @angular @react @vue @react-native @gen1 @gen2
   Scenario: Login mechanism set to "email"
     Then I see "Email" as an input field
     Then I don't see "Username" as an input field
     Then I don't see "Phone Number" as an input field
 
-  @angular @react @vue
+  @angular @react @vue @gen1 @gen2
   Scenario: Sign up with a new email & password and check auth message
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
     Then I see "unauthenticated"
@@ -22,7 +22,7 @@ Feature: Sign Up with Email
     Then I see "authenticated"
     Then I see "Confirmation Code"
 
-  @angular @react @vue
+  @angular @react @vue @gen1 @gen2
   Scenario: Sign up with a new email & password and lowercase the email 
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
     When I type a new "email" with value "TEST@example.com"
@@ -32,7 +32,7 @@ Feature: Sign Up with Email
     Then I verify the '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' body has "test@example.com" included
     Then I see "Confirmation Code"
 
-  @react-native 
+  @react-native @gen1 @gen2
   Scenario: Confirm sign up submit button is disabled when required fields are empty or invalid
     When I click the "Create Account" button
     Then I do not see a remote error with id "amplify__error-message"
@@ -42,7 +42,7 @@ Feature: Sign Up with Email
     Then I click the "Create Account" button
     Then I do not see a remote error with id "amplify__error-message"
 
-  @angular @react @vue @react-native
+  @angular @react @vue @react-native @gen1 @gen2
   Scenario: Sign up with a new email & password
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
     When I type a new "email"
@@ -51,14 +51,14 @@ Feature: Sign Up with Email
     Then I click the "Create Account" button
     Then I see "Confirmation Code"
 
-  @react-native
+  @react-native @gen1 @gen2
   Scenario: Sign up using invalid email
     When I type a new "email" with value ''
     Then I see "This field is required"
     When I type a new "email" with value 'inv'
     Then I see "Please enter a valid email"
 
-  @angular @react @vue
+  @angular @react @vue @gen1 @gen2
   Scenario: Email field autocompletes username
 
   On sign up form, autocomplete prefers usage of username instead of email. 
@@ -66,7 +66,7 @@ Feature: Sign Up with Email
 
     Then "Email" field autocompletes "username"
 
-  @angular @react @vue
+  @angular @react @vue @gen1 @gen2
   Scenario: Password fields autocomplete "new-password"
     Then "Password" field autocompletes "new-password"
     Then "Confirm Password" field autocompletes "new-password"

@@ -5,7 +5,7 @@ Feature: Change Password
   Background:
     Given I'm running the example "ui/components/account-settings/change-password"
 
-  @react
+  @react @gen1
   Scenario: Change password of an authenticated user
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ChangePassword" } }' with fixture 'AWSCognitoIdentityProviderService.ChangePassword.success'
     When I type my "email" with status "CONFIRMED"
@@ -20,7 +20,7 @@ Feature: Change Password
     Then I click the "Sign out" button
     Then I see "Sign in"
 
-  @react
+  @react @gen1
   Scenario: Change password with wrong password requirements
     When I type my "email" with status "CONFIRMED"
     Then I type my password
