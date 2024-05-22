@@ -7,7 +7,7 @@
   "commit": false,
   "linked": [],
   "access": "public",
-  "baseBranch": "main",
+  "baseBranch": "ui/v4",
   "updateInternalDependencies": "patch",
   "ignore": [
     "docs",

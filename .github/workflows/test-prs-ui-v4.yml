@@ -13,7 +13,7 @@ concurrency:
 
 on:
   pull_request:
-    branches: [ui-react/v3]
+    branches: [ui/v4]
     types: [opened, synchronize, labeled]
 
 permissions:
