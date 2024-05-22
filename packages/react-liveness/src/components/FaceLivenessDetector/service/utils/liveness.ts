@@ -1,13 +1,14 @@
-import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
 import {
   BoundingBox,
   ErrorState,
   Face,
   FaceDetection,
   FaceMatchState,
+  FaceMovementAndLightChallenge,
   IlluminationState,
   LivenessErrorState,
   LivenessOvalDetails,
+  SessionInformation,
 } from '../types';
 import { ColorSequence, SequenceColorValue } from './ColorSequenceDisplay';
 import {
@@ -97,10 +98,7 @@ export function getOvalDetailsFromSessionInformation({
   sessionInformation: SessionInformation;
   videoWidth: number;
 }): LivenessOvalDetails {
-  const ovalParameters =
-    sessionInformation?.Challenge?.FaceMovementAndLightChallenge
-      ?.OvalParameters;
-
+  const ovalParameters = sessionInformation.Challenge!.OvalParameters;
   if (
     !ovalParameters ||
     !ovalParameters.CenterX ||
@@ -574,11 +572,11 @@ const isColorSequence = (
 export function getColorsSequencesFromSessionInformation(
   sessionInformation: SessionInformation
 ): ColorSequence[] {
-  const colorSequenceFromSessionInfo =
-    sessionInformation.Challenge!.FaceMovementAndLightChallenge!
+  const colorSequenceFromServerChallenge =
+    (sessionInformation.Challenge as FaceMovementAndLightChallenge)
       .ColorSequences ?? [];
   const colorSequences: (ColorSequence | undefined)[] =
-    colorSequenceFromSessionInfo.map(
+    colorSequenceFromServerChallenge.map(
       ({
         FreshnessColor,
         DownscrollDuration: downscrollDuration,
@@ -645,9 +643,7 @@ export async function isFaceDistanceBelowThreshold({
   isDistanceBelowThreshold: boolean;
   error?: ErrorState;
 }> {
-  const challengeConfig =
-    sessionInformation?.Challenge?.FaceMovementAndLightChallenge
-      ?.ChallengeConfig;
+  const challengeConfig = sessionInformation.Challenge!.ChallengeConfig;
 
   const { FaceDistanceThresholdMin, FaceDistanceThreshold } = challengeConfig!;
 

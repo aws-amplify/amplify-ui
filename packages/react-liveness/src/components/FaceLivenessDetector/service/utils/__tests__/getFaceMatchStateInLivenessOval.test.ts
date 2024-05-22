@@ -2,10 +2,9 @@ import 'jest-canvas-mock';
 import { getFaceMatchStateInLivenessOval } from '../getFaceMatchStateInLivenessOval';
 import {
   mockOvalDetails,
-  mockSessionInformation,
+  mockFaceMovementAndLightSessionInfo,
 } from '../__mocks__/testUtils';
 import { Face, FaceMatchState, LivenessOvalDetails } from '../../types';
-import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
 
 const MOCK_TIMESTAMP = 1640995200000;
 
@@ -74,18 +73,14 @@ describe('getFaceMatchStateInLivenessOval', () => {
     const face = mockOffCenterFace;
     const ovalDetails: LivenessOvalDetails = mockOvalDetails;
     const initialFaceIntersection: number = 0.3;
-    const undefinedConfigSessionInformation: SessionInformation = {
-      ...mockSessionInformation,
-      // @ts-expect-error intentional invalid value
-      Challenge: { FaceMovementAndLightChallenge: {} },
-    };
 
     expect(() => {
       getFaceMatchStateInLivenessOval({
         face,
         ovalDetails,
         initialFaceIntersection,
-        sessionInformation: undefinedConfigSessionInformation,
+        // @ts-expect-error testing invalid input
+        sessionInformation: { Challenge: {} },
         frameHeight: 480,
       });
     }).toThrowError(
@@ -97,7 +92,7 @@ describe('getFaceMatchStateInLivenessOval', () => {
     const face = mockOffCenterFace;
     const ovalDetails: LivenessOvalDetails = mockOvalDetails;
     const initialFaceIntersection: number = 0.3;
-    const sessionInformation = mockSessionInformation;
+    const sessionInformation = mockFaceMovementAndLightSessionInfo;
 
     const { faceMatchState, faceMatchPercentage } =
       getFaceMatchStateInLivenessOval({
@@ -116,7 +111,7 @@ describe('getFaceMatchStateInLivenessOval', () => {
     const face = mockCloselyMatchedFace;
     const ovalDetails: LivenessOvalDetails = mockOvalDetails;
     const initialFaceIntersection: number = 0.3;
-    const sessionInformation = mockSessionInformation;
+    const sessionInformation = mockFaceMovementAndLightSessionInfo;
 
     const { faceMatchState } = getFaceMatchStateInLivenessOval({
       face,
@@ -133,7 +128,7 @@ describe('getFaceMatchStateInLivenessOval', () => {
     const face = mockMatchedFace;
     const ovalDetails: LivenessOvalDetails = mockOvalDetails;
     const initialFaceIntersection: number = 0.3;
-    const sessionInformation = mockSessionInformation;
+    const sessionInformation = mockFaceMovementAndLightSessionInfo;
 
     const { faceMatchState, faceMatchPercentage } =
       getFaceMatchStateInLivenessOval({
@@ -152,7 +147,7 @@ describe('getFaceMatchStateInLivenessOval', () => {
     const face = mockTooFarFace;
     const ovalDetails: LivenessOvalDetails = mockOvalDetails;
     const initialFaceIntersection: number = 0.3;
-    const sessionInformation = mockSessionInformation;
+    const sessionInformation = mockFaceMovementAndLightSessionInfo;
 
     const { faceMatchState, faceMatchPercentage } =
       getFaceMatchStateInLivenessOval({
