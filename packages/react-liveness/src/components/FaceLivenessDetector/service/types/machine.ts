@@ -10,7 +10,10 @@ import {
   ValidationException,
   ThrottlingException,
 } from '@aws-sdk/client-rekognitionstreaming';
-
+import {
+  FACE_MOVEMENT_CHALLENGE,
+  FACE_MOVEMENT_AND_LIGHT_CHALLENGE,
+} from '../utils';
 import { ErrorState } from './error';
 import { Face, FaceDetection } from './faceDetection';
 import {
@@ -26,7 +29,7 @@ interface Challenge {
 }
 
 export interface FaceMovementAndLightChallenge extends Challenge {
-  name: 'FaceMovementAndLightChallenge';
+  name: (typeof FACE_MOVEMENT_AND_LIGHT_CHALLENGE)['Type'];
   ChallengeConfig: ChallengeConfig | undefined;
   ColorSequences: ColorSequence[] | undefined;
   LightChallengeType: LightChallengeType | undefined;
@@ -34,7 +37,7 @@ export interface FaceMovementAndLightChallenge extends Challenge {
 }
 
 export interface FaceMovementChallenge extends Challenge {
-  name: 'FaceMovementChallenge';
+  name: (typeof FACE_MOVEMENT_CHALLENGE)['Type'];
   ChallengeConfig: ChallengeConfig | undefined;
   OvalParameters: OvalParameters | undefined;
 }
