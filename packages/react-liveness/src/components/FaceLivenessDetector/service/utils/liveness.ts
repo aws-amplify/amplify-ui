@@ -8,7 +8,7 @@ import {
   IlluminationState,
   LivenessErrorState,
   LivenessOvalDetails,
-  SessionInformation,
+  ParsedSessionInformation,
 } from '../types';
 import { ColorSequence, SequenceColorValue } from './ColorSequenceDisplay';
 import {
@@ -92,13 +92,13 @@ export function getIntersectionOverUnion(
  * from SDK
  */
 export function getOvalDetailsFromSessionInformation({
-  sessionInformation,
+  parsedSessionInformation,
   videoWidth,
 }: {
-  sessionInformation: SessionInformation;
+  parsedSessionInformation: ParsedSessionInformation;
   videoWidth: number;
 }): LivenessOvalDetails {
-  const ovalParameters = sessionInformation.Challenge!.OvalParameters;
+  const ovalParameters = parsedSessionInformation.Challenge!.OvalParameters;
   if (
     !ovalParameters ||
     !ovalParameters.CenterX ||
@@ -570,10 +570,10 @@ const isColorSequence = (
 ): obj is ColorSequence => !!obj;
 
 export function getColorsSequencesFromSessionInformation(
-  sessionInformation: SessionInformation
+  parsedSessionInformation: ParsedSessionInformation
 ): ColorSequence[] {
   const colorSequenceFromServerChallenge =
-    (sessionInformation.Challenge as FaceMovementAndLightChallenge)
+    (parsedSessionInformation.Challenge as FaceMovementAndLightChallenge)
       .ColorSequences ?? [];
   const colorSequences: (ColorSequence | undefined)[] =
     colorSequenceFromServerChallenge.map(
@@ -628,13 +628,13 @@ export async function getFaceMatchState(
 }
 
 export async function isFaceDistanceBelowThreshold({
-  sessionInformation,
+  parsedSessionInformation,
   faceDetector,
   videoEl,
   ovalDetails,
   reduceThreshold = false,
 }: {
-  sessionInformation: SessionInformation;
+  parsedSessionInformation: ParsedSessionInformation;
   faceDetector: FaceDetection;
   videoEl: HTMLVideoElement;
   ovalDetails: LivenessOvalDetails;
@@ -643,7 +643,7 @@ export async function isFaceDistanceBelowThreshold({
   isDistanceBelowThreshold: boolean;
   error?: ErrorState;
 }> {
-  const challengeConfig = sessionInformation.Challenge!.ChallengeConfig;
+  const challengeConfig = parsedSessionInformation.Challenge!.ChallengeConfig;
 
   const { FaceDistanceThresholdMin, FaceDistanceThreshold } = challengeConfig!;
 

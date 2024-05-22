@@ -1,10 +1,8 @@
 import { ActorRef, Interpreter, State } from 'xstate';
 import {
   InternalServerException,
-  ChallengeConfig,
-  ColorSequence,
-  LightChallengeType,
-  OvalParameters,
+  FaceMovementServerChallenge,
+  FaceMovementAndLightServerChallenge,
   ServiceQuotaExceededException,
   SessionInformation as ServerSessionInformation,
   ValidationException,
@@ -28,21 +26,19 @@ interface Challenge {
   name: string;
 }
 
-export interface FaceMovementAndLightChallenge extends Challenge {
-  name: (typeof FACE_MOVEMENT_AND_LIGHT_CHALLENGE)['Type'];
-  ChallengeConfig: ChallengeConfig | undefined;
-  ColorSequences: ColorSequence[] | undefined;
-  LightChallengeType: LightChallengeType | undefined;
-  OvalParameters: OvalParameters | undefined;
+export interface FaceMovementAndLightChallenge
+  extends Challenge,
+    FaceMovementAndLightServerChallenge {
+  name: (typeof FACE_MOVEMENT_AND_LIGHT_CHALLENGE)['type'];
 }
 
-export interface FaceMovementChallenge extends Challenge {
-  name: (typeof FACE_MOVEMENT_CHALLENGE)['Type'];
-  ChallengeConfig: ChallengeConfig | undefined;
-  OvalParameters: OvalParameters | undefined;
+export interface FaceMovementChallenge
+  extends Challenge,
+    FaceMovementServerChallenge {
+  name: (typeof FACE_MOVEMENT_CHALLENGE)['type'];
 }
 
-export interface SessionInformation {
+export interface ParsedSessionInformation {
   Challenge: FaceMovementChallenge | FaceMovementAndLightChallenge | undefined;
 }
 
@@ -94,7 +90,7 @@ export interface LivenessContext {
   maxFailedAttempts: number | undefined;
   ovalAssociatedParams: OvalAssociatedParams | undefined;
   responseStreamActorRef: ActorRef<any> | undefined;
-  sessionInformation: SessionInformation | undefined;
+  parsedSessionInformation: ParsedSessionInformation | undefined;
   shouldDisconnect: boolean | undefined;
   videoAssociatedParams: VideoAssociatedParams | undefined;
 }

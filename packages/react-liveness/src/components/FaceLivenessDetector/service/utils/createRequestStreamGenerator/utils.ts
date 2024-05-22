@@ -14,7 +14,7 @@ import {
   Face,
   LivenessOvalDetails,
   LivenessContext,
-  SessionInformation,
+  ParsedSessionInformation,
 } from '../../types';
 import {
   SequenceChangeParams,
@@ -109,21 +109,21 @@ type ClientChallenge =
   | FaceMovementAndLightClientChallenge
   | FaceMovementClientChallenge;
 interface CreateClientSessionInformationEventParams {
-  sessionInformation: SessionInformation;
+  parsedSessionInformation: ParsedSessionInformation;
   clientChallenge: ClientChallenge;
 }
 
 function createClientSessionInformationEvent({
-  sessionInformation,
+  parsedSessionInformation,
   clientChallenge,
 }: CreateClientSessionInformationEventParams): ClientSessionInformationEvent {
-  if (isFaceMovementChallenge(sessionInformation)) {
+  if (isFaceMovementChallenge(parsedSessionInformation)) {
     return {
       Challenge: {
         FaceMovementChallenge: clientChallenge,
       },
     };
-  } else if (isFaceMovementAndLightChallenge(sessionInformation)) {
+  } else if (isFaceMovementAndLightChallenge(parsedSessionInformation)) {
     return {
       Challenge: {
         FaceMovementAndLightChallenge: clientChallenge,
@@ -134,7 +134,7 @@ function createClientSessionInformationEvent({
 }
 
 interface CreateSessionEndEventParams extends TrackDimensions {
-  sessionInformation: SessionInformation;
+  parsedSessionInformation: ParsedSessionInformation;
   challengeId: NonNullable<LivenessContext['challengeId']>;
   faceMatchAssociatedParams: NonNullable<
     LivenessContext['faceMatchAssociatedParams']
@@ -143,7 +143,7 @@ interface CreateSessionEndEventParams extends TrackDimensions {
   recordingEndedTimestamp: number;
 }
 export function createSessionEndEvent({
-  sessionInformation,
+  parsedSessionInformation,
   challengeId,
   faceMatchAssociatedParams,
   ovalAssociatedParams,
@@ -180,18 +180,18 @@ export function createSessionEndEvent({
     VideoEndTimestamp: recordingEndedTimestamp,
   };
   return createClientSessionInformationEvent({
-    sessionInformation,
+    parsedSessionInformation,
     clientChallenge,
   });
 }
 interface CreateSessionStartEventParams extends TrackDimensions {
-  sessionInformation: SessionInformation;
+  parsedSessionInformation: ParsedSessionInformation;
   challengeId: NonNullable<LivenessContext['challengeId']>;
   ovalAssociatedParams: NonNullable<LivenessContext['ovalAssociatedParams']>;
   recordingStartedTimestamp: number;
 }
 export function createSessionStartEvent({
-  sessionInformation,
+  parsedSessionInformation,
   challengeId,
   ovalAssociatedParams,
   recordingStartedTimestamp,
@@ -215,7 +215,7 @@ export function createSessionStartEvent({
   };
 
   return createClientSessionInformationEvent({
-    sessionInformation,
+    parsedSessionInformation,
     clientChallenge,
   });
 }

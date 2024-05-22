@@ -11,7 +11,7 @@ import {
   LivenessOvalDetails,
   IlluminationState,
   LivenessContext,
-  SessionInformation,
+  ParsedSessionInformation,
 } from '../../types';
 import { StreamRecorder } from '../StreamRecorder';
 
@@ -138,7 +138,7 @@ export const mockFace: Face = {
   leftEar: [200, 200],
 };
 
-export const mockFaceMovementAndLightSessionInfo: SessionInformation = {
+export const mockFaceMovementAndLightSessionInfo: ParsedSessionInformation = {
   Challenge: {
     name: 'FaceMovementAndLightChallenge',
     ChallengeConfig: {
@@ -192,7 +192,7 @@ export const mockFaceMovementAndLightServerSessionInfo: ServerSessionInformation
     },
   };
 
-export const mockFaceMovementSessionInfo: SessionInformation = {
+export const mockFaceMovementSessionInfo: ParsedSessionInformation = {
   Challenge: {
     name: 'FaceMovementChallenge',
     ChallengeConfig: {
@@ -288,7 +288,7 @@ export const getMockContext = (): LivenessContext => ({
   colorSequenceDisplay: { startSequences: jest.fn() } as any,
   errorState: undefined,
   livenessStreamProvider: mockStreamRecorder,
-  sessionInformation: mockFaceMovementAndLightSessionInfo,
+  parsedSessionInformation: mockFaceMovementAndLightSessionInfo,
   responseStreamActorRef: mockResponseStreamActorRef,
   shouldDisconnect: false,
   faceMatchStateBeforeStart: FaceMatchState.MATCHED,

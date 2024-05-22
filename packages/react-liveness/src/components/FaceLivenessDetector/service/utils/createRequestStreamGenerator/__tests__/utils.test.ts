@@ -2,7 +2,7 @@ import { ClientSessionInformationEvent } from '@aws-sdk/client-rekognitionstream
 import {
   FaceMatchAssociatedParams,
   OvalAssociatedParams,
-  SessionInformation,
+  ParsedSessionInformation,
 } from '../../../types';
 import {
   createColorDisplayEvent,
@@ -16,7 +16,7 @@ const ovalAssociatedParams = {
   ovalDetails: { height: 120, width: 360, centerX: 12, centerY: 45 },
 } as OvalAssociatedParams;
 
-const movementAndLightSessionInformation: SessionInformation = {
+const movementAndLightSessionInformation: ParsedSessionInformation = {
   Challenge: {
     name: 'FaceMovementAndLightChallenge',
     ChallengeConfig: {},
@@ -31,7 +31,7 @@ const movementAndLightSessionInformation: SessionInformation = {
   },
 };
 
-const movementSessionInformation: SessionInformation = {
+const movementSessionInformation: ParsedSessionInformation = {
   Challenge: {
     name: 'FaceMovementChallenge',
     ChallengeConfig: {},
@@ -107,7 +107,7 @@ describe('createSessionStartEvent', () => {
   it('constructs a valid ClientSessionInformationEvent for FaceMovementAndLightChallenge', () => {
     const output = createSessionStartEvent({
       challengeId: 'challengeId',
-      sessionInformation: movementAndLightSessionInformation,
+      parsedSessionInformation: movementAndLightSessionInformation,
       ovalAssociatedParams,
       recordingStartedTimestamp: 82918281982,
       trackHeight: 121212,
@@ -136,7 +136,7 @@ describe('createSessionStartEvent', () => {
   it('constructs a valid ClientSessionInformationEvent for FaceMovementChallenge', () => {
     const output = createSessionStartEvent({
       challengeId: 'challengeId',
-      sessionInformation: movementSessionInformation,
+      parsedSessionInformation: movementSessionInformation,
       ovalAssociatedParams,
       recordingStartedTimestamp: 82918281982,
       trackHeight: 121212,
@@ -167,7 +167,7 @@ describe('createSessionEndEvent', () => {
   it('constructs a valid ClientSessionInformationEvent for FaceMovementAndLightChallenge', () => {
     const output = createSessionEndEvent({
       challengeId: 'challengeId',
-      sessionInformation: movementAndLightSessionInformation,
+      parsedSessionInformation: movementAndLightSessionInformation,
       faceMatchAssociatedParams: {
         endFace: { timestampMs: 1600 },
         startFace: { timestampMs: 1200 },
@@ -210,7 +210,7 @@ describe('createSessionEndEvent', () => {
   it('constructs a valid ClientSessionInformationEvent for FaceMovementChallenge', () => {
     const output = createSessionEndEvent({
       challengeId: 'challengeId',
-      sessionInformation: movementSessionInformation,
+      parsedSessionInformation: movementSessionInformation,
       faceMatchAssociatedParams: {
         endFace: { timestampMs: 1600 },
         startFace: { timestampMs: 1200 },

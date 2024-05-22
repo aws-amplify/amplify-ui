@@ -143,7 +143,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       maxFailedAttempts: 0, // Set to 0 for now as we are not allowing front end based retries for streaming
       failedAttempts: 0,
       componentProps: undefined,
-      sessionInformation: undefined,
+      parsedSessionInformation: undefined,
       videoAssociatedParams: {
         videoConstraints: STATIC_VIDEO_CONSTRAINTS,
         selectableDevices: [],
@@ -544,7 +544,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             ovalAssociatedParams,
             videoAssociatedParams,
             livenessStreamProvider,
-            sessionInformation,
+            parsedSessionInformation,
           } = context;
           const { videoMediaStream } = videoAssociatedParams!;
 
@@ -554,7 +554,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           context.livenessStreamProvider!.dispatchStreamEvent({
             type: 'sessionInfo',
             data: createSessionStartEvent({
-              sessionInformation: sessionInformation!,
+              parsedSessionInformation: parsedSessionInformation!,
               ...getTrackDimensions(videoMediaStream!),
               challengeId: challengeId!,
               ovalAssociatedParams: ovalAssociatedParams!,
@@ -660,7 +660,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       clearErrorState: assign({ errorState: (_) => undefined }),
       updateSessionInfo: assign({
-        sessionInformation: (_, event) => {
+        parsedSessionInformation: (_, event) => {
           const { serverSessionInformation } = event.data! as {
             serverSessionInformation: ServerSessionInformation;
           };
@@ -680,9 +680,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       }),
       setColorDisplay: assign({
-        colorSequenceDisplay: ({ sessionInformation }) =>
+        colorSequenceDisplay: ({ parsedSessionInformation }) =>
           new ColorSequenceDisplay(
-            getColorsSequencesFromSessionInformation(sessionInformation!)
+            getColorsSequencesFromSessionInformation(parsedSessionInformation!)
           ),
       }),
 
@@ -700,7 +700,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         {
           delay: (context) => {
             return (
-              context.sessionInformation!.Challenge!.ChallengeConfig
+              context.parsedSessionInformation!.Challenge!.ChallengeConfig
                 ?.OvalFitTimeout ?? DEFAULT_FACE_FIT_TIMEOUT
             );
           },
@@ -826,7 +826,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         maxFailedAttempts: 0, // Set to 0 for now as we are not allowing front end based retries for streaming
         failedAttempts: 0,
         componentProps: (context) => context.componentProps,
-        sessionInformation: (_) => undefined,
+        parsedSessionInformation: (_) => undefined,
         videoAssociatedParams: (_) => {
           return {
             videoConstraints: STATIC_VIDEO_CONSTRAINTS,
@@ -871,7 +871,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       hasFreshnessColorShown: (context) =>
         context.freshnessColorAssociatedParams!.freshnessColorsComplete!,
       hasSessionInfo: (context) => {
-        return context.sessionInformation !== undefined;
+        return context.parsedSessionInformation !== undefined;
       },
       hasDOMAndCameraDetails: (context) => {
         return (
@@ -1003,7 +1003,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       async detectFaceDistance(context) {
         const {
-          sessionInformation,
+          parsedSessionInformation,
           isFaceFarEnoughBeforeRecording: faceDistanceCheckBeforeRecording,
         } = context;
         const { videoEl, videoMediaStream } = context.videoAssociatedParams!;
@@ -1013,7 +1013,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           .getTracks()[0]
           .getSettings();
 
-        const challengeConfig = sessionInformation!.Challenge!.ChallengeConfig;
+        const challengeConfig =
+          parsedSessionInformation!.Challenge!.ChallengeConfig;
 
         const ovalDetails = getStaticLivenessOvalDetails({
           width: width!,
@@ -1023,7 +1024,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         const { isDistanceBelowThreshold: isFaceFarEnoughBeforeRecording } =
           await isFaceDistanceBelowThreshold({
-            sessionInformation: sessionInformation!,
+            parsedSessionInformation: parsedSessionInformation!,
             faceDetector: faceDetector!,
             videoEl: videoEl!,
             ovalDetails,
@@ -1033,7 +1034,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         return { isFaceFarEnoughBeforeRecording };
       },
       async detectInitialFaceAndDrawOval(context) {
-        const { sessionInformation } = context;
+        const { parsedSessionInformation } = context;
         const { videoEl, canvasEl, isMobile } = context.videoAssociatedParams!;
         const { faceDetector } = context.ovalAssociatedParams!;
 
@@ -1095,11 +1096,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         // generate oval details from initialFace and video dimensions
         const ovalDetails = getOvalDetailsFromSessionInformation({
-          sessionInformation: sessionInformation!,
+          parsedSessionInformation: parsedSessionInformation!,
           videoWidth: videoEl!.width,
         });
 
-        const challengeConfig = sessionInformation!.Challenge!.ChallengeConfig;
+        const challengeConfig =
+          parsedSessionInformation!.Challenge!.ChallengeConfig;
 
         // renormalize initial face
         const renormalizedFace = generateBboxFromLandmarks({
@@ -1129,7 +1131,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         };
       },
       async detectFaceAndMatchOval(context) {
-        const { sessionInformation } = context;
+        const { parsedSessionInformation } = context;
         const { videoEl } = context.videoAssociatedParams!;
         const { faceDetector, ovalDetails, initialFace } =
           context.ovalAssociatedParams!;
@@ -1141,7 +1143,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         let detectedFace: Face | undefined;
         let illuminationState: IlluminationState | undefined;
 
-        const challengeConfig = sessionInformation!.Challenge!.ChallengeConfig;
+        const challengeConfig =
+          parsedSessionInformation!.Challenge!.ChallengeConfig;
 
         const initialFaceBoundingBox = generateBboxFromLandmarks({
           ovalHeightWidthRatio: challengeConfig!.OvalHeightWidthRatio,
@@ -1174,7 +1177,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               face: detectedFace,
               ovalDetails: ovalDetails!,
               initialFaceIntersection,
-              sessionInformation: sessionInformation!,
+              parsedSessionInformation: parsedSessionInformation!,
               frameHeight: videoEl!.videoHeight,
             });
 
@@ -1251,7 +1254,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       async stopVideo(context) {
         const {
           challengeId,
-          sessionInformation,
+          parsedSessionInformation,
           faceMatchAssociatedParams,
           ovalAssociatedParams,
           livenessStreamProvider,
@@ -1270,7 +1273,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           type: 'sessionInfo',
           data: createSessionEndEvent({
             ...getTrackDimensions(videoMediaStream!),
-            sessionInformation: sessionInformation!,
+            parsedSessionInformation: parsedSessionInformation!,
             challengeId: challengeId!,
             faceMatchAssociatedParams: faceMatchAssociatedParams!,
             ovalAssociatedParams: ovalAssociatedParams!,

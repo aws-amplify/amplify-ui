@@ -46,23 +46,27 @@ export const CONNECTION_TIMEOUT = 10_000;
 export const SUCCESS_STATUS_CODE = 200;
 
 interface ChallengeType {
-  Type: string;
-  Version: string;
+  type: string;
+  version: string;
 }
 
 export const FACE_MOVEMENT_AND_LIGHT_CHALLENGE: ChallengeType = {
-  Type: 'FaceMovementAndLightChallenge',
-  Version: '1.0.0',
+  type: 'FaceMovementAndLightChallenge',
+  version: '1.0.0',
 };
 
 export const FACE_MOVEMENT_CHALLENGE: ChallengeType = {
-  Type: 'FaceMovementChallenge',
-  Version: '1.0.0',
+  type: 'FaceMovementChallenge',
+  version: '1.0.0',
 };
 
 export const SUPPORTED_CHALLENGES: ChallengeType[] = [
   FACE_MOVEMENT_AND_LIGHT_CHALLENGE,
   FACE_MOVEMENT_CHALLENGE,
 ];
+
+export const queryParameterString = SUPPORTED_CHALLENGES.map(
+  (challenge) => `${challenge.type}_${challenge.version}`
+).join(',');
 
 export const DEFAULT_WS_CONNECTION_TIMEOUT_MS = 2000;

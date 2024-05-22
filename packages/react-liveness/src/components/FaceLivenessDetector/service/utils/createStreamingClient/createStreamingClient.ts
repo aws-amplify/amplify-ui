@@ -13,7 +13,7 @@ import { isString } from '@aws-amplify/ui';
 import { getLivenessUserAgent } from '../../../utils/platform';
 import { AwsCredentialProvider } from '../../types';
 
-import { CONNECTION_TIMEOUT, SUPPORTED_CHALLENGES } from '../constants';
+import { CONNECTION_TIMEOUT, queryParameterString } from '../constants';
 import { CustomWebSocketFetchHandler } from './CustomWebSocketFetchHandler';
 import { resolveCredentials } from './resolveCredentials';
 import { Signer } from './Signer';
@@ -39,10 +39,6 @@ type GetReponseStream = (
 ) => Promise<ResponseStream>;
 
 const CUSTOM_USER_AGENT = `${getAmplifyUserAgent()} ${getLivenessUserAgent()}`;
-
-const supportedChallengesString = SUPPORTED_CHALLENGES.map(
-  (challenge) => `${challenge.Type}_${challenge.Version}`
-).join(',');
 
 async function getStreamingClient({
   credentialsProvider,
@@ -72,7 +68,7 @@ const createCommandInput = ({
   videoWidth,
   videoHeight,
 }: GetResponseStreamInput): StartFaceLivenessSessionCommandInput => ({
-  ChallengeVersions: supportedChallengesString,
+  ChallengeVersions: queryParameterString,
   SessionId: sessionId,
   LivenessRequestStream: requestStream,
   VideoWidth: videoWidth,

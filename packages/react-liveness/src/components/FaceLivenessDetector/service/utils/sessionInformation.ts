@@ -7,7 +7,7 @@ import {
 import {
   FaceMovementAndLightChallenge,
   FaceMovementChallenge,
-  SessionInformation,
+  ParsedSessionInformation,
 } from '../types';
 import {
   FACE_MOVEMENT_CHALLENGE,
@@ -18,7 +18,7 @@ export const isFaceMovementAndLightChallenge = (
   value: unknown
 ): value is FaceMovementAndLightChallenge => {
   return (
-    (value as SessionInformation)?.Challenge?.name ===
+    (value as ParsedSessionInformation)?.Challenge?.name ===
     'FaceMovementAndLightChallenge'
   );
 };
@@ -27,7 +27,8 @@ export const isFaceMovementChallenge = (
   value: unknown
 ): value is FaceMovementChallenge => {
   return (
-    (value as SessionInformation)?.Challenge?.name === 'FaceMovementChallenge'
+    (value as ParsedSessionInformation)?.Challenge?.name ===
+    'FaceMovementChallenge'
   );
 };
 
@@ -47,21 +48,21 @@ export const isFaceMovementServerChallenge = (
 
 export const createSessionInfoFromServerSessionInformation = (
   serverSessionInformation: ServerSessionInformation
-): SessionInformation => {
+): ParsedSessionInformation => {
   let challenge: FaceMovementAndLightChallenge | FaceMovementChallenge;
   if (
     isFaceMovementAndLightServerChallenge(serverSessionInformation.Challenge)
   ) {
     challenge = {
       ...serverSessionInformation.Challenge.FaceMovementAndLightChallenge,
-      name: FACE_MOVEMENT_AND_LIGHT_CHALLENGE.Type,
+      name: FACE_MOVEMENT_AND_LIGHT_CHALLENGE.type,
     } as FaceMovementAndLightChallenge;
   } else if (
     isFaceMovementServerChallenge(serverSessionInformation.Challenge)
   ) {
     challenge = {
       ...serverSessionInformation.Challenge.FaceMovementChallenge,
-      name: FACE_MOVEMENT_CHALLENGE.Type,
+      name: FACE_MOVEMENT_CHALLENGE.type,
     } as FaceMovementChallenge;
   } else {
     throw new Error(

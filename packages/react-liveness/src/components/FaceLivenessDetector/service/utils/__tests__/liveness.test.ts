@@ -98,9 +98,9 @@ const mockTurnedFace: Face = {
 
 describe('Liveness Helper', () => {
   describe('getOvalDetailsFromSessionInformation', () => {
-    it('should parse sessionInformation and return oval parameter attributes', () => {
+    it('should parse parsedSessionInformation and return oval parameter attributes', () => {
       const ovalParameters = getOvalDetailsFromSessionInformation({
-        sessionInformation: mockFaceMovementAndLightSessionInfo,
+        parsedSessionInformation: mockFaceMovementAndLightSessionInfo,
         videoWidth: 1,
       });
 
@@ -126,7 +126,7 @@ describe('Liveness Helper', () => {
 
       expect(() => {
         getOvalDetailsFromSessionInformation({
-          sessionInformation: badSessionInfo,
+          parsedSessionInformation: badSessionInfo,
           videoWidth: 1,
         });
       }).toThrow();
@@ -271,7 +271,7 @@ describe('Liveness Helper', () => {
         faceDetector: mockBlazeFace,
         videoEl: jest.fn() as unknown as HTMLVideoElement,
         ovalDetails: mockOvalDetails,
-        sessionInformation: mockFaceMovementAndLightSessionInfo,
+        parsedSessionInformation: mockFaceMovementAndLightSessionInfo,
       });
 
       expect(result).toStrictEqual({
@@ -287,7 +287,7 @@ describe('Liveness Helper', () => {
         faceDetector: mockBlazeFace,
         videoEl: jest.fn() as unknown as HTMLVideoElement,
         ovalDetails: mockOvalDetails,
-        sessionInformation: mockFaceMovementAndLightSessionInfo,
+        parsedSessionInformation: mockFaceMovementAndLightSessionInfo,
       });
 
       expect(result).toStrictEqual({
@@ -304,7 +304,7 @@ describe('Liveness Helper', () => {
         videoEl: jest.fn() as unknown as HTMLVideoElement,
         ovalDetails: mockOvalDetails,
         reduceThreshold: true,
-        sessionInformation: mockFaceMovementAndLightSessionInfo,
+        parsedSessionInformation: mockFaceMovementAndLightSessionInfo,
       });
 
       expect(result).toStrictEqual({
@@ -321,7 +321,7 @@ describe('Liveness Helper', () => {
         videoEl: jest.fn() as unknown as HTMLVideoElement,
         ovalDetails: mockOvalDetails,
         reduceThreshold: true,
-        sessionInformation: mockFaceMovementAndLightSessionInfo,
+        parsedSessionInformation: mockFaceMovementAndLightSessionInfo,
       });
 
       expect(result).toStrictEqual({

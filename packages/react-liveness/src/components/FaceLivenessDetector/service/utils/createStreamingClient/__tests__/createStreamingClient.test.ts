@@ -157,7 +157,7 @@ describe('createStreamingClient', () => {
       expect(mockStartFaceLivenessSessionCommand).toBeCalledTimes(1);
       expect(mockStartFaceLivenessSessionCommand).toHaveBeenCalledWith({
         ChallengeVersions: SUPPORTED_CHALLENGES.map(
-          (challenge) => `${challenge.Type}_${challenge.Version}`
+          (challenge) => `${challenge.type}_${challenge.version}`
         ).join(','),
         SessionId: sessionId,
         LivenessRequestStream: requestStream,
