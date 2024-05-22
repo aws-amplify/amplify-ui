@@ -1,7 +1,5 @@
 ---
-"@aws-amplify/ui-environments": patch
 "@aws-amplify/ui-react-liveness": patch
-"@aws-amplify/ui-react": patch
 ---
 
 chore(liveness): pass in new challenge to createStreamingRequest and store in context. 
