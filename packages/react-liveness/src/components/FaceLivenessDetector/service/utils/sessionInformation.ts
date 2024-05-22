@@ -18,7 +18,7 @@ export const isFaceMovementAndLightChallenge = (
   value: unknown
 ): value is FaceMovementAndLightChallenge => {
   return (
-    (value as ParsedSessionInformation)?.Challenge?.name ===
+    (value as ParsedSessionInformation)?.Challenge?.Name ===
     'FaceMovementAndLightChallenge'
   );
 };
@@ -27,7 +27,7 @@ export const isFaceMovementChallenge = (
   value: unknown
 ): value is FaceMovementChallenge => {
   return (
-    (value as ParsedSessionInformation)?.Challenge?.name ===
+    (value as ParsedSessionInformation)?.Challenge?.Name ===
     'FaceMovementChallenge'
   );
 };
@@ -55,14 +55,14 @@ export const createSessionInfoFromServerSessionInformation = (
   ) {
     challenge = {
       ...serverSessionInformation.Challenge.FaceMovementAndLightChallenge,
-      name: FACE_MOVEMENT_AND_LIGHT_CHALLENGE.type,
+      Name: FACE_MOVEMENT_AND_LIGHT_CHALLENGE.type,
     } as FaceMovementAndLightChallenge;
   } else if (
     isFaceMovementServerChallenge(serverSessionInformation.Challenge)
   ) {
     challenge = {
       ...serverSessionInformation.Challenge.FaceMovementChallenge,
-      name: FACE_MOVEMENT_CHALLENGE.type,
+      Name: FACE_MOVEMENT_CHALLENGE.type,
     } as FaceMovementChallenge;
   } else {
     throw new Error(

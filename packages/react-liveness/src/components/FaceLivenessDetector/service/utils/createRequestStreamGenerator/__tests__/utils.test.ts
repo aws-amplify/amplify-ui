@@ -18,7 +18,7 @@ const ovalAssociatedParams = {
 
 const movementAndLightSessionInformation: ParsedSessionInformation = {
   Challenge: {
-    name: 'FaceMovementAndLightChallenge',
+    Name: 'FaceMovementAndLightChallenge',
     ChallengeConfig: {},
     OvalParameters: {
       Width: 1,
@@ -33,7 +33,7 @@ const movementAndLightSessionInformation: ParsedSessionInformation = {
 
 const movementSessionInformation: ParsedSessionInformation = {
   Challenge: {
-    name: 'FaceMovementChallenge',
+    Name: 'FaceMovementChallenge',
     ChallengeConfig: {},
     OvalParameters: {
       Width: 1,

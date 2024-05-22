@@ -140,7 +140,7 @@ export const mockFace: Face = {
 
 export const mockFaceMovementAndLightSessionInfo: ParsedSessionInformation = {
   Challenge: {
-    name: 'FaceMovementAndLightChallenge',
+    Name: 'FaceMovementAndLightChallenge',
     ChallengeConfig: {
       BlazeFaceDetectionThreshold: 0.75,
       FaceDistanceThreshold: 0.4000000059604645,
@@ -194,7 +194,7 @@ export const mockFaceMovementAndLightServerSessionInfo: ServerSessionInformation
 
 export const mockFaceMovementSessionInfo: ParsedSessionInformation = {
   Challenge: {
-    name: 'FaceMovementChallenge',
+    Name: 'FaceMovementChallenge',
     ChallengeConfig: {
       BlazeFaceDetectionThreshold: 0.75,
       FaceDistanceThreshold: 0.4000000059604645,

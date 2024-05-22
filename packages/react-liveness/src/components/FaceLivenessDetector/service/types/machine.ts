@@ -23,19 +23,19 @@ import {
 import { StreamRecorder, ColorSequenceDisplay } from '../utils';
 
 interface Challenge {
-  name: string;
+  Name: string;
 }
 
 export interface FaceMovementAndLightChallenge
   extends Challenge,
     FaceMovementAndLightServerChallenge {
-  name: (typeof FACE_MOVEMENT_AND_LIGHT_CHALLENGE)['type'];
+  Name: (typeof FACE_MOVEMENT_AND_LIGHT_CHALLENGE)['type'];
 }
 
 export interface FaceMovementChallenge
   extends Challenge,
     FaceMovementServerChallenge {
-  name: (typeof FACE_MOVEMENT_CHALLENGE)['type'];
+  Name: (typeof FACE_MOVEMENT_CHALLENGE)['type'];
 }
 
 export interface ParsedSessionInformation {
