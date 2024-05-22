@@ -1,10 +1,9 @@
 import {
-  ATTEMPT_KEY,
   createTelemetryReporterMiddleware,
-  getAttemptCount,
+  TelemetryReporter,
 } from '../TelemetryReporter';
 
-describe('getAttemptCount', () => {
+describe('getAttemptCountAndUpdateTimestamp', () => {
   let localStore: any;
 
   beforeEach(() => {
@@ -21,24 +20,20 @@ describe('getAttemptCount', () => {
       .mockImplementation(() => (localStore = {}));
   });
 
-  it('returns an attempt count of 1 if local storage is unset', async () => {
-    expect(getAttemptCount()).toBe(1);
+  it('returns an attempt count of 1 on intitial call ', async () => {
+    expect(TelemetryReporter.getAttemptCountAndUpdateTimestamp()).toBe(1);
   });
 
   it('returns an attempt count of 1 if timestamp is greater than 5 minutes ago', async () => {
-    localStore[ATTEMPT_KEY] = JSON.stringify({
-      timestamp: Date.now() - 600000,
-      count: 5,
-    });
-    expect(getAttemptCount()).toBe(1);
+    TelemetryReporter.timestamp = Date.now() - 600000;
+    TelemetryReporter.attemptCount = 5;
+
+    expect(TelemetryReporter.getAttemptCountAndUpdateTimestamp()).toBe(1);
   });
 
   it('returns an attempt count of 3 if timestamp is less than 5 minutes ago and count was at 2', async () => {
-    localStore[ATTEMPT_KEY] = JSON.stringify({
-      timestamp: Date.now(),
-      count: 2,
-    });
-    expect(getAttemptCount()).toBe(3);
+    TelemetryReporter.attemptCount = 2;
+    expect(TelemetryReporter.getAttemptCountAndUpdateTimestamp()).toBe(3);
   });
 });
 

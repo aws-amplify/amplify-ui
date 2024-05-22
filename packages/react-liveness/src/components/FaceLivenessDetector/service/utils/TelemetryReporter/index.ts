@@ -1,5 +1,5 @@
 import {
-  getAttemptCount,
+  TelemetryReporter,
   createTelemetryReporterMiddleware,
 } from './TelemetryReporter';
-export { getAttemptCount, createTelemetryReporterMiddleware };
+export { createTelemetryReporterMiddleware, TelemetryReporter };

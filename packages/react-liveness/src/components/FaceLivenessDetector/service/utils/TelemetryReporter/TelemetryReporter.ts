@@ -9,38 +9,24 @@ import {
   BuildHandlerOutput,
 } from '@smithy/types';
 
-export const ATTEMPT_KEY = 'AmplifyLivenessAttempt';
 const DEFAULT_ATTEMPT_COUNT_TIMEOUT = 300000; // 5 minutes / 300000 ms
 
-type AttemptCountData = { timestamp: number; count: number };
+export class TelemetryReporter {
+  static attemptCount = 0;
+  static timestamp = Date.now();
 
-function getAttemptCountData(): AttemptCountData {
-  return JSON.parse(localStorage.getItem(ATTEMPT_KEY) ?? '{}') as {
-    timestamp: number;
-    count: number;
-  };
-}
+  static getAttemptCountAndUpdateTimestamp(): number {
+    const timeSinceLastAttempt = Date.now() - TelemetryReporter.timestamp;
+    if (timeSinceLastAttempt > DEFAULT_ATTEMPT_COUNT_TIMEOUT) {
+      TelemetryReporter.attemptCount = 1;
+    } else {
+      TelemetryReporter.attemptCount += 1;
+    }
 
-function setAttemptCountData(data: AttemptCountData) {
-  localStorage.setItem(ATTEMPT_KEY, JSON.stringify(data));
-}
+    TelemetryReporter.timestamp = Date.now();
 
-export function getAttemptCount(): number {
-  const data = getAttemptCountData();
-
-  let count = data.count ?? 0;
-  const timestamp = data.timestamp ?? Date.now();
-
-  const timeSinceLastAttempt = Date.now() - timestamp;
-  if (timeSinceLastAttempt > DEFAULT_ATTEMPT_COUNT_TIMEOUT) {
-    count = 1;
-  } else {
-    count += 1;
+    return TelemetryReporter.attemptCount;
   }
-
-  setAttemptCountData({ timestamp: Date.now(), count });
-
-  return count;
 }
 
 export const createTelemetryReporterMiddleware =
