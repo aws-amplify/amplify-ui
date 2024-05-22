@@ -6,14 +6,14 @@ import {
 } from '@aws-sdk/client-rekognitionstreaming';
 import { WEBSOCKET_CONNECTION_TIMEOUT_MESSAGE } from './createStreamingClient/CustomWebSocketFetchHandler';
 
-export const isRekFaceMovementAndLightChallenge = (
+export const isFaceMovementAndLightServerChallenge = (
   value: unknown
 ): value is RekFaceMovementAndLightServerChallenge => {
   return !!(value as ServerChallenge.FaceMovementAndLightChallengeMember)
     ?.FaceMovementAndLightChallenge;
 };
 
-export const isRekFaceMovementChallenge = (
+export const isFaceMovementServerChallenge = (
   value: unknown
 ): value is RekFaceMovementServerChallenge => {
   return !!(value as ServerChallenge.FaceMovementChallengeMember)

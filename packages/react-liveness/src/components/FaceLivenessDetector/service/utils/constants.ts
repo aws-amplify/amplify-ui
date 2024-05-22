@@ -50,7 +50,19 @@ export const CONNECTION_TIMEOUT = 10_000;
  */
 export const SUCCESS_STATUS_CODE = 200;
 
-export const ACCEPTED_CHALLENGE_VERSIONS =
-  'FaceMovementChallenge_1.0.0,FaceMovementAndLightChallenge_1.0.0';
+export const FACE_MOVEMENT_AND_LIGHT_CHALLENGE = {
+  Type: 'FaceMovementAndLightChallenge',
+  Version: '1.0.0',
+};
+
+export const FACE_MOVEMENT_CHALLENGE = {
+  Type: 'FaceMovementChallenge',
+  Version: '1.0.0',
+};
+
+export const SUPPORTED_CHALLENGES = [
+  FACE_MOVEMENT_AND_LIGHT_CHALLENGE,
+  FACE_MOVEMENT_CHALLENGE,
+];
 
 export const DEFAULT_WS_CONNECTION_TIMEOUT_MS = 2000;

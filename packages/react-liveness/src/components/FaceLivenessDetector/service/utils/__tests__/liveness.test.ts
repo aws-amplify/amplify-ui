@@ -21,7 +21,7 @@ import {
 import {
   Face,
   FaceMatchState,
-  FaceMovementAndLightServerChallenge,
+  FaceMovementAndLightChallenge,
   IlluminationState,
   LivenessErrorState,
 } from '../../types';
@@ -121,7 +121,7 @@ describe('Liveness Helper', () => {
             CenterX: undefined,
             CenterY: undefined,
           },
-        } as FaceMovementAndLightServerChallenge,
+        } as FaceMovementAndLightChallenge,
       };
 
       expect(() => {
@@ -343,7 +343,7 @@ describe('Liveness Helper', () => {
         Challenge: {
           ...mockFaceMovementAndLightSessionInfo.Challenge,
           ColorSequences: undefined,
-        } as FaceMovementAndLightServerChallenge,
+        } as FaceMovementAndLightChallenge,
       });
 
       expect(colorSequence.length).toBe(0);
@@ -363,7 +363,7 @@ describe('Liveness Helper', () => {
               FlatDisplayDuration: undefined,
             },
           ],
-        } as FaceMovementAndLightServerChallenge,
+        } as FaceMovementAndLightChallenge,
       };
 
       const colorSequence = getColorsSequencesFromSessionInformation(

@@ -1,11 +1,21 @@
 import {
   BoundingBox,
   ClientSessionInformationEvent,
+  FaceMovementAndLightClientChallenge,
+  FaceMovementClientChallenge,
   VideoEvent,
 } from '@aws-sdk/client-rekognitionstreaming';
 import { isUndefined } from '@aws-amplify/ui';
-
-import { Face, LivenessOvalDetails, LivenessContext } from '../../types';
+import {
+  isFaceMovementAndLightChallenge,
+  isFaceMovementChallenge,
+} from '../sessionInformation';
+import {
+  Face,
+  LivenessOvalDetails,
+  LivenessContext,
+  SessionInformation,
+} from '../../types';
 import {
   SequenceChangeParams,
   SequenceColorValue,
@@ -95,8 +105,36 @@ const getTargetFaceBoundingBox = (
   });
 };
 
+type ClientChallenge =
+  | FaceMovementAndLightClientChallenge
+  | FaceMovementClientChallenge;
+interface CreateClientSessionInformationEventParams {
+  sessionInformation: SessionInformation;
+  clientChallenge: ClientChallenge;
+}
+
+function createClientSessionInformationEvent({
+  sessionInformation,
+  clientChallenge,
+}: CreateClientSessionInformationEventParams): ClientSessionInformationEvent {
+  if (isFaceMovementChallenge(sessionInformation)) {
+    return {
+      Challenge: {
+        FaceMovementChallenge: clientChallenge,
+      },
+    };
+  } else if (isFaceMovementAndLightChallenge(sessionInformation)) {
+    return {
+      Challenge: {
+        FaceMovementAndLightChallenge: clientChallenge,
+      },
+    };
+  }
+  throw new Error('Unable to create ClientSessionInformationEvent');
+}
+
 interface CreateSessionEndEventParams extends TrackDimensions {
-  challengeType: 'FaceMovementChallenge' | 'FaceMovementAndLightChallenge';
+  sessionInformation: SessionInformation;
   challengeId: NonNullable<LivenessContext['challengeId']>;
   faceMatchAssociatedParams: NonNullable<
     LivenessContext['faceMatchAssociatedParams']
@@ -105,7 +143,7 @@ interface CreateSessionEndEventParams extends TrackDimensions {
   recordingEndedTimestamp: number;
 }
 export function createSessionEndEvent({
-  challengeType,
+  sessionInformation,
   challengeId,
   faceMatchAssociatedParams,
   ovalAssociatedParams,
@@ -128,7 +166,7 @@ export function createSessionEndEvent({
     ...ovalDetails!,
   });
 
-  const challengeConfig = {
+  const clientChallenge: ClientChallenge = {
     ChallengeId: challengeId,
     InitialFace: {
       InitialFaceDetectedTimestamp: initialFace!.timestampMs,
@@ -141,23 +179,19 @@ export function createSessionEndEvent({
     },
     VideoEndTimestamp: recordingEndedTimestamp,
   };
-  return {
-    Challenge: {
-      ...(challengeType === 'FaceMovementAndLightChallenge'
-        ? { FaceMovementAndLightChallenge: challengeConfig }
-        : { FaceMovementChallenge: challengeConfig }),
-    },
-  };
+  return createClientSessionInformationEvent({
+    sessionInformation,
+    clientChallenge,
+  });
 }
-
 interface CreateSessionStartEventParams extends TrackDimensions {
-  challengeType: 'FaceMovementChallenge' | 'FaceMovementAndLightChallenge';
+  sessionInformation: SessionInformation;
   challengeId: NonNullable<LivenessContext['challengeId']>;
   ovalAssociatedParams: NonNullable<LivenessContext['ovalAssociatedParams']>;
   recordingStartedTimestamp: number;
 }
 export function createSessionStartEvent({
-  challengeType,
+  sessionInformation,
   challengeId,
   ovalAssociatedParams,
   recordingStartedTimestamp,
@@ -171,8 +205,7 @@ export function createSessionStartEvent({
     trackWidth,
     ...initialFace!,
   });
-
-  const challengeConfig = {
+  const clientChallenge: ClientChallenge = {
     ChallengeId: challengeId,
     VideoStartTimestamp: recordingStartedTimestamp,
     InitialFace: {
@@ -181,13 +214,10 @@ export function createSessionStartEvent({
     },
   };
 
-  return {
-    Challenge: {
-      ...(challengeType === 'FaceMovementAndLightChallenge'
-        ? { FaceMovementAndLightChallenge: challengeConfig }
-        : { FaceMovementChallenge: challengeConfig }),
-    },
-  };
+  return createClientSessionInformationEvent({
+    sessionInformation,
+    clientChallenge,
+  });
 }
 
 interface CreateColorDisplayEventParams extends SequenceChangeParams {

@@ -1,7 +1,7 @@
 import { ActorRef } from 'xstate';
 import {
   ColorSequence,
-  SessionInformation as RekognitionSessionInformation,
+  SessionInformation as ServerSessionInformation,
 } from '@aws-sdk/client-rekognitionstreaming';
 
 import { STATIC_VIDEO_CONSTRAINTS } from '../../../utils/helpers';
@@ -164,7 +164,7 @@ export const mockFaceMovementAndLightSessionInfo: SessionInformation = {
   },
 };
 
-export const mockRekFaceMovementAndLightSessionInfo: RekognitionSessionInformation =
+export const mockFaceMovementAndLightServerSessionInfo: ServerSessionInformation =
   {
     Challenge: {
       FaceMovementAndLightChallenge: {
@@ -192,7 +192,31 @@ export const mockRekFaceMovementAndLightSessionInfo: RekognitionSessionInformati
     },
   };
 
-export const mockRekFaceMovementSessionInfo: RekognitionSessionInformation = {
+export const mockFaceMovementSessionInfo: SessionInformation = {
+  Challenge: {
+    name: 'FaceMovementChallenge',
+    ChallengeConfig: {
+      BlazeFaceDetectionThreshold: 0.75,
+      FaceDistanceThreshold: 0.4000000059604645,
+      FaceDistanceThresholdMax: 0,
+      FaceDistanceThresholdMin: 0.4000000059604645,
+      FaceIouHeightThreshold: 0.15000000596046448,
+      FaceIouWidthThreshold: 0.15000000596046448,
+      OvalHeightWidthRatio: 1.6180000305175781,
+      OvalIouHeightThreshold: 0.25,
+      OvalIouThreshold: 0.6,
+      OvalIouWidthThreshold: 0.25,
+    },
+    OvalParameters: {
+      Width: 1,
+      Height: 2,
+      CenterX: 3,
+      CenterY: 4,
+    },
+  },
+};
+
+export const mockFaceMovementServerSessionInfo: ServerSessionInformation = {
   Challenge: {
     FaceMovementChallenge: {
       ChallengeConfig: {
@@ -264,7 +288,7 @@ export const getMockContext = (): LivenessContext => ({
   colorSequenceDisplay: { startSequences: jest.fn() } as any,
   errorState: undefined,
   livenessStreamProvider: mockStreamRecorder,
-  serverSessionInformation: mockFaceMovementAndLightSessionInfo,
+  sessionInformation: mockFaceMovementAndLightSessionInfo,
   responseStreamActorRef: mockResponseStreamActorRef,
   shouldDisconnect: false,
   faceMatchStateBeforeStart: FaceMatchState.MATCHED,

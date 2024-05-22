@@ -18,7 +18,8 @@ import {
   mockVideoMediaStream,
   mockOvalDetails,
   mockStreamRecorder,
-  mockRekFaceMovementAndLightSessionInfo,
+  mockFaceMovementAndLightSessionInfo,
+  mockFaceMovementAndLightServerSessionInfo,
 } from '../../utils/__mocks__/testUtils';
 
 jest.useFakeTimers();
@@ -99,7 +100,7 @@ describe('Liveness Machine', () => {
     service.send({
       type: 'SET_SESSION_INFO',
       data: {
-        sessionInfo: mockRekFaceMovementAndLightSessionInfo,
+        serverSessionInformation: mockFaceMovementAndLightServerSessionInfo,
       },
     });
     jest.advanceTimersToNextTimer(); // detectFaceBeforeStart
@@ -141,6 +142,10 @@ describe('Liveness Machine', () => {
     mockNavigatorMediaDevices.enumerateDevices.mockResolvedValue([
       mockCameraDevice,
     ]);
+
+    mockedHelpers.createSessionInfoFromServerSessionInformation.mockReturnValue(
+      mockFaceMovementAndLightSessionInfo
+    );
 
     mockedHelpers.isCameraDeviceVirtual.mockImplementation(() => false);
 
@@ -374,27 +379,7 @@ describe('Liveness Machine', () => {
 
   describe('detectFaceBeforeStart', () => {
     it('should reach detectFaceBeforeStart on begin button press', async () => {
-      transitionToCameraCheck(service);
-      await flushPromises(); // waitForDOMAndCameraDetails
-
-      service.send({
-        type: 'SET_DOM_AND_CAMERA_DETAILS',
-        data: {
-          videoEl: mockVideoEl,
-          canvasEl: mockCanvasEl,
-          freshnessColorEl: mockFreshnessColorEl,
-        },
-      });
-      jest.advanceTimersToNextTimer(); // initializeLivenessStream
-      await flushPromises(); // notRecording: 'waitForSessionInfo'
-
-      service.send({
-        type: 'SET_SESSION_INFO',
-        data: {
-          sessionInfo: mockRekFaceMovementAndLightSessionInfo,
-        },
-      });
-      jest.advanceTimersToNextTimer(); // detectFaceBeforeStart
+      await transitionToNotRecording(service);
 
       service.send({ type: 'BEGIN' });
 
@@ -402,31 +387,9 @@ describe('Liveness Machine', () => {
     });
 
     it('should reach recording state after detecting face', async () => {
-      transitionToCameraCheck(service);
-      await flushPromises(); // waitForDOMAndCameraDetails
+      await transitionToNotRecording(service);
 
-      service.send({
-        type: 'SET_DOM_AND_CAMERA_DETAILS',
-        data: {
-          videoEl: mockVideoEl,
-          canvasEl: mockCanvasEl,
-          freshnessColorEl: mockFreshnessColorEl,
-        },
-      });
-      jest.advanceTimersToNextTimer(); // initializeLivenessStream
-      await flushPromises();
-
-      service.send({
-        type: 'SET_SESSION_INFO',
-        data: {
-          sessionInfo: mockRekFaceMovementAndLightSessionInfo,
-        },
-      });
-      jest.advanceTimersToNextTimer(); // detectFaceBeforeStart
-
-      service.send({
-        type: 'BEGIN',
-      });
+      service.send({ type: 'BEGIN' });
       await flushPromises(); // checkFaceDetectedBeforeStart
       expect(service.state.value).toBe('checkFaceDetectedBeforeStart');
       jest.advanceTimersToNextTimer(); // detectFaceDistanceBeforeRecording

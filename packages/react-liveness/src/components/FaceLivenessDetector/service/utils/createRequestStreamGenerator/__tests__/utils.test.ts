@@ -2,6 +2,7 @@ import { ClientSessionInformationEvent } from '@aws-sdk/client-rekognitionstream
 import {
   FaceMatchAssociatedParams,
   OvalAssociatedParams,
+  SessionInformation,
 } from '../../../types';
 import {
   createColorDisplayEvent,
@@ -14,6 +15,34 @@ const ovalAssociatedParams = {
   initialFace: { left: 123, width: 1000, top: 1260, height: 1300 },
   ovalDetails: { height: 120, width: 360, centerX: 12, centerY: 45 },
 } as OvalAssociatedParams;
+
+const movementAndLightSessionInformation: SessionInformation = {
+  Challenge: {
+    name: 'FaceMovementAndLightChallenge',
+    ChallengeConfig: {},
+    OvalParameters: {
+      Width: 1,
+      Height: 2,
+      CenterX: 3,
+      CenterY: 4,
+    },
+    LightChallengeType: 'SEQUENTIAL',
+    ColorSequences: [],
+  },
+};
+
+const movementSessionInformation: SessionInformation = {
+  Challenge: {
+    name: 'FaceMovementChallenge',
+    ChallengeConfig: {},
+    OvalParameters: {
+      Width: 1,
+      Height: 2,
+      CenterX: 3,
+      CenterY: 4,
+    },
+  },
+};
 
 describe('getTrackDimensions', () => {
   it('returns the expected values in the happy path', () => {
@@ -47,7 +76,7 @@ describe('getTrackDimensions', () => {
 });
 
 describe('createColorDisplayEvent', () => {
-  it('contructs a valid ClientSessionInformationEvent', () => {
+  it('constructs a valid ClientSessionInformationEvent', () => {
     const output = createColorDisplayEvent({
       challengeId: 'challengeId',
       sequenceColor: 'rgb(0,0,0)',
@@ -78,14 +107,14 @@ describe('createSessionStartEvent', () => {
   it('constructs a valid ClientSessionInformationEvent for FaceMovementAndLightChallenge', () => {
     const output = createSessionStartEvent({
       challengeId: 'challengeId',
-      challengeType: 'FaceMovementAndLightChallenge',
+      sessionInformation: movementAndLightSessionInformation,
       ovalAssociatedParams,
       recordingStartedTimestamp: 82918281982,
       trackHeight: 121212,
       trackWidth: 37288,
     });
 
-    const expectedOutput: ClientSessionInformationEvent = {
+    expect(output).toStrictEqual({
       Challenge: {
         FaceMovementAndLightChallenge: {
           ChallengeId: 'challengeId',
@@ -101,22 +130,20 @@ describe('createSessionStartEvent', () => {
           VideoStartTimestamp: 82918281982,
         },
       },
-    };
-
-    expect(output).toStrictEqual(expectedOutput);
+    });
   });
 
   it('constructs a valid ClientSessionInformationEvent for FaceMovementChallenge', () => {
     const output = createSessionStartEvent({
       challengeId: 'challengeId',
-      challengeType: 'FaceMovementChallenge',
+      sessionInformation: movementSessionInformation,
       ovalAssociatedParams,
       recordingStartedTimestamp: 82918281982,
       trackHeight: 121212,
       trackWidth: 37288,
     });
 
-    const expectedOutput: ClientSessionInformationEvent = {
+    expect(output).toStrictEqual({
       Challenge: {
         FaceMovementChallenge: {
           ChallengeId: 'challengeId',
@@ -132,17 +159,15 @@ describe('createSessionStartEvent', () => {
           VideoStartTimestamp: 82918281982,
         },
       },
-    };
-
-    expect(output).toStrictEqual(expectedOutput);
+    });
   });
 });
 
 describe('createSessionEndEvent', () => {
-  it('contructs a valid ClientSessionInformationEvent for FaceMovementAndLightChallenge', () => {
+  it('constructs a valid ClientSessionInformationEvent for FaceMovementAndLightChallenge', () => {
     const output = createSessionEndEvent({
       challengeId: 'challengeId',
-      challengeType: 'FaceMovementAndLightChallenge',
+      sessionInformation: movementAndLightSessionInformation,
       faceMatchAssociatedParams: {
         endFace: { timestampMs: 1600 },
         startFace: { timestampMs: 1200 },
@@ -182,10 +207,10 @@ describe('createSessionEndEvent', () => {
     });
   });
 
-  it('contructs a valid ClientSessionInformationEvent for FaceMovementChallenge', () => {
+  it('constructs a valid ClientSessionInformationEvent for FaceMovementChallenge', () => {
     const output = createSessionEndEvent({
       challengeId: 'challengeId',
-      challengeType: 'FaceMovementChallenge',
+      sessionInformation: movementSessionInformation,
       faceMatchAssociatedParams: {
         endFace: { timestampMs: 1600 },
         startFace: { timestampMs: 1200 },

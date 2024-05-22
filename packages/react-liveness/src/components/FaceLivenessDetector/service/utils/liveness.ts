@@ -4,7 +4,7 @@ import {
   Face,
   FaceDetection,
   FaceMatchState,
-  FaceMovementAndLightServerChallenge,
+  FaceMovementAndLightChallenge,
   IlluminationState,
   LivenessErrorState,
   LivenessOvalDetails,
@@ -567,7 +567,7 @@ export function getColorsSequencesFromSessionInformation(
   sessionInformation: SessionInformation
 ): ColorSequence[] {
   const colorSequenceFromServerChallenge =
-    (sessionInformation.Challenge as FaceMovementAndLightServerChallenge)
+    (sessionInformation.Challenge as FaceMovementAndLightChallenge)
       .ColorSequences ?? [];
   const colorSequences: (ColorSequence | undefined)[] =
     colorSequenceFromServerChallenge.map(

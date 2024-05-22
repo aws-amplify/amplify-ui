@@ -11,21 +11,21 @@ import {
   ThrottlingException,
 } from '@aws-sdk/client-rekognitionstreaming';
 
+import { ErrorState } from './error';
+import { Face, FaceDetection } from './faceDetection';
 import {
   FaceLivenessDetectorCoreProps,
   FaceMatchState,
   LivenessOvalDetails,
   IlluminationState,
 } from './liveness';
-import { ErrorState } from './error';
 import { StreamRecorder, ColorSequenceDisplay } from '../utils';
-import { Face, FaceDetection } from './faceDetection';
 
 interface Challenge {
   name: string;
 }
 
-export interface FaceMovementAndLightServerChallenge extends Challenge {
+export interface FaceMovementAndLightChallenge extends Challenge {
   name: 'FaceMovementAndLightChallenge';
   ChallengeConfig: ChallengeConfig | undefined;
   ColorSequences: ColorSequence[] | undefined;
@@ -33,17 +33,14 @@ export interface FaceMovementAndLightServerChallenge extends Challenge {
   OvalParameters: OvalParameters | undefined;
 }
 
-export interface FaceMovementServerChallenge extends Challenge {
+export interface FaceMovementChallenge extends Challenge {
   name: 'FaceMovementChallenge';
   ChallengeConfig: ChallengeConfig | undefined;
   OvalParameters: OvalParameters | undefined;
 }
 
 export interface SessionInformation {
-  Challenge:
-    | FaceMovementServerChallenge
-    | FaceMovementAndLightServerChallenge
-    | undefined;
+  Challenge: FaceMovementChallenge | FaceMovementAndLightChallenge | undefined;
 }
 
 export interface FaceMatchAssociatedParams {
@@ -94,7 +91,7 @@ export interface LivenessContext {
   maxFailedAttempts: number | undefined;
   ovalAssociatedParams: OvalAssociatedParams | undefined;
   responseStreamActorRef: ActorRef<any> | undefined;
-  serverSessionInformation: SessionInformation | undefined;
+  sessionInformation: SessionInformation | undefined;
   shouldDisconnect: boolean | undefined;
   videoAssociatedParams: VideoAssociatedParams | undefined;
 }
@@ -156,6 +153,8 @@ export interface StreamActorCallback {
   }): void;
   (params: {
     type: 'SET_SESSION_INFO';
-    data: { sessionInfo: RekognitionSessionInformation | undefined };
+    data: {
+      serverSessionInformation: RekognitionSessionInformation | undefined;
+    };
   }): void;
 }
