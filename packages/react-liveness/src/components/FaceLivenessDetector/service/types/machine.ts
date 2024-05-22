@@ -6,7 +6,7 @@ import {
   LightChallengeType,
   OvalParameters,
   ServiceQuotaExceededException,
-  SessionInformation as RekognitionSessionInformation,
+  SessionInformation as ServerSessionInformation,
   ValidationException,
   ThrottlingException,
 } from '@aws-sdk/client-rekognitionstreaming';
@@ -154,7 +154,7 @@ export interface StreamActorCallback {
   (params: {
     type: 'SET_SESSION_INFO';
     data: {
-      serverSessionInformation: RekognitionSessionInformation | undefined;
+      serverSessionInformation: ServerSessionInformation | undefined;
     };
   }): void;
 }
