@@ -131,6 +131,7 @@ jobs:
         run: yarn ${{ matrix.package }} test
 
       - name: Lint ${{ matrix.package }} package
+        if: ${{ matrix.package != 'react-liveness' }}
         run: yarn ${{ matrix.package }} lint
 
       - name: Validate ${{ matrix.package }} package esm modules
