@@ -54,14 +54,19 @@ export function getFaceMatchStateInLivenessOval({
     );
   }
 
-  const { OvalIouThreshold, FaceIouHeightThreshold, FaceIouWidthThreshold } =
-    challengeConfig;
+  const {
+    OvalIouThreshold,
+    FaceIouHeightThreshold,
+    FaceIouWidthThreshold,
+    OvalHeightWidthRatio,
+  } = challengeConfig;
 
-  const faceBoundingBox: BoundingBox = generateBboxFromLandmarks(
+  const faceBoundingBox: BoundingBox = generateBboxFromLandmarks({
+    ovalHeightWidthRatio: OvalHeightWidthRatio,
     face,
-    ovalDetails,
-    frameHeight
-  );
+    oval: ovalDetails,
+    frameHeight,
+  });
   const minFaceX = faceBoundingBox.left;
   const maxFaceX = faceBoundingBox.right;
   const minFaceY = faceBoundingBox.top;

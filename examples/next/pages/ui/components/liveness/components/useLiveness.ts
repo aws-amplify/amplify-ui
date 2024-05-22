@@ -7,7 +7,7 @@ export function useLiveness(challengeType: string) {
   const [getLivenessResponse, setGetLivenessResponse] = useState(null);
 
   useEffect(() => {
-    mutate();
+    mutate('CreateStreamingLivenessSession');
   }, [challengeType]);
 
   const {

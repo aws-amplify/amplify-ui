@@ -1003,62 +1003,34 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       async detectFaceDistance(context) {
         const {
+          sessionInformation,
           isFaceFarEnoughBeforeRecording: faceDistanceCheckBeforeRecording,
         } = context;
-        const { videoEl, videoMediaStream, isMobile } =
-          context.videoAssociatedParams!;
+        const { videoEl, videoMediaStream } = context.videoAssociatedParams!;
         const { faceDetector } = context.ovalAssociatedParams!;
 
         const { width, height } = videoMediaStream!
           .getTracks()[0]
           .getSettings();
 
+        const challengeConfig = sessionInformation!.Challenge!.ChallengeConfig;
+
         const ovalDetails = getStaticLivenessOvalDetails({
           width: width!,
           height: height!,
+          ovalHeightWidthRatio: challengeConfig!.OvalHeightWidthRatio!,
         });
 
         const { isDistanceBelowThreshold: isFaceFarEnoughBeforeRecording } =
           await isFaceDistanceBelowThreshold({
+            sessionInformation: sessionInformation!,
             faceDetector: faceDetector!,
             videoEl: videoEl!,
             ovalDetails,
             reduceThreshold: faceDistanceCheckBeforeRecording, // if this is the second face distance check reduce the threshold
-            isMobile,
           });
 
         return { isFaceFarEnoughBeforeRecording };
-      },
-      async detectFaceDistanceWhileLoading(context) {
-        const {
-          isFaceFarEnoughBeforeRecording: faceDistanceCheckBeforeRecording,
-        } = context;
-        const { videoEl, videoMediaStream, isMobile } =
-          context.videoAssociatedParams!;
-        const { faceDetector } = context.ovalAssociatedParams!;
-
-        const { width, height } = videoMediaStream!
-          .getTracks()[0]
-          .getSettings();
-
-        const ovalDetails = getStaticLivenessOvalDetails({
-          width: width!,
-          height: height!,
-        });
-
-        const {
-          isDistanceBelowThreshold: isFaceFarEnoughBeforeRecording,
-          error,
-        } = await isFaceDistanceBelowThreshold({
-          faceDetector: faceDetector!,
-          isMobile,
-          ovalDetails,
-          videoEl: videoEl!,
-          // if this is the second face distance check reduce the threshold
-          reduceThreshold: faceDistanceCheckBeforeRecording,
-        });
-
-        return { isFaceFarEnoughBeforeRecording, error };
       },
       async detectInitialFaceAndDrawOval(context) {
         const { sessionInformation } = context;
@@ -1127,12 +1099,15 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           videoWidth: videoEl!.width,
         });
 
+        const challengeConfig = sessionInformation!.Challenge!.ChallengeConfig;
+
         // renormalize initial face
-        const renormalizedFace = generateBboxFromLandmarks(
-          initialFace,
-          ovalDetails,
-          videoEl!.videoHeight
-        );
+        const renormalizedFace = generateBboxFromLandmarks({
+          ovalHeightWidthRatio: challengeConfig!.OvalHeightWidthRatio,
+          face: initialFace,
+          oval: ovalDetails,
+          frameHeight: videoEl!.videoHeight,
+        });
         initialFace.top = renormalizedFace.top;
         initialFace.left = renormalizedFace.left;
         initialFace.height = renormalizedFace.bottom - renormalizedFace.top;
@@ -1166,11 +1141,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         let detectedFace: Face | undefined;
         let illuminationState: IlluminationState | undefined;
 
-        const initialFaceBoundingBox = generateBboxFromLandmarks(
-          initialFace!,
-          ovalDetails!,
-          videoEl!.videoHeight
-        );
+        const challengeConfig = sessionInformation!.Challenge!.ChallengeConfig;
+
+        const initialFaceBoundingBox = generateBboxFromLandmarks({
+          ovalHeightWidthRatio: challengeConfig!.OvalHeightWidthRatio,
+          face: initialFace!,
+          oval: ovalDetails!,
+          frameHeight: videoEl!.videoHeight,
+        });
 
         const { ovalBoundingBox } = getOvalBoundingBox(ovalDetails!);
 

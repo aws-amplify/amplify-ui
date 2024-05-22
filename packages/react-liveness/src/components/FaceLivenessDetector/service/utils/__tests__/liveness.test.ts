@@ -177,11 +177,12 @@ describe('Liveness Helper', () => {
   describe('generateBboxfromLandmarks', () => {
     it(`should return face box bottom as 'bottom' when face is within frame`, () => {
       const frameHeight = 480;
-      const { bottom } = generateBboxFromLandmarks(
-        mockFace,
-        mockOvalDetails,
-        frameHeight
-      );
+      const { bottom } = generateBboxFromLandmarks({
+        face: mockFace,
+        oval: mockOvalDetails,
+        frameHeight: frameHeight,
+        ovalHeightWidthRatio: 1.6180000305175781,
+      });
 
       const faceBoxBottom = mockFaceCenterY + mockFaceHeight / 2;
       expect(bottom).toEqual(faceBoxBottom); // expect calculated value to be returned as it is within frame
@@ -189,21 +190,23 @@ describe('Liveness Helper', () => {
 
     it(`should return 'frameHeight' as 'bottom' when bottom of face is below frame`, () => {
       const frameHeight = 100;
-      const { bottom } = generateBboxFromLandmarks(
-        mockFace,
-        mockOvalDetails,
-        frameHeight
-      );
+      const { bottom } = generateBboxFromLandmarks({
+        face: mockFace,
+        oval: mockOvalDetails,
+        frameHeight: frameHeight,
+        ovalHeightWidthRatio: 1.6180000305175781,
+      });
       expect(bottom).toEqual(frameHeight); // expect frameHeight to be returned as it is smaller than the calculated value
     });
 
     it(`should return face box top as 'top' when face is within frame`, () => {
       const frameHeight = 480;
-      const { top } = generateBboxFromLandmarks(
-        mockFace,
-        mockOvalDetails,
-        frameHeight
-      );
+      const { top } = generateBboxFromLandmarks({
+        face: mockFace,
+        oval: mockOvalDetails,
+        frameHeight: frameHeight,
+        ovalHeightWidthRatio: 1.6180000305175781,
+      });
 
       const faceBoxTop = mockFaceCenterY - mockFaceHeight / 2;
 
@@ -212,11 +215,12 @@ describe('Liveness Helper', () => {
 
     it(`should return 0 as 'top' when top of face is above frame`, () => {
       const frameHeight = 480;
-      const { top } = generateBboxFromLandmarks(
-        mockAboveFrameFace,
-        mockOvalDetails,
-        frameHeight
-      );
+      const { top } = generateBboxFromLandmarks({
+        face: mockAboveFrameFace,
+        oval: mockOvalDetails,
+        frameHeight: frameHeight,
+        ovalHeightWidthRatio: 1.6180000305175781,
+      });
 
       expect(top).toEqual(0);
     });
@@ -224,11 +228,12 @@ describe('Liveness Helper', () => {
     it(`should return correct 'left' and 'right' values when face is matched`, () => {
       const frameHeight = 480;
 
-      const { left, right } = generateBboxFromLandmarks(
-        mockMatchedFace,
-        mockOvalDetails,
-        frameHeight
-      );
+      const { left, right } = generateBboxFromLandmarks({
+        face: mockMatchedFace,
+        oval: mockOvalDetails,
+        frameHeight: frameHeight,
+        ovalHeightWidthRatio: 1.6180000305175781,
+      });
 
       const faceBoxRight =
         mockMatchedFaceCenterX + mockMatchedFaceOcularWidth / 2;
@@ -240,11 +245,12 @@ describe('Liveness Helper', () => {
 
     it(`should return correct 'left' and 'right' values when face is turned`, () => {
       const frameHeight = 480;
-      const { left, right } = generateBboxFromLandmarks(
-        mockTurnedFace,
-        mockOvalDetails,
-        frameHeight
-      );
+      const { left, right } = generateBboxFromLandmarks({
+        face: mockTurnedFace,
+        oval: mockOvalDetails,
+        frameHeight: frameHeight,
+        ovalHeightWidthRatio: 1.6180000305175781,
+      });
 
       expect(left).toEqual(mockTurnedFace.rightEar[0]); // expect right ear to be used to limit left edge of face
       expect(right).toEqual(mockTurnedFace.leftEar[0]); // expect left ear to be used to limit right edge of face
@@ -265,6 +271,7 @@ describe('Liveness Helper', () => {
         faceDetector: mockBlazeFace,
         videoEl: jest.fn() as unknown as HTMLVideoElement,
         ovalDetails: mockOvalDetails,
+        sessionInformation: mockFaceMovementAndLightSessionInfo,
       });
 
       expect(result).toStrictEqual({
@@ -280,6 +287,7 @@ describe('Liveness Helper', () => {
         faceDetector: mockBlazeFace,
         videoEl: jest.fn() as unknown as HTMLVideoElement,
         ovalDetails: mockOvalDetails,
+        sessionInformation: mockFaceMovementAndLightSessionInfo,
       });
 
       expect(result).toStrictEqual({
@@ -296,7 +304,7 @@ describe('Liveness Helper', () => {
         videoEl: jest.fn() as unknown as HTMLVideoElement,
         ovalDetails: mockOvalDetails,
         reduceThreshold: true,
-        isMobile: true,
+        sessionInformation: mockFaceMovementAndLightSessionInfo,
       });
 
       expect(result).toStrictEqual({
@@ -313,7 +321,7 @@ describe('Liveness Helper', () => {
         videoEl: jest.fn() as unknown as HTMLVideoElement,
         ovalDetails: mockOvalDetails,
         reduceThreshold: true,
-        isMobile: false,
+        sessionInformation: mockFaceMovementAndLightSessionInfo,
       });
 
       expect(result).toStrictEqual({
