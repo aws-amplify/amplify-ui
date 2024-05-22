@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"10.6.2\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"12.6.0\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
   "Parameters": {
     "CloudWatchRule": {
       "Type": "String",
@@ -47,12 +47,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "livenessenvironmentb20a0fc6",
+            "livenessenvironment6105cfac",
             {
               "Fn::Join": [
                 "",
                 [
-                  "livenessenvironmentb20a0fc6",
+                  "livenessenvironment6105cfac",
                   "-",
                   {
                     "Ref": "env"
@@ -78,7 +78,7 @@
             "Arn"
           ]
         },
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs18.x",
         "Layers": [],
         "Timeout": 25
       }
@@ -89,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "livenessenvironmentLambdaRole0703be17",
+            "livenessenvironmentLambdaRole4c242cfb",
             {
               "Fn::Join": [
                 "",
                 [
-                  "livenessenvironmentLambdaRole0703be17",
+                  "livenessenvironmentLambdaRole4c242cfb",
                   "-",
                   {
                     "Ref": "env"
