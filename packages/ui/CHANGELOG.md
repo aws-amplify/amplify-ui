@@ -1,5 +1,27 @@
 # @aws-amplify/ui
 
+## 6.0.16
+
+### Patch Changes
+
+- [#5258](https://github.com/aws-amplify/amplify-ui/pull/5258) [`dc1b3be5b`](https://github.com/aws-amplify/amplify-ui/commit/dc1b3be5bb7307a28c856547500384f9bee52d34) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(deps): update amplify scoped and RN dep versions
+
+## 6.0.15
+
+### Patch Changes
+
+- [#5249](https://github.com/aws-amplify/amplify-ui/pull/5249) [`1ca7c38e1`](https://github.com/aws-amplify/amplify-ui/commit/1ca7c38e15c5a7d307aa7e704b77d596167accb2) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(i18n): Add german translations
+
+- [#5142](https://github.com/aws-amplify/amplify-ui/pull/5142) [`3af3e6b7a`](https://github.com/aws-amplify/amplify-ui/commit/3af3e6b7aca2914f67870b09fd5b2d81847f8e39) Thanks [@gfpacheco](https://github.com/gfpacheco)! - Add additional pt translations
+
+- [#3971](https://github.com/aws-amplify/amplify-ui/pull/3971) [`225bde836`](https://github.com/aws-amplify/amplify-ui/commit/225bde83640e9efba1b4edfce4696c74d6569b95) Thanks [@jbreuil](https://github.com/jbreuil)! - fix: add missing fr translations
+
+- [#5100](https://github.com/aws-amplify/amplify-ui/pull/5100) [`4b3f69917`](https://github.com/aws-amplify/amplify-ui/commit/4b3f6991706b774d45eb80beea2ddd606b21ce2a) Thanks [@onuraycicek](https://github.com/onuraycicek)! - missing words added (Turkish)
+
+- [#4234](https://github.com/aws-amplify/amplify-ui/pull/4234) [`bad0da7b9`](https://github.com/aws-amplify/amplify-ui/commit/bad0da7b9cc70069f504a37e80849b306b04f7d7) Thanks [@yannickberk](https://github.com/yannickberk)! - fix german authenticator translation
+
+- [#5054](https://github.com/aws-amplify/amplify-ui/pull/5054) [`b92c34a99`](https://github.com/aws-amplify/amplify-ui/commit/b92c34a992b0f3d118711527360cdceeff503abb) Thanks [@sj-h4](https://github.com/sj-h4)! - Add a Japanese translation for "Enter your Username"
+
 ## 6.0.14
 
 ### Patch Changes
