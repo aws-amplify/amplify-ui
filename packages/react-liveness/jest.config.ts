@@ -8,19 +8,6 @@ const config: Config = {
     '!<rootDir>/**/index.(ts|tsx)',
     // do not collect from top level version and styles files
     '!<rootDir>/src/(styles|version).(ts|tsx)',
-    '!<rootDir>/src/components/FaceLivenessDetector/service/utils/__tests__/liveness.test.ts',
-    '!<rootDir>/src/components/FaceLivenessDetector/service/machine/__tests__/machine.test.ts',
-    '!<rootDir>/src/components/FaceLivenessDetector/LivenessCheck/__tests__/LivenessCameraModule.test.tsx',
-    '!<rootDir>/src/components/FaceLivenessDetector/shared/__tests__/Hint.test.tsx',
-    '!<rootDir>/src/components/FaceLivenessDetector/service/utils/createRequestStreamGenerator/__tests__/utils.test.ts',
-    '!<rootDir>/src/components/FaceLivenessDetector/LivenessCheck/__tests__/LivenessCheck.test.tsx',
-    '!<rootDir>/src/components/FaceLivenessDetector/service/utils/__tests__/getFaceMatchStateInLivenessOval.test.ts',
-    '!<rootDir>/src/components/FaceLivenessDetector/service/utils/__tests__/sessionInformation.test.ts',
-    '!<rootDir>/src/components/FaceLivenessDetector/shared/__tests__/FaceLivenessErrorModal.test.tsx',
-    '!<rootDir>/src/components/FaceLivenessDetector/service/utils/createRequestStreamGenerator/__tests__/createRequestStreamGenerator.test.ts',
-    '!<rootDir>/src/components/FaceLivenessDetector/shared/__tests__/LandscapeErrorModal.test.tsx',
-    '!<rootDir>/src/components/FaceLivenessDetector/__tests__/FaceLivenessDetector.test.tsx',
-    '!<rootDir>/src/__tests__/index.spec.ts',
   ],
   coverageThreshold: {
     global: {
@@ -30,22 +17,7 @@ const config: Config = {
       statements: 35,
     },
   },
-  testPathIgnorePatterns: [
-    // Ignore the paths of the failing test files
-    '<rootDir>/src/components/FaceLivenessDetector/service/utils/__tests__/liveness.test.ts',
-    '<rootDir>/src/components/FaceLivenessDetector/service/machine/__tests__/machine.test.ts',
-    '<rootDir>/src/components/FaceLivenessDetector/LivenessCheck/__tests__/LivenessCameraModule.test.tsx',
-    '<rootDir>/src/components/FaceLivenessDetector/shared/__tests__/Hint.test.tsx',
-    '<rootDir>/src/components/FaceLivenessDetector/service/utils/createRequestStreamGenerator/__tests__/utils.test.ts',
-    '<rootDir>/src/components/FaceLivenessDetector/LivenessCheck/__tests__/LivenessCheck.test.tsx',
-    '<rootDir>/src/components/FaceLivenessDetector/service/utils/__tests__/getFaceMatchStateInLivenessOval.test.ts',
-    '<rootDir>/src/components/FaceLivenessDetector/service/utils/__tests__/sessionInformation.test.ts',
-    '<rootDir>/src/components/FaceLivenessDetector/shared/__tests__/FaceLivenessErrorModal.test.tsx',
-    '<rootDir>/src/components/FaceLivenessDetector/service/utils/createRequestStreamGenerator/__tests__/createRequestStreamGenerator.test.ts',
-    '<rootDir>/src/components/FaceLivenessDetector/shared/__tests__/LandscapeErrorModal.test.tsx',
-    '<rootDir>/src/components/FaceLivenessDetector/__tests__/FaceLivenessDetector.test.tsx',
-    '<rootDir>/src/__tests__/index.spec.ts',
-  ],
+  testPathIgnorePatterns: [],
   moduleNameMapper: {
     '^nanoid$': '<rootDir>/../../node_modules/nanoid',
     '^uuid$': '<rootDir>/../../node_modules/uuid',
