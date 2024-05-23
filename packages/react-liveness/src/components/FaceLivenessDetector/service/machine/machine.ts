@@ -295,13 +295,25 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       checkFaceDistanceBeforeRecording: {
         after: {
           0: {
-            target: 'recording',
+            target: 'pickFlow',
             cond: 'hasEnoughFaceDistanceBeforeRecording',
           },
           100: { target: 'detectFaceDistanceBeforeRecording' },
         },
       },
-      recording: {
+      pickFlow: {
+        always: [
+          {
+            target: 'faceMovementAndLightFlow',
+            cond: 'hasFaceMovementAndLightChallenge',
+          },
+          {
+            target: 'faceMovementFlow',
+            cond: 'hasFaceMovementChallenge',
+          },
+        ],
+      },
+      faceMovementAndLightFlow: {
         entry: ['clearErrorState', 'startRecording'],
         initial: 'ovalDrawing',
         states: {
@@ -388,6 +400,80 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
                   actions: 'updateFreshnessDetails',
                 },
               ],
+            },
+          },
+          success: {
+            entry: 'stopRecording',
+            type: 'final',
+          },
+        },
+        onDone: 'uploading',
+      },
+      faceMovementFlow: {
+        entry: ['clearErrorState', 'startRecording'],
+        initial: 'ovalDrawing',
+        states: {
+          ovalDrawing: {
+            entry: 'sendTimeoutAfterOvalDrawingDelay',
+            invoke: {
+              src: 'detectInitialFaceAndDrawOval',
+              onDone: {
+                target: 'checkFaceDetected',
+                actions: [
+                  'updateOvalAndFaceDetailsPostDraw',
+                  'sendTimeoutAfterOvalMatchDelay',
+                ],
+              },
+              onError: {
+                target: '#livenessMachine.error',
+                actions: 'updateErrorStateForRuntime',
+              },
+            },
+          },
+          checkFaceDetected: {
+            after: {
+              0: {
+                target: 'checkRecordingStarted',
+                cond: 'hasSingleFace',
+              },
+              100: { target: 'ovalDrawing' },
+            },
+          },
+          checkRecordingStarted: {
+            after: {
+              0: {
+                target: 'ovalMatching',
+                cond: 'hasRecordingStarted',
+                actions: 'updateRecordingStartTimestamp',
+              },
+              100: { target: 'checkRecordingStarted' },
+            },
+          },
+          // Evaluates face match and moves to checkMatch
+          // which continually checks for match until either timeout or face match
+          ovalMatching: {
+            entry: 'cancelOvalDrawingTimeout',
+            invoke: {
+              src: 'detectFaceAndMatchOval',
+              onDone: {
+                target: 'checkMatch',
+                actions: 'updateFaceDetailsPostMatch',
+              },
+            },
+          },
+          checkMatch: {
+            after: {
+              0: {
+                target: 'success',
+                cond: 'hasFaceMatchedInOval',
+                actions: [
+                  'setFaceMatchTimeAndStartFace',
+                  'updateEndFaceMatch',
+                  'cancelOvalMatchTimeout',
+                  'cancelOvalDrawingTimeout',
+                ],
+              },
+              1: { target: 'ovalMatching' },
             },
           },
           success: {
@@ -878,6 +964,18 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           context.videoAssociatedParams!.videoEl !== undefined &&
           context.videoAssociatedParams!.canvasEl !== undefined &&
           context.freshnessColorAssociatedParams!.freshnessColorEl !== undefined
+        );
+      },
+      hasFaceMovementChallenge: (context) => {
+        return (
+          context.parsedSessionInformation?.Challenge?.Name ===
+          'FaceMovementChallenge'
+        );
+      },
+      hasFaceMovementAndLightChallenge: (context) => {
+        return (
+          context.parsedSessionInformation?.Challenge?.Name ===
+          'FaceMovementAndLightChallenge'
         );
       },
       getShouldDisconnect: (context) => {
