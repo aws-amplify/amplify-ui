@@ -304,16 +304,16 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       pickFlow: {
         always: [
           {
-            target: 'faceMovementAndLightFlow',
+            target: 'faceMovementAndLightCheck',
             cond: 'hasFaceMovementAndLightChallenge',
           },
           {
-            target: 'faceMovementFlow',
+            target: 'faceMovementCheck',
             cond: 'hasFaceMovementChallenge',
           },
         ],
       },
-      faceMovementAndLightFlow: {
+      faceMovementAndLightCheck: {
         entry: ['clearErrorState', 'startRecording'],
         initial: 'ovalDrawing',
         states: {
@@ -409,7 +409,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
         onDone: 'uploading',
       },
-      faceMovementFlow: {
+      faceMovementCheck: {
         entry: ['clearErrorState', 'startRecording'],
         initial: 'ovalDrawing',
         states: {
