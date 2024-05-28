@@ -13,6 +13,10 @@ on:
   push:
     branches: [ui-react/v3]
 
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
+
 jobs:
   test:
     uses: ./.github/workflows/reusable-e2e.yml
