@@ -142,10 +142,12 @@ export const LivenessCameraModule = (
   });
   const isStartView = state.matches('start') || state.matches('userCancel');
   const isDetectFaceBeforeStart = state.matches('detectFaceBeforeStart');
-  const isRecording = state.matches('recording');
+  const isRecording =
+    state.matches('faceMovementCheck') ||
+    state.matches('faceMovementAndLightCheck');
   const isCheckSucceeded = state.matches('checkSucceeded');
   const isFlashingFreshness = state.matches({
-    recording: 'flashFreshnessColors',
+    faceMovementAndLightCheck: 'flashFreshnessColors',
   });
 
   // Android/Firefox and iOS flip the values of width/height returned from
