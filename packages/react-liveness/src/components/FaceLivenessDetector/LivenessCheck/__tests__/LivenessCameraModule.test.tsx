@@ -360,6 +360,52 @@ describe('LivenessCameraModule', () => {
     expect(matchIndicator).toHaveLength(0);
   });
 
+  it('should render photosensitivity warning with FaceMovementAndLightChallenge and isNotRecording = true', async () => {
+    isNotRecording = true;
+    mockStateMatchesAndSelectors();
+    mockUseLivenessSelector.mockReturnValue('FaceMovementAndLightChallenge');
+
+    renderWithLivenessProvider(
+      <LivenessCameraModule
+        isMobileScreen={false}
+        isRecordingStopped={false}
+        hintDisplayText={hintDisplayText}
+        streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        instructionDisplayText={instructionDisplayText}
+      />
+    );
+
+    const photosensitivityWarning = screen.queryByText(
+      instructionDisplayText.photosensitivityWarningHeadingText
+    );
+    expect(photosensitivityWarning).toBeInTheDocument();
+  });
+
+  it('should not render photosensitivity warning with FaceMovementChallenge and isNotRecording = true', async () => {
+    isNotRecording = true;
+    mockStateMatchesAndSelectors();
+    mockUseLivenessSelector.mockReturnValue('FaceMovementChallenge');
+
+    renderWithLivenessProvider(
+      <LivenessCameraModule
+        isMobileScreen={false}
+        isRecordingStopped={false}
+        hintDisplayText={hintDisplayText}
+        streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        instructionDisplayText={instructionDisplayText}
+      />
+    );
+
+    const photosensitivityWarning = screen.queryByText(
+      instructionDisplayText.photosensitivityWarningHeadingText
+    );
+    expect(photosensitivityWarning).not.toBeInTheDocument();
+  });
+
   it('should create appropriate selectors', () => {
     const expectedConstraints = { width: 100 };
     const expectedStream = { getTracks: () => [] };
@@ -470,7 +516,6 @@ describe('LivenessCameraModule', () => {
   });
 
   it('should show a full screen camera', async () => {
-    isStart = false;
     isInitCamera = false;
     isInitWebsocket = false;
     isWaitingForCamera = false;
