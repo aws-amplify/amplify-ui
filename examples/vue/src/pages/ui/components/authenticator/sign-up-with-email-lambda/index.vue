@@ -2,9 +2,23 @@
 import { Amplify } from 'aws-amplify';
 import { Authenticator } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
-import aws_exports from './aws-exports';
 
-Amplify.configure(aws_exports);
+const amplifyOutputs =
+  import.meta.env.VITE_VERSION === 'gen1'
+    ? (
+        await import(
+          // @ts-ignore
+          '@environments/auth/auth-with-email-lambda-signup-trigger/src/aws-exports'
+        )
+      ).default
+    : (
+        await import(
+          // @ts-ignore
+          '@environments/auth/auth-with-email-lambda-signup-trigger/amplify_outputs'
+        )
+      ).default;
+
+Amplify.configure(amplifyOutputs);
 </script>
 
 <template>

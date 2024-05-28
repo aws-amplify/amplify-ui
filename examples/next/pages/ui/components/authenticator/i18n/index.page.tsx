@@ -5,14 +5,18 @@ import { translations } from '@aws-amplify/ui';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-import awsExports from './aws-exports';
-Amplify.configure(awsExports);
+const amplifyOutputs = (
+  await import(`@environments/auth/auth-with-email/${process.env.PATH}`)
+).default;
+
+Amplify.configure(amplifyOutputs);
 
 I18n.putVocabularies(translations);
 I18n.setLanguage('ja');
 I18n.putVocabulariesForLanguage('ja', {
   'Sign In': 'Sign In Custom',
   'User does not exist.': 'Error with your user',
+  'Incorrect username or password.': 'Error with your user',
 });
 
 function App({ signOut, user }) {

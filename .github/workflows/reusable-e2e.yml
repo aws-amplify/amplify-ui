@@ -80,17 +80,17 @@ jobs:
             tags: '@gen1 and @vue and not @todo-vue'
             version: gen1
 
-          - example: angular-gen2
+          - example: angular
             package: angular
             tags: '@gen2 and @angular and not @todo-angular'
             version: gen2
 
-          - example: next-gen2
+          - example: next
             package: react
             tags: '@gen2 and @react and not @todo-react'
             version: gen2
 
-          - example: vue-gen2
+          - example: vue
             package: vue
             tags: '@gen2 and @vue and not @todo-vue'
             version: gen2
@@ -245,6 +245,10 @@ jobs:
         if: ${{ matrix.version == 'gen1' }}
         run: yarn environments geo pull
 
+      - name: Pull down Gen2 Geo AWS environments
+        if: ${{ matrix.version == 'gen2' }}
+        run: yarn environments geo pull -v gen2
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
         with:
@@ -300,6 +304,10 @@ jobs:
         if: ${{ matrix.version == 'gen1' }}
         run: yarn environments liveness pull
 
+      - name: Pull down Gen2 Liveness AWS environments
+        if: ${{ matrix.version == 'gen2' }}
+        run: yarn environments liveness pull -v gen2
+
       - name: Configure in-app-messaging credentials
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
         with:
@@ -320,11 +328,18 @@ jobs:
         if: ${{ matrix.version == 'gen1' }}
         run: yarn environments in-app-messaging pull
 
+      - name: Pull down Gen2 In-app-messaging AWS environments
+        if: ${{ matrix.version == 'gen2' }}
+        run: yarn environments in-app-messaging pull -v gen2
+
       - name: Delete AWS profile
         run: rm -rf ~/.aws
 
       - name: Build ${{ matrix.example }} example
         run: yarn ${{ matrix.example }}-example build
+        env:
+          VERSION: ${{ matrix.version }}
+          VITE_VERSION: ${{ matrix.version }}
 
       - name: Start ${{ matrix.example }} example
         run: yarn ${{ matrix.example }}-example start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/ui/components/authenticator/sign-in-with-email

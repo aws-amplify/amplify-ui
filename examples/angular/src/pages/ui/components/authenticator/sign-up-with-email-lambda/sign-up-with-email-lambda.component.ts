@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
-import awsExports from './aws-exports';
+
+const amplifyOutputs = (
+  await import(
+    `@environments/auth/auth-with-email-lambda-signup-trigger/${process.env.PATH}`
+  )
+).default;
 
 @Component({
   selector: 'sign-up-with-email-lambda',
@@ -8,6 +13,6 @@ import awsExports from './aws-exports';
 })
 export class SignUpWithEmailLambdaComponent {
   constructor() {
-    Amplify.configure(awsExports);
+    Amplify.configure(amplifyOutputs);
   }
 }

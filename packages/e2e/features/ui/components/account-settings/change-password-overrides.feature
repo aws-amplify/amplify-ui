@@ -5,7 +5,7 @@ Feature: Change Password With Overrides
   Background:
     Given I'm running the example "ui/components/account-settings/change-password-with-overrides"
 
-  @react @gen1
+  @react @gen1 @gen2
   Scenario: Customize defsault components
     When I type my "email" with status "CONFIRMED"
     Then I type my password

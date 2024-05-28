@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { AuthenticatorService } from '@aws-amplify/ui-angular';
 import { Amplify } from 'aws-amplify';
 
-import awsExports from './aws-exports';
+const amplifyOutputs = (
+  await import(`@environments/auth/auth-with-totp-mfa/${process.env.PATH}`)
+).default;
 
 @Component({
   selector: 'custom-slots',
@@ -10,7 +12,7 @@ import awsExports from './aws-exports';
 })
 export class CustomSlotsComponent {
   constructor(public authenticator: AuthenticatorService) {
-    Amplify.configure(awsExports);
+    Amplify.configure(amplifyOutputs);
   }
   public formFields = {
     signIn: {

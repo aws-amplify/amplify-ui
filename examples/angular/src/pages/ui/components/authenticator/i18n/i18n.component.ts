@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { translations } from '@aws-amplify/ui-angular';
-import awsExports from './aws-exports';
 import { Amplify } from 'aws-amplify';
 import { I18n } from 'aws-amplify/utils';
+
+const amplifyOutputs = (
+  await import(`@environments/auth/auth-with-email/${process.env.PATH}`)
+).default;
+
 @Component({
   selector: 'i18n',
   templateUrl: 'i18n.component.html',
 })
 export class I18nComponent implements OnInit {
   constructor() {
-    Amplify.configure(awsExports);
+    Amplify.configure(amplifyOutputs);
   }
 
   ngOnInit() {
@@ -18,6 +22,7 @@ export class I18nComponent implements OnInit {
     I18n.putVocabulariesForLanguage('ja', {
       'Sign In': 'Sign In Custom',
       'User does not exist.': 'Error with your user',
+      'Incorrect username or password.': 'Error with your user',
     });
   }
 

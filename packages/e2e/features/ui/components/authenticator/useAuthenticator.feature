@@ -10,24 +10,7 @@ Feature: Headless Usage
   Background:
     Given I'm running the example "/ui/components/authenticator/useAuthenticator"
 
-  @angular @react @vue @gen1
-  Scenario: Conditionally render Login and Logout component
-
-  /useAuthenticator example uses headless API to get access to conditionally render 
-  components for Login and Logout page. Both share the same authenticator context.
-
-    When I type my "username" with status "CONFIRMED"
-    Then I type my password
-    Then I click the "Sign in" button
-    Then I see "Navigate to Home"
-    Then I click the "Navigate to Home" button
-    Then I see a valid greetings message
-    Then I reload the page
-    Then I see a valid greetings message
-    Then I click the "Sign Out" button
-    Then I see "Sign In"
-
-  @angular @react @vue @gen2
+  @angular @react @vue @gen1 @gen2
   Scenario: Conditionally render Login and Logout component
 
   /useAuthenticator example uses headless API to get access to conditionally render 

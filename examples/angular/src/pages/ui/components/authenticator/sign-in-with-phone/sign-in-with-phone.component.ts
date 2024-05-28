@@ -3,7 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 import { I18n } from 'aws-amplify/utils';
 import { translations } from '@aws-amplify/ui-angular';
-import awsExports from './aws-exports';
+
+const amplifyOutputs = (
+  await import(`@environments/auth/auth-with-phone-number/${process.env.PATH}`)
+).default;
 
 @Component({
   selector: 'sign-in-with-phone',
@@ -11,7 +14,7 @@ import awsExports from './aws-exports';
 })
 export class SignInWithPhoneComponent implements OnInit {
   constructor() {
-    Amplify.configure(awsExports);
+    Amplify.configure(amplifyOutputs);
   }
 
   ngOnInit(): void {

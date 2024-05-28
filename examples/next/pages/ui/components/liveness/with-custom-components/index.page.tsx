@@ -2,14 +2,19 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 
 import { Amplify } from 'aws-amplify';
-import awsExports from '@environments/liveness/liveness-environment/src/aws-exports';
 
 import LivenessDefault from '../components/LivenessDefault';
 import Layout from '../components/Layout';
 import { Alert, Card, Heading, View, Text } from '@aws-amplify/ui-react';
 
+const amplifyOutputs = (
+  await import(
+    `@environments/liveness/liveness-environment/${process.env.PATH}`
+  )
+).default;
+
 Amplify.configure({
-  ...awsExports,
+  ...amplifyOutputs,
   // Analytics: { autoSessionRecord: false },
 });
 

@@ -4,6 +4,6 @@
   "version": "0.0.1",
   "scripts": {
     "pull": "amplify pull --appId d19uoxfo0qrigq --envName staging",
-    "generate": "echo 'Login with username is not supported by Gen2'"
+    "generate": "echo 'Username as a login mechanism is not supported by Gen2. Generating a placeholder file...' && touch amplify_outputs.json && echo '{}' > amplify_outputs.json"
   }
 }

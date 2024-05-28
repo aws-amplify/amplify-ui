@@ -6,10 +6,15 @@ import { AwsCredentialProvider } from '@aws-amplify/ui-react-liveness';
 
 import LivenessDefault from '../components/LivenessDefault';
 import Layout from '../components/Layout';
-import awsExports from './aws-exports';
+
+const amplifyOutputs = (
+  await import(
+    `@environments/liveness/liveness-environment/${process.env.PATH}`
+  )
+).default;
 
 Amplify.configure({
-  ...awsExports,
+  ...amplifyOutputs,
   // Analytics: { autoSessionRecord: false },
 });
 

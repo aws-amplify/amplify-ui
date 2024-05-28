@@ -39,14 +39,15 @@ Feature: Sign In with Email
     Then I click the "Sign in" button
     Then I see "Incorrect username or password."
 
+  @angular @react @vue @react-native @gen1 @gen2
   Scenario: Sign in with unconfirmed credentials
 
   If you sign in with an unconfirmed account, Authenticator will redirect you to `confirmSignUp` route.
 
     When I type my "email" with status "UNCONFIRMED"
     Then I type my password
-    Then I click the "Sign in" button
     Then I spy request '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }'
+    Then I click the "Sign in" button
     Then I confirm request '{"headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }'
     Then I see "Confirmation Code"
     Then I type a valid confirmation code

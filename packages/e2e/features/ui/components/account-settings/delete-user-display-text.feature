@@ -6,7 +6,7 @@ Feature: Delete User With Overrides
     Given I'm running the example "ui/components/account-settings/delete-user-display-text"
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.DeleteUser" } }' with fixture "delete-user"
 
-  @react @gen1
+  @react @gen1 @gen2
   Scenario: Customize DeleteUser displayText
     When I type my "email" with status "CONFIRMED"
     Then I type my password

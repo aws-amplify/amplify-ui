@@ -6,19 +6,27 @@ import { computed, toRefs } from 'vue';
 import { useAuthenticator } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
 
-import aws_exports from './aws-exports';
+const amplifyOutputs =
+  import.meta.env.VITE_VERSION === 'gen1'
+    ? // @ts-ignore
+      (await import('@environments/auth/auth-with-email/src/aws-exports'))
+        .default
+    : // @ts-ignore
+      (await import('@environments/auth/auth-with-email/amplify_outputs'))
+        .default;
 
-Amplify.configure(aws_exports);
+Amplify.configure(amplifyOutputs);
 
 const { authStatus } = toRefs(useAuthenticator());
 const isAuthenticated = computed(() => authStatus.value === 'authenticated');
 
 const handleSignOut = () => signOut();
 
-const onSubmit = (event: Event) => {
-  signIn(
-    Object.fromEntries(new FormData(event.target as HTMLFormElement)) as any
-  );
+const onSubmit = (event: any) => {
+  signIn({
+    username: event.target.email.value,
+    password: event.target.password.value,
+  });
 };
 </script>
 
@@ -26,9 +34,12 @@ const onSubmit = (event: Event) => {
   <form @submit.prevent="onSubmit">
     <div>{{ authStatus }}</div>
 
-    <div v-if="!isAuthenticated" :style="{ display: 'flex', 'flex-direction': 'column', gap: '1rem' }">
-      <label for="username">Username</label>
-      <input id="username" name="username" />
+    <div
+      v-if="!isAuthenticated"
+      :style="{ display: 'flex', 'flex-direction': 'column', gap: '1rem' }"
+    >
+      <label for="email">Email</label>
+      <input id="email" name="email" />
       <label for="password">Password</label>
       <input id="password" name="password" type="password" />
       <button type="submit">Sign In</button>

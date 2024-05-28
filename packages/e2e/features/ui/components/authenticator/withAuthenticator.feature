@@ -9,14 +9,7 @@ Feature: withAuthenticator
   Scenario: Application is wrapped with Authenticator
     Then I see "Sign in"
 
-  @react @react-native @gen1
-  Scenario: Application renders when signed in
-    When I type my "username" with status "CONFIRMED"
-    Then I type my password
-    Then I click the "Sign in" button
-    Then I see "Sign out"
-
-  @react @react-native @gen2
+  @react @react-native @gen1 @gen2
   Scenario: Application renders when signed in
     When I type my "email" with status "CONFIRMED"
     Then I type my password

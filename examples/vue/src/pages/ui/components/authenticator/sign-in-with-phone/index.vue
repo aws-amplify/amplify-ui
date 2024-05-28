@@ -3,9 +3,23 @@ import { Amplify } from 'aws-amplify';
 import { I18n } from 'aws-amplify/utils';
 import { Authenticator, translations } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
-import aws_exports from './aws-exports';
 
-Amplify.configure(aws_exports);
+const amplifyOutputs =
+  import.meta.env.VITE_VERSION === 'gen1'
+    ? (
+        await import(
+          // @ts-ignore
+          '@environments/auth/auth-with-phone-number/src/aws-exports'
+        )
+      ).default
+    : (
+        await import(
+          // @ts-ignore
+          '@environments/auth/auth-with-phone-number/amplify_outputs'
+        )
+      ).default;
+
+Amplify.configure(amplifyOutputs);
 
 I18n.putVocabularies(translations);
 I18n.setLanguage('en');
