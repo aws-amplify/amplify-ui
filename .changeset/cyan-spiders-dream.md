@@ -2,4 +2,4 @@
 "@aws-amplify/ui-react-liveness": patch
 ---
 
-chore(liveness): Add separate state machine flow for no lights
+chore(liveness): Update state machine flow for no lights
