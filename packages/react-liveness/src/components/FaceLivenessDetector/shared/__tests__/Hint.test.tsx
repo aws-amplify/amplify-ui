@@ -65,7 +65,7 @@ describe('Hint', () => {
     when(mockActorState.matches)
       .calledWith('notRecording')
       .mockReturnValue(isNotRecording)
-      .calledWith('faceMovementAndLightCheck')
+      .calledWith('recording')
       .mockReturnValue(isRecording)
       .calledWith('uploading')
       .mockReturnValue(isUploading)
@@ -79,7 +79,7 @@ describe('Hint', () => {
       .mockReturnValue(isCheckFaceDistanceBeforeRecording)
       .calledWith('waitForSessionInfo')
       .mockReturnValue(isWaitingForSessionInfo)
-      .calledWith({ faceMovementAndLightCheck: 'flashFreshnessColors' })
+      .calledWith({ recording: 'flashFreshnessColors' })
       .mockReturnValue(isFlashingFreshness);
   }
 

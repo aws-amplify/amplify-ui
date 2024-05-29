@@ -295,25 +295,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       checkFaceDistanceBeforeRecording: {
         after: {
           0: {
-            target: 'pickFlow',
+            target: 'recording',
             cond: 'hasEnoughFaceDistanceBeforeRecording',
           },
           100: { target: 'detectFaceDistanceBeforeRecording' },
         },
       },
-      pickFlow: {
-        always: [
-          {
-            target: 'faceMovementAndLightCheck',
-            cond: 'hasFaceMovementAndLightChallenge',
-          },
-          {
-            target: 'faceMovementCheck',
-            cond: 'hasFaceMovementChallenge',
-          },
-        ],
-      },
-      faceMovementAndLightCheck: {
+      recording: {
         entry: ['clearErrorState', 'startRecording'],
         initial: 'ovalDrawing',
         states: {
@@ -371,7 +359,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           checkMatch: {
             after: {
               0: {
-                target: 'delayBeforeFlash',
+                target: 'handleChallenge',
                 cond: 'hasFaceMatchedInOval',
                 actions: [
                   'setFaceMatchTimeAndStartFace',
@@ -383,6 +371,18 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               },
               1: { target: 'ovalMatching' },
             },
+          },
+          handleChallenge: {
+            always: [
+              {
+                target: 'delayBeforeFlash',
+                cond: 'hasFaceMovementAndLightChallenge',
+              },
+              {
+                target: 'success',
+                cond: 'hasFaceMovementChallenge',
+              },
+            ],
           },
           delayBeforeFlash: {
             after: { 1000: 'flashFreshnessColors' },
@@ -400,80 +400,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
                   actions: 'updateFreshnessDetails',
                 },
               ],
-            },
-          },
-          success: {
-            entry: 'stopRecording',
-            type: 'final',
-          },
-        },
-        onDone: 'uploading',
-      },
-      faceMovementCheck: {
-        entry: ['clearErrorState', 'startRecording'],
-        initial: 'ovalDrawing',
-        states: {
-          ovalDrawing: {
-            entry: 'sendTimeoutAfterOvalDrawingDelay',
-            invoke: {
-              src: 'detectInitialFaceAndDrawOval',
-              onDone: {
-                target: 'checkFaceDetected',
-                actions: [
-                  'updateOvalAndFaceDetailsPostDraw',
-                  'sendTimeoutAfterOvalMatchDelay',
-                ],
-              },
-              onError: {
-                target: '#livenessMachine.error',
-                actions: 'updateErrorStateForRuntime',
-              },
-            },
-          },
-          checkFaceDetected: {
-            after: {
-              0: {
-                target: 'checkRecordingStarted',
-                cond: 'hasSingleFace',
-              },
-              100: { target: 'ovalDrawing' },
-            },
-          },
-          checkRecordingStarted: {
-            after: {
-              0: {
-                target: 'ovalMatching',
-                cond: 'hasRecordingStarted',
-                actions: 'updateRecordingStartTimestamp',
-              },
-              100: { target: 'checkRecordingStarted' },
-            },
-          },
-          // Evaluates face match and moves to checkMatch
-          // which continually checks for match until either timeout or face match
-          ovalMatching: {
-            entry: 'cancelOvalDrawingTimeout',
-            invoke: {
-              src: 'detectFaceAndMatchOval',
-              onDone: {
-                target: 'checkMatch',
-                actions: 'updateFaceDetailsPostMatch',
-              },
-            },
-          },
-          checkMatch: {
-            after: {
-              0: {
-                target: 'success',
-                cond: 'hasFaceMatchedInOval',
-                actions: [
-                  'setFaceMatchTimeAndStartFace',
-                  'updateEndFaceMatch',
-                  'cancelOvalMatchTimeout',
-                  'cancelOvalDrawingTimeout',
-                ],
-              },
-              1: { target: 'ovalMatching' },
             },
           },
           success: {
