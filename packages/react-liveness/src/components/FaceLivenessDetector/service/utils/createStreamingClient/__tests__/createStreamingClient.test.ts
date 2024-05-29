@@ -42,7 +42,7 @@ const mockSend = jest
   .mockResolvedValue({ LivenessResponseStream: reponseStream });
 const mockRekognitionStreamingClient = (
   RekognitionStreamingClient as jest.Mock
-).mockReturnValue({ send: mockSend });
+).mockReturnValue({ send: mockSend, middlewareStack: { add: jest.fn() } });
 
 const mockStartFaceLivenessSessionCommand =
   StartFaceLivenessSessionCommand as unknown as jest.Mock;
@@ -58,6 +58,8 @@ describe('createStreamingClient', () => {
       credentialsProvider: undefined,
       endpointOverride: undefined,
       region,
+      attemptCount: 1,
+      preCheckViewEnabled: true,
     });
 
     expect(mockResolveCredentials).toHaveBeenCalledTimes(1);
@@ -79,6 +81,8 @@ describe('createStreamingClient', () => {
       credentialsProvider,
       endpointOverride: undefined,
       region,
+      attemptCount: 1,
+      preCheckViewEnabled: true,
     });
 
     expect(mockResolveCredentials).toHaveBeenCalledTimes(1);
@@ -99,6 +103,8 @@ describe('createStreamingClient', () => {
       credentialsProvider: undefined,
       endpointOverride,
       region,
+      attemptCount: 1,
+      preCheckViewEnabled: true,
     });
 
     expect(mockResolveCredentials).toHaveBeenCalledTimes(1);
@@ -122,6 +128,8 @@ describe('createStreamingClient', () => {
       credentialsProvider: undefined,
       endpointOverride,
       region,
+      attemptCount: 1,
+      preCheckViewEnabled: true,
     });
 
     expect(mockResolveCredentials).toHaveBeenCalledTimes(1);
@@ -145,6 +153,8 @@ describe('createStreamingClient', () => {
         credentialsProvider: undefined,
         endpointOverride,
         region,
+        attemptCount: 1,
+        preCheckViewEnabled: true,
       });
 
       await getResponseStream({
@@ -171,6 +181,8 @@ describe('createStreamingClient', () => {
         credentialsProvider: undefined,
         endpointOverride,
         region,
+        attemptCount: 1,
+        preCheckViewEnabled: true,
       });
 
       const output = await getResponseStream({

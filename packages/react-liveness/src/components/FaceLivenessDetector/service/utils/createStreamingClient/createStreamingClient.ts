@@ -17,6 +17,7 @@ import { CONNECTION_TIMEOUT, queryParameterString } from '../constants';
 import { CustomWebSocketFetchHandler } from './CustomWebSocketFetchHandler';
 import { resolveCredentials } from './resolveCredentials';
 import { Signer } from './Signer';
+import { createTelemetryReporterMiddleware } from '../TelemetryReporter';
 
 export interface RequestStream extends AsyncGenerator<LivenessRequestStream> {}
 export interface ResponseStream extends AsyncIterable<LivenessResponseStream> {}
@@ -25,6 +26,8 @@ interface CreateClientConfig {
   credentialsProvider: AwsCredentialProvider | undefined;
   endpointOverride: string | undefined;
   region: string;
+  attemptCount: number;
+  preCheckViewEnabled: boolean;
 }
 
 interface GetResponseStreamInput {
@@ -86,6 +89,18 @@ export async function createStreamingClient(
   clientConfig: CreateClientConfig
 ): Promise<{ getResponseStream: GetReponseStream }> {
   const client = await getStreamingClient(clientConfig);
+
+  client.middlewareStack.add(
+    createTelemetryReporterMiddleware(
+      clientConfig.attemptCount,
+      clientConfig.preCheckViewEnabled
+    ),
+    {
+      step: 'build',
+      name: 'telemetryMiddleware',
+      tags: ['liveness', 'amplify-ui'],
+    }
+  );
 
   return {
     async getResponseStream(input) {
