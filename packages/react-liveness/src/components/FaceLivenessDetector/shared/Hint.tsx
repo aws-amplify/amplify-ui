@@ -70,14 +70,12 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
     state.matches('checkFaceDistanceBeforeRecording') ||
     state.matches('detectFaceDistanceBeforeRecording');
   const isStartView = state.matches('start') || state.matches('userCancel');
-  const isRecording =
-    state.matches('faceMovementAndLightCheck') ||
-    state.matches('faceMovementCheck');
+  const isRecording = state.matches('recording');
   const isUploading = state.matches('uploading');
   const isCheckSuccessful = state.matches('checkSucceeded');
   const isCheckFailed = state.matches('checkFailed');
   const isFlashingFreshness = state.matches({
-    faceMovementAndLightCheck: 'flashFreshnessColors',
+    recording: 'flashFreshnessColors',
   });
 
   const FaceMatchStateStringMap: Record<FaceMatchState, string | undefined> = {

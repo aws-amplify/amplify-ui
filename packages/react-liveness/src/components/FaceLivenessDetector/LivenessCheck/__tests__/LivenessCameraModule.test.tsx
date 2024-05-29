@@ -75,7 +75,7 @@ describe('LivenessCameraModule', () => {
       .mockReturnValue(isNotRecording)
       .calledWith('start')
       .mockReturnValue(isStart)
-      .calledWith('faceMovementAndLightCheck')
+      .calledWith('recording')
       .mockReturnValue(isRecording);
   }
 

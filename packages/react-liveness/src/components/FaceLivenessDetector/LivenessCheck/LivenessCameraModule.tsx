@@ -39,6 +39,7 @@ import {
   DefaultCancelButton,
   DefaultRecordingIcon,
 } from '../shared/DefaultStartScreenComponents';
+import { FACE_MOVEMENT_CHALLENGE } from '../service/utils/constants';
 
 export const selectChallengeType = createLivenessSelector(
   (state) => state.context.parsedSessionInformation?.Challenge?.Name
@@ -113,7 +114,7 @@ export const LivenessCameraModule = (
   const [state, send] = useLivenessActor();
 
   const isFaceMovementChallenge =
-    useLivenessSelector(selectChallengeType) === 'FaceMovementChallenge';
+    useLivenessSelector(selectChallengeType) === FACE_MOVEMENT_CHALLENGE.type;
 
   const videoStream = useLivenessSelector(selectVideoStream);
   const videoConstraints = useLivenessSelector(selectVideoConstraints);
@@ -142,12 +143,10 @@ export const LivenessCameraModule = (
   });
   const isStartView = state.matches('start') || state.matches('userCancel');
   const isDetectFaceBeforeStart = state.matches('detectFaceBeforeStart');
-  const isRecording =
-    state.matches('faceMovementCheck') ||
-    state.matches('faceMovementAndLightCheck');
+  const isRecording = state.matches('recording');
   const isCheckSucceeded = state.matches('checkSucceeded');
   const isFlashingFreshness = state.matches({
-    faceMovementAndLightCheck: 'flashFreshnessColors',
+    recording: 'flashFreshnessColors',
   });
 
   // Android/Firefox and iOS flip the values of width/height returned from
