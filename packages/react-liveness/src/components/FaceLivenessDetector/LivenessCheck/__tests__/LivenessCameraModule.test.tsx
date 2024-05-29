@@ -360,7 +360,7 @@ describe('LivenessCameraModule', () => {
     expect(matchIndicator).toHaveLength(0);
   });
 
-  it('should render photosensitivity warning with FaceMovementAndLightChallenge and isNotRecording = true', async () => {
+  it('should render photosensitivity warning when challenge is FaceMovementAndLightChallenge and isNotRecording is true', async () => {
     isNotRecording = true;
     mockStateMatchesAndSelectors();
     mockUseLivenessSelector.mockReturnValue('FaceMovementAndLightChallenge');
@@ -383,7 +383,7 @@ describe('LivenessCameraModule', () => {
     expect(photosensitivityWarning).toBeInTheDocument();
   });
 
-  it('should not render photosensitivity warning with FaceMovementChallenge and isNotRecording = true', async () => {
+  it('should not render photosensitivity warning when challenge is FaceMovementChallenge and isNotRecording is true', async () => {
     isNotRecording = true;
     mockStateMatchesAndSelectors();
     mockUseLivenessSelector.mockReturnValue('FaceMovementChallenge');
