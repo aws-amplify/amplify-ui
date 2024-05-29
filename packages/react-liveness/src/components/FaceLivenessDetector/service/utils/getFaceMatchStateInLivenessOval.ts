@@ -3,8 +3,8 @@ import {
   Face,
   FaceMatchState,
   BoundingBox,
+  ParsedSessionInformation,
 } from '../types';
-import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
 import {
   generateBboxFromLandmarks,
   getIntersectionOverUnion,
@@ -21,7 +21,7 @@ interface MatchStateInOvalParams {
   face: Face;
   ovalDetails: LivenessOvalDetails;
   initialFaceIntersection: number;
-  sessionInformation: SessionInformation;
+  parsedSessionInformation: ParsedSessionInformation;
   frameHeight: number;
 }
 
@@ -32,16 +32,15 @@ export function getFaceMatchStateInLivenessOval({
   face,
   ovalDetails,
   initialFaceIntersection,
-  sessionInformation,
+  parsedSessionInformation,
   frameHeight,
 }: MatchStateInOvalParams): {
   faceMatchState: FaceMatchState;
   faceMatchPercentage: number;
 } {
   let faceMatchState: FaceMatchState;
-  const challengeConfig =
-    sessionInformation?.Challenge?.FaceMovementAndLightChallenge
-      ?.ChallengeConfig;
+  const challengeConfig = parsedSessionInformation.Challenge!.ChallengeConfig;
+
   if (
     !challengeConfig ||
     !challengeConfig.OvalIouThreshold ||

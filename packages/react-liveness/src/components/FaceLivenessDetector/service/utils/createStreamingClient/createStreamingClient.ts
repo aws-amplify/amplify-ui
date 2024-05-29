@@ -13,7 +13,7 @@ import { isString } from '@aws-amplify/ui';
 import { getLivenessUserAgent } from '../../../utils/platform';
 import { AwsCredentialProvider } from '../../types';
 
-import { CONNECTION_TIMEOUT, FACE_MOVEMENT_CHALLENGE_NAME } from '../constants';
+import { CONNECTION_TIMEOUT, queryParameterString } from '../constants';
 import { CustomWebSocketFetchHandler } from './CustomWebSocketFetchHandler';
 import { resolveCredentials } from './resolveCredentials';
 import { Signer } from './Signer';
@@ -71,7 +71,7 @@ const createCommandInput = ({
   videoWidth,
   videoHeight,
 }: GetResponseStreamInput): StartFaceLivenessSessionCommandInput => ({
-  ChallengeVersions: FACE_MOVEMENT_CHALLENGE_NAME,
+  ChallengeVersions: queryParameterString,
   SessionId: sessionId,
   LivenessRequestStream: requestStream,
   VideoWidth: videoWidth,

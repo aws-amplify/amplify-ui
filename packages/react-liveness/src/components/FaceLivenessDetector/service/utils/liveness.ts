@@ -1,13 +1,14 @@
-import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
 import {
   BoundingBox,
   ErrorState,
   Face,
   FaceDetection,
   FaceMatchState,
+  FaceMovementAndLightChallenge,
   IlluminationState,
   LivenessErrorState,
   LivenessOvalDetails,
+  ParsedSessionInformation,
 } from '../types';
 import { ColorSequence, SequenceColorValue } from './ColorSequenceDisplay';
 import {
@@ -91,16 +92,13 @@ export function getIntersectionOverUnion(
  * from SDK
  */
 export function getOvalDetailsFromSessionInformation({
-  sessionInformation,
+  parsedSessionInformation,
   videoWidth,
 }: {
-  sessionInformation: SessionInformation;
+  parsedSessionInformation: ParsedSessionInformation;
   videoWidth: number;
 }): LivenessOvalDetails {
-  const ovalParameters =
-    sessionInformation?.Challenge?.FaceMovementAndLightChallenge
-      ?.OvalParameters;
-
+  const ovalParameters = parsedSessionInformation.Challenge!.OvalParameters;
   if (
     !ovalParameters ||
     !ovalParameters.CenterX ||
@@ -572,13 +570,13 @@ const isColorSequence = (
 ): obj is ColorSequence => !!obj;
 
 export function getColorsSequencesFromSessionInformation(
-  sessionInformation: SessionInformation
+  parsedSessionInformation: ParsedSessionInformation
 ): ColorSequence[] {
-  const colorSequenceFromSessionInfo =
-    sessionInformation.Challenge!.FaceMovementAndLightChallenge!
+  const colorSequenceFromServerChallenge =
+    (parsedSessionInformation.Challenge as FaceMovementAndLightChallenge)
       .ColorSequences ?? [];
   const colorSequences: (ColorSequence | undefined)[] =
-    colorSequenceFromSessionInfo.map(
+    colorSequenceFromServerChallenge.map(
       ({
         FreshnessColor,
         DownscrollDuration: downscrollDuration,
@@ -630,13 +628,13 @@ export async function getFaceMatchState(
 }
 
 export async function isFaceDistanceBelowThreshold({
-  sessionInformation,
+  parsedSessionInformation,
   faceDetector,
   videoEl,
   ovalDetails,
   reduceThreshold = false,
 }: {
-  sessionInformation: SessionInformation;
+  parsedSessionInformation: ParsedSessionInformation;
   faceDetector: FaceDetection;
   videoEl: HTMLVideoElement;
   ovalDetails: LivenessOvalDetails;
@@ -645,9 +643,7 @@ export async function isFaceDistanceBelowThreshold({
   isDistanceBelowThreshold: boolean;
   error?: ErrorState;
 }> {
-  const challengeConfig =
-    sessionInformation?.Challenge?.FaceMovementAndLightChallenge
-      ?.ChallengeConfig;
+  const challengeConfig = parsedSessionInformation.Challenge!.ChallengeConfig;
 
   const { FaceDistanceThresholdMin, FaceDistanceThreshold } = challengeConfig!;
 

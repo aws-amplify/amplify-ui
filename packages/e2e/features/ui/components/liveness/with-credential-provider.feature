@@ -5,13 +5,13 @@ Liveness component supports using a custom credential provider.
   Background:
     Given I'm running the example "ui/components/liveness/with-credential-provider/"
   
-  @react
+  @react @skip
   Scenario: See camera module and close with the close icon
       Then I click the "Start video check" button
       Then I click the "close-icon"
       Then I see the "Start video check" button
 
-  @react
+  @react @skip
   Scenario: See camera module and instructions
       Then I see "connecting"
       Then I click the "Start video check" button

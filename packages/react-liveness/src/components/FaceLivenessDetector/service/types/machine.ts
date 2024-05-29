@@ -1,21 +1,46 @@
 import { ActorRef, Interpreter, State } from 'xstate';
 import {
-  ValidationException,
   InternalServerException,
-  ThrottlingException,
+  FaceMovementServerChallenge,
+  FaceMovementAndLightServerChallenge,
   ServiceQuotaExceededException,
-  SessionInformation,
+  SessionInformation as ServerSessionInformation,
+  ValidationException,
+  ThrottlingException,
 } from '@aws-sdk/client-rekognitionstreaming';
-
+import {
+  FACE_MOVEMENT_CHALLENGE,
+  FACE_MOVEMENT_AND_LIGHT_CHALLENGE,
+} from '../utils';
+import { ErrorState } from './error';
+import { Face, FaceDetection } from './faceDetection';
 import {
   FaceLivenessDetectorCoreProps,
   FaceMatchState,
   LivenessOvalDetails,
   IlluminationState,
 } from './liveness';
-import { ErrorState } from './error';
 import { StreamRecorder, ColorSequenceDisplay } from '../utils';
-import { Face, FaceDetection } from './faceDetection';
+
+interface Challenge {
+  Name: string;
+}
+
+export interface FaceMovementAndLightChallenge
+  extends Challenge,
+    FaceMovementAndLightServerChallenge {
+  Name: (typeof FACE_MOVEMENT_AND_LIGHT_CHALLENGE)['type'];
+}
+
+export interface FaceMovementChallenge
+  extends Challenge,
+    FaceMovementServerChallenge {
+  Name: (typeof FACE_MOVEMENT_CHALLENGE)['type'];
+}
+
+export interface ParsedSessionInformation {
+  Challenge: FaceMovementChallenge | FaceMovementAndLightChallenge | undefined;
+}
 
 export interface FaceMatchAssociatedParams {
   illuminationState?: IlluminationState;
@@ -65,7 +90,7 @@ export interface LivenessContext {
   maxFailedAttempts: number | undefined;
   ovalAssociatedParams: OvalAssociatedParams | undefined;
   responseStreamActorRef: ActorRef<any> | undefined;
-  serverSessionInformation: SessionInformation | undefined;
+  parsedSessionInformation: ParsedSessionInformation | undefined;
   shouldDisconnect: boolean | undefined;
   videoAssociatedParams: VideoAssociatedParams | undefined;
 }
@@ -127,6 +152,8 @@ export interface StreamActorCallback {
   }): void;
   (params: {
     type: 'SET_SESSION_INFO';
-    data: { sessionInfo: SessionInformation | undefined };
+    data: {
+      serverSessionInformation: ServerSessionInformation | undefined;
+    };
   }): void;
 }

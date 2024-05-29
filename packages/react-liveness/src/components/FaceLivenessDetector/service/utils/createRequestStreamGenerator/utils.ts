@@ -1,11 +1,21 @@
 import {
   BoundingBox,
   ClientSessionInformationEvent,
+  FaceMovementAndLightClientChallenge,
+  FaceMovementClientChallenge,
   VideoEvent,
 } from '@aws-sdk/client-rekognitionstreaming';
 import { isUndefined } from '@aws-amplify/ui';
-
-import { Face, LivenessOvalDetails, LivenessContext } from '../../types';
+import {
+  isFaceMovementAndLightChallenge,
+  isFaceMovementChallenge,
+} from '../sessionInformation';
+import {
+  Face,
+  LivenessOvalDetails,
+  LivenessContext,
+  ParsedSessionInformation,
+} from '../../types';
 import {
   SequenceChangeParams,
   SequenceColorValue,
@@ -95,7 +105,37 @@ const getTargetFaceBoundingBox = (
   });
 };
 
+type ClientChallenge =
+  | FaceMovementAndLightClientChallenge
+  | FaceMovementClientChallenge;
+
+function createClientSessionInformationEvent({
+  parsedSessionInformation,
+  clientChallenge,
+}: {
+  parsedSessionInformation: ParsedSessionInformation;
+  clientChallenge: ClientChallenge;
+}): ClientSessionInformationEvent {
+  if (isFaceMovementChallenge(parsedSessionInformation)) {
+    return {
+      Challenge: {
+        FaceMovementChallenge: clientChallenge,
+      },
+    };
+  }
+  if (isFaceMovementAndLightChallenge(parsedSessionInformation)) {
+    return {
+      Challenge: {
+        FaceMovementAndLightChallenge:
+          clientChallenge as FaceMovementAndLightClientChallenge,
+      },
+    };
+  }
+  throw new Error('Unable to create ClientSessionInformationEvent');
+}
+
 interface CreateSessionEndEventParams extends TrackDimensions {
+  parsedSessionInformation: ParsedSessionInformation;
   challengeId: NonNullable<LivenessContext['challengeId']>;
   faceMatchAssociatedParams: NonNullable<
     LivenessContext['faceMatchAssociatedParams']
@@ -104,6 +144,7 @@ interface CreateSessionEndEventParams extends TrackDimensions {
   recordingEndedTimestamp: number;
 }
 export function createSessionEndEvent({
+  parsedSessionInformation,
   challengeId,
   faceMatchAssociatedParams,
   ovalAssociatedParams,
@@ -126,32 +167,32 @@ export function createSessionEndEvent({
     ...ovalDetails!,
   });
 
-  return {
-    Challenge: {
-      FaceMovementAndLightChallenge: {
-        ChallengeId: challengeId,
-        InitialFace: {
-          InitialFaceDetectedTimestamp: initialFace!.timestampMs,
-          BoundingBox: initialFaceBoundingBox,
-        },
-        TargetFace: {
-          FaceDetectedInTargetPositionStartTimestamp: startFace!.timestampMs,
-          FaceDetectedInTargetPositionEndTimestamp: endFace!.timestampMs,
-          BoundingBox: targetFaceBoundingBox,
-        },
-        VideoEndTimestamp: recordingEndedTimestamp,
-      },
+  const clientChallenge: ClientChallenge = {
+    ChallengeId: challengeId,
+    InitialFace: {
+      InitialFaceDetectedTimestamp: initialFace!.timestampMs,
+      BoundingBox: initialFaceBoundingBox,
     },
+    TargetFace: {
+      FaceDetectedInTargetPositionStartTimestamp: startFace!.timestampMs,
+      FaceDetectedInTargetPositionEndTimestamp: endFace!.timestampMs,
+      BoundingBox: targetFaceBoundingBox,
+    },
+    VideoEndTimestamp: recordingEndedTimestamp,
   };
+  return createClientSessionInformationEvent({
+    parsedSessionInformation,
+    clientChallenge,
+  });
 }
-
 interface CreateSessionStartEventParams extends TrackDimensions {
+  parsedSessionInformation: ParsedSessionInformation;
   challengeId: NonNullable<LivenessContext['challengeId']>;
-
   ovalAssociatedParams: NonNullable<LivenessContext['ovalAssociatedParams']>;
   recordingStartedTimestamp: number;
 }
 export function createSessionStartEvent({
+  parsedSessionInformation,
   challengeId,
   ovalAssociatedParams,
   recordingStartedTimestamp,
@@ -165,19 +206,19 @@ export function createSessionStartEvent({
     trackWidth,
     ...initialFace!,
   });
-
-  return {
-    Challenge: {
-      FaceMovementAndLightChallenge: {
-        ChallengeId: challengeId,
-        VideoStartTimestamp: recordingStartedTimestamp,
-        InitialFace: {
-          InitialFaceDetectedTimestamp: initialFace!.timestampMs,
-          BoundingBox: initialFaceBoundingBox,
-        },
-      },
+  const clientChallenge: ClientChallenge = {
+    ChallengeId: challengeId,
+    VideoStartTimestamp: recordingStartedTimestamp,
+    InitialFace: {
+      InitialFaceDetectedTimestamp: initialFace!.timestampMs,
+      BoundingBox: initialFaceBoundingBox,
     },
   };
+
+  return createClientSessionInformationEvent({
+    parsedSessionInformation,
+    clientChallenge,
+  });
 }
 
 interface CreateColorDisplayEventParams extends SequenceChangeParams {

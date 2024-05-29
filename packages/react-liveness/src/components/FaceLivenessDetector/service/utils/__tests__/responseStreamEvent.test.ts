@@ -2,7 +2,7 @@ import {
   isDisconnectionEvent,
   isInternalServerExceptionEvent,
   isInvalidSignatureRegionException,
-  isServerSesssionInformationEvent,
+  isServerSessionInformationEvent,
   isServiceQuotaExceededExceptionEvent,
   isThrottlingExceptionEvent,
   isValidationExceptionEvent,
@@ -30,12 +30,12 @@ describe('isInvalidSignatureRegionException', () => {
 describe('isServerSesssionInformationEvent', () => {
   it('Should return true if its a valid server session info event', () => {
     expect(
-      isServerSesssionInformationEvent({ ServerSessionInformationEvent: {} })
+      isServerSessionInformationEvent({ ServerSessionInformationEvent: {} })
     ).toBe(true);
   });
 
   it('Should return false if there is no event', () => {
-    expect(isServerSesssionInformationEvent({})).toBe(false);
+    expect(isServerSessionInformationEvent({})).toBe(false);
   });
 });
 

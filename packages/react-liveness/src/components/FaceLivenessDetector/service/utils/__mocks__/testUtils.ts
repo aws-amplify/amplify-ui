@@ -1,7 +1,7 @@
 import { ActorRef } from 'xstate';
 import {
   ColorSequence,
-  SessionInformation,
+  SessionInformation as ServerSessionInformation,
 } from '@aws-sdk/client-rekognitionstreaming';
 
 import { STATIC_VIDEO_CONSTRAINTS } from '../../../utils/helpers';
@@ -11,6 +11,7 @@ import {
   LivenessOvalDetails,
   IlluminationState,
   LivenessContext,
+  ParsedSessionInformation,
 } from '../../types';
 import { StreamRecorder } from '../StreamRecorder';
 
@@ -137,9 +138,87 @@ export const mockFace: Face = {
   leftEar: [200, 200],
 };
 
-export const mockSessionInformation: SessionInformation = {
+export const mockFaceMovementAndLightSessionInfo: ParsedSessionInformation = {
   Challenge: {
-    FaceMovementAndLightChallenge: {
+    Name: 'FaceMovementAndLightChallenge',
+    ChallengeConfig: {
+      BlazeFaceDetectionThreshold: 0.75,
+      FaceDistanceThreshold: 0.4000000059604645,
+      FaceDistanceThresholdMax: 0,
+      FaceDistanceThresholdMin: 0.4000000059604645,
+      FaceIouHeightThreshold: 0.15000000596046448,
+      FaceIouWidthThreshold: 0.15000000596046448,
+      OvalHeightWidthRatio: 1.6180000305175781,
+      OvalIouHeightThreshold: 0.25,
+      OvalIouThreshold: 0.6,
+      OvalIouWidthThreshold: 0.25,
+    },
+    OvalParameters: {
+      Width: 1,
+      Height: 2,
+      CenterX: 3,
+      CenterY: 4,
+    },
+    LightChallengeType: 'SEQUENTIAL',
+    ColorSequences: MOCK_COLOR_SEQUENCES,
+  },
+};
+
+export const mockFaceMovementAndLightServerSessionInfo: ServerSessionInformation =
+  {
+    Challenge: {
+      FaceMovementAndLightChallenge: {
+        ChallengeConfig: {
+          BlazeFaceDetectionThreshold: 0.75,
+          FaceDistanceThreshold: 0.4000000059604645,
+          FaceDistanceThresholdMax: 0,
+          FaceDistanceThresholdMin: 0.4000000059604645,
+          FaceIouHeightThreshold: 0.15000000596046448,
+          FaceIouWidthThreshold: 0.15000000596046448,
+          OvalHeightWidthRatio: 1.6180000305175781,
+          OvalIouHeightThreshold: 0.25,
+          OvalIouThreshold: 0.6,
+          OvalIouWidthThreshold: 0.25,
+        },
+        OvalParameters: {
+          Width: 1,
+          Height: 2,
+          CenterX: 3,
+          CenterY: 4,
+        },
+        LightChallengeType: 'SEQUENTIAL',
+        ColorSequences: MOCK_COLOR_SEQUENCES,
+      },
+    },
+  };
+
+export const mockFaceMovementSessionInfo: ParsedSessionInformation = {
+  Challenge: {
+    Name: 'FaceMovementChallenge',
+    ChallengeConfig: {
+      BlazeFaceDetectionThreshold: 0.75,
+      FaceDistanceThreshold: 0.4000000059604645,
+      FaceDistanceThresholdMax: 0,
+      FaceDistanceThresholdMin: 0.4000000059604645,
+      FaceIouHeightThreshold: 0.15000000596046448,
+      FaceIouWidthThreshold: 0.15000000596046448,
+      OvalHeightWidthRatio: 1.6180000305175781,
+      OvalIouHeightThreshold: 0.25,
+      OvalIouThreshold: 0.6,
+      OvalIouWidthThreshold: 0.25,
+    },
+    OvalParameters: {
+      Width: 1,
+      Height: 2,
+      CenterX: 3,
+      CenterY: 4,
+    },
+  },
+};
+
+export const mockFaceMovementServerSessionInfo: ServerSessionInformation = {
+  Challenge: {
+    FaceMovementChallenge: {
       ChallengeConfig: {
         BlazeFaceDetectionThreshold: 0.75,
         FaceDistanceThreshold: 0.4000000059604645,
@@ -158,8 +237,6 @@ export const mockSessionInformation: SessionInformation = {
         CenterX: 3,
         CenterY: 4,
       },
-      LightChallengeType: 'SEQUENTIAL',
-      ColorSequences: MOCK_COLOR_SEQUENCES,
     },
   },
 };
@@ -211,7 +288,7 @@ export const getMockContext = (): LivenessContext => ({
   colorSequenceDisplay: { startSequences: jest.fn() } as any,
   errorState: undefined,
   livenessStreamProvider: mockStreamRecorder,
-  serverSessionInformation: mockSessionInformation,
+  parsedSessionInformation: mockFaceMovementAndLightSessionInfo,
   responseStreamActorRef: mockResponseStreamActorRef,
   shouldDisconnect: false,
   faceMatchStateBeforeStart: FaceMatchState.MATCHED,
