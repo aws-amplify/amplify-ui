@@ -62,6 +62,7 @@ import {
 
 import { STATIC_VIDEO_CONSTRAINTS } from '../../utils/helpers';
 import { WS_CLOSURE_CODE } from '../utils/constants';
+import { TelemetryReporter } from '../utils/TelemetryReporter/TelemetryReporter';
 
 const CAMERA_ID_KEY = 'AmplifyLivenessCameraId';
 const DEFAULT_FACE_FIT_TIMEOUT = 7000;
@@ -961,7 +962,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       // eslint-disable-next-line @typescript-eslint/require-await
       async openLivenessStreamConnection(context) {
-        const { config } = context.componentProps!;
+        const { config, disableStartScreen } = context.componentProps!;
         const { credentialProvider, endpointOverride } = config!;
 
         const { videoHeight, videoWidth } =
@@ -979,6 +980,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           credentialsProvider: credentialProvider,
           endpointOverride,
           region: context.componentProps!.region,
+          attemptCount: TelemetryReporter.getAttemptCountAndUpdateTimestamp(),
+          preCheckViewEnabled: !disableStartScreen,
         });
 
         responseStream = getResponseStream({
