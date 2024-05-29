@@ -62,7 +62,11 @@ import {
 } from '../utils/responseStreamEvent';
 
 import { STATIC_VIDEO_CONSTRAINTS } from '../../utils/helpers';
-import { WS_CLOSURE_CODE } from '../utils/constants';
+import {
+  FACE_MOVEMENT_CHALLENGE,
+  FACE_MOVEMENT_AND_LIGHT_CHALLENGE,
+  WS_CLOSURE_CODE,
+} from '../utils/constants';
 import { TelemetryReporter } from '../utils/TelemetryReporter/TelemetryReporter';
 
 const CAMERA_ID_KEY = 'AmplifyLivenessCameraId';
@@ -896,13 +900,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       hasFaceMovementChallenge: (context) => {
         return (
           context.parsedSessionInformation?.Challenge?.Name ===
-          'FaceMovementChallenge'
+          FACE_MOVEMENT_CHALLENGE.type
         );
       },
       hasFaceMovementAndLightChallenge: (context) => {
         return (
           context.parsedSessionInformation?.Challenge?.Name ===
-          'FaceMovementAndLightChallenge'
+          FACE_MOVEMENT_AND_LIGHT_CHALLENGE.type
         );
       },
       getShouldDisconnect: (context) => {
