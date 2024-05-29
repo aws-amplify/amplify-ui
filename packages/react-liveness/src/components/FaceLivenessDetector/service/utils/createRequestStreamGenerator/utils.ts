@@ -108,25 +108,26 @@ const getTargetFaceBoundingBox = (
 type ClientChallenge =
   | FaceMovementAndLightClientChallenge
   | FaceMovementClientChallenge;
-interface CreateClientSessionInformationEventParams {
-  parsedSessionInformation: ParsedSessionInformation;
-  clientChallenge: ClientChallenge;
-}
 
 function createClientSessionInformationEvent({
   parsedSessionInformation,
   clientChallenge,
-}: CreateClientSessionInformationEventParams): ClientSessionInformationEvent {
+}: {
+  parsedSessionInformation: ParsedSessionInformation;
+  clientChallenge: ClientChallenge;
+}): ClientSessionInformationEvent {
   if (isFaceMovementChallenge(parsedSessionInformation)) {
     return {
       Challenge: {
         FaceMovementChallenge: clientChallenge,
       },
     };
-  } else if (isFaceMovementAndLightChallenge(parsedSessionInformation)) {
+  }
+  if (isFaceMovementAndLightChallenge(parsedSessionInformation)) {
     return {
       Challenge: {
-        FaceMovementAndLightChallenge: clientChallenge,
+        FaceMovementAndLightChallenge:
+          clientChallenge as FaceMovementAndLightClientChallenge,
       },
     };
   }
