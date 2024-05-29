@@ -304,11 +304,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       },
       recording: {
-        entry: ['clearErrorState', 'startRecording'],
+        entry: [
+          'clearErrorState',
+          'startRecording',
+          'sendTimeoutAfterOvalDrawingDelay',
+        ],
         initial: 'ovalDrawing',
         states: {
           ovalDrawing: {
-            entry: 'sendTimeoutAfterOvalDrawingDelay',
             invoke: {
               src: 'detectInitialFaceAndDrawOval',
               onDone: {
@@ -327,10 +330,21 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           checkFaceDetected: {
             after: {
               0: {
-                target: 'checkRecordingStarted',
+                target: 'cancelOvalDrawingTimeout',
                 cond: 'hasSingleFace',
               },
               100: { target: 'ovalDrawing' },
+            },
+          },
+          cancelOvalDrawingTimeout: {
+            entry: [
+              'cancelOvalDrawingTimeout',
+              'sendTimeoutAfterRecordingDelay',
+            ],
+            after: {
+              0: {
+                target: 'checkRecordingStarted',
+              },
             },
           },
           checkRecordingStarted: {
@@ -346,7 +360,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           // Evaluates face match and moves to checkMatch
           // which continually checks for match until either timeout or face match
           ovalMatching: {
-            entry: 'cancelOvalDrawingTimeout',
+            entry: 'cancelRecordingTimeout',
             invoke: {
               src: 'detectFaceAndMatchOval',
               onDone: {
@@ -407,7 +421,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         initial: 'pending',
         states: {
           pending: {
-            entry: ['sendTimeoutAfterWaitingForDisconnect', 'pauseVideoStream'],
+            entry: ['pauseVideoStream'],
             invoke: {
               src: 'stopVideo',
               onDone: 'waitForDisconnectEvent',
@@ -427,7 +441,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           getLivenessResult: {
-            entry: ['cancelWaitForDisconnectTimeout', 'freezeStream'],
+            entry: ['freezeStream'],
             invoke: {
               src: 'getLiveness',
               onError: {
@@ -464,8 +478,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           'cleanUpResources',
           'callErrorCallback',
           'cancelOvalDrawingTimeout',
-          'cancelWaitForDisconnectTimeout',
           'cancelOvalMatchTimeout',
+          'cancelRecordingTimeout',
           'freezeStream',
         ],
       },
@@ -686,6 +700,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       updateErrorStateForTimeout: assign({
         errorState: (_, event) =>
           (event.data?.errorState as ErrorState) || LivenessErrorState.TIMEOUT,
+        errorMessage: (_, event) => event.data?.message as string,
       }),
       updateErrorStateForRuntime: assign({
         errorState: (_, event) =>
@@ -731,15 +746,38 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
       // timeouts
       sendTimeoutAfterOvalDrawingDelay: actions.send(
-        { type: 'TIMEOUT' },
+        {
+          type: 'TIMEOUT',
+          data: {
+            message: 'Client timed out waiting to draw oval.',
+          },
+        },
         {
           delay: 5000,
           id: 'ovalDrawingTimeout',
         }
       ),
       cancelOvalDrawingTimeout: actions.cancel('ovalDrawingTimeout'),
+      sendTimeoutAfterRecordingDelay: actions.send(
+        {
+          type: 'TIMEOUT',
+          data: {
+            message: 'Client timed out waiting to start recording.',
+          },
+        },
+        {
+          delay: 5000,
+          id: 'recordingTimeout',
+        }
+      ),
+      cancelRecordingTimeout: actions.cancel('recordingTimeout'),
       sendTimeoutAfterOvalMatchDelay: actions.send(
-        { type: 'TIMEOUT' },
+        {
+          type: 'TIMEOUT',
+          data: {
+            message: 'Client timed out waiting for face to match oval.',
+          },
+        },
         {
           delay: (context) => {
             return (
@@ -752,32 +790,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         }
       ),
       cancelOvalMatchTimeout: actions.cancel('ovalMatchTimeout'),
-      sendTimeoutAfterWaitingForDisconnect: actions.send(
-        {
-          type: 'TIMEOUT',
-          data: { errorState: LivenessErrorState.SERVER_ERROR },
-        },
-        {
-          delay: 20000,
-          id: 'waitForDisconnectTimeout',
-        }
-      ),
-      cancelWaitForDisconnectTimeout: actions.cancel(
-        'waitForDisconnectTimeout'
-      ),
-      sendTimeoutAfterFaceDistanceDelay: actions.send(
-        {
-          type: 'RUNTIME_ERROR',
-          data: new Error(
-            'Avoid moving closer during countdown and ensure only one face is in front of camera.'
-          ),
-        },
-        {
-          delay: 0,
-          id: 'faceDistanceTimeout',
-        }
-      ),
-      cancelFaceDistanceTimeout: actions.cancel('faceDistanceTimeout'),
 
       // callbacks
       callUserPermissionDeniedCallback: assign({
@@ -810,7 +822,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         context.componentProps!.onUserCancel?.();
       },
       callUserTimeoutCallback: (context) => {
-        const error = new Error('Client Timeout');
+        const error = new Error(
+          (context.errorMessage as string) ?? 'Client Timeout'
+        );
         error.name = context.errorState!;
         const livenessError: LivenessError = {
           state: context.errorState!,

@@ -127,6 +127,7 @@ describe('Liveness Machine', () => {
     await transitionToRecording(service);
     await flushPromises(); // detectInitialFaceAndDrawOval
     jest.advanceTimersToNextTimer(); // checkFaceDetected
+    jest.advanceTimersToNextTimer(); // cancelOvalDrawingTimeout
     jest.advanceTimersToNextTimer(); // checkRecordingStarted
     await advanceMinFaceMatches(); // detectFaceAndMatchOval
     jest.advanceTimersToNextTimer(); // delayBeforeFlash
@@ -429,6 +430,7 @@ describe('Liveness Machine', () => {
       expect(service.state.value).toEqual({ recording: 'checkFaceDetected' });
 
       jest.advanceTimersToNextTimer(); // checkFaceDetected
+      jest.advanceTimersToNextTimer(); // cancelOvalDrawingTimeout
       jest.advanceTimersToNextTimer(); // checkRecordingStarted
       expect(service.state.value).toEqual({
         recording: 'ovalMatching',
@@ -443,7 +445,7 @@ describe('Liveness Machine', () => {
         mockFace
       );
 
-      jest.advanceTimersToNextTimer();
+      jest.advanceTimersToNextTimer(12000);
       expect(service.state.value).toEqual('timeout');
       expect(service.state.context.errorState).toBe(LivenessErrorState.TIMEOUT);
       await flushPromises();
@@ -541,6 +543,7 @@ describe('Liveness Machine', () => {
       await transitionToRecording(service);
       await flushPromises();
       jest.advanceTimersToNextTimer(); // checkFaceDetected
+      jest.advanceTimersToNextTimer(); // cancelOvalDrawingTimeout
       jest.advanceTimersToNextTimer(); // checkRecordingStarted
       expect(service.state.value).toEqual({ recording: 'ovalMatching' });
       expect(
@@ -570,6 +573,7 @@ describe('Liveness Machine', () => {
       await transitionToRecording(service);
       await flushPromises(); // detectInitialFaceAndDrawOval
       jest.advanceTimersToNextTimer(); // checkFaceDetected
+      jest.advanceTimersToNextTimer(); // cancelOvalDrawingTimeout
       jest.advanceTimersToNextTimer(); // checkRecordingStarted
 
       await advanceMinFaceMatches(); // detectFaceAndMatchOval
@@ -589,6 +593,7 @@ describe('Liveness Machine', () => {
       await transitionToRecording(service);
       await flushPromises(); // detectInitialFaceAndDrawOval
       jest.advanceTimersToNextTimer(); // checkFaceDetected
+      jest.advanceTimersToNextTimer(); // cancelOvalDrawingTimeout
       jest.advanceTimersToNextTimer(); // checkRecordingStarted
 
       await advanceMinFaceMatches(); // detectFaceAndMatchOval
@@ -609,6 +614,7 @@ describe('Liveness Machine', () => {
       await transitionToRecording(service);
       await flushPromises(); // detectInitialFaceAndDrawOval
       jest.advanceTimersToNextTimer(); // checkFaceDetected
+      jest.advanceTimersToNextTimer(); // cancelOvalDrawingTimeout
       jest.advanceTimersToNextTimer(); // checkRecordingStarted
       await advanceMinFaceMatches(); // detectFaceAndMatchOval
       jest.advanceTimersToNextTimer(); // delayBeforeFlash
@@ -641,6 +647,7 @@ describe('Liveness Machine', () => {
       await transitionToRecording(service);
       await flushPromises(); // detectInitialFaceAndDrawOval
       jest.advanceTimersToNextTimer(); // checkFaceDetected
+      jest.advanceTimersToNextTimer(); // cancelOvalDrawingTimeout
       jest.advanceTimersToNextTimer(); // checkRecordingStarted
 
       await flushPromises();
@@ -693,18 +700,6 @@ describe('Liveness Machine', () => {
       expect(mockLivenessStreamProvider.sendClientInfo).toHaveBeenCalledTimes(
         2
       );
-    });
-
-    it('should reach timeout state if disconnect event never arrives', async () => {
-      await transitionToUploading(service);
-      await flushPromises(); // stopVideo
-      jest.advanceTimersToNextTimer(30000); // waitForDisconnect
-      expect(service.state.value).toEqual('timeout');
-      expect(service.state.context.errorState).toBe(
-        LivenessErrorState.SERVER_ERROR
-      );
-      await flushPromises();
-      expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
     });
 
     it('should reach error state after getLiveness returns error', async () => {
