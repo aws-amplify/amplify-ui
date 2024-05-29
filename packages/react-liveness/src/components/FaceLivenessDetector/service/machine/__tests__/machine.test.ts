@@ -5,23 +5,23 @@ import { livenessMachine } from '../machine';
 import {
   FaceLivenessDetectorProps,
   FaceMatchState,
+  IlluminationState,
   LivenessErrorState,
   LivenessInterpreter,
-  IlluminationState,
 } from '../../types';
 import * as helpers from '../../utils';
 import {
   mockBlazeFace,
-  mockVideoConstraints,
   mockCameraDevice,
   mockFace,
-  mockVideoMediaStream,
-  mockOvalDetails,
-  mockStreamRecorder,
   mockFaceMovementSessionInfo,
   mockFaceMovementServerSessionInfo,
   mockFaceMovementAndLightSessionInfo,
   mockFaceMovementAndLightServerSessionInfo,
+  mockOvalDetails,
+  mockStreamRecorder,
+  mockVideoConstraints,
+  mockVideoMediaStream,
 } from '../../utils/__mocks__/testUtils';
 
 jest.useFakeTimers();

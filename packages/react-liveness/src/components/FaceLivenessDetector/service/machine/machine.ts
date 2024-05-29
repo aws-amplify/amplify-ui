@@ -246,7 +246,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             after: {
               0: {
                 target: '#livenessMachine.start',
-                cond: 'hasSessionInfo',
+                cond: 'hasParsedSessionInfo',
               },
               100: { target: 'waitForSessionInfo' },
             },
@@ -882,7 +882,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       hasFreshnessColorShown: (context) =>
         context.freshnessColorAssociatedParams!.freshnessColorsComplete!,
-      hasSessionInfo: (context) => {
+      hasParsedSessionInfo: (context) => {
         return context.parsedSessionInformation !== undefined;
       },
       hasDOMAndCameraDetails: (context) => {

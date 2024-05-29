@@ -8,7 +8,7 @@ chore(liveness): pass in new challenge to createStreamingRequest and store in co
 
 ```
 export const FACE_MOVEMENT_AND_LIGHT_CHALLENGE: ChallengeType = {
-  Type: 'FaceMovementAndLightChallenge',
-  Version: '1.0.0',
+  type: 'FaceMovementAndLightChallenge',
+  version: '1.0.0',
 };
 ```
