@@ -39,7 +39,11 @@ import {
   DefaultCancelButton,
   DefaultRecordingIcon,
 } from '../shared/DefaultStartScreenComponents';
+import { FACE_MOVEMENT_CHALLENGE } from '../service/utils/constants';
 
+export const selectChallengeType = createLivenessSelector(
+  (state) => state.context.parsedSessionInformation?.Challenge?.Name
+);
 export const selectVideoConstraints = createLivenessSelector(
   (state) => state.context.videoAssociatedParams?.videoConstraints
 );
@@ -108,6 +112,9 @@ export const LivenessCameraModule = (
   } = customComponents ?? {};
 
   const [state, send] = useLivenessActor();
+
+  const isFaceMovementChallenge =
+    useLivenessSelector(selectChallengeType) === FACE_MOVEMENT_CHALLENGE.type;
 
   const videoStream = useLivenessSelector(selectVideoStream);
   const videoConstraints = useLivenessSelector(selectVideoConstraints);
@@ -290,13 +297,11 @@ export const LivenessCameraModule = (
 
   // We don't show full screen camera on the pre check screen (isStartView/isWaitingForCamera)
   const shouldShowFullScreenCamera =
-    isMobileScreen &&
-    !isStartView &&
-    !shouldShowCenteredLoader;
+    isMobileScreen && !isStartView && !shouldShowCenteredLoader;
 
   return (
     <>
-      {photoSensitivityWarning}
+      {!isFaceMovementChallenge && photoSensitivityWarning}
 
       {shouldShowCenteredLoader && (
         <Flex className={LivenessClassNames.ConnectingLoader}>

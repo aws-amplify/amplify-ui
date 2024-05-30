@@ -62,7 +62,11 @@ import {
 } from '../utils/responseStreamEvent';
 
 import { STATIC_VIDEO_CONSTRAINTS } from '../../utils/helpers';
-import { WS_CLOSURE_CODE } from '../utils/constants';
+import {
+  FACE_MOVEMENT_CHALLENGE,
+  FACE_MOVEMENT_AND_LIGHT_CHALLENGE,
+  WS_CLOSURE_CODE,
+} from '../utils/constants';
 import { TelemetryReporter } from '../utils/TelemetryReporter/TelemetryReporter';
 
 const CAMERA_ID_KEY = 'AmplifyLivenessCameraId';
@@ -360,7 +364,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           checkMatch: {
             after: {
               0: {
-                target: 'delayBeforeFlash',
+                target: 'handleChallenge',
                 cond: 'hasFaceMatchedInOval',
                 actions: [
                   'setFaceMatchTimeAndStartFace',
@@ -372,6 +376,18 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               },
               1: { target: 'ovalMatching' },
             },
+          },
+          handleChallenge: {
+            always: [
+              {
+                target: 'delayBeforeFlash',
+                cond: 'isFaceMovementAndLightChallenge',
+              },
+              {
+                target: 'success',
+                cond: 'isFaceMovementChallenge',
+              },
+            ],
           },
           delayBeforeFlash: {
             after: { 1000: 'flashFreshnessColors' },
@@ -879,6 +895,18 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           context.videoAssociatedParams!.videoEl !== undefined &&
           context.videoAssociatedParams!.canvasEl !== undefined &&
           context.freshnessColorAssociatedParams!.freshnessColorEl !== undefined
+        );
+      },
+      isFaceMovementChallenge: (context) => {
+        return (
+          context.parsedSessionInformation?.Challenge?.Name ===
+          FACE_MOVEMENT_CHALLENGE.type
+        );
+      },
+      isFaceMovementAndLightChallenge: (context) => {
+        return (
+          context.parsedSessionInformation?.Challenge?.Name ===
+          FACE_MOVEMENT_AND_LIGHT_CHALLENGE.type
         );
       },
       getShouldDisconnect: (context) => {
