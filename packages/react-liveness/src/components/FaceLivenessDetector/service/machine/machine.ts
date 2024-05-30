@@ -381,11 +381,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             always: [
               {
                 target: 'delayBeforeFlash',
-                cond: 'hasFaceMovementAndLightChallenge',
+                cond: 'isFaceMovementAndLightChallenge',
               },
               {
                 target: 'success',
-                cond: 'hasFaceMovementChallenge',
+                cond: 'isFaceMovementChallenge',
               },
             ],
           },
@@ -897,13 +897,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           context.freshnessColorAssociatedParams!.freshnessColorEl !== undefined
         );
       },
-      hasFaceMovementChallenge: (context) => {
+      isFaceMovementChallenge: (context) => {
         return (
           context.parsedSessionInformation?.Challenge?.Name ===
           FACE_MOVEMENT_CHALLENGE.type
         );
       },
-      hasFaceMovementAndLightChallenge: (context) => {
+      isFaceMovementAndLightChallenge: (context) => {
         return (
           context.parsedSessionInformation?.Challenge?.Name ===
           FACE_MOVEMENT_AND_LIGHT_CHALLENGE.type
