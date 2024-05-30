@@ -822,9 +822,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         context.componentProps!.onUserCancel?.();
       },
       callUserTimeoutCallback: (context) => {
-        const error = new Error(
-          (context.errorMessage as string) ?? 'Client Timeout'
-        );
+        const error = new Error(context.errorMessage ?? 'Client Timeout');
         error.name = context.errorState!;
         const livenessError: LivenessError = {
           state: context.errorState!,

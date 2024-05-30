@@ -148,6 +148,7 @@ describe('Liveness Machine', () => {
     mockedHelpers.isCameraDeviceVirtual.mockImplementation(() => false);
     mockedHelpers.VideoRecorder.mockImplementation(() => mockVideoRecorder);
     (mockVideoRecorder.getVideoChunkSize as jest.Mock).mockReturnValue(10);
+    mockVideoRecorder.firstChunkTimestamp = Date.now();
     mockedHelpers.BlazeFaceFaceDetection.mockImplementation(
       () => mockBlazeFace
     );
@@ -700,6 +701,20 @@ describe('Liveness Machine', () => {
       expect(mockLivenessStreamProvider.sendClientInfo).toHaveBeenCalledTimes(
         2
       );
+    });
+
+    it('should reach timeout state on recording start failure', async () => {
+      (mockVideoRecorder.getVideoChunkSize as jest.Mock).mockReturnValue(0);
+      mockVideoRecorder.firstChunkTimestamp = undefined;
+
+      await transitionToRecording(service);
+      await flushPromises(); // detectInitialFaceAndDrawOval
+      jest.advanceTimersToNextTimer(); // checkFaceDetected
+      jest.advanceTimersToNextTimer(); // cancelOvalDrawingTimeout
+      jest.advanceTimersToNextTimer(6000);
+      expect(service.state.value).toEqual('timeout');
+      expect(service.state.context.errorState).toBe(LivenessErrorState.TIMEOUT);
+      expect(mockcomponentProps.onError).toHaveBeenCalled();
     });
 
     it('should reach error state after getLiveness returns error', async () => {
