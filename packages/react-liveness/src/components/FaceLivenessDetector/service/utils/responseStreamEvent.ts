@@ -1,5 +1,23 @@
 import { LivenessResponseStream } from '@aws-sdk/client-rekognitionstreaming';
+import { SUPPORTED_CHALLENGES } from './constants';
 import { WEBSOCKET_CONNECTION_TIMEOUT_MESSAGE } from './createStreamingClient/CustomWebSocketFetchHandler';
+
+export const isChallengeEvent = (
+  value: unknown
+): value is LivenessResponseStream.ChallengeEventMember => {
+  return !!(value as LivenessResponseStream.ChallengeEventMember)
+    ?.ChallengeEvent;
+};
+
+export const isSupportedChallenge = (
+  event: LivenessResponseStream.ChallengeEventMember
+): boolean => {
+  return SUPPORTED_CHALLENGES.some(
+    (supportedChallenge) =>
+      supportedChallenge.type === event.ChallengeEvent.Type &&
+      supportedChallenge.version === event.ChallengeEvent.Version
+  );
+};
 
 export const isServerSessionInformationEvent = (
   value: unknown

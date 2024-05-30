@@ -1,12 +1,54 @@
+import { LivenessResponseStream } from '@aws-sdk/client-rekognitionstreaming';
 import {
+  isChallengeEvent,
   isDisconnectionEvent,
   isInternalServerExceptionEvent,
   isInvalidSignatureRegionException,
   isServerSessionInformationEvent,
   isServiceQuotaExceededExceptionEvent,
+  isSupportedChallenge,
   isThrottlingExceptionEvent,
   isValidationExceptionEvent,
 } from '../responseStreamEvent';
+
+describe('isChallengeEvent', () => {
+  it('Should return true if its a valid challenge event', () => {
+    expect(isChallengeEvent({ ChallengeEvent: {} })).toBe(true);
+  });
+
+  it('Should return false if its an invalid challenge event', () => {
+    expect(isChallengeEvent({})).toBe(false);
+  });
+});
+
+describe('isSupportedChallenge', () => {
+  it.each([
+    { Type: 'FaceMovementAndLightChallenge', Version: '1.0.0' },
+    { Type: 'FaceMovementChallenge', Version: '1.0.0' },
+  ])('should return true if it is a supported challenge', (challengeEvent) => {
+    const challenge = { ChallengeEvent: challengeEvent };
+    expect(
+      isSupportedChallenge(
+        challenge as LivenessResponseStream.ChallengeEventMember
+      )
+    ).toBe(true);
+  });
+
+  it.each([
+    { Type: 'FakeChallenge', Version: '1.0.0' },
+    { Type: 'FaceMovementChallenge', Version: '0.0' },
+  ])(
+    'should return false if it is an unsupported challenge',
+    (challengeEvent) => {
+      const challenge = { ChallengeEvent: challengeEvent };
+      expect(
+        isSupportedChallenge(
+          challenge as LivenessResponseStream.ChallengeEventMember
+        )
+      ).toBe(false);
+    }
+  );
+});
 
 describe('isInvalidSignatureRegionException', () => {
   it('Should return true with an invalid region error', () => {
@@ -27,7 +69,7 @@ describe('isInvalidSignatureRegionException', () => {
   });
 });
 
-describe('isServerSesssionInformationEvent', () => {
+describe('isServerSessionInformationEvent', () => {
   it('Should return true if its a valid server session info event', () => {
     expect(
       isServerSessionInformationEvent({ ServerSessionInformationEvent: {} })

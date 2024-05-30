@@ -51,12 +51,14 @@ import {
 } from '../utils';
 
 import {
+  isChallengeEvent,
   isConnectionTimeoutError,
   isDisconnectionEvent,
   isInternalServerExceptionEvent,
   isInvalidSignatureRegionException,
   isServerSessionInformationEvent,
   isServiceQuotaExceededExceptionEvent,
+  isSupportedChallenge,
   isThrottlingExceptionEvent,
   isValidationExceptionEvent,
 } from '../utils/responseStreamEvent';
@@ -77,6 +79,18 @@ const responseStreamActor = async (callback: StreamActorCallback) => {
   try {
     const stream = await responseStream;
     for await (const event of stream) {
+      if (isChallengeEvent(event) && !isSupportedChallenge(event)) {
+        callback({
+          type: 'SERVER_ERROR',
+          data: {
+            error: new Error(
+              `Unsupported challenge type returned from liveness response ${JSON.stringify(
+                event.ChallengeEvent
+              )}`
+            ),
+          },
+        });
+      }
       if (isServerSessionInformationEvent(event)) {
         callback({
           type: 'SET_SESSION_INFO',
