@@ -19,7 +19,7 @@ jobs:
   setup:
     permissions:
       id-token: write
-      contents: write
+      contents: read
     runs-on: ubuntu-latest
     environment: ci
     steps:
