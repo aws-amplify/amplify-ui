@@ -5,7 +5,7 @@ if [ "$CI" = true ]; then
   exit 0
 fi
 
-ada credentials update --account=845721723350 --provider=isengard --role=Admin --once
+ada credentials update --account=845721723350 --provider=isengard --role=CodeArtifactPull --once
 
 CA_DOMAIN=amplify-ui-liveness
 CA_REPOSITORY=amplify-ui

@@ -26,7 +26,7 @@ jobs:
         id: configure-codeartifact
         uses: ./.github/actions/codeartifact
         with:
-          role-to-assume: ${{ secrets.LIVENESS_E2E_ROLE_ARN }}
+          role-to-assume: ${{ secrets.LIVENESS_E2E_CODE_ARTIFACT_ARN }}
           domain: amplify-ui-liveness
           repository: amplify-ui
       - name: Setup Node.js 20
