@@ -11,6 +11,9 @@ on:
         # repository to run tests against (possibly a fork of amplify-ui)
         required: true
         type: string
+    secrets:
+      LIVENESS_E2E_CODE_ARTIFACT_ARN:
+        required: true
 
 jobs:
   setup:
