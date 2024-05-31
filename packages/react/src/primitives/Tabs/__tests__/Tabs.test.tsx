@@ -86,6 +86,36 @@ describe('Tabs', () => {
     expect(tabs[1]).toHaveAttribute('aria-selected', 'true');
   });
 
+  it('creates an id ending in "-tab"', async () => {
+    render(
+      <Tabs.Container>
+        <Tabs.List>
+          <Tabs.Item value="Tab 1">Tab 1</Tabs.Item>
+        </Tabs.List>
+      </Tabs.Container>
+    );
+    const tab = await screen.findByRole('tab');
+    expect(tab.id.endsWith('-tab')).toBeTruthy();
+  });
+
+  it('creates unique ids for each tab', async () => {
+    render(
+      <Tabs.Container testId="tabsTest">
+        <Tabs.List>
+          <Tabs.Item value="1">Tab 1</Tabs.Item>
+          <Tabs.Item value="1">Tab 2</Tabs.Item>
+          <Tabs.Item value="1">Tab 3</Tabs.Item>
+        </Tabs.List>
+        <Tabs.Panel value="1">Tab 1</Tabs.Panel>
+        <Tabs.Panel value="1">Tab 2</Tabs.Panel>
+        <Tabs.Panel value="1">Tab 3</Tabs.Panel>
+      </Tabs.Container>
+    );
+    const tabs = await screen.findAllByRole('tab');
+    expect(tabs[0].id === tabs[1].id).toBeFalsy;
+    expect(tabs[0].id === tabs[2].id).toBeFalsy;
+  });
+
   describe('TabItem', () => {
     it('can render custom classnames', async () => {
       render(
