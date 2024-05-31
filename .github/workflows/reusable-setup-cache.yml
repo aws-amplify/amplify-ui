@@ -22,6 +22,13 @@ jobs:
           ref: ${{ inputs.commit }}
           repository: ${{ inputs.repository }}
           persist-credentials: false
+      - name: Configure CodeArtifact
+        id: configure-codeartifact
+        uses: ./.github/actions/codeartifact-action
+        with:
+          role-to-assume: ${{ secrets.LIVENESS_E2E_ROLE_ARN }}
+          domain: amplify-ui-liveness
+          repository: amplify-ui
       - name: Setup Node.js 20
         uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
         with:
