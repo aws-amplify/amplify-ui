@@ -17,6 +17,9 @@ on:
 
 jobs:
   setup:
+    permissions:
+      id-token: write
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Amplify UI
