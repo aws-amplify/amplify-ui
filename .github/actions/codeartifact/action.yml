@@ -39,3 +39,4 @@ runs:
       env:
         DOMAIN: ${{ inputs.domain }}
         REPOSITORY: ${{ inputs.repository }}
+  
