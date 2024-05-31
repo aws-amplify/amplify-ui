@@ -1,4 +1,10 @@
 echo "Running preinstall hook"
+
+if [ "$CI" = true ]; then
+  echo "Exiting local setup"
+  exit 0
+fi
+
 ada credentials update --account=845721723350 --provider=isengard --role=Admin --once
 
 CA_DOMAIN=amplify-ui-liveness

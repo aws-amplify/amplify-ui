@@ -5,11 +5,11 @@ Feature: Disable Start Screen
   Background:
     Given I'm running the example "ui/components/liveness/disable-start-screen/"
   
-  @react @skip
+  @react
   Scenario: See camera module and close with the close icon
       Then I see "Loading"
 
-  @react @skip
+  @react
   Scenario: See camera module and instructions
       Then I see "connecting"
       Then I see "liveness-detector" element
