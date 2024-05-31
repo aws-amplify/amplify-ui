@@ -41,6 +41,7 @@ jobs:
         with:
           node-version: 20
           cache: 'yarn'
+          registry-url: ${{ steps.configure-codeartifact.outputs.repository-endpoint }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
       - name: Restore cypress runner from Cache
@@ -60,10 +61,13 @@ jobs:
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Install packages
-        uses: ./.github/actions/install-with-retries
-        with:
-          # only install binary if cypress cache missed
-          skip-cypress-binary: ${{ steps.restore-cypress-cache.outputs.cache-hit }}
+        # uses: ./.github/actions/install-with-retries
+        # with:
+        #   # only install binary if cypress cache missed
+        #   skip-cypress-binary: ${{ steps.restore-cypress-cache.outputs.cache-hit }}
+        run: yarn --frozen-lockfile --network-timeout 60000
+        env:
+          NODE_AUTH_TOKEN: ${{ steps.configure-codeartifact.outputs.repository-token }}
       - name: Build ui package
         run: yarn ui build
       - name: Cache cypress runner
