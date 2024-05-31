@@ -24,7 +24,7 @@ jobs:
           persist-credentials: false
       - name: Configure CodeArtifact
         id: configure-codeartifact
-        uses: ./.github/actions/codeartifact-action
+        uses: ./.github/actions/codeartifact
         with:
           role-to-assume: ${{ secrets.LIVENESS_E2E_ROLE_ARN }}
           domain: amplify-ui-liveness
