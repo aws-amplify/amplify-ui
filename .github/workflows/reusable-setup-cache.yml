@@ -11,9 +11,15 @@ on:
         # repository to run tests against (possibly a fork of amplify-ui)
         required: true
         type: string
+    secrets:
+      LIVENESS_E2E_CODE_ARTIFACT_ARN:
+        required: true
 
 jobs:
   setup:
+    permissions:
+      id-token: write
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Amplify UI
@@ -22,6 +28,13 @@ jobs:
           ref: ${{ inputs.commit }}
           repository: ${{ inputs.repository }}
           persist-credentials: false
+      - name: Configure CodeArtifact
+        id: configure-codeartifact
+        uses: ./.github/actions/codeartifact
+        with:
+          role-to-assume: ${{ secrets.LIVENESS_E2E_CODE_ARTIFACT_ARN }}
+          domain: amplify-ui-liveness
+          repository: amplify-ui     
       - name: Setup Node.js 20
         uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
         with:

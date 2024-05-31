@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "preinstall": "sh setup-codeartifact.sh",
     "build": "turbo run build --filter=./packages/* --filter=!./packages/angular --filter=./packages/angular/projects/ui-angular",
     "clean": "turbo run clean && rimraf node_modules",
     "lint": "turbo run lint --filter=./packages/* --filter=!./packages/angular --filter=./packages/angular/projects/ui-angular",
