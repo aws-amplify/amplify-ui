@@ -8,12 +8,14 @@ import { View } from '../View';
 import { BaseTabsPanelProps, TabsPanelProps } from './types';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { TabsContext } from './TabsContext';
+import { useStableId } from '../utils/useStableId';
 
 const TabPanelPrimitive: Primitive<TabsPanelProps, 'div'> = (
   { className, value, children, role = 'tabpanel', ...rest },
   ref
 ) => {
   const { activeTab, isLazy } = React.useContext(TabsContext);
+  const idValue = useStableId();
 
   if (isLazy && activeTab !== value) return null;
 
@@ -21,8 +23,8 @@ const TabPanelPrimitive: Primitive<TabsPanelProps, 'div'> = (
     <View
       {...rest}
       role={role}
-      id={`${value}-panel`}
-      aria-labelledby={`${value}-tab`}
+      id={`${idValue}-panel`}
+      aria-labelledby={`${idValue}-tab`}
       className={classNames(
         ComponentClassName.TabsPanel,
         classNameModifierByFlag(

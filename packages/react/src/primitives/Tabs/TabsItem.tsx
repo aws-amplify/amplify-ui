@@ -12,6 +12,7 @@ import { View } from '../View';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { BaseTabsItemProps, TabsItemProps } from './types';
 import { TabsContext } from './TabsContext';
+import { useStableId } from '../utils/useStableId';
 
 const TabsItemPrimitive: Primitive<TabsItemProps, 'button'> = (
   { className, value, children, onClick, as = 'button', role = 'tab', ...rest },
@@ -25,15 +26,16 @@ const TabsItemPrimitive: Primitive<TabsItemProps, 'button'> = (
     }
     setActiveTab(value);
   };
+  const idValue = useStableId();
 
   return (
     <View
       {...rest}
       role={role}
       as={as}
-      id={`${value}-tab`}
+      id={`${idValue}-tab`}
       aria-selected={isActive}
-      aria-controls={`${value}-panel`}
+      aria-controls={`${idValue}-panel`}
       tabIndex={!isActive ? -1 : undefined}
       className={classNames(
         ComponentClassName.TabsItem,
