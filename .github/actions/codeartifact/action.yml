@@ -1,5 +1,10 @@
 name: 'Return AWS CodeArtifact configuration'
 description: 'Returns the AWS CodeArtifact repository endpoint and token post configuring credentials'
+
+permissions:
+  id-token: write
+  contents: read
+
 inputs:
   role-to-assume:
     description: 'The role to assume when configuring AWS CodeArtifact'
