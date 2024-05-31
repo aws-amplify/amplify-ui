@@ -99,6 +99,14 @@ jobs:
         with:
           category: '/language:${{ matrix.language }}'
 
+      - name: Configure CodeArtifact
+        id: configure-codeartifact
+        uses: ./.github/actions/codeartifact-action
+        with:
+          role-to-assume: ${{ secrets.LIVENESS_DEPLOYMENT_ROLE }}
+          domain: amplify-ui-liveness
+          repository: amplify-ui
+
   setup-cache:
     needs: setup
     uses: ./.github/workflows/reusable-setup-cache.yml
