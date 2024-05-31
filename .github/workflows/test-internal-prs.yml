@@ -102,7 +102,7 @@ jobs:
   setup-cache:
     permissions:
       id-token: write
-      contents: read
+      contents: write
     needs: setup
     uses: ./.github/workflows/reusable-setup-cache.yml
     with:
