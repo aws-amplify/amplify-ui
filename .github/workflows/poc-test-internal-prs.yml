@@ -14,7 +14,7 @@ concurrency:
 on:
   pull_request:
     # branches: [main, hotfix]
-    branches: [liveness/alpha]
+    branches: [liveness/add-new-sdk]
     types: [opened, synchronize, labeled]
 
 jobs:
