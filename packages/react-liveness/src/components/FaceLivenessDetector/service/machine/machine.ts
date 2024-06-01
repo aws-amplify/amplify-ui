@@ -200,6 +200,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       RUNTIME_ERROR: {
         target: 'error',
+        actions: 'updateErrorStateForRuntime',
       },
       MOBILE_LANDSCAPE_WARNING: {
         target: 'mobileLandscapeWarning',
@@ -747,9 +748,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       // timeouts
       sendTimeoutAfterOvalDrawingDelay: actions.send(
         {
-          type: 'TIMEOUT',
+          type: 'RUNTIME_ERROR',
           data: {
-            message: 'Client timed out waiting to draw oval.',
+            message: 'Client failed to draw oval.',
           },
         },
         {
@@ -760,9 +761,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       cancelOvalDrawingTimeout: actions.cancel('ovalDrawingTimeout'),
       sendTimeoutAfterRecordingDelay: actions.send(
         {
-          type: 'TIMEOUT',
+          type: 'RUNTIME_ERROR',
           data: {
-            message: 'Client timed out waiting to start recording.',
+            message: 'Client failed to start recording.',
           },
         },
         {

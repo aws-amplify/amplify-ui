@@ -418,8 +418,10 @@ describe('Liveness Machine', () => {
       expect(service.state.context.errorState).toBeUndefined();
 
       jest.advanceTimersToNextTimer();
-      expect(service.state.value).toEqual('timeout');
-      expect(service.state.context.errorState).toBe(LivenessErrorState.TIMEOUT);
+      expect(service.state.value).toEqual('error');
+      expect(service.state.context.errorState).toBe(
+        LivenessErrorState.RUNTIME_ERROR
+      );
       await flushPromises();
       expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
     });
@@ -712,8 +714,10 @@ describe('Liveness Machine', () => {
       jest.advanceTimersToNextTimer(); // checkFaceDetected
       jest.advanceTimersToNextTimer(); // cancelOvalDrawingTimeout
       jest.advanceTimersToNextTimer(6000);
-      expect(service.state.value).toEqual('timeout');
-      expect(service.state.context.errorState).toBe(LivenessErrorState.TIMEOUT);
+      expect(service.state.value).toEqual('error');
+      expect(service.state.context.errorState).toBe(
+        LivenessErrorState.RUNTIME_ERROR
+      );
       expect(mockcomponentProps.onError).toHaveBeenCalled();
     });
 
