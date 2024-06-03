@@ -1,9 +1,0 @@
-{
-  "private": true,
-  "name": "@aws-amplify/ui-action-hooks-environment",
-  "version": "0.0.1",
-  "scripts": {
-    "pull": "amplify pull --appId d1c6vwjkmuz6ml --envName dev",
-    "generate": "echo 'Not available yet. Generating a placeholder file for now...' && touch amplify_outputs.json && echo '{}' > amplify_outputs.json"
-  }
-}

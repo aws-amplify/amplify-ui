@@ -270,22 +270,12 @@ jobs:
         if: ${{ matrix.version == 'gen2' }}
         run: yarn environments storage pull -v gen2
 
-      - name: Configure datastore credentials
-        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
-        with:
-          aws-region: us-east-2
-          role-to-assume: ${{ secrets.DATASTORE_E2E_ROLE_ARN }}
-
       - name: Create temp AWS profile
         run: |
           aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
           aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
           aws configure set aws_session_token $AWS_SESSION_TOKEN && \
           aws configure set default.region $AWS_REGION
-
-      - name: Pull down Gen1 Datastore AWS environments
-        if: ${{ matrix.version == 'gen1' }}
-        run: yarn environments datastore pull
 
       - name: Configure liveness credentials
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
