@@ -13,9 +13,15 @@ const amplifyOutputs = (
   )
 ).default;
 
+Amplify.configure(amplifyOutputs);
+
+const existingConfig = Amplify.getConfig();
 Amplify.configure({
-  ...amplifyOutputs,
-  // Analytics: { autoSessionRecord: false },
+  ...existingConfig,
+  API: {
+    ...existingConfig.API,
+    REST: { ...existingConfig.API?.REST, ...amplifyOutputs?.custom?.API },
+  },
 });
 
 const App = () => {

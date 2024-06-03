@@ -5,7 +5,7 @@ Feature: Liveness with Custom Components
   Background:
     Given I'm running the example "ui/components/liveness/with-custom-components/"
   
-  @react @gen1
+  @react @gen1 @gen2
   Scenario: The Start Screen has all the elements
     Then I see "SessionId:"
     Then I see "Center your face"
