@@ -12,7 +12,6 @@ import { View } from '../View';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { BaseTabsItemProps, TabsItemProps } from './types';
 import { TabsContext } from './TabsContext';
-import { useStableId } from '../utils/useStableId';
 
 const TabsItemPrimitive: Primitive<TabsItemProps, 'button'> = (
   { className, value, children, onClick, as = 'button', role = 'tab', ...rest },
@@ -26,7 +25,7 @@ const TabsItemPrimitive: Primitive<TabsItemProps, 'button'> = (
     }
     setActiveTab(value);
   };
-  const idValue = useStableId();
+  const idValue = value.replace(' ', '-');
 
   return (
     <View

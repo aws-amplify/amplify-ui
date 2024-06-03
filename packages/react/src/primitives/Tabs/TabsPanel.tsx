@@ -8,14 +8,13 @@ import { View } from '../View';
 import { BaseTabsPanelProps, TabsPanelProps } from './types';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { TabsContext } from './TabsContext';
-import { useStableId } from '../utils/useStableId';
 
 const TabPanelPrimitive: Primitive<TabsPanelProps, 'div'> = (
   { className, value, children, role = 'tabpanel', ...rest },
   ref
 ) => {
   const { activeTab, isLazy } = React.useContext(TabsContext);
-  const idValue = useStableId();
+  const idValue = value.replace(' ', '-');
 
   if (isLazy && activeTab !== value) return null;
 
