@@ -11,6 +11,7 @@ const TabsPrimitive: Primitive<TabsProps, 'div'> = (
   { items, indicatorPosition, justifyContent, spacing, ...rest }: BaseTabsProps,
   ref
 ) => {
+  //const groupID = useStableId();
   return (
     <TabsContainer {...rest} ref={ref}>
       <TabList
@@ -24,8 +25,8 @@ const TabsPrimitive: Primitive<TabsProps, 'div'> = (
           </TabsItem>
         ))}
       </TabList>
-      {items?.map(({ value, content, isDisabled }) => (
-        <TabPanel key={value} value={value} isDisabled={isDisabled}>
+      {items?.map(({ value, content, isDisabled, ...rest }) => (
+        <TabPanel {...rest} key={value} value={value} isDisabled={isDisabled}>
           {content}
         </TabPanel>
       ))}
