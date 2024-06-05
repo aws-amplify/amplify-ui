@@ -38,7 +38,6 @@ export interface BaseTabsProps extends BaseTabsListProps {
   items?: Array<{
     value: string;
     isDisabled?: boolean;
-    groupID: string;
     label: React.ReactNode;
     content: React.ReactNode;
   }>;
