@@ -3,9 +3,14 @@ title: Face Liveness
 description: Amplify UI FaceLivenessDetector provides a UI component for Amazon Rekognition Face Liveness that helps developers verify that only real users, not bad actors using spoofs, can access your services.
 supportedFrameworks: react|android|swift
 ---
+import { Image } from '@aws-amplify/ui-react';
 
 import { InlineFilter } from '@/components/InlineFilter';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+
+import FullAndroid from './full-api.android.mdx';
+import FullReact from './full-api.react.mdx';
+import FullSwift from './full-api.swift.mdx';
 import ReactPage from './intro.react.mdx';
 import AndroidPage from './intro.android.mdx';
 import SwiftPage from './intro.swift.mdx';
@@ -15,9 +20,6 @@ import PreReqSwift from './prerequisite.swift.mdx';
 import QuickAndroid from './quick-start-pull.android.mdx';
 import QuickReact from './quick-start-pull.react.mdx';
 import QuickSwift from './quick-start-pull.swift.mdx';
-import FullAndroid from './full-api.android.mdx';
-import FullReact from './full-api.react.mdx';
-import FullSwift from './full-api.swift.mdx';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -29,16 +31,21 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-Amplify UI FaceLivenessDetector is powered by [Amazon Rekognition Face Liveness](https://aws.amazon.com/rekognition/). The following screenshots shows an example of FaceLivenessDetector in action.
+The Amplify UI FaceLivenessDetector is powered by [Amazon Rekognition Face Liveness](https://aws.amazon.com/rekognition/). The FaceLivenessDetector supports two types of verification challenges:
+
+ - The **Face Movement and Light Challenge** consists of a series of head movements and colored light tests.
+ - The **Face Movement Challenge** consists only of a series of head movements.
+
+The following screenshots show an example of the Face Movement and Light Challenge in action.
 
 <InlineFilter filters={['android']}>
-  <AndroidPage />
+  <Image alt="Screenshots of Liveness component on Android" width="100%" src="/liveness/android-app-screens.png" />
 </InlineFilter>
 <InlineFilter filters={['react']}>
-  <ReactPage />
+  <Image alt="Screen shots of Liveness component on Web" width="100%" src="/liveness/web-app-screens.png" />
 </InlineFilter>
 <InlineFilter filters={['swift']}>
-  <SwiftPage />
+  <Image alt="Screenshots of Liveness for Swift component" width="100%" src="/liveness/swift-screens.png" />
 </InlineFilter>
 
 To learn more about spoof attempts deterred by Face Liveness, please see this [demonstration video on YouTube](https://www.youtube.com/watch?v=JfzwVl1wy0s).
