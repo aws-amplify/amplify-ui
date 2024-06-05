@@ -3,12 +3,12 @@ import * as React from 'react';
 export interface TabsContextInterface {
   activeTab: string;
   isLazy?: boolean;
-  groupID?: string;
+  groupId?: string;
   setActiveTab: (tab: string) => void;
 }
 
 export const TabsContext = React.createContext<TabsContextInterface>({
-  groupID: '',
+  groupId: '',
   activeTab: '',
   setActiveTab: () => {},
 });

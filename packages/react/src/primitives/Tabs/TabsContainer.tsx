@@ -21,7 +21,7 @@ const TabsContainerPrimitive: Primitive<TabsProps, 'div'> = (
   }: BaseTabsProps,
   ref
 ) => {
-  const groupID = useStableId();
+  const groupId = useStableId();
   const isControlled = controlledValue !== undefined;
   const [localValue, setLocalValue] = React.useState(() =>
     isControlled ? controlledValue : defaultValue
@@ -46,9 +46,9 @@ const TabsContainerPrimitive: Primitive<TabsProps, 'div'> = (
       activeTab,
       isLazy,
       setActiveTab,
-      groupID,
+      groupId,
     };
-  }, [activeTab, setActiveTab, isLazy, groupID]);
+  }, [activeTab, setActiveTab, isLazy, groupId]);
 
   return (
     <TabsContext.Provider value={_value}>
