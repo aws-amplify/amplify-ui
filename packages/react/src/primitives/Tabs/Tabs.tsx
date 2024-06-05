@@ -11,7 +11,6 @@ const TabsPrimitive: Primitive<TabsProps, 'div'> = (
   { items, indicatorPosition, justifyContent, spacing, ...rest }: BaseTabsProps,
   ref
 ) => {
-  //const groupID = useStableId();
   return (
     <TabsContainer {...rest} ref={ref}>
       <TabList
