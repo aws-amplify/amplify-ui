@@ -17,14 +17,17 @@ export class VideoRecorder {
   private _chunks: Blob[];
   private _recorderStopped!: Promise<void>;
 
-  constructor(stream: MediaStream) {
+  constructor(stream: MediaStream, mimeType: string | undefined) {
     if (typeof MediaRecorder === 'undefined') {
       throw Error('MediaRecorder is not supported by this browser');
     }
 
     this._stream = stream;
     this._chunks = [];
-    this._recorder = new MediaRecorder(stream, { bitsPerSecond: 1000000 });
+    this._recorder = new MediaRecorder(stream, {
+      bitsPerSecond: 1000000,
+      mimeType,
+    });
 
     this._setupCallbacks();
   }

@@ -65,6 +65,7 @@ export interface LivenessContext {
   faceMatchStateBeforeStart?: FaceMatchState;
   failedAttempts?: number;
   freshnessColorAssociatedParams?: FreshnessColorAssociatedParams;
+  hasRetriedRecording?: boolean;
   isFaceFarEnoughBeforeRecording?: boolean;
   isRecordingStopped?: boolean;
   livenessStreamProvider?: LivenessStreamProvider;
@@ -81,6 +82,7 @@ export type LivenessEventTypes =
   | 'CONNECTION_TIMEOUT'
   | 'START_RECORDING'
   | 'TIMEOUT'
+  | 'RECORDING_TIMEOUT'
   | 'ERROR'
   | 'CANCEL'
   | 'SET_SESSION_INFO'

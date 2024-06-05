@@ -24,6 +24,7 @@ interface StreamProviderArgs extends StartLivenessStreamInput {
   videoEl: HTMLVideoElement;
   credentialProvider?: AwsCredentialProvider;
   endpointOverride?: string;
+  mimeType?: string;
 }
 
 const TIME_SLICE = 1000;
@@ -68,12 +69,13 @@ export class LivenessStreamProvider {
     videoEl,
     credentialProvider,
     endpointOverride,
+    mimeType,
   }: StreamProviderArgs) {
     this.sessionId = sessionId;
     this.region = region;
     this._stream = stream;
     this.videoEl = videoEl;
-    this.videoRecorder = new VideoRecorder(stream);
+    this.videoRecorder = new VideoRecorder(stream, mimeType);
     this.credentialProvider = credentialProvider;
     this.endpointOverride = endpointOverride;
     this.initPromise = this.init();

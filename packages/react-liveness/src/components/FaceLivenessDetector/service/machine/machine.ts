@@ -135,6 +135,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       challengeId: nanoid(),
       maxFailedAttempts: 0, // Set to 0 for now as we are not allowing front end based retries for streaming
       failedAttempts: 0,
+      hasRetriedRecording: false,
       componentProps: undefined,
       serverSessionInformation: undefined,
       videoAssociatedParams: {
@@ -175,6 +176,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       TIMEOUT: {
         target: 'retryableTimeout',
         actions: 'updateErrorStateForTimeout',
+      },
+      RECORDING_TIMEOUT: {
+        target: 'retryableRecordingTimeout',
       },
       SET_SESSION_INFO: {
         internal: true,
@@ -463,6 +467,19 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           { target: 'notRecording' },
         ],
       },
+      retryableRecordingTimeout: {
+        entry: 'updateHasRetriedRecording',
+        always: [
+          {
+            target: 'sendRecordingRetryTimeout',
+            cond: 'shouldTimeoutOnFailedRecordingAttempts',
+          },
+          { target: 'initializeLivenessStream' },
+        ],
+      },
+      sendRecordingRetryTimeout: {
+        entry: 'sendTimeoutAfterRetryRecordingDelay',
+      },
       permissionDenied: {
         entry: 'callUserPermissionDeniedCallback',
         on: { RETRY_CAMERA_CHECK: 'cameraCheck' },
@@ -497,6 +514,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       updateFailedAttempts: assign({
         failedAttempts: (context) => context.failedAttempts! + 1,
+      }),
+      updateHasRetriedRecording: assign({
+        hasRetriedRecording: () => true,
       }),
       updateVideoMediaStream: assign({
         videoAssociatedParams: (context, event) => ({
@@ -761,6 +781,15 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       cancelOvalDrawingTimeout: actions.cancel('ovalDrawingTimeout'),
       sendTimeoutAfterRecordingDelay: actions.send(
         {
+          type: 'RECORDING_TIMEOUT',
+        },
+        {
+          delay: 5000,
+          id: 'recordingTimeout',
+        }
+      ),
+      sendTimeoutAfterRetryRecordingDelay: actions.send(
+        {
           type: 'RUNTIME_ERROR',
           data: {
             message: 'Client failed to start recording.',
@@ -897,6 +926,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
     guards: {
       shouldTimeoutOnFailedAttempts: (context) =>
         context.failedAttempts! >= context.maxFailedAttempts!,
+      shouldTimeoutOnFailedRecordingAttempts: (context) =>
+        !!context.hasRetriedRecording,
       hasFaceMatchedInOval: (context) => {
         return (
           context.faceMatchAssociatedParams!.faceMatchState ===
@@ -914,6 +945,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           context.faceMatchStateBeforeStart === FaceMatchState.FACE_IDENTIFIED
         );
       },
+
       hasEnoughFaceDistanceBeforeRecording: (context) => {
         return context.isFaceFarEnoughBeforeRecording!;
       },
@@ -1010,6 +1042,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       // eslint-disable-next-line @typescript-eslint/require-await
       async openLivenessStreamConnection(context) {
+        if (context.hasRetriedRecording) {
+          throw new Error('hasRetriedRecording true');
+        }
         const { config } = context.componentProps!;
         const { credentialProvider, endpointOverride } = config!;
         const livenessStreamProvider = new LivenessStreamProvider({
@@ -1019,6 +1054,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           videoEl: context.videoAssociatedParams!.videoEl!,
           credentialProvider: credentialProvider,
           endpointOverride: endpointOverride,
+          mimeType: context.hasRetriedRecording
+            ? 'video/x-matroska;codecs=vp8'
+            : undefined,
         });
 
         responseStream = livenessStreamProvider.getResponseStream();
