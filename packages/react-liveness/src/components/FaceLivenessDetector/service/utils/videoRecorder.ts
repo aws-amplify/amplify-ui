@@ -1,3 +1,5 @@
+const DEFAULT_BIT_RATE = 1000000;
+
 /**
  * Helper wrapper class over the native MediaRecorder.
  */
@@ -17,14 +19,17 @@ export class VideoRecorder {
   private _chunks: Blob[];
   private _recorderStopped!: Promise<void>;
 
-  constructor(stream: MediaStream) {
+  constructor(stream: MediaStream, mimeType?: string) {
     if (typeof MediaRecorder === 'undefined') {
       throw Error('MediaRecorder is not supported by this browser');
     }
 
     this._stream = stream;
     this._chunks = [];
-    this._recorder = new MediaRecorder(stream, { bitsPerSecond: 1000000 });
+    this._recorder = new MediaRecorder(stream, {
+      bitsPerSecond: DEFAULT_BIT_RATE,
+      mimeType,
+    });
 
     this._setupCallbacks();
   }
@@ -126,3 +131,22 @@ export class VideoRecorder {
     };
   }
 }
+
+export const doesDefaultMimeTypeWork = async (
+  stream: MediaStream
+): Promise<boolean> => {
+  const recorder = new MediaRecorder(stream, {
+    bitsPerSecond: DEFAULT_BIT_RATE,
+  });
+
+  const chunks: Blob[] = [];
+  recorder.ondataavailable = (e) => {
+    if (e.data.size > 0) chunks.push(e.data); // only uses non 0 size chunks, in the Android failure it would return one 0 sized chunk
+  };
+
+  recorder.start(10); // Sets up recording in 10ms time slices
+  await new Promise((r) => setTimeout(r, 200)); // Waits 200 ms to get some chunks
+  recorder.stop();
+
+  return chunks.length > 0;
+};

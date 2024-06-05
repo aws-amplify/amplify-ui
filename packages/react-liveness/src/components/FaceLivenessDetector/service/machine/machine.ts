@@ -41,6 +41,7 @@ import {
   isCameraDeviceVirtual,
   FreshnessColorDisplay,
   drawStaticOval,
+  doesDefaultMimeTypeWork,
 } from '../utils';
 
 import { getStaticLivenessOvalDetails } from '../utils/liveness';
@@ -60,6 +61,7 @@ import { WS_CLOSURE_CODE } from '../utils/constants';
 
 const CAMERA_ID_KEY = 'AmplifyLivenessCameraId';
 const DEFAULT_FACE_FIT_TIMEOUT = 7000;
+const ALTERNATE_MIME_TYPE = 'video/x-matroska;codecs=vp8';
 
 let responseStream: Promise<AsyncIterable<LivenessResponseStream>>;
 const responseStreamActor = async (callback: StreamActorCallback) => {
@@ -1010,6 +1012,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       // eslint-disable-next-line @typescript-eslint/require-await
       async openLivenessStreamConnection(context) {
+        const shouldUseAlternateMimeType = !(await doesDefaultMimeTypeWork(
+          context.videoAssociatedParams!.videoMediaStream!
+        ));
+
         const { config } = context.componentProps!;
         const { credentialProvider, endpointOverride } = config!;
         const livenessStreamProvider = new LivenessStreamProvider({
@@ -1019,6 +1025,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           videoEl: context.videoAssociatedParams!.videoEl!,
           credentialProvider: credentialProvider,
           endpointOverride: endpointOverride,
+          mimeType: shouldUseAlternateMimeType
+            ? ALTERNATE_MIME_TYPE
+            : undefined,
         });
 
         responseStream = livenessStreamProvider.getResponseStream();
