@@ -31,7 +31,7 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-The Amplify UI FaceLivenessDetector is powered by [Amazon Rekognition Face Liveness](https://aws.amazon.com/rekognition/). The FaceLivenessDetector supports two types of verification challenges:
+The Amplify UI FaceLivenessDetector is powered by [Amazon Rekognition Face Liveness](https://aws.amazon.com/rekognition/face-liveness/). The FaceLivenessDetector supports two types of verification challenges:
 
  - The **Face Movement and Light Challenge** consists of a series of head movements and colored light tests.
  - The **Face Movement Challenge** consists only of a series of head movements.
@@ -39,13 +39,13 @@ The Amplify UI FaceLivenessDetector is powered by [Amazon Rekognition Face Liven
 The following screenshots show an example of the Face Movement and Light Challenge in action.
 
 <InlineFilter filters={['android']}>
-  <Image alt="Screenshots of Liveness component on Android" width="100%" src="/liveness/android-app-screens.png" />
+  <AndroidPage />
 </InlineFilter>
 <InlineFilter filters={['react']}>
-  <Image alt="Screen shots of Liveness component on Web" width="100%" src="/liveness/web-app-screens.png" />
+  <ReactPage />
 </InlineFilter>
 <InlineFilter filters={['swift']}>
-  <Image alt="Screenshots of Liveness for Swift component" width="100%" src="/liveness/swift-screens.png" />
+  <SwiftPage />
 </InlineFilter>
 
 To learn more about spoof attempts deterred by Face Liveness, please see this [demonstration video on YouTube](https://www.youtube.com/watch?v=JfzwVl1wy0s).
