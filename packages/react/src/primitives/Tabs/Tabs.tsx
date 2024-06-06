@@ -19,13 +19,18 @@ const TabsPrimitive: Primitive<TabsProps, 'div'> = (
         spacing={spacing}
       >
         {items?.map(({ value, label, content, ...rest }) => (
-          <TabsItem {...rest} key={value} value={value}>
+          <TabsItem {...rest} key={value} value={value.replace(' ', '-')}>
             {label}
           </TabsItem>
         ))}
       </TabList>
       {items?.map(({ value, content, isDisabled, ...rest }) => (
-        <TabPanel {...rest} key={value} value={value} isDisabled={isDisabled}>
+        <TabPanel
+          {...rest}
+          key={value}
+          value={value.replace(' ', '-')}
+          isDisabled={isDisabled}
+        >
           {content}
         </TabPanel>
       ))}

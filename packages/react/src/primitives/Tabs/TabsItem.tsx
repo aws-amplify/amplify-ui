@@ -25,16 +25,15 @@ const TabsItemPrimitive: Primitive<TabsItemProps, 'button'> = (
     }
     setActiveTab(value);
   };
-  const idValue = value.replace(' ', '-');
 
   return (
     <View
       {...rest}
       role={role}
       as={as}
-      id={`${groupId}-tab-${idValue}`}
+      id={`${groupId}-tab-${value}`}
       aria-selected={isActive}
-      aria-controls={`${groupId}-panel-${idValue}`}
+      aria-controls={`${groupId}-panel-${value}`}
       tabIndex={!isActive ? -1 : undefined}
       className={classNames(
         ComponentClassName.TabsItem,
