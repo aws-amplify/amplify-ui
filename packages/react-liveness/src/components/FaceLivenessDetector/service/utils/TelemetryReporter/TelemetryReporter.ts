@@ -11,6 +11,7 @@ import {
 
 const DEFAULT_ATTEMPT_COUNT_TIMEOUT = 300000; // 5 minutes / 300000 ms
 
+// Telemetry data is for internal use only and should not be depended upon or used by the customer
 export class TelemetryReporter {
   static attemptCount = 0;
   static timestamp = Date.now();
