@@ -50,7 +50,7 @@ Feature: Sign Up with Attributes
   Scenario: Sign Up screen has Given Name
     Then I see "Given Name" as a "text" field
 
-  @angular @react @vue @react-native @gen1
+  @angular @react @vue @react-native @gen1 @gen2
   Scenario: Sign Up screen has Name
     Then I see "Name" as a "text" field
 
