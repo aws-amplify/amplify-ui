@@ -1,3 +1,7 @@
+import { isAndroidChromeWithBrokenH264 } from '../../utils/device';
+
+const ALTERNATE_MIME_TYPE = 'video/x-matroska;codecs=vp8';
+
 /**
  * Helper wrapper class over the native MediaRecorder.
  */
@@ -24,7 +28,12 @@ export class VideoRecorder {
 
     this._stream = stream;
     this._chunks = [];
-    this._recorder = new MediaRecorder(stream, { bitsPerSecond: 1000000 });
+    this._recorder = new MediaRecorder(stream, {
+      bitsPerSecond: 1000000,
+      mimeType: isAndroidChromeWithBrokenH264()
+        ? ALTERNATE_MIME_TYPE
+        : undefined,
+    });
 
     this._setupCallbacks();
   }
