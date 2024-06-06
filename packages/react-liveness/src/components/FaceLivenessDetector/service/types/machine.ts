@@ -60,6 +60,7 @@ export interface LivenessContext {
   challengeId?: string;
   componentProps?: FaceLivenessDetectorCoreProps;
   errorState?: ErrorState;
+  errorMessage?: string;
   faceMatchAssociatedParams?: FaceMatchAssociatedParams;
   faceMatchStateBeforeStart?: FaceMatchState;
   failedAttempts?: number;

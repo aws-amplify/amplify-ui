@@ -1,5 +1,38 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.0.23
+
+### Patch Changes
+
+- [#5298](https://github.com/aws-amplify/amplify-ui/pull/5298) [`36a211868`](https://github.com/aws-amplify/amplify-ui/commit/36a21186808c4983cbbf1460a2cad45d9e78de24) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(liveness): target android chrome 125 to use alternate mime type
+
+- [#5276](https://github.com/aws-amplify/amplify-ui/pull/5276) [`af879d490`](https://github.com/aws-amplify/amplify-ui/commit/af879d49061cb9e0070d8f735b9a9148a3e74428) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): add more granular timeout messages, remove disconnect timeout
+
+## 3.0.22
+
+### Patch Changes
+
+- Updated dependencies [[`d7098c2fd`](https://github.com/aws-amplify/amplify-ui/commit/d7098c2fda994fc1ef285b349108c0e8ada9cc34)]:
+  - @aws-amplify/ui-react@6.1.12
+
+## 3.0.21
+
+### Patch Changes
+
+- [#5258](https://github.com/aws-amplify/amplify-ui/pull/5258) [`dc1b3be5b`](https://github.com/aws-amplify/amplify-ui/commit/dc1b3be5bb7307a28c856547500384f9bee52d34) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(deps): update amplify scoped and RN dep versions
+
+- Updated dependencies [[`dc1b3be5b`](https://github.com/aws-amplify/amplify-ui/commit/dc1b3be5bb7307a28c856547500384f9bee52d34)]:
+  - @aws-amplify/ui-react@6.1.11
+  - @aws-amplify/ui@6.0.16
+
+## 3.0.20
+
+### Patch Changes
+
+- Updated dependencies [[`1ca7c38e1`](https://github.com/aws-amplify/amplify-ui/commit/1ca7c38e15c5a7d307aa7e704b77d596167accb2), [`3af3e6b7a`](https://github.com/aws-amplify/amplify-ui/commit/3af3e6b7aca2914f67870b09fd5b2d81847f8e39), [`225bde836`](https://github.com/aws-amplify/amplify-ui/commit/225bde83640e9efba1b4edfce4696c74d6569b95), [`4b3f69917`](https://github.com/aws-amplify/amplify-ui/commit/4b3f6991706b774d45eb80beea2ddd606b21ce2a), [`bad0da7b9`](https://github.com/aws-amplify/amplify-ui/commit/bad0da7b9cc70069f504a37e80849b306b04f7d7), [`b92c34a99`](https://github.com/aws-amplify/amplify-ui/commit/b92c34a992b0f3d118711527360cdceeff503abb)]:
+  - @aws-amplify/ui@6.0.15
+  - @aws-amplify/ui-react@6.1.10
+
 ## 3.0.19
 
 ### Patch Changes
