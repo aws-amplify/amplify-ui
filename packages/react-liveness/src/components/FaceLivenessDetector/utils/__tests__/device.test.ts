@@ -97,7 +97,7 @@ describe('device', () => {
         'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.146 Mobile Safari/537.36';
       expect(isAndroidChromeWithBrokenH264()).toBe(false);
     });
-    it('false on android version older than 124', () => {
+    it('false on chrome version older than 124', () => {
       (global.navigator as any).userAgent = GOOGLE_PIXEL_CHROME;
       expect(isAndroidChromeWithBrokenH264()).toBe(false);
     });
