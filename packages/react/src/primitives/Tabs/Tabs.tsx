@@ -11,6 +11,13 @@ const TabsPrimitive: Primitive<TabsProps, 'div'> = (
   { items, indicatorPosition, justifyContent, spacing, ...rest }: BaseTabsProps,
   ref
 ) => {
+  const whitespaceFiller = '-';
+  items = items?.map((obj) => {
+    if (obj.value) {
+      obj.value = obj.value.replace(' ', whitespaceFiller);
+    }
+    return obj;
+  });
   return (
     <TabsContainer {...rest} ref={ref}>
       <TabList
@@ -19,18 +26,13 @@ const TabsPrimitive: Primitive<TabsProps, 'div'> = (
         spacing={spacing}
       >
         {items?.map(({ value, label, content, ...rest }) => (
-          <TabsItem {...rest} key={value} value={value.replace(' ', '-')}>
+          <TabsItem {...rest} key={value} value={value}>
             {label}
           </TabsItem>
         ))}
       </TabList>
       {items?.map(({ value, content, isDisabled, ...rest }) => (
-        <TabPanel
-          {...rest}
-          key={value}
-          value={value.replace(' ', '-')}
-          isDisabled={isDisabled}
-        >
+        <TabPanel {...rest} key={value} value={value} isDisabled={isDisabled}>
           {content}
         </TabPanel>
       ))}
