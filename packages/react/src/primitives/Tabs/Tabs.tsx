@@ -11,13 +11,6 @@ const TabsPrimitive: Primitive<TabsProps, 'div'> = (
   { items, indicatorPosition, justifyContent, spacing, ...rest }: BaseTabsProps,
   ref
 ) => {
-  // const whitespaceFiller = '-';
-  // items = items?.map((obj) => {
-  //   if (obj.value) {
-  //     obj.value = obj.value.replace(' ', whitespaceFiller);
-  //   }
-  //   return obj;
-  // });
   return (
     <TabsContainer {...rest} ref={ref}>
       <TabList
