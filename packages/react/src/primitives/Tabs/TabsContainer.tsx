@@ -9,6 +9,8 @@ import { View } from '../View';
 import { TabsContext } from './TabsContext';
 import { useStableId } from '../utils/useStableId';
 
+const whitespaceValue = '-'; // used to create valid HTML IDs
+
 const TabsContainerPrimitive: Primitive<TabsProps, 'div'> = (
   {
     children,
@@ -22,7 +24,6 @@ const TabsContainerPrimitive: Primitive<TabsProps, 'div'> = (
   ref
 ) => {
   const groupId = useStableId();
-  const whitespaceValue = '-'; // used to create valid HTML IDs
   const isControlled = controlledValue !== undefined;
   const [localValue, setLocalValue] = React.useState(() =>
     isControlled ? controlledValue : defaultValue
