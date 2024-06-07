@@ -17,7 +17,8 @@ const TabsItemPrimitive: Primitive<TabsItemProps, 'button'> = (
   { className, value, children, onClick, as = 'button', role = 'tab', ...rest },
   ref
 ) => {
-  const { activeTab, setActiveTab, groupId } = React.useContext(TabsContext);
+  const { activeTab, setActiveTab, groupId, whitespaceValue } =
+    React.useContext(TabsContext);
   const isActive = activeTab === value;
   const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (isTypedFunction(onClick)) {
@@ -25,7 +26,7 @@ const TabsItemPrimitive: Primitive<TabsItemProps, 'button'> = (
     }
     setActiveTab(value);
   };
-
+  value = value.replace(' ', whitespaceValue); // REMOVES WHITESPACE TO AVOID INVALID HTML IDs
   return (
     <View
       {...rest}

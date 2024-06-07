@@ -13,10 +13,11 @@ const TabPanelPrimitive: Primitive<TabsPanelProps, 'div'> = (
   { className, value, children, role = 'tabpanel', ...rest },
   ref
 ) => {
-  const { activeTab, isLazy, groupId } = React.useContext(TabsContext);
+  const { activeTab, isLazy, groupId, whitespaceValue } =
+    React.useContext(TabsContext);
 
   if (isLazy && activeTab !== value) return null;
-
+  value = value.replace(' ', whitespaceValue); // REMOVES WHITESPACE TO AVOID INVALID HTML IDs
   return (
     <View
       {...rest}
