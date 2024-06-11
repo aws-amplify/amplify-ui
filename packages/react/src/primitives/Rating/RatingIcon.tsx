@@ -23,8 +23,14 @@ export const RatingIcon: React.FC<RatingIconProps> = ({
       className={ComponentClassName.RatingItem}
       aria-hidden="true"
     >
-      <View as="span" className={classNames(className)} color={fill}>
-        {icon}
+      <View 
+        as="span" 
+        className={classNames(
+          ComponentClassName.RatingIcon, 
+          className
+        )} 
+        color={fill}>
+          {icon}
       </View>
     </View>
   );
