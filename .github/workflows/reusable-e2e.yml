@@ -220,13 +220,8 @@ jobs:
           aws configure set aws_session_token $AWS_SESSION_TOKEN && \
           aws configure set default.region $AWS_REGION
 
-      - name: Pull down Gen1 Auth AWS environments
-        if: ${{ matrix.version == 'gen1' }}
-        run: yarn environments auth pull
-
-      - name: Pull down Gen2 Auth AWS environments
-        if: ${{ matrix.version == 'gen2' }}
-        run: yarn environments auth pull -v gen2
+      - name: Pull down ${{ matrix.version }} Auth AWS environments
+        run: yarn environments auth pull -v ${{ matrix.version }}
 
       - name: Configure geo credentials
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
