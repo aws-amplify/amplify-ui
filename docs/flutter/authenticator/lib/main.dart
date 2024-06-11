@@ -354,8 +354,8 @@ ThemeData customLightTheme = ThemeData(
   // theme of the primary button for each step
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
-      padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(16)),
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      padding: WidgetStateProperty.all<EdgeInsets>(const EdgeInsets.all(16)),
+      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
     ),
@@ -389,8 +389,8 @@ ThemeData customDarkTheme = ThemeData(
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
-      padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(16)),
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      padding: WidgetStateProperty.all<EdgeInsets>(const EdgeInsets.all(16)),
+      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
     ),

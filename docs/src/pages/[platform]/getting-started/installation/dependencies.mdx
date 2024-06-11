@@ -46,15 +46,15 @@ import { InstallScripts, TerminalCommand } from '@/components/InstallScripts.tsx
   You will need to add dependencies for the `amplify_authenticator` to the `pubspec.yaml` file as shown below.
 
   <ExampleCode>
-  ```yaml
+  ```yaml{6-8}
     environment:
-      sdk: ">=2.18.0 <4.0.0"
-      flutter: ">=3.3.0"
-    
+      sdk: ^3.3.0
+      flutter: '>=3.19.0'
+
     dependencies:
-      amplify_flutter: ^1.0.0
-      amplify_auth_cognito: ^1.0.0
-      amplify_authenticator: ^1.0.0
+      amplify_flutter: ^2.0.0
+      amplify_auth_cognito: ^2.0.0
+      amplify_authenticator: ^2.0.0
   ```
   </ExampleCode>
 
