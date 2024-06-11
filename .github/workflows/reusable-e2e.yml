@@ -241,13 +241,8 @@ jobs:
           aws configure set aws_session_token $AWS_SESSION_TOKEN && \
           aws configure set default.region $AWS_REGION
 
-      - name: Pull down Gen1 Geo AWS environments
-        if: ${{ matrix.version == 'gen1' }}
-        run: yarn environments geo pull
-
-      - name: Pull down Gen2 Geo AWS environments
-        if: ${{ matrix.version == 'gen2' }}
-        run: yarn environments geo pull -v gen2
+      - name: Pull down ${{ matrix.version }} Geo AWS environments
+        run: yarn environments geo pull -v ${{ matrix.version }}
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
@@ -262,13 +257,8 @@ jobs:
           aws configure set aws_session_token $AWS_SESSION_TOKEN && \
           aws configure set default.region $AWS_REGION
 
-      - name: Pull down Gen1 Storage AWS environments
-        if: ${{ matrix.version == 'gen1' }}
-        run: yarn environments storage pull
-
-      - name: Pull down Gen2 Storage AWS environments
-        if: ${{ matrix.version == 'gen2' }}
-        run: yarn environments storage pull -v gen2
+      - name: Pull down ${{ matrix.version }} Storage AWS environments
+        run: yarn environments storage pull -v ${{ matrix.version }}
 
       - name: Create temp AWS profile
         run: |
@@ -290,13 +280,8 @@ jobs:
           aws configure set aws_session_token $AWS_SESSION_TOKEN && \
           aws configure set default.region $AWS_REGION
 
-      - name: Pull down Gen1 Liveness AWS environments
-        if: ${{ matrix.version == 'gen1' }}
-        run: yarn environments liveness pull
-
-      - name: Pull down Gen2 Liveness AWS environments
-        if: ${{ matrix.version == 'gen2' }}
-        run: yarn environments liveness pull -v gen2
+      - name: Pull down ${{ matrix.version }} Liveness AWS environments
+        run: yarn environments liveness pull -v ${{ matrix.version }}
 
       - name: Configure in-app-messaging credentials
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
@@ -314,13 +299,8 @@ jobs:
           aws configure set aws_session_token $AWS_SESSION_TOKEN && \
           aws configure set default.region $AWS_REGION
 
-      - name: Pull down Gen1 In-app-messaging AWS environments
-        if: ${{ matrix.version == 'gen1' }}
-        run: yarn environments in-app-messaging pull
-
-      - name: Pull down Gen2 In-app-messaging AWS environments
-        if: ${{ matrix.version == 'gen2' }}
-        run: yarn environments in-app-messaging pull -v gen2
+      - name: Pull down ${{ matrix.version }} In-app-messaging AWS environments
+        run: yarn environments in-app-messaging pull -v ${{ matrix.version }}
 
       - name: Delete AWS profile
         run: rm -rf ~/.aws
