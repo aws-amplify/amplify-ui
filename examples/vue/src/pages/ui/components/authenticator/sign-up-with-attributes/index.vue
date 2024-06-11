@@ -6,21 +6,9 @@ import {
   AmplifyTextField,
 } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
+import { importHelper } from '../utils';
 
-const amplifyOutputs =
-  import.meta.env.VITE_VERSION === 'gen1'
-    ? (
-        await import(
-          // @ts-ignore
-          '@environments/auth/auth-with-all-attributes/src/aws-exports'
-        )
-      ).default
-    : (
-        await import(
-          // @ts-ignore
-          '@environments/auth/auth-with-all-attributes/amplify_outputs'
-        )
-      ).default;
+const amplifyOutputs = await importHelper('auth-with-all-attributes');
 
 Amplify.configure(amplifyOutputs);
 </script>

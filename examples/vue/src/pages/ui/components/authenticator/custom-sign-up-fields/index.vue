@@ -11,21 +11,11 @@ import {
 import '@aws-amplify/ui-vue/styles.css';
 
 import { toRefs } from 'vue';
+import { importHelper } from '../utils';
 
-const amplifyOutputs =
-  import.meta.env.VITE_VERSION === 'gen1'
-    ? (
-        await import(
-          // @ts-ignore
-          '@environments/auth/auth-with-email-and-custom-attributes/src/aws-exports'
-        )
-      ).default
-    : (
-        await import(
-          // @ts-ignore
-          '@environments/auth/auth-with-email-and-custom-attributes/amplify_outputs'
-        )
-      ).default;
+const amplifyOutputs = await importHelper(
+  'auth-with-email-and-custom-attributes'
+);
 
 Amplify.configure(amplifyOutputs);
 

@@ -7,15 +7,9 @@ import {
 } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
 import { toRefs } from 'vue';
+import { importHelper } from '../utils';
 
-const amplifyOutputs =
-  import.meta.env.VITE_VERSION === 'gen1'
-    ? // @ts-ignore
-      (await import('@environments/auth/auth-with-totp-mfa/src/aws-exports'))
-        .default
-    : // @ts-ignore
-      (await import('@environments/auth/auth-with-totp-mfa/amplify_outputs'))
-        .default;
+const amplifyOutputs = await importHelper('auth-with-totp-mfa');
 
 Amplify.configure(amplifyOutputs);
 

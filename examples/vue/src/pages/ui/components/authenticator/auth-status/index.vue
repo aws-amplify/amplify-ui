@@ -5,15 +5,9 @@ import { computed, toRefs } from 'vue';
 
 import { useAuthenticator } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
+import { importHelper } from '../utils';
 
-const amplifyOutputs =
-  import.meta.env.VITE_VERSION === 'gen1'
-    ? // @ts-ignore
-      (await import('@environments/auth/auth-with-email/src/aws-exports'))
-        .default
-    : // @ts-ignore
-      (await import('@environments/auth/auth-with-email/amplify_outputs'))
-        .default;
+const amplifyOutputs = await importHelper('auth-with-email');
 
 Amplify.configure(amplifyOutputs);
 

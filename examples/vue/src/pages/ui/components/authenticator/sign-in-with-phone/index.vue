@@ -3,21 +3,9 @@ import { Amplify } from 'aws-amplify';
 import { I18n } from 'aws-amplify/utils';
 import { Authenticator, translations } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
+import { importHelper } from '../utils';
 
-const amplifyOutputs =
-  import.meta.env.VITE_VERSION === 'gen1'
-    ? (
-        await import(
-          // @ts-ignore
-          '@environments/auth/auth-with-phone-number/src/aws-exports'
-        )
-      ).default
-    : (
-        await import(
-          // @ts-ignore
-          '@environments/auth/auth-with-phone-number/amplify_outputs'
-        )
-      ).default;
+const amplifyOutputs = await importHelper('auth-with-phone-number');
 
 Amplify.configure(amplifyOutputs);
 
