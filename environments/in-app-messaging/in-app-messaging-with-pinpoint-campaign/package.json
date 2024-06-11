@@ -4,6 +4,6 @@
   "version": "0.0.1",
   "scripts": {
     "pull": "amplify pull --appId d1322eg7ntbei6 --envName staging",
-    "generate": "echo 'Not available yet. Generating a placeholder file for now...' && touch amplify_outputs.json && echo '{}' > amplify_outputs.json"
+    "generate": "AWS_REGION=us-east-2 ampx generate outputs --branch gen2-in-app-messaging-backend --app-id d10570fvxw1ehy"
   }
 }
