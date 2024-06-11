@@ -1,5 +1,20 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.0.23
+
+### Patch Changes
+
+- [#5298](https://github.com/aws-amplify/amplify-ui/pull/5298) [`36a211868`](https://github.com/aws-amplify/amplify-ui/commit/36a21186808c4983cbbf1460a2cad45d9e78de24) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(liveness): target android chrome 125 to use alternate mime type
+
+- [#5276](https://github.com/aws-amplify/amplify-ui/pull/5276) [`af879d490`](https://github.com/aws-amplify/amplify-ui/commit/af879d49061cb9e0070d8f735b9a9148a3e74428) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): add more granular timeout messages, remove disconnect timeout
+
+## 3.0.22
+
+### Patch Changes
+
+- Updated dependencies [[`d7098c2fd`](https://github.com/aws-amplify/amplify-ui/commit/d7098c2fda994fc1ef285b349108c0e8ada9cc34)]:
+  - @aws-amplify/ui-react@6.1.12
+
 ## 3.0.21
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react",
-  "version": "6.1.11",
+  "version": "6.1.12",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
