@@ -65,6 +65,17 @@ gyp: Call to 'pkg-config pixman-1 --libs' returned exit status 127 while in bind
 
 See the [canvas docs](https://github.com/Automattic/node-canvas#compiling) to install required dependencies for local docs development.
 
+If you are using a Python3.12 or greater and you get the following error message regarding installation of `canvas`:
+
+```bash
+error /Users/USERNAME/amplify-ui/node_modules/canvas: Command failed.
+Exit code: 1
+...
+ModuleNotFoundError: No module named 'distutils'
+```
+
+See the [setuptools](https://pypi.org/project/setuptools/) installation website. Setuptools serves as a [recommended](https://docs.python.org/3.10/library/distutils.html) alternative to distutils.
+
 ## Project Structure
 
 `amplify-ui` is a monorepo that contains the following workspaces:
