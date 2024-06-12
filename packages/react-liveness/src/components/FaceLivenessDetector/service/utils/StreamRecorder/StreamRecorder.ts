@@ -12,6 +12,7 @@ export class StreamRecorder {
   #recordingStartTimestamp: number | undefined;
   #recorderStopped!: Promise<void>;
   #videoStream: VideoStream;
+  #eventListeners: { [key: string]: (args: any) => void };
 
   constructor(stream: MediaStream) {
     if (typeof MediaRecorder === 'undefined') {
@@ -22,6 +23,7 @@ export class StreamRecorder {
     this.#recorder = new MediaRecorder(stream, { bitsPerSecond: 1000000 });
     this.#initialRecorder = this.#recorder;
     this.#videoStream = this.#createReadableStream();
+    this.#eventListeners = {};
 
     this.#setupCallbacks();
   }
@@ -31,8 +33,9 @@ export class StreamRecorder {
   }
 
   setNewVideoStream(stream: MediaStream): void {
+    this.#cleanUpEventListeners();
     this.#recorder = new MediaRecorder(stream, { bitsPerSecond: 1000000 });
-    this.#createPassThroughRecorder();
+    this.#eventListeners = this.#createPassThroughRecorder();
   }
 
   dispatchStreamEvent<T extends StreamResultType>(
@@ -133,38 +136,50 @@ export class StreamRecorder {
   /**
    * The startFaceLivenessSession API takes in a ReadableStream as its source of all websocket events
    * To allow for changing cameras we add new MediaRecorders which pass through events to the previously set MediaRecorder
-   * @param oldRecorder
    */
-  #createPassThroughRecorder(): void {
-    this.#recorder.ondataavailable = ({ data }) => {
+  #createPassThroughRecorder(): { [key: string]: (args: any) => void } {
+    const onDataAvailableHandler = ({ data }: { data: Blob }) => {
       this.#initialRecorder.dispatchEvent(
         new MessageEvent('dataavailable', { data })
       );
     };
+    this.#recorder.ondataavailable = onDataAvailableHandler;
 
-    this.#recorder.addEventListener('sessionInfo', (e: any) => {
+    const onSessionInfoHandler = (e: any) => {
       const { data } = e as unknown as StreamResult<'sessionInfo'>;
       this.#initialRecorder.dispatchEvent(
         new MessageEvent('sessionInfo', { data })
       );
-    });
+    };
+    this.#recorder.addEventListener('sessionInfo', onSessionInfoHandler);
 
-    this.#recorder.addEventListener('streamStop', () => {
+    const onStreamStopHandler = () => {
       this.#initialRecorder.dispatchEvent(new MessageEvent('streamStop'));
-    });
+    };
+    this.#recorder.addEventListener('streamStop', onStreamStopHandler);
 
-    this.#recorder.addEventListener('closeCode', (e) => {
+    const onCloseCodeHandler = (e: Event) => {
       const { data } = e as unknown as StreamResult<'closeCode'>;
       this.#initialRecorder.dispatchEvent(
         new MessageEvent('closeCode', { data })
       );
-    });
+    };
+    this.#recorder.addEventListener('closeCode', onCloseCodeHandler);
 
-    this.#recorder.addEventListener('endStream', () => {
+    const onEndStreamHandler = () => {
       this.#initialRecorder.dispatchEvent(new MessageEvent('endStream'));
-    });
+    };
+    this.#recorder.addEventListener('endStream', onEndStreamHandler);
 
     this.#setupCallbacks();
+
+    return {
+      endStream: onEndStreamHandler,
+      closeCode: onCloseCodeHandler,
+      streamStop: onStreamStopHandler,
+      sessionInfo: onSessionInfoHandler,
+      dataavailable: onDataAvailableHandler,
+    };
   }
 
   #setupCallbacks() {
@@ -183,5 +198,13 @@ export class StreamRecorder {
     this.#recorder.onerror = () => {
       this.stopRecording();
     };
+  }
+
+  #cleanUpEventListeners() {
+    const eventNames = Object.keys(this.#eventListeners);
+    eventNames.forEach((name) => {
+      this.#recorder.removeEventListener(name, this.#eventListeners[name]);
+    });
+    this.#eventListeners = {};
   }
 }
