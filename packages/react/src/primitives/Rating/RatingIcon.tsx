@@ -4,9 +4,10 @@ import { Property } from 'csstype';
 
 import { View } from '../View';
 import { StyleToken } from '../types/style';
+import { BaseComponentProps } from '../types';
 import { ComponentClassName } from '@aws-amplify/ui';
 
-interface RatingIconProps {
+interface RatingIconProps extends BaseComponentProps {
   icon: React.ReactNode;
   fill?: StyleToken<Property.Color>;
   className: string;
@@ -23,14 +24,12 @@ export const RatingIcon: React.FC<RatingIconProps> = ({
       className={ComponentClassName.RatingItem}
       aria-hidden="true"
     >
-      <View 
-        as="span" 
-        className={classNames(
-          ComponentClassName.RatingIcon, 
-          className
-        )} 
-        color={fill}>
-          {icon}
+      <View
+        as="span"
+        className={classNames(ComponentClassName.RatingIcon, className)}
+        color={fill}
+      >
+        {icon}
       </View>
     </View>
   );
