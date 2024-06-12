@@ -238,4 +238,39 @@ describe('StreamRecorder', () => {
       expect(endStreamListener()).toBeUndefined();
     });
   });
+
+  describe('StreamRecorder.setNewVideoStream', () => {
+    it('creates a new video stream with event handling', () => {
+      const eventListeners: Record<string, (params?: any) => void> = {};
+      window.MediaRecorder = (jest.fn() as any).mockImplementation(() => ({
+        ...mockMediaRecorder,
+        addEventListener: jest.fn(
+          (name: string, cb: (params?: any) => void) => {
+            eventListeners[name] = cb;
+          }
+        ),
+      }));
+
+      const recorder = new StreamRecorder(stream);
+      const newStream = { id: 'new' } as MediaStream;
+      recorder.setNewVideoStream(newStream);
+
+      const sessionInfoListener = eventListeners['sessionInfo'];
+      const streamStopListener = eventListeners['streamStop'];
+      const closeCodeListener = eventListeners['closeCode'];
+      const endStreamListener = eventListeners['endStream'];
+
+      expect(sessionInfoListener).toBeDefined();
+      expect(sessionInfoListener({})).toBeUndefined();
+
+      expect(streamStopListener).toBeDefined();
+      expect(streamStopListener()).toBeUndefined();
+
+      expect(closeCodeListener).toBeDefined();
+      expect(closeCodeListener({ closeCode: 4003 })).toBeUndefined();
+
+      expect(endStreamListener).toBeDefined();
+      expect(endStreamListener()).toBeUndefined();
+    });
+  });
 });

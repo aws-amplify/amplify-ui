@@ -5,6 +5,7 @@ import { VideoStream, StreamResult, StreamResultType } from '../types';
 export class StreamRecorder {
   #chunks: Blob[];
   #recorder: MediaRecorder;
+  #initialRecorder: MediaRecorder;
   #recordingStarted: boolean = false;
   #recorderEndTimestamp: number | undefined;
   #recorderStartTimestamp: number | undefined;
@@ -19,6 +20,7 @@ export class StreamRecorder {
 
     this.#chunks = [];
     this.#recorder = new MediaRecorder(stream, { bitsPerSecond: 1000000 });
+    this.#initialRecorder = this.#recorder;
     this.#videoStream = this.#createReadableStream();
 
     this.#setupCallbacks();
@@ -26,6 +28,11 @@ export class StreamRecorder {
 
   getVideoStream(): VideoStream {
     return this.#videoStream;
+  }
+
+  setNewVideoStream(stream: MediaStream): void {
+    this.#recorder = new MediaRecorder(stream, { bitsPerSecond: 1000000 });
+    this.#createPassThroughRecorder();
   }
 
   dispatchStreamEvent<T extends StreamResultType>(
@@ -121,6 +128,43 @@ export class StreamRecorder {
         });
       },
     });
+  }
+
+  /**
+   * The startFaceLivenessSession API takes in a ReadableStream as its source of all websocket events
+   * To allow for changing cameras we add new MediaRecorders which pass through events to the previously set MediaRecorder
+   * @param oldRecorder
+   */
+  #createPassThroughRecorder(): void {
+    this.#recorder.ondataavailable = ({ data }) => {
+      this.#initialRecorder.dispatchEvent(
+        new MessageEvent('dataavailable', { data })
+      );
+    };
+
+    this.#recorder.addEventListener('sessionInfo', (e: any) => {
+      const { data } = e as unknown as StreamResult<'sessionInfo'>;
+      this.#initialRecorder.dispatchEvent(
+        new MessageEvent('sessionInfo', { data })
+      );
+    });
+
+    this.#recorder.addEventListener('streamStop', () => {
+      this.#initialRecorder.dispatchEvent(new MessageEvent('streamStop'));
+    });
+
+    this.#recorder.addEventListener('closeCode', (e) => {
+      const { data } = e as unknown as StreamResult<'closeCode'>;
+      this.#initialRecorder.dispatchEvent(
+        new MessageEvent('closeCode', { data })
+      );
+    });
+
+    this.#recorder.addEventListener('endStream', () => {
+      this.#initialRecorder.dispatchEvent(new MessageEvent('endStream'));
+    });
+
+    this.#setupCallbacks();
   }
 
   #setupCallbacks() {
