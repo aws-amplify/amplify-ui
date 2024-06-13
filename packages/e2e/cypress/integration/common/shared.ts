@@ -234,6 +234,17 @@ When('I click the {string} tab', (label: string) => {
   }).click();
 });
 
+When(
+  'I click the {string} selectfield and select the {string} option',
+  (defaultOption: string, newOption: string) => {
+    // Find the `select` element by its default selected option
+    cy.get('select')
+      .contains('option', new RegExp(`^${escapeRegExp(defaultOption)}$`, 'i'))
+      .parent()
+      .select(newOption);
+  }
+);
+
 When('I click the {string}', (id: string) => {
   cy.findByTestId(id).click();
 });
@@ -284,6 +295,12 @@ Then('I see {string}', (message: string) => {
   cy.findByRole('document')
     .contains(new RegExp(escapeRegExp(message), 'i'))
     .should('exist');
+});
+
+Then('I do not see {string}', (message: string) => {
+  cy.findByRole('document')
+    .contains(new RegExp(escapeRegExp(message), 'i'))
+    .should('not.exist');
 });
 
 Then('I see {string} element', (id: string) => {
