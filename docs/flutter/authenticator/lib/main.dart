@@ -71,13 +71,11 @@ class _FlutterAuthenticatorPreviewState
     final color = switch (_config.themeMode) {
       ThemeMode.dark => backgroundPrimaryDark,
       ThemeMode.light => backgroundPrimaryLight,
-      ThemeMode.system => switch (
-            PlatformDispatcher.instance.platformBrightness) {
+      ThemeMode.system => switch (MediaQuery.of(context).platformBrightness) {
           Brightness.dark => backgroundPrimaryDark,
           Brightness.light => backgroundPrimaryLight,
         }
     };
-    // _config.themeMode.
     return MaterialApp(
       home: ColoredBox(
         color: color,
