@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { classNames, ComponentClassName } from '@aws-amplify/ui';
 import { Property } from 'csstype';
 
-import { View } from '../View';
-import { StyleToken } from '../types/style';
 import { BaseComponentProps } from '../types';
-import { ComponentClassName } from '@aws-amplify/ui';
+import { StyleToken } from '../types/style';
+import { View } from '../View';
 
 interface RatingIconProps extends BaseComponentProps {
   icon: React.ReactNode;
