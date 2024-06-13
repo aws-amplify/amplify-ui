@@ -65,7 +65,7 @@ gyp: Call to 'pkg-config pixman-1 --libs' returned exit status 127 while in bind
 
 See the [canvas docs](https://github.com/Automattic/node-canvas#compiling) to install required dependencies for local docs development.
 
-If you are using a Python3.12 or greater and you get the following error message regarding installation of `canvas`:
+If you are using Python 3.12 or greater and you get the following error message regarding installation of `canvas`:
 
 ```bash
 error /Users/USERNAME/amplify-ui/node_modules/canvas: Command failed.
