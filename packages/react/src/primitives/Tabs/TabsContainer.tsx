@@ -21,8 +21,7 @@ const TabsContainerPrimitive: Primitive<TabsProps, 'div'> = (
   }: BaseTabsProps,
   ref
 ) => {
-  const groupId = useStableId();
-  const whitespaceValue = '-'; // used to create valid HTML IDs
+  const groupId = useStableId(); // groupId is used to ensure uniqueness between Tab Groups in IDs
   const isControlled = controlledValue !== undefined;
   const [localValue, setLocalValue] = React.useState(() =>
     isControlled ? controlledValue : defaultValue
@@ -48,7 +47,6 @@ const TabsContainerPrimitive: Primitive<TabsProps, 'div'> = (
       isLazy,
       setActiveTab,
       groupId,
-      whitespaceValue,
     };
   }, [activeTab, setActiveTab, isLazy, groupId]);
 
