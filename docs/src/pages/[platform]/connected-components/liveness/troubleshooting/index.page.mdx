@@ -26,6 +26,10 @@ Full error: `An error occurred (AccessDeniedException) when calling the CreateFa
 
 Make sure you are using a supported AWS region. Please refer to [Liveness supported regions](https://aws.amazon.com/rekognition/face-liveness/#FAQs) documentation.
 
+### Error: Connection time out
+
+The websocket connection to the Rekognition streaming service will time out after 5 seconds if a connection is not made. This often happens due to slow network speeds. If you encounter this issue, try using a different network or testing your network latency.
+
 ### No result when GetFaceLivenessSessionResults is called
 
 Ensure that the session ID returned from the backend when creating the session is the same as the one created on initialization of the Liveness UI. Note: session IDs can only be used once. You must create a new session to allow users to retry the Liveness check.
