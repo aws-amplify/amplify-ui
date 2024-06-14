@@ -9,7 +9,7 @@ const CustomIcon = ({ className }: { className: string }) => (
 );
 
 describe('RatingIcon', () => {
-  it('should render rating icon class', async () => {
+  it('should render rating icon class', () => {
     const { container } = render(
       <div data-testid="custom-element">
         <RatingIcon
