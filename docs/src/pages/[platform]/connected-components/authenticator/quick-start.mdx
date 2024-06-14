@@ -96,15 +96,15 @@ import AmplifyCLI from './amplify-cli.mdx';
   Add [amplify_authenticator](https://pub.dev/packages/amplify_authenticator), [amplify_flutter](https://pub.dev/packages/amplify_flutter), and [amplify_auth_cognito](https://pub.dev/packages/amplify_auth_cognito) packages as a dependencies.
 
   <ExampleCode>
-  ```yaml
+  ```yaml{6-8}
     environment:
-      sdk: ">=2.18.0 <4.0.0"
-      flutter: ">=3.3.0"
+      sdk: ^3.3.0
+      flutter: '>=3.19.0'
 
     dependencies:
-      amplify_flutter: ^1.0.0
-      amplify_auth_cognito: ^1.0.0
-      amplify_authenticator: ^1.0.0
+      amplify_flutter: ^2.0.0
+      amplify_auth_cognito: ^2.0.0
+      amplify_authenticator: ^2.0.0
   ```
   </ExampleCode>
 </InlineFilter>
