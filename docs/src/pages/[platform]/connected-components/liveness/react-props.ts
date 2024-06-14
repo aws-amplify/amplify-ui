@@ -136,7 +136,7 @@ export const FACE_LIVENESS_DETECTOR_ERROR_STATES = [
   {
     name: `MULTIPLE_FACES_ERROR`,
     description:
-      'Indicates that the multiple faces have been detected within the frame.',
+      'Indicates that multiple faces have been detected within the frame.',
     type: `Error`,
   },
 ];
