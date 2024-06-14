@@ -35,7 +35,7 @@ export class StreamRecorder {
   setNewVideoStream(stream: MediaStream): void {
     this.#cleanUpEventListeners();
     this.#recorder = new MediaRecorder(stream, { bitsPerSecond: 1000000 });
-    this.#eventListeners = this.#createPassThroughRecorder();
+    this.#createPassThroughRecorder();
   }
 
   dispatchStreamEvent<T extends StreamResultType>(
@@ -137,7 +137,7 @@ export class StreamRecorder {
    * The startFaceLivenessSession API takes in a ReadableStream as its source of all websocket events
    * To allow for changing cameras we add new MediaRecorders which pass through events to the previously set MediaRecorder
    */
-  #createPassThroughRecorder(): { [key: string]: (args: any) => void } {
+  #createPassThroughRecorder(): void {
     const onDataAvailableHandler = ({ data }: { data: Blob }) => {
       this.#initialRecorder.dispatchEvent(
         new MessageEvent('dataavailable', { data })
@@ -173,7 +173,7 @@ export class StreamRecorder {
 
     this.#setupCallbacks();
 
-    return {
+    this.#eventListeners = {
       endStream: onEndStreamHandler,
       closeCode: onCloseCodeHandler,
       streamStop: onStreamStopHandler,
