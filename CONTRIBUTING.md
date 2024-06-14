@@ -53,7 +53,7 @@ You should open an issue to discuss your pull request, unless it's a trivial cha
 
 ### Troubleshooting
 
-**M1 Mac:**
+**Apple Silicon:**
 If using an M1 (or more recent) Macbook and you get the following error message regarding installation of `canvas`:
 
 ```bash
