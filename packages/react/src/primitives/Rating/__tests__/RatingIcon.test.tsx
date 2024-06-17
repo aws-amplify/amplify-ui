@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
-import { RatingIcon } from '../RatingIcon';
 import { ComponentClassName } from '@aws-amplify/ui';
+import { RatingIcon } from '../RatingIcon';
 
 const CustomIcon = ({ className }: { className: string }) => (
   <svg className={className}></svg>
@@ -11,13 +11,12 @@ const CustomIcon = ({ className }: { className: string }) => (
 describe('RatingIcon', () => {
   it('should render rating icon class', () => {
     const { container } = render(
-      <div data-testid="custom-element">
-        <RatingIcon
-          icon={<CustomIcon className="my-custom-component" />}
-          className="test-class"
-        ></RatingIcon>
-      </div>
+      <RatingIcon
+        className="test-class"
+        icon={<CustomIcon className="dummy-icon" />}
+      />
     );
+
     const iconSpan = container.getElementsByClassName(
       'test-class'
     )[0] as HTMLElement;
