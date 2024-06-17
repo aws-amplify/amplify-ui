@@ -2,11 +2,10 @@ import * as React from 'react';
 import { classNames, ComponentClassName } from '@aws-amplify/ui';
 import { Property } from 'csstype';
 
-import { BaseComponentProps } from '../types';
 import { StyleToken } from '../types/style';
 import { View } from '../View';
 
-interface RatingIconProps extends BaseComponentProps {
+interface RatingIconProps {
   icon: React.ReactNode;
   fill?: StyleToken<Property.Color>;
   className: string;
