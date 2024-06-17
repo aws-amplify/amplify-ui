@@ -13,7 +13,8 @@ concurrency:
 
 on:
   pull_request:
-    branches: [main, hotfix]
+    # branches: [main, hotfix]
+    branches: [feat-use-user-attributes/main]
     types: [opened, synchronize, labeled]
 
 jobs:
