@@ -539,6 +539,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       updateDeviceAndStream: assign({
         videoAssociatedParams: (context, event) => {
           setLastSelectedCameraId(event.data?.newDeviceId as string);
+          context.livenessStreamProvider?.setNewVideoStream(
+            event.data?.newStream as MediaStream
+          );
+
           return {
             ...context.videoAssociatedParams,
             selectedDeviceId: event.data

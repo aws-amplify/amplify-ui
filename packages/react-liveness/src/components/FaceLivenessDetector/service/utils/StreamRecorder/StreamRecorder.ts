@@ -5,12 +5,14 @@ import { VideoStream, StreamResult, StreamResultType } from '../types';
 export class StreamRecorder {
   #chunks: Blob[];
   #recorder: MediaRecorder;
+  #initialRecorder: MediaRecorder;
   #recordingStarted: boolean = false;
   #recorderEndTimestamp: number | undefined;
   #recorderStartTimestamp: number | undefined;
   #recordingStartTimestamp: number | undefined;
   #recorderStopped!: Promise<void>;
   #videoStream: VideoStream;
+  #eventListeners: { [key: string]: (args: any) => void };
 
   constructor(stream: MediaStream) {
     if (typeof MediaRecorder === 'undefined') {
@@ -19,13 +21,19 @@ export class StreamRecorder {
 
     this.#chunks = [];
     this.#recorder = new MediaRecorder(stream, { bitsPerSecond: 1000000 });
+    this.#initialRecorder = this.#recorder;
     this.#videoStream = this.#createReadableStream();
-
-    this.#setupCallbacks();
+    this.#eventListeners = {};
   }
 
   getVideoStream(): VideoStream {
     return this.#videoStream;
+  }
+
+  setNewVideoStream(stream: MediaStream): void {
+    this.#cleanUpEventListeners();
+    this.#recorder = new MediaRecorder(stream, { bitsPerSecond: 1000000 });
+    this.#attachHandlers(this.#recorder);
   }
 
   dispatchStreamEvent<T extends StreamResultType>(
@@ -97,30 +105,80 @@ export class StreamRecorder {
   #createReadableStream(): ReadableStream {
     return new ReadableStream<StreamResult>({
       start: (controller) => {
-        this.#recorder.ondataavailable = ({ data }) => {
-          this.#chunks.push(data);
-          controller.enqueue({ type: 'streamVideo', data });
-        };
-
-        this.#recorder.addEventListener('sessionInfo', (e: any) => {
-          const { data } = e as unknown as StreamResult<'sessionInfo'>;
-          controller.enqueue({ type: 'sessionInfo', data });
-        });
-
-        this.#recorder.addEventListener('streamStop', () => {
-          controller.enqueue({ type: 'streamStop' });
-        });
-
-        this.#recorder.addEventListener('closeCode', (e) => {
-          const { data } = e as unknown as StreamResult<'closeCode'>;
-          controller.enqueue({ type: 'closeCode', data });
-        });
-
-        this.#recorder.addEventListener('endStream', () => {
-          controller.close();
-        });
+        this.#attachHandlers(this.#recorder, controller);
       },
     });
+  }
+
+  #attachHandlers(
+    recorder: MediaRecorder,
+    controller?: ReadableStreamDefaultController<StreamResult>
+  ): void {
+    const onDataAvailableHandler = controller
+      ? ({ data }: { data: Blob }) => {
+          this.#chunks.push(data);
+          controller.enqueue({ type: 'streamVideo', data });
+        }
+      : ({ data }: { data: Blob }) => {
+          this.#initialRecorder.dispatchEvent(
+            new MessageEvent('dataavailable', { data })
+          );
+        };
+    recorder.ondataavailable = onDataAvailableHandler;
+
+    const onSessionInfoHandler = controller
+      ? (e: any) => {
+          const { data } = e as unknown as StreamResult<'sessionInfo'>;
+          controller.enqueue({ type: 'sessionInfo', data });
+        }
+      : (e: any) => {
+          const { data } = e as unknown as StreamResult<'sessionInfo'>;
+          this.#initialRecorder.dispatchEvent(
+            new MessageEvent('sessionInfo', { data })
+          );
+        };
+    recorder.addEventListener('sessionInfo', onSessionInfoHandler);
+
+    const onStreamStopHandler = controller
+      ? () => {
+          controller.enqueue({ type: 'streamStop' });
+        }
+      : () => {
+          this.#initialRecorder.dispatchEvent(new MessageEvent('streamStop'));
+        };
+    recorder.addEventListener('streamStop', onStreamStopHandler);
+
+    const onCloseCodeHandler = controller
+      ? (e: Event) => {
+          const { data } = e as unknown as StreamResult<'closeCode'>;
+          controller.enqueue({ type: 'closeCode', data });
+        }
+      : (e: Event) => {
+          const { data } = e as unknown as StreamResult<'closeCode'>;
+          this.#initialRecorder.dispatchEvent(
+            new MessageEvent('closeCode', { data })
+          );
+        };
+    recorder.addEventListener('closeCode', onCloseCodeHandler);
+
+    const onEndStreamHandler = controller
+      ? () => {
+          controller.close();
+        }
+      : () => {
+          this.#initialRecorder.dispatchEvent(new MessageEvent('endStream'));
+        };
+    recorder.addEventListener('endStream', onEndStreamHandler);
+
+    this.#setupCallbacks();
+
+    this.#eventListeners = {
+      endStream: onEndStreamHandler,
+      closeCode: onCloseCodeHandler,
+      streamStop: onStreamStopHandler,
+      sessionInfo: onSessionInfoHandler,
+      dataavailable: onDataAvailableHandler,
+    };
   }
 
   #setupCallbacks() {
@@ -139,5 +197,13 @@ export class StreamRecorder {
     this.#recorder.onerror = () => {
       this.stopRecording();
     };
+  }
+
+  #cleanUpEventListeners() {
+    const eventNames = Object.keys(this.#eventListeners);
+    eventNames.forEach((name) => {
+      this.#recorder.removeEventListener(name, this.#eventListeners[name]);
+    });
+    this.#eventListeners = {};
   }
 }
