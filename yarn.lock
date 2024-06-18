@@ -19839,6 +19839,11 @@ mock-socket@^9.1.0, mock-socket@^9.2.1:
   resolved "https://registry.npmjs.org/mock-socket/-/mock-socket-9.2.1.tgz#cc9c0810aa4d0afe02d721dcb2b7e657c00e2282"
   integrity sha512-aw9F9T9G2zpGipLLhSNh6ZpgUyUl4frcVmRN08uE1NWPWg43Wx6+sGPDbQ7E5iFZZDJW5b5bypMeAEHqTbIFag==
 
+mock-socket@^9.3.1:
+  version "9.3.1"
+  resolved "https://registry.yarnpkg.com/mock-socket/-/mock-socket-9.3.1.tgz#24fb00c2f573c84812aa4a24181bb025de80cc8e"
+  integrity sha512-qxBgB7Qa2sEQgHFjj0dSigq7fX4k6Saisd5Nelwp2q8mlbAFh5dHV9JTTlF8viYJLSSWgMCZFUom8PJcMNBoJw==
+
 moment@^2.19.3:
   version "2.29.4"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"

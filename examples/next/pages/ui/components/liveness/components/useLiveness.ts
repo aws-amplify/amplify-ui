@@ -23,6 +23,7 @@ export function useLiveness(challengeType: string) {
         path: `/livenessnolight/create?challengeType=${challengeType}`,
         options: {},
       }).response;
+      console.log(response);
       const { body } = response;
       return body.json();
     },

@@ -4,10 +4,12 @@ Feature: Disable Start Screen
 
   Background:
     Given I'm running the example "ui/components/liveness/disable-start-screen/"
-  
+
   @react
   Scenario: See camera module and close with the close icon
+      Then I start the websocket server at example 'ui/components/liveness/disable-start-screen/' 
       Then I see "Loading"
+      Then I verify the websocket request has query param 'precheck-view-enabled' with value '0'
 
   @react
   Scenario: See camera module and instructions
@@ -19,9 +21,6 @@ Feature: Disable Start Screen
 
   @react
   Scenario: See camera module and instructions with face movement challenge
-      I see "Update Challenge Selection"
-      Then I see "FaceMovementAndLightChallenge"
-      Then I click the "FaceMovementAndLightChallenge" selectfield and select the "FaceMovementChallenge" option
       Then I see "FaceMovementChallenge"
       Then I see "liveness-detector" element
       Then I see the "Face didn't fit inside oval in time limit." timeout error
