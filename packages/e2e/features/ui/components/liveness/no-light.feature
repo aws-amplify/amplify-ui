@@ -7,7 +7,7 @@ Feature: Liveness Detector
 
   @react 
   Scenario: Do not see photosensitivity warning
-      I see "Update Challenge Selection"
+      Then I see "Update Challenge Selection"
       Then I see "FaceMovementAndLightChallenge"
       Then I see "Photosensitivity warning"
       Then I click the "FaceMovementAndLightChallenge" selectfield and select the "FaceMovementChallenge" option
@@ -16,7 +16,7 @@ Feature: Liveness Detector
 
   @react
   Scenario: See camera module and instructions
-      I see "Update Challenge Selection"
+      Then I see "Update Challenge Selection"
       Then I see "FaceMovementAndLightChallenge"
       Then I click the "FaceMovementAndLightChallenge" selectfield and select the "FaceMovementChallenge" option
       Then I see "FaceMovementChallenge"
