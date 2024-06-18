@@ -19,7 +19,7 @@ Feature: Disable Start Screen
 
   @react
   Scenario: See camera module and instructions with face movement challenge
-      I see "Update Challenge Selection"
+      Then I see "Update Challenge Selection"
       Then I see "FaceMovementAndLightChallenge"
       Then I click the "FaceMovementAndLightChallenge" selectfield and select the "FaceMovementChallenge" option
       Then I see "FaceMovementChallenge"
