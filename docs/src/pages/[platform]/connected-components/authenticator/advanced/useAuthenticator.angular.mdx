@@ -20,7 +20,8 @@ import { Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 import { AuthenticatorService } from '@aws-amplify/ui-angular';
 
-import awsExports from './aws-exports';
+// import config from './aws-exports'; // Amplify Gen 1 config
+import config from './amplify_outputs.json'
 
 @Component({
   selector: 'app-root',
@@ -28,7 +29,7 @@ import awsExports from './aws-exports';
 })
 export class UseAuthenticatorComponent {
   constructor(public authenticator: AuthenticatorService) {
-    Amplify.configure(awsExports);
+    Amplify.configure(config);
   }
 }
 

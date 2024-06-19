@@ -4,25 +4,26 @@ import { InlineFilter } from '@/components/InlineFilter';
 
 <Alert role="none" heading="Zero Configuration">
 
-The Authenticator [automatically infers](/connected-components/authenticator#step-1-configure-backend) `loginMechanisms` from `amplify pull`,
+The Authenticator [automatically infers](/connected-components/authenticator#step-1-configure-backend) `loginMechanisms` from the current Amplify configuration, 
 but can be explicitly defined as seen below.
 
 </Alert>
 
-By default, the Authenticator creates new users in the Amazon Cognito UserPool based on a unique `username` using
-[`Auth.signUp`](https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js).
+Without the zero configuration, the Authenticator by default creates new users in the Amazon Cognito UserPool based on a unique `username`.
 
-You can provide an alternative `username` such as `email` or `phone_number`.
+You can provide an alternative to `username` such as `email` or `phone_number`.
 
-> **Note**: A `username`, `email`, or `phone_number` value is required for Cognito User Pools.
+> **Note**: A `username`, `email`, or `phone_number` value is required for Cognito User Pools. The `username` field will only work with Gen 1 Auth. For more information about using `username` see the [docs](https://docs.amplify.aws/react/build-a-backend/auth/concepts/usernames/).
 
-<Tabs.Container defaultValue="Username">
+<Tabs.Container defaultValue="Email">
   <Tabs.List>
-    <Tabs.Item value="Username">Username</Tabs.Item>
     <Tabs.Item value="Email">Email</Tabs.Item>
     <Tabs.Item value="Phone Number">Phone Number</Tabs.Item>
+    <Tabs.Item value="Username">Username</Tabs.Item>
   </Tabs.List>
   <Tabs.Panel value="Username">
+    Note: Login with Username is not currently supported using Amplify Gen2 backends
+
     <InlineFilter filters={['angular']}>
       ```html{1}
       <amplify-authenticator [loginMechanisms]="['username']">
@@ -39,18 +40,14 @@ You can provide an alternative `username` such as `email` or `phone_number`.
     </InlineFilter>
     <InlineFilter filters={['react']}>
       ```js{3}
-      export default function App() {
-        return (
-          <Authenticator loginMechanisms={['username']}>
-            {({ signOut, user }) => (
-              <main>
-                <h1>Hello {user.username}</h1>
-                <button onClick={signOut}>Sign out</button>
-              </main>
-            )}
-          </Authenticator>
-        );
-      }
+      <Authenticator loginMechanisms={['username']}>
+        {({ signOut, user }) => (
+          <main>
+            <h1>Hello {user.username}</h1>
+            <button onClick={signOut}>Sign out</button>
+          </main>
+        )}
+      </Authenticator>
       ```
     </InlineFilter>
     <InlineFilter filters={['vue']}>
@@ -86,18 +83,14 @@ You can provide an alternative `username` such as `email` or `phone_number`.
     </InlineFilter>
     <InlineFilter filters={['react']}>
       ```js{3}
-      export default function App() {
-        return (
-          <Authenticator loginMechanisms={['email']}>
-            {({ signOut, user }) => (
-              <main>
-                <h1>Hello {user.username}</h1>
-                <button onClick={signOut}>Sign out</button>
-              </main>
-            )}
-          </Authenticator>
-        );
-      }
+      <Authenticator loginMechanisms={['email']}>
+        {({ signOut, user }) => (
+          <main>
+            <h1>Hello {user.username}</h1>
+            <button onClick={signOut}>Sign out</button>
+          </main>
+        )}
+      </Authenticator>
       ```
     </InlineFilter>
     <InlineFilter filters={['vue']}>
@@ -133,18 +126,14 @@ You can provide an alternative `username` such as `email` or `phone_number`.
     </InlineFilter>
     <InlineFilter filters={['react']}>
       ```js{3}
-      export default function App() {
-        return (
-          <Authenticator loginMechanisms={['phone_number']}>
-            {({ signOut, user }) => (
-              <main>
-                <h1>Hello {user.username}</h1>
-                <button onClick={signOut}>Sign out</button>
-              </main>
-            )}
-          </Authenticator>
-        );
-      }
+      <Authenticator loginMechanisms={['phone_number']}>
+        {({ signOut, user }) => (
+          <main>
+            <h1>Hello {user.username}</h1>
+            <button onClick={signOut}>Sign out</button>
+          </main>
+        )}
+      </Authenticator>
       ```
     </InlineFilter>
     <InlineFilter filters={['vue']}>

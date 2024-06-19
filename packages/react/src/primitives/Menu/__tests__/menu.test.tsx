@@ -273,12 +273,7 @@ describe('Menu', () => {
   describe('MenuButton', () => {
     it('has the expected class when disabled', async () => {
       const MENU_BUTTON_TEST_ID = 'amplify-menu-button-test-id';
-      render(
-        <MenuButton
-          isDisabled={true}
-          testId={MENU_BUTTON_TEST_ID}
-        />
-      );
+      render(<MenuButton isDisabled={true} testId={MENU_BUTTON_TEST_ID} />);
 
       const menuButton = await screen.findByTestId(MENU_BUTTON_TEST_ID);
 

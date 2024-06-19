@@ -9,7 +9,8 @@ import QuickStartAddWeb from './quick-start-add.web.mdx';
 import TroubleshootingWeb from './trouble-shooting-alert.web.mdx';
 import AmplifyCLI from './amplify-cli.mdx';
 
-### Step 1. Configure backend
+
+#### Step 1. Configure backend
 
 <InlineFilter filters={['android']}>
   Run `amplify add auth` to configure how you want the Authenticator and its associated Cognito resources to behave. If you want more details on all of the options available in this step, please check out the Amplify Android Auth [getting started page](https://docs.amplify.aws/lib/auth/getting-started/q/platform/android/#set-up-backend-resources) or the more detailed Amplify CLI [documentation](https://docs.amplify.aws/cli/auth/overview/).
@@ -59,7 +60,7 @@ import AmplifyCLI from './amplify-cli.mdx';
   <TerminalCommand command="amplify pull" />
 </InlineFilter>
 
-### Step 2. Install dependencies
+#### Step 2. Install dependencies
 
 <InlineFilter filters={['android']}>
   The Authenticator component is built using [Jetpack Compose](https://developer.android.com/jetpack/compose). Enable Jetpack Compose by adding the following to the `android` section of your **app**'s `build.gradle` file:
@@ -84,7 +85,7 @@ import AmplifyCLI from './amplify-cli.mdx';
   ```groovy
   dependencies {    
       // Authenticator dependency
-      implementation 'com.amplifyframework.ui:authenticator:1.1.0'
+      implementation 'com.amplifyframework.ui:authenticator:1.2.0'
       
       // Support for Java 8 features
       coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
@@ -95,15 +96,15 @@ import AmplifyCLI from './amplify-cli.mdx';
   Add [amplify_authenticator](https://pub.dev/packages/amplify_authenticator), [amplify_flutter](https://pub.dev/packages/amplify_flutter), and [amplify_auth_cognito](https://pub.dev/packages/amplify_auth_cognito) packages as a dependencies.
 
   <ExampleCode>
-  ```yaml
+  ```yaml{6-8}
     environment:
-      sdk: ">=2.18.0 <4.0.0"
-      flutter: ">=3.3.0"
+      sdk: ^3.3.0
+      flutter: '>=3.19.0'
 
     dependencies:
-      amplify_flutter: ^1.0.0
-      amplify_auth_cognito: ^1.0.0
-      amplify_authenticator: ^1.0.0
+      amplify_flutter: ^2.0.0
+      amplify_auth_cognito: ^2.0.0
+      amplify_authenticator: ^2.0.0
   ```
   </ExampleCode>
 </InlineFilter>
@@ -152,7 +153,7 @@ import AmplifyCLI from './amplify-cli.mdx';
       - Authenticator
 </InlineFilter>
 
-### Step 3. Add the Authenticator
+#### Step 3. Add the Authenticator
 
 <InlineFilter filters={['android']}>
   The quickest way to get started is by wrapping your App component (written in Jetpack Compose) with the Authenticator widget. Once an end-user has created an account & signed in, your content will be displayed.
@@ -176,19 +177,39 @@ import AmplifyCLI from './amplify-cli.mdx';
   Add the Authenticator to your app by wrapping your component (represented here by the `@Composable` function `SignedInContent`) with the `Authenticator` component.
 
   ```kotlin
-  import com.amplifyframework.ui.authenticator.rememberAuthenticatorState
+  import android.os.Bundle
+  import androidx.activity.ComponentActivity
+  import androidx.activity.compose.setContent
+  import androidx.compose.foundation.layout.Column
+  import androidx.compose.material3.Button
+  import androidx.compose.material3.Text
+  import androidx.compose.runtime.Composable
+  import androidx.compose.runtime.rememberCoroutineScope
+  import com.amplifyframework.ui.authenticator.SignedInState
   import com.amplifyframework.ui.authenticator.ui.Authenticator
+  import kotlinx.coroutines.launch
 
   class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-      super.onCreate(savedInstanceState)
+      override fun onCreate(savedInstanceState: Bundle?) {
+          super.onCreate(savedInstanceState)
 
-      setContent {
-        Authenticator { state ->
-            SignedInContent(state)
-        }
+          setContent {
+              Authenticator { state ->
+                  SignedInContent(state)
+              }
+          }
       }
-    }
+  }
+
+  @Composable
+  fun SignedInContent(state: SignedInState) {
+      val scope = rememberCoroutineScope()
+      Column {
+          Text("You've signed in as ${state.user.username}")
+          Button(onClick = { scope.launch { state.signOut() } }) {
+              Text("Sign Out")
+          }
+      }
   }
   ```
 </InlineFilter>
