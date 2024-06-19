@@ -222,6 +222,33 @@ describe('useUploadFiles', () => {
     });
   });
 
+  it('should remove upload after processFile promise throws', async () => {
+    const processFile: StorageManagerProps['processFile'] = () => {
+      throw new Error('forced test error');
+    };
+
+    const { waitForNextUpdate } = renderHook(() =>
+      useUploadFiles({
+        ...props,
+        isResumable: true,
+        processFile,
+        files: [mockQueuedFile],
+      })
+    );
+
+    waitForNextUpdate();
+
+    await waitFor(() => {
+      expect(mockOnUploadError).toHaveBeenCalledWith('forced test error', {
+        key: 'test.png',
+      });
+    });
+
+    await waitFor(() => {
+      expect(mockRemoveUpload).toHaveBeenCalled();
+    });
+  });
+
   it('prepends valid provided `path` to `processedKey`', async () => {
     const path = 'test-path/';
     const { waitForNextUpdate } = renderHook(() =>
