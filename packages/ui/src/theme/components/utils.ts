@@ -19,6 +19,7 @@ export type Selectors = {
 
 export interface BaseProperties extends CSSProperties, Selectors {
   _vars?: Record<string, DesignToken | string>;
+  _css?: Record<string, CSSProperties & Selectors>;
 }
 
 export type Modifiers<
@@ -52,6 +53,7 @@ export type Elements<
 
 export interface BaseTheme extends CSSProperties, Selectors {
   _vars?: Record<string, DesignToken | string>;
+  _css?: Record<string, CSSProperties & Selectors>;
   _modifiers?: Record<string, BaseProperties>;
   _element?: Record<
     string,

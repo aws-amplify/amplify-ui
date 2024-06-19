@@ -1,5 +1,4 @@
 import { BaseProperties, Modifiers } from './utils';
 
-export interface CardTheme
-  extends BaseProperties,
-    Modifiers<'elevated' | 'outlined'> {}
+export type CardTheme<Required extends boolean = false> = BaseProperties &
+  Modifiers<'elevated' | 'outlined', Required>;

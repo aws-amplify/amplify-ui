@@ -1,13 +1,6 @@
 import { createComponentTheme } from '../createTheme';
-import { WebTokens } from '../tokens';
 import { WebTheme } from '../types';
-import {
-  Modifiers,
-  BaseProperties,
-  Elements,
-  ColorTheme,
-  BaseTheme,
-} from './utils';
+import { Modifiers, BaseProperties, Elements, ColorTheme } from './utils';
 
 export type AlertTheme<Required extends boolean = false> = BaseProperties &
   Modifiers<ColorTheme, Required> &

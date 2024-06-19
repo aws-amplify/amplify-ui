@@ -7,6 +7,27 @@ describe('createComponentClasses:', () => {
       name: 'rating',
     });
 
+    const buttonClassnames = createComponentClasses({ name: 'button' });
+
+    // this is meant to mimic what Button.tsx does,
+    // some props that are used as variations might be undefined
+    // or boolean props
+    const testButton = ({
+      isLoading,
+      variation,
+      size,
+    }: {
+      isLoading?: boolean;
+      variation?: 'primary' | 'secondary';
+      size?: 'small' | 'large';
+    }) => {
+      const t = isLoading ? 'loading' : undefined;
+
+      return buttonClassnames({
+        _modifiers: [size, variation],
+      });
+    };
+
     it('should work with no args', () => {
       const classname = ratingClassnames();
       expect(classname).toEqual('amplify-rating');
@@ -17,6 +38,26 @@ describe('createComponentClasses:', () => {
       // @ts-expect-error
       const badClassname = ratingClassnames({ _modifiers: 'foo' });
       expect(classname).toEqual('amplify-rating amplify-rating--large');
+    });
+
+    it('should work with undefined modifiers', () => {
+      expect(testButton({ isLoading: true })).toEqual(
+        'amplify-button amplify-button--loading'
+      );
+      expect(
+        testButton({
+          variation: 'primary',
+          isLoading: true,
+          size: 'large',
+        }).split(' ')
+      ).toEqual(
+        expect.arrayContaining([
+          'amplify-button',
+          'amplify-button--loading',
+          'amplify-button--primary',
+          'amplify-button--large',
+        ])
+      );
     });
 
     it('should work with elements without modifiers', () => {

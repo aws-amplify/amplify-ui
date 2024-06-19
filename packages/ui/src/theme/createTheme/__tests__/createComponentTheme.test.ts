@@ -1,10 +1,6 @@
 import { Tokens, WebTokens } from '../../tokens';
 import { createComponentTheme } from '../createComponentTheme';
 
-type CustomTokens = WebTokens & {
-  foo?: any;
-};
-
 // type helper to get custom tokens type
 type DesignTokens<T extends Tokens> = WebTokens & Required<T>;
 
@@ -135,21 +131,29 @@ describe('createComponentTheme', () => {
     });
 
     // these should all work and have type-safety
-    const c4 = className({ _element: 'icon' });
-    const c5 = className();
-    const c6 = className({ _element: 'icon', _modifiers: 'large' });
-    const c7 = className({ _modifiers: 'small' });
+    const c1 = className({ _element: 'icon' });
+    const c2 = className();
+    const c3 = className({ _element: 'icon', _modifiers: 'large' });
+    const c4 = className({ _modifiers: 'small' });
 
     // These should all have TypeScript errors
 
     // @ts-expect-error
-    const c1 = className({ _element: 'foo' });
+    const c5 = className({ _element: 'foo' });
 
     // @ts-expect-error
-    const c2 = className({ _element: { icon: 'foo' } });
+    const c6 = className({ _element: { icon: 'foo' } });
 
     // @ts-expect-error
-    const c3 = className({ _modifiers: 'foo' });
+    const c7 = className({ _modifiers: 'foo' });
+
+    // @ts-expect-error
+    const c8 = className({ _element: { icon: 'foo' } });
+
+    expect(c1).toEqual('amplify-avatar__icon');
+    expect(c2).toEqual('amplify-avatar');
+    expect(c3).toEqual('amplify-avatar__icon amplify-avatar__icon--large');
+    expect(c4).toEqual('amplify-avatar amplify-avatar--small');
   });
 
   it('should return a theme function to pass to createTheme', () => {

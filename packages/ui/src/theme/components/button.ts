@@ -10,6 +10,5 @@ type Variations =
 
 type ColorThemeVariations = `${ColorTheme | 'overlay'}--${Variations}`;
 
-export interface ButtonTheme
-  extends BaseProperties,
-    Modifiers<Variations | Size | ColorThemeVariations> {}
+export type ButtonTheme<Required extends boolean = false> = BaseProperties &
+  Modifiers<Size | ColorThemeVariations | Variations | 'loading', Required>;
