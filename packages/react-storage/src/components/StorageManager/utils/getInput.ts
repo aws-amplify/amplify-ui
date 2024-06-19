@@ -2,9 +2,9 @@ import { fetchAuthSession } from 'aws-amplify/auth';
 import { StorageAccessLevel } from '@aws-amplify/core';
 import { UploadDataWithPathInput, UploadDataInput } from 'aws-amplify/storage';
 
-import { isFunction, isString, isTypedFunction } from '@aws-amplify/ui';
+import { isString, isTypedFunction } from '@aws-amplify/ui';
 
-import { ProcessFile, ProcessFileParams, StorageManagerProps } from '../types';
+import { ProcessFile, ProcessFileParams } from '../types';
 import { resolveFile } from './resolveFile';
 import { PathCallback, PathInput } from './uploadFile';
 import { UseStorageManager } from '../hooks';
@@ -17,7 +17,6 @@ export interface GetInputParams {
   path: string | PathCallback | undefined;
   processFile: ProcessFile | undefined;
   id: string;
-  onUploadError: StorageManagerProps['onUploadError'];
   removeUpload: UseStorageManager['removeUpload'];
 }
 
@@ -29,7 +28,6 @@ export const getInput = ({
   path,
   processFile,
   id,
-  onUploadError,
   removeUpload,
 }: GetInputParams) => {
   return async (): Promise<PathInput | UploadDataInput> => {
@@ -44,11 +42,13 @@ export const getInput = ({
       ...rest
     } = await resolveFile({ file, key, processFile }).catch(
       (result: ProcessFileParams) => {
-        const { key, error } = result;
+        //const { key, error } = result;
+        /* `onUploadError()` is incorrect here, as this is a Pre-Upload stage.
+         NOTE: Might need some sort of resolveFile/processFile error handler.
         if (isFunction(onUploadError)) {
-          //TODO: localize this error.
           onUploadError(error ?? `Error processing: ${key}`, { key: key });
         }
+        */
         removeUpload({ id });
         return result;
       }
