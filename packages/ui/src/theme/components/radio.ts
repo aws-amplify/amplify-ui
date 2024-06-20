@@ -1,4 +1,3 @@
-import { createComponentTheme } from '../createTheme';
 import { BaseProperties, Elements, Modifiers, Size } from './utils';
 
 export type RadioTheme<Required extends boolean = false> = BaseProperties &

@@ -1,9 +1,6 @@
-import { classNames } from '@aws-amplify/ui';
 import * as React from 'react';
+import { createComponentClasses } from '@aws-amplify/ui';
 
-import { ComponentClassName } from '@aws-amplify/ui';
-
-import { classNameModifier } from '../shared/utils';
 import {
   BaseCardProps,
   CardProps,
@@ -13,17 +10,15 @@ import {
 import { View } from '../View';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
+const cardClasses = createComponentClasses({ name: 'card' });
+
 const CardPrimitive: Primitive<CardProps, 'div'> = (
   { className, children, variation, ...rest },
   ref
 ) => {
   return (
     <View
-      className={classNames(
-        ComponentClassName.Card,
-        classNameModifier(ComponentClassName.Card, variation),
-        className
-      )}
+      className={cardClasses({ _modifiers: [variation] })}
       ref={ref}
       {...rest}
     >

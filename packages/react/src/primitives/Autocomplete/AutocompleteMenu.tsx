@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ComponentClassName } from '@aws-amplify/ui';
+import { createComponentClasses } from '@aws-amplify/ui';
 import { Loader } from '../Loader';
 
 import { ScrollView } from '../ScrollView';
@@ -14,12 +14,14 @@ import type {
 } from '../types';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
+const autocompleteClasses = createComponentClasses({ name: 'autocomplete' });
+
 const MenuHeader = ({ children }: { children?: React.ReactNode }) => {
   if (!children) {
     return null;
   }
   return (
-    <View className={ComponentClassName.AutocompleteMenuHeader}>
+    <View className={autocompleteClasses({ _element: 'menu__header' })}>
       {children}
     </View>
   );
@@ -30,7 +32,7 @@ const MenuFooter = ({ children }: { children?: React.ReactNode }) => {
     return null;
   }
   return (
-    <View className={ComponentClassName.AutocompleteMenuFooter}>
+    <View className={autocompleteClasses({ _element: 'menu__footer' })}>
       {children}
     </View>
   );
@@ -38,7 +40,7 @@ const MenuFooter = ({ children }: { children?: React.ReactNode }) => {
 
 const MenuLoading = ({ children }: { children?: React.ReactNode }) => {
   return (
-    <View className={ComponentClassName.AutocompleteMenuLoading}>
+    <View className={autocompleteClasses({ _element: { menu: 'loading' } })}>
       {children ?? (
         <>
           <Loader />
@@ -50,7 +52,7 @@ const MenuLoading = ({ children }: { children?: React.ReactNode }) => {
 };
 
 const MenuEmpty = ({ children }: { children?: React.ReactNode }) => (
-  <View className={ComponentClassName.AutocompleteMenuEmpty}>
+  <View className={autocompleteClasses({ _element: { menu: 'empty' } })}>
     {children ?? ComponentText.Autocomplete.emptyText}
   </View>
 );
@@ -71,7 +73,7 @@ const AutocompleteMenuPrimitive: Primitive<AutocompleteMenuProps, 'div'> = (
 ) => {
   return (
     <ScrollView
-      className={ComponentClassName.AutocompleteMenu}
+      className={autocompleteClasses({ _element: 'menu' })}
       ref={ref}
       {...rest}
     >
@@ -84,7 +86,7 @@ const AutocompleteMenuPrimitive: Primitive<AutocompleteMenuProps, 'div'> = (
             <ScrollView
               as="ul"
               ariaLabel={ariaLabel}
-              className={ComponentClassName.AutocompleteMenuOptions}
+              className={autocompleteClasses({ _element: 'menu__options' })}
               id={listboxId}
               role="listbox"
             >

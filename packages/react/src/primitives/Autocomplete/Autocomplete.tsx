@@ -1,7 +1,6 @@
-import { classNames } from '@aws-amplify/ui';
 import * as React from 'react';
 
-import { ComponentClassName, isFunction } from '@aws-amplify/ui';
+import { isFunction, createComponentClasses } from '@aws-amplify/ui';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 import { AutocompleteOption } from './AutocompleteOption';
@@ -18,6 +17,8 @@ import type {
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
+
+const autocompleteClasses = createComponentClasses({ name: 'autocomplete' });
 
 export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
   {
@@ -134,7 +135,7 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
 
   return (
     <View
-      className={classNames(ComponentClassName.Autocomplete, className)}
+      className={autocompleteClasses({}, [className])}
       id={autocompleteId}
       testId={testId}
     >

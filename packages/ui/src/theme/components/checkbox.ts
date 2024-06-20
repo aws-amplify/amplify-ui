@@ -6,7 +6,7 @@ export type CheckboxTheme<Required extends boolean = false> = BaseProperties &
     {
       button?: BaseProperties & Modifiers<'focused' | 'error' | 'disabled'>;
       icon?: BaseProperties &
-        Modifiers<'checked' | 'indeterminite' | 'disabled'>;
+        Modifiers<'checked' | 'indeterminate' | 'disabled'>;
       label?: BaseProperties;
     },
     Required

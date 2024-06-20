@@ -1,4 +1,3 @@
-import { createComponentTheme } from '../createTheme';
 import { BaseProperties, Elements, Modifiers } from './utils';
 
 export type TabsTheme<Required extends boolean = false> = BaseProperties &

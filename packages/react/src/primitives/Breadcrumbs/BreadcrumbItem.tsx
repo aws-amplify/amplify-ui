@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
-
-import { ComponentClassName } from '@aws-amplify/ui';
+import { createComponentClasses } from '@aws-amplify/ui';
 
 import {
   BaseBreadcrumbItemProps,
@@ -13,17 +11,19 @@ import {
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { View } from '../View';
 
+const breadcrumbsClassnames = createComponentClasses({ name: 'breadcrumbs' });
+
 const BreadcrumbItemPrimitive: Primitive<BreadcrumbsItemProps, 'li'> = (
   { className, children, as = 'li', ...rest },
   ref
 ) => {
-  const componentClasses = classNames(
-    ComponentClassName.BreadcrumbsItem,
-    className
-  );
-
   return (
-    <View {...rest} as={as} className={componentClasses} ref={ref}>
+    <View
+      {...rest}
+      as={as}
+      className={breadcrumbsClassnames({ _element: 'item' }, [className])}
+      ref={ref}
+    >
       {children}
     </View>
   );

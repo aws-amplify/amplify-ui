@@ -1,9 +1,6 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { createComponentClasses } from '@aws-amplify/ui';
 
-import { ComponentClassName } from '@aws-amplify/ui';
-
-import { classNameModifier } from '../shared/utils';
 import {
   BadgeProps,
   BaseBadgeProps,
@@ -13,19 +10,19 @@ import {
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { View } from '../View';
 
+const badgeClasses = createComponentClasses({ name: 'badge' });
+
 const BadgePrimitive: Primitive<BadgeProps, 'span'> = (
   { className, children, variation, size, ...rest },
   ref
 ) => {
-  const componentClasses = classNames(
-    ComponentClassName.Badge,
-    className,
-    classNameModifier(ComponentClassName.Badge, variation),
-    classNameModifier(ComponentClassName.Badge, size)
-  );
-
   return (
-    <View as="span" className={componentClasses} ref={ref} {...rest}>
+    <View
+      as="span"
+      className={badgeClasses({ _modifiers: [variation, size] }, [className])}
+      ref={ref}
+      {...rest}
+    >
       {children}
     </View>
   );

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { classNames, createComponentClasses } from '@aws-amplify/ui';
 
 import { ComponentClassName, isFunction } from '@aws-amplify/ui';
 
@@ -17,6 +17,8 @@ import { classNameModifierByFlag } from '../shared/utils';
 import { View } from '../View';
 import { useFieldset } from '../Fieldset/useFieldset';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
+
+const checkboxClasses = createComponentClasses({ name: 'checkbox' });
 
 const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   {
@@ -91,42 +93,27 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   const buttonTestId = getTestId(testId, ComponentClassName.CheckboxButton);
   const iconTestId = getTestId(testId, ComponentClassName.CheckboxIcon);
   const labelTestId = getTestId(testId, ComponentClassName.CheckboxLabel);
-  const flexClasses = classNames(
-    ComponentClassName.CheckboxButton,
-    classNameModifierByFlag(
-      ComponentClassName.CheckboxButton,
-      'disabled',
-      shouldBeDisabled
-    ),
-    classNameModifierByFlag(
-      ComponentClassName.CheckboxButton,
-      'error',
-      hasError
-    ),
-    classNameModifierByFlag(
-      ComponentClassName.CheckboxButton,
-      'focused',
-      focused
-    )
-  );
-  const iconClasses = classNames(
-    ComponentClassName.CheckboxIcon,
-    classNameModifierByFlag(
-      ComponentClassName.CheckboxIcon,
-      'checked',
-      checked
-    ),
-    classNameModifierByFlag(
-      ComponentClassName.CheckboxIcon,
-      'disabled',
-      shouldBeDisabled
-    ),
-    classNameModifierByFlag(
-      ComponentClassName.CheckboxIcon,
-      'indeterminate',
-      isIndeterminate
-    )
-  );
+
+  const flexClasses = checkboxClasses({
+    _element: {
+      button: [
+        shouldBeDisabled ? 'disabled' : undefined,
+        hasError ? 'error' : undefined,
+        focused ? 'focused' : undefined,
+      ],
+    },
+  });
+
+  const iconClasses = checkboxClasses({
+    _element: {
+      icon: [
+        checked ? 'checked' : undefined,
+        isDisabled ? 'disabled' : undefined,
+        isIndeterminate ? 'indeterminate' : undefined,
+      ],
+    },
+  });
+
   const iconProps = {
     className: classNames(iconClasses),
     'data-checked': localChecked,

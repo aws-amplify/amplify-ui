@@ -1,4 +1,4 @@
-import { isObject, isString } from '../../utils';
+import { isObject, isString, classNames, ClassNamesArgs } from '../../utils';
 import { ComponentThemeFromName } from '../components';
 import { BaseTheme } from '../components/utils';
 
@@ -9,7 +9,7 @@ type ElementNames<T extends unknown> = T extends { _element?: any }
 
 // Gets the modifiers of an element within a theme
 type ModifierNames<T extends unknown> = T extends { _modifiers?: any }
-  ? Arrayify<keyof Required<T['_modifiers']>>
+  ? Arrayify<keyof Required<T['_modifiers']> | undefined>
   : never;
 
 type Arrayify<T> = T | T[];
@@ -27,9 +27,10 @@ export type ClassNameArgs<T extends BaseTheme> = {
 
 export type ClassNameFunction<
   T extends BaseTheme = BaseTheme,
-  NameType extends string = string
+  NameType extends string = string,
 > = (
-  props?: ClassNameArgs<UnwrapTheme<ComponentThemeFromName<NameType, T>>>
+  props?: ClassNameArgs<UnwrapTheme<ComponentThemeFromName<NameType, T>>>,
+  extraClassnames?: ClassNamesArgs
 ) => string;
 
 // This will take a theme which could be either a plain object or a function that returns a plain object
@@ -42,9 +43,12 @@ type UnwrapTheme<ThemeType extends BaseTheme = BaseTheme> = ThemeType extends (
 
 export function createComponentClasses<
   ThemeType extends BaseTheme,
-  NameType extends string = string
+  NameType extends string = string,
 >({ name, prefix = 'amplify-' }: { name: NameType; prefix?: string }) {
-  const className: ClassNameFunction<ThemeType, NameType> = (props) => {
+  const className: ClassNameFunction<ThemeType, NameType> = (
+    props,
+    extraClassnames
+  ) => {
     const baseComponentClassName = `${prefix}${name}`;
     if (!props) {
       return baseComponentClassName;
@@ -59,7 +63,7 @@ export function createComponentClasses<
     const className = el
       ? `${baseComponentClassName}__${el}`
       : baseComponentClassName;
-    const classNames = [className];
+    const names = [className, extraClassnames];
 
     if (el) {
       const modifiers = props._element[el];
@@ -68,11 +72,11 @@ export function createComponentClasses<
           if (!modifier || !isString(modifier)) {
             return;
           }
-          classNames.push(`${className}--${modifier}`);
+          names.push(`${className}--${modifier}`);
         });
       }
       if (isString(modifiers)) {
-        classNames.push(`${className}--${modifiers}`);
+        names.push(`${className}--${modifiers}`);
       }
     }
 
@@ -81,15 +85,15 @@ export function createComponentClasses<
         if (!modifier || !isString(modifier)) {
           return;
         }
-        classNames.push(`${className}--${modifier}`);
+        names.push(`${className}--${modifier}`);
       });
     }
 
     if (isString(props._modifiers)) {
-      classNames.push(`${className}--${props._modifiers}`);
+      names.push(`${className}--${props._modifiers}`);
     }
 
-    return classNames.join(' ');
+    return classNames(names);
   };
   return className;
 }

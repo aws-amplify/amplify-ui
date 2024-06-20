@@ -1,9 +1,6 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { createComponentClasses } from '@aws-amplify/ui';
 
-import { ComponentClassName } from '@aws-amplify/ui';
-
-import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import {
   BaseButtonProps,
   ButtonProps,
@@ -17,6 +14,8 @@ import { useFieldset } from '../Fieldset/useFieldset';
 import { Flex } from '../Flex';
 import { Loader } from '../Loader';
 import { View } from '../View';
+
+const buttonClassnames = createComponentClasses({ name: 'button' });
 
 // These variations support colorThemes. 'undefined' accounts for our
 // 'default' variation which is not named.
@@ -42,7 +41,7 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
   // supports colorThemes and a colorTheme is used.
   const colorThemeModifier =
     supportedVariations.includes(variation) && colorTheme
-      ? `${variation ?? 'outlined'}--${colorTheme}`
+      ? (`${variation ?? 'outlined'}--${colorTheme}` as const)
       : undefined;
 
   const { isFieldsetDisabled } = useFieldset();
@@ -50,24 +49,18 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
     ? isFieldsetDisabled
     : isDisabled ?? isLoading ?? rest['disabled'];
 
-  const componentClasses = classNames(
-    ComponentClassName.Button,
-    ComponentClassName.FieldGroupControl,
-    classNameModifier(ComponentClassName.Button, variation),
-    classNameModifier(ComponentClassName.Button, colorThemeModifier),
-    classNameModifier(ComponentClassName.Button, size),
-    classNameModifierByFlag(
-      ComponentClassName.Button,
-      'disabled',
-      shouldBeDisabled
-    ),
-    classNameModifierByFlag(ComponentClassName.Button, 'loading', isLoading),
-    classNameModifierByFlag(
-      ComponentClassName.Button,
-      'fullwidth',
-      isFullWidth
-    ),
-    className
+  const componentClasses = buttonClassnames(
+    {
+      _modifiers: [
+        variation,
+        colorThemeModifier,
+        size,
+        shouldBeDisabled ? 'disabled' : undefined,
+        isFullWidth ? 'fullwidth' : undefined,
+        isLoading ? 'loading' : undefined,
+      ],
+    },
+    [className]
   );
 
   return (
@@ -80,7 +73,10 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
       {...rest}
     >
       {isLoading ? (
-        <Flex as="span" className={ComponentClassName.ButtonLoaderWrapper}>
+        <Flex
+          as="span"
+          className={buttonClassnames({ _element: 'loader-wrapper' })}
+        >
           <Loader size={size} />
           {loadingText ? loadingText : null}
         </Flex>
