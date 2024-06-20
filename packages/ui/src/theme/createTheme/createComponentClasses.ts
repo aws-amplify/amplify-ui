@@ -27,7 +27,7 @@ export type ClassNameArgs<T extends BaseTheme> = {
 
 export type ClassNameFunction<
   T extends BaseTheme = BaseTheme,
-  NameType extends string = string,
+  NameType extends string = string
 > = (
   props?: ClassNameArgs<UnwrapTheme<ComponentThemeFromName<NameType, T>>>
 ) => string;
@@ -42,7 +42,7 @@ type UnwrapTheme<ThemeType extends BaseTheme = BaseTheme> = ThemeType extends (
 
 export function createComponentClasses<
   ThemeType extends BaseTheme,
-  NameType extends string = string,
+  NameType extends string = string
 >({ name, prefix = 'amplify-' }: { name: NameType; prefix?: string }) {
   const className: ClassNameFunction<ThemeType, NameType> = (props) => {
     const baseComponentClassName = `${prefix}${name}`;
@@ -93,5 +93,3 @@ export function createComponentClasses<
   };
   return className;
 }
-
-const c = createComponentClasses({ name: 'alert' });
