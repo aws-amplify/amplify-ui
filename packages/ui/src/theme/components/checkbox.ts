@@ -1,9 +1,13 @@
-import { Modifiers, BaseProperties, ColorTheme } from './utils';
+import { Modifiers, BaseProperties, ColorTheme, Elements } from './utils';
 
-export interface CheckboxTheme extends BaseProperties, Modifiers<ColorTheme> {
-  _element?: {
-    button?: BaseProperties & Modifiers<'focused' | 'error' | 'disabled'>;
-    icon?: BaseProperties & Modifiers<'checked' | 'indeterminite' | 'disabled'>;
-    label?: BaseProperties;
-  };
-}
+export type CheckboxTheme<Required extends boolean = false> = BaseProperties &
+  Modifiers<ColorTheme> &
+  Elements<
+    {
+      button?: BaseProperties & Modifiers<'focused' | 'error' | 'disabled'>;
+      icon?: BaseProperties &
+        Modifiers<'checked' | 'indeterminite' | 'disabled'>;
+      label?: BaseProperties;
+    },
+    Required
+  >;

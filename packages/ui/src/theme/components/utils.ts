@@ -33,22 +33,20 @@ export type Modifiers<
       _modifiers?: { [key in Keys]?: BaseProperties };
     };
 
-// This type assumes all elements have the same shape
-// but some elements could have different modifiers
 export type Elements<
-  Keys extends string = string,
+  Properties extends Record<
+    string,
+    BaseProperties & {
+      _modifiers?: Record<string, BaseProperties>;
+    }
+  >,
   Required extends boolean = false,
-  Properties extends BaseProperties = BaseProperties,
 > = Required extends true
   ? {
-      _element: {
-        [key in Keys]: Properties;
-      };
+      _element: Properties;
     }
   : {
-      _element?: {
-        [key in Keys]?: Properties;
-      };
+      _element?: Properties;
     };
 
 export interface BaseTheme extends CSSProperties, Selectors {

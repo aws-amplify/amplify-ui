@@ -9,17 +9,17 @@ type ElementNames<T extends unknown> = T extends { _element?: any }
 
 // Gets the modifiers of an element within a theme
 type ModifierNames<T extends unknown> = T extends { _modifiers?: any }
-  ? Arrayify<keyof Required<T['_modifiers'] | undefined>>
+  ? Arrayify<keyof Required<T['_modifiers']>>
   : never;
 
 type Arrayify<T> = T | T[];
 
-type ClassNameArgs<T extends BaseTheme> = {
+export type ClassNameArgs<T extends BaseTheme> = {
   _element?:
     | ElementNames<Required<T>>
     | {
         [Key in ElementNames<Required<T>>]?: ModifierNames<
-          Required<Required<T['_element']>[Key]>
+          Required<Required<Required<T>['_element']>[Key]>
         >;
       };
   _modifiers?: ModifierNames<Required<T>>;
@@ -50,7 +50,6 @@ export function createComponentClasses<
       return baseComponentClassName;
     }
 
-    // this is kinda weird
     const el = isString(props._element)
       ? props._element
       : isObject(props._element)
@@ -64,7 +63,6 @@ export function createComponentClasses<
 
     if (el) {
       const modifiers = props._element[el];
-      // TODO: change this to object
       if (Array.isArray(modifiers)) {
         modifiers.forEach((modifier) => {
           if (!modifier || !isString(modifier)) {

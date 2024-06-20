@@ -3,9 +3,8 @@ import { BaseProperties, Elements, Modifiers } from './utils';
 
 export type PaginationTheme<Required extends boolean = false> = BaseProperties &
   Elements<
-    'item',
-    Required,
-    BaseProperties & Modifiers<'ellipsis' | 'current' | 'disabled'>
+    { item?: BaseProperties & Modifiers<'ellipsis' | 'current' | 'disabled'> },
+    Required
   >;
 
 export const paginationTheme = createComponentTheme<PaginationTheme<true>>({

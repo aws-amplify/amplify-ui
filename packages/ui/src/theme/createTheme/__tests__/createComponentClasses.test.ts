@@ -24,7 +24,7 @@ describe('createComponentClasses:', () => {
       const t = isLoading ? 'loading' : undefined;
 
       return buttonClassnames({
-        _modifiers: [size, variation],
+        _modifiers: [size, variation, t],
       });
     };
 

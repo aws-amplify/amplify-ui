@@ -1,6 +1,8 @@
 import { Modifiers, BaseProperties, Elements, ColorTheme, Size } from './utils';
 
-export interface BadgeTheme
-  extends BaseProperties,
-    Modifiers<Size | ColorTheme>,
-    Elements<'icon' | 'heading' | 'body' | 'dismiss'> {}
+export type BadgeTheme<Required extends boolean = false> = BaseProperties &
+  Modifiers<Size | ColorTheme> &
+  Elements<
+    { [key in 'icon' | 'heading' | 'body' | 'dismiss']: BaseProperties },
+    Required
+  >;

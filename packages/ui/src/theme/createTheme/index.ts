@@ -6,4 +6,7 @@ export {
   SetupToken,
   isDesignToken,
 } from './utils';
-export { createComponentClasses } from './createComponentClasses';
+export {
+  createComponentClasses,
+  ClassNameArgs,
+} from './createComponentClasses';

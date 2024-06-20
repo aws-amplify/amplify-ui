@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { classNames, createComponentClasses } from '@aws-amplify/ui';
 
-import { ComponentClassName } from '@aws-amplify/ui';
 import { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { IconExpandMore, useIcons } from '../Icon';
@@ -15,6 +14,8 @@ type AccordionIconProps<Element extends ElementType = 'span'> = PrimitiveProps<
   Element
 >;
 
+const accordionClasses = createComponentClasses({ name: 'accordion' });
+
 const AccordionIconPrimitive: Primitive<AccordionIconProps, 'span'> = (
   { className, as = 'span', ...rest },
   ref
@@ -26,7 +27,10 @@ const AccordionIconPrimitive: Primitive<AccordionIconProps, 'span'> = (
       {...rest}
       ref={ref}
       as={as}
-      className={classNames(ComponentClassName.AccordionItemIcon, className)}
+      className={classNames(
+        accordionClasses({ _element: 'item__icon' }),
+        className
+      )}
       aria-hidden="true"
     >
       {icons?.more ?? <IconExpandMore />}

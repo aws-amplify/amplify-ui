@@ -1,5 +1,10 @@
 import { BaseProperties, Elements } from './utils';
 
-export interface BreadcrumbsTheme
-  extends BaseProperties,
-    Elements<'list' | 'separator' | 'item' | 'link'> {}
+export type BreadcrumbsTheme<Required extends boolean = false> =
+  BaseProperties &
+    Elements<
+      {
+        [key in 'list' | 'separator' | 'item' | 'link']: BaseProperties;
+      },
+      Required
+    >;

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { classNames, createComponentClasses } from '@aws-amplify/ui';
 
-import { ComponentClassName, isTypedFunction } from '@aws-amplify/ui';
+import { isTypedFunction } from '@aws-amplify/ui';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
@@ -12,6 +12,8 @@ interface BaseAccordionTriggerProps extends BaseViewProps {}
 
 type AccordionTriggerProps<Element extends ElementType = 'summary'> =
   PrimitiveProps<BaseAccordionTriggerProps, Element>;
+
+const accordionClasses = createComponentClasses({ name: 'accordion' });
 
 const AccordionTriggerPrimitive: Primitive<AccordionTriggerProps, 'summary'> = (
   { children, className, ...rest },
@@ -35,7 +37,10 @@ const AccordionTriggerPrimitive: Primitive<AccordionTriggerProps, 'summary'> = (
       {...rest}
       ref={ref}
       as="summary"
-      className={classNames(ComponentClassName.AccordionItemTrigger, className)}
+      className={classNames(
+        accordionClasses({ _element: 'item__trigger' }),
+        className
+      )}
       onClick={handleOnClick}
     >
       {children}
