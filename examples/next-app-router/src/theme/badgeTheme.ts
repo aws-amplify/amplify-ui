@@ -1,4 +1,4 @@
-import { createComponentTheme } from '@aws-amplify/ui';
+import { createComponentTheme } from '@aws-amplify/ui-react/server';
 
 export const badgeTheme = createComponentTheme({
   name: 'badge',

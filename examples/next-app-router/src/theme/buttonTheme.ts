@@ -1,4 +1,4 @@
-import { createComponentTheme } from '@aws-amplify/ui-react/theme';
+import { createComponentTheme } from '@aws-amplify/ui-react/server';
 
 export const buttonTheme = createComponentTheme({
   name: 'button',

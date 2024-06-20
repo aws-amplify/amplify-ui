@@ -1,4 +1,4 @@
-import { createComponentTheme } from '@aws-amplify/ui';
+import { createComponentTheme } from '@aws-amplify/ui-react/server';
 
 // this is javascript, not typescript
 export const buttonTheme = createComponentTheme({

@@ -164,6 +164,5 @@ describe('createComponentTheme', () => {
       },
     });
     expect(typeof theme).toBe('function');
-    // expect(theme(tokens)).toStrictEqual({});
   });
 });

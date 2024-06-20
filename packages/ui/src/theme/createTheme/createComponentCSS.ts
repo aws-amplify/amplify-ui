@@ -26,9 +26,11 @@ function propsToString(props: CSSProperties): string {
 function addVars(selector: string, vars: Record<string, unknown>) {
   if (!vars) return '';
 
-  return `${selector} { ${Object.entries(vars).map(([key, value]) => {
-    return `--${key}:${value}; `;
-  })}}\n`;
+  return `${selector} { ${Object.entries(vars)
+    .map(([key, value]) => {
+      return `--${key}:${value}; `;
+    })
+    .join(' ')}}\n`;
 }
 
 function recursiveComponentCSS(baseSelector: string, theme: BaseTheme) {

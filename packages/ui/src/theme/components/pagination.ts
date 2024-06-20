@@ -6,28 +6,3 @@ export type PaginationTheme<Required extends boolean = false> = BaseProperties &
     { item?: BaseProperties & Modifiers<'ellipsis' | 'current' | 'disabled'> },
     Required
   >;
-
-export const paginationTheme = createComponentTheme<PaginationTheme<true>>({
-  name: 'pagination',
-  theme(tokens) {
-    const {
-      components: { pagination },
-    } = tokens;
-    return {
-      listStyleType: 'none',
-      _element: {
-        item: {
-          height: pagination.itemShared.height,
-          minWidth: pagination.itemShared.minWidth,
-          _modifiers: {
-            type: {
-              disabled: {},
-              current: {},
-              ellipsis: {},
-            },
-          },
-        },
-      },
-    };
-  },
-});
