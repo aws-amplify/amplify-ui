@@ -12,6 +12,8 @@ export const loaderTheme = createComponentTheme<LoaderTheme<true>>({
       _modifiers: {
         large: {},
         small: {},
+        linear: {},
+        determinate: {},
       },
       _element: {
         label: {},

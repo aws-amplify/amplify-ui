@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { fieldGroupClasses } from '@aws-amplify/ui';
 
-import { classNameModifier } from '../shared/utils';
-import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseFieldGroupOptions,
   FieldGroupOptions,
@@ -30,52 +28,48 @@ const FieldGroupPrimitive: Primitive<FieldGroupOptions, 'div'> = (
   // Don't apply hasInner classnames unless a component was provided
   const hasInnerStartComponent = innerStartComponent != null;
   const hasInnerEndComponent = innerEndComponent != null;
-  const fieldGroupHasInnerStartClassName = hasInnerStartComponent
-    ? ComponentClassName.FieldGroupHasInnerStart
-    : null;
-  const fieldGroupHasInnerEndClassName = hasInnerEndComponent
-    ? ComponentClassName.FieldGroupHasInnerEnd
-    : null;
-  const componentClasses = classNames(
-    ComponentClassName.FieldGroup,
-    fieldGroupHasInnerStartClassName,
-    fieldGroupHasInnerEndClassName,
-    classNameModifier(ComponentClassName.FieldGroup, orientation),
-    className
-  );
 
   return (
-    <Flex className={componentClasses} ref={ref} {...rest}>
+    <Flex
+      className={fieldGroupClasses(
+        {
+          _modifiers: [
+            orientation,
+            hasInnerEndComponent ? 'has-inner-end' : undefined,
+            hasInnerStartComponent ? 'has-inner-start' : undefined,
+          ],
+        },
+        [className]
+      )}
+      ref={ref}
+      {...rest}
+    >
       {outerStartComponent && (
         <View
-          className={classNames(
-            ComponentClassName.FieldGroupOuterStart,
-            classNameModifier(
-              ComponentClassName.FieldGroupOuterStart,
-              variation
-            )
-          )}
+          className={fieldGroupClasses({
+            _element: {
+              'outer-start': [variation],
+            },
+          })}
         >
           {outerStartComponent}
         </View>
       )}
       <View
-        className={classNames(
-          ComponentClassName.FieldGroupFieldWrapper,
-          classNameModifier(
-            ComponentClassName.FieldGroupFieldWrapper,
-            orientation
-          )
-        )}
+        className={fieldGroupClasses({
+          _element: {
+            'field-wrapper': [orientation],
+          },
+        })}
       >
         {innerStartComponent && (
-          <View className={ComponentClassName.FieldGroupInnerStart}>
+          <View className={fieldGroupClasses({ _element: 'inner-start' })}>
             {innerStartComponent}
           </View>
         )}
         {children}
         {innerEndComponent && (
-          <View className={ComponentClassName.FieldGroupInnerEnd}>
+          <View className={fieldGroupClasses({ _element: 'inner-end' })}>
             {innerEndComponent}
           </View>
         )}
@@ -83,10 +77,11 @@ const FieldGroupPrimitive: Primitive<FieldGroupOptions, 'div'> = (
 
       {outerEndComponent && (
         <View
-          className={classNames(
-            ComponentClassName.FieldGroupOuterEnd,
-            classNameModifier(ComponentClassName.FieldGroupOuterEnd, variation)
-          )}
+          className={fieldGroupClasses({
+            _element: {
+              'outer-end': [variation],
+            },
+          })}
         >
           {outerEndComponent}
         </View>

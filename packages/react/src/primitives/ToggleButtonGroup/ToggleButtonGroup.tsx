@@ -1,7 +1,6 @@
-import { classNames } from '@aws-amplify/ui';
+import { toggleButtonGroupClasses } from '@aws-amplify/ui';
 import * as React from 'react';
 
-import { ComponentClassName } from '@aws-amplify/ui';
 import { Flex } from '../Flex';
 import {
   Primitive,
@@ -37,7 +36,7 @@ const ToggleButtonGroupPrimitive: Primitive<ToggleButtonGroupProps, 'div'> = (
 
   return (
     <Flex
-      className={classNames(ComponentClassName.ToggleButtonGroup, className)}
+      className={toggleButtonGroupClasses(undefined, [className])}
       ref={ref}
       role="group"
       {...rest}

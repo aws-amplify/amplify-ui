@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { tableClasses } from '@aws-amplify/ui';
 
-import { ComponentClassName } from '@aws-amplify/ui';
 import {
   ForwardRefPrimitive,
   Primitive,
@@ -18,11 +17,11 @@ const TableCellPrimitive: Primitive<TableCellProps, TableCellElement> = (
 ) => (
   <View
     as={asElementTag}
-    className={classNames(
-      asElementTag === 'td'
-        ? ComponentClassName.TableTd
-        : ComponentClassName.TableTh,
-      className
+    className={tableClasses(
+      {
+        _element: asElementTag === 'td' ? 'td' : 'th',
+      },
+      [className]
     )}
     ref={ref}
     {...rest}

@@ -1,9 +1,7 @@
-import { classNames } from '@aws-amplify/ui';
+import { toggleButtonClasses } from '@aws-amplify/ui';
 import * as React from 'react';
 
-import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { Button } from '../Button';
-import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseToggleButtonProps,
   ToggleButtonProps,
@@ -36,21 +34,16 @@ const ToggleButtonPrimitive: Primitive<ToggleButtonProps, 'button'> = (
     onClick,
     value,
   });
-  const componentClasses = classNames(
-    ComponentClassName.ToggleButton,
-    classNameModifier(ComponentClassName.ToggleButton, variation),
-    classNameModifierByFlag(
-      ComponentClassName.ToggleButton,
-      'pressed',
-      isPressed
-    ),
-    className
-  );
 
   return (
     <Button
       aria-pressed={isPressed}
-      className={componentClasses}
+      className={toggleButtonClasses(
+        {
+          _modifiers: [variation, isPressed ? 'pressed' : undefined],
+        },
+        [className]
+      )}
       isDisabled={isDisabled}
       onClick={handleClick}
       ref={ref}

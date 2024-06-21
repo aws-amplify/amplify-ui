@@ -6,6 +6,7 @@ export type FieldTheme<Required extends boolean = false> = BaseProperties &
     {
       description?: BaseProperties;
       'error-message'?: BaseProperties;
+      'show-password'?: BaseProperties & Modifiers<'error', Required>;
     },
     Required
   >;

@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { placeholderClasses } from '@aws-amplify/ui';
 
-import { classNameModifier } from '../shared/utils';
-import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BasePlaceholderProps,
   PlaceholderProps,
@@ -22,10 +20,11 @@ const PlaceholderPrimitive: Primitive<PlaceholderProps, 'div'> = (
 
   return (
     <View
-      className={classNames(
-        ComponentClassName.Placeholder,
-        classNameModifier(ComponentClassName.Placeholder, size),
-        className
+      className={placeholderClasses(
+        {
+          _modifiers: [size],
+        },
+        [className]
       )}
       ref={ref}
       {...rest}

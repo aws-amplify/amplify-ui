@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { fieldsetClasses } from '@aws-amplify/ui';
 
-import { ComponentClassName } from '@aws-amplify/ui';
-import { classNameModifier } from '../shared/utils';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 import { Flex } from '../Flex';
@@ -43,33 +41,34 @@ const FieldsetPrimitive: Primitive<FieldsetProps, 'fieldset'> = (
     [shouldBeDisabled]
   );
 
-  const fieldsetClasses = classNames(
-    ComponentClassName.Fieldset,
-    classNameModifier(ComponentClassName.Fieldset, variation),
-    classNameModifier(ComponentClassName.Fieldset, size),
-    className
-  );
-
-  const legendClasses = classNames(
-    ComponentClassName.FieldsetLegend,
-    classNameModifier(ComponentClassName.FieldsetLegend, size),
-    {
-      [ComponentClassName.VisuallyHidden]: legendHidden,
-    }
-  );
-
   return (
     <FieldsetContext.Provider value={value}>
       <Flex
         as="fieldset"
-        className={fieldsetClasses}
+        className={fieldsetClasses(
+          {
+            _modifiers: [variation, size],
+          },
+          [className]
+        )}
         ref={ref}
         disabled={shouldBeDisabled}
         testId={testId}
         {...rest}
       >
         <VisuallyHidden as="legend">{legend}</VisuallyHidden>
-        <View as="div" aria-hidden="true" className={legendClasses}>
+        <View
+          as="div"
+          aria-hidden="true"
+          className={fieldsetClasses(
+            {
+              _element: {
+                legend: [size],
+              },
+            },
+            [legendHidden ? 'amplify-visually-hidden' : undefined]
+          )}
+        >
           {legend}
         </View>
 

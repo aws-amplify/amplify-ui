@@ -6,6 +6,7 @@ export type SliderFieldTheme<Required extends boolean = false> =
     Elements<
       {
         label?: BaseProperties;
+        group?: BaseProperties;
         root?: BaseProperties &
           Modifiers<'disabled' | 'horizontal' | 'vertical' | Size, Required>;
         track?: BaseProperties &

@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { tableClasses } from '@aws-amplify/ui';
 
-import { ComponentClassName } from '@aws-amplify/ui';
 import {
   ForwardRefPrimitive,
   Primitive,
@@ -17,7 +16,7 @@ const TableHeadPrimitive: Primitive<TableHeadProps, 'thead'> = (
 ) => (
   <View
     as="thead"
-    className={classNames(ComponentClassName.TableHead, className)}
+    className={tableClasses({ _element: 'head' }, [className])}
     ref={ref}
     {...rest}
   >

@@ -15,7 +15,7 @@ type Variations =
   | 'link';
 
 type ColorThemeVariations =
-  | `${Variations | 'outlined'}--${ColorTheme | 'overlay'}`
+  | `${'primary' | 'link' | 'outlined'}--${ColorTheme | 'overlay'}`
   | undefined;
 
 export type ButtonTheme<Required extends boolean = false> = BaseProperties &
@@ -30,7 +30,7 @@ export type ButtonTheme<Required extends boolean = false> = BaseProperties &
   > &
   Elements<
     {
-      'loader-wrapper': BaseProperties;
+      'loader-wrapper'?: BaseProperties;
     },
     Required
   >;

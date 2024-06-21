@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { tableClasses } from '@aws-amplify/ui';
 
-import { classNameModifier } from '../shared/utils';
-import { ComponentClassName } from '@aws-amplify/ui';
 import {
   ForwardRefPrimitive,
   Primitive,
@@ -24,23 +22,21 @@ const TablePrimitive: Primitive<TableProps, 'table'> = (
   },
   ref
 ) => {
-  const componentClasses = classNames(
-    ComponentClassName.Table,
-    classNameModifier(ComponentClassName.Table, size),
-    classNameModifier(ComponentClassName.Table, variation),
-    className
-  );
-
   return (
     <View
       as="table"
-      className={componentClasses}
+      className={tableClasses(
+        {
+          _modifiers: [size, variation],
+        },
+        [className]
+      )}
       data-highlightonhover={highlightOnHover}
       ref={ref}
       {...rest}
     >
       {caption && (
-        <View as="caption" className={ComponentClassName.TableCaption}>
+        <View as="caption" className={tableClasses({ _element: 'caption' })}>
           {caption}
         </View>
       )}

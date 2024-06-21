@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { radioClasses } from '@aws-amplify/ui';
 
-import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
-import { ComponentClassName } from '@aws-amplify/ui';
 import { Flex } from '../Flex';
 import { Input } from '../Input';
 import {
@@ -61,37 +59,32 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
   return (
     <Flex
       as="label"
-      className={classNames(
-        ComponentClassName.Radio,
-        classNameModifierByFlag(
-          ComponentClassName.Radio,
-          `disabled`,
-          shouldBeDisabled
-        ),
-        labelPosition ? `amplify-label-${labelPosition}` : null,
-        className
+      className={radioClasses(
+        {
+          _modifiers: [shouldBeDisabled ? 'disabled' : undefined],
+        },
+        [labelPosition ? `amplify-label-${labelPosition}` : null, className]
       )}
     >
       {children && (
         <Text
           as="span"
-          className={classNames(
-            ComponentClassName.RadioLabel,
-            classNameModifierByFlag(
-              ComponentClassName.RadioLabel,
-              `disabled`,
-              shouldBeDisabled
-            )
-          )}
+          className={radioClasses({
+            _element: {
+              label: { disabled: shouldBeDisabled },
+            },
+          })}
         >
           {children}
         </Text>
       )}
       <Input
         checked={checked}
-        className={classNames(
-          ComponentClassName.VisuallyHidden,
-          ComponentClassName.RadioInput
+        className={radioClasses(
+          {
+            _element: 'input',
+          },
+          ['amplify-visually-hidden']
         )}
         defaultChecked={defaultChecked}
         hasError={hasError}
@@ -109,10 +102,11 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
       <Flex
         aria-hidden="true"
         as="span"
-        className={classNames(
-          ComponentClassName.RadioButton,
-          classNameModifier(ComponentClassName.RadioButton, size)
-        )}
+        className={radioClasses({
+          _element: {
+            button: [size],
+          },
+        })}
         testId={testId}
       />
     </Flex>

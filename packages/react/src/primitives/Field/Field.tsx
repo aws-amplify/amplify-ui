@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { fieldClasses } from '@aws-amplify/ui';
 import {
   ForwardRefPrimitive,
   Primitive,
@@ -8,8 +8,6 @@ import {
   BaseInputProps,
   BaseFieldProps,
 } from '../types';
-import { classNameModifier } from '../shared/utils';
-import { ComponentClassName } from '@aws-amplify/ui';
 import { Flex } from '../Flex';
 import { FieldDescription } from './FieldDescription';
 import { FieldErrorMessage } from './FieldErrorMessage';
@@ -38,11 +36,7 @@ const FieldPrimitive: Primitive<FieldPrimitiveProps, 'div'> = (props, ref) => {
 
   return (
     <Flex
-      className={classNames(
-        ComponentClassName.Field,
-        classNameModifier(ComponentClassName.Field, size),
-        className
-      )}
+      className={fieldClasses({ _modifiers: [size] }, [className])}
       testId={testId}
       ref={ref}
       {...rest}

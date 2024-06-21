@@ -1,6 +1,5 @@
 import { createComponentClasses } from '../createTheme';
 import { WebTokens } from '../tokens';
-import { SliderFieldTokens } from '../tokens/components/sliderField';
 import { AccordionTheme } from './accordion';
 import { AlertTheme } from './alert';
 import { AutoCompleteTheme } from './autocomplete';
@@ -23,13 +22,16 @@ import { PaginationTheme } from './pagination';
 import { PlaceholderTheme } from './placeholder';
 import { RadioTheme } from './radio';
 import { RatingTheme } from './rating';
+import { SearchFieldTheme } from './searchField';
 import { SelectTheme } from './select';
+import { SelectFieldTheme } from './selectField';
 import { SliderFieldTheme } from './sliderField';
 import { StepperFieldTheme } from './stepperField';
 import { StorageManagerTheme } from './storageManager';
-import { SwitchFieldTheme } from './switchField';
+import { SwitchFieldTheme, SwitchTheme } from './switchField';
 import { TableTheme } from './table';
 import { TabsTheme } from './tabs';
+import { TextFieldTheme } from './textField';
 import { TextareaTheme } from './textarea';
 import { TextareaFieldTheme } from './textareaField';
 import { ToggleButtonTheme, ToggleButtonGroupTheme } from './toggleButton';
@@ -63,15 +65,19 @@ export type ComponentsTheme<TokensType extends WebTokens = WebTokens> =
   | BaseComponentTheme<PlaceholderTheme, 'placeholder', TokensType>
   | BaseComponentTheme<RatingTheme, 'rating', TokensType>
   | BaseComponentTheme<RadioTheme, 'radio', TokensType>
+  | BaseComponentTheme<SearchFieldTheme, 'searchfield', TokensType>
   | BaseComponentTheme<SelectTheme, 'select', TokensType>
+  | BaseComponentTheme<SelectFieldTheme, 'selectfield', TokensType>
   | BaseComponentTheme<SliderFieldTheme, 'sliderfield', TokensType>
   | BaseComponentTheme<StepperFieldTheme, 'stepperfield', TokensType>
   | BaseComponentTheme<StorageManagerTheme, 'storagemanager', TokensType>
+  | BaseComponentTheme<SwitchTheme, 'switch', TokensType>
   | BaseComponentTheme<SwitchFieldTheme, 'switchfield', TokensType>
   | BaseComponentTheme<TabsTheme, 'tabs', TokensType>
   | BaseComponentTheme<TableTheme, 'table', TokensType>
   | BaseComponentTheme<TextareaTheme, 'textarea', TokensType>
   | BaseComponentTheme<TextareaFieldTheme, 'textareafield', TokensType>
+  | BaseComponentTheme<TextFieldTheme, 'textfield', TokensType>
   | BaseComponentTheme<ToggleButtonTheme, 'togglebutton', TokensType>
   | BaseComponentTheme<ToggleButtonGroupTheme, 'togglebuttongroup', TokensType>;
 
@@ -100,15 +106,19 @@ export type AllComponentThemes = {
   placeholder: PlaceholderTheme;
   radio: RadioTheme;
   rating: RatingTheme;
+  searchfield: SearchFieldTheme;
   select: SelectTheme;
-  sliderField: SliderFieldTheme;
+  selectField: SelectFieldTheme;
+  sliderfield: SliderFieldTheme;
   stepperField: StepperFieldTheme;
   storageManager: StorageManagerTheme;
-  switchField: SwitchFieldTheme;
+  switch: SwitchTheme;
+  switchfield: SwitchFieldTheme;
   table: TableTheme;
   tabs: TabsTheme;
   textarea: TextareaTheme;
   textareaField: TextareaFieldTheme;
+  textField: TextFieldTheme;
   toggleButton: ToggleButtonTheme;
   toggleButtonGroup: ToggleButtonGroupTheme;
 };
@@ -140,15 +150,18 @@ export {
   PlaceholderTheme,
   RadioTheme,
   RatingTheme,
+  SearchFieldTheme,
   SelectTheme,
   SliderFieldTheme,
   StepperFieldTheme,
   StorageManagerTheme,
+  SwitchTheme,
   SwitchFieldTheme,
   TableTheme,
   TabsTheme,
   TextareaTheme,
   TextareaFieldTheme,
+  TextFieldTheme,
   ToggleButtonTheme,
   ToggleButtonGroupTheme,
 };
@@ -183,7 +196,13 @@ export const placeholderClasses = createComponentClasses({
 });
 export const radioClasses = createComponentClasses({ name: 'radio' });
 export const ratingClasses = createComponentClasses({ name: 'rating' });
+export const searchfieldClasses = createComponentClasses({
+  name: 'searchfield',
+});
 export const selectClasses = createComponentClasses({ name: 'select' });
+export const selectfieldClasses = createComponentClasses({
+  name: 'selectfield',
+});
 export const sliderFieldClasses = createComponentClasses({
   name: 'sliderfield',
 });
@@ -192,6 +211,9 @@ export const stepperFieldClasses = createComponentClasses({
 });
 export const storageManagerClasses = createComponentClasses({
   name: 'storagemanager',
+});
+export const switchClasses = createComponentClasses({
+  name: 'switch',
 });
 export const switchFieldClasses = createComponentClasses({
   name: 'switchfield',
@@ -202,6 +224,7 @@ export const textareaClasses = createComponentClasses({ name: 'textarea' });
 export const textareaFieldClasses = createComponentClasses({
   name: 'textareafield',
 });
+export const textFieldClasses = createComponentClasses({ name: 'textfield' });
 export const toggleButtonClasses = createComponentClasses({
   name: 'togglebutton',
 });

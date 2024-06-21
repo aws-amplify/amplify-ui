@@ -11,6 +11,7 @@ const radioTheme = createComponentTheme<RadioTheme<true>>({
       _modifiers: {
         small: {},
         large: {},
+        disabled: {},
       },
       _element: {
         button: {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ComponentClassName } from '@aws-amplify/ui';
+import { searchfieldClasses } from '@aws-amplify/ui';
 
 import { ComponentText } from '../shared/constants';
 import { FieldGroupIconButton } from '../FieldGroupIcon';
@@ -22,7 +22,7 @@ const SearchFieldButtonPrimitive: Primitive<
   return (
     <FieldGroupIconButton
       ariaLabel={ariaLabelText}
-      className={ComponentClassName.SearchFieldSearch}
+      className={searchfieldClasses({ _element: 'search' })}
       size={size}
       ref={ref}
       type="submit"

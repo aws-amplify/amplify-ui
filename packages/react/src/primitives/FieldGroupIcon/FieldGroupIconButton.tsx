@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { fieldGroupClasses } from '@aws-amplify/ui';
 
 import { Button } from '../Button';
-import { ComponentClassName } from '@aws-amplify/ui';
 import { FieldGroupIcon } from './FieldGroupIcon';
 
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
@@ -19,7 +18,7 @@ const FieldGroupIconButtonPrimitive: Primitive<
 > = ({ children, className, ...rest }, ref) => (
   <FieldGroupIcon
     as={Button}
-    className={classNames(ComponentClassName.FieldGroupIconButton, className)}
+    className={fieldGroupClasses({ _element: 'icon-button' }, [className])}
     ref={ref}
     {...rest}
   >

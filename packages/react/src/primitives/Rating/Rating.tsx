@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { classNames, ratingClasses } from '@aws-amplify/ui';
+import { ratingClasses } from '@aws-amplify/ui';
 
 import { Flex } from '../Flex';
 import { IconStar, useIcons } from '../Icon';
@@ -70,7 +70,7 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
 
   return (
     <Flex
-      className={classNames(ratingClasses({ _modifiers: size }), className)}
+      className={ratingClasses({ _modifiers: size }, [className])}
       ref={ref}
       {...rest}
     >

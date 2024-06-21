@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { fieldGroupClasses, textareaClasses } from '@aws-amplify/ui';
 
-import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
-import { ComponentClassName } from '@aws-amplify/ui';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { BaseTextAreaProps, TextAreaProps } from '../types/textArea';
 import { View } from '../View';
@@ -22,21 +20,18 @@ const TextAreaPrimitive: Primitive<TextAreaProps, 'textarea'> = (
   },
   ref
 ) => {
-  const componentClasses = classNames(
-    ComponentClassName.Textarea,
-    ComponentClassName.FieldGroupControl,
-    classNameModifier(ComponentClassName.Textarea, variation),
-    classNameModifier(ComponentClassName.Textarea, size),
-    classNameModifierByFlag(ComponentClassName.Textarea, 'error', hasError),
-    className
-  );
   const { isFieldsetDisabled } = useFieldset();
 
   return (
     <View
       aria-invalid={hasError}
       as="textarea"
-      className={componentClasses}
+      className={textareaClasses(
+        {
+          _modifiers: [variation, size, hasError ? 'error' : undefined],
+        },
+        [fieldGroupClasses({ _element: 'control' }), className]
+      )}
       disabled={isFieldsetDisabled ? isFieldsetDisabled : isDisabled}
       readOnly={isReadOnly}
       ref={ref}

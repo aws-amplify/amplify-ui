@@ -1,7 +1,7 @@
 import { BaseProperties, Elements, Modifiers, Size } from './utils';
 
 export type RadioTheme<Required extends boolean = false> = BaseProperties &
-  Modifiers<Size, Required> &
+  Modifiers<Size | 'disabled', Required> &
   Elements<
     {
       input?: BaseProperties;

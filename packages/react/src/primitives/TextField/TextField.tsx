@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { fieldClasses, textFieldClasses } from '@aws-amplify/ui';
 
-import { classNameModifier } from '../shared/utils';
-import { ComponentClassName } from '@aws-amplify/ui';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
 import { Flex } from '../Flex';
@@ -46,12 +44,10 @@ const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
 
   return (
     <Flex
-      className={classNames(
-        ComponentClassName.Field,
-        classNameModifier(ComponentClassName.Field, size),
-        ComponentClassName.TextField,
-        className
-      )}
+      className={fieldClasses({ _modifiers: [size] }, [
+        textFieldClasses(),
+        className,
+      ])}
       testId={testId}
       {...styleProps}
     >

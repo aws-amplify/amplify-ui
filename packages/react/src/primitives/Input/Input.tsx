@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { fieldGroupClasses, inputClasses } from '@aws-amplify/ui';
 
-import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
-import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseInputProps,
   InputProps,
@@ -33,14 +31,6 @@ const InputPrimitive: Primitive<InputProps, 'input'> = (
   },
   ref
 ) => {
-  const componentClasses = classNames(
-    ComponentClassName.Input,
-    ComponentClassName.FieldGroupControl,
-    classNameModifier(ComponentClassName.Input, variation),
-    classNameModifierByFlag(ComponentClassName.Input, 'error', hasError),
-    classNameModifier(ComponentClassName.Input, size),
-    className
-  );
   const { isFieldsetDisabled } = useFieldset();
 
   return (
@@ -49,7 +39,12 @@ const InputPrimitive: Primitive<InputProps, 'input'> = (
       as="input"
       autoComplete={autoComplete}
       checked={checked}
-      className={componentClasses}
+      className={inputClasses(
+        {
+          _modifiers: [size, variation, hasError ? 'error' : undefined],
+        },
+        [fieldGroupClasses({ _element: 'control' }), className]
+      )}
       defaultChecked={defaultChecked}
       defaultValue={defaultValue}
       isDisabled={isFieldsetDisabled ? isFieldsetDisabled : isDisabled}
