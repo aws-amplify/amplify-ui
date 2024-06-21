@@ -3,13 +3,12 @@ import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import kebabCase from 'lodash/kebabCase';
 
-import { ComponentClassName } from '@aws-amplify/ui';
-
 import { Collection } from '../Collection';
 import { Flex } from '../../Flex';
 import { Text } from '../../Text';
 import { ComponentText } from '../../shared/constants';
 import { ComponentPropsToStylePropsMap } from '../../types';
+import { collectionClasses } from '@aws-amplify/ui';
 
 const emojis = [
   {
@@ -71,7 +70,7 @@ describe('Collection component', () => {
     const collection = await screen.findByTestId('testList');
     const search = getElementByClassName(
       collection,
-      ComponentClassName.CollectionSearch
+      collectionClasses({ _element: 'search' })
     );
 
     expect(search).not.toBe(null);
@@ -97,7 +96,7 @@ describe('Collection component', () => {
     const collection = await screen.findByTestId(testList);
     const pagination = getElementByClassName(
       collection,
-      ComponentClassName.CollectionPagination
+      collectionClasses({ _element: 'pagination' })
     );
 
     expect(pagination).not.toBe(null);
@@ -122,7 +121,7 @@ describe('Collection component', () => {
     const collection = await screen.findByTestId(testList);
     const items = getElementByClassName<HTMLDivElement>(
       collection,
-      ComponentClassName.CollectionItems
+      collectionClasses({ _element: 'items' })
     );
 
     expect(
@@ -179,7 +178,7 @@ describe('Collection component', () => {
     const collection = await screen.findByTestId(testList);
     const items = getElementByClassName<HTMLDivElement>(
       collection,
-      ComponentClassName.CollectionItems
+      collectionClasses({ _element: 'items' })
     );
 
     expect(items?.dataset['demo']).toBe('true');

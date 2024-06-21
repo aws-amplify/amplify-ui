@@ -102,17 +102,23 @@ export const Collection = <Item, Element extends ElementType>({
   const collection =
     type === 'list' ? (
       <ListCollection
-        className={collectionClasses({
-          _element: 'items',
-        })}
+        className={collectionClasses(
+          {
+            _element: 'items',
+          },
+          [className]
+        )}
         items={items}
         {...rest}
       />
     ) : type === 'grid' ? (
       <GridCollection
-        className={collectionClasses({
-          _element: 'items',
-        })}
+        className={collectionClasses(
+          {
+            _element: 'items',
+          },
+          [className]
+        )}
         items={items}
         {...rest}
       />

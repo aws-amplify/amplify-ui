@@ -50,13 +50,10 @@ export function createComponentClasses<
   NameType extends string = string,
 >({ name, prefix = 'amplify-' }: { name: NameType; prefix?: string }) {
   const className: ClassNameFunction<ThemeType, NameType> = (
-    props,
-    extraClassnames
+    props = {},
+    extraClassnames = []
   ) => {
     const baseComponentClassName = `${prefix}${name}`;
-    if (!props) {
-      return baseComponentClassName;
-    }
 
     const el = isString(props._element)
       ? props._element
@@ -67,7 +64,7 @@ export function createComponentClasses<
     const className = el
       ? `${baseComponentClassName}__${el}`
       : baseComponentClassName;
-    const names = [className, extraClassnames];
+    const names = [className];
 
     if (el) {
       const modifiers = props._element[el];
@@ -97,7 +94,7 @@ export function createComponentClasses<
       names.push(`${className}--${props._modifiers}`);
     }
 
-    return classNames(names);
+    return classNames([...names, ...extraClassnames]);
   };
   return className;
 }

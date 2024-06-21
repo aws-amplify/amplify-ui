@@ -53,7 +53,7 @@ export type ComponentsTheme<TokensType extends WebTokens = WebTokens> =
   | BaseComponentTheme<DividerTheme, 'divider', TokensType>
   | BaseComponentTheme<DropZoneTheme, 'dropzone', TokensType>
   | BaseComponentTheme<FieldTheme, 'field', TokensType>
-  | BaseComponentTheme<FieldGroupTheme, 'fieldgroup', TokensType>
+  | BaseComponentTheme<FieldGroupTheme, 'field-group', TokensType>
   | BaseComponentTheme<FieldsetTheme, 'fieldset', TokensType>
   | BaseComponentTheme<InputTheme, 'input', TokensType>
   | BaseComponentTheme<LoaderTheme, 'loader', TokensType>
@@ -90,7 +90,7 @@ export type AllComponentThemes = {
   divider: DividerTheme;
   dropZone: DropZoneTheme;
   field: FieldTheme;
-  fieldGroup: FieldGroupTheme;
+  'field-group': FieldGroupTheme;
   fieldset: FieldsetTheme;
   input: InputTheme;
   loader: LoaderTheme;
@@ -169,7 +169,9 @@ export const collectionClasses = createComponentClasses({ name: 'collection' });
 export const dividerClasses = createComponentClasses({ name: 'divider' });
 export const dropZoneClasses = createComponentClasses({ name: 'dropzone' });
 export const fieldClasses = createComponentClasses({ name: 'field' });
-export const fieldGroupClasses = createComponentClasses({ name: 'fieldGroup' });
+export const fieldGroupClasses = createComponentClasses({
+  name: 'field-group',
+});
 export const fieldsetClasses = createComponentClasses({ name: 'fieldset' });
 export const inputClasses = createComponentClasses({ name: 'input' });
 export const loaderClasses = createComponentClasses({ name: 'loader' });

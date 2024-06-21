@@ -16,7 +16,7 @@ const CardPrimitive: Primitive<CardProps, 'div'> = (
 ) => {
   return (
     <View
-      className={cardClasses({ _modifiers: [variation] })}
+      className={cardClasses({ _modifiers: [variation] }, [className])}
       ref={ref}
       {...rest}
     >

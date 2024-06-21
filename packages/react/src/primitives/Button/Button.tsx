@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { buttonClasses } from '@aws-amplify/ui';
+import { buttonClasses, fieldGroupClasses } from '@aws-amplify/ui';
 
 import {
   BaseButtonProps,
@@ -58,7 +58,7 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
         isLoading ? 'loading' : undefined,
       ],
     },
-    [className]
+    [fieldGroupClasses({ _element: 'control' }), className]
   );
 
   return (
