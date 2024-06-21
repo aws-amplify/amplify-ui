@@ -1,4 +1,5 @@
 export {
+  createStorageBrowser,
   StorageImage,
   StorageImageProps,
   StorageManager,
