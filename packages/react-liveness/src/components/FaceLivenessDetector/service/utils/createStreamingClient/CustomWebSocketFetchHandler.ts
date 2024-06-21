@@ -85,10 +85,10 @@ export class CustomWebSocketFetchHandler {
   public readonly metadata: RequestHandlerMetadata = {
     handlerProtocol: 'websocket/h1.1',
   };
-  private readonly configPromise: Promise<WebSocketFetchHandlerOptions>;
+  private config: WebSocketFetchHandlerOptions;
+  private configPromise: Promise<WebSocketFetchHandlerOptions>;
   private readonly httpHandler: RequestHandler<any, any>;
   private readonly sockets: Record<string, WebSocket[]> = {};
-  private readonly utf8decoder = new TextDecoder(); // default 'utf-8' or 'utf8'
 
   constructor(
     options?:
@@ -98,10 +98,37 @@ export class CustomWebSocketFetchHandler {
   ) {
     this.httpHandler = httpHandler;
     if (typeof options === 'function') {
+      this.config = {};
       this.configPromise = options().then((opts) => opts ?? {});
     } else {
-      this.configPromise = Promise.resolve(options ?? {});
+      this.config = options ?? {};
+      this.configPromise = Promise.resolve(this.config);
     }
+  }
+
+  /**
+   * @returns the input if it is an HttpHandler of any class,
+   * or instantiates a new instance of this handler.
+   */
+  public static create(
+    instanceOrOptions?:
+      | CustomWebSocketFetchHandler
+      | WebSocketFetchHandlerOptions
+      | Provider<WebSocketFetchHandlerOptions | void>,
+    httpHandler: RequestHandler<any, any> = new FetchHttpHandler()
+  ): CustomWebSocketFetchHandler {
+    if (typeof (instanceOrOptions as any)?.handle === 'function') {
+      // is already an instance of HttpHandler.
+      return instanceOrOptions as CustomWebSocketFetchHandler;
+    }
+    // input is ctor options or undefined.
+    return new CustomWebSocketFetchHandler(
+      instanceOrOptions as
+        | undefined
+        | WebSocketFetchHandlerOptions
+        | Provider<WebSocketFetchHandlerOptions>,
+      httpHandler
+    );
   }
 
   /**
@@ -146,14 +173,29 @@ export class CustomWebSocketFetchHandler {
     };
   }
 
+  updateHttpClientConfig(
+    key: keyof WebSocketFetchHandlerOptions,
+    value: WebSocketFetchHandlerOptions[typeof key]
+  ): void {
+    this.configPromise = this.configPromise.then((config) => {
+      (config as Record<typeof key, typeof value>)[key] = value;
+      return config;
+    });
+  }
+
+  httpHandlerConfigs(): WebSocketFetchHandlerOptions {
+    return this.config ?? {};
+  }
+
   /**
    * Removes all closing/closed sockets from the socket pool for URL.
    */
   private removeNotUsableSockets(url: string): void {
     this.sockets[url] = (this.sockets[url] ?? []).filter(
       (socket) =>
-        ![WebSocket.CLOSING, WebSocket.CLOSED].includes(
-          socket.readyState as 2 | 3
+        !(
+          socket.readyState === WebSocket.CLOSING ||
+          socket.readyState === WebSocket.CLOSED
         )
     );
   }
@@ -237,16 +279,6 @@ export class CustomWebSocketFetchHandler {
     const send = async (): Promise<void> => {
       try {
         for await (const inputChunk of data) {
-          const decodedString = this.utf8decoder.decode(inputChunk);
-          if (decodedString.includes('closeCode')) {
-            const match = decodedString.match(/"closeCode":([0-9]*)/);
-            if (match) {
-              const closeCode = match[1];
-              socket.close(parseInt(closeCode));
-            }
-            continue;
-          }
-
           socket.send(inputChunk);
         }
       } catch (err) {
@@ -254,7 +286,9 @@ export class CustomWebSocketFetchHandler {
         // would already be settled by the time sending chunk throws error.
         // Instead, the notify the output stream to throw if there's
         // exceptions
-        streamError = err as Error | undefined;
+        if (err instanceof Error) {
+          streamError = err;
+        }
       } finally {
         // WS status code: https://tools.ietf.org/html/rfc6455#section-7.4
         socket.close(WS_CLOSURE_CODE.SUCCESS_CODE);

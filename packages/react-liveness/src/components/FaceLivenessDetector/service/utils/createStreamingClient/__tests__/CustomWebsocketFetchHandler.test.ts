@@ -113,15 +113,43 @@ describe(CustomWebSocketFetchHandler.name, () => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         for await (const chunk of responsePayload) {
           /** pass */
-          console.log(chunk);
-          continue;
         }
-      } catch (err) {
+      } catch (err: any) {
         expect(err).toBeDefined();
-        expect((err as any).message).toEqual('FakeError');
+        expect(err.message).toEqual('FakeError');
         // @ts-expect-error Property 'sockets' is private and only accessible within class 'WebSocketHandler'.
         expect(handler.sockets[mockUrl].length).toBe(0);
       }
+    });
+
+    it('should return timeout error if cannot setup ws connection', async () => {
+      const originalFn = setTimeout;
+      (global as any).setTimeout = jest.fn().mockImplementation(setTimeout);
+      const connectionTimeout = 1000;
+      const handler = new CustomWebSocketFetchHandler(async () => ({
+        connectionTimeout,
+      }));
+      //Using Node stream is fine because they are also async iterables.
+      const payload = new PassThrough();
+      const mockInvalidHostname = 'localhost:9876';
+      const mockInvalidUrl = `ws://${mockInvalidHostname}/`;
+
+      try {
+        await handler.handle(
+          new HttpRequest({
+            body: payload,
+            hostname: mockInvalidHostname, //invalid websocket endpoint
+            protocol: 'ws:',
+          })
+        );
+      } catch (err: any) {
+        expect(err).toBeDefined();
+        expect(err.message).toBeDefined();
+        expect(err.message).toBe('Websocket connection timeout');
+        // @ts-expect-error Property 'sockets' is private and only accessible within class 'WebSocketHandler'.
+        expect(handler.sockets[mockInvalidUrl].length).toBe(0);
+      }
+      (global as any).setTimeout = originalFn;
     });
   });
 
