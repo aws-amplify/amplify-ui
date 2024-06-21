@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
-
-import { classNameModifier, ComponentClassName } from '@aws-amplify/ui';
+import { tabsClasses } from '@aws-amplify/ui';
 
 import { ForwardRefPrimitive, Primitive } from '../types';
 import { View } from '../View';
@@ -110,15 +108,13 @@ const TabListPrimitive: Primitive<TabsListProps, 'div'> = (
       {...rest}
       role={role}
       onKeyDown={onKeyDown}
-      className={classNames(
-        ComponentClassName.TabsList,
-        indicatorPosition
-          ? classNameModifier(ComponentClassName.TabsList, indicatorPosition)
-          : null,
-        spacing
-          ? classNameModifier(ComponentClassName.TabsList, spacing)
-          : null,
-        className
+      className={tabsClasses(
+        {
+          _element: {
+            list: [indicatorPosition, spacing],
+          },
+        },
+        [className]
       )}
       ref={internalRef}
     >

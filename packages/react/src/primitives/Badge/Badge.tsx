@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createComponentClasses } from '@aws-amplify/ui';
+import { badgeClasses } from '@aws-amplify/ui';
 
 import {
   BadgeProps,
@@ -9,8 +9,6 @@ import {
 } from '../types';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { View } from '../View';
-
-const badgeClasses = createComponentClasses({ name: 'badge' });
 
 const BadgePrimitive: Primitive<BadgeProps, 'span'> = (
   { className, children, variation, size, ...rest },

@@ -1,8 +1,6 @@
-import { classNames } from '@aws-amplify/ui';
 import * as React from 'react';
 import debounce from 'lodash/debounce.js';
-
-import { ComponentClassName } from '@aws-amplify/ui';
+import { collectionClasses } from '@aws-amplify/ui';
 
 import { Flex } from '../Flex';
 import { Grid } from '../Grid';
@@ -104,25 +102,26 @@ export const Collection = <Item, Element extends ElementType>({
   const collection =
     type === 'list' ? (
       <ListCollection
-        className={ComponentClassName.CollectionItems}
+        className={collectionClasses({
+          _element: 'items',
+        })}
         items={items}
         {...rest}
       />
     ) : type === 'grid' ? (
       <GridCollection
-        className={ComponentClassName.CollectionItems}
+        className={collectionClasses({
+          _element: 'items',
+        })}
         items={items}
         {...rest}
       />
     ) : null;
 
   return (
-    <Flex
-      testId={testId}
-      className={classNames(ComponentClassName.Collection, className)}
-    >
+    <Flex testId={testId} className={collectionClasses(undefined, [className])}>
       {isSearchable ? (
-        <Flex className={ComponentClassName.CollectionSearch}>
+        <Flex className={collectionClasses({ _element: 'search' })}>
           <SearchField
             label={searchLabel}
             placeholder={searchPlaceholder}
@@ -141,7 +140,7 @@ export const Collection = <Item, Element extends ElementType>({
       )}
 
       {isPaginated ? (
-        <Flex className={ComponentClassName.CollectionPagination}>
+        <Flex className={collectionClasses({ _element: 'pagination' })}>
           <Pagination {...pagination} />
         </Flex>
       ) : null}

@@ -7,6 +7,8 @@ export type ColorTheme = 'info' | 'warning' | 'success' | 'error';
 
 export type Size = 'small' | 'large';
 
+export type FieldControlModifiers = Size | 'error' | 'quiet';
+
 export type CSSProperties = {
   [Key in keyof CSS.Properties]:
     | DesignToken<CSS.Properties[Key]>

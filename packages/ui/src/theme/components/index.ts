@@ -1,3 +1,4 @@
+import { createComponentClasses } from '../createTheme';
 import { WebTokens } from '../tokens';
 import { SliderFieldTokens } from '../tokens/components/sliderField';
 import { AccordionTheme } from './accordion';
@@ -11,6 +12,10 @@ import { CheckboxTheme } from './checkbox';
 import { CollectionTheme } from './collection';
 import { DividerTheme } from './divider';
 import { DropZoneTheme } from './dropZone';
+import { FieldTheme } from './field';
+import { FieldGroupTheme } from './fieldGroup';
+import { FieldsetTheme } from './fieldset';
+import { InputTheme } from './input';
 import { LoaderTheme } from './loader';
 import { MenuTheme } from './menu';
 import { MessageTheme } from './message';
@@ -23,7 +28,9 @@ import { SliderFieldTheme } from './sliderField';
 import { StepperFieldTheme } from './stepperField';
 import { StorageManagerTheme } from './storageManager';
 import { SwitchFieldTheme } from './switchField';
+import { TableTheme } from './table';
 import { TabsTheme } from './tabs';
+import { TextareaTheme } from './textarea';
 import { TextareaFieldTheme } from './textareaField';
 import { ToggleButtonTheme, ToggleButtonGroupTheme } from './toggleButton';
 import { ComponentTheme, BaseComponentTheme, BaseTheme } from './utils';
@@ -45,6 +52,10 @@ export type ComponentsTheme<TokensType extends WebTokens = WebTokens> =
   | BaseComponentTheme<CollectionTheme, 'collection', TokensType>
   | BaseComponentTheme<DividerTheme, 'divider', TokensType>
   | BaseComponentTheme<DropZoneTheme, 'dropzone', TokensType>
+  | BaseComponentTheme<FieldTheme, 'field', TokensType>
+  | BaseComponentTheme<FieldGroupTheme, 'fieldgroup', TokensType>
+  | BaseComponentTheme<FieldsetTheme, 'fieldset', TokensType>
+  | BaseComponentTheme<InputTheme, 'input', TokensType>
   | BaseComponentTheme<LoaderTheme, 'loader', TokensType>
   | BaseComponentTheme<MenuTheme, 'menu', TokensType>
   | BaseComponentTheme<MessageTheme, 'message', TokensType>
@@ -58,6 +69,8 @@ export type ComponentsTheme<TokensType extends WebTokens = WebTokens> =
   | BaseComponentTheme<StorageManagerTheme, 'storagemanager', TokensType>
   | BaseComponentTheme<SwitchFieldTheme, 'switchfield', TokensType>
   | BaseComponentTheme<TabsTheme, 'tabs', TokensType>
+  | BaseComponentTheme<TableTheme, 'table', TokensType>
+  | BaseComponentTheme<TextareaTheme, 'textarea', TokensType>
   | BaseComponentTheme<TextareaFieldTheme, 'textareafield', TokensType>
   | BaseComponentTheme<ToggleButtonTheme, 'togglebutton', TokensType>
   | BaseComponentTheme<ToggleButtonGroupTheme, 'togglebuttongroup', TokensType>;
@@ -76,6 +89,10 @@ export type AllComponentThemes = {
   collection: CollectionTheme;
   divider: DividerTheme;
   dropZone: DropZoneTheme;
+  field: FieldTheme;
+  fieldGroup: FieldGroupTheme;
+  fieldset: FieldsetTheme;
+  input: InputTheme;
   loader: LoaderTheme;
   menu: MenuTheme;
   message: MessageTheme;
@@ -88,7 +105,9 @@ export type AllComponentThemes = {
   stepperField: StepperFieldTheme;
   storageManager: StorageManagerTheme;
   switchField: SwitchFieldTheme;
+  table: TableTheme;
   tabs: TabsTheme;
+  textarea: TextareaTheme;
   textareaField: TextareaFieldTheme;
   toggleButton: ToggleButtonTheme;
   toggleButtonGroup: ToggleButtonGroupTheme;
@@ -110,6 +129,10 @@ export {
   CollectionTheme,
   DividerTheme,
   DropZoneTheme,
+  FieldTheme,
+  FieldGroupTheme,
+  FieldsetTheme,
+  InputTheme,
   LoaderTheme,
   MenuTheme,
   MessageTheme,
@@ -122,8 +145,64 @@ export {
   StepperFieldTheme,
   StorageManagerTheme,
   SwitchFieldTheme,
+  TableTheme,
   TabsTheme,
+  TextareaTheme,
   TextareaFieldTheme,
   ToggleButtonTheme,
   ToggleButtonGroupTheme,
 };
+
+export const alertClasses = createComponentClasses({ name: 'alert' });
+export const accordionClasses = createComponentClasses({ name: 'accordion' });
+export const autocompleteClasses = createComponentClasses({
+  name: 'autocomplete',
+});
+export const badgeClasses = createComponentClasses({ name: 'badge' });
+export const breadcrumbsClasses = createComponentClasses({
+  name: 'breadcrumbs',
+});
+export const buttonClasses = createComponentClasses({ name: 'button' });
+export const cardClasses = createComponentClasses({ name: 'card' });
+export const checkboxClasses = createComponentClasses({ name: 'checkbox' });
+export const collectionClasses = createComponentClasses({ name: 'collection' });
+export const dividerClasses = createComponentClasses({ name: 'divider' });
+export const dropZoneClasses = createComponentClasses({ name: 'dropzone' });
+export const fieldClasses = createComponentClasses({ name: 'field' });
+export const fieldGroupClasses = createComponentClasses({ name: 'fieldGroup' });
+export const fieldsetClasses = createComponentClasses({ name: 'fieldset' });
+export const inputClasses = createComponentClasses({ name: 'input' });
+export const loaderClasses = createComponentClasses({ name: 'loader' });
+export const menuClasses = createComponentClasses({ name: 'menu' });
+export const messageClasses = createComponentClasses({ name: 'message' });
+export const paginationClasses = createComponentClasses({ name: 'pagination' });
+export const placeholderClasses = createComponentClasses({
+  name: 'placeholder',
+});
+export const radioClasses = createComponentClasses({ name: 'radio' });
+export const ratingClasses = createComponentClasses({ name: 'rating' });
+export const selectClasses = createComponentClasses({ name: 'select' });
+export const sliderFieldClasses = createComponentClasses({
+  name: 'sliderfield',
+});
+export const stepperFieldClasses = createComponentClasses({
+  name: 'stepperfield',
+});
+export const storageManagerClasses = createComponentClasses({
+  name: 'storagemanager',
+});
+export const switchFieldClasses = createComponentClasses({
+  name: 'switchfield',
+});
+export const tabsClasses = createComponentClasses({ name: 'tabs' });
+export const tableClasses = createComponentClasses({ name: 'table' });
+export const textareaClasses = createComponentClasses({ name: 'textarea' });
+export const textareaFieldClasses = createComponentClasses({
+  name: 'textareafield',
+});
+export const toggleButtonClasses = createComponentClasses({
+  name: 'togglebutton',
+});
+export const toggleButtonGroupClasses = createComponentClasses({
+  name: 'togglebuttongroup',
+});

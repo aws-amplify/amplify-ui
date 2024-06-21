@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createComponentClasses } from '@aws-amplify/ui';
+import { buttonClasses } from '@aws-amplify/ui';
 
 import {
   BaseButtonProps,
@@ -14,8 +14,6 @@ import { useFieldset } from '../Fieldset/useFieldset';
 import { Flex } from '../Flex';
 import { Loader } from '../Loader';
 import { View } from '../View';
-
-const buttonClassnames = createComponentClasses({ name: 'button' });
 
 // These variations support colorThemes. 'undefined' accounts for our
 // 'default' variation which is not named.
@@ -49,7 +47,7 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
     ? isFieldsetDisabled
     : isDisabled ?? isLoading ?? rest['disabled'];
 
-  const componentClasses = buttonClassnames(
+  const componentClasses = buttonClasses(
     {
       _modifiers: [
         variation,
@@ -75,7 +73,7 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
       {isLoading ? (
         <Flex
           as="span"
-          className={buttonClassnames({ _element: 'loader-wrapper' })}
+          className={buttonClasses({ _element: 'loader-wrapper' })}
         >
           <Loader size={size} />
           {loadingText ? loadingText : null}

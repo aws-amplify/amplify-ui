@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createComponentClasses } from '@aws-amplify/ui';
+import { autocompleteClasses } from '@aws-amplify/ui';
 
 import { View } from '../View';
 import type {
@@ -9,8 +9,6 @@ import type {
   BaseAutocompleteOptionProps,
 } from '../types';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
-
-const autocompleteClasses = createComponentClasses({ name: 'autocomplete' });
 
 const AutocompleteOptionPrimitive: Primitive<AutocompleteOptionProps, 'li'> = (
   { children, className, isActive, ...rest },

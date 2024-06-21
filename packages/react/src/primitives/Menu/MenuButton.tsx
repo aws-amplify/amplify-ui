@@ -1,15 +1,13 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { buttonClasses } from '@aws-amplify/ui';
 import { Button } from '../Button';
 
-import { classNameModifier } from '../shared/utils';
 import {
   BaseMenuButtonProps,
   MenuButtonProps,
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
-import { ComponentClassName } from '@aws-amplify/ui';
 import { useStyles } from '../shared/styleUtils';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
@@ -33,17 +31,16 @@ const MenuButtonPrimitive: Primitive<MenuButtonProps, 'button'> = (
   ref
 ) => {
   const { propStyles, nonStyleProps } = useStyles(rest, style);
-  const componentClasses = classNames(
-    ComponentClassName.Button,
-    classNameModifier(ComponentClassName.Button, size),
-    classNameModifier(ComponentClassName.Button, variation),
-    className
-  );
 
   return (
     <Button
       ref={ref}
-      className={componentClasses}
+      className={buttonClasses(
+        {
+          _modifiers: [size, variation],
+        },
+        [className]
+      )}
       disabled={isDisabled || isLoading}
       isDisabled={isDisabled || isLoading}
       type={type}

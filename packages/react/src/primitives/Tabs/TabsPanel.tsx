@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
-
-import { ComponentClassName, classNameModifierByFlag } from '@aws-amplify/ui';
+import { tabsClasses } from '@aws-amplify/ui';
 
 import { ForwardRefPrimitive, Primitive } from '../types';
 import { View } from '../View';
@@ -23,14 +21,13 @@ const TabPanelPrimitive: Primitive<TabsPanelProps, 'div'> = (
       role={role}
       id={`${value}-panel`}
       aria-labelledby={`${value}-tab`}
-      className={classNames(
-        ComponentClassName.TabsPanel,
-        classNameModifierByFlag(
-          ComponentClassName.TabsPanel,
-          'active',
-          activeTab === value
-        ),
-        className
+      className={tabsClasses(
+        {
+          _element: {
+            panel: [activeTab === value ? 'active' : undefined],
+          },
+        },
+        [className]
       )}
       ref={ref}
     >

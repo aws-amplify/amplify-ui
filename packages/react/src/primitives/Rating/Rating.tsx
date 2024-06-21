@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { classNames, createComponentClasses } from '@aws-amplify/ui';
+import { classNames, ratingClasses } from '@aws-amplify/ui';
 
 import { Flex } from '../Flex';
 import { IconStar, useIcons } from '../Icon';
@@ -17,8 +17,6 @@ import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const RATING_DEFAULT_MAX_VALUE = 5;
 const RATING_DEFAULT_VALUE = 0;
-
-const ratingClasses = createComponentClasses({ name: 'rating' });
 
 const RatingPrimitive: Primitive<RatingProps, 'div'> = (
   {

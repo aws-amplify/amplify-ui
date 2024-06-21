@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { menuClasses } from '@aws-amplify/ui';
 import * as Dropdown from '@radix-ui/react-dropdown-menu';
 
 import { sanitizeNamespaceImport } from '@aws-amplify/ui';
@@ -49,10 +49,7 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
             ariaLabel={ariaLabel}
             size={size}
             testId={MENU_TRIGGER_TEST_ID}
-            className={classNames(
-              ComponentClassName.MenuTrigger,
-              triggerClassName
-            )}
+            className={menuClasses({ _element: 'trigger' }, [triggerClassName])}
           >
             {icons?.menu ?? <IconMenu />}
           </MenuButton>
@@ -63,7 +60,7 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
         className={ComponentClassName.MenuWrapper}
       >
         <ButtonGroup
-          className={classNames(ComponentClassName.MenuContent, className)}
+          className={menuClasses({ _element: 'content' }, [className])}
           ref={ref}
           isDisabled={isDisabled}
           size={size}

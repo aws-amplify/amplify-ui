@@ -14,6 +14,10 @@ type ModifierNames<T extends unknown> = T extends { _modifiers?: any }
 
 type Arrayify<T> = T | T[];
 
+// This type will take a component theme
+// and turn it into the shape of the classname function
+// for that component based on what is in the _element
+// and _modifiers
 export type ClassNameArgs<T extends BaseTheme> = {
   _element?:
     | ElementNames<Required<T>>

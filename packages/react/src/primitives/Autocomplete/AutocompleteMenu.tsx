@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createComponentClasses } from '@aws-amplify/ui';
+import { autocompleteClasses } from '@aws-amplify/ui';
 import { Loader } from '../Loader';
 
 import { ScrollView } from '../ScrollView';
@@ -13,8 +13,6 @@ import type {
   BaseAutocompleteMenuProps,
 } from '../types';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
-
-const autocompleteClasses = createComponentClasses({ name: 'autocomplete' });
 
 const MenuHeader = ({ children }: { children?: React.ReactNode }) => {
   if (!children) {

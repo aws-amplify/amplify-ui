@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { classNames, createComponentClasses } from '@aws-amplify/ui';
-
-import { ComponentClassName, isFunction } from '@aws-amplify/ui';
+import { checkboxClasses, isFunction } from '@aws-amplify/ui';
 
 import { Flex } from '../Flex';
 import { IconCheck, IconIndeterminate, useIcons } from '../Icon';
@@ -13,12 +11,9 @@ import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { getTestId } from '../utils/getTestId';
 import { useStableId } from '../utils/useStableId';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
-import { classNameModifierByFlag } from '../shared/utils';
 import { View } from '../View';
 import { useFieldset } from '../Fieldset/useFieldset';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
-
-const checkboxClasses = createComponentClasses({ name: 'checkbox' });
 
 const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   {
@@ -90,9 +85,12 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     }
   }, [dataId, isIndeterminate]);
 
-  const buttonTestId = getTestId(testId, ComponentClassName.CheckboxButton);
-  const iconTestId = getTestId(testId, ComponentClassName.CheckboxIcon);
-  const labelTestId = getTestId(testId, ComponentClassName.CheckboxLabel);
+  const buttonTestId = getTestId(
+    testId,
+    checkboxClasses({ _element: 'button' })
+  );
+  const iconTestId = getTestId(testId, checkboxClasses({ _element: 'icon' }));
+  const labelTestId = getTestId(testId, checkboxClasses({ _element: 'label' }));
 
   const flexClasses = checkboxClasses({
     _element: {
@@ -115,21 +113,21 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   });
 
   const iconProps = {
-    className: classNames(iconClasses),
+    className: iconClasses,
     'data-checked': localChecked,
     'data-disabled': shouldBeDisabled,
     'data-testid': iconTestId,
   };
 
   const checkedIcon = icons?.checked ? (
-    <View as="span" className={classNames(iconClasses)}>
+    <View as="span" className={iconClasses}>
       {icons.checked}
     </View>
   ) : (
     <IconCheck {...iconProps} />
   );
   const indeterminateIcon = icons?.indeterminate ? (
-    <View as="span" className={classNames(iconClasses)}>
+    <View as="span" className={iconClasses}>
       {icons.indeterminate}
     </View>
   ) : (
@@ -139,15 +137,15 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   return (
     <Flex
       as="label"
-      className={classNames(
-        ComponentClassName.Checkbox,
-        classNameModifierByFlag(
-          ComponentClassName.Checkbox,
-          'disabled',
-          shouldBeDisabled
-        ),
-        labelPosition ? `amplify-label-${labelPosition}` : null,
-        className
+      className={checkboxClasses(
+        {
+          _modifiers: [shouldBeDisabled ? 'disabled' : undefined],
+        },
+        [
+          className,
+          // TODO: fix this
+          labelPosition ? `amplify-label-${labelPosition}` : null,
+        ]
       )}
       testId={testId}
       {...styleProps}
@@ -155,7 +153,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
       <VisuallyHidden>
         <Input
           checked={controlledChecked}
-          className={ComponentClassName.CheckboxInput}
+          className={checkboxClasses({ _element: 'input' })}
           data-id={dataId}
           defaultChecked={defaultChecked}
           isDisabled={shouldBeDisabled}
@@ -170,16 +168,12 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
       {label && (
         <Text
           as="span"
-          className={classNames(
-            ComponentClassName.CheckboxLabel,
-            classNameModifierByFlag(
-              ComponentClassName.CheckboxLabel,
-              `disabled`,
-              shouldBeDisabled
-            ),
+          className={checkboxClasses(
             {
-              [ComponentClassName.VisuallyHidden]: labelHidden,
-            }
+              _element: 'label',
+              _modifiers: [shouldBeDisabled ? 'disabled' : undefined],
+            },
+            [labelHidden ? 'amplify-visually-hidden' : undefined]
           )}
           data-disabled={shouldBeDisabled}
           testId={labelTestId}

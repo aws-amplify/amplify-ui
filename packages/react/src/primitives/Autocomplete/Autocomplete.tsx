@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { isFunction, createComponentClasses } from '@aws-amplify/ui';
+import { isFunction, autocompleteClasses } from '@aws-amplify/ui';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 import { AutocompleteOption } from './AutocompleteOption';
@@ -17,8 +17,6 @@ import type {
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
-
-const autocompleteClasses = createComponentClasses({ name: 'autocomplete' });
 
 export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
   {

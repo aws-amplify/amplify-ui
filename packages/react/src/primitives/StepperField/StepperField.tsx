@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { classNames, stepperFieldClasses } from '@aws-amplify/ui';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 
@@ -85,12 +85,13 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
 
   return (
     <Flex
-      className={classNames(
-        ComponentClassName.Field,
-        classNameModifier(ComponentClassName.Field, size),
-        ComponentClassName.StepperField,
-        className
-      )}
+      className={stepperFieldClasses({}, [className])}
+      // className={classNames(
+      //   ComponentClassName.Field,
+      //   classNameModifier(ComponentClassName.Field, size),
+      //   ComponentClassName.StepperField,
+      //   className
+      // )}
       testId={testId}
       {...styleProps}
     >

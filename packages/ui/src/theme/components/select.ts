@@ -1,7 +1,13 @@
-import { Modifiers, BaseProperties, Elements, Size } from './utils';
+import {
+  Modifiers,
+  BaseProperties,
+  Elements,
+  Size,
+  FieldControlModifiers,
+} from './utils';
 
 export type SelectTheme<Required extends boolean = false> = BaseProperties &
-  Modifiers<Size | 'expanded', Required> &
+  Modifiers<FieldControlModifiers | 'expanded', Required> &
   Elements<
     {
       wrapper?: BaseProperties;
