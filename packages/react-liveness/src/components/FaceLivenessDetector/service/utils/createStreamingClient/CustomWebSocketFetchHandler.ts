@@ -99,36 +99,11 @@ export class CustomWebSocketFetchHandler {
     this.httpHandler = httpHandler;
     if (typeof options === 'function') {
       this.config = {};
-      this.configPromise = options().then((opts) => opts ?? {});
+      this.configPromise = options().then((opts) => (this.config = opts ?? {}));
     } else {
       this.config = options ?? {};
       this.configPromise = Promise.resolve(this.config);
     }
-  }
-
-  /**
-   * @returns the input if it is an HttpHandler of any class,
-   * or instantiates a new instance of this handler.
-   */
-  public static create(
-    instanceOrOptions?:
-      | CustomWebSocketFetchHandler
-      | WebSocketFetchHandlerOptions
-      | Provider<WebSocketFetchHandlerOptions | void>,
-    httpHandler: RequestHandler<any, any> = new FetchHttpHandler()
-  ): CustomWebSocketFetchHandler {
-    if (typeof (instanceOrOptions as any)?.handle === 'function') {
-      // is already an instance of HttpHandler.
-      return instanceOrOptions as CustomWebSocketFetchHandler;
-    }
-    // input is ctor options or undefined.
-    return new CustomWebSocketFetchHandler(
-      instanceOrOptions as
-        | undefined
-        | WebSocketFetchHandlerOptions
-        | Provider<WebSocketFetchHandlerOptions>,
-      httpHandler
-    );
   }
 
   /**
@@ -178,8 +153,10 @@ export class CustomWebSocketFetchHandler {
     value: WebSocketFetchHandlerOptions[typeof key]
   ): void {
     this.configPromise = this.configPromise.then((config) => {
-      (config as Record<typeof key, typeof value>)[key] = value;
-      return config;
+      return {
+        ...config,
+        [key]: value,
+      };
     });
   }
 
@@ -230,13 +207,7 @@ export class CustomWebSocketFetchHandler {
 
     // initialize as no-op.
     let reject: (err?: unknown) => void = () => {};
-    let resolve: ({
-      done,
-      value,
-    }: {
-      done: boolean;
-      value: Uint8Array;
-    }) => void = () => {};
+    let resolve: (result: IteratorResult<Uint8Array, void>) => void = () => {};
 
     socket.onmessage = (event) => {
       resolve({
@@ -260,7 +231,7 @@ export class CustomWebSocketFetchHandler {
       } else {
         resolve({
           done: true,
-          value: undefined as any, // unchecked because done=true.
+          value: undefined,
         });
       }
     };
