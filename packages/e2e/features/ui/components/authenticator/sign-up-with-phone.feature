@@ -6,37 +6,22 @@ Feature: Sign Up with Phone
     Given I'm running the example "ui/components/authenticator/sign-up-with-phone/"
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-phone"
 
-  @angular @react @vue @react-native @gen1
+  @angular @react @vue @react-native @gen1 @gen2
   Scenario: Login mechanism set to "phone_number"
     Then I see "Phone Number" as an input field
     Then I don't see "Username" as an input field
 
-  @angular @react @vue @react-native @gen2
-  Scenario: Login mechanism set to "phone_number"
-    Then I see "Phone Number" as an input field
-    Then I don't see "Email" as an input field
-
   @angular @react @vue @react-native @gen1
-  Scenario: "Email" is included from `aws_cognito_verification_mechanisms`
+  Scenario: "Email" is included from verification mechanisms
     Then I see "Email" as an "email" field
 
-  @angular @react @vue @react-native @gen1
+  @angular @react @vue @react-native @gen1 @gen2
   Scenario: Sign up with valid phone number & password
     When I select my country code with status "UNCONFIRMED"
     Then I type my "phone number" with status "UNCONFIRMED"
     Then I type my password
     Then I confirm my password
     Then I type my "email" with status "UNCONFIRMED"
-    Then I click the "Create Account" button
-    Then I see "Confirmation Code"
-
-  @angular @react @vue @react-native @gen2
-  Scenario: Sign up with valid phone number & password
-    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-phone"
-    When I select my country code with status "UNCONFIRMED"
-    Then I type my "phone number" with status "UNCONFIRMED"
-    Then I type my password
-    Then I confirm my password
     Then I click the "Create Account" button
     Then I see "Confirmation Code"
 

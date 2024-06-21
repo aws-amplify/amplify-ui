@@ -26,7 +26,7 @@ Feature: Reset Password
     Then I see "Username/client id combination not found."
 
   @angular @react @vue @react-native @gen1 @gen2
-  Scenario: Forgot Password with valid placeholder 
+  Scenario: Forgot Password with valid label 
     Then I see "Enter your email"
     Then I don't see "Enter your phone number"
 
