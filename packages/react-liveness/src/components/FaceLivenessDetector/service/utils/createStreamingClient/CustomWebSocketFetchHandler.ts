@@ -89,6 +89,7 @@ export class CustomWebSocketFetchHandler {
   private configPromise: Promise<WebSocketFetchHandlerOptions>;
   private readonly httpHandler: RequestHandler<any, any>;
   private readonly sockets: Record<string, WebSocket[]> = {};
+  private readonly utf8decoder = new TextDecoder(); // default 'utf-8' or 'utf8'
 
   constructor(
     options?:
@@ -250,6 +251,15 @@ export class CustomWebSocketFetchHandler {
     const send = async (): Promise<void> => {
       try {
         for await (const inputChunk of data) {
+          const decodedString = this.utf8decoder.decode(inputChunk);
+          if (decodedString.includes('closeCode')) {
+            const match = decodedString.match(/"closeCode":([0-9]*)/);
+            if (match) {
+              const closeCode = match[1];
+              socket.close(parseInt(closeCode));
+            }
+            continue;
+          }
           socket.send(inputChunk);
         }
       } catch (err) {
