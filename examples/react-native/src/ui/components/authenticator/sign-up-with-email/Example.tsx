@@ -16,7 +16,6 @@ const amplifyOutputs = require(
   `@aws-amplify/ui-environments/auth/auth-with-email/${AMPLIFY_CONFIG_PATH}`
 );
 
-console.debug('1 version should be:' + VERSION);
 Amplify.configure(amplifyOutputs);
 const existingConfig = Amplify.getConfig();
 Amplify.configure({

@@ -9,7 +9,7 @@ import { Amplify } from 'aws-amplify';
 
 import { SignOutButton } from '../SignOutButton';
 import { VERSION } from '@env';
-console.log('Now2: ', VERSION);
+
 const AMPLIFY_CONFIG_PATH =
   VERSION === 'gen1' ? 'src/amplifyconfiguration' : 'amplify_outputs';
 

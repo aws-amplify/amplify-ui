@@ -9,7 +9,7 @@ import { VERSION } from '@env';
 
 const AMPLIFY_CONFIG_PATH =
   VERSION === 'gen1' ? 'src/amplifyconfiguration' : 'amplify_outputs';
-console.log('Now2: ', VERSION);
+
 const amplifyOutputs = require(
   `@aws-amplify/ui-environments/auth/auth-with-phone-number/${AMPLIFY_CONFIG_PATH}`
 );
