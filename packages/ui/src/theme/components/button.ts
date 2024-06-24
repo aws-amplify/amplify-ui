@@ -14,9 +14,9 @@ type Variations =
   | 'menu'
   | 'link';
 
-export type ButtonColorThemeVariations =
-  | `${'primary' | 'link' | 'outlined'}--${ColorTheme | 'overlay'}`
-  | undefined;
+export type ButtonColorThemeVariations = `${'primary' | 'link' | 'outlined'}--${
+  | ColorTheme
+  | 'overlay'}`;
 
 export type ButtonTheme<Required extends boolean = false> = BaseProperties &
   Modifiers<
