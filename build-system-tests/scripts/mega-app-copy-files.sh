@@ -73,6 +73,7 @@ if [ "$FRAMEWORK" == "react-native" ]; then
     AWS_EXPORTS_FILE="templates/template-react-native-aws-exports.js"
 else
     AWS_EXPORTS_FILE="templates/template-aws-exports.js"
+    AWS_EXPORTS_DECLARATION_FILE="templates/template-aws-exports.d.ts"
 fi
 
 echo "Installing json and strip-json-comments"
@@ -117,6 +118,8 @@ fi
 if [[ "$FRAMEWORK" == 'react' && "$BUILD_TOOL" == 'vite' ]]; then
     echo "cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.js"
     cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.js
+    echo "cp $AWS_EXPORTS_DECLARATION_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.d.ts"
+    cp $AWS_EXPORTS_DECLARATION_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.d.ts
     echo "cp templates/components/react/vite/App.tsx mega-apps/${MEGA_APP_NAME}/src/App.tsx"
     cp templates/components/react/vite/App.tsx mega-apps/${MEGA_APP_NAME}/src/App.tsx
 
@@ -166,10 +169,12 @@ if [[ "$FRAMEWORK" == 'vue' ]]; then
     cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue
     echo "cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.js"
     cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.js
+    echo "cp $AWS_EXPORTS_DECLARATION_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.d.ts"
+    cp $AWS_EXPORTS_DECLARATION_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.d.ts
 
     # remove comments from JSON files because `json` package can't process comments
-    echo "npx strip-json-comments mega-apps/${MEGA_APP_NAME}/tsconfig.json >tmpfile && mv tmpfile mega-apps/${MEGA_APP_NAME}/tsconfig.json && rm -f tmpfile"
-    npx strip-json-comments mega-apps/${MEGA_APP_NAME}/tsconfig.json >tmpfile && mv tmpfile mega-apps/${MEGA_APP_NAME}/tsconfig.json && rm -f tmpfile
+    echo "npx strip-json-comments mega-apps/${MEGA_APP_NAME}/tsconfig.app.json >tmpfile && mv tmpfile mega-apps/${MEGA_APP_NAME}/tsconfig.app.json && rm -f tmpfile"
+    npx strip-json-comments mega-apps/${MEGA_APP_NAME}/tsconfig.app.json >tmpfile && mv tmpfile mega-apps/${MEGA_APP_NAME}/tsconfig.app.json && rm -f tmpfile
 
     # See Troubleshooting: https://ui.docs.amplify.aws/vue/getting-started/troubleshooting
     if [[ "$BUILD_TOOL" == 'vite' ]]; then
@@ -188,8 +193,8 @@ if [[ "$FRAMEWORK" == 'vue' ]]; then
         npx json -I -f mega-apps/${MEGA_APP_NAME}/tsconfig.json -e "this.allowJs=true"
     else
         echo "add allowJs: true to tsconfig for aws-exports.js"
-        echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/tsconfig.json -e \"this.compilerOptions.allowJs=true\""
-        npx json -I -f mega-apps/${MEGA_APP_NAME}/tsconfig.json -e "this.compilerOptions.allowJs=true"
+        echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/tsconfig.app.json -e \"this.compilerOptions.allowJs=true\""
+        npx json -I -f mega-apps/${MEGA_APP_NAME}/tsconfig.app.json -e "this.compilerOptions.allowJs=true"
     fi
 fi
 
