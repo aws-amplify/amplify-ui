@@ -7,6 +7,7 @@ import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { BaseTabsProps, TabsProps } from './types';
 import { View } from '../View';
 import { TabsContext } from './TabsContext';
+import { useStableId } from '../utils/useStableId';
 
 const TabsContainerPrimitive: Primitive<TabsProps, 'div'> = (
   {
@@ -20,6 +21,7 @@ const TabsContainerPrimitive: Primitive<TabsProps, 'div'> = (
   }: BaseTabsProps,
   ref
 ) => {
+  const groupId = useStableId(); // groupId is used to ensure uniqueness between Tab Groups in IDs
   const isControlled = controlledValue !== undefined;
   const [localValue, setLocalValue] = React.useState(() =>
     isControlled ? controlledValue : defaultValue
@@ -44,8 +46,9 @@ const TabsContainerPrimitive: Primitive<TabsProps, 'div'> = (
       activeTab,
       isLazy,
       setActiveTab,
+      groupId,
     };
-  }, [activeTab, setActiveTab, isLazy]);
+  }, [activeTab, setActiveTab, isLazy, groupId]);
 
   return (
     <TabsContext.Provider value={_value}>

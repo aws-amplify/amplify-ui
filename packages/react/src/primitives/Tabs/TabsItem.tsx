@@ -12,12 +12,13 @@ import { View } from '../View';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { BaseTabsItemProps, TabsItemProps } from './types';
 import { TabsContext } from './TabsContext';
+import { WHITESPACE_VALUE } from './constants';
 
 const TabsItemPrimitive: Primitive<TabsItemProps, 'button'> = (
   { className, value, children, onClick, as = 'button', role = 'tab', ...rest },
   ref
 ) => {
-  const { activeTab, setActiveTab } = React.useContext(TabsContext);
+  const { activeTab, setActiveTab, groupId } = React.useContext(TabsContext);
   const isActive = activeTab === value;
   const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (isTypedFunction(onClick)) {
@@ -25,15 +26,15 @@ const TabsItemPrimitive: Primitive<TabsItemProps, 'button'> = (
     }
     setActiveTab(value);
   };
-
+  value = value.replace(' ', WHITESPACE_VALUE);
   return (
     <View
       {...rest}
       role={role}
       as={as}
-      id={`${value}-tab`}
+      id={`${groupId}-tab-${value}`}
       aria-selected={isActive}
-      aria-controls={`${value}-panel`}
+      aria-controls={`${groupId}-panel-${value}`}
       tabIndex={!isActive ? -1 : undefined}
       className={classNames(
         ComponentClassName.TabsItem,
