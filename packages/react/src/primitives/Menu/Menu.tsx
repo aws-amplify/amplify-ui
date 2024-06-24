@@ -5,7 +5,6 @@ import * as Dropdown from '@radix-ui/react-dropdown-menu';
 import { sanitizeNamespaceImport } from '@aws-amplify/ui';
 
 import { ButtonGroup } from '../ButtonGroup';
-import { ComponentClassName } from '@aws-amplify/ui';
 import { IconMenu, useIcons } from '../Icon';
 import { MenuButton } from './MenuButton';
 import {
@@ -57,7 +56,7 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align={menuAlign}
-        className={ComponentClassName.MenuWrapper}
+        className={menuClasses({ _element: 'wrapper' })}
       >
         <ButtonGroup
           className={menuClasses({ _element: 'content' }, [className])}

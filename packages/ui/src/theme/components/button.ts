@@ -14,14 +14,14 @@ type Variations =
   | 'menu'
   | 'link';
 
-type ColorThemeVariations =
+export type ButtonColorThemeVariations =
   | `${'primary' | 'link' | 'outlined'}--${ColorTheme | 'overlay'}`
   | undefined;
 
 export type ButtonTheme<Required extends boolean = false> = BaseProperties &
   Modifiers<
     | Size
-    | ColorThemeVariations
+    | ButtonColorThemeVariations
     | Variations
     | 'loading'
     | 'fullwidth'

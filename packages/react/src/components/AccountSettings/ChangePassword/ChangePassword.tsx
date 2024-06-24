@@ -9,11 +9,11 @@ import {
   getDefaultPasswordValidators,
   getLogger,
   runFieldValidators,
+  changePasswordClasses,
 } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
 import { View, Flex } from '../../../primitives';
-import { ComponentClassName } from '../constants';
 import { FormValues, BlurredFields, ValidationError } from '../types';
 import { ChangePasswordProps, ValidateParams } from './types';
 import DEFAULTS from './defaults';
@@ -206,11 +206,7 @@ function ChangePassword({
   }
 
   return (
-    <View
-      as="form"
-      className={ComponentClassName.ChangePassword}
-      onSubmit={handleSubmit}
-    >
+    <View as="form" className={changePasswordClasses()} onSubmit={handleSubmit}>
       <Flex direction="column">
         <CurrentPasswordField
           autoComplete="current-password"

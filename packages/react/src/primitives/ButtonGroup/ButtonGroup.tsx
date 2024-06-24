@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
-
-import { ComponentClassName } from '@aws-amplify/ui';
+import { buttonGroupClasses } from '@aws-amplify/ui';
 
 import {
   ButtonProps,
@@ -26,7 +24,7 @@ const ButtonGroupPrimitive: Primitive<ButtonGroupProps, 'div'> = (
   ref
 ) => (
   <Flex
-    className={classNames(ComponentClassName.ButtonGroup, className)}
+    className={buttonGroupClasses(undefined, [className])}
     role={role}
     ref={ref}
     {...rest}

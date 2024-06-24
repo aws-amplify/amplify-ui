@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { iconClasses } from '@aws-amplify/ui';
 
-import { ComponentClassName } from '@aws-amplify/ui';
 import { View } from '../../View';
 import { InternalIcon } from './types';
 
@@ -16,7 +15,7 @@ export const IconSearch: InternalIcon = (props) => {
       as="span"
       width="1em"
       height="1em"
-      className={classNames(ComponentClassName.Icon, className)}
+      className={iconClasses(undefined, [className])}
       {...rest}
     >
       <svg

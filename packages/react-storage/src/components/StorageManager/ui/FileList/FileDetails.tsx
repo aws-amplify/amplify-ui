@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentClassName } from '@aws-amplify/ui';
+import { storageManagerClasses } from '@aws-amplify/ui';
 import { Text, View } from '@aws-amplify/ui-react';
 import { humanFileSize } from '../../utils';
 import { UploadDetailsProps } from './types';
@@ -10,12 +10,15 @@ export const UploadDetails = ({
 }: UploadDetailsProps): JSX.Element => {
   return (
     <>
-      <View className={ComponentClassName.StorageManagerFileMain}>
-        <Text className={ComponentClassName.StorageManagerFileName}>
+      <View className={storageManagerClasses({ _element: 'file__main' })}>
+        <Text className={storageManagerClasses({ _element: 'file__name' })}>
           {displayName}
         </Text>
       </View>
-      <Text as="span" className={ComponentClassName.StorageManagerFileSize}>
+      <Text
+        as="span"
+        className={storageManagerClasses({ _element: 'file__size' })}
+      >
         {fileSize ? humanFileSize(fileSize, true) : ''}
       </Text>
     </>

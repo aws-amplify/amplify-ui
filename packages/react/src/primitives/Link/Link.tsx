@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { linkClasses } from '@aws-amplify/ui';
 
-import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseLinkProps,
   LinkProps,
@@ -18,7 +17,7 @@ const LinkPrimitive: Primitive<LinkProps, 'a'> = (
   return (
     <View
       as={as}
-      className={classNames(ComponentClassName.Link, className)}
+      className={linkClasses(undefined, [className])}
       ref={ref}
       rel={isExternal ? 'noopener noreferrer' : undefined}
       target={isExternal ? '_blank' : undefined}

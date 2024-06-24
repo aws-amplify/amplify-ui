@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ComponentClassName } from '@aws-amplify/ui';
+import { storageManagerClasses } from '@aws-amplify/ui';
 import { View, Image } from '@aws-amplify/ui-react';
 import { IconFile, useIcons } from '@aws-amplify/ui-react/internal';
 import { FileThumbnailProps } from './types';
@@ -18,7 +18,7 @@ export const FileThumbnail = ({
   );
 
   return (
-    <View className={ComponentClassName.StorageManagerFileImage}>
+    <View className={storageManagerClasses({ _element: 'file__image' })}>
       {thumbnail}
     </View>
   );

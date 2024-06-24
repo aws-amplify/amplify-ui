@@ -72,6 +72,9 @@ export function createComponentClasses<
       : baseComponentClassName;
     const names = [className];
 
+    // TODO: DRY this code and update this conditional a bit
+    // we no longer use top-level element and modifier
+    // if you pass an element, the modifiers come under it
     if (el) {
       const modifiers = props._element[el];
       if (Array.isArray(modifiers)) {
@@ -100,6 +103,13 @@ export function createComponentClasses<
           return;
         }
         names.push(`${className}--${modifier}`);
+      });
+    }
+    if (isObject(props._modifiers)) {
+      Object.entries(props._modifiers).forEach(([key, value]) => {
+        if (value) {
+          names.push(`${className}--${key}`);
+        }
       });
     }
 

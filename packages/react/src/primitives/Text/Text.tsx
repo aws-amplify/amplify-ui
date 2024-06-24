@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { textClasses } from '@aws-amplify/ui';
 
-import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
-import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseTextProps,
   TextProps,
@@ -16,15 +14,18 @@ const TextPrimitive: Primitive<TextProps, 'p'> = (
   { as = 'p', className, children, isTruncated, variation, ...rest },
   ref
 ) => {
-  const componentClasses = classNames(
-    ComponentClassName.Text,
-    classNameModifier(ComponentClassName.Text, variation),
-    classNameModifierByFlag(ComponentClassName.Text, 'truncated', isTruncated),
-    className
-  );
-
   return (
-    <View as={as} className={componentClasses} ref={ref} {...rest}>
+    <View
+      as={as}
+      className={textClasses(
+        {
+          _modifiers: [variation, isTruncated ? 'truncated' : undefined],
+        },
+        [className]
+      )}
+      ref={ref}
+      {...rest}
+    >
       {children}
     </View>
   );

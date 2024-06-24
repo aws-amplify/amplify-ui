@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { getLogger, ComponentClassName } from '@aws-amplify/ui';
+import { getLogger, storageManagerClasses } from '@aws-amplify/ui';
 import { VisuallyHidden } from '@aws-amplify/ui-react';
 import {
   useDeprecationWarning,
@@ -245,9 +245,11 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
 
   return (
     <Components.Container
-      className={`${ComponentClassName.StorageManager} ${
-        hasFiles ? ComponentClassName.StorageManagerPreviewer : ''
-      }`}
+      // Note: this is an invalid use of BEM by combining a root class name
+      // and element class name.
+      className={storageManagerClasses(undefined, [
+        hasFiles ? storageManagerClasses({ _element: 'previewer' }) : undefined,
+      ])}
     >
       <Components.DropZone
         inDropZone={dragState !== 'inactive'}

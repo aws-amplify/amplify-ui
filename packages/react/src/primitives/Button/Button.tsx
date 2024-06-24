@@ -51,6 +51,7 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
     {
       _modifiers: [
         variation,
+        // @ts-ignore
         colorThemeModifier,
         size,
         shouldBeDisabled ? 'disabled' : undefined,

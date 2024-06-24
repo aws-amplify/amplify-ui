@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { checkboxFieldClasses, fieldClasses } from '@aws-amplify/ui';
 
-import { classNameModifier } from '../shared/utils';
 import { Checkbox } from '../Checkbox';
 import {
   BaseCheckboxFieldProps,
@@ -9,7 +8,6 @@ import {
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
-import { ComponentClassName } from '@aws-amplify/ui';
 import { FieldErrorMessage } from '../Field';
 import { getTestId } from '../utils/getTestId';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
@@ -28,15 +26,13 @@ const CheckboxFieldPrimitive: Primitive<CheckboxFieldProps, 'input'> = (
   },
   ref
 ) => {
-  const checkboxTestId = getTestId(testId, ComponentClassName.Checkbox);
+  const checkboxTestId = getTestId(testId, checkboxFieldClasses());
   return (
     <Flex
-      className={classNames(
-        ComponentClassName.Field,
-        ComponentClassName.CheckboxField,
-        classNameModifier(ComponentClassName.Field, size),
-        className
-      )}
+      className={checkboxFieldClasses(undefined, [
+        fieldClasses({ _modifiers: [size] }),
+        className,
+      ])}
       testId={testId}
     >
       <Checkbox

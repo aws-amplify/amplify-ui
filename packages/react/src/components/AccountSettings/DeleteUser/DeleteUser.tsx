@@ -1,11 +1,10 @@
 import React from 'react';
 
 import { useSetUserAgent } from '@aws-amplify/ui-react-core';
-import { deleteUser, getLogger } from '@aws-amplify/ui';
+import { deleteUser, deleteUserClasses, getLogger } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
 import { Flex } from '../../../primitives';
-import { ComponentClassName } from '../constants';
 import DEFAULTS from './defaults';
 import { DeleteUserProps, DeleteUserState } from './types';
 import { defaultDeleteUserDisplayText } from '../utils';
@@ -105,7 +104,7 @@ function DeleteUser({
   }
 
   return (
-    <Flex className={ComponentClassName.DeleteUser} direction="column">
+    <Flex className={deleteUserClasses()} direction="column">
       <DeleteButton
         isDisabled={state === 'CONFIRMATION' || state === 'DELETING'}
         onClick={startConfirmation}

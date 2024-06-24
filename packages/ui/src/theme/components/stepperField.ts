@@ -5,7 +5,11 @@ export type StepperFieldTheme<Required extends boolean = false> =
     Modifiers<ColorTheme, Required> &
     Elements<
       {
-        button?: BaseProperties & Modifiers<'increase' | 'decrease', Required>;
+        // Note: this is invalid BEM
+        'button--increase'?: BaseProperties &
+          Modifiers<'quiet' | 'disabled', Required>;
+        'button--decrease'?: BaseProperties &
+          Modifiers<'quiet' | 'disabled', Required>;
         input?: BaseProperties;
       },
       Required

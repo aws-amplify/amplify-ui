@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ComponentClassName } from '@aws-amplify/ui';
+import { storageManagerClasses } from '@aws-amplify/ui';
 import { View, Button } from '@aws-amplify/ui-react';
 import { StorageManagerDisplayTextDefault } from '../../utils';
 
@@ -19,8 +19,10 @@ export function FileListFooter({
 }: FileListFooterProps): JSX.Element {
   const { clearAllButtonText, getUploadButtonText } = displayText;
   return (
-    <View className={ComponentClassName.StorageManagerPreviewerFooter}>
-      <View className={ComponentClassName.StorageManagerPreviewerActions}>
+    <View className={storageManagerClasses({ _element: 'previewer__footer' })}>
+      <View
+        className={storageManagerClasses({ _element: 'previewer__actions' })}
+      >
         <Button size="small" variation="link" onClick={onClearAll}>
           {clearAllButtonText}
         </Button>

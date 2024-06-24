@@ -9,6 +9,7 @@ export type StorageManagerTheme<Required extends boolean = false> =
         dropzone__icon?: BaseProperties;
         dropzone__text?: BaseProperties;
         file?: BaseProperties;
+        file__picker?: BaseProperties;
         file__wrapper?: BaseProperties;
         file__name?: BaseProperties;
         file__size?: BaseProperties;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { classNames, ComponentClassName } from '@aws-amplify/ui';
+import { storageImageClasses } from '@aws-amplify/ui';
 import { Image } from '@aws-amplify/ui-react';
 import { useDeprecationWarning } from '@aws-amplify/ui-react/internal';
 import { useGetUrl, useSetUserAgent } from '@aws-amplify/ui-react-core';
@@ -94,7 +94,7 @@ export const StorageImage = ({
   return (
     <Image
       {...rest}
-      className={classNames(ComponentClassName.StorageImage, className)}
+      className={storageImageClasses(undefined, [className])}
       src={url?.toString() ?? fallbackSrc}
     />
   );

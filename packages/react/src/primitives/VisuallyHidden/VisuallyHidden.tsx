@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
+import { visuallyHiddenClasses } from '@aws-amplify/ui';
 
-import { ComponentClassName } from '@aws-amplify/ui';
 import {
   ForwardRefPrimitive,
   Primitive,
@@ -17,7 +16,7 @@ const VisuallyHiddenPrimitive: Primitive<VisuallyHiddenProps, 'span'> = (
 ) => (
   <View
     as={as}
-    className={classNames(ComponentClassName.VisuallyHidden, className)}
+    className={visuallyHiddenClasses(undefined, [className])}
     ref={ref}
     {...rest}
   >
