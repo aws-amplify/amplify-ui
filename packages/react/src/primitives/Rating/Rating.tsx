@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { ratingClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
 
+import { classNameModifier } from '../shared/utils';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { Flex } from '../Flex';
 import { IconStar, useIcons } from '../Icon';
 import { isIconFilled, isIconEmpty, isIconMixed } from './utils';
@@ -43,7 +45,7 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
           key={index.toString()}
           icon={filledIcon}
           fill={fillColor}
-          className={ratingClasses({ _element: { icon: 'filled' } })}
+          className={classNameModifier(ComponentClassName.RatingIcon, 'filled')}
         />
       );
     if (isIconEmpty(currentIconIndex, value))
@@ -52,7 +54,7 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
           key={index.toString()}
           icon={_emptyIcon}
           fill={emptyColor}
-          className={ratingClasses({ _element: { icon: 'empty' } })}
+          className={classNameModifier(ComponentClassName.RatingIcon, 'empty')}
         />
       );
     if (isIconMixed(currentIconIndex, value))
@@ -70,7 +72,11 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
 
   return (
     <Flex
-      className={ratingClasses({ _modifiers: size }, [className])}
+      className={classNames(
+        ComponentClassName.Rating,
+        classNameModifier(ComponentClassName.Rating, size),
+        className
+      )}
       ref={ref}
       {...rest}
     >

@@ -1,5 +1,5 @@
+import { classNames } from '@aws-amplify/ui';
 import * as React from 'react';
-import { searchfieldClasses } from '@aws-amplify/ui';
 
 import { FieldClearButton } from '../Field';
 import { FieldGroupIcon } from '../FieldGroupIcon';
@@ -7,6 +7,7 @@ import { IconSearch } from '../Icon/internal';
 import { SearchFieldButton } from './SearchFieldButton';
 import { TextField } from '../TextField';
 import { useSearchField } from './useSearchField';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { strHasLength } from '../shared/utils';
 import type {
   BaseSearchFieldProps,
@@ -71,7 +72,7 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
   return (
     <TextField
       autoComplete={autoComplete}
-      className={searchfieldClasses(undefined, [className])}
+      className={classNames(ComponentClassName.SearchField, className)}
       labelHidden={labelHidden}
       innerStartComponent={SearchIcon}
       innerEndComponent={

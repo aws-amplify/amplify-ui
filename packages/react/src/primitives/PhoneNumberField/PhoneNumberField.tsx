@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { phonenumberFieldClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
 
+import { ComponentClassName } from '@aws-amplify/ui';
 import { DialCodeSelect } from './DialCodeSelect';
 import {
   PhoneNumberFieldProps,
@@ -50,7 +51,7 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
         />
       }
       autoComplete={autoComplete}
-      className={phonenumberFieldClasses(undefined, [className])}
+      className={classNames(ComponentClassName.PhoneNumberField, className)}
       hasError={hasError}
       isDisabled={isDisabled}
       isReadOnly={isReadOnly}

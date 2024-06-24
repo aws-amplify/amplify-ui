@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
 import { LabelPositions } from '../types/field';
-import { Sizes } from '../types';
 
 export interface RadioGroupContextType {
   name: string;
   currentValue?: string;
-  size?: Sizes;
+  size?: string;
   defaultValue?: string;
   hasError?: boolean;
   isRequired?: boolean;

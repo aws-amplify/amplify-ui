@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { accordionClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
 
-import { isFunction } from '@aws-amplify/ui';
+import { ComponentClassName, isFunction } from '@aws-amplify/ui';
 import { ElementType, PrimitiveProps } from '../types/view';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
@@ -72,7 +72,7 @@ const AccordionContainerPrimitive: Primitive<AccordionContainerProps, 'div'> = (
     <AccordionContext.Provider value={contextValue}>
       <View
         {...rest}
-        className={accordionClasses(undefined, [className])}
+        className={classNames(ComponentClassName.Accordion, className)}
         data-testid={testId}
         ref={ref}
       >

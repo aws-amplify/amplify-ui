@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { autocompleteClasses } from '@aws-amplify/ui';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { Loader } from '../Loader';
 
 import { ScrollView } from '../ScrollView';
@@ -19,7 +19,7 @@ const MenuHeader = ({ children }: { children?: React.ReactNode }) => {
     return null;
   }
   return (
-    <View className={autocompleteClasses({ _element: 'menu__header' })}>
+    <View className={ComponentClassName.AutocompleteMenuHeader}>
       {children}
     </View>
   );
@@ -30,7 +30,7 @@ const MenuFooter = ({ children }: { children?: React.ReactNode }) => {
     return null;
   }
   return (
-    <View className={autocompleteClasses({ _element: 'menu__footer' })}>
+    <View className={ComponentClassName.AutocompleteMenuFooter}>
       {children}
     </View>
   );
@@ -38,7 +38,7 @@ const MenuFooter = ({ children }: { children?: React.ReactNode }) => {
 
 const MenuLoading = ({ children }: { children?: React.ReactNode }) => {
   return (
-    <View className={autocompleteClasses({ _element: { menu: 'loading' } })}>
+    <View className={ComponentClassName.AutocompleteMenuLoading}>
       {children ?? (
         <>
           <Loader />
@@ -50,7 +50,7 @@ const MenuLoading = ({ children }: { children?: React.ReactNode }) => {
 };
 
 const MenuEmpty = ({ children }: { children?: React.ReactNode }) => (
-  <View className={autocompleteClasses({ _element: { menu: 'empty' } })}>
+  <View className={ComponentClassName.AutocompleteMenuEmpty}>
     {children ?? ComponentText.Autocomplete.emptyText}
   </View>
 );
@@ -71,7 +71,7 @@ const AutocompleteMenuPrimitive: Primitive<AutocompleteMenuProps, 'div'> = (
 ) => {
   return (
     <ScrollView
-      className={autocompleteClasses({ _element: 'menu' })}
+      className={ComponentClassName.AutocompleteMenu}
       ref={ref}
       {...rest}
     >
@@ -84,7 +84,7 @@ const AutocompleteMenuPrimitive: Primitive<AutocompleteMenuProps, 'div'> = (
             <ScrollView
               as="ul"
               ariaLabel={ariaLabel}
-              className={autocompleteClasses({ _element: 'menu__options' })}
+              className={ComponentClassName.AutocompleteMenuOptions}
               id={listboxId}
               role="listbox"
             >

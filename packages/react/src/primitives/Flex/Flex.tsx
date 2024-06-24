@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { flexClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
 
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseFlexProps,
   FlexProps,
@@ -14,7 +15,11 @@ const FlexPrimitive: Primitive<FlexProps, 'div'> = (
   { className, children, ...rest },
   ref
 ) => (
-  <View className={flexClasses(undefined, [className])} ref={ref} {...rest}>
+  <View
+    className={classNames(ComponentClassName.Flex, className)}
+    ref={ref}
+    {...rest}
+  >
     {children}
   </View>
 );

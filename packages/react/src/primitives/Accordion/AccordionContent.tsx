@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { accordionClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
 
+import { ComponentClassName } from '@aws-amplify/ui';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
@@ -18,7 +19,7 @@ const AccordionContentPrimitive: Primitive<AccordionContentProps, 'div'> = (
   return (
     <View
       {...rest}
-      className={accordionClasses({ _element: 'item__content' }, [className])}
+      className={classNames(ComponentClassName.AccordionItemContent, className)}
       ref={ref}
     >
       {children}

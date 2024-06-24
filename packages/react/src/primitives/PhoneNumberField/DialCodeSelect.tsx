@@ -1,10 +1,8 @@
 import * as React from 'react';
-import {
-  countrycodeselectClasses,
-  dialcodeselectClasses,
-} from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
 import { countryDialCodes } from '@aws-amplify/ui';
 
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseDialCodeSelectProps,
   DialCodeSelectProps,
@@ -38,10 +36,11 @@ const DialCodeSelectPrimitive: Primitive<DialCodeSelectProps, 'select'> = (
         */
       aria-disabled={isReadOnly}
       autoComplete="tel-country-code"
-      className={dialcodeselectClasses(undefined, [
-        countrycodeselectClasses(),
-        className,
-      ])}
+      className={classNames(
+        ComponentClassName.CountryCodeSelect,
+        ComponentClassName.DialCodeSelect,
+        className
+      )}
       labelHidden
       ref={ref}
       {...props}

@@ -1,13 +1,15 @@
+import { classNames } from '@aws-amplify/ui';
 import * as RadixSlider from '@radix-ui/react-slider';
 import * as React from 'react';
 
 import {
+  classNameModifierByFlag,
   isFunction,
   sanitizeNamespaceImport,
-  fieldClasses,
-  sliderFieldClasses,
 } from '@aws-amplify/ui';
 
+import { classNameModifier } from '../shared/utils';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
 import { Flex } from '../Flex';
@@ -100,18 +102,36 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
   }, [currentValue, formatValue]);
 
   const isVertical = orientation === 'vertical';
+  const componentClasses = classNames(
+    ComponentClassName.SliderFieldTrack,
+    classNameModifier(ComponentClassName.SliderFieldTrack, orientation),
+    classNameModifier(ComponentClassName.SliderFieldTrack, size)
+  );
+  const rootComponentClasses = classNames(
+    ComponentClassName.SliderFieldRoot,
+    classNameModifier(ComponentClassName.SliderFieldRoot, orientation),
+    classNameModifier(ComponentClassName.SliderFieldRoot, size),
+    classNameModifierByFlag(
+      ComponentClassName.SliderFieldRoot,
+      'disabled',
+      disabled
+    ),
+    className
+  );
 
   return (
     <Flex
       // Custom classnames will be added to Root below
-      className={sliderFieldClasses(undefined, [
-        fieldClasses({ _modifiers: [size] }),
-      ])}
+      className={classNames(
+        ComponentClassName.Field,
+        classNameModifier(ComponentClassName.Field, size),
+        ComponentClassName.SliderField
+      )}
       testId={testId}
       {...styleProps}
     >
       <Label
-        className={sliderFieldClasses({ _element: 'label' })}
+        className={ComponentClassName.SliderFieldLabel}
         id={labelId}
         testId={SLIDER_LABEL_TEST_ID}
         visuallyHidden={labelHidden}
@@ -125,21 +145,14 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
         descriptiveText={descriptiveText}
       />
       <FieldGroup
-        className={sliderFieldClasses({ _element: 'group' })}
+        className={ComponentClassName.SliderFieldGroup}
         id={fieldId}
         orientation={orientation}
         outerStartComponent={outerStartComponent}
         outerEndComponent={outerEndComponent}
       >
         <Root
-          className={sliderFieldClasses(
-            {
-              _element: {
-                root: [orientation, size, disabled ? 'disabled' : undefined],
-              },
-            },
-            [className]
-          )}
+          className={rootComponentClasses}
           data-testid={SLIDER_ROOT_TEST_ID}
           disabled={disabled}
           defaultValue={defaultValues}
@@ -150,11 +163,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
           {...rest}
         >
           <Track
-            className={sliderFieldClasses({
-              _element: {
-                track: [orientation, size],
-              },
-            })}
+            className={componentClasses}
             data-testid={SLIDER_TRACK_TEST_ID}
             style={{
               backgroundColor: String(emptyTrackColor),
@@ -162,11 +171,18 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
             }}
           >
             <Range
-              className={sliderFieldClasses({
-                _element: {
-                  range: [orientation, disabled ? 'disabled' : undefined],
-                },
-              })}
+              className={classNames(
+                ComponentClassName.SliderFieldRange,
+                classNameModifier(
+                  ComponentClassName.SliderFieldRange,
+                  orientation
+                ),
+                classNameModifierByFlag(
+                  ComponentClassName.SliderFieldRange,
+                  'disabled',
+                  disabled
+                )
+              )}
               data-testid={SLIDER_RANGE_TEST_ID}
               style={{ backgroundColor: String(filledTrackColor) }}
             />
@@ -175,11 +191,15 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
             aria-describedby={ariaDescribedBy}
             aria-labelledby={labelId}
             aria-valuetext={ariaValuetext}
-            className={sliderFieldClasses({
-              _element: {
-                thumb: [size, disabled ? 'disabled' : undefined],
-              },
-            })}
+            className={classNames(
+              ComponentClassName.SliderFieldThumb,
+              classNameModifier(ComponentClassName.SliderFieldThumb, size),
+              classNameModifierByFlag(
+                ComponentClassName.SliderFieldThumb,
+                'disabled',
+                disabled
+              )
+            )}
             style={{ backgroundColor: String(thumbColor) }}
           />
         </Root>

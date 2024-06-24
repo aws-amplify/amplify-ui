@@ -1,8 +1,10 @@
 import React from 'react';
-import { storageManagerClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
 
+import { ComponentClassName } from '@aws-amplify/ui';
 import { Text, View } from '@aws-amplify/ui-react';
 import { IconCheck, IconError, useIcons } from '@aws-amplify/ui-react/internal';
+import { classNameModifier } from '@aws-amplify/ui';
 import { FileStatus } from '../../types';
 import { FileStatusMessageProps } from './types';
 
@@ -18,25 +20,27 @@ export const FileStatusMessage = ({
   switch (status) {
     case FileStatus.UPLOADING: {
       return (
-        <Text className={storageManagerClasses({ _element: 'file__status' })}>
+        <Text className={ComponentClassName.StorageManagerFileStatus}>
           {getUploadingText(percentage)}
         </Text>
       );
     }
     case FileStatus.PAUSED:
       return (
-        <Text className={storageManagerClasses({ _element: 'file__status' })}>
+        <Text className={ComponentClassName.StorageManagerFileStatus}>
           {getPausedText(percentage)}
         </Text>
       );
     case FileStatus.UPLOADED:
       return (
         <Text
-          className={storageManagerClasses({
-            _element: {
-              file__status: 'success',
-            },
-          })}
+          className={classNames(
+            ComponentClassName.StorageManagerFileStatus,
+            classNameModifier(
+              ComponentClassName.StorageManagerFileStatus,
+              'success'
+            )
+          )}
         >
           <View as="span" fontSize="xl">
             {icons?.success ?? <IconCheck />}
@@ -47,11 +51,13 @@ export const FileStatusMessage = ({
     case FileStatus.ERROR:
       return (
         <Text
-          className={storageManagerClasses({
-            _element: {
-              file__status: 'error',
-            },
-          })}
+          className={classNames(
+            ComponentClassName.StorageManagerFileStatus,
+            classNameModifier(
+              ComponentClassName.StorageManagerFileStatus,
+              'error'
+            )
+          )}
         >
           <View as="span" fontSize="xl">
             {icons?.error ?? <IconError />}

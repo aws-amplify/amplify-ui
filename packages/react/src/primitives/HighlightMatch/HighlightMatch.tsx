@@ -1,9 +1,10 @@
+import { classNames } from '@aws-amplify/ui';
 import * as React from 'react';
-import { highlightMatchClasses } from '@aws-amplify/ui';
 
 import { View } from '../View';
 import { strHasLength } from '../shared/utils';
 import { getTestId } from '../utils/getTestId';
+import { ComponentClassName } from '@aws-amplify/ui';
 import type {
   BaseHighlightMatchProps,
   HighlightMatchProps,
@@ -26,7 +27,7 @@ export const HighlightMatchPrimitive: Primitive<HighlightMatchProps, 'span'> = (
     return (
       <View
         as="span"
-        className={highlightMatchClasses(undefined, [className])}
+        className={classNames(className, ComponentClassName.HighlightMatch)}
         testId={testId}
         ref={ref}
         {...rest}
@@ -34,7 +35,7 @@ export const HighlightMatchPrimitive: Primitive<HighlightMatchProps, 'span'> = (
         {children.substring(0, startIndex)}
         <View
           as="strong"
-          className={highlightMatchClasses({ _element: 'highlighted' })}
+          className={ComponentClassName.HighlightMatchHighlighted}
           testId={matchTestId}
         >
           {match}

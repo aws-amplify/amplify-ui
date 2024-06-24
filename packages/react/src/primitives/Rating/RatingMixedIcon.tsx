@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { ratingClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
 import { Property } from 'csstype';
 
 import { View } from '../View';
 import { StyleToken } from '../types/style';
+import { ComponentClassName, classNameModifier } from '@aws-amplify/ui';
 
 interface RatingMixedIconProps {
   emptyColor?: StyleToken<Property.Color>;
@@ -24,19 +25,25 @@ export const RatingMixedIcon: React.FC<RatingMixedIconProps> = ({
   return (
     <View
       as="span"
-      className={ratingClasses({ _element: 'item' })}
+      className={ComponentClassName.RatingItem}
       aria-hidden="true"
     >
       <View
         as="span"
-        className={ratingClasses({ _element: { icon: 'empty' } })}
+        className={classNames(
+          ComponentClassName.RatingIcon,
+          classNameModifier(ComponentClassName.RatingIcon, 'empty')
+        )}
         color={emptyColor}
       >
         {emptyIcon}
       </View>
       <View
         as="span"
-        className={ratingClasses({ _element: { icon: 'filled' } })}
+        className={classNames(
+          ComponentClassName.RatingIcon,
+          classNameModifier(ComponentClassName.RatingIcon, 'filled')
+        )}
         width={widthPercentage}
         color={fillColor}
       >

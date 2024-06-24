@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { fieldClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
+
+import { ComponentClassName } from '@aws-amplify/ui';
 
 import { Button } from '../Button';
 import { VisuallyHidden } from '../VisuallyHidden';
@@ -10,6 +12,7 @@ import {
   Primitive,
   BaseShowPasswordButtonProps,
 } from '../types';
+import { classNameModifierByFlag } from '../shared/utils';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 
 const { passwordIsHidden, passwordIsShown, showPassword } =
@@ -31,6 +34,14 @@ const ShowPasswordButtonPrimitive: Primitive<
   ref
 ) => {
   const icons = useIcons('passwordField');
+  const showPasswordButtonClass = classNames(
+    ComponentClassName.FieldShowPassword,
+    classNameModifierByFlag(
+      ComponentClassName.FieldShowPassword,
+      'error',
+      hasError
+    )
+  );
 
   const icon =
     fieldType === 'password'
@@ -41,11 +52,7 @@ const ShowPasswordButtonPrimitive: Primitive<
     <Button
       aria-checked={fieldType !== 'password'}
       ariaLabel={showPasswordButtonLabel}
-      className={fieldClasses({
-        _element: {
-          'show-password': [hasError ? 'error' : undefined],
-        },
-      })}
+      className={showPasswordButtonClass}
       colorTheme={hasError ? 'error' : undefined}
       ref={ref}
       role="switch"

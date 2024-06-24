@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { isTypedFunction, tabsClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
+
+import {
+  ComponentClassName,
+  classNameModifierByFlag,
+  isTypedFunction,
+} from '@aws-amplify/ui';
 
 import { ForwardRefPrimitive, Primitive } from '../types';
 import { View } from '../View';
@@ -29,13 +35,14 @@ const TabsItemPrimitive: Primitive<TabsItemProps, 'button'> = (
       aria-selected={isActive}
       aria-controls={`${value}-panel`}
       tabIndex={!isActive ? -1 : undefined}
-      className={tabsClasses(
-        {
-          _element: {
-            item: [activeTab === value ? 'active' : undefined],
-          },
-        },
-        [className]
+      className={classNames(
+        ComponentClassName.TabsItem,
+        classNameModifierByFlag(
+          ComponentClassName.TabsItem,
+          'active',
+          activeTab === value
+        ),
+        className
       )}
       ref={ref}
       onClick={handleOnClick}

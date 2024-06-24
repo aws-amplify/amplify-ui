@@ -1,6 +1,9 @@
 import * as React from 'react';
-import { buttonClasses, fieldGroupClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
 
+import { ComponentClassName } from '@aws-amplify/ui';
+
+import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import {
   BaseButtonProps,
   ButtonProps,
@@ -39,7 +42,7 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
   // supports colorThemes and a colorTheme is used.
   const colorThemeModifier =
     supportedVariations.includes(variation) && colorTheme
-      ? (`${variation ?? 'outlined'}--${colorTheme}` as const)
+      ? `${variation ?? 'outlined'}--${colorTheme}`
       : undefined;
 
   const { isFieldsetDisabled } = useFieldset();
@@ -47,19 +50,24 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
     ? isFieldsetDisabled
     : isDisabled ?? isLoading ?? rest['disabled'];
 
-  const componentClasses = buttonClasses(
-    {
-      _modifiers: [
-        variation,
-        // @ts-ignore
-        colorThemeModifier,
-        size,
-        shouldBeDisabled ? 'disabled' : undefined,
-        isFullWidth ? 'fullwidth' : undefined,
-        isLoading ? 'loading' : undefined,
-      ],
-    },
-    [fieldGroupClasses({ _element: 'control' }), className]
+  const componentClasses = classNames(
+    ComponentClassName.Button,
+    ComponentClassName.FieldGroupControl,
+    classNameModifier(ComponentClassName.Button, variation),
+    classNameModifier(ComponentClassName.Button, colorThemeModifier),
+    classNameModifier(ComponentClassName.Button, size),
+    classNameModifierByFlag(
+      ComponentClassName.Button,
+      'disabled',
+      shouldBeDisabled
+    ),
+    classNameModifierByFlag(ComponentClassName.Button, 'loading', isLoading),
+    classNameModifierByFlag(
+      ComponentClassName.Button,
+      'fullwidth',
+      isFullWidth
+    ),
+    className
   );
 
   return (
@@ -72,10 +80,7 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
       {...rest}
     >
       {isLoading ? (
-        <Flex
-          as="span"
-          className={buttonClasses({ _element: 'loader-wrapper' })}
-        >
+        <Flex as="span" className={ComponentClassName.ButtonLoaderWrapper}>
           <Loader size={size} />
           {loadingText ? loadingText : null}
         </Flex>

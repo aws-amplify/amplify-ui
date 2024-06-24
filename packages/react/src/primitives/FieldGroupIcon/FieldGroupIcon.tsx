@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { fieldGroupClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
 
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseFieldGroupIconProps,
   FieldGroupIconProps,
@@ -22,7 +23,7 @@ const FieldGroupIconPrimitive: Primitive<FieldGroupIconProps, 'div'> = (
 ) => {
   return isVisible ? (
     <View
-      className={fieldGroupClasses({ _element: 'icon' }, [className])}
+      className={classNames(ComponentClassName.FieldGroupIcon, className)}
       ref={ref}
       tabIndex={excludeFromTabOrder ? -1 : undefined}
       {...rest}

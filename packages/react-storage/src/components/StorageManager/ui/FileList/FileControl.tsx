@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { storageManagerClasses } from '@aws-amplify/ui';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { View, Loader, Button } from '@aws-amplify/ui-react';
 
 import { FileStatus } from '../../types';
@@ -35,8 +35,8 @@ export function FileControl({
   } = displayText;
 
   return (
-    <View className={storageManagerClasses({ _element: 'file' })}>
-      <View className={storageManagerClasses({ _element: 'file__wrapper' })}>
+    <View className={ComponentClassName.StorageManagerFile}>
+      <View className={ComponentClassName.StorageManagerFileWrapper}>
         {showThumbnails ? (
           <FileThumbnail
             isImage={isImage}
@@ -47,7 +47,7 @@ export function FileControl({
         <UploadDetails displayName={displayName} fileSize={size} />
         {status === FileStatus.UPLOADING ? (
           <Loader
-            className={storageManagerClasses({ _element: 'loader' })}
+            className={ComponentClassName.StorageManagerLoader}
             variation="linear"
             percentage={progress}
             isDeterminate={loaderIsDeterminate}

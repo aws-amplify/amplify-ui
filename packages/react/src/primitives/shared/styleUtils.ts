@@ -111,28 +111,6 @@ const isComponentStyleProp = (key: string): key is AllStylePropKey => {
   return key in ComponentPropsToStylePropsMap;
 };
 
-export const themeKeyToVar = (key: string): string => {
-  return `var(--amplify-${key.replace('.', '-')})`;
-};
-
-type PseudoStates =
-  | 'hover'
-  | 'active'
-  | 'focus'
-  | 'focus-within'
-  | 'focus-visible';
-
-export const styleState = (
-  state: PseudoStates,
-  value: string,
-  prevValue?: string
-): string => {
-  if (prevValue) {
-    return `var(--${state}-off, ${prevValue}) var(--${state}-on, ${value})`;
-  }
-  return `var(--${state}-on, ${value})`;
-};
-
 /**
  * Convert style props to CSS variables for React style prop
  * Note: Will filter out undefined, null, and empty string prop values

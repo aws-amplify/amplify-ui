@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { paginationClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
+
+import { ComponentClassName } from '@aws-amplify/ui';
 
 import { Button } from '../Button';
 import { Flex } from '../Flex';
@@ -8,6 +10,7 @@ import { View } from '../View';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { BasePaginationItemProps } from '../types/pagination';
 import { ComponentText } from '../shared/constants';
+import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 
 export const PAGINATION_CURRENT_TEST_ID = 'current';
 export const PAGINATION_ELLIPSIS_TEST_ID = 'ellipsis';
@@ -23,12 +26,24 @@ export const PaginationItem: React.FC<BasePaginationItemProps> = ({
   ...rest
 }) => {
   const icons = useIcons('pagination');
-
-  const prevNextClasses = paginationClasses({
-    _element: {
-      item: [isDisabled ? 'disabled' : undefined],
-    },
-  });
+  const nextClasses = classNames(
+    ComponentClassName.PaginationItem,
+    classNameModifier(ComponentClassName.PaginationItem, 'link'),
+    classNameModifierByFlag(
+      ComponentClassName.PaginationItem,
+      'disabled',
+      isDisabled
+    )
+  );
+  const previousClasses = classNames(
+    ComponentClassName.PaginationItem,
+    classNameModifier(ComponentClassName.PaginationItem, 'link'),
+    classNameModifierByFlag(
+      ComponentClassName.PaginationItem,
+      'disabled',
+      isDisabled
+    )
+  );
 
   switch (type) {
     case 'page':
@@ -39,11 +54,10 @@ export const PaginationItem: React.FC<BasePaginationItemProps> = ({
               aria-current="page"
               size="small"
               variation="link"
-              className={paginationClasses({
-                _element: {
-                  item: ['current'],
-                },
-              })}
+              className={classNames(
+                ComponentClassName.PaginationItem,
+                classNameModifier(ComponentClassName.PaginationItem, 'current')
+              )}
               testId={PAGINATION_CURRENT_TEST_ID}
               {...rest}
             >
@@ -52,7 +66,7 @@ export const PaginationItem: React.FC<BasePaginationItemProps> = ({
             </Button>
           ) : (
             <Button
-              className={paginationClasses({ _element: 'item' })}
+              className={ComponentClassName.PaginationItem}
               size="small"
               variation="link"
               onClick={() => {
@@ -70,7 +84,7 @@ export const PaginationItem: React.FC<BasePaginationItemProps> = ({
       return (
         <View as="li">
           <Button
-            className={prevNextClasses}
+            className={nextClasses}
             size="small"
             variation="link"
             isDisabled={isDisabled}
@@ -88,7 +102,7 @@ export const PaginationItem: React.FC<BasePaginationItemProps> = ({
       return (
         <View as="li">
           <Button
-            className={prevNextClasses}
+            className={previousClasses}
             size="small"
             variation="link"
             isDisabled={isDisabled}
@@ -107,11 +121,10 @@ export const PaginationItem: React.FC<BasePaginationItemProps> = ({
         <View as="li">
           <Flex
             as="span"
-            className={paginationClasses({
-              _element: {
-                item: ['ellipsis'],
-              },
-            })}
+            className={classNameModifier(
+              ComponentClassName.PaginationItem,
+              'ellipsis'
+            )}
             testId={PAGINATION_ELLIPSIS_TEST_ID}
             {...rest}
           >

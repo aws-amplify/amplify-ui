@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { ratingClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
 import { Property } from 'csstype';
 
 import { View } from '../View';
 import { StyleToken } from '../types/style';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 interface RatingIconProps {
   icon: React.ReactNode;
@@ -19,10 +20,10 @@ export const RatingIcon: React.FC<RatingIconProps> = ({
   return (
     <View
       as="span"
-      className={ratingClasses({ _element: 'item' })}
+      className={ComponentClassName.RatingItem}
       aria-hidden="true"
     >
-      <View as="span" className={className} color={fill}>
+      <View as="span" className={classNames(className)} color={fill}>
         {icon}
       </View>
     </View>

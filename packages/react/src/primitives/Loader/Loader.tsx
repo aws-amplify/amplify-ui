@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { loaderClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
 
+import { classNameModifier } from '../shared/utils';
+import { ComponentClassName, classNameModifierByFlag } from '@aws-amplify/ui';
 import { BaseLoaderProps, LoaderProps } from '../types/loader';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { View } from '../View';
@@ -34,6 +36,17 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
   percentage = Math.max(percentage, 0);
 
   const percent = `${percentage}%`;
+  const componentClasses = classNames(
+    ComponentClassName.Loader,
+    classNameModifier(ComponentClassName.Loader, size),
+    classNameModifier(ComponentClassName.Loader, variation),
+    classNameModifierByFlag(
+      ComponentClassName.Loader,
+      'determinate',
+      isDeterminate
+    ),
+    className
+  );
 
   const linearLoader = (
     <g>
@@ -64,9 +77,10 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
       {isDeterminate ? (
         <text
           aria-live="polite"
-          className={loaderClasses({ _element: 'label' }, [
-            isPercentageTextHidden ? 'amplify-visually-hidden' : null,
-          ])}
+          className={classNames(
+            ComponentClassName.LoaderLabel,
+            isPercentageTextHidden ? ComponentClassName.VisuallyHidden : null
+          )}
           // -1% offset makes the text position look nicest
           x={`${-1 + percentage}%`}
           y="200%"
@@ -107,9 +121,10 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
       {isDeterminate ? (
         <text
           aria-live="polite"
-          className={loaderClasses({ _element: 'label' }, [
-            isPercentageTextHidden ? 'amplify-visually-hidden' : null,
-          ])}
+          className={classNames(
+            ComponentClassName.LoaderLabel,
+            isPercentageTextHidden ? ComponentClassName.VisuallyHidden : null
+          )}
           // this x and y make text position look nicest
           x="130%"
           y="80%"
@@ -121,22 +136,7 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
   );
 
   return (
-    <View
-      as="svg"
-      className={loaderClasses(
-        {
-          _modifiers: [
-            size,
-            variation,
-            isDeterminate ? 'determinate' : undefined,
-          ],
-        },
-        [className]
-      )}
-      ref={ref}
-      role="img"
-      {...rest}
-    >
+    <View as="svg" className={componentClasses} ref={ref} role="img" {...rest}>
       {variation === 'linear' ? linearLoader : circularLoader}
     </View>
   );

@@ -121,9 +121,6 @@ export interface BaseViewProps
    */
   isDisabled?: boolean;
 
-  _hover?: BaseStyleProps;
-  _active?: BaseStyleProps;
-
   /**
    * @description
    * Accepts a JavaScript object with camelCased properties rather than a CSS string.

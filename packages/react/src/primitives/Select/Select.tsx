@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { fieldGroupClasses, selectClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
 
+import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { Flex } from '../Flex';
 import { IconExpandMore, useIcons } from '../Icon';
 import { ForwardRefPrimitive, Primitive } from '../types';
@@ -37,11 +39,20 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
 
   const isExpanded = isMultiple || selectSize > 1;
 
+  const componentClasses = classNames(
+    ComponentClassName.Select,
+    ComponentClassName.FieldGroupControl,
+    classNameModifier(ComponentClassName.Select, size),
+    classNameModifier(ComponentClassName.Select, variation),
+    classNameModifierByFlag(ComponentClassName.Select, 'error', hasError),
+    classNameModifierByFlag(ComponentClassName.Select, 'expanded', isExpanded),
+    className
+  );
   const icons = useIcons('select');
   const { isFieldsetDisabled } = useFieldset();
 
   return (
-    <View className={selectClasses({ _element: 'wrapper' })}>
+    <View className={ComponentClassName.SelectWrapper}>
       <View
         aria-invalid={hasError}
         as="select"
@@ -56,17 +67,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
         multiple={isMultiple}
         size={selectSize}
         required={isRequired}
-        className={selectClasses(
-          {
-            _modifiers: [
-              size,
-              variation,
-              hasError ? 'error' : undefined,
-              isExpanded ? 'expanded' : undefined,
-            ],
-          },
-          [fieldGroupClasses({ _element: 'control' }), className]
-        )}
+        className={componentClasses}
         ref={ref}
         {...rest}
       >
@@ -75,7 +76,10 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
       </View>
       {isExpanded ? null : (
         <Flex
-          className={selectClasses({ _element: { icon: [size] } })}
+          className={classNames(
+            ComponentClassName.SelectIcon,
+            classNameModifier(ComponentClassName.SelectIcon, size)
+          )}
           color={iconColor}
           aria-hidden="true"
         >

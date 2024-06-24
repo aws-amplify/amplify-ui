@@ -1,7 +1,8 @@
 import React from 'react';
-import { dropZoneClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
 
 import { View } from '../View';
+import { ComponentClassName, classNameModifierByFlag } from '@aws-amplify/ui';
 import { DropZoneContext } from './DropZoneProvider';
 import { BaseDropZoneContainerProps, DropZoneContainerProps } from './types';
 import { ForwardRefPrimitive, Primitive } from '../types';
@@ -33,13 +34,25 @@ const Container: Primitive<DropZoneContainerProps, 'div'> = (
       {...rest}
       {...dragProps}
       isDisabled={isDisabled}
-      className={dropZoneClasses({
-        _modifiers: [
-          isDisabled ? 'disabled' : undefined,
-          dragState === 'reject' ? 'rejected' : undefined,
-          dragState === 'accept' ? 'accepted' : undefined,
-        ],
-      })}
+      className={classNames(
+        className,
+        classNameModifierByFlag(
+          ComponentClassName.DropZone,
+          'rejected',
+          dragState === 'reject'
+        ),
+        classNameModifierByFlag(
+          ComponentClassName.DropZone,
+          'accepted',
+          dragState === 'accept'
+        ),
+        classNameModifierByFlag(
+          ComponentClassName.DropZone,
+          'disabled',
+          isDisabled
+        ),
+        ComponentClassName.DropZone
+      )}
       data-testid={testId}
       ref={ref}
     >

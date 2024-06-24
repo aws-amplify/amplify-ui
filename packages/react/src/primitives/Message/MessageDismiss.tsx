@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { messageClasses, isFunction } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
+
+import { ComponentClassName, isFunction } from '@aws-amplify/ui';
 
 import { Button } from '../Button';
 import { VisuallyHidden } from '../VisuallyHidden';
@@ -32,7 +34,7 @@ const MessageDismissPrimitive: Primitive<MessageDismissProps, 'button'> = (
     <Button
       variation="link"
       colorTheme="overlay"
-      className={messageClasses({ _element: 'dismiss' }, [className])}
+      className={classNames(ComponentClassName.MessageDismiss, className)}
       ref={ref}
       onClick={dismissMessage}
       {...rest}

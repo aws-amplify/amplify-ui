@@ -7,7 +7,7 @@ exports[`DeleteUser renders as expected 1`] = `
     style="flex-direction: column;"
   >
     <button
-      class="amplify-button amplify-button--warning amplify-field-group__control"
+      class="amplify-button amplify-field-group__control amplify-button--warning"
       type="button"
     >
       Delete Account

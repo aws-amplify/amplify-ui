@@ -1,6 +1,9 @@
 import * as React from 'react';
-import { breadcrumbsClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
 
+import { ComponentClassName } from '@aws-amplify/ui';
+
+import { classNameModifierByFlag } from '../shared/utils';
 import {
   BreadcrumbsLinkProps,
   ForwardRefPrimitive,
@@ -17,13 +20,14 @@ const BreadcrumbLinkPrimitive: Primitive<BreadcrumbsLinkProps, 'a'> = (
   { className, children, href, isCurrent, ...rest },
   ref
 ) => {
-  const componentClasses = breadcrumbsClasses(
-    {
-      _element: {
-        link: isCurrent ? 'current' : undefined,
-      },
-    },
-    [className]
+  const componentClasses = classNames(
+    ComponentClassName.BreadcrumbsLink,
+    classNameModifierByFlag(
+      ComponentClassName.BreadcrumbsLink,
+      'current',
+      isCurrent
+    ),
+    className
   );
 
   if (isCurrent) {

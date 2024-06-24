@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { iconClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
 
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseIconProps,
   IconProps,
@@ -49,7 +50,7 @@ const IconPrimitive: Primitive<IconProps, 'svg'> = (
   return (
     <View
       as={as}
-      className={iconClasses(undefined, [className])}
+      className={classNames(ComponentClassName.Icon, className)}
       ref={ref}
       viewBox={`${minX} ${minY} ${width} ${height}`}
       {...rest}

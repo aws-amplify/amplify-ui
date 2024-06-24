@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { breadcrumbsClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 import {
   Primitive,
@@ -14,6 +15,11 @@ const BreadcrumbContainerPrimitive: Primitive<
   BreadcrumbsContainerProps,
   'nav'
 > = ({ className, children, ...rest }, ref) => {
+  const componentClasses = classNames(
+    ComponentClassName.Breadcrumbs,
+    className
+  );
+
   const ariaLabel = rest['aria-label'] ?? 'Breadcrumb';
 
   return (
@@ -21,10 +27,10 @@ const BreadcrumbContainerPrimitive: Primitive<
       {...rest}
       as="nav"
       aria-label={ariaLabel}
-      className={breadcrumbsClasses(undefined, [className])}
+      className={componentClasses}
       ref={ref}
     >
-      <View as="ol" className={breadcrumbsClasses({ _element: 'list' })}>
+      <View as="ol" className={ComponentClassName.BreadcrumbsList}>
         {children}
       </View>
     </View>

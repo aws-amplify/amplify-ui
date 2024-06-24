@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { messageClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
 
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   MessageHeadingProps,
   BaseMessageHeadingProps,
@@ -16,7 +17,7 @@ const MessageHeadingPrimitive: Primitive<MessageHeadingProps, 'div'> = (
 ) => {
   return (
     <Flex
-      className={messageClasses({ _element: 'heading' }, [className])}
+      className={classNames(ComponentClassName.MessageHeading, className)}
       ref={ref}
       {...rest}
     >

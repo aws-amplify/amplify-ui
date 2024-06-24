@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { breadcrumbsClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
+
+import { ComponentClassName } from '@aws-amplify/ui';
 
 import {
   BreadcrumbsSeparatorProps,
@@ -20,7 +22,7 @@ const BreadcrumbSeparatorPrimitive: Primitive<
       as={as}
       ref={ref}
       aria-hidden={ariaHidden}
-      className={breadcrumbsClasses({ _element: 'separator' }, [className])}
+      className={classNames(ComponentClassName.BreadcrumbsSeparator, className)}
     >
       {children}
     </View>

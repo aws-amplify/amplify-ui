@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { headingClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
 
+import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   ForwardRefPrimitive,
   BaseHeadingProps,
@@ -30,14 +32,15 @@ const HeadingPrimitive: Primitive<HeadingProps, HeadingTag> = (
 ) => (
   <View
     as={headingLevels[level]}
-    className={headingClasses(
-      {
-        _modifiers: {
-          truncated: isTruncated,
-          [String(level)]: true,
-        },
-      },
-      [className]
+    className={classNames(
+      ComponentClassName.Heading,
+      classNameModifier(ComponentClassName.Heading, level),
+      classNameModifierByFlag(
+        ComponentClassName.Heading,
+        'truncated',
+        isTruncated
+      ),
+      className
     )}
     ref={ref}
     {...rest}

@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { isFunction, tabsClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
 
+import { ComponentClassName, isFunction } from '@aws-amplify/ui';
 import { ForwardRefPrimitive, Primitive } from '../types';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { BaseTabsProps, TabsProps } from './types';
@@ -48,7 +49,11 @@ const TabsContainerPrimitive: Primitive<TabsProps, 'div'> = (
 
   return (
     <TabsContext.Provider value={_value}>
-      <View {...rest} ref={ref} className={tabsClasses(undefined, [className])}>
+      <View
+        {...rest}
+        ref={ref}
+        className={classNames(className, ComponentClassName.Tabs)}
+      >
         {children}
       </View>
     </TabsContext.Provider>

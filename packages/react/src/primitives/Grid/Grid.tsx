@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { gridClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
 
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseGridProps,
   GridProps,
@@ -14,7 +15,11 @@ const GridPrimitive: Primitive<GridProps, 'div'> = (
   { className, children, ...rest },
   ref
 ) => (
-  <View className={gridClasses(undefined, [className])} ref={ref} {...rest}>
+  <View
+    className={classNames(ComponentClassName.Grid, className)}
+    ref={ref}
+    {...rest}
+  >
     {children}
   </View>
 );

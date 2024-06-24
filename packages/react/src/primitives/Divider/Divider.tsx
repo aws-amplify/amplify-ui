@@ -1,6 +1,8 @@
+import { classNames } from '@aws-amplify/ui';
 import * as React from 'react';
-import { dividerClasses } from '@aws-amplify/ui';
 
+import { classNameModifier } from '../shared/utils';
+import { ComponentClassName } from '@aws-amplify/ui';
 import {
   BaseDividerProps,
   DividerProps,
@@ -14,16 +16,18 @@ const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
   { className, orientation = 'horizontal', size, label, ...rest },
   ref
 ) => {
+  const componentClasses = classNames(
+    ComponentClassName.Divider,
+    classNameModifier(ComponentClassName.Divider, orientation),
+    classNameModifier(ComponentClassName.Divider, size),
+    className
+  );
+
   return (
     <View
       aria-orientation={orientation}
       as="hr"
-      className={dividerClasses(
-        {
-          _modifiers: [orientation, size],
-        },
-        [className]
-      )}
+      className={componentClasses}
       data-label={label}
       ref={ref}
       {...rest}

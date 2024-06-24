@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { switchClasses, switchFieldClasses } from '@aws-amplify/ui';
+import { classNames } from '@aws-amplify/ui';
 
+import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
+import { ComponentClassName } from '@aws-amplify/ui';
 import { Flex } from '../Flex';
 import { FieldErrorMessage } from '../Field';
 import { Input } from '../Input';
@@ -52,13 +54,38 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
 
   const fieldId = useStableId(id);
 
+  const wrapperClasses = classNames(
+    ComponentClassName.SwitchTrack,
+    classNameModifierByFlag(ComponentClassName.SwitchTrack, 'checked', isOn),
+    classNameModifierByFlag(
+      ComponentClassName.SwitchTrack,
+      'disabled',
+      shouldBeDisabled
+    ),
+    classNameModifierByFlag(
+      ComponentClassName.SwitchTrack,
+      'focused',
+      isFocused
+    ),
+    classNameModifierByFlag(ComponentClassName.SwitchTrack, 'error', hasError)
+  );
+  const componentClasses = classNames(
+    ComponentClassName.SwitchThumb,
+    classNameModifierByFlag(ComponentClassName.SwitchThumb, 'checked', isOn),
+    classNameModifierByFlag(
+      ComponentClassName.SwitchThumb,
+      'disabled',
+      shouldBeDisabled
+    )
+  );
+
   return (
     <Flex
-      className={switchFieldClasses(
-        {
-          _modifiers: [size],
-        },
-        [className, labelPosition ? `amplify-label-${labelPosition}` : null]
+      className={classNames(
+        ComponentClassName.SwitchField,
+        classNameModifier(ComponentClassName.SwitchField, size),
+        labelPosition ? `amplify-label-${labelPosition}` : null,
+        className
       )}
       ref={ref}
       {...rest}
@@ -83,48 +110,28 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
       </VisuallyHidden>
       <Label
         htmlFor={fieldId}
-        className={switchClasses({
-          _element: {
-            wrapper: [labelPosition],
-          },
-        })}
+        className={classNames(
+          ComponentClassName.SwitchWrapper,
+          classNameModifier(ComponentClassName.SwitchWrapper, labelPosition)
+        )}
       >
         {isLabelHidden ? (
-          <VisuallyHidden
-            as="span"
-            className={switchClasses({ _element: 'label' })}
-          >
+          <VisuallyHidden as="span" className={ComponentClassName.SwitchLabel}>
             {label}
           </VisuallyHidden>
         ) : (
-          <View as="span" className={switchClasses({ _element: 'label' })}>
+          <View as="span" className={ComponentClassName.SwitchLabel}>
             {label}
           </View>
         )}
         <View
           as="span"
-          className={switchClasses({
-            _element: {
-              track: {
-                checked: isOn,
-                disabled: shouldBeDisabled,
-                focused: isFocused,
-                error: hasError,
-              },
-            },
-          })}
+          className={wrapperClasses}
           backgroundColor={isOn ? trackCheckedColor : trackColor}
         >
           <View
             as="span"
-            className={switchClasses({
-              _element: {
-                thumb: [
-                  isOn ? 'checked' : undefined,
-                  shouldBeDisabled ? 'disabled' : undefined,
-                ],
-              },
-            })}
+            className={componentClasses}
             data-checked={isOn}
             data-disabled={shouldBeDisabled}
             backgroundColor={thumbColor}
