@@ -12,7 +12,6 @@
   "dependencies": {
     "@aws-amplify/geo": "3.0.31",
     "@aws-amplify/ui-react": "^6.1.12",
-    "@aws-amplify/ui-react-ai": "0.0.0",
     "@aws-amplify/ui-react-geo": "^2.0.16",
     "@aws-amplify/ui-react-liveness": "^3.0.24",
     "@aws-amplify/ui-react-notifications": "^2.0.20",

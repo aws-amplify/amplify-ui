@@ -2,6 +2,7 @@
 
 // const { AIConversation } = createAIConversation();
 
-// export default function Example() {
-//   return <AIConversation />;
-// }
+export default function Example() {
+  // return <AIConversation />;
+  return <div>hello world</div>;
+}
