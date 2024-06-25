@@ -13,7 +13,8 @@ concurrency:
 
 on:
   pull_request:
-    branches: [main, hotfix]
+    # branches: [main, hotfix]
+    branches: feature/ai-release
     types: [opened, synchronize, labeled]
 
 jobs:
