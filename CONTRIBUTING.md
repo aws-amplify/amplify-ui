@@ -44,8 +44,10 @@ You should open an issue to discuss your pull request, unless it's a trivial cha
 1. [`nvm install`](https://github.com/nvm-sh/nvm)
 1. [`nvm use`](https://github.com/nvm-sh/nvm)
 1. `yarn setup`
-1. Within your fork, create a new branch based on the issue you're addressing -- `git checkout -b angular/remove-browser-module`
+1. Within your fork, create a new branch based on the issue you're addressing, e.g. `git checkout -b angular/remove-browser-module`
+1. Commit your code using [conventional commit messages](https://www.conventionalcommits.org/en/v1.0.0/#summary), e.g. `git commit -m "chore: remove browser module"`.
 1. Once your work is committed, validate your changes according to [local development guides](#local-development-guides).
+1. If this is a change to any customer-facing aspect of a component, for example a new prop, feature, or a breaking change, update or add relevant documentation. If this is a large change, documentation updates can be made in a separate PR, but should be noted as a followup in the PR description. See the specific contributing guide for documentation [here](docs/README.md#contributing)
 1. Push your branch with `git push origin -u`
 1. Open a PR against this repo from your newly published branch.
 1. Add a [changeset](https://github.com/changesets/changesets) that describes your changes. More info [here](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md). Please make sure that your changeset only bumps `@aws-amplify/*` packages and does not bump any of private packages like `docs`, `e2e`, `examples`, etc. If you only updated a private package like `docs`, `e2e`, or `examples`, skip this step.
@@ -53,6 +55,7 @@ You should open an issue to discuss your pull request, unless it's a trivial cha
 
 ### Troubleshooting
 
+**Apple Silicon:**
 If using an M1 (or more recent) Macbook and you get the following error message regarding installation of `canvas`:
 
 ```bash
@@ -64,6 +67,18 @@ gyp: Call to 'pkg-config pixman-1 --libs' returned exit status 127 while in bind
 ```
 
 See the [canvas docs](https://github.com/Automattic/node-canvas#compiling) to install required dependencies for local docs development.
+
+**Python >= 3.12:**
+If you are using Python 3.12 or greater and you get the following error message regarding installation of `canvas`:
+
+```bash
+error /Users/USERNAME/amplify-ui/node_modules/canvas: Command failed.
+Exit code: 1
+...
+ModuleNotFoundError: No module named 'distutils'
+```
+
+See the [setuptools](https://pypi.org/project/setuptools/) installation website. Setuptools serves as a [recommended](https://docs.python.org/3.10/library/distutils.html) alternative to distutils.
 
 ## Project Structure
 

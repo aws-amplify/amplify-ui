@@ -22,8 +22,8 @@ the requirements below.
 
 - [ ] Have read the [Pull Request Guidelines](https://github.com/aws-amplify/amplify-ui/blob/main/CONTRIBUTING.md)
 - [ ] PR description included
-- [ ] Relevant documentation is changed or added (and PR referenced)
 - [ ] `yarn test` passes and tests are updated/added
-- [ ] No side effects or [`sideEffects`](https://github.com/aws-amplify/amplify-ui/blob/main/packages/react/CONTRIBUTING.md#code-standards) field updated
+- [ ] PR title and commit messages follow [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/#summary) syntax
+- [ ] _If this change should result in a version bump_, [changeset added](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md) (This can be done after creating the PR.) This does not apply to changes made to `docs`, `e2e`, `examples`, or other private packages.
 
 By submitting this pull request, I confirm that my contribution is made under the terms of the Apache 2.0 license.
