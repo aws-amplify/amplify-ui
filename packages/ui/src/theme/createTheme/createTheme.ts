@@ -1,10 +1,11 @@
-// Internal Style Dictionary methods
-import deepExtend from 'style-dictionary/lib/utils/deepExtend.js';
-import flattenProperties from 'style-dictionary/lib/utils/flattenProperties.js';
-
 import { defaultTheme } from '../defaultTheme';
 import { Theme, DefaultTheme, WebTheme, Override } from '../types';
-import { setupToken, setupTokens } from './utils';
+import {
+  setupToken,
+  setupTokens,
+  flattenProperties,
+  deepExtend,
+} from './utils';
 import { WebDesignToken } from '../tokens/types/designToken';
 import { createComponentCSS } from './createComponentCSS';
 import { isString } from '../../utils';

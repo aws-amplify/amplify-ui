@@ -2,7 +2,7 @@
 import usesReference from 'style-dictionary/lib/utils/references/usesReference.js';
 import kebabCase from 'lodash/kebabCase.js';
 import { has, isObject, isString } from '../../utils';
-import { WebDesignToken } from '../types';
+import { Override, WebDesignToken } from '../types';
 import { ShadowValue } from '../tokens/types/designToken';
 
 export const CSS_VARIABLE_PREFIX = 'amplify';
@@ -146,4 +146,109 @@ export function setupTokens({
   }
 
   return output;
+}
+
+// Internal Style Dictionary methods
+// copied from amzn/style-dictionary with the owner's permission
+
+/**
+ * Takes an plain javascript object and will make a flat array of all the leaf nodes.
+ * A leaf node in this context has a 'value' property. Potentially refactor this to
+ * be more generic.
+ * @private
+ * @param  {Object} properties - The plain object you want flattened into an array.
+ * @param  {Array} [to_ret=[]] - Properties array. This function is recursive therefore this is what gets passed along.
+ * @return {Array}
+ */
+export function flattenProperties(properties: object, to_ret?: object[]) {
+  to_ret = to_ret || [];
+
+  for (var name in properties) {
+    if (has(properties, name)) {
+      if (isObject(properties[name]) && 'value' in properties[name]) {
+        to_ret.push(properties[name]);
+      } else if (isObject(properties[name])) {
+        flattenProperties(properties[name], to_ret);
+      }
+    }
+  }
+
+  return to_ret;
+}
+
+/**
+ * Performs an deep extend on the objects, from right to left.
+ * @private
+ * @param {Object[]} objects - An array of JS objects
+ * @param {Function} collision - A function to be called when a merge collision happens.
+ * @param {string[]} path - (for internal use) An array of strings which is the current path down the object when this is called recursively.
+ * @returns {Object}
+ */
+export function deepExtend<T>(
+  objects: (object | undefined)[],
+  collision?: Function,
+  path?: string[]
+): T {
+  if (objects == null) return {} as T;
+
+  var src,
+    copyIsArray,
+    copy,
+    name,
+    options,
+    clone,
+    target = objects[0] || {},
+    i = 1,
+    length = objects.length;
+
+  path = path || [];
+
+  // Handle case when target is a string or something (possible in deep copy)
+  if (typeof target !== 'object') {
+    target = {};
+  }
+
+  for (; i < length; i++) {
+    // Only deal with non-null/undefined values
+    if ((options = objects[i]) != null) {
+      // Extend the base object
+      for (name in options) {
+        if (!has(options, name)) continue;
+        if (name === '__proto__') continue;
+
+        src = target[name];
+        copy = options[name];
+
+        // Prevent never-ending loop
+        if (target === copy) {
+          continue;
+        }
+
+        // Recurse if we're merging plain objects or arrays
+        if (copy && (isObject(copy) || (copyIsArray = Array.isArray(copy)))) {
+          if (copyIsArray) {
+            copyIsArray = false;
+            clone = src && Array.isArray(src) ? src : [];
+          } else {
+            clone = src && isObject(src) ? src : {};
+          }
+
+          var nextPath = path.slice(0);
+          nextPath.push(name);
+
+          // Never move original objects, clone them
+          target[name] = deepExtend([clone, copy], collision, nextPath);
+
+          // Don't bring in undefined values
+        } else if (copy !== undefined) {
+          if (src != null && typeof collision == 'function') {
+            collision({ target: target, copy: options, path: path, key: name });
+          }
+          target[name] = copy;
+        }
+      }
+    }
+  }
+
+  return target as T;
 }
