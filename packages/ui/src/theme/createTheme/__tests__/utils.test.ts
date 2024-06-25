@@ -106,6 +106,11 @@ describe('theme utils', () => {
     });
   });
 
+  /**
+   * Unit tests for copied style dictionary functions
+   */
+
+  // https://github.com/amzn/style-dictionary/blob/main/__tests__/utils/flattenProperties.test.js
   describe('flattenProperties', () => {
     it('should return an empty array', () => {
       const ret = flattenProperties({});
@@ -157,6 +162,7 @@ describe('theme utils', () => {
     });
   });
 
+  // https://github.com/amzn/style-dictionary/blob/main/__tests__/utils/reference/usesReference.test.js
   describe('usesReference()', () => {
     it(`returns false for non-strings`, () => {
       expect(usesReference(42)).toBe(false);
@@ -195,6 +201,7 @@ describe('theme utils', () => {
     });
   });
 
+  // https://github.com/amzn/style-dictionary/blob/main/__tests__/utils/deepExtend.test.js
   describe('deepExtend', () => {
     it('should return an object', () => {
       var test = deepExtend();
