@@ -43,7 +43,7 @@ describe('createElementsContext', () => {
     expect(Button).not.toBe(ButtonElementBase);
     expect(Button).toBe(OtherButton);
 
-    expect(View).not.toBe(ButtonElementBase);
+    expect(View).not.toBe(ViewElementBase);
     expect(View).toBe(OtherView);
   });
 });
