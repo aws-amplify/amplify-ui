@@ -1,14 +1,14 @@
-import { Modifiers, BaseProperties, Elements } from './utils';
+import { Modifiers, ComponentStyles, Elements } from './utils';
 
 export type AutoCompleteTheme<Required extends boolean = false> =
-  BaseProperties &
+  ComponentStyles &
     Elements<
       {
-        menu?: BaseProperties & Modifiers<'empty' | 'loading', Required>;
-        menu__option?: BaseProperties & Modifiers<'active', Required>;
-        menu__options?: BaseProperties;
-        menu__header?: BaseProperties;
-        menu__footer?: BaseProperties;
+        menu?: ComponentStyles & Modifiers<'empty' | 'loading', Required>;
+        menu__option?: ComponentStyles & Modifiers<'active', Required>;
+        menu__options?: ComponentStyles;
+        menu__header?: ComponentStyles;
+        menu__footer?: ComponentStyles;
       },
       Required
     >;

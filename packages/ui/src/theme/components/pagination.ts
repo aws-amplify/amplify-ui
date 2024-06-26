@@ -1,7 +1,10 @@
-import { BaseProperties, Elements, Modifiers } from './utils';
+import { ComponentStyles, Elements, Modifiers } from './utils';
 
-export type PaginationTheme<Required extends boolean = false> = BaseProperties &
-  Elements<
-    { item?: BaseProperties & Modifiers<'ellipsis' | 'current' | 'disabled'> },
-    Required
-  >;
+export type PaginationTheme<Required extends boolean = false> =
+  ComponentStyles &
+    Elements<
+      {
+        item?: ComponentStyles & Modifiers<'ellipsis' | 'current' | 'disabled'>;
+      },
+      Required
+    >;

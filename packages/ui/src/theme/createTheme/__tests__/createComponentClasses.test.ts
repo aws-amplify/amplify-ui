@@ -1,4 +1,4 @@
-import { BaseProperties, Modifiers, Size } from '../../components/utils';
+import { ComponentStyles, Modifiers, Size } from '../../components/utils';
 import { createComponentClasses } from '../createComponentClasses';
 
 describe('createComponentClasses:', () => {
@@ -78,10 +78,10 @@ describe('createComponentClasses:', () => {
   });
 
   describe('custom components', () => {
-    interface AvatarTheme extends BaseProperties, Modifiers<Size> {
+    interface AvatarTheme extends ComponentStyles, Modifiers<Size> {
       _element?: {
-        item?: BaseProperties;
-        icon?: BaseProperties & Modifiers<'filled' | 'empty'>;
+        item?: ComponentStyles;
+        icon?: ComponentStyles & Modifiers<'filled' | 'empty'>;
       };
     }
     const avatarClassnames = createComponentClasses<AvatarTheme>({

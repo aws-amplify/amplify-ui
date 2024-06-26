@@ -1,13 +1,13 @@
-import { BaseProperties, Elements, Modifiers } from './utils';
+import { ComponentStyles, Elements, Modifiers } from './utils';
 
 export type BreadcrumbsTheme<Required extends boolean = false> =
-  BaseProperties &
+  ComponentStyles &
     Elements<
       {
-        list?: BaseProperties;
-        separator?: BaseProperties;
-        item?: BaseProperties;
-        link?: BaseProperties & Modifiers<'current', Required>;
+        list?: ComponentStyles;
+        separator?: ComponentStyles;
+        item?: ComponentStyles;
+        link?: ComponentStyles & Modifiers<'current', Required>;
       },
       Required
     >;

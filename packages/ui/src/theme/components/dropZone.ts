@@ -1,4 +1,4 @@
-import { Modifiers, BaseProperties } from './utils';
+import { Modifiers, ComponentStyles } from './utils';
 
-export type DropZoneTheme<Required extends boolean = false> = BaseProperties &
+export type DropZoneTheme<Required extends boolean = false> = ComponentStyles &
   Modifiers<'disabled' | 'active' | 'rejected' | 'accepted', Required>;

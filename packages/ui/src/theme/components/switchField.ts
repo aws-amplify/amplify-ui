@@ -1,17 +1,17 @@
-import { Modifiers, BaseProperties, Elements, Size } from './utils';
+import { Modifiers, ComponentStyles, Elements, Size } from './utils';
 
-export type SwitchTheme<Required extends boolean = false> = BaseProperties &
+export type SwitchTheme<Required extends boolean = false> = ComponentStyles &
   Elements<
     {
-      wrapper?: BaseProperties &
+      wrapper?: ComponentStyles &
         Modifiers<'start' | 'end' | 'top' | 'bottom', Required>;
-      track?: BaseProperties &
+      track?: ComponentStyles &
         Modifiers<'checked' | 'disabled' | 'focused' | 'error'>;
-      thumb?: BaseProperties & Modifiers<'checked' | 'disabled'>;
-      label?: BaseProperties;
+      thumb?: ComponentStyles & Modifiers<'checked' | 'disabled'>;
+      label?: ComponentStyles;
     },
     Required
   >;
 
 export type SwitchFieldTheme<Required extends boolean = false> =
-  BaseProperties & Modifiers<Size, Required>;
+  ComponentStyles & Modifiers<Size, Required>;

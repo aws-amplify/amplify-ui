@@ -1,10 +1,10 @@
-import { BaseProperties, Elements } from './utils';
+import { ComponentStyles, Elements } from './utils';
 
 export type HighlightMatchTheme<Required extends boolean = false> =
-  BaseProperties &
+  ComponentStyles &
     Elements<
       {
-        highlighted?: BaseProperties;
+        highlighted?: ComponentStyles;
       },
       Required
     >;

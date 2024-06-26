@@ -1,12 +1,12 @@
-import { Modifiers, BaseProperties, Size, Elements } from './utils';
+import { Modifiers, ComponentStyles, Size, Elements } from './utils';
 
-export type FieldTheme<Required extends boolean = false> = BaseProperties &
+export type FieldTheme<Required extends boolean = false> = ComponentStyles &
   Modifiers<Size, Required> &
   Elements<
     {
-      description?: BaseProperties;
-      'error-message'?: BaseProperties;
-      'show-password'?: BaseProperties & Modifiers<'error', Required>;
+      description?: ComponentStyles;
+      'error-message'?: ComponentStyles;
+      'show-password'?: ComponentStyles & Modifiers<'error', Required>;
     },
     Required
   >;

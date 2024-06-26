@@ -1,13 +1,13 @@
-import { BaseProperties, Elements } from './utils';
+import { ComponentStyles, Elements } from './utils';
 
-export type MenuTheme<Required extends boolean = false> = BaseProperties &
+export type MenuTheme<Required extends boolean = false> = ComponentStyles &
   Elements<
     {
       [key in
         | 'wrapper'
         | 'trigger'
         | 'content'
-        | 'content__item']?: BaseProperties;
+        | 'content__item']?: ComponentStyles;
     },
     Required
   >;

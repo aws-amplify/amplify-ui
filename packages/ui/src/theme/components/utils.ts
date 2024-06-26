@@ -17,13 +17,16 @@ export type CSSProperties = {
     | CSS.Properties[Key];
 };
 
+// Allows for psuedo selectors and attribute selectors
+// in a component theme, like:
+// { ':hover': { backgroundColor: 'red' }}
 export type Selectors = {
   [key in CSS.HtmlAttributes | CSS.Pseudos]?: CSSProperties;
 };
 
-export interface BaseProperties extends CSSProperties, Selectors {
+//
+export interface ComponentStyles extends CSSProperties, Selectors {
   _vars?: Record<string, DesignToken | string>;
-  _css?: Record<string, CSSProperties & Selectors>;
 }
 
 export type Modifiers<
@@ -31,17 +34,17 @@ export type Modifiers<
   Required extends boolean = false,
 > = Required extends true
   ? {
-      _modifiers: { [key in Keys]: BaseProperties };
+      _modifiers: { [key in Keys]: ComponentStyles };
     }
   : {
-      _modifiers?: { [key in Keys]?: BaseProperties };
+      _modifiers?: { [key in Keys]?: ComponentStyles };
     };
 
 export type Elements<
   Properties extends Record<
     string,
-    BaseProperties & {
-      _modifiers?: Record<string, BaseProperties>;
+    ComponentStyles & {
+      _modifiers?: Record<string, ComponentStyles>;
     }
   >,
   Required extends boolean = false,
@@ -53,14 +56,12 @@ export type Elements<
       _element?: Properties;
     };
 
-export interface BaseTheme extends CSSProperties, Selectors {
-  _vars?: Record<string, DesignToken | string>;
-  _css?: Record<string, CSSProperties & Selectors>;
-  _modifiers?: Record<string, BaseProperties>;
+export interface BaseTheme extends ComponentStyles {
+  _modifiers?: Record<string, ComponentStyles>;
   _element?: Record<
     string,
-    BaseProperties & {
-      _modifiers?: Record<string, BaseProperties>;
+    ComponentStyles & {
+      _modifiers?: Record<string, ComponentStyles>;
     }
   >;
 }

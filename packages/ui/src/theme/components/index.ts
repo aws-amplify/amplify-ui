@@ -4,7 +4,7 @@ import { AlertTheme } from './alert';
 import { AutoCompleteTheme } from './autocomplete';
 import { BadgeTheme } from './badge';
 import { BreadcrumbsTheme } from './breadcrumbs';
-import { ButtonTheme, ButtonColorThemeVariations } from './button';
+import { ButtonTheme } from './button';
 import { ButtonGroupTheme } from './buttonGroup';
 import { CardTheme } from './card';
 import { CheckboxTheme } from './checkbox';
@@ -144,45 +144,3 @@ export type ComponentThemeFromName<
   T extends string,
   Theme extends BaseTheme = BaseTheme,
 > = T extends keyof AllComponentThemes ? AllComponentThemes[T] : Theme;
-
-export {
-  AccordionTheme,
-  AutoCompleteTheme,
-  BadgeTheme,
-  BreadcrumbsTheme,
-  ButtonTheme,
-  ButtonColorThemeVariations,
-  ButtonGroupTheme,
-  CardTheme,
-  CheckboxTheme,
-  CollectionTheme,
-  DividerTheme,
-  DropZoneTheme,
-  FieldTheme,
-  FieldGroupTheme,
-  FieldsetTheme,
-  InputTheme,
-  LoaderTheme,
-  MenuTheme,
-  MessageTheme,
-  PaginationTheme,
-  PlaceholderTheme,
-  RadioTheme,
-  RatingTheme,
-  ScrollViewTheme,
-  SearchFieldTheme,
-  SelectTheme,
-  SliderFieldTheme,
-  StepperFieldTheme,
-  StorageManagerTheme,
-  SwitchTheme,
-  SwitchFieldTheme,
-  TableTheme,
-  TabsTheme,
-  TextTheme,
-  TextareaTheme,
-  TextareaFieldTheme,
-  TextFieldTheme,
-  ToggleButtonTheme,
-  ToggleButtonGroupTheme,
-};

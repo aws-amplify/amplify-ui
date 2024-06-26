@@ -1,9 +1,11 @@
-import { BaseProperties, Modifiers, Size } from './utils';
+import { ComponentStyles, Elements, Modifiers, Size } from './utils';
 
-export type RatingTheme<Required extends boolean = false> = BaseProperties &
-  Modifiers<Size> & {
-    _element?: {
-      item?: BaseProperties;
-      icon?: BaseProperties & Modifiers<'filled' | 'empty'>;
-    };
-  };
+export type RatingTheme<Required extends boolean = false> = ComponentStyles &
+  Modifiers<Size> &
+  Elements<
+    {
+      item?: ComponentStyles;
+      icon?: ComponentStyles & Modifiers<'filled' | 'empty'>;
+    },
+    Required
+  >;

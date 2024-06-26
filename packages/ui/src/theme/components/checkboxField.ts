@@ -1,4 +1,4 @@
-import { BaseProperties } from './utils';
+import { ComponentStyles } from './utils';
 
 export type CheckboxFieldTheme<Required extends boolean = false> =
-  BaseProperties;
+  ComponentStyles;

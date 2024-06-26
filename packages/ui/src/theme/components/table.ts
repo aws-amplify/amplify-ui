@@ -1,6 +1,6 @@
-import { Modifiers, BaseProperties, Size, Elements } from './utils';
+import { Modifiers, ComponentStyles, Size, Elements } from './utils';
 
-export type TableTheme<Required extends boolean = false> = BaseProperties &
+export type TableTheme<Required extends boolean = false> = ComponentStyles &
   Modifiers<Size | 'bordered' | 'striped', Required> &
   Elements<
     {
@@ -11,7 +11,7 @@ export type TableTheme<Required extends boolean = false> = BaseProperties &
         | 'foot'
         | 'row'
         | 'th'
-        | 'td']?: BaseProperties;
+        | 'td']?: ComponentStyles;
     },
     Required
   >;

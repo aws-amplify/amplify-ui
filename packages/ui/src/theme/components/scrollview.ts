@@ -1,4 +1,4 @@
-import { BaseProperties, Modifiers, Orientation } from './utils';
+import { ComponentStyles, Modifiers, Orientation } from './utils';
 
-export type ScrollViewTheme<Required extends boolean = false> = BaseProperties &
-  Modifiers<Orientation, Required>;
+export type ScrollViewTheme<Required extends boolean = false> =
+  ComponentStyles & Modifiers<Orientation, Required>;

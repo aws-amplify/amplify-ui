@@ -1,28 +1,28 @@
-import { Modifiers, BaseProperties, Elements, ColorTheme } from './utils';
+import { Modifiers, ComponentStyles, Elements, ColorTheme } from './utils';
 
 export type StorageManagerTheme<Required extends boolean = false> =
-  BaseProperties &
+  ComponentStyles &
     Modifiers<ColorTheme, Required> &
     Elements<
       {
-        dropzone?: BaseProperties & Modifiers<'active' | 'small', Required>;
-        dropzone__icon?: BaseProperties;
-        dropzone__text?: BaseProperties;
-        file?: BaseProperties;
-        file__picker?: BaseProperties;
-        file__wrapper?: BaseProperties;
-        file__name?: BaseProperties;
-        file__size?: BaseProperties;
-        file__list?: BaseProperties;
-        file__main?: BaseProperties;
-        file__image?: BaseProperties;
-        file__status?: BaseProperties &
+        dropzone?: ComponentStyles & Modifiers<'active' | 'small', Required>;
+        dropzone__icon?: ComponentStyles;
+        dropzone__text?: ComponentStyles;
+        file?: ComponentStyles;
+        file__picker?: ComponentStyles;
+        file__wrapper?: ComponentStyles;
+        file__name?: ComponentStyles;
+        file__size?: ComponentStyles;
+        file__list?: ComponentStyles;
+        file__main?: ComponentStyles;
+        file__image?: ComponentStyles;
+        file__status?: ComponentStyles &
           Modifiers<'error' | 'success', Required>;
-        loader?: BaseProperties;
-        previewer?: BaseProperties;
-        previewer__text?: BaseProperties;
-        previewer__footer?: BaseProperties;
-        previewer__actions?: BaseProperties;
+        loader?: ComponentStyles;
+        previewer?: ComponentStyles;
+        previewer__text?: ComponentStyles;
+        previewer__footer?: ComponentStyles;
+        previewer__actions?: ComponentStyles;
       },
       Required
     >;

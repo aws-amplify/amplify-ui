@@ -1,3 +1,3 @@
-import { BaseProperties } from './utils';
+import { ComponentStyles } from './utils';
 
-export type TextFieldTheme = BaseProperties;
+export type TextFieldTheme = ComponentStyles;

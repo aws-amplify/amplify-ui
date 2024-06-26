@@ -1,19 +1,25 @@
-import { Modifiers, BaseProperties, Elements, ColorTheme, Size } from './utils';
+import {
+  Modifiers,
+  ComponentStyles,
+  Elements,
+  ColorTheme,
+  Size,
+} from './utils';
 
 export type SliderFieldTheme<Required extends boolean = false> =
-  BaseProperties &
+  ComponentStyles &
     Modifiers<ColorTheme, Required> &
     Elements<
       {
-        label?: BaseProperties;
-        group?: BaseProperties;
-        root?: BaseProperties &
+        label?: ComponentStyles;
+        group?: ComponentStyles;
+        root?: ComponentStyles &
           Modifiers<'disabled' | 'horizontal' | 'vertical' | Size, Required>;
-        track?: BaseProperties &
+        track?: ComponentStyles &
           Modifiers<'horizontal' | 'vertical' | Size, Required>;
-        range?: BaseProperties &
+        range?: ComponentStyles &
           Modifiers<'disabled' | 'horizontal' | 'vertical', Required>;
-        thumb?: BaseProperties & Modifiers<'disabled' | Size, Required>;
+        thumb?: ComponentStyles & Modifiers<'disabled' | Size, Required>;
       },
       Required
     >;

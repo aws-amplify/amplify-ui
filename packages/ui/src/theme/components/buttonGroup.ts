@@ -1,3 +1,4 @@
-import { BaseProperties } from './utils';
+import { ComponentStyles } from './utils';
 
-export type ButtonGroupTheme<Required extends boolean = false> = BaseProperties;
+export type ButtonGroupTheme<Required extends boolean = false> =
+  ComponentStyles;

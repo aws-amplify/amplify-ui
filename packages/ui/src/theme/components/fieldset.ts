@@ -1,10 +1,10 @@
-import { Modifiers, BaseProperties, Size, Elements } from './utils';
+import { Modifiers, ComponentStyles, Size, Elements } from './utils';
 
-export type FieldsetTheme<Required extends boolean = false> = BaseProperties &
+export type FieldsetTheme<Required extends boolean = false> = ComponentStyles &
   Modifiers<Size | 'outlined' | 'plain', Required> &
   Elements<
     {
-      legend?: BaseProperties & Modifiers<Size, Required>;
+      legend?: ComponentStyles & Modifiers<Size, Required>;
     },
     Required
   >;

@@ -1,12 +1,12 @@
-import { BaseProperties, Elements, Modifiers } from './utils';
+import { ComponentStyles, Elements, Modifiers } from './utils';
 
-export type TabsTheme<Required extends boolean = false> = BaseProperties &
+export type TabsTheme<Required extends boolean = false> = ComponentStyles &
   Elements<
     {
-      list?: BaseProperties &
+      list?: ComponentStyles &
         Modifiers<'equal' | 'relative' | 'top' | 'bottom'>;
-      panel?: BaseProperties & Modifiers<'active'>;
-      item?: BaseProperties & Modifiers<'active'>;
+      panel?: ComponentStyles & Modifiers<'active'>;
+      item?: ComponentStyles & Modifiers<'active'>;
     },
     Required
   >;

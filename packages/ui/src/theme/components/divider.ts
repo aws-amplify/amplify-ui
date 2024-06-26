@@ -1,4 +1,4 @@
-import { Modifiers, BaseProperties, Size } from './utils';
+import { Modifiers, ComponentStyles, Size } from './utils';
 
-export type DividerTheme<Required extends boolean = false> = BaseProperties &
+export type DividerTheme<Required extends boolean = false> = ComponentStyles &
   Modifiers<Size | 'horizontal' | 'vertical', Required>;

@@ -1,21 +1,22 @@
-import { Modifiers, BaseProperties, Elements } from './utils';
+import { Modifiers, ComponentStyles, Elements } from './utils';
 
-export type FieldGroupTheme<Required extends boolean = false> = BaseProperties &
-  Elements<
-    {
-      'inner-start'?: BaseProperties;
-      'inner-end'?: BaseProperties;
-      'outer-start'?: BaseProperties & Modifiers<'quiet', Required>;
-      'outer-end'?: BaseProperties & Modifiers<'quiet', Required>;
-      'field-wrapper'?: BaseProperties &
-        Modifiers<'horizontal' | 'vertical', Required>;
-      control?: BaseProperties;
-      icon?: BaseProperties;
-      'icon-button'?: BaseProperties;
-    },
-    Required
-  > &
-  Modifiers<
-    'horizontal' | 'vertical' | 'has-inner-end' | 'has-inner-start',
-    Required
-  >;
+export type FieldGroupTheme<Required extends boolean = false> =
+  ComponentStyles &
+    Elements<
+      {
+        'inner-start'?: ComponentStyles;
+        'inner-end'?: ComponentStyles;
+        'outer-start'?: ComponentStyles & Modifiers<'quiet', Required>;
+        'outer-end'?: ComponentStyles & Modifiers<'quiet', Required>;
+        'field-wrapper'?: ComponentStyles &
+          Modifiers<'horizontal' | 'vertical', Required>;
+        control?: ComponentStyles;
+        icon?: ComponentStyles;
+        'icon-button'?: ComponentStyles;
+      },
+      Required
+    > &
+    Modifiers<
+      'horizontal' | 'vertical' | 'has-inner-end' | 'has-inner-start',
+      Required
+    >;

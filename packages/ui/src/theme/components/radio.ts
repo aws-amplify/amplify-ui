@@ -1,12 +1,12 @@
-import { BaseProperties, Elements, Modifiers, Size } from './utils';
+import { ComponentStyles, Elements, Modifiers, Size } from './utils';
 
-export type RadioTheme<Required extends boolean = false> = BaseProperties &
+export type RadioTheme<Required extends boolean = false> = ComponentStyles &
   Modifiers<Size | 'disabled', Required> &
   Elements<
     {
-      input?: BaseProperties;
-      button?: BaseProperties & Modifiers<Size>;
-      label?: BaseProperties & Modifiers<'disabled'>;
+      input?: ComponentStyles;
+      button?: ComponentStyles & Modifiers<Size>;
+      label?: ComponentStyles & Modifiers<'disabled'>;
     },
     Required
   >;

@@ -1,3 +1,4 @@
-import { BaseProperties } from './utils';
+import { ComponentStyles } from './utils';
 
-export type SelectFieldTheme<Required extends boolean = false> = BaseProperties;
+export type SelectFieldTheme<Required extends boolean = false> =
+  ComponentStyles;

@@ -4,4 +4,6 @@ export {
   createComponentTheme,
   createComponentClasses,
   ComponentTheme,
+  defaultTheme,
+  defaultDarkModeOverride,
 } from '@aws-amplify/ui';

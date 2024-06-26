@@ -2,7 +2,7 @@ import type {
   ColorTheme,
   Size,
   Modifiers,
-  BaseProperties,
+  ComponentStyles,
   Elements,
 } from './utils';
 
@@ -18,7 +18,7 @@ export type ButtonColorThemeVariations = `${'primary' | 'link' | 'outlined'}--${
   | ColorTheme
   | 'overlay'}`;
 
-export type ButtonTheme<Required extends boolean = false> = BaseProperties &
+export type ButtonTheme<Required extends boolean = false> = ComponentStyles &
   Modifiers<
     | Size
     | ButtonColorThemeVariations
@@ -30,7 +30,7 @@ export type ButtonTheme<Required extends boolean = false> = BaseProperties &
   > &
   Elements<
     {
-      'loader-wrapper'?: BaseProperties;
+      'loader-wrapper'?: ComponentStyles;
     },
     Required
   >;
