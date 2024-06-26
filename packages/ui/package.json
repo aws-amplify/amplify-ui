@@ -35,7 +35,6 @@
     "build:css": "node -r esbuild-register ./scripts/generateCSS.ts",
     "build:dist": "rollup --config",
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui\"'",
-    "benchmark": "node -r esbuild-register ./benchmarks/index.ts",
     "clean": "rimraf dist node_modules",
     "dev": "yarn build --watch",
     "lint": "yarn typecheck",
@@ -59,7 +58,6 @@
     }
   },
   "devDependencies": {
-    "@arktype/attest": "^0.8.2",
     "@types/lodash": "^4.14.170",
     "@types/webpack-env": "^1.16.2",
     "autoprefixer": "^10.3.1",
