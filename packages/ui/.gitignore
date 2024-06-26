@@ -2,3 +2,5 @@ dist
 
 # ignore jest generated coverage directory
 coverage 
+
+.attest

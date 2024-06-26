@@ -1,6 +1,6 @@
 import { Avatar } from '@/components/Avatar';
 import { theme } from '@/theme';
-import { Theme } from '@aws-amplify/ui-react/server';
+import { ThemeStyle } from '@aws-amplify/ui-react/server';
 import Link from 'next/link';
 
 export default function Home() {
@@ -10,10 +10,10 @@ export default function Home() {
       <Link href="/theme-switcher">Theme Switcher</Link>
       <Avatar />
 
-      <Theme.Container theme={theme} colorMode="dark">
+      <div {...theme.containerProps({ colorMode: 'dark' })}>
         <h2>I'm dark</h2>
         <Avatar />
-      </Theme.Container>
+      </div>
     </main>
   );
 }
