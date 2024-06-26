@@ -72,7 +72,7 @@ export function ThemeProvider({
         >
           {children}
         </div>
-        <ThemeStyle theme={value.theme} nonce={nonce} />
+        {theme ? <ThemeStyle theme={value.theme} nonce={nonce} /> : null}
       </DirectionProvider>
     </ThemeContext.Provider>
   );
