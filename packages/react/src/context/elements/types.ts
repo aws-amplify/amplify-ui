@@ -74,7 +74,7 @@ export interface TextElementProps
 /**
  * UI Primitives (Elements) are the base building blocks of Subcomponents.
  *
- * Primitives interfaces include a minimal set of (mostly) HTML semantic `props`
+ * Elements interfaces include a minimal set of (mostly) HTML semantic `props`
  * required to achieve expected functionality of the Element. `props` are always
  * optional at the interface level.
  *
