@@ -32,7 +32,7 @@ type CreateComponentThemeProps<
  *
  * ```ts
  * // built-in component styling
- * const alertTheme = createComponentTheme<AlertTheme>({
+ * const alertTheme = createComponentTheme({
  *   name: 'alert',
  *   theme: (tokens) => {
  *     return {
@@ -41,9 +41,19 @@ type CreateComponentThemeProps<
  *   }
  * });
  *
+ * // custom component styling
+ * const avatarTheme = createComponentTheme({
+ *   name: 'avatar',
+ *   theme: (tokens) => {
+ *     return {
+ *       padding: tokens.space.large
+ *     }
+ *   }
+ * })
+ *
  * const theme = createTheme({
  *   name: 'my-theme',
- *   components: [alertTheme]
+ *   components: [alertTheme, avatarTheme]
  * })
  * ```
  *

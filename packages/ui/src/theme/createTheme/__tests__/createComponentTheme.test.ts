@@ -67,7 +67,6 @@ describe('createComponentTheme', () => {
         name: 'alert',
         theme: (tokens: CustomDesignTokens) => {
           return {
-            // this does work probably?
             fontSize: `${tokens.fontSizes.bar}`,
             _modifiers: {
               info: {
@@ -133,7 +132,7 @@ describe('createComponentTheme', () => {
     // these should all work and have type-safety
     const c1 = className({ _element: 'icon' });
     const c2 = className();
-    const c3 = className({ _element: 'icon', _modifiers: 'large' });
+    const c3 = className({ _element: { icon: 'large' } });
     const c4 = className({ _modifiers: 'small' });
 
     // These should all have TypeScript errors

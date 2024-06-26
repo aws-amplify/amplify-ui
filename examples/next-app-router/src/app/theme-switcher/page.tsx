@@ -1,6 +1,6 @@
 import { Avatar } from '@/components/Avatar';
 import { theme } from '@/theme';
-import { Theme } from '@aws-amplify/ui-react/theme';
+import { Theme } from '@aws-amplify/ui-react/server';
 
 export default function ThemeSwitcherPage() {
   console.log('server!');

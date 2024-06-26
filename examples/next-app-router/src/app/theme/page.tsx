@@ -1,41 +1,74 @@
 'use client';
-import { MyClientComponent } from '@/components/Test/ClientComponent';
-import { MyServerComponent } from '@/components/Test/ServerComponent';
+import { MyClientComponent } from '@/components/ClientComponent';
+import { MyServerComponent } from '@/components/ServerComponent';
 import { theme } from '@/theme';
 import {
   Alert,
   Badge,
+  BadgeProps,
   Button,
+  ButtonProps,
   Flex,
+  Heading,
   Message,
   Text,
 } from '@aws-amplify/ui-react';
 
+const colorThemes = [undefined, 'success', 'info', 'warning', 'error'];
+
 export default function ThemePage() {
   return (
     <Flex direction="column">
-      <Flex
-        direction="row"
-        backgroundColor="blue"
-        // _hover={{
-        //   backgroundColor: 'red',
-        // }}
-        // _active={{
-        //   backgroundColor: 'hotpink',
-        // }}
-      >
-        <Badge variation="success">Hello</Badge>
+      <Heading level={3}>Badges</Heading>
+      <Flex direction="row">
+        {colorThemes.map((colorTheme, i) => (
+          <Badge
+            key={`${i}-${colorTheme}`}
+            variation={colorTheme as BadgeProps['variation']}
+          >
+            {colorTheme || 'default'}
+          </Badge>
+        ))}
       </Flex>
-      <Button variation="primary">Hello</Button>
+      <Heading level={3}>Buttons</Heading>
+      <Flex direction="row">
+        {colorThemes.map((colorTheme, i) => (
+          <Button
+            key={`${i}-${colorTheme}`}
+            colorTheme={colorTheme as ButtonProps['colorTheme']}
+          >
+            {colorTheme || 'default'}
+          </Button>
+        ))}
+      </Flex>
+      <Flex direction="row">
+        {colorThemes.map((colorTheme, i) => (
+          <Button
+            key={`${i}-${colorTheme}`}
+            variation="link"
+            colorTheme={colorTheme as ButtonProps['colorTheme']}
+          >
+            {colorTheme || 'default'}
+          </Button>
+        ))}
+      </Flex>
+      <Flex direction="row">
+        {colorThemes.map((colorTheme, i) => (
+          <Button
+            key={`${i}-${colorTheme}`}
+            variation="primary"
+            colorTheme={colorTheme as ButtonProps['colorTheme']}
+          >
+            {colorTheme || 'default'}
+          </Button>
+        ))}
+      </Flex>
       <MyClientComponent />
       <MyServerComponent />
       <Text color={theme.tokens.colors.font.success}>Success!</Text>
       <Alert heading="Hello" />
       <Alert heading="Hello success" variation="success" />
       <Alert heading="Hello" variation="info" />
-      <Button variation="link" colorTheme="error">
-        Error
-      </Button>
     </Flex>
   );
 }

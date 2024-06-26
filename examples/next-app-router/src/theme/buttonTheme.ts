@@ -3,18 +3,45 @@ import { createComponentTheme } from '@aws-amplify/ui-react/server';
 export const buttonTheme = createComponentTheme({
   name: 'button',
   theme: (tokens) => {
+    const gradStart = 'gradStart';
+    const gradStop = 'gradStop';
     return {
-      display: 'block',
-      padding: tokens.space.large,
+      _vars: {
+        [gradStart]: tokens.colors.primary[80],
+        [gradStop]: tokens.colors.primary[60],
+      },
+      borderRadius: tokens.radii.large,
+      boxShadow: `${tokens.shadows.small}`,
+      borderColor: tokens.colors.border.tertiary,
       _modifiers: {
         primary: {
-          backgroundImage: `linear-gradient(${tokens.colors.primary[80]} 0%, ${tokens.colors.primary[60]} 100%)`,
-          modifier: {
-            error: {
-              backgroundColor: 'blue',
-            },
+          backgroundImage: `linear-gradient(var(--${gradStart}) 0%, var(--${gradStop}) 100%)`,
+        },
+        'primary--error': {
+          _vars: {
+            [gradStart]: tokens.colors.red[80],
+            [gradStop]: tokens.colors.red[60],
           },
         },
+        'primary--warning': {
+          _vars: {
+            [gradStart]: tokens.colors.orange[80],
+            [gradStop]: tokens.colors.orange[60],
+          },
+        },
+        'primary--info': {
+          _vars: {
+            [gradStart]: tokens.colors.blue[80],
+            [gradStop]: tokens.colors.blue[60],
+          },
+        },
+        'primary--success': {
+          _vars: {
+            [gradStart]: tokens.colors.green[80],
+            [gradStop]: tokens.colors.green[60],
+          },
+        },
+
         'link--error': {
           backgroundColor: 'pink',
         },
@@ -26,7 +53,7 @@ export const buttonTheme = createComponentTheme({
       colorMode: 'dark',
       theme: (tokens) => {
         return {
-          backgroundColor: 'hotpink',
+          // backgroundColor: 'hotpink',
         };
       },
     },
@@ -34,7 +61,7 @@ export const buttonTheme = createComponentTheme({
       breakpoint: 'large',
       theme: (tokens) => {
         return {
-          backgroundColor: 'green',
+          borderRadius: tokens.radii.xl,
         };
       },
     },

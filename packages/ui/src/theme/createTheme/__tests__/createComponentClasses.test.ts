@@ -75,6 +75,28 @@ describe('createComponentClasses:', () => {
         'amplify-rating__icon amplify-rating__icon--empty'
       );
     });
+
+    it('should work with elements with modifiers as array', () => {
+      const classname = ratingClassnames({ _element: { icon: ['empty'] } });
+      // @ts-expect-error
+      const badClassname = ratingClassnames({ _element: { icon: ['foo'] } });
+      expect(classname).toEqual(
+        'amplify-rating__icon amplify-rating__icon--empty'
+      );
+    });
+
+    it('should work with elements with modifiers an object with booleans', () => {
+      const classname = ratingClassnames({
+        _element: { icon: { empty: true } },
+      });
+      const badClassname = ratingClassnames({
+        // @ts-expect-error
+        _element: { icon: { foo: true } },
+      });
+      expect(classname).toEqual(
+        'amplify-rating__icon amplify-rating__icon--empty'
+      );
+    });
   });
 
   describe('custom components', () => {

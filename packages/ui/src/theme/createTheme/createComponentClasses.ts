@@ -61,63 +61,64 @@ export function createComponentClasses<
   ) => {
     const baseComponentClassName = `${prefix}${name}`;
 
-    const el = isString(props._element)
+    // get the element if there is one
+    // the _element argument can be a string
+    // like { _element: 'icon' }
+    // or it could be an object where the key is
+    // the element name and the value is the modifiers
+    // like { _element: { icon: [size] } }
+    const element = isString(props._element)
       ? props._element
       : isObject(props._element)
       ? Object.keys(props._element)[0]
       : undefined;
 
-    const className = el
-      ? `${baseComponentClassName}__${el}`
+    const className = element
+      ? `${baseComponentClassName}__${element}`
       : baseComponentClassName;
     const names = [className];
 
-    // TODO: DRY this code and update this conditional a bit
-    // we no longer use top-level element and modifier
-    // if you pass an element, the modifiers come under it
-    if (el) {
-      const modifiers = props._element[el];
-      if (Array.isArray(modifiers)) {
-        modifiers.forEach((modifier) => {
-          if (!modifier || !isString(modifier)) {
-            return;
-          }
-          names.push(`${className}--${modifier}`);
-        });
-      }
-      if (isObject(modifiers)) {
-        Object.entries(modifiers).forEach(([key, value]) => {
-          if (value) {
-            names.push(`${className}--${key}`);
-          }
-        });
-      }
-      if (isString(modifiers)) {
-        names.push(`${className}--${modifiers}`);
-      }
-    }
-
-    if (Array.isArray(props._modifiers)) {
-      props._modifiers.forEach((modifier) => {
-        if (!modifier || !isString(modifier)) {
-          return;
-        }
-        names.push(`${className}--${modifier}`);
-      });
-    }
-    if (isObject(props._modifiers)) {
-      Object.entries(props._modifiers).forEach(([key, value]) => {
-        if (value) {
-          names.push(`${className}--${key}`);
-        }
-      });
-    }
-
-    if (isString(props._modifiers)) {
-      names.push(`${className}--${props._modifiers}`);
+    if (element) {
+      const modifiers = props._element[element];
+      names.push(...modifierClassnames({ className, modifiers }));
+    } else {
+      names.push(
+        ...modifierClassnames({
+          className,
+          modifiers: props._modifiers as ModifierNames<BaseTheme>,
+        })
+      );
     }
 
     return classNames([...names, ...extraClassnames]);
   };
   return className;
+}
+
+function modifierClassnames({
+  className,
+  modifiers,
+}: {
+  className: string;
+  modifiers: ModifierNames<BaseTheme>;
+}) {
+  if (Array.isArray(modifiers)) {
+    return modifiers.map((modifier) => {
+      if (!modifier || !isString(modifier)) {
+        return;
+      }
+      return `${className}--${modifier}`;
+    });
+  }
+  if (isObject(modifiers)) {
+    return Object.entries(modifiers).map(([key, value]) => {
+      if (value) {
+        return `${className}--${key}`;
+      }
+    });
+  }
+  if (isString(modifiers)) {
+    return [`${className}--${modifiers}`];
+  }
+  return [];
 }

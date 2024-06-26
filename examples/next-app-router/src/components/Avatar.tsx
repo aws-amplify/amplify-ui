@@ -15,7 +15,8 @@ export const avatarTheme = createComponentTheme({
       padding: tokens.space.xs,
       _element: {
         icon: {
-          backgroundColor: 'white',
+          backgroundColor: tokens.colors.background.primary,
+
           _modifiers: {
             small: {
               fontSize: tokens.fontSizes.small,
@@ -32,16 +33,10 @@ export const avatarTheme = createComponentTheme({
         },
         large: {
           padding: tokens.space.small,
-          ':hover': {},
         },
       },
       ':hover': {
-        backgroundColor: 'blue',
-        element: {
-          icon: {
-            backgroundColor: 'pink',
-          },
-        },
+        backgroundColor: tokens.colors.primary[20],
       },
     };
   },
@@ -49,9 +44,7 @@ export const avatarTheme = createComponentTheme({
     {
       colorMode: 'dark',
       theme: (tokens) => {
-        return {
-          padding: tokens.space.large,
-        };
+        return {};
       },
     },
   ],

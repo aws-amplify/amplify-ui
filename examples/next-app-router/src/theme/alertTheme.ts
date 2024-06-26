@@ -1,39 +1,45 @@
-import { createComponentTheme, WebTheme } from '@aws-amplify/ui';
-
-type MyTokens = WebTheme['tokens'] & {
-  colors: WebTheme['tokens']['colors'] & {
-    hotPink: {
-      10: any;
-    };
-  };
-};
+import { createComponentTheme } from '@aws-amplify/ui';
 
 export const alertTheme = createComponentTheme({
   name: 'alert',
-  theme(tokens: MyTokens) {
-    const varName = 'iconColor';
+  theme(tokens) {
+    const iconVar = 'iconColor';
+    const borderVar = 'borderColor';
     return {
       _vars: {
-        [varName]: tokens.colors.red[60],
+        [iconVar]: tokens.colors.red[60],
+        [borderVar]: tokens.colors.border.secondary,
       },
-      border: `${tokens.borderWidths.small} solid ${tokens.colors.border.secondary}`,
+      border: `${tokens.borderWidths.small} solid var(--${borderVar})`,
       _modifiers: {
         info: {
           _vars: {
-            [varName]: tokens.colors.green[60],
+            [iconVar]: tokens.colors.blue[60],
+            [borderVar]: tokens.colors.blue[20],
           },
-          borderColor: tokens.colors.blue[40],
         },
         success: {
           _vars: {
-            [varName]: tokens.colors.green[60],
+            [iconVar]: tokens.colors.green[60],
+            [borderVar]: tokens.colors.green[20],
           },
-          // borderColor: tokens.colors.hotPink[10],
+        },
+        error: {
+          _vars: {
+            [iconVar]: tokens.colors.red[60],
+            [borderVar]: tokens.colors.red[20],
+          },
+        },
+        warning: {
+          _vars: {
+            [iconVar]: tokens.colors.orange[80],
+            [borderVar]: tokens.colors.orange[20],
+          },
         },
       },
       _element: {
         icon: {
-          color: `var(--${varName})`,
+          color: `var(--${iconVar})`,
         },
       },
     };
