@@ -1,6 +1,6 @@
-import { createComponentTheme } from '@aws-amplify/ui-react/server';
+import { defineComponentTheme } from '@aws-amplify/ui-react/server';
 
-export const headerTheme = createComponentTheme({
+export const headerTheme = defineComponentTheme({
   name: 'app-header',
   theme: (tokens) => {
     return {

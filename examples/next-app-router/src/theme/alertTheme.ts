@@ -1,6 +1,6 @@
-import { createComponentTheme } from '@aws-amplify/ui';
+import { defineComponentTheme } from '@aws-amplify/ui';
 
-export const alertTheme = createComponentTheme({
+export const alertTheme = defineComponentTheme({
   name: 'alert',
   theme(tokens) {
     const iconVar = 'iconColor';
@@ -10,7 +10,7 @@ export const alertTheme = createComponentTheme({
         [iconVar]: tokens.colors.red[60],
         [borderVar]: tokens.colors.border.secondary,
       },
-      border: `${tokens.borderWidths.small} solid var(--${borderVar})`,
+      border: `${tokens.borderWidths.large} solid var(--${borderVar})`,
       _modifiers: {
         info: {
           _vars: {

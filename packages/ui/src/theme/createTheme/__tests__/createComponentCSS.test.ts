@@ -1,6 +1,6 @@
 import { createComponentCSS } from '../createComponentCSS';
 import { createTheme } from '../createTheme';
-import { createComponentTheme } from '../createComponentTheme';
+import { defineComponentTheme } from '../defineComponentTheme';
 
 const { tokens, breakpoints } = createTheme();
 const { tokens: customTokens } = createTheme({
@@ -15,7 +15,7 @@ const { tokens: customTokens } = createTheme({
 });
 
 // This component theme has all the: modifiers, elements, overrides, states to get a complete test
-const avatarTheme = createComponentTheme({
+const avatarTheme = defineComponentTheme({
   name: 'avatar',
   theme(tokens) {
     return {

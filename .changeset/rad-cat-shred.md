@@ -9,12 +9,12 @@ This feature lets you fully style and theme built-in components even if there is
 
 This also lets you define your own components and style them in the same type-safe way with zero runtime computation.
 
-### createComponentTheme()
+### defineComponentTheme()
 
 ```ts
-import { createComponentTheme } from '@aws-amplify/ui-react/server';
+import { defineComponentTheme } from '@aws-amplify/ui-react/server';
 
-export const buttonTheme = createComponentTheme({
+export const buttonTheme = defineComponentTheme({
   // because 'button' is a built-in component, we get type-safety and hints
   // based on the theme shape of our button
   name: 'button',

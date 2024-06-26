@@ -6,8 +6,8 @@ import {
   ForwardRefPrimitive,
   Primitive,
   PrimitiveProps,
-} from '../types';
-import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
+} from '../../primitives/types';
+import { primitiveWithForwardRef } from '../../primitives/utils/primitiveWithForwardRef';
 
 interface BaseStyleThemeProps extends BaseComponentProps {
   /**
@@ -16,7 +16,7 @@ interface BaseStyleThemeProps extends BaseComponentProps {
    * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src
    */
   nonce?: string;
-  theme: WebTheme;
+  theme?: WebTheme;
 }
 
 export type ThemeStyleProps<Element extends ElementType = 'style'> =
@@ -26,6 +26,8 @@ const ThemeStylePrimitive: Primitive<ThemeStyleProps, 'style'> = (
   { theme, nonce, ...rest },
   ref
 ) => {
+  if (!theme) return null;
+
   const { name, cssText } = theme;
   /*
     Only inject theme CSS variables if given a theme.
@@ -72,7 +74,7 @@ const ThemeStylePrimitive: Primitive<ThemeStyleProps, 'style'> = (
         Therefore, by only rendering CSS text which does not include a closing '</style>' tag, 
         we ensure that the browser will correctly interpret all the text as CSS. 
   */
-  if (typeof theme === 'undefined' || /<\/style/i.test(cssText)) {
+  if (/<\/style/i.test(cssText)) {
     return null;
   } else {
     return (
@@ -89,9 +91,10 @@ const ThemeStylePrimitive: Primitive<ThemeStyleProps, 'style'> = (
 };
 
 /**
+ * @experimental
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/theme)
  */
 export const ThemeStyle: ForwardRefPrimitive<BaseStyleThemeProps, 'style'> =
   primitiveWithForwardRef(ThemeStylePrimitive);
 
-ThemeStyle.displayName = 'Theme.Style';
+ThemeStyle.displayName = 'ThemeStyle';

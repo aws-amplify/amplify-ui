@@ -1,5 +1,5 @@
 import { Tokens, WebTokens } from '../../tokens';
-import { createComponentTheme } from '../createComponentTheme';
+import { defineComponentTheme } from '../defineComponentTheme';
 
 // type helper to get custom tokens type
 type DesignTokens<T extends Tokens> = WebTokens & Required<T>;
@@ -31,10 +31,10 @@ type Foo = typeof tokens;
 
 type CustomDesignTokens = DesignTokens<typeof myTokens>;
 
-describe('createComponentTheme', () => {
+describe('defineComponentTheme', () => {
   describe('built-in components', () => {
     it('should have properly typed overrides', () => {
-      const alertTheme = createComponentTheme({
+      const alertTheme = defineComponentTheme({
         name: 'alert',
         theme(tokens) {
           return {
@@ -63,7 +63,7 @@ describe('createComponentTheme', () => {
     });
 
     it('should work with custom tokens type', () => {
-      const alertTheme = createComponentTheme({
+      const alertTheme = defineComponentTheme({
         name: 'alert',
         theme: (tokens: CustomDesignTokens) => {
           return {
@@ -83,7 +83,7 @@ describe('createComponentTheme', () => {
 
   describe('custom components', () => {
     it('should return properly typed className function', () => {
-      const { className } = createComponentTheme({
+      const { className } = defineComponentTheme({
         name: 'avatar',
         theme(tokens) {
           return {
@@ -109,7 +109,7 @@ describe('createComponentTheme', () => {
   });
 
   it('should return a validly typed className function', () => {
-    const { className } = createComponentTheme({
+    const { className } = defineComponentTheme({
       name: 'avatar',
       theme: (tokens) => {
         return {
@@ -156,7 +156,7 @@ describe('createComponentTheme', () => {
   });
 
   it('should return a theme function to pass to createTheme', () => {
-    const { theme } = createComponentTheme({
+    const { theme } = defineComponentTheme({
       name: 'avatar',
       theme(tokens) {
         return {};

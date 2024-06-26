@@ -1,6 +1,6 @@
-import { createComponentTheme } from '@aws-amplify/ui-react/server';
+import { defineComponentTheme } from '@aws-amplify/ui-react/server';
 
-export const avatarTheme = createComponentTheme({
+export const avatarTheme = defineComponentTheme({
   name: 'avatar',
   theme: (tokens) => {
     return {
@@ -24,6 +24,10 @@ export const avatarTheme = createComponentTheme({
             large: {
               fontSize: tokens.fontSizes.xl,
             },
+            xl: {
+              fontSize: tokens.fontSizes.large,
+            },
+            disabled: {},
           },
         },
       },
@@ -33,6 +37,9 @@ export const avatarTheme = createComponentTheme({
         },
         large: {
           padding: tokens.space.small,
+        },
+        xl: {
+          padding: tokens.space.medium,
         },
       },
       ':hover': {
@@ -51,25 +58,26 @@ export const avatarTheme = createComponentTheme({
 });
 
 interface AvatarProps extends React.PropsWithChildren {
-  // using this in the createComponentTheme to get type safety
+  // using this in the defineComponentTheme to get type safety
   // between component props and theme
-  size?: 'small' | 'large';
+  size?: 'small' | 'large' | 'xl';
   variation?: 'small' | 'large';
+  isDisabled?: boolean;
   // amplify-avatar--small
   // amplify-avatar--error amplify-avatar--small
 }
 
-export const Avatar = ({ size, children }: AvatarProps) => {
+export const Avatar = ({ size, children, isDisabled }: AvatarProps) => {
   console.log('im on the server');
   return (
-    <div className={avatarTheme.className({ _modifiers: size })}>
+    <div className={avatarTheme.className({ _modifiers: [size] })}>
       {children ? (
         children
       ) : (
         <svg
           className={avatarTheme.className({
             _element: {
-              icon: size,
+              icon: [isDisabled ? 'disabled' : undefined],
             },
           })}
           viewBox="0 0 15 15"

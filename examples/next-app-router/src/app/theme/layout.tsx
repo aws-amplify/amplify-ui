@@ -1,4 +1,7 @@
-import { Theme, createComponentClasses } from '@aws-amplify/ui-react/server';
+import {
+  ThemeStyle,
+  createComponentClasses,
+} from '@aws-amplify/ui-react/server';
 import { theme } from '@/theme';
 
 const headingClasses = createComponentClasses({ name: 'heading' });
@@ -13,8 +16,10 @@ export default function RootLayout({
       <div className="flex-1 p-2">
         <h2 className={headingClasses({ _modifiers: ['2'] })}>Custom theme</h2>
 
-        <Theme.Style theme={theme} />
-        <Theme.Container theme={theme}>{children}</Theme.Container>
+        <ThemeStyle theme={theme} />
+        <section {...theme.containerProps({ colorMode: 'dark' })}>
+          {children}
+        </section>
       </div>
       <div className="flex-1 p-2">
         <h2 className={headingClasses({ _modifiers: ['2'] })}>Default theme</h2>

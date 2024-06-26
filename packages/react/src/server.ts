@@ -1,7 +1,7 @@
-export { Theme, ThemeProps } from './primitives/Theme';
+export { ThemeStyle } from './components/ThemeProvider/ThemeStyle';
 export {
   createTheme,
-  createComponentTheme,
+  defineComponentTheme,
   createComponentClasses,
   defaultTheme,
   defaultDarkModeOverride,

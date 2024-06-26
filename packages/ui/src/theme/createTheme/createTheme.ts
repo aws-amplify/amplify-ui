@@ -142,6 +142,12 @@ export function createTheme<TokensType extends WebTokens = WebTokens>(
     breakpoints,
     name,
     cssText,
+    containerProps: ({ colorMode } = {}) => {
+      return {
+        'data-amplify-theme': name,
+        'data-amplify-color-mode': colorMode,
+      };
+    },
     // keep overrides separate from base theme
     // this allows web platforms to use plain CSS scoped to a
     // selector and only override the CSS vars needed. This

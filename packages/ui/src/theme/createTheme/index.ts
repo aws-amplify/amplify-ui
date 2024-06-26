@@ -1,5 +1,5 @@
 export { createTheme } from './createTheme';
-export { createComponentTheme } from './createComponentTheme';
+export { defineComponentTheme } from './defineComponentTheme';
 export {
   cssNameTransform,
   setupTokens,

@@ -1,6 +1,6 @@
+import { ThemeStyle } from '@aws-amplify/ui-react/server';
 import { Avatar } from '@/components/Avatar';
 import { theme } from '@/theme';
-import { Theme } from '@aws-amplify/ui-react/server';
 
 export default function ThemeSwitcherPage() {
   console.log('server!');
@@ -14,7 +14,7 @@ export default function ThemeSwitcherPage() {
       <Avatar size="small" />
       <Avatar />
       <Avatar size="large" />
-      <Theme.Container theme={theme} colorMode="dark">
+      <div {...theme.containerProps({ colorMode: 'dark' })}>
         <div
           className="flex w-full flex-row"
           style={{
@@ -25,8 +25,8 @@ export default function ThemeSwitcherPage() {
           <Avatar />
           <Avatar size="large" />
         </div>
-      </Theme.Container>
-      <Theme.Style theme={theme} />
+      </div>
+      <ThemeStyle theme={theme} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 export {
   createTheme,
-  createComponentTheme,
+  defineComponentTheme,
   createComponentClasses,
   cssNameTransform,
   isDesignToken,

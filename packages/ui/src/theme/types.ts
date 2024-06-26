@@ -131,6 +131,10 @@ export interface DefaultTheme
   breakpoints: Breakpoints;
 }
 
+interface ContainerPropsArgs {
+  colorMode?: ColorMode | 'system';
+}
+
 /**
  * WebTheme is a fully built theme that has cssText based
  * on the design tokens and all design tokens have added fields
@@ -144,6 +148,10 @@ export interface WebTheme
   primaryColor?: string;
   secondaryColor?: string;
   cssText: string;
+  containerProps: (containerProps?: ContainerPropsArgs) => {
+    'data-amplify-theme'?: string;
+    'data-amplify-color-mode'?: string;
+  };
   // property `components` is not specified on `WebTokens`,
   // but is a required token property of `WebTheme`
   tokens: WebTokens;

@@ -1,4 +1,5 @@
 'use client';
+import { Avatar } from '@/components/Avatar';
 import { MyClientComponent } from '@/components/ClientComponent';
 import { MyServerComponent } from '@/components/ServerComponent';
 import { theme } from '@/theme';
@@ -63,6 +64,7 @@ export default function ThemePage() {
           </Button>
         ))}
       </Flex>
+      <Avatar isDisabled />
       <MyClientComponent />
       <MyServerComponent />
       <Text color={theme.tokens.colors.font.success}>Success!</Text>

@@ -1,6 +1,6 @@
-import { createComponentTheme } from '@aws-amplify/ui-react/server';
+import { defineComponentTheme } from '@aws-amplify/ui-react/server';
 
-export const buttonTheme = createComponentTheme({
+export const buttonTheme = defineComponentTheme({
   name: 'button',
   theme: (tokens) => {
     const gradStart = 'gradStart';
@@ -10,7 +10,7 @@ export const buttonTheme = createComponentTheme({
         [gradStart]: tokens.colors.primary[80],
         [gradStop]: tokens.colors.primary[60],
       },
-      borderRadius: tokens.radii.large,
+      // borderRadius: tokens.radii.large,
       boxShadow: `${tokens.shadows.small}`,
       borderColor: tokens.colors.border.tertiary,
       _modifiers: {
@@ -41,7 +41,6 @@ export const buttonTheme = createComponentTheme({
             [gradStop]: tokens.colors.green[60],
           },
         },
-
         'link--error': {
           backgroundColor: 'pink',
         },

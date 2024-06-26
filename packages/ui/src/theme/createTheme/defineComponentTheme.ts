@@ -32,7 +32,7 @@ type CreateComponentThemeProps<
  *
  * ```ts
  * // built-in component styling
- * const alertTheme = createComponentTheme({
+ * const alertTheme = defineComponentTheme({
  *   name: 'alert',
  *   theme: (tokens) => {
  *     return {
@@ -42,7 +42,7 @@ type CreateComponentThemeProps<
  * });
  *
  * // custom component styling
- * const avatarTheme = createComponentTheme({
+ * const avatarTheme = defineComponentTheme({
  *   name: 'avatar',
  *   theme: (tokens) => {
  *     return {
@@ -61,7 +61,7 @@ type CreateComponentThemeProps<
  * @param {string} params.name  - The name of the component. Use a built-in component name like button to theme buttons.
  * @returns
  */
-export function createComponentTheme<
+export function defineComponentTheme<
   ThemeType extends BaseTheme = BaseTheme,
   TokensType extends WebTokens = WebTokens,
   NameType extends string = string,
