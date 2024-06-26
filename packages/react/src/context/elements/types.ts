@@ -4,54 +4,54 @@ type RecordOf<T, K> = T extends string ? Record<T, K> : Record<keyof T, K>;
 
 type Component<T = {}> = React.ComponentType<T>;
 
-export type Primitives<
+export type Elements<
   T extends RecordOf<keyof T, Component> = RecordOf<string, Component>,
 > = T;
 
-export interface PrimitivesProviderProps<T extends Primitives> {
+export interface ElementsProviderProps<T extends Elements> {
   children?: React.ReactNode;
-  primitives: T;
+  elements: T;
 }
 
 /**
- * Utility type for adding additional props to a Primitive definition
+ * Utility type for adding additional props to a Element definition
  */
-export type ExtendPrimitive<
-  T extends DefaultPrimitives[keyof DefaultPrimitives],
+export type ExtendElement<
+  T extends DefaultElements[keyof DefaultElements],
   K = {},
 > = (props: React.ComponentProps<T> & K) => JSX.Element;
 
-export interface BasePrimitiveProps<T> {
+export interface BaseElementProps<T> {
   children?: React.ReactNode;
   className?: string;
   ref?: React.Ref<T>;
 }
 
-export interface ViewProps extends BasePrimitiveProps<HTMLDivElement> {}
+export interface ViewProps extends BaseElementProps<HTMLDivElement> {}
 
-export interface ButtonProps extends BasePrimitiveProps<HTMLButtonElement> {
+export interface ButtonProps extends BaseElementProps<HTMLButtonElement> {
   isDisabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   type?: 'button' | 'reset' | 'submit';
 }
 
-export interface ButtonGroupProps extends BasePrimitiveProps<HTMLDivElement> {
+export interface ButtonGroupProps extends BaseElementProps<HTMLDivElement> {
   isDisabled?: boolean;
 }
 
-export interface MenuItem extends BasePrimitiveProps<HTMLButtonElement> {
+export interface MenuItem extends BaseElementProps<HTMLButtonElement> {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   value?: string;
 }
 
-export interface MenuProps extends BasePrimitiveProps<HTMLMenuElement> {
+export interface MenuProps extends BaseElementProps<HTMLMenuElement> {
   isDisabled?: boolean;
   items?: MenuItem[];
   onValueChange?: (value: string) => void;
   renderItem?: (props: MenuItem) => JSX.Element;
 }
 
-export interface AnchorProps extends BasePrimitiveProps<HTMLAnchorElement> {
+export interface AnchorProps extends BaseElementProps<HTMLAnchorElement> {
   href?: string;
   isCurrent?: boolean;
   label?: React.ReactNode;
@@ -59,19 +59,19 @@ export interface AnchorProps extends BasePrimitiveProps<HTMLAnchorElement> {
   value?: string;
 }
 
-export interface NavProps extends BasePrimitiveProps<HTMLElement> {
+export interface NavProps extends BaseElementProps<HTMLElement> {
   items?: AnchorProps[];
   onValueChange?: (value: string) => void;
   renderItem?: (item: AnchorProps) => JSX.Element;
 }
 
-export interface TextProps extends BasePrimitiveProps<HTMLParagraphElement> {}
+export interface TextProps extends BaseElementProps<HTMLParagraphElement> {}
 
 /**
- * UI Primitives are the base building blocks of Subcomponents.
+ * UI Elements are the base building blocks of Subcomponents.
  *
- * Primitive interfaces include a minimal set of (mostly) HTML semantic `props`
- * required to achieve expected functionality of the Primitive. `props` are always
+ * Element interfaces include a minimal set of (mostly) HTML semantic `props`
+ * required to achieve expected functionality of the Element. `props` are always
  * optional at the interface level.
  *
  * `props` could include (but not limited to):
@@ -80,7 +80,7 @@ export interface TextProps extends BasePrimitiveProps<HTMLParagraphElement> {}
  * - event handlers
  * - `children`
  */
-export interface DefaultPrimitives extends Primitives {
+export interface DefaultElements extends Elements {
   Anchor: Component<AnchorProps>;
   Button: Component<ButtonProps>;
   ButtonGroup: Component<ButtonGroupProps>;
