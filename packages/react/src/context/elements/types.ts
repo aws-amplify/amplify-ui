@@ -48,9 +48,6 @@ export interface MenuItemElement extends BaseElementProps<HTMLButtonElement> {
 
 export interface MenuElementProps extends BaseElementProps<HTMLMenuElement> {
   isDisabled?: boolean;
-  items?: MenuItemElement[];
-  onValueChange?: (value: string) => void;
-  renderItem?: (props: MenuItemElement) => JSX.Element;
 }
 
 export interface AnchorElementProps
@@ -62,11 +59,7 @@ export interface AnchorElementProps
   value?: string;
 }
 
-export interface NavElementProps extends BaseElementProps<HTMLElement> {
-  items?: AnchorElementProps[];
-  onValueChange?: (value: string) => void;
-  renderItem?: (item: AnchorElementProps) => JSX.Element;
-}
+export interface NavElementProps extends BaseElementProps<HTMLElement> {}
 
 export interface TextElementProps
   extends BaseElementProps<HTMLParagraphElement> {}

@@ -18,7 +18,7 @@ describe('createElementsContext', () => {
     } = renderHook(() => useElement('View'));
 
     expect(Button).toBe(ButtonElementBase);
-   expect(View).toBe(ViewElementBase);
+    expect(View).toBe(ViewElementBase);
   });
 
   it('Passing `elements` ElementsProvider overrides the default `Elements`', () => {
