@@ -11,7 +11,6 @@ import {
   ButtonProps,
   Flex,
   Heading,
-  Message,
   Text,
 } from '@aws-amplify/ui-react';
 
