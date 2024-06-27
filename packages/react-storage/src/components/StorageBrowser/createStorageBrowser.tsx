@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { LocationView, LocationsView } from './views';
+import { LocationDetailView, LocationsListView } from './views';
 
 interface StorageBrowser {
   (): JSX.Element;
-  LocationsView: typeof LocationsView;
-  LocationView: typeof LocationView;
+  LocationsListView: typeof LocationsListView;
+  LocationDetailView: typeof LocationDetailView;
 }
 
 export default function createStorageBrowser(): {
@@ -19,8 +19,8 @@ export default function createStorageBrowser(): {
     );
   }
 
-  StorageBrowser.LocationsView = LocationsView;
-  StorageBrowser.LocationView = LocationView;
+  StorageBrowser.LocationsListView = LocationsListView;
+  StorageBrowser.LocationDetailView = LocationDetailView;
 
   return { StorageBrowser };
 }

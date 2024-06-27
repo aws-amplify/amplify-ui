@@ -1,2 +1,2 @@
-export { default as LocationView } from './LocationView';
-export { default as LocationsView } from './LocationsView';
+export { default as LocationDetailView } from './LocationDetailView';
+export { default as LocationsListView } from './LocationsListView';
