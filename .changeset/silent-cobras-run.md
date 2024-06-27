@@ -1,5 +1,5 @@
 ---
-"@aws-amplify/ui-react-liveness": patch
+"@aws-amplify/ui-react-liveness": minor
 ---
 
 feat(liveness): expose systemClockOffset to override rekognition client config.
