@@ -15,7 +15,7 @@ export function createAIConversation(): {
   function AIConversation(): JSX.Element {
     return (
       <div>
-        <p>Hello world!</p>
+        <Conversation />
       </div>
     );
   }

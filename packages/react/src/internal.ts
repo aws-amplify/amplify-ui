@@ -12,3 +12,12 @@ export { useDropZone } from './primitives/DropZone/useDropZone';
 export { Field } from './primitives/Field';
 
 export { PrimitiveCatalog } from './PrimitiveCatalog';
+
+export {
+  createElementsContext,
+  ElementsBase,
+  ExtendElement,
+  ButtonElementBase,
+  ViewElementBase,
+  BaseElementProps,
+} from './context/elements';
