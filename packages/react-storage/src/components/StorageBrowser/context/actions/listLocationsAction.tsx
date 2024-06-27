@@ -11,11 +11,17 @@ interface LocationData {
 }
 
 interface ListLocationsActionInput {
-  options?: {
-    nextToken?: string;
-    refresh?: boolean;
-    pageSize?: number;
-  };
+  options?:
+    | {
+        nextToken?: string;
+        pageSize?: number;
+        refresh?: never;
+      }
+    | {
+        nextToken?: never;
+        pageSize?: number;
+        refresh?: boolean;
+      };
 }
 
 interface ListLocationsOutput {
@@ -38,7 +44,7 @@ const generateBucketData = (count: number): LocationData[] => {
     .fill('')
     .map(
       // prefix: <bucket>/<prefix-with-path>*
-      () => `${bucketName}${generateString(randomNumberInRange(6, 20))}`
+      () => `${bucketName}${generateString(randomNumberInRange(6, 20))}*`
     );
 
   result.push({
