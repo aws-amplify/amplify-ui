@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.0.25
+
+### Patch Changes
+
+- [#5334](https://github.com/aws-amplify/amplify-ui/pull/5334) [`a369d8b08`](https://github.com/aws-amplify/amplify-ui/commit/a369d8b083625d18ebbe9a23f70a8309f4fde4a9) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(deps): Update client-rekognitionstreaming sdk and custom fetch handler
+
 ## 3.0.24
 
 ### Patch Changes
