@@ -9,7 +9,7 @@ const getSystemClockOffset = (serverDate: string | undefined) => {
   const serverTime = new Date(serverDate).getTime();
   const delta = serverTime ? serverTime - deviceTime : 0;
 
-  return Math.abs(delta) > maxSupportedClockSkew ? delta : 0;
+  return Math.abs(delta) > maxSupportedClockSkew ? delta : undefined;
 };
 
 export function useLiveness() {
