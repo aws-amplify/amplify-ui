@@ -47,3 +47,11 @@ Ensure that the session ID returned from the backend when creating the session i
 ### I am unable to use the Amplify CLI and/or CloudFormation. Can I still use the FaceLivenessDetector?
 
 Yes, this use case is supported.  Please select "Self Managed Cognito Resource" in [Step 1 of the setup](../liveness#step-1-configure-auth).
+
+<InlineFilter filters={['react']}>
+### InvalidSignatureException: Signature not yet current
+
+The signature verification on the Rekognition streaming websocket connection was rejected due to a clock skew greater than 5 minutes. Clock skew represents the difference between a user's device time and AWS server time, and any clock skew larger than 5 minutes will be rejected by default. Below are some common reasons for encountering this error along with suggestions for resolving them.
+1. **The time on the user's device is inaccurate.** Ensure that the date and time on the user's device are accurate and match their time zone.
+2. **User is in a new time zone that is not reflected on their device, or living between and frequently switching time zones.** If users cannot adjust their device time, you can pass `systemClockOffset` to the [`FaceLivenessDetectorCore` config](../liveness#facelivenessdetectorcoreconfig), which will be applied as an offset in milliseconds to the AWS server time. See an example [here](../liveness/customization#system-clock-offset).
+</InlineFilter>
