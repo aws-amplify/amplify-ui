@@ -1,5 +1,5 @@
+export { createStorageBrowser } from './StorageBrowser';
 export { StorageImage, StorageImageProps } from './StorageImage';
-
 export {
   StorageManager,
   StorageManagerProps,
