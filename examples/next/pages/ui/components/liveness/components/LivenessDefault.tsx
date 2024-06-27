@@ -62,9 +62,7 @@ export default function LivenessDefault({
                 disableStartScreen={disableStartScreen}
                 components={components}
                 config={{
-                  ...(credentialProvider
-                    ? { config: { credentialProvider } }
-                    : {}),
+                  credentialProvider: credentialProvider,
                   systemClockOffset:
                     createLivenessSessionApiData['systemClockOffset'],
                 }}

@@ -1019,8 +1019,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           systemClockOffset,
           stream: context.videoAssociatedParams!.videoMediaStream!,
           videoEl: context.videoAssociatedParams!.videoEl!,
-          credentialProvider: credentialProvider,
-          endpointOverride: endpointOverride,
+          credentialProvider,
+          endpointOverride,
         });
 
         responseStream = livenessStreamProvider.getResponseStream();
