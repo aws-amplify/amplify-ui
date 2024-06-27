@@ -1,8 +1,8 @@
 import {
-  PrimitiveButton as ButtonElementBase,
-  PrimitiveView as ViewPrimitiveBase,
-  createPrimitivesContext as createElementsContext,
-  DefaultPrimitives as ElementsBase,
+  ButtonElementBase,
+  ViewElementBase,
+  createElementsContext,
+  ElementsBase,
 } from '@aws-amplify/ui-react/internal';
 
 export interface StorageBrowserElements
@@ -10,10 +10,8 @@ export interface StorageBrowserElements
 
 const defaultValue: StorageBrowserElements = {
   Button: ButtonElementBase,
-  View: ViewPrimitiveBase,
+  View: ViewElementBase,
 };
 
-export const {
-  PrimitivesProvider: ElementsProvider,
-  usePrimitive: useElement,
-} = createElementsContext(defaultValue);
+export const { ElementsProvider, useElement } =
+  createElementsContext(defaultValue);

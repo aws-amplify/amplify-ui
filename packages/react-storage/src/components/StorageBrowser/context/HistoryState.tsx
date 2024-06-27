@@ -2,41 +2,34 @@ import React from 'react';
 import { ActionState, useDataState } from '@aws-amplify/ui-react-core';
 
 export interface HistoryState {
-  currentValue: string;
+  current: string;
   previous: string[];
 }
 
-export type UpdateHistoryStateActionInput =
-  | { currentValue: string; type: 'enter' }
-  | { currentValue: never; type: 'exit' };
+export type HistoryAction =
+  | { current: string; type: 'enter' }
+  | { current: never; type: 'exit' };
 
 export type UseHistoryState = [
   ActionState<HistoryState>,
-  (input: UpdateHistoryStateActionInput) => void,
+  (input: HistoryAction) => void,
 ];
 
 export const updateHistoryStateAction = (
   prevState: HistoryState,
-  { currentValue, type }: UpdateHistoryStateActionInput
+  { current, type }: HistoryAction
 ): HistoryState => {
   switch (type) {
     case 'enter': {
-      const { currentValue: _currentValue, previous } = prevState;
-      return { currentValue, previous: [_currentValue, ...previous] };
+      const { current: _current, previous } = prevState;
+      return { current, previous: [_current, ...previous] };
     }
     case 'exit': {
-      const [currentValue, ...previous] = prevState.previous;
-      return { currentValue, previous };
+      const [current, ...previous] = prevState.previous;
+      return { current, previous };
     }
-
-    default: {
-      // eslint-disable-next-line no-console
-      console.error(
-        `\`useStorageBrowser('locationHistory')\`: Invalid value of ${type} provided as \`type\``
-      );
-
-      return prevState;
-    }
+    default:
+      throw new Error(`Invalid value of ${type} provided as \`type\``);
   }
 };
 
@@ -56,7 +49,7 @@ export const HistoryStateProvider = ({
   children?: React.ReactNode;
 }): JSX.Element => {
   const state = useDataState(updateHistoryStateAction, {
-    currentValue: 'Home',
+    current: 'Home',
     previous: [],
   });
 
