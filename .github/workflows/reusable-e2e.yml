@@ -310,7 +310,7 @@ jobs:
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
       - name: Upload failure screenshots and errors
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
         if: ${{ failure() && steps.e2e.outcome != 'success' }}
         with:
           name: e2e-cypress-error-${{ matrix.package }}
@@ -460,7 +460,7 @@ jobs:
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
       - name: Upload failure screenshots and errors
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
         if: ${{ failure() && steps.e2e-ios.outcome != 'success' }}
         with:
           name: e2e-detox-error-react-native-ios
@@ -601,7 +601,7 @@ jobs:
           adb -s emulator-$EMULATOR2_PORT emu kill
 
       - name: Upload failure screenshots and errors
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
         if: ${{ failure() && steps.e2e-android.outcome != 'success' }}
         with:
           name: e2e-detox-error-react-native-android
@@ -715,7 +715,7 @@ jobs:
         run: yarn docs test:links
 
       - name: Upload failure screenshots and errors
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
         if: ${{ failure() && steps.e2e.outcome != 'success' }}
         with:
           name: docs-e2e-cypress-error
