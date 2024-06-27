@@ -2,7 +2,7 @@ import React from 'react';
 import { useDataState } from '@aws-amplify/ui-react-core';
 import { listLocationItemsAction } from '../context/actions';
 
-export default function LocationView(): JSX.Element {
+export default function LocationDetailView(): JSX.Element {
   const [{ data, isLoading }, handleListItems] = useDataState(
     listLocationItemsAction,
     { items: [], nextToken: undefined }

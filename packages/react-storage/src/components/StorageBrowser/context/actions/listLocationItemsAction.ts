@@ -1,4 +1,6 @@
 import { EXTENSIONS } from './constants';
+// import { list, List } from 'aws-amplify/storage';
+
 import {
   generateString,
   randomDate,
@@ -6,20 +8,31 @@ import {
   timeout,
 } from './utils';
 
-interface LocationItem {
-  key: string;
-  lastModified: Date;
-  size: number;
-  type: 'FILE' | 'FOLDER';
-}
+type LocationItem =
+  | {
+      key: string;
+      lastModified: Date;
+      size: number;
+      type: 'FILE';
+    }
+  | {
+      key: string;
+      type: 'FOLDER';
+    };
 
 interface ListLocationItemsActionInput {
   prefix?: string;
-  options?: {
-    pageSize?: number;
-    nextToken?: string;
-    refresh?: boolean;
-  };
+  options?:
+    | {
+        nextToken?: string;
+        pageSize?: number;
+        refresh?: never;
+      }
+    | {
+        pageSize?: number;
+        nextToken?: never;
+        refresh?: boolean;
+      };
 }
 
 interface ListLocationItemsActionOutput {

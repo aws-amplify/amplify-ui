@@ -1,26 +1,34 @@
 import React from 'react';
 
-import { LocationView, LocationsView } from './views';
+import { StorageBrowserElements } from './context/elements';
+import createProvider from './createProvider';
+import { LocationDetailView, LocationsListView, SearchControl } from './Views';
+import { Controls, CreateStorageBrowserInput, StorageBrowser } from './types';
 
-interface StorageBrowser {
-  (): JSX.Element;
-  LocationsView: typeof LocationsView;
-  LocationView: typeof LocationView;
-}
-
-export default function createStorageBrowser(): {
-  StorageBrowser: StorageBrowser;
+export default function createStorageBrowser<
+  T extends Partial<StorageBrowserElements>,
+>({ elements }: CreateStorageBrowserInput<T> = {}): {
+  StorageBrowser: StorageBrowser<T>;
 } {
-  function StorageBrowser(): JSX.Element {
+  const Provider = createProvider({ elements });
+
+  function StorageBrowser(): React.JSX.Element {
     return (
-      <div>
-        <p>Hello World!</p>
-      </div>
+      <Provider>
+        <div>
+          <p>Hello World!</p>
+        </div>
+      </Provider>
     );
   }
 
-  StorageBrowser.LocationsView = LocationsView;
-  StorageBrowser.LocationView = LocationView;
+  // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
+  const Controls: Controls<T> = { Search: SearchControl };
+
+  StorageBrowser.Provider = Provider;
+  StorageBrowser.LocationsListView = LocationsListView;
+  StorageBrowser.LocationDetailView = LocationDetailView;
+  StorageBrowser.Controls = Controls;
 
   return { StorageBrowser };
 }
