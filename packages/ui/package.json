@@ -46,7 +46,6 @@
   "dependencies": {
     "csstype": "^3.1.1",
     "lodash": "4.17.21",
-    "style-dictionary": "3.9.1",
     "tslib": "^2.5.2"
   },
   "peerDependencies": {
@@ -64,7 +63,8 @@
     "autoprefixer": "^10.3.1",
     "glob": "^10.3.10",
     "postcss": "^8.4.31",
-    "sass": "^1.35.2"
+    "sass": "^1.35.2",
+    "style-dictionary": "3.9.1"
   },
   "sideEffects": [
     "dist/**/*.css"

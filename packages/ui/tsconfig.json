@@ -3,6 +3,6 @@
   "compilerOptions": {
     "strict": false
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "benchmarks/**/*.ts"],
   "exclude": ["node_modules"]
 }
