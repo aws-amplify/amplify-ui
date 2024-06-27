@@ -2,41 +2,37 @@ import React from 'react';
 import { ActionState, useDataState } from '@aws-amplify/ui-react-core';
 
 export interface HistoryState {
-  currentValue: string;
+  next: string;
   previous: string[];
 }
 
-export type UpdateHistoryStateActionInput =
-  | { currentValue: string; type: 'enter' }
-  | { currentValue: never; type: 'exit' };
+export type HistoryAction =
+  | { next: string; initial?: never; type: 'enter' }
+  | { next?: never; initial: string; type: 'exit' };
 
 export type UseHistoryState = [
   ActionState<HistoryState>,
-  (input: UpdateHistoryStateActionInput) => void,
+  (input: HistoryAction) => void,
 ];
 
 export const updateHistoryStateAction = (
   prevState: HistoryState,
-  { currentValue, type }: UpdateHistoryStateActionInput
+  { initial, next, type }: HistoryAction
 ): HistoryState => {
   switch (type) {
     case 'enter': {
-      const { currentValue: _currentValue, previous } = prevState;
-      return { currentValue, previous: [_currentValue, ...previous] };
+      const { next: _next, previous } = prevState;
+      return { next, previous: [_next, ...previous] };
     }
     case 'exit': {
-      const [currentValue, ...previous] = prevState.previous;
-      return { currentValue, previous };
+      const [_next, ...previous] = prevState.previous;
+      if (initial === _next) {
+        return prevState;
+      }
+      return { next: _next, previous };
     }
-
-    default: {
-      // eslint-disable-next-line no-console
-      console.error(
-        `\`useStorageBrowser('locationHistory')\`: Invalid value of ${type} provided as \`type\``
-      );
-
-      return prevState;
-    }
+    default:
+      throw new Error(`Invalid value of ${type} provided as \`type\``);
   }
 };
 
@@ -52,13 +48,12 @@ export const useHistoryState = (): UseHistoryState => {
 
 export const HistoryStateProvider = ({
   children,
+  initialState,
 }: {
   children?: React.ReactNode;
+  initialState: HistoryState;
 }): JSX.Element => {
-  const state = useDataState(updateHistoryStateAction, {
-    currentValue: 'Home',
-    previous: [],
-  });
+  const state = useDataState(updateHistoryStateAction, initialState);
 
   return (
     <HistoryStateContext.Provider value={state}>

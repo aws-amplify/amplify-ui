@@ -14,9 +14,9 @@ export { Field } from './primitives/Field';
 export { PrimitiveCatalog } from './PrimitiveCatalog';
 
 export {
-  createPrimitivesContext,
-  DefaultPrimitives,
-  ExtendPrimitive,
-  PrimitiveButton,
-  PrimitiveView,
-} from './context/primitives';
+  createElementsContext,
+  ElementsBase,
+  ExtendElement,
+  ButtonElementBase,
+  ViewElementBase,
+} from './context/elements';

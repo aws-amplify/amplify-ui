@@ -81,6 +81,7 @@ exports[`@aws-amplify/ui-react exports should match snapshot 1`] = `
 exports[`@aws-amplify/ui-react/internal exports should match snapshot 1`] = `
 [
   "AlertIcon",
+  "ButtonElementBase",
   "Field",
   "FilterChildren",
   "IconAdd",
@@ -104,10 +105,9 @@ exports[`@aws-amplify/ui-react/internal exports should match snapshot 1`] = `
   "IconVisibility",
   "IconVisibilityOff",
   "IconWarning",
-  "PrimitiveButton",
   "PrimitiveCatalog",
-  "PrimitiveView",
-  "createPrimitivesContext",
+  "ViewElementBase",
+  "createElementsContext",
   "useAuth",
   "useColorMode",
   "useDeprecationWarning",
