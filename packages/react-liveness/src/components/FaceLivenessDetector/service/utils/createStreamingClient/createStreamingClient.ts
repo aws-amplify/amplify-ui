@@ -10,6 +10,7 @@ import { AwsCredentialProvider } from '../../types';
 import { CustomWebSocketFetchHandler } from './CustomWebSocketFetchHandler';
 import { resolveCredentials } from './resolveCredentials';
 import { Signer } from './Signer';
+import { eventStreamPayloadHandlerProvider } from './eventstream-payload-handler-provider';
 
 interface CreateClientConfig {
   credentialsProvider?: AwsCredentialProvider;
@@ -35,6 +36,9 @@ export async function createStreamingClient({
       connectionTimeout: CONNECTION_TIMEOUT,
     }),
     signerConstructor: Signer,
+    systemClockOffset: -3600000,
+    eventStreamPayloadHandlerProvider:
+      eventStreamPayloadHandlerProvider(-3600000),
   };
 
   if (endpointOverride) {
