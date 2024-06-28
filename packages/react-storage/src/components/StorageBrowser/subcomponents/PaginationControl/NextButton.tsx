@@ -4,7 +4,7 @@ import { useElement } from '../../context/elements';
 
 export const NextButton = <T extends ButtonElementProps>({
   ariaLabel = 'Go to next page',
-  onClick = () => {},
+  onClick,
   isDisabled = false,
   children,
   ...rest

@@ -3,7 +3,7 @@ import { ButtonElementProps } from '@aws-amplify/ui-react/internal';
 import { useElement } from '../../context/elements';
 
 export const CurrentPage = <T extends ButtonElementProps>({
-  onClick = () => {},
+  onClick,
   isDisabled = false,
   children,
   ...rest
