@@ -2,31 +2,59 @@ import React from 'react';
 import { ActionState, useDataState } from '@aws-amplify/ui-react-core';
 
 export interface PaginateAction {
-  pagesLength: number;
+  hasAdditionalData: boolean;
+  loadedDataSize: number;
+  lookAhead: number;
   pageSize: number;
   type: 'next' | 'previous';
 }
 
 export interface PaginateState {
-  hasPreviousPage: boolean;
-  hasNextPage: boolean;
-  page: number;
+  hasNext: boolean;
+  hasPrevious: boolean;
+  current: number;
+  shouldPaginate: boolean;
 }
 
-const updatePaginateStateAction = (
-  { page: prevPage }: PaginateState,
-  { pagesLength, pageSize, type }: PaginateAction
+interface PaginateStateProviderProps {
+  children?: React.ReactNode;
+  initialState: PaginateState;
+  lookAhead: number;
+  pageSize: number;
+}
+
+export const updatePaginateStateAction = (
+  { current: _current }: PaginateState,
+  {
+    hasAdditionalData,
+    lookAhead,
+    loadedDataSize,
+    pageSize,
+    type,
+  }: PaginateAction
 ): PaginateState => {
   switch (type) {
     case 'next': {
-      const hasNextPage = pageSize * prevPage - pagesLength > pageSize;
-      const page = hasNextPage ? prevPage + 1 : prevPage;
-      return { hasNextPage, hasPreviousPage: true, page };
+      const prevDisplaySizeLimit = pageSize * _current;
+      const nextDisplaySizeLimit = pageSize * (_current + 1);
+
+      const shouldPaginate =
+        hasAdditionalData && nextDisplaySizeLimit < loadedDataSize;
+
+      const hasNext =
+        shouldPaginate ||
+        loadedDataSize - prevDisplaySizeLimit > pageSize * lookAhead;
+
+      const current = hasNext ? _current + 1 : _current;
+      const hasPrevious = current >= 2;
+
+      return { current, hasNext, hasPrevious, shouldPaginate };
     }
     case 'previous': {
-      const hasNextPage = prevPage > 2;
-      const page = hasNextPage ? prevPage - 1 : prevPage;
-      return { hasNextPage, hasPreviousPage: page > 1, page };
+      const hasNext = _current >= 2;
+      const current = hasNext ? _current - 1 : _current;
+      const hasPrevious = current > 1;
+      return { current, hasNext, hasPrevious, shouldPaginate: false };
     }
     default:
       throw new Error(`Invalid value of ${type} provided as \`type\``);
@@ -48,24 +76,19 @@ export const usePaginateState = (): UsePaginateState => {
   return context;
 };
 
-type UseStorageBrowser = (
-  action: 'locations-list'
-) => [{ data: { nextToken: string | undefined } }, (input: any) => void];
-
-const useStorageBrowser = null as unknown as UseStorageBrowser;
-
 export const PaginateStateProvider = ({
   children,
-}: {
-  children?: React.ReactNode;
-}): JSX.Element => {
-  const [{ data }] = useStorageBrowser('locations-list');
-
-  const state = useDataState(updatePaginateStateAction, {
-    hasNextPage: !!data.nextToken,
-    page: 1,
-    hasPreviousPage: true,
-  });
+  initialState,
+  lookAhead,
+  pageSize,
+}: PaginateStateProviderProps): JSX.Element => {
+  const state = useDataState(
+    (
+      prev: PaginateState,
+      action: Omit<PaginateAction, 'lookAhead' | 'pageSize'>
+    ) => updatePaginateStateAction(prev, { ...action, lookAhead, pageSize }),
+    initialState
+  );
 
   return (
     <PaginateStateContext.Provider value={state}>

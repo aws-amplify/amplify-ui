@@ -13,8 +13,8 @@ interface LocationData {
 interface ListLocationsActionInput {
   options?: {
     nextToken?: string;
-    refresh?: boolean;
     pageSize?: number;
+    refresh?: boolean;
   };
 }
 

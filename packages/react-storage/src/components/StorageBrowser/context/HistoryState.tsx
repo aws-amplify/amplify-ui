@@ -2,13 +2,13 @@ import React from 'react';
 import { ActionState, useDataState } from '@aws-amplify/ui-react-core';
 
 export interface HistoryState {
-  current: string;
+  next: string;
   previous: string[];
 }
 
 export type HistoryAction =
-  | { current: string; type: 'enter' }
-  | { current: never; type: 'exit' };
+  | { next: string; initial?: never; type: 'enter' }
+  | { next?: never; initial: string; type: 'exit' };
 
 export type UseHistoryState = [
   ActionState<HistoryState>,
@@ -17,16 +17,19 @@ export type UseHistoryState = [
 
 export const updateHistoryStateAction = (
   prevState: HistoryState,
-  { current, type }: HistoryAction
+  { initial, next, type }: HistoryAction
 ): HistoryState => {
   switch (type) {
     case 'enter': {
-      const { current: _current, previous } = prevState;
-      return { current, previous: [_current, ...previous] };
+      const { next: _next, previous } = prevState;
+      return { next, previous: [_next, ...previous] };
     }
     case 'exit': {
-      const [current, ...previous] = prevState.previous;
-      return { current, previous };
+      const [_next, ...previous] = prevState.previous;
+      if (initial === _next) {
+        return prevState;
+      }
+      return { next: _next, previous };
     }
     default:
       throw new Error(`Invalid value of ${type} provided as \`type\``);
@@ -45,13 +48,12 @@ export const useHistoryState = (): UseHistoryState => {
 
 export const HistoryStateProvider = ({
   children,
+  initialState,
 }: {
   children?: React.ReactNode;
+  initialState: HistoryState;
 }): JSX.Element => {
-  const state = useDataState(updateHistoryStateAction, {
-    current: 'Home',
-    previous: [],
-  });
+  const state = useDataState(updateHistoryStateAction, initialState);
 
   return (
     <HistoryStateContext.Provider value={state}>
