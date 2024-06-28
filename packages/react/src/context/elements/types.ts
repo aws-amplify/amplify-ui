@@ -29,8 +29,11 @@ export interface BaseElementProps<T> {
 
 export interface ViewElementProps extends BaseElementProps<HTMLDivElement> {}
 
+export interface LiElementProps extends BaseElementProps<HTMLLIElement> {}
+
 export interface ButtonElementProps
   extends BaseElementProps<HTMLButtonElement> {
+  ariaLabel?: string;
   isDisabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   type?: 'button' | 'reset' | 'submit';
@@ -59,7 +62,13 @@ export interface AnchorElementProps
   value?: string;
 }
 
-export interface NavElementProps extends BaseElementProps<HTMLElement> {}
+export interface NavElementProps extends BaseElementProps<HTMLElement> {
+  ariaLabel?: string;
+}
+
+export interface SectionElementProps extends BaseElementProps<HTMLElement> {
+  ariaLabel?: string;
+}
 
 export interface TextElementProps
   extends BaseElementProps<HTMLParagraphElement> {}
@@ -81,8 +90,10 @@ export interface ElementsBase extends Elements {
   Anchor: Component<AnchorElementProps>;
   Button: Component<ButtonElementProps>;
   ButtonGroup: Component<ButtonGroupElementProps>;
+  Li: Component<LiElementProps>;
   Menu: Component<MenuElementProps>;
   Nav: Component<NavElementProps>;
+  Section: Component<SectionElementProps>;
   Text: Component<TextElementProps>;
   View: Component<ViewElementProps>;
 }
