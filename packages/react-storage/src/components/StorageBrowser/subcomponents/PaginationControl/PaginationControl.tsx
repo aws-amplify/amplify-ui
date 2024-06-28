@@ -8,13 +8,14 @@ import { Item } from './Item';
 
 const PaginationControlPrimitive = <T extends NavElementProps>({
   ariaLabel = 'Pagination',
+  className,
   children,
   ...rest
 }: T): JSX.Element => {
   const Nav = useElement('Nav');
 
   return (
-    <Nav {...rest} aria-label={ariaLabel} className={``}>
+    <Nav {...rest} aria-label={ariaLabel} className={className}>
       <ol className={``}>{children}</ol>
     </Nav>
   );
