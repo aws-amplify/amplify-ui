@@ -1,19 +1,22 @@
 import * as React from 'react';
-import { PaginationControlProps } from '../../types';
+import { NavElementProps } from '@aws-amplify/ui-react/internal';
+import { useElement } from '../../context/elements';
 import { NextButton } from './NextButton';
 import { PreviousButton } from './PreviousButton';
 import { CurrentPage } from './CurrentPage';
 import { Item } from './Item';
 
-const PaginationControlPrimitive = <T extends PaginationControlProps>({
+const PaginationControlPrimitive = <T extends NavElementProps>({
   ariaLabel = 'Pagination',
   children,
   ...rest
 }: T): JSX.Element => {
+  const Nav = useElement('Nav');
+
   return (
-    <nav {...rest} aria-label={ariaLabel} className={``}>
+    <Nav {...rest} aria-label={ariaLabel} className={``}>
       <ol className={``}>{children}</ol>
-    </nav>
+    </Nav>
   );
 };
 

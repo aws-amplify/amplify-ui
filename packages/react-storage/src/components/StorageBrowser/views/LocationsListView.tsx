@@ -2,14 +2,14 @@ import React from 'react';
 import { useDataState } from '@aws-amplify/ui-react-core';
 import { listLocationsAction } from '../context/actions';
 import {
+  Breadcrumbs,
+  Container,
+  Layout,
+  LoadingIndicator,
   PaginationControl,
   RefreshControl,
   SearchControl,
   Title,
-  Controls,
-  LoadingIndicator,
-  Layout,
-  Breadcrumbs,
 } from '../subcomponents';
 
 export default function LocationsListView(): JSX.Element {
@@ -42,7 +42,7 @@ export default function LocationsListView(): JSX.Element {
       {!hasLocations && isLoading ? (
         <LoadingIndicator />
       ) : (
-        <Layout>
+        <Container>
           {/* Provides layout */}
           <Breadcrumbs>
             <Breadcrumbs.Item>
@@ -58,10 +58,8 @@ export default function LocationsListView(): JSX.Element {
             </Breadcrumbs.Item>
           </Breadcrumbs>
 
-          <Controls>
-            {/* Provides layout */}
-            <Controls.Primary>
-              {/* Provides layout */}
+          <Layout>
+            <Layout>
               <Title>Home</Title>
               <SearchControl>
                 <SearchControl.Field>
@@ -71,9 +69,8 @@ export default function LocationsListView(): JSX.Element {
                 <SearchControl.SubmitButton />
                 <SearchControl.Results />
               </SearchControl>
-            </Controls.Primary>
-            <Controls.Secondary>
-              {/* Provides layout */}
+            </Layout>
+            <Layout>
               <RefreshControl />
               <PaginationControl>
                 <PaginationControl.Item>
@@ -88,10 +85,9 @@ export default function LocationsListView(): JSX.Element {
                   <PaginationControl.NextButton />
                 </PaginationControl.Item>
               </PaginationControl>
-            </Controls.Secondary>
-          </Controls>
-          <div className={``}>
-            {/* Provides layout */}
+            </Layout>
+          </Layout>
+          <Layout>
             <table className={``} aria-label="Locations">
               <thead>
                 <tr>
@@ -116,8 +112,8 @@ export default function LocationsListView(): JSX.Element {
               </thead>
               <tbody>{listLocations}</tbody>
             </table>
-          </div>
-        </Layout>
+          </Layout>
+        </Container>
       )}
     </>
   );

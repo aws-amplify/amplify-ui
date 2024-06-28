@@ -1,15 +1,16 @@
 import * as React from 'react';
-import { ViewProps } from '../../types';
+import { ViewElementProps } from '@aws-amplify/ui-react/internal';
+import { useElement } from '../../context/elements';
 
-export const Layout = <T extends ViewProps>({
-  ariaLabel,
+export const Layout = <T extends ViewElementProps>({
   className,
   children,
   ...rest
 }: T): JSX.Element => {
+  const View = useElement('View');
   return (
-    <section {...rest} className={``} tabIndex={-1} aria-label={ariaLabel}>
+    <View {...rest} className={``}>
       {children}
-    </section>
+    </View>
   );
 };
