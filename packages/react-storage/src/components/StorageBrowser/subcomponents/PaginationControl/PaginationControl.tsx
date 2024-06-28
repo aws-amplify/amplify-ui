@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { classNames } from '@aws-amplify/ui';
 import { NavElementProps } from '@aws-amplify/ui-react/internal';
 import { useElement } from '../../context/elements';
 import { NextButton } from './NextButton';
@@ -9,21 +8,16 @@ import { Item } from './Item';
 
 const PaginationControlPrimitive = <T extends NavElementProps>({
   ariaLabel = 'Pagination',
-  className,
+  className: _className,
   children,
   ...rest
 }: T): JSX.Element => {
   const Nav = useElement('Nav');
+  const baseClassName = 'storage-browser-pagination-control';
+  const className = _className ?? baseClassName;
 
   return (
-    <Nav
-      {...rest}
-      aria-label={ariaLabel}
-      className={classNames(
-        'amplify-storagebrowser-pagination-control',
-        className
-      )}
-    >
+    <Nav {...rest} aria-label={ariaLabel} className={className}>
       <ol className={``}>{children}</ol>
     </Nav>
   );
