@@ -67,9 +67,7 @@ For example:
 import './polyfill';
 ```
 
-Any imported file is subject to tree shaking,
-that means CSS file needs to be added to the side effect list so it will not be
-unintentionally dropped:
+Any imported file is subject to tree shaking, that means CSS file needs to be added to the side effect list so it will not be unintentionally dropped:
 
 ```js
 import './style.css';
