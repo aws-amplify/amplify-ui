@@ -4,9 +4,10 @@ import { UploadDataWithPathInput, UploadDataInput } from 'aws-amplify/storage';
 
 import { isString, isTypedFunction } from '@aws-amplify/ui';
 
-import { ProcessFile } from '../types';
+import { ProcessFile, ProcessFileParams } from '../types';
 import { resolveFile } from './resolveFile';
 import { PathCallback, PathInput } from './uploadFile';
+import { UseStorageManager } from '../hooks';
 
 export interface GetInputParams {
   accessLevel: StorageAccessLevel | undefined;
@@ -15,6 +16,8 @@ export interface GetInputParams {
   onProgress: NonNullable<UploadDataWithPathInput['options']>['onProgress'];
   path: string | PathCallback | undefined;
   processFile: ProcessFile | undefined;
+  id: string;
+  removeUpload: UseStorageManager['removeUpload'];
 }
 
 export const getInput = ({
@@ -24,6 +27,8 @@ export const getInput = ({
   onProgress,
   path,
   processFile,
+  id,
+  removeUpload,
 }: GetInputParams) => {
   return async (): Promise<PathInput | UploadDataInput> => {
     const hasCallbackPath = isTypedFunction<PathCallback>(path);
@@ -35,7 +40,19 @@ export const getInput = ({
       file: data,
       key: fileKey,
       ...rest
-    } = await resolveFile({ file, key, processFile });
+    } = await resolveFile({ file, key, processFile }).catch(
+      (rejected: ProcessFileParams) => {
+        //const { key, error } = result;
+        /* `onUploadError()` is incorrect here, as this is a Pre-Upload stage.
+         NOTE: Might need some sort of resolveFile/processFile error handler.
+        if (isFunction(onUploadError)) {
+          onUploadError(error ?? `Error processing: ${key}`, { key: key });
+        }
+        */
+        removeUpload({ id });
+        return rejected;
+      }
+    );
 
     const contentType = file.type || 'binary/octet-stream';
 

@@ -150,6 +150,7 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     setUploadingFile,
     setUploadProgress,
     setUploadSuccess,
+    removeUpload,
     processFile,
     path,
   });

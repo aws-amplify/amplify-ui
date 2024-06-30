@@ -23,6 +23,8 @@ const inputBase: Omit<GetInputParams, 'path' | 'accessLevel'> = {
   key,
   onProgress,
   processFile: undefined,
+  id: '',
+  removeUpload: () => {},
 };
 const pathStringInput: GetInputParams = {
   ...inputBase,
