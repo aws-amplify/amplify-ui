@@ -13,10 +13,7 @@ If not previously installed, install and configure [Node Version Manager](https:
 1. Run `yarn setup`
 1. Run `yarn react dev`
 
-This will start building `@aws-amplify/ui-react` in watch mode.
-To test your changes, you can utilize [`examples/next`](../../examples/next)
-to run examples on `next.js`.
-Please see examples [README](../../examples/README.md) and e2e [README](../e2e/README.md#contributing) to get started.
+This will start building `@aws-amplify/ui-react` in watch mode. To test your changes, you can utilize [`examples/next`](../../examples/next) to run examples on `next.js`. Please see examples [README](../../examples/README.md) and e2e [README](../e2e/README.md#contributing) to get started.
 
 ## Dependencies
 
