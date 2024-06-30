@@ -20,10 +20,7 @@ Please see examples [README](../../examples/README.md) and e2e [README](../e2e/R
 
 ## Dependencies
 
-`@aws-amplify/ui-react` depends on [`@aws-amplify/ui`](../ui) for theming,
-state management, and translation logic.
-If you're looking for change in these,
-please refer to `@aws-amplify/ui` [README](../ui/README.md).
+`@aws-amplify/ui-react` depends on [`@aws-amplify/ui`](../ui) for theming, state management, and translation logic. If you're looking for change in these, please refer to `@aws-amplify/ui` [README](../ui/README.md).
 
 ## Code Standards
 
