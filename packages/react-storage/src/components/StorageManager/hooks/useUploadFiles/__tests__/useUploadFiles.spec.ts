@@ -195,6 +195,7 @@ describe('useUploadFiles', () => {
 
   it('should remove upload after processFile promise rejects', async () => {
     const processFile: StorageManagerProps['processFile'] = ({ file }) =>
+      //@ts-ignore
       Promise.reject({ file, key: 'test.png', error: 'forced test error' });
 
     const { waitForNextUpdate } = renderHook(() =>

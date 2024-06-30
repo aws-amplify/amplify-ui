@@ -39,7 +39,7 @@ export type DefaultFile = Pick<StorageFile, 'key'>;
 export interface ProcessFileParams extends Record<string, any> {
   file: File;
   key: string;
-  error?: string;
+  //error?: string;
 }
 
 export type ProcessFile = (

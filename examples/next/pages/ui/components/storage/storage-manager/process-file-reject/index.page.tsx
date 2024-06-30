@@ -10,10 +10,13 @@ import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
 const processFile: StorageManagerProps['processFile'] = async ({ file }) => {
+  /*
   return Promise.reject({
-    error: 'This File should not be uploaded.',
+    error: 'This file should not be uploaded.',
     key: file.name,
   });
+  */
+  throw new Error('This file should not be uploaded.');
 };
 
 export function StorageManagerExample() {
