@@ -3,8 +3,8 @@ import * as React from 'react';
 import { TransferProgressEvent } from 'aws-amplify/storage';
 import { isFunction } from '@aws-amplify/ui';
 
-import { PathCallback, uploadFile } from '../../utils';
-import { getInput } from '../../utils';
+import { PathCallback, getInput } from '../../utils';
+import { uploadFile } from '../../utils/uploadFile';
 import { FileStatus, ProcessFileParams } from '../../types';
 import { StorageManagerProps } from '../../types';
 import { UseStorageManager } from '../useStorageManager';
@@ -86,8 +86,9 @@ export function useUploadFiles({
           path,
           processFile,
           useAccelerateEndpoint,
-        })
-
+          id,
+          removeUpload,
+        });
         uploadFile({
           input,
           onComplete: (event) => {

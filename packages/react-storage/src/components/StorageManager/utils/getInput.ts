@@ -45,7 +45,7 @@ export const getInput = ({
       key: processedKey,
       ...rest
     } = await resolveFile({ file, key, processFile }).catch(
-      (result: ProcessFileParams) => {
+      (rejected: ProcessFileParams) => {
         //const { key, error } = result;
         /* `onUploadError()` is incorrect here, as this is a Pre-Upload stage.
          NOTE: Might need some sort of resolveFile/processFile error handler.
@@ -54,7 +54,7 @@ export const getInput = ({
         }
         */
         removeUpload({ id });
-        return result;
+        return rejected;
       }
     );
 
