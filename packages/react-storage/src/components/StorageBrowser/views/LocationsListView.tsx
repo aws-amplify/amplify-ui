@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDataState } from '@aws-amplify/ui-react-core';
 import { listLocationsAction } from '../context/actions';
-import { PaginationControl } from '../subcomponents/PaginationControl';
+import { PaginationControl, Title } from '../subcomponents';
 
 export default function LocationsListView(): JSX.Element {
   const [{ data, isLoading }, handleListLocations] = useDataState(
@@ -52,7 +52,7 @@ export default function LocationsListView(): JSX.Element {
           <div className={``}>
             {/* header__primary */}
             <div className={``}>
-              <h2 className={``}>Home</h2>
+              <Title>Home</Title>
               <form onSubmit={() => {}}>
                 <div>
                   <label htmlFor="filterInput_UUID">

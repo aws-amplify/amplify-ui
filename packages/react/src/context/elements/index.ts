@@ -1,5 +1,6 @@
 export {
   ButtonElementBase,
+  HeadingElementBase,
   LiElementBase,
   NavElementBase,
   OlElementBase,

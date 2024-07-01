@@ -64,6 +64,9 @@ export interface AnchorElementProps
   value?: string;
 }
 
+export interface HeadingElementProps
+  extends BaseElementProps<HTMLHeadingElement> {}
+
 export interface NavElementProps extends BaseElementProps<HTMLElement> {
   ariaLabel?: string;
 }
@@ -92,6 +95,7 @@ export interface ElementsBase extends Elements {
   Anchor: Component<AnchorElementProps>;
   Button: Component<ButtonElementProps>;
   ButtonGroup: Component<ButtonGroupElementProps>;
+  Heading: Component<HeadingElementProps>;
   Li: Component<LiElementProps>;
   Menu: Component<MenuElementProps>;
   Nav: Component<NavElementProps>;
