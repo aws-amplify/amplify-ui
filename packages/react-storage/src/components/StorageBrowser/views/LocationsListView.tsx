@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDataState } from '@aws-amplify/ui-react-core';
 import { listLocationsAction } from '../context/actions';
-import { PaginationControl } from '../subcomponents/PaginationControl';
+import { PaginationControl, Layout } from '../subcomponents';
 
 export default function LocationsListView(): JSX.Element {
   const [{ data, isLoading }, handleListLocations] = useDataState(
@@ -49,9 +49,9 @@ export default function LocationsListView(): JSX.Element {
             </ol>
           </nav>
           {/* header */}
-          <div className={``}>
+          <Layout className="amplify-storagebrowser__header">
             {/* header__primary */}
-            <div className={``}>
+            <Layout className="amplify-storagebrowser__header__primary">
               <h2 className={``}>Home</h2>
               <form onSubmit={() => {}}>
                 <div>
@@ -65,9 +65,9 @@ export default function LocationsListView(): JSX.Element {
                 </button>
                 <div aria-live="polite">4 matches found</div>
               </form>
-            </div>
+            </Layout>
             {/* header__secondary */}
-            <div className={``}>
+            <Layout className="amplify-storagebrowser__header__secondary">
               <button onClick={() => {}}>Refresh file list</button>
               <PaginationControl>
                 <PaginationControl.List>
@@ -84,33 +84,33 @@ export default function LocationsListView(): JSX.Element {
                   </PaginationControl.Item>
                 </PaginationControl.List>
               </PaginationControl>
-            </div>
-            <div className={``}>
-              <table className={``} aria-label="Locations">
-                <thead>
-                  <tr>
-                    <th aria-sort="ascending">
-                      {/* ascending | descending | none*/}
-                      <button
-                        onClick={() => {}}
-                        aria-label="Name, sorted, ascending"
-                      >
-                        Name
-                      </button>
-                    </th>
-                    <th aria-sort="none">
-                      <button
-                        onClick={() => {}}
-                        aria-label="Permissions, not sorted"
-                      >
-                        Permissions
-                      </button>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>{listLocations}</tbody>
-              </table>
-            </div>
+            </Layout>
+          </Layout>
+          <div className={``}>
+            <table className={``} aria-label="Locations">
+              <thead>
+                <tr>
+                  <th aria-sort="ascending">
+                    {/* ascending | descending | none*/}
+                    <button
+                      onClick={() => {}}
+                      aria-label="Name, sorted, ascending"
+                    >
+                      Name
+                    </button>
+                  </th>
+                  <th aria-sort="none">
+                    <button
+                      onClick={() => {}}
+                      aria-label="Permissions, not sorted"
+                    >
+                      Permissions
+                    </button>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>{listLocations}</tbody>
+            </table>
           </div>
         </section>
       )}
