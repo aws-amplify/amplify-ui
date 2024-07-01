@@ -6,8 +6,11 @@ import {
   AmplifyTextField,
 } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
-import aws_exports from './aws-exports';
-Amplify.configure(aws_exports);
+import { importHelper } from '../utils';
+
+const amplifyOutputs = await importHelper('auth-with-all-attributes');
+
+Amplify.configure(amplifyOutputs);
 </script>
 
 <template>

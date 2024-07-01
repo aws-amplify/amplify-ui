@@ -3,9 +3,11 @@ import { Amplify } from 'aws-amplify';
 import { I18n } from 'aws-amplify/utils';
 import { Authenticator, translations } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
-import aws_exports from './aws-exports';
+import { importHelper } from '../utils';
 
-Amplify.configure(aws_exports);
+const amplifyOutputs = await importHelper('auth-with-phone-number');
+
+Amplify.configure(amplifyOutputs);
 
 I18n.putVocabularies(translations);
 I18n.setLanguage('en');

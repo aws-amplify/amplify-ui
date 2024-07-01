@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 
-import awsExports from './aws-exports';
+const amplifyOutputs = (
+  await import(`@environments/auth/auth-with-totp-mfa/${process.env.PATH}`)
+).default;
 
 @Component({
   selector: 'sign-in-totp-mfa',
@@ -9,7 +11,7 @@ import awsExports from './aws-exports';
 })
 export class SignInTOTPMFAComponent {
   constructor() {
-    Amplify.configure(awsExports);
+    Amplify.configure(amplifyOutputs);
   }
   public formFields = {
     setupTotp: { QR: { totpIssuer: 'My Web App' } },

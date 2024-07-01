@@ -1,7 +1,11 @@
 import { Amplify } from 'aws-amplify';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
 import '@aws-amplify/ui-react/styles.css';
-import amplifyOutputs from './amplify_outputs';
+
+const amplifyOutputs = (
+  await import(`@environments/storage/file-uploader/${process.env.PATH}`)
+).default;
+
 Amplify.configure(amplifyOutputs);
 
 export function StorageManagerExample() {

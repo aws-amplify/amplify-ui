@@ -7,9 +7,11 @@ import { MapView } from '@aws-amplify/ui-react-geo';
 import '@aws-amplify/ui-react/styles.css';
 import '@aws-amplify/ui-react-geo/styles.css';
 
-import awsExports from './aws-exports';
+const amplifyOutputs = (
+  await import(`@environments/geo/basic-map/${process.env.PATH}`)
+).default;
 
-Amplify.configure(awsExports);
+Amplify.configure(amplifyOutputs);
 
 function MarkerWithPopup({ latitude, longitude }) {
   const [showPopup, setShowPopup] = useState(false);

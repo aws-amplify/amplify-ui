@@ -67,15 +67,33 @@ jobs:
         include:
           - example: angular
             package: angular
-            tags: '@angular and not @todo-angular'
+            tags: '@gen1 and @angular and not @todo-angular'
+            version: gen1
 
           - example: next
             package: react
-            tags: '@react and not @todo-react'
+            tags: '@gen1 and @react and not @todo-react'
+            version: gen1
 
           - example: vue
             package: vue
-            tags: '@vue and not @todo-vue'
+            tags: '@gen1 and @vue and not @todo-vue'
+            version: gen1
+
+          - example: angular
+            package: angular
+            tags: '@gen2 and @angular and not @todo-angular'
+            version: gen2
+
+          - example: next
+            package: react
+            tags: '@gen2 and @react and not @todo-react'
+            version: gen2
+
+          - example: vue
+            package: vue
+            tags: '@gen2 and @vue and not @todo-vue'
+            version: gen2
 
     steps:
       - name: Checkout Amplify UI
@@ -178,8 +196,13 @@ jobs:
         if: ${{ matrix.package == 'react' }}
         run: yarn react-liveness build
 
-      - name: Add Amplify CLI
+      - name: Add Amplify Gen1 CLI
+        if: ${{ matrix.version == 'gen1' }}
         run: yarn global add @aws-amplify/cli
+
+      - name: Add Amplify Gen2 CLI
+        if: ${{ matrix.version == 'gen2' }}
+        run: yarn add @aws-amplify/backend-cli@latest aws-cdk-lib constructs -D -W
 
       - name: Configure auth credentials
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
@@ -197,8 +220,8 @@ jobs:
           aws configure set aws_session_token $AWS_SESSION_TOKEN && \
           aws configure set default.region $AWS_REGION
 
-      - name: Pull down Auth AWS environments
-        run: yarn environments auth pull
+      - name: Pull down ${{ matrix.version }} Auth AWS environments
+        run: yarn environments auth pull -v ${{ matrix.version }}
 
       - name: Configure geo credentials
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
@@ -213,8 +236,8 @@ jobs:
           aws configure set aws_session_token $AWS_SESSION_TOKEN && \
           aws configure set default.region $AWS_REGION
 
-      - name: Pull down Geo AWS environments
-        run: yarn environments geo pull
+      - name: Pull down ${{ matrix.version }} Geo AWS environments
+        run: yarn environments geo pull -v ${{ matrix.version }}
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
@@ -229,14 +252,8 @@ jobs:
           aws configure set aws_session_token $AWS_SESSION_TOKEN && \
           aws configure set default.region $AWS_REGION
 
-      - name: Pull down Storage AWS environments
-        run: yarn environments storage pull
-
-      - name: Configure datastore credentials
-        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
-        with:
-          aws-region: us-east-2
-          role-to-assume: ${{ secrets.DATASTORE_E2E_ROLE_ARN }}
+      - name: Pull down ${{ matrix.version }} Storage AWS environments
+        run: yarn environments storage pull -v ${{ matrix.version }}
 
       - name: Create temp AWS profile
         run: |
@@ -244,9 +261,6 @@ jobs:
           aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
           aws configure set aws_session_token $AWS_SESSION_TOKEN && \
           aws configure set default.region $AWS_REGION
-
-      - name: Pull down Datastore AWS environments
-        run: yarn environments datastore pull
 
       - name: Configure liveness credentials
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
@@ -261,8 +275,8 @@ jobs:
           aws configure set aws_session_token $AWS_SESSION_TOKEN && \
           aws configure set default.region $AWS_REGION
 
-      - name: Pull down Liveness AWS environments
-        run: yarn environments liveness pull
+      - name: Pull down ${{ matrix.version }} Liveness AWS environments
+        run: yarn environments liveness pull -v ${{ matrix.version }}
 
       - name: Configure in-app-messaging credentials
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
@@ -280,17 +294,20 @@ jobs:
           aws configure set aws_session_token $AWS_SESSION_TOKEN && \
           aws configure set default.region $AWS_REGION
 
-      - name: Pull down In-app-messaging AWS environments
-        run: yarn environments in-app-messaging pull
+      - name: Pull down ${{ matrix.version }} In-app-messaging AWS environments
+        run: yarn environments in-app-messaging pull -v ${{ matrix.version }}
 
       - name: Delete AWS profile
         run: rm -rf ~/.aws
 
       - name: Build ${{ matrix.example }} example
         run: yarn ${{ matrix.example }}-example build
+        env:
+          VERSION: ${{ matrix.version }}
+          VITE_VERSION: ${{ matrix.version }}
 
       - name: Start ${{ matrix.example }} example
-        run: yarn ${{ matrix.example }}-example start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/ui/components/authenticator/sign-in-with-username
+        run: yarn ${{ matrix.example }}-example start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/ui/components/authenticator/sign-in-with-email
         env:
           # Setting this value temporarily since the beta liveness sample app hits the gamma endpoint
           NEXT_PUBLIC_STREAMING_API_URL: wss://streaming-rekognition-gamma.us-east-1.amazonaws.com

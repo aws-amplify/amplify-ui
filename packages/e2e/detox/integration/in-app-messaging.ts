@@ -2,7 +2,7 @@ import { Then, When } from '@cucumber/cucumber';
 import { by, element, expect } from 'detox';
 
 // timeout for the banner to display, to prevent flaky tests
-const POPUP_DISPLAY_TIMEOUT = 5000;
+const POPUP_DISPLAY_TIMEOUT = 8000;
 
 Then('{string} checkbox is checked', async (checkboxName: string) => {
   await expect(element(by.label(checkboxName))).toBeVisible();

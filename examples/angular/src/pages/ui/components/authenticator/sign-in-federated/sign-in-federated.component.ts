@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
-import awsExports from './aws-exports';
+
+const amplifyOutputs = (
+  await import(`@environments/auth/auth-with-federated/${process.env.PATH}`)
+).default;
 
 @Component({
   selector: 'sign-in-federated',
@@ -8,6 +11,6 @@ import awsExports from './aws-exports';
 })
 export class SignInFederatedComponent {
   constructor() {
-    Amplify.configure(awsExports);
+    Amplify.configure(amplifyOutputs);
   }
 }

@@ -5,9 +5,16 @@ import { Authenticator } from '@aws-amplify/ui-react-native';
 import { Amplify } from 'aws-amplify';
 
 import { SignOutButton } from '../SignOutButton';
-import awsconfig from './aws-exports';
+import { VERSION } from '@env';
 
-Amplify.configure(awsconfig);
+const AMPLIFY_CONFIG_PATH =
+  VERSION === 'gen1' ? 'src/amplifyconfiguration' : 'amplify_outputs';
+
+const amplifyOutputs = require(
+  `@aws-amplify/ui-environments/auth/auth-with-federated/${AMPLIFY_CONFIG_PATH}`
+);
+
+Amplify.configure(amplifyOutputs);
 
 function App() {
   return (

@@ -3,6 +3,7 @@
   "name": "@aws-amplify/ui-liveness-environment",
   "version": "0.0.1",
   "scripts": {
-    "pull": "amplify pull --appId d2pnskzbmchcgk --envName dev"
+    "pull": "amplify pull --appId d2pnskzbmchcgk --envName dev",
+    "generate": "AWS_REGION=us-east-2 ampx generate outputs --branch gen2-liveness-backend --app-id d2gzbqmqzn8vol"
   }
 }

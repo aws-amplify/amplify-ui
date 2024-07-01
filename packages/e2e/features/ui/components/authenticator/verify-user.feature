@@ -11,7 +11,7 @@ Feature: Verify User
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.GetUserAttributeVerificationCode" } }' with fixture "user-attribute-verification-code"
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.VerifyUserAttribute" } }' with fixture "confirm-user-attribute"
 
-  @angular @react @vue
+  @angular @react @vue @gen1 @gen2
   Scenario: Redirect to "Confirm Verify" page and replace label and placeholder
     When I type my "email" with status "UNVERIFIED"
     Then I type my password
@@ -26,7 +26,7 @@ Feature: Verify User
     Then I click the "Submit" button
     Then I see "Sign out"
 
-  @angular @react @vue @todo-react-native
+  @angular @react @vue @todo-react-native @gen1 @gen2
   Scenario: Redirect to "Verify" page and verify custom header and footer text
     When I type my "email" with status "UNVERIFIED"
     Then I type my password
@@ -36,7 +36,7 @@ Feature: Verify User
     Then I click the "Skip" button
     Then I click the "Sign out" button
 
-  @angular @react @vue @todo-react-native
+  @angular @react @vue @todo-react-native @gen1 @gen2
   Scenario: Skip verify account
     When I type my "email" with status "UNVERIFIED"
     Then I type my password
@@ -45,7 +45,7 @@ Feature: Verify User
     Then I see "Sign out"
     Then I click the "Sign out" button
 
-  @angular @react @vue @todo-react-native
+  @angular @react @vue @todo-react-native @gen1 @gen2
   Scenario: Redirect to "Confirm Verify" page and verify custom header and footer 
     When I type my "email" with status "UNVERIFIED"
     Then I type my password

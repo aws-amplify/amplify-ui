@@ -12,9 +12,13 @@ import {
 
 import '@aws-amplify/ui-react/styles.css';
 
-import config from './aws-exports';
+const amplifyOutputs = (
+  await import(
+    `@environments/in-app-messaging/in-app-messaging-with-pinpoint-campaign/${process.env.PATH}`
+  )
+).default;
 
-Amplify.configure(config);
+Amplify.configure(amplifyOutputs);
 initializeInAppMessaging();
 
 function App() {

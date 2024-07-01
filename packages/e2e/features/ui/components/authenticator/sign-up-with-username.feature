@@ -5,19 +5,19 @@ Feature: Sign Up with Username
   Background:
     Given I'm running the example "ui/components/authenticator/sign-up-with-username"
 
-  @angular @react @vue @react-native
+  @angular @react @vue @react-native @gen1
   Scenario: Login mechanism set to "username"
     Then I see "Username" as an input field
 
-  @angular @react @vue @react-native
+  @angular @react @vue @react-native @gen1
   Scenario: "Email" is included from `aws_cognito_verification_mechanisms`
     Then I see "Email" as an "email" field
   
-  @angular @react @vue @react-native
+  @angular @react @vue @react-native @gen1
   Scenario: "Phone Number" is not included
     Then I don't see "Phone Number"
   
-  @angular @react @vue
+  @angular @react @vue @gen1
   Scenario: Sign up a new username & password
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-username"
     When I type a new "username"
@@ -28,7 +28,7 @@ Feature: Sign Up with Username
     Then I see "We Emailed You"
     Then I see "Confirmation Code"
 
-  @react-native
+  @react-native @gen1
   Scenario: Sign up a new username & password
     # Note: For RN tests, mocking of "AWSCognitoIdentityProviderService.SignUp" is done with mockServer.js
     When I type a new "username"
@@ -39,11 +39,11 @@ Feature: Sign Up with Username
     Then I see "We Emailed You"
     Then I see "Confirmation Code"
 
-  @angular @react @vue
+  @angular @react @vue @gen1
   Scenario: Username field autocompletes username
     Then "Username" field autocompletes "username"
 
-  @angular @react @vue
+  @angular @react @vue @gen1
   Scenario: Password fields autocomplete "new-password"
     Then "Password" field autocompletes "new-password"
     Then "Confirm Password" field autocompletes "new-password"

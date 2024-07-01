@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 
-import awsExports from './aws-exports';
+const amplifyOutputs = (
+  await import(
+    `@environments/auth/auth-with-totp-and-sms-mfa/${process.env.PATH}`
+  )
+).default;
 
 @Component({
   selector: 'sign-in-totp-sms',
@@ -9,6 +13,6 @@ import awsExports from './aws-exports';
 })
 export class SignInTOTPSMSComponent {
   constructor() {
-    Amplify.configure(awsExports);
+    Amplify.configure(amplifyOutputs);
   }
 }

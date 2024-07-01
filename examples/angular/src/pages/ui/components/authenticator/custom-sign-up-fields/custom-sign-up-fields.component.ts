@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
-import awsExports from './aws-exports';
+
+const amplifyOutputs = (
+  await import(
+    `@environments/auth/auth-with-email-and-custom-attributes/${process.env.PATH}`
+  )
+).default;
 
 @Component({
   selector: 'custom-sign-up-fields',
@@ -8,7 +13,7 @@ import awsExports from './aws-exports';
 })
 export class CustomSignUpFieldsComponent {
   constructor() {
-    Amplify.configure(awsExports);
+    Amplify.configure(amplifyOutputs);
   }
 
   services = {

@@ -19,10 +19,9 @@ When('I toggle {string} checkbox', (checkboxName: string) => {
 });
 
 When('I wait for pinpoint messages to sync', () => {
-  const analyticsCampaignRegion = 'us-east-1';
   cy.intercept({
     method: 'GET',
-    url: `https://pinpoint.${analyticsCampaignRegion}.amazonaws.com/**`,
+    url: `https://pinpoint.us-east-*.amazonaws.com/**`,
   }).as('syncPinpointMessages');
   cy.wait('@syncPinpointMessages');
 });
