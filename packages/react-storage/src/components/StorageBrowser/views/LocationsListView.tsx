@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDataState } from '@aws-amplify/ui-react-core';
 import { listLocationsAction } from '../context/actions';
-import { PaginationControl } from '../subcomponents/PaginationControl';
+import { PaginationControl, RefreshControl } from '../subcomponents';
 
 export default function LocationsListView(): JSX.Element {
   const [{ data, isLoading }, handleListLocations] = useDataState(
@@ -68,7 +68,7 @@ export default function LocationsListView(): JSX.Element {
             </div>
             {/* header__secondary */}
             <div className={``}>
-              <button onClick={() => {}}>Refresh file list</button>
+              <RefreshControl />
               <PaginationControl>
                 <PaginationControl.Item>
                   <PaginationControl.PreviousButton />
