@@ -12,3 +12,8 @@ export const ViewElementBase: ElementsBase['View'] = React.forwardRef(
   (props, ref) => <div {...props} ref={ref} />
 );
 ViewElementBase.displayName = 'View';
+
+export const ParagraphElementBase: ElementsBase['Text'] = React.forwardRef(
+  (props, ref) => <p {...props} ref={ref} />
+);
+ParagraphElementBase.displayName = 'Paragraph';
