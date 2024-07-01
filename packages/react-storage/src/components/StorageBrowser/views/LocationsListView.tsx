@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDataState } from '@aws-amplify/ui-react-core';
 import { listLocationsAction } from '../context/actions';
-import { PaginationControl } from '../subcomponents/PaginationControl';
+import { PaginationControl, BreadcrumbsControl } from '../subcomponents';
 
 export default function LocationsListView(): JSX.Element {
   const [{ data, isLoading }, handleListLocations] = useDataState(
@@ -25,6 +25,12 @@ export default function LocationsListView(): JSX.Element {
         </tr>
       ));
 
+  const breadcrumbs = [
+    { name: 'Home' },
+    { name: 'Some folder' },
+    { name: 'Some other folder' },
+  ];
+
   return (
     <>
       {!hasLocations && isLoading ? (
@@ -33,21 +39,24 @@ export default function LocationsListView(): JSX.Element {
         </div>
       ) : (
         <section className={``} aria-label="Home" tabIndex={-1}>
-          <nav className={``} aria-label="Breadcrumbs">
-            <ol>
-              <li>
-                <button>Home</button>
-                <span aria-hidden="true">/</span>
-              </li>
-              <li>
-                <button>Some folder</button>
-                <span aria-hidden="true">/</span>
-              </li>
-              <li>
-                <span aria-current="page">Some folder</span>
-              </li>
-            </ol>
-          </nav>
+          <BreadcrumbsControl>
+            <BreadcrumbsControl.List>
+              {breadcrumbs.map(({ name }, index) => {
+                const isLastBreadcrumb = index === breadcrumbs.length - 1;
+                return (
+                  <BreadcrumbsControl.Item key={`breadcrumb-${index}`}>
+                    <BreadcrumbsControl.Breadcrumb
+                      aria-current={!isLastBreadcrumb ?? 'page'}
+                    >
+                      {name}
+                    </BreadcrumbsControl.Breadcrumb>
+                    <BreadcrumbsControl.Separator />
+                  </BreadcrumbsControl.Item>
+                );
+              })}
+            </BreadcrumbsControl.List>
+          </BreadcrumbsControl>
+
           {/* header */}
           <div className={``}>
             {/* header__primary */}

@@ -21,6 +21,7 @@ export {
   NavElementBase,
   OlElementBase,
   SectionElementBase,
+  SpanElementBase,
   ViewElementBase,
   LiElementBase,
 } from './context/elements';
