@@ -31,6 +31,8 @@ export interface ViewElementProps extends BaseElementProps<HTMLDivElement> {}
 
 export interface LiElementProps extends BaseElementProps<HTMLLIElement> {}
 
+export interface OlElementProps extends BaseElementProps<HTMLOListElement> {}
+
 export interface ButtonElementProps
   extends BaseElementProps<HTMLButtonElement> {
   ariaLabel?: string;
@@ -93,6 +95,7 @@ export interface ElementsBase extends Elements {
   Li: Component<LiElementProps>;
   Menu: Component<MenuElementProps>;
   Nav: Component<NavElementProps>;
+  Ol: Component<OlElementProps>;
   Section: Component<SectionElementProps>;
   Text: Component<TextElementProps>;
   View: Component<ViewElementProps>;

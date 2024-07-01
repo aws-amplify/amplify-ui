@@ -5,6 +5,7 @@ import { NextButton } from './NextButton';
 import { PreviousButton } from './PreviousButton';
 import { CurrentPage } from './CurrentPage';
 import { Item } from './Item';
+import { List } from './List';
 
 const PaginationControlPrimitive = <T extends NavElementProps>({
   ariaLabel = 'Pagination',
@@ -18,13 +19,14 @@ const PaginationControlPrimitive = <T extends NavElementProps>({
 
   return (
     <Nav {...rest} aria-label={ariaLabel} className={className}>
-      <ol className={``}>{children}</ol>
+      {children}
     </Nav>
   );
 };
 
 const PaginationControl = Object.assign(PaginationControlPrimitive, {
   Item,
+  List,
   NextButton,
   CurrentPage,
   PreviousButton,
