@@ -28,6 +28,11 @@ export const SectionElementBase: ElementsBase['Section'] = React.forwardRef(
 );
 SectionElementBase.displayName = 'Section';
 
+export const SpanElementBase: ElementsBase['Span'] = React.forwardRef(
+  (props, ref) => <span {...props} ref={ref} />
+);
+SpanElementBase.displayName = 'Span';
+
 export const ViewElementBase: ElementsBase['View'] = React.forwardRef(
   (props, ref) => <div {...props} ref={ref} />
 );

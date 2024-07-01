@@ -4,6 +4,7 @@ import {
   NavElementBase,
   OlElementBase,
   SectionElementBase,
+  SpanElementBase,
   ViewElementBase,
   createElementsContext,
   ElementsBase,
@@ -12,7 +13,7 @@ import {
 export interface StorageBrowserElements
   extends Pick<
     ElementsBase,
-    'Button' | 'Li' | 'Nav' | 'Ol' | 'Section' | 'View'
+    'Button' | 'Li' | 'Nav' | 'Ol' | 'Section' | 'Span' | 'View'
   > {}
 
 const defaultValue: StorageBrowserElements = {
@@ -21,6 +22,7 @@ const defaultValue: StorageBrowserElements = {
   Nav: NavElementBase,
   Ol: OlElementBase,
   Section: SectionElementBase,
+  Span: SpanElementBase,
   View: ViewElementBase,
 };
 

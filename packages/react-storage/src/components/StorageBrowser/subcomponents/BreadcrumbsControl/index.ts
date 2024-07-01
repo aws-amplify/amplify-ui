@@ -1,2 +1,1 @@
 export { BreadcrumbsControl } from './BreadcrumbsControl';
-export { PaginationControl } from './PaginationControl';

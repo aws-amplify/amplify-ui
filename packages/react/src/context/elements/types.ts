@@ -72,6 +72,10 @@ export interface SectionElementProps extends BaseElementProps<HTMLElement> {
   ariaLabel?: string;
 }
 
+export interface SpanElementProps extends BaseElementProps<HTMLSpanElement> {
+  ariaHidden?: boolean;
+}
+
 export interface TextElementProps
   extends BaseElementProps<HTMLParagraphElement> {}
 
@@ -97,6 +101,7 @@ export interface ElementsBase extends Elements {
   Nav: Component<NavElementProps>;
   Ol: Component<OlElementProps>;
   Section: Component<SectionElementProps>;
+  Span: Component<SpanElementProps>;
   Text: Component<TextElementProps>;
   View: Component<ViewElementProps>;
 }
