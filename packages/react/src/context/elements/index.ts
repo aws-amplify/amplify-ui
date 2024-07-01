@@ -2,6 +2,7 @@ export {
   ButtonElementBase,
   LiElementBase,
   NavElementBase,
+  OlElementBase,
   SectionElementBase,
   ViewElementBase,
 } from './defaultElements';

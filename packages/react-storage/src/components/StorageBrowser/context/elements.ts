@@ -2,6 +2,7 @@ import {
   ButtonElementBase,
   LiElementBase,
   NavElementBase,
+  OlElementBase,
   SectionElementBase,
   ViewElementBase,
   createElementsContext,
@@ -9,12 +10,16 @@ import {
 } from '@aws-amplify/ui-react/internal';
 
 export interface StorageBrowserElements
-  extends Pick<ElementsBase, 'Button' | 'Li' | 'Nav' | 'Section' | 'View'> {}
+  extends Pick<
+    ElementsBase,
+    'Button' | 'Li' | 'Nav' | 'Ol' | 'Section' | 'View'
+  > {}
 
 const defaultValue: StorageBrowserElements = {
   Button: ButtonElementBase,
   Li: LiElementBase,
   Nav: NavElementBase,
+  Ol: OlElementBase,
   Section: SectionElementBase,
   View: ViewElementBase,
 };

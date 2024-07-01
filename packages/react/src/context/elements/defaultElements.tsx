@@ -18,6 +18,11 @@ export const NavElementBase: ElementsBase['Nav'] = React.forwardRef(
 );
 NavElementBase.displayName = 'Nav';
 
+export const OlElementBase: ElementsBase['Ol'] = React.forwardRef(
+  (props, ref) => <ol {...props} ref={ref} />
+);
+OlElementBase.displayName = 'Ol';
+
 export const SectionElementBase: ElementsBase['Section'] = React.forwardRef(
   (props, ref) => <section {...props} ref={ref} />
 );
