@@ -20,4 +20,5 @@ export {
   ButtonElementBase,
   ViewElementBase,
   BaseElementProps,
+  ParagraphElementBase,
 } from './context/elements';

@@ -1,7 +1,7 @@
-import React from 'react';
 import {
   ButtonElementBase,
   ViewElementBase,
+  ParagraphElementBase,
   createElementsContext,
   ElementsBase,
 } from '@aws-amplify/ui-react/internal';
@@ -9,15 +9,10 @@ import {
 export interface AIConversationElements
   extends Pick<ElementsBase, 'Button' | 'View' | 'Text'> {}
 
-export const ParagraphElement: ElementsBase['Text'] = React.forwardRef(
-  (props, ref) => <p {...props} ref={ref} />
-);
-ParagraphElement.displayName = 'Paragraph';
-
 const defaultValue: AIConversationElements = {
   Button: ButtonElementBase,
   View: ViewElementBase,
-  Text: ParagraphElement,
+  Text: ParagraphElementBase,
 };
 
 export const { ElementsProvider, useElement } =
