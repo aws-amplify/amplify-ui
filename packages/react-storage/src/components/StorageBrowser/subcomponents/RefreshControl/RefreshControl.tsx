@@ -18,7 +18,7 @@ export const RefreshControl = <T extends ButtonElementProps>({
       aria-label={ariaLabel}
       disabled={isDisabled}
     >
-      {children ?? '<<'}
+      {children ?? 'Refresh'}
     </Button>
   );
 };
