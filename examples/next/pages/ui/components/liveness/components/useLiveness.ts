@@ -2,6 +2,16 @@ import { useState } from 'react';
 import { post, get } from 'aws-amplify/api';
 import useSWR from 'swr';
 
+const maxSupportedClockSkew = 5 * 60 * 1000;
+
+const getSystemClockOffset = (serverDate: string | undefined) => {
+  const deviceTime = Date.now();
+  const serverTime = new Date(serverDate).getTime();
+  const delta = serverTime ? serverTime - deviceTime : 0;
+
+  return Math.abs(delta) > maxSupportedClockSkew ? delta : undefined;
+};
+
 export function useLiveness() {
   const [isLivenessActive, setLivenessActive] = useState(false);
   const [getLivenessResponse, setGetLivenessResponse] = useState(null);
@@ -20,7 +30,10 @@ export function useLiveness() {
         options: {},
       }).response;
       const { body } = response;
-      return body.json();
+
+      const systemClockOffset = getSystemClockOffset(response.headers['date']);
+      const livenessResponse = await body.json();
+      return { sessionId: livenessResponse['sessionId'], systemClockOffset };
     },
     {
       revalidateOnFocus: false,

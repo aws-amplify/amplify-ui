@@ -19,6 +19,7 @@ const credentials: AwsCredentials = {
 const endpointOverride =
   'https://developer.mozilla.org/en-US/docs/Web/API/URL_API';
 const region = 'region';
+const systemClockOffset = -3600000;
 
 const mockResolveCredentials = (
   resolveCredentials as jest.Mock
@@ -41,12 +42,13 @@ describe('createStreamingClient', () => {
     expect(mockResolveCredentials).toHaveBeenCalledWith(undefined);
 
     expect(mockRekognitionStreamingClient).toHaveBeenCalledTimes(1);
-    expect(mockRekognitionStreamingClient.mock.calls[0][0]).toMatchObject({
+    expect(mockRekognitionStreamingClient.mock.calls[0][0]).toStrictEqual({
       credentials,
       customUserAgent: expect.any(String),
       region,
       requestHandler: expect.any(CustomWebSocketFetchHandler),
       signerConstructor: Signer,
+      systemClockOffset: undefined,
     });
   });
 
@@ -58,12 +60,13 @@ describe('createStreamingClient', () => {
     expect(mockResolveCredentials).toHaveBeenCalledWith(credentialsProvider);
 
     expect(mockRekognitionStreamingClient).toHaveBeenCalledTimes(1);
-    expect(mockRekognitionStreamingClient.mock.calls[0][0]).toMatchObject({
+    expect(mockRekognitionStreamingClient.mock.calls[0][0]).toStrictEqual({
       credentials,
       customUserAgent: expect.any(String),
       region,
       requestHandler: expect.any(CustomWebSocketFetchHandler),
       signerConstructor: Signer,
+      systemClockOffset: undefined,
     });
   });
 
@@ -74,13 +77,31 @@ describe('createStreamingClient', () => {
     expect(mockResolveCredentials).toHaveBeenCalledWith(undefined);
 
     expect(mockRekognitionStreamingClient).toHaveBeenCalledTimes(1);
-    expect(mockRekognitionStreamingClient.mock.calls[0][0]).toMatchObject({
+    expect(mockRekognitionStreamingClient.mock.calls[0][0]).toStrictEqual({
       credentials,
       customUserAgent: expect.any(String),
       endpointProvider: expect.any(Function),
       region,
       requestHandler: expect.any(CustomWebSocketFetchHandler),
       signerConstructor: Signer,
+      systemClockOffset: undefined,
+    });
+  });
+
+  it('handles a `systemClockOffset` param as expected', async () => {
+    await createStreamingClient({ systemClockOffset, region });
+
+    expect(mockResolveCredentials).toHaveBeenCalledTimes(1);
+    expect(mockResolveCredentials).toHaveBeenCalledWith(undefined);
+
+    expect(mockRekognitionStreamingClient).toHaveBeenCalledTimes(1);
+    expect(mockRekognitionStreamingClient.mock.calls[0][0]).toStrictEqual({
+      credentials,
+      customUserAgent: expect.any(String),
+      region,
+      requestHandler: expect.any(CustomWebSocketFetchHandler),
+      signerConstructor: Signer,
+      systemClockOffset: -3600000,
     });
   });
 

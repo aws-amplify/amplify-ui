@@ -902,10 +902,10 @@
     "@smithy/util-utf8" "^2.0.0"
     tslib "^2.5.0"
 
-"@aws-sdk/client-rekognitionstreaming@3.600.0":
-  version "3.600.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-rekognitionstreaming/-/client-rekognitionstreaming-3.600.0.tgz#2de2b62d2709aadb371162c5f1914e570acdc587"
-  integrity sha512-9H1p8Z1ARTmLwueWGB741kczhX2naXwEZ9YoFaBXRjOdrOl7PcerWd2FUulK3v6hIVcHpcPdlAGyFTd8uuRhLA==
+"@aws-sdk/client-rekognitionstreaming@3.605.0":
+  version "3.605.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-rekognitionstreaming/-/client-rekognitionstreaming-3.605.0.tgz#057c9cfbf13aa5a95fdeecbbf167c4fda61623b9"
+  integrity sha512-7ZZH06pd6msfynlirL43HgiWQpUmnbw6bosVgJxSCzLKf260LWWpSTMBu1ztmyXc5Ga5QXPNaTLgF1L68epv3g==
   dependencies:
     "@aws-crypto/sha256-browser" "5.2.0"
     "@aws-crypto/sha256-js" "5.2.0"
@@ -913,14 +913,14 @@
     "@aws-sdk/client-sts" "3.600.0"
     "@aws-sdk/core" "3.598.0"
     "@aws-sdk/credential-provider-node" "3.600.0"
-    "@aws-sdk/eventstream-handler-node" "3.598.0"
+    "@aws-sdk/eventstream-handler-node" "3.605.0"
     "@aws-sdk/middleware-eventstream" "3.598.0"
     "@aws-sdk/middleware-host-header" "3.598.0"
     "@aws-sdk/middleware-logger" "3.598.0"
     "@aws-sdk/middleware-recursion-detection" "3.598.0"
     "@aws-sdk/middleware-signing" "3.598.0"
     "@aws-sdk/middleware-user-agent" "3.598.0"
-    "@aws-sdk/middleware-websocket" "3.598.0"
+    "@aws-sdk/middleware-websocket" "3.605.0"
     "@aws-sdk/region-config-resolver" "3.598.0"
     "@aws-sdk/types" "3.598.0"
     "@aws-sdk/util-endpoints" "3.598.0"
@@ -1587,10 +1587,10 @@
     "@smithy/types" "^1.1.0"
     tslib "^2.5.0"
 
-"@aws-sdk/eventstream-handler-node@3.598.0":
-  version "3.598.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/eventstream-handler-node/-/eventstream-handler-node-3.598.0.tgz#bf87723b80c6a4ced37f18b2cadfc27ca5cad973"
-  integrity sha512-q5FGSRDhkA8lj50D65031nPoZiSb0v3RN5zzhrFAYtvOIHS8V7PvteRzLMiqLV3CzL8eLem9rzXqIqaqTzVFLQ==
+"@aws-sdk/eventstream-handler-node@3.605.0":
+  version "3.605.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/eventstream-handler-node/-/eventstream-handler-node-3.605.0.tgz#ac9e770fd76111f8f8665f82a1a76c69ad182c16"
+  integrity sha512-Apt7reaXVVOlqZR8o+p0twFS1Aw/BHudWPO3+Em87lhSTlPu3Oo5Kd9AjLzyvzFgOmxVX+gCnKV5kE+h+737ng==
   dependencies:
     "@aws-sdk/types" "3.598.0"
     "@smithy/eventstream-codec" "^3.1.0"
@@ -1786,10 +1786,10 @@
     "@smithy/types" "^3.1.0"
     tslib "^2.6.2"
 
-"@aws-sdk/middleware-websocket@3.598.0":
-  version "3.598.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/middleware-websocket/-/middleware-websocket-3.598.0.tgz#7685c83bcd3a27114f5bf7bf92fc2b3c42c9df2a"
-  integrity sha512-TRxhmZk9acHgVe3Y4DXEdLm+rrJjh5u73RxGRLhNfsufz3ZwzL2TYPcjDsD3wLJda37UikwcuI7caSR5X5Qffg==
+"@aws-sdk/middleware-websocket@3.605.0":
+  version "3.605.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/middleware-websocket/-/middleware-websocket-3.605.0.tgz#7070d4b732136a1daebd28ecb48d8168b2515dad"
+  integrity sha512-hJVjjX1if3GusWAKH++mGN28nE9ZUPoHXzOYyLuXLEAIHZuvRkMw/dvoM8wJ9cfRexjejSRQGmTsgjT0v0vdHg==
   dependencies:
     "@aws-sdk/middleware-signing" "3.598.0"
     "@aws-sdk/types" "3.598.0"

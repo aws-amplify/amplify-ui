@@ -15,6 +15,7 @@ interface CreateClientConfig {
   credentialsProvider?: AwsCredentialProvider;
   endpointOverride?: string;
   region: string;
+  systemClockOffset?: number;
 }
 
 const CONNECTION_TIMEOUT = 10_000;
@@ -24,6 +25,7 @@ export async function createStreamingClient({
   credentialsProvider,
   endpointOverride,
   region,
+  systemClockOffset,
 }: CreateClientConfig): Promise<RekognitionStreamingClient> {
   const credentials = await resolveCredentials(credentialsProvider);
 
@@ -35,6 +37,7 @@ export async function createStreamingClient({
       connectionTimeout: CONNECTION_TIMEOUT,
     }),
     signerConstructor: Signer,
+    systemClockOffset,
   };
 
   if (endpointOverride) {

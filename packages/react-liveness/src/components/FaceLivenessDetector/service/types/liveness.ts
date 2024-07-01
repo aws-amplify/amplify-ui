@@ -79,11 +79,16 @@ export interface FaceLivenessDetectorCoreConfig {
    * Internal use only - parameter for overriding the liveness endpoint
    */
   endpointOverride?: string;
+  /**
+   * Optional parameter for overriding the systemClockOffset for the streaming client
+   * Represents the difference between the system clock and the AWS server clock in milliseconds
+   */
+  systemClockOffset?: number;
 }
 
 export type FaceLivenessDetectorConfig = Omit<
   FaceLivenessDetectorCoreConfig,
-  'credentialProvider' | 'endpointOverride'
+  'credentialProvider' | 'endpointOverride' | 'systemClockOffset'
 >;
 
 /**
