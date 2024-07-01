@@ -1,6 +1,10 @@
+import { Alert } from '@aws-amplify/ui-react';
+
 ## System Clock Offset
 
-The `systemClockOffset` can optionally be passed to the `FaceLivenessDetectorCore` config, where it will be used added an offset in milliseconds to the AWS server time. This can be useful when the user's device time is inaccurate or when the user is frequently switching time zones. An example of calculating the offset and passing it to the `FaceLivenessDetectorCore` is shown below:
+The `systemClockOffset` can optionally be passed to the `FaceLivenessDetectorCore` config, where it will be added as an offset in milliseconds to the AWS server time. This can be useful when the user's device time is inaccurate or when the user is frequently switching time zones. An example of calculating the offset and passing it to the `FaceLivenessDetectorCore` is shown below:
+
+<Alert role="none" variation="info">The following example requires that headers with the Date are available in the response. The solution will need to be modified based on the call to your backend API.</Alert>
 
 ```jsx
 import React from 'react';
