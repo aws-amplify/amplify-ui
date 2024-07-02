@@ -18,5 +18,16 @@ export {
   ElementsBase,
   ExtendElement,
   ButtonElementBase,
+  TableElementBase,
+  TableCaptionElementBase,
+  TableColElementBase,
+  TableRowElementBase,
+  TableTbodyElementBase,
+  TableTdElementBase,
+  TableTfootElementBase,
+  TableThElementBase,
+  TableTheadElementBase,
   ViewElementBase,
 } from './context/elements';
+
+export * from './context/elements/types';

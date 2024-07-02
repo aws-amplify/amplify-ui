@@ -61,6 +61,25 @@ export interface AnchorElementProps
 
 export interface NavElementProps extends BaseElementProps<HTMLElement> {}
 
+export interface TableElementProps extends BaseElementProps<HTMLTableElement> {
+  ariaLabel?: string;
+}
+
+export interface TableCaptionElementProps
+  extends BaseElementProps<HTMLTableCaptionElement> {}
+
+export interface TableColElementProps
+  extends BaseElementProps<HTMLTableColElement> {}
+
+export interface TableCellElementProps
+  extends BaseElementProps<HTMLTableCellElement> {}
+
+export interface TableRowElementProps
+  extends BaseElementProps<HTMLTableRowElement> {}
+
+export interface TableSectionElementProps
+  extends BaseElementProps<HTMLTableSectionElement> {}
+
 export interface TextElementProps
   extends BaseElementProps<HTMLParagraphElement> {}
 
@@ -83,6 +102,12 @@ export interface ElementsBase extends Elements {
   ButtonGroup: Component<ButtonGroupElementProps>;
   Menu: Component<MenuElementProps>;
   Nav: Component<NavElementProps>;
+  Table: Component<TableElementProps>;
+  TableCaption: Component<TableCaptionElementProps>;
+  TableCell: Component<TableCellElementProps>;
+  TableCol: Component<TableColElementProps>;
+  TableRow: Component<TableRowElementProps>;
+  TableSection: Component<TableSectionElementProps>;
   Text: Component<TextElementProps>;
   View: Component<ViewElementProps>;
 }
