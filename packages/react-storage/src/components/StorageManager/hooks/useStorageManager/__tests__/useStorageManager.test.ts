@@ -166,6 +166,18 @@ describe('useUploadFiles', () => {
     expect(result.current.files.length).toBe(1);
   });
 
+  it('should update a target file key', () => {
+    const { result } = renderHook(() => useStorageManager(defaultFiles));
+
+    const processedKey = 'processedKey';
+
+    expect(result.current.files[0].processedKey).toBeUndefined();
+
+    act(() => result.current.setProcessedKey({ id: 'file1', processedKey }));
+
+    expect(result.current.files[0].processedKey).toBe(processedKey);
+  });
+
   describe('defaultFiles', () => {
     it('should handle good defaultFiles', () => {
       const { result } = renderHook(() =>
