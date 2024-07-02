@@ -291,7 +291,7 @@ exports[`SignUp renders as expected 1`] = `
           style="border-radius: 0px; font-weight: normal;"
         >
           
-          Create Account
+          Create account
           
         </button>
         

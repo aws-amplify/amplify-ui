@@ -79,7 +79,7 @@ export const defaultTexts = {
   VERIFY_HEADING: 'Account recovery requires verified contact information',
   VERIFY: 'Verify',
   WE_EMAILED: 'We emailed you',
-  WE_SENT_CODE: 'We sent a code',
+  WE_SENT_CODE: 'We sent you a code',
   WE_TEXTED: 'We texted you',
   WEBSITE: 'Website',
 };

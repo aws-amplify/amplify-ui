@@ -165,7 +165,7 @@ describe('ConfirmResetPassword', () => {
     render(ForceNewPassword, { global: { components } });
 
     const backToSignInButton = await screen.findByRole('button', {
-      name: 'Back to Sign In',
+      name: 'Back to sign in',
     });
     await fireEvent.click(backToSignInButton);
 

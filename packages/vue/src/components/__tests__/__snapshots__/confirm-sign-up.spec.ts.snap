@@ -19,7 +19,7 @@ exports[`ConfirmSignUp renders as expected 1`] = `
           class="amplify-heading amplify-authenticator__heading amplify-heading--3"
           data-amplify-heading=""
         >
-          We Texted You
+          We texted you
         </h3>
         
         
@@ -132,7 +132,7 @@ exports[`ConfirmSignUp renders as expected 1`] = `
             type="button"
           >
             
-            Resend Code
+            Resend code
             
           </button>
           

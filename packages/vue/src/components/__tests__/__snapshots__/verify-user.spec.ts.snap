@@ -35,7 +35,7 @@ exports[`VerifyUser renders as expected 1`] = `
             id="amplify-field-493c"
           >
             
-            Verify Contact
+            Verify contact
             
           </label>
           <div

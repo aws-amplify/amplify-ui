@@ -16,15 +16,15 @@ Feature: Custom Slots
     When I click the "Create Account" tab
     When I type a new "email"
     When I type a custom password from label "Password:"
-    When I type a custom confirm password from label "Confirm Password:"
-    Then I click the "Create Account" button
+    When I type a custom confirm password from label "Confirm password:"
+    Then I click the "Create account" button
     Then I see "Enter Information:"
     Then I see "Footer Information"
 
   @angular @react @vue
   Scenario: Has Confirm Reset Password Verify User Footer and Header slot text
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "verify-user-email"
-    When I click the "Reset Password" button
+    When I click the "Reset password" button
     Then I see "Enter Information:"
     Then I type my "email" with status "UNVERIFIED"
     Then I click the "Send Code" button
@@ -50,7 +50,7 @@ Feature: Custom Slots
 
   @angular @react @vue
   Scenario: Has reset password in Footer and Header slot text
-    When I click the "Reset Password" button
+    When I click the "Reset password" button
     Then I see "Enter Information:"
     Then I see "Footer Information"
 
@@ -68,20 +68,20 @@ Feature: Custom Slots
 
   @angular @react @vue
   Scenario: Has custom Sign In Footer slot text
-    Given I see "Reset Password"
-    When I click "Reset Password"
+    Given I see "Reset password"
+    When I click "Reset password"
     Then I see "Send code"
 
   @angular @react @vue
   Scenario: Has custom Sign Up Header slot text
-    When I click the "Create Account" tab
+    When I click the "Create account" tab
     Then I see "Create a new account"
 
   @angular @react @vue
   Scenario: Has custom Sign Up Footer slot text
     When I click the "Create Account" tab
-    Then I see "Back to Sign In"
-    When I click "Back to Sign In"
+    Then I see "Back to sign in"
+    When I click "Back to sign in"
     Then I see "Sign in to your account"
 
 

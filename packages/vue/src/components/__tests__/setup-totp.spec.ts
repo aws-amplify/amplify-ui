@@ -156,7 +156,7 @@ describe('SetupTotp', () => {
     render(SetupTotp, { global: { components } });
 
     const backToSignInButton = await screen.findByRole('button', {
-      name: 'Back to Sign In',
+      name: 'Back to sign in',
     });
 
     fireEvent.click(backToSignInButton);

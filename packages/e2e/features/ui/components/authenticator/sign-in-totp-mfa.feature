@@ -20,14 +20,14 @@ Feature: Sign In with TOTP MFA
     When I type my "email" with status "CONFIRMED"
     Then I type my password
     Then I click the "Sign in" button
-    Then I click the "Back to Sign In" button
+    Then I click the "Back to sign in" button
     Then I see "Sign in"
   
   @angular @react @vue
   Scenario: Invalid TOTP code
     When I type my "email" with status "CONFIRMED"
     Then I type my password
-    Then I click the "Sign In" button
+    Then I click the "Sign in" button
     Then I enter an invalid confirmation code
     Then I click the "Confirm" button
     Then I see 'Code mismatch'
@@ -36,7 +36,7 @@ Feature: Sign In with TOTP MFA
   Scenario: Setup TOTP should only show one input code
     When I type my "email" with status "CONFIRMED"
     Then I type my password
-    Then I click the "Sign In" button
+    Then I click the "Sign in" button
     Then I see one code input
 
   @angular @react @vue
@@ -54,12 +54,12 @@ Feature: Sign In with TOTP MFA
     When I type my "email" with status "FORCE_CHANGE_PASSWORD"
     Then I type my password
     Then I click the "Sign in" button
-    Then I see "Change Password"
+    Then I see "Change password"
     Then I type my password
     Then I confirm my password
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with fixture "force-change-password-mfa-setup"
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password-mfa-setup-software-token"
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.AssociateSoftwareToken" } }' with fixture "force-change-password-mfa-setup-associate-software-token"
-    Then I click the "Change Password" button
+    Then I click the "Change password" button
     Then I confirm request '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }'
     Then I see "Setup TOTP"

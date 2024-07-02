@@ -22,7 +22,7 @@ exports[`ConfirmSignIn renders as expected for SMS challenge 1`] = `
           class="amplify-heading amplify-heading--3"
           data-amplify-heading=""
         >
-          Confirm SMS Code
+          Confirm SMS code
         </h3>
         
         <div
@@ -123,7 +123,7 @@ exports[`ConfirmSignIn renders as expected for SMS challenge 1`] = `
             type="button"
           >
             
-            Back to Sign In
+            Back to sign in
             
           </button>
           
@@ -166,7 +166,7 @@ exports[`ConfirmSignIn renders as expected for TOTP challenge 1`] = `
           class="amplify-heading amplify-heading--3"
           data-amplify-heading=""
         >
-          Confirm TOTP Code
+          Confirm TOTP code
         </h3>
         
         <div
@@ -267,7 +267,7 @@ exports[`ConfirmSignIn renders as expected for TOTP challenge 1`] = `
             type="button"
           >
             
-            Back to Sign In
+            Back to sign in
             
           </button>
           

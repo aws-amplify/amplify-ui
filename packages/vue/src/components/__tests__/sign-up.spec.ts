@@ -166,7 +166,7 @@ describe('SignUp', () => {
     expect(updateFormSpy).toHaveBeenCalledWith(emailInputParams);
 
     const submitButton = await screen.findByRole('button', {
-      name: 'Create Account',
+      name: 'Create account',
     });
     await fireEvent.click(submitButton);
 
@@ -195,7 +195,7 @@ describe('SignUp', () => {
     render(SignUp, { global: { components } });
 
     const submitButton = await screen.findByRole('button', {
-      name: 'Create Account',
+      name: 'Create account',
     });
 
     expect(submitButton).toBeDisabled();

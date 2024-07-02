@@ -14,7 +14,7 @@ Feature: Sign In with Force New Password flow
     Then I type my password
     Then I click the "Sign in" button
     Then I should see the Force Change Password screen
-    Then I click the "Back to Sign In" button
+    Then I click the "Back to sign in" button
     Then I see "Sign In"
 
   @angular @react @vue
@@ -27,7 +27,7 @@ Feature: Sign In with Force New Password flow
     Then I type my password
     Then I confirm my password
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password-phone-success"
-    Then I click the "Change Password" button
+    Then I click the "Change password" button
     Then I confirm request '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }'
 
   @angular @react @vue
@@ -68,5 +68,5 @@ Feature: Sign In with Force New Password flow
     Then I should see the Force Change Password screen
     Then I type an invalid password
     Then I confirm my password
-    Then I click the "Change Password" button
+    Then I click the "Change password" button
     Then I see "Your passwords must match"

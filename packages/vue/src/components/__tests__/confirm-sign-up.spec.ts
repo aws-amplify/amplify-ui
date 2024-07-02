@@ -115,7 +115,7 @@ describe('ConfirmSignUp', () => {
     render(ConfirmSignUp, { global: { components } });
 
     const resendCodeButton = await screen.findByRole('button', {
-      name: 'Resend Code',
+      name: 'Resend code',
     });
 
     await fireEvent.click(resendCodeButton);
