@@ -26,6 +26,8 @@ export interface StorageFile {
   file?: File;
   status: FileStatus;
   progress: number;
+  // only present after `processFile` complete
+  processedKey?: string;
   uploadTask?: UploadTask;
   key: string;
   error: string;

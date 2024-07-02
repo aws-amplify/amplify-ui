@@ -110,6 +110,7 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     files,
     removeUpload,
     queueFiles,
+    setProcessedKey,
     setUploadingFile,
     setUploadPaused,
     setUploadProgress,
@@ -147,6 +148,7 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     onUploadError,
     onUploadSuccess,
     onUploadStart,
+    onProcessFileSuccess: setProcessedKey,
     setUploadingFile,
     setUploadProgress,
     setUploadSuccess,
@@ -201,7 +203,9 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     if (typeof onFileRemove === 'function') {
       const file = files.find((file) => file.id === id);
       if (file) {
-        onFileRemove({ key: file.key });
+        // return `processedKey` if available and `processFile` is provided
+        const key = (processFile && file?.processedKey) ?? file.key;
+        onFileRemove({ key });
       }
     }
   };

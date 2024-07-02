@@ -26,6 +26,14 @@ export const queueFilesAction = (): Action => ({
   type: StorageManagerActionTypes.QUEUE_FILES,
 });
 
+export const setProcessedKeyAction = (input: {
+  id: string;
+  processedKey: string;
+}): Action => ({
+  ...input,
+  type: StorageManagerActionTypes.SET_PROCESSED_FILE_KEY,
+});
+
 export const setUploadingFileAction = ({
   id,
   uploadTask,

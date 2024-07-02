@@ -310,6 +310,38 @@ describe('storageManagerStateReducer', () => {
     expect(result.current.state.files).toEqual([file]);
   });
 
+  it('updates the key of a target file on SET_PROCESSED_FILE_KEY', () => {
+    const file: StorageFile = {
+      id: imageFile.name,
+      file: imageFile,
+      error: '',
+      key: imageFile.name,
+      status: FileStatus.QUEUED,
+      isImage: true,
+      progress: -1,
+    };
+
+    const { result } = renderHook(() => {
+      const [state, dispatch] = useReducer(storageManagerStateReducer, {
+        files: [file],
+      });
+      return { state, dispatch };
+    });
+
+    const processedKey = `processed-${imageFile.name}`;
+    const action: Action = {
+      type: StorageManagerActionTypes.SET_PROCESSED_FILE_KEY,
+      id: imageFile.name,
+      processedKey,
+    };
+
+    expect(result.current.state.files[0].processedKey).toBeUndefined();
+
+    act(() => result.current.dispatch(action));
+
+    expect(result.current.state.files[0].processedKey).toBe(processedKey);
+  });
+
   it('should only change added files to queued in QUEUE_FILES action', () => {
     const { result } = renderHook(() => {
       const [state, dispatch] = useReducer(storageManagerStateReducer, {

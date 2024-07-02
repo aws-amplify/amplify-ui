@@ -10,6 +10,7 @@ import {
   clearFilesAction,
   queueFilesAction,
   removeUploadAction,
+  setProcessedKeyAction,
   setUploadingFileAction,
   setUploadProgressAction,
   setUploadStatusAction,
@@ -25,6 +26,7 @@ export interface UseStorageManager {
   clearFiles: () => void;
   queueFiles: () => void;
   setUploadingFile: TaskHandler;
+  setProcessedKey: (params: { id: string; processedKey: string }) => void;
   setUploadProgress: (params: { id: string; progress: number }) => void;
   setUploadSuccess: (params: { id: string }) => void;
   setUploadResumed: (params: { id: string }) => void;
@@ -78,6 +80,10 @@ export function useStorageManager(
     dispatch(setUploadingFileAction({ id, uploadTask }));
   };
 
+  const setProcessedKey: UseStorageManager['setProcessedKey'] = (input) => {
+    dispatch(setProcessedKeyAction(input));
+  };
+
   const setUploadProgress: UseStorageManager['setUploadProgress'] = ({
     progress,
     id,
@@ -103,6 +109,7 @@ export function useStorageManager(
 
   return {
     removeUpload,
+    setProcessedKey,
     setUploadPaused,
     setUploadProgress,
     setUploadResumed,

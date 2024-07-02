@@ -24,22 +24,24 @@ export interface UseUploadFilesProps
       'setUploadingFile' | 'setUploadProgress' | 'setUploadSuccess' | 'files'
     > {
   accessLevel?: StorageManagerProps['accessLevel'];
+  onProcessFileSuccess: (input: { id: string; processedKey: string }) => void;
   path?: string | PathCallback;
 }
 
 export function useUploadFiles({
-  files,
   accessLevel,
+  files,
   isResumable,
-  setUploadProgress,
-  setUploadingFile,
-  setUploadSuccess,
-  onUploadError,
-  onUploadSuccess,
-  onUploadStart,
   maxFileCount,
-  processFile,
+  onProcessFileSuccess,
+  onUploadError,
+  onUploadStart,
+  onUploadSuccess,
   path,
+  processFile,
+  setUploadingFile,
+  setUploadProgress,
+  setUploadSuccess,
 }: UseUploadFilesProps): void {
   React.useEffect(() => {
     const filesReadyToUpload = files.filter(
@@ -64,10 +66,14 @@ export function useUploadFiles({
       };
 
       if (file) {
+        const handleProcessFileSuccess = (input: { processedKey: string }) =>
+          onProcessFileSuccess({ id, ...input });
+
         const input = getInput({
           accessLevel,
           file,
           key,
+          onProcessFileSuccess: handleProcessFileSuccess,
           onProgress,
           path,
           processFile,
@@ -106,6 +112,7 @@ export function useUploadFiles({
     setUploadProgress,
     setUploadingFile,
     onUploadError,
+    onProcessFileSuccess,
     onUploadSuccess,
     onUploadStart,
     maxFileCount,
