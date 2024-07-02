@@ -7,14 +7,14 @@ import { CurrentPage } from './CurrentPage';
 import { Item } from './Item';
 import { List } from './List';
 
-const PaginationControlPrimitive = <T extends NavElementProps>({
+const Pagination = <T extends NavElementProps>({
   ariaLabel = 'Pagination',
   className: _className,
   children,
   ...rest
 }: T): JSX.Element => {
   const Nav = useElement('Nav');
-  const baseClassName = 'storage-browser-pagination-control';
+  const baseClassName = 'amplify-storagebrowser__pagination';
   const className = _className ?? baseClassName;
 
   return (
@@ -24,7 +24,7 @@ const PaginationControlPrimitive = <T extends NavElementProps>({
   );
 };
 
-const PaginationControl = Object.assign(PaginationControlPrimitive, {
+const PaginationControl = Object.assign(Pagination, {
   Item,
   List,
   NextButton,
