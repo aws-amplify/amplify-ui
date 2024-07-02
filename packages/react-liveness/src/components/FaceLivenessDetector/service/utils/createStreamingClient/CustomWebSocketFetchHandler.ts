@@ -85,7 +85,8 @@ export class CustomWebSocketFetchHandler {
   public readonly metadata: RequestHandlerMetadata = {
     handlerProtocol: 'websocket/h1.1',
   };
-  private readonly configPromise: Promise<WebSocketFetchHandlerOptions>;
+  private config: WebSocketFetchHandlerOptions;
+  private configPromise: Promise<WebSocketFetchHandlerOptions>;
   private readonly httpHandler: RequestHandler<any, any>;
   private readonly sockets: Record<string, WebSocket[]> = {};
   private readonly utf8decoder = new TextDecoder(); // default 'utf-8' or 'utf8'
@@ -98,9 +99,11 @@ export class CustomWebSocketFetchHandler {
   ) {
     this.httpHandler = httpHandler;
     if (typeof options === 'function') {
-      this.configPromise = options().then((opts) => opts ?? {});
+      this.config = {};
+      this.configPromise = options().then((opts) => (this.config = opts ?? {}));
     } else {
-      this.configPromise = Promise.resolve(options ?? {});
+      this.config = options ?? {};
+      this.configPromise = Promise.resolve(this.config);
     }
   }
 
@@ -146,14 +149,31 @@ export class CustomWebSocketFetchHandler {
     };
   }
 
+  updateHttpClientConfig(
+    key: keyof WebSocketFetchHandlerOptions,
+    value: WebSocketFetchHandlerOptions[typeof key]
+  ): void {
+    this.configPromise = this.configPromise.then((config) => {
+      return {
+        ...config,
+        [key]: value,
+      };
+    });
+  }
+
+  httpHandlerConfigs(): WebSocketFetchHandlerOptions {
+    return this.config ?? {};
+  }
+
   /**
    * Removes all closing/closed sockets from the socket pool for URL.
    */
   private removeNotUsableSockets(url: string): void {
     this.sockets[url] = (this.sockets[url] ?? []).filter(
       (socket) =>
-        ![WebSocket.CLOSING, WebSocket.CLOSED].includes(
-          socket.readyState as 2 | 3
+        !(
+          socket.readyState === WebSocket.CLOSING ||
+          socket.readyState === WebSocket.CLOSED
         )
     );
   }
@@ -188,13 +208,7 @@ export class CustomWebSocketFetchHandler {
 
     // initialize as no-op.
     let reject: (err?: unknown) => void = () => {};
-    let resolve: ({
-      done,
-      value,
-    }: {
-      done: boolean;
-      value: Uint8Array;
-    }) => void = () => {};
+    let resolve: (result: IteratorResult<Uint8Array, void>) => void = () => {};
 
     socket.onmessage = (event) => {
       resolve({
@@ -218,7 +232,7 @@ export class CustomWebSocketFetchHandler {
       } else {
         resolve({
           done: true,
-          value: undefined as any, // unchecked because done=true.
+          value: undefined,
         });
       }
     };
@@ -246,7 +260,6 @@ export class CustomWebSocketFetchHandler {
             }
             continue;
           }
-
           socket.send(inputChunk);
         }
       } catch (err) {
@@ -254,7 +267,9 @@ export class CustomWebSocketFetchHandler {
         // would already be settled by the time sending chunk throws error.
         // Instead, the notify the output stream to throw if there's
         // exceptions
-        streamError = err as Error | undefined;
+        if (err instanceof Error) {
+          streamError = err;
+        }
       } finally {
         // WS status code: https://tools.ietf.org/html/rfc6455#section-7.4
         socket.close(WS_CLOSURE_CODE.SUCCESS_CODE);
