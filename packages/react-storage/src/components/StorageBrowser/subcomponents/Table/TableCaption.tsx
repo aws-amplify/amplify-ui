@@ -2,11 +2,11 @@ import * as React from 'react';
 import { TableCaptionElementProps } from '@aws-amplify/ui-react/internal';
 import { useElement } from '../../context/elements';
 
-export const Caption = <T extends TableCaptionElementProps>({
+export const TableCaption = <T extends TableCaptionElementProps>({
   children,
   ...rest
 }: T): JSX.Element => {
-  const TableCaption = useElement('TableCaption');
+  const Caption = useElement('Caption');
 
-  return <TableCaption {...rest}>{children}</TableCaption>;
+  return <Caption {...rest}>{children}</Caption>;
 };

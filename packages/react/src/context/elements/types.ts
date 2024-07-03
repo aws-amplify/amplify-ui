@@ -103,11 +103,14 @@ export interface ElementsBase extends Elements {
   Menu: Component<MenuElementProps>;
   Nav: Component<NavElementProps>;
   Table: Component<TableElementProps>;
-  TableCaption: Component<TableCaptionElementProps>;
-  TableCell: Component<TableCellElementProps>;
-  TableCol: Component<TableColElementProps>;
-  TableRow: Component<TableRowElementProps>;
-  TableSection: Component<TableSectionElementProps>;
+  Caption: Component<TableCaptionElementProps>;
+  Td: Component<TableCellElementProps>;
+  Th: Component<TableCellElementProps>;
+  Col: Component<TableColElementProps>;
+  Tr: Component<TableRowElementProps>;
+  Thead: Component<TableSectionElementProps>;
+  Tbody: Component<TableSectionElementProps>;
+  Tfoot: Component<TableSectionElementProps>;
   Text: Component<TextElementProps>;
   View: Component<ViewElementProps>;
 }

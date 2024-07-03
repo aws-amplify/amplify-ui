@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { TableElementProps } from '@aws-amplify/ui-react/internal';
 import { useElement } from '../../context/elements';
-import { Caption } from './TableCaption';
-import { Column } from './TableCol';
+import { TableCaption } from './TableCaption';
+import { TableColumn } from './TableColumn';
 
 const TablePrimitive = <T extends TableElementProps>({
   ariaLabel = 'Table',
@@ -22,8 +22,8 @@ const TablePrimitive = <T extends TableElementProps>({
 };
 
 const Table = Object.assign(TablePrimitive, {
-  Caption,
-  Column,
+  Caption: TableCaption,
+  Column: TableColumn,
 });
 
 export { Table };

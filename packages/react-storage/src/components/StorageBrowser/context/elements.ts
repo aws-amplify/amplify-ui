@@ -4,11 +4,11 @@ import {
   TableCaptionElementBase,
   TableColElementBase,
   TableRowElementBase,
-  TableTbodyElementBase,
-  TableTdElementBase,
-  TableTfootElementBase,
-  TableThElementBase,
-  TableTheadElementBase,
+  TableBodyElementBase,
+  TableCellElementBase,
+  TableFootElementBase,
+  TableHeaderElementBase,
+  TableHeadElementBase,
   ViewElementBase,
   createElementsContext,
   ElementsBase,
@@ -19,28 +19,28 @@ export interface StorageBrowserElements
     ElementsBase,
     | 'Button'
     | 'Table'
-    | 'TableCaption'
-    | 'TableCol'
-    | 'TableRow'
-    | 'TableTbody'
-    | 'TableTd'
-    | 'TableTfoot'
-    | 'TableTh'
-    | 'TableThead'
+    | 'Caption'
+    | 'Col'
+    | 'Row'
+    | 'Tbody'
+    | 'Td'
+    | 'Tfoot'
+    | 'Th'
+    | 'Thead'
     | 'View'
   > {}
 
 const defaultValue: StorageBrowserElements = {
   Button: ButtonElementBase,
   Table: TableElementBase,
-  TableCaption: TableCaptionElementBase,
-  TableCol: TableColElementBase,
-  TableRow: TableRowElementBase,
-  TableTbody: TableTbodyElementBase,
-  TableTd: TableTdElementBase,
-  TableTfoot: TableTfootElementBase,
-  TableTh: TableThElementBase,
-  TableThead: TableTheadElementBase,
+  Caption: TableCaptionElementBase,
+  Col: TableColElementBase,
+  Row: TableRowElementBase,
+  Tbody: TableBodyElementBase,
+  Td: TableCellElementBase,
+  Tfoot: TableFootElementBase,
+  Th: TableHeaderElementBase,
+  Thead: TableHeadElementBase,
   View: ViewElementBase,
 };
 

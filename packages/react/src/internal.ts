@@ -22,11 +22,11 @@ export {
   TableCaptionElementBase,
   TableColElementBase,
   TableRowElementBase,
-  TableTbodyElementBase,
-  TableTdElementBase,
-  TableTfootElementBase,
-  TableThElementBase,
-  TableTheadElementBase,
+  TableBodyElementBase,
+  TableCellElementBase,
+  TableFootElementBase,
+  TableHeaderElementBase,
+  TableHeadElementBase,
   ViewElementBase,
 } from './context/elements';
 

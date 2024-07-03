@@ -13,41 +13,44 @@ export const TableElementBase: ElementsBase['Table'] = React.forwardRef(
 );
 TableElementBase.displayName = 'Table';
 
-export const TableCaptionElementBase: ElementsBase['TableCaption'] =
+export const TableCaptionElementBase: ElementsBase['Caption'] =
   React.forwardRef((props, ref) => <caption {...props} ref={ref} />);
 TableCaptionElementBase.displayName = 'TableCaption';
 
-export const TableColElementBase: ElementsBase['TableCol'] = React.forwardRef(
+export const TableColElementBase: ElementsBase['Col'] = React.forwardRef(
   (props, ref) => <col {...props} ref={ref} />
 );
 TableColElementBase.displayName = 'TableCol';
 
-export const TableRowElementBase: ElementsBase['TableRow'] = React.forwardRef(
+export const TableRowElementBase: ElementsBase['Tr'] = React.forwardRef(
   (props, ref) => <tr {...props} ref={ref} />
 );
 TableRowElementBase.displayName = 'TableRow';
 
-export const TableTdElementBase: ElementsBase['TableCell'] = React.forwardRef(
+export const TableCellElementBase: ElementsBase['Td'] = React.forwardRef(
   (props, ref) => <td {...props} ref={ref} />
 );
-TableTdElementBase.displayName = 'TableTd';
+TableCellElementBase.displayName = 'TableCell';
 
-export const TableThElementBase: ElementsBase['TableCell'] = React.forwardRef(
+export const TableHeaderElementBase: ElementsBase['Th'] = React.forwardRef(
   (props, ref) => <th {...props} ref={ref} />
 );
-TableThElementBase.displayName = 'TableTh';
+TableHeaderElementBase.displayName = 'TableHeader';
 
-export const TableTheadElementBase: ElementsBase['TableSection'] =
-  React.forwardRef((props, ref) => <thead {...props} ref={ref} />);
-TableTheadElementBase.displayName = 'TableThead';
+export const TableHeadElementBase: ElementsBase['Thead'] = React.forwardRef(
+  (props, ref) => <thead {...props} ref={ref} />
+);
+TableHeadElementBase.displayName = 'TableHead';
 
-export const TableTbodyElementBase: ElementsBase['TableSection'] =
-  React.forwardRef((props, ref) => <tbody {...props} ref={ref} />);
-TableTbodyElementBase.displayName = 'TableTbody';
+export const TableBodyElementBase: ElementsBase['Tbody'] = React.forwardRef(
+  (props, ref) => <tbody {...props} ref={ref} />
+);
+TableBodyElementBase.displayName = 'TableBody';
 
-export const TableTfootElementBase: ElementsBase['TableSection'] =
-  React.forwardRef((props, ref) => <tfoot {...props} ref={ref} />);
-TableTfootElementBase.displayName = 'TableTfoot';
+export const TableFootElementBase: ElementsBase['Tfoot'] = React.forwardRef(
+  (props, ref) => <tfoot {...props} ref={ref} />
+);
+TableFootElementBase.displayName = 'TableFoot';
 
 export const ViewElementBase: ElementsBase['View'] = React.forwardRef(
   (props, ref) => <div {...props} ref={ref} />
