@@ -8,6 +8,21 @@ export const ButtonElementBase: ElementsBase['Button'] = React.forwardRef(
 );
 ButtonElementBase.displayName = 'Button';
 
+export const FormElementBase: ElementsBase['Form'] = React.forwardRef(
+  (props, ref) => <form {...props} ref={ref} />
+);
+FormElementBase.displayName = 'Form';
+
+export const InputElementBase: ElementsBase['Input'] = React.forwardRef(
+  (props, ref) => <input {...props} ref={ref} />
+);
+InputElementBase.displayName = 'Input';
+
+export const LabelElementBase: ElementsBase['Label'] = React.forwardRef(
+  (props, ref) => <label {...props} ref={ref} />
+);
+LabelElementBase.displayName = 'Label';
+
 export const LiElementBase: ElementsBase['Li'] = React.forwardRef(
   (props, ref) => <li {...props} ref={ref} />
 );

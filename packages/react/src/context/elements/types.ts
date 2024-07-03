@@ -29,6 +29,17 @@ export interface BaseElementProps<T> {
 
 export interface ViewElementProps extends BaseElementProps<HTMLDivElement> {}
 
+export interface FormElementProps extends BaseElementProps<HTMLFormElement> {
+  onSubmit?: () => {};
+}
+
+export interface InputElementProps extends BaseElementProps<HTMLInputElement> {
+  type?: 'text' | 'radio' | 'checkbox';
+  placeholder?: string;
+}
+
+export interface LabelElementProps extends BaseElementProps<HTMLLabelElement> {}
+
 export interface LiElementProps extends BaseElementProps<HTMLLIElement> {}
 
 export interface OlElementProps extends BaseElementProps<HTMLOListElement> {}
@@ -92,6 +103,9 @@ export interface ElementsBase extends Elements {
   Anchor: Component<AnchorElementProps>;
   Button: Component<ButtonElementProps>;
   ButtonGroup: Component<ButtonGroupElementProps>;
+  Form: Component<FormElementProps>;
+  Input: Component<InputElementProps>;
+  Label: Component<LabelElementProps>;
   Li: Component<LiElementProps>;
   Menu: Component<MenuElementProps>;
   Nav: Component<NavElementProps>;

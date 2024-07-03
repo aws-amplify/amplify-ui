@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDataState } from '@aws-amplify/ui-react-core';
 import { listLocationsAction } from '../context/actions';
-import { PaginationControl } from '../subcomponents/PaginationControl';
+import { PaginationControl, SearchControl } from '../subcomponents';
 
 export default function LocationsListView(): JSX.Element {
   const [{ data, isLoading }, handleListLocations] = useDataState(
@@ -53,18 +53,12 @@ export default function LocationsListView(): JSX.Element {
             {/* header__primary */}
             <div className={``}>
               <h2 className={``}>Home</h2>
-              <form onSubmit={() => {}}>
-                <div>
-                  <label htmlFor="filterInput_UUID">
-                    Filter folders and files
-                  </label>
-                  <input id="filterInput_UUID" type="text" />
-                </div>
-                <button onClick={() => {}} type="submit" className={``}>
-                  Submit
-                </button>
-                <div aria-live="polite">4 matches found</div>
-              </form>
+              <SearchControl onSubmit={() => {}}>
+                <SearchControl.Label />
+                <SearchControl.Input />
+                <SearchControl.SubmitButton />
+                <SearchControl.Summary />
+              </SearchControl>
             </div>
             {/* header__secondary */}
             <div className={``}>
