@@ -53,6 +53,10 @@ export default function LocationsListView(): JSX.Element {
             {/* header__primary */}
             <Layout className="amplify-storagebrowser__header__primary">
               <h2 className={``}>Home</h2>
+              <button onClick={() => {}}>Refresh file list</button>
+            </Layout>
+            {/* header__secondary */}
+            <Layout className="amplify-storagebrowser__header__secondary">
               <form onSubmit={() => {}}>
                 <div>
                   <label htmlFor="filterInput_UUID">
@@ -65,10 +69,6 @@ export default function LocationsListView(): JSX.Element {
                 </button>
                 <div aria-live="polite">4 matches found</div>
               </form>
-            </Layout>
-            {/* header__secondary */}
-            <Layout className="amplify-storagebrowser__header__secondary">
-              <button onClick={() => {}}>Refresh file list</button>
               <PaginationControl>
                 <PaginationControl.List>
                   <PaginationControl.Item>
