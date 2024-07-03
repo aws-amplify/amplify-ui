@@ -21,7 +21,7 @@ export interface StorageBrowserElements
     | 'Table'
     | 'Caption'
     | 'Col'
-    | 'Row'
+    | 'Tr'
     | 'Tbody'
     | 'Td'
     | 'Tfoot'
@@ -35,7 +35,7 @@ const defaultValue: StorageBrowserElements = {
   Table: TableElementBase,
   Caption: TableCaptionElementBase,
   Col: TableColElementBase,
-  Row: TableRowElementBase,
+  Tr: TableRowElementBase,
   Tbody: TableBodyElementBase,
   Td: TableCellElementBase,
   Tfoot: TableFootElementBase,

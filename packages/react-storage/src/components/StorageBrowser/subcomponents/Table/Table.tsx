@@ -3,6 +3,12 @@ import { TableElementProps } from '@aws-amplify/ui-react/internal';
 import { useElement } from '../../context/elements';
 import { TableCaption } from './TableCaption';
 import { TableColumn } from './TableColumn';
+import { TableBody } from './TableBody';
+import { TableCell } from './TableCell';
+import { TableHead } from './TableHead';
+import { TableHeader } from './TableHeader';
+import { TableRow } from './TableRow';
+import { TableFoot } from './TableFoot';
 
 const TablePrimitive = <T extends TableElementProps>({
   ariaLabel = 'Table',
@@ -23,7 +29,13 @@ const TablePrimitive = <T extends TableElementProps>({
 
 const Table = Object.assign(TablePrimitive, {
   Caption: TableCaption,
+  Body: TableBody,
+  Cell: TableCell,
+  Head: TableHead,
+  Header: TableHeader,
+  Row: TableRow,
   Column: TableColumn,
+  Foot: TableFoot,
 });
 
 export { Table };
