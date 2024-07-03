@@ -6,21 +6,21 @@ describe('authenticatorTextUtil', () => {
   describe('getChallengeText', () => {
     it('returns the correct text for the "SMS_MFA" challenge', () => {
       expect(authenticatorTextUtil.getChallengeText('SMS_MFA')).toEqual(
-        'Confirm SMS Code'
+        'Confirm SMS code'
       );
     });
 
     it('returns the correct text for the "SOFTWARE_TOKEN_MFA" challenge', () => {
       expect(
         authenticatorTextUtil.getChallengeText('SOFTWARE_TOKEN_MFA')
-      ).toEqual('Confirm TOTP Code');
+      ).toEqual('Confirm TOTP code');
     });
 
     it('returns default text for unexpected challenge names', () => {
       expect(
         // @ts-expect-error
         authenticatorTextUtil.getChallengeText('invalidChallenge')
-      ).toEqual('Confirm MFA Code');
+      ).toEqual('Confirm MFA code');
     });
   });
 
@@ -78,7 +78,7 @@ describe('authenticatorTextUtil', () => {
 
       expect(
         authenticatorTextUtil.getDeliveryMethodText(codeDeliveryDetails)
-      ).toEqual('We Emailed You');
+      ).toEqual('We emailed you');
     });
 
     it('returns the correct text for SMS delivery', () => {
@@ -90,7 +90,7 @@ describe('authenticatorTextUtil', () => {
 
       expect(
         authenticatorTextUtil.getDeliveryMethodText(codeDeliveryDetails)
-      ).toEqual('We Sent A Code');
+      ).toEqual('We sent you a code');
     });
   });
 
@@ -106,7 +106,7 @@ describe('authenticatorTextUtil', () => {
   describe('getForgotPasswordText', () => {
     it('returns the correct text forgot password', () => {
       expect(authenticatorTextUtil.getForgotPasswordText(true)).toEqual(
-        'Forgot Password?'
+        'Forgot password?'
       );
     });
   });

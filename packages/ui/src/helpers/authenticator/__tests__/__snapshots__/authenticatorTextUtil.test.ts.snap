@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`authenticatorTextUtil getChallengeText for SMS_MFA returns the expected text 1`] = `"Confirm SMS Code"`;
+exports[`authenticatorTextUtil getChallengeText for SMS_MFA returns the expected text 1`] = `"Confirm SMS code"`;
 
-exports[`authenticatorTextUtil getChallengeText for SOFTWARE_TOKEN_MFA returns the expected text 1`] = `"Confirm TOTP Code"`;
+exports[`authenticatorTextUtil getChallengeText for SOFTWARE_TOKEN_MFA returns the expected text 1`] = `"Confirm TOTP code"`;
 
 exports[`authenticatorTextUtil getDeliveryMessageText for EMAIL returns the expected text 1`] = `"Your code is on the way. To log in, enter the code we emailed to undefined. It may take a minute to arrive."`;
 
 exports[`authenticatorTextUtil getDeliveryMessageText for SMS returns the expected text 1`] = `"Your code is on the way. To log in, enter the code we texted to undefined. It may take a minute to arrive."`;
 
-exports[`authenticatorTextUtil getDeliveryMethodText for EMAIL returns the expected text 1`] = `"We Emailed You"`;
+exports[`authenticatorTextUtil getDeliveryMethodText for EMAIL returns the expected text 1`] = `"We emailed you"`;
 
-exports[`authenticatorTextUtil getDeliveryMethodText for SMS returns the expected text 1`] = `"We Sent A Code"`;
+exports[`authenticatorTextUtil getDeliveryMethodText for SMS returns the expected text 1`] = `"We sent you a code"`;
 
 exports[`authenticatorTextUtil getSignInWithFederationText with amazon in sign in route renders text as expected 1`] = `"Sign In with Amazon"`;
 
