@@ -1,5 +1,7 @@
 export {
   ButtonElementBase,
+  IconElementBase,
+  ImageElementBase,
   ViewElementBase,
   ParagraphElementBase,
 } from './defaultElements';

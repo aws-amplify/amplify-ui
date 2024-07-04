@@ -1,11 +1,10 @@
 import React from 'react';
 import { ViewElementProps } from '@aws-amplify/ui-react/internal';
 import { useElement } from '../context/elements';
-import { ActionsBar } from './ActionsBar';
-import { Layout } from './Layout';
-import { Message } from './Message';
+import { MessageTextContent } from './MessageTextContent';
+import { MessageMediaContent } from './MessageMediaContent';
 
-export const MessagesElement = <T extends ViewElementProps>({
+export const MessageElement = <T extends ViewElementProps>({
   children,
   className,
   ...rest
@@ -19,10 +18,9 @@ export const MessagesElement = <T extends ViewElementProps>({
   );
 };
 
-const Messages = Object.assign(MessagesElement, {
-  ActionsBar,
-  Layout,
-  Message,
+const Message = Object.assign(MessageElement, {
+  MessageTextContent,
+  MessageMediaContent,
 });
 
-export { Messages };
+export { Message };

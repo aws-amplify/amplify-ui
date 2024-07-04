@@ -1,11 +1,10 @@
 import React from 'react';
 import { ViewElementProps } from '@aws-amplify/ui-react/internal';
 import { useElement } from '../context/elements';
-import { ActionsBar } from './ActionsBar';
-import { Layout } from './Layout';
-import { Message } from './Message';
+import { ActionsBarButton } from './ActionsBarButton';
+import { ActionsBarIcon } from './ActionsBarIcon';
 
-export const MessagesElement = <T extends ViewElementProps>({
+export const ActionsBarElement = <T extends ViewElementProps>({
   children,
   className,
   ...rest
@@ -19,10 +18,9 @@ export const MessagesElement = <T extends ViewElementProps>({
   );
 };
 
-const Messages = Object.assign(MessagesElement, {
-  ActionsBar,
-  Layout,
-  Message,
+const ActionsBar = Object.assign(ActionsBarElement, {
+  ActionsBarButton,
+  ActionsBarIcon,
 });
 
-export { Messages };
+export { ActionsBar };

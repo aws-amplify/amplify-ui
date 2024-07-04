@@ -1,5 +1,22 @@
 import React from 'react';
 import { useElement } from '../context/elements';
+import { Messages } from './Messages';
+import { Avatar } from '.';
+
+export const mockMessages = [
+  {
+    id: '1',
+    content: { type: 'text', value: 'hello world!' },
+    role: 'user',
+    timestamp: new Date(),
+  },
+  {
+    id: '2',
+    content: { type: 'text', value: 'world says hi back' },
+    role: 'assistant',
+    timestamp: new Date(),
+  },
+];
 
 export default function Conversation(): JSX.Element {
   const View = useElement('View');
@@ -34,7 +51,26 @@ export default function Conversation(): JSX.Element {
           height: '300px',
         }}
       >
-        messages subcomponent
+        <Messages.Layout>
+          {mockMessages.map((message) => (
+            <Messages.Message key={`message-${message.id}`}>
+              <Avatar>
+                <Avatar.Icon>avatar icon</Avatar.Icon>
+                <Avatar.DisplayName>username</Avatar.DisplayName>
+              </Avatar>
+              <Messages.Message.MessageTextContent>
+                {message.content.value}
+              </Messages.Message.MessageTextContent>
+              <Messages.ActionsBar>
+                <Messages.ActionsBar.ActionsBarButton>
+                  <Messages.ActionsBar.ActionsBarIcon>
+                    action
+                  </Messages.ActionsBar.ActionsBarIcon>
+                </Messages.ActionsBar.ActionsBarButton>
+              </Messages.ActionsBar>
+            </Messages.Message>
+          ))}
+        </Messages.Layout>
       </View>
       <View
         style={{

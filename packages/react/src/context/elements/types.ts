@@ -1,4 +1,5 @@
 import React from 'react';
+import { Property } from 'csstype';
 
 type RecordOf<T, K> = T extends string ? Record<T, K> : Record<keyof T, K>;
 
@@ -64,6 +65,25 @@ export interface NavElementProps extends BaseElementProps<HTMLElement> {}
 export interface TextElementProps
   extends BaseElementProps<HTMLParagraphElement> {}
 
+export interface ImageElementProps extends BaseElementProps<HTMLImageElement> {
+  ariaLabel?: string;
+}
+
+type ViewBox = {
+  minX?: number;
+  minY?: number;
+  width?: number;
+  height?: number;
+};
+
+export interface IconElementProps extends BaseElementProps<HTMLDivElement> {
+  ariaLabel?: string;
+  fill?: Property.Color;
+  pathData?: string;
+  paths?: React.SVGAttributes<SVGPathElement>[];
+  viewBox?: ViewBox;
+}
+
 /**
  * UI Primitives (Elements) are the base building blocks of Subcomponents.
  *
@@ -81,6 +101,8 @@ export interface ElementsBase extends Elements {
   Anchor: Component<AnchorElementProps>;
   Button: Component<ButtonElementProps>;
   ButtonGroup: Component<ButtonGroupElementProps>;
+  Icon: Component<IconElementProps>;
+  Image: Component<ImageElementProps>;
   Menu: Component<MenuElementProps>;
   Nav: Component<NavElementProps>;
   Text: Component<TextElementProps>;

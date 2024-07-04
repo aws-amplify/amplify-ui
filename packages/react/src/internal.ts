@@ -18,7 +18,11 @@ export {
   ElementsBase,
   ExtendElement,
   ButtonElementBase,
+  IconElementBase,
+  ImageElementBase,
   ViewElementBase,
   BaseElementProps,
   ParagraphElementBase,
 } from './context/elements';
+
+export * from './context/elements/types';
