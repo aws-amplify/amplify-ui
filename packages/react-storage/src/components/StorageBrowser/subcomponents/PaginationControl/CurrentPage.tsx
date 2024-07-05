@@ -19,7 +19,7 @@ export const CurrentPage = <T extends ButtonElementProps>({
       disabled={isDisabled}
       aria-current="page"
     >
-      {children}
+      {children ?? '1'}
     </Button>
   );
 };
