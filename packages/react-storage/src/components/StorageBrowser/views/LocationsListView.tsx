@@ -78,21 +78,7 @@ export default function LocationsListView(): JSX.Element {
             {/* header__secondary */}
             <div className={``}>
               <button onClick={() => {}}>Refresh file list</button>
-              <PaginationControl>
-                <PaginationControl.List>
-                  <PaginationControl.Item>
-                    <PaginationControl.PreviousButton />
-                  </PaginationControl.Item>
-                  <PaginationControl.Item>
-                    <PaginationControl.CurrentPage>
-                      1
-                    </PaginationControl.CurrentPage>
-                  </PaginationControl.Item>
-                  <PaginationControl.Item>
-                    <PaginationControl.NextButton />
-                  </PaginationControl.Item>
-                </PaginationControl.List>
-              </PaginationControl>
+              <PaginationControl />
             </div>
             <div className={``}>
               <table className={``} aria-label="Locations">
