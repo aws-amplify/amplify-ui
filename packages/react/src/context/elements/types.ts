@@ -40,6 +40,7 @@ export interface InputElementProps extends BaseElementProps<HTMLInputElement> {
   type?: 'text' | 'radio' | 'checkbox';
   placeholder?: string;
   value?: string;
+  name?: string;
 }
 
 export interface LabelElementProps extends BaseElementProps<HTMLLabelElement> {
