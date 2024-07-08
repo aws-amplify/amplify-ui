@@ -37,8 +37,10 @@ export interface FormElementProps extends BaseElementProps<HTMLFormElement> {
 
 export interface InputElementProps extends BaseElementProps<HTMLInputElement> {
   id?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
   type?: 'text' | 'radio' | 'checkbox';
   placeholder?: string;
+  value?: string;
 }
 
 export interface LabelElementProps extends BaseElementProps<HTMLLabelElement> {
