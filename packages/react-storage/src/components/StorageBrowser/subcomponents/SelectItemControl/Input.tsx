@@ -11,7 +11,6 @@ export const Input = <T extends InputElementProps>({
   ...rest
 }: T): JSX.Element => {
   const Input = useElement('Input');
-  // temp
 
   return (
     <Input
