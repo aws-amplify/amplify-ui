@@ -35,7 +35,7 @@ function MyComponent() {
     * Replace serverDate with the actual server date,
     * which can be retrieved from the response headers or your custom backend.
     */
-    const serverTime = Date.now();
+    const serverTime = response.headers['date']
     const systemClockOffset = getSystemClockOffset(serverTime)
     setCreateLivenessApiData({body, systemClockOffset});
   }, []);
