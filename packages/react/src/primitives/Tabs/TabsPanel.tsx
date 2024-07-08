@@ -17,7 +17,9 @@ const TabPanelPrimitive: Primitive<TabsPanelProps, 'div'> = (
   const { activeTab, isLazy, groupId } = React.useContext(TabsContext);
 
   if (isLazy && activeTab !== value) return null;
+
   value = value.replace(' ', WHITESPACE_VALUE);
+
   return (
     <View
       {...rest}

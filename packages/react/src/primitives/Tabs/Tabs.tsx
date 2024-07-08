@@ -24,8 +24,8 @@ const TabsPrimitive: Primitive<TabsProps, 'div'> = (
           </TabsItem>
         ))}
       </TabList>
-      {items?.map(({ value, content, isDisabled, ...rest }) => (
-        <TabPanel {...rest} key={value} value={value} isDisabled={isDisabled}>
+      {items?.map(({ value, content, isDisabled }) => (
+        <TabPanel key={value} value={value} isDisabled={isDisabled}>
           {content}
         </TabPanel>
       ))}
