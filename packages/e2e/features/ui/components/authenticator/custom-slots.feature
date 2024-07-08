@@ -16,7 +16,7 @@ Feature: Custom Slots
     When I click the "Create Account" tab
     When I type a new "email"
     When I type a custom password from label "Password:"
-    When I type a custom confirm password from label "Confirm password:"
+    When I type a custom confirm password from label "Confirm Password:"
     Then I click the "Create account" button
     Then I see "Enter Information:"
     Then I see "Footer Information"
