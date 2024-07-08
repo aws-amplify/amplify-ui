@@ -16,7 +16,7 @@ function MyComponent() {
   /* 
    * 1. Check whether the difference between server time and device time is
    *  greater than or equal to 5 minutes, and if so, return the offset in milliseconds.
-   *  This logic should be adjusted based on the server response and your use case
+   *  This logic should be adjusted based on the server response and use case
   */ 
   const getSystemClockOffset = (serverTime: number) => {
     const maxSupportedClockSkew = 5 * 60 * 1000; // 5 minutes
