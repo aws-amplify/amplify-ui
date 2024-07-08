@@ -5,21 +5,17 @@ import { useElement } from '../../context/elements';
 export const Input = <T extends InputElementProps>({
   id,
   type = 'checkbox',
+  name: _name,
   className,
   value,
   ...rest
 }: T): JSX.Element => {
   const Input = useElement('Input');
   // temp
-  const [checked, setChecked] = React.useState(false);
 
   return (
     <Input
-      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-        setChecked(e.target.checked)
-      }
-      value={value}
-      checked={checked}
+      name={_name ?? 'selected_items'}
       className={className}
       type={type}
       id={id}
