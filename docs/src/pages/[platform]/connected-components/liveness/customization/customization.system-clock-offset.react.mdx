@@ -33,7 +33,7 @@ function MyComponent() {
     const body = await response.json(); // { sessionId: 'mockSessionId' } 
     /*
     * Replace serverDate with the actual server date,
-    * which can be retrieved from the response headers or your customer backend.
+    * which can be retrieved from the response headers or your custom backend.
     */
     const serverTime = Date.now();
     const systemClockOffset = getSystemClockOffset(serverTime)
