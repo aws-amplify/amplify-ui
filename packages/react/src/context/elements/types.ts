@@ -22,8 +22,10 @@ export type ExtendElement<
 > = (props: React.ComponentProps<T> & K) => JSX.Element;
 
 export interface BaseElementProps<T> {
+  ariaLabel?: string;
   children?: React.ReactNode;
   className?: string;
+  id?: string;
   ref?: React.Ref<T>;
 }
 
@@ -35,7 +37,6 @@ export interface OlElementProps extends BaseElementProps<HTMLOListElement> {}
 
 export interface ButtonElementProps
   extends BaseElementProps<HTMLButtonElement> {
-  ariaLabel?: string;
   isCurrent?: boolean;
   isDisabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
@@ -65,17 +66,13 @@ export interface AnchorElementProps
   value?: string;
 }
 
-export interface NavElementProps extends BaseElementProps<HTMLElement> {
-  ariaLabel?: string;
-}
+export interface NavElementProps extends BaseElementProps<HTMLElement> {}
 
 export interface BreadcrumbsElementProps extends NavElementProps {
   items?: ButtonElementProps[];
 }
 
-export interface SectionElementProps extends BaseElementProps<HTMLElement> {
-  ariaLabel?: string;
-}
+export interface SectionElementProps extends BaseElementProps<HTMLElement> {}
 
 export interface SpanElementProps extends BaseElementProps<HTMLSpanElement> {
   ariaHidden?: boolean;
