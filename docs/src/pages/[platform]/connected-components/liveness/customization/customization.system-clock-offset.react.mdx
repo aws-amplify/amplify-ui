@@ -32,8 +32,8 @@ function MyComponent() {
     const response = await fetch(`/api/createSession`);
     const body = await response.json(); // { sessionId: 'mockSessionId' } 
     /*
-    * serverDate should be replaced with the actual server date,
-    * which can be retrieved from the response headers or customer backend.
+    * Replace serverDate with the actual server date,
+    * which can be retrieved from the response headers or your customer backend.
     */
     const serverTime = Date.now();
     const systemClockOffset = getSystemClockOffset(serverTime)
