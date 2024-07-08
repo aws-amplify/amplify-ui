@@ -68,8 +68,8 @@ Feature: Custom Slots
 
   @angular @react @vue
   Scenario: Has custom Sign In Footer slot text
-    Given I see "Reset password"
-    When I click "Reset password"
+    Given I see "Reset Password"
+    When I click "Reset Password"
     Then I see "Send code"
 
   @angular @react @vue
@@ -80,8 +80,8 @@ Feature: Custom Slots
   @angular @react @vue
   Scenario: Has custom Sign Up Footer slot text
     When I click the "Create Account" tab
-    Then I see "Back to sign in"
-    When I click "Back to sign in"
+    Then I see "Back to Sign In"
+    When I click "Back to Sign In"
     Then I see "Sign in to your account"
 
 
