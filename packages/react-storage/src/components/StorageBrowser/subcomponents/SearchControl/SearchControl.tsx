@@ -10,7 +10,7 @@ const Search = <T extends ViewElementProps>({
   className,
   ...rest
 }: T): JSX.Element => {
-  const inputId = React.useId();
+  const inputId = `amplify-storagebrowser-search-input-${React.useId()}`;
 
   return (
     <Container className={className} {...rest}>
