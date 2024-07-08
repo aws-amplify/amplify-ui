@@ -36,6 +36,7 @@ export interface OlElementProps extends BaseElementProps<HTMLOListElement> {}
 export interface ButtonElementProps
   extends BaseElementProps<HTMLButtonElement> {
   ariaLabel?: string;
+  id?: string;
   isDisabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   type?: 'button' | 'reset' | 'submit';
