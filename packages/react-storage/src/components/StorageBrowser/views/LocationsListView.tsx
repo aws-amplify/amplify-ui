@@ -69,21 +69,7 @@ export default function LocationsListView(): JSX.Element {
                 </button>
                 <div aria-live="polite">4 matches found</div>
               </form>
-              <PaginationControl>
-                <PaginationControl.List>
-                  <PaginationControl.Item>
-                    <PaginationControl.PreviousButton />
-                  </PaginationControl.Item>
-                  <PaginationControl.Item>
-                    <PaginationControl.CurrentPage>
-                      1
-                    </PaginationControl.CurrentPage>
-                  </PaginationControl.Item>
-                  <PaginationControl.Item>
-                    <PaginationControl.NextButton />
-                  </PaginationControl.Item>
-                </PaginationControl.List>
-              </PaginationControl>
+              <PaginationControl />
             </Layout>
           </Layout>
           <div className={``}>

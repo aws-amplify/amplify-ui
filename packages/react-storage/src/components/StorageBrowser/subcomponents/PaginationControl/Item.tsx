@@ -9,5 +9,9 @@ export const Item = <T extends LiElementProps>({
 }: T): JSX.Element => {
   const Li = useElement('Li');
 
-  return <Li {...rest}>{children}</Li>;
+  return (
+    <Li className={className} {...rest}>
+      {children}
+    </Li>
+  );
 };

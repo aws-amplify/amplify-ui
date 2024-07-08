@@ -1,30 +1,37 @@
 import * as React from 'react';
 import { NavElementProps } from '@aws-amplify/ui-react/internal';
-import { useElement } from '../../context/elements';
 import { NextButton } from './NextButton';
 import { PreviousButton } from './PreviousButton';
+import { Container } from './Container';
 import { CurrentPage } from './CurrentPage';
 import { Item } from './Item';
 import { List } from './List';
 
-const PaginationControlPrimitive = <T extends NavElementProps>({
-  ariaLabel = 'Pagination',
-  className: _className,
+const Pagination = <T extends NavElementProps>({
+  ariaLabel,
+  className,
   children,
   ...rest
 }: T): JSX.Element => {
-  const Nav = useElement('Nav');
-  const baseClassName = 'storage-browser-pagination-control';
-  const className = _className ?? baseClassName;
-
   return (
-    <Nav {...rest} aria-label={ariaLabel} className={className}>
-      {children}
-    </Nav>
+    <Container ariaLabel={ariaLabel} className={className} {...rest}>
+      <List>
+        <Item>
+          <PreviousButton />
+        </Item>
+        <Item>
+          <CurrentPage />
+        </Item>
+        <Item>
+          <NextButton />
+        </Item>
+      </List>
+    </Container>
   );
 };
 
-const PaginationControl = Object.assign(PaginationControlPrimitive, {
+const PaginationControl = Object.assign(Pagination, {
+  Container,
   Item,
   List,
   NextButton,
