@@ -1,30 +1,43 @@
 import * as React from 'react';
-import { NavElementProps } from '@aws-amplify/ui-react/internal';
-import { useElement } from '../../context/elements';
+import { BreadcrumbsElementProps } from '@aws-amplify/ui-react/internal';
 import { Breadcrumb } from './Breadcrumb';
+import { Container } from './Container';
 import { Item } from './Item';
 import { List } from './List';
 import { Separator } from './Separator';
 
-const BreadcrumbsControlPrimitive = <T extends NavElementProps>({
-  ariaLabel = 'Breadcrumbs',
-  className: _className,
-  children,
+const Breadcrumbs = <T extends BreadcrumbsElementProps>({
+  ariaLabel,
+  className,
+  items,
   ...rest
 }: T): JSX.Element => {
-  const Nav = useElement('Nav');
-  const baseClassName = 'storage-browser-breadcrumbs-control';
-  const className = _className ?? baseClassName;
-
   return (
-    <Nav {...rest} aria-label={ariaLabel} className={className}>
-      {children}
-    </Nav>
+    <Container ariaLabel={ariaLabel} className={className} {...rest}>
+      <List>
+        {items?.map(({ ariaLabel, children, onClick }, index) => {
+          const isCurrent = index === items.length - 1;
+          return (
+            <Item key={`breadcrumb-${index}`}>
+              <Breadcrumb
+                isCurrent={isCurrent}
+                ariaLabel={ariaLabel}
+                onClick={onClick}
+              >
+                {children}
+              </Breadcrumb>
+              {isCurrent ? null : <Separator />}
+            </Item>
+          );
+        })}
+      </List>
+    </Container>
   );
 };
 
-const BreadcrumbsControl = Object.assign(BreadcrumbsControlPrimitive, {
+const BreadcrumbsControl = Object.assign(Breadcrumbs, {
   Breadcrumb,
+  Container,
   Item,
   List,
   Separator,

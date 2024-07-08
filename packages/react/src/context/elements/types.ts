@@ -36,6 +36,7 @@ export interface OlElementProps extends BaseElementProps<HTMLOListElement> {}
 export interface ButtonElementProps
   extends BaseElementProps<HTMLButtonElement> {
   ariaLabel?: string;
+  isCurrent?: boolean;
   isDisabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   type?: 'button' | 'reset' | 'submit';
@@ -68,6 +69,10 @@ export interface NavElementProps extends BaseElementProps<HTMLElement> {
   ariaLabel?: string;
 }
 
+export interface BreadcrumbsElementProps extends NavElementProps {
+  items?: ButtonElementProps[];
+}
+
 export interface SectionElementProps extends BaseElementProps<HTMLElement> {
   ariaLabel?: string;
 }
@@ -94,6 +99,7 @@ export interface TextElementProps
  */
 export interface ElementsBase extends Elements {
   Anchor: Component<AnchorElementProps>;
+  Breadcrumbs: Component<BreadcrumbsElementProps>;
   Button: Component<ButtonElementProps>;
   ButtonGroup: Component<ButtonGroupElementProps>;
   Li: Component<LiElementProps>;

@@ -26,9 +26,9 @@ export default function LocationsListView(): JSX.Element {
       ));
 
   const breadcrumbs = [
-    { name: 'Home' },
-    { name: 'Some folder' },
-    { name: 'Some other folder' },
+    { children: 'Home' },
+    { children: 'Some folder' },
+    { children: 'Some other folder' },
   ];
 
   return (
@@ -39,23 +39,7 @@ export default function LocationsListView(): JSX.Element {
         </div>
       ) : (
         <section className={``} aria-label="Home" tabIndex={-1}>
-          <BreadcrumbsControl>
-            <BreadcrumbsControl.List>
-              {breadcrumbs.map(({ name }, index) => {
-                const isLastBreadcrumb = index === breadcrumbs.length - 1;
-                return (
-                  <BreadcrumbsControl.Item key={`breadcrumb-${index}`}>
-                    <BreadcrumbsControl.Breadcrumb
-                      aria-current={!isLastBreadcrumb ?? 'page'}
-                    >
-                      {name}
-                    </BreadcrumbsControl.Breadcrumb>
-                    <BreadcrumbsControl.Separator />
-                  </BreadcrumbsControl.Item>
-                );
-              })}
-            </BreadcrumbsControl.List>
-          </BreadcrumbsControl>
+          <BreadcrumbsControl items={breadcrumbs} />
 
           {/* header */}
           <div className={``}>
