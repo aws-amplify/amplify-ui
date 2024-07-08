@@ -1,18 +1,18 @@
 import * as React from 'react';
-import { FormElementProps } from '@aws-amplify/ui-react/internal';
+import { ViewElementProps } from '@aws-amplify/ui-react/internal';
 import { useElement } from '../../context/elements';
 
-export const Form = <T extends FormElementProps>({
+export const Container = <T extends ViewElementProps>({
   children,
   className: _className,
   ...rest
 }: T): JSX.Element => {
-  const Form = useElement('Form');
+  const View = useElement('View');
   const baseClassName = 'amplify-storagebrowser__search';
   const className = _className ?? baseClassName;
   return (
-    <Form className={className} {...rest}>
+    <View className={className} {...rest}>
       {children}
-    </Form>
+    </View>
   );
 };
