@@ -34,11 +34,14 @@ export interface FormElementProps extends BaseElementProps<HTMLFormElement> {
 }
 
 export interface InputElementProps extends BaseElementProps<HTMLInputElement> {
+  id?: string;
   type?: 'text' | 'radio' | 'checkbox';
   placeholder?: string;
 }
 
-export interface LabelElementProps extends BaseElementProps<HTMLLabelElement> {}
+export interface LabelElementProps extends BaseElementProps<HTMLLabelElement> {
+  htmlFor?: string;
+}
 
 export interface LiElementProps extends BaseElementProps<HTMLLIElement> {}
 

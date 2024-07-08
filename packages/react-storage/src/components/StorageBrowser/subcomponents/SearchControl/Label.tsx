@@ -5,13 +5,14 @@ import { useElement } from '../../context/elements';
 export const Label = <T extends LabelElementProps>({
   children,
   className,
+  htmlFor,
   ...rest
 }: T): JSX.Element => {
   const Label = useElement('Label');
 
   return (
-    <Label className={className} {...rest}>
-      {children}
+    <Label htmlFor={htmlFor} className={className} {...rest}>
+      {children ?? 'Filter folders and files'}
     </Label>
   );
 };

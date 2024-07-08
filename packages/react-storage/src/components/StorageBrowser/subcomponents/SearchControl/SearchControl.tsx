@@ -1,26 +1,29 @@
 import * as React from 'react';
 import { FormElementProps } from '@aws-amplify/ui-react/internal';
-import { useElement } from '../../context/elements';
+import { Form } from './Form';
 import { SubmitButton } from './SubmitButton';
 import { Input } from './Input';
 import { Label } from './Label';
 import { Summary } from './Summary';
 
 const Search = <T extends FormElementProps>({
-  className = 'amplify-storagebrowser__search',
-  children,
+  className,
   ...rest
 }: T): JSX.Element => {
-  const Form = useElement('Form');
+  const inputId = React.useId();
 
   return (
     <Form className={className} {...rest}>
-      {children}
+      <Label htmlFor={inputId} />
+      <Input id={inputId} />
+      <SubmitButton />
+      <Summary />
     </Form>
   );
 };
 
 const SearchControl = Object.assign(Search, {
+  Form,
   Input,
   Label,
   SubmitButton,

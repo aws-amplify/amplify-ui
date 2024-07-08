@@ -53,12 +53,7 @@ export default function LocationsListView(): JSX.Element {
             {/* header__primary */}
             <div className={``}>
               <h2 className={``}>Home</h2>
-              <SearchControl onSubmit={() => {}}>
-                <SearchControl.Label />
-                <SearchControl.Input />
-                <SearchControl.SubmitButton />
-                <SearchControl.Summary />
-              </SearchControl>
+              <SearchControl />
             </div>
             {/* header__secondary */}
             <div className={``}>
