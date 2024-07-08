@@ -32,7 +32,7 @@ function MyComponent() {
     const response = await fetch(`/api/createSession`);
     const body = await response.json(); // { sessionId: 'mockSessionId' } 
     /*
-    * Replace serverDate with the actual server date,
+    * Replace serverTime with the actual server date,
     * which can be retrieved from the response headers or your custom backend.
     */
     const serverTime = response.headers['date']
