@@ -1,7 +1,11 @@
 import React from 'react';
 import { useDataState } from '@aws-amplify/ui-react-core';
 import { listLocationsAction } from '../context/actions';
-import { PaginationControl, SearchControl } from '../subcomponents';
+import {
+  PaginationControl,
+  SearchControl,
+  SelectItemControl,
+} from '../subcomponents';
 
 export default function LocationsListView(): JSX.Element {
   const [{ data, isLoading }, handleListLocations] = useDataState(
@@ -18,6 +22,9 @@ export default function LocationsListView(): JSX.Element {
     ? null
     : data.locations.map(({ name }) => (
         <tr key={name}>
+          <td>
+            <SelectItemControl>Select {name}</SelectItemControl>
+          </td>
           <td>
             <button>{name}</button>
           </td>
@@ -64,6 +71,9 @@ export default function LocationsListView(): JSX.Element {
               <table className={``} aria-label="Locations">
                 <thead>
                   <tr>
+                    <th>
+                      <SelectItemControl>All</SelectItemControl>
+                    </th>
                     <th aria-sort="ascending">
                       {/* ascending | descending | none*/}
                       <button
