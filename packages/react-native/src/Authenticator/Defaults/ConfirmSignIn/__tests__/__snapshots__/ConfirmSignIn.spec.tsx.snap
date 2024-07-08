@@ -21,7 +21,7 @@ exports[`ConfirmSignIn renders an error message 1`] = `
       ]
     }
   >
-    Confirm SMS Code
+    Confirm SMS code
   </Text>,
   <View
     style={
@@ -313,7 +313,7 @@ exports[`ConfirmSignIn renders an error message 1`] = `
           ]
         }
       >
-        Back to Sign In
+        Back to sign in
       </Text>
     </View>
   </View>,
@@ -341,7 +341,7 @@ exports[`ConfirmSignIn renders as expected 1`] = `
       ]
     }
   >
-    Confirm SMS Code
+    Confirm SMS code
   </Text>,
   <View
     style={
@@ -572,7 +572,7 @@ exports[`ConfirmSignIn renders as expected 1`] = `
           ]
         }
       >
-        Back to Sign In
+        Back to sign in
       </Text>
     </View>
   </View>,

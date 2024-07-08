@@ -21,7 +21,7 @@ exports[`VerifyUser renders as expected 1`] = `
       ]
     }
   >
-    Verify Contact
+    Verify contact
   </Text>,
   <Text
     accessibilityRole="text"
@@ -405,7 +405,7 @@ exports[`VerifyUser renders as expected with errors 1`] = `
       ]
     }
   >
-    Verify Contact
+    Verify contact
   </Text>,
   <Text
     accessibilityRole="text"

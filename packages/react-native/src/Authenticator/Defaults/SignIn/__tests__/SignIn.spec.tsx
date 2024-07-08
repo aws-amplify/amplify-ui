@@ -46,11 +46,13 @@ const props = {
 
 describe('SignIn', () => {
   it('renders as expected', () => {
-    const { toJSON, getAllByRole, getByText } = render(<SignIn {...props} />);
+    const { toJSON, getAllByRole, getByText, getAllByText } = render(
+      <SignIn {...props} />
+    );
     expect(toJSON()).toMatchSnapshot();
 
     expect(getAllByRole('text')).toHaveLength(fields.length);
-    expect(getByText(getSignInText())).toBeDefined();
+    expect(getAllByText(getSignInText())).toHaveLength(2);
     expect(getByText(getForgotPasswordText(true))).toBeDefined();
   });
 

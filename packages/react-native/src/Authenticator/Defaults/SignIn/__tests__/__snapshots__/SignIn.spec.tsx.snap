@@ -21,7 +21,7 @@ exports[`SignIn renders as expected 1`] = `
       ]
     }
   >
-    Sign In
+    Sign in
   </Text>,
   <View
     style={
@@ -414,7 +414,7 @@ exports[`SignIn renders as expected 1`] = `
           ]
         }
       >
-        Forgot Password?
+        Forgot password?
       </Text>
     </View>
     <View
@@ -481,7 +481,7 @@ exports[`SignIn renders as expected 1`] = `
           ]
         }
       >
-        Create Account
+        Create account
       </Text>
     </View>
   </View>,
@@ -509,7 +509,7 @@ exports[`SignIn renders as expected when hideSignUp is true 1`] = `
       ]
     }
   >
-    Sign In
+    Sign in
   </Text>,
   <View
     style={
@@ -902,7 +902,7 @@ exports[`SignIn renders as expected when hideSignUp is true 1`] = `
           ]
         }
       >
-        Forgot Password?
+        Forgot password?
       </Text>
     </View>
   </View>,
@@ -930,7 +930,7 @@ exports[`SignIn renders as expected with an error 1`] = `
       ]
     }
   >
-    Sign In
+    Sign in
   </Text>,
   <View
     style={
@@ -1384,7 +1384,7 @@ exports[`SignIn renders as expected with an error 1`] = `
           ]
         }
       >
-        Forgot Password?
+        Forgot password?
       </Text>
     </View>
     <View
@@ -1451,7 +1451,7 @@ exports[`SignIn renders as expected with an error 1`] = `
           ]
         }
       >
-        Create Account
+        Create account
       </Text>
     </View>
   </View>,
@@ -1479,7 +1479,7 @@ exports[`SignIn renders as expected with social providers 1`] = `
       ]
     }
   >
-    Sign In
+    Sign in
   </Text>,
   <View
     style={
@@ -2050,7 +2050,7 @@ exports[`SignIn renders as expected with social providers 1`] = `
           ]
         }
       >
-        Forgot Password?
+        Forgot password?
       </Text>
     </View>
     <View
@@ -2117,7 +2117,7 @@ exports[`SignIn renders as expected with social providers 1`] = `
           ]
         }
       >
-        Create Account
+        Create account
       </Text>
     </View>
   </View>,
