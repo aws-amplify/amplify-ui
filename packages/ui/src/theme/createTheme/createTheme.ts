@@ -7,10 +7,12 @@ import {
   deepExtend,
 } from './utils';
 import { WebDesignToken } from '../tokens/types/designToken';
-import { createComponentCSS } from './createComponentCSS';
-import { isString } from '../../utils';
+import { createComponentCSS, propsToString } from './createComponentCSS';
+import { isFunction, isString } from '../../utils';
 import { createColorPalette } from './createColorPalette';
 import { WebTokens } from '../tokens';
+import { CSSProperties } from '../components/utils';
+import { createAnimationCSS } from './createAnimationCSS';
 
 /**
  * This will be used like `const myTheme = createTheme({})`
@@ -82,6 +84,13 @@ export function createTheme<TokensType extends WebTokens = WebTokens>(
   }
 
   let overrides: Array<Override> = [];
+
+  if (mergedTheme.animations) {
+    cssText += createAnimationCSS({
+      animations: mergedTheme.animations,
+      tokens,
+    });
+  }
 
   /**
    * For each override, we setup the tokens and then generate the CSS.
