@@ -25,7 +25,7 @@ export interface DefineBaseElementInput<T> {
  * Defines a `ElementsContext` aware `BaseElement` UI component of the
  * provided `type` with an assigned `displayName`.
  *
- * If `BaseElement` is used a child of an `ElementsProvider`, returns the
+ * If `BaseElement` is used as a child of an `ElementsProvider`, returns the
  * `BaseElement` value of the provided `displayName` of `ElementsContext`.
  *
  * When used outside of a  parent `ElementsProvider` or no `BaseElement`
