@@ -1,110 +1,47 @@
 import React from 'react';
-import { Property } from 'csstype';
-
-type RecordOf<T, K> = T extends string ? Record<T, K> : Record<keyof T, K>;
-
-type Component<T = {}> = React.ComponentType<T>;
-
-export type Elements<
-  T extends RecordOf<keyof T, Component> = RecordOf<string, Component>,
-> = T;
-
-export interface ElementsProviderProps<T extends Elements> {
-  children?: React.ReactNode;
-  elements: T;
-}
 
 /**
- * Utility type for adding additional props to a Element definition
+ * Base type definition of `BaseElement` components available through
+ * `ElementsContext`. The definitions define a contract between a
+ * Connected Component and the `elements` that can be provided as
+ * overrides.
+ *
+ * `BaseElement` interfaces surface a minimal set of HTML semantic `props`
+ * required to achieve the base functionality of consumers. `props`
+ * are always optional at the interface level, allowing for additional `props`
+ * to be added to existing `BaseElement` interfaces as needed.
  */
-export type ExtendElement<
-  T extends ElementsBase[keyof ElementsBase],
-  K = {},
-> = (props: React.ComponentProps<T> & K) => JSX.Element;
-
-export interface BaseElementProps<T> {
-  children?: React.ReactNode;
-  className?: string;
-  ref?: React.Ref<T>;
-}
-
-export interface ViewElementProps extends BaseElementProps<HTMLDivElement> {}
-
-export interface ButtonElementProps
-  extends BaseElementProps<HTMLButtonElement> {
-  isDisabled?: boolean;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  type?: 'button' | 'reset' | 'submit';
-}
-
-export interface ButtonGroupElementProps
-  extends BaseElementProps<HTMLDivElement> {
-  isDisabled?: boolean;
-}
-
-export interface MenuItemElement extends BaseElementProps<HTMLButtonElement> {
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  value?: string;
-}
-
-export interface MenuElementProps extends BaseElementProps<HTMLMenuElement> {
-  isDisabled?: boolean;
-}
-
-export interface AnchorElementProps
-  extends BaseElementProps<HTMLAnchorElement> {
-  href?: string;
-  isCurrent?: boolean;
-  label?: React.ReactNode;
-  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
-  value?: string;
-}
-
-export interface NavElementProps extends BaseElementProps<HTMLElement> {}
-
-export interface TextElementProps
-  extends BaseElementProps<HTMLParagraphElement> {}
-
-export interface ImageElementProps extends BaseElementProps<HTMLImageElement> {
-  ariaLabel?: string;
-}
-
-type ViewBox = {
-  minX?: number;
-  minY?: number;
-  width?: number;
-  height?: number;
-};
-
-export interface IconElementProps extends BaseElementProps<HTMLDivElement> {
-  ariaLabel?: string;
-  fill?: Property.Color;
-  pathData?: string;
-  paths?: React.SVGAttributes<SVGPathElement>[];
-  viewBox?: ViewBox;
-}
+export type BaseElement<T = {}, K = {}> = React.ForwardRefExoticComponent<
+  React.PropsWithoutRef<T> & React.RefAttributes<K>
+>;
 
 /**
- * UI Primitives (Elements) are the base building blocks of Subcomponents.
- *
- * Elements interfaces include a minimal set of (mostly) HTML semantic `props`
- * required to achieve expected functionality of the Element. `props` are always
- * optional at the interface level.
- *
- * `props` could include (but not limited to):
- *
- * - a11y attributes
- * - event handlers
- * - `children`
+ * allowed values of `displayName` of `BaseElement` and `ElemebtsContext` keys
  */
-export interface ElementsBase extends Elements {
-  Anchor: Component<AnchorElementProps>;
-  Button: Component<ButtonElementProps>;
-  ButtonGroup: Component<ButtonGroupElementProps>;
-  Icon: Component<IconElementProps>;
-  Image: Component<ImageElementProps>;
-  Menu: Component<MenuElementProps>;
-  Nav: Component<NavElementProps>;
-  Text: Component<TextElementProps>;
-  View: Component<ViewElementProps>;
+export type ElementDisplayName = 'Button' | 'View' | 'Icon' | 'Input' | 'Span';
+
+export type ElementRefType<T> = T extends {
+  ref?:
+    | React.LegacyRef<infer K>
+    | React.Ref<infer K>
+    | React.ForwardedRef<infer K>;
 }
+  ? K
+  : never;
+
+export type ReactElementType = keyof React.JSX.IntrinsicElements;
+export type ReactElementProps<T extends ReactElementType> =
+  React.JSX.IntrinsicElements[T];
+
+/**
+ * key of `props` always available on `BaseElement` definitions
+ */
+type ElementPropKey<T> = T | 'children' | 'className' | 'style';
+
+export type BaseElementProps<
+  T extends keyof K,
+  V = string,
+  K extends Record<ElementPropKey<keyof K>, any> = Record<string, any>,
+> = React.AriaAttributes &
+  React.RefAttributes<ElementRefType<K>> &
+  Pick<K, ElementPropKey<T>> & { testId?: string; variant?: V };

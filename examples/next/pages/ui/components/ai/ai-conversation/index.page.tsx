@@ -1,8 +1,7 @@
-// import { createAIConversation } from '@aws-amplify/ui-react-ai';
+import { createAIConversation } from '@aws-amplify/ui-react-ai';
 
-// const { AIConversation } = createAIConversation();
+const { AIConversation } = createAIConversation();
 
 export default function Example() {
-  // return <AIConversation />;
-  return <div>hello world</div>;
+  return <AIConversation />;
 }

@@ -1,26 +1,22 @@
 import React from 'react';
-import { useElement } from '../context/elements';
-import { ViewElementProps } from '@aws-amplify/ui-react/internal';
-import { DisplayName } from './AvatarDisplayName';
-import { Icon } from './AvatarIcon';
+import { AvatarContainer } from './AvatarContainer';
+import { AvatarDisplayName } from './AvatarDisplayName';
+import { AvatarIcon } from './AvatarIcon';
 
-const AvatarElement = <T extends ViewElementProps>({
-  children,
-  className,
-  ...rest
-}: T): JSX.Element => {
-  const View = useElement('View');
-
+// ControlBlock
+function AvatarElement() {
   return (
-    <View className={className} {...rest}>
-      {children}
-    </View>
+    <AvatarContainer>
+      <AvatarIcon />
+      <AvatarDisplayName />
+    </AvatarContainer>
   );
-};
+}
 
 const Avatar = Object.assign(AvatarElement, {
-  DisplayName,
-  Icon,
+  AvatarContainer,
+  AvatarDisplayName,
+  AvatarIcon,
 });
 
 export { Avatar };

@@ -2,16 +2,21 @@ import React from 'react';
 import { useElement } from '../context/elements';
 import { IconElementProps } from '@aws-amplify/ui-react/internal';
 
-export const Icon = <T extends IconElementProps>({
-  children,
-  className,
-  ...rest
-}: T): JSX.Element => {
+const BLOCK_NAME = 'avatar';
+const _className = `${BLOCK_NAME}__icon`;
+
+// ControlElement
+export const AvatarIcon = React.forwardRef<
+  IconElementProps['ref'],
+  IconElementProps
+>(({ children, className = _className, ...props }, ref) => {
   const Icon = useElement('Icon');
 
   return (
-    <Icon className={className} {...rest}>
+    <Icon className={className} {...props} ref={ref}>
       {children ?? 'default'}
     </Icon>
   );
-};
+});
+
+AvatarIcon.displayName = 'AvatarIcon';

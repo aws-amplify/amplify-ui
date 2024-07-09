@@ -2,15 +2,19 @@ import React from 'react';
 import { TextElementProps } from '@aws-amplify/ui-react/internal';
 import { useElement } from '../context/elements';
 
-export const MessageTextContent = <T extends TextElementProps>({
-  children,
-  className,
-  ...rest
-}: T): JSX.Element => {
-  const Text = useElement('Text');
+const BLOCK_NAME = 'message';
+const _className = `${BLOCK_NAME}__text`;
+
+export const MessageTextContent = React.forwardRef<
+  TextElementProps['ref'],
+  TextElementProps
+>(({ children, className = _className, ...props }, ref) => {
+  const Image = useElement('Image');
   return (
-    <Text className={className} {...rest}>
+    <Image className={className} {...props} ref={ref}>
       {children}
-    </Text>
+    </Image>
   );
-};
+});
+
+MessageTextContent.displayName = 'MessageTextContent';

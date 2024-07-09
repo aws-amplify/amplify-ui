@@ -1,9 +1,5 @@
-export {
-  ButtonElementBase,
-  IconElementBase,
-  ImageElementBase,
-  ViewElementBase,
-  ParagraphElementBase,
-} from './defaultElements';
-export { default as createElementsContext } from './createElementsContext';
+
+export { default as defineBaseElement } from './defineBaseElement';
+export { default as withBaseElementProps } from './withBaseElementProps';
+export { ElementsProvider } from './ElementsContext';
 export * from './types';
