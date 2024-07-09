@@ -8,21 +8,24 @@ import { View } from '../View';
 import { BaseTabsPanelProps, TabsPanelProps } from './types';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { TabsContext } from './TabsContext';
+import { WHITESPACE_VALUE } from './constants';
 
 const TabPanelPrimitive: Primitive<TabsPanelProps, 'div'> = (
   { className, value, children, role = 'tabpanel', ...rest },
   ref
 ) => {
-  const { activeTab, isLazy } = React.useContext(TabsContext);
+  const { activeTab, isLazy, groupId } = React.useContext(TabsContext);
 
   if (isLazy && activeTab !== value) return null;
-
+  if (value && typeof value === 'string') {
+    value = value.replace(' ', WHITESPACE_VALUE);
+  }
   return (
     <View
       {...rest}
       role={role}
-      id={`${value}-panel`}
-      aria-labelledby={`${value}-tab`}
+      id={`${groupId}-panel-${value}`}
+      aria-labelledby={`${groupId}-tab-${value}`}
       className={classNames(
         ComponentClassName.TabsPanel,
         classNameModifierByFlag(
