@@ -1011,14 +1011,16 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       // eslint-disable-next-line @typescript-eslint/require-await
       async openLivenessStreamConnection(context) {
         const { config } = context.componentProps!;
-        const { credentialProvider, endpointOverride } = config!;
+        const { credentialProvider, endpointOverride, systemClockOffset } =
+          config!;
         const livenessStreamProvider = new LivenessStreamProvider({
           sessionId: context.componentProps!.sessionId,
           region: context.componentProps!.region,
+          systemClockOffset,
           stream: context.videoAssociatedParams!.videoMediaStream!,
           videoEl: context.videoAssociatedParams!.videoEl!,
-          credentialProvider: credentialProvider,
-          endpointOverride: endpointOverride,
+          credentialProvider,
+          endpointOverride,
         });
 
         responseStream = livenessStreamProvider.getResponseStream();

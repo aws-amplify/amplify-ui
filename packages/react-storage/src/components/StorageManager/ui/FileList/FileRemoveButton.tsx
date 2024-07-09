@@ -9,7 +9,11 @@ export const FileRemoveButton = ({
 }: FileRemoveButtonProps): JSX.Element => {
   const icons = useIcons('storageManager');
   return (
-    <Button size="small" onClick={onClick}>
+    <Button
+      size="small"
+      onClick={onClick}
+      testId="storage-manager-remove-button"
+    >
       <VisuallyHidden>{altText}</VisuallyHidden>
       <View as="span" aria-hidden fontSize="medium">
         {icons?.remove ?? <IconClose />}
