@@ -17,8 +17,8 @@ const ElementsContext = React.createContext<Elements | undefined>(undefined);
  *
  * @example
  *
- * Add `EleemntxContext` aware `BaseElement` components to a
- * Connectred Component
+ * Add `ElementsContext` aware `BaseElement` components to a
+ * Connected Component
  *
  * ```tsx
  * // `BaseElement`, renders custom or default element defintion
