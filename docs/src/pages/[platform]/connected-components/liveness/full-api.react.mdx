@@ -76,6 +76,11 @@ Below is the full list of props that can be used with the `FaceLivenessDetectorC
       <ResponsiveTableCell label="Description">An optional callback that provides AWS Credentials.</ResponsiveTableCell>
       <ResponsiveTableCell label="Type"><CodeHighlight code={"AwsCredentialProvider"} language="typescript" /></ResponsiveTableCell>
     </TableRow>
+    <TableRow>
+      <ResponsiveTableCell label="Name">systemClockOffset?</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">An optional parameter for overriding the systemClockOffset for the rekognition streaming client. Represents the difference between system clock and AWS server clock in milliseconds. See https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-middleware-signing/Interface/AwsAuthInputConfig/</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type"><CodeHighlight code={"number"} language="typescript" /></ResponsiveTableCell>
+    </TableRow>
   </TableBody>
 </ResponsiveTable>
 
