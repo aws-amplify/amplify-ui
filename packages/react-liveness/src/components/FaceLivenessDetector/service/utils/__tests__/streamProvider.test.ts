@@ -127,7 +127,7 @@ describe('LivenessStreamProvider', () => {
       });
     });
 
-    test('with credential provider', () => {
+    test('with credentialProvider', () => {
       const credentialProvider: AwsCredentialProvider = async () => {
         return {
           accessKeyId: 'test',
@@ -145,7 +145,7 @@ describe('LivenessStreamProvider', () => {
       });
     });
 
-    test('with endpoint override', () => {
+    test('with endpointOverride', () => {
       const endpointOverride = 'https://example.com';
       new LivenessStreamProvider({
         sessionId: 'sessionId',
@@ -153,6 +153,16 @@ describe('LivenessStreamProvider', () => {
         stream: mockVideoMediaStream,
         videoEl: mockVideoEl,
         endpointOverride,
+      });
+    });
+
+    test('with systemClockOffset', () => {
+      new LivenessStreamProvider({
+        sessionId: 'sessionId',
+        region: 'us-east-1',
+        stream: mockVideoMediaStream,
+        videoEl: mockVideoEl,
+        systemClockOffset: 3600000,
       });
     });
   });

@@ -44,6 +44,7 @@ exports[`FileControl renders as expected when file is uploading 1`] = `
       </svg>
       <button
         class="amplify-button amplify-field-group__control amplify-button--small"
+        data-testid="storage-manager-remove-button"
         type="button"
       >
         <span
@@ -105,6 +106,7 @@ exports[`FileControl renders as expected when uploading is paused 1`] = `
       />
       <button
         class="amplify-button amplify-field-group__control amplify-button--small"
+        data-testid="storage-manager-remove-button"
         type="button"
       >
         <span
@@ -209,6 +211,7 @@ exports[`FileControl renders thumbnails 1`] = `
       </svg>
       <button
         class="amplify-button amplify-field-group__control amplify-button--small"
+        data-testid="storage-manager-remove-button"
         type="button"
       >
         <span
