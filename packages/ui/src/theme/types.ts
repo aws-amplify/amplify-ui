@@ -2,6 +2,7 @@ import { PartialDeep } from '../types';
 import { DefaultTokens, Tokens, WebTokens } from './tokens';
 import { Breakpoints } from './breakpoints';
 import { ComponentsTheme } from './components';
+import { CSSProperties } from './components/utils';
 
 export * from './tokens/types/designToken';
 export type { BorderWidths } from './tokens/borderWidths';
@@ -117,6 +118,16 @@ export interface Theme<TokensType extends WebTokens = WebTokens> {
   overrides?: Array<Override>;
 
   components?: Array<ComponentsTheme<TokensType>>;
+
+  animations?: Animations;
+}
+
+export interface Animations {
+  [key: string]: {
+    [key in 'to' | 'from' | `${string}%`]?:
+      | CSSProperties
+      | ((tokens: WebTokens) => CSSProperties);
+  };
 }
 
 /**
@@ -125,7 +136,12 @@ export interface Theme<TokensType extends WebTokens = WebTokens> {
 export interface DefaultTheme
   extends Pick<
     Theme,
-    'name' | 'overrides' | 'primaryColor' | 'secondaryColor' | 'components'
+    | 'name'
+    | 'overrides'
+    | 'primaryColor'
+    | 'secondaryColor'
+    | 'components'
+    | 'animations'
   > {
   tokens: DefaultTokens;
   breakpoints: Breakpoints;
@@ -143,7 +159,7 @@ interface ContainerPropsArgs {
 export interface WebTheme
   extends Pick<
     DefaultTheme,
-    'breakpoints' | 'name' | 'overrides' | 'components'
+    'breakpoints' | 'name' | 'overrides' | 'components' | 'animations'
   > {
   primaryColor?: string;
   secondaryColor?: string;

@@ -11,7 +11,7 @@ import { BaseTheme, CSSProperties } from '../components/utils';
  * and turn it into a CSS string:
  * `padding-top:20px; color: var(--colors-font-primary);`
  */
-function propsToString(props: CSSProperties): string {
+export function propsToString(props: CSSProperties): string {
   return Object.entries(props)
     .map(([key, value]) => {
       const _value = isDesignToken(value)
