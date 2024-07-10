@@ -1,5 +1,17 @@
 # @aws-amplify/ui-react
 
+## 6.1.13
+
+### Patch Changes
+
+- [#5376](https://github.com/aws-amplify/amplify-ui/pull/5376) [`31b9f299e`](https://github.com/aws-amplify/amplify-ui/commit/31b9f299e0b6253b9880700f836f47292453b40e) Thanks [@awinberg-aws](https://github.com/awinberg-aws)! - fix:(SearchField) accessibility - do not exclude clear button from tab order
+
+- [#5321](https://github.com/aws-amplify/amplify-ui/pull/5321) [`0483dd833`](https://github.com/aws-amplify/amplify-ui/commit/0483dd833698b518d1c88d98871cafb1b6019c75) Thanks [@AhmetAhunbayAWS](https://github.com/AhmetAhunbayAWS)! - This change removes an inconsistency in the heights of ratings between 0-1 (non-inclusive). This change was made per customer request via a raised issue. A customer would only need to update their code if they display ratings between 0-1 (non-inclusive).
+
+- Updated dependencies [[`0483dd833`](https://github.com/aws-amplify/amplify-ui/commit/0483dd833698b518d1c88d98871cafb1b6019c75)]:
+  - @aws-amplify/ui@6.0.17
+  - @aws-amplify/ui-react-core@3.0.17
+
 ## 6.1.12
 
 ### Patch Changes

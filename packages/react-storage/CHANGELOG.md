@@ -1,5 +1,16 @@
 # @aws-amplify/ui-react-storage
 
+## 3.1.4
+
+### Patch Changes
+
+- [#5357](https://github.com/aws-amplify/amplify-ui/pull/5357) [`70354b0c3`](https://github.com/aws-amplify/amplify-ui/commit/70354b0c3f3c91fa99e8f091cfea720fe2b82635) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(storage-manager): update file processedKey on process file complete
+
+- Updated dependencies [[`31b9f299e`](https://github.com/aws-amplify/amplify-ui/commit/31b9f299e0b6253b9880700f836f47292453b40e), [`0483dd833`](https://github.com/aws-amplify/amplify-ui/commit/0483dd833698b518d1c88d98871cafb1b6019c75)]:
+  - @aws-amplify/ui-react@6.1.13
+  - @aws-amplify/ui@6.0.17
+  - @aws-amplify/ui-react-core@3.0.17
+
 ## 3.1.3
 
 ### Patch Changes

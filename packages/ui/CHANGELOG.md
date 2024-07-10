@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 6.0.17
+
+### Patch Changes
+
+- [#5321](https://github.com/aws-amplify/amplify-ui/pull/5321) [`0483dd833`](https://github.com/aws-amplify/amplify-ui/commit/0483dd833698b518d1c88d98871cafb1b6019c75) Thanks [@AhmetAhunbayAWS](https://github.com/AhmetAhunbayAWS)! - This change removes an inconsistency in the heights of ratings between 0-1 (non-inclusive). This change was made per customer request via a raised issue. A customer would only need to update their code if they display ratings between 0-1 (non-inclusive).
+
 ## 6.0.16
 
 ### Patch Changes
