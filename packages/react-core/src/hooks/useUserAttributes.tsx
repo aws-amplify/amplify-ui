@@ -2,16 +2,16 @@
  *  This version of useUserAttributes is functional, but there are several type errors relating to the handleActions. Also, the handleActions are hardcoded.
  */
 
-import { Hub, HubCallback } from "@aws-amplify/core";
+import React from 'react';
 
-import { useDataState } from "./useDataState";
+import { Hub, HubCallback } from '@aws-amplify/core';
+
+import useDataState from './useDataState';
+
 import {
   DefaultAttributes,
   defaultSendUserAttributeVerificationCodeOutput,
   defaultUpdateUserAttributesOutput,
-} from "./constants";
-
-import {
   HandlerInputs,
   StateDataTypes,
   confirmUserAttributeAction,
@@ -20,8 +20,7 @@ import {
   sendUserAttributeVerificationCodeAction,
   updateUserAttributesAction,
   Actions,
-} from "./actionTypes";
-import React from "react";
+} from './useUserAttrActionTypes';
 
 interface ActionState<T> {
   /**
@@ -38,19 +37,11 @@ interface ActionState<T> {
   message: string | undefined;
 }
 
-// interface Actions {
-//   confirm: typeof confirmUserAttributeAction;
-//   delete: typeof deleteUserAttributesAction;
-//   sendVerificationCode: typeof sendUserAttributeVerificationCodeAction;
-//   update: typeof updateUserAttributesAction;
-//   fetch: typeof fetchUserAttributesAction;
-// }
-
 const useUserAttributes = <T extends keyof Actions>(
   action: T
 ): [
   state: ActionState<StateDataTypes[T]>,
-  handleAction: (...input: HandlerInputs[T][]) => void
+  handleAction: (...input: HandlerInputs[T][]) => void,
 ] => {
   const [deleteState, handleDelete] = useDataState(
     deleteUserAttributesAction,
@@ -73,52 +64,37 @@ const useUserAttributes = <T extends keyof Actions>(
     DefaultAttributes
   );
 
-  const fetchHub: HubCallback = React.useCallback(
-    ({ payload }) => {
-      switch (payload.event) {
-        // success events
-        case "FETCH_ATTRIBUTES": {
-          console.log("fetching $$$$");
-          handleFetch();
-          break;
-        }
-        default: {
-          break;
-        }
+  const fetchHub: HubCallback = React.useCallback(({ payload }) => {
+    switch (payload.event) {
+      // success events
+      case 'FETCH_ATTRIBUTES': {
+        handleFetch();
+        break;
       }
-    },
+      default: {
+        break;
+      }
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [] // FIX THIS TOO
-  );
-  // Hub subscriptions
-  // Declare both subscriptions in same useEffect
-  // signOut 'auth', FETCH_ATTRIBUTES 'ui'
-
-  // I DON"T KNOW IF WE REALLY NEED TO LISTEN TO AUTH ON TOP OF UI, COULD JUST FOCUS ON OUR EVENTS
-  // React.useEffect(() => {
-  //   const unsubscribeAuth = Hub.listen("auth", fetchHub);
-  //   handleFetch();
-  //   return unsubscribeAuth;
-  // }, [fetchHub, handleFetch]);
+  }, []);
 
   React.useEffect(() => {
-    if (action === "fetch") {
-      const unsubscribe = Hub.listen("ui", fetchHub);
-      // handleFetch()
+    if (action === 'fetch') {
+      const unsubscribe = Hub.listen('ui', fetchHub);
       return unsubscribe;
     }
   }, [fetchHub, handleFetch, action]);
 
   switch (action) {
-    case "delete":
+    case 'delete':
       return [deleteState, handleDelete];
-    case "confirm":
+    case 'confirm':
       return [confirmState, handleConfirm];
-    case "sendVerificationCode":
+    case 'sendVerificationCode':
       return [sendVerificationCodeState, handleSendVerificationCode];
-    case "update":
+    case 'update':
       return [updateState, handleUpdate];
-    case "fetch":
+    case 'fetch':
       return [fetchState, handleFetch];
     default:
       throw new Error(`Invalid action: ${action}`);

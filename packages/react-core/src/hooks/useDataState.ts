@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface ActionState<T> {
   data: T;
@@ -12,7 +12,7 @@ const getActionState = <T>(data: T): ActionState<T> => ({
   message: undefined,
 });
 
-export function useDataState<T, K>(
+export default function useDataState<T, K>(
   action: (prevData: Awaited<T>, ...input: K[]) => T | Promise<T>,
   initialData: Awaited<T>
 ): [state: ActionState<Awaited<T>>, handleAction: (...input: K[]) => void] {
