@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /*
  *  This version of useUserAttributes is functional, but there are several type errors relating to the handleActions. Also, the handleActions are hardcoded.
  */
@@ -37,32 +38,45 @@ interface ActionState<T> {
   message: string | undefined;
 }
 
+// Had to disable 'rules-of-hooks' to use outside
+const useDeleteUserAttributes = useDataState(
+  deleteUserAttributesAction,
+  undefined
+);
+
+const useUpdateUserAttributes = useDataState(
+  updateUserAttributesAction,
+  defaultUpdateUserAttributesOutput
+);
+
+const useConfirmUserAttribute = useDataState(
+  confirmUserAttributeAction,
+  undefined
+);
+
+const useSendUserVerificationCode = useDataState(
+  sendUserAttributeVerificationCodeAction,
+  defaultSendUserAttributeVerificationCodeOutput
+);
+
+const useFetchUserAttributes = useDataState(
+  fetchUserAttributesAction,
+  DefaultAttributes
+);
+
 const useUserAttributes = <T extends keyof Actions>(
   action: T
 ): [
   state: ActionState<StateDataTypes[T]>,
   handleAction: (...input: HandlerInputs[T][]) => void,
 ] => {
-  const [deleteState, handleDelete] = useDataState(
-    deleteUserAttributesAction,
-    undefined
-  );
-  const [updateState, handleUpdate] = useDataState(
-    updateUserAttributesAction,
-    defaultUpdateUserAttributesOutput
-  );
-  const [confirmState, handleConfirm] = useDataState(
-    confirmUserAttributeAction,
-    undefined
-  );
-  const [sendVerificationCodeState, handleSendVerificationCode] = useDataState(
-    sendUserAttributeVerificationCodeAction,
-    defaultSendUserAttributeVerificationCodeOutput
-  );
-  const [fetchState, handleFetch] = useDataState(
-    fetchUserAttributesAction,
-    DefaultAttributes
-  );
+  const useDelete = useDeleteUserAttributes;
+  const useFetch = useFetchUserAttributes;
+  const useUpdate = useUpdateUserAttributes;
+  const useConfirm = useConfirmUserAttribute;
+  const useSendCode = useSendUserVerificationCode;
+
+  const handleFetch = useFetch[1];
 
   const fetchHub: HubCallback = React.useCallback(({ payload }) => {
     switch (payload.event) {
@@ -87,15 +101,15 @@ const useUserAttributes = <T extends keyof Actions>(
 
   switch (action) {
     case 'delete':
-      return [deleteState, handleDelete];
+      return useDelete;
     case 'confirm':
-      return [confirmState, handleConfirm];
+      return useConfirm;
     case 'sendVerificationCode':
-      return [sendVerificationCodeState, handleSendVerificationCode];
+      return useSendCode;
     case 'update':
-      return [updateState, handleUpdate];
+      return useUpdate;
     case 'fetch':
-      return [fetchState, handleFetch];
+      return useFetch;
     default:
       throw new Error(`Invalid action: ${action}`);
   }
