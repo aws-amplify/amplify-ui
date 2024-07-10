@@ -3,7 +3,7 @@
  *  This version of useUserAttributes is functional, but there are several type errors relating to the handleActions. Also, the handleActions are hardcoded.
  */
 
-import React from 'react';
+import { useEffect } from 'react';
 
 import { Hub, HubCallback } from '@aws-amplify/core';
 
@@ -78,26 +78,24 @@ const useUserAttributes = <T extends keyof Actions>(
 
   const handleFetch = useFetch[1];
 
-  const fetchHub: HubCallback = React.useCallback(({ payload }) => {
-    switch (payload.event) {
-      // success events
-      case 'FETCH_ATTRIBUTES': {
-        handleFetch();
-        break;
-      }
-      default: {
-        break;
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  React.useEffect(() => {
+  useEffect(() => {
     if (action === 'fetch') {
+      const fetchHub: HubCallback = ({ payload }) => {
+        switch (payload.event) {
+          case 'FETCH_ATTRIBUTES': {
+            handleFetch();
+            break;
+          }
+          default: {
+            break;
+          }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      };
       const unsubscribe = Hub.listen('ui', fetchHub);
       return unsubscribe;
     }
-  }, [fetchHub, handleFetch, action]);
+  }, [handleFetch, action]);
 
   switch (action) {
     case 'delete':
