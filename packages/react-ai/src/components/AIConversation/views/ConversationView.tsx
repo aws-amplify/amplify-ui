@@ -1,9 +1,24 @@
 import React from 'react';
 import { useElement } from '../context/elements';
 import { Messages } from './Messages';
-import { Avatar } from '.';
+interface ImageContent {
+  format: 'png' | 'jpeg' | 'gif' | 'webp';
+  bytes: ArrayBuffer;
+}
 
-export const mockMessages = [
+type Content = {
+  type: 'text' | 'image';
+  value: string | ImageContent;
+};
+
+type Message = {
+  id: string;
+  content: Content;
+  role: 'user' | 'assistant';
+  timestamp: Date;
+};
+
+export const mockMessages: Message[] = [
   {
     id: '1',
     content: { type: 'text', value: 'hello world!' },
@@ -51,26 +66,7 @@ export default function Conversation(): JSX.Element {
           height: '300px',
         }}
       >
-        <Messages.Layout>
-          {mockMessages.map((message) => (
-            <Messages.Message key={`message-${message.id}`}>
-              <Avatar>
-                <Avatar.Icon>avatar icon</Avatar.Icon>
-                <Avatar.DisplayName>username</Avatar.DisplayName>
-              </Avatar>
-              <Messages.Message.MessageTextContent>
-                {message.content.value}
-              </Messages.Message.MessageTextContent>
-              <Messages.ActionsBar>
-                <Messages.ActionsBar.ActionsBarButton>
-                  <Messages.ActionsBar.ActionsBarIcon>
-                    action
-                  </Messages.ActionsBar.ActionsBarIcon>
-                </Messages.ActionsBar.ActionsBarButton>
-              </Messages.ActionsBar>
-            </Messages.Message>
-          ))}
-        </Messages.Layout>
+        <Messages messages={mockMessages} />
       </View>
       <View
         style={{

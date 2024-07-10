@@ -1,28 +1,43 @@
 import React from 'react';
-import { ViewElementProps } from '@aws-amplify/ui-react/internal';
-import { useElement } from '../context/elements';
 import { ActionsBar } from './ActionsBar';
-import { Layout } from './Layout';
+import { Avatar } from './Avatar';
+import { MessageLayout } from './MessageLayout';
 import { Message } from './Message';
+import { MessagesContainer } from './MessagesContainer';
 
-export const MessagesElement = <T extends ViewElementProps>({
-  children,
-  className,
-  ...rest
-}: T): JSX.Element => {
-  const View = useElement('View');
+interface ImageContent {
+  format: 'png' | 'jpeg' | 'gif' | 'webp';
+  bytes: ArrayBuffer;
+}
 
-  return (
-    <View className={className} {...rest}>
-      {children}
-    </View>
-  );
+type Content = {
+  type: 'text' | 'image';
+  value: string | ImageContent;
 };
 
-const Messages = Object.assign(MessagesElement, {
-  ActionsBar,
-  Layout,
-  Message,
-});
+type Message = {
+  id: string;
+  content: Content;
+  role: 'user' | 'assistant';
+  timestamp: Date;
+};
 
-export { Messages };
+export function Messages({ messages }: { messages: Message[] }): JSX.Element {
+  return (
+    <MessagesContainer>
+      {messages.map((message, index) => (
+        <MessageLayout key={index}>
+          <Avatar />
+          <Message key={index} />
+          <ActionsBar actions={[]} />
+        </MessageLayout>
+      ))}
+    </MessagesContainer>
+  );
+}
+
+Messages.ActionsBar = ActionsBar;
+Messages.Avatar = Avatar;
+Messages.MessagesContainer = MessagesContainer;
+Messages.Layout = MessageLayout;
+Messages.Message = Message;

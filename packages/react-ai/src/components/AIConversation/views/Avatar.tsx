@@ -3,8 +3,7 @@ import { AvatarContainer } from './AvatarContainer';
 import { AvatarDisplayName } from './AvatarDisplayName';
 import { AvatarIcon } from './AvatarIcon';
 
-// ControlBlock
-function AvatarElement() {
+export function Avatar(): JSX.Element {
   return (
     <AvatarContainer>
       <AvatarIcon />
@@ -13,10 +12,6 @@ function AvatarElement() {
   );
 }
 
-const Avatar = Object.assign(AvatarElement, {
-  AvatarContainer,
-  AvatarDisplayName,
-  AvatarIcon,
-});
-
-export { Avatar };
+Avatar.Container = AvatarContainer;
+Avatar.DisplayName = AvatarDisplayName;
+Avatar.Icon = AvatarIcon;

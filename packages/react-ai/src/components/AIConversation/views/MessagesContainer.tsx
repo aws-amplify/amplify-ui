@@ -2,10 +2,10 @@ import React from 'react';
 import { useElement } from '../context/elements';
 import { ViewElementProps } from '@aws-amplify/ui-react/internal';
 
-const BLOCK_NAME = 'avatar';
+const BLOCK_NAME = 'messages';
 const _className = `${BLOCK_NAME}__container`;
 
-const AvatarContainer = React.forwardRef<
+const MessagesContainer = React.forwardRef<
   ViewElementProps['ref'],
   ViewElementProps
 >(({ children, className = _className, ...props }, ref) => {
@@ -17,6 +17,6 @@ const AvatarContainer = React.forwardRef<
   );
 });
 
-AvatarContainer.displayName = 'AvatarContainer';
+MessagesContainer.displayName = 'MessagesContainer';
 
-export { AvatarContainer };
+export { MessagesContainer };

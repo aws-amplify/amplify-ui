@@ -9,11 +9,11 @@ export const MessageTextContent = React.forwardRef<
   TextElementProps['ref'],
   TextElementProps
 >(({ children, className = _className, ...props }, ref) => {
-  const Image = useElement('Image');
+  const Text = useElement('Text');
   return (
-    <Image className={className} {...props} ref={ref}>
-      {children}
-    </Image>
+    <Text className={className} {...props} ref={ref}>
+      {children ?? 'Message text content'}
+    </Text>
   );
 });
 

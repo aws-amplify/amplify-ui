@@ -1,26 +1,11 @@
 import React from 'react';
-import { ViewElementProps } from '@aws-amplify/ui-react/internal';
-import { useElement } from '../context/elements';
-import { MessageTextContent } from './MessageTextContent';
 import { MessageMediaContent } from './MessageMediaContent';
+import { MessageTextContent } from './MessageTextContent';
 
-export const MessageElement = <T extends ViewElementProps>({
-  children,
-  className,
-  ...rest
-}: T): JSX.Element => {
-  const View = useElement('View');
+export function Message(): JSX.Element {
+  const isText = true;
+  return isText ? <MessageTextContent /> : <MessageMediaContent />;
+}
 
-  return (
-    <View className={className} {...rest}>
-      {children}
-    </View>
-  );
-};
-
-const Message = Object.assign(MessageElement, {
-  MessageTextContent,
-  MessageMediaContent,
-});
-
-export { Message };
+Message.MediaContent = MessageMediaContent;
+Message.TextContent = MessageTextContent;

@@ -5,7 +5,6 @@ import { TextElementProps } from '@aws-amplify/ui-react/internal';
 const BLOCK_NAME = 'avatar';
 const _className = `${BLOCK_NAME}__text`;
 
-// ControlElement
 export const AvatarDisplayName = React.forwardRef<
   TextElementProps['ref'],
   TextElementProps
@@ -14,7 +13,7 @@ export const AvatarDisplayName = React.forwardRef<
 
   return (
     <Text className={className} {...props} ref={ref}>
-      {children}
+      {children ?? 'avatar display name'}
     </Text>
   );
 });

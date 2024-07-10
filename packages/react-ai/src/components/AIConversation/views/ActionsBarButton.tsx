@@ -20,6 +20,7 @@ export const ActionsBarButton = React.forwardRef<
     ref
   ) => {
     const Button = useElement('Button');
+
     return (
       <Button
         {...props}
@@ -28,7 +29,7 @@ export const ActionsBarButton = React.forwardRef<
         ref={ref}
         type={type}
       >
-        {children ?? 'Search'}
+        {children ?? 'Action'}
       </Button>
     );
   }

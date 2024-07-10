@@ -1,19 +1,21 @@
 import React from 'react';
 import { ActionsBarButton } from './ActionsBarButton';
+
 import { ActionsBarContainer } from './ActionsBarContainer';
 import { ActionsBarIcon } from './ActionsBarIcon';
 
-function ActionsBarElement() {
+export function ActionsBar({ actions }: { actions: string[] }): JSX.Element {
   return (
     <ActionsBarContainer>
-      <ActionsBarButton />
+      {actions.map((action, index) => (
+        <ActionsBarButton key={index}>
+          <ActionsBarIcon />
+        </ActionsBarButton>
+      ))}
     </ActionsBarContainer>
   );
 }
 
-const ActionsBar = Object.assign(ActionsBarElement, {
-  ActionsBarButton,
-  ActionsBarIcon,
-});
-
-export { ActionsBar };
+ActionsBar.Button = ActionsBarButton;
+ActionsBar.Container = ActionsBarContainer;
+ActionsBar.Icon = ActionsBarIcon;

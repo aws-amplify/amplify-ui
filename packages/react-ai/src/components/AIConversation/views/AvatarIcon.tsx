@@ -5,7 +5,6 @@ import { IconElementProps } from '@aws-amplify/ui-react/internal';
 const BLOCK_NAME = 'avatar';
 const _className = `${BLOCK_NAME}__icon`;
 
-// ControlElement
 export const AvatarIcon = React.forwardRef<
   IconElementProps['ref'],
   IconElementProps
@@ -14,7 +13,7 @@ export const AvatarIcon = React.forwardRef<
 
   return (
     <Icon className={className} {...props} ref={ref}>
-      {children ?? 'default'}
+      {children ?? 'avatar icon'}
     </Icon>
   );
 });
