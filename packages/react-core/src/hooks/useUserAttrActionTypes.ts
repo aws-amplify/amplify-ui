@@ -41,18 +41,6 @@ export interface Actions {
   fetch: typeof fetchUserAttributes;
 }
 
-// Describes state.data for each action
-export interface StateDataTypes {
-  confirm: undefined | void;
-  delete: undefined | void;
-  fetch: FetchUserAttributesOutput | undefined | void;
-  sendVerificationCode:
-    | SendUserAttributeVerificationCodeOutput
-    | undefined
-    | void;
-  update: UpdateUserAttributesOutput | undefined | void;
-}
-
 // OR of all possible handleAction inputs - used to confirm input type
 export type AttributeManagementInputs =
   | ConfirmUserAttributeInput
