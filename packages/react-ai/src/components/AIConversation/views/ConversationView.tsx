@@ -1,9 +1,16 @@
 import React from 'react';
-import { useElement } from '../context/elements';
+import { ParagraphElement as Paragraph, ViewElement as View } from '../types';
+
+//         //         display: 'flex',
+//         //         flexDirection: 'row',
+//         //         justifyContent: 'space-between',
+//         //         border: '1px solid rgba(220, 222, 224, 1)',
+//         //         borderRadius: '16px 16px 0px 0px',
+//         //         padding: '0px 16px',
+//         //         boxShadow: '0px 12px 30px 0px rgba(0, 0, 0, 0.07)',
+//         //         backgroundColor: 'rgba(250, 250, 250, 1)',
 
 export default function Conversation(): JSX.Element {
-  const View = useElement('View');
-  const Paragraph = useElement('Text');
   return (
     <View
       style={{
@@ -11,19 +18,7 @@ export default function Conversation(): JSX.Element {
         height: '344px',
       }}
     >
-      <View
-        aria-label="Header"
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          border: '1px solid rgba(220, 222, 224, 1)',
-          borderRadius: '16px 16px 0px 0px',
-          padding: '0px 16px',
-          boxShadow: '0px 12px 30px 0px rgba(0, 0, 0, 0.07)',
-          backgroundColor: 'rgba(250, 250, 250, 1)',
-        }}
-      >
+      <View>
         <Paragraph>Header title</Paragraph>
       </View>
       <View

@@ -18,7 +18,13 @@ export type BaseElement<T = {}, K = {}> = React.ForwardRefExoticComponent<
 /**
  * allowed values of `displayName` of `BaseElement` and `ElemebtsContext` keys
  */
-export type ElementDisplayName = 'Button' | 'View' | 'Icon' | 'Input' | 'Span';
+export type ElementDisplayName =
+  | 'Button'
+  | 'View'
+  | 'Icon'
+  | 'Input'
+  | 'Span'
+  | 'Paragraph';
 
 export type ElementRefType<T> = T extends {
   ref?:
