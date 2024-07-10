@@ -22,11 +22,11 @@ describe('useIsSignedIn', () => {
       username: 'username',
       userId: '123',
     };
-
     (getCurrentUser as jest.Mock).mockResolvedValueOnce(mockUserCredentials);
 
     const { result, waitForNextUpdate } = renderHook(() => useIsSignedIn());
     expect(result.current).toBeFalsy();
+
     await waitForNextUpdate();
     expect(result.current).toBeTruthy();
   });
@@ -39,10 +39,10 @@ describe('useIsSignedIn', () => {
     expect(result.current).toBeFalsy();
 
     waitForNextUpdate();
+
     act(() => {
       Hub.dispatch('auth', { event: 'signedIn' });
     });
-
     expect(result.current).toBeTruthy();
   });
 
@@ -51,25 +51,23 @@ describe('useIsSignedIn', () => {
       username: 'username',
       userId: '123',
     };
-
     (getCurrentUser as jest.Mock).mockResolvedValueOnce(mockUserCredentials);
 
     const { result, waitForNextUpdate } = renderHook(() => useIsSignedIn());
+
     await waitForNextUpdate();
     expect(result.current).toBeTruthy();
 
     act(() => {
       Hub.dispatch('auth', { event: 'signedOut' });
     });
-
     expect(result.current).toBeFalsy();
   });
 
   it('should be able to listen to multiple events after one call', () => {
-    act(() => {
-      const mockError = new Error('Authorization error');
-      (getCurrentUser as jest.Mock).mockRejectedValueOnce(mockError);
-    });
+    const mockError = new Error('Authorization error');
+    (getCurrentUser as jest.Mock).mockRejectedValueOnce(mockError);
+
     const { result, waitForNextUpdate } = renderHook(() => useIsSignedIn());
 
     waitForNextUpdate();
@@ -77,19 +75,16 @@ describe('useIsSignedIn', () => {
     act(() => {
       Hub.dispatch('auth', { event: 'signedIn' });
     });
-
     expect(result.current).toBeTruthy();
 
     act(() => {
       Hub.dispatch('auth', { event: 'signedOut' });
     });
-
     expect(result.current).toBeFalsy();
 
     act(() => {
       Hub.dispatch('auth', { event: 'signedIn' });
     });
-
     expect(result.current).toBeTruthy();
   });
 });
