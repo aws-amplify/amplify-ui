@@ -81,6 +81,11 @@ function isSendUserAttributeVerificationCodeInput(
     typeof input === 'object' && input !== null && 'userAttributeKey' in input
   );
 }
+function isFetchUserAttributesInput(
+  input: AttributeManagementInputs
+): input is null {
+  return input === null;
+}
 
 // Actions passed to useDataState
 export const deleteUserAttributesAction = async (
@@ -371,9 +376,9 @@ export const fetchUserAttributesAction = async (
   _prev: Awaited<ReturnType<typeof fetchUserAttributes> | undefined>,
   input: null
 ): Promise<FetchUserAttributesOutput> => {
-  // NEED TO WORK OUT THIS EMPTY INPUT
-  // eslint-disable-next-line no-console
-  console.log(input);
+  if (!isFetchUserAttributesInput(input)) {
+    throw new Error('Invalid FetchUserAttributesInput');
+  }
   try {
     const result = await fetchUserAttributes();
     return result;
