@@ -1,5 +1,5 @@
 /*
- *  This version of useUserAttributes is functional, but there are several type errors relating to the handleActions. Also, the handleActions are hardcoded.
+ *  This version of useUserAttributes has individual hook declarations for each action. The return types are working properly.
  */
 
 import { useEffect } from 'react';
