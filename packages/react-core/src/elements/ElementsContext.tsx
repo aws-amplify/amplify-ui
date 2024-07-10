@@ -1,12 +1,19 @@
 import React from 'react';
 import { ElementDisplayName } from './types';
 
+/**
+ * @internal @unstable
+ */
 export interface Elements
   extends Partial<Record<ElementDisplayName, React.ComponentType>> {}
 
-const ElementsContext = React.createContext<Elements | undefined>(undefined);
+export const ElementsContext = React.createContext<Elements | undefined>(
+  undefined
+);
 
 /**
+ * @internal @unstable
+ *
  * `ElementsProvider` and its coresponding `useElement` hook provide
  * access to the values of the nearest ancestral `ElementsContext`
  * value.

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useElement } from './ElementsContext';
+import { ElementsContext } from './ElementsContext';
 import {
   BaseElement,
   BaseElementProps,
@@ -9,6 +9,9 @@ import {
   ReactElementType,
 } from './types';
 
+/**
+ * * @internal @unstable
+ */
 export interface DefineBaseElementInput<T> {
   /**
    * `BaseElement` display name in React dev tools and stack traces
@@ -22,6 +25,8 @@ export interface DefineBaseElementInput<T> {
 }
 
 /**
+ * @internal @unstable
+ *
  * Defines a `ElementsContext` aware `BaseElement` UI component of the
  * provided `type` with an assigned `displayName`.
  *
@@ -51,7 +56,7 @@ export default function defineBaseElement<
 
   const Element = React.forwardRef<ElementRefType<P>, P>(
     ({ variant, ...props }, ref) => {
-      const Element = useElement(displayName);
+      const Element = React.useContext(ElementsContext)?.[displayName];
 
       if (Element) {
         // only pass `variant` to provided `Element` values
