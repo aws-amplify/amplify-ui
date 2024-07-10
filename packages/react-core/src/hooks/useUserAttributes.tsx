@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 /*
  *  This version of useUserAttributes is functional, but there are several type errors relating to the handleActions. Also, the handleActions are hardcoded.
  */
@@ -7,74 +6,24 @@ import { useEffect } from 'react';
 
 import { Hub, HubCallback } from '@aws-amplify/core';
 
-import useDataState from './useDataState';
-
 import {
-  DefaultAttributes,
-  defaultSendUserAttributeVerificationCodeOutput,
-  defaultUpdateUserAttributesOutput,
-  HandlerInputs,
-  StateDataTypes,
-  confirmUserAttributeAction,
-  deleteUserAttributesAction,
-  fetchUserAttributesAction,
-  sendUserAttributeVerificationCodeAction,
-  updateUserAttributesAction,
   Actions,
+  UseActions,
+  useConfirmUserAttribute,
+  useDeleteUserAttributes,
+  useFetchUserAttributes,
+  useSendUserAttributeVerificationCode,
+  useUpdateUserAttributes,
 } from './useUserAttrActionTypes';
-
-interface ActionState<T> {
-  /**
-   * action data
-   */
-  data: T;
-  /**
-   * indicates whether action is running
-   */
-  isLoading: boolean;
-  /**
-   * error message
-   */
-  message: string | undefined;
-}
-
-// Had to disable 'rules-of-hooks' to use outside
-const useDeleteUserAttributes = useDataState(
-  deleteUserAttributesAction,
-  undefined
-);
-
-const useUpdateUserAttributes = useDataState(
-  updateUserAttributesAction,
-  defaultUpdateUserAttributesOutput
-);
-
-const useConfirmUserAttribute = useDataState(
-  confirmUserAttributeAction,
-  undefined
-);
-
-const useSendUserVerificationCode = useDataState(
-  sendUserAttributeVerificationCodeAction,
-  defaultSendUserAttributeVerificationCodeOutput
-);
-
-const useFetchUserAttributes = useDataState(
-  fetchUserAttributesAction,
-  DefaultAttributes
-);
 
 const useUserAttributes = <T extends keyof Actions>(
   action: T
-): [
-  state: ActionState<StateDataTypes[T]>,
-  handleAction: (...input: HandlerInputs[T][]) => void,
-] => {
-  const useDelete = useDeleteUserAttributes;
-  const useFetch = useFetchUserAttributes;
-  const useUpdate = useUpdateUserAttributes;
-  const useConfirm = useConfirmUserAttribute;
-  const useSendCode = useSendUserVerificationCode;
+): [state: UseActions[T][0], handleAction: UseActions[T][1]] => {
+  const useDelete = useDeleteUserAttributes();
+  const useFetch = useFetchUserAttributes();
+  const useUpdate = useUpdateUserAttributes();
+  const useConfirm = useConfirmUserAttribute();
+  const useSendCode = useSendUserAttributeVerificationCode();
 
   const handleFetch = useFetch[1];
 
@@ -83,14 +32,13 @@ const useUserAttributes = <T extends keyof Actions>(
       const fetchHub: HubCallback = ({ payload }) => {
         switch (payload.event) {
           case 'FETCH_ATTRIBUTES': {
-            handleFetch();
+            handleFetch(null);
             break;
           }
           default: {
             break;
           }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
       };
       const unsubscribe = Hub.listen('ui', fetchHub);
       return unsubscribe;
