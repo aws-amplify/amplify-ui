@@ -22,6 +22,7 @@ export type ElementDisplayName =
   | 'Button'
   | 'View'
   | 'Icon'
+  | 'Image'
   | 'Input'
   | 'Span'
   | 'Paragraph';
