@@ -175,17 +175,6 @@ export const DefaultAttributes: UserAttributes = {
 
 // Default object to be passed into useDataState
 export const defaultUpdateUserAttributesOutput: UpdateUserAttributesOutput = {
-  ['custom:placeholder']: {
-    isUpdated: true,
-    nextStep: {
-      codeDeliveryDetails: {
-        attributeName: undefined,
-        deliveryMedium: undefined,
-        destination: undefined,
-      },
-      updateAttributeStep: 'DONE',
-    },
-  },
   address: {
     isUpdated: true,
     nextStep: {
