@@ -71,10 +71,3 @@ export function ElementsProvider<T extends Elements>({
 }): React.JSX.Element {
   return <ElementsContext.Provider {...props} value={elements} />;
 }
-
-export const useElement = <T extends keyof Elements>(
-  name: T
-): Elements[T] | undefined => {
-  const context = React.useContext(ElementsContext);
-  return context?.[name];
-};

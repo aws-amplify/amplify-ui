@@ -17,9 +17,6 @@ export type BaseElement<T = {}, K = {}> = React.ForwardRefExoticComponent<
   React.PropsWithoutRef<T> & React.RefAttributes<K>
 >;
 
-type ListItemElementSubType = 'Menu' | 'Nav' | 'List';
-type ListItemElementDisplayName = `${ListItemElementSubType}Item`;
-
 type ListElementSubType = 'Ordered' | 'Unordered';
 type ListElementDisplayName = 'List' | `${ListElementSubType}List`;
 
@@ -38,6 +35,7 @@ export type ElementDisplayName =
   | 'Icon'
   | 'Input'
   | 'Label'
+  | 'ListItem'
   | 'Nav'
   | 'ProgressBar'
   | 'Span'
@@ -45,7 +43,6 @@ export type ElementDisplayName =
   | 'Title'
   | 'View'
   | ListElementDisplayName
-  | ListItemElementDisplayName
   | TableElementDisplayName;
 
 /**
