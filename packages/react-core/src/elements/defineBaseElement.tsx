@@ -10,7 +10,7 @@ import {
 } from './types';
 
 /**
- * * @internal @unstable
+ * @internal @unstable
  */
 export interface DefineBaseElementInput<T> {
   /**
