@@ -1,24 +1,27 @@
 import React from 'react';
 import { ElementDisplayName } from './types';
 
+/**
+ * @internal @unstable
+ */
 export interface Elements
   extends Partial<Record<ElementDisplayName, React.ComponentType>> {}
 
-const ElementsContext = React.createContext<Elements | undefined>(undefined);
+export const ElementsContext = React.createContext<Elements | undefined>(
+  undefined
+);
 
 /**
- * `ElementsProvider` and its coresponding `useElement` hook provide
- * access to the values of the nearest ancestral `ElementsContext`
- * value.
+ * @internal @unstable
  *
- * In most use cases, there is no need to directly invoke `useElement`;
- * `ElementsContext` lookup is handled directly by `BaseElement`
- * components returned by `defineBaseElement`.
+ * `ElementsProvider` provides the values contained in `ElementsContext`
+ * to its `children`. `ElementsContext` lookup is handled directly
+ * by `BaseElement`components returned by `defineBaseElement`.
  *
  * @example
  *
- * Add `ElementsContext` aware `BaseElement` components to a
- * Connected Component
+ * Add `ElementsContext` aware `BaseElement` components to a Connected
+ * Component
  *
  * ```tsx
  * // `BaseElement`, renders custom or default element defintion
@@ -64,10 +67,3 @@ export function ElementsProvider<T extends Elements>({
 }): React.JSX.Element {
   return <ElementsContext.Provider {...props} value={elements} />;
 }
-
-export const useElement = <T extends keyof Elements>(
-  name: T
-): Elements[T] | undefined => {
-  const context = React.useContext(ElementsContext);
-  return context?.[name];
-};
