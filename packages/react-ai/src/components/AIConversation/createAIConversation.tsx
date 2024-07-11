@@ -1,5 +1,6 @@
 import React from 'react';
 import { Conversation, Messages, SuggestedPrompts, Avatar } from './views';
+import { AIContextProvider } from '../../hooks';
 
 interface AIConversation {
   (): JSX.Element;
@@ -20,6 +21,7 @@ export function createAIConversation(): {
     );
   }
 
+  AIConversation.Provider = AIContextProvider;
   AIConversation.Conversation = Conversation;
   AIConversation.Messages = Messages;
   AIConversation.SuggestedPrompts = SuggestedPrompts;
