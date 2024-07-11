@@ -18,7 +18,10 @@ const TabPanelPrimitive: Primitive<TabsPanelProps, 'div'> = (
 
   if (isLazy && activeTab !== value) return null;
 
-  const idValue = value.replace(' ', WHITESPACE_VALUE);
+  let idValue = value;
+  if (typeof idValue === 'string') {
+    idValue = idValue.replace(' ', WHITESPACE_VALUE);
+  }
 
   return (
     <View

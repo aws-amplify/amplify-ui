@@ -8,7 +8,6 @@ import { BaseTabsProps, TabsProps } from './types';
 import { View } from '../View';
 import { TabsContext } from './TabsContext';
 import { useStableId } from '../utils/useStableId';
-import { WHITESPACE_VALUE } from './constants';
 
 const TabsContainerPrimitive: Primitive<TabsProps, 'div'> = (
   {

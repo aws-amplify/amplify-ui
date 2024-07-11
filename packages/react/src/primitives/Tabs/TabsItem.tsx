@@ -19,7 +19,10 @@ const TabsItemPrimitive: Primitive<TabsItemProps, 'button'> = (
   ref
 ) => {
   const { activeTab, setActiveTab, groupId } = React.useContext(TabsContext);
-  const idValue = value.replace(' ', WHITESPACE_VALUE);
+  let idValue = value;
+  if (typeof idValue === 'string') {
+    idValue = idValue.replace(' ', WHITESPACE_VALUE);
+  }
   const isActive = activeTab === value;
   const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (isTypedFunction(onClick)) {
