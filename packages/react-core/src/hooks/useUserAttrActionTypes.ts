@@ -15,6 +15,7 @@ import {
 } from '@aws-amplify/auth';
 
 import { Hub } from '@aws-amplify/core';
+
 import useDataState from './useDataState';
 
 export interface ActionState<T> {
