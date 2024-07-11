@@ -16,6 +16,7 @@ const { StorageBrowser } = createStorageBrowser({ elements });
 export default function Example() {
   return (
     <StorageBrowser.Provider>
+      <StorageBrowser.Controls.Pagination />
       <StorageBrowser.Controls.Search />
     </StorageBrowser.Provider>
   );

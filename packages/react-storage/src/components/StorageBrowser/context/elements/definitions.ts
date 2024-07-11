@@ -68,7 +68,7 @@ export const OrderedListElement = defineBaseElement({
 });
 
 export const UnorderedListElement = defineBaseElement({
-  type: 'ol',
+  type: 'ul',
   displayName: 'UnorderedList',
 });
 
