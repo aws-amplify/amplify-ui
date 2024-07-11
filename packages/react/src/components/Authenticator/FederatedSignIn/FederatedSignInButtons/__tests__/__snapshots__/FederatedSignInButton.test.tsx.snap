@@ -4,7 +4,7 @@ exports[`FederatedSignInButton renders as expected with { provider: 'Amazon', te
 <div>
   <button
     class="amplify-button amplify-field-group__control federated-sign-in-button"
-    style="font-weight: var(--amplify-font-weights-normal); gap: 1rem;"
+    style="gap: 1rem;"
     type="button"
   >
     <span
@@ -20,7 +20,7 @@ exports[`FederatedSignInButton renders as expected with { provider: 'Apple', tex
 <div>
   <button
     class="amplify-button amplify-field-group__control federated-sign-in-button"
-    style="font-weight: var(--amplify-font-weights-normal); gap: 1rem;"
+    style="gap: 1rem;"
     type="button"
   >
     <span
@@ -36,7 +36,7 @@ exports[`FederatedSignInButton renders as expected with { provider: 'Facebook', 
 <div>
   <button
     class="amplify-button amplify-field-group__control federated-sign-in-button"
-    style="font-weight: var(--amplify-font-weights-normal); gap: 1rem;"
+    style="gap: 1rem;"
     type="button"
   >
     <span
@@ -52,7 +52,7 @@ exports[`FederatedSignInButton renders as expected with { provider: 'Google', te
 <div>
   <button
     class="amplify-button amplify-field-group__control federated-sign-in-button"
-    style="font-weight: var(--amplify-font-weights-normal); gap: 1rem;"
+    style="gap: 1rem;"
     type="button"
   >
     <span
