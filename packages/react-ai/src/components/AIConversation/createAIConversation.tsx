@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { AIConversationElements } from './context/elements';
 import { Controls, CreateAIConversationInput, AIConversation } from './types';
+import { AIConversationElements } from './context/elements';
 import createProvider from './createProvider';
 import Conversation from './Views/ConversationView';
 import SuggestedPrompts from './Views/SuggestedPrompts';
+import { MessagesControl } from './Views/Controls/MessagesControl';
 
 export default function createAIConversation<
   T extends Partial<AIConversationElements>,
@@ -16,14 +17,14 @@ export default function createAIConversation<
   function AIConversation(): JSX.Element {
     return (
       <Provider>
-        <div>Hello world</div>
+        <Conversation />
       </Provider>
     );
   }
 
-  // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
   const Controls: Controls<T> = { Messages: MessagesControl };
 
+  AIConversation.Provider = Provider;
   AIConversation.Controls = Controls;
   AIConversation.Conversation = Conversation;
   AIConversation.SuggestedPrompts = SuggestedPrompts;

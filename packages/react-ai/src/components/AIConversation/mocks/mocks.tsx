@@ -11,13 +11,21 @@ export const messages: Message[] = [
   },
   {
     id: '2',
-    content: { type: 'text', value: 'What does purple look like' },
+    content: { type: 'text', value: 'I have  question' },
     role: 'user',
     timestamp: new Date(),
   },
   {
     id: '3',
-    content: { type: 'image', value: <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAABlBMVEUA/wD///+l2Z/0AAAAJ0lEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==" alt="Purple Square" /> },
+    content: {
+      type: 'image',
+      value: {
+        format: 'png',
+        bytes: new Uint8Array([
+          137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82, 0, 0, 0,
+        ]).buffer,
+      },
+    },
     role: 'assistant',
     timestamp: new Date(),
   },
@@ -26,7 +34,7 @@ export const messages: Message[] = [
 // TODO only some react nodes work
 export const avatars: Avatars = {
   user: {
-    username: 'User username',
+    username: 'User',
     avatar: (
       <Icon
         pathData="M12.075,10.812c1.358-0.853,2.242-2.507,2.242-4.037c0-2.181-1.795-4.618-4.198-4.618S5.921,4.594,5.921,6.775c0,1.53,0.884,3.185,2.242,4.037c-3.222,0.865-5.6,3.807-5.6,7.298c0,0.23,0.189,0.42,0.42,0.42h14.273c0.23,0,0.42-0.189,0.42-0.42C17.676,14.619,15.297,11.677,12.075,10.812 M6.761,6.775c0-2.162,1.773-3.778,3.358-3.778s3.359,1.616,3.359,3.778c0,2.162-1.774,3.778-3.359,3.778S6.761,8.937,6.761,6.775 M3.415,17.69c0.218-3.51,3.142-6.297,6.704-6.297c3.562,0,6.486,2.787,6.705,6.297H3.415z"
@@ -36,7 +44,7 @@ export const avatars: Avatars = {
     ),
   },
   ai: {
-    username: 'AI username',
+    username: 'Raven',
     avatar: (
       <Icon
         pathData="M17.125,1.375H2.875c-0.828,0-1.5,0.672-1.5,1.5v11.25c0,0.828,0.672,1.5,1.5,1.5H7.75v2.25H6.625c-0.207,0-0.375,0.168-0.375,0.375s0.168,0.375,0.375,0.375h6.75c0.207,0,0.375-0.168,0.375-0.375s-0.168-0.375-0.375-0.375H12.25v-2.25h4.875c0.828,0,1.5-0.672,1.5-1.5V2.875C18.625,2.047,17.953,1.375,17.125,1.375z M11.5,17.875h-3v-2.25h3V17.875zM17.875,14.125c0,0.414-0.336,0.75-0.75,0.75H2.875c-0.414,0-0.75-0.336-0.75-0.75v-1.5h15.75V14.125z M17.875,11.875H2.125v-9c0-0.414,0.336-0.75,0.75-0.75h14.25c0.414,0,0.75,0.336,0.75,0.75V11.875z M10,14.125c0.207,0,0.375-0.168,0.375-0.375S10.207,13.375,10,13.375s-0.375,0.168-0.375,0.375S9.793,14.125,10,14.125z"

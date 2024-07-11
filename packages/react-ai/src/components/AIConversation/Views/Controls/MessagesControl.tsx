@@ -2,7 +2,9 @@ import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import { Avatars, CustomAction, Message as MessageType } from '../../types';
+
 import { AIConversationElements } from '../../context/elements';
+import { convertBufferToBase64, formatDate } from '../../utils';
 import { ActionsBarControl } from './ActionsBarControl';
 import { AvatarControl } from './AvatarControl';
 
@@ -19,11 +21,20 @@ const TextContent = withBaseElementProps(Text, {
   className: `${MESSAGE_BLOCK}__text`,
 });
 
+const Timestamp = withBaseElementProps(Text, {
+  className: `${MESSAGE_BLOCK}__timestamp`,
+});
+
 const MessageControl: MessageControl = ({ message }) => {
   return message.content.type === 'text' ? (
     <TextContent>{message.content.value}</TextContent>
   ) : (
-    <MediaContent>{message.content.value}</MediaContent>
+    <MediaContent
+      src={convertBufferToBase64(
+        message.content.value.bytes,
+        message.content.value.format
+      )}
+    ></MediaContent>
   );
 };
 
@@ -43,6 +54,7 @@ const Container = withBaseElementProps(View, {
 
 const Layout = withBaseElementProps(View, {
   className: `${MESSAGES_BLOCK}__container`,
+  style: { display: 'flex', flexDirection: 'column', alignItems: 'center' },
 });
 
 export const MessagesControl: MessagesControl = ({
@@ -57,6 +69,7 @@ export const MessagesControl: MessagesControl = ({
           <AvatarControl
             avatar={message.role === 'user' ? avatars.user : avatars.ai}
           />
+          <Timestamp>{formatDate(message.timestamp)}</Timestamp>
           <MessageControl message={message} />
           <ActionsBarControl actions={actions} />
         </Container>
