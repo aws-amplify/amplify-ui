@@ -36,9 +36,16 @@ const FieldContainer = withBaseElementProps(Span, {
   className: `${SEARCH_BLOCK}-${FIELD_BLOCK}__container`,
 });
 const FieldIcon = withBaseElementProps(Icon, searchIconProps);
-const FieldInput = withBaseElementProps(Input, {
+const FieldInputBase = withBaseElementProps(Input, {
   className: `${SEARCH_BLOCK}-${FIELD_BLOCK}__input`,
 });
+
+const FieldInput: typeof FieldInputBase = React.forwardRef(
+  function FieldInput(props, ref) {
+    // search input logic here TBD
+    return <FieldInputBase {...props} ref={ref} />;
+  }
+);
 
 const FieldControl: FieldControl = () => (
   <FieldContainer>
@@ -51,9 +58,16 @@ FieldControl.Container = FieldContainer;
 FieldControl.Icon = FieldIcon;
 FieldControl.Input = FieldInput;
 
-const SearchButton = withBaseElementProps(Button, {
+const SearchButtonBase = withBaseElementProps(Button, {
   className: `${SEARCH_BLOCK}__button`,
 });
+
+const SearchButton: typeof SearchButtonBase = React.forwardRef(
+  function SearchButton(props, ref) {
+    // search handler/type="submit" (TBD), disabled logic here
+    return <SearchButtonBase {...props} ref={ref} />;
+  }
+);
 
 const Container = withBaseElementProps(Span, {
   className: `${SEARCH_BLOCK}__container`,
