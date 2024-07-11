@@ -8,23 +8,25 @@ const INITIAL_STATE: PaginateState = {
   hasNext: true,
   hasPrevious: false,
   current: 1,
+  isPaginating: false,
   shouldPaginate: false,
+  lookAhead: 2,
+  pageSize: 100,
 };
 
 describe('updatePaginateStateAction', () => {
   it('handles a `next` action with previously loaded data and additional loadable data as expected', () => {
     const action: PaginateAction = {
       // has `nextToken`
-      hasAdditionalData: true,
-      loadedDataSize: 300,
-      lookAhead: 2,
-      pageSize: 100,
+      hasNextToken: true,
+      itemCount: 300,
       type: 'next',
     };
 
     const result = updatePaginateStateAction(INITIAL_STATE, action);
 
     const expected: PaginateState = {
+      ...INITIAL_STATE,
       hasNext: true,
       hasPrevious: true,
       current: 2,
@@ -40,20 +42,18 @@ describe('updatePaginateStateAction', () => {
 
     const action: PaginateAction = {
       // does not have `nextToken`
-      hasAdditionalData: false,
-      loadedDataSize: 300,
-      lookAhead: 2,
-      pageSize: 100,
+      hasNextToken: false,
+      itemCount: 300,
       type: 'next',
     };
 
     const result = updatePaginateStateAction(initialState, action);
 
     const expected: PaginateState = {
+      ...INITIAL_STATE,
       hasNext: false,
       hasPrevious: true,
       current: 2,
-      shouldPaginate: false,
     };
 
     expect(result).toStrictEqual(expected);
@@ -63,22 +63,14 @@ describe('updatePaginateStateAction', () => {
     // start on page 2
     const initialState = { ...INITIAL_STATE, current: 2 };
 
-    const action: PaginateAction = {
-      // does not have `nextToken`
-      hasAdditionalData: false,
-      loadedDataSize: 300,
-      lookAhead: 2,
-      pageSize: 100,
-      type: 'previous',
-    };
+    const action: PaginateAction = { type: 'previous' };
 
     const result = updatePaginateStateAction(initialState, action);
 
     const expected: PaginateState = {
+      ...INITIAL_STATE,
       hasNext: true,
-      hasPrevious: false,
       current: 1,
-      shouldPaginate: false,
     };
 
     expect(result).toStrictEqual(expected);
@@ -86,25 +78,13 @@ describe('updatePaginateStateAction', () => {
 
   it('handles a `previous` action when there is no next page as expected', () => {
     // start on page 2
-    const initialState = { ...INITIAL_STATE, hasNext: false, page: 1 };
+    const initialState = { ...INITIAL_STATE, hasNext: false, current: 1 };
 
-    const action: PaginateAction = {
-      // does not have `nextToken`
-      hasAdditionalData: false,
-      loadedDataSize: 90,
-      lookAhead: 2,
-      pageSize: 100,
-      type: 'previous',
-    };
+    const action: PaginateAction = { type: 'previous' };
 
     const result = updatePaginateStateAction(initialState, action);
 
-    const expected: PaginateState = {
-      hasNext: false,
-      hasPrevious: false,
-      current: 1,
-      shouldPaginate: false,
-    };
+    const expected: PaginateState = { ...INITIAL_STATE, hasNext: false };
 
     expect(result).toStrictEqual(expected);
   });
@@ -118,4 +98,6 @@ describe('updatePaginateStateAction', () => {
       `Invalid value of ${type} provided as \`type\``
     );
   });
+
+  it.todo('sets isPaginating as expected');
 });

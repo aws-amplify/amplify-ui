@@ -1,63 +1,78 @@
 import React from 'react';
 import { ActionState, useDataState } from '@aws-amplify/ui-react-core';
 
-export interface PaginateAction {
-  hasAdditionalData: boolean;
-  loadedDataSize: number;
-  lookAhead: number;
-  pageSize: number;
-  type: 'next' | 'previous';
-}
+export type PaginateAction =
+  | { type: 'setStatus'; isPaginating: boolean }
+  | { hasNextToken: boolean; itemCount: number; type: 'next' }
+  | { type: 'previous' };
 
 export interface PaginateState {
+  current: number;
   hasNext: boolean;
   hasPrevious: boolean;
-  current: number;
+  isPaginating: boolean;
   shouldPaginate: boolean;
+  // top level config propeeties
+  readonly lookAhead: number;
+  readonly pageSize: number;
 }
 
 interface PaginateStateProviderProps {
   children?: React.ReactNode;
   initialState: PaginateState;
-  lookAhead: number;
-  pageSize: number;
 }
 
 export const updatePaginateStateAction = (
-  { current: _current }: PaginateState,
-  {
-    hasAdditionalData,
-    lookAhead,
-    loadedDataSize,
-    pageSize,
-    type,
-  }: PaginateAction
+  prevState: PaginateState,
+  action: PaginateAction
 ): PaginateState => {
-  switch (type) {
+  switch (action.type) {
     case 'next': {
+      const { lookAhead, pageSize, current: _current } = prevState;
+      const { hasNextToken, itemCount } = action;
       const prevDisplaySizeLimit = pageSize * _current;
       const nextDisplaySizeLimit = pageSize * (_current + 1);
 
-      const shouldPaginate =
-        hasAdditionalData && nextDisplaySizeLimit < loadedDataSize;
+      const shouldPaginate = hasNextToken && nextDisplaySizeLimit < itemCount;
 
       const hasNext =
         shouldPaginate ||
-        loadedDataSize - prevDisplaySizeLimit > pageSize * lookAhead;
+        itemCount - prevDisplaySizeLimit > pageSize * lookAhead;
 
       const current = hasNext ? _current + 1 : _current;
       const hasPrevious = current >= 2;
 
-      return { current, hasNext, hasPrevious, shouldPaginate };
+      return {
+        current,
+        hasNext,
+        hasPrevious,
+        isPaginating: false,
+        lookAhead,
+        pageSize,
+        shouldPaginate,
+      };
     }
     case 'previous': {
+      const { current: _current, ...nextState } = prevState;
       const hasNext = _current >= 2;
       const current = hasNext ? _current - 1 : _current;
       const hasPrevious = current > 1;
-      return { current, hasNext, hasPrevious, shouldPaginate: false };
+      return {
+        ...nextState,
+        current,
+        hasNext,
+        hasPrevious,
+        isPaginating: false,
+        shouldPaginate: false,
+      };
+    }
+    case 'setStatus': {
+      const { isPaginating } = action;
+      return { ...prevState, isPaginating };
     }
     default:
-      throw new Error(`Invalid value of ${type} provided as \`type\``);
+      // @ts-expect-error
+      throw new Error(`Invalid value of ${action.type} provided as \`type\``);
   }
 };
 
@@ -79,14 +94,10 @@ export const usePaginateState = (): UsePaginateState => {
 export const PaginateStateProvider = ({
   children,
   initialState,
-  lookAhead,
-  pageSize,
 }: PaginateStateProviderProps): JSX.Element => {
   const state = useDataState(
-    (
-      prev: PaginateState,
-      action: Omit<PaginateAction, 'lookAhead' | 'pageSize'>
-    ) => updatePaginateStateAction(prev, { ...action, lookAhead, pageSize }),
+    (prev: PaginateState, action: PaginateAction) =>
+      updatePaginateStateAction(prev, action),
     initialState
   );
 
