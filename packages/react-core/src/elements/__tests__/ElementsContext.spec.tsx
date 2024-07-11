@@ -1,7 +1,7 @@
 import React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
 
-import { ElementsProvider, useElement } from '../ElementsContext';
+import { ElementsProvider, ElementsContext } from '../ElementsContext';
 
 const ButtonElement = () => <button />;
 const ViewElement = () => <button />;
@@ -16,27 +16,17 @@ describe('ElementsContext', () => {
 
     const {
       result: { current: Button },
-    } = renderHook(() => useElement('Button'), { wrapper });
+    } = renderHook(() => React.useContext(ElementsContext)?.['Button'], {
+      wrapper,
+    });
     expect(Button).toBe(ButtonElement);
 
     const {
       result: { current: View },
-    } = renderHook(() => useElement('View'), { wrapper });
+    } = renderHook(() => React.useContext(ElementsContext)?.['View'], {
+      wrapper,
+    });
 
     expect(View).toBe(ViewElement);
-  });
-
-  it('`useElement` returns `undefined` when lookup fails', () => {
-    const wrapper = ({ children }: { children?: React.ReactNode }) => (
-      <ElementsProvider elements={elements}>{children}</ElementsProvider>
-    );
-
-    const invalidElementName = 'Not a Button';
-
-    const {
-      result: { current: Element },
-      // @ts-expect-error
-    } = renderHook(() => useElement(invalidElementName), { wrapper });
-    expect(Element).toBeUndefined();
   });
 });
