@@ -34,10 +34,10 @@ export default function useIsSignedIn(): boolean {
       }
     };
 
-    const unmount = Hub.listen('auth', listener);
+    const unsubscribe = Hub.listen('auth', listener);
 
     return () => {
-      unmount();
+      unsubscribe();
     };
   }, []);
 
