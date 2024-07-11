@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-core",
-  "version": "3.0.16",
+  "version": "3.0.17",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "react-native": "src/index.ts",
@@ -9,6 +9,12 @@
       "import": "./dist/esm/index.mjs",
       "require": "./dist/index.js",
       "types": "./dist/types/index.d.ts"
+    },
+    "./elements": {
+      "import": "./dist/esm/elements/index.mjs",
+      "require": "./dist/elements.js",
+      "types": "./dist/types/elements/index.d.ts",
+      "react-native": "./src/elements/index.ts"
     },
     "./package.json": "./package.json"
   },
@@ -33,7 +39,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "6.0.16",
+    "@aws-amplify/ui": "6.0.17",
     "@xstate/react": "^3.2.2",
     "lodash": "4.17.21",
     "react-hook-form": "^7.43.5",
