@@ -13,7 +13,6 @@
     "./elements": {
       "import": "./dist/esm/elements/index.mjs",
       "require": "./dist/elements.js",
-      "types": "./dist/types/elements/index.d.ts",
       "react-native": "./src/elements/index.ts"
     },
     "./package.json": "./package.json"
@@ -22,6 +21,7 @@
   "license": "Apache-2.0",
   "files": [
     "dist",
+    "elements",
     "LICENSE",
     "src",
     "!**/__mocks__",
