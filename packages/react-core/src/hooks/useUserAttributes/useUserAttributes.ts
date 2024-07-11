@@ -1,20 +1,15 @@
-/*
- *  This version of useUserAttributes has individual hook declarations for each action. The return types are working properly.
- */
-
 import { useEffect } from 'react';
 
 import { Hub, HubCallback } from '@aws-amplify/core';
 
 import {
-  Actions,
-  UseActions,
-  useConfirmUserAttribute,
   useDeleteUserAttributes,
   useFetchUserAttributes,
-  useSendUserAttributeVerificationCode,
   useUpdateUserAttributes,
-} from './useUserAttrActionTypes';
+  useConfirmUserAttribute,
+  useSendUserAttributeVerificationCode,
+} from './constants';
+import { Actions, UseActions } from './interfaces';
 
 const useUserAttributes = <T extends keyof Actions>(
   action: T
@@ -30,14 +25,10 @@ const useUserAttributes = <T extends keyof Actions>(
   useEffect(() => {
     if (action === 'fetch') {
       const fetchHub: HubCallback = ({ payload }) => {
-        switch (payload.event) {
-          case 'FETCH_ATTRIBUTES': {
-            handleFetch(null);
-            break;
-          }
-          default: {
-            break;
-          }
+        if (payload.event === 'FETCH_ATTRIBUTES') {
+          handleFetch();
+        } else {
+          return;
         }
       };
       const unsubscribe = Hub.listen('ui', fetchHub);
@@ -50,7 +41,7 @@ const useUserAttributes = <T extends keyof Actions>(
       return useDelete;
     case 'confirm':
       return useConfirm;
-    case 'sendVerificationCode':
+    case 'sendCode':
       return useSendCode;
     case 'update':
       return useUpdate;
