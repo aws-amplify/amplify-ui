@@ -98,4 +98,41 @@ describe('withBaseElementProps', () => {
 
     expect(nextElement?.type).toBe('image');
   });
+
+  it('provides `props` passed to wrapped `BaseElement` to `defaultProps` callback functions', () => {
+    const InputElement = defineBaseElement<'input', 'disabled' | 'type'>({
+      type,
+      displayName,
+    });
+
+    const defaultProps = { type: 'checkbox' };
+
+    const WrappedInputElement = withBaseElementProps(
+      InputElement,
+      ({ disabled }) => ({
+        ...defaultProps,
+        className: disabled ? 'input input--disabled' : 'input',
+      })
+    );
+
+    const { container } = render(<WrappedInputElement />);
+
+    const element = container.querySelector('input');
+
+    expect(element).toBeDefined();
+
+    expect(element?.type).toBe('checkbox');
+    expect(element?.className).toBe('input');
+
+    const { container: nextContainer } = render(
+      <WrappedInputElement disabled type="image" />
+    );
+
+    const nextElement = nextContainer.querySelector('input');
+
+    expect(nextElement).toBeDefined();
+
+    expect(nextElement?.type).toBe('image');
+    expect(nextElement?.className).toBe('input input--disabled');
+  });
 });
