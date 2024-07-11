@@ -24,9 +24,6 @@ const TabsContainerPrimitive: Primitive<TabsProps, 'div'> = (
 ) => {
   const groupId = useStableId(); // groupId is used to ensure uniqueness between Tab Groups in IDs
   const isControlled = controlledValue !== undefined;
-  if (defaultValue && typeof defaultValue === 'string') {
-    defaultValue = defaultValue.replace(' ', WHITESPACE_VALUE); // remove whitespace from defaultValue
-  }
   const [localValue, setLocalValue] = React.useState(() =>
     isControlled ? controlledValue : defaultValue
   );

@@ -19,9 +19,7 @@ const TabsItemPrimitive: Primitive<TabsItemProps, 'button'> = (
   ref
 ) => {
   const { activeTab, setActiveTab, groupId } = React.useContext(TabsContext);
-  if (value && typeof value === 'string') {
-    value = value.replace(' ', WHITESPACE_VALUE);
-  }
+  const idValue = value.replace(' ', WHITESPACE_VALUE);
   const isActive = activeTab === value;
   const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (isTypedFunction(onClick)) {
@@ -34,9 +32,9 @@ const TabsItemPrimitive: Primitive<TabsItemProps, 'button'> = (
       {...rest}
       role={role}
       as={as}
-      id={`${groupId}-tab-${value}`}
+      id={`${groupId}-tab-${idValue}`}
       aria-selected={isActive}
-      aria-controls={`${groupId}-panel-${value}`}
+      aria-controls={`${groupId}-panel-${idValue}`}
       tabIndex={!isActive ? -1 : undefined}
       className={classNames(
         ComponentClassName.TabsItem,

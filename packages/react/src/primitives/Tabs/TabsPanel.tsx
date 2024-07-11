@@ -17,15 +17,15 @@ const TabPanelPrimitive: Primitive<TabsPanelProps, 'div'> = (
   const { activeTab, isLazy, groupId } = React.useContext(TabsContext);
 
   if (isLazy && activeTab !== value) return null;
-  if (value && typeof value === 'string') {
-    value = value.replace(' ', WHITESPACE_VALUE);
-  }
+
+  const idValue = value.replace(' ', WHITESPACE_VALUE);
+
   return (
     <View
       {...rest}
       role={role}
-      id={`${groupId}-panel-${value}`}
-      aria-labelledby={`${groupId}-tab-${value}`}
+      id={`${groupId}-panel-${idValue}`}
+      aria-labelledby={`${groupId}-tab-${idValue}`}
       className={classNames(
         ComponentClassName.TabsPanel,
         classNameModifierByFlag(
