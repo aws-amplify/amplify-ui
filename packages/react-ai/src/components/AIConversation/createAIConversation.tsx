@@ -1,50 +1,32 @@
 import React from 'react';
-import { Conversation, Messages, SuggestedPrompts, Avatar } from './views';
-import { ElementsProvider } from '@aws-amplify/ui-react/internal';
-import { ButtonElement, ParagraphElement, ViewElement } from './types';
 
-interface AIConversationElements {
-  View: typeof ViewElement;
-  Button: typeof ButtonElement;
-  Paragraph: typeof ParagraphElement;
-}
+import { AIConversationElements } from './context/elements';
+import { Controls, CreateAIConversationInput, AIConversation } from './types';
+import createProvider from './createProvider';
+import Conversation from './Views/ConversationView';
+import SuggestedPrompts from './Views/SuggestedPrompts';
 
-interface AIConversationInput<T extends AIConversationElements> {
-  elements?: T;
-}
-
-interface AIConversation {
-  (): JSX.Element;
-  Conversation: typeof Conversation;
-  Messages: typeof Messages;
-  SuggestedPrompts: typeof SuggestedPrompts;
-  Avatar: typeof Avatar;
-}
-
-export function createAIConversation<T extends AIConversationElements>(
-  input: AIConversationInput<T>
-): {
-  AIConversation: AIConversation;
+export default function createAIConversation<
+  T extends Partial<AIConversationElements>,
+>({ elements }: CreateAIConversationInput<T> = {}): {
+  AIConversation: AIConversation<T>;
 } {
-  const { elements } = input;
-
-  const Provider = ({ children }: { children?: React.ReactNode }) => (
-    <ElementsProvider elements={elements}>{children}</ElementsProvider>
-  );
+  const Provider = createProvider({ elements });
 
   function AIConversation(): JSX.Element {
     return (
       <Provider>
-        <Conversation />
+        <div>Hello world</div>
       </Provider>
     );
   }
 
-  AIConversation.Provider = Provider;
+  // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
+  const Controls: Controls<T> = { Messages: MessagesControl };
+
+  AIConversation.Controls = Controls;
   AIConversation.Conversation = Conversation;
-  AIConversation.Messages = Messages;
   AIConversation.SuggestedPrompts = SuggestedPrompts;
-  AIConversation.Avatar = Avatar;
 
   return { AIConversation };
 }

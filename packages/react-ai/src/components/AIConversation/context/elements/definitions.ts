@@ -4,6 +4,7 @@ export interface AIConversationElements {
   Button: typeof ButtonElement;
   Icon: typeof IconElement;
   Image: typeof ImageElement;
+  Span: typeof SpanElement;
   Text: typeof TextElement;
   View: typeof ViewElement;
 }
@@ -29,6 +30,11 @@ export const ImageElement = defineBaseElement({
   displayName: 'Image',
 });
 
+export const SpanElement = defineBaseElement({
+  type: 'span',
+  displayName: 'Span',
+});
+
 export const TextElement = defineBaseElement({
   type: 'p',
   displayName: 'Text',
@@ -43,6 +49,7 @@ export const AIConversationElements: AIConversationElements = {
   Button: ButtonElement,
   Icon: IconElement,
   Image: ImageElement,
+  Span: SpanElement,
   Text: TextElement,
   View: ViewElement,
 };

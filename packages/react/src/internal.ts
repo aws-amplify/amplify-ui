@@ -12,9 +12,3 @@ export { useDropZone } from './primitives/DropZone/useDropZone';
 export { Field } from './primitives/Field';
 
 export { PrimitiveCatalog } from './PrimitiveCatalog';
-
-export {
-  ElementsProvider,
-  defineBaseElement,
-  withBaseElementProps,
-} from './context/elements';

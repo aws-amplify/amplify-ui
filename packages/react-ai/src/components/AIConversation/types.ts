@@ -1,72 +1,54 @@
-import { defineBaseElement } from '@aws-amplify/ui-react/internal';
+import React from 'react';
 
-export const ViewElement = defineBaseElement({
-  displayName: 'View',
-  type: 'div',
-});
-
-export const ButtonElement = defineBaseElement({
-  displayName: 'Button',
-  type: 'button',
-});
-
-export const ParagraphElement = defineBaseElement({
-  displayName: 'Paragraph',
-  type: 'p',
-});
-
-export const IconElement = defineBaseElement({
-  displayName: 'Icon',
-  type: 'svg',
-});
-
-export const ImageElement = defineBaseElement({
-  displayName: 'Image',
-  type: 'img',
-});
-
-export interface ButtonElementProps
-  extends React.AriaAttributes,
-    React.RefAttributes<HTMLButtonElement> {
-  children?: React.ReactNode;
-  className?: string;
-  disabled?: boolean;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  type?: 'button' | 'reset' | 'submit';
-  variant?: 'search-submit' | 'toggle-menu';
+import { AIConversationElements } from './context/elements';
+import { MessagesControl } from './Views/Controls';
+export interface Controls<T extends Partial<AIConversationElements>> {
+  (): React.JSX.Element;
+  Messages: MessagesControl<T>;
 }
 
-export interface ViewElementProps
-  extends React.AriaAttributes,
-    React.RefAttributes<HTMLDivElement> {
-  children?: React.ReactNode;
-  className?: string;
+export interface CreateAIConversationInput<
+  T extends Partial<AIConversationElements>,
+> {
+  elements?: T;
 }
 
-export interface ParagraphElementProps
-  extends React.AriaAttributes,
-    React.RefAttributes<HTMLParagraphElement> {
-  children?: React.ReactNode;
-  className?: string;
+export interface AIConversation<T extends Partial<AIConversationElements>> {
+  (): JSX.Element;
+  Conversation: () => React.JSX.Element;
+  Controls: Controls<T>;
+  SuggestedPrompts: () => React.JSX.Element;
 }
 
-export interface ParagraphElementProps
-  extends React.AriaAttributes,
-    React.RefAttributes<HTMLParagraphElement> {
-  children?: React.ReactNode;
-  className?: string;
+export type Avatar = {
+  username?: string;
+  avatar?: React.ReactNode;
+};
+
+export type Avatars = {
+  user: Avatar;
+  ai: Avatar;
+};
+
+export interface ImageContent {
+  format: 'png' | 'jpeg' | 'gif' | 'webp';
+  bytes: ArrayBuffer;
 }
 
-export interface IconElementProps
-  extends React.AriaAttributes,
-    React.RefAttributes<HTMLOrSVGElement> {
-  children?: React.ReactNode;
-  className?: string;
-}
+export type Content = {
+  type: 'text' | 'image';
+  value: string | ImageContent;
+};
 
-export interface ImageElementProps
-  extends React.AriaAttributes,
-    React.RefAttributes<HTMLImageElement> {
-  children?: React.ReactNode;
-  className?: string;
+export type Message = {
+  id: string;
+  content: Content;
+  role: 'user' | 'assistant';
+  timestamp: Date;
+};
+
+export interface CustomAction {
+  displayName: string;
+  handler: (message: Message) => void;
+  icon: React.ReactNode;
 }

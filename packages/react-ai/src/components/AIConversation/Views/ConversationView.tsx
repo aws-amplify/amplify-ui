@@ -1,14 +1,10 @@
 import React from 'react';
-import { ParagraphElement as Paragraph, ViewElement as View } from '../types';
 
-//         //         display: 'flex',
-//         //         flexDirection: 'row',
-//         //         justifyContent: 'space-between',
-//         //         border: '1px solid rgba(220, 222, 224, 1)',
-//         //         borderRadius: '16px 16px 0px 0px',
-//         //         padding: '0px 16px',
-//         //         boxShadow: '0px 12px 30px 0px rgba(0, 0, 0, 0.07)',
-//         //         backgroundColor: 'rgba(250, 250, 250, 1)',
+import { AIConversationElements } from '../context/elements';
+import { MessagesControl } from './Controls/MessagesControl';
+import { actions, avatars, messages } from '../mocks/mocks';
+
+const { View, Text } = AIConversationElements;
 
 export default function Conversation(): JSX.Element {
   return (
@@ -19,7 +15,7 @@ export default function Conversation(): JSX.Element {
       }}
     >
       <View>
-        <Paragraph>Header title</Paragraph>
+        <Text>Header title</Text>
       </View>
       <View
         style={{
@@ -29,7 +25,11 @@ export default function Conversation(): JSX.Element {
           height: '300px',
         }}
       >
-        messages subcomponent
+        <MessagesControl
+          actions={actions}
+          avatars={avatars}
+          messages={messages}
+        />
       </View>
       <View
         style={{
