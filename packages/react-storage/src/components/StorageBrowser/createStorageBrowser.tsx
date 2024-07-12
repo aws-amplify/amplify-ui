@@ -2,7 +2,12 @@ import React from 'react';
 
 import { StorageBrowserElements } from './context/elements';
 import createProvider from './createProvider';
-import { LocationDetailView, LocationsListView, SearchControl } from './Views';
+import {
+  ActionMenuControl,
+  LocationDetailView,
+  LocationsListView,
+  SearchControl,
+} from './Views';
 import { Controls, CreateStorageBrowserInput, StorageBrowser } from './types';
 
 export default function createStorageBrowser<
@@ -23,7 +28,10 @@ export default function createStorageBrowser<
   }
 
   // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
-  const Controls: Controls<T> = { Search: SearchControl };
+  const Controls: Controls<T> = {
+    ActionMenu: ActionMenuControl,
+    Search: SearchControl,
+  };
 
   StorageBrowser.Provider = Provider;
   StorageBrowser.LocationsListView = LocationsListView;
