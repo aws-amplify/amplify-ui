@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { act, getByRole, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
-import * as UI from '@aws-amplify/ui';
 import { useAuthenticator, UseAuthenticator } from '@aws-amplify/ui-react-core';
 
 import { VerifyUser } from '..';
