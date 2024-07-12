@@ -3,7 +3,7 @@ import React from 'react';
 import { StorageBrowserElements } from './context/elements';
 import createProvider from './createProvider';
 import {
-  BreadcrumbsControl,
+  HistoryControl,
   LocationDetailView,
   LocationsListView,
   SearchControl,
@@ -29,7 +29,7 @@ export default function createStorageBrowser<
 
   const Controls: Controls<T> = {
     // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
-    Breadcrumbs: BreadcrumbsControl,
+    History: HistoryControl,
     Search: SearchControl,
   };
 

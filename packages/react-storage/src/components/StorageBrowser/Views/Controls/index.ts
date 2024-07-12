@@ -1,2 +1,2 @@
-export { BreadcrumbsControl } from './BreadcrumbsControl';
+export { HistoryControl } from './HistoryControl';
 export { SearchControl } from './SearchControl';

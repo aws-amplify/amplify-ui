@@ -22,7 +22,7 @@ const items = [
 export default function Example() {
   return (
     <StorageBrowser.Provider>
-      <StorageBrowser.Controls.Breadcrumbs items={items} />
+      <StorageBrowser.Controls.History items={items} />
       <StorageBrowser.Controls.Search />
     </StorageBrowser.Provider>
   );
