@@ -18,6 +18,7 @@ export interface BreadcrumbsControlProps {
 export interface BreadcrumbsControl<
   T extends Partial<StorageBrowserElements> = StorageBrowserElements,
 > {
+  /* ???? Where/how should we define these top level props */
   ({ items }: BreadcrumbsControlProps): React.JSX.Element;
   Container: T['Nav'];
   Item: T['ListItem'];
