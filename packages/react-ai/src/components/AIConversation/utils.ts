@@ -19,6 +19,6 @@ export function convertBufferToBase64(
   buffer: ArrayBuffer,
   format: ImageContent['format']
 ): string {
-  const blob = new Blob([buffer], { type: `image/${format}` });
-  return URL.createObjectURL(blob);
+  const base64string = Buffer.from(new Uint8Array(buffer)).toString('base64');
+  return `data:image/${format};base64,${base64string}`;
 }
