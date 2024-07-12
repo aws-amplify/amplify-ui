@@ -1,10 +1,11 @@
 import React from 'react';
 
 import { StorageBrowserElements } from './context/elements';
-import { SearchControl } from './Views';
+import { SearchControl, BreadcrumbsControl } from './Views';
 
 export interface Controls<T extends Partial<StorageBrowserElements>> {
   (): React.JSX.Element;
+  Breadcrumbs: BreadcrumbsControl<T>;
   Search: SearchControl<T>;
 }
 

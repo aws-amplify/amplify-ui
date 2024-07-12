@@ -13,9 +13,16 @@ const elements = { Input: TextField, View: Flex, Icon, Button, Span: Flex };
 
 const { StorageBrowser } = createStorageBrowser({ elements });
 
+const items = [
+  { label: 'Home' },
+  { label: 'SomeLocation' },
+  { label: 'Some folder' },
+];
+
 export default function Example() {
   return (
     <StorageBrowser.Provider>
+      <StorageBrowser.Controls.Breadcrumbs items={items} />
       <StorageBrowser.Controls.Search />
     </StorageBrowser.Provider>
   );
