@@ -29,17 +29,24 @@ const {
 const generateRadioGroup = (
   attributes: UnverifiedUserAttributes
 ): JSX.Element[] => {
-  return Object.entries(attributes).map(([key, value]: [string, string]) => {
-    const verificationType = (
-      defaultFormFieldOptions[key] as { label: ContactMethod }
-    ).label;
-    return (
-      <Radio name="unverifiedAttr" value={key} key={key}>
-        {translate(verificationType)}:{' '}
-        {censorContactMethod(verificationType, value)}
-      </Radio>
-    );
-  });
+  return Object.entries(attributes).map(
+    ([key, value]: [string, string], index) => {
+      const verificationType = (
+        defaultFormFieldOptions[key] as { label: ContactMethod }
+      ).label;
+      return (
+        <Radio
+          name="unverifiedAttr"
+          value={key}
+          key={key}
+          {...(index === 0 ? { checked: true } : null)}
+        >
+          {translate(verificationType)}:{' '}
+          {censorContactMethod(verificationType, value)}
+        </Radio>
+      );
+    }
+  );
 };
 
 export const VerifyUser = ({
