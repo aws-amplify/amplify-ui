@@ -5,7 +5,7 @@ import { AIConversationElements } from '../../context/elements';
 
 const { View, Button, Icon, Text } = AIConversationElements;
 
-const HEADER_BLOCK = 'header';
+const HEADER_BLOCK = 'ai-header';
 
 const HeaderTextBase = withBaseElementProps(Text, {
   className: `${HEADER_BLOCK}__text`,
