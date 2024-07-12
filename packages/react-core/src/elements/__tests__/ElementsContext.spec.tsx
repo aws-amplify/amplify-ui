@@ -9,7 +9,7 @@ const ViewElement = () => <button />;
 const elements = { Button: ButtonElement, View: ViewElement };
 
 describe('ElementsContext', () => {
-  it('`useElement` reads `BaseElement` values passed to `ElementsProvider`', () => {
+  it('provides the value of `ElementsContext` to consumers', () => {
     const wrapper = ({ children }: { children?: React.ReactNode }) => (
       <ElementsProvider elements={elements}>{children}</ElementsProvider>
     );
