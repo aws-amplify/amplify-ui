@@ -23,7 +23,7 @@ export const ElementsContext = React.createContext<Elements | undefined>(
  *
  * @example
  *
- * Add `ElemntsContext` aware `BaseElement` components to a Connected
+ * Add `ElementsContext` aware `BaseElement` components to a Connected
  * Component
  *
  * ```tsx
