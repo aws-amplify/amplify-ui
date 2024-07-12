@@ -1,13 +1,7 @@
 import React from 'react';
 import { Conversation, Messages, SuggestedPrompts, Avatar } from './views';
-import { ElementsProvider } from '@aws-amplify/ui-react/internal';
-import { ButtonElement, ParagraphElement, ViewElement } from './types';
-
-interface AIConversationElements {
-  View: typeof ViewElement;
-  Button: typeof ButtonElement;
-  Paragraph: typeof ParagraphElement;
-}
+import { AIConversationElements } from './context/elements';
+import createProvider from './createProvider';
 
 interface AIConversationInput<T extends AIConversationElements> {
   elements?: T;
@@ -22,15 +16,13 @@ interface AIConversation {
 }
 
 export function createAIConversation<T extends AIConversationElements>(
-  input: AIConversationInput<T>
+  input: AIConversationInput<T> = {}
 ): {
   AIConversation: AIConversation;
 } {
   const { elements } = input;
 
-  const Provider = ({ children }: { children?: React.ReactNode }) => (
-    <ElementsProvider elements={elements}>{children}</ElementsProvider>
-  );
+  const Provider = createProvider({ elements });
 
   function AIConversation(): JSX.Element {
     return (

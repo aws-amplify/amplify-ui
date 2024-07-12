@@ -1,5 +1,6 @@
 import React from 'react';
-import { ParagraphElement as Paragraph, ViewElement as View } from '../types';
+import { ViewElement as View } from '../context/elements/definitions';
+import { HeaderControl } from './Controls/HeaderControl';
 
 //         //         display: 'flex',
 //         //         flexDirection: 'row',
@@ -18,9 +19,7 @@ export default function Conversation(): JSX.Element {
         height: '344px',
       }}
     >
-      <View>
-        <Paragraph>Header title</Paragraph>
-      </View>
+      <HeaderControl title={'Chat'} />
       <View
         style={{
           borderLeft: '1px solid rgba(220, 222, 224, 1)',
