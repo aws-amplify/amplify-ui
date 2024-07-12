@@ -1,7 +1,7 @@
 import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
-import { CustomAction } from '../../types';
+import { CustomAction, Message } from '../../types';
 import { AIConversationElements } from '../../context/elements';
 const { Icon, Button, View } = AIConversationElements;
 
@@ -41,11 +41,11 @@ const Container = withBaseElementProps(View, {
   className: `${ACTIONS_BAR_BLOCK}__container`,
 });
 
-export const ActionsBarControl: ActionsBarControl = ({ actions }) => {
+export const ActionsBarControl: ActionsBarControl = ({ actions, message }) => {
   return (
     <Container>
       {actions.map((action, index) => (
-        <ActionButton key={index} onClick={action.handler}>
+        <ActionButton key={index} onClick={() => action.handler(message)}>
           <ActionIcon>{action.icon}</ActionIcon>
         </ActionButton>
       ))}
@@ -60,7 +60,7 @@ ActionsBarControl.Icon = ActionIcon;
 export interface ActionsBarControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
 > {
-  (props: { actions: CustomAction[] }): React.JSX.Element;
+  (props: { actions: CustomAction[]; message: Message }): React.JSX.Element;
   Button: T['Button'];
   Container: T['View'];
   Icon: T['Icon'];

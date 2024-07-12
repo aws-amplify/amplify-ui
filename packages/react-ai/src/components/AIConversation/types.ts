@@ -1,14 +1,24 @@
 import React from 'react';
 
 import { AIConversationElements } from './context/elements';
-import { MessagesControl } from './Views/Controls';
+import {
+  ActionsBarControl,
+  AvatarControl,
+  HeaderControl,
+  MessagesControl,
+} from './Views';
 
-export interface Controls<T extends Partial<AIConversationElements>> {
+export interface Controls<
+  T extends Partial<AIConversationElements> = AIConversationElements,
+> {
   (): React.JSX.Element;
+  Avatars: AvatarControl<T>;
+  ActionsBar: ActionsBarControl<T>;
+  Header: HeaderControl<T>;
   Messages: MessagesControl<T>;
 }
 
-export interface CreateAIConversationInput<
+export interface AIConversationInput<
   T extends Partial<AIConversationElements>,
 > {
   elements?: T;

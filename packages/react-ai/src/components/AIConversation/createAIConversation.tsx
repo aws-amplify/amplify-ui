@@ -1,17 +1,23 @@
 import React from 'react';
-
-import { Controls, CreateAIConversationInput, AIConversation } from './types';
+import { Controls, AIConversationInput, AIConversation } from './types';
+import {
+  ActionsBarControl,
+  AvatarControl,
+  Conversation,
+  HeaderControl,
+  MessagesControl,
+  SuggestedPrompts,
+} from './Views';
 import { AIConversationElements } from './context/elements';
 import createProvider from './createProvider';
-import Conversation from './Views/ConversationView';
-import SuggestedPrompts from './Views/SuggestedPrompts';
-import { MessagesControl } from './Views/Controls/MessagesControl';
 
-export default function createAIConversation<
-  T extends Partial<AIConversationElements>,
->({ elements }: CreateAIConversationInput<T> = {}): {
+export function createAIConversation<T extends AIConversationElements>(
+  input: AIConversationInput<T> = {}
+): {
   AIConversation: AIConversation<T>;
 } {
+  const { elements } = input;
+
   const Provider = createProvider({ elements });
 
   function AIConversation(): JSX.Element {
@@ -22,7 +28,12 @@ export default function createAIConversation<
     );
   }
 
-  const Controls: Controls<T> = { Messages: MessagesControl };
+  const Controls: Controls<T> = {
+    ActionsBar: ActionsBarControl,
+    Avatars: AvatarControl,
+    Header: HeaderControl,
+    Messages: MessagesControl,
+  };
 
   AIConversation.Provider = Provider;
   AIConversation.Controls = Controls;

@@ -71,7 +71,7 @@ export const MessagesControl: MessagesControl = ({
           />
           <Timestamp>{formatDate(message.timestamp)}</Timestamp>
           <MessageControl message={message} />
-          <ActionsBarControl actions={actions} />
+          <ActionsBarControl actions={actions} message={message} />
         </Container>
       ))}
     </Layout>

@@ -3,7 +3,10 @@ import React from 'react';
 import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 
 import { AIConversationElements } from './context/elements';
-import { CreateAIConversationInput } from './types';
+
+interface CreateAIConversationInput<T> {
+  elements?: T;
+}
 
 export default function createProvider<
   T extends Partial<AIConversationElements>,

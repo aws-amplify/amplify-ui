@@ -1,3 +1,3 @@
-import createAIConversation from './createAIConversation';
+import { createAIConversation } from './createAIConversation';
 
 export { createAIConversation };

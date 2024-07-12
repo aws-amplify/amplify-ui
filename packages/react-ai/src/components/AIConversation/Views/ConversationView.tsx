@@ -1,10 +1,11 @@
 import React from 'react';
+import { HeaderControl } from './Controls/HeaderControl';
 
 import { AIConversationElements } from '../context/elements';
 import { MessagesControl } from './Controls/MessagesControl';
 import { actions, avatars, messages } from '../mocks/mocks';
 
-const { View, Text } = AIConversationElements;
+const { View } = AIConversationElements;
 
 export default function Conversation(): JSX.Element {
   return (
@@ -14,9 +15,7 @@ export default function Conversation(): JSX.Element {
         height: '344px',
       }}
     >
-      <View>
-        <Text>Header title</Text>
-      </View>
+      <HeaderControl title={'Chat'} />
       <View
         style={{
           borderLeft: '1px solid rgba(220, 222, 224, 1)',

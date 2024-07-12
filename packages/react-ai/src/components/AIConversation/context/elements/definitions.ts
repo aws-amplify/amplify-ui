@@ -2,15 +2,56 @@ import { defineBaseElement } from '@aws-amplify/ui-react-core/elements';
 
 export interface AIConversationElements {
   Button: typeof ButtonElement;
+  Heading: typeof HeadingElement;
   Icon: typeof IconElement;
   Image: typeof ImageElement;
+  Input: typeof InputElement;
+  ListItem: typeof ListItemElement;
   Span: typeof SpanElement;
   Text: typeof TextElement;
+  UnorderedList: typeof UnorderedListElement;
   View: typeof ViewElement;
 }
 
+type IconVariant = 'send-message' | 'attach';
+
+export const TextElement = defineBaseElement({
+  type: 'p',
+  displayName: 'Text',
+});
+
+export const UnorderedListElement = defineBaseElement({
+  type: 'ul',
+  displayName: 'UnorderedList',
+});
+
+export const ListItemElement = defineBaseElement({
+  type: 'li',
+  displayName: 'ListItem',
+});
+
+export const HeadingElement = defineBaseElement({
+  type: 'h2',
+  displayName: 'Title',
+});
+
+export const IconElement = defineBaseElement<'svg', never, IconVariant>({
+  type: 'svg',
+  displayName: 'Icon',
+});
+
+export const ImageElement = defineBaseElement<'img'>({
+  type: 'img',
+  displayName: 'Image',
+});
+
+export const InputElement = defineBaseElement<'input', 'type'>({
+  type: 'input',
+  displayName: 'Input',
+});
+
 type ButtonElementProps = 'onClick' | 'type';
-type ButtonElementVariant = 'custom-action' | 'message-submit';
+type ButtonElementVariant = 'send-message' | 'attach';
 
 export const ButtonElement = defineBaseElement<
   'button',
@@ -18,16 +59,9 @@ export const ButtonElement = defineBaseElement<
   ButtonElementVariant
 >({ type: 'button', displayName: 'Button' });
 
-type IconVariant = 'avatar' | 'custom-action';
-
-export const IconElement = defineBaseElement<'svg', never, IconVariant>({
-  type: 'svg',
-  displayName: 'Icon',
-});
-
-export const ImageElement = defineBaseElement({
-  type: 'img',
-  displayName: 'Image',
+export const ViewElement = defineBaseElement({
+  type: 'div',
+  displayName: 'View',
 });
 
 export const SpanElement = defineBaseElement({
@@ -35,21 +69,15 @@ export const SpanElement = defineBaseElement({
   displayName: 'Span',
 });
 
-export const TextElement = defineBaseElement({
-  type: 'p',
-  displayName: 'Text',
-});
-
-export const ViewElement = defineBaseElement({
-  type: 'div',
-  displayName: 'View',
-});
-
 export const AIConversationElements: AIConversationElements = {
   Button: ButtonElement,
+  Heading: HeadingElement,
   Icon: IconElement,
+  Input: InputElement,
   Image: ImageElement,
+  ListItem: ListItemElement,
   Span: SpanElement,
   Text: TextElement,
+  UnorderedList: UnorderedListElement,
   View: ViewElement,
 };
