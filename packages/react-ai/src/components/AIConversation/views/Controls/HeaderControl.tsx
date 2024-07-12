@@ -40,7 +40,6 @@ const CloseButtonBase = withBaseElementProps(Button, {
 
 const CloseButton: typeof CloseButtonBase = React.forwardRef(
   function CloseButton(props, ref) {
-    // search handler/type="submit" (TBD), disabled logic here
     return <CloseButtonBase {...props} ref={ref} />;
   }
 );
