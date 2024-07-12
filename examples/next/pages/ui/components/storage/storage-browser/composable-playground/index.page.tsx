@@ -17,6 +17,7 @@ export default function Example() {
   return (
     <StorageBrowser.Provider>
       <StorageBrowser.Controls.Search />
+      <StorageBrowser.Controls.Refresh />
     </StorageBrowser.Provider>
   );
 }
