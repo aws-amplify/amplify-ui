@@ -19,7 +19,7 @@ export default function Conversation(): JSX.Element {
         height: '344px',
       }}
     >
-      <HeaderControl title={'Chat'} />
+      <HeaderControl />
       <View
         style={{
           borderLeft: '1px solid rgba(220, 222, 224, 1)',

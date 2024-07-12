@@ -48,9 +48,9 @@ const Container = withBaseElementProps(View, {
   className: `${HEADER_BLOCK}__container`,
 });
 
-export const HeaderControl: HeaderControl = ({ title }) => (
+export const HeaderControl: HeaderControl = () => (
   <Container>
-    <HeaderText>{title}</HeaderText>
+    <HeaderText>Raven Chat</HeaderText>
     <CloseButton>
       <CloseIcon />
     </CloseButton>
@@ -64,7 +64,7 @@ HeaderControl.Button = CloseButton;
 export interface HeaderControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
 > {
-  (props: { title: string }): React.JSX.Element;
+  (): React.JSX.Element;
   Container: T['View'];
   Button: T['Button'];
   Text: T['Text'];
