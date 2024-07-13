@@ -64,6 +64,14 @@ describe('VerifyUser', () => {
     mathRandomSpy.mockRestore();
   });
 
+  it('selects the first radio element as the default option', async () => {
+    render(VerifyUser, { global: { components } });
+
+    const radioField = await screen.findByLabelText('Email: t**t@example.com');
+
+    expect(radioField).toBeChecked();
+  });
+
   it('sends change event on form input', async () => {
     render(VerifyUser, { global: { components } });
 
