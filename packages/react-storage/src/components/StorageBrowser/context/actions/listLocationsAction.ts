@@ -5,9 +5,8 @@ import {
   ListActionOptions,
   ListActionOutput,
   LocationAccess,
-  LocationType,
   Permission,
-} from './types';
+} from '../types';
 
 export interface ListLocationsActionOptions<T>
   extends Omit<ListActionOptions<T>, 'delimiter'> {}
@@ -26,13 +25,6 @@ export type ListLocationsAction<T = never> = (
   input: ListLocationsActionInput<T>
 ) => Promise<ListLocationsActionOutput<Exclude<Permission, T>>>;
 
-export interface LocationData<T = Permission> {
-  bucket: string;
-  permission: T;
-  prefix: string;
-  type: LocationType;
-}
-
 const shouldExclude = <T extends Permission>(
   permission: T,
   exclude?: T | T[]
@@ -40,8 +32,8 @@ const shouldExclude = <T extends Permission>(
   !exclude
     ? false
     : typeof exclude === 'string'
-      ? exclude === permission
-      : exclude.includes(permission);
+    ? exclude === permission
+    : exclude.includes(permission);
 
 export const createListLocationsAction = (
   listLocations: ListLocations

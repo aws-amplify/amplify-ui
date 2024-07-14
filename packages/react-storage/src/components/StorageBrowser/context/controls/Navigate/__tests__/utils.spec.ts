@@ -1,4 +1,4 @@
-import { LocationAccess, LocationData } from '../../../actions/types';
+import { LocationAccess, LocationData } from '../../../types';
 import { parseLocationAccess } from '../utils';
 
 const bucket = 'test-bucket';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LocationAccess } from '../../actions/types';
+import { LocationAccess } from '../../types';
 import { parseLocationAccess } from './utils';
 
 const INITIAL_STATE = { location: undefined, history: [] };

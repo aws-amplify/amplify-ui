@@ -1,4 +1,4 @@
-import { LocationAccess, LocationData } from '../../actions/types';
+import { LocationAccess, LocationData } from '../../types';
 
 export const parseLocationAccess = (location: LocationAccess): LocationData => {
   const { permission, scope, type } = location;

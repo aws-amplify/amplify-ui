@@ -9,6 +9,7 @@ const config = {
   getLocationCredentials: jest.fn(),
   listLocations,
   region: 'region',
+  registerAuthListener: jest.fn(),
 };
 
 describe('createStorageBrowser', () => {
@@ -19,4 +20,6 @@ describe('createStorageBrowser', () => {
       expect(render(<StorageBrowser />).container).toBeDefined();
     });
   });
+
+  it.todo('throws when registerAuthListener is not a function');
 });

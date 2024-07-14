@@ -10,7 +10,7 @@ type ContextProvider = (props: {
   children?: React.ReactNode;
 }) => React.JSX.Element;
 
-export type ActionState<T, K> = [
+export type ActionState<T = any, K = any> = [
   state: DataState<T>,
   handleAction: (...input: K[]) => void,
 ];
@@ -132,10 +132,15 @@ const createContexts = <T extends DataActions>(actions: T) =>
     {} as ActionContexts<T>
   );
 
+export type ActionStateContext<T> = [
+  Provider: ActionProvider<InitialValue<T>>,
+  useAction: UseAction<T>,
+];
+
 export function createActionStateContext<T extends DataActions>(
   actions: T,
   errorMessage: string
-): [Provider: ActionProvider<InitialValue<T>>, useAction: UseAction<T>] {
+): ActionStateContext<T> {
   const contexts = createContexts(actions);
 
   return [

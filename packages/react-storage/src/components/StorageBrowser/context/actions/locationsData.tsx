@@ -8,7 +8,7 @@ import {
   ListLocationsActionInput,
   ListLocationsActionOutput,
 } from './listLocationsAction';
-import { Permission } from './types';
+import { Permission } from '../types';
 
 export type LocationsDataState = ActionState<
   ListLocationsActionOutput,

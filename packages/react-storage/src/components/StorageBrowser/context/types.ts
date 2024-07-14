@@ -31,7 +31,7 @@ export interface LocationData<T = Permission> {
   type: LocationType;
 }
 
-interface LocationConfig {
+export interface LocationConfig {
   bucket: string;
   credentialsProvider: LocationCredentialsProvider;
   region: string;

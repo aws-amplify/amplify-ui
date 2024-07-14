@@ -1,11 +1,19 @@
 import React from 'react';
 import { MergeBaseElements } from '@aws-amplify/ui-react-core/elements';
 
-import { Permission } from './context/actions/types';
+import { Permission } from './context/types';
 import { StorageBrowserElements } from './context/elements';
 import createProvider, { CreateProviderInput } from './createProvider';
 import { LocationsView, LocationDetailView, LocationActionView } from './Views';
 import { useControl } from './context/controls';
+
+const validateRegisterAuthListener = (registerAuthListener: any) => {
+  if (typeof registerAuthListener !== 'function') {
+    throw new Error(
+      'StorageManager: `registerAuthListener` must be a function. '
+    );
+  }
+};
 
 export interface CreateStorageBrowserInput<T, K>
   extends CreateProviderInput<T, K> {}
@@ -52,6 +60,8 @@ export function createStorageBrowser<
 ): {
   StorageBrowser: StorageBrowser<ResolvedStorageBrowserElements<T>>;
 } {
+  validateRegisterAuthListener(input.config.registerAuthListener);
+
   const Provider = createProvider(input);
 
   const StorageBrowser: StorageBrowser<

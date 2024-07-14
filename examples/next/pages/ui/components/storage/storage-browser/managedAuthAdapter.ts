@@ -1,12 +1,15 @@
-import { createManagedAuthConfigAdapter } from '@aws-amplify/storage/storage-browser';
+import {
+  createManagedAuthConfigAdapter,
+  CreateManagedAuthConfigAdapterInput,
+} from '@aws-amplify/storage/storage-browser';
 
-type CredentialsProvider = Parameters<
-  typeof createManagedAuthConfigAdapter
->[0]['credentialsProvider'];
+type CredentialsProvider =
+  CreateManagedAuthConfigAdapterInput['credentialsProvider'];
 type Credentials = Awaited<ReturnType<CredentialsProvider>>;
 
 class Auth {
   #credentials: Credentials | undefined;
+  #onAuthStatusChange: () => void | undefined;
 
   #getCredentials(): Credentials {
     return this.#credentials;
@@ -16,7 +19,7 @@ class Auth {
     this.#credentials = credentials;
   }
 
-  async #fetchCredentials(): ReturnType<CredentialsProvider> {
+  async #fetchCredentials(): Promise<Credentials> {
     const credentials = this.#getCredentials();
     if (credentials) {
       // eslint-disable-next-line no-console
@@ -55,12 +58,38 @@ class Auth {
   get credentialsProvider(): CredentialsProvider {
     return async () => await this.#fetchCredentials();
   }
+
+  registerAuthListener = (onAuthStatusChange: () => void) => {
+    this.#onAuthStatusChange = onAuthStatusChange;
+  };
+
+  async signIn(input?: {
+    onSignIn?: () => void;
+    onError?: (e: Error) => void;
+  }): Promise<void> {
+    const { onError, onSignIn } = input ?? {};
+    try {
+      await this.#fetchCredentials();
+      onSignIn?.();
+    } catch (e) {
+      onError?.(e);
+    }
+  }
+
+  signOut(input?: { onSignOut?: () => void }) {
+    this.#credentials = undefined;
+    this.#onAuthStatusChange?.();
+    input?.onSignOut();
+  }
 }
 
 export const auth = new Auth();
 
-export const managedAuthAdapter = createManagedAuthConfigAdapter({
-  credentialsProvider: auth.credentialsProvider,
-  region: process.env.NEXT_PUBLIC_MANAGED_AUTH_REGION,
-  accountId: process.env.NEXT_PUBLIC_MANAGED_AUTH_ACCOUNT_ID,
-});
+export const managedAuthAdapter = {
+  ...createManagedAuthConfigAdapter({
+    credentialsProvider: auth.credentialsProvider,
+    region: process.env.NEXT_PUBLIC_MANAGED_AUTH_REGION,
+    accountId: process.env.NEXT_PUBLIC_MANAGED_AUTH_ACCOUNT_ID,
+  }),
+  registerAuthListener: auth.registerAuthListener,
+};

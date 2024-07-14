@@ -6,8 +6,12 @@ import {
 
 import { StorageSubpathStrategy } from '@aws-amplify/storage/storage-browser';
 
-import { LocationItem } from './types';
-import { ListActionInput, ListActionOptions, ListActionOutput } from './types';
+import {
+  ListActionInput,
+  ListActionOptions,
+  ListActionOutput,
+  LocationItem,
+} from '../types';
 
 export interface ListLocationItemsActionInput
   extends ListActionInput<ListActionOptions> {}
