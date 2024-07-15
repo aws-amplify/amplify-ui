@@ -16,6 +16,7 @@ export interface RefreshControl<
 }
 
 const RefreshIcon = withBaseElementProps(Icon, {
+  'aria-hidden': true,
   children: <text fill="currentColor">refresh</text>,
   className: `${BLOCK_NAME}__icon`,
   width: '24',
