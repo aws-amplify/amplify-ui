@@ -9,13 +9,16 @@ const Icon = React.forwardRef<SVGSVGElement>(function IconSearch(props, ref) {
 });
 
 // test Amplify UI elements
-const elements = { Input: TextField, View: Flex, Icon, Button, Span: Flex };
+// const elements = { Input: TextField, View: Flex, Icon, Button, Span: Flex };
+
+const elements = {};
 
 const { StorageBrowser } = createStorageBrowser({ elements });
 
 export default function Example() {
   return (
     <StorageBrowser.Provider>
+      <StorageBrowser.Controls.ActionMenu />
       <StorageBrowser.Controls.Search />
     </StorageBrowser.Provider>
   );
