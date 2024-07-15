@@ -13,3 +13,36 @@
     border: none;
     background: none;
 }
+
+.ai-prompts__container {
+    border-left: 1px solid rgb(220, 222, 224);
+    border-right: 1px solid rgb(220, 222, 224);
+    padding: 0px 16px;
+}
+
+.ai-prompts__prompt__buttongroup {
+    display: flex;
+    gap: 8px;
+}
+
+.ai-prompts__prompt__card {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    border-radius: 8px;
+    border-width: 0px;
+    text-align: left;
+    white-space: nowrap;
+    padding: 12px;
+    cursor: pointer;
+}
+
+.ai-prompts__prompt__card__header {
+    font-weight: bold;
+}
+
+.ai-prompts__prompt__card__text {
+    margin: 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

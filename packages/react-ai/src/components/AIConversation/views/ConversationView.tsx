@@ -1,6 +1,6 @@
 import React from 'react';
 import { ViewElement as View } from '../context/elements/definitions';
-import { HeaderControl } from './Controls/HeaderControl';
+import { HeaderControl, PromptControl } from './Controls';
 
 //         //         display: 'flex',
 //         //         flexDirection: 'row',
@@ -12,6 +12,8 @@ import { HeaderControl } from './Controls/HeaderControl';
 //         //         backgroundColor: 'rgba(250, 250, 250, 1)',
 
 export default function Conversation(): JSX.Element {
+  const textInputRef = React.useRef<HTMLInputElement>();
+
   return (
     <View
       style={{
@@ -28,8 +30,9 @@ export default function Conversation(): JSX.Element {
           height: '300px',
         }}
       >
-        messages subcomponent
+        messages asdf
       </View>
+      <PromptControl textInputRef={textInputRef} />
       <View
         style={{
           border: '1px solid rgba(220, 222, 224, 1)',

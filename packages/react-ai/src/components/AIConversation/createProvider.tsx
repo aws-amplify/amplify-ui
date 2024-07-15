@@ -3,10 +3,22 @@ import React from 'react';
 import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 
 import { AIConversationElements } from './context/elements';
+import { SuggestedPromptProvider } from './context/SuggestedPromptsContext';
 
 interface CreateAIConversationInput<T> {
   elements?: T;
 }
+
+const MOCK_PROMPTS = [
+  {
+    header: 'Help me find a rental',
+    inputText: 'Find a rental with a pool',
+  },
+  {
+    header: 'Help me find a rental',
+    inputText: 'Find a rental with a basketball court',
+  }
+]
 
 export default function createProvider<
   T extends Partial<AIConversationElements>,
@@ -16,6 +28,12 @@ export default function createProvider<
   }: {
     children?: React.ReactNode;
   }): React.JSX.Element {
-    return <ElementsProvider elements={elements}>{children}</ElementsProvider>;
+    return (
+      <ElementsProvider elements={elements}>
+        <SuggestedPromptProvider suggestedPrompts={MOCK_PROMPTS} >
+          {children}
+        </SuggestedPromptProvider>
+      </ElementsProvider>
+    );
   };
 }
