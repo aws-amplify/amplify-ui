@@ -1,5 +1,5 @@
 import Avatar from './Avatar';
-import Conversation from './Conversation';
+import Conversation from './ConversationView';
 import Messages from './Messages';
 import SuggestedPrompts from './SuggestedPrompts';
 
