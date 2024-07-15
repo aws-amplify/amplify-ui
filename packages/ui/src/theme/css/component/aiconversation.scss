@@ -68,6 +68,7 @@
   padding: 3px;
   border: black 1px solid;
   display: flex;
+  overflow: hidden;
 }
 .ai-avatar__display-name {
   font-weight: 700;
@@ -96,4 +97,5 @@
   justify-content: center;
   align-items: center;
   gap: 4px;
+  overflow: hidden;
 }

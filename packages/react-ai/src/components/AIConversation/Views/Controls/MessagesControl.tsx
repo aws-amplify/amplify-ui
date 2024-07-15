@@ -30,7 +30,7 @@ const Timestamp = withBaseElementProps(Text, {
   className: `${MESSAGE_BLOCK}__timestamp`,
 });
 
-const MessageControl: MessageControl = ({ message, variant }) => {
+export const MessageControl: MessageControl = ({ message, variant }) => {
   return message.content.type === 'text' ? (
     <TextContent>{message.content.value}</TextContent>
   ) : (
@@ -80,7 +80,7 @@ export const MessagesControl: MessagesControl = ({
   return (
     <Layout>
       {messages.map((message, index) => (
-        <Container key={index}>
+        <Container key={`message-${index}`} test-id={`message`}>
           <HeaderContainer>
             <AvatarControl
               avatar={message.role === 'user' ? avatars.user : avatars.ai}

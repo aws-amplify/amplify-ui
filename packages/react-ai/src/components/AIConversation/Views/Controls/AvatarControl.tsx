@@ -9,8 +9,9 @@ const AVATAR_BLOCK = 'ai-avatar';
 
 const iconAttributes = {
   className: `${AVATAR_BLOCK}__icon`,
-  fill: 'none',
   xmlns: 'http://www.w3.org/2000/svg',
+  height: '100%',
+  width: '100%',
 };
 
 const avatarIconProps = () => ({
@@ -40,12 +41,10 @@ const Container = withBaseElementProps(View, {
   className: `${AVATAR_BLOCK}__container`,
 });
 
-export const AvatarControl: AvatarControl = ({
-  avatar
-}) => {
+export const AvatarControl: AvatarControl = ({ avatar, ...rest }) => {
   return (
     <Container>
-      <AvatarIcon>{avatar.avatar}</AvatarIcon>
+      <AvatarIcon {...rest}>{avatar.avatar}</AvatarIcon>
       <AvatarDisplayName>{avatar.username}</AvatarDisplayName>
     </Container>
   );
