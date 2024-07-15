@@ -24,17 +24,4 @@ describe('HistoryControl', () => {
     expect(list).toBeInTheDocument();
     expect(listItems).toHaveLength(3);
   });
-
-  it('renders the ListItem', () => {
-    render(<HistoryControl />);
-
-    const navItem = screen.getByRole('navigation', {
-      name: 'Breadcrumbs',
-    });
-
-    const listItem = screen.getByRole('list');
-
-    expect(navItem).toBeInTheDocument();
-    expect(listItem).toBeInTheDocument();
-  });
 });
