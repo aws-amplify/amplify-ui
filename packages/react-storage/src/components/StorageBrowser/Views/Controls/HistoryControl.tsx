@@ -5,7 +5,7 @@ import { StorageBrowserElements } from '../../context/elements';
 
 const { Button, ListItem, Nav, OrderedList, Span } = StorageBrowserElements;
 
-const BLOCK_NAME = `history`;
+const BLOCK_NAME = 'history';
 
 export interface HistoryItem {
   label?: string;
@@ -18,7 +18,7 @@ export interface HistoryControlProps {
 export interface HistoryControl<
   T extends Partial<StorageBrowserElements> = StorageBrowserElements,
 > {
-  /* TODO: Where/how should we define these top level props */
+  /* TODO: Temporary, this needs to come from context */
   ({ items }: HistoryControlProps): React.JSX.Element;
   Container: T['Nav'];
   Item: T['ListItem'];
