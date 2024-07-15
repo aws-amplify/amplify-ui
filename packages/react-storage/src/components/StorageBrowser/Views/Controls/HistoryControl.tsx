@@ -51,6 +51,7 @@ const Item = withBaseElementProps(ListItem, {
 });
 
 const Separator = withBaseElementProps(Span, {
+  'aria-hidden': true,
   className: `${BLOCK_NAME}__separator`,
   children: '/',
 });
