@@ -27,8 +27,12 @@ export default function createStorageBrowser<
     );
   }
 
-  // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
-  const Controls: Controls<T> = { Search: SearchControl, Title: TitleControl };
+  const Controls: Controls<T> = {
+    // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
+    Search: SearchControl,
+    // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
+    Title: TitleControl,
+  };
 
   StorageBrowser.Provider = Provider;
   StorageBrowser.LocationsListView = LocationsListView;
