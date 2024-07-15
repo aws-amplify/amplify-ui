@@ -52,7 +52,7 @@ const NextIcon = withBaseElementProps(Icon, nextIconProps);
 const PreviousIcon = withBaseElementProps(Icon, previousIconProps);
 
 const ContainerBase = withBaseElementProps(Nav, {
-  className: `${BLOCK_NAME}__container`,
+  className: `${BLOCK_NAME}`,
   'aria-label': 'Pagination',
 });
 
