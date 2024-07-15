@@ -5,7 +5,7 @@ import { Avatar } from '../../types';
 import { AIConversationElements } from '../../context/elements';
 const { Icon, Text, View } = AIConversationElements;
 
-const AVATAR_BLOCK = 'avatar';
+const AVATAR_BLOCK = 'ai-avatar';
 
 const avatarIconProps = () => ({
   children: (

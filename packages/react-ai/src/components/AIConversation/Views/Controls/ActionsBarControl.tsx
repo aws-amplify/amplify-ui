@@ -5,7 +5,7 @@ import { CustomAction, Message } from '../../types';
 import { AIConversationElements } from '../../context/elements';
 const { Icon, Button, View } = AIConversationElements;
 
-const ACTIONS_BAR_BLOCK = 'actions-bar';
+const ACTIONS_BAR_BLOCK = 'ai-actions-bar';
 
 const actionIconProps = () => ({
   children: (

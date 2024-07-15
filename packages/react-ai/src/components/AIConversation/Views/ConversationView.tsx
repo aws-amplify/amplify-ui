@@ -21,7 +21,6 @@ export default function Conversation(): JSX.Element {
           borderLeft: '1px solid rgba(220, 222, 224, 1)',
           borderRight: '1px solid rgba(220, 222, 224, 1)',
           padding: '0px 16px',
-          height: '300px',
         }}
       >
         <MessagesControl

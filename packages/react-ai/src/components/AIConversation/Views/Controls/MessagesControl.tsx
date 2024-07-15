@@ -10,8 +10,8 @@ import { AvatarControl } from './AvatarControl';
 
 const { Image, Text, View } = AIConversationElements;
 
-const MESSAGES_BLOCK = 'messages';
-const MESSAGE_BLOCK = 'message';
+const MESSAGES_BLOCK = 'ai-messages';
+const MESSAGE_BLOCK = 'ai-message';
 
 const MediaContent = withBaseElementProps(Image, {
   className: `${MESSAGE_BLOCK}__image`,
@@ -49,12 +49,11 @@ interface MessageControl<
 }
 
 const Container = withBaseElementProps(View, {
-  className: `${MESSAGES_BLOCK}__container`,
+  className: `${MESSAGE_BLOCK}__container`,
 });
 
 const Layout = withBaseElementProps(View, {
   className: `${MESSAGES_BLOCK}__container`,
-  style: { display: 'flex', flexDirection: 'column', alignItems: 'center' },
 });
 
 export const MessagesControl: MessagesControl = ({
@@ -91,6 +90,7 @@ export interface MessagesControl<
     actions: CustomAction[];
     avatars: Avatars;
     messages: MessageType[];
+    variant?: 'bubble-1' | 'bubble-2' | 'background' | 'default'
   }): JSX.Element;
   ActionsBar: ActionsBarControl<T>;
   Avatar: AvatarControl<T>;
