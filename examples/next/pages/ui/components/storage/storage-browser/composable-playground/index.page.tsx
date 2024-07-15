@@ -1,5 +1,5 @@
 import { createStorageBrowser } from '@aws-amplify/ui-react-storage';
-import { Button, Heading, TextField, Flex } from '@aws-amplify/ui-react';
+import { Button, TextField, Flex } from '@aws-amplify/ui-react';
 import { IconSearch as _IconSearch } from '@aws-amplify/ui-react/internal';
 import '@aws-amplify/ui-react/styles.css';
 import React from 'react';

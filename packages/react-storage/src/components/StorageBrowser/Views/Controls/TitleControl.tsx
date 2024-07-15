@@ -5,7 +5,7 @@ import { StorageBrowserElements } from '../../context/elements';
 
 const { Heading } = StorageBrowserElements;
 
-const BLOCK_NAME = `title`;
+const BLOCK_NAME = 'title';
 
 export interface TitleControl<
   T extends Partial<StorageBrowserElements> = StorageBrowserElements,
@@ -15,7 +15,9 @@ export interface TitleControl<
 }
 
 const Title = withBaseElementProps(Heading, {
-  className: `${BLOCK_NAME}__heading`,
+  className: `${BLOCK_NAME}`,
+  // TODO: Temp, title text needs to come from context
+  children: 'Location title',
 });
 
 export const TitleControl: TitleControl = () => <Title />;
