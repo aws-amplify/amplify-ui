@@ -3,39 +3,45 @@ import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import { Avatar } from '../../types';
 import { AIConversationElements } from '../../context/elements';
-const { Icon, Text, View } = AIConversationElements;
+const { Span, Text, View } = AIConversationElements;
 
 const AVATAR_BLOCK = 'ai-avatar';
 
+const iconAttributes = {
+  className: `${AVATAR_BLOCK}__icon`,
+  fill: 'none',
+  xmlns: 'http://www.w3.org/2000/svg',
+};
+
 const avatarIconProps = () => ({
   children: (
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M16 1.29835C14.7624 0.583818 13.2376 0.583819 12 1.29835L4.00006 5.91713C2.76246 6.63166 2.00006 7.95217 2.00006 9.38123V18.6188C2.00006 20.0479 2.76246 21.3684 4.00006 22.0829L12 26.7017C13.2376 27.4162 14.7624 27.4162 16 26.7017L24 22.0829C25.2376 21.3684 26 20.0479 26 18.6188V9.38123C26 7.95217 25.2376 6.63166 24 5.91713L16 1.29835ZM14.9379 6.37319C14.6157 5.50257 13.3843 5.50257 13.0622 6.37319L11.4151 10.8243C11.3138 11.098 11.098 11.3138 10.8243 11.4151L6.37317 13.0622C5.50256 13.3843 5.50256 14.6157 6.37317 14.9379L10.8243 16.5849C11.098 16.6862 11.3138 16.902 11.4151 17.1757L13.0622 21.6268C13.3843 22.4975 14.6157 22.4975 14.9379 21.6268L16.5849 17.1757C16.6862 16.902 16.902 16.6862 17.1757 16.5849L21.6268 14.9379C22.4974 14.6157 22.4974 13.3843 21.6268 13.0622L17.1757 11.4151C16.902 11.3138 16.6862 11.098 16.5849 10.8243L14.9379 6.37319Z"
-      fill="#0D1A26"
-    />
+    <svg viewBox="0 0 24 24">
+      <path
+        fill="none"
+        d="M14.023,12.154c1.514-1.192,2.488-3.038,2.488-5.114c0-3.597-2.914-6.512-6.512-6.512
+								c-3.597,0-6.512,2.916-6.512,6.512c0,2.076,0.975,3.922,2.489,5.114c-2.714,1.385-4.625,4.117-4.836,7.318h1.186
+								c0.229-2.998,2.177-5.512,4.86-6.566c0.853,0.41,1.804,0.646,2.813,0.646c1.01,0,1.961-0.236,2.812-0.646
+								c2.684,1.055,4.633,3.568,4.859,6.566h1.188C18.648,16.271,16.736,13.539,14.023,12.154z M10,12.367
+								c-2.943,0-5.328-2.385-5.328-5.327c0-2.943,2.385-5.328,5.328-5.328c2.943,0,5.328,2.385,5.328,5.328
+								C15.328,9.982,12.943,12.367,10,12.367z"
+      ></path>
+    </svg>
   ),
-  className: `${AVATAR_BLOCK}__icon`,
-  width: '24',
-  height: '24',
-  viewBox: '0 0 24 24',
-  fill: '#0D1A26',
-  xmlns: 'http://www.w3.org/2000/svg',
+  ...iconAttributes,
 });
 
 const AvatarDisplayName = withBaseElementProps(Text, {
   className: `${AVATAR_BLOCK}__display-name`,
 });
 
-const AvatarIcon = withBaseElementProps(Icon, avatarIconProps);
+const AvatarIcon = withBaseElementProps(Span, avatarIconProps);
 
 const Container = withBaseElementProps(View, {
   className: `${AVATAR_BLOCK}__container`,
 });
 
 export const AvatarControl: AvatarControl = ({
-  avatar = { username: 'AI', avatar: <div>AI Icon</div> },
+  avatar
 }) => {
   return (
     <Container>
@@ -55,5 +61,5 @@ export interface AvatarControl<
   (props: { avatar: Avatar }): React.JSX.Element;
   Container: T['View'];
   DisplayName: T['Text'];
-  Icon: T['Icon'];
+  Icon: T['Span'];
 }

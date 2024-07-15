@@ -1,14 +1,19 @@
 import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
-import { Avatars, CustomAction, Message as MessageType } from '../../types';
+import {
+  Avatars,
+  CustomAction,
+  Message as MessageData,
+  MessageVariant,
+} from '../../types';
 
 import { AIConversationElements } from '../../context/elements';
 import { convertBufferToBase64, formatDate } from '../../utils';
 import { ActionsBarControl } from './ActionsBarControl';
 import { AvatarControl } from './AvatarControl';
 
-const { Image, Text, View } = AIConversationElements;
+const { Image, Span, Text, View } = AIConversationElements;
 
 const MESSAGES_BLOCK = 'ai-messages';
 const MESSAGE_BLOCK = 'ai-message';
@@ -25,7 +30,7 @@ const Timestamp = withBaseElementProps(Text, {
   className: `${MESSAGE_BLOCK}__timestamp`,
 });
 
-const MessageControl: MessageControl = ({ message }) => {
+const MessageControl: MessageControl = ({ message, variant }) => {
   return message.content.type === 'text' ? (
     <TextContent>{message.content.value}</TextContent>
   ) : (
@@ -43,10 +48,20 @@ MessageControl.TextContent = TextContent;
 interface MessageControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
 > {
-  (props: { message: MessageType }): JSX.Element;
+  (props: { message: MessageData; variant?: MessageVariant }): JSX.Element;
   MediaContent: T['Image'];
   TextContent: T['Text'];
 }
+
+const HeaderContainer = withBaseElementProps(View, {
+  className: `${MESSAGE_BLOCK}__header-container`,
+});
+
+const Separator = withBaseElementProps(Span, {
+  'aria-hidden': true,
+  className: `${MESSAGE_BLOCK}__separator`,
+  children: '|',
+});
 
 const Container = withBaseElementProps(View, {
   className: `${MESSAGE_BLOCK}__container`,
@@ -60,16 +75,20 @@ export const MessagesControl: MessagesControl = ({
   actions,
   avatars,
   messages,
+  variant = 'borderless',
 }) => {
   return (
     <Layout>
       {messages.map((message, index) => (
         <Container key={index}>
-          <AvatarControl
-            avatar={message.role === 'user' ? avatars.user : avatars.ai}
-          />
-          <Timestamp>{formatDate(message.timestamp)}</Timestamp>
-          <MessageControl message={message} />
+          <HeaderContainer>
+            <AvatarControl
+              avatar={message.role === 'user' ? avatars.user : avatars.ai}
+            />
+            <Separator />
+            <Timestamp>{formatDate(message.timestamp)}</Timestamp>
+          </HeaderContainer>
+          <MessageControl message={message} variant={variant} />
           <ActionsBarControl actions={actions} message={message} />
         </Container>
       ))}
@@ -80,8 +99,10 @@ export const MessagesControl: MessagesControl = ({
 MessagesControl.ActionsBar = ActionsBarControl;
 MessagesControl.Avatar = AvatarControl;
 MessagesControl.Container = Container;
+MessagesControl.HeaderContainer = HeaderContainer;
 MessagesControl.Layout = Layout;
 MessagesControl.Message = MessageControl;
+MessagesControl.Separator = Separator;
 
 export interface MessagesControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
@@ -89,12 +110,14 @@ export interface MessagesControl<
   (props: {
     actions: CustomAction[];
     avatars: Avatars;
-    messages: MessageType[];
-    variant?: 'bubble-1' | 'bubble-2' | 'background' | 'default'
+    messages: MessageData[];
+    variant?: MessageVariant;
   }): JSX.Element;
   ActionsBar: ActionsBarControl<T>;
   Avatar: AvatarControl<T>;
   Container: T['View'];
+  HeaderContainer: T['View'];
   Layout: T['View'];
   Message: MessageControl<T>;
+  Separator: T['Span'];
 }

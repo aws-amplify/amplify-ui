@@ -31,6 +31,12 @@ export interface AIConversation<T extends Partial<AIConversationElements>> {
   SuggestedPrompts: () => React.JSX.Element;
 }
 
+export type MessageVariant =
+  | 'bubble-1'
+  | 'bubble-2'
+  | 'borderless-background'
+  | 'borderless';
+
 export interface Avatar {
   username?: string;
   avatar?: React.ReactNode;

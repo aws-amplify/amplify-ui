@@ -3,9 +3,15 @@ import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import { CustomAction, Message } from '../../types';
 import { AIConversationElements } from '../../context/elements';
-const { Icon, Button, View } = AIConversationElements;
+const { Button, Span, View } = AIConversationElements;
 
 const ACTIONS_BAR_BLOCK = 'ai-actions-bar';
+
+const iconAttributes = {
+  className: `${ACTIONS_BAR_BLOCK}__icon`,
+  fill: 'none',
+  xmlns: 'http://www.w3.org/2000/svg',
+};
 
 const actionIconProps = () => ({
   children: (
@@ -17,15 +23,10 @@ const actionIconProps = () => ({
     h7.394v4.55h4.55V17.394z"
     ></path>
   ),
-  className: `${ACTIONS_BAR_BLOCK}__icon`,
-  width: '24',
-  height: '24',
-  viewBox: '0 0 24 24',
-  fill: 'none',
-  xmlns: 'http://www.w3.org/2000/svg',
+  ...iconAttributes,
 });
 
-const ActionIcon = withBaseElementProps(Icon, actionIconProps);
+const ActionIcon = withBaseElementProps(Span, actionIconProps);
 
 const ActionButtonBase = withBaseElementProps(Button, {
   className: `${ACTIONS_BAR_BLOCK}__button`,
@@ -63,5 +64,5 @@ export interface ActionsBarControl<
   (props: { actions: CustomAction[]; message: Message }): React.JSX.Element;
   Button: T['Button'];
   Container: T['View'];
-  Icon: T['Icon'];
+  Icon: T['Span'];
 }
