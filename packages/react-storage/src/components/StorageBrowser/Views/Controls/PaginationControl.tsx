@@ -20,6 +20,7 @@ export interface PaginationControl<
 }
 
 const iconAttributes = {
+  'aria-hidden': true,
   className: `${BLOCK_NAME}__icon`,
   width: '24',
   height: '24',

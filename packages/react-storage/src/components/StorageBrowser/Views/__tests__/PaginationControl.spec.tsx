@@ -15,9 +15,15 @@ describe('PaginationControl', () => {
     const prevButton = screen.getByRole('button', {
       name: 'Go to previous page',
     });
+    const nextIcon = nextButton.querySelector('svg');
+    const prevIcon = nextButton.querySelector('svg');
 
     expect(nextButton).toBeInTheDocument();
     expect(prevButton).toBeInTheDocument();
+    expect(nextIcon).toBeInTheDocument();
+    expect(prevIcon).toBeInTheDocument();
+    expect(nextIcon).toHaveAttribute('aria-hidden', 'true');
+    expect(prevIcon).toHaveAttribute('aria-hidden', 'true');
     expect(nav).toBeInTheDocument();
     expect(list).toBeInTheDocument();
     expect(listItems).toHaveLength(3);
