@@ -73,27 +73,34 @@ describe('VerifyUser', () => {
   });
 
   it('sends change event on form input', async () => {
+    useAuthenticatorSpy.mockReturnValueOnce(
+      reactive({
+        ...baseMockServiceFacade,
+        route: 'verifyUser',
+        updateForm: updateFormSpy,
+        skipVerification: skipVerificationSpy,
+        submitForm: submitFormSpy,
+        unverifiedUserAttributes: {
+          email: 'test@example.com',
+          phone_number: '+1234567890',
+        },
+      })
+    );
     render(VerifyUser, { global: { components } });
 
-    const radioField = await screen.findByLabelText('Email: t**t@example.com');
+    const radioField = await screen.getByRole('radio', {
+      name: (content) => content.startsWith('Phone Number:'),
+    });
 
     await fireEvent.click(radioField);
     expect(updateFormSpy).toHaveBeenCalledWith({
       name: 'unverifiedAttr',
-      value: 'email',
+      value: 'phone_number',
     });
   });
 
   it('sends submit event on form submit', async () => {
     render(VerifyUser, { global: { components } });
-
-    const radioField = await screen.findByLabelText('Email: t**t@example.com');
-
-    await fireEvent.click(radioField);
-    expect(updateFormSpy).toHaveBeenCalledWith({
-      name: 'unverifiedAttr',
-      value: 'email',
-    });
 
     const submitButton = await screen.findByRole('button', { name: 'Verify' });
     await fireEvent.click(submitButton);
