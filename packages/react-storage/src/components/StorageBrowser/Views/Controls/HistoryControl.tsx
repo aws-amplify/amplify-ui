@@ -31,7 +31,7 @@ const List = withBaseElementProps(OrderedList, {
 });
 
 const ContainerBase = withBaseElementProps(Nav, {
-  className: `${BLOCK_NAME}__container`,
+  className: `${BLOCK_NAME}`,
   'aria-label': 'Breadcrumbs',
 });
 
@@ -47,7 +47,7 @@ const Container: typeof ContainerBase = React.forwardRef(function Container(
 });
 
 const Item = withBaseElementProps(ListItem, {
-  className: `${BLOCK_NAME}__item`,
+  className: `${BLOCK_NAME}__list__item`,
 });
 
 const Separator = withBaseElementProps(Span, {
