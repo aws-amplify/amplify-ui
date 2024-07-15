@@ -32,7 +32,7 @@ const List = withBaseElementProps(OrderedList, {
 
 const ContainerBase = withBaseElementProps(Nav, {
   className: `${BLOCK_NAME}__container`,
-  'aria-label': `Breadcrumbs`,
+  'aria-label': 'Breadcrumbs',
 });
 
 const Container: typeof ContainerBase = React.forwardRef(function Container(
