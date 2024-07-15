@@ -27,9 +27,10 @@ export default function createStorageBrowser<
     );
   }
 
-  // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
   const Controls: Controls<T> = {
+    // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
     Pagination: PaginationControl,
+    // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
     Search: SearchControl,
   };
 
