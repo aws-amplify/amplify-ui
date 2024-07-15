@@ -1,4 +1,5 @@
 import { SuggestedPromptsContext } from './SuggestedPromptsContext';
+import { InputContext } from './InputContext';
 
-export { SuggestedPromptsContext };
+export { SuggestedPromptsContext, InputContext };
 export * from './elements';

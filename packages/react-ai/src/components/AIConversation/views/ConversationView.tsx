@@ -12,8 +12,6 @@ import { HeaderControl, PromptControl } from './Controls';
 //         //         backgroundColor: 'rgba(250, 250, 250, 1)',
 
 export default function Conversation(): JSX.Element {
-  const textInputRef = React.useRef<HTMLInputElement>();
-
   return (
     <View
       style={{
@@ -32,7 +30,7 @@ export default function Conversation(): JSX.Element {
       >
         messages asdf
       </View>
-      <PromptControl textInputRef={textInputRef} />
+      <PromptControl />
       <View
         style={{
           border: '1px solid rgba(220, 222, 224, 1)',
