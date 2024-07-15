@@ -5,7 +5,7 @@ import { StorageBrowserElements } from '../../context/elements';
 
 const { Button, Icon, ListItem, Nav, OrderedList } = StorageBrowserElements;
 
-const BLOCK_NAME = `pagination`;
+const BLOCK_NAME = 'pagination';
 
 export interface PaginationControl<
   T extends Partial<StorageBrowserElements> = StorageBrowserElements,
@@ -13,7 +13,6 @@ export interface PaginationControl<
   (): React.JSX.Element;
   Container: T['Nav'];
   Item: T['ListItem'];
-  List: T['OrderedList'];
   NextButton: T['Button'];
   NextIcon: T['Icon'];
   PreviousButton: T['Button'];
@@ -42,12 +41,24 @@ const previousIconProps = () => ({
 const NextIcon = withBaseElementProps(Icon, nextIconProps);
 const PreviousIcon = withBaseElementProps(Icon, previousIconProps);
 
-const Container = withBaseElementProps(Nav, {
+const ContainerBase = withBaseElementProps(Nav, {
   className: `${BLOCK_NAME}__container`,
+  'aria-label': 'Pagination',
 });
 
 const List = withBaseElementProps(OrderedList, {
   className: `${BLOCK_NAME}__list`,
+});
+
+const Container: typeof ContainerBase = React.forwardRef(function Container(
+  { children, ...rest },
+  ref
+) {
+  return (
+    <ContainerBase ref={ref} {...rest}>
+      <List>{children}</List>
+    </ContainerBase>
+  );
 });
 
 const Item = withBaseElementProps(ListItem, {
@@ -61,6 +72,7 @@ const NextButton = withBaseElementProps(Button, {
 
 const PreviousButton = withBaseElementProps(Button, {
   className: `${BLOCK_NAME}__button`,
+  'aria-label': 'Go to previous page',
 });
 
 const CurrentPage = withBaseElementProps(Button, {
@@ -69,26 +81,24 @@ const CurrentPage = withBaseElementProps(Button, {
 
 export const PaginationControl: PaginationControl = () => (
   <Container>
-    <List>
-      <Item>
-        <PreviousButton>
-          <PreviousIcon />
-        </PreviousButton>
-      </Item>
-      <Item>
-        <CurrentPage>1 {/* temp */}</CurrentPage>
-      </Item>
-      <ListItem>
-        <NextButton>
-          <NextIcon />
-        </NextButton>
-      </ListItem>
-    </List>
+    <Item>
+      <PreviousButton>
+        <PreviousIcon />
+      </PreviousButton>
+    </Item>
+    <Item>
+      {/* TODO: This needs to come from context */}
+      <CurrentPage>1 </CurrentPage>
+    </Item>
+    <ListItem>
+      <NextButton>
+        <NextIcon />
+      </NextButton>
+    </ListItem>
   </Container>
 );
 
 PaginationControl.Container = Container;
-PaginationControl.List = List;
 PaginationControl.Item = Item;
 PaginationControl.CurrentPage = CurrentPage;
 PaginationControl.NextButton = NextButton;
