@@ -26,7 +26,7 @@ const Timestamp = withBaseElementProps(Text, {
   className: `${MESSAGE_BLOCK}__timestamp`,
 });
 
-export const MessageControl: MessageControl = ({ message, variant }) => {
+export const MessageControl: MessageControl = ({ message }) => {
   return message.content.type === 'text' ? (
     <TextContent data-testid={'message'}>{message.content.value}</TextContent>
   ) : (
