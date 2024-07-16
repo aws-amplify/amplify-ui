@@ -1,24 +1,20 @@
 import React from 'react';
-import { Conversation, Messages, SuggestedPrompts, Avatar } from './views';
+import { Controls, AIConversationInput, AIConversation } from './types';
+import {
+  ActionsBarControl,
+  AvatarControl,
+  Conversation,
+  HeaderControl,
+  MessagesControl,
+  SuggestedPrompts,
+} from './views';
 import { AIConversationElements } from './context/elements';
 import createProvider from './createProvider';
 
-interface AIConversationInput<T extends AIConversationElements> {
-  elements?: T;
-}
-
-interface AIConversation {
-  (): JSX.Element;
-  Conversation: typeof Conversation;
-  Messages: typeof Messages;
-  SuggestedPrompts: typeof SuggestedPrompts;
-  Avatar: typeof Avatar;
-}
-
-export function createAIConversation<T extends AIConversationElements>(
+export function createAIConversation<T extends Partial<AIConversationElements>>(
   input: AIConversationInput<T> = {}
 ): {
-  AIConversation: AIConversation;
+  AIConversation: AIConversation<T>;
 } {
   const { elements } = input;
 
@@ -32,11 +28,21 @@ export function createAIConversation<T extends AIConversationElements>(
     );
   }
 
+  const Controls: Controls<T> = {
+    // @ts-expect-error TODO fix type error
+    ActionsBar: ActionsBarControl,
+    // @ts-expect-error TODO fix type error
+    Avatars: AvatarControl,
+    // @ts-expect-error TODO fix type error fix
+    Header: HeaderControl,
+    // @ts-expect-error TODO fix type error
+    Messages: MessagesControl,
+  };
+
   AIConversation.Provider = Provider;
   AIConversation.Conversation = Conversation;
-  AIConversation.Messages = Messages;
   AIConversation.SuggestedPrompts = SuggestedPrompts;
-  AIConversation.Avatar = Avatar;
+  AIConversation.Controls = Controls;
 
   return { AIConversation };
 }

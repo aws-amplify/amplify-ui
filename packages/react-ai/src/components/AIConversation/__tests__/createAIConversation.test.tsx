@@ -6,6 +6,6 @@ describe('createAIConversation', () => {
   it('returns an AIConversation', async () => {
     const { AIConversation } = createAIConversation();
 
-    expect(await render(<AIConversation />).container).toBeDefined();
+    expect(render(<AIConversation />).container).toBeDefined();
   });
 });
