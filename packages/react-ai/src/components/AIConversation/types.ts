@@ -6,7 +6,7 @@ import {
   AvatarControl,
   HeaderControl,
   MessagesControl,
-} from './Views';
+} from './views';
 
 export interface Controls<
   T extends Partial<AIConversationElements> = AIConversationElements,

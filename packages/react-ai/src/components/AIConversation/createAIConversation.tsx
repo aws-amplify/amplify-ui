@@ -7,7 +7,7 @@ import {
   HeaderControl,
   MessagesControl,
   SuggestedPrompts,
-} from './Views';
+} from './views';
 import { AIConversationElements } from './context/elements';
 import createProvider from './createProvider';
 
