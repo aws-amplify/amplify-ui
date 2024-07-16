@@ -1,9 +1,11 @@
 import React from 'react';
 
+import { AvatarsProvider } from './context/AvatarsContext';
 import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 import { MessagesProvider } from './context/MessagesContext';
 import { AIConversationElements } from './context/elements';
-import { messages } from './mocks/mocks';
+import { ActionsProvider } from './context/ActionsContext';
+import { actions, avatars, messages } from './mocks/mocks';
 
 interface CreateAIConversationInput<T> {
   elements?: T;
@@ -19,7 +21,11 @@ export default function createProvider<
   }): React.JSX.Element {
     return (
       <ElementsProvider elements={elements}>
-        <MessagesProvider messages={messages}>{children}</MessagesProvider>
+        <AvatarsProvider avatars={avatars}>
+          <ActionsProvider actions={actions}>
+            <MessagesProvider messages={messages}>{children}</MessagesProvider>
+          </ActionsProvider>
+        </AvatarsProvider>
       </ElementsProvider>
     );
   };

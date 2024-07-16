@@ -1,7 +1,8 @@
 import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
-import { Avatar } from '../../types';
+import { Message } from '../../types';
+import { AvatarsContext } from '../../context/';
 import { AIConversationElements } from '../../context/elements';
 const { Span, Text, View } = AIConversationElements;
 
@@ -41,11 +42,14 @@ const Container = withBaseElementProps(View, {
   className: `${AVATAR_BLOCK}__container`,
 });
 
-export const AvatarControl: AvatarControl = ({ avatar, ...rest }) => {
+export const AvatarControl: AvatarControl = ({ message }) => {
+  const avatars = React.useContext(AvatarsContext);
+  const avatar = message.role === 'user' ? avatars?.user : avatars?.ai;
+
   return (
-    <Container>
-      <AvatarIcon {...rest}>{avatar.avatar}</AvatarIcon>
-      <AvatarDisplayName>{avatar.username}</AvatarDisplayName>
+    <Container data-testid={'avatar'}>
+      <AvatarIcon>{avatar?.avatar}</AvatarIcon>
+      <AvatarDisplayName>{avatar?.username}</AvatarDisplayName>
     </Container>
   );
 };
@@ -57,7 +61,7 @@ AvatarControl.Icon = AvatarIcon;
 export interface AvatarControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
 > {
-  (props: { avatar: Avatar }): React.JSX.Element;
+  (props: { message: Message }): React.JSX.Element;
   Container: T['View'];
   DisplayName: T['Text'];
   Icon: T['Span'];

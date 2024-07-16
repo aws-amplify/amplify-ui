@@ -40,7 +40,7 @@ export const IconElement = defineBaseElement<'svg', never, IconVariant>({
   displayName: 'Icon',
 });
 
-export const ImageElement = defineBaseElement<'img'>({
+export const ImageElement = defineBaseElement({
   type: 'img',
   displayName: 'Image',
 });

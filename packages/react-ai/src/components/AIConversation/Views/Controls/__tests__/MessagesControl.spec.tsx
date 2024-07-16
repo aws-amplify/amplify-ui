@@ -1,7 +1,12 @@
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+
+import { Message } from '../../../types';
+
+import { ActionsProvider } from '../../../context/ActionsContext';
+import { AvatarsProvider } from '../../../context/AvatarsContext';
+import { MessagesProvider } from '../../../context/MessagesContext';
 import { MessagesControl, MessageControl } from '../MessagesControl';
-import { Avatars, Message, CustomAction } from '../../../types';
 
 const messages: Message[] = [
   {
@@ -14,8 +19,7 @@ const messages: Message[] = [
     id: '2',
     content: {
       type: 'text',
-      value:
-        'I have a really long question. This is a long message This is a long message This is a long message This is a long message This is a long message',
+      value: 'Are you sentient?',
     },
     role: 'user',
     timestamp: new Date(2023, 4, 21, 15, 24),
@@ -34,28 +38,30 @@ const messages: Message[] = [
   },
 ];
 
-const avatars: Avatars = {
+const avatars = {
   user: {
-    username: 'User Username',
+    username: 'Scottleigh',
     avatar: (
-      <svg viewBox="0 0 24 24">
-        <path d="M10,10.9c2.373,0,4.303-1.932,4.303-4.306c0-2.372-1.93-4.302-4.303-4.302S5.696,4.223,5.696,6.594C5.696,8.969,7.627,10.9,10,10.9z M10,3.331c1.801,0,3.266,1.463,3.266,3.263c0,1.802-1.465,3.267-3.266,3.267c-1.8,0-3.265-1.465-3.265-3.267C6.735,4.794,8.2,3.331,10,3.331z"></path>
-        <path d="M10,12.503c-4.418,0-7.878,2.058-7.878,4.685c0,0.288,0.231,0.52,0.52,0.52c0.287,0,0.519-0.231,0.519-0.52c0-1.976,3.132-3.646,6.84-3.646c3.707,0,6.838,1.671,6.838,3.646c0,0.288,0.234,0.52,0.521,0.52s0.52-0.231,0.52-0.52C17.879,14.561,14.418,12.503,10,12.503z"></path>
+      <svg>
+        <text x="10" y="20">
+          UAvatar
+        </text>
       </svg>
     ),
   },
   ai: {
-    username: 'Raven Username',
+    username: 'Raven',
     avatar: (
-      <svg viewBox="0 0 24 24">
-        <path d="M10,10.9c2.373,0,4.303-1.932,4.303-4.306c0-2.372-1.93-4.302-4.303-4.302S5.696,4.223,5.696,6.594C5.696,8.969,7.627,10.9,10,10.9z M10,3.331c1.801,0,3.266,1.463,3.266,3.263c0,1.802-1.465,3.267-3.266,3.267c-1.8,0-3.265-1.465-3.265-3.267C6.735,4.794,8.2,3.331,10,3.331z"></path>
-        <path d="M10,12.503c-4.418,0-7.878,2.058-7.878,4.685c0,0.288,0.231,0.52,0.52,0.52c0.287,0,0.519-0.231,0.519-0.52c0-1.976,3.132-3.646,6.84-3.646c3.707,0,6.838,1.671,6.838,3.646c0,0.288,0.234,0.52,0.521,0.52s0.52-0.231,0.52-0.52C17.879,14.561,14.418,12.503,10,12.503z"></path>
+      <svg>
+        <text x="10" y="20">
+          RAvatar
+        </text>
       </svg>
     ),
   },
 };
 
-const customActions: CustomAction[] = [
+const customActions = [
   {
     displayName: 'Heart',
     icon: (
@@ -69,22 +75,41 @@ const customActions: CustomAction[] = [
 
 describe('MessagesControl', () => {
   it('renders a MessagesControl element', () => {
+    const result = render(<MessagesControl />);
+    expect(result.container).toBeDefined();
+  });
+
+  it('renders a MessagesControl element with messages', () => {
     render(
-      <MessagesControl
-        actions={customActions}
-        avatars={avatars}
-        messages={messages}
-      />
+      <MessagesProvider messages={messages}>
+        <MessagesControl />
+      </MessagesProvider>
     );
-    const messageElements = screen.getAllByText(/Username/);
+    const messageElements = screen.getAllByTestId('message');
     expect(messageElements).toHaveLength(3);
+  });
+
+  it('renders a MessagesControl element with avatars and actions', () => {
+    render(
+      <AvatarsProvider avatars={avatars}>
+        <ActionsProvider actions={customActions}>
+          <MessagesProvider messages={messages}>
+            <MessagesControl />
+          </MessagesProvider>
+        </ActionsProvider>
+      </AvatarsProvider>
+    );
+    const avatarElements = screen.getAllByTestId('avatar');
+    const actionElements = screen.getAllByRole('button');
+    expect(avatarElements).toHaveLength(3);
+    expect(actionElements).toHaveLength(3);
   });
 });
 
 describe('MessageControl', () => {
   it('renders a MessageControl text element', () => {
-    render(<MessageControl message={messages[0]} />);
-    const message = screen.getByText('I am your virtual assistant');
+    render(<MessageControl message={messages[1]} />);
+    const message = screen.getByText('Are you sentient?');
     expect(message).toBeInTheDocument();
   });
 

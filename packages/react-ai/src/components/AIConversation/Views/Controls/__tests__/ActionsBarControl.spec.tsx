@@ -1,6 +1,7 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { ActionsBarControl } from '../ActionsBarControl';
+import { ActionsProvider } from '../../../context/ActionsContext';
 import { Message } from '../../../types';
 
 const message: Message = {
@@ -33,7 +34,17 @@ const customActions = [
 
 describe('AvatarControl', () => {
   it('renders an ActionsBarControl element', () => {
-    render(<ActionsBarControl actions={customActions} message={message} />);
+    const result = render(<ActionsBarControl message={message} />);
+
+    expect(result.container).toBeDefined();
+  });
+
+  it('renders an ActionsBarControl element with action buttons', () => {
+    render(
+      <ActionsProvider actions={customActions}>
+        <ActionsBarControl message={message} />
+      </ActionsProvider>
+    );
 
     const buttons = screen.getAllByRole('button');
 
@@ -43,12 +54,17 @@ describe('AvatarControl', () => {
 
     const heartIcon = buttons[0].querySelector('svg');
     const starIcon = buttons[1].querySelector('svg');
+
     expect(heartIcon).toBeInTheDocument();
     expect(starIcon).toBeInTheDocument();
   });
 
   it('invokes the click handler on button click', () => {
-    render(<ActionsBarControl actions={customActions} message={message} />);
+    render(
+      <ActionsProvider actions={customActions}>
+        <ActionsBarControl message={message} />
+      </ActionsProvider>
+    );
 
     const buttons = screen.getAllByRole('button');
 

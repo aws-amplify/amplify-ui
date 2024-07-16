@@ -1,12 +1,7 @@
 import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
-import {
-  Avatars,
-  CustomAction,
-  Message as MessageData,
-  MessageVariant,
-} from '../../types';
+import { Message as MessageData, MessageVariant } from '../../types';
 
 import { MessagesContext } from '../../context';
 import { AIConversationElements } from '../../context/elements';
@@ -33,9 +28,10 @@ const Timestamp = withBaseElementProps(Text, {
 
 export const MessageControl: MessageControl = ({ message, variant }) => {
   return message.content.type === 'text' ? (
-    <TextContent>{message.content.value}</TextContent>
+    <TextContent data-testid={'message'}>{message.content.value}</TextContent>
   ) : (
     <MediaContent
+      data-testid={'message'}
       src={convertBufferToBase64(
         message.content.value.bytes,
         message.content.value.format
@@ -73,8 +69,6 @@ const Layout = withBaseElementProps(View, {
 });
 
 export const MessagesControl: MessagesControl = ({
-  actions,
-  avatars,
   variant = 'borderless',
 }) => {
   const messages = React.useContext(MessagesContext);
@@ -83,14 +77,12 @@ export const MessagesControl: MessagesControl = ({
       {messages?.map((message, index) => (
         <Container key={`message-${index}`} test-id={`message`}>
           <HeaderContainer>
-            <AvatarControl
-              avatar={message.role === 'user' ? avatars.user : avatars.ai}
-            />
+            <AvatarControl message={message} />
             <Separator />
             <Timestamp>{formatDate(message.timestamp)}</Timestamp>
           </HeaderContainer>
           <MessageControl message={message} variant={variant} />
-          <ActionsBarControl actions={actions} message={message} />
+          <ActionsBarControl message={message} />
         </Container>
       ))}
     </Layout>
@@ -108,11 +100,7 @@ MessagesControl.Separator = Separator;
 export interface MessagesControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
 > {
-  (props: {
-    actions: CustomAction[];
-    avatars: Avatars;
-    variant?: MessageVariant;
-  }): JSX.Element;
+  (props: { variant?: MessageVariant }): JSX.Element;
   ActionsBar: ActionsBarControl<T>;
   Avatar: AvatarControl<T>;
   Container: T['View'];
