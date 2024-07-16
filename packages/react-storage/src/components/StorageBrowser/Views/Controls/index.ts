@@ -1,2 +1,3 @@
-export { DividerControl } from './DividerControl';
-export { SearchControl } from './SearchControl';
+export { DividerControl } from './Divider';
+export { SearchControl } from './Search';
+export { Controls } from './types';

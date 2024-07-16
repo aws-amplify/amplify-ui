@@ -14,12 +14,9 @@ export const ElementsContext = React.createContext<Elements | undefined>(
 /**
  * @internal @unstable
  *
- * `ElementsProvider` and its coresponding `useElement` hook provide
- * access to the values of the nearest ancestral `ElementsContext`
- * value.
- *
- * `ElementsContext` lookup is handled directly by `BaseElement`
- * components returned by `defineBaseElement`.
+ * `ElementsProvider` provides the values contained in `ElementsContext`
+ * to its `children`. `ElementsContext` lookup is handled directly
+ * by `BaseElement`components returned by `defineBaseElement`.
  *
  * @example
  *

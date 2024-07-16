@@ -3,13 +3,13 @@ import React from 'react';
 import { StorageBrowserElements } from './context/elements';
 import { DividerControl, SearchControl } from './Views';
 
-export interface Controls<T extends Partial<StorageBrowserElements>> {
+export interface Controls<T extends StorageBrowserElements> {
   (): React.JSX.Element;
   Divider: DividerControl<T>;
   Search: SearchControl<T>;
 }
 
-export interface StorageBrowser<T extends Partial<StorageBrowserElements>> {
+export interface StorageBrowser<T extends StorageBrowserElements> {
   (): React.JSX.Element;
   LocationsListView: () => React.JSX.Element;
   LocationDetailView: () => React.JSX.Element;
