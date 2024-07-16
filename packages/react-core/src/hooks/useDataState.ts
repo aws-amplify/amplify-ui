@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface ActionState<T> {
+export interface ActionState<T> {
   data: T;
   isLoading: boolean;
   message: string | undefined;
