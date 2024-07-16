@@ -3,10 +3,35 @@ import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import { StorageBrowserElements } from '../../context/elements';
 
-const { Button, Input, Icon, Span } = StorageBrowserElements;
+interface FieldControl<
+  T extends StorageBrowserElements = StorageBrowserElements,
+> extends Pick<T, 'Icon' | 'Input' | 'Label'> {
+  (): JSX.Element;
+  Container: T['Span'];
+}
+
+interface ToggleControl<
+  T extends StorageBrowserElements = StorageBrowserElements,
+> extends Pick<T, 'Label'> {
+  (): React.JSX.Element;
+  Checkbox: T['Input'];
+  Container: T['Span'];
+}
+
+export interface SearchControl<
+  T extends StorageBrowserElements = StorageBrowserElements,
+> extends Pick<T, 'Button'> {
+  (): React.JSX.Element;
+  Container: T['Span'];
+  Field: FieldControl<T>;
+  Toggle: ToggleControl<T>;
+}
+
+const { Button, Input, Icon, Label, Span } = StorageBrowserElements;
 
 const SEARCH_BLOCK = 'search';
 const FIELD_BLOCK = 'field';
+const TOGGLE_BLOCK = 'toggle';
 
 const searchIconProps = () => ({
   children: (
@@ -23,21 +48,15 @@ const searchIconProps = () => ({
   xmlns: 'http://www.w3.org/2000/svg',
 });
 
-interface FieldControl<
-  T extends Partial<StorageBrowserElements> = StorageBrowserElements,
-> {
-  (): JSX.Element;
-  Container: T['Span'];
-  Icon: T['Icon'];
-  Input: T['Input'];
-}
-
 const FieldContainer = withBaseElementProps(Span, {
   className: `${SEARCH_BLOCK}-${FIELD_BLOCK}__container`,
 });
 const FieldIcon = withBaseElementProps(Icon, searchIconProps);
 const FieldInputBase = withBaseElementProps(Input, {
   className: `${SEARCH_BLOCK}-${FIELD_BLOCK}__input`,
+});
+const FieldLabel = withBaseElementProps(Label, {
+  className: `${SEARCH_BLOCK}-${FIELD_BLOCK}__label`,
 });
 
 const FieldInput: typeof FieldInputBase = React.forwardRef(
@@ -50,6 +69,7 @@ const FieldInput: typeof FieldInputBase = React.forwardRef(
 const FieldControl: FieldControl = () => (
   <FieldContainer>
     <FieldIcon />
+    <FieldLabel />
     <FieldInput />
   </FieldContainer>
 );
@@ -57,6 +77,33 @@ const FieldControl: FieldControl = () => (
 FieldControl.Container = FieldContainer;
 FieldControl.Icon = FieldIcon;
 FieldControl.Input = FieldInput;
+FieldControl.Label = Label;
+
+const ToggleContainer = withBaseElementProps(Span, {
+  className: `${SEARCH_BLOCK}-${TOGGLE_BLOCK}__container`,
+});
+
+const ToggleCheckbox = withBaseElementProps(Input, {
+  className: `${SEARCH_BLOCK}-${TOGGLE_BLOCK}__checkbox`,
+  type: 'checkbox',
+});
+
+const ToggleLabel = withBaseElementProps(Label, {
+  className: `${SEARCH_BLOCK}-${TOGGLE_BLOCK}__label`,
+});
+
+const ToggleControl: ToggleControl = () => {
+  return (
+    <ToggleContainer>
+      <ToggleCheckbox />
+      <ToggleLabel />
+    </ToggleContainer>
+  );
+};
+
+ToggleControl.Checkbox = ToggleCheckbox;
+ToggleControl.Label = ToggleLabel;
+ToggleControl.Container = ToggleContainer;
 
 const SearchButtonBase = withBaseElementProps(Button, {
   className: `${SEARCH_BLOCK}__button`,
@@ -77,18 +124,12 @@ export const SearchControl: SearchControl = () => (
   <Container>
     <FieldControl />
     <SearchButton />
+    {/* TODO conditionally render ToggleControl based on ancestor view  */}
+    <ToggleControl />
   </Container>
 );
 
 SearchControl.Container = Container;
 SearchControl.Field = FieldControl;
 SearchControl.Button = SearchButton;
-
-export interface SearchControl<
-  T extends Partial<StorageBrowserElements> = StorageBrowserElements,
-> {
-  (): React.JSX.Element;
-  Container: T['Span'];
-  Field: FieldControl<T>;
-  Button: T['Button'];
-}
+SearchControl.Toggle = ToggleControl;

@@ -87,3 +87,50 @@ export type BaseElementProps<
 > = React.AriaAttributes &
   React.RefAttributes<ElementRefType<K>> &
   Pick<K, ElementPropKey<T>> & { testId?: string; variant?: V };
+
+/**
+ * Extend the defintion of a `BaseElement` with additional `props`.
+ *
+ * Use cases are restricted to scenarios where additional `props`
+ * are required for a `ControlElement` interface, for example:
+ *
+ * @example
+ * ```tsx
+ *  const FieldInput = defineBaseElement({
+ *    type: 'input',
+ *    displayName: 'Input'
+ *  });
+ *
+ *  type InputWithSearchCallback =
+ *    ExtendBaseElement<
+ *      typeof FieldInput,
+ *      { onSearch?: (event: { value: string }) => void }
+ *    >
+ *
+ *  const SearchInput = React.forwardRef((
+ *    { onSearch, ...props }
+ *    ref
+ *    ) => {
+ *      // ...do something with onSearch
+ *
+ *      return <FieldInput {...props} ref={ref} />;
+ *  });
+ * ```
+ *
+ * Caveats:
+ * - additional `props` should not be passed directly to
+ * `BaseElement` components, the outputted interface should be
+ * applied to a wrapping element that handles the additional `props`
+ *
+ * - additional `props` that share a key with existing `props`
+ * are omitted from the outputted interface to adhere to `BaseElement`
+ * type contracts
+ *
+ */
+export type ExtendBaseElement<
+  // `BaseElement` to extend from
+  T extends React.ComponentType,
+  // additional `props`
+  K = {},
+  U extends React.ComponentPropsWithRef<T> = React.ComponentPropsWithRef<T>,
+> = BaseElement<U & Omit<K, keyof U>, U>;
