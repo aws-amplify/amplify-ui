@@ -8,6 +8,7 @@ import {
   MessageVariant,
 } from '../../types';
 
+import { MessagesContext } from '../../context';
 import { AIConversationElements } from '../../context/elements';
 import { convertBufferToBase64, formatDate } from '../../utils';
 import { ActionsBarControl } from './ActionsBarControl';
@@ -74,12 +75,12 @@ const Layout = withBaseElementProps(View, {
 export const MessagesControl: MessagesControl = ({
   actions,
   avatars,
-  messages,
   variant = 'borderless',
 }) => {
+  const messages = React.useContext(MessagesContext);
   return (
     <Layout>
-      {messages.map((message, index) => (
+      {messages?.map((message, index) => (
         <Container key={`message-${index}`} test-id={`message`}>
           <HeaderContainer>
             <AvatarControl
@@ -110,7 +111,6 @@ export interface MessagesControl<
   (props: {
     actions: CustomAction[];
     avatars: Avatars;
-    messages: MessageData[];
     variant?: MessageVariant;
   }): JSX.Element;
   ActionsBar: ActionsBarControl<T>;

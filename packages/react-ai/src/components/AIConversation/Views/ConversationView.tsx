@@ -3,7 +3,7 @@ import { HeaderControl } from './Controls/HeaderControl';
 
 import { AIConversationElements } from '../context/elements';
 import { MessagesControl } from './Controls/MessagesControl';
-import { actions, avatars, messages } from '../mocks/mocks';
+import { actions, avatars } from '../mocks/mocks';
 
 const { View } = AIConversationElements;
 
@@ -23,11 +23,7 @@ export default function Conversation(): JSX.Element {
           padding: '0px 16px',
         }}
       >
-        <MessagesControl
-          actions={actions}
-          avatars={avatars}
-          messages={messages}
-        />
+        <MessagesControl actions={actions} avatars={avatars} />
       </View>
       <View
         style={{
