@@ -71,5 +71,6 @@ describe('AvatarControl', () => {
     expect(buttons[0]).toBeInTheDocument();
     fireEvent.click(buttons[0]);
     expect(customActions[0].handler).toHaveBeenCalled();
+    expect(customActions[0].handler).toHaveBeenCalledWith(message);
   });
 });
