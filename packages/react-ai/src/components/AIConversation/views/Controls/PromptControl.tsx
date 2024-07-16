@@ -14,15 +14,9 @@ const PROMPT_BLOCK = 'ai-prompts';
 const PROMPT_CONTROL = `${PROMPT_BLOCK}__prompt`;
 const PROMPT_CARD = `${PROMPT_CONTROL}__card`;
 
-const PromptCardBase = withBaseElementProps(Button, {
+const PromptCard = withBaseElementProps(Button, {
   className: PROMPT_CARD,
 });
-
-const PromptCard: typeof PromptCardBase = React.forwardRef(
-  function PromptCard(props, ref) {
-    return <PromptCardBase {...props} ref={ref} />;
-  }
-);
 
 const AIIconProps = () => ({
   children: (
@@ -62,15 +56,9 @@ const AIIconProps = () => ({
 
 const AIIcon = withBaseElementProps(Icon, AIIconProps);
 
-const HeadingBase = withBaseElementProps(Heading, {
+const HeaderText = withBaseElementProps(Heading, {
   className: `${PROMPT_CONTROL}__header`,
 });
-
-const HeaderText: typeof HeadingBase = React.forwardRef(
-  function HeaderText(props, ref) {
-    return <HeadingBase {...props} ref={ref} />;
-  }
-);
 
 const ButtonGroupBase = withBaseElementProps(View, {
   className: `${PROMPT_CONTROL}__buttongroup`,
