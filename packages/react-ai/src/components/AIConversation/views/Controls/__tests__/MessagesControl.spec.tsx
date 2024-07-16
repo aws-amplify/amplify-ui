@@ -1,14 +1,14 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { Message } from '../../../types';
+import { ConversationMessage } from '../../../types';
 
 import { ActionsProvider } from '../../../context/ActionsContext';
 import { AvatarsProvider } from '../../../context/AvatarsContext';
 import { MessagesProvider } from '../../../context/MessagesContext';
 import { MessagesControl, MessageControl } from '../MessagesControl';
 
-const messages: Message[] = [
+const messages: ConversationMessage[] = [
   {
     id: '1',
     content: { type: 'text', value: 'I am your virtual assistant' },

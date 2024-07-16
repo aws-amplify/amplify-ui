@@ -64,14 +64,7 @@ export interface TextContent {
 
 export type Content = ImageContentBlock | TextContent;
 
-export interface Message {
-  id: string;
-  content: Content;
-  role: 'user' | 'assistant';
-  timestamp: Date;
-}
-
-export interface Message {
+export interface ConversationMessage {
   id: string;
   content: Content;
   role: 'user' | 'assistant';
@@ -80,6 +73,6 @@ export interface Message {
 
 export interface CustomAction {
   displayName: string;
-  handler: (message: Message) => void;
+  handler: (message: ConversationMessage) => void;
   icon: React.ReactNode;
 }

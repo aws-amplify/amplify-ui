@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Message } from '../../../types';
+import { ConversationMessage } from '../../../types';
 import { AvatarsProvider } from '../../../context/AvatarsContext';
 import { AvatarControl } from '../AvatarControl';
 
@@ -27,7 +27,7 @@ const avatars = {
   },
 };
 
-const messages: Message[] = [
+const messages: ConversationMessage[] = [
   {
     id: '1',
     content: { type: 'text', value: 'I am your virtual assistant.' },

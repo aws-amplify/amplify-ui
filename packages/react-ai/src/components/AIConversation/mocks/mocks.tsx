@@ -1,9 +1,9 @@
 import React from 'react';
 import { Icon } from '@aws-amplify/ui-react';
-import { Avatars, CustomAction, Message } from '../types';
+import { Avatars, ConversationMessage, CustomAction } from '../types';
 import { convertBufferToBase64 } from '../utils';
 
-export const messages: Message[] = [
+export const messages: ConversationMessage[] = [
   {
     id: '1',
     content: { type: 'text', value: 'I am your virtual assistant' },

@@ -2,9 +2,9 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { ActionsBarControl } from '../ActionsBarControl';
 import { ActionsProvider } from '../../../context/ActionsContext';
-import { Message } from '../../../types';
+import { ConversationMessage } from '../../../types';
 
-const message: Message = {
+const message: ConversationMessage = {
   id: '1',
   content: { type: 'text', value: 'I am your virtual assistant' },
   role: 'assistant',

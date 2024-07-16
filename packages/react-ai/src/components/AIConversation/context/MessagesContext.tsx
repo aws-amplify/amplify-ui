@@ -1,7 +1,7 @@
 import React from 'react';
-import { Message } from '../types';
+import { ConversationMessage } from '../types';
 
-type MessagesContextProps = Message[] | undefined;
+type MessagesContextProps = ConversationMessage[] | undefined;
 
 export const MessagesContext =
   React.createContext<MessagesContextProps>(undefined);
@@ -11,7 +11,7 @@ export const MessagesProvider = ({
   messages,
 }: {
   children?: React.ReactNode;
-  messages: Message[];
+  messages: ConversationMessage[];
 }): JSX.Element => {
   return (
     <MessagesContext.Provider value={messages}>

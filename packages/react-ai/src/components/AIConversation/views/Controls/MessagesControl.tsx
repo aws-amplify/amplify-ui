@@ -1,7 +1,7 @@
 import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
-import { Message as MessageData, MessageVariant } from '../../types';
+import { ConversationMessage, MessageVariant } from '../../types';
 
 import { MessagesContext } from '../../context';
 import { AIConversationElements } from '../../context/elements';
@@ -47,7 +47,10 @@ MessageControl.TextContent = TextContent;
 interface MessageControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
 > {
-  (props: { message: MessageData; variant?: MessageVariant }): JSX.Element;
+  (props: {
+    message: ConversationMessage;
+    variant?: MessageVariant;
+  }): JSX.Element;
   MediaContent: T['Image'];
   TextContent: T['Text'];
 }
