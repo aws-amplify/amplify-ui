@@ -35,7 +35,7 @@ export {
 } from './components';
 
 export {
-  ActionState,
+  DataState,
   useDataState,
   useDeprecationWarning,
   UseDeprecationWarning,

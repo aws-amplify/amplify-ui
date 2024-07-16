@@ -1,1 +1,2 @@
-export { SearchControl } from './SearchControl';
+export { SearchControl } from './Search';
+export { Controls } from './types';

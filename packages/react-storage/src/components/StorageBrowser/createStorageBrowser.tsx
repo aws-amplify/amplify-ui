@@ -5,11 +5,12 @@ import createProvider from './createProvider';
 import { LocationDetailView, LocationsListView, SearchControl } from './Views';
 import { Controls, CreateStorageBrowserInput, StorageBrowser } from './types';
 
-export default function createStorageBrowser<
-  T extends Partial<StorageBrowserElements>,
->({ elements }: CreateStorageBrowserInput<T> = {}): {
+export default function createStorageBrowser<T extends StorageBrowserElements>({
+  elements: _elements,
+}: CreateStorageBrowserInput<Partial<T>> = {}): {
   StorageBrowser: StorageBrowser<T>;
 } {
+  const elements = { ..._elements, ...StorageBrowserElements };
   const Provider = createProvider({ elements });
 
   function StorageBrowser(): React.JSX.Element {

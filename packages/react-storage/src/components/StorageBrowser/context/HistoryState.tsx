@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActionState, useDataState } from '@aws-amplify/ui-react-core';
+import { DataState, useDataState } from '@aws-amplify/ui-react-core';
 
 export interface HistoryState {
   next: string;
@@ -11,7 +11,7 @@ export type HistoryAction =
   | { next?: never; initial: string; type: 'exit' };
 
 export type UseHistoryState = [
-  ActionState<HistoryState>,
+  DataState<HistoryState>,
   (input: HistoryAction) => void,
 ];
 

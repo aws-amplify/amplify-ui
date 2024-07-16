@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActionState, useDataState } from '@aws-amplify/ui-react-core';
+import { DataState, useDataState } from '@aws-amplify/ui-react-core';
 
 export type PaginateAction =
   | { type: 'setStatus'; isPaginating: boolean }
@@ -77,7 +77,7 @@ export const updatePaginateStateAction = (
 };
 
 export type UsePaginateState = [
-  ActionState<PaginateState>,
+  DataState<PaginateState>,
   (input: PaginateAction) => void,
 ];
 
