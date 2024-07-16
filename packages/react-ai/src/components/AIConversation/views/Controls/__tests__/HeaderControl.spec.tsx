@@ -4,7 +4,7 @@ import { HeaderControl } from '../HeaderControl';
 
 describe('HeaderControl', () => {
   it('renders a HeaderControl element', () => {
-    const result = render(<HeaderControl />);
+    const result = render(<HeaderControl title={'anything'} />);
     expect(result.container).toBeDefined();
     expect(result.findAllByText('anything')).toBeDefined();
   });

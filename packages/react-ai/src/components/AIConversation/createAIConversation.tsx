@@ -33,7 +33,7 @@ export function createAIConversation<T extends Partial<AIConversationElements>>(
     ActionsBar: ActionsBarControl,
     // @ts-expect-error TODO fix type error
     Avatars: AvatarControl,
-    // @ts-expect-error TODO fix type error fix
+    // @ts-expect-error TODO fix type error
     Header: HeaderControl,
     // @ts-expect-error TODO fix type error
     Messages: MessagesControl,
