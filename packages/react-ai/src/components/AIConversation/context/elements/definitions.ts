@@ -8,6 +8,7 @@ export interface AIConversationElements {
   ListItem: typeof ListItemElement;
   Span: typeof SpanElement;
   Text: typeof TextElement;
+  TextArea: typeof TextAreaElement;
   UnorderedList: typeof UnorderedListElement;
   View: typeof ViewElement;
 }
@@ -63,6 +64,11 @@ export const SpanElement = defineBaseElement({
   displayName: 'Span',
 });
 
+export const TextAreaElement = defineBaseElement({
+  type: 'textarea',
+  displayName: 'TextArea',
+});
+
 export const AIConversationElements: AIConversationElements = {
   Button: ButtonElement,
   Heading: HeadingElement,
@@ -71,6 +77,7 @@ export const AIConversationElements: AIConversationElements = {
   ListItem: ListItemElement,
   Span: SpanElement,
   Text: TextElement,
+  TextArea: TextAreaElement,
   UnorderedList: UnorderedListElement,
   View: ViewElement,
 };

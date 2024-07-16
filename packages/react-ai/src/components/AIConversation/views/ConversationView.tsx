@@ -1,6 +1,7 @@
 import React from 'react';
 import { ViewElement as View } from '../context/elements/definitions';
 import { HeaderControl } from './Controls/HeaderControl';
+import { InputControl } from './Controls/InputControl';
 
 //         //         display: 'flex',
 //         //         flexDirection: 'row',
@@ -38,7 +39,7 @@ export default function Conversation(): JSX.Element {
           padding: '0px 16px',
         }}
       >
-        input subcomponent
+        <InputControl />
       </View>
     </View>
   );
