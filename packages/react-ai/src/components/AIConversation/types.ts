@@ -6,7 +6,10 @@ import {
   AvatarControl,
   HeaderControl,
   MessagesControl,
+  PromptControl,
 } from './views';
+import { DisplayTextTemplate } from '@aws-amplify/ui';
+import { AIConversationDisplayText } from './displayText';
 
 export interface Controls<
   T extends Partial<AIConversationElements> = AIConversationElements,
@@ -16,19 +19,29 @@ export interface Controls<
   ActionsBar: ActionsBarControl<T>;
   Header: HeaderControl<T>;
   Messages: MessagesControl<T>;
+  SuggestedPrompts: PromptControl<T>;
 }
 
 export interface AIConversationInput<
   T extends Partial<AIConversationElements>,
 > {
   elements?: T;
+  displayText?: DisplayTextTemplate<AIConversationDisplayText>;
+  suggestedPrompts?: SuggestedPrompt[];
+  actions?: CustomAction[];
+  showChainOfThought?: boolean;
+}
+
+export interface AIConversationProps {
+  messages: ConversationMessage[];
+  handleSendMessage?: () => void;
+  avatars: Avatars;
 }
 
 export interface AIConversation<T extends Partial<AIConversationElements>> {
-  (): JSX.Element;
+  (props: AIConversationProps): JSX.Element;
   Conversation: () => React.JSX.Element;
   Controls: Controls<T>;
-  SuggestedPrompts: () => React.JSX.Element;
 }
 
 export type MessageVariant =
@@ -75,4 +88,10 @@ export interface CustomAction {
   displayName: string;
   handler: (message: ConversationMessage) => void;
   icon: React.ReactNode;
+}
+
+export interface SuggestedPrompt {
+  icon?: React.ReactNode;
+  header: string;
+  inputText: string;
 }

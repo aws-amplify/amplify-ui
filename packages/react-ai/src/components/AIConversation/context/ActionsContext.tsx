@@ -11,7 +11,7 @@ export const ActionsProvider = ({
   actions,
 }: {
   children?: React.ReactNode;
-  actions: CustomAction[];
+  actions?: CustomAction[];
 }): JSX.Element => {
   return (
     <ActionsContext.Provider value={actions}>
