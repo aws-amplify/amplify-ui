@@ -3,11 +3,11 @@ import {
   SendUserAttributeVerificationCodeOutput,
 } from '@aws-amplify/auth';
 
-import { ActionState } from '../useDataState';
+import { DataState } from '../useDataState';
 import { sendUserAttributeVerificationCodeAction } from './constants';
 
 export type UseSendUserAttributeVerificationCode = [
-  ActionState<SendUserAttributeVerificationCodeOutput | undefined>,
+  DataState<SendUserAttributeVerificationCodeOutput | undefined>,
   (input: SendUserAttributeVerificationCodeInput) => void,
 ];
 

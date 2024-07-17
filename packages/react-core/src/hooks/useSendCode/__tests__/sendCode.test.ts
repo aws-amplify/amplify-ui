@@ -29,10 +29,8 @@ const mockError = new Error('Sample error');
 describe('useSendCode', () => {
   beforeEach(jest.clearAllMocks);
   afterEach(jest.clearAllMocks);
-  beforeAll(jest.clearAllMocks);
-  beforeEach(jest.clearAllMocks);
 
-  it('data should be falsy if error received', async () => {
+  it('data should be default if error received', async () => {
     const { result, waitForNextUpdate } = renderHook(() =>
       useSendUserAttributeVerificationCode()
     );
@@ -53,7 +51,6 @@ describe('useSendCode', () => {
     expect(result.current[0].data).toBe(
       DefaultSendUserAttributeVerificationCodeOutput
     );
-    expect(result.current[0].message).toBe(String(mockError));
   });
   it('should have an error message if error occurs', async () => {
     const { result, waitForNextUpdate } = renderHook(() =>
@@ -72,11 +69,28 @@ describe('useSendCode', () => {
 
     await waitForNextUpdate();
 
-    expect(result.current[0].data).toBe(
-      DefaultSendUserAttributeVerificationCodeOutput
-    );
     expect(result.current[0].message).toBe(String(mockError));
   });
+  it('should have hasError truthy if error occurs', async () => {
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useSendUserAttributeVerificationCode()
+    );
+
+    (sendUserAttributeVerificationCode as jest.Mock).mockRejectedValue(
+      mockError
+    );
+    act(async () => {
+      await new Promise<void>((resolve) => {
+        result.current[1](mockInput);
+        resolve();
+      });
+    });
+
+    await waitForNextUpdate();
+
+    expect(result.current[0].hasError).toBeTruthy();
+  });
+
   it('data should be mockOutput if successful', async () => {
     const { result, waitForNextUpdate } = renderHook(() =>
       useSendUserAttributeVerificationCode()
@@ -93,6 +107,39 @@ describe('useSendCode', () => {
 
     await waitForNextUpdate();
     expect(result.current[0].data).toStrictEqual(mockOutput);
-    expect(result.current[0].message).toBe(undefined);
+  });
+  it('should have hasError falsy if successful', async () => {
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useSendUserAttributeVerificationCode()
+    );
+    (sendUserAttributeVerificationCode as jest.Mock).mockResolvedValueOnce(
+      mockOutput
+    );
+    act(async () => {
+      await new Promise<void>((resolve) => {
+        result.current[1](mockInput);
+        resolve();
+      });
+    });
+
+    await waitForNextUpdate();
+    expect(result.current[0].hasError).toBeFalsy();
+  });
+  it('should have message falsy if successful', async () => {
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useSendUserAttributeVerificationCode()
+    );
+    (sendUserAttributeVerificationCode as jest.Mock).mockResolvedValueOnce(
+      mockOutput
+    );
+    act(async () => {
+      await new Promise<void>((resolve) => {
+        result.current[1](mockInput);
+        resolve();
+      });
+    });
+
+    await waitForNextUpdate();
+    expect(result.current[0].message).toBeFalsy();
   });
 });
