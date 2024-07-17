@@ -8,10 +8,7 @@ import { UseFetchUserAttributes } from './types';
 
 const useUserAttributesFetch = <T extends keyof Actions>(
   action: T
-): [
-  state: UseFetchUserAttributes[0],
-  handleAction: UseFetchUserAttributes[1],
-] => {
+): UseFetchUserAttributes => {
   const useFetch = useFetchUserAttributes();
 
   useEffect(() => {
