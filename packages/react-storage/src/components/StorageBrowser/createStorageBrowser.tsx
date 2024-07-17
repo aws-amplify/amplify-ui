@@ -7,6 +7,7 @@ import {
   LocationsListView,
   DividerControl,
   SearchControl,
+  TitleControl,
 } from './Views';
 import { Controls, CreateStorageBrowserInput, StorageBrowser } from './types';
 
@@ -33,6 +34,8 @@ export default function createStorageBrowser<T extends StorageBrowserElements>({
     Divider: DividerControl,
     // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
     Search: SearchControl,
+    // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
+    Title: TitleControl,
   };
 
   StorageBrowser.Provider = Provider;
