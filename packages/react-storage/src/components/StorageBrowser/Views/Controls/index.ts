@@ -1,2 +1,3 @@
-export { HistoryControl } from './HistoryControl';
-export { SearchControl } from './SearchControl';
+export { HistoryControl } from './History';
+export { SearchControl } from './Search';
+export { Controls } from './types';
