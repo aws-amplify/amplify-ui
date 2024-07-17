@@ -5,6 +5,10 @@ import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 import { AIConversationElements } from './context/elements';
 import { SuggestedPromptProvider } from './context/SuggestedPromptsContext';
 import { InputContextProvider } from './context/InputContext';
+import { ActionsProvider } from './context/ActionsContext';
+import { AvatarsProvider } from './context/AvatarsContext';
+import { MessagesProvider } from './context/MessagesContext';
+import { actions, avatars, messages } from './mocks/mocks';
 
 interface CreateAIConversationInput<T> {
   elements?: T;
@@ -32,7 +36,15 @@ export default function createProvider<
     return (
       <ElementsProvider elements={elements}>
         <SuggestedPromptProvider suggestedPrompts={MOCK_PROMPTS}>
-          <InputContextProvider>{children}</InputContextProvider>
+          <InputContextProvider>
+            <AvatarsProvider avatars={avatars}>
+              <ActionsProvider actions={actions}>
+                <MessagesProvider messages={messages}>
+                  {children}
+                </MessagesProvider>
+              </ActionsProvider>
+            </AvatarsProvider>
+          </InputContextProvider>
         </SuggestedPromptProvider>
       </ElementsProvider>
     );

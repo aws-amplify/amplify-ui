@@ -4,6 +4,7 @@ export interface AIConversationElements {
   Button: typeof ButtonElement;
   Heading: typeof HeadingElement;
   Icon: typeof IconElement;
+  Image: typeof ImageElement;
   Input: typeof InputElement;
   ListItem: typeof ListItemElement;
   Span: typeof SpanElement;
@@ -39,6 +40,11 @@ export const IconElement = defineBaseElement<'svg', never, IconVariant>({
   displayName: 'Icon',
 });
 
+export const ImageElement = defineBaseElement({
+  type: 'img',
+  displayName: 'Image',
+});
+
 export const InputElement = defineBaseElement<'input', 'type'>({
   type: 'input',
   displayName: 'Input',
@@ -68,6 +74,7 @@ export const AIConversationElements: AIConversationElements = {
   Heading: HeadingElement,
   Icon: IconElement,
   Input: InputElement,
+  Image: ImageElement,
   ListItem: ListItemElement,
   Span: SpanElement,
   Text: TextElement,

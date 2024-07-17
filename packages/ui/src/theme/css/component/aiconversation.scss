@@ -1,12 +1,12 @@
 .ai-header__container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    border: 1px solid rgb(220, 222, 224);
-    border-radius: 16px 16px 0px 0px;
-    padding: 0px 16px;
-    box-shadow: rgba(0, 0, 0, 0.07) 0px 12px 30px 0px;
-    background-color: rgb(250, 250, 250);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid rgb(220, 222, 224);
+  border-radius: 16px 16px 0px 0px;
+  padding: 0px 16px;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 12px 30px 0px;
+  background-color: rgb(250, 250, 250);
 }
 
 .ai-header__button {
@@ -45,4 +45,90 @@
     margin: 0px;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.ai-messages__container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-top: 48px;
+  padding: 24px;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.ai-message__container {
+  display: flex;
+  flex-direction: column;
+  width: 480px;
+  align-items: flex-start;
+  padding-top: 16px;
+}
+
+.ai-message__header-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.ai-message__separator {
+  color: #eff0f0;
+}
+
+.ai-message__image {
+  width: 100%;
+  padding: 12px;
+}
+
+.ai-message__timestamp {
+  font-size: 12px;
+  font-weight: 400;
+  color: #304050;
+}
+
+.ai-avatar__container {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+}
+
+.ai-avatar__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  padding: 3px;
+  border: black 1px solid;
+  display: flex;
+  overflow: hidden;
+}
+.ai-avatar__display-name {
+  font-weight: 700;
+}
+
+.ai-actions-bar__container {
+  display: flex;
+  padding-bottom: 8px;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.ai-actions-bar__icon {
+  width: 100%;
+  height: 100%;
+}
+
+.ai-actions-bar__button {
+  border-radius: 4px;
+  border: #aeb3b7 1px solid;
+  background: #fff;
+  display: flex;
+  width: 28px;
+  height: 28px;
+  padding: 6px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  overflow: hidden;
 }
