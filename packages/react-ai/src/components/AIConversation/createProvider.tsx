@@ -5,12 +5,25 @@ import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 import { AIConversationElements } from './context/elements';
 import { ActionsProvider } from './context/ActionsContext';
 import { AvatarsProvider } from './context/AvatarsContext';
+import { InputContextProvider } from './context/InputContext';
 import { MessagesProvider } from './context/MessagesContext';
+import { SuggestedPromptProvider } from './context/SuggestedPromptsContext';
 import { actions, avatars, messages } from './mocks/mocks';
 
 interface CreateAIConversationInput<T> {
   elements?: T;
 }
+
+const MOCK_PROMPTS = [
+  {
+    header: 'Help me find a rental',
+    inputText: 'Find a rental with a pool',
+  },
+  {
+    header: 'Help me find a rental',
+    inputText: 'Find a rental with a basketball court',
+  },
+];
 
 export default function createProvider<
   T extends Partial<AIConversationElements>,
@@ -22,11 +35,17 @@ export default function createProvider<
   }): React.JSX.Element {
     return (
       <ElementsProvider elements={elements}>
-        <AvatarsProvider avatars={avatars}>
-          <ActionsProvider actions={actions}>
-            <MessagesProvider messages={messages}>{children}</MessagesProvider>
-          </ActionsProvider>
-        </AvatarsProvider>
+        <SuggestedPromptProvider suggestedPrompts={MOCK_PROMPTS}>
+          <InputContextProvider>
+            <AvatarsProvider avatars={avatars}>
+              <ActionsProvider actions={actions}>
+                <MessagesProvider messages={messages}>
+                  {children}
+                </MessagesProvider>
+              </ActionsProvider>
+            </AvatarsProvider>
+          </InputContextProvider>
+        </SuggestedPromptProvider>
       </ElementsProvider>
     );
   };

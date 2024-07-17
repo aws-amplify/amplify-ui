@@ -1,7 +1,6 @@
 import React from 'react';
 import { ViewElement as View } from '../context/elements/definitions';
-import { HeaderControl } from './Controls/HeaderControl';
-import { InputControl } from './Controls/InputControl';
+import { HeaderControl, InputControl, PromptControl } from './Controls';
 
 import { MessagesControl } from './Controls/MessagesControl';
 
@@ -24,6 +23,7 @@ export default function Conversation(): JSX.Element {
       >
         <MessagesControl />
       </View>
+      <PromptControl />
       <View
         style={{
           border: '1px solid rgba(220, 222, 224, 1)',
