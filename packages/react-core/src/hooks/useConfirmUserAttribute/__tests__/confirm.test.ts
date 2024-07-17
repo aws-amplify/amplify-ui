@@ -23,8 +23,6 @@ const mockOutput = undefined;
 describe('useConfirmUserAttribute', () => {
   beforeEach(jest.clearAllMocks);
   afterEach(jest.clearAllMocks);
-  beforeAll(jest.clearAllMocks);
-  beforeEach(jest.clearAllMocks);
 
   it('data should be falsy if error received', async () => {
     (confirmUserAttribute as jest.Mock).mockRejectedValueOnce(mockError);
@@ -42,7 +40,24 @@ describe('useConfirmUserAttribute', () => {
     await waitForNextUpdate();
 
     expect(result.current[0].data).toBeFalsy();
-    expect(result.current[0].message).toBe(String(mockError));
+  });
+
+  it('hasError should be truthy if error occured', async () => {
+    (confirmUserAttribute as jest.Mock).mockRejectedValueOnce(mockError);
+
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useConfirmUserAttribute()
+    );
+    act(async () => {
+      await new Promise<void>((resolve) => {
+        result.current[1](mockInput);
+        resolve();
+      });
+    });
+
+    await waitForNextUpdate();
+
+    expect(result.current[0].hasError).toBeTruthy();
   });
 
   it('should have an error message if error occurs', async () => {
@@ -61,10 +76,9 @@ describe('useConfirmUserAttribute', () => {
     await waitForNextUpdate();
 
     expect(result.current[0].message).toBe(String(mockError));
-    expect(result.current[0].data).toBe(undefined);
   });
 
-  it('should have data as undefined', async () => {
+  it('should have data as undefined if successful', async () => {
     const { result, waitForNextUpdate } = renderHook(() =>
       useConfirmUserAttribute()
     );
@@ -79,6 +93,39 @@ describe('useConfirmUserAttribute', () => {
 
     await waitForNextUpdate();
     expect(result.current[0].data).toBe(undefined);
-    expect(result.current[0].message).toBe(undefined);
+  });
+
+  it('hasError should be falsy if successful', async () => {
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useConfirmUserAttribute()
+    );
+    (confirmUserAttribute as jest.Mock).mockResolvedValue(mockOutput);
+
+    act(async () => {
+      await new Promise<void>((resolve) => {
+        result.current[1](mockInput);
+        resolve();
+      });
+    });
+
+    await waitForNextUpdate();
+
+    expect(result.current[0].hasError).toBeFalsy();
+  });
+  it('should not have a message if successful', async () => {
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useConfirmUserAttribute()
+    );
+    (confirmUserAttribute as jest.Mock).mockResolvedValue(mockOutput);
+
+    act(async () => {
+      await new Promise<void>((resolve) => {
+        result.current[1](mockInput);
+        resolve();
+      });
+    });
+
+    await waitForNextUpdate();
+    expect(result.current[0].message).toBeFalsy();
   });
 });

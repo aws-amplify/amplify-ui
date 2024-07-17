@@ -1,10 +1,10 @@
 import { ConfirmUserAttributeInput } from '@aws-amplify/auth';
 
-import { ActionState } from '../useDataState';
+import { DataState } from '../useDataState';
 import { confirmUserAttributeAction } from './constants';
 
 export type UseConfirmUserAttribute = [
-  ActionState<void>,
+  DataState<void>,
   (input: ConfirmUserAttributeInput) => void,
 ];
 
