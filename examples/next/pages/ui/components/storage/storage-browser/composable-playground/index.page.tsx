@@ -17,7 +17,7 @@ export default function Example() {
   return (
     <StorageBrowser.Provider>
       <StorageBrowser.Controls.Divider />
-      {/* <StorageBrowser.Controls.Search /> */}
+      <StorageBrowser.Controls.Search />
     </StorageBrowser.Provider>
   );
 }
