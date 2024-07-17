@@ -1,2 +1,3 @@
-export { RefreshControl } from './RefreshControl';
-export { SearchControl } from './SearchControl';
+export { RefreshControl } from './Refresh';
+export { SearchControl } from './Search';
+export { Controls } from './types';

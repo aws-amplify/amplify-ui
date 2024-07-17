@@ -8,11 +8,11 @@ const { Button, Icon } = StorageBrowserElements;
 const BLOCK_NAME = `refresh`;
 
 export interface RefreshControl<
-  T extends Partial<StorageBrowserElements> = StorageBrowserElements,
+  T extends StorageBrowserElements = StorageBrowserElements,
 > {
   (): React.JSX.Element;
-  RefreshButton: T['Button'];
-  RefreshIcon: T['Icon'];
+  Button: T['Button'];
+  Icon: T['Icon'];
 }
 
 const RefreshIcon = withBaseElementProps(Icon, {
@@ -37,5 +37,5 @@ export const RefreshControl: RefreshControl = () => (
   </RefreshButton>
 );
 
-RefreshControl.RefreshButton = RefreshButton;
-RefreshControl.RefreshIcon = RefreshIcon;
+RefreshControl.Button = RefreshButton;
+RefreshControl.Icon = RefreshIcon;
