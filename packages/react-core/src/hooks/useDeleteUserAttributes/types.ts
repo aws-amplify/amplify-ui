@@ -1,10 +1,10 @@
 import { DeleteUserAttributesInput } from '@aws-amplify/auth';
 
-import { ActionState } from '../useDataState';
+import { DataState } from '../useDataState';
 import { deleteUserAttributesAction } from './constants';
 
 export type UseDeleteUserAttributes = [
-  ActionState<void>,
+  DataState<void>,
   (input: DeleteUserAttributesInput) => void,
 ];
 
