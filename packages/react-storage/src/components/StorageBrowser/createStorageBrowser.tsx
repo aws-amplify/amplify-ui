@@ -6,15 +6,16 @@ import {
   LocationDetailView,
   LocationsListView,
   SearchControl,
-  PaginationControl,
+  PaginateControl,
 } from './Views';
 import { Controls, CreateStorageBrowserInput, StorageBrowser } from './types';
 
-export default function createStorageBrowser<
-  T extends Partial<StorageBrowserElements>,
->({ elements }: CreateStorageBrowserInput<T> = {}): {
+export default function createStorageBrowser<T extends StorageBrowserElements>({
+  elements: _elements,
+}: CreateStorageBrowserInput<Partial<T>> = {}): {
   StorageBrowser: StorageBrowser<T>;
 } {
+  const elements = { ..._elements, StorageBrowserElements };
   const Provider = createProvider({ elements });
 
   function StorageBrowser(): React.JSX.Element {
@@ -29,7 +30,7 @@ export default function createStorageBrowser<
 
   const Controls: Controls<T> = {
     // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
-    Pagination: PaginationControl,
+    Paginate: PaginateControl,
     // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
     Search: SearchControl,
   };

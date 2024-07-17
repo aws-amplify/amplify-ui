@@ -1,2 +1,3 @@
-export { PaginationControl } from './PaginationControl';
-export { SearchControl } from './SearchControl';
+export { PaginateControl } from './Paginate';
+export { SearchControl } from './Search';
+export { Controls } from './types';
