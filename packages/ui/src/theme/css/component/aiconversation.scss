@@ -105,19 +105,18 @@
   flex-direction: row;
   align-items: flex-start;
   gap: 8px;
+  height: 40px;
 }
 
 .ai-input__input {
   align-self: stretch;
   color: var(--colors-font-primary, #0d1a26);
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%;
   border-radius: 4px;
   border: 1px solid var(--components-fieldcontrol-borderColor, #aeb3b7);
   background: #fff;
   width: 800px;
+  overflow: hidden;
+  resize: none;
 }
 
 .ai-input__button__send {

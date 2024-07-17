@@ -10,7 +10,8 @@ export default function Conversation(): JSX.Element {
     <View
       style={{
         width: '584px',
-        height: '344px',
+        height: 'auto',
+        maxHeight: '80%',
       }}
     >
       <HeaderControl />
