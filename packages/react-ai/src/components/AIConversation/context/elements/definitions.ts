@@ -51,7 +51,7 @@ export const InputElement = defineBaseElement<'input', 'type'>({
   displayName: 'Input',
 });
 
-type ButtonElementProps = 'onClick' | 'type';
+type ButtonElementProps = 'disabled' | 'onClick' | 'type';
 type ButtonElementVariant = 'send-message' | 'attach';
 
 export const ButtonElement = defineBaseElement<
@@ -70,7 +70,12 @@ export const SpanElement = defineBaseElement({
   displayName: 'Span',
 });
 
-export const TextAreaElement = defineBaseElement({
+type TextAreaElementProps = 'onChange';
+
+export const TextAreaElement = defineBaseElement<
+  'textarea',
+  TextAreaElementProps
+>({
   type: 'textarea',
   displayName: 'TextArea',
 });
