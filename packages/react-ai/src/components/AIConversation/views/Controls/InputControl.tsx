@@ -57,7 +57,6 @@ const SendIcon = withBaseElementProps(Icon, sendIconProps);
 const AttachButtonBase = withBaseElementProps(Button, {
   'aria-label': 'Attach item',
   className: `${INPUT_BLOCK}__button__copy`,
-  role: 'button',
 });
 
 const AttachButton: typeof AttachButtonBase = React.forwardRef(
@@ -79,7 +78,6 @@ const SendButtonBase = withBaseElementProps(Button, {
   className: `${INPUT_BLOCK}__button__send`,
   disabled: false,
   'aria-disabled': false,
-  role: 'button',
 });
 
 const SendButton: typeof SendButtonBase = React.forwardRef(
@@ -102,7 +100,7 @@ const SendButton: typeof SendButtonBase = React.forwardRef(
 
 const TextInputBase = withBaseElementProps(TextArea, {
   className: `${INPUT_BLOCK}__input`,
-  placeholder: 'Ask anything...',
+  placeholder: 'Message Raven',
   onChange: () => {},
   id: `${INPUT_BLOCK}-text-input`,
 });
@@ -110,6 +108,8 @@ const TextInputBase = withBaseElementProps(TextArea, {
 const TextInput: typeof TextInputBase = React.forwardRef(
   function TextInput(props, ref) {
     const { input, setInput } = React.useContext(InputContext);
+    // TODO should come from context or prop
+    const isFirstMessage = false;
 
     React.useEffect(() => {
       const textarea = document.getElementById(`${INPUT_BLOCK}-text-input`);
@@ -139,6 +139,7 @@ const TextInput: typeof TextInputBase = React.forwardRef(
           // TODO sanitize input?
           setInput && setInput(e.target.value)
         }
+        {...(isFirstMessage ? { placeholder: 'Ask anything...' } : {})}
         {...props}
         ref={ref}
       />

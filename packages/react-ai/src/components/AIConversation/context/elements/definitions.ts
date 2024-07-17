@@ -70,7 +70,7 @@ export const SpanElement = defineBaseElement({
   displayName: 'Span',
 });
 
-type TextAreaElementProps = 'onChange';
+type TextAreaElementProps = 'onChange' | 'placeholder';
 
 export const TextAreaElement = defineBaseElement<
   'textarea',
