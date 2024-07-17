@@ -77,7 +77,7 @@ const FieldControl: FieldControl = () => (
 FieldControl.Container = FieldContainer;
 FieldControl.Icon = FieldIcon;
 FieldControl.Input = FieldInput;
-FieldControl.Label = Label;
+FieldControl.Label = FieldLabel;
 
 const ToggleContainer = withBaseElementProps(Span, {
   className: `${SEARCH_BLOCK}-${TOGGLE_BLOCK}__container`,

@@ -10,7 +10,7 @@ export default function createStorageBrowser<T extends StorageBrowserElements>({
 }: CreateStorageBrowserInput<Partial<T>> = {}): {
   StorageBrowser: StorageBrowser<T>;
 } {
-  const elements = { ..._elements, ...StorageBrowserElements };
+  const elements = { ..._elements, StorageBrowserElements };
   const Provider = createProvider({ elements });
 
   function StorageBrowser(): React.JSX.Element {
