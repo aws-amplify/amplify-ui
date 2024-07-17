@@ -1,8 +1,8 @@
 import { FetchUserAttributesOutput } from '@aws-amplify/auth';
 
-import { ActionState } from '../useDataState';
+import { DataState } from '../useDataState';
 
 export type UseFetchUserAttributes = [
-  ActionState<FetchUserAttributesOutput>,
+  DataState<FetchUserAttributesOutput>,
   () => void,
 ];

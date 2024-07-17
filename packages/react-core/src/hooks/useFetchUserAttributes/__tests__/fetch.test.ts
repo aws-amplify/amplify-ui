@@ -14,10 +14,22 @@ jest.mock('@aws-amplify/auth', () => ({
 describe('useFetchUserAttributes', () => {
   beforeEach(jest.clearAllMocks);
   afterEach(jest.clearAllMocks);
-  beforeAll(jest.clearAllMocks);
-  beforeEach(jest.clearAllMocks);
 
-  it('data should be falsy if error received', async () => {
+  it('data should be DefaultAttributes if error received', async () => {
+    const mockError = new Error('Sample error');
+    (fetchUserAttributes as jest.Mock).mockRejectedValueOnce(mockError);
+
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useFetchUserAttributes()
+    );
+    expect(result.current[0].data).toBe(DefaultAttributes);
+    act(result.current[1]);
+
+    await waitForNextUpdate();
+
+    expect(result.current[0].data).toBe(DefaultAttributes);
+  });
+  it('hasError should be truthy if error occurs', async () => {
     const mockError = new Error('Sample error');
     (fetchUserAttributes as jest.Mock).mockRejectedValueOnce(mockError);
 
@@ -28,7 +40,20 @@ describe('useFetchUserAttributes', () => {
 
     await waitForNextUpdate();
 
-    expect(result.current[0].data).toBe(DefaultAttributes);
+    expect(result.current[0].hasError).toBeTruthy();
+  });
+
+  it('message should be the error message if error occurs', async () => {
+    const mockError = new Error('Sample error');
+    (fetchUserAttributes as jest.Mock).mockRejectedValueOnce(mockError);
+
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useFetchUserAttributes()
+    );
+    act(result.current[1]);
+
+    await waitForNextUpdate();
+
     expect(result.current[0].message).toBe(String(mockError));
   });
 
@@ -44,6 +69,7 @@ describe('useFetchUserAttributes', () => {
     await waitForNextUpdate();
 
     expect(result.current[0].message).toBe(String(mockError));
+    expect(result.current[0].hasError).toBeTruthy();
   });
 
   it('data should be the attributes received', async () => {
@@ -58,12 +84,56 @@ describe('useFetchUserAttributes', () => {
     const { result, waitForNextUpdate } = renderHook(() =>
       useFetchUserAttributes()
     );
+
     expect(result.current[0].data).toBe(DefaultAttributes);
+
     act(result.current[1]);
+
     await waitForNextUpdate();
 
-    expect(result.current[0].data).toBeTruthy();
     expect(result.current[0].data).toBe(mockUserAttributes);
-    expect(result.current[0].message).toBe(undefined);
+  });
+
+  it('hasError should be false if attributes received successfully', async () => {
+    const mockUserAttributes: FetchUserAttributesOutput = {
+      email: 'email@email.com',
+      name: 'name',
+    };
+    (fetchUserAttributes as jest.Mock).mockResolvedValueOnce(
+      mockUserAttributes
+    );
+
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useFetchUserAttributes()
+    );
+    expect(result.current[0].data).toBe(DefaultAttributes);
+
+    act(result.current[1]);
+
+    await waitForNextUpdate();
+
+    expect(result.current[0].data).toBe(mockUserAttributes);
+    expect(result.current[0].hasError).toBeFalsy();
+  });
+  it('message should be undefined if successful fetch', async () => {
+    const mockUserAttributes: FetchUserAttributesOutput = {
+      email: 'email@email.com',
+      name: 'name',
+    };
+    (fetchUserAttributes as jest.Mock).mockResolvedValueOnce(
+      mockUserAttributes
+    );
+
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useFetchUserAttributes()
+    );
+    expect(result.current[0].data).toBe(DefaultAttributes);
+
+    act(result.current[1]);
+
+    await waitForNextUpdate();
+
+    expect(result.current[0].data).toBe(mockUserAttributes);
+    expect(result.current[0].message).toBeFalsy();
   });
 });
