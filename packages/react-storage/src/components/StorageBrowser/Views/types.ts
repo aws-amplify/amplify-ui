@@ -1,7 +1,7 @@
 import { StorageBrowserElements } from '../context/elements';
 import { Controls } from './Controls';
 
-export type CommonControl = 'Message' | 'Navigate' | 'Title';
+export type CommonControl = 'Message' | 'Navigate' | 'Title' | 'Divider';
 
 interface ListLocationsViewControls<T extends StorageBrowserElements>
   extends Pick<Controls<T>, CommonControl | 'Paginate' | 'Refresh'> {
