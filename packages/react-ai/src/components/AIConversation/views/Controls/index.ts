@@ -1,3 +1,4 @@
+import { PromptControl } from './PromptControl';
 import { ActionsBarControl } from './ActionsBarControl';
 import { AvatarControl } from './AvatarControl';
 import Conversation from '../ConversationView';
@@ -10,4 +11,5 @@ export {
   Conversation,
   HeaderControl,
   MessagesControl,
+  PromptControl,
 };

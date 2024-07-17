@@ -1,7 +1,7 @@
 import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
-import { Message } from '../../types';
+import { ConversationMessage } from '../../types';
 import { AvatarsContext } from '../../context';
 import { AIConversationElements } from '../../context/elements';
 const { Span, Text, View } = AIConversationElements;
@@ -61,7 +61,7 @@ AvatarControl.Icon = AvatarIcon;
 export interface AvatarControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
 > {
-  (props: { message: Message }): React.JSX.Element;
+  (props: { message: ConversationMessage }): React.JSX.Element;
   Container: T['View'];
   DisplayName: T['Text'];
   Icon: T['Span'];
