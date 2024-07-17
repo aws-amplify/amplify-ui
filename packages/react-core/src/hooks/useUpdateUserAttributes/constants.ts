@@ -6,14 +6,7 @@ import {
 import { Hub } from '@aws-amplify/core';
 
 import useDataState from '../useDataState';
-import {
-  UpdateAttributesOutput,
-  UpdateData,
-  UseUpdateUserAttributes,
-} from './types';
-
-// Default object to be passed into useDataState
-export const defaultUpdateUserAttributesOutput: UpdateAttributesOutput = {};
+import { UpdateData, UseUpdateUserAttributes } from './types';
 
 export const DefaultUpdate: UpdateData = {
   email: {

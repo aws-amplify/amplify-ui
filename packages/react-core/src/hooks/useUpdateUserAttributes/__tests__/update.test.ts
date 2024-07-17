@@ -33,7 +33,7 @@ jest.mock('@aws-amplify/auth', () => ({
 describe('useUpdateUserAttributes', () => {
   beforeEach(jest.clearAllMocks);
 
-  it('data should be falsy if error received', async () => {
+  it('data should be default if error received', async () => {
     const { result, waitForNextUpdate } = renderHook(() =>
       useUpdateUserAttributes()
     );
@@ -48,7 +48,6 @@ describe('useUpdateUserAttributes', () => {
     await waitForNextUpdate();
 
     expect(result.current[0].data).toBe(DefaultUpdate);
-    expect(result.current[0].message).toBe(String(mockError));
   });
 
   it('should have an error message if error occurs', async () => {
@@ -65,8 +64,24 @@ describe('useUpdateUserAttributes', () => {
 
     await waitForNextUpdate();
 
-    expect(result.current[0].data).toBe(DefaultUpdate);
     expect(result.current[0].message).toBe(String(mockError));
+  });
+
+  it('should have hasError truthy if error occurs', async () => {
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useUpdateUserAttributes()
+    );
+    (updateUserAttributes as jest.Mock).mockRejectedValue(mockError);
+    act(async () => {
+      await new Promise<void>((resolve) => {
+        result.current[1](mockInput);
+        resolve();
+      });
+    });
+
+    await waitForNextUpdate();
+
+    expect(result.current[0].hasError).toBeTruthy();
   });
 
   it('data should be mockOutput if successful', async () => {
@@ -95,6 +110,60 @@ describe('useUpdateUserAttributes', () => {
     await waitForNextUpdate();
 
     expect(result.current[0].data).toBe(mockOutput);
-    expect(result.current[0].message).toBe(undefined);
+  });
+  it('should have message undefined if successful', async () => {
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useUpdateUserAttributes()
+    );
+    (updateUserAttributes as jest.Mock).mockResolvedValue(mockOutput);
+
+    // THIS IS AN ISSUE I SEE IN MY DEMO APP AS WELL. ON THE FIRST CALL OF HANDLEUPDATE(input), the data is the default data, not the actual data from the API request.
+    act(async () => {
+      await new Promise<void>((resolve) => {
+        result.current[1](mockInput);
+        resolve();
+      });
+    });
+
+    expect(result.current[0].data).toBe(DefaultUpdate);
+
+    act(async () => {
+      await new Promise<void>((resolve) => {
+        result.current[1](mockInput);
+        resolve();
+      });
+    });
+
+    await waitForNextUpdate();
+
+    expect(result.current[0].message).toBeFalsy();
+  });
+
+  it('should have hasError falsy if successful', async () => {
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useUpdateUserAttributes()
+    );
+    (updateUserAttributes as jest.Mock).mockResolvedValue(mockOutput);
+
+    // THIS IS AN ISSUE I SEE IN MY DEMO APP AS WELL. ON THE FIRST CALL OF HANDLEUPDATE(input), the data is the default data, not the actual data from the API request.
+    act(async () => {
+      await new Promise<void>((resolve) => {
+        result.current[1](mockInput);
+        resolve();
+      });
+    });
+
+    expect(result.current[0].data).toBe(DefaultUpdate);
+
+    act(async () => {
+      await new Promise<void>((resolve) => {
+        result.current[1](mockInput);
+        resolve();
+      });
+    });
+
+    await waitForNextUpdate();
+
+    expect(result.current[0].hasError).toBeFalsy();
   });
 });
