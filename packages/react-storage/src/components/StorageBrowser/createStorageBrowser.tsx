@@ -5,6 +5,7 @@ import createProvider from './createProvider';
 import {
   LocationDetailView,
   LocationsListView,
+  DividerControl,
   RefreshControl,
   SearchControl,
 } from './Views';
@@ -30,6 +31,8 @@ export default function createStorageBrowser<T extends StorageBrowserElements>({
 
   const Controls: Controls<T> = {
     // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
+    Divider: DividerControl,
+    // @ts-expect-error FIXME -> `Controls` need to be nested in `View` componentss
     Refresh: RefreshControl,
     // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
     Search: SearchControl,
