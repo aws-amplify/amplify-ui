@@ -10,35 +10,35 @@
 }
 
 .ai-header__button {
-    border: none;
-    background: none;
+  border: none;
+  background: none;
 }
 
 .ai-prompts__prompt__buttongroup {
-    display: flex;
-    gap: 8px;
+  display: flex;
+  gap: 8px;
 }
 
 .ai-prompts__prompt__card {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    border-radius: 8px;
-    border-width: 0px;
-    text-align: left;
-    white-space: nowrap;
-    padding: 12px;
-    cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  border-radius: 8px;
+  border-width: 0px;
+  text-align: left;
+  white-space: nowrap;
+  padding: 12px;
+  cursor: pointer;
 }
 
 .ai-prompts__prompt__card__header {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .ai-prompts__prompt__card__text {
-    margin: 0px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  margin: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ai-messages__container {
