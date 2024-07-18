@@ -114,7 +114,7 @@ const TextInput: typeof TextInputBase = React.forwardRef(
     return (
       <TextInputBase
         data-testid="text-input"
-        onChange={() => setInput && onType}
+        onChange={(e) => setInput && onType(e)}
         {...(isFirstMessage ? { placeholder: 'Ask anything...' } : {})}
         {...props}
         ref={ref}
