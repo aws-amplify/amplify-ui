@@ -1,6 +1,8 @@
 import React from 'react';
 import { useDataState } from '@aws-amplify/ui-react-core';
 import { listLocationsAction } from '../context/actions';
+import { RefreshControl, TitleControl, DividerControl } from './Controls';
+import { CLASS_BASE } from './constants';
 
 export default function LocationsListView(): JSX.Element {
   const [{ data, isLoading }, handleListLocations] = useDataState(
@@ -17,5 +19,22 @@ export default function LocationsListView(): JSX.Element {
     ? null
     : data.locations.map(({ name }) => <p key={name}>{name}</p>);
 
-  return <>{!hasLocations && isLoading ? 'loading...' : listLocations}</>;
+  return (
+    <>
+      <div className={`${CLASS_BASE}__header`}>
+        <div className={`${CLASS_BASE}__header__primary`}>
+          <TitleControl />
+          <div className={`${CLASS_BASE}__header__primary__actions`}>
+            <RefreshControl />
+            <DividerControl />
+            <div>Actions</div>
+          </div>
+        </div>
+        <div className={`${CLASS_BASE}-header__secondary`}>
+          <div>Pagination</div>
+        </div>
+      </div>
+      {!hasLocations && isLoading ? 'loading...' : listLocations}
+    </>
+  );
 }

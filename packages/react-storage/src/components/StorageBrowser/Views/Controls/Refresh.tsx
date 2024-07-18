@@ -2,10 +2,11 @@ import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import { StorageBrowserElements } from '../../context/elements';
+import { CLASS_BASE } from '../constants';
 
 const { Button, Icon } = StorageBrowserElements;
 
-const BLOCK_NAME = `refresh`;
+const BLOCK_NAME = `${CLASS_BASE}__refresh`;
 
 export interface RefreshControl<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -32,7 +33,7 @@ const RefreshIcon = withBaseElementProps(Icon, {
 });
 
 const RefreshButton = withBaseElementProps(Button, {
-  className: `${BLOCK_NAME}__button`,
+  className: `${BLOCK_NAME}`,
   'aria-label': 'Refresh table',
 });
 

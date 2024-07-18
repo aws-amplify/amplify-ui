@@ -1,0 +1,17 @@
+.amplify-storagebrowser__header {
+}
+
+.amplify-storagebrowser__header__primary {
+  display: flex;
+  align-items: flex-start;
+}
+
+.amplify-storagebrowser__title {
+  flex: 1 1 auto;
+  margin: 0;
+}
+.amplify-storagebrowser__header__primary__actions {
+  flex: 0 1 auto;
+  display: flex;
+  align-items: center;
+}
