@@ -4,6 +4,7 @@ import { listLocationsAction } from '../context/actions';
 import {
   DividerControl,
   HistoryControl,
+  PaginateControl,
   RefreshControl,
   TitleControl,
 } from './Controls';
@@ -44,7 +45,7 @@ export default function LocationsListView(): JSX.Element {
           </div>
         </div>
         <div className={`${CLASS_BASE}-header__secondary`}>
-          <div>Pagination</div>
+          <PaginateControl />
         </div>
       </div>
       {!hasLocations && isLoading ? 'loading...' : listLocations}

@@ -19,7 +19,8 @@
   align-items: center;
 }
 
-.amplify-storagebrowser__history__list {
+.amplify-storagebrowser__history__list,
+.amplify-storagebrowser__paginate__list {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -30,4 +31,13 @@
 .amplify-storagebrowser__history__list__item {
   display: flex;
   gap: 6px;
+}
+
+.amplify-storagebrowser__paginate__list__item {
+  display: flex;
+}
+
+.amplify-storagebrowser__paginate__icon,
+.amplify-storagebrowser__refresh__icon {
+  display: block;
 }
