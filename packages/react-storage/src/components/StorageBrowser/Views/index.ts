@@ -3,6 +3,7 @@ export { default as LocationsListView } from './LocationsListView';
 export {
   DividerControl,
   HistoryControl,
+  PaginateControl,
   RefreshControl,
   SearchControl,
   TitleControl,
