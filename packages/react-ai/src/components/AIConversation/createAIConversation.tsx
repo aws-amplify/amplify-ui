@@ -1,12 +1,17 @@
 import React from 'react';
-import { Controls, AIConversationInput, AIConversation } from './types';
+import {
+  Controls,
+  AIConversationInput,
+  AIConversation,
+  AIConversationProps,
+} from './types';
 import {
   ActionsBarControl,
   AvatarControl,
   Conversation,
   HeaderControl,
   MessagesControl,
-  SuggestedPrompts,
+  PromptControl,
 } from './views';
 import { AIConversationElements } from './context/elements';
 import createProvider from './createProvider';
@@ -16,13 +21,14 @@ export function createAIConversation<T extends Partial<AIConversationElements>>(
 ): {
   AIConversation: AIConversation<T>;
 } {
-  const { elements } = input;
+  const { elements, suggestedPrompts, actions } = input;
 
-  const Provider = createProvider({ elements });
+  const Provider = createProvider({ elements, actions, suggestedPrompts });
 
-  function AIConversation(): JSX.Element {
+  function AIConversation(props: AIConversationProps): JSX.Element {
+    const { messages, avatars } = props;
     return (
-      <Provider>
+      <Provider messages={messages} avatars={avatars}>
         <Conversation />
       </Provider>
     );
@@ -37,11 +43,12 @@ export function createAIConversation<T extends Partial<AIConversationElements>>(
     Header: HeaderControl,
     // @ts-expect-error TODO fix type error
     Messages: MessagesControl,
+    // @ts-expect-error TODO fix type error
+    SuggestedPrompts: PromptControl,
   };
 
   AIConversation.Provider = Provider;
   AIConversation.Conversation = Conversation;
-  AIConversation.SuggestedPrompts = SuggestedPrompts;
   AIConversation.Controls = Controls;
 
   return { AIConversation };

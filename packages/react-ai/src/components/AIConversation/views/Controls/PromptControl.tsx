@@ -4,6 +4,7 @@ import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 import {
   AIConversationElements,
   InputContext,
+  MessagesContext,
   SuggestedPromptsContext,
 } from '../../context';
 import { classNames } from '@aws-amplify/ui';
@@ -60,11 +61,11 @@ const HeaderText = withBaseElementProps(Heading, {
   className: `${PROMPT_CONTROL}__header`,
 });
 
-const ButtonGroupBase = withBaseElementProps(View, {
+const PromptGroupBase = withBaseElementProps(View, {
   className: `${PROMPT_CONTROL}__buttongroup`,
 });
 
-const ButtonGroup: typeof ButtonGroupBase = React.forwardRef(
+const PromptGroup: typeof PromptGroupBase = React.forwardRef(
   function ButtonGroup(props, ref) {
     const suggestedPromptsArray = React.useContext(SuggestedPromptsContext);
     const { setInput } = React.useContext(InputContext);
@@ -74,7 +75,7 @@ const ButtonGroup: typeof ButtonGroupBase = React.forwardRef(
     }
 
     return (
-      <ButtonGroupBase {...props} ref={ref}>
+      <PromptGroupBase {...props} ref={ref}>
         {suggestedPromptsArray.map((prompt, index) => {
           return (
             <PromptCard
@@ -94,7 +95,7 @@ const ButtonGroup: typeof ButtonGroupBase = React.forwardRef(
             </PromptCard>
           );
         })}
-      </ButtonGroupBase>
+      </PromptGroupBase>
     );
   }
 );
@@ -107,15 +108,31 @@ export const PromptControl: PromptControl = () => (
   <Container>
     <AIIcon />
     <HeaderText>How can I help you today?</HeaderText>
-    <ButtonGroup />
+    <PromptGroup />
   </Container>
 );
 
+export const AutoHidablePromptControl = (): JSX.Element | undefined => {
+  const messages = React.useContext(MessagesContext);
+
+  if (!messages || messages.length === 0) {
+    return <PromptControl />;
+  }
+};
+
 PromptControl.Container = Container;
+PromptControl.Header = HeaderText;
+PromptControl.Icon = AIIcon;
+PromptControl.PromptGroup = PromptGroup;
+PromptControl.PromptCard = PromptCard;
 
 export interface PromptControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
 > {
   (): React.JSX.Element;
   Container: T['View'];
+  Header: T['Heading'];
+  Icon: T['Icon'];
+  PromptGroup: T['View'];
+  PromptCard: T['Button'];
 }
