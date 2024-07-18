@@ -45,6 +45,7 @@ export default function Example() {
       <StorageBrowser.Controls.Divider />
       <StorageBrowser.Controls.Search />
       <StorageBrowser.Controls.Refresh />
+      <StorageBrowser.Controls.Paginate />
     </StorageBrowser.Provider>
   );
 }
