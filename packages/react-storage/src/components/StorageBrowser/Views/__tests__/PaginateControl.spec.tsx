@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { PaginationControl } from '../';
+import { PaginateControl } from '../';
 
 describe('PaginationControl', () => {
   it('renders the PaginationControl', async () => {
-    render(<PaginationControl />);
+    render(<PaginateControl />);
 
     const nav = screen.getByRole('navigation', {
       name: 'Pagination',
