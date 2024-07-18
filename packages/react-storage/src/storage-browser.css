@@ -17,6 +17,7 @@
   flex: 0 1 auto;
   display: flex;
   align-items: center;
+  gap: 6px;
 }
 
 .amplify-storagebrowser__history__list,
@@ -40,4 +41,11 @@
 .amplify-storagebrowser__paginate__icon,
 .amplify-storagebrowser__refresh__icon {
   display: block;
+}
+
+.amplify-storagebrowser__divider {
+  border: 0 0 0 2px;
+  border-style: solid;
+  border-color: #888;
+  height: 16px;
 }
