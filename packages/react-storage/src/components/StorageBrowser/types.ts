@@ -1,12 +1,21 @@
 import React from 'react';
 
 import { StorageBrowserElements } from './context/elements';
-import { HistoryControl, SearchControl } from './Views';
+import {
+  DividerControl,
+  HistoryControl,
+  RefreshControl,
+  SearchControl,
+  TitleControl,
+} from './Views';
 
 export interface Controls<T extends StorageBrowserElements> {
   (): React.JSX.Element;
+  Divider: DividerControl<T>;
   History: HistoryControl<T>;
   Search: SearchControl<T>;
+  Refresh: RefreshControl<T>;
+  Title: TitleControl<T>;
 }
 
 export interface StorageBrowser<T extends StorageBrowserElements> {
