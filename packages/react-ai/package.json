@@ -10,10 +10,10 @@
       "import": "./dist/esm/index.mjs",
       "require": "./dist/index.js"
     },
-    "./styles.css": "./dist/styles.css"
+    "./ai-conversation-styles.css": "./dist/ai-conversation-styles.css"
   },
   "browser": {
-    "./styles.css": "./dist/styles.css"
+    "./ai-conversation-styles.css": "./dist/ai-conversation-styles.css"
   },
   "types": "dist/types/index.d.ts",
   "sideEffects": [
