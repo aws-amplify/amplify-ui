@@ -1,6 +1,10 @@
 import React from 'react';
 import { ViewElement as View } from '../context/elements/definitions';
-import { HeaderControl, InputControl, PromptControl } from './Controls';
+import {
+  AutoHidablePromptControl,
+  HeaderControl,
+  InputControl,
+} from './Controls';
 
 import { MessagesControl } from './Controls/MessagesControl';
 
@@ -21,9 +25,9 @@ export default function Conversation(): JSX.Element {
           padding: '0px 16px',
         }}
       >
+        <AutoHidablePromptControl />
         <MessagesControl />
       </View>
-      <PromptControl />
       <View
         style={{
           border: '1px solid rgba(220, 222, 224, 1)',

@@ -1,10 +1,10 @@
 import Conversation from './ConversationView';
-import SuggestedPrompts from './SuggestedPrompts';
 import {
   ActionsBarControl,
   AvatarControl,
   HeaderControl,
   MessagesControl,
+  PromptControl,
 } from './Controls';
 
 export {
@@ -13,5 +13,5 @@ export {
   Conversation,
   HeaderControl,
   MessagesControl,
-  SuggestedPrompts,
+  PromptControl,
 };

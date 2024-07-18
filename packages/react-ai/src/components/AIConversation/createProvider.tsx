@@ -8,34 +8,25 @@ import { AvatarsProvider } from './context/AvatarsContext';
 import { InputContextProvider } from './context/InputContext';
 import { MessagesProvider } from './context/MessagesContext';
 import { SuggestedPromptProvider } from './context/SuggestedPromptsContext';
-import { actions, avatars, messages } from './mocks/mocks';
-
-interface CreateAIConversationInput<T> {
-  elements?: T;
-}
-
-const MOCK_PROMPTS = [
-  {
-    header: 'Help me find a rental',
-    inputText: 'Find a rental with a pool',
-  },
-  {
-    header: 'Help me find a rental',
-    inputText: 'Find a rental with a basketball court',
-  },
-];
+import { AIConversationInput, AIConversationProps } from './types';
 
 export default function createProvider<
   T extends Partial<AIConversationElements>,
->({ elements }: Pick<CreateAIConversationInput<T>, 'elements'>) {
+>({
+  elements,
+  actions,
+  suggestedPrompts,
+}: Pick<AIConversationInput<T>, 'elements' | 'actions' | 'suggestedPrompts'>) {
   return function Provider({
     children,
+    messages,
+    avatars,
   }: {
     children?: React.ReactNode;
-  }): React.JSX.Element {
+  } & Pick<AIConversationProps, 'messages' | 'avatars'>): React.JSX.Element {
     return (
       <ElementsProvider elements={elements}>
-        <SuggestedPromptProvider suggestedPrompts={MOCK_PROMPTS}>
+        <SuggestedPromptProvider suggestedPrompts={suggestedPrompts}>
           <InputContextProvider>
             <AvatarsProvider avatars={avatars}>
               <ActionsProvider actions={actions}>
