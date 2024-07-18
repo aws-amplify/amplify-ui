@@ -23,6 +23,7 @@ jobs:
         package:
           - angular
           - react
+          - react-ai
           - react-auth
           - react-core
           - react-core-auth
