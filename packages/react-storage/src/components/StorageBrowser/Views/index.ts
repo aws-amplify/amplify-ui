@@ -1,3 +1,8 @@
 export { default as LocationDetailView } from './LocationDetailView';
 export { default as LocationsListView } from './LocationsListView';
-export { DividerControl, SearchControl, TitleControl } from './Controls';
+export {
+  DividerControl,
+  RefreshControl,
+  SearchControl,
+  TitleControl,
+} from './Controls';

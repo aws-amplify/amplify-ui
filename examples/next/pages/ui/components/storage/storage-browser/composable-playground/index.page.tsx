@@ -37,6 +37,7 @@ export default function Example() {
       <StorageBrowser.Controls.Title />
       <StorageBrowser.Controls.Divider />
       <StorageBrowser.Controls.Search />
+      <StorageBrowser.Controls.Refresh />
     </StorageBrowser.Provider>
   );
 }
