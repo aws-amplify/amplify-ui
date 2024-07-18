@@ -34,8 +34,6 @@ export default function createStorageBrowser<T extends StorageBrowserElements>({
 
   const Controls: Controls<T> = {
     // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
-    Search: SearchControl,
-    // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
     Divider: DividerControl,
     // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
     History: HistoryControl,
