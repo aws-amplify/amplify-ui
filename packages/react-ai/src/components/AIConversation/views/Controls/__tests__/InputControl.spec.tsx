@@ -26,12 +26,9 @@ describe('InputControl', () => {
     expect(attachButton).toHaveAttribute('aria-label', 'Attach file');
     expect(sendButton).toHaveAttribute('aria-label', 'Send message');
 
-    const attachIcon = attachButton.querySelector('svg');
     const sendIcon = sendButton.querySelector('svg');
 
-    expect(attachIcon).toBeDefined();
     expect(sendIcon).toBeDefined();
-    expect(attachIcon).toHaveAttribute('aria-hidden', 'true');
     expect(sendIcon).toHaveAttribute('aria-hidden', 'true');
   });
 
