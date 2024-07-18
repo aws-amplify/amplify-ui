@@ -10,41 +10,41 @@
 }
 
 .ai-header__button {
-    border: none;
-    background: none;
+  border: none;
+  background: none;
 }
 
 .ai-prompts__container {
-    border-left: 1px solid rgb(220, 222, 224);
-    border-right: 1px solid rgb(220, 222, 224);
-    padding: 0px 16px;
+  border-left: 1px solid rgb(220, 222, 224);
+  border-right: 1px solid rgb(220, 222, 224);
+  padding: 0px 16px;
 }
 
 .ai-prompts__prompt__buttongroup {
-    display: flex;
-    gap: 8px;
+  display: flex;
+  gap: 8px;
 }
 
 .ai-prompts__prompt__card {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    border-radius: 8px;
-    border-width: 0px;
-    text-align: left;
-    white-space: nowrap;
-    padding: 12px;
-    cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  border-radius: 8px;
+  border-width: 0px;
+  text-align: left;
+  white-space: nowrap;
+  padding: 12px;
+  cursor: pointer;
 }
 
 .ai-prompts__prompt__card__header {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .ai-prompts__prompt__card__text {
-    margin: 0px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  margin: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ai-messages__container {
@@ -131,6 +131,7 @@
   align-items: center;
   gap: 4px;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .ai-input__container {
@@ -152,30 +153,35 @@
   resize: none;
 }
 
-.ai-input__button__send {
+.ai-input__button {
   display: flex;
   width: 40px;
   height: 40px;
   padding: 8px 2px;
   justify-content: center;
   align-items: center;
-  flex-shrink: 0;
   border-radius: 4px;
-  border: 1px solid
-    var(--components-button-primary-borderColor, rgba(0, 0, 0, 0));
-  background: var(--components-button-primary-backgroundColor, #047d95);
+  cursor: pointer;
+  &--attach {
+    border: 1px solid var(--components-button-borderColor, #aeb3b7);
+    background: #fff;
+  }
+  &--send {
+    border: 1px solid
+      var(--components-button-primary-borderColor, rgba(0, 0, 0, 0));
+    background: var(--components-button-primary-backgroundColor, #047d95);
+  }
 }
 
-.ai-input__button__copy {
-  display: flex;
-  width: 40px;
-  height: 40px;
-  padding: 8px 2px;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-  flex-shrink: 0;
-  border-radius: 4px;
-  border: 1px solid var(--components-button-borderColor, #aeb3b7);
-  background: #fff;
+.ai-input__visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  fill: transparent;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }

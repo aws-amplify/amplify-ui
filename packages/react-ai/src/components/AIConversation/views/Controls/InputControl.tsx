@@ -5,9 +5,10 @@ import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 import { AIConversationElements } from '../../context/elements';
 import { InputContext } from '../../context';
 
-const { Button, Icon, TextArea, View } = AIConversationElements;
+const { Button, Icon, Input, TextArea, View } = AIConversationElements;
 
 const INPUT_BLOCK = 'ai-input';
+const ATTACH_FILE_BLOCK = 'ai-attach-file';
 
 const iconAttributes = {
   'aria-hidden': true,
@@ -28,6 +29,63 @@ const attachIconProps = () => ({
   stroke: '#0D1A26',
   ...iconAttributes,
 });
+
+const AttachIcon = withBaseElementProps(Icon, attachIconProps);
+
+const AttachFileContainer = withBaseElementProps(View, {
+  className: `${INPUT_BLOCK}__${ATTACH_FILE_BLOCK}__container`,
+});
+
+const VisuallyHidden = withBaseElementProps(View, {
+  className: `${INPUT_BLOCK}__visually-hidden`,
+});
+
+const AttachFileButton = withBaseElementProps(Button, {
+  'aria-label': 'Attach file',
+  className: `${INPUT_BLOCK}__button ${INPUT_BLOCK}__button--attach`,
+  role: 'button',
+});
+
+const AttachFileInputBase = withBaseElementProps(Input, {
+  'aria-label': 'Attach file',
+  accept: 'image/*',
+  className: `${INPUT_BLOCK}__attach-file-input`,
+});
+
+const AttachFileInput: typeof AttachFileInputBase = React.forwardRef(
+  function AttachFileInput(props, ref) {
+    // TODO should attach file to message
+    return <AttachFileInputBase {...props} ref={ref} />;
+  }
+);
+
+const AttachFileControl: AttachFileControl = () => {
+  return (
+    <AttachFileContainer>
+      <AttachFileButton>
+        <AttachIcon />
+      </AttachFileButton>
+      <VisuallyHidden>
+        <AttachFileInput />
+      </VisuallyHidden>
+    </AttachFileContainer>
+  );
+};
+
+AttachFileControl.Container = AttachFileContainer;
+AttachFileControl.Button = AttachFileButton;
+AttachFileControl.Input = AttachFileInput;
+AttachFileControl.VisuallyHidden = VisuallyHidden;
+
+interface AttachFileControl<
+  T extends Partial<AIConversationElements> = AIConversationElements,
+> {
+  (): React.JSX.Element;
+  Button: T['Button'];
+  Container: T['View'];
+  Input: T['Input'];
+  VisuallyHidden: T['View'];
+}
 
 const sendIconProps = () => ({
   children: (
@@ -51,31 +109,11 @@ const sendIconProps = () => ({
   ...iconAttributes,
 });
 
-const AttachIcon = withBaseElementProps(Icon, attachIconProps);
 const SendIcon = withBaseElementProps(Icon, sendIconProps);
-
-const AttachButtonBase = withBaseElementProps(Button, {
-  'aria-label': 'Attach item',
-  className: `${INPUT_BLOCK}__button__copy`,
-});
-
-const AttachButton: typeof AttachButtonBase = React.forwardRef(
-  function AttachButton(props, ref) {
-    return (
-      <AttachButtonBase
-        onClick={() => {
-          /* TODO attach item on click */
-        }}
-        {...props}
-        ref={ref}
-      />
-    );
-  }
-);
 
 const SendButtonBase = withBaseElementProps(Button, {
   'aria-label': 'Send message',
-  className: `${INPUT_BLOCK}__button__send`,
+  className: `${INPUT_BLOCK}__button ${INPUT_BLOCK}__button--send`,
   disabled: false,
   'aria-disabled': false,
 });
@@ -84,11 +122,11 @@ const SendButton: typeof SendButtonBase = React.forwardRef(
   function SendButton(props, ref) {
     // TODO should come from context
     const isWaitingForResponse = false;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- TODO send message on click
+    const { input } = React.useContext(InputContext);
     return (
       <SendButtonBase
-        onClick={() => {
-          /* TODO send message on click */
-        }}
+        onClick={() => {}}
         disabled={isWaitingForResponse}
         aria-disabled={isWaitingForResponse}
         {...props}
@@ -135,6 +173,7 @@ const TextInput: typeof TextInputBase = React.forwardRef(
 
     return (
       <TextInputBase
+        data-testid="text-input"
         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
           // TODO sanitize input?
           setInput && setInput(e.target.value)
@@ -154,9 +193,7 @@ const Container = withBaseElementProps(View, {
 export const InputControl: InputControl = () => {
   return (
     <Container>
-      <AttachButton>
-        <AttachIcon />
-      </AttachButton>
+      <AttachFileControl />
       <TextInput />
       <SendButton>
         <SendIcon />
@@ -165,7 +202,7 @@ export const InputControl: InputControl = () => {
   );
 };
 
-InputControl.AttachButton = AttachButton;
+InputControl.AttachFile = AttachFileControl;
 InputControl.AttachIcon = AttachIcon;
 InputControl.Container = Container;
 InputControl.Input = TextInput;
@@ -177,7 +214,7 @@ export interface InputControl<
 > {
   (): React.JSX.Element;
   Container: T['View'];
-  AttachButton: T['Button'];
+  AttachFile: AttachFileControl<T>;
   AttachIcon: T['Icon'];
   Input: T['TextArea'];
   SendButton: T['Button'];

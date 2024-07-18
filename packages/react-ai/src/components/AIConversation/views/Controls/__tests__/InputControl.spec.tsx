@@ -8,7 +8,7 @@ describe('InputControl', () => {
     expect(result.container).toBeDefined();
 
     const actionButtons = screen.getAllByRole('button');
-    const inputEl = screen.getByRole('textbox');
+    const inputEl = screen.getByTestId('text-input');
 
     expect(actionButtons).toHaveLength(2);
     expect(inputEl).toBeDefined();
@@ -23,7 +23,7 @@ describe('InputControl', () => {
     const sendButton = actionButtons[1];
 
     expect(sendButton).toHaveAttribute('aria-disabled', 'false');
-    expect(attachButton).toHaveAttribute('aria-label', 'Attach item');
+    expect(attachButton).toHaveAttribute('aria-label', 'Attach file');
     expect(sendButton).toHaveAttribute('aria-label', 'Send message');
 
     const attachIcon = attachButton.querySelector('svg');
@@ -39,8 +39,9 @@ describe('InputControl', () => {
 
   it.todo('disables the send button when the input field is empty');
   it.todo('disables the send button when waiting for an AI message');
-  it.todo('calls the correct handler when the send button is clicked');
-  it.todo('calls the correct handler when the attach button is clicked');
+  it.todo('sends the message when the send button is clicked');
+  it.todo('attaches a file to the message when the attach button is clicked');
 
   it.todo('sanitizes input text');
+  it.todo('sanitizes input images');
 });
