@@ -3,7 +3,7 @@ import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import { StorageBrowserElements } from '../../context/elements';
 
-const { Button, Icon, View } = StorageBrowserElements;
+const { Icon, View } = StorageBrowserElements;
 
 const BLOCK_NAME = `message`;
 
@@ -22,13 +22,18 @@ const Container = withBaseElementProps(View, {
   role: 'alert',
 });
 
+const Content = withBaseElementProps(View, {
+  className: `${BLOCK_NAME}__content`,
+  children: 'This is a message about something that just happened.',
+});
+
 const InfoIcon = withBaseElementProps(Icon, {
-  'aria-hidden': true,
+  'aria-label': 'Information',
   children: (
     <path
-      d="M12 21.0004C16.9706 21.0004 21 16.9709 21 12.0004H24C24 18.6278 18.6274 24.0004 12 24.0004C5.37258 24.0004 0 18.6278 0 12.0004C0 5.37295 5.37258 0.000371044 11.9873 0.000424673C15.4955 -0.0292413 18.7704 1.497 21 4.06355V0.000371044H24V9.00037H15V6.00037H18.7082C17.0452 4.10448 14.6122 2.97832 12 3.00037C7.02944 3.00037 3 7.02981 3 12.0004C3 16.9709 7.02944 21.0004 12 21.0004Z"
+      d="M11 7H13V9H11V7ZM11 11H13V17H11V11ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"
       fill="currentColor"
-    />
+    ></path>
   ),
   className: `${BLOCK_NAME}__icon`,
   width: '24',
@@ -41,8 +46,10 @@ const InfoIcon = withBaseElementProps(Icon, {
 export const MessageControl: MessageControl = () => (
   <Container>
     <InfoIcon />
+    <Content />
   </Container>
 );
 
 MessageControl.Container = Container;
 MessageControl.Icon = InfoIcon;
+MessageControl.Text = Content;
