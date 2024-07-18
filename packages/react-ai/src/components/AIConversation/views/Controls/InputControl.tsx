@@ -50,6 +50,7 @@ const AttachFileInputBase = withBaseElementProps(Input, {
   'aria-label': 'Attach file',
   accept: 'image/*',
   className: `${INPUT_BLOCK}__attach-file-input`,
+  type: 'file',
 });
 
 const AttachFileInput: typeof AttachFileInputBase = React.forwardRef(
@@ -60,13 +61,22 @@ const AttachFileInput: typeof AttachFileInputBase = React.forwardRef(
 );
 
 const AttachFileControl: AttachFileControl = () => {
+  const hiddenInput = React.useRef<HTMLInputElement>(null);
+
+  function handleClick() {
+    if (hiddenInput.current) {
+      hiddenInput.current.click();
+      hiddenInput.current.value = '';
+    }
+  }
+
   return (
     <AttachFileContainer>
-      <AttachFileButton>
+      <AttachFileButton onClick={handleClick}>
         <AttachIcon />
       </AttachFileButton>
       <VisuallyHidden>
-        <AttachFileInput />
+        <AttachFileInput ref={hiddenInput} />
       </VisuallyHidden>
     </AttachFileContainer>
   );
