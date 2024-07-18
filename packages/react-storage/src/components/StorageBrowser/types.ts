@@ -1,12 +1,21 @@
 import React from 'react';
 
 import { StorageBrowserElements } from './context/elements';
-import { PaginateControl, SearchControl } from './Views';
+import {
+  DividerControl,
+  PaginateControl,
+  RefreshControl,
+  SearchControl,
+  TitleControl,
+} from './Views';
 
 export interface Controls<T extends StorageBrowserElements> {
   (): React.JSX.Element;
+  Divider: DividerControl<T>;
   Paginate: PaginateControl<T>;
   Search: SearchControl<T>;
+  Refresh: RefreshControl<T>;
+  Title: TitleControl<T>;
 }
 
 export interface StorageBrowser<T extends StorageBrowserElements> {
