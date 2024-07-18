@@ -1,4 +1,5 @@
 import React from 'react';
+import debounce from 'lodash/debounce.js';
 
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
@@ -7,6 +8,8 @@ import { InputContext } from '../../context';
 import { AttachFileControl } from './AttachFileControl';
 
 const { Button, Icon, TextArea, View } = AIConversationElements;
+
+const TYPEAHEAD_DELAY_MS = 300;
 
 const INPUT_BLOCK = 'ai-input';
 
@@ -66,7 +69,6 @@ const SendButton: typeof SendButtonBase = React.forwardRef(
 const TextInputBase = withBaseElementProps(TextArea, {
   className: `${INPUT_BLOCK}__input`,
   placeholder: 'Message Raven',
-  onChange: () => {},
   id: `${INPUT_BLOCK}-text-input`,
 });
 
@@ -75,6 +77,17 @@ const TextInput: typeof TextInputBase = React.forwardRef(
     const { input, setInput } = React.useContext(InputContext);
     // TODO should come from context or prop
     const isFirstMessage = false;
+
+    const debouncedSetInput = debounce((value: string) => {
+      setInput!(value);
+    }, TYPEAHEAD_DELAY_MS);
+
+    const onType = React.useCallback(
+      (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        debouncedSetInput(event.target.value);
+      },
+      [debouncedSetInput] // Only re-create when debouncedSetInput changes
+    );
 
     React.useEffect(() => {
       const textarea = document.getElementById(`${INPUT_BLOCK}-text-input`);
@@ -101,10 +114,7 @@ const TextInput: typeof TextInputBase = React.forwardRef(
     return (
       <TextInputBase
         data-testid="text-input"
-        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-          // TODO sanitize input?
-          setInput && setInput(e.target.value)
-        }
+        onChange={() => setInput && onType}
         {...(isFirstMessage ? { placeholder: 'Ask anything...' } : {})}
         {...props}
         ref={ref}
