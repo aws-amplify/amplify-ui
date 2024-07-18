@@ -3,6 +3,7 @@ import React from 'react';
 import { StorageBrowserElements } from './context/elements';
 import {
   DividerControl,
+  HistoryControl,
   RefreshControl,
   SearchControl,
   TitleControl,
@@ -11,6 +12,7 @@ import {
 export interface Controls<T extends StorageBrowserElements> {
   (): React.JSX.Element;
   Divider: DividerControl<T>;
+  History: HistoryControl<T>;
   Search: SearchControl<T>;
   Refresh: RefreshControl<T>;
   Title: TitleControl<T>;
