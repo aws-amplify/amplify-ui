@@ -44,7 +44,6 @@ const SendButtonBase = withBaseElementProps(Button, {
   'aria-label': 'Send message',
   className: `${INPUT_BLOCK}__button ${INPUT_BLOCK}__button--send`,
   disabled: false,
-  'aria-disabled': false,
 });
 
 const SendButton: typeof SendButtonBase = React.forwardRef(
@@ -57,7 +56,6 @@ const SendButton: typeof SendButtonBase = React.forwardRef(
       <SendButtonBase
         onClick={() => {}}
         disabled={isWaitingForResponse}
-        aria-disabled={isWaitingForResponse}
         {...props}
         ref={ref}
       />

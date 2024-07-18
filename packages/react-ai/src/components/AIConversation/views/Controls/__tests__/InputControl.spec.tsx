@@ -22,7 +22,7 @@ describe('InputControl', () => {
     const attachButton = actionButtons[0];
     const sendButton = actionButtons[1];
 
-    expect(sendButton).toHaveAttribute('aria-disabled', 'false');
+    expect(sendButton).not.toHaveAttribute('disabled');
     expect(attachButton).toHaveAttribute('aria-label', 'Attach file');
     expect(sendButton).toHaveAttribute('aria-label', 'Send message');
 
