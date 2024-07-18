@@ -2,10 +2,11 @@ import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import { StorageBrowserElements } from '../../context/elements';
+import { CLASS_BASE } from '../constants';
 
 const { Button, ListItem, Nav, OrderedList, Span } = StorageBrowserElements;
 
-const BLOCK_NAME = 'history';
+const BLOCK_NAME = `${CLASS_BASE}__history`;
 
 export interface HistoryItem {
   label?: string;

@@ -1,4 +1,7 @@
 .amplify-storagebrowser__header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .amplify-storagebrowser__header__primary {
@@ -14,4 +17,17 @@
   flex: 0 1 auto;
   display: flex;
   align-items: center;
+}
+
+.amplify-storagebrowser__history__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.amplify-storagebrowser__history__list__item {
+  display: flex;
+  gap: 6px;
 }
