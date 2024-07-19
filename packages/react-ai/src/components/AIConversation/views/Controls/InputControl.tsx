@@ -1,5 +1,4 @@
 import React from 'react';
-import debounce from 'lodash/debounce.js';
 
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
@@ -8,8 +7,6 @@ import { InputContext } from '../../context';
 import { AttachFileControl } from './AttachFileControl';
 
 const { Button, Icon, TextArea, View } = AIConversationElements;
-
-const TYPEAHEAD_DELAY_MS = 300;
 
 const INPUT_BLOCK = 'ai-input';
 
@@ -49,22 +46,23 @@ const SendButtonBase = withBaseElementProps(Button, {
   disabled: false,
 });
 
-const SendButton: typeof SendButtonBase = React.forwardRef(
-  function SendButton(props, ref) {
-    // TODO should come from context
-    const isWaitingForResponse = false;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- TODO send message on click
-    const { input } = React.useContext(InputContext);
-    return (
-      <SendButtonBase
-        onClick={() => {}}
-        disabled={isWaitingForResponse}
-        {...props}
-        ref={ref}
-      />
-    );
-  }
-);
+const SendButton: typeof SendButtonBase = React.forwardRef(function SendButton(
+  { disabled, onClick, ...rest },
+  ref
+) {
+  // TODO should come from context
+  const isWaitingForResponse = false;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- TODO send message on click
+  const { input } = React.useContext(InputContext);
+  return (
+    <SendButtonBase
+      disabled={isWaitingForResponse}
+      onClick={() => {}}
+      ref={ref}
+      {...rest}
+    />
+  );
+});
 
 const TextInputBase = withBaseElementProps(TextArea, {
   className: `${INPUT_BLOCK}__input`,
@@ -72,56 +70,46 @@ const TextInputBase = withBaseElementProps(TextArea, {
   id: `${INPUT_BLOCK}-text-input`,
 });
 
-const TextInput: typeof TextInputBase = React.forwardRef(
-  function TextInput(props, ref) {
-    const { input, setInput } = React.useContext(InputContext);
-    // TODO should come from context or prop
-    const isFirstMessage = false;
+const TextInput: typeof TextInputBase = React.forwardRef(function TextInput(
+  { onChange, placeholder, ...rest },
+  ref
+) {
+  const { input, setInput } = React.useContext(InputContext);
+  // TODO should come from context or prop
+  const isFirstMessage = false;
 
-    const debouncedSetInput = debounce((value: string) => {
-      setInput!(value);
-    }, TYPEAHEAD_DELAY_MS);
+  React.useEffect(() => {
+    const textarea = document.getElementById(`${INPUT_BLOCK}-text-input`);
 
-    const onType = React.useCallback(
-      (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        debouncedSetInput(event.target.value);
-      },
-      [debouncedSetInput] // Only re-create when debouncedSetInput changes
-    );
-
-    React.useEffect(() => {
-      const textarea = document.getElementById(`${INPUT_BLOCK}-text-input`);
-
-      const handleResize = () => {
-        if (textarea) {
-          textarea.style.height = 'auto';
-          textarea.style.height = `${textarea.scrollHeight}px`;
-        }
-      };
-
-      if (textarea && textarea instanceof HTMLTextAreaElement) {
-        textarea.addEventListener('input', handleResize);
-        handleResize();
+    const handleResize = () => {
+      if (textarea) {
+        textarea.style.height = 'auto';
+        textarea.style.height = `${textarea.scrollHeight}px`;
       }
+    };
 
-      return () => {
-        if (textarea) {
-          textarea.removeEventListener('input', handleResize);
-        }
-      };
-    }, [input]);
+    if (textarea && textarea instanceof HTMLTextAreaElement) {
+      textarea.addEventListener('input', handleResize);
+      handleResize();
+    }
 
-    return (
-      <TextInputBase
-        data-testid="text-input"
-        onChange={(e) => setInput && onType(e)}
-        {...(isFirstMessage ? { placeholder: 'Ask anything...' } : {})}
-        {...props}
-        ref={ref}
-      />
-    );
-  }
-);
+    return () => {
+      if (textarea) {
+        textarea.removeEventListener('input', handleResize);
+      }
+    };
+  }, [input]);
+
+  return (
+    <TextInputBase
+      data-testid="text-input"
+      onChange={(e) => setInput && setInput(e.target.value)}
+      {...(isFirstMessage ? { placeholder: 'Ask anything...' } : {})}
+      {...rest}
+      ref={ref}
+    />
+  );
+});
 
 const Container = withBaseElementProps(View, {
   className: `${INPUT_BLOCK}__container`,

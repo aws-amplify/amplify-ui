@@ -38,7 +38,6 @@ const VisuallyHidden = withBaseElementProps(View, {
 const AttachFileButton = withBaseElementProps(Button, {
   'aria-label': 'Attach file',
   className: `${INPUT_BLOCK}__button ${INPUT_BLOCK}__button--attach`,
-  role: 'button',
 });
 
 const AttachFileInputBase = withBaseElementProps(Input, {
