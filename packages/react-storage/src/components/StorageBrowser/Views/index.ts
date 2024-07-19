@@ -6,5 +6,6 @@ export {
   PaginateControl,
   RefreshControl,
   SearchControl,
+  TableControl,
   TitleControl,
 } from './Controls';

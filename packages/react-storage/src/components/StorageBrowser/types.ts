@@ -7,6 +7,7 @@ import {
   PaginateControl,
   RefreshControl,
   SearchControl,
+  TableControl,
   TitleControl,
 } from './Views';
 
@@ -17,6 +18,7 @@ export interface Controls<T extends StorageBrowserElements> {
   Paginate: PaginateControl<T>;
   Search: SearchControl<T>;
   Refresh: RefreshControl<T>;
+  Table: TableControl<T>;
   Title: TitleControl<T>;
 }
 

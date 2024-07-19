@@ -4,4 +4,5 @@ export { PaginateControl } from './Paginate';
 export { RefreshControl } from './Refresh';
 export { SearchControl } from './Search';
 export { TitleControl } from './Title';
+export { TableControl } from './Table';
 export { Controls } from './types';

@@ -10,6 +10,7 @@ import {
   PaginateControl,
   RefreshControl,
   SearchControl,
+  TableControl,
   TitleControl,
 } from './Views';
 import { Controls, CreateStorageBrowserInput, StorageBrowser } from './types';
@@ -43,6 +44,8 @@ export default function createStorageBrowser<T extends StorageBrowserElements>({
     Refresh: RefreshControl,
     // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
     Search: SearchControl,
+    // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
+    Table: TableControl,
     // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
     Title: TitleControl,
   };
