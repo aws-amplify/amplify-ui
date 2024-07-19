@@ -42,6 +42,13 @@ export {
   usePreviousValue,
   useSetUserAgent,
   useTimeout,
+  useConfirm,
+  useDataState,
+  useDelete,
+  useFetch,
+  useSendCode,
+  useUpdate,
+  useUserAttributes,
 } from './hooks';
 
 export { MergeProps } from './types';
