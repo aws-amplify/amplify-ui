@@ -40,7 +40,8 @@ export const IconElement = defineBaseElement<'svg', never, IconVariant>({
   displayName: 'Icon',
 });
 
-export const ImageElement = defineBaseElement({
+type ImageElementProps = 'src' | 'alt';
+export const ImageElement = defineBaseElement<'img', ImageElementProps>({
   type: 'img',
   displayName: 'Image',
 });

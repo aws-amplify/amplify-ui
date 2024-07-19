@@ -46,9 +46,9 @@
   flex-direction: column;
   width: 100%;
   padding-top: 48px;
-  padding: 24px;
   justify-content: flex-end;
   align-items: flex-start;
+  gap: 16px;
 }
 
 .ai-message__container {
@@ -56,7 +56,18 @@
   flex-direction: column;
   width: 480px;
   align-items: flex-start;
-  padding-top: 16px;
+}
+
+.ai-message__container--bubble-1 {
+  border-radius: 32px 32px 32px 0px;
+}
+
+.ai-message__container--bubble-1--assistant {
+  background: var(--colors-brand-primary-10, #e9f9fc);
+}
+
+.ai-message__container--bubble-1--user {
+  background: var(--colors-neutral-20, #eff0f0);
 }
 
 .ai-message__header-container {

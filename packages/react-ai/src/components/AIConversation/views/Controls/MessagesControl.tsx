@@ -16,7 +16,7 @@ const MESSAGE_BLOCK = 'ai-message';
 
 const MediaContent = withBaseElementProps(Image, {
   className: `${MESSAGE_BLOCK}__image`,
-  src: 'test.jpg',
+  alt: 'AI Image',
 });
 
 const TextContent = withBaseElementProps(Text, {
@@ -33,7 +33,6 @@ export const MessageControl: MessageControl = ({ message }) => {
   ) : (
     <MediaContent
       data-testid={'message'}
-      // @ts-expect-error TODO fix type error
       src={convertBufferToBase64(
         message.content.value.bytes,
         message.content.value.format
@@ -80,7 +79,7 @@ export const MessagesControl: MessagesControl = ({
   return (
     <Layout>
       {messages?.map((message, index) => (
-        <Container key={`message-${index}`} test-id={`message`}>
+        <Container data-testid={`message`} key={`message-${index}`}>
           <HeaderContainer>
             <AvatarControl message={message} />
             <Separator />

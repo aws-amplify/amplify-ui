@@ -11,6 +11,7 @@ const { Button, Span, View } = AIConversationElements;
 const ACTIONS_BAR_BLOCK = 'ai-actions-bar';
 
 const iconAttributes = {
+  'aria-hidden': true,
   className: `${ACTIONS_BAR_BLOCK}__icon`,
   fill: 'none',
   xmlns: 'http://www.w3.org/2000/svg',
@@ -50,8 +51,14 @@ export const ActionsBarControl: ActionsBarControl = ({ message }) => {
   return (
     <Container>
       {actions?.map((action, index) => (
-        <ActionButton key={index} onClick={() => action.handler(message)}>
-          <ActionIcon>{action.icon}</ActionIcon>
+        <ActionButton
+          aria-label={action.displayName}
+          key={index}
+          onClick={() => action.handler(message)}
+        >
+          <ActionIcon data-testid={`action-icon-${action.displayName}`}>
+            {action.icon}
+          </ActionIcon>
         </ActionButton>
       ))}
     </Container>

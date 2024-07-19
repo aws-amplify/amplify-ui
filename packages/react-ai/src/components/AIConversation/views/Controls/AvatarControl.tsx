@@ -9,6 +9,7 @@ const { Span, Text, View } = AIConversationElements;
 const AVATAR_BLOCK = 'ai-avatar';
 
 const iconAttributes = {
+  'aria-hidden': true,
   className: `${AVATAR_BLOCK}__icon`,
   xmlns: 'http://www.w3.org/2000/svg',
   height: '100%',
@@ -48,7 +49,9 @@ export const AvatarControl: AvatarControl = ({ message }) => {
 
   return (
     <Container data-testid={'avatar'}>
-      <AvatarIcon>{avatar?.avatar}</AvatarIcon>
+      <AvatarIcon data-testid={`avatar-icon-${message.role}`}>
+        {avatar?.avatar}
+      </AvatarIcon>
       <AvatarDisplayName>{avatar?.username}</AvatarDisplayName>
     </Container>
   );
