@@ -25,14 +25,14 @@ function CompareFn(a: string | number, b: string | number): number {
   throw new Error('Invalid arguments');
 }
 
-interface SortState<T> {
+interface ISortState<T> {
   key: keyof T;
   direction: SortDirection;
 }
 
 interface UseSortHandlerResult<T extends ILocation> {
   rowData: T[];
-  sortState: SortState<T>;
+  sortState: ISortState<T>;
   handleSort: (column: Column<T>) => void;
 }
 
