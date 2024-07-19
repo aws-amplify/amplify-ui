@@ -33,7 +33,7 @@ export default function LocationsListView(): JSX.Element {
   ];
 
   return (
-    <>
+    <div className={CLASS_BASE}>
       <div className={`${CLASS_BASE}__header`}>
         <HistoryControl items={historyItems} />
         <div className={`${CLASS_BASE}__header__primary`}>
@@ -49,6 +49,6 @@ export default function LocationsListView(): JSX.Element {
         </div>
       </div>
       {!hasLocations && isLoading ? 'loading...' : listLocations}
-    </>
+    </div>
   );
 }
