@@ -31,16 +31,10 @@ const elements = {
 
 const { StorageBrowser } = createStorageBrowser({ elements });
 
-const items = [
-  { label: 'Home' },
-  { label: 'SomeLocation' },
-  { label: 'Some folder' },
-];
-
 export default function Example() {
   return (
     <StorageBrowser.Provider>
-      <StorageBrowser.Controls.History items={items} />
+      <StorageBrowser.Controls.Navigate />
       <StorageBrowser.Controls.Title />
       <StorageBrowser.Controls.Divider />
       <StorageBrowser.Controls.Search />

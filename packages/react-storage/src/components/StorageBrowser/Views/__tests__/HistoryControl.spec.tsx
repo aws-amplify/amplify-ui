@@ -1,16 +1,16 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { HistoryControl } from '../';
+import { NavigateControl } from '../';
 
-describe('HistoryControl', () => {
-  it('renders the HistoryControl', async () => {
-    const items = [
-      { label: 'Home' },
-      { label: 'SomeLocation' },
-      { label: 'Some folder' },
-    ];
+describe('NavigateControl', () => {
+  it('renders the NavigateControl', async () => {
+    // const items = [
+    //   { label: 'Home' },
+    //   { label: 'SomeLocation' },
+    //   { label: 'Some folder' },
+    // ];
 
-    render(<HistoryControl items={items} />);
+    render(<NavigateControl />);
 
     const nav = screen.getByRole('navigation', {
       name: 'Breadcrumbs',

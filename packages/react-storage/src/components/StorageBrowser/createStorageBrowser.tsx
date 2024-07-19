@@ -6,7 +6,7 @@ import {
   LocationDetailView,
   LocationsListView,
   DividerControl,
-  HistoryControl,
+  NavigateControl,
   PaginateControl,
   RefreshControl,
   SearchControl,
@@ -36,7 +36,7 @@ export default function createStorageBrowser<T extends StorageBrowserElements>({
     // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
     Divider: DividerControl,
     // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
-    History: HistoryControl,
+    Navigate: NavigateControl,
     // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
     Paginate: PaginateControl,
     // @ts-expect-error FIXME -> `Controls` need to be nested in `View` componentss
