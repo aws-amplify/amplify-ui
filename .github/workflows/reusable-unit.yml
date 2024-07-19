@@ -86,6 +86,7 @@ jobs:
       - name: Build react-core package
         if: |
           matrix.package == 'react' ||
+          matrix.package == 'react-ai' ||
           matrix.package == 'react-auth' ||
           matrix.package == 'react-core-auth' ||
           matrix.package == 'react-core-notifications' ||
