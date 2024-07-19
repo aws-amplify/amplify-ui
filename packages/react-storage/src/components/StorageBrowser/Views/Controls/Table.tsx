@@ -184,7 +184,7 @@ export const TableControl: TableControl = <U extends ILocation>(
         <TableRow>
           {columns?.map((column) => (
             <TableHeader
-              key={column.key as string}
+              key={String(column.key)}
               aria-sort={
                 column.key === sortState?.key ? sortState.direction : 'none'
               }
