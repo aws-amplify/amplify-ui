@@ -119,8 +119,8 @@ describe('Tabs', () => {
       </Tabs.Container>
     );
     const tabs = await screen.findAllByRole('tab');
-    expect(tabs[0].id === tabs[1].id).toBeFalsy;
-    expect(tabs[0].id === tabs[2].id).toBeFalsy;
+    expect(tabs[0].id === tabs[1].id).toBeFalsy();
+    expect(tabs[0].id === tabs[2].id).toBeFalsy();
   });
 
   it('creates the same ids tabs with the same value in the same group', async () => {
@@ -137,8 +137,8 @@ describe('Tabs', () => {
       </Tabs.Container>
     );
     const tabs = await screen.findAllByRole('tab');
-    expect(tabs[0].id === tabs[1].id).toBeTruthy;
-    expect(tabs[0].id === tabs[2].id).toBeTruthy;
+    expect(tabs[0].id === tabs[1].id).toBeTruthy();
+    expect(tabs[0].id === tabs[2].id).toBeTruthy();
   });
 
   describe('TabItem', () => {
