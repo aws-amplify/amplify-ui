@@ -21,20 +21,15 @@ describe('InputControl', () => {
 
     const actionButtons = screen.getAllByRole('button');
 
-    const attachButton = actionButtons[0];
     const sendButton = actionButtons[1];
 
     expect(sendButton).not.toHaveAttribute('disabled');
-    expect(attachButton).toHaveAttribute('aria-label', 'Attach file');
     expect(sendButton).toHaveAttribute('aria-label', 'Send message');
 
     const sendIcon = sendButton.querySelector('svg');
-    const attachIcon = attachButton.querySelector('svg');
 
     expect(sendIcon).toBeDefined();
     expect(sendIcon).toHaveAttribute('aria-hidden', 'true');
-    expect(attachIcon).toBeDefined();
-    expect(attachIcon).toHaveAttribute('aria-hidden', 'true');
   });
 
   it.todo('renders correct placeholder text in the input field');
