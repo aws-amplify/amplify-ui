@@ -8,10 +8,12 @@ describe('InputControl', () => {
     expect(result.container).toBeDefined();
 
     const actionButtons = screen.getAllByRole('button');
-    const inputEl = screen.getByTestId('text-input');
+    const textInput = screen.getByTestId('text-input');
+    const fileInput = screen.getByTestId('hidden-file-input');
 
     expect(actionButtons).toHaveLength(2);
-    expect(inputEl).toBeDefined();
+    expect(textInput).toBeDefined();
+    expect(fileInput).toBeDefined();
   });
 
   it('renders InputControl with the correct accessibility roles', () => {
@@ -27,9 +29,12 @@ describe('InputControl', () => {
     expect(sendButton).toHaveAttribute('aria-label', 'Send message');
 
     const sendIcon = sendButton.querySelector('svg');
+    const attachIcon = attachButton.querySelector('svg');
 
     expect(sendIcon).toBeDefined();
     expect(sendIcon).toHaveAttribute('aria-hidden', 'true');
+    expect(attachIcon).toBeDefined();
+    expect(attachIcon).toHaveAttribute('aria-hidden', 'true');
   });
 
   it.todo('renders correct placeholder text in the input field');

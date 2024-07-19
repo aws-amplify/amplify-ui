@@ -97,6 +97,7 @@
   display: flex;
   overflow: hidden;
 }
+
 .ai-avatar__display-name {
   font-weight: 700;
 }
@@ -156,15 +157,17 @@
   align-items: center;
   border-radius: 4px;
   cursor: pointer;
-  &--attach {
-    border: 1px solid var(--components-button-borderColor, #aeb3b7);
-    background: #fff;
-  }
-  &--send {
-    border: 1px solid
-      var(--components-button-primary-borderColor, rgba(0, 0, 0, 0));
-    background: var(--components-button-primary-backgroundColor, #047d95);
-  }
+}
+
+.ai-input__button--attach {
+  border: 1px solid var(--components-button-borderColor, #aeb3b7);
+  background: #fff;
+}
+
+.ai-input__button--send {
+  border: 1px solid
+    var(--components-button-primary-borderColor, rgba(0, 0, 0, 0));
+  background: var(--components-button-primary-backgroundColor, #047d95);
 }
 
 .ai-input__visually-hidden {
