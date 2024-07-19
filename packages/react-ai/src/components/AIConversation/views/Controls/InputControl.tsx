@@ -44,70 +44,64 @@ const SendButtonBase = withBaseElementProps(Button, {
   className: `${INPUT_BLOCK}__button ${INPUT_BLOCK}__button--send`,
 });
 
-const SendButton: typeof SendButtonBase = React.forwardRef(function SendButton(
-  { disabled, onClick, ...rest },
-  ref
-) {
-  // TODO should come from context
-  const isWaitingForResponse = false;
-  // TODO send message on click
-  return (
-    <SendButtonBase
-      disabled={isWaitingForResponse}
-      type="submit"
-      ref={ref}
-      {...rest}
-    />
-  );
-});
+const SendButton: typeof SendButtonBase = React.forwardRef(
+  function SendButton(props, ref) {
+    // TODO should come from context
+    const isWaitingForResponse = false;
+    // TODO send message on click
+    return (
+      <SendButtonBase
+        {...props}
+        disabled={isWaitingForResponse}
+        type="submit"
+        ref={ref}
+      />
+    );
+  }
+);
 
 const TextAreaBase = withBaseElementProps(TextArea, {
   className: `${INPUT_BLOCK}__input`,
-  placeholder: 'Message Raven',
   id: `${INPUT_BLOCK}-text-input`,
 });
 
-const TextInput: typeof TextAreaBase = React.forwardRef(function TextInput(
-  { onChange, placeholder, ...rest },
-  ref
-) {
-  const [input, setInput] = React.useState('');
+const TextInput: typeof TextAreaBase = React.forwardRef(
+  function TextInput(props, ref) {
+    // TODO should come from context or prop
+    const isFirstMessage = true;
 
-  // TODO should come from context or prop
-  const isFirstMessage = false;
+    React.useEffect(() => {
+      const textarea = document.getElementById(`${INPUT_BLOCK}-text-input`);
 
-  React.useEffect(() => {
-    const textarea = document.getElementById(`${INPUT_BLOCK}-text-input`);
+      const handleResize = () => {
+        if (textarea) {
+          textarea.style.height = 'auto';
+          textarea.style.height = `${textarea.scrollHeight}px`;
+        }
+      };
 
-    const handleResize = () => {
-      if (textarea) {
-        textarea.style.height = 'auto';
-        textarea.style.height = `${textarea.scrollHeight}px`;
+      if (textarea && textarea instanceof HTMLTextAreaElement) {
+        textarea.addEventListener('input', handleResize);
+        handleResize();
       }
-    };
 
-    if (textarea && textarea instanceof HTMLTextAreaElement) {
-      textarea.addEventListener('input', handleResize);
-      handleResize();
-    }
+      return () => {
+        if (textarea) {
+          textarea.removeEventListener('input', handleResize);
+        }
+      };
+    });
 
-    return () => {
-      if (textarea) {
-        textarea.removeEventListener('input', handleResize);
-      }
-    };
-  }, [input]);
-
-  return (
-    <TextAreaBase
-      data-testid="text-input"
-      onChange={(e) => setInput(e.target.value)}
-      placeholder={isFirstMessage ? 'Ask anything...' : undefined}
-      {...rest}
-      ref={ref}
-    />
-  );
-});
+    return (
+      <TextAreaBase
+        {...props}
+        data-testid="text-input"
+        placeholder={isFirstMessage ? 'Ask anything...' : 'Message Raven'}
+        ref={ref}
+      />
+    );
+  }
+);
 
 const Container = withBaseElementProps(View, {
   className: `${INPUT_BLOCK}__container`,
