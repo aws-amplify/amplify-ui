@@ -71,7 +71,6 @@ const SendIcon = withBaseElementProps(Icon, sendIconProps);
 const SendButtonBase = withBaseElementProps(Button, {
   'aria-label': 'Send message',
   className: `${INPUT_BLOCK}__button ${INPUT_BLOCK}__button--send`,
-  disabled: false,
 });
 
 const SendButton: typeof SendButtonBase = React.forwardRef(function SendButton(
@@ -84,20 +83,20 @@ const SendButton: typeof SendButtonBase = React.forwardRef(function SendButton(
   return (
     <SendButtonBase
       disabled={isWaitingForResponse}
-      onClick={() => {}}
+      type="submit"
       ref={ref}
       {...rest}
     />
   );
 });
 
-const TextInputBase = withBaseElementProps(TextArea, {
+const TextAreaBase = withBaseElementProps(TextArea, {
   className: `${INPUT_BLOCK}__input`,
   placeholder: 'Message Raven',
   id: `${INPUT_BLOCK}-text-input`,
 });
 
-const TextInput: typeof TextInputBase = React.forwardRef(function TextInput(
+const TextInput: typeof TextAreaBase = React.forwardRef(function TextInput(
   { onChange, placeholder, ...rest },
   ref
 ) {
@@ -129,10 +128,10 @@ const TextInput: typeof TextInputBase = React.forwardRef(function TextInput(
   }, [input]);
 
   return (
-    <TextInputBase
+    <TextAreaBase
       data-testid="text-input"
       onChange={(e) => setInput(e.target.value)}
-      {...(isFirstMessage ? { placeholder: 'Ask anything...' } : {})}
+      placeholder={isFirstMessage ? 'Ask anything...' : undefined}
       {...rest}
       ref={ref}
     />
