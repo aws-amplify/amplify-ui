@@ -25,16 +25,16 @@ const Title = React.forwardRef<HTMLHeadingElement>(
 );
 
 // test Amplify UI elements
-// const elements = {
-//   Input: TextField,
-//   View: Flex,
-//   Icon,
-//   Button,
-//   Span: Flex,
-//   Title: Title,
-// };
+const elements = {
+  Input: TextField,
+  View: Flex,
+  Icon,
+  Button,
+  Span: Flex,
+  Title: Title,
+};
 
-const { StorageBrowser } = createStorageBrowser();
+const { StorageBrowser } = createStorageBrowser({ elements });
 
 const items = [
   { label: 'Home' },
