@@ -219,8 +219,8 @@ export const TableControl: TableControl = <U extends ILocation>(
         {rows?.map((row, rowIndex) => (
           <TableRow key={rowIndex}>
             {columns.map((column) => (
-              <TableData key={`${rowIndex}-${column.key as string}`}>
-                {(column.key as string) === LOCATION_BUTTON_KEY ? (
+              <TableData key={`${rowIndex}-${String(column.key)}`}>
+                {column.key === LOCATION_BUTTON_KEY ? (
                   <TableDataButton>
                     <>{row[column.key]}</>
                   </TableDataButton>
