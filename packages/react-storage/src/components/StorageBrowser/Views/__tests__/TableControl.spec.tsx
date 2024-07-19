@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { TableControl } from '../';
-import { Column, ILocation } from '../Controls/Table';
+import { Column, Data } from '../Controls/Table';
 import { useSortHandler } from '../../hooks/useSortHandler';
 
-interface LocationTest extends ILocation {
+interface LocationTest extends Data {
   permission?: string;
   created?: string;
 }

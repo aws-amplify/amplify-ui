@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { Column, ILocation, SortDirection } from '../Views/Controls/Table';
+import { Column, Data, SortDirection } from '../Views/Controls/Table';
 
 export interface CompareFnType {
   (a: any, b: any): number;
@@ -25,38 +25,38 @@ function CompareFn(a: string | number, b: string | number): number {
   throw new Error('Invalid arguments');
 }
 
-interface ISortState<T> {
+interface SortState<T> {
   key: keyof T;
   direction: SortDirection;
 }
 
-interface UseSortHandlerResult<T extends ILocation> {
+interface UseSortHandlerResult<T extends Data> {
   rowData: T[];
-  sortState: ISortState<T>;
+  sortState: SortState<T>;
   handleSort: (column: Column<T>) => void;
 }
 
-export const useSortHandler = <T extends ILocation>(
+export const useSortHandler = <T extends Data>(
   rows: T[],
   compareFn: CompareFnType = CompareFn
 ): UseSortHandlerResult<T> => {
   const [originalRowData, _] = useState<T[]>(rows);
   const [rowData, setRowData] = useState<T[]>(rows);
-  const [sortState, setSortState] = useState<{
-    key: keyof T;
-    direction: SortDirection;
-  }>({ key: 'name', direction: 'none' });
+  const [sortState, setSortState] = useState<SortState<T>>({
+    key: 'name',
+    direction: 'none',
+  });
 
   const handleSort = useCallback(
     (column: Column<T>) => {
-      setSortState((prevConfig) => {
+      setSortState((prevSortState) => {
         let direction: SortDirection = 'none';
 
-        if (prevConfig.key === column.key) {
+        if (prevSortState.key === column.key) {
           // Cycle the sort for the same column: none -> asc -> desc -> loop back to none
-          if (prevConfig.direction === 'ascending') {
+          if (prevSortState.direction === 'ascending') {
             direction = 'descending';
-          } else if (prevConfig.direction === 'descending') {
+          } else if (prevSortState.direction === 'descending') {
             direction = 'none';
           } else {
             direction = 'ascending';

@@ -97,42 +97,39 @@ const SortDescendingIcon = withBaseElementProps(Icon, {
   ...iconAttributes,
 });
 
-export interface ILocation {
-  /**
-   * Name of the specified location or object.
-   */
+export interface Data {
   name: string;
 }
 
 const LOCATION_BUTTON_KEY = 'name';
 
-export interface Column<T extends ILocation> {
+export interface Column<T extends Data> {
   header: string;
   key: keyof T;
   sortable: boolean;
   sortType?: 'string' | 'number' | 'date';
 }
 
-export interface TableData<T extends ILocation> {
+export interface TableData<T extends Data> {
   columns: Column<T>[];
   rows: T[] | null;
 }
 
 export type SortDirection = 'ascending' | 'descending' | 'none';
 
-interface SortableTableControlProps<T extends ILocation> {
+interface SortableTableControlProps<T extends Data> {
   data: TableData<T>;
   ariaLabel?: string;
   onSort: (columnKey: Column<T>) => void;
   sortState: { key: keyof T; direction: SortDirection };
 }
 
-interface NonSortableTableControlProps<T extends ILocation> {
+interface NonSortableTableControlProps<T extends Data> {
   data: TableData<T>;
   ariaLabel?: string;
 }
 
-type TableControlProps<T extends ILocation> =
+type TableControlProps<T extends Data> =
   | SortableTableControlProps<T>
   | NonSortableTableControlProps<T>;
 
@@ -147,13 +144,13 @@ export interface TableControl<
     | 'TableHeader'
     | 'TableRow'
   > {
-  <U extends ILocation>(props: TableControlProps<U>): React.JSX.Element;
+  <U extends Data>(props: TableControlProps<U>): React.JSX.Element;
   SortIndeterminateIcon: T['Icon'];
   SortAscendingIcon: T['Icon'];
   SortDescendingIcon: T['Icon'];
 }
 
-const isSortableTableControlProps = <T extends ILocation>(
+const isSortableTableControlProps = <T extends Data>(
   props: TableControlProps<T>
 ): props is SortableTableControlProps<T> => {
   return 'onSort' in props && 'sortState' in props;
@@ -165,7 +162,7 @@ const sortAriaLabel = {
   descending: 'sorted descending',
 };
 
-export const TableControl: TableControl = <U extends ILocation>(
+export const TableControl: TableControl = <U extends Data>(
   props: TableControlProps<U>
 ) => {
   const { data, ariaLabel } = props;

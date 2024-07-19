@@ -1,9 +1,9 @@
 import {
   Column,
-  ILocation,
+  Data,
 } from '@aws-amplify/ui-react-storage/dist/types/components/StorageBrowser/Views/Controls/Table';
 
-export interface Location extends ILocation {
+export interface Location extends Data {
   permission?: string;
   created?: string;
 }
