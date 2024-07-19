@@ -58,18 +58,6 @@
   align-items: flex-start;
 }
 
-.ai-message__container--bubble-1 {
-  border-radius: 32px 32px 32px 0px;
-}
-
-.ai-message__container--bubble-1--assistant {
-  background: var(--colors-brand-primary-10, #e9f9fc);
-}
-
-.ai-message__container--bubble-1--user {
-  background: var(--colors-neutral-20, #eff0f0);
-}
-
 .ai-message__header-container {
   display: flex;
   flex-direction: row;
