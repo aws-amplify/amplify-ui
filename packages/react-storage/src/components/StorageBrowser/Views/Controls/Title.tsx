@@ -2,10 +2,11 @@ import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import { StorageBrowserElements } from '../../context/elements';
+import { CLASS_BASE } from '../constants';
 
 const { Heading } = StorageBrowserElements;
 
-const BLOCK_NAME = 'title';
+const BLOCK_NAME = `${CLASS_BASE}__title`;
 
 export interface TitleControl<
   T extends StorageBrowserElements = StorageBrowserElements,

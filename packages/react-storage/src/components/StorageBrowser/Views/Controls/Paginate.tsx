@@ -2,10 +2,11 @@ import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import { StorageBrowserElements } from '../../context/elements';
+import { CLASS_BASE } from '../constants';
 
 const { Button, Icon, ListItem, Nav, OrderedList } = StorageBrowserElements;
 
-const BLOCK_NAME = 'pagination';
+const BLOCK_NAME = `${CLASS_BASE}__paginate`;
 
 export interface PaginateControl<
   T extends Partial<StorageBrowserElements> = StorageBrowserElements,

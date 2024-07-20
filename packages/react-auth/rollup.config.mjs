@@ -59,6 +59,15 @@ const config = defineConfig([
     },
     plugins: [styles({ mode: ['extract'] })],
   },
+  {
+    input: 'src/storage-browser-styles.ts',
+    output: {
+      dir: 'dist',
+      format: 'cjs',
+      assetFileNames: '[name][extname]',
+    },
+    plugins: [styles({ mode: ['extract'] })],
+  },
 ]);
 
 export default config;
