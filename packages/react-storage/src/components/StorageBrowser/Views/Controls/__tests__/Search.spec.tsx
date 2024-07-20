@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { SearchControl } from '../';
+import { SearchControl } from '../Search';
 
 describe('SearchControl', () => {
   it('renders the SearchControl', () => {
