@@ -9,10 +9,12 @@
       "import": "./dist/esm/index.mjs",
       "require": "./dist/index.js"
     },
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": "./dist/styles.css",
+    "./storage-browser-styles.css": "./dist/storage-browser-styles.css"
   },
   "browser": {
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": "./dist/styles.css",
+    "./storage-browser-styles.css": "./dist/storage-browser-styles.css"
   },
   "types": "dist/types/index.d.ts",
   "license": "Apache-2.0",
