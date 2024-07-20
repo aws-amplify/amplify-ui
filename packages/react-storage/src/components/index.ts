@@ -1,4 +1,4 @@
-export { createStorageBrowser, useSortHandler } from './StorageBrowser';
+export { createStorageBrowser } from './StorageBrowser';
 export { StorageImage, StorageImageProps } from './StorageImage';
 export {
   StorageManager,

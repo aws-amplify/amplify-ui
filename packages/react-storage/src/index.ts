@@ -10,5 +10,4 @@ export {
   FilePickerProps,
   FileListHeaderProps,
   FileListFooterProps,
-  useSortHandler,
 } from './components';

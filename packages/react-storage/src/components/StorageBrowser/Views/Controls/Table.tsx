@@ -106,8 +106,8 @@ const LOCATION_BUTTON_KEY = 'name';
 export interface Column<T extends Data> {
   header: string;
   key: keyof T;
-  sortable: boolean;
-  sortType?: 'string' | 'number' | 'date';
+  sortable: boolean; // placeholder
+  sortType?: 'string' | 'number' | 'date'; // placeholder
 }
 
 export interface TableData<T extends Data> {
@@ -115,23 +115,10 @@ export interface TableData<T extends Data> {
   rows: T[] | null;
 }
 
-export type SortDirection = 'ascending' | 'descending' | 'none';
-
-interface SortableTableControlProps<T extends Data> {
-  data: TableData<T>;
-  ariaLabel?: string;
-  onSort: (columnKey: Column<T>) => void;
-  sortState: { key: keyof T; direction: SortDirection };
-}
-
-interface NonSortableTableControlProps<T extends Data> {
+interface TableControlProps<T extends Data> {
   data: TableData<T>;
   ariaLabel?: string;
 }
-
-type TableControlProps<T extends Data> =
-  | SortableTableControlProps<T>
-  | NonSortableTableControlProps<T>;
 
 export interface TableControl<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -150,60 +137,27 @@ export interface TableControl<
   SortDescendingIcon: T['Icon'];
 }
 
-const isSortableTableControlProps = <T extends Data>(
-  props: TableControlProps<T>
-): props is SortableTableControlProps<T> => {
-  return 'onSort' in props && 'sortState' in props;
-};
-
-const sortAriaLabel = {
-  none: 'not sorted',
-  ascending: 'sorted ascending',
-  descending: 'sorted descending',
-};
-
-export const TableControl: TableControl = <U extends Data>(
-  props: TableControlProps<U>
-) => {
-  const { data, ariaLabel } = props;
+export const TableControl: TableControl = <U extends Data>({
+  data,
+  ariaLabel,
+}: TableControlProps<U>) => {
+  // Data should be coming from context
   const { rows, columns } = data;
-
-  let onSort: (columnKey: Column<U>) => void;
-  let sortState: { key: keyof U; direction: SortDirection };
-
-  if (isSortableTableControlProps(props)) {
-    ({ onSort, sortState } = props);
-  }
 
   return (
     <Table aria-label={ariaLabel}>
       <TableHead>
         <TableRow>
           {columns?.map((column) => (
-            <TableHeader
-              key={String(column.key)}
-              aria-sort={
-                column.key === sortState?.key ? sortState.direction : 'none'
-              }
-            >
-              {column.sortable && onSort ? (
+            <TableHeader key={String(column.key)} aria-sort="none">
+              {column.sortable ? (
                 <TableHeaderButton
-                  aria-label={`${column.header}, ${
-                    sortState.key === column.key
-                      ? sortAriaLabel[sortState.direction]
-                      : sortAriaLabel['none']
-                  }`}
-                  onClick={() => onSort(column)}
+                  onClick={() => {
+                    /* no op for now */
+                  }}
                 >
                   {column.header}
-                  {sortState?.key !== column.key ||
-                  sortState.direction == 'none' ? (
-                    <SortIndeterminateIcon />
-                  ) : sortState.direction === 'ascending' ? (
-                    <SortAscendingIcon />
-                  ) : (
-                    <SortDescendingIcon />
-                  )}
+                  <SortIndeterminateIcon />
                 </TableHeaderButton>
               ) : (
                 column.header
