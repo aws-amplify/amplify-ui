@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { DividerControl } from '../';
+import { DividerControl } from '../Divider';
 
 describe('DividerControl', () => {
   it('renders the DividerControl', () => {

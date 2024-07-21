@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { RefreshControl } from '../';
+import { RefreshControl } from '../Refresh';
 
 describe('RefreshControl', () => {
   it('renders the RefreshControl', () => {

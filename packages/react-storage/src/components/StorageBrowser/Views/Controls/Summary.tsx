@@ -1,6 +1,9 @@
+import React from 'react';
 import { StorageBrowserElements } from '../../context/elements';
 
-interface Details<T extends StorageBrowserElements> {
+const { Button, Span, Text } = StorageBrowserElements;
+
+interface Details<T extends StorageBrowserElements = StorageBrowserElements> {
   (): React.JSX.Element;
   Container: T['Span'];
   Destination: T['Text'];
@@ -10,9 +13,26 @@ interface Details<T extends StorageBrowserElements> {
   NotStarted: T['Text'];
 }
 
-export interface SummaryControl<T extends StorageBrowserElements> {
+const Details: Details = () => <>Hi</>;
+
+Details.Canceled = Text;
+Details.Completed = Text;
+Details.Container = Span;
+Details.Destination = Text;
+Details.Failed = Text;
+Details.NotStarted = Text;
+
+export interface SummaryControl<
+  T extends StorageBrowserElements = StorageBrowserElements,
+> {
   (): React.JSX.Element;
   Start: T['Button'];
   Cancel: T['Button'];
   Details: Details<T>;
 }
+
+export const SummaryControl: SummaryControl = () => <>Summary</>;
+
+SummaryControl.Cancel = Button;
+SummaryControl.Details = Details;
+SummaryControl.Start = Button;

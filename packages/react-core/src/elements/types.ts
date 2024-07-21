@@ -134,3 +134,24 @@ export type ExtendBaseElement<
   K = {},
   U extends React.ComponentPropsWithRef<T> = React.ComponentPropsWithRef<T>,
 > = BaseElement<U & Omit<K, keyof U>, U>;
+
+/**
+ * Merge `BaseElement` defintions with `elements` types provided by
+ * consumers, for use with top level connected component function
+ * signatures.
+ *
+ * Example:
+ *
+ * ```tsx
+ *  export function createStorageBrowser<
+ *    T extends Partial<StorageBrowserElements>,
+ *  >({ elements }: CreateStorageBrowserInput<T> = {}): {
+ *    StorageBrowser: StorageBrowser<MergeElements<StorageBrowserElements, T>>
+ *  } {
+ *    // ...do create stuff
+ *  };
+ * ```
+ */
+export type MergeBaseElements<T, K extends Partial<T>> = {
+  [U in keyof T]: K[U] extends T[U] ? K[U] : T[U];
+};
