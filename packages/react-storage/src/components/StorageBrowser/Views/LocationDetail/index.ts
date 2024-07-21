@@ -1,0 +1,1 @@
+export { LocationDetailView } from './LocationDetailView';

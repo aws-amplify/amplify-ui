@@ -9,13 +9,9 @@ import { IconSearch as _IconSearch } from '@aws-amplify/ui-react/internal';
 import '@aws-amplify/ui-react/styles.css';
 import React from 'react';
 
-const Icon = React.forwardRef<SVGSVGElement>(function IconSearch(props, ref) {
-  return <_IconSearch {...props} ref={ref as any} />;
-});
-
 const Title = React.forwardRef<HTMLHeadingElement>(
   function Heading(props, ref) {
-    return <_Heading level={2} {...props} ref={ref as any} />;
+    return <_Heading level={4} {...props} ref={ref as any} />;
   }
 );
 
@@ -23,7 +19,6 @@ const Title = React.forwardRef<HTMLHeadingElement>(
 const elements = {
   Input: TextField,
   View: Flex,
-  Icon,
   Button,
   Span: Flex,
   Title: Title,
@@ -31,21 +26,17 @@ const elements = {
 
 const { StorageBrowser } = createStorageBrowser({ elements });
 
-const items = [
-  { label: 'Home' },
-  { label: 'SomeLocation' },
-  { label: 'Some folder' },
-];
-
 export default function Example() {
   return (
     <StorageBrowser.Provider>
-      <StorageBrowser.Controls.History items={items} />
-      <StorageBrowser.Controls.Title />
-      <StorageBrowser.Controls.Divider />
-      <StorageBrowser.Controls.Search />
-      <StorageBrowser.Controls.Refresh />
-      <StorageBrowser.Controls.Paginate />
+      <Flex>
+        <Flex direction={'column'}>
+          <StorageBrowser.LocationsListView />
+        </Flex>
+        <Flex direction={'column'}>
+          <StorageBrowser.LocationDetailView />
+        </Flex>
+      </Flex>
     </StorageBrowser.Provider>
   );
 }
