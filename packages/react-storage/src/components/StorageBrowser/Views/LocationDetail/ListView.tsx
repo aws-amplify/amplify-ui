@@ -4,6 +4,7 @@ import { listLocationItemsAction } from '../../context/actions';
 import { StorageBrowserElements } from '../../context/elements';
 import { CommonControl, ViewComponent } from '../types';
 import { Controls, TableControl } from '../Controls';
+import { ViewTypeProvider } from '../ViewContext';
 
 interface ListViewControls<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -21,6 +22,10 @@ export interface ListView<
 // @ts-expect-error
 const ListViewControls: ListViewControls = {};
 
+const ListViewProvider = (props: { children?: React.ReactNode }) => (
+  <ViewTypeProvider {...props} type="LOCATION_ITEMS_LIST" />
+);
+
 export const ListView: ListView = () => {
   const [{ data, isLoading }, handleListItems] = useDataState(
     listLocationItemsAction,
@@ -36,8 +41,13 @@ export const ListView: ListView = () => {
     ? null
     : data.items.map(({ key }) => <p key={key}>{key}</p>);
 
-  return <>{isLoading && !hasItems ? 'loading...' : listItems}</>;
+  return (
+    <ListViewProvider>
+      {isLoading && !hasItems ? 'loading...' : listItems}
+    </ListViewProvider>
+  );
 };
 
 ListView.Controls = ListViewControls;
+ListView.Provider = ListViewProvider;
 ListView.Table = TableControl;

@@ -1,59 +1,59 @@
-.amplify-storagebrowser {
-  --amplify-storagebrowser-gap: 0.6rem;
-  --amplify-storagebrowser-divider-border-width: 2px;
-  --amplify-storagebrowser-divider-border-style: solid;
-  --amplify-storagebrowser-divider-border-color: #888;
-  --amplify-storagebrowser-divider-height: 16px;
+.storage-browser {
+  --storage-browser-gap: 0.6rem;
+  --storage-browser-divider-border-width: 2px;
+  --storage-browser-divider-border-style: solid;
+  --storage-browser-divider-border-color: #888;
+  --storage-browser-divider-height: 16px;
 }
 
-.amplify-storagebrowser__header {
+.storage-browser__header {
   display: flex;
   flex-direction: column;
-  gap: var(--amplify-storagebrowser-gap);
+  gap: var(--storage-browser-gap);
 }
 
-.amplify-storagebrowser__header__primary {
+.storage-browser__header__primary {
   display: flex;
   align-items: flex-start;
 }
 
-.amplify-storagebrowser__title {
+.storage-browser__title {
   flex: 1 1 auto;
   margin: 0;
 }
-.amplify-storagebrowser__header__primary__actions {
+.storage-browser__header__primary__actions {
   flex: 0 1 auto;
   display: flex;
   align-items: center;
-  gap: var(--amplify-storagebrowser-gap);
+  gap: var(--storage-browser-gap);
 }
 
-.amplify-storagebrowser__history__list,
-.amplify-storagebrowser__paginate__list {
+.storage-browser__history__list,
+.storage-browser__paginate__list {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--amplify-storagebrowser-gap);
+  gap: var(--storage-browser-gap);
 }
-.amplify-storagebrowser__history__list__item {
+.storage-browser__history__list__item {
   display: flex;
-  gap: var(--amplify-storagebrowser-gap);
+  gap: var(--storage-browser-gap);
 }
 
-.amplify-storagebrowser__paginate__list__item {
+.storage-browser__paginate__list__item {
   display: flex;
 }
 
-.amplify-storagebrowser__paginate__icon,
-.amplify-storagebrowser__refresh__icon {
+.storage-browser__paginate__icon,
+.storage-browser__refresh__icon {
   display: block;
 }
 
-.amplify-storagebrowser__divider {
-  border: 0 0 0 var(--amplify-storagebrowser-divider-border-width);
-  border-style: var(--amplify-storagebrowser-divider-border-style);
-  border-color: var(--amplify-storagebrowser-divider-border-color);
-  height: var(--amplify-storagebrowser-divider-height);
+.storage-browser__divider {
+  border: 0 0 0 var(--storage-browser-divider-border-width);
+  border-style: var(--storage-browser-divider-border-style);
+  border-color: var(--storage-browser-divider-border-color);
+  height: var(--storage-browser-divider-height);
 }

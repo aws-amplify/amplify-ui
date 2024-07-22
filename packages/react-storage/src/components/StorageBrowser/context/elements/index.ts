@@ -1,4 +1,6 @@
 export {
-  StorageBrowserElementsDefault,
+  ButtonElementProps,
+  IconElementProps,
   StorageBrowserElements,
+  PaginateVariant,
 } from './definitions';

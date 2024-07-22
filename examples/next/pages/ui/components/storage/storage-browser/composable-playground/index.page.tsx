@@ -6,7 +6,8 @@ import {
   Heading as _Heading,
 } from '@aws-amplify/ui-react';
 import { IconSearch as _IconSearch } from '@aws-amplify/ui-react/internal';
-import '@aws-amplify/ui-react/styles.css';
+import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
+import '@aws-amplify/ui-react-storage/styles.css';
 import React from 'react';
 
 const Title = React.forwardRef<HTMLHeadingElement>(
@@ -17,11 +18,11 @@ const Title = React.forwardRef<HTMLHeadingElement>(
 
 // test Amplify UI elements
 const elements = {
-  Input: TextField,
-  View: Flex,
-  Button,
-  Span: Flex,
-  Title: Title,
+  // Input: TextField,
+  // View: Flex,
+  // Button,
+  // Span: Flex,
+  // Title: Title,
 };
 
 const { StorageBrowser } = createStorageBrowser({ elements });
