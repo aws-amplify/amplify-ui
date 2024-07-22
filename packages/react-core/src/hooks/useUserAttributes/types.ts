@@ -10,7 +10,7 @@ interface VerifiableAttribute {
   currentValue?: string;
 }
 
-export interface State {
+export interface AttributeState {
   attributes: { [Attribute in UserAttributeKey]?: string };
   pendingVerification: undefined | VerifiableAttribute[];
   confirmStatus: {
@@ -61,16 +61,7 @@ export type UpdateData = {
 };
 
 // what does a deleted attr value look like? e.g. is a string or undefined
-export type Handle = <
-  T extends
-    | FetchInput
-    | DeleteInput
-    | UpdateInput
-    | ConfirmInput
-    | SendCodeInput,
->(
-  input: T
-) => void;
+export type AttributeHandler = <T extends HandlerInputs>(input: T) => void;
 
 export interface FetchInput {
   type: 'FETCH';
@@ -112,11 +103,11 @@ export const sendCodeInput: SendCodeInput = {
   },
 };
 
-export type HandleInputs =
+export type HandlerInputs =
   | SendCodeInput
   | FetchInput
   | ConfirmInput
   | DeleteInput
   | UpdateInput;
 
-export type UseUserAttributes = () => [State, Handle];
+export type UseUserAttributes = () => [AttributeState, AttributeHandler];
