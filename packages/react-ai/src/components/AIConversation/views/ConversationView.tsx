@@ -3,7 +3,7 @@ import { ViewElement as View } from '../context/elements/definitions';
 import {
   AutoHidablePromptControl,
   HeaderControl,
-  InputControl,
+  FieldControl,
 } from './Controls';
 
 import { MessagesControl } from './Controls/MessagesControl';
@@ -36,7 +36,7 @@ export default function Conversation(): JSX.Element {
           padding: '0px 16px',
         }}
       >
-        <InputControl />
+        <FieldControl />
       </View>
     </View>
   );

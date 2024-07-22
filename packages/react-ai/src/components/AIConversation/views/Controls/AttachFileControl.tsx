@@ -6,7 +6,7 @@ import { AIConversationElements } from '../../context/elements';
 
 const { Button, Icon, View } = AIConversationElements;
 
-const INPUT_BLOCK = 'ai-input';
+const FIELD_BLOCK = 'ai-field';
 const ATTACH_FILE_BLOCK = 'ai-attach-file';
 
 const attachIconProps = () => ({
@@ -14,7 +14,7 @@ const attachIconProps = () => ({
     <path d="M8.75359 1.77776L2.31859 8.06463C0.807379 9.54105 0.807379 11.9348 2.31859 13.4112C3.82979 14.8876 6.27994 14.8876 7.79115 13.4112L14.1146 7.23333C15.1487 6.22305 15.1487 4.55966 14.1146 3.54938V3.54938C13.1086 2.5665 11.5 2.57263 10.5015 3.56314L4.18049 9.83349C3.68347 10.3191 3.68347 11.1063 4.18049 11.5919C4.67752 12.0775 5.48335 12.0775 5.98037 11.5919L12.3013 5.41656" />
   ),
   'aria-hidden': true,
-  className: `${INPUT_BLOCK}__icon`,
+  className: `${FIELD_BLOCK}__icon`,
   width: '24',
   height: '24',
   viewBox: '0 0 16 16',
@@ -25,16 +25,16 @@ const attachIconProps = () => ({
 const AttachFileIcon = withBaseElementProps(Icon, attachIconProps);
 
 const AttachFileContainer = withBaseElementProps(View, {
-  className: `${INPUT_BLOCK}__${ATTACH_FILE_BLOCK}__container`,
+  className: `${FIELD_BLOCK}__${ATTACH_FILE_BLOCK}__container`,
 });
 
 const VisuallyHidden = withBaseElementProps(View, {
-  className: `${INPUT_BLOCK}__visually-hidden`,
+  className: `${FIELD_BLOCK}__visually-hidden`,
 });
 
 const AttachFileButton = withBaseElementProps(Button, {
   'aria-label': 'Attach file',
-  className: `${INPUT_BLOCK}__button ${INPUT_BLOCK}__button--attach`,
+  className: `${FIELD_BLOCK}__button ${FIELD_BLOCK}__button--attach`,
 });
 
 export const AttachFileControl: AttachFileControl = () => {

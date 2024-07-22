@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { InputControl } from '../InputControl';
+import { FieldControl } from '../FieldControl';
 
-describe('InputControl', () => {
-  it('renders an InputControl component with the correct elements', () => {
-    const result = render(<InputControl />);
+describe('FieldControl', () => {
+  it('renders a FieldControl component with the correct elements', () => {
+    const result = render(<FieldControl />);
     expect(result.container).toBeDefined();
 
     const actionButtons = screen.getAllByRole('button');
@@ -16,8 +16,8 @@ describe('InputControl', () => {
     expect(fileInput).toBeDefined();
   });
 
-  it('renders InputControl with the correct accessibility roles', () => {
-    render(<InputControl />);
+  it('renders FieldControl with the correct accessibility roles', () => {
+    render(<FieldControl />);
 
     const actionButtons = screen.getAllByRole('button');
 

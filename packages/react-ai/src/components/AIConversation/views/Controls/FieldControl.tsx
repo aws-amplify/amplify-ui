@@ -7,7 +7,7 @@ import { AttachFileControl } from './AttachFileControl';
 
 const { Button, Icon, TextArea, View } = AIConversationElements;
 
-const INPUT_BLOCK = 'ai-input';
+const FIELD_BLOCK = 'ai-field';
 
 const sendIconProps = () => ({
   children: (
@@ -28,7 +28,7 @@ const sendIconProps = () => ({
     </>
   ),
   'aria-hidden': true,
-  className: `${INPUT_BLOCK}__icon`,
+  className: `${FIELD_BLOCK}__icon`,
   width: '24',
   height: '24',
   viewBox: '0 0 16 16',
@@ -40,7 +40,7 @@ const SendIcon = withBaseElementProps(Icon, sendIconProps);
 
 const SendButtonBase = withBaseElementProps(Button, {
   'aria-label': 'Send message',
-  className: `${INPUT_BLOCK}__button ${INPUT_BLOCK}__button--send`,
+  className: `${FIELD_BLOCK}__button ${FIELD_BLOCK}__button--send`,
 });
 
 const SendButton: typeof SendButtonBase = React.forwardRef(
@@ -60,8 +60,8 @@ const SendButton: typeof SendButtonBase = React.forwardRef(
 );
 
 const TextAreaBase = withBaseElementProps(TextArea, {
-  className: `${INPUT_BLOCK}__input`,
-  id: `${INPUT_BLOCK}-text-input`,
+  className: `${FIELD_BLOCK}__input`,
+  id: `${FIELD_BLOCK}-text-input`,
 });
 
 const TextInput: typeof TextAreaBase = React.forwardRef(
@@ -70,7 +70,7 @@ const TextInput: typeof TextAreaBase = React.forwardRef(
     const isFirstMessage = true;
 
     React.useEffect(() => {
-      const textarea = document.getElementById(`${INPUT_BLOCK}-text-input`);
+      const textarea = document.getElementById(`${FIELD_BLOCK}-text-input`);
 
       const handleResize = () => {
         if (textarea) {
@@ -103,10 +103,10 @@ const TextInput: typeof TextAreaBase = React.forwardRef(
 );
 
 const Container = withBaseElementProps(View, {
-  className: `${INPUT_BLOCK}__container`,
+  className: `${FIELD_BLOCK}__container`,
 });
 
-export const InputControl: InputControl = () => {
+export const FieldControl: FieldControl = () => {
   return (
     <Container>
       <AttachFileControl />
@@ -118,13 +118,13 @@ export const InputControl: InputControl = () => {
   );
 };
 
-InputControl.AttachFile = AttachFileControl;
-InputControl.Container = Container;
-InputControl.TextInput = TextInput;
-InputControl.SendButton = SendButton;
-InputControl.SendIcon = SendIcon;
+FieldControl.AttachFile = AttachFileControl;
+FieldControl.Container = Container;
+FieldControl.TextInput = TextInput;
+FieldControl.SendButton = SendButton;
+FieldControl.SendIcon = SendIcon;
 
-export interface InputControl<
+export interface FieldControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
 > {
   (): React.JSX.Element;

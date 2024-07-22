@@ -103,7 +103,7 @@
   overflow: hidden;
 }
 
-.ai-input__container {
+.ai-field__container {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -111,14 +111,14 @@
   height: 40px;
 }
 
-.ai-input__input {
+.ai-field__input {
   align-self: stretch;
   width: 800px;
   overflow: hidden;
   resize: none;
 }
 
-.ai-input__button {
+.ai-field__button {
   display: flex;
   width: 40px;
   height: 40px;
@@ -126,7 +126,7 @@
   align-items: center;
 }
 
-.ai-input__visually-hidden {
+.ai-field__visually-hidden {
   position: absolute;
   width: 1px;
   height: 1px;

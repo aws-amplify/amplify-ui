@@ -1,7 +1,7 @@
 import { ActionsBarControl } from './ActionsBarControl';
 import { AvatarControl } from './AvatarControl';
 import { HeaderControl } from './HeaderControl';
-import { InputControl } from './InputControl';
+import { FieldControl } from './FieldControl';
 import { MessagesControl } from './MessagesControl';
 import { AutoHidablePromptControl, PromptControl } from './PromptControl';
 
@@ -9,7 +9,7 @@ export {
   ActionsBarControl,
   AvatarControl,
   HeaderControl,
-  InputControl,
+  FieldControl,
   MessagesControl,
   PromptControl,
   AutoHidablePromptControl,
