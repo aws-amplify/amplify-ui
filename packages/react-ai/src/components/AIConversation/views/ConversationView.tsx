@@ -4,9 +4,8 @@ import {
   AutoHidablePromptControl,
   HeaderControl,
   FieldControl,
+  MessagesControl,
 } from './Controls';
-
-import { MessagesControl } from './Controls/MessagesControl';
 
 export default function Conversation(): JSX.Element {
   return (

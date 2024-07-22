@@ -10,6 +10,7 @@ import {
 } from './views';
 import { DisplayTextTemplate } from '@aws-amplify/ui';
 import { AIConversationDisplayText } from './displayText';
+import { FieldControl } from './views/Controls';
 
 export interface Controls<
   T extends Partial<AIConversationElements> = AIConversationElements,
@@ -17,6 +18,7 @@ export interface Controls<
   (): React.JSX.Element;
   Avatars: AvatarControl<T>;
   ActionsBar: ActionsBarControl<T>;
+  Field: FieldControl<T>;
   Header: HeaderControl<T>;
   Messages: MessagesControl<T>;
   SuggestedPrompts: PromptControl<T>;
