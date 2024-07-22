@@ -58,15 +58,7 @@ const iconAttributes = {
 };
 
 const SortIndeterminateIcon = withBaseElementProps(Icon, {
-  children: (
-    <path
-      d="M480-360 280-560h400L480-360Z"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1"
-      vectorEffect="non-scaling-stroke"
-    />
-  ),
+  children: <path d="M240-440v-80h480v80H240Z" fill="currentColor" />,
   className: `${BLOCK_NAME}__sort-icon--indeterminate`,
   ...iconAttributes,
 });
