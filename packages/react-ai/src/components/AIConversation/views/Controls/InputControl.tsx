@@ -11,7 +11,7 @@ const INPUT_BLOCK = 'ai-input';
 
 const sendIconProps = () => ({
   children: (
-    <svg>
+    <>
       <g clipPath="url(#clip0_387_1426)">
         <path
           d="M14.3199 7.98214L1.66669 1.23486L3.97674 7.98214M14.3199 7.98214L1.66669 14.5689L3.97674 7.98214M14.3199 7.98214H3.97674"
@@ -25,9 +25,8 @@ const sendIconProps = () => ({
           <rect width="100%" height="100%" />
         </clipPath>
       </defs>
-    </svg>
+    </>
   ),
-  stroke: 'white',
   'aria-hidden': true,
   className: `${INPUT_BLOCK}__icon`,
   width: '24',
@@ -121,7 +120,7 @@ export const InputControl: InputControl = () => {
 
 InputControl.AttachFile = AttachFileControl;
 InputControl.Container = Container;
-InputControl.Input = TextInput;
+InputControl.TextInput = TextInput;
 InputControl.SendButton = SendButton;
 InputControl.SendIcon = SendIcon;
 
@@ -131,7 +130,7 @@ export interface InputControl<
   (): React.JSX.Element;
   Container: T['View'];
   AttachFile: AttachFileControl<T>;
-  Input: T['TextArea'];
+  TextInput: T['TextArea'];
   SendButton: T['Button'];
   SendIcon: T['Icon'];
 }
