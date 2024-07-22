@@ -70,12 +70,11 @@ export function ConfirmSignUp({
               type="submit"
               loadingText={getConfirmingText()}
               isLoading={isPending}
-              fontWeight="normal"
             >
               {getConfirmText()}
             </Button>
 
-            <Button onClick={resendCode} type="button" fontWeight="normal">
+            <Button onClick={resendCode} type="button">
               {getResendCodeText()}
             </Button>
           </Flex>

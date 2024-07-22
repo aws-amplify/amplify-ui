@@ -61,10 +61,9 @@ export function SignUp(): JSX.Element {
           >
             {getCreateAccountText()}
           </Button>
+          <Footer />
         </Flex>
       </form>
-
-      <Footer />
     </View>
   );
 }
