@@ -1,1 +1,4 @@
-export { StorageBrowserElements } from './definitions';
+export {
+  StorageBrowserElementsDefault,
+  StorageBrowserElements,
+} from './definitions';

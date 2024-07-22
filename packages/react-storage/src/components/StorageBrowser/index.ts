@@ -1,1 +1,1 @@
-export { default as createStorageBrowser } from './createStorageBrowser';
+export { createStorageBrowser } from './createStorageBrowser';

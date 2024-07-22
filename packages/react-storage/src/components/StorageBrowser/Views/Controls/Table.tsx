@@ -116,7 +116,7 @@ export interface TableData<T extends Data> {
 }
 
 interface TableControlProps<T extends Data> {
-  data: TableData<T>;
+  data?: TableData<T>;
   ariaLabel?: string;
 }
 
@@ -142,7 +142,10 @@ export const TableControl: TableControl = <U extends Data>({
   ariaLabel,
 }: TableControlProps<U>) => {
   // Data should be coming from context
-  const { rows, columns } = data;
+  const { rows, columns } = data ?? {
+    columns: [],
+    rows: [],
+  };
 
   return (
     <Table aria-label={ariaLabel}>
@@ -188,11 +191,11 @@ export const TableControl: TableControl = <U extends Data>({
 };
 
 TableControl.Table = Table;
+TableControl.TableBody = TableBody;
+TableControl.TableData = TableData;
 TableControl.TableHead = TableHead;
 TableControl.TableHeader = TableHeader;
-TableControl.TableBody = TableBody;
 TableControl.TableRow = TableRow;
-TableControl.TableData = TableData;
 TableControl.SortIndeterminateIcon = SortIndeterminateIcon;
 TableControl.SortAscendingIcon = SortAscendingIcon;
 TableControl.SortDescendingIcon = SortDescendingIcon;

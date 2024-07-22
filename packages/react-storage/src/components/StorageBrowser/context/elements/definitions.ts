@@ -163,3 +163,26 @@ export const StorageBrowserElements: StorageBrowserElements = {
   UnorderedList: UnorderedListElement,
   View: ViewElement,
 };
+
+export const StorageBrowserElementsDefault = {
+  Button: ButtonElement,
+  Divider: DividerElement,
+  Heading: HeadingElement,
+  Icon: IconElement,
+  Input: InputElement,
+  Label: LabelElement,
+  ListItem: ListItemElement,
+  Nav: NavElement,
+  OrderedList: OrderedListElement,
+  ProgressBar: ProgressBarElement,
+  Span: SpanElement,
+  Table: TableElement,
+  TableBody: TableBodyElement,
+  TableData: TableDataElement,
+  TableHead: TableHeadElement,
+  TableHeader: TableHeaderElement,
+  TableRow: TableRowElement,
+  Text: TextElement,
+  UnorderedList: UnorderedListElement,
+  View: ViewElement,
+};
