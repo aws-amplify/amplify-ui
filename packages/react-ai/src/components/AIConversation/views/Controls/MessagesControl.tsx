@@ -29,10 +29,12 @@ const Timestamp = withBaseElementProps(Text, {
 
 export const MessageControl: MessageControl = ({ message }) => {
   return message.content.type === 'text' ? (
-    <TextContent data-testid={'message'}>{message.content.value}</TextContent>
+    <TextContent data-testid={'message-text'}>
+      {message.content.value}
+    </TextContent>
   ) : (
     <MediaContent
-      data-testid={'message'}
+      data-testid={'message-image'}
       src={convertBufferToBase64(
         message.content.value.bytes,
         message.content.value.format
