@@ -8,10 +8,6 @@ import {
 import { IconSearch as _IconSearch } from '@aws-amplify/ui-react/internal';
 import '@aws-amplify/ui-react/styles.css';
 import React from 'react';
-import {
-  Column,
-  Data,
-} from '@aws-amplify/ui-react-storage/dist/types/components/StorageBrowser/Views/Controls/Table';
 
 const Title = React.forwardRef<HTMLHeadingElement>(
   function Heading(props, ref) {
@@ -28,7 +24,7 @@ const elements = {
   Title: Title,
 };
 
-const { StorageBrowser } = createStorageBrowser();
+const { StorageBrowser } = createStorageBrowser({ elements });
 
 export default function Example() {
   return (
