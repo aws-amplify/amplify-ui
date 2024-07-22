@@ -52,7 +52,7 @@ const iconAttributes = {
   'aria-hidden': true,
   width: '24',
   height: '24',
-  viewBox: '0 0 24 24',
+  viewBox: '0 -960 960 960',
   fill: 'none',
   xmlns: 'http://www.w3.org/2000/svg',
 };
@@ -60,10 +60,11 @@ const iconAttributes = {
 const SortIndeterminateIcon = withBaseElementProps(Icon, {
   children: (
     <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M4.0001 4C3.20044 4 2.72425 4.89205 3.16923 5.55646L7.16674 11.5253C7.56328 12.1174 8.43424 12.1165 8.8296 11.5236L12.8098 5.55479C13.2529 4.89025 12.7765 4 11.9778 4H4.0001ZM10.1057 6H5.87278L7.99999 9.17845L10.1057 6Z"
-      fill="#16191F"
+      d="M480-360 280-560h400L480-360Z"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1"
+      vectorEffect="non-scaling-stroke"
     />
   ),
   className: `${BLOCK_NAME}__sort-icon--indeterminate`,
@@ -71,28 +72,13 @@ const SortIndeterminateIcon = withBaseElementProps(Icon, {
 });
 
 const SortAscendingIcon = withBaseElementProps(Icon, {
-  children: (
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M3.16512 10.4442C2.72085 11.1086 3.19712 12 3.99642 12H12.0037C12.8021 12 13.2785 11.1104 12.8361 10.4458L8.84116 4.44491C8.44589 3.85117 7.5739 3.85029 7.17744 4.44324L3.16512 10.4442Z"
-      fill="#16191F"
-    />
-  ),
+  children: <path d="m280-400 200-200 200 200H280Z" fill="currentColor" />,
   className: `${BLOCK_NAME}__sort-icon--ascending`,
   ...iconAttributes,
 });
 
 const SortDescendingIcon = withBaseElementProps(Icon, {
-  children: (
-    <path
-      transform="rotate(180 12 12)"
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M3.16512 10.4442C2.72085 11.1086 3.19712 12 3.99642 12H12.0037C12.8021 12 13.2785 11.1104 12.8361 10.4458L8.84116 4.44491C8.44589 3.85117 7.5739 3.85029 7.17744 4.44324L3.16512 10.4442Z"
-      fill="#16191F"
-    />
-  ),
+  children: <path d="M480-360 280-560h400L480-360Z" fill="currentColor" />,
   className: `${BLOCK_NAME}__sort-icon--descending`,
   ...iconAttributes,
 });
@@ -103,21 +89,14 @@ export interface Data {
 
 const LOCATION_BUTTON_KEY = 'name';
 
-export interface Column<T extends Data> {
+export interface Column<T> {
   header: string;
   key: keyof T;
-  sortable: boolean; // placeholder
-  sortType?: 'string' | 'number' | 'date'; // placeholder
 }
 
 export interface TableData<T extends Data> {
   columns: Column<T>[];
   rows: T[] | null;
-}
-
-interface TableControlProps<T extends Data> {
-  data?: TableData<T>;
-  ariaLabel?: string;
 }
 
 export interface TableControl<
@@ -131,40 +110,34 @@ export interface TableControl<
     | 'TableHeader'
     | 'TableRow'
   > {
-  <U extends Data>(props: TableControlProps<U>): React.JSX.Element;
+  (): React.JSX.Element;
   SortIndeterminateIcon: T['Icon'];
   SortAscendingIcon: T['Icon'];
   SortDescendingIcon: T['Icon'];
 }
 
-export const TableControl: TableControl = <U extends Data>({
-  data,
-  ariaLabel,
-}: TableControlProps<U>) => {
+export const TableControl: TableControl = () => {
   // Data should be coming from context
-  const { rows, columns } = data ?? {
-    columns: [],
-    rows: [],
-  };
+  const columns: Column<Data>[] = [];
+  const rows: Data[] = [];
+
+  const ariaLabel = 'Table';
 
   return (
     <Table aria-label={ariaLabel}>
       <TableHead>
         <TableRow>
           {columns?.map((column) => (
-            <TableHeader key={String(column.key)} aria-sort="none">
-              {column.sortable ? (
-                <TableHeaderButton
-                  onClick={() => {
-                    /* no op for now */
-                  }}
-                >
-                  {column.header}
-                  <SortIndeterminateIcon />
-                </TableHeaderButton>
-              ) : (
-                column.header
-              )}
+            <TableHeader key={column.header} aria-sort="none">
+              {/* Should all columns be sortable? */}
+              <TableHeaderButton
+                onClick={() => {
+                  /* no op for now */
+                }}
+              >
+                {column.header}
+                <SortIndeterminateIcon />
+              </TableHeaderButton>
             </TableHeader>
           ))}
         </TableRow>
@@ -173,7 +146,8 @@ export const TableControl: TableControl = <U extends Data>({
         {rows?.map((row, rowIndex) => (
           <TableRow key={rowIndex}>
             {columns.map((column) => (
-              <TableData key={`${rowIndex}-${String(column.key)}`}>
+              <TableData key={`${rowIndex}-${column.header}`}>
+                {/* How do we know when a row is supposed to be a button/link? */}
                 {column.key === LOCATION_BUTTON_KEY ? (
                   <TableDataButton>
                     <>{row[column.key]}</>
