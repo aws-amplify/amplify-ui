@@ -1,1 +1,1 @@
-export const CLASS_BASE = 'amplify-storage-browser';
+export const CLASS_BASE = 'storage-browser';

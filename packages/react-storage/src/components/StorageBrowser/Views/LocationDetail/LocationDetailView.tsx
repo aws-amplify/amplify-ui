@@ -4,8 +4,6 @@ import { StorageBrowserElements } from '../../context/elements';
 import { ActionView } from './ActionView';
 import { ListView } from './ListView';
 
-import { useControlState } from '../useControlState';
-
 export interface LocationDetailView<
   _T extends StorageBrowserElements = StorageBrowserElements,
 > {
@@ -15,9 +13,7 @@ export interface LocationDetailView<
 }
 
 export const LocationDetailView: LocationDetailView = () => {
-  const [{ action }] = useControlState?.('ACTION_SELECT') ?? [
-    { action: undefined },
-  ];
+  const action = undefined;
 
   if (action) {
     return <ActionView />;

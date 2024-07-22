@@ -1,4 +1,4 @@
-import listLocationsAction from '../listLocationsAction';
+import listLocationsAction from '../listLocations';
 
 describe('listLocationsAction', () => {
   it('returns the expected output shape in the happy path', async () => {

@@ -5,6 +5,7 @@ import { Controls } from '../Controls';
 import { CommonControl, ViewComponent } from '../types';
 import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
+import { ViewTypeProvider } from '../ViewContext';
 
 const { Divider, Message, Navigate, Paginate, Refresh, Search, Table, Title } =
   Controls;
@@ -22,6 +23,10 @@ interface LocationsListViewControls<
 export interface LocationsListView<
   T extends StorageBrowserElements = StorageBrowserElements,
 > extends ViewComponent<T, LocationsListViewControls<T>> {}
+
+const LocationsListViewProvider = (props: { children?: React.ReactNode }) => (
+  <ViewTypeProvider {...props} type="LOCATIONS_LIST" />
+);
 
 const LocationsListViewControls: LocationsListViewControls = () => (
   <div className={`${CLASS_BASE}__header`}>
@@ -62,12 +67,15 @@ export const LocationsListView: LocationsListView = () => {
     : data.locations.map(({ name }) => <p key={name}>{name}</p>);
 
   return (
-    <div className={CLASS_BASE}>
-      <LocationsListViewControls />
-      {!hasLocations && isLoading ? 'loading...' : listLocations}
-    </div>
+    <LocationsListViewProvider>
+      <div className={CLASS_BASE}>
+        <LocationsListViewControls />
+        {!hasLocations && isLoading ? 'loading...' : listLocations}
+      </div>
+    </LocationsListViewProvider>
   );
 };
 
 LocationsListView.Controls = LocationsListViewControls;
+LocationsListView.Provider = LocationsListViewProvider;
 LocationsListView.Table = Table;

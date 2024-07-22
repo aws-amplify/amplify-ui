@@ -23,7 +23,8 @@ export interface StorageBrowserElements {
   View: typeof ViewElement;
 }
 
-type IconVariant =
+export type PaginateVariant = `paginate-${'next' | 'current' | 'previous'}`;
+export type IconVariant =
   | 'action-queued'
   | 'action-progress'
   | 'action-canceled'
@@ -33,14 +34,20 @@ type IconVariant =
   | 'file'
   | 'folder'
   | 'menu'
-  | 'paginate-next'
-  | 'paginate-previous'
+  | Exclude<PaginateVariant, 'paginate-current'>
   | 'refresh'
   | 'search'
   | 'sort-ascending'
   | 'sort-descending'
   | 'sort-indeterminate'
   | 'vertical-kebab';
+
+export type IconElementProps = React.ComponentProps<typeof IconElement>;
+
+export type ButtonElementProps = React.ComponentProps<typeof ButtonElement>;
+type ButtonElementVariant = 'action-submit' | 'search-submit' | PaginateVariant;
+
+export type ListItemVariant = PaginateVariant;
 
 export const LabelElement = defineBaseElement({
   type: 'label',
@@ -81,22 +88,27 @@ export const TableElement = defineBaseElement({
   type: 'table',
   displayName: 'Table',
 });
+
 export const TableDataElement = defineBaseElement({
   type: 'td',
   displayName: 'TableData',
 });
+
 export const TableRowElement = defineBaseElement({
   type: 'tr',
   displayName: 'TableRow',
 });
+
 export const TableHeaderElement = defineBaseElement({
   type: 'th',
   displayName: 'TableHeader',
 });
+
 export const TableHeadElement = defineBaseElement({
   type: 'thead',
   displayName: 'TableHead',
 });
+
 export const TableBodyElement = defineBaseElement({
   type: 'tbody',
   displayName: 'TableBody',
@@ -107,7 +119,7 @@ export const HeadingElement = defineBaseElement({
   displayName: 'Title',
 });
 
-export const IconElement = defineBaseElement<'svg', never, IconVariant>({
+export const IconElement = defineBaseElement({
   type: 'svg',
   displayName: 'Icon',
 });
@@ -122,12 +134,9 @@ export const InputElement = defineBaseElement<'input', 'type'>({
   displayName: 'Input',
 });
 
-type ButtonElementProps = 'onClick' | 'type';
-type ButtonElementVariant = 'action-submit' | 'search-submit';
-
 export const ButtonElement = defineBaseElement<
   'button',
-  ButtonElementProps,
+  'disabled' | 'onClick' | 'type',
   ButtonElementVariant
 >({ type: 'button', displayName: 'Button' });
 
@@ -142,29 +151,6 @@ export const SpanElement = defineBaseElement({
 });
 
 export const StorageBrowserElements: StorageBrowserElements = {
-  Button: ButtonElement,
-  Divider: DividerElement,
-  Heading: HeadingElement,
-  Icon: IconElement,
-  Input: InputElement,
-  Label: LabelElement,
-  ListItem: ListItemElement,
-  Nav: NavElement,
-  OrderedList: OrderedListElement,
-  ProgressBar: ProgressBarElement,
-  Span: SpanElement,
-  Table: TableElement,
-  TableBody: TableBodyElement,
-  TableData: TableDataElement,
-  TableHead: TableHeadElement,
-  TableHeader: TableHeaderElement,
-  TableRow: TableRowElement,
-  Text: TextElement,
-  UnorderedList: UnorderedListElement,
-  View: ViewElement,
-};
-
-export const StorageBrowserElementsDefault = {
   Button: ButtonElement,
   Divider: DividerElement,
   Heading: HeadingElement,
