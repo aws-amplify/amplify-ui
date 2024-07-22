@@ -14,7 +14,7 @@ export interface AIConversationElements {
   View: typeof ViewElement;
 }
 
-type IconVariant = 'send-message' | 'attach';
+export type IconVariant = 'send-message' | 'attach';
 
 export const TextElement = defineBaseElement({
   type: 'p',
@@ -36,10 +36,12 @@ export const HeadingElement = defineBaseElement({
   displayName: 'Title',
 });
 
-export const IconElement = defineBaseElement<'svg', never, IconVariant>({
+export const IconElement = defineBaseElement({
   type: 'svg',
   displayName: 'Icon',
 });
+
+export type IconElementProps = React.ComponentProps<typeof IconElement>;
 
 export const ImageElement = defineBaseElement({
   type: 'img',

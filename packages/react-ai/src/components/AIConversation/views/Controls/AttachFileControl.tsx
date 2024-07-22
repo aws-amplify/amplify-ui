@@ -11,7 +11,10 @@ const ATTACH_FILE_BLOCK = 'ai-attach-file';
 
 const attachIconProps = () => ({
   children: (
-    <path d="M8.75359 1.77776L2.31859 8.06463C0.807379 9.54105 0.807379 11.9348 2.31859 13.4112C3.82979 14.8876 6.27994 14.8876 7.79115 13.4112L14.1146 7.23333C15.1487 6.22305 15.1487 4.55966 14.1146 3.54938V3.54938C13.1086 2.5665 11.5 2.57263 10.5015 3.56314L4.18049 9.83349C3.68347 10.3191 3.68347 11.1063 4.18049 11.5919C4.67752 12.0775 5.48335 12.0775 5.98037 11.5919L12.3013 5.41656" />
+    <path
+      d="M720-330q0 104-73 177T470-80q-104 0-177-73t-73-177v-370q0-75 52.5-127.5T400-880q75 0 127.5 52.5T580-700v350q0 46-32 78t-78 32q-46 0-78-32t-32-78v-370h80v370q0 13 8.5 21.5T470-320q13 0 21.5-8.5T500-350v-350q-1-42-29.5-71T400-800q-42 0-71 29t-29 71v370q-1 71 49 120.5T470-160q70 0 119-49.5T640-330v-390h80v390Z"
+      fill="currentColor"
+    />
   ),
   'aria-hidden': true,
   className: `${FIELD_BLOCK}__icon`,
@@ -19,6 +22,7 @@ const attachIconProps = () => ({
   height: '24',
   viewBox: '0 0 16 16',
   fill: 'none',
+  variant: 'attach',
   xmlns: 'http://www.w3.org/2000/svg',
 });
 
@@ -35,6 +39,7 @@ const VisuallyHidden = withBaseElementProps(View, {
 const AttachFileButton = withBaseElementProps(Button, {
   'aria-label': 'Attach file',
   className: `${FIELD_BLOCK}__button ${FIELD_BLOCK}__button--attach`,
+  variant: 'attach',
 });
 
 export const AttachFileControl: AttachFileControl = () => {

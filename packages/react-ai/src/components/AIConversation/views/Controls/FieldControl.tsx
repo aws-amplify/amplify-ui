@@ -11,21 +11,10 @@ const FIELD_BLOCK = 'ai-field';
 
 const sendIconProps = () => ({
   children: (
-    <>
-      <g clipPath="url(#clip0_387_1426)">
-        <path
-          d="M14.3199 7.98214L1.66669 1.23486L3.97674 7.98214M14.3199 7.98214L1.66669 14.5689L3.97674 7.98214M14.3199 7.98214H3.97674"
-          strokeWidth="1.5"
-          strokeLinecap="square"
-          strokeLinejoin="round"
-        />
-      </g>
-      <defs>
-        <clipPath id="clip0_387_1426">
-          <rect width="100%" height="100%" />
-        </clipPath>
-      </defs>
-    </>
+    <path
+      d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z"
+      fill="currentColor"
+    />
   ),
   'aria-hidden': true,
   className: `${FIELD_BLOCK}__icon`,
