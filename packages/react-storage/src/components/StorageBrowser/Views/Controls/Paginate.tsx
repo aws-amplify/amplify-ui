@@ -3,7 +3,6 @@ import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import {
   ButtonElementProps,
-  IconElementProps,
   PaginateVariant,
   StorageBrowserElements,
 } from '../../context/elements';
@@ -61,48 +60,6 @@ export interface PaginateControl<
   Previous: PreviousControl<T>;
 }
 
-const iconAttributes = {
-  'aria-hidden': true,
-  className: `${BLOCK_NAME}__icon`,
-  width: '24',
-  height: '24',
-  viewBox: '0 0 24 24',
-  fill: 'none',
-  xmlns: 'http://www.w3.org/2000/svg',
-};
-
-const getIconProps = ({
-  variant,
-  ...props
-}: IconElementProps): IconElementProps => {
-  let children;
-  switch (variant) {
-    case 'paginate-previous':
-      children = (
-        <path
-          d="M15.41 7.41L14 6L8 12L14 18L15.41 16.59L10.83 12L15.41 7.41Z"
-          fill="currentColor"
-        />
-      );
-      break;
-    case 'paginate-next':
-      children = (
-        <path
-          d="M9.99984 6L8.58984 7.41L13.1698 12L8.58984 16.59L9.99984 18L15.9998 12L9.99984 6Z"
-          fill="currentColor"
-        />
-      );
-      break;
-  }
-
-  return {
-    ...iconAttributes,
-    ...props,
-    children: props.children ?? children,
-    variant,
-  };
-};
-
 const PaginateContainer: PaginateControl['Container'] = React.forwardRef(
   function Container({ children, ...props }, ref) {
     return (
@@ -151,9 +108,14 @@ const PaginateText: CurrentControl['Text'] = React.forwardRef(function Span(
 const PaginateIcon: (PreviousControl | NextControl)['Icon'] = React.forwardRef(
   function Icon({ variant: _variant, ...props }, ref) {
     const { variant } = React.useContext(PaginateItemContext);
+
+    const iconVariant = variant === 'paginate-current' ? undefined : variant;
+
     return (
       <IconElement
-        {...getIconProps({ ...props, ref, variant: _variant ?? variant })}
+        variant={iconVariant}
+        {...{ props, ref }}
+        className={`${BLOCK_NAME}__icon`}
       />
     );
   }
