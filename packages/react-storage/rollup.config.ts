@@ -43,7 +43,16 @@ const config = defineConfig([
   },
   // CSS config
   {
-    input: 'src/styles.ts',
+    input: 'src/styles/styles.ts',
+    output: {
+      dir: 'dist',
+      format: 'cjs',
+      assetFileNames: '[name][extname]',
+    },
+    plugins: [styles({ mode: ['extract'] })],
+  },
+  {
+    input: 'src/styles/storage-browser-styles.ts',
     output: {
       dir: 'dist',
       format: 'cjs',

@@ -3,6 +3,7 @@ import React from 'react';
 import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 
 import { StorageBrowserElements } from './context/elements';
+import { ControlProvider } from './context/controls';
 
 interface CreateStorageBrowserInput<T> {
   elements?: T;
@@ -16,6 +17,10 @@ export default function createProvider<
   }: {
     children?: React.ReactNode;
   }): React.JSX.Element {
-    return <ElementsProvider elements={elements}>{children}</ElementsProvider>;
+    return (
+      <ElementsProvider elements={elements}>
+        <ControlProvider>{children}</ControlProvider>
+      </ElementsProvider>
+    );
   };
 }

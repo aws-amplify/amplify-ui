@@ -46,24 +46,15 @@ export const TwoButtonSubmitFooter = (
 
   return (
     <Flex direction="column">
-      <Button
-        fontWeight="normal"
-        variation="primary"
-        isDisabled={isPending}
-        type="submit"
-      >
+      <Button variation="primary" isDisabled={isPending} type="submit">
         {submitText}
       </Button>
 
-      <Button
-        onClick={onClick}
-        type="button"
-        variation="link"
-        fontWeight="normal"
-        size="small"
-      >
-        {cancelButtonText}
-      </Button>
+      <Flex direction="column" alignItems="center">
+        <Button onClick={onClick} type="button" variation="link" size="small">
+          {cancelButtonText}
+        </Button>
+      </Flex>
     </Flex>
   );
 };
