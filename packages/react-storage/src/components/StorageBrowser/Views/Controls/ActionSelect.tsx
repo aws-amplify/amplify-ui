@@ -62,6 +62,7 @@ interface ActionsMenu<
 const Menu = withBaseElementProps(View, {
   className: `${BLOCK_NAME}__menu`,
   role: 'menu',
+  'aria-label': 'Actions',
 });
 
 const ActionsMenu: ActionsMenu = () => (
