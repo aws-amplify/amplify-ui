@@ -34,7 +34,7 @@ describe('useIsSignedIn', () => {
     expect(result.current).toBe(true);
   });
 
-  it('should be truth if receiving a signedIn event', () => {
+  it('should be true if receiving a signedIn event', () => {
     getCurrentUserSpy.mockRejectedValueOnce(mockError);
 
     const { result, waitForNextUpdate } = renderHook(() => useIsSignedIn());
