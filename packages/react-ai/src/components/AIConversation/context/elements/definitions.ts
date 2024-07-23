@@ -3,15 +3,27 @@ import { defineBaseElement } from '@aws-amplify/ui-react-core/elements';
 export interface AIConversationElements {
   Button: typeof ButtonElement;
   Heading: typeof HeadingElement;
+  Form: typeof FormElement;
   Icon: typeof IconElement;
   Image: typeof ImageElement;
   Input: typeof InputElement;
   ListItem: typeof ListItemElement;
+  TextArea: typeof TextAreaElement;
   Span: typeof SpanElement;
   Text: typeof TextElement;
   UnorderedList: typeof UnorderedListElement;
   View: typeof ViewElement;
 }
+
+type TextAreaElementProps = 'name' | 'onChange' | 'placeholder';
+
+export const TextAreaElement = defineBaseElement<
+  'textarea',
+  TextAreaElementProps
+>({
+  type: 'textarea',
+  displayName: 'TextArea',
+});
 
 type IconVariant = 'send-message' | 'attach';
 
@@ -28,6 +40,11 @@ export const UnorderedListElement = defineBaseElement({
 export const ListItemElement = defineBaseElement({
   type: 'li',
   displayName: 'ListItem',
+});
+
+export const FormElement = defineBaseElement({
+  type: 'form',
+  displayName: 'Form',
 });
 
 export const HeadingElement = defineBaseElement({
@@ -50,7 +67,7 @@ export const InputElement = defineBaseElement<'input', 'type'>({
   displayName: 'Input',
 });
 
-type ButtonElementProps = 'onClick' | 'type';
+type ButtonElementProps = 'disabled' | 'onClick' | 'type';
 type ButtonElementVariant = 'send-message' | 'attach';
 
 export const ButtonElement = defineBaseElement<
@@ -72,9 +89,11 @@ export const SpanElement = defineBaseElement({
 export const AIConversationElements: AIConversationElements = {
   Button: ButtonElement,
   Heading: HeadingElement,
+  Form: FormElement,
   Icon: IconElement,
   Input: InputElement,
   Image: ImageElement,
+  TextArea: TextAreaElement,
   ListItem: ListItemElement,
   Span: SpanElement,
   Text: TextElement,

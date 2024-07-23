@@ -3,7 +3,6 @@ import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import {
   AIConversationElements,
-  InputContext,
   MessagesContext,
   SuggestedPromptsContext,
 } from '../../context';
@@ -68,7 +67,7 @@ const PromptGroupBase = withBaseElementProps(View, {
 const PromptGroup: typeof PromptGroupBase = React.forwardRef(
   function ButtonGroup(props, ref) {
     const suggestedPromptsArray = React.useContext(SuggestedPromptsContext);
-    const { setInput } = React.useContext(InputContext);
+    // const { setInput } = React.useContext(InputContext);
 
     if (!suggestedPromptsArray) {
       return;
@@ -81,7 +80,7 @@ const PromptGroup: typeof PromptGroupBase = React.forwardRef(
             <PromptCard
               key={index}
               aria-label={prompt.inputText}
-              onClick={() => setInput && setInput(prompt.inputText)}
+              onClick={() => props.onSelect && props.onSelect(prompt.inputText)}
             >
               <Text
                 className={classNames(
@@ -104,13 +103,15 @@ const Container = withBaseElementProps(View, {
   className: `${PROMPT_BLOCK}__container`,
 });
 
-export const PromptControl: PromptControl = () => (
-  <Container>
-    <AIIcon />
-    <HeaderText>How can I help you today?</HeaderText>
-    <PromptGroup />
-  </Container>
-);
+export const PromptControl: PromptControl = ({ onSelect }) => {
+  return (
+    <Container>
+      <AIIcon />
+      <HeaderText>How can I help you today?</HeaderText>
+      <PromptGroup onSelect={onSelect} />
+    </Container>
+  );
+};
 
 export const AutoHidablePromptControl = (): JSX.Element | undefined => {
   const messages = React.useContext(MessagesContext);
@@ -129,7 +130,7 @@ PromptControl.PromptCard = PromptCard;
 export interface PromptControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
 > {
-  (): React.JSX.Element;
+  (props: { onSelect?: (text: string) => void }): React.JSX.Element;
   Container: T['View'];
   Header: T['Heading'];
   Icon: T['Icon'];

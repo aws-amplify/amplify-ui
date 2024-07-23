@@ -30,7 +30,7 @@ export default function createProvider<
           <InputContextProvider>
             <AvatarsProvider avatars={avatars}>
               <ActionsProvider actions={actions}>
-                <MessagesProvider messages={messages}>
+                <MessagesProvider messages={[]}>
                   {children}
                 </MessagesProvider>
               </ActionsProvider>
