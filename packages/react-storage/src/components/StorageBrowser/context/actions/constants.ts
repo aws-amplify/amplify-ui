@@ -46,3 +46,6 @@ export const EXTENSIONS = Object.keys(EXTENSION_CONTENT);
 
 export const PERMISSION_TYPES = ['READ', 'READWRITE', 'WRITE'];
 export const LOCATION_TYPES = ['OBJECT', 'PREFIX', 'BUCKET'] as const;
+
+export const USE_ACTION_ERROR_MESSAGE =
+  '`useAction` must be called from inside `StorageBrowser.Provider`';
