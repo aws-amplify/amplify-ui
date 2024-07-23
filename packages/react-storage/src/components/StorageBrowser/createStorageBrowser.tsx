@@ -1,56 +1,67 @@
 import React from 'react';
+import { Button } from '@aws-amplify/ui-react';
+import { MergeBaseElements } from '@aws-amplify/ui-react-core/elements';
 
 import { StorageBrowserElements } from './context/elements';
 import createProvider from './createProvider';
-import {
-  LocationDetailView,
-  LocationsListView,
-  DividerControl,
-  HistoryControl,
-  PaginateControl,
-  RefreshControl,
-  SearchControl,
-  TitleControl,
-} from './Views';
-import { Controls, CreateStorageBrowserInput, StorageBrowser } from './types';
+import { LocationsListView, LocationDetailView } from './Views';
 
-export default function createStorageBrowser<T extends StorageBrowserElements>({
-  elements: _elements,
-}: CreateStorageBrowserInput<Partial<T>> = {}): {
-  StorageBrowser: StorageBrowser<T>;
+export interface CreateStorageBrowserInput<T> {
+  elements?: T;
+}
+
+export interface StorageBrowser<T extends StorageBrowserElements> {
+  (): React.JSX.Element;
+  LocationDetailView: LocationDetailView<T>;
+  LocationsListView: LocationsListView<T>;
+  Provider: (props: { children?: React.ReactNode }) => React.JSX.Element;
+}
+
+interface ResolvedStorageBrowserElements<
+  T extends Partial<StorageBrowserElements>,
+> extends MergeBaseElements<StorageBrowserElements, T> {}
+
+function DefaultStorageBrowser(): React.JSX.Element {
+  // TODO
+  // if (hasSelectedLocation) {
+  // return <LocationDetailView />
+  // }
+  // return <LocationsListView />;
+  return <>Default behavior!</>;
+}
+
+export function createStorageBrowser<
+  T extends Partial<StorageBrowserElements>,
+>({ elements }: CreateStorageBrowserInput<T> = {}): {
+  StorageBrowser: StorageBrowser<ResolvedStorageBrowserElements<T>>;
 } {
-  const elements = { ..._elements, StorageBrowserElements };
   const Provider = createProvider({ elements });
 
-  function StorageBrowser(): React.JSX.Element {
-    return (
-      <Provider>
-        <div>
-          <p>Hello World!</p>
-        </div>
-      </Provider>
-    );
-  }
-
-  const Controls: Controls<T> = {
-    // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
-    Divider: DividerControl,
-    // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
-    History: HistoryControl,
-    // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
-    Paginate: PaginateControl,
-    // @ts-expect-error FIXME -> `Controls` need to be nested in `View` componentss
-    Refresh: RefreshControl,
-    // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
-    Search: SearchControl,
-    // @ts-expect-error FIXME -> `Controls` need to be nested in `View` components
-    Title: TitleControl,
-  };
+  const StorageBrowser: StorageBrowser<
+    ResolvedStorageBrowserElements<T>
+  > = () => (
+    <Provider>
+      <DefaultStorageBrowser />
+    </Provider>
+  );
 
   StorageBrowser.Provider = Provider;
-  StorageBrowser.LocationsListView = LocationsListView;
   StorageBrowser.LocationDetailView = LocationDetailView;
-  StorageBrowser.Controls = Controls;
+  StorageBrowser.LocationsListView = LocationsListView;
+
+  // @ts-expect-error - force allow `displayName`
+  StorageBrowser.displayName = 'StorageBrowser';
 
   return { StorageBrowser };
 }
+
+// below is functioning as a "type canary", will start yelling if `elements`
+// inference is broken
+const {
+  StorageBrowser: {
+    LocationsListView: { Controls },
+  },
+} = createStorageBrowser({ elements: { Button } });
+const _SillyTest = () => (
+  <Controls.Refresh.Button alignContent={'-moz-initial'} />
+);

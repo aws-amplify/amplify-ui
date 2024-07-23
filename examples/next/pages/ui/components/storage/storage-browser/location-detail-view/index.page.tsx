@@ -6,5 +6,9 @@ import React from 'react';
 const { StorageBrowser } = createStorageBrowser();
 
 export default function Example() {
-  return <StorageBrowser.LocationDetailView />;
+  return (
+    <StorageBrowser.Provider>
+      <StorageBrowser.LocationDetailView />;
+    </StorageBrowser.Provider>
+  );
 }

@@ -1,2 +1,2 @@
-export { default as listLocationItemsAction } from './listLocationItemsAction';
-export { default as listLocationsAction } from './listLocationsAction';
+export { default as listLocationItemsAction } from './listLocationItems';
+export { default as listLocationsAction } from './listLocations';

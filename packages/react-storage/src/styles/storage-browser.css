@@ -1,0 +1,59 @@
+.storage-browser {
+  --storage-browser-gap: 0.6rem;
+  --storage-browser-divider-border-width: 2px;
+  --storage-browser-divider-border-style: solid;
+  --storage-browser-divider-border-color: #888;
+  --storage-browser-divider-height: 16px;
+}
+
+.storage-browser__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--storage-browser-gap);
+}
+
+.storage-browser__header__primary {
+  display: flex;
+  align-items: flex-start;
+}
+
+.storage-browser__title {
+  flex: 1 1 auto;
+  margin: 0;
+}
+.storage-browser__header__primary__actions {
+  flex: 0 1 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--storage-browser-gap);
+}
+
+.storage-browser__history__list,
+.storage-browser__paginate__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--storage-browser-gap);
+}
+.storage-browser__history__list__item {
+  display: flex;
+  gap: var(--storage-browser-gap);
+}
+
+.storage-browser__paginate__list__item {
+  display: flex;
+}
+
+.storage-browser__paginate__icon,
+.storage-browser__refresh__icon {
+  display: block;
+}
+
+.storage-browser__divider {
+  border: 0 0 0 var(--storage-browser-divider-border-width);
+  border-style: var(--storage-browser-divider-border-style);
+  border-color: var(--storage-browser-divider-border-color);
+  height: var(--storage-browser-divider-height);
+}
