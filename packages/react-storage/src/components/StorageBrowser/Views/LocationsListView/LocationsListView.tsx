@@ -7,8 +7,17 @@ import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
 import { ViewTypeProvider } from '../ViewContext';
 
-const { Divider, Message, Navigate, Paginate, Refresh, Search, Table, Title } =
-  Controls;
+const {
+  ActionSelect,
+  Divider,
+  Message,
+  Navigate,
+  Paginate,
+  Refresh,
+  Search,
+  Table,
+  Title,
+} = Controls;
 
 interface LocationsListViewControls<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -38,11 +47,12 @@ const LocationsListViewControls: LocationsListViewControls = () => (
       </div>
     </div>
     <div className={`${CLASS_BASE}__header__secondary`}>
-      <Paginate />
+      <Paginate /> <Divider /> <ActionSelect />
     </div>
   </div>
 );
 
+// LocationsListViewControls.ActionSelect = ActionSelect;
 LocationsListViewControls.Divider = Divider;
 LocationsListViewControls.Message = Message;
 LocationsListViewControls.Navigate = Navigate;

@@ -28,11 +28,6 @@ interface Action {
 }
 
 /* <ActionItem /> */
-type RenderActionItem = (props: { action: Action }) => React.JSX.Element;
-
-interface ActionItem<T extends StorageBrowserElements = StorageBrowserElements>
-  extends RenderActionItem,
-    Pick<T, 'Button' | 'Icon'> {}
 
 const ActionButton = withBaseElementProps(
   Button,
@@ -42,12 +37,18 @@ const ActionButton = withBaseElementProps(
   })
 );
 
+interface ActionItem<T extends StorageBrowserElements = StorageBrowserElements>
+  extends RenderActionItem,
+    Pick<T, 'Button'> {}
+
+type RenderActionItem = (props: { action: Action }) => React.JSX.Element;
+
 const ActionItem: ActionItem = ({ action }) => {
   const { displayName } = action;
-  <ActionButton>{displayName}</ActionButton>;
+  return <ActionButton>{displayName}</ActionButton>;
 };
+
 ActionItem.Button = ActionButton;
-ActionItem.Icon = Icon;
 
 /* <ActionsMenu /> */
 interface ActionsMenu<
@@ -72,19 +73,11 @@ const ActionsMenu: ActionsMenu = () => (
 ActionsMenu.ActionItem = ActionItem;
 ActionsMenu.Menu = Menu;
 
-interface Toggle<T extends StorageBrowserElements = StorageBrowserElements>
-  extends Pick<T, 'Button' | 'Icon'> {
-  (): React.JSX.Element;
-}
-
-/* <Toggle /> */
 /* <Toggle /> */
 
 interface Toggle<T extends StorageBrowserElements = StorageBrowserElements>
   extends Pick<T, 'Button' | 'Icon'> {
   (): React.JSX.Element;
-  Button: T['Button'];
-  Icon: T['Icon'];
 }
 
 const ToggleButton = withBaseElementProps(Button, {
@@ -93,17 +86,17 @@ const ToggleButton = withBaseElementProps(Button, {
 });
 
 const ToggleIcon = withBaseElementProps(Icon, {
-  className: `${BLOCK_NAME}`,
+  className: `${BLOCK_NAME}__toggle__icon`,
   'aria-hidden': true,
   children: (
     <path
-      d="M10.8 20.4H13.2V15.39L15.12 17.31L16.8 15.6L12 10.8L7.2 15.6L8.91 17.28L10.8 15.39V20.4ZM4.8 24C4.14 24 3.575 23.765 3.105 23.295C2.635 22.825 2.4 22.26 2.4 21.6V2.4C2.4 1.74 2.635 1.175 3.105 0.705C3.575 0.235 4.14 0 4.8 0H14.4L21.6 7.2V21.6C21.6 22.26 21.365 22.825 20.895 23.295C20.425 23.765 19.86 24 19.2 24H4.8ZM13.2 8.4V2.4H4.8V21.6H19.2V8.4H13.2Z"
+      d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z"
       fill="currentColor"
     />
   ),
   width: '24',
   height: '24',
-  viewBox: '0 0 24 24',
+  viewBox: '0 -960 960 960',
   fill: 'none',
   xmlns: 'http://www.w3.org/2000/svg',
 });
@@ -118,19 +111,25 @@ Toggle.Button = ToggleButton;
 Toggle.Icon = ToggleIcon;
 
 /* <ActionSelectControl /> */
+
+const Container = withBaseElementProps(View, {
+  className: `${BLOCK_NAME}`,
+});
 export interface ActionSelectControl<
   T extends StorageBrowserElements = StorageBrowserElements,
 > {
   (): React.JSX.Element;
+  Container: T['View'];
   ActionsMenu: ActionsMenu<T>;
   Toggle: Toggle<T>;
 }
 
 export const ActionSelectControl: ActionSelectControl = () => (
-  <>
+  <Container>
     <Toggle />
     <ActionsMenu />
-  </>
+  </Container>
 );
+ActionSelectControl.Container = Container;
 ActionSelectControl.ActionsMenu = ActionsMenu;
 ActionSelectControl.Toggle = Toggle;
