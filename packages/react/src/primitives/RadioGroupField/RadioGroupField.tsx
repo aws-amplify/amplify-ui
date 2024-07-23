@@ -16,6 +16,9 @@ import {
 import { getTestId } from '../utils/getTestId';
 import { useStableId } from '../utils/useStableId';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
+import { getAriaDescribedBy } from '../utils/getAriaDescribedBy';
+import { getFieldDescriptionId } from '../utils/getFieldDescriptionId';
+import { getFieldErrorMessageId } from '../utils/getFieldErrorMessageId';
 
 const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, 'fieldset'> = (
   {
@@ -43,8 +46,10 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, 'fieldset'> = (
   ref
 ) => {
   const fieldId = useStableId(id);
-  const descriptionId = useStableId();
-  const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
+  const stableId = useStableId();
+  const descriptionId = getFieldDescriptionId(stableId, descriptiveText);
+  const errorId = getFieldErrorMessageId(stableId, hasError);
+  const ariaDescribedBy = getAriaDescribedBy([errorId, descriptionId]);
   const radioGroupTestId = getTestId(testId, ComponentClassName.RadioGroup);
 
   const radioGroupContextValue: RadioGroupContextType = React.useMemo(
@@ -107,7 +112,11 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, 'fieldset'> = (
           {children}
         </RadioGroupContext.Provider>
       </Flex>
-      <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
+      <FieldErrorMessage
+        id={errorId}
+        hasError={hasError}
+        errorMessage={errorMessage}
+      />
     </Fieldset>
   );
 };

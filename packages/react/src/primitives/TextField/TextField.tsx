@@ -17,6 +17,9 @@ import {
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { useStableId } from '../utils/useStableId';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
+import { getFieldDescriptionId } from '../utils/getFieldDescriptionId';
+import { getFieldErrorMessageId } from '../utils/getFieldErrorMessageId';
+import { getAriaDescribedBy } from '../utils/getAriaDescribedBy';
 
 const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
   const {
@@ -39,8 +42,10 @@ const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
   } = props;
 
   const fieldId = useStableId(id);
-  const descriptionId = useStableId();
-  const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
+  const stableId = useStableId();
+  const descriptionId = getFieldDescriptionId(stableId, descriptiveText);
+  const errorId = getFieldErrorMessageId(stableId, hasError);
+  const ariaDescribedBy = getAriaDescribedBy([errorId, descriptionId]);
 
   const { styleProps, rest } = splitPrimitiveProps(_rest);
 
@@ -81,7 +86,11 @@ const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
           {...rest}
         />
       </FieldGroup>
-      <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
+      <FieldErrorMessage
+        id={errorId}
+        hasError={hasError}
+        errorMessage={errorMessage}
+      />
     </Flex>
   );
 };

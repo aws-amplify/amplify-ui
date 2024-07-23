@@ -21,6 +21,9 @@ import { ComponentText } from '../shared/constants';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { useStableId } from '../utils/useStableId';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
+import { getAriaDescribedBy } from '../utils/getAriaDescribedBy';
+import { getFieldDescriptionId } from '../utils/getFieldDescriptionId';
+import { getFieldErrorMessageId } from '../utils/getFieldErrorMessageId';
 
 export const DECREASE_ICON = 'decrease-icon';
 export const INCREASE_ICON = 'increase-icon';
@@ -56,8 +59,10 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
   } = props;
 
   const fieldId = useStableId(id);
-  const descriptionId = useStableId();
-  const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
+  const stableId = useStableId();
+  const descriptionId = getFieldDescriptionId(stableId, descriptiveText);
+  const errorId = getFieldErrorMessageId(stableId, hasError);
+  const ariaDescribedBy = getAriaDescribedBy([errorId, descriptionId]);
 
   const { styleProps, rest } = splitPrimitiveProps(_rest);
   const icons = useIcons('stepperField');
@@ -172,7 +177,11 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
           {...rest}
         />
       </FieldGroup>
-      <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
+      <FieldErrorMessage
+        id={errorId}
+        hasError={hasError}
+        errorMessage={errorMessage}
+      />
     </Flex>
   );
 };

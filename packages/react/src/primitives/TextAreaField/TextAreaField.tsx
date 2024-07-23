@@ -15,6 +15,9 @@ import {
 } from '../types/textAreaField';
 import { useStableId } from '../utils/useStableId';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
+import { getAriaDescribedBy } from '../utils/getAriaDescribedBy';
+import { getFieldDescriptionId } from '../utils/getFieldDescriptionId';
+import { getFieldErrorMessageId } from '../utils/getFieldErrorMessageId';
 
 export const DEFAULT_ROW_COUNT = 3;
 
@@ -41,8 +44,10 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
   } = props;
 
   const fieldId = useStableId(id);
-  const descriptionId = useStableId();
-  const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
+  const stableId = useStableId();
+  const descriptionId = getFieldDescriptionId(stableId, descriptiveText);
+  const errorId = getFieldErrorMessageId(stableId, hasError);
+  const ariaDescribedBy = getAriaDescribedBy([errorId, descriptionId]);
 
   const { styleProps, rest } = splitPrimitiveProps(_rest);
 
@@ -76,7 +81,11 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
         {...rest}
         {...inputStyles}
       />
-      <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
+      <FieldErrorMessage
+        id={errorId}
+        hasError={hasError}
+        errorMessage={errorMessage}
+      />
     </Flex>
   );
 };
