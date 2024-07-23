@@ -1,9 +1,29 @@
-import { IconVariant } from './definitions';
 import {
-  IconElementProps,
-  StorageBrowserElements,
-} from '../../context/elements';
+  defineBaseElement,
+  withBaseElementProps,
+} from '@aws-amplify/ui-react-core/elements';
 import React from 'react';
+
+export type IconElementProps = React.ComponentProps<typeof BaseIconElement>;
+
+export type IconVariant =
+  | 'action-queued'
+  | 'action-progress'
+  | 'action-canceled'
+  | 'action-success'
+  | 'action-error'
+  | 'cancel'
+  | 'download'
+  | 'file'
+  | 'folder'
+  | 'menu'
+  | `paginate-${'next' | 'previous'}`
+  | 'refresh'
+  | 'search'
+  | 'sort-ascending'
+  | 'sort-descending'
+  | 'sort-indeterminate'
+  | 'vertical-kebab';
 
 export const DEFAULT_ICON_PATHS: Record<IconVariant, string> = {
   // "Pending" icon
@@ -54,3 +74,36 @@ export const DEFAULT_ICON_PATHS: Record<IconVariant, string> = {
     'M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z',
 };
 
+const iconAttributes = {
+  'aria-hidden': true,
+  width: '24',
+  height: '24',
+  viewBox: '0 -960 960 960',
+  fill: 'none',
+  xmlns: 'http://www.w3.org/2000/svg',
+};
+
+export const BaseIconElement = defineBaseElement<'svg', never, IconVariant>({
+  type: 'svg',
+  displayName: 'Icon',
+});
+
+const getIconProps = ({
+  variant,
+  ...props
+}: IconElementProps): IconElementProps => {
+  let children;
+
+  if (variant) {
+    children = <path d={DEFAULT_ICON_PATHS[variant]} fill="currentColor" />;
+  }
+
+  return {
+    ...iconAttributes,
+    ...props,
+    children: props.children ?? children,
+    variant,
+  };
+};
+
+export const IconElement = withBaseElementProps(BaseIconElement, getIconProps);
