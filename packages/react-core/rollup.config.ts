@@ -3,7 +3,9 @@ import typescript from '@rollup/plugin-typescript';
 import externals from 'rollup-plugin-node-externals';
 
 // common config settings
-const input = ['src/index.ts'];
+
+// { OUTPUT_PATH: INPUT_PATH }
+const input = { index: 'src/index.ts', elements: 'src/elements/index.ts' };
 const sourceMap = false;
 const tsconfig = 'tsconfig.dist.json';
 

@@ -2,6 +2,8 @@ import React from 'react';
 import { BaseElement, ElementRefType } from './types';
 
 /**
+ * @internal @unstable
+ *
  * Extend target `BaseElement` with `defaultProps`. `defaultProps`
  * are overidden by `props` provided to returned `BaseElement`.
  *
@@ -30,14 +32,19 @@ import { BaseElement, ElementRefType } from './types';
  * @param defaultProps `defaultProps` to apply to `Target`, accepts object or callback
  * @returns extended `BaseElement` with `defaultProps`
  */
-export default function withBaseElementProps<T, K extends T | (() => T)>(
+export default function withBaseElementProps<
+  T,
+  K extends T | ((input: T) => T),
+>(
   Target: React.ForwardRefExoticComponent<T>,
   defaultProps: K
 ): BaseElement<T, ElementRefType<T>> {
   const Component = React.forwardRef<ElementRefType<T>, T>((props, ref) => (
     <Target
       {...{
-        ...(typeof defaultProps === 'function' ? defaultProps() : defaultProps),
+        ...(typeof defaultProps === 'function'
+          ? defaultProps(props)
+          : defaultProps),
         ...props,
       }}
       ref={ref}
