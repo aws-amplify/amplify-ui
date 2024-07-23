@@ -1,8 +1,7 @@
 .storage-browser {
   --storage-browser-gap: 0.6rem;
-  --storage-browser-divider-border-width: 2px;
-  --storage-browser-divider-border-style: solid;
-  --storage-browser-divider-border-color: #888;
+  --storage-browser-divider-background-color: currentColor;
+  --storage-browser-divider-width: 2px;
   --storage-browser-divider-height: 16px;
 }
 
@@ -12,7 +11,8 @@
   gap: var(--storage-browser-gap);
 }
 
-.storage-browser__header__primary {
+.storage-browser__header__primary,
+.storage-browser__header__secondary {
   display: flex;
   align-items: flex-start;
 }
@@ -52,8 +52,12 @@
 }
 
 .storage-browser__divider {
-  border: 0 0 0 var(--storage-browser-divider-border-width);
-  border-style: var(--storage-browser-divider-border-style);
-  border-color: var(--storage-browser-divider-border-color);
+  border: none;
+  background-color: var(--storage-browser-divider-background-color);
+  width: var(--storage-browser-divider-width);
   height: var(--storage-browser-divider-height);
+}
+
+.storage-browser__action-menu__menu {
+  display: none;
 }

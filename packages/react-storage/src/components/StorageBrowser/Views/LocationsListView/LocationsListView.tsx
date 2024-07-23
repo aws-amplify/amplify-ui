@@ -43,11 +43,11 @@ const LocationsListViewControls: LocationsListViewControls = () => (
     <div className={`${CLASS_BASE}__header__primary`}>
       <Title />
       <div className={`${CLASS_BASE}__header__primary__actions`}>
-        <Refresh />
+        <Refresh /> <Divider /> <ActionSelect />
       </div>
     </div>
     <div className={`${CLASS_BASE}__header__secondary`}>
-      <Paginate /> <Divider /> <ActionSelect />
+      <Paginate />
     </div>
   </div>
 );

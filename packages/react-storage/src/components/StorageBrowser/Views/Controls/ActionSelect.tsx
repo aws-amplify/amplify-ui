@@ -1,9 +1,13 @@
 import React from 'react';
-import { StorageBrowserElements } from '../../context/elements';
+import {
+  ActionVariant,
+  IconElementProps,
+  StorageBrowserElements,
+} from '../../context/elements';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 import { CLASS_BASE } from '../constants';
 
-const { Button, Icon, View } = StorageBrowserElements;
+const { Button, Icon: IconElement, View } = StorageBrowserElements;
 const BLOCK_NAME = `${CLASS_BASE}__action-menu`;
 
 type PermissionType = 'READ' | 'READWRITE' | 'WRITE';
@@ -29,6 +33,63 @@ interface Action {
 
 /* <ActionItem /> */
 
+const iconAttributes = {
+  'aria-hidden': true,
+  className: `${BLOCK_NAME}__icon`,
+  width: '24',
+  height: '24',
+  viewBox: '0 -960 960 960',
+  fill: 'none',
+  xmlns: 'http://www.w3.org/2000/svg',
+};
+
+const getIconProps = ({
+  variant,
+  ...props
+}: IconElementProps): IconElementProps => {
+  let children;
+  switch (variant) {
+    case 'upload-file':
+      children = (
+        <path
+          d="M440-200h80v-167l64 64 56-57-160-160-160 160 57 56 63-63v167ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"
+          fill="currentColor"
+        />
+      );
+      break;
+    case 'upload-folder':
+      children = (
+        <path
+          d="M440-280h80v-168l64 64 56-56-160-160-160 160 56 56 64-64v168ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z"
+          fill="currentColor"
+        />
+      );
+      break;
+  }
+
+  return {
+    ...iconAttributes,
+    ...props,
+    children: props.children ?? children,
+    variant,
+  };
+};
+
+const ActionIcon: ActionItem['Icon'] = React.forwardRef(function Icon(
+  { variant, ...props },
+  ref
+) {
+  return (
+    <IconElement
+      {...getIconProps({
+        ...props,
+        ref,
+        variant,
+      })}
+    />
+  );
+});
+
 const ActionButton = withBaseElementProps(Button, {
   className: `${BLOCK_NAME}__toggle`,
   role: 'menuitem',
@@ -36,16 +97,25 @@ const ActionButton = withBaseElementProps(Button, {
 
 interface ActionItem<T extends StorageBrowserElements = StorageBrowserElements>
   extends RenderActionItem,
-    Pick<T, 'Button'> {}
+    Pick<T, 'Button' | 'Icon'> {}
 
-type RenderActionItem = (props: { action: Action }) => React.JSX.Element;
+type RenderActionItem = (props: {
+  action: Action;
+  variant: ActionVariant;
+}) => React.JSX.Element;
 
-const ActionItem: ActionItem = ({ action }) => {
+const ActionItem: ActionItem = ({ action, variant }) => {
   const { displayName } = action;
-  return <ActionButton>{displayName}</ActionButton>;
+  return (
+    <ActionButton>
+      <ActionIcon variant={variant} />
+      {displayName}
+    </ActionButton>
+  );
 };
 
 ActionItem.Button = ActionButton;
+ActionItem.Icon = ActionIcon;
 
 /* <ActionsMenu /> */
 interface ActionsMenu<
@@ -64,8 +134,14 @@ const Menu = withBaseElementProps(View, {
 
 const ActionsMenu: ActionsMenu = () => (
   <Menu>
-    <ActionItem action={{ displayName: 'Upload folder', type: 'FOLDER' }} />
-    <ActionItem action={{ displayName: 'Upload file', type: 'FILE' }} />
+    <ActionItem
+      action={{ displayName: 'Upload folder', type: 'FOLDER' }}
+      variant="upload-folder"
+    />
+    <ActionItem
+      action={{ displayName: 'Upload file', type: 'FILE' }}
+      variant="upload-file"
+    />
   </Menu>
 );
 ActionsMenu.ActionItem = ActionItem;
@@ -83,7 +159,7 @@ const ToggleButton = withBaseElementProps(Button, {
   'aria-label': 'Actions',
 });
 
-const ToggleIcon = withBaseElementProps(Icon, {
+const ToggleIcon = withBaseElementProps(IconElement, {
   className: `${BLOCK_NAME}__toggle__icon`,
   'aria-hidden': true,
   children: (
