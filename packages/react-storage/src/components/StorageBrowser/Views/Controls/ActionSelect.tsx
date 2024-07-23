@@ -127,7 +127,7 @@ interface ActionsMenu<
 }
 
 const Menu = withBaseElementProps(View, {
-  className: `${BLOCK_NAME}__menu`,
+  className: `${BLOCK_NAME}__menu`, // ${BLOCK_NAME}__menu--open
   role: 'menu',
   'aria-label': 'Actions',
 });
