@@ -16,7 +16,7 @@ const MESSAGE_BLOCK = 'ai-message';
 
 const MediaContent = withBaseElementProps(Image, {
   className: `${MESSAGE_BLOCK}__image`,
-  alt: 'AI Image',
+  alt: 'Image attachment',
 });
 
 const TextContent = withBaseElementProps(Text, {
