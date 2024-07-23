@@ -5,7 +5,7 @@ import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
 
 const { Span, Button, Nav, OrderedList, ListItem } = StorageBrowserElements;
-const BLOCK_NAME = `${CLASS_BASE}__paginate`;
+const BLOCK_NAME = `${CLASS_BASE}__navigate`;
 
 type PermissionType = 'READ' | 'READWRITE' | 'WRITE';
 type LocationType = 'OBJECT' | 'PREFIX' | 'BUCKET';
@@ -13,20 +13,23 @@ interface LocationData {
   name: string;
   permissionType: PermissionType;
   locationType: LocationType;
-  current: boolean;
 }
 
 /* <Separator /> */
 const Separator = withBaseElementProps(
   Span,
-  ({ className = `${BLOCK_NAME}__separator`, ...props }) => ({
+  ({ className = `${BLOCK_NAME}__separator`, children = `/`, ...props }) => ({
     ...props,
+    children,
     className,
   })
 );
 
 /* <NavigateItem /> */
-type RenderNavigateItem = (props: { item: LocationData }) => React.JSX.Element;
+type RenderNavigateItem = (props: {
+  item: LocationData;
+  current?: boolean;
+}) => React.JSX.Element;
 
 interface NavigateItem<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -48,11 +51,12 @@ const NavigateButton = withBaseElementProps(
   })
 );
 
-const NavigateItem: NavigateItem = ({ item }) => {
+const NavigateItem: NavigateItem = ({ item, current }) => {
+  const { name } = item;
   return (
     <NavigateItemContainer>
-      <NavigateButton />
-      {item.current ? null : <Separator />}
+      <NavigateButton>{name}</NavigateButton>
+      {current ? null : <Separator />}
     </NavigateItemContainer>
   );
 };
@@ -91,7 +95,21 @@ export interface NavigateControl<
 export const NavigateControl: NavigateControl = (_props) => {
   return (
     <NavigateContainer>
-      <NavigateButton>Test</NavigateButton>
+      <NavigateItem
+        item={{
+          name: 'Home',
+          permissionType: 'READ',
+          locationType: 'OBJECT',
+        }}
+      />
+      <NavigateItem
+        item={{
+          name: 'Location01',
+          permissionType: 'READ',
+          locationType: 'OBJECT',
+        }}
+        current
+      />
     </NavigateContainer>
   );
 };
