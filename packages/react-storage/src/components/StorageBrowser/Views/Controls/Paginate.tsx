@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { AriaAttributes } from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import {
@@ -168,7 +168,8 @@ const getButtonVariantProps = (
     handleUpdateState,
   ] = context;
 
-  let ariaCurrent, ariaLabel, className, disabled, onClick;
+  let ariaCurrent: AriaAttributes['aria-current'];
+  let ariaLabel, className, disabled, onClick;
   let children = <PaginateIcon />;
 
   switch (variant) {
