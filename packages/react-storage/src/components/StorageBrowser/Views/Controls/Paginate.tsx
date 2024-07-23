@@ -168,8 +168,7 @@ const getButtonVariantProps = (
     handleUpdateState,
   ] = context;
 
-  let ariaCurrent;
-  let ariaLabel, className, disabled, onClick;
+  let ariaCurrent, ariaLabel, className, disabled, onClick;
   let children = <PaginateIcon />;
 
   switch (variant) {
