@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { AriaAttributes } from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import {
@@ -16,7 +16,7 @@ const {
   ListItem,
   Nav,
   OrderedList,
-  Text: TextElement,
+  Span: SpanElement,
 } = StorageBrowserElements;
 
 const BLOCK_NAME = `${CLASS_BASE}__paginate`;
@@ -129,7 +129,7 @@ const PaginateItemContainer = withBaseElementProps(
   ({ className = `${BLOCK_NAME}__item`, ...props }) => ({ ...props, className })
 );
 
-const PaginateText: CurrentControl['Text'] = React.forwardRef(function Text(
+const PaginateText: CurrentControl['Text'] = React.forwardRef(function Span(
   { children, className = `${BLOCK_NAME}__text`, variant: _variant, ...props },
   ref
 ) {
@@ -137,14 +137,14 @@ const PaginateText: CurrentControl['Text'] = React.forwardRef(function Text(
   const [{ current }] = useControl({ key: 'PAGINATE' });
 
   return (
-    <TextElement
+    <SpanElement
       {...props}
       className={className}
       ref={ref}
       variant={_variant ?? variant}
     >
       {children ?? current}
-    </TextElement>
+    </SpanElement>
   );
 });
 
@@ -163,20 +163,23 @@ const getButtonVariantProps = (
   { variant, ...props }: ButtonElementProps,
   context: PaginateStateContext
 ): ButtonElementProps => {
-  const [{ hasNext, hasPrevious, isLoadingNextPage }, handleUpdateState] =
-    context;
+  const [
+    { hasNext, hasPrevious, isLoadingNextPage, current },
+    handleUpdateState,
+  ] = context;
 
-  let ariaDisabled, ariaLabel, className, disabled, onClick;
+  let ariaCurrent: AriaAttributes['aria-current'];
+  let ariaLabel, className, disabled, onClick;
   let children = <PaginateIcon />;
 
   switch (variant) {
     case 'paginate-current':
-      ariaLabel = 'Current page';
+      ariaCurrent = 'page';
+      ariaLabel = `Page ${current}`;
       children = <PaginateText />;
       className = `${BLOCK_NAME}__button-current`;
       break;
     case 'paginate-next':
-      ariaDisabled = true;
       ariaLabel = 'Go to next page';
       className = `${BLOCK_NAME}__button-next`;
       disabled = !hasNext || isLoadingNextPage;
@@ -191,7 +194,7 @@ const getButtonVariantProps = (
   }
   return {
     ...props,
-    'aria-disabled': props['aria-disabled'] ?? ariaDisabled,
+    'aria-current': props['aria-current'] ?? ariaCurrent,
     'aria-label': props['aria-label'] ?? ariaLabel,
     children: props.children ?? children,
     className: props.className ?? className,
