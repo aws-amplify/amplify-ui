@@ -1,4 +1,5 @@
 import { defineBaseElement } from '@aws-amplify/ui-react-core/elements';
+import { IconElement } from './IconElement';
 
 export interface StorageBrowserElements {
   Button: typeof ButtonElement;
@@ -24,23 +25,6 @@ export interface StorageBrowserElements {
 }
 
 export type PaginateVariant = `paginate-${'next' | 'current' | 'previous'}`;
-export type IconVariant =
-  | 'action-queued'
-  | 'action-progress'
-  | 'action-canceled'
-  | 'action-success'
-  | 'action-error'
-  | 'download'
-  | 'file'
-  | 'folder'
-  | 'menu'
-  | Exclude<PaginateVariant, 'paginate-current'>
-  | 'refresh'
-  | 'search'
-  | 'sort-ascending'
-  | 'sort-descending'
-  | 'sort-indeterminate'
-  | 'vertical-kebab';
 
 export type IconElementProps = React.ComponentProps<typeof IconElement>;
 
@@ -117,11 +101,6 @@ export const TableBodyElement = defineBaseElement({
 export const HeadingElement = defineBaseElement({
   type: 'h2',
   displayName: 'Title',
-});
-
-export const IconElement = defineBaseElement({
-  type: 'svg',
-  displayName: 'Icon',
 });
 
 export const ProgressBarElement = defineBaseElement({
