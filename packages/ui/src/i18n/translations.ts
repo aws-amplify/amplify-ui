@@ -31,6 +31,7 @@ import {
   defaultTexts,
   heDict,
   uaDict,
+  thDict,
 } from './dictionaries';
 
 /**
