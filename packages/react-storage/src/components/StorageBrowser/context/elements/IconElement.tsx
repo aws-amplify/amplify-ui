@@ -98,7 +98,7 @@ const getIconProps = ({
   ) : undefined;
 
   return {
-    ...iconAttributes,
+    ...DEFAULT_ICON_ATTRIBUTES,
     ...props,
     children: props.children ?? children,
     variant,
