@@ -92,11 +92,10 @@ const getIconProps = ({
   variant,
   ...props
 }: IconElementProps): IconElementProps => {
-  let children;
-
-  if (variant) {
-    children = <path d={DEFAULT_ICON_PATHS[variant]} fill="currentColor" />;
-  }
+  const pathData = variant ? DEFAULT_ICON_PATHS[variant] : undefined;
+  const children = pathData ? (
+    <path d={pathData} fill="currentColor" />
+  ) : undefined;
 
   return {
     ...iconAttributes,
