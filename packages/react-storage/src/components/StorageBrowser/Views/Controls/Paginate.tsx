@@ -16,7 +16,7 @@ const {
   ListItem,
   Nav,
   OrderedList,
-  Text: TextElement,
+  Span: SpanElement,
 } = StorageBrowserElements;
 
 const BLOCK_NAME = `${CLASS_BASE}__paginate`;
@@ -129,7 +129,7 @@ const PaginateItemContainer = withBaseElementProps(
   ({ className = `${BLOCK_NAME}__item`, ...props }) => ({ ...props, className })
 );
 
-const PaginateText: CurrentControl['Text'] = React.forwardRef(function Text(
+const PaginateText: CurrentControl['Text'] = React.forwardRef(function Span(
   { children, className = `${BLOCK_NAME}__text`, variant: _variant, ...props },
   ref
 ) {
@@ -137,14 +137,14 @@ const PaginateText: CurrentControl['Text'] = React.forwardRef(function Text(
   const [{ current }] = useControl({ key: 'PAGINATE' });
 
   return (
-    <TextElement
+    <SpanElement
       {...props}
       className={className}
       ref={ref}
       variant={_variant ?? variant}
     >
       {children ?? current}
-    </TextElement>
+    </SpanElement>
   );
 });
 
@@ -163,15 +163,17 @@ const getButtonVariantProps = (
   { variant, ...props }: ButtonElementProps,
   context: PaginateStateContext
 ): ButtonElementProps => {
-  const [{ hasNext, hasPrevious, isLoadingNextPage }, handleUpdateState] =
-    context;
+  const [
+    { hasNext, hasPrevious, isLoadingNextPage, current },
+    handleUpdateState,
+  ] = context;
 
   let ariaDisabled, ariaLabel, className, disabled, onClick;
   let children = <PaginateIcon />;
 
   switch (variant) {
     case 'paginate-current':
-      ariaLabel = 'Current page';
+      ariaLabel = `Page ${current}`;
       children = <PaginateText />;
       className = `${BLOCK_NAME}__button-current`;
       break;
