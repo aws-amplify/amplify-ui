@@ -1,4 +1,9 @@
 import { IconVariant } from './definitions';
+import {
+  IconElementProps,
+  StorageBrowserElements,
+} from '../../context/elements';
+import React from 'react';
 
 export const DEFAULT_ICON_PATHS: Record<IconVariant, string> = {
   // "Pending" icon
@@ -48,4 +53,33 @@ export const DEFAULT_ICON_PATHS: Record<IconVariant, string> = {
   // "More Vert" icon
   'vertical-kebab':
     'M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z',
+};
+
+const { Icon } = StorageBrowserElements;
+
+export const IconElement = ({
+  variant,
+  ...props
+}: IconElementProps & { variant: IconVariant }): JSX.Element => {
+  const iconAttributes = {
+    'aria-hidden': true,
+    width: '24',
+    height: '24',
+    viewBox: '0 -960 960 960',
+    fill: 'none',
+    xmlns: 'http://www.w3.org/2000/svg',
+  };
+
+  const children = <path d={DEFAULT_ICON_PATHS[variant]} fill="currentColor" />;
+
+  return (
+    <Icon
+      {...{
+        ...iconAttributes,
+        ...props,
+        children: props.children ?? children,
+        variant,
+      }}
+    />
+  );
 };
