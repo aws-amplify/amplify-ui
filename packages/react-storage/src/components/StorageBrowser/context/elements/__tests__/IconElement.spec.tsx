@@ -36,38 +36,6 @@ describe('IconElement', () => {
     }
   );
 
-  it('should render correct path for each icon variant', () => {
-    const variants: IconVariant[] = [
-      'action-queued',
-      'action-progress',
-      'action-canceled',
-      'action-success',
-      'action-error',
-      'cancel',
-      'download',
-      'file',
-      'folder',
-      'menu',
-      'paginate-next',
-      'paginate-previous',
-      'refresh',
-      'search',
-      'sort-ascending',
-      'sort-descending',
-      'sort-indeterminate',
-      'vertical-kebab',
-    ];
-
-    variants.forEach((variant) => {
-      const { container } = render(<IconElement variant={variant} />);
-
-      const path = container.querySelector('path');
-
-      expect(path).toBeInTheDocument();
-      expect(path).toHaveAttribute('d', DEFAULT_ICON_PATHS[variant]);
-    });
-  });
-
   it('should handle missing variant', () => {
     const { container } = render(<IconElement />);
 
