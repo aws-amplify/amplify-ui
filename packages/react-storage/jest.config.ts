@@ -6,8 +6,10 @@ const config: Config = {
     '<rootDir>/src/**/*.(ts|tsx)',
     // do not collect from export files
     '!<rootDir>/**/index.(ts|tsx)',
-    // do not collect from top level version and styles files
-    '!<rootDir>/src/(styles|version).(ts|tsx)',
+    // do not collect from version file
+    '!<rootDir>/src/version.ts',
+    // do not collect from top level styles directory
+    '!<rootDir>/src/styles/*.ts',
   ],
   coverageThreshold: {
     global: {
