@@ -29,13 +29,10 @@ interface Action {
 
 /* <ActionItem /> */
 
-const ActionButton = withBaseElementProps(
-  Button,
-  ({ className = `${BLOCK_NAME}__button`, ...props }) => ({
-    ...props,
-    className,
-  })
-);
+const ActionButton = withBaseElementProps(Button, {
+  className: `${BLOCK_NAME}__toggle`,
+  role: 'menuitem',
+});
 
 interface ActionItem<T extends StorageBrowserElements = StorageBrowserElements>
   extends RenderActionItem,
