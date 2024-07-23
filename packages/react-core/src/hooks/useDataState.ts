@@ -7,6 +7,11 @@ export interface DataState<T> {
   message: string | undefined;
 }
 
+export type DataAction<T = any, K = any> = (
+  prevData: T,
+  ...input: K[]
+) => T | Promise<T>;
+
 // default state
 const INITIAL_STATE = { hasError: false, isLoading: false, message: undefined };
 const LOADING_STATE = { hasError: false, isLoading: true, message: undefined };
@@ -20,7 +25,7 @@ const resolveMaybeAsync = async <T>(
 };
 
 export default function useDataState<T, K>(
-  action: (prevData: T, ...input: K[]) => T | Promise<T>,
+  action: DataAction<T, K>,
   initialData: T
 ): [state: DataState<T>, handleAction: (...input: K[]) => void] {
   const [dataState, setDataState] = React.useState<DataState<T>>(() => ({
