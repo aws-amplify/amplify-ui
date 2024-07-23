@@ -28,7 +28,7 @@
   gap: var(--storage-browser-gap);
 }
 
-.storage-browser__history__list,
+.storage-browser__navigate__list,
 .storage-browser__paginate__list {
   list-style: none;
   margin: 0;
@@ -37,12 +37,12 @@
   flex-wrap: wrap;
   gap: var(--storage-browser-gap);
 }
-.storage-browser__history__list__item {
+.storage-browser__navigate__item {
   display: flex;
   gap: var(--storage-browser-gap);
 }
 
-.storage-browser__paginate__list__item {
+.storage-browser__paginate__item {
   display: flex;
 }
 
