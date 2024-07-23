@@ -168,17 +168,18 @@ const getButtonVariantProps = (
     handleUpdateState,
   ] = context;
 
-  let ariaDisabled, ariaLabel, className, disabled, onClick;
+  let ariaCurrent;
+  let ariaLabel, className, disabled, onClick;
   let children = <PaginateIcon />;
 
   switch (variant) {
     case 'paginate-current':
+      ariaCurrent = 'page';
       ariaLabel = `Page ${current}`;
       children = <PaginateText />;
       className = `${BLOCK_NAME}__button-current`;
       break;
     case 'paginate-next':
-      ariaDisabled = true;
       ariaLabel = 'Go to next page';
       className = `${BLOCK_NAME}__button-next`;
       disabled = !hasNext || isLoadingNextPage;
@@ -193,7 +194,7 @@ const getButtonVariantProps = (
   }
   return {
     ...props,
-    'aria-disabled': props['aria-disabled'] ?? ariaDisabled,
+    'aria-current': props['aria-current'] ?? ariaCurrent,
     'aria-label': props['aria-label'] ?? ariaLabel,
     children: props.children ?? children,
     className: props.className ?? className,
