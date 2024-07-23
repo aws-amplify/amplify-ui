@@ -11,6 +11,7 @@
     <div
       *ngFor="
         let unverifiedUserAttribute of unverifiedUserAttributes | keyvalue
+        let i = index;
       "
     >
       <input
@@ -18,6 +19,7 @@
         type="radio"
         [value]="unverifiedUserAttribute.key"
         [id]="labelId"
+        [checked]="i === 0"
       />
       <label [for]="labelId">{{
         getLabel(unverifiedUserAttribute.key, unverifiedUserAttribute.value)
