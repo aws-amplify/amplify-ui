@@ -78,6 +78,7 @@ const DEFAULT_ICON_ATTRIBUTES = {
   'aria-hidden': true,
   width: '24',
   height: '24',
+  // `viewBox` coordinates map to `path` data in DEFAULT_ICON_PATHS
   viewBox: '0 -960 960 960',
   fill: 'none',
   xmlns: 'http://www.w3.org/2000/svg',
