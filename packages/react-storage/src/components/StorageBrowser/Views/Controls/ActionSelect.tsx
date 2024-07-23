@@ -91,7 +91,7 @@ const ActionIcon: ActionItem['Icon'] = React.forwardRef(function Icon(
 });
 
 const ActionButton = withBaseElementProps(Button, {
-  className: `${BLOCK_NAME}__toggle`,
+  className: `${BLOCK_NAME}__action-button`,
   role: 'menuitem',
 });
 
