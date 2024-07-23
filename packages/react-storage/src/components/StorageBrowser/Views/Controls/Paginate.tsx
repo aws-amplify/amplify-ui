@@ -105,22 +105,6 @@ const PaginateText: CurrentControl['Text'] = React.forwardRef(function Span(
   );
 });
 
-const PaginateIcon: (PreviousControl | NextControl)['Icon'] = React.forwardRef(
-  function Icon({ variant: _variant, ...props }, ref) {
-    const { variant } = React.useContext(PaginateItemContext);
-
-    const iconVariant = variant === 'paginate-current' ? undefined : variant;
-
-    return (
-      <IconElement
-        variant={iconVariant}
-        {...{ props, ref }}
-        className={`${BLOCK_NAME}__icon`}
-      />
-    );
-  }
-);
-
 const getButtonVariantProps = (
   { variant, ...props }: ButtonElementProps,
   context: PaginateStateContext
@@ -131,8 +115,7 @@ const getButtonVariantProps = (
   ] = context;
 
   let ariaCurrent: AriaAttributes['aria-current'];
-  let ariaLabel, className, disabled, onClick;
-  let children = <PaginateIcon />;
+  let ariaLabel, className, disabled, onClick, children;
 
   switch (variant) {
     case 'paginate-current':
@@ -146,14 +129,21 @@ const getButtonVariantProps = (
       className = `${BLOCK_NAME}__button-next`;
       disabled = !hasNext || isLoadingNextPage;
       onClick = () => handleUpdateState({ type: 'NEXT' });
+      children = (
+        <IconElement variant={variant} className={`${BLOCK_NAME}__icon`} />
+      );
       break;
     case 'paginate-previous':
       ariaLabel = 'Go to previous page';
       className = `${BLOCK_NAME}__button-next`;
       disabled = !hasPrevious;
       onClick = () => handleUpdateState({ type: 'PREVIOUS' });
+      children = (
+        <IconElement variant={variant} className={`${BLOCK_NAME}__icon`} />
+      );
       break;
   }
+
   return {
     ...props,
     'aria-current': props['aria-current'] ?? ariaCurrent,
@@ -219,7 +209,7 @@ const paginateComponents = {
   Container: PaginateItemContainer,
   Button: PaginateButtonControl,
   Text: PaginateText,
-  Icon: PaginateIcon,
+  Icon: IconElement,
 };
 
 PaginateControl.Container = PaginateContainer;
