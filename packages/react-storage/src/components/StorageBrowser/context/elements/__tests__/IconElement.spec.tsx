@@ -22,6 +22,20 @@ describe('IconElement', () => {
     expect(svgElement).toHaveAttribute('xmlns', 'http://www.w3.org/2000/svg');
   });
 
+  it.each(Object.entries(DEFAULT_ICON_PATHS))(
+    'should render correct path for a %s `Icon` variant',
+    (variant, expectedPath) => {
+      const { container } = render(
+        <IconElement variant={variant as IconVariant} />
+      );
+
+      const path = container.querySelector('path');
+
+      expect(path).toBeInTheDocument();
+      expect(path).toHaveAttribute('d', expectedPath);
+    }
+  );
+
   it('should render correct path for each icon variant', () => {
     const variants: IconVariant[] = [
       'action-queued',
