@@ -57,7 +57,7 @@ interface MessageControl<
 }
 
 const HeaderContainer = withBaseElementProps(View, {
-  className: `${MESSAGE_BLOCK}__header-container`,
+  className: `${MESSAGE_BLOCK}__header__container`,
 });
 
 const Separator = withBaseElementProps(Span, {
@@ -75,22 +75,27 @@ const Layout = withBaseElementProps(View, {
 });
 
 export const MessagesControl: MessagesControl = ({
+  renderMessage,
   variant = 'borderless',
 }) => {
   const messages = React.useContext(MessagesContext);
   return (
     <Layout>
-      {messages?.map((message, index) => (
-        <Container data-testid={`message`} key={`message-${index}`}>
-          <HeaderContainer>
-            <AvatarControl message={message} />
-            <Separator />
-            <Timestamp>{formatDate(message.timestamp)}</Timestamp>
-          </HeaderContainer>
-          <MessageControl message={message} variant={variant} />
-          <ActionsBarControl message={message} />
-        </Container>
-      ))}
+      {messages?.map((message, index) =>
+        renderMessage ? (
+          renderMessage(message)
+        ) : (
+          <Container data-testid={`message`} key={`message-${index}`}>
+            <HeaderContainer>
+              <AvatarControl message={message} />
+              <Separator />
+              <Timestamp>{formatDate(message.timestamp)}</Timestamp>
+            </HeaderContainer>
+            <MessageControl message={message} variant={variant} />
+            <ActionsBarControl message={message} />
+          </Container>
+        )
+      )}
     </Layout>
   );
 };
@@ -106,7 +111,10 @@ MessagesControl.Separator = Separator;
 export interface MessagesControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
 > {
-  (props: { variant?: MessageVariant }): JSX.Element;
+  (props: {
+    variant?: MessageVariant;
+    renderMessage?: (message: ConversationMessage) => React.ReactNode;
+  }): JSX.Element;
   ActionsBar: ActionsBarControl<T>;
   Avatar: AvatarControl<T>;
   Container: T['View'];

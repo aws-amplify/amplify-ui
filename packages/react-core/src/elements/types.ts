@@ -41,6 +41,7 @@ export type ElementDisplayName =
   | 'ProgressBar'
   | 'Span'
   | 'Text'
+  | 'TextArea'
   | 'Title'
   | 'View'
   | ListElementDisplayName

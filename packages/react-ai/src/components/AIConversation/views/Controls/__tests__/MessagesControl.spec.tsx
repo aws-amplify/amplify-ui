@@ -8,6 +8,8 @@ import { AvatarsProvider } from '../../../context/AvatarsContext';
 import { MessagesProvider } from '../../../context/MessagesContext';
 import { MessagesControl, MessageControl } from '../MessagesControl';
 
+import { convertBufferToBase64 } from '../../../utils';
+
 const messages: ConversationMessage[] = [
   {
     id: '1',
@@ -103,6 +105,37 @@ describe('MessagesControl', () => {
     const actionElements = screen.getAllByRole('button');
     expect(avatarElements).toHaveLength(3);
     expect(actionElements).toHaveLength(3);
+  });
+
+  it('renders a MessagesControl element with a custom renderMessage function', () => {
+    const customMessage = jest.fn((message: ConversationMessage) => (
+      <div key={message.id} data-testid="custom-message">
+        {message.content.type === 'text' ? (
+          message.content.value
+        ) : (
+          <img
+            src={convertBufferToBase64(
+              message.content.value.bytes,
+              message.content.value.format
+            )}
+          ></img>
+        )}
+      </div>
+    ));
+
+    render(
+      <MessagesProvider messages={messages}>
+        <MessagesControl renderMessage={customMessage} />
+      </MessagesProvider>
+    );
+
+    expect(customMessage).toHaveBeenCalledTimes(3);
+
+    const defaultMessageElements = screen.queryAllByTestId('message');
+    expect(defaultMessageElements).toHaveLength(0);
+
+    const customMessageElements = screen.queryAllByTestId('custom-message');
+    expect(customMessageElements).toHaveLength(3);
   });
 });
 
