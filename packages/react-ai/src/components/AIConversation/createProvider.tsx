@@ -3,11 +3,11 @@ import React from 'react';
 import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 
 import { AIConversationElements } from './context/elements';
-import { SuggestedPromptProvider } from './context/SuggestedPromptsContext';
-import { InputContextProvider } from './context/InputContext';
 import { ActionsProvider } from './context/ActionsContext';
 import { AvatarsProvider } from './context/AvatarsContext';
+import { InputContextProvider } from './context/InputContext';
 import { MessagesProvider } from './context/MessagesContext';
+import { SuggestedPromptProvider } from './context/SuggestedPromptsContext';
 import { AIConversationInput, AIConversationProps } from './types';
 
 export default function createProvider<

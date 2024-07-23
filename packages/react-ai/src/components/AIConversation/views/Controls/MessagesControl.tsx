@@ -56,7 +56,7 @@ interface MessageControl<
 }
 
 const HeaderContainer = withBaseElementProps(View, {
-  className: `${MESSAGE_BLOCK}__header-container`,
+  className: `${MESSAGE_BLOCK}__header__container`,
 });
 
 const Separator = withBaseElementProps(Span, {

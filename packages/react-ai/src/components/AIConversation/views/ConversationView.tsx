@@ -1,15 +1,19 @@
 import React from 'react';
 import { ViewElement as View } from '../context/elements/definitions';
-import { HeaderControl, AutoHidablePromptControl } from './Controls';
-
-import { MessagesControl } from './Controls/MessagesControl';
+import {
+  AutoHidablePromptControl,
+  HeaderControl,
+  FieldControl,
+  MessagesControl,
+} from './Controls';
 
 export default function Conversation(): JSX.Element {
   return (
     <View
       style={{
         width: '584px',
-        height: '344px',
+        height: 'auto',
+        maxHeight: '80%',
       }}
     >
       <HeaderControl />
@@ -31,7 +35,7 @@ export default function Conversation(): JSX.Element {
           padding: '0px 16px',
         }}
       >
-        input subcomponent
+        <FieldControl />
       </View>
     </View>
   );

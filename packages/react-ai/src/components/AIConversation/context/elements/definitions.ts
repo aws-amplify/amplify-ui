@@ -9,11 +9,12 @@ export interface AIConversationElements {
   ListItem: typeof ListItemElement;
   Span: typeof SpanElement;
   Text: typeof TextElement;
+  TextArea: typeof TextAreaElement;
   UnorderedList: typeof UnorderedListElement;
   View: typeof ViewElement;
 }
 
-type IconVariant = 'send-message' | 'attach';
+export type IconVariant = 'send-message' | 'attach';
 
 export const TextElement = defineBaseElement({
   type: 'p',
@@ -35,10 +36,12 @@ export const HeadingElement = defineBaseElement({
   displayName: 'Title',
 });
 
-export const IconElement = defineBaseElement<'svg', never, IconVariant>({
+export const IconElement = defineBaseElement({
   type: 'svg',
   displayName: 'Icon',
 });
+
+export type IconElementProps = React.ComponentProps<typeof IconElement>;
 
 export const ImageElement = defineBaseElement({
   type: 'img',
@@ -50,7 +53,7 @@ export const InputElement = defineBaseElement<'input', 'type'>({
   displayName: 'Input',
 });
 
-type ButtonElementProps = 'onClick' | 'type';
+type ButtonElementProps = 'disabled' | 'onClick' | 'type';
 type ButtonElementVariant = 'send-message' | 'attach';
 
 export const ButtonElement = defineBaseElement<
@@ -69,6 +72,16 @@ export const SpanElement = defineBaseElement({
   displayName: 'Span',
 });
 
+type TextAreaElementProps = 'onChange' | 'placeholder';
+
+export const TextAreaElement = defineBaseElement<
+  'textarea',
+  TextAreaElementProps
+>({
+  type: 'textarea',
+  displayName: 'TextArea',
+});
+
 export const AIConversationElements: AIConversationElements = {
   Button: ButtonElement,
   Heading: HeadingElement,
@@ -78,6 +91,7 @@ export const AIConversationElements: AIConversationElements = {
   ListItem: ListItemElement,
   Span: SpanElement,
   Text: TextElement,
+  TextArea: TextAreaElement,
   UnorderedList: UnorderedListElement,
   View: ViewElement,
 };

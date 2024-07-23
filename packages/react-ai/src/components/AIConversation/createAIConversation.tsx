@@ -9,6 +9,7 @@ import {
   ActionsBarControl,
   AvatarControl,
   Conversation,
+  FieldControl,
   HeaderControl,
   MessagesControl,
   PromptControl,
@@ -39,6 +40,8 @@ export function createAIConversation<T extends Partial<AIConversationElements>>(
     ActionsBar: ActionsBarControl,
     // @ts-expect-error TODO fix type error
     Avatars: AvatarControl,
+    // @ts-expect-error TODO fix type error
+    Field: FieldControl,
     // @ts-expect-error TODO fix type error
     Header: HeaderControl,
     // @ts-expect-error TODO fix type error
