@@ -37,7 +37,7 @@ const LocationsListViewControls: LocationsListViewControls = () => (
         <Refresh />
       </div>
     </div>
-    <div className={`${CLASS_BASE}-header__secondary`}>
+    <div className={`${CLASS_BASE}__header__secondary`}>
       <Paginate />
     </div>
   </div>
