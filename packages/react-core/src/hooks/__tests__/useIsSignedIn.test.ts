@@ -20,7 +20,7 @@ describe('useIsSignedIn', () => {
     expect(result.current).toBe(false);
   });
 
-  it('should be truth if user is already signed in', async () => {
+  it('should be true if user is already signed in', async () => {
     const mockUserCredentials: GetCurrentUserOutput = {
       username: 'username',
       userId: '123',
