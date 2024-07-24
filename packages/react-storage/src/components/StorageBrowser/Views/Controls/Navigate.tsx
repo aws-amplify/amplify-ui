@@ -35,18 +35,13 @@ interface NavigateItem<
   Separator: T['Span'];
 }
 
-const NavigateItemContainer = withBaseElementProps(
-  ListItem,
-  ({ className = `${BLOCK_NAME}__item`, ...props }) => ({ ...props, className })
-);
+const NavigateItemContainer = withBaseElementProps(ListItem, {
+  className: `${BLOCK_NAME}__item`,
+});
 
-const NavigateButton = withBaseElementProps(
-  Button,
-  ({ className = `${BLOCK_NAME}__button`, ...props }) => ({
-    ...props,
-    className,
-  })
-);
+const NavigateButton = withBaseElementProps(Button, {
+  className: `${BLOCK_NAME}__button`,
+});
 
 const NavigateItem: NavigateItem = ({ item, current }) => {
   const { name } = item;
