@@ -25,6 +25,11 @@ const PAGINATE_VARIANTS = [
   { variant: 'paginate-next' },
 ] as const;
 
+type OmitElements<T, K extends string = never> = Omit<
+  T,
+  keyof StorageBrowserElements | K
+>;
+
 interface PaginateItemProps extends Pick<ButtonElementProps, 'onClick'> {
   variant?: PaginateVariant;
 }
@@ -50,17 +55,23 @@ interface CurrentControl<
 > extends PaginateItemControl<T>,
     Pick<T, 'Text'> {}
 
-export interface PaginateControl<
+export interface _PaginateControl<
   T extends StorageBrowserElements = StorageBrowserElements,
 > {
-  (): React.JSX.Element;
+  // (): React.JSX.Element;
   Container: T['Nav'];
   Current: CurrentControl<T>;
   Next: NextControl<T>;
   Previous: PreviousControl<T>;
 }
 
-const PaginateContainer: PaginateControl['Container'] = React.forwardRef(
+export interface PaginateControl<
+  T extends StorageBrowserElements = StorageBrowserElements,
+> extends OmitElements<_PaginateControl<T>, 'Container'> {
+  (): React.JSX.Element;
+}
+
+const PaginateContainer: _PaginateControl['Container'] = React.forwardRef(
   function Container({ children, ...props }, ref) {
     return (
       <Nav
@@ -197,13 +208,15 @@ const PreviousControl = ({ variant }: PaginateItemProps) => (
   <PaginateItem variant={variant ?? 'paginate-previous'} />
 );
 
-export const PaginateControl: PaginateControl = () => (
-  <PaginateContainer>
-    {PAGINATE_VARIANTS.map((props) => (
-      <PaginateItem key={props.variant} {...props} />
-    ))}
-  </PaginateContainer>
-);
+export const PaginateControl: PaginateControl = () => {
+  return (
+    <PaginateContainer>
+      {PAGINATE_VARIANTS.map((props) => (
+        <PaginateItem key={props.variant} {...props} />
+      ))}
+    </PaginateContainer>
+  );
+};
 
 const paginateComponents = {
   Container: PaginateItemContainer,
@@ -212,11 +225,6 @@ const paginateComponents = {
   Icon: IconElement,
 };
 
-PaginateControl.Container = PaginateContainer;
-PaginateControl.Current = Object.assign({}, CurrentControl, paginateComponents);
-PaginateControl.Next = Object.assign({}, NextControl, paginateComponents);
-PaginateControl.Previous = Object.assign(
-  {},
-  PreviousControl,
-  paginateComponents
-);
+PaginateControl.Current = Object.assign(CurrentControl, paginateComponents);
+PaginateControl.Next = Object.assign(NextControl, paginateComponents);
+PaginateControl.Previous = Object.assign(PreviousControl, paginateComponents);
