@@ -32,7 +32,7 @@ export default function Example() {
     <StorageBrowser.Provider>
       <Flex>
         <Flex direction={'column'}>
-          <StorageBrowser.LocationsListView />
+          <StorageBrowser.LocationsView />
         </Flex>
         <Flex direction={'column'}>
           <StorageBrowser.LocationDetailView />

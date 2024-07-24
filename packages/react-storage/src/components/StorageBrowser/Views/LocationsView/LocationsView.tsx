@@ -9,7 +9,7 @@ import { ViewTypeProvider } from '../ViewContext';
 
 const { Message, Navigate, Paginate, Refresh, Search, Table, Title } = Controls;
 
-interface LocationsListViewControls<
+interface LocationsViewControls<
   T extends StorageBrowserElements = StorageBrowserElements,
   // exlcude `Toggle` from `Search` for Locations List
 > extends Exclude<
@@ -19,15 +19,15 @@ interface LocationsListViewControls<
   (): React.JSX.Element;
 }
 
-export interface LocationsListView<
+export interface LocationsView<
   T extends StorageBrowserElements = StorageBrowserElements,
-> extends ViewComponent<T, LocationsListViewControls<T>> {}
+> extends ViewComponent<T, LocationsViewControls<T>> {}
 
-const LocationsListViewProvider = (props: { children?: React.ReactNode }) => (
-  <ViewTypeProvider {...props} type="LOCATIONS_LIST" />
+const LocationsViewProvider = (props: { children?: React.ReactNode }) => (
+  <ViewTypeProvider {...props} type="LOCATIONS_VIEW" />
 );
 
-const LocationsListViewControls: LocationsListViewControls = () => (
+const LocationsViewControls: LocationsViewControls = () => (
   <div className={`${CLASS_BASE}__header`}>
     <Navigate />
     <div className={`${CLASS_BASE}__header__primary`}>
@@ -42,14 +42,14 @@ const LocationsListViewControls: LocationsListViewControls = () => (
   </div>
 );
 
-LocationsListViewControls.Message = Message;
-LocationsListViewControls.Navigate = Navigate;
-LocationsListViewControls.Paginate = Paginate;
-LocationsListViewControls.Refresh = Refresh;
-LocationsListViewControls.Search = Search;
-LocationsListViewControls.Title = Title;
+LocationsViewControls.Message = Message;
+LocationsViewControls.Navigate = Navigate;
+LocationsViewControls.Paginate = Paginate;
+LocationsViewControls.Refresh = Refresh;
+LocationsViewControls.Search = Search;
+LocationsViewControls.Title = Title;
 
-export const LocationsListView: LocationsListView = () => {
+export const LocationsView: LocationsView = () => {
   const [{ data, isLoading }, handleListLocations] = useDataState(
     listLocationsAction,
     { locations: [], nextToken: undefined }
@@ -65,15 +65,15 @@ export const LocationsListView: LocationsListView = () => {
     : data.locations.map(({ name }) => <p key={name}>{name}</p>);
 
   return (
-    <LocationsListViewProvider>
+    <LocationsViewProvider>
       <div className={CLASS_BASE}>
-        <LocationsListViewControls />
+        <LocationsViewControls />
         {!hasLocations && isLoading ? 'loading...' : listLocations}
       </div>
-    </LocationsListViewProvider>
+    </LocationsViewProvider>
   );
 };
 
-LocationsListView.Controls = LocationsListViewControls;
-LocationsListView.Provider = LocationsListViewProvider;
-LocationsListView.Table = Table;
+LocationsView.Controls = LocationsViewControls;
+LocationsView.Provider = LocationsViewProvider;
+LocationsView.Table = Table;

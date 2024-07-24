@@ -4,7 +4,7 @@ import { MergeBaseElements } from '@aws-amplify/ui-react-core/elements';
 
 import { StorageBrowserElements } from './context/elements';
 import createProvider from './createProvider';
-import { LocationsListView, LocationDetailView } from './Views';
+import { LocationsView, LocationDetailView } from './Views';
 
 export interface CreateStorageBrowserInput<T> {
   elements?: T;
@@ -13,7 +13,7 @@ export interface CreateStorageBrowserInput<T> {
 export interface StorageBrowser<T extends StorageBrowserElements> {
   (): React.JSX.Element;
   LocationDetailView: LocationDetailView<T>;
-  LocationsListView: LocationsListView<T>;
+  LocationsView: LocationsView<T>;
   Provider: (props: { children?: React.ReactNode }) => React.JSX.Element;
 }
 
@@ -26,7 +26,7 @@ function DefaultStorageBrowser(): React.JSX.Element {
   // if (hasSelectedLocation) {
   // return <LocationDetailView />
   // }
-  // return <LocationsListView />;
+  // return <LocationsView />;
   return <>Default behavior!</>;
 }
 
@@ -47,7 +47,7 @@ export function createStorageBrowser<
 
   StorageBrowser.Provider = Provider;
   StorageBrowser.LocationDetailView = LocationDetailView;
-  StorageBrowser.LocationsListView = LocationsListView;
+  StorageBrowser.LocationsView = LocationsView;
 
   // @ts-expect-error - force allow `displayName`
   StorageBrowser.displayName = 'StorageBrowser';
@@ -59,7 +59,7 @@ export function createStorageBrowser<
 // inference is broken
 const {
   StorageBrowser: {
-    LocationsListView: { Controls },
+    LocationsView: { Controls },
   },
 } = createStorageBrowser({ elements: { Button } });
 const _SillyTest = () => (
