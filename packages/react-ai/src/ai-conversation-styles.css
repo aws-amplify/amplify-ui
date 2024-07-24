@@ -1,6 +1,7 @@
 .ai-header__container {
   display: flex;
   flex-direction: row;
+  flex: 0 0 auto;
   justify-content: space-between;
   border: 1px solid rgb(220, 222, 224);
   border-radius: 16px 16px 0px 0px;
