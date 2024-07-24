@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type ViewType = 'LOCATIONS_LIST' | 'LOCATION_ITEMS_LIST' | 'ACTION';
+export type ViewType = 'LOCATIONS_VIEW' | 'LOCATION_ITEMS_LIST' | 'ACTION';
 export const ViewTypeContext = React.createContext<ViewType | undefined>(
   undefined
 );
