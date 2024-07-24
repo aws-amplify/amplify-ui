@@ -54,19 +54,13 @@ interface ActionItem<T extends StorageBrowserElements = StorageBrowserElements>
   extends RenderActionItem,
     Pick<T, 'Button' | 'Icon'> {}
 
-type RenderActionItem = (props: { action: Action }) => React.JSX.Element;
+type RenderActionItem = (props: {
+  action: Action;
+  variant?: IconVariant;
+}) => React.JSX.Element;
 
-const ActionItem: ActionItem = ({ action }) => {
-  const { displayName, type } = action;
-  let variant: IconVariant;
-  switch (type) {
-    case 'FOLDER':
-      variant = 'upload-folder';
-      break;
-    case 'FILE':
-      variant = 'upload-file';
-      break;
-  }
+const ActionItem: ActionItem = ({ action, variant }) => {
+  const { displayName } = action;
 
   return (
     <ActionButton>
@@ -96,8 +90,14 @@ const Menu = withBaseElementProps(View, {
 
 const ActionsMenu: ActionsMenu = () => (
   <Menu>
-    <ActionItem action={{ displayName: 'Upload folder', type: 'FOLDER' }} />
-    <ActionItem action={{ displayName: 'Upload file', type: 'FILE' }} />
+    <ActionItem
+      action={{ displayName: 'Upload folder', type: 'FOLDER' }}
+      variant="upload-folder"
+    />
+    <ActionItem
+      action={{ displayName: 'Upload file', type: 'FILE' }}
+      variant="upload-file"
+    />
   </Menu>
 );
 ActionsMenu.ActionItem = ActionItem;
