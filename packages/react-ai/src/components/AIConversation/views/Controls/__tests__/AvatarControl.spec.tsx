@@ -1,6 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 import { ConversationMessage } from '../../../types';
+import { IconElement } from '../../../context/elements/IconElement';
 import { AvatarsProvider } from '../../../context/AvatarsContext';
 import { AvatarControl } from '../AvatarControl';
 
@@ -8,21 +10,17 @@ const avatars = {
   user: {
     username: 'Jane Doe',
     avatar: (
-      <svg>
-        <text x="10" y="20">
-          UAvatar
-        </text>
-      </svg>
+      <text x="10" y="20">
+        UAvatar
+      </text>
     ),
   },
   ai: {
     username: 'Raven',
     avatar: (
-      <svg>
-        <text x="10" y="20">
-          RAvatar
-        </text>
-      </svg>
+      <text x="10" y="20">
+        RAvatar
+      </text>
     ),
   },
 };
@@ -48,7 +46,7 @@ describe('AvatarControl', () => {
     expect(result.container).toBeDefined();
   });
 
-  it('renders an AvatarControl element with AI username and icon', () => {
+  it('renders an AvatarControl element with provided AI username and icon', () => {
     render(
       <AvatarsProvider avatars={avatars}>
         <AvatarControl message={messages[0]} />
@@ -65,7 +63,7 @@ describe('AvatarControl', () => {
     expect(avatarContent).toBeInTheDocument();
   });
 
-  it('renders an AvatarControl element with user username and icon', () => {
+  it('renders an AvatarControl element with provided user username and icon', () => {
     render(
       <AvatarsProvider avatars={avatars}>
         <AvatarControl message={messages[1]} />
@@ -80,5 +78,31 @@ describe('AvatarControl', () => {
     expect(avatar).toBeInTheDocument();
     expect(avatar).toHaveAttribute('aria-hidden', 'true');
     expect(avatarContent).toBeInTheDocument();
+  });
+
+  it('renders an AvatarControl element with defaults if no user avatar is provided', async () => {
+    render(<AvatarControl message={messages[1]} />);
+
+    const username = await screen.findByText('User');
+    const avatar = screen.getByTestId('avatar-icon-user');
+    const avatarIcon = avatar.querySelector('svg');
+
+    expect(username).toBeInTheDocument();
+    expect(avatar).toBeInTheDocument();
+    expect(avatar).toHaveAttribute('aria-hidden', 'true');
+    expect(avatarIcon).toBeInTheDocument();
+  });
+
+  it('renders an AvatarControl element with defaults if no AI avatar is provided', async () => {
+    render(<AvatarControl message={messages[0]} />);
+
+    const username = await screen.findByText('Assistant');
+    const avatar = screen.getByTestId('avatar-icon-assistant');
+    const avatarIcon = avatar.querySelector('svg');
+
+    expect(username).toBeInTheDocument();
+    expect(avatar).toBeInTheDocument();
+    expect(avatar).toHaveAttribute('aria-hidden', 'true');
+    expect(avatarIcon).toBeInTheDocument();
   });
 });

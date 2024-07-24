@@ -37,6 +37,7 @@ const AvatarDisplayName = withBaseElementProps(Text, {
 });
 
 const AvatarIcon = withBaseElementProps(Span, {
+  'aria-hidden': true,
   className: `${AVATAR_BLOCK}__icon`,
 });
 

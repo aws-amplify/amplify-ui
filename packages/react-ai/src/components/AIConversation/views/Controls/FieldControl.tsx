@@ -9,7 +9,10 @@ const { Button, Icon, TextArea, View } = AIConversationElements;
 
 const FIELD_BLOCK = 'ai-field';
 
-const SendIcon = withBaseElementProps(Icon, { variant: 'send-message' });
+const SendIcon = withBaseElementProps(Icon, {
+  className: `${FIELD_BLOCK}__icon`,
+  variant: 'send-message',
+});
 
 const SendButtonBase = withBaseElementProps(Button, {
   'aria-label': 'Send message',
@@ -68,7 +71,11 @@ const TextInput: typeof TextAreaBase = React.forwardRef(
       <TextAreaBase
         {...props}
         data-testid="text-input"
-        placeholder={isFirstMessage ? 'Ask anything...' : 'Message Raven'}
+        placeholder={
+          props.placeholder ?? isFirstMessage
+            ? 'Ask anything...'
+            : 'Message Raven'
+        }
         ref={ref}
       />
     );
