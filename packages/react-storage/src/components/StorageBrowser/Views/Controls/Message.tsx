@@ -8,6 +8,7 @@ const { Icon: IconElement, Button, View } = StorageBrowserElements;
 
 const BLOCK_NAME = `${CLASS_BASE}__message`;
 
+/* <MessageDismissControl /> */
 export interface MessageDismissControl<
   T extends StorageBrowserElements = StorageBrowserElements,
 > {
@@ -62,7 +63,7 @@ const MessageIcon: typeof IconElement = React.forwardRef(
         break;
     }
 
-    return (
+    return variant ? (
       <IconElement
         className={`${BLOCK_NAME}__icon`}
         aria-hidden="false"
@@ -71,7 +72,7 @@ const MessageIcon: typeof IconElement = React.forwardRef(
         {...props}
         ref={ref}
       />
-    );
+    ) : null;
   }
 );
 
@@ -83,7 +84,7 @@ const MessageContent = withBaseElementProps(
   })
 );
 interface MessageControlProps {
-  variant: MessageVariant;
+  variant?: MessageVariant;
 }
 export interface MessageControl<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -99,6 +100,7 @@ export const MessageControl: MessageControl = ({ variant }) => {
     <Container>
       <MessageIcon variant={variant} />
       <MessageContent>
+        {/* TODO: Placeholder text */}
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry.
       </MessageContent>
