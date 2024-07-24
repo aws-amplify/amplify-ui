@@ -60,7 +60,7 @@ export const InputElement = defineBaseElement<'input', 'type'>({
 });
 
 type ButtonElementProps = 'disabled' | 'onClick' | 'type';
-type ButtonElementVariant = 'send-message' | 'attach';
+type ButtonElementVariant = 'attach' | 'remove' | 'send-message';
 
 export const ButtonElement = defineBaseElement<
   'button',

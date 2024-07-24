@@ -1,9 +1,11 @@
 import React from 'react';
 
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
-
+import { InputContext } from '../../context';
 import { AIConversationElements } from '../../context/elements';
 import { AttachFileControl } from './AttachFileControl';
+import { MessagesContext } from '../../context';
+import { AttachmentListControl } from './AttachmentListControl';
 
 const { Button, Icon, TextArea, View } = AIConversationElements;
 
@@ -20,7 +22,7 @@ const sendIconProps = () => ({
   className: `${FIELD_BLOCK}__icon`,
   width: '24',
   height: '24',
-  viewBox: '0 0 16 16',
+  viewBox: '0 -960 960 960',
   fill: 'none',
   xmlns: 'http://www.w3.org/2000/svg',
 });
@@ -36,7 +38,6 @@ const SendButton: typeof SendButtonBase = React.forwardRef(
   function SendButton(props, ref) {
     // TODO should come from context
     const isWaitingForResponse = false;
-    // TODO send message on click
     return (
       <SendButtonBase
         {...props}
@@ -55,8 +56,9 @@ const TextAreaBase = withBaseElementProps(TextArea, {
 
 const TextInput: typeof TextAreaBase = React.forwardRef(
   function TextInput(props, ref) {
-    // TODO should come from context or prop
-    const isFirstMessage = true;
+    const { setInput } = React.useContext(InputContext);
+    const messages = React.useContext(MessagesContext);
+    const isFirstMessage = !messages || messages.length === 0;
 
     React.useEffect(() => {
       const textarea = document.getElementById(`${FIELD_BLOCK}-text-input`);
@@ -84,6 +86,7 @@ const TextInput: typeof TextAreaBase = React.forwardRef(
       <TextAreaBase
         {...props}
         data-testid="text-input"
+        onChange={(e) => setInput && setInput(e.target.value)}
         placeholder={isFirstMessage ? 'Ask anything...' : 'Message Raven'}
         ref={ref}
       />
@@ -95,11 +98,18 @@ const Container = withBaseElementProps(View, {
   className: `${FIELD_BLOCK}__container`,
 });
 
+const InputContainer = withBaseElementProps(View, {
+  className: `${FIELD_BLOCK}__input-container`,
+});
+
 export const FieldControl: FieldControl = () => {
   return (
     <Container>
       <AttachFileControl />
-      <TextInput />
+      <InputContainer>
+        <TextInput />
+        <AttachmentListControl />
+      </InputContainer>
       <SendButton>
         <SendIcon />
       </SendButton>
@@ -109,6 +119,7 @@ export const FieldControl: FieldControl = () => {
 
 FieldControl.AttachFile = AttachFileControl;
 FieldControl.Container = Container;
+FieldControl.InputContainer = InputContainer;
 FieldControl.TextInput = TextInput;
 FieldControl.SendButton = SendButton;
 FieldControl.SendIcon = SendIcon;
@@ -119,6 +130,7 @@ export interface FieldControl<
   (): React.JSX.Element;
   Container: T['View'];
   AttachFile: AttachFileControl<T>;
+  InputContainer: T['View'];
   TextInput: T['TextArea'];
   SendButton: T['Button'];
   SendIcon: T['Icon'];

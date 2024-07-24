@@ -3,6 +3,7 @@ import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import {
   AIConversationElements,
+  InputContext,
   MessagesContext,
   SuggestedPromptsContext,
 } from '../../context';
@@ -16,6 +17,7 @@ const PROMPT_CARD = `${PROMPT_CONTROL}__card`;
 
 const PromptCard = withBaseElementProps(Button, {
   className: PROMPT_CARD,
+  type: 'button',
 });
 
 const AIIconProps = () => ({
@@ -67,7 +69,7 @@ const PromptGroupBase = withBaseElementProps(View, {
 const PromptGroup: typeof PromptGroupBase = React.forwardRef(
   function ButtonGroup(props, ref) {
     const suggestedPromptsArray = React.useContext(SuggestedPromptsContext);
-    // const { setInput } = React.useContext(InputContext);
+    const { setInput } = React.useContext(InputContext);
 
     if (!suggestedPromptsArray) {
       return;
@@ -80,7 +82,7 @@ const PromptGroup: typeof PromptGroupBase = React.forwardRef(
             <PromptCard
               key={index}
               aria-label={prompt.inputText}
-              onClick={() => props.onSelect && props.onSelect(prompt.inputText)}
+              onClick={() => setInput && setInput(prompt.inputText)}
             >
               <Text
                 className={classNames(
@@ -103,12 +105,12 @@ const Container = withBaseElementProps(View, {
   className: `${PROMPT_BLOCK}__container`,
 });
 
-export const PromptControl: PromptControl = ({ onSelect }) => {
+export const PromptControl: PromptControl = () => {
   return (
     <Container>
       <AIIcon />
       <HeaderText>How can I help you today?</HeaderText>
-      <PromptGroup onSelect={onSelect} />
+      <PromptGroup />
     </Container>
   );
 };

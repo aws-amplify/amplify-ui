@@ -108,12 +108,54 @@
   flex-direction: row;
   align-items: flex-start;
   gap: 8px;
-  height: 40px;
+}
+
+.ai-field__input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  flex: 1 0 0;
+}
+
+.ai-attachment-list__unordered-list {
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  padding: 0px;
+}
+
+.ai-attachment__list-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ai-attachment-text__container {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  overflow: hidden;
+}
+
+.ai-attachment-text__separator {
+  flex-shrink: 0;
+}
+
+.ai-attachment-text__file-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ai-attachment-text__file-size {
+  flex-shrink: 0;
+  margin-left: 8px;
 }
 
 .ai-field__input {
   align-self: stretch;
-  width: 800px;
   overflow: hidden;
   resize: none;
 }
