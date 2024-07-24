@@ -34,8 +34,14 @@ export const ActionsBarControl: ActionsBarControl = ({ message }) => {
   return (
     <Container>
       {actions?.map((action, index) => (
-        <ActionButton key={index} onClick={() => action.handler(message)}>
-          <ActionIcon>{action.icon}</ActionIcon>
+        <ActionButton
+          aria-label={action.displayName}
+          key={index}
+          onClick={() => action.handler(message)}
+        >
+          <ActionIcon data-testid={`action-icon-${action.displayName}`}>
+            {action.icon}
+          </ActionIcon>
         </ActionButton>
       ))}
     </Container>

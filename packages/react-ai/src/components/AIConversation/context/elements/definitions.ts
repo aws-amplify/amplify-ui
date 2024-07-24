@@ -37,7 +37,8 @@ export const HeadingElement = defineBaseElement({
 
 export type IconElementProps = React.ComponentProps<typeof IconElement>;
 
-export const ImageElement = defineBaseElement({
+type ImageElementProps = 'src' | 'alt';
+export const ImageElement = defineBaseElement<'img', ImageElementProps>({
   type: 'img',
   displayName: 'Image',
 });

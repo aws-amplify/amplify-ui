@@ -47,13 +47,16 @@ describe('AvatarControl', () => {
     );
 
     const buttons = screen.getAllByRole('button');
-
     expect(buttons).toHaveLength(2);
-    expect(buttons[0]).toBeInTheDocument();
-    expect(buttons[1]).toBeInTheDocument();
 
-    const heartIcon = buttons[0].querySelector('svg');
-    const starIcon = buttons[1].querySelector('svg');
+    const heartButton = buttons[0];
+    const starButton = buttons[1];
+
+    expect(heartButton).toBeInTheDocument();
+    expect(starButton).toBeInTheDocument();
+
+    const heartIcon = heartButton.querySelector('svg');
+    const starIcon = starButton.querySelector('svg');
 
     expect(heartIcon).toBeInTheDocument();
     expect(starIcon).toBeInTheDocument();
@@ -72,5 +75,24 @@ describe('AvatarControl', () => {
     fireEvent.click(buttons[0]);
     expect(customActions[0].handler).toHaveBeenCalled();
     expect(customActions[0].handler).toHaveBeenCalledWith(message);
+  });
+
+  it('renders buttons with the correct accessibility attributes', () => {
+    render(
+      <ActionsProvider actions={customActions}>
+        <ActionsBarControl message={message} />
+      </ActionsProvider>
+    );
+
+    const buttons = screen.getAllByRole('button');
+    const heartButton = buttons[0];
+    const starButton = buttons[1];
+    const heartIcon = screen.getByTestId('action-icon-Heart');
+    const starIcon = screen.getByTestId('action-icon-Star');
+
+    expect(heartButton).toHaveAttribute('aria-label', 'Heart');
+    expect(starButton).toHaveAttribute('aria-label', 'Star');
+    expect(heartIcon).toHaveAttribute('aria-hidden', 'true');
+    expect(starIcon).toHaveAttribute('aria-hidden', 'true');
   });
 });

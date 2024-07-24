@@ -16,7 +16,7 @@ const MESSAGE_BLOCK = 'ai-message';
 
 const MediaContent = withBaseElementProps(Image, {
   className: `${MESSAGE_BLOCK}__image`,
-  src: 'test.jpg',
+  alt: 'Image attachment',
 });
 
 const TextContent = withBaseElementProps(Text, {
@@ -35,7 +35,6 @@ export const MessageControl: MessageControl = ({ message }) => {
   ) : (
     <MediaContent
       data-testid={'message-image'}
-      // @ts-expect-error TODO fix type error
       src={convertBufferToBase64(
         message.content.value.bytes,
         message.content.value.format

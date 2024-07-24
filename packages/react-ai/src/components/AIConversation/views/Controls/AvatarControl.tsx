@@ -52,7 +52,9 @@ export const AvatarControl: AvatarControl = ({ message }) => {
   const defaultDisplayName = message.role === 'user' ? 'User' : 'Assistant';
   return (
     <Container data-testid={'avatar'}>
-      <AvatarIcon>{avatar?.avatar ?? defaultIcon}</AvatarIcon>
+      <AvatarIcon data-testid={`avatar-icon-${message.role}`}>
+        {avatar?.avatar ?? defaultIcon}
+      </AvatarIcon>
       <AvatarDisplayName>
         {avatar?.username ?? defaultDisplayName}
       </AvatarDisplayName>
