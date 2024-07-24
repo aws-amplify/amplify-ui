@@ -71,11 +71,7 @@ const TextInput: typeof TextAreaBase = React.forwardRef(
       <TextAreaBase
         {...props}
         data-testid="text-input"
-        placeholder={
-          props.placeholder ?? isFirstMessage
-            ? 'Ask anything...'
-            : 'Message Raven'
-        }
+        placeholder={isFirstMessage ? 'Ask anything...' : 'Message Raven'}
         ref={ref}
       />
     );
