@@ -1,8 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 import { ConversationMessage } from '../../../types';
-import { IconElement } from '../../../context/elements/IconElement';
 import { AvatarsProvider } from '../../../context/AvatarsContext';
 import { AvatarControl } from '../AvatarControl';
 
