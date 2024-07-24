@@ -1,4 +1,4 @@
-import { defineBaseElement } from '../../../../../../../react-core/src/elements';
+import { defineBaseElement } from '@aws-amplify/ui-react-core/elements';
 
 export interface FederatedIdentityElements {
   Button: typeof ButtonElement;
