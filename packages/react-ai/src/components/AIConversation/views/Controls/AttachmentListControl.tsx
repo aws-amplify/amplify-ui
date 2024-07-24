@@ -39,12 +39,12 @@ const removeIconProps = () => ({
 const RemoveIcon = withBaseElementProps(Icon, removeIconProps);
 
 const RemoveButton = withBaseElementProps(Button, {
-  'aria-label': 'Remove image',
+  'aria-label': 'Remove file',
   className: `${REMOVE_IMAGE_BLOCK}__button`,
   variant: 'remove',
 });
 
-const RemoveButtonControl: RemoveButtonControl = ({ onRemove }) => {
+export const RemoveButtonControl: RemoveButtonControl = ({ onRemove }) => {
   return (
     <RemoveButton onClick={onRemove}>
       <RemoveIcon />
@@ -129,7 +129,7 @@ const Container = withBaseElementProps(ListItem, {
   className: `${IMAGE_ITEM_BLOCK}__list-item`,
 });
 
-const AttachmentControl: AttachmentControl = ({ image, onRemove }) => {
+export const AttachmentControl: AttachmentControl = ({ image, onRemove }) => {
   return (
     <Container>
       <ImageIcon />

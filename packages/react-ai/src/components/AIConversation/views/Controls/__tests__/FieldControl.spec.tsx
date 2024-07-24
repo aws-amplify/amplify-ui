@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { MessagesProvider } from '../../../context/MessagesContext';
 import { FieldControl } from '../FieldControl';
 
 describe('FieldControl', () => {
@@ -32,7 +33,33 @@ describe('FieldControl', () => {
     expect(sendIcon).toHaveAttribute('aria-hidden', 'true');
   });
 
-  it.todo('renders correct placeholder text in the input field');
+  it('renders correct placeholder text in the input field', () => {
+    const { rerender } = render(
+      <MessagesProvider messages={[]}>
+        <FieldControl />
+      </MessagesProvider>
+    );
+    const textInput = screen.getByTestId('text-input');
+    expect(textInput).toHaveAttribute('placeholder', 'Ask anything...');
+
+    rerender(
+      <MessagesProvider
+        messages={[
+          {
+            id: '1',
+            content: { type: 'text', value: 'I am your virtual assistant' },
+            role: 'assistant',
+            timestamp: new Date(2023, 4, 21, 15, 23),
+          },
+        ]}
+      >
+        <FieldControl />
+      </MessagesProvider>
+    );
+
+    // const textInput = screen.getByTestId('text-input');
+    expect(textInput).toHaveAttribute('placeholder', 'Message Raven');
+  });
 
   it.todo('disables the send button when the input field is empty');
   it.todo('disables the send button when waiting for an AI message');
