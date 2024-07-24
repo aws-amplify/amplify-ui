@@ -58,7 +58,6 @@ interface CurrentControl<
 export interface _PaginateControl<
   T extends StorageBrowserElements = StorageBrowserElements,
 > {
-  // (): React.JSX.Element;
   Container: T['Nav'];
   Current: CurrentControl<T>;
   Next: NextControl<T>;
