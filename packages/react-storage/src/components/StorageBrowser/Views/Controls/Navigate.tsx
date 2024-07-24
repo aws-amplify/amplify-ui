@@ -16,14 +16,11 @@ interface LocationData {
 }
 
 /* <Separator /> */
-const Separator = withBaseElementProps(
-  Span,
-  ({ className = `${BLOCK_NAME}__separator`, children = `/`, ...props }) => ({
-    ...props,
-    children,
-    className,
-  })
-);
+
+const Separator = withBaseElementProps(Span, {
+  className: `${BLOCK_NAME}__separator`,
+  children: '/',
+});
 
 /* <NavigateItem /> */
 type RenderNavigateItem = (props: {
@@ -61,7 +58,7 @@ const NavigateItem: NavigateItem = ({ item, current }) => {
   );
 };
 
-NavigateItem.Button = Button;
+NavigateItem.Button = NavigateButton;
 NavigateItem.Separator = Separator;
 NavigateItem.ListItem = ListItem;
 
