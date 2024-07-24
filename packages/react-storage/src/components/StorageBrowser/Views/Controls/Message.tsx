@@ -65,11 +65,11 @@ const MessageIcon: typeof IconElement = React.forwardRef(
 
     return variant ? (
       <IconElement
-        className={`${BLOCK_NAME}__icon`}
-        aria-hidden="false"
-        aria-label={ariaLabel}
-        variant={variant}
         {...props}
+        className={props.className ?? `${BLOCK_NAME}__icon`}
+        aria-hidden={props['aria-hidden'] ?? 'false'}
+        aria-label={props['aria-label'] ?? ariaLabel}
+        variant={variant}
         ref={ref}
       />
     ) : null;
