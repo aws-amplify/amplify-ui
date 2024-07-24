@@ -47,6 +47,7 @@
   width: 100%;
   justify-content: flex-end;
   align-items: flex-start;
+  gap: 16px;
 }
 
 .ai-message__container {

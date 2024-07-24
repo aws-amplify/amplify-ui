@@ -56,10 +56,13 @@ describe('AvatarControl', () => {
     );
 
     const username = screen.queryByText('Raven');
-    const avatar = screen.queryByText('RAvatar');
+    const avatar = screen.getByTestId('avatar-icon-assistant');
+    const avatarContent = screen.getByText('RAvatar');
 
     expect(username).toBeInTheDocument();
     expect(avatar).toBeInTheDocument();
+    expect(avatar).toHaveAttribute('aria-hidden', 'true');
+    expect(avatarContent).toBeInTheDocument();
   });
 
   it('renders an AvatarControl element with user username and icon', () => {
@@ -70,9 +73,12 @@ describe('AvatarControl', () => {
     );
 
     const username = screen.queryByText('Jane Doe');
-    const avatar = screen.queryByText('UAvatar');
+    const avatar = screen.getByTestId('avatar-icon-user');
+    const avatarContent = screen.getByText('UAvatar');
 
     expect(username).toBeInTheDocument();
     expect(avatar).toBeInTheDocument();
+    expect(avatar).toHaveAttribute('aria-hidden', 'true');
+    expect(avatarContent).toBeInTheDocument();
   });
 });
