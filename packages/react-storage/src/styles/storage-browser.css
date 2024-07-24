@@ -1,5 +1,4 @@
 .storage-browser {
-  --storage-browser-action-menu-width: 220px;
   --storage-browser-action-menu-max-width: 90vw;
   --storage-browser-gap-small: 0.3rem;
   --storage-browser-gap-medium: 0.6rem;
@@ -72,7 +71,7 @@
   position: absolute;
   inset-inline-end: 0;
   inset-block-start: 100%;
-  width: var(--storage-browser-action-menu-width);
+  width: max-content;
   max-width: var(--storage-browser-action-menu-max-width);
 }
 
