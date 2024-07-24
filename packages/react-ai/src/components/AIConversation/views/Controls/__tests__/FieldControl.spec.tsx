@@ -57,7 +57,6 @@ describe('FieldControl', () => {
       </MessagesProvider>
     );
 
-    // const textInput = screen.getByTestId('text-input');
     expect(textInput).toHaveAttribute('placeholder', 'Message Raven');
   });
 
