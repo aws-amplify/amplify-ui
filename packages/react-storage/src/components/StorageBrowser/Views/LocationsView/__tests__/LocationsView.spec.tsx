@@ -3,14 +3,14 @@ import { render } from '@testing-library/react';
 
 import { ControlProvider } from '../../../context/controls';
 
-import { LocationsListView } from '..';
+import { LocationsView } from '..';
 
 describe('LocationsListView', () => {
   it('renders a `LocationsListView`', () => {
     expect(
       render(
         <ControlProvider>
-          <LocationsListView />
+          <LocationsView />
         </ControlProvider>
       ).container
     ).toBeDefined();
