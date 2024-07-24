@@ -40,7 +40,6 @@ const LocationsListViewControls: LocationsListViewControls = () => (
     <div className={`${CLASS_BASE}__header__secondary`}>
       <Paginate />
     </div>
-    <Message />
   </div>
 );
 
