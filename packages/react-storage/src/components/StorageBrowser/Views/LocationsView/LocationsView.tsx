@@ -25,7 +25,7 @@ export interface LocationsView<
 > extends ViewComponent<T, LocationsViewControls<T>> {}
 
 const LocationsViewProvider = (props: { children?: React.ReactNode }) => (
-  <ViewTypeProvider {...props} type="LOCATIONS_LIST" />
+  <ViewTypeProvider {...props} type="LOCATIONS_VIEW" />
 );
 
 const LocationsViewControls: LocationsViewControls = () => (
