@@ -3,7 +3,6 @@ import { IconElement } from './IconElement';
 
 export interface StorageBrowserElements {
   Button: typeof ButtonElement;
-  Divider: typeof DividerElement;
   Heading: typeof HeadingElement;
   Icon: typeof IconElement;
   Input: typeof InputElement;
@@ -41,11 +40,6 @@ export const LabelElement = defineBaseElement({
 export const NavElement = defineBaseElement({
   type: 'nav',
   displayName: 'Nav',
-});
-
-export const DividerElement = defineBaseElement({
-  type: 'hr',
-  displayName: 'Divider',
 });
 
 export const TextElement = defineBaseElement({
@@ -131,7 +125,6 @@ export const SpanElement = defineBaseElement({
 
 export const StorageBrowserElements: StorageBrowserElements = {
   Button: ButtonElement,
-  Divider: DividerElement,
   Heading: HeadingElement,
   Icon: IconElement,
   Input: InputElement,
