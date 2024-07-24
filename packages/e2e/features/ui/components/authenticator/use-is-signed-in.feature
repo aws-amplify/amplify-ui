@@ -6,7 +6,7 @@ Feature: UseIsSignedIn Hook
   Background:
     Given I'm running the example "/ui/components/authenticator/use-is-signed-in"
 
-    @angular @react @vue @react-native
+    @react
     Scenario: Sign in with confirmed credentials and then sign out
         When I type my "email" with status "CONFIRMED"
         Then I type my password
