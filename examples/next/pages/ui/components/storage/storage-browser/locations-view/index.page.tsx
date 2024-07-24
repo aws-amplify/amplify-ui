@@ -7,7 +7,7 @@ const { StorageBrowser } = createStorageBrowser();
 export default function Example() {
   return (
     <StorageBrowser.Provider>
-      <StorageBrowser.LocationsListView />
+      <StorageBrowser.LocationsView />
     </StorageBrowser.Provider>
   );
 }
