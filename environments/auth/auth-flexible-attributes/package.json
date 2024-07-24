@@ -1,0 +1,8 @@
+{
+    "private": true,
+    "name": "auth-flexible-attributes",
+    "version": "0.0.1",
+    "scripts": {
+      "pull": "amplify pull --appId d1jzp5jbi5iwku --envName dev"
+    }
+  }
