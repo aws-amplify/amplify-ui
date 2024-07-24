@@ -48,31 +48,19 @@ const TableRow = withBaseElementProps(BaseTableRow, {
   className: `${BLOCK_NAME}__row`,
 });
 
-const iconAttributes = {
-  'aria-hidden': true,
-  width: '24',
-  height: '24',
-  viewBox: '0 -960 960 960',
-  fill: 'none',
-  xmlns: 'http://www.w3.org/2000/svg',
-};
-
 const SortIndeterminateIcon = withBaseElementProps(Icon, {
-  children: <path d="M240-440v-80h480v80H240Z" fill="currentColor" />,
   className: `${BLOCK_NAME}__sort-icon--indeterminate`,
-  ...iconAttributes,
+  variant: 'sort-indeterminate',
 });
 
 const SortAscendingIcon = withBaseElementProps(Icon, {
-  children: <path d="m280-400 200-200 200 200H280Z" fill="currentColor" />,
   className: `${BLOCK_NAME}__sort-icon--ascending`,
-  ...iconAttributes,
+  variant: 'sort-ascending',
 });
 
 const SortDescendingIcon = withBaseElementProps(Icon, {
-  children: <path d="M480-360 280-560h400L480-360Z" fill="currentColor" />,
   className: `${BLOCK_NAME}__sort-icon--descending`,
-  ...iconAttributes,
+  variant: 'sort-descending',
 });
 
 export interface Data {
