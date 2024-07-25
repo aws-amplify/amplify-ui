@@ -69,10 +69,9 @@ export const LocationsView: LocationsView = () => {
       <div className={CLASS_BASE}>
         <div className={`${CLASS_BASE}__controls`}>
           <LocationsViewControls />
-          <Message />
           <Table />
+          {!hasLocations && isLoading ? 'loading...' : listLocations}
         </div>
-        {!hasLocations && isLoading ? 'loading...' : listLocations}
       </div>
     </LocationsViewProvider>
   );

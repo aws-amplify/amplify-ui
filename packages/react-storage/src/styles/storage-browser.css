@@ -9,14 +9,20 @@
 }
 
 .storage-browser__header {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
   gap: var(--storage-browser-gap);
 }
 
 .storage-browser__header__primary {
   display: flex;
   align-items: flex-start;
+}
+
+.storage-browser__header__secondary {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .storage-browser__title {
@@ -68,4 +74,8 @@
 
 .storage-browser__controls > * {
   grid-column: 1 / -1;
+}
+
+.storage-browser__table {
+  grid-row: 5 / -1;
 }
