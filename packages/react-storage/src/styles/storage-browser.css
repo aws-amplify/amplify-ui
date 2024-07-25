@@ -93,7 +93,7 @@
   flex: 1 1 auto;
 }
 
-.storage-browser__summary {
+.storage-browser__details {
   display: flex;
   gap: var(--storage-browser-gap);
 }

@@ -8,7 +8,7 @@ import { CLASS_BASE } from '../constants';
 const { Button, DefinitionDetail, DefinitionList, DefinitionTerm, View } =
   StorageBrowserElements;
 
-const BLOCK_NAME = `${CLASS_BASE}__summary`;
+const BLOCK_NAME = `${CLASS_BASE}__details`;
 
 /* <Detail /> */
 const DetailContainer = withBaseElementProps(View, {
@@ -111,12 +111,12 @@ Details.Failed = Object.assign(FailedControl, detailComponents);
 Details.NotStarted = Object.assign(NotStartedControl, detailComponents);
 
 const StartButton = withBaseElementProps(Button, {
-  className: `${CLASS_BASE}__summary__start`,
+  className: `${CLASS_BASE}__action-start`,
   children: 'Start',
 });
 
 const CancelButton = withBaseElementProps(Button, {
-  className: `${CLASS_BASE}__summary__cancel`,
+  className: `${CLASS_BASE}__action-cancel`,
   children: 'Cancel',
 });
 

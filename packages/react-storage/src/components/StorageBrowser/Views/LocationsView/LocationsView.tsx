@@ -7,8 +7,7 @@ import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
 import { ViewTypeProvider } from '../ViewContext';
 
-const { Message, Navigate, Paginate, Refresh, Search, Summary, Table, Title } =
-  Controls;
+const { Message, Navigate, Paginate, Refresh, Search, Table, Title } = Controls;
 
 interface LocationsViewControls<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -31,7 +30,6 @@ const LocationsViewProvider = (props: { children?: React.ReactNode }) => (
 const LocationsViewControls: LocationsViewControls = () => (
   <div className={`${CLASS_BASE}__header`}>
     <Navigate />
-    <Summary />
     <div className={`${CLASS_BASE}__header__primary`}>
       <Title />
       <div className={`${CLASS_BASE}__header__primary__actions`}>
