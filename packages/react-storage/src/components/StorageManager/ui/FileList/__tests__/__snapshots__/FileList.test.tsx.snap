@@ -54,6 +54,7 @@ exports[`FileList renders an alert in case of error 1`] = `
         </svg>
         <button
           class="amplify-button amplify-field-group__control amplify-button--small"
+          data-testid="storage-manager-remove-button"
           type="button"
         >
           <span
@@ -187,6 +188,7 @@ exports[`FileList renders as expected 1`] = `
         </svg>
         <button
           class="amplify-button amplify-field-group__control amplify-button--small"
+          data-testid="storage-manager-remove-button"
           type="button"
         >
           <span
@@ -278,6 +280,7 @@ exports[`FileList renders as expected when upload is resumable 1`] = `
         </button>
         <button
           class="amplify-button amplify-field-group__control amplify-button--small"
+          data-testid="storage-manager-remove-button"
           type="button"
         >
           <span
