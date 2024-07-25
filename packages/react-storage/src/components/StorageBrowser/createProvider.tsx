@@ -4,7 +4,7 @@ import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 
 import { StorageBrowserElements } from './context/elements';
 import { ControlProvider } from './context/controls';
-import { ErrorBoundary, Fallback } from './ErrorBoundary';
+import { ErrorBoundary } from './ErrorBoundary';
 
 interface CreateStorageBrowserInput<T> {
   elements?: T;
@@ -19,7 +19,7 @@ export default function createProvider<
     children?: React.ReactNode;
   }): React.JSX.Element {
     return (
-      <ErrorBoundary fallback={<Fallback />}>
+      <ErrorBoundary>
         <ElementsProvider elements={elements}>
           <ControlProvider>{children}</ControlProvider>
         </ElementsProvider>

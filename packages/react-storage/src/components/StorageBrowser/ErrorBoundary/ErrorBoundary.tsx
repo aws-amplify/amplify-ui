@@ -2,12 +2,15 @@ import React from 'react';
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;
-  fallback: React.ReactNode;
 }
 
 interface ErrorBoundaryState {
   hasError: boolean;
 }
+
+const Fallback = (): React.JSX.Element => (
+  <p>Something went wrong. Please try again.</p>
+);
 
 export class ErrorBoundary extends React.Component<
   ErrorBoundaryProps,
@@ -23,23 +26,19 @@ export class ErrorBoundary extends React.Component<
     return { hasError: true };
   }
 
-  // Should we add logic in here to try and clean up the credential store before we return the empty div?
+  // Should we add logic in here to try and clean up the credential store before we return the fallback?
   // componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
   //   console.error("Uncaught error:", error, errorInfo);
   // }
 
   render(): React.ReactNode {
     const { hasError } = this.state;
-    const { children, fallback } = this.props;
+    const { children } = this.props;
 
     if (hasError) {
-      return fallback;
+      return <Fallback />;
     }
 
     return children;
   }
 }
-
-export const Fallback = (): React.JSX.Element => (
-  <p>Something went wrong. Please try again.</p>
-);
