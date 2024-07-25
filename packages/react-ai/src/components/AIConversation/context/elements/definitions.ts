@@ -3,7 +3,6 @@ import { defineBaseElement } from '@aws-amplify/ui-react-core/elements';
 export interface AIConversationElements {
   Button: typeof ButtonElement;
   Heading: typeof HeadingElement;
-  Form: typeof FormElement;
   Icon: typeof IconElement;
   Image: typeof ImageElement;
   Input: typeof InputElement;
@@ -30,11 +29,6 @@ export const UnorderedListElement = defineBaseElement({
 export const ListItemElement = defineBaseElement({
   type: 'li',
   displayName: 'ListItem',
-});
-
-export const FormElement = defineBaseElement({
-  type: 'form',
-  displayName: 'Form',
 });
 
 export const HeadingElement = defineBaseElement({
@@ -91,7 +85,6 @@ export const TextAreaElement = defineBaseElement<
 export const AIConversationElements: AIConversationElements = {
   Button: ButtonElement,
   Heading: HeadingElement,
-  Form: FormElement,
   Icon: IconElement,
   Input: InputElement,
   Image: ImageElement,

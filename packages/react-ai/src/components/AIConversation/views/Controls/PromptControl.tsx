@@ -105,15 +105,13 @@ const Container = withBaseElementProps(View, {
   className: `${PROMPT_BLOCK}__container`,
 });
 
-export const PromptControl: PromptControl = () => {
-  return (
-    <Container>
-      <AIIcon />
-      <HeaderText>How can I help you today?</HeaderText>
-      <PromptGroup />
-    </Container>
-  );
-};
+export const PromptControl: PromptControl = () => (
+  <Container>
+    <AIIcon />
+    <HeaderText>How can I help you today?</HeaderText>
+    <PromptGroup />
+  </Container>
+);
 
 export const AutoHidablePromptControl = (): JSX.Element | undefined => {
   const messages = React.useContext(MessagesContext);
@@ -132,7 +130,7 @@ PromptControl.PromptCard = PromptCard;
 export interface PromptControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
 > {
-  (props: { onSelect?: (text: string) => void }): React.JSX.Element;
+  (): React.JSX.Element;
   Container: T['View'];
   Header: T['Heading'];
   Icon: T['Icon'];

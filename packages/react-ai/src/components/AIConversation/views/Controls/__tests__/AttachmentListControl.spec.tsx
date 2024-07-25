@@ -13,7 +13,7 @@ const MOCK_FILES = [
 ];
 
 describe('AttachmentListControl', () => {
-  it('renders an AttachmentListControl component with the correct elements', async () => {
+  it('renders an AttachmentListControl component', async () => {
     const result = render(<AttachmentListControl />);
     expect(result.container).toBeDefined();
 
