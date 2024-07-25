@@ -28,18 +28,12 @@ const LocationsViewProvider = (props: { children?: React.ReactNode }) => (
 );
 
 const LocationsViewControls: LocationsViewControls = () => (
-  <div className={`${CLASS_BASE}__header`}>
+  <>
     <Navigate />
-    <div className={`${CLASS_BASE}__header__primary`}>
-      <Title />
-      <div className={`${CLASS_BASE}__header__primary__actions`}>
-        <Refresh />
-      </div>
-    </div>
-    <div className={`${CLASS_BASE}__header__secondary`}>
-      <Paginate />
-    </div>
-  </div>
+    <Title />
+    <Refresh />
+    <Paginate />
+  </>
 );
 
 LocationsViewControls.Message = Message;
@@ -70,8 +64,8 @@ export const LocationsView: LocationsView = () => {
         <div className={`${CLASS_BASE}__controls`}>
           <LocationsViewControls />
           <Table />
-          {!hasLocations && isLoading ? 'loading...' : listLocations}
         </div>
+        {!hasLocations && isLoading ? 'loading...' : listLocations}
       </div>
     </LocationsViewProvider>
   );
