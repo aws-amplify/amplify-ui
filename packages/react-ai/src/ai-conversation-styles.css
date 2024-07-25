@@ -105,7 +105,7 @@
   overflow: hidden;
 }
 
-.ai-field__container {
+.ai-field__form {
   display: flex;
   flex-direction: row;
   align-items: flex-start;

@@ -45,7 +45,7 @@ const AttachFileButton = withBaseElementProps(Button, {
 
 export const AttachFileControl: AttachFileControl = () => {
   const hiddenInput = React.useRef<HTMLInputElement>(null);
-  const { setFileInput } = React.useContext(InputContext);
+  const { setInput } = React.useContext(InputContext);
 
   function handleButtonClick() {
     if (hiddenInput.current) {
@@ -56,9 +56,12 @@ export const AttachFileControl: AttachFileControl = () => {
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { files } = e.target;
-    if (files && files?.length > 0 && setFileInput) {
+    if (files && files?.length > 0 && setInput) {
       Array.from(files).forEach((file) => {
-        setFileInput((prevFiles) => [...prevFiles, file]);
+        setInput((prevInput) => ({
+          ...prevInput,
+          files: [...(prevInput?.files ?? []), file],
+        }));
       });
     }
   }
@@ -71,7 +74,7 @@ export const AttachFileControl: AttachFileControl = () => {
       <VisuallyHidden>
         <input
           // TODO follow up about what file types are accepted
-          accept="image/*"
+          accept=".jpeg,.png,.webp,.gif"
           data-testid="hidden-file-input"
           onChange={handleFileChange}
           ref={hiddenInput}

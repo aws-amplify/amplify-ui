@@ -82,7 +82,13 @@ const PromptGroup: typeof PromptGroupBase = React.forwardRef(
             <PromptCard
               key={index}
               aria-label={prompt.inputText}
-              onClick={() => setInput && setInput(prompt.inputText)}
+              onClick={() =>
+                setInput &&
+                setInput((prevInput) => ({
+                  ...prevInput,
+                  text: prompt.inputText,
+                }))
+              }
             >
               <Text
                 className={classNames(

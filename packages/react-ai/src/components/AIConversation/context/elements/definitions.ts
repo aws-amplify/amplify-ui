@@ -6,6 +6,7 @@ export interface AIConversationElements {
   Icon: typeof IconElement;
   Image: typeof ImageElement;
   Input: typeof InputElement;
+  Form: typeof FormElement;
   ListItem: typeof ListItemElement;
   Span: typeof SpanElement;
   Text: typeof TextElement;
@@ -72,7 +73,13 @@ export const SpanElement = defineBaseElement({
   displayName: 'Span',
 });
 
-type TextAreaElementProps = 'onChange' | 'placeholder';
+type FormElementProps = 'onSubmit';
+export const FormElement = defineBaseElement<'form', FormElementProps>({
+  type: 'form',
+  displayName: 'Form',
+});
+
+type TextAreaElementProps = 'name' | 'onChange' | 'placeholder';
 
 export const TextAreaElement = defineBaseElement<
   'textarea',
@@ -88,6 +95,7 @@ export const AIConversationElements: AIConversationElements = {
   Icon: IconElement,
   Input: InputElement,
   Image: ImageElement,
+  Form: FormElement,
   ListItem: ListItemElement,
   Span: SpanElement,
   Text: TextElement,

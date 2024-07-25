@@ -8,10 +8,12 @@ describe('FieldControl', () => {
     const result = render(<FieldControl />);
     expect(result.container).toBeDefined();
 
+    const form = screen.findByRole('form');
     const actionButtons = screen.getAllByRole('button');
     const textInput = screen.getByTestId('text-input');
     const fileInput = screen.getByTestId('hidden-file-input');
 
+    expect(form).toBeDefined();
     expect(actionButtons).toHaveLength(2);
     expect(textInput).toBeDefined();
     expect(fileInput).toBeDefined();

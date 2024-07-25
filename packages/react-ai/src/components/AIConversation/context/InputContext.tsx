@@ -1,10 +1,12 @@
 import React from 'react';
 
+interface Input {
+  text?: string;
+  files?: File[];
+}
 interface InputContext {
-  input?: string;
-  setInput?: React.Dispatch<React.SetStateAction<string | undefined>>;
-  fileInput?: File[];
-  setFileInput?: React.Dispatch<React.SetStateAction<File[]>>;
+  input?: Input;
+  setInput?: React.Dispatch<React.SetStateAction<Partial<Input> | undefined>>;
 }
 
 export const InputContext = React.createContext<InputContext>({});
@@ -14,12 +16,11 @@ export const InputContextProvider = ({
 }: {
   children?: React.ReactNode;
 }): JSX.Element => {
-  const [input, setInput] = React.useState<string | undefined>();
-  const [fileInput, setFileInput] = React.useState<File[]>([]);
+  const [input, setInput] = React.useState<Input | undefined>();
 
   const providerValue = React.useMemo(
-    () => ({ input, setInput, fileInput, setFileInput }),
-    [input, setInput, fileInput, setFileInput]
+    () => ({ input, setInput }),
+    [input, setInput]
   );
 
   return (

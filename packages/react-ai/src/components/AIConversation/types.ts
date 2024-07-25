@@ -67,7 +67,7 @@ export interface ImageContent {
   bytes: ArrayBuffer;
 }
 
-interface ImageContentBlock {
+export interface ImageContentBlock {
   type: 'image';
   value: ImageContent;
 }

@@ -1,13 +1,20 @@
 import React from 'react';
 
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
+import { ImageContentBlock, TextContent } from '../../types';
 import { InputContext } from '../../context';
 import { AIConversationElements } from '../../context/elements';
 import { AttachFileControl } from './AttachFileControl';
 import { MessagesContext } from '../../context';
 import { AttachmentListControl } from './AttachmentListControl';
 
-const { Button, Icon, TextArea, View } = AIConversationElements;
+const {
+  Button,
+  Form: FormElement,
+  Icon,
+  TextArea,
+  View,
+} = AIConversationElements;
 
 const FIELD_BLOCK = 'ai-field';
 
@@ -38,6 +45,7 @@ const SendButton: typeof SendButtonBase = React.forwardRef(
   function SendButton(props, ref) {
     // TODO should come from context
     const isWaitingForResponse = false;
+
     return (
       <SendButtonBase
         {...props}
@@ -52,6 +60,7 @@ const SendButton: typeof SendButtonBase = React.forwardRef(
 const TextAreaBase = withBaseElementProps(TextArea, {
   className: `${FIELD_BLOCK}__input`,
   id: `${FIELD_BLOCK}-text-input`,
+  name: 'text-input',
 });
 
 const TextInput: typeof TextAreaBase = React.forwardRef(
@@ -86,7 +95,11 @@ const TextInput: typeof TextAreaBase = React.forwardRef(
       <TextAreaBase
         {...props}
         data-testid="text-input"
-        onChange={(e) => setInput && setInput(e.target.value)}
+        onChange={(e) =>
+          props.onChange ??
+          (setInput &&
+            setInput((prevInput) => ({ ...prevInput, text: e.target.value })))
+        }
         placeholder={
           props.placeholder ?? isFirstMessage
             ? 'Ask anything...'
@@ -98,8 +111,41 @@ const TextInput: typeof TextAreaBase = React.forwardRef(
   }
 );
 
-const Container = withBaseElementProps(View, {
-  className: `${FIELD_BLOCK}__container`,
+const FormBase = withBaseElementProps(FormElement, {
+  className: `${FIELD_BLOCK}__form`,
+});
+
+const Form: typeof FormBase = React.forwardRef(function Form(props, ref) {
+  const { input, setInput } = React.useContext(InputContext);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    (e.target as HTMLFormElement).reset();
+
+    if (input?.text) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars -- TODO send message
+      const textContent: TextContent = {
+        type: 'text',
+        value: input.text,
+      };
+    }
+    if (input?.files) {
+      input.files.map((file) => {
+        file.arrayBuffer().then((buffer) => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars -- TODO send message
+          const fileContent: ImageContentBlock = {
+            type: 'image',
+            value: {
+              format: file.type as 'png' | 'jpeg' | 'gif' | 'webp',
+              bytes: buffer,
+            },
+          };
+        });
+      });
+    }
+    if (setInput) setInput({ text: '', files: [] });
+  };
+  return <FormBase {...props} onSubmit={handleSubmit} ref={ref} />;
 });
 
 const InputContainer = withBaseElementProps(View, {
@@ -108,7 +154,7 @@ const InputContainer = withBaseElementProps(View, {
 
 export const FieldControl: FieldControl = () => {
   return (
-    <Container>
+    <Form>
       <AttachFileControl />
       <InputContainer>
         <TextInput />
@@ -117,12 +163,12 @@ export const FieldControl: FieldControl = () => {
       <SendButton>
         <SendIcon />
       </SendButton>
-    </Container>
+    </Form>
   );
 };
 
 FieldControl.AttachFile = AttachFileControl;
-FieldControl.Container = Container;
+FieldControl.Form = Form;
 FieldControl.InputContainer = InputContainer;
 FieldControl.TextInput = TextInput;
 FieldControl.SendButton = SendButton;
@@ -132,7 +178,7 @@ export interface FieldControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
 > {
   (): React.JSX.Element;
-  Container: T['View'];
+  Form: T['Form'];
   AttachFile: AttachFileControl<T>;
   InputContainer: T['View'];
   TextInput: T['TextArea'];

@@ -35,6 +35,7 @@ export type ElementDisplayName =
   | 'Icon'
   | 'Image'
   | 'Input'
+  | 'Form'
   | 'Label'
   | 'ListItem'
   | 'Nav'

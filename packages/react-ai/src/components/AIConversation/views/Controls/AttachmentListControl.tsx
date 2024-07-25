@@ -159,15 +159,16 @@ const UnorderedList = withBaseElementProps(ListElement, {
 });
 
 export const AttachmentListControl: AttachmentListControl = () => {
-  const { fileInput, setFileInput } = React.useContext(InputContext);
+  const { input, setInput } = React.useContext(InputContext);
   return (
     <UnorderedList>
-      {fileInput?.map((image, index) => {
+      {input?.files?.map((image, index) => {
         const onRemove = () => {
-          if (setFileInput) {
-            setFileInput((prevFiles) =>
-              prevFiles.filter((_, idx) => idx !== index)
-            );
+          if (setInput) {
+            setInput((prevInput) => ({
+              ...prevInput,
+              files: prevInput?.files?.filter((_, idx) => idx !== index),
+            }));
           }
         };
         return (
