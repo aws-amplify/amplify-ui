@@ -34,4 +34,35 @@ describe('PaginationControl', () => {
     expect(list).toBeInTheDocument();
     expect(listItems).toHaveLength(3);
   });
+  it('renders Current control', () => {
+    render(
+      <ControlProvider>
+        <PaginateControl.Current />
+      </ControlProvider>
+    );
+    const btn = screen.getByRole('button', { name: 'Page 1' });
+    expect(btn).toBeInTheDocument();
+  });
+  it('renders Previous control', () => {
+    render(
+      <ControlProvider>
+        <PaginateControl.Previous />
+      </ControlProvider>
+    );
+    const btn = screen.getByRole('button', {
+      name: 'Go to previous page',
+    });
+    expect(btn).toBeInTheDocument();
+  });
+  it('renders Next control', () => {
+    render(
+      <ControlProvider>
+        <PaginateControl.Next />
+      </ControlProvider>
+    );
+    const btn = screen.getByRole('button', {
+      name: 'Go to next page',
+    });
+    expect(btn).toBeInTheDocument();
+  });
 });

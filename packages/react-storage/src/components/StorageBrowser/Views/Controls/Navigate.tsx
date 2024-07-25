@@ -16,14 +16,11 @@ interface LocationData {
 }
 
 /* <Separator /> */
-const Separator = withBaseElementProps(
-  Span,
-  ({ className = `${BLOCK_NAME}__separator`, children = `/`, ...props }) => ({
-    ...props,
-    children,
-    className,
-  })
-);
+
+const Separator = withBaseElementProps(Span, {
+  className: `${BLOCK_NAME}__separator`,
+  children: '/',
+});
 
 /* <NavigateItem /> */
 type RenderNavigateItem = (props: {
@@ -38,18 +35,13 @@ interface NavigateItem<
   Separator: T['Span'];
 }
 
-const NavigateItemContainer = withBaseElementProps(
-  ListItem,
-  ({ className = `${BLOCK_NAME}__item`, ...props }) => ({ ...props, className })
-);
+const NavigateItemContainer = withBaseElementProps(ListItem, {
+  className: `${BLOCK_NAME}__item`,
+});
 
-const NavigateButton = withBaseElementProps(
-  Button,
-  ({ className = `${BLOCK_NAME}__button`, ...props }) => ({
-    ...props,
-    className,
-  })
-);
+const NavigateButton = withBaseElementProps(Button, {
+  className: `${BLOCK_NAME}__button`,
+});
 
 const NavigateItem: NavigateItem = ({ item, current }) => {
   const { name } = item;
@@ -61,7 +53,7 @@ const NavigateItem: NavigateItem = ({ item, current }) => {
   );
 };
 
-NavigateItem.Button = Button;
+NavigateItem.Button = NavigateButton;
 NavigateItem.Separator = Separator;
 NavigateItem.ListItem = ListItem;
 
