@@ -26,10 +26,6 @@ export class ErrorBoundary extends React.Component<
     return { hasError: true };
   }
 
-  // Should we add logic in here to try and clean up the credential store before we return the fallback?
-  // componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
-  //   console.error("Uncaught error:", error, errorInfo);
-  // }
 
   render(): React.ReactNode {
     const { hasError } = this.state;
