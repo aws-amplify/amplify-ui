@@ -6,6 +6,7 @@ import {
   PaginateVariant,
   StorageBrowserElements,
 } from '../../context/elements';
+import type { OmitElements } from '../types';
 import { CLASS_BASE } from '../constants';
 import { PaginateStateContext, useControl } from '../../context/controls';
 
@@ -24,11 +25,6 @@ const PAGINATE_VARIANTS = [
   { variant: 'paginate-current' },
   { variant: 'paginate-next' },
 ] as const;
-
-type OmitElements<T, K extends string = never> = Omit<
-  T,
-  keyof StorageBrowserElements | K
->;
 
 interface PaginateItemProps extends Pick<ButtonElementProps, 'onClick'> {
   variant?: PaginateVariant;
