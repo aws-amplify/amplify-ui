@@ -1,23 +1,21 @@
+import { FederatedProvider } from '@aws-amplify/ui';
+
 import { FederatedIdentityElements } from './context/elements';
+import { IdentitiesControl } from './controls';
+
 import React from 'react';
-import { IdentitiesControl } from './controls/IdentitiesControl';
 
-export type socialProvidersUnion = 'amazon' | 'apple' | 'facebook' | 'google';
-export type AuthProvider = 'Amazon' | 'Apple' | 'Facebook' | 'Google';
-
-export const socialProviderList = ['amazon', 'facebook', 'apple', 'google'];
-
-interface handleSignInWithRedirectInput<T extends string = string> {
-  provider: T;
+interface HandleSignInWithRedirectInput<T extends string = string> {
+  providerName: T;
   customState?: string;
 }
 
-interface handleSignInWithRedirect {
-  (input: handleSignInWithRedirectInput): Promise<void>;
+interface HandleSignInWithRedirect {
+  (input: HandleSignInWithRedirectInput): Promise<void>;
 }
 
-interface useHandleSigninWithRedirectInput<K extends string = string> {
-  provider: K;
+interface UseHandleSigninWithRedirectInput<K extends string = string> {
+  providerName: K;
   customState?: string;
 }
 
@@ -27,27 +25,26 @@ interface ActionState<T> {
   message: string | undefined;
 }
 
-export interface useHandleSignInWithRedirect<K extends string = string> {
+export interface UseHandleSignInWithRedirect<K extends string = string> {
   (): [
     state: ActionState<void | undefined>,
-    handleAction: (...input: useHandleSigninWithRedirectInput<K>[]) => void,
+    handleAction: (...input: UseHandleSigninWithRedirectInput<K>[]) => void,
   ];
 }
 
-export interface FederatedIdentityInput<
-  T extends Partial<FederatedIdentityElements>,
+export interface CreateFederatedIdentityInput<
+  T extends Partial<FederatedIdentityElements> = FederatedIdentityElements,
   K extends string = string,
 > {
   elements?: T;
   providers: ProviderType<K>[];
-  handleSignInWithRedirect?: handleSignInWithRedirect;
+  handleSignInWithRedirect?: HandleSignInWithRedirect;
 }
 
 export interface FederatedIdentity<
-  T extends Partial<FederatedIdentityElements>,
+  T extends Partial<FederatedIdentityElements> = FederatedIdentityElements,
 > {
-  (): JSX.Element;
-  Provider: (props: { children?: React.ReactNode }) => React.JSX.Element;
+  (input: { children?: React.ReactNode }): JSX.Element;
   Identities: IdentitiesControl<T>;
 }
 
@@ -59,14 +56,4 @@ export interface ProviderData<T extends string = string> {
 
 export type ProviderType<K extends string = string> =
   | ProviderData<K>
-  | socialProvidersUnion;
-
-export interface createProviderProps<
-  T extends
-    Partial<FederatedIdentityElements> = Partial<FederatedIdentityElements>,
-  K extends string = string,
-> {
-  providers: ProviderType<K>[];
-  handleSignInWithRedirect?: handleSignInWithRedirect;
-  elements?: T;
-}
+  | FederatedProvider;
