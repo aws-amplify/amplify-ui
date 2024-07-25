@@ -1,6 +1,7 @@
 import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
+import type { OmitElements } from '../types';
 import { MessageVariant, StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
 
@@ -86,15 +87,17 @@ const MessageContent = withBaseElementProps(
 interface MessageControlProps {
   variant?: MessageVariant;
 }
-export interface MessageControl<
+interface _MessageControl<
   T extends StorageBrowserElements = StorageBrowserElements,
-> extends Pick<T, 'Icon'> {
+> extends Pick<T, 'Icon' | 'View'> {
   ({ variant }: MessageControlProps): React.JSX.Element;
-  Container: T['View'];
-  Content: T['View'];
-  Dismiss: MessageDismissControl<T>;
 }
 
+export interface MessageControl<
+  T extends StorageBrowserElements = StorageBrowserElements,
+> extends OmitElements<_MessageControl<T>, 'Container'> {
+  ({ variant }: MessageControlProps): React.JSX.Element;
+}
 export const MessageControl: MessageControl = ({ variant }) => {
   return (
     <Container>
@@ -108,8 +111,3 @@ export const MessageControl: MessageControl = ({ variant }) => {
     </Container>
   );
 };
-
-MessageControl.Container = Container;
-MessageControl.Icon = MessageIcon;
-MessageControl.Content = MessageContent;
-MessageControl.Dismiss = MessageDismissControl;
