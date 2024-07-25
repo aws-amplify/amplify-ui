@@ -1,16 +1,16 @@
-import {
-  useHandleSignInWithRedirect,
-  FederatedIdentity,
-  FederatedIdentityInput,
-} from './types';
 import { FederatedIdentityElements } from './context/elements';
+import {
+  UseHandleSignInWithRedirect,
+  FederatedIdentity,
+  CreateFederatedIdentityInput,
+} from './types';
 
 export function createFederatedIdentity<
   T extends Partial<FederatedIdentityElements>,
   K extends string = string,
 >(
-  input: FederatedIdentityInput<T, K>
+  input: CreateFederatedIdentityInput<T, K>
 ): {
   FederatedIdentity: FederatedIdentity<T>;
-  useHandleSignInWithRedirect?: useHandleSignInWithRedirect<K>;
+  useHandleSignInWithRedirect?: UseHandleSignInWithRedirect<K>;
 };
