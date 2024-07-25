@@ -7,6 +7,7 @@ import { RefreshControl } from './Refresh';
 import { SearchControl } from './Search';
 import { SummaryControl } from './Summary';
 import { TableControl } from './Table';
+import { TargetControl } from './Target';
 import { TitleControl } from './Title';
 
 export interface Controls<
@@ -20,6 +21,7 @@ export interface Controls<
   Navigate: NavigateControl<T>;
   Summary: SummaryControl<T>;
   Table: TableControl<T>;
+  Target: TargetControl<T>;
   Title: TitleControl<T>;
 }
 
@@ -32,5 +34,6 @@ export const Controls: Controls = {
   Navigate: NavigateControl,
   Summary: SummaryControl,
   Table: TableControl,
+  Target: TargetControl,
   Title: TitleControl,
 };
