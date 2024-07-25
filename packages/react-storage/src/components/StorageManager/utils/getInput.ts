@@ -39,11 +39,6 @@ export const getInput = ({
       ...rest
     } = await resolveFile({ file, key, processFile });
 
-    if (processFile) {
-      // provide post-processing value of target `key`
-      onProcessFileSuccess({ processedKey });
-    }
-
     const contentType = file.type || 'binary/octet-stream';
 
     // IMPORTANT: always pass `...rest` here for backwards compatibility
@@ -62,6 +57,11 @@ export const getInput = ({
     const resolvedPath = `${
       hasCallbackPath ? path({ identityId }) : path
     }${processedKey}`;
+
+    if (processFile) {
+      // provide post-processing value of target `key`
+      onProcessFileSuccess({ processedKey });
+    }
 
     return { data: file, path: resolvedPath, options };
   };
