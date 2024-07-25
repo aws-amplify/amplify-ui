@@ -47,12 +47,12 @@ Detail.Label = DetailLabel;
 Detail.Value = DetailValue;
 
 const CompletedControl = ({
-  label = 'Completed',
+  label = 'Completed:',
   value = '0/5',
 }: DetailProps) => <Detail label={label} value={value} />;
 
 const NotStartedControl = ({
-  label = 'Not started',
+  label = 'Not started:',
   value = '0/5',
 }: DetailProps) => <Detail label={label} value={value} />;
 
@@ -61,8 +61,13 @@ const FailedControl = ({ label = 'Failed', value = '0/5' }: DetailProps) => (
 );
 
 const CanceledControl = ({
-  label = 'Canceled',
+  label = 'Canceled:',
   value = '0/5',
+}: DetailProps) => <Detail label={label} value={value} />;
+
+const DestinationControl = ({
+  label = 'Destination:',
+  value = '/',
 }: DetailProps) => <Detail label={label} value={value} />;
 
 /* <Details /> */
@@ -74,6 +79,7 @@ const DetailsContainer = withBaseElementProps(DefinitionList, {
 interface Details<T extends StorageBrowserElements = StorageBrowserElements> {
   (): React.JSX.Element;
   Container: T['DefinitionList'];
+  Destination: Detail<T>;
   Completed: Detail<T>;
   Failed: Detail<T>;
   Canceled: Detail<T>;
@@ -82,6 +88,7 @@ interface Details<T extends StorageBrowserElements = StorageBrowserElements> {
 
 const Details: Details = () => (
   <DetailsContainer>
+    <DestinationControl />
     <CompletedControl />
     <CanceledControl />
     <FailedControl />
@@ -90,11 +97,22 @@ const Details: Details = () => (
 );
 
 Details.Container = DetailsContainer;
+Details.Destination = DestinationControl;
 Details.Canceled = CanceledControl;
 Details.Completed = CompletedControl;
 Details.Failed = FailedControl;
 Details.NotStarted = NotStartedControl;
-// Details.Destination = Text;
+
+const StartButton = withBaseElementProps(Button, {
+  className: '${CLASS_BASE}__summary__start',
+  children: 'Start',
+});
+
+const CancelButton = withBaseElementProps(Button, {
+  className: '${CLASS_BASE}__summary__cancel',
+  children: 'Cancel',
+});
+
 export interface SummaryControl<
   T extends StorageBrowserElements = StorageBrowserElements,
 > {
@@ -106,11 +124,12 @@ export interface SummaryControl<
 
 export const SummaryControl: SummaryControl = () => (
   <>
-    Buttons
+    <CancelButton />
+    <StartButton />
     <Details />
   </>
 );
 
-SummaryControl.Cancel = Button;
+SummaryControl.Cancel = CancelButton;
+SummaryControl.Start = StartButton;
 SummaryControl.Details = Details;
-SummaryControl.Start = Button;
