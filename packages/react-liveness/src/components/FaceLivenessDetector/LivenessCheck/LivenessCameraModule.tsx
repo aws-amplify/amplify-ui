@@ -112,6 +112,7 @@ export const LivenessCameraModule = (
 
   const {
     ErrorView = FaceLivenessErrorModal,
+    VerifyingScreen = null,
     PhotosensitiveWarning = DefaultPhotosensitiveWarning,
   } = customComponents ?? {};
 
@@ -145,6 +146,8 @@ export const LivenessCameraModule = (
   const isFlashingFreshness = state.matches({
     recording: 'flashFreshnessColors',
   });
+  const isUploading = state.matches('uploading');
+  const shouldShowVerifyingScreen = isUploading && VerifyingScreen;
 
   // Android/Firefox and iOS flip the values of width/height returned from
   // getUserMedia, so we'll reset these in useLayoutEffect with the videoRef
@@ -298,144 +301,149 @@ export const LivenessCameraModule = (
     <>
       {photoSensitivityWarning}
 
-      <Flex
-        className={classNames(
-          LivenessClassNames.CameraModule,
-          shouldShowFullScreenCamera &&
-            `${LivenessClassNames.CameraModule}--mobile`
-        )}
-        data-testid={testId}
-        gap="zero"
-      >
-        {!isCameraReady && centeredLoader}
-
-        <Overlay
-          horizontal="center"
-          vertical={
-            isRecording && !isFlashingFreshness ? 'start' : 'space-between'
-          }
-          className={LivenessClassNames.InstructionOverlay}
+      {shouldShowVerifyingScreen ? (
+        <VerifyingScreen />
+      ) : (
+        <Flex
+          className={classNames(
+            LivenessClassNames.CameraModule,
+            shouldShowFullScreenCamera &&
+              `${LivenessClassNames.CameraModule}--mobile`
+          )}
+          data-testid={testId}
+          gap="zero"
         >
-          {isRecording && (
-            <DefaultRecordingIcon
-              recordingIndicatorText={recordingIndicatorText}
-            />
-          )}
+          {!isCameraReady && centeredLoader}
 
-          {!isStartView && !isWaitingForCamera && !isCheckSucceeded && (
-            <DefaultCancelButton
-              cancelLivenessCheckText={cancelLivenessCheckText}
-            />
-          )}
-
-          <Flex
-            className={classNames(
-              LivenessClassNames.Hint,
-              shouldShowFullScreenCamera && `${LivenessClassNames.Hint}--mobile`
-            )}
+          <Overlay
+            horizontal="center"
+            vertical={
+              isRecording && !isFlashingFreshness ? 'start' : 'space-between'
+            }
+            className={LivenessClassNames.InstructionOverlay}
           >
-            <Hint hintDisplayText={hintDisplayText} />
-          </Flex>
+            {isRecording && (
+              <DefaultRecordingIcon
+                recordingIndicatorText={recordingIndicatorText}
+              />
+            )}
 
-          {errorState && (
-            <ErrorView
-              onRetry={() => {
-                send({ type: 'CANCEL' });
-              }}
-              displayText={errorDisplayText}
+            {!isStartView && !isWaitingForCamera && !isCheckSucceeded && (
+              <DefaultCancelButton
+                cancelLivenessCheckText={cancelLivenessCheckText}
+              />
+            )}
+
+            <Flex
+              className={classNames(
+                LivenessClassNames.Hint,
+                shouldShowFullScreenCamera &&
+                  `${LivenessClassNames.Hint}--mobile`
+              )}
             >
-              {renderErrorModal({
-                errorState,
-                overrideErrorDisplayText: errorDisplayText,
-              })}
-            </ErrorView>
-          )}
+              <Hint hintDisplayText={hintDisplayText} />
+            </Flex>
 
-          {/* 
+            {errorState && (
+              <ErrorView
+                onRetry={() => {
+                  send({ type: 'CANCEL' });
+                }}
+                displayText={errorDisplayText}
+              >
+                {renderErrorModal({
+                  errorState,
+                  overrideErrorDisplayText: errorDisplayText,
+                })}
+              </ErrorView>
+            )}
+
+            {/* 
               We only want to show the MatchIndicator when we're recording
               and when the face is in either the too far state, or the 
               initial face identified state. Using the a memoized MatchIndicator here
               so that even when this component re-renders the indicator is only
               re-rendered if the percentage prop changes.
             */}
-          {isRecording &&
-          !isFlashingFreshness &&
-          showMatchIndicatorStates.includes(faceMatchState!) ? (
-            <MemoizedMatchIndicator
-              percentage={Math.ceil(faceMatchPercentage!)}
-            />
-          ) : null}
-        </Overlay>
+            {isRecording &&
+            !isFlashingFreshness &&
+            showMatchIndicatorStates.includes(faceMatchState!) ? (
+              <MemoizedMatchIndicator
+                percentage={Math.ceil(faceMatchPercentage!)}
+              />
+            ) : null}
+          </Overlay>
 
-        <View
-          as="canvas"
-          ref={freshnessColorRef}
-          className={LivenessClassNames.FreshnessCanvas}
-          hidden
-        />
-        <View
-          className={LivenessClassNames.VideoAnchor}
-          style={{
-            aspectRatio: `${aspectRatio}`,
-          }}
-        >
-          <video
-            ref={videoRef}
-            muted
-            autoPlay
-            playsInline
-            width={mediaWidth}
-            height={mediaHeight}
-            onCanPlay={handleMediaPlay}
-            data-testid="video"
-            className={LivenessClassNames.Video}
-            aria-label={cameraDisplayText.a11yVideoLabelText}
+          <View
+            as="canvas"
+            ref={freshnessColorRef}
+            className={LivenessClassNames.FreshnessCanvas}
+            hidden
           />
-          <Flex
-            className={classNames(
-              LivenessClassNames.OvalCanvas,
-              shouldShowFullScreenCamera &&
-                `${LivenessClassNames.OvalCanvas}--mobile`,
-              isRecordingStopped && LivenessClassNames.FadeOut
-            )}
+          <View
+            className={LivenessClassNames.VideoAnchor}
+            style={{
+              aspectRatio: `${aspectRatio}`,
+            }}
           >
-            <View as="canvas" ref={canvasRef} />
-          </Flex>
+            <video
+              ref={videoRef}
+              muted
+              autoPlay
+              playsInline
+              width={mediaWidth}
+              height={mediaHeight}
+              onCanPlay={handleMediaPlay}
+              data-testid="video"
+              className={LivenessClassNames.Video}
+              aria-label={cameraDisplayText.a11yVideoLabelText}
+            />
+            <Flex
+              className={classNames(
+                LivenessClassNames.OvalCanvas,
+                shouldShowFullScreenCamera &&
+                  `${LivenessClassNames.OvalCanvas}--mobile`,
+                isRecordingStopped && LivenessClassNames.FadeOut
+              )}
+            >
+              <View as="canvas" ref={canvasRef} />
+            </Flex>
 
-          {isStartView &&
-            !isMobileScreen &&
-            selectableDevices &&
-            selectableDevices.length > 1 && (
-              <Flex className={LivenessClassNames.StartScreenCameraSelect}>
-                <View
-                  className={
-                    LivenessClassNames.StartScreenCameraSelectContainer
-                  }
-                >
-                  <Label
-                    htmlFor="amplify-liveness-camera-select"
-                    className={`${LivenessClassNames.StartScreenCameraSelect}__label`}
+            {isStartView &&
+              !isMobileScreen &&
+              selectableDevices &&
+              selectableDevices.length > 1 && (
+                <Flex className={LivenessClassNames.StartScreenCameraSelect}>
+                  <View
+                    className={
+                      LivenessClassNames.StartScreenCameraSelectContainer
+                    }
                   >
-                    Camera:
-                  </Label>
-                  <SelectField
-                    id="amplify-liveness-camera-select"
-                    label="Camera"
-                    labelHidden
-                    value={selectedDeviceId}
-                    onChange={onCameraChange}
-                  >
-                    {selectableDevices?.map((device) => (
-                      <option value={device.deviceId} key={device.deviceId}>
-                        {device.label}
-                      </option>
-                    ))}
-                  </SelectField>
-                </View>
-              </Flex>
-            )}
-        </View>
-      </Flex>
+                    <Label
+                      htmlFor="amplify-liveness-camera-select"
+                      className={`${LivenessClassNames.StartScreenCameraSelect}__label`}
+                    >
+                      Camera:
+                    </Label>
+                    <SelectField
+                      id="amplify-liveness-camera-select"
+                      label="Camera"
+                      labelHidden
+                      value={selectedDeviceId}
+                      onChange={onCameraChange}
+                    >
+                      {selectableDevices?.map((device) => (
+                        <option value={device.deviceId} key={device.deviceId}>
+                          {device.label}
+                        </option>
+                      ))}
+                    </SelectField>
+                  </View>
+                </Flex>
+              )}
+          </View>
+        </Flex>
+      )}
 
       {isStartView && (
         <Flex justifyContent="center">
