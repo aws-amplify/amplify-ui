@@ -2,6 +2,7 @@ import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import { StorageBrowserElements } from '../../context/elements';
+import { CLASS_BASE } from '../constants';
 
 const {
   Table: BaseTable,
@@ -17,49 +18,49 @@ const {
 const BLOCK_NAME = 'table';
 
 const Table = withBaseElementProps(BaseTable, {
-  className: `${BLOCK_NAME}`,
+  className: `${CLASS_BASE}__${BLOCK_NAME}`,
 });
 
 const TableBody = withBaseElementProps(BaseTableBody, {
-  className: `${BLOCK_NAME}__body`,
+  className: `${CLASS_BASE}__${BLOCK_NAME}__body`,
 });
 
 const TableHead = withBaseElementProps(BaseTableHead, {
-  className: `${BLOCK_NAME}__head`,
+  className: `${CLASS_BASE}__${BLOCK_NAME}__head`,
 });
 
 const TableHeader = withBaseElementProps(BaseTableHeader, {
-  className: `${BLOCK_NAME}__header`,
+  className: `${CLASS_BASE}__${BLOCK_NAME}__header`,
 });
 
 const TableHeaderButton = withBaseElementProps(Button, {
-  className: `${BLOCK_NAME}__header-button`,
+  className: `${CLASS_BASE}__${BLOCK_NAME}__header-button`,
 });
 
 const TableData = withBaseElementProps(BaseTableData, {
-  className: `${BLOCK_NAME}__data`,
+  className: `${CLASS_BASE}__${BLOCK_NAME}__data`,
 });
 
 const TableDataButton = withBaseElementProps(Button, {
-  className: `${BLOCK_NAME}__data-button`,
+  className: `${CLASS_BASE}__${BLOCK_NAME}__data-button`,
 });
 
 const TableRow = withBaseElementProps(BaseTableRow, {
-  className: `${BLOCK_NAME}__row`,
+  className: `${CLASS_BASE}__${BLOCK_NAME}__row`,
 });
 
 const SortIndeterminateIcon = withBaseElementProps(Icon, {
-  className: `${BLOCK_NAME}__sort-icon--indeterminate`,
+  className: `${CLASS_BASE}__${BLOCK_NAME}__sort-icon--indeterminate`,
   variant: 'sort-indeterminate',
 });
 
 const SortAscendingIcon = withBaseElementProps(Icon, {
-  className: `${BLOCK_NAME}__sort-icon--ascending`,
+  className: `${CLASS_BASE}__${BLOCK_NAME}__sort-icon--ascending`,
   variant: 'sort-ascending',
 });
 
 const SortDescendingIcon = withBaseElementProps(Icon, {
-  className: `${BLOCK_NAME}__sort-icon--descending`,
+  className: `${CLASS_BASE}__${BLOCK_NAME}__sort-icon--descending`,
   variant: 'sort-descending',
 });
 
