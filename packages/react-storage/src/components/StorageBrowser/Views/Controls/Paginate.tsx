@@ -25,42 +25,43 @@ const PAGINATE_VARIANTS = [
   { variant: 'paginate-next' },
 ] as const;
 
+type OmitElements<T, K extends string = never> = Omit<
+  T,
+  keyof StorageBrowserElements | K
+>;
+
 interface PaginateItemProps extends Pick<ButtonElementProps, 'onClick'> {
   variant?: PaginateVariant;
 }
 
-interface PaginateItemControl<
+interface _PaginateItemControl<
   T extends StorageBrowserElements = StorageBrowserElements,
-> extends Pick<T, 'Button'> {
+> {
   (props: PaginateItemProps): React.JSX.Element;
   Container: T['ListItem'];
 }
-
-interface PreviousControl<
+export interface PaginateItemControl<
   T extends StorageBrowserElements = StorageBrowserElements,
-> extends PaginateItemControl<T>,
-    Pick<T, 'Icon'> {}
+> extends OmitElements<_PaginateItemControl<T>, 'Container'> {
+  (props: PaginateItemProps): React.JSX.Element;
+}
 
-interface NextControl<T extends StorageBrowserElements = StorageBrowserElements>
-  extends PaginateItemControl<T>,
-    Pick<T, 'Icon'> {}
-
-interface CurrentControl<
+export interface _PaginateControl<
   T extends StorageBrowserElements = StorageBrowserElements,
-> extends PaginateItemControl<T>,
-    Pick<T, 'Text'> {}
+> {
+  Container: T['Nav'];
+  Current: PaginateItemControl<T>;
+  Next: PaginateItemControl<T>;
+  Previous: PaginateItemControl<T>;
+}
 
 export interface PaginateControl<
   T extends StorageBrowserElements = StorageBrowserElements,
-> {
+> extends OmitElements<_PaginateControl<T>, 'Container'> {
   (): React.JSX.Element;
-  Container: T['Nav'];
-  Current: CurrentControl<T>;
-  Next: NextControl<T>;
-  Previous: PreviousControl<T>;
 }
 
-const PaginateContainer: PaginateControl['Container'] = React.forwardRef(
+const PaginateContainer: _PaginateControl['Container'] = React.forwardRef(
   function Container({ children, ...props }, ref) {
     return (
       <Nav
@@ -86,7 +87,7 @@ const PaginateItemContainer = withBaseElementProps(
   ({ className = `${BLOCK_NAME}__item`, ...props }) => ({ ...props, className })
 );
 
-const PaginateText: CurrentControl['Text'] = React.forwardRef(function Span(
+const PaginateText: typeof SpanElement = React.forwardRef(function Span(
   { children, className = `${BLOCK_NAME}__text`, variant: _variant, ...props },
   ref
 ) {
@@ -157,7 +158,7 @@ const getButtonVariantProps = (
   };
 };
 
-const PaginateButtonControl: PaginateItemControl['Button'] = React.forwardRef(
+const PaginateButtonControl: typeof ButtonElement = React.forwardRef(
   function Button({ variant: _variant, ...props }, ref) {
     const { variant } = React.useContext(PaginateItemContext);
     const context = useControl({ key: 'PAGINATE' });
@@ -197,22 +198,16 @@ const PreviousControl = ({ variant }: PaginateItemProps) => (
   <PaginateItem variant={variant ?? 'paginate-previous'} />
 );
 
-export const PaginateControl: PaginateControl = () => (
-  <PaginateContainer>
-    {PAGINATE_VARIANTS.map((props) => (
-      <PaginateItem key={props.variant} {...props} />
-    ))}
-  </PaginateContainer>
-);
-
-const paginateComponents = {
-  Container: PaginateItemContainer,
-  Button: PaginateButtonControl,
-  Text: PaginateText,
-  Icon: IconElement,
+export const PaginateControl: PaginateControl = () => {
+  return (
+    <PaginateContainer>
+      {PAGINATE_VARIANTS.map((props) => (
+        <PaginateItem key={props.variant} {...props} />
+      ))}
+    </PaginateContainer>
+  );
 };
 
-PaginateControl.Container = PaginateContainer;
-PaginateControl.Current = Object.assign(CurrentControl, paginateComponents);
-PaginateControl.Next = Object.assign(NextControl, paginateComponents);
-PaginateControl.Previous = Object.assign(PreviousControl, paginateComponents);
+PaginateControl.Current = CurrentControl;
+PaginateControl.Next = NextControl;
+PaginateControl.Previous = PreviousControl;
