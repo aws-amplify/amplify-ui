@@ -54,12 +54,3 @@ export function createStorageBrowser<
 
   return { StorageBrowser };
 }
-
-// below is functioning as a "type canary", will start yelling if `elements`
-// inference is broken
-// const {
-//   StorageBrowser: {
-//     LocationsView: { Controls },
-//   },
-// } = createStorageBrowser({ elements: { Button } });
-// const _SillyTest = () => <Controls.Refresh alignContent={'-moz-initial'} />;
