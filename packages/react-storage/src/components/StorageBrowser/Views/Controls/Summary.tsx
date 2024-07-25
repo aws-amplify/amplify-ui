@@ -104,12 +104,12 @@ Details.Failed = FailedControl;
 Details.NotStarted = NotStartedControl;
 
 const StartButton = withBaseElementProps(Button, {
-  className: '${CLASS_BASE}__summary__start',
+  className: `${CLASS_BASE}__summary__start`,
   children: 'Start',
 });
 
 const CancelButton = withBaseElementProps(Button, {
-  className: '${CLASS_BASE}__summary__cancel',
+  className: `${CLASS_BASE}__summary__cancel`,
   children: 'Cancel',
 });
 
