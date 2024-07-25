@@ -36,14 +36,14 @@ export const HeadingElement = defineBaseElement({
   displayName: 'Title',
 });
 
+export type IconElementProps = React.ComponentProps<typeof IconElement>;
 export const IconElement = defineBaseElement({
   type: 'svg',
   displayName: 'Icon',
 });
 
-export type IconElementProps = React.ComponentProps<typeof IconElement>;
-
-export const ImageElement = defineBaseElement({
+type ImageElementProps = 'src' | 'alt';
+export const ImageElement = defineBaseElement<'img', ImageElementProps>({
   type: 'img',
   displayName: 'Image',
 });
