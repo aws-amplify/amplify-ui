@@ -39,3 +39,7 @@ export class ErrorBoundary extends React.Component<
     return children;
   }
 }
+
+export const Fallback = (): React.JSX.Element => (
+  <p>Something went wrong. Please try again.</p>
+);
