@@ -96,12 +96,18 @@ const Details: Details = () => (
   </DetailsContainer>
 );
 
+const detailComponents = {
+  Container: DetailContainer,
+  Label: DetailLabel,
+  Value: DetailValue,
+};
+
 Details.Container = DetailsContainer;
-Details.Destination = DestinationControl;
-Details.Canceled = CanceledControl;
-Details.Completed = CompletedControl;
-Details.Failed = FailedControl;
-Details.NotStarted = NotStartedControl;
+Details.Destination = Object.assign(DestinationControl, detailComponents);
+Details.Canceled = Object.assign(CanceledControl, detailComponents);
+Details.Completed = Object.assign(CompletedControl, detailComponents);
+Details.Failed = Object.assign(FailedControl, detailComponents);
+Details.NotStarted = Object.assign(NotStartedControl, detailComponents);
 
 const StartButton = withBaseElementProps(Button, {
   className: `${CLASS_BASE}__summary__start`,
