@@ -1,6 +1,7 @@
 import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
+import type { OmitElements } from '../types';
 import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
 
@@ -54,15 +55,15 @@ const SortIndeterminateIcon = withBaseElementProps(Icon, {
   variant: 'sort-indeterminate',
 });
 
-const SortAscendingIcon = withBaseElementProps(Icon, {
-  className: `${CLASS_BASE}__${BLOCK_NAME}__sort-icon--ascending`,
-  variant: 'sort-ascending',
-});
+// const SortAscendingIcon = withBaseElementProps(Icon, {
+//   className: `${CLASS_BASE}__${BLOCK_NAME}__sort-icon--ascending`,
+//   variant: 'sort-ascending',
+// });
 
-const SortDescendingIcon = withBaseElementProps(Icon, {
-  className: `${CLASS_BASE}__${BLOCK_NAME}__sort-icon--descending`,
-  variant: 'sort-descending',
-});
+// const SortDescendingIcon = withBaseElementProps(Icon, {
+//   className: `${CLASS_BASE}__${BLOCK_NAME}__sort-icon--descending`,
+//   variant: 'sort-descending',
+// });
 
 export interface Data {
   name: string;
@@ -80,7 +81,7 @@ export interface TableData<T extends Data> {
   rows: T[] | null;
 }
 
-export interface TableControl<
+export interface _TableControl<
   T extends StorageBrowserElements = StorageBrowserElements,
 > extends Pick<
     T,
@@ -95,6 +96,23 @@ export interface TableControl<
   SortIndeterminateIcon: T['Icon'];
   SortAscendingIcon: T['Icon'];
   SortDescendingIcon: T['Icon'];
+}
+
+export interface TableControl<
+  T extends StorageBrowserElements = StorageBrowserElements,
+> extends OmitElements<
+    _TableControl<T>,
+    | 'Table'
+    | 'TableBody'
+    | 'TableData'
+    | 'TableHead'
+    | 'TableHeader'
+    | 'TableRow'
+    | 'SortIndeterminateIcon'
+    | 'SortAscendingIcon'
+    | 'SortDescendingIcon'
+  > {
+  (): React.JSX.Element;
 }
 
 export const TableControl: TableControl = () => {
@@ -144,13 +162,3 @@ export const TableControl: TableControl = () => {
     </Table>
   );
 };
-
-TableControl.Table = Table;
-TableControl.TableBody = TableBody;
-TableControl.TableData = TableData;
-TableControl.TableHead = TableHead;
-TableControl.TableHeader = TableHeader;
-TableControl.TableRow = TableRow;
-TableControl.SortIndeterminateIcon = SortIndeterminateIcon;
-TableControl.SortAscendingIcon = SortAscendingIcon;
-TableControl.SortDescendingIcon = SortDescendingIcon;
