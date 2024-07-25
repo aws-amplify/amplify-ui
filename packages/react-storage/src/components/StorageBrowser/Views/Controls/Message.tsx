@@ -1,18 +1,115 @@
 import React from 'react';
-import { StorageBrowserElements } from '../../context/elements';
+import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
-const { Icon, Text, Button } = StorageBrowserElements;
+import { MessageVariant, StorageBrowserElements } from '../../context/elements';
+import { CLASS_BASE } from '../constants';
 
-export interface MessageControl<
+const { Icon: IconElement, Button, View } = StorageBrowserElements;
+
+const BLOCK_NAME = `${CLASS_BASE}__message`;
+
+/* <MessageDismissControl /> */
+export interface MessageDismissControl<
   T extends StorageBrowserElements = StorageBrowserElements,
-> extends Pick<T, 'Icon' | 'Text' | 'Button'> {
+> {
   (): React.JSX.Element;
+  Button: T['Button'];
+  Icon: T['Icon'];
 }
 
-export const MessageControl: MessageControl = () => {
-  return <>Message</>;
+const DismissButton = withBaseElementProps(Button, {
+  className: `${BLOCK_NAME}__dismiss`,
+  'aria-label': 'Dismiss message',
+});
+
+const DismissIcon = withBaseElementProps(IconElement, {
+  'aria-hidden': true,
+  className: `${BLOCK_NAME}__dismiss__icon`,
+  variant: 'cancel',
+});
+
+export const MessageDismissControl: MessageDismissControl = () => (
+  <DismissButton>
+    <DismissIcon />
+  </DismissButton>
+);
+
+MessageDismissControl.Button = DismissButton;
+MessageDismissControl.Icon = DismissIcon;
+
+/* <MessageControl /> */
+const Container = withBaseElementProps(View, {
+  className: BLOCK_NAME,
+  role: 'alert',
+});
+
+const MessageIcon: typeof IconElement = React.forwardRef(
+  function MessageIcon(props, ref) {
+    const { variant } = props;
+
+    let ariaLabel;
+    switch (variant) {
+      case 'error':
+        ariaLabel = 'Error';
+        break;
+      case 'info':
+        ariaLabel = 'Information';
+        break;
+      case 'warning':
+        ariaLabel = 'Warning';
+        break;
+      case 'success':
+        ariaLabel = 'Success';
+        break;
+    }
+
+    return variant ? (
+      <IconElement
+        {...props}
+        className={props.className ?? `${BLOCK_NAME}__icon`}
+        aria-hidden={props['aria-hidden'] ?? 'false'}
+        aria-label={props['aria-label'] ?? ariaLabel}
+        variant={variant}
+        ref={ref}
+      />
+    ) : null;
+  }
+);
+
+const MessageContent = withBaseElementProps(
+  View,
+  ({ className = `${BLOCK_NAME}__content`, ...props }) => ({
+    ...props,
+    className,
+  })
+);
+interface MessageControlProps {
+  variant?: MessageVariant;
+}
+export interface MessageControl<
+  T extends StorageBrowserElements = StorageBrowserElements,
+> extends Pick<T, 'Icon'> {
+  ({ variant }: MessageControlProps): React.JSX.Element;
+  Container: T['View'];
+  Content: T['View'];
+  Dismiss: MessageDismissControl<T>;
+}
+
+export const MessageControl: MessageControl = ({ variant }) => {
+  return (
+    <Container>
+      <MessageIcon variant={variant} />
+      <MessageContent>
+        {/* TODO: Placeholder text */}
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry.
+      </MessageContent>
+      <MessageDismissControl />
+    </Container>
+  );
 };
 
-MessageControl.Icon = Icon;
-MessageControl.Text = Text;
-MessageControl.Button = Button;
+MessageControl.Container = Container;
+MessageControl.Icon = MessageIcon;
+MessageControl.Content = MessageContent;
+MessageControl.Dismiss = MessageDismissControl;
