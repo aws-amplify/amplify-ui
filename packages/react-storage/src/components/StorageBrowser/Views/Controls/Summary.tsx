@@ -1,6 +1,7 @@
 import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
+import type { OmitElements } from '../types';
 import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
 
@@ -119,13 +120,22 @@ const CancelButton = withBaseElementProps(Button, {
   children: 'Cancel',
 });
 
-export interface SummaryControl<
+export interface _SummaryControl<
   T extends StorageBrowserElements = StorageBrowserElements,
 > {
   (): React.JSX.Element;
   Start: T['Button'];
   Cancel: T['Button'];
   Details: Details<T>;
+}
+
+export interface SummaryControl<
+  T extends StorageBrowserElements = StorageBrowserElements,
+> extends OmitElements<
+    _SummaryControl<T>,
+    'Container' | 'Start' | 'Cancel' | 'Details'
+  > {
+  (): React.JSX.Element;
 }
 
 export const SummaryControl: SummaryControl = () => (
@@ -135,7 +145,3 @@ export const SummaryControl: SummaryControl = () => (
     <Details />
   </>
 );
-
-SummaryControl.Cancel = CancelButton;
-SummaryControl.Start = StartButton;
-SummaryControl.Details = Details;
