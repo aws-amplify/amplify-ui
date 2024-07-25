@@ -47,7 +47,9 @@
 }
 
 .storage-browser__paginate__icon,
-.storage-browser__refresh__icon {
+.storage-browser__refresh__icon,
+.storage-browser__message__icon,
+.storage-browser__message__dismiss__icon {
   display: block;
 }
 
@@ -56,4 +58,17 @@
   border-style: var(--storage-browser-divider-border-style);
   border-color: var(--storage-browser-divider-border-color);
   height: var(--storage-browser-divider-height);
+}
+
+.storage-browser__message {
+  align-items: flex-start;
+  display: flex;
+  gap: var(--storage-browser-gap);
+}
+.storage-browser__message__icon,
+.storage-browser__message__dismiss {
+  flex: 0 0 auto;
+}
+.storage-browser__message__content {
+  flex: 1 1 auto;
 }
