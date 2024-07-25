@@ -30,7 +30,6 @@ type TableElementDisplayName = 'Table' | `Table${TableElementSubType}`;
  */
 export type ElementDisplayName =
   | 'Button'
-  | 'Divider'
   | 'Heading' // h1, h2, etc
   | 'Icon'
   | 'Image'
