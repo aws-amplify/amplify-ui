@@ -24,7 +24,7 @@ export interface StorageBrowserElements {
 }
 
 export type PaginateVariant = `paginate-${'next' | 'current' | 'previous'}`;
-
+export type MessageVariant = 'info' | 'success' | 'error' | 'warning';
 export type IconElementProps = React.ComponentProps<typeof IconElement>;
 
 export type ButtonElementProps = React.ComponentProps<typeof ButtonElement>;
