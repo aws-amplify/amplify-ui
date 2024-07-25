@@ -44,7 +44,7 @@ export interface CreateFederatedIdentityInput<
 export interface FederatedIdentity<
   T extends Partial<FederatedIdentityElements> = FederatedIdentityElements,
 > {
-  (input: { children?: React.ReactNode }): JSX.Element;
+  (props: { children?: React.ReactNode }): JSX.Element;
   Identities: IdentitiesControl<T>;
 }
 
