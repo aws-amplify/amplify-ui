@@ -213,10 +213,6 @@ const paginateComponents = {
 };
 
 PaginateControl.Container = PaginateContainer;
-PaginateControl.Current = Object.assign({}, CurrentControl, paginateComponents);
-PaginateControl.Next = Object.assign({}, NextControl, paginateComponents);
-PaginateControl.Previous = Object.assign(
-  {},
-  PreviousControl,
-  paginateComponents
-);
+PaginateControl.Current = Object.assign(CurrentControl, paginateComponents);
+PaginateControl.Next = Object.assign(NextControl, paginateComponents);
+PaginateControl.Previous = Object.assign(PreviousControl, paginateComponents);
