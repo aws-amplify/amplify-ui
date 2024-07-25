@@ -86,10 +86,10 @@
     [left-start] repeat(20, 1fr)
     [left-end right-start] repeat(12, 1fr) [right-end];
   grid-template-rows:
-    [navigate-start] 2fr
-    [navigate-end title-start] 2fr
-    [title-end paginate-start] 2fr
-    [paginate-end message-start] 2fr
+    [navigate-start] repeat(2, 1fr)
+    [navigate-end title-start] repeat(2, 1fr)
+    [title-end paginate-start] repeat(2, 1fr)
+    [paginate-end message-start] repeat(2, 1fr)
     [message-end table-start] repeat(16, 1fr) [table-end];
 }
 
