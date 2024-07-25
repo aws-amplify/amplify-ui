@@ -57,3 +57,16 @@
   border-color: var(--storage-browser-divider-border-color);
   height: var(--storage-browser-divider-height);
 }
+
+.storage-browser__summary {
+  display: flex;
+  gap: var(--storage-browser-gap);
+}
+.storage-browser__detail {
+  display: flex;
+  gap: var(--storage-browser-gap);
+}
+
+.storage-browser__detail__value {
+  margin: 0;
+}
