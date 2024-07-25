@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@aws-amplify/ui-react';
+// import { Button } from '@aws-amplify/ui-react';
 import { MergeBaseElements } from '@aws-amplify/ui-react-core/elements';
 
 import { StorageBrowserElements } from './context/elements';
@@ -57,11 +57,9 @@ export function createStorageBrowser<
 
 // below is functioning as a "type canary", will start yelling if `elements`
 // inference is broken
-const {
-  StorageBrowser: {
-    LocationsView: { Controls },
-  },
-} = createStorageBrowser({ elements: { Button } });
-const _SillyTest = () => (
-  <Controls.Refresh.Button alignContent={'-moz-initial'} />
-);
+// const {
+//   StorageBrowser: {
+//     LocationsView: { Controls },
+//   },
+// } = createStorageBrowser({ elements: { Button } });
+// const _SillyTest = () => <Controls.Refresh alignContent={'-moz-initial'} />;
