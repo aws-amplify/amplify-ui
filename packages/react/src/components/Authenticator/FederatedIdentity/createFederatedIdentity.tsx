@@ -11,6 +11,6 @@ export function createFederatedIdentity<
 >(
   input: CreateFederatedIdentityInput<T, K>
 ): {
-  FederatedIdentity: FederatedIdentity<T>;
+  FederatedIdentity: FederatedIdentity<K>;
   useHandleSignInWithRedirect?: UseHandleSignInWithRedirect<K>;
 };

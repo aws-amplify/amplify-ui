@@ -41,9 +41,7 @@ export interface CreateFederatedIdentityInput<
   handleSignInWithRedirect?: HandleSignInWithRedirect;
 }
 
-export interface FederatedIdentity<
-  T extends Partial<FederatedIdentityElements> = FederatedIdentityElements,
-> {
+export interface FederatedIdentity<T extends string = string> {
   (props: { children?: React.ReactNode }): JSX.Element;
   Identities: IdentitiesControl<T>;
 }
