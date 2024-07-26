@@ -4,6 +4,7 @@ import type { IconVariant } from '../../context/elements/IconElement';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 import { CLASS_BASE } from '../constants';
 
+import type { OmitElements } from '../types';
 const { Button, Icon: IconElement, View } = StorageBrowserElements;
 const BLOCK_NAME = `${CLASS_BASE}__action-menu`;
 
@@ -74,40 +75,52 @@ ActionItem.Button = ActionButton;
 ActionItem.Icon = ActionIcon;
 
 /* <ActionsMenu /> */
-interface ActionsMenu<
-  T extends StorageBrowserElements = StorageBrowserElements,
-> {
-  (props: { renderActionItem?: RenderActionItem }): React.JSX.Element;
+
+interface ActionsMenu<T extends StorageBrowserElements = StorageBrowserElements>
+  extends RenderActionsMenu {
   Menu: T['View'];
   ActionItem: ActionItem<T>;
 }
 
+interface MenuProps {
+  isOpen?: boolean;
+}
+
+type RenderActionsMenu = (props: MenuProps) => React.JSX.Element;
+
 const Menu = withBaseElementProps(View, {
-  className: `${BLOCK_NAME}__menu`, // ${BLOCK_NAME}__menu--open
   role: 'menu',
   'aria-label': 'Actions',
 });
 
-const ActionsMenu: ActionsMenu = () => (
-  <Menu>
-    <ActionItem
-      action={{ displayName: 'Upload folder', type: 'FOLDER' }}
-      variant="upload-folder"
-    />
-    <ActionItem
-      action={{ displayName: 'Upload file', type: 'FILE' }}
-      variant="upload-file"
-    />
-  </Menu>
-);
+const ActionsMenu: ActionsMenu = ({ isOpen }) => {
+  const menuClasses = `${BLOCK_NAME}__menu${
+    isOpen ? ` ${BLOCK_NAME}__menu` : ''
+  }`;
+  return (
+    <Menu className={menuClasses}>
+      <ActionItem
+        action={{ displayName: 'Upload folder', type: 'FOLDER' }}
+        variant="upload-folder"
+      />
+      <ActionItem
+        action={{ displayName: 'Upload file', type: 'FILE' }}
+        variant="upload-file"
+      />
+    </Menu>
+  );
+};
 ActionsMenu.ActionItem = ActionItem;
 ActionsMenu.Menu = Menu;
 
 /* <Toggle /> */
 
+interface ToggleButtonProps {
+  isOpen?: boolean;
+}
 interface Toggle<T extends StorageBrowserElements = StorageBrowserElements>
   extends Pick<T, 'Button' | 'Icon'> {
-  (): React.JSX.Element;
+  ({ isOpen }: ToggleButtonProps): React.JSX.Element;
 }
 
 const ToggleButton = withBaseElementProps(Button, {
@@ -134,7 +147,8 @@ Toggle.Icon = ToggleIcon;
 const Container = withBaseElementProps(View, {
   className: `${BLOCK_NAME}`,
 });
-export interface ActionSelectControl<
+
+export interface _ActionSelectControl<
   T extends StorageBrowserElements = StorageBrowserElements,
 > {
   (): React.JSX.Element;
@@ -143,12 +157,20 @@ export interface ActionSelectControl<
   Toggle: Toggle<T>;
 }
 
-export const ActionSelectControl: ActionSelectControl = () => (
-  <Container>
-    <Toggle />
-    <ActionsMenu />
-  </Container>
-);
-ActionSelectControl.Container = Container;
-ActionSelectControl.ActionsMenu = ActionsMenu;
-ActionSelectControl.Toggle = Toggle;
+export interface ActionSelectControl<
+  T extends StorageBrowserElements = StorageBrowserElements,
+> extends OmitElements<
+    _ActionSelectControl<T>,
+    'Container' | 'ActionsMenu' | 'Toggle'
+  > {
+  (): React.JSX.Element;
+}
+
+export const ActionSelectControl: ActionSelectControl = () => {
+  return (
+    <Container>
+      <Toggle onClick={} />
+      <ActionsMenu />
+    </Container>
+  );
+};
