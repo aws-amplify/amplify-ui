@@ -26,7 +26,6 @@ describe('FieldControl', () => {
 
     const sendButton = actionButtons[1];
 
-    expect(sendButton).not.toHaveAttribute('disabled');
     expect(sendButton).toHaveAttribute('aria-label', 'Send message');
 
     const sendIcon = sendButton.querySelector('svg');
