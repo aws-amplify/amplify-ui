@@ -42,6 +42,7 @@ const RemoveButton = withBaseElementProps(Button, {
   'aria-label': 'Remove file',
   className: `${REMOVE_IMAGE_BLOCK}__button`,
   variant: 'remove',
+  type: 'button',
 });
 
 export const RemoveButtonControl: RemoveButtonControl = ({ onRemove }) => {
@@ -162,17 +163,17 @@ export const AttachmentListControl: AttachmentListControl = () => {
   const { input, setInput } = React.useContext(InputContext);
   return (
     <UnorderedList>
-      {input?.files?.map((image, index) => {
+      {input?.files?.map((file, index) => {
         const onRemove = () => {
           if (setInput) {
             setInput((prevInput) => ({
               ...prevInput,
-              files: prevInput?.files?.filter((_, idx) => idx !== index),
+              files: prevInput?.files?.filter((_file) => _file !== file),
             }));
           }
         };
         return (
-          <AttachmentControl key={index} image={image} onRemove={onRemove} />
+          <AttachmentControl key={index} image={file} onRemove={onRemove} />
         );
       })}
     </UnorderedList>

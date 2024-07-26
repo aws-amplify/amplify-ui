@@ -79,6 +79,7 @@ export const AttachFileControl: AttachFileControl = () => {
           onChange={handleFileChange}
           ref={hiddenInput}
           type="file"
+          multiple
         />
       </VisuallyHidden>
     </AttachFileContainer>
