@@ -1,4 +1,5 @@
 import { defineBaseElement } from '@aws-amplify/ui-react-core/elements';
+import { IconElement } from './IconElement';
 
 export interface AIConversationElements {
   Button: typeof ButtonElement;
@@ -13,8 +14,6 @@ export interface AIConversationElements {
   UnorderedList: typeof UnorderedListElement;
   View: typeof ViewElement;
 }
-
-export type IconVariant = 'send-message' | 'attach';
 
 export const TextElement = defineBaseElement({
   type: 'p',
@@ -37,10 +36,6 @@ export const HeadingElement = defineBaseElement({
 });
 
 export type IconElementProps = React.ComponentProps<typeof IconElement>;
-export const IconElement = defineBaseElement({
-  type: 'svg',
-  displayName: 'Icon',
-});
 
 type ImageElementProps = 'src' | 'alt';
 export const ImageElement = defineBaseElement<'img', ImageElementProps>({

@@ -81,6 +81,8 @@
   border-radius: 50%;
   display: flex;
   overflow: hidden;
+  justify-content: center;
+  align-items: center;
 }
 
 .ai-actions-bar__container {
@@ -127,7 +129,15 @@
   align-items: center;
 }
 
-.ai-field__visually-hidden {
+.ai-attach-file__button {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+.ai-attach-file__visually-hidden {
   position: absolute;
   width: 1px;
   height: 1px;
