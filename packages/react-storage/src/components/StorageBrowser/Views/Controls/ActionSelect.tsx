@@ -95,8 +95,9 @@ const Menu = withBaseElementProps(View, {
 
 const ActionsMenu: ActionsMenu = ({ isOpen }) => {
   const menuClasses = `${BLOCK_NAME}__menu${
-    isOpen ? ` ${BLOCK_NAME}__menu` : ''
+    isOpen ? ` ${BLOCK_NAME}__menu--open` : ''
   }`;
+
   return (
     <Menu className={menuClasses}>
       <ActionItem
@@ -115,14 +116,6 @@ ActionsMenu.Menu = Menu;
 
 /* <Toggle /> */
 
-interface ToggleButtonProps {
-  isOpen?: boolean;
-}
-interface Toggle<T extends StorageBrowserElements = StorageBrowserElements>
-  extends Pick<T, 'Button' | 'Icon'> {
-  ({ isOpen }: ToggleButtonProps): React.JSX.Element;
-}
-
 const ToggleButton = withBaseElementProps(Button, {
   className: `${BLOCK_NAME}__toggle`,
   'aria-label': 'Actions',
@@ -132,15 +125,6 @@ const ToggleIcon = withBaseElementProps(IconElement, {
   className: `${BLOCK_NAME}__toggle__icon`,
   variant: 'vertical-kebab',
 });
-
-const Toggle: Toggle = () => (
-  <ToggleButton>
-    <ToggleIcon />
-  </ToggleButton>
-);
-
-Toggle.Button = ToggleButton;
-Toggle.Icon = ToggleIcon;
 
 /* <ActionSelectControl /> */
 
@@ -153,24 +137,30 @@ export interface _ActionSelectControl<
 > {
   (): React.JSX.Element;
   Container: T['View'];
+
   ActionsMenu: ActionsMenu<T>;
-  Toggle: Toggle<T>;
+  ToggleButton: T['Button'];
+  ToggleIcon: T['Icon'];
 }
 
 export interface ActionSelectControl<
   T extends StorageBrowserElements = StorageBrowserElements,
 > extends OmitElements<
     _ActionSelectControl<T>,
-    'Container' | 'ActionsMenu' | 'Toggle'
+    'Container' | 'ActionsMenu' | 'ToggleButton' | 'ToggleIcon'
   > {
   (): React.JSX.Element;
 }
 
 export const ActionSelectControl: ActionSelectControl = () => {
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+
   return (
     <Container>
-      <Toggle onClick={} />
-      <ActionsMenu />
+      <ToggleButton onClick={() => setIsOpen(!isOpen)}>
+        <ToggleIcon />
+      </ToggleButton>
+      <ActionsMenu isOpen={isOpen} />
     </Container>
   );
 };
