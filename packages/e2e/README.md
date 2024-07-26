@@ -121,6 +121,8 @@ For our e2e tests, we use a specific pattern for test user creation in our vario
 1. Start an instance of an example using the environment in which you'll be creating test users
 2. Access the Amplify Admin UI for the environment
 
+See [`environments/README.md`](../../environments/README.md) for relevant tutorial.
+
 #### Creating a CONFIRMED user
 
 1. In the Amplify Admin UI, navigate to "User management" and click `Create user`
