@@ -8,13 +8,7 @@ import { AttachFileControl } from './AttachFileControl';
 import { MessagesContext } from '../../context';
 import { AttachmentListControl } from './AttachmentListControl';
 
-const {
-  Button,
-  Form: FormElement,
-  Icon,
-  TextArea,
-  View,
-} = AIConversationElements;
+const { Button, Icon, TextArea, View } = AIConversationElements;
 
 const FIELD_BLOCK = 'ai-field';
 
@@ -113,11 +107,11 @@ const TextInput: typeof TextAreaBase = React.forwardRef(
   }
 );
 
-const FormBase = withBaseElementProps(FormElement, {
-  className: `${FIELD_BLOCK}__form`,
+const InputContainer = withBaseElementProps(View, {
+  className: `${FIELD_BLOCK}__input-container`,
 });
 
-const Form: typeof FormBase = React.forwardRef(function Form(props, ref) {
+export const FieldControl: FieldControl = () => {
   const { input, setInput } = React.useContext(InputContext);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -147,16 +141,8 @@ const Form: typeof FormBase = React.forwardRef(function Form(props, ref) {
     }
     if (setInput) setInput({ text: '', files: [] });
   };
-  return <FormBase {...props} onSubmit={handleSubmit} ref={ref} />;
-});
-
-const InputContainer = withBaseElementProps(View, {
-  className: `${FIELD_BLOCK}__input-container`,
-});
-
-export const FieldControl: FieldControl = () => {
   return (
-    <Form>
+    <form className={`${FIELD_BLOCK}__form`} onSubmit={handleSubmit}>
       <AttachFileControl />
       <InputContainer>
         <TextInput />
@@ -165,12 +151,11 @@ export const FieldControl: FieldControl = () => {
       <SendButton>
         <SendIcon />
       </SendButton>
-    </Form>
+    </form>
   );
 };
 
 FieldControl.AttachFile = AttachFileControl;
-FieldControl.Form = Form;
 FieldControl.InputContainer = InputContainer;
 FieldControl.TextInput = TextInput;
 FieldControl.SendButton = SendButton;
@@ -180,7 +165,6 @@ export interface FieldControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
 > {
   (): React.JSX.Element;
-  Form: T['Form'];
   AttachFile: AttachFileControl<T>;
   InputContainer: T['View'];
   TextInput: T['TextArea'];
