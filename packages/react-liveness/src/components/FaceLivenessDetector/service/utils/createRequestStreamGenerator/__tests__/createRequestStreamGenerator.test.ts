@@ -12,6 +12,10 @@ import { createRequestStreamGenerator } from '../createRequestStreamGenerator';
 
 const streamStop: StreamResult<'streamStop'> = { type: 'streamStop' };
 const streamVideo: StreamResult<'streamVideo'> = {
+  data: new Blob([JSON.stringify({ hello: 'world' })]),
+  type: 'streamVideo',
+};
+const emptyStreamVideo: StreamResult<'streamVideo'> = {
   data: new Blob(),
   type: 'streamVideo',
 };
@@ -99,6 +103,27 @@ describe('createRequestStreamGenerator', () => {
     const yielded = await requestStream.next();
     const expected = await getExpectedResult(resultType as StreamResultType);
 
+    expect(yielded).toStrictEqual(expected);
+  });
+
+  it('handles an empty video event by skipping it', async () => {
+    mockRead.mockResolvedValueOnce({
+      value: emptyStreamVideo,
+      done: false,
+    });
+
+    mockRead.mockResolvedValueOnce({
+      value: streamVideo,
+      done: false,
+    });
+
+    const { getRequestStream } = createRequestStreamGenerator(videoStream);
+    const requestStream = getRequestStream();
+
+    const yielded = await requestStream.next();
+
+    expect(yielded.done).toBe(false);
+    const expected = await getExpectedResult('streamVideo');
     expect(yielded).toStrictEqual(expected);
   });
 

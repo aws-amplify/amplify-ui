@@ -28,6 +28,8 @@ export function createRequestStreamGenerator(stream: VideoStream): {
         if (value.type === 'sessionInfo') {
           yield { ClientSessionInformationEvent: value.data };
         } else {
+          // Unless value.type is closeCode we never want to send a 0 size video event as it signals end of stream
+          if (value.type === 'streamVideo' && value.data.size < 1) continue;
           yield { VideoEvent: await createVideoEvent(value) };
         }
       }
