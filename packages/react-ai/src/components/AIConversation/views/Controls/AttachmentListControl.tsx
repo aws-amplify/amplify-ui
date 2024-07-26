@@ -19,24 +19,10 @@ const IMAGE_ITEM_BLOCK = 'ai-attachment';
 const REMOVE_IMAGE_BLOCK = 'ai-remove-attachment';
 const IMAGE_TEXT_BLOCK = 'ai-attachment-text';
 
-const removeIconProps = () => ({
-  children: (
-    <path
-      d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
-      fill="currentColor"
-    />
-  ),
-  'aria-hidden': true,
+const RemoveIcon = withBaseElementProps(Icon, {
   className: `${REMOVE_IMAGE_BLOCK}__icon`,
-  width: '24',
-  height: '24',
-  viewBox: '0 -960 960 960',
-  fill: 'none',
-  variant: 'remove',
-  xmlns: 'http://www.w3.org/2000/svg',
+  variant: 'close',
 });
-
-const RemoveIcon = withBaseElementProps(Icon, removeIconProps);
 
 const RemoveButton = withBaseElementProps(Button, {
   'aria-label': 'Remove file',
@@ -64,24 +50,10 @@ interface RemoveButtonControl<
   Icon: T['Icon'];
 }
 
-const imageIconProps = () => ({
-  children: (
-    <path
-      d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm40-80h480L570-480 450-320l-90-120-120 160Zm-40 80v-560 560Z"
-      fill="currentColor"
-    />
-  ),
-  'aria-hidden': true,
+const ImageIcon = withBaseElementProps(Icon, {
   className: `${IMAGE_ITEM_BLOCK}__icon`,
-  width: '24',
-  height: '24',
-  viewBox: '0 -960 960 960',
-  fill: 'none',
   variant: 'image',
-  xmlns: 'http://www.w3.org/2000/svg',
 });
-
-const ImageIcon = withBaseElementProps(Icon, imageIconProps);
 
 const FileNameText = withBaseElementProps(Text, {
   className: `${IMAGE_TEXT_BLOCK}__file-name`,

@@ -82,6 +82,8 @@
   border-radius: 50%;
   display: flex;
   overflow: hidden;
+  justify-content: center;
+  align-items: center;
 }
 
 .ai-actions-bar__container {

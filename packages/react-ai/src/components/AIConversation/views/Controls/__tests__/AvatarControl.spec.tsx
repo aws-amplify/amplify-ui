@@ -7,23 +7,11 @@ import { AvatarControl } from '../AvatarControl';
 const avatars = {
   user: {
     username: 'Jane Doe',
-    avatar: (
-      <svg>
-        <text x="10" y="20">
-          UAvatar
-        </text>
-      </svg>
-    ),
+    avatar: <p>UAvatar</p>,
   },
   ai: {
     username: 'Raven',
-    avatar: (
-      <svg>
-        <text x="10" y="20">
-          RAvatar
-        </text>
-      </svg>
-    ),
+    avatar: <p>RAvatar</p>,
   },
 };
 
