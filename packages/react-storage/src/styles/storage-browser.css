@@ -11,7 +11,6 @@
 .storage-browser__title {
   flex: 1 1 auto;
   margin: 0;
-  grid-area: title-start / left-start / title-end / left-end;
 }
 
 .storage-browser__navigate__list,
