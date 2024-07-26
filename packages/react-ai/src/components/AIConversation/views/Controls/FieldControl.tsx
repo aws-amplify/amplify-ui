@@ -43,13 +43,15 @@ const SendButtonBase = withBaseElementProps(Button, {
 
 const SendButton: typeof SendButtonBase = React.forwardRef(
   function SendButton(props, ref) {
+    const { input } = React.useContext(InputContext);
     // TODO should come from context
     const isWaitingForResponse = false;
+    const hasInput = !!input?.text || !!input?.files?.length;
 
     return (
       <SendButtonBase
         {...props}
-        disabled={isWaitingForResponse}
+        disabled={isWaitingForResponse || !hasInput}
         type="submit"
         ref={ref}
       />

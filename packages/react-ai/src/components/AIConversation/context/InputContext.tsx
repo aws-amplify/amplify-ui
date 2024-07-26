@@ -6,7 +6,7 @@ interface Input {
 }
 interface InputContext {
   input?: Input;
-  setInput?: React.Dispatch<React.SetStateAction<Partial<Input> | undefined>>;
+  setInput?: React.Dispatch<React.SetStateAction<Input | undefined>>;
 }
 
 export const InputContext = React.createContext<InputContext>({});

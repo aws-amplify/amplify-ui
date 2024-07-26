@@ -25,7 +25,7 @@ describe('AttachmentListControl', () => {
   it('renders AttachmentListControl with a list of attachments', async () => {
     render(
       <InputContext.Provider
-        value={{ fileInput: MOCK_FILES, setFileInput: () => {} }}
+        value={{ input: { files: MOCK_FILES }, setInput: () => {} }}
       >
         <AttachmentListControl />
       </InputContext.Provider>

@@ -66,7 +66,4 @@ describe('FieldControl', () => {
   it.todo('disables the send button when waiting for an AI message');
   it.todo('sends the message when the send button is clicked');
   it.todo('attaches a file to the message when the attach button is clicked');
-
-  it.todo('sanitizes input text');
-  it.todo('sanitizes input images');
 });
