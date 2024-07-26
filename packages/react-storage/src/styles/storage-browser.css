@@ -81,32 +81,6 @@
 
 .storage-browser__controls {
   display: grid;
-  row-gap: var(--storage-browser-gap);
-  grid-template-columns:
-    [left-start] repeat(20, 1fr)
-    [left-end right-start] repeat(12, 1fr) [right-end];
-  grid-template-rows:
-    [navigate-start] repeat(2, 1fr)
-    [navigate-end title-start] repeat(2, 1fr)
-    [title-end paginate-start] repeat(2, 1fr)
-    [paginate-end message-start] repeat(2, 1fr)
-    [message-end table-start] repeat(16, 1fr) [table-end];
-}
-
-.storage-browser__navigate__container {
-  grid-area: navigate-start / left-start / navigate-end / left-end;
-}
-
-.storage-browser__refresh {
-  grid-area: title-start / right-start / title-end / right-end;
-  justify-self: flex-end;
-}
-
-.storage-browser__paginate__container {
-  grid-area: paginate-start / right-start / paginate-end / right-end;
-  justify-self: flex-end;
-}
-
-.storage-browser__table {
-  grid-area: table-start / 1 / table-end / -1;
+  grid-template-columns: repeat(32, 1fr);
+  grid-template-rows: repeat(24, 1fr);
 }
