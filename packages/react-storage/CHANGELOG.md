@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-storage
 
+## 3.1.6
+
+### Patch Changes
+
+- [#5477](https://github.com/aws-amplify/amplify-ui/pull/5477) [`adb985c98`](https://github.com/aws-amplify/amplify-ui/commit/adb985c98c5b150280bdf2592aced3c5d3b1fc78) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(storage): fix looping calls to processFile
+
 ## 3.1.5
 
 ### Patch Changes
