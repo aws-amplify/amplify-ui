@@ -1,5 +1,19 @@
 # @aws-amplify/ui-react
 
+## 6.1.14
+
+### Patch Changes
+
+- [#5389](https://github.com/aws-amplify/amplify-ui/pull/5389) [`a0248855b`](https://github.com/aws-amplify/amplify-ui/commit/a0248855b85fe4a95d5b941b98b9d34cbc46298f) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(authenticator): fixing visual inconsistencies
+
+  - Removing any style props from buttons on authenticator to fix font weight inconsistencies
+  - Moved the in the Authenticator to be in the same location in the DOM in each view
+  - Made the link buttons consistent across Authenticator views
+
+  Fixes #5156
+
+- [#5399](https://github.com/aws-amplify/amplify-ui/pull/5399) [`98135dfac`](https://github.com/aws-amplify/amplify-ui/commit/98135dfacccd5213e52b5001adbd1702e6f883fe) Thanks [@timngyn](https://github.com/timngyn)! - fix(authenticator): Check first radio button from unverified user attributes so that default value is selected
+
 ## 6.1.13
 
 ### Patch Changes
