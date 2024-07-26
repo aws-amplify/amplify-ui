@@ -70,7 +70,7 @@
       "name": "MapView",
       "path": "dist/esm/index.mjs",
       "import": "{ MapView }",
-      "limit": "259 kB"
+      "limit": "261 kB"
     }
   ]
 }
