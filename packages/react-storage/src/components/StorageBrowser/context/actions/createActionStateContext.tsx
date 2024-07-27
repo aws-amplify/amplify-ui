@@ -21,17 +21,17 @@ type InitialValue<T> = {
   [K in keyof T]: T[K] extends DataAction<infer X> ? X : never;
 };
 
-type DataActions<T> = {
+export type DataActions<T = DataAction> = {
   [K in keyof T]: T[K] extends DataAction<infer X, infer U>
     ? ActionState<X, U>
     : never;
 };
 
-type UseAction<T> = <U extends keyof T>(input: {
+export type UseAction<T> = <U extends keyof T>(input: {
   type: U;
 }) => DataActions<T>[U];
 
-interface ActionProviderProps<T> {
+export interface ActionProviderProps<T> {
   children?: React.ReactNode;
   initialValue: T;
 }
@@ -123,19 +123,22 @@ export function createUseAction<T>(
   };
 }
 
-export function createActionStateContext<
-  T extends { [key: string]: DataAction },
->(
-  actions: T,
-  errorMessage: string
-): [Provider: ActionProvider<InitialValue<T>>, useAction: UseAction<T>] {
-  const contexts = Object.entries(actions).reduce(
+const createContexts = <T extends { [key: string]: DataAction }>(actions: T) =>
+  Object.entries(actions).reduce(
     (acc, [type, action]) => ({
       ...acc,
       [type]: createActionContext(action, type),
     }),
     {} as ActionContexts<T>
   );
+
+export function createActionStateContext<
+  T extends { [key: string]: DataAction },
+>(
+  actions: T,
+  errorMessage: string
+): [Provider: ActionProvider<InitialValue<T>>, useAction: UseAction<T>] {
+  const contexts = createContexts(actions);
 
   return [
     createActionProvider(contexts),
