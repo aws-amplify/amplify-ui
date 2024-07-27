@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDataState } from '@aws-amplify/ui-react-core';
-import { listLocationsAction } from '../../context/actions';
+import { createListLocationsAction } from '../../context/actions';
+import { useConfig } from '../../context/config';
 import { Controls } from '../Controls';
 import { CommonControl, ViewComponent } from '../types';
 import { StorageBrowserElements } from '../../context/elements';
@@ -50,25 +51,32 @@ LocationsViewControls.Search = Search;
 LocationsViewControls.Title = Title;
 
 export const LocationsView: LocationsView = () => {
-  const [{ data, isLoading }, handleListLocations] = useDataState(
-    listLocationsAction,
-    { locations: [], nextToken: undefined }
+  const { listLocations } = useConfig();
+
+  const listLocationsAction = React.useRef(
+    createListLocationsAction(listLocations)
+  );
+  const [{ data, isLoading }, handleList] = useDataState(
+    listLocationsAction.current,
+    {
+      locations: [],
+      nextToken: undefined,
+    }
   );
 
   React.useEffect(() => {
-    handleListLocations({ options: { pageSize: 100 } });
-  }, [handleListLocations]);
+    handleList();
+  }, [handleList]);
 
   const hasLocations = !!data.locations.length;
-  const listLocations = !hasLocations
-    ? null
-    : data.locations.map(({ name }) => <p key={name}>{name}</p>);
 
   return (
     <LocationsViewProvider>
       <div className={CLASS_BASE}>
         <LocationsViewControls />
-        {!hasLocations && isLoading ? 'loading...' : listLocations}
+        {!hasLocations || isLoading
+          ? '...loading'
+          : data.locations.map(({ scope }) => <p key={scope}>{scope}</p>)}
       </div>
     </LocationsViewProvider>
   );

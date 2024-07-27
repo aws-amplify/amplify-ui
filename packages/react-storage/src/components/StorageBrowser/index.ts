@@ -1,1 +1,4 @@
-export { createStorageBrowser } from './createStorageBrowser';
+export {
+  createStorageBrowser,
+  CreateStorageBrowserInput,
+} from './createStorageBrowser';

@@ -53,6 +53,7 @@
     "react-dom": "^16.14.0 || ^17.0 || ^18.0"
   },
   "devDependencies": {
+    "@aws-amplify/geo": "^3.0.31",
     "@types/mapbox__mapbox-gl-draw": "^1.3.3"
   },
   "sideEffects": [
@@ -69,7 +70,7 @@
       "name": "MapView",
       "path": "dist/esm/index.mjs",
       "import": "{ MapView }",
-      "limit": "259 kB"
+      "limit": "261 kB"
     }
   ]
 }
