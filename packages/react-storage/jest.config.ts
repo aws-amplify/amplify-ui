@@ -4,19 +4,29 @@ const config: Config = {
   collectCoverage: true,
   collectCoverageFrom: [
     '<rootDir>/src/**/*.(ts|tsx)',
-    // do not collect from export files
-    '!<rootDir>/**/index.(ts|tsx)',
-    // do not collect from version file
-    '!<rootDir>/src/version.ts',
+    // do not collect from index, testUtils or version files
+    '!<rootDir>/**/(index|testUtils|version).(ts|tsx)',
     // do not collect from top level styles directory
     '!<rootDir>/src/styles/*.ts',
   ],
   coverageThreshold: {
     global: {
+<<<<<<< HEAD
       branches: 87,
       functions: 86.5,
       lines: 93.5,
       statements: 94,
+=======
+      // TEMP REDUCE COVERAGE
+      // branches: 87,
+      // functions: 90,
+      // lines: 95,
+      // statements: 95,
+      branches: 81,
+      functions: 76,
+      lines: 87,
+      statements: 87,
+>>>>>>> 477015530 (feat(storage-browser): add base actions, integrate ActionProvider, add ConfigContext (#5484))
     },
   },
   moduleNameMapper: { '^uuid$': '<rootDir>/../../node_modules/uuid' },

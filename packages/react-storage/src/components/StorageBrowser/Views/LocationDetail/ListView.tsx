@@ -1,10 +1,13 @@
 import React from 'react';
-import { useDataState } from '@aws-amplify/ui-react-core';
-import { listLocationItemsAction } from '../../context/actions';
+
+import { useAction } from '../../context/actions';
 import { StorageBrowserElements } from '../../context/elements';
 import { CommonControl, ViewComponent } from '../types';
 import { Controls, TableControl } from '../Controls';
 import { ViewTypeProvider } from '../ViewContext';
+
+// will only work amplify buckets with access level set to "public"
+const TEMP_PREFIX = 'public/';
 
 interface ListViewControls<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -27,13 +30,12 @@ const ListViewProvider = (props: { children?: React.ReactNode }) => (
 );
 
 export const ListView: ListView = () => {
-  const [{ data, isLoading }, handleListItems] = useDataState(
-    listLocationItemsAction,
-    { items: [], nextToken: undefined }
-  );
+  const [{ data, isLoading }, handleListItems] = useAction({
+    type: 'LIST_LOCATION_ITEMS',
+  });
 
   React.useEffect(() => {
-    handleListItems({ options: { pageSize: 100 } });
+    handleListItems({ prefix: TEMP_PREFIX });
   }, [handleListItems]);
 
   const hasItems = !!data.items.length;
