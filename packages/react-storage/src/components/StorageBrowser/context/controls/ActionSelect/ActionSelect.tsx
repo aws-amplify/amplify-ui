@@ -1,37 +1,20 @@
 import React from 'react';
+import { LocationItem, Permission, UploadItemData } from '../../actions';
 
 const INITIAL_STATE: ActionSelectState = {
   actions: [],
   selected: { items: undefined, actionType: undefined },
 };
 
-type UploadItemData = Blob | ArrayBufferView | ArrayBuffer | string;
-
-type Permission = 'READ' | 'READWRITE' | 'WRITE';
-
-interface FolderData {
-  key: string;
-  type: 'FOLDER';
-}
-
-interface FileData {
-  key: string;
-  lastModified: Date;
-  size: number;
-  type: 'FILE';
-}
-
-type LocationItem = FileData | FolderData;
-
 type ActionType = 'UPLOAD_FOLDER' | 'UPLOAD_FILES' | 'CREATE_FOLDER';
 
 type ActionSelectAction<T = ActionType> =
   | {
-      type: 'SELECT_ACTION_TYPE';
       actionType: T;
-      destination: string;
-      displayName: string;
+      destination: string | undefined;
       items: LocationItem[] | undefined;
+      name: string;
+      type: 'SELECT_ACTION_TYPE';
     }
   | { type: 'DESELECT_ACTION_TYPE' }
   | { type: 'SET_UPLOAD_ITEMS'; items: UploadItemData[] }
@@ -40,7 +23,7 @@ type ActionSelectAction<T = ActionType> =
   | { type: 'DESELECT_ALL_LOCATION_ITEMS' };
 
 interface Action {
-  displayName: string;
+  name: string;
   hide?: (permission: Permission) => boolean;
   disable?: (selected: LocationItem[] | undefined) => boolean;
   type: string;

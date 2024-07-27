@@ -2,14 +2,14 @@ import React from 'react';
 
 import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 
-import { ActionProvider } from './context/actions';
+import { ActionProvider, createListLocationsAction } from './context/actions';
 
 import { Permission } from './context/actions/types';
-import { LocationsDataProvider } from './context/locationsData';
-import { StorageBrowserElements } from './context/elements';
-import { ControlProvider } from './context/controls';
-import { ErrorBoundary } from './ErrorBoundary';
 import { ConfigContext, Config } from './context/config';
+import { ControlProvider } from './context/controls';
+import { StorageBrowserElements } from './context/elements';
+import { Controller } from './Controller';
+import { ErrorBoundary } from './ErrorBoundary';
 
 export interface CreateProviderInput<T, K> {
   config: Config<K>;
@@ -25,6 +25,8 @@ export default function createProvider<
 }: CreateProviderInput<T, K>): (props: {
   children?: React.ReactNode;
 }) => React.JSX.Element {
+  const listLocationsAction = createListLocationsAction(config.listLocations);
+
   return function Provider({
     children,
   }: {
@@ -34,11 +36,12 @@ export default function createProvider<
       <ErrorBoundary>
         <ElementsProvider elements={elements}>
           <ConfigContext.Provider value={config}>
-            <LocationsDataProvider>
-              <ActionProvider>
-                <ControlProvider>{children}</ControlProvider>
-              </ActionProvider>
-            </LocationsDataProvider>
+            <ActionProvider listLocationsAction={listLocationsAction}>
+              <ControlProvider>
+                <Controller />
+                {children}
+              </ControlProvider>
+            </ActionProvider>
           </ConfigContext.Provider>
         </ElementsProvider>
       </ErrorBoundary>

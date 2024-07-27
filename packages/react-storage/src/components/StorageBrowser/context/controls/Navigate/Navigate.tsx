@@ -1,7 +1,8 @@
 import React from 'react';
 
+import { LocationData } from '../../actions/types';
+
 const INITIAL_STATE: NavigateState = {
-  getData: () => undefined,
   initial: 'Home',
   location: {
     current: undefined,
@@ -13,42 +14,11 @@ const INITIAL_STATE: NavigateState = {
   },
 };
 
-type Permission = 'READ' | 'READWRITE';
-type LocationType = 'OBJECT' | 'PREFIX' | 'BUCKET';
-
-// avoid naming clash with Location (URL) API (https://developer.mozilla.org/en-US/docs/Web/API/Location)
-interface LocationData {
-  name: string;
-  permission: Permission;
-  type: LocationType;
-}
-
-interface FolderData {
-  key: string;
-  type: 'FOLDER';
-}
-
-interface FileData {
-  key: string;
-  lastModified: Date;
-  size: number;
-  type: 'FILE';
-}
-
-type LocationItem = FileData | FolderData;
-
-interface ListData {
-  LOCATIONS: LocationData;
-  LOCATION_ITEMS: LocationItem;
-}
-
 export type NavigateAction =
   | { type: 'SELECT_LOCATION'; location: LocationData }
   | { type: 'DESELECT_LOCATION' }
   | { type: 'ENTER_LOCATION'; location: LocationData }
   | { type: 'EXIT_LOCATION' };
-
-type GetData = <T extends keyof ListData>(type: T) => ListData[T][] | undefined;
 
 export interface NavigateState {
   location: {
@@ -59,7 +29,6 @@ export interface NavigateState {
   locations: { isLoadingInitialData: boolean };
   // entrypoint name, e.g. "home"
   readonly initial: string;
-  readonly getData: GetData;
 }
 
 export type NavigateStateContext = [
@@ -74,14 +43,32 @@ export function navigateReducer(
   if (action.type === 'SELECT_LOCATION') {
     return {
       ...state,
-      location: {
-        ...state.location,
-        isLoadingInitialData: !state.location.isLoadingInitialData,
-      },
+      location: { ...state.location, current: action.location },
     };
   }
   return state;
 }
+
+// export function updateHistoryStateAction(
+//   prevState: HistoryState,
+//   { initial, next, type }: HistoryAction
+// ): HistoryState {
+//   switch (type) {
+//     case 'enter': {
+//       const { next: _next, previous } = prevState;
+//       return { next, previous: [_next, ...previous] };
+//     }
+//     case 'exit': {
+//       const [_next, ...previous] = prevState.previous;
+//       if (initial === _next) {
+//         return prevState;
+//       }
+//       return { next: _next, previous };
+//     }
+//     default:
+//       throw new Error(`Invalid value of ${type} provided as \`type\``);
+//   }
+// }
 
 export const NavigateContext = React.createContext<
   NavigateStateContext | undefined
