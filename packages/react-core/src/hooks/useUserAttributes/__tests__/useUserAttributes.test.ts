@@ -29,39 +29,41 @@ const fetchUserAttributesSpy = jest.spyOn(AuthModule, 'fetchUserAttributes');
 const sendCodeSpy = jest.spyOn(AuthModule, 'sendUserAttributeVerificationCode');
 const updateUserAttributesSpy = jest.spyOn(AuthModule, 'updateUserAttributes');
 
-const mockAttributes: { [Attribute in UserAttributeKey]?: string } = {
-  email: 'test@mail.com',
-  name: 'Name',
-  nickname: 'Nickname',
-  locale: 'Testville',
-};
+const fetchUserAttributesResult: { [Attribute in UserAttributeKey]?: string } =
+  {
+    email: 'test@mail.com',
+    name: 'Name',
+    nickname: 'Nickname',
+    locale: 'Testville',
+  };
 
-const mockDeletion: { [Attribute in UserAttributeKey]?: string } = {
-  email: 'test@mail.com',
-  name: 'Name',
-};
+const deleteUserAttributesResult: { [Attribute in UserAttributeKey]?: string } =
+  {
+    email: 'test@mail.com',
+    name: 'Name',
+  };
 
-const mockError = new Error('TESTING ERROR');
+const errorResult = new Error('TESTING ERROR');
 
-const mockConfirmInput: ConfirmInput = {
+const confirmAttributeInput: ConfirmInput = {
   type: 'CONFIRM',
   userAttributeKey: 'email',
   confirmationCode: '000000',
 };
 
-const mockAfterVerification: HandleAttributeActionOutput = {
+const confirmAttributeOutput: HandleAttributeActionOutput = {
   attributes: { email: 'test@mail.com', name: 'name' },
   pendingVerification: [{ name: 'email' }],
 };
 
-const mockDeleteInput: DeleteInput = {
+const deleteAttributesInput: DeleteInput = {
   type: 'DELETE',
   userAttributeKeys: ['locale', 'nickname'],
 };
 
-const mockFetchInput: FetchInput = { type: 'FETCH' };
+const fetchInput: FetchInput = { type: 'FETCH' };
 
-const mockUpdateInput: UpdateInput = {
+const updateAttributesInput: UpdateInput = {
   type: 'UPDATE',
   userAttributes: {
     name: 'New Name',
@@ -70,7 +72,7 @@ const mockUpdateInput: UpdateInput = {
   },
 };
 
-const mockUpdateOutput: UpdateUserAttributesOutput = {
+const updateAttributesResult: UpdateUserAttributesOutput = {
   name: {
     isUpdated: true,
     nextStep: {
@@ -205,12 +207,12 @@ const updatedAttributes: { [Attribute in UserAttributeKey]?: string } = {
   locale: 'Testville',
 };
 
-const mockSendOutput: SendUserAttributeVerificationCodeOutput = {
+const sendCodeResult: SendUserAttributeVerificationCodeOutput = {
   attributeName: 'email',
   deliveryMedium: 'EMAIL',
   destination: 'test@mail.com',
 };
-const mockSendTranslatedOutput: VerifiableAttribute = {
+const verifiableAttributeResult: VerifiableAttribute = {
   name: 'email',
   codeDeliveryDetails: {
     destination: 'test@mail.com',
@@ -218,7 +220,7 @@ const mockSendTranslatedOutput: VerifiableAttribute = {
   },
 };
 
-const mockSendInput: SendCodeInput = {
+const sendCodeInput: SendCodeInput = {
   type: 'SEND_CODE',
   userAttributeKey: 'email',
 };
@@ -228,23 +230,23 @@ describe('useUserAttributes', () => {
 
   it('should confirm attributes', async () => {
     confirmUserAttributeSpy.mockResolvedValueOnce(undefined);
-    fetchUserAttributesSpy.mockResolvedValue(mockAfterVerification.attributes);
+    fetchUserAttributesSpy.mockResolvedValue(confirmAttributeOutput.attributes);
     const { result, waitForNextUpdate } = renderHook(() => useUserAttributes());
 
     const handleAttributes = result.current[1];
 
     act(() => {
-      handleAttributes(mockConfirmInput);
+      handleAttributes(confirmAttributeInput);
     });
 
     await waitForNextUpdate();
 
     expect(result.current[0].hasError).toBe(false);
     expect(result.current[0].data.attributes).toBe(
-      mockAfterVerification.attributes
+      confirmAttributeOutput.attributes
     );
     expect(result.current[0].data.pendingVerification).toStrictEqual(
-      mockAfterVerification.pendingVerification
+      confirmAttributeOutput.pendingVerification
     );
     expect(confirmUserAttribute).toHaveBeenCalled();
     expect(fetchUserAttributes).toHaveBeenCalled();
@@ -252,33 +254,33 @@ describe('useUserAttributes', () => {
 
   it('should delete attributes', async () => {
     deleteUserAttributesSpy.mockResolvedValue(undefined);
-    fetchUserAttributesSpy.mockResolvedValueOnce(mockAttributes);
-    fetchUserAttributesSpy.mockResolvedValueOnce(mockDeletion);
+    fetchUserAttributesSpy.mockResolvedValueOnce(fetchUserAttributesResult);
+    fetchUserAttributesSpy.mockResolvedValueOnce(deleteUserAttributesResult);
 
     const { result, waitForNextUpdate } = renderHook(() => useUserAttributes());
 
     const handleAttributes = result.current[1];
 
     act(() => {
-      handleAttributes({ type: 'FETCH' });
+      handleAttributes(fetchInput);
     });
     await waitForNextUpdate();
 
-    expect(result.current[0].data.attributes).toBe(mockAttributes);
+    expect(result.current[0].data.attributes).toBe(fetchUserAttributesResult);
 
     act(() => {
-      handleAttributes(mockDeleteInput);
+      handleAttributes(deleteAttributesInput);
     });
     await waitForNextUpdate();
 
     expect(result.current[0].hasError).toBe(false);
-    expect(result.current[0].data.attributes).toBe(mockDeletion);
+    expect(result.current[0].data.attributes).toBe(deleteUserAttributesResult);
     expect(deleteUserAttributes).toHaveBeenCalled();
     expect(fetchUserAttributes).toHaveBeenCalledTimes(2);
   });
 
   it('should fetch attributes', async () => {
-    fetchUserAttributesSpy.mockResolvedValueOnce(mockAttributes);
+    fetchUserAttributesSpy.mockResolvedValueOnce(fetchUserAttributesResult);
 
     const { result, waitForNextUpdate } = renderHook(() => useUserAttributes());
 
@@ -287,19 +289,19 @@ describe('useUserAttributes', () => {
     expect(result.current[0].data.attributes).toStrictEqual({});
 
     act(() => {
-      handleAttributes(mockFetchInput);
+      handleAttributes(fetchInput);
     });
 
     await waitForNextUpdate();
 
-    expect(result.current[0].data.attributes).toBe(mockAttributes);
+    expect(result.current[0].data.attributes).toBe(fetchUserAttributesResult);
     expect(result.current[0].hasError).toBe(false);
     expect(result.current[0].message).toBeFalsy();
     expect(fetchUserAttributes).toHaveBeenCalled();
   });
 
   it('should update pendingVerification when sending code', async () => {
-    sendCodeSpy.mockResolvedValue(mockSendOutput);
+    sendCodeSpy.mockResolvedValue(sendCodeResult);
 
     const { result, waitForNextUpdate } = renderHook(() => useUserAttributes());
 
@@ -308,20 +310,20 @@ describe('useUserAttributes', () => {
     expect(result.current[0].data.attributes).toStrictEqual({});
 
     act(() => {
-      handleAttributes(mockSendInput);
+      handleAttributes(sendCodeInput);
     });
 
     await waitForNextUpdate();
 
     expect(result.current[0].hasError).toBe(false);
     expect(result.current[0].data.pendingVerification).toStrictEqual([
-      mockSendTranslatedOutput,
+      verifiableAttributeResult,
     ]);
     expect(sendUserAttributeVerificationCode).toHaveBeenCalled();
   });
 
   it('should update attributes and pendingVerifcation', async () => {
-    updateUserAttributesSpy.mockResolvedValue(mockUpdateOutput);
+    updateUserAttributesSpy.mockResolvedValue(updateAttributesResult);
     fetchUserAttributesSpy.mockResolvedValue(updatedAttributes);
 
     const { result, waitForNextUpdate } = renderHook(() => useUserAttributes());
@@ -329,13 +331,13 @@ describe('useUserAttributes', () => {
     const handleAttributes = result.current[1];
 
     act(() => {
-      handleAttributes(mockUpdateInput);
+      handleAttributes(updateAttributesInput);
     });
 
     await waitForNextUpdate();
 
     act(() => {
-      handleAttributes(mockFetchInput);
+      handleAttributes(fetchInput);
     });
 
     await waitForNextUpdate();
@@ -360,20 +362,20 @@ describe('useUserAttributes', () => {
   });
 
   it('should have an error if something fails', async () => {
-    fetchUserAttributesSpy.mockRejectedValue(mockError);
+    fetchUserAttributesSpy.mockRejectedValue(errorResult);
 
     const { result, waitForNextUpdate } = renderHook(() => useUserAttributes());
 
     const handleAttributes = result.current[1];
 
     act(() => {
-      handleAttributes(mockFetchInput);
+      handleAttributes(fetchInput);
     });
 
     await waitForNextUpdate();
 
     expect(result.current[0].hasError).toBe(true);
-    expect(result.current[0].message).toBe(mockError.message);
+    expect(result.current[0].message).toBe(errorResult.message);
     expect(fetchUserAttributes).toHaveBeenCalled();
   });
 });
