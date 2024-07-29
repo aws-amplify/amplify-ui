@@ -6,6 +6,11 @@ import {
   createActionStateContext,
 } from './createActionStateContext';
 import {
+  downloadAction,
+  DownloadActionInput,
+  DownloadActionOutput,
+} from './downloadAction';
+import {
   listLocationItemsAction,
   ListLocationItemsActionInput,
   ListLocationItemsActionOutput,
@@ -19,9 +24,18 @@ export type LocationItemsState = ActionState<
   ListLocationItemsActionInput
 >;
 
-export const DEFAULT_ACTIONS = { LIST_LOCATION_ITEMS: listLocationItemsAction };
+export type DownloadState = ActionState<
+  DownloadActionInput,
+  DownloadActionOutput
+>;
+
+export const DEFAULT_ACTIONS = {
+  LIST_LOCATION_ITEMS: listLocationItemsAction,
+  DOWNLOAD: downloadAction,
+};
 export const INITIAL_VALUE = {
   LIST_LOCATION_ITEMS: { items: [], nextToken: undefined },
+  DOWNLOAD: { cancel: (): void => {}, state: undefined, result: undefined },
 };
 
 export const [ActionStateProvider, useAction] = createActionStateContext(
