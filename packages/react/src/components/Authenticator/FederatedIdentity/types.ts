@@ -1,7 +1,7 @@
 import { FederatedProvider } from '@aws-amplify/ui';
 
 import { FederatedIdentityElements } from './context/elements';
-import { IdentityProvidersControl } from './controls';
+import { IdentitiesControl } from './controls';
 
 import React from 'react';
 
@@ -43,7 +43,7 @@ export interface CreateFederatedIdentityInput<
 
 export interface FederatedIdentity<T extends string = string> {
   (props: { children?: React.ReactNode }): JSX.Element;
-  Identities: IdentityProvidersControl<T>;
+  Identities: IdentitiesControl<T>;
 }
 
 export interface ProviderData<T extends string = string> {

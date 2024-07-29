@@ -1,2 +1,2 @@
-export { IdentityProvidersControl } from './IdentityProvidersControl';
-export { ProviderControl } from './ProviderControl';
+export { IdentitiesControl } from './IdentitiesControl';
+export { IdentityControl } from './IdentityControl';
