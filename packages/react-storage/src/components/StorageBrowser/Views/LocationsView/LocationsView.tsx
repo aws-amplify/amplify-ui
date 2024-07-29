@@ -61,6 +61,7 @@ export const LocationsView: LocationsView = () => {
   return (
     <LocationsViewProvider>
       <div className={CLASS_BASE}>
+        <div className={`${CLASS_BASE}__controls`}></div>
         <LocationsViewControls />
         {!hasLocations || isLoading
           ? '...loading'
