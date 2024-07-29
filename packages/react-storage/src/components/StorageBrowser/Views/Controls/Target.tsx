@@ -1,6 +1,7 @@
 import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
+import type { OmitElements } from '../types';
 import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
 
@@ -87,13 +88,22 @@ const Container = withBaseElementProps(View, {
   className: BLOCK_NAME,
 });
 
-export interface TargetControl<
+export interface _TargetControl<
   T extends StorageBrowserElements = StorageBrowserElements,
 > {
   (): React.JSX.Element;
   Container: T['View'];
   Field: FieldControl<T>;
   Destination: DestinationControl<T>;
+}
+
+export interface TargetControl<
+  T extends StorageBrowserElements = StorageBrowserElements,
+> extends OmitElements<
+    _TargetControl<T>,
+    'Container' | 'Field' | 'Destination'
+  > {
+  (): React.JSX.Element;
 }
 
 export const TargetControl: TargetControl = () => {
@@ -104,7 +114,3 @@ export const TargetControl: TargetControl = () => {
     </Container>
   );
 };
-
-TargetControl.Container = Container;
-TargetControl.Field = FieldControl;
-TargetControl.Destination = DestinationControl;
