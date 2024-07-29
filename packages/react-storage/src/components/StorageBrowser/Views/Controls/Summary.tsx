@@ -12,18 +12,18 @@ const {
   View,
 } = StorageBrowserElements;
 
-const BLOCK_NAME = `${CLASS_BASE}__definitions`;
+const BLOCK_NAME = `${CLASS_BASE}__summary`;
 
 /* <Detail /> */
 const DefinitionContainer = withBaseElementProps(View, {
-  className: `${CLASS_BASE}__definition`,
+  className: `${BLOCK_NAME}__definition`,
 });
 
 const DefinitionTerm = withBaseElementProps(DefinitionTermElement, {
-  className: `${CLASS_BASE}__definition__label`,
+  className: `${BLOCK_NAME}__definition__term`,
 });
 const DefinitionDetail = withBaseElementProps(DefinitionDetailElement, {
-  className: `${CLASS_BASE}__definition__value`,
+  className: `${BLOCK_NAME}__definition__detail`,
 });
 
 interface DefinitionProps {

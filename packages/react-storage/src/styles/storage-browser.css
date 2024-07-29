@@ -95,17 +95,17 @@
   flex: 1 1 auto;
 }
 
-.storage-browser__details {
+.storage-browser__summary {
   margin: 0;
   display: flex;
   gap: var(--storage-browser-gap);
 }
-.storage-browser__detail {
+.storage-browser__summary__definition {
   display: flex;
   gap: var(--storage-browser-gap);
 }
 
-.storage-browser__detail__value {
+.storage-browser__summary__definition__detail {
   margin: 0;
 }
 
