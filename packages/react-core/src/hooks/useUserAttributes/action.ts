@@ -25,6 +25,8 @@ const getVerifiableAttribute = (
 ): VerifiableAttribute | undefined => {
   const attribute = attributes[name];
   if (
+    attribute &&
+    attribute.nextStep &&
     attribute.nextStep.updateAttributeStep === 'CONFIRM_ATTRIBUTE_WITH_CODE' &&
     attribute.nextStep.codeDeliveryDetails
   ) {
@@ -37,6 +39,8 @@ const getVerifiableAttribute = (
         destination: destination as string,
       },
     };
+  } else {
+    return undefined;
   }
 };
 
