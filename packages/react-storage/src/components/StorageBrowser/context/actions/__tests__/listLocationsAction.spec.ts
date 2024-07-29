@@ -1,13 +1,15 @@
 import {
   createListLocationsAction,
   ListLocationsActionInput,
-  ListLocationsOutput,
+  ListLocationsActionOutput,
 } from '../listLocationsAction';
 
 const generateMockLocations = (size: number) => [...Array(size).keys()];
 
 const mockListLocations = jest.fn(
-  ({ pageSize }: ListLocationsActionInput): Promise<ListLocationsOutput> => {
+  ({
+    pageSize,
+  }: ListLocationsActionInput): Promise<ListLocationsActionOutput> => {
     // @ts-expect-error temporary badly constructed mock function
     return Promise.resolve({
       locations: generateMockLocations(pageSize!),
