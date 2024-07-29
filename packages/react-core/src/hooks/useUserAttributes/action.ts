@@ -40,7 +40,7 @@ const getVerifiableAttribute = (
       },
     };
   } else {
-    return undefined;
+    return undefined; // Extraneous
   }
 };
 
@@ -131,7 +131,15 @@ const updateAction = async (
     (attribute): attribute is VerifiableAttribute => attribute !== undefined
   );
 
-  return { ...prevResult, attributes, pendingVerification };
+  const updatedPendingVerification = prevResult.pendingVerification
+    ? [...prevResult.pendingVerification, ...pendingVerification]
+    : [...pendingVerification];
+
+  return {
+    ...prevResult,
+    attributes,
+    pendingVerification: updatedPendingVerification,
+  };
 };
 
 export async function handleAttributeAction(
