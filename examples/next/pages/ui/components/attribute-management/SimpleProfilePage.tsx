@@ -13,7 +13,6 @@ import { UserAttributeKey } from 'aws-amplify/auth';
 export const SimpleProfilePage = () => {
   const [state, handleAttributes] = useUserAttributes();
   const [isEditMode, setIsEditMode] = React.useState(false);
-  const formRef = React.useRef<HTMLFormElement>(null);
   const [isConfirmMode, setIsConfirmMode] = React.useState(false);
 
   const editableAttributes: UserAttributeKey[] = [
@@ -140,7 +139,6 @@ export const SimpleProfilePage = () => {
               as="form"
               direction="column"
               alignItems="left"
-              ref={formRef}
               onSubmit={handleSubmit}
             >
               <Flex justifyContent="space-between" marginTop="1rem">
@@ -197,7 +195,6 @@ export const SimpleProfilePage = () => {
             <Flex
               as="form"
               direction="column"
-              ref={formRef}
               onSubmit={handleUpdateEmailSubmit}
               marginTop="1rem"
             >
@@ -219,7 +216,6 @@ export const SimpleProfilePage = () => {
               <Flex
                 as="form"
                 direction="column"
-                ref={formRef}
                 onSubmit={handleVerifySubmit}
                 marginTop="1rem"
               >
