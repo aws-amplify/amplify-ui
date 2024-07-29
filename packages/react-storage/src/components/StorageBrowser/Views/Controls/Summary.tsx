@@ -5,12 +5,8 @@ import type { OmitElements } from '../types';
 import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
 
-const {
-  DefinitionDetail: DefinitionDetailElement,
-  DefinitionList,
-  DefinitionTerm: DefinitionTermElement,
-  View,
-} = StorageBrowserElements;
+const { DefinitionDetail, DefinitionList, DefinitionTerm, View } =
+  StorageBrowserElements;
 
 const BLOCK_NAME = `${CLASS_BASE}__summary`;
 
@@ -19,10 +15,10 @@ const DefinitionContainer = withBaseElementProps(View, {
   className: `${BLOCK_NAME}__definition`,
 });
 
-const DefinitionTerm = withBaseElementProps(DefinitionTermElement, {
+const Term = withBaseElementProps(DefinitionTerm, {
   className: `${BLOCK_NAME}__definition__term`,
 });
-const DefinitionDetail = withBaseElementProps(DefinitionDetailElement, {
+const Detail = withBaseElementProps(DefinitionDetail, {
   className: `${BLOCK_NAME}__definition__detail`,
 });
 
@@ -50,8 +46,8 @@ const Definition: Definition = (props: DefinitionProps) => {
   );
 };
 Definition.Container = DefinitionContainer;
-Definition.Term = DefinitionTerm;
-Definition.Detail = DefinitionDetail;
+Definition.Term = Term;
+Definition.Detail = Detail;
 
 const Container = withBaseElementProps(DefinitionList, {
   className: BLOCK_NAME,
