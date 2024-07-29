@@ -1,38 +1,80 @@
 import React from 'react';
+import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
+
+import type { OmitElements } from '../types';
 import { StorageBrowserElements } from '../../context/elements';
+import { CLASS_BASE } from '../constants';
 
-const { Button, Span, Text } = StorageBrowserElements;
+const { DefinitionDetail, DefinitionList, DefinitionTerm, View } =
+  StorageBrowserElements;
 
-interface Details<T extends StorageBrowserElements = StorageBrowserElements> {
-  (): React.JSX.Element;
-  Container: T['Span'];
-  Destination: T['Text'];
-  Completed: T['Text'];
-  Failed: T['Text'];
-  Canceled: T['Text'];
-  NotStarted: T['Text'];
+const BLOCK_NAME = `${CLASS_BASE}__summary`;
+
+/* <Definition /> */
+const DefinitionContainer = withBaseElementProps(View, {
+  className: `${BLOCK_NAME}__definition`,
+});
+
+const Term = withBaseElementProps(DefinitionTerm, {
+  className: `${BLOCK_NAME}__definition__term`,
+});
+const Detail = withBaseElementProps(DefinitionDetail, {
+  className: `${BLOCK_NAME}__definition__detail`,
+});
+
+interface DefinitionProps {
+  label?: string;
+  value?: string;
+}
+interface Definition<
+  T extends StorageBrowserElements = StorageBrowserElements,
+> {
+  (props: DefinitionProps): React.JSX.Element;
+  Container: T['View'];
+  Term: T['DefinitionTerm'];
+  Detail: T['DefinitionDetail'];
 }
 
-const Details: Details = () => <>Hi</>;
+const Definition: Definition = (props: DefinitionProps) => {
+  const { label, value } = props;
 
-Details.Canceled = Text;
-Details.Completed = Text;
-Details.Container = Span;
-Details.Destination = Text;
-Details.Failed = Text;
-Details.NotStarted = Text;
+  return (
+    <DefinitionContainer>
+      <DefinitionTerm>{label}</DefinitionTerm>
+      <DefinitionDetail>{value}</DefinitionDetail>
+    </DefinitionContainer>
+  );
+};
+Definition.Container = DefinitionContainer;
+Definition.Term = Term;
+Definition.Detail = Detail;
+
+/* <Summary /> */
+
+const Container = withBaseElementProps(DefinitionList, {
+  className: BLOCK_NAME,
+});
+
+type RenderSummaryItem = (props: {
+  label: string;
+  value: string;
+}) => React.JSX.Element;
+interface _SummaryControl<
+  T extends StorageBrowserElements = StorageBrowserElements,
+> {
+  (props: { renderSummaryItem?: RenderSummaryItem }): React.JSX.Element;
+  Container: T['DefinitionList'];
+}
 
 export interface SummaryControl<
   T extends StorageBrowserElements = StorageBrowserElements,
-> {
+> extends OmitElements<_SummaryControl<T>, 'Container'> {
   (): React.JSX.Element;
-  Start: T['Button'];
-  Cancel: T['Button'];
-  Details: Details<T>;
 }
 
-export const SummaryControl: SummaryControl = () => <>Summary</>;
-
-SummaryControl.Cancel = Button;
-SummaryControl.Details = Details;
-SummaryControl.Start = Button;
+export const SummaryControl: SummaryControl = () => (
+  <Container>
+    {/* Example */}
+    <Definition label="Completed" value="0/5" />
+  </Container>
+);
