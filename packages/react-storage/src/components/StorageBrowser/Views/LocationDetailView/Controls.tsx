@@ -18,7 +18,7 @@ const TEMP_ACTIONS = [
   { name: 'Create Folder', type: 'CREATE_FOLDER' },
 ];
 
-// @ts-expect-error needs Controls assignments
+// @ts-expect-error TODO: add Controls assignment
 export const LocationDetailViewControls: LocationDetailViewControls = () => {
   const handleActionSelect = (type: string) => {
     // eslint-disable-next-line no-console
