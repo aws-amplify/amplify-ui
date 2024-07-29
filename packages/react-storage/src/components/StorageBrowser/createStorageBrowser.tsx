@@ -26,7 +26,7 @@ interface ResolvedStorageBrowserElements<
  * Handles default `StorageBrowser` behavior:
  * - render `LocationsView` on init
  * - render `LocationDetailView` on location selection
- * - render `ActionView` on action selection
+ * - TODO: render `ActionView` on action selection
  */
 function DefaultStorageBrowser(): React.JSX.Element {
   const [{ location }] = useControl({ type: 'NAVIGATE' });
