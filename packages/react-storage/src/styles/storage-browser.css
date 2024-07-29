@@ -90,11 +90,6 @@
   grid-template-rows: repeat(24, 1fr);
 }
 
-.storage-browser__navigate__container {
-  grid-row-start: 1;
-  grid-column: 1 / span 10;
-}
-
 .storage-browser__title {
   grid-row-start: 2;
   grid-column: 1 / span 10;

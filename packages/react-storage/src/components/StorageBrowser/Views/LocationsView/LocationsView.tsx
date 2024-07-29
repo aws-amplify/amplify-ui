@@ -55,8 +55,9 @@ export const LocationsView: LocationsView = () => {
   return (
     <LocationsViewProvider>
       <div className={CLASS_BASE}>
-        <div className={`${CLASS_BASE}__controls`}></div>
-        <LocationsViewControls />
+        <div className={`${CLASS_BASE}__controls`}>
+          <LocationsViewControls />
+        </div>
         {!hasLocations || isLoading
           ? '...loading'
           : data.locations.map(({ scope }) => <p key={scope}>{scope}</p>)}
