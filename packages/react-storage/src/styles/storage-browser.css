@@ -96,6 +96,7 @@
 }
 
 .storage-browser__details {
+  margin: 0;
   display: flex;
   gap: var(--storage-browser-gap);
 }
