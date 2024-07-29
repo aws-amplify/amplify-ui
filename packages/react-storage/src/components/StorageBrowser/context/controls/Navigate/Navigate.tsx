@@ -49,27 +49,6 @@ export function navigateReducer(
   return state;
 }
 
-// export function updateHistoryStateAction(
-//   prevState: HistoryState,
-//   { initial, next, type }: HistoryAction
-// ): HistoryState {
-//   switch (type) {
-//     case 'enter': {
-//       const { next: _next, previous } = prevState;
-//       return { next, previous: [_next, ...previous] };
-//     }
-//     case 'exit': {
-//       const [_next, ...previous] = prevState.previous;
-//       if (initial === _next) {
-//         return prevState;
-//       }
-//       return { next: _next, previous };
-//     }
-//     default:
-//       throw new Error(`Invalid value of ${type} provided as \`type\``);
-//   }
-// }
-
 export const NavigateContext = React.createContext<
   NavigateStateContext | undefined
 >(undefined);
