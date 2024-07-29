@@ -39,7 +39,7 @@ export function Controller(): null {
 
   React.useEffect(() => {
     if (loadLocations) {
-      // update to exhaustive call
+      // TODO: update to exhaustive call
       handleListLocations();
     }
   }, [handleListLocations, loadLocations]);
