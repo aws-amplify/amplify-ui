@@ -25,17 +25,12 @@ export interface LocationsView<
 > extends ViewComponent<LocationsViewControls<T>> {}
 
 const LocationsViewControls: LocationsViewControls = () => (
-  <div className={`${CLASS_BASE}__header`}>
-    <div className={`${CLASS_BASE}__header__primary`}>
-      <Title />
-      <div className={`${CLASS_BASE}__header__primary__actions`}>
-        <Refresh />
-      </div>
-    </div>
-    <div className={`${CLASS_BASE}__header__secondary`}>
-      <Paginate />
-    </div>
-  </div>
+  <>
+    <Title />
+    <Refresh />
+    <Paginate />
+    <Table />
+  </>
 );
 
 LocationsViewControls.Message = Message;
@@ -53,8 +48,9 @@ export const LocationsView: LocationsView = () => {
 
   return (
     <div className={CLASS_BASE}>
-      <div className={`${CLASS_BASE}__controls`}></div>
-      <LocationsViewControls />
+      <div className={`${CLASS_BASE}__controls`}>
+        <LocationsViewControls />
+      </div>
       {!hasLocations || isLoading
         ? '...loading'
         : data.locations.map(({ bucket, scope, ...rest }) =>
