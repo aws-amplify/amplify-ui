@@ -1,22 +1,26 @@
 import {
   createListLocationsAction,
-  ListLocationsActionInput,
-  ListLocationsActionOutput,
+  _ListLocations,
+  _LocationAccess,
 } from '../listLocationsAction';
 
-const generateMockLocations = (size: number) => [...Array(size).keys()];
+const fakeLocation: _LocationAccess = {
+  scope: 's3://some-bucket/*',
+  permission: 'READ',
+  type: 'BUCKET',
+};
 
-const mockListLocations = jest.fn(
-  ({
-    pageSize,
-  }: ListLocationsActionInput): Promise<ListLocationsActionOutput> => {
-    // @ts-expect-error temporary badly constructed mock function
-    return Promise.resolve({
-      locations: generateMockLocations(pageSize!),
-      nextToken: undefined,
-    });
-  }
-);
+const generateMockLocations = (size: number) =>
+  Array(size).fill(fakeLocation) as _LocationAccess[];
+
+const listLocations: _ListLocations = ({ pageSize } = {}) => {
+  return Promise.resolve({
+    locations: generateMockLocations(pageSize!),
+    nextToken: undefined,
+  });
+};
+
+const mockListLocations = jest.fn(listLocations);
 
 describe('createListLocationsAction', () => {
   beforeEach(() => {
@@ -24,7 +28,6 @@ describe('createListLocationsAction', () => {
   });
   it('returns the expected output shape in the happy path', async () => {
     mockListLocations.mockResolvedValueOnce({
-      // @ts-expect-error temporary workaround
       locations: generateMockLocations(100),
       nextToken: 'next',
     });
@@ -42,22 +45,17 @@ describe('createListLocationsAction', () => {
   it('merges the current action result with the previous action result', async () => {
     mockListLocations
       .mockResolvedValueOnce({
-        // @ts-expect-error temporary workaround
         locations: generateMockLocations(100),
         nextToken: 'next',
       })
       .mockResolvedValueOnce({
-        // @ts-expect-error temporary workaround
         locations: generateMockLocations(100),
         nextToken: 'next-oooo',
       });
 
     const listLocationsAction = createListLocationsAction(mockListLocations);
     const { locations, nextToken } = await listLocationsAction(
-      {
-        nextToken: undefined,
-        locations: [],
-      },
+      { nextToken: undefined, locations: [] },
       { pageSize: 100 }
     );
 
