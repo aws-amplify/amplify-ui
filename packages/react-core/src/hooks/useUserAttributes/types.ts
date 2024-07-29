@@ -4,9 +4,9 @@ import { DataState } from '../useDataState';
 
 export interface VerifiableAttribute {
   name: 'email' | 'phone_number';
-  codeDeliveryDetails?: {
-    destination?: string;
-    medium?: string;
+  codeDeliveryDetails: {
+    destination: string;
+    medium: string;
   };
 }
 

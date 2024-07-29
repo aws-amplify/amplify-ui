@@ -53,7 +53,7 @@ const confirmAttributeInput: ConfirmInput = {
 
 const confirmAttributeOutput: HandleAttributeActionOutput = {
   attributes: { email: 'test@mail.com', name: 'name' },
-  pendingVerification: [{ name: 'email' }],
+  pendingVerification: undefined,
 };
 
 const deleteAttributesInput: DeleteInput = {
@@ -350,13 +350,6 @@ describe('useUserAttributes', () => {
       {
         name: 'email',
         codeDeliveryDetails: { destination: 'new@mail.com', medium: 'EMAIL' },
-      },
-      {
-        name: 'phone_number',
-        codeDeliveryDetails: {
-          destination: undefined,
-          medium: undefined,
-        },
       },
     ]);
   });
