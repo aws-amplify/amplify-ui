@@ -33,7 +33,6 @@ export type ElementDisplayName =
   | 'DefinitionDetail'
   | 'DefinitionList'
   | 'DefinitionTerm'
-  | 'Divider'
   | 'Heading' // h1, h2, etc
   | 'Icon'
   | 'Input'
