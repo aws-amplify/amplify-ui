@@ -1,3 +1,3 @@
-export interface IdentityControl<T extends string = string> {
+export interface ProviderControl<T extends string = string> {
   (props: { providerName?: T; children?: React.ReactNode }): JSX.Element;
 }
