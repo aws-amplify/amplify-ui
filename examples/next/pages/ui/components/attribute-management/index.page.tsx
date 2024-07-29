@@ -12,16 +12,7 @@ Amplify.configure(awsExports);
 
 export default function AuthenticatorWithAttributeManagement() {
   return (
-    <Authenticator
-      signUpAttributes={[
-        'birthdate',
-        'family_name',
-        'preferred_username',
-        'nickname',
-        'middle_name',
-        'phone_number',
-      ]}
-    >
+    <Authenticator>
       {({ signOut, user }) => (
         <main>
           <div>
