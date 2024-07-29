@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { MergeBaseElements } from '@aws-amplify/ui-react-core/elements';
 
 import { Permission } from './context/actions/types';
