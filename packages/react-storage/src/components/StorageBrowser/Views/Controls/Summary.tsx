@@ -10,7 +10,7 @@ const { DefinitionDetail, DefinitionList, DefinitionTerm, View } =
 
 const BLOCK_NAME = `${CLASS_BASE}__summary`;
 
-/* <Detail /> */
+/* <Definition /> */
 const DefinitionContainer = withBaseElementProps(View, {
   className: `${BLOCK_NAME}__definition`,
 });
@@ -48,6 +48,8 @@ const Definition: Definition = (props: DefinitionProps) => {
 Definition.Container = DefinitionContainer;
 Definition.Term = Term;
 Definition.Detail = Detail;
+
+/* <Summary /> */
 
 const Container = withBaseElementProps(DefinitionList, {
   className: BLOCK_NAME,
