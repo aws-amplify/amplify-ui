@@ -3,6 +3,9 @@ import { IconElement } from './IconElement';
 
 export interface StorageBrowserElements {
   Button: typeof ButtonElement;
+  DefinitionList: typeof DefinitionListElement;
+  DefinitionTerm: typeof DefinitionTermElement;
+  DefinitionDetail: typeof DefinitionDetailElement;
   Heading: typeof HeadingElement;
   Icon: typeof IconElement;
   Input: typeof InputElement;
@@ -31,6 +34,21 @@ export type ButtonElementProps = React.ComponentProps<typeof ButtonElement>;
 type ButtonElementVariant = 'action-submit' | 'search-submit' | PaginateVariant;
 
 export type ListItemVariant = PaginateVariant;
+
+export const DefinitionListElement = defineBaseElement({
+  type: 'dl',
+  displayName: 'DefinitionList',
+});
+
+export const DefinitionTermElement = defineBaseElement({
+  type: 'dt',
+  displayName: 'DefinitionTerm',
+});
+
+export const DefinitionDetailElement = defineBaseElement({
+  type: 'dd',
+  displayName: 'DefinitionDetail',
+});
 
 export const LabelElement = defineBaseElement({
   type: 'label',
@@ -125,6 +143,9 @@ export const SpanElement = defineBaseElement({
 
 export const StorageBrowserElements: StorageBrowserElements = {
   Button: ButtonElement,
+  DefinitionList: DefinitionListElement,
+  DefinitionTerm: DefinitionTermElement,
+  DefinitionDetail: DefinitionDetailElement,
   Heading: HeadingElement,
   Icon: IconElement,
   Input: InputElement,

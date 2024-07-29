@@ -84,6 +84,20 @@
   flex: 1 1 auto;
 }
 
+.storage-browser__summary {
+  margin: 0;
+  display: flex;
+  gap: var(--storage-browser-gap);
+}
+.storage-browser__summary__definition {
+  display: flex;
+  gap: var(--storage-browser-gap);
+}
+
+.storage-browser__summary__definition__detail {
+  margin: 0;
+}
+
 .storage-browser__controls {
   display: grid;
   grid-template-columns: repeat(32, 1fr);
