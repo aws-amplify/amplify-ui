@@ -1,23 +1,26 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
-
 import createProvider from '../../../createProvider';
 
-import { LocationDetailView } from '../LocationDetailView';
+import { LocationActionView } from '../LocationActionView';
 
 const listLocations = jest.fn(() =>
   Promise.resolve({ locations: [], nextToken: undefined })
 );
+const config = {
+  getLocationCredentials: jest.fn(),
+  listLocations,
+  region: 'region',
+};
+const Provider = createProvider({ config });
 
-const Provider = createProvider({ config: { listLocations } });
-
-describe('LocationDetailView', () => {
-  it('renders a `LocationDetailView`', async () => {
+describe('ActionView', () => {
+  it('renders a `ActionView`', async () => {
     await waitFor(() => {
       expect(
         render(
           <Provider>
-            <LocationDetailView />
+            <LocationActionView />
           </Provider>
         ).container
       ).toBeDefined();

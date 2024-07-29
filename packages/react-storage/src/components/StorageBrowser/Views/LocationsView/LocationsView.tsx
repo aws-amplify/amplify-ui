@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { StorageBrowserElements } from '../../context/elements';
-import { useLocationsData } from '../../context/locationsData';
+import { useLocationsData } from '../../context/actions/locationsData';
 
 import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
-import { ViewTypeProvider } from '../ViewContext';
 import { CommonControl, ViewComponent } from '../types';
+import { useControl } from '../../context/controls';
 
 const { Message, Paginate, Refresh, Search, Table, Title } = Controls;
 
@@ -22,11 +22,7 @@ interface LocationsViewControls<
 
 export interface LocationsView<
   T extends StorageBrowserElements = StorageBrowserElements,
-> extends ViewComponent<T, LocationsViewControls<T>> {}
-
-const LocationsViewProvider = (props: { children?: React.ReactNode }) => (
-  <ViewTypeProvider {...props} type="LOCATIONS_VIEW" />
-);
+> extends ViewComponent<LocationsViewControls<T>> {}
 
 const LocationsViewControls: LocationsViewControls = () => (
   <div className={`${CLASS_BASE}__header`}>
@@ -46,31 +42,39 @@ LocationsViewControls.Message = Message;
 LocationsViewControls.Paginate = Paginate;
 LocationsViewControls.Refresh = Refresh;
 LocationsViewControls.Search = Search;
+LocationsViewControls.Table = Table;
 LocationsViewControls.Title = Title;
 
 export const LocationsView: LocationsView = () => {
-  const [{ data, isLoading }, handleList] = useLocationsData();
-
-  React.useEffect(() => {
-    // update to exhaustive call
-    handleList();
-  }, [handleList]);
+  const [, handleUpdateState] = useControl({ type: 'NAVIGATE' });
+  const [{ data, isLoading }] = useLocationsData();
 
   const hasLocations = !!data.locations.length;
 
   return (
-    <LocationsViewProvider>
-      <div className={CLASS_BASE}>
-        <div className={`${CLASS_BASE}__controls`}></div>
-        <LocationsViewControls />
-        {!hasLocations || isLoading
-          ? '...loading'
-          : data.locations.map(({ scope }) => <p key={scope}>{scope}</p>)}
-      </div>
-    </LocationsViewProvider>
+    <div className={CLASS_BASE}>
+      <div className={`${CLASS_BASE}__controls`}></div>
+      <LocationsViewControls />
+      {!hasLocations || isLoading
+        ? '...loading'
+        : data.locations.map(({ bucket, scope, ...rest }) =>
+            bucket ? (
+              <button
+                key={scope}
+                onClick={() => {
+                  handleUpdateState({
+                    type: 'SELECT_LOCATION',
+                    location: { bucket, scope, ...rest },
+                  });
+                }}
+                type="button"
+              >
+                {bucket}
+              </button>
+            ) : null
+          )}
+    </div>
   );
 };
 
 LocationsView.Controls = LocationsViewControls;
-LocationsView.Provider = LocationsViewProvider;
-LocationsView.Table = Table;

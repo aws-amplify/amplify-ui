@@ -1,7 +1,13 @@
 import * as StorageModule from 'aws-amplify/storage';
-import listLocationItemsAction from '../listLocationItemsAction';
+import { listLocationItemsAction } from '../listLocationItemsAction';
 
 const listSpy = jest.spyOn(StorageModule, 'list');
+const config = {
+  bucket: 'bucket',
+  credentialsProvider: jest.fn(),
+  region: 'region',
+};
+const initialValue = { nextToken: undefined, items: [] };
 
 // actually mocking JS `list` returns is overly complex
 const generateMockItems = (size: number) =>
@@ -18,13 +24,10 @@ describe('listLocationItemsAction', () => {
     // @ts-expect-error
     listSpy.mockResolvedValueOnce({ items: [], nextToken: 'tokeno' });
 
-    const { items, nextToken } = await listLocationItemsAction(
-      {
-        nextToken: undefined,
-        items: [],
-      },
-      { prefix: 'a_prefix' }
-    );
+    const { items, nextToken } = await listLocationItemsAction(initialValue, {
+      config,
+      prefix: 'a_prefix',
+    });
 
     expect(items).toHaveLength(0);
     expect(nextToken).toBeDefined();
@@ -43,10 +46,10 @@ describe('listLocationItemsAction', () => {
         nextToken: 'second',
       });
 
-    const { items, nextToken } = await listLocationItemsAction(
-      { nextToken: undefined, items: [] },
-      { prefix: 'a_prefix' }
-    );
+    const { items, nextToken } = await listLocationItemsAction(initialValue, {
+      config,
+      prefix: 'a_prefix',
+    });
 
     expect(items).toHaveLength(100);
     expect(nextToken).toBeDefined();
@@ -54,7 +57,7 @@ describe('listLocationItemsAction', () => {
     const { items: nextItems, nextToken: nextNextToken } =
       await listLocationItemsAction(
         { nextToken, items },
-        { prefix: 'a_prefix' }
+        { config, prefix: 'a_prefix' }
       );
 
     expect(nextItems).toHaveLength(200);
