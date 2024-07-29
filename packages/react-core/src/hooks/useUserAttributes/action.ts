@@ -90,7 +90,7 @@ const sendCodeAction = async (
   const result = await sendUserAttributeVerificationCode({ userAttributeKey });
 
   if (!result.attributeName || !result.deliveryMedium || !result.destination) {
-    throw new Error();
+    throw new Error('No code delivery');
   } else {
     const pendingAttribute: VerifiableAttribute = {
       name: result.attributeName,
@@ -99,9 +99,13 @@ const sendCodeAction = async (
         medium: result.deliveryMedium,
       },
     };
+
+    const updatedPendingVerification = prevResult.pendingVerification
+      ? [...prevResult.pendingVerification, pendingAttribute]
+      : [pendingAttribute];
     return {
       ...prevResult,
-      pendingVerification: [pendingAttribute],
+      pendingVerification: updatedPendingVerification,
     };
   }
 };
