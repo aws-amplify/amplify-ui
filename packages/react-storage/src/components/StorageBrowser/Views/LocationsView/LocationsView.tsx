@@ -29,6 +29,7 @@ const LocationsViewControls: LocationsViewControls = () => (
     <Title />
     <Refresh />
     <Paginate />
+    <Table />
   </>
 );
 
