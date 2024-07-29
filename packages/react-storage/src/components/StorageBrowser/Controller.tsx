@@ -64,6 +64,7 @@ export function Controller(): null {
   const loadLocationItems = shouldLoadLocationItems(locationItemsState);
   React.useEffect(() => {
     if (current && loadLocationItems) {
+      // TODO: update to exhaustive call
       listLocationItems(current);
     }
   }, [current, listLocationItems, loadLocationItems]);
