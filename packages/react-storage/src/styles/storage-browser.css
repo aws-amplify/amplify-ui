@@ -4,6 +4,8 @@
   --storage-browser-divider-border-style: solid;
   --storage-browser-divider-border-color: #888;
   --storage-browser-divider-height: 16px;
+
+  flex: 1;
 }
 
 .storage-browser__header {
@@ -91,4 +93,10 @@
 }
 .storage-browser__message__content {
   flex: 1 1 auto;
+}
+
+.storage-browser__controls {
+  display: grid;
+  grid-template-columns: repeat(32, 1fr);
+  grid-template-rows: repeat(24, 1fr);
 }
