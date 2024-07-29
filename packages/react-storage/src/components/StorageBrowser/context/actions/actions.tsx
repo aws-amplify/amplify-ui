@@ -28,7 +28,7 @@ export const DEFAULT_ACTIONS = {
 };
 export const INITIAL_VALUE = {
   LIST_LOCATION_ITEMS: { items: [], nextToken: undefined },
-  DOWNLOAD: undefined,
+  DOWNLOAD: {},
 };
 
 export const [ActionStateProvider, useAction] = createActionStateContext(
