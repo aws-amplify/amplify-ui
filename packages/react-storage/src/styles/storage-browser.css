@@ -51,7 +51,8 @@
 .storage-browser__paginate__icon,
 .storage-browser__refresh__icon,
 .storage-browser__message__icon,
-.storage-browser__message__dismiss__icon {
+.storage-browser__message__dismiss__icon,
+.storage-browser__action-menu__toggle__icon {
   display: block;
 }
 
