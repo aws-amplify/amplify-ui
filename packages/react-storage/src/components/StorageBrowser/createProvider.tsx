@@ -3,7 +3,9 @@ import React from 'react';
 import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 
 import { ActionProvider } from './context/actions';
+
 import { Permission } from './context/actions/types';
+import { LocationsDataProvider } from './context/locationsData';
 import { StorageBrowserElements } from './context/elements';
 import { ControlProvider } from './context/controls';
 import { ErrorBoundary } from './ErrorBoundary';
@@ -32,9 +34,11 @@ export default function createProvider<
       <ErrorBoundary>
         <ElementsProvider elements={elements}>
           <ConfigContext.Provider value={config}>
-            <ActionProvider>
-              <ControlProvider>{children}</ControlProvider>
-            </ActionProvider>
+            <LocationsDataProvider>
+              <ActionProvider>
+                <ControlProvider>{children}</ControlProvider>
+              </ActionProvider>
+            </LocationsDataProvider>
           </ConfigContext.Provider>
         </ElementsProvider>
       </ErrorBoundary>
