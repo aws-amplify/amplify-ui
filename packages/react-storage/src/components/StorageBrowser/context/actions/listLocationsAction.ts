@@ -23,7 +23,7 @@ export type ListLocationsActionInput =
   | { nextToken?: string; pageSize?: number; refresh?: never }
   | { nextToken?: never; pageSize?: number; refresh?: boolean };
 
-export interface ListLocationsOutput<K = Permission> {
+export interface ListLocationsActionOutput<K = Permission> {
   locations: LocationData<K>[];
   nextToken: string | undefined;
 }
@@ -31,12 +31,12 @@ export interface ListLocationsOutput<K = Permission> {
 export type ListLocations<T = Permission> = (input: {
   nextToken?: string;
   pageSize?: number;
-}) => Promise<ListLocationsOutput<T>>;
+}) => Promise<ListLocationsActionOutput<T>>;
 
 type ListLocationsAction<T = Permission> = (
-  prevState: ListLocationsOutput,
+  prevState: ListLocationsActionOutput,
   input: ListLocationsActionInput
-) => Promise<ListLocationsOutput<T>>;
+) => Promise<ListLocationsActionOutput<T>>;
 
 export const createListLocationsAction = (
   listLocations: ListLocations
