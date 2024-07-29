@@ -1,4 +1,11 @@
-export { createStorageBrowser } from './StorageBrowser';
+export {
+  // @TODO: temporary exports, should be exported from
+  // '@aws-amplify/ui-react-storage/create-storage-browser'
+  createAmplifyAuthAdapter,
+  createStorageBrowser,
+  CreateStorageBrowserInput,
+  StorageBrowserAuthAdapter,
+} from './StorageBrowser';
 export { StorageImage, StorageImageProps } from './StorageImage';
 export {
   StorageManager,

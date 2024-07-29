@@ -2,25 +2,49 @@ import React from 'react';
 
 import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 
-import { StorageBrowserElements } from './context/elements';
-import { ControlProvider } from './context/controls';
+import { ActionProvider, createListLocationsAction } from './context/actions';
 
-interface CreateStorageBrowserInput<T> {
+import { Permission } from './context/actions/types';
+import { ConfigContext, Config } from './context/config';
+import { ControlProvider } from './context/controls';
+import { StorageBrowserElements } from './context/elements';
+import { Controller } from './Controller';
+import { ErrorBoundary } from './ErrorBoundary';
+
+export interface CreateProviderInput<T, K> {
+  config: Config<K>;
   elements?: T;
 }
 
 export default function createProvider<
   T extends Partial<StorageBrowserElements>,
->({ elements }: Pick<CreateStorageBrowserInput<T>, 'elements'>) {
+  K extends Permission,
+>({
+  config,
+  elements,
+}: CreateProviderInput<T, K>): (props: {
+  children?: React.ReactNode;
+}) => React.JSX.Element {
+  const listLocationsAction = createListLocationsAction(config.listLocations);
+
   return function Provider({
     children,
   }: {
     children?: React.ReactNode;
   }): React.JSX.Element {
     return (
-      <ElementsProvider elements={elements}>
-        <ControlProvider>{children}</ControlProvider>
-      </ElementsProvider>
+      <ErrorBoundary>
+        <ElementsProvider elements={elements}>
+          <ConfigContext.Provider value={config}>
+            <ActionProvider listLocationsAction={listLocationsAction}>
+              <ControlProvider>
+                <Controller />
+                {children}
+              </ControlProvider>
+            </ActionProvider>
+          </ConfigContext.Provider>
+        </ElementsProvider>
+      </ErrorBoundary>
     );
   };
 }

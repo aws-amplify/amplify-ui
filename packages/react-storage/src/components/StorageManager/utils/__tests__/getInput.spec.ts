@@ -3,7 +3,9 @@ import { UploadDataWithPathInput, UploadDataInput } from 'aws-amplify/storage';
 import { getInput, GetInputParams } from '../getInput';
 
 const identityId = 'identity-id';
-jest.spyOn(AuthModule, 'fetchAuthSession').mockResolvedValue({ identityId });
+const fetchAuthSpy = jest
+  .spyOn(AuthModule, 'fetchAuthSession')
+  .mockResolvedValue({ identityId });
 
 const file = new File(['hello'], 'hello.png', { type: 'image/png' });
 const key = file.name;
@@ -54,6 +56,7 @@ const accessLevelWithPathInput: GetInputParams = {
 describe('getInput', () => {
   beforeEach(() => {
     onProcessFileSuccess.mockClear();
+    fetchAuthSpy.mockClear();
   });
 
   it('resolves an UploadDataWithPathInput with a string `path` as expected', async () => {
@@ -185,6 +188,33 @@ describe('getInput', () => {
     expect(output.options?.contentDisposition).toStrictEqual(
       contentDisposition
     );
+  });
+
+  it('calls `onProcessFileSuccess` after fetchAuthSession', async () => {
+    const processedKey = `processedKey`;
+
+    const input = getInput({
+      ...pathCallbackInput,
+      processFile: ({ key: _, ...rest }) => ({
+        key: processedKey,
+        ...rest,
+      }),
+    });
+
+    await input();
+
+    const fetchAuthSessionCallOrder = fetchAuthSpy.mock.invocationCallOrder[0];
+    const onProcessFileSuccessCallORder =
+      onProcessFileSuccess.mock.invocationCallOrder[0];
+    expect(fetchAuthSessionCallOrder).toBeLessThan(
+      onProcessFileSuccessCallORder
+    );
+
+    expect(fetchAuthSpy).toHaveBeenCalledTimes(1);
+    expect(onProcessFileSuccess).toHaveBeenCalledTimes(1);
+    expect(onProcessFileSuccess).toHaveBeenCalledWith({
+      processedKey,
+    });
   });
 });
 
