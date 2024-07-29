@@ -118,12 +118,14 @@ const generateBucketData = (count: number): LocationData[] => {
     .fill('')
     .map(
       // prefix: <bucket>/<prefix-with-path>*
-      () => `${bucketName}${generateString(randomNumberInRange(6, 20))}*`
+      () => `${bucketName}/${generateString(randomNumberInRange(6, 20))}*`
     );
 
+  const scope = `s3://${bucketName}/*`;
   result.push({
-    scope: bucketName,
+    bucket: bucketName,
     permission: getRandomPermission(),
+    scope,
     type: 'BUCKET',
   });
 
@@ -131,7 +133,8 @@ const generateBucketData = (count: number): LocationData[] => {
     if (!hasPrefixes) {
       // object: <bucket>/<prefix-with-path>/<object>
       result.push({
-        scope: `${bucketName}${generateString(randomNumberInRange(6, 20))}.${
+        bucket: bucketName,
+        scope: `${scope}${generateString(randomNumberInRange(6, 20))}.${
           EXTENSIONS[randomNumberInRange(0, EXTENSIONS.length)]
         }`,
         permission: getRandomPermission(),
@@ -153,7 +156,12 @@ const generateBucketData = (count: number): LocationData[] => {
         : selectedPrefix;
       const type = hasPrefixBeenAdded ? 'OBJECT' : 'PREFIX';
 
-      result.push({ scope, permission: getRandomPermission(), type });
+      result.push({
+        bucket: bucketName,
+        scope,
+        permission: getRandomPermission(),
+        type,
+      });
     }
   }
 

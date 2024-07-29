@@ -1,13 +1,19 @@
 import React from 'react';
+import { GetLocationCredentials } from '@aws-amplify/storage/storage-browser';
 
-import { ListLocations } from './actions/listLocationsAction';
+import { _ListLocations } from './actions/listLocationsAction';
 import { Permission } from './actions/types';
 
+// TODO: replace during credentials store integration
 export interface Config<T = Permission> {
-  listLocations: ListLocations<T>;
+  listLocations: _ListLocations<T>;
+  getLocationCredentials: GetLocationCredentials;
+  region: string;
 }
 
-export const USE_CONFIG_ERROR_MESSAGE = 'Add me later';
+const USE_CONFIG_ERROR_MESSAGE =
+  '`useConfig` must be called within a `ConfigContext.Provider';
+
 export const ConfigContext = React.createContext<Config | undefined>(undefined);
 
 export const useConfig = (): Config => {

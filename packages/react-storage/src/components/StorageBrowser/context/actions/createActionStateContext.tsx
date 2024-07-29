@@ -6,22 +6,33 @@ import {
   useDataState,
 } from '@aws-amplify/ui-react-core';
 
-type ActionState<T, K> = [
+type ContextProvider = (props: {
+  children?: React.ReactNode;
+}) => React.JSX.Element;
+
+export type ActionState<T, K> = [
   state: DataState<T>,
   handleAction: (...input: K[]) => void,
 ];
 
-type ActionProvider<T> = (props: ActionProviderProps<T>) => React.JSX.Element;
+interface ActionContext<X, Y> {
+  Context: React.Context<ActionState<X, Y> | undefined>;
+  Provider: ContextProvider;
+}
 
-type ContextProvider = (props: {
-  children?: React.ReactNode;
-}) => React.JSX.Element;
+type DataActions = { [key: string]: DataAction };
+
+type ActionContexts<T> = {
+  [K in keyof T]: T[K] extends DataAction<infer X, infer Y>
+    ? ActionContext<X, Y>
+    : never;
+};
 
 type InitialValue<T> = {
   [K in keyof T]: T[K] extends DataAction<infer X> ? X : never;
 };
 
-export type DataActions<T = DataAction> = {
+type ActionsState<T> = {
   [K in keyof T]: T[K] extends DataAction<infer X, infer U>
     ? ActionState<X, U>
     : never;
@@ -29,17 +40,14 @@ export type DataActions<T = DataAction> = {
 
 export type UseAction<T> = <U extends keyof T>(input: {
   type: U;
-}) => DataActions<T>[U];
+}) => ActionsState<T>[U];
 
 export interface ActionProviderProps<T> {
   children?: React.ReactNode;
   initialValue: T;
 }
 
-interface ActionContext<X, Y> {
-  Context: React.Context<ActionState<X, Y> | undefined>;
-  Provider: ContextProvider;
-}
+type ActionProvider<T> = (props: ActionProviderProps<T>) => React.JSX.Element;
 
 const InitialValue = React.createContext<Record<PropertyKey, any> | undefined>(
   undefined
@@ -62,18 +70,12 @@ function createActionContext<T, K>(action: DataAction<T, K>, type: string) {
 
   function Provider(props: { children?: React.ReactNode }) {
     const initialValue = React.useContext(InitialValue);
-    const value = useDataState(action, initialValue?.[type] as T);
+    const value = useDataState(action, initialValue?.[type]);
     return <ActionContext.Provider {...props} value={value} />;
   }
 
   return { Provider, Context: ActionContext };
 }
-
-type ActionContexts<T> = {
-  [K in keyof T]: T[K] extends DataAction<infer X, infer Y>
-    ? ActionContext<X, Y>
-    : never;
-};
 
 export function createActionProvider<T>(
   contexts: ActionContexts<T>
@@ -119,11 +121,11 @@ export function createUseAction<T>(
     if (!context) {
       throw new Error(errorMessage);
     }
-    return context as DataActions<T>[K];
+    return context as ActionsState<T>[K];
   };
 }
 
-const createContexts = <T extends { [key: string]: DataAction }>(actions: T) =>
+const createContexts = <T extends DataActions>(actions: T) =>
   Object.entries(actions).reduce(
     (acc, [type, action]) => ({
       ...acc,
@@ -132,9 +134,7 @@ const createContexts = <T extends { [key: string]: DataAction }>(actions: T) =>
     {} as ActionContexts<T>
   );
 
-export function createActionStateContext<
-  T extends { [key: string]: DataAction },
->(
+export function createActionStateContext<T extends DataActions>(
   actions: T,
   errorMessage: string
 ): [Provider: ActionProvider<InitialValue<T>>, useAction: UseAction<T>] {

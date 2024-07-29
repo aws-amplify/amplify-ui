@@ -12,6 +12,9 @@ const ThrowErrorComponent: React.FC = () => {
 
 describe('ErrorBoundary', () => {
   it('should render the fallback component when an error is thrown', () => {
+    // Mock implementation for console.error to prevent logging during tests
+    jest.spyOn(console, 'error').mockImplementation(() => null);
+
     render(
       <ErrorBoundary>
         <ThrowErrorComponent />
