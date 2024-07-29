@@ -2,7 +2,7 @@ import React from 'react';
 import { StorageBrowserElements } from '../context/elements';
 import { Controls } from './Controls';
 
-export type CommonControl = 'Message' | 'Navigate' | 'Title';
+export type CommonControl = 'Message' | 'Title';
 
 export type OmitElements<T, K extends string = never> = Omit<
   T,

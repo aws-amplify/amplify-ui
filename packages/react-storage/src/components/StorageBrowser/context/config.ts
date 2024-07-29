@@ -7,7 +7,9 @@ export interface Config<T = Permission> {
   listLocations: ListLocations<T>;
 }
 
-export const USE_CONFIG_ERROR_MESSAGE = 'Add me later';
+const USE_CONFIG_ERROR_MESSAGE =
+  '`useConfig` must be called within a `ConfigContext.Provider';
+
 export const ConfigContext = React.createContext<Config | undefined>(undefined);
 
 export const useConfig = (): Config => {
