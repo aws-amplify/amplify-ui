@@ -1,14 +1,15 @@
 import React from 'react';
-// import { Button } from '@aws-amplify/ui-react';
 import { MergeBaseElements } from '@aws-amplify/ui-react-core/elements';
 
+import { Permission } from './context/actions/types';
 import { StorageBrowserElements } from './context/elements';
-import createProvider from './createProvider';
+import createProvider, { CreateProviderInput } from './createProvider';
 import { LocationsView, LocationDetailView } from './Views';
 
-export interface CreateStorageBrowserInput<T> {
-  elements?: T;
-}
+export interface CreateStorageBrowserInput<
+  T = StorageBrowserElements,
+  K = Permission,
+> extends CreateProviderInput<T, K> {}
 
 export interface StorageBrowser<T extends StorageBrowserElements> {
   (): React.JSX.Element;
@@ -32,10 +33,13 @@ function DefaultStorageBrowser(): React.JSX.Element {
 
 export function createStorageBrowser<
   T extends Partial<StorageBrowserElements>,
->({ elements }: CreateStorageBrowserInput<T> = {}): {
+  K extends Permission,
+>(
+  input: CreateStorageBrowserInput<T, K>
+): {
   StorageBrowser: StorageBrowser<ResolvedStorageBrowserElements<T>>;
 } {
-  const Provider = createProvider({ elements });
+  const Provider = createProvider(input);
 
   const StorageBrowser: StorageBrowser<
     ResolvedStorageBrowserElements<T>

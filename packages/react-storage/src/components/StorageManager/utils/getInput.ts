@@ -39,30 +39,37 @@ export const getInput = ({
       ...rest
     } = await resolveFile({ file, key, processFile });
 
-    if (processFile) {
-      // provide post-processing value of target `key`
-      onProcessFileSuccess({ processedKey });
-    }
-
     const contentType = file.type || 'binary/octet-stream';
 
     // IMPORTANT: always pass `...rest` here for backwards compatibility
     const options = { contentType, onProgress, ...rest };
 
+    let inputResult: PathInput | UploadDataInput;
     if (hasKeyInput) {
       // legacy handling of `path` is to prefix to `fileKey`
       const resolvedKey = hasStringPath
         ? `${path}${processedKey}`
         : processedKey;
 
-      return { data, key: resolvedKey, options: { ...options, accessLevel } };
+      inputResult = {
+        data,
+        key: resolvedKey,
+        options: { ...options, accessLevel },
+      };
+    } else {
+      const { identityId } = await fetchAuthSession();
+      const resolvedPath = `${
+        hasCallbackPath ? path({ identityId }) : path
+      }${processedKey}`;
+
+      inputResult = { data: file, path: resolvedPath, options };
     }
 
-    const { identityId } = await fetchAuthSession();
-    const resolvedPath = `${
-      hasCallbackPath ? path({ identityId }) : path
-    }${processedKey}`;
+    if (processFile) {
+      // provide post-processing value of target `key`
+      onProcessFileSuccess({ processedKey });
+    }
 
-    return { data: file, path: resolvedPath, options };
+    return inputResult;
   };
 };
