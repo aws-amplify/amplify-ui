@@ -1,17 +1,14 @@
 import React from 'react';
 import { StorageBrowserElements } from '../context/elements';
-import { Controls } from './Controls';
 
-export type CommonControl = 'Message' | 'Title';
+export type CommonControl = 'Message' | 'Table' | 'Title';
 
 export type OmitElements<T, K extends string = never> = Omit<
   T,
   keyof StorageBrowserElements | K
 >;
 
-export interface ViewComponent<T extends StorageBrowserElements, C> {
+export interface ViewComponent<C> {
   (): React.JSX.Element;
   Controls: C;
-  Table: Controls<T>['Table'];
-  Provider: (props: { children?: React.ReactNode }) => React.JSX.Element;
 }

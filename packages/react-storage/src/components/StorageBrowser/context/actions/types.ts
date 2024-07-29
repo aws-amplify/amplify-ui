@@ -16,7 +16,10 @@ export type Permission = 'READ' | 'READWRITE' | 'WRITE';
 export type LocationType = 'OBJECT' | 'PREFIX' | 'BUCKET';
 
 export interface LocationData<T = Permission> {
+  bucket: string;
   scope: string;
   permission: T;
   type: LocationType;
 }
+
+export type UploadItemData = Blob | ArrayBufferView | ArrayBuffer | string;

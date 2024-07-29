@@ -8,8 +8,11 @@ import { LocationsView } from '..';
 const listLocations = jest.fn(() =>
   Promise.resolve({ locations: [], nextToken: undefined })
 );
-
-const config = { listLocations };
+const config = {
+  getLocationCredentials: jest.fn(),
+  listLocations,
+  region: 'region',
+};
 const Provider = createProvider({ config });
 
 describe('LocationsListView', () => {

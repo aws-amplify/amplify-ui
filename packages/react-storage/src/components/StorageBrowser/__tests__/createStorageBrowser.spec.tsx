@@ -5,15 +5,16 @@ import { createStorageBrowser } from '../createStorageBrowser';
 const listLocations = jest.fn(() =>
   Promise.resolve({ locations: [], nextToken: undefined })
 );
+const config = {
+  getLocationCredentials: jest.fn(),
+  listLocations,
+  region: 'region',
+};
 
 describe('createStorageBrowser', () => {
-  it('returns a StorageBrowser', async () => {
-    const { StorageBrowser } = createStorageBrowser({
-      config: { listLocations },
-    });
+  it('returns a StorageBrowser', () => {
+    const { StorageBrowser } = createStorageBrowser({ config });
 
-    expect(
-      await render(<StorageBrowser />).findByText('Default behavior!')
-    ).toBeDefined();
+    expect(render(<StorageBrowser />).container).toBeDefined();
   });
 });

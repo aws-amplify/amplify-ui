@@ -1,7 +1,7 @@
 import { LocationData, LocationType, Permission } from './types';
 
 // import { ListLocations as _ListLocations } from '@aws-amplify/storage/storage-browser';
-interface _ListLocationsOutput<T extends _LocationAccess> {
+export interface _ListLocationsOutput<T> {
   locations: T[];
   nextToken?: string;
 }
@@ -9,49 +9,78 @@ interface _ListLocationsInput {
   pageSize?: number;
   nextToken?: string;
 }
-interface _LocationAccess {
+export interface _LocationAccess<T = Permission> {
   readonly type: LocationType;
-  readonly permission: Permission;
+  readonly permission: T;
   readonly scope: string;
 }
-// Temp type until JS releases next "storage-browser" tag
-export type _ListLocations = (
-  input?: _ListLocationsInput
-) => Promise<_ListLocationsOutput<_LocationAccess>>;
 
-export type ListLocationsActionInput =
-  | { nextToken?: string; pageSize?: number; refresh?: never }
-  | { nextToken?: never; pageSize?: number; refresh?: boolean };
+// Temp type until JS releases next "storage-browser" tag
+export type _ListLocations<T = Permission> = (
+  input?: _ListLocationsInput
+) => Promise<_ListLocationsOutput<_LocationAccess<T>>>;
+
+export type ListLocationsActionInput<T = never> = {
+  exclude?: T | T[];
+  pageSize?: number;
+} & (
+  | { nextToken?: string; refresh?: never }
+  | { nextToken?: never; refresh?: boolean }
+);
 
 export interface ListLocationsActionOutput<K = Permission> {
   locations: LocationData<K>[];
   nextToken: string | undefined;
 }
 
-export type ListLocations<T = Permission> = (input: {
-  nextToken?: string;
-  pageSize?: number;
-}) => Promise<ListLocationsActionOutput<T>>;
+const EMPTY_LOCATIONS: LocationData[] = [];
 
-type ListLocationsAction<T = Permission> = (
+export type ListLocationsAction<T = never> = (
   prevState: ListLocationsActionOutput,
-  input: ListLocationsActionInput
-) => Promise<ListLocationsActionOutput<T>>;
+  input: ListLocationsActionInput<T>
+) => Promise<ListLocationsActionOutput<Exclude<Permission, T>>>;
+
+const shouldExclude = <T extends Permission>(
+  permission: T,
+  exclude?: T | T[]
+) =>
+  !exclude
+    ? false
+    : typeof exclude === 'string'
+    ? exclude === permission
+    : exclude.includes(permission);
+
+// @TODO: needs refactor to handle non-bucket locations
+const getBucket = (scope: string) => {
+  if (scope.startsWith('s3://') && scope.endsWith('/*')) {
+    return scope.slice(5, -2);
+  }
+  return scope;
+};
 
 export const createListLocationsAction = (
-  listLocations: ListLocations
-): ListLocationsAction => {
-  return async (
-    prevState,
-    { nextToken: _nextToken, pageSize, refresh } = {}
-  ) => {
-    const { locations, nextToken } = await listLocations(
+  listLocations: _ListLocations
+): ListLocationsAction =>
+  async function listLocationsAction(prevState, input) {
+    const { exclude, nextToken: _nextToken, pageSize, refresh } = input ?? {};
+
+    const output = await listLocations(
       refresh ? { pageSize } : { nextToken: _nextToken, pageSize }
     );
 
+    const nextLocations = output.locations.reduce(
+      (acc, { scope, permission, type }) =>
+        shouldExclude(permission, exclude)
+          ? acc
+          : [...acc, { bucket: getBucket(scope), scope, permission, type }],
+      [] as LocationData[]
+    );
+
     return {
-      locations: [...(refresh ? [] : locations), ...prevState.locations],
-      nextToken,
+      locations: [
+        ...(refresh ? EMPTY_LOCATIONS : prevState.locations),
+        ...nextLocations,
+      ],
+      nextToken: output.nextToken,
     };
   };
-};

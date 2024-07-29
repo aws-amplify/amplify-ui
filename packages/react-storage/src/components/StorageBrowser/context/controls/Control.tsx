@@ -24,11 +24,11 @@ export function ControlProvider({
 export function useControl<
   T extends keyof Contexts,
   K = Contexts[T] extends React.Context<infer U | undefined> ? U : never,
->({ key }: { key: T }): K {
+>({ type }: { type: T }): K {
   // TS does not handle the inference of the underlying `Context` type well
   // but ultimately this is a safe lookup
   // @ts-expect-error
-  const context = React.useContext<K>(CONTEXTS[key]);
+  const context = React.useContext<K>(CONTEXTS[type]);
 
   if (!context) {
     throw new Error(

@@ -5,11 +5,10 @@ import { Permission } from './context/actions/types';
 import { StorageBrowserElements } from './context/elements';
 import createProvider, { CreateProviderInput } from './createProvider';
 import { LocationsView, LocationDetailView } from './Views';
+import { useControl } from './context/controls';
 
-export interface CreateStorageBrowserInput<
-  T = StorageBrowserElements,
-  K = Permission,
-> extends CreateProviderInput<T, K> {}
+export interface CreateStorageBrowserInput<T, K>
+  extends CreateProviderInput<T, K> {}
 
 export interface StorageBrowser<T extends StorageBrowserElements> {
   (): React.JSX.Element;
@@ -22,13 +21,20 @@ interface ResolvedStorageBrowserElements<
   T extends Partial<StorageBrowserElements>,
 > extends MergeBaseElements<StorageBrowserElements, T> {}
 
+/**
+ * Handles default `StorageBrowser` behavior:
+ * - render `LocationsView` on init
+ * - render `LocationDetailView` on location selection
+ * - TODO: render `ActionView` on action selection
+ */
 function DefaultStorageBrowser(): React.JSX.Element {
-  // TODO
-  // if (hasSelectedLocation) {
-  // return <LocationDetailView />
-  // }
-  // return <LocationsView />;
-  return <>Default behavior!</>;
+  const [{ location }] = useControl({ type: 'NAVIGATE' });
+  const { current } = location;
+
+  if (current) {
+    return <LocationDetailView />;
+  }
+  return <LocationsView />;
 }
 
 export function createStorageBrowser<

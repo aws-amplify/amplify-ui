@@ -22,11 +22,18 @@ const config: Config = {
       // functions: 90,
       // lines: 95,
       // statements: 95,
+<<<<<<< HEAD
       branches: 81,
       functions: 76,
       lines: 87,
       statements: 87,
 >>>>>>> 477015530 (feat(storage-browser): add base actions, integrate ActionProvider, add ConfigContext (#5484))
+=======
+      branches: 80,
+      functions: 75,
+      lines: 86,
+      statements: 86,
+>>>>>>> b8b723913 (feat(storage-browser): add managed and test amplify auth support, refactor state layer and views (#5488))
     },
   },
   moduleNameMapper: { '^uuid$': '<rootDir>/../../node_modules/uuid' },

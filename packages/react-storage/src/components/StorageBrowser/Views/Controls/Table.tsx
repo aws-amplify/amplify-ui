@@ -3,6 +3,7 @@ import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import type { OmitElements } from '../types';
 import { StorageBrowserElements } from '../../context/elements';
+
 import { CLASS_BASE } from '../constants';
 
 const {
@@ -78,7 +79,7 @@ export interface Column<T> {
 
 export interface TableData<T extends Data> {
   columns: Column<T>[];
-  rows: T[] | null;
+  rows: T[];
 }
 
 export interface _TableControl<

@@ -2,18 +2,14 @@ import React from 'react';
 
 import { useDataState } from '@aws-amplify/ui-react-core';
 
-import { ActionState } from './actions/createActionStateContext';
+import { ActionState } from './createActionStateContext';
 import {
+  _ListLocations,
+  ListLocationsAction,
   ListLocationsActionInput,
   ListLocationsActionOutput,
-  createListLocationsAction,
-} from './actions/listLocationsAction';
-import { Config, useConfig } from './config';
-
-export interface CreateProviderInput<T, K> {
-  config: Config<K>;
-  elements?: T;
-}
+} from './listLocationsAction';
+import { Permission } from './types';
 
 export type LocationsDataState = ActionState<
   ListLocationsActionOutput,
@@ -28,16 +24,13 @@ const LocationsDataContext = React.createContext<
   LocationsDataState | undefined
 >(undefined);
 
-export function LocationsDataProvider({
+export function LocationsDataProvider<T = Permission>({
   children,
+  listLocationsAction,
 }: {
   children?: React.ReactNode;
+  listLocationsAction: ListLocationsAction<T>;
 }): React.JSX.Element {
-  const { listLocations } = useConfig();
-  const listLocationsAction = React.useRef(
-    createListLocationsAction(listLocations)
-  ).current;
-
   const value = useDataState(listLocationsAction, INITIAL_VALUE);
 
   return (
