@@ -15,7 +15,7 @@
     "@aws-amplify/ui-react-geo": "^2.0.17",
     "@aws-amplify/ui-react-liveness": "^3.1.2",
     "@aws-amplify/ui-react-notifications": "^2.0.22",
-    "@aws-amplify/ui-react-storage": "^3.1.5",
+    "@aws-amplify/ui-react-storage": "^3.1.6",
     "@aws-sdk/credential-providers": "^3.370.0",
     "next": "^14.1.1",
     "next-global-css": "^1.1.1",
