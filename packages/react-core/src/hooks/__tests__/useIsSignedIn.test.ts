@@ -7,8 +7,8 @@ import { Hub } from 'aws-amplify/utils';
 
 const getCurrentUserSpy = jest.spyOn(AuthModule, 'getCurrentUser');
 
-const mockError = new Error('Authorization error');
-const mockSuccess: GetCurrentUserOutput = {
+const errorResult = new Error('Authorization error');
+const successResult: GetCurrentUserOutput = {
   username: 'username',
   userId: '123',
 };
@@ -42,7 +42,7 @@ describe('useIsSignedIn', () => {
     getCurrentUserSpy.mockImplementationOnce(async () => {
       return new Promise((_, reject) => {
         setTimeout(() => {
-          reject(mockError);
+          reject(errorResult);
         }, 10);
       });
     });
@@ -60,7 +60,7 @@ describe('useIsSignedIn', () => {
     getCurrentUserSpy.mockImplementationOnce(() => {
       return new Promise((resolve) => {
         setTimeout(() => {
-          resolve(mockSuccess);
+          resolve(successResult);
         }, 10);
       });
     });
@@ -75,7 +75,7 @@ describe('useIsSignedIn', () => {
   });
 
   it('should be true if receiving a signedIn event', async () => {
-    getCurrentUserSpy.mockRejectedValueOnce(mockError);
+    getCurrentUserSpy.mockRejectedValueOnce(errorResult);
 
     const { result } = renderHook(() => useIsSignedIn());
     expect(result.current).toEqual(expectedLoadingState);
@@ -92,7 +92,7 @@ describe('useIsSignedIn', () => {
   });
 
   it('should be false if receiving a signedOut event', async () => {
-    getCurrentUserSpy.mockResolvedValueOnce(mockSuccess);
+    getCurrentUserSpy.mockResolvedValueOnce(successResult);
 
     const { result } = renderHook(() => useIsSignedIn());
 
@@ -108,7 +108,7 @@ describe('useIsSignedIn', () => {
   });
 
   it('should be able to listen to multiple events after one call', () => {
-    getCurrentUserSpy.mockRejectedValueOnce(mockError);
+    getCurrentUserSpy.mockRejectedValueOnce(errorResult);
 
     const { result } = renderHook(() => useIsSignedIn());
 
