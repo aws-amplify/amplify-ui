@@ -44,7 +44,6 @@ export function navigateReducer(
   switch (action.type) {
     case 'SELECT_LOCATION':
       return {
-        ...state,
         location: {
           current: action.location,
           shouldRefresh: false,
