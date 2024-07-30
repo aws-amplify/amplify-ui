@@ -41,6 +41,7 @@ export function Controller(): null {
       // TODO: update to exhaustive call
       handleListLocations();
     } else if (location.shouldRefresh) {
+      // TODO: update to exhaustive call
       handleListLocations({ refresh: true });
     }
   }, [location.shouldRefresh, handleListLocations, loadLocations]);
@@ -69,6 +70,7 @@ export function Controller(): null {
       // TODO: update to exhaustive call
       listLocationItems(location.current);
     } else if (location.current && history.shouldRefresh) {
+      // TODO: update to exhaustive call
       listLocationItems(location.current, true);
     }
   }, [location, history.shouldRefresh, listLocationItems, loadLocationItems]);
