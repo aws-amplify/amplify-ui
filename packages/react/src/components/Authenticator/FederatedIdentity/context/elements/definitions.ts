@@ -1,4 +1,5 @@
 import { defineBaseElement } from '@aws-amplify/ui-react-core/elements';
+import { IconElement } from './IconElement';
 
 export interface FederatedIdentityElements {
   Button: typeof ButtonElement;
@@ -21,11 +22,6 @@ export const ListElement = defineBaseElement({
 export const ListItemElement = defineBaseElement({
   type: 'li',
   displayName: 'ListItem',
-});
-
-export const IconElement = defineBaseElement<'svg', never>({
-  type: 'svg',
-  displayName: 'Icon',
 });
 
 export const FederatedIdentityElements: FederatedIdentityElements = {
