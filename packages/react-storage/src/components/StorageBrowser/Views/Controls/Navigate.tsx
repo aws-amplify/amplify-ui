@@ -1,6 +1,7 @@
 import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
+import type { OmitElements } from '../types';
 import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
 
@@ -58,30 +59,37 @@ NavigateItem.Separator = Separator;
 NavigateItem.ListItem = ListItem;
 
 /* <NavigateContainer /> */
-const NavigateContainer: NavigateControl['Container'] = React.forwardRef(
-  function Container({ children, ...props }, ref) {
-    return (
-      <Nav
-        {...props}
-        aria-label={props['aria-label'] ?? 'Breadcrumbs'}
-        className={props.className ?? `${BLOCK_NAME}__container`}
-        ref={ref}
-      >
-        <OrderedList className={`${props.className ?? BLOCK_NAME}__list`}>
-          {children}
-        </OrderedList>
-      </Nav>
-    );
-  }
-);
+const NavigateContainer: typeof Nav = React.forwardRef(function Container(
+  { children, ...props },
+  ref
+) {
+  return (
+    <Nav
+      {...props}
+      aria-label={props['aria-label'] ?? 'Breadcrumbs'}
+      className={props.className ?? `${BLOCK_NAME}__container`}
+      ref={ref}
+    >
+      <OrderedList className={`${props.className ?? BLOCK_NAME}__list`}>
+        {children}
+      </OrderedList>
+    </Nav>
+  );
+});
 
 /* <NavigateControl /> */
-export interface NavigateControl<
+export interface _NavigateControl<
   T extends StorageBrowserElements = StorageBrowserElements,
 > {
   (props: { renderNavigateItem?: RenderNavigateItem }): React.JSX.Element;
   Container: T['Nav'];
   NavigateItem: NavigateItem<T>;
+}
+
+export interface NavigateControl<
+  T extends StorageBrowserElements = StorageBrowserElements,
+> extends OmitElements<_NavigateControl<T>, 'Container' | 'NavigateItem'> {
+  (props: { renderNavigateItem?: RenderNavigateItem }): React.JSX.Element;
 }
 
 export const NavigateControl: NavigateControl = (_props) => {
@@ -105,5 +113,3 @@ export const NavigateControl: NavigateControl = (_props) => {
     </NavigateContainer>
   );
 };
-NavigateControl.Container = NavigateContainer;
-NavigateControl.NavigateItem = NavigateItem;

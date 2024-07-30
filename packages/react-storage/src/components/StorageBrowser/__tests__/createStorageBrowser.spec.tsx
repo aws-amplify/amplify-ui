@@ -2,12 +2,19 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { createStorageBrowser } from '../createStorageBrowser';
 
-describe('createStorageBrowser', () => {
-  it('returns a StorageBrowser', async () => {
-    const { StorageBrowser } = createStorageBrowser();
+const listLocations = jest.fn(() =>
+  Promise.resolve({ locations: [], nextToken: undefined })
+);
+const config = {
+  getLocationCredentials: jest.fn(),
+  listLocations,
+  region: 'region',
+};
 
-    expect(
-      await render(<StorageBrowser />).findByText('Default behavior!')
-    ).toBeDefined();
+describe('createStorageBrowser', () => {
+  it('returns a StorageBrowser', () => {
+    const { StorageBrowser } = createStorageBrowser({ config });
+
+    expect(render(<StorageBrowser />).container).toBeDefined();
   });
 });

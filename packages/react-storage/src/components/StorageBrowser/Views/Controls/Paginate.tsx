@@ -88,7 +88,7 @@ const PaginateText: typeof SpanElement = React.forwardRef(function Span(
   ref
 ) {
   const { variant } = React.useContext(PaginateItemContext);
-  const [{ current }] = useControl({ key: 'PAGINATE' });
+  const [{ current }] = useControl({ type: 'PAGINATE' });
 
   return (
     <SpanElement
@@ -157,7 +157,7 @@ const getButtonVariantProps = (
 const PaginateButtonControl: typeof ButtonElement = React.forwardRef(
   function Button({ variant: _variant, ...props }, ref) {
     const { variant } = React.useContext(PaginateItemContext);
-    const context = useControl({ key: 'PAGINATE' });
+    const context = useControl({ type: 'PAGINATE' });
 
     return (
       <ButtonElement
