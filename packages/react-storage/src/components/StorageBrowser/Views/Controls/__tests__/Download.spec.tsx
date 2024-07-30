@@ -2,8 +2,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { DownloadControl } from '../Download';
 
-describe('RefreshControl', () => {
-  it('renders the RefreshControl', () => {
+describe('DownloadControl', () => {
+  it('renders the DownloadControl', () => {
     render(<DownloadControl />);
 
     const button = screen.getByRole('button', {

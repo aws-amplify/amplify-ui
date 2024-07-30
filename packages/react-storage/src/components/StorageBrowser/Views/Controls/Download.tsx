@@ -1,10 +1,9 @@
 import React from 'react';
-import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
 
-const { Button, Icon } = StorageBrowserElements;
+const { Button: ButtonElement, Icon: IconElement } = StorageBrowserElements;
 
 const BLOCK_NAME = `${CLASS_BASE}__download`;
 
@@ -16,18 +15,34 @@ export interface DownloadControl<
   Icon: T['Icon'];
 }
 
-const DownloadIcon = withBaseElementProps(Icon, {
-  className: `${BLOCK_NAME}__icon`,
-  variant: 'download',
-});
+const DownloadIcon: typeof IconElement = React.forwardRef(
+  function DownloadIcon(props, ref) {
+    return (
+      <IconElement
+        {...props}
+        ref={ref}
+        className={`${BLOCK_NAME}__icon`}
+        variant="download"
+      />
+    );
+  }
+);
 
-const DownloadButton = withBaseElementProps(Button, {
-  className: `${BLOCK_NAME}`,
-  'aria-label': 'Download item',
-  onClick: () => {
-    /** TODO handleDownload */
-  },
-});
+const DownloadButton: typeof ButtonElement = React.forwardRef(
+  function DownloadButton(props, ref) {
+    return (
+      <ButtonElement
+        {...props}
+        ref={ref}
+        className={BLOCK_NAME}
+        aria-label="Download item"
+        onClick={() => {
+          /** TODO handleDownload */
+        }}
+      />
+    );
+  }
+);
 
 export const DownloadControl: DownloadControl = () => (
   <DownloadButton>
