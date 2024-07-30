@@ -31,7 +31,10 @@ describe('NavigateControl', () => {
   it('handles selecting "home" navigate item', async () => {
     const mockHandleUpdateState = jest.fn();
     const mockState = {
-      location: { current: { bucket: 'test-bucket' }, shouldRefresh: false },
+      location: {
+        current: { bucket: 'test-bucket' },
+        shouldRefresh: false,
+      },
       history: {
         list: ['folder1/', 'folder2/', 'folder3/'],
         shouldRefresh: false,
@@ -58,7 +61,10 @@ describe('NavigateControl', () => {
   it('handles selecting location navigate item', async () => {
     const mockHandleUpdateState = jest.fn();
     const mockState = {
-      location: { current: { bucket: 'test-bucket' }, shouldRefresh: false },
+      location: {
+        current: { bucket: 'test-bucket' },
+        shouldRefresh: false,
+      },
       history: {
         list: ['folder1/', 'folder2/', 'folder3/'],
         shouldRefresh: false,
@@ -86,7 +92,10 @@ describe('NavigateControl', () => {
   it('handles selecting a folder navigate item', async () => {
     const mockHandleUpdateState = jest.fn();
     const mockState = {
-      location: { current: { bucket: 'test-bucket' }, shouldRefresh: false },
+      location: {
+        current: { bucket: 'test-bucket' },
+        shouldRefresh: false,
+      },
       history: {
         list: ['folder1/', 'folder2/', 'folder3/'],
         shouldRefresh: false,
@@ -109,5 +118,36 @@ describe('NavigateControl', () => {
       type: 'EXIT_FOLDER',
       index: 0,
     });
+  });
+
+  it('creates a separator between home and the loction', () => {
+    const mockHandleUpdateState = jest.fn();
+    const mockState = {
+      location: {
+        current: { bucket: 'test-bucket' },
+        shouldRefresh: false,
+      },
+      history: {
+        list: undefined,
+        shouldRefresh: false,
+      },
+    };
+
+    jest
+      .spyOn(useControlObject, 'useControl')
+      .mockImplementation(() => [mockState, mockHandleUpdateState]);
+
+    const { container } = render(
+      <ControlProvider>
+        <NavigateControl />
+      </ControlProvider>
+    );
+
+    const separators = container.getElementsByClassName(
+      'storage-browser__navigate__separator'
+    );
+
+    expect(separators).toHaveLength(1);
+    expect(separators[0]).toBeInTheDocument();
   });
 });
