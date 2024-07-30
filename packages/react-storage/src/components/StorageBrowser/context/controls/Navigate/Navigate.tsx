@@ -5,8 +5,14 @@ import { LocationData } from '../../actions/types';
 type FolderName = `${string}/`;
 
 const INITIAL_STATE: NavigateState = {
-  location: undefined,
-  history: undefined,
+  location: {
+    current: undefined,
+    shouldRefresh: false,
+  },
+  history: {
+    list: undefined,
+    shouldRefresh: false,
+  },
 };
 
 export type NavigateAction =
@@ -16,8 +22,14 @@ export type NavigateAction =
   | { type: 'EXIT_FOLDER'; index: number };
 
 export interface NavigateState {
-  location: LocationData | undefined;
-  history: string[] | undefined;
+  location: {
+    current: LocationData | undefined;
+    shouldRefresh: boolean;
+  };
+  history: {
+    list: string[] | undefined;
+    shouldRefresh: boolean;
+  };
 }
 
 export type NavigateStateContext = [
@@ -32,29 +44,48 @@ export function navigateReducer(
   switch (action.type) {
     case 'SELECT_LOCATION':
       return {
-        location: action.location,
-        history: undefined,
+        ...state,
+        location: {
+          current: action.location,
+          shouldRefresh: false,
+        },
+        history: {
+          list: undefined,
+          shouldRefresh: true,
+        },
       };
     case 'DESELECT_LOCATION':
       return {
-        location: undefined,
-        history: undefined,
+        location: {
+          current: undefined,
+          shouldRefresh: true,
+        },
+        history: {
+          list: undefined,
+          shouldRefresh: false,
+        },
       };
     case 'ENTER_FOLDER': {
       const { name } = action;
 
       return {
         ...state,
-        history: [...(state.history ?? []), name],
+        history: {
+          list: [...(state.history.list ?? []), name],
+          shouldRefresh: true,
+        },
       };
     }
     case 'EXIT_FOLDER': {
       const { index } = action;
-      const updatedHistory = state.history?.slice(0, index + 1);
+      const updatedHistory = state.history.list?.slice(0, index + 1);
 
       return {
         ...state,
-        history: updatedHistory,
+        history: {
+          list: updatedHistory,
+          shouldRefresh: true,
+        },
       };
     }
   }

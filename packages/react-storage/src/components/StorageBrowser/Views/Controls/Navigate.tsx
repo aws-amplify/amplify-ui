@@ -100,29 +100,33 @@ export const NavigateControl: NavigateControl = (_props) => {
         </NavigateButton>
         {state.location ? <Separator /> : null}
       </NavigateItemContainer>
-      {state.location && (
+      {state.location.current && (
         <NavigateItemContainer>
           <NavigateButton
             onClick={() => {
-              if (state?.location) {
+              if (state?.location.current) {
                 handleUpdateState({
                   type: 'SELECT_LOCATION',
-                  location: state.location,
+                  location: state.location.current,
                 });
               }
             }}
           >
-            {state.location.bucket}
+            {state.location.current.bucket}
           </NavigateButton>
-          {state.location ? <Separator /> : null}
+          {state.history.list && state.history.list.length > 0 ? (
+            <Separator />
+          ) : null}
         </NavigateItemContainer>
       )}
       {state.history &&
-        state.history.map((folder, index) => (
+        state.history.list?.map((folder, index) => (
           <NavigateItem
             key={index}
             item={folder}
-            current={folder === state.history?.[state.history.length - 1]}
+            current={
+              folder === state.history.list?.[state.history.list.length - 1]
+            }
             onClick={() => {
               handleUpdateState({
                 type: 'EXIT_FOLDER',

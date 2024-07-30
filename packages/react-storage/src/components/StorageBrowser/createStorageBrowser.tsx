@@ -29,8 +29,9 @@ interface ResolvedStorageBrowserElements<
  */
 function DefaultStorageBrowser(): React.JSX.Element {
   const [{ location }] = useControl({ type: 'NAVIGATE' });
+  const { current } = location;
 
-  if (location) {
+  if (current) {
     return <LocationDetailView />;
   }
   return <LocationsView />;

@@ -32,7 +32,7 @@ export function Controller(): null {
   const [locationItemsState, handleListLocationItems] = useAction({
     type: 'LIST_LOCATION_ITEMS',
   });
-  const [{ location }] = useControl({ type: 'NAVIGATE' });
+  const [{ location, history }] = useControl({ type: 'NAVIGATE' });
 
   const loadLocations = shouldLoadLocations(locationsState);
 
@@ -40,11 +40,13 @@ export function Controller(): null {
     if (loadLocations) {
       // TODO: update to exhaustive call
       handleListLocations();
+    } else if (location.shouldRefresh) {
+      handleListLocations({ refresh: true });
     }
-  }, [handleListLocations, loadLocations]);
+  }, [location.shouldRefresh, handleListLocations, loadLocations]);
 
   const listLocationItems = React.useCallback(
-    ({ bucket, permission, scope }: LocationData) =>
+    ({ bucket, permission, scope }: LocationData, refresh: boolean = false) =>
       handleListLocationItems({
         // uncomment to test managed auth config
         prefix: '',
@@ -56,17 +58,20 @@ export function Controller(): null {
             await getLocationCredentials({ permission, scope }),
           region,
         },
+        options: { refresh },
       }),
     [getLocationCredentials, handleListLocationItems, region]
   );
 
   const loadLocationItems = shouldLoadLocationItems(locationItemsState);
   React.useEffect(() => {
-    if (location && loadLocationItems) {
+    if (location.current && loadLocationItems) {
       // TODO: update to exhaustive call
-      listLocationItems(location);
+      listLocationItems(location.current);
+    } else if (location.current && history.shouldRefresh) {
+      listLocationItems(location.current, true);
     }
-  }, [location, listLocationItems, loadLocationItems]);
+  }, [location, history.shouldRefresh, listLocationItems, loadLocationItems]);
 
   return null;
 }

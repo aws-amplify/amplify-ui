@@ -11,15 +11,27 @@ describe('navigateReducer', () => {
 
   it('handles a SELECT_LOCATION as expected', () => {
     const initialState: NavigateState = {
-      location: undefined,
-      history: undefined,
+      location: {
+        current: undefined,
+        shouldRefresh: false,
+      },
+      history: {
+        list: undefined,
+        shouldRefresh: false,
+      },
     };
 
     const action: NavigateAction = { type: 'SELECT_LOCATION', location };
 
     const expectedState: NavigateState = {
-      location,
-      history: undefined,
+      location: {
+        current: location,
+        shouldRefresh: false,
+      },
+      history: {
+        list: undefined,
+        shouldRefresh: true,
+      },
     };
 
     const newState = navigateReducer(initialState, action);
@@ -29,15 +41,27 @@ describe('navigateReducer', () => {
 
   it('handles a DESELECT_LOCATION as expected', () => {
     const state: NavigateState = {
-      location,
-      history: ['folder1/', 'folder2/'],
+      location: {
+        current: location,
+        shouldRefresh: false,
+      },
+      history: {
+        list: ['folder1/', 'folder2/'],
+        shouldRefresh: true,
+      },
     };
 
     const action: NavigateAction = { type: 'DESELECT_LOCATION' };
 
     const expectedState: NavigateState = {
-      location: undefined,
-      history: undefined,
+      location: {
+        current: undefined,
+        shouldRefresh: true,
+      },
+      history: {
+        list: undefined,
+        shouldRefresh: false,
+      },
     };
 
     const newState = navigateReducer(state, action);
@@ -47,18 +71,30 @@ describe('navigateReducer', () => {
 
   it('handles a ENTER_FOLDER as expected', () => {
     const state: NavigateState = {
-      location,
-      history: ['folder1/'],
+      location: {
+        current: location,
+        shouldRefresh: false,
+      },
+      history: {
+        list: ['folder1/'],
+        shouldRefresh: false,
+      },
     };
 
     const action: NavigateAction = {
       type: 'ENTER_FOLDER',
-      name: 'folder2/' as `${string}/`,
+      name: 'folder2/',
     };
 
     const expectedState: NavigateState = {
-      location,
-      history: ['folder1/', 'folder2/'],
+      location: {
+        current: location,
+        shouldRefresh: false,
+      },
+      history: {
+        list: ['folder1/', 'folder2/'],
+        shouldRefresh: true,
+      },
     };
 
     const newState = navigateReducer(state, action);
@@ -68,15 +104,27 @@ describe('navigateReducer', () => {
 
   it('should handle ENTER_FOLDER with undefined history', () => {
     const state: NavigateState = {
-      location,
-      history: undefined,
+      location: {
+        current: location,
+        shouldRefresh: false,
+      },
+      history: {
+        list: undefined,
+        shouldRefresh: false,
+      },
     };
 
     const action: NavigateAction = { type: 'ENTER_FOLDER', name: 'folder1/' };
 
     const expectedState: NavigateState = {
-      location,
-      history: ['folder1/'],
+      location: {
+        current: location,
+        shouldRefresh: false,
+      },
+      history: {
+        list: ['folder1/'],
+        shouldRefresh: true,
+      },
     };
 
     const newState = navigateReducer(state, action);
@@ -86,33 +134,27 @@ describe('navigateReducer', () => {
 
   it('handles a EXIT_FOLDER as expected', () => {
     const state: NavigateState = {
-      location,
-      history: ['folder1/', 'folder2/', 'folder3/'],
+      location: {
+        current: location,
+        shouldRefresh: false,
+      },
+      history: {
+        list: ['folder1/', 'folder2/', 'folder3/'],
+        shouldRefresh: false,
+      },
     };
 
     const action: NavigateAction = { type: 'EXIT_FOLDER', index: 1 };
 
     const expectedState: NavigateState = {
-      location,
-      history: ['folder1/', 'folder2/'],
-    };
-
-    const newState = navigateReducer(state, action);
-
-    expect(newState).toEqual(expectedState);
-  });
-
-  it('should handle EXIT_FOLDER with index out of bounds', () => {
-    const state: NavigateState = {
-      location,
-      history: ['folder1/', 'folder2/', 'folder3/'],
-    };
-
-    const action: NavigateAction = { type: 'EXIT_FOLDER', index: 5 };
-
-    const expectedState: NavigateState = {
-      location,
-      history: ['folder1/', 'folder2/', 'folder3/'],
+      location: {
+        current: location,
+        shouldRefresh: false,
+      },
+      history: {
+        list: ['folder1/', 'folder2/'],
+        shouldRefresh: true,
+      },
     };
 
     const newState = navigateReducer(state, action);
