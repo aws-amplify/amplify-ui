@@ -40,8 +40,10 @@ export interface ListLocationItemsActionOutput {
 }
 
 const parseResultItems = (items: ListOutputItem[]): LocationItem[] =>
+  // @ts-expect-error this is complaining about wrong types, just setting this up for testing
+  // will remove for pr
   items.map(({ path: key, lastModified, size }) =>
-    lastModified
+    !key.endsWith('/')
       ? // `size` is marked as potentially `undefined` in `ListOutputItem`
         // but is populated when the item is a file
         { key, lastModified, size: size!, type: 'FILE' }

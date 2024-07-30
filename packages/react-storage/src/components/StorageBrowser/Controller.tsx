@@ -33,7 +33,6 @@ export function Controller(): null {
     type: 'LIST_LOCATION_ITEMS',
   });
   const [{ location }] = useControl({ type: 'NAVIGATE' });
-  const { current } = location;
 
   const loadLocations = shouldLoadLocations(locationsState);
 
@@ -63,11 +62,11 @@ export function Controller(): null {
 
   const loadLocationItems = shouldLoadLocationItems(locationItemsState);
   React.useEffect(() => {
-    if (current && loadLocationItems) {
+    if (location && loadLocationItems) {
       // TODO: update to exhaustive call
-      listLocationItems(current);
+      listLocationItems(location);
     }
-  }, [current, listLocationItems, loadLocationItems]);
+  }, [location, listLocationItems, loadLocationItems]);
 
   return null;
 }

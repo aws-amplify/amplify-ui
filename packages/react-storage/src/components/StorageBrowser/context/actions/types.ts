@@ -3,6 +3,8 @@ export interface FolderItem {
   type: 'FOLDER';
 }
 
+export type FolderName = `${string}/`;
+
 export interface FileItem {
   key: string;
   lastModified: Date;

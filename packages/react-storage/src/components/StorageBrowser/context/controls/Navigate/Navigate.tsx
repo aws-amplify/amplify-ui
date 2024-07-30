@@ -1,34 +1,21 @@
 import React from 'react';
 
-import { LocationData } from '../../actions/types';
+import { LocationData, FolderName } from '../../actions/types';
 
 const INITIAL_STATE: NavigateState = {
-  initial: 'Home',
-  location: {
-    current: undefined,
-    isLoadingInitialData: false,
-    previousLocations: undefined,
-  },
-  locations: {
-    isLoadingInitialData: false,
-  },
+  location: undefined,
+  history: undefined,
 };
 
 export type NavigateAction =
   | { type: 'SELECT_LOCATION'; location: LocationData }
   | { type: 'DESELECT_LOCATION' }
-  | { type: 'ENTER_LOCATION'; location: LocationData }
-  | { type: 'EXIT_LOCATION' };
+  | { type: 'ENTER_FOLDER'; name: FolderName }
+  | { type: 'EXIT_FOLDER'; index: number };
 
 export interface NavigateState {
-  location: {
-    current: LocationData | undefined;
-    isLoadingInitialData: boolean;
-    previousLocations: LocationData[] | undefined;
-  };
-  locations: { isLoadingInitialData: boolean };
-  // entrypoint name, e.g. "home"
-  readonly initial: string;
+  location: LocationData | undefined;
+  history: FolderName[] | undefined;
 }
 
 export type NavigateStateContext = [
@@ -40,13 +27,35 @@ export function navigateReducer(
   state: NavigateState,
   action: NavigateAction
 ): NavigateState {
-  if (action.type === 'SELECT_LOCATION') {
-    return {
-      ...state,
-      location: { ...state.location, current: action.location },
-    };
+  switch (action.type) {
+    case 'SELECT_LOCATION':
+      return {
+        location: action.location,
+        history: undefined,
+      };
+    case 'DESELECT_LOCATION':
+      return {
+        location: undefined,
+        history: undefined,
+      };
+    case 'ENTER_FOLDER': {
+      const { name } = action;
+
+      return {
+        ...state,
+        history: [...(state.history ?? []), name],
+      };
+    }
+    case 'EXIT_FOLDER': {
+      const { index } = action;
+      const updatedHistory = state.history?.slice(0, index + 1);
+
+      return {
+        ...state,
+        history: updatedHistory,
+      };
+    }
   }
-  return state;
 }
 
 export const NavigateContext = React.createContext<

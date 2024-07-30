@@ -18,6 +18,8 @@ const TEMP_ACTIONS = [
   { name: 'Create Folder', type: 'CREATE_FOLDER' },
 ];
 
+const { Navigate } = Controls;
+
 // @ts-expect-error TODO: add Controls assignment
 export const LocationDetailViewControls: LocationDetailViewControls = () => {
   const handleActionSelect = (type: string) => {
@@ -27,6 +29,7 @@ export const LocationDetailViewControls: LocationDetailViewControls = () => {
 
   return (
     <>
+      <Navigate />
       {TEMP_ACTIONS.map(({ name, type }) => (
         <button
           key={name}
