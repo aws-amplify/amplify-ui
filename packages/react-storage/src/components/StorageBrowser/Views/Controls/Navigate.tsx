@@ -4,7 +4,6 @@ import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 import type { OmitElements } from '../types';
 import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
-import { FolderName } from '../../context/actions';
 import { useControl } from '../../context/controls';
 
 const { Span, Button, Nav, OrderedList, ListItem } = StorageBrowserElements;
@@ -18,7 +17,7 @@ const Separator = withBaseElementProps(Span, {
 });
 
 type RenderNavigateItemProps = {
-  item: FolderName;
+  item: string;
   current?: boolean;
   onClick?: () => void;
 };
@@ -104,12 +103,14 @@ export const NavigateControl: NavigateControl = (_props) => {
       {state.location && (
         <NavigateItemContainer>
           <NavigateButton
-            onClick={() =>
-              handleUpdateState({
-                type: 'SELECT_LOCATION',
-                location: state.location!, // TODO: Remove '!'; not sure why state.location is possibly undefined
-              })
-            }
+            onClick={() => {
+              if (state?.location) {
+                handleUpdateState({
+                  type: 'SELECT_LOCATION',
+                  location: state.location,
+                });
+              }
+            }}
           >
             {state.location.bucket}
           </NavigateButton>

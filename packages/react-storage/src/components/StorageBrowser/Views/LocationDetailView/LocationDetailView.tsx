@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FolderName, useAction } from '../../context/actions';
+import { useAction } from '../../context/actions';
 import { StorageBrowserElements } from '../../context/elements';
 import { ViewComponent } from '../types';
 import { LocationDetailViewControls } from './Controls';
@@ -26,10 +26,13 @@ export const LocationDetailView: LocationDetailView = () => {
           return (
             <button
               onClick={() => {
-                handleUpdateState({
-                  type: 'ENTER_FOLDER',
-                  name: item.key as FolderName, //TODO: remove this, just testing for now
-                });
+                if (item.key.endsWith('/')) {
+                  handleUpdateState({
+                    type: 'ENTER_FOLDER',
+                    // @ts-expect-error Type 'string' is not assignable to type '${string}/'
+                    name: item.key, // TODO: fix this type error
+                  });
+                }
               }}
               key={item.key}
             >

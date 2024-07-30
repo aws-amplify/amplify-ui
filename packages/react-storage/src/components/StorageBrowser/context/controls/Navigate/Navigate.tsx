@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { LocationData, FolderName } from '../../actions/types';
+import { LocationData } from '../../actions/types';
+
+type FolderName = `${string}/`;
 
 const INITIAL_STATE: NavigateState = {
   location: undefined,
@@ -15,7 +17,7 @@ export type NavigateAction =
 
 export interface NavigateState {
   location: LocationData | undefined;
-  history: FolderName[] | undefined;
+  history: string[] | undefined;
 }
 
 export type NavigateStateContext = [

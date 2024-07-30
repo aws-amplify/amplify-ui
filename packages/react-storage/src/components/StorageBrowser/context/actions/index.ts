@@ -6,5 +6,4 @@ export {
   LocationItem,
   Permission,
   UploadItemData,
-  FolderName,
 } from './types';
