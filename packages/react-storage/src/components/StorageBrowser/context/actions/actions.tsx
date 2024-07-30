@@ -5,7 +5,11 @@ import {
   ActionState,
   createActionStateContext,
 } from './createActionStateContext';
-import { downloadAction, DownloadActionInput } from './downloadAction';
+import {
+  downloadAction,
+  DownloadActionInput,
+  TransferTaskState,
+} from './downloadAction';
 import {
   listLocationItemsAction,
   ListLocationItemsActionInput,
@@ -26,9 +30,23 @@ export const DEFAULT_ACTIONS = {
   LIST_LOCATION_ITEMS: listLocationItemsAction,
   DOWNLOAD: downloadAction,
 };
+
+const INITIAL_DOWNLOAD_STATE: TransferTaskState = 'SUCCESS';
+
 export const INITIAL_VALUE = {
   LIST_LOCATION_ITEMS: { items: [], nextToken: undefined },
-  DOWNLOAD: {},
+  DOWNLOAD: {
+    result: Promise.resolve({
+      path: '',
+      body: {
+        blob: () => Promise.resolve(new Blob()),
+        json: () => Promise.resolve(null),
+        text: () => Promise.resolve(''),
+      },
+    }),
+    state: INITIAL_DOWNLOAD_STATE,
+    cancel: (): void => {},
+  },
 };
 
 export const [ActionStateProvider, useAction] = createActionStateContext(
