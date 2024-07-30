@@ -544,3 +544,9 @@ Then(
     }).type(`{${key}}`, { force: true });
   }
 );
+
+Then('I see the {string} radio button checked', (label: string) => {
+  cy.findByLabelText(new RegExp(`^${escapeRegExp(label)}`, 'i')).should(
+    'be.checked'
+  );
+});

@@ -374,6 +374,51 @@ describe('StorageManager', () => {
     });
   });
 
+  it('provides the processed file key on a remove file event after upload when processFile is provided with a path function', async () => {
+    const onFileRemove = jest.fn();
+
+    const processedKey = 'processedKey';
+    const processFile: StorageManagerProps['processFile'] = (input) => ({
+      ...input,
+      key: processedKey,
+    });
+
+    const { container } = render(
+      <StorageManager
+        {...storeManagerProps}
+        onFileRemove={onFileRemove}
+        processFile={processFile}
+        path={() => 'my-path'}
+        accessLevel={undefined}
+      />
+    );
+
+    const hiddenInput = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+
+    expect(hiddenInput).toBeInTheDocument();
+    const file = new File(['file content'], 'file.txt', { type: 'text/plain' });
+
+    fireEvent.change(hiddenInput, { target: { files: [file] } });
+
+    // Wait for the file to be uploaded
+    await waitFor(() => {
+      expect(uploadDataSpy).toHaveBeenCalled();
+
+      const removeButton = getByTestId(
+        container,
+        'storage-manager-remove-button'
+      );
+      expect(removeButton).toBeDefined();
+
+      fireEvent.click(removeButton);
+
+      expect(onFileRemove).toHaveBeenCalledTimes(1);
+      expect(onFileRemove).toHaveBeenCalledWith({ key: processedKey });
+    });
+  });
+
   it('logs a warning if maxFileCount is zero', () => {
     render(<StorageManager {...storeManagerProps} maxFileCount={0} />);
 

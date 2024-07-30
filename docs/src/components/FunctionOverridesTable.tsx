@@ -96,7 +96,7 @@ export const FunctionOverridesTable = ({ framework }) => {
                 <code>resetPassword</code>
               </ResponsiveTableCell>
               <ResponsiveTableCell label="Override Name">
-                <code>handleResetPassword</code>
+                <code>handleForgotPassword</code>
               </ResponsiveTableCell>
               <ResponsiveTableCell label="input Properties">
                 <code>{'{username}'}</code>
@@ -107,7 +107,7 @@ export const FunctionOverridesTable = ({ framework }) => {
                 <code>confirmResetPassword</code>
               </ResponsiveTableCell>
               <ResponsiveTableCell label="Override Name">
-                <code>handleConfirmResetPassword</code>
+                <code>handleForgotPasswordSubmit</code>
               </ResponsiveTableCell>
               <ResponsiveTableCell label="input Properties">
                 <code>{'{username, newPassword, confirmationCode}'}</code>
