@@ -39,6 +39,7 @@ export {
   UseDeprecationWarning,
   useGetUrl,
   useHasValueUpdated,
+  useIsSignedIn,
   usePreviousValue,
   useSetUserAgent,
   useTimeout,
