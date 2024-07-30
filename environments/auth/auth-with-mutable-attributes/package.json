@@ -1,0 +1,8 @@
+{
+    "private": true,
+    "name": "auth-with-mutable-attributes",
+    "version": "0.0.1",
+    "scripts": {
+      "pull": "amplify pull --appId d1th4cr900cpf0 --envName dev"
+    }
+  }
