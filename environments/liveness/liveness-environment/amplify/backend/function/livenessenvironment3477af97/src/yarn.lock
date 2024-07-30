@@ -775,10 +775,10 @@ bowser@^2.11.0:
   resolved "https://registry.yarnpkg.com/bowser/-/bowser-2.11.0.tgz#5ca3c35757a7aa5771500c70a73a9f91ef420a8f"
   integrity sha512-AlcaJBi/pqqJBIQ8U9Mcpc9i8Aqxn88Skv5d+xBX006BY5u8N3mGLHa5Lgppa7L/HfwgwLgZ6NYs+Ag6uUmJRA==
 
-fast-xml-parser@4.2.5:
-  version "4.2.5"
-  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-4.2.5.tgz#a6747a09296a6cb34f2ae634019bf1738f3b421f"
-  integrity sha512-B9/wizE4WngqQftFPmdaMYlXoJlJOYxGQOanC77fq9k8+Z0v5dDSVh+3glErdIROP//s/jgb7ZuxKfB8nVyo0g==
+fast-xml-parser@4.2.5, fast-xml-parser@4.4.1:
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-4.4.1.tgz#86dbf3f18edf8739326447bcaac31b4ae7f6514f"
+  integrity sha512-xkjOecfnKGkSsOwtZ5Pz7Us/T6mrbPQrq0nh+aCO5V9nk5NLWmasAHumTKjiPJPWANe+kAZ84Jc8ooJkzZ88Sw==
   dependencies:
     strnum "^1.0.5"
 
