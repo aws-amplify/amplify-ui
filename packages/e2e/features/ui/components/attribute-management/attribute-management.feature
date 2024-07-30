@@ -1,4 +1,4 @@
-Feature: Fetch user attributes flow
+Feature: User Attribute Management
 
 Background:
     Given I'm running the example "/ui/components/attribute-management"
