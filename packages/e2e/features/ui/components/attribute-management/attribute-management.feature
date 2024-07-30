@@ -54,3 +54,5 @@ Scenario: Update email address
     When I type my "Email" as "TESTER2@example.com"
     When I click the "Update Email" button
     Then I see "Verification Code for T***@e***" as an input field
+    When I click the "Done Editing" button
+    Then I click the "Sign Out" button
