@@ -2,16 +2,16 @@ import { IdentityControl } from './IdentityControl';
 import { ProviderData } from '../types';
 
 export interface IdentitiesControl<T extends string = string> {
-  (props: ChildrenProps | RenderIdentityProps): JSX.Element;
+  (props: ChildrenProps | RenderItemProps): JSX.Element;
   Identity: IdentityControl<T>;
 }
 
 interface ChildrenProps {
   children?: React.ReactNode;
-  renderIdentity?: never;
+  renderItem?: never;
 }
 
-interface RenderIdentityProps {
+interface RenderItemProps {
   children?: never;
-  renderIdentity?: { (providerData: ProviderData): JSX.Element };
+  renderItem?: { (providerData: ProviderData): JSX.Element };
 }
