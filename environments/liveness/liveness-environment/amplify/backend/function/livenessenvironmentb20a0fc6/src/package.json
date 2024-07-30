@@ -10,8 +10,5 @@
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.92"
-  },
-  "resolutions": {
-    "**/fast-xml-parser": "4.4.1"
   }
 }
