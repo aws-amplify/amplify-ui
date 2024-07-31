@@ -41,6 +41,7 @@ export type DefaultFile = Pick<StorageFile, 'key'>;
 export interface ProcessFileParams extends Record<string, any> {
   file: File;
   key: string;
+  useAccelerateEndpoint?: boolean;
 }
 
 export type ProcessFile = (
