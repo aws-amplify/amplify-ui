@@ -2,10 +2,23 @@ import { getCurrentUser } from 'aws-amplify/auth';
 import { Hub, HubCallback } from '@aws-amplify/core';
 import { useEffect, useState } from 'react';
 import useDataState, { DataState } from './useDataState';
+import { AuthError } from 'aws-amplify/auth';
+
+const USER_UNAUTHENTICATED_EXCEPTION = 'UserUnAuthenticatedException';
 
 const action = async (_: { isSignedIn: boolean }, __: undefined) => {
-  await getCurrentUser();
-  return { isSignedIn: true };
+  try {
+    await getCurrentUser();
+    return { isSignedIn: true };
+  } catch (error) {
+    if (
+      error instanceof AuthError &&
+      error.name === USER_UNAUTHENTICATED_EXCEPTION
+    ) {
+      return { isSignedIn: false };
+    }
+    throw error;
+  }
 };
 
 const defaultState: DataState<{ isSignedIn: boolean }> = {

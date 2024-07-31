@@ -4,15 +4,25 @@ import { waitFor } from '@testing-library/react';
 import * as AuthModule from 'aws-amplify/auth';
 import { GetCurrentUserOutput } from 'aws-amplify/auth';
 import { Hub } from 'aws-amplify/utils';
+import { AuthError } from 'aws-amplify/auth';
 
 const getCurrentUserSpy = jest.spyOn(AuthModule, 'getCurrentUser');
 
-const errorResult = new Error('Authorization error');
+const USER_UNAUTHENTICATED_EXCEPTION = 'UserUnAuthenticatedException';
+
+const authErrorResult = new AuthError({
+  name: USER_UNAUTHENTICATED_EXCEPTION,
+  message: 'User needs to be authenticated to call this API.',
+  recoverySuggestion: 'Sign in before calling this API again.',
+});
+
+const nonAuthErrorResule = new Error('Non-Authorization error');
+
 const successResult: GetCurrentUserOutput = {
   username: 'username',
   userId: '123',
 };
-const expectedDefaultState = {
+const expectedSignedOutState = {
   data: { isSignedIn: false },
   hasError: false,
   isLoading: false,
@@ -28,9 +38,9 @@ const expectedErrorState = {
   data: { isSignedIn: false },
   hasError: true,
   isLoading: false,
-  message: 'Authorization error',
+  message: 'Non-Authorization error',
 };
-const expectedAcceptedState = {
+const expectedSignedInState = {
   data: { isSignedIn: true },
   hasError: false,
   isLoading: false,
@@ -42,7 +52,7 @@ describe('useIsSignedIn', () => {
     getCurrentUserSpy.mockImplementationOnce(async () => {
       return new Promise((_, reject) => {
         setTimeout(() => {
-          reject(errorResult);
+          reject(authErrorResult);
         }, 10);
       });
     });
@@ -52,7 +62,7 @@ describe('useIsSignedIn', () => {
     expect(result.current).toEqual(expectedLoadingState);
 
     await waitFor(() => {
-      expect(result.current).toEqual(expectedErrorState);
+      expect(result.current).toEqual(expectedSignedOutState);
     });
   });
 
@@ -70,25 +80,25 @@ describe('useIsSignedIn', () => {
     expect(result.current).toEqual(expectedLoadingState);
 
     await waitFor(() => {
-      expect(result.current).toEqual(expectedAcceptedState);
+      expect(result.current).toEqual(expectedSignedInState);
     });
   });
 
   it('should be true if receiving a signedIn event', async () => {
-    getCurrentUserSpy.mockRejectedValueOnce(errorResult);
+    getCurrentUserSpy.mockRejectedValueOnce(authErrorResult);
 
     const { result } = renderHook(() => useIsSignedIn());
     expect(result.current).toEqual(expectedLoadingState);
 
     await waitFor(() => {
-      expect(result.current).toEqual(expectedErrorState);
+      expect(result.current).toEqual(expectedSignedOutState);
     });
 
     act(() => {
       Hub.dispatch('auth', { event: 'signedIn' });
     });
 
-    expect(result.current).toEqual(expectedAcceptedState);
+    expect(result.current).toEqual(expectedSignedInState);
   });
 
   it('should be false if receiving a signedOut event', async () => {
@@ -97,18 +107,18 @@ describe('useIsSignedIn', () => {
     const { result } = renderHook(() => useIsSignedIn());
 
     await waitFor(() => {
-      expect(result.current).toEqual(expectedAcceptedState);
+      expect(result.current).toEqual(expectedSignedInState);
     });
 
     act(() => {
       Hub.dispatch('auth', { event: 'signedOut' });
     });
 
-    expect(result.current).toEqual(expectedDefaultState);
+    expect(result.current).toEqual(expectedSignedOutState);
   });
 
   it('should be able to listen to multiple events after one call', () => {
-    getCurrentUserSpy.mockRejectedValueOnce(errorResult);
+    getCurrentUserSpy.mockRejectedValueOnce(authErrorResult);
 
     const { result } = renderHook(() => useIsSignedIn());
 
@@ -116,18 +126,36 @@ describe('useIsSignedIn', () => {
       Hub.dispatch('auth', { event: 'signedIn' });
     });
 
-    expect(result.current).toEqual(expectedAcceptedState);
+    expect(result.current).toEqual(expectedSignedInState);
 
     act(() => {
       Hub.dispatch('auth', { event: 'signedOut' });
     });
 
-    expect(result.current).toEqual(expectedDefaultState);
+    expect(result.current).toEqual(expectedSignedOutState);
 
     act(() => {
       Hub.dispatch('auth', { event: 'signedIn' });
     });
 
-    expect(result.current).toEqual(expectedAcceptedState);
+    expect(result.current).toEqual(expectedSignedInState);
+  });
+
+  it('should have an error in state if there is a non-authorization error', async () => {
+    getCurrentUserSpy.mockImplementationOnce(async () => {
+      return new Promise((_, reject) => {
+        setTimeout(() => {
+          reject(nonAuthErrorResule);
+        }, 10);
+      });
+    });
+
+    const { result } = renderHook(() => useIsSignedIn());
+
+    expect(result.current).toEqual(expectedLoadingState);
+
+    await waitFor(() => {
+      expect(result.current).toEqual(expectedErrorState);
+    });
   });
 });
