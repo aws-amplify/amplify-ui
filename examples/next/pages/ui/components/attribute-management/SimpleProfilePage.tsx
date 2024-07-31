@@ -14,6 +14,7 @@ export const SimpleProfilePage = () => {
   const [state, handleAttributes] = useUserAttributes();
   const [isEditMode, setIsEditMode] = React.useState(false);
   const [isConfirmMode, setIsConfirmMode] = React.useState(false);
+  const formRef = React.useRef<HTMLFormElement>(null);
 
   const editableAttributes: UserAttributeKey[] = [
     'family_name',
@@ -33,8 +34,11 @@ export const SimpleProfilePage = () => {
       type: 'DELETE',
       userAttributeKeys: [key],
     });
-    //setIsEditMode(false);
-    // Add back logic to clear deletion
+    // Add logic to clear input field on deletion
+    const input = formRef.current?.querySelector(
+      `input[name="${key}"]`
+    ) as HTMLInputElement;
+    input.value = '';
   };
 
   const handleUpdateEmailSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -141,6 +145,7 @@ export const SimpleProfilePage = () => {
               as="form"
               direction="column"
               alignItems="left"
+              ref={formRef}
               onSubmit={handleSubmit}
             >
               <Flex justifyContent="space-between" marginTop="1rem">
