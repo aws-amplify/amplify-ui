@@ -1,8 +1,10 @@
 import React from 'react';
 import { NavigateProvider, NavigateContext } from './Navigate';
 import { PaginateProvider, PaginateContext } from './Paginate';
+import { ActionSelectProvider, ActionSelectContext } from './ActionSelect';
 
 const CONTEXTS = {
+  ACTION_SELECT: ActionSelectContext,
   NAVIGATE: NavigateContext,
   PAGINATE: PaginateContext,
 };
@@ -16,7 +18,9 @@ export function ControlProvider({
 }): React.JSX.Element {
   return (
     <NavigateProvider>
-      <PaginateProvider>{children}</PaginateProvider>
+      <ActionSelectProvider>
+        <PaginateProvider>{children}</PaginateProvider>
+      </ActionSelectProvider>
     </NavigateProvider>
   );
 }

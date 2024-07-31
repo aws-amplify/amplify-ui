@@ -1,33 +1,17 @@
 import React from 'react';
-import { StorageBrowserElements } from '../../context/elements';
-import type { IconVariant } from '../../context/elements/IconElement';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
+
+import { StorageBrowserElements } from '../../context/elements';
+import type { LocationItem } from '../../context/actions';
+import type { Action } from '../../context/controls/ActionSelect';
+import type { IconVariant } from '../../context/elements/IconElement';
 import { CLASS_BASE } from '../constants';
+import { useControl } from '../../context/controls';
 
 import type { OmitElements } from '../types';
+
 const { Button, Icon: IconElement, View } = StorageBrowserElements;
 const BLOCK_NAME = `${CLASS_BASE}__action-menu`;
-
-type PermissionType = 'READ' | 'READWRITE' | 'WRITE';
-
-interface FolderData {
-  key: string;
-  type: 'FOLDER';
-}
-interface FileData {
-  key: string;
-  lastModified: Date;
-  size: number;
-  type: 'FILE';
-}
-type LocationItem = FileData | FolderData;
-
-interface Action {
-  displayName: string;
-  hide?: (permissionType: PermissionType) => boolean;
-  disable?: (selected: LocationItem[] | undefined) => boolean;
-  type: string;
-}
 
 /* <ActionItem /> */
 
@@ -51,23 +35,83 @@ const ActionButton = withBaseElementProps(Button, {
   role: 'menuitem',
 });
 
-interface ActionItem<T extends StorageBrowserElements = StorageBrowserElements>
-  extends RenderActionItem,
-    Pick<T, 'Button' | 'Icon'> {}
-
-type RenderActionItem = (props: {
+interface ActionItemProps {
   action: Action;
   variant?: IconVariant;
-}) => React.JSX.Element;
+}
+
+type RenderActionItem = (props: ActionItemProps) => React.JSX.Element;
+
+interface ActionItem<T extends StorageBrowserElements = StorageBrowserElements>
+  extends RenderActionItem,
+    Pick<T, 'Button' | 'Icon'> {
+  (props: ActionItemProps): React.JSX.Element;
+}
 
 const ActionItem: ActionItem = ({ action, variant }) => {
-  const { displayName } = action;
+  const { name, type } = action;
+  const [, handleUpdateState] = useControl({ type: 'ACTION_SELECT' });
+  const fileUploadRef = React.useRef<HTMLInputElement>(null);
+
+  const requiresFileInput = type === 'UPLOAD_FILES' || type === 'UPLOAD_FOLDER';
+
+  const handleActionClick = () => {
+    if (requiresFileInput) {
+      if (fileUploadRef?.current) {
+        fileUploadRef.current.click();
+      }
+    } else {
+      /* TODO: Case for actions that don't need an input */
+      handleUpdateState({
+        actionType: type,
+        type: 'SELECT_ACTION_TYPE',
+        destination: 'public/',
+        name: name,
+        items: [],
+      });
+    }
+  };
+
+  const handleInputChange = () => {
+    if (fileUploadRef.current?.files) {
+      const files: FileList = fileUploadRef.current?.files;
+      const items: LocationItem[] = [];
+      for (const file of files) {
+        const { name, lastModified, size } = file;
+        items.push({
+          key: name,
+          lastModified: new Date(lastModified),
+          size,
+          type: 'FILE',
+        });
+      }
+
+      handleUpdateState({
+        actionType: type,
+        type: 'SELECT_ACTION_TYPE',
+        destination: 'public/', // TODO: temp hardcode
+        items,
+        name,
+      });
+    }
+  };
 
   return (
-    <ActionButton>
-      <ActionIcon variant={variant} />
-      {displayName}
-    </ActionButton>
+    <>
+      {requiresFileInput ? (
+        <input
+          ref={fileUploadRef}
+          onChange={() => handleInputChange()}
+          style={{ display: 'none' }}
+          multiple
+          type="file"
+        />
+      ) : null}
+      <ActionButton onClick={() => handleActionClick()}>
+        <ActionIcon variant={variant} />
+        {name}
+      </ActionButton>
+    </>
   );
 };
 
@@ -93,6 +137,30 @@ const Menu = withBaseElementProps(View, {
   'aria-label': 'Actions',
 });
 
+const TEMP_ACTIONS: ActionItemProps[] = [
+  {
+    action: {
+      name: 'Upload File',
+      type: 'UPLOAD_FILES',
+    },
+    variant: 'upload-file',
+  },
+  {
+    action: {
+      name: 'Upload Folder',
+      type: 'UPLOAD_FOLDER',
+    },
+    variant: 'upload-folder',
+  },
+  {
+    action: {
+      name: 'Create Folder',
+      type: 'CREATE_FOLDER',
+    },
+    variant: 'create-folder',
+  },
+];
+
 const ActionsMenu: ActionsMenu = ({ isOpen }) => {
   const menuClasses = `${BLOCK_NAME}__menu${
     isOpen ? ` ${BLOCK_NAME}__menu--open` : ''
@@ -100,14 +168,9 @@ const ActionsMenu: ActionsMenu = ({ isOpen }) => {
 
   return (
     <Menu className={menuClasses}>
-      <ActionItem
-        action={{ displayName: 'Upload folder', type: 'FOLDER' }}
-        variant="upload-folder"
-      />
-      <ActionItem
-        action={{ displayName: 'Upload file', type: 'FILE' }}
-        variant="upload-file"
-      />
+      {TEMP_ACTIONS.map(({ action, variant }) => (
+        <ActionItem key={action.type} action={action} variant={variant} />
+      ))}
     </Menu>
   );
 };
