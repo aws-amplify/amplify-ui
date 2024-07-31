@@ -5,14 +5,9 @@ import { LocationData } from '../../actions/types';
 type FolderName = `${string}/`;
 
 const INITIAL_STATE: NavigateState = {
-  location: {
-    current: undefined,
-    shouldRefresh: false,
-  },
-  history: {
-    list: undefined,
-    shouldRefresh: false,
-  },
+  location: undefined,
+
+  history: undefined,
 };
 
 export type NavigateAction =
@@ -22,14 +17,8 @@ export type NavigateAction =
   | { type: 'EXIT_FOLDER'; index: number };
 
 export interface NavigateState {
-  location: {
-    current: LocationData | undefined;
-    shouldRefresh: boolean;
-  };
-  history: {
-    list: string[] | undefined;
-    shouldRefresh: boolean;
-  };
+  location: LocationData | undefined;
+  history: string[] | undefined;
 }
 
 export type NavigateStateContext = [
@@ -42,50 +31,42 @@ export function navigateReducer(
   action: NavigateAction
 ): NavigateState {
   switch (action.type) {
-    case 'SELECT_LOCATION':
-      return {
-        location: {
-          current: action.location,
-          shouldRefresh: false,
-        },
-        history: {
-          list: undefined,
-          shouldRefresh: true,
-        },
-      };
-    case 'DESELECT_LOCATION':
-      return {
-        location: {
-          current: undefined,
-          shouldRefresh: true,
-        },
-        history: {
-          list: undefined,
-          shouldRefresh: false,
-        },
-      };
+    case 'SELECT_LOCATION': {
+      const { location } = action;
+      return { ...state, location };
+    }
+    case 'DESELECT_LOCATION': {
+      return state;
+    }
     case 'ENTER_FOLDER': {
       const { name } = action;
+      const { location } = state;
+      const { bucket, prefix, permission, type } = location!;
+
+      // eslint-disable-next-line no-console
+      console.log('ENTER_FOLDER prefix', prefix);
+
+      const scope = `s3://${bucket}/${name}*`;
+      // eslint-disable-next-line no-console
+      console.log('new scope', scope);
 
       return {
         ...state,
-        history: {
-          list: [...(state.history.list ?? []), name],
-          shouldRefresh: true,
-        },
+        location: { bucket, prefix: name, permission, scope, type },
       };
     }
     case 'EXIT_FOLDER': {
-      const { index } = action;
-      const updatedHistory = state.history.list?.slice(0, index + 1);
+      return state;
+      // const { index } = action;
+      // const updatedHistory = state.history.list?.slice(0, index + 1);
 
-      return {
-        ...state,
-        history: {
-          list: updatedHistory,
-          shouldRefresh: true,
-        },
-      };
+      // return {
+      //   ...state,
+      //   history: {
+      //     list: updatedHistory,
+      //     shouldRefresh: true,
+      //   },
+      // };
     }
   }
 }

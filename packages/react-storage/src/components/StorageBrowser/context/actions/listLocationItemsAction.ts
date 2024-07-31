@@ -40,13 +40,25 @@ export interface ListLocationItemsActionOutput {
 }
 
 const parseResultItems = (items: ListOutputItem[]): LocationItem[] =>
-  items.map(({ path: key, lastModified, size }) =>
-    lastModified
-      ? // `size` is marked as potentially `undefined` in `ListOutputItem`
-        // but is populated when the item is a file
-        { key, lastModified, size: size!, type: 'FILE' }
-      : { key, type: 'FOLDER' }
-  );
+  items.map(({ path: key, lastModified, size }) => {
+    if (size === 0) {
+      return { key, type: 'FOLDER' };
+    }
+    // eslint-disable-next-line no-console
+    // console.log('key', key);
+    // // eslint-disable-next-line no-console
+    // console.log('lastModified', lastModified);
+
+    // // eslint-disable-next-line no-console
+    // console.log('size', size);
+
+    return { key, lastModified: lastModified!, size: size!, type: 'FILE' };
+    // return lastModified
+    //   ? // `size` is marked as potentially `undefined` in `ListOutputItem`
+    //     // but is populated when the item is a file
+    //     { key, lastModified, size: size!, type: 'FILE' }
+    //   : { key, type: 'FOLDER' };
+  });
 
 export async function listLocationItemsAction(
   prevState: ListLocationItemsActionOutput,
@@ -73,6 +85,8 @@ export async function listLocationItemsAction(
   };
 
   const { items, nextToken } = await list(listInput);
+  // eslint-disable-next-line no-console
+  console.log('items', items);
 
   return {
     items: [...(refresh ? [] : prevState.items), ...parseResultItems(items)],

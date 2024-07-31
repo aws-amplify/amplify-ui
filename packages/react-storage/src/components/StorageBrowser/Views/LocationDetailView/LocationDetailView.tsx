@@ -13,9 +13,12 @@ export interface LocationDetailView<
 export const LocationDetailView: LocationDetailView = () => {
   const [_, handleUpdateState] = useControl({ type: 'NAVIGATE' });
 
-  const [{ data, isLoading }] = useAction({
+  const [{ data, isLoading, message }] = useAction({
     type: 'LIST_LOCATION_ITEMS',
   });
+
+  // eslint-disable-next-line no-console
+  console.log('message', message);
 
   const hasItems = !!data.items.length;
 
@@ -26,6 +29,9 @@ export const LocationDetailView: LocationDetailView = () => {
           return (
             <button
               onClick={() => {
+                // eslint-disable-next-line no-console
+                console.log('clcik', item.key);
+
                 if (item.key.endsWith('/')) {
                   handleUpdateState({
                     type: 'ENTER_FOLDER',

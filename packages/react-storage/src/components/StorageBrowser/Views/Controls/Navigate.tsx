@@ -100,7 +100,7 @@ export const NavigateControl: NavigateControl = (_props) => {
         </NavigateButton>
         {state.location ? <Separator /> : null}
       </NavigateItemContainer>
-      {state.location.current && (
+      {/* {state.location.current && (
         <NavigateItemContainer>
           <NavigateButton
             onClick={() => {
@@ -118,8 +118,8 @@ export const NavigateControl: NavigateControl = (_props) => {
             <Separator />
           ) : null}
         </NavigateItemContainer>
-      )}
-      {state.history &&
+      )} */}
+      {/* {state.history &&
         state.history.list?.map((folder, index) => (
           <NavigateItem
             key={index}
@@ -134,7 +134,7 @@ export const NavigateControl: NavigateControl = (_props) => {
               });
             }}
           />
-        ))}
+        ))} */}
     </NavigateContainer>
   );
 };

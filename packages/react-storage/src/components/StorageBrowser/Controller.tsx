@@ -18,10 +18,10 @@ const shouldLoadLocations = ({
 }: LocationsDataState[0]) => !data.locations.length && !isLoading && !hasError;
 
 const shouldLoadLocationItems = ({
-  data,
+  // data,
   hasError,
   isLoading,
-}: LocationItemsState[0]) => !data.items.length && !isLoading && !hasError;
+}: LocationItemsState[0]) => !isLoading && !hasError;
 
 /**
  * Handles fetching of list data
@@ -40,40 +40,65 @@ export function Controller(): null {
     if (loadLocations) {
       // TODO: update to exhaustive call
       handleListLocations();
-    } else if (location.shouldRefresh) {
-      // TODO: update to exhaustive call
-      handleListLocations({ refresh: true });
     }
-  }, [location.shouldRefresh, handleListLocations, loadLocations]);
+    // else if (location.shouldRefresh) {
+    //   // TODO: update to exhaustive call
+    //   handleListLocations({ refresh: true });
+    // }
+  }, [handleListLocations, loadLocations]);
+
+  const { bucket, permission, scope, prefix } = location ?? {};
 
   const listLocationItems = React.useCallback(
-    ({ bucket, permission, scope }: LocationData, refresh: boolean = false) =>
-      handleListLocationItems({
+    ({ prefix = '', scope }: { prefix: string | undefined; scope: string }) => {
+      // s3://SOME_STRING/*
+      // eslint-disable-next-line no-console
+      console.log('listLocationItems scope', scope);
+
+      return handleListLocationItems({
         // uncomment to test managed auth config
-        prefix: '',
+        // prefix: '',
         // uncomment to test with amplify config with public access level
-        // prefix: 'public/'
+
+        prefix,
         config: {
-          bucket,
+          bucket: bucket!,
           credentialsProvider: async () =>
-            await getLocationCredentials({ permission, scope }),
+            await getLocationCredentials({ permission: permission!, scope }),
           region,
         },
-        options: { refresh },
-      }),
-    [getLocationCredentials, handleListLocationItems, region]
+        options: { refresh: true },
+      });
+    },
+    [
+      getLocationCredentials,
+      bucket,
+      permission,
+      handleListLocationItems,
+      region,
+    ]
   );
 
-  const loadLocationItems = shouldLoadLocationItems(locationItemsState);
   React.useEffect(() => {
-    if (location.current && loadLocationItems) {
+    // eslint-disable-next-line no-console
+    console.log('location changed', location);
+  }, [location]);
+
+  const loadLocationItems = shouldLoadLocationItems(locationItemsState);
+
+  React.useEffect(() => {
+    if (scope && loadLocationItems) {
       // TODO: update to exhaustive call
-      listLocationItems(location.current);
-    } else if (location.current && history.shouldRefresh) {
-      // TODO: update to exhaustive call
-      listLocationItems(location.current, true);
+      listLocationItems({ prefix, scope });
     }
-  }, [location, history.shouldRefresh, listLocationItems, loadLocationItems]);
+    // if (location.current && loadLocationItems) {
+    //   // TODO: update to exhaustive call
+    //   listLocationItems(location.current);
+    // } else if (location.current && history.shouldRefresh) {
+    //   // TODO: update to exhaustive call
+    //   listLocationItems(location.current, true);
+    // }
+  }, [prefix, scope, listLocationItems, loadLocationItems]);
 
   return null;
 }

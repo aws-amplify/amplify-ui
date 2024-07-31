@@ -17,6 +17,7 @@ export type LocationType = 'OBJECT' | 'PREFIX' | 'BUCKET';
 
 export interface LocationData<T = Permission> {
   bucket: string;
+  prefix: string | undefined;
   scope: string;
   permission: T;
   type: LocationType;
