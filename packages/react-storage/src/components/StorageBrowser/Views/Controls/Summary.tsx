@@ -59,7 +59,6 @@ type RenderSummaryItem = (props: {
   label: string;
   value: string;
 }) => React.JSX.Element;
-
 interface _SummaryControl<
   T extends StorageBrowserElements = StorageBrowserElements,
 > {
