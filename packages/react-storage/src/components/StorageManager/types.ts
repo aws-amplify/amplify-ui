@@ -126,6 +126,8 @@ export interface StorageManagerProps {
    * Provided value is prefixed to the file `key` for each file
    */
   path?: string;
+
+  useAccelerateEndpoint?: boolean;
 }
 
 export interface StorageManagerPathProps
@@ -138,4 +140,5 @@ export interface StorageManagerPathProps
    */
   path: string | PathCallback;
   accessLevel?: never;
+  useAccelerateEndpoint?: boolean;
 }
