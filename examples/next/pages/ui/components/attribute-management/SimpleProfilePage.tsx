@@ -33,6 +33,8 @@ export const SimpleProfilePage = () => {
       type: 'DELETE',
       userAttributeKeys: [key],
     });
+    //setIsEditMode(false);
+    // Add back logic to clear deletion
   };
 
   const handleUpdateEmailSubmit = (e: React.FormEvent<HTMLFormElement>) => {
