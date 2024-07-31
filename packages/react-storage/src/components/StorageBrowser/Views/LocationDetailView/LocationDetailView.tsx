@@ -4,7 +4,7 @@ import { useAction } from '../../context/actions';
 import { StorageBrowserElements } from '../../context/elements';
 import { ViewComponent } from '../types';
 import { LocationDetailViewControls } from './Controls';
-
+import { CLASS_BASE } from '../constants';
 export interface LocationDetailView<
   T extends StorageBrowserElements = StorageBrowserElements,
 > extends ViewComponent<LocationDetailViewControls<T>> {}
@@ -22,7 +22,11 @@ export const LocationDetailView: LocationDetailView = () => {
 
   return (
     <>
-      <LocationDetailViewControls />
+      <div className={CLASS_BASE}>
+        <div className={`${CLASS_BASE}__controls`}>
+          <LocationDetailViewControls />
+        </div>
+      </div>
       {isLoading && !hasItems ? <span>loading...</span> : listItems}
     </>
   );

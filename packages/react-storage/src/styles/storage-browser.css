@@ -129,6 +129,8 @@
 
 .storage-browser__action-menu {
   position: relative;
+  display: inline-block;
+  justify-self: flex-end;
   grid-row-start: 2;
   grid-column: 30 / 32;
 }

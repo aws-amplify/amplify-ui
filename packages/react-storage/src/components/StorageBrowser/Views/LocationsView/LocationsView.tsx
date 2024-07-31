@@ -8,8 +8,7 @@ import { Controls } from '../Controls';
 import { CommonControl, ViewComponent } from '../types';
 import { useControl } from '../../context/controls';
 
-const { ActionSelect, Message, Paginate, Refresh, Search, Table, Title } =
-  Controls;
+const { Message, Paginate, Refresh, Search, Table, Title } = Controls;
 
 interface LocationsViewControls<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -29,7 +28,6 @@ const LocationsViewControls: LocationsViewControls = () => (
   <>
     <Title />
     <Refresh />
-    <ActionSelect />
     <Paginate />
     <Table />
   </>

@@ -30,9 +30,6 @@ interface ResolvedStorageBrowserElements<
 function DefaultStorageBrowser(): React.JSX.Element {
   const [{ location }] = useControl({ type: 'NAVIGATE' });
   const { current } = location;
-  // check if useControl(ACTION_SELECT) has a selected action value,
-  // if so, then we can render an action view
-  // In Action view, iterate over the items we passed from the ActionSelect control
   if (current) {
     return <LocationDetailView />;
   }
