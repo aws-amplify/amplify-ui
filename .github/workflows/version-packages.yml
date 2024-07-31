@@ -3,11 +3,11 @@
 # Triggered by: whenever a commit is merged onto main and there are
 #               new changesets to consume.
 
-name: Version Packages
+name: Version Packages / react-liveness v2
 
 on:
   push:
-    branches: [main]
+    branches: [ui-react-liveness/v2]
 
 permissions:
   contents: write # Used to commit to "Version Packages" PR
@@ -42,5 +42,6 @@ jobs:
         uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
         with:
           version: yarn bumpVersions
+          title: Liveness V2 Patch Version Packages PR
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
