@@ -6,7 +6,7 @@
  * @returns {string | undefined} A single string with space-separated IDs, or undefined if all elements are undefined.
  */
 
-export const getAriaDescribedBy = (
+export const createSpaceSeparatedIds = (
   ids: (string | undefined)[]
 ): string | undefined => {
   const joinedIds = ids.filter((id) => id !== undefined).join(' ');

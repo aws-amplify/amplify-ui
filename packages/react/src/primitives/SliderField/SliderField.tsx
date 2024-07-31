@@ -21,9 +21,9 @@ import { View } from '../View';
 import { useStableId } from '../utils/useStableId';
 import { useFieldset } from '../Fieldset/useFieldset';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
-import { getAriaDescribedBy } from '../utils/getAriaDescribedBy';
-import { getFieldDescriptionId } from '../utils/getFieldDescriptionId';
-import { getFieldErrorMessageId } from '../utils/getFieldErrorMessageId';
+import { createSpaceSeparatedIds } from '../utils/createSpaceSeparatedIds';
+import { DESCRIPTION_SUFFIX, ERROR_SUFFIX } from '../../helpers/constants';
+import { getUniqueComponentId } from '../utils/getUniqueComponentId';
 
 // Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
 // We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
@@ -67,9 +67,13 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
 
   const fieldId = useStableId(id);
   const stableId = useStableId();
-  const descriptionId = getFieldDescriptionId(stableId, descriptiveText);
-  const errorId = getFieldErrorMessageId(stableId, hasError);
-  const ariaDescribedBy = getAriaDescribedBy([errorId, descriptionId]);
+  const descriptionId = descriptiveText
+    ? getUniqueComponentId(stableId, DESCRIPTION_SUFFIX)
+    : undefined;
+  const errorId = hasError
+    ? getUniqueComponentId(stableId, ERROR_SUFFIX)
+    : undefined;
+  const ariaDescribedBy = createSpaceSeparatedIds([errorId, descriptionId]);
   const disabled = isFieldsetDisabled ? isFieldsetDisabled : isDisabled;
 
   const { styleProps, rest } = splitPrimitiveProps(_rest);

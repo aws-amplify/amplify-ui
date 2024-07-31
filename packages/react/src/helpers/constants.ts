@@ -4,3 +4,6 @@ export const AMPLIFY_SYMBOL = (
     ? Symbol.for('amplify_default')
     : '@@amplify_default'
 ) as Symbol;
+
+export const ERROR_SUFFIX = 'error';
+export const DESCRIPTION_SUFFIX = 'description';

@@ -13,12 +13,11 @@ import {
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
-import { getTestId } from '../utils/getTestId';
+import { getUniqueComponentId } from '../utils/getUniqueComponentId';
 import { useStableId } from '../utils/useStableId';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
-import { getAriaDescribedBy } from '../utils/getAriaDescribedBy';
-import { getFieldDescriptionId } from '../utils/getFieldDescriptionId';
-import { getFieldErrorMessageId } from '../utils/getFieldErrorMessageId';
+import { createSpaceSeparatedIds } from '../utils/createSpaceSeparatedIds';
+import { DESCRIPTION_SUFFIX, ERROR_SUFFIX } from '../../helpers/constants';
 
 const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, 'fieldset'> = (
   {
@@ -47,10 +46,17 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, 'fieldset'> = (
 ) => {
   const fieldId = useStableId(id);
   const stableId = useStableId();
-  const descriptionId = getFieldDescriptionId(stableId, descriptiveText);
-  const errorId = getFieldErrorMessageId(stableId, hasError);
-  const ariaDescribedBy = getAriaDescribedBy([errorId, descriptionId]);
-  const radioGroupTestId = getTestId(testId, ComponentClassName.RadioGroup);
+  const descriptionId = descriptiveText
+    ? getUniqueComponentId(stableId, DESCRIPTION_SUFFIX)
+    : undefined;
+  const errorId = hasError
+    ? getUniqueComponentId(stableId, ERROR_SUFFIX)
+    : undefined;
+  const ariaDescribedBy = createSpaceSeparatedIds([errorId, descriptionId]);
+  const radioGroupTestId = getUniqueComponentId(
+    testId,
+    ComponentClassName.RadioGroup
+  );
 
   const radioGroupContextValue: RadioGroupContextType = React.useMemo(
     () => ({

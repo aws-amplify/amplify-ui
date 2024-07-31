@@ -17,9 +17,9 @@ import {
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { useStableId } from '../utils/useStableId';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
-import { getFieldDescriptionId } from '../utils/getFieldDescriptionId';
-import { getFieldErrorMessageId } from '../utils/getFieldErrorMessageId';
-import { getAriaDescribedBy } from '../utils/getAriaDescribedBy';
+import { createSpaceSeparatedIds } from '../utils/createSpaceSeparatedIds';
+import { DESCRIPTION_SUFFIX, ERROR_SUFFIX } from '../../helpers/constants';
+import { getUniqueComponentId } from '../utils/getUniqueComponentId';
 
 const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
   const {
@@ -43,9 +43,13 @@ const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
 
   const fieldId = useStableId(id);
   const stableId = useStableId();
-  const descriptionId = getFieldDescriptionId(stableId, descriptiveText);
-  const errorId = getFieldErrorMessageId(stableId, hasError);
-  const ariaDescribedBy = getAriaDescribedBy([errorId, descriptionId]);
+  const descriptionId = descriptiveText
+    ? getUniqueComponentId(stableId, DESCRIPTION_SUFFIX)
+    : undefined;
+  const errorId = hasError
+    ? getUniqueComponentId(stableId, ERROR_SUFFIX)
+    : undefined;
+  const ariaDescribedBy = createSpaceSeparatedIds([errorId, descriptionId]);
 
   const { styleProps, rest } = splitPrimitiveProps(_rest);
 
