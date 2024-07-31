@@ -140,21 +140,21 @@ const Menu = withBaseElementProps(View, {
 const TEMP_ACTIONS: ActionItemProps[] = [
   {
     action: {
-      name: 'Upload File',
+      name: 'Upload file',
       type: 'UPLOAD_FILES',
     },
     variant: 'upload-file',
   },
   {
     action: {
-      name: 'Upload Folder',
+      name: 'Upload folder',
       type: 'UPLOAD_FOLDER',
     },
     variant: 'upload-folder',
   },
   {
     action: {
-      name: 'Create Folder',
+      name: 'Create folder',
       type: 'CREATE_FOLDER',
     },
     variant: 'create-folder',
