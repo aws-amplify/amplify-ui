@@ -7,11 +7,10 @@ import {
   deepExtend,
 } from './utils';
 import { WebDesignToken } from '../tokens/types/designToken';
-import { createComponentCSS, propsToString } from './createComponentCSS';
-import { isFunction, isString } from '../../utils';
+import { createComponentCSS } from './createComponentCSS';
+import { isString } from '../../utils';
 import { createColorPalette } from './createColorPalette';
 import { WebTokens } from '../tokens';
-import { CSSProperties } from '../components/utils';
 import { createAnimationCSS } from './createAnimationCSS';
 
 /**
