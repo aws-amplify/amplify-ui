@@ -101,34 +101,36 @@ export const NavigateControl: NavigateControl = (_props) => {
         onClick={() => handleUpdateState({ type: 'DESELECT_LOCATION' })}
       />
       {state.location && (
-        <NavigateItem
-          item={state.location.bucket}
-          current={!state.history || state.history.length === 0}
-          onClick={() => {
-            if (state?.location) {
-              handleUpdateState({
-                type: 'SELECT_LOCATION',
-                location: state.location,
-              });
-            }
-          }}
-        />
+        <>
+          <NavigateItem
+            item={state.location.bucket}
+            current={!state.history || state.history.length === 0}
+            onClick={() => {
+              if (state?.location) {
+                handleUpdateState({
+                  type: 'SELECT_LOCATION',
+                  location: state.location,
+                });
+              }
+            }}
+          />
+          {state.history?.map((folder, index) => (
+            <NavigateItem
+              key={index}
+              item={folder}
+              current={folder === state.history?.[state.history.length - 1]}
+              onClick={() => {
+                if (isFolderName(folder)) {
+                  handleUpdateState({
+                    type: 'EXIT_FOLDER',
+                    name: folder,
+                  });
+                }
+              }}
+            />
+          ))}
+        </>
       )}
-      {state.history?.map((folder, index) => (
-        <NavigateItem
-          key={index}
-          item={folder}
-          current={folder === state.history?.[state.history.length - 1]}
-          onClick={() => {
-            if (isFolderName(folder)) {
-              handleUpdateState({
-                type: 'EXIT_FOLDER',
-                name: folder,
-              });
-            }
-          }}
-        />
-      ))}
     </NavigateContainer>
   );
 };
