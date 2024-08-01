@@ -1,12 +1,9 @@
 import React from 'react';
 
-import { LocationData } from '../../actions/types';
-
-type FolderName = `${string}/`;
+import { FolderName, LocationData } from '../../actions/types';
 
 const INITIAL_STATE: NavigateState = {
   location: undefined,
-
   history: undefined,
 };
 
@@ -14,7 +11,7 @@ export type NavigateAction =
   | { type: 'SELECT_LOCATION'; location: LocationData }
   | { type: 'DESELECT_LOCATION' }
   | { type: 'ENTER_FOLDER'; name: FolderName }
-  | { type: 'EXIT_FOLDER'; index: number };
+  | { type: 'EXIT_FOLDER'; name: FolderName };
 
 export interface NavigateState {
   location: LocationData | undefined;
@@ -32,41 +29,69 @@ export function navigateReducer(
 ): NavigateState {
   switch (action.type) {
     case 'SELECT_LOCATION': {
+      /** 
+        This action comes from the navigate item specifying the location
+        It uses the current state location and so this has the "old" scope
+        which could include the previous folder we were at
+        We'll need to update the scope here
+        We need to update the prefix too?
+      */
+
       const { location } = action;
-      return { ...state, location };
+      const { bucket } = location;
+
+      const scope = `s3://${bucket}/*`;
+
+      return {
+        location: { ...location, scope, prefix: undefined },
+        history: undefined,
+      };
     }
     case 'DESELECT_LOCATION': {
-      return state;
+      return {
+        location: undefined,
+        history: undefined,
+      };
     }
     case 'ENTER_FOLDER': {
       const { name } = action;
-      const { location } = state;
-      const { bucket, prefix, permission, type } = location!;
+      const { location, history } = state;
 
-      // eslint-disable-next-line no-console
-      console.log('ENTER_FOLDER prefix', prefix);
+      if (name === history?.[history.length - 1]) {
+        // Don't add the same folder into history again
+        // For some reason listLocationItems also returns the current folder again
+        return state;
+      }
+
+      const { bucket, permission, type } = location!;
 
       const scope = `s3://${bucket}/${name}*`;
-      // eslint-disable-next-line no-console
-      console.log('new scope', scope);
 
       return {
-        ...state,
         location: { bucket, prefix: name, permission, scope, type },
+        history: [...(state.history ?? []), name],
       };
     }
     case 'EXIT_FOLDER': {
-      return state;
-      // const { index } = action;
-      // const updatedHistory = state.history.list?.slice(0, index + 1);
+      const { name } = action;
+      const { location } = state;
+      const { bucket, permission, type } = location!;
 
-      // return {
-      //   ...state,
-      //   history: {
-      //     list: updatedHistory,
-      //     shouldRefresh: true,
-      //   },
-      // };
+      const scope = `s3://${bucket}/${name}*`;
+
+      const indexOfTargetFolder = state.history?.indexOf(name) ?? -1;
+
+      if (indexOfTargetFolder > -1) {
+        // Update history to include all of the history up to the target folder we're navigating to
+        const updatedHistory = state.history?.slice(0, indexOfTargetFolder + 1);
+
+        return {
+          location: { bucket, prefix: name, permission, scope, type },
+          history: updatedHistory,
+        };
+      }
+
+      return state;
     }
   }
 }

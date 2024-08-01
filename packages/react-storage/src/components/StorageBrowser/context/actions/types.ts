@@ -3,6 +3,10 @@ export interface FolderItem {
   type: 'FOLDER';
 }
 
+export type FolderName = `${string}/`;
+export const isFolderName = (key: string): key is FolderName =>
+  key.endsWith('/');
+
 export interface FileItem {
   key: string;
   lastModified: Date;

@@ -7,6 +7,7 @@ import { LocationDetailViewControls } from './Controls';
 import { useControl } from '../../context/controls';
 import { useConfig } from '../../context/config';
 import { useHasValueUpdated } from '@aws-amplify/ui-react-core';
+import { isFolderName } from '../../context/actions/types';
 
 export interface LocationDetailView<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -66,26 +67,25 @@ export const LocationDetailView: LocationDetailView = () => {
 
   const listItems = !hasItems
     ? null
-    : data.items.map((item) => {
-        if (item.type === 'FOLDER') {
+    : data.items.map(({ key, type }) => {
+        if (type === 'FOLDER') {
           return (
             <button
               onClick={() => {
-                if (item.key.endsWith('/')) {
+                if (isFolderName(key)) {
                   handleUpdateState({
                     type: 'ENTER_FOLDER',
-                    // @ts-expect-error Type 'string' is not assignable to type '${string}/'
-                    name: item.key, // TODO: fix this type error
+                    name: key,
                   });
                 }
               }}
-              key={item.key}
+              key={key}
             >
-              {item.key}
+              {key}
             </button>
           );
         } else {
-          return <p key={item.key}>{item.key}</p>;
+          return <p key={key}>{key}</p>;
         }
       });
 

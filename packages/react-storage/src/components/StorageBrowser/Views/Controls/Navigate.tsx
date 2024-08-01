@@ -5,9 +5,12 @@ import type { OmitElements } from '../types';
 import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
 import { useControl } from '../../context/controls';
+import { isFolderName } from '../../context/actions/types';
 
 const { Span, Button, Nav, OrderedList, ListItem } = StorageBrowserElements;
 const BLOCK_NAME = `${CLASS_BASE}__navigate`;
+
+const HOME_NAVIGATE_ITEM = 'Home';
 
 /* <Separator /> */
 
@@ -92,45 +95,40 @@ export const NavigateControl: NavigateControl = (_props) => {
 
   return (
     <NavigateContainer>
-      <NavigateItemContainer>
-        <NavigateButton
-          onClick={() => handleUpdateState({ type: 'DESELECT_LOCATION' })}
-        >
-          Home
-        </NavigateButton>
-        {state.location ? <Separator /> : null}
-      </NavigateItemContainer>
+      <NavigateItem
+        item={HOME_NAVIGATE_ITEM}
+        current={!state.location}
+        onClick={() => handleUpdateState({ type: 'DESELECT_LOCATION' })}
+      />
       {state.location && (
-        <NavigateItemContainer>
-          <NavigateButton
-            onClick={() => {
-              if (state?.location) {
-                handleUpdateState({
-                  type: 'SELECT_LOCATION',
-                  location: state.location,
-                });
-              }
-            }}
-          >
-            {state.location.bucket}
-          </NavigateButton>
-          {state.history && state.history.length > 0 ? <Separator /> : null}
-        </NavigateItemContainer>
+        <NavigateItem
+          item={state.location.bucket}
+          current={!state.history || state.history.length === 0}
+          onClick={() => {
+            if (state?.location) {
+              handleUpdateState({
+                type: 'SELECT_LOCATION',
+                location: state.location,
+              });
+            }
+          }}
+        />
       )}
-      {state.history &&
-        state.history?.map((folder, index) => (
-          <NavigateItem
-            key={index}
-            item={folder}
-            current={folder === state.history?.[state.history.length - 1]}
-            onClick={() => {
+      {state.history?.map((folder, index) => (
+        <NavigateItem
+          key={index}
+          item={folder}
+          current={folder === state.history?.[state.history.length - 1]}
+          onClick={() => {
+            if (isFolderName(folder)) {
               handleUpdateState({
                 type: 'EXIT_FOLDER',
-                index,
+                name: folder,
               });
-            }}
-          />
-        ))}
+            }
+          }}
+        />
+      ))}
     </NavigateContainer>
   );
 };
