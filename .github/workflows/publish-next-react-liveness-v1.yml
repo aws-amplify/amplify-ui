@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   setup-cache:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@main
+    uses: ./.github/workflows/reusable-setup-cache.yml
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
@@ -56,6 +56,7 @@ jobs:
       DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
       
   publish:
+    needs: e2e
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-tagged-publish.yml@main
     with:
       dist-tag: react-liveness-v1-next

@@ -26,6 +26,6 @@ Feature: Liveness Detector
       And I see "Hold face position during countdown"
       And I see "liveness-camera-countdown-timer" element
       And I see "Move closer"
-      Then I see the "Face didn't fit inside oval in time limit." timeout error
+      Then I see the "Face didn't fill oval within time limit." timeout error
       And I click the "Try again" button
       Then I see the "Begin check" button
