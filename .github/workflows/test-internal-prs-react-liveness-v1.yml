@@ -100,7 +100,7 @@ jobs:
 
   setup-cache:
     needs: setup
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@main
+    uses: ./.github/workflows/reusable-setup-cache.yml
     with:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.repository }}
