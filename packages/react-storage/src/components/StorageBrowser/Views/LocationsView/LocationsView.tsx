@@ -58,10 +58,6 @@ export const LocationsView: LocationsView = () => {
               <button
                 key={scope}
                 onClick={() => {
-                  const location = { bucket, prefix, scope, ...rest };
-                  // eslint-disable-next-line no-console
-                  console.log('loca', location);
-
                   handleUpdateState({
                     type: 'SELECT_LOCATION',
                     location: { bucket, prefix, scope, ...rest },

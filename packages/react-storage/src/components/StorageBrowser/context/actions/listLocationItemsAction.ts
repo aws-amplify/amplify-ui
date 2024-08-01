@@ -73,8 +73,6 @@ export async function listLocationItemsAction(
   };
 
   const { items, nextToken } = await list(listInput);
-  // eslint-disable-next-line no-console
-  console.log('items', items);
 
   return {
     items: [...(refresh ? [] : prevState.items), ...parseResultItems(items)],
