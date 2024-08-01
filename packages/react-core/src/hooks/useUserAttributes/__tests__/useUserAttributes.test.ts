@@ -241,11 +241,11 @@ describe('useUserAttributes', () => {
 
     await waitForNextUpdate();
 
-    expect(result.current[0].hasError).toBe(false);
-    expect(result.current[0].data.attributes).toBe(
-      confirmAttributeOutput.attributes
-    );
-    expect(result.current[0].data.pendingVerification).toStrictEqual(
+    const state = result.current[0];
+
+    expect(state.hasError).toBe(false);
+    expect(state.data.attributes).toBe(confirmAttributeOutput.attributes);
+    expect(state.data.pendingVerification).toStrictEqual(
       confirmAttributeOutput.pendingVerification
     );
     expect(confirmUserAttribute).toHaveBeenCalled();
@@ -266,15 +266,19 @@ describe('useUserAttributes', () => {
     });
     await waitForNextUpdate();
 
-    expect(result.current[0].data.attributes).toBe(fetchUserAttributesResult);
+    const state = result.current[0];
+
+    expect(state.data.attributes).toBe(fetchUserAttributesResult);
 
     act(() => {
       handleAttributes(deleteAttributesInput);
     });
     await waitForNextUpdate();
 
-    expect(result.current[0].hasError).toBe(false);
-    expect(result.current[0].data.attributes).toBe(deleteUserAttributesResult);
+    const stateAfterUpdate = result.current[0];
+
+    expect(stateAfterUpdate.hasError).toBe(false);
+    expect(stateAfterUpdate.data.attributes).toBe(deleteUserAttributesResult);
     expect(deleteUserAttributes).toHaveBeenCalled();
     expect(fetchUserAttributes).toHaveBeenCalledTimes(2);
   });
@@ -285,8 +289,9 @@ describe('useUserAttributes', () => {
     const { result, waitForNextUpdate } = renderHook(() => useUserAttributes());
 
     const handleAttributes = result.current[1];
+    const state = result.current[0];
 
-    expect(result.current[0].data.attributes).toStrictEqual({});
+    expect(state.data.attributes).toStrictEqual({});
 
     act(() => {
       handleAttributes(fetchInput);
@@ -294,9 +299,11 @@ describe('useUserAttributes', () => {
 
     await waitForNextUpdate();
 
-    expect(result.current[0].data.attributes).toBe(fetchUserAttributesResult);
-    expect(result.current[0].hasError).toBe(false);
-    expect(result.current[0].message).toBeFalsy();
+    const stateAfterUpdate = result.current[0];
+
+    expect(stateAfterUpdate.data.attributes).toBe(fetchUserAttributesResult);
+    expect(stateAfterUpdate.hasError).toBe(false);
+    expect(stateAfterUpdate.message).toBeFalsy();
     expect(fetchUserAttributes).toHaveBeenCalled();
   });
 
@@ -307,7 +314,9 @@ describe('useUserAttributes', () => {
 
     const handleAttributes = result.current[1];
 
-    expect(result.current[0].data.attributes).toStrictEqual({});
+    const state = result.current[0];
+
+    expect(state.data.attributes).toStrictEqual({});
 
     act(() => {
       handleAttributes(sendCodeInput);
@@ -315,8 +324,10 @@ describe('useUserAttributes', () => {
 
     await waitForNextUpdate();
 
-    expect(result.current[0].hasError).toBe(false);
-    expect(result.current[0].data.pendingVerification).toStrictEqual([
+    const stateAfterUpdate = result.current[0];
+
+    expect(stateAfterUpdate.hasError).toBe(false);
+    expect(stateAfterUpdate.data.pendingVerification).toStrictEqual([
       verifiableAttributeResult,
     ]);
     expect(sendUserAttributeVerificationCode).toHaveBeenCalled();
@@ -342,11 +353,13 @@ describe('useUserAttributes', () => {
 
     await waitForNextUpdate();
 
-    expect(result.current[0].hasError).toBe(false);
-    expect(result.current[0].data.attributes).toStrictEqual(updatedAttributes);
+    const state = result.current[0];
+
+    expect(state.hasError).toBe(false);
+    expect(state.data.attributes).toStrictEqual(updatedAttributes);
     expect(updateUserAttributes).toHaveBeenCalled();
     expect(fetchUserAttributes).toHaveBeenCalled();
-    expect(result.current[0].data.pendingVerification).toStrictEqual([
+    expect(state.data.pendingVerification).toStrictEqual([
       {
         name: 'email',
         codeDeliveryDetails: { destination: 'new@mail.com', medium: 'EMAIL' },
@@ -367,8 +380,10 @@ describe('useUserAttributes', () => {
 
     await waitForNextUpdate();
 
-    expect(result.current[0].hasError).toBe(true);
-    expect(result.current[0].message).toBe(errorResult.message);
+    const state = result.current[0];
+
+    expect(state.hasError).toBe(true);
+    expect(state.message).toBe(errorResult.message);
     expect(fetchUserAttributes).toHaveBeenCalled();
   });
 });
