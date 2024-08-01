@@ -9,7 +9,7 @@ interface ChildrenProps {
 
 interface RenderButtonProps<T extends string = string> {
   children?: never;
-  RenderButton: RenderButton<T>;
+  renderButton: RenderButton<T>;
 }
 
 type FederatedIdentitiesProps<T extends string = string> = (
