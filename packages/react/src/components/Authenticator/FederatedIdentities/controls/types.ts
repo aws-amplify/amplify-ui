@@ -1,5 +1,5 @@
 import { FederatedProvider } from '@aws-amplify/ui';
-import { FederatedIdentitiesElements } from './context/elements';
+import { FederatedIdentitiesElements } from '../context/elements';
 import React from 'react';
 
 interface HandleSignInWithRedirectInput<T extends string = string> {
