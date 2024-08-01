@@ -29,9 +29,6 @@ interface ResolvedStorageBrowserElements<
  */
 function DefaultStorageBrowser(): React.JSX.Element {
   const [{ location }] = useControl({ type: 'NAVIGATE' });
-  // const { current } = location;
-  // eslint-disable-next-line no-console
-  console.log('HUH');
 
   if (location) {
     // if (current) {

@@ -21,10 +21,6 @@ export function Controller(): null {
       // TODO: update to exhaustive call
       handleListLocations();
     }
-    // else if (location.shouldRefresh) {
-    //   // TODO: update to exhaustive call
-    //   handleListLocations({ refresh: true });
-    // }
   }, [handleListLocations, loadLocations]);
 
   return null;
