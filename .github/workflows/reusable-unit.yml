@@ -79,8 +79,9 @@ jobs:
           matrix.package == 'react-liveness'
         run: yarn react build
 
+        ## only build react, react-liveness, react-core
       - name: Build ${{ matrix.package }} package
-        if: ${{ matrix.package != 'ui' }}
+        if: ${{ matrix.package != 'ui' && (matrix.package == 'react' || matrix.package == 'react-liveness' || matrix.package == 'react-core') }}
         run: yarn ${{ matrix.package }} build
 
       - name: Check ${{ matrix.package }} bundle size
@@ -92,13 +93,18 @@ jobs:
         run: yarn react-liveness size
 
       - name: Cache ${{ matrix.package }}/dist
+        if: ${{matrix.package == 'ui' || matrix.package == 'react' || matrix.package == 'react-liveness' || matrix.package == 'react-core'}}
         uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:
           path: ./packages/${{ matrix.package }}/dist
           key: ${{ runner.os }}-${{ matrix.package }}-${{ inputs.commit }}
 
+      ## only run for ui, react, react-liveness, react-core
       - name: Lint packages
+        if: ${{matrix.package == 'ui' || matrix.package == 'react' || matrix.package == 'react-liveness' || matrix.package == 'react-core'}}
         run: yarn ${{ matrix.package }} lint
 
+      ## only run for ui, react, react-liveness, react-core
       - name: Run ${{ matrix.package }} CI tests
+        if: ${{matrix.package == 'ui' || matrix.package == 'react' || matrix.package == 'react-liveness' || matrix.package == 'react-core'}}
         run: yarn ${{ matrix.package }} test:ci
