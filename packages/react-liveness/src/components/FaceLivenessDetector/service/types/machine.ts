@@ -77,6 +77,7 @@ export interface HydratedLivenessContext {
 }
 
 export type LivenessEventTypes =
+  | 'CONNECTION_TIMEOUT'
   | 'BEGIN'
   | 'START_RECORDING'
   | 'TIMEOUT'
@@ -109,10 +110,13 @@ export type LivenessInterpreter = Interpreter<
 
 export interface StreamActorCallback {
   (params: { type: 'DISCONNECT_EVENT' }): void;
-  (params: { type: 'SERVER_ERROR'; data: { error: Error } }): void;
   (params: {
     type: 'SERVER_ERROR';
     data: { error: ValidationException };
+  }): void;
+  (params: {
+    type: 'SERVER_ERROR' | 'CONNECTION_TIMEOUT';
+    data: { error: Error };
   }): void;
   (params: {
     type: 'SERVER_ERROR';

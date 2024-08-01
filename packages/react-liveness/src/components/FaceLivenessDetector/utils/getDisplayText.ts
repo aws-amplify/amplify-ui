@@ -32,6 +32,8 @@ export function getDisplayText(
   };
 
   const {
+    connectionTimeoutHeaderText,
+    connectionTimeoutMessageText,
     instructionsHeaderHeadingText,
     instructionsHeaderBodyText,
     instructionsBeginCheckText,
@@ -131,6 +133,8 @@ export function getDisplayText(
   };
 
   const errorDisplayText: Required<ErrorDisplayText> = {
+    connectionTimeoutHeaderText,
+    connectionTimeoutMessageText,
     timeoutHeaderText,
     timeoutMessageText,
     faceDistanceHeaderText,
