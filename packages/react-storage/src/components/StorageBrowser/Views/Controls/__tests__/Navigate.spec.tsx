@@ -31,14 +31,8 @@ describe('NavigateControl', () => {
   it('handles selecting "home" navigate item', async () => {
     const mockHandleUpdateState = jest.fn();
     const mockState = {
-      location: {
-        current: { bucket: 'test-bucket' },
-        shouldRefresh: false,
-      },
-      history: {
-        list: ['folder1/', 'folder2/', 'folder3/'],
-        shouldRefresh: false,
-      },
+      location: { bucket: 'test-bucket' },
+      history: ['folder1/', 'folder2/', 'folder3/'],
     };
 
     jest
@@ -61,14 +55,8 @@ describe('NavigateControl', () => {
   it('handles selecting location navigate item', async () => {
     const mockHandleUpdateState = jest.fn();
     const mockState = {
-      location: {
-        current: { bucket: 'test-bucket' },
-        shouldRefresh: false,
-      },
-      history: {
-        list: ['folder1/', 'folder2/', 'folder3/'],
-        shouldRefresh: false,
-      },
+      location: { bucket: 'test-bucket' },
+      history: ['folder1/', 'folder2/', 'folder3/'],
     };
 
     jest
@@ -92,14 +80,8 @@ describe('NavigateControl', () => {
   it('handles selecting a folder navigate item', async () => {
     const mockHandleUpdateState = jest.fn();
     const mockState = {
-      location: {
-        current: { bucket: 'test-bucket' },
-        shouldRefresh: false,
-      },
-      history: {
-        list: ['folder1/', 'folder2/', 'folder3/'],
-        shouldRefresh: false,
-      },
+      location: { bucket: 'test-bucket' },
+      history: ['folder1/', 'folder2/', 'folder3/'],
     };
 
     jest
@@ -116,21 +98,15 @@ describe('NavigateControl', () => {
 
     expect(mockHandleUpdateState).toHaveBeenCalledWith({
       type: 'EXIT_FOLDER',
-      index: 0,
+      name: 'folder1/',
     });
   });
 
   it('creates a separator between home and the loction', () => {
     const mockHandleUpdateState = jest.fn();
     const mockState = {
-      location: {
-        current: { bucket: 'test-bucket' },
-        shouldRefresh: false,
-      },
-      history: {
-        list: undefined,
-        shouldRefresh: false,
-      },
+      location: { bucket: 'test-bucket' },
+      history: undefined,
     };
 
     jest
