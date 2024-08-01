@@ -29,11 +29,11 @@ export function navigateReducer(
 ): NavigateState {
   switch (action.type) {
     case 'SELECT_LOCATION': {
-        // This action comes from the navigate item specifying the location
-        // It uses the current state location and so this has the "old" scope
-        // which could include the previous folder we were at
-        // We'll need to update the scope here
-        // We need to update the prefix too?
+      // This action comes from the navigate item specifying the location
+      // It uses the current state location and so this has the "old" scope
+      // which could include the previous folder we were at
+      // We'll need to update the scope here
+      // We need to update the prefix too?
 
       const { location } = action;
       const { bucket } = location;
@@ -55,9 +55,11 @@ export function navigateReducer(
       const { name } = action;
       const { location, history } = state;
 
+      // TODO: Look into why listLocationsItems returns the current folder as a result
+      // Clicking on it in the list locations items view would add it to the history if
+      // we didn't  have this check
       if (name === history?.[history.length - 1]) {
         // Don't add the same folder into history again
-        // For some reason listLocationItems also returns the current folder again
         return state;
       }
 
