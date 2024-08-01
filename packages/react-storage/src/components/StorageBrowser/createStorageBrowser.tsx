@@ -31,7 +31,6 @@ function DefaultStorageBrowser(): React.JSX.Element {
   const [{ location }] = useControl({ type: 'NAVIGATE' });
 
   if (location) {
-    // if (current) {
     return <LocationDetailView />;
   }
   return <LocationsView />;

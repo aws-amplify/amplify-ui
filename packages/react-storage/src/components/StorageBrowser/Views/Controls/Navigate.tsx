@@ -106,7 +106,7 @@ export const NavigateControl: NavigateControl = (_props) => {
             item={state.location.bucket}
             current={!state.history || state.history.length === 0}
             onClick={() => {
-              if (state?.location) {
+              if (state.location) {
                 handleUpdateState({
                   type: 'SELECT_LOCATION',
                   location: state.location,

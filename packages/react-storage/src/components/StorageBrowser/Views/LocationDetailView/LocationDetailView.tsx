@@ -40,10 +40,6 @@ export const LocationDetailView: LocationDetailView = () => {
       scope: string;
     }) =>
       handleListLocationItems({
-        // uncomment to test managed auth config
-        // prefix: '',
-        // uncomment to test with amplify config with public access level
-
         prefix,
         config: {
           bucket,

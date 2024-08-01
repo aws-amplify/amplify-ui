@@ -29,13 +29,11 @@ export function navigateReducer(
 ): NavigateState {
   switch (action.type) {
     case 'SELECT_LOCATION': {
-      /** 
-        This action comes from the navigate item specifying the location
-        It uses the current state location and so this has the "old" scope
-        which could include the previous folder we were at
-        We'll need to update the scope here
-        We need to update the prefix too?
-      */
+        // This action comes from the navigate item specifying the location
+        // It uses the current state location and so this has the "old" scope
+        // which could include the previous folder we were at
+        // We'll need to update the scope here
+        // We need to update the prefix too?
 
       const { location } = action;
       const { bucket } = location;
