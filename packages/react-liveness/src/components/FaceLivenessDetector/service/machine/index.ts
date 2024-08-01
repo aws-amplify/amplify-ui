@@ -34,6 +34,7 @@ import {
 import { nanoid } from 'nanoid';
 import { getStaticLivenessOvalDetails } from '../utils/liveness';
 import {
+  isConnectionTimeoutError,
   isThrottlingExceptionEvent,
   isServiceQuotaExceededExceptionEvent,
   isValidationExceptionEvent,
@@ -126,6 +127,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       RUNTIME_ERROR: {
         target: 'error',
+      },
+      CONNECTION_TIMEOUT: {
+        target: 'error',
+        actions: 'updateErrorStateForConnectionTimeout',
       },
       MOBILE_LANDSCAPE_WARNING: {
         target: 'mobileLandscapeWarning',
@@ -588,6 +593,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       resetErrorState: assign({
         errorState: (_) => undefined,
+      }),
+      updateErrorStateForConnectionTimeout: assign({
+        errorState: (_) => LivenessErrorState.CONNECTION_TIMEOUT,
       }),
       updateErrorStateForTimeout: assign({
         errorState: (_, event) => {
@@ -1276,12 +1284,12 @@ const responseStreamActor = async (callback: StreamActorCallback) => {
       returnedError = new Error(
         'Invalid region in FaceLivenessDetector or credentials are scoped to the wrong region.'
       );
-    }
-
-    if (returnedError instanceof Error) {
+    } else if (error instanceof Error) {
       callback({
-        type: 'SERVER_ERROR',
-        data: { error: returnedError },
+        type: isConnectionTimeoutError(error)
+          ? 'CONNECTION_TIMEOUT'
+          : 'SERVER_ERROR',
+        data: { error },
       });
     }
   }

@@ -47,6 +47,8 @@ export type StreamDisplayText = {
 };
 
 export const defaultErrorDisplayText = {
+  connectionTimeoutHeaderText: 'Connection time out',
+  connectionTimeoutMessageText: 'Connection has timed out.',
   timeoutHeaderText: 'Time out',
   timeoutMessageText:
     "Face didn't fit inside oval in time limit. Try again and completely fill the oval with face in it.",
