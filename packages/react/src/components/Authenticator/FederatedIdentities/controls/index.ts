@@ -1,2 +1,1 @@
-export { FederatedIdentities } from './FederatedIdentitiesControl';
-export { IdentityControl } from './IdentityControl';
+export { createFederatedIdentities } from './FederatedIdentitiesControl';
