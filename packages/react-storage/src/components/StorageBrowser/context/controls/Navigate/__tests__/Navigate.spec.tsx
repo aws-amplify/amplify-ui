@@ -103,7 +103,22 @@ describe('navigateReducer', () => {
     expect(newState).toEqual(expectedState);
   });
 
-  it('handles a EXIT_FOLDER as expected', () => {
+  it('handles ENTER_FOLDER when the same folder is selected', () => {
+    const state: NavigateState = {
+      location,
+      history: ['folder1/'],
+    };
+
+    const action: NavigateAction = { type: 'ENTER_FOLDER', name: 'folder1/' };
+
+    const expectedState: NavigateState = state;
+
+    const newState = navigateReducer(state, action);
+
+    expect(newState).toEqual(expectedState);
+  });
+
+  it('handles an EXIT_FOLDER as expected', () => {
     const state: NavigateState = {
       location,
       history: ['folder1/', 'folder2/', 'folder3/'],
@@ -121,6 +136,21 @@ describe('navigateReducer', () => {
       },
       history: ['folder1/', 'folder2/'],
     };
+
+    const newState = navigateReducer(state, action);
+
+    expect(newState).toEqual(expectedState);
+  });
+
+  it('handles an EXIT_FOLDER out of bounds as expected', () => {
+    const state: NavigateState = {
+      location,
+      history: ['folder1/', 'folder2/', 'folder3/'],
+    };
+
+    const action: NavigateAction = { type: 'EXIT_FOLDER', name: 'folder4/' };
+
+    const expectedState: NavigateState = state;
 
     const newState = navigateReducer(state, action);
 
