@@ -22,15 +22,8 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
         package:
           - ui
-          - angular
-          - vue
           - react
-          - react-native
           - react-core
-          - react-core-notifications
-          - react-notifications
-          - react-geo
-          - react-storage
           - react-liveness
 
     steps:
