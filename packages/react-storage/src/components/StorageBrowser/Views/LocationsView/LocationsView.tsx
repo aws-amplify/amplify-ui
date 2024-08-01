@@ -53,23 +53,26 @@ export const LocationsView: LocationsView = () => {
       </div>
       {!hasLocations || isLoading
         ? '...loading'
-        : data.locations.map(
-            ({ bucket, prefix = 'public/', scope, ...rest }) =>
-              bucket ? (
-                <button
-                  key={scope}
-                  onClick={() => {
-                    handleUpdateState({
-                      type: 'SELECT_LOCATION',
-                      location: { bucket, prefix, scope, ...rest },
-                    });
-                  }}
-                  type="button"
-                >
-                  {bucket}
-                </button>
-              ) : null
-          )}
+        : data.locations.map(({ bucket, prefix, scope, ...rest }) => {
+            return bucket ? (
+              <button
+                key={scope}
+                onClick={() => {
+                  const location = { bucket, prefix, scope, ...rest };
+                  // eslint-disable-next-line no-console
+                  console.log('loca', location);
+
+                  handleUpdateState({
+                    type: 'SELECT_LOCATION',
+                    location: { bucket, prefix, scope, ...rest },
+                  });
+                }}
+                type="button"
+              >
+                {bucket}
+              </button>
+            ) : null;
+          })}
     </div>
   );
 };
