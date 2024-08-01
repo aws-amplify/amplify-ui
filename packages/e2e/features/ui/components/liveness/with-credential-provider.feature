@@ -1,4 +1,4 @@
-Feature: Liveness with Custom Components
+Feature: Liveness with Credential Provider
 
 Liveness component supports using a custom credential provider.
 
