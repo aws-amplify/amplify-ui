@@ -9,6 +9,7 @@ import { InputContextProvider } from './context/InputContext';
 import { MessagesProvider } from './context/MessagesContext';
 import { SuggestedPromptProvider } from './context/SuggestedPromptsContext';
 import { AIConversationInput, AIConversationProps } from './types';
+import { ResponseComponentsProvider } from './context/ResponseComponentsContext';
 
 export default function createProvider<
   T extends Partial<AIConversationElements>,
@@ -16,7 +17,11 @@ export default function createProvider<
   elements,
   actions,
   suggestedPrompts,
-}: Pick<AIConversationInput<T>, 'elements' | 'actions' | 'suggestedPrompts'>) {
+  responseComponents,
+}: Pick<
+  AIConversationInput<T>,
+  'elements' | 'actions' | 'suggestedPrompts' | 'responseComponents'
+>) {
   return function Provider({
     children,
     messages,
@@ -27,15 +32,17 @@ export default function createProvider<
     return (
       <ElementsProvider elements={elements}>
         <SuggestedPromptProvider suggestedPrompts={suggestedPrompts}>
-          <InputContextProvider>
-            <AvatarsProvider avatars={avatars}>
-              <ActionsProvider actions={actions}>
-                <MessagesProvider messages={messages}>
-                  {children}
-                </MessagesProvider>
-              </ActionsProvider>
-            </AvatarsProvider>
-          </InputContextProvider>
+          <ResponseComponentsProvider responseComponents={responseComponents}>
+            <InputContextProvider>
+              <AvatarsProvider avatars={avatars}>
+                <ActionsProvider actions={actions}>
+                  <MessagesProvider messages={messages}>
+                    {children}
+                  </MessagesProvider>
+                </ActionsProvider>
+              </AvatarsProvider>
+            </InputContextProvider>
+          </ResponseComponentsProvider>
         </SuggestedPromptProvider>
       </ElementsProvider>
     );
