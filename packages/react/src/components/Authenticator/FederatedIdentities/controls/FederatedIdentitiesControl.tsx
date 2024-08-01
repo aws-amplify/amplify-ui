@@ -1,6 +1,11 @@
 import { IdentityControl } from './IdentityControl';
-import { RenderButton } from '../types';
+import {
+  CreateFederatedIdentitiesInput,
+  RenderButton,
+  UseHandleSignInWithRedirect,
+} from './types';
 import { ForwardRefExoticComponent } from 'react';
+import { FederatedIdentitiesElements } from '../context/elements';
 
 interface ChildrenProps {
   children?: React.ReactNode;
@@ -22,3 +27,13 @@ export interface FederatedIdentities<T extends string = string>
   extends ForwardRefExoticComponent<FederatedIdentitiesProps<T>> {
   Identity: IdentityControl<T>;
 }
+
+export function createFederatedIdentities<
+  T extends Partial<FederatedIdentitiesElements>,
+  K extends string = string,
+>(
+  input: CreateFederatedIdentitiesInput<T, K>
+): {
+  FederatedIdentities: FederatedIdentities;
+  useHandleSignInWithRedirect?: UseHandleSignInWithRedirect<K>;
+};
