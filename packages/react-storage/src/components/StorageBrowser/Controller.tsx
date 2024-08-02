@@ -19,7 +19,7 @@ export function Controller(): null {
   React.useEffect(() => {
     if (loadLocations) {
       // TODO: update to exhaustive call
-      handleListLocations();
+      handleListLocations({ pageSize: 1000 });
     }
   }, [handleListLocations, loadLocations]);
 
