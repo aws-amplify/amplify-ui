@@ -10,8 +10,6 @@ import {
 } from '../../Flex/__tests__/Flex.test';
 import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';
 import { ERROR_SUFFIX, DESCRIPTION_SUFFIX } from '../../../helpers/constants';
-import { getUniqueComponentId } from '../../utils/getUniqueComponentId';
-import { field } from '@aws-amplify/ui/dist/types/theme/tokens/components/field';
 
 describe('SelectField', () => {
   const className = 'my-select';
