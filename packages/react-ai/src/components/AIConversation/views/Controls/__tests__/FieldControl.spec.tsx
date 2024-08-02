@@ -23,8 +23,10 @@ describe('FieldControl', () => {
     render(<FieldControl />);
 
     const actionButtons = screen.getAllByRole('button');
-
     const sendButton = actionButtons[1];
+    const textarea = screen.getByRole('textbox', {
+      name: /Type your message here/i,
+    });
 
     expect(sendButton).toHaveAttribute('aria-label', 'Send message');
 
@@ -32,6 +34,7 @@ describe('FieldControl', () => {
 
     expect(sendIcon).toBeDefined();
     expect(sendIcon).toHaveAttribute('aria-hidden', 'true');
+    expect(textarea).toBeDefined();
   });
 
   it('renders correct placeholder text in the input field', () => {

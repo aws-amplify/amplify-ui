@@ -8,7 +8,13 @@ import { AttachFileControl } from './AttachFileControl';
 import { MessagesContext } from '../../context';
 import { AttachmentListControl } from './AttachmentListControl';
 
-const { Button, Icon, TextArea, View } = AIConversationElements;
+const {
+  Button,
+  Icon,
+  Label: LabelElement,
+  TextArea,
+  View,
+} = AIConversationElements;
 
 const FIELD_BLOCK = 'ai-field';
 
@@ -46,6 +52,16 @@ const TextAreaBase = withBaseElementProps(TextArea, {
   name: 'text-input',
 });
 
+const VisuallyHidden = withBaseElementProps(View, {
+  className: `${FIELD_BLOCK}__visually-hidden`,
+});
+
+const Label = withBaseElementProps(LabelElement, {
+  children: 'Type your message here',
+  className: `${FIELD_BLOCK}__label`,
+  for: 'text-input',
+});
+
 const TextInput: typeof TextAreaBase = React.forwardRef(
   function TextInput(props, ref) {
     const { setInput } = React.useContext(InputContext);
@@ -78,6 +94,7 @@ const TextInput: typeof TextAreaBase = React.forwardRef(
       <TextAreaBase
         {...props}
         data-testid="text-input"
+        id="text-input"
         onChange={(e) =>
           props.onChange ??
           (setInput &&
@@ -132,6 +149,9 @@ export const FieldControl: FieldControl = () => {
     <form className={`${FIELD_BLOCK}__form`} onSubmit={handleSubmit}>
       <AttachFileControl />
       <InputContainer>
+        <VisuallyHidden>
+          <Label />
+        </VisuallyHidden>
         <TextInput />
         <AttachmentListControl />
       </InputContainer>
@@ -144,6 +164,7 @@ export const FieldControl: FieldControl = () => {
 
 FieldControl.AttachFile = AttachFileControl;
 FieldControl.InputContainer = InputContainer;
+FieldControl.Label = Label;
 FieldControl.TextInput = TextInput;
 FieldControl.SendButton = SendButton;
 FieldControl.SendIcon = SendIcon;
@@ -154,6 +175,7 @@ export interface FieldControl<
   (): React.JSX.Element;
   AttachFile: AttachFileControl<T>;
   InputContainer: T['View'];
+  Label: T['Label'];
   TextInput: T['TextArea'];
   SendButton: T['Button'];
   SendIcon: T['Icon'];

@@ -7,6 +7,7 @@ import { AIConversationElements } from '../../context/elements';
 const { Button, Icon, View } = AIConversationElements;
 
 const ATTACH_FILE_BLOCK = 'ai-attach-file';
+const FIELD_BLOCK = 'ai-field';
 
 const AttachFileIcon = withBaseElementProps(Icon, {
   className: `${ATTACH_FILE_BLOCK}__icon`,
@@ -18,12 +19,12 @@ const AttachFileContainer = withBaseElementProps(View, {
 });
 
 const VisuallyHidden = withBaseElementProps(View, {
-  className: `${ATTACH_FILE_BLOCK}__visually-hidden`,
+  className: `${FIELD_BLOCK}__visually-hidden`,
 });
 
 const AttachFileButton = withBaseElementProps(Button, {
   'aria-label': 'Attach file',
-  className: `${ATTACH_FILE_BLOCK}__button`,
+  className: `${FIELD_BLOCK}__button`,
   type: 'button',
   variant: 'attach',
 });
