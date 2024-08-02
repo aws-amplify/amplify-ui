@@ -124,6 +124,7 @@ const generateBucketData = (count: number): LocationData[] => {
   const scope = `s3://${bucketName}/*`;
   result.push({
     bucket: bucketName,
+    prefix: undefined,
     permission: getRandomPermission(),
     scope,
     type: 'BUCKET',
@@ -134,6 +135,7 @@ const generateBucketData = (count: number): LocationData[] => {
       // object: <bucket>/<prefix-with-path>/<object>
       result.push({
         bucket: bucketName,
+        prefix: undefined,
         scope: `${scope}${generateString(randomNumberInRange(6, 20))}.${
           EXTENSIONS[randomNumberInRange(0, EXTENSIONS.length)]
         }`,
@@ -158,6 +160,7 @@ const generateBucketData = (count: number): LocationData[] => {
 
       result.push({
         bucket: bucketName,
+        prefix: undefined,
         scope,
         permission: getRandomPermission(),
         type,

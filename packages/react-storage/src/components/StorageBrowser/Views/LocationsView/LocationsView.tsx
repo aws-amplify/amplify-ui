@@ -54,22 +54,22 @@ export const LocationsView: LocationsView = () => {
       </div>
       {!hasLocations || isLoading
         ? '...loading'
-        : data.locations.map(({ bucket, scope, ...rest }) =>
-            bucket ? (
+        : data.locations.map(({ bucket, prefix, scope, ...rest }) => {
+            return bucket ? (
               <button
                 key={scope}
                 onClick={() => {
                   handleUpdateState({
                     type: 'SELECT_LOCATION',
-                    location: { bucket, scope, ...rest },
+                    location: { bucket, prefix, scope, ...rest },
                   });
                 }}
                 type="button"
               >
                 {bucket}
               </button>
-            ) : null
-          )}
+            ) : null;
+          })}
     </div>
   );
 };

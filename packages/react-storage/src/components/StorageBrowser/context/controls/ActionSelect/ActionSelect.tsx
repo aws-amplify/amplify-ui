@@ -29,7 +29,7 @@ export interface Action {
   type: ActionType;
 }
 
-interface ActionSelectState<T = ActionType> {
+export interface ActionSelectState<T = ActionType> {
   actions: Action[];
   selected: { actionType: T | undefined; items: LocationItem[] | undefined };
 }
@@ -43,6 +43,13 @@ export function actionSelectReducer(
   state: ActionSelectState,
   _action: ActionSelectAction
 ): ActionSelectState {
+  if (_action.type === 'SELECT_ACTION_TYPE') {
+    // Update selected action with action passed from handleUpdateState
+    return { ...state, selected: _action };
+  } else if (_action.type === 'DESELECT_ACTION_TYPE') {
+    // Clears selected action
+    return { ...state, selected: { actionType: undefined, items: undefined } };
+  }
   return state;
 }
 
@@ -56,7 +63,6 @@ export function ActionSelectProvider({
   children?: React.ReactNode;
 }): React.JSX.Element {
   const value = React.useReducer(actionSelectReducer, INITIAL_STATE);
-
   return (
     <ActionSelectContext.Provider value={value}>
       {children}
