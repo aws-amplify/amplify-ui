@@ -48,7 +48,7 @@ export const LocationDetailView: LocationDetailView = () => {
             await getLocationCredentials({ permission: permission!, scope }),
           region,
         },
-        options: { refresh: true },
+        options: { refresh: true, pageSize: 1000 },
       }),
     [getLocationCredentials, permission, handleListLocationItems, region]
   );
