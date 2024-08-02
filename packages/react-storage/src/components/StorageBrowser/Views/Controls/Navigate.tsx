@@ -4,17 +4,13 @@ import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 import type { OmitElements } from '../types';
 import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
+import { useControl } from '../../context/controls';
+import { isFolderName } from '../../context/actions/types';
 
 const { Span, Button, Nav, OrderedList, ListItem } = StorageBrowserElements;
 const BLOCK_NAME = `${CLASS_BASE}__navigate`;
 
-type PermissionType = 'READ' | 'READWRITE' | 'WRITE';
-type LocationType = 'OBJECT' | 'PREFIX' | 'BUCKET';
-interface LocationData {
-  name: string;
-  permissionType: PermissionType;
-  locationType: LocationType;
-}
+const HOME_NAVIGATE_ITEM = 'Home';
 
 /* <Separator /> */
 
@@ -23,11 +19,14 @@ const Separator = withBaseElementProps(Span, {
   children: '/',
 });
 
-/* <NavigateItem /> */
-type RenderNavigateItem = (props: {
-  item: LocationData;
+type RenderNavigateItemProps = {
+  item: string;
   current?: boolean;
-}) => React.JSX.Element;
+  onClick?: () => void;
+};
+
+/* <NavigateItem /> */
+type RenderNavigateItem = (props: RenderNavigateItemProps) => React.JSX.Element;
 
 interface NavigateItem<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -44,11 +43,10 @@ const NavigateButton = withBaseElementProps(Button, {
   className: `${BLOCK_NAME}__button`,
 });
 
-const NavigateItem: NavigateItem = ({ item, current }) => {
-  const { name } = item;
+const NavigateItem: NavigateItem = ({ item: name, current, onClick }) => {
   return (
     <NavigateItemContainer>
-      <NavigateButton>{name}</NavigateButton>
+      <NavigateButton onClick={onClick}>{name}</NavigateButton>
       {current ? null : <Separator />}
     </NavigateItemContainer>
   );
@@ -93,23 +91,46 @@ export interface NavigateControl<
 }
 
 export const NavigateControl: NavigateControl = (_props) => {
+  const [state, handleUpdateState] = useControl({ type: 'NAVIGATE' });
+
   return (
     <NavigateContainer>
       <NavigateItem
-        item={{
-          name: 'Home',
-          permissionType: 'READ',
-          locationType: 'OBJECT',
-        }}
+        item={HOME_NAVIGATE_ITEM}
+        current={!state.location}
+        onClick={() => handleUpdateState({ type: 'DESELECT_LOCATION' })}
       />
-      <NavigateItem
-        item={{
-          name: 'Location01',
-          permissionType: 'READ',
-          locationType: 'OBJECT',
-        }}
-        current
-      />
+      {state.location && (
+        <>
+          <NavigateItem
+            item={state.location.bucket}
+            current={!state.history || state.history.length === 0}
+            onClick={() => {
+              if (state.location) {
+                handleUpdateState({
+                  type: 'SELECT_LOCATION',
+                  location: state.location,
+                });
+              }
+            }}
+          />
+          {state.history?.map((folder, index) => (
+            <NavigateItem
+              key={index}
+              item={folder}
+              current={folder === state.history?.[state.history.length - 1]}
+              onClick={() => {
+                if (isFolderName(folder)) {
+                  handleUpdateState({
+                    type: 'EXIT_FOLDER',
+                    name: folder,
+                  });
+                }
+              }}
+            />
+          ))}
+        </>
+      )}
     </NavigateContainer>
   );
 };

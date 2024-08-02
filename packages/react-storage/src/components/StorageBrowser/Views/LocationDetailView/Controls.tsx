@@ -20,7 +20,14 @@ const TEMP_ACTIONS = [
   { name: 'Create Folder', type: 'CREATE_FOLDER' },
 ];
 
+const { Navigate } = Controls;
+
 // @ts-expect-error TODO: add Controls assignment
 export const LocationDetailViewControls: LocationDetailViewControls = () => {
-  return <ActionSelect />;
+  return (
+    <>
+      <Navigate />
+      <ActionSelect />
+    </>
+  );
 };
