@@ -4,7 +4,7 @@ import { MergeBaseElements } from '@aws-amplify/ui-react-core/elements';
 import { Permission } from './context/actions/types';
 import { StorageBrowserElements } from './context/elements';
 import createProvider, { CreateProviderInput } from './createProvider';
-import { LocationsView, LocationDetailView } from './Views';
+import { LocationsView, LocationDetailView, LocationActionView } from './Views';
 import { useControl } from './context/controls';
 
 export interface CreateStorageBrowserInput<T, K>
@@ -29,11 +29,15 @@ interface ResolvedStorageBrowserElements<
  */
 function DefaultStorageBrowser(): React.JSX.Element {
   const [{ location }] = useControl({ type: 'NAVIGATE' });
-  // TODO: Check for ACTION_SELECT state to output Action view
-  if (location) {
+  const [{ selected }] = useControl({ type: 'ACTION_SELECT' });
+
+  const { actionType } = selected;
+
+  if (actionType) {
+    return <LocationActionView />;
+  } else if (location) {
     return <LocationDetailView />;
-  }
-  return <LocationsView />;
+  } else return <LocationsView />;
 }
 
 export function createStorageBrowser<
