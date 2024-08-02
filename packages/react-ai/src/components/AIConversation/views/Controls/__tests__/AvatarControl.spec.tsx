@@ -8,19 +8,11 @@ import { AvatarControl } from '../AvatarControl';
 const avatars = {
   user: {
     username: 'Jane Doe',
-    avatar: (
-      <text x="10" y="20">
-        UAvatar
-      </text>
-    ),
+    avatar: <p>UAvatar</p>,
   },
   ai: {
     username: 'Raven',
-    avatar: (
-      <text x="10" y="20">
-        RAvatar
-      </text>
-    ),
+    avatar: <p>RAvatar</p>,
   },
 };
 

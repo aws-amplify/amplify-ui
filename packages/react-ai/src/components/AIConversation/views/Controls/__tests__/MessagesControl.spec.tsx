@@ -48,23 +48,11 @@ const messages: ConversationMessage[] = [
 const avatars = {
   user: {
     username: 'Scottleigh',
-    avatar: (
-      <svg>
-        <text x="10" y="20">
-          UAvatar
-        </text>
-      </svg>
-    ),
+    avatar: <svg>UAvatar</svg>,
   },
   ai: {
     username: 'Raven',
-    avatar: (
-      <svg>
-        <text x="10" y="20">
-          RAvatar
-        </text>
-      </svg>
-    ),
+    avatar: <svg>RAvatar</svg>,
   },
 };
 
