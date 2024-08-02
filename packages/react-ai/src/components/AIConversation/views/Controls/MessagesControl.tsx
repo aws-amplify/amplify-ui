@@ -128,23 +128,33 @@ export const MessagesControl: MessagesControl = ({ renderMessage }) => {
   const messages = React.useContext(MessagesContext);
   return (
     <Layout>
-      {messages?.map((message, index) =>
-        renderMessage ? (
+      {messages?.map((message, index) => {
+        const isLastMessageFromSameRole =
+          messages[index - 1]?.role === message.role;
+
+        const isNextMessageFromSameRole =
+          messages[index + 1]?.role === message.role;
+
+        return renderMessage ? (
           renderMessage(message)
         ) : (
           <RoleContext.Provider value={message.role} key={`message-${index}`}>
             <MessageContainer data-testid={`message`} key={`message-${index}`}>
-              <HeaderContainer>
-                <AvatarControl />
-                <Separator />
-                <Timestamp>{formatDate(message.timestamp)}</Timestamp>
-              </HeaderContainer>
+              {!isLastMessageFromSameRole && (
+                <HeaderContainer>
+                  <AvatarControl />
+                  <Separator />
+                  <Timestamp>{formatDate(message.timestamp)}</Timestamp>
+                </HeaderContainer>
+              )}
               <MessageControl message={message} />
-              <ActionsBarControl message={message} />
+              {!isNextMessageFromSameRole && (
+                <ActionsBarControl message={message} />
+              )}
             </MessageContainer>
           </RoleContext.Provider>
-        )
-      )}
+        );
+      })}
     </Layout>
   );
 };

@@ -1,7 +1,33 @@
+import React from 'react';
+
 import { Icon } from '@aws-amplify/ui-react';
 import { createAIConversation } from '@aws-amplify/ui-react-ai';
 import '@aws-amplify/ui-react/styles.css';
 import '@aws-amplify/ui-react-ai/ai-conversation-styles.css';
+
+export interface ImageContent {
+  format: 'png' | 'jpeg' | 'gif' | 'webp';
+  bytes: ArrayBuffer;
+}
+
+interface ImageContentBlock {
+  type: 'image';
+  value: ImageContent;
+}
+
+export interface TextContent {
+  type: 'text';
+  value: string;
+}
+
+export type Content = ImageContentBlock | TextContent;
+
+export interface ConversationMessage {
+  id: string;
+  content: Content;
+  role: 'user' | 'assistant';
+  timestamp: Date;
+}
 
 function convertBufferToBase64(
   buffer: ArrayBuffer,
@@ -10,6 +36,15 @@ function convertBufferToBase64(
   const base64string = Buffer.from(new Uint8Array(buffer)).toString('base64');
   return `data:image/${format};base64,${base64string}`;
 }
+
+const roles = ['user', 'assistant'] as const;
+const sampleMessages = [
+  'How can I assist you today?',
+  'What are you looking for?',
+  'Can you provide more details?',
+  'I will get back to you shortly.',
+  'Thank you for your patience.',
+];
 
 const PROMPTS = [
   {
@@ -49,7 +84,7 @@ export const actions = [
   },
 ];
 
-const messages = [
+const initialMessages = [
   {
     id: '1',
     content: { type: 'text' as const, value: 'I am your virtual assistant' },
@@ -143,6 +178,35 @@ const avatars = {
   },
 };
 
+const getRandomMessage = (): {
+  role: (typeof roles)[number];
+  content: Content;
+  timestamp: Date;
+} => {
+  const role = roles[Math.floor(Math.random() * roles.length)];
+  const message =
+    sampleMessages[Math.floor(Math.random() * sampleMessages.length)];
+  return {
+    role,
+    content: { type: 'text', value: message },
+    timestamp: new Date(),
+  };
+};
+
+const useRandomMessages = (initialMessages: any[]) => {
+  const [messages, setMessages] = React.useState(initialMessages);
+
+  React.useEffect(() => {
+    const intervalId = setInterval(() => {
+      setMessages((prevMessages) => [...prevMessages, getRandomMessage()]);
+    }, 3000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  return messages;
+};
+
 const { AIConversation } = createAIConversation({
   suggestedPrompts: PROMPTS,
   actions: actions,
@@ -150,6 +214,8 @@ const { AIConversation } = createAIConversation({
 });
 
 export default function Example() {
+  const messages = useRandomMessages(initialMessages);
+
   return <AIConversation messages={messages} avatars={avatars} />;
   // return <div>hello world</div>;
 }

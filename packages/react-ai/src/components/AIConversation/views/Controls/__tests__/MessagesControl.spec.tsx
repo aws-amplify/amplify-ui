@@ -15,34 +15,38 @@ import {
 
 import { convertBufferToBase64 } from '../../../utils';
 
+const AITextMessage: ConversationMessage = {
+  id: '1',
+  content: { type: 'text', value: 'I am your virtual assistant' },
+  role: 'assistant',
+  timestamp: new Date(2023, 4, 21, 15, 23),
+};
+const userTextMessage: ConversationMessage = {
+  id: '2',
+  content: {
+    type: 'text',
+    value: 'Are you sentient?',
+  },
+  role: 'user',
+  timestamp: new Date(2023, 4, 21, 15, 24),
+};
+const AIImageMessage: ConversationMessage = {
+  id: '4',
+  content: {
+    type: 'image',
+    value: {
+      format: 'png',
+      bytes: new Uint8Array([]).buffer,
+    },
+  },
+  role: 'assistant',
+  timestamp: new Date(2023, 4, 21, 15, 25),
+};
+
 const messages: ConversationMessage[] = [
-  {
-    id: '1',
-    content: { type: 'text', value: 'I am your virtual assistant' },
-    role: 'assistant',
-    timestamp: new Date(2023, 4, 21, 15, 23),
-  },
-  {
-    id: '2',
-    content: {
-      type: 'text',
-      value: 'Are you sentient?',
-    },
-    role: 'user',
-    timestamp: new Date(2023, 4, 21, 15, 24),
-  },
-  {
-    id: '3',
-    content: {
-      type: 'image',
-      value: {
-        format: 'png',
-        bytes: new Uint8Array([]).buffer,
-      },
-    },
-    role: 'assistant',
-    timestamp: new Date(2023, 4, 21, 15, 25),
-  },
+  AITextMessage,
+  userTextMessage,
+  AIImageMessage,
 ];
 
 const avatars = {
@@ -179,6 +183,65 @@ describe('MessagesControl', () => {
 
     const customMessageElements = screen.queryAllByTestId('custom-message');
     expect(customMessageElements).toHaveLength(3);
+  });
+
+  it('renders avatars and actions correctly if the same user sends multiple messages', () => {
+    const { rerender } = render(
+      <AvatarsProvider avatars={avatars}>
+        <ActionsProvider actions={customActions}>
+          <MessagesProvider messages={[AITextMessage]}>
+            <MessagesControl />
+          </MessagesProvider>
+        </ActionsProvider>
+      </AvatarsProvider>
+    );
+    let avatarElements = screen.getAllByTestId('avatar');
+    let actionElements = screen.getAllByRole('button');
+    let messages = screen.getAllByTestId('message');
+    expect(avatarElements).toHaveLength(1);
+    expect(actionElements).toHaveLength(1);
+    expect(messages).toHaveLength(1);
+
+    rerender(
+      <AvatarsProvider avatars={avatars}>
+        <ActionsProvider actions={customActions}>
+          <MessagesProvider messages={[AITextMessage, userTextMessage]}>
+            <MessagesControl />
+          </MessagesProvider>
+        </ActionsProvider>
+      </AvatarsProvider>
+    );
+
+    avatarElements = screen.getAllByTestId('avatar');
+    actionElements = screen.getAllByRole('button');
+    messages = screen.getAllByTestId('message');
+    expect(avatarElements).toHaveLength(2);
+    expect(actionElements).toHaveLength(2);
+    expect(messages).toHaveLength(2);
+
+    rerender(
+      <AvatarsProvider avatars={avatars}>
+        <ActionsProvider actions={customActions}>
+          <MessagesProvider
+            messages={[
+              AITextMessage,
+              userTextMessage,
+              userTextMessage,
+              userTextMessage,
+            ]}
+          >
+            <MessagesControl />
+          </MessagesProvider>
+        </ActionsProvider>
+      </AvatarsProvider>
+    );
+
+    avatarElements = screen.getAllByTestId('avatar');
+    actionElements = screen.getAllByRole('button');
+    messages = screen.getAllByTestId('message');
+    expect(avatarElements).toHaveLength(2);
+    expect(actionElements).toHaveLength(2);
+    expect(messages).toHaveLength(4);
   });
 });
 
