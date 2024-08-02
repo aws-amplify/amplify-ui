@@ -29,7 +29,7 @@ interface ResolvedStorageBrowserElements<
  */
 function DefaultStorageBrowser(): React.JSX.Element {
   const [{ location }] = useControl({ type: 'NAVIGATE' });
-
+  // TODO: Check for ACTION_SELECT state to output Action view
   if (location) {
     return <LocationDetailView />;
   }

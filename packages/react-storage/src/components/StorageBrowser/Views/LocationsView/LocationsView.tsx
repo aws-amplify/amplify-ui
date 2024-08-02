@@ -33,6 +33,7 @@ const LocationsViewControls: LocationsViewControls = () => (
   </>
 );
 
+// LocationsListViewControls.ActionSelect = ActionSelect;
 LocationsViewControls.Message = Message;
 LocationsViewControls.Paginate = Paginate;
 LocationsViewControls.Refresh = Refresh;

@@ -4,6 +4,7 @@ import { useAction } from '../../context/actions';
 import { StorageBrowserElements } from '../../context/elements';
 import { ViewComponent } from '../types';
 import { LocationDetailViewControls } from './Controls';
+import { CLASS_BASE } from '../constants';
 import { useControl } from '../../context/controls';
 import { useConfig } from '../../context/config';
 import { useHasValueUpdated } from '@aws-amplify/ui-react-core';
@@ -87,7 +88,11 @@ export const LocationDetailView: LocationDetailView = () => {
 
   return (
     <>
-      <LocationDetailViewControls />
+      <div className={CLASS_BASE}>
+        <div className={`${CLASS_BASE}__controls`}>
+          <LocationDetailViewControls />
+        </div>
+      </div>
       {isLoading && !hasItems ? <span>loading...</span> : listItems}
     </>
   );

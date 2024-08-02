@@ -13,6 +13,7 @@ export type IconVariant =
   | 'action-success'
   | 'action-error'
   | 'cancel'
+  | 'create-folder'
   | 'download'
   | 'error'
   | 'info'
@@ -26,6 +27,8 @@ export type IconVariant =
   | 'sort-descending'
   | 'sort-indeterminate'
   | 'success'
+  | 'upload-file'
+  | 'upload-folder'
   | 'vertical-kebab'
   | 'warning';
 
@@ -48,6 +51,9 @@ export const DEFAULT_ICON_PATHS: Record<IconVariant, string> = {
   // "Close"
   cancel:
     'm256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z',
+  // "Create New Folder"
+  'create-folder':
+    'M560-320h80v-80h80v-80h-80v-80h-80v80h-80v80h80v80ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z',
   // "Download" icon
   download:
     'M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z',
@@ -81,6 +87,12 @@ export const DEFAULT_ICON_PATHS: Record<IconVariant, string> = {
   'sort-indeterminate': 'M240-440v-80h480v80H240Z',
   // "Check Circle" icon
   success: 'M240-440v-80h480v80H240Z',
+  // "Upload File"
+  'upload-file':
+    'M440-200h80v-167l64 64 56-57-160-160-160 160 57 56 63-63v167ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z',
+  // "Upload Folder"
+  'upload-folder':
+    'M440-280h80v-168l64 64 56-56-160-160-160 160 56 56 64-64v168ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z',
   // "More Vert" icon
   'vertical-kebab':
     'M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z',
