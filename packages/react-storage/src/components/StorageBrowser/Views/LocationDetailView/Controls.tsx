@@ -4,8 +4,7 @@ import { StorageBrowserElements } from '../../context/elements';
 import { Controls } from '../Controls';
 import { CommonControl } from '../types';
 
-const { ActionSelect } = Controls;
-
+const { ActionSelect, Navigate } = Controls;
 export interface LocationDetailViewControls<
   T extends StorageBrowserElements = StorageBrowserElements,
 > extends Pick<
@@ -14,8 +13,6 @@ export interface LocationDetailViewControls<
   > {
   (): React.JSX.Element;
 }
-
-const { Navigate } = Controls;
 
 // @ts-expect-error TODO: add Controls assignment
 export const LocationDetailViewControls: LocationDetailViewControls = () => {

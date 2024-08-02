@@ -44,7 +44,11 @@ export function actionSelectReducer(
   _action: ActionSelectAction
 ): ActionSelectState {
   if (_action.type === 'SELECT_ACTION_TYPE') {
+    // Update selected action with action passed from handleUpdateState
     return { ...state, selected: _action };
+  } else if (_action.type === 'DESELECT_ACTION_TYPE') {
+    // Clears selected action
+    return { ...state, selected: { actionType: undefined, items: undefined } };
   }
   return state;
 }
