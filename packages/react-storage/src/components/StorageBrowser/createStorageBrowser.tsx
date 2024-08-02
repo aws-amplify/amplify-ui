@@ -31,12 +31,11 @@ function DefaultStorageBrowser(): React.JSX.Element {
   const [{ location }] = useControl({ type: 'NAVIGATE' });
   const [{ selected }] = useControl({ type: 'ACTION_SELECT' });
 
-  const { current } = location;
   const { actionType } = selected;
 
   if (actionType) {
     return <LocationActionView />;
-  } else if (current) {
+  } else if (location) {
     return <LocationDetailView />;
   } else return <LocationsView />;
 }

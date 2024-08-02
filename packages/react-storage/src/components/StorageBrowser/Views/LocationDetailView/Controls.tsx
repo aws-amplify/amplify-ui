@@ -15,7 +15,14 @@ export interface LocationDetailViewControls<
   (): React.JSX.Element;
 }
 
+const { Navigate } = Controls;
+
 // @ts-expect-error TODO: add Controls assignment
 export const LocationDetailViewControls: LocationDetailViewControls = () => {
-  return <ActionSelect />;
+  return (
+    <>
+      <Navigate />
+      <ActionSelect />
+    </>
+  );
 };
