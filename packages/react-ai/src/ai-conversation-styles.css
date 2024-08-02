@@ -57,6 +57,10 @@
   align-items: flex-start;
 }
 
+.ai-message__container--bubble-2.ai-message__container--user {
+  justify-content: flex-end;
+}
+
 .ai-message__header__container {
   display: flex;
   flex-direction: row;

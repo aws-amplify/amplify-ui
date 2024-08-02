@@ -3,6 +3,7 @@ import { AvatarsContext } from './AvatarsContext';
 import { InputContext } from './InputContext';
 import { MessagesContext } from './MessagesContext';
 import { SuggestedPromptsContext } from './SuggestedPromptsContext';
+import { MessageVariantContext } from './MessageVariantContext';
 
 export {
   ActionsContext,
@@ -10,5 +11,6 @@ export {
   InputContext,
   MessagesContext,
   SuggestedPromptsContext,
+  MessageVariantContext,
 };
 export * from './elements';

@@ -32,6 +32,7 @@ export interface AIConversationInput<
   suggestedPrompts?: SuggestedPrompt[];
   actions?: CustomAction[];
   showChainOfThought?: boolean;
+  variant?: MessageVariant;
 }
 
 export interface AIConversationProps {

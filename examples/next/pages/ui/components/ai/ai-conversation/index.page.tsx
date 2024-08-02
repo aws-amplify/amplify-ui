@@ -146,6 +146,7 @@ const avatars = {
 const { AIConversation } = createAIConversation({
   suggestedPrompts: PROMPTS,
   actions: actions,
+  variant: 'bubble-2',
 });
 
 export default function Example() {
