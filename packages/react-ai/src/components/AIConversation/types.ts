@@ -32,6 +32,7 @@ export interface AIConversationInput<
   suggestedPrompts?: SuggestedPrompt[];
   actions?: CustomAction[];
   showChainOfThought?: boolean;
+  responseComponents?: ResponseComponents;
 }
 
 export interface AIConversationProps {
@@ -96,4 +97,24 @@ export interface SuggestedPrompt {
   icon?: React.ReactNode;
   header: string;
   inputText: string;
+}
+
+type ResponseComponentProp = {
+  type: string;
+  enum?: string[];
+  description?: string;
+};
+
+type ResponseComponentPropMap = {
+  [key: string]: ResponseComponentProp;
+};
+
+export type ResponseComponent = {
+  component: React.ComponentType;
+  description?: string;
+  props: ResponseComponentPropMap;
+};
+
+export interface ResponseComponents {
+  [key: string]: ResponseComponent;
 }

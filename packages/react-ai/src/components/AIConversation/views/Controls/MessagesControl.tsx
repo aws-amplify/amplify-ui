@@ -27,6 +27,19 @@ const Timestamp = withBaseElementProps(Text, {
   className: `${MESSAGE_BLOCK}__timestamp`,
 });
 
+// TODO: update this when we integration with response components
+// export const ResponseComponentControl = (): React.ReactNode => {
+//   const responseComponents = React.useContext(ResponseComponentsContext)
+
+//   if (responseComponents && toolUseId) {
+//     const toolUseId: string = 'componentName';
+//     const ComponentToRender = responseComponents[toolUseId];
+
+//     return <ComponentToRender />
+//   }
+//   return;
+// };
+
 export const MessageControl: MessageControl = ({ message }) => {
   return message.content.type === 'text' ? (
     <TextContent data-testid={'message-text'}>
