@@ -16,7 +16,14 @@ export const LocationActionView: LocationActionView = () => {
   });
   const { actionType, items } = selected;
   const listItems = items
-    ? items?.map(({ key }) => <p key={key}>{key}</p>)
+    ? items.map(({ key, type }) => {
+        return (
+          <div key={key}>
+            <span>{key}</span>
+            <span>{type}</span>
+          </div>
+        );
+      })
     : 'No items selected.';
 
   return (
