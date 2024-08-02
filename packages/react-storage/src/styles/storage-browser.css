@@ -155,3 +155,7 @@
   gap: var(--storage-browser-gap-small);
   align-items: center;
 }
+
+.storage-browser__navigate__container {
+  grid-column: 1 / -1;
+}

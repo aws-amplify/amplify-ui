@@ -72,7 +72,16 @@ export const createListLocationsAction = (
       (acc, { scope, permission, type }) =>
         shouldExclude(permission, exclude)
           ? acc
-          : [...acc, { bucket: getBucket(scope), scope, permission, type }],
+          : [
+              ...acc,
+              {
+                bucket: getBucket(scope),
+                prefix: undefined,
+                scope,
+                permission,
+                type,
+              },
+            ],
       [] as LocationData[]
     );
 

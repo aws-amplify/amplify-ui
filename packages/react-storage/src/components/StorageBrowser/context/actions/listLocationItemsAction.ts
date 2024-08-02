@@ -40,13 +40,13 @@ export interface ListLocationItemsActionOutput {
 }
 
 const parseResultItems = (items: ListOutputItem[]): LocationItem[] =>
-  items.map(({ path: key, lastModified, size }) =>
-    lastModified
-      ? // `size` is marked as potentially `undefined` in `ListOutputItem`
-        // but is populated when the item is a file
-        { key, lastModified, size: size!, type: 'FILE' }
-      : { key, type: 'FOLDER' }
-  );
+  items.map(({ path: key, lastModified, size }) => {
+    if (size === 0 && key.endsWith('/')) {
+      return { key, type: 'FOLDER' };
+    }
+
+    return { key, lastModified: lastModified!, size: size!, type: 'FILE' };
+  });
 
 export async function listLocationItemsAction(
   prevState: ListLocationItemsActionOutput,
