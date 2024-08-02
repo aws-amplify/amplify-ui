@@ -1,5 +1,12 @@
 # @aws-amplify/ui-react-liveness
 
+## 2.0.13
+
+### Patch Changes
+
+- [#5502](https://github.com/aws-amplify/amplify-ui/pull/5502) [`687189ee0`](https://github.com/aws-amplify/amplify-ui/commit/687189ee06786f4797460592cc1104f180552f03) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(liveness v2): Update dependencies in liveness package (@aws-sdk/client-rekognitionstreaming) to get fast-xml-parser fix.
+  A websocket connection timeout will now return the error state `CONNECTION_TIMEOUT` with message `Websocket connection timeout`. This also updates the `displayText` to include `connectionTimeoutHeaderText` and `connectionTimeoutMessageText` for displaying the error in the UI.
+
 ## 2.0.12
 
 ### Patch Changes
