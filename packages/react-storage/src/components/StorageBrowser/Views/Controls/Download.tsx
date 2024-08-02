@@ -1,9 +1,26 @@
 import React from 'react';
+import { downloadData } from 'aws-amplify/storage';
 
 import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
 
 const { Button: ButtonElement, Icon: IconElement } = StorageBrowserElements;
+
+interface DownloadActionInput {
+  key: string;
+}
+
+interface DownloadActionResult {
+  key: string;
+}
+
+function downloadAction(
+  _: DownloadActionResult,
+  { key: path }: DownloadActionInput
+): Promise<DownloadActionResult> {
+  downloadData({ path });
+  return Promise.resolve({ key: path });
+}
 
 const BLOCK_NAME = `${CLASS_BASE}__download`;
 
@@ -37,7 +54,9 @@ const DownloadButton: typeof ButtonElement = React.forwardRef(
         className={BLOCK_NAME}
         aria-label="Download item"
         onClick={() => {
-          /** TODO handleDownload */
+          downloadAction(undefined as unknown as DownloadActionResult, {
+            key: '',
+          });
         }}
       />
     );

@@ -6,11 +6,6 @@ import {
   createActionStateContext,
 } from './createActionStateContext';
 import {
-  downloadAction,
-  DownloadActionInput,
-  TransferTaskState,
-} from './downloadAction';
-import {
   listLocationItemsAction,
   ListLocationItemsActionInput,
   ListLocationItemsActionOutput,
@@ -24,29 +19,12 @@ export type LocationItemsState = ActionState<
   ListLocationItemsActionInput
 >;
 
-export type DownloadState = ActionState<DownloadActionInput, undefined>;
-
 export const DEFAULT_ACTIONS = {
   LIST_LOCATION_ITEMS: listLocationItemsAction,
-  DOWNLOAD: downloadAction,
 };
-
-const INITIAL_DOWNLOAD_STATE: TransferTaskState = 'SUCCESS';
 
 export const INITIAL_VALUE = {
   LIST_LOCATION_ITEMS: { items: [], nextToken: undefined },
-  DOWNLOAD: {
-    result: Promise.resolve({
-      path: '',
-      body: {
-        blob: () => Promise.resolve(new Blob()),
-        json: () => Promise.resolve(null),
-        text: () => Promise.resolve(''),
-      },
-    }),
-    state: INITIAL_DOWNLOAD_STATE,
-    cancel: (): void => {},
-  },
 };
 
 export const [ActionStateProvider, useAction] = createActionStateContext(
