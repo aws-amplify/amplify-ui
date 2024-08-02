@@ -473,17 +473,10 @@
   resolved "https://registry.npmjs.org/@assemblyscript/loader/-/loader-0.10.1.tgz#70e45678f06c72fa2e350e8553ec4a4d72b92e06"
   integrity sha512-H71nDOOL8Y7kWRLqf6Sums+01Q5msqBW2KhDUTemh1tvY04eSkSXrK0uj/4mmY0Xr16/3zyZmsrxN7CKuRbNRg==
 
-<<<<<<< HEAD
 "@aws-amplify/ai-constructs@0.8.0":
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/@aws-amplify/ai-constructs/-/ai-constructs-0.8.0.tgz#c84e6c608684649ec9fb670af4c65921385b2f25"
   integrity sha512-DP+M73Iy8Dbm/Rp8QosQlCDLuR9U2fOWg+q6uPAksuaVuCdnqNvTHsQ0XEQMmslEx32vEdvn0ttiMbzD++ukSw==
-=======
-"@aws-amplify/analytics@7.0.40-storage-browser.9ba6782.0+9ba6782":
-  version "7.0.40-storage-browser.9ba6782.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/analytics/-/analytics-7.0.40-storage-browser.9ba6782.0.tgz#1960e414ffc46188f54da585ddcb9eab108adb87"
-  integrity sha512-9LMADQgszq3U6b9WbOSOFCVdSpRqWMpf2ouAuvRaNixuvqtpvooacjwwJsSplHrxVuITQpv7LFKf3ItCYyv8aw==
->>>>>>> b8b723913 (feat(storage-browser): add managed and test amplify auth support, refactor state layer and views (#5488))
   dependencies:
     "@aws-amplify/backend-output-schemas" "^1.4.0"
     "@aws-amplify/platform-core" "^1.1.0"
@@ -503,7 +496,6 @@
     "@smithy/util-utf8" "2.0.0"
     tslib "^2.5.0"
 
-<<<<<<< HEAD
 "@aws-amplify/api-graphql@4.4.1":
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/@aws-amplify/api-graphql/-/api-graphql-4.4.1.tgz#681018e3082676fd65313f72d3534664195ebc7c"
@@ -512,23 +504,12 @@
     "@aws-amplify/api-rest" "4.0.52"
     "@aws-amplify/core" "6.4.5"
     "@aws-amplify/data-schema" "^1.7.0"
-=======
-"@aws-amplify/api-graphql@4.1.11-storage-browser.9ba6782.0+9ba6782":
-  version "4.1.11-storage-browser.9ba6782.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/api-graphql/-/api-graphql-4.1.11-storage-browser.9ba6782.0.tgz#13256860540e3b153b037723cb5e055811479dd2"
-  integrity sha512-P10J8CSD4+Ub4Mbo4rkqHFFEc9AQcRC2xoIM37wIehf3/Q9DgyBz7Hu5M14H/BPJmGW/DUEMr6BOPULJCbmzqw==
-  dependencies:
-    "@aws-amplify/api-rest" "4.0.40-storage-browser.9ba6782.0+9ba6782"
-    "@aws-amplify/core" "6.3.7-storage-browser.9ba6782.0+9ba6782"
-    "@aws-amplify/data-schema" "^1.0.0"
->>>>>>> b8b723913 (feat(storage-browser): add managed and test amplify auth support, refactor state layer and views (#5488))
     "@aws-sdk/types" "3.387.0"
     graphql "15.8.0"
     rxjs "^7.8.1"
     tslib "^2.5.0"
     uuid "^9.0.0"
 
-<<<<<<< HEAD
 "@aws-amplify/api-rest@4.0.52":
   version "4.0.52"
   resolved "https://registry.yarnpkg.com/@aws-amplify/api-rest/-/api-rest-4.0.52.tgz#711bc9addf8cf6656b99a3e64bd3ef66ec3e50d9"
@@ -681,35 +662,6 @@
   version "6.4.5"
   resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-6.4.5.tgz#a40e7c5d4857d9864fc44d94a0590844fdb2ad3d"
   integrity sha512-YE1CUOEoDs6gwZbTXYcrg5BSC1yfKAPM5yh4/Yy7BdIyev3WZl0RwukWk6Z/rdM1/ePKyDAbVeiGO7GOaWhJNw==
-=======
-"@aws-amplify/api-rest@4.0.40-storage-browser.9ba6782.0+9ba6782":
-  version "4.0.40-storage-browser.9ba6782.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/api-rest/-/api-rest-4.0.40-storage-browser.9ba6782.0.tgz#7aae1cef35682e05bb1461c940a3da9aca60c642"
-  integrity sha512-ZoMFSwF/UAEXvd6v3galr0ryRIlh+W9t7ImQLfIdtH5fHfAfsTSIqjOiQcFYzIP+6XJXLl5SZb8Yrg95qPqpjA==
-  dependencies:
-    tslib "^2.5.0"
-
-"@aws-amplify/api@6.0.42-storage-browser.9ba6782.0+9ba6782":
-  version "6.0.42-storage-browser.9ba6782.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/api/-/api-6.0.42-storage-browser.9ba6782.0.tgz#3920b1ecb27dacbb3c2623bd6fa56b005d8dd0c1"
-  integrity sha512-KGAYTG/pNbK3XVOJv+ThUoaB+dhGH2y1GuHzRZfsl0CPw4MpWzjki6sEBswraJEBtC+03n6f+gsSOV+M1C0nAg==
-  dependencies:
-    "@aws-amplify/api-graphql" "4.1.11-storage-browser.9ba6782.0+9ba6782"
-    "@aws-amplify/api-rest" "4.0.40-storage-browser.9ba6782.0+9ba6782"
-    tslib "^2.5.0"
-
-"@aws-amplify/auth@6.3.11-storage-browser.9ba6782.0+9ba6782":
-  version "6.3.11-storage-browser.9ba6782.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/auth/-/auth-6.3.11-storage-browser.9ba6782.0.tgz#c12876b26bcfd9e515012603f799ddf37d4e9eaa"
-  integrity sha512-WrLcae/6xcFG+kaNNiL8jyfg4QFTN7i0kaAgGVWI54ovu7koeeVuJAuhMr3+bQqY0XMVhWhswj48yslphgRjgA==
-  dependencies:
-    tslib "^2.5.0"
-
-"@aws-amplify/core@6.3.7-storage-browser.9ba6782.0+9ba6782":
-  version "6.3.7-storage-browser.9ba6782.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/core/-/core-6.3.7-storage-browser.9ba6782.0.tgz#1f0ec7cc0752a3ddb69dd2e127d8719e4348e254"
-  integrity sha512-gkh/4jdVIWzWzZHH750zU/FExNU0lIgD6qe+lFNhoxu235X7CVjIRnwbpsqTr9AKjRHUOv4COvfA+HlrxkKVIg==
->>>>>>> b8b723913 (feat(storage-browser): add managed and test amplify auth support, refactor state layer and views (#5488))
   dependencies:
     "@aws-crypto/sha256-js" "5.2.0"
     "@aws-sdk/types" "3.398.0"
@@ -865,7 +817,6 @@
     graphql "15.8.0"
     rxjs "^7.8.1"
 
-<<<<<<< HEAD
 "@aws-amplify/data-schema@^1.0.0", "@aws-amplify/data-schema@^1.7.0":
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/@aws-amplify/data-schema/-/data-schema-1.13.0.tgz#09bf2e3dfebe18e1239343fda8fcdfacbfda03c4"
@@ -883,14 +834,6 @@
   integrity sha512-WYoUMWbpQci1Ah6Ft+EyWmTzKKxB+MrtgBa8CmYsNYm7PSGcOQ/SyGDdaxxBj0YnXv8KKA46/O/ofT9SrxX9Wg==
   dependencies:
     "@aws-amplify/api" "6.0.54"
-=======
-"@aws-amplify/datastore@5.0.42-storage-browser.9ba6782.0+9ba6782":
-  version "5.0.42-storage-browser.9ba6782.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/datastore/-/datastore-5.0.42-storage-browser.9ba6782.0.tgz#d9ed843855658ce90ebe1b889cf163e8ab02d29a"
-  integrity sha512-26wcJqPfvqO064VB1gHG39T9LB2SCek/atmT+nSer8P+TnW6DqlyeCQZlAzMUESfFaItygdAh9bQkRD7TxpFlg==
-  dependencies:
-    "@aws-amplify/api" "6.0.42-storage-browser.9ba6782.0+9ba6782"
->>>>>>> b8b723913 (feat(storage-browser): add managed and test amplify auth support, refactor state layer and views (#5488))
     buffer "4.9.2"
     idb "5.0.6"
     immer "9.0.6"
@@ -917,7 +860,6 @@
     camelcase-keys "6.2.2"
     tslib "^2.5.0"
 
-<<<<<<< HEAD
 "@aws-amplify/graphql-api-construct@1.17.0":
   version "1.17.0"
   resolved "https://registry.yarnpkg.com/@aws-amplify/graphql-api-construct/-/graphql-api-construct-1.17.0.tgz#f86c089c474fa3d82f365c458535e955b92d1372"
@@ -1342,12 +1284,6 @@
   version "2.0.52"
   resolved "https://registry.yarnpkg.com/@aws-amplify/notifications/-/notifications-2.0.52.tgz#332c401d65cfafadfa95c9c5f831182bff834394"
   integrity sha512-jvReh1i4e80pY+XUtahIeGZ5I1plpQgq3lgYYky4Z9lViMQKJrrNdl6Yy0AKbkv+7/3h/m/wtKF2d/PSqJtrDw==
-=======
-"@aws-amplify/notifications@2.0.40-storage-browser.9ba6782.0+9ba6782":
-  version "2.0.40-storage-browser.9ba6782.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/notifications/-/notifications-2.0.40-storage-browser.9ba6782.0.tgz#b345def652d9aaee9081fd20c316c8b8515c6a51"
-  integrity sha512-e3ACRxV1GABywvJpHZ0ZEBxspHUJQGUX1NFpAZmu68ZTB+E7xOoZMvuE4VKDEARdAhlt8G+p16YxzN+BY4W44Q==
->>>>>>> b8b723913 (feat(storage-browser): add managed and test amplify auth support, refactor state layer and views (#5488))
   dependencies:
     lodash "^4.17.21"
     tslib "^2.5.0"
@@ -1411,17 +1347,10 @@
   resolved "https://registry.npmjs.org/@aws-amplify/rtn-web-browser/-/rtn-web-browser-1.0.30.tgz#664053391226c956dce25402b77263059b914e1c"
   integrity sha512-1n3za9kmCOMjOXh3qMGZboQm6PlefiDZED1b78cOpeyha7AzynOfJm8y8jGd71gZPODSP94FD+6aa7VNq/S/4w==
 
-<<<<<<< HEAD
 "@aws-amplify/storage@6.6.10":
   version "6.6.10"
   resolved "https://registry.yarnpkg.com/@aws-amplify/storage/-/storage-6.6.10.tgz#ef0236b03456efbd0d4e96db3cdb9c562390e1e9"
   integrity sha512-wQ4Xj74Xh+TOlT9Lt7xv8zlgE5Jgtswgzap10rcNxLd45mo0KzC3dMBvIN1EW5+25HUQaQMzSByyI1T1GijE2g==
-=======
-"@aws-amplify/storage@6.5.3-storage-browser.9ba6782.0+9ba6782":
-  version "6.5.3-storage-browser.9ba6782.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/storage/-/storage-6.5.3-storage-browser.9ba6782.0.tgz#a374f17cc0ce43c0b202a320ab1e1e2f0b531440"
-  integrity sha512-ExrlHUhUvDGQQn2vU2Zo2kDyH9CVG5MB7hSLRJGXVmSkhpB4eWEQM60EmI78RwUN/U7kPaGfDepDbdSD5TE+0g==
->>>>>>> b8b723913 (feat(storage-browser): add managed and test amplify auth support, refactor state layer and views (#5488))
   dependencies:
     "@aws-sdk/types" "3.398.0"
     "@smithy/md5-js" "2.0.7"
@@ -12285,7 +12214,6 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.npmjs.org/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz#92f95616501069d07d10edb2fc37d3e1c65123b7"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
-<<<<<<< HEAD
 aws-amplify@^6.6.5:
   version "6.6.5"
   resolved "https://registry.yarnpkg.com/aws-amplify/-/aws-amplify-6.6.5.tgz#d033d165d9e29fabcb2be79f81f9e5029d6bb755"
@@ -12298,20 +12226,6 @@ aws-amplify@^6.6.5:
     "@aws-amplify/datastore" "5.0.54"
     "@aws-amplify/notifications" "2.0.52"
     "@aws-amplify/storage" "6.6.10"
-=======
-aws-amplify@storage-browser:
-  version "6.4.3-storage-browser.9ba6782.0"
-  resolved "https://registry.npmjs.org/aws-amplify/-/aws-amplify-6.4.3-storage-browser.9ba6782.0.tgz#2f95d30e8cc70df6e3815f16d6fc00064c186a9d"
-  integrity sha512-4VYr4sQ1RZ6ie6dqTBjiy8T5V1vp0urWVVbVbh0wi5Vwc8pcKiZXvHxNEeFqeo5YfUuqRu4DWLw97meTJz33HA==
-  dependencies:
-    "@aws-amplify/analytics" "7.0.40-storage-browser.9ba6782.0+9ba6782"
-    "@aws-amplify/api" "6.0.42-storage-browser.9ba6782.0+9ba6782"
-    "@aws-amplify/auth" "6.3.11-storage-browser.9ba6782.0+9ba6782"
-    "@aws-amplify/core" "6.3.7-storage-browser.9ba6782.0+9ba6782"
-    "@aws-amplify/datastore" "5.0.42-storage-browser.9ba6782.0+9ba6782"
-    "@aws-amplify/notifications" "2.0.40-storage-browser.9ba6782.0+9ba6782"
-    "@aws-amplify/storage" "6.5.3-storage-browser.9ba6782.0+9ba6782"
->>>>>>> b8b723913 (feat(storage-browser): add managed and test amplify auth support, refactor state layer and views (#5488))
     tslib "^2.5.0"
 
 aws-sign2@~0.7.0:

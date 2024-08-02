@@ -6,9 +6,9 @@ const INITIAL_STATE: ActionSelectState = {
   selected: { items: undefined, actionType: undefined },
 };
 
-type ActionType = 'UPLOAD_FOLDER' | 'UPLOAD_FILES' | 'CREATE_FOLDER';
+export type ActionType = 'UPLOAD_FOLDER' | 'UPLOAD_FILES' | 'CREATE_FOLDER';
 
-type ActionSelectAction<T = ActionType> =
+export type ActionSelectAction<T = ActionType> =
   | {
       actionType: T;
       destination: string | undefined;
@@ -22,11 +22,11 @@ type ActionSelectAction<T = ActionType> =
   | { type: 'DESELECT_LOCATION_ITEM'; key: string }
   | { type: 'DESELECT_ALL_LOCATION_ITEMS' };
 
-interface Action {
+export interface Action {
   name: string;
   hide?: (permission: Permission) => boolean;
   disable?: (selected: LocationItem[] | undefined) => boolean;
-  type: string;
+  type: ActionType;
 }
 
 interface ActionSelectState<T = ActionType> {

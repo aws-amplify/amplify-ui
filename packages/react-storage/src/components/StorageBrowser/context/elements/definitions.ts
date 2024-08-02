@@ -25,7 +25,7 @@ export interface StorageBrowserElements {
   UnorderedList: typeof UnorderedListElement;
   View: typeof ViewElement;
 }
-
+export type ActionVariant = 'upload-folder' | 'upload-file';
 export type PaginateVariant = `paginate-${'next' | 'current' | 'previous'}`;
 export type MessageVariant = 'info' | 'success' | 'error' | 'warning';
 export type IconElementProps = React.ComponentProps<typeof IconElement>;

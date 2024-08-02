@@ -1,4 +1,5 @@
 export {
+  ActionVariant,
   ButtonElementProps,
   IconElementProps,
   StorageBrowserElements,

@@ -40,7 +40,8 @@
 .storage-browser__paginate__icon,
 .storage-browser__refresh__icon,
 .storage-browser__message__icon,
-.storage-browser__message__dismiss__icon {
+.storage-browser__message__dismiss__icon,
+.storage-browser__action-menu__toggle__icon {
   display: block;
 }
 
@@ -124,4 +125,33 @@
 .storage-browser__table {
   grid-row: 4 / -1;
   grid-column: 1 / -1;
+}
+
+.storage-browser__action-menu {
+  position: relative;
+  display: inline-block;
+  justify-self: flex-end;
+  grid-row-start: 2;
+  grid-column: 30 / 32;
+}
+
+.storage-browser__action-menu__menu {
+  display: none;
+  gap: var(--storage-browser-gap-small);
+  flex-direction: column;
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block-start: 100%;
+  width: max-content;
+  max-width: var(--storage-browser-action-menu-max-width);
+}
+
+.storage-browser__action-menu__menu--open {
+  display: flex;
+}
+
+.storage-browser__action-menu__action-button {
+  display: flex;
+  gap: var(--storage-browser-gap-small);
+  align-items: center;
 }
