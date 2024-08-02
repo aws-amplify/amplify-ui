@@ -24,13 +24,11 @@ const MediaContentBase = withBaseElementProps(Image, {
 
 const MediaContent: typeof MediaContentBase = React.forwardRef(
   function MediaContent(props, ref) {
-    const variant = React.useContext(MessageVariantContext);
-    const role = React.useContext(RoleContext);
     return (
       <MediaContentBase
         {...props}
         ref={ref}
-        className={`${MESSAGE_BLOCK}__image ${MESSAGE_BLOCK}__image--${variant} ${MESSAGE_BLOCK}__image--${role}`}
+        className={`${MESSAGE_BLOCK}__image-content`}
       />
     );
   }
@@ -38,44 +36,57 @@ const MediaContent: typeof MediaContentBase = React.forwardRef(
 
 const TextContent: typeof Text = React.forwardRef(
   function TextContent(props, ref) {
-    const variant = React.useContext(MessageVariantContext);
-    const role = React.useContext(RoleContext);
     return (
-      <Text
+      <Text {...props} ref={ref} className={`${MESSAGE_BLOCK}__text-content`} />
+    );
+  }
+);
+
+const ContentContainer: typeof View = React.forwardRef(
+  function ContentContainer(props, ref) {
+    const variant = React.useContext(MessageVariantContext);
+    return (
+      <View
+        data-testid={'content'}
         {...props}
         ref={ref}
-        className={`${MESSAGE_BLOCK}__text ${MESSAGE_BLOCK}__text--${variant} ${MESSAGE_BLOCK}__text--${role}`}
+        className={`${MESSAGE_BLOCK}__content ${MESSAGE_BLOCK}__content--${variant}`}
       />
     );
   }
 );
 
-const Timestamp = withBaseElementProps(Text, {
-  className: `${MESSAGE_BLOCK}__timestamp`,
-});
-
 export const MessageControl: MessageControl = ({ message }) => {
-  return message.content.type === 'text' ? (
-    <TextContent data-testid={'message-text'}>
-      {message.content.value}
-    </TextContent>
-  ) : (
-    <MediaContent
-      data-testid={'message-image'}
-      src={convertBufferToBase64(
-        message.content.value.bytes,
-        message.content.value.format
-      )}
-    ></MediaContent>
+  return (
+    <ContentContainer>
+      {message.content.map((content, index) => {
+        return content.type === 'text' ? (
+          <TextContent data-testid={'text-content'} key={index}>
+            {content.value}
+          </TextContent>
+        ) : (
+          <MediaContent
+            data-testid={'image-content'}
+            key={index}
+            src={convertBufferToBase64(
+              content.value.bytes,
+              content.value.format
+            )}
+          ></MediaContent>
+        );
+      })}
+    </ContentContainer>
   );
 };
 
+MessageControl.Container = ContentContainer;
 MessageControl.MediaContent = MediaContent;
 MessageControl.TextContent = TextContent;
 interface MessageControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
 > {
   (props: { message: ConversationMessage }): JSX.Element;
+  Container: T['View'];
   MediaContent: T['Image'];
   TextContent: T['Text'];
 }
@@ -84,6 +95,10 @@ const Separator = withBaseElementProps(Span, {
   'aria-hidden': true,
   children: '|',
   className: `${MESSAGE_BLOCK}__separator`,
+});
+
+const Timestamp = withBaseElementProps(Text, {
+  className: `${MESSAGE_BLOCK}__timestamp`,
 });
 
 const HeaderContainer: typeof View = React.forwardRef(
@@ -107,7 +122,7 @@ const MessageContainer: typeof View = React.forwardRef(
       <View
         {...props}
         ref={ref}
-        className={`${MESSAGE_BLOCK}__container ${MESSAGE_BLOCK}__container--${variant} ${MESSAGE_BLOCK}__container--${role}`}
+        className={`${MESSAGE_BLOCK} ${MESSAGE_BLOCK}--${variant} ${MESSAGE_BLOCK}--${role}`}
       />
     );
   }
@@ -129,28 +144,24 @@ export const MessagesControl: MessagesControl = ({ renderMessage }) => {
   return (
     <Layout>
       {messages?.map((message, index) => {
-        const isLastMessageFromSameRole =
-          messages[index - 1]?.role === message.role;
+        // const isLastMessageFromSameRole =
+        //   messages[index - 1]?.role === message.role;
 
-        const isNextMessageFromSameRole =
-          messages[index + 1]?.role === message.role;
+        // const isNextMessageFromSameRole =
+        //   messages[index + 1]?.role === message.role;
 
         return renderMessage ? (
           renderMessage(message)
         ) : (
           <RoleContext.Provider value={message.role} key={`message-${index}`}>
             <MessageContainer data-testid={`message`} key={`message-${index}`}>
-              {!isLastMessageFromSameRole && (
-                <HeaderContainer>
-                  <AvatarControl />
-                  <Separator />
-                  <Timestamp>{formatDate(message.timestamp)}</Timestamp>
-                </HeaderContainer>
-              )}
+              <HeaderContainer>
+                <AvatarControl />
+                <Separator />
+                <Timestamp>{formatDate(message.timestamp)}</Timestamp>
+              </HeaderContainer>
               <MessageControl message={message} />
-              {!isNextMessageFromSameRole && (
-                <ActionsBarControl message={message} />
-              )}
+              <ActionsBarControl message={message} />
             </MessageContainer>
           </RoleContext.Provider>
         );

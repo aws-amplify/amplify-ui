@@ -56,14 +56,14 @@
   padding: '0px 16px';  */
 }
 
-.ai-message__container {
+.ai-message {
   display: flex;
   flex-direction: column;
   width: 480px;
   align-items: flex-start;
 }
 
-.ai-message__container--bubble-2.ai-message__container--user {
+.ai-message--bubble-2.ai-message--user {
   justify-content: flex-end;
 }
 
@@ -74,7 +74,7 @@
   gap: 12px;
 }
 
-.ai-message__image {
+.ai-message__image-content {
   width: 100%;
 }
 

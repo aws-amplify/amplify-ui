@@ -24,7 +24,7 @@ export type Content = ImageContentBlock | TextContent;
 
 export interface ConversationMessage {
   id: string;
-  content: Content;
+  content: Content[];
   role: 'user' | 'assistant';
   timestamp: Date;
 }
@@ -38,12 +38,28 @@ function convertBufferToBase64(
 }
 
 const roles = ['user', 'assistant'] as const;
-const sampleMessages = [
-  'How can I assist you today?',
-  'What are you looking for?',
-  'Can you provide more details?',
-  'I will get back to you shortly.',
-  'Thank you for your patience.',
+const sampleMessages: Content[][] = [
+  [
+    { type: 'text', value: 'How can I assist you today?' },
+    { type: 'text', value: 'How can I assist you today?' },
+    { type: 'text', value: 'How can I assist you today?' },
+  ],
+  [
+    { type: 'text', value: 'What are you looking for?' },
+    { type: 'text', value: 'What are you looking for?' },
+    { type: 'text', value: 'What are you looking for?' },
+  ],
+  [
+    { type: 'text', value: 'Can you provide more details?' },
+    { type: 'text', value: 'Can you provide more details?' },
+  ],
+  [
+    { type: 'text', value: 'I will get back to you shortly.' },
+    { type: 'text', value: 'I will get back to you shortly.' },
+    { type: 'text', value: 'I will get back to you shortly.' },
+  ],
+  [{ type: 'text', value: 'Thank you for your patience.' }],
+  [{ type: 'text', value: `I'm a real AI!` }],
 ];
 
 const PROMPTS = [
@@ -87,29 +103,33 @@ export const actions = [
 const initialMessages = [
   {
     id: '1',
-    content: { type: 'text' as const, value: 'I am your virtual assistant' },
+    content: [{ type: 'text' as const, value: 'I am your virtual assistant' }],
     role: 'assistant' as const,
     timestamp: new Date(2023, 4, 21, 15, 23),
   },
   {
     id: '2',
-    content: {
-      type: 'text' as const,
-      value:
-        'I have a really long question. This is a long message This is a long message This is a long message This is a long message This is a long message',
-    },
+    content: [
+      {
+        type: 'text' as const,
+        value:
+          'I have a really long question. This is a long message This is a long message This is a long message This is a long message This is a long message',
+      },
+    ],
     role: 'user' as const,
     timestamp: new Date(2023, 4, 21, 15, 24),
   },
   {
     id: '3',
-    content: {
-      type: 'image' as const,
-      value: {
-        format: 'png' as const,
-        bytes: new Uint8Array([]).buffer,
+    content: [
+      {
+        type: 'image' as const,
+        value: {
+          format: 'png' as const,
+          bytes: new Uint8Array([]).buffer,
+        },
       },
-    },
+    ],
     role: 'assistant' as const,
     timestamp: new Date(2023, 4, 21, 15, 25),
   },
@@ -180,7 +200,7 @@ const avatars = {
 
 const getRandomMessage = (): {
   role: (typeof roles)[number];
-  content: Content;
+  content: Content[];
   timestamp: Date;
 } => {
   const role = roles[Math.floor(Math.random() * roles.length)];
@@ -188,7 +208,7 @@ const getRandomMessage = (): {
     sampleMessages[Math.floor(Math.random() * sampleMessages.length)];
   return {
     role,
-    content: { type: 'text', value: message },
+    content: message,
     timestamp: new Date(),
   };
 };
