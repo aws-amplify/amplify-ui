@@ -3,7 +3,11 @@ import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import { ConversationMessage } from '../../types';
 
-import { MessagesContext, MessageVariantContext } from '../../context';
+import {
+  MessagesContext,
+  MessageVariantContext,
+  RoleContext,
+} from '../../context';
 import { AIConversationElements } from '../../context/elements';
 import { convertBufferToBase64, formatDate } from '../../utils';
 import { ActionsBarControl } from './ActionsBarControl';
@@ -13,10 +17,6 @@ const { Image, Span, Text, View } = AIConversationElements;
 
 const MESSAGES_BLOCK = 'ai-messages';
 const MESSAGE_BLOCK = 'ai-message';
-
-export const RoleContext = React.createContext<
-  ConversationMessage['role'] | undefined
->(undefined);
 
 const MediaContentBase = withBaseElementProps(Image, {
   alt: 'Image attachment',

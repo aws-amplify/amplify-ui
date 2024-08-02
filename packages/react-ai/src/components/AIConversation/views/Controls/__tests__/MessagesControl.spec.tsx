@@ -5,13 +5,12 @@ import { ConversationMessage } from '../../../types';
 
 import { ActionsProvider } from '../../../context/ActionsContext';
 import { AvatarsProvider } from '../../../context/AvatarsContext';
-import { MessagesProvider } from '../../../context/MessagesContext';
-import { MessageVariantProvider } from '../../../context/MessageVariantContext';
 import {
-  MessagesControl,
-  MessageControl,
+  MessagesProvider,
   RoleContext,
-} from '../MessagesControl';
+} from '../../../context/MessagesContext';
+import { MessageVariantProvider } from '../../../context/MessageVariantContext';
+import { MessagesControl, MessageControl } from '../MessagesControl';
 
 import { convertBufferToBase64 } from '../../../utils';
 
@@ -69,23 +68,11 @@ const userDoubleText: ConversationMessage = {
 const avatars = {
   user: {
     username: 'Scottleigh',
-    avatar: (
-      <svg>
-        <text x="10" y="20">
-          UAvatar
-        </text>
-      </svg>
-    ),
+    avatar: <svg>UAvatar</svg>,
   },
   ai: {
     username: 'Raven',
-    avatar: (
-      <svg>
-        <text x="10" y="20">
-          RAvatar
-        </text>
-      </svg>
-    ),
+    avatar: <svg>RAvatar</svg>,
   },
 };
 

@@ -2,8 +2,8 @@ import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import { AvatarsContext } from '../../context';
+import { RoleContext } from '../../context';
 import { AIConversationElements } from '../../context/elements';
-import { RoleContext } from './MessagesControl';
 
 const { Icon, Span, Text, View } = AIConversationElements;
 
