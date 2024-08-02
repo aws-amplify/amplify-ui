@@ -6,6 +6,4 @@ if [ "$branch" = "main" ]; then
   exit 1
 fi
 
-. "$(dirname "$0")/_/husky.sh"
-
 npx lint-staged
