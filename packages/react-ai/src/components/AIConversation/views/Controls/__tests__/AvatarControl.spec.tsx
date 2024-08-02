@@ -1,8 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { ConversationMessage } from '../../../types';
 import { AvatarsProvider } from '../../../context/AvatarsContext';
-import { RoleContext } from '../MessagesControl';
+import { RoleContext } from '../../../context/MessagesContext';
 import { AvatarControl } from '../AvatarControl';
 
 const avatars = {

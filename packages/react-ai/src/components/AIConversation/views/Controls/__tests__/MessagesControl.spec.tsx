@@ -5,13 +5,12 @@ import { ConversationMessage } from '../../../types';
 
 import { ActionsProvider } from '../../../context/ActionsContext';
 import { AvatarsProvider } from '../../../context/AvatarsContext';
-import { MessagesProvider } from '../../../context/MessagesContext';
-import { MessageVariantProvider } from '../../../context/MessageVariantContext';
 import {
-  MessagesControl,
-  MessageControl,
+  MessagesProvider,
   RoleContext,
-} from '../MessagesControl';
+} from '../../../context/MessagesContext';
+import { MessageVariantProvider } from '../../../context/MessageVariantContext';
+import { MessagesControl, MessageControl } from '../MessagesControl';
 
 import { convertBufferToBase64 } from '../../../utils';
 
