@@ -29,7 +29,7 @@ export interface Action {
   type: ActionType;
 }
 
-interface ActionSelectState<T = ActionType> {
+export interface ActionSelectState<T = ActionType> {
   actions: Action[];
   selected: { actionType: T | undefined; items: LocationItem[] | undefined };
 }
