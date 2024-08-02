@@ -43,6 +43,9 @@ export function actionSelectReducer(
   state: ActionSelectState,
   _action: ActionSelectAction
 ): ActionSelectState {
+  if (_action.type === 'SELECT_ACTION_TYPE') {
+    return { ...state, selected: _action };
+  }
   return state;
 }
 
@@ -56,7 +59,6 @@ export function ActionSelectProvider({
   children?: React.ReactNode;
 }): React.JSX.Element {
   const value = React.useReducer(actionSelectReducer, INITIAL_STATE);
-
   return (
     <ActionSelectContext.Provider value={value}>
       {children}

@@ -48,9 +48,9 @@ export function Controller(): null {
     ({ bucket, permission, scope }: LocationData) =>
       handleListLocationItems({
         // uncomment to test managed auth config
-        prefix: '',
+        // prefix: '',
         // uncomment to test with amplify config with public access level
-        // prefix: 'public/'
+        prefix: 'public/',
         config: {
           bucket,
           credentialsProvider: async () =>
