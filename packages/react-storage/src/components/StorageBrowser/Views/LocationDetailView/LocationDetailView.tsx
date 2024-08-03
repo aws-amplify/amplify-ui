@@ -7,8 +7,6 @@ import { LocationDetailViewControls } from './Controls';
 import { CLASS_BASE } from '../constants';
 import { useControl } from '../../context/controls';
 import { useConfig } from '../../context/config';
-import { useHasValueUpdated } from '@aws-amplify/ui-react-core';
-import { isFolderName } from '../../context/actions/types';
 
 export interface LocationDetailView<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -16,65 +14,62 @@ export interface LocationDetailView<
 
 export const LocationDetailView: LocationDetailView = () => {
   const { getLocationCredentials, region } = useConfig();
-  const [{ location }, handleUpdateState] = useControl({ type: 'NAVIGATE' });
+  const [{ history, location }, handleUpdateState] = useControl({
+    type: 'NAVIGATE',
+  });
+
+  const { permission, scope } = location ?? {};
+  const bucket = history[0];
+
+  const prefix = history[history.length - 1];
 
   const [locationItemsState, handleListLocationItems] = useAction({
     type: 'LIST_LOCATION_ITEMS',
   });
 
-  const { bucket, permission, scope, prefix } = location ?? {};
   const { data, isLoading } = locationItemsState;
 
-  const hasScopeChanged = useHasValueUpdated(scope);
-
-  const listLocationItems = React.useCallback(
-    ({
-      bucket,
-      // uncomment for testing Amplify buckets
-      prefix = 'public/',
-      // uncomment for testing managed auth buckets
-      // prefix = '',
-      scope,
-    }: {
-      bucket: string;
-      prefix: string | undefined;
-      scope: string;
-    }) =>
-      handleListLocationItems({
-        prefix,
-        config: {
-          bucket,
-          credentialsProvider: async () =>
-            await getLocationCredentials({ permission: permission!, scope }),
-          region,
-        },
-        options: { refresh: true, pageSize: 1000 },
-      }),
-    [getLocationCredentials, permission, handleListLocationItems, region]
-  );
-
   React.useEffect(() => {
-    if (bucket && scope && hasScopeChanged) {
-      // TODO: update to exhaustive call
-      listLocationItems({ bucket, prefix, scope });
+    if (!scope || !permission) {
+      return;
     }
-  }, [bucket, hasScopeChanged, prefix, scope, listLocationItems]);
 
-  const hasItems = !!data.items.length;
+    handleListLocationItems({
+      prefix: prefix === bucket ? '' : prefix,
+      config: {
+        bucket,
+        credentialsProvider: async () =>
+          await getLocationCredentials({ permission, scope }),
+        region,
+      },
+      options: { refresh: true },
+    });
+  }, [
+    bucket,
+    getLocationCredentials,
+    handleListLocationItems,
+    permission,
+    prefix,
+    region,
+    scope,
+  ]);
+
+  const hasItems = !!data.result?.length;
 
   const listItems = !hasItems
     ? null
-    : data.items.map(({ key, type }) => {
+    : data.result.map(({ key, type }) => {
+        if (key === prefix) {
+          return null;
+        }
         if (type === 'FOLDER') {
           return (
             <button
               onClick={() => {
-                if (isFolderName(key)) {
-                  handleUpdateState({
-                    type: 'ENTER_FOLDER',
-                    name: key,
-                  });
-                }
+                handleUpdateState({
+                  type: 'NAVIGATE',
+                  prefix: key,
+                });
               }}
               key={key}
             >

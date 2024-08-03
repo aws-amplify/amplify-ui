@@ -6,7 +6,7 @@ const shouldLoadLocations = ({
   data,
   hasError,
   isLoading,
-}: LocationsDataState[0]) => !data.locations.length && !isLoading && !hasError;
+}: LocationsDataState[0]) => !data.result?.length && !isLoading && !hasError;
 
 /**
  * Handles fetching of list data

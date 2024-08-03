@@ -1,32 +1,32 @@
 import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
-import type { OmitElements } from '../types';
-import { StorageBrowserElements } from '../../context/elements';
-import { CLASS_BASE } from '../constants';
 import { useControl } from '../../context/controls';
-import { isFolderName } from '../../context/actions/types';
+import { StorageBrowserElements } from '../../context/elements';
 
-const { Span, Button, Nav, OrderedList, ListItem } = StorageBrowserElements;
-const BLOCK_NAME = `${CLASS_BASE}__navigate`;
+import { CLASS_BASE } from '../constants';
+import type { OmitElements } from '../types';
 
-const HOME_NAVIGATE_ITEM = 'Home';
+export interface _NavigateControl<
+  T extends StorageBrowserElements = StorageBrowserElements,
+> {
+  (props: { renderNavigateItem?: RenderNavigateItem }): React.JSX.Element;
+  Container: T['Nav'];
+  NavigateItem: NavigateItem<T>;
+}
 
-/* <Separator /> */
+export interface NavigateControl<
+  T extends StorageBrowserElements = StorageBrowserElements,
+> extends OmitElements<_NavigateControl<T>, 'Container' | 'NavigateItem'> {
+  (props: { renderNavigateItem?: RenderNavigateItem }): React.JSX.Element;
+}
 
-const Separator = withBaseElementProps(Span, {
-  className: `${BLOCK_NAME}__separator`,
-  children: '/',
-});
-
-type RenderNavigateItemProps = {
-  item: string;
-  current?: boolean;
+interface NavigateItemProps {
+  children?: React.ReactNode;
   onClick?: () => void;
-};
+}
 
-/* <NavigateItem /> */
-type RenderNavigateItem = (props: RenderNavigateItemProps) => React.JSX.Element;
+type RenderNavigateItem = (props: NavigateItemProps) => React.JSX.Element;
 
 interface NavigateItem<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -34,6 +34,16 @@ interface NavigateItem<
     Pick<T, 'Button' | 'ListItem'> {
   Separator: T['Span'];
 }
+
+const { Span, Button, Nav, OrderedList, ListItem } = StorageBrowserElements;
+const BLOCK_NAME = `${CLASS_BASE}__navigate`;
+
+const HOME_NAVIGATE_ITEM = 'Home';
+
+const Separator = withBaseElementProps(Span, {
+  className: `${BLOCK_NAME}__separator`,
+  children: '/',
+});
 
 const NavigateItemContainer = withBaseElementProps(ListItem, {
   className: `${BLOCK_NAME}__item`,
@@ -43,20 +53,16 @@ const NavigateButton = withBaseElementProps(Button, {
   className: `${BLOCK_NAME}__button`,
 });
 
-const NavigateItem: NavigateItem = ({ item: name, current, onClick }) => {
-  return (
-    <NavigateItemContainer>
-      <NavigateButton onClick={onClick}>{name}</NavigateButton>
-      {current ? null : <Separator />}
-    </NavigateItemContainer>
-  );
-};
+const NavigateItem = (props: NavigateItemProps) => (
+  <NavigateItemContainer>
+    <NavigateButton {...props} />
+  </NavigateItemContainer>
+);
 
 NavigateItem.Button = NavigateButton;
 NavigateItem.Separator = Separator;
 NavigateItem.ListItem = ListItem;
 
-/* <NavigateContainer /> */
 const NavigateContainer: typeof Nav = React.forwardRef(function Container(
   { children, ...props },
   ref
@@ -75,62 +81,32 @@ const NavigateContainer: typeof Nav = React.forwardRef(function Container(
   );
 });
 
-/* <NavigateControl /> */
-export interface _NavigateControl<
-  T extends StorageBrowserElements = StorageBrowserElements,
-> {
-  (props: { renderNavigateItem?: RenderNavigateItem }): React.JSX.Element;
-  Container: T['Nav'];
-  NavigateItem: NavigateItem<T>;
-}
-
-export interface NavigateControl<
-  T extends StorageBrowserElements = StorageBrowserElements,
-> extends OmitElements<_NavigateControl<T>, 'Container' | 'NavigateItem'> {
-  (props: { renderNavigateItem?: RenderNavigateItem }): React.JSX.Element;
-}
-
 export const NavigateControl: NavigateControl = (_props) => {
-  const [state, handleUpdateState] = useControl({ type: 'NAVIGATE' });
+  const [{ history }, handleUpdateState] = useControl({
+    type: 'NAVIGATE',
+  });
 
   return (
     <NavigateContainer>
       <NavigateItem
-        item={HOME_NAVIGATE_ITEM}
-        current={!state.location}
-        onClick={() => handleUpdateState({ type: 'DESELECT_LOCATION' })}
-      />
-      {state.location && (
-        <>
+        onClick={() => {
+          handleUpdateState({ type: 'EXIT' });
+        }}
+      >
+        {HOME_NAVIGATE_ITEM}
+      </NavigateItem>
+      {history?.map((entry) => (
+        <React.Fragment key={entry}>
+          <Separator />
           <NavigateItem
-            item={state.location.bucket}
-            current={!state.history || state.history.length === 0}
             onClick={() => {
-              if (state.location) {
-                handleUpdateState({
-                  type: 'SELECT_LOCATION',
-                  location: state.location,
-                });
-              }
+              handleUpdateState({ type: 'NAVIGATE', prefix: entry });
             }}
-          />
-          {state.history?.map((folder, index) => (
-            <NavigateItem
-              key={index}
-              item={folder}
-              current={folder === state.history?.[state.history.length - 1]}
-              onClick={() => {
-                if (isFolderName(folder)) {
-                  handleUpdateState({
-                    type: 'EXIT_FOLDER',
-                    name: folder,
-                  });
-                }
-              }}
-            />
-          ))}
-        </>
-      )}
+          >
+            {entry}
+          </NavigateItem>
+        </React.Fragment>
+      ))}
     </NavigateContainer>
   );
 };

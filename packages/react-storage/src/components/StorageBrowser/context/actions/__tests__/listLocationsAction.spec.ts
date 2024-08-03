@@ -1,19 +1,17 @@
-import {
-  createListLocationsAction,
-  _ListLocations,
-  _LocationAccess,
-} from '../listLocationsAction';
+import { ListLocations } from '@aws-amplify/storage/storage-browser';
+import { createListLocationsAction } from '../listLocationsAction';
+import { LocationAccess } from '../types';
 
-const fakeLocation: _LocationAccess = {
+const fakeLocation = {
   scope: 's3://some-bucket/*',
   permission: 'READ',
   type: 'BUCKET',
 };
 
 const generateMockLocations = (size: number) =>
-  Array(size).fill(fakeLocation) as _LocationAccess[];
+  Array(size).fill(fakeLocation) as LocationAccess[];
 
-const listLocations: _ListLocations = ({ pageSize } = {}) => {
+const listLocations: ListLocations = ({ pageSize } = {}) => {
   return Promise.resolve({
     locations: generateMockLocations(pageSize!),
     nextToken: undefined,
@@ -34,11 +32,11 @@ describe('createListLocationsAction', () => {
     const listLocationsAction = createListLocationsAction(mockListLocations);
 
     const output = await listLocationsAction(
-      { nextToken: undefined, locations: [] },
-      { pageSize: 100 }
+      { nextToken: undefined, result: [] },
+      { options: { pageSize: 100 } }
     );
 
-    expect(output.locations).toHaveLength(100);
+    expect(output.result).toHaveLength(100);
     expect(output.nextToken).toBeDefined();
   });
 
@@ -54,24 +52,21 @@ describe('createListLocationsAction', () => {
       });
 
     const listLocationsAction = createListLocationsAction(mockListLocations);
-    const { locations, nextToken } = await listLocationsAction(
-      { nextToken: undefined, locations: [] },
-      { pageSize: 100 }
+    const { result, nextToken } = await listLocationsAction(
+      { nextToken: undefined, result: [] },
+      { options: { pageSize: 100 } }
     );
 
-    expect(locations).toHaveLength(100);
+    expect(result).toHaveLength(100);
     expect(nextToken).toBeDefined();
 
-    const { locations: nextLocations, nextToken: nextNextToken } =
+    const { result: nextResult, nextToken: nextNextToken } =
       await listLocationsAction(
-        {
-          locations,
-          nextToken,
-        },
-        { pageSize: 100 }
+        { result, nextToken },
+        { options: { pageSize: 100 } }
       );
 
-    expect(nextLocations).toHaveLength(200);
+    expect(nextResult).toHaveLength(200);
     expect(nextNextToken).not.toBe(nextToken);
     expect(nextToken).toBeDefined();
   });
