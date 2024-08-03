@@ -1,6 +1,7 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { createStorageBrowser } from '../createStorageBrowser';
+import * as controlsModule from '../context/controls';
 
 const listLocations = jest.fn(() =>
   Promise.resolve({ locations: [], nextToken: undefined })
@@ -12,9 +13,30 @@ const config = {
 };
 
 describe('createStorageBrowser', () => {
-  it('returns a StorageBrowser', () => {
+  it('returns a StorageBrowser', async () => {
     const { StorageBrowser } = createStorageBrowser({ config });
 
-    expect(render(<StorageBrowser />).container).toBeDefined();
+    await waitFor(() => {
+      expect(render(<StorageBrowser />).container).toBeDefined();
+    });
+  });
+
+  it('renders ActionView on action select', async () => {
+    const { StorageBrowser } = createStorageBrowser({ config });
+
+    // Used 'mockReturnValueOnce` three times to mock each time it's called
+    // to render LocationActionView
+    // Twice in `DefaultStorageBrowser` and then once in `LocationActionView`
+    jest
+      .spyOn(controlsModule, 'useControl')
+      .mockReturnValueOnce([{ location: {} }])
+      .mockReturnValueOnce([{ selected: { actionType: 'CREATE_FOLDER' } }])
+      .mockReturnValueOnce([{ selected: { actionType: 'CREATE_FOLDER' } }]);
+
+    await waitFor(() => {
+      render(<StorageBrowser />);
+    });
+
+    expect(screen.getByText('CREATE_FOLDER')).toBeInTheDocument();
   });
 });
