@@ -11,7 +11,7 @@ interface HandleSignInWithRedirect {
   (input: HandleSignInWithRedirectInput): Promise<void>;
 }
 
-interface UseHandleSigninWithRedirectInput<K extends string = string> {
+interface HandleSigninWithRedirectInput<K extends string = string> {
   providerName: K;
   customState?: string;
 }
@@ -25,7 +25,7 @@ interface ActionState<T> {
 export interface UseHandleSignInWithRedirect<K extends string = string> {
   (): [
     state: ActionState<void | undefined>,
-    handleAction: (...input: UseHandleSigninWithRedirectInput<K>[]) => void,
+    handleAction: (...input: HandleSigninWithRedirectInput<K>[]) => void,
   ];
 }
 
