@@ -4,7 +4,7 @@ import { DownloadControl } from '../Download';
 
 describe('DownloadControl', () => {
   it('renders the DownloadControl', () => {
-    render(<DownloadControl />);
+    render(<DownloadControl imgKey="" />);
 
     const button = screen.getByRole('button', {
       name: 'Download item',
