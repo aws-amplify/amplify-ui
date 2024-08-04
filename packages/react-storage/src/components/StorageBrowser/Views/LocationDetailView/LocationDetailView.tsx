@@ -9,7 +9,7 @@ import { useControl } from '../../context/controls';
 import { useConfig } from '../../context/config';
 import { useHasValueUpdated } from '@aws-amplify/ui-react-core';
 import { isFolderName } from '../../context/actions/types';
-
+import { DownloadControl } from '../Controls';
 export interface LocationDetailView<
   T extends StorageBrowserElements = StorageBrowserElements,
 > extends ViewComponent<LocationDetailViewControls<T>> {}
@@ -82,7 +82,12 @@ export const LocationDetailView: LocationDetailView = () => {
             </button>
           );
         } else {
-          return <p key={key}>{key}</p>;
+          return (
+            <div key={key}>
+              <p>{key}</p>
+              <DownloadControl imgKey={key} />
+            </div>
+          );
         }
       });
 
