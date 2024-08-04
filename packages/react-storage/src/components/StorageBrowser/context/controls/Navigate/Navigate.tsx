@@ -28,25 +28,28 @@ export const parseLocationAccess = (location: LocationAccess): LocationData => {
     throw new Error(`Invalid scope: ${scope}`);
   }
 
+  // remove default path
+  const sanitizedScope = scope.slice(5);
   let bucket, prefix;
 
   switch (type) {
     case 'BUCKET': {
       // { scope: 's3://bucket/*', type: 'BUCKET', },
-      bucket = scope.slice(5, -2);
+      bucket = sanitizedScope.slice(0, -2);
       prefix = '';
       break;
     }
     case 'PREFIX': {
       // { scope: 's3://bucket/path/*', type: 'PREFIX', },
-      bucket = scope.slice(5, scope.indexOf('/') - 1);
-      prefix = `${scope.slice(bucket.length + 5)}`;
+      bucket = sanitizedScope.slice(0, sanitizedScope.indexOf('/'));
+      prefix = sanitizedScope.slice(bucket.length + 1, -1);
+
       break;
     }
     case 'OBJECT': {
       // { scope: 's3://bucket/path/to/object', type: 'OBJECT', },
-      bucket = scope.slice(5, scope.indexOf('/') - 1);
-      prefix = scope.slice(bucket.length + 5);
+      bucket = sanitizedScope.slice(0, sanitizedScope.indexOf('/'));
+      prefix = sanitizedScope.slice(bucket.length);
       break;
     }
     default: {
@@ -64,9 +67,10 @@ export function navigateReducer(
   switch (action.type) {
     case 'ACCESS_LOCATION': {
       const { location } = action;
-      const { bucket } = parseLocationAccess(location);
+      const { bucket, prefix } = parseLocationAccess(location);
+      const initialEntry = prefix ? `${bucket}/${prefix}` : bucket;
 
-      return { location, history: [bucket] };
+      return { location, history: [initialEntry] };
     }
     case 'NAVIGATE': {
       const { prefix } = action;
@@ -78,7 +82,7 @@ export function navigateReducer(
       const history =
         position === -1
           ? [...state.history, prefix]
-          : state.history.slice(0, position);
+          : state.history.slice(0, position + 1);
 
       return { ...state, history };
     }

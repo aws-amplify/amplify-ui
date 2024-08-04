@@ -1,6 +1,19 @@
 import { Amplify } from 'aws-amplify';
-import { fetchAuthSession } from 'aws-amplify/auth';
+import { AuthSession, fetchAuthSession } from 'aws-amplify/auth';
+import { LocationCredentialsProvider } from '@aws-amplify/storage/storage-browser';
+
 import { StorageBrowserAuthAdapter } from './types';
+
+interface AWSCredentials extends NonNullable<AuthSession['credentials']> {}
+interface AWSTemporaryCredentials
+  extends NonNullable<
+    Awaited<ReturnType<LocationCredentialsProvider>>['credentials']
+  > {}
+
+const isTemporaryCredentials = (
+  value?: AWSCredentials | AWSTemporaryCredentials
+): value is AWSTemporaryCredentials =>
+  !!value?.sessionToken || !!value?.expiration;
 
 export const createAmplifyAuthAdapter = (): StorageBrowserAuthAdapter => {
   const { bucket, region } = Amplify.getConfig()?.Storage?.S3 ?? {};
@@ -10,10 +23,12 @@ export const createAmplifyAuthAdapter = (): StorageBrowserAuthAdapter => {
     );
   }
 
-  async function getLocationCredentials() {
+  async function getLocationCredentials(): Promise<{
+    credentials: AWSTemporaryCredentials;
+  }> {
     const { credentials } = await fetchAuthSession();
-    if (!credentials) {
-      throw new Error('Amplify Auth credentials not found.');
+    if (!isTemporaryCredentials(credentials)) {
+      throw new Error('Temporary Auth credentials not found.');
     }
     return { credentials };
   }
@@ -22,6 +37,11 @@ export const createAmplifyAuthAdapter = (): StorageBrowserAuthAdapter => {
     return Promise.resolve({
       locations: [
         { type: 'BUCKET', permission: 'READWRITE', scope: `s3://${bucket}/*` },
+        {
+          type: 'PREFIX',
+          permission: 'READWRITE',
+          scope: `s3://${bucket}/public/*`,
+        },
       ],
       nextToken: undefined,
     } as { locations: any[]; nextToken: string | undefined });

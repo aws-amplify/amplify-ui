@@ -86,7 +86,33 @@ describe('navigateReducer', () => {
     expect(newState).toEqual(expectedState);
   });
 
-  it('handles an EXIT as expected', () => {
+  it('handles a NAVIGATE action to a previous location', () => {
+    const state: NavigateState = {
+      history: [
+        location.bucket,
+        locationTwo.prefix,
+        'public/folder1/',
+        'public/folder1/nestedFolder/',
+      ],
+      location: locationAccess,
+    };
+
+    const action: NavigateAction = {
+      type: 'NAVIGATE',
+      prefix: locationTwo.prefix,
+    };
+
+    const expectedState: NavigateState = {
+      history: [location.bucket, locationTwo.prefix],
+      location: locationAccess,
+    };
+
+    const newState = navigateReducer(state, action);
+
+    expect(newState).toStrictEqual(expectedState);
+  });
+
+  it('handles an EXIT action as expected', () => {
     const state: NavigateState = {
       history: [location.bucket],
       location: locationAccess,

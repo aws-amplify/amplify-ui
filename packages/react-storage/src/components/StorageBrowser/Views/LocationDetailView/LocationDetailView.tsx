@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { useAction } from '../../context/actions';
+import { LocationData, useAction } from '../../context/actions';
+import { parseLocationAccess } from '../../context/controls/Navigate/Navigate';
 import { StorageBrowserElements } from '../../context/elements';
 import { ViewComponent } from '../types';
 import { LocationDetailViewControls } from './Controls';
@@ -18,36 +19,42 @@ export const LocationDetailView: LocationDetailView = () => {
     type: 'NAVIGATE',
   });
 
-  const { permission, scope } = location ?? {};
-  const bucket = history[0];
-
-  const prefix = history[history.length - 1];
-
-  const [locationItemsState, handleListLocationItems] = useAction({
+  const [{ data, isLoading }, handleList] = useAction({
     type: 'LIST_LOCATION_ITEMS',
   });
 
-  const { data, isLoading } = locationItemsState;
+  const { scope } = location ?? {};
+  const {
+    bucket,
+    permission,
+    prefix: initialPrefix,
+  } = location ? parseLocationAccess(location) : ({} as LocationData);
+
+  const isInitialLocation = history.length === 1;
+
+  const prefix = history[history.length - 1];
 
   React.useEffect(() => {
     if (!scope || !permission) {
       return;
     }
 
-    handleListLocationItems({
-      prefix: prefix === bucket ? '' : prefix,
+    handleList({
+      prefix: isInitialLocation ? initialPrefix : prefix,
       config: {
         bucket,
         credentialsProvider: async () =>
           await getLocationCredentials({ permission, scope }),
         region,
       },
-      options: { refresh: true },
+      options: { pageSize: 1000, refresh: true },
     });
   }, [
     bucket,
     getLocationCredentials,
-    handleListLocationItems,
+    handleList,
+    isInitialLocation,
+    initialPrefix,
     permission,
     prefix,
     region,
