@@ -28,16 +28,20 @@ interface ResolvedStorageBrowserElements<
  * - TODO: render `ActionView` on action selection
  */
 function DefaultStorageBrowser(): React.JSX.Element {
-  const [{ location }] = useControl({ type: 'NAVIGATE' });
+  const [{ history }] = useControl({ type: 'NAVIGATE' });
   const [{ selected }] = useControl({ type: 'ACTION_SELECT' });
 
   const { actionType } = selected;
 
   if (actionType) {
     return <LocationActionView />;
-  } else if (location) {
+  }
+
+  if (history.length) {
     return <LocationDetailView />;
-  } else return <LocationsView />;
+  }
+
+  return <LocationsView />;
 }
 
 export function createStorageBrowser<

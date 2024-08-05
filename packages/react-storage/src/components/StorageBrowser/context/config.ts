@@ -1,12 +1,14 @@
 import React from 'react';
-import { GetLocationCredentials } from '@aws-amplify/storage/storage-browser';
+import {
+  GetLocationCredentials,
+  ListLocations,
+} from '@aws-amplify/storage/storage-browser';
 
-import { _ListLocations } from './actions/listLocationsAction';
 import { Permission } from './actions/types';
 
 // TODO: replace during credentials store integration
-export interface Config<T = Permission> {
-  listLocations: _ListLocations<T>;
+export interface Config<_T = Permission> {
+  listLocations: ListLocations;
   getLocationCredentials: GetLocationCredentials;
   region: string;
 }

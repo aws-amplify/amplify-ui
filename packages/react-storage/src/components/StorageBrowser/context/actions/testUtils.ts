@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { LocationItem, LocationData } from './types';
 
 type Permission = 'READ' | 'READWRITE' | 'WRITE';

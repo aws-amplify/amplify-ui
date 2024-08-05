@@ -1,43 +1,21 @@
 import {
   list,
-  ListAllWithPathInput,
   ListPaginateWithPathInput,
   ListPaginateWithPathOutput,
 } from 'aws-amplify/storage';
 
+import { StorageSubpathStrategy } from '@aws-amplify/storage/storage-browser';
+
 import { LocationItem } from './types';
+import { ListActionInput, ListActionOptions, ListActionOutput } from './types';
 
-type ListInput = NonNullable<ListPaginateWithPathInput | ListAllWithPathInput>;
-type _ListOptions = NonNullable<ListInput['options']>;
+export interface ListLocationItemsActionInput
+  extends ListActionInput<ListActionOptions> {}
 
-type LocationCredentialsProvider = NonNullable<
-  _ListOptions['locationCredentialsProvider']
->;
+export interface ListLocationItemsActionOutput
+  extends ListActionOutput<LocationItem> {}
+
 type ListOutputItem = ListPaginateWithPathOutput['items'][number];
-
-type SubpathStrategy = NonNullable<_ListOptions['subpathStrategy']>;
-
-interface LocationConfig {
-  bucket: string;
-  credentialsProvider: LocationCredentialsProvider;
-  region: string;
-}
-
-type Options = { delimiter?: string; pageSize?: number } & (
-  | { nextToken?: string; refresh?: never }
-  | { nextToken?: never; refresh?: boolean }
-);
-
-export interface ListLocationItemsActionInput {
-  prefix: string;
-  config: LocationConfig;
-  options?: Options;
-}
-
-export interface ListLocationItemsActionOutput {
-  items: LocationItem[];
-  nextToken: string | undefined;
-}
 
 const parseResultItems = (items: ListOutputItem[]): LocationItem[] =>
   items.map(({ path: key, lastModified, size }) => {
@@ -53,10 +31,15 @@ export async function listLocationItemsAction(
   input: ListLocationItemsActionInput
 ): Promise<ListLocationItemsActionOutput> {
   const { config, options, prefix: path } = input ?? {};
-  const { bucket, credentialsProvider, region } = config;
-  const { delimiter, nextToken: _nextToken, pageSize, refresh } = options ?? {};
+  const { bucket: bucketName, credentialsProvider, region } = config ?? {};
+  const { delimiter, nextToken, pageSize, refresh, reset } = options ?? {};
 
-  const subpathStrategy: SubpathStrategy = {
+  if (reset) {
+    return { result: [], nextToken: undefined };
+  }
+
+  const bucket = bucketName && region ? { bucketName, region } : undefined;
+  const subpathStrategy: StorageSubpathStrategy = {
     delimiter,
     strategy: delimiter ? 'exclude' : 'include',
   };
@@ -64,18 +47,20 @@ export async function listLocationItemsAction(
   const listInput: ListPaginateWithPathInput = {
     path,
     options: {
-      bucket: { bucketName: bucket, region },
+      bucket,
       locationCredentialsProvider: credentialsProvider,
-      nextToken: refresh ? undefined : _nextToken,
+      nextToken: refresh ? undefined : nextToken,
       pageSize,
       subpathStrategy,
     },
   };
 
-  const { items, nextToken } = await list(listInput);
+  const output = await list(listInput);
 
-  return {
-    items: [...(refresh ? [] : prevState.items), ...parseResultItems(items)],
-    nextToken,
-  };
+  const result = [
+    ...(refresh ? [] : prevState.result),
+    ...parseResultItems(output.items),
+  ];
+
+  return { result, nextToken: output.nextToken };
 }

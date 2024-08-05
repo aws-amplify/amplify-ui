@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { useAction } from '../../context/actions';
+import { LocationData, useAction } from '../../context/actions';
+import { parseLocationAccess } from '../../context/controls/Navigate/utils';
 import { StorageBrowserElements } from '../../context/elements';
 import { ViewComponent } from '../types';
 import { LocationDetailViewControls } from './Controls';
 import { CLASS_BASE } from '../constants';
 import { useControl } from '../../context/controls';
 import { useConfig } from '../../context/config';
-import { useHasValueUpdated } from '@aws-amplify/ui-react-core';
-import { isFolderName } from '../../context/actions/types';
 
 export interface LocationDetailView<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -16,65 +15,65 @@ export interface LocationDetailView<
 
 export const LocationDetailView: LocationDetailView = () => {
   const { getLocationCredentials, region } = useConfig();
-  const [{ location }, handleUpdateState] = useControl({ type: 'NAVIGATE' });
+  const [{ history, location }, handleUpdateState] = useControl({
+    type: 'NAVIGATE',
+  });
 
-  const [locationItemsState, handleListLocationItems] = useAction({
+  const [{ data, isLoading }, handleList] = useAction({
     type: 'LIST_LOCATION_ITEMS',
   });
 
-  const { bucket, permission, scope, prefix } = location ?? {};
-  const { data, isLoading } = locationItemsState;
+  const {
+    bucket,
+    permission,
+    prefix: initialPrefix,
+  } = location ? parseLocationAccess(location) : ({} as LocationData);
+  const { scope } = location ?? {};
 
-  const hasScopeChanged = useHasValueUpdated(scope);
-
-  const listLocationItems = React.useCallback(
-    ({
-      bucket,
-      // uncomment for testing Amplify buckets
-      prefix = 'public/',
-      // uncomment for testing managed auth buckets
-      // prefix = '',
-      scope,
-    }: {
-      bucket: string;
-      prefix: string | undefined;
-      scope: string;
-    }) =>
-      handleListLocationItems({
-        prefix,
-        config: {
-          bucket,
-          credentialsProvider: async () =>
-            await getLocationCredentials({ permission: permission!, scope }),
-          region,
-        },
-        options: { refresh: true, pageSize: 1000 },
-      }),
-    [getLocationCredentials, permission, handleListLocationItems, region]
-  );
+  const prefix =
+    history.length === 1 ? initialPrefix : history[history.length - 1];
 
   React.useEffect(() => {
-    if (bucket && scope && hasScopeChanged) {
-      // TODO: update to exhaustive call
-      listLocationItems({ bucket, prefix, scope });
+    if (!scope || !permission) {
+      return;
     }
-  }, [bucket, hasScopeChanged, prefix, scope, listLocationItems]);
 
-  const hasItems = !!data.items.length;
+    handleList({
+      prefix,
+      config: {
+        bucket,
+        credentialsProvider: async () =>
+          await getLocationCredentials({ permission, scope }),
+        region,
+      },
+      options: { pageSize: 1000, refresh: true },
+    });
+  }, [
+    bucket,
+    getLocationCredentials,
+    handleList,
+    permission,
+    prefix,
+    region,
+    scope,
+  ]);
+
+  const hasItems = !!data.result?.length;
 
   const listItems = !hasItems
     ? null
-    : data.items.map(({ key, type }) => {
+    : data.result.map(({ key, type }) => {
+        if (key === prefix) {
+          return null;
+        }
         if (type === 'FOLDER') {
           return (
             <button
               onClick={() => {
-                if (isFolderName(key)) {
-                  handleUpdateState({
-                    type: 'ENTER_FOLDER',
-                    name: key,
-                  });
-                }
+                handleUpdateState({
+                  type: 'NAVIGATE',
+                  prefix: key,
+                });
               }}
               key={key}
             >

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { createStorageBrowser } from '../createStorageBrowser';
 
 const listLocations = jest.fn(() =>
@@ -12,9 +12,11 @@ const config = {
 };
 
 describe('createStorageBrowser', () => {
-  it('returns a StorageBrowser', () => {
+  it('returns a StorageBrowser', async () => {
     const { StorageBrowser } = createStorageBrowser({ config });
 
-    expect(render(<StorageBrowser />).container).toBeDefined();
+    await waitFor(() => {
+      expect(render(<StorageBrowser />).container).toBeDefined();
+    });
   });
 });

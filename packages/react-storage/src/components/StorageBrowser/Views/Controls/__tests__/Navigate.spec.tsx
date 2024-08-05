@@ -48,15 +48,15 @@ describe('NavigateControl', () => {
     await user.click(screen.getByText('Home'));
 
     expect(mockHandleUpdateState).toHaveBeenCalledWith({
-      type: 'DESELECT_LOCATION',
+      type: 'EXIT',
     });
   });
 
   it('handles selecting location navigate item', async () => {
     const mockHandleUpdateState = jest.fn();
     const mockState = {
-      location: { bucket: 'test-bucket' },
-      history: ['folder1/', 'folder2/', 'folder3/'],
+      location: {},
+      history: ['test-bucket', 'folder2/', 'folder3/'],
     };
 
     jest
@@ -72,8 +72,8 @@ describe('NavigateControl', () => {
     await user.click(screen.getByText('test-bucket'));
 
     expect(mockHandleUpdateState).toHaveBeenCalledWith({
-      type: 'SELECT_LOCATION',
-      location: { bucket: 'test-bucket' },
+      type: 'NAVIGATE',
+      prefix: 'test-bucket',
     });
   });
 
@@ -97,16 +97,16 @@ describe('NavigateControl', () => {
     await user.click(screen.getByText('folder1/'));
 
     expect(mockHandleUpdateState).toHaveBeenCalledWith({
-      type: 'EXIT_FOLDER',
-      name: 'folder1/',
+      type: 'NAVIGATE',
+      prefix: 'folder1/',
     });
   });
 
-  it('creates a separator between home and the loction', () => {
+  it('creates a separator between home and the prefix', () => {
     const mockHandleUpdateState = jest.fn();
     const mockState = {
-      location: { bucket: 'test-bucket' },
-      history: undefined,
+      location: {},
+      history: ['test-bucket'],
     };
 
     jest

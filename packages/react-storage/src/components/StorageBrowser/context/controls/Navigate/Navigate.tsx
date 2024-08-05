@@ -1,21 +1,18 @@
 import React from 'react';
 
-import { FolderName, LocationData } from '../../actions/types';
+import { LocationAccess } from '../../actions/types';
+import { parseLocationAccess } from './utils';
 
-const INITIAL_STATE: NavigateState = {
-  location: undefined,
-  history: undefined,
-};
+const INITIAL_STATE = { location: undefined, history: [] };
 
 export type NavigateAction =
-  | { type: 'SELECT_LOCATION'; location: LocationData }
-  | { type: 'DESELECT_LOCATION' }
-  | { type: 'ENTER_FOLDER'; name: FolderName }
-  | { type: 'EXIT_FOLDER'; name: FolderName };
+  | { type: 'ACCESS_LOCATION'; location: LocationAccess }
+  | { type: 'NAVIGATE'; prefix: string }
+  | { type: 'EXIT' };
 
 export interface NavigateState {
-  location: LocationData | undefined;
-  history: string[] | undefined;
+  location: LocationAccess | undefined;
+  history: string[];
 }
 
 export type NavigateStateContext = [
@@ -28,70 +25,29 @@ export function navigateReducer(
   action: NavigateAction
 ): NavigateState {
   switch (action.type) {
-    case 'SELECT_LOCATION': {
-      // This action comes from the navigate item specifying the location
-      // It uses the current state location and so this has the "old" scope
-      // which could include the previous folder we were at
-      // We'll need to update the scope here
-      // We need to update the prefix too?
-
+    case 'ACCESS_LOCATION': {
       const { location } = action;
-      const { bucket } = location;
+      const { bucket, prefix } = parseLocationAccess(location);
+      const initialEntry = prefix ? `${bucket}/${prefix}` : bucket;
 
-      const scope = `s3://${bucket}/*`;
-
-      return {
-        location: { ...location, scope, prefix: undefined },
-        history: undefined,
-      };
+      return { location, history: [initialEntry] };
     }
-    case 'DESELECT_LOCATION': {
-      return {
-        location: undefined,
-        history: undefined,
-      };
+    case 'NAVIGATE': {
+      const { prefix } = action;
+
+      const position = state.history.indexOf(prefix);
+
+      if (position === 0) return { ...state, history: [prefix] };
+
+      const history =
+        position === -1
+          ? [...state.history, prefix]
+          : state.history.slice(0, position + 1);
+
+      return { ...state, history };
     }
-    case 'ENTER_FOLDER': {
-      const { name } = action;
-      const { location, history } = state;
-
-      // TODO: Look into why listLocationsItems returns the current folder as a result
-      // Clicking on it in the list locations items view would add it to the history if
-      // we didn't  have this check
-      if (name === history?.[history.length - 1]) {
-        // Don't add the same folder into history again
-        return state;
-      }
-
-      const { bucket, permission, type } = location!;
-
-      const scope = `s3://${bucket}/${name}*`;
-
-      return {
-        location: { bucket, prefix: name, permission, scope, type },
-        history: [...(state.history ?? []), name],
-      };
-    }
-    case 'EXIT_FOLDER': {
-      const { name } = action;
-      const { location } = state;
-      const { bucket, permission, type } = location!;
-
-      const scope = `s3://${bucket}/${name}*`;
-
-      const indexOfTargetFolder = state.history?.indexOf(name) ?? -1;
-
-      if (indexOfTargetFolder > -1) {
-        // Update history to include all of the history up to the target folder we're navigating to
-        const updatedHistory = state.history?.slice(0, indexOfTargetFolder + 1);
-
-        return {
-          location: { bucket, prefix: name, permission, scope, type },
-          history: updatedHistory,
-        };
-      }
-
-      return state;
+    case 'EXIT': {
+      return INITIAL_STATE;
     }
   }
 }

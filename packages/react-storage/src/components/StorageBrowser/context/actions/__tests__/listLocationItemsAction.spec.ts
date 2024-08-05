@@ -7,7 +7,7 @@ const config = {
   credentialsProvider: jest.fn(),
   region: 'region',
 };
-const initialValue = { nextToken: undefined, items: [] };
+const initialValue = { nextToken: undefined, result: [] };
 
 // actually mocking JS `list` returns is overly complex
 const generateMockItems = (size: number) =>
@@ -24,12 +24,12 @@ describe('listLocationItemsAction', () => {
     // @ts-expect-error
     listSpy.mockResolvedValueOnce({ items: [], nextToken: 'tokeno' });
 
-    const { items, nextToken } = await listLocationItemsAction(initialValue, {
+    const { result, nextToken } = await listLocationItemsAction(initialValue, {
       config,
       prefix: 'a_prefix',
     });
 
-    expect(items).toHaveLength(0);
+    expect(result).toHaveLength(0);
     expect(nextToken).toBeDefined();
   });
 
@@ -46,21 +46,21 @@ describe('listLocationItemsAction', () => {
         nextToken: 'second',
       });
 
-    const { items, nextToken } = await listLocationItemsAction(initialValue, {
+    const { result, nextToken } = await listLocationItemsAction(initialValue, {
       config,
       prefix: 'a_prefix',
     });
 
-    expect(items).toHaveLength(100);
+    expect(result).toHaveLength(100);
     expect(nextToken).toBeDefined();
 
-    const { items: nextItems, nextToken: nextNextToken } =
+    const { result: nextResult, nextToken: nextNextToken } =
       await listLocationItemsAction(
-        { nextToken, items },
+        { nextToken, result },
         { config, prefix: 'a_prefix' }
       );
 
-    expect(nextItems).toHaveLength(200);
+    expect(nextResult).toHaveLength(200);
     expect(nextNextToken).not.toBe(nextToken);
     expect(nextToken).toBeDefined();
   });

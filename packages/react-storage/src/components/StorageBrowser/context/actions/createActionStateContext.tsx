@@ -15,7 +15,7 @@ export type ActionState<T, K> = [
   handleAction: (...input: K[]) => void,
 ];
 
-interface ActionContext<X, Y> {
+interface ActionContext<X = any, Y = any> {
   Context: React.Context<ActionState<X, Y> | undefined>;
   Provider: ContextProvider;
 }
@@ -80,9 +80,7 @@ function createActionContext<T, K>(action: DataAction<T, K>, type: string) {
 export function createActionProvider<T>(
   contexts: ActionContexts<T>
 ): ActionProvider<InitialValue<T>> {
-  const ComposedActionProvider = Object.values<ActionContext<any, any>>(
-    contexts
-  ).reduce(
+  const ComposedActionProvider = Object.values<ActionContext>(contexts).reduce(
     (Wrapper, { Provider }) =>
       function ActionProvider({
         children,
