@@ -13,6 +13,10 @@ const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
   const { variant } = props as any;
   console.log(variant);
   switch (variant) {
+    case 'navigate':
+      return (
+        <_Button {...props} size="small" variation="link" ref={ref as any} />
+      );
     case 'paginate-current':
     case 'paginate-next':
     case 'paginate-previous':

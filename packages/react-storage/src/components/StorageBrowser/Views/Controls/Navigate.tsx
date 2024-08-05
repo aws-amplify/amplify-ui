@@ -51,6 +51,7 @@ const NavigateItemContainer = withBaseElementProps(ListItem, {
 
 const NavigateButton = withBaseElementProps(Button, {
   className: `${BLOCK_NAME}__button`,
+  variant: 'navigate',
 });
 
 const NavigateItem = (props: NavigateItemProps) => (

@@ -33,6 +33,7 @@ export type IconElementProps = React.ComponentProps<typeof IconElement>;
 export type ButtonElementProps = React.ComponentProps<typeof ButtonElement>;
 type ButtonElementVariant =
   | 'action-submit'
+  | 'navigate'
   | 'refresh'
   | 'search-submit'
   | 'sort'
