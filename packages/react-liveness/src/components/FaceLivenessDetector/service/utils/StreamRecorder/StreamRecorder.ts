@@ -7,6 +7,7 @@ export class StreamRecorder {
   #recorder: MediaRecorder;
   #initialRecorder: MediaRecorder;
   #recordingStarted: boolean = false;
+  #firstChunkTimestamp: number | undefined;
   #recorderEndTimestamp: number | undefined;
   #recorderStartTimestamp: number | undefined;
   #recordingStartTimestamp: number | undefined;
@@ -86,7 +87,7 @@ export class StreamRecorder {
   }
 
   hasRecordingStarted(): boolean {
-    return this.#recordingStarted;
+    return this.#recordingStarted && this.#firstChunkTimestamp !== undefined;
   }
 
   async stopRecording(): Promise<void> {
@@ -116,8 +117,13 @@ export class StreamRecorder {
   ): void {
     const onDataAvailableHandler = controller
       ? ({ data }: { data: Blob }) => {
-          this.#chunks.push(data);
-          controller.enqueue({ type: 'streamVideo', data });
+          if (data && data.size > 0) {
+            if (this.#chunks.length === 0) {
+              this.#firstChunkTimestamp = Date.now();
+            }
+            this.#chunks.push(data);
+            controller.enqueue({ type: 'streamVideo', data });
+          }
         }
       : ({ data }: { data: Blob }) => {
           this.#initialRecorder.dispatchEvent(
