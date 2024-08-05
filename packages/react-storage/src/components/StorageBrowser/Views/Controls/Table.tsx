@@ -125,11 +125,6 @@ export const TableControl: TableControl = <
 
   const ariaLabel = 'Table';
 
-  // eslint-disable-next-line no-console
-  console.log('rows', rows);
-  // eslint-disable-next-line no-console
-  console.log('columns', columns);
-
   return (
     <Table aria-label={ariaLabel}>
       <TableHead>
