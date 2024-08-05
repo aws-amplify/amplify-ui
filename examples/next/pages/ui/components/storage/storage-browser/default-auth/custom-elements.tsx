@@ -2,8 +2,11 @@ import React from 'react';
 import {
   Button as _Button,
   Table as _Table,
-  TableRow as _TableRow,
+  TableBody as _TableBody,
   TableCell as _TableCell,
+  TableHead as _TableHead,
+  TableRow as _TableRow,
+  Heading as _Heading,
 } from '@aws-amplify/ui-react';
 
 const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
@@ -27,11 +30,28 @@ const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
   }
 });
 
+const Heading = React.forwardRef<HTMLHeadingElement>(
+  function Heading(props, ref) {
+    return <_Heading {...props} level={2} ref={ref as any} />;
+  }
+);
 const Table = React.forwardRef<HTMLTableElement>(function Table(props, ref) {
   return (
     <_Table {...props} size="small" variation="striped" ref={ref as any} />
   );
 });
+
+const TableBody = React.forwardRef<HTMLTableSectionElement>(
+  function Table(props, ref) {
+    return <_TableBody {...props} ref={ref as any} />;
+  }
+);
+
+const TableHead = React.forwardRef<HTMLTableSectionElement>(
+  function TableHead(props, ref) {
+    return <_TableHead {...props} ref={ref as any} />;
+  }
+);
 
 const TableData = React.forwardRef<HTMLTableCellElement>(
   function TableData(props, ref) {
@@ -53,8 +73,11 @@ const TableHeader = React.forwardRef<HTMLTableCellElement>(
 
 export const elements = {
   Button,
+  Heading,
   Table,
+  TableBody,
   TableData,
+  TableHead,
   TableHeader,
   TableRow,
 };
