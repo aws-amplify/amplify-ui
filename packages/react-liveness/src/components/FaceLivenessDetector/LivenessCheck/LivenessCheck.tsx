@@ -38,6 +38,7 @@ interface LivenessCheckProps {
   streamDisplayText: Required<StreamDisplayText>;
   errorDisplayText: Required<ErrorDisplayText>;
   components?: FaceLivenessDetectorComponents;
+  allowBackCamera?: boolean;
 }
 
 export const LivenessCheck: React.FC<LivenessCheckProps> = ({
@@ -47,6 +48,7 @@ export const LivenessCheck: React.FC<LivenessCheckProps> = ({
   streamDisplayText,
   errorDisplayText,
   components,
+  allowBackCamera,
 }: LivenessCheckProps) => {
   const [state, send] = useLivenessActor();
   const errorState = useLivenessSelector(selectErrorState);
@@ -176,6 +178,7 @@ export const LivenessCheck: React.FC<LivenessCheckProps> = ({
           errorDisplayText={errorDisplayText}
           cameraDisplayText={cameraDisplayText}
           components={components}
+          allowBackCamera={allowBackCamera}
         />
       );
     }

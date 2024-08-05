@@ -40,6 +40,7 @@ export interface FaceLivenessDetectorCoreProps {
    * Optional parameter for advanced options for the component
    */
   config?: FaceLivenessDetectorCoreConfig;
+  allowBackCamera?: boolean;
 }
 
 /**

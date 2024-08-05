@@ -83,6 +83,7 @@ export default function LivenessDefault({
                   endpointOverride:
                     'wss://streaming-rekognition-gamma.us-east-1.amazonaws.com',
                 }}
+                allowBackCamera={true}
               />
             ) : null}
           </Flex>

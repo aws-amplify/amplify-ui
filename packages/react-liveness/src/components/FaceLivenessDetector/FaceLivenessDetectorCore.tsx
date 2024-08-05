@@ -23,7 +23,7 @@ export interface FaceLivenessDetectorCoreProps
 export default function FaceLivenessDetectorCore(
   props: FaceLivenessDetectorCoreProps
 ): JSX.Element {
-  const { components, config, displayText } = props;
+  const { allowBackCamera, components, config, displayText } = props;
   const currElementRef = React.useRef<HTMLDivElement>(null);
   const {
     hintDisplayText,
@@ -54,6 +54,7 @@ export default function FaceLivenessDetectorCore(
             streamDisplayText={streamDisplayText}
             errorDisplayText={errorDisplayText}
             components={components}
+            allowBackCamera={allowBackCamera}
           />
         </Flex>
       </FaceLivenessDetectorProvider>

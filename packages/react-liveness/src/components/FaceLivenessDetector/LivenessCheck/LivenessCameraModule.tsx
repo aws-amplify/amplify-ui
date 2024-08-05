@@ -73,6 +73,7 @@ export interface LivenessCameraModuleProps {
   cameraDisplayText: Required<CameraDisplayText>;
   components?: FaceLivenessDetectorComponents;
   testId?: string;
+  allowBackCamera?: boolean;
 }
 
 const showMatchIndicatorStates = [
@@ -102,6 +103,7 @@ export const LivenessCameraModule = (
     cameraDisplayText,
     components: customComponents,
     testId,
+    allowBackCamera,
   } = props;
 
   const { cancelLivenessCheckText, recordingIndicatorText } = streamDisplayText;
@@ -295,6 +297,12 @@ export const LivenessCameraModule = (
 
   const shouldShowCenteredLoader = isInitCamera || isInitWebsocket;
 
+  const shouldAllowCameraSelection =
+    isStartView &&
+    selectableDevices &&
+    selectableDevices.length > 1 &&
+    (!isMobileScreen || (allowBackCamera && isFaceMovementChallenge));
+
   // We don't show full screen camera on the pre check screen (isStartView/isWaitingForCamera)
   const shouldShowFullScreenCamera =
     isMobileScreen && !isStartView && !shouldShowCenteredLoader;
@@ -418,38 +426,33 @@ export const LivenessCameraModule = (
             <View as="canvas" ref={canvasRef} />
           </Flex>
 
-          {isStartView &&
-            !isMobileScreen &&
-            selectableDevices &&
-            selectableDevices.length > 1 && (
-              <Flex className={LivenessClassNames.StartScreenCameraSelect}>
-                <View
-                  className={
-                    LivenessClassNames.StartScreenCameraSelectContainer
-                  }
+          {shouldAllowCameraSelection && (
+            <Flex className={LivenessClassNames.StartScreenCameraSelect}>
+              <View
+                className={LivenessClassNames.StartScreenCameraSelectContainer}
+              >
+                <Label
+                  htmlFor="amplify-liveness-camera-select"
+                  className={`${LivenessClassNames.StartScreenCameraSelect}__label`}
                 >
-                  <Label
-                    htmlFor="amplify-liveness-camera-select"
-                    className={`${LivenessClassNames.StartScreenCameraSelect}__label`}
-                  >
-                    Camera:
-                  </Label>
-                  <SelectField
-                    id="amplify-liveness-camera-select"
-                    label="Camera"
-                    labelHidden
-                    value={selectedDeviceId}
-                    onChange={onCameraChange}
-                  >
-                    {selectableDevices?.map((device) => (
-                      <option value={device.deviceId} key={device.deviceId}>
-                        {device.label}
-                      </option>
-                    ))}
-                  </SelectField>
-                </View>
-              </Flex>
-            )}
+                  Camera:
+                </Label>
+                <SelectField
+                  id="amplify-liveness-camera-select"
+                  label="Camera"
+                  labelHidden
+                  value={selectedDeviceId}
+                  onChange={onCameraChange}
+                >
+                  {selectableDevices?.map((device) => (
+                    <option value={device.deviceId} key={device.deviceId}>
+                      {device.label}
+                    </option>
+                  ))}
+                </SelectField>
+              </View>
+            </Flex>
+          )}
         </View>
       </Flex>
 
