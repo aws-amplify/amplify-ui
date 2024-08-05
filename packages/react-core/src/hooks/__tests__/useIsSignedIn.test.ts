@@ -7,24 +7,24 @@ import { Hub } from 'aws-amplify/utils';
 
 const getCurrentUserSpy = jest.spyOn(AuthModule, 'getCurrentUser');
 
-const mockError = new Error('Authorization error');
-const mockSuccess: GetCurrentUserOutput = {
+const MOCK_ERROR = new Error('Authorization error');
+const MOCK_SUCCESS: GetCurrentUserOutput = {
   username: 'username',
   userId: '123',
 };
-const expectedLoadingState = {
+const EXPECTED_LOADING_STATE = {
   data: { isSignedIn: false },
   hasError: false,
   isLoading: true,
   message: undefined,
 };
-const expectedErrorState = {
+const EXPECTED_ERROR_STATE = {
   data: { isSignedIn: false },
   hasError: true,
   isLoading: false,
   message: 'Authorization error',
 };
-const expectedAcceptedState = {
+const EXPECTED_ACCEPTED_STATE = {
   data: { isSignedIn: true },
   hasError: false,
   isLoading: false,
@@ -36,17 +36,17 @@ describe('useIsSignedIn', () => {
     getCurrentUserSpy.mockImplementationOnce(async () => {
       return new Promise((_, reject) => {
         setTimeout(() => {
-          reject(mockError);
+          reject(MOCK_ERROR);
         }, 10);
       });
     });
 
     const { result } = renderHook(() => useIsSignedIn());
 
-    expect(result.current).toEqual(expectedLoadingState);
+    expect(result.current).toEqual(EXPECTED_LOADING_STATE);
 
     await waitFor(() => {
-      expect(result.current).toEqual(expectedErrorState);
+      expect(result.current).toEqual(EXPECTED_ERROR_STATE);
     });
   });
 
@@ -54,29 +54,29 @@ describe('useIsSignedIn', () => {
     getCurrentUserSpy.mockImplementationOnce(() => {
       return new Promise((resolve) => {
         setTimeout(() => {
-          resolve(mockSuccess);
+          resolve(MOCK_SUCCESS);
         }, 10);
       });
     });
 
     const { result } = renderHook(() => useIsSignedIn());
 
-    expect(result.current).toEqual(expectedLoadingState);
+    expect(result.current).toEqual(EXPECTED_LOADING_STATE);
 
     await waitFor(() => {
-      expect(result.current).toEqual(expectedAcceptedState);
+      expect(result.current).toEqual(EXPECTED_ACCEPTED_STATE);
     });
   });
 
   it('should be true if receiving a signedIn event', async () => {
-    getCurrentUserSpy.mockRejectedValueOnce(mockError);
-    getCurrentUserSpy.mockResolvedValueOnce(mockSuccess);
+    getCurrentUserSpy.mockRejectedValueOnce(MOCK_ERROR);
+    getCurrentUserSpy.mockResolvedValueOnce(MOCK_SUCCESS);
 
     const { result } = renderHook(() => useIsSignedIn());
-    expect(result.current).toEqual(expectedLoadingState);
+    expect(result.current).toEqual(EXPECTED_LOADING_STATE);
 
     await waitFor(() => {
-      expect(result.current).toEqual(expectedErrorState);
+      expect(result.current).toEqual(EXPECTED_ERROR_STATE);
     });
 
     act(() => {
@@ -84,19 +84,19 @@ describe('useIsSignedIn', () => {
     });
 
     await waitFor(() => {
-      expect(result.current).toEqual(expectedAcceptedState);
+      expect(result.current).toEqual(EXPECTED_ACCEPTED_STATE);
     });
   });
 
   it('should be false if receiving a signedOut event', async () => {
-    getCurrentUserSpy.mockResolvedValueOnce(mockSuccess);
-    getCurrentUserSpy.mockRejectedValueOnce(mockError);
-    getCurrentUserSpy.mockRejectedValueOnce(mockError);
+    getCurrentUserSpy.mockResolvedValueOnce(MOCK_SUCCESS);
+    getCurrentUserSpy.mockRejectedValueOnce(MOCK_ERROR);
+    getCurrentUserSpy.mockRejectedValueOnce(MOCK_ERROR);
 
     const { result } = renderHook(() => useIsSignedIn());
 
     await waitFor(() => {
-      expect(result.current).toEqual(expectedAcceptedState);
+      expect(result.current).toEqual(EXPECTED_ACCEPTED_STATE);
     });
 
     act(() => {
@@ -104,21 +104,21 @@ describe('useIsSignedIn', () => {
     });
 
     await waitFor(() => {
-      expect(result.current).toEqual(expectedErrorState);
+      expect(result.current).toEqual(EXPECTED_ERROR_STATE);
     });
   });
 
   it('should be able to listen to multiple events after one call', async () => {
-    getCurrentUserSpy.mockRejectedValueOnce(mockError);
-    getCurrentUserSpy.mockResolvedValueOnce(mockSuccess);
-    getCurrentUserSpy.mockRejectedValueOnce(mockError);
-    getCurrentUserSpy.mockRejectedValueOnce(mockError);
-    getCurrentUserSpy.mockResolvedValueOnce(mockSuccess);
+    getCurrentUserSpy.mockRejectedValueOnce(MOCK_ERROR);
+    getCurrentUserSpy.mockResolvedValueOnce(MOCK_SUCCESS);
+    getCurrentUserSpy.mockRejectedValueOnce(MOCK_ERROR);
+    getCurrentUserSpy.mockRejectedValueOnce(MOCK_ERROR);
+    getCurrentUserSpy.mockResolvedValueOnce(MOCK_SUCCESS);
 
     const { result } = renderHook(() => useIsSignedIn());
 
     await waitFor(() => {
-      expect(result.current).toEqual(expectedErrorState);
+      expect(result.current).toEqual(EXPECTED_ERROR_STATE);
     });
 
     act(() => {
@@ -126,7 +126,7 @@ describe('useIsSignedIn', () => {
     });
 
     await waitFor(() => {
-      expect(result.current).toEqual(expectedAcceptedState);
+      expect(result.current).toEqual(EXPECTED_ACCEPTED_STATE);
     });
 
     act(() => {
@@ -134,7 +134,7 @@ describe('useIsSignedIn', () => {
     });
 
     await waitFor(() => {
-      expect(result.current).toEqual(expectedErrorState);
+      expect(result.current).toEqual(EXPECTED_ERROR_STATE);
     });
 
     act(() => {
@@ -142,7 +142,7 @@ describe('useIsSignedIn', () => {
     });
 
     await waitFor(() => {
-      expect(result.current).toEqual(expectedAcceptedState);
+      expect(result.current).toEqual(EXPECTED_ACCEPTED_STATE);
     });
   });
 });
