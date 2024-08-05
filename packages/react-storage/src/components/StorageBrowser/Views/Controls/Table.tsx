@@ -197,6 +197,7 @@ export const LocationsViewTable = (): JSX.Element => {
   const hasLocations = !!data.result?.length;
   const shouldRenderLocations = !hasLocations || isLoading;
 
+  // @TODO: This should be it's own component instead of using `useCallback`
   const renderRowItem: RenderRowItem<LocationAccess<Permission>> =
     React.useCallback(
       (row: LocationAccess<Permission>, index: number) => {
@@ -291,6 +292,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
 
   const hasItems = !!data.result?.length;
 
+  // @TODO: This should be it's own component instead of using `useCallback`
   const renderRowItem: RenderRowItem<LocationItem> = React.useCallback(
     (row, index) => {
       const parseTableData = (
