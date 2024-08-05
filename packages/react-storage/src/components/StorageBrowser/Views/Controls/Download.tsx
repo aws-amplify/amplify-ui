@@ -11,7 +11,7 @@ const BLOCK_NAME = `${CLASS_BASE}__download`;
 export interface DownloadControl<
   T extends StorageBrowserElements = StorageBrowserElements,
 > {
-  (props: { fileKey: string }): React.JSX.Element;
+  (props: { key: string }): React.JSX.Element;
   Button: T['Button'];
   Icon: T['Icon'];
 }
@@ -42,7 +42,7 @@ const DownloadButton: typeof ButtonElement = React.forwardRef(
   }
 );
 
-export const DownloadControl: DownloadControl = ({ fileKey }) => {
+export const DownloadControl: DownloadControl = ({ key }) => {
   const [, handleDownload] = useAction({
     type: 'DOWNLOAD',
   });
@@ -51,7 +51,7 @@ export const DownloadControl: DownloadControl = ({ fileKey }) => {
     <DownloadButton
       onClick={() =>
         handleDownload({
-          key: fileKey,
+          key: key,
         })
       }
     >

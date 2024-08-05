@@ -46,7 +46,7 @@ describe('DownloadControl', () => {
       expect(
         render(
           <Provider>
-            <DownloadControl fileKey="" />
+            <DownloadControl key="" />
           </Provider>
         ).container
       ).toBeDefined();
@@ -70,7 +70,7 @@ describe('DownloadControl', () => {
     await waitFor(() => {
       render(
         <Provider>
-          <DownloadControl fileKey="" />
+          <DownloadControl key="" />
         </Provider>
       );
       const button = screen.getByRole('button', {
