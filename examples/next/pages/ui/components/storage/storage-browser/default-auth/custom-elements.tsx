@@ -33,19 +33,19 @@ const Table = React.forwardRef<HTMLTableElement>(function Table(props, ref) {
   );
 });
 
-const TableData = React.forwardRef<HTMLTableElement>(
+const TableData = React.forwardRef<HTMLTableCellElement>(
   function TableData(props, ref) {
     return <_TableCell {...props} ref={ref as any} />;
   }
 );
 
-const TableRow = React.forwardRef<HTMLTableElement>(
+const TableRow = React.forwardRef<HTMLTableRowElement>(
   function TableRow(props, ref) {
     return <_TableRow {...props} ref={ref as any} />;
   }
 );
 
-const TableHeader = React.forwardRef<HTMLTableElement>(
+const TableHeader = React.forwardRef<HTMLTableCellElement>(
   function TableHeader(props, ref) {
     return <_TableCell as="th" {...props} ref={ref as any} />;
   }
