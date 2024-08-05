@@ -5,9 +5,8 @@ import {
   ListActionOptions,
   ListActionOutput,
   LocationAccess,
-  LocationType,
   Permission,
-} from './types';
+} from '../types';
 
 export interface ListLocationsActionOptions<T>
   extends Omit<ListActionOptions<T>, 'delimiter'> {}
@@ -26,13 +25,6 @@ export type ListLocationsAction<T = never> = (
   input: ListLocationsActionInput<T>
 ) => Promise<ListLocationsActionOutput<Exclude<Permission, T>>>;
 
-export interface LocationData<T = Permission> {
-  bucket: string;
-  permission: T;
-  prefix: string;
-  type: LocationType;
-}
-
 const shouldExclude = <T extends Permission>(
   permission: T,
   exclude?: T | T[]
@@ -48,10 +40,14 @@ export const createListLocationsAction = (
 ): ListLocationsAction =>
   async function listLocationsAction(prevState, input) {
     const { options } = input ?? {};
-    const { exclude, nextToken: _nextToken, pageSize, refresh } = options ?? {};
+    const { exclude, nextToken, pageSize, refresh, reset } = options ?? {};
+
+    if (reset) {
+      return { result: [], nextToken: undefined };
+    }
 
     const output = await listLocations(
-      refresh ? { pageSize } : { nextToken: _nextToken, pageSize }
+      refresh ? { pageSize } : { nextToken, pageSize }
     );
 
     const locations = output.locations.filter(

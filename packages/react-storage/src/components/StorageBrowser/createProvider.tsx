@@ -4,15 +4,27 @@ import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 
 import { ActionProvider, createListLocationsAction } from './context/actions';
 
-import { Permission } from './context/actions/types';
-import { ConfigContext, Config } from './context/config';
+import { Permission } from './context/types';
+import {
+  LocationConfigProvider,
+  LocationConfigProviderProps,
+} from './context/config';
 import { ControlProvider } from './context/controls';
 import { StorageBrowserElements } from './context/elements';
 import { Controller } from './Controller';
 import { ErrorBoundary } from './ErrorBoundary';
+import { ListLocations } from '@aws-amplify/storage/storage-browser';
 
-export interface CreateProviderInput<T, K> {
-  config: Config<K>;
+export interface Config
+  extends Pick<
+    LocationConfigProviderProps,
+    'getLocationCredentials' | 'region' | 'registerAuthListener'
+  > {
+  listLocations: ListLocations;
+}
+
+export interface CreateProviderInput<T, _K> {
+  config: Config;
   elements?: T;
 }
 
@@ -35,14 +47,14 @@ export default function createProvider<
     return (
       <ErrorBoundary>
         <ElementsProvider elements={elements}>
-          <ConfigContext.Provider value={config}>
-            <ActionProvider listLocationsAction={listLocationsAction}>
-              <ControlProvider>
+          <ControlProvider>
+            <LocationConfigProvider {...config}>
+              <ActionProvider listLocationsAction={listLocationsAction}>
                 <Controller />
                 {children}
-              </ControlProvider>
-            </ActionProvider>
-          </ConfigContext.Provider>
+              </ActionProvider>
+            </LocationConfigProvider>
+          </ControlProvider>
         </ElementsProvider>
       </ErrorBoundary>
     );

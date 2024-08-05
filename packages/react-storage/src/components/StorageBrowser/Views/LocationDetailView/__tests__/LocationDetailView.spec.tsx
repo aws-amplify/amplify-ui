@@ -29,7 +29,6 @@ const locationItemsState = {
 const handleUpdateActionState = jest.fn();
 
 useActionSpy.mockReturnValue([locationItemsState, handleUpdateActionState]);
-useControlSpy.mockReturnValue([controlState, handleUpdateControlState]);
 
 const listLocations = jest.fn(() =>
   Promise.resolve({ locations: [], nextToken: undefined })
@@ -38,7 +37,9 @@ const config = {
   getLocationCredentials: jest.fn(),
   listLocations,
   region: 'region',
+  registerAuthListener: jest.fn(),
 };
+
 const Provider = createProvider({ config });
 
 describe('LocationDetailView', () => {
@@ -63,7 +64,7 @@ describe('LocationDetailView', () => {
   });
 
   it('does not load location items when location is not set', async () => {
-    useControlSpy.mockReturnValueOnce([
+    useControlSpy.mockReturnValue([
       { location: undefined, history: [] },
       handleUpdateControlState,
     ]);
@@ -80,6 +81,8 @@ describe('LocationDetailView', () => {
   });
 
   it('loads initial location items for a BUCKET location as expected', async () => {
+    useControlSpy.mockReturnValue([controlState, handleUpdateControlState]);
+
     render(
       <Provider>
         <LocationDetailView />
@@ -90,11 +93,6 @@ describe('LocationDetailView', () => {
       expect(handleUpdateActionState).toHaveBeenCalledTimes(1);
       expect(handleUpdateActionState).toHaveBeenCalledWith({
         prefix: '',
-        config: {
-          bucket: 'test-bucket',
-          credentialsProvider: expect.any(Function),
-          region: 'region',
-        },
         options: { pageSize: 1000, refresh: true },
       });
     });
@@ -110,7 +108,7 @@ describe('LocationDetailView', () => {
       history: ['test-bucket'],
     };
 
-    useControlSpy.mockReturnValueOnce([
+    useControlSpy.mockReturnValue([
       prefixControlState,
       handleUpdateControlState,
     ]);
@@ -125,11 +123,6 @@ describe('LocationDetailView', () => {
       expect(handleUpdateActionState).toHaveBeenCalledTimes(1);
       expect(handleUpdateActionState).toHaveBeenCalledWith({
         prefix: 'test-prefix/',
-        config: {
-          bucket: 'test-bucket',
-          credentialsProvider: expect.any(Function),
-          region: 'region',
-        },
         options: { pageSize: 1000, refresh: true },
       });
     });

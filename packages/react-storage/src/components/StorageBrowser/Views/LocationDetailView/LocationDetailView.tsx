@@ -8,14 +8,12 @@ import { LocationDetailViewControls } from './Controls';
 import { DownloadControl } from '../Controls';
 import { CLASS_BASE } from '../constants';
 import { useControl } from '../../context/controls';
-import { useConfig } from '../../context/config';
 
 export interface LocationDetailView<
   T extends StorageBrowserElements = StorageBrowserElements,
 > extends ViewComponent<LocationDetailViewControls<T>> {}
 
 export const LocationDetailView: LocationDetailView = () => {
-  const { getLocationCredentials, region } = useConfig();
   const [{ history, location }, handleUpdateState] = useControl({
     type: 'NAVIGATE',
   });
@@ -24,42 +22,25 @@ export const LocationDetailView: LocationDetailView = () => {
     type: 'LIST_LOCATION_ITEMS',
   });
 
-  const {
-    bucket,
-    permission,
-    prefix: initialPrefix,
-  } = location ? parseLocationAccess(location) : ({} as LocationData);
-  const { scope } = location ?? {};
+  const { prefix: initialPrefix } = location
+    ? parseLocationAccess(location)
+    : ({} as LocationData);
 
   const prefix =
     history.length === 1 ? initialPrefix : history[history.length - 1];
 
+  const hasItems = !!data.result?.length;
+  const shouldReset = hasItems && !location && !history.length;
+
   React.useEffect(() => {
-    if (!scope || !permission) {
-      return;
+    if (shouldReset) {
+      handleList({ prefix: '', options: { reset: true } });
     }
 
-    handleList({
-      prefix,
-      config: {
-        bucket,
-        credentialsProvider: async () =>
-          await getLocationCredentials({ permission, scope }),
-        region,
-      },
-      options: { pageSize: 1000, refresh: true },
-    });
-  }, [
-    bucket,
-    getLocationCredentials,
-    handleList,
-    permission,
-    prefix,
-    region,
-    scope,
-  ]);
+    if (typeof prefix !== 'string') return;
 
-  const hasItems = !!data.result?.length;
+    handleList({ prefix, options: { pageSize: 1000, refresh: true } });
+  }, [handleList, prefix, shouldReset]);
 
   const listItems = !hasItems
     ? null
@@ -93,10 +74,8 @@ export const LocationDetailView: LocationDetailView = () => {
 
   return (
     <>
-      <div className={CLASS_BASE}>
-        <div className={`${CLASS_BASE}__controls`}>
-          <LocationDetailViewControls />
-        </div>
+      <div className={CLASS_BASE} data-testid="LOCATION_DETAIL_VIEW">
+        <LocationDetailViewControls />
       </div>
       {isLoading && !hasItems ? <span>loading...</span> : listItems}
     </>

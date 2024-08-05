@@ -14,5 +14,7 @@ export {
   createStorageBrowser,
   CreateStorageBrowserInput,
   createAmplifyAuthAdapter,
+  createManagedAuthAdapter,
+  CreateManagedAuthAdapterInput,
   StorageBrowserAuthAdapter,
 } from './components';
