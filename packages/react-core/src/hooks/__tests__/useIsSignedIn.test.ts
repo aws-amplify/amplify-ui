@@ -12,12 +12,6 @@ const mockSuccess: GetCurrentUserOutput = {
   username: 'username',
   userId: '123',
 };
-const expectedDefaultState = {
-  data: { isSignedIn: false },
-  hasError: false,
-  isLoading: false,
-  message: undefined,
-};
 const expectedLoadingState = {
   data: { isSignedIn: false },
   hasError: false,
@@ -76,6 +70,7 @@ describe('useIsSignedIn', () => {
 
   it('should be true if receiving a signedIn event', async () => {
     getCurrentUserSpy.mockRejectedValueOnce(mockError);
+    getCurrentUserSpy.mockResolvedValueOnce(mockSuccess);
 
     const { result } = renderHook(() => useIsSignedIn());
     expect(result.current).toEqual(expectedLoadingState);
@@ -88,11 +83,15 @@ describe('useIsSignedIn', () => {
       Hub.dispatch('auth', { event: 'signedIn' });
     });
 
-    expect(result.current).toEqual(expectedAcceptedState);
+    await waitFor(() => {
+      expect(result.current).toEqual(expectedAcceptedState);
+    });
   });
 
   it('should be false if receiving a signedOut event', async () => {
     getCurrentUserSpy.mockResolvedValueOnce(mockSuccess);
+    getCurrentUserSpy.mockRejectedValueOnce(mockError);
+    getCurrentUserSpy.mockRejectedValueOnce(mockError);
 
     const { result } = renderHook(() => useIsSignedIn());
 
@@ -104,30 +103,46 @@ describe('useIsSignedIn', () => {
       Hub.dispatch('auth', { event: 'signedOut' });
     });
 
-    expect(result.current).toEqual(expectedDefaultState);
+    await waitFor(() => {
+      expect(result.current).toEqual(expectedErrorState);
+    });
   });
 
-  it('should be able to listen to multiple events after one call', () => {
+  it('should be able to listen to multiple events after one call', async () => {
     getCurrentUserSpy.mockRejectedValueOnce(mockError);
+    getCurrentUserSpy.mockResolvedValueOnce(mockSuccess);
+    getCurrentUserSpy.mockRejectedValueOnce(mockError);
+    getCurrentUserSpy.mockRejectedValueOnce(mockError);
+    getCurrentUserSpy.mockResolvedValueOnce(mockSuccess);
 
     const { result } = renderHook(() => useIsSignedIn());
+
+    await waitFor(() => {
+      expect(result.current).toEqual(expectedErrorState);
+    });
 
     act(() => {
       Hub.dispatch('auth', { event: 'signedIn' });
     });
 
-    expect(result.current).toEqual(expectedAcceptedState);
+    await waitFor(() => {
+      expect(result.current).toEqual(expectedAcceptedState);
+    });
 
     act(() => {
       Hub.dispatch('auth', { event: 'signedOut' });
     });
 
-    expect(result.current).toEqual(expectedDefaultState);
+    await waitFor(() => {
+      expect(result.current).toEqual(expectedErrorState);
+    });
 
     act(() => {
       Hub.dispatch('auth', { event: 'signedIn' });
     });
 
-    expect(result.current).toEqual(expectedAcceptedState);
+    await waitFor(() => {
+      expect(result.current).toEqual(expectedAcceptedState);
+    });
   });
 });
