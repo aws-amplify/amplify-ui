@@ -33,7 +33,6 @@ const LocationsViewControls: LocationsViewControls = () => (
   </>
 );
 
-// LocationsListViewControls.ActionSelect = ActionSelect;
 LocationsViewControls.Message = Message;
 LocationsViewControls.Paginate = Paginate;
 LocationsViewControls.Refresh = Refresh;
@@ -45,31 +44,34 @@ export const LocationsView: LocationsView = () => {
   const [, handleUpdateState] = useControl({ type: 'NAVIGATE' });
   const [{ data, isLoading }] = useLocationsData();
 
-  const hasLocations = !!data.locations.length;
+  const hasLocations = !!data.result?.length;
+  const shouldRenderLocations = !hasLocations || isLoading;
 
   return (
     <div className={CLASS_BASE}>
       <div className={`${CLASS_BASE}__controls`}>
         <LocationsViewControls />
       </div>
-      {!hasLocations || isLoading
+      {shouldRenderLocations
         ? '...loading'
-        : data.locations.map(({ bucket, prefix, scope, ...rest }) => {
-            return bucket ? (
+        : data.result.map(({ scope, type, ...rest }) =>
+            type === 'BUCKET' || type === 'PREFIX' ? (
               <button
                 key={scope}
                 onClick={() => {
                   handleUpdateState({
-                    type: 'SELECT_LOCATION',
-                    location: { bucket, prefix, scope, ...rest },
+                    type: 'ACCESS_LOCATION',
+                    location: { ...rest, scope, type },
                   });
                 }}
                 type="button"
               >
-                {bucket}
+                {scope}
               </button>
-            ) : null;
-          })}
+            ) : (
+              <p key={scope}>This is a file: {scope}</p>
+            )
+          )}
     </div>
   );
 };

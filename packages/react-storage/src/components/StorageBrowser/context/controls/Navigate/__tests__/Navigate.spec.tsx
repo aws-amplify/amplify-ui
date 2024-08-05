@@ -1,101 +1,84 @@
-import { LocationData } from '../../../actions';
+import { LocationAccess, LocationData } from '../../../actions/types';
+
 import { NavigateAction, navigateReducer, NavigateState } from '../Navigate';
 
-describe('navigateReducer', () => {
-  const location: LocationData = {
-    bucket: 'bucket-name',
-    scope: 's3://',
-    permission: 'READ',
-    type: 'OBJECT',
-    prefix: undefined,
-  };
+const location: LocationData = {
+  bucket: 'bucket-name',
+  permission: 'READ',
+  type: 'BUCKET',
+  prefix: '',
+};
 
-  it('handles a SELECT_LOCATION as expected', () => {
+const locationTwo: LocationData = {
+  bucket: 'bucket-name',
+  permission: 'READ',
+  type: 'PREFIX',
+  prefix: 'public/',
+};
+
+const locationAccess: LocationAccess = {
+  permission: location.permission,
+  scope: `s3://${location.bucket}/*`,
+  type: location.type,
+};
+
+describe('navigateReducer', () => {
+  it('ACCESS_LOCATION action sets the location and bucket as the initial entry value', () => {
     const initialState: NavigateState = {
+      history: [],
       location: undefined,
-      history: undefined,
     };
 
-    const action: NavigateAction = { type: 'SELECT_LOCATION', location };
+    const action: NavigateAction = {
+      type: 'ACCESS_LOCATION',
+      location: locationAccess,
+    };
 
     const expectedState: NavigateState = {
-      location: {
-        bucket: location.bucket,
-        permission: location.permission,
-        scope: `s3://${location.bucket}/*`,
-        type: location.type,
-        prefix: location.prefix,
-      },
-      history: undefined,
+      history: [location.bucket],
+      location: locationAccess,
     };
 
     const newState = navigateReducer(initialState, action);
 
-    expect(newState).toEqual(expectedState);
+    expect(newState).toStrictEqual(expectedState);
   });
 
-  it('handles a DESELECT_LOCATION as expected', () => {
+  it('handles a NAVIGATE action as expected when target location is root', () => {
     const state: NavigateState = {
-      location,
-      history: ['folder1/', 'folder2/'],
-    };
-
-    const action: NavigateAction = { type: 'DESELECT_LOCATION' };
-
-    const expectedState: NavigateState = {
-      location: undefined,
-      history: undefined,
-    };
-
-    const newState = navigateReducer(state, action);
-
-    expect(newState).toEqual(expectedState);
-  });
-
-  it('handles a ENTER_FOLDER as expected', () => {
-    const state: NavigateState = {
-      location,
-      history: ['folder1/'],
+      history: [location.bucket, location.prefix],
+      location: locationAccess,
     };
 
     const action: NavigateAction = {
-      type: 'ENTER_FOLDER',
-      name: 'folder2/',
+      type: 'NAVIGATE',
+      prefix: location.bucket,
     };
 
     const expectedState: NavigateState = {
-      location: {
-        bucket: location.bucket,
-        permission: location.permission,
-        scope: `s3://${location.bucket}/${action.name}*`,
-        type: location.type,
-        prefix: action.name,
-      },
-      history: ['folder1/', 'folder2/'],
+      history: [location.bucket],
+      location: locationAccess,
     };
 
     const newState = navigateReducer(state, action);
 
-    expect(newState).toEqual(expectedState);
+    expect(newState).toStrictEqual(expectedState);
   });
 
-  it('should handle ENTER_FOLDER with undefined history', () => {
+  it('handles a NAVIGATE action to a new location', () => {
     const state: NavigateState = {
-      location,
-      history: undefined,
+      history: [location.bucket],
+      location: locationAccess,
     };
 
-    const action: NavigateAction = { type: 'ENTER_FOLDER', name: 'folder1/' };
+    const action: NavigateAction = {
+      type: 'NAVIGATE',
+      prefix: locationTwo.prefix,
+    };
 
     const expectedState: NavigateState = {
-      location: {
-        bucket: location.bucket,
-        permission: location.permission,
-        scope: `s3://${location.bucket}/${action.name}*`,
-        type: location.type,
-        prefix: action.name,
-      },
-      history: ['folder1/'],
+      history: [location.bucket, locationTwo.prefix],
+      location: locationAccess,
     };
 
     const newState = navigateReducer(state, action);
@@ -103,57 +86,47 @@ describe('navigateReducer', () => {
     expect(newState).toEqual(expectedState);
   });
 
-  it('handles ENTER_FOLDER when the same folder is selected', () => {
+  it('handles a NAVIGATE action to a previous location', () => {
     const state: NavigateState = {
-      location,
-      history: ['folder1/'],
+      history: [
+        location.bucket,
+        locationTwo.prefix,
+        'public/folder1/',
+        'public/folder1/nestedFolder/',
+      ],
+      location: locationAccess,
     };
 
-    const action: NavigateAction = { type: 'ENTER_FOLDER', name: 'folder1/' };
-
-    const expectedState: NavigateState = state;
-
-    const newState = navigateReducer(state, action);
-
-    expect(newState).toEqual(expectedState);
-  });
-
-  it('handles an EXIT_FOLDER as expected', () => {
-    const state: NavigateState = {
-      location,
-      history: ['folder1/', 'folder2/', 'folder3/'],
+    const action: NavigateAction = {
+      type: 'NAVIGATE',
+      prefix: locationTwo.prefix,
     };
-
-    const action: NavigateAction = { type: 'EXIT_FOLDER', name: 'folder2/' };
 
     const expectedState: NavigateState = {
-      location: {
-        bucket: location.bucket,
-        permission: location.permission,
-        scope: `s3://${location.bucket}/${action.name}*`,
-        type: location.type,
-        prefix: action.name,
-      },
-      history: ['folder1/', 'folder2/'],
+      history: [location.bucket, locationTwo.prefix],
+      location: locationAccess,
     };
 
     const newState = navigateReducer(state, action);
 
-    expect(newState).toEqual(expectedState);
+    expect(newState).toStrictEqual(expectedState);
   });
 
-  it('handles an EXIT_FOLDER out of bounds as expected', () => {
+  it('handles an EXIT action as expected', () => {
     const state: NavigateState = {
-      location,
-      history: ['folder1/', 'folder2/', 'folder3/'],
+      history: [location.bucket],
+      location: locationAccess,
     };
 
-    const action: NavigateAction = { type: 'EXIT_FOLDER', name: 'folder4/' };
+    const action: NavigateAction = { type: 'EXIT' };
 
-    const expectedState: NavigateState = state;
+    const expectedState: NavigateState = {
+      history: [],
+      location: undefined,
+    };
 
     const newState = navigateReducer(state, action);
 
-    expect(newState).toEqual(expectedState);
+    expect(newState).toStrictEqual(expectedState);
   });
 });
