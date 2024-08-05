@@ -135,6 +135,7 @@ type RenderActionsMenu = (props: MenuProps) => React.JSX.Element;
 
 const Menu = withBaseElementProps(View, {
   role: 'menu',
+  variant: 'action-select-menu',
   'aria-label': 'Actions',
 });
 

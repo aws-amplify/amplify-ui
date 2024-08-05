@@ -7,11 +7,27 @@ import {
   TableHead as _TableHead,
   TableRow as _TableRow,
   Heading as _Heading,
+  View as _View,
 } from '@aws-amplify/ui-react';
 
 const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
   const { variant } = props as any;
   switch (variant) {
+    case 'action-select-toggle':
+      return (
+        <_Button {...props} variation="link" size="small" ref={ref as any} />
+      );
+    case 'action-select-item':
+      return (
+        <_Button
+          {...props}
+          variation="link"
+          size="small"
+          borderRadius="0"
+          justifyContent="flex-start"
+          ref={ref as any}
+        />
+      );
     case 'navigate':
       return (
         <_Button {...props} size="small" variation="link" ref={ref as any} />
@@ -93,6 +109,26 @@ const TableHeader = React.forwardRef<HTMLTableCellElement>(
   }
 );
 
+const View = React.forwardRef<HTMLDivElement>(function View(props, ref) {
+  const { variant } = props as any;
+  console.log('variant from view: ', variant);
+  switch (variant) {
+    case 'action-select-menu':
+      return (
+        <_View
+          {...props}
+          marginTop="2px"
+          borderRadius="medium"
+          boxShadow="0 1px 3px hsla(210, 50%, 10%, 0.25)"
+          backgroundColor="background.primary"
+          padding="small"
+          ref={ref as any}
+        />
+      );
+    default:
+      return <_View {...props} ref={ref as any} />;
+  }
+});
 export const elements = {
   Button,
   Title,
@@ -102,4 +138,5 @@ export const elements = {
   TableHead,
   TableHeader,
   TableRow,
+  View,
 };
