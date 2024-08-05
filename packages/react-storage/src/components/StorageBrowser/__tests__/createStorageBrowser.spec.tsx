@@ -1,7 +1,8 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
+
+import * as ControlsModule from '../context/controls';
 import { createStorageBrowser } from '../createStorageBrowser';
-import * as controlsModule from '../context/controls';
 
 const listLocations = jest.fn(() =>
   Promise.resolve({ locations: [], nextToken: undefined })
