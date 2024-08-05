@@ -11,7 +11,6 @@ import {
 
 const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
   const { variant } = props as any;
-  console.log(variant);
   switch (variant) {
     case 'navigate':
       return (
