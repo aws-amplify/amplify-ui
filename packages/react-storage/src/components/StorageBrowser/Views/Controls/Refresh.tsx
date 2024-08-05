@@ -31,6 +31,7 @@ const RefreshIcon = withBaseElementProps(Icon, {
 const RefreshButton = withBaseElementProps(Button, {
   className: `${BLOCK_NAME}`,
   'aria-label': 'Refresh table',
+  variant: 'refresh',
 });
 
 export const RefreshControl: RefreshControl = () => (

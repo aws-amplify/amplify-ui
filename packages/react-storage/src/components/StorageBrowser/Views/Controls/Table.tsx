@@ -46,15 +46,17 @@ const TableHeader = withBaseElementProps(BaseTableHeader, {
 
 const TableHeaderButton = withBaseElementProps(Button, {
   className: `${CLASS_BASE}__${BLOCK_NAME}__header-button`,
+  variant: 'sort',
 });
 
 const TableData = withBaseElementProps(BaseTableData, {
   className: `${CLASS_BASE}__${BLOCK_NAME}__data`,
 });
 
-// const TableDataButton = withBaseElementProps(Button, {
-//   className: `${CLASS_BASE}__${BLOCK_NAME}__data-button`,
-// });
+const TableDataButton = withBaseElementProps(Button, {
+  className: `${CLASS_BASE}__${BLOCK_NAME}__data-button`,
+  variant: 'table-data',
+});
 
 const TableRow = withBaseElementProps(BaseTableRow, {
   className: `${CLASS_BASE}__${BLOCK_NAME}__row`,
@@ -204,7 +206,7 @@ export const LocationsViewTable = (): JSX.Element => {
               <TableData key={`${index}-${column.header}`}>
                 {column.key === 'scope' &&
                 (row.type === 'BUCKET' || row.type === 'PREFIX') ? (
-                  <button
+                  <TableDataButton
                     key={row['scope']}
                     onClick={() => {
                       handleUpdateState({
@@ -219,7 +221,7 @@ export const LocationsViewTable = (): JSX.Element => {
                     type="button"
                   >
                     {row.scope}
-                  </button>
+                  </TableDataButton>
                 ) : (
                   <>{row[column.key]}</>
                 )}
@@ -301,7 +303,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
             return (
               <TableData key={`${index}-${column.header}`}>
                 {column.key === 'key' && row.type === 'FOLDER' ? (
-                  <button
+                  <TableDataButton
                     onClick={() => {
                       handleUpdateState({
                         type: 'NAVIGATE',
@@ -311,7 +313,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
                     key={`${index}-${row.key}`}
                   >
                     {row.key}
-                  </button>
+                  </TableDataButton>
                 ) : (
                   <>{parseTableData(row, column)}</>
                 )}
