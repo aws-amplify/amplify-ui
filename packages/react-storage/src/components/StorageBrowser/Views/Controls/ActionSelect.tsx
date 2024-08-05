@@ -4,7 +4,7 @@ import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 import { StorageBrowserElements } from '../../context/elements';
 import type { LocationItem } from '../../context/actions';
 import type { Action } from '../../context/controls/ActionSelect';
-import type { IconVariant } from '../../context/elements/IconElement';
+import type { ActionVariant } from '../../context/elements/';
 import { CLASS_BASE } from '../constants';
 import { useControl } from '../../context/controls';
 
@@ -37,7 +37,7 @@ const ActionButton = withBaseElementProps(Button, {
 
 interface ActionItemProps {
   action: Action;
-  variant?: IconVariant;
+  variant?: ActionVariant;
 }
 
 type RenderActionItem = (props: ActionItemProps) => React.JSX.Element;

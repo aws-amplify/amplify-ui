@@ -6,8 +6,12 @@ import {
 
 import { StorageSubpathStrategy } from '@aws-amplify/storage/storage-browser';
 
-import { LocationItem } from './types';
-import { ListActionInput, ListActionOptions, ListActionOutput } from './types';
+import {
+  ListActionInput,
+  ListActionOptions,
+  ListActionOutput,
+  LocationItem,
+} from '../types';
 
 export interface ListLocationItemsActionInput
   extends ListActionInput<ListActionOptions> {}
@@ -31,12 +35,17 @@ export async function listLocationItemsAction(
   input: ListLocationItemsActionInput
 ): Promise<ListLocationItemsActionOutput> {
   const { config, options, prefix: path } = input ?? {};
-  const { bucket: bucketName, credentialsProvider, region } = config ?? {};
   const { delimiter, nextToken, pageSize, refresh, reset } = options ?? {};
 
   if (reset) {
     return { result: [], nextToken: undefined };
   }
+
+  const {
+    bucket: bucketName,
+    credentialsProvider,
+    region,
+  } = (typeof config === 'function' ? config() : config) ?? {};
 
   const bucket = bucketName && region ? { bucketName, region } : undefined;
   const subpathStrategy: StorageSubpathStrategy = {
