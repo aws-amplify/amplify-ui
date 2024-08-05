@@ -28,6 +28,7 @@ export interface FederatedIdentities<T extends string = string>
   Identity: IdentityControl<T>;
 }
 
+// @ts-ignore
 export function createFederatedIdentities<
   T extends Partial<FederatedIdentitiesElements>,
   K extends string = string,
