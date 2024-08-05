@@ -294,6 +294,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
         <TableRow key={index}>
           {LOCATION_DETAIL_VIEW_COLUMNS.map((column) => {
             if (row.key === prefix) {
+              // Don't render the current prefix as a row
               return null;
             }
 
