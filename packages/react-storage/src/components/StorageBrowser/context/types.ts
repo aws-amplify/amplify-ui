@@ -1,6 +1,8 @@
 import { UploadDataWithPathInput } from 'aws-amplify/storage';
 import { LocationCredentialsProvider } from '@aws-amplify/storage/storage-browser';
 
+import { DownloadControl } from '../Views/Controls';
+
 export interface FolderItem {
   key: string;
   type: 'FOLDER';
@@ -13,7 +15,9 @@ export interface FileItem {
   type: 'FILE';
 }
 
-export type LocationItem = FileItem | FolderItem;
+export type FileTableEntry = FileItem & { download: DownloadControl };
+
+export type LocationItem = FileItem | FolderItem | FileTableEntry;
 
 export type Permission = 'READ' | 'READWRITE' | 'WRITE';
 export type LocationType = 'OBJECT' | 'PREFIX' | 'BUCKET';
