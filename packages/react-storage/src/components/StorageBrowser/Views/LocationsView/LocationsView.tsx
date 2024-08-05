@@ -6,7 +6,8 @@ import { useLocationsData } from '../../context/actions/locationsData';
 import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
 import { CommonControl, ViewComponent } from '../types';
-import { useControl } from '../../context/controls';
+import { LocationAccess, Permission } from '../../context/actions/types';
+import { Column } from '../Controls/Table';
 
 const { Message, Paginate, Refresh, Search, Table, Title } = Controls;
 
@@ -24,14 +25,49 @@ export interface LocationsView<
   T extends StorageBrowserElements = StorageBrowserElements,
 > extends ViewComponent<LocationsViewControls<T>> {}
 
-const LocationsViewControls: LocationsViewControls = () => (
-  <>
-    <Title />
-    <Refresh />
-    <Paginate />
-    <Table />
-  </>
-);
+const setLocationsViewTableData = (data: LocationAccess<Permission>[]) => {
+  const colunns: Column<LocationAccess<Permission>>[] = [
+    {
+      header: 'Scope',
+      key: 'scope',
+    },
+    {
+      header: 'Type',
+      key: 'type',
+    },
+    {
+      header: 'Permission',
+      key: 'permission',
+    },
+  ];
+
+  return {
+    columns: colunns,
+    rows: data,
+  };
+};
+
+const LocationsViewControls: LocationsViewControls = () => {
+  const [{ data, isLoading }] = useLocationsData();
+
+  const hasLocations = !!data.result?.length;
+  const shouldRenderLocations = !hasLocations || isLoading;
+
+  const { columns, rows } = setLocationsViewTableData(data.result);
+
+  return (
+    <>
+      <Title />
+      <Refresh />
+      <Paginate />
+      {shouldRenderLocations ? (
+        <div style={{ gridRowStart: 5 }}>{'...loading'}</div>
+      ) : (
+        <Table columns={columns} rows={rows} />
+      )}
+    </>
+  );
+};
 
 LocationsViewControls.Message = Message;
 LocationsViewControls.Paginate = Paginate;
@@ -41,37 +77,11 @@ LocationsViewControls.Table = Table;
 LocationsViewControls.Title = Title;
 
 export const LocationsView: LocationsView = () => {
-  const [, handleUpdateState] = useControl({ type: 'NAVIGATE' });
-  const [{ data, isLoading }] = useLocationsData();
-
-  const hasLocations = !!data.result?.length;
-  const shouldRenderLocations = !hasLocations || isLoading;
-
   return (
     <div className={CLASS_BASE}>
       <div className={`${CLASS_BASE}__controls`}>
         <LocationsViewControls />
       </div>
-      {shouldRenderLocations
-        ? '...loading'
-        : data.result.map(({ scope, type, ...rest }) =>
-            type === 'BUCKET' || type === 'PREFIX' ? (
-              <button
-                key={scope}
-                onClick={() => {
-                  handleUpdateState({
-                    type: 'ACCESS_LOCATION',
-                    location: { ...rest, scope, type },
-                  });
-                }}
-                type="button"
-              >
-                {scope}
-              </button>
-            ) : (
-              <p key={scope}>This is a file: {scope}</p>
-            )
-          )}
     </div>
   );
 };

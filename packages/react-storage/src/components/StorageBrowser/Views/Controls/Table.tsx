@@ -5,6 +5,8 @@ import type { OmitElements } from '../types';
 import { StorageBrowserElements } from '../../context/elements';
 
 import { CLASS_BASE } from '../constants';
+import { useControl } from '../../context/controls';
+import { LocationAccess, Permission } from '../../context/actions/types';
 
 const {
   Table: BaseTable,
@@ -43,9 +45,9 @@ const TableData = withBaseElementProps(BaseTableData, {
   className: `${CLASS_BASE}__${BLOCK_NAME}__data`,
 });
 
-const TableDataButton = withBaseElementProps(Button, {
-  className: `${CLASS_BASE}__${BLOCK_NAME}__data-button`,
-});
+// const TableDataButton = withBaseElementProps(Button, {
+//   className: `${CLASS_BASE}__${BLOCK_NAME}__data-button`,
+// });
 
 const TableRow = withBaseElementProps(BaseTableRow, {
   className: `${CLASS_BASE}__${BLOCK_NAME}__row`,
@@ -66,20 +68,11 @@ const SortIndeterminateIcon = withBaseElementProps(Icon, {
 //   variant: 'sort-descending',
 // });
 
-export interface Data {
-  name: string;
-}
-
 const LOCATION_BUTTON_KEY = 'name';
 
 export interface Column<T> {
   header: string;
   key: keyof T;
-}
-
-export interface TableData<T extends Data> {
-  columns: Column<T>[];
-  rows: T[];
 }
 
 export interface _TableControl<
@@ -94,9 +87,11 @@ export interface _TableControl<
     | 'TableRow'
   > {
   (): React.JSX.Element;
-  SortIndeterminateIcon: T['Icon'];
-  SortAscendingIcon: T['Icon'];
-  SortDescendingIcon: T['Icon'];
+}
+
+interface TableControlProps<T> {
+  rows: T[];
+  columns: Column<T>[];
 }
 
 export interface TableControl<
@@ -113,15 +108,27 @@ export interface TableControl<
     | 'SortAscendingIcon'
     | 'SortDescendingIcon'
   > {
-  (): React.JSX.Element;
+  <U extends LocationAccess<Permission>>(
+    props: TableControlProps<U>
+  ): React.JSX.Element;
 }
 
-export const TableControl: TableControl = () => {
-  // Data should be coming from context
-  const columns: Column<Data>[] = [];
-  const rows: Data[] = [];
+export const TableControl: TableControl = <
+  U extends LocationAccess<Permission>,
+>({
+  rows,
+  columns,
+}: TableControlProps<U>) => {
+  // @TODO data should come from context
+
+  const [, handleUpdateState] = useControl({ type: 'NAVIGATE' });
 
   const ariaLabel = 'Table';
+
+  // eslint-disable-next-line no-console
+  console.log('rows', rows);
+  // eslint-disable-next-line no-console
+  console.log('columns', columns);
 
   return (
     <Table aria-label={ariaLabel}>
@@ -147,11 +154,24 @@ export const TableControl: TableControl = () => {
           <TableRow key={rowIndex}>
             {columns.map((column) => (
               <TableData key={`${rowIndex}-${column.header}`}>
-                {/* How do we know when a row is supposed to be a button/link? */}
-                {column.key === LOCATION_BUTTON_KEY ? (
-                  <TableDataButton>
-                    <>{row[column.key]}</>
-                  </TableDataButton>
+                {column.key === 'scope' &&
+                (row.type === 'BUCKET' || row.type === 'PREFIX') ? (
+                  <button
+                    key={row['scope']}
+                    onClick={() => {
+                      handleUpdateState({
+                        type: 'ACCESS_LOCATION',
+                        location: {
+                          ...row,
+                          scope: row.scope,
+                          type: row.type,
+                        },
+                      });
+                    }}
+                    type="button"
+                  >
+                    {row.scope}
+                  </button>
                 ) : (
                   <>{row[column.key]}</>
                 )}
