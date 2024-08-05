@@ -111,7 +111,6 @@ interface TableControlProps<T> {
   data: T[];
   columns: Column<T>[];
   renderRowItem: RenderRowItem<T>;
-  isLoading: boolean;
 }
 
 export interface TableControl<
@@ -135,13 +134,10 @@ export const TableControl: TableControl = <U,>({
   data,
   columns,
   renderRowItem,
-  isLoading = false,
 }: TableControlProps<U>) => {
   const ariaLabel = 'Table';
 
-  return isLoading ? (
-    <div>Loading...</div>
-  ) : (
+  return (
     <Table aria-label={ariaLabel}>
       <TableHead>
         <TableRow>
@@ -210,9 +206,10 @@ export const LocationsViewTable = (): JSX.Element => {
     );
   };
 
-  return (
+  return shouldRenderLocations ? (
+    <div>...loading</div>
+  ) : (
     <TableControl
-      isLoading={shouldRenderLocations}
       columns={LOCATION_VIEW_COLUMNS}
       data={data.result}
       renderRowItem={renderRowItem}
