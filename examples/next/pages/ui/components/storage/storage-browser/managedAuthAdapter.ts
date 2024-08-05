@@ -1,10 +1,9 @@
 import {
-  createManagedAuthConfigAdapter,
-  CreateManagedAuthConfigAdapterInput,
-} from '@aws-amplify/storage/storage-browser';
+  createManagedAuthAdapter,
+  CreateManagedAuthAdapterInput,
+} from '@aws-amplify/ui-react-storage';
 
-type CredentialsProvider =
-  CreateManagedAuthConfigAdapterInput['credentialsProvider'];
+type CredentialsProvider = CreateManagedAuthAdapterInput['credentialsProvider'];
 type Credentials = Awaited<ReturnType<CredentialsProvider>>;
 
 class Auth {
@@ -22,8 +21,6 @@ class Auth {
   async #fetchCredentials(): Promise<Credentials> {
     const credentials = this.#getCredentials();
     if (credentials) {
-      // eslint-disable-next-line no-console
-      console.log('cache');
       return credentials;
     }
 
@@ -85,11 +82,9 @@ class Auth {
 
 export const auth = new Auth();
 
-export const managedAuthAdapter = {
-  ...createManagedAuthConfigAdapter({
-    credentialsProvider: auth.credentialsProvider,
-    region: process.env.NEXT_PUBLIC_MANAGED_AUTH_REGION,
-    accountId: process.env.NEXT_PUBLIC_MANAGED_AUTH_ACCOUNT_ID,
-  }),
+export const managedAuthAdapter = createManagedAuthAdapter({
+  credentialsProvider: auth.credentialsProvider,
+  region: process.env.NEXT_PUBLIC_MANAGED_AUTH_REGION,
+  accountId: process.env.NEXT_PUBLIC_MANAGED_AUTH_ACCOUNT_ID,
   registerAuthListener: auth.registerAuthListener,
-};
+});

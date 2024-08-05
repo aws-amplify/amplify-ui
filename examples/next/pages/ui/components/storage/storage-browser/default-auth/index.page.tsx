@@ -2,7 +2,7 @@ import React from 'react';
 import { Amplify } from 'aws-amplify';
 import { signOut } from 'aws-amplify/auth';
 
-import { withAuthenticator } from '@aws-amplify/ui-react';
+import { Button, withAuthenticator } from '@aws-amplify/ui-react';
 import {
   createStorageBrowser,
   createAmplifyAuthAdapter,
@@ -21,7 +21,18 @@ const { StorageBrowser } = createStorageBrowser({
 });
 
 function Example() {
-  return <StorageBrowser />;
+  return (
+    <>
+      <Button
+        onClick={() => {
+          signOut();
+        }}
+      >
+        Sign Out
+      </Button>
+      <StorageBrowser />
+    </>
+  );
 }
 
 export default withAuthenticator(Example);

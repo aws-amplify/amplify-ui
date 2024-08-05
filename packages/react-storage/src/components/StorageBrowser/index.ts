@@ -3,7 +3,8 @@ export {
   CreateStorageBrowserInput,
 } from './createStorageBrowser';
 export {
-  createManagedAuthAdapter,
   createAmplifyAuthAdapter,
+  createManagedAuthAdapter,
+  CreateManagedAuthAdapterInput,
   StorageBrowserAuthAdapter,
 } from './adapters';

@@ -1,3 +1,6 @@
 export { createAmplifyAuthAdapter } from './createAmplifyAuthAdapter';
 export { createManagedAuthAdapter } from './createManagedAuthAdapter';
-export { StorageBrowserAuthAdapter } from './types';
+export {
+  CreateManagedAuthAdapterInput,
+  StorageBrowserAuthAdapter,
+} from './types';
