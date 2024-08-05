@@ -101,3 +101,12 @@ export interface ListActionOutput<T> {
   result: T[];
   nextToken: string | undefined;
 }
+
+export interface DownloadActionInput {
+  key: string;
+  config?: (() => LocationConfig) | LocationConfig;
+}
+
+export interface DownloadActionOutput {
+  key: string;
+}
