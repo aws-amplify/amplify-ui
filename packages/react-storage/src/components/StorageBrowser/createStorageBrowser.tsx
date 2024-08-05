@@ -1,11 +1,19 @@
 import React from 'react';
 import { MergeBaseElements } from '@aws-amplify/ui-react-core/elements';
 
-import { Permission } from './context/actions/types';
+import { Permission } from './context/types';
 import { StorageBrowserElements } from './context/elements';
 import createProvider, { CreateProviderInput } from './createProvider';
 import { LocationsView, LocationDetailView, LocationActionView } from './Views';
 import { useControl } from './context/controls';
+
+const validateRegisterAuthListener = (registerAuthListener: any) => {
+  if (typeof registerAuthListener !== 'function') {
+    throw new Error(
+      'StorageManager: `registerAuthListener` must be a function.'
+    );
+  }
+};
 
 export interface CreateStorageBrowserInput<T, K>
   extends CreateProviderInput<T, K> {}
@@ -25,19 +33,19 @@ interface ResolvedStorageBrowserElements<
  * Handles default `StorageBrowser` behavior:
  * - render `LocationsView` on init
  * - render `LocationDetailView` on location selection
- * - TODO: render `ActionView` on action selection
+ * - render `ActionView` on action selection
  */
 function DefaultStorageBrowser(): React.JSX.Element {
-  const [{ history }] = useControl({ type: 'NAVIGATE' });
+  const [{ location }] = useControl({ type: 'NAVIGATE' });
   const [{ selected }] = useControl({ type: 'ACTION_SELECT' });
 
-  const { actionType } = selected;
+  const { actionType } = selected ?? {};
 
   if (actionType) {
     return <LocationActionView />;
   }
 
-  if (history.length) {
+  if (location) {
     return <LocationDetailView />;
   }
 
@@ -52,6 +60,8 @@ export function createStorageBrowser<
 ): {
   StorageBrowser: StorageBrowser<ResolvedStorageBrowserElements<T>>;
 } {
+  validateRegisterAuthListener(input.config.registerAuthListener);
+
   const Provider = createProvider(input);
 
   const StorageBrowser: StorageBrowser<

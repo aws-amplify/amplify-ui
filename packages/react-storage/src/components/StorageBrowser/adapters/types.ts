@@ -1,4 +1,15 @@
-import { createManagedAuthConfigAdapter } from '@aws-amplify/storage/storage-browser';
+import {
+  AuthConfigAdapter,
+  CreateManagedAuthConfigAdapterInput,
+} from '@aws-amplify/storage/storage-browser';
 
-export interface StorageBrowserAuthAdapter
-  extends ReturnType<typeof createManagedAuthConfigAdapter> {}
+import { RegisterAuthListener } from '../context/useGetCredentialsProvider';
+
+export interface StorageBrowserAuthAdapter extends AuthConfigAdapter {
+  registerAuthListener: RegisterAuthListener;
+}
+
+export interface CreateManagedAuthAdapterInput
+  extends CreateManagedAuthConfigAdapterInput {
+  registerAuthListener: RegisterAuthListener;
+}

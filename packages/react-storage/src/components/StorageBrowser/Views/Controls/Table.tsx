@@ -6,7 +6,7 @@ import { StorageBrowserElements } from '../../context/elements';
 
 import { CLASS_BASE } from '../constants';
 import { useControl } from '../../context/controls';
-import { LocationAccess, Permission } from '../../context/actions/types';
+import { LocationAccess, Permission } from '../../context/types';
 import { useLocationsData } from '../../context/actions';
 
 const {
@@ -68,8 +68,6 @@ const SortIndeterminateIcon = withBaseElementProps(Icon, {
 //   className: `${CLASS_BASE}__${BLOCK_NAME}__sort-icon--descending`,
 //   variant: 'sort-descending',
 // });
-
-const LOCATION_BUTTON_KEY = 'name';
 
 const LOCATION_VIEW_COLUMNS: Column<LocationAccess<Permission>>[] = [
   {

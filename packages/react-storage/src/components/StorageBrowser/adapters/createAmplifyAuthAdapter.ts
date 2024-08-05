@@ -3,7 +3,7 @@ import { AuthSession, fetchAuthSession } from 'aws-amplify/auth';
 import { LocationCredentialsProvider } from '@aws-amplify/storage/storage-browser';
 
 import { StorageBrowserAuthAdapter } from './types';
-import { LocationAccess } from '../context/actions/types';
+import { LocationAccess } from '../context/types';
 
 interface AWSCredentials extends NonNullable<AuthSession['credentials']> {}
 interface AWSTemporaryCredentials
@@ -22,7 +22,7 @@ export const createAmplifyAuthAdapter = (input?: {
   const { bucket, region } = Amplify.getConfig()?.Storage?.S3 ?? {};
   if (!bucket || !region) {
     throw new Error(
-      'Amplify Storage configuration not found. Did you run `Amplify.configure` at your project root?'
+      'Amplify Storage configuration not found. Did you run `Amplify.configure` from your project root?'
     );
   }
 
@@ -56,5 +56,10 @@ export const createAmplifyAuthAdapter = (input?: {
     return { locations, nextToken: undefined };
   }
 
-  return { getLocationCredentials, listLocations, region };
+  return {
+    getLocationCredentials,
+    listLocations,
+    region,
+    registerAuthListener: () => null,
+  };
 };

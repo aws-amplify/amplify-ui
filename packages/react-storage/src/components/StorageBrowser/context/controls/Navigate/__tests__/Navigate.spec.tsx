@@ -1,4 +1,4 @@
-import { LocationAccess, LocationData } from '../../../actions/types';
+import { LocationAccess, LocationData } from '../../../types';
 
 import { NavigateAction, navigateReducer, NavigateState } from '../Navigate';
 

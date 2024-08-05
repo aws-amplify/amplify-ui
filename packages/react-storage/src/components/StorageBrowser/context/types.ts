@@ -31,7 +31,7 @@ export interface LocationData<T = Permission> {
   type: LocationType;
 }
 
-interface LocationConfig {
+export interface LocationConfig {
   bucket: string;
   credentialsProvider: LocationCredentialsProvider;
   region: string;
@@ -93,7 +93,7 @@ export interface ListActionOptions<T = never> {
 
 export interface ListActionInput<K = never> {
   prefix: string;
-  config?: LocationConfig;
+  config?: (() => LocationConfig) | LocationConfig;
   options?: K;
 }
 

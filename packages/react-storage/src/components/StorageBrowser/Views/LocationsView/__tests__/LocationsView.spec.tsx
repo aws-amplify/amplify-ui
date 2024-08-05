@@ -12,6 +12,7 @@ const config = {
   getLocationCredentials: jest.fn(),
   listLocations,
   region: 'region',
+  registerAuthListener: jest.fn(),
 };
 const Provider = createProvider({ config });
 

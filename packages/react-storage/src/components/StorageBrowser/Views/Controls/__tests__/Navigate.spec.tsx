@@ -52,7 +52,7 @@ describe('NavigateControl', () => {
     });
   });
 
-  it('handles selecting location navigate item', async () => {
+  it('handles selecting the root bucket navigate item', async () => {
     const mockHandleUpdateState = jest.fn();
     const mockState = {
       location: {},
@@ -94,7 +94,7 @@ describe('NavigateControl', () => {
       </ControlProvider>
     );
 
-    await user.click(screen.getByText('folder1/'));
+    await user.click(screen.getByText('folder1'));
 
     expect(mockHandleUpdateState).toHaveBeenCalledWith({
       type: 'NAVIGATE',

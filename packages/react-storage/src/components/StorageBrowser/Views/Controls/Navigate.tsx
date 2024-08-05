@@ -103,7 +103,7 @@ export const NavigateControl: NavigateControl = (_props) => {
               handleUpdateState({ type: 'NAVIGATE', prefix: entry });
             }}
           >
-            {entry}
+            {entry.endsWith('/') ? entry.slice(0, -1) : entry}
           </NavigateItem>
         </React.Fragment>
       ))}

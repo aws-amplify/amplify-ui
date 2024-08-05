@@ -49,16 +49,7 @@ function Example() {
       >
         Sign Out
       </Button>
-      <StorageBrowser.Provider>
-        <Flex>
-          <Flex direction={'column'}>
-            <StorageBrowser.LocationsView />
-          </Flex>
-          <Flex direction={'column'}>
-            <StorageBrowser.LocationDetailView />
-          </Flex>
-        </Flex>
-      </StorageBrowser.Provider>
+      <StorageBrowser />
     </>
   );
 }
