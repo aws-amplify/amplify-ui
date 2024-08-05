@@ -312,7 +312,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
       return (
         <TableRow key={index}>
           {LOCATION_DETAIL_VIEW_COLUMNS.map((column) => {
-            if (row.key === prefix && row.key === prefix) {
+            if (row.key === prefix) {
               return null;
             }
 
