@@ -115,6 +115,11 @@ describe('TableControl', () => {
   it('loads initial location items for a BUCKET location as expected', async () => {
     useControlSpy.mockReturnValue([controlState, handleUpdateControlState]);
 
+    useActionSpy.mockReturnValue([
+      { ...locationItemsState },
+      handleUpdateActionState,
+    ]);
+
     render(
       <Provider>
         <LocationDetailViewTable />

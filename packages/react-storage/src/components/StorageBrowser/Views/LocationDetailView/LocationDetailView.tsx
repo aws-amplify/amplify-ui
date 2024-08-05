@@ -11,12 +11,9 @@ export interface LocationDetailView<
 
 export const LocationDetailView: LocationDetailView = () => {
   return (
-    <>
-      <div className={CLASS_BASE} data-testid="LOCATION_DETAIL_VIEW">
-        <LocationDetailViewControls />
-      </div>
-      {isLoading && !hasItems ? <span>loading...</span> : listItems}
-    </>
+    <div className={CLASS_BASE} data-testid="LOCATION_DETAIL_VIEW">
+      <LocationDetailViewControls />
+    </div>
   );
 };
 
