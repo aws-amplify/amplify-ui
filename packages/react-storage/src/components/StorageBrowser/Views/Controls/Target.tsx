@@ -99,10 +99,7 @@ export interface _TargetControl<
 
 export interface TargetControl<
   T extends StorageBrowserElements = StorageBrowserElements,
-> extends OmitElements<
-    _TargetControl<T>,
-    'Container' | 'Field' | 'Destination'
-  > {
+> extends OmitElements<_TargetControl<T>, 'Container'> {
   (): React.JSX.Element;
 }
 
@@ -114,3 +111,6 @@ export const TargetControl: TargetControl = () => {
     </Container>
   );
 };
+
+TargetControl.Field = FieldControl;
+TargetControl.Destination = DestinationControl;

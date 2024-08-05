@@ -50,7 +50,7 @@ export const DefinitionDetailElement = defineBaseElement({
   displayName: 'DefinitionDetail',
 });
 
-export const LabelElement = defineBaseElement({
+export const LabelElement = defineBaseElement<'label', 'htmlFor'>({
   type: 'label',
   displayName: 'Label',
 });
@@ -120,7 +120,7 @@ export const ProgressBarElement = defineBaseElement({
   displayName: 'ProgressBar',
 });
 
-export const InputElement = defineBaseElement<'input', 'type'>({
+export const InputElement = defineBaseElement<'input', 'type' | 'id'>({
   type: 'input',
   displayName: 'Input',
 });
