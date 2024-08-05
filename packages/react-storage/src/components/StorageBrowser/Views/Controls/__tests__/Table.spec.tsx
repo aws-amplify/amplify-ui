@@ -4,6 +4,7 @@ import { render, waitFor } from '@testing-library/react';
 import createProvider from '../../../createProvider';
 import * as ControlsModule from '../../../context/controls/';
 import * as ActionsModule from '../../../context/actions';
+import { LocationItem } from '../../../context/actions';
 
 import { LocationDetailViewTable, LocationsViewTable } from '../Table';
 
@@ -20,8 +21,33 @@ const controlState = {
   history: ['test-bucket'],
 };
 
+const locationItems: LocationItem[] = [
+  {
+    key: 'test-key-1',
+    lastModified: new Date(),
+    size: 1000,
+    type: 'FILE',
+  },
+  {
+    key: 'test-key-2',
+    lastModified: new Date(),
+    size: 1000,
+    type: 'FILE',
+  },
+  {
+    key: 'test-key-3',
+    lastModified: new Date(),
+    size: 1000,
+    type: 'FILE',
+  },
+  {
+    key: 'test-folder-key-1',
+    type: 'FOLDER',
+  },
+];
+
 const locationItemsState = {
-  data: { result: [], nextToken: undefined },
+  data: { result: locationItems, nextToken: undefined },
   hasError: false,
   isLoading: false,
   message: undefined,
