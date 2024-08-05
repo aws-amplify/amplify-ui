@@ -60,5 +60,5 @@ describe('DownloadControl', () => {
     expect(icon).toHaveAttribute('aria-hidden', 'true');
   });
 
-  it.todo('calls handleDownload onClick');
+  it.todo('calls downloadData onClick');
 });
