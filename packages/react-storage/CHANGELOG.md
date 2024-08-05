@@ -1,5 +1,29 @@
 # @aws-amplify/ui-react-storage
 
+## 3.1.6
+
+### Patch Changes
+
+- [#5477](https://github.com/aws-amplify/amplify-ui/pull/5477) [`adb985c98`](https://github.com/aws-amplify/amplify-ui/commit/adb985c98c5b150280bdf2592aced3c5d3b1fc78) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(storage): fix looping calls to processFile
+
+## 3.1.5
+
+### Patch Changes
+
+- Updated dependencies [[`a0248855b`](https://github.com/aws-amplify/amplify-ui/commit/a0248855b85fe4a95d5b941b98b9d34cbc46298f), [`98135dfac`](https://github.com/aws-amplify/amplify-ui/commit/98135dfacccd5213e52b5001adbd1702e6f883fe)]:
+  - @aws-amplify/ui-react@6.1.14
+
+## 3.1.4
+
+### Patch Changes
+
+- [#5357](https://github.com/aws-amplify/amplify-ui/pull/5357) [`70354b0c3`](https://github.com/aws-amplify/amplify-ui/commit/70354b0c3f3c91fa99e8f091cfea720fe2b82635) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(storage-manager): update file processedKey on process file complete
+
+- Updated dependencies [[`31b9f299e`](https://github.com/aws-amplify/amplify-ui/commit/31b9f299e0b6253b9880700f836f47292453b40e), [`0483dd833`](https://github.com/aws-amplify/amplify-ui/commit/0483dd833698b518d1c88d98871cafb1b6019c75)]:
+  - @aws-amplify/ui-react@6.1.13
+  - @aws-amplify/ui@6.0.17
+  - @aws-amplify/ui-react-core@3.0.17
+
 ## 3.1.3
 
 ### Patch Changes

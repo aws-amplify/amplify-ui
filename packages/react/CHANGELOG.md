@@ -1,5 +1,31 @@
 # @aws-amplify/ui-react
 
+## 6.1.14
+
+### Patch Changes
+
+- [#5389](https://github.com/aws-amplify/amplify-ui/pull/5389) [`a0248855b`](https://github.com/aws-amplify/amplify-ui/commit/a0248855b85fe4a95d5b941b98b9d34cbc46298f) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(authenticator): fixing visual inconsistencies
+
+  - Removing any style props from buttons on authenticator to fix font weight inconsistencies
+  - Moved the in the Authenticator to be in the same location in the DOM in each view
+  - Made the link buttons consistent across Authenticator views
+
+  Fixes #5156
+
+- [#5399](https://github.com/aws-amplify/amplify-ui/pull/5399) [`98135dfac`](https://github.com/aws-amplify/amplify-ui/commit/98135dfacccd5213e52b5001adbd1702e6f883fe) Thanks [@timngyn](https://github.com/timngyn)! - fix(authenticator): Check first radio button from unverified user attributes so that default value is selected
+
+## 6.1.13
+
+### Patch Changes
+
+- [#5376](https://github.com/aws-amplify/amplify-ui/pull/5376) [`31b9f299e`](https://github.com/aws-amplify/amplify-ui/commit/31b9f299e0b6253b9880700f836f47292453b40e) Thanks [@awinberg-aws](https://github.com/awinberg-aws)! - fix:(SearchField) accessibility - do not exclude clear button from tab order
+
+- [#5321](https://github.com/aws-amplify/amplify-ui/pull/5321) [`0483dd833`](https://github.com/aws-amplify/amplify-ui/commit/0483dd833698b518d1c88d98871cafb1b6019c75) Thanks [@AhmetAhunbayAWS](https://github.com/AhmetAhunbayAWS)! - This change removes an inconsistency in the heights of ratings between 0-1 (non-inclusive). This change was made per customer request via a raised issue. A customer would only need to update their code if they display ratings between 0-1 (non-inclusive).
+
+- Updated dependencies [[`0483dd833`](https://github.com/aws-amplify/amplify-ui/commit/0483dd833698b518d1c88d98871cafb1b6019c75)]:
+  - @aws-amplify/ui@6.0.17
+  - @aws-amplify/ui-react-core@3.0.17
+
 ## 6.1.12
 
 ### Patch Changes

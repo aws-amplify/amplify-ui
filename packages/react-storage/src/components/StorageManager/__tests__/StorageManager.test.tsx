@@ -1,5 +1,11 @@
 import React from 'react';
-import { fireEvent, render, waitFor, act } from '@testing-library/react';
+import {
+  fireEvent,
+  render,
+  waitFor,
+  act,
+  getByTestId,
+} from '@testing-library/react';
 import * as Storage from 'aws-amplify/storage';
 
 import { ComponentClassName } from '@aws-amplify/ui';
@@ -33,6 +39,7 @@ const storeManagerProps: StorageManagerProps = {
   accessLevel: 'guest',
   maxFileCount: 100,
 };
+
 describe('StorageManager', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -253,6 +260,162 @@ describe('StorageManager', () => {
         },
       });
       expect(onUploadStart).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it('provides the correct file key on a remove file event before upload', () => {
+    const onFileRemove = jest.fn();
+
+    const { container } = render(
+      <StorageManager
+        {...storeManagerProps}
+        autoUpload={false}
+        onFileRemove={onFileRemove}
+      />
+    );
+
+    const hiddenInput: HTMLInputElement = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+
+    expect(hiddenInput).toBeInTheDocument();
+
+    const file = new File(['file content'], 'file.txt', { type: 'text/plain' });
+
+    fireEvent.change(hiddenInput, { target: { files: [file] } });
+
+    expect(uploadDataSpy).not.toHaveBeenCalled();
+
+    const removeButton = getByTestId(
+      container,
+      'storage-manager-remove-button'
+    );
+    expect(removeButton).toBeDefined();
+
+    fireEvent.click(removeButton);
+
+    expect(onFileRemove).toHaveBeenCalledTimes(1);
+    expect(onFileRemove).toHaveBeenCalledWith({ key: file.name });
+  });
+
+  it('provides the correct file key on a remove file event after upload', async () => {
+    const onFileRemove = jest.fn();
+
+    const { container } = render(
+      <StorageManager {...storeManagerProps} onFileRemove={onFileRemove} />
+    );
+    const hiddenInput = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+
+    expect(hiddenInput).toBeInTheDocument();
+    const file = new File(['file content'], 'file.txt', { type: 'text/plain' });
+    fireEvent.change(hiddenInput, {
+      target: { files: [file] },
+    });
+
+    // Wait for the file to be uploaded
+    await waitFor(() => {
+      expect(uploadDataSpy).toHaveBeenCalled();
+
+      const removeButton = getByTestId(
+        container,
+        'storage-manager-remove-button'
+      );
+      expect(removeButton).toBeDefined();
+
+      fireEvent.click(removeButton);
+
+      expect(onFileRemove).toHaveBeenCalledTimes(1);
+      expect(onFileRemove).toHaveBeenCalledWith({ key: file.name });
+    });
+  });
+
+  it('provides the processed file key on a remove file event after upload when processFile is provided', async () => {
+    const onFileRemove = jest.fn();
+
+    const processedKey = 'processedKey';
+    const processFile: StorageManagerProps['processFile'] = (input) => ({
+      ...input,
+      key: processedKey,
+    });
+
+    const { container } = render(
+      <StorageManager
+        {...storeManagerProps}
+        onFileRemove={onFileRemove}
+        processFile={processFile}
+      />
+    );
+
+    const hiddenInput = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+
+    expect(hiddenInput).toBeInTheDocument();
+    const file = new File(['file content'], 'file.txt', { type: 'text/plain' });
+
+    fireEvent.change(hiddenInput, { target: { files: [file] } });
+
+    // Wait for the file to be uploaded
+    await waitFor(() => {
+      expect(uploadDataSpy).toHaveBeenCalled();
+
+      const removeButton = getByTestId(
+        container,
+        'storage-manager-remove-button'
+      );
+      expect(removeButton).toBeDefined();
+
+      fireEvent.click(removeButton);
+
+      expect(onFileRemove).toHaveBeenCalledTimes(1);
+      expect(onFileRemove).toHaveBeenCalledWith({ key: processedKey });
+    });
+  });
+
+  it('provides the processed file key on a remove file event after upload when processFile is provided with a path function', async () => {
+    const onFileRemove = jest.fn();
+
+    const processedKey = 'processedKey';
+    const processFile: StorageManagerProps['processFile'] = (input) => ({
+      ...input,
+      key: processedKey,
+    });
+
+    const { container } = render(
+      <StorageManager
+        {...storeManagerProps}
+        onFileRemove={onFileRemove}
+        processFile={processFile}
+        path={() => 'my-path'}
+        accessLevel={undefined}
+      />
+    );
+
+    const hiddenInput = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+
+    expect(hiddenInput).toBeInTheDocument();
+    const file = new File(['file content'], 'file.txt', { type: 'text/plain' });
+
+    fireEvent.change(hiddenInput, { target: { files: [file] } });
+
+    // Wait for the file to be uploaded
+    await waitFor(() => {
+      expect(uploadDataSpy).toHaveBeenCalled();
+
+      const removeButton = getByTestId(
+        container,
+        'storage-manager-remove-button'
+      );
+      expect(removeButton).toBeDefined();
+
+      fireEvent.click(removeButton);
+
+      expect(onFileRemove).toHaveBeenCalledTimes(1);
+      expect(onFileRemove).toHaveBeenCalledWith({ key: processedKey });
     });
   });
 

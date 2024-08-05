@@ -3,7 +3,9 @@ import { UploadDataWithPathInput, UploadDataInput } from 'aws-amplify/storage';
 import { getInput, GetInputParams } from '../getInput';
 
 const identityId = 'identity-id';
-jest.spyOn(AuthModule, 'fetchAuthSession').mockResolvedValue({ identityId });
+const fetchAuthSpy = jest
+  .spyOn(AuthModule, 'fetchAuthSession')
+  .mockResolvedValue({ identityId });
 
 const file = new File(['hello'], 'hello.png', { type: 'image/png' });
 const key = file.name;
@@ -18,11 +20,13 @@ const processFile: GetInputParams['processFile'] = ({ key, ...rest }) => ({
 
 const stringPath = 'my-path/';
 
+const onProcessFileSuccess = jest.fn();
 const inputBase: Omit<GetInputParams, 'path' | 'accessLevel'> = {
   file,
   key,
   onProgress,
   processFile: undefined,
+  onProcessFileSuccess,
 };
 const pathStringInput: GetInputParams = {
   ...inputBase,
@@ -50,6 +54,11 @@ const accessLevelWithPathInput: GetInputParams = {
 };
 
 describe('getInput', () => {
+  beforeEach(() => {
+    onProcessFileSuccess.mockClear();
+    fetchAuthSpy.mockClear();
+  });
+
   it('resolves an UploadDataWithPathInput with a string `path` as expected', async () => {
     const expected: UploadDataWithPathInput = {
       data: file,
@@ -120,6 +129,33 @@ describe('getInput', () => {
     expect(output).toStrictEqual(expected);
   });
 
+  it('calls `onProcessFileSuccess` when `processFile` is provided', async () => {
+    const processedKey = `processedKey`;
+
+    const input = getInput({
+      ...pathStringInput,
+      processFile: ({ key: _, ...rest }) => ({
+        key: processedKey,
+        ...rest,
+      }),
+    });
+
+    await input();
+
+    expect(onProcessFileSuccess).toHaveBeenCalledTimes(1);
+    expect(onProcessFileSuccess).toHaveBeenCalledWith({
+      processedKey,
+    });
+  });
+
+  it('does not call `onProcessFileSuccess` when `processFile` is not provided', async () => {
+    const input = getInput(pathStringInput);
+
+    await input();
+
+    expect(onProcessFileSuccess).not.toHaveBeenCalled();
+  });
+
   it('includes additional values returned from `processFile` in `options`', async () => {
     const contentDisposition = 'attachment';
     const metadata = { key };
@@ -152,6 +188,33 @@ describe('getInput', () => {
     expect(output.options?.contentDisposition).toStrictEqual(
       contentDisposition
     );
+  });
+
+  it('calls `onProcessFileSuccess` after fetchAuthSession', async () => {
+    const processedKey = `processedKey`;
+
+    const input = getInput({
+      ...pathCallbackInput,
+      processFile: ({ key: _, ...rest }) => ({
+        key: processedKey,
+        ...rest,
+      }),
+    });
+
+    await input();
+
+    const fetchAuthSessionCallOrder = fetchAuthSpy.mock.invocationCallOrder[0];
+    const onProcessFileSuccessCallORder =
+      onProcessFileSuccess.mock.invocationCallOrder[0];
+    expect(fetchAuthSessionCallOrder).toBeLessThan(
+      onProcessFileSuccessCallORder
+    );
+
+    expect(fetchAuthSpy).toHaveBeenCalledTimes(1);
+    expect(onProcessFileSuccess).toHaveBeenCalledTimes(1);
+    expect(onProcessFileSuccess).toHaveBeenCalledWith({
+      processedKey,
+    });
   });
 });
 

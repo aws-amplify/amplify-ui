@@ -1,5 +1,18 @@
 # @aws-amplify/ui-vue
 
+## 4.2.10
+
+### Patch Changes
+
+- [#5399](https://github.com/aws-amplify/amplify-ui/pull/5399) [`98135dfac`](https://github.com/aws-amplify/amplify-ui/commit/98135dfacccd5213e52b5001adbd1702e6f883fe) Thanks [@timngyn](https://github.com/timngyn)! - fix(authenticator): Check first radio button from unverified user attributes so that default value is selected
+
+## 4.2.9
+
+### Patch Changes
+
+- Updated dependencies [[`0483dd833`](https://github.com/aws-amplify/amplify-ui/commit/0483dd833698b518d1c88d98871cafb1b6019c75)]:
+  - @aws-amplify/ui@6.0.17
+
 ## 4.2.8
 
 ### Patch Changes

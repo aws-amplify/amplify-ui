@@ -11,7 +11,6 @@ import { createComponentCSS, propsToString } from './createComponentCSS';
 import { isFunction, isString } from '../../utils';
 import { createColorPalette } from './createColorPalette';
 import { WebTokens } from '../tokens';
-import { CSSProperties } from '../components/utils';
 import { createAnimationCSS } from './createAnimationCSS';
 
 /**

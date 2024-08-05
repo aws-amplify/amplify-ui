@@ -11,9 +11,12 @@ export type Orientation = 'horizontal' | 'vertical';
 
 export type FieldControlModifiers = Size | 'error' | 'quiet';
 
+// Allows for properties to either be a design token
+// or a the property type. This gives users autocomplete for properties with
+// enums like `position: 'absolute'`
 export type CSSProperties = {
   [Key in keyof CSS.Properties]:
-    | DesignToken<CSS.Properties[Key]>
+    | DesignToken<CSS.Properties[Key] | (string & {})>
     | CSS.Properties[Key];
 };
 

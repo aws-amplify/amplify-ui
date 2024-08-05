@@ -1,5 +1,48 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.1.3
+
+### Patch Changes
+
+- [#5497](https://github.com/aws-amplify/amplify-ui/pull/5497) [`325187cb9`](https://github.com/aws-amplify/amplify-ui/commit/325187cb9753bedf343364ef4f92d6eb9ad9003a) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(dependabot): Update dependencies in liveness package (@aws-sdk/client-rekognitionstreaming) to get fast-xml-parser fix
+
+## 3.1.2
+
+### Patch Changes
+
+- Updated dependencies [[`a0248855b`](https://github.com/aws-amplify/amplify-ui/commit/a0248855b85fe4a95d5b941b98b9d34cbc46298f), [`98135dfac`](https://github.com/aws-amplify/amplify-ui/commit/98135dfacccd5213e52b5001adbd1702e6f883fe)]:
+  - @aws-amplify/ui-react@6.1.14
+
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`31b9f299e`](https://github.com/aws-amplify/amplify-ui/commit/31b9f299e0b6253b9880700f836f47292453b40e), [`0483dd833`](https://github.com/aws-amplify/amplify-ui/commit/0483dd833698b518d1c88d98871cafb1b6019c75)]:
+  - @aws-amplify/ui-react@6.1.13
+  - @aws-amplify/ui@6.0.17
+
+## 3.1.0
+
+### Minor Changes
+
+- [#5344](https://github.com/aws-amplify/amplify-ui/pull/5344) [`407b7a52c`](https://github.com/aws-amplify/amplify-ui/commit/407b7a52c47d496cf3f158e17d617c7bc0cee065) Thanks [@esauerbo](https://github.com/esauerbo)! - feat(liveness): expose systemClockOffset to override rekognition client config.
+
+  If there is a clock skew greater than five minutes, you can optionally pass `systemClockOffset` to the `FaceLivenessDetectorCore` config, which will be applied as an offset to signing times.
+
+  ```
+  <FaceLivenessDetectorCore
+    ...
+    config={{
+      systemClockOffset:
+        createLivenessSessionApiData['systemClockOffset'],
+    }}
+  />
+  ```
+
+### Patch Changes
+
+- [#5334](https://github.com/aws-amplify/amplify-ui/pull/5334) [`a369d8b08`](https://github.com/aws-amplify/amplify-ui/commit/a369d8b083625d18ebbe9a23f70a8309f4fde4a9) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(deps): Update client-rekognitionstreaming sdk and custom fetch handler
+
 ## 3.0.24
 
 ### Patch Changes
