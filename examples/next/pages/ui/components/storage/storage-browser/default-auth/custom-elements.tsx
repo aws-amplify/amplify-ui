@@ -44,9 +44,18 @@ const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
   }
 });
 
-const Heading = React.forwardRef<HTMLHeadingElement>(
+const Title = React.forwardRef<HTMLHeadingElement>(
   function Heading(props, ref) {
-    return <_Heading {...props} level={2} ref={ref as any} />;
+    return (
+      <_Heading
+        {...props}
+        level={2}
+        fontSize="large"
+        fontWeight="bold"
+        alignSelf="center"
+        ref={ref as any}
+      />
+    );
   }
 );
 const Table = React.forwardRef<HTMLTableElement>(function Table(props, ref) {
@@ -87,7 +96,7 @@ const TableHeader = React.forwardRef<HTMLTableCellElement>(
 
 export const elements = {
   Button,
-  Heading,
+  Title,
   Table,
   TableBody,
   TableData,
