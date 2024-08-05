@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { LocationData, useAction } from '../../context/actions';
-import { parseLocationAccess } from '../../context/controls/Navigate/Navigate';
+import { parseLocationAccess } from '../../context/controls/Navigate/utils';
 import { StorageBrowserElements } from '../../context/elements';
 import { ViewComponent } from '../types';
 import { LocationDetailViewControls } from './Controls';
@@ -23,16 +23,15 @@ export const LocationDetailView: LocationDetailView = () => {
     type: 'LIST_LOCATION_ITEMS',
   });
 
-  const { scope } = location ?? {};
   const {
     bucket,
     permission,
     prefix: initialPrefix,
   } = location ? parseLocationAccess(location) : ({} as LocationData);
+  const { scope } = location ?? {};
 
-  const isInitialLocation = history.length === 1;
-
-  const prefix = history[history.length - 1];
+  const prefix =
+    history.length === 1 ? initialPrefix : history[history.length - 1];
 
   React.useEffect(() => {
     if (!scope || !permission) {
@@ -40,7 +39,7 @@ export const LocationDetailView: LocationDetailView = () => {
     }
 
     handleList({
-      prefix: isInitialLocation ? initialPrefix : prefix,
+      prefix,
       config: {
         bucket,
         credentialsProvider: async () =>
@@ -53,8 +52,6 @@ export const LocationDetailView: LocationDetailView = () => {
     bucket,
     getLocationCredentials,
     handleList,
-    isInitialLocation,
-    initialPrefix,
     permission,
     prefix,
     region,

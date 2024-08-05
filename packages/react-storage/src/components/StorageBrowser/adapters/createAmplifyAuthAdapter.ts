@@ -3,6 +3,7 @@ import { AuthSession, fetchAuthSession } from 'aws-amplify/auth';
 import { LocationCredentialsProvider } from '@aws-amplify/storage/storage-browser';
 
 import { StorageBrowserAuthAdapter } from './types';
+import { LocationAccess } from '../context/actions/types';
 
 interface AWSCredentials extends NonNullable<AuthSession['credentials']> {}
 interface AWSTemporaryCredentials
@@ -15,7 +16,9 @@ const isTemporaryCredentials = (
 ): value is AWSTemporaryCredentials =>
   !!value?.sessionToken || !!value?.expiration;
 
-export const createAmplifyAuthAdapter = (): StorageBrowserAuthAdapter => {
+export const createAmplifyAuthAdapter = (input?: {
+  options?: { defaultPrefixes?: string[] };
+}): StorageBrowserAuthAdapter => {
   const { bucket, region } = Amplify.getConfig()?.Storage?.S3 ?? {};
   if (!bucket || !region) {
     throw new Error(
@@ -33,18 +36,24 @@ export const createAmplifyAuthAdapter = (): StorageBrowserAuthAdapter => {
     return { credentials };
   }
 
-  async function listLocations() {
-    return Promise.resolve({
-      locations: [
-        { type: 'BUCKET', permission: 'READWRITE', scope: `s3://${bucket}/*` },
-        {
-          type: 'PREFIX',
-          permission: 'READWRITE',
-          scope: `s3://${bucket}/public/*`,
-        },
-      ],
-      nextToken: undefined,
-    } as { locations: any[]; nextToken: string | undefined });
+  async function listLocations(
+    ..._input: Parameters<StorageBrowserAuthAdapter['listLocations']>
+  ): ReturnType<StorageBrowserAuthAdapter['listLocations']> {
+    const { options } = input ?? {};
+    const { defaultPrefixes = [] } = options ?? {};
+
+    await getLocationCredentials();
+
+    const locations: LocationAccess[] = defaultPrefixes.map((prefix) => {
+      const isPrefix = !!prefix;
+      return {
+        type: isPrefix ? 'PREFIX' : 'BUCKET',
+        permission: 'READWRITE',
+        scope: `s3://${bucket}/${isPrefix ? prefix : undefined}*`,
+      };
+    });
+
+    return { locations, nextToken: undefined };
   }
 
   return { getLocationCredentials, listLocations, region };

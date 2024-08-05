@@ -1,11 +1,9 @@
 import React from 'react';
 
-import { LocationAccess, LocationData } from '../../actions/types';
+import { LocationAccess } from '../../actions/types';
+import { parseLocationAccess } from './utils';
 
-const INITIAL_STATE = {
-  location: undefined,
-  history: [],
-};
+const INITIAL_STATE = { location: undefined, history: [] };
 
 export type NavigateAction =
   | { type: 'ACCESS_LOCATION'; location: LocationAccess }
@@ -21,44 +19,6 @@ export type NavigateStateContext = [
   state: NavigateState,
   handleUpdateState: (action: NavigateAction) => void,
 ];
-
-export const parseLocationAccess = (location: LocationAccess): LocationData => {
-  const { permission, scope, type } = location;
-  if (!scope.startsWith('s3://')) {
-    throw new Error(`Invalid scope: ${scope}`);
-  }
-
-  // remove default path
-  const sanitizedScope = scope.slice(5);
-  let bucket, prefix;
-
-  switch (type) {
-    case 'BUCKET': {
-      // { scope: 's3://bucket/*', type: 'BUCKET', },
-      bucket = sanitizedScope.slice(0, -2);
-      prefix = '';
-      break;
-    }
-    case 'PREFIX': {
-      // { scope: 's3://bucket/path/*', type: 'PREFIX', },
-      bucket = sanitizedScope.slice(0, sanitizedScope.indexOf('/'));
-      prefix = sanitizedScope.slice(bucket.length + 1, -1);
-
-      break;
-    }
-    case 'OBJECT': {
-      // { scope: 's3://bucket/path/to/object', type: 'OBJECT', },
-      bucket = sanitizedScope.slice(0, sanitizedScope.indexOf('/'));
-      prefix = sanitizedScope.slice(bucket.length);
-      break;
-    }
-    default: {
-      throw new Error(`Invalid location type: ${type}`);
-    }
-  }
-
-  return { bucket, permission, prefix, type };
-};
 
 export function navigateReducer(
   state: NavigateState,
