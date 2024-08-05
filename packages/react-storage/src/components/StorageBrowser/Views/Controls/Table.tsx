@@ -6,8 +6,15 @@ import { StorageBrowserElements } from '../../context/elements';
 
 import { CLASS_BASE } from '../constants';
 import { useControl } from '../../context/controls';
-import { LocationAccess, Permission } from '../../context/actions/types';
-import { useLocationsData } from '../../context/actions';
+import {
+  LocationAccess,
+  LocationData,
+  LocationItem,
+  Permission,
+} from '../../context/actions/types';
+import { useAction, useLocationsData } from '../../context/actions';
+import { useConfig } from '../../context/config';
+import { parseLocationAccess } from '../../context/controls/Navigate/utils';
 
 const {
   Table: BaseTable,
@@ -83,6 +90,25 @@ const LOCATION_VIEW_COLUMNS: Column<LocationAccess<Permission>>[] = [
   {
     header: 'Permission',
     key: 'permission',
+  },
+];
+
+const LOCATION_DETAIL_VIEW_COLUMNS: Column<LocationItem>[] = [
+  {
+    key: 'key',
+    header: 'Key',
+  },
+  {
+    key: 'type',
+    header: 'Type',
+  },
+  {
+    key: 'lastModified' as keyof LocationItem,
+    header: 'Last Modified',
+  },
+  {
+    key: 'size' as keyof LocationItem,
+    header: 'Size',
   },
 ];
 
@@ -171,46 +197,156 @@ export const LocationsViewTable = (): JSX.Element => {
   const hasLocations = !!data.result?.length;
   const shouldRenderLocations = !hasLocations || isLoading;
 
-  const renderRowItem: RenderRowItem<LocationAccess<Permission>> = (
-    row: LocationAccess<Permission>,
-    index: number
-  ) => {
-    return (
-      <TableRow key={index}>
-        {LOCATION_VIEW_COLUMNS.map((column) => (
-          <TableData key={`${index}-${column.header}`}>
-            {column.key === 'scope' &&
-            (row.type === 'BUCKET' || row.type === 'PREFIX') ? (
-              <button
-                key={row['scope']}
-                onClick={() => {
-                  handleUpdateState({
-                    type: 'ACCESS_LOCATION',
-                    location: {
-                      ...row,
-                      scope: row.scope,
-                      type: row.type,
-                    },
-                  });
-                }}
-                type="button"
-              >
-                {row.scope}
-              </button>
-            ) : (
-              <>{row[column.key]}</>
-            )}
-          </TableData>
-        ))}
-      </TableRow>
+  const renderRowItem: RenderRowItem<LocationAccess<Permission>> =
+    React.useCallback(
+      (row: LocationAccess<Permission>, index: number) => {
+        return (
+          <TableRow key={index}>
+            {LOCATION_VIEW_COLUMNS.map((column) => (
+              <TableData key={`${index}-${column.header}`}>
+                {column.key === 'scope' &&
+                (row.type === 'BUCKET' || row.type === 'PREFIX') ? (
+                  <button
+                    key={row['scope']}
+                    onClick={() => {
+                      handleUpdateState({
+                        type: 'ACCESS_LOCATION',
+                        location: {
+                          ...row,
+                          scope: row.scope,
+                          type: row.type,
+                        },
+                      });
+                    }}
+                    type="button"
+                  >
+                    {row.scope}
+                  </button>
+                ) : (
+                  <>{row[column.key]}</>
+                )}
+              </TableData>
+            ))}
+          </TableRow>
+        );
+      },
+      [handleUpdateState]
     );
-  };
 
   return shouldRenderLocations ? (
     <div>...loading</div>
   ) : (
     <TableControl
       columns={LOCATION_VIEW_COLUMNS}
+      data={data.result}
+      renderRowItem={renderRowItem}
+    />
+  );
+};
+
+export const LocationDetailViewTable = (): JSX.Element => {
+  const { getLocationCredentials, region } = useConfig();
+  const [{ history, location }, handleUpdateState] = useControl({
+    type: 'NAVIGATE',
+  });
+
+  const [{ data, isLoading }, handleList] = useAction({
+    type: 'LIST_LOCATION_ITEMS',
+  });
+
+  const {
+    bucket,
+    permission,
+    prefix: initialPrefix,
+  } = location ? parseLocationAccess(location) : ({} as LocationData);
+  const { scope } = location ?? {};
+
+  const prefix =
+    history.length === 1 ? initialPrefix : history[history.length - 1];
+
+  React.useEffect(() => {
+    if (!scope || !permission) {
+      return;
+    }
+
+    handleList({
+      prefix,
+      config: {
+        bucket,
+        credentialsProvider: async () =>
+          await getLocationCredentials({ permission, scope }),
+        region,
+      },
+      options: { pageSize: 1000, refresh: true },
+    });
+  }, [
+    bucket,
+    getLocationCredentials,
+    handleList,
+    permission,
+    prefix,
+    region,
+    scope,
+  ]);
+
+  const hasItems = !!data.result?.length;
+
+  const renderRowItem: RenderRowItem<LocationItem> = React.useCallback(
+    (row, index) => {
+      const parseTableData = (
+        row: LocationItem,
+        column: Column<LocationItem>
+      ) => {
+        if (
+          row.type === 'FILE' &&
+          // @ts-ignore @TODO fix this ts error: This comparison appears to be unintentional because the types '"key" | "type"' and '"lastModified"' have no overlap.
+          column.key === 'lastModified' &&
+          row[column.key]
+        ) {
+          return new Date(row[column.key]).toLocaleString();
+        } else {
+          return row[column.key];
+        }
+      };
+
+      return (
+        <TableRow key={index}>
+          {LOCATION_DETAIL_VIEW_COLUMNS.map((column) => {
+            if (row.key === prefix && row.key === prefix) {
+              return null;
+            }
+
+            return (
+              <TableData key={`${index}-${column.header}`}>
+                {column.key === 'key' && row.type === 'FOLDER' ? (
+                  <button
+                    onClick={() => {
+                      handleUpdateState({
+                        type: 'NAVIGATE',
+                        prefix: row.key,
+                      });
+                    }}
+                    key={`${index}-${row.key}`}
+                  >
+                    {row.key}
+                  </button>
+                ) : (
+                  <>{parseTableData(row, column)}</>
+                )}
+              </TableData>
+            );
+          })}
+        </TableRow>
+      );
+    },
+    [handleUpdateState, prefix]
+  );
+
+  return isLoading && !hasItems ? (
+    <span>loading...</span>
+  ) : (
+    <TableControl
+      columns={LOCATION_DETAIL_VIEW_COLUMNS}
       data={data.result}
       renderRowItem={renderRowItem}
     />
