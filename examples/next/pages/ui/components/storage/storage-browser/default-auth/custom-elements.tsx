@@ -111,7 +111,6 @@ const TableHeader = React.forwardRef<HTMLTableCellElement>(
 
 const View = React.forwardRef<HTMLDivElement>(function View(props, ref) {
   const { variant } = props as any;
-  console.log('variant from view: ', variant);
   switch (variant) {
     case 'action-select-menu':
       return (
