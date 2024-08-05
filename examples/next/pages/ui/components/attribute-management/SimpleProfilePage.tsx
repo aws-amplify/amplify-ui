@@ -34,7 +34,6 @@ export const SimpleProfilePage = () => {
       type: 'DELETE',
       userAttributeKeys: [key],
     });
-    // Add logic to clear input field on deletion
     const input = formRef.current?.querySelector(
       `input[name="${key}"]`
     ) as HTMLInputElement;
@@ -78,7 +77,7 @@ export const SimpleProfilePage = () => {
 
   React.useEffect(() => {
     handleAttributes({ type: 'FETCH' });
-  }, []);
+  }, [handleAttributes]);
 
   if (state.isLoading && !state.data.attributes) {
     return <div>Loading...</div>;
