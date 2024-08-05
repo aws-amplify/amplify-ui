@@ -4,7 +4,6 @@ import { useDataState } from '@aws-amplify/ui-react-core';
 
 import { ActionState } from './createActionStateContext';
 import {
-  _ListLocations,
   ListLocationsAction,
   ListLocationsActionInput,
   ListLocationsActionOutput,
@@ -16,7 +15,7 @@ export type LocationsDataState = ActionState<
   ListLocationsActionInput
 >;
 
-const INITIAL_VALUE = { locations: [], nextToken: undefined };
+const INITIAL_VALUE = { result: [], nextToken: undefined };
 const ERROR_MESSAGE =
   '`useLocationsData` must be called from with `LocationsDataProvider';
 

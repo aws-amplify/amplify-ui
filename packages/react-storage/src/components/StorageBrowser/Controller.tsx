@@ -6,7 +6,7 @@ const shouldLoadLocations = ({
   data,
   hasError,
   isLoading,
-}: LocationsDataState[0]) => !data.locations.length && !isLoading && !hasError;
+}: LocationsDataState[0]) => !data.result?.length && !isLoading && !hasError;
 
 /**
  * Handles fetching of list data
@@ -19,7 +19,7 @@ export function Controller(): null {
   React.useEffect(() => {
     if (loadLocations) {
       // TODO: update to exhaustive call
-      handleListLocations({ pageSize: 1000 });
+      handleListLocations({ options: { pageSize: 1000 } });
     }
   }, [handleListLocations, loadLocations]);
 
