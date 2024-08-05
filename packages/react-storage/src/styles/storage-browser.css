@@ -4,8 +4,10 @@
   --storage-browser-divider-border-style: solid;
   --storage-browser-divider-border-color: #888;
   --storage-browser-divider-height: 16px;
-
-  flex: 1;
+  display: grid;
+  gap: var(--storage-browser-gap);
+  grid-template-columns: repeat(32, 1fr);
+  grid-template-rows: repeat(24, min-content);
 }
 
 .storage-browser__header {
@@ -99,12 +101,6 @@
   margin: 0;
 }
 
-.storage-browser__controls {
-  display: grid;
-  grid-template-columns: repeat(32, 1fr);
-  grid-template-rows: repeat(24, 1fr);
-}
-
 .storage-browser__title {
   grid-row-start: 2;
   grid-column: 1 / span 10;
@@ -112,13 +108,13 @@
 
 .storage-browser__refresh {
   grid-row-start: 2;
-  grid-column: 26 / 32;
+  grid-column: 26 / -1;
   justify-self: flex-end;
 }
 
 .storage-browser__paginate__container {
   grid-row-start: 3;
-  grid-column: 26 / 32;
+  grid-column: 26 / -1;
   justify-self: flex-end;
 }
 
@@ -126,13 +122,21 @@
   grid-row: 4 / -1;
   grid-column: 1 / -1;
 }
+.storage-browser__table__header {
+  text-align: start;
+}
+
+.storage-browser__table__header-button {
+  display: flex;
+  justify-content: center;
+}
 
 .storage-browser__action-menu {
   position: relative;
   display: inline-block;
   justify-self: flex-end;
   grid-row-start: 2;
-  grid-column: 30 / 32;
+  grid-column: 30 / -1;
 }
 
 .storage-browser__action-menu__menu {

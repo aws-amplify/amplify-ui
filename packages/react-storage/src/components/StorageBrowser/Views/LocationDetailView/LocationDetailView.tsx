@@ -11,11 +11,12 @@ export interface LocationDetailView<
 
 export const LocationDetailView: LocationDetailView = () => {
   return (
-    <div className={CLASS_BASE} data-testid="LOCATION_DETAIL_VIEW">
-      <div className={`${CLASS_BASE}__controls`}>
+    <>
+      <div className={CLASS_BASE} data-testid="LOCATION_DETAIL_VIEW">
         <LocationDetailViewControls />
       </div>
-    </div>
+      {isLoading && !hasItems ? <span>loading...</span> : listItems}
+    </>
   );
 };
 
