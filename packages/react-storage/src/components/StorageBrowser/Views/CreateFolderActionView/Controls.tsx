@@ -13,14 +13,20 @@ const { Target } = Controls;
 // @ts-expect-error TODO: add Controls assignment
 export const CreateFolderActionViewControls: CreateFolderActionViewControls =
   () => {
+    const [_folderName, setFolderName] = React.useState('');
+    const inputRef = React.useRef<HTMLInputElement>(null);
+
     return (
       <Target.Field.Container>
-        <Target.Field.Label>Enter folder name:</Target.Field.Label>
-        <Target.Field.Input type="text" />
+        <Target.Field.Label htmlFor="folder-name-input">
+          Enter folder name:
+        </Target.Field.Label>
+        <Target.Field.Input type="text" id="folder-name-input" ref={inputRef} />
         <Target.Field.Submit
           onClick={() => {
-            // eslint-disable-next-line no-console
-            console.log('create folder');
+            setFolderName(() => {
+              return inputRef.current?.value ?? '';
+            });
           }}
         >
           Create folder

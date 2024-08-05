@@ -29,27 +29,29 @@ describe('CreateFolderActionView', () => {
     });
   });
 
-  // @TODO: Placeholder test to help with testing coverage
-  // Update with actual button click action
   it('handles the create folder button', async () => {
     const user = userEvent.setup();
 
-    const consoleLogSpy = jest
-      .spyOn(console, 'log')
-      .mockImplementation((_message) => null);
-
-    await waitFor(async () => {
+    await waitFor(() => {
       render(
         <Provider>
           <CreateFolderActionView />
         </Provider>
       );
+    });
 
+    const setState = jest.fn();
+    jest.spyOn(React, 'useState').mockImplementationOnce(() => ['', setState]);
+
+    waitFor(async () => {
+      const input = screen.getByLabelText('Enter folder name:');
       const button = screen.getByRole('button', { name: 'Create folder' });
+
+      user.type(input, 'test');
 
       await user.click(button);
 
-      expect(consoleLogSpy).toHaveBeenCalledWith('create folder');
+      expect(setState).toHaveBeenCalled();
     });
   });
 });
