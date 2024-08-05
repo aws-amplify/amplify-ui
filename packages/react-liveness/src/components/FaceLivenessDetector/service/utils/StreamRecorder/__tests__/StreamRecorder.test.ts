@@ -95,8 +95,23 @@ describe('StreamRecorder', () => {
       streamRecorder.startRecording();
       // force run `this.#recorded.onstart`
       mockMediaRecorder.onstart();
+      const chunk = new Blob([JSON.stringify({ hello: 'world' })]);
+      mockMediaRecorder.ondataavailable({ data: chunk });
 
       expect(streamRecorder.hasRecordingStarted()).toBe(true);
+    });
+
+    it('returns false if recording has started but no chunks have been made available', () => {
+      const streamRecorder = new StreamRecorder(stream);
+      expect(streamRecorder.hasRecordingStarted()).toBe(false);
+
+      streamRecorder.startRecording();
+      // force run `this.#recorded.onstart`
+      mockMediaRecorder.onstart();
+      const chunk = new Blob();
+      mockMediaRecorder.ondataavailable({ data: chunk });
+
+      expect(streamRecorder.hasRecordingStarted()).toBe(false);
     });
   });
 
@@ -170,10 +185,19 @@ describe('StreamRecorder', () => {
     it('returns the length of recorded chunks from data available events', () => {
       const streamRecorder = new StreamRecorder(stream);
       expect(streamRecorder.getChunksLength()).toBe(0);
-      const chunk = new Blob();
+      const chunk = new Blob([JSON.stringify({ hello: 'world' })]);
       mockMediaRecorder.ondataavailable({ data: chunk });
 
       expect(streamRecorder.getChunksLength()).toBe(1);
+    });
+
+    it('doesnt add empty chunks', () => {
+      const streamRecorder = new StreamRecorder(stream);
+      expect(streamRecorder.getChunksLength()).toBe(0);
+      const chunk = new Blob();
+      mockMediaRecorder.ondataavailable({ data: chunk });
+
+      expect(streamRecorder.getChunksLength()).toBe(0);
     });
   });
 
