@@ -40,6 +40,7 @@ const TableHeader = withBaseElementProps(BaseTableHeader, {
 
 const TableHeaderButton = withBaseElementProps(Button, {
   className: `${CLASS_BASE}__${BLOCK_NAME}__header-button`,
+  variant: 'sort',
 });
 
 const TableData = withBaseElementProps(BaseTableData, {

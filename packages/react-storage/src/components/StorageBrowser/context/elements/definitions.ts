@@ -31,7 +31,12 @@ export type MessageVariant = 'info' | 'success' | 'error' | 'warning';
 export type IconElementProps = React.ComponentProps<typeof IconElement>;
 
 export type ButtonElementProps = React.ComponentProps<typeof ButtonElement>;
-type ButtonElementVariant = 'action-submit' | 'search-submit' | PaginateVariant;
+type ButtonElementVariant =
+  | 'action-submit'
+  | 'refresh'
+  | 'search-submit'
+  | 'sort'
+  | PaginateVariant;
 
 export type ListItemVariant = PaginateVariant;
 
