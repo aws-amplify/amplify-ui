@@ -10,7 +10,7 @@ import {
 } from '@aws-amplify/ui-react';
 
 const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
-  const { variant } = props;
+  const { variant } = props as any;
   console.log(variant);
   switch (variant) {
     case 'paginate-current':
@@ -24,6 +24,16 @@ const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
     case 'sort':
       return (
         <_Button {...props} variation="link" size="small" ref={ref as any} />
+      );
+    case 'table-data':
+      return (
+        <_Button
+          {...props}
+          variation="link"
+          size="small"
+          textDecoration="underline"
+          ref={ref as any}
+        />
       );
     default:
       return <_Button {...props} ref={ref as any} />;

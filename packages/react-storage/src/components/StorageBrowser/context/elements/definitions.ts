@@ -36,6 +36,7 @@ type ButtonElementVariant =
   | 'refresh'
   | 'search-submit'
   | 'sort'
+  | 'table-data'
   | PaginateVariant;
 
 export type ListItemVariant = PaginateVariant;

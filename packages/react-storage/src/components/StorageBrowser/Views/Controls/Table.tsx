@@ -47,9 +47,10 @@ const TableData = withBaseElementProps(BaseTableData, {
   className: `${CLASS_BASE}__${BLOCK_NAME}__data`,
 });
 
-// const TableDataButton = withBaseElementProps(Button, {
-//   className: `${CLASS_BASE}__${BLOCK_NAME}__data-button`,
-// });
+const TableDataButton = withBaseElementProps(Button, {
+  className: `${CLASS_BASE}__${BLOCK_NAME}__data-button`,
+  variant: 'table-data',
+});
 
 const TableRow = withBaseElementProps(BaseTableRow, {
   className: `${CLASS_BASE}__${BLOCK_NAME}__row`,
@@ -180,7 +181,7 @@ export const LocationsViewTable = (): JSX.Element => {
           <TableData key={`${index}-${column.header}`}>
             {column.key === 'scope' &&
             (row.type === 'BUCKET' || row.type === 'PREFIX') ? (
-              <button
+              <TableDataButton
                 key={row['scope']}
                 onClick={() => {
                   handleUpdateState({
@@ -195,7 +196,7 @@ export const LocationsViewTable = (): JSX.Element => {
                 type="button"
               >
                 {row.scope}
-              </button>
+              </TableDataButton>
             ) : (
               <>{row[column.key]}</>
             )}
