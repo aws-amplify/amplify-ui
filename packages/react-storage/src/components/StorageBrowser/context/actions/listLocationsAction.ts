@@ -32,18 +32,22 @@ const shouldExclude = <T extends Permission>(
   !exclude
     ? false
     : typeof exclude === 'string'
-    ? exclude === permission
-    : exclude.includes(permission);
+      ? exclude === permission
+      : exclude.includes(permission);
 
 export const createListLocationsAction = (
   listLocations: ListLocations
 ): ListLocationsAction =>
   async function listLocationsAction(prevState, input) {
     const { options } = input ?? {};
-    const { exclude, nextToken: _nextToken, pageSize, refresh } = options ?? {};
+    const { exclude, nextToken, pageSize, refresh, reset } = options ?? {};
+
+    if (reset) {
+      return { result: [], nextToken: undefined };
+    }
 
     const output = await listLocations(
-      refresh ? { pageSize } : { nextToken: _nextToken, pageSize }
+      refresh ? { pageSize } : { nextToken, pageSize }
     );
 
     const locations = output.locations.filter(

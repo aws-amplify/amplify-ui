@@ -18,13 +18,13 @@ type ActionsWithConfig = {
 };
 
 type DefaultActions = typeof DEFAULT_ACTIONS;
-type WithLocationConfig<T> = T extends DataAction<infer K, infer U>
-  ? DataAction<K, Omit<U, 'config'>>
-  : never;
+type WithLocationConfig<T> =
+  T extends DataAction<infer K, infer U>
+    ? DataAction<K, Omit<U, 'config'>>
+    : never;
 
-type UseActionState<T> = T extends DataAction<infer K, infer U>
-  ? ActionState<K, U>
-  : never;
+type UseActionState<T> =
+  T extends DataAction<infer K, infer U> ? ActionState<K, U> : never;
 
 export const ERROR_MESSAGE =
   '`useAction` must be called from within `StorageBrowser.Provider`';
@@ -48,8 +48,8 @@ export const useAction = <T extends keyof ActionsWithConfig>({
   const [state, handle] = useActionState({ type });
   const getConfig = useGetLocationConfig();
   const handleAction = React.useCallback(
-    (action: Parameters<ActionsWithConfig[T]>) =>
-      handle({ ...action, config: getConfig() }),
+    (input: Parameters<UseActionState<ActionsWithConfig[T]>[1]>) =>
+      handle({ ...input, config: getConfig }),
     [getConfig, handle]
   );
 

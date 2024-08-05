@@ -28,13 +28,18 @@ export const LocationDetailView: LocationDetailView = () => {
   const prefix =
     history.length === 1 ? initialPrefix : history[history.length - 1];
 
+  const hasItems = !!data.result?.length;
+  const shouldReset = hasItems && !location && !history.length;
+
   React.useEffect(() => {
+    if (shouldReset) {
+      handleList({ prefix: '', options: { reset: true } });
+    }
+
     if (typeof prefix !== 'string') return;
 
     handleList({ prefix, options: { pageSize: 1000, refresh: true } });
-  }, [handleList, prefix]);
-
-  const hasItems = !!data.result?.length;
+  }, [handleList, prefix, shouldReset]);
 
   const listItems = !hasItems
     ? null
