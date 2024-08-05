@@ -1,6 +1,7 @@
 import React from 'react';
 import { Amplify } from 'aws-amplify';
 
+import { withAuthenticator } from '@aws-amplify/ui-react';
 import {
   createStorageBrowser,
   createAmplifyAuthAdapter,
@@ -13,9 +14,13 @@ import config from './aws-exports';
 Amplify.configure(config);
 
 const { StorageBrowser } = createStorageBrowser({
-  config: createAmplifyAuthAdapter(),
+  config: createAmplifyAuthAdapter({
+    options: { defaultPrefixes: ['public/', 'private/', 'protected/'] },
+  }),
 });
 
-export default function Example() {
+function Example() {
   return <StorageBrowser />;
 }
+
+export default withAuthenticator(Example);

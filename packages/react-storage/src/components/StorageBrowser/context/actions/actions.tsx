@@ -10,7 +10,7 @@ import {
   ListLocationItemsActionInput,
   ListLocationItemsActionOutput,
 } from './listLocationItemsAction';
-import { ListLocationsAction, _ListLocations } from './listLocationsAction';
+import { ListLocationsAction } from './listLocationsAction';
 import { LocationsDataProvider } from './locationsData';
 import { Permission } from './types';
 
@@ -24,7 +24,7 @@ export const DEFAULT_ACTIONS = {
 };
 
 export const INITIAL_VALUE = {
-  LIST_LOCATION_ITEMS: { items: [], nextToken: undefined },
+  LIST_LOCATION_ITEMS: { result: [], nextToken: undefined },
 };
 
 export const [ActionStateProvider, useAction] = createActionStateContext(
