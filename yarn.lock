@@ -1629,14 +1629,6 @@
     "@smithy/types" "^2.2.2"
     tslib "^2.5.0"
 
-"@aws-sdk/types@3.418.0":
-  version "3.418.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/types/-/types-3.418.0.tgz#c23213110b0c313d5546c810da032a441682f49a"
-  integrity sha512-y4PQSH+ulfFLY0+FYkaK4qbIaQI9IJNMO2xsxukW6/aNoApNymN1D2FSi2la8Qbp/iPjNDKsG8suNPm9NtsWXQ==
-  dependencies:
-    "@smithy/types" "^2.3.3"
-    tslib "^2.5.0"
-
 "@aws-sdk/types@3.609.0":
   version "3.609.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/types/-/types-3.609.0.tgz#06b39d799c9f197a7b43670243e8e78a3bf7d6a5"
@@ -1670,7 +1662,7 @@
     "@smithy/util-endpoints" "^2.0.5"
     tslib "^2.6.2"
 
-"@aws-sdk/util-format-url@3.609.0":
+"@aws-sdk/util-format-url@3.609.0", "@aws-sdk/util-format-url@3.621.0":
   version "3.609.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/util-format-url/-/util-format-url-3.609.0.tgz#f53907193bb636b52b61c81bbe6d7bd5ddc76c68"
   integrity sha512-fuk29BI/oLQlJ7pfm6iJ4gkEpHdavffAALZwXh9eaY1vQ0ip0aKfRTiNudPoJjyyahnz5yJ1HkmlcDitlzsOrQ==
@@ -1679,16 +1671,6 @@
     "@smithy/querystring-builder" "^3.0.3"
     "@smithy/types" "^3.3.0"
     tslib "^2.6.2"
-
-"@aws-sdk/util-format-url@^3.410.0":
-  version "3.418.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/util-format-url/-/util-format-url-3.418.0.tgz#85035e704f5996189aeec2a7bd08265bcd87f1e1"
-  integrity sha512-7/Xy+8J1txuOYOKsez6vpKTIkHYIIX4c7anjp/aQgUQL23FDwkPisj56cIlevJ7useGugnYw1rUR6fMULGzQ/g==
-  dependencies:
-    "@aws-sdk/types" "3.418.0"
-    "@smithy/querystring-builder" "^2.0.9"
-    "@smithy/types" "^2.3.3"
-    tslib "^2.5.0"
 
 "@aws-sdk/util-locate-window@^3.0.0":
   version "3.310.0"
