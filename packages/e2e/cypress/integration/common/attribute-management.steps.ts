@@ -4,14 +4,6 @@ Then('I see User Attributes', () => {
   cy.findByRole('document').contains('User Attributes').should('exist');
 });
 
-When('I type my "Given Name" as "Testy Tester"', () => {
-  cy.findInputField('Given Name').type('Testy Tester');
-});
-
-When('I type my "Locale" as "Testville"', () => {
-  cy.findInputField('Locale').type('Testville');
-});
-
 Then('I see "Locale" attribute as "Testville"', () => {
   cy.findByText('Locale:').parent().findByText('Testville');
 });
@@ -44,6 +36,9 @@ Then('the "Locale" attribute should be removed', () => {
   cy.findByText('Locale:').should('not.exist');
 });
 
-When('I type my "Email" as "TESTER2@example.com"', () => {
-  cy.findInputField('Email:').type('TESTER2@example.com');
-});
+When(
+  'I type my {string} as {string}',
+  (userAttribute: string, value: string) => {
+    cy.findInputField(userAttribute).type(value);
+  }
+);

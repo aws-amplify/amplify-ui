@@ -53,7 +53,7 @@ Scenario: Update email address
     Then I type my password
     Then I click the "Sign in" button
     When I click the "Edit" button
-    When I type my "Email" as "TESTER2@example.com"
+    When I type my "Email:" as "TESTER2@example.com"
     When I click the "Update Email" button
     Then I see "Verification Code for T***@e***" as an input field
     When I click the "Done Editing" button
