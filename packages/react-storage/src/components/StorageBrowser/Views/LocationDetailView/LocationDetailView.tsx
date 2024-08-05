@@ -68,7 +68,7 @@ export const LocationDetailView: LocationDetailView = () => {
 
   return (
     <>
-      <div className={CLASS_BASE}>
+      <div className={CLASS_BASE} data-testid="LOCATION_DETAIL_VIEW">
         <div className={`${CLASS_BASE}__controls`}>
           <LocationDetailViewControls />
         </div>

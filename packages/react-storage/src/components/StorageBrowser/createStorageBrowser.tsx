@@ -10,7 +10,7 @@ import { useControl } from './context/controls';
 const validateRegisterAuthListener = (registerAuthListener: any) => {
   if (typeof registerAuthListener !== 'function') {
     throw new Error(
-      'StorageManager: `registerAuthListener` must be a function. '
+      'StorageManager: `registerAuthListener` must be a function.'
     );
   }
 };
@@ -33,19 +33,19 @@ interface ResolvedStorageBrowserElements<
  * Handles default `StorageBrowser` behavior:
  * - render `LocationsView` on init
  * - render `LocationDetailView` on location selection
- * - TODO: render `ActionView` on action selection
+ * - render `ActionView` on action selection
  */
 function DefaultStorageBrowser(): React.JSX.Element {
-  const [{ history }] = useControl({ type: 'NAVIGATE' });
+  const [{ location }] = useControl({ type: 'NAVIGATE' });
   const [{ selected }] = useControl({ type: 'ACTION_SELECT' });
 
-  const { actionType } = selected;
+  const { actionType } = selected ?? {};
 
   if (actionType) {
     return <LocationActionView />;
   }
 
-  if (history.length) {
+  if (location) {
     return <LocationDetailView />;
   }
 
