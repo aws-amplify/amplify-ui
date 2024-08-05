@@ -4,5 +4,7 @@ export {
 } from './createStorageBrowser';
 export {
   createAmplifyAuthAdapter,
+  createManagedAuthAdapter,
+  CreateManagedAuthAdapterInput,
   StorageBrowserAuthAdapter,
 } from './adapters';
