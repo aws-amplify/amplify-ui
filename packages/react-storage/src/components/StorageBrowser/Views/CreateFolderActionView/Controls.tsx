@@ -29,7 +29,7 @@ export const CreateFolderActionViewControls: CreateFolderActionViewControls =
             });
           }}
         >
-          Create folder
+          Set Destination
         </Target.Field.Submit>
       </Target.Field.Container>
     );

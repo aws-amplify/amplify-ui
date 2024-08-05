@@ -3,7 +3,12 @@ import { LocationItem, Permission, UploadItemData } from '../../actions';
 
 const INITIAL_STATE: ActionSelectState = {
   actions: [],
-  selected: { items: undefined, actionType: undefined },
+  selected: {
+    items: undefined,
+    actionType: undefined,
+    destination: undefined,
+    name: undefined,
+  },
 };
 
 export type ActionType = 'UPLOAD_FOLDER' | 'UPLOAD_FILES' | 'CREATE_FOLDER';
@@ -31,7 +36,12 @@ export interface Action {
 
 export interface ActionSelectState<T = ActionType> {
   actions: Action[];
-  selected: { actionType: T | undefined; items: LocationItem[] | undefined };
+  selected: {
+    actionType: T | undefined;
+    destination: string | undefined;
+    items: LocationItem[] | undefined;
+    name: string | undefined;
+  };
 }
 
 export type ActionSelectStateContext = [
@@ -41,14 +51,14 @@ export type ActionSelectStateContext = [
 
 export function actionSelectReducer(
   state: ActionSelectState,
-  _action: ActionSelectAction
+  action: ActionSelectAction
 ): ActionSelectState {
-  if (_action.type === 'SELECT_ACTION_TYPE') {
+  if (action.type === 'SELECT_ACTION_TYPE') {
     // Update selected action with action passed from handleUpdateState
-    return { ...state, selected: _action };
-  } else if (_action.type === 'DESELECT_ACTION_TYPE') {
+    return { ...state, selected: action };
+  } else if (action.type === 'DESELECT_ACTION_TYPE') {
     // Clears selected action
-    return { ...state, selected: { actionType: undefined, items: undefined } };
+    return INITIAL_STATE;
   }
   return state;
 }

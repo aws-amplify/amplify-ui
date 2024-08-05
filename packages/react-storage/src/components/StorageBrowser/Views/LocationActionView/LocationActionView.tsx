@@ -1,39 +1,68 @@
 import React from 'react';
 
-import { StorageBrowserElements } from '../../context/elements';
-
-import { ViewComponent } from '../types';
-import { LocationActionViewControls } from './Controls';
 import { useControl } from '../../context/controls';
+import { StorageBrowserElements } from '../../context/elements';
+import { FileItem } from '../../context/types';
+
 import { CreateFolderActionViewControls } from '../CreateFolderActionView/Controls';
+import { ViewComponent } from '../types';
+
+import { LocationActionViewControls } from './Controls';
+import { useHandleUpload } from './useHandleUpload';
 
 export interface LocationActionView<
   T extends StorageBrowserElements = StorageBrowserElements,
 > extends ViewComponent<LocationActionViewControls<T>> {}
 
 export const LocationActionView: LocationActionView = () => {
-  const [{ selected }, handleUpdateState] = useControl({
+  const [state, handleUpdateState] = useControl({
     type: 'ACTION_SELECT',
   });
-  const { actionType, items } = selected;
+  const { actionType, destination, items, name } = state.selected;
+
+  const [tasks, handleUpload] = useHandleUpload({
+    destination: destination!,
+    items: items! as FileItem[],
+  });
+
   const listItems = items
-    ? items.map(({ key, type }) => {
+    ? tasks.map(({ cancel, key, status, progress }, i) => {
         return (
-          <div key={key}>
-            <span>{key}</span>
-            <span>{type}</span>
-          </div>
+          <React.Fragment key={key}>
+            {i === 0 ? (
+              <div style={{ flexDirection: 'row' }}>
+                <span>Name </span>
+                <span>Status </span>
+                <span>Progress </span>
+                <span>Cancel </span>
+              </div>
+            ) : null}
+            <div style={{ flexDirection: 'row' }}>
+              <span>{key} </span>
+              <span>{status} </span>
+              <span>{progress} </span>
+              {cancel ? <button onClick={cancel}>Cancel</button> : null}
+            </div>
+          </React.Fragment>
         );
       })
     : 'No items selected.';
 
   return (
     <>
-      <h2>{actionType}</h2>
+      <h2>{name}</h2>
       <button
         onClick={() => handleUpdateState({ type: 'DESELECT_ACTION_TYPE' })}
       >
-        Cancel
+        Exit
+      </button>
+      <button
+        onClick={() => {
+          if (!items) return;
+          handleUpload();
+        }}
+      >
+        Start
       </button>
       {actionType === 'CREATE_FOLDER' ? (
         <CreateFolderActionViewControls />
