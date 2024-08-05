@@ -1,13 +1,11 @@
 import React from 'react';
 
 import { StorageBrowserElements } from '../../context/elements';
-import { useLocationsData } from '../../context/actions/locationsData';
 
 import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
 import { CommonControl, ViewComponent } from '../types';
-import { LocationAccess, Permission } from '../../context/actions/types';
-import { Column } from '../Controls/Table';
+import { LocationsViewTable } from '../Controls';
 
 const { Message, Paginate, Refresh, Search, Table, Title } = Controls;
 
@@ -25,46 +23,13 @@ export interface LocationsView<
   T extends StorageBrowserElements = StorageBrowserElements,
 > extends ViewComponent<LocationsViewControls<T>> {}
 
-const setLocationsViewTableData = (data: LocationAccess<Permission>[]) => {
-  const colunns: Column<LocationAccess<Permission>>[] = [
-    {
-      header: 'Scope',
-      key: 'scope',
-    },
-    {
-      header: 'Type',
-      key: 'type',
-    },
-    {
-      header: 'Permission',
-      key: 'permission',
-    },
-  ];
-
-  return {
-    columns: colunns,
-    rows: data,
-  };
-};
-
 const LocationsViewControls: LocationsViewControls = () => {
-  const [{ data, isLoading }] = useLocationsData();
-
-  const hasLocations = !!data.result?.length;
-  const shouldRenderLocations = !hasLocations || isLoading;
-
-  const { columns, rows } = setLocationsViewTableData(data.result);
-
   return (
     <>
       <Title />
       <Refresh />
       <Paginate />
-      {shouldRenderLocations ? (
-        <div style={{ gridRowStart: 5 }}>{'...loading'}</div>
-      ) : (
-        <Table columns={columns} rows={rows} />
-      )}
+      <LocationsViewTable />
     </>
   );
 };
