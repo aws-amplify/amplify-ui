@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { StorageBrowserElements } from '../../context/elements';
-import { Controls } from '../Controls';
+import { Controls, LocationDetailViewTable } from '../Controls';
 import { CommonControl } from '../types';
 
 const { ActionSelect, Navigate } = Controls;
@@ -20,6 +20,7 @@ export const LocationDetailViewControls: LocationDetailViewControls = () => {
     <>
       <Navigate />
       <ActionSelect />
+      <LocationDetailViewTable />
     </>
   );
 };
