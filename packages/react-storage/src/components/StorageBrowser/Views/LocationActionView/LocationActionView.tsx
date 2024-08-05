@@ -5,6 +5,7 @@ import { StorageBrowserElements } from '../../context/elements';
 import { ViewComponent } from '../types';
 import { LocationActionViewControls } from './Controls';
 import { useControl } from '../../context/controls';
+import { CreateFolderActionViewControls } from '../CreateFolderActionView/Controls';
 
 export interface LocationActionView<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -34,7 +35,12 @@ export const LocationActionView: LocationActionView = () => {
       >
         Cancel
       </button>
-      <LocationActionViewControls />
+      {actionType === 'CREATE_FOLDER' ? (
+        <CreateFolderActionViewControls />
+      ) : (
+        <LocationActionViewControls />
+      )}
+
       {listItems}
     </>
   );
