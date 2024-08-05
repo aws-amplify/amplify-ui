@@ -2,7 +2,13 @@ import React from 'react';
 import { Amplify } from 'aws-amplify';
 import { signOut } from 'aws-amplify/auth';
 
-import { Button, withAuthenticator } from '@aws-amplify/ui-react';
+import {
+  Button as _Button,
+  Table as _Table,
+  TableCell as _TableCell,
+  TableHead as _TableHead,
+  withAuthenticator,
+} from '@aws-amplify/ui-react';
 import {
   createStorageBrowser,
   createAmplifyAuthAdapter,
@@ -11,10 +17,12 @@ import '@aws-amplify/ui-react-storage/styles.css';
 import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
 
 import config from './aws-exports';
+import { elements } from './custom-elements';
 
 Amplify.configure(config);
 
 const { StorageBrowser } = createStorageBrowser({
+  elements,
   config: createAmplifyAuthAdapter({
     options: { defaultPrefixes: ['public/', 'private/', 'protected/'] },
   }),
@@ -23,13 +31,13 @@ const { StorageBrowser } = createStorageBrowser({
 function Example() {
   return (
     <>
-      <Button
+      <_Button
         onClick={() => {
           signOut();
         }}
       >
         Sign Out
-      </Button>
+      </_Button>
       <StorageBrowser />
     </>
   );
