@@ -11,24 +11,17 @@ import {
 
 const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
   const { variant } = props as any;
-  console.log(variant);
   switch (variant) {
     case 'navigate':
-      return (
-        <_Button {...props} size="small" variation="link" ref={ref as any} />
-      );
+      return <_Button {...props} size="small" variation="link" ref={ref} />;
     case 'paginate-current':
     case 'paginate-next':
     case 'paginate-previous':
-      return <_Button {...props} size="small" ref={ref as any} />;
+      return <_Button {...props} size="small" ref={ref} />;
     case 'refresh':
-      return (
-        <_Button {...props} variation="link" size="small" ref={ref as any} />
-      );
+      return <_Button {...props} variation="link" size="small" ref={ref} />;
     case 'sort':
-      return (
-        <_Button {...props} variation="link" size="small" ref={ref as any} />
-      );
+      return <_Button {...props} variation="link" size="small" ref={ref} />;
     case 'table-data':
       return (
         <_Button
@@ -36,11 +29,11 @@ const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
           variation="link"
           size="small"
           textDecoration="underline"
-          ref={ref as any}
+          ref={ref}
         />
       );
     default:
-      return <_Button {...props} ref={ref as any} />;
+      return <_Button {...props} ref={ref} />;
   }
 });
 
@@ -53,44 +46,42 @@ const Title = React.forwardRef<HTMLHeadingElement>(
         fontSize="large"
         fontWeight="bold"
         alignSelf="center"
-        ref={ref as any}
+        ref={ref}
       />
     );
   }
 );
 const Table = React.forwardRef<HTMLTableElement>(function Table(props, ref) {
-  return (
-    <_Table {...props} size="small" variation="striped" ref={ref as any} />
-  );
+  return <_Table {...props} size="small" variation="striped" ref={ref} />;
 });
 
 const TableBody = React.forwardRef<HTMLTableSectionElement>(
   function Table(props, ref) {
-    return <_TableBody {...props} ref={ref as any} />;
+    return <_TableBody {...props} ref={ref} />;
   }
 );
 
 const TableHead = React.forwardRef<HTMLTableSectionElement>(
   function TableHead(props, ref) {
-    return <_TableHead {...props} ref={ref as any} />;
+    return <_TableHead {...props} ref={ref} />;
   }
 );
 
 const TableData = React.forwardRef<HTMLTableCellElement>(
   function TableData(props, ref) {
-    return <_TableCell {...props} ref={ref as any} />;
+    return <_TableCell {...props} ref={ref} />;
   }
 );
 
 const TableRow = React.forwardRef<HTMLTableRowElement>(
   function TableRow(props, ref) {
-    return <_TableRow {...props} ref={ref as any} />;
+    return <_TableRow {...props} ref={ref} />;
   }
 );
 
 const TableHeader = React.forwardRef<HTMLTableCellElement>(
   function TableHeader(props, ref) {
-    return <_TableCell as="th" {...props} ref={ref as any} />;
+    return <_TableCell as="th" {...props} ref={ref} />;
   }
 );
 
