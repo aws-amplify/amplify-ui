@@ -16,7 +16,7 @@ export const BaseIconElement = defineBaseElement<
   displayName: 'Icon',
 });
 
-export const DEFAULT_ICON_PATHS: Record<
+const DEFAULT_ICON_PATHS: Record<
   FederatedProvider,
   React.SVGProps<SVGPathElement>[]
 > = {
@@ -103,9 +103,25 @@ const getIconProps = ({
   variant,
   ...props
 }: IconElementProps): IconElementProps => {
-  if (props === null) {
-    return {};
-  }
+  const pathDataList = variant ? DEFAULT_ICON_PATHS[variant] : undefined;
+
+  const children = pathDataList
+    ? pathDataList.map((pathData) => {
+        const key = `${pathData.fill}${
+          pathData.fillRule ? `-${pathData.fillRule}` : ''
+        }`;
+        return <path key={key} {...pathData} />;
+      })
+    : undefined;
+
+  const svgProps = variant ? DEFAULT_ICON_ATTRIBUTES[variant] : undefined;
+
+  return {
+    ...svgProps,
+    ...props,
+    children: props.children ?? children,
+    variant,
+  };
 };
 
 export const IconElement = withBaseElementProps(BaseIconElement, getIconProps);
