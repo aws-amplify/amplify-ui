@@ -1,6 +1,8 @@
 import React from 'react';
 import { downloadData } from 'aws-amplify/storage';
 
+import { LocationData } from '../../context/actions';
+import { parseLocationAccess } from '../../context/controls/Navigate/utils';
 import { useControl } from '../../context/controls';
 import { useConfig } from '../../context/config';
 import { StorageBrowserElements } from '../../context/elements';
@@ -18,7 +20,12 @@ interface AWSCredentials {
 type LocationCredentialsProvider = (options?: {
   forceRefresh?: boolean;
 }) => Promise<{
-  credentials: AWSCredentials;
+  credentials: Required<
+    Pick<
+      AWSCredentials,
+      'accessKeyId' | 'secretAccessKey' | 'sessionToken' | 'expiration'
+    >
+  >;
 }>;
 
 interface DownloadActionInput {
@@ -49,7 +56,7 @@ const BLOCK_NAME = `${CLASS_BASE}__download`;
 export interface DownloadControl<
   T extends StorageBrowserElements = StorageBrowserElements,
 > {
-  (props: { imgKey: string }): React.JSX.Element;
+  (props: { fileKey: string }): React.JSX.Element;
   Button: T['Button'];
   Icon: T['Icon'];
 }
@@ -75,20 +82,26 @@ const DownloadButton: typeof ButtonElement = React.forwardRef(
         ref={ref}
         className={BLOCK_NAME}
         aria-label="Download item"
-        onClick={props.onClick}
       />
     );
   }
 );
 
-export const DownloadControl: DownloadControl = ({ imgKey }) => {
+export const DownloadControl: DownloadControl = ({ fileKey }) => {
   const { getLocationCredentials, region } = useConfig();
   const [{ location }] = useControl({ type: 'NAVIGATE' });
 
-  const { bucket: bucketName, permission, scope } = location ?? {};
+  const { bucket: bucketName, permission } = location
+    ? parseLocationAccess(location)
+    : ({} as LocationData);
+  const { scope } = location ?? {};
+
+  if (!scope) {
+    throw new Error('scope not found.');
+  }
 
   const downloadActionInput: DownloadActionInput = {
-    key: imgKey,
+    key: fileKey,
     options: {
       bucket: { bucketName: bucketName, region },
       locationCredentialsProvider: async () =>

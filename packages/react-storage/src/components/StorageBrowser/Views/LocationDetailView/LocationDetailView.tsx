@@ -85,7 +85,7 @@ export const LocationDetailView: LocationDetailView = () => {
           return (
             <div key={key}>
               <p>{key}</p>
-              <DownloadControl imgKey={key} />
+              <DownloadControl fileKey={key} />
             </div>
           );
         }
