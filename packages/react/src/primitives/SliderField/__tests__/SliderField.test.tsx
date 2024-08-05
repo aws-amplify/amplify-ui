@@ -16,6 +16,7 @@ import {
 } from '../../Flex/__tests__/Flex.test';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';
+import { ERROR_SUFFIX, DESCRIPTION_SUFFIX } from '../../../helpers/constants';
 
 // Jest uses JSDom, which apparently doesn't support the ResizeObserver API
 // This will get around that API reference error in Jest
@@ -413,6 +414,73 @@ describe('SliderField:', () => {
 
       const slider = await screen.findByRole('slider');
       expect(slider).toHaveAccessibleDescription('Description');
+    });
+  });
+
+  describe('aria-describedby test', () => {
+    const errorMessage = 'This is an error message';
+    const descriptiveText = 'Description';
+    it('when hasError, include id of error component and describe component in the aria-describedby', async () => {
+      render(
+        <SliderField
+          defaultValue={0}
+          label="slider"
+          descriptiveText={descriptiveText}
+          errorMessage={errorMessage}
+          hasError
+        />
+      );
+
+      const thumb = await screen.findByRole('slider');
+      const ariaDescribedBy = thumb.getAttribute('aria-describedby');
+      const descriptiveTextElement = screen.queryByText(descriptiveText);
+      const errorTextElement = screen.queryByText(errorMessage);
+      expect(
+        errorTextElement?.id && errorTextElement?.id.endsWith(ERROR_SUFFIX)
+      ).toBe(true);
+      expect(
+        descriptiveTextElement?.id &&
+          descriptiveTextElement?.id.endsWith(DESCRIPTION_SUFFIX)
+      ).toBe(true);
+      expect(
+        errorTextElement?.id &&
+          descriptiveTextElement?.id &&
+          ariaDescribedBy ===
+            `${errorTextElement.id} ${descriptiveTextElement.id}`
+      ).toBe(true);
+    });
+
+    it('only show id of describe component in aria-describedby when hasError is false', async () => {
+      render(
+        <SliderField
+          defaultValue={0}
+          label="slider"
+          descriptiveText={descriptiveText}
+          errorMessage={errorMessage}
+        />
+      );
+
+      const thumb = await screen.findByRole('slider');
+      const ariaDescribedBy = thumb.getAttribute('aria-describedby');
+      const descriptiveTextElement = screen.queryByText(descriptiveText);
+      expect(
+        descriptiveTextElement?.id &&
+          ariaDescribedBy?.startsWith(descriptiveTextElement?.id)
+      ).toBe(true);
+    });
+
+    it('aria-describedby should be empty when hasError is false and descriptiveText is empty', async () => {
+      render(
+        <SliderField
+          defaultValue={0}
+          label="slider"
+          errorMessage={errorMessage}
+        />
+      );
+
+      const thumb = await screen.findByRole('slider');
+      const ariaDescribedBy = thumb.getAttribute('aria-describedby');
+      expect(ariaDescribedBy).toBeNull();
     });
   });
 });
