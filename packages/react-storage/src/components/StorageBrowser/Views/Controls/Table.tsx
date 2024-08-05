@@ -5,6 +5,9 @@ import type { OmitElements } from '../types';
 import { StorageBrowserElements } from '../../context/elements';
 
 import { CLASS_BASE } from '../constants';
+import { useControl } from '../../context/controls';
+import { LocationAccess, Permission } from '../../context/actions/types';
+import { useLocationsData } from '../../context/actions';
 
 const {
   Table: BaseTable,
@@ -43,9 +46,9 @@ const TableData = withBaseElementProps(BaseTableData, {
   className: `${CLASS_BASE}__${BLOCK_NAME}__data`,
 });
 
-const TableDataButton = withBaseElementProps(Button, {
-  className: `${CLASS_BASE}__${BLOCK_NAME}__data-button`,
-});
+// const TableDataButton = withBaseElementProps(Button, {
+//   className: `${CLASS_BASE}__${BLOCK_NAME}__data-button`,
+// });
 
 const TableRow = withBaseElementProps(BaseTableRow, {
   className: `${CLASS_BASE}__${BLOCK_NAME}__row`,
@@ -66,20 +69,26 @@ const SortIndeterminateIcon = withBaseElementProps(Icon, {
 //   variant: 'sort-descending',
 // });
 
-export interface Data {
-  name: string;
-}
-
 const LOCATION_BUTTON_KEY = 'name';
+
+const LOCATION_VIEW_COLUMNS: Column<LocationAccess<Permission>>[] = [
+  {
+    header: 'Scope',
+    key: 'scope',
+  },
+  {
+    header: 'Type',
+    key: 'type',
+  },
+  {
+    header: 'Permission',
+    key: 'permission',
+  },
+];
 
 export interface Column<T> {
   header: string;
   key: keyof T;
-}
-
-export interface TableData<T extends Data> {
-  columns: Column<T>[];
-  rows: T[];
 }
 
 export interface _TableControl<
@@ -94,9 +103,14 @@ export interface _TableControl<
     | 'TableRow'
   > {
   (): React.JSX.Element;
-  SortIndeterminateIcon: T['Icon'];
-  SortAscendingIcon: T['Icon'];
-  SortDescendingIcon: T['Icon'];
+}
+
+type RenderRowItem<T> = (row: T, index: number) => JSX.Element;
+
+interface TableControlProps<T> {
+  data: T[];
+  columns: Column<T>[];
+  renderRowItem: RenderRowItem<T>;
 }
 
 export interface TableControl<
@@ -113,14 +127,14 @@ export interface TableControl<
     | 'SortAscendingIcon'
     | 'SortDescendingIcon'
   > {
-  (): React.JSX.Element;
+  <U>(props: TableControlProps<U>): React.JSX.Element;
 }
 
-export const TableControl: TableControl = () => {
-  // Data should be coming from context
-  const columns: Column<Data>[] = [];
-  const rows: Data[] = [];
-
+export const TableControl: TableControl = <U,>({
+  data,
+  columns,
+  renderRowItem,
+}: TableControlProps<U>) => {
   const ariaLabel = 'Table';
 
   return (
@@ -142,24 +156,63 @@ export const TableControl: TableControl = () => {
           ))}
         </TableRow>
       </TableHead>
+
       <TableBody>
-        {rows?.map((row, rowIndex) => (
-          <TableRow key={rowIndex}>
-            {columns.map((column) => (
-              <TableData key={`${rowIndex}-${column.header}`}>
-                {/* How do we know when a row is supposed to be a button/link? */}
-                {column.key === LOCATION_BUTTON_KEY ? (
-                  <TableDataButton>
-                    <>{row[column.key]}</>
-                  </TableDataButton>
-                ) : (
-                  <>{row[column.key]}</>
-                )}
-              </TableData>
-            ))}
-          </TableRow>
-        ))}
+        {data?.map((row: U, rowIndex: number) => renderRowItem(row, rowIndex))}
       </TableBody>
     </Table>
+  );
+};
+
+export const LocationsViewTable = (): JSX.Element => {
+  const [{ data, isLoading }] = useLocationsData();
+  const [, handleUpdateState] = useControl({ type: 'NAVIGATE' });
+
+  const hasLocations = !!data.result?.length;
+  const shouldRenderLocations = !hasLocations || isLoading;
+
+  const renderRowItem: RenderRowItem<LocationAccess<Permission>> = (
+    row: LocationAccess<Permission>,
+    index: number
+  ) => {
+    return (
+      <TableRow key={index}>
+        {LOCATION_VIEW_COLUMNS.map((column) => (
+          <TableData key={`${index}-${column.header}`}>
+            {column.key === 'scope' &&
+            (row.type === 'BUCKET' || row.type === 'PREFIX') ? (
+              <button
+                key={row['scope']}
+                onClick={() => {
+                  handleUpdateState({
+                    type: 'ACCESS_LOCATION',
+                    location: {
+                      ...row,
+                      scope: row.scope,
+                      type: row.type,
+                    },
+                  });
+                }}
+                type="button"
+              >
+                {row.scope}
+              </button>
+            ) : (
+              <>{row[column.key]}</>
+            )}
+          </TableData>
+        ))}
+      </TableRow>
+    );
+  };
+
+  return shouldRenderLocations ? (
+    <div>...loading</div>
+  ) : (
+    <TableControl
+      columns={LOCATION_VIEW_COLUMNS}
+      data={data.result}
+      renderRowItem={renderRowItem}
+    />
   );
 };
