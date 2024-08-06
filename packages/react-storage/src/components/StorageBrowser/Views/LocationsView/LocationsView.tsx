@@ -2,10 +2,10 @@ import React from 'react';
 
 import { StorageBrowserElements } from '../../context/elements';
 
+import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
 import { CommonControl, ViewComponent } from '../types';
 import { LocationsViewTable } from '../Controls';
-import { CLASS_BASE } from '../constants';
 
 const { Message, Paginate, Refresh, Search, Table, Title } = Controls;
 
