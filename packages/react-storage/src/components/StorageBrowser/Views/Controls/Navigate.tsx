@@ -3,6 +3,7 @@ import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import { useControl } from '../../context/controls';
 import { StorageBrowserElements } from '../../context/elements';
+import { parseLocationAccess } from '../../context/controls/Navigate/utils';
 
 import { CLASS_BASE } from '../constants';
 import type { OmitElements } from '../types';
@@ -54,7 +55,7 @@ const NavigateButton = withBaseElementProps(Button, {
   variant: 'navigate',
 });
 
-const NavigateItem = (props: NavigateItemProps) => (
+export const NavigateItem = (props: NavigateItemProps): React.JSX.Element => (
   <NavigateItemContainer>
     <NavigateButton {...props} />
   </NavigateItemContainer>
@@ -83,9 +84,11 @@ const NavigateContainer: typeof Nav = React.forwardRef(function Container(
 });
 
 export const NavigateControl: NavigateControl = (_props) => {
-  const [{ history }, handleUpdateState] = useControl({
+  const [{ history, location }, handleUpdateState] = useControl({
     type: 'NAVIGATE',
   });
+
+  const { bucket, prefix: initialPrefix } = parseLocationAccess(location!);
 
   return (
     <NavigateContainer>
@@ -96,7 +99,7 @@ export const NavigateControl: NavigateControl = (_props) => {
       >
         {HOME_NAVIGATE_ITEM}
       </NavigateItem>
-      {history?.map((entry) => (
+      {history?.map((entry, i) => (
         <React.Fragment key={entry}>
           <Separator />
           <NavigateItem
@@ -104,7 +107,12 @@ export const NavigateControl: NavigateControl = (_props) => {
               handleUpdateState({ type: 'NAVIGATE', prefix: entry });
             }}
           >
-            {entry.endsWith('/') ? entry.slice(0, -1) : entry}
+            {!entry.endsWith('/')
+              ? entry
+              : (entry === initialPrefix && i === 0
+                  ? `${bucket}/${entry}`
+                  : entry
+                ).slice(0, -1)}
           </NavigateItem>
         </React.Fragment>
       ))}

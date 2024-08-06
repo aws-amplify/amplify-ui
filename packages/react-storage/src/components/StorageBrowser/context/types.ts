@@ -40,13 +40,13 @@ export interface LocationConfig {
 
 type TaskStatus = 'INITIAL' | 'QUEUED' | 'IN_PROGRESS' | 'SUCCESS' | 'ERROR';
 
-interface Task<T = TaskStatus> {
+interface TaskResult<T = TaskStatus> {
   key: string;
   message: string | undefined;
   status: T;
 }
 
-interface CancelableTask extends Task<TaskStatus | 'CANCELED'> {
+interface CancelableTaskResult extends TaskResult<TaskStatus | 'CANCELED'> {
   cancel: (() => void) | undefined;
 }
 
@@ -56,32 +56,32 @@ interface UploadItemOptions extends Omit<UploadDataWithPathInput, 'options'> {
     'preventOverwrite'
   >;
 }
-interface UploadItem extends OperationItem<UploadItemOptions> {}
+interface UploadItem extends TaskItem<UploadItemOptions> {}
 
 interface UploadActionInput
   extends TaskActionInput<UploadItem, { preventOverwite?: boolean }> {}
 
-interface UploadActionOutput extends OperationOutput<CancelableTask> {}
+interface UploadActionOutput extends TaskActionOutput<CancelableTaskResult> {}
 
 export interface UploadAction
-  extends OperationAction<UploadActionInput, UploadActionOutput> {}
+  extends TaskAction<UploadActionInput, UploadActionOutput> {}
 
 export type UploadItemData = Blob | ArrayBufferView | ArrayBuffer | string;
 
 interface TaskActionInput<T, K = never> {
-  config?: LocationConfig;
+  prefix: string;
+  config: LocationConfig | (() => LocationConfig);
   data: T;
   options?: K;
-  prefix: string;
 }
 
-interface OperationOutput<T = Task> {
+interface TaskActionOutput<T = TaskResult> {
   tasks: T | undefined;
 }
 
-type OperationItem<T = {}> = Omit<T, 'path'>;
+type TaskItem<T = {}> = Omit<T, 'path'>;
 
-type OperationAction<T, K = OperationOutput> = (input: T) => K;
+export type TaskAction<T, K = TaskActionOutput> = (input: T) => Promise<K>;
 
 export interface ListActionOptions<T = never> {
   delimiter?: string;
@@ -94,7 +94,7 @@ export interface ListActionOptions<T = never> {
 
 export interface ListActionInput<K = never> {
   prefix: string;
-  config?: (() => LocationConfig) | LocationConfig;
+  config: (() => LocationConfig) | LocationConfig;
   options?: K;
 }
 

@@ -28,9 +28,11 @@ export function navigateReducer(
     case 'ACCESS_LOCATION': {
       const { location } = action;
       const { bucket, prefix } = parseLocationAccess(location);
-      const initialEntry = prefix ? `${bucket}/${prefix}` : bucket;
 
-      return { location, history: [initialEntry] };
+      return {
+        location,
+        history: [location.type === 'BUCKET' ? bucket : prefix],
+      };
     }
     case 'NAVIGATE': {
       const { prefix } = action;

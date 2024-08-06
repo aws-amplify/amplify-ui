@@ -1,13 +1,11 @@
 import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
-import type { OmitElements } from '../types';
 import { StorageBrowserElements } from '../../context/elements';
 
 import { CLASS_BASE } from '../constants';
 import { useControl } from '../../context/controls';
 import {
-  FileItem,
   LocationAccess,
   LocationData,
   LocationItem,
@@ -15,10 +13,6 @@ import {
 } from '../../context/types';
 import { useAction, useLocationsData } from '../../context/actions';
 import { parseLocationAccess } from '../../context/controls/Navigate/utils';
-import {
-  CancelableTask,
-  useHandleUpload,
-} from '../LocationActionView/useHandleUpload';
 
 const {
   Table: BaseTable,
@@ -116,25 +110,6 @@ const LOCATION_DETAIL_VIEW_COLUMNS: Column<LocationItem>[] = [
   },
 ];
 
-const LOCATION_ACTION_VIEW_COLUMNS: Column<CancelableTask>[] = [
-  {
-    key: 'key',
-    header: 'Name',
-  },
-  {
-    key: 'status',
-    header: 'Status',
-  },
-  {
-    key: 'progress',
-    header: 'Progress',
-  },
-  {
-    key: 'cancel',
-    header: 'Cancel',
-  },
-];
-
 export interface Column<T> {
   header: string;
   key: keyof T;
@@ -154,7 +129,7 @@ export interface _TableControl<
   (): React.JSX.Element;
 }
 
-type RenderRowItem<T> = (row: T, index: number) => JSX.Element;
+export type RenderRowItem<T> = (row: T, index: number) => JSX.Element;
 
 interface TableControlProps<T> {
   data: T[];
@@ -164,18 +139,7 @@ interface TableControlProps<T> {
 
 export interface TableControl<
   T extends StorageBrowserElements = StorageBrowserElements,
-> extends OmitElements<
-    _TableControl<T>,
-    | 'Table'
-    | 'TableBody'
-    | 'TableData'
-    | 'TableHead'
-    | 'TableHeader'
-    | 'TableRow'
-    | 'SortIndeterminateIcon'
-    | 'SortAscendingIcon'
-    | 'SortDescendingIcon'
-  > {
+> extends Pick<T, 'TableData' | 'TableRow'> {
   <U>(props: TableControlProps<U>): React.JSX.Element;
 }
 
@@ -212,6 +176,9 @@ export const TableControl: TableControl = <U,>({
     </Table>
   );
 };
+
+TableControl.TableData = TableData;
+TableControl.TableRow = TableRow;
 
 export const LocationsViewTable = (): JSX.Element => {
   const [{ data, isLoading }] = useLocationsData();
@@ -358,52 +325,5 @@ export const LocationDetailViewTable = (): JSX.Element => {
       data={data.result}
       renderRowItem={renderRowItem}
     />
-  );
-};
-
-export const LocationActionViewTable = (): JSX.Element => {
-  const [state] = useControl({
-    type: 'ACTION_SELECT',
-  });
-  const { destination, items } = state.selected;
-
-  const [tasks] = useHandleUpload({
-    destination: destination!,
-    items: items! as FileItem[],
-  });
-
-  const renderRowItem: RenderRowItem<CancelableTask> = React.useCallback(
-    (row, index) => {
-      return (
-        <TableRow key={index}>
-          {LOCATION_ACTION_VIEW_COLUMNS.map((column) => {
-            return (
-              <TableData key={`${index}-${column.header}`}>
-                {column.key === 'key' ? (
-                  <>{row.key}</>
-                ) : column.key === 'status' ? (
-                  <>{row.status}</>
-                ) : column.key === 'progress' ? (
-                  <>{row.progress}</>
-                ) : column.key === 'cancel' ? (
-                  <button onClick={row.cancel}>Cancel</button>
-                ) : null}
-              </TableData>
-            );
-          })}
-        </TableRow>
-      );
-    },
-    []
-  );
-
-  return items ? (
-    <TableControl
-      columns={LOCATION_ACTION_VIEW_COLUMNS}
-      data={tasks}
-      renderRowItem={renderRowItem}
-    />
-  ) : (
-    <span>No items selected.</span>
   );
 };
