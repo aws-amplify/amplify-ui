@@ -53,7 +53,7 @@ const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
   );
 };
 
-export const UploadFileControls = (): JSX.Element => {
+export const UploadControls = (): JSX.Element => {
   const [state] = useControl({
     type: 'ACTION_SELECT',
   });

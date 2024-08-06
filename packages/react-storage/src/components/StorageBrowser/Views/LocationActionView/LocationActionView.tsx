@@ -8,7 +8,7 @@ import { CLASS_BASE } from '../constants';
 import { ViewComponent } from '../types';
 
 import { LocationActionViewControls } from './Controls';
-import { UploadFileControls } from './UploadFileControls';
+import { UploadControls } from './UploadControls';
 
 export interface LocationActionView<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -26,7 +26,7 @@ export const LocationActionView: LocationActionView = () => {
       {actionType === 'CREATE_FOLDER' ? (
         <CreateFolderActionViewControls />
       ) : actionType === 'UPLOAD_FILES' ? (
-        <UploadFileControls />
+        <UploadControls />
       ) : null}
     </div>
   );
