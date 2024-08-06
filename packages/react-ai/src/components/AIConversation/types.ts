@@ -4,13 +4,13 @@ import { AIConversationElements } from './context/elements';
 import {
   ActionsBarControl,
   AvatarControl,
+  FieldControl,
   HeaderControl,
   MessagesControl,
   PromptControl,
 } from './views';
 import { DisplayTextTemplate } from '@aws-amplify/ui';
 import { AIConversationDisplayText } from './displayText';
-import { FieldControl } from './views/Controls';
 
 export interface Controls<
   T extends Partial<AIConversationElements> = AIConversationElements,
@@ -32,6 +32,7 @@ export interface AIConversationInput<
   suggestedPrompts?: SuggestedPrompt[];
   actions?: CustomAction[];
   showChainOfThought?: boolean;
+  responseComponents?: ResponseComponents;
   variant?: MessageVariant;
 }
 
@@ -68,7 +69,7 @@ export interface ImageContent {
   bytes: ArrayBuffer;
 }
 
-interface ImageContentBlock {
+export interface ImageContentBlock {
   type: 'image';
   value: ImageContent;
 }
@@ -97,4 +98,24 @@ export interface SuggestedPrompt {
   icon?: React.ReactNode;
   header: string;
   inputText: string;
+}
+
+type ResponseComponentProp = {
+  type: string;
+  enum?: string[];
+  description?: string;
+};
+
+type ResponseComponentPropMap = {
+  [key: string]: ResponseComponentProp;
+};
+
+export type ResponseComponent = {
+  component: React.ComponentType;
+  description?: string;
+  props: ResponseComponentPropMap;
+};
+
+export interface ResponseComponents {
+  [key: string]: ResponseComponent;
 }

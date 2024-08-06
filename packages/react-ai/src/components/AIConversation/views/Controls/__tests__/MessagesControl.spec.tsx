@@ -282,9 +282,9 @@ describe('MessageControl', () => {
     const textContent = screen.getByText('Yes, here is proof.');
     const imageContent = screen.getByRole('img');
     expect(textContent).toBeInTheDocument();
-    expect(textContent).toHaveClass('ai-message__text-content');
+    expect(textContent).toHaveClass('ai-message__text');
     expect(imageContent).toBeInTheDocument();
-    expect(imageContent).toHaveClass('ai-message__image-content');
+    expect(imageContent).toHaveClass('ai-message__image');
   });
 
   it('renders custom classnames', () => {

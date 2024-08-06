@@ -37,6 +37,7 @@ export default function Conversation(): JSX.Element {
           border: '1px solid rgba(220, 222, 224, 1)',
           borderTop: 'none',
           borderRadius: '0px 0px 16px 16px',
+          flex: '0 0 auto',
           padding: '0px 16px',
         }}
       >

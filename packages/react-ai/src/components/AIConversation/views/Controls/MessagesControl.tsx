@@ -24,11 +24,13 @@ const MediaContentBase = withBaseElementProps(Image, {
 
 const MediaContent: typeof MediaContentBase = React.forwardRef(
   function MediaContent(props, ref) {
+    const variant = React.useContext(MessageVariantContext);
+    const role = React.useContext(RoleContext);
     return (
       <MediaContentBase
         {...props}
         ref={ref}
-        className={`${MESSAGE_BLOCK}__image-content`}
+        className={`${MESSAGE_BLOCK}__image ${MESSAGE_BLOCK}__image--${variant} ${MESSAGE_BLOCK}__image--${role}`}
       />
     );
   }
@@ -36,9 +38,7 @@ const MediaContent: typeof MediaContentBase = React.forwardRef(
 
 const TextContent: typeof Text = React.forwardRef(
   function TextContent(props, ref) {
-    return (
-      <Text {...props} ref={ref} className={`${MESSAGE_BLOCK}__text-content`} />
-    );
+    return <Text {...props} ref={ref} className={`${MESSAGE_BLOCK}__text`} />;
   }
 );
 
@@ -144,12 +144,6 @@ export const MessagesControl: MessagesControl = ({ renderMessage }) => {
   return (
     <Layout>
       {messages?.map((message, index) => {
-        // const isLastMessageFromSameRole =
-        //   messages[index - 1]?.role === message.role;
-
-        // const isNextMessageFromSameRole =
-        //   messages[index + 1]?.role === message.role;
-
         return renderMessage ? (
           renderMessage(message)
         ) : (
