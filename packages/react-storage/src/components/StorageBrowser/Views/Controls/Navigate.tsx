@@ -72,7 +72,7 @@ const NavigateContainer: typeof Nav = React.forwardRef(function Container(
     <Nav
       {...props}
       aria-label={props['aria-label'] ?? 'Breadcrumbs'}
-      className={props.className ?? `${BLOCK_NAME}__container`}
+      className={props.className ?? BLOCK_NAME}
       ref={ref}
     >
       <OrderedList className={`${props.className ?? BLOCK_NAME}__list`}>
