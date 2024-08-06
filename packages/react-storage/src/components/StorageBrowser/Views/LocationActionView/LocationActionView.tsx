@@ -6,6 +6,7 @@ import { FileItem } from '../../context/types';
 
 import { CreateFolderActionViewControls } from '../CreateFolderActionView/Controls';
 import { ViewComponent } from '../types';
+import { CLASS_BASE } from '../constants';
 
 import { LocationActionViewControls } from './Controls';
 import { useHandleUpload } from './useHandleUpload';
@@ -50,12 +51,13 @@ export const LocationActionView: LocationActionView = () => {
 
   return (
     <>
-      {actionType === 'CREATE_FOLDER' ? (
-        <CreateFolderActionViewControls />
-      ) : (
-        <LocationActionViewControls />
-      )}
-
+      <div className={CLASS_BASE} data-testid="ACTIONS_VIEW">
+        {actionType === 'CREATE_FOLDER' ? (
+          <CreateFolderActionViewControls />
+        ) : (
+          <LocationActionViewControls />
+        )}
+      </div>
       {listItems}
     </>
   );

@@ -28,6 +28,10 @@ const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
           ref={ref as any}
         />
       );
+    case 'action-start':
+      return <_Button {...props} size="small" variation="primary" ref={ref} />;
+    case 'action-cancel':
+      return <_Button {...props} size="small" ref={ref} />;
     case 'navigate':
       return <_Button {...props} size="small" variation="link" ref={ref} />;
     case 'paginate-current':
@@ -53,6 +57,12 @@ const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
   }
 });
 
+const DefinitionTerm = React.forwardRef<HTMLElement>(
+  function DefinitionTerm(props, ref) {
+    return <_View {...props} as="dt" fontWeight="bold" ref={ref} />;
+  }
+);
+
 const Title = React.forwardRef<HTMLHeadingElement>(
   function Heading(props, ref) {
     return (
@@ -67,6 +77,7 @@ const Title = React.forwardRef<HTMLHeadingElement>(
     );
   }
 );
+
 const Table = React.forwardRef<HTMLTableElement>(function Table(props, ref) {
   return <_Table {...props} size="small" variation="striped" ref={ref} />;
 });
@@ -122,6 +133,7 @@ const View = React.forwardRef<HTMLDivElement>(function View(props, ref) {
 });
 export const elements = {
   Button,
+  DefinitionTerm,
   Title,
   Table,
   TableBody,
