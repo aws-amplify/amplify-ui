@@ -79,13 +79,58 @@ export const MessagesControl: MessagesControl = ({
   variant = 'borderless',
 }) => {
   const messages = React.useContext(MessagesContext);
+  const messagesRef = React.useRef<(HTMLDivElement | null)[]>([]);
+
+  const [focusedItemIndex, setFocusedItemIndex] = React.useState(
+    messages ? messages.length - 1 : 0
+  );
+  const handleFocus = (index: number) => setFocusedItemIndex(index);
+
+  const onKeyDown = React.useCallback(
+    (index: number, { key }: React.KeyboardEvent<HTMLDivElement>) => {
+      let newIndex = focusedItemIndex;
+      switch (key) {
+        case 'ArrowUp':
+          newIndex = Math.max(0, index - 1);
+          setFocusedItemIndex(newIndex);
+          break;
+        case 'ArrowDown':
+          newIndex = Math.min(index + 1, messages!.length - 1);
+          setFocusedItemIndex(newIndex);
+          break;
+        case 'Home':
+          newIndex = 0;
+          setFocusedItemIndex(newIndex);
+          break;
+        case 'End':
+          newIndex = messages!.length - 1;
+          setFocusedItemIndex(newIndex);
+          break;
+        default: {
+          break;
+        }
+      }
+
+      messagesRef.current[newIndex]?.focus();
+      return;
+    },
+    [messages, focusedItemIndex]
+  );
+
   return (
     <Layout>
       {messages?.map((message, index) =>
         renderMessage ? (
           renderMessage(message)
         ) : (
-          <Container data-testid={`message`} key={`message-${index}`}>
+          <Container
+            data-testid={`message`}
+            key={`message-${index}`}
+            tabIndex={focusedItemIndex === index ? 0 : -1}
+            onFocus={() => handleFocus(index)}
+            onKeyDown={(event) => onKeyDown(index, event)}
+            ref={(el) => (messagesRef.current[index] = el)}
+          >
             <HeaderContainer>
               <AvatarControl message={message} />
               <Separator />

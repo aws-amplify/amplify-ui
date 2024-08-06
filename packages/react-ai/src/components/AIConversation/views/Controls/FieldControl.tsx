@@ -67,12 +67,21 @@ const TextInput: typeof TextAreaBase = React.forwardRef(
       };
     });
 
+    React.useEffect(() => {
+      const textarea = document.getElementById(`${FIELD_BLOCK}-text-input`);
+
+      if (textarea) {
+        textarea.focus();
+      }
+    }, []);
+
     return (
       <TextAreaBase
         {...props}
         data-testid="text-input"
         placeholder={isFirstMessage ? 'Ask anything...' : 'Message Raven'}
         ref={ref}
+        autoFocus
       />
     );
   }

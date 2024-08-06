@@ -119,6 +119,7 @@
   width: 800px;
   overflow: hidden;
   resize: none;
+  outline: none;
 }
 
 .ai-field__button {

@@ -57,7 +57,9 @@ export const ButtonElement = defineBaseElement<
   ButtonElementVariant
 >({ type: 'button', displayName: 'Button' });
 
-export const ViewElement = defineBaseElement({
+type ViewElementProps = 'onFocus' | 'tabIndex' | 'onKeyDown';
+
+export const ViewElement = defineBaseElement<'div', ViewElementProps>({
   type: 'div',
   displayName: 'View',
 });
@@ -67,7 +69,7 @@ export const SpanElement = defineBaseElement({
   displayName: 'Span',
 });
 
-type TextAreaElementProps = 'onChange' | 'placeholder';
+type TextAreaElementProps = 'onChange' | 'placeholder' | 'autoFocus';
 
 export const TextAreaElement = defineBaseElement<
   'textarea',
