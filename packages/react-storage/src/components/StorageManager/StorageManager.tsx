@@ -58,6 +58,7 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     path,
     processFile,
     showThumbnails = true,
+    useAccelerateEndpoint,
   }: StorageManagerPathProps | StorageManagerProps,
   ref: React.ForwardedRef<StorageManagerHandle>
 ): JSX.Element {
@@ -154,6 +155,7 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     setUploadSuccess,
     processFile,
     path,
+    useAccelerateEndpoint,
   });
 
   const onFilePickerChange = (event: React.ChangeEvent<HTMLInputElement>) => {

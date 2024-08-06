@@ -10,7 +10,7 @@ import { Text } from '../Text';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { BaseCheckboxProps, CheckboxProps } from '../types/checkbox';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
-import { getTestId } from '../utils/getTestId';
+import { getUniqueComponentId } from '../utils/getUniqueComponentId';
 import { useStableId } from '../utils/useStableId';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { classNameModifierByFlag } from '../shared/utils';
@@ -88,9 +88,18 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     }
   }, [dataId, isIndeterminate]);
 
-  const buttonTestId = getTestId(testId, ComponentClassName.CheckboxButton);
-  const iconTestId = getTestId(testId, ComponentClassName.CheckboxIcon);
-  const labelTestId = getTestId(testId, ComponentClassName.CheckboxLabel);
+  const buttonTestId = getUniqueComponentId(
+    testId,
+    ComponentClassName.CheckboxButton
+  );
+  const iconTestId = getUniqueComponentId(
+    testId,
+    ComponentClassName.CheckboxIcon
+  );
+  const labelTestId = getUniqueComponentId(
+    testId,
+    ComponentClassName.CheckboxLabel
+  );
   const flexClasses = classNames(
     ComponentClassName.CheckboxButton,
     classNameModifierByFlag(
