@@ -234,7 +234,9 @@ const { AIConversation } = createAIConversation({
 });
 
 export default function Example() {
-  const messages = useRandomMessages(initialMessages);
+  // uncomment to use growing list of messages
+  // const messages = useRandomMessages(initialMessages);
+  const messages = initialMessages;
 
   return <AIConversation messages={messages} avatars={avatars} />;
   // return <div>hello world</div>;
