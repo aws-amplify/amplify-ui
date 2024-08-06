@@ -14,6 +14,7 @@ import {
 } from '../../context/types';
 import { useAction, useLocationsData } from '../../context/actions';
 import { parseLocationAccess } from '../../context/controls/Navigate/utils';
+import { LoadingControl } from './Loading';
 
 const {
   Table: BaseTable,
@@ -234,13 +235,16 @@ export const LocationsViewTable = (): JSX.Element => {
     );
 
   return shouldRenderLocations ? (
-    <div>...loading</div>
+    <LoadingControl />
   ) : (
-    <TableControl
-      columns={LOCATION_VIEW_COLUMNS}
-      data={data.result}
-      renderRowItem={renderRowItem}
-    />
+    <>
+      <LoadingControl />
+      <TableControl
+        columns={LOCATION_VIEW_COLUMNS}
+        data={data.result}
+        renderRowItem={renderRowItem}
+      />
+    </>
   );
 };
 
@@ -327,12 +331,15 @@ export const LocationDetailViewTable = (): JSX.Element => {
   );
 
   return isLoading && !hasItems ? (
-    <span>loading...</span>
+    <LoadingControl />
   ) : (
-    <TableControl
-      columns={LOCATION_DETAIL_VIEW_COLUMNS}
-      data={data.result}
-      renderRowItem={renderRowItem}
-    />
+    <>
+      <LoadingControl />
+      <TableControl
+        columns={LOCATION_DETAIL_VIEW_COLUMNS}
+        data={data.result}
+        renderRowItem={renderRowItem}
+      />
+    </>
   );
 };

@@ -1,4 +1,5 @@
 export { ActionSelectControl } from './ActionSelect';
+export { LoadingControl } from './Loading';
 export { MessageControl } from './Message';
 export { NavigateControl } from './Navigate';
 export { PaginateControl } from './Paginate';
