@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { View } from '../View';
 import { strHasLength } from '../shared/utils';
-import { getTestId } from '../utils/getTestId';
+import { getUniqueComponentId } from '../utils/getUniqueComponentId';
 import { ComponentClassName } from '@aws-amplify/ui';
 import type {
   BaseHighlightMatchProps,
@@ -17,7 +17,7 @@ export const HighlightMatchPrimitive: Primitive<HighlightMatchProps, 'span'> = (
   { children, className, query, testId, ...rest },
   ref
 ) => {
-  const matchTestId = getTestId(testId, 'match');
+  const matchTestId = getUniqueComponentId(testId, 'match');
   const startIndex = children
     ?.toLocaleLowerCase()
     .indexOf(query?.toLocaleLowerCase());

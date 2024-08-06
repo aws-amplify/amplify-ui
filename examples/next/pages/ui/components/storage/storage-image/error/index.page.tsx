@@ -5,46 +5,36 @@ import { Text, Loader } from '@aws-amplify/ui-react';
 import { StorageImage } from '@aws-amplify/ui-react-storage';
 
 import '@aws-amplify/ui-react/styles.css';
-import awsExports from './aws-exports';
+import amplifyOutputs from './amplify_outputs';
 
-Amplify.configure(awsExports);
+Amplify.configure(amplifyOutputs);
 
 export function StorageImageExample() {
   const [isLoaded, setIsLoaded] = React.useState(false);
+  const [errorText, setErrorText] = React.useState('');
 
   const onLoad = () => {
     setIsLoaded(true);
+    setErrorText('');
   };
 
   return (
     <>
       <StorageImage
-        alt="private cat"
-        imgKey="this-image-does-not-exist.jpeg"
-        fallbackSrc="https://placekitten.com/g/200/300"
-        accessLevel="guest"
+        alt="error cat"
+        path="guest/this-image-does-not-exist.jpeg"
         onLoad={onLoad}
-        onStorageGetError={(error) => {
-          console.log('onStorageGetError');
-          console.log(error);
+        onGetUrlError={(error) => {
+          setErrorText(`Error getting image: ${error.message}`);
         }}
-        onError={(error) => {
-          console.log('onError');
-          console.log(error);
-        }}
+        fallbackSrc="https://placekitten.com/g/200/300"
       />
       {isLoaded ? (
         <Text>The image is loaded.</Text>
       ) : (
         <Loader testId="Loader" />
       )}
-      <StorageImage
-        alt="private cat"
-        imgKey="this-image-does-not-exist-2.jpeg"
-        fallbackSrc="https://placekitten.com/g/200/300"
-        accessLevel="guest"
-        validateObjectExistence={false}
-      />
+      <Text>{errorText}</Text>
     </>
   );
 }

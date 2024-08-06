@@ -57,14 +57,12 @@ export const ForceNewPassword = ({
             variation="primary"
             isLoading={isPending}
             loadingText={getChangingText()}
-            fontWeight="normal"
           >
             {getChangePasswordText()}
           </Button>
           <Button
             onClick={toSignIn}
             type="button"
-            fontWeight="normal"
             variation="link"
             size="small"
           >

@@ -78,7 +78,6 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
       innerEndComponent={
         <FieldClearButton
           ariaLabel={clearButtonLabel}
-          excludeFromTabOrder
           isVisible={!isDisabled && strHasLength(composedValue)}
           onClick={onClearHandler}
           size={size}

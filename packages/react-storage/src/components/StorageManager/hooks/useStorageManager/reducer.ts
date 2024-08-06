@@ -1,9 +1,20 @@
-import { FileStatus, StorageFiles } from '../../types';
+import { FileStatus, StorageFile, StorageFiles } from '../../types';
 import {
   Action,
   StorageManagerActionTypes,
   UseStorageManagerState,
 } from './types';
+
+const updateFiles = (
+  files: StorageFiles,
+  nextFileData: Pick<StorageFile, 'id'> & Partial<StorageFile>
+) =>
+  files.reduce<StorageFiles>((files, currentFile) => {
+    if (currentFile.id === nextFileData.id) {
+      return [...files, { ...currentFile, ...nextFileData }];
+    }
+    return [...files, currentFile];
+  }, []);
 
 export function storageManagerStateReducer(
   state: UseStorageManagerState,
@@ -31,16 +42,10 @@ export function storageManagerStateReducer(
 
       const newFiles: StorageFiles = [...state.files, ...newUploads];
 
-      return {
-        ...state,
-        files: newFiles,
-      };
+      return { ...state, files: newFiles };
     }
     case StorageManagerActionTypes.CLEAR_FILES: {
-      return {
-        ...state,
-        files: [],
-      };
+      return { ...state, files: [] };
     }
     case StorageManagerActionTypes.QUEUE_FILES: {
       const { files } = state;
@@ -63,68 +68,31 @@ export function storageManagerStateReducer(
     }
     case StorageManagerActionTypes.SET_STATUS_UPLOADING: {
       const { id, uploadTask } = action;
-      const { files } = state;
+      const status = FileStatus.UPLOADING;
+      const progress = 0;
+      const nextFileData = { status, progress, id, uploadTask };
 
-      const newFiles = files.reduce<StorageFiles>((files, currentFile) => {
-        if (currentFile.id === id) {
-          return [
-            ...files,
-            {
-              ...currentFile,
-              status: FileStatus.UPLOADING,
-              progress: 0,
-              uploadTask: uploadTask ? uploadTask : undefined,
-            },
-          ];
-        }
-        return [...files, currentFile];
-      }, []);
-      return {
-        ...state,
-        files: newFiles,
-      };
+      const files = updateFiles(state.files, nextFileData);
+
+      return { ...state, files };
+    }
+    case StorageManagerActionTypes.SET_PROCESSED_FILE_KEY: {
+      const { processedKey, id } = action;
+      const files = updateFiles(state.files, { processedKey, id });
+
+      return { files };
     }
     case StorageManagerActionTypes.SET_UPLOAD_PROGRESS: {
       const { id, progress } = action;
-      const { files } = state;
+      const files = updateFiles(state.files, { id, progress });
 
-      const newFiles = files.reduce<StorageFiles>((files, currentFile) => {
-        if (currentFile.id === id) {
-          return [
-            ...files,
-            {
-              ...currentFile,
-              progress,
-            },
-          ];
-        }
-        return [...files, currentFile];
-      }, []);
-      return {
-        ...state,
-        files: newFiles,
-      };
+      return { ...state, files };
     }
     case StorageManagerActionTypes.SET_STATUS: {
       const { id, status } = action;
-      const { files } = state;
+      const files = updateFiles(state.files, { id, status });
 
-      const newFiles = files.reduce<StorageFiles>((files, currentFile) => {
-        if (currentFile.id === id) {
-          return [
-            ...files,
-            {
-              ...currentFile,
-              status,
-            },
-          ];
-        }
-        return [...files, currentFile];
-      }, []);
-      return {
-        ...state,
-        files: newFiles,
-      };
+      return { ...state, files };
     }
     case StorageManagerActionTypes.REMOVE_UPLOAD: {
       const { id } = action;

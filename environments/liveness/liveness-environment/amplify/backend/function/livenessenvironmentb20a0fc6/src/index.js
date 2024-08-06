@@ -17,6 +17,7 @@ export const handler = async (event, req) => {
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': '*',
+      'Access-Control-Expose-Headers': 'Date',
     },
     body: JSON.stringify({ sessionId: response.SessionId }),
   };

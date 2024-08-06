@@ -28,6 +28,7 @@ exports[`Amplify UI Theme components should allow empty components 1`] = `
       "image": {},
       "inappmessaging": {},
       "link": {},
+      "liveness": {},
       "loader": {},
       "menu": {},
       "pagination": {},

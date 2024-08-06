@@ -8,7 +8,7 @@ import { useUploadFiles, UseUploadFilesProps } from '../useUploadFiles';
 
 const uploadDataSpy = jest
   .spyOn(Storage, 'uploadData')
-  .mockImplementation((input: Storage.UploadDataInput) => {
+  .mockImplementation((input) => {
     return {
       cancel: jest.fn(),
       pause: jest.fn(),
@@ -39,19 +39,21 @@ const mockQueuedFile: StorageFile = {
   file: imageFile,
 };
 
+const mockOnProcessFileSuccess = jest.fn();
+const mockOnUploadError = jest.fn();
+const mockOnUploadStart = jest.fn();
 const mockSetUploadingFile = jest.fn();
 const mockSetUploadProgress = jest.fn();
 const mockSetUploadSuccess = jest.fn();
-const mockOnUploadError = jest.fn();
-const mockOnUploadStart = jest.fn();
 const props: Omit<UseUploadFilesProps, 'files'> = {
   accessLevel: 'guest',
   maxFileCount: 2,
+  onProcessFileSuccess: mockOnProcessFileSuccess,
+  onUploadError: mockOnUploadError,
+  onUploadStart: mockOnUploadStart,
   setUploadingFile: mockSetUploadingFile,
   setUploadProgress: mockSetUploadProgress,
   setUploadSuccess: mockSetUploadSuccess,
-  onUploadError: mockOnUploadError,
-  onUploadStart: mockOnUploadStart,
 };
 
 describe('useUploadFiles', () => {

@@ -1,12 +1,46 @@
 import * as React from 'react';
 
-import { classNames, ComponentClassName, isUndefined } from '@aws-amplify/ui';
+import { classNames, ComponentClassName } from '@aws-amplify/ui';
 import { Image } from '@aws-amplify/ui-react';
-import { useStorageURL } from '@aws-amplify/ui-react/internal';
-import { useSetUserAgent } from '@aws-amplify/ui-react-core';
+import { useDeprecationWarning } from '@aws-amplify/ui-react/internal';
+import { useGetUrl, useSetUserAgent } from '@aws-amplify/ui-react-core';
 
 import { VERSION } from '../../version';
-import type { StorageImageProps } from './types';
+import type { StorageImageProps, StorageImagePathProps } from './types';
+
+export const MISSING_REQUIRED_PROP_MESSAGE =
+  '`StorageImage` requires either an `imgKey` or `path` prop.';
+
+export const HAS_DEPRECATED_PROPS_MESSAGE =
+  '`imgKey`, `accessLevel`, and `identityId` will be replaced with `path` in a future major version. See https://ui.docs.amplify.aws/react/connected-components/storage/storageimage#props';
+
+export const HAS_PATH_AND_KEY_MESSAGE =
+  '`imgKey` is ignored when both `imgKey` and `path` props are provided.';
+
+export const HAS_PATH_AND_UNSUPPORTED_OPTIONS_MESSAGE =
+  '`accessLevel` and `identityId` are ignored when the `path` prop is provided.';
+
+const getDeprecationMessage = ({
+  hasImgkey,
+  hasPath,
+  hasDeprecatedOptions,
+}: {
+  hasImgkey: boolean;
+  hasPath: boolean;
+  hasDeprecatedOptions: boolean;
+}): string => {
+  let message = '';
+
+  if (hasPath && hasImgkey) {
+    message = HAS_PATH_AND_KEY_MESSAGE;
+  } else if (hasPath && hasDeprecatedOptions) {
+    message = HAS_PATH_AND_UNSUPPORTED_OPTIONS_MESSAGE;
+  } else if (hasImgkey) {
+    message = HAS_DEPRECATED_PROPS_MESSAGE;
+  }
+
+  return message;
+};
 
 export const StorageImage = ({
   accessLevel,
@@ -14,21 +48,26 @@ export const StorageImage = ({
   fallbackSrc,
   identityId,
   imgKey,
+  path,
   onStorageGetError,
-  validateObjectExistence,
+  onGetUrlError,
+  validateObjectExistence = true,
   ...rest
-}: StorageImageProps): JSX.Element => {
-  const resolvedValidateObjectExistence = isUndefined(validateObjectExistence)
-    ? true
-    : validateObjectExistence;
-  const options = React.useMemo(
-    () => ({
-      accessLevel,
-      targetIdentityId: identityId,
-      validateObjectExistence: resolvedValidateObjectExistence,
-    }),
-    [accessLevel, identityId, resolvedValidateObjectExistence]
-  );
+}: StorageImageProps | StorageImagePathProps): JSX.Element => {
+  const hasImgkey = !!imgKey;
+  const hasPath = !!path;
+  const hasDeprecatedOptions = !!accessLevel || !!identityId;
+
+  const message = getDeprecationMessage({
+    hasDeprecatedOptions,
+    hasImgkey,
+    hasPath,
+  });
+  useDeprecationWarning({ message, shouldWarn: !!message });
+
+  if (!hasImgkey && !hasPath) {
+    throw new Error(MISSING_REQUIRED_PROP_MESSAGE);
+  }
 
   useSetUserAgent({
     componentName: 'StorageImage',
@@ -36,18 +75,27 @@ export const StorageImage = ({
     version: VERSION,
   });
 
-  const url = useStorageURL({
-    key: imgKey,
-    options,
-    fallbackURL: fallbackSrc,
-    onStorageGetError,
-  });
+  const onError = onGetUrlError ?? onStorageGetError;
+  const input = React.useMemo(
+    () => ({
+      ...(path ? { path } : { key: imgKey! }), // if `path` is falsy `imgKey` exists
+      onError,
+      options: {
+        accessLevel,
+        targetIdentityId: identityId,
+        validateObjectExistence,
+      },
+    }),
+    [accessLevel, imgKey, identityId, onError, path, validateObjectExistence]
+  );
+
+  const { url } = useGetUrl(input);
 
   return (
     <Image
       {...rest}
       className={classNames(ComponentClassName.StorageImage, className)}
-      src={url}
+      src={url?.toString() ?? fallbackSrc}
     />
   );
 };
