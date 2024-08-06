@@ -30,6 +30,7 @@ const ActionIcon: typeof IconElement = React.forwardRef(
 
 const ActionButton = withBaseElementProps(Button, {
   className: `${BLOCK_NAME}__action-button`,
+  variant: 'action-select-item',
   role: 'menuitem',
 });
 
@@ -133,6 +134,7 @@ type RenderActionsMenu = (props: MenuProps) => React.JSX.Element;
 
 const Menu = withBaseElementProps(View, {
   role: 'menu',
+  variant: 'action-select-menu',
   'aria-label': 'Actions',
 });
 
@@ -169,6 +171,7 @@ ActionsMenu.Menu = Menu;
 
 const ToggleButton = withBaseElementProps(Button, {
   className: `${BLOCK_NAME}__toggle`,
+  variant: 'action-select-toggle',
   'aria-label': 'Actions',
 });
 
