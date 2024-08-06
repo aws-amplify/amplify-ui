@@ -32,8 +32,8 @@ const shouldExclude = <T extends Permission>(
   !exclude
     ? false
     : typeof exclude === 'string'
-      ? exclude === permission
-      : exclude.includes(permission);
+    ? exclude === permission
+    : exclude.includes(permission);
 
 export const createListLocationsAction = (
   listLocations: ListLocations
