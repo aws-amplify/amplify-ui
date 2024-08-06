@@ -42,8 +42,8 @@ You should open an issue to discuss your pull request, unless it's a trivial cha
 
 1. Fork & Clone this repo (Make sure to disable associated GitHub Actions. In fork go to Settings > Actions > General > Disable actions > save)
 1. [`nvm install`](https://github.com/nvm-sh/nvm)
-1. [`nvm use`](https://github.com/nvm-sh/nvm)
-1. `yarn setup`
+1. [`nvm use`](https://github.com/nvm-sh/nvm) (uses `.nvmrc` to use supported Node version)
+1. `yarn setup` (note: this includes `yarn install`)
 1. Within your fork, create a new branch based on the issue you're addressing, e.g. `git checkout -b angular/remove-browser-module`
 1. Commit your code using [conventional commit messages](https://www.conventionalcommits.org/en/v1.0.0/#summary), e.g. `git commit -m "chore: remove browser module"`.
 1. Once your work is committed, validate your changes according to [local development guides](#local-development-guides).
