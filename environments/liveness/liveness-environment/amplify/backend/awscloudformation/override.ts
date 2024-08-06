@@ -1,12 +1,4 @@
-import {
-  AmplifyProjectInfo,
-  AmplifyRootStackTemplate,
-} from '@aws-amplify/cli-extensibility-helper';
-
-export function override(
-  resources: AmplifyRootStackTemplate,
-  amplifyProjectInfo: AmplifyProjectInfo
-) {
+export function override(resources, amplifyProjectInfo) {
   const unauthRole = resources.unauthRole;
 
   const basePolicies = Array.isArray(unauthRole.policies)

@@ -56,4 +56,10 @@ Feature: Verify User
     Then I see "Footer Information"
     Then I click the "Skip" button
     Then I click the "Sign out" button
-    
+
+  @angular @react @vue
+  Scenario: Redirect to "Verify" page and verify radio button is automatically selected
+    When I type my "email" with status "UNVERIFIED"
+    Then I type my password
+    Then I click the "Sign in" button
+    Then I see the "Email" radio button checked

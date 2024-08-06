@@ -11,7 +11,7 @@ import {
 
 import { components } from '../../../global-spec';
 import * as UseAuthComposables from '../../composables/useAuth';
-import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
+import { baseMockServiceFacade } from '../../composables/__mocks__/useAuthenticatorMock';
 import VerifyUser from '../verify-user.vue';
 
 jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
@@ -31,6 +31,7 @@ jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
 const updateFormSpy = jest.fn();
 const submitFormSpy = jest.fn();
 const skipVerificationSpy = jest.fn();
+
 const unverifiedUserAttributes: UnverifiedUserAttributes = {
   email: 'test@example.com',
 };
@@ -63,28 +64,43 @@ describe('VerifyUser', () => {
     mathRandomSpy.mockRestore();
   });
 
-  it('sends change event on form input', async () => {
+  it('selects the first radio element as the default option', async () => {
     render(VerifyUser, { global: { components } });
 
-    const checkboxField = await screen.findByLabelText('Email');
+    const radioField = await screen.findByLabelText('Email: t**t@example.com');
 
-    await fireEvent.click(checkboxField);
+    expect(radioField).toBeChecked();
+  });
+
+  it('sends change event on form input', async () => {
+    useAuthenticatorSpy.mockReturnValueOnce(
+      reactive({
+        ...baseMockServiceFacade,
+        route: 'verifyUser',
+        updateForm: updateFormSpy,
+        skipVerification: skipVerificationSpy,
+        submitForm: submitFormSpy,
+        unverifiedUserAttributes: {
+          email: 'test@example.com',
+          phone_number: '+1234567890',
+        },
+      })
+    );
+    render(VerifyUser, { global: { components } });
+
+    const radioField = await screen.getByRole('radio', {
+      name: (content) => content.startsWith('Phone Number:'),
+    });
+
+    await fireEvent.click(radioField);
     expect(updateFormSpy).toHaveBeenCalledWith({
       name: 'unverifiedAttr',
-      value: 'email',
+      value: 'phone_number',
     });
   });
 
   it('sends submit event on form submit', async () => {
     render(VerifyUser, { global: { components } });
-
-    const checkboxField = await screen.findByLabelText('Email');
-
-    await fireEvent.click(checkboxField);
-    expect(updateFormSpy).toHaveBeenCalledWith({
-      name: 'unverifiedAttr',
-      value: 'email',
-    });
 
     const submitButton = await screen.findByRole('button', { name: 'Verify' });
     await fireEvent.click(submitButton);
@@ -102,6 +118,26 @@ describe('VerifyUser', () => {
     await fireEvent.click(skipButton);
 
     expect(skipVerificationSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it("doesn't display radio elements if unverifiedAttribute value is missing", async () => {
+    useAuthenticatorSpy.mockReturnValueOnce(
+      reactive({
+        ...baseMockServiceFacade,
+        route: 'verifyUser',
+        updateForm: updateFormSpy,
+        skipVerification: skipVerificationSpy,
+        submitForm: submitFormSpy,
+        unverifiedUserAttributes: {
+          email: '',
+        },
+      })
+    );
+    render(VerifyUser, { global: { components } });
+
+    const radios = screen.queryAllByRole('radio');
+
+    expect(radios).toHaveLength(0);
   });
 
   it('displays error if it is present', async () => {

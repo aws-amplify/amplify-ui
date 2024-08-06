@@ -1,9 +1,10 @@
-import * as exported from '../dist';
+import * as exported from '../src';
 
 describe('@aws-amplify/ui-vue', () => {
   describe('exports', () => {
     it('should match snapshot', () => {
-      expect(Object.keys(exported)).toMatchSnapshot();
+      const sortedExports = Object.keys(exported).sort();
+      expect(sortedExports).toMatchSnapshot();
     });
   });
 });

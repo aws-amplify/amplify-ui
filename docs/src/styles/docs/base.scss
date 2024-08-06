@@ -86,6 +86,17 @@ a {
   }
 }
 
+.amplify-alert,
+.amplify-message {
+  a {
+    color: var(--amplify-colors-font-primary);
+    text-decoration: underline;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
 blockquote {
   padding: var(--amplify-space-medium);
   border-left: var(--amplify-border-widths-large) solid

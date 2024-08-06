@@ -1,20 +1,17 @@
 import React from 'react';
-import { censorAllButFirstAndLast, censorPhoneNumber } from '@aws-amplify/ui';
+import { censorContactMethod, ContactMethod } from '@aws-amplify/ui';
 
 import { Radio, RadioGroup } from '../../../primitives';
 import { DefaultRadioFormFieldsProps } from './types';
 
-const censorContactInformation = (name: string, value: string): string => {
-  let censoredVal = value;
-  if (name === 'email') {
-    const splitEmail = value.split('@');
-    const censoredName = censorAllButFirstAndLast(splitEmail[0]);
+interface AttributeMap {
+  email: ContactMethod;
+  phone_number: ContactMethod;
+}
 
-    censoredVal = `${censoredName}@${splitEmail[1]}`;
-  } else if (name === 'phone_number') {
-    censoredVal = censorPhoneNumber(value);
-  }
-  return censoredVal;
+const attributeMap: AttributeMap = {
+  email: 'Email',
+  phone_number: 'Phone Number',
 };
 
 const DefaultRadioFormFields = ({
@@ -26,18 +23,22 @@ const DefaultRadioFormFields = ({
 }: DefaultRadioFormFieldsProps): JSX.Element => {
   return (
     <RadioGroup disabled={isPending} style={style}>
-      {(fields ?? []).map(({ name, value, ...props }) => (
-        <Radio
-          {...props}
-          key={value}
-          // value has to be name, because Auth is only interested in the
-          // string "email" or "phone_number", not the actual value
-          value={name}
-          label={censorContactInformation(name, value)}
-          labelStyle={fieldLabelStyle}
-          style={fieldContainerStyle}
-        />
-      ))}
+      {(fields ?? []).map(({ name, value, ...props }) => {
+        const attributeType = attributeMap[name as keyof AttributeMap];
+
+        return (
+          <Radio
+            {...props}
+            key={value}
+            // value has to be name, because Auth is only interested in the
+            // string "email" or "phone_number", not the actual value
+            value={name}
+            label={censorContactMethod(attributeType, value)}
+            labelStyle={fieldLabelStyle}
+            style={fieldContainerStyle}
+          />
+        );
+      })}
     </RadioGroup>
   );
 };

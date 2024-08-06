@@ -1,5 +1,92 @@
 # @aws-amplify/ui
 
+## 6.0.17
+
+### Patch Changes
+
+- [#5321](https://github.com/aws-amplify/amplify-ui/pull/5321) [`0483dd833`](https://github.com/aws-amplify/amplify-ui/commit/0483dd833698b518d1c88d98871cafb1b6019c75) Thanks [@AhmetAhunbayAWS](https://github.com/AhmetAhunbayAWS)! - This change removes an inconsistency in the heights of ratings between 0-1 (non-inclusive). This change was made per customer request via a raised issue. A customer would only need to update their code if they display ratings between 0-1 (non-inclusive).
+
+## 6.0.16
+
+### Patch Changes
+
+- [#5258](https://github.com/aws-amplify/amplify-ui/pull/5258) [`dc1b3be5b`](https://github.com/aws-amplify/amplify-ui/commit/dc1b3be5bb7307a28c856547500384f9bee52d34) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(deps): update amplify scoped and RN dep versions
+
+## 6.0.15
+
+### Patch Changes
+
+- [#5249](https://github.com/aws-amplify/amplify-ui/pull/5249) [`1ca7c38e1`](https://github.com/aws-amplify/amplify-ui/commit/1ca7c38e15c5a7d307aa7e704b77d596167accb2) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(i18n): Add german translations
+
+- [#5142](https://github.com/aws-amplify/amplify-ui/pull/5142) [`3af3e6b7a`](https://github.com/aws-amplify/amplify-ui/commit/3af3e6b7aca2914f67870b09fd5b2d81847f8e39) Thanks [@gfpacheco](https://github.com/gfpacheco)! - Add additional pt translations
+
+- [#3971](https://github.com/aws-amplify/amplify-ui/pull/3971) [`225bde836`](https://github.com/aws-amplify/amplify-ui/commit/225bde83640e9efba1b4edfce4696c74d6569b95) Thanks [@jbreuil](https://github.com/jbreuil)! - fix: add missing fr translations
+
+- [#5100](https://github.com/aws-amplify/amplify-ui/pull/5100) [`4b3f69917`](https://github.com/aws-amplify/amplify-ui/commit/4b3f6991706b774d45eb80beea2ddd606b21ce2a) Thanks [@onuraycicek](https://github.com/onuraycicek)! - missing words added (Turkish)
+
+- [#4234](https://github.com/aws-amplify/amplify-ui/pull/4234) [`bad0da7b9`](https://github.com/aws-amplify/amplify-ui/commit/bad0da7b9cc70069f504a37e80849b306b04f7d7) Thanks [@yannickberk](https://github.com/yannickberk)! - fix german authenticator translation
+
+- [#5054](https://github.com/aws-amplify/amplify-ui/pull/5054) [`b92c34a99`](https://github.com/aws-amplify/amplify-ui/commit/b92c34a992b0f3d118711527360cdceeff503abb) Thanks [@sj-h4](https://github.com/sj-h4)! - Add a Japanese translation for "Enter your Username"
+
+## 6.0.14
+
+### Patch Changes
+
+- [#5193](https://github.com/aws-amplify/amplify-ui/pull/5193) [`de2402842`](https://github.com/aws-amplify/amplify-ui/commit/de2402842c75e186e2c5515d20cb1873bbabc4a0) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(aws-amplify): point amplify to 6.2.0
+
+## 6.0.13
+
+### Patch Changes
+
+- [#5125](https://github.com/aws-amplify/amplify-ui/pull/5125) [`a26e9eb86`](https://github.com/aws-amplify/amplify-ui/commit/a26e9eb86b5e78cad0aaf6ee5230f46900b0a016) Thanks [@esauerbo](https://github.com/esauerbo)! - fix(Liveness): Update camera module background on verifying step to match theme
+
+- [#5120](https://github.com/aws-amplify/amplify-ui/pull/5120) [`842c00ad4`](https://github.com/aws-amplify/amplify-ui/commit/842c00ad42701659228aea2fc526e34125a7e3d0) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(deps): update peerDep versions in public packages, point to 6.0.26 for examples and docs
+
+## 6.0.12
+
+### Patch Changes
+
+- [#5069](https://github.com/aws-amplify/amplify-ui/pull/5069) [`3cc2f8fc1`](https://github.com/aws-amplify/amplify-ui/commit/3cc2f8fc121e818d68c7d10abc863eebd5620902) Thanks [@esauerbo](https://github.com/esauerbo)! - fix(Authenticator): fix issue in sms mfa signup flow where challengeName is undefined
+
+- [#5038](https://github.com/aws-amplify/amplify-ui/pull/5038) [`f64ea459e`](https://github.com/aws-amplify/amplify-ui/commit/f64ea459e5008ebb764697177958ee8307ce7542) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(ui/liveness): fix flex-direction of landscape error message in FaceLiveness component
+
+## 6.0.11
+
+### Patch Changes
+
+- [#5034](https://github.com/aws-amplify/amplify-ui/pull/5034) [`1d9c5c862`](https://github.com/aws-amplify/amplify-ui/commit/1d9c5c8629fd94b4e1b5fa045afe0dd1ccc1b21d) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(web/react-native/ui): use translated strings for VerifyUser screen and use censorContactMethod util
+
+  **ui/Angular/React/Vue/ReactNative:** adds a `censorContactMethod()` utility to the `ui` package and refactors the VerifyUser screen in Angular, React, Vue, and ReactNative packages to use this utility.
+
+  **Vue:** Fixes an issue where translated strings were not being properly used for the VerifyUser screen. Additionally, removes duplicate "verify" id that was on multiple elements.
+
+- [#5007](https://github.com/aws-amplify/amplify-ui/pull/5007) [`4eae32e91`](https://github.com/aws-amplify/amplify-ui/commit/4eae32e91ecc64b24a0092c4aee234b87420ce07) Thanks [@talik077](https://github.com/talik077)! - fix(ui): Update Hebrew translation for `Forgot your password?` string
+
+- [#5003](https://github.com/aws-amplify/amplify-ui/pull/5003) [`32702d9c9`](https://github.com/aws-amplify/amplify-ui/commit/32702d9c976e81b23b4e8f1c7e935b48288e058d) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(ui/react): add missing color token for CheckboxField label
+
+  The CheckboxField label color (and disabled color) can now be themed correctly via:
+
+  ```
+  label: {
+    color: { value: '{colors.purple.80}' },
+    _disabled: {
+      color: { value: '{colors.purple.60}' },
+    },
+  },
+  ```
+
+## 6.0.10
+
+### Patch Changes
+
+- [#5006](https://github.com/aws-amplify/amplify-ui/pull/5006) [`80ad8cda6`](https://github.com/aws-amplify/amplify-ui/commit/80ad8cda66800f88150054fa51a7bbcdd0730566) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): add handling for external sign up events
+
+## 6.0.9
+
+### Patch Changes
+
+- [#4978](https://github.com/aws-amplify/amplify-ui/pull/4978) [`7eeb0ae7c`](https://github.com/aws-amplify/amplify-ui/commit/7eeb0ae7c0ee651a0a2ec0e6e945732219dbacf2) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(Authenticator): update state machine to include onDone in federated sign in flow
+
 ## 6.0.8
 
 ### Patch Changes

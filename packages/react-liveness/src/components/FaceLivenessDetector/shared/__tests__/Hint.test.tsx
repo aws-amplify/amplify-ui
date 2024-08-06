@@ -230,24 +230,6 @@ describe('Hint', () => {
     ).not.toBeInTheDocument();
   });
 
-  it('should render TOO_CLOSE text if faceMatchState = TOO_CLOSE and recording', () => {
-    faceMatchState = FaceMatchState.TOO_CLOSE;
-    isRecording = true;
-    mockStateMatchesAndSelectors();
-
-    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
-
-    const textElements = screen.getAllByText(hintDisplayText.hintTooCloseText);
-    const labelElements = screen.getAllByLabelText(
-      hintDisplayText.hintTooCloseText
-    );
-    expect(textElements.length).toBe(2);
-    expect(textElements[0]).toBeInTheDocument();
-    expect(textElements[1]).toBeInTheDocument();
-    expect(labelElements.length).toBe(1);
-    expect(labelElements[0]).toBeInTheDocument();
-  });
-
   it('should render TOO_FAR text if faceMatchState = TOO_FAR and recording', () => {
     faceMatchState = FaceMatchState.TOO_FAR;
     isRecording = true;
@@ -349,7 +331,7 @@ describe('Hint', () => {
 
   it('should create appropriate selectors', () => {
     const expectedErrorState = LivenessErrorState.RUNTIME_ERROR;
-    const expectedFaceMatchState = FaceMatchState.TOO_CLOSE;
+    const expectedFaceMatchState = FaceMatchState.OFF_CENTER;
     const expectedIlluminationState = IlluminationState.DARK;
 
     const state: any = {

@@ -41,7 +41,8 @@ _app.component.ts_
 import { Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 
-import awsExports from './aws-exports';
+// import config from './aws-exports'; // Amplify Gen 1 config
+import config from './amplify_outputs.json'
 
 @Component({
   selector: 'app',
@@ -49,7 +50,7 @@ import awsExports from './aws-exports';
 })
 export class AppComponent {
   constructor() {
-    Amplify.configure(awsExports);
+    Amplify.configure(config);
   }
 
   public formFields = {
@@ -220,10 +221,12 @@ You can customize any label, placeholder, set a field as required or not require
 To use this feature create a `formFields` prop and include the component name as a key.
 Inside that object you can list all the inputs you'd like to change by their name. Inputs can have additional client side validation by following [HTML form validation standards](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation).
 
+**Note:** Specifying `formFields` for a given field will overwrite any default attributes. To include defaults, you must re-specify them as shown below.
+
 The following example customizes the Sign In page by:
 
 - Updating the placeholder with `placeholder`.
-- Setting required to true with `isRequired`, which is also the default for this field.
+- Setting required to true with `isRequired`. `username` is required by default, but as mentioned above, default attributes will be overwritten and must be re-declared when using `formFields`.
 - Updating the label text with `label`.
 - Show the label using `labelHidden` set to `false`.
 
@@ -236,7 +239,9 @@ _app.component.ts_
 import { Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 
-import awsExports from './aws-exports';
+// import config from './aws-exports'; // Amplify Gen 1 config
+import config from './amplify_outputs.json'
+
 
 @Component({
   selector: 'app',
@@ -244,7 +249,7 @@ import awsExports from './aws-exports';
 })
 export class AppComponent {
   constructor() {
-    Amplify.configure(awsExports);
+    Amplify.configure(config);
   }
   public formFields = {
     signIn: {
@@ -363,7 +368,9 @@ _app.component.ts_
 import { Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 
-import awsExports from './aws-exports';
+// import config from './aws-exports'; // Amplify Gen 1 config
+import config from './amplify_outputs.json'
+
 
 @Component({
   selector: 'app',
@@ -371,7 +378,7 @@ import awsExports from './aws-exports';
 })
 export class AppComponent {
   constructor() {
-    Amplify.configure(awsExports);
+    Amplify.configure(config);
   }
   public formFields = {
     signIn: {
@@ -488,7 +495,8 @@ _app.component.ts_
 import { Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 
-import awsExports from './aws-exports';
+// import config from './aws-exports'; // Amplify Gen 1 config
+import config from './amplify_outputs.json'
 
 @Component({
   selector: 'app',
@@ -496,7 +504,7 @@ import awsExports from './aws-exports';
 })
 export class AppComponent {
   constructor() {
-    Amplify.configure(awsExports);
+    Amplify.configure(config);
   }
   public formFields = {
     signIn: {
@@ -632,7 +640,8 @@ _app.component.ts_
 import { Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 
-import awsExports from './aws-exports';
+// import config from './aws-exports'; // Amplify Gen 1 config
+import config from './amplify_outputs.json'
 
 @Component({
   selector: 'app',
@@ -640,7 +649,7 @@ import awsExports from './aws-exports';
 })
 export class AppComponent {
   constructor() {
-    Amplify.configure(awsExports);
+    Amplify.configure(config);
   }
   public formFields = {
     setupTotp: {

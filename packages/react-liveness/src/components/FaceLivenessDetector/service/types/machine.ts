@@ -28,7 +28,6 @@ export interface FaceMatchAssociatedParams {
   currentDetectedFace?: Face;
   startFace?: Face;
   endFace?: Face;
-  initialFaceMatchTime?: number;
 }
 
 export interface FreshnessColorAssociatedParams {
@@ -57,29 +56,29 @@ export interface VideoAssociatedParams {
   selectableDevices?: MediaDeviceInfo[];
 }
 
-export type LivenessContext = Partial<HydratedLivenessContext>;
-
-export interface HydratedLivenessContext {
-  maxFailedAttempts: number;
-  failedAttempts: number;
-  componentProps: FaceLivenessDetectorCoreProps;
-  serverSessionInformation: SessionInformation;
-  challengeId: string;
-  videoAssociatedParams: VideoAssociatedParams;
-  ovalAssociatedParams: OvalAssociatedParams;
-  faceMatchAssociatedParams: FaceMatchAssociatedParams;
-  freshnessColorAssociatedParams: FreshnessColorAssociatedParams;
-  errorState: ErrorState;
-  livenessStreamProvider: LivenessStreamProvider;
-  responseStreamActorRef: ActorRef<any>;
-  shouldDisconnect: boolean;
-  faceMatchStateBeforeStart: FaceMatchState;
-  isFaceFarEnoughBeforeRecording: boolean;
-  isRecordingStopped: boolean;
+export interface LivenessContext {
+  challengeId?: string;
+  componentProps?: FaceLivenessDetectorCoreProps;
+  errorState?: ErrorState;
+  errorMessage?: string;
+  faceMatchAssociatedParams?: FaceMatchAssociatedParams;
+  faceMatchStateBeforeStart?: FaceMatchState;
+  failedAttempts?: number;
+  freshnessColorAssociatedParams?: FreshnessColorAssociatedParams;
+  isFaceFarEnoughBeforeRecording?: boolean;
+  isRecordingStopped?: boolean;
+  livenessStreamProvider?: LivenessStreamProvider;
+  maxFailedAttempts?: number;
+  ovalAssociatedParams?: OvalAssociatedParams;
+  responseStreamActorRef?: ActorRef<any>;
+  serverSessionInformation?: SessionInformation;
+  shouldDisconnect?: boolean;
+  videoAssociatedParams?: VideoAssociatedParams;
 }
 
 export type LivenessEventTypes =
   | 'BEGIN'
+  | 'CONNECTION_TIMEOUT'
   | 'START_RECORDING'
   | 'TIMEOUT'
   | 'ERROR'
@@ -112,7 +111,10 @@ export type LivenessInterpreter = Interpreter<
 
 export interface StreamActorCallback {
   (params: { type: 'DISCONNECT_EVENT' }): void;
-  (params: { type: 'SERVER_ERROR'; data: { error: Error } }): void;
+  (params: {
+    type: 'SERVER_ERROR' | 'CONNECTION_TIMEOUT';
+    data: { error: Error };
+  }): void;
   (params: {
     type: 'SERVER_ERROR';
     data: { error: ValidationException };

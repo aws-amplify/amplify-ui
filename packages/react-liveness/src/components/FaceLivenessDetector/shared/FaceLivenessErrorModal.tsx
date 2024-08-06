@@ -27,6 +27,8 @@ const renderToastErrorModal = (props: {
   const { error: errorState, displayText } = props;
 
   const {
+    connectionTimeoutHeaderText,
+    connectionTimeoutMessageText,
     errorLabelText,
     timeoutHeaderText,
     timeoutMessageText,
@@ -44,6 +46,10 @@ const renderToastErrorModal = (props: {
   let message: string;
 
   switch (errorState) {
+    case LivenessErrorState.CONNECTION_TIMEOUT:
+      heading = connectionTimeoutHeaderText;
+      message = connectionTimeoutMessageText;
+      break;
     case LivenessErrorState.TIMEOUT:
       heading = timeoutHeaderText;
       message = timeoutMessageText;

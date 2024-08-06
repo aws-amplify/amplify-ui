@@ -15,6 +15,8 @@ import guards from '../guards';
 
 import { AuthEvent, ActorDoneData, SignInContext } from '../types';
 
+import { getFederatedSignInState } from './utils';
+
 export interface SignInMachineOptions {
   services?: Partial<typeof defaultServices>;
 }
@@ -101,13 +103,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             { target: 'signIn' },
           ],
         },
-        federatedSignIn: {
-          entry: ['sendUpdate', 'clearError'],
-          invoke: {
-            src: 'signInWithRedirect',
-            onError: { actions: 'setRemoteError' },
-          },
-        },
+        federatedSignIn: getFederatedSignInState('signIn'),
         fetchUserAttributes: {
           invoke: {
             src: 'fetchUserAttributes',

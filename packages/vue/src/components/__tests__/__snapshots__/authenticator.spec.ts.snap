@@ -1265,19 +1265,28 @@ exports[`authenticator renders verifyUser subcomponent 1`] = `
                 >
                   
                   
+                  
                   <label
                     class="amplify-flex amplify-radio"
                     data-amplify-label=""
                     data-amplify-verify-label=""
-                    id="verify"
                   >
+                    
+                    
+                    <span
+                      class="amplify-text amplify-radio__label"
+                      data-amplify-text=""
+                    >
+                      
+                      Email: t**t@example.com
+                      
+                    </span>
                     
                     <input
                       aria-invalid="false"
                       class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
                       data-amplify-input=""
                       data-amplify-verify-input=""
-                      id="verify"
                       name="unverifiedAttr"
                       type="radio"
                       value="email"
@@ -1293,17 +1302,8 @@ exports[`authenticator renders verifyUser subcomponent 1`] = `
                     </span>
                     
                     
-                    <span
-                      class="amplify-text amplify-radio__label"
-                      data-amplify-text=""
-                    >
-                      
-                      Email
-                      
-                    </span>
-                    
-                    
                   </label>
+                  
                   
                   
                 </div>

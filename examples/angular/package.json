@@ -20,15 +20,14 @@
     "@angular/platform-browser": "^14.3.0",
     "@angular/platform-browser-dynamic": "^14.3.0",
     "@angular/router": "^14.3.0",
-    "@aws-amplify/ui-angular": "^5.0.8",
-    "aws-amplify": "^6.0.6",
+    "@aws-amplify/ui-angular": "^5.0.18",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^14.2.12",
-    "@angular/cli": "^14.2.12",
+    "@angular-devkit/build-angular": "^14.2.13",
+    "@angular/cli": "^14.2.13",
     "@angular/compiler-cli": "^14.3.0",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
