@@ -67,7 +67,7 @@ export const UploadFileControls = (): JSX.Element => {
   return items ? (
     <>
       <h2>{name}</h2>
-      <div className={`${CLASS_BASE}__action-menu`}>
+      <div className={`${CLASS_BASE}__actions__container`}>
         <Navigate />
         <NavigateItem.Button
           onClick={() => {
