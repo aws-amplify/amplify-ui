@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import type { UploadDataOutput } from 'aws-amplify/storage';
 import type { StorageAccessLevel } from '@aws-amplify/core';
 
 import {
@@ -11,7 +10,7 @@ import {
   FileListProps,
   FilePickerProps,
 } from './ui';
-import { StorageManagerDisplayText } from './utils';
+import { StorageManagerDisplayText, PathCallback, UploadTask } from './utils';
 
 export enum FileStatus {
   ADDED = 'added',
@@ -27,7 +26,9 @@ export interface StorageFile {
   file?: File;
   status: FileStatus;
   progress: number;
-  uploadTask?: UploadDataOutput;
+  // only present after `processFile` complete
+  processedKey?: string;
+  uploadTask?: UploadTask;
   key: string;
   error: string;
   isImage: boolean;
@@ -37,8 +38,11 @@ export type StorageFiles = StorageFile[];
 
 export type DefaultFile = Pick<StorageFile, 'key'>;
 
-export type ProcessFileParams = Required<Pick<StorageFile, 'file' | 'key'>> &
-  Record<string, any>;
+export interface ProcessFileParams extends Record<string, any> {
+  file: File;
+  key: string;
+  useAccelerateEndpoint?: boolean;
+}
 
 export type ProcessFile = (
   params: ProcessFileParams
@@ -120,9 +124,22 @@ export interface StorageManagerProps {
    */
   showThumbnails?: boolean;
   /**
-   * A path to put files in the s3 bucket.
-   * This will be prepended to the key sent to
-   * s3 for each file.
+   * Provided value is prefixed to the file `key` for each file
    */
   path?: string;
+
+  useAccelerateEndpoint?: boolean;
+}
+
+export interface StorageManagerPathProps
+  extends Omit<StorageManagerProps, 'accessLevel' | 'path'> {
+  /**
+   * S3 bucket key, allows either a `string` or a `PathCallback`:
+   * - `string`: `path` is prefixed to the file `key` for each file
+   * - `PathCallback`: callback provided an input containing the current `identityId`,
+   *    resolved value is prefixed to the file `key` for each file
+   */
+  path: string | PathCallback;
+  accessLevel?: never;
+  useAccelerateEndpoint?: boolean;
 }

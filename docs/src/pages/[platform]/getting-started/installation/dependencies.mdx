@@ -1,6 +1,6 @@
 import { InlineFilter } from '@/components/InlineFilter';
 import { Example, ExampleCode } from '@/components/Example';
-import {Accordion, Alert, Link, Text, Tabs } from '@aws-amplify/ui-react';
+import { Accordion, Alert, Link, Message, Text, Tabs } from '@aws-amplify/ui-react';
 import { InstallScripts, TerminalCommand } from '@/components/InstallScripts.tsx';
 
 <InlineFilter filters={['android']}>
@@ -46,15 +46,15 @@ import { InstallScripts, TerminalCommand } from '@/components/InstallScripts.tsx
   You will need to add dependencies for the `amplify_authenticator` to the `pubspec.yaml` file as shown below.
 
   <ExampleCode>
-  ```yaml
+  ```yaml{6-8}
     environment:
-      sdk: ">=2.18.0 <4.0.0"
-      flutter: ">=3.3.0"
-    
+      sdk: ^3.3.0
+      flutter: '>=3.19.0'
+
     dependencies:
-      amplify_flutter: ^1.0.0
-      amplify_auth_cognito: ^1.0.0
-      amplify_authenticator: ^1.0.0
+      amplify_flutter: ^2.0.0
+      amplify_auth_cognito: ^2.0.0
+      amplify_authenticator: ^2.0.0
   ```
   </ExampleCode>
 
@@ -84,7 +84,7 @@ import { InstallScripts, TerminalCommand } from '@/components/InstallScripts.tsx
 
   If your project will support Federated Sign In using the React Native `Authenticator` the `@aws-amplify/rtn-web-browser` package is also required:
 
-  <InstallScripts command="npm install @aws-amplify/rtn-web-browser" framework="react-native" />
+  <TerminalCommand command="npm install @aws-amplify/rtn-web-browser" />
 
   <Accordion.Container>
     <Accordion.Item value="Accordion-item">
@@ -102,41 +102,25 @@ import { InstallScripts, TerminalCommand } from '@/components/InstallScripts.tsx
     </Accordion.Item>
   </Accordion.Container>
 
-  Then install the iOS cocoapods, by running:
+  Then install the iOS cocoapods by running:
 
-  <InstallScripts command="npx pod-install" framework="react-native" />
-
-  The AWS SDK requires React Native applications to polyfill `crypto.getRandomValues` and `URL`. Import the [`react-native-get-random-values`](https://github.com/LinusU/react-native-get-random-values) and [`react-native-url-polyfill`](https://github.com/charpeni/react-native-url-polyfill) polyfills and them to the top of your application's root entry point (in most React Native apps this will be the top level `index.js`).
-
-  <Example>
-  <ExampleCode>
-  ```jsx
-  // index.js
-  import 'react-native-url-polyfill/auto';
-  import 'react-native-get-random-values';
-
-  import { AppRegistry } from 'react-native';
-  import App from './App';
-  import { name as appName } from './app.json';
-
-  AppRegistry.registerComponent(appName, () => App);
-  ```
-  </ExampleCode>
-  </Example>
+  <TerminalCommand command="npx pod-install" framework="react-native" />
 
   </Tabs.Panel>
   <Tabs.Panel value="expo">
 
-  Add `@aws-amplify/ui-react-native` and its dependencies using the [Expo CLI](https://expo.dev/tools#cli) to ensure installation of native module dependency versions compatible with your Expo app:
+  <Message colorTheme="info">
+  Amplify now requires native modules not available through the Expo SDK. As a result, Expo Go is no longer supported but you should still be able to use Expo. <Link href="https://docs.amplify.aws/react-native/build-a-backend/troubleshooting/migrate-from-javascript-v5-to-v6/#dropping-support-for-expo-go" isExternal>Learn more about dropping support for Expo Go in Amplify v6.</Link>
+  </Message>
 
-  <br />
-  <TerminalCommand command="npx expo install @aws-amplify/ui-react-native aws-amplify @aws-amplify/react-native react-native-safe-area-context @react-native-async-storage/async-storage @react-native-community/netinfo" />
-  <br />
+  Install `@aws-amplify/ui-react-native` and its dependencies with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/):
+
+  <InstallScripts framework="react-native" />
 
   If your project will support Federated Sign In using the React Native `Authenticator` the `@aws-amplify/rtn-web-browser` package is also required:
 
   <br />
-  <TerminalCommand command="npx expo install @aws-amplify/rtn-web-browser" />
+  <TerminalCommand command="npm install @aws-amplify/rtn-web-browser" />
 
   </Tabs.Panel>
   </Tabs.Container>

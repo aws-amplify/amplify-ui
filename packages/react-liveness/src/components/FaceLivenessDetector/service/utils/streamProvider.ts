@@ -24,6 +24,7 @@ interface StreamProviderArgs extends StartLivenessStreamInput {
   videoEl: HTMLVideoElement;
   credentialProvider?: AwsCredentialProvider;
   endpointOverride?: string;
+  systemClockOffset?: number;
 }
 
 const TIME_SLICE = 1000;
@@ -54,6 +55,7 @@ export class LivenessStreamProvider {
   public responseStream!: AsyncIterable<LivenessResponseStream>;
   public credentialProvider?: AwsCredentialProvider;
   public endpointOverride?: string;
+  public systemClockOffset?: number;
 
   private _reader!: ReadableStreamDefaultReader;
   private videoEl: HTMLVideoElement;
@@ -68,6 +70,7 @@ export class LivenessStreamProvider {
     videoEl,
     credentialProvider,
     endpointOverride,
+    systemClockOffset,
   }: StreamProviderArgs) {
     this.sessionId = sessionId;
     this.region = region;
@@ -76,6 +79,7 @@ export class LivenessStreamProvider {
     this.videoRecorder = new VideoRecorder(stream);
     this.credentialProvider = credentialProvider;
     this.endpointOverride = endpointOverride;
+    this.systemClockOffset = systemClockOffset;
     this.initPromise = this.init();
   }
 
@@ -120,6 +124,7 @@ export class LivenessStreamProvider {
       credentialsProvider: this.credentialProvider,
       endpointOverride: this.endpointOverride,
       region: this.region,
+      systemClockOffset: this.systemClockOffset,
     });
 
     this.responseStream = await this.startLivenessVideoConnection();

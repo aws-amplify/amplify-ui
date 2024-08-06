@@ -1,5 +1,124 @@
 # @aws-amplify/ui-react-storage
 
+## 3.1.6
+
+### Patch Changes
+
+- [#5477](https://github.com/aws-amplify/amplify-ui/pull/5477) [`adb985c98`](https://github.com/aws-amplify/amplify-ui/commit/adb985c98c5b150280bdf2592aced3c5d3b1fc78) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(storage): fix looping calls to processFile
+
+## 3.1.5
+
+### Patch Changes
+
+- Updated dependencies [[`a0248855b`](https://github.com/aws-amplify/amplify-ui/commit/a0248855b85fe4a95d5b941b98b9d34cbc46298f), [`98135dfac`](https://github.com/aws-amplify/amplify-ui/commit/98135dfacccd5213e52b5001adbd1702e6f883fe)]:
+  - @aws-amplify/ui-react@6.1.14
+
+## 3.1.4
+
+### Patch Changes
+
+- [#5357](https://github.com/aws-amplify/amplify-ui/pull/5357) [`70354b0c3`](https://github.com/aws-amplify/amplify-ui/commit/70354b0c3f3c91fa99e8f091cfea720fe2b82635) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(storage-manager): update file processedKey on process file complete
+
+- Updated dependencies [[`31b9f299e`](https://github.com/aws-amplify/amplify-ui/commit/31b9f299e0b6253b9880700f836f47292453b40e), [`0483dd833`](https://github.com/aws-amplify/amplify-ui/commit/0483dd833698b518d1c88d98871cafb1b6019c75)]:
+  - @aws-amplify/ui-react@6.1.13
+  - @aws-amplify/ui@6.0.17
+  - @aws-amplify/ui-react-core@3.0.17
+
+## 3.1.3
+
+### Patch Changes
+
+- Updated dependencies [[`d7098c2fd`](https://github.com/aws-amplify/amplify-ui/commit/d7098c2fda994fc1ef285b349108c0e8ada9cc34)]:
+  - @aws-amplify/ui-react@6.1.12
+
+## 3.1.2
+
+### Patch Changes
+
+- [#5258](https://github.com/aws-amplify/amplify-ui/pull/5258) [`dc1b3be5b`](https://github.com/aws-amplify/amplify-ui/commit/dc1b3be5bb7307a28c856547500384f9bee52d34) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(deps): update amplify scoped and RN dep versions
+
+- Updated dependencies [[`dc1b3be5b`](https://github.com/aws-amplify/amplify-ui/commit/dc1b3be5bb7307a28c856547500384f9bee52d34)]:
+  - @aws-amplify/ui-react@6.1.11
+  - @aws-amplify/ui-react-core@3.0.16
+  - @aws-amplify/ui@6.0.16
+
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`1ca7c38e1`](https://github.com/aws-amplify/amplify-ui/commit/1ca7c38e15c5a7d307aa7e704b77d596167accb2), [`3af3e6b7a`](https://github.com/aws-amplify/amplify-ui/commit/3af3e6b7aca2914f67870b09fd5b2d81847f8e39), [`225bde836`](https://github.com/aws-amplify/amplify-ui/commit/225bde83640e9efba1b4edfce4696c74d6569b95), [`4b3f69917`](https://github.com/aws-amplify/amplify-ui/commit/4b3f6991706b774d45eb80beea2ddd606b21ce2a), [`bad0da7b9`](https://github.com/aws-amplify/amplify-ui/commit/bad0da7b9cc70069f504a37e80849b306b04f7d7), [`b92c34a99`](https://github.com/aws-amplify/amplify-ui/commit/b92c34a992b0f3d118711527360cdceeff503abb)]:
+  - @aws-amplify/ui@6.0.15
+  - @aws-amplify/ui-react@6.1.10
+  - @aws-amplify/ui-react-core@3.0.15
+
+## 3.1.0
+
+### Minor Changes
+
+- [#5186](https://github.com/aws-amplify/amplify-ui/pull/5186) [`9ce5f9d88`](https://github.com/aws-amplify/amplify-ui/commit/9ce5f9d88dce131fe15870bda9545915e72e7e01) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(@aws-amplify/ui-react-storage): Add handling for `aws-amplify/storage` improvements:
+
+  **Update `StorageManager` to support differing usages of `path` prop** - existing: `accessLevel` prop provided with or without optional `path` prop - additive: no `accessLevel` prop provided with required `path` as either a `string` or a callback provided the current `identityId`
+
+  Migrate from `accessLevel` to `path` as a `string`:
+
+  ```diff
+    <StorageManager
+  -   accessLevel="guest"
+  +   path="public/"
+      maxFileCount={1}
+    />
+  ```
+
+  Migrate from `accessLevel` to `path` as a callback:
+
+  ```diff
+    <StorageManager
+  -   accessLevel="private"
+  -   path="images/"
+  +   path={({ identityId }) => `private/${identityId}/images/`}
+      maxFileCount={1}
+    />
+  ```
+
+  **Update `StorageImage` to support `path` prop**
+
+  Migrate from `imagKey` and `accessLevel` to `path`:
+
+  ```diff
+    <StorageImage
+  -   imgKey="cat.jpeg"
+  -   accessLevel="public"
+  +   path="public/cat.jpeg"
+    />
+  ```
+
+### Patch Changes
+
+- [#5193](https://github.com/aws-amplify/amplify-ui/pull/5193) [`de2402842`](https://github.com/aws-amplify/amplify-ui/commit/de2402842c75e186e2c5515d20cb1873bbabc4a0) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(aws-amplify): point amplify to 6.2.0
+
+- Updated dependencies [[`de2402842`](https://github.com/aws-amplify/amplify-ui/commit/de2402842c75e186e2c5515d20cb1873bbabc4a0), [`9ce5f9d88`](https://github.com/aws-amplify/amplify-ui/commit/9ce5f9d88dce131fe15870bda9545915e72e7e01)]:
+  - @aws-amplify/ui-react-core@3.0.14
+  - @aws-amplify/ui-react@6.1.9
+  - @aws-amplify/ui@6.0.14
+
+## 3.0.18
+
+### Patch Changes
+
+- Updated dependencies [[`18da6aede`](https://github.com/aws-amplify/amplify-ui/commit/18da6aede31bf7d82939542f1646f06c577bd2c4)]:
+  - @aws-amplify/ui-react@6.1.8
+
+## 3.0.17
+
+### Patch Changes
+
+- [#5120](https://github.com/aws-amplify/amplify-ui/pull/5120) [`842c00ad4`](https://github.com/aws-amplify/amplify-ui/commit/842c00ad42701659228aea2fc526e34125a7e3d0) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(deps): update peerDep versions in public packages, point to 6.0.26 for examples and docs
+
+- Updated dependencies [[`a26e9eb86`](https://github.com/aws-amplify/amplify-ui/commit/a26e9eb86b5e78cad0aaf6ee5230f46900b0a016), [`842c00ad4`](https://github.com/aws-amplify/amplify-ui/commit/842c00ad42701659228aea2fc526e34125a7e3d0)]:
+  - @aws-amplify/ui@6.0.13
+  - @aws-amplify/ui-react-core@3.0.13
+  - @aws-amplify/ui-react@6.1.7
+
 ## 3.0.16
 
 ### Patch Changes

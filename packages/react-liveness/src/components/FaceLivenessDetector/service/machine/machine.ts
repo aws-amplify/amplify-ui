@@ -45,6 +45,7 @@ import {
 
 import { getStaticLivenessOvalDetails } from '../utils/liveness';
 import {
+  isConnectionTimeoutError,
   isThrottlingExceptionEvent,
   isServiceQuotaExceededExceptionEvent,
   isValidationExceptionEvent,
@@ -97,17 +98,21 @@ const responseStreamActor = async (callback: StreamActorCallback) => {
       }
     }
   } catch (error: unknown) {
-    let returnedError = error;
     if (isInvalidSignatureRegionException(error)) {
-      returnedError = new Error(
-        'Invalid region in FaceLivenessDetector or credentials are scoped to the wrong region.'
-      );
-    }
-
-    if (returnedError instanceof Error) {
       callback({
         type: 'SERVER_ERROR',
-        data: { error: returnedError },
+        data: {
+          error: new Error(
+            'Invalid region in FaceLivenessDetector or credentials are scoped to the wrong region.'
+          ),
+        },
+      });
+    } else if (error instanceof Error) {
+      callback({
+        type: isConnectionTimeoutError(error)
+          ? 'CONNECTION_TIMEOUT'
+          : 'SERVER_ERROR',
+        data: { error },
       });
     }
   }
@@ -189,8 +194,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         target: 'error',
         actions: 'updateErrorStateForServer',
       },
+      CONNECTION_TIMEOUT: {
+        target: 'error',
+        actions: 'updateErrorStateForConnectionTimeout',
+      },
       RUNTIME_ERROR: {
         target: 'error',
+        actions: 'updateErrorStateForRuntime',
       },
       MOBILE_LANDSCAPE_WARNING: {
         target: 'mobileLandscapeWarning',
@@ -295,11 +305,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       },
       recording: {
-        entry: ['clearErrorState', 'startRecording'],
+        entry: [
+          'clearErrorState',
+          'startRecording',
+          'sendTimeoutAfterOvalDrawingDelay',
+        ],
         initial: 'ovalDrawing',
         states: {
           ovalDrawing: {
-            entry: 'sendTimeoutAfterOvalDrawingDelay',
             invoke: {
               src: 'detectInitialFaceAndDrawOval',
               onDone: {
@@ -318,10 +331,21 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           checkFaceDetected: {
             after: {
               0: {
-                target: 'checkRecordingStarted',
+                target: 'cancelOvalDrawingTimeout',
                 cond: 'hasSingleFace',
               },
               100: { target: 'ovalDrawing' },
+            },
+          },
+          cancelOvalDrawingTimeout: {
+            entry: [
+              'cancelOvalDrawingTimeout',
+              'sendTimeoutAfterRecordingDelay',
+            ],
+            after: {
+              0: {
+                target: 'checkRecordingStarted',
+              },
             },
           },
           checkRecordingStarted: {
@@ -337,7 +361,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           // Evaluates face match and moves to checkMatch
           // which continually checks for match until either timeout or face match
           ovalMatching: {
-            entry: 'cancelOvalDrawingTimeout',
+            entry: 'cancelRecordingTimeout',
             invoke: {
               src: 'detectFaceAndMatchOval',
               onDone: {
@@ -346,7 +370,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               },
             },
           },
-          // If `hasFaceMatchedInOval` is true, then move to `delayBeforeFlash`, which pauses 
+          // If `hasFaceMatchedInOval` is true, then move to `delayBeforeFlash`, which pauses
           // for one second to show "Hold still" text before moving to `flashFreshnessColors`.
           // If not, move back to ovalMatching and re-evaluate match state
           checkMatch: {
@@ -398,7 +422,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         initial: 'pending',
         states: {
           pending: {
-            entry: ['sendTimeoutAfterWaitingForDisconnect', 'pauseVideoStream'],
+            entry: ['pauseVideoStream'],
             invoke: {
               src: 'stopVideo',
               onDone: 'waitForDisconnectEvent',
@@ -418,7 +442,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           getLivenessResult: {
-            entry: ['cancelWaitForDisconnectTimeout', 'freezeStream'],
+            entry: ['freezeStream'],
             invoke: {
               src: 'getLiveness',
               onError: {
@@ -455,8 +479,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           'cleanUpResources',
           'callErrorCallback',
           'cancelOvalDrawingTimeout',
-          'cancelWaitForDisconnectTimeout',
           'cancelOvalMatchTimeout',
+          'cancelRecordingTimeout',
           'freezeStream',
         ],
       },
@@ -671,9 +695,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       }),
       resetErrorState: assign({ errorState: (_) => undefined }),
+      updateErrorStateForConnectionTimeout: assign({
+        errorState: (_) => LivenessErrorState.CONNECTION_TIMEOUT,
+      }),
       updateErrorStateForTimeout: assign({
         errorState: (_, event) =>
           (event.data?.errorState as ErrorState) || LivenessErrorState.TIMEOUT,
+        errorMessage: (_, event) => event.data?.message as string,
       }),
       updateErrorStateForRuntime: assign({
         errorState: (_, event) =>
@@ -719,15 +747,38 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
       // timeouts
       sendTimeoutAfterOvalDrawingDelay: actions.send(
-        { type: 'TIMEOUT' },
+        {
+          type: 'RUNTIME_ERROR',
+          data: {
+            message: 'Client failed to draw oval.',
+          },
+        },
         {
           delay: 5000,
           id: 'ovalDrawingTimeout',
         }
       ),
       cancelOvalDrawingTimeout: actions.cancel('ovalDrawingTimeout'),
+      sendTimeoutAfterRecordingDelay: actions.send(
+        {
+          type: 'RUNTIME_ERROR',
+          data: {
+            message: 'Client failed to start recording.',
+          },
+        },
+        {
+          delay: 5000,
+          id: 'recordingTimeout',
+        }
+      ),
+      cancelRecordingTimeout: actions.cancel('recordingTimeout'),
       sendTimeoutAfterOvalMatchDelay: actions.send(
-        { type: 'TIMEOUT' },
+        {
+          type: 'TIMEOUT',
+          data: {
+            message: 'Client timed out waiting for face to match oval.',
+          },
+        },
         {
           delay: (context) => {
             return (
@@ -740,32 +791,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         }
       ),
       cancelOvalMatchTimeout: actions.cancel('ovalMatchTimeout'),
-      sendTimeoutAfterWaitingForDisconnect: actions.send(
-        {
-          type: 'TIMEOUT',
-          data: { errorState: LivenessErrorState.SERVER_ERROR },
-        },
-        {
-          delay: 20000,
-          id: 'waitForDisconnectTimeout',
-        }
-      ),
-      cancelWaitForDisconnectTimeout: actions.cancel(
-        'waitForDisconnectTimeout'
-      ),
-      sendTimeoutAfterFaceDistanceDelay: actions.send(
-        {
-          type: 'RUNTIME_ERROR',
-          data: new Error(
-            'Avoid moving closer during countdown and ensure only one face is in front of camera.'
-          ),
-        },
-        {
-          delay: 0,
-          id: 'faceDistanceTimeout',
-        }
-      ),
-      cancelFaceDistanceTimeout: actions.cancel('faceDistanceTimeout'),
 
       // callbacks
       callUserPermissionDeniedCallback: assign({
@@ -798,7 +823,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         context.componentProps!.onUserCancel?.();
       },
       callUserTimeoutCallback: (context) => {
-        const error = new Error('Client Timeout');
+        const error = new Error(context.errorMessage ?? 'Client Timeout');
         error.name = context.errorState!;
         const livenessError: LivenessError = {
           state: context.errorState!,
@@ -986,14 +1011,16 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       // eslint-disable-next-line @typescript-eslint/require-await
       async openLivenessStreamConnection(context) {
         const { config } = context.componentProps!;
-        const { credentialProvider, endpointOverride } = config!;
+        const { credentialProvider, endpointOverride, systemClockOffset } =
+          config!;
         const livenessStreamProvider = new LivenessStreamProvider({
           sessionId: context.componentProps!.sessionId,
           region: context.componentProps!.region,
+          systemClockOffset,
           stream: context.videoAssociatedParams!.videoMediaStream!,
           videoEl: context.videoAssociatedParams!.videoEl!,
-          credentialProvider: credentialProvider,
-          endpointOverride: endpointOverride,
+          credentialProvider,
+          endpointOverride,
         });
 
         responseStream = livenessStreamProvider.getResponseStream();

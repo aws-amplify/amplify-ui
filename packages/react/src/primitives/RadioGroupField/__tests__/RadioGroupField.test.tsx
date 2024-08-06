@@ -10,6 +10,8 @@ import {
   testFlexProps,
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
+import { ERROR_SUFFIX, DESCRIPTION_SUFFIX } from '../../../helpers/constants';
+import { getUniqueComponentId } from '../../utils/getUniqueComponentId';
 
 const basicProps = { legend: 'testLabel', name: 'testName', testId: 'testId' };
 const radioGroupTestId = `${basicProps.testId}-${ComponentClassName.RadioGroup}`;
@@ -308,6 +310,80 @@ describe('RadioFieldGroup', () => {
       render(RadioFieldGroup({ ...basicProps, hasError: true, errorMessage }));
       const errorText = screen.queryByText(errorMessage);
       expect(errorText).toContainHTML(errorMessage);
+    });
+  });
+
+  describe('aria-describedby test', () => {
+    const errorMessage = 'This is an error message';
+    const descriptiveText = 'Description';
+    it('when hasError, include id of error component and describe component in the aria-describedby', async () => {
+      render(
+        RadioFieldGroup({
+          ...basicProps,
+          descriptiveText,
+          hasError: true,
+          errorMessage,
+        })
+      );
+
+      const field = await screen.findByTestId(
+        getUniqueComponentId(
+          basicProps.testId,
+          ComponentClassName.RadioGroup
+        ) || ''
+      );
+      const ariaDescribedBy = field.getAttribute('aria-describedby');
+      const descriptiveTextElement = screen.queryByText(descriptiveText);
+      const errorTextElement = screen.queryByText(errorMessage);
+      expect(
+        errorTextElement?.id && errorTextElement?.id.endsWith(ERROR_SUFFIX)
+      ).toBe(true);
+      expect(
+        descriptiveTextElement?.id &&
+          descriptiveTextElement?.id.endsWith(DESCRIPTION_SUFFIX)
+      ).toBe(true);
+      expect(
+        errorTextElement?.id &&
+          descriptiveTextElement?.id &&
+          ariaDescribedBy ===
+            `${errorTextElement.id} ${descriptiveTextElement.id}`
+      ).toBe(true);
+    });
+
+    it('only show id of describe component in aria-describedby when hasError is false', async () => {
+      render(
+        RadioFieldGroup({
+          ...basicProps,
+          descriptiveText,
+          errorMessage,
+        })
+      );
+
+      const field = await screen.findByTestId(
+        getUniqueComponentId(
+          basicProps.testId,
+          ComponentClassName.RadioGroup
+        ) || ''
+      );
+      const ariaDescribedBy = field.getAttribute('aria-describedby');
+      const descriptiveTextElement = screen.queryByText(descriptiveText);
+      expect(
+        descriptiveTextElement?.id &&
+          ariaDescribedBy?.startsWith(descriptiveTextElement?.id)
+      ).toBe(true);
+    });
+
+    it('aria-describedby should be empty when hasError is false and descriptiveText is empty', async () => {
+      render(
+        RadioFieldGroup({
+          ...basicProps,
+          errorMessage,
+        })
+      );
+
+      const field = await screen.findByTestId(basicProps.testId);
+      const ariaDescribedBy = field.getAttribute('aria-describedby');
+      expect(ariaDescribedBy).toBeNull();
     });
   });
 });

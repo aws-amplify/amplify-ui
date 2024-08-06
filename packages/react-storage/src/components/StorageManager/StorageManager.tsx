@@ -1,13 +1,20 @@
 import * as React from 'react';
 
-import { UploadDataOutput } from 'aws-amplify/storage';
 import { getLogger, ComponentClassName } from '@aws-amplify/ui';
 import { VisuallyHidden } from '@aws-amplify/ui-react';
-import { useSetUserAgent } from '@aws-amplify/ui-react-core';
+import {
+  useDeprecationWarning,
+  useSetUserAgent,
+} from '@aws-amplify/ui-react-core';
 import { useDropZone } from '@aws-amplify/ui-react/internal';
 
 import { useStorageManager, useUploadFiles } from './hooks';
-import { FileStatus, StorageManagerProps, StorageManagerHandle } from './types';
+import {
+  FileStatus,
+  StorageManagerProps,
+  StorageManagerPathProps,
+  StorageManagerHandle,
+} from './types';
 import {
   Container,
   DropZone,
@@ -20,35 +27,54 @@ import {
   checkMaxFileSize,
   defaultStorageManagerDisplayText,
   filterAllowedFiles,
+  TaskHandler,
 } from './utils';
 import { VERSION } from '../../version';
 
 const logger = getLogger('Storage');
 
-function StorageManagerBase(
+export const MISSING_REQUIRED_PROPS_MESSAGE =
+  '`StorageManager` requires a `maxFileCount` prop to be provided.';
+export const ACCESS_LEVEL_WITH_PATH_CALLBACK_MESSAGE =
+  '`StorageManager` does not allow usage of a `path` callback prop with an `accessLevel` prop.';
+export const ACCESS_LEVEL_DEPRECATION_MESSAGE =
+  '`accessLevel` has been deprecated and will be removed in a future major version. See migration notes at https://ui.docs.amplify.aws/react/connected-components/storage/storagemanager';
+
+const StorageManagerBase = React.forwardRef(function StorageManager(
   {
     acceptedFileTypes = [],
     accessLevel,
     autoUpload = true,
+    components,
     defaultFiles,
     displayText: overrideDisplayText,
     isResumable = false,
     maxFileCount,
     maxFileSize,
-    onUploadError,
-    onUploadSuccess,
     onFileRemove,
+    onUploadError,
     onUploadStart,
-    showThumbnails = true,
-    processFile,
-    components,
+    onUploadSuccess,
     path,
-  }: StorageManagerProps,
+    processFile,
+    showThumbnails = true,
+    useAccelerateEndpoint,
+  }: StorageManagerPathProps | StorageManagerProps,
   ref: React.ForwardedRef<StorageManagerHandle>
 ): JSX.Element {
-  if (!accessLevel || !maxFileCount) {
-    logger.warn('StorageManager requires accessLevel and maxFileCount props');
+  if (!maxFileCount) {
+    // eslint-disable-next-line no-console
+    console.warn(MISSING_REQUIRED_PROPS_MESSAGE);
   }
+
+  if (accessLevel && typeof path === 'function') {
+    throw new Error(ACCESS_LEVEL_WITH_PATH_CALLBACK_MESSAGE);
+  }
+
+  useDeprecationWarning({
+    message: ACCESS_LEVEL_DEPRECATION_MESSAGE,
+    shouldWarn: !!accessLevel,
+  });
 
   const Components = {
     Container,
@@ -85,6 +111,7 @@ function StorageManagerBase(
     files,
     removeUpload,
     queueFiles,
+    setProcessedKey,
     setUploadingFile,
     setUploadPaused,
     setUploadProgress,
@@ -122,11 +149,13 @@ function StorageManagerBase(
     onUploadError,
     onUploadSuccess,
     onUploadStart,
+    onProcessFileSuccess: setProcessedKey,
     setUploadingFile,
     setUploadProgress,
     setUploadSuccess,
     processFile,
     path,
+    useAccelerateEndpoint,
   });
 
   const onFilePickerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -150,35 +179,17 @@ function StorageManagerBase(
     queueFiles();
   };
 
-  const onPauseUpload = ({
-    id,
-    uploadTask,
-  }: {
-    id: string;
-    uploadTask: UploadDataOutput;
-  }) => {
+  const onPauseUpload: TaskHandler = ({ id, uploadTask }) => {
     uploadTask.pause();
     setUploadPaused({ id });
   };
 
-  const onResumeUpload = ({
-    id,
-    uploadTask,
-  }: {
-    id: string;
-    uploadTask: UploadDataOutput;
-  }) => {
+  const onResumeUpload: TaskHandler = ({ id, uploadTask }) => {
     uploadTask.resume();
     setUploadResumed({ id });
   };
 
-  const onCancelUpload = ({
-    id,
-    uploadTask,
-  }: {
-    id: string;
-    uploadTask: UploadDataOutput;
-  }) => {
+  const onCancelUpload: TaskHandler = ({ id, uploadTask }) => {
     // At this time we don't know if the delete
     // permissions are enabled (required to cancel upload),
     // so we do a pause instead and remove from files
@@ -194,7 +205,9 @@ function StorageManagerBase(
     if (typeof onFileRemove === 'function') {
       const file = files.find((file) => file.id === id);
       if (file) {
-        onFileRemove({ key: file.key });
+        // return `processedKey` if available and `processFile` is provided
+        const key = (processFile && file?.processedKey) ?? file.key;
+        onFileRemove({ key });
       }
     }
   };
@@ -294,20 +307,16 @@ function StorageManagerBase(
       ) : null}
     </Components.Container>
   );
-}
+});
 
-const StorageManager = Object.assign(
-  React.forwardRef<StorageManagerHandle, StorageManagerProps>(
-    StorageManagerBase
-  ),
-  {
-    Container,
-    DropZone,
-    FileList,
-    FileListHeader,
-    FileListFooter,
-    FilePicker,
-  }
-);
+// pass an empty object as first param to avoid destructive action on `StorageManagerBase`
+const StorageManager = Object.assign({}, StorageManagerBase, {
+  Container,
+  DropZone,
+  FileList,
+  FileListHeader,
+  FileListFooter,
+  FilePicker,
+});
 
 export { StorageManager };

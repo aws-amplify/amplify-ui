@@ -37,6 +37,7 @@ export {
 export {
   useDeprecationWarning,
   UseDeprecationWarning,
+  useGetUrl,
   useHasValueUpdated,
   usePreviousValue,
   useSetUserAgent,

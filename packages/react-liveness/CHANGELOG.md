@@ -1,5 +1,120 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.1.3
+
+### Patch Changes
+
+- [#5497](https://github.com/aws-amplify/amplify-ui/pull/5497) [`325187cb9`](https://github.com/aws-amplify/amplify-ui/commit/325187cb9753bedf343364ef4f92d6eb9ad9003a) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(dependabot): Update dependencies in liveness package (@aws-sdk/client-rekognitionstreaming) to get fast-xml-parser fix
+
+## 3.1.2
+
+### Patch Changes
+
+- Updated dependencies [[`a0248855b`](https://github.com/aws-amplify/amplify-ui/commit/a0248855b85fe4a95d5b941b98b9d34cbc46298f), [`98135dfac`](https://github.com/aws-amplify/amplify-ui/commit/98135dfacccd5213e52b5001adbd1702e6f883fe)]:
+  - @aws-amplify/ui-react@6.1.14
+
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`31b9f299e`](https://github.com/aws-amplify/amplify-ui/commit/31b9f299e0b6253b9880700f836f47292453b40e), [`0483dd833`](https://github.com/aws-amplify/amplify-ui/commit/0483dd833698b518d1c88d98871cafb1b6019c75)]:
+  - @aws-amplify/ui-react@6.1.13
+  - @aws-amplify/ui@6.0.17
+
+## 3.1.0
+
+### Minor Changes
+
+- [#5344](https://github.com/aws-amplify/amplify-ui/pull/5344) [`407b7a52c`](https://github.com/aws-amplify/amplify-ui/commit/407b7a52c47d496cf3f158e17d617c7bc0cee065) Thanks [@esauerbo](https://github.com/esauerbo)! - feat(liveness): expose systemClockOffset to override rekognition client config.
+
+  If there is a clock skew greater than five minutes, you can optionally pass `systemClockOffset` to the `FaceLivenessDetectorCore` config, which will be applied as an offset to signing times.
+
+  ```
+  <FaceLivenessDetectorCore
+    ...
+    config={{
+      systemClockOffset:
+        createLivenessSessionApiData['systemClockOffset'],
+    }}
+  />
+  ```
+
+### Patch Changes
+
+- [#5334](https://github.com/aws-amplify/amplify-ui/pull/5334) [`a369d8b08`](https://github.com/aws-amplify/amplify-ui/commit/a369d8b083625d18ebbe9a23f70a8309f4fde4a9) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(deps): Update client-rekognitionstreaming sdk and custom fetch handler
+
+## 3.0.24
+
+### Patch Changes
+
+- [#5303](https://github.com/aws-amplify/amplify-ui/pull/5303) [`47fb5ef77`](https://github.com/aws-amplify/amplify-ui/commit/47fb5ef778847c11310e4200bbfed17e9edf250a) Thanks [@esauerbo](https://github.com/esauerbo)! - fix(liveness): Fix photosensitivity text customization
+
+## 3.0.23
+
+### Patch Changes
+
+- [#5298](https://github.com/aws-amplify/amplify-ui/pull/5298) [`36a211868`](https://github.com/aws-amplify/amplify-ui/commit/36a21186808c4983cbbf1460a2cad45d9e78de24) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(liveness): target android chrome 125 to use alternate mime type
+
+- [#5276](https://github.com/aws-amplify/amplify-ui/pull/5276) [`af879d490`](https://github.com/aws-amplify/amplify-ui/commit/af879d49061cb9e0070d8f735b9a9148a3e74428) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): add more granular timeout messages, remove disconnect timeout
+
+## 3.0.22
+
+### Patch Changes
+
+- Updated dependencies [[`d7098c2fd`](https://github.com/aws-amplify/amplify-ui/commit/d7098c2fda994fc1ef285b349108c0e8ada9cc34)]:
+  - @aws-amplify/ui-react@6.1.12
+
+## 3.0.21
+
+### Patch Changes
+
+- [#5258](https://github.com/aws-amplify/amplify-ui/pull/5258) [`dc1b3be5b`](https://github.com/aws-amplify/amplify-ui/commit/dc1b3be5bb7307a28c856547500384f9bee52d34) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(deps): update amplify scoped and RN dep versions
+
+- Updated dependencies [[`dc1b3be5b`](https://github.com/aws-amplify/amplify-ui/commit/dc1b3be5bb7307a28c856547500384f9bee52d34)]:
+  - @aws-amplify/ui-react@6.1.11
+  - @aws-amplify/ui@6.0.16
+
+## 3.0.20
+
+### Patch Changes
+
+- Updated dependencies [[`1ca7c38e1`](https://github.com/aws-amplify/amplify-ui/commit/1ca7c38e15c5a7d307aa7e704b77d596167accb2), [`3af3e6b7a`](https://github.com/aws-amplify/amplify-ui/commit/3af3e6b7aca2914f67870b09fd5b2d81847f8e39), [`225bde836`](https://github.com/aws-amplify/amplify-ui/commit/225bde83640e9efba1b4edfce4696c74d6569b95), [`4b3f69917`](https://github.com/aws-amplify/amplify-ui/commit/4b3f6991706b774d45eb80beea2ddd606b21ce2a), [`bad0da7b9`](https://github.com/aws-amplify/amplify-ui/commit/bad0da7b9cc70069f504a37e80849b306b04f7d7), [`b92c34a99`](https://github.com/aws-amplify/amplify-ui/commit/b92c34a992b0f3d118711527360cdceeff503abb)]:
+  - @aws-amplify/ui@6.0.15
+  - @aws-amplify/ui-react@6.1.10
+
+## 3.0.19
+
+### Patch Changes
+
+- [#5193](https://github.com/aws-amplify/amplify-ui/pull/5193) [`de2402842`](https://github.com/aws-amplify/amplify-ui/commit/de2402842c75e186e2c5515d20cb1873bbabc4a0) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(aws-amplify): point amplify to 6.2.0
+
+- Updated dependencies [[`de2402842`](https://github.com/aws-amplify/amplify-ui/commit/de2402842c75e186e2c5515d20cb1873bbabc4a0), [`9ce5f9d88`](https://github.com/aws-amplify/amplify-ui/commit/9ce5f9d88dce131fe15870bda9545915e72e7e01)]:
+  - @aws-amplify/ui-react@6.1.9
+  - @aws-amplify/ui@6.0.14
+
+## 3.0.18
+
+### Patch Changes
+
+- Updated dependencies [[`18da6aede`](https://github.com/aws-amplify/amplify-ui/commit/18da6aede31bf7d82939542f1646f06c577bd2c4)]:
+  - @aws-amplify/ui-react@6.1.8
+
+## 3.0.17
+
+### Patch Changes
+
+- [#5141](https://github.com/aws-amplify/amplify-ui/pull/5141) [`bd3d4e07f`](https://github.com/aws-amplify/amplify-ui/commit/bd3d4e07f274f91b2f15cefc3e59cbb7cc6f9978) Thanks [@hbuchel](https://github.com/hbuchel)! - fix: removes 500 status code sent upon websocket connection timeout and adds CONNECTION_TIMEOUT event.
+
+  A websocket connection timeout will now return the error state `CONNECTION_TIMEOUT` with message `Websocket connection timeout`. This also updates the `displayText` to include `connectionTimeoutHeaderText` and `connectionTimeoutMessageText` for displaying the error in the UI.
+
+- [#5125](https://github.com/aws-amplify/amplify-ui/pull/5125) [`a26e9eb86`](https://github.com/aws-amplify/amplify-ui/commit/a26e9eb86b5e78cad0aaf6ee5230f46900b0a016) Thanks [@esauerbo](https://github.com/esauerbo)! - fix(Liveness): Update camera module background on verifying step to match theme
+
+- [#5120](https://github.com/aws-amplify/amplify-ui/pull/5120) [`842c00ad4`](https://github.com/aws-amplify/amplify-ui/commit/842c00ad42701659228aea2fc526e34125a7e3d0) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(deps): update peerDep versions in public packages, point to 6.0.26 for examples and docs
+
+- Updated dependencies [[`a26e9eb86`](https://github.com/aws-amplify/amplify-ui/commit/a26e9eb86b5e78cad0aaf6ee5230f46900b0a016), [`842c00ad4`](https://github.com/aws-amplify/amplify-ui/commit/842c00ad42701659228aea2fc526e34125a7e3d0)]:
+  - @aws-amplify/ui@6.0.13
+  - @aws-amplify/ui-react@6.1.7
+
 ## 3.0.16
 
 ### Patch Changes

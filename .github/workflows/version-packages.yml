@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@cd7d8d697e10461458bc61a30d094dc601a8b017 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
+        uses: actions/checkout@b80ff79f1755d06ba70441c368a6fe801f5f3a62 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
@@ -39,7 +39,7 @@ jobs:
         run: yarn --frozen-lockfile
       - name: Create or update Version Packages PR
         if: ${{ steps.has-changesets.outputs.has-changesets == 'true' }}
-        uses: changesets/action@63ffd93140be6000b385d611d886a82c86214719 # v1.4.7 https://github.com/changesets/action/commit/63ffd93140be6000b385d611d886a82c86214719
+        uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
         with:
           version: yarn bumpVersions
         env:

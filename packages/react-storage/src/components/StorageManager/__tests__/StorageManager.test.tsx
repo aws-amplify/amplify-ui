@@ -1,11 +1,21 @@
 import React from 'react';
-import { fireEvent, render, waitFor, act } from '@testing-library/react';
+import {
+  fireEvent,
+  render,
+  waitFor,
+  act,
+  getByTestId,
+} from '@testing-library/react';
 import * as Storage from 'aws-amplify/storage';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 
 import * as StorageHooks from '../hooks';
-import { StorageManager } from '../StorageManager';
+import {
+  StorageManager,
+  MISSING_REQUIRED_PROPS_MESSAGE,
+  ACCESS_LEVEL_DEPRECATION_MESSAGE,
+} from '../StorageManager';
 import {
   StorageManagerProps,
   StorageManagerHandle,
@@ -15,21 +25,69 @@ import { defaultStorageManagerDisplayText } from '../utils';
 
 const warnSpy = jest.spyOn(console, 'warn').mockImplementation();
 
-const uploadDataSpy = jest.spyOn(Storage, 'uploadData');
+const uploadDataSpy = jest
+  .spyOn(Storage, 'uploadData')
+  .mockImplementation((input) => ({
+    cancel: jest.fn(),
+    pause: jest.fn(),
+    resume: jest.fn(),
+    state: 'SUCCESS',
+    result: Promise.resolve({ key: input.key, data: input.data }),
+  }));
 
 const storeManagerProps: StorageManagerProps = {
   accessLevel: 'guest',
   maxFileCount: 100,
 };
+
 describe('StorageManager', () => {
   beforeEach(() => {
-    uploadDataSpy.mockClear();
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
-  it('renders as expected', () => {
+  it('behaves as expected with an accessLevel prop', () => {
     const { container, getByText } = render(
       <StorageManager {...storeManagerProps} />
+    );
+    expect(container).toMatchSnapshot();
+
+    expect(
+      container.getElementsByClassName(
+        `${ComponentClassName.StorageManagerDropZone}`
+      )
+    ).toHaveLength(1);
+
+    expect(
+      container.getElementsByClassName(
+        `${ComponentClassName.StorageManagerDropZoneText}`
+      )
+    ).toHaveLength(1);
+
+    expect(
+      container.getElementsByClassName(
+        `${ComponentClassName.StorageManagerDropZoneIcon}`
+      )
+    ).toHaveLength(1);
+
+    expect(
+      container.getElementsByClassName(
+        `${ComponentClassName.StorageManagerFilePicker}`
+      )
+    ).toHaveLength(1);
+
+    expect(
+      getByText(defaultStorageManagerDisplayText.browseFilesText)
+    ).toBeVisible();
+    expect(
+      getByText(defaultStorageManagerDisplayText.dropFilesText)
+    ).toBeVisible();
+
+    expect(warnSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('behaves as expected with a path prop', () => {
+    const { container, getByText } = render(
+      <StorageManager maxFileCount={3} path={() => 'my-path'} />
     );
     expect(container).toMatchSnapshot();
 
@@ -143,15 +201,6 @@ describe('StorageManager', () => {
   });
 
   it('calls onUploadSuccess callback when file is successfully uploaded', async () => {
-    uploadDataSpy.mockImplementationOnce((input: Storage.UploadDataInput) => {
-      return {
-        cancel: jest.fn(),
-        pause: jest.fn(),
-        resume: jest.fn(),
-        state: 'SUCCESS',
-        result: Promise.resolve({ key: input.key, data: input.data }),
-      };
-    });
     const onUploadSuccess = jest.fn();
     render(
       <StorageManager
@@ -185,15 +234,6 @@ describe('StorageManager', () => {
   });
 
   it('calls onUploadStart callback when file starts uploading', async () => {
-    uploadDataSpy.mockImplementationOnce((input: Storage.UploadDataInput) => {
-      return {
-        cancel: jest.fn(),
-        pause: jest.fn(),
-        resume: jest.fn(),
-        state: 'SUCCESS',
-        result: Promise.resolve({ key: input.key, data: input.data }),
-      };
-    });
     const onUploadStart = jest.fn();
     render(
       <StorageManager {...storeManagerProps} onUploadStart={onUploadStart} />
@@ -223,10 +263,175 @@ describe('StorageManager', () => {
     });
   });
 
-  it('renders a warning if maxFileCount is zero', () => {
+  it('provides the correct file key on a remove file event before upload', () => {
+    const onFileRemove = jest.fn();
+
+    const { container } = render(
+      <StorageManager
+        {...storeManagerProps}
+        autoUpload={false}
+        onFileRemove={onFileRemove}
+      />
+    );
+
+    const hiddenInput: HTMLInputElement = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+
+    expect(hiddenInput).toBeInTheDocument();
+
+    const file = new File(['file content'], 'file.txt', { type: 'text/plain' });
+
+    fireEvent.change(hiddenInput, { target: { files: [file] } });
+
+    expect(uploadDataSpy).not.toHaveBeenCalled();
+
+    const removeButton = getByTestId(
+      container,
+      'storage-manager-remove-button'
+    );
+    expect(removeButton).toBeDefined();
+
+    fireEvent.click(removeButton);
+
+    expect(onFileRemove).toHaveBeenCalledTimes(1);
+    expect(onFileRemove).toHaveBeenCalledWith({ key: file.name });
+  });
+
+  it('provides the correct file key on a remove file event after upload', async () => {
+    const onFileRemove = jest.fn();
+
+    const { container } = render(
+      <StorageManager {...storeManagerProps} onFileRemove={onFileRemove} />
+    );
+    const hiddenInput = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+
+    expect(hiddenInput).toBeInTheDocument();
+    const file = new File(['file content'], 'file.txt', { type: 'text/plain' });
+    fireEvent.change(hiddenInput, {
+      target: { files: [file] },
+    });
+
+    // Wait for the file to be uploaded
+    await waitFor(() => {
+      expect(uploadDataSpy).toHaveBeenCalled();
+
+      const removeButton = getByTestId(
+        container,
+        'storage-manager-remove-button'
+      );
+      expect(removeButton).toBeDefined();
+
+      fireEvent.click(removeButton);
+
+      expect(onFileRemove).toHaveBeenCalledTimes(1);
+      expect(onFileRemove).toHaveBeenCalledWith({ key: file.name });
+    });
+  });
+
+  it('provides the processed file key on a remove file event after upload when processFile is provided', async () => {
+    const onFileRemove = jest.fn();
+
+    const processedKey = 'processedKey';
+    const processFile: StorageManagerProps['processFile'] = (input) => ({
+      ...input,
+      key: processedKey,
+    });
+
+    const { container } = render(
+      <StorageManager
+        {...storeManagerProps}
+        onFileRemove={onFileRemove}
+        processFile={processFile}
+      />
+    );
+
+    const hiddenInput = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+
+    expect(hiddenInput).toBeInTheDocument();
+    const file = new File(['file content'], 'file.txt', { type: 'text/plain' });
+
+    fireEvent.change(hiddenInput, { target: { files: [file] } });
+
+    // Wait for the file to be uploaded
+    await waitFor(() => {
+      expect(uploadDataSpy).toHaveBeenCalled();
+
+      const removeButton = getByTestId(
+        container,
+        'storage-manager-remove-button'
+      );
+      expect(removeButton).toBeDefined();
+
+      fireEvent.click(removeButton);
+
+      expect(onFileRemove).toHaveBeenCalledTimes(1);
+      expect(onFileRemove).toHaveBeenCalledWith({ key: processedKey });
+    });
+  });
+
+  it('provides the processed file key on a remove file event after upload when processFile is provided with a path function', async () => {
+    const onFileRemove = jest.fn();
+
+    const processedKey = 'processedKey';
+    const processFile: StorageManagerProps['processFile'] = (input) => ({
+      ...input,
+      key: processedKey,
+    });
+
+    const { container } = render(
+      <StorageManager
+        {...storeManagerProps}
+        onFileRemove={onFileRemove}
+        processFile={processFile}
+        path={() => 'my-path'}
+        accessLevel={undefined}
+      />
+    );
+
+    const hiddenInput = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+
+    expect(hiddenInput).toBeInTheDocument();
+    const file = new File(['file content'], 'file.txt', { type: 'text/plain' });
+
+    fireEvent.change(hiddenInput, { target: { files: [file] } });
+
+    // Wait for the file to be uploaded
+    await waitFor(() => {
+      expect(uploadDataSpy).toHaveBeenCalled();
+
+      const removeButton = getByTestId(
+        container,
+        'storage-manager-remove-button'
+      );
+      expect(removeButton).toBeDefined();
+
+      fireEvent.click(removeButton);
+
+      expect(onFileRemove).toHaveBeenCalledTimes(1);
+      expect(onFileRemove).toHaveBeenCalledWith({ key: processedKey });
+    });
+  });
+
+  it('logs a warning if maxFileCount is zero', () => {
     render(<StorageManager {...storeManagerProps} maxFileCount={0} />);
 
+    expect(warnSpy).toHaveBeenCalledTimes(2);
+    expect(warnSpy.mock.calls[0][0]).toBe(MISSING_REQUIRED_PROPS_MESSAGE);
+    expect(warnSpy.mock.calls[1][0]).toBe(ACCESS_LEVEL_DEPRECATION_MESSAGE);
+  });
+
+  it('logs a warning if provided an accessLevel prop', () => {
+    render(<StorageManager {...storeManagerProps} maxFileCount={1} />);
+
     expect(warnSpy).toHaveBeenCalledTimes(1);
+    expect(warnSpy.mock.calls[0][0]).toBe(ACCESS_LEVEL_DEPRECATION_MESSAGE);
   });
 
   it('should trigger hidden input onChange', async () => {

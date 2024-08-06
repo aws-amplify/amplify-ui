@@ -120,7 +120,6 @@ export const FederatedSignInButton = (
     <Button
       onClick={handleClick}
       className="federated-sign-in-button"
-      fontWeight="normal"
       gap="1rem"
     >
       {iconComponent}

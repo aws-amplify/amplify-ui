@@ -1,5 +1,61 @@
 # @aws-amplify/ui-react-native-auth
 
+## 0.0.21
+
+### Patch Changes
+
+- Updated dependencies [[`0483dd833`](https://github.com/aws-amplify/amplify-ui/commit/0483dd833698b518d1c88d98871cafb1b6019c75)]:
+  - @aws-amplify/ui@6.0.17
+  - @aws-amplify/ui-react-core-auth@0.0.19
+  - @aws-amplify/ui-react-native@2.2.3
+
+## 0.0.20
+
+### Patch Changes
+
+- Updated dependencies [[`dc1b3be5b`](https://github.com/aws-amplify/amplify-ui/commit/dc1b3be5bb7307a28c856547500384f9bee52d34)]:
+  - @aws-amplify/ui-react-native@2.2.2
+  - @aws-amplify/ui@6.0.16
+  - @aws-amplify/ui-react-core-auth@0.0.18
+
+## 0.0.19
+
+### Patch Changes
+
+- Updated dependencies [[`1ca7c38e1`](https://github.com/aws-amplify/amplify-ui/commit/1ca7c38e15c5a7d307aa7e704b77d596167accb2), [`3af3e6b7a`](https://github.com/aws-amplify/amplify-ui/commit/3af3e6b7aca2914f67870b09fd5b2d81847f8e39), [`225bde836`](https://github.com/aws-amplify/amplify-ui/commit/225bde83640e9efba1b4edfce4696c74d6569b95), [`4b3f69917`](https://github.com/aws-amplify/amplify-ui/commit/4b3f6991706b774d45eb80beea2ddd606b21ce2a), [`bad0da7b9`](https://github.com/aws-amplify/amplify-ui/commit/bad0da7b9cc70069f504a37e80849b306b04f7d7), [`b92c34a99`](https://github.com/aws-amplify/amplify-ui/commit/b92c34a992b0f3d118711527360cdceeff503abb)]:
+  - @aws-amplify/ui@6.0.15
+  - @aws-amplify/ui-react-core-auth@0.0.17
+  - @aws-amplify/ui-react-native@2.2.1
+
+## 0.0.18
+
+### Patch Changes
+
+- Updated dependencies [[`80822552c`](https://github.com/aws-amplify/amplify-ui/commit/80822552c4040d797a3516cdcec8aa83987cfb96)]:
+  - @aws-amplify/ui-react-native@2.2.0
+
+## 0.0.17
+
+### Patch Changes
+
+- [#5193](https://github.com/aws-amplify/amplify-ui/pull/5193) [`de2402842`](https://github.com/aws-amplify/amplify-ui/commit/de2402842c75e186e2c5515d20cb1873bbabc4a0) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(aws-amplify): point amplify to 6.2.0
+
+- Updated dependencies [[`de2402842`](https://github.com/aws-amplify/amplify-ui/commit/de2402842c75e186e2c5515d20cb1873bbabc4a0)]:
+  - @aws-amplify/ui-react-core-auth@0.0.16
+  - @aws-amplify/ui-react-native@2.1.6
+  - @aws-amplify/ui@6.0.14
+
+## 0.0.16
+
+### Patch Changes
+
+- [#5120](https://github.com/aws-amplify/amplify-ui/pull/5120) [`842c00ad4`](https://github.com/aws-amplify/amplify-ui/commit/842c00ad42701659228aea2fc526e34125a7e3d0) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(deps): update peerDep versions in public packages, point to 6.0.26 for examples and docs
+
+- Updated dependencies [[`a26e9eb86`](https://github.com/aws-amplify/amplify-ui/commit/a26e9eb86b5e78cad0aaf6ee5230f46900b0a016), [`842c00ad4`](https://github.com/aws-amplify/amplify-ui/commit/842c00ad42701659228aea2fc526e34125a7e3d0)]:
+  - @aws-amplify/ui@6.0.13
+  - @aws-amplify/ui-react-core-auth@0.0.15
+  - @aws-amplify/ui-react-native@2.1.5
+
 ## 0.0.15
 
 ### Patch Changes
