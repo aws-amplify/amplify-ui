@@ -7,6 +7,7 @@ export interface AIConversationElements {
   Icon: typeof IconElement;
   Image: typeof ImageElement;
   Input: typeof InputElement;
+  Label: typeof LabelElement;
   ListItem: typeof ListItemElement;
   Span: typeof SpanElement;
   Text: typeof TextElement;
@@ -14,6 +15,11 @@ export interface AIConversationElements {
   UnorderedList: typeof UnorderedListElement;
   View: typeof ViewElement;
 }
+
+export const LabelElement = defineBaseElement({
+  type: 'label',
+  displayName: 'Label',
+});
 
 export const TextElement = defineBaseElement({
   type: 'p',
@@ -49,7 +55,7 @@ export const InputElement = defineBaseElement<'input', 'type'>({
 });
 
 type ButtonElementProps = 'disabled' | 'onClick' | 'type';
-type ButtonElementVariant = 'send-message' | 'attach';
+type ButtonElementVariant = 'attach' | 'remove' | 'send-message';
 
 export const ButtonElement = defineBaseElement<
   'button',
@@ -67,7 +73,7 @@ export const SpanElement = defineBaseElement({
   displayName: 'Span',
 });
 
-type TextAreaElementProps = 'onChange' | 'placeholder';
+type TextAreaElementProps = 'id' | 'name' | 'onChange' | 'placeholder';
 
 export const TextAreaElement = defineBaseElement<
   'textarea',
@@ -83,6 +89,7 @@ export const AIConversationElements: AIConversationElements = {
   Icon: IconElement,
   Input: InputElement,
   Image: ImageElement,
+  Label: LabelElement,
   ListItem: ListItemElement,
   Span: SpanElement,
   Text: TextElement,

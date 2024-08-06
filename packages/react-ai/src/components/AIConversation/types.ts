@@ -4,13 +4,13 @@ import { AIConversationElements } from './context/elements';
 import {
   ActionsBarControl,
   AvatarControl,
+  FieldControl,
   HeaderControl,
   MessagesControl,
   PromptControl,
 } from './views';
 import { DisplayTextTemplate } from '@aws-amplify/ui';
 import { AIConversationDisplayText } from './displayText';
-import { FieldControl } from './views/Controls';
 
 export interface Controls<
   T extends Partial<AIConversationElements> = AIConversationElements,
@@ -68,7 +68,7 @@ export interface ImageContent {
   bytes: ArrayBuffer;
 }
 
-interface ImageContentBlock {
+export interface ImageContentBlock {
   type: 'image';
   value: ImageContent;
 }

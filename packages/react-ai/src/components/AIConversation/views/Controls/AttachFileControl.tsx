@@ -1,12 +1,13 @@
 import React from 'react';
 
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
-
+import { InputContext } from '../../context';
 import { AIConversationElements } from '../../context/elements';
 
 const { Button, Icon, View } = AIConversationElements;
 
 const ATTACH_FILE_BLOCK = 'ai-attach-file';
+const FIELD_BLOCK = 'ai-field';
 
 const AttachFileIcon = withBaseElementProps(Icon, {
   className: `${ATTACH_FILE_BLOCK}__icon`,
@@ -18,36 +19,53 @@ const AttachFileContainer = withBaseElementProps(View, {
 });
 
 const VisuallyHidden = withBaseElementProps(View, {
-  className: `${ATTACH_FILE_BLOCK}__visually-hidden`,
+  className: `${FIELD_BLOCK}__visually-hidden`,
 });
 
 const AttachFileButton = withBaseElementProps(Button, {
   'aria-label': 'Attach file',
-  className: `${ATTACH_FILE_BLOCK}__button`,
+  className: `${FIELD_BLOCK}__button`,
+  type: 'button',
   variant: 'attach',
 });
 
 export const AttachFileControl: AttachFileControl = () => {
   const hiddenInput = React.useRef<HTMLInputElement>(null);
+  const { setInput } = React.useContext(InputContext);
 
-  function handleClick() {
+  function handleButtonClick() {
     if (hiddenInput.current) {
       hiddenInput.current.click();
       hiddenInput.current.value = '';
     }
   }
+
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { files } = e.target;
+    if (files && files?.length > 0 && setInput) {
+      Array.from(files).forEach((file) => {
+        setInput((prevInput) => ({
+          ...prevInput,
+          files: [...(prevInput?.files ?? []), file],
+        }));
+      });
+    }
+  }
+
   return (
     <AttachFileContainer>
-      <AttachFileButton onClick={handleClick}>
+      <AttachFileButton onClick={handleButtonClick}>
         <AttachFileIcon />
       </AttachFileButton>
       <VisuallyHidden>
         <input
-          data-testid="hidden-file-input"
           // TODO follow up about what file types are accepted
-          accept="image/*"
-          type="file"
+          accept=".jpeg,.png,.webp,.gif"
+          data-testid="hidden-file-input"
+          onChange={handleFileChange}
           ref={hiddenInput}
+          type="file"
+          multiple
         />
       </VisuallyHidden>
     </AttachFileContainer>
