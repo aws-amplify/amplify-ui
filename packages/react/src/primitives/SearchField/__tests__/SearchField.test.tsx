@@ -226,7 +226,7 @@ describe('SearchField component', () => {
 
       const searchField = await screen.findByLabelText(label);
 
-      await user.type(searchField, searchQuery);
+      await act(async () => user.type(searchField, searchQuery));
 
       const clearButton = await screen.findByLabelText(clearButtonLabel);
       expect(clearButton).not.toHaveFocus();

@@ -16,6 +16,7 @@ export interface GetInputParams {
   onProgress: NonNullable<UploadDataWithPathInput['options']>['onProgress'];
   path: string | PathCallback | undefined;
   processFile: ProcessFile | undefined;
+  useAccelerateEndpoint?: boolean;
 }
 
 export const getInput = ({
@@ -26,6 +27,7 @@ export const getInput = ({
   onProgress,
   path,
   processFile,
+  useAccelerateEndpoint,
 }: GetInputParams) => {
   return async (): Promise<PathInput | UploadDataInput> => {
     const hasCallbackPath = isTypedFunction<PathCallback>(path);
@@ -42,7 +44,7 @@ export const getInput = ({
     const contentType = file.type || 'binary/octet-stream';
 
     // IMPORTANT: always pass `...rest` here for backwards compatibility
-    const options = { contentType, onProgress, ...rest };
+    const options = { contentType, onProgress, useAccelerateEndpoint, ...rest };
 
     let inputResult: PathInput | UploadDataInput;
     if (hasKeyInput) {
