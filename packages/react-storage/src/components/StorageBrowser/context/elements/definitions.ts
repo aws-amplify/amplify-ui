@@ -32,6 +32,8 @@ export type IconElementProps = React.ComponentProps<typeof IconElement>;
 
 export type ButtonElementProps = React.ComponentProps<typeof ButtonElement>;
 type ButtonElementVariant =
+  | 'action-select-item'
+  | 'action-select-toggle'
   | 'action-submit'
   | 'navigate'
   | 'refresh'
@@ -134,7 +136,7 @@ export const InputElement = defineBaseElement<'input', 'type' | 'id'>({
 
 export const ButtonElement = defineBaseElement<
   'button',
-  'disabled' | 'onClick' | 'type',
+  'disabled' | 'onClick' | 'role' | 'type',
   ButtonElementVariant
 >({ type: 'button', displayName: 'Button' });
 
