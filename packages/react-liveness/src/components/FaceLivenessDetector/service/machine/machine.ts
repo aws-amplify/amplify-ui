@@ -958,10 +958,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           },
           audio: false,
         });
+        console.log('initialStream', initialStream);
         const devices = await navigator.mediaDevices.enumerateDevices();
+        console.log('devices', devices);
         const realVideoDevices = devices
           .filter((device) => device.kind === 'videoinput')
           .filter((device) => !isCameraDeviceVirtual(device));
+        console.log('realVideoDevices', realVideoDevices);
 
         if (!realVideoDevices.length) {
           throw new Error('No real video devices found');
@@ -974,7 +977,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             const settings = track.getSettings();
             return settings.frameRate! >= 15;
           });
-
+        console.log('tracksWithMoreThan15Fps', tracksWithMoreThan15Fps);
         if (tracksWithMoreThan15Fps.length < 1) {
           throw new Error('No camera found with more than 15 fps');
         }

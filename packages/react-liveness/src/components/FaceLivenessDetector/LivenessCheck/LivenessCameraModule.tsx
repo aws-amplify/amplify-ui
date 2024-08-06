@@ -403,7 +403,6 @@ export const LivenessCameraModule = (
           </Flex>
 
           {isStartView &&
-            !isMobileScreen &&
             selectableDevices &&
             selectableDevices.length > 1 && (
               <Flex className={LivenessClassNames.StartScreenCameraSelect}>
