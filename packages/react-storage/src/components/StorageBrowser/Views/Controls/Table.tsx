@@ -6,14 +6,8 @@ import { StorageBrowserElements } from '../../context/elements';
 import { DownloadControl } from './Download';
 import { CLASS_BASE } from '../constants';
 import { useControl } from '../../context/controls';
-import {
-  LocationAccess,
-  LocationData,
-  LocationItem,
-  Permission,
-} from '../../context/types';
+import { LocationAccess, LocationItem, Permission } from '../../context/types';
 import { useAction, useLocationsData } from '../../context/actions';
-import { parseLocationAccess } from '../../context/controls/Navigate/utils';
 
 const {
   Table: BaseTable,
@@ -215,11 +209,7 @@ export const LocationsViewTable = (): JSX.Element => {
                     onClick={() => {
                       handleUpdateState({
                         type: 'ACCESS_LOCATION',
-                        location: {
-                          ...row,
-                          scope: row.scope,
-                          type: row.type,
-                        },
+                        location: row,
                       });
                     }}
                     type="button"
@@ -257,25 +247,22 @@ export const LocationDetailViewTable = (): JSX.Element => {
     type: 'LIST_LOCATION_ITEMS',
   });
 
-  const { prefix: initialPrefix } = location
-    ? parseLocationAccess(location)
-    : ({} as LocationData);
-
-  const prefix =
-    history.length === 1 ? initialPrefix : history[history.length - 1];
+  const prefix = history.join('');
 
   const hasItems = !!data.result?.length;
-  const shouldReset = hasItems && !location && !history.length;
+  const shouldReset = !history.length && hasItems && !location;
 
   React.useEffect(() => {
     if (shouldReset) {
       handleList({ prefix: '', options: { reset: true } });
     }
 
-    if (typeof prefix !== 'string') return;
+    if (!history.length) {
+      return;
+    }
 
     handleList({ prefix, options: { pageSize: 1000, refresh: true } });
-  }, [handleList, prefix, shouldReset]);
+  }, [handleList, history, prefix, shouldReset]);
 
   // @TODO: This should be it's own component instead of using `useCallback`
   const renderRowItem: RenderRowItem<LocationItem> = React.useCallback(
@@ -313,7 +300,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
                     onClick={() => {
                       handleUpdateState({
                         type: 'NAVIGATE',
-                        prefix: row.key,
+                        prefix: row.key.slice(prefix.length),
                       });
                     }}
                     key={`${index}-${row.key}`}
