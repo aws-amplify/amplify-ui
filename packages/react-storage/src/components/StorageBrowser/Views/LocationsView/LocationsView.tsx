@@ -44,6 +44,7 @@ LocationsViewControls.Paginate = Paginate;
 LocationsViewControls.Refresh = Refresh;
 LocationsViewControls.Search = Search;
 LocationsViewControls.Table = Table;
+LocationsViewControls.Title = TitleElement;
 
 export const LocationsView: LocationsView = () => {
   return (
