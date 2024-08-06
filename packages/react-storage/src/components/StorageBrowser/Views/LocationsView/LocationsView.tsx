@@ -2,12 +2,19 @@ import React from 'react';
 
 import { StorageBrowserElements } from '../../context/elements';
 
-import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
 import { CommonControl, ViewComponent } from '../types';
 import { LocationsViewTable } from '../Controls';
+import { CLASS_BASE } from '../constants';
 
-const { Message, Paginate, Refresh, Search, Table, Title } = Controls;
+const {
+  Message,
+  Paginate,
+  Refresh,
+  Search,
+  Table,
+  Title: TitleElement,
+} = Controls;
 
 interface LocationsViewControls<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -26,9 +33,7 @@ export interface LocationsView<
 const LocationsViewControls: LocationsViewControls = () => {
   return (
     <>
-      <Title />
-      <Refresh />
-      <Paginate />
+      <TitleElement>Home</TitleElement>
       <LocationsViewTable />
     </>
   );
@@ -39,7 +44,6 @@ LocationsViewControls.Paginate = Paginate;
 LocationsViewControls.Refresh = Refresh;
 LocationsViewControls.Search = Search;
 LocationsViewControls.Table = Table;
-LocationsViewControls.Title = Title;
 
 export const LocationsView: LocationsView = () => {
   return (
