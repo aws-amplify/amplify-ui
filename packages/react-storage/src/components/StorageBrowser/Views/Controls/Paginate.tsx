@@ -63,7 +63,7 @@ const PaginateContainer: _PaginateControl['Container'] = React.forwardRef(
       <Nav
         {...props}
         aria-label={props['aria-label'] ?? 'Pagination'}
-        className={props.className ?? `${BLOCK_NAME}__container`}
+        className={props.className ?? BLOCK_NAME}
         ref={ref}
       >
         <OrderedList className={`${props.className ?? BLOCK_NAME}__list`}>
