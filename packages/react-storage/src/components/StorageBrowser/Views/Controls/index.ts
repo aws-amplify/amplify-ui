@@ -1,4 +1,6 @@
+export { ActionCancelControl } from './ActionCancel';
 export { ActionSelectControl } from './ActionSelect';
+export { ActionStartControl } from './ActionStart';
 export { DownloadControl } from './Download';
 export { MessageControl } from './Message';
 export { NavigateControl } from './Navigate';

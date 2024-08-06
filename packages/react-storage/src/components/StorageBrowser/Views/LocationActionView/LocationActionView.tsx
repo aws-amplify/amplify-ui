@@ -15,12 +15,12 @@ export interface LocationActionView<
 > extends ViewComponent<LocationActionViewControls<T>> {}
 
 export const LocationActionView: LocationActionView = () => {
-  const [state, handleUpdateState] = useControl({
+  const [state] = useControl({
     type: 'ACTION_SELECT',
   });
   const { actionType, destination, items, name } = state.selected;
 
-  const [tasks, handleUpload] = useHandleUpload({
+  const [tasks] = useHandleUpload({
     destination: destination!,
     items: items! as FileItem[],
   });
@@ -51,19 +51,7 @@ export const LocationActionView: LocationActionView = () => {
   return (
     <>
       <h2>{name}</h2>
-      <button
-        onClick={() => handleUpdateState({ type: 'DESELECT_ACTION_TYPE' })}
-      >
-        Exit
-      </button>
-      <button
-        onClick={() => {
-          if (!items) return;
-          handleUpload();
-        }}
-      >
-        Start
-      </button>
+
       {actionType === 'CREATE_FOLDER' ? (
         <CreateFolderActionViewControls />
       ) : (

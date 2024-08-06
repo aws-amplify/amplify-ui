@@ -34,6 +34,8 @@ export type ButtonElementProps = React.ComponentProps<typeof ButtonElement>;
 type ButtonElementVariant =
   | 'action-select-item'
   | 'action-select-toggle'
+  | 'action-start'
+  | 'action-cancel'
   | 'action-submit'
   | 'navigate'
   | 'refresh'
