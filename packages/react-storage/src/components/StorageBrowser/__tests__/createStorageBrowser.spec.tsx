@@ -7,6 +7,8 @@ import * as CreateProviderModule from '../createProvider';
 
 import { createStorageBrowser } from '../createStorageBrowser';
 
+jest.mock('../context/config');
+
 jest.spyOn(ActionsModule, 'useLocationsData').mockReturnValue([
   {
     isLoading: false,
@@ -123,7 +125,9 @@ describe('createStorageBrowser', () => {
         ({
           NAVIGATE: [{ location: undefined }],
           ACTION_SELECT: [
-            { selected: { actionType: 'CREATE_FOLDER' } },
+            {
+              selected: { actionType: 'CREATE_FOLDER', name: 'Create Folder' },
+            },
             jest.fn(),
           ],
           PAGINATE: [{}],
@@ -135,7 +139,7 @@ describe('createStorageBrowser', () => {
     render(<StorageBrowser />);
 
     await waitFor(() => {
-      expect(screen.getByText('CREATE_FOLDER')).toBeInTheDocument();
+      expect(screen.getByText('Create Folder')).toBeInTheDocument();
     });
   });
 });

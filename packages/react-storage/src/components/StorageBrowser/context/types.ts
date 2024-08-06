@@ -8,6 +8,7 @@ export interface FolderItem {
 
 export interface FileItem {
   key: string;
+  data?: File;
   lastModified: Date;
   size: number;
   type: 'FILE';

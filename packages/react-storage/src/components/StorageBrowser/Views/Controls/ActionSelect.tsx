@@ -13,8 +13,6 @@ import type { OmitElements } from '../types';
 const { Button, Icon: IconElement, View } = StorageBrowserElements;
 const BLOCK_NAME = `${CLASS_BASE}__action-menu`;
 
-/* <ActionItem /> */
-
 const ActionIcon: typeof IconElement = React.forwardRef(
   function ActionIcon(props, ref) {
     const { variant } = props;
@@ -50,10 +48,12 @@ interface ActionItem<T extends StorageBrowserElements = StorageBrowserElements>
 
 const ActionItem: ActionItem = ({ action, variant }) => {
   const { name, type } = action;
+  const [{ history }] = useControl({ type: 'NAVIGATE' });
   const [, handleUpdateState] = useControl({ type: 'ACTION_SELECT' });
   const fileUploadRef = React.useRef<HTMLInputElement>(null);
 
   const requiresFileInput = type === 'UPLOAD_FILES' || type === 'UPLOAD_FOLDER';
+  const destination = history[history.length - 1];
 
   const handleActionClick = () => {
     if (requiresFileInput) {
@@ -65,7 +65,7 @@ const ActionItem: ActionItem = ({ action, variant }) => {
       handleUpdateState({
         actionType: type,
         type: 'SELECT_ACTION_TYPE',
-        destination: 'public/',
+        destination,
         name: name,
         items: [],
       });
@@ -76,10 +76,11 @@ const ActionItem: ActionItem = ({ action, variant }) => {
     if (fileUploadRef.current?.files) {
       const files: FileList = fileUploadRef.current?.files;
       const items: LocationItem[] = [];
-      for (const file of files) {
-        const { name, lastModified, size } = file;
+      for (const data of files) {
+        const { name, lastModified, size } = data;
         items.push({
           key: name,
+          data,
           lastModified: new Date(lastModified),
           size,
           type: 'FILE',
@@ -89,7 +90,7 @@ const ActionItem: ActionItem = ({ action, variant }) => {
       handleUpdateState({
         actionType: type,
         type: 'SELECT_ACTION_TYPE',
-        destination: 'public/', // TODO: temp hardcode
+        destination,
         items,
         name,
       });
@@ -118,8 +119,6 @@ const ActionItem: ActionItem = ({ action, variant }) => {
 ActionItem.Button = ActionButton;
 ActionItem.Icon = ActionIcon;
 
-/* <ActionsMenu /> */
-
 interface ActionsMenu<T extends StorageBrowserElements = StorageBrowserElements>
   extends RenderActionsMenu {
   Menu: T['View'];
@@ -139,24 +138,15 @@ const Menu = withBaseElementProps(View, {
 
 const TEMP_ACTIONS: ActionItemProps[] = [
   {
-    action: {
-      name: 'Upload file',
-      type: 'UPLOAD_FILES',
-    },
+    action: { name: 'Upload Files', type: 'UPLOAD_FILES' },
     variant: 'upload-file',
   },
   {
-    action: {
-      name: 'Upload folder',
-      type: 'UPLOAD_FOLDER',
-    },
+    action: { name: 'Upload Folder', type: 'UPLOAD_FOLDER' },
     variant: 'upload-folder',
   },
   {
-    action: {
-      name: 'Create folder',
-      type: 'CREATE_FOLDER',
-    },
+    action: { name: 'Create Folder', type: 'CREATE_FOLDER' },
     variant: 'create-folder',
   },
 ];
@@ -177,8 +167,6 @@ const ActionsMenu: ActionsMenu = ({ isOpen }) => {
 ActionsMenu.ActionItem = ActionItem;
 ActionsMenu.Menu = Menu;
 
-/* <Toggle /> */
-
 const ToggleButton = withBaseElementProps(Button, {
   className: `${BLOCK_NAME}__toggle`,
   'aria-label': 'Actions',
@@ -189,9 +177,7 @@ const ToggleIcon = withBaseElementProps(IconElement, {
   variant: 'vertical-kebab',
 });
 
-/* <ActionSelectControl /> */
-
-const Container = withBaseElementProps(View, {
+const ActionSelectContainer = withBaseElementProps(View, {
   className: `${BLOCK_NAME}`,
 });
 
@@ -216,14 +202,14 @@ export interface ActionSelectControl<
 }
 
 export const ActionSelectControl: ActionSelectControl = () => {
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <Container>
+    <ActionSelectContainer>
       <ToggleButton onClick={() => setIsOpen(!isOpen)}>
         <ToggleIcon />
       </ToggleButton>
       <ActionsMenu isOpen={isOpen} />
-    </Container>
+    </ActionSelectContainer>
   );
 };

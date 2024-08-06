@@ -8,7 +8,12 @@ describe('actionSelectReducer', () => {
   it('handles a SELECT_ACTION_TYPE as expected', () => {
     const initialState: ActionSelectState = {
       actions: [],
-      selected: { actionType: undefined, items: undefined },
+      selected: {
+        actionType: undefined,
+        destination: undefined,
+        items: undefined,
+        name: undefined,
+      },
     };
     const action: ActionSelectAction = {
       actionType: 'UPLOAD_FILES',
@@ -32,6 +37,8 @@ describe('actionSelectReducer', () => {
       selected: {
         actionType: 'UPLOAD_FILES',
         items: [],
+        destination: 'some-prefix',
+        name: 'Upload Files',
       },
     };
     const action: ActionSelectAction = {

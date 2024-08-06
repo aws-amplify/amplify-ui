@@ -46,7 +46,7 @@ describe('CreateFolderActionView', () => {
 
     waitFor(async () => {
       const input = screen.getByLabelText('Enter folder name:');
-      const button = screen.getByRole('button', { name: 'Create folder' });
+      const button = screen.getByRole('button', { name: 'Create Folder' });
 
       user.type(input, 'test');
 

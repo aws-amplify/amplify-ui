@@ -19,7 +19,7 @@ export interface LocationConfigProviderProps {
 }
 
 const ERROR_MESSAGE =
-  '`useGetLocationConfig` must be called within a `LocationConfigProvider';
+  '`useGetLocationConfig` must be called within a `LocationConfigProvider`';
 const LocationConfigContext = React.createContext<
   (() => LocationConfig) | undefined
 >(undefined);
