@@ -1,13 +1,11 @@
 import React from 'react';
 
-import { CLASS_BASE } from '../constants';
 import { StorageBrowserElements } from '../../context/elements';
 import { useControl } from '../../context/controls';
 import { Controls, LocationDetailViewTable } from '../Controls';
 import { CommonControl } from '../types';
 
-const { ActionSelect, Navigate } = Controls;
-const { Heading } = StorageBrowserElements;
+const { ActionSelect, Navigate, Title: TitleElement } = Controls;
 
 export interface LocationDetailViewControls<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -23,7 +21,7 @@ export const Title = (): React.JSX.Element => {
     type: 'NAVIGATE',
   });
   const title = history.slice(-1)[0];
-  return <Heading className={`${CLASS_BASE}__title`}>{title}</Heading>;
+  return <TitleElement>{title}</TitleElement>;
 };
 
 // @ts-expect-error TODO: add Controls assignment
