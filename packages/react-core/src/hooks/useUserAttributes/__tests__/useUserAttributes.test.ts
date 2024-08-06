@@ -12,6 +12,10 @@ import {
 } from '@aws-amplify/auth';
 
 import * as AuthModule from '@aws-amplify/auth';
+
+import * as ActionModule from '../action';
+import { handleAttributeAction } from '../action';
+
 import {
   ConfirmInput,
   DeleteInput,
@@ -28,6 +32,10 @@ const deleteUserAttributesSpy = jest.spyOn(AuthModule, 'deleteUserAttributes');
 const fetchUserAttributesSpy = jest.spyOn(AuthModule, 'fetchUserAttributes');
 const sendCodeSpy = jest.spyOn(AuthModule, 'sendUserAttributeVerificationCode');
 const updateUserAttributesSpy = jest.spyOn(AuthModule, 'updateUserAttributes');
+const handleAttributeActionSpy = jest.spyOn(
+  ActionModule,
+  'handleAttributeAction'
+);
 
 const fetchUserAttributesResult: { [Attribute in UserAttributeKey]?: string } =
   {
@@ -45,15 +53,34 @@ const deleteUserAttributesResult: { [Attribute in UserAttributeKey]?: string } =
 
 const errorResult = new Error('TESTING ERROR');
 
-const confirmAttributeInput: ConfirmInput = {
+const confirmEmailInput: ConfirmInput = {
   type: 'CONFIRM',
   userAttributeKey: 'email',
+  confirmationCode: '000000',
+};
+
+const confirmPhoneInput: ConfirmInput = {
+  type: 'CONFIRM',
+  userAttributeKey: 'phone_number',
   confirmationCode: '000000',
 };
 
 const confirmAttributeOutput: HandleAttributeActionOutput = {
   attributes: { email: 'test@mail.com', name: 'name' },
   pendingVerification: undefined,
+};
+
+const emailConfirmedResult: HandleAttributeActionOutput = {
+  attributes: { email: 'test@mail.com', name: 'name' },
+  pendingVerification: [
+    {
+      name: 'phone_number',
+      codeDeliveryDetails: {
+        medium: 'SMS',
+        destination: '12062062060',
+      },
+    },
+  ],
 };
 
 const deleteAttributesInput: DeleteInput = {
@@ -69,6 +96,7 @@ const updateAttributesInput: UpdateInput = {
     name: 'New Name',
     nickname: 'New Nickname',
     email: 'new@mail.com',
+    phone_number: '12062062060',
   },
 };
 
@@ -99,7 +127,12 @@ const updateAttributesResult: UpdateUserAttributesOutput = {
   phone_number: {
     isUpdated: true,
     nextStep: {
-      updateAttributeStep: 'DONE',
+      updateAttributeStep: 'CONFIRM_ATTRIBUTE_WITH_CODE',
+      codeDeliveryDetails: {
+        deliveryMedium: 'SMS',
+        destination: '12062062060',
+        attributeName: 'phone_number',
+      },
     },
   },
   address: {
@@ -200,19 +233,39 @@ const updateAttributesResult: UpdateUserAttributesOutput = {
   },
 };
 
-const updatedAttributes: { [Attribute in UserAttributeKey]?: string } = {
-  name: 'New Name',
-  nickname: 'New Nickname',
-  email: 'test@mail.com',
-  locale: 'Testville',
-};
+const noneConfirmedResultPendingVerification = [
+  {
+    name: 'email',
+    codeDeliveryDetails: {
+      medium: 'EMAIL',
+      destination: 'new@mail.com',
+    },
+  },
+  {
+    name: 'phone_number',
+    codeDeliveryDetails: { medium: 'SMS', destination: '12062062060' },
+  },
+];
 
-const sendCodeResult: SendUserAttributeVerificationCodeOutput = {
+const sendCodeEmailResult: SendUserAttributeVerificationCodeOutput = {
   attributeName: 'email',
   deliveryMedium: 'EMAIL',
   destination: 'test@mail.com',
 };
-const verifiableAttributeResult: VerifiableAttribute = {
+
+const sendCodePhoneResult: SendUserAttributeVerificationCodeOutput = {
+  attributeName: 'phone_number',
+  deliveryMedium: 'SMS',
+  destination: '12062062060',
+};
+
+const sendCodeFailedResult: SendUserAttributeVerificationCodeOutput = {
+  attributeName: 'phone_number',
+  deliveryMedium: 'SMS',
+  destination: '',
+};
+
+const verifyEmailResult: VerifiableAttribute = {
   name: 'email',
   codeDeliveryDetails: {
     destination: 'test@mail.com',
@@ -220,38 +273,26 @@ const verifiableAttributeResult: VerifiableAttribute = {
   },
 };
 
-const sendCodeInput: SendCodeInput = {
+const verifyPhoneResult: VerifiableAttribute = {
+  name: 'phone_number',
+  codeDeliveryDetails: {
+    destination: '12062062060',
+    medium: 'SMS',
+  },
+};
+
+const sendCodeEmailInput: SendCodeInput = {
   type: 'SEND_CODE',
   userAttributeKey: 'email',
 };
 
+const sendCodePhoneInput: SendCodeInput = {
+  type: 'SEND_CODE',
+  userAttributeKey: 'phone_number',
+};
+
 describe('useUserAttributes', () => {
   beforeEach(jest.clearAllMocks);
-
-  it('should confirm attributes', async () => {
-    confirmUserAttributeSpy.mockResolvedValueOnce(undefined);
-    fetchUserAttributesSpy.mockResolvedValue(confirmAttributeOutput.attributes);
-    const { result, waitForNextUpdate } = renderHook(() => useUserAttributes());
-
-    const handleAttributes = result.current[1];
-
-    act(() => {
-      handleAttributes(confirmAttributeInput);
-    });
-
-    await waitForNextUpdate();
-
-    const state = result.current[0];
-
-    expect(state.hasError).toBe(false);
-    expect(state.data.attributes).toBe(confirmAttributeOutput.attributes);
-    expect(state.data.pendingVerification).toStrictEqual(
-      confirmAttributeOutput.pendingVerification
-    );
-    expect(confirmUserAttribute).toHaveBeenCalled();
-    expect(fetchUserAttributes).toHaveBeenCalled();
-  });
-
   it('should delete attributes', async () => {
     deleteUserAttributesSpy.mockResolvedValue(undefined);
     fetchUserAttributesSpy.mockResolvedValueOnce(fetchUserAttributesResult);
@@ -281,6 +322,14 @@ describe('useUserAttributes', () => {
     expect(stateAfterUpdate.data.attributes).toBe(deleteUserAttributesResult);
     expect(deleteUserAttributes).toHaveBeenCalled();
     expect(fetchUserAttributes).toHaveBeenCalledTimes(2);
+    expect(handleAttributeActionSpy).toHaveBeenCalledWith(
+      { attributes: {}, pendingVerification: undefined },
+      fetchInput
+    );
+    expect(handleAttributeActionSpy).toHaveBeenCalledWith(
+      { attributes: fetchUserAttributesResult, pendingVerification: undefined },
+      deleteAttributesInput
+    );
   });
 
   it('should fetch attributes', async () => {
@@ -307,8 +356,8 @@ describe('useUserAttributes', () => {
     expect(fetchUserAttributes).toHaveBeenCalled();
   });
 
-  it('should update pendingVerification when sending code', async () => {
-    sendCodeSpy.mockResolvedValue(sendCodeResult);
+  it('should update pendingVerification when sending code to email', async () => {
+    sendCodeSpy.mockResolvedValue(sendCodeEmailResult);
 
     const { result, waitForNextUpdate } = renderHook(() => useUserAttributes());
 
@@ -319,7 +368,7 @@ describe('useUserAttributes', () => {
     expect(state.data.attributes).toStrictEqual({});
 
     act(() => {
-      handleAttributes(sendCodeInput);
+      handleAttributes(sendCodeEmailInput);
     });
 
     await waitForNextUpdate();
@@ -328,46 +377,36 @@ describe('useUserAttributes', () => {
 
     expect(stateAfterUpdate.hasError).toBe(false);
     expect(stateAfterUpdate.data.pendingVerification).toStrictEqual([
-      verifiableAttributeResult,
+      verifyEmailResult,
     ]);
     expect(sendUserAttributeVerificationCode).toHaveBeenCalled();
   });
 
-  it('should update attributes and pendingVerifcation', async () => {
-    updateUserAttributesSpy.mockResolvedValue(updateAttributesResult);
-    fetchUserAttributesSpy.mockResolvedValue(updatedAttributes);
+  it('should throw an error if no code is sent', async () => {
+    sendCodeSpy.mockResolvedValue(sendCodeFailedResult);
 
     const { result, waitForNextUpdate } = renderHook(() => useUserAttributes());
 
     const handleAttributes = result.current[1];
 
-    act(() => {
-      handleAttributes(updateAttributesInput);
-    });
-
-    await waitForNextUpdate();
-
-    act(() => {
-      handleAttributes(fetchInput);
-    });
-
-    await waitForNextUpdate();
-
     const state = result.current[0];
 
-    expect(state.hasError).toBe(false);
-    expect(state.data.attributes).toStrictEqual(updatedAttributes);
-    expect(updateUserAttributes).toHaveBeenCalled();
-    expect(fetchUserAttributes).toHaveBeenCalled();
-    expect(state.data.pendingVerification).toStrictEqual([
-      {
-        name: 'email',
-        codeDeliveryDetails: { destination: 'new@mail.com', medium: 'EMAIL' },
-      },
-    ]);
+    expect(state.data.attributes).toStrictEqual({});
+
+    act(() => {
+      handleAttributes(sendCodeEmailInput);
+    });
+
+    await waitForNextUpdate();
+
+    const stateAfterUpdate = result.current[0];
+
+    expect(stateAfterUpdate.hasError).toBe(true);
+    expect(stateAfterUpdate.data.pendingVerification).toBe(undefined);
+    expect(sendUserAttributeVerificationCode).toHaveBeenCalled();
   });
 
-  it('should have an error if something fails', async () => {
+  it('should have an error if something fails while fetching', async () => {
     fetchUserAttributesSpy.mockRejectedValue(errorResult);
 
     const { result, waitForNextUpdate } = renderHook(() => useUserAttributes());
@@ -385,5 +424,105 @@ describe('useUserAttributes', () => {
     expect(state.hasError).toBe(true);
     expect(state.message).toBe(errorResult.message);
     expect(fetchUserAttributes).toHaveBeenCalled();
+  });
+  it('supports sending codes to multiple attributes', async () => {
+    updateUserAttributesSpy.mockResolvedValue(updateAttributesResult);
+    confirmUserAttributeSpy.mockResolvedValue(undefined);
+    fetchUserAttributesSpy.mockResolvedValue(confirmAttributeOutput.attributes);
+    const { result, waitForNextUpdate } = renderHook(() => useUserAttributes());
+
+    const handleAttributes = result.current[1];
+    const firstState = result.current[0];
+    expect(firstState.data.pendingVerification).toBe(undefined);
+
+    act(() => {
+      handleAttributes(updateAttributesInput);
+    });
+
+    await waitForNextUpdate();
+
+    expect(updateUserAttributes).toHaveBeenCalled();
+
+    const initialState = result.current[0];
+    expect(initialState.data.pendingVerification).toStrictEqual(
+      noneConfirmedResultPendingVerification
+    );
+
+    act(() => {
+      handleAttributes(confirmEmailInput);
+    });
+
+    await waitForNextUpdate();
+
+    const state = result.current[0];
+
+    expect(state.hasError).toBe(false);
+    expect(state.data.attributes).toStrictEqual(
+      confirmAttributeOutput.attributes
+    );
+    expect(state.data.pendingVerification).toStrictEqual(
+      emailConfirmedResult.pendingVerification
+    );
+    expect(confirmUserAttribute).toHaveBeenCalled();
+    expect(fetchUserAttributes).toHaveBeenCalled();
+
+    act(() => {
+      handleAttributes(confirmPhoneInput);
+    });
+
+    await waitForNextUpdate();
+
+    const finalState = result.current[0];
+    expect(finalState.data.pendingVerification).toStrictEqual(
+      confirmAttributeOutput.pendingVerification
+    );
+  });
+  it('should filter out attributes with a different name than userAttributeKey when sending a code', async () => {
+    sendCodeSpy.mockResolvedValue(sendCodeEmailResult);
+
+    const { result, waitForNextUpdate } = renderHook(() => useUserAttributes());
+
+    const handleAttributes = result.current[1];
+
+    act(() => {
+      handleAttributes(sendCodeEmailInput);
+    });
+
+    await waitForNextUpdate();
+
+    const stateAfterUpdate = result.current[0];
+
+    expect(stateAfterUpdate.hasError).toBe(false);
+    expect(stateAfterUpdate.data.pendingVerification).toStrictEqual([
+      verifyEmailResult,
+    ]);
+
+    sendCodeSpy.mockResolvedValue(sendCodePhoneResult);
+    act(() => {
+      handleAttributes(sendCodePhoneInput);
+    });
+
+    await waitForNextUpdate();
+
+    const finalState = result.current[0];
+    expect(finalState.data.pendingVerification).toStrictEqual([
+      verifyEmailResult,
+      verifyPhoneResult,
+    ]);
+  });
+});
+describe('handleAttributeAction', () => {
+  it('should handle errors for invalid input types', async () => {
+    const prevResult = {
+      pendingVerification: [],
+      attributes: {},
+    };
+
+    const invalidInput = { type: 'INVALID_TYPE' };
+
+    await expect(
+      // @ts-expect-error
+      handleAttributeAction(prevResult, invalidInput)
+    ).rejects.toThrow('Invalid Type');
   });
 });

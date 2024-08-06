@@ -101,8 +101,11 @@ const sendCodeAction = async (
     };
 
     const updatedPendingVerification = prevResult.pendingVerification
-      ? [...prevResult.pendingVerification, pendingAttribute]
+      ? prevResult.pendingVerification
+          .filter((attribute) => attribute.name !== pendingAttribute.name)
+          .concat(pendingAttribute)
       : [pendingAttribute];
+
     return {
       ...prevResult,
       pendingVerification: updatedPendingVerification,
@@ -142,30 +145,28 @@ export async function handleAttributeAction(
   prevResult: HandleAttributeActionOutput,
   input: HandleAttributeActionInput
 ): Promise<HandleAttributeActionOutput> {
-  try {
-    switch (input.type) {
-      case 'FETCH': {
-        const result = await fetchAction(prevResult, input);
-        return result;
-      }
-      case 'DELETE': {
-        const result = await deleteAction(prevResult, input);
-        return result;
-      }
-      case 'CONFIRM': {
-        const result = await confirmAction(prevResult, input);
-        return result;
-      }
-      case 'SEND_CODE': {
-        const result = await sendCodeAction(prevResult, input);
-        return result;
-      }
-      case 'UPDATE': {
-        const result = await updateAction(prevResult, input);
-        return result;
-      }
+  switch (input.type) {
+    case 'FETCH': {
+      const result = await fetchAction(prevResult, input);
+      return result;
     }
-  } catch (e) {
-    throw new Error(e instanceof Error ? e.message : 'Unknown failure');
+    case 'DELETE': {
+      const result = await deleteAction(prevResult, input);
+      return result;
+    }
+    case 'CONFIRM': {
+      const result = await confirmAction(prevResult, input);
+      return result;
+    }
+    case 'SEND_CODE': {
+      const result = await sendCodeAction(prevResult, input);
+      return result;
+    }
+    case 'UPDATE': {
+      const result = await updateAction(prevResult, input);
+      return result;
+    }
+    default:
+      throw new Error('Invalid Type');
   }
 }
