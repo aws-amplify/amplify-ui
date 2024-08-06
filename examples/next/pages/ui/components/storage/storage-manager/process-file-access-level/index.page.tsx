@@ -28,7 +28,7 @@ export function StorageManagerExample() {
   return (
     <StorageManager
       acceptedFileTypes={['image/*']}
-      accessLevel="private"
+      path={({ identityId }) => `private/${identityId}/`}
       maxFileCount={3}
       showThumbnails={true}
       processFile={processFile}
