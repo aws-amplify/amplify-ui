@@ -9,6 +9,7 @@ import {
   ActionState,
   createActionStateContext,
 } from './createActionStateContext';
+import { downloadAction } from './downloadAction';
 import { listLocationItemsAction } from './listLocationItemsAction';
 import { ListLocationsAction } from './listLocationsAction';
 import { LocationsDataProvider } from './locationsData';
@@ -18,21 +19,25 @@ type ActionsWithConfig = {
 };
 
 type DefaultActions = typeof DEFAULT_ACTIONS;
-type WithLocationConfig<T> =
-  T extends DataAction<infer K, infer U>
-    ? DataAction<K, Omit<U, 'config'>>
-    : never;
+type WithLocationConfig<T> = T extends DataAction<infer K, infer U>
+  ? DataAction<K, Omit<U, 'config'>>
+  : never;
 
-type UseActionState<T> =
-  T extends DataAction<infer K, infer U> ? ActionState<K, U> : never;
+type UseActionState<T> = T extends DataAction<infer K, infer U>
+  ? ActionState<K, U>
+  : never;
 
 export const ERROR_MESSAGE =
   '`useAction` must be called from within `StorageBrowser.Provider`';
 
-export const DEFAULT_ACTIONS = { LIST_LOCATION_ITEMS: listLocationItemsAction };
+export const DEFAULT_ACTIONS = {
+  LIST_LOCATION_ITEMS: listLocationItemsAction,
+  DOWNLOAD: downloadAction,
+};
 
 export const INITIAL_VALUE = {
   LIST_LOCATION_ITEMS: { result: [], nextToken: undefined },
+  DOWNLOAD: { key: '' },
 };
 
 const [ActionStateProvider, useActionState] = createActionStateContext(
