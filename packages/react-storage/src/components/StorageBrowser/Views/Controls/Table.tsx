@@ -3,7 +3,7 @@ import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import type { OmitElements } from '../types';
 import { StorageBrowserElements } from '../../context/elements';
-
+import { DownloadControl } from './Download';
 import { CLASS_BASE } from '../constants';
 import { useControl } from '../../context/controls';
 import {
@@ -108,6 +108,10 @@ const LOCATION_DETAIL_VIEW_COLUMNS: Column<LocationItem>[] = [
   {
     key: 'size' as keyof LocationItem,
     header: 'Size',
+  },
+  {
+    key: 'download' as keyof LocationItem,
+    header: 'Download',
   },
 ];
 
@@ -287,6 +291,8 @@ export const LocationDetailViewTable = (): JSX.Element => {
           row[column.key]
         ) {
           return new Date(row[column.key]).toLocaleString();
+        } else if (column.key === ('download' as keyof LocationItem)) {
+          return <DownloadControl key={row.key} />;
         } else {
           return row[column.key];
         }
