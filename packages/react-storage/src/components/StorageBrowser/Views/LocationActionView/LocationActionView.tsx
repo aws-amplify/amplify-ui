@@ -18,7 +18,7 @@ export const LocationActionView: LocationActionView = () => {
   const [state] = useControl({
     type: 'ACTION_SELECT',
   });
-  const { actionType, destination, items, name } = state.selected;
+  const { actionType, destination, items } = state.selected;
 
   const [tasks] = useHandleUpload({
     destination: destination!,
@@ -50,8 +50,6 @@ export const LocationActionView: LocationActionView = () => {
 
   return (
     <>
-      <h2>{name}</h2>
-
       {actionType === 'CREATE_FOLDER' ? (
         <CreateFolderActionViewControls />
       ) : (
