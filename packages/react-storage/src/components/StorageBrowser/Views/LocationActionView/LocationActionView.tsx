@@ -20,33 +20,10 @@ export const LocationActionView: LocationActionView = () => {
   });
   const { actionType, destination, items, name } = state.selected;
 
-  const [tasks, handleUpload] = useHandleUpload({
+  const [, handleUpload] = useHandleUpload({
     destination: destination!,
     items: items! as FileItem[],
   });
-
-  const listItems = items
-    ? tasks.map(({ cancel, key, status, progress }, i) => {
-        return (
-          <React.Fragment key={key}>
-            {i === 0 ? (
-              <div style={{ flexDirection: 'row' }}>
-                <span>Name </span>
-                <span>Status </span>
-                <span>Progress </span>
-                <span>Cancel </span>
-              </div>
-            ) : null}
-            <div style={{ flexDirection: 'row' }}>
-              <span>{key} </span>
-              <span>{status} </span>
-              <span>{progress} </span>
-              {cancel ? <button onClick={cancel}>Cancel</button> : null}
-            </div>
-          </React.Fragment>
-        );
-      })
-    : 'No items selected.';
 
   return (
     <>
@@ -69,8 +46,6 @@ export const LocationActionView: LocationActionView = () => {
       ) : (
         <LocationActionViewControls />
       )}
-
-      {listItems}
     </>
   );
 };

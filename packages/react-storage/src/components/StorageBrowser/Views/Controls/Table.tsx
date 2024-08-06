@@ -7,6 +7,7 @@ import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
 import { useControl } from '../../context/controls';
 import {
+  FileItem,
   LocationAccess,
   LocationData,
   LocationItem,
@@ -14,6 +15,10 @@ import {
 } from '../../context/types';
 import { useAction, useLocationsData } from '../../context/actions';
 import { parseLocationAccess } from '../../context/controls/Navigate/utils';
+import {
+  CancelableTask,
+  useHandleUpload,
+} from '../LocationActionView/useHandleUpload';
 
 const {
   Table: BaseTable,
@@ -95,7 +100,7 @@ const LOCATION_VIEW_COLUMNS: Column<LocationAccess<Permission>>[] = [
 const LOCATION_DETAIL_VIEW_COLUMNS: Column<LocationItem>[] = [
   {
     key: 'key',
-    header: 'Key',
+    header: 'Name',
   },
   {
     key: 'type',
@@ -108,6 +113,25 @@ const LOCATION_DETAIL_VIEW_COLUMNS: Column<LocationItem>[] = [
   {
     key: 'size' as keyof LocationItem,
     header: 'Size',
+  },
+];
+
+const LOCATION_ACTION_VIEW_COLUMNS: Column<CancelableTask>[] = [
+  {
+    key: 'key',
+    header: 'Name',
+  },
+  {
+    key: 'status',
+    header: 'Status',
+  },
+  {
+    key: 'progress',
+    header: 'Progress',
+  },
+  {
+    key: 'cancel',
+    header: 'Cancel',
   },
 ];
 
@@ -334,5 +358,52 @@ export const LocationDetailViewTable = (): JSX.Element => {
       data={data.result}
       renderRowItem={renderRowItem}
     />
+  );
+};
+
+export const LocationActionViewTable = (): JSX.Element => {
+  const [state] = useControl({
+    type: 'ACTION_SELECT',
+  });
+  const { destination, items } = state.selected;
+
+  const [tasks] = useHandleUpload({
+    destination: destination!,
+    items: items! as FileItem[],
+  });
+
+  const renderRowItem: RenderRowItem<CancelableTask> = React.useCallback(
+    (row, index) => {
+      return (
+        <TableRow key={index}>
+          {LOCATION_ACTION_VIEW_COLUMNS.map((column) => {
+            return (
+              <TableData key={`${index}-${column.header}`}>
+                {column.key === 'key' ? (
+                  <>{row.key}</>
+                ) : column.key === 'status' ? (
+                  <>{row.status}</>
+                ) : column.key === 'progress' ? (
+                  <>{row.progress}</>
+                ) : column.key === 'cancel' ? (
+                  <button onClick={row.cancel}>Cancel</button>
+                ) : null}
+              </TableData>
+            );
+          })}
+        </TableRow>
+      );
+    },
+    []
+  );
+
+  return items ? (
+    <TableControl
+      columns={LOCATION_ACTION_VIEW_COLUMNS}
+      data={tasks}
+      renderRowItem={renderRowItem}
+    />
+  ) : (
+    <span>No items selected.</span>
   );
 };

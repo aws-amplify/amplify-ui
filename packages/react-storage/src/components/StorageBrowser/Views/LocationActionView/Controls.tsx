@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { StorageBrowserElements } from '../../context/elements';
-import { Controls } from '../Controls';
+import { Controls, LocationActionViewTable } from '../Controls';
 import { CommonControl } from '../types';
 
 const { Title, Summary } = Controls;
@@ -19,6 +19,7 @@ export const LocationActionViewControls: LocationActionViewControls<
     <>
       <Title />
       <Summary />
+      <LocationActionViewTable />
     </>
   );
 };
