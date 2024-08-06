@@ -22,13 +22,15 @@ export function createAIConversation<T extends Partial<AIConversationElements>>(
 ): {
   AIConversation: AIConversation<T>;
 } {
-  const { elements, suggestedPrompts, actions, responseComponents } = input;
+  const { elements, suggestedPrompts, actions, responseComponents, variant } =
+    input;
 
   const Provider = createProvider({
     elements,
     actions,
     suggestedPrompts,
     responseComponents,
+    variant,
   });
 
   function AIConversation(props: AIConversationProps): JSX.Element {

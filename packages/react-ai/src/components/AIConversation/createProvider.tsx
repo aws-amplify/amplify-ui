@@ -7,6 +7,7 @@ import { ActionsProvider } from './context/ActionsContext';
 import { AvatarsProvider } from './context/AvatarsContext';
 import { InputContextProvider } from './context/InputContext';
 import { MessagesProvider } from './context/MessagesContext';
+import { MessageVariantProvider } from './context/MessageVariantContext';
 import { SuggestedPromptProvider } from './context/SuggestedPromptsContext';
 import { AIConversationInput, AIConversationProps } from './types';
 import { ResponseComponentsProvider } from './context/ResponseComponentsContext';
@@ -18,9 +19,10 @@ export default function createProvider<
   actions,
   suggestedPrompts,
   responseComponents,
+  variant,
 }: Pick<
   AIConversationInput<T>,
-  'elements' | 'actions' | 'suggestedPrompts' | 'responseComponents'
+  'elements' | 'actions' | 'suggestedPrompts' | 'responseComponents' | 'variant'
 >) {
   return function Provider({
     children,
@@ -36,9 +38,11 @@ export default function createProvider<
             <InputContextProvider>
               <AvatarsProvider avatars={avatars}>
                 <ActionsProvider actions={actions}>
-                  <MessagesProvider messages={messages}>
-                    {children}
-                  </MessagesProvider>
+                  <MessageVariantProvider variant={variant}>
+                    <MessagesProvider messages={messages}>
+                      {children}
+                    </MessagesProvider>
+                  </MessageVariantProvider>
                 </ActionsProvider>
               </AvatarsProvider>
             </InputContextProvider>

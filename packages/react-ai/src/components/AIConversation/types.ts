@@ -33,6 +33,7 @@ export interface AIConversationInput<
   actions?: CustomAction[];
   showChainOfThought?: boolean;
   responseComponents?: ResponseComponents;
+  variant?: MessageVariant;
 }
 
 export interface AIConversationProps {

@@ -1,9 +1,10 @@
 import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
-import { ConversationMessage } from '../../types';
 import { AvatarsContext } from '../../context';
+import { RoleContext } from '../../context';
 import { AIConversationElements } from '../../context/elements';
+
 const { Icon, Span, Text, View } = AIConversationElements;
 
 const AVATAR_BLOCK = 'ai-avatar';
@@ -45,15 +46,16 @@ const Container = withBaseElementProps(View, {
   className: `${AVATAR_BLOCK}__container`,
 });
 
-export const AvatarControl: AvatarControl = ({ message }) => {
+export const AvatarControl: AvatarControl = () => {
   const avatars = React.useContext(AvatarsContext);
-  const avatar = message.role === 'user' ? avatars?.user : avatars?.ai;
+  const role = React.useContext(RoleContext);
+  const avatar = role === 'assistant' ? avatars?.ai : avatars?.user;
   const defaultIcon =
-    message.role === 'user' ? <DEFAULT_USER_ICON /> : <DEFAULT_AI_ICON />;
-  const defaultDisplayName = message.role === 'user' ? 'User' : 'Assistant';
+    role === 'assistant' ? <DEFAULT_AI_ICON /> : <DEFAULT_USER_ICON />;
+  const defaultDisplayName = role === 'user' ? 'User' : 'Assistant';
   return (
     <Container data-testid={'avatar'}>
-      <AvatarIcon data-testid={`avatar-icon-${message.role}`}>
+      <AvatarIcon data-testid={`avatar-icon-${role}`}>
         {avatar?.avatar ?? defaultIcon}
       </AvatarIcon>
       <AvatarDisplayName>
@@ -70,7 +72,7 @@ AvatarControl.Icon = AvatarIcon;
 export interface AvatarControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
 > {
-  (props: { message: ConversationMessage }): React.JSX.Element;
+  (): React.JSX.Element;
   Container: T['View'];
   DisplayName: T['Text'];
   Icon: T['Span'];
