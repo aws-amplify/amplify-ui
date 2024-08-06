@@ -18,7 +18,7 @@ export const LocationActionView: LocationActionView = () => {
   const [state, handleUpdateState] = useControl({
     type: 'ACTION_SELECT',
   });
-  const { actionType, destination, items, name } = state.selected;
+  const { actionType, destination, items } = state.selected;
 
   const [tasks, handleUpload] = useHandleUpload({
     destination: destination!,
@@ -50,7 +50,6 @@ export const LocationActionView: LocationActionView = () => {
 
   return (
     <>
-      <h2>{name}</h2>
       <button
         onClick={() => handleUpdateState({ type: 'DESELECT_ACTION_TYPE' })}
       >

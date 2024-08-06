@@ -26,9 +26,7 @@ export interface LocationsView<
 const LocationsViewControls: LocationsViewControls = () => {
   return (
     <>
-      <Title />
-      <Refresh />
-      <Paginate />
+      <Title>Home</Title>
       <LocationsViewTable />
     </>
   );
