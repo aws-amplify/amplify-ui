@@ -10,6 +10,8 @@ import {
   createActionStateContext,
 } from './createActionStateContext';
 import { downloadAction } from './downloadAction';
+
+import { createFolderAction } from './createFolderAction';
 import { listLocationItemsAction } from './listLocationItemsAction';
 import { ListLocationsAction } from './listLocationsAction';
 import { LocationsDataProvider } from './locationsData';
@@ -31,11 +33,13 @@ export const ERROR_MESSAGE =
   '`useAction` must be called from within `StorageBrowser.Provider`';
 
 export const DEFAULT_ACTIONS = {
-  LIST_LOCATION_ITEMS: listLocationItemsAction,
+  CREATE_FOLDER: createFolderAction,
   DOWNLOAD: downloadAction,
+  LIST_LOCATION_ITEMS: listLocationItemsAction,
 };
 
 export const INITIAL_VALUE = {
+  CREATE_FOLDER: { result: undefined },
   LIST_LOCATION_ITEMS: { result: [], nextToken: undefined },
   DOWNLOAD: { key: '' },
 };

@@ -102,7 +102,7 @@ describe('createStorageBrowser', () => {
                 permission: 'READWRITE',
                 type: 'BUCKET',
               },
-              history: ['test-bucket'],
+              history: [''],
             },
           ],
           ACTION_SELECT: [{ selected: undefined }],
@@ -123,7 +123,7 @@ describe('createStorageBrowser', () => {
     useControlSpy.mockImplementation(
       ({ type }) =>
         ({
-          NAVIGATE: [{ location: undefined }],
+          NAVIGATE: [{ location: undefined, history: [] }],
           ACTION_SELECT: [
             {
               selected: { actionType: 'CREATE_FOLDER', name: 'Create Folder' },
@@ -139,7 +139,7 @@ describe('createStorageBrowser', () => {
     render(<StorageBrowser />);
 
     await waitFor(() => {
-      expect(screen.getByText('Create Folder')).toBeInTheDocument();
+      expect(screen.getByTestId('LOCATION_ACTION_VIEW')).toBeInTheDocument();
     });
   });
 });

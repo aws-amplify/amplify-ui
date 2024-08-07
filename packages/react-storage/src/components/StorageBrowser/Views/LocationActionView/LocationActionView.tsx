@@ -4,24 +4,28 @@ import { useControl } from '../../context/controls';
 import { StorageBrowserElements } from '../../context/elements';
 import { FileItem } from '../../context/types';
 
-import { CreateFolderActionViewControls } from '../CreateFolderActionView/Controls';
+import { CLASS_BASE } from '../constants';
 import { ViewComponent } from '../types';
 
-import { LocationActionViewControls } from './Controls';
+import { LocationActionViewControls, UploadControls } from './Controls';
+import { CreateFolderControls } from './CreateFolderControls';
+
 import { useHandleUpload } from './useHandleUpload';
 
 export interface LocationActionView<
   T extends StorageBrowserElements = StorageBrowserElements,
 > extends ViewComponent<LocationActionViewControls<T>> {}
 
+// @ts-expect-error
 export const LocationActionView: LocationActionView = () => {
   const [state, handleUpdateState] = useControl({
     type: 'ACTION_SELECT',
   });
-  const { actionType, destination, items } = state.selected;
+  const [{ history }] = useControl({ type: 'NAVIGATE' });
+  const { actionType, items } = state.selected;
 
   const [tasks, handleUpload] = useHandleUpload({
-    destination: destination!,
+    prefix: history.join(''),
     items: items! as FileItem[],
   });
 
@@ -49,12 +53,8 @@ export const LocationActionView: LocationActionView = () => {
     : 'No items selected.';
 
   return (
-    <>
-      <button
-        onClick={() => handleUpdateState({ type: 'DESELECT_ACTION_TYPE' })}
-      >
-        Exit
-      </button>
+    <div className={CLASS_BASE} data-testid="LOCATION_ACTION_VIEW">
+      <button onClick={() => handleUpdateState({ type: 'EXIT' })}>Exit</button>
       <button
         onClick={() => {
           if (!items) return;
@@ -64,14 +64,12 @@ export const LocationActionView: LocationActionView = () => {
         Start
       </button>
       {actionType === 'CREATE_FOLDER' ? (
-        <CreateFolderActionViewControls />
+        <CreateFolderControls />
       ) : (
-        <LocationActionViewControls />
+        <UploadControls />
       )}
 
       {listItems}
-    </>
+    </div>
   );
 };
-
-LocationActionView.Controls = LocationActionViewControls;

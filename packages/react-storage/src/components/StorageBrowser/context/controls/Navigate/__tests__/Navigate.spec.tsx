@@ -25,7 +25,7 @@ const locationAccess: LocationAccess = {
 describe('navigateReducer', () => {
   it('ACCESS_LOCATION action sets the location and bucket as the initial entry value', () => {
     const initialState: NavigateState = {
-      history: [],
+      history: [''],
       location: undefined,
     };
 
@@ -35,7 +35,7 @@ describe('navigateReducer', () => {
     };
 
     const expectedState: NavigateState = {
-      history: [location.bucket],
+      history: [''],
       location: locationAccess,
     };
 

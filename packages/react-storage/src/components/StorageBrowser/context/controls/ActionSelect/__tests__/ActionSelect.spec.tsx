@@ -31,7 +31,7 @@ describe('actionSelectReducer', () => {
     };
     expect(newState).toEqual(expectedState);
   });
-  it('handles a DESELECT_ACTION_TYPE as expected', () => {
+  it('handles a EXIT as expected', () => {
     const initialState: ActionSelectState = {
       actions: [],
       selected: {
@@ -42,7 +42,7 @@ describe('actionSelectReducer', () => {
       },
     };
     const action: ActionSelectAction = {
-      type: 'DESELECT_ACTION_TYPE',
+      type: 'EXIT',
     };
     const newState = actionSelectReducer(initialState, action);
     const expectedState = {

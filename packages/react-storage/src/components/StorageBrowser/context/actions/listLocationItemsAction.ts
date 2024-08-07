@@ -47,7 +47,7 @@ export async function listLocationItemsAction(
     region,
   } = (typeof config === 'function' ? config() : config) ?? {};
 
-  const bucket = bucketName && region ? { bucketName, region } : undefined;
+  const bucket = { bucketName, region };
   const subpathStrategy: StorageSubpathStrategy = {
     delimiter,
     strategy: delimiter ? 'exclude' : 'include',
