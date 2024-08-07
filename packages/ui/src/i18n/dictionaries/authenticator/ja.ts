@@ -26,7 +26,7 @@ export const jaDict: AuthenticatorDictionary = {
   'Enter your Username': 'ユーザー名を入力 ',
   'Forgot your password?': 'パスワードを忘れましたか？ ',
   'Hide password': 'パスワードを非表示',
-  'It may take a minute to arrive': '到着するまでに 1 分かかることがあります。',
+  'It may take a minute to arrive.': '到着するまでに 1 分かかることがあります。',
   Loading: 'ロード中',
   'New password': '新しいパスワード',
   or: '又は',
