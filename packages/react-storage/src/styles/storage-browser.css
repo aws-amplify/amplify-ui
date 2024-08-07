@@ -167,7 +167,7 @@
   justify-self: flex-end;
 }
 
-.storage-browser__action-cancel {
+.storage-browser__exit {
   grid-row-start: 2;
   grid-column: 31 / 32;
   justify-self: flex-end;
