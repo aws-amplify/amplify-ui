@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react",
-  "version": "6.1.13",
+  "version": "6.1.14",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -83,13 +83,13 @@
       "name": "Authenticator",
       "path": "dist/esm/index.mjs",
       "import": "{ Authenticator }",
-      "limit": "76 kB"
+      "limit": "77 kB"
     },
     {
       "name": "AccountSettings",
       "path": "dist/esm/index.mjs",
       "import": "{ AccountSettings }",
-      "limit": "29 kB"
+      "limit": "30 kB"
     }
   ]
 }
