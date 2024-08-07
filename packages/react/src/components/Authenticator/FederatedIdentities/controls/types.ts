@@ -1,6 +1,7 @@
 import { FederatedProvider } from '@aws-amplify/ui';
 import { FederatedIdentitiesElements } from '../context/elements';
 import React from 'react';
+import { DataState } from '@aws-amplify/ui-react-core/dist/types/hooks';
 
 interface HandleSignInWithRedirectInput<T extends string = string> {
   providerName: T;
@@ -11,23 +12,19 @@ interface HandleSignInWithRedirect {
   (input: HandleSignInWithRedirectInput): Promise<void>;
 }
 
-interface HandleSigninWithRedirectInput<K extends string = string> {
-  providerName: K;
-  customState?: string;
-}
-
-interface ActionState<T> {
-  data: T;
-  isLoading: boolean;
-  message: string | undefined;
-}
-
 export interface UseHandleSignInWithRedirect<K extends string = string> {
   (): [
-    state: ActionState<void | undefined>,
-    handleAction: (...input: HandleSigninWithRedirectInput<K>[]) => void,
+    state: DataState<void | undefined>,
+    handleAction: (...input: HandleSignInWithRedirectInput<K>[]) => void,
   ];
 }
+
+export const DefaultFederatedProviderList: FederatedProvider[] = [
+  'amazon',
+  'facebook',
+  'apple',
+  'google',
+];
 
 export interface RenderButton<T extends string = string> {
   (data: ProviderData<T>): React.JSX.Element;
@@ -44,7 +41,7 @@ export interface CreateFederatedIdentitiesInput<
 
 export interface ProviderData<T extends string = string> {
   displayName: string;
-  icon: React.ReactNode;
+  icon?: FederatedProvider | React.ReactNode;
   providerName: T;
 }
 
