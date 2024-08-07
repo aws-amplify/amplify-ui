@@ -4,25 +4,28 @@ import { useControl } from '../../context/controls';
 import { StorageBrowserElements } from '../../context/elements';
 import { FileItem } from '../../context/types';
 
-import { CreateFolderActionViewControls } from '../CreateFolderActionView/Controls';
-import { ViewComponent } from '../types';
 import { CLASS_BASE } from '../constants';
+import { ViewComponent } from '../types';
 
-import { LocationActionViewControls } from './Controls';
+import { LocationActionViewControls, UploadControls } from './Controls';
+import { CreateFolderControls } from './CreateFolderControls';
+
 import { useHandleUpload } from './useHandleUpload';
 
 export interface LocationActionView<
   T extends StorageBrowserElements = StorageBrowserElements,
 > extends ViewComponent<LocationActionViewControls<T>> {}
 
+// @ts-expect-error
 export const LocationActionView: LocationActionView = () => {
   const [state] = useControl({
     type: 'ACTION_SELECT',
   });
-  const { actionType, destination, items } = state.selected;
+  const [{ history }] = useControl({ type: 'NAVIGATE' });
+  const { actionType, items } = state.selected;
 
   const [tasks] = useHandleUpload({
-    destination: destination!,
+    prefix: history.join(''),
     items: items! as FileItem[],
   });
 
@@ -50,17 +53,14 @@ export const LocationActionView: LocationActionView = () => {
     : 'No items selected.';
 
   return (
-    <>
-      <div className={CLASS_BASE} data-testid="ACTIONS_VIEW">
-        {actionType === 'CREATE_FOLDER' ? (
-          <CreateFolderActionViewControls />
-        ) : (
-          <LocationActionViewControls />
-        )}
-      </div>
+    <div className={CLASS_BASE} data-testid="LOCATION_ACTION_VIEW">
+      {actionType === 'CREATE_FOLDER' ? (
+        <CreateFolderControls />
+      ) : (
+        <UploadControls />
+      )}
+
       {listItems}
-    </>
+    </div>
   );
 };
-
-LocationActionView.Controls = LocationActionViewControls;

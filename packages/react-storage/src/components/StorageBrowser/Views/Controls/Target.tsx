@@ -53,10 +53,9 @@ const FieldInput = withBaseElementProps(Input, {
   type: 'text',
 });
 
-const FieldSubmit = withBaseElementProps(Button, {
-  className: `${CLASS_BASE}__target__submit`,
-  children: 'Submit',
-  type: 'submit',
+const FieldButton = withBaseElementProps(Button, {
+  className: `${CLASS_BASE}__target__Button`,
+  type: 'button',
 });
 
 interface FieldControl<
@@ -66,7 +65,7 @@ interface FieldControl<
   Container: T['View'];
   Label: T['Label'];
   Input: T['Input'];
-  Submit: T['Button'];
+  Button: T['Button'];
 }
 
 const FieldControl: FieldControl = () => {
@@ -74,7 +73,7 @@ const FieldControl: FieldControl = () => {
     <FieldContainer>
       <FieldLabel />
       <FieldInput />
-      <FieldSubmit />
+      <FieldButton />
     </FieldContainer>
   );
 };
@@ -82,7 +81,7 @@ const FieldControl: FieldControl = () => {
 FieldControl.Container = FieldContainer;
 FieldControl.Label = FieldLabel;
 FieldControl.Input = FieldInput;
-FieldControl.Submit = FieldSubmit;
+FieldControl.Button = FieldButton;
 
 const Container = withBaseElementProps(View, {
   className: BLOCK_NAME,

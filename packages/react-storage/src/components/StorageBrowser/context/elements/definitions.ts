@@ -131,7 +131,10 @@ export const ProgressBarElement = defineBaseElement({
   displayName: 'ProgressBar',
 });
 
-export const InputElement = defineBaseElement<'input', 'type' | 'id'>({
+export const InputElement = defineBaseElement<
+  'input',
+  'type' | 'id' | 'disabled'
+>({
   type: 'input',
   displayName: 'Input',
 });

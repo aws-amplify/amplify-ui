@@ -7,8 +7,22 @@ import { ControlProvider } from '../../../context/controls';
 import { NavigateControl } from '../Navigate';
 import * as useControlObject from '../../../context/controls';
 
+const handleUpdateState = jest.fn();
+const state = {
+  location: { scope: 's3://test-bucket/*', type: 'BUCKET' },
+  history: ['', 'folder1/', 'folder2/', 'folder3/'],
+};
+
+const useControlSpy = jest
+  .spyOn(useControlObject, 'useControl')
+  .mockImplementation(() => [state, handleUpdateState]);
+
 describe('NavigateControl', () => {
   const user = userEvent.setup();
+
+  beforeEach(() => {
+    useControlSpy.mockClear();
+  });
 
   it('renders the NavigateControl', () => {
     render(
@@ -29,16 +43,6 @@ describe('NavigateControl', () => {
   });
 
   it('handles selecting "home" navigate item', async () => {
-    const mockHandleUpdateState = jest.fn();
-    const mockState = {
-      location: { bucket: 'test-bucket' },
-      history: ['folder1/', 'folder2/', 'folder3/'],
-    };
-
-    jest
-      .spyOn(useControlObject, 'useControl')
-      .mockImplementation(() => [mockState, mockHandleUpdateState]);
-
     render(
       <ControlProvider>
         <NavigateControl />
@@ -47,22 +51,12 @@ describe('NavigateControl', () => {
 
     await user.click(screen.getByText('Home'));
 
-    expect(mockHandleUpdateState).toHaveBeenCalledWith({
+    expect(handleUpdateState).toHaveBeenCalledWith({
       type: 'EXIT',
     });
   });
 
   it('handles selecting the root bucket navigate item', async () => {
-    const mockHandleUpdateState = jest.fn();
-    const mockState = {
-      location: {},
-      history: ['test-bucket', 'folder2/', 'folder3/'],
-    };
-
-    jest
-      .spyOn(useControlObject, 'useControl')
-      .mockImplementation(() => [mockState, mockHandleUpdateState]);
-
     render(
       <ControlProvider>
         <NavigateControl />
@@ -71,23 +65,13 @@ describe('NavigateControl', () => {
 
     await user.click(screen.getByText('test-bucket'));
 
-    expect(mockHandleUpdateState).toHaveBeenCalledWith({
+    expect(handleUpdateState).toHaveBeenCalledWith({
       type: 'NAVIGATE',
-      prefix: 'test-bucket',
+      prefix: '',
     });
   });
 
   it('handles selecting a folder navigate item', async () => {
-    const mockHandleUpdateState = jest.fn();
-    const mockState = {
-      location: { bucket: 'test-bucket' },
-      history: ['folder1/', 'folder2/', 'folder3/'],
-    };
-
-    jest
-      .spyOn(useControlObject, 'useControl')
-      .mockImplementation(() => [mockState, mockHandleUpdateState]);
-
     render(
       <ControlProvider>
         <NavigateControl />
@@ -96,23 +80,13 @@ describe('NavigateControl', () => {
 
     await user.click(screen.getByText('folder1'));
 
-    expect(mockHandleUpdateState).toHaveBeenCalledWith({
+    expect(handleUpdateState).toHaveBeenCalledWith({
       type: 'NAVIGATE',
       prefix: 'folder1/',
     });
   });
 
   it('creates a separator between home and the prefix', () => {
-    const mockHandleUpdateState = jest.fn();
-    const mockState = {
-      location: {},
-      history: ['test-bucket'],
-    };
-
-    jest
-      .spyOn(useControlObject, 'useControl')
-      .mockImplementation(() => [mockState, mockHandleUpdateState]);
-
     const { container } = render(
       <ControlProvider>
         <NavigateControl />
@@ -123,7 +97,7 @@ describe('NavigateControl', () => {
       'storage-browser__navigate__separator'
     );
 
-    expect(separators).toHaveLength(1);
+    expect(separators).toHaveLength(4);
     expect(separators[0]).toBeInTheDocument();
   });
 });

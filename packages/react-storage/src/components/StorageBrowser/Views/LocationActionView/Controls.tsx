@@ -1,13 +1,15 @@
 import React from 'react';
 
-import { StorageBrowserElements } from '../../context/elements';
 import { useControl } from '../../context/controls';
+import { StorageBrowserElements } from '../../context/elements';
+
 import { Controls } from '../Controls';
 import { CommonControl } from '../types';
-import { useHandleUpload } from './useHandleUpload';
 import { FileItem } from '../../context/types';
 
-const { ActionStart, ActionCancel, Summary, Title: TitleElement } = Controls;
+import { useHandleUpload } from './useHandleUpload';
+
+const { ActionCancel, ActionStart, Summary, Title: TitleElement } = Controls;
 
 export interface LocationActionViewControls<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -23,31 +25,26 @@ export const Title = (): React.JSX.Element => {
   return <TitleElement>{name}</TitleElement>;
 };
 
-// @ts-expect-error TODO: add Controls assignment
-export const LocationActionViewControls: LocationActionViewControls<
-  StorageBrowserElements
-> = () => {
+export const UploadControls = (): React.JSX.Element => {
   const [state, handleUpdateState] = useControl({
     type: 'ACTION_SELECT',
   });
-  const { destination, items } = state.selected;
-
+  const [{ history }] = useControl({ type: 'NAVIGATE' });
+  const { items } = state.selected;
   const [, handleUpload] = useHandleUpload({
-    destination: destination!,
+    prefix: history.join(''),
     items: items! as FileItem[],
   });
   return (
     <>
-      <Title />
-      <ActionCancel
-        onClick={() => handleUpdateState({ type: 'DESELECT_ACTION_TYPE' })}
-      />
+      <ActionCancel onClick={() => handleUpdateState({ type: 'EXIT' })} />
       <ActionStart
         onClick={() => {
           if (!items) return;
           handleUpload();
         }}
       />
+      <Title />
       <Summary />
     </>
   );
