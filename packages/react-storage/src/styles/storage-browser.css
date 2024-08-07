@@ -95,6 +95,9 @@
 }
 
 .storage-browser__summary {
+  grid-row-start: 3;
+  grid-column: 1 / -1;
+  justify-content: flex-end;
   margin: 0;
   display: flex;
   gap: var(--storage-browser-gap);
