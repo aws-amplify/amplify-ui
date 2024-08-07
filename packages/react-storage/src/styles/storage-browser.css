@@ -55,6 +55,8 @@
 }
 
 .storage-browser__target__field {
+  grid-row-start: 3;
+  grid-column: 1 / 16;
   display: inline-grid;
   gap: var(--storage-browser-gap);
   grid-template-rows: auto auto;
@@ -70,7 +72,7 @@
 .storage-browser__target__input {
   grid-area: input;
 }
-.storage-browser__target__submit {
+.storage-browser__target__button {
   grid-area: submit;
 }
 .storage-browser__target__destination {

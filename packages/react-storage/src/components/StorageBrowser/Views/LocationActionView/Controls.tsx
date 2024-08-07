@@ -30,7 +30,7 @@ export const UploadControls = (): React.JSX.Element => {
     type: 'ACTION_SELECT',
   });
   const [{ history }] = useControl({ type: 'NAVIGATE' });
-  const { items } = state.selected;
+  const { actionType, items } = state.selected;
   const [, handleUpload] = useHandleUpload({
     prefix: history.join(''),
     items: items! as FileItem[],
@@ -38,12 +38,15 @@ export const UploadControls = (): React.JSX.Element => {
   return (
     <>
       <ActionCancel onClick={() => handleUpdateState({ type: 'EXIT' })} />
-      <ActionStart
-        onClick={() => {
-          if (!items) return;
-          handleUpload();
-        }}
-      />
+      {actionType === 'UPLOAD_FILES' ? (
+        <ActionStart
+          onClick={() => {
+            if (!items) return;
+            handleUpload();
+          }}
+        />
+      ) : null}
+
       <Title />
       <Summary />
     </>

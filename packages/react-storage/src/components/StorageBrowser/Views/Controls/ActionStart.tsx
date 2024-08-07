@@ -17,7 +17,9 @@ export interface _ActionStartControl<
 }
 
 interface ActionStartProps {
-  onClick: () => void;
+  onClick?: () => void;
+  disabled?: boolean;
+  children?: React.ReactNode;
 }
 
 export interface ActionStartControl<
@@ -29,9 +31,14 @@ export interface ActionStartControl<
 const Button = withBaseElementProps(ButtonElement, {
   className: `${BLOCK_NAME}`,
   variant: 'action-start',
-  children: 'Start',
 });
 
-export const ActionStartControl: ActionStartControl = ({ onClick }) => (
-  <Button onClick={onClick} />
+export const ActionStartControl: ActionStartControl = ({
+  onClick,
+  disabled,
+  children,
+}) => (
+  <Button onClick={onClick} disabled={disabled}>
+    {children ?? 'Start'}
+  </Button>
 );
