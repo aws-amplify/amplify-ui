@@ -153,25 +153,28 @@ export const MessagesControl: MessagesControl = ({ renderMessage }) => {
         case 'ArrowUp':
           newIndex = Math.max(0, index - 1);
           setFocusedItemIndex(newIndex);
+          messagesRef.current[newIndex]?.focus();
           break;
         case 'ArrowDown':
           newIndex = Math.min(index + 1, messages!.length - 1);
           setFocusedItemIndex(newIndex);
+          messagesRef.current[newIndex]?.focus();
           break;
         case 'Home':
           newIndex = 0;
           setFocusedItemIndex(newIndex);
+          messagesRef.current[newIndex]?.focus();
           break;
         case 'End':
           newIndex = messages!.length - 1;
           setFocusedItemIndex(newIndex);
+          messagesRef.current[newIndex]?.focus();
           break;
         default: {
           break;
         }
       }
 
-      messagesRef.current[newIndex]?.focus();
       return;
     },
     [messages, focusedItemIndex]
@@ -198,7 +201,12 @@ export const MessagesControl: MessagesControl = ({ renderMessage }) => {
                 <Timestamp>{formatDate(message.timestamp)}</Timestamp>
               </HeaderContainer>
               <MessageControl message={message} />
-              <ActionsBarControl message={message} />
+              {message.role === 'assistant' ? (
+                <ActionsBarControl
+                  message={message}
+                  focusable={focusedItemIndex === index}
+                />
+              ) : null}
             </MessageContainer>
           </RoleContext.Provider>
         )

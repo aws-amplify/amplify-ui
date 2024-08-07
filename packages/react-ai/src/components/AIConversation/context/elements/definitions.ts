@@ -54,7 +54,7 @@ export const InputElement = defineBaseElement<'input', 'type'>({
   displayName: 'Input',
 });
 
-type ButtonElementProps = 'disabled' | 'onClick' | 'type';
+type ButtonElementProps = 'disabled' | 'onClick' | 'type' | 'tabIndex';
 type ButtonElementVariant = 'attach' | 'remove' | 'send-message';
 
 export const ButtonElement = defineBaseElement<

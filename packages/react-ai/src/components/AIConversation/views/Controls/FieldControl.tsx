@@ -91,7 +91,7 @@ const TextInput: typeof TextAreaBase = React.forwardRef(
     });
 
     React.useEffect(() => {
-      const textarea = document.getElementById(`${FIELD_BLOCK}-text-input`);
+      const textarea = document.getElementById(`text-input`);
 
       if (textarea) {
         textarea.focus();
