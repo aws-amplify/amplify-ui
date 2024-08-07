@@ -24,7 +24,7 @@ const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
           ref={ref as any}
         />
       );
-    case 'action-start':
+    case 'primary':
       return <_Button {...props} size="small" variation="primary" ref={ref} />;
     case 'action-select-toggle':
     case 'exit':
