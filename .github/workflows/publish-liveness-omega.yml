@@ -36,6 +36,7 @@ jobs:
 
   publish:
     uses: ./.github/workflows/reusable-tagged-publish.yml
+    needs: setup-cache
     with:
       dist-tag: liveness-omega
     secrets:
