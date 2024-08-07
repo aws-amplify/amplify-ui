@@ -10,6 +10,7 @@ export {
   AwsCredentialProvider,
   AwsTemporaryCredentials,
   AwsCredentials,
+  mobileCameraType,
   ErrorState,
   FACE_MOVEMENT_CHALLENGE,
   FACE_MOVEMENT_AND_LIGHT_CHALLENGE,

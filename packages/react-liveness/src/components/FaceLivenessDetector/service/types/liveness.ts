@@ -79,6 +79,7 @@ export interface FaceLivenessDetectorCoreConfig {
    * Internal use only - parameter for overriding the liveness endpoint
    */
   endpointOverride?: string;
+  mobileCamera?: mobileCameraType
 }
 
 export type FaceLivenessDetectorConfig = Omit<
@@ -87,7 +88,7 @@ export type FaceLivenessDetectorConfig = Omit<
 >;
 
 /**
- * The coordiates of any bounding box
+ * The coordinates of any bounding box
  */
 export interface BoundingBox {
   top: number;
@@ -127,6 +128,8 @@ export enum FaceMatchState {
   TOO_MANY = 'TOO MANY FACES',
   OFF_CENTER = 'OFF CENTER',
 }
+
+export type mobileCameraType = 'USER' | 'ENVIRONMENT';
 
 export interface LivenessError {
   state: ErrorState;

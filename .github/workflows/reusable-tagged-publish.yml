@@ -39,7 +39,7 @@ jobs:
       - name: Add changeset that bumps all public packages
         # There needs to be a changeset for @aws-amplify/ui[-framework] to publish.
         run: cp .github/changeset-presets/bump-versions.md .changeset
-      - name: Run changeset version to next tag
+      - name: Run changeset version to tag
         run: yarn changeset version --snapshot ${{ inputs.dist-tag }}-$(git rev-parse --short=7 HEAD) && yarn angular build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -47,5 +47,5 @@ jobs:
         run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Publish to next tag
+      - name: Publish to tag
         run: yarn changeset publish --tag ${{ inputs.dist-tag }}

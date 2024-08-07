@@ -1,23 +1,29 @@
 import React from 'react';
 import { View, Flex, Loader, Text } from '@aws-amplify/ui-react';
 import {
+  mobileCameraType,
   FaceLivenessDetectorCore,
-  FACE_MOVEMENT_AND_LIGHT_CHALLENGE,
-  SUPPORTED_CHALLENGES,
+  SUPPORTED_CHALLENGES as _SUPPORTED_CHALLENGES,
 } from '@aws-amplify/ui-react-liveness';
 import { useLiveness } from './useLiveness';
-import { ChallengeSelection } from './ChallengeSelection';
+import { ConfigSelect } from './ConfigSelect';
 import { SessionIdAlert } from './SessionIdAlert';
 import LivenessInlineResults from './LivenessInlineResults';
 
-const DEFAULT_CHALLENGE = FACE_MOVEMENT_AND_LIGHT_CHALLENGE.type;
+const SUPPORTED_CHALLENGES = _SUPPORTED_CHALLENGES.map(
+  (challenge) => challenge.type
+);
 
 export default function LivenessDefault({
   components = undefined,
   credentialProvider = undefined,
   disableStartScreen = false,
 }) {
-  const [challengeType, setChallengeType] = React.useState(DEFAULT_CHALLENGE);
+  const [challengeType, setChallengeType] = React.useState<
+    (typeof SUPPORTED_CHALLENGES)[number]
+  >('FaceMovementAndLightChallenge');
+  const [camera, setCamera] =
+    React.useState<mobileCameraType>('USER');
 
   const {
     getLivenessResponse,
@@ -26,7 +32,7 @@ export default function LivenessDefault({
     createLivenessSessionApiLoading,
     handleGetLivenessDetection,
     stopLiveness,
-  } = useLiveness(challengeType);
+  } = useLiveness(challengeType, camera);
 
   if (createLivenessSessionApiError) {
     return <div>Some error occurred...</div>;
@@ -44,12 +50,17 @@ export default function LivenessDefault({
         </Flex>
       ) : (
         <Flex direction="column" gap="xl">
-          <ChallengeSelection
-            selectedChallenge={challengeType}
+          <ConfigSelect<(typeof SUPPORTED_CHALLENGES)[number]>
+            name="Challenge"
+            currentSelection={challengeType}
             onChange={setChallengeType}
-            challengeList={SUPPORTED_CHALLENGES.map(
-              (challenge) => challenge.type
-            )}
+            options={SUPPORTED_CHALLENGES}
+          />
+          <ConfigSelect<mobileCameraType>
+            name="Camera"
+            currentSelection={camera}
+            onChange={setCamera}
+            options={['USER', 'ENVIRONMENT']}
           />
           <SessionIdAlert
             sessionId={createLivenessSessionApiData['sessionId']}
@@ -82,6 +93,7 @@ export default function LivenessDefault({
                   ...(credentialProvider ? { credentialProvider } : {}),
                   endpointOverride:
                     'wss://streaming-rekognition-gamma.us-east-1.amazonaws.com',
+                  mobileCamera: camera,
                 }}
               />
             ) : null}
