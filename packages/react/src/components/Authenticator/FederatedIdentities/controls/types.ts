@@ -19,7 +19,7 @@ export interface UseHandleSignInWithRedirect<K extends string = string> {
   ];
 }
 
-export const FederatedProviderList: FederatedProvider[] = [
+export const DefaultFederatedProviderList: FederatedProvider[] = [
   'amazon',
   'facebook',
   'apple',

@@ -5,7 +5,7 @@ import { FederatedProvider } from '@aws-amplify/ui';
 import {
   ProviderType,
   ProviderData,
-  FederatedProviderList,
+  DefaultFederatedProviderList,
 } from '../../controls/types';
 import {
   useProviderDataList,
@@ -23,7 +23,7 @@ describe('ProviderDataListContext', () => {
 
   it('should turn supported providers into ProviderData objects', () => {
     const providerTypeList: ProviderType[] = [
-      ...(FederatedProviderList as FederatedProvider[]),
+      ...(DefaultFederatedProviderList as FederatedProvider[]),
       { providerName: 'OktaClient', displayName: 'Okta', icon: <svg></svg> },
     ];
 
