@@ -40,8 +40,8 @@ const Definition: Definition = (props: DefinitionProps) => {
 
   return (
     <DefinitionContainer>
-      <DefinitionTerm>{label}</DefinitionTerm>
-      <DefinitionDetail>{value}</DefinitionDetail>
+      <Term>{label}</Term>
+      <Detail>{value}</Detail>
     </DefinitionContainer>
   );
 };
