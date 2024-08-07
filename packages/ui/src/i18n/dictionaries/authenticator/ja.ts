@@ -26,7 +26,7 @@ export const jaDict: AuthenticatorDictionary = {
   'Enter your Username': 'ユーザー名を入力 ',
   'Forgot your password?': 'パスワードを忘れましたか？ ',
   'Hide password': 'パスワードを非表示',
-  'It may take a minute to arrive': '到着するまでに 1 分かかることがあります。',
+  'It may take a minute to arrive.': '到着するまでに 1 分かかることがあります',
   Loading: 'ロード中',
   'New password': '新しいパスワード',
   or: '又は',
@@ -74,8 +74,6 @@ export const jaDict: AuthenticatorDictionary = {
   'Invalid password format': 'パスワードの形式が無効です ',
   'Invalid phone number format':
     '不正な電話番号の形式です。\n+12345678900 の形式で入力してください',
-  'It may take a minute to arrive.':
-    'コードを受信するまで数分かかる場合があります。',
   'Lost your code? ': 'コードを失くしましたか？',
   'New Password': '新しいパスワード',
   'No account? ': 'アカウントが無いとき ',
