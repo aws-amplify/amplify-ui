@@ -1,19 +1,16 @@
 import React from 'react';
 import {
-  FederatedProviderList,
+  DefaultFederatedProviderList,
   ProviderData,
   ProviderType,
 } from '../controls/types';
 import { FederatedProvider } from '@aws-amplify/ui';
-
-function capitalizeFirstLetter(str: string) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
+import { capitalize } from '@aws-amplify/ui';
 
 function getSupportedProviderData(
   providerName: FederatedProvider
 ): ProviderData {
-  const capitalizedProviderName = capitalizeFirstLetter(providerName);
+  const capitalizedProviderName = capitalize(providerName);
   return {
     displayName: capitalizedProviderName,
     icon: providerName,
@@ -40,7 +37,7 @@ function toProviderData(providers: ProviderType[]): ProviderData[] {
   validateProviderTypes(providers);
   return providers.map((provider) => {
     const federatedProvider = provider as FederatedProvider;
-    if (FederatedProviderList.includes(federatedProvider)) {
+    if (DefaultFederatedProviderList.includes(federatedProvider)) {
       return getSupportedProviderData(federatedProvider);
     } else {
       return provider as ProviderData;
