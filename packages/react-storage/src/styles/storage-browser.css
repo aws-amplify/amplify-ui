@@ -59,11 +59,12 @@
   grid-column: 1 / 16;
   display: inline-grid;
   gap: var(--storage-browser-gap);
-  grid-template-rows: auto auto;
+  grid-template-rows: repeat(3, auto);
   grid-template-columns: 1fr auto;
   grid-template-areas:
     'label label'
-    'input submit';
+    'input submit'
+    'error error';
 }
 
 .storage-browser__target__label {

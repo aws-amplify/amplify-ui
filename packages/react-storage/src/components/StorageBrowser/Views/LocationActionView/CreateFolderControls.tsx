@@ -64,7 +64,9 @@ export const CreateFolderControls = (): React.JSX.Element => {
           id="folder-name-input"
           ref={inputRef}
         />
-        {fieldValidationError ? <span>{fieldValidationError}</span> : null}
+        {fieldValidationError ? (
+          <Target.Field.Error>{fieldValidationError}</Target.Field.Error>
+        ) : null}
         <Target.Field.Button
           onClick={() => {
             if (!inputRef.current?.value?.endsWith('/')) {

@@ -58,6 +58,10 @@ const FieldButton = withBaseElementProps(Button, {
   type: 'button',
 });
 
+const FieldError = withBaseElementProps(View, {
+  className: `${CLASS_BASE}__target__error`,
+});
+
 interface FieldControl<
   T extends StorageBrowserElements = StorageBrowserElements,
 > {
@@ -66,6 +70,7 @@ interface FieldControl<
   Label: T['Label'];
   Input: T['Input'];
   Button: T['Button'];
+  Error: T['View'];
 }
 
 const FieldControl: FieldControl = () => {
@@ -74,6 +79,7 @@ const FieldControl: FieldControl = () => {
       <FieldLabel />
       <FieldInput />
       <FieldButton />
+      <FieldError />
     </FieldContainer>
   );
 };
@@ -82,6 +88,7 @@ FieldControl.Container = FieldContainer;
 FieldControl.Label = FieldLabel;
 FieldControl.Input = FieldInput;
 FieldControl.Button = FieldButton;
+FieldControl.Error = FieldError;
 
 const Container = withBaseElementProps(View, {
   className: BLOCK_NAME,
