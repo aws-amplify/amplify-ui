@@ -10,6 +10,13 @@ const getExampleAppName = () =>
   LaunchArguments.value().EXAMPLE_APP_NAME ?? EXAMPLE_APP_NAME;
 
 /**
+ * `AttributeManagement` Example App
+ */
+const AttributeManagementExample = React.lazy(
+  () => import('../features/AttributeManagement/Example')
+);
+
+/**
  * `Authenticator` Example and Demo Apps
  */
 const DemoExample = React.lazy(
@@ -98,6 +105,8 @@ export const ExampleComponent = () => {
   console.log(`Running Example App: ${appName}`);
 
   switch (appName) {
+    case 'AttributeManagementExample':
+      return <AttributeManagementExample />;
     case 'DemoExample':
       return <DemoExample />;
     case 'BasicExample':
