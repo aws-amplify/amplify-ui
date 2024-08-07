@@ -56,6 +56,19 @@ const ContentContainer: typeof View = React.forwardRef(
   }
 );
 
+// TODO: update this when we integration with response components
+// export const ResponseComponentControl = (): React.ReactNode => {
+//   const responseComponents = React.useContext(ResponseComponentsContext)
+
+//   if (responseComponents && toolUseId) {
+//     const toolUseId: string = 'componentName';
+//     const ComponentToRender = responseComponents[toolUseId];
+
+//     return <ComponentToRender />
+//   }
+//   return;
+// };
+
 export const MessageControl: MessageControl = ({ message }) => {
   return (
     <ContentContainer>

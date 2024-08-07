@@ -198,34 +198,34 @@ const avatars = {
   },
 };
 
-const getRandomMessage = (): {
-  role: (typeof roles)[number];
-  content: Content[];
-  timestamp: Date;
-} => {
-  const role = roles[Math.floor(Math.random() * roles.length)];
-  const message =
-    sampleMessages[Math.floor(Math.random() * sampleMessages.length)];
-  return {
-    role,
-    content: message,
-    timestamp: new Date(),
-  };
-};
+// const getRandomMessage = (): {
+//   role: (typeof roles)[number];
+//   content: Content[];
+//   timestamp: Date;
+// } => {
+//   const role = roles[Math.floor(Math.random() * roles.length)];
+//   const message =
+//     sampleMessages[Math.floor(Math.random() * sampleMessages.length)];
+//   return {
+//     role,
+//     content: message,
+//     timestamp: new Date(),
+//   };
+// };
 
-const useRandomMessages = (initialMessages: any[]) => {
-  const [messages, setMessages] = React.useState(initialMessages);
+// const useRandomMessages = (initialMessages: any[]) => {
+//   const [messages, setMessages] = React.useState(initialMessages);
 
-  React.useEffect(() => {
-    const intervalId = setInterval(() => {
-      setMessages((prevMessages) => [...prevMessages, getRandomMessage()]);
-    }, 3000);
+//   React.useEffect(() => {
+//     const intervalId = setInterval(() => {
+//       setMessages((prevMessages) => [...prevMessages, getRandomMessage()]);
+//     }, 3000);
 
-    return () => clearInterval(intervalId);
-  }, []);
+//     return () => clearInterval(intervalId);
+//   }, []);
 
-  return messages;
-};
+//   return messages;
+// };
 
 const { AIConversation } = createAIConversation({
   suggestedPrompts: PROMPTS,
