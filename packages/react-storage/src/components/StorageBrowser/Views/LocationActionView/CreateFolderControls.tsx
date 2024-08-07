@@ -6,7 +6,7 @@ import { useControl } from '../../context/controls';
 import { Controls } from '../Controls';
 import { Title } from './Controls';
 
-const { Exit, ActionStart, Target } = Controls;
+const { Exit, Primary, Target } = Controls;
 
 export const CreateFolderControls = (): React.JSX.Element => {
   const [, handleUpdateState] = useControl({ type: 'ACTION_SELECT' });
@@ -52,7 +52,7 @@ export const CreateFolderControls = (): React.JSX.Element => {
     <>
       <Title />
       <Exit onClick={() => handleUpdateState({ type: 'EXIT' })} />
-      <ActionStart {...actionStartProps} />
+      <Primary {...actionStartProps} />
 
       <Target.Field.Container>
         <Target.Field.Label htmlFor="folder-name-input">

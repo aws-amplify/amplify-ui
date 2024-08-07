@@ -1,11 +1,12 @@
 import { StorageBrowserElements } from '../../context/elements';
-import { ExitControl } from './Exit';
+
 import { ActionSelectControl } from './ActionSelect';
-import { ActionStartControl } from './ActionStart';
 import { DownloadControl } from './Download';
+import { ExitControl } from './Exit';
 import { MessageControl } from './Message';
 import { NavigateControl } from './Navigate';
 import { PaginateControl } from './Paginate';
+import { PrimaryControl } from './Primary';
 import { RefreshControl } from './Refresh';
 import { SearchControl } from './Search';
 import { SummaryControl } from './Summary';
@@ -16,15 +17,15 @@ import { TitleControl } from './Title';
 export interface Controls<
   T extends StorageBrowserElements = StorageBrowserElements,
 > {
-  Exit: ExitControl<T>;
   ActionSelect: ActionSelectControl<T>;
-  ActionStart: ActionStartControl<T>;
   Download: DownloadControl<T>;
+  Exit: ExitControl<T>;
   Message: MessageControl<T>;
+  Paginate: PaginateControl<T>;
+  Primary: PrimaryControl<T>;
+  Navigate: NavigateControl<T>;
   Refresh: RefreshControl<T>;
   Search: SearchControl<T>;
-  Paginate: PaginateControl<T>;
-  Navigate: NavigateControl<T>;
   Summary: SummaryControl<T>;
   Table: TableControl<T>;
   Target: TargetControl<T>;
@@ -34,13 +35,13 @@ export interface Controls<
 export const Controls: Controls = {
   Exit: ExitControl,
   ActionSelect: ActionSelectControl,
-  ActionStart: ActionStartControl,
   Download: DownloadControl,
   Message: MessageControl,
+  Paginate: PaginateControl,
+  Primary: PrimaryControl,
+  Navigate: NavigateControl,
   Refresh: RefreshControl,
   Search: SearchControl,
-  Paginate: PaginateControl,
-  Navigate: NavigateControl,
   Summary: SummaryControl,
   Table: TableControl,
   Target: TargetControl,

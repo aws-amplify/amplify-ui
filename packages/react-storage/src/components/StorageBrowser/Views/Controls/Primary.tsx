@@ -7,25 +7,25 @@ import { CLASS_BASE } from '../constants';
 
 const { Button: ButtonElement } = StorageBrowserElements;
 
-const BLOCK_NAME = `${CLASS_BASE}__action-start`;
+const BLOCK_NAME = `${CLASS_BASE}__primary`;
 
-export interface _ActionStartControl<
+export interface _PrimaryControl<
   T extends StorageBrowserElements = StorageBrowserElements,
 > {
   (): React.JSX.Element;
   Button: T['Button'];
 }
 
-interface ActionStartProps {
+interface PrimaryProps {
   onClick?: () => void;
   disabled?: boolean;
   children?: React.ReactNode;
 }
 
-export interface ActionStartControl<
+export interface PrimaryControl<
   T extends StorageBrowserElements = StorageBrowserElements,
-> extends OmitElements<_ActionStartControl<T>, 'Button'> {
-  ({ onClick }: ActionStartProps): React.JSX.Element;
+> extends OmitElements<_PrimaryControl<T>, 'Button'> {
+  ({ onClick }: PrimaryProps): React.JSX.Element;
 }
 
 const Button = withBaseElementProps(ButtonElement, {
@@ -33,7 +33,7 @@ const Button = withBaseElementProps(ButtonElement, {
   variant: 'action-start',
 });
 
-export const ActionStartControl: ActionStartControl = ({
+export const PrimaryControl: PrimaryControl = ({
   onClick,
   disabled,
   children,

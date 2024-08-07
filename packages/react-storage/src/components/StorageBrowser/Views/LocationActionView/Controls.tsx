@@ -9,7 +9,7 @@ import { FileItem } from '../../context/types';
 
 import { useHandleUpload } from './useHandleUpload';
 
-const { ActionStart, Exit, Summary, Title: TitleElement } = Controls;
+const { Primary, Exit, Summary, Title: TitleElement } = Controls;
 
 export interface LocationActionViewControls<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -39,7 +39,7 @@ export const UploadControls = (): React.JSX.Element => {
     <>
       <Exit onClick={() => handleUpdateState({ type: 'EXIT' })} />
       {actionType === 'UPLOAD_FILES' ? (
-        <ActionStart
+        <Primary
           onClick={() => {
             if (!items) return;
             handleUpload();
