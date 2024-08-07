@@ -34,10 +34,10 @@ export type ButtonElementProps = React.ComponentProps<typeof ButtonElement>;
 type ButtonElementVariant =
   | 'action-select-item'
   | 'action-select-toggle'
-  | 'action-start'
   | 'action-submit'
   | 'exit'
   | 'navigate'
+  | 'primary'
   | 'refresh'
   | 'search-submit'
   | 'sort'

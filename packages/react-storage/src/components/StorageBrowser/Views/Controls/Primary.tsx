@@ -30,7 +30,7 @@ export interface PrimaryControl<
 
 const Button = withBaseElementProps(ButtonElement, {
   className: `${BLOCK_NAME}`,
-  variant: 'action-start',
+  variant: 'primary',
 });
 
 export const PrimaryControl: PrimaryControl = ({
