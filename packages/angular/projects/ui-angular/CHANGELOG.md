@@ -1,5 +1,11 @@
 # @aws-amplify/ui-angular
 
+## 5.0.18
+
+### Patch Changes
+
+- [#5399](https://github.com/aws-amplify/amplify-ui/pull/5399) [`98135dfac`](https://github.com/aws-amplify/amplify-ui/commit/98135dfacccd5213e52b5001adbd1702e6f883fe) Thanks [@timngyn](https://github.com/timngyn)! - fix(authenticator): Check first radio button from unverified user attributes so that default value is selected
+
 ## 5.0.17
 
 ### Patch Changes
@@ -498,10 +504,7 @@ import { ConfirmSignInInput } from 'aws-amplify';
   @Component()
   class MyComponent implements OnInit, OnDelete {
     private unsubscribe: () => void;
-    constructor(
-      private authenticator: Authenticator,
-      private route: Router
-    ) {}
+    constructor(private authenticator: Authenticator, private route: Router) {}
 
     ngOnInit() {
       this.unsubscribe = authenticator.subscribe(({ authStatus }) => {

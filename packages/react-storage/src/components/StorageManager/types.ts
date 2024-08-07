@@ -41,6 +41,7 @@ export type DefaultFile = Pick<StorageFile, 'key'>;
 export interface ProcessFileParams extends Record<string, any> {
   file: File;
   key: string;
+  useAccelerateEndpoint?: boolean;
 }
 
 export type ProcessFile = (
@@ -126,6 +127,8 @@ export interface StorageManagerProps {
    * Provided value is prefixed to the file `key` for each file
    */
   path?: string;
+
+  useAccelerateEndpoint?: boolean;
 }
 
 export interface StorageManagerPathProps
@@ -138,4 +141,5 @@ export interface StorageManagerPathProps
    */
   path: string | PathCallback;
   accessLevel?: never;
+  useAccelerateEndpoint?: boolean;
 }

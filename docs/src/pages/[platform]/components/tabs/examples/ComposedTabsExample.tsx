@@ -11,9 +11,9 @@ export const ComposedTabsExample = () => {
         </Tabs.Item>
       </Tabs.List>
       <Tabs.Panel value="Tab 1">Tab 1 content</Tabs.Panel>
-      <Tabs.Panel value="Tab 2">Tab 1 content</Tabs.Panel>
+      <Tabs.Panel value="Tab 2">Tab 2 content</Tabs.Panel>
       <Tabs.Panel value="Tab 3" isDisabled>
-        Tab 1 content
+        Tab 3 content
       </Tabs.Panel>
     </Tabs.Container>
   );
