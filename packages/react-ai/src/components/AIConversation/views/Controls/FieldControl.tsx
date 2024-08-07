@@ -1,31 +1,27 @@
 import React from 'react';
 
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
-
+import { ImageContentBlock, TextContent } from '../../types';
+import { InputContext } from '../../context';
 import { AIConversationElements } from '../../context/elements';
 import { AttachFileControl } from './AttachFileControl';
+import { MessagesContext } from '../../context';
+import { AttachmentListControl } from './AttachmentListControl';
 
-const { Button, Icon, TextArea, View } = AIConversationElements;
+const {
+  Button,
+  Icon,
+  Label: LabelElement,
+  TextArea,
+  View,
+} = AIConversationElements;
 
 const FIELD_BLOCK = 'ai-field';
 
-const sendIconProps = () => ({
-  children: (
-    <path
-      d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z"
-      fill="currentColor"
-    />
-  ),
-  'aria-hidden': true,
+const SendIcon = withBaseElementProps(Icon, {
   className: `${FIELD_BLOCK}__icon`,
-  width: '24',
-  height: '24',
-  viewBox: '0 0 16 16',
-  fill: 'none',
-  xmlns: 'http://www.w3.org/2000/svg',
+  variant: 'send-message',
 });
-
-const SendIcon = withBaseElementProps(Icon, sendIconProps);
 
 const SendButtonBase = withBaseElementProps(Button, {
   'aria-label': 'Send message',
@@ -34,13 +30,15 @@ const SendButtonBase = withBaseElementProps(Button, {
 
 const SendButton: typeof SendButtonBase = React.forwardRef(
   function SendButton(props, ref) {
+    const { input } = React.useContext(InputContext);
     // TODO should come from context
     const isWaitingForResponse = false;
-    // TODO send message on click
+    const hasInput = !!input?.text || !!input?.files?.length;
+
     return (
       <SendButtonBase
         {...props}
-        disabled={isWaitingForResponse}
+        disabled={isWaitingForResponse || !hasInput}
         type="submit"
         ref={ref}
       />
@@ -51,12 +49,24 @@ const SendButton: typeof SendButtonBase = React.forwardRef(
 const TextAreaBase = withBaseElementProps(TextArea, {
   className: `${FIELD_BLOCK}__input`,
   id: `${FIELD_BLOCK}-text-input`,
+  name: 'text-input',
+});
+
+const VisuallyHidden = withBaseElementProps(View, {
+  className: `${FIELD_BLOCK}__visually-hidden`,
+});
+
+const Label = withBaseElementProps(LabelElement, {
+  children: 'Type your message here',
+  className: `${FIELD_BLOCK}__label`,
+  for: 'text-input',
 });
 
 const TextInput: typeof TextAreaBase = React.forwardRef(
   function TextInput(props, ref) {
-    // TODO should come from context or prop
-    const isFirstMessage = true;
+    const { setInput } = React.useContext(InputContext);
+    const messages = React.useContext(MessagesContext);
+    const isFirstMessage = !messages || messages.length === 0;
 
     React.useEffect(() => {
       const textarea = document.getElementById(`${FIELD_BLOCK}-text-input`);
@@ -84,31 +94,77 @@ const TextInput: typeof TextAreaBase = React.forwardRef(
       <TextAreaBase
         {...props}
         data-testid="text-input"
-        placeholder={isFirstMessage ? 'Ask anything...' : 'Message Raven'}
+        id="text-input"
+        onChange={(e) =>
+          props.onChange ??
+          (setInput &&
+            setInput((prevInput) => ({ ...prevInput, text: e.target.value })))
+        }
+        placeholder={
+          props.placeholder ?? isFirstMessage
+            ? 'Ask anything...'
+            : 'Message Raven'
+        }
         ref={ref}
       />
     );
   }
 );
 
-const Container = withBaseElementProps(View, {
-  className: `${FIELD_BLOCK}__container`,
+const InputContainer = withBaseElementProps(View, {
+  className: `${FIELD_BLOCK}__input-container`,
 });
 
 export const FieldControl: FieldControl = () => {
+  const { input, setInput } = React.useContext(InputContext);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    (e.target as HTMLFormElement).reset();
+
+    if (input?.text) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars -- TODO send message
+      const textContent: TextContent = {
+        type: 'text',
+        value: input.text,
+      };
+    }
+    if (input?.files) {
+      input.files.map((file) => {
+        file.arrayBuffer().then((buffer) => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars -- TODO send message
+          const fileContent: ImageContentBlock = {
+            type: 'image',
+            value: {
+              format: file.type as 'png' | 'jpeg' | 'gif' | 'webp',
+              bytes: buffer,
+            },
+          };
+        });
+      });
+    }
+    if (setInput) setInput({ text: '', files: [] });
+  };
   return (
-    <Container>
+    <form className={`${FIELD_BLOCK}__form`} onSubmit={handleSubmit}>
       <AttachFileControl />
-      <TextInput />
+      <InputContainer>
+        <VisuallyHidden>
+          <Label />
+        </VisuallyHidden>
+        <TextInput />
+        <AttachmentListControl />
+      </InputContainer>
       <SendButton>
         <SendIcon />
       </SendButton>
-    </Container>
+    </form>
   );
 };
 
 FieldControl.AttachFile = AttachFileControl;
-FieldControl.Container = Container;
+FieldControl.InputContainer = InputContainer;
+FieldControl.Label = Label;
 FieldControl.TextInput = TextInput;
 FieldControl.SendButton = SendButton;
 FieldControl.SendIcon = SendIcon;
@@ -117,8 +173,9 @@ export interface FieldControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
 > {
   (): React.JSX.Element;
-  Container: T['View'];
   AttachFile: AttachFileControl<T>;
+  InputContainer: T['View'];
+  Label: T['Label'];
   TextInput: T['TextArea'];
   SendButton: T['Button'];
   SendIcon: T['Icon'];

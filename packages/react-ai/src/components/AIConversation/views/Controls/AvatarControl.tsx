@@ -1,55 +1,66 @@
 import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
-import { ConversationMessage } from '../../types';
 import { AvatarsContext } from '../../context';
+import { RoleContext } from '../../context';
 import { AIConversationElements } from '../../context/elements';
-const { Span, Text, View } = AIConversationElements;
+
+const { Icon, Span, Text, View } = AIConversationElements;
 
 const AVATAR_BLOCK = 'ai-avatar';
 
-const iconAttributes = {
-  className: `${AVATAR_BLOCK}__icon`,
-  xmlns: 'http://www.w3.org/2000/svg',
-  height: '100%',
-  width: '100%',
-};
-
-const avatarIconProps = () => ({
-  children: (
-    <svg viewBox="0 0 24 24">
-      <path
-        fill="none"
-        d="M14.023,12.154c1.514-1.192,2.488-3.038,2.488-5.114c0-3.597-2.914-6.512-6.512-6.512
-								c-3.597,0-6.512,2.916-6.512,6.512c0,2.076,0.975,3.922,2.489,5.114c-2.714,1.385-4.625,4.117-4.836,7.318h1.186
-								c0.229-2.998,2.177-5.512,4.86-6.566c0.853,0.41,1.804,0.646,2.813,0.646c1.01,0,1.961-0.236,2.812-0.646
-								c2.684,1.055,4.633,3.568,4.859,6.566h1.188C18.648,16.271,16.736,13.539,14.023,12.154z M10,12.367
-								c-2.943,0-5.328-2.385-5.328-5.327c0-2.943,2.385-5.328,5.328-5.328c2.943,0,5.328,2.385,5.328,5.328
-								C15.328,9.982,12.943,12.367,10,12.367z"
-      ></path>
-    </svg>
-  ),
-  ...iconAttributes,
+const DEFAULT_USER_ICON = withBaseElementProps(Icon, {
+  variant: 'user-avatar',
 });
+
+const DEFAULT_AI_ICON = () => (
+  <svg
+    width="28"
+    height="28"
+    viewBox="0 0 28 28"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g id="raven-logo">
+      <path
+        id="Subtract"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M16 1.29833C14.7624 0.583803 13.2376 0.583804 12 1.29833L4.00006 5.91711C2.76246 6.63165 2.00006 7.95216 2.00006 9.38122V18.6188C2.00006 20.0478 2.76246 21.3684 4.00006 22.0829L12 26.7017C13.2376 27.4162 14.7624 27.4162 16 26.7017L24 22.0829C25.2376 21.3684 26 20.0478 26 18.6188V9.38122C26 7.95215 25.2376 6.63164 24 5.91711L16 1.29833ZM14.9379 6.37317C14.6157 5.50255 13.3843 5.50255 13.0622 6.37317L11.4151 10.8243C11.3138 11.098 11.098 11.3138 10.8243 11.4151L6.37317 13.0621C5.50256 13.3843 5.50256 14.6157 6.37317 14.9378L10.8243 16.5849C11.098 16.6862 11.3138 16.902 11.4151 17.1757L13.0622 21.6268C13.3843 22.4974 14.6157 22.4974 14.9379 21.6268L16.5849 17.1757C16.6862 16.902 16.902 16.6862 17.1757 16.5849L21.6268 14.9378C22.4974 14.6157 22.4974 13.3843 21.6268 13.0621L17.1757 11.4151C16.902 11.3138 16.6862 11.098 16.5849 10.8243L14.9379 6.37317Z"
+        fill="#0D1A26"
+      />
+    </g>
+  </svg>
+);
 
 const AvatarDisplayName = withBaseElementProps(Text, {
   className: `${AVATAR_BLOCK}__display-name`,
 });
 
-const AvatarIcon = withBaseElementProps(Span, avatarIconProps);
+const AvatarIcon = withBaseElementProps(Span, {
+  'aria-hidden': true,
+  className: `${AVATAR_BLOCK}__icon`,
+});
 
 const Container = withBaseElementProps(View, {
   className: `${AVATAR_BLOCK}__container`,
 });
 
-export const AvatarControl: AvatarControl = ({ message }) => {
+export const AvatarControl: AvatarControl = () => {
   const avatars = React.useContext(AvatarsContext);
-  const avatar = message.role === 'user' ? avatars?.user : avatars?.ai;
-
+  const role = React.useContext(RoleContext);
+  const avatar = role === 'assistant' ? avatars?.ai : avatars?.user;
+  const defaultIcon =
+    role === 'assistant' ? <DEFAULT_AI_ICON /> : <DEFAULT_USER_ICON />;
+  const defaultDisplayName = role === 'user' ? 'User' : 'Assistant';
   return (
     <Container data-testid={'avatar'}>
-      <AvatarIcon>{avatar?.avatar}</AvatarIcon>
-      <AvatarDisplayName>{avatar?.username}</AvatarDisplayName>
+      <AvatarIcon data-testid={`avatar-icon-${role}`}>
+        {avatar?.avatar ?? defaultIcon}
+      </AvatarIcon>
+      <AvatarDisplayName>
+        {avatar?.username ?? defaultDisplayName}
+      </AvatarDisplayName>
     </Container>
   );
 };
@@ -61,7 +72,7 @@ AvatarControl.Icon = AvatarIcon;
 export interface AvatarControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
 > {
-  (props: { message: ConversationMessage }): React.JSX.Element;
+  (): React.JSX.Element;
   Container: T['View'];
   DisplayName: T['Text'];
   Icon: T['Span'];

@@ -1,4 +1,5 @@
 import { defineBaseElement } from '@aws-amplify/ui-react-core/elements';
+import { IconElement } from './IconElement';
 
 export interface AIConversationElements {
   Button: typeof ButtonElement;
@@ -6,6 +7,7 @@ export interface AIConversationElements {
   Icon: typeof IconElement;
   Image: typeof ImageElement;
   Input: typeof InputElement;
+  Label: typeof LabelElement;
   ListItem: typeof ListItemElement;
   Span: typeof SpanElement;
   Text: typeof TextElement;
@@ -14,7 +16,10 @@ export interface AIConversationElements {
   View: typeof ViewElement;
 }
 
-export type IconVariant = 'send-message' | 'attach';
+export const LabelElement = defineBaseElement({
+  type: 'label',
+  displayName: 'Label',
+});
 
 export const TextElement = defineBaseElement({
   type: 'p',
@@ -36,14 +41,10 @@ export const HeadingElement = defineBaseElement({
   displayName: 'Title',
 });
 
-export const IconElement = defineBaseElement({
-  type: 'svg',
-  displayName: 'Icon',
-});
-
 export type IconElementProps = React.ComponentProps<typeof IconElement>;
 
-export const ImageElement = defineBaseElement({
+type ImageElementProps = 'src' | 'alt';
+export const ImageElement = defineBaseElement<'img', ImageElementProps>({
   type: 'img',
   displayName: 'Image',
 });
@@ -54,7 +55,7 @@ export const InputElement = defineBaseElement<'input', 'type'>({
 });
 
 type ButtonElementProps = 'disabled' | 'onClick' | 'type';
-type ButtonElementVariant = 'send-message' | 'attach';
+type ButtonElementVariant = 'attach' | 'remove' | 'send-message';
 
 export const ButtonElement = defineBaseElement<
   'button',
@@ -72,7 +73,7 @@ export const SpanElement = defineBaseElement({
   displayName: 'Span',
 });
 
-type TextAreaElementProps = 'onChange' | 'placeholder';
+type TextAreaElementProps = 'id' | 'name' | 'onChange' | 'placeholder';
 
 export const TextAreaElement = defineBaseElement<
   'textarea',
@@ -88,6 +89,7 @@ export const AIConversationElements: AIConversationElements = {
   Icon: IconElement,
   Input: InputElement,
   Image: ImageElement,
+  Label: LabelElement,
   ListItem: ListItemElement,
   Span: SpanElement,
   Text: TextElement,

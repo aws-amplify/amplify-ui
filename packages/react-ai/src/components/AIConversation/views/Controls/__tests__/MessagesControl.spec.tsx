@@ -5,7 +5,11 @@ import { ConversationMessage } from '../../../types';
 
 import { ActionsProvider } from '../../../context/ActionsContext';
 import { AvatarsProvider } from '../../../context/AvatarsContext';
-import { MessagesProvider } from '../../../context/MessagesContext';
+import {
+  MessagesProvider,
+  RoleContext,
+} from '../../../context/MessagesContext';
+import { MessageVariantProvider } from '../../../context/MessageVariantContext';
 import { MessagesControl, MessageControl } from '../MessagesControl';
 
 import { convertBufferToBase64 } from '../../../utils';
@@ -43,23 +47,11 @@ const messages: ConversationMessage[] = [
 const avatars = {
   user: {
     username: 'Scottleigh',
-    avatar: (
-      <svg>
-        <text x="10" y="20">
-          UAvatar
-        </text>
-      </svg>
-    ),
+    avatar: <svg>UAvatar</svg>,
   },
   ai: {
     username: 'Raven',
-    avatar: (
-      <svg>
-        <text x="10" y="20">
-          RAvatar
-        </text>
-      </svg>
-    ),
+    avatar: <svg>RAvatar</svg>,
   },
 };
 
@@ -89,6 +81,44 @@ describe('MessagesControl', () => {
     );
     const messageElements = screen.getAllByTestId('message');
     expect(messageElements).toHaveLength(3);
+  });
+
+  it('renders MessagesControl with default classnames', () => {
+    const { container } = render(
+      <MessagesProvider messages={messages}>
+        <MessagesControl />
+      </MessagesProvider>
+    );
+    const messagesContainer = container.firstChild;
+    expect(messagesContainer).toBeDefined();
+    expect(messagesContainer).toHaveClass('ai-messages__container');
+    expect(messagesContainer).toHaveClass('ai-messages__container--borderless');
+
+    const messageContainer = messagesContainer?.firstChild;
+    expect(messageContainer).toBeDefined();
+    expect(messageContainer).toHaveClass('ai-message__container');
+    expect(messageContainer).toHaveClass('ai-message__container--assistant');
+    expect(messageContainer).toHaveClass('ai-message__container--borderless');
+  });
+
+  it('renders MessagesControl with custom classnames', () => {
+    const { container } = render(
+      <MessagesProvider messages={messages}>
+        <MessageVariantProvider variant="bubble-2">
+          <MessagesControl />
+        </MessageVariantProvider>
+      </MessagesProvider>
+    );
+    const messagesContainer = container.firstChild;
+    expect(messagesContainer).toBeDefined();
+    expect(messagesContainer).toHaveClass('ai-messages__container');
+    expect(messagesContainer).toHaveClass('ai-messages__container--bubble-2');
+
+    const messageContainer = messagesContainer?.firstChild;
+    expect(messageContainer).toBeDefined();
+    expect(messageContainer).toHaveClass('ai-message__container');
+    expect(messageContainer).toHaveClass('ai-message__container--assistant');
+    expect(messageContainer).toHaveClass('ai-message__container--bubble-2');
   });
 
   it('renders a MessagesControl element with avatars and actions', () => {
@@ -140,6 +170,36 @@ describe('MessagesControl', () => {
 });
 
 describe('MessageControl', () => {
+  it('renders MessageControl with default classnames', () => {
+    render(
+      <RoleContext.Provider value="user">
+        <MessageControl message={messages[1]} />
+      </RoleContext.Provider>
+    );
+
+    const message = screen.getByText('Are you sentient?');
+    expect(message).toBeInTheDocument();
+    expect(message).toHaveClass('ai-message__text');
+    expect(message).toHaveClass('ai-message__text--user');
+    expect(message).toHaveClass('ai-message__text--borderless');
+  });
+
+  it('renders MessageControl with custom classnames', () => {
+    render(
+      <RoleContext.Provider value="user">
+        <MessageVariantProvider variant="borderless-background">
+          <MessageControl message={messages[1]} />
+        </MessageVariantProvider>
+      </RoleContext.Provider>
+    );
+
+    const message = screen.getByText('Are you sentient?');
+    expect(message).toBeInTheDocument();
+    expect(message).toHaveClass('ai-message__text');
+    expect(message).toHaveClass('ai-message__text--user');
+    expect(message).toHaveClass('ai-message__text--borderless-background');
+  });
+
   it('renders a MessageControl text element', () => {
     render(<MessageControl message={messages[1]} />);
     const message = screen.getByText('Are you sentient?');
