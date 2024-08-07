@@ -37,6 +37,7 @@ export const UploadControls = (): React.JSX.Element => {
   });
   return (
     <>
+      <Title />
       <Exit onClick={() => handleUpdateState({ type: 'EXIT' })} />
       <Primary
         onClick={() => {
@@ -44,7 +45,6 @@ export const UploadControls = (): React.JSX.Element => {
           handleUpload();
         }}
       />
-      <Title />
       <Summary />
     </>
   );
