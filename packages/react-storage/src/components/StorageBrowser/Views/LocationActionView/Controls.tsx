@@ -9,7 +9,7 @@ import { CommonControl } from '../types';
 
 const { Button } = StorageBrowserElements;
 
-const { Summary, Title: TitleElement } = Controls;
+const { Title: TitleElement } = Controls;
 
 export interface LocationActionViewControls<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -45,14 +45,4 @@ export const Title = (): React.JSX.Element => {
   });
   const { name } = state.selected;
   return <TitleElement>{name}</TitleElement>;
-};
-
-export const UploadControls = (): React.JSX.Element => {
-  return (
-    <>
-      <Navigate />
-      <Title />
-      <Summary />
-    </>
-  );
 };

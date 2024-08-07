@@ -1,7 +1,6 @@
 import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
-import type { OmitElements } from '../types';
 import { StorageBrowserElements } from '../../context/elements';
 import { DownloadControl } from './Download';
 import { CLASS_BASE } from '../constants';
@@ -114,43 +113,18 @@ export interface Column<T> {
   key: keyof T;
 }
 
-export interface _TableControl<
+export interface TableControl<
   T extends StorageBrowserElements = StorageBrowserElements,
-> extends Pick<
-    T,
-    | 'Table'
-    | 'TableBody'
-    | 'TableData'
-    | 'TableHead'
-    | 'TableHeader'
-    | 'TableRow'
-  > {
-  (): React.JSX.Element;
+> extends Pick<T, 'TableData' | 'TableRow'> {
+  <U>(props: TableControlProps<U>): React.JSX.Element;
 }
 
-type RenderRowItem<T> = (row: T, index: number) => JSX.Element;
+export type RenderRowItem<T> = (row: T, index: number) => JSX.Element;
 
 interface TableControlProps<T> {
   data: T[];
   columns: Column<T>[];
   renderRowItem: RenderRowItem<T>;
-}
-
-export interface TableControl<
-  T extends StorageBrowserElements = StorageBrowserElements,
-> extends OmitElements<
-    _TableControl<T>,
-    | 'Table'
-    | 'TableBody'
-    | 'TableData'
-    | 'TableHead'
-    | 'TableHeader'
-    | 'TableRow'
-    | 'SortIndeterminateIcon'
-    | 'SortAscendingIcon'
-    | 'SortDescendingIcon'
-  > {
-  <U>(props: TableControlProps<U>): React.JSX.Element;
 }
 
 export const TableControl: TableControl = <U,>({
@@ -186,6 +160,9 @@ export const TableControl: TableControl = <U,>({
     </Table>
   );
 };
+
+TableControl.TableRow = TableRow;
+TableControl.TableData = TableData;
 
 export const LocationsViewTable = (): JSX.Element => {
   const [{ data, isLoading }] = useLocationsData();

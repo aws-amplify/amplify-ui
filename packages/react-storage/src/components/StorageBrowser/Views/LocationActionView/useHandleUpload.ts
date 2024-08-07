@@ -17,7 +17,7 @@ interface Task {
   status: TaskStatus;
 }
 
-interface CancelableTask extends Omit<Task, 'status'> {
+export interface CancelableTask extends Omit<Task, 'status'> {
   cancel: (() => void) | undefined;
   status: TaskStatus | 'CANCELED';
 }
