@@ -17,7 +17,7 @@ export interface _ExitControl<
 }
 
 interface ExitProps {
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export interface ExitControl<
@@ -29,7 +29,7 @@ export interface ExitControl<
 const Button = withBaseElementProps(ButtonElement, {
   className: `${BLOCK_NAME}`,
   variant: 'exit',
-  children: 'Cancel',
+  children: 'Back',
 });
 
 export const ExitControl: ExitControl = ({ onClick }) => (
