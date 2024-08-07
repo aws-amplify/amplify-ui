@@ -528,10 +528,10 @@
     rxjs "^7.8.1"
     ulid "^2.3.0"
 
-"@aws-amplify/geo@^3.0.31":
-  version "3.0.40"
-  resolved "https://registry.npmjs.org/@aws-amplify/geo/-/geo-3.0.40.tgz#f5d350ba405ce58ca9c3e5583424a06eec593409"
-  integrity sha512-4iDTcO1rflawjKxkdZOEqcjxwfxcaBKON7za+0py6TxoB/sUMAVRyoJ+lW+SaU1nDnNrTrYhSYIdHJ1WKPeR0w==
+"@aws-amplify/geo@storage-browser":
+  version "3.0.40-storage-browser.08ef01b.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/geo/-/geo-3.0.40-storage-browser.08ef01b.0.tgz#ffd3f5b04c8de46c6b37d5932b887a28370c4aeb"
+  integrity sha512-PcHUtLfWAG6AHNxd/CLz6nkR/VMPMA4MYBrNJFpjpA+1ag7weJSY5cBmBJEqGNLw57PXrwDa9mVFb+RpD7axaw==
   dependencies:
     "@aws-sdk/client-location" "3.398.0"
     "@turf/boolean-clockwise" "6.5.0"
