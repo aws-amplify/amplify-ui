@@ -17,6 +17,7 @@ const PROMPT_CARD = `${PROMPT_CONTROL}__card`;
 
 const PromptCard = withBaseElementProps(Button, {
   className: PROMPT_CARD,
+  type: 'button',
 });
 
 const AIIconProps = () => ({
@@ -81,7 +82,13 @@ const PromptGroup: typeof PromptGroupBase = React.forwardRef(
             <PromptCard
               key={index}
               aria-label={prompt.inputText}
-              onClick={() => setInput && setInput(prompt.inputText)}
+              onClick={() =>
+                setInput &&
+                setInput((prevInput) => ({
+                  ...prevInput,
+                  text: prompt.inputText,
+                }))
+              }
             >
               <Text
                 className={classNames(
