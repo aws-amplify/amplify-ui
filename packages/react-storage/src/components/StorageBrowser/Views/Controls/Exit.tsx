@@ -7,31 +7,31 @@ import { CLASS_BASE } from '../constants';
 
 const { Button: ButtonElement } = StorageBrowserElements;
 
-const BLOCK_NAME = `${CLASS_BASE}__action-cancel`;
+const BLOCK_NAME = `${CLASS_BASE}__exit`;
 
-export interface _ActionCancelControl<
+export interface _ExitControl<
   T extends StorageBrowserElements = StorageBrowserElements,
 > {
   (): React.JSX.Element;
   Button: T['Button'];
 }
 
-interface ActionCancelProps {
+interface ExitProps {
   onClick: () => void;
 }
 
-export interface ActionCancelControl<
+export interface ExitControl<
   T extends StorageBrowserElements = StorageBrowserElements,
-> extends OmitElements<_ActionCancelControl<T>, 'Button'> {
-  ({ onClick }: ActionCancelProps): React.JSX.Element;
+> extends OmitElements<_ExitControl<T>, 'Button'> {
+  ({ onClick }: ExitProps): React.JSX.Element;
 }
 
 const Button = withBaseElementProps(ButtonElement, {
   className: `${BLOCK_NAME}`,
-  variant: 'action-cancel',
+  variant: 'exit',
   children: 'Cancel',
 });
 
-export const ActionCancelControl: ActionCancelControl = ({ onClick }) => (
+export const ExitControl: ExitControl = ({ onClick }) => (
   <Button onClick={onClick} />
 );
