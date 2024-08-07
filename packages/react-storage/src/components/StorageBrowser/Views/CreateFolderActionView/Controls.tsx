@@ -38,7 +38,7 @@ export const CreateFolderActionViewControls: CreateFolderActionViewControls =
             id="folder-name-input"
             ref={inputRef}
           />
-          <Target.Field.Submit
+          <Target.Field.Button
             onClick={() => {
               setFolderName(() => {
                 return inputRef.current?.value ?? '';
@@ -46,7 +46,7 @@ export const CreateFolderActionViewControls: CreateFolderActionViewControls =
             }}
           >
             Set Destination
-          </Target.Field.Submit>
+          </Target.Field.Button>
         </Target.Field.Container>
       </>
     );

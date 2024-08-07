@@ -62,10 +62,10 @@ const updateTasks = <T extends Task | CancelableTask>(
 };
 
 export function useHandleUpload({
-  destination,
+  prefix,
   items,
 }: {
-  destination: string;
+  prefix: string;
   items: FileItem[];
 }): [tasks: CancelableTask[], handleUpload: () => void] {
   const getConfig = useGetLocationConfig();
@@ -85,7 +85,7 @@ export function useHandleUpload({
       prevTasks.map(({ data, key, message, progress }) => {
         const { bucket: bucketName, credentialsProvider, region } = getConfig();
         const input: UploadDataWithPathInput = {
-          path: destination ? `${destination}${key}` : key,
+          path: `${prefix}${key}`,
           data,
           options: {
             bucket: { bucketName, region },

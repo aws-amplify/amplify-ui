@@ -27,14 +27,14 @@ export function navigateReducer(
   switch (action.type) {
     case 'ACCESS_LOCATION': {
       const { location } = action;
-      const { bucket, prefix } = parseLocationAccess(location);
-      const initialEntry = prefix ? `${bucket}/${prefix}` : bucket;
+      const { prefix } = parseLocationAccess(location);
 
-      return { location, history: [initialEntry] };
+      return { location, history: [prefix] };
     }
     case 'NAVIGATE': {
       const { prefix } = action;
 
+      // TODO: problematic if folder names in the history have the same prefix
       const position = state.history.indexOf(prefix);
 
       if (position === 0) return { ...state, history: [prefix] };

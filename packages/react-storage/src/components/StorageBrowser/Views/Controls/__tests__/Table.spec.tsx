@@ -18,7 +18,7 @@ const controlState = {
     permission: 'READ',
     type: 'BUCKET',
   },
-  history: ['test-bucket'],
+  history: [''],
 };
 
 const locationItems: LocationItem[] = [
@@ -115,10 +115,7 @@ describe('TableControl', () => {
   it('loads initial location items for a BUCKET location as expected', async () => {
     useControlSpy.mockReturnValue([controlState, handleUpdateControlState]);
 
-    useActionSpy.mockReturnValue([
-      { ...locationItemsState },
-      handleUpdateActionState,
-    ]);
+    useActionSpy.mockReturnValue([locationItemsState, handleUpdateActionState]);
 
     render(
       <Provider>
@@ -142,7 +139,7 @@ describe('TableControl', () => {
         permission: 'READ',
         type: 'PREFIX',
       },
-      history: ['test-bucket'],
+      history: ['test-prefix/'],
     };
 
     useControlSpy.mockReturnValue([
