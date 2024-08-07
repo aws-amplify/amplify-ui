@@ -53,6 +53,12 @@ const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
   }
 });
 
+const DefinitionTerm = React.forwardRef<HTMLElement>(
+  function DefinitionTerm(props, ref) {
+    return <_View {...props} as="dt" fontWeight="bold" ref={ref} />;
+  }
+);
+
 const Title = React.forwardRef<HTMLHeadingElement>(
   function Heading(props, ref) {
     return (
@@ -122,6 +128,7 @@ const View = React.forwardRef<HTMLDivElement>(function View(props, ref) {
 });
 export const elements = {
   Button,
+  DefinitionTerm,
   Title,
   Table,
   TableBody,
