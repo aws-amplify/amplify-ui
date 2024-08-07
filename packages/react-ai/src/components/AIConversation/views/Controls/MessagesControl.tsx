@@ -148,7 +148,7 @@ export const MessagesControl: MessagesControl = ({ renderMessage }) => {
 
   const onKeyDown = React.useCallback(
     (index: number, { key }: React.KeyboardEvent<HTMLDivElement>) => {
-      let newIndex = focusedItemIndex;
+      let newIndex;
       switch (key) {
         case 'ArrowUp':
           newIndex = Math.max(0, index - 1);
@@ -177,7 +177,7 @@ export const MessagesControl: MessagesControl = ({ renderMessage }) => {
 
       return;
     },
-    [messages, focusedItemIndex]
+    [messages]
   );
 
   return (
