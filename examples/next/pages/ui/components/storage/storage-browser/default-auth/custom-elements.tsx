@@ -11,7 +11,7 @@ import {
 } from '@aws-amplify/ui-react';
 
 const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
-  const { variant } = props as any;
+  const { disabled, variant } = props as any;
   switch (variant) {
     case 'action-select-item':
       return (
@@ -24,8 +24,16 @@ const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
           ref={ref as any}
         />
       );
-    case 'action-start':
-      return <_Button {...props} size="small" variation="primary" ref={ref} />;
+    case 'primary':
+      return (
+        <_Button
+          {...props}
+          isDisabled={disabled}
+          size="small"
+          variation="primary"
+          ref={ref}
+        />
+      );
     case 'action-select-toggle':
     case 'exit':
     case 'navigate':

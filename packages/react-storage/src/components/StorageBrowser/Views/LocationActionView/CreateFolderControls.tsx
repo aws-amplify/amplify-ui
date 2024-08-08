@@ -30,21 +30,21 @@ export const CreateFolderControls = (): React.JSX.Element => {
 
   const prefix = `${history.join('')}${data}`;
 
-  let actionStartProps = {
+  let primaryProps = {
     onClick: () => {
       handleCreateAction({ prefix });
     },
-    children: 'Start',
+    children: 'Create folder',
     disabled: !data.length,
   };
 
   if (result?.status === 'SUCCESS') {
-    actionStartProps = {
+    primaryProps = {
       onClick: () => {
         handleUpdateState({ type: 'EXIT' });
       },
-      children: 'Done',
-      disabled: false,
+      children: 'Folder created',
+      disabled: true,
     };
   }
 
@@ -52,7 +52,7 @@ export const CreateFolderControls = (): React.JSX.Element => {
     <>
       <Title />
       <Exit onClick={() => handleUpdateState({ type: 'EXIT' })} />
-      <Primary {...actionStartProps} />
+      <Primary {...primaryProps} />
 
       <Target.Field.Container>
         <Target.Field.Label htmlFor="folder-name-input">
