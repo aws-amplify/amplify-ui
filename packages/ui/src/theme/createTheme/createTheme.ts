@@ -1,54 +1,17 @@
-// Internal Style Dictionary methods
-import deepExtend from 'style-dictionary/lib/utils/deepExtend.js';
-import flattenProperties from 'style-dictionary/lib/utils/flattenProperties.js';
-
-import { defaultTheme } from './defaultTheme';
-import { Theme, DefaultTheme, WebTheme, Override } from './types';
-import { cssValue, cssNameTransform, setupTokens, SetupToken } from './utils';
-import { WebDesignToken } from './tokens/types/designToken';
-import { isString } from '../utils';
-import { ColorValues, ScaleKey } from './tokens/colors';
-
-/**
- * This will take a design token and add some data to it for it
- * to be used in JS/CSS. It will create its CSS var name and update
- * the value to use a CSS var if it is a reference. It will also
- * add a `.toString()` method to make it easier to use in JS.
- *
- * We should see if there is a way to share this logic with style dictionary...
- */
-const setupToken: SetupToken<WebDesignToken> = ({ token, path }) => {
-  const name = `--${cssNameTransform({ path })}`;
-  const { value: original } = token;
-  const value = cssValue(token);
-
-  return { name, original, path, value, toString: () => `var(${name})` };
-};
-
-/**
- * Takes a set of keys and a color name and returns an object of design tokens,
- * used for applying a primary color at the theme level to our tokens.
- *
- * createColorPalette({keys: ['10','20',...], value: 'red'})
- * returns {
- *   10: { value: '{colors.red.10.value}' },
- *   20: { value: '{colors.red.20.value}' },
- *   ...
- * }
- */
-function createColorPalette<
-  ColorType extends ColorValues<ScaleKey, 'default'> = ColorValues<
-    ScaleKey,
-    'default'
-  >,
->({ keys, value }: { keys: string[]; value: string }): ColorType {
-  return keys.reduce((acc, key) => {
-    return {
-      ...acc,
-      [key]: { value: `{colors.${value}.${key}.value}` },
-    };
-  }, {} as ColorType);
-}
+import { defaultTheme } from '../defaultTheme';
+import { Theme, DefaultTheme, WebTheme, Override } from '../types';
+import {
+  setupToken,
+  setupTokens,
+  flattenProperties,
+  deepExtend,
+} from './utils';
+import { WebDesignToken } from '../tokens/types/designToken';
+import { createComponentCSS } from './createComponentCSS';
+import { isString } from '../../utils';
+import { createColorPalette } from './createColorPalette';
+import { WebTokens } from '../tokens';
+import { createAnimationCSS } from './createAnimationCSS';
 
 /**
  * This will be used like `const myTheme = createTheme({})`
@@ -57,15 +20,23 @@ function createColorPalette<
  * const myTheme = createTheme({})
  * const myOtherTheme = createTheme({}, myTheme);
  */
-export function createTheme(
-  theme?: Theme | WebTheme,
+export function createTheme<TokensType extends WebTokens = WebTokens>(
+  theme?: Theme<TokensType> | WebTheme,
   DefaultTheme: DefaultTheme | WebTheme = defaultTheme
 ): WebTheme {
   // merge theme and DefaultTheme to get a complete theme
   // deepExtend is an internal Style Dictionary method
   // that performs a deep merge on n objects. We could change
   // this to another 3p deep merge solution too.
-  const mergedTheme = deepExtend<DefaultTheme>([{}, DefaultTheme, theme]);
+  const mergedTheme = deepExtend<DefaultTheme>([
+    {},
+    DefaultTheme,
+    {
+      ...theme,
+      components: {},
+    },
+  ]);
+
   const { primaryColor, secondaryColor } = mergedTheme;
 
   // apply primaryColor and secondaryColor if present
@@ -102,7 +73,23 @@ export function createTheme(
       .join('\n') +
     `\n}\n`;
 
+  if (theme?.components) {
+    cssText += createComponentCSS(
+      name,
+      theme.components,
+      tokens,
+      mergedTheme.breakpoints
+    );
+  }
+
   let overrides: Array<Override> = [];
+
+  if (mergedTheme.animations) {
+    cssText += createAnimationCSS({
+      animations: mergedTheme.animations,
+      tokens,
+    });
+  }
 
   /**
    * For each override, we setup the tokens and then generate the CSS.
@@ -111,11 +98,11 @@ export function createTheme(
    */
   if (mergedTheme.overrides) {
     overrides = mergedTheme.overrides.map((override) => {
-      const tokens = setupTokens({
+      const overrideTokens = setupTokens({
         tokens: override.tokens,
         setupToken,
       });
-      const customProperties = flattenProperties(tokens)
+      const customProperties = flattenProperties(overrideTokens)
         .map((token: WebDesignToken) => `${token.name}: ${token.value};`)
         .join('\n');
       // Overrides can have a selector, media query, breakpoint, or color mode
@@ -153,7 +140,7 @@ export function createTheme(
 
       return {
         ...override,
-        tokens,
+        tokens: overrideTokens,
       };
     });
   }
@@ -163,6 +150,12 @@ export function createTheme(
     breakpoints,
     name,
     cssText,
+    containerProps: ({ colorMode } = {}) => {
+      return {
+        'data-amplify-theme': name,
+        'data-amplify-color-mode': colorMode,
+      };
+    },
     // keep overrides separate from base theme
     // this allows web platforms to use plain CSS scoped to a
     // selector and only override the CSS vars needed. This
