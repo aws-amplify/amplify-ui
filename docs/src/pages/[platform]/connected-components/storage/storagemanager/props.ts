@@ -96,6 +96,11 @@ export const STORAGE_MANAGER = [
     type: 'StorageManagerDisplayText',
   },
   {
+    name: `useAccelerateEndpoint?`,
+    description: 'Use the accelerated S3 endpoint to upload files.',
+    type: 'boolean',
+  },
+  {
     name: `components?.Container?`,
     description: 'The container the StorageManager is wrapped in.',
     type: `React.ComponentType<ContainerProps>`,
