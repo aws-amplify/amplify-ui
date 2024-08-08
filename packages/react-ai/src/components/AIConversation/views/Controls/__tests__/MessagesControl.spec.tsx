@@ -134,7 +134,7 @@ describe('MessagesControl', () => {
     const avatarElements = screen.getAllByTestId('avatar');
     const actionElements = screen.getAllByRole('button');
     expect(avatarElements).toHaveLength(3);
-    expect(actionElements).toHaveLength(3);
+    expect(actionElements).toHaveLength(2);
   });
 
   it('renders a MessagesControl element with a custom renderMessage function', () => {
