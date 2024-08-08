@@ -1,23 +1,12 @@
 import React from 'react';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import * as StorageModule from 'aws-amplify/storage';
-import * as ControlsModule from '../../../context/controls/';
 
 import createProvider from '../../../createProvider';
 import { DownloadControl } from '../Download';
 
-const useControlSpy = jest.spyOn(ControlsModule, 'useControl');
-const downloadSpy = jest.spyOn(StorageModule, 'downloadData');
-
-const handleUpdateControlState = jest.fn();
-const controlState = {
-  location: {
-    scope: 's3://test-bucket/*',
-    permission: 'READ',
-    type: 'BUCKET',
-  },
-  history: ['test-bucket'],
-};
+const getUrlSpy = jest.spyOn(StorageModule, 'getUrl');
 
 const listLocations = jest.fn(() =>
   Promise.resolve({ locations: [], nextToken: undefined })
@@ -30,23 +19,15 @@ const config = {
   registerAuthListener: jest.fn(),
 };
 
-useControlSpy.mockReturnValue([controlState, handleUpdateControlState]);
-
 const Provider = createProvider({ config });
 
 describe('DownloadControl', () => {
-  beforeEach(() => {
-    useControlSpy.mockClear();
-    downloadSpy.mockClear();
-    handleUpdateControlState.mockClear();
-  });
-
   it('renders the DownloadControl', async () => {
     await waitFor(() => {
       expect(
         render(
           <Provider>
-            <DownloadControl key="" />
+            <DownloadControl fileKey="" />
           </Provider>
         ).container
       ).toBeDefined();
@@ -63,22 +44,32 @@ describe('DownloadControl', () => {
     expect(icon).toHaveAttribute('aria-hidden', 'true');
   });
 
-  it('calls downloadData onClick', async () => {
-    // @ts-expect-error
-    downloadSpy.mockResolvedValueOnce({ key: 'a_key' });
+  it('calls getUrl onClick', async () => {
+    // @TODO: mock location correctly so when the
+    // click for the link to download happens, it doesn't console.error
+    const user = userEvent.setup();
 
-    await waitFor(() => {
-      render(
-        <Provider>
-          <DownloadControl key="" />
-        </Provider>
-      );
-      const button = screen.getByRole('button', {
-        name: 'Download item',
-      });
-      fireEvent.click(button);
+    getUrlSpy.mockResolvedValueOnce({
+      url: new URL('https://docs.amplify.aws/'),
+      expiresAt: new Date(),
     });
 
-    expect(downloadSpy).toHaveBeenCalled();
+    render(
+      <Provider>
+        <DownloadControl fileKey="" />
+      </Provider>
+    );
+
+    const button = screen.getByRole('button', {
+      name: 'Download item',
+    });
+
+    act(() => {
+      user.click(button);
+    });
+
+    await waitFor(() => {
+      expect(getUrlSpy).toHaveBeenCalled();
+    });
   });
 });
