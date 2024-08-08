@@ -27,6 +27,7 @@
     "angular-example": "yarn workspace @aws-amplify/ui-angular-example",
     "docs": "yarn workspace @aws-amplify/ui-docs",
     "next-example": "yarn workspace @aws-amplify/ui-next-example",
+    "next-app-example": "yarn workspace @aws-amplify/ui-next-app-example",
     "react-example": "yarn workspace @aws-amplify/ui-next-example",
     "react-native-example": "yarn workspace @aws-amplify/ui-react-native-example",
     "vue-example": "yarn workspace @aws-amplify/ui-vue-example",
