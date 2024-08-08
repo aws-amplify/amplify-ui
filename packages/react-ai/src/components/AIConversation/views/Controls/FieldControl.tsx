@@ -59,7 +59,7 @@ const VisuallyHidden = withBaseElementProps(View, {
 const Label = withBaseElementProps(LabelElement, {
   children: 'Type your message here',
   className: `${FIELD_BLOCK}__label`,
-  for: 'text-input',
+  htmlFor: 'text-input',
 });
 
 const TextInput: typeof TextAreaBase = React.forwardRef(
