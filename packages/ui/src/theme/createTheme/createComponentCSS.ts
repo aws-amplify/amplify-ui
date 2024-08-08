@@ -131,14 +131,12 @@ export function createComponentCSS(
           );
         }
         if ('colorMode' in override) {
-          cssText += `
-@media (prefers-color-scheme: ${override.colorMode}) {
-  ${recursiveComponentCSS(
-    `[data-amplify-theme="${themeName}"][data-amplify-color-mode="system"] .${baseComponentClassName}`,
-    componentTheme
-  )}
-}
-`;
+          cssText += `@media (prefers-color-scheme: ${override.colorMode}) {
+            ${recursiveComponentCSS(
+              `[data-amplify-theme="${themeName}"][data-amplify-color-mode="system"] .${baseComponentClassName}`,
+              componentTheme
+            )}
+          }`;
           cssText += recursiveComponentCSS(
             `[data-amplify-theme="${themeName}"][data-amplify-color-mode="${override.colorMode}"] .${baseComponentClassName}`,
             componentTheme
