@@ -29,7 +29,10 @@ const Container = withBaseElementProps(View, {
   className: `${ACTIONS_BAR_BLOCK}__container`,
 });
 
-export const ActionsBarControl: ActionsBarControl = ({ message }) => {
+export const ActionsBarControl: ActionsBarControl = ({
+  message,
+  focusable,
+}) => {
   const actions = React.useContext(ActionsContext);
   return (
     <Container>
@@ -38,6 +41,7 @@ export const ActionsBarControl: ActionsBarControl = ({ message }) => {
           aria-label={action.displayName}
           key={index}
           onClick={() => action.handler(message)}
+          tabIndex={focusable ? 0 : -1}
         >
           <ActionIcon data-testid={`action-icon-${action.displayName}`}>
             {action.icon}
@@ -55,7 +59,10 @@ ActionsBarControl.Icon = ActionIcon;
 export interface ActionsBarControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
 > {
-  (props: { message: ConversationMessage }): React.JSX.Element;
+  (props: {
+    message: ConversationMessage;
+    focusable?: boolean;
+  }): React.JSX.Element;
   Button: T['Button'];
   Container: T['View'];
   Icon: T['Span'];

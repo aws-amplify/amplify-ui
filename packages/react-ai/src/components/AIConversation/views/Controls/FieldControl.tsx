@@ -90,6 +90,14 @@ const TextInput: typeof TextAreaBase = React.forwardRef(
       };
     });
 
+    React.useEffect(() => {
+      const textarea = document.getElementById(`text-input`);
+
+      if (textarea) {
+        textarea.focus();
+      }
+    }, []);
+
     return (
       <TextAreaBase
         {...props}
@@ -106,6 +114,7 @@ const TextInput: typeof TextAreaBase = React.forwardRef(
             : 'Message Raven'
         }
         ref={ref}
+        autoFocus
       />
     );
   }

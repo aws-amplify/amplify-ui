@@ -139,6 +139,47 @@ const Layout: typeof View = React.forwardRef(function Layout(props, ref) {
 
 export const MessagesControl: MessagesControl = ({ renderMessage }) => {
   const messages = React.useContext(MessagesContext);
+  const messagesRef = React.useRef<(HTMLDivElement | null)[]>([]);
+
+  const [focusedItemIndex, setFocusedItemIndex] = React.useState(
+    messages ? messages.length - 1 : 0
+  );
+  const handleFocus = (index: number) => setFocusedItemIndex(index);
+
+  const onKeyDown = React.useCallback(
+    (index: number, { key }: React.KeyboardEvent<HTMLDivElement>) => {
+      let newIndex;
+      switch (key) {
+        case 'ArrowUp':
+          newIndex = Math.max(0, index - 1);
+          setFocusedItemIndex(newIndex);
+          messagesRef.current[newIndex]?.focus();
+          break;
+        case 'ArrowDown':
+          newIndex = Math.min(index + 1, messages!.length - 1);
+          setFocusedItemIndex(newIndex);
+          messagesRef.current[newIndex]?.focus();
+          break;
+        case 'Home':
+          newIndex = 0;
+          setFocusedItemIndex(newIndex);
+          messagesRef.current[newIndex]?.focus();
+          break;
+        case 'End':
+          newIndex = messages!.length - 1;
+          setFocusedItemIndex(newIndex);
+          messagesRef.current[newIndex]?.focus();
+          break;
+        default: {
+          break;
+        }
+      }
+
+      return;
+    },
+    [messages]
+  );
+
   return (
     <Layout>
       {messages?.map((message, index) =>
@@ -146,14 +187,26 @@ export const MessagesControl: MessagesControl = ({ renderMessage }) => {
           renderMessage(message)
         ) : (
           <RoleContext.Provider value={message.role} key={`message-${index}`}>
-            <MessageContainer data-testid={`message`} key={`message-${index}`}>
+            <MessageContainer
+              data-testid={`message`}
+              key={`message-${index}`}
+              tabIndex={focusedItemIndex === index ? 0 : -1}
+              onFocus={() => handleFocus(index)}
+              onKeyDown={(event) => onKeyDown(index, event)}
+              ref={(el) => (messagesRef.current[index] = el)}
+            >
               <HeaderContainer>
                 <AvatarControl />
                 <Separator />
                 <Timestamp>{formatDate(message.timestamp)}</Timestamp>
               </HeaderContainer>
               <MessageControl message={message} />
-              <ActionsBarControl message={message} />
+              {message.role === 'assistant' ? (
+                <ActionsBarControl
+                  message={message}
+                  focusable={focusedItemIndex === index}
+                />
+              ) : null}
             </MessageContainer>
           </RoleContext.Provider>
         )
