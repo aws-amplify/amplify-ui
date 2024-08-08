@@ -279,12 +279,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
         ) {
           return new Date(row[column.key]).toLocaleString();
         } else if (column.key === ('download' as keyof LocationItem)) {
-          return (
-            <DownloadControl
-              key={`${index}-${column.key}-${row.key}`}
-              fileKey={row.key}
-            />
-          );
+          return <DownloadControl fileKey={row.key} />;
         } else {
           return row[column.key];
         }
