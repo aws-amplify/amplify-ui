@@ -12,6 +12,7 @@ import { LivenessClassNames } from '../types/classNames';
 
 export interface CheckScreenComponents {
   ErrorView?: React.ComponentType<FaceLivenessErrorModalProps>;
+  VerifyingScreen?: React.ComponentType;
 }
 
 export interface FaceLivenessErrorModalProps {

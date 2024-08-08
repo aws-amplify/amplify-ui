@@ -73,6 +73,9 @@ const App = () => {
               </View>
             );
           },
+          VerifyingScreen: () => {
+            return <View>Verifying...</View>;
+          },
         }}
       />
     </Layout>

@@ -38,36 +38,34 @@ export default function LivenessDefault({
             sessionId={createLivenessSessionApiData['sessionId']}
           />
 
-          {!!getLivenessResponse ? (
+          {/* {!!getLivenessResponse ? (
             <LivenessInlineResults
               getLivenessResponse={getLivenessResponse}
               onUserCancel={onUserCancel}
             />
-          ) : null}
+          ) : null} */}
 
           <Flex gap="0" direction="column" position="relative">
-            {!getLivenessResponse ? (
-              <FaceLivenessDetectorCore
-                sessionId={createLivenessSessionApiData['sessionId']}
-                region={'us-east-1'}
-                onUserCancel={onUserCancel}
-                onAnalysisComplete={async () => {
-                  await handleGetLivenessDetection(
-                    createLivenessSessionApiData['sessionId']
-                  );
-                }}
-                onError={(error) => {
-                  console.error(error);
-                }}
-                disableStartScreen={disableStartScreen}
-                components={components}
-                config={{
-                  credentialProvider: credentialProvider,
-                  systemClockOffset:
-                    createLivenessSessionApiData['systemClockOffset'],
-                }}
-              />
-            ) : null}
+            <FaceLivenessDetectorCore
+              sessionId={createLivenessSessionApiData['sessionId']}
+              region={'us-east-1'}
+              onUserCancel={onUserCancel}
+              onAnalysisComplete={async () => {
+                await handleGetLivenessDetection(
+                  createLivenessSessionApiData['sessionId']
+                );
+              }}
+              onError={(error) => {
+                console.error(error);
+              }}
+              disableStartScreen={disableStartScreen}
+              components={components}
+              config={{
+                credentialProvider: credentialProvider,
+                systemClockOffset:
+                  createLivenessSessionApiData['systemClockOffset'],
+              }}
+            />
           </Flex>
         </Flex>
       )}
