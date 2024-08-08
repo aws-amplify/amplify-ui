@@ -34,7 +34,7 @@ export const CreateFolderControls = (): React.JSX.Element => {
     onClick: () => {
       handleCreateAction({ prefix });
     },
-    children: 'Start',
+    children: 'Create folder',
     disabled: !data.length,
   };
 
@@ -43,7 +43,7 @@ export const CreateFolderControls = (): React.JSX.Element => {
       onClick: () => {
         handleUpdateState({ type: 'EXIT' });
       },
-      children: 'Done',
+      children: 'Folder created',
       disabled: true,
     };
   }

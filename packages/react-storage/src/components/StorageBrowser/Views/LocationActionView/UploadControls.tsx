@@ -73,7 +73,9 @@ export const UploadControls = (): JSX.Element => {
           if (!items) return;
           handleUpload();
         }}
-      />
+      >
+        Start upload
+      </Primary>
       <Summary />
       <Table
         data={tasks}
