@@ -131,7 +131,7 @@ export function createComponentCSS(
           );
         }
         if ('colorMode' in override) {
-          cssText += `@media (prefers-color-scheme: ${override.colorMode}) {
+          cssText += `\n@media (prefers-color-scheme: ${override.colorMode}) {
             ${recursiveComponentCSS(
               `[data-amplify-theme="${themeName}"][data-amplify-color-mode="system"] .${baseComponentClassName}`,
               componentTheme

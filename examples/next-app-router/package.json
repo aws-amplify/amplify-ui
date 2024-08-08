@@ -1,6 +1,6 @@
 {
-  "name": "next-app-router",
-  "version": "0.1.0",
+  "name": "@aws-amplify/ui-next-app-example",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev",

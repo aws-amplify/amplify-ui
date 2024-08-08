@@ -47,11 +47,17 @@ export const theme = createTheme({
 })
 ```
 
-### <Theme /> RSC
+### React Server Component support for theming
+
+You no longer need to use the `<ThemeProvider>` and rely on React context to theme Amplify UI (you still can though!). There is a new import path for RSC-compliant code: '@aws-amplify/ui-react/server' which you can use to import `createTheme` and `defineComponentTheme` as well as a new React Server Component: `<ThemeStyle />` which will inject the styles of your theme into the page. 
+
 
 ```tsx
-import { Theme } from '@aws-amplify/ui-react/server';
-import { theme } from '@/theme';
+import { ThemeStyle, createTheme } from '@aws-amplify/ui-react/server';
+
+const theme = createTheme({
+  //...
+})
 
 export default function RootLayout({
   children,
@@ -59,9 +65,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Theme theme={theme} colorMode="system">
+    <div {...theme.containerProps({ colorMode: 'system' })}>
       {children}
-    </Theme>
+      <ThemeStyle theme={theme} />
+    </div>
   )
 }
 ```
