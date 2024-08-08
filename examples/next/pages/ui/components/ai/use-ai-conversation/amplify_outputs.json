@@ -1,0 +1,398 @@
+{
+  "auth": {
+    "user_pool_id": "us-west-2_YrGYtzFgz",
+    "aws_region": "us-west-2",
+    "user_pool_client_id": "7t2i0qhm8sfq6hhb5ol3ki5rk8",
+    "identity_pool_id": "us-west-2:297bb475-d676-41ba-9cd7-2ab9c3bedc36",
+    "mfa_methods": [],
+    "standard_required_attributes": [
+      "email"
+    ],
+    "username_attributes": [
+      "email"
+    ],
+    "user_verification_types": [
+      "email"
+    ],
+    "mfa_configuration": "NONE",
+    "password_policy": {
+      "min_length": 8,
+      "require_lowercase": true,
+      "require_numbers": true,
+      "require_symbols": true,
+      "require_uppercase": true
+    },
+    "unauthenticated_identities_enabled": true
+  },
+  "data": {
+    "url": "https://acbpmbrtsbhcvhbl4nw3awsley.appsync-api.us-west-2.amazonaws.com/graphql",
+    "aws_region": "us-west-2",
+    "default_authorization_type": "AMAZON_COGNITO_USER_POOLS",
+    "authorization_types": [
+      "AWS_IAM"
+    ],
+    "model_introspection": {
+      "version": 1,
+      "models": {
+        "Foo": {
+          "name": "Foo",
+          "fields": {
+            "id": {
+              "name": "id",
+              "isArray": false,
+              "type": "ID",
+              "isRequired": true,
+              "attributes": []
+            },
+            "bar": {
+              "name": "bar",
+              "isArray": false,
+              "type": "Int",
+              "isRequired": false,
+              "attributes": []
+            },
+            "createdAt": {
+              "name": "createdAt",
+              "isArray": false,
+              "type": "AWSDateTime",
+              "isRequired": false,
+              "attributes": [],
+              "isReadOnly": true
+            },
+            "updatedAt": {
+              "name": "updatedAt",
+              "isArray": false,
+              "type": "AWSDateTime",
+              "isRequired": false,
+              "attributes": [],
+              "isReadOnly": true
+            }
+          },
+          "syncable": true,
+          "pluralName": "Foos",
+          "attributes": [
+            {
+              "type": "model",
+              "properties": {}
+            },
+            {
+              "type": "auth",
+              "properties": {
+                "rules": [
+                  {
+                    "allow": "private",
+                    "operations": [
+                      "create",
+                      "update",
+                      "delete",
+                      "read"
+                    ]
+                  }
+                ]
+              }
+            }
+          ],
+          "primaryKeyInfo": {
+            "isCustomPrimaryKey": false,
+            "primaryKeyFieldName": "id",
+            "sortKeyFieldNames": []
+          }
+        }
+      },
+      "enums": {
+        "ConversationMessageSender": {
+          "name": "ConversationMessageSender",
+          "values": [
+            "user",
+            "assistant"
+          ]
+        }
+      },
+      "nonModels": {},
+      "conversations": {
+        "pirateChat": {
+          "name": "pirateChat",
+          "models": {
+            "ConversationPirateChat": {
+              "name": "ConversationPirateChat",
+              "fields": {
+                "id": {
+                  "name": "id",
+                  "isArray": false,
+                  "type": "ID",
+                  "isRequired": true,
+                  "attributes": []
+                },
+                "name": {
+                  "name": "name",
+                  "isArray": false,
+                  "type": "String",
+                  "isRequired": false,
+                  "attributes": []
+                },
+                "metadata": {
+                  "name": "metadata",
+                  "isArray": false,
+                  "type": "AWSJSON",
+                  "isRequired": false,
+                  "attributes": []
+                },
+                "messages": {
+                  "name": "messages",
+                  "isArray": true,
+                  "type": {
+                    "model": "ConversationMessagePirateChat"
+                  },
+                  "isRequired": false,
+                  "attributes": [],
+                  "isArrayNullable": true,
+                  "association": {
+                    "connectionType": "HAS_MANY",
+                    "associatedWith": [
+                      "sessionId"
+                    ]
+                  }
+                },
+                "createdAt": {
+                  "name": "createdAt",
+                  "isArray": false,
+                  "type": "AWSDateTime",
+                  "isRequired": false,
+                  "attributes": [],
+                  "isReadOnly": true
+                },
+                "updatedAt": {
+                  "name": "updatedAt",
+                  "isArray": false,
+                  "type": "AWSDateTime",
+                  "isRequired": false,
+                  "attributes": [],
+                  "isReadOnly": true
+                }
+              },
+              "syncable": true,
+              "pluralName": "ConversationPirateChats",
+              "attributes": [
+                {
+                  "type": "model",
+                  "properties": {
+                    "subscriptions": {
+                      "level": "off"
+                    },
+                    "mutations": {
+                      "update": null
+                    }
+                  }
+                },
+                {
+                  "type": "auth",
+                  "properties": {
+                    "rules": [
+                      {
+                        "provider": "userPools",
+                        "ownerField": "owner",
+                        "allow": "owner",
+                        "identityClaim": "cognito:username",
+                        "operations": [
+                          "create",
+                          "update",
+                          "delete",
+                          "read"
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "primaryKeyInfo": {
+                "isCustomPrimaryKey": false,
+                "primaryKeyFieldName": "id",
+                "sortKeyFieldNames": []
+              }
+            },
+            "ConversationMessagePirateChat": {
+              "name": "ConversationMessagePirateChat",
+              "fields": {
+                "id": {
+                  "name": "id",
+                  "isArray": false,
+                  "type": "ID",
+                  "isRequired": true,
+                  "attributes": []
+                },
+                "sessionId": {
+                  "name": "sessionId",
+                  "isArray": false,
+                  "type": "ID",
+                  "isRequired": true,
+                  "attributes": []
+                },
+                "session": {
+                  "name": "session",
+                  "isArray": false,
+                  "type": {
+                    "model": "ConversationPirateChat"
+                  },
+                  "isRequired": false,
+                  "attributes": [],
+                  "association": {
+                    "connectionType": "BELONGS_TO",
+                    "targetNames": [
+                      "sessionId"
+                    ]
+                  }
+                },
+                "sender": {
+                  "name": "sender",
+                  "isArray": false,
+                  "type": {
+                    "enum": "ConversationMessageSender"
+                  },
+                  "isRequired": false,
+                  "attributes": []
+                },
+                "content": {
+                  "name": "content",
+                  "isArray": false,
+                  "type": "String",
+                  "isRequired": false,
+                  "attributes": []
+                },
+                "context": {
+                  "name": "context",
+                  "isArray": false,
+                  "type": "AWSJSON",
+                  "isRequired": false,
+                  "attributes": []
+                },
+                "uiComponents": {
+                  "name": "uiComponents",
+                  "isArray": true,
+                  "type": "AWSJSON",
+                  "isRequired": false,
+                  "attributes": [],
+                  "isArrayNullable": true
+                },
+                "assistantContent": {
+                  "name": "assistantContent",
+                  "isArray": false,
+                  "type": "String",
+                  "isRequired": false,
+                  "attributes": []
+                },
+                "createdAt": {
+                  "name": "createdAt",
+                  "isArray": false,
+                  "type": "AWSDateTime",
+                  "isRequired": false,
+                  "attributes": [],
+                  "isReadOnly": true
+                },
+                "updatedAt": {
+                  "name": "updatedAt",
+                  "isArray": false,
+                  "type": "AWSDateTime",
+                  "isRequired": false,
+                  "attributes": [],
+                  "isReadOnly": true
+                }
+              },
+              "syncable": true,
+              "pluralName": "ConversationMessagePirateChats",
+              "attributes": [
+                {
+                  "type": "model",
+                  "properties": {
+                    "subscriptions": {},
+                    "mutations": {
+                      "update": null
+                    }
+                  }
+                },
+                {
+                  "type": "auth",
+                  "properties": {
+                    "rules": [
+                      {
+                        "provider": "userPools",
+                        "ownerField": "owner",
+                        "allow": "owner",
+                        "identityClaim": "cognito:username",
+                        "operations": [
+                          "create",
+                          "update",
+                          "delete",
+                          "read"
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "primaryKeyInfo": {
+                "isCustomPrimaryKey": false,
+                "primaryKeyFieldName": "id",
+                "sortKeyFieldNames": []
+              }
+            }
+          },
+          "nonModels": {},
+          "enums": {
+            "ConversationMessageSender": {
+              "name": "ConversationMessageSender",
+              "values": [
+                "user",
+                "assistant"
+              ]
+            }
+          },
+          "conversation": {
+            "modelName": "ConversationPirateChat"
+          },
+          "message": {
+            "modelName": "ConversationMessagePirateChat",
+            "send": {
+              "name": "pirateChat",
+              "isArray": false,
+              "type": {
+                "model": "ConversationMessagePirateChat"
+              },
+              "isRequired": false,
+              "arguments": {
+                "sessionId": {
+                  "name": "sessionId",
+                  "isArray": false,
+                  "type": "ID",
+                  "isRequired": true
+                },
+                "content": {
+                  "name": "content",
+                  "isArray": false,
+                  "type": "String",
+                  "isRequired": false
+                }
+              }
+            },
+            "subscribe": {
+              "isArray": false,
+              "isRequired": false,
+              "name": "onCreateAssistantResponsePirateChat",
+              "type": {
+                "model": "ConversationMessagePirateChat"
+              },
+              "arguments": {
+                "sessionId": {
+                  "name": "sessionId",
+                  "isArray": false,
+                  "isRequired": true,
+                  "type": "ID"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "version": "1"
+}

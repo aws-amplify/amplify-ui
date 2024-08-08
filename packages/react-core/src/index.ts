@@ -43,7 +43,7 @@ export {
   useSetUserAgent,
   useTimeout,
   useDataState,
-  ActionState,
+  DataState,
 } from './hooks';
 
 export { MergeProps } from './types';
