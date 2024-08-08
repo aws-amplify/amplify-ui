@@ -63,8 +63,6 @@ interface AvatarProps extends React.PropsWithChildren {
   size?: 'small' | 'large' | 'xl';
   variation?: 'small' | 'large';
   isDisabled?: boolean;
-  // amplify-avatar--small
-  // amplify-avatar--error amplify-avatar--small
 }
 
 export const Avatar = ({ size, children, isDisabled }: AvatarProps) => {

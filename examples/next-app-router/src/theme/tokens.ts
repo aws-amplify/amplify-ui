@@ -11,9 +11,6 @@ export const tokens: Tokens = {
     },
   },
   colors: {
-    // font: {
-    //   success: 'red',
-    // },
     hotPink: {
       10: '#bada55',
     },

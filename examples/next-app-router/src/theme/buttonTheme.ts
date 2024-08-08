@@ -10,7 +10,6 @@ export const buttonTheme = defineComponentTheme({
         [gradStart]: tokens.colors.primary[80],
         [gradStop]: tokens.colors.primary[60],
       },
-      // borderRadius: tokens.radii.large,
       boxShadow: `${tokens.shadows.small}`,
       borderColor: tokens.colors.border.tertiary,
       _modifiers: {
@@ -48,14 +47,6 @@ export const buttonTheme = defineComponentTheme({
     };
   },
   overrides: [
-    {
-      colorMode: 'dark',
-      theme: (tokens) => {
-        return {
-          // backgroundColor: 'hotpink',
-        };
-      },
-    },
     {
       breakpoint: 'large',
       theme: (tokens) => {

@@ -8,7 +8,6 @@ export const headerTheme = defineComponentTheme({
       flexDirection: 'row',
       paddingInline: tokens.space.large,
       paddingBlock: tokens.space.small,
-      // boxShadow: tokens.shadows.medium,
       borderWidth: 0,
       borderBottomWidth: tokens.borderWidths.small,
       borderStyle: 'solid',

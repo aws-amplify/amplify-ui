@@ -3,7 +3,6 @@ import { Avatar } from '@/components/Avatar';
 import { theme } from '@/theme';
 
 export default function ThemeSwitcherPage() {
-  console.log('server!');
   return (
     <div
       className="flex w-full flex-row"
