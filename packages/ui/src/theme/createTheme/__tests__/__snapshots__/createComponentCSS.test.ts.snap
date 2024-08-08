@@ -37,7 +37,7 @@ exports[`@aws-amplify/ui createComponentCSS should work with built-in components
 [data-amplify-theme="test"] .amplify-avatar__icon { background-color:white;  }
 
 @media (prefers-color-scheme: dark) {
-  [data-amplify-theme="test"][data-amplify-color-mode="system"] .amplify-avatar { --bgColor:pink; }
+[data-amplify-theme="test"][data-amplify-color-mode="system"] .amplify-avatar { --bgColor:pink; }
 
 }
 [data-amplify-theme="test"][data-amplify-color-mode="dark"] .amplify-avatar { --bgColor:pink; }

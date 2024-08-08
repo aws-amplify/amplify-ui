@@ -1,27 +1,8 @@
-import kebabCase from 'lodash/kebabCase.js';
 import { DefaultTheme, WebTheme } from '../types';
-import { cssValue, isDesignToken } from './utils';
+import { propsToString } from './utils';
 import { ComponentsTheme } from '../components';
 import { isFunction, splitObject } from '../../utils';
-import { BaseTheme, CSSProperties } from '../components/utils';
-
-/**
- * This will take an object like:
- * {paddingTop:'20px',color:'{colors.font.primary}'}
- * and turn it into a CSS string:
- * `padding-top:20px; color: var(--colors-font-primary);`
- */
-export function propsToString(props: CSSProperties): string {
-  return Object.entries(props)
-    .map(([key, value]) => {
-      const _value = isDesignToken(value)
-        ? value.toString()
-        : // @ts-ignore
-          cssValue({ value });
-      return `${kebabCase(key)}:${_value}; `;
-    })
-    .join(' ');
-}
+import { BaseTheme } from '../components/utils';
 
 function addVars(selector: string, vars: Record<string, unknown>) {
   if (!vars) return '';
@@ -131,12 +112,12 @@ export function createComponentCSS(
           );
         }
         if ('colorMode' in override) {
-          cssText += `\n@media (prefers-color-scheme: ${override.colorMode}) {
-            ${recursiveComponentCSS(
-              `[data-amplify-theme="${themeName}"][data-amplify-color-mode="system"] .${baseComponentClassName}`,
-              componentTheme
-            )}
-          }`;
+          cssText += `\n@media (prefers-color-scheme: ${
+            override.colorMode
+          }) {\n${recursiveComponentCSS(
+            `[data-amplify-theme="${themeName}"][data-amplify-color-mode="system"] .${baseComponentClassName}`,
+            componentTheme
+          )}\n}\n`;
           cssText += recursiveComponentCSS(
             `[data-amplify-theme="${themeName}"][data-amplify-color-mode="${override.colorMode}"] .${baseComponentClassName}`,
             componentTheme

@@ -2,11 +2,30 @@ import kebabCase from 'lodash/kebabCase.js';
 import { has, isObject, isString } from '../../utils';
 import { WebDesignToken } from '../types';
 import { ShadowValue } from '../tokens/types/designToken';
+import { CSSProperties } from '../components/utils';
 
 export const CSS_VARIABLE_PREFIX = 'amplify';
 
 interface NameTransformProps {
   path?: Array<string>;
+}
+
+/**
+ * This will take an object like:
+ * {paddingTop:'20px',color:'{colors.font.primary}'}
+ * and turn it into a CSS string:
+ * `padding-top:20px; color: var(--colors-font-primary);`
+ */
+export function propsToString(props: CSSProperties): string {
+  return Object.entries(props)
+    .map(([key, value]) => {
+      const _value = isDesignToken(value)
+        ? value.toString()
+        : // @ts-ignore
+          cssValue({ value });
+      return `${kebabCase(key)}:${_value}; `;
+    })
+    .join(' ');
 }
 
 export function cssNameTransform({ path = [] }: NameTransformProps): string {
