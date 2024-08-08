@@ -161,7 +161,7 @@
   align-items: center;
 }
 
-.storage-browser__action-start {
+.storage-browser__primary {
   grid-row-start: 2;
   grid-column: 32 / -1;
   justify-self: flex-end;
