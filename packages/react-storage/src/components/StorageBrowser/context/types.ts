@@ -113,5 +113,5 @@ export interface DownloadActionInput {
 }
 
 export interface DownloadActionOutput {
-  key: string;
+  signedUrl: string;
 }
