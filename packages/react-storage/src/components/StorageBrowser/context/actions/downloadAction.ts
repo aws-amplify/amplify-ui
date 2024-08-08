@@ -27,6 +27,7 @@ export async function downloadAction(
 
     return { signedUrl: signedUrl.url.toString() };
   } catch (e) {
+    // @TODO: update UI to let user know that the file no longer exists?
     return Promise.reject(e);
   }
 }
