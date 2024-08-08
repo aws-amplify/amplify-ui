@@ -6,7 +6,7 @@ import { useControl } from '../../context/controls';
 import { Controls } from '../Controls';
 import { Title } from './Controls';
 
-const { Exit, Primary, Target } = Controls;
+const { Exit, Message, Primary, Target } = Controls;
 
 export const CreateFolderControls = (): React.JSX.Element => {
   const [, handleUpdateState] = useControl({ type: 'ACTION_SELECT' });
@@ -26,7 +26,18 @@ export const CreateFolderControls = (): React.JSX.Element => {
   const [fieldValidationError, setFieldValidationError] = React.useState<
     string | undefined
   >();
+
   const inputRef = React.useRef<HTMLInputElement>(null);
+
+  const handleFieldValidation = () => {
+    if (!inputRef.current?.value?.endsWith('/')) {
+      setFieldValidationError('Folder name must end with a "/" character');
+      return;
+    }
+    // clear error
+    setFieldValidationError(undefined);
+    setData(() => inputRef.current?.value ?? '');
+  };
 
   const prefix = `${history.join('')}${data}`;
 
@@ -53,35 +64,28 @@ export const CreateFolderControls = (): React.JSX.Element => {
       <Title />
       <Exit onClick={() => handleUpdateState({ type: 'EXIT' })} />
       <Primary {...primaryProps} />
-
+      {result?.status === 'SUCCESS' ? (
+        <Message variant="success">Folder created.</Message>
+      ) : null}
       <Target.Field.Container>
         <Target.Field.Label htmlFor="folder-name-input">
           Enter folder name:
         </Target.Field.Label>
         <Target.Field.Input
           disabled={isLoading}
+          aria-invalid={fieldValidationError ? 'true' : undefined}
+          aria-describedBy="fieldError"
           type="text"
           id="folder-name-input"
+          onBlur={handleFieldValidation}
+          onFocus={() => setFieldValidationError(undefined)}
           ref={inputRef}
         />
         {fieldValidationError ? (
-          <Target.Field.Error>{fieldValidationError}</Target.Field.Error>
+          <Target.Field.Error id="fieldError">
+            {fieldValidationError}
+          </Target.Field.Error>
         ) : null}
-        <Target.Field.Button
-          onClick={() => {
-            if (!inputRef.current?.value?.endsWith('/')) {
-              setFieldValidationError(
-                'Folder name must end with a "/" character'
-              );
-              return;
-            }
-            // clear error
-            setFieldValidationError(undefined);
-            setData(() => inputRef.current?.value ?? '');
-          }}
-        >
-          Set Folder Name
-        </Target.Field.Button>
       </Target.Field.Container>
     </>
   );

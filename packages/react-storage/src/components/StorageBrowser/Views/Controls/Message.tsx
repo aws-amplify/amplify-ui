@@ -77,15 +77,12 @@ const MessageIcon: typeof IconElement = React.forwardRef(
   }
 );
 
-const MessageContent = withBaseElementProps(
-  View,
-  ({ className = `${BLOCK_NAME}__content`, ...props }) => ({
-    ...props,
-    className,
-  })
-);
+const MessageContent = withBaseElementProps(View, {
+  className: `${BLOCK_NAME}__content`,
+});
 interface MessageControlProps {
   variant?: MessageVariant;
+  children?: string;
 }
 interface _MessageControl<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -98,15 +95,11 @@ export interface MessageControl<
 > extends OmitElements<_MessageControl<T>, 'Container'> {
   ({ variant }: MessageControlProps): React.JSX.Element;
 }
-export const MessageControl: MessageControl = ({ variant }) => {
+export const MessageControl: MessageControl = ({ variant, children }) => {
   return (
-    <Container>
+    <Container variant={`message-${variant}`}>
       <MessageIcon variant={variant} />
-      <MessageContent>
-        {/* TODO: Placeholder text */}
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry.
-      </MessageContent>
+      <MessageContent>{children}</MessageContent>
       <MessageDismissControl />
     </Container>
   );

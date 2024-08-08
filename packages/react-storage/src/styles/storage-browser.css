@@ -55,8 +55,8 @@
 }
 
 .storage-browser__target__field {
-  grid-row-start: 3;
-  grid-column: 1 / 16;
+  grid-row-start: 4;
+  grid-column: 1 / 20;
   display: inline-grid;
   gap: var(--storage-browser-gap);
   grid-template-rows: repeat(3, auto);
@@ -76,6 +76,9 @@
 .storage-browser__target__button {
   grid-area: submit;
 }
+.storage-browser__target__error {
+  grid-area: error;
+}
 .storage-browser__target__destination {
   display: flex;
   gap: var(--storage-browser-gap);
@@ -85,6 +88,8 @@
 }
 
 .storage-browser__message {
+  grid-row-start: 3;
+  grid-column: 1 / -1;
   align-items: flex-start;
   display: flex;
   gap: var(--storage-browser-gap);
@@ -121,7 +126,7 @@
 }
 
 .storage-browser__table {
-  grid-row: 4 / -1;
+  grid-row-start: 4;
   grid-column: 1 / -1;
 }
 .storage-browser__table__header {

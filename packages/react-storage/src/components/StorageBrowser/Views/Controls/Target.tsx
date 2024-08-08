@@ -5,7 +5,7 @@ import type { OmitElements } from '../types';
 import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
 
-const { Span, View, Input, Label, Button } = StorageBrowserElements;
+const { Span, View, Input, Label, Button, Text } = StorageBrowserElements;
 const BLOCK_NAME = `${CLASS_BASE}__target`;
 
 const DestinationContainer = withBaseElementProps(View, {
@@ -58,8 +58,9 @@ const FieldButton = withBaseElementProps(Button, {
   type: 'button',
 });
 
-const FieldError = withBaseElementProps(View, {
+const FieldError = withBaseElementProps(Text, {
   className: `${CLASS_BASE}__target__error`,
+  variant: 'field-error',
 });
 
 interface FieldControl<
@@ -70,7 +71,7 @@ interface FieldControl<
   Label: T['Label'];
   Input: T['Input'];
   Button: T['Button'];
-  Error: T['View'];
+  Error: T['Text'];
 }
 
 const FieldControl: FieldControl = () => {
