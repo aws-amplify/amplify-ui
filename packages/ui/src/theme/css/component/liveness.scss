@@ -24,12 +24,28 @@
   animation-fill-mode: forwards;
 }
 
+.amplify-liveness-fade-gray {
+  animation-name: amplify-liveness-animation-fade-gray;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes amplify-liveness-animation-fade-gray {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    background: var(--amplify-colors-neutral-40)
+  }
+}
+
 @keyframes amplify-liveness-animation-fadeout {
   from {
     opacity: 1;
   }
   to {
-    opacity: 0;
+    opacity: 0
   }
 }
 
