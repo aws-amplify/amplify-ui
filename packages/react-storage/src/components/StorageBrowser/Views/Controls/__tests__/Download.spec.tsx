@@ -45,6 +45,8 @@ describe('DownloadControl', () => {
   });
 
   it('calls getUrl onClick', async () => {
+    // @TODO: mock location correctly so when the
+    // click for the link to download happens, it doesn't console.error
     const user = userEvent.setup();
 
     getUrlSpy.mockResolvedValueOnce({
