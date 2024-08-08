@@ -14,6 +14,7 @@ import { SignInSMSMFAComponent } from 'src/pages/ui/components/authenticator/sig
 import { SignInTOTPMFAComponent } from 'src/pages/ui/components/authenticator/sign-in-totp-mfa/sign-in-totp-mfa.component';
 import { SignInTOTPSMSComponent } from 'src/pages/ui/components/authenticator/sign-in-totp-sms/sign-in-totp-sms.component';
 import { SignInWithEmailComponent } from 'src/pages/ui/components/authenticator/sign-in-with-email/sign-in-with-email.component';
+import { SignInWithEmailOnPushComponent } from 'src/pages/ui/components/authenticator/sign-in-with-email-onpush/sign-in-with-email-onpush.component';
 import { SignInWithPhoneComponent } from 'src/pages/ui/components/authenticator/sign-in-with-phone/sign-in-with-phone.component';
 import { SignInWithUsernameComponent } from 'src/pages/ui/components/authenticator/sign-in-with-username/sign-in-with-username.component';
 import { SignUpWithAttributesComponent } from 'src/pages/ui/components/authenticator/sign-up-with-attributes/sign-up-with-attributes.component';
@@ -56,6 +57,10 @@ const routes: Routes = [
   {
     path: 'ui/components/authenticator/sign-in-with-email',
     component: SignInWithEmailComponent,
+  },
+  {
+    path: 'ui/components/authenticator/sign-in-with-email-onpush',
+    component: SignInWithEmailOnPushComponent,
   },
   {
     path: 'ui/components/authenticator/i18n',
