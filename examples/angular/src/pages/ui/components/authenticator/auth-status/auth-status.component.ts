@@ -4,7 +4,9 @@ import { Amplify } from 'aws-amplify';
 
 import { signIn, signOut } from 'aws-amplify/auth';
 
-import awsExports from './aws-exports';
+const amplifyOutputs = (
+  await import(`@environments/auth/auth-with-email/${process.env.PATH}`)
+).default;
 
 @Component({
   selector: 'auth-status',
@@ -12,7 +14,7 @@ import awsExports from './aws-exports';
 })
 export class AuthStatusComponent {
   constructor(public authenticator: AuthenticatorService) {
-    Amplify.configure(awsExports);
+    Amplify.configure(amplifyOutputs);
   }
 
   get isAuthenticated(): boolean {
@@ -27,6 +29,9 @@ export class AuthStatusComponent {
     event.preventDefault();
 
     const formData = new FormData(event.target as HTMLFormElement);
-    signIn(Object.fromEntries(formData) as any);
+    signIn({
+      username: formData.get('email') as string,
+      password: formData.get('password') as string,
+    });
   }
 }

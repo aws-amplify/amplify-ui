@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 
-import awsExports from './aws-exports';
+const amplifyOutputs = (
+  await import(`@environments/auth/auth-with-email/${process.env.PATH}`)
+).default;
 
 @Component({
   selector: 'forgot-password',
@@ -9,6 +11,6 @@ import awsExports from './aws-exports';
 })
 export class ForgotPasswordComponent {
   constructor() {
-    Amplify.configure(awsExports);
+    Amplify.configure(amplifyOutputs);
   }
 }

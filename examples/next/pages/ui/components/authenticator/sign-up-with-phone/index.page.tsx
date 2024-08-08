@@ -3,8 +3,11 @@ import { Amplify } from 'aws-amplify';
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-import awsExports from './aws-exports';
-Amplify.configure(awsExports);
+const amplifyOutputs = (
+  await import(`@environments/auth/auth-with-phone-number/${process.env.PATH}`)
+).default;
+
+Amplify.configure(amplifyOutputs);
 
 export default function AuthenticatorWithPhone() {
   return (

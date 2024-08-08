@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 import { signUp, SignUpInput } from 'aws-amplify/auth';
-import awsExports from './aws-exports';
+
+const amplifyOutputs = (
+  await import(`@environments/auth/auth-with-email/${process.env.PATH}`)
+).default;
 
 @Component({
   selector: 'override-function-calls',
@@ -9,7 +12,7 @@ import awsExports from './aws-exports';
 })
 export class OverrideFunctionCallsComponent {
   constructor() {
-    Amplify.configure(awsExports);
+    Amplify.configure(amplifyOutputs);
   }
   services = {
     async handleSignUp(input: SignUpInput) {

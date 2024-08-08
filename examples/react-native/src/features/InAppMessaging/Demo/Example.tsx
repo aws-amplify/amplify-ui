@@ -6,9 +6,16 @@ import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { withInAppMessaging } from '@aws-amplify/ui-react-native';
 import { Button, Checkbox, Radio, RadioGroup } from '../../../ui';
 import { useInAppDemo, ACTIONS, LAYOUTS, ORIENTATIONS } from './utils';
-import config from './aws-exports';
+import { VERSION } from '@env';
 
-Amplify.configure(config);
+const AMPLIFY_CONFIG_PATH =
+  VERSION === 'gen1' ? 'src/amplifyconfiguration' : 'amplify_outputs';
+
+const amplifyOutputs = require(
+  `@aws-amplify/ui-in-app-messaging-with-pinpoint-campaign-environment/${AMPLIFY_CONFIG_PATH}`
+);
+
+Amplify.configure(amplifyOutputs);
 initializeInAppMessaging();
 
 function DemoDivider() {

@@ -4,9 +4,11 @@ import { I18n } from 'aws-amplify/utils';
 import '@aws-amplify/ui-vue/styles.css';
 import { Authenticator } from '@aws-amplify/ui-vue';
 import { translations } from '@aws-amplify/ui';
-import aws_exports from './aws-exports';
+import { importHelper } from '../utils';
 
-Amplify.configure(aws_exports);
+const amplifyOutputs = await importHelper('auth-with-phone-and-sms-mfa');
+
+Amplify.configure(amplifyOutputs);
 
 I18n.putVocabularies(translations);
 I18n.setLanguage('en');
@@ -25,3 +27,4 @@ I18n.putVocabulariesForLanguage('en', {
     </template>
   </authenticator>
 </template>
+./amplify_outputs

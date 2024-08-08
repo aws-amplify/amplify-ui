@@ -5,8 +5,11 @@ import { signUp, SignUpInput } from 'aws-amplify/auth';
 import { I18n } from 'aws-amplify/utils';
 import { AuthenticatorService, translations } from '@aws-amplify/ui-angular';
 
-import awsExports from './aws-exports';
-Amplify.configure(awsExports);
+const amplifyOutputs = (
+  await import(`@environments/auth/auth-with-email/${process.env.PATH}`)
+).default;
+
+Amplify.configure(amplifyOutputs);
 
 @Component({
   selector: 'sign-up-with-email',

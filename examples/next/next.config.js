@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const { patchWebpackConfig } = require('next-global-css');
 
 module.exports = {
@@ -11,7 +12,13 @@ module.exports = {
   webpack: (config, options) => {
     // allows importing of css files inside modules
     patchWebpackConfig(config, options);
-
+    config.plugins.push(
+      new webpack.DefinePlugin({
+        'process.env.PATH': JSON.stringify(
+          process.env.VERSION === 'gen1' ? 'src/aws-exports' : 'amplify_outputs'
+        ),
+      })
+    );
     return config;
   },
 };

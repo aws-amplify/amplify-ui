@@ -12,9 +12,13 @@ import {
 } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-import awsExports from './aws-exports';
 import React from 'react';
-Amplify.configure(awsExports);
+
+const amplifyOutputs = (
+  await import(`@environments/auth/auth-with-email/${process.env.PATH}`)
+).default;
+
+Amplify.configure(amplifyOutputs);
 
 function App() {
   const { authStatus } = useAuthenticator();
@@ -27,14 +31,16 @@ function App() {
       direction="column"
       onSubmit={(e: any) => {
         e.preventDefault();
-
-        signIn(Object.fromEntries(new FormData(e.target)) as any);
+        signIn({
+          username: e.target.email.value,
+          password: e.target.password.value,
+        });
       }}
     >
       <Text>{authStatus}</Text>
       {isAuthenticated ? null : (
         <>
-          <TextField label="Username" id="username" name="username" />
+          <TextField label="Email" id="email" name="email" />
           <PasswordField label="Password" id="password" name="password" />
         </>
       )}

@@ -4,9 +4,12 @@ import { Amplify } from 'aws-amplify';
 import { Text, Loader } from '@aws-amplify/ui-react';
 import { StorageImage } from '@aws-amplify/ui-react-storage';
 import '@aws-amplify/ui-react/styles.css';
-import awsExports from './aws-exports';
 
-Amplify.configure(awsExports);
+const amplifyOutputs = (
+  await import(`@environments/storage/file-uploader/${process.env.PATH}`)
+).default;
+
+Amplify.configure(amplifyOutputs);
 
 export function StorageImageExample() {
   const [isLoaded, setIsLoaded] = React.useState(false);

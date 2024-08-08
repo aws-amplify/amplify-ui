@@ -5,9 +5,11 @@ import { useRouter } from 'vue-router';
 import { Amplify } from 'aws-amplify';
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
-import aws_exports from '../aws-exports';
+import { importHelper } from '../../utils';
 
-Amplify.configure(aws_exports);
+const amplifyOutputs = await importHelper('auth-with-email');
+
+Amplify.configure(amplifyOutputs);
 
 const router = useRouter();
 const { user, signOut } = toRefs(useAuthenticator());

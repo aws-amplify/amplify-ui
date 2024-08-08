@@ -5,8 +5,11 @@ import '@aws-amplify/ui-react/styles.css';
 
 import { Heading, Text, useTheme } from '@aws-amplify/ui-react';
 
-import awsExports from './aws-exports';
-Amplify.configure(awsExports);
+const amplifyOutputs = (
+  await import(`@environments/auth/auth-with-email/${process.env.PATH}`)
+).default;
+
+Amplify.configure(amplifyOutputs);
 
 const formFields = {
   signIn: {

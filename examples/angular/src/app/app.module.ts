@@ -49,7 +49,6 @@ import { UseAuthenticatorHomeComponent } from 'src/pages/ui/components/authentic
     SignInWithUsernameComponent,
     SignUpWithAttributesComponent,
     SignUpWithEmailComponent,
-    SignUpWithEmailComponent,
     SignUpWithEmailLambdaComponent,
     SignUpWithPhoneComponent,
     SignUpWithUsernameComponent,

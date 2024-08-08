@@ -1,10 +1,13 @@
 import { Amplify } from 'aws-amplify';
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react';
 import * as React from 'react';
-import awsExports from '../aws-exports';
 import router from 'next/router';
 
-Amplify.configure(awsExports);
+const amplifyOutputs = (
+  await import(`@environments/auth/auth-with-email/${process.env.PATH}`)
+).default;
+
+Amplify.configure(amplifyOutputs);
 
 function App() {
   const { user, signOut } = useAuthenticator();

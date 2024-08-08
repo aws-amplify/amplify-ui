@@ -15,7 +15,7 @@ dirs=""
 # - Include only sms/phone environments:
 #   ./pull-environments.sh -r us-east-2 -i "\./auth/auth-with-((phone-and-sms-mfa)|(phone-number)|(totp-and-sms-mfa))"
 
-while getopts ':r:i:e:' OPTION; do
+while getopts ':r:i:e:v:' OPTION; do
 
   case "$OPTION" in
   r)
@@ -27,9 +27,12 @@ while getopts ':r:i:e:' OPTION; do
   e)
     exclude="$OPTARG"
     ;;
+  v)
+    version="$OPTARG"
+    ;;
 
   ?)
-    echo "Usage: $(basename $0) [-r region] [-i include] [-e exclude]"
+    echo "Usage: $(basename $0) [-r region] [-i include] [-e exclude] [-v version]"
     exit 1
     ;;
   esac
@@ -96,4 +99,8 @@ shell_path="$(dirname "${BASH_SOURCE[0]}")" # under normal use, this points to `
 
 # Pull environments in parallel
 # Note that printf is used because echo dosn't handle `\n` by default in bash.
-printf $dirs | xargs -P $numParallelTasks -I {} sh -c ""$shell_path"/pull-environment.sh {} "$region""
+if [ "$version" == "gen2" ]; then
+  printf $dirs | xargs -P $numParallelTasks -I {} sh -c ""$shell_path"/pull-environment-gen2.sh {}"
+else
+  printf $dirs | xargs -P $numParallelTasks -I {} sh -c ""$shell_path"/pull-environment.sh {} "$region""
+fi

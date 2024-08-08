@@ -3,9 +3,11 @@ import { MapView } from '@aws-amplify/ui-react-geo';
 
 import '@aws-amplify/ui-react-geo/styles.css';
 
-import awsExports from './aws-exports';
+const amplifyOutputs = (
+  await import(`@environments/geo/basic-map/${process.env.PATH}`)
+).default;
 
-Amplify.configure(awsExports);
+Amplify.configure(amplifyOutputs);
 
 export default function BasicMap() {
   return <MapView />;

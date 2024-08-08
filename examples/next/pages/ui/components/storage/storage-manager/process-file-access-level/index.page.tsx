@@ -6,8 +6,11 @@ import {
 } from '@aws-amplify/ui-react-storage';
 import '@aws-amplify/ui-react/styles.css';
 
-import awsExports from './aws-exports';
-Amplify.configure(awsExports);
+const amplifyOutputs = (
+  await import(`@environments/storage/file-uploader/${process.env.PATH}`)
+).default;
+
+Amplify.configure(amplifyOutputs);
 
 const processFile: StorageManagerProps['processFile'] = async ({ file }) => {
   const fileExtension = file.name.split('.').pop();

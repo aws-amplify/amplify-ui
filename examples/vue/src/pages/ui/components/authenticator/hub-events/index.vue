@@ -3,9 +3,11 @@ import { Amplify } from 'aws-amplify';
 import { signOut } from 'aws-amplify/auth';
 import { Authenticator } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
-import aws_exports from './aws-exports';
+import { importHelper } from '../utils';
 
-Amplify.configure(aws_exports);
+const amplifyOutputs = await importHelper('auth-with-email');
+
+Amplify.configure(amplifyOutputs);
 </script>
 
 <template>

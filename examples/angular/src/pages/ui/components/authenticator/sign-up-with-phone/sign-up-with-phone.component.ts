@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 
 import { Amplify } from 'aws-amplify';
-import awsExports from './aws-exports';
+
+const amplifyOutputs = (
+  await import(`@environments/auth/auth-with-phone-number/${process.env.PATH}`)
+).default;
 
 @Component({
   selector: 'sign-up-with-phone',
@@ -9,6 +12,6 @@ import awsExports from './aws-exports';
 })
 export class SignUpWithPhoneComponent {
   constructor() {
-    Amplify.configure(awsExports);
+    Amplify.configure(amplifyOutputs);
   }
 }

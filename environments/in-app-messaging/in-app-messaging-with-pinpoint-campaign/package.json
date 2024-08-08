@@ -3,6 +3,7 @@
   "name": "@aws-amplify/ui-in-app-messaging-with-pinpoint-campaign-environment",
   "version": "0.0.1",
   "scripts": {
-    "pull": "amplify pull --appId d1322eg7ntbei6 --envName staging"
+    "pull": "amplify pull --appId d1322eg7ntbei6 --envName staging",
+    "generate": "AWS_REGION=us-east-2 ampx generate outputs --branch gen2-in-app-messaging-backend --app-id d10570fvxw1ehy"
   }
 }

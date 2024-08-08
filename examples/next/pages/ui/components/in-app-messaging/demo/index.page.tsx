@@ -21,10 +21,15 @@ import {
 
 import '@aws-amplify/ui-react/styles.css';
 
-import config from './aws-exports';
 import { ACTIONS, LAYOUTS, ORIENTATIONS, useInAppDemo } from './utils';
 
-Amplify.configure(config);
+const amplifyOutputs = (
+  await import(
+    `@environments/in-app-messaging/in-app-messaging-with-pinpoint-campaign/${process.env.PATH}`
+  )
+).default;
+
+Amplify.configure(amplifyOutputs);
 initializeInAppMessaging();
 
 function DemoCheckbox({ label, onChange, ...rest }) {

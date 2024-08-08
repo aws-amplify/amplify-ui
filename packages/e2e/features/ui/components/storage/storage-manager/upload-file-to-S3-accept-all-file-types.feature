@@ -3,7 +3,7 @@ Feature: Storage Manager accepts all file types
   Background:
     Given I'm running the example "ui/components/storage/storage-manager/accept-all-file-types"
    
-  @react
+  @react @gen2
   Scenario: I should be able to click and drag any files
     Then I see "Browse files"
     Then I drag and drop a file with file name "test.txt"
