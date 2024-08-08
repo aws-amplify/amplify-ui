@@ -1,16 +1,15 @@
 import { Amplify } from 'aws-amplify';
 import { Authenticator } from '@aws-amplify/ui-react';
-import { generateClient } from "aws-amplify/data";
+import { generateClient } from 'aws-amplify/data';
 import React from 'react';
 import { AIContextProvider, createAIHooks } from '@aws-amplify/ui-react-ai';
 
-import outputs from "./amplify_outputs.json";
-import type { Schema } from "./amplify/data/resource";
+import outputs from './amplify_outputs.json';
+import type { Schema } from './amplify/data/resource';
 
 const client = generateClient<Schema>();
 const { useAIConversation } = createAIHooks(client);
 
-console.log(client);
 Amplify.configure(outputs);
 
 export default function App() {
@@ -18,11 +17,16 @@ export default function App() {
     <AIContextProvider>
       <MyConversation />
     </AIContextProvider>
-  )
+  );
 }
 
 export function MyConversation() {
-  const [{ data: { messages } }, sendMessage] = useAIConversation('pirateChat');
+  const [
+    {
+      data: { messages },
+    },
+    sendMessage,
+  ] = useAIConversation('pirateChat');
 
   return (
     <Authenticator>
@@ -31,13 +35,19 @@ export function MyConversation() {
           <main>
             <h1>Hello {user.username}</h1>
             {messages.map((message) => {
-              return message.content.map((content) => <p key={`${message.id + content.text}`}>{content.text}</p>)
+              return message.content.map((content) => (
+                <p key={`${message.id + content.text}`}>{content.text}</p>
+              ));
             })}
-            <button onClick={() => {
-              const content = [{ text: 'foo' }]
-              const aiContext = { userFullName: 'Bruce Parker' }
-              sendMessage({ content, aiContext });
-            }}>Send a message</button>
+            <button
+              onClick={() => {
+                const content = [{ text: 'foo' }];
+                const aiContext = { userFullName: 'Bruce Parker' };
+                sendMessage({ content, aiContext });
+              }}
+            >
+              Send a message
+            </button>
             <button onClick={() => signOut()}>Signout</button>
           </main>
         );

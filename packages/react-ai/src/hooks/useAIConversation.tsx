@@ -1,6 +1,9 @@
 import React from 'react';
 import { V6Client } from '@aws-amplify/api-graphql';
-import { Conversation, ConversationMessage } from '@aws-amplify/data-schema/dist/esm/ai/ConversationType';
+import {
+  Conversation,
+  ConversationMessage,
+} from '@aws-amplify/data-schema/dist/esm/ai/ConversationType';
 import { DataState } from '@aws-amplify/ui-react-core';
 import { useAIContext } from './AIContextProvider';
 
@@ -32,90 +35,149 @@ export function createUseAIConversation<T extends V6Client<any>>(
   > = (routeName: keyof T['conversations'], input = {}) => {
     const clientRoute = (client.conversations as T['conversations'])[routeName];
 
-    const { routeToConversationsMap, setRouteToConversationsMap } = useAIContext();
-    const messagesFromAIContext = input.id ? routeToConversationsMap[routeName as string]?.[input.id] : undefined;
-    const [localMessages, setLocalMessages] = React.useState<ConversationMessage[]>(messagesFromAIContext ?? []);
-    const [localConversation, setLocalConversation] = React.useState<Conversation | undefined>(undefined);
+    const { routeToConversationsMap, setRouteToConversationsMap } =
+      useAIContext();
+    const messagesFromAIContext = input.id
+      ? routeToConversationsMap[routeName as string]?.[input.id]
+      : undefined;
+    const [localMessages, setLocalMessages] = React.useState<
+      ConversationMessage[]
+    >(messagesFromAIContext ?? []);
+    const [conversation, setConversation] = React.useState<
+      Conversation | undefined
+    >(undefined);
+    const [waitingForAIResponse, setWaitingForAIResponse] =
+      React.useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = React.useState<
+      string | undefined
+    >();
+    const [hasError, setHasError] = React.useState<boolean>(false);
 
     // On hook initialization get conversation and load all messages
     React.useEffect(() => {
       async function initialize() {
-        const { data: conversation } = input.id ? await clientRoute.get({ id: input.id }) : await clientRoute.create();
+        const { data: conversation } = input.id
+          ? await clientRoute.get({ id: input.id })
+          : await clientRoute.create();
 
         if (!conversation) {
-          throw new Error('no conversation found');
+          const errorString = 'No conversation found';
+          setHasError(true);
+          setErrorMessage(errorString);
+          throw new Error(errorString);
         }
 
         const { data: messages } = await conversation.listMessages();
 
         setLocalMessages(messages);
-        setLocalConversation(conversation)
-        console.log({ conversation })
-        setRouteToConversationsMap({
-          ...routeToConversationsMap, [routeName]: {
-            ...routeToConversationsMap[routeName as string], [conversation.id]: messages
-          }
-        })
+        setConversation(conversation);
+        setRouteToConversationsMap((previousRouteToConversations) => {
+          return {
+            ...previousRouteToConversations,
+            [routeName]: {
+              ...previousRouteToConversations[routeName as string],
+              [conversation.id]: messages,
+            },
+          };
+        });
       }
 
       initialize();
-    }, [clientRoute, input.id, routeName, setRouteToConversationsMap])
+    }, [clientRoute, input.id, routeName, setRouteToConversationsMap]);
 
     // Update messages to match what is in AIContext if they aren't equal
     React.useEffect(() => {
       if (!!messagesFromAIContext && messagesFromAIContext !== localMessages)
-        setLocalMessages(messagesFromAIContext)
-    }, [messagesFromAIContext, localMessages])
+        setLocalMessages(messagesFromAIContext);
+    }, [messagesFromAIContext, localMessages]);
 
-    const sendMessage = (input: SendMesageParameters) => {
-      const { content, aiContext } = input;
-      localConversation?.sendMessage({ content, aiContext })
-        .then((value) => {
-          const { data: sentMessage } = value;
-          console.log('we just sent this message', sentMessage)
+    const sendMessage = React.useCallback(
+      (input: SendMesageParameters) => {
+        const { content, aiContext } = input;
+        conversation
+          ?.sendMessage({ content, aiContext })
+          .then((value) => {
+            const { data: sentMessage } = value;
 
-          if (sentMessage) {
-            setLocalMessages([...localMessages, sentMessage]);
-            setRouteToConversationsMap({
-              ...routeToConversationsMap, [routeName]: {
-                ...routeToConversationsMap[routeName as string], [localConversation.id]: [...localMessages, sentMessage]
-              }
-            })
-          }
-        })
-        .catch((reason) => {
-          throw new Error(`error sending message ${reason}`)
-        });
-    };
+            if (sentMessage) {
+              setWaitingForAIResponse(true);
+              setLocalMessages((previousLocalMessages) => [
+                ...previousLocalMessages,
+                sentMessage,
+              ]);
+              setRouteToConversationsMap((previousRouteToConversations) => {
+                return {
+                  ...previousRouteToConversations,
+                  [routeName]: {
+                    ...previousRouteToConversations[routeName as string],
+                    [conversation.id]: [
+                      ...previousRouteToConversations[routeName as string][
+                        conversation.id
+                      ],
+                      sentMessage,
+                    ],
+                  },
+                };
+              });
+            }
+          })
+          .catch((reason) => {
+            setHasError(true);
+            setErrorMessage(`error sending message ${reason}`);
+          });
+      },
+      [conversation, routeName, setRouteToConversationsMap]
+    );
 
-    const subscribe = React.useCallback((handleStoreChange: () => void) => {
-      const subscription = localConversation && localConversation.onMessage((message) => {
-        console.log({ message })
-        setLocalMessages([...localMessages, message]);
-        setRouteToConversationsMap({
-          ...routeToConversationsMap, [routeName]: {
-            ...routeToConversationsMap[routeName as string], [localConversation.id]: [...localMessages, message]
-          }
-        })
-        handleStoreChange(); // should cause a re-render
-      })
-      return () => {
-        subscription?.unsubscribe();
-      };
-    }, [localConversation, localMessages, routeName, routeToConversationsMap, setRouteToConversationsMap]);
+    const subscribe = React.useCallback(
+      (handleStoreChange: () => void) => {
+        const subscription =
+          conversation &&
+          conversation.onMessage((message) => {
+            setWaitingForAIResponse(false);
+            setLocalMessages((previousLocalMessages) => [
+              ...previousLocalMessages,
+              message,
+            ]);
+            setRouteToConversationsMap((previousRouteToConversations) => {
+              return {
+                ...previousRouteToConversations,
+                [routeName]: {
+                  ...previousRouteToConversations[routeName as string],
+                  [conversation.id]: [
+                    ...previousRouteToConversations[routeName as string][
+                      conversation.id
+                    ],
+                    message,
+                  ],
+                },
+              };
+            });
+            handleStoreChange(); // should cause a re-render
+          });
+        return () => {
+          subscription?.unsubscribe();
+        };
+      },
+      [conversation, routeName, setRouteToConversationsMap]
+    );
 
     const getSnapshot = React.useCallback(() => localMessages, [localMessages]);
 
     // Using useSyncExternalStore to subscribe to external data updates
     // Have to provide third optional argument in next - https://github.com/vercel/next.js/issues/54685
-    const messagesFromStore = React.useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
+    const messagesFromStore = React.useSyncExternalStore(
+      subscribe,
+      getSnapshot,
+      getSnapshot
+    );
 
     return [
       {
         data: { messages: messagesFromStore },
-        isLoading: false,
-        message: undefined,
-        hasError: false,
+        isLoading: waitingForAIResponse,
+        message: errorMessage,
+        hasError,
       },
       sendMessage,
     ];
