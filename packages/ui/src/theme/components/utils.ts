@@ -27,7 +27,6 @@ export type Selectors = {
   [key in CSS.HtmlAttributes | CSS.Pseudos]?: CSSProperties;
 };
 
-//
 export interface ComponentStyles extends CSSProperties, Selectors {
   _vars?: Record<string, DesignToken | string>;
 }
