@@ -8,15 +8,15 @@ import { cookies } from 'next/headers';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const cookieStore = cookies();
-  const colorMode = cookieStore.get('colorMode');
+  const colorMode = (cookieStore.get('colorMode')?.value ??
+    'dark') as ColorMode;
 
   return (
-    <div
-      {...theme.containerProps({ colorMode: colorMode?.value as ColorMode })}
-    >
+    <div {...theme.containerProps({ colorMode })}>
+      {/* Header */}
       <Header>
         Amplify UI RSC
-        <ThemeToggle initialValue={colorMode?.value as ColorMode} />
+        <ThemeToggle initialValue={colorMode} />
       </Header>
       {children}
       <ThemeStyle theme={theme} />

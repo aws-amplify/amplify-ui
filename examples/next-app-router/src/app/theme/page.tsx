@@ -14,7 +14,13 @@ import {
   Text,
 } from '@aws-amplify/ui-react';
 
-const colorThemes = [undefined, 'success', 'info', 'warning', 'error'];
+const colorThemes: BadgeProps['variation'][] = [
+  undefined,
+  'success',
+  'info',
+  'warning',
+  'error',
+];
 
 export default function ThemePage() {
   return (
@@ -22,10 +28,7 @@ export default function ThemePage() {
       <Heading level={3}>Badges</Heading>
       <Flex direction="row">
         {colorThemes.map((colorTheme, i) => (
-          <Badge
-            key={`${i}-${colorTheme}`}
-            variation={colorTheme as BadgeProps['variation']}
-          >
+          <Badge key={`${i}-${colorTheme}`} variation={colorTheme}>
             {colorTheme || 'default'}
           </Badge>
         ))}
@@ -33,10 +36,7 @@ export default function ThemePage() {
       <Heading level={3}>Buttons</Heading>
       <Flex direction="row">
         {colorThemes.map((colorTheme, i) => (
-          <Button
-            key={`${i}-${colorTheme}`}
-            colorTheme={colorTheme as ButtonProps['colorTheme']}
-          >
+          <Button key={`${i}-${colorTheme}`} colorTheme={colorTheme}>
             {colorTheme || 'default'}
           </Button>
         ))}
@@ -46,7 +46,7 @@ export default function ThemePage() {
           <Button
             key={`${i}-${colorTheme}`}
             variation="link"
-            colorTheme={colorTheme as ButtonProps['colorTheme']}
+            colorTheme={colorTheme}
           >
             {colorTheme || 'default'}
           </Button>
@@ -57,7 +57,7 @@ export default function ThemePage() {
           <Button
             key={`${i}-${colorTheme}`}
             variation="primary"
-            colorTheme={colorTheme as ButtonProps['colorTheme']}
+            colorTheme={colorTheme}
           >
             {colorTheme || 'default'}
           </Button>
