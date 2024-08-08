@@ -12,8 +12,7 @@ export default function Conversation(): JSX.Element {
     <View
       style={{
         width: '584px',
-        height: 'auto',
-        maxHeight: '80vh',
+        maxHeight: '60vh',
         display: 'flex',
         flexDirection: 'column',
       }}
@@ -24,9 +23,9 @@ export default function Conversation(): JSX.Element {
           borderLeft: '1px solid rgba(220, 222, 224, 1)',
           borderRight: '1px solid rgba(220, 222, 224, 1)',
           padding: '0px 16px',
-          display: 'flex',
-          flex: '1 1 auto',
           overflowY: 'auto',
+          flexShrink: '1',
+          display: 'flex',
           flexDirection: 'column-reverse',
         }}
       >

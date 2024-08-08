@@ -16,7 +16,7 @@ export interface AIConversationElements {
   View: typeof ViewElement;
 }
 
-export const LabelElement = defineBaseElement({
+export const LabelElement = defineBaseElement<'label', 'htmlFor'>({
   type: 'label',
   displayName: 'Label',
 });

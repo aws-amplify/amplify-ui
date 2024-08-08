@@ -83,7 +83,7 @@ export type Content = ImageContentBlock | TextContent;
 
 export interface ConversationMessage {
   id: string;
-  content: Content;
+  content: Content[];
   role: 'user' | 'assistant';
   timestamp: Date;
 }

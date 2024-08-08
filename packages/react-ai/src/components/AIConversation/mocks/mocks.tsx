@@ -6,29 +6,33 @@ import { convertBufferToBase64 } from '../utils';
 export const messages: ConversationMessage[] = [
   {
     id: '1',
-    content: { type: 'text', value: 'I am your virtual assistant' },
+    content: [{ type: 'text', value: 'I am your virtual assistant' }],
     role: 'assistant',
     timestamp: new Date(2023, 4, 21, 15, 23),
   },
   {
     id: '2',
-    content: {
-      type: 'text',
-      value:
-        'I have a really long question. This is a long message This is a long message This is a long message This is a long message This is a long message',
-    },
+    content: [
+      {
+        type: 'text',
+        value:
+          'I have a really long question. This is a long message This is a long message This is a long message This is a long message This is a long message',
+      },
+    ],
     role: 'user',
     timestamp: new Date(2023, 4, 21, 15, 24),
   },
   {
     id: '3',
-    content: {
-      type: 'image',
-      value: {
-        format: 'png',
-        bytes: new Uint8Array([]).buffer,
+    content: [
+      {
+        type: 'image',
+        value: {
+          format: 'png',
+          bytes: new Uint8Array([]).buffer,
+        },
       },
-    },
+    ],
     role: 'assistant',
     timestamp: new Date(2023, 4, 21, 15, 25),
   },

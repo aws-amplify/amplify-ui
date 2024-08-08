@@ -14,35 +14,56 @@ import { MessagesControl, MessageControl } from '../MessagesControl';
 
 import { convertBufferToBase64 } from '../../../utils';
 
-const messages: ConversationMessage[] = [
-  {
-    id: '1',
-    content: { type: 'text', value: 'I am your virtual assistant' },
-    role: 'assistant',
-    timestamp: new Date(2023, 4, 21, 15, 23),
-  },
-  {
-    id: '2',
-    content: {
+const AITextMessage: ConversationMessage = {
+  id: '1',
+  content: [{ type: 'text', value: 'I am your virtual assistant!' }],
+  role: 'assistant',
+  timestamp: new Date(2023, 4, 21, 15, 23),
+};
+const userTextMessage: ConversationMessage = {
+  id: '2',
+  content: [
+    {
       type: 'text',
       value: 'Are you sentient?',
     },
-    role: 'user',
-    timestamp: new Date(2023, 4, 21, 15, 24),
-  },
-  {
-    id: '3',
-    content: {
+  ],
+  role: 'user',
+  timestamp: new Date(2023, 4, 21, 15, 24),
+};
+const AIImageMessage: ConversationMessage = {
+  id: '3',
+  content: [
+    {
+      type: 'text',
+      value: 'Yes, here is proof.',
+    },
+    {
       type: 'image',
       value: {
         format: 'png',
         bytes: new Uint8Array([]).buffer,
       },
     },
-    role: 'assistant',
-    timestamp: new Date(2023, 4, 21, 15, 25),
-  },
-];
+  ],
+  role: 'assistant',
+  timestamp: new Date(2025, 4, 21, 15, 25),
+};
+const userDoubleText: ConversationMessage = {
+  id: '4',
+  content: [
+    {
+      type: 'text',
+      value: 'Wow.',
+    },
+    {
+      type: 'text',
+      value: `What an impressive product! AND you're from the future?`,
+    },
+  ],
+  role: 'user',
+  timestamp: new Date(2023, 4, 21, 8, 26),
+};
 
 const avatars = {
   user: {
@@ -75,7 +96,9 @@ describe('MessagesControl', () => {
 
   it('renders a MessagesControl element with messages', () => {
     render(
-      <MessagesProvider messages={messages}>
+      <MessagesProvider
+        messages={[AITextMessage, userTextMessage, AIImageMessage]}
+      >
         <MessagesControl />
       </MessagesProvider>
     );
@@ -85,7 +108,9 @@ describe('MessagesControl', () => {
 
   it('renders MessagesControl with default classnames', () => {
     const { container } = render(
-      <MessagesProvider messages={messages}>
+      <MessagesProvider
+        messages={[AITextMessage, userTextMessage, AIImageMessage]}
+      >
         <MessagesControl />
       </MessagesProvider>
     );
@@ -96,14 +121,16 @@ describe('MessagesControl', () => {
 
     const messageContainer = messagesContainer?.firstChild;
     expect(messageContainer).toBeDefined();
-    expect(messageContainer).toHaveClass('ai-message__container');
-    expect(messageContainer).toHaveClass('ai-message__container--assistant');
-    expect(messageContainer).toHaveClass('ai-message__container--borderless');
+    expect(messageContainer).toHaveClass('ai-message');
+    expect(messageContainer).toHaveClass('ai-message--assistant');
+    expect(messageContainer).toHaveClass('ai-message--borderless');
   });
 
   it('renders MessagesControl with custom classnames', () => {
     const { container } = render(
-      <MessagesProvider messages={messages}>
+      <MessagesProvider
+        messages={[AITextMessage, userTextMessage, AIImageMessage]}
+      >
         <MessageVariantProvider variant="bubble-2">
           <MessagesControl />
         </MessageVariantProvider>
@@ -116,16 +143,18 @@ describe('MessagesControl', () => {
 
     const messageContainer = messagesContainer?.firstChild;
     expect(messageContainer).toBeDefined();
-    expect(messageContainer).toHaveClass('ai-message__container');
-    expect(messageContainer).toHaveClass('ai-message__container--assistant');
-    expect(messageContainer).toHaveClass('ai-message__container--bubble-2');
+    expect(messageContainer).toHaveClass('ai-message');
+    expect(messageContainer).toHaveClass('ai-message--assistant');
+    expect(messageContainer).toHaveClass('ai-message--bubble-2');
   });
 
   it('renders a MessagesControl element with avatars and actions', () => {
     render(
       <AvatarsProvider avatars={avatars}>
         <ActionsProvider actions={customActions}>
-          <MessagesProvider messages={messages}>
+          <MessagesProvider
+            messages={[AITextMessage, userTextMessage, AIImageMessage]}
+          >
             <MessagesControl />
           </MessagesProvider>
         </ActionsProvider>
@@ -140,21 +169,26 @@ describe('MessagesControl', () => {
   it('renders a MessagesControl element with a custom renderMessage function', () => {
     const customMessage = jest.fn((message: ConversationMessage) => (
       <div key={message.id} data-testid="custom-message">
-        {message.content.type === 'text' ? (
-          message.content.value
-        ) : (
-          <img
-            src={convertBufferToBase64(
-              message.content.value.bytes,
-              message.content.value.format
-            )}
-          ></img>
-        )}
+        {message.content.map((content, index) => {
+          return content.type === 'text' ? (
+            <p key={index}>{content.value}</p>
+          ) : (
+            <img
+              key={index}
+              src={convertBufferToBase64(
+                content.value.bytes,
+                content.value.format
+              )}
+            ></img>
+          );
+        })}
       </div>
     ));
 
     render(
-      <MessagesProvider messages={messages}>
+      <MessagesProvider
+        messages={[AITextMessage, userTextMessage, AIImageMessage]}
+      >
         <MessagesControl renderMessage={customMessage} />
       </MessagesProvider>
     );
@@ -167,47 +201,115 @@ describe('MessagesControl', () => {
     const customMessageElements = screen.queryAllByTestId('custom-message');
     expect(customMessageElements).toHaveLength(3);
   });
+
+  it('renders avatars and actions appropriately if the same user sends multiple messages', () => {
+    const { rerender } = render(
+      <AvatarsProvider avatars={avatars}>
+        <ActionsProvider actions={customActions}>
+          <MessagesProvider messages={[AITextMessage]}>
+            <MessagesControl />
+          </MessagesProvider>
+        </ActionsProvider>
+      </AvatarsProvider>
+    );
+    let avatarElements = screen.getAllByTestId('avatar');
+    let actionElements = screen.getAllByRole('button');
+    let messages = screen.getAllByTestId('message');
+    let contentChunks = screen.queryAllByTestId(
+      /^(text-content|image-content)$/
+    );
+    expect(avatarElements).toHaveLength(1);
+    expect(actionElements).toHaveLength(1);
+    expect(messages).toHaveLength(1);
+    expect(contentChunks).toHaveLength(1);
+    // TODO follow up -- do we want to show avatar twice if a user sends a completely different message?
+    rerender(
+      <AvatarsProvider avatars={avatars}>
+        <ActionsProvider actions={customActions}>
+          <MessagesProvider
+            messages={[AITextMessage, AIImageMessage, userTextMessage]}
+          >
+            <MessagesControl />
+          </MessagesProvider>
+        </ActionsProvider>
+      </AvatarsProvider>
+    );
+
+    avatarElements = screen.getAllByTestId('avatar');
+    actionElements = screen.getAllByRole('button');
+    messages = screen.getAllByTestId('message');
+    contentChunks = screen.queryAllByTestId(/^(text-content|image-content)$/);
+    expect(avatarElements).toHaveLength(3);
+    expect(actionElements).toHaveLength(3);
+    expect(messages).toHaveLength(3);
+    expect(contentChunks).toHaveLength(4);
+    rerender(
+      <AvatarsProvider avatars={avatars}>
+        <ActionsProvider actions={customActions}>
+          <MessagesProvider
+            messages={[AITextMessage, userDoubleText, AIImageMessage]}
+          >
+            <MessagesControl />
+          </MessagesProvider>
+        </ActionsProvider>
+      </AvatarsProvider>
+    );
+
+    avatarElements = screen.getAllByTestId('avatar');
+    actionElements = screen.getAllByRole('button');
+    messages = screen.getAllByTestId('message');
+    contentChunks = screen.queryAllByTestId(/^(text-content|image-content)$/);
+    expect(avatarElements).toHaveLength(3);
+    expect(actionElements).toHaveLength(3);
+    expect(messages).toHaveLength(3);
+    expect(contentChunks).toHaveLength(5);
+  });
 });
 
 describe('MessageControl', () => {
-  it('renders MessageControl with default classnames', () => {
+  it('renders default classnames', () => {
     render(
-      <RoleContext.Provider value="user">
-        <MessageControl message={messages[1]} />
+      <RoleContext.Provider value="assistant">
+        <MessageControl message={AIImageMessage} />
       </RoleContext.Provider>
     );
 
-    const message = screen.getByText('Are you sentient?');
-    expect(message).toBeInTheDocument();
-    expect(message).toHaveClass('ai-message__text');
-    expect(message).toHaveClass('ai-message__text--user');
-    expect(message).toHaveClass('ai-message__text--borderless');
+    const content = screen.getByTestId('content');
+    expect(content).toBeInTheDocument();
+    expect(content).toHaveClass('ai-message__content');
+    expect(content).toHaveClass('ai-message__content--borderless');
+
+    const textContent = screen.getByText('Yes, here is proof.');
+    const imageContent = screen.getByRole('img');
+    expect(textContent).toBeInTheDocument();
+    expect(textContent).toHaveClass('ai-message__text');
+    expect(imageContent).toBeInTheDocument();
+    expect(imageContent).toHaveClass('ai-message__image');
   });
 
-  it('renders MessageControl with custom classnames', () => {
+  it('renders custom classnames', () => {
     render(
-      <RoleContext.Provider value="user">
+      <RoleContext.Provider value="assistant">
         <MessageVariantProvider variant="borderless-background">
-          <MessageControl message={messages[1]} />
+          <MessageControl message={AIImageMessage} />
         </MessageVariantProvider>
       </RoleContext.Provider>
     );
 
-    const message = screen.getByText('Are you sentient?');
-    expect(message).toBeInTheDocument();
-    expect(message).toHaveClass('ai-message__text');
-    expect(message).toHaveClass('ai-message__text--user');
-    expect(message).toHaveClass('ai-message__text--borderless-background');
+    const content = screen.getByTestId('content');
+    expect(content).toBeInTheDocument();
+    expect(content).toHaveClass('ai-message__content');
+    expect(content).toHaveClass('ai-message__content--borderless-background');
   });
 
-  it('renders a MessageControl text element', () => {
-    render(<MessageControl message={messages[1]} />);
+  it('renders text content', () => {
+    render(<MessageControl message={userTextMessage} />);
     const message = screen.getByText('Are you sentient?');
     expect(message).toBeInTheDocument();
   });
 
-  it('renders a MessageControl image element', () => {
-    render(<MessageControl message={messages[2]} />);
+  it('renders image content', () => {
+    render(<MessageControl message={AIImageMessage} />);
     const message = screen.getByRole('img');
     expect(message).toBeInTheDocument();
   });
