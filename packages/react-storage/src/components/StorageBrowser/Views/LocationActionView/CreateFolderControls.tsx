@@ -44,7 +44,7 @@ export const CreateFolderControls = (): React.JSX.Element => {
         handleUpdateState({ type: 'EXIT' });
       },
       children: 'Done',
-      disabled: false,
+      disabled: true,
     };
   }
 
