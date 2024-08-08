@@ -21,18 +21,6 @@ const config = {
 
 const Provider = createProvider({ config });
 
-const mockResponse = jest.fn();
-Object.defineProperty(window, 'location', {
-  value: {
-    hash: {
-      endsWith: mockResponse,
-      includes: mockResponse,
-    },
-    assign: mockResponse,
-  },
-  writable: true,
-});
-
 describe('DownloadControl', () => {
   it('renders the DownloadControl', async () => {
     await waitFor(() => {
