@@ -1,9 +1,12 @@
 import { StorageBrowserElements } from '../../context/elements';
+
 import { ActionSelectControl } from './ActionSelect';
 import { DownloadControl } from './Download';
+import { ExitControl } from './Exit';
 import { MessageControl } from './Message';
 import { NavigateControl } from './Navigate';
 import { PaginateControl } from './Paginate';
+import { PrimaryControl } from './Primary';
 import { RefreshControl } from './Refresh';
 import { SearchControl } from './Search';
 import { SummaryControl } from './Summary';
@@ -16,11 +19,13 @@ export interface Controls<
 > {
   ActionSelect: ActionSelectControl<T>;
   Download: DownloadControl<T>;
+  Exit: ExitControl<T>;
   Message: MessageControl<T>;
+  Paginate: PaginateControl<T>;
+  Primary: PrimaryControl<T>;
+  Navigate: NavigateControl<T>;
   Refresh: RefreshControl<T>;
   Search: SearchControl<T>;
-  Paginate: PaginateControl<T>;
-  Navigate: NavigateControl<T>;
   Summary: SummaryControl<T>;
   Table: TableControl<T>;
   Target: TargetControl<T>;
@@ -28,13 +33,15 @@ export interface Controls<
 }
 
 export const Controls: Controls = {
+  Exit: ExitControl,
   ActionSelect: ActionSelectControl,
   Download: DownloadControl,
   Message: MessageControl,
+  Paginate: PaginateControl,
+  Primary: PrimaryControl,
+  Navigate: NavigateControl,
   Refresh: RefreshControl,
   Search: SearchControl,
-  Paginate: PaginateControl,
-  Navigate: NavigateControl,
   Summary: SummaryControl,
   Table: TableControl,
   Target: TargetControl,

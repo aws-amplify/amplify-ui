@@ -3,13 +3,13 @@ import React from 'react';
 import { useControl } from '../../context/controls';
 import { FileItem } from '../../context/types';
 
-import { Controls, NavigateItem } from '../Controls';
-import { Navigate, Title } from './Controls';
+import { Controls } from '../Controls';
+import { Title } from './Controls';
 import { Column, RenderRowItem } from '../Controls/Table';
 
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
 
-const { Summary, Table } = Controls;
+const { Exit, Primary, Summary, Table } = Controls;
 
 const LOCATION_ACTION_VIEW_COLUMNS: Column<CancelableTask>[] = [
   {
@@ -53,7 +53,7 @@ const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
 };
 
 export const UploadControls = (): JSX.Element => {
-  const [state] = useControl({
+  const [state, handleUpdateState] = useControl({
     type: 'ACTION_SELECT',
   });
   const [{ history }] = useControl({ type: 'NAVIGATE' });
@@ -66,18 +66,16 @@ export const UploadControls = (): JSX.Element => {
 
   return items ? (
     <>
-      <div>
-        <Navigate />
-        <NavigateItem.Button
-          onClick={() => {
-            if (!items) return;
-            handleUpload();
-          }}
-        >
-          Start
-        </NavigateItem.Button>
-      </div>
       <Title />
+      <Exit onClick={() => handleUpdateState({ type: 'EXIT' })} />
+      <Primary
+        onClick={() => {
+          if (!items) return;
+          handleUpload();
+        }}
+      >
+        Start upload
+      </Primary>
       <Summary />
       <Table
         data={tasks}

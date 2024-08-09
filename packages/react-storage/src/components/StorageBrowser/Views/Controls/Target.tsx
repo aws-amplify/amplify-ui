@@ -54,7 +54,7 @@ const FieldInput = withBaseElementProps(Input, {
 });
 
 const FieldButton = withBaseElementProps(Button, {
-  className: `${CLASS_BASE}__target__Button`,
+  className: `${CLASS_BASE}__target__button`,
   type: 'button',
 });
 
