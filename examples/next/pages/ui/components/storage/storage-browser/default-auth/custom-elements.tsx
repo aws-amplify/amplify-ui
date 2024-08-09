@@ -13,12 +13,8 @@ import {
 } from '@aws-amplify/ui-react';
 
 const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
-  const { variant } = props as any;
+  const { disabled, variant } = props as any;
   switch (variant) {
-    case 'action-select-toggle':
-      return (
-        <_Button {...props} variation="link" size="small" ref={ref as any} />
-      );
     case 'action-select-item':
       return (
         <_Button
@@ -30,8 +26,18 @@ const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
           ref={ref as any}
         />
       );
-    case 'download':
-      return <_Button {...props} size="small" variation="link" ref={ref} />;
+    case 'primary':
+      return (
+        <_Button
+          {...props}
+          isDisabled={disabled}
+          size="small"
+          variation="primary"
+          ref={ref}
+        />
+      );
+    case 'action-select-toggle':
+    case 'exit':
     case 'message-dismiss':
       return (
         <_Button
@@ -42,16 +48,15 @@ const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
           ref={ref}
         />
       );
+    case 'download':
     case 'navigate':
+    case 'refresh':
+    case 'sort':
       return <_Button {...props} size="small" variation="link" ref={ref} />;
     case 'paginate-current':
     case 'paginate-next':
     case 'paginate-previous':
       return <_Button {...props} size="small" ref={ref} />;
-    case 'refresh':
-      return <_Button {...props} variation="link" size="small" ref={ref} />;
-    case 'sort':
-      return <_Button {...props} variation="link" size="small" ref={ref} />;
     case 'table-data':
       return (
         <_Button
@@ -87,6 +92,7 @@ const Title = React.forwardRef<HTMLHeadingElement>(
     );
   }
 );
+
 const Table = React.forwardRef<HTMLTableElement>(function Table(props, ref) {
   return <_Table {...props} size="small" variation="striped" ref={ref} />;
 });
