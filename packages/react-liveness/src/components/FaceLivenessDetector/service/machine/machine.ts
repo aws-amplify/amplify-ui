@@ -760,7 +760,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       callUserPermissionDeniedCallback: assign({
         errorState: (context, event) => {
           let errorState: ErrorState;
-          console.log(event);
+          console.log('Error ', event);
           if ((event.data!.message as string).includes('15 fps')) {
             errorState = LivenessErrorState.CAMERA_FRAMERATE_ERROR;
           } else {
@@ -945,6 +945,17 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           ...cameraConstraints,
           ...deviceIdConstraint,
         });
+
+        console.log(
+          `navigator.mediaDevices.getUserMedia({
+            video: { facingMode: { exact: 'environment' } },
+            audio: false,
+          })`,
+          navigator.mediaDevices.getUserMedia({
+            video: { facingMode: { exact: 'environment' } },
+            audio: false,
+          })
+        );
 
         const initialStream = await navigator.mediaDevices.getUserMedia({
           video: {
