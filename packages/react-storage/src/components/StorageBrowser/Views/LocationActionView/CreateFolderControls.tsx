@@ -4,9 +4,9 @@ import { useAction } from '../../context/actions';
 import { useControl } from '../../context/controls';
 
 import { Controls } from '../Controls';
-import { Primary, Title, Navigate } from './Controls';
+import { Title } from './Controls';
 
-const { Target } = Controls;
+const { Exit, Message, Primary, Target } = Controls;
 
 export const CreateFolderControls = (): React.JSX.Element => {
   const [, handleUpdateState] = useControl({ type: 'ACTION_SELECT' });
@@ -26,7 +26,18 @@ export const CreateFolderControls = (): React.JSX.Element => {
   const [fieldValidationError, setFieldValidationError] = React.useState<
     string | undefined
   >();
+
   const inputRef = React.useRef<HTMLInputElement>(null);
+
+  const handleFieldValidation = () => {
+    if (!inputRef.current?.value?.endsWith('/')) {
+      setFieldValidationError('Folder name must end with a "/" character');
+      return;
+    }
+    // clear error
+    setFieldValidationError(undefined);
+    setData(() => inputRef.current?.value ?? '');
+  };
 
   const prefix = `${history.join('')}${data}`;
 
@@ -34,7 +45,7 @@ export const CreateFolderControls = (): React.JSX.Element => {
     onClick: () => {
       handleCreateAction({ prefix });
     },
-    children: 'Start',
+    children: 'Create folder',
     disabled: !data.length,
   };
 
@@ -43,43 +54,39 @@ export const CreateFolderControls = (): React.JSX.Element => {
       onClick: () => {
         handleUpdateState({ type: 'EXIT' });
       },
-      children: 'Done',
-      disabled: false,
+      children: 'Folder created',
+      disabled: true,
     };
   }
 
   return (
     <>
-      <Navigate />
       <Title />
+      <Exit onClick={() => handleUpdateState({ type: 'EXIT' })} />
+      <Primary {...primaryProps} />
+      {result?.status === 'SUCCESS' ? (
+        <Message variant="success">Folder created.</Message>
+      ) : null}
       <Target.Field.Container>
         <Target.Field.Label htmlFor="folder-name-input">
           Enter folder name:
         </Target.Field.Label>
         <Target.Field.Input
           disabled={isLoading}
+          aria-invalid={fieldValidationError ? 'true' : undefined}
+          aria-describedBy="fieldError"
           type="text"
           id="folder-name-input"
+          onBlur={handleFieldValidation}
+          onFocus={() => setFieldValidationError(undefined)}
           ref={inputRef}
         />
-        {fieldValidationError ? <span>{fieldValidationError}</span> : null}
-        <Target.Field.Button
-          onClick={() => {
-            if (!inputRef.current?.value?.endsWith('/')) {
-              setFieldValidationError(
-                'Folder name must end with a "/" character'
-              );
-              return;
-            }
-            // clear error
-            setFieldValidationError(undefined);
-            setData(() => inputRef.current?.value ?? '');
-          }}
-        >
-          Set Folder Name
-        </Target.Field.Button>
+        {fieldValidationError ? (
+          <Target.Field.Error id="fieldError">
+            {fieldValidationError}
+          </Target.Field.Error>
+        ) : null}
       </Target.Field.Container>
-      <Primary {...primaryProps} />
     </>
   );
 };

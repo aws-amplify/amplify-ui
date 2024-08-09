@@ -35,8 +35,10 @@ type ButtonElementVariant =
   | 'action-select-item'
   | 'action-select-toggle'
   | 'action-submit'
+  | 'exit'
   | 'message-dismiss'
   | 'navigate'
+  | 'primary'
   | 'refresh'
   | 'search-submit'
   | 'sort'
@@ -70,7 +72,7 @@ export const NavElement = defineBaseElement({
   displayName: 'Nav',
 });
 
-export const TextElement = defineBaseElement({
+export const TextElement = defineBaseElement<'p', 'id'>({
   type: 'p',
   displayName: 'Text',
 });
@@ -132,7 +134,7 @@ export const ProgressBarElement = defineBaseElement({
 
 export const InputElement = defineBaseElement<
   'input',
-  'type' | 'id' | 'disabled'
+  'disabled' | 'type' | 'id' | 'onBlur' | 'onFocus'
 >({
   type: 'input',
   displayName: 'Input',
@@ -144,7 +146,7 @@ export const ButtonElement = defineBaseElement<
   ButtonElementVariant
 >({ type: 'button', displayName: 'Button' });
 
-export const ViewElement = defineBaseElement({
+export const ViewElement = defineBaseElement<'div', 'id'>({
   type: 'div',
   displayName: 'View',
 });
