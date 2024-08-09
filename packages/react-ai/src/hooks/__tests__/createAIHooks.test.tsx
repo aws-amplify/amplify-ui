@@ -117,12 +117,7 @@ describe('createAIHooks', () => {
         useAIConversation('pirateChat', { onResponse })
       );
       await waitForNextUpdate();
-      const [
-        {
-          data: { messages },
-        },
-        sendMessage,
-      ] = result.current;
+      const [_data, sendMessage] = result.current;
 
       sendMessage({ content: ['foobar'] as unknown as any });
       await waitForNextUpdate();
