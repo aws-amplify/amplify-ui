@@ -25,7 +25,7 @@ export interface StorageBrowser<T extends StorageBrowserElements> {
   Provider: (props: { children?: React.ReactNode }) => React.JSX.Element;
 }
 
-interface ResolvedStorageBrowserElements<
+export interface ResolvedStorageBrowserElements<
   T extends Partial<StorageBrowserElements>,
 > extends MergeBaseElements<StorageBrowserElements, T> {}
 
