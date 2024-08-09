@@ -40,10 +40,10 @@ describe('ProviderDataListContext', () => {
     });
 
     const expectedProviderData: ProviderData[] = [
-      { providerName: 'Amazon', displayName: 'Amazon', icon: 'amazon' },
-      { providerName: 'Facebook', displayName: 'Facebook', icon: 'facebook' },
-      { providerName: 'Apple', displayName: 'Apple', icon: 'apple' },
-      { providerName: 'Google', displayName: 'Google', icon: 'google' },
+      { providerName: 'amazon', displayName: 'Amazon', icon: 'amazon' },
+      { providerName: 'facebook', displayName: 'Facebook', icon: 'facebook' },
+      { providerName: 'apple', displayName: 'Apple', icon: 'apple' },
+      { providerName: 'google', displayName: 'Google', icon: 'google' },
       { providerName: 'OktaClient', displayName: 'Okta', icon: <svg></svg> },
     ];
 

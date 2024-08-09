@@ -10,11 +10,10 @@ import { capitalize } from '@aws-amplify/ui';
 function getSupportedProviderData(
   providerName: FederatedProvider
 ): ProviderData {
-  const capitalizedProviderName = capitalize(providerName);
   return {
-    displayName: capitalizedProviderName,
+    displayName: capitalize(providerName),
     icon: providerName,
-    providerName: capitalizedProviderName,
+    providerName: providerName,
   };
 }
 
