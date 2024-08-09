@@ -1,5 +1,5 @@
 import { V6Client } from '@aws-amplify/api-graphql';
-import { ActionState, useDataState } from '@aws-amplify/ui-react-core';
+import { DataState, useDataState } from '@aws-amplify/ui-react-core';
 
 interface GenerateParameters {
   arguments: string | string[] | number;
@@ -17,7 +17,7 @@ export type UseAIGenerationHook<T extends string> = (
   routeName: T,
   input?: UseAIGenerationInput
 ) => [
-  Awaited<ActionState<AIGenerationState>>,
+  Awaited<DataState<AIGenerationState>>,
   (input: GenerateParameters) => void,
 ];
 

@@ -8,7 +8,9 @@ import {
 export function createAIHooks<T extends V6Client<any>>(
   _client: T
 ): {
-  useAIConversation: UseAIConversationHook<Extract<keyof T['models'], string>>;
+  useAIConversation: UseAIConversationHook<
+    Extract<keyof T['conversations'], string>
+  >;
   useAIGeneration: UseAIGenerationHook<Extract<keyof T['models'], string>>;
 } {
   const useAIConversation = createUseAIConversation(_client);

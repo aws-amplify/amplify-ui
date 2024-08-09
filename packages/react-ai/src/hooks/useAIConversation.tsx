@@ -134,6 +134,7 @@ export function createUseAIConversation<T extends V6Client<any>>(
         const subscription =
           conversation &&
           conversation.onMessage((message) => {
+            if (input.onResponse) input.onResponse(message);
             setWaitingForAIResponse(false);
             setLocalMessages((previousLocalMessages) => [
               ...previousLocalMessages,
@@ -159,7 +160,7 @@ export function createUseAIConversation<T extends V6Client<any>>(
           subscription?.unsubscribe();
         };
       },
-      [conversation, routeName, setRouteToConversationsMap]
+      [conversation, routeName, setRouteToConversationsMap, input]
     );
 
     const getSnapshot = React.useCallback(() => localMessages, [localMessages]);
