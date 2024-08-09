@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Button as _Button,
   Flex,
+  Heading as _Heading,
   Input as _Input,
   Label as _Label,
   Message as _Message,
@@ -11,7 +12,6 @@ import {
   TableHead as _TableHead,
   TableRow as _TableRow,
   Text as _Text,
-  Heading as _Heading,
   View as _View,
 } from '@aws-amplify/ui-react';
 
@@ -41,6 +41,16 @@ const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
       );
     case 'action-select-toggle':
     case 'exit':
+    case 'message-dismiss':
+      return (
+        <_Button
+          {...props}
+          size="small"
+          variation="link"
+          colorTheme="overlay"
+          ref={ref}
+        />
+      );
     case 'navigate':
     case 'refresh':
     case 'sort':
@@ -157,10 +167,13 @@ const View = React.forwardRef<HTMLDivElement>(function View(props, ref) {
           ref={ref as any}
         />
       );
-    case 'message-success':
+    case 'info':
+    case 'warning':
+    case 'success':
+    case 'error':
       const { children } = props as any;
       return (
-        <_Message {...props} hasIcon={false} colorTheme="success" ref={ref}>
+        <_Message {...props} hasIcon={false} colorTheme={variant} ref={ref}>
           <Flex gap="small" alignItems="center">
             {children}
           </Flex>

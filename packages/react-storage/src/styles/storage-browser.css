@@ -88,7 +88,7 @@
 }
 
 .storage-browser__message {
-  grid-row-start: 3;
+  grid-row: 4 / 5;
   grid-column: 1 / -1;
   align-items: flex-start;
   display: flex;
@@ -126,7 +126,7 @@
 }
 
 .storage-browser__table {
-  grid-row-start: 4;
+  grid-row-start: 5;
   grid-column: 1 / -1;
 }
 .storage-browser__table__header {

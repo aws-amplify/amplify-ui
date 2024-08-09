@@ -20,6 +20,7 @@ export interface MessageDismissControl<
 
 const DismissButton = withBaseElementProps(Button, {
   className: `${BLOCK_NAME}__dismiss`,
+  variant: `message-dismiss`,
   'aria-label': 'Dismiss message',
 });
 
@@ -97,7 +98,7 @@ export interface MessageControl<
 }
 export const MessageControl: MessageControl = ({ variant, children }) => {
   return (
-    <Container variant={`message-${variant}`}>
+    <Container variant={variant}>
       <MessageIcon variant={variant} />
       <MessageContent>{children}</MessageContent>
       <MessageDismissControl />

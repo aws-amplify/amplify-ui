@@ -36,6 +36,7 @@ type ButtonElementVariant =
   | 'action-select-toggle'
   | 'action-submit'
   | 'exit'
+  | 'message-dismiss'
   | 'navigate'
   | 'primary'
   | 'refresh'
