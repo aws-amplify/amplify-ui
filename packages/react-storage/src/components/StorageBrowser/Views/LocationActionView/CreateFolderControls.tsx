@@ -4,9 +4,9 @@ import { useAction } from '../../context/actions';
 import { useControl } from '../../context/controls';
 
 import { Controls } from '../Controls';
-import { Primary, Title, Navigate } from './Controls';
+import { Title } from './Controls';
 
-const { Target } = Controls;
+const { Exit, Primary, Target } = Controls;
 
 export const CreateFolderControls = (): React.JSX.Element => {
   const [, handleUpdateState] = useControl({ type: 'ACTION_SELECT' });
@@ -34,7 +34,7 @@ export const CreateFolderControls = (): React.JSX.Element => {
     onClick: () => {
       handleCreateAction({ prefix });
     },
-    children: 'Start',
+    children: 'Create folder',
     disabled: !data.length,
   };
 
@@ -43,15 +43,17 @@ export const CreateFolderControls = (): React.JSX.Element => {
       onClick: () => {
         handleUpdateState({ type: 'EXIT' });
       },
-      children: 'Done',
-      disabled: false,
+      children: 'Folder created',
+      disabled: true,
     };
   }
 
   return (
     <>
-      <Navigate />
       <Title />
+      <Exit onClick={() => handleUpdateState({ type: 'EXIT' })} />
+      <Primary {...primaryProps} />
+
       <Target.Field.Container>
         <Target.Field.Label htmlFor="folder-name-input">
           Enter folder name:
@@ -79,7 +81,6 @@ export const CreateFolderControls = (): React.JSX.Element => {
           Set Folder Name
         </Target.Field.Button>
       </Target.Field.Container>
-      <Primary {...primaryProps} />
     </>
   );
 };
