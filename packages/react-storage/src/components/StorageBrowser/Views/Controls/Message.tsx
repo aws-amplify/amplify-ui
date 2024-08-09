@@ -42,7 +42,6 @@ MessageDismissControl.Icon = DismissIcon;
 /* <MessageControl /> */
 const Container = withBaseElementProps(View, {
   className: BLOCK_NAME,
-  variant: 'message',
   role: 'alert',
 });
 
