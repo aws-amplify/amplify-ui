@@ -30,6 +30,8 @@ const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
           ref={ref as any}
         />
       );
+    case 'download':
+      return <_Button {...props} size="small" variation="link" ref={ref} />;
     case 'message-dismiss':
       return (
         <_Button

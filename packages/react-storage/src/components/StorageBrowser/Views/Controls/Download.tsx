@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
+import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import { downloadAction } from '../../context/actions';
 import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
 import { useDataState } from '@aws-amplify/ui-react-core';
 
-const { Button: ButtonElement, Icon: IconElement } = StorageBrowserElements;
+const { Button, Icon } = StorageBrowserElements;
 
 const BLOCK_NAME = `${CLASS_BASE}__download`;
 
@@ -17,31 +18,15 @@ export interface DownloadControl<
   Icon: T['Icon'];
 }
 
-const DownloadIcon: typeof IconElement = React.forwardRef(
-  function DownloadIcon(props, ref) {
-    return (
-      <IconElement
-        {...props}
-        ref={ref}
-        className={`${BLOCK_NAME}__icon`}
-        variant="download"
-      />
-    );
-  }
-);
+const DownloadIcon = withBaseElementProps(Icon, {
+  className: `${BLOCK_NAME}__icon`,
+  variant: 'download',
+});
 
-const DownloadButton: typeof ButtonElement = React.forwardRef(
-  function DownloadButton(props, ref) {
-    return (
-      <ButtonElement
-        {...props}
-        ref={ref}
-        className={BLOCK_NAME}
-        aria-label="Download item"
-      />
-    );
-  }
-);
+const DownloadButton = withBaseElementProps(Button, {
+  className: BLOCK_NAME,
+  variant: 'download',
+});
 
 function download(fileName: string, url: string) {
   const a = document.createElement('a');
@@ -71,6 +56,7 @@ export const DownloadControl: DownloadControl = ({ fileKey }) => {
 
   return (
     <DownloadButton
+      aria-label={`Download ${fileKey}`}
       onClick={() => {
         handleDownload({
           key: fileKey,

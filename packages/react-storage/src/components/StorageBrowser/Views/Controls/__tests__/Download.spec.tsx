@@ -23,18 +23,20 @@ const Provider = createProvider({ config });
 
 describe('DownloadControl', () => {
   it('renders the DownloadControl', async () => {
+    const fileKey = 'test.jpg';
+
     await waitFor(() => {
       expect(
         render(
           <Provider>
-            <DownloadControl fileKey="" />
+            <DownloadControl fileKey={fileKey} />
           </Provider>
         ).container
       ).toBeDefined();
     });
 
     const button = screen.getByRole('button', {
-      name: 'Download item',
+      name: `Download ${fileKey}`,
     });
 
     const icon = button.querySelector('svg');
@@ -61,7 +63,7 @@ describe('DownloadControl', () => {
     );
 
     const button = screen.getByRole('button', {
-      name: 'Download item',
+      name: 'Download',
     });
 
     act(() => {
