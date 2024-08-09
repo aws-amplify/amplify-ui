@@ -22,6 +22,7 @@ export async function downloadAction(
         bucket,
         locationCredentialsProvider: credentialsProvider,
         validateObjectExistence: true,
+        contentDisposition: 'attachment',
       },
     });
 
