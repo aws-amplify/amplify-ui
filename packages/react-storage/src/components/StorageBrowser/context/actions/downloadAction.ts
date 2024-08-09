@@ -1,8 +1,8 @@
-import { downloadData } from 'aws-amplify/storage';
+import { getUrl } from 'aws-amplify/storage';
 
 import { DownloadActionInput, DownloadActionOutput } from '../types';
 
-export function downloadAction(
+export async function downloadAction(
   _: DownloadActionOutput,
   input: DownloadActionInput
 ): Promise<DownloadActionOutput> {
@@ -15,12 +15,19 @@ export function downloadAction(
 
   const bucket = bucketName && region ? { bucketName, region } : undefined;
 
-  downloadData({
-    path,
-    options: {
-      bucket,
-      locationCredentialsProvider: credentialsProvider,
-    },
-  });
-  return Promise.resolve({ key: path });
+  try {
+    const signedUrl = await getUrl({
+      path,
+      options: {
+        bucket,
+        locationCredentialsProvider: credentialsProvider,
+        validateObjectExistence: true,
+      },
+    });
+
+    return { signedUrl: signedUrl.url.toString() };
+  } catch (e) {
+    // @TODO: update UI to let user know that the file no longer exists?
+    return Promise.reject(e);
+  }
 }

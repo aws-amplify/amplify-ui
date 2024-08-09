@@ -9,7 +9,6 @@ import {
   ActionState,
   createActionStateContext,
 } from './createActionStateContext';
-import { downloadAction } from './downloadAction';
 
 import { createFolderAction } from './createFolderAction';
 import { listLocationItemsAction } from './listLocationItemsAction';
@@ -34,14 +33,12 @@ export const ERROR_MESSAGE =
 
 export const DEFAULT_ACTIONS = {
   CREATE_FOLDER: createFolderAction,
-  DOWNLOAD: downloadAction,
   LIST_LOCATION_ITEMS: listLocationItemsAction,
 };
 
 export const INITIAL_VALUE = {
   CREATE_FOLDER: { result: undefined },
   LIST_LOCATION_ITEMS: { result: [], nextToken: undefined },
-  DOWNLOAD: { key: '' },
 };
 
 const [ActionStateProvider, useActionState] = createActionStateContext(
