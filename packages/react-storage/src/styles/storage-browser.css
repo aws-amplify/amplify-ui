@@ -84,6 +84,8 @@
 }
 
 .storage-browser__message {
+  grid-row: 4 / 5;
+  grid-column: 1 / -1;
   align-items: flex-start;
   display: flex;
   gap: var(--storage-browser-gap);
@@ -120,7 +122,7 @@
 }
 
 .storage-browser__table {
-  grid-row: 4 / -1;
+  grid-row-start: 5;
   grid-column: 1 / -1;
 }
 .storage-browser__table__header {

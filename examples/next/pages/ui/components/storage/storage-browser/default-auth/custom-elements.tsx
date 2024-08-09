@@ -1,12 +1,14 @@
 import React from 'react';
 import {
   Button as _Button,
+  Flex,
   Table as _Table,
   TableBody as _TableBody,
   TableCell as _TableCell,
   TableHead as _TableHead,
   TableRow as _TableRow,
   Heading as _Heading,
+  Message as _Message,
   View as _View,
 } from '@aws-amplify/ui-react';
 
@@ -36,6 +38,16 @@ const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
       );
     case 'action-select-toggle':
     case 'exit':
+    case 'message-dismiss':
+      return (
+        <_Button
+          {...props}
+          size="small"
+          variation="link"
+          colorTheme="overlay"
+          ref={ref}
+        />
+      );
     case 'navigate':
     case 'refresh':
     case 'sort':
@@ -128,6 +140,18 @@ const View = React.forwardRef<HTMLDivElement>(function View(props, ref) {
           padding="small"
           ref={ref as any}
         />
+      );
+    case 'info':
+    case 'warning':
+    case 'success':
+    case 'error':
+      const { children } = props as any;
+      return (
+        <_Message {...props} hasIcon={false} colorTheme={variant} ref={ref}>
+          <Flex gap="small" alignItems="center">
+            {children}
+          </Flex>
+        </_Message>
       );
     default:
       return <_View {...props} ref={ref as any} />;
