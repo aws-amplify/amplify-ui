@@ -90,4 +90,12 @@ describe('ProviderDataListContext', () => {
       render(<ProviderDataListProvider providerTypes={providerTypeList} />)
     ).toThrow('Duplicate provider name found: facebook');
   });
+
+  it('should fail if providerDataListContext does not exist', () => {
+    const { result } = renderHook(() => useProviderDataList());
+
+    expect(() => result.current).toThrow(
+      'ProviderDataList context does not exist'
+    );
+  });
 });
