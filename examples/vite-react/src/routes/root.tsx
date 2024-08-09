@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { Outlet, Link } from 'react-router-dom';
+import { Layout } from '../components/Layout';
 
 export default function Root() {
   return (
-    <>
-      <Link to="/storage/storage-manager">Storage Manager</Link>
-      {/* all the other elements */}
+    <Layout>
       <div id="detail">
         <Outlet />
       </div>
-    </>
+    </Layout>
   );
 }
