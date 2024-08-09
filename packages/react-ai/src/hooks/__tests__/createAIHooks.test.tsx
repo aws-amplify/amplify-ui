@@ -1,8 +1,5 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import { createAIHooks } from '../createAIHooks';
-import { AIContextProvider } from '../AIContextProvider';
-import React from 'react';
-import { render } from '@testing-library/react';
 
 const listMessageMock = jest.fn().mockResolvedValue({ data: [] });
 const sendMessageMock = jest.fn().mockResolvedValue({ data: {} });
@@ -78,12 +75,7 @@ describe('createAIHooks', () => {
         useAIConversation('pirateChat')
       );
       await waitForNextUpdate();
-      const [
-        {
-          data: { messages },
-        },
-        sendMessage,
-      ] = result.current;
+      const [_data, sendMessage] = result.current;
 
       sendMessage({ content: ['foobar'] as unknown as any });
       await waitForNextUpdate();
@@ -101,12 +93,7 @@ describe('createAIHooks', () => {
         useAIConversation('pirateChat')
       );
       await waitForNextUpdate();
-      const [
-        {
-          data: { messages },
-        },
-        sendMessage,
-      ] = result.current;
+      const [_data, sendMessage] = result.current;
 
       sendMessage({ content: ['foobar'] as unknown as any });
       await waitForNextUpdate();
