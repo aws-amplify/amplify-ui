@@ -1,6 +1,9 @@
+export { StorageBrowserElements } from './context/elements';
 export {
   createStorageBrowser,
   CreateStorageBrowserInput,
+  StorageBrowser,
+  ResolvedStorageBrowserElements,
 } from './createStorageBrowser';
 export {
   createAmplifyAuthAdapter,
