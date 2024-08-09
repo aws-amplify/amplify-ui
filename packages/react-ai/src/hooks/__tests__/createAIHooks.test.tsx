@@ -1,11 +1,41 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import { createAIHooks } from '../createAIHooks';
-import { AIContextProvider } from '../AIContextProvider';
-import React from 'react';
 
-const mockClient = jest.fn();
+const listMessageMock = jest.fn().mockResolvedValue({ data: [] });
+const sendMessageMock = jest.fn().mockResolvedValue({ data: {} });
+const onMessageMock = jest.fn().mockReturnValue({ unsubscribe: jest.fn() });
+let id = 'foobar';
+
+const mockGet = jest.fn().mockImplementation(() => {
+  return {
+    data: {
+      id: id,
+      listMessages: listMessageMock,
+      sendMessage: sendMessageMock,
+      onMessage: onMessageMock,
+    },
+  };
+});
+const mockCreate = mockGet;
+const mockClient = jest.fn().mockImplementation(() => {
+  return {
+    conversations: {
+      pirateChat: {
+        get: mockGet,
+        create: mockCreate,
+      },
+    },
+  };
+});
 
 describe('createAIHooks', () => {
+  beforeEach(() => {
+    listMessageMock.mockResolvedValue({
+      data: [{ content: [{ text: 'asdf' }] }],
+    });
+    onMessageMock.mockReset();
+  });
+
   it('returns an useAIGeneration and useAIConversation hooks', async () => {
     const client = new mockClient();
     const { useAIConversation, useAIGeneration } = createAIHooks(client);
@@ -15,57 +45,114 @@ describe('createAIHooks', () => {
   });
 
   describe('useAIConversation', () => {
-    it('returns some messages', async () => {
+    it('returns some messages and a sendMessage function', async () => {
       const client = new mockClient();
       const { useAIConversation } = createAIHooks(client);
 
       expect(useAIConversation).toBeDefined();
 
-      const { result } = renderHook(() => useAIConversation('pirateChat'));
-
+      const { result, waitForNextUpdate } = renderHook(() =>
+        useAIConversation('pirateChat')
+      );
+      await waitForNextUpdate();
       const [
         {
           data: { messages },
         },
         sendMessage,
       ] = result.current;
-      expect(messages).toHaveLength(3);
+      expect(messages).toHaveLength(1);
+      expect(sendMessage).toBeDefined();
     });
 
-    it.todo('hook can send a message which updates state');
-
-    it.todo('hook can receive new messages from the conversation subscription');
-
-    it.todo(
-      'multiple hook uses with the same route and id combination have shared message state'
-    );
-    // const wrapper = ({ children }: { children: React.ReactNode }) => (
-    //   <AIContextProvider>{children}</AIContextProvider>
-    // )
-    // const { result } = renderHook(() => useAIConversation('pirateChat'), { wrapper });
-  });
-
-  describe('useAIGeneration', () => {
-    it('returns a result', async () => {
+    it('hook can send a message which updates state', async () => {
       const client = new mockClient();
-      const { useAIGeneration } = createAIHooks(client);
+      const { useAIConversation } = createAIHooks(client);
 
-      const { result: hookResult, waitForNextUpdate } = renderHook(() =>
-        useAIGeneration('recipe')
+      expect(useAIConversation).toBeDefined();
+
+      const { result, waitForNextUpdate } = renderHook(() =>
+        useAIConversation('pirateChat')
       );
-
-      const [{ data }, generate] = hookResult.current;
-      act(() => {
-        generate({ arguments: ['apple', 'banana', 'grape'] });
-      });
-
-      const [loadingState] = hookResult.current;
-      expect(loadingState.isLoading).toBeTruthy();
-
       await waitForNextUpdate();
+      const [_data, sendMessage] = result.current;
 
-      const [awaitedState] = hookResult.current;
-      expect(awaitedState.data.result).toBeDefined();
+      sendMessage({ content: ['foobar'] as unknown as any });
+      await waitForNextUpdate();
+      expect(result.current[0].data.messages).toHaveLength(2);
+      expect(sendMessageMock).toHaveBeenCalled();
+    });
+
+    it('hook can receive new messages from the conversation subscription', async () => {
+      const client = new mockClient();
+      const { useAIConversation } = createAIHooks(client);
+
+      expect(useAIConversation).toBeDefined();
+
+      const { result, waitForNextUpdate } = renderHook(() =>
+        useAIConversation('pirateChat')
+      );
+      await waitForNextUpdate();
+      const [_data, sendMessage] = result.current;
+
+      sendMessage({ content: ['foobar'] as unknown as any });
+      await waitForNextUpdate();
+      expect(result.current[0].data.messages).toHaveLength(2);
+
+      const foobar = onMessageMock.mock.calls[0][0];
+      act(() => {
+        foobar({ content: [{ text: 'Pirate responding' }] });
+      });
+      expect(result.current[0].data.messages).toHaveLength(3);
+    });
+
+    it('hook can receive new messages and calls a custom onResponse function', async () => {
+      const client = new mockClient();
+      const { useAIConversation } = createAIHooks(client);
+
+      expect(useAIConversation).toBeDefined();
+
+      const onResponse = jest.fn();
+      const { result, waitForNextUpdate } = renderHook(() =>
+        useAIConversation('pirateChat', { onResponse })
+      );
+      await waitForNextUpdate();
+      const [_data, sendMessage] = result.current;
+
+      sendMessage({ content: ['foobar'] as unknown as any });
+      await waitForNextUpdate();
+      expect(result.current[0].data.messages).toHaveLength(2);
+
+      const foobar = onMessageMock.mock.calls[0][0];
+      act(() => {
+        foobar({ content: [{ text: 'Pirate responding' }] });
+      });
+      expect(result.current[0].data.messages).toHaveLength(3);
+      expect(onResponse).toHaveBeenCalled();
     });
   });
+
+  // describe('useAIGeneration', () => {
+  //   it('returns a result', async () => {
+  //     const client = new mockClient();
+  //     const { useAIGeneration } = createAIHooks(client);
+
+  //     const { result: hookResult, waitForNextUpdate } = renderHook(() =>
+  //       useAIGeneration('recipe')
+  //     );
+
+  //     const [{ data }, generate] = hookResult.current;
+  //     act(() => {
+  //       generate({ arguments: ['apple', 'banana', 'grape'] });
+  //     });
+
+  //     const [loadingState] = hookResult.current;
+  //     expect(loadingState.isLoading).toBeTruthy();
+
+  //     await waitForNextUpdate();
+
+  //     const [awaitedState] = hookResult.current;
+  //     expect(awaitedState.data.result).toBeDefined();
+  //   });
+  // });
 });

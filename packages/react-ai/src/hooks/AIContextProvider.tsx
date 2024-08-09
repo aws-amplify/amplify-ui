@@ -1,12 +1,15 @@
 import React from 'react';
+import { ConversationMessage } from '@aws-amplify/data-schema/dist/esm/ai/ConversationType';
 
-interface AIState {
-  routeIdToMessages: Record<string, string[]>;
-}
+type ConversationToMessages = Record<string, ConversationMessage[]>;
+
+export type RouteToConversations = Record<string, ConversationToMessages>;
 
 interface ContextType {
-  state: AIState;
-  handler: React.Dispatch<React.SetStateAction<AIState>>;
+  routeToConversationsMap: RouteToConversations;
+  setRouteToConversationsMap: React.Dispatch<
+    React.SetStateAction<RouteToConversations>
+  >;
 }
 
 export const AIContext = React.createContext<ContextType | undefined>(
@@ -15,13 +18,14 @@ export const AIContext = React.createContext<ContextType | undefined>(
 
 export const useAIContext = (): ContextType => {
   const context = React.useContext(AIContext);
-  const [state, handler] = React.useState<AIState>({ routeIdToMessages: {} });
+  const [routeToConversationsMap, setRouteToConversationsMap] =
+    React.useState<RouteToConversations>({});
 
   if (context) {
     return context;
   }
 
-  return { state, handler };
+  return { routeToConversationsMap, setRouteToConversationsMap };
 };
 
 export const AIContextProvider = ({

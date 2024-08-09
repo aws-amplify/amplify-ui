@@ -1,18 +1,40 @@
 import React from 'react';
-import { ActionState } from '@aws-amplify/ui-react-core';
 import { V6Client } from '@aws-amplify/api-graphql';
-import { useAIContext } from './AIContextProvider';
-import { Content, ConversationMessage } from '../types';
+import {
+  Conversation,
+  ConversationMessage,
+} from '@aws-amplify/data-schema/dist/esm/ai/ConversationType';
+import { DataState } from '@aws-amplify/ui-react-core';
+import { RouteToConversations, useAIContext } from './AIContextProvider';
 
+function createNewConversationMessageInRoute({
+  previousValue,
+  routeName,
+  conversationId,
+  messages,
+}: {
+  previousValue: RouteToConversations;
+  routeName: string;
+  conversationId: string;
+  messages: ConversationMessage[];
+}) {
+  return {
+    ...previousValue,
+    [routeName]: {
+      ...previousValue[routeName],
+      [conversationId]: messages,
+    },
+  };
+}
 interface SendMesageParameters {
-  content: Content;
-  aiContext?: Record<string, any>;
+  content: Parameters<Conversation['sendMessage']>[0]['content'];
+  aiContext?: Parameters<Conversation['sendMessage']>[0]['aiContext'];
   responseComponents?: any;
 }
 
 interface UseAIConversationInput {
   id?: string; // should attempt to create a new session id if none is passed
-  onResponse?: (message: ConversationMessage) => void; // handler for receiving new messages
+  onResponse?: (message: ConversationMessage) => void;
 }
 
 interface AIConversationState {
@@ -22,91 +44,153 @@ interface AIConversationState {
 export type UseAIConversationHook<T extends string> = (
   routeName: T,
   input?: UseAIConversationInput
-) => [ActionState<AIConversationState>, (input: SendMesageParameters) => void];
+) => [DataState<AIConversationState>, (input: SendMesageParameters) => void];
 
 export function createUseAIConversation<T extends V6Client<any>>(
-  _client: T
-): UseAIConversationHook<Extract<keyof T['models'], string>> {
+  client: T
+): UseAIConversationHook<Extract<keyof T['conversations'], string>> {
   const useAIConversation: UseAIConversationHook<
-    Extract<keyof T['models'], string>
-  > = (_routeName: keyof T['models']) => {
-    // const conversation = client.ai.conversation as T['ai'])[routeName];
+    Extract<keyof T['conversations'], string>
+  > = (routeName: keyof T['conversations'], input = {}) => {
+    const clientRoute = (client.conversations as T['conversations'])[routeName];
 
-    // const session = conversation.startSession(sessionId);
-    // const messageHistory = session.listMessages();
-    // return useDataState(session.sendMessage, { messages: messageHistory });
+    const { routeToConversationsMap, setRouteToConversationsMap } =
+      useAIContext();
+    const messagesFromAIContext = input.id
+      ? routeToConversationsMap[routeName as string]?.[input.id]
+      : undefined;
+    const [localMessages, setLocalMessages] = React.useState<
+      ConversationMessage[]
+    >(messagesFromAIContext ?? []);
+    const [conversation, setConversation] = React.useState<
+      Conversation | undefined
+    >(undefined);
+    const [waitingForAIResponse, setWaitingForAIResponse] =
+      React.useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = React.useState<
+      string | undefined
+    >();
+    const [hasError, setHasError] = React.useState<boolean>(false);
 
-    const { state, handler } = useAIContext();
-    const { routeIdToMessages } = state;
-    const messages = routeIdToMessages[_routeName as string];
+    // On hook initialization get conversation and load all messages
+    React.useEffect(() => {
+      async function initialize() {
+        const { data: conversation } = input.id
+          ? await clientRoute.get({ id: input.id })
+          : await clientRoute.create();
 
-    const sendMessage = (_input: SendMesageParameters) => {
-      handler({
-        routeIdToMessages: {
-          ...routeIdToMessages,
-          [_routeName]: [...(messages ?? []), 'content.value'],
-        },
-      });
-    };
+        if (!conversation) {
+          const errorString = 'No conversation found';
+          setHasError(true);
+          setErrorMessage(errorString);
+          throw new Error(errorString);
+        }
 
-    const subscribe = React.useCallback((handleStoreChange: () => void) => {
-      // Listen for messages on the WebSocket
-      // session.onMessage // update message state
-      // ws.onmessage = (_message: string) => {
-      //   const messageData = { message: 'hello world' };
-      //   setData(messageData);
-      handleStoreChange();
-      // };
-      return () => {
-        // Provide a way to unsubscribe to the event
-        // ws.onmessage = null;
-      };
-    }, []);
+        const { data: messages } = await conversation.listMessages();
 
-    const getSnapshot = React.useCallback(() => messages, [messages]);
+        setLocalMessages(messages);
+        setConversation(conversation);
+        setRouteToConversationsMap((previousValue) => {
+          return createNewConversationMessageInRoute({
+            previousValue,
+            routeName: routeName as string,
+            conversationId: conversation.id,
+            messages,
+          });
+        });
+      }
+
+      initialize();
+    }, [clientRoute, input.id, routeName, setRouteToConversationsMap]);
+
+    // Update messages to match what is in AIContext if they aren't equal
+    React.useEffect(() => {
+      if (!!messagesFromAIContext && messagesFromAIContext !== localMessages)
+        setLocalMessages(messagesFromAIContext);
+    }, [messagesFromAIContext, localMessages]);
+
+    const sendMessage = React.useCallback(
+      (input: SendMesageParameters) => {
+        const { content, aiContext } = input;
+        conversation
+          ?.sendMessage({ content, aiContext })
+          .then((value) => {
+            const { data: sentMessage } = value;
+
+            if (sentMessage) {
+              setWaitingForAIResponse(true);
+              setLocalMessages((previousLocalMessages) => [
+                ...previousLocalMessages,
+                sentMessage,
+              ]);
+              setRouteToConversationsMap((previousValue) => {
+                return createNewConversationMessageInRoute({
+                  previousValue,
+                  routeName: routeName as string,
+                  conversationId: conversation.id,
+                  messages: [
+                    ...previousValue[routeName as string][conversation.id],
+                    sentMessage,
+                  ],
+                });
+              });
+            }
+          })
+          .catch((reason) => {
+            setHasError(true);
+            setErrorMessage(`error sending message ${reason}`);
+          });
+      },
+      [conversation, routeName, setRouteToConversationsMap]
+    );
+
+    const subscribe = React.useCallback(
+      (handleStoreChange: () => void) => {
+        const subscription =
+          conversation &&
+          conversation.onMessage((message) => {
+            if (input.onResponse) input.onResponse(message);
+            setWaitingForAIResponse(false);
+            setLocalMessages((previousLocalMessages) => [
+              ...previousLocalMessages,
+              message,
+            ]);
+            setRouteToConversationsMap((previousValue) => {
+              return createNewConversationMessageInRoute({
+                previousValue,
+                routeName: routeName as string,
+                conversationId: conversation.id,
+                messages: [
+                  ...previousValue[routeName as string][conversation.id],
+                  message,
+                ],
+              });
+            });
+            handleStoreChange(); // should cause a re-render
+          });
+        return () => {
+          subscription?.unsubscribe();
+        };
+      },
+      [conversation, routeName, setRouteToConversationsMap, input]
+    );
+
+    const getSnapshot = React.useCallback(() => localMessages, [localMessages]);
 
     // Using useSyncExternalStore to subscribe to external data updates
-    const _store = React.useSyncExternalStore(subscribe, getSnapshot);
-
-    const mockMessages = [
-      {
-        id: '1',
-        content: {
-          type: 'text' as const,
-          value: 'I am your virtual assistant',
-        },
-        role: 'assistant' as const,
-        timestamp: new Date(2023, 4, 21, 15, 23),
-      },
-      {
-        id: '2',
-        content: {
-          type: 'text' as const,
-          value:
-            'I have a really long question. This is a long message This is a long message This is a long message This is a long message This is a long message',
-        },
-        role: 'user' as const,
-        timestamp: new Date(2023, 4, 21, 15, 24),
-      },
-      {
-        id: '3',
-        content: {
-          type: 'image' as const,
-          value: {
-            format: 'png' as const,
-            bytes: new Uint8Array([]).buffer,
-          },
-        },
-        role: 'assistant' as const,
-        timestamp: new Date(2023, 4, 21, 15, 25),
-      },
-    ];
+    // Have to provide third optional argument in next - https://github.com/vercel/next.js/issues/54685
+    const messagesFromStore = React.useSyncExternalStore(
+      subscribe,
+      getSnapshot,
+      getSnapshot
+    );
 
     return [
       {
-        data: { messages: mockMessages },
-        isLoading: false,
-        message: undefined,
+        data: { messages: messagesFromStore },
+        isLoading: waitingForAIResponse,
+        message: errorMessage,
+        hasError,
       },
       sendMessage,
     ];
