@@ -55,6 +55,8 @@
 }
 
 .storage-browser__target__field {
+  grid-row-start: 3;
+  grid-column: 1 / 16;
   display: inline-grid;
   gap: var(--storage-browser-gap);
   grid-template-rows: auto auto;
@@ -70,7 +72,7 @@
 .storage-browser__target__input {
   grid-area: input;
 }
-.storage-browser__target__submit {
+.storage-browser__target__button {
   grid-area: submit;
 }
 .storage-browser__target__destination {
@@ -159,4 +161,16 @@
   display: flex;
   gap: var(--storage-browser-gap-small);
   align-items: center;
+}
+
+.storage-browser__primary {
+  grid-row-start: 2;
+  grid-column: 29 / -1;
+  justify-self: flex-end;
+}
+
+.storage-browser__exit {
+  grid-row-start: 2;
+  grid-column: 28 / 29;
+  justify-self: flex-end;
 }
