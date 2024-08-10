@@ -80,6 +80,7 @@ describe('createStorageBrowser', () => {
             },
             jest.fn(),
           ],
+          REFRESH: [{ isRefreshing: false }, jest.fn()],
         })[type]
     );
     const { StorageBrowser } = createStorageBrowser({ config });
@@ -107,6 +108,7 @@ describe('createStorageBrowser', () => {
           ],
           ACTION_SELECT: [{ selected: undefined }],
           PAGINATE: [{}],
+          REFRESH: [{ isRefreshing: false }, jest.fn()],
         })[type]
     );
 
@@ -131,6 +133,7 @@ describe('createStorageBrowser', () => {
             jest.fn(),
           ],
           PAGINATE: [{}],
+          REFRESH: [{ isRefreshing: false }, jest.fn()],
         })[type]
     );
 

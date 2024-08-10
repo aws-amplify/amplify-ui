@@ -2,11 +2,13 @@ import React from 'react';
 import { NavigateProvider, NavigateContext } from './Navigate';
 import { PaginateProvider, PaginateContext } from './Paginate';
 import { ActionSelectProvider, ActionSelectContext } from './ActionSelect';
+import { RefreshContext, RefreshProvider } from './Refresh';
 
 const CONTEXTS = {
   ACTION_SELECT: ActionSelectContext,
   NAVIGATE: NavigateContext,
   PAGINATE: PaginateContext,
+  REFRESH: RefreshContext,
 };
 
 type Contexts = typeof CONTEXTS;
@@ -18,9 +20,11 @@ export function ControlProvider({
 }): React.JSX.Element {
   return (
     <NavigateProvider>
-      <ActionSelectProvider>
-        <PaginateProvider>{children}</PaginateProvider>
-      </ActionSelectProvider>
+      <RefreshProvider>
+        <ActionSelectProvider>
+          <PaginateProvider>{children}</PaginateProvider>
+        </ActionSelectProvider>
+      </RefreshProvider>
     </NavigateProvider>
   );
 }

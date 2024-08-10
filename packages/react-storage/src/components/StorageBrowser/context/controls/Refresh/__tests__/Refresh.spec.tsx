@@ -1,4 +1,14 @@
+import { refreshReducer } from '../Refresh';
+
 describe('refreshReducer', () => {
-  it.todo('handles a START as expected');
-  it.todo('handles a DONE as expected');
+  it('handles a START as expected', () => {
+    const newState = refreshReducer({ isRefreshing: false }, { type: 'START' });
+
+    expect(newState).toEqual({ isRefreshing: true });
+  });
+  it('handles a DONE as expected', () => {
+    const newState = refreshReducer({ isRefreshing: true }, { type: 'DONE' });
+
+    expect(newState).toEqual({ isRefreshing: false });
+  });
 });

@@ -3,7 +3,7 @@ import React from 'react';
 type RefreshAction = { type: 'START' } | { type: 'DONE' };
 
 export interface RefreshState {
-  isLoadingData: boolean;
+  isRefreshing: boolean;
 }
 
 export type RefreshStateContext = [
@@ -12,13 +12,18 @@ export type RefreshStateContext = [
 ];
 
 const INITIAL_STATE: RefreshState = {
-  isLoadingData: false,
+  isRefreshing: false,
 };
 
 export function refreshReducer(
   state: RefreshState,
-  _action: RefreshAction
+  action: RefreshAction
 ): RefreshState {
+  if (action.type === 'START') {
+    return { isRefreshing: true };
+  } else if (action.type === 'DONE') {
+    return { isRefreshing: false };
+  }
   return state;
 }
 

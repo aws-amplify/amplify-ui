@@ -27,6 +27,7 @@ const LocationsViewControls: LocationsViewControls = () => {
   return (
     <>
       <Title>Home</Title>
+      <Refresh />
       <LocationsViewTable />
     </>
   );

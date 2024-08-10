@@ -1,10 +1,15 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { RefreshControl } from '../Refresh';
+import { ControlProvider } from '../../../context/controls';
 
 describe('RefreshControl', () => {
   it('renders the RefreshControl', () => {
-    render(<RefreshControl />);
+    render(
+      <ControlProvider>
+        <RefreshControl />
+      </ControlProvider>
+    );
 
     const button = screen.getByRole('button', {
       name: 'Refresh table',

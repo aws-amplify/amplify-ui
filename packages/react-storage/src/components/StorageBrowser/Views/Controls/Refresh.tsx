@@ -4,6 +4,7 @@ import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 import type { OmitElements } from '../types';
 import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
+import { useControl } from '../../context/controls';
 
 const { Button, Icon } = StorageBrowserElements;
 
@@ -34,8 +35,18 @@ const RefreshButton = withBaseElementProps(Button, {
   variant: 'refresh',
 });
 
-export const RefreshControl: RefreshControl = () => (
-  <RefreshButton>
-    <RefreshIcon />
-  </RefreshButton>
-);
+export const RefreshControl: RefreshControl = () => {
+  const [, handleRefreshState] = useControl({
+    type: 'REFRESH',
+  });
+
+  return (
+    <RefreshButton
+      onClick={() => {
+        handleRefreshState({ type: 'START' });
+      }}
+    >
+      <RefreshIcon />
+    </RefreshButton>
+  );
+};
