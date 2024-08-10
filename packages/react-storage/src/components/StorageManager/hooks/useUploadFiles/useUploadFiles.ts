@@ -5,6 +5,7 @@ import { isFunction } from '@aws-amplify/ui';
 
 import { PathCallback, uploadFile } from '../../utils';
 import { getInput } from '../../utils';
+import { StorageBucket } from '../../types';
 import { FileStatus } from '../../types';
 import { StorageManagerProps } from '../../types';
 import { UseStorageManager } from '../useStorageManager';
@@ -25,12 +26,14 @@ export interface UseUploadFilesProps
       'setUploadingFile' | 'setUploadProgress' | 'setUploadSuccess' | 'files'
     > {
   accessLevel?: StorageManagerProps['accessLevel'];
+  bucket?: StorageBucket;
   onProcessFileSuccess: (input: { id: string; processedKey: string }) => void;
   path?: string | PathCallback;
 }
 
 export function useUploadFiles({
   accessLevel,
+  bucket,
   files,
   isResumable,
   maxFileCount,
@@ -73,6 +76,7 @@ export function useUploadFiles({
 
         const input = getInput({
           accessLevel,
+          bucket,
           file,
           key,
           onProcessFileSuccess: handleProcessFileSuccess,
@@ -111,6 +115,7 @@ export function useUploadFiles({
   }, [
     files,
     accessLevel,
+    bucket,
     isResumable,
     setUploadProgress,
     setUploadingFile,
