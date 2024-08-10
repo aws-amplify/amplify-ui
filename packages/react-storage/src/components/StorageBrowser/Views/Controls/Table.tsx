@@ -235,6 +235,10 @@ export const LocationDetailViewTable = (): JSX.Element => {
     type: 'LIST_LOCATION_ITEMS',
   });
 
+  const [{ isRefreshing }, handleRefreshState] = useControl({
+    type: 'REFRESH',
+  });
+
   const prefix = history.join('');
 
   const hasItems = !!data.result?.length;
@@ -251,6 +255,13 @@ export const LocationDetailViewTable = (): JSX.Element => {
 
     handleList({ prefix, options: { pageSize: 1000, refresh: true } });
   }, [handleList, history, prefix, shouldReset]);
+
+  React.useEffect(() => {
+    if (isRefreshing && !isLoading) {
+      handleList({ prefix, options: { pageSize: 1000, refresh: true } });
+      handleRefreshState({ type: 'DONE' });
+    }
+  }, [prefix, isRefreshing, isLoading, handleRefreshState, handleList]);
 
   // @TODO: This should be it's own component instead of using `useCallback`
   const renderRowItem: RenderRowItem<LocationItem> = React.useCallback(
