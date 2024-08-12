@@ -29,7 +29,5 @@ export const useDisplayTextContext = (): typeof displayText => {
     return displayText;
   }
 
-  const _displayText = context;
-
-  return _displayText;
+  return context;
 };
