@@ -12,10 +12,6 @@ describe('toProviderData utility', () => {
     jest.spyOn(console, 'error').mockImplementation(() => {});
   });
 
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
-
   it('should turn supported providers into ProviderData objects', () => {
     const providerTypeList: ProviderType[] = [
       ...(DefaultFederatedProviderList as FederatedProvider[]),
@@ -35,7 +31,7 @@ describe('toProviderData utility', () => {
     expect(providerDataList).toEqual(expectedProviderData);
   });
 
-  it('should throw an error for duplicate supported provider names', async () => {
+  it('should throw an error for duplicate supported provider names', () => {
     const providerTypeList: ProviderType[] = ['amazon', 'facebook', 'amazon'];
 
     expect(() => toProviderData(providerTypeList)).toThrow(
