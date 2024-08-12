@@ -1,7 +1,7 @@
 import {
   defineBaseElement,
   withBaseElementProps,
-} from '@aws-amplify/ui-react-core/dist/types/elements';
+} from '@aws-amplify/ui-react-core/elements';
 import React from 'react';
 import { FederatedProvider } from '@aws-amplify/ui';
 
