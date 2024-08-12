@@ -21,6 +21,9 @@ import { View } from '../View';
 import { useStableId } from '../utils/useStableId';
 import { useFieldset } from '../Fieldset/useFieldset';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
+import { createSpaceSeparatedIds } from '../utils/createSpaceSeparatedIds';
+import { DESCRIPTION_SUFFIX, ERROR_SUFFIX } from '../../helpers/constants';
+import { getUniqueComponentId } from '../utils/getUniqueComponentId';
 
 // Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
 // We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
@@ -63,9 +66,14 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
   const { isFieldsetDisabled } = useFieldset();
 
   const fieldId = useStableId(id);
-  const labelId = useStableId();
-  const descriptionId = useStableId();
-  const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
+  const stableId = useStableId();
+  const descriptionId = descriptiveText
+    ? getUniqueComponentId(stableId, DESCRIPTION_SUFFIX)
+    : undefined;
+  const errorId = hasError
+    ? getUniqueComponentId(stableId, ERROR_SUFFIX)
+    : undefined;
+  const ariaDescribedBy = createSpaceSeparatedIds([errorId, descriptionId]);
   const disabled = isFieldsetDisabled ? isFieldsetDisabled : isDisabled;
 
   const { styleProps, rest } = splitPrimitiveProps(_rest);
@@ -132,7 +140,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
     >
       <Label
         className={ComponentClassName.SliderFieldLabel}
-        id={labelId}
+        id={stableId}
         testId={SLIDER_LABEL_TEST_ID}
         visuallyHidden={labelHidden}
       >
@@ -189,7 +197,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
           </Track>
           <Thumb
             aria-describedby={ariaDescribedBy}
-            aria-labelledby={labelId}
+            aria-labelledby={stableId}
             aria-valuetext={ariaValuetext}
             className={classNames(
               ComponentClassName.SliderFieldThumb,
@@ -204,7 +212,11 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
           />
         </Root>
       </FieldGroup>
-      <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
+      <FieldErrorMessage
+        id={errorId}
+        hasError={hasError}
+        errorMessage={errorMessage}
+      />
     </Flex>
   );
 };
