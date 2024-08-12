@@ -5,6 +5,7 @@ import { useControl } from '../../context/controls';
 import { Controls, LocationDetailViewTable } from '../Controls';
 import { CommonControl } from '../types';
 import { useAction } from '../../context/actions';
+import { CLASS_BASE } from '../constants';
 
 const { ActionSelect, Navigate, Refresh, Title: TitleElement } = Controls;
 
@@ -52,8 +53,10 @@ export const LocationDetailViewControls: LocationDetailViewControls = () => {
     <>
       <Navigate />
       <Title />
-      <LocationDetailViewRefresh />
-      <ActionSelect />
+      <div className={`${CLASS_BASE}__action-controls`}>
+        <LocationDetailViewRefresh />
+        <ActionSelect />
+      </div>
       <LocationDetailViewTable />
     </>
   );
