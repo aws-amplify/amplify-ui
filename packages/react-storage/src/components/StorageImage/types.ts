@@ -57,7 +57,7 @@ export interface StorageImagePathProps
   path: string | ((input: { identityId?: string }) => string);
   imgKey?: never;
   accessLevel?: never;
-  bucket?: string | BucketInfo;
+  bucket?: StorageBucket;
   identityId?: never;
   onStorageGetError?: never;
 }
