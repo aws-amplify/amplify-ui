@@ -35,7 +35,7 @@ const LocationsViewRefresh = () => {
           options: { refresh: true, pageSize: 1000 },
         })
       }
-    ></Refresh>
+    />
   );
 };
 
