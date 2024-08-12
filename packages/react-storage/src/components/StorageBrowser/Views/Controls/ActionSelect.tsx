@@ -47,6 +47,14 @@ interface ActionItem<T extends StorageBrowserElements = StorageBrowserElements>
   (props: ActionItemProps): React.JSX.Element;
 }
 
+const UPLOAD_FILES_INPUT_ATTRIBUTES = {
+  multiple: true,
+};
+
+const UPLOAD_FOLDER_INPUT_ATTRIBUTES = {
+  webkitdirectory: '',
+};
+
 const ActionItem: ActionItem = ({ action, variant }) => {
   const { name, type } = action;
   const [{ history }] = useControl({ type: 'NAVIGATE' });
@@ -78,9 +86,9 @@ const ActionItem: ActionItem = ({ action, variant }) => {
       const files: FileList = fileUploadRef.current?.files;
       const items: LocationItem[] = [];
       for (const data of files) {
-        const { name, lastModified, size } = data;
+        const { name, lastModified, size, webkitRelativePath } = data;
         items.push({
-          key: name,
+          key: type === 'UPLOAD_FOLDER' ? webkitRelativePath : name,
           data,
           lastModified: new Date(lastModified),
           size,
@@ -103,10 +111,12 @@ const ActionItem: ActionItem = ({ action, variant }) => {
       {requiresFileInput ? (
         <input
           ref={fileUploadRef}
-          onChange={() => handleInputChange()}
           style={{ display: 'none' }}
-          multiple
           type="file"
+          onChange={() => handleInputChange()}
+          {...(type === 'UPLOAD_FILES'
+            ? UPLOAD_FILES_INPUT_ATTRIBUTES
+            : UPLOAD_FOLDER_INPUT_ATTRIBUTES)}
         />
       ) : null}
       <ActionButton onClick={() => handleActionClick()}>
