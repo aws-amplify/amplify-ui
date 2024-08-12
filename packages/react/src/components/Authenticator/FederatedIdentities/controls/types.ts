@@ -2,20 +2,12 @@ import { FederatedProvider } from '@aws-amplify/ui';
 import { FederatedIdentitiesElements } from '../context/elements';
 import React from 'react';
 import { DataState } from '@aws-amplify/ui-react-core/dist/types/hooks';
+import { signInWithRedirect, SignInWithRedirectInput } from 'aws-amplify/auth';
 
-interface HandleSignInWithRedirectInput<T extends string = string> {
-  providerName: T;
-  customState?: string;
-}
-
-interface HandleSignInWithRedirect {
-  (input: HandleSignInWithRedirectInput): Promise<void>;
-}
-
-export interface UseHandleSignInWithRedirect<K extends string = string> {
+export interface UseHandleSignInWithRedirect {
   (): [
     state: DataState<void | undefined>,
-    handleAction: (...input: HandleSignInWithRedirectInput<K>[]) => void,
+    handleAction: (...input: SignInWithRedirectInput[]) => void,
   ];
 }
 
@@ -34,9 +26,20 @@ export interface CreateFederatedIdentitiesInput<
   T extends Partial<FederatedIdentitiesElements> = FederatedIdentitiesElements,
   K extends string = string,
 > {
-  elements?: T;
   providers: ProviderType<K>[];
-  handleSignInWithRedirect?: HandleSignInWithRedirect;
+  elements?: T;
+  handleSignInWithRedirect?: typeof signInWithRedirect;
+  displayText?: (displayName: string) => string;
+}
+
+export interface CreateProviderInput<
+  T extends Partial<FederatedIdentitiesElements>,
+  K extends string = string,
+> {
+  providers: ProviderData<K>[];
+  elements?: T;
+  handleSignInWithRedirect?: typeof signInWithRedirect;
+  displayText?: (displayName: string) => string;
 }
 
 export interface ProviderData<T extends string = string> {
