@@ -145,7 +145,6 @@
 .storage-browser__action-controls {
   grid-row-start: 2;
   grid-column: 26 / -1;
-  grid-template-columns: subgrid;
   justify-self: flex-end;
 }
 
