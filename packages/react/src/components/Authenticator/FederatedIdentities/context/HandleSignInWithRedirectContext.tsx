@@ -5,17 +5,6 @@ const HandleSignInWithRedirectContext = React.createContext<
   typeof signInWithRedirect | undefined
 >(undefined);
 
-export const useHandleSignInWithRedirectContext =
-  (): typeof signInWithRedirect => {
-    const context = React.useContext(HandleSignInWithRedirectContext);
-
-    if (!context) {
-      return signInWithRedirect;
-    }
-
-    return context;
-  };
-
 export const HandleSignInWithRedirectProvider = ({
   children,
   customRedirect,
@@ -29,3 +18,16 @@ export const HandleSignInWithRedirectProvider = ({
     </HandleSignInWithRedirectContext.Provider>
   );
 };
+
+export const useHandleSignInWithRedirectContext =
+  (): typeof signInWithRedirect => {
+    const handleSignInWithRedirect = React.useContext(
+      HandleSignInWithRedirectContext
+    );
+
+    if (!handleSignInWithRedirect) {
+      return signInWithRedirect;
+    }
+
+    return handleSignInWithRedirect;
+  };

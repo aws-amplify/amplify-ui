@@ -23,11 +23,11 @@ export const DisplayTextProvider = ({
 };
 
 export const useDisplayTextContext = (): typeof displayText => {
-  const context = React.useContext(DisplayTextContext);
+  const _displayText = React.useContext(DisplayTextContext);
 
-  if (!context) {
+  if (!_displayText) {
     return displayText;
   }
 
-  return context;
+  return _displayText;
 };

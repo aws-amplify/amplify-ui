@@ -20,13 +20,11 @@ export const ProviderDataListProvider = ({
 };
 
 export const useProviderDataListContext = (): ProviderData[] => {
-  const context = React.useContext(ProviderDataListContext);
+  const providerDataList = React.useContext(ProviderDataListContext);
 
-  if (!context) {
+  if (!providerDataList) {
     throw new Error('ProviderDataList context does not exist');
   }
 
-  const providers = context;
-
-  return providers;
+  return providerDataList;
 };

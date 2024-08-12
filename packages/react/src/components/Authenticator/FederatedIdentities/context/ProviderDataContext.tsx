@@ -5,15 +5,6 @@ const ProviderDataContext = React.createContext<ProviderData | undefined>(
   undefined
 );
 
-export const useProviderDataContext = (): ProviderData => {
-  const providerData = React.useContext(ProviderDataContext);
-
-  if (providerData === undefined) {
-    throw new Error();
-  }
-  return providerData;
-};
-
 export const ProviderDataProvider = ({
   children,
   providerData,
@@ -26,4 +17,13 @@ export const ProviderDataProvider = ({
       {children}
     </ProviderDataContext.Provider>
   );
+};
+
+export const useProviderDataContext = (): ProviderData => {
+  const providerData = React.useContext(ProviderDataContext);
+
+  if (providerData === undefined) {
+    throw new Error();
+  }
+  return providerData;
 };
