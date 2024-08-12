@@ -1,7 +1,33 @@
+import React from 'react';
+
 import { Icon } from '@aws-amplify/ui-react';
 import { createAIConversation } from '@aws-amplify/ui-react-ai';
 import '@aws-amplify/ui-react/styles.css';
 import '@aws-amplify/ui-react-ai/ai-conversation-styles.css';
+
+export interface ImageContent {
+  format: 'png' | 'jpeg' | 'gif' | 'webp';
+  bytes: ArrayBuffer;
+}
+
+interface ImageContentBlock {
+  type: 'image';
+  value: ImageContent;
+}
+
+export interface TextContent {
+  type: 'text';
+  value: string;
+}
+
+export type Content = ImageContentBlock | TextContent;
+
+export interface ConversationMessage {
+  id: string;
+  content: Content[];
+  role: 'user' | 'assistant';
+  timestamp: Date;
+}
 
 function convertBufferToBase64(
   buffer: ArrayBuffer,
@@ -10,6 +36,31 @@ function convertBufferToBase64(
   const base64string = Buffer.from(new Uint8Array(buffer)).toString('base64');
   return `data:image/${format};base64,${base64string}`;
 }
+
+const roles = ['user', 'assistant'] as const;
+const sampleMessages: Content[][] = [
+  [
+    { type: 'text', value: 'How can I assist you today?' },
+    { type: 'text', value: 'How can I assist you today?' },
+    { type: 'text', value: 'How can I assist you today?' },
+  ],
+  [
+    { type: 'text', value: 'What are you looking for?' },
+    { type: 'text', value: 'What are you looking for?' },
+    { type: 'text', value: 'What are you looking for?' },
+  ],
+  [
+    { type: 'text', value: 'Can you provide more details?' },
+    { type: 'text', value: 'Can you provide more details?' },
+  ],
+  [
+    { type: 'text', value: 'I will get back to you shortly.' },
+    { type: 'text', value: 'I will get back to you shortly.' },
+    { type: 'text', value: 'I will get back to you shortly.' },
+  ],
+  [{ type: 'text', value: 'Thank you for your patience.' }],
+  [{ type: 'text', value: `I'm a real AI!` }],
+];
 
 const PROMPTS = [
   {
@@ -49,32 +100,36 @@ export const actions = [
   },
 ];
 
-const messages = [
+const initialMessages = [
   {
     id: '1',
-    content: { type: 'text' as const, value: 'I am your virtual assistant' },
+    content: [{ type: 'text' as const, value: 'I am your virtual assistant' }],
     role: 'assistant' as const,
     timestamp: new Date(2023, 4, 21, 15, 23),
   },
   {
     id: '2',
-    content: {
-      type: 'text' as const,
-      value:
-        'I have a really long question. This is a long message This is a long message This is a long message This is a long message This is a long message',
-    },
+    content: [
+      {
+        type: 'text' as const,
+        value:
+          'I have a really long question. This is a long message This is a long message This is a long message This is a long message This is a long message',
+      },
+    ],
     role: 'user' as const,
     timestamp: new Date(2023, 4, 21, 15, 24),
   },
   {
     id: '3',
-    content: {
-      type: 'image' as const,
-      value: {
-        format: 'png' as const,
-        bytes: new Uint8Array([]).buffer,
+    content: [
+      {
+        type: 'image' as const,
+        value: {
+          format: 'png' as const,
+          bytes: new Uint8Array([]).buffer,
+        },
       },
-    },
+    ],
     role: 'assistant' as const,
     timestamp: new Date(2023, 4, 21, 15, 25),
   },
@@ -143,6 +198,35 @@ const avatars = {
   },
 };
 
+// const getRandomMessage = (): {
+//   role: (typeof roles)[number];
+//   content: Content[];
+//   timestamp: Date;
+// } => {
+//   const role = roles[Math.floor(Math.random() * roles.length)];
+//   const message =
+//     sampleMessages[Math.floor(Math.random() * sampleMessages.length)];
+//   return {
+//     role,
+//     content: message,
+//     timestamp: new Date(),
+//   };
+// };
+
+// const useRandomMessages = (initialMessages: any[]) => {
+//   const [messages, setMessages] = React.useState(initialMessages);
+
+//   React.useEffect(() => {
+//     const intervalId = setInterval(() => {
+//       setMessages((prevMessages) => [...prevMessages, getRandomMessage()]);
+//     }, 3000);
+
+//     return () => clearInterval(intervalId);
+//   }, []);
+
+//   return messages;
+// };
+
 const { AIConversation } = createAIConversation({
   suggestedPrompts: PROMPTS,
   actions: actions,
@@ -150,6 +234,10 @@ const { AIConversation } = createAIConversation({
 });
 
 export default function Example() {
+  // uncomment to use growing list of messages
+  // const messages = useRandomMessages(initialMessages);
+  const messages = initialMessages;
+
   return <AIConversation messages={messages} avatars={avatars} />;
   // return <div>hello world</div>;
 }

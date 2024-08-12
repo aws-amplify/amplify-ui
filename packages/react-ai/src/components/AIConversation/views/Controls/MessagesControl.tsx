@@ -38,21 +38,23 @@ const MediaContent: typeof MediaContentBase = React.forwardRef(
 
 const TextContent: typeof Text = React.forwardRef(
   function TextContent(props, ref) {
+    return <Text {...props} ref={ref} className={`${MESSAGE_BLOCK}__text`} />;
+  }
+);
+
+const ContentContainer: typeof View = React.forwardRef(
+  function ContentContainer(props, ref) {
     const variant = React.useContext(MessageVariantContext);
-    const role = React.useContext(RoleContext);
     return (
-      <Text
+      <View
+        data-testid={'content'}
         {...props}
         ref={ref}
-        className={`${MESSAGE_BLOCK}__text ${MESSAGE_BLOCK}__text--${variant} ${MESSAGE_BLOCK}__text--${role}`}
+        className={`${MESSAGE_BLOCK}__content ${MESSAGE_BLOCK}__content--${variant}`}
       />
     );
   }
 );
-
-const Timestamp = withBaseElementProps(Text, {
-  className: `${MESSAGE_BLOCK}__timestamp`,
-});
 
 // TODO: update this when we integration with response components
 // export const ResponseComponentControl = (): React.ReactNode => {
@@ -68,27 +70,36 @@ const Timestamp = withBaseElementProps(Text, {
 // };
 
 export const MessageControl: MessageControl = ({ message }) => {
-  return message.content.type === 'text' ? (
-    <TextContent data-testid={'message-text'}>
-      {message.content.value}
-    </TextContent>
-  ) : (
-    <MediaContent
-      data-testid={'message-image'}
-      src={convertBufferToBase64(
-        message.content.value.bytes,
-        message.content.value.format
-      )}
-    ></MediaContent>
+  return (
+    <ContentContainer>
+      {message.content.map((content, index) => {
+        return content.type === 'text' ? (
+          <TextContent data-testid={'text-content'} key={index}>
+            {content.value}
+          </TextContent>
+        ) : (
+          <MediaContent
+            data-testid={'image-content'}
+            key={index}
+            src={convertBufferToBase64(
+              content.value.bytes,
+              content.value.format
+            )}
+          ></MediaContent>
+        );
+      })}
+    </ContentContainer>
   );
 };
 
+MessageControl.Container = ContentContainer;
 MessageControl.MediaContent = MediaContent;
 MessageControl.TextContent = TextContent;
 interface MessageControl<
   T extends Partial<AIConversationElements> = AIConversationElements,
 > {
   (props: { message: ConversationMessage }): JSX.Element;
+  Container: T['View'];
   MediaContent: T['Image'];
   TextContent: T['Text'];
 }
@@ -97,6 +108,10 @@ const Separator = withBaseElementProps(Span, {
   'aria-hidden': true,
   children: '|',
   className: `${MESSAGE_BLOCK}__separator`,
+});
+
+const Timestamp = withBaseElementProps(Text, {
+  className: `${MESSAGE_BLOCK}__timestamp`,
 });
 
 const HeaderContainer: typeof View = React.forwardRef(
@@ -120,7 +135,7 @@ const MessageContainer: typeof View = React.forwardRef(
       <View
         {...props}
         ref={ref}
-        className={`${MESSAGE_BLOCK}__container ${MESSAGE_BLOCK}__container--${variant} ${MESSAGE_BLOCK}__container--${role}`}
+        className={`${MESSAGE_BLOCK} ${MESSAGE_BLOCK}--${variant} ${MESSAGE_BLOCK}--${role}`}
       />
     );
   }
@@ -182,8 +197,8 @@ export const MessagesControl: MessagesControl = ({ renderMessage }) => {
 
   return (
     <Layout>
-      {messages?.map((message, index) =>
-        renderMessage ? (
+      {messages?.map((message, index) => {
+        return renderMessage ? (
           renderMessage(message)
         ) : (
           <RoleContext.Provider value={message.role} key={`message-${index}`}>
@@ -209,8 +224,8 @@ export const MessagesControl: MessagesControl = ({ renderMessage }) => {
               ) : null}
             </MessageContainer>
           </RoleContext.Provider>
-        )
-      )}
+        );
+      })}
     </Layout>
   );
 };

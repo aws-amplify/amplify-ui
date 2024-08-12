@@ -51,7 +51,7 @@ describe('FieldControl', () => {
         messages={[
           {
             id: '1',
-            content: { type: 'text', value: 'I am your virtual assistant' },
+            content: [{ type: 'text', value: 'I am your virtual assistant' }],
             role: 'assistant',
             timestamp: new Date(2023, 4, 21, 15, 23),
           },
