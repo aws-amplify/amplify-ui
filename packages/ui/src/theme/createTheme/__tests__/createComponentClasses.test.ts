@@ -35,8 +35,9 @@ describe('createComponentClasses:', () => {
 
     it('should work with top-level modifiers', () => {
       const classname = ratingClassnames({ _modifiers: 'large' });
+      // Bad classname should throw TS error
       // @ts-expect-error
-      const badClassname = ratingClassnames({ _modifiers: 'foo' });
+      ratingClassnames({ _modifiers: 'foo' });
       expect(classname).toEqual('amplify-rating amplify-rating--large');
     });
 
@@ -62,15 +63,17 @@ describe('createComponentClasses:', () => {
 
     it('should work with elements without modifiers', () => {
       const classname = ratingClassnames({ _element: 'item' });
+      // Bad classname should throw TS error
       // @ts-expect-error
-      const badClassname = ratingClassnames({ _element: 'foo' });
+      ratingClassnames({ _element: 'foo' });
       expect(classname).toEqual('amplify-rating__item');
     });
 
     it('should work with elements with modifiers', () => {
       const classname = ratingClassnames({ _element: { icon: 'empty' } });
+      // Bad classname should throw TS error
       // @ts-expect-error
-      const badClassname = ratingClassnames({ _element: 'foo' });
+      ratingClassnames({ _element: 'foo' });
       expect(classname).toEqual(
         'amplify-rating__icon amplify-rating__icon--empty'
       );
@@ -78,8 +81,9 @@ describe('createComponentClasses:', () => {
 
     it('should work with elements with modifiers as array', () => {
       const classname = ratingClassnames({ _element: { icon: ['empty'] } });
+      // Bad classname should throw TS error
       // @ts-expect-error
-      const badClassname = ratingClassnames({ _element: { icon: ['foo'] } });
+      ratingClassnames({ _element: { icon: ['foo'] } });
       expect(classname).toEqual(
         'amplify-rating__icon amplify-rating__icon--empty'
       );
@@ -89,7 +93,8 @@ describe('createComponentClasses:', () => {
       const classname = ratingClassnames({
         _element: { icon: { empty: true } },
       });
-      const badClassname = ratingClassnames({
+      // Bad classname should throw TS error
+      ratingClassnames({
         // @ts-expect-error
         _element: { icon: { foo: true } },
       });
