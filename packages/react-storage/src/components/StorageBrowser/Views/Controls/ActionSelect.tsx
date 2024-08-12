@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import { StorageBrowserElements } from '../../context/elements';
@@ -81,7 +81,7 @@ const ActionItem: ActionItem = ({ action, variant }) => {
     }
   };
 
-  const handleInputChange = useCallback(() => {
+  const handleInputChange = () => {
     if (fileUploadRef.current?.files) {
       const files: FileList = fileUploadRef.current?.files;
       const items: LocationItem[] = [];
@@ -104,7 +104,7 @@ const ActionItem: ActionItem = ({ action, variant }) => {
         name,
       });
     }
-  }, [destination, handleUpdateState, name, type]);
+  };
 
   return (
     <>
