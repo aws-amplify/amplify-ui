@@ -166,7 +166,6 @@
   align-self: stretch;
   overflow: hidden;
   resize: none;
-  outline: none;
 }
 
 .ai-field__button {

@@ -66,6 +66,8 @@ const TextInput: typeof TextAreaBase = React.forwardRef(
   function TextInput(props, ref) {
     const { setInput } = React.useContext(InputContext);
     const messages = React.useContext(MessagesContext);
+    const textAreaRef = React.useRef<HTMLTextAreaElement | null>(null);
+
     const isFirstMessage = !messages || messages.length === 0;
 
     React.useEffect(() => {
@@ -91,12 +93,10 @@ const TextInput: typeof TextAreaBase = React.forwardRef(
     });
 
     React.useEffect(() => {
-      const textarea = document.getElementById(`text-input`);
-
-      if (textarea) {
-        textarea.focus();
+      if (textAreaRef && textAreaRef.current) {
+        textAreaRef.current.focus();
       }
-    }, []);
+    }, [textAreaRef]);
 
     return (
       <TextAreaBase
@@ -113,7 +113,14 @@ const TextInput: typeof TextAreaBase = React.forwardRef(
             ? 'Ask anything...'
             : 'Message Raven'
         }
-        ref={ref}
+        ref={(node) => {
+          textAreaRef.current = node;
+          if (typeof ref === 'function') {
+            ref(node);
+          } else if (ref) {
+            ref.current = node;
+          }
+        }}
         autoFocus
       />
     );
