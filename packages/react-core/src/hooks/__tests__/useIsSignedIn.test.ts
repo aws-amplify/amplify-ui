@@ -13,19 +13,19 @@ const MOCK_SUCCESS: GetCurrentUserOutput = {
   userId: '123',
 };
 const EXPECTED_LOADING_STATE = {
-  data: { isSignedIn: false },
+  data: false,
   hasError: false,
   isLoading: true,
   message: undefined,
 };
 const EXPECTED_ERROR_STATE = {
-  data: { isSignedIn: false },
+  data: false,
   hasError: true,
   isLoading: false,
   message: 'Authorization error',
 };
 const EXPECTED_ACCEPTED_STATE = {
-  data: { isSignedIn: true },
+  data: true,
   hasError: false,
   isLoading: false,
   message: undefined,

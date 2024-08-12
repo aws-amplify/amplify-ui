@@ -12,7 +12,7 @@ export default function AuthenticatorWithUseIsSignedIn() {
   const signedInState = useIsSignedIn();
   return signedInState.isLoading ? (
     <p>loading</p>
-  ) : signedInState.data.isSignedIn ? (
+  ) : signedInState.data ? (
     <button
       onClick={() => {
         signOut();

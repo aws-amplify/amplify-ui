@@ -3,23 +3,20 @@ import { Hub, HubCallback } from '@aws-amplify/core';
 import { useEffect } from 'react';
 import useDataState, { DataState } from './useDataState';
 
-const action = async (
-  _: { isSignedIn: boolean },
-  input: { setState?: boolean }
-) => {
+const action = async (_: boolean, input: { setState?: boolean }) => {
   try {
     await getCurrentUser();
-    return { isSignedIn: true };
+    return true;
   } catch (error) {
     if (input?.setState) {
-      return { isSignedIn: false };
+      return false;
     }
     throw error;
   }
 };
 
-export default function useIsSignedIn(): DataState<{ isSignedIn: boolean }> {
-  const [state, handler] = useDataState(action, { isSignedIn: false });
+export default function useIsSignedIn(): DataState<boolean> {
+  const [state, handler] = useDataState(action, false);
 
   useEffect(() => {
     handler();
