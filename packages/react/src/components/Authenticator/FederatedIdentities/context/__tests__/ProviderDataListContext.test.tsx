@@ -4,7 +4,7 @@ import {
   ProviderDataListProvider,
   useProviderDataListContext,
 } from '../ProviderDataListContext';
-import { ProviderData } from '../../controls/types';
+import { ProviderData } from '../../controls';
 
 describe('useProviderDataContext', () => {
   const PROVIDER_DATA_LIST: ProviderData[] = [

@@ -1,8 +1,8 @@
 import { FederatedProvider } from '@aws-amplify/ui';
 import { FederatedIdentitiesElements } from '../context/elements';
-import React from 'react';
 import { DataState } from '@aws-amplify/ui-react-core/dist/types/hooks';
 import { signInWithRedirect, SignInWithRedirectInput } from 'aws-amplify/auth';
+import React from 'react';
 
 export interface UseHandleSignInWithRedirect {
   (): [

@@ -15,3 +15,4 @@ export {
   DisplayTextProvider,
   useDisplayTextContext,
 } from './DisplayTextContext';
+export { FederatedIdentitiesElements } from './elements';

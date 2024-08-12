@@ -4,7 +4,7 @@ import {
   ProviderType,
   ProviderData,
   DefaultFederatedProviderList,
-} from '../../controls/types';
+} from '../../controls';
 import { toProviderData } from '../FederatedIdentitiesControl';
 
 describe('toProviderData utility', () => {

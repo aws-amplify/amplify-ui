@@ -1,5 +1,4 @@
-import React from 'react';
-import { forwardRef } from 'react';
+import React, { forwardRef, ForwardRefExoticComponent } from 'react';
 import { IdentityControl } from './IdentityControl';
 import {
   CreateFederatedIdentitiesInput,
@@ -10,11 +9,9 @@ import {
   DefaultFederatedProviderList,
   CreateProviderInput,
 } from './types';
-import { ForwardRefExoticComponent } from 'react';
-import { FederatedIdentitiesElements } from '../context/elements';
+import { FederatedIdentitiesElements } from '../context';
 import createProvider from './createProvider';
-import { FederatedProvider } from '@aws-amplify/ui';
-import { capitalize } from '@aws-amplify/ui';
+import { capitalize, FederatedProvider } from '@aws-amplify/ui';
 
 interface ChildrenProps {
   children?: React.ReactNode;

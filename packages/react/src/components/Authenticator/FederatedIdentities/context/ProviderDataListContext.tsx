@@ -1,5 +1,5 @@
-import React from 'react';
 import { ProviderData } from '../controls/types';
+import React from 'react';
 
 const ProviderDataListContext = React.createContext<ProviderData[] | undefined>(
   undefined

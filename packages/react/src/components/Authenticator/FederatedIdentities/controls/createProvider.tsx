@@ -1,11 +1,11 @@
 import React from 'react';
-import { FederatedIdentitiesElements } from '../context/elements';
 import { CreateProviderInput } from './types';
 import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 import {
   ProviderDataListProvider,
   HandleSignInWithRedirectProvider,
   DisplayTextProvider,
+  FederatedIdentitiesElements,
 } from '../context';
 
 export default function createProvider<
