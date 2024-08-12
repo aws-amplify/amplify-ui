@@ -1,48 +1,5 @@
 import React from 'react';
-import {
-  DefaultFederatedProviderList,
-  ProviderData,
-  ProviderType,
-} from '../controls/types';
-import { FederatedProvider } from '@aws-amplify/ui';
-import { capitalize } from '@aws-amplify/ui';
-
-function getSupportedProviderData(
-  providerName: FederatedProvider
-): ProviderData {
-  return {
-    displayName: capitalize(providerName),
-    icon: providerName,
-    providerName: providerName,
-  };
-}
-
-function validateProviderTypes(providers: ProviderType[]): void {
-  const providerNames = new Set<string>();
-
-  providers.forEach((provider) => {
-    const providerName =
-      typeof provider === 'string' ? provider : provider.providerName;
-
-    if (providerNames.has(providerName)) {
-      throw new Error(`Duplicate provider name found: ${providerName}`);
-    }
-
-    providerNames.add(providerName);
-  });
-}
-
-function toProviderData(providers: ProviderType[]): ProviderData[] {
-  validateProviderTypes(providers);
-  return providers.map((provider) => {
-    const federatedProvider = provider as FederatedProvider;
-    if (DefaultFederatedProviderList.includes(federatedProvider)) {
-      return getSupportedProviderData(federatedProvider);
-    } else {
-      return provider as ProviderData;
-    }
-  });
-}
+import { ProviderData } from '../controls/types';
 
 const ProviderDataListContext = React.createContext<ProviderData[] | undefined>(
   undefined
@@ -50,13 +7,11 @@ const ProviderDataListContext = React.createContext<ProviderData[] | undefined>(
 
 export const ProviderDataListProvider = ({
   children,
-  providerTypes,
+  providerDataList,
 }: {
   children?: React.ReactNode;
-  providerTypes: ProviderType[];
+  providerDataList: ProviderData[];
 }): JSX.Element => {
-  const providerDataList: ProviderData[] = toProviderData(providerTypes);
-
   return (
     <ProviderDataListContext.Provider value={providerDataList}>
       {children}
@@ -64,7 +19,7 @@ export const ProviderDataListProvider = ({
   );
 };
 
-export const useProviderDataList = (): ProviderData[] => {
+export const useProviderDataListContext = (): ProviderData[] => {
   const context = React.useContext(ProviderDataListContext);
 
   if (!context) {
