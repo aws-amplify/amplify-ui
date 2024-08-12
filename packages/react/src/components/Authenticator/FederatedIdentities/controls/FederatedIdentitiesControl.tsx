@@ -1,15 +1,24 @@
+import React from 'react';
+import { forwardRef } from 'react';
 import { IdentityControl } from './IdentityControl';
 import {
   CreateFederatedIdentitiesInput,
   RenderButton,
   UseHandleSignInWithRedirect,
+  ProviderType,
+  ProviderData,
+  DefaultFederatedProviderList,
+  CreateProviderInput,
 } from './types';
 import { ForwardRefExoticComponent } from 'react';
 import { FederatedIdentitiesElements } from '../context/elements';
+import createProvider from './createProvider';
+import { FederatedProvider } from '@aws-amplify/ui';
+import { capitalize } from '@aws-amplify/ui';
 
 interface ChildrenProps {
   children?: React.ReactNode;
-  RenderButton?: never;
+  renderButton?: never;
 }
 
 interface RenderButtonProps<T extends string = string> {
@@ -28,13 +37,76 @@ export interface FederatedIdentities<T extends string = string>
   Identity: IdentityControl<T>;
 }
 
-// @ts-ignore
+function getSupportedProviderData<T extends string = string>(
+  providerName: T
+): ProviderData<T> {
+  return {
+    displayName: capitalize<T>(providerName),
+    icon: providerName,
+    providerName: providerName,
+  };
+}
+
+function validateProviderTypes(providers: ProviderType[]): void {
+  const providerNames = new Set<string>();
+
+  providers.forEach((provider) => {
+    const providerName =
+      typeof provider === 'string' ? provider : provider.providerName;
+
+    if (providerNames.has(providerName)) {
+      throw new Error(`Duplicate provider name found: ${providerName}`);
+    }
+
+    providerNames.add(providerName);
+  });
+}
+
+export function toProviderData<T extends string = string>(
+  providers: ProviderType<T>[]
+): ProviderData<T>[] {
+  validateProviderTypes(providers);
+  return providers.map((provider) => {
+    if (DefaultFederatedProviderList.includes(provider as FederatedProvider)) {
+      return getSupportedProviderData<T>(provider as T);
+    } else {
+      return provider as ProviderData<T>;
+    }
+  });
+}
+
 export function createFederatedIdentities<
   T extends Partial<FederatedIdentitiesElements>,
   K extends string = string,
->(
-  input: CreateFederatedIdentitiesInput<T, K>
-): {
+>({
+  providers,
+  ...input
+}: CreateFederatedIdentitiesInput<T, K>): {
   FederatedIdentities: FederatedIdentities;
-  useHandleSignInWithRedirect?: UseHandleSignInWithRedirect<K>;
-};
+  useHandleSignInWithRedirect?: UseHandleSignInWithRedirect;
+} {
+  const providerDataList = toProviderData<K>(providers);
+  const createProviderInput: CreateProviderInput<T, K> = {
+    providers: providerDataList,
+    ...input,
+  };
+
+  const Provider = createProvider(createProviderInput);
+
+  const forwardedRef = forwardRef<HTMLDivElement, FederatedIdentitiesProps>(
+    function Identities(
+      { children: _children, renderButton: _renderButton },
+      _ref
+    ) {
+      return <Provider>{/* TODO: allocate group control element */}</Provider>;
+    }
+  );
+
+  //TODO: expand IdentitiesControl
+  const IdentitiesControl = {
+    ...forwardedRef,
+  };
+
+  //@ts-ignore
+  return { FederatedIdentities: IdentitiesControl };
+}
