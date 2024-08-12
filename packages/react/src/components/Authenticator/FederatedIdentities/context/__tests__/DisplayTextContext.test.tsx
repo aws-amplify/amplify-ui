@@ -7,6 +7,8 @@ import {
 } from '../DisplayTextContext';
 
 describe('useDisplayTextContext', () => {
+  const customDisplayText = jest.fn();
+
   it('should return the default displayText function when no custom displayText is provided', () => {
     const { result } = renderHook(() => useDisplayTextContext());
 
@@ -14,10 +16,6 @@ describe('useDisplayTextContext', () => {
   });
 
   it('should return the custom displayText function when provided', () => {
-    const customDisplayText = (displayText: string) => {
-      return displayText;
-    };
-
     const wrapper = ({ children }) => (
       <DisplayTextProvider customDisplayText={customDisplayText}>
         {children}

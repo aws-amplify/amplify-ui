@@ -6,10 +6,6 @@ import {
 } from '../HandleSignInWithRedirectContext';
 import { signInWithRedirect } from 'aws-amplify/auth';
 
-jest.mock('aws-amplify/auth', () => ({
-  signInWithRedirect: jest.fn(),
-}));
-
 describe('useHandleSignInWithRedirectContext', () => {
   const customRedirect = jest.fn();
 
