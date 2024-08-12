@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { LocationsDataState, useLocationsData } from './context/actions';
+import { useControl } from './context/controls';
 
 const shouldLoadLocations = ({
   data,
@@ -13,6 +14,9 @@ const shouldLoadLocations = ({
  */
 export function Controller(): null {
   const [locationsState, handleListLocations] = useLocationsData();
+  const [{ isRefreshing }, handleRefreshState] = useControl({
+    type: 'REFRESH',
+  });
 
   const loadLocations = shouldLoadLocations(locationsState);
 
@@ -22,6 +26,13 @@ export function Controller(): null {
       handleListLocations({ options: { pageSize: 1000 } });
     }
   }, [handleListLocations, loadLocations]);
+
+  React.useEffect(() => {
+    if (isRefreshing && !loadLocations) {
+      handleListLocations({ options: { pageSize: 1000, refresh: true } });
+      handleRefreshState({ type: 'DONE' });
+    }
+  }, [handleListLocations, handleRefreshState, isRefreshing, loadLocations]);
 
   return null;
 }

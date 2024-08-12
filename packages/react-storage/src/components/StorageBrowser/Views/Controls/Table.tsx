@@ -165,22 +165,11 @@ TableControl.TableRow = TableRow;
 TableControl.TableData = TableData;
 
 export const LocationsViewTable = (): JSX.Element => {
-  const [{ data, isLoading }, getLocations] = useLocationsData();
+  const [{ data, isLoading }] = useLocationsData();
   const [, handleUpdateState] = useControl({ type: 'NAVIGATE' });
-
-  const [{ isRefreshing }, handleRefreshState] = useControl({
-    type: 'REFRESH',
-  });
 
   const hasLocations = !!data.result?.length;
   const shouldRenderLocations = !hasLocations || isLoading;
-
-  React.useEffect(() => {
-    if (isRefreshing && !isLoading) {
-      getLocations({ options: { refresh: true } });
-      handleRefreshState({ type: 'DONE' });
-    }
-  }, [isRefreshing, isLoading, handleRefreshState, getLocations]);
 
   // @TODO: This should be it's own component instead of using `useCallback`
   const renderRowItem: RenderRowItem<LocationAccess<Permission>> =
