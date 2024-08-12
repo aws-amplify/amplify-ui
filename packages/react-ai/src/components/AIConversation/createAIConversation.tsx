@@ -34,9 +34,13 @@ export function createAIConversation<T extends Partial<AIConversationElements>>(
   });
 
   function AIConversation(props: AIConversationProps): JSX.Element {
-    const { messages, avatars } = props;
+    const { messages, avatars, handleSendMessage } = props;
     return (
-      <Provider messages={messages} avatars={avatars}>
+      <Provider
+        messages={messages}
+        avatars={avatars}
+        handleSendMessage={handleSendMessage}
+      >
         <Conversation />
       </Provider>
     );

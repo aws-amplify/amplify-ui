@@ -11,6 +11,7 @@ import {
 } from './views';
 import { DisplayTextTemplate } from '@aws-amplify/ui';
 import { AIConversationDisplayText } from './displayText';
+import { ConversationMessage, SendMessage } from '../../types';
 
 export interface Controls<
   T extends Partial<AIConversationElements> = AIConversationElements,
@@ -38,7 +39,7 @@ export interface AIConversationInput<
 
 export interface AIConversationProps {
   messages: ConversationMessage[];
-  handleSendMessage?: () => void;
+  handleSendMessage: SendMessage;
   avatars: Avatars;
 }
 
@@ -62,30 +63,6 @@ export interface Avatar {
 export interface Avatars {
   user: Avatar;
   ai: Avatar;
-}
-
-export interface ImageContent {
-  format: 'png' | 'jpeg' | 'gif' | 'webp';
-  bytes: ArrayBuffer;
-}
-
-export interface ImageContentBlock {
-  type: 'image';
-  value: ImageContent;
-}
-
-export interface TextContent {
-  type: 'text';
-  value: string;
-}
-
-export type Content = ImageContentBlock | TextContent;
-
-export interface ConversationMessage {
-  id: string;
-  content: Content[];
-  role: 'user' | 'assistant';
-  timestamp: Date;
 }
 
 export interface CustomAction {

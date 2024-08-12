@@ -1,33 +1,19 @@
-import React from 'react';
-
-import { Icon } from '@aws-amplify/ui-react';
-import { createAIConversation } from '@aws-amplify/ui-react-ai';
+import { Amplify } from 'aws-amplify';
+import { createAIConversation, createAIHooks } from '@aws-amplify/ui-react-ai';
+import { generateClient } from 'aws-amplify/api';
 import '@aws-amplify/ui-react/styles.css';
 import '@aws-amplify/ui-react-ai/ai-conversation-styles.css';
 
-export interface ImageContent {
-  format: 'png' | 'jpeg' | 'gif' | 'webp';
-  bytes: ArrayBuffer;
-}
+import outputs from './amplify_outputs.json';
+import type { Schema } from './amplify/data/resource';
+import { Authenticator } from '@aws-amplify/ui-react';
 
-interface ImageContentBlock {
-  type: 'image';
-  value: ImageContent;
-}
+const client = generateClient<Schema>();
+const { useAIConversation } = createAIHooks(client);
 
-export interface TextContent {
-  type: 'text';
-  value: string;
-}
+Amplify.configure(outputs);
 
-export type Content = ImageContentBlock | TextContent;
-
-export interface ConversationMessage {
-  id: string;
-  content: Content[];
-  role: 'user' | 'assistant';
-  timestamp: Date;
-}
+const { AIConversation } = createAIConversation();
 
 function convertBufferToBase64(
   buffer: ArrayBuffer,
@@ -36,104 +22,6 @@ function convertBufferToBase64(
   const base64string = Buffer.from(new Uint8Array(buffer)).toString('base64');
   return `data:image/${format};base64,${base64string}`;
 }
-
-const roles = ['user', 'assistant'] as const;
-const sampleMessages: Content[][] = [
-  [
-    { type: 'text', value: 'How can I assist you today?' },
-    { type: 'text', value: 'How can I assist you today?' },
-    { type: 'text', value: 'How can I assist you today?' },
-  ],
-  [
-    { type: 'text', value: 'What are you looking for?' },
-    { type: 'text', value: 'What are you looking for?' },
-    { type: 'text', value: 'What are you looking for?' },
-  ],
-  [
-    { type: 'text', value: 'Can you provide more details?' },
-    { type: 'text', value: 'Can you provide more details?' },
-  ],
-  [
-    { type: 'text', value: 'I will get back to you shortly.' },
-    { type: 'text', value: 'I will get back to you shortly.' },
-    { type: 'text', value: 'I will get back to you shortly.' },
-  ],
-  [{ type: 'text', value: 'Thank you for your patience.' }],
-  [{ type: 'text', value: `I'm a real AI!` }],
-];
-
-const PROMPTS = [
-  {
-    header: 'Help me find a rental',
-    inputText: 'Find a rental with a pool',
-  },
-  {
-    header: 'Help me find a rental',
-    inputText: 'Find a rental with a basketball court',
-  },
-];
-
-export const actions = [
-  {
-    displayName: 'Heart',
-    icon: (
-      <Icon
-        pathData="M13.22,2.984c-1.125,0-2.504,0.377-3.53,1.182C8.756,3.441,7.502,2.984,6.28,2.984c-2.6,0-4.714,2.116-4.714,4.716c0,0.32,0.032,0.644,0.098,0.96c0.799,4.202,6.781,7.792,7.46,8.188c0.193,0.111,0.41,0.168,0.627,0.168c0.187,0,0.376-0.041,0.55-0.127c0.011-0.006,1.349-0.689,2.91-1.865c0.021-0.016,0.043-0.031,0.061-0.043c0.021-0.016,0.045-0.033,0.064-0.053c3.012-2.309,4.6-4.805,4.6-7.229C17.935,5.1,15.819,2.984,13.22,2.984z M12.544,13.966c-0.004,0.004-0.018,0.014-0.021,0.018s-0.018,0.012-0.023,0.016c-1.423,1.076-2.674,1.734-2.749,1.771c0,0-6.146-3.576-6.866-7.363C2.837,8.178,2.811,7.942,2.811,7.7c0-1.917,1.554-3.47,3.469-3.47c1.302,0,2.836,0.736,3.431,1.794c0.577-1.121,2.161-1.794,3.509-1.794c1.914,0,3.469,1.553,3.469,3.47C16.688,10.249,14.474,12.495,12.544,13.966z"
-        width="20px"
-        height="20px"
-      />
-    ),
-    // eslint-disable-next-line no-console -- This is a mock handler
-    handler: () => console.log('Heart clicked'),
-  },
-  {
-    displayName: 'Star',
-    icon: (
-      <Icon
-        pathData="M16.85,7.275l-3.967-0.577l-1.773-3.593c-0.208-0.423-0.639-0.69-1.11-0.69s-0.902,0.267-1.11,0.69L7.116,6.699L3.148,7.275c-0.466,0.068-0.854,0.394-1,0.842c-0.145,0.448-0.023,0.941,0.314,1.27l2.871,2.799l-0.677,3.951c-0.08,0.464,0.112,0.934,0.493,1.211c0.217,0.156,0.472,0.236,0.728,0.236c0.197,0,0.396-0.048,0.577-0.143l3.547-1.864l3.548,1.864c0.18,0.095,0.381,0.143,0.576,0.143c0.256,0,0.512-0.08,0.729-0.236c0.381-0.277,0.572-0.747,0.492-1.211l-0.678-3.951l2.871-2.799c0.338-0.329,0.459-0.821,0.314-1.27C17.705,7.669,17.316,7.343,16.85,7.275z M13.336,11.754l0.787,4.591l-4.124-2.167l-4.124,2.167l0.788-4.591L3.326,8.5l4.612-0.67l2.062-4.177l2.062,4.177l4.613,0.67L13.336,11.754z"
-        width="20px"
-        height="20px"
-      />
-    ),
-    // eslint-disable-next-line no-console -- This is a mock handler
-    handler: () => console.log('Star clicked'),
-  },
-];
-
-const initialMessages = [
-  {
-    id: '1',
-    content: [{ type: 'text' as const, value: 'I am your virtual assistant' }],
-    role: 'assistant' as const,
-    timestamp: new Date(2023, 4, 21, 15, 23),
-  },
-  {
-    id: '2',
-    content: [
-      {
-        type: 'text' as const,
-        value:
-          'I have a really long question. This is a long message This is a long message This is a long message This is a long message This is a long message',
-      },
-    ],
-    role: 'user' as const,
-    timestamp: new Date(2023, 4, 21, 15, 24),
-  },
-  {
-    id: '3',
-    content: [
-      {
-        type: 'image' as const,
-        value: {
-          format: 'png' as const,
-          bytes: new Uint8Array([]).buffer,
-        },
-      },
-    ],
-    role: 'assistant' as const,
-    timestamp: new Date(2023, 4, 21, 15, 25),
-  },
-];
 
 const avatars = {
   user: {
@@ -198,46 +86,28 @@ const avatars = {
   },
 };
 
-// const getRandomMessage = (): {
-//   role: (typeof roles)[number];
-//   content: Content[];
-//   timestamp: Date;
-// } => {
-//   const role = roles[Math.floor(Math.random() * roles.length)];
-//   const message =
-//     sampleMessages[Math.floor(Math.random() * sampleMessages.length)];
-//   return {
-//     role,
-//     content: message,
-//     timestamp: new Date(),
-//   };
-// };
-
-// const useRandomMessages = (initialMessages: any[]) => {
-//   const [messages, setMessages] = React.useState(initialMessages);
-
-//   React.useEffect(() => {
-//     const intervalId = setInterval(() => {
-//       setMessages((prevMessages) => [...prevMessages, getRandomMessage()]);
-//     }, 3000);
-
-//     return () => clearInterval(intervalId);
-//   }, []);
-
-//   return messages;
-// };
-
-const { AIConversation } = createAIConversation({
-  suggestedPrompts: PROMPTS,
-  actions: actions,
-  variant: 'bubble-2',
-});
-
 export default function Example() {
-  // uncomment to use growing list of messages
-  // const messages = useRandomMessages(initialMessages);
-  const messages = initialMessages;
+  const [
+    {
+      data: { messages },
+    },
+    sendMessage,
+  ] = useAIConversation('pirateChat');
 
-  return <AIConversation messages={messages} avatars={avatars} />;
-  // return <div>hello world</div>;
+  return (
+    <Authenticator>
+      {({ user, signOut }) => {
+        return (
+          <>
+            <h1>Hello {user.username}</h1>
+            <AIConversation
+              avatars={avatars}
+              messages={messages}
+              handleSendMessage={sendMessage}
+            />
+          </>
+        );
+      }}
+    </Authenticator>
+  );
 }

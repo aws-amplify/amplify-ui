@@ -1,8 +1,6 @@
 import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
-import { ConversationMessage } from '../../types';
-
 import {
   MessagesContext,
   MessageVariantContext,
@@ -12,6 +10,7 @@ import { AIConversationElements } from '../../context/elements';
 import { convertBufferToBase64, formatDate } from '../../utils';
 import { ActionsBarControl } from './ActionsBarControl';
 import { AvatarControl } from './AvatarControl';
+import { ConversationMessage } from '../../../../types';
 
 const { Image, Span, Text, View } = AIConversationElements;
 
@@ -73,20 +72,24 @@ export const MessageControl: MessageControl = ({ message }) => {
   return (
     <ContentContainer>
       {message.content.map((content, index) => {
-        return content.type === 'text' ? (
-          <TextContent data-testid={'text-content'} key={index}>
-            {content.value}
-          </TextContent>
-        ) : (
-          <MediaContent
-            data-testid={'image-content'}
-            key={index}
-            src={convertBufferToBase64(
-              content.value.bytes,
-              content.value.format
-            )}
-          ></MediaContent>
-        );
+        if (content.text) {
+          return (
+            <TextContent data-testid={'text-content'} key={index}>
+              {content.text}
+            </TextContent>
+          );
+        } else if (content.image) {
+          return (
+            <MediaContent
+              data-testid={'image-content'}
+              key={index}
+              src={convertBufferToBase64(
+                content.image?.source.bytes,
+                content.image?.format
+              )}
+            ></MediaContent>
+          );
+        }
       })}
     </ContentContainer>
   );
@@ -213,7 +216,7 @@ export const MessagesControl: MessagesControl = ({ renderMessage }) => {
               <HeaderContainer>
                 <AvatarControl />
                 <Separator />
-                <Timestamp>{formatDate(message.timestamp)}</Timestamp>
+                <Timestamp>{formatDate(new Date(message.createdAt))}</Timestamp>
               </HeaderContainer>
               <MessageControl message={message} />
               {message.role === 'assistant' ? (

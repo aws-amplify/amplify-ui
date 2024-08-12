@@ -1,8 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { ConversationMessage } from '../../../types';
-
 import { ActionsProvider } from '../../../context/ActionsContext';
 import { AvatarsProvider } from '../../../context/AvatarsContext';
 import {
@@ -13,56 +11,41 @@ import { MessageVariantProvider } from '../../../context/MessageVariantContext';
 import { MessagesControl, MessageControl } from '../MessagesControl';
 
 import { convertBufferToBase64 } from '../../../utils';
+import { ConversationMessage } from '../../../../../types';
 
 const AITextMessage: ConversationMessage = {
+  conversationId: 'foobar',
   id: '1',
-  content: [{ type: 'text', value: 'I am your virtual assistant!' }],
+  content: [{ text: 'I am your virtual assistant' }],
   role: 'assistant',
-  timestamp: new Date(2023, 4, 21, 15, 23),
+  createdAt: new Date(2023, 4, 21, 15, 23).toDateString(),
 };
 const userTextMessage: ConversationMessage = {
+  conversationId: 'foobar',
   id: '2',
-  content: [
-    {
-      type: 'text',
-      value: 'Are you sentient?',
-    },
-  ],
+  content: [{ text: 'Are you sentient?' }],
   role: 'user',
-  timestamp: new Date(2023, 4, 21, 15, 24),
+  createdAt: new Date(2023, 4, 21, 15, 24).toDateString(),
 };
 const AIImageMessage: ConversationMessage = {
+  conversationId: 'foobar',
   id: '3',
   content: [
-    {
-      type: 'text',
-      value: 'Yes, here is proof.',
-    },
-    {
-      type: 'image',
-      value: {
-        format: 'png',
-        bytes: new Uint8Array([]).buffer,
-      },
-    },
+    { text: 'Yes, here is proof.' },
+    { image: { format: 'png', source: { bytes: new Uint8Array([]) } } },
   ],
   role: 'assistant',
-  timestamp: new Date(2025, 4, 21, 15, 25),
+  createdAt: new Date(2023, 4, 21, 15, 25).toDateString(),
 };
 const userDoubleText: ConversationMessage = {
+  conversationId: 'foobar',
   id: '4',
   content: [
-    {
-      type: 'text',
-      value: 'Wow.',
-    },
-    {
-      type: 'text',
-      value: `What an impressive product! AND you're from the future?`,
-    },
+    { text: 'Wow.' },
+    { text: `What an impressive product! AND you're from the future?` },
   ],
   role: 'user',
-  timestamp: new Date(2023, 4, 21, 8, 26),
+  createdAt: new Date(2023, 4, 21, 15, 26).toDateString(),
 };
 
 const avatars = {
@@ -170,17 +153,19 @@ describe('MessagesControl', () => {
     const customMessage = jest.fn((message: ConversationMessage) => (
       <div key={message.id} data-testid="custom-message">
         {message.content.map((content, index) => {
-          return content.type === 'text' ? (
-            <p key={index}>{content.value}</p>
-          ) : (
-            <img
-              key={index}
-              src={convertBufferToBase64(
-                content.value.bytes,
-                content.value.format
-              )}
-            ></img>
-          );
+          if (content.text) {
+            return <p key={index}>{content.text}</p>;
+          } else if (content.image) {
+            return (
+              <img
+                key={index}
+                src={convertBufferToBase64(
+                  content.image?.source.bytes,
+                  content.image?.format
+                )}
+              ></img>
+            );
+          }
         })}
       </div>
     ));
@@ -240,7 +225,7 @@ describe('MessagesControl', () => {
     messages = screen.getAllByTestId('message');
     contentChunks = screen.queryAllByTestId(/^(text-content|image-content)$/);
     expect(avatarElements).toHaveLength(3);
-    expect(actionElements).toHaveLength(3);
+    expect(actionElements).toHaveLength(2); // should not show on user messages
     expect(messages).toHaveLength(3);
     expect(contentChunks).toHaveLength(4);
     rerender(
@@ -260,7 +245,7 @@ describe('MessagesControl', () => {
     messages = screen.getAllByTestId('message');
     contentChunks = screen.queryAllByTestId(/^(text-content|image-content)$/);
     expect(avatarElements).toHaveLength(3);
-    expect(actionElements).toHaveLength(3);
+    expect(actionElements).toHaveLength(2);
     expect(messages).toHaveLength(3);
     expect(contentChunks).toHaveLength(5);
   });

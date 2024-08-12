@@ -2,13 +2,14 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { ActionsBarControl } from '../ActionsBarControl';
 import { ActionsProvider } from '../../../context/ActionsContext';
-import { ConversationMessage } from '../../../types';
+import { ConversationMessage } from '../../../../../types';
 
 const message: ConversationMessage = {
+  conversationId: 'foobar',
   id: '1',
-  content: [{ type: 'text', value: 'I am your virtual assistant' }],
+  content: [{ text: 'I am your virtual assistant' }],
   role: 'assistant',
-  timestamp: new Date(2023, 4, 21, 15, 23),
+  createdAt: new Date(2023, 4, 21, 15, 23).toDateString(),
 };
 
 const customActions = [

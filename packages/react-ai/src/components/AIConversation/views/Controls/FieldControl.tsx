@@ -1,12 +1,13 @@
 import React from 'react';
 
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
-import { ImageContentBlock, TextContent } from '../../types';
 import { InputContext } from '../../context';
 import { AIConversationElements } from '../../context/elements';
 import { AttachFileControl } from './AttachFileControl';
 import { MessagesContext } from '../../context';
 import { AttachmentListControl } from './AttachmentListControl';
+import { SendMessageContext } from '../../context/SendMessageContext';
+import { ConversationMessageContent, InputContent } from '../../../../types';
 
 const {
   Button,
@@ -133,32 +134,35 @@ const InputContainer = withBaseElementProps(View, {
 
 export const FieldControl: FieldControl = () => {
   const { input, setInput } = React.useContext(InputContext);
+  const handleSendMessage = React.useContext(SendMessageContext);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     (e.target as HTMLFormElement).reset();
 
+    const submittedContent: InputContent[] = [];
     if (input?.text) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars -- TODO send message
-      const textContent: TextContent = {
-        type: 'text',
-        value: input.text,
+      const textContent: InputContent = {
+        text: input.text,
       };
+      submittedContent.push(textContent);
     }
     if (input?.files) {
-      input.files.map((file) => {
+      input.files.forEach((file) => {
         file.arrayBuffer().then((buffer) => {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars -- TODO send message
-          const fileContent: ImageContentBlock = {
-            type: 'image',
-            value: {
+          const fileContent: ConversationMessageContent = {
+            image: {
               format: file.type as 'png' | 'jpeg' | 'gif' | 'webp',
-              bytes: buffer,
+              source: { bytes: new Uint8Array(buffer) },
             },
           };
+          submittedContent.push(fileContent);
         });
       });
     }
+    if (handleSendMessage) handleSendMessage({ content: submittedContent });
     if (setInput) setInput({ text: '', files: [] });
   };
   return (

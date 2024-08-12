@@ -1,40 +1,36 @@
 import React from 'react';
 import { Icon } from '@aws-amplify/ui-react';
-import { Avatars, ConversationMessage, CustomAction } from '../types';
+import { Avatars, CustomAction } from '../types';
 import { convertBufferToBase64 } from '../utils';
+import { ConversationMessage } from '../../../types';
 
 export const messages: ConversationMessage[] = [
   {
+    conversationId: 'foobar',
     id: '1',
-    content: [{ type: 'text', value: 'I am your virtual assistant' }],
+    content: [{ text: 'I am your virtual assistant' }],
     role: 'assistant',
-    timestamp: new Date(2023, 4, 21, 15, 23),
+    createdAt: new Date(2023, 4, 21, 15, 23).toDateString(),
   },
   {
+    conversationId: 'foobar',
     id: '2',
     content: [
       {
-        type: 'text',
-        value:
-          'I have a really long question. This is a long message This is a long message This is a long message This is a long message This is a long message',
+        text: 'I have a really long question. This is a long message This is a long message This is a long message This is a long message This is a long message',
       },
     ],
     role: 'user',
-    timestamp: new Date(2023, 4, 21, 15, 24),
+    createdAt: new Date(2023, 4, 21, 15, 24).toDateString(),
   },
   {
+    conversationId: 'foobar',
     id: '3',
     content: [
-      {
-        type: 'image',
-        value: {
-          format: 'png',
-          bytes: new Uint8Array([]).buffer,
-        },
-      },
+      { image: { format: 'png', source: { bytes: new Uint8Array([]) } } },
     ],
     role: 'assistant',
-    timestamp: new Date(2023, 4, 21, 15, 25),
+    createdAt: new Date(2023, 4, 21, 15, 25).toDateString(),
   },
 ];
 
