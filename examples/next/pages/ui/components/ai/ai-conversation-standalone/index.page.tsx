@@ -37,31 +37,6 @@ function convertBufferToBase64(
   return `data:image/${format};base64,${base64string}`;
 }
 
-const roles = ['user', 'assistant'] as const;
-const sampleMessages: Content[][] = [
-  [
-    { type: 'text', value: 'How can I assist you today?' },
-    { type: 'text', value: 'How can I assist you today?' },
-    { type: 'text', value: 'How can I assist you today?' },
-  ],
-  [
-    { type: 'text', value: 'What are you looking for?' },
-    { type: 'text', value: 'What are you looking for?' },
-    { type: 'text', value: 'What are you looking for?' },
-  ],
-  [
-    { type: 'text', value: 'Can you provide more details?' },
-    { type: 'text', value: 'Can you provide more details?' },
-  ],
-  [
-    { type: 'text', value: 'I will get back to you shortly.' },
-    { type: 'text', value: 'I will get back to you shortly.' },
-    { type: 'text', value: 'I will get back to you shortly.' },
-  ],
-  [{ type: 'text', value: 'Thank you for your patience.' }],
-  [{ type: 'text', value: `I'm a real AI!` }],
-];
-
 const PROMPTS = [
   {
     header: 'Help me find a rental',
@@ -102,36 +77,22 @@ export const actions = [
 
 const initialMessages = [
   {
+    conversationId: 'foobar',
     id: '1',
-    content: [{ type: 'text' as const, value: 'I am your virtual assistant' }],
+    content: [{ text: 'I am your virtual assistant' }],
     role: 'assistant' as const,
-    timestamp: new Date(2023, 4, 21, 15, 23),
+    createdAt: new Date(2023, 4, 21, 15, 23).toDateString(),
   },
   {
+    conversationId: 'foobar',
     id: '2',
     content: [
       {
-        type: 'text' as const,
-        value:
-          'I have a really long question. This is a long message This is a long message This is a long message This is a long message This is a long message',
+        text: 'I have a really long question. This is a long message This is a long message This is a long message This is a long message This is a long message',
       },
     ],
     role: 'user' as const,
-    timestamp: new Date(2023, 4, 21, 15, 24),
-  },
-  {
-    id: '3',
-    content: [
-      {
-        type: 'image' as const,
-        value: {
-          format: 'png' as const,
-          bytes: new Uint8Array([]).buffer,
-        },
-      },
-    ],
-    role: 'assistant' as const,
-    timestamp: new Date(2023, 4, 21, 15, 25),
+    createdAt: new Date(2023, 4, 21, 15, 24).toDateString(),
   },
 ];
 
@@ -238,6 +199,12 @@ export default function Example() {
   // const messages = useRandomMessages(initialMessages);
   const messages = initialMessages;
 
-  return <AIConversation messages={messages} avatars={avatars} />;
+  return (
+    <AIConversation
+      messages={messages}
+      avatars={avatars}
+      handleSendMessage={() => {}}
+    />
+  );
   // return <div>hello world</div>;
 }
