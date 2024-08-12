@@ -6,6 +6,7 @@ import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
 import { CommonControl, ViewComponent } from '../types';
 import { LocationsViewTable } from '../Controls';
+import { useLocationsData } from '../../context/actions';
 
 const { Message, Paginate, Refresh, Search, Table, Title } = Controls;
 
@@ -23,10 +24,26 @@ export interface LocationsView<
   T extends StorageBrowserElements = StorageBrowserElements,
 > extends ViewComponent<LocationsViewControls<T>> {}
 
+const LocationsViewRefresh = () => {
+  const [{ isLoading }, handleListLocations] = useLocationsData();
+
+  return (
+    <Refresh
+      disabled={isLoading}
+      onClick={() =>
+        handleListLocations({
+          options: { refresh: true, pageSize: 1000 },
+        })
+      }
+    ></Refresh>
+  );
+};
+
 const LocationsViewControls: LocationsViewControls = () => {
   return (
     <>
       <Title>Home</Title>
+      <LocationsViewRefresh />
       <LocationsViewTable />
     </>
   );
