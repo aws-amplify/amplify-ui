@@ -18,6 +18,7 @@ export interface UseUploadFilesProps
       | 'onUploadStart'
       | 'maxFileCount'
       | 'processFile'
+      | 'useAccelerateEndpoint'
     >,
     Pick<
       UseStorageManager,
@@ -42,6 +43,7 @@ export function useUploadFiles({
   setUploadingFile,
   setUploadProgress,
   setUploadSuccess,
+  useAccelerateEndpoint,
 }: UseUploadFilesProps): void {
   React.useEffect(() => {
     const filesReadyToUpload = files.filter(
@@ -77,6 +79,7 @@ export function useUploadFiles({
           onProgress,
           path,
           processFile,
+          useAccelerateEndpoint,
         });
 
         uploadFile({
@@ -119,5 +122,6 @@ export function useUploadFiles({
     setUploadSuccess,
     processFile,
     path,
+    useAccelerateEndpoint,
   ]);
 }

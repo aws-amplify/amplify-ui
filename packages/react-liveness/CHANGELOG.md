@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.1.3
+
+### Patch Changes
+
+- [#5497](https://github.com/aws-amplify/amplify-ui/pull/5497) [`325187cb9`](https://github.com/aws-amplify/amplify-ui/commit/325187cb9753bedf343364ef4f92d6eb9ad9003a) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(dependabot): Update dependencies in liveness package (@aws-sdk/client-rekognitionstreaming) to get fast-xml-parser fix
+
 ## 3.1.2
 
 ### Patch Changes

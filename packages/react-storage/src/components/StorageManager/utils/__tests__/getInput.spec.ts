@@ -62,7 +62,11 @@ describe('getInput', () => {
   it('resolves an UploadDataWithPathInput with a string `path` as expected', async () => {
     const expected: UploadDataWithPathInput = {
       data: file,
-      options: { contentType: file.type, onProgress },
+      options: {
+        contentType: file.type,
+        useAccelerateEndpoint: undefined,
+        onProgress,
+      },
       path: `${stringPath}${key}`,
     };
 
@@ -76,7 +80,11 @@ describe('getInput', () => {
   it('resolves an UploadDataWithPathInput with a callback `path` as expected', async () => {
     const expected: UploadDataWithPathInput = {
       data: file,
-      options: { contentType: file.type, onProgress },
+      options: {
+        contentType: file.type,
+        useAccelerateEndpoint: undefined,
+        onProgress,
+      },
       path: `${stringPath}${identityId}${key}`,
     };
 
@@ -90,7 +98,12 @@ describe('getInput', () => {
   it('resolves an UploadDataInput without a `path` as expected', async () => {
     const expected: UploadDataInput = {
       data: file,
-      options: { accessLevel, contentType: file.type, onProgress },
+      options: {
+        accessLevel,
+        contentType: file.type,
+        useAccelerateEndpoint: undefined,
+        onProgress,
+      },
       key,
     };
 
@@ -104,7 +117,12 @@ describe('getInput', () => {
   it('resolves an UploadDataInput with a `path` as expected', async () => {
     const expected: UploadDataInput = {
       data: file,
-      options: { accessLevel, contentType: file.type, onProgress },
+      options: {
+        accessLevel,
+        contentType: file.type,
+        useAccelerateEndpoint: undefined,
+        onProgress,
+      },
       key: `${stringPath}${key}`,
     };
 
@@ -118,7 +136,11 @@ describe('getInput', () => {
   it('handles a `processFile` param expected', async () => {
     const expected: UploadDataWithPathInput = {
       data: file,
-      options: { contentType: file.type, onProgress },
+      options: {
+        contentType: file.type,
+        useAccelerateEndpoint: undefined,
+        onProgress,
+      },
       path: `${stringPath}${identityId}${processFilePrefix}${key}`,
     };
 
@@ -167,6 +189,7 @@ describe('getInput', () => {
         contentType: file.type,
         metadata,
         onProgress,
+        useAccelerateEndpoint: undefined,
       },
       path: `${stringPath}${processFilePrefix}${key}`,
     };
@@ -216,19 +239,46 @@ describe('getInput', () => {
       processedKey,
     });
   });
-});
 
-it('defaults `options.contentType` to "binary/octet-stream" when no file type is provided', async () => {
-  const data = new File(['hello'], 'hello.png');
-  const expected: UploadDataWithPathInput = {
-    data,
-    options: { contentType: 'binary/octet-stream', onProgress },
-    path: `${stringPath}${key}`,
-  };
+  it('defaults `options.contentType` to "binary/octet-stream" when no file type is provided', async () => {
+    const data = new File(['hello'], 'hello.png');
+    const expected: UploadDataWithPathInput = {
+      data,
+      options: {
+        contentType: 'binary/octet-stream',
+        useAccelerateEndpoint: undefined,
+        onProgress,
+      },
+      path: `${stringPath}${key}`,
+    };
 
-  const input = getInput({ ...pathStringInput, file: data });
+    const input = getInput({ ...pathStringInput, file: data });
 
-  const output = await input();
+    const output = await input();
 
-  expect(output).toStrictEqual(expected);
+    expect(output).toStrictEqual(expected);
+  });
+
+  it('accepts useAccelerateEndpoint', async () => {
+    const data = new File(['hello'], 'hello.png');
+    const expected: UploadDataWithPathInput = {
+      data,
+      options: {
+        contentType: 'binary/octet-stream',
+        useAccelerateEndpoint: true,
+        onProgress,
+      },
+      path: `${stringPath}${key}`,
+    };
+
+    const input = getInput({
+      ...pathStringInput,
+      file: data,
+      useAccelerateEndpoint: true,
+    });
+
+    const output = await input();
+
+    expect(output).toStrictEqual(expected);
+  });
 });
