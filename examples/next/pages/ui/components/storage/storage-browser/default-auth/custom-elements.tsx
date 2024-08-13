@@ -2,13 +2,16 @@ import React from 'react';
 import {
   Button as _Button,
   Flex,
+  Heading as _Heading,
+  Input as _Input,
+  Label as _Label,
+  Message as _Message,
   Table as _Table,
   TableBody as _TableBody,
   TableCell as _TableCell,
   TableHead as _TableHead,
   TableRow as _TableRow,
-  Heading as _Heading,
-  Message as _Message,
+  Text as _Text,
   View as _View,
 } from '@aws-amplify/ui-react';
 
@@ -68,7 +71,7 @@ const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
         />
       );
     default:
-      return <_Button {...props} ref={ref} />;
+      return <_Button {...props} size="small" ref={ref} />;
   }
 });
 
@@ -77,6 +80,19 @@ const DefinitionTerm = React.forwardRef<HTMLElement>(
     return <_View {...props} as="dt" fontWeight="bold" ref={ref} />;
   }
 );
+
+const Label = React.forwardRef<HTMLLabelElement>(function Label(props, ref) {
+  const { children } = props as any;
+  return (
+    <_Label {...props} ref={ref}>
+      {children}
+    </_Label>
+  );
+});
+
+const Input = React.forwardRef<HTMLInputElement>(function Input(props, ref) {
+  return <_Input {...props} ref={ref} />;
+});
 
 const Title = React.forwardRef<HTMLHeadingElement>(
   function Heading(props, ref) {
@@ -127,6 +143,16 @@ const TableHeader = React.forwardRef<HTMLTableCellElement>(
   }
 );
 
+const Text = React.forwardRef<HTMLParagraphElement>(function Text(props, ref) {
+  const { variant } = props as any;
+  switch (variant) {
+    case 'field-error':
+      return <_Text {...props} color="font.error" margin="0" ref={ref} />;
+    default:
+      return <_Text {...props} ref={ref} />;
+  }
+});
+
 const View = React.forwardRef<HTMLDivElement>(function View(props, ref) {
   const { variant } = props as any;
   switch (variant) {
@@ -158,9 +184,12 @@ const View = React.forwardRef<HTMLDivElement>(function View(props, ref) {
       return <_View {...props} ref={ref as any} />;
   }
 });
+
 export const elements = {
   Button,
   DefinitionTerm,
+  Input,
+  Label,
   Title,
   Table,
   TableBody,
@@ -168,5 +197,6 @@ export const elements = {
   TableHead,
   TableHeader,
   TableRow,
+  Text,
   View,
 };
