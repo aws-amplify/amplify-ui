@@ -25,11 +25,11 @@ export interface LocationsView<
 > extends ViewComponent<LocationsViewControls<T>> {}
 
 const LocationsViewRefresh = () => {
-  const [{ isLoading }, handleListLocations] = useLocationsData();
+  const [{ data, isLoading }, handleListLocations] = useLocationsData();
 
   return (
     <Refresh
-      disabled={isLoading}
+      disabled={isLoading || data.result.length <= 0}
       onClick={() =>
         handleListLocations({
           options: { refresh: true, pageSize: 1000 },
