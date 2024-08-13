@@ -8,6 +8,7 @@ import { parseLocationAccess } from '../../context/controls/Navigate/utils';
 import { CLASS_BASE } from '../constants';
 import type { OmitElements } from '../types';
 import { LocationData } from '../../context/actions';
+import { ControlsContext } from '../../createProvider';
 
 export interface _NavigateControl<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -88,6 +89,12 @@ export const NavigateControl: NavigateControl = (_props) => {
   const [{ history, location }, handleUpdateState] = useControl({
     type: 'NAVIGATE',
   });
+
+  const controls = React.useContext(ControlsContext);
+
+  if (controls?.Navigate) {
+    return <controls.Navigate {...{ history, location, handleUpdateState }} />;
+  }
 
   const { bucket } = location
     ? parseLocationAccess(location)
