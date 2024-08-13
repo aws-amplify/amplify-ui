@@ -5,6 +5,7 @@ import { downloadAction } from '../../context/actions';
 import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
 import { useDataState } from '@aws-amplify/ui-react-core';
+import { useGetLocationConfig } from '../../context/config';
 
 const { Button, Icon } = StorageBrowserElements;
 
@@ -42,6 +43,9 @@ function download(fileName: string, url: string) {
 }
 
 export const DownloadControl: DownloadControl = ({ fileKey }) => {
+  const getConfig = useGetLocationConfig();
+  const { bucket: bucketName, credentialsProvider, region } = getConfig();
+
   const [{ data }, handleDownload] = useDataState(downloadAction, {
     signedUrl: '',
   });
@@ -59,6 +63,7 @@ export const DownloadControl: DownloadControl = ({ fileKey }) => {
       aria-label={`Download ${fileKey}`}
       onClick={() => {
         handleDownload({
+          config: { bucket: bucketName, credentialsProvider, region },
           key: fileKey,
         });
       }}
