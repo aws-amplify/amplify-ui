@@ -1,11 +1,7 @@
 import React from 'react';
 import { FederatedProvider } from '@aws-amplify/ui';
-import {
-  ProviderType,
-  ProviderData,
-  DefaultFederatedProviderList,
-} from '../../controls';
-import { toProviderData } from '../FederatedIdentitiesControl';
+import { ProviderType, ProviderData, DefaultFederatedProviderList } from '..';
+import { toProviderData } from '../utils';
 
 describe('toProviderData utility', () => {
   beforeEach(() => {
