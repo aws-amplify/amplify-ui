@@ -83,7 +83,7 @@ const MessageContent = withBaseElementProps(View, {
 });
 interface MessageControlProps {
   variant?: MessageVariant;
-  children?: string;
+  children?: React.ReactNode;
 }
 interface _MessageControl<
   T extends StorageBrowserElements = StorageBrowserElements,
