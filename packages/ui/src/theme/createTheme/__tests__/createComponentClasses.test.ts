@@ -133,7 +133,8 @@ describe('createComponentClasses:', () => {
         _modifiers: [null, undefined],
       });
 
-      const badClassname = avatarClassnames({
+      // Bad classname should throw TS error
+      avatarClassnames({
         // @ts-expect-error
         _modifiers: 'foo',
       });
@@ -148,7 +149,8 @@ describe('createComponentClasses:', () => {
         _element: 'icon',
       });
 
-      const badClassname = avatarClassnames({
+      // Bad classname should throw TS error
+      avatarClassnames({
         // @ts-expect-error
         _element: 'foo',
       });
@@ -175,7 +177,8 @@ describe('createComponentClasses:', () => {
         },
       });
 
-      const badClassname = avatarClassnames({
+      // Bad classname should throw TS error
+      avatarClassnames({
         _element: {
           // @ts-expect-error
           icon: 'large',
