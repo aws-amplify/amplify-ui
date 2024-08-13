@@ -80,7 +80,8 @@ type TextAreaElementProps =
   | 'name'
   | 'onChange'
   | 'placeholder'
-  | 'autoFocus';
+  | 'autoFocus'
+  | 'onKeyDown';
 
 export const TextAreaElement = defineBaseElement<
   'textarea',

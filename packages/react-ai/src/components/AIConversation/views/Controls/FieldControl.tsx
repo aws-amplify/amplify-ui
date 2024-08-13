@@ -72,23 +72,25 @@ const TextInput: typeof TextAreaBase = React.forwardRef(
     const isFirstMessage = !messages || messages.length === 0;
 
     React.useEffect(() => {
-      const textarea = document.getElementById(`${FIELD_BLOCK}-text-input`);
-
       const handleResize = () => {
-        if (textarea) {
-          textarea.style.height = 'auto';
-          textarea.style.height = `${textarea.scrollHeight}px`;
+        if (textAreaRef && textAreaRef.current) {
+          textAreaRef.current.style.height = 'auto';
+          textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
         }
       };
 
-      if (textarea && textarea instanceof HTMLTextAreaElement) {
-        textarea.addEventListener('input', handleResize);
+      if (
+        textAreaRef &&
+        textAreaRef instanceof HTMLTextAreaElement &&
+        textAreaRef.current
+      ) {
+        textAreaRef.current.addEventListener('input', handleResize);
         handleResize();
       }
 
       return () => {
-        if (textarea) {
-          textarea.removeEventListener('input', handleResize);
+        if (textAreaRef && textAreaRef.current) {
+          textAreaRef.current.removeEventListener('input', handleResize);
         }
       };
     });
@@ -135,11 +137,9 @@ const InputContainer = withBaseElementProps(View, {
 export const FieldControl: FieldControl = () => {
   const { input, setInput } = React.useContext(InputContext);
   const handleSendMessage = React.useContext(SendMessageContext);
+  const ref = React.useRef<HTMLFormElement | null>(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    (e.target as HTMLFormElement).reset();
-
+  const submitMessage = () => {
     const submittedContent: InputContent[] = [];
     if (input?.text) {
       const textContent: InputContent = {
@@ -163,14 +163,42 @@ export const FieldControl: FieldControl = () => {
     if (handleSendMessage) handleSendMessage({ content: submittedContent });
     if (setInput) setInput({ text: '', files: [] });
   };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    (e.target as HTMLFormElement).reset();
+    submitMessage();
+  };
+
+  const handleOnKeyDown: React.KeyboardEventHandler<HTMLTextAreaElement> = (
+    event
+  ) => {
+    const { key, shiftKey } = event;
+
+    if (key === 'Enter' && !shiftKey) {
+      event.preventDefault();
+
+      const hasInput = !!input?.text || !!input?.files?.length;
+      if (hasInput) {
+        submitMessage();
+        ref.current?.reset();
+      }
+    }
+  };
+
   return (
-    <form className={`${FIELD_BLOCK}__form`} onSubmit={handleSubmit}>
+    <form
+      className={`${FIELD_BLOCK}__form`}
+      onSubmit={handleSubmit}
+      method="post"
+      ref={ref}
+    >
       <AttachFileControl />
       <InputContainer>
         <VisuallyHidden>
           <Label />
         </VisuallyHidden>
-        <TextInput />
+        <TextInput onKeyDown={handleOnKeyDown} />
         <AttachmentListControl />
       </InputContainer>
       <SendButton>
