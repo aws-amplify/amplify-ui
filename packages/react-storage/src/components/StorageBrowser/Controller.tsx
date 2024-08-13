@@ -1,27 +1,17 @@
 import React from 'react';
 
-import { LocationsDataState, useLocationsData } from './context/actions';
-
-const shouldLoadLocations = ({
-  data,
-  hasError,
-  isLoading,
-}: LocationsDataState[0]) => !data.result?.length && !isLoading && !hasError;
+import { useLocationsData } from './context/actions';
 
 /**
- * Handles fetching of list data
+ * Defines and provides default `StorageBrowser`
+ * loading behavior
  */
 export function Controller(): null {
-  const [locationsState, handleListLocations] = useLocationsData();
-
-  const loadLocations = shouldLoadLocations(locationsState);
+  const [, handleListLocations] = useLocationsData();
 
   React.useEffect(() => {
-    if (loadLocations) {
-      // TODO: update to exhaustive call
-      handleListLocations({ options: { pageSize: 1000 } });
-    }
-  }, [handleListLocations, loadLocations]);
+    handleListLocations({ options: { pageSize: 1000, reset: true } });
+  }, [handleListLocations]);
 
   return null;
 }
