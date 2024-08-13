@@ -43,7 +43,7 @@ const LocationDetailViewRefresh = () => {
       onClick={() =>
         handleList({ prefix, options: { refresh: true, pageSize: 1000 } })
       }
-    ></Refresh>
+    />
   );
 };
 
