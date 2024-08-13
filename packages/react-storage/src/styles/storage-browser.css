@@ -39,6 +39,7 @@
 }
 .storage-browser__navigate__item {
   display: flex;
+  align-items: center;
   gap: var(--storage-browser-gap);
 }
 
