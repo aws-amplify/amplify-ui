@@ -8,11 +8,11 @@ import { Title } from './Controls';
 
 const { Exit, Message, Primary, Target } = Controls;
 
-const isValidFolderName = (name: string | undefined) => {
-  return name && name.length > 1 && name.endsWith('/');
+export const isValidFolderName = (name: string | undefined): boolean => {
+  return name !== undefined && name.length > 1 && name.endsWith('/');
 };
 
-const FIELD_VALIDATION_MESSAGE =
+export const FIELD_VALIDATION_MESSAGE =
   'Folder name must be at least one character and end with a "/"';
 
 export const CreateFolderControls = (): React.JSX.Element => {
