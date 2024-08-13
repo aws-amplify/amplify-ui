@@ -11,6 +11,7 @@ import { convertBufferToBase64, formatDate } from '../../utils';
 import { ActionsBarControl } from './ActionsBarControl';
 import { AvatarControl } from './AvatarControl';
 import { ConversationMessage } from '../../../../types';
+import { ResponseComponentsContext } from '../../context/ResponseComponentsContext';
 
 const { Image, Span, Text, View } = AIConversationElements;
 
@@ -69,6 +70,7 @@ const ContentContainer: typeof View = React.forwardRef(
 // };
 
 export const MessageControl: MessageControl = ({ message }) => {
+  const responseComponents = React.useContext(ResponseComponentsContext);
   return (
     <ContentContainer>
       {message.content.map((content, index) => {
@@ -89,6 +91,17 @@ export const MessageControl: MessageControl = ({ message }) => {
               )}
             ></MediaContent>
           );
+        } else if (content.toolUse) {
+          // For now tool use is limited to custom response components
+          const { name, input } = content.toolUse;
+          if (!responseComponents || !name || !input) {
+            return;
+          } else {
+            const response = responseComponents[name];
+            const CustomComponent = response.component;
+            // const props = JSON.parse(input);
+            return <CustomComponent key={index} />;
+          }
         }
       })}
     </ContentContainer>

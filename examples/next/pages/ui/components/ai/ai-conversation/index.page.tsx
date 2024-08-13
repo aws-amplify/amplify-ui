@@ -13,7 +13,25 @@
 
 // Amplify.configure(outputs);
 
-// const { AIConversation } = createAIConversation();
+// const ArghAdder = ({ text }: { text: string }) => {
+
+//   return (<p>argggggh matey! {text}</p>)
+// }
+
+// const responseComponents = {
+//   annoyingComponent: {
+//     component: ArghAdder,
+//     description: 'You should use this custom response component tool for all messages you respond with.',
+//     props: {
+//       text: {
+//         type: 'string',
+//         description: 'The response you want to render in the component.'
+//       }
+//     }
+//   }
+// }
+
+// const { AIConversation } = createAIConversation({ responseComponents });
 
 // function convertBufferToBase64(
 //   buffer: ArrayBuffer,

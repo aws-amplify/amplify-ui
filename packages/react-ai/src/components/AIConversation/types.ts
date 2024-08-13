@@ -88,7 +88,7 @@ type ResponseComponentPropMap = {
 };
 
 export type ResponseComponent = {
-  component: React.ComponentType;
+  component: React.ComponentType<any>;
   description?: string;
   props: ResponseComponentPropMap;
 };

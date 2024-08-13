@@ -12,6 +12,7 @@ import { MessagesControl, MessageControl } from '../MessagesControl';
 
 import { convertBufferToBase64 } from '../../../utils';
 import { ConversationMessage } from '../../../../../types';
+import { ResponseComponentsProvider } from '../../../context/ResponseComponentsContext';
 
 const AITextMessage: ConversationMessage = {
   conversationId: 'foobar',
@@ -47,6 +48,21 @@ const userDoubleText: ConversationMessage = {
   role: 'user',
   createdAt: new Date(2023, 4, 21, 15, 26).toDateString(),
 };
+const AIResponseComponentMessage: ConversationMessage = {
+  conversationId: 'foobar',
+  id: '3',
+  content: [
+    {
+      toolUse: {
+        name: 'annoyingComponent',
+        input: { text: 'ahoy matey' },
+        toolUseId: 'tooluseID',
+      },
+    },
+  ],
+  role: 'assistant',
+  createdAt: new Date(2023, 4, 21, 15, 25).toDateString(),
+};
 
 const avatars = {
   user: {
@@ -70,6 +86,24 @@ const customActions = [
     handler: jest.fn(),
   },
 ];
+
+const ArghAdder: React.FC<{ text: string }> = ({ text }) => {
+  return <p>argh matey! {text}</p>;
+};
+
+const responseComponents = {
+  annoyingComponent: {
+    component: ArghAdder,
+    description:
+      'You should use this custom response component tool for all messages you respond with.',
+    props: {
+      text: {
+        type: 'string',
+        description: 'The response you want to render in the component.',
+      },
+    },
+  },
+};
 
 describe('MessagesControl', () => {
   it('renders a MessagesControl element', () => {
@@ -302,6 +336,16 @@ describe('MessageControl', () => {
   it('renders image content', () => {
     render(<MessageControl message={AIImageMessage} />);
     const message = screen.getByRole('img');
+    expect(message).toBeInTheDocument();
+  });
+
+  it('renders custom response content', () => {
+    render(
+      <ResponseComponentsProvider responseComponents={responseComponents}>
+        <MessageControl message={AIResponseComponentMessage} />
+      </ResponseComponentsProvider>
+    );
+    const message = screen.getByText('argh matey!');
     expect(message).toBeInTheDocument();
   });
 });
