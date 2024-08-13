@@ -55,7 +55,7 @@
 }
 
 .storage-browser__target__field {
-  grid-row-start: 4;
+  grid-row-start: 5;
   grid-column: 1 / 20;
   display: inline-grid;
   gap: var(--storage-browser-gap);

@@ -8,6 +8,10 @@ import { Title } from './Controls';
 
 const { Exit, Message, Primary, Target } = Controls;
 
+const isValidFolderName = (name: string | undefined) => {
+  return name && name.endsWith('/');
+};
+
 export const CreateFolderControls = (): React.JSX.Element => {
   const [, handleUpdateState] = useControl({ type: 'ACTION_SELECT' });
   const [{ history }] = useControl({ type: 'NAVIGATE' });
@@ -30,7 +34,7 @@ export const CreateFolderControls = (): React.JSX.Element => {
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const handleFieldValidation = () => {
-    if (!inputRef.current?.value?.endsWith('/')) {
+    if (!isValidFolderName(inputRef.current?.value)) {
       setFieldValidationError('Folder name must end with a "/" character');
       return;
     }
@@ -39,14 +43,23 @@ export const CreateFolderControls = (): React.JSX.Element => {
     setData(() => inputRef.current?.value ?? '');
   };
 
+  const handleCreateFolder = (prefix: string) => {
+    if (isValidFolderName(data)) {
+      setFieldValidationError(undefined);
+      handleCreateAction({ prefix });
+    } else {
+      setFieldValidationError('Folder name must end with a "/" character');
+    }
+  };
+
   const prefix = `${history.join('')}${data}`;
 
   let primaryProps = {
     onClick: () => {
-      handleCreateAction({ prefix });
+      handleCreateFolder(prefix);
     },
     children: 'Create folder',
-    disabled: !data.length,
+    disabled: false,
   };
 
   if (result?.status === 'SUCCESS') {
@@ -63,7 +76,6 @@ export const CreateFolderControls = (): React.JSX.Element => {
     <>
       <Title />
       <Exit onClick={() => handleUpdateState({ type: 'EXIT' })} />
-      <Primary {...primaryProps} />
       {result?.status === 'SUCCESS' ? (
         <Message variant="success">Folder created.</Message>
       ) : null}
@@ -87,6 +99,7 @@ export const CreateFolderControls = (): React.JSX.Element => {
           </Target.Field.Error>
         ) : null}
       </Target.Field.Container>
+      <Primary {...primaryProps} />
     </>
   );
 };
