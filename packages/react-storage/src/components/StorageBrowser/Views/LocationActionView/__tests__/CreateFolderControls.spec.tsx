@@ -3,7 +3,7 @@ import { render, waitFor, screen } from '@testing-library/react';
 import createProvider from '../../../createProvider';
 import userEvent from '@testing-library/user-event';
 
-import { CreateFolderActionView } from '../CreateFolderActionView';
+import { CreateFolderControls } from '../CreateFolderControls';
 
 const listLocations = jest.fn(() =>
   Promise.resolve({ locations: [], nextToken: undefined })
@@ -23,7 +23,7 @@ describe('CreateFolderActionView', () => {
       expect(
         render(
           <Provider>
-            <CreateFolderActionView />
+            <CreateFolderControls />
           </Provider>
         ).container
       ).toBeDefined();
@@ -36,7 +36,7 @@ describe('CreateFolderActionView', () => {
     await waitFor(() => {
       render(
         <Provider>
-          <CreateFolderActionView />
+          <CreateFolderControls />
         </Provider>
       );
     });
