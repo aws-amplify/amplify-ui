@@ -1,0 +1,22 @@
+{
+  "name": "@aws-amplify/ui-next-app-example",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@aws-amplify/ui-react": "^6.1.0",
+    "next": "^14.1.1",
+    "react": "18.2.0",
+    "react-dom": "^18",
+    "react-icons": "^4.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.31",
+    "eslint-config-next": "^13.5.5"
+  }
+}

@@ -48,6 +48,7 @@ const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
           ref={ref}
         />
       );
+    case 'download':
     case 'navigate':
     case 'refresh':
     case 'sort':
