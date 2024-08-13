@@ -12,6 +12,8 @@ const isValidFolderName = (name: string | undefined) => {
   return name && name.endsWith('/');
 };
 
+const FIELD_VALIDATION_MESSAGE = 'Folder name must end with a "/" character';
+
 export const CreateFolderControls = (): React.JSX.Element => {
   const [, handleUpdateState] = useControl({ type: 'ACTION_SELECT' });
   const [{ history }] = useControl({ type: 'NAVIGATE' });
@@ -35,7 +37,7 @@ export const CreateFolderControls = (): React.JSX.Element => {
 
   const handleFieldValidation = () => {
     if (!isValidFolderName(inputRef.current?.value)) {
-      setFieldValidationError('Folder name must end with a "/" character');
+      setFieldValidationError(FIELD_VALIDATION_MESSAGE);
       return;
     }
     // clear error
@@ -48,7 +50,7 @@ export const CreateFolderControls = (): React.JSX.Element => {
       setFieldValidationError(undefined);
       handleCreateAction({ prefix });
     } else {
-      setFieldValidationError('Folder name must end with a "/" character');
+      setFieldValidationError(FIELD_VALIDATION_MESSAGE);
     }
   };
 
