@@ -55,15 +55,16 @@
 }
 
 .storage-browser__target__field {
-  grid-row-start: 3;
-  grid-column: 1 / 16;
+  grid-row-start: 5;
+  grid-column: 1 / 20;
   display: inline-grid;
   gap: var(--storage-browser-gap);
-  grid-template-rows: auto auto;
+  grid-template-rows: repeat(3, auto);
   grid-template-columns: 1fr auto;
   grid-template-areas:
     'label label'
-    'input submit';
+    'input submit'
+    'error error';
 }
 
 .storage-browser__target__label {
@@ -74,6 +75,9 @@
 }
 .storage-browser__target__button {
   grid-area: submit;
+}
+.storage-browser__target__error {
+  grid-area: error;
 }
 .storage-browser__target__destination {
   display: flex;
