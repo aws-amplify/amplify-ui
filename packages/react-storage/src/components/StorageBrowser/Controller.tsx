@@ -10,7 +10,7 @@ export function Controller(): null {
   const [, handleListLocations] = useLocationsData();
 
   React.useEffect(() => {
-    handleListLocations({ options: { pageSize: 1000, reset: true } });
+    handleListLocations({ options: { pageSize: 1000, refresh: true } });
   }, [handleListLocations]);
 
   return null;
