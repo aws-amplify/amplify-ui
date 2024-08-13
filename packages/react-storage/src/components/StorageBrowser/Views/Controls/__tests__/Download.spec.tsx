@@ -4,9 +4,16 @@ import userEvent from '@testing-library/user-event';
 import * as StorageModule from 'aws-amplify/storage';
 
 import createProvider from '../../../createProvider';
+import * as ConfigModule from '../../../context/config';
+
 import { DownloadControl } from '../Download';
 
 const getUrlSpy = jest.spyOn(StorageModule, 'getUrl');
+
+const useGetLocationConfigSpy = jest.spyOn(
+  ConfigModule,
+  'useGetLocationConfig'
+);
 
 const listLocations = jest.fn(() =>
   Promise.resolve({ locations: [], nextToken: undefined })
@@ -22,6 +29,14 @@ const config = {
 const Provider = createProvider({ config });
 
 describe('DownloadControl', () => {
+  beforeEach(() => {
+    useGetLocationConfigSpy.mockReturnValue(() => ({
+      bucket: 'myBucket',
+      credentialsProvider: jest.fn(),
+      region: 'region',
+    }));
+  });
+
   it('renders the DownloadControl', async () => {
     const fileKey = 'test.jpg';
 
