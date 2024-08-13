@@ -74,7 +74,7 @@ export const CreateFolderControls = (): React.JSX.Element => {
         <Target.Field.Input
           disabled={isLoading}
           aria-invalid={fieldValidationError ? 'true' : undefined}
-          aria-describedBy="fieldError"
+          aria-describedby="fieldError"
           type="text"
           id="folder-name-input"
           onBlur={handleFieldValidation}
