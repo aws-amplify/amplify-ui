@@ -59,13 +59,10 @@ const NavigateButton = withBaseElementProps(Button, {
 });
 
 export const NavigateItem = (props: NavigateItemProps): React.JSX.Element => {
-  const { isCurrent } = props;
+  const { isCurrent, ...rest } = props;
   return (
     <NavigateItemContainer>
-      <NavigateButton
-        {...props}
-        aria-current={isCurrent ? 'page' : undefined}
-      />
+      <NavigateButton {...rest} aria-current={isCurrent ? 'page' : undefined} />
       {isCurrent ? null : <Separator />}
     </NavigateItemContainer>
   );
