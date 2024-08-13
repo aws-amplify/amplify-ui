@@ -31,7 +31,7 @@ const LocationDetailViewRefresh = () => {
     type: 'NAVIGATE',
   });
 
-  const [{ isLoading }, handleList] = useAction({
+  const [{ data, isLoading }, handleList] = useAction({
     type: 'LIST_LOCATION_ITEMS',
   });
 
@@ -39,7 +39,7 @@ const LocationDetailViewRefresh = () => {
 
   return (
     <Refresh
-      disabled={isLoading}
+      disabled={isLoading || data.result.length <= 0}
       onClick={() =>
         handleList({ prefix, options: { refresh: true, pageSize: 1000 } })
       }
