@@ -44,8 +44,6 @@ function download(fileName: string, url: string) {
 
 export const DownloadControl: DownloadControl = ({ fileKey }) => {
   const getConfig = useGetLocationConfig();
-  const { bucket: bucketName, credentialsProvider, region } = getConfig();
-
   const [{ data }, handleDownload] = useDataState(downloadAction, {
     signedUrl: '',
   });
@@ -63,7 +61,7 @@ export const DownloadControl: DownloadControl = ({ fileKey }) => {
       aria-label={`Download ${fileKey}`}
       onClick={() => {
         handleDownload({
-          config: { bucket: bucketName, credentialsProvider, region },
+          config: getConfig,
           key: fileKey,
         });
       }}
