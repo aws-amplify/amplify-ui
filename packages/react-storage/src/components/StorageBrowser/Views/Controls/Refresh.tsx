@@ -34,8 +34,8 @@ const RefreshButton = withBaseElementProps(Button, {
   variant: 'refresh',
 });
 
-export const RefreshControl: RefreshControl = ({ onClick, disabled }) => (
-  <RefreshButton onClick={onClick} {...(disabled ? { disabled: true } : {})}>
+export const RefreshControl: RefreshControl = ({ onClick, disabled = false }) => (
+  <RefreshButton onClick={onClick} disabled={disabled}>
     <RefreshIcon />
   </RefreshButton>
 );
