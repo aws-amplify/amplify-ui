@@ -12,7 +12,8 @@ const isValidFolderName = (name: string | undefined) => {
   return name && name.length > 1 && name.endsWith('/');
 };
 
-const FIELD_VALIDATION_MESSAGE = 'Folder name must end with a "/" character';
+const FIELD_VALIDATION_MESSAGE =
+  'Folder name must be at least one character and end with a "/"';
 
 export const CreateFolderControls = (): React.JSX.Element => {
   const [, handleUpdateState] = useControl({ type: 'ACTION_SELECT' });
