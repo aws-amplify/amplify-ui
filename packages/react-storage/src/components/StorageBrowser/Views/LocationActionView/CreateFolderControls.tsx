@@ -9,7 +9,7 @@ import { Title } from './Controls';
 const { Exit, Message, Primary, Target } = Controls;
 
 const isValidFolderName = (name: string | undefined) => {
-  return name && name.endsWith('/');
+  return name && name.length > 1 && name.endsWith('/');
 };
 
 const FIELD_VALIDATION_MESSAGE = 'Folder name must end with a "/" character';
