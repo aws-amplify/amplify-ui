@@ -20,7 +20,7 @@ export interface _RefreshControl<
 export interface RefreshControl<
   T extends StorageBrowserElements = StorageBrowserElements,
 > extends OmitElements<_RefreshControl<T>, 'Button'> {
-  (): React.JSX.Element;
+  (props: { onClick?: () => void; disabled?: boolean }): React.JSX.Element;
 }
 
 const RefreshIcon = withBaseElementProps(Icon, {
@@ -34,8 +34,8 @@ const RefreshButton = withBaseElementProps(Button, {
   variant: 'refresh',
 });
 
-export const RefreshControl: RefreshControl = () => (
-  <RefreshButton>
+export const RefreshControl: RefreshControl = ({ onClick, disabled = false }) => (
+  <RefreshButton onClick={onClick} disabled={disabled}>
     <RefreshIcon />
   </RefreshButton>
 );
