@@ -100,4 +100,20 @@ describe('NavigateControl', () => {
     expect(separators).toHaveLength(4);
     expect(separators[0]).toBeInTheDocument();
   });
+
+  it('applies aria-current to last element in the control and does not contain a separator', async () => {
+    render(
+      <ControlProvider>
+        <NavigateControl />
+      </ControlProvider>
+    );
+    const items = await screen.findAllByRole('listitem');
+    const lastItem = items[items.length - 1];
+    const lastSeparator = lastItem.querySelector(
+      '.storage-browser__navigate__separator'
+    );
+    const currentButton = lastItem.querySelector('button');
+    expect(currentButton).toHaveAttribute('aria-current', 'page');
+    expect(lastSeparator).toBeNull();
+  });
 });
