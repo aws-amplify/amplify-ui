@@ -140,6 +140,7 @@ export const FieldControl: FieldControl = () => {
   const ref = React.useRef<HTMLFormElement | null>(null);
 
   const submitMessage = () => {
+    ref.current?.reset();
     const submittedContent: InputContent[] = [];
     if (input?.text) {
       const textContent: InputContent = {
@@ -166,7 +167,6 @@ export const FieldControl: FieldControl = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    (e.target as HTMLFormElement).reset();
     submitMessage();
   };
 
@@ -178,10 +178,10 @@ export const FieldControl: FieldControl = () => {
     if (key === 'Enter' && !shiftKey) {
       event.preventDefault();
 
-      const hasInput = !!input?.text || !!input?.files?.length;
+      const hasInput =
+        !!input?.text || (input?.files?.length && input?.files?.length > 0);
       if (hasInput) {
         submitMessage();
-        ref.current?.reset();
       }
     }
   };
