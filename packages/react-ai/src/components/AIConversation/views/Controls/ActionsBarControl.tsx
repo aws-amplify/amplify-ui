@@ -1,10 +1,9 @@
 import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
-import { ConversationMessage } from '../../types';
-
 import { ActionsContext } from '../../context';
 import { AIConversationElements } from '../../context/elements';
+import { ConversationMessage } from '../../../../types';
 
 const { Button, Span, View } = AIConversationElements;
 

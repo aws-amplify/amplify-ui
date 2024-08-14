@@ -1,5 +1,5 @@
 import React from 'react';
-import { ConversationMessage } from '../types';
+import { ConversationMessage } from '../../../types';
 
 type MessagesContextProps = ConversationMessage[] | undefined;
 

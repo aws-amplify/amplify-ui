@@ -1,5 +1,5 @@
 import React from 'react';
-import { ConversationMessage } from '@aws-amplify/data-schema/dist/esm/ai/ConversationType';
+import { ConversationMessage } from '../types';
 
 type ConversationToMessages = Record<string, ConversationMessage[]>;
 

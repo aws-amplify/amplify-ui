@@ -1,11 +1,13 @@
 import React from 'react';
 import { V6Client } from '@aws-amplify/api-graphql';
+import { DataState } from '@aws-amplify/ui-react-core';
+import { RouteToConversations, useAIContext } from './AIContextProvider';
 import {
   Conversation,
   ConversationMessage,
-} from '@aws-amplify/data-schema/dist/esm/ai/ConversationType';
-import { DataState } from '@aws-amplify/ui-react-core';
-import { RouteToConversations, useAIContext } from './AIContextProvider';
+  SendMesageParameters,
+  SendMessage,
+} from '../types';
 
 function createNewConversationMessageInRoute({
   previousValue,
@@ -26,11 +28,6 @@ function createNewConversationMessageInRoute({
     },
   };
 }
-interface SendMesageParameters {
-  content: Parameters<Conversation['sendMessage']>[0]['content'];
-  aiContext?: Parameters<Conversation['sendMessage']>[0]['aiContext'];
-  responseComponents?: any;
-}
 
 interface UseAIConversationInput {
   id?: string; // should attempt to create a new session id if none is passed
@@ -44,7 +41,7 @@ interface AIConversationState {
 export type UseAIConversationHook<T extends string> = (
   routeName: T,
   input?: UseAIConversationInput
-) => [DataState<AIConversationState>, (input: SendMesageParameters) => void];
+) => [DataState<AIConversationState>, SendMessage];
 
 export function createUseAIConversation<T extends V6Client<any>>(
   client: T

@@ -50,10 +50,11 @@ describe('FieldControl', () => {
       <MessagesProvider
         messages={[
           {
+            conversationId: 'foobar',
             id: '1',
-            content: [{ type: 'text', value: 'I am your virtual assistant' }],
+            content: [{ text: 'I am your virtual assistant' }],
             role: 'assistant',
-            timestamp: new Date(2023, 4, 21, 15, 23),
+            createdAt: new Date(2023, 4, 21, 15, 23).toDateString(),
           },
         ]}
       >
