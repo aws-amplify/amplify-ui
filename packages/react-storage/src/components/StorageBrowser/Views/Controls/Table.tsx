@@ -4,7 +4,7 @@ import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
 
-type Direction = 'ASCENDING' | 'DESCENDING' | 'NONE';
+export type SortDirection = 'ASCENDING' | 'DESCENDING' | 'NONE';
 
 const {
   Table: BaseTable,
@@ -82,7 +82,7 @@ export interface TableControl<
 export type RenderRowItem<T> = (row: T, index: number) => JSX.Element;
 
 interface TableSortState<T> {
-  direction: Direction;
+  direction: SortDirection;
   selection: keyof T;
 }
 
@@ -96,7 +96,7 @@ export function tableSortReducer<T>(
   const { selection } = action;
 
   if (selection == prevSelection) {
-    const newDirection: Direction =
+    const newDirection: SortDirection =
       direction === 'ASCENDING' ? 'DESCENDING' : 'ASCENDING';
 
     return { direction: newDirection, selection };
@@ -107,7 +107,7 @@ export function tableSortReducer<T>(
 
 export function defaultTableSort<T>(
   data: T[],
-  direction: Direction,
+  direction: SortDirection,
   selection: keyof T
 ): T[] {
   return data.sort((a, b) => {
@@ -175,10 +175,12 @@ export const TableControl: TableControl = <U,>({
             <TableHeader
               key={column.header}
               aria-sort={
-                direction === 'ASCENDING'
-                  ? 'ascending'
-                  : direction === 'DESCENDING'
-                  ? 'descending'
+                selection === column.key
+                  ? direction === 'ASCENDING'
+                    ? 'ascending'
+                    : direction === 'DESCENDING'
+                    ? 'descending'
+                    : 'none'
                   : 'none'
               }
             >

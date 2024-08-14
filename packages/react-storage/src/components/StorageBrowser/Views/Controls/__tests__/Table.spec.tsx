@@ -1,164 +1,187 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-import createProvider from '../../../createProvider';
-import * as ControlsModule from '../../../context/controls/';
-import * as ActionsModule from '../../../context/actions';
-import { LocationItem } from '../../../context/actions';
+import {
+  Column,
+  defaultTableSort,
+  SortDirection,
+  TableControl,
+  tableSortReducer,
+} from '../Table';
 
-import { LocationDetailViewTable, LocationsViewTable } from '../Table';
-
-const useControlSpy = jest.spyOn(ControlsModule, 'useControl');
-const useActionSpy = jest.spyOn(ActionsModule, 'useAction');
-
-const handleUpdateControlState = jest.fn();
-const controlState = {
-  location: {
-    scope: 's3://test-bucket/*',
-    permission: 'READ',
-    type: 'BUCKET',
-  },
-  history: [''],
+type MockColumnType = {
+  name: string;
+  size: number;
+  type: string;
 };
 
-const locationItems: LocationItem[] = [
-  {
-    key: 'test-key-1',
-    lastModified: new Date(),
-    size: 1000,
-    type: 'FILE',
-  },
-  {
-    key: 'test-key-2',
-    lastModified: new Date(),
-    size: 1000,
-    type: 'FILE',
-  },
-  {
-    key: 'test-key-3',
-    lastModified: new Date(),
-    size: 1000,
-    type: 'FILE',
-  },
-  {
-    key: 'test-folder-key-1',
-    type: 'FOLDER',
-  },
+const columns: Column<MockColumnType>[] = [
+  { key: 'name', header: 'Name' },
+  { key: 'type', header: 'File type' },
+  { key: 'size', header: 'Size' },
 ];
 
-const locationItemsState = {
-  data: { result: locationItems, nextToken: undefined },
-  hasError: false,
-  isLoading: false,
-  message: undefined,
-};
-const handleUpdateActionState = jest.fn();
+const data = [
+  { name: 'test1', size: 100, type: 'file' },
+  { name: 'test2', size: 200, type: 'file' },
+];
 
-useActionSpy.mockReturnValue([locationItemsState, handleUpdateActionState]);
-
-const listLocations = jest.fn(() =>
-  Promise.resolve({ locations: [], nextToken: undefined })
-);
-
-const config = {
-  getLocationCredentials: jest.fn(),
-  listLocations,
-  region: 'region',
-  registerAuthListener: jest.fn(),
-};
-
-const Provider = createProvider({ config });
+const renderRowItem = jest.fn();
 
 describe('TableControl', () => {
-  beforeEach(() => {
-    useActionSpy.mockClear();
-    useControlSpy.mockClear();
-
-    handleUpdateActionState.mockClear();
-    handleUpdateControlState.mockClear();
+  it('renders the table control', () => {
+    expect(
+      render(
+        <TableControl
+          data={data}
+          columns={columns}
+          renderRowItem={renderRowItem}
+          sortState={{ direction: 'ASCENDING', selection: 'name' }}
+          updateTableSortState={jest.fn()}
+        />
+      ).container
+    ).toBeDefined();
   });
 
-  it('renders a Locations View table', async () => {
-    await waitFor(() =>
-      expect(
-        render(
-          <Provider>
-            <LocationsViewTable />
-          </Provider>
-        ).container
-      ).toBeDefined()
-    );
-  });
-
-  it('does not load location items when location is not set', async () => {
-    useControlSpy.mockReturnValue([
-      { location: undefined, history: [] },
-      handleUpdateControlState,
-    ]);
-
-    useActionSpy.mockReturnValue([
-      { ...locationItemsState, data: { result: [], nextToken: undefined } },
-      handleUpdateActionState,
-    ]);
+  it('updates sort state correctly', () => {
+    const updateTableSortState = jest.fn();
+    const user = userEvent;
 
     render(
-      <Provider>
-        <LocationDetailViewTable />
-      </Provider>
+      <TableControl
+        data={data}
+        columns={columns}
+        renderRowItem={renderRowItem}
+        sortState={{ direction: 'ASCENDING', selection: 'name' }}
+        updateTableSortState={updateTableSortState}
+      />
     );
 
-    await waitFor(() => {
-      expect(handleUpdateActionState).not.toHaveBeenCalled();
+    act(() => {
+      user.click(screen.getByText('Size'));
+    });
+
+    waitFor(() => {
+      expect(updateTableSortState).toHaveBeenCalledWith({ selection: 'size' });
     });
   });
 
-  it('loads initial location items for a BUCKET location as expected', async () => {
-    useControlSpy.mockReturnValue([controlState, handleUpdateControlState]);
-
-    useActionSpy.mockReturnValue([locationItemsState, handleUpdateActionState]);
-
+  it('renders sort icons correctly', () => {
     render(
-      <Provider>
-        <LocationDetailViewTable />
-      </Provider>
+      <TableControl
+        data={data}
+        columns={columns}
+        renderRowItem={renderRowItem}
+        sortState={{ direction: 'ASCENDING', selection: 'name' }}
+        updateTableSortState={jest.fn()}
+      />
     );
 
-    await waitFor(() => {
-      expect(handleUpdateActionState).toHaveBeenCalledTimes(1);
-      expect(handleUpdateActionState).toHaveBeenCalledWith({
-        prefix: '',
-        options: { pageSize: 1000, refresh: true },
-      });
-    });
-  });
+    const nameTableHead = screen.getByText('Name').parentElement;
+    const fileTypeTableHead = screen.getByText('File type').parentElement;
+    const sizeTableHead = screen.getByText('Size').parentElement;
 
-  it('loads initial location items for a PREFIX location as expected', async () => {
-    const prefixControlState = {
-      location: {
-        scope: 's3://test-bucket/test-prefix/*',
-        permission: 'READ',
-        type: 'PREFIX',
-      },
-      history: ['test-prefix/'],
+    expect(nameTableHead).toHaveAttribute('aria-sort', 'ascending');
+    expect(fileTypeTableHead).toHaveAttribute('aria-sort', 'none');
+    expect(sizeTableHead).toHaveAttribute('aria-sort', 'none');
+  });
+});
+
+describe('tableSortReducer', () => {
+  it('toggles sort direction correctly', () => {
+    const state: { direction: SortDirection; selection: string } = {
+      direction: 'ASCENDING',
+      selection: 'name',
     };
+    const action = { selection: 'name' };
 
-    useControlSpy.mockReturnValue([
-      prefixControlState,
-      handleUpdateControlState,
+    expect(tableSortReducer(state, action)).toEqual({
+      direction: 'DESCENDING',
+      selection: 'name',
+    });
+  });
+
+  it('switches selection correctly', () => {
+    const state: { direction: SortDirection; selection: string } = {
+      direction: 'ASCENDING',
+      selection: 'name',
+    };
+    const action = { selection: 'size' };
+
+    expect(tableSortReducer(state, action)).toEqual({
+      direction: 'ASCENDING',
+      selection: 'size',
+    });
+  });
+});
+
+describe('defaultTableSort', () => {
+  it('sorts data correctly', () => {
+    const data = [
+      { name: 'test1', size: 100, type: 'file' },
+      { name: 'test2', size: 200, type: 'file' },
+    ];
+
+    expect(defaultTableSort(data, 'ASCENDING', 'name')).toEqual([
+      { name: 'test1', size: 100, type: 'file' },
+      { name: 'test2', size: 200, type: 'file' },
     ]);
 
-    render(
-      <Provider>
-        <LocationDetailViewTable />
-      </Provider>
-    );
+    expect(defaultTableSort(data, 'ASCENDING', 'size')).toEqual([
+      { name: 'test1', size: 100, type: 'file' },
+      { name: 'test2', size: 200, type: 'file' },
+    ]);
 
-    await waitFor(() => {
-      expect(handleUpdateActionState).toHaveBeenCalledTimes(1);
-      expect(handleUpdateActionState).toHaveBeenCalledWith({
-        prefix: 'test-prefix/',
-        options: { pageSize: 1000, refresh: true },
-      });
-    });
+    expect(defaultTableSort(data, 'DESCENDING', 'size')).toEqual([
+      { name: 'test2', size: 200, type: 'file' },
+      { name: 'test1', size: 100, type: 'file' },
+    ]);
+  });
+
+  it('sorts date strings correctly', () => {
+    const data = [
+      { date: '2024-08-14' },
+      { date: '2024-08-12' },
+      { date: '2024-08-13' },
+      { date: '2024-08-13' },
+    ];
+
+    expect(defaultTableSort(data, 'ASCENDING', 'date')).toEqual([
+      { date: '2024-08-12' },
+      { date: '2024-08-13' },
+      { date: '2024-08-13' },
+      { date: '2024-08-14' },
+    ]);
+
+    expect(defaultTableSort(data, 'DESCENDING', 'date')).toEqual([
+      { date: '2024-08-14' },
+      { date: '2024-08-13' },
+      { date: '2024-08-13' },
+      { date: '2024-08-12' },
+    ]);
+  });
+
+  it('sorts data with null values correctly', () => {
+    const data = [
+      { value: null, name: 'test1' },
+      { value: 5, name: 'test2' },
+      { value: 20, name: 'test3' },
+      { value: null, name: 'test4' },
+    ];
+
+    expect(defaultTableSort(data, 'ASCENDING', 'value')).toEqual([
+      { value: 5, name: 'test2' },
+      { value: 20, name: 'test3' },
+      { value: null, name: 'test1' },
+      { value: null, name: 'test4' },
+    ]);
+
+    expect(defaultTableSort(data, 'DESCENDING', 'value')).toEqual([
+      { value: null, name: 'test1' },
+      { value: null, name: 'test4' },
+      { value: 20, name: 'test3' },
+      { value: 5, name: 'test2' },
+    ]);
   });
 });
