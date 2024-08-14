@@ -110,7 +110,7 @@ const SortIndeterminateIcon = withBaseElementProps(Icon, {
 
 const LOCATION_VIEW_COLUMNS: Column<LocationAccess<Permission>>[] = [
   {
-    header: 'Scope',
+    header: 'Name',
     key: 'scope',
   },
   {
@@ -126,7 +126,7 @@ const LOCATION_VIEW_COLUMNS: Column<LocationAccess<Permission>>[] = [
 const LOCATION_DETAIL_VIEW_COLUMNS: Column<LocationItem>[] = [
   {
     key: 'key',
-    header: 'Key',
+    header: 'Name',
   },
   {
     key: 'type',
@@ -155,7 +155,6 @@ export interface TableControl<
   T extends StorageBrowserElements = StorageBrowserElements,
 > extends Pick<T, 'TableData' | 'TableRow'> {
   <U>(props: TableControlProps<U>): React.JSX.Element;
-  TableDataText?: T['View'];
 }
 
 export type RenderRowItem<T> = (row: T, index: number) => JSX.Element;
@@ -178,7 +177,7 @@ export const TableControl: TableControl = <U,>({
       <TableHead>
         <TableRow>
           {columns?.map((column) =>
-            column.key === 'download' ? (
+            column.key === 'download' || column.key === 'cancel' ? (
               <TableHeader
                 key={column.header}
                 aria-label={column.header}
@@ -312,7 +311,9 @@ export const LocationDetailViewTable = (): JSX.Element => {
             </TableDataText>
           );
         } else if (column.key === ('download' as keyof LocationItem)) {
-          return <DownloadControl fileKey={row.key} />;
+          return row.type === 'FILE' ? (
+            <DownloadControl fileKey={row.key} />
+          ) : null;
         } else {
           return (
             <TableDataText>

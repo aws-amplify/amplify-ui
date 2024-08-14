@@ -141,14 +141,17 @@
 
 .storage-browser__table__header--type,
 .storage-browser__table__header--permission,
-.storage-browser__table__header--size {
+.storage-browser__table__header--size,
+.storage-browser__table__header--status,
+.storage-browser__table__header--progress {
   width: 8rem;
 }
 
 .storage-browser__table__header--lastModified {
   width: 12rem;
 }
-.storage-browser__table__header--download {
+.storage-browser__table__header--download,
+.storage-browser__table__header--cancel {
   width: 4rem;
 }
 
