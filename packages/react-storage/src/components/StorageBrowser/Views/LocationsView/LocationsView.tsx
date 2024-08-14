@@ -134,8 +134,6 @@ const LocationsViewTable = ({
     );
   }, [data.result, direction, selection, sortFn]);
 
-  // @TODO: This should be it's own component instead of using `useCallback`
-
   return shouldRenderLocations ? (
     <div>...loading</div>
   ) : (
