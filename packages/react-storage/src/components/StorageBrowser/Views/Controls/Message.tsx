@@ -81,7 +81,6 @@ const MessageIcon: typeof IconElement = React.forwardRef(
 const MessageContent = withBaseElementProps(View, {
   className: `${BLOCK_NAME}__content`,
 });
-
 interface MessageControlProps {
   variant?: MessageVariant;
   children?: React.ReactNode;
