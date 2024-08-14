@@ -9,7 +9,6 @@ import { Permission, useLocationsData } from '../../context/actions';
 import {
   Column,
   defaultTableSort,
-  RenderRowItem,
   TableDataButton,
   tableSortReducer,
 } from '../Controls/Table';
@@ -43,10 +42,7 @@ interface LocationsViewControls<
   (): React.JSX.Element;
 }
 
-const RenderRowItem: RenderRowItem<LocationAccess<Permission>> = (
-  row: LocationAccess<Permission>,
-  index: number
-) => {
+function RenderRowItem(row: LocationAccess<Permission>, index: number) {
   const [, handleUpdateState] = useControl({ type: 'NAVIGATE' });
 
   const { scope, type } = row;
@@ -81,7 +77,7 @@ const RenderRowItem: RenderRowItem<LocationAccess<Permission>> = (
       })}
     </Table.TableRow>
   );
-};
+}
 
 export interface LocationsView<
   T extends StorageBrowserElements = StorageBrowserElements,
