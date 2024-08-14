@@ -44,9 +44,28 @@ const TableHeaderButton = withBaseElementProps(Button, {
   variant: 'sort',
 });
 
-const TableData = withBaseElementProps(BaseTableData, {
-  className: `${BLOCK_NAME}__data`,
-});
+const TableData: typeof BaseTableData = React.forwardRef(
+  function TableData(props, ref) {
+    const { variant } = props;
+    return (
+      <BaseTableData
+        {...props}
+        className={
+          props.className ??
+          `${BLOCK_NAME}__data${
+            variant ? ` ${BLOCK_NAME}__data--${variant}` : ''
+          }`
+        }
+        variant={variant}
+        ref={ref}
+      />
+    );
+  }
+);
+
+// const TableData = withBaseElementProps(BaseTableData, {
+//   className: `${BLOCK_NAME}__data`,
+// });
 
 const TableDataButton = withBaseElementProps(Button, {
   className: `${BLOCK_NAME}__data__button`,
@@ -184,7 +203,7 @@ export const LocationsViewTable = (): JSX.Element => {
         return (
           <TableRow key={index}>
             {LOCATION_VIEW_COLUMNS.map((column) => (
-              <TableData key={`${index}-${column.header}`}>
+              <TableData key={`${index}-${column.header}`} variant={column.key}>
                 {column.key === 'scope' &&
                 (row.type === 'BUCKET' || row.type === 'PREFIX') ? (
                   <TableDataButton
@@ -284,7 +303,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
             }
 
             return (
-              <TableData key={`${index}-${column.header}`}>
+              <TableData key={`${index}-${column.header}`} variant={column.key}>
                 {column.key === 'key' && row.type === 'FOLDER' ? (
                   <TableDataButton
                     onClick={() => {

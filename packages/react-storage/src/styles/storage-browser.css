@@ -144,7 +144,7 @@
 
 .storage-browser__table__header__button {
   padding: var(--storage-browser-gap-small);
-  display: flex;
+  display: inline-flex;
   align-items: center;
 }
 
@@ -159,6 +159,10 @@
 .storage-browser__table__data__icon {
   vertical-align: middle;
   margin-inline-end: var(--storage-browser-gap-small);
+}
+
+.storage-browser__table__data--size {
+  text-align: right;
 }
 
 .storage-browser__action-menu {
