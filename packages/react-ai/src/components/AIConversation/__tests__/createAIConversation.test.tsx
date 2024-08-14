@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { createAIConversation } from '../createAIConversation';
 import { ConversationMessage, SendMessage } from '../../../types';
 import { Avatars } from '../types';
@@ -98,14 +98,23 @@ describe('createAIConversation', () => {
     const { AIConversation } = createAIConversation();
 
     const sendMessage: SendMessage = () => {};
-    expect(
-      await render(
-        <AIConversation
-          messages={messages}
-          avatars={avatars}
-          handleSendMessage={sendMessage}
-        />
-      ).container
-    ).toBeDefined();
+    const container = await render(
+      <AIConversation
+        messages={messages}
+        avatars={avatars}
+        handleSendMessage={sendMessage}
+      />
+    ).container;
+    expect(container).toBeDefined();
+    const avatarElements = screen.getAllByTestId('avatar');
+    const screenMessages = screen.getAllByTestId('message');
+    expect(avatarElements).toHaveLength(3);
+    expect(screenMessages).toHaveLength(3);
+    expect(screenMessages[0].textContent).toContain(
+      messages[0].content[0].text
+    );
+    expect(screenMessages[1].textContent).toContain(
+      messages[1].content[0].text
+    );
   });
 });

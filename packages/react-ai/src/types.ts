@@ -20,7 +20,9 @@ export type InputContent = Parameters<
 export interface SendMesageParameters {
   content: Parameters<Conversation['sendMessage']>[0]['content'];
   aiContext?: Parameters<Conversation['sendMessage']>[0]['aiContext'];
-  responseComponents?: any;
+  responseComponents?: Parameters<
+    Conversation['sendMessage']
+  >[0]['toolConfiguration'];
 }
 
 export type SendMessage = (input: SendMesageParameters) => void;

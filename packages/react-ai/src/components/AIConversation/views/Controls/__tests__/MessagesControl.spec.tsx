@@ -227,6 +227,9 @@ describe('MessagesControl', () => {
     expect(avatarElements).toHaveLength(3);
     expect(actionElements).toHaveLength(2); // should not show on user messages
     expect(messages).toHaveLength(3);
+    expect(messages[0].textContent).toContain(AITextMessage.content[0].text);
+    expect(messages[1].textContent).toContain(AIImageMessage.content[0].text);
+    expect(messages[2].textContent).toContain(userTextMessage.content[0].text);
     expect(contentChunks).toHaveLength(4);
     rerender(
       <AvatarsProvider avatars={avatars}>
@@ -247,6 +250,9 @@ describe('MessagesControl', () => {
     expect(avatarElements).toHaveLength(3);
     expect(actionElements).toHaveLength(2);
     expect(messages).toHaveLength(3);
+    expect(messages[0].textContent).toContain(AITextMessage.content[0].text);
+    expect(messages[1].textContent).toContain(userDoubleText.content[0].text);
+    expect(messages[2].textContent).toContain(AIImageMessage.content[0].text);
     expect(contentChunks).toHaveLength(5);
   });
 });
