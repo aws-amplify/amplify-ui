@@ -21,6 +21,7 @@ const {
 } = StorageBrowserElements;
 
 const BLOCK_NAME = `${CLASS_BASE}__table`;
+const ICON_CLASS = `${CLASS_BASE}__table__data__icon`;
 
 const Table = withBaseElementProps(BaseTable, {
   className: `${BLOCK_NAME}`,
@@ -56,19 +57,6 @@ const TableDataContainer = withBaseElementProps(View, {
   className: `${BLOCK_NAME}__data__container`,
 });
 
-const TableDataIcon: typeof Icon = React.forwardRef(
-  function TableDataIcon(props, ref) {
-    const { variant } = props;
-    return variant ? (
-      <Icon
-        {...props}
-        className={props.className ?? `${BLOCK_NAME}__data__icon`}
-        variant={variant}
-        ref={ref}
-      />
-    ) : null;
-  }
-);
 const TableRow = withBaseElementProps(BaseTableRow, {
   className: `${BLOCK_NAME}__row`,
 });
@@ -209,10 +197,10 @@ export const LocationsViewTable = (): JSX.Element => {
                     }}
                     type="button"
                   >
-                    <TableDataIcon variant="folder" /> {row.scope}
+                    <Icon className={ICON_CLASS} variant="folder" /> {row.scope}
                   </TableDataButton>
                 ) : (
-                  <>{row[column.key]}</>
+                  <TableDataContainer>{row[column.key]}</TableDataContainer>
                 )}
               </TableData>
             ))}
@@ -279,7 +267,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
           return (
             <>
               {column.key === 'key' && row.type === 'FILE' ? (
-                <TableDataIcon variant="file" />
+                <Icon className={ICON_CLASS} variant="file" />
               ) : null}
               {row[column.key]}
             </>
@@ -307,7 +295,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
                     }}
                     key={`${index}-${row.key}`}
                   >
-                    <TableDataIcon variant="folder" /> {row.key}
+                    <Icon className={ICON_CLASS} variant="folder" /> {row.key}
                   </TableDataButton>
                 ) : (
                   <TableDataContainer>
