@@ -9,7 +9,7 @@ import { Column, RenderRowItem } from '../Controls/Table';
 
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
 
-const { Exit, Primary, Summary, Table } = Controls;
+const { Cancel, Exit, Primary, Summary, Table } = Controls;
 
 const LOCATION_ACTION_VIEW_COLUMNS: Column<CancelableTask>[] = [
   {
@@ -43,7 +43,10 @@ const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
             ) : column.key === 'progress' ? (
               <>{row.progress}</>
             ) : column.key === 'cancel' ? (
-              <button onClick={row.cancel}>Cancel</button>
+              <Cancel
+                onClick={row.cancel}
+                ariaLabel={`Cancel upload for ${row.key}`}
+              />
             ) : null}
           </Table.TableData>
         );

@@ -1,6 +1,7 @@
 import { StorageBrowserElements } from '../../context/elements';
 
 import { ActionSelectControl } from './ActionSelect';
+import { CancelControl } from './Cancel';
 import { DownloadControl } from './Download';
 import { ExitControl } from './Exit';
 import { MessageControl } from './Message';
@@ -18,6 +19,7 @@ export interface Controls<
   T extends StorageBrowserElements = StorageBrowserElements,
 > {
   ActionSelect: ActionSelectControl<T>;
+  Cancel: CancelControl<T>;
   Download: DownloadControl<T>;
   Exit: ExitControl<T>;
   Message: MessageControl<T>;
@@ -35,6 +37,7 @@ export interface Controls<
 export const Controls: Controls = {
   Exit: ExitControl,
   ActionSelect: ActionSelectControl,
+  Cancel: CancelControl,
   Download: DownloadControl,
   Message: MessageControl,
   Paginate: PaginateControl,

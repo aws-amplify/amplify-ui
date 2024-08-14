@@ -39,8 +39,6 @@ const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
           ref={ref}
         />
       );
-    case 'action-select-toggle':
-    case 'exit':
     case 'message-dismiss':
       return (
         <_Button
@@ -51,7 +49,10 @@ const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
           ref={ref}
         />
       );
+    case 'action-select-toggle':
+    case 'cancel':
     case 'download':
+    case 'exit':
     case 'navigate':
     case 'refresh':
     case 'sort':
