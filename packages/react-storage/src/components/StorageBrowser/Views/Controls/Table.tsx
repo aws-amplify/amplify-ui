@@ -21,7 +21,7 @@ const {
 } = StorageBrowserElements;
 
 const BLOCK_NAME = `${CLASS_BASE}__table`;
-const ICON_CLASS = `${CLASS_BASE}__table__data__icon`;
+const ICON_CLASS = `${BLOCK_NAME}__data__icon`;
 
 const Table = withBaseElementProps(BaseTable, {
   className: `${BLOCK_NAME}`,
@@ -53,8 +53,8 @@ const TableDataButton = withBaseElementProps(Button, {
   variant: 'table-data',
 });
 
-const TableDataContainer = withBaseElementProps(View, {
-  className: `${BLOCK_NAME}__data__container`,
+const TableDataText = withBaseElementProps(View, {
+  className: `${BLOCK_NAME}__data__text`,
 });
 
 const TableRow = withBaseElementProps(BaseTableRow, {
@@ -200,7 +200,7 @@ export const LocationsViewTable = (): JSX.Element => {
                     <Icon className={ICON_CLASS} variant="folder" /> {row.scope}
                   </TableDataButton>
                 ) : (
-                  <TableDataContainer>{row[column.key]}</TableDataContainer>
+                  <TableDataText>{row[column.key]}</TableDataText>
                 )}
               </TableData>
             ))}
@@ -298,9 +298,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
                     <Icon className={ICON_CLASS} variant="folder" /> {row.key}
                   </TableDataButton>
                 ) : (
-                  <TableDataContainer>
-                    {parseTableData(row, column)}
-                  </TableDataContainer>
+                  <TableDataText>{parseTableData(row, column)}</TableDataText>
                 )}
               </TableData>
             );

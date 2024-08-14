@@ -143,7 +143,7 @@
 
 .storage-browser__table__header__button,
 .storage-browser__table__data__button,
-.storage-browser__table__data__container {
+.storage-browser__table__data__text {
   padding: var(--storage-browser-gap-small);
   display: flex;
   align-items: center;
