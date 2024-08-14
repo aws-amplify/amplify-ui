@@ -5,11 +5,9 @@ import { FileItem } from '../../context/types';
 
 import { Controls } from '../Controls';
 import { Title } from './Controls';
-import { Column, RenderRowItem } from '../Controls/Table';
+import { TableDataText, Column, RenderRowItem } from '../Controls/Table';
 
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
-
-import { TableDataText } from '../Controls/Table';
 
 const { Cancel, Exit, Primary, Summary, Table } = Controls;
 
