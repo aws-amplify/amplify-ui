@@ -158,7 +158,6 @@
 .storage-browser__table__header {
   text-align: start;
 }
-
 .storage-browser__table__header__button {
   padding: var(--storage-browser-gap-small);
   display: inline-flex;
