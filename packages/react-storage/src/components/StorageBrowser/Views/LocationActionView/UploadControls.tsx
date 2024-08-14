@@ -6,6 +6,7 @@ import { FileItem } from '../../context/types';
 import { Controls } from '../Controls';
 import { Title } from './Controls';
 import { Column, RenderRowItem } from '../Controls/Table';
+import { tableSortReducer } from '../Controls/Table';
 
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
 
@@ -53,6 +54,14 @@ const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
 };
 
 export const UploadControls = (): JSX.Element => {
+  const [sortState, updateTableSortState] = React.useReducer(
+    tableSortReducer<CancelableTask>,
+    {
+      direction: 'ASCENDING',
+      selection: 'key',
+    }
+  );
+
   const [state, handleUpdateState] = useControl({
     type: 'ACTION_SELECT',
   });
@@ -81,6 +90,8 @@ export const UploadControls = (): JSX.Element => {
         data={tasks}
         columns={LOCATION_ACTION_VIEW_COLUMNS}
         renderRowItem={renderRowItem}
+        sortState={sortState}
+        updateTableSortState={updateTableSortState}
       />
     </>
   ) : (

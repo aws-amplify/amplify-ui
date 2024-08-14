@@ -2,11 +2,9 @@ import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import { StorageBrowserElements } from '../../context/elements';
-import { DownloadControl } from './Download';
 import { CLASS_BASE } from '../constants';
-import { useControl } from '../../context/controls';
-import { LocationAccess, LocationItem, Permission } from '../../context/types';
-import { useAction, useLocationsData } from '../../context/actions';
+
+type Direction = 'ASCENDING' | 'DESCENDING' | 'NONE';
 
 const {
   Table: BaseTable,
@@ -46,7 +44,7 @@ const TableData = withBaseElementProps(BaseTableData, {
   className: `${CLASS_BASE}__${BLOCK_NAME}__data`,
 });
 
-const TableDataButton = withBaseElementProps(Button, {
+export const TableDataButton = withBaseElementProps(Button, {
   className: `${CLASS_BASE}__${BLOCK_NAME}__data-button`,
   variant: 'table-data',
 });
@@ -60,53 +58,15 @@ const SortIndeterminateIcon = withBaseElementProps(Icon, {
   variant: 'sort-indeterminate',
 });
 
-// const SortAscendingIcon = withBaseElementProps(Icon, {
-//   className: `${CLASS_BASE}__${BLOCK_NAME}__sort-icon--ascending`,
-//   variant: 'sort-ascending',
-// });
+const SortAscendingIcon = withBaseElementProps(Icon, {
+  className: `${CLASS_BASE}__${BLOCK_NAME}__sort-icon--ascending`,
+  variant: 'sort-ascending',
+});
 
-// const SortDescendingIcon = withBaseElementProps(Icon, {
-//   className: `${CLASS_BASE}__${BLOCK_NAME}__sort-icon--descending`,
-//   variant: 'sort-descending',
-// });
-
-const LOCATION_VIEW_COLUMNS: Column<LocationAccess<Permission>>[] = [
-  {
-    header: 'Scope',
-    key: 'scope',
-  },
-  {
-    header: 'Type',
-    key: 'type',
-  },
-  {
-    header: 'Permission',
-    key: 'permission',
-  },
-];
-
-const LOCATION_DETAIL_VIEW_COLUMNS: Column<LocationItem>[] = [
-  {
-    key: 'key',
-    header: 'Key',
-  },
-  {
-    key: 'type',
-    header: 'Type',
-  },
-  {
-    key: 'lastModified' as keyof LocationItem,
-    header: 'Last Modified',
-  },
-  {
-    key: 'size' as keyof LocationItem,
-    header: 'Size',
-  },
-  {
-    key: 'download' as keyof LocationItem,
-    header: 'Download',
-  },
-];
+const SortDescendingIcon = withBaseElementProps(Icon, {
+  className: `${CLASS_BASE}__${BLOCK_NAME}__sort-icon--descending`,
+  variant: 'sort-descending',
+});
 
 export interface Column<T> {
   header: string;
@@ -121,33 +81,134 @@ export interface TableControl<
 
 export type RenderRowItem<T> = (row: T, index: number) => JSX.Element;
 
+interface TableSortState<T> {
+  direction: Direction;
+  selection: keyof T;
+}
+
+type TableSortAction<T> = { type: 'CHANGE_SORT'; selection: keyof T };
+
+export function tableSortReducer<T>(
+  state: TableSortState<T>,
+  action: TableSortAction<T>
+): TableSortState<T> {
+  const { type } = action;
+
+  switch (type) {
+    case 'CHANGE_SORT': {
+      const { direction, selection: prevSelection } = state;
+      const { selection } = action;
+
+      if (selection == prevSelection) {
+        const newDirection: Direction =
+          direction === 'ASCENDING' ? 'DESCENDING' : 'ASCENDING';
+
+        return { direction: newDirection, selection };
+      } else {
+        return { direction: 'ASCENDING', selection };
+      }
+    }
+  }
+}
+
+export function defaultTableSort<T>(
+  data: T[],
+  direction: Direction,
+  selection: keyof T
+): T[] {
+  return data.sort((a, b) => {
+    const isDateString = (s: T[keyof T]) =>
+      typeof s === 'string' && !isNaN(Date.parse(s));
+
+    const aValue = a[selection];
+    const bValue = b[selection];
+
+    // Handle missing values
+    if (aValue == null && bValue != null) {
+      return direction === 'ASCENDING' ? 1 : -1;
+    }
+    if (aValue != null && bValue == null) {
+      return direction === 'ASCENDING' ? -1 : 1;
+    }
+    if (aValue == null && bValue == null) {
+      return 0;
+    }
+
+    // If isDate is true, parse the values as Date objects
+    const aParsed =
+      typeof aValue === 'string' && isDateString(aValue)
+        ? new Date(aValue)
+        : aValue;
+    const bParsed =
+      typeof bValue === 'string' && isDateString(bValue)
+        ? new Date(bValue)
+        : bValue;
+
+    if (aParsed < bParsed) {
+      return direction === 'ASCENDING' ? -1 : 1;
+    } else if (aValue > bValue) {
+      return direction === 'ASCENDING' ? 1 : -1;
+    } else {
+      return 0;
+    }
+  });
+}
+
 interface TableControlProps<T> {
   data: T[];
   columns: Column<T>[];
   renderRowItem: RenderRowItem<T>;
+  sortState: TableSortState<T>;
+  updateTableSortState: (action: TableSortAction<T>) => void;
 }
 
 export const TableControl: TableControl = <U,>({
   data,
   columns,
   renderRowItem,
+  sortState,
+  updateTableSortState,
 }: TableControlProps<U>) => {
   const ariaLabel = 'Table';
+
+  const { direction, selection } = sortState;
 
   return (
     <Table aria-label={ariaLabel}>
       <TableHead>
         <TableRow>
           {columns?.map((column) => (
-            <TableHeader key={column.header} aria-sort="none">
+            <TableHeader
+              key={column.header}
+              aria-sort={
+                direction === 'ASCENDING'
+                  ? 'ascending'
+                  : direction === 'DESCENDING'
+                  ? 'descending'
+                  : 'none'
+              }
+            >
               {/* Should all columns be sortable? */}
               <TableHeaderButton
                 onClick={() => {
-                  /* no op for now */
+                  updateTableSortState({
+                    type: 'CHANGE_SORT',
+                    selection: column.key,
+                  });
                 }}
               >
                 {column.header}
-                <SortIndeterminateIcon />
+                {selection === column.key ? (
+                  direction === 'ASCENDING' ? (
+                    <SortAscendingIcon />
+                  ) : direction === 'DESCENDING' ? (
+                    <SortDescendingIcon />
+                  ) : (
+                    <SortIndeterminateIcon />
+                  )
+                ) : (
+                  <SortIndeterminateIcon />
+                )}
               </TableHeaderButton>
             </TableHeader>
           ))}
@@ -163,146 +224,3 @@ export const TableControl: TableControl = <U,>({
 
 TableControl.TableRow = TableRow;
 TableControl.TableData = TableData;
-
-export const LocationsViewTable = (): JSX.Element => {
-  const [{ data, isLoading }] = useLocationsData();
-  const [, handleUpdateState] = useControl({ type: 'NAVIGATE' });
-
-  const hasLocations = !!data.result?.length;
-  const shouldRenderLocations = !hasLocations || isLoading;
-
-  // @TODO: This should be it's own component instead of using `useCallback`
-  const renderRowItem: RenderRowItem<LocationAccess<Permission>> =
-    React.useCallback(
-      (row: LocationAccess<Permission>, index: number) => {
-        return (
-          <TableRow key={index}>
-            {LOCATION_VIEW_COLUMNS.map((column) => (
-              <TableData key={`${index}-${column.header}`}>
-                {column.key === 'scope' &&
-                (row.type === 'BUCKET' || row.type === 'PREFIX') ? (
-                  <TableDataButton
-                    key={row['scope']}
-                    onClick={() => {
-                      handleUpdateState({
-                        type: 'ACCESS_LOCATION',
-                        location: row,
-                      });
-                    }}
-                    type="button"
-                  >
-                    {row.scope}
-                  </TableDataButton>
-                ) : (
-                  <>{row[column.key]}</>
-                )}
-              </TableData>
-            ))}
-          </TableRow>
-        );
-      },
-      [handleUpdateState]
-    );
-
-  return shouldRenderLocations ? (
-    <div>...loading</div>
-  ) : (
-    <TableControl
-      columns={LOCATION_VIEW_COLUMNS}
-      data={data.result}
-      renderRowItem={renderRowItem}
-    />
-  );
-};
-
-export const LocationDetailViewTable = (): JSX.Element => {
-  const [{ history, location }, handleUpdateState] = useControl({
-    type: 'NAVIGATE',
-  });
-
-  const [{ data, isLoading }, handleList] = useAction({
-    type: 'LIST_LOCATION_ITEMS',
-  });
-
-  const prefix = history.join('');
-
-  const hasItems = !!data.result?.length;
-  const shouldReset = !history.length && hasItems && !location;
-
-  React.useEffect(() => {
-    if (shouldReset) {
-      handleList({ prefix: '', options: { reset: true } });
-    }
-
-    if (!history.length) {
-      return;
-    }
-
-    handleList({ prefix, options: { pageSize: 1000, refresh: true } });
-  }, [handleList, history, prefix, shouldReset]);
-
-  // @TODO: This should be it's own component instead of using `useCallback`
-  const renderRowItem: RenderRowItem<LocationItem> = React.useCallback(
-    (row, index) => {
-      const parseTableData = (
-        row: LocationItem,
-        column: Column<LocationItem>
-      ) => {
-        if (
-          row.type === 'FILE' &&
-          // @ts-ignore @TODO fix this ts error: This comparison appears to be unintentional because the types '"key" | "type"' and '"lastModified"' have no overlap.
-          column.key === 'lastModified' &&
-          row[column.key]
-        ) {
-          return new Date(row[column.key]).toLocaleString();
-        } else if (column.key === ('download' as keyof LocationItem)) {
-          return <DownloadControl fileKey={row.key} />;
-        } else {
-          return row[column.key];
-        }
-      };
-
-      return (
-        <TableRow key={index}>
-          {LOCATION_DETAIL_VIEW_COLUMNS.map((column) => {
-            if (row.key === prefix) {
-              // Don't render the current prefix as a row
-              return null;
-            }
-
-            return (
-              <TableData key={`${index}-${column.header}`}>
-                {column.key === 'key' && row.type === 'FOLDER' ? (
-                  <TableDataButton
-                    onClick={() => {
-                      handleUpdateState({
-                        type: 'NAVIGATE',
-                        prefix: row.key.slice(prefix.length),
-                      });
-                    }}
-                    key={`${index}-${row.key}`}
-                  >
-                    {row.key}
-                  </TableDataButton>
-                ) : (
-                  <>{parseTableData(row, column)}</>
-                )}
-              </TableData>
-            );
-          })}
-        </TableRow>
-      );
-    },
-    [handleUpdateState, prefix]
-  );
-
-  return isLoading && !hasItems ? (
-    <span>loading...</span>
-  ) : (
-    <TableControl
-      columns={LOCATION_DETAIL_VIEW_COLUMNS}
-      data={data.result}
-      renderRowItem={renderRowItem}
-    />
-  );
-};

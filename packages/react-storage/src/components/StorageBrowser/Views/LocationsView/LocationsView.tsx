@@ -5,10 +5,33 @@ import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
 import { CommonControl, ViewComponent } from '../types';
-import { LocationsViewTable } from '../Controls';
-import { useLocationsData } from '../../context/actions';
+import { Permission, useLocationsData } from '../../context/actions';
+import {
+  Column,
+  defaultTableSort,
+  RenderRowItem,
+  TableDataButton,
+  tableSortReducer,
+} from '../Controls/Table';
+import { useControl } from '../../context/controls';
+import { LocationAccess } from '../../context/types';
 
 const { Message, Paginate, Refresh, Search, Table, Title } = Controls;
+
+const LOCATION_VIEW_COLUMNS: Column<LocationAccess<Permission>>[] = [
+  {
+    header: 'Scope',
+    key: 'scope',
+  },
+  {
+    header: 'Type',
+    key: 'type',
+  },
+  {
+    header: 'Permission',
+    key: 'permission',
+  },
+];
 
 interface LocationsViewControls<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -19,6 +42,46 @@ interface LocationsViewControls<
   > {
   (): React.JSX.Element;
 }
+
+const RenderRowItem: RenderRowItem<LocationAccess<Permission>> = (
+  row: LocationAccess<Permission>,
+  index: number
+) => {
+  const [, handleUpdateState] = useControl({ type: 'NAVIGATE' });
+
+  const { scope, type } = row;
+
+  return (
+    <Table.TableRow key={index}>
+      {LOCATION_VIEW_COLUMNS.map((column) => {
+        const { key } = column;
+
+        return (
+          <Table.TableData key={`${index}-${column.header}`}>
+            {column.key === 'scope' &&
+            (type === 'BUCKET' || type === 'PREFIX') ? (
+              <TableDataButton
+                key={scope}
+                onClick={() => {
+                  handleUpdateState({
+                    type: 'ACCESS_LOCATION',
+                    location: row,
+                  });
+                }}
+                type="button"
+              >
+                {scope}
+              </TableDataButton>
+            ) : (
+              // eslint-disable-next-line react/destructuring-assignment
+              <>{row[key]}</>
+            )}
+          </Table.TableData>
+        );
+      })}
+    </Table.TableRow>
+  );
+};
 
 export interface LocationsView<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -35,6 +98,53 @@ const LocationsViewRefresh = () => {
           options: { refresh: true, pageSize: 1000 },
         })
       }
+    />
+  );
+};
+
+const LocationsViewTable = ({
+  sortFunction,
+}: {
+  sortFunction?: () => LocationAccess<Permission>[];
+}): JSX.Element => {
+  const sortFn = sortFunction ?? defaultTableSort;
+
+  const [sortState, updateTableSortState] = React.useReducer(
+    tableSortReducer<LocationAccess<Permission>>,
+    {
+      direction: 'ASCENDING',
+      selection: 'scope',
+    }
+  );
+
+  const { direction, selection } = sortState;
+
+  const [{ data, isLoading }] = useLocationsData();
+
+  const [tableData, setTableData] = React.useState<
+    LocationAccess<Permission>[]
+  >(sortFn<LocationAccess<Permission>>(data.result, direction, selection));
+
+  const hasLocations = !!data.result?.length;
+  const shouldRenderLocations = !hasLocations || isLoading;
+
+  React.useEffect(() => {
+    setTableData(
+      sortFn<LocationAccess<Permission>>(data.result, direction, selection)
+    );
+  }, [data.result, direction, selection, sortFn]);
+
+  // @TODO: This should be it's own component instead of using `useCallback`
+
+  return shouldRenderLocations ? (
+    <div>...loading</div>
+  ) : (
+    <Table
+      columns={LOCATION_VIEW_COLUMNS}
+      data={tableData}
+      renderRowItem={RenderRowItem}
+      sortState={sortState}
+      updateTableSortState={updateTableSortState}
     />
   );
 };
