@@ -9,7 +9,11 @@ import { Permission, useLocationsData } from '../../context/actions';
 import {
   Column,
   defaultTableSort,
+  SortAscendingIcon,
+  SortDescendingIcon,
+  SortIndeterminateIcon,
   TableDataButton,
+  TableHeaderButton,
   tableSortReducer,
 } from '../Controls/Table';
 import { useControl } from '../../context/controls';
@@ -124,6 +128,52 @@ const LocationsViewTable = ({
   const hasLocations = !!data.result?.length;
   const shouldRenderLocations = !hasLocations || isLoading;
 
+  const renderHeaderItem = React.useCallback(
+    (column: Column<LocationAccess<Permission>>) => {
+      // Defining this function inside the `LocationsViewTable` to get access
+      // to the current sort state
+
+      const { header, key } = column;
+
+      return (
+        <Table.TableHeader
+          key={header}
+          aria-sort={
+            selection === key
+              ? direction === 'ASCENDING'
+                ? 'ascending'
+                : direction === 'DESCENDING'
+                ? 'descending'
+                : 'none'
+              : 'none'
+          }
+        >
+          <TableHeaderButton
+            onClick={() => {
+              updateTableSortState({
+                selection: column.key,
+              });
+            }}
+          >
+            {column.header}
+            {selection === column.key ? (
+              direction === 'ASCENDING' ? (
+                <SortAscendingIcon />
+              ) : direction === 'DESCENDING' ? (
+                <SortDescendingIcon />
+              ) : (
+                <SortIndeterminateIcon />
+              )
+            ) : (
+              <SortIndeterminateIcon />
+            )}
+          </TableHeaderButton>
+        </Table.TableHeader>
+      );
+    },
+    [direction, selection]
+  );
+
   React.useEffect(() => {
     setTableData(
       sortFn<LocationAccess<Permission>>(data.result, direction, selection)
@@ -137,8 +187,7 @@ const LocationsViewTable = ({
       columns={LOCATION_VIEW_COLUMNS}
       data={tableData}
       renderRowItem={RenderRowItem}
-      sortState={sortState}
-      updateTableSortState={updateTableSortState}
+      renderHeaderItem={renderHeaderItem}
     />
   );
 };

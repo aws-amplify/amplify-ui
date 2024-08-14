@@ -9,7 +9,11 @@ import {
   Column,
   defaultTableSort,
   RenderRowItem,
+  SortAscendingIcon,
+  SortDescendingIcon,
+  SortIndeterminateIcon,
   TableDataButton,
+  TableHeaderButton,
   tableSortReducer,
 } from '../Controls/Table';
 
@@ -105,6 +109,52 @@ const LocationDetailViewTable = ({
     handleList({ prefix, options: { pageSize: 1000, refresh: true } });
   }, [handleList, history, prefix, shouldReset]);
 
+  const renderHeaderItem = React.useCallback(
+    (column: Column<LocationItem>) => {
+      // Defining this function inside the `LocationDetailViewTable` to get access
+      // to the current sort state
+
+      const { header, key } = column;
+
+      return (
+        <Table.TableHeader
+          key={header}
+          aria-sort={
+            selection === key
+              ? direction === 'ASCENDING'
+                ? 'ascending'
+                : direction === 'DESCENDING'
+                ? 'descending'
+                : 'none'
+              : 'none'
+          }
+        >
+          <TableHeaderButton
+            onClick={() => {
+              updateTableSortState({
+                selection: column.key,
+              });
+            }}
+          >
+            {column.header}
+            {selection === column.key ? (
+              direction === 'ASCENDING' ? (
+                <SortAscendingIcon />
+              ) : direction === 'DESCENDING' ? (
+                <SortDescendingIcon />
+              ) : (
+                <SortIndeterminateIcon />
+              )
+            ) : (
+              <SortIndeterminateIcon />
+            )}
+          </TableHeaderButton>
+        </Table.TableHeader>
+      );
+    },
+    [direction, selection]
+  );
+
   // @TODO: This should be it's own component instead of using `useCallback`
   const renderRowItem: RenderRowItem<LocationItem> = React.useCallback(
     (row, index) => {
@@ -167,8 +217,7 @@ const LocationDetailViewTable = ({
       columns={LOCATION_DETAIL_VIEW_COLUMNS}
       data={tableData}
       renderRowItem={renderRowItem}
-      sortState={sortState}
-      updateTableSortState={updateTableSortState}
+      renderHeaderItem={renderHeaderItem}
     />
   );
 };
