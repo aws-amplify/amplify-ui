@@ -48,13 +48,16 @@ export const DownloadControl: DownloadControl = ({ fileKey }) => {
     signedUrl: '',
   });
 
+  const [shouldDownload, setShouldDownload] = React.useState(false);
+
   const { signedUrl } = data;
 
   useEffect(() => {
-    if (signedUrl && signedUrl !== '') {
+    if (shouldDownload && signedUrl && signedUrl !== '') {
       download(fileKey, signedUrl);
+      setShouldDownload(false);
     }
-  }, [signedUrl, fileKey]);
+  }, [signedUrl, fileKey, shouldDownload]);
 
   return (
     <DownloadButton
@@ -64,6 +67,7 @@ export const DownloadControl: DownloadControl = ({ fileKey }) => {
           config: getConfig,
           key: fileKey,
         });
+        setShouldDownload(true);
       }}
     >
       <DownloadIcon />
