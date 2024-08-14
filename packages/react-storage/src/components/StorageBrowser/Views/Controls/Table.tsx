@@ -85,7 +85,7 @@ const TableDataButton = withBaseElementProps(Button, {
   variant: 'table-data',
 });
 
-export const TableDataText = withBaseElementProps(Span, {
+const TableDataText = withBaseElementProps(Span, {
   className: `${BLOCK_NAME}__data__text`,
 });
 
