@@ -95,7 +95,7 @@ export function tableSortReducer<T>(
   const { direction, selection: prevSelection } = state;
   const { selection } = action;
 
-  if (selection == prevSelection) {
+  if (selection === prevSelection) {
     const newDirection: SortDirection =
       direction === 'ASCENDING' ? 'DESCENDING' : 'ASCENDING';
 
