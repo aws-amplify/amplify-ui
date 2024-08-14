@@ -21,7 +21,9 @@ const {
 } = StorageBrowserElements;
 
 const BLOCK_NAME = `${CLASS_BASE}__table`;
-const ICON_CLASS = `${CLASS_BASE}__table__data__icon`;
+const ICON_CLASS = `${BLOCK_NAME}__data__icon`;
+const TABLE_DATA_CLASS = `${BLOCK_NAME}__data`;
+const TABLE_HEADER_CLASS = `${BLOCK_NAME}__header`;
 
 const Table = withBaseElementProps(BaseTable, {
   className: `${BLOCK_NAME}`,
@@ -33,10 +35,6 @@ const TableBody = withBaseElementProps(BaseTableBody, {
 
 const TableHead = withBaseElementProps(BaseTableHead, {
   className: `${BLOCK_NAME}__head`,
-});
-
-const TableHeader = withBaseElementProps(BaseTableHeader, {
-  className: `${BLOCK_NAME}__header`,
 });
 
 const TableHeaderButton = withBaseElementProps(Button, {
@@ -52,8 +50,8 @@ const TableData: typeof BaseTableData = React.forwardRef(
         {...props}
         className={
           props.className ??
-          `${BLOCK_NAME}__data${
-            variant ? ` ${BLOCK_NAME}__data--${variant}` : ''
+          `${TABLE_DATA_CLASS}${
+            variant ? ` ${TABLE_DATA_CLASS}--${variant}` : ''
           }`
         }
         variant={variant}
@@ -63,17 +61,32 @@ const TableData: typeof BaseTableData = React.forwardRef(
   }
 );
 
-// const TableData = withBaseElementProps(BaseTableData, {
-//   className: `${BLOCK_NAME}__data`,
-// });
+const TableHeader: typeof BaseTableHeader = React.forwardRef(
+  function TableHeader(props, ref) {
+    const { variant } = props;
+    return (
+      <BaseTableHeader
+        {...props}
+        className={
+          props.className ??
+          `${TABLE_HEADER_CLASS} ${
+            variant ? ` ${TABLE_HEADER_CLASS}--${variant}` : ''
+          }`
+        }
+        variant={variant}
+        ref={ref}
+      />
+    );
+  }
+);
 
 const TableDataButton = withBaseElementProps(Button, {
   className: `${BLOCK_NAME}__data__button`,
   variant: 'table-data',
 });
 
-const TableDataContainer = withBaseElementProps(View, {
-  className: `${BLOCK_NAME}__data__container`,
+export const TableDataText = withBaseElementProps(View, {
+  className: `${BLOCK_NAME}__data__text`,
 });
 
 const TableRow = withBaseElementProps(BaseTableRow, {
@@ -142,6 +155,7 @@ export interface TableControl<
   T extends StorageBrowserElements = StorageBrowserElements,
 > extends Pick<T, 'TableData' | 'TableRow'> {
   <U>(props: TableControlProps<U>): React.JSX.Element;
+  TableDataText?: T['View'];
 }
 
 export type RenderRowItem<T> = (row: T, index: number) => JSX.Element;
@@ -163,19 +177,32 @@ export const TableControl: TableControl = <U,>({
     <Table aria-label={ariaLabel}>
       <TableHead>
         <TableRow>
-          {columns?.map((column) => (
-            <TableHeader key={column.header} aria-sort="none">
-              {/* Should all columns be sortable? */}
-              <TableHeaderButton
-                onClick={() => {
-                  /* no op for now */
-                }}
+          {columns?.map((column) =>
+            column.key === 'download' ? (
+              <TableHeader
+                key={column.header}
+                aria-label={column.header}
+                variant={column.key}
+              ></TableHeader>
+            ) : (
+              <TableHeader
+                key={column.header}
+                variant={column.key as string}
+                aria-sort="none"
               >
-                {column.header}
-                <SortIndeterminateIcon />
-              </TableHeaderButton>
-            </TableHeader>
-          ))}
+                {/* Should all columns be sortable? */}
+
+                <TableHeaderButton
+                  onClick={() => {
+                    /* no op for now */
+                  }}
+                >
+                  {column.header}
+                  <SortIndeterminateIcon />
+                </TableHeaderButton>
+              </TableHeader>
+            )
+          )}
         </TableRow>
       </TableHead>
 
@@ -219,7 +246,7 @@ export const LocationsViewTable = (): JSX.Element => {
                     <Icon className={ICON_CLASS} variant="folder" /> {row.scope}
                   </TableDataButton>
                 ) : (
-                  <TableDataContainer>{row[column.key]}</TableDataContainer>
+                  <TableDataText>{row[column.key]}</TableDataText>
                 )}
               </TableData>
             ))}
@@ -279,17 +306,21 @@ export const LocationDetailViewTable = (): JSX.Element => {
           column.key === 'lastModified' &&
           row[column.key]
         ) {
-          return new Date(row[column.key]).toLocaleString();
+          return (
+            <TableDataText>
+              {new Date(row[column.key]).toLocaleString()}{' '}
+            </TableDataText>
+          );
         } else if (column.key === ('download' as keyof LocationItem)) {
           return <DownloadControl fileKey={row.key} />;
         } else {
           return (
-            <>
+            <TableDataText>
               {column.key === 'key' && row.type === 'FILE' ? (
                 <Icon className={ICON_CLASS} variant="file" />
               ) : null}
               {row[column.key]}
-            </>
+            </TableDataText>
           );
         }
       };
@@ -317,9 +348,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
                     <Icon className={ICON_CLASS} variant="folder" /> {row.key}
                   </TableDataButton>
                 ) : (
-                  <TableDataContainer>
-                    {parseTableData(row, column)}
-                  </TableDataContainer>
+                  parseTableData(row, column)
                 )}
               </TableData>
             );

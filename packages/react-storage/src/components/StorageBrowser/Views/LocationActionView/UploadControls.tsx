@@ -9,6 +9,8 @@ import { Column, RenderRowItem } from '../Controls/Table';
 
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
 
+import { TableDataText } from '../Controls/Table';
+
 const { Cancel, Exit, Primary, Summary, Table } = Controls;
 
 const LOCATION_ACTION_VIEW_COLUMNS: Column<CancelableTask>[] = [
@@ -35,13 +37,16 @@ const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
     <Table.TableRow key={index}>
       {LOCATION_ACTION_VIEW_COLUMNS.map((column) => {
         return (
-          <Table.TableData key={`${index}-${column.header}`}>
+          <Table.TableData
+            key={`${index}-${column.header}`}
+            variant={column.key}
+          >
             {column.key === 'key' ? (
-              <>{row.key}</>
+              <TableDataText>{row.key}</TableDataText>
             ) : column.key === 'status' ? (
-              <>{row.status}</>
+              <TableDataText>{row.status}</TableDataText>
             ) : column.key === 'progress' ? (
-              <>{row.progress}</>
+              <TableDataText>{row.progress}</TableDataText>
             ) : column.key === 'cancel' ? (
               <Cancel
                 onClick={row.cancel}
