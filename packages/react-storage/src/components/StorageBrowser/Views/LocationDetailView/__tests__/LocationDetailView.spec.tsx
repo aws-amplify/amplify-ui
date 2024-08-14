@@ -45,7 +45,7 @@ describe('LocationDetailView', () => {
   });
 
   it('refreshes table when refresh button is clicked', () => {
-    const user = userEvent;
+    const user = userEvent.setup();
 
     render(
       <Provider>
