@@ -17,7 +17,7 @@ const {
   TableRow: BaseTableRow,
   Button,
   Icon,
-  View,
+  Span,
 } = StorageBrowserElements;
 
 const BLOCK_NAME = `${CLASS_BASE}__table`;
@@ -85,7 +85,7 @@ const TableDataButton = withBaseElementProps(Button, {
   variant: 'table-data',
 });
 
-export const TableDataText = withBaseElementProps(View, {
+export const TableDataText = withBaseElementProps(Span, {
   className: `${BLOCK_NAME}__data__text`,
 });
 
