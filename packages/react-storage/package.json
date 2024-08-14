@@ -67,6 +67,12 @@
       "path": "dist/esm/index.mjs",
       "import": "{ StorageManager }",
       "limit": "25.5 kB"
+    },
+    {
+      "name": "createStorageBrowser",
+      "path": "dist/esm/components/StorageBrowser/browser.mjs",
+      "import": "{ createStorageBrowser }",
+      "limit": "14 kB"
     }
   ]
 }

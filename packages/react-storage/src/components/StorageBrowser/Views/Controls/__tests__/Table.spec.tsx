@@ -75,7 +75,7 @@ const config = {
   registerAuthListener: jest.fn(),
 };
 
-const Provider = createProvider({ config });
+const Provider = createProvider({ actions: {}, config });
 
 describe('TableControl', () => {
   beforeEach(() => {

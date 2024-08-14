@@ -16,9 +16,10 @@ import config from './aws-exports';
 Amplify.configure(config);
 
 const { StorageBrowser } = createStorageBrowser({
+  actions: {},
   elements: elementsDefault,
   config: createAmplifyAuthAdapter({
-    options: { defaultPrefixes: ['public/', 'private/', 'protected/'] },
+    options: { defaultPrefixes: ['public/', 'protected/'] },
   }),
 });
 

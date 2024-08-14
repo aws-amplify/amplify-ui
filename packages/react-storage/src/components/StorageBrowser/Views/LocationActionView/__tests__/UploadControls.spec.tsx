@@ -7,15 +7,17 @@ import { ActionSelectState } from '../../../context/controls/ActionSelect/Action
 
 import { UploadControls, ActionIcon, ICON_CLASS } from '../UploadControls';
 
+const TEST_ACTIONS = {
+  UPLOAD_FILES: { displayName: 'Upload Files', handler: jest.fn() },
+};
+
 const useControlSpy = jest.spyOn(ControlsModule, 'useControl');
 
 const actionSelectState: ActionSelectState = {
-  actions: [],
+  actions: TEST_ACTIONS,
   selected: {
     items: [],
-    actionType: undefined,
-    destination: undefined,
-    name: undefined,
+    type: 'UPLOAD_FILES',
   },
 };
 
@@ -33,9 +35,7 @@ const navigateState = {
   ],
 };
 
-useControlSpy.mockImplementation((obj) => {
-  const { type } = obj;
-
+useControlSpy.mockImplementation(({ type }) => {
   if (type === 'ACTION_SELECT') {
     return [actionSelectState, jest.fn()];
   }
@@ -45,16 +45,13 @@ useControlSpy.mockImplementation((obj) => {
   }
 });
 
-const listLocations = jest.fn(() =>
-  Promise.resolve({ locations: [], nextToken: undefined })
-);
 const config = {
   getLocationCredentials: jest.fn(),
-  listLocations,
+  listLocations: jest.fn(),
   region: 'region',
   registerAuthListener: jest.fn(),
 };
-const Provider = createProvider({ config });
+const Provider = createProvider({ actions: TEST_ACTIONS, config });
 
 describe('UploadControls', () => {
   beforeEach(() => {
@@ -62,38 +59,26 @@ describe('UploadControls', () => {
   });
 
   it('should render upload controls table', async () => {
-    actionSelectState.selected = {
-      items: [
-        {
-          key: 'folder1/file1.png',
-          lastModified: new Date(),
-          size: 12345,
-          type: 'FILE',
-        },
-      ],
-      actionType: 'UPLOAD_FILES',
-      destination: 's3://test-bucket/folder1/',
-      name: 'Upload Files',
-    };
-
-    render(
-      <Provider>
-        <UploadControls />
-      </Provider>
-    );
-
     await waitFor(() => {
-      const table = screen.getByRole('table');
-      expect(table).toBeInTheDocument();
+      render(
+        <Provider>
+          <UploadControls />
+        </Provider>
+      );
     });
+
+    const table = screen.getByRole('table');
+    expect(table).toBeInTheDocument();
   });
 
-  it('should render the destination folder', () => {
-    render(
-      <Provider>
-        <UploadControls />
-      </Provider>
-    );
+  it('should render the destination folder', async () => {
+    await waitFor(() => {
+      render(
+        <Provider>
+          <UploadControls />
+        </Provider>
+      );
+    });
 
     const destination = screen.getByText('Destination:');
     const destinationFolder = screen.getByText('folder3/');
@@ -103,16 +88,16 @@ describe('UploadControls', () => {
   });
 });
 
-describe('ActionItem', () => {
+describe('ActionIcon', () => {
   it('should show all icon statuses', () => {
     const { container } = render(
       <>
         <ActionIcon />
         <ActionIcon status="CANCELED" />
-        <ActionIcon status="SUCCESS" />
+        <ActionIcon status="COMPLETE" />
         <ActionIcon status="QUEUED" />
-        <ActionIcon status="ERROR" />
-        <ActionIcon status="IN_PROGRESS" />
+        <ActionIcon status="FAILED" />
+        <ActionIcon status="PENDING" />
       </>
     );
     const svg = container.querySelectorAll('svg');
