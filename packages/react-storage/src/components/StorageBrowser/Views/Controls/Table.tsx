@@ -86,28 +86,22 @@ interface TableSortState<T> {
   selection: keyof T;
 }
 
-type TableSortAction<T> = { type: 'CHANGE_SORT'; selection: keyof T };
+type TableSortAction<T> = { selection: keyof T };
 
 export function tableSortReducer<T>(
   state: TableSortState<T>,
   action: TableSortAction<T>
 ): TableSortState<T> {
-  const { type } = action;
+  const { direction, selection: prevSelection } = state;
+  const { selection } = action;
 
-  switch (type) {
-    case 'CHANGE_SORT': {
-      const { direction, selection: prevSelection } = state;
-      const { selection } = action;
+  if (selection == prevSelection) {
+    const newDirection: Direction =
+      direction === 'ASCENDING' ? 'DESCENDING' : 'ASCENDING';
 
-      if (selection == prevSelection) {
-        const newDirection: Direction =
-          direction === 'ASCENDING' ? 'DESCENDING' : 'ASCENDING';
-
-        return { direction: newDirection, selection };
-      } else {
-        return { direction: 'ASCENDING', selection };
-      }
-    }
+    return { direction: newDirection, selection };
+  } else {
+    return { direction: 'ASCENDING', selection };
   }
 }
 
@@ -192,7 +186,6 @@ export const TableControl: TableControl = <U,>({
               <TableHeaderButton
                 onClick={() => {
                   updateTableSortState({
-                    type: 'CHANGE_SORT',
                     selection: column.key,
                   });
                 }}
