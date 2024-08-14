@@ -5,30 +5,6 @@ import { createAIConversation } from '@aws-amplify/ui-react-ai';
 import '@aws-amplify/ui-react/styles.css';
 import '@aws-amplify/ui-react-ai/ai-conversation-styles.css';
 
-export interface ImageContent {
-  format: 'png' | 'jpeg' | 'gif' | 'webp';
-  bytes: ArrayBuffer;
-}
-
-interface ImageContentBlock {
-  type: 'image';
-  value: ImageContent;
-}
-
-export interface TextContent {
-  type: 'text';
-  value: string;
-}
-
-export type Content = ImageContentBlock | TextContent;
-
-export interface ConversationMessage {
-  id: string;
-  content: Content[];
-  role: 'user' | 'assistant';
-  timestamp: Date;
-}
-
 function convertBufferToBase64(
   buffer: ArrayBuffer,
   format: 'png' | 'jpeg' | 'gif' | 'webp'
@@ -159,35 +135,6 @@ const avatars = {
   },
 };
 
-// const getRandomMessage = (): {
-//   role: (typeof roles)[number];
-//   content: Content[];
-//   timestamp: Date;
-// } => {
-//   const role = roles[Math.floor(Math.random() * roles.length)];
-//   const message =
-//     sampleMessages[Math.floor(Math.random() * sampleMessages.length)];
-//   return {
-//     role,
-//     content: message,
-//     timestamp: new Date(),
-//   };
-// };
-
-// const useRandomMessages = (initialMessages: any[]) => {
-//   const [messages, setMessages] = React.useState(initialMessages);
-
-//   React.useEffect(() => {
-//     const intervalId = setInterval(() => {
-//       setMessages((prevMessages) => [...prevMessages, getRandomMessage()]);
-//     }, 3000);
-
-//     return () => clearInterval(intervalId);
-//   }, []);
-
-//   return messages;
-// };
-
 const { AIConversation } = createAIConversation({
   suggestedPrompts: PROMPTS,
   actions: actions,
@@ -195,8 +142,6 @@ const { AIConversation } = createAIConversation({
 });
 
 export default function Example() {
-  // uncomment to use growing list of messages
-  // const messages = useRandomMessages(initialMessages);
   const messages = initialMessages;
 
   return (
@@ -206,5 +151,4 @@ export default function Example() {
       handleSendMessage={() => {}}
     />
   );
-  // return <div>hello world</div>;
 }

@@ -1,12 +1,7 @@
 import { a, ClientSchema, defineData } from '@aws-amplify/backend';
 
+// TODO: Update schema once backend-ai has been released
 const schema = a.schema({
-  Foo: a
-    .model({ bar: a.integer() })
-    .authorization((allow: { authenticated: () => any }) =>
-      allow.authenticated()
-    ),
-
   pirateChat: a.conversation({
     // better dx for aiModel in progress
     aiModel: {

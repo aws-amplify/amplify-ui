@@ -142,7 +142,6 @@ export const FieldControl: FieldControl = () => {
 
     const submittedContent: InputContent[] = [];
     if (input?.text) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars -- TODO send message
       const textContent: InputContent = {
         text: input.text,
       };
@@ -151,7 +150,6 @@ export const FieldControl: FieldControl = () => {
     if (input?.files) {
       input.files.forEach((file) => {
         file.arrayBuffer().then((buffer) => {
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars -- TODO send message
           const fileContent: ConversationMessageContent = {
             image: {
               format: file.type as 'png' | 'jpeg' | 'gif' | 'webp',
