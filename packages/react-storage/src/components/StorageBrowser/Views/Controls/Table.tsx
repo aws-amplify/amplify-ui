@@ -35,7 +35,7 @@ const TableHeader = withBaseElementProps(BaseTableHeader, {
   className: `${CLASS_BASE}__${BLOCK_NAME}__header`,
 });
 
-const TableHeaderButton = withBaseElementProps(Button, {
+export const TableHeaderButton = withBaseElementProps(Button, {
   className: `${CLASS_BASE}__${BLOCK_NAME}__header-button`,
   variant: 'sort',
 });
@@ -53,17 +53,17 @@ const TableRow = withBaseElementProps(BaseTableRow, {
   className: `${CLASS_BASE}__${BLOCK_NAME}__row`,
 });
 
-const SortIndeterminateIcon = withBaseElementProps(Icon, {
+export const SortIndeterminateIcon = withBaseElementProps(Icon, {
   className: `${CLASS_BASE}__${BLOCK_NAME}__sort-icon--indeterminate`,
   variant: 'sort-indeterminate',
 });
 
-const SortAscendingIcon = withBaseElementProps(Icon, {
+export const SortAscendingIcon = withBaseElementProps(Icon, {
   className: `${CLASS_BASE}__${BLOCK_NAME}__sort-icon--ascending`,
   variant: 'sort-ascending',
 });
 
-const SortDescendingIcon = withBaseElementProps(Icon, {
+export const SortDescendingIcon = withBaseElementProps(Icon, {
   className: `${CLASS_BASE}__${BLOCK_NAME}__sort-icon--descending`,
   variant: 'sort-descending',
 });
@@ -75,9 +75,11 @@ export interface Column<T> {
 
 export interface TableControl<
   T extends StorageBrowserElements = StorageBrowserElements,
-> extends Pick<T, 'TableData' | 'TableRow'> {
+> extends Pick<T, 'TableData' | 'TableRow' | 'TableHeader'> {
   <U>(props: TableControlProps<U>): React.JSX.Element;
 }
+
+export type RenderHeaderItem<T> = (column: Column<T>) => JSX.Element;
 
 export type RenderRowItem<T> = (row: T, index: number) => JSX.Element;
 
@@ -151,62 +153,23 @@ export function defaultTableSort<T>(
 interface TableControlProps<T> {
   data: T[];
   columns: Column<T>[];
+  renderHeaderItem: RenderHeaderItem<T>;
   renderRowItem: RenderRowItem<T>;
-  sortState: TableSortState<T>;
-  updateTableSortState: (action: TableSortAction<T>) => void;
 }
 
 export const TableControl: TableControl = <U,>({
   data,
   columns,
+  renderHeaderItem,
   renderRowItem,
-  sortState,
-  updateTableSortState,
 }: TableControlProps<U>) => {
   const ariaLabel = 'Table';
-
-  const { direction, selection } = sortState;
 
   return (
     <Table aria-label={ariaLabel}>
       <TableHead>
         <TableRow>
-          {columns?.map((column) => (
-            <TableHeader
-              key={column.header}
-              aria-sort={
-                selection === column.key
-                  ? direction === 'ASCENDING'
-                    ? 'ascending'
-                    : direction === 'DESCENDING'
-                    ? 'descending'
-                    : 'none'
-                  : 'none'
-              }
-            >
-              {/* Should all columns be sortable? */}
-              <TableHeaderButton
-                onClick={() => {
-                  updateTableSortState({
-                    selection: column.key,
-                  });
-                }}
-              >
-                {column.header}
-                {selection === column.key ? (
-                  direction === 'ASCENDING' ? (
-                    <SortAscendingIcon />
-                  ) : direction === 'DESCENDING' ? (
-                    <SortDescendingIcon />
-                  ) : (
-                    <SortIndeterminateIcon />
-                  )
-                ) : (
-                  <SortIndeterminateIcon />
-                )}
-              </TableHeaderButton>
-            </TableHeader>
-          ))}
+          {columns?.map((column) => renderHeaderItem(column))}
         </TableRow>
       </TableHead>
 
@@ -219,3 +182,4 @@ export const TableControl: TableControl = <U,>({
 
 TableControl.TableRow = TableRow;
 TableControl.TableData = TableData;
+TableControl.TableHeader = TableHeader;

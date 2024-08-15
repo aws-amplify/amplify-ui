@@ -5,7 +5,14 @@ import { FileItem } from '../../context/types';
 
 import { Controls } from '../Controls';
 import { Title } from './Controls';
-import { Column, RenderRowItem } from '../Controls/Table';
+import {
+  Column,
+  RenderRowItem,
+  SortAscendingIcon,
+  SortDescendingIcon,
+  SortIndeterminateIcon,
+  TableHeaderButton,
+} from '../Controls/Table';
 import { tableSortReducer } from '../Controls/Table';
 
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
@@ -64,6 +71,7 @@ export const UploadControls = (): JSX.Element => {
       selection: 'key',
     }
   );
+  const { direction, selection } = sortState;
 
   const [state, handleUpdateState] = useControl({
     type: 'ACTION_SELECT',
@@ -75,6 +83,52 @@ export const UploadControls = (): JSX.Element => {
     prefix: history.join(''),
     items: items! as FileItem[],
   });
+
+  const renderHeaderItem = React.useCallback(
+    (column: Column<CancelableTask>) => {
+      // Defining this function inside the `UploadControls` to get access
+      // to the current sort state
+
+      const { header, key } = column;
+
+      return (
+        <Table.TableHeader
+          key={header}
+          aria-sort={
+            selection === key
+              ? direction === 'ASCENDING'
+                ? 'ascending'
+                : direction === 'DESCENDING'
+                ? 'descending'
+                : 'none'
+              : 'none'
+          }
+        >
+          <TableHeaderButton
+            onClick={() => {
+              updateTableSortState({
+                selection: column.key,
+              });
+            }}
+          >
+            {column.header}
+            {selection === column.key ? (
+              direction === 'ASCENDING' ? (
+                <SortAscendingIcon />
+              ) : direction === 'DESCENDING' ? (
+                <SortDescendingIcon />
+              ) : (
+                <SortIndeterminateIcon />
+              )
+            ) : (
+              <SortIndeterminateIcon />
+            )}
+          </TableHeaderButton>
+        </Table.TableHeader>
+      );
+    },
+    [direction, selection]
+  );
 
   return items ? (
     <>
@@ -93,8 +147,7 @@ export const UploadControls = (): JSX.Element => {
         data={tasks}
         columns={LOCATION_ACTION_VIEW_COLUMNS}
         renderRowItem={renderRowItem}
-        sortState={sortState}
-        updateTableSortState={updateTableSortState}
+        renderHeaderItem={renderHeaderItem}
       />
     </>
   ) : (
