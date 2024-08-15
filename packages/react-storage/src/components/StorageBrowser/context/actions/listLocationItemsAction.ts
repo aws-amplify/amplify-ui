@@ -21,24 +21,34 @@ export interface ListLocationItemsActionOutput
 
 type ListOutputItem = ListPaginateWithPathOutput['items'][number];
 
-const parseResultItems = (items: ListOutputItem[]): LocationItem[] =>
+const parseResultItems = (
+  items: ListOutputItem[],
+  path: string
+): LocationItem[] =>
   items.map(({ path: key, lastModified, size }) => {
+    const keyWithoutPath = key.slice(path.length);
     if (size === 0 && key.endsWith('/')) {
-      return { key, type: 'FOLDER' };
+      return { key: keyWithoutPath, type: 'FOLDER' };
     }
 
-    return { key, lastModified: lastModified!, size: size!, type: 'FILE' };
+    return {
+      key: keyWithoutPath,
+      lastModified: lastModified!,
+      size: size!,
+      type: 'FILE',
+    };
   });
 
 const parseResultExcludedPaths = (
-  paths: string[] | undefined
+  paths: string[] | undefined,
+  path: string
 ): LocationItem[] => {
   if (!paths) {
     return [];
   }
 
   return paths.map((key) => {
-    return { key, type: 'FOLDER' };
+    return { key: key.slice(path.length), type: 'FOLDER' };
   });
 };
 
@@ -93,8 +103,8 @@ export async function listLocationItemsAction(
 
   const result = [
     ...(refresh ? [] : prevState.result),
-    ...parseResultItems(output.items),
-    ...parseResultExcludedPaths(output.excludedSubpaths),
+    ...parseResultItems(output.items, path),
+    ...parseResultExcludedPaths(output.excludedSubpaths, path),
   ].sort(sortLocationItemsAlphabetically);
 
   return { result, nextToken: output.nextToken };

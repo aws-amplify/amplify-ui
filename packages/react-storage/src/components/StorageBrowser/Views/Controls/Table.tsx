@@ -231,7 +231,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
 
   React.useEffect(() => {
     if (shouldReset) {
-      handleList({ prefix, options: { reset: true, delimiter: '/' } });
+      handleList({ prefix, options: { reset: true } });
     }
 
     if (!history.length) {
@@ -247,10 +247,6 @@ export const LocationDetailViewTable = (): JSX.Element => {
   // @TODO: This should be it's own component instead of using `useCallback`
   const renderRowItem: RenderRowItem<LocationItem> = React.useCallback(
     (row, index) => {
-      const parseKeyWithoutPrefix = (key: string) => {
-        return key.replace(prefix, '');
-      };
-
       const parseTableData = (
         row: LocationItem,
         column: Column<LocationItem>
@@ -262,10 +258,8 @@ export const LocationDetailViewTable = (): JSX.Element => {
           row[column.key]
         ) {
           return new Date(row[column.key]).toLocaleString();
-        } else if (row.type === 'FILE' && column.key === 'key') {
-          return parseKeyWithoutPrefix(row[column.key]);
         } else if (column.key === ('download' as keyof LocationItem)) {
-          return <DownloadControl fileKey={row.key} />;
+          return <DownloadControl fileKey={`${prefix}${row.key}`} />;
         } else {
           return row[column.key];
         }
@@ -274,7 +268,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
       return (
         <TableRow key={index}>
           {LOCATION_DETAIL_VIEW_COLUMNS.map((column) => {
-            if (row.key === prefix) {
+            if (row.key === '') {
               // Don't render the current prefix as a row
               return null;
             }
@@ -286,12 +280,12 @@ export const LocationDetailViewTable = (): JSX.Element => {
                     onClick={() => {
                       handleUpdateState({
                         type: 'NAVIGATE',
-                        prefix: row.key.slice(prefix.length),
+                        prefix: row.key,
                       });
                     }}
                     key={`${index}-${row.key}`}
                   >
-                    {parseKeyWithoutPrefix(row.key)}
+                    {row.key}
                   </TableDataButton>
                 ) : (
                   <>{parseTableData(row, column)}</>
