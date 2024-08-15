@@ -11,9 +11,9 @@ const initialValue = { nextToken: undefined, result: [] };
 
 // actually mocking JS `list` returns is overly complex
 const generateMockItems = (size: number) =>
-  [
-    ...Array(size).keys(),
-  ] as unknown as StorageModule.ListPaginateWithPathOutput['items'];
+  Array(size).map(() => {
+    return { key: 'key', lastModified: Date.now(), size: 1 };
+  }) as unknown as StorageModule.ListPaginateWithPathOutput['items'];
 
 describe('listLocationItemsAction', () => {
   beforeEach(() => {
