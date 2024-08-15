@@ -53,10 +53,8 @@ export const LocationDetailViewControls: LocationDetailViewControls = () => {
     <>
       <Navigate />
       <Title />
-      <div className={`${CLASS_BASE}__action-controls`}>
-        <LocationDetailViewRefresh />
-        <ActionSelect />
-      </div>
+      <LocationDetailViewRefresh />
+      <ActionSelect />
       <LocationDetailViewTable />
     </>
   );
