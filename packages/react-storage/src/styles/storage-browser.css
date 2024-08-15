@@ -117,8 +117,12 @@
 }
 
 .storage-browser__refresh {
-  grid-column: 3 / 4;
+  grid-column: 2 / 3;
   justify-self: flex-end;
+}
+
+.storage-browser--locations .storage-browser__refresh {
+  grid-column: 3 / 4;
 }
 
 .storage-browser__table {

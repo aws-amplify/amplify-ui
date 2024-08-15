@@ -22,7 +22,10 @@ export const LocationActionView: LocationActionView = () => {
   const { actionType } = state.selected;
 
   return (
-    <div className={CLASS_BASE} data-testid="LOCATION_ACTION_VIEW">
+    <div
+      className={`${CLASS_BASE} ${CLASS_BASE}--location-detail`}
+      data-testid="LOCATION_ACTION_VIEW"
+    >
       {actionType === 'CREATE_FOLDER' ? (
         <CreateFolderControls />
       ) : (

@@ -5,7 +5,7 @@ import { useControl } from '../../context/controls';
 import { Controls, LocationDetailViewTable } from '../Controls';
 import { CommonControl } from '../types';
 
-const { ActionSelect, Navigate, Title: TitleElement } = Controls;
+const { ActionSelect, Navigate, Refresh, Title: TitleElement } = Controls;
 
 export interface LocationDetailViewControls<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -30,6 +30,7 @@ export const LocationDetailViewControls: LocationDetailViewControls = () => {
     <>
       <Navigate />
       <Title />
+      <Refresh />
       <ActionSelect />
       <LocationDetailViewTable />
     </>

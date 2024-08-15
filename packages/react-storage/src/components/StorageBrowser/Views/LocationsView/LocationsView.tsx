@@ -58,7 +58,10 @@ LocationsViewControls.Title = Title;
 
 export const LocationsView: LocationsView = () => {
   return (
-    <div className={CLASS_BASE} data-testid="LOCATIONS_VIEW">
+    <div
+      className={`${CLASS_BASE} ${CLASS_BASE}--locations`}
+      data-testid="LOCATIONS_VIEW"
+    >
       <LocationsViewControls />
     </div>
   );
