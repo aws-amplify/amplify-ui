@@ -2,7 +2,11 @@ import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import { StorageBrowserElements } from '../../context/elements';
+import { DownloadControl } from './Download';
 import { CLASS_BASE } from '../constants';
+import { useControl } from '../../context/controls';
+import { LocationAccess, LocationItem, Permission } from '../../context/types';
+import { useAction, useLocationsData } from '../../context/actions';
 
 export type SortDirection = 'ASCENDING' | 'DESCENDING' | 'NONE';
 
@@ -15,58 +19,134 @@ const {
   TableRow: BaseTableRow,
   Button,
   Icon,
+  Span,
 } = StorageBrowserElements;
 
-const BLOCK_NAME = 'table';
+const BLOCK_NAME = `${CLASS_BASE}__table`;
+const ICON_CLASS = `${BLOCK_NAME}__data__icon`;
+const TABLE_DATA_CLASS = `${BLOCK_NAME}__data`;
+const TABLE_HEADER_CLASS = `${BLOCK_NAME}__header`;
 
 const Table = withBaseElementProps(BaseTable, {
-  className: `${CLASS_BASE}__${BLOCK_NAME}`,
+  className: `${BLOCK_NAME}`,
 });
 
 const TableBody = withBaseElementProps(BaseTableBody, {
-  className: `${CLASS_BASE}__${BLOCK_NAME}__body`,
+  className: `${BLOCK_NAME}__body`,
 });
 
 const TableHead = withBaseElementProps(BaseTableHead, {
-  className: `${CLASS_BASE}__${BLOCK_NAME}__head`,
-});
-
-const TableHeader = withBaseElementProps(BaseTableHeader, {
-  className: `${CLASS_BASE}__${BLOCK_NAME}__header`,
+  className: `${BLOCK_NAME}__head`,
 });
 
 export const TableHeaderButton = withBaseElementProps(Button, {
-  className: `${CLASS_BASE}__${BLOCK_NAME}__header-button`,
+  className: `${BLOCK_NAME}__header__button`,
   variant: 'sort',
 });
 
-const TableData = withBaseElementProps(BaseTableData, {
-  className: `${CLASS_BASE}__${BLOCK_NAME}__data`,
-});
+const TableData: typeof BaseTableData = React.forwardRef(
+  function TableData(props, ref) {
+    const { variant } = props;
+    return (
+      <BaseTableData
+        {...props}
+        className={
+          props.className ??
+          `${TABLE_DATA_CLASS}${
+            variant ? ` ${TABLE_DATA_CLASS}--${variant}` : ''
+          }`
+        }
+        variant={variant}
+        ref={ref}
+      />
+    );
+  }
+);
+
+const TableHeader: typeof BaseTableHeader = React.forwardRef(
+  function TableHeader(props, ref) {
+    const { variant } = props;
+    return (
+      <BaseTableHeader
+        {...props}
+        className={
+          props.className ??
+          `${TABLE_HEADER_CLASS} ${
+            variant ? ` ${TABLE_HEADER_CLASS}--${variant}` : ''
+          }`
+        }
+        variant={variant}
+        ref={ref}
+      />
+    );
+  }
+);
 
 export const TableDataButton = withBaseElementProps(Button, {
-  className: `${CLASS_BASE}__${BLOCK_NAME}__data-button`,
+  className: `${BLOCK_NAME}__data__button`,
   variant: 'table-data',
 });
 
+export const TableDataText = withBaseElementProps(Span, {
+  className: `${BLOCK_NAME}__data__text`,
+});
+
 const TableRow = withBaseElementProps(BaseTableRow, {
-  className: `${CLASS_BASE}__${BLOCK_NAME}__row`,
+  className: `${BLOCK_NAME}__row`,
 });
 
 export const SortIndeterminateIcon = withBaseElementProps(Icon, {
-  className: `${CLASS_BASE}__${BLOCK_NAME}__sort-icon--indeterminate`,
+  className: `${BLOCK_NAME}__sort-icon--indeterminate`,
   variant: 'sort-indeterminate',
 });
 
 export const SortAscendingIcon = withBaseElementProps(Icon, {
-  className: `${CLASS_BASE}__${BLOCK_NAME}__sort-icon--ascending`,
+  className: `${BLOCK_NAME}__sort-icon--ascending`,
   variant: 'sort-ascending',
 });
 
 export const SortDescendingIcon = withBaseElementProps(Icon, {
-  className: `${CLASS_BASE}__${BLOCK_NAME}__sort-icon--descending`,
+  className: `${BLOCK_NAME}__sort-icon--descending`,
   variant: 'sort-descending',
 });
+
+const LOCATION_VIEW_COLUMNS: Column<LocationAccess<Permission>>[] = [
+  {
+    header: 'Name',
+    key: 'scope',
+  },
+  {
+    header: 'Type',
+    key: 'type',
+  },
+  {
+    header: 'Permission',
+    key: 'permission',
+  },
+];
+
+const LOCATION_DETAIL_VIEW_COLUMNS: Column<LocationItem>[] = [
+  {
+    key: 'key',
+    header: 'Name',
+  },
+  {
+    key: 'type',
+    header: 'Type',
+  },
+  {
+    key: 'lastModified' as keyof LocationItem,
+    header: 'Last Modified',
+  },
+  {
+    key: 'size' as keyof LocationItem,
+    header: 'Size',
+  },
+  {
+    key: 'download' as keyof LocationItem,
+    header: 'Download',
+  },
+];
 
 export interface Column<T> {
   header: string;
@@ -153,14 +233,12 @@ export function defaultTableSort<T>(
 interface TableControlProps<T> {
   data: T[];
   columns: Column<T>[];
-  renderHeaderItem: RenderHeaderItem<T>;
   renderRowItem: RenderRowItem<T>;
 }
 
 export const TableControl: TableControl = <U,>({
   data,
   columns,
-  renderHeaderItem,
   renderRowItem,
 }: TableControlProps<U>) => {
   const ariaLabel = 'Table';
@@ -169,7 +247,32 @@ export const TableControl: TableControl = <U,>({
     <Table aria-label={ariaLabel}>
       <TableHead>
         <TableRow>
-          {columns?.map((column) => renderHeaderItem(column))}
+          {columns?.map((column) =>
+            column.key === 'download' || column.key === 'cancel' ? (
+              <TableHeader
+                key={column.header}
+                aria-label={column.header}
+                variant={column.key}
+              ></TableHeader>
+            ) : (
+              <TableHeader
+                key={column.header}
+                variant={column.key as string}
+                aria-sort="none"
+              >
+                {/* Should all columns be sortable? */}
+
+                <TableHeaderButton
+                  onClick={() => {
+                    /* no op for now */
+                  }}
+                >
+                  {column.header}
+                  <SortIndeterminateIcon />
+                </TableHeaderButton>
+              </TableHeader>
+            )
+          )}
         </TableRow>
       </TableHead>
 
@@ -183,3 +286,159 @@ export const TableControl: TableControl = <U,>({
 TableControl.TableRow = TableRow;
 TableControl.TableData = TableData;
 TableControl.TableHeader = TableHeader;
+
+export const LocationsViewTable = (): JSX.Element => {
+  const [{ data, isLoading }] = useLocationsData();
+  const [, handleUpdateState] = useControl({ type: 'NAVIGATE' });
+
+  const hasLocations = !!data.result?.length;
+  const shouldRenderLocations = !hasLocations || isLoading;
+
+  // @TODO: This should be it's own component instead of using `useCallback`
+  const renderRowItem: RenderRowItem<LocationAccess<Permission>> =
+    React.useCallback(
+      (row: LocationAccess<Permission>, index: number) => {
+        return (
+          <TableRow key={index}>
+            {LOCATION_VIEW_COLUMNS.map((column) => (
+              <TableData key={`${index}-${column.header}`} variant={column.key}>
+                {column.key === 'scope' &&
+                (row.type === 'BUCKET' || row.type === 'PREFIX') ? (
+                  <TableDataButton
+                    key={row['scope']}
+                    onClick={() => {
+                      handleUpdateState({
+                        type: 'ACCESS_LOCATION',
+                        location: row,
+                      });
+                    }}
+                    type="button"
+                  >
+                    <Icon className={ICON_CLASS} variant="folder" /> {row.scope}
+                  </TableDataButton>
+                ) : (
+                  <TableDataText>{row[column.key]}</TableDataText>
+                )}
+              </TableData>
+            ))}
+          </TableRow>
+        );
+      },
+      [handleUpdateState]
+    );
+
+  return shouldRenderLocations ? (
+    <div>...loading</div>
+  ) : (
+    <TableControl
+      columns={LOCATION_VIEW_COLUMNS}
+      data={data.result}
+      renderRowItem={renderRowItem}
+    />
+  );
+};
+
+export const LocationDetailViewTable = (): JSX.Element => {
+  const [{ history, location }, handleUpdateState] = useControl({
+    type: 'NAVIGATE',
+  });
+
+  const [{ data, isLoading }, handleList] = useAction({
+    type: 'LIST_LOCATION_ITEMS',
+  });
+
+  const prefix = history.join('');
+
+  const hasItems = !!data.result?.length;
+  const shouldReset = !history.length && hasItems && !location;
+
+  React.useEffect(() => {
+    if (shouldReset) {
+      handleList({ prefix: '', options: { reset: true } });
+    }
+
+    if (!history.length) {
+      return;
+    }
+
+    handleList({ prefix, options: { pageSize: 1000, refresh: true } });
+  }, [handleList, history, prefix, shouldReset]);
+
+  // @TODO: This should be it's own component instead of using `useCallback`
+  const renderRowItem: RenderRowItem<LocationItem> = React.useCallback(
+    (row, index) => {
+      const parseTableData = (
+        row: LocationItem,
+        column: Column<LocationItem>
+      ) => {
+        if (
+          row.type === 'FILE' &&
+          // @ts-ignore @TODO fix this ts error: This comparison appears to be unintentional because the types '"key" | "type"' and '"lastModified"' have no overlap.
+          column.key === 'lastModified' &&
+          row[column.key]
+        ) {
+          return (
+            <TableDataText>
+              {new Date(row[column.key]).toLocaleString()}
+            </TableDataText>
+          );
+        } else if (column.key === ('download' as keyof LocationItem)) {
+          return row.type === 'FILE' ? (
+            <DownloadControl fileKey={row.key} />
+          ) : null;
+        } else {
+          return (
+            <TableDataText>
+              {column.key === 'key' && row.type === 'FILE' ? (
+                <Icon className={ICON_CLASS} variant="file" />
+              ) : null}
+              {row[column.key]}
+            </TableDataText>
+          );
+        }
+      };
+
+      return (
+        <TableRow key={index}>
+          {LOCATION_DETAIL_VIEW_COLUMNS.map((column) => {
+            if (row.key === prefix) {
+              // Don't render the current prefix as a row
+              return null;
+            }
+
+            return (
+              <TableData key={`${index}-${column.header}`} variant={column.key}>
+                {column.key === 'key' && row.type === 'FOLDER' ? (
+                  <TableDataButton
+                    onClick={() => {
+                      handleUpdateState({
+                        type: 'NAVIGATE',
+                        prefix: row.key.slice(prefix.length),
+                      });
+                    }}
+                    key={`${index}-${row.key}`}
+                  >
+                    <Icon className={ICON_CLASS} variant="folder" /> {row.key}
+                  </TableDataButton>
+                ) : (
+                  parseTableData(row, column)
+                )}
+              </TableData>
+            );
+          })}
+        </TableRow>
+      );
+    },
+    [handleUpdateState, prefix]
+  );
+
+  return isLoading && !hasItems ? (
+    <span>loading...</span>
+  ) : (
+    <TableControl
+      columns={LOCATION_DETAIL_VIEW_COLUMNS}
+      data={data.result}
+      renderRowItem={renderRowItem}
+    />
+  );
+};

@@ -49,18 +49,26 @@ const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
           ref={ref}
         />
       );
+    case 'navigate':
+      return (
+        <_Button
+          {...props}
+          size="small"
+          paddingInline="xs"
+          variation="link"
+          ref={ref}
+        />
+      );
     case 'action-select-toggle':
     case 'cancel':
     case 'download':
     case 'exit':
-    case 'navigate':
     case 'refresh':
     case 'sort':
-      return <_Button {...props} size="small" variation="link" ref={ref} />;
     case 'paginate-current':
     case 'paginate-next':
     case 'paginate-previous':
-      return <_Button {...props} size="small" ref={ref} />;
+      return <_Button {...props} size="small" variation="link" ref={ref} />;
     case 'table-data':
       return (
         <_Button
@@ -111,7 +119,15 @@ const Title = React.forwardRef<HTMLHeadingElement>(
 );
 
 const Table = React.forwardRef<HTMLTableElement>(function Table(props, ref) {
-  return <_Table {...props} size="small" variation="striped" ref={ref} />;
+  return (
+    <_Table
+      {...props}
+      size="small"
+      lineHeight="small"
+      variation="striped"
+      ref={ref}
+    />
+  );
 });
 
 const TableBody = React.forwardRef<HTMLTableSectionElement>(
@@ -128,7 +144,7 @@ const TableHead = React.forwardRef<HTMLTableSectionElement>(
 
 const TableData = React.forwardRef<HTMLTableCellElement>(
   function TableData(props, ref) {
-    return <_TableCell {...props} ref={ref} />;
+    return <_TableCell padding="xxxs" {...props} ref={ref} />;
   }
 );
 
@@ -140,7 +156,7 @@ const TableRow = React.forwardRef<HTMLTableRowElement>(
 
 const TableHeader = React.forwardRef<HTMLTableCellElement>(
   function TableHeader(props, ref) {
-    return <_TableCell as="th" {...props} ref={ref} />;
+    return <_TableCell padding="xxxs" as="th" {...props} ref={ref} />;
   }
 );
 
