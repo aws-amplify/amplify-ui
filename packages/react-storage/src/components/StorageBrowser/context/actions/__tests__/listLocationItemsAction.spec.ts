@@ -12,8 +12,13 @@ const initialValue = { nextToken: undefined, result: [] };
 // actually mocking JS `list` returns is overly complex
 const generateMockItems = (size: number) =>
   Array(size).map(() => {
-    return { key: 'key', lastModified: Date.now(), size: 1 };
-  }) as unknown as StorageModule.ListPaginateWithPathOutput['items'];
+    return { key: 'key', lastModified: new Date(), size: 1, path: '' };
+  }) as StorageModule.ListPaginateWithPathOutput['items'];
+
+const generateMockSubpaths = (size: number) =>
+  Array(size).map((_, index) => {
+    return `subpath${index}`;
+  }) as StorageModule.ListPaginateWithPathOutput['excludedSubpaths'];
 
 describe('listLocationItemsAction', () => {
   beforeEach(() => {
@@ -38,11 +43,13 @@ describe('listLocationItemsAction', () => {
       .mockResolvedValueOnce({
         // @ts-expect-error - JS union interfaces casue type issues
         items: generateMockItems(100),
+        excludedSubpaths: generateMockSubpaths(10),
         nextToken: 'first',
       })
       .mockResolvedValueOnce({
         // @ts-expect-error - JS union interfaces casue type issues
         items: generateMockItems(100),
+        excludedSubpaths: generateMockSubpaths(10),
         nextToken: 'second',
       });
 
@@ -51,7 +58,7 @@ describe('listLocationItemsAction', () => {
       prefix: 'a_prefix',
     });
 
-    expect(result).toHaveLength(100);
+    expect(result).toHaveLength(110);
     expect(nextToken).toBeDefined();
 
     const { result: nextResult, nextToken: nextNextToken } =
@@ -60,7 +67,7 @@ describe('listLocationItemsAction', () => {
         { config, prefix: 'a_prefix' }
       );
 
-    expect(nextResult).toHaveLength(200);
+    expect(nextResult).toHaveLength(220);
     expect(nextNextToken).not.toBe(nextToken);
     expect(nextToken).toBeDefined();
   });

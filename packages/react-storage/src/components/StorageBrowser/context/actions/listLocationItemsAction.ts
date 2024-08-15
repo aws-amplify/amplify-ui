@@ -52,10 +52,10 @@ const parseResultExcludedPaths = (
   });
 };
 
-const sortLocationItemsAlphabetically = (
+export const sortLocationItemsAlphabetically = (
   locationA: LocationItem,
   locationB: LocationItem
-) => {
+): 0 | 1 | -1 => {
   if (locationA.key > locationB.key) {
     return -1;
   } else if (locationA.key < locationB.key) {
