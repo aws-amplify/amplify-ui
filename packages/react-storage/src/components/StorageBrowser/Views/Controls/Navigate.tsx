@@ -25,6 +25,7 @@ export interface NavigateControl<
 
 interface NavigateItemProps {
   children?: React.ReactNode;
+  isCurrent?: boolean;
   onClick?: () => void;
 }
 
@@ -44,6 +45,7 @@ const HOME_NAVIGATE_ITEM = 'Home';
 
 const Separator = withBaseElementProps(Span, {
   className: `${BLOCK_NAME}__separator`,
+  'aria-hidden': true,
   children: '/',
 });
 
@@ -56,33 +58,35 @@ const NavigateButton = withBaseElementProps(Button, {
   variant: 'navigate',
 });
 
-export const NavigateItem = (props: NavigateItemProps): React.JSX.Element => (
-  <NavigateItemContainer>
-    <NavigateButton {...props} />
-  </NavigateItemContainer>
-);
+export const NavigateItem = (props: NavigateItemProps): React.JSX.Element => {
+  const { isCurrent, ...rest } = props;
+  return (
+    <NavigateItemContainer>
+      <NavigateButton {...rest} aria-current={isCurrent ? 'page' : undefined} />
+      {isCurrent ? null : <Separator />}
+    </NavigateItemContainer>
+  );
+};
 
 NavigateItem.Button = NavigateButton;
 NavigateItem.Separator = Separator;
 NavigateItem.ListItem = ListItem;
 
-const NavigateContainer: typeof Nav = React.forwardRef(function Container(
-  { children, ...props },
-  ref
-) {
+const NavigateContainer: typeof Nav = function Container({
+  children,
+  className = BLOCK_NAME,
+  ...props
+}) {
   return (
     <Nav
       {...props}
       aria-label={props['aria-label'] ?? 'Breadcrumbs'}
-      className={props.className ?? BLOCK_NAME}
-      ref={ref}
+      className={className}
     >
-      <OrderedList className={`${props.className ?? BLOCK_NAME}__list`}>
-        {children}
-      </OrderedList>
+      <OrderedList className={`${className}__list`}>{children}</OrderedList>
     </Nav>
   );
-});
+};
 
 export const NavigateControl: NavigateControl = (_props) => {
   const [{ history, location }, handleUpdateState] = useControl({
@@ -113,11 +117,11 @@ export const NavigateControl: NavigateControl = (_props) => {
 
         return (
           <React.Fragment key={entry}>
-            <Separator />
             <NavigateItem
               onClick={() => {
                 handleUpdateState({ type: 'NAVIGATE', prefix: entry });
               }}
+              isCurrent={i === history.length - 1}
             >
               {displayValue}
             </NavigateItem>
