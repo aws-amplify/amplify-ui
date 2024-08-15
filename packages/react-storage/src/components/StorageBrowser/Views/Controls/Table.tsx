@@ -22,6 +22,8 @@ const {
 
 const BLOCK_NAME = `${CLASS_BASE}__table`;
 const ICON_CLASS = `${BLOCK_NAME}__data__icon`;
+const TABLE_DATA_CLASS = `${BLOCK_NAME}__data`;
+const TABLE_HEADER_CLASS = `${BLOCK_NAME}__header`;
 
 const Table = withBaseElementProps(BaseTable, {
   className: `${BLOCK_NAME}`,
@@ -35,25 +37,55 @@ const TableHead = withBaseElementProps(BaseTableHead, {
   className: `${BLOCK_NAME}__head`,
 });
 
-const TableHeader = withBaseElementProps(BaseTableHeader, {
-  className: `${BLOCK_NAME}__header`,
-});
-
 const TableHeaderButton = withBaseElementProps(Button, {
   className: `${BLOCK_NAME}__header__button`,
   variant: 'sort',
 });
 
-const TableData = withBaseElementProps(BaseTableData, {
-  className: `${BLOCK_NAME}__data`,
-});
+const TableData: typeof BaseTableData = React.forwardRef(
+  function TableData(props, ref) {
+    const { variant } = props;
+    return (
+      <BaseTableData
+        {...props}
+        className={
+          props.className ??
+          `${TABLE_DATA_CLASS}${
+            variant ? ` ${TABLE_DATA_CLASS}--${variant}` : ''
+          }`
+        }
+        variant={variant}
+        ref={ref}
+      />
+    );
+  }
+);
+
+const TableHeader: typeof BaseTableHeader = React.forwardRef(
+  function TableHeader(props, ref) {
+    const { variant } = props;
+    return (
+      <BaseTableHeader
+        {...props}
+        className={
+          props.className ??
+          `${TABLE_HEADER_CLASS} ${
+            variant ? ` ${TABLE_HEADER_CLASS}--${variant}` : ''
+          }`
+        }
+        variant={variant}
+        ref={ref}
+      />
+    );
+  }
+);
 
 const TableDataButton = withBaseElementProps(Button, {
   className: `${BLOCK_NAME}__data__button`,
   variant: 'table-data',
 });
 
-const TableDataText = withBaseElementProps(Span, {
+export const TableDataText = withBaseElementProps(Span, {
   className: `${BLOCK_NAME}__data__text`,
 });
 
@@ -78,7 +110,7 @@ const SortIndeterminateIcon = withBaseElementProps(Icon, {
 
 const LOCATION_VIEW_COLUMNS: Column<LocationAccess<Permission>>[] = [
   {
-    header: 'Scope',
+    header: 'Name',
     key: 'scope',
   },
   {
@@ -94,7 +126,7 @@ const LOCATION_VIEW_COLUMNS: Column<LocationAccess<Permission>>[] = [
 const LOCATION_DETAIL_VIEW_COLUMNS: Column<LocationItem>[] = [
   {
     key: 'key',
-    header: 'Key',
+    header: 'Name',
   },
   {
     key: 'type',
@@ -144,19 +176,32 @@ export const TableControl: TableControl = <U,>({
     <Table aria-label={ariaLabel}>
       <TableHead>
         <TableRow>
-          {columns?.map((column) => (
-            <TableHeader key={column.header} aria-sort="none">
-              {/* Should all columns be sortable? */}
-              <TableHeaderButton
-                onClick={() => {
-                  /* no op for now */
-                }}
+          {columns?.map((column) =>
+            column.key === 'download' || column.key === 'cancel' ? (
+              <TableHeader
+                key={column.header}
+                aria-label={column.header}
+                variant={column.key}
+              ></TableHeader>
+            ) : (
+              <TableHeader
+                key={column.header}
+                variant={column.key as string}
+                aria-sort="none"
               >
-                {column.header}
-                <SortIndeterminateIcon />
-              </TableHeaderButton>
-            </TableHeader>
-          ))}
+                {/* Should all columns be sortable? */}
+
+                <TableHeaderButton
+                  onClick={() => {
+                    /* no op for now */
+                  }}
+                >
+                  {column.header}
+                  <SortIndeterminateIcon />
+                </TableHeaderButton>
+              </TableHeader>
+            )
+          )}
         </TableRow>
       </TableHead>
 
@@ -184,7 +229,7 @@ export const LocationsViewTable = (): JSX.Element => {
         return (
           <TableRow key={index}>
             {LOCATION_VIEW_COLUMNS.map((column) => (
-              <TableData key={`${index}-${column.header}`}>
+              <TableData key={`${index}-${column.header}`} variant={column.key}>
                 {column.key === 'scope' &&
                 (row.type === 'BUCKET' || row.type === 'PREFIX') ? (
                   <TableDataButton
@@ -260,17 +305,23 @@ export const LocationDetailViewTable = (): JSX.Element => {
           column.key === 'lastModified' &&
           row[column.key]
         ) {
-          return new Date(row[column.key]).toLocaleString();
+          return (
+            <TableDataText>
+              {new Date(row[column.key]).toLocaleString()}
+            </TableDataText>
+          );
         } else if (column.key === ('download' as keyof LocationItem)) {
-          return <DownloadControl fileKey={row.key} />;
+          return row.type === 'FILE' ? (
+            <DownloadControl fileKey={row.key} />
+          ) : null;
         } else {
           return (
-            <>
+            <TableDataText>
               {column.key === 'key' && row.type === 'FILE' ? (
                 <Icon className={ICON_CLASS} variant="file" />
               ) : null}
               {row[column.key]}
-            </>
+            </TableDataText>
           );
         }
       };
@@ -284,7 +335,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
             }
 
             return (
-              <TableData key={`${index}-${column.header}`}>
+              <TableData key={`${index}-${column.header}`} variant={column.key}>
                 {column.key === 'key' && row.type === 'FOLDER' ? (
                   <TableDataButton
                     onClick={() => {
@@ -298,7 +349,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
                     <Icon className={ICON_CLASS} variant="folder" /> {row.key}
                   </TableDataButton>
                 ) : (
-                  <TableDataText>{parseTableData(row, column)}</TableDataText>
+                  parseTableData(row, column)
                 )}
               </TableData>
             );
