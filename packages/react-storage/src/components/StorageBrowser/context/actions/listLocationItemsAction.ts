@@ -30,6 +30,31 @@ const parseResultItems = (items: ListOutputItem[]): LocationItem[] =>
     return { key, lastModified: lastModified!, size: size!, type: 'FILE' };
   });
 
+const parseResultExcludedPaths = (
+  paths: string[] | undefined
+): LocationItem[] => {
+  if (!paths) {
+    return [];
+  }
+
+  return paths.map((key) => {
+    return { key, type: 'FOLDER' };
+  });
+};
+
+const sortLocationItemsAlphabetically = (
+  locationA: LocationItem,
+  locationB: LocationItem
+) => {
+  if (locationA.key > locationB.key) {
+    return -1;
+  } else if (locationA.key < locationB.key) {
+    return 1;
+  } else {
+    return 0;
+  }
+};
+
 export async function listLocationItemsAction(
   prevState: ListLocationItemsActionOutput,
   input: ListLocationItemsActionInput
@@ -69,7 +94,8 @@ export async function listLocationItemsAction(
   const result = [
     ...(refresh ? [] : prevState.result),
     ...parseResultItems(output.items),
-  ];
+    ...parseResultExcludedPaths(output.excludedSubpaths),
+  ].sort(sortLocationItemsAlphabetically);
 
   return { result, nextToken: output.nextToken };
 }

@@ -231,19 +231,26 @@ export const LocationDetailViewTable = (): JSX.Element => {
 
   React.useEffect(() => {
     if (shouldReset) {
-      handleList({ prefix: '', options: { reset: true } });
+      handleList({ prefix, options: { reset: true, delimiter: '/' } });
     }
 
     if (!history.length) {
       return;
     }
 
-    handleList({ prefix, options: { pageSize: 1000, refresh: true } });
+    handleList({
+      prefix,
+      options: { pageSize: 1000, refresh: true, delimiter: '/' },
+    });
   }, [handleList, history, prefix, shouldReset]);
 
   // @TODO: This should be it's own component instead of using `useCallback`
   const renderRowItem: RenderRowItem<LocationItem> = React.useCallback(
     (row, index) => {
+      const parseKeyWithoutPrefix = (key: string) => {
+        return key.replace(prefix, '');
+      };
+
       const parseTableData = (
         row: LocationItem,
         column: Column<LocationItem>
@@ -255,6 +262,8 @@ export const LocationDetailViewTable = (): JSX.Element => {
           row[column.key]
         ) {
           return new Date(row[column.key]).toLocaleString();
+        } else if (row.type === 'FILE' && column.key === 'key') {
+          return parseKeyWithoutPrefix(row[column.key]);
         } else if (column.key === ('download' as keyof LocationItem)) {
           return <DownloadControl fileKey={row.key} />;
         } else {
@@ -282,7 +291,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
                     }}
                     key={`${index}-${row.key}`}
                   >
-                    {row.key}
+                    {parseKeyWithoutPrefix(row.key)}
                   </TableDataButton>
                 ) : (
                   <>{parseTableData(row, column)}</>
