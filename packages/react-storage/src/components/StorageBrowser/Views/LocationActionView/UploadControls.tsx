@@ -9,7 +9,7 @@ import { TableDataText, Column, RenderRowItem } from '../Controls/Table';
 
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
 
-const { Cancel, Exit, Primary, Summary, Table } = Controls;
+const { AddFiles, AddFolder, Cancel, Exit, Primary, Summary, Table } = Controls;
 
 const LOCATION_ACTION_VIEW_COLUMNS: Column<CancelableTask>[] = [
   {
@@ -73,6 +73,8 @@ export const UploadControls = (): JSX.Element => {
   return items ? (
     <>
       <Title />
+      <AddFiles />
+      <AddFolder />
       <Exit onClick={() => handleUpdateState({ type: 'EXIT' })} />
       <Primary
         onClick={() => {
