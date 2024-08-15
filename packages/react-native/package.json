@@ -31,7 +31,8 @@
   "dependencies": {
     "@aws-amplify/ui": "6.1.0",
     "@aws-amplify/ui-react-core": "3.0.18",
-    "@aws-amplify/ui-react-core-notifications": "2.0.18"
+    "@aws-amplify/ui-react-core-notifications": "2.0.18",
+    "style-dictionary": "3.9.1"
   },
   "peerDependencies": {
     "aws-amplify": "^6.3.2",
