@@ -17,56 +17,62 @@ const {
   TableRow: BaseTableRow,
   Button,
   Icon,
+  Span,
 } = StorageBrowserElements;
 
-const BLOCK_NAME = 'table';
+const BLOCK_NAME = `${CLASS_BASE}__table`;
+const ICON_CLASS = `${BLOCK_NAME}__data__icon`;
 
 const Table = withBaseElementProps(BaseTable, {
-  className: `${CLASS_BASE}__${BLOCK_NAME}`,
+  className: `${BLOCK_NAME}`,
 });
 
 const TableBody = withBaseElementProps(BaseTableBody, {
-  className: `${CLASS_BASE}__${BLOCK_NAME}__body`,
+  className: `${BLOCK_NAME}__body`,
 });
 
 const TableHead = withBaseElementProps(BaseTableHead, {
-  className: `${CLASS_BASE}__${BLOCK_NAME}__head`,
+  className: `${BLOCK_NAME}__head`,
 });
 
 const TableHeader = withBaseElementProps(BaseTableHeader, {
-  className: `${CLASS_BASE}__${BLOCK_NAME}__header`,
+  className: `${BLOCK_NAME}__header`,
 });
 
 const TableHeaderButton = withBaseElementProps(Button, {
-  className: `${CLASS_BASE}__${BLOCK_NAME}__header-button`,
+  className: `${BLOCK_NAME}__header__button`,
   variant: 'sort',
 });
 
 const TableData = withBaseElementProps(BaseTableData, {
-  className: `${CLASS_BASE}__${BLOCK_NAME}__data`,
+  className: `${BLOCK_NAME}__data`,
 });
 
 const TableDataButton = withBaseElementProps(Button, {
-  className: `${CLASS_BASE}__${BLOCK_NAME}__data-button`,
+  className: `${BLOCK_NAME}__data__button`,
   variant: 'table-data',
 });
 
+const TableDataText = withBaseElementProps(Span, {
+  className: `${BLOCK_NAME}__data__text`,
+});
+
 const TableRow = withBaseElementProps(BaseTableRow, {
-  className: `${CLASS_BASE}__${BLOCK_NAME}__row`,
+  className: `${BLOCK_NAME}__row`,
 });
 
 const SortIndeterminateIcon = withBaseElementProps(Icon, {
-  className: `${CLASS_BASE}__${BLOCK_NAME}__sort-icon--indeterminate`,
+  className: `${BLOCK_NAME}__sort-icon--indeterminate`,
   variant: 'sort-indeterminate',
 });
 
 // const SortAscendingIcon = withBaseElementProps(Icon, {
-//   className: `${CLASS_BASE}__${BLOCK_NAME}__sort-icon--ascending`,
+//   className: `${BLOCK_NAME}__sort-icon--ascending`,
 //   variant: 'sort-ascending',
 // });
 
 // const SortDescendingIcon = withBaseElementProps(Icon, {
-//   className: `${CLASS_BASE}__${BLOCK_NAME}__sort-icon--descending`,
+//   className: `${BLOCK_NAME}__sort-icon--descending`,
 //   variant: 'sort-descending',
 // });
 
@@ -191,10 +197,10 @@ export const LocationsViewTable = (): JSX.Element => {
                     }}
                     type="button"
                   >
-                    {row.scope}
+                    <Icon className={ICON_CLASS} variant="folder" /> {row.scope}
                   </TableDataButton>
                 ) : (
-                  <>{row[column.key]}</>
+                  <TableDataText>{row[column.key]}</TableDataText>
                 )}
               </TableData>
             ))}
@@ -258,7 +264,14 @@ export const LocationDetailViewTable = (): JSX.Element => {
         } else if (column.key === ('download' as keyof LocationItem)) {
           return <DownloadControl fileKey={row.key} />;
         } else {
-          return row[column.key];
+          return (
+            <>
+              {column.key === 'key' && row.type === 'FILE' ? (
+                <Icon className={ICON_CLASS} variant="file" />
+              ) : null}
+              {row[column.key]}
+            </>
+          );
         }
       };
 
@@ -282,10 +295,10 @@ export const LocationDetailViewTable = (): JSX.Element => {
                     }}
                     key={`${index}-${row.key}`}
                   >
-                    {row.key}
+                    <Icon className={ICON_CLASS} variant="folder" /> {row.key}
                   </TableDataButton>
                 ) : (
-                  <>{parseTableData(row, column)}</>
+                  <TableDataText>{parseTableData(row, column)}</TableDataText>
                 )}
               </TableData>
             );
