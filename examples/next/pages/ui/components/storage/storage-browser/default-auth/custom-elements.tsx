@@ -119,7 +119,15 @@ const Title = React.forwardRef<HTMLHeadingElement>(
 );
 
 const Table = React.forwardRef<HTMLTableElement>(function Table(props, ref) {
-  return <_Table {...props} size="small" variation="striped" ref={ref} />;
+  return (
+    <_Table
+      {...props}
+      size="small"
+      lineHeight="small"
+      variation="striped"
+      ref={ref}
+    />
+  );
 });
 
 const TableBody = React.forwardRef<HTMLTableSectionElement>(

@@ -136,22 +136,52 @@
 .storage-browser__table {
   grid-row-start: 5;
   grid-column: 1 / -1;
+  table-layout: fixed;
 }
+
+.storage-browser__table__header--type,
+.storage-browser__table__header--permission,
+.storage-browser__table__header--size,
+.storage-browser__table__header--status,
+.storage-browser__table__header--progress {
+  width: 8rem;
+}
+
+.storage-browser__table__header--lastModified {
+  width: 12rem;
+}
+.storage-browser__table__header--download,
+.storage-browser__table__header--cancel {
+  width: 4rem;
+}
+
 .storage-browser__table__header {
   text-align: start;
 }
-
-.storage-browser__table__header__button,
-.storage-browser__table__data__button,
-.storage-browser__table__data__text {
+.storage-browser__table__header__button {
   padding: var(--storage-browser-gap-small);
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: var(--storage-browser-gap-small);
+}
+
+.storage-browser__table__data__text,
+.storage-browser__table__data__button {
+  display: inline-block;
+  width: 100%;
+  padding: var(--storage-browser-gap-small);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .storage-browser__table__data__icon {
-  flex: 0 0 auto;
+  vertical-align: middle;
+  margin-inline-end: var(--storage-browser-gap-small);
+}
+
+.storage-browser__table__data--size,
+.storage-browser__table__header--size {
+  text-align: end;
 }
 
 .storage-browser__action-menu {
