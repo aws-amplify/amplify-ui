@@ -13,6 +13,7 @@ import {
   TableRow as _TableRow,
   Text as _Text,
   View as _View,
+  ViewProps,
 } from '@aws-amplify/ui-react';
 
 const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
@@ -170,43 +171,47 @@ const Text = React.forwardRef<HTMLParagraphElement>(function Text(props, ref) {
   }
 });
 
-const View = React.forwardRef<HTMLDivElement>(function View(props, ref) {
-  const { variant } = props as any;
-  switch (variant) {
-    case 'action-select-menu':
-      return (
-        <_View
-          {...props}
-          marginTop="2px"
-          borderRadius="medium"
-          boxShadow="0 1px 3px hsla(210, 50%, 10%, 0.25)"
-          backgroundColor="background.primary"
-          padding="small"
-          ref={ref as any}
-        />
-      );
-    case 'info':
-    case 'warning':
-    case 'success':
-    case 'error':
-      const { children } = props as any;
-      return (
-        <_Message {...props} hasIcon={false} colorTheme={variant} ref={ref}>
-          <Flex gap="small" alignItems="center">
-            {children}
-          </Flex>
-        </_Message>
-      );
-    default:
-      return <_View {...props} ref={ref as any} />;
+const View = React.forwardRef<HTMLDivElement, ViewProps & { variant?: string }>(
+  function View({ variant, ...props }, ref) {
+    switch (variant) {
+      case 'action-select-menu':
+        return (
+          <_View
+            {...props}
+            marginTop="2px"
+            borderRadius="medium"
+            boxShadow="0 1px 3px hsla(210, 50%, 10%, 0.25)"
+            backgroundColor="background.primary"
+            padding="small"
+            ref={ref}
+          />
+        );
+      case 'info':
+      case 'warning':
+      case 'success':
+      case 'error':
+        const { children } = props;
+        return (
+          <_Message {...props} hasIcon={false} colorTheme={variant} ref={ref}>
+            <Flex gap="small" alignItems="center">
+              {children}
+            </Flex>
+          </_Message>
+        );
+      default:
+        return <_View {...props} ref={ref} />;
+    }
   }
-});
+);
+
+const Nav = (props: ViewProps<'nav'>) => <_View {...props} as="nav" />;
 
 export const elements = {
   Button,
   DefinitionTerm,
   Input,
   Label,
+  Nav,
   Title,
   Table,
   TableBody,

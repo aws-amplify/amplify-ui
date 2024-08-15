@@ -1,5 +1,5 @@
 import {
-  defineBaseElement,
+  defineBaseElementWithRef,
   withBaseElementProps,
 } from '@aws-amplify/ui-react-core/elements';
 import React from 'react';
@@ -112,7 +112,11 @@ const DEFAULT_ICON_ATTRIBUTES = {
   xmlns: 'http://www.w3.org/2000/svg',
 };
 
-export const BaseIconElement = defineBaseElement<'svg', never, IconVariant>({
+export const BaseIconElement = defineBaseElementWithRef<
+  'svg',
+  never,
+  IconVariant
+>({
   type: 'svg',
   displayName: 'Icon',
 });

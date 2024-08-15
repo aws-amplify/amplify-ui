@@ -1,4 +1,7 @@
-import { defineBaseElement } from '@aws-amplify/ui-react-core/elements';
+import {
+  defineBaseElement,
+  defineBaseElementWithRef,
+} from '@aws-amplify/ui-react-core/elements';
 import { IconElement } from './IconElement';
 
 export interface StorageBrowserElements {
@@ -47,24 +50,27 @@ type ButtonElementVariant =
   | 'table-data'
   | PaginateVariant;
 
-export type ListItemVariant = PaginateVariant;
+export const TestButton = defineBaseElement({
+  type: 'button',
+  displayName: 'Button',
+});
 
-export const DefinitionListElement = defineBaseElement({
+export const DefinitionListElement = defineBaseElementWithRef({
   type: 'dl',
   displayName: 'DefinitionList',
 });
 
-export const DefinitionTermElement = defineBaseElement({
+export const DefinitionTermElement = defineBaseElementWithRef({
   type: 'dt',
   displayName: 'DefinitionTerm',
 });
 
-export const DefinitionDetailElement = defineBaseElement({
+export const DefinitionDetailElement = defineBaseElementWithRef({
   type: 'dd',
   displayName: 'DefinitionDetail',
 });
 
-export const LabelElement = defineBaseElement<'label', 'htmlFor'>({
+export const LabelElement = defineBaseElementWithRef<'label', 'htmlFor'>({
   type: 'label',
   displayName: 'Label',
 });
@@ -74,67 +80,67 @@ export const NavElement = defineBaseElement({
   displayName: 'Nav',
 });
 
-export const TextElement = defineBaseElement<'p', 'id'>({
+export const TextElement = defineBaseElementWithRef<'p', 'id'>({
   type: 'p',
   displayName: 'Text',
 });
 
-export const OrderedListElement = defineBaseElement({
+export const OrderedListElement = defineBaseElementWithRef({
   type: 'ol',
   displayName: 'OrderedList',
 });
 
-export const UnorderedListElement = defineBaseElement({
+export const UnorderedListElement = defineBaseElementWithRef({
   type: 'ul',
   displayName: 'UnorderedList',
 });
 
-export const ListItemElement = defineBaseElement({
+export const ListItemElement = defineBaseElementWithRef({
   type: 'li',
   displayName: 'ListItem',
 });
 
-export const TableElement = defineBaseElement({
+export const TableElement = defineBaseElementWithRef({
   type: 'table',
   displayName: 'Table',
 });
 
-export const TableDataElement = defineBaseElement({
+export const TableDataElement = defineBaseElementWithRef({
   type: 'td',
   displayName: 'TableData',
 });
 
-export const TableRowElement = defineBaseElement({
+export const TableRowElement = defineBaseElementWithRef({
   type: 'tr',
   displayName: 'TableRow',
 });
 
-export const TableHeaderElement = defineBaseElement({
+export const TableHeaderElement = defineBaseElementWithRef({
   type: 'th',
   displayName: 'TableHeader',
 });
 
-export const TableHeadElement = defineBaseElement({
+export const TableHeadElement = defineBaseElementWithRef({
   type: 'thead',
   displayName: 'TableHead',
 });
 
-export const TableBodyElement = defineBaseElement({
+export const TableBodyElement = defineBaseElementWithRef({
   type: 'tbody',
   displayName: 'TableBody',
 });
 
-export const HeadingElement = defineBaseElement({
+export const HeadingElement = defineBaseElementWithRef({
   type: 'h2',
   displayName: 'Title',
 });
 
-export const ProgressBarElement = defineBaseElement({
+export const ProgressBarElement = defineBaseElementWithRef({
   type: 'svg',
   displayName: 'ProgressBar',
 });
 
-export const InputElement = defineBaseElement<
+export const InputElement = defineBaseElementWithRef<
   'input',
   'disabled' | 'type' | 'id' | 'onBlur' | 'onFocus'
 >({
@@ -142,18 +148,18 @@ export const InputElement = defineBaseElement<
   displayName: 'Input',
 });
 
-export const ButtonElement = defineBaseElement<
+export const ButtonElement = defineBaseElementWithRef<
   'button',
   'disabled' | 'onClick' | 'role' | 'type',
   ButtonElementVariant
 >({ type: 'button', displayName: 'Button' });
 
-export const ViewElement = defineBaseElement<'div', 'id'>({
+export const ViewElement = defineBaseElementWithRef<'div', 'id'>({
   type: 'div',
   displayName: 'View',
 });
 
-export const SpanElement = defineBaseElement({
+export const SpanElement = defineBaseElementWithRef({
   type: 'span',
   displayName: 'Span',
 });

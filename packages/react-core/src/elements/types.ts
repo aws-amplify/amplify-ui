@@ -13,7 +13,19 @@ import React from 'react';
  * are always optional at the interface level, allowing for additional `props`
  * to be added to existing `BaseElement` interfaces as needed.
  */
-export type BaseElement<T = {}, K = {}> = React.ForwardRefExoticComponent<
+export type BaseElement<T = {}> = (props: T) => React.JSX.Element;
+
+/**
+ * @internal @unstable
+ *
+ * see @type {BaseElement}
+ *
+ * `BaseElement` with a `ref` corresponding to the `element` type
+ */
+export type BaseElementWithRef<
+  T = {},
+  K = {},
+> = React.ForwardRefExoticComponent<
   React.PropsWithoutRef<T> & React.RefAttributes<K>
 >;
 
@@ -70,7 +82,7 @@ export type ReactElementType = keyof React.JSX.IntrinsicElements;
  * @internal @unstable
  */
 export type ReactElementProps<T extends ReactElementType> =
-  React.JSX.IntrinsicElements[T];
+  React.ComponentProps<T>;
 
 /**
  * @internal @unstable
@@ -87,10 +99,56 @@ export type BaseElementProps<
   V = string,
   K extends Record<ElementPropKey<keyof K>, any> = Record<string, any>,
 > = React.AriaAttributes &
-  React.RefAttributes<ElementRefType<K>> &
+  React.Attributes &
   Pick<K, ElementPropKey<T>> & { testId?: string; variant?: V };
 
 /**
+ * @internal @unstable
+ */
+export type BaseElementWithRefProps<
+  T extends keyof K,
+  V = string,
+  K extends Record<ElementPropKey<keyof K>, any> = Record<string, any>,
+> = BaseElementProps<T, V, K> & React.RefAttributes<ElementRefType<K>>;
+
+/**
+ * @internal @unstable
+ */
+export type ElementWithAndWithoutRef<
+  T extends ReactElementType,
+  K extends React.ComponentType<React.ComponentProps<T>> = React.ComponentType<
+    React.ComponentProps<T>
+  >,
+> = K extends React.ComponentType<infer U>
+  ? React.ForwardRefExoticComponent<U>
+  : never;
+
+/**
+ * @internal @unstable
+ *
+ * Merge `BaseElement` defintions with `elements` types provided by
+ * consumers, for use with top level connected component function
+ * signatures.
+ *
+ * Example:
+ *
+ * ```tsx
+ *  export function createStorageBrowser<
+ *    T extends Partial<StorageBrowserElements>,
+ *  >({ elements }: CreateStorageBrowserInput<T> = {}): {
+ *    StorageBrowser: StorageBrowser<MergeElements<StorageBrowserElements, T>>
+ *  } {
+ *    // ...do create stuff
+ *  };
+ * ```
+ */
+export type MergeBaseElements<T, K extends Partial<T>> = {
+  [U in keyof T]: K[U] extends T[U] ? K[U] : T[U];
+};
+
+/**
+ * @internal @unstable
+ *
  * Extend the defintion of a `BaseElement` with additional `props`.
  *
  * Use cases are restricted to scenarios where additional `props`
@@ -98,7 +156,7 @@ export type BaseElementProps<
  *
  * @example
  * ```tsx
- *  const FieldInput = defineBaseElement({
+ *  const FieldInput = defineBaseElementWithRef({
  *    type: 'input',
  *    displayName: 'Input'
  *  });
@@ -130,30 +188,9 @@ export type BaseElementProps<
  *
  */
 export type ExtendBaseElement<
-  // `BaseElement` to extend from
+  // `BaseElement` to extend
   T extends React.ComponentType,
   // additional `props`
   K = {},
   U extends React.ComponentPropsWithRef<T> = React.ComponentPropsWithRef<T>,
-> = BaseElement<U & Omit<K, keyof U>, U>;
-
-/**
- * Merge `BaseElement` defintions with `elements` types provided by
- * consumers, for use with top level connected component function
- * signatures.
- *
- * Example:
- *
- * ```tsx
- *  export function createStorageBrowser<
- *    T extends Partial<StorageBrowserElements>,
- *  >({ elements }: CreateStorageBrowserInput<T> = {}): {
- *    StorageBrowser: StorageBrowser<MergeElements<StorageBrowserElements, T>>
- *  } {
- *    // ...do create stuff
- *  };
- * ```
- */
-export type MergeBaseElements<T, K extends Partial<T>> = {
-  [U in keyof T]: K[U] extends T[U] ? K[U] : T[U];
-};
+> = BaseElementWithRef<U & Omit<K, keyof U>, U>;

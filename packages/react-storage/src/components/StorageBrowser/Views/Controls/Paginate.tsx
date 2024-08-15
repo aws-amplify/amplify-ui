@@ -57,22 +57,21 @@ export interface PaginateControl<
   (): React.JSX.Element;
 }
 
-const PaginateContainer: _PaginateControl['Container'] = React.forwardRef(
-  function Container({ children, ...props }, ref) {
-    return (
-      <Nav
-        {...props}
-        aria-label={props['aria-label'] ?? 'Pagination'}
-        className={props.className ?? BLOCK_NAME}
-        ref={ref}
-      >
-        <OrderedList className={`${props.className ?? BLOCK_NAME}__list`}>
-          {children}
-        </OrderedList>
-      </Nav>
-    );
-  }
-);
+const PaginateContainer: _PaginateControl['Container'] = function Container({
+  children,
+  className = BLOCK_NAME,
+  ...props
+}) {
+  return (
+    <Nav
+      {...props}
+      aria-label={props['aria-label'] ?? 'Pagination'}
+      className={className}
+    >
+      <OrderedList className={`${className}__list`}>{children}</OrderedList>
+    </Nav>
+  );
+};
 
 const PaginateItemContext = React.createContext<PaginateItemProps>({
   variant: undefined,

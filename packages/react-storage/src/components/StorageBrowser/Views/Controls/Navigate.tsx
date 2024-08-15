@@ -72,23 +72,21 @@ NavigateItem.Button = NavigateButton;
 NavigateItem.Separator = Separator;
 NavigateItem.ListItem = ListItem;
 
-const NavigateContainer: typeof Nav = React.forwardRef(function Container(
-  { children, ...props },
-  ref
-) {
+const NavigateContainer: typeof Nav = function Container({
+  children,
+  className = BLOCK_NAME,
+  ...props
+}) {
   return (
     <Nav
       {...props}
       aria-label={props['aria-label'] ?? 'Breadcrumbs'}
-      className={props.className ?? BLOCK_NAME}
-      ref={ref}
+      className={className}
     >
-      <OrderedList className={`${props.className ?? BLOCK_NAME}__list`}>
-        {children}
-      </OrderedList>
+      <OrderedList className={`${className}__list`}>{children}</OrderedList>
     </Nav>
   );
-});
+};
 
 export const NavigateControl: NavigateControl = (_props) => {
   const [{ history, location }, handleUpdateState] = useControl({
