@@ -231,7 +231,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
 
   React.useEffect(() => {
     if (shouldReset) {
-      handleList({ prefix, options: { reset: true } });
+      handleList({ prefix: '', options: { reset: true } });
     }
 
     if (!history.length) {
