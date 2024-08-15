@@ -5,26 +5,9 @@ import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
 import { Controls, LocationsViewTable } from '../Controls';
 import { CommonControl, ViewComponent } from '../types';
-import { Permission, useLocationsData } from '../../context/actions';
-import { Column } from '../Controls/Table';
-import { LocationAccess } from '../../context/types';
+import { useLocationsData } from '../../context/actions';
 
 const { Message, Paginate, Refresh, Search, Table, Title } = Controls;
-
-const LOCATION_VIEW_COLUMNS: Column<LocationAccess<Permission>>[] = [
-  {
-    header: 'Scope',
-    key: 'scope',
-  },
-  {
-    header: 'Type',
-    key: 'type',
-  },
-  {
-    header: 'Permission',
-    key: 'permission',
-  },
-];
 
 interface LocationsViewControls<
   T extends StorageBrowserElements = StorageBrowserElements,
