@@ -10,5 +10,9 @@ export { RefreshControl } from './Refresh';
 export { SearchControl } from './Search';
 export { TargetControl } from './Target';
 export { TitleControl } from './Title';
-export { TableControl } from './Table';
+export {
+  TableControl,
+  LocationDetailViewTable,
+  LocationsViewTable,
+} from './Table';
 export { Controls } from './Controls';

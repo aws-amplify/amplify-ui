@@ -3,20 +3,10 @@ import React from 'react';
 import { StorageBrowserElements } from '../../context/elements';
 
 import { CLASS_BASE } from '../constants';
-import { Controls } from '../Controls';
+import { Controls, LocationsViewTable } from '../Controls';
 import { CommonControl, ViewComponent } from '../types';
 import { Permission, useLocationsData } from '../../context/actions';
-import {
-  Column,
-  defaultTableSort,
-  SortAscendingIcon,
-  SortDescendingIcon,
-  SortIndeterminateIcon,
-  TableDataButton,
-  TableHeaderButton,
-  tableSortReducer,
-} from '../Controls/Table';
-import { useControl } from '../../context/controls';
+import { Column } from '../Controls/Table';
 import { LocationAccess } from '../../context/types';
 
 const { Message, Paginate, Refresh, Search, Table, Title } = Controls;
@@ -46,43 +36,6 @@ interface LocationsViewControls<
   (): React.JSX.Element;
 }
 
-function RenderRowItem(row: LocationAccess<Permission>, index: number) {
-  const [, handleUpdateState] = useControl({ type: 'NAVIGATE' });
-
-  const { scope, type } = row;
-
-  return (
-    <Table.TableRow key={index}>
-      {LOCATION_VIEW_COLUMNS.map((column) => {
-        const { key } = column;
-
-        return (
-          <Table.TableData key={`${index}-${column.header}`}>
-            {column.key === 'scope' &&
-            (type === 'BUCKET' || type === 'PREFIX') ? (
-              <TableDataButton
-                key={scope}
-                onClick={() => {
-                  handleUpdateState({
-                    type: 'ACCESS_LOCATION',
-                    location: row,
-                  });
-                }}
-                type="button"
-              >
-                {scope}
-              </TableDataButton>
-            ) : (
-              // eslint-disable-next-line react/destructuring-assignment
-              <>{row[key]}</>
-            )}
-          </Table.TableData>
-        );
-      })}
-    </Table.TableRow>
-  );
-}
-
 export interface LocationsView<
   T extends StorageBrowserElements = StorageBrowserElements,
 > extends ViewComponent<LocationsViewControls<T>> {}
@@ -98,96 +51,6 @@ const LocationsViewRefresh = () => {
           options: { refresh: true, pageSize: 1000 },
         })
       }
-    />
-  );
-};
-
-const LocationsViewTable = ({
-  sortFunction,
-}: {
-  sortFunction?: () => LocationAccess<Permission>[];
-}): JSX.Element => {
-  const sortFn = sortFunction ?? defaultTableSort;
-
-  const [sortState, updateTableSortState] = React.useReducer(
-    tableSortReducer<LocationAccess<Permission>>,
-    {
-      direction: 'ASCENDING',
-      selection: 'scope',
-    }
-  );
-
-  const { direction, selection } = sortState;
-
-  const [{ data, isLoading }] = useLocationsData();
-
-  const [tableData, setTableData] = React.useState<
-    LocationAccess<Permission>[]
-  >(sortFn<LocationAccess<Permission>>(data.result, direction, selection));
-
-  const hasLocations = !!data.result?.length;
-  const shouldRenderLocations = !hasLocations || isLoading;
-
-  const renderHeaderItem = React.useCallback(
-    (column: Column<LocationAccess<Permission>>) => {
-      // Defining this function inside the `LocationsViewTable` to get access
-      // to the current sort state
-
-      const { header, key } = column;
-
-      return (
-        <Table.TableHeader
-          key={header}
-          aria-sort={
-            selection === key
-              ? direction === 'ASCENDING'
-                ? 'ascending'
-                : direction === 'DESCENDING'
-                ? 'descending'
-                : 'none'
-              : 'none'
-          }
-        >
-          <TableHeaderButton
-            onClick={() => {
-              updateTableSortState({
-                selection: column.key,
-              });
-            }}
-          >
-            {column.header}
-            {selection === column.key ? (
-              direction === 'ASCENDING' ? (
-                <SortAscendingIcon />
-              ) : direction === 'DESCENDING' ? (
-                <SortDescendingIcon />
-              ) : (
-                <SortIndeterminateIcon />
-              )
-            ) : (
-              <SortIndeterminateIcon />
-            )}
-          </TableHeaderButton>
-        </Table.TableHeader>
-      );
-    },
-    [direction, selection]
-  );
-
-  React.useEffect(() => {
-    setTableData(
-      sortFn<LocationAccess<Permission>>(data.result, direction, selection)
-    );
-  }, [data.result, direction, selection, sortFn]);
-
-  return shouldRenderLocations ? (
-    <div>...loading</div>
-  ) : (
-    <Table
-      columns={LOCATION_VIEW_COLUMNS}
-      data={tableData}
-      renderRowItem={RenderRowItem}
-      renderHeaderItem={renderHeaderItem}
     />
   );
 };
