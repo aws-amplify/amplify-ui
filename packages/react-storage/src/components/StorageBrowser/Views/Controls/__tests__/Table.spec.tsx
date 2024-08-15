@@ -1,6 +1,5 @@
 import React from 'react';
-import { act, render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render } from '@testing-library/react';
 
 import {
   Column,
@@ -27,6 +26,7 @@ const data = [
   { name: 'test2', size: 200, type: 'file' },
 ];
 
+const renderHeaderItem = jest.fn();
 const renderRowItem = jest.fn();
 
 describe('TableControl', () => {
@@ -37,54 +37,10 @@ describe('TableControl', () => {
           data={data}
           columns={columns}
           renderRowItem={renderRowItem}
-          sortState={{ direction: 'ASCENDING', selection: 'name' }}
-          updateTableSortState={jest.fn()}
+          renderHeaderItem={renderHeaderItem}
         />
       ).container
     ).toBeDefined();
-  });
-
-  it('updates sort state correctly', () => {
-    const updateTableSortState = jest.fn();
-    const user = userEvent;
-
-    render(
-      <TableControl
-        data={data}
-        columns={columns}
-        renderRowItem={renderRowItem}
-        sortState={{ direction: 'ASCENDING', selection: 'name' }}
-        updateTableSortState={updateTableSortState}
-      />
-    );
-
-    act(() => {
-      user.click(screen.getByText('Size'));
-    });
-
-    waitFor(() => {
-      expect(updateTableSortState).toHaveBeenCalledWith({ selection: 'size' });
-    });
-  });
-
-  it('renders sort icons correctly', () => {
-    render(
-      <TableControl
-        data={data}
-        columns={columns}
-        renderRowItem={renderRowItem}
-        sortState={{ direction: 'ASCENDING', selection: 'name' }}
-        updateTableSortState={jest.fn()}
-      />
-    );
-
-    const nameTableHead = screen.getByText('Name').parentElement;
-    const fileTypeTableHead = screen.getByText('File type').parentElement;
-    const sizeTableHead = screen.getByText('Size').parentElement;
-
-    expect(nameTableHead).toHaveAttribute('aria-sort', 'ascending');
-    expect(fileTypeTableHead).toHaveAttribute('aria-sort', 'none');
-    expect(sizeTableHead).toHaveAttribute('aria-sort', 'none');
   });
 });
 
