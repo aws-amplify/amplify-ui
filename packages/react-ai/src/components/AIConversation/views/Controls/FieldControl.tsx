@@ -42,6 +42,7 @@ const SendButton: typeof SendButtonBase = React.forwardRef(
         disabled={isWaitingForResponse || !hasInput}
         type="submit"
         ref={ref}
+        data-testid="send-button"
       />
     );
   }
