@@ -79,6 +79,7 @@ export const CreateFolderControls = (): React.JSX.Element => {
     <>
       <Title />
       <Exit onClick={() => handleUpdateState({ type: 'EXIT' })} />
+      <Primary {...primaryProps} />
       {result?.status === 'SUCCESS' ? (
         <Message variant="success">Folder created.</Message>
       ) : null}
@@ -102,7 +103,6 @@ export const CreateFolderControls = (): React.JSX.Element => {
           </Target.Field.Error>
         ) : null}
       </Target.Field.Container>
-      <Primary {...primaryProps} />
     </>
   );
 };
