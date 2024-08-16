@@ -5,7 +5,7 @@ import type { OmitElements } from '../types';
 import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
 
-const { Button: ButtonElement } = StorageBrowserElements;
+const { Button: ButtonElement, Icon } = StorageBrowserElements;
 
 const BLOCK_NAME = `${CLASS_BASE}__exit`;
 
@@ -14,6 +14,7 @@ export interface _ExitControl<
 > {
   (): React.JSX.Element;
   Button: T['Button'];
+  Icon: T['Icon'];
 }
 
 interface ExitProps {
@@ -22,16 +23,17 @@ interface ExitProps {
 
 export interface ExitControl<
   T extends StorageBrowserElements = StorageBrowserElements,
-> extends OmitElements<_ExitControl<T>, 'Button'> {
+> extends OmitElements<_ExitControl<T>, 'Button' | 'Icon'> {
   ({ onClick }: ExitProps): React.JSX.Element;
 }
 
 const Button = withBaseElementProps(ButtonElement, {
   className: `${BLOCK_NAME}`,
   variant: 'exit',
-  children: 'Back',
 });
 
 export const ExitControl: ExitControl = ({ onClick }) => (
-  <Button onClick={onClick} />
+  <Button onClick={onClick}>
+    <Icon variant="exit" /> Back
+  </Button>
 );
