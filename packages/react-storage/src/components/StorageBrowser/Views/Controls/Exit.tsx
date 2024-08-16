@@ -35,6 +35,6 @@ const Button = withBaseElementProps(ButtonElement, {
 
 export const ExitControl: ExitControl = ({ onClick }) => (
   <Button onClick={onClick}>
-    <Icon variant="cancel" />
+    <Icon variant="exit" />
   </Button>
 );
