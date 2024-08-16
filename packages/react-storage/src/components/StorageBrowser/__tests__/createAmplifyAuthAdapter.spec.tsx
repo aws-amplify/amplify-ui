@@ -39,20 +39,20 @@ describe('createAmplifyAuthAdapter', () => {
     const hubListenSpy = jest.spyOn(Hub, 'listen');
 
     const authAdapter = createAmplifyAuthAdapter();
-    const onStageChange = () => {
+    const onStateChange = () => {
       /* clear location store */
     };
-    authAdapter.registerAuthListener(onStageChange);
+    authAdapter.registerAuthListener(onStateChange);
     expect(hubListenSpy).toHaveBeenCalled();
   });
 
   it('should call onStateChange if Hub signedOut event is called', () => {
     const authAdapter = createAmplifyAuthAdapter();
-    const onStageChange = jest.fn();
-    authAdapter.registerAuthListener(onStageChange);
+    const onStateChange = jest.fn();
+    authAdapter.registerAuthListener(onStateChange);
     act(() => {
       Hub.dispatch('auth', { event: 'signedOut' });
     });
-    expect(onStageChange).toHaveBeenCalled();
+    expect(onStateChange).toHaveBeenCalled();
   });
 });
