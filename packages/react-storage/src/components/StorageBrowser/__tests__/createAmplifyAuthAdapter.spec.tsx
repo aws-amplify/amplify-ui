@@ -1,8 +1,10 @@
 import { act } from 'react-test-renderer';
 import { Amplify } from 'aws-amplify';
 import { Hub } from 'aws-amplify/utils';
-
-import { createAmplifyAuthAdapter } from '../adapters';
+import {
+  createAmplifyAuthAdapter,
+  MISSING_BUCKET_OR_REGION_ERROR,
+} from '../adapters/createAmplifyAuthAdapter';
 
 describe('createAmplifyAuthAdapter', () => {
   beforeEach(() => {
@@ -30,9 +32,7 @@ describe('createAmplifyAuthAdapter', () => {
   it('should throw if no bucket or region given', () => {
     jest.spyOn(Amplify, 'getConfig').mockReturnValue({});
 
-    expect(createAmplifyAuthAdapter).toThrow(
-      'Amplify Storage configuration not found. Did you run `Amplify.configure` from your project root?'
-    );
+    expect(createAmplifyAuthAdapter).toThrow(MISSING_BUCKET_OR_REGION_ERROR);
   });
 
   it('should set Hub listener when registerAuthListener is called', () => {

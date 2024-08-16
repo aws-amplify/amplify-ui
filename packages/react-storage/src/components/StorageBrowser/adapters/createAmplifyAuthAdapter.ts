@@ -6,6 +6,9 @@ import { LocationCredentialsProvider } from '@aws-amplify/storage/storage-browse
 import { StorageBrowserAuthAdapter } from './types';
 import { LocationAccess } from '../context/types';
 
+export const MISSING_BUCKET_OR_REGION_ERROR =
+  'Amplify Storage configuration not found. Did you run `Amplify.configure` from your project root?';
+
 interface AWSCredentials extends NonNullable<AuthSession['credentials']> {}
 interface AWSTemporaryCredentials
   extends NonNullable<
@@ -22,9 +25,7 @@ export const createAmplifyAuthAdapter = (input?: {
 }): StorageBrowserAuthAdapter => {
   const { bucket, region } = Amplify.getConfig()?.Storage?.S3 ?? {};
   if (!bucket || !region) {
-    throw new Error(
-      'Amplify Storage configuration not found. Did you run `Amplify.configure` from your project root?'
-    );
+    throw new Error(MISSING_BUCKET_OR_REGION_ERROR);
   }
 
   async function getLocationCredentials(): Promise<{
@@ -62,10 +63,10 @@ export const createAmplifyAuthAdapter = (input?: {
     listLocations,
     region,
     registerAuthListener: (onStateChange) => {
-      const cancel = Hub.listen('auth', (data) => {
+      const remove = Hub.listen('auth', (data) => {
         if (data.payload.event === 'signedOut') {
           onStateChange();
-          cancel();
+          remove();
         }
       });
     },
