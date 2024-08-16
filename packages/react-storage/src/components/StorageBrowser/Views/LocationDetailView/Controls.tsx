@@ -4,8 +4,9 @@ import { StorageBrowserElements } from '../../context/elements';
 import { useControl } from '../../context/controls';
 import { Controls, LocationDetailViewTable } from '../Controls';
 import { CommonControl } from '../types';
+import { useAction, useLocationsData } from '../../context/actions';
 
-const { ActionSelect, Navigate, Title: TitleElement } = Controls;
+const { ActionSelect, Message, Navigate, Title: TitleElement } = Controls;
 
 export interface LocationDetailViewControls<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -16,12 +17,22 @@ export interface LocationDetailViewControls<
   (): React.JSX.Element;
 }
 
-export const Title = (): React.JSX.Element => {
+const Title = (): React.JSX.Element => {
   const [{ history }] = useControl({
     type: 'NAVIGATE',
   });
   const title = history.slice(-1)[0];
   return <TitleElement>{title}</TitleElement>;
+};
+
+const LocationDetailMessage = () => {
+  const [{ data, isLoading }] = useAction({
+    type: 'LIST_LOCATION_ITEMS',
+  });
+
+  return !isLoading && !data.result ? (
+    <Message variant="error">There was an issue loading items.</Message>
+  ) : null;
 };
 
 // @ts-expect-error TODO: add Controls assignment
@@ -31,6 +42,7 @@ export const LocationDetailViewControls: LocationDetailViewControls = () => {
       <Navigate />
       <Title />
       <ActionSelect />
+      <LocationDetailMessage />
       <LocationDetailViewTable />
     </>
   );

@@ -13,7 +13,7 @@ const BLOCK_NAME = `${CLASS_BASE}__message`;
 export interface MessageDismissControl<
   T extends StorageBrowserElements = StorageBrowserElements,
 > {
-  (): React.JSX.Element;
+  ({ onClick }: MessageDismissControlProps): React.JSX.Element;
   Button: T['Button'];
   Icon: T['Icon'];
 }
@@ -30,8 +30,14 @@ const DismissIcon = withBaseElementProps(IconElement, {
   variant: 'cancel',
 });
 
-export const MessageDismissControl: MessageDismissControl = () => (
-  <DismissButton>
+interface MessageDismissControlProps {
+  onClick?: () => void;
+}
+
+export const MessageDismissControl: MessageDismissControl = ({
+  onClick,
+}: MessageDismissControlProps) => (
+  <DismissButton onClick={onClick}>
     <DismissIcon />
   </DismissButton>
 );
@@ -88,20 +94,22 @@ interface MessageControlProps {
 interface _MessageControl<
   T extends StorageBrowserElements = StorageBrowserElements,
 > extends Pick<T, 'Icon' | 'View'> {
-  ({ variant }: MessageControlProps): React.JSX.Element;
+  ({ variant }: MessageControlProps): React.JSX.Element | null;
 }
 
 export interface MessageControl<
   T extends StorageBrowserElements = StorageBrowserElements,
 > extends OmitElements<_MessageControl<T>, 'Container'> {
-  ({ variant }: MessageControlProps): React.JSX.Element;
+  ({ variant }: MessageControlProps): React.JSX.Element | null;
 }
+
 export const MessageControl: MessageControl = ({ variant, children }) => {
-  return (
+  const [dismissed, setDismissed] = React.useState<boolean>(false);
+  return dismissed ? null : (
     <Container variant={variant}>
       <MessageIcon variant={variant} />
       <MessageContent>{children}</MessageContent>
-      <MessageDismissControl />
+      <MessageDismissControl onClick={() => setDismissed(true)} />
     </Container>
   );
 };
