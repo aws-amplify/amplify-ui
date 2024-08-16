@@ -15,9 +15,13 @@ import {
   View as _View,
   ViewProps,
 } from '@aws-amplify/ui-react';
+import { ButtonElementProps, LabelElement, TextElement } from './definitions';
 
-const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
-  const { disabled, variant } = props as any;
+const Button = React.forwardRef<HTMLButtonElement>(function Button(
+  props: ButtonElementProps,
+  ref: React.ForwardedRef<HTMLButtonElement>
+) {
+  const { disabled, variant } = props;
   switch (variant) {
     case 'action-select-item':
       return (
@@ -27,7 +31,7 @@ const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
           size="small"
           borderRadius="0"
           justifyContent="flex-start"
-          ref={ref as any}
+          ref={ref}
         />
       );
     case 'cancel':
@@ -101,8 +105,11 @@ const DefinitionTerm = React.forwardRef<HTMLElement>(
   }
 );
 
-const Label = React.forwardRef<HTMLLabelElement>(function Label(props, ref) {
-  const { children } = props as any;
+const Label = React.forwardRef<HTMLLabelElement>(function Label(
+  props: React.ComponentProps<typeof LabelElement>,
+  ref: React.ForwardedRef<HTMLLabelElement>
+) {
+  const { children } = props;
   return (
     <_Label {...props} ref={ref}>
       {children}
@@ -171,8 +178,11 @@ const TableHeader = React.forwardRef<HTMLTableCellElement>(
   }
 );
 
-const Text = React.forwardRef<HTMLParagraphElement>(function Text(props, ref) {
-  const { variant } = props as any;
+const Text = React.forwardRef<HTMLParagraphElement>(function Text(
+  props: React.ComponentProps<typeof TextElement>,
+  ref: React.ForwardedRef<HTMLParagraphElement>
+) {
+  const { variant } = props;
   switch (variant) {
     case 'field-error':
       return <_Text {...props} color="font.error" margin="0" ref={ref} />;
@@ -200,11 +210,10 @@ const View = React.forwardRef<HTMLDivElement, ViewProps & { variant?: string }>(
       case 'warning':
       case 'success':
       case 'error':
-        const { children } = props;
         return (
           <_Message {...props} hasIcon={false} colorTheme={variant} ref={ref}>
             <Flex gap="small" alignItems="center">
-              {children}
+              {props.children}
             </Flex>
           </_Message>
         );
@@ -214,7 +223,9 @@ const View = React.forwardRef<HTMLDivElement, ViewProps & { variant?: string }>(
   }
 );
 
-const Nav = (props: ViewProps<'nav'>) => <_View {...props} as="nav" />;
+const Nav = (props: ViewProps<'nav'>): JSX.Element => (
+  <_View {...props} as="nav" />
+);
 
 export const elements = {
   Button,
