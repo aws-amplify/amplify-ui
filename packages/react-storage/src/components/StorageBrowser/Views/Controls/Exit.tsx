@@ -30,11 +30,10 @@ export interface ExitControl<
 const Button = withBaseElementProps(ButtonElement, {
   className: `${BLOCK_NAME}`,
   variant: 'exit',
-  'aria-label': 'Back',
 });
 
 export const ExitControl: ExitControl = ({ onClick }) => (
   <Button onClick={onClick}>
-    <Icon variant="exit" />
+    <Icon variant="exit" /> Back
   </Button>
 );
