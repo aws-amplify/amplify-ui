@@ -280,15 +280,11 @@ export const LocationsViewTable = ({
   const [{ data, isLoading }] = useLocationsData();
   const [, handleUpdateState] = useControl({ type: 'NAVIGATE' });
 
-  const [tableData, setTableData] = React.useState<
-    LocationAccess<Permission>[]
-  >(sortFn<LocationAccess<Permission>>(data.result, direction, selection));
-
-  React.useEffect(() => {
-    setTableData(
-      sortFn<LocationAccess<Permission>>(data.result, direction, selection)
-    );
-  }, [data.result, direction, selection, sortFn]);
+  const tableData = sortFn<LocationAccess<Permission>>(
+    data.result,
+    direction,
+    selection
+  );
 
   const hasLocations = !!data.result?.length;
   const shouldRenderLocations = !hasLocations || isLoading;
@@ -414,13 +410,7 @@ export const LocationDetailViewTable = ({
   const hasItems = !!data.result?.length;
   const shouldReset = !history.length && hasItems && !location;
 
-  const [tableData, setTableData] = React.useState<LocationItem[]>(
-    sortFn(data.result, direction, selection)
-  );
-
-  React.useEffect(() => {
-    setTableData(sortFn(data.result, direction, selection));
-  }, [data.result, direction, selection, sortFn]);
+  const tableData = sortFn(data.result, direction, selection);
 
   React.useEffect(() => {
     if (shouldReset) {
