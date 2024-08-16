@@ -1,7 +1,8 @@
+import { act } from 'react-test-renderer';
 import { Amplify } from 'aws-amplify';
 import { Hub } from 'aws-amplify/utils';
+
 import { createAmplifyAuthAdapter } from '../adapters';
-import { act } from 'react-test-renderer';
 
 describe('createAmplifyAuthAdapter', () => {
   beforeEach(() => {
@@ -15,6 +16,7 @@ describe('createAmplifyAuthAdapter', () => {
       },
     });
   });
+
   it('should create an auth adapter with the correct properties', () => {
     const authAdapter = createAmplifyAuthAdapter();
 
