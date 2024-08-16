@@ -1,4 +1,5 @@
 import { Amplify } from 'aws-amplify';
+import { Hub } from 'aws-amplify/utils';
 import { AuthSession, fetchAuthSession } from 'aws-amplify/auth';
 import { LocationCredentialsProvider } from '@aws-amplify/storage/storage-browser';
 
@@ -60,6 +61,13 @@ export const createAmplifyAuthAdapter = (input?: {
     getLocationCredentials,
     listLocations,
     region,
-    registerAuthListener: () => null,
+    registerAuthListener: (onStateChange) => {
+      const cancel = Hub.listen('auth', (data) => {
+        if (data.payload.event === 'signedOut') {
+          onStateChange();
+          cancel();
+        }
+      });
+    },
   };
 };
