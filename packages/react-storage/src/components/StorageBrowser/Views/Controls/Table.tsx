@@ -289,7 +289,10 @@ export const LocationDetailViewTable = (): JSX.Element => {
       return;
     }
 
-    handleList({ prefix, options: { pageSize: 1000, refresh: true } });
+    handleList({
+      prefix,
+      options: { pageSize: 1000, refresh: true, delimiter: '/' },
+    });
   }, [handleList, history, prefix, shouldReset]);
 
   // @TODO: This should be it's own component instead of using `useCallback`
@@ -312,7 +315,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
           );
         } else if (column.key === ('download' as keyof LocationItem)) {
           return row.type === 'FILE' ? (
-            <DownloadControl fileKey={row.key} />
+            <DownloadControl fileKey={`${prefix}${row.key}`} />
           ) : null;
         } else {
           return (
@@ -329,11 +332,6 @@ export const LocationDetailViewTable = (): JSX.Element => {
       return (
         <TableRow key={index}>
           {LOCATION_DETAIL_VIEW_COLUMNS.map((column) => {
-            if (row.key === prefix) {
-              // Don't render the current prefix as a row
-              return null;
-            }
-
             return (
               <TableData key={`${index}-${column.header}`} variant={column.key}>
                 {column.key === 'key' && row.type === 'FOLDER' ? (
@@ -341,7 +339,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
                     onClick={() => {
                       handleUpdateState({
                         type: 'NAVIGATE',
-                        prefix: row.key.slice(prefix.length),
+                        prefix: row.key,
                       });
                     }}
                     key={`${index}-${row.key}`}

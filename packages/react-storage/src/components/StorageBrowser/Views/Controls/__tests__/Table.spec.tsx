@@ -127,7 +127,7 @@ describe('TableControl', () => {
       expect(handleUpdateActionState).toHaveBeenCalledTimes(1);
       expect(handleUpdateActionState).toHaveBeenCalledWith({
         prefix: '',
-        options: { pageSize: 1000, refresh: true },
+        options: { delimiter: '/', pageSize: 1000, refresh: true },
       });
     });
   });
@@ -157,7 +157,7 @@ describe('TableControl', () => {
       expect(handleUpdateActionState).toHaveBeenCalledTimes(1);
       expect(handleUpdateActionState).toHaveBeenCalledWith({
         prefix: 'test-prefix/',
-        options: { pageSize: 1000, refresh: true },
+        options: { delimiter: '/', pageSize: 1000, refresh: true },
       });
     });
   });
