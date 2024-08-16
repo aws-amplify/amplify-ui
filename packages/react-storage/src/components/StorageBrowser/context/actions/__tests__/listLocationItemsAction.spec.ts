@@ -10,6 +10,9 @@ const config = {
   credentialsProvider: jest.fn(),
   region: 'region',
 };
+const options = {
+  delimiter: '/',
+};
 const prefix = 'a_prefix/';
 const initialValue = { nextToken: undefined, result: [] };
 
@@ -51,13 +54,13 @@ describe('listLocationItemsAction', () => {
   it('merges the current action result with the previous action result', async () => {
     listSpy
       .mockResolvedValueOnce({
-        // @ts-expect-error
+        // @ts-expect-error - JS union interfaces casue type issues
         items: generateMockItems(100),
         excludedSubpaths: generateMockSubpaths(10),
         nextToken: 'first',
       })
       .mockResolvedValueOnce({
-        // @ts-expect-error
+        // @ts-expect-error - JS union interfaces casue type issues
         items: generateMockItems(100),
         excludedSubpaths: generateMockSubpaths(10),
         nextToken: 'second',
@@ -65,6 +68,7 @@ describe('listLocationItemsAction', () => {
 
     const { result, nextToken } = await listLocationItemsAction(initialValue, {
       config,
+      options,
       prefix: 'a_prefix',
     });
 
@@ -74,7 +78,7 @@ describe('listLocationItemsAction', () => {
     const { result: nextResult, nextToken: nextNextToken } =
       await listLocationItemsAction(
         { nextToken, result },
-        { config, prefix: 'a_prefix' }
+        { config, options, prefix: 'a_prefix' }
       );
 
     expect(nextResult).toHaveLength(220);
