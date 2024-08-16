@@ -268,11 +268,6 @@ export const LocationDetailViewTable = (): JSX.Element => {
       return (
         <TableRow key={index}>
           {LOCATION_DETAIL_VIEW_COLUMNS.map((column) => {
-            if (row.key === '') {
-              // Don't render the current prefix as a row
-              return null;
-            }
-
             return (
               <TableData key={`${index}-${column.header}`}>
                 {column.key === 'key' && row.type === 'FOLDER' ? (

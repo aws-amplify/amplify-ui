@@ -1,5 +1,8 @@
 import * as StorageModule from 'aws-amplify/storage';
-import { listLocationItemsAction } from '../listLocationItemsAction';
+import {
+  listLocationItemsAction,
+  parseResult,
+} from '../listLocationItemsAction';
 
 const listSpy = jest.spyOn(StorageModule, 'list');
 const config = {
@@ -7,18 +10,25 @@ const config = {
   credentialsProvider: jest.fn(),
   region: 'region',
 };
+const prefix = 'a_prefix/';
 const initialValue = { nextToken: undefined, result: [] };
 
-// actually mocking JS `list` returns is overly complex
-const generateMockItems = (size: number) =>
-  Array(size).map(() => {
-    return { key: 'key', lastModified: new Date(), size: 1, path: '' };
-  }) as StorageModule.ListPaginateWithPathOutput['items'];
+const generateMockItems = (
+  size: number
+): StorageModule.ListPaginateWithPathOutput['items'] => {
+  return Array.apply(0, new Array(size)).map((_, index) => ({
+    path: `${prefix}key${index}`,
+    lastModified: new Date(),
+    size: 1,
+  }));
+};
 
-const generateMockSubpaths = (size: number) =>
-  Array(size).map((_, index) => {
+const generateMockSubpaths = (
+  size: number
+): StorageModule.ListPaginateWithPathOutput['excludedSubpaths'] =>
+  Array.apply(0, new Array(size)).map((_, index) => {
     return `subpath${index}`;
-  }) as StorageModule.ListPaginateWithPathOutput['excludedSubpaths'];
+  });
 
 describe('listLocationItemsAction', () => {
   beforeEach(() => {
@@ -31,7 +41,7 @@ describe('listLocationItemsAction', () => {
 
     const { result, nextToken } = await listLocationItemsAction(initialValue, {
       config,
-      prefix: 'a_prefix',
+      prefix,
     });
 
     expect(result).toHaveLength(0);
@@ -41,13 +51,13 @@ describe('listLocationItemsAction', () => {
   it('merges the current action result with the previous action result', async () => {
     listSpy
       .mockResolvedValueOnce({
-        // @ts-expect-error - JS union interfaces casue type issues
+        // @ts-expect-error
         items: generateMockItems(100),
         excludedSubpaths: generateMockSubpaths(10),
         nextToken: 'first',
       })
       .mockResolvedValueOnce({
-        // @ts-expect-error - JS union interfaces casue type issues
+        // @ts-expect-error
         items: generateMockItems(100),
         excludedSubpaths: generateMockSubpaths(10),
         nextToken: 'second',
@@ -75,4 +85,41 @@ describe('listLocationItemsAction', () => {
   it.todo('handles a search action as expected');
   it.todo('handles a refresh action as expected');
   it.todo('handles a paginate action as expected');
+});
+
+describe('parseResult', () => {
+  it('outputs correct list with items: prefix, zero byte folder, object and excludedSubpaths', () => {
+    const output = {
+      items: [
+        // Current prefix
+        { path: prefix, lastModified: new Date(), size: 0 },
+        // Zero byte subfolder:
+        { path: `${prefix}Banana/`, lastModified: new Date(), size: 0 },
+        // Image file:
+        { path: `${prefix}Orange.jpg`, lastModified: new Date(), size: 56984 },
+      ],
+      // subfolder with objects in it
+      excludedSubpaths: [`${prefix}Cloudberry/`],
+    };
+    const result = parseResult(output, prefix);
+    expect(result).toHaveLength(3); // excludes prefix
+    const subFolderWithObject = result[0];
+    expect(subFolderWithObject.key).toBe('Cloudberry/');
+    expect(subFolderWithObject.type).toBe('FOLDER');
+    const zeroByteSubFolder = result[1];
+    expect(zeroByteSubFolder.key).toBe('Banana/');
+    expect(zeroByteSubFolder.type).toBe('FOLDER');
+    const file = result[2];
+    expect(file.key).toBe('Orange.jpg');
+    expect(file.type).toBe('FILE');
+  });
+
+  it('should return empty array for empty zero byte folder', () => {
+    // empty folders will just show the current prefix as the path
+    const output = {
+      items: [{ path: prefix, lastModified: new Date(), size: 0 }],
+    };
+    const result = parseResult(output, prefix);
+    expect(result).toHaveLength(0);
+  });
 });

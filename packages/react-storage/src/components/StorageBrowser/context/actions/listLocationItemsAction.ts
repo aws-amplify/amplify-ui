@@ -25,44 +25,40 @@ const parseResultItems = (
   items: ListOutputItem[],
   path: string
 ): LocationItem[] =>
-  items.map(({ path: key, lastModified, size }) => {
-    const keyWithoutPath = key.slice(path.length);
-    if (size === 0 && key.endsWith('/')) {
-      return { key: keyWithoutPath, type: 'FOLDER' };
-    }
+  items
+    .filter((item): item is ListOutputItem => {
+      // filter out default prefix item
+      return item.path !== path;
+    })
+    .map(({ path: _path, lastModified, size }) => {
+      const key = _path.slice(path.length);
+      // Mark zero byte files as Folders
+      if (size === 0 && key.endsWith('/')) {
+        return { key, type: 'FOLDER' };
+      }
 
-    return {
-      key: keyWithoutPath,
-      lastModified: lastModified!,
-      size: size!,
-      type: 'FILE',
-    };
-  });
+      return {
+        key,
+        lastModified: lastModified!,
+        size: size!,
+        type: 'FILE',
+      };
+    });
 
 const parseResultExcludedPaths = (
   paths: string[] | undefined,
   path: string
+): LocationItem[] =>
+  paths?.map((key) => ({ key: key.slice(path.length), type: 'FOLDER' })) ?? [];
+
+export const parseResult = (
+  output: ListPaginateWithPathOutput,
+  path: string
 ): LocationItem[] => {
-  if (!paths) {
-    return [];
-  }
-
-  return paths.map((key) => {
-    return { key: key.slice(path.length), type: 'FOLDER' };
-  });
-};
-
-export const sortLocationItemsAlphabetically = (
-  locationA: LocationItem,
-  locationB: LocationItem
-): 0 | 1 | -1 => {
-  if (locationA.key > locationB.key) {
-    return -1;
-  } else if (locationA.key < locationB.key) {
-    return 1;
-  } else {
-    return 0;
-  }
+  return [
+    ...parseResultExcludedPaths(output.excludedSubpaths, path),
+    ...parseResultItems(output.items, path),
+  ];
 };
 
 export async function listLocationItemsAction(
@@ -103,9 +99,8 @@ export async function listLocationItemsAction(
 
   const result = [
     ...(refresh ? [] : prevState.result),
-    ...parseResultItems(output.items, path),
-    ...parseResultExcludedPaths(output.excludedSubpaths, path),
-  ].sort(sortLocationItemsAlphabetically);
+    ...parseResult(output, path),
+  ];
 
   return { result, nextToken: output.nextToken };
 }
