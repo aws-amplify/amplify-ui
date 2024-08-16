@@ -9,7 +9,7 @@ import { TableDataText, Column, RenderRowItem } from '../Controls/Table';
 
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
 
-const { Cancel, Exit, Primary, Summary, Table } = Controls;
+const { Cancel, Exit, Message, Primary, Summary, Table } = Controls;
 
 const LOCATION_ACTION_VIEW_COLUMNS: Column<CancelableTask>[] = [
   {
@@ -70,6 +70,9 @@ export const UploadControls = (): JSX.Element => {
     items: items! as FileItem[],
   });
 
+  const allTasksSuccessful = !tasks.some((task) => task.status !== 'SUCCESS');
+  const hasFailedTasks = tasks.some((task) => task.status === 'ERROR');
+
   return items ? (
     <>
       <Title />
@@ -82,6 +85,13 @@ export const UploadControls = (): JSX.Element => {
       >
         Start upload
       </Primary>
+      {allTasksSuccessful ? (
+        <Message variant="success">All items uploaded successfully.</Message>
+      ) : hasFailedTasks ? (
+        <Message variant="error">
+          Some items were not uploaded successfully.
+        </Message>
+      ) : null}
       <Summary />
       <Table
         data={tasks}
