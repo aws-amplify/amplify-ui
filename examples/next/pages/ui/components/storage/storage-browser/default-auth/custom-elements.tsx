@@ -30,6 +30,16 @@ const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
           ref={ref as any}
         />
       );
+    case 'cancel':
+      return (
+        <_Button
+          {...props}
+          size="small"
+          variation="link"
+          colorTheme="error"
+          ref={ref}
+        />
+      );
     case 'primary':
       return (
         <_Button
@@ -40,6 +50,8 @@ const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
           ref={ref}
         />
       );
+    case 'exit':
+      return <_Button {...props} size="small" colorTheme="overlay" ref={ref} />;
     case 'message-dismiss':
       return (
         <_Button
@@ -61,9 +73,7 @@ const Button = React.forwardRef<HTMLButtonElement>(function Button(props, ref) {
         />
       );
     case 'action-select-toggle':
-    case 'cancel':
     case 'download':
-    case 'exit':
     case 'refresh':
     case 'sort':
     case 'paginate-current':
