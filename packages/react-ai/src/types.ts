@@ -1,9 +1,12 @@
 import {
   Conversation as SDKConversation,
   ConversationMessage as SDKConversationMessage,
+  ConversationRoute as SDKConversationRoute,
 } from '@aws-amplify/data-schema/dist/esm/ai/ConversationType';
 
 export type Conversation = SDKConversation;
+
+export type ConversationRoute = SDKConversationRoute;
 
 export type ConversationMessage = SDKConversationMessage;
 

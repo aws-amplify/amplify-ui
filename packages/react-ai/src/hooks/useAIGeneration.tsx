@@ -1,4 +1,3 @@
-import { V6Client } from '@aws-amplify/api-graphql';
 import { DataState, useDataState } from '@aws-amplify/ui-react-core';
 
 interface GenerateParameters {
@@ -21,11 +20,11 @@ export type UseAIGenerationHook<T extends string> = (
   (input: GenerateParameters) => void,
 ];
 
-export function createUseAIGeneration<T extends V6Client<any>>(
-  _client: T
-): UseAIGenerationHook<Extract<keyof T['models'], string>> {
+export function createUseAIGeneration<
+  T extends Record<'generations', Record<string, any>>,
+>(_client: T): UseAIGenerationHook<Extract<keyof T['generations'], string>> {
   const useAIGeneration = (
-    _routeName: keyof T['models'],
+    _routeName: keyof T['generations'],
     _input?: UseAIGenerationInput
   ) => {
     // return useDataState(client.ai.generation as T['ai'])[routeName].generate, { messages: [] });
