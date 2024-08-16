@@ -75,6 +75,7 @@ export const AddFilesControl: AddFilesControl = () => {
   return (
     <>
       <input
+        data-testid="AddFilesInput"
         ref={fileUploadRef}
         style={{ display: 'none' }}
         type="file"

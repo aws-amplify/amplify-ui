@@ -70,7 +70,7 @@ export const UploadControls = (): JSX.Element => {
     items: items! as FileItem[],
   });
 
-  return items ? (
+  return items && items.length > 0 ? (
     <>
       <Title />
       <AddFiles />

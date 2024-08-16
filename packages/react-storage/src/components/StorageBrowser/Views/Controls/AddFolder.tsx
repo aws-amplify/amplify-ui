@@ -79,6 +79,7 @@ export const AddFolderControl: AddFolderControl = () => {
   return (
     <>
       <input
+        data-testid="AddFolderInput"
         ref={fileUploadRef}
         style={{ display: 'none' }}
         type="file"
