@@ -2,7 +2,6 @@ import React from 'react';
 
 import { useAction } from '../../context/actions';
 import { useControl } from '../../context/controls';
-
 import { Controls } from '../Controls';
 import { Title } from './Controls';
 
@@ -14,6 +13,29 @@ export const isValidFolderName = (name: string | undefined): boolean => {
 
 export const FIELD_VALIDATION_MESSAGE =
   'Folder name must be at least one character and end with a "/"';
+
+const CreateFolderMessage = () => {
+  const [
+    {
+      data: { result },
+    },
+  ] = useAction({
+    type: 'CREATE_FOLDER',
+  });
+
+  switch (result?.status) {
+    case 'SUCCESS':
+      return <Message variant="success">Folder created.</Message>;
+    case 'ERROR':
+      return (
+        <Message variant="error">
+          There was an issue creating the folder.
+        </Message>
+      );
+    default:
+      return null;
+  }
+};
 
 export const CreateFolderControls = (): React.JSX.Element => {
   const [, handleUpdateState] = useControl({ type: 'ACTION_SELECT' });
@@ -79,8 +101,8 @@ export const CreateFolderControls = (): React.JSX.Element => {
     <>
       <Title />
       <Exit onClick={() => handleUpdateState({ type: 'EXIT' })} />
-      {result?.status === 'SUCCESS' ? (
-        <Message variant="success">Folder created.</Message>
+      {result?.status === 'SUCCESS' || result?.status === 'ERROR' ? (
+        <CreateFolderMessage />
       ) : null}
       <Target.Field.Container>
         <Target.Field.Label htmlFor="folder-name-input">

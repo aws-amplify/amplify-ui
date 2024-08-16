@@ -39,20 +39,11 @@ const LocationsViewRefresh = () => {
   );
 };
 
-const LocationsMessage = () => {
-  const [{ data, isLoading }] = useLocationsData();
-
-  return !isLoading && data.result.length === 0 ? (
-    <Message variant="error">No locations were loaded.</Message>
-  ) : null;
-};
-
 const LocationsViewControls: LocationsViewControls = () => {
   return (
     <>
       <Title>Home</Title>
       <LocationsViewRefresh />
-      <LocationsMessage />
       <LocationsViewTable />
     </>
   );
