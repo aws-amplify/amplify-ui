@@ -1,4 +1,11 @@
-export { default as defineBaseElement } from './defineBaseElement';
+export {
+  defineBaseElement,
+  defineBaseElementWithRef,
+} from './defineBaseElement';
 export { default as withBaseElementProps } from './withBaseElementProps';
 export { ElementsProvider } from './ElementsContext';
-export { ExtendBaseElement, MergeBaseElements } from './types';
+export {
+  ElementWithAndWithoutRef,
+  ExtendBaseElement,
+  MergeBaseElements,
+} from './types';
