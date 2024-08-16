@@ -117,12 +117,12 @@
 }
 
 .storage-browser__refresh {
-  grid-column: 2 / 3;
+  grid-column: 3 / 4;
   justify-self: flex-end;
 }
 
-.storage-browser__refresh:has(& + .storage-browser__action-menu) {
-  grid-column: 3 / 4;
+.storage-browser__refresh:has(~ .storage-browser__action-menu) {
+  grid-column: 2 / 3;
 }
 
 .storage-browser__table {
