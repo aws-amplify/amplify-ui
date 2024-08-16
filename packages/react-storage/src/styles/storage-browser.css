@@ -133,6 +133,10 @@
   justify-self: flex-end;
 }
 
+.storage-browser__refresh:has(~ .storage-browser__action-menu) {
+  grid-column: 26 / 30;
+}
+
 .storage-browser__table {
   grid-row-start: 5;
   grid-column: 1 / -1;
