@@ -1,5 +1,6 @@
 export { ExitControl } from './Exit';
 export { ActionSelectControl } from './ActionSelect';
+export { ActionStatusIconControl } from './ActionStatusIcon';
 export { CancelControl } from './Cancel';
 export { DownloadControl } from './Download';
 export { MessageControl } from './Message';

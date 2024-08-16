@@ -9,7 +9,7 @@ import { TableDataText, Column, RenderRowItem } from '../Controls/Table';
 
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
 
-const { Cancel, Exit, Primary, Summary, Table } = Controls;
+const { ActionStatusIcon, Cancel, Exit, Primary, Summary, Table } = Controls;
 
 const LOCATION_ACTION_VIEW_COLUMNS: Column<CancelableTask>[] = [
   {
@@ -40,7 +40,10 @@ const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
             variant={column.key}
           >
             {column.key === 'key' ? (
-              <TableDataText>{row.key}</TableDataText>
+              <TableDataText>
+                <ActionStatusIcon status={row.status} />
+                {row.key}
+              </TableDataText>
             ) : column.key === 'status' ? (
               <TableDataText>{row.status}</TableDataText>
             ) : column.key === 'progress' ? (
