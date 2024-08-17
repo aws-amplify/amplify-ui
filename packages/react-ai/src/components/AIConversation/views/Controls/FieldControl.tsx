@@ -8,7 +8,10 @@ import { MessagesContext } from '../../context';
 import { AttachmentListControl } from './AttachmentListControl';
 import { SendMessageContext } from '../../context/SendMessageContext';
 import { ConversationMessageContent, InputContent } from '../../../../types';
-import { ResponseComponentsContext } from '../../context/ResponseComponentsContext';
+import {
+  convertResponseComponentsToToolConfiguration,
+  ResponseComponentsContext,
+} from '../../context/ResponseComponentsContext';
 
 const {
   Button,
@@ -162,8 +165,13 @@ export const FieldControl: FieldControl = () => {
         });
       });
     }
-    if (handleSendMessage)
-      handleSendMessage({ content: submittedContent, responseComponents });
+    if (handleSendMessage) {
+      handleSendMessage({
+        content: submittedContent,
+        toolConfiguration:
+          convertResponseComponentsToToolConfiguration(responseComponents),
+      });
+    }
     if (setInput) setInput({ text: '', files: [] });
   };
   return (

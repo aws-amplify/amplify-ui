@@ -56,19 +56,6 @@ const ContentContainer: typeof View = React.forwardRef(
   }
 );
 
-// TODO: update this when we integration with response components
-// export const ResponseComponentControl = (): React.ReactNode => {
-//   const responseComponents = React.useContext(ResponseComponentsContext)
-
-//   if (responseComponents && toolUseId) {
-//     const toolUseId: string = 'componentName';
-//     const ComponentToRender = responseComponents[toolUseId];
-
-//     return <ComponentToRender />
-//   }
-//   return;
-// };
-
 export const MessageControl: MessageControl = ({ message }) => {
   const responseComponents = React.useContext(ResponseComponentsContext);
   return (
@@ -94,13 +81,12 @@ export const MessageControl: MessageControl = ({ message }) => {
         } else if (content.toolUse) {
           // For now tool use is limited to custom response components
           const { name, input } = content.toolUse;
-          if (!responseComponents || !name || !input) {
+          if (!responseComponents || !name) {
             return;
           } else {
             const response = responseComponents[name];
             const CustomComponent = response.component;
-            // const props = JSON.parse(input);
-            return <CustomComponent key={index} />;
+            return <CustomComponent {...(input as object)} key={index} />;
           }
         }
       })}

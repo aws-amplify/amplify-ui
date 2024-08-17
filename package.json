@@ -67,7 +67,7 @@
     ]
   },
   "resolutions": {
-    "**/@aws-amplify/data-schema": "0.0.0-ai-20240807194534",
+    "**/@aws-amplify/data-schema": "0.0.0-ai-20240815192737",
     "**/@react-native-community/**/fast-xml-parser": "^4.4.1",
     "**/@aws-*/**/fast-xml-parser": "^4.4.1",
     "**/@aws-amplify/ui-angular-example/**/codelyzer/**/@angular/core": "10.2.5",

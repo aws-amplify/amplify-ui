@@ -17,12 +17,22 @@ export type InputContent = Parameters<
   Conversation['sendMessage']
 >[0]['content'][number];
 
+export type SendMessageContent = Parameters<
+  Conversation['sendMessage']
+>[0]['content'];
+
+export type SendMessageContext = Parameters<
+  Conversation['sendMessage']
+>[0]['aiContext'];
+
+export type ToolConfiguration = NonNullable<
+  Parameters<Conversation['sendMessage']>[0]['toolConfiguration']
+>;
+
 export interface SendMesageParameters {
-  content: Parameters<Conversation['sendMessage']>[0]['content'];
-  aiContext?: Parameters<Conversation['sendMessage']>[0]['aiContext'];
-  responseComponents?: Parameters<
-    Conversation['sendMessage']
-  >[0]['toolConfiguration'];
+  content: SendMessageContent;
+  aiContext?: SendMessageContext;
+  toolConfiguration?: ToolConfiguration;
 }
 
 export type SendMessage = (input: SendMesageParameters) => void;

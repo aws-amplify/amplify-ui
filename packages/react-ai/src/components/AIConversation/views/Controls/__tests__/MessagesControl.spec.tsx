@@ -345,7 +345,7 @@ describe('MessageControl', () => {
         <MessageControl message={AIResponseComponentMessage} />
       </ResponseComponentsProvider>
     );
-    const message = screen.getByText('argh matey!');
+    const message = screen.getByText('argh matey! ahoy matey');
     expect(message).toBeInTheDocument();
   });
 });

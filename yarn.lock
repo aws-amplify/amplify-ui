@@ -723,12 +723,13 @@
     graphql "15.8.0"
     rxjs "^7.8.1"
 
-"@aws-amplify/data-schema@0.0.0-ai-20240807194534", "@aws-amplify/data-schema@^1.0.0":
-  version "0.0.0-ai-20240807194534"
-  resolved "https://registry.npmjs.org/@aws-amplify/data-schema/-/data-schema-0.0.0-ai-20240807194534.tgz#44aa9a74fd1342bd94355312b8d46a7dc9b74540"
-  integrity sha512-/z72vYsl34FDx96vzXbNOdzuz581w6Nm0Md1EDqT1DQrb0JgciRB+pGogXn5EO2LOX0wHaTxzWQ+BxYySqzIlw==
+"@aws-amplify/data-schema@0.0.0-ai-20240815192737", "@aws-amplify/data-schema@^1.0.0":
+  version "0.0.0-ai-20240815192737"
+  resolved "https://registry.npmjs.org/@aws-amplify/data-schema/-/data-schema-0.0.0-ai-20240815192737.tgz#6981969b50cb7b73e57876f3813f115a725bbb54"
+  integrity sha512-P26OwhTWjVfafQk5NI23Qv2b3j6wykCJXm1Lmf58OyRC4/iR+Zspd0RIeQNc+wW6svlSbx8encjLnmdNwZ4ckQ==
   dependencies:
     "@aws-amplify/data-schema-types" "*"
+    "@smithy/util-base64" "^3.0.0"
     "@types/aws-lambda" "^8.10.134"
     rxjs "^7.8.1"
 

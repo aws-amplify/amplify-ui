@@ -52,7 +52,7 @@
     "@aws-amplify/ui-react-core": "3.0.17"
   },
   "devDependencies": {
-    "@aws-amplify/data-schema": "0.0.0-ai-20240807194534",
+    "@aws-amplify/data-schema": "0.0.0-ai-20240815192737",
     "@aws-sdk/client-bedrock-runtime": "^3.624.0",
     "@rollup/plugin-commonjs": "^22.0.1",
     "@types/jest-when": "^3.5.0",
