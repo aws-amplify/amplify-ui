@@ -8,77 +8,74 @@ import { Title } from './Controls';
 
 const { Exit, Message, Primary, Target } = Controls;
 
-export const isValidFolderName = (name: string | undefined): boolean => {
-  return name !== undefined && name.length > 1 && name.endsWith('/');
-};
+export const isValidFolderName = (name: string | undefined): boolean =>
+  !!name?.length && !name.includes('/');
 
 export const FIELD_VALIDATION_MESSAGE =
-  'Folder name must be at least one character and end with a "/"';
+  'Folder name must be at least one character and cannot contain a "/"';
 
 export const CreateFolderControls = (): React.JSX.Element => {
   const [, handleUpdateState] = useControl({ type: 'ACTION_SELECT' });
   const [{ history }] = useControl({ type: 'NAVIGATE' });
-
-  const [
-    {
-      isLoading,
-      data: { result },
-    },
-    handleCreateAction,
-  ] = useAction({
+  const [{ isLoading, data }, handleCreateAction] = useAction({
     type: 'CREATE_FOLDER',
   });
+  const { result } = data;
 
-  const [data, setData] = React.useState('');
+  const [folderName, setFolderName] = React.useState('');
   const [fieldValidationError, setFieldValidationError] = React.useState<
     string | undefined
   >();
 
-  const inputRef = React.useRef<HTMLInputElement>(null);
-
-  const handleFieldValidation = () => {
-    if (!isValidFolderName(inputRef.current?.value)) {
+  const handleBlur = () => {
+    if (!isValidFolderName(folderName)) {
       setFieldValidationError(FIELD_VALIDATION_MESSAGE);
-      return;
     }
-    // clear error
-    setFieldValidationError(undefined);
-    setData(() => inputRef.current?.value ?? '');
   };
 
-  const handleCreateFolder = (prefix: string) => {
-    if (isValidFolderName(data)) {
+  const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    // validate on change if validation error is present
+    if (fieldValidationError && isValidFolderName(target.value)) {
       setFieldValidationError(undefined);
-      handleCreateAction({ prefix });
-    } else {
-      setFieldValidationError(FIELD_VALIDATION_MESSAGE);
     }
+    setFolderName(target.value);
   };
 
-  const prefix = `${history.join('')}${data}`;
-
-  let primaryProps = {
-    onClick: () => {
-      handleCreateFolder(prefix);
-    },
-    children: 'Create folder',
-    disabled: false,
+  const handleCreateFolder = () => {
+    const prefix = `${history.join('')}${folderName}/`;
+    handleCreateAction({ prefix });
   };
 
-  if (result?.status === 'SUCCESS') {
-    primaryProps = {
-      onClick: () => {
-        handleUpdateState({ type: 'EXIT' });
-      },
-      children: 'Folder created',
-      disabled: true,
-    };
-  }
+  const handleClose = () => {
+    handleUpdateState({ type: 'EXIT' });
+    // reset hook state on exit, use empty string for prefix to keep TS happy
+    handleCreateAction({ prefix: '', options: { reset: true } });
+  };
+
+  const primaryProps =
+    result?.status === 'SUCCESS'
+      ? {
+          onClick: () => {
+            handleClose();
+          },
+          children: 'Folder created',
+        }
+      : {
+          onClick: () => {
+            handleCreateFolder();
+          },
+          children: 'Create Folder',
+          disabled: !folderName || !!fieldValidationError,
+        };
 
   return (
     <>
       <Title />
-      <Exit onClick={() => handleUpdateState({ type: 'EXIT' })} />
+      <Exit
+        onClick={() => {
+          handleClose();
+        }}
+      />
       {result?.status === 'SUCCESS' ? (
         <Message variant="success">Folder created.</Message>
       ) : null}
@@ -87,14 +84,13 @@ export const CreateFolderControls = (): React.JSX.Element => {
           Enter folder name:
         </Target.Field.Label>
         <Target.Field.Input
-          disabled={isLoading}
+          disabled={isLoading || !!result?.status}
           aria-invalid={fieldValidationError ? 'true' : undefined}
           aria-describedby="fieldError"
           type="text"
           id="folder-name-input"
-          onBlur={handleFieldValidation}
-          onFocus={() => setFieldValidationError(undefined)}
-          ref={inputRef}
+          onBlur={handleBlur}
+          onChange={handleChange}
         />
         {fieldValidationError ? (
           <Target.Field.Error id="fieldError">
