@@ -14,6 +14,7 @@ export type IconVariant =
   | 'action-error'
   | 'cancel'
   | 'create-folder'
+  | 'dismiss'
   | 'download'
   | 'error'
   | 'exit'
@@ -55,6 +56,9 @@ export const DEFAULT_ICON_PATHS: Record<IconVariant, string> = {
   // "Create New Folder"
   'create-folder':
     'M560-320h80v-80h80v-80h-80v-80h-80v80h-80v80h80v80ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z',
+  // "Close"
+  dismiss:
+    'm256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z',
   // "Download" icon
   download:
     'M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z',
