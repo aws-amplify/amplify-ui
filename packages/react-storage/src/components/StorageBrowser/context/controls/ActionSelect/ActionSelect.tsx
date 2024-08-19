@@ -22,6 +22,7 @@ export type ActionSelectAction<T = ActionType> =
       type: 'SELECT_ACTION_TYPE';
     }
   | { type: 'EXIT' }
+  | { type: 'ADD_ITEMS'; items: LocationItem[] }
   | { type: 'SET_UPLOAD_ITEMS'; items: UploadItemData[] }
   | { type: 'SELECT_LOCATION_ITEM'; item: LocationItem }
   | { type: 'DESELECT_LOCATION_ITEM'; key: string }
@@ -56,6 +57,16 @@ export function actionSelectReducer(
   if (action.type === 'SELECT_ACTION_TYPE') {
     // Update selected action with action passed from handleUpdateState
     return { ...state, selected: action };
+  } else if (action.type === 'ADD_ITEMS') {
+    const { items } = action;
+
+    return {
+      ...state,
+      selected: {
+        ...state.selected,
+        items: [...items],
+      },
+    };
   } else if (action.type === 'EXIT') {
     // Clears selected action
     return INITIAL_STATE;

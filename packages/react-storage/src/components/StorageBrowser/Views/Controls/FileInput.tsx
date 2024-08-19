@@ -4,12 +4,8 @@ import { ActionType } from '../../context/controls/ActionSelect';
 import { LocationItem } from '../../context/actions';
 
 interface FileInputProps {
-  actionName: string;
+  actionName?: string;
   actionType: Exclude<ActionType, 'CREATE_FOLDER'>;
-}
-
-export interface FileInput {
-  (props: FileInputProps): React.JSX.Element;
 }
 
 const UPLOAD_FILES_INPUT_ATTRIBUTES = {
@@ -21,7 +17,7 @@ const UPLOAD_FOLDER_INPUT_ATTRIBUTES = {
 };
 
 export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
-  ({ actionName, actionType }, ref) => {
+  ({ actionName = '', actionType }, ref) => {
     const [{ history }] = useControl({ type: 'NAVIGATE' });
     const fileUploadRef = React.useRef<HTMLInputElement>(null);
 
@@ -41,6 +37,7 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
         const locationItemsMap = new Map<string, LocationItem>();
 
         items.forEach((item) => {
+          // If we have previously selected items, use them to create our map of unique items
           const { key } = item;
           locationItemsMap.set(key, item);
         });
@@ -60,13 +57,22 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
           });
         }
 
-        handleUpdateState({
-          actionType: actionType,
-          type: 'SELECT_ACTION_TYPE',
-          destination,
-          items: Array.from(locationItemsMap.values()),
-          name: actionName,
-        });
+        const updateItems = Array.from(locationItemsMap.values());
+
+        if (actionName === '') {
+          handleUpdateState({
+            type: 'ADD_ITEMS',
+            items: updateItems,
+          });
+        } else {
+          handleUpdateState({
+            actionType: actionType,
+            type: 'SELECT_ACTION_TYPE',
+            destination,
+            items: updateItems,
+            name: actionName,
+          });
+        }
       }
     };
 
