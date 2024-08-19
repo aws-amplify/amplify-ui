@@ -1,16 +1,16 @@
 import React from 'react';
 import { signInWithRedirect } from 'aws-amplify/auth';
+import { SignInWithRedirectAction } from '../controls';
 
-const HandleSignInWithRedirectContext = React.createContext<
-  typeof signInWithRedirect | undefined
->(undefined);
+const HandleSignInWithRedirectContext =
+  React.createContext<SignInWithRedirectAction>(signInWithRedirect);
 
 export const HandleSignInWithRedirectProvider = ({
   children,
   customRedirect,
 }: {
   children?: React.ReactNode;
-  customRedirect?: typeof signInWithRedirect;
+  customRedirect: SignInWithRedirectAction;
 }): JSX.Element => {
   return (
     <HandleSignInWithRedirectContext.Provider value={customRedirect}>
@@ -20,14 +20,6 @@ export const HandleSignInWithRedirectProvider = ({
 };
 
 export const useHandleSignInWithRedirectContext =
-  (): typeof signInWithRedirect => {
-    const handleSignInWithRedirect = React.useContext(
-      HandleSignInWithRedirectContext
-    );
-
-    if (!handleSignInWithRedirect) {
-      return signInWithRedirect;
-    }
-
-    return handleSignInWithRedirect;
+  (): SignInWithRedirectAction => {
+    return React.useContext(HandleSignInWithRedirectContext);
   };
