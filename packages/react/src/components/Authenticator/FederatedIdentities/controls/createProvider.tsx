@@ -6,14 +6,16 @@ import {
   HandleSignInWithRedirectProvider,
   DisplayTextProvider,
   FederatedIdentitiesElements,
+  UseHandleSignInWithRedirectContext,
 } from '../context';
+import { signInWithRedirect } from 'aws-amplify/auth';
 
 export default function createProvider<
   T extends Partial<FederatedIdentitiesElements>,
 >({
   elements,
   providers,
-  handleSignInWithRedirect,
+  handleSignInWithRedirect = signInWithRedirect,
   displayText,
 }: CreateProviderInput<T>) {
   return function Provider({
@@ -21,6 +23,12 @@ export default function createProvider<
   }: {
     children?: React.ReactNode;
   }): React.JSX.Element {
+    const context = React.useContext(UseHandleSignInWithRedirectContext);
+
+    if (context != null) {
+      handleSignInWithRedirect = context[1];
+    }
+
     return (
       <ElementsProvider elements={elements}>
         <ProviderDataListProvider providerDataList={providers}>
