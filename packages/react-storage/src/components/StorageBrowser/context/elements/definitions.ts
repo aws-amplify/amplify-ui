@@ -70,6 +70,7 @@ export const DefinitionDetailElement = defineBaseElementWithRef({
   displayName: 'DefinitionDetail',
 });
 
+export type LabelElementProps = React.ComponentProps<typeof LabelElement>;
 export const LabelElement = defineBaseElementWithRef<'label', 'htmlFor'>({
   type: 'label',
   displayName: 'Label',
@@ -80,6 +81,7 @@ export const NavElement = defineBaseElement({
   displayName: 'Nav',
 });
 
+export type TextElementProps = React.ComponentProps<typeof TextElement>;
 export const TextElement = defineBaseElementWithRef<'p', 'id'>({
   type: 'p',
   displayName: 'Text',

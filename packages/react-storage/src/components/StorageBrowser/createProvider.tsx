@@ -10,8 +10,7 @@ import {
   LocationConfigProviderProps,
 } from './context/config';
 import { ControlProvider } from './context/controls';
-import { defaultElements, StorageBrowserElements } from './context/elements';
-
+import { StorageBrowserElements } from './context/elements';
 import { Controller } from './Controller';
 import { ErrorBoundary } from './ErrorBoundary';
 import { ListLocations } from '@aws-amplify/storage/storage-browser';
@@ -47,7 +46,7 @@ export default function createProvider<
   }): React.JSX.Element {
     return (
       <ErrorBoundary>
-        <ElementsProvider elements={{ ...defaultElements, ...elements }}>
+        <ElementsProvider elements={elements}>
           <ControlProvider>
             <LocationConfigProvider {...config}>
               <ActionProvider listLocationsAction={listLocationsAction}>

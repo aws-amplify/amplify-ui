@@ -15,89 +15,94 @@ import {
   View as _View,
   ViewProps,
 } from '@aws-amplify/ui-react';
-import { ButtonElementProps, LabelElement, TextElement } from './definitions';
+import {
+  ButtonElementProps,
+  LabelElementProps,
+  TextElementProps,
+} from './definitions';
 
-const Button = React.forwardRef<HTMLButtonElement>(function Button(
-  props: ButtonElementProps,
-  ref: React.ForwardedRef<HTMLButtonElement>
-) {
-  const { disabled, variant } = props;
-  switch (variant) {
-    case 'action-select-item':
-      return (
-        <_Button
-          {...props}
-          variation="link"
-          size="small"
-          borderRadius="0"
-          justifyContent="flex-start"
-          ref={ref}
-        />
-      );
-    case 'cancel':
-      return (
-        <_Button
-          {...props}
-          size="small"
-          variation="link"
-          colorTheme="error"
-          ref={ref}
-        />
-      );
-    case 'primary':
-      return (
-        <_Button
-          {...props}
-          isDisabled={disabled}
-          size="small"
-          variation="primary"
-          ref={ref}
-        />
-      );
-    case 'exit':
-      return <_Button {...props} size="small" colorTheme="overlay" ref={ref} />;
-    case 'message-dismiss':
-      return (
-        <_Button
-          {...props}
-          size="small"
-          variation="link"
-          colorTheme="overlay"
-          ref={ref}
-        />
-      );
-    case 'navigate':
-      return (
-        <_Button
-          {...props}
-          size="small"
-          paddingInline="xs"
-          variation="link"
-          ref={ref}
-        />
-      );
-    case 'action-select-toggle':
-    case 'download':
-    case 'refresh':
-    case 'sort':
-    case 'paginate-current':
-    case 'paginate-next':
-    case 'paginate-previous':
-      return <_Button {...props} size="small" variation="link" ref={ref} />;
-    case 'table-data':
-      return (
-        <_Button
-          {...props}
-          variation="link"
-          size="small"
-          textDecoration="underline"
-          ref={ref}
-        />
-      );
-    default:
-      return <_Button {...props} size="small" ref={ref} />;
+const Button = React.forwardRef<HTMLButtonElement, ButtonElementProps>(
+  function Button(props, ref) {
+    const { disabled, variant } = props;
+    switch (variant) {
+      case 'action-select-item':
+        return (
+          <_Button
+            {...props}
+            variation="link"
+            size="small"
+            borderRadius="0"
+            justifyContent="flex-start"
+            ref={ref}
+          />
+        );
+      case 'cancel':
+        return (
+          <_Button
+            {...props}
+            size="small"
+            variation="link"
+            colorTheme="error"
+            ref={ref}
+          />
+        );
+      case 'primary':
+        return (
+          <_Button
+            {...props}
+            isDisabled={disabled}
+            size="small"
+            variation="primary"
+            ref={ref}
+          />
+        );
+      case 'exit':
+        return (
+          <_Button {...props} size="small" colorTheme="overlay" ref={ref} />
+        );
+      case 'message-dismiss':
+        return (
+          <_Button
+            {...props}
+            size="small"
+            variation="link"
+            colorTheme="overlay"
+            ref={ref}
+          />
+        );
+      case 'navigate':
+        return (
+          <_Button
+            {...props}
+            size="small"
+            paddingInline="xs"
+            variation="link"
+            ref={ref}
+          />
+        );
+      case 'action-select-toggle':
+      case 'download':
+      case 'refresh':
+      case 'sort':
+      case 'paginate-current':
+      case 'paginate-next':
+      case 'paginate-previous':
+        return <_Button {...props} size="small" variation="link" ref={ref} />;
+      case 'table-data':
+        return (
+          <_Button
+            {...props}
+            variation="link"
+            size="small"
+            textDecoration="underline"
+            ref={ref}
+          />
+        );
+      default:
+        return <_Button {...props} size="small" ref={ref} />;
+    }
   }
-});
+);
 
 const DefinitionTerm = React.forwardRef<HTMLElement>(
   function DefinitionTerm(props, ref) {
@@ -105,17 +110,16 @@ const DefinitionTerm = React.forwardRef<HTMLElement>(
   }
 );
 
-const Label = React.forwardRef<HTMLLabelElement>(function Label(
-  props: React.ComponentProps<typeof LabelElement>,
-  ref: React.ForwardedRef<HTMLLabelElement>
-) {
-  const { children } = props;
-  return (
-    <_Label {...props} ref={ref}>
-      {children}
-    </_Label>
-  );
-});
+const Label = React.forwardRef<HTMLLabelElement, LabelElementProps>(
+  function Label(props, ref) {
+    const { children } = props;
+    return (
+      <_Label {...props} ref={ref}>
+        {children}
+      </_Label>
+    );
+  }
+);
 
 const Input = React.forwardRef<HTMLInputElement>(function Input(props, ref) {
   return <_Input {...props} ref={ref} />;
@@ -178,18 +182,17 @@ const TableHeader = React.forwardRef<HTMLTableCellElement>(
   }
 );
 
-const Text = React.forwardRef<HTMLParagraphElement>(function Text(
-  props: React.ComponentProps<typeof TextElement>,
-  ref: React.ForwardedRef<HTMLParagraphElement>
-) {
-  const { variant } = props;
-  switch (variant) {
-    case 'field-error':
-      return <_Text {...props} color="font.error" margin="0" ref={ref} />;
-    default:
-      return <_Text {...props} ref={ref} />;
+const Text = React.forwardRef<HTMLParagraphElement, TextElementProps>(
+  function Text(props, ref) {
+    const { variant } = props;
+    switch (variant) {
+      case 'field-error':
+        return <_Text {...props} color="font.error" margin="0" ref={ref} />;
+      default:
+        return <_Text {...props} ref={ref} />;
+    }
   }
-});
+);
 
 const View = React.forwardRef<HTMLDivElement, ViewProps & { variant?: string }>(
   function View({ variant, ...props }, ref) {
@@ -227,7 +230,7 @@ const Nav = (props: ViewProps<'nav'>): JSX.Element => (
   <_View {...props} as="nav" />
 );
 
-export const elements = {
+export const elementsDefault = {
   Button,
   DefinitionTerm,
   Input,
