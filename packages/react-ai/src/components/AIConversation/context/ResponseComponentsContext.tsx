@@ -29,13 +29,19 @@ export const convertResponseComponentsToToolConfiguration = (
   }
   const tools: ToolConfiguration['tools'] = {};
   Object.keys(responseComponents).forEach((toolName: string) => {
+    const { props } = responseComponents[toolName];
+    const requiredProps: string[] = [];
+    Object.keys(props).forEach((propName) => {
+      if (props[propName].required) requiredProps.push(propName);
+    });
     tools[toolName] = {
       description: responseComponents[toolName].description,
       inputSchema: {
         json: {
           type: 'object',
+          required: requiredProps,
           properties: {
-            ...responseComponents[toolName].props,
+            ...props,
           },
         },
       },

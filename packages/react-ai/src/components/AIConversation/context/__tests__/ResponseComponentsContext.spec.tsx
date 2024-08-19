@@ -16,6 +16,11 @@ describe('convertResponseComponentsToToolConfiguration', () => {
           text: {
             type: 'string',
             description: 'The response you want to render in the component.',
+            required: true,
+          },
+          foobar: {
+            type: 'number',
+            description: 'This one is not used',
           },
         },
       },
@@ -30,11 +35,17 @@ describe('convertResponseComponentsToToolConfiguration', () => {
           inputSchema: {
             json: {
               type: 'object',
+              required: ['text'],
               properties: {
                 text: {
                   type: 'string',
                   description:
                     'The response you want to render in the component.',
+                  required: true,
+                },
+                foobar: {
+                  type: 'number',
+                  description: 'This one is not used',
                 },
               },
             },

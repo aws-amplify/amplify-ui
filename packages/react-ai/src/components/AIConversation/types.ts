@@ -81,6 +81,7 @@ type ResponseComponentProp = {
   type: string;
   enum?: string[];
   description?: string;
+  required?: boolean;
 };
 
 type ResponseComponentPropMap = {
