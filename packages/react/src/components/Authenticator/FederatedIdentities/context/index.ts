@@ -15,4 +15,8 @@ export {
   DisplayTextProvider,
   useDisplayTextContext,
 } from './DisplayTextContext';
+export {
+  UseHandleSignInWithRedirectProvider,
+  UseHandleSignInWithRedirectContext,
+} from './UseHandleSignInWithRedirectContext';
 export { FederatedIdentitiesElements } from './elements';
