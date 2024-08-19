@@ -142,7 +142,7 @@ export const ProgressBarElement = defineBaseElementWithRef({
 
 export const InputElement = defineBaseElementWithRef<
   'input',
-  'disabled' | 'type' | 'id' | 'onBlur' | 'onFocus'
+  'disabled' | 'type' | 'id' | 'onBlur' | 'onChange' | 'onFocus'
 >({
   type: 'input',
   displayName: 'Input',

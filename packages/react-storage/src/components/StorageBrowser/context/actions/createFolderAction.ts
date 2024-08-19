@@ -3,7 +3,10 @@ import { uploadData } from 'aws-amplify/storage';
 import { TaskAction, TaskActionInput, TaskActionOutput } from '../types';
 
 export interface CreateFolderActionInput
-  extends Omit<TaskActionInput<never, { preventOverwite?: boolean }>, 'data'> {}
+  extends Omit<
+    TaskActionInput<never, { reset?: boolean; preventOverwite?: boolean }>,
+    'data'
+  > {}
 
 export interface CreateFolderActionOutput extends TaskActionOutput {}
 
@@ -14,7 +17,11 @@ export const createFolderAction = async (
   _: CreateFolderActionOutput,
   input: CreateFolderActionInput
 ): Promise<CreateFolderActionOutput> => {
-  const { prefix, config } = input;
+  const { prefix, config, options } = input;
+
+  if (options?.reset) {
+    return { result: undefined };
+  }
 
   const {
     bucket: bucketName,
