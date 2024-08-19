@@ -30,6 +30,7 @@
     "next-app-example": "yarn workspace @aws-amplify/ui-next-app-example",
     "react-example": "yarn workspace @aws-amplify/ui-next-example",
     "react-native-example": "yarn workspace @aws-amplify/ui-react-native-example",
+    "vite-react-example": "yarn workspace @aws-amplify/ui-vite-react-example",
     "vue-example": "yarn workspace @aws-amplify/ui-vue-example",
     "e2e": "yarn workspace @aws-amplify/ui-e2e",
     "environments": "yarn workspace @aws-amplify/ui-environments",
