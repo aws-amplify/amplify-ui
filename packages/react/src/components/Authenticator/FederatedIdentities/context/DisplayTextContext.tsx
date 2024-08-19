@@ -4,13 +4,11 @@ export function displayText(displayName: string): string {
   return `Sign in with ${displayName}`;
 }
 
-const DisplayTextContext = React.createContext<typeof displayText | undefined>(
-  undefined
-);
+const DisplayTextContext = React.createContext<typeof displayText>(displayText);
 
 export const DisplayTextProvider = ({
   children,
-  customDisplayText,
+  customDisplayText = displayText,
 }: {
   children?: React.ReactNode;
   customDisplayText?: typeof displayText;
@@ -23,11 +21,5 @@ export const DisplayTextProvider = ({
 };
 
 export const useDisplayTextContext = (): typeof displayText => {
-  const _displayText = React.useContext(DisplayTextContext);
-
-  if (!_displayText) {
-    return displayText;
-  }
-
-  return _displayText;
+  return React.useContext(DisplayTextContext);
 };
