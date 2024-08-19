@@ -95,12 +95,10 @@ export async function listLocationItemsAction(
     },
   };
 
-  let result;
-
   try {
     const output = await list(listInput);
 
-    result = [
+    const result = [
       ...(refresh ? [] : prevState.result),
       ...parseResult(output, path),
     ];
