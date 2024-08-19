@@ -42,7 +42,12 @@ export interface LocationConfig {
   region: string;
 }
 
-type TaskStatus = 'INITIAL' | 'QUEUED' | 'IN_PROGRESS' | 'SUCCESS' | 'ERROR';
+export type TaskStatus =
+  | 'INITIAL'
+  | 'QUEUED'
+  | 'IN_PROGRESS'
+  | 'SUCCESS'
+  | 'ERROR';
 
 interface TaskResult<T = TaskStatus> {
   key: string;
