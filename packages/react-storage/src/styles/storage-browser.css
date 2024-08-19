@@ -214,3 +214,11 @@
   grid-row-start: 1;
   justify-self: flex-end;
 }
+
+.storage-browser__add-files {
+  grid-column: 3 / 4;
+}
+.storage-browser__add-folder {
+  grid-column: 1 / 3;
+  justify-self: flex-end;
+}
