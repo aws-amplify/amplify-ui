@@ -43,7 +43,7 @@ export const LocationsMessage = (): React.JSX.Element | null => {
   const [{ hasError, message }] = useLocationsData();
   return hasError ? (
     <Message variant="error">
-      {message ? message : 'There was an error loading locations.'}
+      {message ?? 'There was an error loading locations.'}
     </Message>
   ) : null;
 };
