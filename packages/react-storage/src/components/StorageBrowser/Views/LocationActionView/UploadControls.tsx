@@ -1,15 +1,19 @@
 import React from 'react';
 
 import { useControl } from '../../context/controls';
-import { FileItem } from '../../context/types';
-
+import { FileItem, TaskStatus } from '../../context/types';
+import { StorageBrowserElements } from '../../context/elements';
+import { IconVariant } from '../../context/elements/IconElement';
 import { Controls } from '../Controls';
 import { Title } from './Controls';
 import { TableDataText, Column, RenderRowItem } from '../Controls/Table';
+import { CLASS_BASE } from '../constants';
 
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
 
-const { ActionStatusIcon, Cancel, Exit, Primary, Summary, Table } = Controls;
+const { Icon } = StorageBrowserElements;
+
+const { Cancel, Exit, Primary, Summary, Table } = Controls;
 
 const LOCATION_ACTION_VIEW_COLUMNS: Column<CancelableTask>[] = [
   {
@@ -30,6 +34,41 @@ const LOCATION_ACTION_VIEW_COLUMNS: Column<CancelableTask>[] = [
   },
 ];
 
+interface TaskIconProps {
+  status?: TaskStatus | 'CANCELED';
+}
+
+const ICON_CLASS = `${CLASS_BASE}__action-status`;
+
+const TaskIcon = ({ status }: TaskIconProps) => {
+  let variant: IconVariant = 'action-initial';
+
+  switch (status) {
+    case 'QUEUED':
+      variant = 'action-queued';
+      break;
+    case 'IN_PROGRESS':
+      variant = 'action-progress';
+      break;
+    case 'SUCCESS':
+      variant = 'action-success';
+      break;
+    case 'ERROR':
+      variant = 'action-error';
+      break;
+    case 'CANCELED':
+      variant = 'action-canceled';
+      break;
+  }
+
+  return (
+    <Icon
+      variant={variant}
+      className={`${ICON_CLASS} ${ICON_CLASS}--${variant}`}
+    />
+  );
+};
+
 const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
   return (
     <Table.TableRow key={index}>
@@ -41,7 +80,7 @@ const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
           >
             {column.key === 'key' ? (
               <TableDataText>
-                <ActionStatusIcon status={row.status} />
+                <TaskIcon status={row.status} />
                 {row.key}
               </TableDataText>
             ) : column.key === 'status' ? (
