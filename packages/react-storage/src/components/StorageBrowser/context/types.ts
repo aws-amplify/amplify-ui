@@ -105,6 +105,7 @@ export interface ListActionInput<K = never> {
 export interface ListActionOutput<T> {
   result: T[];
   nextToken: string | undefined;
+  message?: string;
 }
 
 export interface DownloadActionInput {
