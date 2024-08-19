@@ -38,9 +38,9 @@ interface TaskIconProps {
   status?: TaskStatus | 'CANCELED';
 }
 
-const ICON_CLASS = `${CLASS_BASE}__action-status`;
+export const ICON_CLASS = `${CLASS_BASE}__action-status`;
 
-const TaskIcon = ({ status }: TaskIconProps) => {
+export const ActionIcon = ({ status }: TaskIconProps): React.JSX.Element => {
   let variant: IconVariant = 'action-initial';
 
   switch (status) {
@@ -80,7 +80,7 @@ const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
           >
             {column.key === 'key' ? (
               <TableDataText>
-                <TaskIcon status={row.status} />
+                <ActionIcon status={row.status} />
                 {row.key}
               </TableDataText>
             ) : column.key === 'status' ? (
