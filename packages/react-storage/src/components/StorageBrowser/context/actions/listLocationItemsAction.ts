@@ -21,14 +21,45 @@ export interface ListLocationItemsActionOutput
 
 type ListOutputItem = ListPaginateWithPathOutput['items'][number];
 
-const parseResultItems = (items: ListOutputItem[]): LocationItem[] =>
-  items.map(({ path: key, lastModified, size }) => {
-    if (size === 0 && key.endsWith('/')) {
-      return { key, type: 'FOLDER' };
-    }
+const parseResultItems = (
+  items: ListOutputItem[],
+  path: string
+): LocationItem[] =>
+  items
+    .filter((item): item is ListOutputItem => {
+      // filter out default prefix item
+      return item.path !== path;
+    })
+    .map(({ path: _path, lastModified, size }) => {
+      const key = _path.slice(path.length);
+      // Mark zero byte files as Folders
+      if (size === 0 && key.endsWith('/')) {
+        return { key, type: 'FOLDER' };
+      }
 
-    return { key, lastModified: lastModified!, size: size!, type: 'FILE' };
-  });
+      return {
+        key,
+        lastModified: lastModified!,
+        size: size!,
+        type: 'FILE',
+      };
+    });
+
+const parseResultExcludedPaths = (
+  paths: string[] | undefined,
+  path: string
+): LocationItem[] =>
+  paths?.map((key) => ({ key: key.slice(path.length), type: 'FOLDER' })) ?? [];
+
+export const parseResult = (
+  output: ListPaginateWithPathOutput,
+  path: string
+): LocationItem[] => {
+  return [
+    ...parseResultExcludedPaths(output.excludedSubpaths, path),
+    ...parseResultItems(output.items, path),
+  ];
+};
 
 export async function listLocationItemsAction(
   prevState: ListLocationItemsActionOutput,
@@ -68,7 +99,7 @@ export async function listLocationItemsAction(
 
   const result = [
     ...(refresh ? [] : prevState.result),
-    ...parseResultItems(output.items),
+    ...parseResult(output, path),
   ];
 
   return { result, nextToken: output.nextToken };
