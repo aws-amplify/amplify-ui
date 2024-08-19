@@ -84,6 +84,7 @@ export interface FaceLivenessDetectorCoreConfig {
    * Represents the difference between the system clock and the AWS server clock in milliseconds
    */
   systemClockOffset?: number;
+  mobileCameraFacing?: 'user' | 'environment';
 }
 
 export type FaceLivenessDetectorConfig = Omit<

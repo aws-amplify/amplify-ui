@@ -802,6 +802,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           } else {
             errorState = LivenessErrorState.CAMERA_ACCESS_ERROR;
           }
+          console.log('Error: ', event)
 
           const errorMessage =
             (event.data!.message as ErrorState) || event.data!.Message;
@@ -948,13 +949,30 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
     services: {
       async checkVirtualCameraAndGetStream(context) {
         const { videoConstraints } = context.videoAssociatedParams!;
+        const { mobileCameraFacing } = context.componentProps!.config!;
+        const cameraConstraints =
+          mobileCameraFacing === 'user'
+            ? { facingMode: { exact: 'user' } }
+            : mobileCameraFacing === 'environment'
+            ? { facingMode: { exact: 'environment' } }
+            : undefined;
 
         // Get initial stream to enumerate devices with non-empty labels
         const existingDeviceId = getLastSelectedCameraId();
+        const deviceIdConstraint = existingDeviceId
+          ? { deviceId: { exact: existingDeviceId } }
+          : {};
+        console.log('videoConstraints, ', {
+          ...videoConstraints,
+          ...cameraConstraints,
+          ...deviceIdConstraint,
+        });
+
         const initialStream = await navigator.mediaDevices.getUserMedia({
           video: {
             ...videoConstraints,
-            ...(existingDeviceId ? { deviceId: existingDeviceId } : {}),
+            ...cameraConstraints,
+            ...deviceIdConstraint,
           },
           audio: false,
         });
