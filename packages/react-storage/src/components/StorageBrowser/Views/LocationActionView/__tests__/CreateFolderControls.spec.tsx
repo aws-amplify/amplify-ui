@@ -1,13 +1,16 @@
 import React from 'react';
 import { render, waitFor, screen, fireEvent } from '@testing-library/react';
+
 import createProvider from '../../../createProvider';
-import userEvent from '@testing-library/user-event';
+import * as ActionsModule from '../../../context/actions';
 
 import {
   isValidFolderName,
   CreateFolderControls,
   FIELD_VALIDATION_MESSAGE,
 } from '../CreateFolderControls';
+
+const useActionSpy = jest.spyOn(ActionsModule, 'useAction');
 
 const listLocations = jest.fn(() =>
   Promise.resolve({ locations: [], nextToken: undefined })
@@ -34,8 +37,17 @@ describe('CreateFolderActionView', () => {
     });
   });
 
-  it('handles the create folder button', async () => {
-    const user = userEvent.setup();
+  it('handles folder creation in the happy path', async () => {
+    const handleAction = jest.fn();
+    useActionSpy.mockReturnValue([
+      {
+        isLoading: false,
+        data: { result: undefined },
+        message: undefined,
+        hasError: false,
+      },
+      handleAction,
+    ]);
 
     await waitFor(() => {
       render(
@@ -45,26 +57,71 @@ describe('CreateFolderActionView', () => {
       );
     });
 
-    const setState = jest.fn();
-    jest.spyOn(React, 'useState').mockImplementationOnce(() => ['', setState]);
+    const input = screen.getByLabelText('Enter folder name:');
+    fireEvent.change(input, { target: { value: 'test-folder-name' } });
 
-    waitFor(async () => {
-      const input = screen.getByLabelText('Enter folder name:');
-      const button = screen.getByRole('button', { name: 'Create Folder' });
+    const button = screen.getByRole('button', { name: 'Create Folder' });
 
-      user.type(input, 'test/');
+    fireEvent.click(button);
 
-      await user.click(button);
+    const fieldError = screen.queryByText(FIELD_VALIDATION_MESSAGE);
 
-      const fieldError = screen.getByText(FIELD_VALIDATION_MESSAGE);
-
-      expect(fieldError).toBe(undefined);
-      expect(setState).toHaveBeenCalled();
-    });
+    expect(fieldError).toBe(null);
+    expect(handleAction).toHaveBeenCalledTimes(1);
+    expect(handleAction).toHaveBeenCalledWith({ prefix: 'test-folder-name/' });
   });
 
   it('shows a field error when invalid folder name is entered', async () => {
-    const user = userEvent.setup();
+    await waitFor(() => {
+      render(
+        <Provider>
+          <CreateFolderControls />
+        </Provider>
+      );
+    });
+
+    const input = screen.getByLabelText('Enter folder name:');
+    fireEvent.change(input, { target: { value: 'invalid/folder-name' } });
+    fireEvent.blur(input);
+
+    const fieldError = screen.getByText(FIELD_VALIDATION_MESSAGE);
+    expect(fieldError).toBeInTheDocument();
+  });
+
+  it('clears a field error as expected', async () => {
+    await waitFor(() => {
+      render(
+        <Provider>
+          <CreateFolderControls />
+        </Provider>
+      );
+    });
+
+    const input = screen.getByLabelText('Enter folder name:');
+    fireEvent.change(input, { target: { value: 'invalid/folder-name' } });
+    fireEvent.blur(input);
+
+    const initialFieldError = screen.queryByText(FIELD_VALIDATION_MESSAGE);
+    expect(initialFieldError).toBeInTheDocument();
+
+    fireEvent.change(input, { target: { value: 'valid-folder-name' } });
+    fireEvent.blur(input);
+
+    const fieldError = screen.queryByText(FIELD_VALIDATION_MESSAGE);
+    expect(fieldError).not.toBeInTheDocument();
+  });
+
+  it('cleans up on exit', async () => {
+    const handleAction = jest.fn();
+    useActionSpy.mockReturnValue([
+      {
+        isLoading: false,
+        data: { result: undefined },
+        message: undefined,
+        hasError: false,
+      },
+      handleAction,
+    ]);
 
     await waitFor(() => {
       render(
@@ -74,35 +131,32 @@ describe('CreateFolderActionView', () => {
       );
     });
 
-    const setState = jest.fn();
-    jest.spyOn(React, 'useState').mockImplementationOnce(() => ['', setState]);
+    const button = screen.getByRole('button', { name: 'Back' });
 
-    const input = screen.getByLabelText('Enter folder name:');
+    fireEvent.click(button);
 
-    user.type(input, 'test');
-
-    fireEvent.blur(input);
-
-    const fieldError = screen.getByText(FIELD_VALIDATION_MESSAGE);
-
-    expect(fieldError).toBeInTheDocument();
+    expect(handleAction).toHaveBeenCalledTimes(1);
+    expect(handleAction).toHaveBeenCalledWith({
+      options: { reset: true },
+      prefix: '',
+    });
   });
 });
 
 describe('isValidFolderName', () => {
-  it('returns false for isValidFolderName when name is undefined', () => {
+  it('returns false when value is undefined', () => {
     expect(isValidFolderName(undefined)).toBe(false);
   });
 
-  it('returns false for isValidFolderName when name is only one character', () => {
-    expect(isValidFolderName('/')).toBe(false);
+  it('returns false when value is an empty string', () => {
+    expect(isValidFolderName('')).toBe(false);
   });
 
-  it('returns false for isValidFolderName when name is missing trailing slash', () => {
-    expect(isValidFolderName('Kiwi')).toBe(false);
+  it('returns false if value contains a slash', () => {
+    expect(isValidFolderName('Fruit/Kiwi')).toBe(false);
   });
 
   it('returns true for isValidFolderName when name is valid', () => {
-    expect(isValidFolderName('Kiwi/')).toBe(true);
+    expect(isValidFolderName('Kiwi')).toBe(true);
   });
 });
