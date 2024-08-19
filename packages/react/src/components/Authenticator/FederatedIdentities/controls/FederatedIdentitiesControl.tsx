@@ -66,8 +66,8 @@ export function createFederatedIdentities<
     ...forwardedRef,
   };
 
-  //@ts-ignore
   return {
+    //@ts-ignore
     FederatedIdentities: IdentitiesControl,
     useHandleSignInWithRedirect: useHandleSignInWithRedirect,
   };
