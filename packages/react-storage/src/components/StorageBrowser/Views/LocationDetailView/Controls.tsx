@@ -4,6 +4,7 @@ import { StorageBrowserElements } from '../../context/elements';
 import { useControl } from '../../context/controls';
 import { Controls, LocationDetailViewTable } from '../Controls';
 import { CommonControl } from '../types';
+import { useAction } from '../../context/actions';
 
 const { ActionSelect, Navigate, Refresh, Title: TitleElement } = Controls;
 
@@ -24,13 +25,34 @@ export const Title = (): React.JSX.Element => {
   return <TitleElement>{title}</TitleElement>;
 };
 
+const LocationDetailViewRefresh = () => {
+  const [{ history }] = useControl({
+    type: 'NAVIGATE',
+  });
+
+  const [{ data, isLoading }, handleList] = useAction({
+    type: 'LIST_LOCATION_ITEMS',
+  });
+
+  const prefix = history.join('');
+
+  return (
+    <Refresh
+      disabled={isLoading || data.result.length <= 0}
+      onClick={() =>
+        handleList({ prefix, options: { refresh: true, pageSize: 1000 } })
+      }
+    />
+  );
+};
+
 // @ts-expect-error TODO: add Controls assignment
 export const LocationDetailViewControls: LocationDetailViewControls = () => {
   return (
     <>
       <Navigate />
       <Title />
-      <Refresh />
+      <LocationDetailViewRefresh />
       <ActionSelect />
       <LocationDetailViewTable />
     </>

@@ -1,5 +1,22 @@
 # @aws-amplify/ui-react-native
 
+## 2.2.5
+
+### Patch Changes
+
+- [#5597](https://github.com/aws-amplify/amplify-ui/pull/5597) [`0adffa7ec`](https://github.com/aws-amplify/amplify-ui/commit/0adffa7ecd6ea11dc595044277ca4e0df56917b9) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(react-native): bump rn peerDep range
+
+- [#5594](https://github.com/aws-amplify/amplify-ui/pull/5594) [`9e30ec01d`](https://github.com/aws-amplify/amplify-ui/commit/9e30ec01d26a93ebe82604dfabfc2c5f4fe76de0) Thanks [@jordanvn](https://github.com/jordanvn)! - adding style-dictionary to ui-react-native dependencies
+
+## 2.2.4
+
+### Patch Changes
+
+- Updated dependencies [[`0919e55ba`](https://github.com/aws-amplify/amplify-ui/commit/0919e55ba6d5ec5f21fbf6d2062618c51b91c09b), [`50ef7ca8e`](https://github.com/aws-amplify/amplify-ui/commit/50ef7ca8e3d6ba116f587158c80ea08a5deeb868), [`d73bd9cc8`](https://github.com/aws-amplify/amplify-ui/commit/d73bd9cc84a2bd07c86d0c6937cbde35fc2c4bc2)]:
+  - @aws-amplify/ui@6.1.0
+  - @aws-amplify/ui-react-core@3.0.18
+  - @aws-amplify/ui-react-core-notifications@2.0.18
+
 ## 2.2.3
 
 ### Patch Changes
