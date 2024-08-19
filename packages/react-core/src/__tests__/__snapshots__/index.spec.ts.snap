@@ -11,6 +11,7 @@ exports[`@aws-amplify/ui-react-core exports should match snapshot 1`] = `
   "useAuthenticator",
   "useAuthenticatorInitMachine",
   "useAuthenticatorRoute",
+  "useDataState",
   "useDeprecationWarning",
   "useField",
   "useForm",
