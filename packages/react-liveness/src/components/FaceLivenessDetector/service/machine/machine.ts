@@ -960,7 +960,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         // Get initial stream to enumerate devices with non-empty labels
         const existingDeviceId = getLastSelectedCameraId();
         const deviceIdConstraint = existingDeviceId
-          ? { deviceId: { exact: existingDeviceId } }
+          ? { deviceId: existingDeviceId }
           : {};
         console.log('videoConstraints, ', {
           ...videoConstraints,
