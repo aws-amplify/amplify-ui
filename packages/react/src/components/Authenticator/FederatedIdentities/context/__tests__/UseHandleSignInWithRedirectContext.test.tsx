@@ -44,7 +44,7 @@ describe('useHandleSignInWithRedirect', () => {
       wrapper,
     });
 
-    const [state, handler] = result.current;
+    const [_, handler] = result.current;
 
     await act(async () => {
       handler({ provider: 'Google' });
@@ -66,7 +66,7 @@ describe('useHandleSignInWithRedirect', () => {
       wrapper,
     });
 
-    const [state, handler] = result.current;
+    const [_, handler] = result.current;
 
     await act(async () => {
       handler({ provider: { custom: 'Okta' } });
