@@ -95,20 +95,12 @@ export async function listLocationItemsAction(
     },
   };
 
-  try {
-    const output = await list(listInput);
+  const output = await list(listInput);
 
-    const result = [
-      ...(refresh ? [] : prevState.result),
-      ...parseResult(output, path),
-    ];
+  const result = [
+    ...(refresh ? [] : prevState.result),
+    ...parseResult(output, path),
+  ];
 
-    return { result, nextToken: output.nextToken };
-  } catch (e) {
-    return {
-      result: [],
-      nextToken: undefined,
-      message: (e as Error).message || 'There was an error listing items.',
-    };
-  }
+  return { result, nextToken: output.nextToken };
 }

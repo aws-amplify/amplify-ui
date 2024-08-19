@@ -53,12 +53,14 @@ const LocationDetailViewRefresh = () => {
 };
 
 export const LocationDetailMessage = (): React.JSX.Element | null => {
-  const [{ data }] = useAction({
+  const [{ hasError, message }] = useAction({
     type: 'LIST_LOCATION_ITEMS',
   });
 
-  return data?.message ? (
-    <Message variant="error">{data.message}</Message>
+  return hasError ? (
+    <Message variant="error">
+      {message ?? 'There was an error loading items.'}
+    </Message>
   ) : null;
 };
 
