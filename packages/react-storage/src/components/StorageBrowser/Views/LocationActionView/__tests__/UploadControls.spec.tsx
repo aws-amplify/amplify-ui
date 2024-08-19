@@ -59,7 +59,7 @@ describe('UploadControls', () => {
 });
 
 describe('ActionItem', () => {
-  it('should show INITIAL icon', () => {
+  it('should show all icon statuses', () => {
     const { container } = render(
       <>
         <ActionIcon />
