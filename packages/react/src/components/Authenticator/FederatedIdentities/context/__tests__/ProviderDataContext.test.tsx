@@ -27,6 +27,6 @@ describe('useProviderDataContext', () => {
   it('should throw an error if provider data is not provided', () => {
     const { result } = renderHook(() => useProviderDataContext());
 
-    expect(() => result.current).toThrow();
+    expect(() => result.current).toThrow('ProviderData does not exist');
   });
 });

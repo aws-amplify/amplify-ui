@@ -23,7 +23,7 @@ export const useProviderDataContext = (): ProviderData => {
   const providerData = React.useContext(ProviderDataContext);
 
   if (providerData === undefined) {
-    throw new Error();
+    throw new Error('ProviderData does not exist');
   }
   return providerData;
 };
