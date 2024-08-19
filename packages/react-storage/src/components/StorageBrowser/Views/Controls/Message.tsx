@@ -27,7 +27,7 @@ const DismissButton = withBaseElementProps(Button, {
 const DismissIcon = withBaseElementProps(IconElement, {
   'aria-hidden': true,
   className: `${BLOCK_NAME}__dismiss__icon`,
-  variant: 'cancel',
+  variant: 'dismiss',
 });
 
 export const MessageDismissControl: MessageDismissControl = () => (
