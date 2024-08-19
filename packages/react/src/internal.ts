@@ -9,6 +9,14 @@ export * from './components/FilterChildren';
 export { AlertIcon } from './primitives/Alert/AlertIcon';
 export * from './primitives/Icon/internal';
 
+export {
+  FileSelect,
+  FileSelectOptions,
+  FileSelectProps,
+  useFileSelect,
+  UseFileSelect,
+} from './components/FileSelect';
+
 export { Field } from './primitives/Field';
 
 export { PrimitiveCatalog } from './PrimitiveCatalog';
