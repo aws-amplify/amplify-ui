@@ -18,7 +18,9 @@ export interface ListLocationsActionInput<T = never>
   > {}
 
 export interface ListLocationsActionOutput<K = Permission>
-  extends ListActionOutput<LocationAccess<K>> {}
+  extends ListActionOutput<LocationAccess<K>> {
+  message?: string;
+}
 
 export type ListLocationsAction<T = never> = (
   prevState: ListLocationsActionOutput,
@@ -46,17 +48,26 @@ export const createListLocationsAction = (
       return { result: [], nextToken: undefined };
     }
 
-    const output = await listLocations(
-      refresh ? { pageSize } : { nextToken, pageSize }
-    );
+    try {
+      const output = await listLocations(
+        refresh ? { pageSize } : { nextToken, pageSize }
+      );
 
-    const locations = output.locations.filter(
-      ({ permission }) => !shouldExclude(permission, exclude)
-    );
+      const locations = output.locations.filter(
+        ({ permission }) => !shouldExclude(permission, exclude)
+      );
 
-    const result = refresh
-      ? locations
-      : [...(prevState.result ?? []), ...locations];
+      const result = refresh
+        ? locations
+        : [...(prevState.result ?? []), ...locations];
 
-    return { result, nextToken: output.nextToken };
+      return { result, nextToken: output.nextToken };
+    } catch (e) {
+      return {
+        result: [],
+        nextToken: undefined,
+        message:
+          (e as Error).message || 'There was an error listing locations.',
+      };
+    }
   };
