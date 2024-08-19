@@ -38,6 +38,8 @@ type ButtonElementVariant =
   | 'action-select-item'
   | 'action-select-toggle'
   | 'action-submit'
+  | 'add-files'
+  | 'add-folder'
   | 'cancel'
   | 'download'
   | 'exit'

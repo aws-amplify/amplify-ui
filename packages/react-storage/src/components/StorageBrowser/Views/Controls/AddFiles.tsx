@@ -19,6 +19,7 @@ export const AddFilesControl: AddFilesControl = ({ disable }) => {
     <>
       <FileInput actionType="UPLOAD_FILES" ref={fileUploadRef} />
       <Button
+        variant="add-files"
         className={BLOCK_NAME}
         disabled={disable}
         onClick={() => {

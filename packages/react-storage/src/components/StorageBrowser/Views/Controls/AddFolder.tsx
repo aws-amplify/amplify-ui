@@ -19,6 +19,7 @@ export const AddFolderControl: AddFolderControl = ({ disable }) => {
     <>
       <FileInput actionType="UPLOAD_FOLDER" ref={fileUploadRef} />
       <Button
+        variant="add-folder"
         className={BLOCK_NAME}
         disabled={disable}
         onClick={() => {
