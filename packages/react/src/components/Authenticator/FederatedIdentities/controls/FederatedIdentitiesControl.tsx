@@ -3,8 +3,8 @@ import { IdentityControl } from './IdentityControl';
 import {
   CreateFederatedIdentitiesInput,
   RenderButton,
-  UseHandleSignInWithRedirect,
   CreateProviderInput,
+  UseHandleSignInWithRedirectOutput,
 } from './types';
 import { FederatedIdentitiesElements } from '../context';
 import createProvider from './createProvider';
@@ -39,7 +39,7 @@ export function createFederatedIdentities<
   ...input
 }: CreateFederatedIdentitiesInput<T, K>): {
   FederatedIdentities: FederatedIdentities;
-  useHandleSignInWithRedirect?: UseHandleSignInWithRedirect;
+  useHandleSignInWithRedirect?: () => UseHandleSignInWithRedirectOutput;
 } {
   const providerDataList = toProviderData<K>(providers);
   const createProviderInput: CreateProviderInput<T, K> = {

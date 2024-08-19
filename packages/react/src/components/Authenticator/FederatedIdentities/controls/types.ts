@@ -1,14 +1,21 @@
 import { FederatedProvider } from '@aws-amplify/ui';
-import { FederatedIdentitiesElements } from '../context/elements';
-import { DataState } from '@aws-amplify/ui-react-core/dist/types/hooks';
+import { FederatedIdentitiesElements } from '../context';
+import { DataState } from '@aws-amplify/ui-react-core';
 import { signInWithRedirect, SignInWithRedirectInput } from 'aws-amplify/auth';
 import React from 'react';
 
-export interface UseHandleSignInWithRedirect {
-  (): [
-    state: DataState<void | undefined>,
-    handleAction: (...input: SignInWithRedirectInput[]) => void,
-  ];
+export type UseHandleSignInWithRedirectOutput = [
+  state: DataState<void | undefined>,
+  handleAction: SignInWithRedirectAction,
+];
+
+export type SignInWithRedirectAction = (
+  ...input: SignInWithRedirectInput[]
+) => void;
+
+export interface SignInWithRedirectProviderInput {
+  handleSignInWithRedirect?: typeof signInWithRedirect;
+  children: React.ReactNode;
 }
 
 export const DefaultFederatedProviderList: FederatedProvider[] = [
@@ -38,7 +45,7 @@ export interface CreateProviderInput<
 > {
   providers: ProviderData<K>[];
   elements?: T;
-  handleSignInWithRedirect?: typeof signInWithRedirect;
+  handleSignInWithRedirect?: SignInWithRedirectAction;
   displayText?: (displayName: string) => string;
 }
 

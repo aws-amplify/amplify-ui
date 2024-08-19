@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  SignInWithRedirectProviderProps,
+  SignInWithRedirectProviderInput,
   UseHandleSignInWithRedirectOutput,
 } from '../controls';
 import { signInWithRedirect, SignInWithRedirectInput } from 'aws-amplify/auth';
@@ -13,7 +13,7 @@ export const UseHandleSignInWithRedirectContext = React.createContext<
 export function UseHandleSignInWithRedirectProvider({
   handleSignInWithRedirect = signInWithRedirect,
   children,
-}: SignInWithRedirectProviderProps): JSX.Element {
+}: SignInWithRedirectProviderInput): JSX.Element {
   async function _signInWithRedirectAction(
     _: void | undefined,
     input: SignInWithRedirectInput
