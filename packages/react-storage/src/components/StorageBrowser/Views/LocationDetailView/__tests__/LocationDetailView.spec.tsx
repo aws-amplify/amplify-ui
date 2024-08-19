@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 
 import createProvider from '../../../createProvider';
 import { LocationItem } from '../../../context/actions';
@@ -7,6 +7,7 @@ import * as ControlsModule from '../../../context/controls/';
 import * as ActionsModule from '../../../context/actions';
 
 import { LocationDetailView } from '../LocationDetailView';
+import userEvent from '@testing-library/user-event';
 
 const listLocations = jest.fn(() =>
   Promise.resolve({ locations: [], nextToken: undefined })
@@ -86,6 +87,26 @@ describe('LocationDetailView', () => {
           </Provider>
         ).container
       ).toBeDefined();
+    });
+  });
+
+  it('refreshes table when refresh button is clicked', () => {
+    const user = userEvent.setup();
+
+    render(
+      <Provider>
+        <LocationDetailView />
+      </Provider>
+    );
+
+    const refreshButton = screen.getByLabelText('Refresh table');
+
+    act(() => {
+      user.click(refreshButton);
+    });
+
+    waitFor(() => {
+      expect(handleUpdateActionState).toHaveBeenCalled();
     });
   });
 
