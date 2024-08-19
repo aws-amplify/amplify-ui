@@ -1,0 +1,104 @@
+import { Fragment } from '@/components/Fragment'; 
+import { Avatar, View } from '@aws-amplify/ui-react';
+
+import { Example, ExampleCode } from '@/components/Example';
+import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import ThemeExample from '@/components/ThemeExample.mdx';
+
+import { AvatarDemo } from './demo';
+import {
+  DefaultAvatarExample,
+  AvatarIconProviderExample,
+  AvatarColorExample,
+  AvatarVariationExample,
+  AvatarSizeExample,
+} from './examples';
+
+## Demo
+
+<AvatarDemo />
+
+## Usage
+
+Import the Avatar primitive and styles.
+
+<Example>
+  <View>
+    <DefaultAvatarExample />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/DefaultAvatarExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+
+
+
+### Icon IconsProvider
+
+You can use the `<IconsProvider>` to change the default icon for all Avatars in your application. 
+
+<Example>
+  <View>
+    <AvatarIconProviderExample />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/AvatarIconProviderExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+
+<Example>
+  <View>
+    <AvatarSizeExample />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/AvatarSizeExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+
+<Example>
+  <View>
+    <AvatarVariationExample />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/AvatarVariationExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+
+<Example>
+  <View>
+    <AvatarColorExample />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/AvatarColorExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+IconsProvider, 

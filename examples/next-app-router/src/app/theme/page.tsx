@@ -1,5 +1,5 @@
 'use client';
-import { Avatar } from '@/components/Avatar';
+// import { Avatar } from '@/components/Avatar';
 import { MyClientComponent } from '@/components/ClientComponent';
 import { MyServerComponent } from '@/components/ServerComponent';
 import { theme } from '@/theme';
@@ -11,6 +11,7 @@ import {
   Flex,
   Heading,
   Text,
+  Avatar,
 } from '@aws-amplify/ui-react';
 
 const colorThemes: BadgeProps['variation'][] = [
@@ -24,6 +25,11 @@ const colorThemes: BadgeProps['variation'][] = [
 export default function ThemePage() {
   return (
     <Flex direction="column">
+      <Heading level={3}>Avatars</Heading>
+      <Flex direction="row">
+        <Avatar />
+        <Avatar>DB</Avatar>
+      </Flex>
       <Heading level={3}>Badges</Heading>
       <Flex direction="row">
         {colorThemes.map((colorTheme, i) => (
@@ -62,7 +68,6 @@ export default function ThemePage() {
           </Button>
         ))}
       </Flex>
-      <Avatar isDisabled />
       <MyClientComponent />
       <MyServerComponent />
       <Text color={theme.tokens.colors.font.success}>Success!</Text>
