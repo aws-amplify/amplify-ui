@@ -34,13 +34,13 @@ const LOCATION_ACTION_VIEW_COLUMNS: Column<CancelableTask>[] = [
   },
 ];
 
-interface TaskIconProps {
+interface ActionIconProps {
   status?: TaskStatus | 'CANCELED';
 }
 
 export const ICON_CLASS = `${CLASS_BASE}__action-status`;
 
-export const ActionIcon = ({ status }: TaskIconProps): React.JSX.Element => {
+export const ActionIcon = ({ status }: ActionIconProps): React.JSX.Element => {
   let variant: IconVariant = 'action-initial';
 
   switch (status) {
