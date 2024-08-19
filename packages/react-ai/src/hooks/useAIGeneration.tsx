@@ -1,46 +1,33 @@
+import { Generations } from '@aws-amplify/data-schema/dist/esm/runtime';
 import { DataState, useDataState } from '@aws-amplify/ui-react-core';
-
-interface GenerateParameters {
-  arguments: string | string[] | number;
-}
 
 interface UseAIGenerationInput {
   onError?: (error: Error) => void;
 }
 
-interface AIGenerationState {
-  result?: string;
-}
-
-export type UseAIGenerationHook<T extends string> = (
+export type UseAIGenerationHook<T, U, V> = (
   routeName: T,
   input?: UseAIGenerationInput
 ) => [
-  Awaited<DataState<AIGenerationState>>,
-  (input: GenerateParameters) => void,
-];
+    Awaited<DataState<V>>,
+    (input: U) => void,
+  ];
 
-export function createUseAIGeneration<
-  T extends Record<'generations', Record<string, any>>,
->(_client: T): UseAIGenerationHook<Extract<keyof T['generations'], string>> {
+export function createUseAIGeneration<T extends Record<'generations', Generations<any>>>(client: T):
+  UseAIGenerationHook<Extract<keyof T['generations'], string>, Parameters<T['generations'][string]>, ReturnType<T['generations'][string]>> {
   const useAIGeneration = (
-    _routeName: keyof T['generations'],
+    routeName: Extract<keyof T['generations'], string>,
     _input?: UseAIGenerationInput
   ) => {
-    // return useDataState(client.ai.generation as T['ai'])[routeName].generate, { messages: [] });
-    // const generate = client.ai.generate as T['ai'])[routeName];
-
-    // const newAction = async (_prev: { result: string }, _input: GenerateParameters) => {
-    //   const result = await generate(_input);
-    //   return { result }
-    // }
+    const handleGenerate = client.generations[routeName];
 
     const updateAIGenerationStateAction = async (
-      _prev: AIGenerationState,
-      _input: GenerateParameters
-    ): Promise<AIGenerationState> => {
-      await new Promise((r) => setTimeout(r, 500));
-      return { result: 'generatedresult' };
+      prev: ReturnType<typeof handleGenerate>,
+      input: Parameters<typeof handleGenerate>
+    ): Promise<ReturnType<typeof handleGenerate>> => {
+      const { data, errors } = await handleGenerate(input);
+
+      return { ...data };
     };
 
     return useDataState(updateAIGenerationStateAction, {});
