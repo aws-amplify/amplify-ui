@@ -10,7 +10,7 @@ describe('AddFilesControl', () => {
   it('renders a `AddFilesControl`', () => {
     render(
       <ControlProvider>
-        <AddFilesControl />
+        <AddFilesControl disable={false} />
       </ControlProvider>
     );
     const toggle = screen.getByRole('button', { name: 'Add Files' });
@@ -23,12 +23,12 @@ describe('AddFilesControl', () => {
 
     render(
       <ControlProvider>
-        <AddFilesControl />
+        <AddFilesControl disable={false} />
       </ControlProvider>
     );
 
     const button = screen.getByRole('button', { name: 'Add Files' });
-    const input: HTMLInputElement = screen.getByTestId('AddFilesInput');
+    const input: HTMLInputElement = screen.getByTestId('FileInput');
 
     user.click(button);
     await user.upload(input, file);

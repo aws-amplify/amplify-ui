@@ -21,8 +21,8 @@ export interface Controls<
   T extends StorageBrowserElements = StorageBrowserElements,
 > {
   ActionSelect: ActionSelectControl<T>;
-  AddFiles: AddFilesControl<T>;
-  AddFolder: AddFolderControl<T>;
+  AddFiles: AddFilesControl;
+  AddFolder: AddFolderControl;
   Cancel: CancelControl<T>;
   Download: DownloadControl<T>;
   Exit: ExitControl<T>;

@@ -59,6 +59,8 @@ const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
 };
 
 export const UploadControls = (): JSX.Element => {
+  const [disable, setDisabled] = React.useState(false);
+
   const [state, handleUpdateState] = useControl({
     type: 'ACTION_SELECT',
   });
@@ -73,13 +75,14 @@ export const UploadControls = (): JSX.Element => {
   return items && items.length > 0 ? (
     <>
       <Title />
-      <AddFiles />
-      <AddFolder />
+      <AddFiles disable={disable} />
+      <AddFolder disable={disable} />
       <Exit onClick={() => handleUpdateState({ type: 'EXIT' })} />
       <Primary
         onClick={() => {
           if (!items) return;
           handleUpload();
+          setDisabled(true);
         }}
       >
         Start upload

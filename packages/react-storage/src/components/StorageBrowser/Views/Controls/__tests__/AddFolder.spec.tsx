@@ -10,7 +10,7 @@ describe('AddFolderControl', () => {
   it('renders a `AddFolderControl`', () => {
     render(
       <ControlProvider>
-        <AddFolderControl />
+        <AddFolderControl disable={false} />
       </ControlProvider>
     );
     const toggle = screen.getByRole('button', { name: 'Add Folder' });
@@ -30,12 +30,12 @@ describe('AddFolderControl', () => {
 
     render(
       <ControlProvider>
-        <AddFolderControl />
+        <AddFolderControl disable={false} />
       </ControlProvider>
     );
 
     const button = screen.getByRole('button', { name: 'Add Folder' });
-    const input: HTMLInputElement = screen.getByTestId('AddFolderInput');
+    const input: HTMLInputElement = screen.getByTestId('FileInput');
 
     await act(async () => {
       user.click(button);
