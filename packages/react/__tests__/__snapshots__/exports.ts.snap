@@ -82,6 +82,7 @@ exports[`@aws-amplify/ui-react/internal exports should match snapshot 1`] = `
 [
   "AlertIcon",
   "Field",
+  "FileSelect",
   "FilterChildren",
   "IconAdd",
   "IconCheck",
@@ -109,6 +110,7 @@ exports[`@aws-amplify/ui-react/internal exports should match snapshot 1`] = `
   "useColorMode",
   "useDeprecationWarning",
   "useDropZone",
+  "useFileSelect",
   "useIcons",
   "useStorageURL",
   "useThemeBreakpoint",
