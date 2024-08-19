@@ -6,7 +6,10 @@ import {
   CreateProviderInput,
   UseHandleSignInWithRedirectOutput,
 } from './types';
-import { FederatedIdentitiesElements } from '../context';
+import {
+  FederatedIdentitiesElements,
+  useHandleSignInWithRedirect,
+} from '../context';
 import createProvider from './createProvider';
 import { toProviderData } from './utils';
 
@@ -39,7 +42,7 @@ export function createFederatedIdentities<
   ...input
 }: CreateFederatedIdentitiesInput<T, K>): {
   FederatedIdentities: FederatedIdentities;
-  useHandleSignInWithRedirect?: () => UseHandleSignInWithRedirectOutput;
+  useHandleSignInWithRedirect: () => UseHandleSignInWithRedirectOutput;
 } {
   const providerDataList = toProviderData<K>(providers);
   const createProviderInput: CreateProviderInput<T, K> = {
@@ -64,5 +67,8 @@ export function createFederatedIdentities<
   };
 
   //@ts-ignore
-  return { FederatedIdentities: IdentitiesControl };
+  return {
+    FederatedIdentities: IdentitiesControl,
+    useHandleSignInWithRedirect: useHandleSignInWithRedirect,
+  };
 }

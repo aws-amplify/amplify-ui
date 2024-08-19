@@ -18,5 +18,6 @@ export {
 export {
   UseHandleSignInWithRedirectProvider,
   UseHandleSignInWithRedirectContext,
+  useHandleSignInWithRedirect,
 } from './UseHandleSignInWithRedirectContext';
 export { FederatedIdentitiesElements } from './elements';
