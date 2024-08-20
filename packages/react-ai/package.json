@@ -47,9 +47,9 @@
     "react-dom": "^16.14.0 || ^17.0 || ^18.0"
   },
   "dependencies": {
-    "@aws-amplify/ui": "6.0.16",
-    "@aws-amplify/ui-react": "6.1.12",
-    "@aws-amplify/ui-react-core": "3.0.17"
+    "@aws-amplify/ui": "6.1.0",
+    "@aws-amplify/ui-react": "6.2.0",
+    "@aws-amplify/ui-react-core": "3.0.18"
   },
   "devDependencies": {
     "@aws-amplify/data-schema": "0.0.0-ai-20240807194534",
