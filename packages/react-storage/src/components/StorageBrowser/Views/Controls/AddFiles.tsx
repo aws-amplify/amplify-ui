@@ -35,7 +35,7 @@ function getItemsToAdd(items: LocationItem[], files: File[]) {
     });
   }
 
-  return locationItemsMap;
+  return Array.from(locationItemsMap.values());
 }
 
 export const AddFilesControl: AddFilesControl = ({ disable }) => {
@@ -48,11 +48,11 @@ export const AddFilesControl: AddFilesControl = ({ disable }) => {
   const items = prevSelectedItems ?? [];
 
   const handleInputChange = (files: File[]) => {
-    const locationItemsMap = getItemsToAdd(items, files);
+    const itemsToAdd = getItemsToAdd(items, files);
 
     handleUpdateState({
       type: 'ADD_ITEMS',
-      items: Array.from(locationItemsMap.values()),
+      items: itemsToAdd,
     });
   };
 
