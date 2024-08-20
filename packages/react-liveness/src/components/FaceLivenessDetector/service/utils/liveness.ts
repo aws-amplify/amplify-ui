@@ -276,7 +276,7 @@ export function drawStaticOval(
     height: height!,
     centerXSeed: Math.round(Math.random() * 10) / 10, // random values between 0 and 1
     centerYSeed: Math.round(Math.random() * 10) / 10, // random values between 0 and 1
-    ratioMultiplier: Math.round((Math.random() * 0.2 + 0.3) * 10) / 10, // random values between 0.3 and 0.5
+    ratioMultiplier: 0.3,
   });
   ovalDetails.flippedCenterX = width! - ovalDetails.centerX;
 
