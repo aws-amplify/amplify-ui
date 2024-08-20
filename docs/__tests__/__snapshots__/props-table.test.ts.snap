@@ -13129,6 +13129,13 @@ exports[`Props Table 1`] = `
                         "category": "BaseTextAreaFieldProps",
                         "isOptional": true
                     },
+                    "autoResize": {
+                        "name": "autoResize",
+                        "type": "boolean | undefined",
+                        "description": "Automatically adjusts the height of the textarea based on its content Default: false",
+                        "category": "BaseTextAreaFieldProps",
+                        "isOptional": true
+                    },
                     "descriptiveText": {
                         "name": "descriptiveText",
                         "type": "React.ReactNode",
