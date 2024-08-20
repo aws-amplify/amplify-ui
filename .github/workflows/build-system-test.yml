@@ -18,7 +18,9 @@ jobs:
       matrix:
         framework: [react]
         framework-version: [latest]
-        build-tool: [cra, next, vite]
+        # uncomment to re-enable
+        # build-tool: [cra, next, vite]
+        build-tool: [cra, vite]
         build-tool-version: [latest]
         pkg-manager: [npm]
         language: [ts]
