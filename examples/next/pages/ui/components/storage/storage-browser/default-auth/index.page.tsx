@@ -2,7 +2,13 @@ import React from 'react';
 import { Amplify } from 'aws-amplify';
 import { signOut } from 'aws-amplify/auth';
 
-import { Breadcrumbs, Button, withAuthenticator } from '@aws-amplify/ui-react';
+import {
+  Breadcrumbs,
+  Button,
+  Menu,
+  MenuItem,
+  withAuthenticator,
+} from '@aws-amplify/ui-react';
 import {
   createStorageBrowser,
   createAmplifyAuthAdapter,
@@ -49,6 +55,45 @@ const { StorageBrowser } = createStorageBrowser({
             );
           })}
         </Breadcrumbs.Container>
+      );
+    },
+    ActionSelect: ({ actions, handleUpdateState, history }) => {
+      return (
+        <Menu>
+          {actions.map(({ action, variant }) => {
+            const { name, type } = action;
+            const requiresFileInput =
+              type === 'UPLOAD_FILES' || type === 'UPLOAD_FOLDER';
+            const destination = history[history.length - 1];
+
+            const handleActionClick = () => {
+              if (requiresFileInput) {
+                // if (fileUploadRef?.current) {
+                //   fileUploadRef.current.click();
+                // }
+              } else {
+                /* TODO: Case for actions that don't need an input */
+                handleUpdateState({
+                  actionType: type,
+                  type: 'SELECT_ACTION_TYPE',
+                  destination,
+                  name: name,
+                  items: [],
+                });
+              }
+            };
+            return (
+              <MenuItem
+                key={name}
+                onClick={() => {
+                  handleActionClick();
+                }}
+              >
+                {name}
+              </MenuItem>
+            );
+          })}
+        </Menu>
       );
     },
   },

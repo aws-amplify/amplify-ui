@@ -10,12 +10,17 @@ import {
   LocationConfigProviderProps,
 } from './context/config';
 import { ControlProvider } from './context/controls';
-import { StorageBrowserElements } from './context/elements';
+import { ActionVariant, StorageBrowserElements } from './context/elements';
 import { Controller } from './Controller';
 import { ErrorBoundary } from './ErrorBoundary';
 import { ListLocations } from '@aws-amplify/storage/storage-browser';
 import { LocationDetailView } from './Views';
 import { NavigateAction } from './context/controls/Navigate/Navigate';
+import {
+  Action,
+  ActionSelectAction,
+  ActionType,
+} from './context/controls/ActionSelect';
 
 export interface Config
   extends Pick<
@@ -29,11 +34,21 @@ interface Views {
   LocationDetailView?: LocationDetailView;
 }
 
+interface ActionItemProps {
+  action: Action;
+  variant?: ActionVariant;
+}
+
 interface Controls {
   Navigate?: React.ComponentType<{
     history: string[];
     location: LocationAccess<Permission> | undefined;
     handleUpdateState: (action: NavigateAction) => void;
+  }>;
+  ActionSelect?: React.ComponentType<{
+    history: string[];
+    actions: ActionItemProps[];
+    handleUpdateState: (action: ActionSelectAction<ActionType>) => void;
   }>;
 }
 

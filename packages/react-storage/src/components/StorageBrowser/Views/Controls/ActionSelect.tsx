@@ -9,6 +9,7 @@ import { CLASS_BASE } from '../constants';
 import { useControl } from '../../context/controls';
 
 import type { OmitElements } from '../types';
+import { ControlsContext } from '../../createProvider';
 
 const { Button, Icon: IconElement, View } = StorageBrowserElements;
 const BLOCK_NAME = `${CLASS_BASE}__action-menu`;
@@ -216,6 +217,20 @@ export interface ActionSelectControl<
 
 export const ActionSelectControl: ActionSelectControl = () => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [{ history }] = useControl({ type: 'NAVIGATE' });
+  const [, handleUpdateState] = useControl({ type: 'ACTION_SELECT' });
+
+  const controls = React.useContext(ControlsContext);
+
+  if (controls?.ActionSelect) {
+    return (
+      <controls.ActionSelect
+        history={history}
+        actions={TEMP_ACTIONS}
+        handleUpdateState={handleUpdateState}
+      />
+    );
+  }
 
   return (
     <ActionSelectContainer>
