@@ -2,13 +2,13 @@ import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import { StorageBrowserElements } from '../../context/elements';
+import type { LocationItem } from '../../context/actions';
 import type { Action } from '../../context/controls/ActionSelect';
 import type { ActionVariant } from '../../context/elements/';
 import { CLASS_BASE } from '../constants';
 import { useControl } from '../../context/controls';
 
 import type { OmitElements } from '../types';
-import { FileInput } from './FileInput';
 
 const { Button, Icon: IconElement, View } = StorageBrowserElements;
 const BLOCK_NAME = `${CLASS_BASE}__action-menu`;
@@ -47,6 +47,14 @@ interface ActionItem<T extends StorageBrowserElements = StorageBrowserElements>
   (props: ActionItemProps): React.JSX.Element;
 }
 
+const UPLOAD_FILES_INPUT_ATTRIBUTES = {
+  multiple: true,
+};
+
+const UPLOAD_FOLDER_INPUT_ATTRIBUTES = {
+  webkitdirectory: '',
+};
+
 const ActionItem: ActionItem = ({ action, variant }) => {
   const { name, type } = action;
   const [{ history }] = useControl({ type: 'NAVIGATE' });
@@ -73,10 +81,43 @@ const ActionItem: ActionItem = ({ action, variant }) => {
     }
   };
 
+  const handleInputChange = () => {
+    if (fileUploadRef.current?.files) {
+      const files: FileList = fileUploadRef.current?.files;
+      const items: LocationItem[] = [];
+      for (const data of files) {
+        const { name, lastModified, size, webkitRelativePath } = data;
+        items.push({
+          key: type === 'UPLOAD_FOLDER' ? webkitRelativePath : name,
+          data,
+          lastModified: new Date(lastModified),
+          size,
+          type: 'FILE',
+        });
+      }
+
+      handleUpdateState({
+        actionType: type,
+        type: 'SELECT_ACTION_TYPE',
+        destination,
+        items,
+        name,
+      });
+    }
+  };
+
   return (
     <>
       {requiresFileInput ? (
-        <FileInput actionType={type} actionName={name} ref={fileUploadRef} />
+        <input
+          ref={fileUploadRef}
+          style={{ display: 'none' }}
+          type="file"
+          onChange={() => handleInputChange()}
+          {...(type === 'UPLOAD_FILES'
+            ? UPLOAD_FILES_INPUT_ATTRIBUTES
+            : UPLOAD_FOLDER_INPUT_ATTRIBUTES)}
+        />
       ) : null}
       <ActionButton onClick={() => handleActionClick()}>
         <ActionIcon variant={variant} />
