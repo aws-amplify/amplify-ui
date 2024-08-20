@@ -4,7 +4,7 @@ export const App = () => {
   return (
     <StorageManager
       acceptedFileTypes={['image/*']}
-      bucket={'my-bucket'}
+      bucket="my-bucket"
       path="public/"
       maxFileCount={1}
     />
