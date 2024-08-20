@@ -8,6 +8,7 @@ import { useAction } from '../../context/actions';
 
 const {
   ActionSelect,
+  Loading: LoadingElement,
   Message,
   Navigate,
   Refresh,
@@ -52,6 +53,14 @@ const LocationDetailViewRefresh = () => {
   );
 };
 
+const Loading = () => {
+  const [{ isLoading }] = useAction({
+    type: 'LIST_LOCATION_ITEMS',
+  });
+
+  return isLoading ? <LoadingElement loadingText="Loading items" /> : null;
+};
+
 export const LocationDetailMessage = (): React.JSX.Element | null => {
   const [{ hasError, message }] = useAction({
     type: 'LIST_LOCATION_ITEMS',
@@ -73,6 +82,7 @@ export const LocationDetailViewControls: LocationDetailViewControls = () => {
       <LocationDetailViewRefresh />
       <ActionSelect />
       <LocationDetailMessage />
+      <Loading />
       <LocationDetailViewTable />
     </>
   );

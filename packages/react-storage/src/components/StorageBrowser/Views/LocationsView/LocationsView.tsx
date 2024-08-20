@@ -8,7 +8,15 @@ import { CommonControl, ViewComponent } from '../types';
 import { LocationsViewTable } from '../Controls';
 import { useLocationsData } from '../../context/actions';
 
-const { Message, Paginate, Refresh, Search, Table, Title } = Controls;
+const {
+  Loading: LoadingElement,
+  Message,
+  Paginate,
+  Refresh,
+  Search,
+  Table,
+  Title,
+} = Controls;
 
 interface LocationsViewControls<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -39,11 +47,18 @@ const LocationsViewRefresh = () => {
   );
 };
 
+const Loading = () => {
+  const [{ isLoading }] = useLocationsData();
+
+  return isLoading ? <LoadingElement loadingText="Loading locations" /> : null;
+};
+
 const LocationsViewControls: LocationsViewControls = () => {
   return (
     <>
       <Title>Home</Title>
       <LocationsViewRefresh />
+      <Loading />
       <LocationsViewTable />
     </>
   );

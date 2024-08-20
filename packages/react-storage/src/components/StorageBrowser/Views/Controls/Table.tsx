@@ -215,12 +215,12 @@ export const TableControl: TableControl = <U,>({
 TableControl.TableRow = TableRow;
 TableControl.TableData = TableData;
 
-export const LocationsViewTable = (): JSX.Element => {
+export const LocationsViewTable = (): JSX.Element | null => {
   const [{ data, isLoading }] = useLocationsData();
   const [, handleUpdateState] = useControl({ type: 'NAVIGATE' });
 
   const hasLocations = !!data.result?.length;
-  const shouldRenderLocations = !hasLocations || isLoading;
+  const shouldRenderLocations = hasLocations && !isLoading;
 
   // @TODO: This should be it's own component instead of using `useCallback`
   const renderRowItem: RenderRowItem<LocationAccess<Permission>> =
@@ -256,17 +256,15 @@ export const LocationsViewTable = (): JSX.Element => {
     );
 
   return shouldRenderLocations ? (
-    <div>...loading</div>
-  ) : (
     <TableControl
       columns={LOCATION_VIEW_COLUMNS}
       data={data.result}
       renderRowItem={renderRowItem}
     />
-  );
+  ) : null;
 };
 
-export const LocationDetailViewTable = (): JSX.Element => {
+export const LocationDetailViewTable = (): JSX.Element | null => {
   const [{ history, location }, handleUpdateState] = useControl({
     type: 'NAVIGATE',
   });
@@ -358,13 +356,11 @@ export const LocationDetailViewTable = (): JSX.Element => {
     [handleUpdateState, prefix]
   );
 
-  return isLoading && !hasItems ? (
-    <span>loading...</span>
-  ) : (
+  return hasItems && !isLoading ? (
     <TableControl
       columns={LOCATION_DETAIL_VIEW_COLUMNS}
       data={data.result}
       renderRowItem={renderRowItem}
     />
-  );
+  ) : null;
 };
