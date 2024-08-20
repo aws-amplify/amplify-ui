@@ -34,7 +34,7 @@ export type MessageVariant = 'info' | 'success' | 'error' | 'warning';
 export type IconElementProps = React.ComponentProps<typeof IconElement>;
 
 export type ButtonElementProps = React.ComponentProps<typeof ButtonElement>;
-type ButtonElementVariant =
+export type ButtonElementVariant =
   | 'action-select-item'
   | 'action-select-toggle'
   | 'action-submit'

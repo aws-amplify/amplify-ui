@@ -14,6 +14,11 @@ import {
   Text as _Text,
   View as _View,
   ViewProps,
+  TableProps,
+  TableHeadProps,
+  TableBodyProps,
+  TableCellProps,
+  TableRowProps,
 } from '@aws-amplify/ui-react';
 import {
   ButtonElementProps,
@@ -140,43 +145,45 @@ const Title = React.forwardRef<HTMLHeadingElement>(
   }
 );
 
-const Table = React.forwardRef<HTMLTableElement>(function Table(props, ref) {
-  return (
-    <_Table
-      {...props}
-      size="small"
-      lineHeight="small"
-      variation="striped"
-      ref={ref}
-    />
-  );
-});
+const Table = React.forwardRef<HTMLTableElement, TableProps>(
+  function Table(props, ref) {
+    return (
+      <_Table
+        {...props}
+        size="small"
+        lineHeight="small"
+        variation="striped"
+        ref={ref}
+      />
+    );
+  }
+);
 
-const TableBody = React.forwardRef<HTMLTableSectionElement>(
+const TableBody = React.forwardRef<HTMLTableSectionElement, TableBodyProps>(
   function Table(props, ref) {
     return <_TableBody {...props} ref={ref} />;
   }
 );
 
-const TableHead = React.forwardRef<HTMLTableSectionElement>(
+const TableHead = React.forwardRef<HTMLTableSectionElement, TableHeadProps>(
   function TableHead(props, ref) {
     return <_TableHead {...props} ref={ref} />;
   }
 );
 
-const TableData = React.forwardRef<HTMLTableCellElement>(
+const TableData = React.forwardRef<HTMLTableCellElement, TableCellProps>(
   function TableData(props, ref) {
     return <_TableCell padding="xxxs" {...props} ref={ref} />;
   }
 );
 
-const TableRow = React.forwardRef<HTMLTableRowElement>(
+const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
   function TableRow(props, ref) {
     return <_TableRow {...props} ref={ref} />;
   }
 );
 
-const TableHeader = React.forwardRef<HTMLTableCellElement>(
+const TableHeader = React.forwardRef<HTMLTableCellElement, TableHeadProps>(
   function TableHeader(props, ref) {
     return <_TableCell padding="xxxs" as="th" {...props} ref={ref} />;
   }
