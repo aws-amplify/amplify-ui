@@ -1,10 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import {
-  IconElement,
-  DEFAULT_ICON_PATHS,
-  DEFAULT_ICON_ATTRIBUTES,
-} from '../IconElement';
+import { IconElement, DEFAULT_ICON_PATHS } from '../IconElement';
 import { FederatedProvider } from '@aws-amplify/ui';
 
 describe('IconElement', () => {
