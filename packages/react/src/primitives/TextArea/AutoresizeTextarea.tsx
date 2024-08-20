@@ -3,7 +3,7 @@ import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { BaseTextAreaProps, TextAreaProps } from '../types/textArea';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { TextArea } from './TextArea';
-import { useAutosizeTextarea } from './useAutoresizeTextarea';
+import { useAutoresizeTextArea } from './useAutoresizeTextArea';
 import { useComposeRefsCallback } from '../../hooks/useComposeRefsCallback';
 
 const AutoresizeTextAreaPrimitive: Primitive<TextAreaProps, 'textarea'> = (
@@ -11,7 +11,7 @@ const AutoresizeTextAreaPrimitive: Primitive<TextAreaProps, 'textarea'> = (
   externalRef
 ) => {
   const internalRef = React.useRef<HTMLTextAreaElement>(null);
-  useAutosizeTextarea(internalRef.current, value as string);
+  useAutoresizeTextArea(internalRef.current, value as string);
   const composedRef = useComposeRefsCallback<HTMLTextAreaElement | null>({
     externalRef,
     internalRef,
