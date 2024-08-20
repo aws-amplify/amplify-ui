@@ -3,7 +3,7 @@ import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { BaseTextAreaProps, TextAreaProps } from '../types/textArea';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { TextArea } from './TextArea';
-import { useAutoresizeTextArea } from './useAutoresizeTextArea';
+import { useAutoresizeTextArea } from './useAutoresizeTextarea';
 import { useComposeRefsCallback } from '../../hooks/useComposeRefsCallback';
 
 const AutoresizeTextAreaPrimitive: Primitive<TextAreaProps, 'textarea'> = (
