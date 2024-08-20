@@ -6,7 +6,7 @@ import { AutoresizeTextArea } from '../AutoresizeTextArea';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { Fieldset } from '../../Fieldset';
 
-describe('AutoresizeTextarea component', () => {
+describe('AutoresizeTextArea component', () => {
   it('should render custom classname for TextArea', async () => {
     render(<AutoresizeTextArea className="custom-class" />);
 

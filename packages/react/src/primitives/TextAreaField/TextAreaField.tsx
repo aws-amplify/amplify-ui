@@ -8,7 +8,7 @@ import { Flex } from '../Flex';
 import { Label } from '../Label';
 import { ForwardRefPrimitive, Primitive } from '../types';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
-import { TextArea } from '../TextArea';
+import { TextArea, AutoresizeTextArea } from '../TextArea';
 import {
   BaseTextAreaFieldProps,
   TextAreaFieldProps,
@@ -18,7 +18,6 @@ import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { createSpaceSeparatedIds } from '../utils/createSpaceSeparatedIds';
 import { DESCRIPTION_SUFFIX, ERROR_SUFFIX } from '../../helpers/constants';
 import { getUniqueComponentId } from '../utils/getUniqueComponentId';
-import { AutoresizeTextArea } from '../TextArea/AutoresizeTextArea';
 
 export const DEFAULT_ROW_COUNT = 3;
 
