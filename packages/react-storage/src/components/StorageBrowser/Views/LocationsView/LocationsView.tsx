@@ -50,7 +50,7 @@ const LocationsViewRefresh = () => {
 const Loading = () => {
   const [{ isLoading }] = useLocationsData();
 
-  return isLoading ? <LoadingElement loadingText="Loading locations" /> : null;
+  return isLoading ? <LoadingElement /> : null;
 };
 
 const LocationsViewControls: LocationsViewControls = () => {

@@ -58,7 +58,7 @@ const Loading = () => {
     type: 'LIST_LOCATION_ITEMS',
   });
 
-  return isLoading ? <LoadingElement loadingText="Loading items" /> : null;
+  return isLoading ? <LoadingElement /> : null;
 };
 
 export const LocationDetailMessage = (): React.JSX.Element | null => {

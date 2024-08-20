@@ -11,13 +11,4 @@ describe('LoadingControl', () => {
 
     expect(loadingText).toBeInTheDocument();
   });
-
-  it('renders the LoadingControl with custom loadingText', () => {
-    const text = 'Loading locations';
-    render(<LoadingControl loadingText={text} />);
-
-    const loadingText = screen.getByText(text);
-
-    expect(loadingText).toBeInTheDocument();
-  });
 });
