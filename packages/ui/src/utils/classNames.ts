@@ -9,7 +9,7 @@ type ClassNamesInput =
   | Record<string, unknown>
   | ClassNamesArgs;
 
-type ClassNamesArgs = Array<ClassNamesInput>;
+export type ClassNamesArgs = Array<ClassNamesInput>;
 
 export const classNames = (...args: ClassNamesArgs) => {
   const classes: string[] = [];
