@@ -21,9 +21,14 @@ export function UseHandleSignInWithRedirectProvider({
     await handleSignInWithRedirect(input);
   }
 
+  const useSignInWithRedirectDataState = useDataState(
+    _signInWithRedirectAction,
+    undefined
+  );
+
   return (
     <UseHandleSignInWithRedirectContext.Provider
-      value={useDataState(_signInWithRedirectAction, undefined)}
+      value={useSignInWithRedirectDataState}
     >
       {children}
     </UseHandleSignInWithRedirectContext.Provider>
