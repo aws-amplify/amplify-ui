@@ -9,8 +9,6 @@ import {
 export interface AvatarPropControlsProps extends AvatarProps {
   setVariation: (value: React.SetStateAction<AvatarProps['variation']>) => void;
   setSize: (value: React.SetStateAction<AvatarProps['size']>) => void;
-  body: string;
-  setBody: (value: React.SetStateAction<string>) => void;
   setSrc: (value: React.SetStateAction<string>) => void;
   setColorTheme: (
     value: React.SetStateAction<AvatarProps['colorTheme']>
@@ -26,8 +24,6 @@ export const AvatarPropControls: AvatarPropControlsInterface = ({
   setVariation,
   size,
   setSize,
-  body,
-  setBody,
   colorTheme,
   setColorTheme,
   src,
@@ -81,12 +77,6 @@ export const AvatarPropControls: AvatarPropControlsInterface = ({
         label="src"
         value={src}
         onChange={(event) => setSrc(event.target.value)}
-      />
-
-      <TextField
-        label="Text"
-        value={body}
-        onChange={(event) => setBody(event.target.value)}
       />
     </Flex>
   );

@@ -1,27 +1,25 @@
 import * as React from 'react';
-import { Avatar } from '@aws-amplify/ui-react';
+import { Avatar, AvatarProps } from '@aws-amplify/ui-react';
 
 import { AvatarPropControls } from './AvatarPropControls';
 import { useAvatarProps } from './useAvatarProps';
 import { Demo } from '@/components/Demo';
 import { demoState } from '@/utils/demoState';
 
-const propsToCode = (avatarProps) => {
+const propsToCode = (avatarProps: AvatarProps) => {
+  const { size, variation, colorTheme, src } = avatarProps;
   return (
     `<Avatar` +
-    (avatarProps.size ? `\n  size=${JSON.stringify(avatarProps.size)}` : '') +
-    (avatarProps.variation
-      ? `\n  variation=${JSON.stringify(avatarProps.variation)}`
-      : '') +
-    `>
-  ${avatarProps.body}
-</Avatar>`
+    (src ? `\n  src=${JSON.stringify(src)}` : '') +
+    (size ? `\n  size=${JSON.stringify(size)}` : '') +
+    (colorTheme ? `\n  colorTheme=${JSON.stringify(colorTheme)}` : '') +
+    (variation ? `\n  variation=${JSON.stringify(variation)}` : '') +
+    `\n/>`
   );
 };
 
 const defaultAvatarProps = {
   src: '/cats/1.jpg',
-  body: '',
 };
 
 export const AvatarDemo = () => {
@@ -39,9 +37,7 @@ export const AvatarDemo = () => {
         variation={avatarProps.variation}
         colorTheme={avatarProps.colorTheme}
         src={avatarProps.src.length ? avatarProps.src : undefined}
-      >
-        {avatarProps.body.length ? avatarProps.body : null}
-      </Avatar>
+      />
     </Demo>
   );
 };

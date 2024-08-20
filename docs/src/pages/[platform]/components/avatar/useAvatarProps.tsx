@@ -4,7 +4,7 @@ import { demoState } from '@/utils/demoState';
 import { AvatarPropControlsProps } from './AvatarPropControls';
 
 interface UseAvatarProps {
-  (initialValues: AvatarProps & { body?: string }): AvatarPropControlsProps;
+  (initialValues: AvatarProps): AvatarPropControlsProps;
 }
 
 export const useAvatarProps: UseAvatarProps = (initialValues) => {
@@ -17,18 +17,16 @@ export const useAvatarProps: UseAvatarProps = (initialValues) => {
   const [size, setSize] = React.useState<AvatarProps['size']>(
     initialValues.size
   );
-  const [body, setBody] = React.useState<string>(initialValues.body);
   const [src, setSrc] = React.useState<string>(initialValues.src);
 
   React.useEffect(() => {
     demoState.set(Avatar.displayName, {
       variation,
       size,
-      body,
       colorTheme,
       src,
     });
-  }, [variation, size, body, colorTheme, src]);
+  }, [variation, size, colorTheme, src]);
 
   return React.useMemo(
     () => ({
@@ -36,8 +34,6 @@ export const useAvatarProps: UseAvatarProps = (initialValues) => {
       setVariation,
       size,
       setSize,
-      body,
-      setBody,
       colorTheme,
       setColorTheme,
       src,
@@ -48,8 +44,6 @@ export const useAvatarProps: UseAvatarProps = (initialValues) => {
       setVariation,
       size,
       setSize,
-      body,
-      setBody,
       colorTheme,
       setColorTheme,
       src,
