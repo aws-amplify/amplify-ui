@@ -16,7 +16,7 @@ export {
   useDisplayTextContext,
 } from './DisplayTextContext';
 export {
-  RedirectHookProvider,
+  UseHandleSignInWithRedirectProvider,
   RedirectHookContext,
   useRedirectHook,
 } from './RedirectHookContext';

@@ -10,7 +10,7 @@ export const RedirectHookContext = React.createContext<
   UseHandleSignInWithRedirectOutput | undefined
 >(undefined);
 
-export function RedirectHookProvider({
+export function UseHandleSignInWithRedirectProvider({
   handleSignInWithRedirect = signInWithRedirect,
   children,
 }: SignInWithRedirectProviderInput): JSX.Element {
