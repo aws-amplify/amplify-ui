@@ -1,8 +1,7 @@
 import { StorageBrowserElements } from '../../context/elements';
 
 import { ActionSelectControl } from './ActionSelect';
-import { AddFilesControl } from './AddFiles';
-import { AddFolderControl } from './AddFolder';
+import { AddFilesControl, AddFolderControl } from './AddAdditionalItems';
 import { CancelControl } from './Cancel';
 import { DownloadControl } from './Download';
 import { ExitControl } from './Exit';

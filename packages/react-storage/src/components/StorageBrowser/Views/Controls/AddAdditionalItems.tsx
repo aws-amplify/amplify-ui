@@ -9,9 +9,14 @@ import { LocationItem } from '../../context/types';
 
 const { Button } = StorageBrowserElements;
 
-const BLOCK_NAME = `${CLASS_BASE}__add-files`;
+const BLOCK_NAME_ADD_FILES = `${CLASS_BASE}__add-files`;
+const BLOCK_NAME_ADD_FOLDER = `${CLASS_BASE}__add-folder`;
 
 export interface AddFilesControl {
+  (props: { disable: boolean }): React.JSX.Element;
+}
+
+export interface AddFolderControl {
   (props: { disable: boolean }): React.JSX.Element;
 }
 
@@ -39,7 +44,6 @@ function getItemsToAdd(items: LocationItem[], files: File[]) {
 }
 
 export const AddFilesControl: AddFilesControl = ({ disable }) => {
-  // const [files, setFiles] = React.useState<File[]>([]);
   const [{ selected }, handleUpdateState] = useControl({
     type: 'ACTION_SELECT',
   });
@@ -63,13 +67,49 @@ export const AddFilesControl: AddFilesControl = ({ disable }) => {
       {fileSelect}
       <Button
         variant="add-files"
-        className={BLOCK_NAME}
+        className={BLOCK_NAME_ADD_FILES}
         disabled={disable}
         onClick={() => {
           handleSelect('file');
         }}
       >
         Add Files
+      </Button>
+    </>
+  );
+};
+
+export const AddFolderControl: AddFolderControl = ({ disable }) => {
+  const [{ selected }, handleUpdateState] = useControl({
+    type: 'ACTION_SELECT',
+  });
+
+  const { items: prevSelectedItems } = selected;
+  const items = prevSelectedItems ?? [];
+
+  const handleInputChange = (files: File[]) => {
+    const itemsToAdd = getItemsToAdd(items, files);
+
+    handleUpdateState({
+      type: 'ADD_ITEMS',
+      items: itemsToAdd,
+    });
+  };
+
+  const [fileSelect, handleSelect] = useFileSelect(handleInputChange);
+
+  return (
+    <>
+      {fileSelect}
+      <Button
+        variant="add-folder"
+        className={BLOCK_NAME_ADD_FOLDER}
+        disabled={disable}
+        onClick={() => {
+          handleSelect('folder');
+        }}
+      >
+        Add Folder
       </Button>
     </>
   );
