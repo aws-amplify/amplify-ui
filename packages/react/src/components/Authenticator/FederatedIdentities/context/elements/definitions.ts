@@ -6,6 +6,7 @@ export interface FederatedIdentitiesElements {
   ListItem: typeof ListItemElement;
   Icon: typeof IconElement;
   Group: typeof GroupElement;
+  Text: typeof TextElement;
 }
 
 type ButtonElementProps = 'onClick' | 'type';
@@ -24,9 +25,15 @@ export const ListItemElement = defineBaseElement({
   displayName: 'ListItem',
 });
 
+export const TextElement = defineBaseElement({
+  type: 'span',
+  displayName: 'Text',
+});
+
 export const FederatedIdentitiesElements: FederatedIdentitiesElements = {
   Button: ButtonElement,
   Group: GroupElement,
   ListItem: ListItemElement,
   Icon: IconElement,
+  Text: TextElement,
 };

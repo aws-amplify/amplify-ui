@@ -1,22 +1,21 @@
 import { FederatedProvider } from '@aws-amplify/ui';
-import { FederatedIdentitiesElements } from '../context/elements';
+import { FederatedIdentitiesElements } from '../context';
+import { DataState } from '@aws-amplify/ui-react-core';
+import { signInWithRedirect, SignInWithRedirectInput } from 'aws-amplify/auth';
 import React from 'react';
-import { DataState } from '@aws-amplify/ui-react-core/dist/types/hooks';
 
-interface HandleSignInWithRedirectInput<T extends string = string> {
-  providerName: T;
-  customState?: string;
-}
+export type UseHandleSignInWithRedirectOutput = [
+  state: DataState<void | undefined>,
+  handleAction: SignInWithRedirectAction,
+];
 
-interface HandleSignInWithRedirect {
-  (input: HandleSignInWithRedirectInput): Promise<void>;
-}
+export type SignInWithRedirectAction = (
+  ...input: SignInWithRedirectInput[]
+) => void;
 
-export interface UseHandleSignInWithRedirect<K extends string = string> {
-  (): [
-    state: DataState<void | undefined>,
-    handleAction: (...input: HandleSignInWithRedirectInput<K>[]) => void,
-  ];
+export interface SignInWithRedirectProviderInput {
+  handleSignInWithRedirect?: typeof signInWithRedirect;
+  children: React.ReactNode;
 }
 
 export const DefaultFederatedProviderList: FederatedProvider[] = [
@@ -34,9 +33,20 @@ export interface CreateFederatedIdentitiesInput<
   T extends Partial<FederatedIdentitiesElements> = FederatedIdentitiesElements,
   K extends string = string,
 > {
-  elements?: T;
   providers: ProviderType<K>[];
-  handleSignInWithRedirect?: HandleSignInWithRedirect;
+  elements?: T;
+  handleSignInWithRedirect?: typeof signInWithRedirect;
+  displayText?: (displayName: string) => string;
+}
+
+export interface CreateProviderInput<
+  T extends Partial<FederatedIdentitiesElements>,
+  K extends string = string,
+> {
+  providers: ProviderData<K>[];
+  elements?: T;
+  handleSignInWithRedirect?: SignInWithRedirectAction;
+  displayText?: (displayName: string) => string;
 }
 
 export interface ProviderData<T extends string = string> {
