@@ -1,5 +1,5 @@
 import React from 'react';
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 
 import { ControlProvider } from '../../../context/controls';
 
@@ -73,12 +73,11 @@ describe('AddFolderControl', () => {
     const input: HTMLInputElement = screen.getByTestId('amplify-file-select');
 
     await act(async () => {
-      user.click(button);
-      await user.upload(input, files);
+      await user.click(button);
     });
 
-    waitFor(() => {
-      expect(input.files).toHaveLength(files.length);
-    });
+    await user.upload(input, files);
+
+    expect(input.files).toHaveLength(files.length);
   });
 });
