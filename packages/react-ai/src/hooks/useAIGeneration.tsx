@@ -1,30 +1,30 @@
-import { Generations } from '@aws-amplify/data-schema/dist/esm/runtime';
 import { DataState, useDataState } from '@aws-amplify/ui-react-core';
+import { V6Client } from '@aws-amplify/api-graphql';
 
 interface UseAIGenerationInput {
   onError?: (error: Error) => void;
 }
 
-export type UseAIGenerationHook<T, U, V> = (
+export type UseAIGenerationHook<T, K extends Record<any, any>> = (
   routeName: T,
   input?: UseAIGenerationInput
 ) => [
-    Awaited<DataState<V>>,
-    (input: U) => void,
+    Awaited<DataState<K[T]['returnType']>>,
+    (input: K[T]['args']) => void,
   ];
 
-export function createUseAIGeneration<T extends Record<'generations', Generations<any>>>(client: T):
-  UseAIGenerationHook<Extract<keyof T['generations'], string>, Parameters<T['generations'][string]>, ReturnType<T['generations'][string]>> {
+export function createUseAIGeneration<T extends Record<any, any> = never>(client: V6Client<T>):
+  UseAIGenerationHook<Extract<keyof V6Client<T>['generations'], string>, T> {
   const useAIGeneration = (
-    routeName: Extract<keyof T['generations'], string>,
+    routeName: Extract<keyof V6Client<T>['generations'], string>,
     _input?: UseAIGenerationInput
   ) => {
     const handleGenerate = client.generations[routeName];
 
     const updateAIGenerationStateAction = async (
-      prev: ReturnType<typeof handleGenerate>,
-      input: Parameters<typeof handleGenerate>
-    ): Promise<ReturnType<typeof handleGenerate>> => {
+      prev: T[Extract<keyof V6Client<T>['generations'], string>]['returnType'],
+      input: T[Extract<keyof V6Client<T>['generations'], string>]['args']
+    ): Promise<T[Extract<keyof V6Client<T>['generations'], string>]['returnType']> => {
       const { data, errors } = await handleGenerate(input);
 
       return { ...data };
