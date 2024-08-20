@@ -32,7 +32,6 @@ export interface AIConversationInput<
   displayText?: DisplayTextTemplate<AIConversationDisplayText>;
   suggestedPrompts?: SuggestedPrompt[];
   actions?: CustomAction[];
-  showChainOfThought?: boolean;
   responseComponents?: ResponseComponents;
   variant?: MessageVariant;
 }
