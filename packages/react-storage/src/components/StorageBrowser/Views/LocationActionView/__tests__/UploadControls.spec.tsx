@@ -24,7 +24,7 @@ describe('UploadControls', () => {
     jest.clearAllMocks();
   });
 
-  it('should display "No items selected." when no items are selected', async () => {
+  it('should display "No items to show." when no items are selected', async () => {
     useControlSpy.mockReturnValueOnce([{ selected: { items: null } }]);
     useControlSpy.mockReturnValueOnce([{ history: [] }]);
 
@@ -53,7 +53,7 @@ describe('UploadControls', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText('No items selected.')).toBeInTheDocument();
+      expect(screen.getByText('No items to show.')).toBeInTheDocument();
     });
   });
 });
