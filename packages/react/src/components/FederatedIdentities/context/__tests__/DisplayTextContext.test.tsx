@@ -26,4 +26,8 @@ describe('useDisplayTextContext', () => {
 
     expect(result.current).toBe(customDisplayText);
   });
+
+  it('should display text correctly', () => {
+    expect(displayText('test')).toBe('Sign in with test');
+  });
 });
