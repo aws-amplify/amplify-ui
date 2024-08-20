@@ -49,7 +49,7 @@ const TableHead = withBaseElementProps(BaseTableHead, {
   className: `${BLOCK_NAME}__head`,
 });
 
-const TableHeaderButton = withBaseElementProps(Button, {
+export const TableHeaderButton = withBaseElementProps(Button, {
   className: `${BLOCK_NAME}__header__button`,
   variant: 'sort',
 });
@@ -150,7 +150,7 @@ export interface Column<T> {
 
 export interface TableControl<
   T extends StorageBrowserElements = StorageBrowserElements,
-> extends Pick<T, 'TableData' | 'TableRow'> {
+> extends Pick<T, 'TableData' | 'TableRow' | 'TableHeader'> {
   <U>(props: TableControlProps<U>): React.JSX.Element;
 }
 
@@ -188,6 +188,7 @@ export const TableControl: TableControl = <U,>({
 
 TableControl.TableRow = TableRow;
 TableControl.TableData = TableData;
+TableControl.TableHeader = TableHeader;
 
 const LocationsViewColumnSortMap = {
   scope: compareStrings,
@@ -230,10 +231,10 @@ export const LocationsViewTable = (): JSX.Element => {
         >
           <TableHeaderButton
             onClick={() => {
-              setCompareFn(() => LocationsViewColumnSortMap[column.key]);
+              setCompareFn(() => LocationsViewColumnSortMap[key]);
 
               setSortState((prevState) => ({
-                selection: column.key,
+                selection: key,
                 direction:
                   prevState.direction === 'ascending'
                     ? 'descending'
@@ -241,8 +242,8 @@ export const LocationsViewTable = (): JSX.Element => {
               }));
             }}
           >
-            {column.header}
-            {selection === column.key ? (
+            {header}
+            {selection === key ? (
               <Icon
                 variant={
                   sortDirection === 'none'
@@ -366,13 +367,13 @@ export const LocationDetailViewTable = (): JSX.Element => {
           key={header}
           aria-sort={selection === key ? direction : 'none'}
         >
-          {LocationDetailViewColumnSortMap[column.key] ? (
+          {key in LocationDetailViewColumnSortMap ? (
             <TableHeaderButton
               onClick={() => {
-                setCompareFn(() => LocationDetailViewColumnSortMap[column.key]);
+                setCompareFn(() => LocationDetailViewColumnSortMap[key]);
 
                 setSortState((prevState) => ({
-                  selection: column.key,
+                  selection: key,
                   direction:
                     prevState.direction === 'ascending'
                       ? 'descending'
@@ -380,8 +381,8 @@ export const LocationDetailViewTable = (): JSX.Element => {
                 }));
               }}
             >
-              {column.header}
-              {selection === column.key ? (
+              {header}
+              {selection === key ? (
                 <Icon
                   variant={
                     direction === 'none'
@@ -394,7 +395,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
               )}
             </TableHeaderButton>
           ) : (
-            column.header
+            header
           )}
         </TableHeader>
       );

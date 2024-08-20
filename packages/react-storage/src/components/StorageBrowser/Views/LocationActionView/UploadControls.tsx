@@ -6,7 +6,14 @@ import { StorageBrowserElements } from '../../context/elements';
 import { IconVariant } from '../../context/elements/IconElement';
 import { Controls } from '../Controls';
 import { Title } from './Controls';
-import { TableDataText, Column, RenderRowItem } from '../Controls/Table';
+import {
+  TableDataText,
+  Column,
+  RenderRowItem,
+  SortState,
+  TableHeaderButton,
+} from '../Controls/Table';
+import { compareNumbers, compareStrings } from '../../context/controls/Table';
 import { CLASS_BASE } from '../constants';
 
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
@@ -69,6 +76,12 @@ export const ActionIcon = ({ status }: ActionIconProps): React.JSX.Element => {
   );
 };
 
+const LocationActionViewColumnSortMap = {
+  key: compareStrings,
+  status: compareStrings,
+  progress: compareNumbers,
+};
+
 const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
   return (
     <Table.TableRow key={index}>
@@ -112,7 +125,72 @@ export const UploadControls = (): JSX.Element => {
     items: items! as FileItem[],
   });
 
-  return items ? (
+  const [compareFn, setCompareFn] = React.useState<(a: any, b: any) => number>(
+    () => compareStrings
+  );
+  const [sortState, setSortState] = React.useState<SortState<CancelableTask>>({
+    selection: 'key',
+    direction: 'ascending',
+  });
+
+  const { direction, selection } = sortState;
+
+  const tableData =
+    direction === 'ascending'
+      ? tasks.sort((a, b) => compareFn(a[selection], b[selection]))
+      : tasks.sort((a, b) => compareFn(b[selection], a[selection]));
+
+  const renderHeaderItem = React.useCallback(
+    (column: Column<CancelableTask>) => {
+      // Defining this function inside the `UploadControls` to get access
+      // to the current sort state
+      const { header, key } = column;
+
+      return (
+        <Table.TableHeader
+          key={header}
+          aria-sort={selection === key ? direction : 'none'}
+        >
+          {key in LocationActionViewColumnSortMap ? (
+            <TableHeaderButton
+              onClick={() => {
+                setCompareFn(
+                  () =>
+                    LocationActionViewColumnSortMap[
+                      key as keyof typeof LocationActionViewColumnSortMap
+                    ]
+                );
+
+                setSortState((prevState) => ({
+                  selection: column.key,
+                  direction:
+                    prevState.direction === 'ascending'
+                      ? 'descending'
+                      : 'ascending',
+                }));
+              }}
+            >
+              {column.header}
+              {selection === column.key && (
+                <Icon
+                  variant={
+                    direction === 'none'
+                      ? 'sort-indeterminate'
+                      : `sort-${direction}`
+                  }
+                />
+              )}
+            </TableHeaderButton>
+          ) : (
+            column.header
+          )}
+        </Table.TableHeader>
+      );
+    },
+    [direction, selection]
+  );
+
+  return items && items.length > 0 ? (
     <>
       <Title />
       <Exit onClick={() => handleUpdateState({ type: 'EXIT' })} />
@@ -126,9 +204,9 @@ export const UploadControls = (): JSX.Element => {
       </Primary>
       <Summary />
       <Table
-        data={tasks}
+        data={tableData}
         columns={LOCATION_ACTION_VIEW_COLUMNS}
-        renderHeaderItem={() => <div></div>} // temporary
+        renderHeaderItem={renderHeaderItem}
         renderRowItem={renderRowItem}
       />
     </>
