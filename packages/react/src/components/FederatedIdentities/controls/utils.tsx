@@ -4,6 +4,31 @@ import {
   DefaultFederatedProviderList,
 } from './types';
 import { capitalize, FederatedProvider } from '@aws-amplify/ui';
+import { ResourcesConfig } from 'aws-amplify';
+
+export function getProviderConfig<
+  T extends Record<any, any>,
+  K extends string = string,
+>(config: T | ResourcesConfig): ProviderType<K>[] {
+  const providers = (config as ResourcesConfig)?.Auth?.Cognito.loginWith?.oauth
+    ?.providers;
+  if (providers == null) {
+    return [];
+  }
+
+  const supportedProviders: FederatedProvider[] = providers
+    .filter((item) => {
+      return (
+        typeof item == 'string' &&
+        DefaultFederatedProviderList.includes(
+          (item as string).toLowerCase() as FederatedProvider
+        )
+      );
+    })
+    .map((item) => (item as string).toLowerCase() as FederatedProvider);
+
+  return supportedProviders as ProviderType<K>[];
+}
 
 function getSupportedProviderData<T extends string = string>(
   providerName: T
