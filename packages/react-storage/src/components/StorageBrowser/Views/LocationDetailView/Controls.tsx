@@ -6,7 +6,13 @@ import { Controls, LocationDetailViewTable } from '../Controls';
 import { CommonControl } from '../types';
 import { useAction } from '../../context/actions';
 
-const { ActionSelect, Navigate, Refresh, Title: TitleElement } = Controls;
+const {
+  ActionSelect,
+  Message,
+  Navigate,
+  Refresh,
+  Title: TitleElement,
+} = Controls;
 
 export interface LocationDetailViewControls<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -46,6 +52,18 @@ const LocationDetailViewRefresh = () => {
   );
 };
 
+export const LocationDetailMessage = (): React.JSX.Element | null => {
+  const [{ hasError, message }] = useAction({
+    type: 'LIST_LOCATION_ITEMS',
+  });
+
+  return hasError ? (
+    <Message variant="error">
+      {message ?? 'There was an error loading items.'}
+    </Message>
+  ) : null;
+};
+
 // @ts-expect-error TODO: add Controls assignment
 export const LocationDetailViewControls: LocationDetailViewControls = () => {
   return (
@@ -54,6 +72,7 @@ export const LocationDetailViewControls: LocationDetailViewControls = () => {
       <Title />
       <LocationDetailViewRefresh />
       <ActionSelect />
+      <LocationDetailMessage />
       <LocationDetailViewTable />
     </>
   );
