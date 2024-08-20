@@ -5,13 +5,11 @@ import {
   useDisplayTextContext,
   displayText,
   UseHandleSignInWithRedirectProvider,
-  getSignInWithRedirectAction,
 } from '../../context';
 import createProvider from '../createProvider';
 import { renderHook } from '@testing-library/react';
 import { signInWithRedirect } from 'aws-amplify/auth';
 import * as DataStateModule from '@aws-amplify/ui-react-core';
-import { DataState } from '@aws-amplify/ui-react-core';
 
 const useDataStateSpy = jest.spyOn(DataStateModule, 'useDataState');
 

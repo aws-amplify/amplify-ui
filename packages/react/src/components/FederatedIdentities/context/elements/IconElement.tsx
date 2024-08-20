@@ -64,7 +64,7 @@ export const DEFAULT_ICON_PATHS: Record<
   ],
 };
 
-export const DEFAULT_ICON_ATTRIBUTES: Record<
+const DEFAULT_ICON_ATTRIBUTES: Record<
   FederatedProvider,
   React.SVGProps<SVGSVGElement> & React.RefAttributes<SVGSVGElement>
 > = {
