@@ -329,13 +329,13 @@ export const LocationDetailViewTable = (): JSX.Element => {
   const [compareFn, setCompareFn] = React.useState(() => compareStrings);
   const [sortState, setSortState] = React.useState<SortState<LocationItem>>({
     selection: 'key',
-    sortDirection: 'ascending',
+    direction: 'ascending',
   });
 
-  const { sortDirection, selection } = sortState;
+  const { direction, selection } = sortState;
 
   const tableData =
-    sortDirection === 'ascending'
+    direction === 'ascending'
       ? data.result.sort((a, b) => compareFn(a[selection], b[selection]))
       : data.result.sort((a, b) => compareFn(b[selection], a[selection]));
 
@@ -364,7 +364,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
       return (
         <TableHeader
           key={header}
-          aria-sort={selection === key ? sortDirection : 'none'}
+          aria-sort={selection === key ? direction : 'none'}
         >
           <TableHeaderButton
             onClick={() => {
@@ -372,8 +372,8 @@ export const LocationDetailViewTable = (): JSX.Element => {
 
               setSortState((prevState) => ({
                 selection: column.key,
-                sortDirection:
-                  prevState.sortDirection === 'ascending'
+                direction:
+                  prevState.direction === 'ascending'
                     ? 'descending'
                     : 'ascending',
               }));
@@ -383,9 +383,9 @@ export const LocationDetailViewTable = (): JSX.Element => {
             {selection === column.key ? (
               <Icon
                 variant={
-                  sortDirection === 'none'
+                  direction === 'none'
                     ? 'sort-indeterminate'
-                    : `sort-${sortDirection}`
+                    : `sort-${direction}`
                 }
               />
             ) : (
@@ -395,7 +395,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
         </TableHeader>
       );
     },
-    [sortDirection, selection]
+    [direction, selection]
   );
 
   // @TODO: This should be it's own component instead of using `useCallback`
