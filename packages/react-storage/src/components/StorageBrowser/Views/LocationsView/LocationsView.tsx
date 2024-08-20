@@ -8,7 +8,15 @@ import { CommonControl, ViewComponent } from '../types';
 import { LocationsViewTable } from '../Controls';
 import { useLocationsData } from '../../context/actions';
 
-const { Message, Paginate, Refresh, Search, Table, Title } = Controls;
+const {
+  EmptyMessage: EmptyMessageElement,
+  Message,
+  Paginate,
+  Refresh,
+  Search,
+  Table,
+  Title,
+} = Controls;
 
 interface LocationsViewControls<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -39,12 +47,21 @@ const LocationsViewRefresh = () => {
   );
 };
 
+const EmptyMessage = () => {
+  const [{ data, isLoading, hasError }] = useLocationsData();
+  const shouldShowEmptyMessage =
+    data.result.length === 0 && !isLoading && !hasError;
+
+  return shouldShowEmptyMessage ? <EmptyMessageElement /> : null;
+};
+
 const LocationsViewControls: LocationsViewControls = () => {
   return (
     <>
       <Title>Home</Title>
       <LocationsViewRefresh />
       <LocationsViewTable />
+      <EmptyMessage />
     </>
   );
 };

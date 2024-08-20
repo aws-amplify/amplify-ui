@@ -208,6 +208,8 @@ const View = React.forwardRef<HTMLDivElement, ViewProps & { variant?: string }>(
             </Flex>
           </_Message>
         );
+      case 'empty-message':
+        return <_Message colorTheme="neutral" {...props} />;
       default:
         return <_View {...props} ref={ref} />;
     }

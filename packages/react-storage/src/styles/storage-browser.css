@@ -247,3 +247,9 @@
 .storage-browser__action-status--action-canceled {
   color: var(--storage-browser-status-error);
 }
+
+.storage-browser__empty-message {
+  text-align: center;
+  grid-row-start: 5;
+  grid-column: 1 / -1;
+}
