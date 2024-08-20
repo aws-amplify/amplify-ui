@@ -1,6 +1,10 @@
 .storage-browser {
   --storage-browser-gap-small: 0.375rem;
   --storage-browser-gap: 0.6rem;
+  --storage-browser-status-error: hsl(0, 95%, 30%);
+  --storage-browser-status-success: hsl(130, 33%, 37%);
+  --storage-browser-status-progress: hsl(220, 95%, 30%);
+  --storage-browser-status-initial: hsl(210, 10%, 58%);
   display: grid;
   gap: var(--storage-browser-gap);
   grid-template-columns: repeat(32, 1fr);
@@ -178,7 +182,8 @@
   white-space: nowrap;
 }
 
-.storage-browser__table__data__icon {
+.storage-browser__table__data__icon,
+.storage-browser__action-status {
   vertical-align: middle;
   margin-inline-end: var(--storage-browser-gap-small);
 }
@@ -227,4 +232,18 @@
   grid-row-start: 2;
   grid-column: 28 / 29;
   justify-self: flex-end;
+}
+
+.storage-browser__action-status--action-initial {
+  color: var(--storage-browser-status-initial);
+}
+.storage-browser__action-status--action-success {
+  color: var(--storage-browser-status-success);
+}
+.storage-browser__action-status--action-progress {
+  color: var(--storage-browser-status-progress);
+}
+.storage-browser__action-status--action-error,
+.storage-browser__action-status--action-canceled {
+  color: var(--storage-browser-status-error);
 }

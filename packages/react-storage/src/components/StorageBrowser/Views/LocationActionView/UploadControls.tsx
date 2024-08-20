@@ -1,8 +1,9 @@
 import React from 'react';
 
 import { useControl } from '../../context/controls';
-import { FileItem } from '../../context/types';
-
+import { FileItem, TaskStatus } from '../../context/types';
+import { StorageBrowserElements } from '../../context/elements';
+import { IconVariant } from '../../context/elements/IconElement';
 import { Controls } from '../Controls';
 import { Title } from './Controls';
 import {
@@ -12,9 +13,9 @@ import {
   TableHeaderButton,
   SortState,
 } from '../Controls/Table';
+import { CLASS_BASE } from '../constants';
 
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
-import { StorageBrowserElements } from '../../context/elements';
 
 const { Cancel, Exit, Primary, Summary, Table } = Controls;
 
@@ -39,6 +40,41 @@ const LOCATION_ACTION_VIEW_COLUMNS: Column<CancelableTask>[] = [
   },
 ];
 
+interface ActionIconProps {
+  status?: TaskStatus | 'CANCELED';
+}
+
+export const ICON_CLASS = `${CLASS_BASE}__action-status`;
+
+export const ActionIcon = ({ status }: ActionIconProps): React.JSX.Element => {
+  let variant: IconVariant = 'action-initial';
+
+  switch (status) {
+    case 'QUEUED':
+      variant = 'action-queued';
+      break;
+    case 'IN_PROGRESS':
+      variant = 'action-progress';
+      break;
+    case 'SUCCESS':
+      variant = 'action-success';
+      break;
+    case 'ERROR':
+      variant = 'action-error';
+      break;
+    case 'CANCELED':
+      variant = 'action-canceled';
+      break;
+  }
+
+  return (
+    <Icon
+      variant={variant}
+      className={`${ICON_CLASS} ${ICON_CLASS}--${variant}`}
+    />
+  );
+};
+
 const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
   return (
     <Table.TableRow key={index}>
@@ -49,7 +85,10 @@ const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
             variant={column.key}
           >
             {column.key === 'key' ? (
-              <TableDataText>{row.key}</TableDataText>
+              <TableDataText>
+                <ActionIcon status={row.status} />
+                {row.key}
+              </TableDataText>
             ) : column.key === 'status' ? (
               <TableDataText>{row.status}</TableDataText>
             ) : column.key === 'progress' ? (
