@@ -17,7 +17,7 @@ export type SortDirection = 'ascending' | 'descending' | 'none';
 
 export type SortState<T> = {
   selection: keyof T;
-  sortDirection: SortDirection;
+  direction: SortDirection;
 };
 
 const {
@@ -207,10 +207,10 @@ export const LocationsViewTable = (): JSX.Element => {
     SortState<LocationAccess<Permission>>
   >({
     selection: 'scope',
-    sortDirection: 'ascending',
+    direction: 'ascending',
   });
 
-  const { sortDirection, selection } = sortState;
+  const { direction: sortDirection, selection } = sortState;
 
   const tableData =
     sortDirection === 'ascending'
@@ -234,8 +234,8 @@ export const LocationsViewTable = (): JSX.Element => {
 
               setSortState((prevState) => ({
                 selection: column.key,
-                sortDirection:
-                  prevState.sortDirection === 'ascending'
+                direction:
+                  prevState.direction === 'ascending'
                     ? 'descending'
                     : 'ascending',
               }));
