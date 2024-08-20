@@ -23,7 +23,7 @@
     "test:links": "node --require esbuild-register ./scripts/link-checker-puppeteer.ts"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "6.1.14",
+    "@aws-amplify/ui-react": "6.2.0",
     "@docsearch/react": "3",
     "@mdx-js/loader": "^2.1.0",
     "@mdx-js/mdx": "^2.1.0",
@@ -53,7 +53,8 @@
     "remark-mdx-images": "^1.0.2",
     "rimraf": "^3.0.2",
     "sass": "^1.43.4",
-    "slugify": "^1.6.3"
+    "slugify": "^1.6.3",
+    "style-dictionary": "3.9.1"
   },
   "license": "MIT",
   "devDependencies": {

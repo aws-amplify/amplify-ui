@@ -8,7 +8,6 @@ import {
   Badge,
   BadgeProps,
   Button,
-  ButtonProps,
   Flex,
   Heading,
   Text,
