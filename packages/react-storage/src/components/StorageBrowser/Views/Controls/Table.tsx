@@ -114,10 +114,6 @@ const LOCATION_VIEW_COLUMNS: Column<LocationAccess<Permission>>[] = [
     key: 'scope',
   },
   {
-    header: 'Type',
-    key: 'type',
-  },
-  {
     header: 'Permission',
     key: 'permission',
   },
