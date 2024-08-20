@@ -2,10 +2,10 @@ import React from 'react';
 import { signInWithRedirect } from 'aws-amplify/auth';
 import { SignInWithRedirectAction } from '../controls';
 
-const HandleSignInWithRedirectContext =
+const RedirectFunctionContext =
   React.createContext<SignInWithRedirectAction>(signInWithRedirect);
 
-export const HandleSignInWithRedirectProvider = ({
+export const RedirectFunctionProvider = ({
   children,
   customRedirect,
 }: {
@@ -13,13 +13,12 @@ export const HandleSignInWithRedirectProvider = ({
   customRedirect: SignInWithRedirectAction;
 }): JSX.Element => {
   return (
-    <HandleSignInWithRedirectContext.Provider value={customRedirect}>
+    <RedirectFunctionContext.Provider value={customRedirect}>
       {children}
-    </HandleSignInWithRedirectContext.Provider>
+    </RedirectFunctionContext.Provider>
   );
 };
 
-export const useHandleSignInWithRedirectContext =
-  (): SignInWithRedirectAction => {
-    return React.useContext(HandleSignInWithRedirectContext);
-  };
+export const useRedirectFunctionContext = (): SignInWithRedirectAction => {
+  return React.useContext(RedirectFunctionContext);
+};

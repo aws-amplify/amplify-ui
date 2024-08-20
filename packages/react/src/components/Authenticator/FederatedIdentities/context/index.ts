@@ -7,17 +7,17 @@ export {
   useProviderDataContext,
 } from './ProviderDataContext';
 export {
-  HandleSignInWithRedirectProvider,
-  useHandleSignInWithRedirectContext,
-} from './HandleSignInWithRedirectContext';
+  RedirectFunctionProvider,
+  useRedirectFunctionContext,
+} from './RedirectFunctionContext';
 export {
   displayText,
   DisplayTextProvider,
   useDisplayTextContext,
 } from './DisplayTextContext';
 export {
-  UseHandleSignInWithRedirectProvider,
-  UseHandleSignInWithRedirectContext,
-  useHandleSignInWithRedirect,
-} from './UseHandleSignInWithRedirectContext';
+  RedirectHookProvider,
+  RedirectHookContext,
+  useRedirectHook,
+} from './RedirectHookContext';
 export { FederatedIdentitiesElements } from './elements';

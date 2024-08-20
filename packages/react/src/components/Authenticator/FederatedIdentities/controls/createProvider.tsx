@@ -3,10 +3,10 @@ import { CreateProviderInput } from './types';
 import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 import {
   ProviderDataListProvider,
-  HandleSignInWithRedirectProvider,
+  RedirectFunctionProvider,
   DisplayTextProvider,
   FederatedIdentitiesElements,
-  UseHandleSignInWithRedirectContext,
+  RedirectHookContext,
 } from '../context';
 import { signInWithRedirect } from 'aws-amplify/auth';
 
@@ -23,22 +23,20 @@ export default function createProvider<
   }: {
     children?: React.ReactNode;
   }): React.JSX.Element {
-    const context = React.useContext(UseHandleSignInWithRedirectContext);
+    const redirectHook = React.useContext(RedirectHookContext);
 
-    if (context != null) {
-      handleSignInWithRedirect = context[1];
+    if (redirectHook != null) {
+      handleSignInWithRedirect = redirectHook[1];
     }
 
     return (
       <ElementsProvider elements={elements}>
         <ProviderDataListProvider providerDataList={providers}>
-          <HandleSignInWithRedirectProvider
-            customRedirect={handleSignInWithRedirect}
-          >
+          <RedirectFunctionProvider customRedirect={handleSignInWithRedirect}>
             <DisplayTextProvider customDisplayText={displayText}>
               {children}
             </DisplayTextProvider>
-          </HandleSignInWithRedirectProvider>
+          </RedirectFunctionProvider>
         </ProviderDataListProvider>
       </ElementsProvider>
     );
