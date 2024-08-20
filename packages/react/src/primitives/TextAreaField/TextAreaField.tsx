@@ -18,6 +18,7 @@ import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { createSpaceSeparatedIds } from '../utils/createSpaceSeparatedIds';
 import { DESCRIPTION_SUFFIX, ERROR_SUFFIX } from '../../helpers/constants';
 import { getUniqueComponentId } from '../utils/getUniqueComponentId';
+import { AutoresizeTextArea } from '../TextArea/AutoresizeTextarea';
 
 export const DEFAULT_ROW_COUNT = 3;
 
@@ -37,6 +38,7 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
     size,
     testId,
     inputStyles,
+    autoResize,
     // Destructuring the 'resize' style prop because while it is a style prop
     // it should go on the textarea element and not the wrapper div.
     resize,
@@ -74,17 +76,31 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
         labelHidden={labelHidden}
         descriptiveText={descriptiveText}
       />
-      <TextArea
-        aria-describedby={ariaDescribedBy}
-        hasError={hasError}
-        id={fieldId}
-        ref={ref}
-        rows={rows ?? DEFAULT_ROW_COUNT}
-        size={size}
-        resize={resize}
-        {...rest}
-        {...inputStyles}
-      />
+      {autoResize ? (
+        <AutoresizeTextArea
+          aria-describedby={ariaDescribedBy}
+          hasError={hasError}
+          id={fieldId}
+          ref={ref}
+          rows={rows ?? DEFAULT_ROW_COUNT}
+          size={size}
+          resize={resize}
+          {...rest}
+          {...inputStyles}
+        />
+      ) : (
+        <TextArea
+          aria-describedby={ariaDescribedBy}
+          hasError={hasError}
+          id={fieldId}
+          ref={ref}
+          rows={rows ?? DEFAULT_ROW_COUNT}
+          size={size}
+          resize={resize}
+          {...rest}
+          {...inputStyles}
+        />
+      )}
       <FieldErrorMessage
         id={errorId}
         hasError={hasError}
