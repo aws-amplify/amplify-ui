@@ -99,14 +99,12 @@ describe('TableControl', () => {
     ];
 
     render(
-      <Provider>
-        <TableControl
-          data={locationItems}
-          columns={columns}
-          renderHeaderItem={renderHeaderItemSpy}
-          renderRowItem={renderRowItemSpy}
-        />
-      </Provider>
+      <TableControl
+        data={locationItems}
+        columns={columns}
+        renderHeaderItem={renderHeaderItemSpy}
+        renderRowItem={renderRowItemSpy}
+      />
     );
 
     expect(renderHeaderItemSpy).toHaveBeenCalled();
