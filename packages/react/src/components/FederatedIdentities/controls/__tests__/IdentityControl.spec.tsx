@@ -1,12 +1,11 @@
-import React from 'react';
-import { render, screen, waitFor, within } from '@testing-library/react';
+import React, { forwardRef } from 'react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { CreateProviderInput, ProviderData } from '../types';
 import createProvider from '../createProvider';
 import { IdentityControl } from '../IdentityControl';
 import { CLASS_BASE } from '../../constants';
 import userEvent from '@testing-library/user-event';
 import * as AuthModule from 'aws-amplify/auth';
-import { forwardRef } from 'react';
 
 const customRedirect = jest.fn();
 const customOnClick = jest.fn();
