@@ -9,6 +9,14 @@ export { AlertIcon } from './primitives/Alert/AlertIcon';
 export * from './primitives/Icon/internal';
 export { useDropZone } from './primitives/DropZone/useDropZone';
 
+export {
+  FileSelect,
+  FileSelectOptions,
+  FileSelectProps,
+  useFileSelect,
+  UseFileSelect,
+} from './components/FileSelect';
+
 export { Field } from './primitives/Field';
 
 export { PrimitiveCatalog } from './PrimitiveCatalog';
