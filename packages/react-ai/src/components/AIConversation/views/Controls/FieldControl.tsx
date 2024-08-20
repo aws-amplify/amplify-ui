@@ -64,37 +64,39 @@ const Label = withBaseElementProps(LabelElement, {
   htmlFor: 'text-input',
 });
 
+const useHandleResize = (
+  textAreaRef: React.MutableRefObject<HTMLTextAreaElement | null>
+) => {
+  React.useEffect(() => {
+    const { current } = textAreaRef;
+    const handleResize = () => {
+      if (current) {
+        current.style.height = 'auto';
+        current.style.height = `${current.scrollHeight}px`;
+      }
+    };
+
+    if (current) {
+      current.addEventListener('input', handleResize);
+      handleResize();
+    }
+
+    return () => {
+      if (current) {
+        current.removeEventListener('input', handleResize);
+      }
+    };
+  }, [textAreaRef]);
+};
+
 const TextInput: typeof TextAreaBase = React.forwardRef(
   function TextInput(props, ref) {
     const { setInput } = React.useContext(InputContext);
     const messages = React.useContext(MessagesContext);
     const textAreaRef = React.useRef<HTMLTextAreaElement | null>(null);
+    useHandleResize(textAreaRef);
 
     const isFirstMessage = !messages || messages.length === 0;
-
-    React.useEffect(() => {
-      const handleResize = () => {
-        if (textAreaRef && textAreaRef.current) {
-          textAreaRef.current.style.height = 'auto';
-          textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
-        }
-      };
-
-      if (
-        textAreaRef &&
-        textAreaRef instanceof HTMLTextAreaElement &&
-        textAreaRef.current
-      ) {
-        textAreaRef.current.addEventListener('input', handleResize);
-        handleResize();
-      }
-
-      return () => {
-        if (textAreaRef && textAreaRef.current) {
-          textAreaRef.current.removeEventListener('input', handleResize);
-        }
-      };
-    });
 
     React.useEffect(() => {
       if (textAreaRef && textAreaRef.current) {
