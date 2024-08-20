@@ -9,16 +9,16 @@ import {
   TableDataText,
   Column,
   RenderRowItem,
-  SortAscendingIcon,
-  SortDescendingIcon,
-  SortIndeterminateIcon,
   TableHeaderButton,
+  SortState,
 } from '../Controls/Table';
-import { tableSortReducer } from '../Controls/Table';
 
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
+import { StorageBrowserElements } from '../../context/elements';
 
 const { Cancel, Exit, Primary, Summary, Table } = Controls;
+
+const { Icon } = StorageBrowserElements;
 
 const LOCATION_ACTION_VIEW_COLUMNS: Column<CancelableTask>[] = [
   {
@@ -68,15 +68,6 @@ const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
 };
 
 export const UploadControls = (): JSX.Element => {
-  const [sortState, updateTableSortState] = React.useReducer(
-    tableSortReducer<CancelableTask>,
-    {
-      direction: 'ASCENDING',
-      selection: 'key',
-    }
-  );
-  const { direction, selection } = sortState;
-
   const [state, handleUpdateState] = useControl({
     type: 'ACTION_SELECT',
   });
@@ -88,6 +79,14 @@ export const UploadControls = (): JSX.Element => {
     items: items! as FileItem[],
   });
 
+  // const [compareFn, setCompareFn] = React.useState(() => compareStrings);
+  const [sortState] = React.useState<SortState<CancelableTask>>({
+    selection: 'key',
+    sortDirection: 'ascending',
+  });
+
+  const { sortDirection, selection } = sortState;
+
   const renderHeaderItem = React.useCallback(
     (column: Column<CancelableTask>) => {
       // Defining this function inside the `UploadControls` to get access
@@ -98,40 +97,30 @@ export const UploadControls = (): JSX.Element => {
       return (
         <Table.TableHeader
           key={header}
-          aria-sort={
-            selection === key
-              ? direction === 'ASCENDING'
-                ? 'ascending'
-                : direction === 'DESCENDING'
-                ? 'descending'
-                : 'none'
-              : 'none'
-          }
+          aria-sort={selection === key ? sortDirection : 'none'}
         >
           <TableHeaderButton
             onClick={() => {
-              updateTableSortState({
-                selection: column.key,
-              });
+              // updateTableSortState({
+              //   selection: column.key,
+              // });
             }}
           >
             {column.header}
-            {selection === column.key ? (
-              direction === 'ASCENDING' ? (
-                <SortAscendingIcon />
-              ) : direction === 'DESCENDING' ? (
-                <SortDescendingIcon />
-              ) : (
-                <SortIndeterminateIcon />
-              )
-            ) : (
-              <SortIndeterminateIcon />
+            {selection === column.key && (
+              <Icon
+                variant={
+                  sortDirection === 'none'
+                    ? 'sort-indeterminate'
+                    : `sort-${sortDirection}`
+                }
+              />
             )}
           </TableHeaderButton>
         </Table.TableHeader>
       );
     },
-    [direction, selection]
+    [sortDirection, selection]
   );
 
   return items ? (

@@ -8,7 +8,7 @@ import { useControl } from '../../context/controls';
 import { LocationAccess, LocationItem, Permission } from '../../context/types';
 import { useAction, useLocationsData } from '../../context/actions';
 
-export type SortDirection = 'ASCENDING' | 'DESCENDING' | 'NONE';
+export type SortDirection = 'ascending' | 'descending' | 'none';
 
 const {
   Table: BaseTable,
@@ -163,72 +163,23 @@ export type RenderHeaderItem<T> = (column: Column<T>) => JSX.Element;
 
 export type RenderRowItem<T> = (row: T, index: number) => JSX.Element;
 
-interface TableSortState<T> {
-  direction: SortDirection;
-  selection: keyof T;
-}
+const compareStrings = (a: string, b: string): number => {
+  if (a === undefined) return 1;
+  if (b === undefined) return -1;
+  return a.localeCompare(b);
+};
 
-type TableSortAction<T> = { selection: keyof T };
+const compareNumbers = (a: number, b: number): number => {
+  if (a === undefined) return 1;
+  if (b === undefined) return -1;
+  return a - b;
+};
 
-export function tableSortReducer<T>(
-  state: TableSortState<T>,
-  action: TableSortAction<T>
-): TableSortState<T> {
-  const { direction, selection: prevSelection } = state;
-  const { selection } = action;
-
-  if (selection === prevSelection) {
-    const newDirection: SortDirection =
-      direction === 'ASCENDING' ? 'DESCENDING' : 'ASCENDING';
-
-    return { direction: newDirection, selection };
-  } else {
-    return { direction: 'ASCENDING', selection };
-  }
-}
-
-export function defaultTableSort<T>(
-  data: T[],
-  direction: SortDirection,
-  selection: keyof T
-): T[] {
-  return data.sort((a, b) => {
-    const isDateString = (s: T[keyof T]) =>
-      typeof s === 'string' && !isNaN(Date.parse(s));
-
-    const aValue = a[selection];
-    const bValue = b[selection];
-
-    // Handle missing values
-    if (aValue == null && bValue != null) {
-      return direction === 'ASCENDING' ? 1 : -1;
-    }
-    if (aValue != null && bValue == null) {
-      return direction === 'ASCENDING' ? -1 : 1;
-    }
-    if (aValue == null && bValue == null) {
-      return 0;
-    }
-
-    // If isDate is true, parse the values as Date objects
-    const aParsed =
-      typeof aValue === 'string' && isDateString(aValue)
-        ? new Date(aValue)
-        : aValue;
-    const bParsed =
-      typeof bValue === 'string' && isDateString(bValue)
-        ? new Date(bValue)
-        : bValue;
-
-    if (aParsed < bParsed) {
-      return direction === 'ASCENDING' ? -1 : 1;
-    } else if (aValue > bValue) {
-      return direction === 'ASCENDING' ? 1 : -1;
-    } else {
-      return 0;
-    }
-  });
-}
+const compareDates = (a: Date, b: Date): number => {
+  if (a === undefined) return 1;
+  if (b === undefined) return -1;
+  return a.getTime() - b.getTime();
+};
 
 interface TableControlProps<T> {
   data: T[];
@@ -260,31 +211,35 @@ TableControl.TableRow = TableRow;
 TableControl.TableData = TableData;
 TableControl.TableHeader = TableHeader;
 
-export const LocationsViewTable = ({
-  sortFunction,
-}: {
-  sortFunction?: () => LocationAccess<Permission>[];
-}): JSX.Element => {
-  const sortFn = sortFunction ?? defaultTableSort;
+const LocationsViewColumnSortMap = {
+  scope: compareStrings,
+  type: compareStrings,
+  permission: compareStrings,
+};
 
-  const [sortState, updateTableSortState] = React.useReducer(
-    tableSortReducer<LocationAccess<Permission>>,
-    {
-      direction: 'ASCENDING',
-      selection: 'scope',
-    }
-  );
+export type SortState<T> = {
+  selection: keyof T;
+  sortDirection: SortDirection;
+};
 
-  const { direction, selection } = sortState;
-
+export const LocationsViewTable = (): JSX.Element => {
   const [{ data, isLoading }] = useLocationsData();
   const [, handleUpdateState] = useControl({ type: 'NAVIGATE' });
 
-  const tableData = sortFn<LocationAccess<Permission>>(
-    data.result,
-    direction,
-    selection
-  );
+  const [compareFn, setCompareFn] = React.useState(() => compareStrings);
+  const [sortState, setSortState] = React.useState<
+    SortState<LocationAccess<Permission>>
+  >({
+    selection: 'scope',
+    sortDirection: 'ascending',
+  });
+
+  const { sortDirection, selection } = sortState;
+
+  const tableData =
+    sortDirection === 'ascending'
+      ? data.result.sort((a, b) => compareFn(a[selection], b[selection]))
+      : data.result.sort((a, b) => compareFn(b[selection], a[selection]));
 
   const hasLocations = !!data.result?.length;
   const shouldRenderLocations = !hasLocations || isLoading;
@@ -299,40 +254,38 @@ export const LocationsViewTable = ({
       return (
         <TableHeader
           key={header}
-          aria-sort={
-            selection === key
-              ? direction === 'ASCENDING'
-                ? 'ascending'
-                : direction === 'DESCENDING'
-                ? 'descending'
-                : 'none'
-              : 'none'
-          }
+          aria-sort={selection === key ? sortDirection : 'none'}
         >
           <TableHeaderButton
             onClick={() => {
-              updateTableSortState({
+              setCompareFn(() => LocationsViewColumnSortMap[column.key]);
+
+              setSortState((prevState) => ({
                 selection: column.key,
-              });
+                sortDirection:
+                  prevState.sortDirection === 'ascending'
+                    ? 'descending'
+                    : 'ascending',
+              }));
             }}
           >
             {column.header}
             {selection === column.key ? (
-              direction === 'ASCENDING' ? (
-                <SortAscendingIcon />
-              ) : direction === 'DESCENDING' ? (
-                <SortDescendingIcon />
-              ) : (
-                <SortIndeterminateIcon />
-              )
+              <Icon
+                variant={
+                  sortDirection === 'none'
+                    ? 'sort-indeterminate'
+                    : `sort-${sortDirection}`
+                }
+              />
             ) : (
-              <SortIndeterminateIcon />
+              <Icon variant="sort-indeterminate" />
             )}
           </TableHeaderButton>
         </TableHeader>
       );
     },
-    [direction, selection]
+    [sortDirection, selection]
   );
 
   // @TODO: This should be it's own component instead of using `useCallback`
@@ -380,23 +333,14 @@ export const LocationsViewTable = ({
   );
 };
 
-export const LocationDetailViewTable = ({
-  sortFunction,
-}: {
-  sortFunction?: () => LocationItem[];
-}): JSX.Element => {
-  const sortFn = sortFunction ?? defaultTableSort;
+const LocationDetailViewColumnSortMap = {
+  key: compareStrings,
+  type: compareStrings,
+  lastModified: compareDates,
+  size: compareNumbers,
+};
 
-  const [sortState, updateTableSortState] = React.useReducer(
-    tableSortReducer<LocationItem>,
-    {
-      direction: 'ASCENDING',
-      selection: 'key',
-    }
-  );
-
-  const { direction, selection } = sortState;
-
+export const LocationDetailViewTable = (): JSX.Element => {
   const [{ history, location }, handleUpdateState] = useControl({
     type: 'NAVIGATE',
   });
@@ -405,12 +349,23 @@ export const LocationDetailViewTable = ({
     type: 'LIST_LOCATION_ITEMS',
   });
 
+  const [compareFn, setCompareFn] = React.useState(() => compareStrings);
+  const [sortState, setSortState] = React.useState<SortState<LocationItem>>({
+    selection: 'key',
+    sortDirection: 'ascending',
+  });
+
+  const { sortDirection, selection } = sortState;
+
+  const tableData =
+    sortDirection === 'ascending'
+      ? data.result.sort((a, b) => compareFn(a[selection], b[selection]))
+      : data.result.sort((a, b) => compareFn(b[selection], a[selection]));
+
   const prefix = history.join('');
 
   const hasItems = !!data.result?.length;
   const shouldReset = !history.length && hasItems && !location;
-
-  const tableData = sortFn(data.result, direction, selection);
 
   React.useEffect(() => {
     if (shouldReset) {
@@ -437,40 +392,38 @@ export const LocationDetailViewTable = ({
       return (
         <TableHeader
           key={header}
-          aria-sort={
-            selection === key
-              ? direction === 'ASCENDING'
-                ? 'ascending'
-                : direction === 'DESCENDING'
-                ? 'descending'
-                : 'none'
-              : 'none'
-          }
+          aria-sort={selection === key ? sortDirection : 'none'}
         >
           <TableHeaderButton
             onClick={() => {
-              updateTableSortState({
+              setCompareFn(() => LocationDetailViewColumnSortMap[column.key]);
+
+              setSortState((prevState) => ({
                 selection: column.key,
-              });
+                sortDirection:
+                  prevState.sortDirection === 'ascending'
+                    ? 'descending'
+                    : 'ascending',
+              }));
             }}
           >
             {column.header}
             {selection === column.key ? (
-              direction === 'ASCENDING' ? (
-                <SortAscendingIcon />
-              ) : direction === 'DESCENDING' ? (
-                <SortDescendingIcon />
-              ) : (
-                <SortIndeterminateIcon />
-              )
+              <Icon
+                variant={
+                  sortDirection === 'none'
+                    ? 'sort-indeterminate'
+                    : `sort-${sortDirection}`
+                }
+              />
             ) : (
-              <SortIndeterminateIcon />
+              <Icon variant="sort-indeterminate" />
             )}
           </TableHeaderButton>
         </TableHeader>
       );
     },
-    [direction, selection]
+    [sortDirection, selection]
   );
 
   // @TODO: This should be it's own component instead of using `useCallback`
