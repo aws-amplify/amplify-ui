@@ -16,7 +16,7 @@ export const BaseIconElement = defineBaseElement<
   displayName: 'Icon',
 });
 
-const DEFAULT_ICON_PATHS: Record<
+export const DEFAULT_ICON_PATHS: Record<
   FederatedProvider,
   React.SVGProps<SVGPathElement>[]
 > = {

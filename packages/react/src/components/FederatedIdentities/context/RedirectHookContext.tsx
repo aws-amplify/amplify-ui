@@ -10,19 +10,27 @@ export const RedirectHookContext = React.createContext<
   UseHandleSignInWithRedirectOutput | undefined
 >(undefined);
 
-export function UseHandleSignInWithRedirectProvider({
-  handleSignInWithRedirect = signInWithRedirect,
-  children,
-}: SignInWithRedirectProviderInput): JSX.Element {
-  async function _signInWithRedirectAction(
+export function getSignInWithRedirectAction(
+  handleSignInWithRedirect: typeof signInWithRedirect
+) {
+  return async function _signInWithRedirectAction(
     _: void | undefined,
     input: SignInWithRedirectInput
   ): Promise<void> {
     await handleSignInWithRedirect(input);
-  }
+  };
+}
+
+export function UseHandleSignInWithRedirectProvider({
+  handleSignInWithRedirect = signInWithRedirect,
+  children,
+}: SignInWithRedirectProviderInput): JSX.Element {
+  const signInWithRedirectAction = getSignInWithRedirectAction(
+    handleSignInWithRedirect
+  );
 
   const useSignInWithRedirectDataState = useDataState(
-    _signInWithRedirectAction,
+    signInWithRedirectAction,
     undefined
   );
 
