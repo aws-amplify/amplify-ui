@@ -6,11 +6,11 @@ import {
 import { signInWithRedirect, SignInWithRedirectInput } from 'aws-amplify/auth';
 import { useDataState } from '@aws-amplify/ui-react-core';
 
-export const UseHandleSignInWithRedirectContext = React.createContext<
+export const RedirectHookContext = React.createContext<
   UseHandleSignInWithRedirectOutput | undefined
 >(undefined);
 
-export function UseHandleSignInWithRedirectProvider({
+export function RedirectHookProvider({
   handleSignInWithRedirect = signInWithRedirect,
   children,
 }: SignInWithRedirectProviderInput): JSX.Element {
@@ -27,25 +27,20 @@ export function UseHandleSignInWithRedirectProvider({
   );
 
   return (
-    <UseHandleSignInWithRedirectContext.Provider
-      value={useSignInWithRedirectDataState}
-    >
+    <RedirectHookContext.Provider value={useSignInWithRedirectDataState}>
       {children}
-    </UseHandleSignInWithRedirectContext.Provider>
+    </RedirectHookContext.Provider>
   );
 }
 
-export const useHandleSignInWithRedirect =
-  (): UseHandleSignInWithRedirectOutput => {
-    const useHandleSignInWithRedirect = React.useContext(
-      UseHandleSignInWithRedirectContext
+export const useRedirectHook = (): UseHandleSignInWithRedirectOutput => {
+  const useHandleSignInWithRedirect = React.useContext(RedirectHookContext);
+
+  if (useHandleSignInWithRedirect === undefined) {
+    throw new Error(
+      'useHandleSignInWithRedirect must be used within a UseHandleSignInWithRedirectProvider'
     );
+  }
 
-    if (useHandleSignInWithRedirect === undefined) {
-      throw new Error(
-        'useHandleSignInWithRedirect must be used within a UseHandleSignInWithRedirectProvider'
-      );
-    }
-
-    return useHandleSignInWithRedirect;
-  };
+  return useHandleSignInWithRedirect;
+};

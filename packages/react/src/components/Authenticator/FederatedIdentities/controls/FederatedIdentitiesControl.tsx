@@ -6,10 +6,7 @@ import {
   CreateProviderInput,
   UseHandleSignInWithRedirectOutput,
 } from './types';
-import {
-  FederatedIdentitiesElements,
-  useHandleSignInWithRedirect,
-} from '../context';
+import { FederatedIdentitiesElements, useRedirectHook } from '../context';
 import createProvider from './createProvider';
 import { toProviderData } from './utils';
 
@@ -69,6 +66,6 @@ export function createFederatedIdentities<
   return {
     //@ts-ignore
     FederatedIdentities: IdentitiesControl,
-    useHandleSignInWithRedirect: useHandleSignInWithRedirect,
+    useHandleSignInWithRedirect: useRedirectHook,
   };
 }

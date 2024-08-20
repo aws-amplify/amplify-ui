@@ -2,10 +2,7 @@ import React from 'react';
 import { act, waitFor } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 import { signInWithRedirect } from 'aws-amplify/auth';
-import {
-  useHandleSignInWithRedirect,
-  UseHandleSignInWithRedirectProvider,
-} from '../UseHandleSignInWithRedirectContext';
+import { useRedirectHook, RedirectHookProvider } from '../RedirectHookContext';
 import * as AuthModule from 'aws-amplify/auth';
 
 const signInWithRedirectSpy = jest.spyOn(AuthModule, 'signInWithRedirect');
@@ -35,12 +32,10 @@ describe('useHandleSignInWithRedirect', () => {
     });
 
     const wrapper = ({ children }) => (
-      <UseHandleSignInWithRedirectProvider>
-        {children}
-      </UseHandleSignInWithRedirectProvider>
+      <RedirectHookProvider>{children}</RedirectHookProvider>
     );
 
-    const { result } = renderHook(() => useHandleSignInWithRedirect(), {
+    const { result } = renderHook(() => useRedirectHook(), {
       wrapper,
     });
 
@@ -55,14 +50,12 @@ describe('useHandleSignInWithRedirect', () => {
 
   it('uses the custom function when it is passed in', async () => {
     const wrapper = ({ children }) => (
-      <UseHandleSignInWithRedirectProvider
-        handleSignInWithRedirect={customSignInWithRedirect}
-      >
+      <RedirectHookProvider handleSignInWithRedirect={customSignInWithRedirect}>
         {children}
-      </UseHandleSignInWithRedirectProvider>
+      </RedirectHookProvider>
     );
 
-    const { result } = renderHook(() => useHandleSignInWithRedirect(), {
+    const { result } = renderHook(() => useRedirectHook(), {
       wrapper,
     });
 
@@ -88,12 +81,10 @@ describe('useHandleSignInWithRedirect', () => {
     });
 
     const wrapper = ({ children }) => (
-      <UseHandleSignInWithRedirectProvider>
-        {children}
-      </UseHandleSignInWithRedirectProvider>
+      <RedirectHookProvider>{children}</RedirectHookProvider>
     );
 
-    const { result } = renderHook(() => useHandleSignInWithRedirect(), {
+    const { result } = renderHook(() => useRedirectHook(), {
       wrapper,
     });
 
@@ -107,7 +98,7 @@ describe('useHandleSignInWithRedirect', () => {
   });
 
   it('throws an error if not used within provider', () => {
-    const { result } = renderHook(() => useHandleSignInWithRedirect());
+    const { result } = renderHook(() => useRedirectHook());
 
     expect(() => result.current).toThrow(
       'useHandleSignInWithRedirect must be used within a UseHandleSignInWithRedirectProvider'
