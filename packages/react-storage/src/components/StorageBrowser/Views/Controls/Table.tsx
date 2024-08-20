@@ -366,32 +366,36 @@ export const LocationDetailViewTable = (): JSX.Element => {
           key={header}
           aria-sort={selection === key ? direction : 'none'}
         >
-          <TableHeaderButton
-            onClick={() => {
-              setCompareFn(() => LocationDetailViewColumnSortMap[column.key]);
+          {LocationDetailViewColumnSortMap[column.key] ? (
+            <TableHeaderButton
+              onClick={() => {
+                setCompareFn(() => LocationDetailViewColumnSortMap[column.key]);
 
-              setSortState((prevState) => ({
-                selection: column.key,
-                direction:
-                  prevState.direction === 'ascending'
-                    ? 'descending'
-                    : 'ascending',
-              }));
-            }}
-          >
-            {column.header}
-            {selection === column.key ? (
-              <Icon
-                variant={
-                  direction === 'none'
-                    ? 'sort-indeterminate'
-                    : `sort-${direction}`
-                }
-              />
-            ) : (
-              <Icon variant="sort-indeterminate" />
-            )}
-          </TableHeaderButton>
+                setSortState((prevState) => ({
+                  selection: column.key,
+                  direction:
+                    prevState.direction === 'ascending'
+                      ? 'descending'
+                      : 'ascending',
+                }));
+              }}
+            >
+              {column.header}
+              {selection === column.key ? (
+                <Icon
+                  variant={
+                    direction === 'none'
+                      ? 'sort-indeterminate'
+                      : `sort-${direction}`
+                  }
+                />
+              ) : (
+                <Icon variant="sort-indeterminate" />
+              )}
+            </TableHeaderButton>
+          ) : (
+            column.header
+          )}
         </TableHeader>
       );
     },
