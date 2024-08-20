@@ -11,6 +11,12 @@ export const STORAGE_IMAGE = [
     type: 'string | ((input: { identityId?: string }) => string);',
   },
   {
+    name: 'bucket?',
+    description:
+      'The S3 bucket which be will accessed. Allows either a string containing the user-assigned "friendly name" or an object containing a combination of the backend-assigned name on S3 and the S3 region.',
+    type: 'string | { bucketName: string, region: string }',
+  },
+  {
     name: 'imgKey',
     description:
       'Deprecated, use path instead. The key of an image. See https://docs.amplify.aws/gen1/react/build-a-backend/storage/download/',
