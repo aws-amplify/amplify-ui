@@ -8,6 +8,7 @@ import { useAction } from '../../context/actions';
 
 const {
   ActionSelect,
+  EmptyMessage: EmptyMessageElement,
   Message,
   Navigate,
   Refresh,
@@ -64,6 +65,16 @@ export const LocationDetailMessage = (): React.JSX.Element | null => {
   ) : null;
 };
 
+const EmptyMessage = () => {
+  const [{ data, hasError, isLoading }] = useAction({
+    type: 'LIST_LOCATION_ITEMS',
+  });
+  const shouldShowEmptyMessage =
+    data.result.length === 0 && !isLoading && !hasError;
+
+  return shouldShowEmptyMessage ? <EmptyMessageElement /> : null;
+};
+
 // @ts-expect-error TODO: add Controls assignment
 export const LocationDetailViewControls: LocationDetailViewControls = () => {
   return (
@@ -74,6 +85,7 @@ export const LocationDetailViewControls: LocationDetailViewControls = () => {
       <ActionSelect />
       <LocationDetailMessage />
       <LocationDetailViewTable />
+      <EmptyMessage />
     </>
   );
 };

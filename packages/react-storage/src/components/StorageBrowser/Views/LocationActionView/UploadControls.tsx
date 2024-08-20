@@ -13,7 +13,14 @@ import { CancelableTask, useHandleUpload } from './useHandleUpload';
 
 const { Icon } = StorageBrowserElements;
 
-const { Cancel, Exit, Primary, Summary, Table } = Controls;
+const {
+  Cancel,
+  EmptyMessage: EmptyMessageElement,
+  Exit,
+  Primary,
+  Summary,
+  Table,
+} = Controls;
 
 const LOCATION_ACTION_VIEW_COLUMNS: Column<CancelableTask>[] = [
   {
@@ -100,6 +107,22 @@ const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
   );
 };
 
+const EmptyMessage = () => {
+  const [state] = useControl({
+    type: 'ACTION_SELECT',
+  });
+  const { items } = state.selected;
+  const [{ history }] = useControl({ type: 'NAVIGATE' });
+  const [tasks] = useHandleUpload({
+    prefix: history.join(''),
+    items: items! as FileItem[],
+  });
+  console.log('tasks: ', tasks); // <-- This doesn't update after items are removed.
+  const shouldShowEmptyMessage = tasks.length === 0;
+
+  return shouldShowEmptyMessage ? <EmptyMessageElement /> : null;
+};
+
 export const UploadControls = (): JSX.Element => {
   const [state, handleUpdateState] = useControl({
     type: 'ACTION_SELECT',
@@ -111,27 +134,29 @@ export const UploadControls = (): JSX.Element => {
     prefix: history.join(''),
     items: items! as FileItem[],
   });
+  const hasTasks = tasks.length !== 0;
 
-  return items ? (
+  return (
     <>
       <Title />
       <Exit onClick={() => handleUpdateState({ type: 'EXIT' })} />
       <Primary
         onClick={() => {
-          if (!items) return;
+          if (!items || !tasks) return;
           handleUpload();
         }}
       >
         Start upload
       </Primary>
       <Summary />
-      <Table
-        data={tasks}
-        columns={LOCATION_ACTION_VIEW_COLUMNS}
-        renderRowItem={renderRowItem}
-      />
+      {hasTasks ? (
+        <Table
+          data={tasks}
+          columns={LOCATION_ACTION_VIEW_COLUMNS}
+          renderRowItem={renderRowItem}
+        />
+      ) : null}
+      <EmptyMessage />
     </>
-  ) : (
-    <span>No items selected.</span>
   );
 };
