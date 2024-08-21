@@ -1,15 +1,17 @@
 import React from 'react';
 import { act, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import createProvider from '../../../createProvider';
 import * as ActionsModule from '../../../context/actions';
+import * as ControlsModule from '../../../context/controls';
 
 import { LocationDetailView } from '../LocationDetailView';
-import userEvent from '@testing-library/user-event';
 
 const listLocations = jest.fn(() =>
   Promise.resolve({ locations: [], nextToken: undefined })
 );
+
 const config = {
   getLocationCredentials: jest.fn(),
   listLocations,
@@ -31,20 +33,31 @@ jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
   handleList,
 ]);
 
+jest.spyOn(ControlsModule, 'useControl').mockReturnValue([
+  {
+    location: {
+      scope: 's3://test-bucket/*',
+      permission: 'READ',
+      type: 'BUCKET',
+    },
+    history: [{ prefix: 'cat-cat/' }],
+  },
+]);
+
 describe('LocationDetailView', () => {
   it('renders a `LocationDetailView`', async () => {
     await waitFor(() => {
-      expect(
-        render(
-          <Provider>
-            <LocationDetailView />
-          </Provider>
-        ).container
-      ).toBeDefined();
+      render(
+        <Provider>
+          <LocationDetailView />
+        </Provider>
+      );
     });
+
+    expect(screen.getByTestId('LOCATION_DETAIL_VIEW')).toBeDefined();
   });
 
-  it('refreshes table when refresh button is clicked', () => {
+  it('refreshes table when refresh button is clicked', async () => {
     const user = userEvent.setup();
 
     render(
@@ -55,12 +68,10 @@ describe('LocationDetailView', () => {
 
     const refreshButton = screen.getByLabelText('Refresh table');
 
-    act(() => {
-      user.click(refreshButton);
+    await act(async () => {
+      await user.click(refreshButton);
     });
 
-    waitFor(() => {
-      expect(handleList).toHaveBeenCalled();
-    });
+    expect(handleList).toHaveBeenCalled();
   });
 });

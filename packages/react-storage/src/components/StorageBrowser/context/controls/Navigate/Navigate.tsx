@@ -3,16 +3,22 @@ import React from 'react';
 import { LocationAccess } from '../../types';
 import { parseLocationAccess } from './utils';
 
-const INITIAL_STATE = { location: undefined, history: [] };
+export const INITIAL_STATE = { location: undefined, history: [], path: '' };
+
+interface Entry {
+  position: number;
+  prefix: string;
+}
 
 export type NavigateAction =
   | { type: 'ACCESS_LOCATION'; location: LocationAccess }
-  | { type: 'NAVIGATE'; prefix: string }
+  | { type: 'NAVIGATE'; entry: Entry }
   | { type: 'EXIT' };
 
 export interface NavigateState {
   location: LocationAccess | undefined;
-  history: string[];
+  history: Entry[];
+  path: string;
 }
 
 export type NavigateStateContext = [
@@ -29,22 +35,25 @@ export function navigateReducer(
       const { location } = action;
       const { prefix } = parseLocationAccess(location);
 
-      return { location, history: [prefix] };
+      return { location, history: [{ prefix, position: 0 }], path: prefix };
     }
     case 'NAVIGATE': {
-      const { prefix } = action;
+      const { prefix, position } = action.entry;
 
-      // TODO: problematic if folder names in the history have the same prefix
-      const position = state.history.indexOf(prefix);
+      if (position === 0)
+        return { ...state, history: [{ prefix, position }], path: prefix };
 
-      if (position === 0) return { ...state, history: [prefix] };
+      const isExistingEntry = position <= state.history.length - 1;
+      const history = isExistingEntry
+        ? state.history.slice(0, position + 1)
+        : [...state.history, { prefix, position: state.history.length }];
 
-      const history =
-        position === -1
-          ? [...state.history, prefix]
-          : state.history.slice(0, position + 1);
+      const path = history.reduce(
+        (acc: string, entry) => `${acc}${entry.prefix}`,
+        ''
+      );
 
-      return { ...state, history };
+      return { ...state, history, path };
     }
     case 'EXIT': {
       return INITIAL_STATE;

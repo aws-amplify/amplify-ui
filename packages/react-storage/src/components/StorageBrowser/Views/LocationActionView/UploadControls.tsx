@@ -104,11 +104,11 @@ export const UploadControls = (): JSX.Element => {
   const [state, handleUpdateState] = useControl({
     type: 'ACTION_SELECT',
   });
-  const [{ history }] = useControl({ type: 'NAVIGATE' });
+  const [{ path }] = useControl({ type: 'NAVIGATE' });
   const { items } = state.selected;
 
   const [tasks, handleUpload] = useHandleUpload({
-    prefix: history.join(''),
+    prefix: path,
     items: items! as FileItem[],
   });
 

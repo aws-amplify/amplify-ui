@@ -102,7 +102,7 @@ describe('createStorageBrowser', () => {
                 permission: 'READWRITE',
                 type: 'BUCKET',
               },
-              history: [''],
+              history: [{ prefix: '', position: 0 }],
             },
           ],
           ACTION_SELECT: [{ selected: undefined }],
@@ -123,7 +123,16 @@ describe('createStorageBrowser', () => {
     useControlSpy.mockImplementation(
       ({ type }) =>
         ({
-          NAVIGATE: [{ location: undefined, history: [] }],
+          NAVIGATE: [
+            {
+              location: {
+                scope: 's3://test-bucket/*',
+                permission: 'READWRITE',
+                type: 'BUCKET',
+              },
+              history: [{ prefix: '', position: 0 }],
+            },
+          ],
           ACTION_SELECT: [
             {
               selected: { actionType: 'CREATE_FOLDER', name: 'Create Folder' },
