@@ -11,3 +11,4 @@ export {
   CreateManagedAuthAdapterInput,
   StorageBrowserAuthAdapter,
 } from './adapters';
+export { elementsDefault } from './context/elements';

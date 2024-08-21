@@ -6,3 +6,4 @@ export {
   MessageVariant,
   PaginateVariant,
 } from './definitions';
+export { elementsDefault } from './defaults';

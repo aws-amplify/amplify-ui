@@ -20,6 +20,7 @@ export {
   CreateManagedAuthAdapterInput,
   createStorageBrowser,
   CreateStorageBrowserInput,
+  elementsDefault,
   ResolvedStorageBrowserElements,
   StorageBrowser,
   StorageBrowserAuthAdapter,
