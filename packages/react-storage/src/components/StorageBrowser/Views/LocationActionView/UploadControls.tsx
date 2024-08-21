@@ -108,7 +108,7 @@ export const UploadControls = (): JSX.Element => {
   const [state, handleUpdateState] = useControl({
     type: 'ACTION_SELECT',
   });
-  const [{ path }] = useControl({ type: 'NAVIGATE' });
+  const [{ path, history }] = useControl({ type: 'NAVIGATE' });
   const { items } = state.selected;
 
   const [tasks, handleUpload] = useHandleUpload({
@@ -128,7 +128,7 @@ export const UploadControls = (): JSX.Element => {
       >
         Start upload
       </Primary>
-      <Destination>{history[history.length - 1]}</Destination>
+      <Destination>{history[history.length - 1].prefix}</Destination>
       <Summary />
       <Table
         data={tasks}
