@@ -80,6 +80,7 @@ type ResponseComponentProp = {
   type: string;
   enum?: string[];
   description?: string;
+  required?: boolean;
 };
 
 type ResponseComponentPropMap = {
@@ -87,7 +88,7 @@ type ResponseComponentPropMap = {
 };
 
 export type ResponseComponent = {
-  component: React.ComponentType;
+  component: React.ComponentType<any>;
   description?: string;
   props: ResponseComponentPropMap;
 };

@@ -8,6 +8,10 @@ import { MessagesContext } from '../../context';
 import { AttachmentListControl } from './AttachmentListControl';
 import { SendMessageContext } from '../../context/SendMessageContext';
 import { ConversationMessageContent, InputContent } from '../../../../types';
+import {
+  convertResponseComponentsToToolConfiguration,
+  ResponseComponentsContext,
+} from '../../context/ResponseComponentsContext';
 
 const {
   Button,
@@ -135,6 +139,7 @@ const InputContainer = withBaseElementProps(View, {
 export const FieldControl: FieldControl = () => {
   const { input, setInput } = React.useContext(InputContext);
   const handleSendMessage = React.useContext(SendMessageContext);
+  const responseComponents = React.useContext(ResponseComponentsContext);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -160,7 +165,13 @@ export const FieldControl: FieldControl = () => {
         });
       });
     }
-    if (handleSendMessage) handleSendMessage({ content: submittedContent });
+    if (handleSendMessage) {
+      handleSendMessage({
+        content: submittedContent,
+        toolConfiguration:
+          convertResponseComponentsToToolConfiguration(responseComponents),
+      });
+    }
     if (setInput) setInput({ text: '', files: [] });
   };
   return (

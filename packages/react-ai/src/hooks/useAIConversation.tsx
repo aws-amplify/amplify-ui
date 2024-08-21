@@ -108,9 +108,9 @@ export function createUseAIConversation<
 
     const sendMessage = React.useCallback(
       (input: SendMesageParameters) => {
-        const { content, aiContext } = input;
+        const { content, aiContext, toolConfiguration } = input;
         conversation
-          ?.sendMessage({ content, aiContext })
+          ?.sendMessage({ content, aiContext, toolConfiguration })
           .then((value) => {
             const { data: sentMessage } = value;
 

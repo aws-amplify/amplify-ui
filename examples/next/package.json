@@ -35,6 +35,6 @@
     "rimraf": "^3.0.2"
   },
   "resolutions": {
-    "**/@aws-amplify/data-schema": "0.0.0-ai-20240807194534"
+    "**/@aws-amplify/data-schema": "0.0.0-ai-20240815192737"
   }
 }
