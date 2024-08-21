@@ -14912,6 +14912,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "autoComplete": {
         "type": "string",
       },
+      "autoResize": {
+        "type": "boolean",
+      },
       "backgroundColor": {
         "type": "string",
       },
