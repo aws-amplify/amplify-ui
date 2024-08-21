@@ -1,5 +1,5 @@
 import { Amplify } from 'aws-amplify';
-import { createAIConversation, createAIHooks } from '@aws-amplify/ui-react-ai';
+import { createAIHooks } from '@aws-amplify/ui-react-ai';
 import { generateClient } from 'aws-amplify/api';
 import '@aws-amplify/ui-react/styles.css';
 import '@aws-amplify/ui-react-ai/ai-conversation-styles.css';
@@ -16,16 +16,20 @@ Amplify.configure(outputs);
 
 export default function Example() {
   const [{ data }, handler] = useAIGeneration('generateRecipe');
+  const [{ data: data2 }, handler2] = useAIGeneration('generateWhatever');
   return (
     <Authenticator>
-      {({ user, signOut }) => {
+      {({ user }) => {
         return (
           <>
             <h1>Hello {user.username}</h1>
             <div>{JSON.stringify(data)}</div>
             <button
               onClick={() => {
-                handler({});
+                handler({
+                  description:
+                    'I want a recipe for a gluten-free chocolate cake.',
+                });
               }}
             >
               generate

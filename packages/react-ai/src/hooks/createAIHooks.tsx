@@ -6,32 +6,23 @@ import {
   createUseAIConversation,
   UseAIConversationHook,
 } from './useAIConversation';
-import {
-  ConversationRoutes,
-  Generations,
-} from '@aws-amplify/data-schema/dist/esm/runtime';
+import { getSchema } from '../types';
 
-type FakeClient<T extends Record<any, any>> = {
-  [K in 'generations' | 'conversations']: K extends 'generations'
-    ? Generations<T>
-    : ConversationRoutes<T>;
-};
-type getSchema<T> = T extends FakeClient<infer U> ? U : never;
-
-type UseAIHooks<T extends Record<any, any>> = {
+type UseAIHooks<
+  Client extends Record<'generations' | 'conversations', Record<string, any>>,
+  Schema extends Record<any, any>,
+> = {
   useAIConversation: UseAIConversationHook<
-    Extract<keyof FakeClient<T>['conversations'], string>
+    Extract<keyof Client['conversations'], string>
   >;
-} & UseAIGenerationHookWrapper<
-  keyof FakeClient<T>['generations'],
-  getSchema<FakeClient<T>>
->;
+} & UseAIGenerationHookWrapper<keyof Client['generations'], Schema>;
 
-export function createAIHooks<T extends Record<any, any>>(
-  _client: FakeClient<T>
-): UseAIHooks<T> {
+export function createAIHooks<
+  Client extends Record<'generations' | 'conversations', Record<string, any>>,
+  Schema extends getSchema<Client>,
+>(_client: Client): UseAIHooks<Client, Schema> {
   const useAIConversation = createUseAIConversation(_client);
-  const useAIGeneration = createUseAIGeneration(_client.generations);
+  const useAIGeneration = createUseAIGeneration(_client);
 
   return { useAIConversation, useAIGeneration };
 }
