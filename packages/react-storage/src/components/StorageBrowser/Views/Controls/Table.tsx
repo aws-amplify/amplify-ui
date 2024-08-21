@@ -265,7 +265,7 @@ export const LocationsViewTable = (): JSX.Element | null => {
 };
 
 export const LocationDetailViewTable = (): JSX.Element | null => {
-  const [{ history, location }, handleUpdateState] = useControl({
+  const [{ history, path }, handleUpdateState] = useControl({
     type: 'NAVIGATE',
   });
 
@@ -273,25 +273,18 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
     type: 'LIST_LOCATION_ITEMS',
   });
 
-  const prefix = history.join('');
-
+  const currentPosition = history.length;
+  const hasHistory = !!currentPosition;
   const hasItems = !!data.result?.length;
-  const shouldReset = !history.length && hasItems && !location;
 
   React.useEffect(() => {
-    if (shouldReset) {
-      handleList({ prefix: '', options: { reset: true } });
-    }
-
-    if (!history.length) {
-      return;
-    }
+    if (!hasHistory) return;
 
     handleList({
-      prefix,
+      prefix: path,
       options: { pageSize: 1000, refresh: true, delimiter: '/' },
     });
-  }, [handleList, history, prefix, shouldReset]);
+  }, [handleList, hasHistory, path]);
 
   // @TODO: This should be it's own component instead of using `useCallback`
   const renderRowItem: RenderRowItem<LocationItem> = React.useCallback(
@@ -313,7 +306,7 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
           );
         } else if (column.key === ('download' as keyof LocationItem)) {
           return row.type === 'FILE' ? (
-            <DownloadControl fileKey={`${prefix}${row.key}`} />
+            <DownloadControl fileKey={`${path}${row.key}`} />
           ) : null;
         } else {
           return (
@@ -337,7 +330,10 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
                     onClick={() => {
                       handleUpdateState({
                         type: 'NAVIGATE',
-                        prefix: row.key,
+                        entry: {
+                          position: currentPosition + 1,
+                          prefix: row.key,
+                        },
                       });
                     }}
                     key={`${index}-${row.key}`}
@@ -353,7 +349,7 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
         </TableRow>
       );
     },
-    [handleUpdateState, prefix]
+    [handleUpdateState, currentPosition, path]
   );
 
   return hasItems && !isLoading ? (

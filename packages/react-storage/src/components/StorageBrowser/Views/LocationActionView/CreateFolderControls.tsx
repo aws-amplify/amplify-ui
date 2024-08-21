@@ -16,7 +16,8 @@ export const FIELD_VALIDATION_MESSAGE =
 
 export const CreateFolderControls = (): React.JSX.Element => {
   const [, handleUpdateState] = useControl({ type: 'ACTION_SELECT' });
-  const [{ history }] = useControl({ type: 'NAVIGATE' });
+
+  const [{ path }] = useControl({ type: 'NAVIGATE' });
   const [{ isLoading, data }, handleCreateAction] = useAction({
     type: 'CREATE_FOLDER',
   });
@@ -42,7 +43,7 @@ export const CreateFolderControls = (): React.JSX.Element => {
   };
 
   const handleCreateFolder = () => {
-    const prefix = `${history.join('')}${folderName}/`;
+    const prefix = `${path}${folderName}/`;
     handleCreateAction({ prefix });
   };
 
