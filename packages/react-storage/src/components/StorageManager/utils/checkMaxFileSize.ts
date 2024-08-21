@@ -1,4 +1,4 @@
-import { humanFileSize } from './humanFileSize';
+import { humanFileSize } from '@aws-amplify/ui';
 
 export const checkMaxFileSize = ({
   file,
