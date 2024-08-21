@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useRef } from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { CreateProviderInput, ProviderData } from '../types';
 import createProvider from '../createProvider';
@@ -341,5 +341,17 @@ describe('IdentityControl', () => {
 
     expect(googleText).toHaveClass('text');
     expect(oktaText).toHaveClass('text');
+  });
+  it('allows for passing in props', () => {
+    render(
+      <Provider>
+        <IdentityControl className="button" providerName="google" />
+      </Provider>
+    );
+
+    const oktaButton = screen
+      .getByText('Sign in with Google')
+      .closest('button');
+    expect(oktaButton).toHaveClass('button');
   });
 });
