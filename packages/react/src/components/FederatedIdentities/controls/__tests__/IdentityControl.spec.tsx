@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef } from 'react';
+import React, { forwardRef } from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { CreateProviderInput, ProviderData } from '../types';
 import createProvider from '../createProvider';
