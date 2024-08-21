@@ -22,6 +22,10 @@ const LOCATION_ACTION_VIEW_COLUMNS: Column<CancelableTask>[] = [
     header: 'Name',
   },
   {
+    key: 'type',
+    header: 'Type',
+  },
+  {
     key: 'size',
     header: 'Size',
   },
@@ -75,6 +79,46 @@ export const ActionIcon = ({ status }: ActionIconProps): React.JSX.Element => {
 };
 
 const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
+  const renderTableData = (
+    columnKey: keyof CancelableTask,
+    row: CancelableTask
+  ) => {
+    switch (columnKey) {
+      case 'key':
+        return (
+          <TableDataText>
+            <ActionIcon status={row.status} />
+            {row.key}
+          </TableDataText>
+        );
+      case 'type': {
+        const indexOfDot = row.key.lastIndexOf('.');
+        return indexOfDot > -1 ? (
+          <TableDataText>
+            {row.key.slice(indexOfDot + 1).toUpperCase()}
+          </TableDataText>
+        ) : (
+          ''
+        );
+      }
+      case 'size':
+        return <TableDataText>{humanFileSize(row.size, true)}</TableDataText>;
+      case 'status':
+        return <TableDataText>{row.status}</TableDataText>;
+      case 'progress':
+        return <TableDataText>{row.progress}</TableDataText>;
+      case 'cancel':
+        return (
+          <Cancel
+            onClick={row.cancel}
+            ariaLabel={`Cancel upload for ${row.key}`}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <Table.TableRow key={index}>
       {LOCATION_ACTION_VIEW_COLUMNS.map((column) => {
@@ -83,23 +127,7 @@ const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
             key={`${index}-${column.header}`}
             variant={column.key}
           >
-            {column.key === 'key' ? (
-              <TableDataText>
-                <ActionIcon status={row.status} />
-                {row.key}
-              </TableDataText>
-            ) : column.key === 'size' ? (
-              <TableDataText>{humanFileSize(row.size, true)}</TableDataText>
-            ) : column.key === 'status' ? (
-              <TableDataText>{row.status}</TableDataText>
-            ) : column.key === 'progress' ? (
-              <TableDataText>{row.progress}</TableDataText>
-            ) : column.key === 'cancel' ? (
-              <Cancel
-                onClick={row.cancel}
-                ariaLabel={`Cancel upload for ${row.key}`}
-              />
-            ) : null}
+            {renderTableData(column.key, row)}
           </Table.TableData>
         );
       })}
