@@ -10626,6 +10626,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "ariaValuetext": {
         "type": "string",
       },
+      "autoScroll": {
+        "type": "string",
+      },
       "backgroundColor": {
         "type": "string",
       },
