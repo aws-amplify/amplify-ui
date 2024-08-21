@@ -23,7 +23,7 @@ const ScrollViewPrimitive: Primitive<ScrollViewProps, 'div'> = (
     internalRef,
   });
 
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     if (autoScroll) {
       internalRef.current?.scrollTo({
         top: internalRef.current?.scrollHeight,
@@ -31,7 +31,10 @@ const ScrollViewPrimitive: Primitive<ScrollViewProps, 'div'> = (
         behavior: autoScroll,
       });
     }
-  }, [children, autoScroll]);
+  }, [
+    children, // include children in the dependency array so that when children changes the scrollview scrolls
+    autoScroll,
+  ]);
 
   return (
     <View
