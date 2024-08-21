@@ -1,7 +1,8 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 
 import createProvider from '../../../createProvider';
+import * as ActionsModule from '../../../context/actions';
 
 import { LocationsView } from '..';
 
@@ -16,7 +17,16 @@ const config = {
 };
 const Provider = createProvider({ config });
 
+const useLocationsDataSpy = jest.spyOn(ActionsModule, 'useLocationsData');
+
+const handleListLocations = jest.fn();
+
 describe('LocationsListView', () => {
+  beforeEach(() => {
+    handleListLocations.mockClear();
+    useLocationsDataSpy.mockClear();
+  });
+
   it('renders a `LocationsListView`', async () => {
     await waitFor(() => {
       expect(
@@ -27,5 +37,36 @@ describe('LocationsListView', () => {
         ).container
       ).toBeDefined();
     });
+  });
+
+  it('renders a Locations View table', () => {
+    useLocationsDataSpy.mockReturnValue([
+      {
+        data: {
+          result: [
+            {
+              permission: 'READWRITE',
+              scope: 's3://test-bucket/*',
+              type: 'BUCKET',
+            },
+          ],
+          nextToken: undefined,
+        },
+        hasError: false,
+        isLoading: false,
+        message: undefined,
+      },
+      handleListLocations,
+    ]);
+
+    render(
+      <Provider>
+        <LocationsView />
+      </Provider>
+    );
+
+    const table = screen.getByRole('table');
+
+    expect(table).toBeDefined();
   });
 });
