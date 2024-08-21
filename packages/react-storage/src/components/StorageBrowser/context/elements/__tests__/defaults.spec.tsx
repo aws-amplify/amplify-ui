@@ -22,11 +22,12 @@ describe('elementsDefault', () => {
 
     render(<StorageBrowser />);
     await waitFor(() => {
-      const title = screen.getByRole('heading', { name: 'Home' });
-      const refresh = screen.getByRole('button', { name: 'Refresh table' });
-      expect(title.classList).toContain('amplify-heading');
-      expect(refresh.classList).toContain('amplify-button');
+      expect(screen.getByRole('heading', { name: 'Home' })).toBeInTheDocument();
     });
+    const title = screen.getByRole('heading', { name: 'Home' });
+    const refresh = screen.getByRole('button', { name: 'Refresh table' });
+    expect(title.classList).toContain('amplify-heading');
+    expect(refresh.classList).toContain('amplify-button');
   });
 
   const elements = Object.entries(elementsDefault).filter(
