@@ -1,4 +1,4 @@
-import React, { ForwardRefExoticComponent } from 'react';
+import React, { ForwardRefExoticComponent, RefAttributes } from 'react';
 import {
   useProviderDataListContext,
   useProviderDataContext,
@@ -91,7 +91,9 @@ interface IdentityProps<T extends string = string>
 }
 
 export interface IdentityControl<T extends string = string>
-  extends ForwardRefExoticComponent<IdentityProps<T>> {}
+  extends ForwardRefExoticComponent<
+    Omit<IdentityProps<T>, 'ref'> & RefAttributes<HTMLButtonElement>
+  > {}
 
 export const IdentityControl: IdentityControl = React.forwardRef<
   HTMLButtonElement,
