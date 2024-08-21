@@ -72,8 +72,8 @@ export const ActionIcon = ({ status }: ActionIconProps): React.JSX.Element => {
 
 const Destination = ({ children }: { children?: React.ReactNode }) => {
   return (
-    <DefinitionList>
-      <DefinitionTerm className="storage-browser__destination">
+    <DefinitionList className="storage-browser__destination">
+      <DefinitionTerm>
         Destination:
       </DefinitionTerm>
       <DefinitionDetail>{children}</DefinitionDetail>
