@@ -39,11 +39,21 @@ const LocationsViewRefresh = () => {
   );
 };
 
+export const LocationsMessage = (): React.JSX.Element | null => {
+  const [{ hasError, message }] = useLocationsData();
+  return hasError ? (
+    <Message variant="error">
+      {message ?? 'There was an error loading locations.'}
+    </Message>
+  ) : null;
+};
+
 const LocationsViewControls: LocationsViewControls = () => {
   return (
     <>
       <Title>Home</Title>
       <LocationsViewRefresh />
+      <LocationsMessage />
       <LocationsViewTable />
     </>
   );
