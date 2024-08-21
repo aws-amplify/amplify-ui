@@ -1,22 +1,33 @@
 import { createUseAIGeneration, UseAIGenerationHook } from './useAIGeneration';
-import { V6Client } from '@aws-amplify/api-graphql';
 import {
   createUseAIConversation,
   UseAIConversationHook,
 } from './useAIConversation';
+import {
+  ConversationRoutes,
+  Generations,
+} from '@aws-amplify/data-schema/dist/esm/runtime';
 
-export function createAIHooks<
-  T extends Record<any, any> = never,
->(
-  _client: V6Client<T>
+type FakeClient<T extends Record<any, any>> = {
+  [K in 'generations' | 'conversations']: K extends 'generations'
+    ? Generations<T>
+    : ConversationRoutes<T>;
+};
+type getSchema<T> = T extends FakeClient<infer U> ? U : never;
+
+export function createAIHooks<T extends Record<any, any>>(
+  _client: FakeClient<T>
 ): {
   useAIConversation: UseAIConversationHook<
-    Extract<keyof V6Client<T>['conversations'], string>
+    Extract<keyof FakeClient<T>['conversations'], string>
   >;
-  useAIGeneration: UseAIGenerationHook<Extract<keyof V6Client<T>['generations'], string>, T>;
+  useAIGeneration: UseAIGenerationHook<
+    keyof FakeClient<T>['generations'],
+    getSchema<FakeClient<T>>
+  >;
 } {
   const useAIConversation = createUseAIConversation(_client);
-  const useAIGeneration = createUseAIGeneration<T>(_client);
+  const useAIGeneration = createUseAIGeneration(_client);
 
   return { useAIConversation, useAIGeneration };
 }

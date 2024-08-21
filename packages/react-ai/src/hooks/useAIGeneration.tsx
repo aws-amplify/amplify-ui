@@ -1,33 +1,36 @@
 import { DataState, useDataState } from '@aws-amplify/ui-react-core';
-import { V6Client } from '@aws-amplify/api-graphql';
+import { V6Client as SDKV6Client } from '@aws-amplify/api-graphql';
 
 interface UseAIGenerationInput {
   onError?: (error: Error) => void;
 }
 
-export type UseAIGenerationHook<T, K extends Record<any, any>> = (
+export type UseAIGenerationHook<
+  T extends keyof V6Client<K>['generations'],
+  K extends Record<any, any>,
+> = (
   routeName: T,
   input?: UseAIGenerationInput
-) => [
-    Awaited<DataState<K[T]['returnType']>>,
-    (input: K[T]['args']) => void,
-  ];
+) => [Awaited<DataState<K[T]['returnType']>>, (input: K[T]['args']) => void];
 
-export function createUseAIGeneration<T extends Record<any, any> = never>(client: V6Client<T>):
-  UseAIGenerationHook<Extract<keyof V6Client<T>['generations'], string>, T> {
-  const useAIGeneration = (
-    routeName: Extract<keyof V6Client<T>['generations'], string>,
+type V6Client<T extends Record<any, any>> = Pick<SDKV6Client<T>, 'generations'>;
+
+export function createUseAIGeneration<T extends Record<any, any> = never>(
+  client: V6Client<T>
+): UseAIGenerationHook<keyof V6Client<T>['generations'], T> {
+  const useAIGeneration = <K extends keyof V6Client<T>['generations']>(
+    routeName: K,
     _input?: UseAIGenerationInput
   ) => {
     const handleGenerate = client.generations[routeName];
 
     const updateAIGenerationStateAction = async (
-      prev: T[Extract<keyof V6Client<T>['generations'], string>]['returnType'],
-      input: T[Extract<keyof V6Client<T>['generations'], string>]['args']
-    ): Promise<T[Extract<keyof V6Client<T>['generations'], string>]['returnType']> => {
-      const { data, errors } = await handleGenerate(input);
+      prev: T[K]['returnType'],
+      input: T[K]['args']
+    ): Promise<T[K]['returnType']> => {
+      const result = await handleGenerate(input);
 
-      return { ...data };
+      return { ...result };
     };
 
     return useDataState(updateAIGenerationStateAction, {});
