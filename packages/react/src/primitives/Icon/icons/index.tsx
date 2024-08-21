@@ -16,6 +16,7 @@ export * from './IconRemove';
 export * from './IconSearch';
 export * from './IconStar';
 export * from './IconUpload';
+export * from './IconUser';
 export * from './IconVisibilityOff';
 export * from './IconVisibility';
 export * from './IconWarning';
