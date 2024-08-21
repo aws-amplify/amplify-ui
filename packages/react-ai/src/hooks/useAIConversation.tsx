@@ -1,10 +1,10 @@
 import React from 'react';
-import { V6Client } from '@aws-amplify/api-graphql';
 import { DataState } from '@aws-amplify/ui-react-core';
 import { RouteToConversations, useAIContext } from './AIContextProvider';
 import {
   Conversation,
   ConversationMessage,
+  ConversationRoute,
   SendMesageParameters,
   SendMessage,
 } from '../types';
@@ -43,9 +43,9 @@ export type UseAIConversationHook<T extends string> = (
   input?: UseAIConversationInput
 ) => [DataState<AIConversationState>, SendMessage];
 
-export function createUseAIConversation<T extends V6Client<any>>(
-  client: T
-): UseAIConversationHook<Extract<keyof T['conversations'], string>> {
+export function createUseAIConversation<
+  T extends Record<'conversations', Record<string, ConversationRoute>>,
+>(client: T): UseAIConversationHook<Extract<keyof T['conversations'], string>> {
   const useAIConversation: UseAIConversationHook<
     Extract<keyof T['conversations'], string>
   > = (routeName: keyof T['conversations'], input = {}) => {
@@ -108,9 +108,9 @@ export function createUseAIConversation<T extends V6Client<any>>(
 
     const sendMessage = React.useCallback(
       (input: SendMesageParameters) => {
-        const { content, aiContext } = input;
+        const { content, aiContext, toolConfiguration } = input;
         conversation
-          ?.sendMessage({ content, aiContext })
+          ?.sendMessage({ content, aiContext, toolConfiguration })
           .then((value) => {
             const { data: sentMessage } = value;
 

@@ -1,9 +1,12 @@
 import {
   Conversation as SDKConversation,
   ConversationMessage as SDKConversationMessage,
+  ConversationRoute as SDKConversationRoute,
 } from '@aws-amplify/data-schema/dist/esm/ai/ConversationType';
 
 export type Conversation = SDKConversation;
+
+export type ConversationRoute = SDKConversationRoute;
 
 export type ConversationMessage = SDKConversationMessage;
 
@@ -17,12 +20,22 @@ export type InputContent = Parameters<
   Conversation['sendMessage']
 >[0]['content'][number];
 
+export type SendMessageContent = Parameters<
+  Conversation['sendMessage']
+>[0]['content'];
+
+export type SendMessageContext = Parameters<
+  Conversation['sendMessage']
+>[0]['aiContext'];
+
+export type ToolConfiguration = NonNullable<
+  Parameters<Conversation['sendMessage']>[0]['toolConfiguration']
+>;
+
 export interface SendMesageParameters {
-  content: Parameters<Conversation['sendMessage']>[0]['content'];
-  aiContext?: Parameters<Conversation['sendMessage']>[0]['aiContext'];
-  responseComponents?: Parameters<
-    Conversation['sendMessage']
-  >[0]['toolConfiguration'];
+  content: SendMessageContent;
+  aiContext?: SendMessageContext;
+  toolConfiguration?: ToolConfiguration;
 }
 
 export type SendMessage = (input: SendMesageParameters) => void;

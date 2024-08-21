@@ -28,6 +28,7 @@
     "angular-example": "yarn workspace @aws-amplify/ui-angular-example",
     "docs": "yarn workspace @aws-amplify/ui-docs",
     "next-example": "yarn workspace @aws-amplify/ui-next-example",
+    "next-app-example": "yarn workspace @aws-amplify/ui-next-app-example",
     "react-example": "yarn workspace @aws-amplify/ui-next-example",
     "react-native-example": "yarn workspace @aws-amplify/ui-react-native-example",
     "vue-example": "yarn workspace @aws-amplify/ui-vue-example",
@@ -67,7 +68,7 @@
     ]
   },
   "resolutions": {
-    "**/@aws-amplify/data-schema": "0.0.0-ai-20240807194534",
+    "**/@aws-amplify/data-schema": "0.0.0-ai-20240815192737",
     "**/@react-native-community/**/fast-xml-parser": "^4.4.1",
     "**/@aws-*/**/fast-xml-parser": "^4.4.1",
     "**/@aws-amplify/ui-angular-example/**/codelyzer/**/@angular/core": "10.2.5",

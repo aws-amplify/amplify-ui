@@ -7,6 +7,7 @@ type ComponentNameKey =
   | 'Accordion'
   | 'Alert'
   | 'Autocomplete'
+  | 'Avatar'
   | 'Badge'
   | 'Breadcrumbs'
   | 'Button'
@@ -156,6 +157,21 @@ export const ComponentsMetadata: ComponentClassNameItems = {
     className: ComponentClassName.AutocompleteMenuOptions,
     components: ['Autocomplete'],
     description: 'Class applied to ul container element',
+  },
+  Avatar: {
+    className: ComponentClassName.Avatar,
+    components: ['Avatar'],
+    description: 'Top level element that wraps the Avatar primitive',
+  },
+  AvatarImage: {
+    className: ComponentClassName.AvatarImage,
+    components: ['Avatar'],
+    description: 'Class applied to the img element',
+  },
+  AvatarIcon: {
+    className: ComponentClassName.AvatarIcon,
+    components: ['Avatar'],
+    description: 'Class applied to the icon element',
   },
   Badge: {
     className: ComponentClassName.Badge,
