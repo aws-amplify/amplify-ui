@@ -2,6 +2,8 @@ import {
   ProviderData,
   ProviderType,
   DefaultFederatedProviderList,
+  SignInWithRedirectAction,
+  AuthProvider,
 } from './types';
 import { capitalize, FederatedProvider } from '@aws-amplify/ui';
 import { ResourcesConfig } from 'aws-amplify';
@@ -67,3 +69,24 @@ export function toProviderData<T extends string = string>(
     }
   });
 }
+
+export const handleClick = <T extends string = string>(
+  providerName: T,
+  handleSignInWithRedirect: SignInWithRedirectAction
+): ((event: React.MouseEvent<HTMLButtonElement>) => void) => {
+  const _handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    event.preventDefault();
+
+    if (
+      DefaultFederatedProviderList.includes(providerName as FederatedProvider)
+    ) {
+      handleSignInWithRedirect({
+        provider: capitalize(providerName) as AuthProvider,
+      });
+    } else {
+      handleSignInWithRedirect({ provider: { custom: providerName } });
+    }
+  };
+
+  return _handleClick;
+};

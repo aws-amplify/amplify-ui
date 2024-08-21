@@ -18,6 +18,8 @@ export interface SignInWithRedirectProviderInput {
   children: React.ReactNode;
 }
 
+export type AuthProvider = 'Amazon' | 'Apple' | 'Facebook' | 'Google';
+
 export const DefaultFederatedProviderList: FederatedProvider[] = [
   'amazon',
   'facebook',
@@ -40,7 +42,8 @@ export interface CreateFederatedIdentitiesInput<
 }
 
 export interface CreateProviderInput<
-  T extends Partial<FederatedIdentitiesElements>,
+  T extends
+    Partial<FederatedIdentitiesElements> = Partial<FederatedIdentitiesElements>,
   K extends string = string,
 > {
   providers: ProviderData<K>[];
