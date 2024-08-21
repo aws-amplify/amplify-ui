@@ -30,16 +30,16 @@ export function LocationConfigProvider({
   registerAuthListener,
   region,
 }: LocationConfigProviderProps): React.JSX.Element {
-  const [{ location, history }] = useControl({ type: 'NAVIGATE' });
+  const [{ location, path }] = useControl({ type: 'NAVIGATE' });
 
-  const { permission, scope: _scope } = location ?? {};
+  const { permission, scope: locationScope } = location ?? {};
   const { bucket } = location
     ? parseLocationAccess(location)
     : ({} as LocationData);
 
-  const scope = !history.length
-    ? _scope ?? undefined
-    : `${_scope?.slice(0, -1)}${history.join(',')}*`;
+  const scope = !path
+    ? locationScope
+    : `${locationScope?.slice(0, -1)}${path}*`;
 
   const getCredentialsProvider = useGetCredentialsProvider(
     getLocationCredentials,
