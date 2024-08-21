@@ -145,6 +145,7 @@
   grid-row-start: 5;
   grid-column: 1 / -1;
   table-layout: fixed;
+  width: 100%;
 }
 
 .storage-browser__table__header--type,
@@ -180,6 +181,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  text-align: start;
 }
 
 .storage-browser__table__data__icon,
