@@ -343,9 +343,9 @@ export const LocationDetailViewTable = (): JSX.Element => {
                   </TableDataText>
                 );
               }
+              default:
+                return <TableDataText>{row[column.key]}</TableDataText>;
             }
-
-            break;
           }
           case 'FOLDER': {
             // Casting column as Column<FolderItem> to assert that we're only working with FileItems
@@ -368,6 +368,8 @@ export const LocationDetailViewTable = (): JSX.Element => {
                   </TableDataButton>
                 );
               }
+              default:
+                return <TableDataText>{row[column.key]}</TableDataText>;
             }
           }
         }
