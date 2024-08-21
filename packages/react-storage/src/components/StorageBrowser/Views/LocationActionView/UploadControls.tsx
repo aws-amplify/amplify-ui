@@ -141,6 +141,7 @@ export const UploadControls = (): JSX.Element => {
       <Table
         data={tasks}
         columns={LOCATION_ACTION_VIEW_COLUMNS}
+        renderHeaderItem={() => <div></div>} // temporary
         renderRowItem={renderRowItem}
       />
     </>
