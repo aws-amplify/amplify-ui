@@ -141,6 +141,10 @@ else
         if [[ "$BUILD_TOOL" == "expo" ]]; then
             echo "npx expo install --fix" 
             npx expo install --fix # fix the dependencies that are incompatible with the installed expo versio
+        echo "npm list"
+        npm list
+        echo "npm ls style-dictionary"
+        npm ls style-dictionary
         fi
     else
         install_with_retries npm "$DEPENDENCIES"
