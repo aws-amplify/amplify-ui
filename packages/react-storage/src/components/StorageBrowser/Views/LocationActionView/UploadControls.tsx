@@ -11,7 +11,8 @@ import { CLASS_BASE } from '../constants';
 
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
 
-const { Icon, DefinitionDetail, DefinitionTerm } = StorageBrowserElements;
+const { Icon, DefinitionDetail, DefinitionList, DefinitionTerm } =
+  StorageBrowserElements;
 
 const { Cancel, Exit, Primary, Summary, Table } = Controls;
 
@@ -71,12 +72,12 @@ export const ActionIcon = ({ status }: ActionIconProps): React.JSX.Element => {
 
 const Destination = ({ children }: { children?: React.ReactNode }) => {
   return (
-    <>
+    <DefinitionList>
       <DefinitionTerm className="storage-browser__destination">
         Destination:
       </DefinitionTerm>
       <DefinitionDetail>{children}</DefinitionDetail>
-    </>
+    </DefinitionList>
   );
 };
 
