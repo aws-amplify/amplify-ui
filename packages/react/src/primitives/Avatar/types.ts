@@ -14,6 +14,12 @@ export interface BaseAvatarProps extends BaseViewProps {
 
   /**
    * @description
+   * The alt text for the avatar image
+   */
+  alt?: string;
+
+  /**
+   * @description
    * The variation property will affect how the avatar looks, whether
    * it is outlined, filled, or the default style.
    */

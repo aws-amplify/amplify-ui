@@ -12,7 +12,7 @@ import { Image } from '../Image';
 import { AvatarProps, BaseAvatarProps } from './types';
 
 const AvatarPrimitive: Primitive<AvatarProps, 'span'> = (
-  { className, children, variation, colorTheme, size, src, ...rest },
+  { className, children, variation, colorTheme, size, src, alt, ...rest },
   ref
 ) => {
   const icons = useIcons('avatar');
@@ -28,10 +28,14 @@ const AvatarPrimitive: Primitive<AvatarProps, 'span'> = (
   return (
     <View as="span" className={componentClasses} ref={ref} {...rest}>
       {src ? (
-        <Image className={ComponentClassName.AvatarImage} src={src} alt="" />
+        <Image className={ComponentClassName.AvatarImage} src={src} alt={alt} />
       ) : (
         children ?? (
-          <View as="span" className={ComponentClassName.AvatarIcon}>
+          <View
+            as="span"
+            className={ComponentClassName.AvatarIcon}
+            aria-hidden="true"
+          >
             {icon}
           </View>
         )
