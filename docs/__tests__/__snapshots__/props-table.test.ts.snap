@@ -8983,6 +8983,13 @@ exports[`Props Table 1`] = `
                         "category": "BaseScrollViewProps",
                         "isOptional": true
                     },
+                    "autoScroll": {
+                        "name": "autoScroll",
+                        "type": "\\"auto\\" | \\"smooth\\" | \\"instant\\" | undefined",
+                        "description": "Scroll to the end as the children of it change",
+                        "category": "BaseScrollViewProps",
+                        "isOptional": true
+                    },
                     "isDisabled": {
                         "name": "isDisabled",
                         "type": "boolean | undefined",
