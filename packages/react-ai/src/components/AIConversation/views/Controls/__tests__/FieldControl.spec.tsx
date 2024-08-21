@@ -1,7 +1,10 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import { MessagesProvider } from '../../../context/MessagesContext';
 import { FieldControl } from '../FieldControl';
+import { InputContextProvider } from '../../../context/InputContext';
+import userEvent from '@testing-library/user-event';
+import { SendMessageContextProvider } from '../../../context/SendMessageContext';
 
 describe('FieldControl', () => {
   it('renders a FieldControl component with the correct elements', () => {
@@ -65,8 +68,39 @@ describe('FieldControl', () => {
     expect(textInput).toHaveAttribute('placeholder', 'Message Raven');
   });
 
-  it.todo('disables the send button when the input field is empty');
+  it('disables the send button when the input field is empty', async () => {
+    const { rerender } = render(
+      <InputContextProvider>
+        <FieldControl />
+      </InputContextProvider>
+    );
+    expect(screen.getByTestId('send-button')).toBeDisabled();
+
+    const textInput = screen.getByTestId('text-input');
+    await act(async () => {
+      await userEvent.type(textInput, 'Hello world!');
+    });
+    expect(screen.getByTestId('send-button')).not.toBeDisabled();
+  });
+
+  it('sends the message when the send button is clicked', async () => {
+    const sendMessage = jest.fn();
+    render(
+      <SendMessageContextProvider handleSendMessage={sendMessage}>
+        <InputContextProvider>
+          <FieldControl />
+        </InputContextProvider>
+      </SendMessageContextProvider>
+    );
+    const textInput = screen.getByTestId('text-input');
+    await act(async () => {
+      await userEvent.type(textInput, 'Hello world!');
+    });
+    expect(screen.getByTestId('send-button')).not.toBeDisabled();
+    screen.getByTestId('send-button').click();
+    expect(sendMessage).toBeCalledTimes(1);
+  });
+
   it.todo('disables the send button when waiting for an AI message');
-  it.todo('sends the message when the send button is clicked');
   it.todo('attaches a file to the message when the attach button is clicked');
 });

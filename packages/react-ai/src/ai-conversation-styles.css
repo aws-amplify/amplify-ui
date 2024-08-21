@@ -59,6 +59,10 @@
   align-items: flex-start;
 }
 
+.ai-message__text {
+  white-space: pre-wrap;
+}
+
 .ai-message--bubble-2.ai-message--user {
   justify-content: flex-end;
 }
