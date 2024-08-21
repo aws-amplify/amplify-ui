@@ -48,11 +48,11 @@ describe('IdentityControl', () => {
     );
 
     const googleListItem = screen
-      .getByText('Sign in with Google')
+      .getByText('Sign In with Google')
       .closest('li');
-    const oktaListItem = screen.getByText('Sign in with Okta').closest('li');
+    const oktaListItem = screen.getByText('Sign In with Okta').closest('li');
     const facebookListItem = screen
-      .getByText('Sign in with Facebook')
+      .getByText('Sign In with Facebook')
       .closest('li');
 
     expect(googleListItem).toBeInTheDocument();
@@ -136,7 +136,7 @@ describe('IdentityControl', () => {
       </Provider>
     );
 
-    const oktaButton = screen.getByText('Sign in with Okta').closest('button');
+    const oktaButton = screen.getByText('Sign In with Okta').closest('button');
 
     expect(oktaButton).not.toBeNull();
 
@@ -152,7 +152,7 @@ describe('IdentityControl', () => {
     signInWithRedirectSpy.mockResolvedValueOnce();
 
     const googleButton = screen
-      .getByText('Sign in with Google')
+      .getByText('Sign In with Google')
       .closest('button');
 
     expect(googleButton).not.toBeNull();
@@ -174,9 +174,9 @@ describe('IdentityControl', () => {
     );
 
     const googleListItem = screen
-      .getByText('Sign in with Google')
+      .getByText('Sign In with Google')
       .closest('li');
-    const oktaListItem = screen.getByText('Sign in with Okta').closest('li');
+    const oktaListItem = screen.getByText('Sign In with Okta').closest('li');
 
     const googlePaths = googleListItem
       ?.querySelector('svg')
@@ -226,7 +226,7 @@ describe('IdentityControl', () => {
       </RedirectProvider>
     );
 
-    const oktaButton = screen.getByText('Sign in with Okta').closest('button');
+    const oktaButton = screen.getByText('Sign In with Okta').closest('button');
 
     user.click(oktaButton);
 
@@ -235,7 +235,7 @@ describe('IdentityControl', () => {
     });
 
     const googleButton = screen
-      .getByText('Sign in with Google')
+      .getByText('Sign In with Google')
       .closest('button');
 
     user.click(googleButton);
@@ -317,9 +317,9 @@ describe('IdentityControl', () => {
     );
 
     const googleListItem = screen
-      .getByText('Sign in with Google')
+      .getByText('Sign In with Google')
       .closest('li');
-    const oktaListItem = screen.getByText('Sign in with Okta').closest('li');
+    const oktaListItem = screen.getByText('Sign In with Okta').closest('li');
 
     expect(googleListItem).toHaveClass('list-item');
     expect(oktaListItem).toHaveClass('list-item');
@@ -350,7 +350,7 @@ describe('IdentityControl', () => {
     );
 
     const oktaButton = screen
-      .getByText('Sign in with Google')
+      .getByText('Sign In with Google')
       .closest('button');
     expect(oktaButton).toHaveClass('button');
   });

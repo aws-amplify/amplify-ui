@@ -28,6 +28,6 @@ describe('useDisplayTextContext', () => {
   });
 
   it('should display text correctly', () => {
-    expect(displayText('test')).toBe('Sign in with test');
+    expect(displayText('test')).toBe('Sign In with test');
   });
 });
