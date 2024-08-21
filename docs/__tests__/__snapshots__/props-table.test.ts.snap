@@ -1095,6 +1095,13 @@ exports[`Props Table 1`] = `
                         "category": "BaseAvatarProps",
                         "isOptional": true
                     },
+                    "alt": {
+                        "name": "alt",
+                        "type": "string | undefined",
+                        "description": "The alt text for the avatar image",
+                        "category": "BaseAvatarProps",
+                        "isOptional": true
+                    },
                     "variation": {
                         "name": "variation",
                         "type": "AvatarVariations | undefined",

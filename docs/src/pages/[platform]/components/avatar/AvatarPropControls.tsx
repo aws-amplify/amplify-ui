@@ -76,6 +76,7 @@ export const AvatarPropControls: AvatarPropControlsInterface = ({
       <TextField
         label="src"
         value={src}
+        placeholder="/cats/1.jpg"
         onChange={(event) => setSrc(event.target.value)}
       />
     </Flex>

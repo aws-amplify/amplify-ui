@@ -5,3 +5,4 @@ export { default as AvatarColorExample } from './AvatarColorExample';
 export { default as AvatarVariationExample } from './AvatarVariationExample';
 export { default as AvatarStyleExample } from './AvatarStyleExample';
 export { default as AvatarThemeExample } from './AvatarThemeExample';
+export { default as AvatarAccessibilityExample } from './AvatarAccessibilityExample';

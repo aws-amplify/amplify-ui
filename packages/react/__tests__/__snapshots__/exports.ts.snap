@@ -1027,6 +1027,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "alignSelf": {
         "type": "string",
       },
+      "alt": {
+        "type": "string",
+      },
       "area": {
         "type": "string",
       },

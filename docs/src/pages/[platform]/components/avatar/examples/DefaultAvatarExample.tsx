@@ -5,7 +5,7 @@ export default function DefaultAvatarExample() {
   return (
     <Flex direction="row">
       {/* Avatar with image */}
-      <Avatar src="/cats/5.jpg" />
+      <Avatar src="/cats/5.jpg" alt="my cat" />
       {/* Avatar with default placeholder icon */}
       <Avatar />
       {/* Avatar with initials */}
