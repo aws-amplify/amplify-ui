@@ -149,7 +149,7 @@ describe('createAIHooks', () => {
         useAIGeneration('generateRecipe')
       );
 
-      const [{ data }, generate] = hookResult.current;
+      const [_result, generate] = hookResult.current;
       act(() => {
         generate({
           description: 'I want a recipe for a gluten-free chocolate cake.',
