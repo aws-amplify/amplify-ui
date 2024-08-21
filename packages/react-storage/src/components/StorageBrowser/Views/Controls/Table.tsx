@@ -1,6 +1,6 @@
 import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
-import { humanFileSize } from '../../../StorageManager/utils';
+import { humanFileSize } from '@aws-amplify/ui';
 
 import { StorageBrowserElements } from '../../context/elements';
 import { DownloadControl } from './Download';
@@ -274,7 +274,7 @@ export const LocationsViewTable = (): JSX.Element => {
 };
 
 export const LocationDetailViewTable = (): JSX.Element => {
-  const [{ history, location }, handleUpdateState] = useControl({
+  const [{ history, path }, handleUpdateState] = useControl({
     type: 'NAVIGATE',
   });
 
@@ -282,25 +282,18 @@ export const LocationDetailViewTable = (): JSX.Element => {
     type: 'LIST_LOCATION_ITEMS',
   });
 
-  const prefix = history.join('');
-
+  const currentPosition = history.length;
+  const hasHistory = !!currentPosition;
   const hasItems = !!data.result?.length;
-  const shouldReset = !history.length && hasItems && !location;
 
   React.useEffect(() => {
-    if (shouldReset) {
-      handleList({ prefix: '', options: { reset: true } });
-    }
-
-    if (!history.length) {
-      return;
-    }
+    if (!hasHistory) return;
 
     handleList({
-      prefix,
+      prefix: path,
       options: { pageSize: 1000, refresh: true, delimiter: '/' },
     });
-  }, [handleList, history, prefix, shouldReset]);
+  }, [handleList, hasHistory, path]);
 
   // @TODO: This should be it's own component instead of using `useCallback`
   const renderRowItem: RenderRowItem<LocationItem> = React.useCallback(
@@ -333,7 +326,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
                 );
               }
               case 'download' as keyof LocationItem: {
-                return <DownloadControl fileKey={`${prefix}${row.key}`} />;
+                return <DownloadControl fileKey={`${path}${row.key}`} />;
               }
               case 'key': {
                 return (
@@ -359,7 +352,10 @@ export const LocationDetailViewTable = (): JSX.Element => {
                     onClick={() => {
                       handleUpdateState({
                         type: 'NAVIGATE',
-                        prefix: row.key,
+                        entry: {
+                          position: currentPosition + 1,
+                          prefix: row.key,
+                        },
                       });
                     }}
                     key={`${index}-${row.key}`}
@@ -387,7 +383,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
         </TableRow>
       );
     },
-    [handleUpdateState, prefix]
+    [handleUpdateState, currentPosition, path]
   );
 
   return isLoading && !hasItems ? (

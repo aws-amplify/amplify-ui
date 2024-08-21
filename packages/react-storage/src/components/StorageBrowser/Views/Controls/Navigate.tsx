@@ -7,7 +7,7 @@ import { parseLocationAccess } from '../../context/controls/Navigate/utils';
 
 import { CLASS_BASE } from '../constants';
 import type { OmitElements } from '../types';
-import { LocationData } from '../../context/actions';
+import { LocationData, useAction } from '../../context/actions';
 
 export interface _NavigateControl<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -25,6 +25,7 @@ export interface NavigateControl<
 
 interface NavigateItemProps {
   children?: React.ReactNode;
+  disabled?: boolean;
   isCurrent?: boolean;
   onClick?: () => void;
 }
@@ -92,6 +93,9 @@ export const NavigateControl: NavigateControl = (_props) => {
   const [{ history, location }, handleUpdateState] = useControl({
     type: 'NAVIGATE',
   });
+  const [{ isLoading }, handleUpdateList] = useAction({
+    type: 'LIST_LOCATION_ITEMS',
+  });
 
   const { bucket } = location
     ? parseLocationAccess(location)
@@ -102,26 +106,32 @@ export const NavigateControl: NavigateControl = (_props) => {
       <NavigateItem
         onClick={() => {
           handleUpdateState({ type: 'EXIT' });
+          handleUpdateList({ prefix: '', options: { reset: true } });
         }}
       >
         {HOME_NAVIGATE_ITEM}
       </NavigateItem>
-      {history?.map((entry, i) => {
-        // if `entry` is the first index, concatenate the `bucket` and initial prefix
-        const sanitizedEntry =
-          i === 0 ? `${bucket}${entry ? `/${entry}` : ''}` : entry;
+      {history?.map((entry) => {
+        const { position, prefix: _prefix } = entry;
+        // remove trailing `/` from `prefix`
+        const prefix = _prefix.slice(0, -1);
 
-        const displayValue = !sanitizedEntry.endsWith('/')
-          ? sanitizedEntry
-          : sanitizedEntry.slice(0, -1);
+        // if `position` is the first index:
+        // - concatenate `bucket` and `prefix`
+        // - if `prefix` is truthy, insert `/` between `bucket` and `prefix`
+        const displayValue =
+          position === 0
+            ? `${bucket}${prefix ? `/${prefix}` : prefix}`
+            : prefix;
 
         return (
-          <React.Fragment key={entry}>
+          <React.Fragment key={`${prefix}/${position}`}>
             <NavigateItem
+              disabled={isLoading}
               onClick={() => {
-                handleUpdateState({ type: 'NAVIGATE', prefix: entry });
+                handleUpdateState({ type: 'NAVIGATE', entry });
               }}
-              isCurrent={i === history.length - 1}
+              isCurrent={position === history.length - 1}
             >
               {displayValue}
             </NavigateItem>
