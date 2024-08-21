@@ -11,7 +11,7 @@ import { CLASS_BASE } from '../constants';
 
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
 
-const { Icon } = StorageBrowserElements;
+const { Icon, Text } = StorageBrowserElements;
 
 const { Cancel, Exit, Primary, Summary, Table } = Controls;
 
@@ -69,6 +69,10 @@ export const ActionIcon = ({ status }: ActionIconProps): React.JSX.Element => {
   );
 };
 
+const Destination = ({ children }: { children?: React.ReactNode }) => {
+  return <Text>Destination: {children}</Text>;
+};
+
 const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
   return (
     <Table.TableRow key={index}>
@@ -124,6 +128,7 @@ export const UploadControls = (): JSX.Element => {
       >
         Start upload
       </Primary>
+      <Destination>{history[history.length - 1]}</Destination>
       <Summary />
       <Table
         data={tasks}
