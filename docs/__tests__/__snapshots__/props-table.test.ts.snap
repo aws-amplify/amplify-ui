@@ -8986,7 +8986,7 @@ exports[`Props Table 1`] = `
                     "autoScroll": {
                         "name": "autoScroll",
                         "type": "\\"auto\\" | \\"smooth\\" | \\"instant\\" | undefined",
-                        "description": "",
+                        "description": "Scroll to the end as the children of it change",
                         "category": "BaseScrollViewProps",
                         "isOptional": true
                     },
