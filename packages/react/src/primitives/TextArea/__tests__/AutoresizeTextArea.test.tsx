@@ -118,7 +118,6 @@ describe('AutoresizeTextArea component', () => {
     await act(async () => {
       await userEvent.type(textarea, 'hello');
     });
-    // userEvent.paste(textarea, 'there');
     await act(async () => {
       userEvent.paste('there');
     });

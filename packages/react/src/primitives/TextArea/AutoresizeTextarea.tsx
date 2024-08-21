@@ -11,7 +11,7 @@ const AutoresizeTextAreaPrimitive: Primitive<TextAreaProps, 'textarea'> = (
   externalRef
 ) => {
   const internalRef = React.useRef<HTMLTextAreaElement>(null);
-  useAutoresizeTextArea(internalRef.current, value as string);
+  useAutoresizeTextArea(internalRef.current, value);
   const composedRef = useComposeRefsCallback<HTMLTextAreaElement | null>({
     externalRef,
     internalRef,
