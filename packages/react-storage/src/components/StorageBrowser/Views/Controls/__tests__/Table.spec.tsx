@@ -23,7 +23,8 @@ const controlState = {
     permission: 'READ',
     type: 'BUCKET',
   },
-  history: [''],
+  history: [{ prefix: '', position: 0 }],
+  path: '',
 };
 
 const locationItems: LocationItem[] = [
@@ -135,7 +136,7 @@ describe('LocationsViewTable', () => {
 
   it('does not load location items when location is not set', async () => {
     useControlSpy.mockReturnValue([
-      { location: undefined, history: [] },
+      { location: undefined, history: [], path: '' },
       handleUpdateControlState,
     ]);
 
@@ -144,15 +145,15 @@ describe('LocationsViewTable', () => {
       handleUpdateActionState,
     ]);
 
-    render(
-      <Provider>
-        <LocationDetailViewTable />
-      </Provider>
-    );
-
     await waitFor(() => {
-      expect(handleUpdateActionState).not.toHaveBeenCalled();
+      render(
+        <Provider>
+          <LocationDetailViewTable />
+        </Provider>
+      );
     });
+
+    expect(handleUpdateActionState).not.toHaveBeenCalled();
   });
 });
 
@@ -170,18 +171,18 @@ describe('LocationDetailViewTable', () => {
 
     useActionSpy.mockReturnValue([locationItemsState, handleUpdateActionState]);
 
-    render(
-      <Provider>
-        <LocationDetailViewTable />
-      </Provider>
-    );
-
     await waitFor(() => {
-      expect(handleUpdateActionState).toHaveBeenCalledTimes(1);
-      expect(handleUpdateActionState).toHaveBeenCalledWith({
-        prefix: '',
-        options: { delimiter: '/', pageSize: 1000, refresh: true },
-      });
+      render(
+        <Provider>
+          <LocationDetailViewTable />
+        </Provider>
+      );
+    });
+
+    expect(handleUpdateActionState).toHaveBeenCalledTimes(1);
+    expect(handleUpdateActionState).toHaveBeenCalledWith({
+      prefix: '',
+      options: { delimiter: '/', pageSize: 1000, refresh: true },
     });
   });
 
@@ -192,7 +193,8 @@ describe('LocationDetailViewTable', () => {
         permission: 'READ',
         type: 'PREFIX',
       },
-      history: ['test-prefix/'],
+      history: [{ prefix: 'test-prefix/', position: 0 }],
+      path: 'test-prefix/',
     };
 
     useControlSpy.mockReturnValue([
@@ -200,18 +202,18 @@ describe('LocationDetailViewTable', () => {
       handleUpdateControlState,
     ]);
 
-    render(
-      <Provider>
-        <LocationDetailViewTable />
-      </Provider>
-    );
-
     await waitFor(() => {
-      expect(handleUpdateActionState).toHaveBeenCalledTimes(1);
-      expect(handleUpdateActionState).toHaveBeenCalledWith({
-        prefix: 'test-prefix/',
-        options: { delimiter: '/', pageSize: 1000, refresh: true },
-      });
+      render(
+        <Provider>
+          <LocationDetailViewTable />
+        </Provider>
+      );
+    });
+
+    expect(handleUpdateActionState).toHaveBeenCalledTimes(1);
+    expect(handleUpdateActionState).toHaveBeenCalledWith({
+      prefix: 'test-prefix/',
+      options: { delimiter: '/', pageSize: 1000, refresh: true },
     });
   });
 });
