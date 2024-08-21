@@ -314,7 +314,7 @@ const LocationDetailViewColumnSortMap = {
 };
 
 export const LocationDetailViewTable = (): JSX.Element => {
-  const [{ history, location }, handleUpdateState] = useControl({
+  const [{ history, path }, handleUpdateState] = useControl({
     type: 'NAVIGATE',
   });
 
@@ -322,10 +322,9 @@ export const LocationDetailViewTable = (): JSX.Element => {
     type: 'LIST_LOCATION_ITEMS',
   });
 
-  const prefix = history.join('');
-
+  const currentPosition = history.length;
+  const hasHistory = !!currentPosition;
   const hasItems = !!data.result?.length;
-  const shouldReset = !history.length && hasItems && !location;
 
   const [compareFn, setCompareFn] = React.useState(() => compareStrings);
   const [sortState, setSortState] = React.useState<SortState<LocationItem>>({
@@ -341,19 +340,13 @@ export const LocationDetailViewTable = (): JSX.Element => {
       : data.result.sort((a, b) => compareFn(b[selection], a[selection]));
 
   React.useEffect(() => {
-    if (shouldReset) {
-      handleList({ prefix: '', options: { reset: true } });
-    }
-
-    if (!history.length) {
-      return;
-    }
+    if (!hasHistory) return;
 
     handleList({
-      prefix,
+      prefix: path,
       options: { pageSize: 1000, refresh: true, delimiter: '/' },
     });
-  }, [handleList, history, prefix, shouldReset]);
+  }, [handleList, hasHistory, history, path]);
 
   const renderHeaderItem = React.useCallback(
     (column: Column<LocationItem>) => {
@@ -423,7 +416,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
           );
         } else if (column.key === ('download' as keyof LocationItem)) {
           return row.type === 'FILE' ? (
-            <DownloadControl fileKey={`${prefix}${row.key}`} />
+            <DownloadControl fileKey={`${path}${row.key}`} />
           ) : null;
         } else {
           return (
@@ -447,7 +440,10 @@ export const LocationDetailViewTable = (): JSX.Element => {
                     onClick={() => {
                       handleUpdateState({
                         type: 'NAVIGATE',
-                        prefix: row.key,
+                        entry: {
+                          position: currentPosition + 1,
+                          prefix: row.key,
+                        },
                       });
                     }}
                     key={`${index}-${row.key}`}
@@ -463,7 +459,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
         </TableRow>
       );
     },
-    [handleUpdateState, prefix]
+    [handleUpdateState, currentPosition, path]
   );
 
   return isLoading && !hasItems ? (
