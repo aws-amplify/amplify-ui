@@ -16,10 +16,18 @@ const { Icon } = StorageBrowserElements;
 
 const { Cancel, Exit, Primary, Summary, Table } = Controls;
 
-const LOCATION_ACTION_VIEW_COLUMNS: Column<CancelableTask>[] = [
+interface LocationActionViewColumns extends CancelableTask {
+  folder: string;
+}
+
+const LOCATION_ACTION_VIEW_COLUMNS: Column<LocationActionViewColumns>[] = [
   {
     key: 'key',
     header: 'Name',
+  },
+  {
+    key: 'folder',
+    header: 'Folder',
   },
   {
     key: 'type',
@@ -78,19 +86,29 @@ export const ActionIcon = ({ status }: ActionIconProps): React.JSX.Element => {
   );
 };
 
-const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
+const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
+  row,
+  index
+) => {
   const renderTableData = (
-    columnKey: keyof CancelableTask,
-    row: CancelableTask
+    columnKey: keyof LocationActionViewColumns,
+    row: LocationActionViewColumns
   ) => {
     switch (columnKey) {
-      case 'key':
+      case 'key': {
+        // Render the key without the parent folders
+        const folder = row.key.lastIndexOf('/') + 1;
+
         return (
           <TableDataText>
             <ActionIcon status={row.status} />
-            {row.key}
+            {row.key.slice(folder, row.key.length)}
           </TableDataText>
         );
+      }
+      case 'folder': {
+        return <TableDataText>{row.folder}</TableDataText>;
+      }
       case 'type': {
         const indexOfDot = row.key.lastIndexOf('.');
         return indexOfDot > -1 ? (
@@ -147,6 +165,15 @@ export const UploadControls = (): JSX.Element => {
     items: items! as FileItem[],
   });
 
+  const formatTasks = tasks.map((task) => {
+    const folder = task.data.webkitRelativePath.lastIndexOf('/') + 1;
+
+    return {
+      ...task,
+      folder: folder > -1 ? task.data.webkitRelativePath.slice(0, folder) : '/',
+    };
+  });
+
   return items ? (
     <>
       <Title />
@@ -161,7 +188,7 @@ export const UploadControls = (): JSX.Element => {
       </Primary>
       <Summary />
       <Table
-        data={tasks}
+        data={formatTasks}
         columns={LOCATION_ACTION_VIEW_COLUMNS}
         renderRowItem={renderRowItem}
       />
