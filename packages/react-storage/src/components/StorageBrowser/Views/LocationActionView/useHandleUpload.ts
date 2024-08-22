@@ -85,9 +85,10 @@ export function useHandleUpload({
   React.useEffect(() => {
     // update tasks when items changes
     setTasks(() =>
-      items.map(({ key, data }) => ({
+      items.map(({ key, data, size }) => ({
         cancel: () => setTasks((prev) => removeTask(prev, key)),
         key,
+        size,
         data: data!,
         status: 'INITIAL',
         message: undefined,

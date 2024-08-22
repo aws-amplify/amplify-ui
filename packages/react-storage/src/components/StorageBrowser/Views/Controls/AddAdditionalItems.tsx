@@ -20,7 +20,15 @@ export interface AddFolderControl {
   (props: { disable: boolean }): React.JSX.Element;
 }
 
-function getItemsToAdd(items: LocationItem[], files: File[]) {
+function getItemsToAdd({
+  items,
+  files,
+  isFolder = false,
+}: {
+  items: LocationItem[];
+  files: File[];
+  isFolder?: boolean;
+}) {
   const locationItemsMap = new Map<string, LocationItem>();
   items.forEach((item) => {
     // If we have previously selected items, use them to create our map of unique items
@@ -29,10 +37,10 @@ function getItemsToAdd(items: LocationItem[], files: File[]) {
   });
 
   for (const data of files) {
-    const { name, lastModified, size } = data;
+    const { name, lastModified, size, webkitRelativePath } = data;
 
     locationItemsMap.set(name, {
-      key: name,
+      key: isFolder ? webkitRelativePath : name,
       data,
       lastModified: new Date(lastModified),
       size,
@@ -52,7 +60,7 @@ export const AddFilesControl: AddFilesControl = ({ disable }) => {
   const items = prevSelectedItems ?? [];
 
   const handleInputChange = (files: File[]) => {
-    const itemsToAdd = getItemsToAdd(items, files);
+    const itemsToAdd = getItemsToAdd({ items, files });
 
     handleUpdateState({
       type: 'ADD_ITEMS',
@@ -88,7 +96,7 @@ export const AddFolderControl: AddFolderControl = ({ disable }) => {
   const items = prevSelectedItems ?? [];
 
   const handleInputChange = (files: File[]) => {
-    const itemsToAdd = getItemsToAdd(items, files);
+    const itemsToAdd = getItemsToAdd({ items, files, isFolder: true });
 
     handleUpdateState({
       type: 'ADD_ITEMS',

@@ -30,8 +30,10 @@ describe('AddFilesControl', () => {
     const button = screen.getByRole('button', { name: 'Add Files' });
     const input: HTMLInputElement = screen.getByTestId('amplify-file-select');
 
-    user.click(button);
-    await user.upload(input, file);
+    await act(async () => {
+      await user.click(button);
+      await user.upload(input, file);
+    });
 
     expect(input.files).not.toBeNull();
     expect(input.files).toHaveLength(1);
@@ -74,9 +76,8 @@ describe('AddFolderControl', () => {
 
     await act(async () => {
       await user.click(button);
+      await user.upload(input, files);
     });
-
-    await user.upload(input, files);
 
     expect(input.files).toHaveLength(files.length);
   });
