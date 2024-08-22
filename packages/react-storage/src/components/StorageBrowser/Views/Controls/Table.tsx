@@ -1,11 +1,18 @@
 import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
+import { humanFileSize } from '@aws-amplify/ui';
 
 import { StorageBrowserElements } from '../../context/elements';
 import { DownloadControl } from './Download';
 import { CLASS_BASE } from '../constants';
 import { useControl } from '../../context/controls';
-import { LocationAccess, LocationItem, Permission } from '../../context/types';
+import {
+  FileItem,
+  FolderItem,
+  LocationAccess,
+  LocationItem,
+  Permission,
+} from '../../context/types';
 import { useAction, useLocationsData } from '../../context/actions';
 import {
   compareDates,
@@ -403,39 +410,52 @@ export const LocationDetailViewTable = (): JSX.Element => {
         row: LocationItem,
         column: Column<LocationItem>
       ) => {
-        if (
-          row.type === 'FILE' &&
-          // @ts-ignore @TODO fix this ts error: This comparison appears to be unintentional because the types '"key" | "type"' and '"lastModified"' have no overlap.
-          column.key === 'lastModified' &&
-          row[column.key]
-        ) {
-          return (
-            <TableDataText>
-              {new Date(row[column.key]).toLocaleString()}
-            </TableDataText>
-          );
-        } else if (column.key === ('download' as keyof LocationItem)) {
-          return row.type === 'FILE' ? (
-            <DownloadControl fileKey={`${path}${row.key}`} />
-          ) : null;
-        } else {
-          return (
-            <TableDataText>
-              {column.key === 'key' && row.type === 'FILE' ? (
-                <Icon className={ICON_CLASS} variant="file" />
-              ) : null}
-              {row[column.key]}
-            </TableDataText>
-          );
-        }
-      };
+        const { type } = row;
 
-      return (
-        <TableRow key={index}>
-          {LOCATION_DETAIL_VIEW_COLUMNS.map((column) => {
-            return (
-              <TableData key={`${index}-${column.header}`} variant={column.key}>
-                {column.key === 'key' && row.type === 'FOLDER' ? (
+        switch (type) {
+          case 'FILE': {
+            // Casting column as Column<FileItem> to assert that we're only working with FileItems
+            // since the type is 'FILE'
+            const { key } = column as Column<FileItem>;
+
+            switch (key) {
+              case 'size': {
+                return (
+                  <TableDataText>
+                    {humanFileSize(row.size ?? 0, true)}
+                  </TableDataText>
+                );
+              }
+              case 'lastModified': {
+                return (
+                  <TableDataText>
+                    {new Date(row.lastModified).toLocaleString()}
+                  </TableDataText>
+                );
+              }
+              case 'download' as keyof LocationItem: {
+                return <DownloadControl fileKey={`${path}${row.key}`} />;
+              }
+              case 'key': {
+                return (
+                  <TableDataText>
+                    <Icon className={ICON_CLASS} variant="file" />
+                    {row.key}
+                  </TableDataText>
+                );
+              }
+              default:
+                return <TableDataText>{row[column.key]}</TableDataText>;
+            }
+          }
+          case 'FOLDER': {
+            // Casting column as Column<FolderItem> to assert that we're only working with FileItems
+            // since the type is 'FOLDER'
+            const { key } = column as Column<FolderItem>;
+
+            switch (key) {
+              case 'key': {
+                return (
                   <TableDataButton
                     onClick={() => {
                       handleUpdateState({
@@ -450,9 +470,21 @@ export const LocationDetailViewTable = (): JSX.Element => {
                   >
                     <Icon className={ICON_CLASS} variant="folder" /> {row.key}
                   </TableDataButton>
-                ) : (
-                  parseTableData(row, column)
-                )}
+                );
+              }
+              default:
+                return <TableDataText>{row[column.key]}</TableDataText>;
+            }
+          }
+        }
+      };
+
+      return (
+        <TableRow key={index}>
+          {LOCATION_DETAIL_VIEW_COLUMNS.map((column) => {
+            return (
+              <TableData key={`${index}-${column.header}`} variant={column.key}>
+                {parseTableData(row, column)}
               </TableData>
             );
           })}
