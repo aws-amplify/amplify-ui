@@ -7,7 +7,11 @@ import { CLASS_BASE } from '../constants';
 import { useControl } from '../../context/controls';
 import { LocationAccess, LocationItem, Permission } from '../../context/types';
 import { useAction, useLocationsData } from '../../context/actions';
-import { compareStrings } from '../../context/controls/Table';
+import {
+  compareDates,
+  compareNumbers,
+  compareStrings,
+} from '../../context/controls/Table';
 
 export type SortDirection = 'ascending' | 'descending' | 'none';
 
@@ -301,6 +305,13 @@ export const LocationsViewTable = (): JSX.Element => {
   );
 };
 
+const LocationDetailViewColumnSortMap = {
+  key: compareStrings,
+  type: compareStrings,
+  lastModified: compareDates,
+  size: compareNumbers,
+};
+
 export const LocationDetailViewTable = (): JSX.Element => {
   const [{ history, path }, handleUpdateState] = useControl({
     type: 'NAVIGATE',
@@ -314,6 +325,19 @@ export const LocationDetailViewTable = (): JSX.Element => {
   const hasHistory = !!currentPosition;
   const hasItems = !!data.result?.length;
 
+  const [compareFn, setCompareFn] = React.useState(() => compareStrings);
+  const [sortState, setSortState] = React.useState<SortState<LocationItem>>({
+    selection: 'key',
+    direction: 'ascending',
+  });
+
+  const { direction, selection } = sortState;
+
+  const tableData =
+    direction === 'ascending'
+      ? data.result.sort((a, b) => compareFn(a[selection], b[selection]))
+      : data.result.sort((a, b) => compareFn(b[selection], a[selection]));
+
   React.useEffect(() => {
     if (!hasHistory) return;
 
@@ -321,7 +345,55 @@ export const LocationDetailViewTable = (): JSX.Element => {
       prefix: path,
       options: { pageSize: 1000, refresh: true, delimiter: '/' },
     });
-  }, [handleList, hasHistory, path]);
+  }, [handleList, hasHistory, history, path]);
+
+  const renderHeaderItem = React.useCallback(
+    (column: Column<LocationItem>) => {
+      // Defining this function inside the `LocationDetailViewTable` to get access
+      // to the current sort state
+
+      const { header, key } = column;
+
+      return (
+        <TableHeader
+          key={header}
+          aria-sort={selection === key ? direction : 'none'}
+        >
+          {LocationDetailViewColumnSortMap[column.key] ? (
+            <TableHeaderButton
+              onClick={() => {
+                setCompareFn(() => LocationDetailViewColumnSortMap[column.key]);
+
+                setSortState((prevState) => ({
+                  selection: column.key,
+                  direction:
+                    prevState.direction === 'ascending'
+                      ? 'descending'
+                      : 'ascending',
+                }));
+              }}
+            >
+              {column.header}
+              {selection === column.key ? (
+                <Icon
+                  variant={
+                    direction === 'none'
+                      ? 'sort-indeterminate'
+                      : `sort-${direction}`
+                  }
+                />
+              ) : (
+                <Icon variant="sort-indeterminate" />
+              )}
+            </TableHeaderButton>
+          ) : (
+            column.header
+          )}
+        </TableHeader>
+      );
+    },
+    [direction, selection]
+  );
 
   // @TODO: This should be it's own component instead of using `useCallback`
   const renderRowItem: RenderRowItem<LocationItem> = React.useCallback(
@@ -394,8 +466,8 @@ export const LocationDetailViewTable = (): JSX.Element => {
   ) : (
     <TableControl
       columns={LOCATION_DETAIL_VIEW_COLUMNS}
-      data={data.result}
-      renderHeaderItem={() => <div></div>} // temporary
+      data={tableData}
+      renderHeaderItem={renderHeaderItem}
       renderRowItem={renderRowItem}
     />
   );
