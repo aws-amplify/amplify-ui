@@ -4,6 +4,7 @@ import { createAIHooks } from '../createAIHooks';
 const listMessageMock = jest.fn().mockResolvedValue({ data: [] });
 const sendMessageMock = jest.fn().mockResolvedValue({ data: {} });
 const onMessageMock = jest.fn().mockReturnValue({ unsubscribe: jest.fn() });
+const generateRecipeMock = jest.fn();
 let id = 'foobar';
 
 const mockGet = jest.fn().mockImplementation(() => {
@@ -24,6 +25,9 @@ const mockClient = jest.fn().mockImplementation(() => {
         get: mockGet,
         create: mockCreate,
       },
+    },
+    generations: {
+      generateRecipe: generateRecipeMock,
     },
   };
 });
@@ -132,27 +136,33 @@ describe('createAIHooks', () => {
     });
   });
 
-  // describe('useAIGeneration', () => {
-  //   it('returns a result', async () => {
-  //     const client = new mockClient();
-  //     const { useAIGeneration } = createAIHooks(client);
+  describe('useAIGeneration', () => {
+    it('returns a result', async () => {
+      const client = new mockClient();
+      const expectedResult = {
+        recipe: 'This is a recipe for chocolate cake that tastes bad',
+      };
+      generateRecipeMock.mockResolvedValueOnce(expectedResult);
+      const { useAIGeneration } = createAIHooks(client);
 
-  //     const { result: hookResult, waitForNextUpdate } = renderHook(() =>
-  //       useAIGeneration('recipe')
-  //     );
+      const { result: hookResult, waitForNextUpdate } = renderHook(() =>
+        useAIGeneration('generateRecipe')
+      );
 
-  //     const [{ data }, generate] = hookResult.current;
-  //     act(() => {
-  //       generate({ arguments: ['apple', 'banana', 'grape'] });
-  //     });
+      const [_result, generate] = hookResult.current;
+      act(() => {
+        generate({
+          description: 'I want a recipe for a gluten-free chocolate cake.',
+        });
+      });
 
-  //     const [loadingState] = hookResult.current;
-  //     expect(loadingState.isLoading).toBeTruthy();
+      const [loadingState] = hookResult.current;
+      expect(loadingState.isLoading).toBeTruthy();
 
-  //     await waitForNextUpdate();
+      await waitForNextUpdate();
 
-  //     const [awaitedState] = hookResult.current;
-  //     expect(awaitedState.data.result).toBeDefined();
-  //   });
-  // });
+      const [awaitedState] = hookResult.current;
+      expect(awaitedState.data).toStrictEqual(expectedResult);
+    });
+  });
 });

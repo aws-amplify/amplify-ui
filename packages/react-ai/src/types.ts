@@ -1,3 +1,4 @@
+import { V6Client } from '@aws-amplify/api-graphql';
 import {
   Conversation as SDKConversation,
   ConversationMessage as SDKConversationMessage,
@@ -39,3 +40,5 @@ export interface SendMesageParameters {
 }
 
 export type SendMessage = (input: SendMesageParameters) => void;
+
+export type getSchema<T> = T extends V6Client<infer Schema> ? Schema : never;

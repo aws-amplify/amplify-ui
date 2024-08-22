@@ -1,46 +1,56 @@
 import { DataState, useDataState } from '@aws-amplify/ui-react-core';
-
-interface GenerateParameters {
-  arguments: string | string[] | number;
-}
+import { V6Client as SDKV6Client } from '@aws-amplify/api-graphql';
+import { getSchema } from '../types';
 
 interface UseAIGenerationInput {
   onError?: (error: Error) => void;
 }
 
-interface AIGenerationState {
-  result?: string;
+export interface UseAIGenerationHookWrapper<
+  Key extends keyof V6Client<Schema>['generations'],
+  Schema extends Record<any, any>,
+> {
+  useAIGeneration: <U extends Key>(
+    routeName: U,
+    input?: UseAIGenerationInput
+  ) => [
+    Awaited<DataState<Schema[U]['returnType']>>,
+    (input: Schema[U]['args']) => void,
+  ];
 }
 
-export type UseAIGenerationHook<T extends string> = (
-  routeName: T,
+export type UseAIGenerationHook<
+  Key extends keyof V6Client<Schema>['generations'],
+  Schema extends Record<any, any>,
+> = (
+  routeName: Key,
   input?: UseAIGenerationInput
 ) => [
-  Awaited<DataState<AIGenerationState>>,
-  (input: GenerateParameters) => void,
+  Awaited<DataState<Schema[Key]['returnType']>>,
+  (input: Schema[Key]['args']) => void,
 ];
 
+type V6Client<T extends Record<any, any>> = Pick<SDKV6Client<T>, 'generations'>;
+
 export function createUseAIGeneration<
-  T extends Record<'generations', Record<string, any>>,
->(_client: T): UseAIGenerationHook<Extract<keyof T['generations'], string>> {
-  const useAIGeneration = (
-    _routeName: keyof T['generations'],
+  Client extends Record<'generations' | 'conversations', Record<string, any>>,
+  Schema extends getSchema<Client>,
+>(client: Client): UseAIGenerationHook<keyof Client['generations'], Client> {
+  const useAIGeneration = <Key extends keyof V6Client<Schema>['generations']>(
+    routeName: Key,
     _input?: UseAIGenerationInput
   ) => {
-    // return useDataState(client.ai.generation as T['ai'])[routeName].generate, { messages: [] });
-    // const generate = client.ai.generate as T['ai'])[routeName];
-
-    // const newAction = async (_prev: { result: string }, _input: GenerateParameters) => {
-    //   const result = await generate(_input);
-    //   return { result }
-    // }
+    const handleGenerate = (
+      client.generations as V6Client<Schema>['generations']
+    )[routeName];
 
     const updateAIGenerationStateAction = async (
-      _prev: AIGenerationState,
-      _input: GenerateParameters
-    ): Promise<AIGenerationState> => {
-      await new Promise((r) => setTimeout(r, 500));
-      return { result: 'generatedresult' };
+      _prev: Schema[Key]['returnType'],
+      input: Schema[Key]['args']
+    ): Promise<Schema[Key]['returnType']> => {
+      const result = await handleGenerate(input);
+
+      return { ...result };
     };
 
     return useDataState(updateAIGenerationStateAction, {});
