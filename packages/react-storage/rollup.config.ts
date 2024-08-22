@@ -10,7 +10,7 @@ const tsconfig = 'tsconfig.dist.json';
 
 // storage browser settings
 const storageBrowserInput = 'src/components/StorageBrowser/index.ts';
-const storageBrowserOutputEntryFile = 'create-storage-browser.js';
+const storageBrowserOutputEntryFile = 'storage-browser.js';
 
 const config = defineConfig([
   // CJS config

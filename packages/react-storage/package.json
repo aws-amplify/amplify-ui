@@ -10,8 +10,8 @@
       "require": "./dist/index.js"
     },
     "./styles.css": "./dist/styles.css",
-    "./create-storage-browser": {
-      "main": "./dist/create-storage-browser.js",
+    "./browser": {
+      "main": "./dist/storage-browser.js",
       "types": "./dist/types/components/StorageBrowser/index.d.ts",
       "import": "./dist/esm/components/StorageBrowser/index.mjs"
     },

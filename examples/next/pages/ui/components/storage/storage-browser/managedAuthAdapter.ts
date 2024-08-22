@@ -1,7 +1,7 @@
 import {
   createManagedAuthAdapter,
   CreateManagedAuthAdapterInput,
-} from '@aws-amplify/ui-react-storage/create-storage-browser';
+} from '@aws-amplify/ui-react-storage/browser';
 
 type CredentialsProvider = CreateManagedAuthAdapterInput['credentialsProvider'];
 type Credentials = Awaited<ReturnType<CredentialsProvider>>;
