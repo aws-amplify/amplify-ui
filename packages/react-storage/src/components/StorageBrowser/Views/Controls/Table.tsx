@@ -226,6 +226,7 @@ export const LocationsViewTable = (): JSX.Element => {
       return (
         <TableHeader
           key={header}
+          variant={key}
           aria-sort={selection === key ? sortDirection : 'none'}
         >
           <TableHeaderButton
@@ -357,6 +358,12 @@ export const LocationDetailViewTable = (): JSX.Element => {
       return (
         <TableHeader
           key={header}
+          variant={key}
+          aria-label={
+            key == ('download' as keyof LocationItem)
+              ? column.header
+              : undefined
+          }
           aria-sort={selection === key ? direction : 'none'}
         >
           {LocationDetailViewColumnSortMap[column.key] ? (
@@ -386,9 +393,9 @@ export const LocationDetailViewTable = (): JSX.Element => {
                 <Icon variant="sort-indeterminate" />
               )}
             </TableHeaderButton>
-          ) : (
+          ) : column.key !== ('download' as keyof LocationItem) ? (
             column.header
-          )}
+          ) : null}
         </TableHeader>
       );
     },
