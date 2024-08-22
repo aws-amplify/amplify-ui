@@ -25,7 +25,7 @@ jobs:
         pkg-manager: [npm]
         language: [ts]
         node-version: [18]
-        platform: [android]
+        platform: [ios, android]
         logfile: [test.log]
         pkg-manager-version: [latest]
         exclude:
