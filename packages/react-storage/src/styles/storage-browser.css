@@ -5,6 +5,7 @@
   --storage-browser-status-success: hsl(130, 33%, 37%);
   --storage-browser-status-progress: hsl(220, 95%, 30%);
   --storage-browser-status-initial: hsl(210, 10%, 58%);
+  --storage-browser-loading-animation: spin 1s ease-out infinite;
   display: grid;
   gap: var(--storage-browser-gap);
   grid-template-columns: repeat(32, 1fr);
@@ -248,4 +249,26 @@
 .storage-browser__action-status--action-error,
 .storage-browser__action-status--action-canceled {
   color: var(--storage-browser-status-error);
+}
+
+.storage-browser__loading {
+  display: flex;
+  gap: var(--storage-browser-gap-small);
+  grid-row-start: 5;
+  grid-column: 1 / -1;
+  justify-self: center;
+  align-items: center;
+}
+
+.storage-browser__loading__icon {
+  animation: var(--storage-browser-loading-animation);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

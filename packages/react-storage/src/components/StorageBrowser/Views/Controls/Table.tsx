@@ -203,12 +203,12 @@ const LocationsViewColumnSortMap = {
   permission: compareStrings,
 };
 
-export const LocationsViewTable = (): JSX.Element => {
+export const LocationsViewTable = (): JSX.Element | null => {
   const [{ data, isLoading }] = useLocationsData();
   const [, handleUpdateState] = useControl({ type: 'NAVIGATE' });
 
   const hasLocations = !!data.result?.length;
-  const shouldRenderLocations = !hasLocations || isLoading;
+  const shouldRenderLocations = hasLocations && !isLoading;
 
   const [compareFn, setCompareFn] = React.useState(() => compareStrings);
   const [sortState, setSortState] = React.useState<
@@ -303,15 +303,13 @@ export const LocationsViewTable = (): JSX.Element => {
     );
 
   return shouldRenderLocations ? (
-    <div>...loading</div>
-  ) : (
     <TableControl
       columns={LOCATION_VIEW_COLUMNS}
       data={tableData}
       renderHeaderItem={renderHeaderItem}
       renderRowItem={renderRowItem}
     />
-  );
+  ) : null;
 };
 
 const LocationDetailViewColumnSortMap = {
@@ -321,7 +319,7 @@ const LocationDetailViewColumnSortMap = {
   size: compareNumbers,
 };
 
-export const LocationDetailViewTable = (): JSX.Element => {
+export const LocationDetailViewTable = (): JSX.Element | null => {
   const [{ history, path }, handleUpdateState] = useControl({
     type: 'NAVIGATE',
   });
@@ -501,14 +499,12 @@ export const LocationDetailViewTable = (): JSX.Element => {
     [handleUpdateState, currentPosition, path]
   );
 
-  return isLoading && !hasItems ? (
-    <span>loading...</span>
-  ) : (
+  return hasItems && !isLoading ? (
     <TableControl
       columns={LOCATION_DETAIL_VIEW_COLUMNS}
       data={tableData}
       renderHeaderItem={renderHeaderItem}
       renderRowItem={renderRowItem}
     />
-  );
+  ) : null;
 };

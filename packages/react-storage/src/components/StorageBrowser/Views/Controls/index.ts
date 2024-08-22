@@ -2,6 +2,7 @@ export { ExitControl } from './Exit';
 export { ActionSelectControl } from './ActionSelect';
 export { CancelControl } from './Cancel';
 export { DownloadControl } from './Download';
+export { LoadingControl } from './Loading';
 export { MessageControl } from './Message';
 export { NavigateControl, NavigateItem } from './Navigate';
 export { PaginateControl } from './Paginate';
