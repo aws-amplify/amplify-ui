@@ -150,6 +150,7 @@ const Layout: typeof View = React.forwardRef(function Layout(props, ref) {
       {...props}
       ref={ref}
       className={`${MESSAGES_BLOCK}__container ${MESSAGES_BLOCK}__container--${variant}`}
+      aria-live={'assertive'}
     />
   );
 });
