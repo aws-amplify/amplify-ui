@@ -27,10 +27,10 @@ fi
 
 # Run npm run android in the background
 if [ $BUILD_TOOL == 'expo' ]; then
-  log "command" "npm run android -- -p 19000"
+  log "command" "npm run android -- -p 19000 >$LOG_FILE &"
   # Run npm run android in the background
-  npm run android -- -p 19000 &
-  npx wait-on -t 300000 tcp:19000 -v 
+  npm run android -- -p 19000 >$LOG_FILE &
+  npx wait-on -t 100000 tcp:19000 -v 
   if [ $? -ne 0 ]; then
     log "error" "Failed to run command: npm run android -- -p 1900 > $LOG_FILE &"
     exit 1
