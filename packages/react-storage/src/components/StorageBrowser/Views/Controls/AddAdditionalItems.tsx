@@ -38,7 +38,7 @@ function getItemsToAdd({
     const { name, lastModified, size, webkitRelativePath } = data;
 
     locationItemsMap.set(name, {
-      key: webkitRelativePath.length > 0 ? webkitRelativePath : name,
+      key: webkitRelativePath?.length > 0 ? webkitRelativePath : name,
       data,
       lastModified: new Date(lastModified),
       size,
