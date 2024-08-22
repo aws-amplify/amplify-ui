@@ -16,7 +16,11 @@ const { Icon } = StorageBrowserElements;
 
 const { Cancel, Exit, Primary, Summary, Table } = Controls;
 
-const LOCATION_ACTION_VIEW_COLUMNS: Column<CancelableTask>[] = [
+interface LocationActionViewColumns extends CancelableTask {
+  type: string;
+}
+
+const LOCATION_ACTION_VIEW_COLUMNS: Column<LocationActionViewColumns>[] = [
   {
     key: 'key',
     header: 'Name',
@@ -78,10 +82,13 @@ export const ActionIcon = ({ status }: ActionIconProps): React.JSX.Element => {
   );
 };
 
-const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
+const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
+  row,
+  index
+) => {
   const renderTableData = (
-    columnKey: keyof CancelableTask,
-    row: CancelableTask
+    columnKey: keyof LocationActionViewColumns,
+    row: LocationActionViewColumns
   ) => {
     switch (columnKey) {
       case 'key':
@@ -92,14 +99,7 @@ const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
           </TableDataText>
         );
       case 'type': {
-        const indexOfDot = row.key.lastIndexOf('.');
-        return indexOfDot > -1 ? (
-          <TableDataText>
-            {row.key.slice(indexOfDot + 1).toUpperCase()}
-          </TableDataText>
-        ) : (
-          ''
-        );
+        return <TableDataText>{row.type}</TableDataText>;
       }
       case 'size':
         return <TableDataText>{humanFileSize(row.size, true)}</TableDataText>;
@@ -147,6 +147,11 @@ export const UploadControls = (): JSX.Element => {
     items: items! as FileItem[],
   });
 
+  const tableData = tasks.map((task) => ({
+    ...task,
+    type: task.data.type,
+  }));
+
   return items ? (
     <>
       <Title />
@@ -161,7 +166,7 @@ export const UploadControls = (): JSX.Element => {
       </Primary>
       <Summary />
       <Table
-        data={tasks}
+        data={tableData}
         columns={LOCATION_ACTION_VIEW_COLUMNS}
         renderHeaderItem={() => <div></div>} // temporary
         renderRowItem={renderRowItem}
