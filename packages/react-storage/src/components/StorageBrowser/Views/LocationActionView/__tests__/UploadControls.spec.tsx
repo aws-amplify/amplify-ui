@@ -3,9 +3,9 @@ import { render, screen, waitFor } from '@testing-library/react';
 
 import * as ControlsModule from '../../../context/controls';
 import createProvider from '../../../createProvider';
+import { ActionSelectState } from '../../../context/controls/ActionSelect/ActionSelect';
 
 import { UploadControls, ActionIcon, ICON_CLASS } from '../UploadControls';
-import { ActionSelectState } from '../../../context/controls/ActionSelect/ActionSelect';
 
 const useControlSpy = jest.spyOn(ControlsModule, 'useControl');
 
