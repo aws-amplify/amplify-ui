@@ -29,8 +29,7 @@ fi
 if [ $BUILD_TOOL == 'expo' ]; then
   log "command" "npm run android -- -p 19000"
   # Run npm run android in the background
-  npm run android -- -p 19000 &
-  npx wait-on -t 20000 tcp:19000
+  npm run android -- -p 19000
 else
   log "command" "cd android"
   cd android
