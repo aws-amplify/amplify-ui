@@ -11,6 +11,7 @@ const {
   Loading: LoadingElement,
   Message,
   Navigate,
+  Paginate,
   Refresh,
   Title: TitleElement,
 } = Controls;
@@ -75,6 +76,7 @@ export const LocationDetailViewControls: LocationDetailViewControls = () => {
       <Title />
       <RefreshControl />
       <ActionSelect />
+      <Paginate />
       <LocationDetailMessage />
       <Loading />
       <LocationDetailViewTable />
