@@ -8,12 +8,28 @@ const input = ['src/index.ts'];
 const sourceMap = false;
 const tsconfig = 'tsconfig.dist.json';
 
+// storage browser settings
+const storageBrowserInput = 'src/components/StorageBrowser/index.ts';
+const storageBrowserOutputEntryFile = 'create-storage-browser.js';
+
 const config = defineConfig([
   // CJS config
   {
     input,
     output: {
       dir: 'dist',
+      format: 'cjs',
+    },
+    plugins: [
+      externals({ include: /^@aws-amplify/ }),
+      typescript({ declarationDir: 'dist/types', sourceMap, tsconfig }),
+    ],
+  },
+  {
+    input: storageBrowserInput,
+    output: {
+      dir: 'dist',
+      entryFileNames: storageBrowserOutputEntryFile,
       format: 'cjs',
     },
     plugins: [

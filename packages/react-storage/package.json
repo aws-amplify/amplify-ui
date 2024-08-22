@@ -10,6 +10,11 @@
       "require": "./dist/index.js"
     },
     "./styles.css": "./dist/styles.css",
+    "./create-storage-browser": {
+      "main": "./dist/create-storage-browser.js",
+      "types": "./dist/types/components/StorageBrowser/index.d.ts",
+      "import": "./dist/esm/components/StorageBrowser/index.mjs"
+    },
     "./storage-browser-styles.css": "./dist/storage-browser-styles.css"
   },
   "browser": {
@@ -25,7 +30,8 @@
   },
   "files": [
     "dist",
-    "LICENSE"
+    "LICENSE",
+    "create-storage-browser"
   ],
   "scripts": {
     "build": "yarn build:rollup",

@@ -1,0 +1,7 @@
+{
+  "name": "@aws-amplify/ui-react-storage/create-storage-browser",
+  "main": "../dist/create-storage-browser.js",
+  "module": "../dist/esm/components/StorageBrowser/index.mjs",
+  "types": "../dist/types/components/StorageBrowser/index.d.ts",
+  "sideEffects": false
+}
