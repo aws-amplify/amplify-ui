@@ -4,6 +4,7 @@ import { ActionSelectControl } from './ActionSelect';
 import { CancelControl } from './Cancel';
 import { DownloadControl } from './Download';
 import { ExitControl } from './Exit';
+import { LoadingControl } from './Loading';
 import { MessageControl } from './Message';
 import { NavigateControl } from './Navigate';
 import { PaginateControl } from './Paginate';
@@ -22,6 +23,7 @@ export interface Controls<
   Cancel: CancelControl<T>;
   Download: DownloadControl<T>;
   Exit: ExitControl<T>;
+  Loading: LoadingControl<T>;
   Message: MessageControl<T>;
   Paginate: PaginateControl<T>;
   Primary: PrimaryControl<T>;
@@ -39,6 +41,7 @@ export const Controls: Controls = {
   ActionSelect: ActionSelectControl,
   Cancel: CancelControl,
   Download: DownloadControl,
+  Loading: LoadingControl,
   Message: MessageControl,
   Paginate: PaginateControl,
   Primary: PrimaryControl,

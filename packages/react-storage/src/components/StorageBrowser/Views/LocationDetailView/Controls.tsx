@@ -8,8 +8,10 @@ import { useAction } from '../../context/actions';
 
 const {
   ActionSelect,
+  Loading: LoadingElement,
   Message,
   Navigate,
+  Paginate,
   Refresh,
   Title: TitleElement,
 } = Controls;
@@ -46,6 +48,14 @@ const RefreshControl = () => {
   );
 };
 
+const Loading = () => {
+  const [{ isLoading }] = useAction({
+    type: 'LIST_LOCATION_ITEMS',
+  });
+
+  return isLoading ? <LoadingElement /> : null;
+};
+
 export const LocationDetailMessage = (): React.JSX.Element | null => {
   const [{ hasError, message }] = useAction({
     type: 'LIST_LOCATION_ITEMS',
@@ -66,7 +76,9 @@ export const LocationDetailViewControls: LocationDetailViewControls = () => {
       <Title />
       <RefreshControl />
       <ActionSelect />
+      <Paginate />
       <LocationDetailMessage />
+      <Loading />
       <LocationDetailViewTable />
     </>
   );
