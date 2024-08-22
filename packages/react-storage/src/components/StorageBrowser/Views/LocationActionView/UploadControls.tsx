@@ -104,6 +104,7 @@ const LocationActionViewColumnSortMap = {
   size: compareNumbers,
   status: compareStrings,
   progress: compareNumbers,
+  type: compareStrings,
 };
 
 const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
@@ -173,13 +174,15 @@ export const UploadControls = (): JSX.Element => {
 
   let tableData = tasks.map((task) => ({
     ...task,
-    type: task.data.type,
+    type: task.data.type ?? '-',
   }));
 
   const [compareFn, setCompareFn] = React.useState<(a: any, b: any) => number>(
     () => compareStrings
   );
-  const [sortState, setSortState] = React.useState<SortState<CancelableTask>>({
+  const [sortState, setSortState] = React.useState<
+    SortState<LocationActionViewColumns>
+  >({
     selection: 'key',
     direction: 'ascending',
   });
@@ -192,7 +195,7 @@ export const UploadControls = (): JSX.Element => {
       : tableData.sort((a, b) => compareFn(b[selection], a[selection]));
 
   const renderHeaderItem = React.useCallback(
-    (column: Column<CancelableTask>) => {
+    (column: Column<LocationActionViewColumns>) => {
       // Defining this function inside the `UploadControls` to get access
       // to the current sort state
       const { header, key } = column;

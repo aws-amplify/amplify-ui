@@ -441,6 +441,17 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
               case 'download' as keyof LocationItem: {
                 return <DownloadControl fileKey={`${path}${row.key}`} />;
               }
+              case 'type': {
+                const indexOfDot = row.key.lastIndexOf('.');
+
+                return indexOfDot > -1 ? (
+                  <TableDataText>
+                    {row.key.slice(indexOfDot + 1).toUpperCase()}
+                  </TableDataText>
+                ) : (
+                  '-'
+                );
+              }
               case 'key': {
                 return (
                   <TableDataText>
