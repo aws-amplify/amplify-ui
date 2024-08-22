@@ -98,6 +98,7 @@ const Destination = ({ children }: { children?: React.ReactNode }) => {
 
 const LocationActionViewColumnSortMap = {
   key: compareStrings,
+  size: compareNumbers,
   status: compareStrings,
   progress: compareNumbers,
 };
@@ -171,6 +172,7 @@ export const UploadControls = (): JSX.Element => {
       return (
         <Table.TableHeader
           key={header}
+          variant={key}
           aria-sort={selection === key ? direction : 'none'}
         >
           {key in LocationActionViewColumnSortMap ? (
@@ -193,7 +195,7 @@ export const UploadControls = (): JSX.Element => {
               }}
             >
               {column.header}
-              {selection === column.key && (
+              {selection === column.key ? (
                 <Icon
                   variant={
                     direction === 'none'
@@ -201,6 +203,8 @@ export const UploadControls = (): JSX.Element => {
                       : `sort-${direction}`
                   }
                 />
+              ) : (
+                <Icon variant="sort-indeterminate" />
               )}
             </TableHeaderButton>
           ) : (
