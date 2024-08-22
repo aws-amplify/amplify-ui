@@ -18,7 +18,8 @@ import { CLASS_BASE } from '../constants';
 
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
 
-const { Icon } = StorageBrowserElements;
+const { Icon, DefinitionDetail, DefinitionList, DefinitionTerm } =
+  StorageBrowserElements;
 
 const { Cancel, Exit, Primary, Summary, Table } = Controls;
 
@@ -76,6 +77,15 @@ export const ActionIcon = ({ status }: ActionIconProps): React.JSX.Element => {
   );
 };
 
+const Destination = ({ children }: { children?: React.ReactNode }) => {
+  return (
+    <DefinitionList className="storage-browser__destination">
+      <DefinitionTerm>Destination:</DefinitionTerm>
+      <DefinitionDetail>{children}</DefinitionDetail>
+    </DefinitionList>
+  );
+};
+
 const LocationActionViewColumnSortMap = {
   key: compareStrings,
   status: compareStrings,
@@ -117,7 +127,7 @@ export const UploadControls = (): JSX.Element => {
   const [state, handleUpdateState] = useControl({
     type: 'ACTION_SELECT',
   });
-  const [{ path }] = useControl({ type: 'NAVIGATE' });
+  const [{ path, history }] = useControl({ type: 'NAVIGATE' });
   const { items } = state.selected;
 
   const [tasks, handleUpload] = useHandleUpload({
@@ -202,6 +212,7 @@ export const UploadControls = (): JSX.Element => {
       >
         Start upload
       </Primary>
+      <Destination>{history[history.length - 1].prefix}</Destination>
       <Summary />
       <Table
         data={tableData}
