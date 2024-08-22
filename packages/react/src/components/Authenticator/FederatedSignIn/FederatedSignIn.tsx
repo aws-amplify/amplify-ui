@@ -3,13 +3,10 @@ import {
   authenticatorTextUtil,
   FederatedIdentityProviders,
 } from '@aws-amplify/ui';
-
-import { Divider } from '../../../primitives/Divider';
-import { Flex } from '../../../primitives/Flex';
 import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { FederatedSignInButton } from './FederatedSignInButtons';
 
-const { getSignInWithFederationText, getOrText } = authenticatorTextUtil;
+const { getSignInWithFederationText } = authenticatorTextUtil;
 
 export function FederatedSignIn(): JSX.Element {
   const { route, socialProviders } = useAuthenticator(
@@ -22,11 +19,7 @@ export function FederatedSignIn(): JSX.Element {
   }
 
   return (
-    <Flex
-      direction="column"
-      padding={`0 0 1rem 0`}
-      className="federated-sign-in-container"
-    >
+    <>
       {socialProviders.map((provider) => {
         switch (provider) {
           case 'amazon':
@@ -72,8 +65,6 @@ export function FederatedSignIn(): JSX.Element {
             );
         }
       })}
-
-      <Divider size="small" label={getOrText()} />
-    </Flex>
+    </>
   );
 }
