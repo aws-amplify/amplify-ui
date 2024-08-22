@@ -190,7 +190,7 @@
   margin-inline-end: var(--storage-browser-gap-small);
 }
 
-.storage-browser__table__data--size,
+.storage-browser__table__data--size > *,
 .storage-browser__table__header--size {
   text-align: end;
 }
