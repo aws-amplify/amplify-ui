@@ -195,7 +195,7 @@ describe('LocationsViewTable', () => {
     await waitFor(() => {
       render(
         <Provider>
-          <LocationDetailViewTable />
+          <LocationsViewTable />
         </Provider>
       );
     });
