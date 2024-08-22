@@ -6,7 +6,12 @@ import * as ControlsModule from '../../../context/controls/';
 import * as ActionsModule from '../../../context/actions';
 import { LocationItem } from '../../../context/actions';
 
-import { LocationDetailViewTable, LocationsViewTable } from '../Table';
+import {
+  Column,
+  LocationDetailViewTable,
+  LocationsViewTable,
+  TableControl,
+} from '../Table';
 
 const useControlSpy = jest.spyOn(ControlsModule, 'useControl');
 const useActionSpy = jest.spyOn(ActionsModule, 'useAction');
@@ -79,6 +84,44 @@ describe('TableControl', () => {
     handleUpdateControlState.mockClear();
   });
 
+  it('calls renderHeaderItem and renderRowItem to render the TableControl', () => {
+    const renderHeaderItemSpy = jest.fn();
+    const renderRowItemSpy = jest.fn();
+
+    const columns: Column<LocationItem>[] = [
+      {
+        header: 'Name',
+        key: 'key',
+      },
+      {
+        header: 'Type',
+        key: 'type',
+      },
+    ];
+
+    render(
+      <TableControl
+        data={locationItems}
+        columns={columns}
+        renderHeaderItem={renderHeaderItemSpy}
+        renderRowItem={renderRowItemSpy}
+      />
+    );
+
+    expect(renderHeaderItemSpy).toHaveBeenCalled();
+    expect(renderRowItemSpy).toHaveBeenCalled();
+  });
+});
+
+describe('LocationsViewTable', () => {
+  beforeEach(() => {
+    useActionSpy.mockClear();
+    useControlSpy.mockClear();
+
+    handleUpdateActionState.mockClear();
+    handleUpdateControlState.mockClear();
+  });
+
   it('renders a Locations View table', async () => {
     await waitFor(() =>
       expect(
@@ -111,6 +154,16 @@ describe('TableControl', () => {
     });
 
     expect(handleUpdateActionState).not.toHaveBeenCalled();
+  });
+});
+
+describe('LocationDetailViewTable', () => {
+  beforeEach(() => {
+    useActionSpy.mockClear();
+    useControlSpy.mockClear();
+
+    handleUpdateActionState.mockClear();
+    handleUpdateControlState.mockClear();
   });
 
   it('loads initial location items for a BUCKET location as expected', async () => {
