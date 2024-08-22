@@ -9,12 +9,12 @@
       "import": "./dist/esm/index.mjs",
       "require": "./dist/index.js"
     },
-    "./styles.css": "./dist/styles.css",
     "./browser": {
-      "main": "./dist/storage-browser.js",
+      "main": "./dist/browser.js",
       "types": "./dist/types/components/StorageBrowser/index.d.ts",
-      "import": "./dist/esm/components/StorageBrowser/index.mjs"
+      "import": "./dist/esm/components/StorageBrowser/browser.mjs"
     },
+    "./styles.css": "./dist/styles.css",
     "./storage-browser-styles.css": "./dist/storage-browser-styles.css"
   },
   "browser": {
