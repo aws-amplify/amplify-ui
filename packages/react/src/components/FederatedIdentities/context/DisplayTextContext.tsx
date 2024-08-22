@@ -1,7 +1,7 @@
 import React from 'react';
 
 export function displayText(displayName: string): string {
-  return `Sign in with ${displayName}`;
+  return `Sign In with ${displayName}`;
 }
 
 const DisplayTextContext = React.createContext<typeof displayText>(displayText);
