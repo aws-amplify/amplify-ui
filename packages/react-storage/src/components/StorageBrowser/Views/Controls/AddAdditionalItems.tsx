@@ -23,11 +23,9 @@ export interface AddFolderControl {
 function getItemsToAdd({
   items,
   files,
-  isFolder = false,
 }: {
   items: LocationItem[];
   files: File[];
-  isFolder?: boolean;
 }) {
   const locationItemsMap = new Map<string, LocationItem>();
   items.forEach((item) => {
@@ -40,7 +38,7 @@ function getItemsToAdd({
     const { name, lastModified, size, webkitRelativePath } = data;
 
     locationItemsMap.set(name, {
-      key: isFolder ? webkitRelativePath : name,
+      key: webkitRelativePath.length > 0 ? webkitRelativePath : name,
       data,
       lastModified: new Date(lastModified),
       size,
@@ -96,7 +94,7 @@ export const AddFolderControl: AddFolderControl = ({ disable }) => {
   const items = prevSelectedItems ?? [];
 
   const handleInputChange = (files: File[]) => {
-    const itemsToAdd = getItemsToAdd({ items, files, isFolder: true });
+    const itemsToAdd = getItemsToAdd({ items, files });
 
     handleUpdateState({
       type: 'ADD_ITEMS',
