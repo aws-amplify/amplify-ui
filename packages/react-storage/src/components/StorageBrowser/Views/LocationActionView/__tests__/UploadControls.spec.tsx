@@ -4,10 +4,12 @@ import { render, screen, waitFor } from '@testing-library/react';
 import * as ControlsModule from '../../../context/controls';
 import createProvider from '../../../createProvider';
 import { ActionSelectState } from '../../../context/controls/ActionSelect/ActionSelect';
+import * as UseHandleUploadModule from '../useHandleUpload';
 
 import { UploadControls, ActionIcon, ICON_CLASS } from '../UploadControls';
 
 const useControlSpy = jest.spyOn(ControlsModule, 'useControl');
+const useHandleUploadSpy = jest.spyOn(UseHandleUploadModule, 'useHandleUpload');
 
 const actionSelectState: ActionSelectState = {
   actions: [],
@@ -25,6 +27,7 @@ const navigateState = {
     scope: 's3://test-bucket/*',
     type: 'BUCKET',
   },
+  path: 'path',
   history: [
     { prefix: '', position: 0 },
     { prefix: 'folder1/', position: 1 },
@@ -76,11 +79,28 @@ describe('UploadControls', () => {
       name: 'Upload Files',
     };
 
-    render(
-      <Provider>
-        <UploadControls />
-      </Provider>
-    );
+    useHandleUploadSpy.mockReturnValue([
+      [
+        {
+          cancel: () => {},
+          key: 'file.jpg',
+          size: 1000,
+          data: new File([], 'file.jpg'),
+          status: 'INITIAL',
+          message: undefined,
+          progress: 0,
+        },
+      ],
+      jest.fn(),
+    ]);
+
+    await waitFor(() => {
+      render(
+        <Provider>
+          <UploadControls />
+        </Provider>
+      );
+    });
 
     await waitFor(() => {
       const table = screen.getByRole('table');
@@ -88,12 +108,14 @@ describe('UploadControls', () => {
     });
   });
 
-  it('should render the destination folder', () => {
-    render(
-      <Provider>
-        <UploadControls />
-      </Provider>
-    );
+  it('should render the destination folder', async () => {
+    await waitFor(() => {
+      render(
+        <Provider>
+          <UploadControls />
+        </Provider>
+      );
+    });
 
     const destination = screen.getByText('Destination:');
     const destinationFolder = screen.getByText('folder3/');
