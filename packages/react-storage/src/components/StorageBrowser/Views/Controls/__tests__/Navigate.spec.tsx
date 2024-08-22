@@ -2,34 +2,46 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { ControlProvider } from '../../../context/controls';
+import * as ControlsModule from '../../../context/controls';
+import * as ActionsModule from '../../../context/actions';
 
 import { NavigateControl } from '../Navigate';
-import * as useControlObject from '../../../context/controls';
+
+const handleList = jest.fn();
+jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
+  {
+    isLoading: false,
+    hasError: false,
+    message: undefined,
+    data: { result: undefined },
+  },
+  handleList,
+]);
 
 const handleUpdateState = jest.fn();
 const state = {
   location: { scope: 's3://test-bucket/*', type: 'BUCKET' },
-  history: ['', 'folder1/', 'folder2/', 'folder3/'],
+  history: [
+    { prefix: '', position: 0 },
+    { prefix: 'folder1/', position: 1 },
+    { prefix: 'folder2/', position: 2 },
+    { prefix: 'folder3/', position: 3 },
+  ],
 };
-
 const useControlSpy = jest
-  .spyOn(useControlObject, 'useControl')
+  .spyOn(ControlsModule, 'useControl')
   .mockImplementation(() => [state, handleUpdateState]);
 
 describe('NavigateControl', () => {
   const user = userEvent.setup();
 
   beforeEach(() => {
+    handleList.mockClear();
     useControlSpy.mockClear();
   });
 
   it('renders the NavigateControl', () => {
-    render(
-      <ControlProvider>
-        <NavigateControl />
-      </ControlProvider>
-    );
+    render(<NavigateControl />);
 
     const nav = screen.getByRole('navigation', {
       name: 'Breadcrumbs',
@@ -43,11 +55,7 @@ describe('NavigateControl', () => {
   });
 
   it('handles selecting "home" navigate item', async () => {
-    render(
-      <ControlProvider>
-        <NavigateControl />
-      </ControlProvider>
-    );
+    render(<NavigateControl />);
 
     await user.click(screen.getByText('Home'));
 
@@ -57,41 +65,29 @@ describe('NavigateControl', () => {
   });
 
   it('handles selecting the root bucket navigate item', async () => {
-    render(
-      <ControlProvider>
-        <NavigateControl />
-      </ControlProvider>
-    );
+    render(<NavigateControl />);
 
     await user.click(screen.getByText('test-bucket'));
 
     expect(handleUpdateState).toHaveBeenCalledWith({
       type: 'NAVIGATE',
-      prefix: '',
+      entry: { prefix: '', position: 0 },
     });
   });
 
   it('handles selecting a folder navigate item', async () => {
-    render(
-      <ControlProvider>
-        <NavigateControl />
-      </ControlProvider>
-    );
+    render(<NavigateControl />);
 
     await user.click(screen.getByText('folder1'));
 
     expect(handleUpdateState).toHaveBeenCalledWith({
       type: 'NAVIGATE',
-      prefix: 'folder1/',
+      entry: { prefix: 'folder1/', position: 1 },
     });
   });
 
   it('creates a separator between home and the prefix', () => {
-    const { container } = render(
-      <ControlProvider>
-        <NavigateControl />
-      </ControlProvider>
-    );
+    const { container } = render(<NavigateControl />);
 
     const separators = container.getElementsByClassName(
       'storage-browser__navigate__separator'
@@ -101,18 +97,29 @@ describe('NavigateControl', () => {
     expect(separators[0]).toBeInTheDocument();
   });
 
+  it('renders a first entry with a non-empty `prefix` as expected', () => {
+    useControlSpy.mockReturnValue([
+      { ...state, history: [{ prefix: 'initial/', position: 0 }] },
+      handleUpdateState,
+    ]);
+
+    render(<NavigateControl />);
+
+    const expected = 'test-bucket/initial';
+
+    expect(screen.getByText(expected)).toBeDefined();
+  });
+
   it('applies aria-current to last element in the control and does not contain a separator', async () => {
-    render(
-      <ControlProvider>
-        <NavigateControl />
-      </ControlProvider>
-    );
+    render(<NavigateControl />);
+
     const items = await screen.findAllByRole('listitem');
     const lastItem = items[items.length - 1];
     const lastSeparator = lastItem.querySelector(
       '.storage-browser__navigate__separator'
     );
     const currentButton = lastItem.querySelector('button');
+
     expect(currentButton).toHaveAttribute('aria-current', 'page');
     expect(lastSeparator).toBeNull();
   });

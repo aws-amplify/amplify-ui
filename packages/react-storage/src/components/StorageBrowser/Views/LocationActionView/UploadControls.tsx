@@ -8,7 +8,7 @@ import { Controls } from '../Controls';
 import { Title } from './Controls';
 import { TableDataText, Column, RenderRowItem } from '../Controls/Table';
 import { CLASS_BASE } from '../constants';
-import { humanFileSize } from '../../../StorageManager/utils';
+import { humanFileSize } from '@aws-amplify/ui';
 
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
 
@@ -139,11 +139,11 @@ export const UploadControls = (): JSX.Element => {
   const [state, handleUpdateState] = useControl({
     type: 'ACTION_SELECT',
   });
-  const [{ history }] = useControl({ type: 'NAVIGATE' });
+  const [{ path }] = useControl({ type: 'NAVIGATE' });
   const { items } = state.selected;
 
   const [tasks, handleUpload] = useHandleUpload({
-    prefix: history.join(''),
+    prefix: path,
     items: items! as FileItem[],
   });
 
@@ -163,6 +163,7 @@ export const UploadControls = (): JSX.Element => {
       <Table
         data={tasks}
         columns={LOCATION_ACTION_VIEW_COLUMNS}
+        renderHeaderItem={() => <div></div>} // temporary
         renderRowItem={renderRowItem}
       />
     </>
