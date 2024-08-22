@@ -5,7 +5,6 @@ export {
   StorageManagerDisplayTextDefault,
 } from './displayText';
 export { filterAllowedFiles } from './filterAllowedFiles';
-export { humanFileSize } from './humanFileSize';
 export { getInput } from './getInput';
 
 export {
