@@ -15,6 +15,7 @@ import {
 } from '../Controls/Table';
 import { compareNumbers, compareStrings } from '../../context/controls/Table';
 import { CLASS_BASE } from '../constants';
+import { humanFileSize } from '@aws-amplify/ui';
 
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
 
@@ -27,6 +28,10 @@ const LOCATION_ACTION_VIEW_COLUMNS: Column<CancelableTask>[] = [
   {
     key: 'key',
     header: 'Name',
+  },
+  {
+    key: 'size',
+    header: 'Size',
   },
   {
     key: 'status',
@@ -106,6 +111,8 @@ const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
                 <ActionIcon status={row.status} />
                 {row.key}
               </TableDataText>
+            ) : column.key === 'size' ? (
+              <TableDataText>{humanFileSize(row.size, true)}</TableDataText>
             ) : column.key === 'status' ? (
               <TableDataText>{row.status}</TableDataText>
             ) : column.key === 'progress' ? (
