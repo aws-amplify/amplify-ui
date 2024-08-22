@@ -56,7 +56,7 @@ const TableHead = withBaseElementProps(BaseTableHead, {
   className: `${BLOCK_NAME}__head`,
 });
 
-const TableHeaderButton = withBaseElementProps(Button, {
+export const TableHeaderButton = withBaseElementProps(Button, {
   className: `${BLOCK_NAME}__header__button`,
   variant: 'sort',
 });
@@ -157,7 +157,7 @@ export interface Column<T> {
 
 export interface TableControl<
   T extends StorageBrowserElements = StorageBrowserElements,
-> extends Pick<T, 'TableData' | 'TableRow'> {
+> extends Pick<T, 'TableData' | 'TableRow' | 'TableHeader'> {
   <U>(props: TableControlProps<U>): React.JSX.Element;
 }
 
@@ -195,6 +195,7 @@ export const TableControl: TableControl = <U,>({
 
 TableControl.TableRow = TableRow;
 TableControl.TableData = TableData;
+TableControl.TableHeader = TableHeader;
 
 const LocationsViewColumnSortMap = {
   scope: compareStrings,
@@ -434,15 +435,6 @@ export const LocationDetailViewTable = (): JSX.Element => {
               }
               case 'download' as keyof LocationItem: {
                 return <DownloadControl fileKey={`${path}${row.key}`} />;
-              }
-              case 'type': {
-                const indexOfDot = row.key.lastIndexOf('.');
-
-                return indexOfDot > -1 ? (
-                  <TableDataText>{row.key.slice(indexOfDot + 1)}</TableDataText>
-                ) : (
-                  '-'
-                );
               }
               case 'key': {
                 return (
