@@ -8,8 +8,10 @@ import { useAction } from '../../context/actions';
 
 const {
   ActionSelect,
+  Loading: LoadingElement,
   Message,
   Navigate,
+  Paginate,
   Refresh,
   Title: TitleElement,
 } = Controls;
@@ -24,32 +26,34 @@ export interface LocationDetailViewControls<
 }
 
 export const Title = (): React.JSX.Element => {
-  const [{ history }] = useControl({
-    type: 'NAVIGATE',
-  });
-  const title = history.slice(-1)[0];
-  return <TitleElement>{title}</TitleElement>;
+  const [{ history }] = useControl({ type: 'NAVIGATE' });
+  const { prefix } = history.slice(-1)[0];
+  return <TitleElement>{prefix}</TitleElement>;
 };
 
-const LocationDetailViewRefresh = () => {
-  const [{ history }] = useControl({
-    type: 'NAVIGATE',
-  });
+const RefreshControl = () => {
+  const [{ path }] = useControl({ type: 'NAVIGATE' });
 
   const [{ data, isLoading }, handleList] = useAction({
     type: 'LIST_LOCATION_ITEMS',
   });
 
-  const prefix = history.join('');
-
   return (
     <Refresh
       disabled={isLoading || data.result.length <= 0}
       onClick={() =>
-        handleList({ prefix, options: { refresh: true, pageSize: 1000 } })
+        handleList({ prefix: path, options: { refresh: true, pageSize: 1000 } })
       }
     />
   );
+};
+
+const Loading = () => {
+  const [{ isLoading }] = useAction({
+    type: 'LIST_LOCATION_ITEMS',
+  });
+
+  return isLoading ? <LoadingElement /> : null;
 };
 
 export const LocationDetailMessage = (): React.JSX.Element | null => {
@@ -70,9 +74,11 @@ export const LocationDetailViewControls: LocationDetailViewControls = () => {
     <>
       <Navigate />
       <Title />
-      <LocationDetailViewRefresh />
+      <RefreshControl />
       <ActionSelect />
+      <Paginate />
       <LocationDetailMessage />
+      <Loading />
       <LocationDetailViewTable />
     </>
   );

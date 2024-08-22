@@ -6,17 +6,26 @@ import { StorageBrowserElements } from '../../context/elements';
 import { IconVariant } from '../../context/elements/IconElement';
 import { Controls } from '../Controls';
 import { Title } from './Controls';
-import { TableDataText, Column, RenderRowItem } from '../Controls/Table';
+import {
+  TableDataText,
+  Column,
+  RenderRowItem,
+  SortState,
+  TableHeaderButton,
+} from '../Controls/Table';
+import { compareNumbers, compareStrings } from '../../context/controls/Table';
 import { CLASS_BASE } from '../constants';
-import { humanFileSize } from '../../../StorageManager/utils';
+import { humanFileSize } from '@aws-amplify/ui';
 
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
 
-const { Icon } = StorageBrowserElements;
+const { Icon, DefinitionDetail, DefinitionList, DefinitionTerm } =
+  StorageBrowserElements;
 
 const { Cancel, Exit, Primary, Summary, Table } = Controls;
 
 interface LocationActionViewColumns extends CancelableTask {
+  type: string;
   folder: string;
 }
 
@@ -86,6 +95,24 @@ export const ActionIcon = ({ status }: ActionIconProps): React.JSX.Element => {
   );
 };
 
+const Destination = ({ children }: { children?: React.ReactNode }) => {
+  return (
+    <DefinitionList className="storage-browser__destination">
+      <DefinitionTerm>Destination:</DefinitionTerm>
+      <DefinitionDetail>{children}</DefinitionDetail>
+    </DefinitionList>
+  );
+};
+
+const LocationActionViewColumnSortMap = {
+  key: compareStrings,
+  size: compareNumbers,
+  status: compareStrings,
+  progress: compareNumbers,
+  type: compareStrings,
+  folder: compareStrings,
+};
+
 const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
   row,
   index
@@ -110,14 +137,7 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
         return <TableDataText>{row.folder}</TableDataText>;
       }
       case 'type': {
-        const indexOfDot = row.key.lastIndexOf('.');
-        return indexOfDot > -1 ? (
-          <TableDataText>
-            {row.key.slice(indexOfDot + 1).toUpperCase()}
-          </TableDataText>
-        ) : (
-          ''
-        );
+        return <TableDataText>{row.type}</TableDataText>;
       }
       case 'size':
         return <TableDataText>{humanFileSize(row.size, true)}</TableDataText>;
@@ -157,24 +177,95 @@ export const UploadControls = (): JSX.Element => {
   const [state, handleUpdateState] = useControl({
     type: 'ACTION_SELECT',
   });
-  const [{ history }] = useControl({ type: 'NAVIGATE' });
+  const [{ path, history }] = useControl({ type: 'NAVIGATE' });
   const { items } = state.selected;
 
   const [tasks, handleUpload] = useHandleUpload({
-    prefix: history.join(''),
+    prefix: path,
     items: items! as FileItem[],
   });
 
-  const formatTasks = tasks.map((task) => {
+  let tableData = tasks.map((task) => {
     const folder = task.data.webkitRelativePath.lastIndexOf('/') + 1;
 
     return {
       ...task,
+      type: task.data.type ?? '-',
       folder: folder > -1 ? task.data.webkitRelativePath.slice(0, folder) : '/',
     };
   });
 
-  return items ? (
+  const [compareFn, setCompareFn] = React.useState<(a: any, b: any) => number>(
+    () => compareStrings
+  );
+  const [sortState, setSortState] = React.useState<
+    SortState<LocationActionViewColumns>
+  >({
+    selection: 'key',
+    direction: 'ascending',
+  });
+
+  const { direction, selection } = sortState;
+
+  tableData =
+    direction === 'ascending'
+      ? tableData.sort((a, b) => compareFn(a[selection], b[selection]))
+      : tableData.sort((a, b) => compareFn(b[selection], a[selection]));
+
+  const renderHeaderItem = React.useCallback(
+    (column: Column<LocationActionViewColumns>) => {
+      // Defining this function inside the `UploadControls` to get access
+      // to the current sort state
+      const { header, key } = column;
+
+      return (
+        <Table.TableHeader
+          key={header}
+          variant={key}
+          aria-sort={selection === key ? direction : 'none'}
+        >
+          {key in LocationActionViewColumnSortMap ? (
+            <TableHeaderButton
+              onClick={() => {
+                setCompareFn(
+                  () =>
+                    LocationActionViewColumnSortMap[
+                      key as keyof typeof LocationActionViewColumnSortMap
+                    ]
+                );
+
+                setSortState((prevState) => ({
+                  selection: column.key,
+                  direction:
+                    prevState.direction === 'ascending'
+                      ? 'descending'
+                      : 'ascending',
+                }));
+              }}
+            >
+              {column.header}
+              {selection === column.key ? (
+                <Icon
+                  variant={
+                    direction === 'none'
+                      ? 'sort-indeterminate'
+                      : `sort-${direction}`
+                  }
+                />
+              ) : (
+                <Icon variant="sort-indeterminate" />
+              )}
+            </TableHeaderButton>
+          ) : (
+            column.header
+          )}
+        </Table.TableHeader>
+      );
+    },
+    [direction, selection]
+  );
+
+  return items && items.length > 0 ? (
     <>
       <Title />
       <Exit onClick={() => handleUpdateState({ type: 'EXIT' })} />
@@ -186,10 +277,12 @@ export const UploadControls = (): JSX.Element => {
       >
         Start upload
       </Primary>
+      <Destination>{history[history.length - 1].prefix}</Destination>
       <Summary />
       <Table
-        data={formatTasks}
+        data={tableData}
         columns={LOCATION_ACTION_VIEW_COLUMNS}
+        renderHeaderItem={renderHeaderItem}
         renderRowItem={renderRowItem}
       />
     </>

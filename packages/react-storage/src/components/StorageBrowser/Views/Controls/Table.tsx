@@ -1,6 +1,6 @@
 import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
-import { humanFileSize } from '../../../StorageManager/utils';
+import { humanFileSize } from '@aws-amplify/ui';
 
 import { StorageBrowserElements } from '../../context/elements';
 import { DownloadControl } from './Download';
@@ -14,6 +14,18 @@ import {
   Permission,
 } from '../../context/types';
 import { useAction, useLocationsData } from '../../context/actions';
+import {
+  compareDates,
+  compareNumbers,
+  compareStrings,
+} from '../../context/controls/Table';
+
+export type SortDirection = 'ascending' | 'descending' | 'none';
+
+export type SortState<T> = {
+  selection: keyof T;
+  direction: SortDirection;
+};
 
 const {
   Table: BaseTable,
@@ -44,7 +56,7 @@ const TableHead = withBaseElementProps(BaseTableHead, {
   className: `${BLOCK_NAME}__head`,
 });
 
-const TableHeaderButton = withBaseElementProps(Button, {
+export const TableHeaderButton = withBaseElementProps(Button, {
   className: `${BLOCK_NAME}__header__button`,
   variant: 'sort',
 });
@@ -100,21 +112,6 @@ const TableRow = withBaseElementProps(BaseTableRow, {
   className: `${BLOCK_NAME}__row`,
 });
 
-const SortIndeterminateIcon = withBaseElementProps(Icon, {
-  className: `${BLOCK_NAME}__sort-icon--indeterminate`,
-  variant: 'sort-indeterminate',
-});
-
-// const SortAscendingIcon = withBaseElementProps(Icon, {
-//   className: `${BLOCK_NAME}__sort-icon--ascending`,
-//   variant: 'sort-ascending',
-// });
-
-// const SortDescendingIcon = withBaseElementProps(Icon, {
-//   className: `${BLOCK_NAME}__sort-icon--descending`,
-//   variant: 'sort-descending',
-// });
-
 const LOCATION_VIEW_COLUMNS: Column<LocationAccess<Permission>>[] = [
   {
     header: 'Name',
@@ -160,21 +157,25 @@ export interface Column<T> {
 
 export interface TableControl<
   T extends StorageBrowserElements = StorageBrowserElements,
-> extends Pick<T, 'TableData' | 'TableRow'> {
+> extends Pick<T, 'TableData' | 'TableRow' | 'TableHeader'> {
   <U>(props: TableControlProps<U>): React.JSX.Element;
 }
+
+export type RenderHeaderItem<T> = (column: Column<T>) => JSX.Element;
 
 export type RenderRowItem<T> = (row: T, index: number) => JSX.Element;
 
 interface TableControlProps<T> {
   data: T[];
   columns: Column<T>[];
+  renderHeaderItem: RenderHeaderItem<T>;
   renderRowItem: RenderRowItem<T>;
 }
 
 export const TableControl: TableControl = <U,>({
   data,
   columns,
+  renderHeaderItem,
   renderRowItem,
 }: TableControlProps<U>) => {
   const ariaLabel = 'Table';
@@ -182,34 +183,7 @@ export const TableControl: TableControl = <U,>({
   return (
     <Table aria-label={ariaLabel}>
       <TableHead>
-        <TableRow>
-          {columns?.map((column) =>
-            column.key === 'download' || column.key === 'cancel' ? (
-              <TableHeader
-                key={column.header}
-                aria-label={column.header}
-                variant={column.key}
-              ></TableHeader>
-            ) : (
-              <TableHeader
-                key={column.header}
-                variant={column.key as string}
-                aria-sort="none"
-              >
-                {/* Should all columns be sortable? */}
-
-                <TableHeaderButton
-                  onClick={() => {
-                    /* no op for now */
-                  }}
-                >
-                  {column.header}
-                  <SortIndeterminateIcon />
-                </TableHeaderButton>
-              </TableHeader>
-            )
-          )}
-        </TableRow>
+        <TableRow>{columns.map((column) => renderHeaderItem(column))}</TableRow>
       </TableHead>
 
       <TableBody>
@@ -221,13 +195,79 @@ export const TableControl: TableControl = <U,>({
 
 TableControl.TableRow = TableRow;
 TableControl.TableData = TableData;
+TableControl.TableHeader = TableHeader;
 
-export const LocationsViewTable = (): JSX.Element => {
+const LocationsViewColumnSortMap = {
+  scope: compareStrings,
+  type: compareStrings,
+  permission: compareStrings,
+};
+
+export const LocationsViewTable = (): JSX.Element | null => {
   const [{ data, isLoading }] = useLocationsData();
   const [, handleUpdateState] = useControl({ type: 'NAVIGATE' });
 
   const hasLocations = !!data.result?.length;
-  const shouldRenderLocations = !hasLocations || isLoading;
+  const shouldRenderLocations = hasLocations && !isLoading;
+
+  const [compareFn, setCompareFn] = React.useState(() => compareStrings);
+  const [sortState, setSortState] = React.useState<
+    SortState<LocationAccess<Permission>>
+  >({
+    selection: 'scope',
+    direction: 'ascending',
+  });
+
+  const { direction: sortDirection, selection } = sortState;
+
+  const tableData =
+    sortDirection === 'ascending'
+      ? data.result.sort((a, b) => compareFn(a[selection], b[selection]))
+      : data.result.sort((a, b) => compareFn(b[selection], a[selection]));
+
+  const renderHeaderItem = React.useCallback(
+    (column: Column<LocationAccess<Permission>>) => {
+      // Defining this function inside the `LocationsViewTable` to get access
+      // to the current sort state
+      const { header, key } = column;
+
+      return (
+        <TableHeader
+          key={header}
+          variant={key}
+          aria-sort={selection === key ? sortDirection : 'none'}
+        >
+          <TableHeaderButton
+            onClick={() => {
+              setCompareFn(() => LocationsViewColumnSortMap[column.key]);
+
+              setSortState((prevState) => ({
+                selection: column.key,
+                direction:
+                  prevState.direction === 'ascending'
+                    ? 'descending'
+                    : 'ascending',
+              }));
+            }}
+          >
+            {column.header}
+            {selection === column.key ? (
+              <Icon
+                variant={
+                  sortDirection === 'none'
+                    ? 'sort-indeterminate'
+                    : `sort-${sortDirection}`
+                }
+              />
+            ) : (
+              <Icon variant="sort-indeterminate" />
+            )}
+          </TableHeaderButton>
+        </TableHeader>
+      );
+    },
+    [sortDirection, selection]
+  );
 
   // @TODO: This should be it's own component instead of using `useCallback`
   const renderRowItem: RenderRowItem<LocationAccess<Permission>> =
@@ -263,18 +303,24 @@ export const LocationsViewTable = (): JSX.Element => {
     );
 
   return shouldRenderLocations ? (
-    <div>...loading</div>
-  ) : (
     <TableControl
       columns={LOCATION_VIEW_COLUMNS}
-      data={data.result}
+      data={tableData}
+      renderHeaderItem={renderHeaderItem}
       renderRowItem={renderRowItem}
     />
-  );
+  ) : null;
 };
 
-export const LocationDetailViewTable = (): JSX.Element => {
-  const [{ history, location }, handleUpdateState] = useControl({
+const LocationDetailViewColumnSortMap = {
+  key: compareStrings,
+  type: compareStrings,
+  lastModified: compareDates,
+  size: compareNumbers,
+};
+
+export const LocationDetailViewTable = (): JSX.Element | null => {
+  const [{ history, path }, handleUpdateState] = useControl({
     type: 'NAVIGATE',
   });
 
@@ -282,25 +328,85 @@ export const LocationDetailViewTable = (): JSX.Element => {
     type: 'LIST_LOCATION_ITEMS',
   });
 
-  const prefix = history.join('');
-
+  const currentPosition = history.length;
+  const hasHistory = !!currentPosition;
   const hasItems = !!data.result?.length;
-  const shouldReset = !history.length && hasItems && !location;
+
+  const [compareFn, setCompareFn] = React.useState(() => compareStrings);
+  const [sortState, setSortState] = React.useState<SortState<LocationItem>>({
+    selection: 'key',
+    direction: 'ascending',
+  });
+
+  const { direction, selection } = sortState;
+
+  const tableData =
+    direction === 'ascending'
+      ? data.result.sort((a, b) => compareFn(a[selection], b[selection]))
+      : data.result.sort((a, b) => compareFn(b[selection], a[selection]));
 
   React.useEffect(() => {
-    if (shouldReset) {
-      handleList({ prefix: '', options: { reset: true } });
-    }
-
-    if (!history.length) {
-      return;
-    }
+    if (!hasHistory) return;
 
     handleList({
-      prefix,
+      prefix: path,
       options: { pageSize: 1000, refresh: true, delimiter: '/' },
     });
-  }, [handleList, history, prefix, shouldReset]);
+  }, [handleList, hasHistory, history, path]);
+
+  const renderHeaderItem = React.useCallback(
+    (column: Column<LocationItem>) => {
+      // Defining this function inside the `LocationDetailViewTable` to get access
+      // to the current sort state
+
+      const { header, key } = column;
+
+      return (
+        <TableHeader
+          key={header}
+          variant={key}
+          aria-label={
+            key == ('download' as keyof LocationItem)
+              ? column.header
+              : undefined
+          }
+          aria-sort={selection === key ? direction : 'none'}
+        >
+          {LocationDetailViewColumnSortMap[column.key] ? (
+            <TableHeaderButton
+              onClick={() => {
+                setCompareFn(() => LocationDetailViewColumnSortMap[column.key]);
+
+                setSortState((prevState) => ({
+                  selection: column.key,
+                  direction:
+                    prevState.direction === 'ascending'
+                      ? 'descending'
+                      : 'ascending',
+                }));
+              }}
+            >
+              {column.header}
+              {selection === column.key ? (
+                <Icon
+                  variant={
+                    direction === 'none'
+                      ? 'sort-indeterminate'
+                      : `sort-${direction}`
+                  }
+                />
+              ) : (
+                <Icon variant="sort-indeterminate" />
+              )}
+            </TableHeaderButton>
+          ) : column.key !== ('download' as keyof LocationItem) ? (
+            column.header
+          ) : null}
+        </TableHeader>
+      );
+    },
+    [direction, selection]
+  );
 
   // @TODO: This should be it's own component instead of using `useCallback`
   const renderRowItem: RenderRowItem<LocationItem> = React.useCallback(
@@ -333,7 +439,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
                 );
               }
               case 'download' as keyof LocationItem: {
-                return <DownloadControl fileKey={`${prefix}${row.key}`} />;
+                return <DownloadControl fileKey={`${path}${row.key}`} />;
               }
               case 'type': {
                 const indexOfDot = row.key.lastIndexOf('.');
@@ -343,7 +449,7 @@ export const LocationDetailViewTable = (): JSX.Element => {
                     {row.key.slice(indexOfDot + 1).toUpperCase()}
                   </TableDataText>
                 ) : (
-                  ''
+                  '-'
                 );
               }
               case 'key': {
@@ -370,7 +476,10 @@ export const LocationDetailViewTable = (): JSX.Element => {
                     onClick={() => {
                       handleUpdateState({
                         type: 'NAVIGATE',
-                        prefix: row.key,
+                        entry: {
+                          position: currentPosition + 1,
+                          prefix: row.key,
+                        },
                       });
                     }}
                     key={`${index}-${row.key}`}
@@ -401,16 +510,15 @@ export const LocationDetailViewTable = (): JSX.Element => {
         </TableRow>
       );
     },
-    [handleUpdateState, prefix]
+    [handleUpdateState, currentPosition, path]
   );
 
-  return isLoading && !hasItems ? (
-    <span>loading...</span>
-  ) : (
+  return hasItems && !isLoading ? (
     <TableControl
       columns={LOCATION_DETAIL_VIEW_COLUMNS}
-      data={data.result}
+      data={tableData}
+      renderHeaderItem={renderHeaderItem}
       renderRowItem={renderRowItem}
     />
-  );
+  ) : null;
 };

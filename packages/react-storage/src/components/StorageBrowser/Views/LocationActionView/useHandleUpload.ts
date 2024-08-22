@@ -16,7 +16,6 @@ interface Task {
   progress: number;
   status: TaskStatus;
   size: number;
-  type: string;
 }
 
 export interface CancelableTask extends Omit<Task, 'status'> {
@@ -72,11 +71,10 @@ export function useHandleUpload({
 }): [tasks: CancelableTask[], handleUpload: () => void] {
   const getConfig = useGetLocationConfig();
   const [tasks, setTasks] = React.useState<CancelableTask[]>(() =>
-    (items ?? []).map(({ key, data, size, type }) => ({
+    (items ?? []).map(({ key, data, size }) => ({
       cancel: () => setTasks((prev) => removeTask(prev, key)),
       key,
       size,
-      type,
       data: data!,
       status: 'INITIAL',
       message: undefined,
@@ -86,7 +84,7 @@ export function useHandleUpload({
 
   const handleUpload = () =>
     setTasks((prevTasks) =>
-      prevTasks.map(({ data, key, message, progress, size, type }) => {
+      prevTasks.map(({ data, key, message, progress, size }) => {
         const { bucket: bucketName, credentialsProvider, region } = getConfig();
         const input: UploadDataWithPathInput = {
           path: `${prefix}${key}`,
@@ -128,7 +126,6 @@ export function useHandleUpload({
         return {
           key,
           size,
-          type,
           cancel: handleCancel,
           data,
           message,

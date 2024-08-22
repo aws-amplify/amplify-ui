@@ -57,12 +57,11 @@ const UPLOAD_FOLDER_INPUT_ATTRIBUTES = {
 
 const ActionItem: ActionItem = ({ action, variant }) => {
   const { name, type } = action;
-  const [{ history }] = useControl({ type: 'NAVIGATE' });
+  const [{ path: destination }] = useControl({ type: 'NAVIGATE' });
   const [, handleUpdateState] = useControl({ type: 'ACTION_SELECT' });
   const fileUploadRef = React.useRef<HTMLInputElement>(null);
 
   const requiresFileInput = type === 'UPLOAD_FILES' || type === 'UPLOAD_FOLDER';
-  const destination = history[history.length - 1];
 
   const handleActionClick = () => {
     if (requiresFileInput) {
@@ -75,7 +74,7 @@ const ActionItem: ActionItem = ({ action, variant }) => {
         actionType: type,
         type: 'SELECT_ACTION_TYPE',
         destination,
-        name: name,
+        name,
         items: [],
       });
     }
