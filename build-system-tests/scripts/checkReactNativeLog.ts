@@ -104,7 +104,6 @@ const checkErrorMessage = async (logLines: string[]): Promise<boolean> => {
         'Error',
         'ERROR',
         'fail',
-        'failed',
         'Could not connect to development server',
       ];
       const errorRegex = `(([0-9]{2}:){2}[0-9]{2},?).*(${errorKeyWords.join(
