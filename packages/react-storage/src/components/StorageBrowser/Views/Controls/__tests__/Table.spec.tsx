@@ -1,15 +1,22 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import createProvider from '../../../createProvider';
 import * as ControlsModule from '../../../context/controls/';
 import * as ActionsModule from '../../../context/actions';
-import { LocationItem } from '../../../context/actions';
+import { LocationItem, Permission } from '../../../context/actions';
 
-import { LocationDetailViewTable, LocationsViewTable } from '../Table';
+import {
+  Column,
+  LocationDetailViewTable,
+  LocationsViewTable,
+  TableControl,
+} from '../Table';
+import { LocationAccess } from '../../../context/types';
 
 const useControlSpy = jest.spyOn(ControlsModule, 'useControl');
 const useActionSpy = jest.spyOn(ActionsModule, 'useAction');
+const useLocations = jest.spyOn(ActionsModule, 'useLocationsData');
 
 const handleUpdateControlState = jest.fn();
 const controlState = {
@@ -79,6 +86,44 @@ describe('TableControl', () => {
     handleUpdateControlState.mockClear();
   });
 
+  it('calls renderHeaderItem and renderRowItem to render the TableControl', () => {
+    const renderHeaderItemSpy = jest.fn();
+    const renderRowItemSpy = jest.fn();
+
+    const columns: Column<LocationItem>[] = [
+      {
+        header: 'Name',
+        key: 'key',
+      },
+      {
+        header: 'Type',
+        key: 'type',
+      },
+    ];
+
+    render(
+      <TableControl
+        data={locationItems}
+        columns={columns}
+        renderHeaderItem={renderHeaderItemSpy}
+        renderRowItem={renderRowItemSpy}
+      />
+    );
+
+    expect(renderHeaderItemSpy).toHaveBeenCalled();
+    expect(renderRowItemSpy).toHaveBeenCalled();
+  });
+});
+
+describe('LocationsViewTable', () => {
+  beforeEach(() => {
+    useActionSpy.mockClear();
+    useControlSpy.mockClear();
+
+    handleUpdateActionState.mockClear();
+    handleUpdateControlState.mockClear();
+  });
+
   it('renders a Locations View table', async () => {
     await waitFor(() =>
       expect(
@@ -111,6 +156,67 @@ describe('TableControl', () => {
     });
 
     expect(handleUpdateActionState).not.toHaveBeenCalled();
+  });
+
+  it('sorts descending when sortDirection is descending', async () => {
+    const mockData: LocationAccess<Permission>[] = [
+      {
+        type: 'PREFIX',
+        permission: 'READWRITE',
+        scope: 's3://filebucket-dev/public/*',
+      },
+      {
+        type: 'PREFIX',
+        permission: 'READWRITE',
+        scope: 's3://filebucket-dev/private/*',
+      },
+      {
+        type: 'PREFIX',
+        permission: 'READWRITE',
+        scope: 's3://filebucket-dev/protected/*',
+      },
+    ];
+
+    const sortSpy = jest.spyOn(Array.prototype, 'sort');
+
+    useLocations.mockReturnValue([
+      {
+        data: {
+          result: mockData,
+          nextToken: undefined,
+        },
+        hasError: false,
+        isLoading: false,
+        message: undefined,
+      },
+      jest.fn(),
+    ]);
+
+    await waitFor(() => {
+      render(
+        <Provider>
+          <LocationsViewTable />
+        </Provider>
+      );
+    });
+
+    const nameColumn = screen.getByRole('button', { name: 'Name' });
+
+    expect(nameColumn).toBeDefined();
+
+    fireEvent.click(nameColumn);
+
+    expect(sortSpy).toHaveBeenCalled();
+  });
+});
+
+describe('LocationDetailViewTable', () => {
+  beforeEach(() => {
+    useActionSpy.mockClear();
+    useControlSpy.mockClear();
+
+    handleUpdateActionState.mockClear();
+    handleUpdateControlState.mockClear();
   });
 
   it('loads initial location items for a BUCKET location as expected', async () => {

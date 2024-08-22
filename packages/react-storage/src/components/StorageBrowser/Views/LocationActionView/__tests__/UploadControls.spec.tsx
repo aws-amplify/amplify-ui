@@ -3,9 +3,9 @@ import { render, screen, waitFor } from '@testing-library/react';
 
 import * as ControlsModule from '../../../context/controls';
 import createProvider from '../../../createProvider';
+import { ActionSelectState } from '../../../context/controls/ActionSelect/ActionSelect';
 
 import { UploadControls, ActionIcon, ICON_CLASS } from '../UploadControls';
-import { ActionSelectState } from '../../../context/controls/ActionSelect/ActionSelect';
 
 const useControlSpy = jest.spyOn(ControlsModule, 'useControl');
 
@@ -25,7 +25,12 @@ const navigateState = {
     scope: 's3://test-bucket/*',
     type: 'BUCKET',
   },
-  history: ['', 'folder1/', 'folder2/', 'folder3/'],
+  history: [
+    { prefix: '', position: 0 },
+    { prefix: 'folder1/', position: 1 },
+    { prefix: 'folder2/', position: 2 },
+    { prefix: 'folder3/', position: 3 },
+  ],
 };
 
 useControlSpy.mockImplementation((obj) => {
@@ -56,18 +61,6 @@ describe('UploadControls', () => {
     jest.clearAllMocks();
   });
 
-  it('should display "No items selected." when no items are selected', async () => {
-    render(
-      <Provider>
-        <UploadControls />
-      </Provider>
-    );
-
-    await waitFor(() => {
-      expect(screen.getByText('No items selected.')).toBeInTheDocument();
-    });
-  });
-
   it('should render upload controls table', async () => {
     actionSelectState.selected = {
       items: [
@@ -93,6 +86,20 @@ describe('UploadControls', () => {
       const table = screen.getByRole('table');
       expect(table).toBeInTheDocument();
     });
+  });
+
+  it('should render the destination folder', () => {
+    render(
+      <Provider>
+        <UploadControls />
+      </Provider>
+    );
+
+    const destination = screen.getByText('Destination:');
+    const destinationFolder = screen.getByText('folder3/');
+
+    expect(destination).toBeInTheDocument();
+    expect(destinationFolder).toBeInTheDocument();
   });
 });
 
