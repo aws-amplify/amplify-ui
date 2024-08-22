@@ -86,10 +86,10 @@ export const ActionIcon = ({ status }: ActionIconProps): React.JSX.Element => {
 const Destination = ({ children }: { children?: React.ReactNode }) => {
   return (
     <DefinitionList className={DESTINATION_CLASS}>
-      <DefinitionTerm className={`${DESTINATION_CLASS}__term}`}>
+      <DefinitionTerm className={`${DESTINATION_CLASS}__term`}>
         Destination:
       </DefinitionTerm>
-      <DefinitionDetail className={`${DESTINATION_CLASS}__detail}`}>
+      <DefinitionDetail className={`${DESTINATION_CLASS}__detail`}>
         {children}
       </DefinitionDetail>
     </DefinitionList>
