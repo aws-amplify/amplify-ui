@@ -3,5 +3,6 @@
   "main": "../dist/browser.js",
   "module": "../dist/esm/components/StorageBrowser/browser.mjs",
   "types": "../dist/types/components/StorageBrowser/index.d.ts",
+  "private": true,
   "sideEffects": false
 }

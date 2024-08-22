@@ -31,7 +31,7 @@
   "files": [
     "dist",
     "LICENSE",
-    "create-storage-browser"
+    "browser"
   ],
   "scripts": {
     "build": "yarn build:rollup",
