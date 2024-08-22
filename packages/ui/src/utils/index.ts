@@ -1,4 +1,5 @@
 export { setUserAgent, SetUserAgentOptions } from './setUserAgent';
 // generic utils
 export * from './utils';
-export { classNames } from './classNames';
+export { classNames, ClassNamesArgs } from './classNames';
+export { humanFileSize } from './humanFileSize';
