@@ -17,7 +17,10 @@ const schema = a.schema({
     },
   }),
   generateRecipe: a
-    .generation()
+    .generation({
+      aiModel: a.aiModel.anthropic.claude3Haiku(),
+      systemPrompt: 'You are a helpful assistant that generates recipes.',
+    })
     .arguments({
       description: a.string(),
     })
@@ -30,7 +33,10 @@ const schema = a.schema({
     )
     .authorization((allow) => allow.authenticated()),
   generateWhatever: a
-    .generation()
+    .generation({
+      aiModel: a.aiModel.anthropic.claude3Haiku(),
+      systemPrompt: 'You are a helpful assistant that generates recipes.',
+    })
     .arguments({
       description2222: a.string(),
     })
