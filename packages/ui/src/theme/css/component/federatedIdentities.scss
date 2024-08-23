@@ -1,0 +1,17 @@
+.federated-identities__group {
+    flex-direction: column;
+}
+
+.federated-identities__list__item {
+    display: inline-block;
+}
+  
+.federated-identities__list__item.no-hover:hover {
+    animation: none;
+    transition: none;
+  }
+
+.federated-identities__button {
+    gap: 1rem;
+    width: 100%;
+}
