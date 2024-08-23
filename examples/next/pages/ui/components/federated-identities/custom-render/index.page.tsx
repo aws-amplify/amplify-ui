@@ -1,26 +1,29 @@
 import { Amplify } from 'aws-amplify';
 
+import { signInWithRedirect, signOut } from 'aws-amplify/auth';
+import { capitalize } from '@aws-amplify/ui';
 import {
-  AuthProvider,
   createFederatedIdentities,
   getProviderConfig,
   ProviderData,
 } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
 import { useIsSignedIn } from '@aws-amplify/ui-react-core';
-import { capitalize } from '@aws-amplify/ui';
 
 import awsExports from './aws-exports';
-import { signInWithRedirect, signOut } from 'aws-amplify/auth';
-Amplify.configure(awsExports);
+
 import './styles.css';
+import '@aws-amplify/ui-react/styles.css';
+
+Amplify.configure(awsExports);
 
 const { FederatedIdentities } = createFederatedIdentities({
   providers: getProviderConfig(Amplify.getConfig()),
 });
 
+type AuthProvider = 'Amazon' | 'Apple' | 'Google' | 'Facebook';
+
 function myCustomRender(data: ProviderData): React.JSX.Element {
-  const { providerName, displayName, icon } = data;
+  const { providerName, displayName } = data;
   return (
     <div>
       <button
