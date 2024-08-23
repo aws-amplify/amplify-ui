@@ -86,11 +86,6 @@ jobs:
           echo "ruby --version"
           ruby --version
         continue-on-error: true # brew overwrite step addresses a python install issue: https://github.com/actions/runner-images/issues/8500
-      - name: Install packages
-        if: steps.restore-cache.outputs.cache-hit != 'true'
-        uses: ./.github/actions/install-with-retries
-        with:
-          skip-cypress-binary: true
       - name: Update CocoaPods
         if: ${{ matrix.platform == 'ios' }}
         run: |
