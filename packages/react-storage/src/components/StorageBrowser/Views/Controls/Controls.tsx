@@ -28,7 +28,7 @@ export interface Controls<
   Paginate: PaginateControl<T>;
   Primary: typeof PrimaryControl;
   Navigate: NavigateControl<T>;
-  Refresh: RefreshControl<T>;
+  Refresh: typeof RefreshControl;
   Search: SearchControl<T>;
   Summary: SummaryControl<T>;
   Table: TableControl<T>;
