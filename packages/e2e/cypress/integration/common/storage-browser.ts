@@ -1,4 +1,4 @@
-import { Then, When } from '@badeball/cypress-cucumber-preprocessor';
+import { Then } from '@badeball/cypress-cucumber-preprocessor';
 
 Then(
   'I verify the downloaded file {string} has the contents {string}',
