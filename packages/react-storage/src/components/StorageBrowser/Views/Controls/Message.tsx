@@ -15,7 +15,9 @@ interface MessageControlProps {
 export const MessageControl = ({
   variant,
   children,
-}: MessageControlProps): React.JSX.Element => {
+}: MessageControlProps): React.JSX.Element | null => {
+  const [dismissed, setDismissed] = React.useState<boolean>(false);
+
   let ariaLabel;
   switch (variant) {
     case 'error':
@@ -32,11 +34,12 @@ export const MessageControl = ({
       break;
   }
 
-  return (
+  return dismissed ? null : (
     <ViewElement className={BLOCK_NAME} role="alert" variant={variant}>
       <IconElement variant={variant} aria-label={ariaLabel} />
       <ViewElement className={`${BLOCK_NAME}__content`}>{children}</ViewElement>
       <ButtonElement
+        onClick={() => setDismissed(true)}
         className={`${BLOCK_NAME}__dismiss`}
         variant="message-dismiss"
         aria-label="Dismiss message"
