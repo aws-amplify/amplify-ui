@@ -1,107 +1,54 @@
 import React from 'react';
-import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
-import type { OmitElements } from '../types';
-import { MessageVariant, StorageBrowserElements } from '../../context/elements';
+import { ButtonElement, ViewElement } from '../../context/elements/definitions';
+import { IconElement } from '../../context/elements/IconElement';
+
+import { MessageVariant } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
 
-const { Icon: IconElement, Button, View } = StorageBrowserElements;
-
 const BLOCK_NAME = `${CLASS_BASE}__message`;
-
-/* <MessageDismissControl /> */
-export interface MessageDismissControl<
-  T extends StorageBrowserElements = StorageBrowserElements,
-> {
-  (): React.JSX.Element;
-  Button: T['Button'];
-  Icon: T['Icon'];
-}
-
-const DismissButton = withBaseElementProps(Button, {
-  className: `${BLOCK_NAME}__dismiss`,
-  variant: `message-dismiss`,
-  'aria-label': 'Dismiss message',
-});
-
-const DismissIcon = withBaseElementProps(IconElement, {
-  'aria-hidden': true,
-  className: `${BLOCK_NAME}__dismiss__icon`,
-  variant: 'dismiss',
-});
-
-export const MessageDismissControl: MessageDismissControl = () => (
-  <DismissButton>
-    <DismissIcon />
-  </DismissButton>
-);
-
-MessageDismissControl.Button = DismissButton;
-MessageDismissControl.Icon = DismissIcon;
-
-/* <MessageControl /> */
-const Container = withBaseElementProps(View, {
-  className: BLOCK_NAME,
-  role: 'alert',
-});
-
-const MessageIcon: typeof IconElement = React.forwardRef(
-  function MessageIcon(props, ref) {
-    const { variant } = props;
-
-    let ariaLabel;
-    switch (variant) {
-      case 'error':
-        ariaLabel = 'Error';
-        break;
-      case 'info':
-        ariaLabel = 'Information';
-        break;
-      case 'warning':
-        ariaLabel = 'Warning';
-        break;
-      case 'success':
-        ariaLabel = 'Success';
-        break;
-    }
-
-    return variant ? (
-      <IconElement
-        {...props}
-        className={props.className ?? `${BLOCK_NAME}__icon`}
-        aria-hidden={props['aria-hidden'] ?? 'false'}
-        aria-label={props['aria-label'] ?? ariaLabel}
-        variant={variant}
-        ref={ref}
-      />
-    ) : null;
-  }
-);
-
-const MessageContent = withBaseElementProps(View, {
-  className: `${BLOCK_NAME}__content`,
-});
 interface MessageControlProps {
   variant?: MessageVariant;
   children?: React.ReactNode;
 }
-interface _MessageControl<
-  T extends StorageBrowserElements = StorageBrowserElements,
-> extends Pick<T, 'Icon' | 'View'> {
-  ({ variant }: MessageControlProps): React.JSX.Element;
-}
 
-export interface MessageControl<
-  T extends StorageBrowserElements = StorageBrowserElements,
-> extends OmitElements<_MessageControl<T>, 'Container'> {
-  ({ variant }: MessageControlProps): React.JSX.Element;
-}
-export const MessageControl: MessageControl = ({ variant, children }) => {
-  return (
-    <Container variant={variant}>
-      <MessageIcon variant={variant} />
-      <MessageContent>{children}</MessageContent>
-      <MessageDismissControl />
-    </Container>
+export const MessageControl = ({
+  variant,
+  children,
+}: MessageControlProps): React.JSX.Element | null => {
+  const [dismissed, setDismissed] = React.useState<boolean>(false);
+
+  let ariaLabel;
+  switch (variant) {
+    case 'error':
+      ariaLabel = 'Error';
+      break;
+    case 'info':
+      ariaLabel = 'Information';
+      break;
+    case 'warning':
+      ariaLabel = 'Warning';
+      break;
+    case 'success':
+      ariaLabel = 'Success';
+      break;
+  }
+
+  return dismissed ? null : (
+    <ViewElement className={BLOCK_NAME} role="alert" variant={variant}>
+      <IconElement variant={variant} aria-label={ariaLabel} />
+      <ViewElement className={`${BLOCK_NAME}__content`}>{children}</ViewElement>
+      <ButtonElement
+        onClick={() => setDismissed(true)}
+        className={`${BLOCK_NAME}__dismiss`}
+        variant="message-dismiss"
+        aria-label="Dismiss message"
+      >
+        <IconElement
+          variant="dismiss"
+          className={`${BLOCK_NAME}__dismiss__icon`}
+        />
+      </ButtonElement>
+    </ViewElement>
   );
 };

@@ -156,7 +156,7 @@ export const ButtonElement = defineBaseElementWithRef<
   ButtonElementVariant
 >({ type: 'button', displayName: 'Button' });
 
-export const ViewElement = defineBaseElementWithRef<'div', 'id'>({
+export const ViewElement = defineBaseElementWithRef<'div', 'id' | 'role'>({
   type: 'div',
   displayName: 'View',
 });
