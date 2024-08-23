@@ -1,5 +1,5 @@
 import { DataState, useDataState } from '@aws-amplify/ui-react-core';
-import { V6Client as SDKV6Client } from '@aws-amplify/api-graphql';
+import { V6Client } from '@aws-amplify/api-graphql';
 import { getSchema } from '../types';
 
 interface UseAIGenerationInput {
@@ -7,7 +7,7 @@ interface UseAIGenerationInput {
 }
 
 export interface UseAIGenerationHookWrapper<
-  Key extends keyof V6Client<Schema>['generations'],
+  Key extends keyof AIGenerationClient<Schema>['generations'],
   Schema extends Record<any, any>,
 > {
   useAIGeneration: <U extends Key>(
@@ -20,7 +20,7 @@ export interface UseAIGenerationHookWrapper<
 }
 
 export type UseAIGenerationHook<
-  Key extends keyof V6Client<Schema>['generations'],
+  Key extends keyof AIGenerationClient<Schema>['generations'],
   Schema extends Record<any, any>,
 > = (
   routeName: Key,
@@ -30,18 +30,23 @@ export type UseAIGenerationHook<
   (input: Schema[Key]['args']) => void,
 ];
 
-type V6Client<T extends Record<any, any>> = Pick<SDKV6Client<T>, 'generations'>;
+type AIGenerationClient<T extends Record<any, any>> = Pick<
+  V6Client<T>,
+  'generations'
+>;
 
 export function createUseAIGeneration<
   Client extends Record<'generations' | 'conversations', Record<string, any>>,
   Schema extends getSchema<Client>,
 >(client: Client): UseAIGenerationHook<keyof Client['generations'], Client> {
-  const useAIGeneration = <Key extends keyof V6Client<Schema>['generations']>(
+  const useAIGeneration = <
+    Key extends keyof AIGenerationClient<Schema>['generations'],
+  >(
     routeName: Key,
     _input?: UseAIGenerationInput
   ) => {
     const handleGenerate = (
-      client.generations as V6Client<Schema>['generations']
+      client.generations as AIGenerationClient<Schema>['generations']
     )[routeName];
 
     const updateAIGenerationStateAction = async (
