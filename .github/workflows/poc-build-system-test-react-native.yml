@@ -6,7 +6,9 @@ permissions:
   id-token: write # This is required for aws-actions/configure-aws-credentials
 
 on: 
-  pull_request:
+  schedule:
+    - cron: '0 * * * *' # Run at the first minute of every hour
+  push:
     branches: [rn-build-system-test]
 
 jobs:
