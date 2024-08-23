@@ -26,7 +26,16 @@ function Chat() {
       <AIConversation
         messages={messages}
         handleSendMessage={sendMessage}
-        // TODO update variants
+        suggestedPrompts={[
+          {
+            inputText: 'hello',
+            header: 'hello',
+          },
+          {
+            inputText: 'how are you?',
+            header: 'how are you?',
+          },
+        ]}
         variant="bubble"
       />
     </Card>

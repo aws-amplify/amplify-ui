@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Avatar, Text, View } from '@aws-amplify/ui-react';
-import { MessageControl } from '../../views/Controls/MessagesControl';
+import { MessageControl } from '../Controls/MessagesControl';
 import {
   AvatarsContext,
   MessageVariantContext,

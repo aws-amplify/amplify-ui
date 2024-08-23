@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Flex, ScrollView, Text } from '@aws-amplify/ui-react';
+import { Flex, ScrollView, Text, TextProps } from '@aws-amplify/ui-react';
 import {
   IconAssistant,
   IconUser,
@@ -9,9 +9,9 @@ import { createAIConversation } from './createAIConversation';
 import { AIConversationInput, AIConversationProps, Avatars } from './types';
 import { MessagesControl } from './views/Controls/MessagesControl';
 import { FieldControl } from './views';
-import { MessageList } from './views/default/Messages';
+import { MessageList } from './views/default/MessageList';
 import { Form } from './views/default/Form';
-import { SuggestionList } from './views/default/SuggestionList';
+import { PromptList } from './views/default/PromptList';
 import { AutoHidablePromptControl } from './views/Controls';
 import { ComponentClassName } from '@aws-amplify/ui';
 
@@ -25,6 +25,7 @@ export const AIConversation = ({
   avatars,
   controls,
   responseComponents,
+  suggestedPrompts,
   variant,
 }: _AIConversationProps): JSX.Element => {
   const icons = useIcons('aiConversation');
@@ -41,14 +42,17 @@ export const AIConversation = ({
 
   const { AIConversation } = createAIConversation({
     variant,
+    suggestedPrompts,
     elements: {
-      Text: (props) => {
-        return <Text {...props} />;
-      },
+      Text: React.forwardRef<HTMLParagraphElement, TextProps>(
+        function _Text(props, ref) {
+          return <Text {...props} ref={ref} />;
+        }
+      ),
     },
     controls: {
       MessageList,
-      SuggestionList,
+      PromptList,
       Form,
       ...controls,
     },
@@ -66,11 +70,7 @@ export const AIConversation = ({
 
   return (
     <AIConversation.Provider {...providerProps}>
-      <Flex
-        className={ComponentClassName.AIConversation}
-        direction="column"
-        height="100%"
-      >
+      <Flex className={ComponentClassName.AIConversation}>
         <ScrollView autoScroll="smooth" flex="1">
           <AutoHidablePromptControl />
           <MessagesControl />

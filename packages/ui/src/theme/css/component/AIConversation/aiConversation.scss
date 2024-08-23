@@ -1,6 +1,7 @@
 .amplify-ai-conversation {
   display: flex;
   flex-direction: column;
+  height: 100%;
 
   &__suggestion {
   }
@@ -79,11 +80,16 @@
   }
 
   &__form {
-    text-align: initial;
-    border: none;
-    padding: var(--amplify-space-xs);
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--amplify-space-small);
 
-    // need to figure out form drop element name
+    &__dropzone {
+      text-align: initial;
+      border: none;
+      padding: var(--amplify-space-xs);
+    }
 
     &__attach {
     }
@@ -130,5 +136,9 @@
     &__remove {
       padding: var(--amplify-space-xxs);
     }
+  }
+
+  &__prompt {
+    font-weight: normal;
   }
 }

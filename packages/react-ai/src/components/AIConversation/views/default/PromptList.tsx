@@ -1,27 +1,29 @@
 import * as React from 'react';
-import { Flex, Card } from '@aws-amplify/ui-react';
+import { Flex, Button } from '@aws-amplify/ui-react';
 
 import { ControlsContextProps } from '../../context/ControlsContext';
+import { ComponentClassName } from '@aws-amplify/ui';
 
-export const SuggestionList: ControlsContextProps['SuggestionList'] = ({
+export const PromptList: ControlsContextProps['PromptList'] = ({
   setInput,
-  suggestedPrompts,
+  suggestedPrompts = [],
 }) => {
   return (
     <Flex>
       {suggestedPrompts.map((prompt) => {
         return (
-          <Card
+          <Button
+            className={ComponentClassName.AIConversationPrompt}
             key={prompt.inputText}
             onClick={() => {
-              setInput((prevInput) => ({
+              setInput?.((prevInput) => ({
                 ...prevInput,
                 text: prompt.inputText,
               }));
             }}
           >
             {prompt.header}
-          </Card>
+          </Button>
         );
       })}
     </Flex>

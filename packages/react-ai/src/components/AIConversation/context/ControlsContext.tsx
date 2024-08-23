@@ -10,11 +10,10 @@ export interface ControlsContextProps {
     } & Required<InputContext>
   >;
   MessageList?: React.ComponentType<{ messages: ConversationMessage[] }>;
-  SuggestionList?: React.ComponentType<
-    {
-      suggestedPrompts: SuggestedPrompt[];
-    } & Required<InputContext>
-  >;
+  PromptList?: React.ComponentType<{
+    suggestedPrompts?: SuggestedPrompt[];
+    setInput: InputContext['setInput'];
+  }>;
 }
 
 export const ControlsContext = React.createContext<
