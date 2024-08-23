@@ -24,7 +24,7 @@ export interface Controls<
   Download: typeof DownloadControl;
   Exit: typeof ExitControl;
   Loading: LoadingControl<T>;
-  Message: MessageControl<T>;
+  Message: typeof MessageControl;
   Paginate: PaginateControl<T>;
   Primary: typeof PrimaryControl;
   Navigate: NavigateControl<T>;
