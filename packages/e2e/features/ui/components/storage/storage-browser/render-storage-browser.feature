@@ -12,7 +12,6 @@ Feature: Storage Browser with default environment
     Then I see "Home"
     Then I see the "s3://fileuploaderbucket121216-dev/public/*" button
 
-
   @react
   Scenario: Download file "test.txt"
     When I type my "email" with status "CONFIRMED"
