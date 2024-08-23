@@ -1,0 +1,23 @@
+body {
+  background-color: lightblue;
+}
+
+.outer-container {
+  box-sizing: border-box;
+  display: grid;
+  width: var(--amplify-components-authenticator-container-width-max);
+  justify-content: center;
+  background-color: var(--amplify-colors-background-primary);
+  background-color: var(
+    --amplify-components-authenticator-router-background-color
+  );
+  box-shadow: var(--amplify-components-authenticator-router-box-shadow);
+  border-color: var(--amplify-components-authenticator-router-border-color);
+  border-width: var(--amplify-components-authenticator-router-border-width);
+  border-style: var(--amplify-components-authenticator-router-border-style);
+}
+
+.inner-container {
+  width: 414px;
+  padding: 5% 0px 5% 0px;
+}
