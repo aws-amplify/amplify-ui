@@ -22,11 +22,11 @@ export interface Controls<
   ActionSelect: ActionSelectControl<T>;
   Cancel: typeof CancelControl;
   Download: DownloadControl<T>;
-  Exit: ExitControl<T>;
+  Exit: typeof ExitControl;
   Loading: LoadingControl<T>;
   Message: MessageControl<T>;
   Paginate: PaginateControl<T>;
-  Primary: PrimaryControl<T>;
+  Primary: typeof PrimaryControl;
   Navigate: NavigateControl<T>;
   Refresh: RefreshControl<T>;
   Search: SearchControl<T>;
