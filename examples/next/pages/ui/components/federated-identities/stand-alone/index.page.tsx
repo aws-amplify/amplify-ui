@@ -1,20 +1,21 @@
 import { Amplify } from 'aws-amplify';
 
-import {
-  createFederatedIdentities,
-  getProviderConfig,
-} from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-import { useIsSignedIn } from '@aws-amplify/ui-react-core';
-
 import awsExports from './aws-exports';
 import {
   signInWithRedirect,
   SignInWithRedirectInput,
   signOut,
 } from 'aws-amplify/auth';
-Amplify.configure(awsExports);
+import {
+  createFederatedIdentities,
+  getProviderConfig,
+} from '@aws-amplify/ui-react';
+import { useIsSignedIn } from '@aws-amplify/ui-react-core';
+
+import '@aws-amplify/ui-react/styles.css';
 import './styles.css';
+
+Amplify.configure(awsExports);
 
 function handleSignInWithRedirect(
   input: SignInWithRedirectInput
