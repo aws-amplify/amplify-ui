@@ -20,15 +20,15 @@ export interface Controls<
   T extends StorageBrowserElements = StorageBrowserElements,
 > {
   ActionSelect: ActionSelectControl<T>;
-  Cancel: CancelControl<T>;
-  Download: DownloadControl<T>;
-  Exit: ExitControl<T>;
+  Cancel: typeof CancelControl;
+  Download: typeof DownloadControl;
+  Exit: typeof ExitControl;
   Loading: LoadingControl<T>;
   Message: typeof MessageControl;
   Paginate: PaginateControl<T>;
-  Primary: PrimaryControl<T>;
+  Primary: typeof PrimaryControl;
   Navigate: NavigateControl<T>;
-  Refresh: RefreshControl<T>;
+  Refresh: typeof RefreshControl;
   Search: SearchControl<T>;
   Summary: SummaryControl<T>;
   Table: TableControl<T>;

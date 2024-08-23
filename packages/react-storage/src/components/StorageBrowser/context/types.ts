@@ -16,7 +16,7 @@ export interface FileItem {
   type: 'FILE';
 }
 
-export type FileTableEntry = FileItem & { download: DownloadControl };
+export type FileTableEntry = FileItem & { download: typeof DownloadControl };
 
 export type LocationItem = FileItem | FolderItem | FileTableEntry;
 
