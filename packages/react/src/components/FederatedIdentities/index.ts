@@ -1,5 +1,4 @@
 export {
-  AuthProvider,
   createFederatedIdentities,
   getProviderConfig,
   ProviderData,
