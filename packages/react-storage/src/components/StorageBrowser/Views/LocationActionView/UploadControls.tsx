@@ -19,7 +19,7 @@ import { humanFileSize } from '@aws-amplify/ui';
 
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
 
-const { Icon, DefinitionDetail, DefinitionList, DefinitionTerm } =
+const { Button, Icon, DefinitionDetail, DefinitionList, DefinitionTerm } =
   StorageBrowserElements;
 
 const { Cancel, Exit, Primary, Summary, Table } = Controls;
@@ -230,6 +230,12 @@ export const UploadControls = (): JSX.Element => {
       </Primary>
       <Destination>{history[history.length - 1].prefix}</Destination>
       <Summary />
+      <Button className="storage-browser__add-folder">Add folder</Button>
+
+      <Button className="storage-browser__add-files">
+        Add files but here is a longer name
+      </Button>
+
       <Table
         data={tableData}
         columns={LOCATION_ACTION_VIEW_COLUMNS}
