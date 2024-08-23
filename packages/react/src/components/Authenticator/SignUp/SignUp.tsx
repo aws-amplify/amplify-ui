@@ -2,16 +2,18 @@ import React from 'react';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { Button } from '../../../primitives/Button';
+import { Divider } from '../../../primitives/Divider';
 import { Flex } from '../../../primitives/Flex';
 import { View } from '../../../primitives/View';
-import { FederatedSignIn } from '../FederatedSignIn';
+import { FederatedSignIn as _FederatedSignIn } from '../FederatedSignIn';
 import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields as DefaultFormFields } from '../shared/FormFields';
 
-const { getCreateAccountText, getCreatingAccountText } = authenticatorTextUtil;
+const { getCreateAccountText, getCreatingAccountText, getOrText } =
+  authenticatorTextUtil;
 
 export function SignUp(): JSX.Element {
   const { hasValidationErrors, isPending } = useAuthenticator((context) => [
@@ -27,6 +29,7 @@ export function SignUp(): JSX.Element {
         Header = SignUp.Header,
         FormFields = SignUp.FormFields,
         Footer = SignUp.Footer,
+        FederatedSignIn = SignUp.FederatedSignIn,
       },
     },
   } = useCustomComponents();
@@ -43,7 +46,14 @@ export function SignUp(): JSX.Element {
         onSubmit={handleSubmit}
         onBlur={handleBlur}
       >
-        <FederatedSignIn />
+        <Flex direction="column" className="federated-sign-in-container">
+          {FederatedSignIn && (
+            <>
+              <FederatedSignIn />
+              <Divider marginBottom={'1rem'} size="small" label={getOrText()} />
+            </>
+          )}
+        </Flex>
 
         <Flex as="fieldset" direction="column" isDisabled={isPending}>
           <Flex direction="column">
@@ -78,4 +88,7 @@ SignUp.FormFields = function FormFields() {
 SignUp.Footer = function Footer(): JSX.Element {
   // @ts-ignore
   return null;
+};
+SignUp.FederatedSignIn = function FederatedSignIn(): JSX.Element {
+  return _FederatedSignIn();
 };

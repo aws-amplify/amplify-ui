@@ -14,6 +14,10 @@ interface Components {
   Header?: () => JSX.Element | null;
 }
 
+interface SubComponentOverride {
+  FederatedSignIn?: () => JSX.Element | null;
+}
+
 export interface DefaultComponents extends Omit<Components, 'FormFields'> {
   ConfirmSignIn?: Omit<Components, 'FormFields'>;
   ConfirmSignUp?: Omit<Components, 'FormFields'>;
@@ -22,8 +26,8 @@ export interface DefaultComponents extends Omit<Components, 'FormFields'> {
   ForceNewPassword?: Components;
   ForgotPassword?: Omit<Components, 'FormFields'>;
   SetupTotp?: Omit<Components, 'FormFields'>;
-  SignIn?: Omit<Components, 'FormFields'>;
-  SignUp?: Components;
+  SignIn?: Omit<Components, 'FormFields'> & SubComponentOverride;
+  SignUp?: Components & SubComponentOverride;
   VerifyUser?: Omit<Components, 'FormFields'>;
 }
 
@@ -33,11 +37,13 @@ export const defaultComponents: DefaultComponents = {
   SignIn: {
     Header: SignIn.Header,
     Footer: SignIn.Footer,
+    FederatedSignIn: SignIn.FederatedSignIn,
   },
   SignUp: {
     Header: SignUp.Header,
     FormFields: SignUp.FormFields,
     Footer: SignUp.Footer,
+    FederatedSignIn: SignUp.FederatedSignIn,
   },
   ConfirmSignUp: {
     Header: ConfirmSignUp.Header,
