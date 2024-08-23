@@ -52,6 +52,7 @@ interface ActionIconProps {
 }
 
 export const ICON_CLASS = `${CLASS_BASE}__action-status`;
+const DESTINATION_CLASS = `${CLASS_BASE}__destination`;
 
 export const ActionIcon = ({ status }: ActionIconProps): React.JSX.Element => {
   let variant: IconVariant = 'action-initial';
@@ -84,9 +85,13 @@ export const ActionIcon = ({ status }: ActionIconProps): React.JSX.Element => {
 
 const Destination = ({ children }: { children?: React.ReactNode }) => {
   return (
-    <DefinitionList className="storage-browser__destination">
-      <DefinitionTerm>Destination:</DefinitionTerm>
-      <DefinitionDetail>{children}</DefinitionDetail>
+    <DefinitionList className={DESTINATION_CLASS}>
+      <DefinitionTerm className={`${DESTINATION_CLASS}__term`}>
+        Destination:
+      </DefinitionTerm>
+      <DefinitionDetail className={`${DESTINATION_CLASS}__detail`}>
+        {children}
+      </DefinitionDetail>
     </DefinitionList>
   );
 };
