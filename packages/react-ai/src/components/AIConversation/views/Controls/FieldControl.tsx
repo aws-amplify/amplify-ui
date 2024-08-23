@@ -12,6 +12,7 @@ import {
   convertResponseComponentsToToolConfiguration,
   ResponseComponentsContext,
 } from '../../context/ResponseComponentsContext';
+import { ControlsContext } from '../../context/ControlsContext';
 
 const {
   Button,
@@ -140,6 +141,7 @@ export const FieldControl: FieldControl = () => {
   const { input, setInput } = React.useContext(InputContext);
   const handleSendMessage = React.useContext(SendMessageContext);
   const responseComponents = React.useContext(ResponseComponentsContext);
+  const controls = React.useContext(ControlsContext);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -174,6 +176,17 @@ export const FieldControl: FieldControl = () => {
     }
     if (setInput) setInput({ text: '', files: [] });
   };
+
+  if (controls?.Form) {
+    return (
+      <controls.Form
+        handleSubmit={handleSubmit}
+        input={input!}
+        setInput={setInput!}
+      />
+    );
+  }
+
   return (
     <form className={`${FIELD_BLOCK}__form`} onSubmit={handleSubmit}>
       <AttachFileControl />

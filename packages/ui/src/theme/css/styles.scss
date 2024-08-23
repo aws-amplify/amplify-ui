@@ -66,6 +66,8 @@
 @import './component/inAppMessaging/index.scss';
 // StorageManager component
 @import './component/StorageManager/index.scss';
+// AIConversation component
+@import './component/AIConversation/index.scss';
 
 // This comes after the field styles so it can override them
 @import './component/fieldModifiers.scss';

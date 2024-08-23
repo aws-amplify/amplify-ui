@@ -8,7 +8,7 @@ import '@aws-amplify/ui-react-ai/ai-conversation-styles.css';
 const { AIConversation } = createAIConversation({
   suggestedPrompts: PROMPTS,
   actions: ACTIONS,
-  variant: 'bubble-2',
+  variant: 'bubble',
 });
 
 export default function Example() {

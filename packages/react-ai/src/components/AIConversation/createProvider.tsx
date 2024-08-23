@@ -12,6 +12,7 @@ import { SuggestedPromptProvider } from './context/SuggestedPromptsContext';
 import { AIConversationInput, AIConversationProps } from './types';
 import { ResponseComponentsProvider } from './context/ResponseComponentsContext';
 import { SendMessageContextProvider } from './context/SendMessageContext';
+import { ControlsProvider } from './context/ControlsContext';
 
 export default function createProvider<
   T extends Partial<AIConversationElements>,
@@ -21,9 +22,15 @@ export default function createProvider<
   suggestedPrompts,
   responseComponents,
   variant,
+  controls,
 }: Pick<
   AIConversationInput<T>,
-  'elements' | 'actions' | 'suggestedPrompts' | 'responseComponents' | 'variant'
+  | 'elements'
+  | 'actions'
+  | 'suggestedPrompts'
+  | 'responseComponents'
+  | 'variant'
+  | 'controls'
 >) {
   return function Provider({
     children,
@@ -38,23 +45,27 @@ export default function createProvider<
   >): React.JSX.Element {
     return (
       <ElementsProvider elements={elements}>
-        <SuggestedPromptProvider suggestedPrompts={suggestedPrompts}>
-          <ResponseComponentsProvider responseComponents={responseComponents}>
-            <InputContextProvider>
-              <SendMessageContextProvider handleSendMessage={handleSendMessage}>
-                <AvatarsProvider avatars={avatars}>
-                  <ActionsProvider actions={actions}>
-                    <MessageVariantProvider variant={variant}>
-                      <MessagesProvider messages={messages}>
-                        {children}
-                      </MessagesProvider>
-                    </MessageVariantProvider>
-                  </ActionsProvider>
-                </AvatarsProvider>
-              </SendMessageContextProvider>
-            </InputContextProvider>
-          </ResponseComponentsProvider>
-        </SuggestedPromptProvider>
+        <ControlsProvider controls={controls}>
+          <SuggestedPromptProvider suggestedPrompts={suggestedPrompts}>
+            <ResponseComponentsProvider responseComponents={responseComponents}>
+              <InputContextProvider>
+                <SendMessageContextProvider
+                  handleSendMessage={handleSendMessage}
+                >
+                  <AvatarsProvider avatars={avatars}>
+                    <ActionsProvider actions={actions}>
+                      <MessageVariantProvider variant={variant}>
+                        <MessagesProvider messages={messages}>
+                          {children}
+                        </MessagesProvider>
+                      </MessageVariantProvider>
+                    </ActionsProvider>
+                  </AvatarsProvider>
+                </SendMessageContextProvider>
+              </InputContextProvider>
+            </ResponseComponentsProvider>
+          </SuggestedPromptProvider>
+        </ControlsProvider>
       </ElementsProvider>
     );
   };
