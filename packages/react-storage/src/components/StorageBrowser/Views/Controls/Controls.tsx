@@ -21,7 +21,7 @@ export interface Controls<
 > {
   ActionSelect: ActionSelectControl<T>;
   Cancel: typeof CancelControl;
-  Download: DownloadControl<T>;
+  Download: typeof DownloadControl;
   Exit: typeof ExitControl;
   Loading: LoadingControl<T>;
   Message: MessageControl<T>;
