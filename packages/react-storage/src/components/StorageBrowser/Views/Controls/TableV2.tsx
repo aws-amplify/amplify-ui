@@ -9,8 +9,7 @@ export const TABLE_HEADER_CLASS = `${BLOCK_NAME}__header`;
 export const TABLE_HEADER_BUTTON_CLASS = `${BLOCK_NAME}__header__button`;
 export const TABLE_DATA_TEXT_CLASS = `${BLOCK_NAME}__data__text`;
 
-const { Table, TableBody, TableData, TableHead, TableRow } =
-  StorageBrowserElements;
+const { Table, TableBody, TableHead, TableRow } = StorageBrowserElements;
 
 interface TableProps<T, K> {
   data?: TableData<T, K>;
