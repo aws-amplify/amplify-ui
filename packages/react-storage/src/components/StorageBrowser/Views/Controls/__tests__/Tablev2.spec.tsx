@@ -1,0 +1,146 @@
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import { TableV2, TableData, ColumnData, RowData } from '../TableV2';
+
+describe('TableV2', () => {
+  const renderColumnItem = (column: ColumnData) => (
+    <th
+      key={column.key}
+      className={column.className}
+      aria-label={column['aria-label']}
+    >
+      {column.children}
+    </th>
+  );
+
+  const renderRowItem = (row: RowData) => (
+    <td key={row.key} className={row.className}>
+      {row.children}
+    </td>
+  );
+
+  it('renders the table with column headers and rows', () => {
+    const data: TableData<RowData, ColumnData> = {
+      columns: [
+        { key: 'column1', children: 'Header 1', className: 'header-class' },
+        { key: 'column2', children: 'Header 2', className: 'header-class' },
+      ],
+      rows: [
+        [
+          {
+            key: 'row1-column1',
+            children: 'Row 1 Column 1',
+            className: 'my-class',
+          },
+          {
+            key: 'row1-column2',
+            children: 'Row 1 Column 2',
+            className: 'my-class',
+          },
+        ],
+        [
+          {
+            key: 'row2-column1',
+            children: 'Row 2 Column 1',
+            className: 'my-class',
+          },
+          {
+            key: 'row2-column2',
+            children: 'Row 2 Column 2',
+            className: 'my-class',
+          },
+        ],
+      ],
+    };
+
+    render(
+      <TableV2
+        data={data}
+        renderColumnItem={renderColumnItem}
+        renderRowItem={renderRowItem}
+      />
+    );
+
+    // Check column headers
+    expect(screen.getByText('Header 1')).toBeInTheDocument();
+    expect(screen.getByText('Header 2')).toBeInTheDocument();
+
+    // Check row data
+    expect(screen.getByText('Row 1 Column 1')).toBeInTheDocument();
+    expect(screen.getByText('Row 1 Column 2')).toBeInTheDocument();
+    expect(screen.getByText('Row 2 Column 1')).toBeInTheDocument();
+    expect(screen.getByText('Row 2 Column 2')).toBeInTheDocument();
+  });
+
+  it('renders an empty table when no data is provided', () => {
+    render(
+      <TableV2
+        data={undefined}
+        renderColumnItem={renderColumnItem}
+        renderRowItem={renderRowItem}
+      />
+    );
+    expect(screen.queryByRole('table')).toBeInTheDocument();
+    expect(screen.queryAllByRole('row')).toHaveLength(0);
+  });
+
+  it('renders only rows when columns are not provided', () => {
+    const data: TableData<RowData, ColumnData> = {
+      rows: [
+        [
+          {
+            key: 'row1-column1',
+            children: 'Row 1 Column 1',
+            className: 'my-class',
+          },
+          {
+            key: 'row1-column2',
+            children: 'Row 1 Column 2',
+            className: 'my-class',
+          },
+        ],
+      ],
+    };
+
+    render(
+      <TableV2
+        data={data}
+        renderColumnItem={renderColumnItem}
+        renderRowItem={renderRowItem}
+      />
+    );
+
+    // Check that no headers are rendered
+    expect(screen.queryByRole('columnheader')).not.toBeInTheDocument();
+
+    // Check row data
+    expect(screen.getByText('Row 1 Column 1')).toBeInTheDocument();
+    expect(screen.getByText('Row 1 Column 2')).toBeInTheDocument();
+  });
+
+  it('renders only column headers when rows are not provided', () => {
+    const data: TableData<RowData, ColumnData> = {
+      columns: [
+        { key: 'column1', children: 'Header 1', className: 'header-class' },
+        { key: 'column2', children: 'Header 2', className: 'header-class' },
+      ],
+      rows: [],
+    };
+
+    render(
+      <TableV2
+        data={data}
+        renderColumnItem={renderColumnItem}
+        renderRowItem={renderRowItem}
+      />
+    );
+
+    // Check column headers
+    expect(screen.getByText('Header 1')).toBeInTheDocument();
+    expect(screen.getByText('Header 2')).toBeInTheDocument();
+
+    // Check that no rows are rendered
+    expect(screen.queryByRole('row')).toBeInTheDocument();
+    expect(screen.queryAllByRole('cell')).toHaveLength(0);
+  });
+});

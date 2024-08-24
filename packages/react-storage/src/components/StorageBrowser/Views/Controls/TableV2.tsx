@@ -43,8 +43,11 @@ export function TableV2<T, K>({
   renderRowItem,
 }: TableProps<T, K>): JSX.Element | null {
   const { columns, rows } = data ?? {};
+
+  const ariaLabel = 'Table';
+
   return (
-    <Table className={BLOCK_NAME}>
+    <Table aria-label={ariaLabel} className={BLOCK_NAME}>
       {!!renderColumnItem && !!columns ? (
         <TableHead className={`${BLOCK_NAME}__head`}>
           <TableRow className={`${BLOCK_NAME}__row`}>
