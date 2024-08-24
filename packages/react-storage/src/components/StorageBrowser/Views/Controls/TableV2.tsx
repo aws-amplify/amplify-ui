@@ -58,7 +58,7 @@ export function TableV2<T, K>({
       {!!renderRowItem && !!rows ? (
         <TableBody className={`${BLOCK_NAME}__body`}>
           {rows.map((row, index) => (
-            <TableRow key={index} className={`${BLOCK_NAME}__row`}>
+            <TableRow key={`row-${index}`} className={`${BLOCK_NAME}__row`}>
               {row.map(renderRowItem)}
             </TableRow>
           ))}
