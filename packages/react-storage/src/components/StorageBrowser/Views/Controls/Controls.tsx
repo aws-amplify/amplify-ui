@@ -15,6 +15,7 @@ import { SummaryControl } from './Summary';
 import { TableControl } from './Table';
 import { TargetControl } from './Target';
 import { TitleControl } from './Title';
+import { TableV2 } from './TableV2';
 
 export interface Controls<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -31,7 +32,8 @@ export interface Controls<
   Refresh: typeof RefreshControl;
   Search: SearchControl<T>;
   Summary: SummaryControl<T>;
-  Table: TableControl<T>;
+  Table: TableControl;
+  TableV2: typeof TableV2;
   Target: TargetControl<T>;
   Title: TitleControl<T>;
 }
@@ -50,6 +52,7 @@ export const Controls: Controls = {
   Search: SearchControl,
   Summary: SummaryControl,
   Table: TableControl,
+  TableV2: TableV2,
   Target: TargetControl,
   Title: TitleControl,
 };
