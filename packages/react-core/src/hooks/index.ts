@@ -1,5 +1,6 @@
 export { default as useDataState, DataState } from './useDataState';
 
+export { default as useDataState } from './useDataState';
 export {
   default as useDeprecationWarning,
   UseDeprecationWarning,

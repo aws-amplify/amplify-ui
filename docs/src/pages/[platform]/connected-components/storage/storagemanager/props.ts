@@ -86,6 +86,11 @@ export const STORAGE_MANAGER = [
     type: `(params: {key: string, file: Blob}) => Promise<{key: string, file: Blob} & Record<string, any>> | {key: string, file: Blob} & Record<string, string>;`,
   },
   {
+    name: `onProcessFileError?`,
+    description: 'Called when pre-upload file processing errors.',
+    type: `(error: ProcessFileErrorParams) => void;`,
+  },
+  {
     name: `defaultFiles?`,
     description: 'An array of files that already exist in the cloud.',
     type: 'Array<{s3key: string}>',

@@ -4,7 +4,7 @@ import { UploadDataWithPathInput, UploadDataInput } from 'aws-amplify/storage';
 
 import { isString, isTypedFunction } from '@aws-amplify/ui';
 
-import { ProcessFile, ProcessFileParams } from '../types';
+import { ProcessFile, ProcessFileErrorParams } from '../types';
 import { resolveFile } from './resolveFile';
 import { PathCallback, PathInput } from './uploadFile';
 import { UseStorageManager } from '../hooks';
@@ -14,6 +14,7 @@ export interface GetInputParams {
   file: File;
   key: string;
   onProcessFileSuccess: (input: { processedKey: string }) => void;
+  onProcessFileError?: (error: ProcessFileErrorParams) => void;
   onProgress: NonNullable<UploadDataWithPathInput['options']>['onProgress'];
   path: string | PathCallback | undefined;
   processFile: ProcessFile | undefined;
@@ -27,6 +28,7 @@ export const getInput = ({
   file,
   key,
   onProcessFileSuccess,
+  onProcessFileError,
   onProgress,
   path,
   processFile,
@@ -44,19 +46,14 @@ export const getInput = ({
       file: data,
       key: processedKey,
       ...rest
-    } = await resolveFile({ file, key, processFile }).catch(
-      (rejected: ProcessFileParams) => {
-        //const { key, error } = result;
-        /* `onUploadError()` is incorrect here, as this is a Pre-Upload stage.
-         NOTE: Might need some sort of resolveFile/processFile error handler.
-        if (isFunction(onUploadError)) {
-          onUploadError(error ?? `Error processing: ${key}`, { key: key });
-        }
-        */
-        removeUpload({ id });
-        return rejected;
-      }
-    );
+    } = await resolveFile({
+      file,
+      key,
+      processFile,
+      removeUpload,
+      id,
+      onProcessFileError,
+    });
 
     const contentType = file.type || 'binary/octet-stream';
 
@@ -64,6 +61,7 @@ export const getInput = ({
     const options = { contentType, onProgress, useAccelerateEndpoint, ...rest };
 
     let inputResult: PathInput | UploadDataInput;
+
     if (hasKeyInput) {
       // legacy handling of `path` is to prefix to `fileKey`
       const resolvedKey = hasStringPath

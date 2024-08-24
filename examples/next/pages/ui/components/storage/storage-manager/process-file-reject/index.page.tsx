@@ -7,6 +7,7 @@ import {
 import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
+import { ProcessFileErrorParams } from '@aws-amplify/ui-react-storage/src/components/StorageManager/types';
 Amplify.configure(awsExports);
 
 const processFile: StorageManagerProps['processFile'] = async ({ file }) => {
@@ -19,6 +20,10 @@ const processFile: StorageManagerProps['processFile'] = async ({ file }) => {
   throw new Error('This file should not be uploaded.');
 };
 
+const onProcessFileError = (error: ProcessFileErrorParams) => {
+  alert(error.error);
+};
+
 export function StorageManagerExample() {
   return (
     <StorageManager
@@ -27,6 +32,7 @@ export function StorageManagerExample() {
       maxFileCount={3}
       showThumbnails={true}
       processFile={processFile}
+      onProcessFileError={onProcessFileError}
     />
   );
 }

@@ -5,7 +5,7 @@ import { isFunction } from '@aws-amplify/ui';
 
 import { PathCallback, getInput } from '../../utils';
 import { uploadFile } from '../../utils/uploadFile';
-import { FileStatus, ProcessFileParams } from '../../types';
+import { FileStatus } from '../../types';
 import { StorageManagerProps } from '../../types';
 import { UseStorageManager } from '../useStorageManager';
 
@@ -18,6 +18,7 @@ export interface UseUploadFilesProps
       | 'onUploadStart'
       | 'maxFileCount'
       | 'processFile'
+      | 'onProcessFileError'
       | 'useAccelerateEndpoint'
     >,
     Pick<
@@ -40,6 +41,7 @@ export function useUploadFiles({
   maxFileCount,
   removeUpload,
   onProcessFileSuccess,
+  onProcessFileError,
   onUploadError,
   onUploadStart,
   onUploadSuccess,
@@ -72,8 +74,7 @@ export function useUploadFiles({
         setUploadProgress({ id, progress });
       };
 
-      if (file)
-      {
+      if (file) {
         const handleProcessFileSuccess = (input: { processedKey: string }) =>
           onProcessFileSuccess({ id, ...input });
 
@@ -85,6 +86,7 @@ export function useUploadFiles({
           onProgress,
           path,
           processFile,
+          onProcessFileError,
           useAccelerateEndpoint,
           id,
           removeUpload,
@@ -129,6 +131,7 @@ export function useUploadFiles({
     maxFileCount,
     setUploadSuccess,
     processFile,
+    onProcessFileError,
     path,
     useAccelerateEndpoint,
   ]);

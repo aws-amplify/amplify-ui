@@ -1,50 +1,42 @@
 import React from 'react';
 
-export interface DataState<T> {
+interface ActionState<T> {
   data: T;
-  hasError: boolean;
   isLoading: boolean;
   message: string | undefined;
 }
 
-// default state
-const INITIAL_STATE = { hasError: false, isLoading: false, message: undefined };
-const LOADING_STATE = { hasError: false, isLoading: true, message: undefined };
-const ERROR_STATE = { hasError: true, isLoading: false };
-
-const resolveMaybeAsync = async <T>(
-  value: T | Promise<T>
-): Promise<Awaited<T>> => {
-  const awaited = await value;
-  return awaited;
-};
+const getActionState = <T>(data: T): ActionState<T> => ({
+  data,
+  isLoading: false,
+  message: undefined,
+});
 
 export default function useDataState<T, K>(
-  action: (prevData: T, ...input: K[]) => T | Promise<T>,
-  initialData: T
-): [state: DataState<T>, handleAction: (...input: K[]) => void] {
-  const [dataState, setDataState] = React.useState<DataState<T>>(() => ({
-    ...INITIAL_STATE,
-    data: initialData,
-  }));
+  action: (prevData: Awaited<T>, ...input: K[]) => T | Promise<T>,
+  initialData: Awaited<T>
+): [state: ActionState<Awaited<T>>, handleAction: (...input: K[]) => void] {
+  const [actionState, setActionState] = React.useState<ActionState<Awaited<T>>>(
+    () => getActionState(initialData)
+  );
 
   const prevData = React.useRef(initialData);
 
   const handleAction: (...input: K[]) => void = React.useCallback(
     (...input) => {
-      setDataState(({ data }) => ({ ...LOADING_STATE, data }));
+      setActionState((prev) => ({ ...prev, isLoading: true }));
 
-      resolveMaybeAsync(action(prevData.current, ...input))
-        .then((data: T) => {
+      Promise.resolve(action(prevData.current, ...input))
+        .then((data) => {
           prevData.current = data;
-          setDataState({ ...INITIAL_STATE, data });
+          setActionState(getActionState(data));
         })
         .catch(({ message }: Error) => {
-          setDataState(({ data }) => ({ ...ERROR_STATE, data, message }));
+          setActionState((prev) => ({ ...prev, isLoading: false, message }));
         });
     },
     [action]
   );
 
-  return [dataState, handleAction];
+  return [actionState, handleAction];
 }
