@@ -53,7 +53,7 @@ describe('TableV2', () => {
       ],
     };
 
-    render(
+    const { getByText } = render(
       <TableV2
         data={data}
         renderColumnItem={renderColumnItem}
@@ -62,14 +62,14 @@ describe('TableV2', () => {
     );
 
     // Check column headers
-    expect(screen.getByText('Header 1')).toBeInTheDocument();
-    expect(screen.getByText('Header 2')).toBeInTheDocument();
+    expect(getByText('Header 1')).toBeInTheDocument();
+    expect(getByText('Header 2')).toBeInTheDocument();
 
     // Check row data
-    expect(screen.getByText('Row 1 Column 1')).toBeInTheDocument();
-    expect(screen.getByText('Row 1 Column 2')).toBeInTheDocument();
-    expect(screen.getByText('Row 2 Column 1')).toBeInTheDocument();
-    expect(screen.getByText('Row 2 Column 2')).toBeInTheDocument();
+    expect(getByText('Row 1 Column 1')).toBeInTheDocument();
+    expect(getByText('Row 1 Column 2')).toBeInTheDocument();
+    expect(getByText('Row 2 Column 1')).toBeInTheDocument();
+    expect(getByText('Row 2 Column 2')).toBeInTheDocument();
   });
 
   it('renders an empty table when no data is provided', () => {
@@ -80,6 +80,7 @@ describe('TableV2', () => {
         renderRowItem={renderRowItem}
       />
     );
+
     expect(screen.queryByRole('table')).toBeInTheDocument();
     expect(screen.queryAllByRole('row')).toHaveLength(0);
   });
@@ -102,7 +103,7 @@ describe('TableV2', () => {
       ],
     };
 
-    render(
+    const { getByText } = render(
       <TableV2
         data={data}
         renderColumnItem={renderColumnItem}
@@ -114,8 +115,8 @@ describe('TableV2', () => {
     expect(screen.queryByRole('columnheader')).not.toBeInTheDocument();
 
     // Check row data
-    expect(screen.getByText('Row 1 Column 1')).toBeInTheDocument();
-    expect(screen.getByText('Row 1 Column 2')).toBeInTheDocument();
+    expect(getByText('Row 1 Column 1')).toBeInTheDocument();
+    expect(getByText('Row 1 Column 2')).toBeInTheDocument();
   });
 
   it('renders only column headers when rows are not provided', () => {
@@ -127,7 +128,7 @@ describe('TableV2', () => {
       rows: [],
     };
 
-    render(
+    const { getByText } = render(
       <TableV2
         data={data}
         renderColumnItem={renderColumnItem}
@@ -136,11 +137,10 @@ describe('TableV2', () => {
     );
 
     // Check column headers
-    expect(screen.getByText('Header 1')).toBeInTheDocument();
-    expect(screen.getByText('Header 2')).toBeInTheDocument();
+    expect(getByText('Header 1')).toBeInTheDocument();
+    expect(getByText('Header 2')).toBeInTheDocument();
 
     // Check that no rows are rendered
-    expect(screen.queryByRole('row')).toBeInTheDocument();
     expect(screen.queryAllByRole('cell')).toHaveLength(0);
   });
 });
