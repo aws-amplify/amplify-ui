@@ -23,20 +23,6 @@ export interface TableData<T, K = {}> {
   rows: T[][];
 }
 
-export interface RowData {
-  children?: React.ReactNode;
-  className?: string;
-  key: string;
-}
-
-export interface ColumnData {
-  'aria-label'?: string;
-  children?: React.ReactNode;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  className?: string;
-  key: string;
-}
-
 export const TableDataText = ({
   children,
 }: {

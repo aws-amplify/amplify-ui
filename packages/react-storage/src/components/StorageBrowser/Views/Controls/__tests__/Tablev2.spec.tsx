@@ -1,14 +1,22 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { TableV2, TableData, ColumnData, RowData } from '../TableV2';
+import { TableV2, TableData } from '../TableV2';
+
+interface RowData {
+  children?: React.ReactNode;
+  className?: string;
+  key: string;
+}
+
+interface ColumnData {
+  children?: React.ReactNode;
+  className?: string;
+  key: string;
+}
 
 describe('TableV2', () => {
   const renderColumnItem = (column: ColumnData) => (
-    <th
-      key={column.key}
-      className={column.className}
-      aria-label={column['aria-label']}
-    >
+    <th key={column.key} className={column.className}>
       {column.children}
     </th>
   );
