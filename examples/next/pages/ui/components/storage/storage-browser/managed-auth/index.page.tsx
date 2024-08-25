@@ -10,6 +10,7 @@ import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
 import '@aws-amplify/ui-react-storage/styles.css';
 
 const { StorageBrowser } = createStorageBrowser({
+  actions: {},
   config: managedAuthAdapter,
 });
 

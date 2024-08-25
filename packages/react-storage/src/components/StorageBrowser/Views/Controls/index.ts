@@ -1,5 +1,4 @@
 export { ExitControl } from './Exit';
-export { ActionSelectControl } from './ActionSelect';
 export { CancelControl } from './Cancel';
 export { DownloadControl } from './Download';
 export { LoadingControl } from './Loading';

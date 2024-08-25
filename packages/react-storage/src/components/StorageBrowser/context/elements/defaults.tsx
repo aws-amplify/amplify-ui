@@ -30,7 +30,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonElementProps>(
   function Button(props, ref) {
     const { disabled, variant } = props;
     switch (variant) {
-      case 'action-select-item':
+      case 'actions-menu-item':
         return (
           <_Button
             {...props}
@@ -85,7 +85,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonElementProps>(
             ref={ref}
           />
         );
-      case 'action-select-toggle':
+      case 'actions-menu-toggle':
       case 'download':
       case 'refresh':
       case 'sort':
@@ -204,7 +204,7 @@ const Text = React.forwardRef<HTMLParagraphElement, TextElementProps>(
 const View = React.forwardRef<HTMLDivElement, ViewProps & { variant?: string }>(
   function View({ variant, ...props }, ref) {
     switch (variant) {
-      case 'action-select-menu':
+      case 'actions-menu-list':
         return (
           <_View
             {...props}

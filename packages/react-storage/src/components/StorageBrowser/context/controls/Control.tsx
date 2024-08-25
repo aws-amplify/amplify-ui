@@ -2,6 +2,7 @@ import React from 'react';
 import { NavigateProvider, NavigateContext } from './Navigate';
 import { PaginateProvider, PaginateContext } from './Paginate';
 import { ActionSelectProvider, ActionSelectContext } from './ActionSelect';
+import { LocationActions } from './locationActions';
 
 const CONTEXTS = {
   ACTION_SELECT: ActionSelectContext,
@@ -12,13 +13,15 @@ const CONTEXTS = {
 type Contexts = typeof CONTEXTS;
 
 export function ControlProvider({
+  actions,
   children,
 }: {
+  actions: LocationActions;
   children?: React.ReactNode;
 }): React.JSX.Element {
   return (
     <NavigateProvider>
-      <ActionSelectProvider>
+      <ActionSelectProvider actions={actions}>
         <PaginateProvider>{children}</PaginateProvider>
       </ActionSelectProvider>
     </NavigateProvider>

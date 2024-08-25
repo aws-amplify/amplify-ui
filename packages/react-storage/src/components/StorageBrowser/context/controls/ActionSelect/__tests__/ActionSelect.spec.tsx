@@ -5,48 +5,43 @@ import {
 } from '../ActionSelect';
 
 describe('actionSelectReducer', () => {
-  it('handles a SELECT_ACTION_TYPE as expected', () => {
+  it('handles a SET_ACTION action as expected', () => {
     const initialState: ActionSelectState = {
-      actions: [],
+      actions: {},
       selected: {
-        actionType: undefined,
-        destination: undefined,
+        type: undefined,
         items: undefined,
-        name: undefined,
       },
     };
     const action: ActionSelectAction = {
-      actionType: 'UPLOAD_FILES',
-      type: 'SELECT_ACTION_TYPE',
-      destination: 'public/',
-      name: 'Upload files',
-      items: [],
+      payload: 'UPLOAD_FILES',
+      type: 'SET_ACTION',
     };
+
     const newState = actionSelectReducer(initialState, action);
     const expectedState = {
-      actions: [],
+      actions: {},
       selected: {
-        ...action,
+        type: 'UPLOAD_FILES',
+        items: undefined,
       },
     };
     expect(newState).toEqual(expectedState);
   });
-  it('handles a EXIT as expected', () => {
+
+  it('handles a CLEAR action as expected', () => {
     const initialState: ActionSelectState = {
-      actions: [],
+      actions: {},
       selected: {
-        actionType: 'UPLOAD_FILES',
+        type: 'UPLOAD_FILES',
         items: [],
-        destination: 'some-prefix',
-        name: 'Upload Files',
       },
     };
-    const action: ActionSelectAction = {
-      type: 'EXIT',
-    };
+    const action: ActionSelectAction = { type: 'CLEAR' };
     const newState = actionSelectReducer(initialState, action);
+
     const expectedState = {
-      actions: [],
+      actions: {},
       selected: {
         actionType: undefined,
         items: undefined,
@@ -54,7 +49,7 @@ describe('actionSelectReducer', () => {
     };
     expect(newState).toEqual(expectedState);
   });
-  it.todo('handles a SET_UPLOAD_ITEMS as expected');
+  it.todo('handles a SET_FILES as expected');
   it.todo('handles a SELECT_LOCATION_ITEM as expected');
   it.todo('handles a DESELECT_LOCATION_ITEM as expected');
   it.todo('handles a DESELECT_ALL_LOCATION_ITEMS as expected');

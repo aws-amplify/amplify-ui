@@ -1,10 +1,10 @@
 import React from 'react';
 
+import { ListLocations } from '@aws-amplify/storage/storage-browser';
 import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 
 import { ActionProvider, createListLocationsAction } from './context/actions';
 
-import { Permission } from './context/types';
 import {
   LocationConfigProvider,
   LocationConfigProviderProps,
@@ -13,7 +13,7 @@ import { ControlProvider } from './context/controls';
 import { StorageBrowserElements } from './context/elements';
 import { Controller } from './Controller';
 import { ErrorBoundary } from './ErrorBoundary';
-import { ListLocations } from '@aws-amplify/storage/storage-browser';
+import { LocationActions } from './context/controls/locationActions';
 
 export interface Config
   extends Pick<
@@ -23,15 +23,17 @@ export interface Config
   listLocations: ListLocations;
 }
 
-export interface CreateProviderInput<T, _K> {
+export interface CreateProviderInput<T, K> {
+  actions: K;
   config: Config;
   elements?: T;
 }
 
 export default function createProvider<
   T extends Partial<StorageBrowserElements>,
-  K extends Permission,
+  K extends LocationActions,
 >({
+  actions,
   config,
   elements,
 }: CreateProviderInput<T, K>): (props: {
@@ -47,7 +49,7 @@ export default function createProvider<
     return (
       <ErrorBoundary>
         <ElementsProvider elements={elements}>
-          <ControlProvider>
+          <ControlProvider actions={actions}>
             <LocationConfigProvider {...config}>
               <ActionProvider listLocationsAction={listLocationsAction}>
                 <Controller />

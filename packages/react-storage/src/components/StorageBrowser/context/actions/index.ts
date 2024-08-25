@@ -6,5 +6,5 @@ export {
   LocationData,
   LocationItem,
   Permission,
-  UploadItemData,
+  // UploadItemData,
 } from '../types';

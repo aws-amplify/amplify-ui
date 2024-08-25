@@ -3,11 +3,8 @@ import { render, screen, waitFor } from '@testing-library/react';
 
 import * as ActionsModule from '../context/actions';
 import * as ControlsModule from '../context/controls';
-import * as CreateProviderModule from '../createProvider';
 
 import { createStorageBrowser } from '../createStorageBrowser';
-
-jest.mock('../context/config');
 
 jest.spyOn(ActionsModule, 'useLocationsData').mockReturnValue([
   {
@@ -29,9 +26,23 @@ jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
   jest.fn(),
 ]);
 
-jest
-  .spyOn(CreateProviderModule, 'default')
-  .mockReturnValue(({ children }) => <>{children}</>);
+const INITIAL_PAGINATE_STATE = [
+  {
+    hasNext: false,
+    hasPrevious: false,
+    isLoadingNextPage: false,
+    current: 0,
+  },
+  jest.fn(),
+];
+const INITIAL_NAVIGATE_STATE = [
+  { location: undefined, history: [], path: '' },
+  jest.fn(),
+];
+const INITIAL_ACTION_STATE = [
+  { selected: { type: undefined, items: undefined }, actions: {} },
+  jest.fn(),
+];
 
 const useControlSpy = jest.spyOn(ControlsModule, 'useControl');
 
@@ -44,6 +55,8 @@ const config = {
   region: 'region',
   registerAuthListener: jest.fn(),
 };
+
+const input = { actions: {}, config };
 
 describe('createStorageBrowser', () => {
   beforeEach(() => {
@@ -69,32 +82,25 @@ describe('createStorageBrowser', () => {
     useControlSpy.mockImplementation(
       ({ type }) =>
         ({
-          NAVIGATE: [{ location: undefined, history: [] }],
-          ACTION_SELECT: [{ selected: undefined }],
-          PAGINATE: [
-            {
-              hasNext: false,
-              hasPrevious: false,
-              isLoadingNextPage: false,
-              current: 0,
-            },
-            jest.fn(),
-          ],
+          ACTION_SELECT: INITIAL_ACTION_STATE,
+          NAVIGATE: INITIAL_NAVIGATE_STATE,
+          PAGINATE: INITIAL_PAGINATE_STATE,
         })[type]
     );
-    const { StorageBrowser } = createStorageBrowser({ config });
-
-    render(<StorageBrowser />);
+    const { StorageBrowser } = createStorageBrowser(input);
 
     await waitFor(() => {
-      expect(screen.getByTestId('LOCATIONS_VIEW')).toBeInTheDocument();
+      render(<StorageBrowser />);
     });
+
+    expect(screen.getByTestId('LOCATIONS_VIEW')).toBeInTheDocument();
   });
 
   it('renders the `LocationDetailView` when a location is selected', async () => {
     useControlSpy.mockImplementation(
       ({ type }) =>
         ({
+          ACTION_SELECT: INITIAL_ACTION_STATE,
           NAVIGATE: [
             {
               location: {
@@ -105,24 +111,30 @@ describe('createStorageBrowser', () => {
               history: [{ prefix: '', position: 0 }],
             },
           ],
-          ACTION_SELECT: [{ selected: undefined }],
-          PAGINATE: [{}],
+          PAGINATE: INITIAL_PAGINATE_STATE,
         })[type]
     );
 
-    const { StorageBrowser } = createStorageBrowser({ config });
-
-    render(<StorageBrowser />);
+    const { StorageBrowser } = createStorageBrowser(input);
 
     await waitFor(() => {
-      expect(screen.getByTestId('LOCATION_DETAIL_VIEW')).toBeInTheDocument();
+      render(<StorageBrowser />);
     });
+
+    expect(screen.getByTestId('LOCATION_DETAIL_VIEW')).toBeInTheDocument();
   });
 
   it('renders the `LocationActionView` when an action is selected', async () => {
     useControlSpy.mockImplementation(
       ({ type }) =>
         ({
+          ACTION_SELECT: [
+            {
+              actions: { CREATE_FOLDER: {} },
+              selected: { type: 'CREATE_FOLDER', items: undefined },
+            },
+            jest.fn(),
+          ],
           NAVIGATE: [
             {
               location: {
@@ -133,17 +145,11 @@ describe('createStorageBrowser', () => {
               history: [{ prefix: '', position: 0 }],
             },
           ],
-          ACTION_SELECT: [
-            {
-              selected: { actionType: 'CREATE_FOLDER', name: 'Create Folder' },
-            },
-            jest.fn(),
-          ],
-          PAGINATE: [{}],
+          PAGINATE: INITIAL_PAGINATE_STATE,
         })[type]
     );
 
-    const { StorageBrowser } = createStorageBrowser({ config });
+    const { StorageBrowser } = createStorageBrowser(input);
 
     render(<StorageBrowser />);
 

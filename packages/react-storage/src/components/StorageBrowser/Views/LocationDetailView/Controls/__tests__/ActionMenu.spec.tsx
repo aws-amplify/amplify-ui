@@ -1,15 +1,15 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import { ActionSelectControl } from '../ActionSelect';
-import { ControlProvider } from '../../../context/controls';
-import { CLASS_BASE } from '../../constants';
+import { ActionsMenuControl } from '../ActionsMenu';
+import { ControlProvider } from '../../../../context/controls';
+import { CLASS_BASE } from '../../../constants';
 
-describe('ActionSelectControl', () => {
-  it('renders a `ActionSelectControl`', () => {
+describe('ActionsMenuControl', () => {
+  it('renders a `ActionsMenuControl`', () => {
     render(
-      <ControlProvider>
-        <ActionSelectControl />
+      <ControlProvider actions={{}}>
+        <ActionsMenuControl />
       </ControlProvider>
     );
     const toggle = screen.getByRole('button', { name: 'Actions' });
@@ -22,8 +22,8 @@ describe('ActionSelectControl', () => {
 
   it('applies correct classes when toggled', () => {
     render(
-      <ControlProvider>
-        <ActionSelectControl />
+      <ControlProvider actions={{}}>
+        <ActionsMenuControl />
       </ControlProvider>
     );
     const toggle = screen.getByRole('button', { name: 'Actions' });
@@ -32,6 +32,6 @@ describe('ActionSelectControl', () => {
     });
 
     fireEvent.click(toggle);
-    expect(menu.classList).toContain(`${CLASS_BASE}__action-menu__menu--open`);
+    expect(menu.classList).toContain(`${CLASS_BASE}__actions-menu__menu--open`);
   });
 });
