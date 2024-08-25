@@ -15,5 +15,4 @@ export {
   LocationsViewTable,
   LocationDetailViewTable,
 } from './Table';
-export { TableV2 } from './TableV2';
 export { Controls } from './Controls';
