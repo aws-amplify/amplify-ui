@@ -57,7 +57,7 @@ export function DataTable<
   data,
   renderColumnHeaderItem = ColumnHeaderItem,
   renderRowDataItem = RowDataItem,
-}: DataTableProps<T, K>): JSX.Element | null {
+}: DataTableProps<T, K>): JSX.Element {
   const { columns, rows } = data ?? {};
 
   return (
