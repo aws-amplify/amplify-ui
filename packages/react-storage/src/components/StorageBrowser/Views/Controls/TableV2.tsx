@@ -10,7 +10,7 @@ export const TABLE_HEADER_BUTTON_CLASS = `${BLOCK_NAME}__header__button`;
 export const TABLE_DATA_TEXT_CLASS = `${BLOCK_NAME}__data__text`;
 export const TABLE_DATA_BUTTON_CLASS = `${BLOCK_NAME}__data__button`;
 
-const { Span, Table, TableBody, TableHead, TableRow } = StorageBrowserElements;
+const { Table, TableBody, TableHead, TableRow } = StorageBrowserElements;
 
 export interface TableProps<T, K> {
   data?: TableData<T, K>;
@@ -22,12 +22,6 @@ export interface TableData<T, K = {}> {
   columns?: K[];
   rows: T[][];
 }
-
-export const TableDataText = ({
-  children,
-}: {
-  children: React.ReactNode;
-}): JSX.Element => <Span className={TABLE_DATA_TEXT_CLASS}>{children}</Span>;
 
 export function TableV2<T, K>({
   data,
