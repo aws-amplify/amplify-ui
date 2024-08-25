@@ -253,11 +253,12 @@ export const UploadControls = (): JSX.Element => {
       <Title />
       <Exit onClick={() => handleUpdateState({ type: 'CLEAR' })} />
       <Primary
+        disabled={tasks.some((task) => task.status === 'PENDING')}
         onClick={() => {
           handleUpload();
         }}
       >
-        Start upload
+        Start
       </Primary>
       <Destination>{history[history.length - 1].prefix}</Destination>
       <Summary />

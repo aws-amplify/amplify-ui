@@ -3,16 +3,12 @@ import React from 'react';
 import { isEmptyObject } from '@aws-amplify/ui';
 
 import { ActionsMenu, ActionItemProps } from '../../../components/ActionsMenu';
-
-import { CLASS_BASE } from '../../constants';
 import { useControl } from '../../../context/controls';
-
 import { LocationActions } from '../../../context/controls/locationActions';
-
 import { LocationItem, Permission } from '../../../context/types';
 
-const BLOCK_NAME = `${CLASS_BASE}__actions-menu`;
-const BUTTON_CLASS_NAME = `${BLOCK_NAME}__action-button`;
+const getKeyedFragments = (...nodes: React.ReactNode[]): React.ReactNode[] =>
+  nodes.map((child, key) => <React.Fragment key={key}>{child}</React.Fragment>);
 
 const getMenuData = ({
   actions,
@@ -34,33 +30,22 @@ const getMenuData = ({
           if (typeof hide === 'function' ? hide(permission) : hide) {
             return output;
           }
+          const children = getKeyedFragments(icon, displayName);
+          const disabled =
+            typeof disable === 'function' ? disable(items) : disable ?? false;
+          const onClick = () => onSelect(key);
 
-          return [
-            ...output,
-            {
-              children: [icon, displayName],
-              className: BUTTON_CLASS_NAME,
-              disabled:
-                typeof disable === 'function'
-                  ? disable(items)
-                  : disable ?? false,
-              key,
-              onClick: () => {
-                onSelect(key);
-              },
-            },
-          ];
+          return [...output, { children, disabled, key, onClick }];
         },
         []
       );
 
-export const ActionsMenuControl = (): React.JSX.Element => {
+export function ActionsMenuControl(): React.JSX.Element {
   const [{ actions, selected }, handleUpdate] = useControl({
     type: 'ACTION_SELECT',
   });
 
   const [{ location }] = useControl({ type: 'NAVIGATE' });
-
   const { permission } = location ?? {};
   const { items } = selected;
 
@@ -78,4 +63,4 @@ export const ActionsMenuControl = (): React.JSX.Element => {
   );
 
   return <ActionsMenu data={data} />;
-};
+}

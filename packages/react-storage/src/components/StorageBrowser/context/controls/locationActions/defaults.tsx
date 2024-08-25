@@ -32,10 +32,10 @@ const UPLOAD_FILES: LocationAction = {
   handler,
   options: {
     disable: (items) => !!items.length,
-    displayName: 'Upload File',
+    displayName: 'Upload Files',
     hide: (permission) => permission === 'READ',
     icon: <IconElement variant="upload-file" />,
-    selectionData: ['file', '.png'],
+    selectionData: 'file',
   },
 };
 
