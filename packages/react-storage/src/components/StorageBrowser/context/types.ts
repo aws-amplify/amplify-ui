@@ -1,8 +1,6 @@
 import { UploadDataWithPathInput } from 'aws-amplify/storage';
 import { LocationCredentialsProvider } from '@aws-amplify/storage/storage-browser';
 
-import { DownloadControl } from '../Views/Controls';
-
 export interface FolderItem {
   key: string;
   type: 'FOLDER';
@@ -16,9 +14,7 @@ export interface FileItem {
   type: 'FILE';
 }
 
-export type FileTableEntry = FileItem & { download: typeof DownloadControl };
-
-export type LocationItem = FileItem | FolderItem | FileTableEntry;
+export type LocationItem = FileItem | FolderItem;
 
 export type Permission = 'READ' | 'READWRITE' | 'WRITE';
 export type LocationType = 'OBJECT' | 'PREFIX' | 'BUCKET';
@@ -29,11 +25,10 @@ export interface LocationAccess<T = Permission> {
   scope: string;
 }
 
-export interface LocationData<T = Permission> {
+export interface LocationData<T = Permission>
+  extends Pick<LocationAccess<T>, 'permission' | 'type'> {
   bucket: string;
-  permission: T;
   prefix: string;
-  type: LocationType;
 }
 
 export interface LocationConfig {
@@ -45,11 +40,11 @@ export interface LocationConfig {
 export type TaskStatus =
   | 'INITIAL'
   | 'QUEUED'
-  | 'IN_PROGRESS'
-  | 'SUCCESS'
-  | 'ERROR';
+  | 'PENDING'
+  | 'FAILED'
+  | 'COMPLETE';
 
-interface TaskResult<T = TaskStatus> {
+export interface TaskResult<T = TaskStatus> {
   key: string;
   message: string | undefined;
   status: T;
@@ -59,38 +54,37 @@ interface CancelableTaskResult extends TaskResult<TaskStatus | 'CANCELED'> {
   cancel: (() => void) | undefined;
 }
 
-interface UploadItemOptions extends Omit<UploadDataWithPathInput, 'options'> {
-  options?: Pick<
+interface UploadItemOptions
+  extends Pick<
     NonNullable<UploadDataWithPathInput['options']>,
     'preventOverwrite'
-  >;
-}
-interface UploadItem extends TaskItem<UploadItemOptions> {}
+  > {}
 
-interface UploadActionInput
-  extends TaskActionInput<UploadItem, { preventOverwite?: boolean }> {}
+interface UploadActionInput extends TaskActionInput<UploadItemOptions> {}
 
 interface UploadActionOutput extends TaskActionOutput<CancelableTaskResult> {}
 
 export interface UploadAction
   extends TaskAction<UploadActionInput, UploadActionOutput> {}
 
-export type UploadItemData = Blob | ArrayBufferView | ArrayBuffer | string;
-
-export interface TaskActionInput<T = {}, K = never> {
+export interface TaskActionInput<T = never> {
   prefix: string;
   config: LocationConfig | (() => LocationConfig);
-  data: T;
-  options?: K;
+  data: File;
+  options?: T;
 }
 
 export interface TaskActionOutput<T = TaskResult> {
   result: T | undefined;
 }
 
-type TaskItem<T = {}> = Omit<T, 'path'>;
+export type PrefixTaskAction<T = TaskActionInput, K = TaskActionOutput> = (
+  input: T
+) => Promise<K>;
 
-export type TaskAction<T, K = TaskActionOutput> = (input: T) => Promise<K>;
+export type TaskAction<T = TaskActionInput, K = TaskActionOutput> = (
+  input: T
+) => Promise<K>;
 
 export interface ListActionOptions<T = never> {
   delimiter?: string;

@@ -1,6 +1,5 @@
 import { StorageBrowserElements } from '../../context/elements';
 
-import { ActionSelectControl } from './ActionSelect';
 import { CancelControl } from './Cancel';
 import { DownloadControl } from './Download';
 import { ExitControl } from './Exit';
@@ -19,7 +18,6 @@ import { TitleControl } from './Title';
 export interface Controls<
   T extends StorageBrowserElements = StorageBrowserElements,
 > {
-  ActionSelect: ActionSelectControl<T>;
   Cancel: typeof CancelControl;
   Download: typeof DownloadControl;
   Exit: typeof ExitControl;
@@ -38,7 +36,6 @@ export interface Controls<
 
 export const Controls: Controls = {
   Exit: ExitControl,
-  ActionSelect: ActionSelectControl,
   Cancel: CancelControl,
   Download: DownloadControl,
   Loading: LoadingControl,
