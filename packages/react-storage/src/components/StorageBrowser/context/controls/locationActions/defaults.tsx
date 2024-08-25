@@ -4,15 +4,19 @@ import { IconElement } from '../../elements/IconElement';
 import { TaskActionOutput, TaskActionInput } from '../../types';
 import { LocationAction } from './types';
 
+export const OPTIONS_DEFAULT: LocationAction['options'] = {
+  disable: (items) => !!items.length,
+  hide: (permission) => permission === 'READ',
+};
+
 const handler = (_: TaskActionInput): Promise<TaskActionOutput> =>
   Promise.resolve({ result: undefined });
 
 const CREATE_FOLDER: LocationAction = {
   handler,
   options: {
+    ...OPTIONS_DEFAULT,
     displayName: 'Create Folder',
-    disable: (items) => !!items.length,
-    hide: (permission) => permission === 'READ',
     icon: <IconElement variant="create-folder" />,
   },
 };
@@ -20,9 +24,8 @@ const CREATE_FOLDER: LocationAction = {
 const UPLOAD_FOLDER: LocationAction = {
   handler,
   options: {
-    disable: (items) => !!items.length,
+    ...OPTIONS_DEFAULT,
     displayName: 'Upload Folder',
-    hide: (permission) => permission === 'READ',
     icon: <IconElement variant="upload-folder" />,
     selectionData: 'folder',
   },
@@ -31,9 +34,8 @@ const UPLOAD_FOLDER: LocationAction = {
 const UPLOAD_FILES: LocationAction = {
   handler,
   options: {
-    disable: (items) => !!items.length,
+    ...OPTIONS_DEFAULT,
     displayName: 'Upload Files',
-    hide: (permission) => permission === 'READ',
     icon: <IconElement variant="upload-file" />,
     selectionData: 'file',
   },
