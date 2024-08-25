@@ -29,7 +29,7 @@ export interface Controls<
   Refresh: typeof RefreshControl;
   Search: SearchControl<T>;
   Summary: SummaryControl<T>;
-  Table: TableControl;
+  Table: TableControl<T>;
   Target: TargetControl<T>;
   Title: TitleControl<T>;
 }
