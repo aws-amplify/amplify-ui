@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { createStorageBrowser } from '@aws-amplify/ui-react-storage';
+import { createStorageBrowser } from '@aws-amplify/ui-react-storage/browser';
 
 import { auth, managedAuthAdapter } from '../managedAuthAdapter';
 

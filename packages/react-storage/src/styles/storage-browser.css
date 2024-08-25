@@ -123,12 +123,14 @@
   display: flex;
   gap: var(--storage-browser-gap);
 }
-.storage-browser__summary__definition {
+.storage-browser__summary__definition,
+.storage-browser__destination {
   display: flex;
   gap: var(--storage-browser-gap);
 }
 
-.storage-browser__summary__definition__detail {
+.storage-browser__summary__definition__detail,
+.storage-browser__destination__detail {
   margin: 0;
 }
 
