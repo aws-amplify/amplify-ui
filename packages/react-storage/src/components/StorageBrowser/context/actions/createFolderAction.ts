@@ -4,7 +4,13 @@ import { TaskAction, TaskActionInput, TaskActionOutput } from '../types';
 
 export interface CreateFolderActionInput
   extends Omit<
-    TaskActionInput<never, { reset?: boolean; preventOverwite?: boolean }>,
+    TaskActionInput<{ reset?: boolean; preventOverwite?: boolean }>,
+    'data'
+  > {}
+
+export interface CreateFolderActionInputV2
+  extends Omit<
+    TaskActionInput<{ reset?: boolean; preventOverwite?: boolean }>,
     'data'
   > {}
 
@@ -37,9 +43,9 @@ export const createFolderAction = async (
       data: '',
       options: { bucket: { bucketName, region }, locationCredentialsProvider },
     }).result;
-    result = { key: prefix, status: 'SUCCESS', message: undefined };
+    result = { key: prefix, status: 'COMPLETE', message: undefined };
   } catch (e) {
-    result = { key: prefix, status: 'ERROR', message: (e as Error).message };
+    result = { key: prefix, status: 'FAILED', message: (e as Error).message };
   }
 
   return { result };
