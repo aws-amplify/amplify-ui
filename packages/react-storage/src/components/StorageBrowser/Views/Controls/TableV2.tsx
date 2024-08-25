@@ -10,40 +10,83 @@ export const TABLE_HEADER_BUTTON_CLASS = `${BLOCK_NAME}__header__button`;
 export const TABLE_DATA_TEXT_CLASS = `${BLOCK_NAME}__data__text`;
 export const TABLE_DATA_BUTTON_CLASS = `${BLOCK_NAME}__data__button`;
 
-const { Table, TableBody, TableHead, TableRow } = StorageBrowserElements;
+const { Table, TableBody, TableData, TableHead, TableHeader, TableRow } =
+  StorageBrowserElements;
 
-export interface TableProps<T, K> {
-  data?: TableData<T, K>;
-  renderColumnItem?: (props: K, index: number) => React.JSX.Element;
-  renderRowItem?: (props: T, index: number) => React.JSX.Element;
+export interface TableHeaderItemProps
+  extends React.ComponentProps<typeof TableHeader> {}
+
+export interface TableDataItemProps
+  extends React.ComponentProps<typeof TableData> {}
+
+export interface TableProps<
+  T extends TableDataItemProps,
+  K extends TableHeaderItemProps,
+> {
+  data?: DataTable<T, K>;
+  renderTableHeaderItem?: (
+    props: TableHeaderItemProps,
+    index: number
+  ) => React.JSX.Element;
+  renderTableDataItem?: (
+    props: TableDataItemProps,
+    index: number
+  ) => React.JSX.Element;
 }
 
-export interface TableData<T, K = {}> {
+export interface DataTable<T, K = {}> {
   columns?: K[];
   rows: T[][];
 }
 
-export function TableV2<T, K>({
+export function TableHeaderItem({
+  children,
+  className = TABLE_HEADER_CLASS,
+  ...props
+}: TableHeaderItemProps): React.JSX.Element {
+  return (
+    <TableHeader {...props} className={className}>
+      {children}
+    </TableHeader>
+  );
+}
+
+export function TableDataItem({
+  children,
+  className = TABLE_DATA_TEXT_CLASS,
+  ...props
+}: TableDataItemProps): React.JSX.Element {
+  return (
+    <TableData {...props} className={className}>
+      {children}
+    </TableData>
+  );
+}
+
+export function TableV2<
+  T extends TableDataItemProps,
+  K extends TableHeaderItemProps,
+>({
   data,
-  renderColumnItem,
-  renderRowItem,
+  renderTableHeaderItem = TableHeaderItem,
+  renderTableDataItem = TableDataItem,
 }: TableProps<T, K>): JSX.Element | null {
   const { columns, rows } = data ?? {};
 
   return (
     <Table aria-label="Table" className={BLOCK_NAME}>
-      {!!renderColumnItem && !!columns ? (
+      {!!renderTableHeaderItem && !!columns ? (
         <TableHead className={`${BLOCK_NAME}__head`}>
           <TableRow className={`${BLOCK_NAME}__row`}>
-            {columns.map(renderColumnItem)}
+            {columns.map(renderTableHeaderItem)}
           </TableRow>
         </TableHead>
       ) : null}
-      {!!renderRowItem && !!rows ? (
+      {!!renderTableDataItem && !!rows ? (
         <TableBody className={`${BLOCK_NAME}__body`}>
           {rows.map((row, index) => (
             <TableRow key={`row-${index}`} className={`${BLOCK_NAME}__row`}>
-              {row.map(renderRowItem)}
+              {row.map(renderTableDataItem)}
             </TableRow>
           ))}
         </TableBody>

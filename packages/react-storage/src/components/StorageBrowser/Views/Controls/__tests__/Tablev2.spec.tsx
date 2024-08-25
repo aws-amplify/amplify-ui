@@ -1,34 +1,37 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { TableV2, TableData } from '../TableV2';
+import {
+  TableV2,
+  DataTable,
+  TableHeaderItemProps,
+  TableDataItemProps,
+} from '../TableV2';
 
-interface RowData {
+interface RowData extends TableDataItemProps {
   children?: React.ReactNode;
   className?: string;
-  key: string;
 }
 
-interface ColumnData {
+interface ColumnData extends TableHeaderItemProps {
   children?: React.ReactNode;
   className?: string;
-  key: string;
 }
 
 describe('TableV2', () => {
   const renderColumnItem = (column: ColumnData) => (
-    <th key={column.key} className={column.className}>
+    <th {...column} className={column.className}>
       {column.children}
     </th>
   );
 
   const renderRowItem = (row: RowData) => (
-    <td key={row.key} className={row.className}>
+    <td {...row} className={row.className}>
       {row.children}
     </td>
   );
 
   it('renders the table with column headers and rows', () => {
-    const data: TableData<RowData, ColumnData> = {
+    const data: DataTable<RowData, ColumnData> = {
       columns: [
         { key: 'column1', children: 'Header 1', className: 'header-class' },
         { key: 'column2', children: 'Header 2', className: 'header-class' },
@@ -64,8 +67,8 @@ describe('TableV2', () => {
     const { getByText } = render(
       <TableV2
         data={data}
-        renderColumnItem={renderColumnItem}
-        renderRowItem={renderRowItem}
+        renderTableHeaderItem={renderColumnItem}
+        renderTableDataItem={renderRowItem}
       />
     );
 
@@ -84,8 +87,8 @@ describe('TableV2', () => {
     render(
       <TableV2
         data={undefined}
-        renderColumnItem={renderColumnItem}
-        renderRowItem={renderRowItem}
+        renderTableHeaderItem={renderColumnItem}
+        renderTableDataItem={renderRowItem}
       />
     );
 
@@ -94,7 +97,7 @@ describe('TableV2', () => {
   });
 
   it('renders only rows when columns are not provided', () => {
-    const data: TableData<RowData, ColumnData> = {
+    const data: DataTable<RowData, ColumnData> = {
       rows: [
         [
           {
@@ -114,8 +117,8 @@ describe('TableV2', () => {
     const { getByText } = render(
       <TableV2
         data={data}
-        renderColumnItem={renderColumnItem}
-        renderRowItem={renderRowItem}
+        renderTableHeaderItem={renderColumnItem}
+        renderTableDataItem={renderRowItem}
       />
     );
 
@@ -128,7 +131,7 @@ describe('TableV2', () => {
   });
 
   it('renders only column headers when rows are not provided', () => {
-    const data: TableData<RowData, ColumnData> = {
+    const data: DataTable<RowData, ColumnData> = {
       columns: [
         { key: 'column1', children: 'Header 1', className: 'header-class' },
         { key: 'column2', children: 'Header 2', className: 'header-class' },
@@ -139,8 +142,8 @@ describe('TableV2', () => {
     const { getByText } = render(
       <TableV2
         data={data}
-        renderColumnItem={renderColumnItem}
-        renderRowItem={renderRowItem}
+        renderTableHeaderItem={renderColumnItem}
+        renderTableDataItem={renderRowItem}
       />
     );
 
