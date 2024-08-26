@@ -15,6 +15,7 @@
 .storage-browser__title {
   margin: 0;
   grid-column: 1 / 4;
+  margin-inline-start: var(--storage-browser-gap);
 }
 
 .storage-browser__navigate {
