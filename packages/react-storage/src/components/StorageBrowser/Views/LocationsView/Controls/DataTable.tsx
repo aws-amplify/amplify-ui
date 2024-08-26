@@ -58,6 +58,8 @@ const getColumnItem = ({
   'aria-sort': selection === key ? direction : 'none',
 });
 
+const columnsArray = ['scope', 'type', 'permission'];
+
 const getLocationsData = ({
   data,
   onLocationClick,
@@ -71,7 +73,7 @@ const getLocationsData = ({
 }) => {
   const { selection, direction } = sortState;
 
-  const columns = Object.keys(data[0]).map((key) => {
+  const columns = columnsArray.map((key) => {
     return getColumnItem({ key, selection, direction, onTableHeaderClick });
   });
 
