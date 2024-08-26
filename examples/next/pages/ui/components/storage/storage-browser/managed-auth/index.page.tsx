@@ -44,6 +44,8 @@ function Example() {
   ) : (
     <>
       <Button
+        size="small"
+        marginBlockEnd="xl"
         onClick={() => {
           auth.signOut({ onSignOut: () => setAuthenticated(false) });
         }}
