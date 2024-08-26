@@ -67,7 +67,6 @@ const LocationsViewControls: LocationsViewControls = () => {
       <Title>Home</Title>
       <LocationsViewRefresh />
       <Paginate />
-      <Search />
       <LocationsMessage />
       <Loading />
       <LocationsViewTable />
