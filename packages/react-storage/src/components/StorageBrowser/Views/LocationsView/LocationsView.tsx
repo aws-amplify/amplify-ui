@@ -6,7 +6,7 @@ import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
 import { CommonControl, ViewComponent } from '../types';
 import { useLocationsData } from '../../context/actions';
-import { LocationsViewTableControl } from './Controls/DataTable';
+import { DataTableControl } from './Controls/DataTable';
 
 const {
   Loading: LoadingElement,
@@ -69,7 +69,7 @@ const LocationsViewControls: LocationsViewControls = () => {
       <Paginate />
       <LocationsMessage />
       <Loading />
-      <LocationsViewTableControl />
+      <DataTableControl />
     </>
   );
 };
