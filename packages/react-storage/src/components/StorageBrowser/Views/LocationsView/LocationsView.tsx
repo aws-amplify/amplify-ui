@@ -9,6 +9,7 @@ import { LocationsViewTable } from '../Controls';
 import { useLocationsData } from '../../context/actions';
 
 const {
+  EmptyMessage,
   Loading: LoadingElement,
   Message,
   Paginate,
@@ -61,6 +62,14 @@ export const LocationsMessage = (): React.JSX.Element | null => {
   ) : null;
 };
 
+const LocationsEmptyMessage = () => {
+  const [{ data, isLoading, hasError }] = useLocationsData();
+  const shouldShowEmptyMessage =
+    data.result.length === 0 && !isLoading && !hasError;
+
+  return shouldShowEmptyMessage ? <EmptyMessage /> : null;
+};
+
 const LocationsViewControls: LocationsViewControls = () => {
   return (
     <>
@@ -70,6 +79,7 @@ const LocationsViewControls: LocationsViewControls = () => {
       <LocationsMessage />
       <Loading />
       <LocationsViewTable />
+      <LocationsEmptyMessage />
     </>
   );
 };
