@@ -798,7 +798,7 @@
 
 "@aws-sdk/client-location@3.621.0":
   version "3.621.0"
-  resolved "https://registry.npmjs.org/@aws-sdk/client-location/-/client-location-3.621.0.tgz#55d3444cb0e0d4a7a81a6de2fb39143eb0d0c9d5"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-location/-/client-location-3.621.0.tgz#55d3444cb0e0d4a7a81a6de2fb39143eb0d0c9d5"
   integrity sha512-nIydBrRkGF8FzU6bbL+bT/Vq4fh4y2kuiTSVtad4kA48k0bakA3d9SwvgYv6EKiM/M1P27jQP+QFa2dSgMdcFQ==
   dependencies:
     "@aws-crypto/sha256-browser" "5.2.0"
@@ -5406,9 +5406,9 @@
   resolved "https://registry.npmjs.org/@mapbox/whoots-js/-/whoots-js-3.1.0.tgz#497c67a1cef50d1a2459ba60f315e448d2ad87fe"
   integrity sha512-Es6WcD0nO5l+2BOQS4uLfNPYQaNDfbot3X1XUoloz+x0mPDS3eeORZJl06HXjwBG1fOGwCRnzK88LMdxKRrd6Q==
 
-"@maplibre/maplibre-gl-geocoder@^1.5.0":
+"@maplibre/maplibre-gl-geocoder@1.5.0":
   version "1.5.0"
-  resolved "https://registry.npmjs.org/@maplibre/maplibre-gl-geocoder/-/maplibre-gl-geocoder-1.5.0.tgz#6b413525b361b4759df0fd17429e12b78f03b3a4"
+  resolved "https://registry.yarnpkg.com/@maplibre/maplibre-gl-geocoder/-/maplibre-gl-geocoder-1.5.0.tgz#6b413525b361b4759df0fd17429e12b78f03b3a4"
   integrity sha512-PsAbV7WFIOu5QYZne95FiXoV7AV1/6ULMjQxgInhZ5DdB0hDLjciQPegnyDgkzI8JfeqoUMZVS/MglZnSZYhyQ==
   dependencies:
     lodash.debounce "^4.0.6"
@@ -7361,7 +7361,7 @@
 
 "@turf/boolean-clockwise@6.5.0":
   version "6.5.0"
-  resolved "https://registry.npmjs.org/@turf/boolean-clockwise/-/boolean-clockwise-6.5.0.tgz#34573ecc18f900080f00e4ff364631a8b1135794"
+  resolved "https://registry.yarnpkg.com/@turf/boolean-clockwise/-/boolean-clockwise-6.5.0.tgz#34573ecc18f900080f00e4ff364631a8b1135794"
   integrity sha512-45+C7LC5RMbRWrxh3Z0Eihsc8db1VGBO5d9BLTOAwU4jR6SgsunTfRWR16X7JUwIDYlCVEmnjcXJNi/kIU3VIw==
   dependencies:
     "@turf/helpers" "^6.5.0"
@@ -16904,13 +16904,13 @@ maplibre-gl-draw-circle@^0.1.1:
     "@turf/helpers" "^6.1.4"
     "@turf/length" "^6.0.2"
 
-maplibre-gl-js-amplify@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/maplibre-gl-js-amplify/-/maplibre-gl-js-amplify-4.0.0.tgz#285edbe6fe9dc8cf9d44472e896e3091062d558f"
-  integrity sha512-Zm1D4TytJ2U0QRKAha2SwdZjxcBhxD3DYyuIaElsSjEZ99zAfZrfHw0/arH+vs9WhFgBETlwn5QwmV0vUcow7A==
+maplibre-gl-js-amplify@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/maplibre-gl-js-amplify/-/maplibre-gl-js-amplify-4.0.1.tgz#bcbc6c63da6cdcb262393a9f697461ed9131a712"
+  integrity sha512-4DupUVRu+zAgvQRvvM917tsGcKnbajwgvDG6TjpPV4JLnckJqu3YDhqOnERAlckYpH11rH8AhGLsgDz9PUwh3Q==
   dependencies:
     "@mapbox/mapbox-gl-draw" "^1.3.0"
-    "@maplibre/maplibre-gl-geocoder" "^1.5.0"
+    "@maplibre/maplibre-gl-geocoder" "1.5.0"
     "@turf/along" "^6.5.0"
     "@turf/circle" "^6.5.0"
     "@turf/distance" "^6.5.0"
