@@ -1,46 +1,30 @@
 import React from 'react';
-import { LocationItem, Permission, UploadItemData } from '../../actions';
+import { LocationItem } from '../../actions';
+import { LocationActions } from '../locationActions';
 
-const INITIAL_STATE: ActionSelectState = {
-  actions: [],
+const INITIAL_STATE: Omit<ActionSelectState, 'actions'> = {
   selected: {
+    type: undefined,
     items: undefined,
-    actionType: undefined,
-    destination: undefined,
-    name: undefined,
   },
 };
 
-export type ActionType = 'UPLOAD_FOLDER' | 'UPLOAD_FILES' | 'CREATE_FOLDER';
+const getInitialState = (actions: LocationActions): ActionSelectState => ({
+  ...INITIAL_STATE,
+  actions,
+});
 
-export type ActionSelectAction<T = ActionType> =
-  | {
-      actionType: T;
-      destination: string | undefined;
-      items: LocationItem[] | undefined;
-      name: string;
-      type: 'SELECT_ACTION_TYPE';
-    }
-  | { type: 'EXIT' }
-  | { type: 'SET_UPLOAD_ITEMS'; items: UploadItemData[] }
-  | { type: 'SELECT_LOCATION_ITEM'; item: LocationItem }
-  | { type: 'DESELECT_LOCATION_ITEM'; key: string }
-  | { type: 'DESELECT_ALL_LOCATION_ITEMS' };
+export type ActionSelectAction<T = string> =
+  | { type: 'CLEAR' }
+  | { type: 'SET_ACTION'; payload: T }
+  | { type: 'SET_LOCATION_ITEM'; item: LocationItem }
+  | { type: 'UNSET_LOCATION_ITEM'; key: string };
 
-export interface Action {
-  name: string;
-  hide?: (permission: Permission) => boolean;
-  disable?: (selected: LocationItem[] | undefined) => boolean;
-  type: ActionType;
-}
-
-export interface ActionSelectState<T = ActionType> {
-  actions: Action[];
+export interface ActionSelectState<T = string> {
+  readonly actions: LocationActions;
   selected: {
-    actionType: T | undefined;
-    destination: string | undefined;
+    type: T | undefined;
     items: LocationItem[] | undefined;
-    name: string | undefined;
   };
 }
 
@@ -53,12 +37,17 @@ export function actionSelectReducer(
   state: ActionSelectState,
   action: ActionSelectAction
 ): ActionSelectState {
-  if (action.type === 'SELECT_ACTION_TYPE') {
-    // Update selected action with action passed from handleUpdateState
-    return { ...state, selected: action };
-  } else if (action.type === 'EXIT') {
-    // Clears selected action
-    return INITIAL_STATE;
+  switch (action.type) {
+    case 'SET_ACTION': {
+      return {
+        ...state,
+        selected: { ...state.selected, type: action.payload },
+      };
+    }
+    case 'CLEAR': {
+      // reset state
+      return getInitialState(state.actions);
+    }
   }
   return state;
 }
@@ -67,12 +56,16 @@ export const ActionSelectContext = React.createContext<
   ActionSelectStateContext | undefined
 >(undefined);
 
-export function ActionSelectProvider({
-  children,
-}: {
+export interface ActionSelectProviderProps {
+  actions: LocationActions;
   children?: React.ReactNode;
-}): React.JSX.Element {
-  const value = React.useReducer(actionSelectReducer, INITIAL_STATE);
+}
+
+export function ActionSelectProvider({
+  actions,
+  children,
+}: ActionSelectProviderProps): React.JSX.Element {
+  const value = React.useReducer(actionSelectReducer, actions, getInitialState);
   return (
     <ActionSelectContext.Provider value={value}>
       {children}
