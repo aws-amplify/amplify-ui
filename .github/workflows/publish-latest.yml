@@ -84,6 +84,7 @@ jobs:
 
   build-react-native:
     uses: ./.github/workflows/reusable-build-system-test-react-native.yml
+    needs: build-test
 
   publish:
     runs-on: ubuntu-latest
