@@ -27,6 +27,7 @@ const navigateState = {
     scope: 's3://test-bucket/*',
     type: 'BUCKET',
   },
+  path: 'path',
   history: [
     { prefix: '', position: 0 },
     { prefix: 'folder1/', position: 1 },
