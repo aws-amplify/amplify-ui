@@ -23,7 +23,7 @@ interface LocationsViewControls<
   // exclude `Toggle` from `Search` for Locations List
 > extends Exclude<
     Pick<Controls<T>, CommonControl | 'Paginate' | 'Refresh' | 'Search'>,
-    Controls<T>['Search']['Toggle']
+    Controls<T>['Search']
   > {
   (): React.JSX.Element;
 }
@@ -67,6 +67,7 @@ const LocationsViewControls: LocationsViewControls = () => {
       <Title>Home</Title>
       <LocationsViewRefresh />
       <Paginate />
+      <Search />
       <LocationsMessage />
       <Loading />
       <LocationsViewTable />
