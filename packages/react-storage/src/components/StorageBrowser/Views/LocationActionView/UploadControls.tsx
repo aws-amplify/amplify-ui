@@ -308,6 +308,7 @@ export const UploadControls = (): JSX.Element => {
       {fileSelect}
       <Title />
       <ButtonElement
+        disabled={disabled}
         className={`${CLASS_BASE}__add-files`}
         variant="add-files"
         onClick={() => {
@@ -317,6 +318,7 @@ export const UploadControls = (): JSX.Element => {
         Add files
       </ButtonElement>
       <ButtonElement
+        disabled={disabled}
         className={`${CLASS_BASE}__add-folder`}
         variant="add-folder"
         onClick={() => {
