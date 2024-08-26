@@ -4,7 +4,10 @@ import styles from 'rollup-plugin-styles';
 import externals from 'rollup-plugin-node-externals';
 
 // common config settings
-const input = ['src/index.ts'];
+const input = {
+  index: 'src/index.ts',
+  browser: 'src/components/StorageBrowser/index.ts',
+};
 const sourceMap = false;
 const tsconfig = 'tsconfig.dist.json';
 

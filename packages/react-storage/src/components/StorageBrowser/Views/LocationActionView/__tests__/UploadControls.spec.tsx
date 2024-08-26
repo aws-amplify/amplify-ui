@@ -3,71 +3,102 @@ import { render, screen, waitFor } from '@testing-library/react';
 
 import * as ControlsModule from '../../../context/controls';
 import createProvider from '../../../createProvider';
+import { ActionSelectState } from '../../../context/controls/ActionSelect/ActionSelect';
 
 import { UploadControls, ActionIcon, ICON_CLASS } from '../UploadControls';
 
+const TEST_ACTIONS = {
+  UPLOAD_FILES: { displayName: 'Upload Files', handler: jest.fn() },
+};
+
 const useControlSpy = jest.spyOn(ControlsModule, 'useControl');
 
-const listLocations = jest.fn(() =>
-  Promise.resolve({ locations: [], nextToken: undefined })
-);
+const actionSelectState: ActionSelectState = {
+  actions: TEST_ACTIONS,
+  selected: {
+    items: [],
+    type: 'UPLOAD_FILES',
+  },
+};
+
+const navigateState = {
+  location: {
+    permission: 'READWRITE',
+    scope: 's3://test-bucket/*',
+    type: 'BUCKET',
+  },
+  path: 'path',
+  history: [
+    { prefix: '', position: 0 },
+    { prefix: 'folder1/', position: 1 },
+    { prefix: 'folder2/', position: 2 },
+    { prefix: 'folder3/', position: 3 },
+  ],
+};
+
+useControlSpy.mockImplementation(({ type }) => {
+  if (type === 'ACTION_SELECT') {
+    return [actionSelectState, jest.fn()];
+  }
+
+  if (type === 'NAVIGATE') {
+    return [navigateState];
+  }
+});
+
 const config = {
   getLocationCredentials: jest.fn(),
-  listLocations,
+  listLocations: jest.fn(),
   region: 'region',
   registerAuthListener: jest.fn(),
 };
-const Provider = createProvider({ config });
+const Provider = createProvider({ actions: TEST_ACTIONS, config });
 
 describe('UploadControls', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should display "No items to show." when no items are selected', async () => {
-    useControlSpy.mockReturnValueOnce([{ selected: { items: null } }]);
-    useControlSpy.mockReturnValueOnce([{ history: [] }]);
-
-    // @TODO: figure out how to mock state better
-    // useControlSpy.mockImplementation((obj) => {
-    //   const { type } = obj;
-
-    //   if (type === 'ACTION_SELECT') {
-    //     return [{ state: { selected: { items: [] } } }, jest.fn()];
-    //   }
-
-    //   if (type === 'NAVIGATE') {
-    //     return [
-    //       {
-    //         location: { scope: 's3://test-bucket/*', type: 'BUCKET' },
-    //         history: ['', 'folder1/', 'folder2/', 'folder3/'],
-    //       },
-    //     ];
-    //   }
-    // });
-
-    render(
-      <Provider>
-        <UploadControls />
-      </Provider>
-    );
-
+  it('should render upload controls table', async () => {
     await waitFor(() => {
-      expect(screen.getByText('No items to show.')).toBeInTheDocument();
+      render(
+        <Provider>
+          <UploadControls />
+        </Provider>
+      );
     });
+
+    const table = screen.getByRole('table');
+    expect(table).toBeInTheDocument();
+  });
+
+  it('should render the destination folder', async () => {
+    await waitFor(() => {
+      render(
+        <Provider>
+          <UploadControls />
+        </Provider>
+      );
+    });
+
+    const destination = screen.getByText('Destination:');
+    const destinationFolder = screen.getByText('folder3/');
+
+    expect(destination).toBeInTheDocument();
+    expect(destinationFolder).toBeInTheDocument();
   });
 });
 
-describe('ActionItem', () => {
+describe('ActionIcon', () => {
   it('should show all icon statuses', () => {
     const { container } = render(
       <>
         <ActionIcon />
         <ActionIcon status="CANCELED" />
-        <ActionIcon status="SUCCESS" />
+        <ActionIcon status="COMPLETE" />
         <ActionIcon status="QUEUED" />
-        <ActionIcon status="ERROR" />
-        <ActionIcon status="IN_PROGRESS" />
+        <ActionIcon status="FAILED" />
+        <ActionIcon status="PENDING" />
       </>
     );
     const svg = container.querySelectorAll('svg');

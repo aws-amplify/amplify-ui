@@ -3,6 +3,7 @@ import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 
 import createProvider from '../../../createProvider';
 import * as ActionsModule from '../../../context/actions';
+import * as ControlsModule from '../../../context/controls';
 
 import {
   isValidFolderName,
@@ -10,33 +11,53 @@ import {
   FIELD_VALIDATION_MESSAGE,
 } from '../CreateFolderControls';
 
-const useActionSpy = jest.spyOn(ActionsModule, 'useAction');
+const INITIAL_PAGINATE_STATE = [
+  { hasNext: false, hasPrevious: false, isLoadingNextPage: false, current: 0 },
+  jest.fn(),
+];
 
-const listLocations = jest.fn(() =>
-  Promise.resolve({ locations: [], nextToken: undefined })
+const TEST_ACTIONS = {
+  CREATE_FOLDER: { displayName: 'Create Folder', handler: jest.fn() },
+};
+
+const useActionSpy = jest.spyOn(ActionsModule, 'useAction');
+const useControlSpy = jest.spyOn(ControlsModule, 'useControl');
+
+useControlSpy.mockImplementation(
+  ({ type }) =>
+    ({
+      ACTION_SELECT: [
+        {
+          actions: TEST_ACTIONS,
+          selected: { type: 'CREATE_FOLDER', items: undefined },
+        },
+        jest.fn(),
+      ],
+      NAVIGATE: [
+        {
+          location: {
+            scope: 's3://test-bucket/test-prefix/*',
+            permission: 'READ',
+            type: 'PREFIX',
+          },
+          history: [{ prefix: 'test-prefix/', position: 0 }],
+          path: 'test-prefix/',
+        },
+        jest.fn(),
+      ],
+      PAGINATE: INITIAL_PAGINATE_STATE,
+    })[type]
 );
 
 const config = {
   getLocationCredentials: jest.fn(),
-  listLocations,
+  listLocations: jest.fn(),
   region: 'region',
   registerAuthListener: jest.fn(),
 };
-const Provider = createProvider({ config });
+const Provider = createProvider({ actions: TEST_ACTIONS, config });
 
-describe('CreateFolderActionView', () => {
-  it('renders a CreateFolderActionView', async () => {
-    await waitFor(() => {
-      expect(
-        render(
-          <Provider>
-            <CreateFolderControls />
-          </Provider>
-        ).container
-      ).toBeDefined();
-    });
-  });
-
+describe('CreateFolderControls', () => {
   it('handles folder creation in the happy path', async () => {
     const handleAction = jest.fn();
     useActionSpy.mockReturnValue([
@@ -68,7 +89,9 @@ describe('CreateFolderActionView', () => {
 
     expect(fieldError).toBe(null);
     expect(handleAction).toHaveBeenCalledTimes(1);
-    expect(handleAction).toHaveBeenCalledWith({ prefix: 'test-folder-name/' });
+    expect(handleAction).toHaveBeenCalledWith({
+      prefix: 'test-prefix/test-folder-name/',
+    });
   });
 
   it('shows a field error when invalid folder name is entered', async () => {

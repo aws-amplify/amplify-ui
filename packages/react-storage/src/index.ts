@@ -9,15 +9,4 @@ export {
   FilePickerProps,
   FileListHeaderProps,
   FileListFooterProps,
-  // @TODO: temporary exports, should be exported from
-  // '@aws-amplify/ui-react-storage/create-storage-browser'
-  createAmplifyAuthAdapter,
-  createManagedAuthAdapter,
-  CreateManagedAuthAdapterInput,
-  createStorageBrowser,
-  CreateStorageBrowserInput,
-  ResolvedStorageBrowserElements,
-  StorageBrowser,
-  StorageBrowserAuthAdapter,
-  StorageBrowserElements,
 } from './components';
