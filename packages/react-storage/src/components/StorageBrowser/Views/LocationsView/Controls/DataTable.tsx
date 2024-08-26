@@ -5,6 +5,7 @@ import { capitalize } from '@aws-amplify/ui';
 import {
   DataTable,
   TABLE_DATA_BUTTON_CLASS,
+  TABLE_DATA_TEXT_CLASS_NAME,
   TABLE_HEADER_BUTTON_CLASS_NAME,
   TABLE_HEADER_CLASS_NAME,
 } from '../../../components/DataTable';
@@ -12,7 +13,11 @@ import { useControl } from '../../../context/controls';
 import { useLocationsData } from '../../../context/actions';
 import { LocationAccess } from '../../../context/types';
 import { compareStrings } from '../../../context/controls/Table';
-import { ButtonElement, IconElement } from '../../../context/elements';
+import {
+  ButtonElement,
+  IconElement,
+  SpanElement,
+} from '../../../context/elements';
 
 export type SortDirection = 'ascending' | 'descending' | 'none';
 
@@ -113,8 +118,22 @@ const getLocationsData = ({
         </ButtonElement>
       ),
     },
-    { key: `td-type-${index}`, children: location.type },
-    { key: `td-permission-${index}`, children: location.permission },
+    {
+      key: `td-type-${index}`,
+      children: (
+        <SpanElement className={TABLE_DATA_TEXT_CLASS_NAME}>
+          {location.type}
+        </SpanElement>
+      ),
+    },
+    {
+      key: `td-permission-${index}`,
+      children: (
+        <SpanElement className={TABLE_DATA_TEXT_CLASS_NAME}>
+          {location.permission}
+        </SpanElement>
+      ),
+    },
   ]);
 
   return { columns, rows };
