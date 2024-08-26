@@ -6,14 +6,8 @@ import { StorageBrowserElements } from '../../context/elements';
 import { DownloadControl } from './Download';
 import { CLASS_BASE } from '../constants';
 import { useControl } from '../../context/controls';
-import {
-  FileItem,
-  FolderItem,
-  LocationAccess,
-  LocationItem,
-  Permission,
-} from '../../context/types';
-import { useAction, useLocationsData } from '../../context/actions';
+import { FileItem, FolderItem, LocationItem } from '../../context/types';
+import { useAction } from '../../context/actions';
 import {
   compareDates,
   compareNumbers,
@@ -112,21 +106,6 @@ const TableRow = withBaseElementProps(BaseTableRow, {
   className: `${BLOCK_NAME}__row`,
 });
 
-const LOCATION_VIEW_COLUMNS: Column<LocationAccess<Permission>>[] = [
-  {
-    header: 'Name',
-    key: 'scope',
-  },
-  {
-    header: 'Type',
-    key: 'type',
-  },
-  {
-    header: 'Permission',
-    key: 'permission',
-  },
-];
-
 const LOCATION_DETAIL_VIEW_COLUMNS: Column<LocationItem>[] = [
   {
     key: 'key',
@@ -196,121 +175,6 @@ export const TableControl: TableControl = <U,>({
 TableControl.TableRow = TableRow;
 TableControl.TableData = TableData;
 TableControl.TableHeader = TableHeader;
-
-const LocationsViewColumnSortMap = {
-  scope: compareStrings,
-  type: compareStrings,
-  permission: compareStrings,
-};
-
-export const LocationsViewTable = (): JSX.Element | null => {
-  const [{ data, isLoading }] = useLocationsData();
-  const [, handleUpdateState] = useControl({ type: 'NAVIGATE' });
-
-  const hasLocations = !!data.result?.length;
-  const shouldRenderLocations = hasLocations && !isLoading;
-
-  const [compareFn, setCompareFn] = React.useState(() => compareStrings);
-  const [sortState, setSortState] = React.useState<
-    SortState<LocationAccess<Permission>>
-  >({
-    selection: 'scope',
-    direction: 'ascending',
-  });
-
-  const { direction: sortDirection, selection } = sortState;
-
-  const tableData =
-    sortDirection === 'ascending'
-      ? data.result.sort((a, b) => compareFn(a[selection], b[selection]))
-      : data.result.sort((a, b) => compareFn(b[selection], a[selection]));
-
-  const renderHeaderItem = React.useCallback(
-    (column: Column<LocationAccess<Permission>>) => {
-      // Defining this function inside the `LocationsViewTable` to get access
-      // to the current sort state
-      const { header, key } = column;
-
-      return (
-        <TableHeader
-          key={header}
-          variant={key}
-          aria-sort={selection === key ? sortDirection : 'none'}
-        >
-          <TableHeaderButton
-            onClick={() => {
-              setCompareFn(() => LocationsViewColumnSortMap[column.key]);
-
-              setSortState((prevState) => ({
-                selection: column.key,
-                direction:
-                  prevState.direction === 'ascending'
-                    ? 'descending'
-                    : 'ascending',
-              }));
-            }}
-          >
-            {column.header}
-            {selection === column.key ? (
-              <Icon
-                variant={
-                  sortDirection === 'none'
-                    ? 'sort-indeterminate'
-                    : `sort-${sortDirection}`
-                }
-              />
-            ) : (
-              <Icon variant="sort-indeterminate" />
-            )}
-          </TableHeaderButton>
-        </TableHeader>
-      );
-    },
-    [sortDirection, selection]
-  );
-
-  // @TODO: This should be it's own component instead of using `useCallback`
-  const renderRowItem: RenderRowItem<LocationAccess<Permission>> =
-    React.useCallback(
-      (row: LocationAccess<Permission>, index: number) => {
-        return (
-          <TableRow key={index}>
-            {LOCATION_VIEW_COLUMNS.map((column) => (
-              <TableData key={`${index}-${column.header}`} variant={column.key}>
-                {column.key === 'scope' &&
-                (row.type === 'BUCKET' || row.type === 'PREFIX') ? (
-                  <TableDataButton
-                    key={row['scope']}
-                    onClick={() => {
-                      handleUpdateState({
-                        type: 'ACCESS_LOCATION',
-                        location: row,
-                      });
-                    }}
-                    type="button"
-                  >
-                    <Icon className={ICON_CLASS} variant="folder" /> {row.scope}
-                  </TableDataButton>
-                ) : (
-                  <TableDataText>{row[column.key]}</TableDataText>
-                )}
-              </TableData>
-            ))}
-          </TableRow>
-        );
-      },
-      [handleUpdateState]
-    );
-
-  return shouldRenderLocations ? (
-    <TableControl
-      columns={LOCATION_VIEW_COLUMNS}
-      data={tableData}
-      renderHeaderItem={renderHeaderItem}
-      renderRowItem={renderRowItem}
-    />
-  ) : null;
-};
 
 const LocationDetailViewColumnSortMap = {
   key: compareStrings,
