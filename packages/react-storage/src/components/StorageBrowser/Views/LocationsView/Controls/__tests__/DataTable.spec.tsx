@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import { LocationsViewTableControl } from '../DataTable';
+import { DataTableControl } from '../DataTable';
 import * as UseControlModule from '../../../../context/controls';
 import * as UseLocationsDataModule from '../../../../context/actions';
 import createProvider from '../../../../createProvider';
@@ -49,7 +49,7 @@ describe('LocationsViewTableControl', () => {
   it('renders the table with data', () => {
     const { getByText } = render(
       <Provider>
-        <LocationsViewTableControl />
+        <DataTableControl />
       </Provider>
     );
 
@@ -73,7 +73,7 @@ describe('LocationsViewTableControl', () => {
 
     const { container } = render(
       <Provider>
-        <LocationsViewTableControl />
+        <DataTableControl />
       </Provider>
     );
 
@@ -83,7 +83,7 @@ describe('LocationsViewTableControl', () => {
   it('renders the correct icon based on sort state', () => {
     const { getByText } = render(
       <Provider>
-        <LocationsViewTableControl />
+        <DataTableControl />
       </Provider>
     );
 
@@ -102,7 +102,7 @@ describe('LocationsViewTableControl', () => {
 
     render(
       <Provider>
-        <LocationsViewTableControl />
+        <DataTableControl />
       </Provider>
     );
 

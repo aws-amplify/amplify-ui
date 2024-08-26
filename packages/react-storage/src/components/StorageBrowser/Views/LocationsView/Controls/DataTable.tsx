@@ -8,22 +8,55 @@ import {
 } from '../../../components/DataTable';
 import { useControl } from '../../../context/controls';
 import { useLocationsData } from '../../../context/actions';
-import { LocationAccess, Permission } from '../../../context/types';
+import { LocationAccess } from '../../../context/types';
 import { compareStrings } from '../../../context/controls/Table';
 import { ButtonElement, IconElement } from '../../../context/elements';
+import { capitalize } from '@aws-amplify/ui';
 
 export type SortDirection = 'ascending' | 'descending' | 'none';
 
-export type SortState<T> = {
-  selection: keyof T;
+export type SortState = {
+  selection: string;
   direction: SortDirection;
 };
 
-const LocationsViewColumnSortMap = {
-  scope: compareStrings,
-  type: compareStrings,
-  permission: compareStrings,
+const getCompareFn = (selection: string) => {
+  switch (selection) {
+    case 'scope':
+    case 'type':
+    case 'permission':
+      return compareStrings;
+  }
 };
+
+const getColumnItem = ({
+  key,
+  selection,
+  direction,
+  onTableHeaderClick,
+}: {
+  key: string;
+  selection: string;
+  direction: SortDirection;
+  onTableHeaderClick: (location: string) => void;
+}) => ({
+  children: (
+    <ButtonElement variant="sort" className={TABLE_HEADER_BUTTON_CLASS_NAME}>
+      {capitalize(key)}
+      <IconElement
+        variant={
+          selection === key && direction !== 'none'
+            ? `sort-${direction}`
+            : 'sort-indeterminate'
+        }
+      />
+    </ButtonElement>
+  ),
+  key: `th=${key}`,
+  className: `${TABLE_HEADER_CLASS_NAME} ${TABLE_HEADER_CLASS_NAME}--${key}`,
+  onClick: () => onTableHeaderClick(key),
+  'aria-sort': selection === key ? direction : 'none',
+});
 
 const getLocationsData = ({
   data,
@@ -31,90 +64,32 @@ const getLocationsData = ({
   onTableHeaderClick,
   sortState,
 }: {
-  data: LocationAccess<Permission>[];
-  onLocationClick: (location: LocationAccess<Permission>) => void;
-  onTableHeaderClick: (payload: keyof LocationAccess<Permission>) => void;
-  sortState: SortState<LocationAccess<Permission>>;
+  data: LocationAccess[];
+  onLocationClick: (location: LocationAccess) => void;
+  onTableHeaderClick: (location: string) => void;
+  sortState: SortState;
 }) => {
   const { selection, direction } = sortState;
 
-  const columns = [
-    {
-      children: (
-        <ButtonElement
-          variant="sort"
-          className={TABLE_HEADER_BUTTON_CLASS_NAME}
-        >
-          Name
-          <IconElement
-            variant={
-              selection === 'scope' && direction !== 'none'
-                ? `sort-${direction}`
-                : 'sort-indeterminate'
-            }
-          />
-        </ButtonElement>
-      ),
-      key: 'th-scope',
-      className: `${TABLE_HEADER_CLASS_NAME} ${TABLE_HEADER_CLASS_NAME}--scope`,
-      onClick: () => onTableHeaderClick('scope'),
-      'aria-sort': selection === 'scope' ? direction : 'none',
-    },
-    {
-      children: (
-        <ButtonElement
-          variant="sort"
-          className={TABLE_HEADER_BUTTON_CLASS_NAME}
-        >
-          Type
-          <IconElement
-            variant={
-              selection === 'type' && direction !== 'none'
-                ? `sort-${direction}`
-                : 'sort-indeterminate'
-            }
-          />
-        </ButtonElement>
-      ),
-      key: 'th-type',
-      className: `${TABLE_HEADER_CLASS_NAME} ${TABLE_HEADER_CLASS_NAME}--type`,
-      onClick: () => onTableHeaderClick('type'),
-      'aria-sort': selection === 'type' ? direction : 'none',
-    },
-    {
-      children: (
-        <ButtonElement
-          variant="sort"
-          className={TABLE_HEADER_BUTTON_CLASS_NAME}
-        >
-          Permission
-          <IconElement
-            variant={
-              selection === 'permission' && direction !== 'none'
-                ? `sort-${direction}`
-                : 'sort-indeterminate'
-            }
-          />
-        </ButtonElement>
-      ),
-      key: 'th-permission',
-      className: `${TABLE_HEADER_CLASS_NAME} ${TABLE_HEADER_CLASS_NAME}--type`,
-      onClick: () => onTableHeaderClick('permission'),
-      'aria-sort': selection === 'permission' ? direction : 'none',
-    },
-  ];
+  const columns = Object.keys(data[0]).map((key) => {
+    return getColumnItem({ key, selection, direction, onTableHeaderClick });
+  });
 
-  const compareFn = LocationsViewColumnSortMap[selection];
+  const compareFn = getCompareFn(selection);
 
-  if (direction === 'ascending') {
-    data.sort((a, b) => compareFn(a[selection], b[selection]));
-  } else {
-    data.sort((a, b) => compareFn(b[selection], a[selection]));
+  if (compareFn) {
+    const castSelection = selection as keyof LocationAccess;
+
+    if (direction === 'ascending') {
+      data.sort((a, b) => compareFn(a[castSelection], b[castSelection]));
+    } else {
+      data.sort((a, b) => compareFn(b[castSelection], a[castSelection]));
+    }
   }
 
   const rows = data.map((location, index) => [
     {
-      key: `td-scope-${index}`,
+      key: `td-name-${index}`,
       children: (
         <ButtonElement
           className={TABLE_DATA_BUTTON_CLASS}
@@ -132,14 +107,12 @@ const getLocationsData = ({
   return { columns, rows };
 };
 
-export function LocationsViewTableControl(): React.JSX.Element | null {
-  const [{ data, isLoading }] = useLocationsData();
+export function DataTableControl(): React.JSX.Element {
+  const [{ data }] = useLocationsData();
 
   const [, handleUpdateState] = useControl({ type: 'NAVIGATE' });
 
-  const [sortState, setSortState] = React.useState<
-    SortState<LocationAccess<Permission>>
-  >({
+  const [sortState, setSortState] = React.useState<SortState>({
     selection: 'scope',
     direction: 'ascending',
   });
@@ -149,15 +122,15 @@ export function LocationsViewTableControl(): React.JSX.Element | null {
       getLocationsData({
         data: data.result,
         sortState,
-        onLocationClick: (payload) => {
+        onLocationClick: (location) => {
           handleUpdateState({
             type: 'ACCESS_LOCATION',
-            location: payload,
+            location,
           });
         },
-        onTableHeaderClick: (payload: keyof LocationAccess<Permission>) => {
+        onTableHeaderClick: (location: string) => {
           setSortState((prevState) => ({
-            selection: payload,
+            selection: location,
             direction:
               prevState.direction === 'ascending' ? 'descending' : 'ascending',
           }));
@@ -166,8 +139,5 @@ export function LocationsViewTableControl(): React.JSX.Element | null {
     [data.result, handleUpdateState, sortState]
   );
 
-  const hasLocations = !!data.result?.length;
-  const shouldRenderLocations = hasLocations && !isLoading;
-
-  return shouldRenderLocations ? <DataTable data={locationsData} /> : null;
+  return <DataTable data={locationsData} />;
 }
