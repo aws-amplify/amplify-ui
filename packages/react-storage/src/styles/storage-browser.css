@@ -8,20 +8,13 @@
   --storage-browser-loading-animation: spin 1s ease-out infinite;
   display: grid;
   gap: var(--storage-browser-gap);
-  grid-template-columns: repeat(32, 1fr);
-  grid-template-rows: repeat(24, min-content);
-}
-
-.storage-browser__header {
-  display: flex;
-  flex-direction: column;
-  gap: var(--storage-browser-gap);
+  grid-template-columns: 1fr 1fr 1fr max-content max-content;
+  grid-auto-rows: min-content;
 }
 
 .storage-browser__title {
   margin: 0;
-  grid-row-start: 2;
-  grid-column: 1 / span 10;
+  grid-column: 1 / 4;
 }
 
 .storage-browser__navigate {
@@ -29,13 +22,12 @@
 }
 
 .storage-browser__paginate {
-  grid-row-start: 3;
-  grid-column: 26 / -1;
+  grid-column: 1 / -1;
   justify-self: flex-end;
 }
 
 .storage-browser__paginate__list {
-  gap: var(--storage-browser-gap);
+  gap: var(--storage-browser-gap-small);
 }
 
 .storage-browser__navigate__list,
@@ -68,8 +60,7 @@
 }
 
 .storage-browser__target__field {
-  grid-row-start: 5;
-  grid-column: 1 / 20;
+  grid-column: 1 / -1;
   display: inline-grid;
   gap: var(--storage-browser-gap);
   grid-template-rows: repeat(3, auto);
@@ -101,7 +92,6 @@
 }
 
 .storage-browser__message {
-  grid-row: 4 / 5;
   grid-column: 1 / -1;
   align-items: flex-start;
   display: flex;
@@ -116,13 +106,18 @@
 }
 
 .storage-browser__summary {
-  grid-row-start: 3;
-  grid-column: 1 / -1;
+  grid-column: 3 / -1;
   justify-content: flex-end;
   margin: 0;
   display: flex;
   gap: var(--storage-browser-gap);
 }
+
+.storage-browser__destination {
+  grid-column: 1 / 3;
+  margin: -0;
+}
+
 .storage-browser__summary__definition,
 .storage-browser__destination {
   display: flex;
@@ -135,17 +130,15 @@
 }
 
 .storage-browser__refresh {
-  grid-row-start: 2;
-  grid-column: 26 / -1;
+  grid-column: 5 / -1;
   justify-self: flex-end;
 }
 
 .storage-browser__refresh:has(~ .storage-browser__actions-menu) {
-  grid-column: 26 / 30;
+  grid-column: 4 / 5;
 }
 
 .storage-browser__table {
-  grid-row-start: 5;
   grid-column: 1 / -1;
   table-layout: fixed;
   width: 100%;
@@ -202,8 +195,7 @@
   position: relative;
   display: inline-block;
   justify-self: flex-end;
-  grid-row-start: 2;
-  grid-column: 30 / -1;
+  grid-column: 5 / -1;
 }
 
 .storage-browser__actions-menu__menu {
@@ -228,14 +220,22 @@
 }
 
 .storage-browser__primary {
-  grid-row-start: 2;
-  grid-column: 29 / -1;
+  grid-column: 5 / -1;
+  grid-row-start: 1;
   justify-self: flex-end;
 }
 
 .storage-browser__exit {
-  grid-row-start: 2;
-  grid-column: 28 / 29;
+  grid-column: 4 / 5;
+  grid-row-start: 1;
+  justify-self: flex-end;
+}
+
+.storage-browser__add-files {
+  grid-column: 5 / -1;
+}
+.storage-browser__add-folder {
+  grid-column: 1 / 5;
   justify-self: flex-end;
 }
 
