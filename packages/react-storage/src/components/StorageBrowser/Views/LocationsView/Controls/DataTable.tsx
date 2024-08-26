@@ -156,23 +156,27 @@ export function LocationsViewTableControl(): React.JSX.Element | null {
     direction: 'ascending',
   });
 
-  const locationsData = getLocationsData({
-    data: data.result,
-    sortState,
-    onLocationClick: (payload) => {
-      handleUpdateState({
-        type: 'ACCESS_LOCATION',
-        location: payload,
-      });
-    },
-    onTableHeaderClick: (payload: keyof LocationAccess<Permission>) => {
-      setSortState((prevState) => ({
-        selection: payload,
-        direction:
-          prevState.direction === 'ascending' ? 'descending' : 'ascending',
-      }));
-    },
-  });
+  const locationsData = React.useMemo(
+    () =>
+      getLocationsData({
+        data: data.result,
+        sortState,
+        onLocationClick: (payload) => {
+          handleUpdateState({
+            type: 'ACCESS_LOCATION',
+            location: payload,
+          });
+        },
+        onTableHeaderClick: (payload: keyof LocationAccess<Permission>) => {
+          setSortState((prevState) => ({
+            selection: payload,
+            direction:
+              prevState.direction === 'ascending' ? 'descending' : 'ascending',
+          }));
+        },
+      }),
+    [data.result, handleUpdateState, sortState]
+  );
 
   const hasLocations = !!data.result?.length;
   const shouldRenderLocations = hasLocations && !isLoading;
