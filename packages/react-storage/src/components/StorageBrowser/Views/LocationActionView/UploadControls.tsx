@@ -3,7 +3,7 @@ import React from 'react';
 import { humanFileSize } from '@aws-amplify/ui';
 import { useFileSelect } from '@aws-amplify/ui-react/internal';
 
-import { StorageBrowserElements } from '../../context/elements';
+import { ButtonElement, StorageBrowserElements } from '../../context/elements';
 import { useControl } from '../../context/controls';
 import { compareNumbers, compareStrings } from '../../context/controls/Table';
 import { TaskStatus } from '../../context/types';
@@ -20,10 +20,6 @@ import {
 } from '../Controls/Table';
 
 import { Title } from './Controls/Title';
-import {
-  AddFilesControl,
-  AddFolderControl,
-} from './Controls/AddAdditionalItems';
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
 
 const { Icon, DefinitionDetail, DefinitionList, DefinitionTerm } =
@@ -186,6 +182,24 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
   );
 };
 
+const mergeSelectedFiles = (prevFiles: File[], files: File[]): File[] => {
+  const filesMap = new Map<string, File>();
+
+  prevFiles.forEach((item) => {
+    // If we have previously selected items, use them to create our map of unique items
+    const { name } = item;
+    filesMap.set(name, item);
+  });
+
+  for (const data of files) {
+    const { name } = data;
+
+    filesMap.set(name, data);
+  }
+
+  return Array.from(filesMap.values());
+};
+
 const parseSelectionData = (
   value: string | string[] | undefined
 ): { type: 'file' | 'folder' | undefined; accept: string | undefined } => {
@@ -204,7 +218,11 @@ const parseSelectionData = (
 export const UploadControls = (): JSX.Element => {
   const [{ history, path }] = useControl({ type: 'NAVIGATE' });
   const [files, setFiles] = React.useState<File[]>([]);
-  const [fileSelect, handleSelect] = useFileSelect(setFiles);
+  const [fileSelect, handleSelect] = useFileSelect((newFiles) => {
+    setFiles((prevFiles) => {
+      return mergeSelectedFiles(prevFiles, newFiles);
+    });
+  });
 
   const [{ selected, actions }, handleUpdateState] = useControl({
     type: 'ACTION_SELECT',
@@ -311,8 +329,24 @@ export const UploadControls = (): JSX.Element => {
     <>
       {fileSelect}
       <Title />
-      <AddFilesControl disabled={disabled} />
-      <AddFolderControl disabled={disabled} />
+      <ButtonElement
+        className={`${CLASS_BASE}__add-files`}
+        variant="add-files"
+        onClick={() => {
+          handleSelect('file', { accept: '*' });
+        }}
+      >
+        Add files
+      </ButtonElement>
+      <ButtonElement
+        className={`${CLASS_BASE}__add-folder`}
+        variant="add-folder"
+        onClick={() => {
+          handleSelect('folder', { accept: '*' });
+        }}
+      >
+        Add folder
+      </ButtonElement>
       <Exit onClick={() => handleUpdateState({ type: 'CLEAR' })} />
       <Primary
         disabled={disabled}
