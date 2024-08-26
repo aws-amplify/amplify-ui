@@ -27,10 +27,18 @@ const { Icon, DefinitionDetail, DefinitionList, DefinitionTerm } =
 
 const { Cancel, Exit, Primary, Summary, Table } = Controls;
 
-const LOCATION_ACTION_VIEW_COLUMNS: Column<CancelableTask>[] = [
+interface LocationActionViewColumns extends CancelableTask {
+  type: string;
+}
+
+const LOCATION_ACTION_VIEW_COLUMNS: Column<LocationActionViewColumns>[] = [
   {
     key: 'key',
     header: 'Name',
+  },
+  {
+    key: 'type',
+    header: 'Type',
   },
   {
     key: 'size',
@@ -105,9 +113,46 @@ const LocationActionViewColumnSortMap = {
   size: compareNumbers,
   status: compareStrings,
   progress: compareNumbers,
+  type: compareStrings,
 };
 
-const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
+const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
+  row,
+  index
+) => {
+  const renderTableData = (
+    columnKey: keyof LocationActionViewColumns,
+    row: LocationActionViewColumns
+  ) => {
+    switch (columnKey) {
+      case 'key':
+        return (
+          <TableDataText>
+            <ActionIcon status={row.status} />
+            {row.key}
+          </TableDataText>
+        );
+      case 'type': {
+        return <TableDataText>{row.type}</TableDataText>;
+      }
+      case 'size':
+        return <TableDataText>{humanFileSize(row.size, true)}</TableDataText>;
+      case 'status':
+        return <TableDataText>{row.status}</TableDataText>;
+      case 'progress':
+        return <TableDataText>{row.progress}</TableDataText>;
+      case 'cancel':
+        return (
+          <Cancel
+            onClick={row.cancel}
+            ariaLabel={`Cancel upload for ${row.key}`}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <Table.TableRow key={index}>
       {LOCATION_ACTION_VIEW_COLUMNS.map((column) => {
@@ -116,23 +161,7 @@ const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
             key={`${index}-${column.header}`}
             variant={column.key}
           >
-            {column.key === 'key' ? (
-              <TableDataText>
-                <ActionIcon status={row.status} />
-                {row.key}
-              </TableDataText>
-            ) : column.key === 'size' ? (
-              <TableDataText>{humanFileSize(row.size, true)}</TableDataText>
-            ) : column.key === 'status' ? (
-              <TableDataText>{row.status}</TableDataText>
-            ) : column.key === 'progress' ? (
-              <TableDataText>{row.progress}</TableDataText>
-            ) : column.key === 'cancel' ? (
-              <Cancel
-                onClick={row.cancel}
-                ariaLabel={`Cancel upload for ${row.key}`}
-              />
-            ) : null}
+            {renderTableData(column.key, row)}
           </Table.TableData>
         );
       })}
@@ -169,6 +198,11 @@ export const UploadControls = (): JSX.Element => {
     files,
   });
 
+  let tableData = tasks.map((task) => ({
+    ...task,
+    type: task.data.type ?? '-',
+  }));
+
   const { options } = actions[selected.type!];
   const { selectionData } = options ?? {};
 
@@ -182,20 +216,22 @@ export const UploadControls = (): JSX.Element => {
   const [compareFn, setCompareFn] = React.useState<(a: any, b: any) => number>(
     () => compareStrings
   );
-  const [sortState, setSortState] = React.useState<SortState<CancelableTask>>({
+  const [sortState, setSortState] = React.useState<
+    SortState<LocationActionViewColumns>
+  >({
     selection: 'key',
     direction: 'ascending',
   });
 
   const { direction, selection } = sortState;
 
-  const tableData =
+  tableData =
     direction === 'ascending'
-      ? tasks.sort((a, b) => compareFn(a[selection], b[selection]))
-      : tasks.sort((a, b) => compareFn(b[selection], a[selection]));
+      ? tableData.sort((a, b) => compareFn(a[selection], b[selection]))
+      : tableData.sort((a, b) => compareFn(b[selection], a[selection]));
 
   const renderHeaderItem = React.useCallback(
-    (column: Column<CancelableTask>) => {
+    (column: Column<LocationActionViewColumns>) => {
       // Defining this function inside the `UploadControls` to get access
       // to the current sort state
       const { header, key } = column;

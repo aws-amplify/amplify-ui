@@ -411,7 +411,7 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
   // @TODO: This should be it's own component instead of using `useCallback`
   const renderRowItem: RenderRowItem<LocationItem> = React.useCallback(
     (row, index) => {
-      const parseTableData = (
+      const renderTableData = (
         row: LocationItem,
         column: Column<LocationItem>
       ) => {
@@ -440,6 +440,15 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
               }
               case 'download' as keyof LocationItem: {
                 return <DownloadControl fileKey={`${path}${row.key}`} />;
+              }
+              case 'type': {
+                const indexOfDot = row.key.lastIndexOf('.');
+
+                return indexOfDot > -1 ? (
+                  <TableDataText>{row.key.slice(indexOfDot + 1)}</TableDataText>
+                ) : (
+                  '-'
+                );
               }
               case 'key': {
                 return (
@@ -477,6 +486,9 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
                   </TableDataButton>
                 );
               }
+              case 'type': {
+                return <TableDataText>Folder</TableDataText>;
+              }
               default:
                 return <TableDataText>{row[column.key]}</TableDataText>;
             }
@@ -489,7 +501,7 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
           {LOCATION_DETAIL_VIEW_COLUMNS.map((column) => {
             return (
               <TableData key={`${index}-${column.header}`} variant={column.key}>
-                {parseTableData(row, column)}
+                {renderTableData(row, column)}
               </TableData>
             );
           })}
