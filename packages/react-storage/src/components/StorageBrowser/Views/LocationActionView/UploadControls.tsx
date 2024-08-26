@@ -333,7 +333,7 @@ export const UploadControls = (): JSX.Element => {
         className={`${CLASS_BASE}__add-files`}
         variant="add-files"
         onClick={() => {
-          handleSelect('file', { accept: '*' });
+          handleSelect('file');
         }}
       >
         Add files
@@ -342,7 +342,7 @@ export const UploadControls = (): JSX.Element => {
         className={`${CLASS_BASE}__add-folder`}
         variant="add-folder"
         onClick={() => {
-          handleSelect('folder', { accept: '*' });
+          handleSelect('folder');
         }}
       >
         Add folder
