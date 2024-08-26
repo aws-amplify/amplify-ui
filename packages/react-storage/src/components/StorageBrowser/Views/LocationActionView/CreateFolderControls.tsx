@@ -12,8 +12,8 @@ export const isValidFolderName = (name: string | undefined): boolean =>
 
 export const FIELD_VALIDATION_MESSAGE =
   'Folder name must be at least one character and cannot contain a "/".';
-export const RESULT_SUCCESS_MESSAGE = 'Folder created.';
-export const RESULT_ERROR_MESSAGE = 'There was an issue creating the folder.';
+export const RESULT_COMPLETE_MESSAGE = 'Folder created.';
+export const RESULT_FAILED_MESSAGE = 'There was an issue creating the folder.';
 
 export const CreateFolderMessage = (): React.JSX.Element | null => {
   const [
@@ -26,11 +26,11 @@ export const CreateFolderMessage = (): React.JSX.Element | null => {
 
   switch (result?.status) {
     case 'COMPLETE':
-      return <Message variant="success">{RESULT_SUCCESS_MESSAGE}</Message>;
+      return <Message variant="success">{RESULT_COMPLETE_MESSAGE}</Message>;
     case 'FAILED':
       return (
         <Message variant="error">
-          {result.message ? result.message : RESULT_ERROR_MESSAGE}
+          {result.message ? result.message : RESULT_FAILED_MESSAGE}
         </Message>
       );
     default:
