@@ -5,8 +5,8 @@ import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
 import { CommonControl, ViewComponent } from '../types';
-import { LocationsViewTable } from '../Controls';
 import { useLocationsData } from '../../context/actions';
+import { DataTableControl } from './Controls/DataTable';
 
 const {
   Loading: LoadingElement,
@@ -14,7 +14,6 @@ const {
   Paginate,
   Refresh,
   Search,
-  Table,
   Title,
 } = Controls;
 
@@ -61,6 +60,7 @@ export const LocationsMessage = (): React.JSX.Element | null => {
   ) : null;
 };
 
+// @ts-expect-error TODO: add Controls assignment
 const LocationsViewControls: LocationsViewControls = () => {
   return (
     <>
@@ -69,7 +69,7 @@ const LocationsViewControls: LocationsViewControls = () => {
       <Paginate />
       <LocationsMessage />
       <Loading />
-      <LocationsViewTable />
+      <DataTableControl />
     </>
   );
 };
@@ -78,7 +78,6 @@ LocationsViewControls.Message = Message;
 LocationsViewControls.Paginate = Paginate;
 LocationsViewControls.Refresh = Refresh;
 LocationsViewControls.Search = Search;
-LocationsViewControls.Table = Table;
 LocationsViewControls.Title = Title;
 
 export const LocationsView: LocationsView = () => {
