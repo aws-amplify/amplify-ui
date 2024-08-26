@@ -25,7 +25,7 @@ import { CancelableTask, useHandleUpload } from './useHandleUpload';
 const { Icon, DefinitionDetail, DefinitionList, DefinitionTerm } =
   StorageBrowserElements;
 
-const { Cancel, Exit, Primary, Summary, Table } = Controls;
+const { Cancel, Exit, Overwrite, Primary, Summary, Table } = Controls;
 
 interface LocationActionViewColumns extends CancelableTask {
   type: string;
@@ -315,6 +315,7 @@ export const UploadControls = (): JSX.Element => {
         Start
       </Primary>
       <Destination>{history[history.length - 1].prefix}</Destination>
+      <Overwrite />
       <Summary />
       <Table
         data={tableData}

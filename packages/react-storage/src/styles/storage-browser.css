@@ -106,11 +106,15 @@
 }
 
 .storage-browser__summary {
-  grid-column: 3 / -1;
+  grid-column: 1 / -1;
   justify-content: flex-end;
   margin: 0;
   display: flex;
   gap: var(--storage-browser-gap);
+}
+
+.storage-browser__overwrite {
+  grid-column: 3 / -1;
 }
 
 .storage-browser__destination {
