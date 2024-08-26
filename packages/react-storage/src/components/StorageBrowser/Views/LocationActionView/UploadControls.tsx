@@ -29,12 +29,17 @@ const { Cancel, Exit, Primary, Summary, Table } = Controls;
 
 interface LocationActionViewColumns extends CancelableTask {
   type: string;
+  folder: string;
 }
 
 const LOCATION_ACTION_VIEW_COLUMNS: Column<LocationActionViewColumns>[] = [
   {
     key: 'key',
     header: 'Name',
+  },
+  {
+    key: 'folder',
+    header: 'Folder',
   },
   {
     key: 'type',
@@ -114,6 +119,7 @@ const LocationActionViewColumnSortMap = {
   status: compareStrings,
   progress: compareNumbers,
   type: compareStrings,
+  folder: compareStrings,
 };
 
 const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
@@ -125,13 +131,20 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
     row: LocationActionViewColumns
   ) => {
     switch (columnKey) {
-      case 'key':
+      case 'key': {
+        // Render the key without the parent folders
+        const folder = row.key.lastIndexOf('/') + 1;
+
         return (
           <TableDataText>
             <ActionIcon status={row.status} />
-            {row.key}
+            {row.key.slice(folder, row.key.length)}
           </TableDataText>
         );
+      }
+      case 'folder': {
+        return <TableDataText>{row.folder}</TableDataText>;
+      }
       case 'type': {
         return <TableDataText>{row.type}</TableDataText>;
       }
@@ -198,10 +211,15 @@ export const UploadControls = (): JSX.Element => {
     files,
   });
 
-  let tableData = tasks.map((task) => ({
-    ...task,
-    type: task.data.type ?? '-',
-  }));
+  let tableData = tasks.map((task) => {
+    const folder = task.data.webkitRelativePath.lastIndexOf('/') + 1;
+
+    return {
+      ...task,
+      type: task.data.type ?? '-',
+      folder: folder > -1 ? task.data.webkitRelativePath.slice(0, folder) : '/',
+    };
+  });
 
   const { options } = actions[selected.type!];
   const { selectionData } = options ?? {};
