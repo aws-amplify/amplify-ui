@@ -27,6 +27,8 @@ function Example() {
   return (
     <>
       <Button
+        marginBlockEnd="xl"
+        size="small"
         onClick={() => {
           signOut();
         }}
