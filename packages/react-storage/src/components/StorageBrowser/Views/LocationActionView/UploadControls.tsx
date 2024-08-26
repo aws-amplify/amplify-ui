@@ -25,7 +25,7 @@ import { CancelableTask, useHandleUpload } from './useHandleUpload';
 const { Icon, DefinitionDetail, DefinitionList, DefinitionTerm } =
   StorageBrowserElements;
 
-const { Cancel, Exit, Primary, Summary, Table } = Controls;
+const { Cancel, Exit, Message, Primary, Summary, Table } = Controls;
 
 interface LocationActionViewColumns extends CancelableTask {
   type: string;
@@ -221,6 +221,9 @@ export const UploadControls = (): JSX.Element => {
     };
   });
 
+  const allTasksSuccessful = !tasks.some((task) => task.status !== 'COMPLETE');
+  const hasFailedTasks = tasks.some((task) => task.status === 'FAILED');
+
   const { options } = actions[selected.type!];
   const { selectionData } = options ?? {};
 
@@ -314,6 +317,13 @@ export const UploadControls = (): JSX.Element => {
       >
         Start
       </Primary>
+      {allTasksSuccessful ? (
+        <Message variant="success">All items uploaded successfully.</Message>
+      ) : hasFailedTasks ? (
+        <Message variant="error">
+          Some items were not uploaded successfully.
+        </Message>
+      ) : null}
       <Destination>{history[history.length - 1].prefix}</Destination>
       <Summary />
       <Table
