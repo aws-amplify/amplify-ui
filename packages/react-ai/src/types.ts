@@ -1,15 +1,12 @@
 import { V6Client } from '@aws-amplify/api-graphql';
-import {
-  Conversation as SDKConversation,
-  ConversationMessage as SDKConversationMessage,
-  ConversationRoute as SDKConversationRoute,
-} from '@aws-amplify/data-schema/dist/esm/ai/ConversationType';
 
-export type Conversation = SDKConversation;
-
-export type ConversationRoute = SDKConversationRoute;
-
-export type ConversationMessage = SDKConversationMessage;
+export type ConversationRoute = V6Client<any>['conversations'][string];
+export type Conversation = NonNullable<
+  Awaited<ReturnType<ConversationRoute['create']>>['data']
+>;
+export type ConversationMessage = NonNullable<
+  Awaited<ReturnType<Conversation['sendMessage']>>['data']
+>;
 
 export type ConversationMessageContent = ConversationMessage['content'][number];
 
