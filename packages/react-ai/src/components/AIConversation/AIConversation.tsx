@@ -5,7 +5,6 @@ import {
   IconUser,
   useIcons,
 } from '@aws-amplify/ui-react/internal';
-import { createAIConversation } from './createAIConversation';
 import { AIConversationInput, AIConversationProps, Avatars } from './types';
 import { MessagesControl } from './views/Controls/MessagesControl';
 import { FieldControl } from './views';
@@ -14,16 +13,18 @@ import { Form } from './views/default/Form';
 import { PromptList } from './views/default/PromptList';
 import { AutoHidablePromptControl } from './views/Controls';
 import { ComponentClassName } from '@aws-amplify/ui';
+import createProvider from './createProvider';
 
 interface _AIConversationProps
   extends AIConversationProps,
     AIConversationInput<{}> {}
 
 export const AIConversation = ({
-  messages,
-  handleSendMessage,
+  actions,
   avatars,
   controls,
+  handleSendMessage,
+  messages,
   responseComponents,
   suggestedPrompts,
   variant,
@@ -40,9 +41,7 @@ export const AIConversation = ({
     },
   };
 
-  const { AIConversation } = createAIConversation({
-    variant,
-    suggestedPrompts,
+  const Provider = createProvider({
     elements: {
       Text: React.forwardRef<HTMLParagraphElement, TextProps>(
         function _Text(props, ref) {
@@ -50,13 +49,16 @@ export const AIConversation = ({
         }
       ),
     },
+    actions,
+    suggestedPrompts,
+    responseComponents,
+    variant,
     controls: {
       MessageList,
       PromptList,
       Form,
       ...controls,
     },
-    responseComponents,
   });
 
   const providerProps = {
@@ -69,7 +71,7 @@ export const AIConversation = ({
   };
 
   return (
-    <AIConversation.Provider {...providerProps}>
+    <Provider {...providerProps}>
       <Flex className={ComponentClassName.AIConversation}>
         <ScrollView autoScroll="smooth" flex="1">
           <AutoHidablePromptControl />
@@ -77,6 +79,6 @@ export const AIConversation = ({
         </ScrollView>
         <FieldControl />
       </Flex>
-    </AIConversation.Provider>
+    </Provider>
   );
 };
