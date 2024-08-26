@@ -14,7 +14,6 @@ const useLocationsDataSpy = jest.spyOn(
   'useLocationsData'
 );
 
-// Sample data for the tests
 const mockData: LocationAccess<UseLocationsDataModule.Permission>[] = [
   { scope: 'Location A', type: 'BUCKET', permission: 'READ' },
   { scope: 'Location B', type: 'PREFIX', permission: 'WRITE' },
