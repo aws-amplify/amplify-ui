@@ -445,9 +445,7 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
                 const indexOfDot = row.key.lastIndexOf('.');
 
                 return indexOfDot > -1 ? (
-                  <TableDataText>
-                    {row.key.slice(indexOfDot + 1).toUpperCase()}
-                  </TableDataText>
+                  <TableDataText>{row.key.slice(indexOfDot + 1)}</TableDataText>
                 ) : (
                   '-'
                 );

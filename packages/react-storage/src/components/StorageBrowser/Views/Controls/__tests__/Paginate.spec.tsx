@@ -7,7 +7,7 @@ import { ControlProvider } from '../../../context/controls';
 describe('PaginationControl', () => {
   it('renders the PaginationControl', async () => {
     render(
-      <ControlProvider>
+      <ControlProvider actions={{}}>
         <PaginateControl />
       </ControlProvider>
     );
@@ -36,7 +36,7 @@ describe('PaginationControl', () => {
   });
   it('renders Current control', () => {
     render(
-      <ControlProvider>
+      <ControlProvider actions={{}}>
         <PaginateControl.Current />
       </ControlProvider>
     );
@@ -45,7 +45,7 @@ describe('PaginationControl', () => {
   });
   it('renders Previous control', () => {
     render(
-      <ControlProvider>
+      <ControlProvider actions={{}}>
         <PaginateControl.Previous />
       </ControlProvider>
     );
@@ -56,7 +56,7 @@ describe('PaginationControl', () => {
   });
   it('renders Next control', () => {
     render(
-      <ControlProvider>
+      <ControlProvider actions={{}}>
         <PaginateControl.Next />
       </ControlProvider>
     );

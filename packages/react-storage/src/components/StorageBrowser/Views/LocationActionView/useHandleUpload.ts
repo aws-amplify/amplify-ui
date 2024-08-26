@@ -2,9 +2,7 @@ import React from 'react';
 import { uploadData, UploadDataWithPathInput } from 'aws-amplify/storage';
 
 import { useGetLocationConfig } from '../../context/config';
-import { FileItem } from '../../context/types';
-
-type TaskStatus = 'INITIAL' | 'QUEUED' | 'IN_PROGRESS' | 'SUCCESS' | 'ERROR';
+import { TaskStatus } from '../../context/types';
 
 /**
  * Base `task`
@@ -12,10 +10,9 @@ type TaskStatus = 'INITIAL' | 'QUEUED' | 'IN_PROGRESS' | 'SUCCESS' | 'ERROR';
 interface Task {
   key: string;
   data: File;
-  message: string | undefined;
   progress: number;
-  status: TaskStatus;
   size: number;
+  status: TaskStatus;
 }
 
 export interface CancelableTask extends Omit<Task, 'status'> {
@@ -64,27 +61,30 @@ const updateTasks = <T extends Task | CancelableTask>(
 
 export function useHandleUpload({
   prefix,
-  items,
+  files,
 }: {
   prefix: string;
-  items: FileItem[];
+  files: File[];
 }): [tasks: CancelableTask[], handleUpload: () => void] {
   const getConfig = useGetLocationConfig();
-  const [tasks, setTasks] = React.useState<CancelableTask[]>(() =>
-    (items ?? []).map(({ key, data, size }) => ({
-      cancel: () => setTasks((prev) => removeTask(prev, key)),
-      key,
-      size,
-      data: data!,
-      status: 'INITIAL',
-      message: undefined,
+
+  const [tasks, setTasks] = React.useState<CancelableTask[]>(() => []);
+
+  React.useEffect(() => {
+    const nextTasks = files.map((file) => ({
+      cancel: () => setTasks((prev) => removeTask(prev, file.name)),
+      key: file.name,
+      data: file,
+      size: file.size,
+      status: 'INITIAL' as const,
       progress: 0,
-    }))
-  );
+    }));
+    setTasks(nextTasks);
+  }, [files]);
 
   const handleUpload = () =>
     setTasks((prevTasks) =>
-      prevTasks.map(({ data, key, message, progress, size }) => {
+      prevTasks.map(({ key, data, progress, size }) => {
         const { bucket: bucketName, credentialsProvider, region } = getConfig();
         const input: UploadDataWithPathInput = {
           path: `${prefix}${key}`,
@@ -93,9 +93,10 @@ export function useHandleUpload({
             bucket: { bucketName, region },
             locationCredentialsProvider: credentialsProvider,
             onProgress: ({ totalBytes, transferredBytes }) => {
+              const progress = totalBytes ? transferredBytes / totalBytes : 0;
               const nextTask: TaskUpdate = {
                 key,
-                progress: totalBytes ? transferredBytes / totalBytes : 0,
+                progress,
                 ...(totalBytes === transferredBytes
                   ? { cancel: undefined }
                   : undefined),
@@ -107,30 +108,30 @@ export function useHandleUpload({
 
         const { cancel, result } = uploadData(input);
 
-        result.then(() => {
-          setTasks((curr) => updateTasks(curr, { key, status: 'SUCCESS' }));
-        });
+        result
+          .then(() => {
+            setTasks((curr) => updateTasks(curr, { key, status: 'COMPLETE' }));
+          })
+          .catch(() => {
+            setTasks((curr) => updateTasks(curr, { key, status: 'FAILED' }));
+          });
 
         const handleCancel = () => {
           cancel();
 
           setTasks((curr) =>
-            updateTasks(curr, {
-              key,
-              cancel: undefined,
-              status: 'CANCELED',
-            })
+            // assign cancel to noop
+            updateTasks(curr, { key, cancel: () => null, status: 'CANCELED' })
           );
         };
 
         return {
-          key,
-          size,
           cancel: handleCancel,
+          key,
           data,
-          message,
           progress,
-          status: 'IN_PROGRESS',
+          size,
+          status: 'PENDING',
         };
       })
     );

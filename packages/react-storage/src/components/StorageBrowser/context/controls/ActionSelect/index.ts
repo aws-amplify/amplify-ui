@@ -1,6 +1,4 @@
 export {
-  Action,
-  ActionType,
   ActionSelectAction,
   ActionSelectProvider,
   ActionSelectContext,
