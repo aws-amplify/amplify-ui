@@ -187,8 +187,12 @@ const mergeSelectedFiles = (prevFiles: File[], files: File[]): File[] => {
 
   prevFiles.forEach((item) => {
     // If we have previously selected items, use them to create our map of unique items
-    const { name } = item;
-    filesMap.set(name, item);
+    const { name, webkitRelativePath } = item;
+
+    filesMap.set(
+      webkitRelativePath?.length > 0 ? webkitRelativePath : name,
+      item
+    );
   });
 
   for (const data of files) {
