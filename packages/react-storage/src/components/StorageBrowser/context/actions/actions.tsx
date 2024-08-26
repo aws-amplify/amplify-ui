@@ -15,16 +15,16 @@ import { listLocationItemsAction } from './listLocationItemsAction';
 import { ListLocationsAction } from './listLocationsAction';
 import { LocationsDataProvider } from './locationsData';
 
-type ActionsWithConfig = {
+export type ActionsWithConfig = {
   [K in keyof DefaultActions]: WithLocationConfig<DefaultActions[K]>;
 };
 
-type DefaultActions = typeof DEFAULT_ACTIONS;
-type WithLocationConfig<T> = T extends DataAction<infer K, infer U>
+export type DefaultActions = typeof DEFAULT_ACTIONS;
+export type WithLocationConfig<T> = T extends DataAction<infer K, infer U>
   ? DataAction<K, Omit<U, 'config'>>
   : never;
 
-type UseActionState<T> = T extends DataAction<infer K, infer U>
+export type UseActionState<T> = T extends DataAction<infer K, infer U>
   ? ActionState<K, U>
   : never;
 

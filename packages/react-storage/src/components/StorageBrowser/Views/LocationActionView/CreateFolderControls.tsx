@@ -4,7 +4,7 @@ import { useAction } from '../../context/actions';
 import { useControl } from '../../context/controls';
 
 import { Controls } from '../Controls';
-import { Title } from './Controls';
+import { Title } from './Controls/Title';
 
 const { Exit, Message, Primary, Target } = Controls;
 
@@ -48,13 +48,13 @@ export const CreateFolderControls = (): React.JSX.Element => {
   };
 
   const handleClose = () => {
-    handleUpdateState({ type: 'EXIT' });
+    handleUpdateState({ type: 'CLEAR' });
     // reset hook state on exit, use empty string for prefix to keep TS happy
     handleCreateAction({ prefix: '', options: { reset: true } });
   };
 
   const primaryProps =
-    result?.status === 'SUCCESS'
+    result?.status === 'COMPLETE'
       ? {
           onClick: () => {
             handleClose();
@@ -78,7 +78,7 @@ export const CreateFolderControls = (): React.JSX.Element => {
         }}
       />
       <Primary {...primaryProps} />
-      {result?.status === 'SUCCESS' ? (
+      {result?.status === 'COMPLETE' ? (
         <Message variant="success">Folder created.</Message>
       ) : null}
       <Target.Field.Container>

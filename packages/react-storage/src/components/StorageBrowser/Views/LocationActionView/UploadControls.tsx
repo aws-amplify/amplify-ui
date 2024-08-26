@@ -1,11 +1,16 @@
 import React from 'react';
 
-import { useControl } from '../../context/controls';
-import { FileItem, TaskStatus } from '../../context/types';
+import { humanFileSize } from '@aws-amplify/ui';
+import { useFileSelect } from '@aws-amplify/ui-react/internal';
+
 import { StorageBrowserElements } from '../../context/elements';
+import { useControl } from '../../context/controls';
+import { compareNumbers, compareStrings } from '../../context/controls/Table';
+import { TaskStatus } from '../../context/types';
 import { IconVariant } from '../../context/elements/IconElement';
+
+import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
-import { Title } from './Controls';
 import {
   TableDataText,
   Column,
@@ -13,10 +18,8 @@ import {
   SortState,
   TableHeaderButton,
 } from '../Controls/Table';
-import { compareNumbers, compareStrings } from '../../context/controls/Table';
-import { CLASS_BASE } from '../constants';
-import { humanFileSize } from '@aws-amplify/ui';
 
+import { Title } from './Controls/Title';
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
 
 const { Button, Icon, DefinitionDetail, DefinitionList, DefinitionTerm } =
@@ -24,10 +27,18 @@ const { Button, Icon, DefinitionDetail, DefinitionList, DefinitionTerm } =
 
 const { Cancel, Exit, Primary, Summary, Table } = Controls;
 
-const LOCATION_ACTION_VIEW_COLUMNS: Column<CancelableTask>[] = [
+interface LocationActionViewColumns extends CancelableTask {
+  type: string;
+}
+
+const LOCATION_ACTION_VIEW_COLUMNS: Column<LocationActionViewColumns>[] = [
   {
     key: 'key',
     header: 'Name',
+  },
+  {
+    key: 'type',
+    header: 'Type',
   },
   {
     key: 'size',
@@ -58,16 +69,17 @@ export const ActionIcon = ({ status }: ActionIconProps): React.JSX.Element => {
   let variant: IconVariant = 'action-initial';
 
   switch (status) {
+    case 'INITIAL':
     case 'QUEUED':
       variant = 'action-queued';
       break;
-    case 'IN_PROGRESS':
+    case 'PENDING':
       variant = 'action-progress';
       break;
-    case 'SUCCESS':
+    case 'COMPLETE':
       variant = 'action-success';
       break;
-    case 'ERROR':
+    case 'FAILED':
       variant = 'action-error';
       break;
     case 'CANCELED':
@@ -101,9 +113,46 @@ const LocationActionViewColumnSortMap = {
   size: compareNumbers,
   status: compareStrings,
   progress: compareNumbers,
+  type: compareStrings,
 };
 
-const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
+const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
+  row,
+  index
+) => {
+  const renderTableData = (
+    columnKey: keyof LocationActionViewColumns,
+    row: LocationActionViewColumns
+  ) => {
+    switch (columnKey) {
+      case 'key':
+        return (
+          <TableDataText>
+            <ActionIcon status={row.status} />
+            {row.key}
+          </TableDataText>
+        );
+      case 'type': {
+        return <TableDataText>{row.type}</TableDataText>;
+      }
+      case 'size':
+        return <TableDataText>{humanFileSize(row.size, true)}</TableDataText>;
+      case 'status':
+        return <TableDataText>{row.status}</TableDataText>;
+      case 'progress':
+        return <TableDataText>{row.progress}</TableDataText>;
+      case 'cancel':
+        return (
+          <Cancel
+            onClick={row.cancel}
+            ariaLabel={`Cancel upload for ${row.key}`}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <Table.TableRow key={index}>
       {LOCATION_ACTION_VIEW_COLUMNS.map((column) => {
@@ -112,23 +161,7 @@ const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
             key={`${index}-${column.header}`}
             variant={column.key}
           >
-            {column.key === 'key' ? (
-              <TableDataText>
-                <ActionIcon status={row.status} />
-                {row.key}
-              </TableDataText>
-            ) : column.key === 'size' ? (
-              <TableDataText>{humanFileSize(row.size, true)}</TableDataText>
-            ) : column.key === 'status' ? (
-              <TableDataText>{row.status}</TableDataText>
-            ) : column.key === 'progress' ? (
-              <TableDataText>{row.progress}</TableDataText>
-            ) : column.key === 'cancel' ? (
-              <Cancel
-                onClick={row.cancel}
-                ariaLabel={`Cancel upload for ${row.key}`}
-              />
-            ) : null}
+            {renderTableData(column.key, row)}
           </Table.TableData>
         );
       })}
@@ -136,35 +169,69 @@ const renderRowItem: RenderRowItem<CancelableTask> = (row, index) => {
   );
 };
 
+const parseSelectionData = (
+  value: string | string[] | undefined
+): { type: 'file' | 'folder' | undefined; accept: string | undefined } => {
+  const type =
+    value?.[0] === 'file' || value === 'file'
+      ? 'file'
+      : value?.[0] === 'folder' || value === 'folder'
+      ? 'folder'
+      : undefined;
+
+  const accept = type && Array.isArray(value) ? value[1] : undefined;
+
+  return { type, accept };
+};
+
 export const UploadControls = (): JSX.Element => {
-  const [state, handleUpdateState] = useControl({
+  const [{ history, path }] = useControl({ type: 'NAVIGATE' });
+  const [files, setFiles] = React.useState<File[]>([]);
+  const [fileSelect, handleSelect] = useFileSelect(setFiles);
+
+  const [{ selected, actions }, handleUpdateState] = useControl({
     type: 'ACTION_SELECT',
   });
-  const [{ path, history }] = useControl({ type: 'NAVIGATE' });
-  const { items } = state.selected;
 
   const [tasks, handleUpload] = useHandleUpload({
     prefix: path,
-    items: items! as FileItem[],
+    files,
   });
+
+  let tableData = tasks.map((task) => ({
+    ...task,
+    type: task.data.type ?? '-',
+  }));
+
+  const { options } = actions[selected.type!];
+  const { selectionData } = options ?? {};
+
+  React.useEffect(() => {
+    const { type, accept } = parseSelectionData(selectionData);
+    if (type) {
+      handleSelect(type, { accept });
+    }
+  }, [handleSelect, selectionData]);
 
   const [compareFn, setCompareFn] = React.useState<(a: any, b: any) => number>(
     () => compareStrings
   );
-  const [sortState, setSortState] = React.useState<SortState<CancelableTask>>({
+  const [sortState, setSortState] = React.useState<
+    SortState<LocationActionViewColumns>
+  >({
     selection: 'key',
     direction: 'ascending',
   });
 
   const { direction, selection } = sortState;
 
-  const tableData =
+  tableData =
     direction === 'ascending'
-      ? tasks.sort((a, b) => compareFn(a[selection], b[selection]))
-      : tasks.sort((a, b) => compareFn(b[selection], a[selection]));
+      ? tableData.sort((a, b) => compareFn(a[selection], b[selection]))
+      : tableData.sort((a, b) => compareFn(b[selection], a[selection]));
 
   const renderHeaderItem = React.useCallback(
-    (column: Column<CancelableTask>) => {
+    (column: Column<LocationActionViewColumns>) => {
       // Defining this function inside the `UploadControls` to get access
       // to the current sort state
       const { header, key } = column;
@@ -216,17 +283,18 @@ export const UploadControls = (): JSX.Element => {
     [direction, selection]
   );
 
-  return items && items.length > 0 ? (
+  return (
     <>
+      {fileSelect}
       <Title />
-      <Exit onClick={() => handleUpdateState({ type: 'EXIT' })} />
+      <Exit onClick={() => handleUpdateState({ type: 'CLEAR' })} />
       <Primary
+        disabled={tasks.some((task) => task.status === 'PENDING')}
         onClick={() => {
-          if (!items) return;
           handleUpload();
         }}
       >
-        Start upload
+        Start
       </Primary>
       <Destination>{history[history.length - 1].prefix}</Destination>
       <Summary />
@@ -243,7 +311,5 @@ export const UploadControls = (): JSX.Element => {
         renderRowItem={renderRowItem}
       />
     </>
-  ) : (
-    <span>No items selected.</span>
   );
 };

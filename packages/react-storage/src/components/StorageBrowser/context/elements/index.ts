@@ -1,9 +1,16 @@
+export { elementsDefault } from './defaults';
 export {
-  ActionVariant,
+  ButtonElement,
   ButtonElementProps,
-  IconElementProps,
-  StorageBrowserElements,
   MessageVariant,
   PaginateVariant,
+  StorageBrowserElements,
+  TableBodyElement,
+  TableDataElement,
+  TableElement,
+  TableHeadElement,
+  TableHeaderElement,
+  TableRowElement,
+  ViewElement,
 } from './definitions';
-export { elementsDefault } from './defaults';
+export { IconElement, IconElementProps, IconVariant } from './IconElement';

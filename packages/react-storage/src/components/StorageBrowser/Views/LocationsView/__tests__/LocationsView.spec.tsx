@@ -15,7 +15,7 @@ const config = {
   region: 'region',
   registerAuthListener: jest.fn(),
 };
-const Provider = createProvider({ config });
+const Provider = createProvider({ actions: {}, config });
 
 const useLocationsDataSpy = jest.spyOn(ActionsModule, 'useLocationsData');
 

@@ -8,18 +8,24 @@ import * as ControlsModule from '../../../context/controls';
 
 import { LocationDetailView } from '../LocationDetailView';
 
-const listLocations = jest.fn(() =>
-  Promise.resolve({ locations: [], nextToken: undefined })
-);
+const INITIAL_PAGINATE_STATE = [
+  {
+    hasNext: false,
+    hasPrevious: false,
+    isLoadingNextPage: false,
+    current: 0,
+  },
+  jest.fn(),
+];
 
 const config = {
   getLocationCredentials: jest.fn(),
-  listLocations,
+  listLocations: jest.fn(),
   region: 'region',
   registerAuthListener: jest.fn(),
 };
 
-const Provider = createProvider({ config });
+const Provider = createProvider({ actions: {}, config });
 
 const handleList = jest.fn();
 
@@ -33,16 +39,31 @@ jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
   handleList,
 ]);
 
-jest.spyOn(ControlsModule, 'useControl').mockReturnValue([
-  {
-    location: {
-      scope: 's3://test-bucket/*',
-      permission: 'READ',
-      type: 'BUCKET',
-    },
-    history: [{ prefix: 'cat-cat/' }],
-  },
-]);
+jest.spyOn(ControlsModule, 'useControl').mockImplementation(
+  ({ type }) =>
+    ({
+      ACTION_SELECT: [
+        {
+          actions: {},
+          selected: { type: undefined, items: undefined },
+        },
+        jest.fn(),
+      ],
+      NAVIGATE: [
+        {
+          location: {
+            scope: 's3://test-bucket/*',
+            permission: 'READ',
+            type: 'BUCKET',
+          },
+          history: [{ prefix: 'cat-cat/' }],
+          path: 'cat-cat/',
+        },
+        jest.fn(),
+      ],
+      PAGINATE: INITIAL_PAGINATE_STATE,
+    })[type]
+);
 
 describe('LocationDetailView', () => {
   it('renders a `LocationDetailView`', async () => {
@@ -54,7 +75,7 @@ describe('LocationDetailView', () => {
       );
     });
 
-    expect(screen.getByTestId('LOCATION_DETAIL_VIEW')).toBeDefined();
+    expect(screen.getByTestId('LOCATION_DETAIL_VIEW')).toBeInTheDocument();
   });
 
   it('refreshes table when refresh button is clicked', async () => {

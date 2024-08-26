@@ -1,3 +1,4 @@
+export * from './ControlsContext';
 export {
   defineBaseElement,
   defineBaseElementWithRef,

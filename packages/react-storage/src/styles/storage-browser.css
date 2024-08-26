@@ -55,7 +55,7 @@
 .storage-browser__refresh__icon,
 .storage-browser__message__icon,
 .storage-browser__message__dismiss__icon,
-.storage-browser__action-menu__toggle__icon {
+.storage-browser__actions-menu__toggle__icon {
   display: block;
 }
 
@@ -191,14 +191,14 @@
   text-align: end;
 }
 
-.storage-browser__action-menu {
+.storage-browser__actions-menu {
   position: relative;
   display: inline-block;
   justify-self: flex-end;
   grid-column: 5 / -1;
 }
 
-.storage-browser__action-menu__menu {
+.storage-browser__actions-menu__menu {
   display: none;
   gap: var(--storage-browser-gap-small);
   flex-direction: column;
@@ -206,14 +206,14 @@
   inset-inline-end: 0;
   inset-block-start: 100%;
   width: max-content;
-  max-width: var(--storage-browser-action-menu-max-width);
+  max-width: var(--storage-browser-actions-menu-max-width);
 }
 
-.storage-browser__action-menu__menu--open {
+.storage-browser__actions-menu__menu--open {
   display: flex;
 }
 
-.storage-browser__action-menu__action-button {
+.storage-browser__actions-menu__action-button {
   display: flex;
   gap: var(--storage-browser-gap-small);
   align-items: center;
