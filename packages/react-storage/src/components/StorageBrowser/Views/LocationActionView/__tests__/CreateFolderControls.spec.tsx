@@ -9,6 +9,9 @@ import {
   isValidFolderName,
   CreateFolderControls,
   FIELD_VALIDATION_MESSAGE,
+  CreateFolderMessage,
+  RESULT_COMPLETE_MESSAGE,
+  RESULT_FAILED_MESSAGE,
 } from '../CreateFolderControls';
 
 const INITIAL_PAGINATE_STATE = [
@@ -163,6 +166,111 @@ describe('CreateFolderControls', () => {
       options: { reset: true },
       prefix: '',
     });
+  });
+  it('shows a success message when result is SUCCESS', async () => {
+    const handleAction = jest.fn();
+    useActionSpy.mockReturnValue([
+      {
+        isLoading: false,
+        data: {
+          result: { key: 'test', status: 'COMPLETE', message: undefined },
+        },
+        message: undefined,
+        hasError: false,
+      },
+      handleAction,
+    ]);
+
+    await waitFor(() => {
+      render(
+        <Provider>
+          <CreateFolderMessage />
+        </Provider>
+      );
+    });
+
+    const successMessage = screen.getByText(RESULT_COMPLETE_MESSAGE);
+
+    expect(successMessage).toBeInTheDocument();
+  });
+  it('shows a default error message when result is ERROR', async () => {
+    const handleAction = jest.fn();
+    useActionSpy.mockReturnValue([
+      {
+        isLoading: false,
+        data: { result: { key: 'test', status: 'FAILED', message: undefined } },
+        message: undefined,
+        hasError: false,
+      },
+      handleAction,
+    ]);
+
+    await waitFor(() => {
+      render(
+        <Provider>
+          <CreateFolderMessage />
+        </Provider>
+      );
+    });
+
+    const successMessage = screen.getByText(RESULT_FAILED_MESSAGE);
+
+    expect(successMessage).toBeInTheDocument();
+  });
+
+  it('shows a returned error message when result is ERROR', async () => {
+    const errorMessage = 'Network error';
+    const handleAction = jest.fn();
+    useActionSpy.mockReturnValue([
+      {
+        isLoading: false,
+        data: {
+          result: { key: 'test', status: 'FAILED', message: errorMessage },
+        },
+        message: undefined,
+        hasError: false,
+      },
+      handleAction,
+    ]);
+
+    await waitFor(() => {
+      render(
+        <Provider>
+          <CreateFolderMessage />
+        </Provider>
+      );
+    });
+
+    const successMessage = screen.getByText(errorMessage);
+
+    expect(successMessage).toBeInTheDocument();
+  });
+
+  it('does not show a Message if no result', async () => {
+    const handleAction = jest.fn();
+    useActionSpy.mockReturnValue([
+      {
+        isLoading: false,
+        data: {
+          result: undefined,
+        },
+        message: undefined,
+        hasError: false,
+      },
+      handleAction,
+    ]);
+
+    await waitFor(() => {
+      render(
+        <Provider>
+          <CreateFolderMessage />
+        </Provider>
+      );
+    });
+
+    const message = screen.queryByRole('alert');
+
+    expect(message).not.toBeInTheDocument();
   });
 });
 

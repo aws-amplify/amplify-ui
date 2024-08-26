@@ -253,6 +253,11 @@
   color: var(--storage-browser-status-error);
 }
 
+.storage-browser__empty-message {
+  text-align: center;
+  grid-column: 1 / -1;
+}
+
 .storage-browser__loading {
   display: flex;
   gap: var(--storage-browser-gap-small);

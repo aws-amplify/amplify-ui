@@ -8,6 +8,7 @@ import { CommonControl } from '../types';
 import { useAction } from '../../context/actions';
 
 const {
+  EmptyMessage,
   Loading: LoadingElement,
   Message,
   Navigate,
@@ -70,6 +71,18 @@ export const LocationDetailMessage = (): React.JSX.Element | null => {
   ) : null;
 };
 
+const LocationDetailEmptyMessage = () => {
+  const [{ data, hasError, isLoading }] = useAction({
+    type: 'LIST_LOCATION_ITEMS',
+  });
+  const shouldShowEmptyMessage =
+    data.result.length === 0 && !isLoading && !hasError;
+
+  return shouldShowEmptyMessage ? (
+    <EmptyMessage>No items to show.</EmptyMessage>
+  ) : null;
+};
+
 // @ts-expect-error TODO: add Controls assignment
 export const LocationDetailViewControls: LocationDetailViewControls = () => {
   return (
@@ -82,6 +95,7 @@ export const LocationDetailViewControls: LocationDetailViewControls = () => {
       <LocationDetailMessage />
       <Loading />
       <LocationDetailViewTable />
+      <LocationDetailEmptyMessage />
     </>
   );
 };

@@ -9,6 +9,7 @@ import { useLocationsData } from '../../context/actions';
 import { DataTableControl } from './Controls/DataTable';
 
 const {
+  EmptyMessage,
   Loading: LoadingElement,
   Message,
   Paginate,
@@ -60,6 +61,16 @@ export const LocationsMessage = (): React.JSX.Element | null => {
   ) : null;
 };
 
+const LocationsEmptyMessage = () => {
+  const [{ data, isLoading, hasError }] = useLocationsData();
+  const shouldShowEmptyMessage =
+    data.result.length === 0 && !isLoading && !hasError;
+
+  return shouldShowEmptyMessage ? (
+    <EmptyMessage>No locations to show.</EmptyMessage>
+  ) : null;
+};
+
 // @ts-expect-error TODO: add Controls assignment
 const LocationsViewControls: LocationsViewControls = () => {
   return (
@@ -70,6 +81,7 @@ const LocationsViewControls: LocationsViewControls = () => {
       <LocationsMessage />
       <Loading />
       <DataTableControl />
+      <LocationsEmptyMessage />
     </>
   );
 };

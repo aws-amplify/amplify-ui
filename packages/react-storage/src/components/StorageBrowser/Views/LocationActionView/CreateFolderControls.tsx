@@ -2,7 +2,6 @@ import React from 'react';
 
 import { useAction } from '../../context/actions';
 import { useControl } from '../../context/controls';
-
 import { Controls } from '../Controls';
 import { Title } from './Controls/Title';
 
@@ -12,7 +11,32 @@ export const isValidFolderName = (name: string | undefined): boolean =>
   !!name?.length && !name.includes('/');
 
 export const FIELD_VALIDATION_MESSAGE =
-  'Folder name must be at least one character and cannot contain a "/"';
+  'Folder name must be at least one character and cannot contain a "/".';
+export const RESULT_COMPLETE_MESSAGE = 'Folder created.';
+export const RESULT_FAILED_MESSAGE = 'There was an issue creating the folder.';
+
+export const CreateFolderMessage = (): React.JSX.Element | null => {
+  const [
+    {
+      data: { result },
+    },
+  ] = useAction({
+    type: 'CREATE_FOLDER',
+  });
+
+  switch (result?.status) {
+    case 'COMPLETE':
+      return <Message variant="success">{RESULT_COMPLETE_MESSAGE}</Message>;
+    case 'FAILED':
+      return (
+        <Message variant="error">
+          {result.message ? result.message : RESULT_FAILED_MESSAGE}
+        </Message>
+      );
+    default:
+      return null;
+  }
+};
 
 export const CreateFolderControls = (): React.JSX.Element => {
   const [, handleUpdateState] = useControl({ type: 'ACTION_SELECT' });
@@ -78,8 +102,8 @@ export const CreateFolderControls = (): React.JSX.Element => {
         }}
       />
       <Primary {...primaryProps} />
-      {result?.status === 'COMPLETE' ? (
-        <Message variant="success">Folder created.</Message>
+      {result?.status === 'COMPLETE' || result?.status === 'FAILED' ? (
+        <CreateFolderMessage />
       ) : null}
       <Target.Field.Container>
         <Target.Field.Label htmlFor="folder-name-input">
