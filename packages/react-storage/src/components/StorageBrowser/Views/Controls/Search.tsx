@@ -120,7 +120,7 @@ const Container = withBaseElementProps(Span, {
   className: `${SEARCH_BLOCK}__container`,
 });
 
-export const SearchControl: SearchControl = () => (
+export const SearchControl = (): React.JSX.Element => (
   <Container>
     <FieldControl />
     <SearchButton />
@@ -128,8 +128,3 @@ export const SearchControl: SearchControl = () => (
     <ToggleControl />
   </Container>
 );
-
-SearchControl.Container = Container;
-SearchControl.Field = FieldControl;
-SearchControl.Button = SearchButton;
-SearchControl.Toggle = ToggleControl;
