@@ -173,7 +173,7 @@ const TableHead = React.forwardRef<HTMLTableSectionElement, TableHeadProps>(
 
 const TableData = React.forwardRef<HTMLTableCellElement, TableCellProps>(
   function TableData(props, ref) {
-    return <_TableCell padding="xxxs" {...props} ref={ref} />;
+    return <_TableCell {...props} ref={ref} />;
   }
 );
 
@@ -185,7 +185,7 @@ const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
 
 const TableHeader = React.forwardRef<HTMLTableCellElement, TableHeadProps>(
   function TableHeader(props, ref) {
-    return <_TableCell padding="xxxs" as="th" {...props} ref={ref} />;
+    return <_TableCell as="th" {...props} ref={ref} />;
   }
 );
 
