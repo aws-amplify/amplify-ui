@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { capitalize } from '@aws-amplify/ui';
+
 import {
   DataTable,
   TABLE_DATA_BUTTON_CLASS,
@@ -11,7 +13,6 @@ import { useLocationsData } from '../../../context/actions';
 import { LocationAccess } from '../../../context/types';
 import { compareStrings } from '../../../context/controls/Table';
 import { ButtonElement, IconElement } from '../../../context/elements';
-import { capitalize } from '@aws-amplify/ui';
 
 export type SortDirection = 'ascending' | 'descending' | 'none';
 
@@ -30,35 +31,43 @@ const getCompareFn = (selection: string) => {
 };
 
 const getColumnItem = ({
-  key,
+  entry,
   selection,
   direction,
   onTableHeaderClick,
 }: {
-  key: string;
+  entry: [string, string];
   selection: string;
   direction: SortDirection;
   onTableHeaderClick: (location: string) => void;
-}) => ({
-  children: (
-    <ButtonElement variant="sort" className={TABLE_HEADER_BUTTON_CLASS_NAME}>
-      {capitalize(key)}
-      <IconElement
-        variant={
-          selection === key && direction !== 'none'
-            ? `sort-${direction}`
-            : 'sort-indeterminate'
-        }
-      />
-    </ButtonElement>
-  ),
-  key: `th=${key}`,
-  className: `${TABLE_HEADER_CLASS_NAME} ${TABLE_HEADER_CLASS_NAME}--${key}`,
-  onClick: () => onTableHeaderClick(key),
-  'aria-sort': selection === key ? direction : 'none',
-});
+}) => {
+  const [key, value] = entry;
 
-const columnsArray = ['scope', 'type', 'permission'];
+  return {
+    children: (
+      <ButtonElement variant="sort" className={TABLE_HEADER_BUTTON_CLASS_NAME}>
+        {capitalize(value)}
+        <IconElement
+          variant={
+            selection === key && direction !== 'none'
+              ? `sort-${direction}`
+              : 'sort-indeterminate'
+          }
+        />
+      </ButtonElement>
+    ),
+    key: `th=${key}`,
+    className: `${TABLE_HEADER_CLASS_NAME} ${TABLE_HEADER_CLASS_NAME}--${key}`,
+    onClick: () => onTableHeaderClick(key),
+    'aria-sort': selection === key ? direction : 'none',
+  };
+};
+
+const displayColumns: Record<string, string>[] = [
+  { scope: 'name' },
+  { type: 'type' },
+  { permission: 'permission' },
+];
 
 const getLocationsData = ({
   data,
@@ -73,9 +82,11 @@ const getLocationsData = ({
 }) => {
   const { selection, direction } = sortState;
 
-  const columns = columnsArray.map((key) => {
-    return getColumnItem({ key, selection, direction, onTableHeaderClick });
-  });
+  const columns = displayColumns.flatMap((column) =>
+    Object.entries(column).map((entry) =>
+      getColumnItem({ entry, selection, direction, onTableHeaderClick })
+    )
+  );
 
   const compareFn = getCompareFn(selection);
 

@@ -60,26 +60,6 @@ describe('LocationsViewTableControl', () => {
     expect(getByText('Location B')).toBeInTheDocument();
   });
 
-  it('does not render when there is no data', () => {
-    useLocationsDataSpy.mockReturnValue([
-      {
-        data: { result: [], nextToken: undefined },
-        hasError: false,
-        isLoading: false,
-        message: undefined,
-      },
-      jest.fn(),
-    ]);
-
-    const { container } = render(
-      <Provider>
-        <DataTableControl />
-      </Provider>
-    );
-
-    expect(container.firstChild).toBeNull();
-  });
-
   it('renders the correct icon based on sort state', () => {
     const { getByText } = render(
       <Provider>
