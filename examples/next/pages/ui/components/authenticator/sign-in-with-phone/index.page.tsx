@@ -4,9 +4,11 @@ import { I18n } from 'aws-amplify/utils';
 import { withAuthenticator, translations } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-import awsExports from './aws-exports';
+const amplifyOutputs = (
+  await import(`@environments/auth/auth-with-phone-number/${process.env.PATH}`)
+).default;
 
-Amplify.configure(awsExports);
+Amplify.configure(amplifyOutputs);
 
 I18n.putVocabularies(translations);
 I18n.setLanguage('en');

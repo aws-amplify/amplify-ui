@@ -3,7 +3,7 @@ Feature: Load an image from S3 with public access level settings
   Background:
     Given I'm running the example "ui/components/storage/storage-image/public-image"
 
-  @react
+  @react @gen2
   Scenario: I successfully load a public image
     Then I see "Loader1" element
     Then I see "Loader2" element

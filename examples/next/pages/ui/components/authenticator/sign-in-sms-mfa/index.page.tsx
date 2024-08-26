@@ -5,8 +5,14 @@ import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 import { translations } from '@aws-amplify/ui';
-import awsExports from './aws-exports';
-Amplify.configure(awsExports);
+
+const amplifyOutputs = (
+  await import(
+    `@environments/auth/auth-with-phone-and-sms-mfa/${process.env.PATH}`
+  )
+).default;
+
+Amplify.configure(amplifyOutputs);
 
 I18n.putVocabularies(translations);
 I18n.setLanguage('en');

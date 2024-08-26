@@ -3,6 +3,7 @@
   "name": "@aws-amplify/ui-auth-with-totp-mfa-environment",
   "version": "0.0.1",
   "scripts": {
-    "pull": "amplify pull --appId d25ubxzwph9msx --envName staging"
+    "pull": "amplify pull --appId d25ubxzwph9msx --envName staging",
+    "generate": "AWS_REGION=us-east-2 ampx generate outputs --branch gen2-auth-with-totp-mfa --app-id d3lukld24augjv"
   }
 }

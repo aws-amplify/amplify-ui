@@ -6,10 +6,13 @@ import { MapView } from '@aws-amplify/ui-react-geo';
 import '@aws-amplify/ui-react/styles.css';
 import '@aws-amplify/ui-react-geo/styles.css';
 
-import awsExports from './aws-exports';
 import './styles.css';
 
-Amplify.configure(awsExports);
+const amplifyOutputs = (
+  await import(`@environments/geo/basic-map/${process.env.PATH}`)
+).default;
+
+Amplify.configure(amplifyOutputs);
 
 function FlyToButton() {
   const { current: map } = useMap();

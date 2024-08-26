@@ -6,7 +6,7 @@ Feature: Sign In with SMS MFA
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-sms-mfa"
 
-  @angular @react @vue
+  @angular @react @vue @gen1 @gen2
   Scenario: Sign in with with sms mfa and check mocked name attribute
     When I select my country code with status "CONFIRMED"
     Then I type my "phone number" with status "CONFIRMED"
@@ -19,7 +19,7 @@ Feature: Sign In with SMS MFA
     Then I click the "Confirm" button
     Then I confirm request '{"headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }'
 
-  @angular @react @vue
+  @angular @react @vue @gen1 @gen2
   Scenario: Sign in and navigate back to sign in page
     When I select my country code with status "CONFIRMED"
     Then I type my "phone number" with status "CONFIRMED"
@@ -28,7 +28,7 @@ Feature: Sign In with SMS MFA
     Then I click the "Back to Sign In" button
     Then I see "Sign in"
 
-  @angular @react @vue
+  @angular @react @vue @gen1 @gen2
   Scenario: Incorrect SMS code with translated text
     When I select my country code with status "CONFIRMED"
     Then I type my "phone number" with status "CONFIRMED"
@@ -39,15 +39,23 @@ Feature: Sign In with SMS MFA
     Then I click the "Confirm" button
     Then I see "invalid code"
     
-  @angular @react @vue
+  @angular @react @vue @gen1
   Scenario: Sign in with unknown credentials
     When I select my country code with status "UNKNOWN"
     Then I type my "phone number" with status "UNKNOWN"
     Then I type my password
     Then I click the "Sign in" button
     Then I see "User does not exist"
+  
+  @angular @react @vue @gen2
+  Scenario: Sign in with unknown credentials
+    When I select my country code with status "UNKNOWN"
+    Then I type my "phone number" with status "UNKNOWN"
+    Then I type my password
+    Then I click the "Sign in" button
+    Then I see "Incorrect username or password."
 
-  @angular @react @vue
+  @angular @react @vue @gen1 @gen2
   Scenario: Sign in with force change password with sms mfa
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password"
     When I select my country code with status "FORCE_CHANGE_PASSWORD"

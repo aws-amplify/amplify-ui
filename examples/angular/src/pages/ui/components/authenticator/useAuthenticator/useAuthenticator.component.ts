@@ -2,8 +2,11 @@ import { Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 import { AuthenticatorService } from '@aws-amplify/ui-angular';
 
-import awsExports from './aws-exports';
 import { ActivatedRoute, Router } from '@angular/router';
+
+const amplifyOutputs = (
+  await import(`@environments/auth/auth-with-email/${process.env.PATH}`)
+).default;
 
 @Component({
   selector: 'use-authenticator',
@@ -15,7 +18,7 @@ export class UseAuthenticatorComponent {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    Amplify.configure(awsExports);
+    Amplify.configure(amplifyOutputs);
   }
 
   public navigateHome(event: Event) {

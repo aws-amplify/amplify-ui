@@ -8,7 +8,7 @@ Feature: Confirm Sign Up
     Given I'm running the example "ui/components/authenticator/sign-up-with-email"
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
 
-  @angular @react @vue
+  @angular @react @vue @gen1 @gen2
   Scenario: Confirm new password page has correct translations and replaced placeholder
     When I type a new "email"
     Then I type my password
@@ -19,7 +19,7 @@ Feature: Confirm Sign Up
     Then I see "Enter this code:"
     Then I see "It will take several minutes to arrive."
 
-  @react-native
+  @react-native @gen1 @gen2 
   Scenario: Confirm new password page has correct translations
     When I type a new "email"
     Then I type my password
@@ -27,7 +27,7 @@ Feature: Confirm Sign Up
     Then I click the "Create Account" button
     Then I see "Confirmation Code"
 
-  @angular @react @vue @react-native
+  @angular @react @vue @react-native @gen1 @gen2
   Scenario: Confirm a new username & password with an invalid code
     When I type a new "email"
     Then I type my password
@@ -39,7 +39,7 @@ Feature: Confirm Sign Up
     Then I click the "Confirm" button
     Then I see "Invalid verification code provided, please try again."
 
-  @angular @react @vue @react-native
+  @angular @react @vue @react-native @gen1 @gen2
   Scenario: Confirm a new username & password with a valid code
     When I type a new "email"
     Then I type my password
@@ -54,7 +54,7 @@ Feature: Confirm Sign Up
     Then I don't see "Confirmation Code"
     Then I confirm request '{"headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }'
 
-  @angular @react @vue
+  @angular @react @vue @gen1 @gen2
   Scenario: Confirmation Code field has type "one-time-code"
 
     See: https://developer.apple.com/documentation/security/password_autofill/enabling_password_autofill_on_an_html_input_element

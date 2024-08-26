@@ -3,13 +3,13 @@ Feature: Storage Manager with default files
   Background:
     Given I'm running the example "ui/components/storage/storage-manager/default-files-access-level"
 
-  @react
+  @react @gen1
   Scenario: Storage Manager renders with default files
     Then I see "Browse files"
     Then I see "default.jpg"
     Then I see "Uploaded"
    
-  @react
+  @react @gen1
   Scenario: I should not be able to upload more files
     Then I see "Browse files"
     Then I select a file with file name "test.jpg" and another file with file name "test2.jpg"

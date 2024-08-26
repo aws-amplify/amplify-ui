@@ -14,12 +14,17 @@
     "test:storage": "cypress run --spec 'features/ui/components/storage/**/*.feature' --browser chrome",
     "test:theme": "cypress run --spec 'features/ui/theme/*.feature' --browser chrome",
     "precucumber": "node detox/mockServer.js &",
-    "cucumber": "./node_modules/.bin/cucumber-js --config detox/cucumber.json --tags @react-native",
+    "precucumber:gen2": "node detox/mockServer.js &",
+    "cucumber": "./node_modules/.bin/cucumber-js --config detox/cucumber.json --tags '@react-native and @gen1'",
+    "cucumber:gen2": "./node_modules/.bin/cucumber-js --config detox/cucumber.json --tags '@react-native and @gen2'",
     "postcucumber": "kill $(lsof -t -i :9091)",
+    "postcucumber:gen2": "kill $(lsof -t -i :9091)",
     "detox:build:ios:debug": "detox build --configuration ios.simulator.debug",
     "detox:e2e:ios:debug": "DETOX_CONFIGURATION=ios.simulator.debug yarn cucumber",
+    "detox:e2e:ios:debug:gen2": "DETOX_CONFIGURATION=ios.simulator.debug yarn cucumber:gen2",
     "detox:build:android:debug": "detox build --configuration android.emulator.debug",
-    "detox:e2e:android:debug": "DETOX_CONFIGURATION=android.emulator.debug yarn cucumber"
+    "detox:e2e:android:debug": "DETOX_CONFIGURATION=android.emulator.debug yarn cucumber",
+    "detox:e2e:android:debug:gen2": "DETOX_CONFIGURATION=android.emulator.debug yarn cucumber:gen2"
   },
   "cypress-cucumber-preprocessor": {
     "filterSpecs": true,

@@ -3,7 +3,7 @@ Feature: Storage Manager with footer and upload actions
   Background:
     Given I'm running the example "ui/components/storage/storage-manager/upload-actions"
 
-  @react
+  @react @gen2
   Scenario: I select a file and upload it on click
     Then I see "Browse files"
     Then I select a file with file name "test.jpg"
@@ -19,7 +19,7 @@ Feature: Storage Manager with footer and upload actions
     Then I see "Uploaded"
     Then I see "1 file uploaded"
 
-  @react
+  @react @gen2
   Scenario: I can clear all selected files
     Then I see "Browse files"
     Then I select a file with file name "test.jpg"

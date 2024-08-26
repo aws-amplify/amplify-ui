@@ -7,9 +7,11 @@ import {
 } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
 import { toRefs } from 'vue';
+import { importHelper } from '../utils';
 
-import awsExports from './aws-exports';
-Amplify.configure(awsExports);
+const amplifyOutputs = await importHelper('auth-with-totp-mfa');
+
+Amplify.configure(amplifyOutputs);
 
 const { toForgotPassword, toSignIn } = toRefs(useAuthenticator());
 

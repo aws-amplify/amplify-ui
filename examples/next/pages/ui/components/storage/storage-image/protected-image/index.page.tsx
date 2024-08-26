@@ -11,7 +11,10 @@ import {
 } from '@aws-amplify/ui-react';
 import { StorageImage } from '@aws-amplify/ui-react-storage';
 import '@aws-amplify/ui-react/styles.css';
-import amplifyOutputs from './amplify_outputs';
+
+const amplifyOutputs = (
+  await import(`@environments/storage/file-uploader/${process.env.PATH}`)
+).default;
 
 Amplify.configure(amplifyOutputs);
 

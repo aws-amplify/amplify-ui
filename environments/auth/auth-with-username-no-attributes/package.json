@@ -3,6 +3,7 @@
   "name": "@aws-amplify/ui-auth-with-username-no-attributes-environment",
   "version": "0.0.1",
   "scripts": {
-    "pull": "amplify pull --appId d19uoxfo0qrigq --envName staging"
+    "pull": "amplify pull --appId d19uoxfo0qrigq --envName staging",
+    "generate": "AWS_REGION=us-east-2 ampx generate outputs --branch gen2-auth-with-username-no-attributes --app-id d3lukld24augjv"
   }
 }

@@ -3,7 +3,7 @@ Feature: Load an image from S3 with protected access level settings
   Background:
     Given I'm running the example "ui/components/storage/storage-image/protected-image-key"
 
-  @react
+  @react @gen1
   Scenario: I successfully load a protected image
     When I type my "email" with status "CONFIRMED"
     Then I type my password

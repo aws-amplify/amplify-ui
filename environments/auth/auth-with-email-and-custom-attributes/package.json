@@ -3,6 +3,7 @@
   "name": "@aws-amplify/ui-auth-with-email-and-custom-attributes-environment",
   "version": "0.0.1",
   "scripts": {
-    "pull": "amplify pull --appId d7lytt3btn9bi --envName staging"
+    "pull": "amplify pull --appId d7lytt3btn9bi --envName staging",
+    "generate": "AWS_REGION=us-east-2 ampx generate outputs --branch gen2-auth-with-email-and-custom-attributes --app-id d3lukld24augjv"
   }
 }

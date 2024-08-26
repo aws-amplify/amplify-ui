@@ -4,9 +4,13 @@ import { Authenticator } from '@aws-amplify/ui-react';
 import { TextField } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-import awsExports from './aws-exports';
+const amplifyOutputs = (
+  await import(
+    `@environments/auth/auth-with-all-attributes/${process.env.PATH}`
+  )
+).default;
 
-Amplify.configure(awsExports);
+Amplify.configure(amplifyOutputs);
 
 export default function AuthenticatorWithAttributes() {
   return (

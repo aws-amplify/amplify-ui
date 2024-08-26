@@ -6,7 +6,7 @@ Feature: Sign In with TOTP MFA
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-totp-mfa"
 
-  @angular @react @vue
+  @angular @react @vue @gen1 @gen2
   Scenario: Sign in with valid credentials that have not set up TOTP MFA
     When I type my "email" with status "CONFIRMED"
     Then I type my password
@@ -15,7 +15,7 @@ Feature: Sign In with TOTP MFA
     Then I check to see if QR code is correct
     Then I see the "Confirm" button
 
-  @angular @react @vue
+  @angular @react @vue @gen1 @gen2
   Scenario: Redirect to sign in page
     When I type my "email" with status "CONFIRMED"
     Then I type my password
@@ -23,7 +23,7 @@ Feature: Sign In with TOTP MFA
     Then I click the "Back to Sign In" button
     Then I see "Sign in"
   
-  @angular @react @vue
+  @angular @react @vue @gen1 @gen2
   Scenario: Invalid TOTP code
     When I type my "email" with status "CONFIRMED"
     Then I type my password
@@ -32,23 +32,30 @@ Feature: Sign In with TOTP MFA
     Then I click the "Confirm" button
     Then I see 'Code mismatch'
 
-  @angular @react @vue
+  @angular @react @vue @gen1 @gen2
   Scenario: Setup TOTP should only show one input code
     When I type my "email" with status "CONFIRMED"
     Then I type my password
     Then I click the "Sign In" button
     Then I see one code input
 
-  @angular @react @vue
+  @angular @react @vue @gen1
   Scenario: Sign in with unknown credentials
     When I type my "email" with status "UNKNOWN"
     Then I type my password
     Then I click the "Sign in" button
     Then I see "User does not exist"
+  
+  @angular @react @vue @gen2
+  Scenario: Sign in with unknown credentials
+    When I type my "email" with status "UNKNOWN"
+    Then I type my password
+    Then I click the "Sign in" button
+    Then I see "Incorrect username or password."
 
   # Tests the scenario where an admin creates a user with a temporary password
   # and the user is forced to setup a new password then setup TOTP as MFA type
-  @angular @react @vue
+  @angular @react @vue @gen1 @gen2
   Scenario: Sign in with admin created user account, user must change password on first login and setup totp/mfa
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password"
     When I type my "email" with status "FORCE_CHANGE_PASSWORD"

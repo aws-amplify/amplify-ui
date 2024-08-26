@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Amplify } from 'aws-amplify';
-import { I18n } from 'aws-amplify/utils';
 import {
   Authenticator,
   AuthenticatorSignUpFormFields,
@@ -11,9 +10,14 @@ import {
 } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
 
-import awsExports from './aws-exports';
 import { toRefs } from 'vue';
-Amplify.configure(awsExports);
+import { importHelper } from '../utils';
+
+const amplifyOutputs = await importHelper(
+  'auth-with-email-and-custom-attributes'
+);
+
+Amplify.configure(amplifyOutputs);
 
 const { validationErrors } = toRefs(useAuthenticator());
 

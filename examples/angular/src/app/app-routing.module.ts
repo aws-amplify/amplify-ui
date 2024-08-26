@@ -106,10 +106,6 @@ const routes: Routes = [
     component: SignUpWithPhoneComponent,
   },
   {
-    path: 'ui/components/authenticator/sign-up-with-email',
-    component: SignUpWithEmailComponent,
-  },
-  {
     path: 'ui/components/authenticator/useAuthenticator',
     component: UseAuthenticatorComponent,
   },

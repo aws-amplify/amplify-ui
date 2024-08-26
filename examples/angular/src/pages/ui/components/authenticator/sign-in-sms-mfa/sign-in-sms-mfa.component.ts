@@ -5,7 +5,11 @@ import { I18n } from 'aws-amplify/utils';
 
 import { translations } from '@aws-amplify/ui';
 
-import awsExports from './aws-exports';
+const amplifyOutputs = (
+  await import(
+    `@environments/auth/auth-with-phone-and-sms-mfa/${process.env.PATH}`
+  )
+).default;
 
 @Component({
   selector: 'sign-in-sms-mfa',
@@ -13,7 +17,7 @@ import awsExports from './aws-exports';
 })
 export class SignInSMSMFAComponent implements OnInit {
   constructor() {
-    Amplify.configure(awsExports);
+    Amplify.configure(amplifyOutputs);
   }
 
   ngOnInit() {
