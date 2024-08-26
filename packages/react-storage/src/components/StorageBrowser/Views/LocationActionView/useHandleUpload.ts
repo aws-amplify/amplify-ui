@@ -73,7 +73,10 @@ export function useHandleUpload({
   React.useEffect(() => {
     const nextTasks = files.map((file) => ({
       cancel: () => setTasks((prev) => removeTask(prev, file.name)),
-      key: file.name,
+      key:
+        file.webkitRelativePath?.length > 0
+          ? file.webkitRelativePath
+          : file.name,
       data: file,
       size: file.size,
       status: 'INITIAL' as const,
