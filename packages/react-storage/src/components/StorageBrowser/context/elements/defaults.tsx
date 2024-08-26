@@ -76,6 +76,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonElementProps>(
           />
         );
       case 'navigate':
+      case 'paginate-current':
+      case 'paginate-next':
+      case 'paginate-previous':
         return (
           <_Button
             {...props}
@@ -89,9 +92,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonElementProps>(
       case 'download':
       case 'refresh':
       case 'sort':
-      case 'paginate-current':
-      case 'paginate-next':
-      case 'paginate-previous':
         return <_Button {...props} size="small" variation="link" ref={ref} />;
       case 'table-data':
         return (

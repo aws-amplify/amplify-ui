@@ -5,8 +5,8 @@ import { StorageBrowserElements } from '../../context/elements';
 import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
 import { CommonControl, ViewComponent } from '../types';
-import { LocationsViewTable } from '../Controls';
 import { useLocationsData } from '../../context/actions';
+import { DataTableControl } from './Controls/DataTable';
 
 const {
   EmptyMessage,
@@ -15,7 +15,6 @@ const {
   Paginate,
   Refresh,
   Search,
-  Table,
   Title,
 } = Controls;
 
@@ -72,6 +71,7 @@ const LocationsEmptyMessage = () => {
   ) : null;
 };
 
+// @ts-expect-error TODO: add Controls assignment
 const LocationsViewControls: LocationsViewControls = () => {
   return (
     <>
@@ -80,7 +80,7 @@ const LocationsViewControls: LocationsViewControls = () => {
       <Paginate />
       <LocationsMessage />
       <Loading />
-      <LocationsViewTable />
+      <DataTableControl />
       <LocationsEmptyMessage />
     </>
   );
@@ -90,7 +90,6 @@ LocationsViewControls.Message = Message;
 LocationsViewControls.Paginate = Paginate;
 LocationsViewControls.Refresh = Refresh;
 LocationsViewControls.Search = Search;
-LocationsViewControls.Table = Table;
 LocationsViewControls.Title = Title;
 
 export const LocationsView: LocationsView = () => {
