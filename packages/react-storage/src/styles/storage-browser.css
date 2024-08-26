@@ -134,7 +134,7 @@
   justify-self: flex-end;
 }
 
-.storage-browser__refresh:has(~ .storage-browser__action-menu) {
+.storage-browser__refresh:has(~ .storage-browser__actions-menu) {
   grid-column: 4 / 5;
 }
 
