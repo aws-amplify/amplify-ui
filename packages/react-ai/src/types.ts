@@ -1,3 +1,4 @@
+import { V6Client } from '@aws-amplify/api-graphql';
 import {
   Conversation as SDKConversation,
   ConversationMessage as SDKConversationMessage,
@@ -39,3 +40,9 @@ export interface SendMesageParameters {
 }
 
 export type SendMessage = (input: SendMesageParameters) => void;
+
+type AIClient<T extends Record<any, any>> = Pick<
+  V6Client<T>,
+  'generations' | 'conversations'
+>;
+export type getSchema<T> = T extends AIClient<infer Schema> ? Schema : never;

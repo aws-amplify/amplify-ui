@@ -1,19 +1,26 @@
-import { createUseAIGeneration, UseAIGenerationHook } from './useAIGeneration';
+import {
+  createUseAIGeneration,
+  UseAIGenerationHookWrapper,
+} from './useAIGeneration';
 import {
   createUseAIConversation,
   UseAIConversationHook,
 } from './useAIConversation';
+import { getSchema } from '../types';
+
+type UseAIHooks<
+  Client extends Record<'generations' | 'conversations', Record<string, any>>,
+  Schema extends Record<any, any>,
+> = {
+  useAIConversation: UseAIConversationHook<
+    Extract<keyof Client['conversations'], string>
+  >;
+} & UseAIGenerationHookWrapper<keyof Client['generations'], Schema>;
 
 export function createAIHooks<
-  T extends Record<'generations' | 'conversations', Record<string, any>>,
->(
-  _client: T
-): {
-  useAIConversation: UseAIConversationHook<
-    Extract<keyof T['conversations'], string>
-  >;
-  useAIGeneration: UseAIGenerationHook<Extract<keyof T['generations'], string>>;
-} {
+  Client extends Record<'generations' | 'conversations', Record<string, any>>,
+  Schema extends getSchema<Client>,
+>(_client: Client): UseAIHooks<Client, Schema> {
   const useAIConversation = createUseAIConversation(_client);
   const useAIGeneration = createUseAIGeneration(_client);
 

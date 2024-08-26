@@ -47,6 +47,7 @@ const SendButton: typeof SendButtonBase = React.forwardRef(
         disabled={isWaitingForResponse || !hasInput}
         type="submit"
         ref={ref}
+        data-testid="send-button"
       />
     );
   }
@@ -68,35 +69,39 @@ const Label = withBaseElementProps(LabelElement, {
   htmlFor: 'text-input',
 });
 
+const useHandleResize = (
+  textAreaRef: React.MutableRefObject<HTMLTextAreaElement | null>
+) => {
+  React.useEffect(() => {
+    const { current } = textAreaRef;
+    const handleResize = () => {
+      if (current) {
+        current.style.height = 'auto';
+        current.style.height = `${current.scrollHeight}px`;
+      }
+    };
+
+    if (current) {
+      current.addEventListener('input', handleResize);
+      handleResize();
+    }
+
+    return () => {
+      if (current) {
+        current.removeEventListener('input', handleResize);
+      }
+    };
+  }, [textAreaRef]);
+};
+
 const TextInput: typeof TextAreaBase = React.forwardRef(
   function TextInput(props, ref) {
     const { setInput } = React.useContext(InputContext);
     const messages = React.useContext(MessagesContext);
     const textAreaRef = React.useRef<HTMLTextAreaElement | null>(null);
+    useHandleResize(textAreaRef);
 
     const isFirstMessage = !messages || messages.length === 0;
-
-    React.useEffect(() => {
-      const textarea = document.getElementById(`${FIELD_BLOCK}-text-input`);
-
-      const handleResize = () => {
-        if (textarea) {
-          textarea.style.height = 'auto';
-          textarea.style.height = `${textarea.scrollHeight}px`;
-        }
-      };
-
-      if (textarea && textarea instanceof HTMLTextAreaElement) {
-        textarea.addEventListener('input', handleResize);
-        handleResize();
-      }
-
-      return () => {
-        if (textarea) {
-          textarea.removeEventListener('input', handleResize);
-        }
-      };
-    });
 
     React.useEffect(() => {
       if (textAreaRef && textAreaRef.current) {
@@ -140,13 +145,12 @@ const InputContainer = withBaseElementProps(View, {
 export const FieldControl: FieldControl = () => {
   const { input, setInput } = React.useContext(InputContext);
   const handleSendMessage = React.useContext(SendMessageContext);
+  const ref = React.useRef<HTMLFormElement | null>(null);
   const responseComponents = React.useContext(ResponseComponentsContext);
   const controls = React.useContext(ControlsContext);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    (e.target as HTMLFormElement).reset();
-
+  const submitMessage = () => {
+    ref.current?.reset();
     const submittedContent: InputContent[] = [];
     if (input?.text) {
       const textContent: InputContent = {
@@ -177,6 +181,27 @@ export const FieldControl: FieldControl = () => {
     if (setInput) setInput({ text: '', files: [] });
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    submitMessage();
+  };
+
+  const handleOnKeyDown: React.KeyboardEventHandler<HTMLTextAreaElement> = (
+    event
+  ) => {
+    const { key, shiftKey } = event;
+
+    if (key === 'Enter' && !shiftKey) {
+      event.preventDefault();
+
+      const hasInput =
+        !!input?.text || (input?.files?.length && input?.files?.length > 0);
+      if (hasInput) {
+        submitMessage();
+      }
+    }
+  };
+
   if (controls?.Form) {
     return (
       <controls.Form
@@ -188,13 +213,18 @@ export const FieldControl: FieldControl = () => {
   }
 
   return (
-    <form className={`${FIELD_BLOCK}__form`} onSubmit={handleSubmit}>
+    <form
+      className={`${FIELD_BLOCK}__form`}
+      onSubmit={handleSubmit}
+      method="post"
+      ref={ref}
+    >
       <AttachFileControl />
       <InputContainer>
         <VisuallyHidden>
           <Label />
         </VisuallyHidden>
-        <TextInput />
+        <TextInput onKeyDown={handleOnKeyDown} />
         <AttachmentListControl />
       </InputContainer>
       <SendButton>
