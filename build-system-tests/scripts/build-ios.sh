@@ -26,7 +26,7 @@ npx react-native-log-ios $MEGA_APP_NAME >$LOG_FILE &
 log "command" "npm start >$LOG_FILE"
 npm start >$LOG_FILE &
 
-# Step 2: Run npm run android in the background
+# Step 2: Run npm run ios in the background
 log "command" "npx pod-install >$LOG_FILE" # To prevent "AsyncStorage is null." https://react-native-async-storage.github.io/async-storage/docs/install/
 npx pod-install >$LOG_FILE
 log "command" "npm run ios >$LOG_FILE"
