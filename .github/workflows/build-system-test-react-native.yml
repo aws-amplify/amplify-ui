@@ -1,19 +1,16 @@
 # Description: this workflow runs build mega-apps that have all the connected components for React Native.
 
-name: POC Build System Test Canary / React Native
+name: Build System Test Canary / React Native
 
 permissions:
   id-token: write # This is required for aws-actions/configure-aws-credentials
 
 on:
-  # schedule:
-  #   - cron: '0 * * * *' # Run at the first minute of every hour
-  pull_request:
-    branches:
-      - rn-log-build-system
+  schedule:
+    - cron: '0 * * * *' # Run at the first minute of every hour
 
 jobs:
-  build: 
+  build:
     uses: ./.github/workflows/reusable-build-system-test-react-native.yml
 
   log-failure-metric:
@@ -24,13 +21,12 @@ jobs:
     if: ${{ failure() }}
     steps:
       - name: Log failure data point to metric BuildSystemTestFailure
-      # uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
-      # with:
-      #   metric-name: BuildSystemTestFailure
-      #   value: 1
-      #   role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
-      #   aws-region: us-east-2
-        run: echo "Logging failure data point to metric BuildSystemTestFailure"
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+        with:
+          metric-name: BuildSystemTestFailure
+          value: 1
+          role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
+          aws-region: us-east-2
 
   log-success-metric:
     # Send a success data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
@@ -40,10 +36,9 @@ jobs:
     if: ${{ success() }}
     steps:
       - name: Log success data point to metric BuildSystemTestFailure
-        # uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
-        # with:
-        #   metric-name: BuildSystemTestFailure
-        #   value: 0
-        #   role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
-        #   aws-region: us-east-2
-        run: echo "Logging success data point to metric BuildSystemTestFailure"
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+        with:
+          metric-name: BuildSystemTestFailure
+          value: 0
+          role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
+          aws-region: us-east-2
