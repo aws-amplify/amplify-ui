@@ -15,6 +15,7 @@ const getInitialState = (actions: LocationActions): ActionSelectState => ({
 });
 
 export type ActionSelectAction<T = string> =
+  | { type: 'ADD_ITEMS'; items: LocationItem[] }
   | { type: 'CLEAR' }
   | { type: 'SET_ACTION'; payload: T }
   | { type: 'SET_LOCATION_ITEM'; item: LocationItem }
@@ -42,6 +43,17 @@ export function actionSelectReducer(
       return {
         ...state,
         selected: { ...state.selected, type: action.payload },
+      };
+    }
+    case 'ADD_ITEMS': {
+      const { items } = action;
+
+      return {
+        ...state,
+        selected: {
+          ...state.selected,
+          items: [...items],
+        },
       };
     }
     case 'CLEAR': {

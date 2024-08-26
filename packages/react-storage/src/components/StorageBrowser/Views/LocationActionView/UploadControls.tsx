@@ -20,6 +20,10 @@ import {
 } from '../Controls/Table';
 
 import { Title } from './Controls/Title';
+import {
+  AddFilesControl,
+  AddFolderControl,
+} from './Controls/AddAdditionalItems';
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
 
 const { Icon, DefinitionDetail, DefinitionList, DefinitionTerm } =
@@ -283,13 +287,17 @@ export const UploadControls = (): JSX.Element => {
     [direction, selection]
   );
 
+  const disabled = tasks.some((task) => task.status === 'PENDING');
+
   return (
     <>
       {fileSelect}
       <Title />
+      <AddFilesControl disabled={disabled} />
+      <AddFolderControl disabled={disabled} />
       <Exit onClick={() => handleUpdateState({ type: 'CLEAR' })} />
       <Primary
-        disabled={tasks.some((task) => task.status === 'PENDING')}
+        disabled={disabled}
         onClick={() => {
           handleUpload();
         }}
