@@ -56,7 +56,7 @@ const getColumnItem = ({
         />
       </ButtonElement>
     ),
-    key: `th=${key}`,
+    key: `th_${key}`,
     className: `${TABLE_HEADER_CLASS_NAME} ${TABLE_HEADER_CLASS_NAME}--${key}`,
     onClick: () => onTableHeaderClick(key),
     'aria-sort': selection === key ? direction : 'none',
