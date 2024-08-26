@@ -46,17 +46,13 @@ const getLocationsData = ({
           className={TABLE_HEADER_BUTTON_CLASS_NAME}
         >
           Name
-          {selection === 'scope' ? (
-            <IconElement
-              variant={
-                direction === 'none'
-                  ? 'sort-indeterminate'
-                  : `sort-${direction}`
-              }
-            />
-          ) : (
-            <IconElement variant="sort-indeterminate" />
-          )}
+          <IconElement
+            variant={
+              selection === 'scope' && direction !== 'none'
+                ? `sort-${direction}`
+                : 'sort-indeterminate'
+            }
+          />
         </ButtonElement>
       ),
       key: 'th-scope',
@@ -71,17 +67,13 @@ const getLocationsData = ({
           className={TABLE_HEADER_BUTTON_CLASS_NAME}
         >
           Type
-          {selection === 'type' ? (
-            <IconElement
-              variant={
-                direction === 'none'
-                  ? 'sort-indeterminate'
-                  : `sort-${direction}`
-              }
-            />
-          ) : (
-            <IconElement variant="sort-indeterminate" />
-          )}
+          <IconElement
+            variant={
+              selection === 'type' && direction !== 'none'
+                ? `sort-${direction}`
+                : 'sort-indeterminate'
+            }
+          />
         </ButtonElement>
       ),
       key: 'th-type',
@@ -96,17 +88,13 @@ const getLocationsData = ({
           className={TABLE_HEADER_BUTTON_CLASS_NAME}
         >
           Permission
-          {selection === 'permission' ? (
-            <IconElement
-              variant={
-                direction === 'none'
-                  ? 'sort-indeterminate'
-                  : `sort-${direction}`
-              }
-            />
-          ) : (
-            <IconElement variant="sort-indeterminate" />
-          )}
+          <IconElement
+            variant={
+              selection === 'permission' && direction !== 'none'
+                ? `sort-${direction}`
+                : 'sort-indeterminate'
+            }
+          />
         </ButtonElement>
       ),
       key: 'th-permission',
