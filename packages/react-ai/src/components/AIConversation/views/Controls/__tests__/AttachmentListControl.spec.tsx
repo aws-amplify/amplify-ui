@@ -11,10 +11,6 @@ interface Input {
   text?: string;
   files?: File[];
 }
-interface InputContext {
-  input?: Input;
-  setInput?: React.Dispatch<React.SetStateAction<Input | undefined>>;
-}
 
 const MOCK_FILES = [
   new File(['some file content'], 'file1.jpeg', { type: 'jpeg' }),
