@@ -3,44 +3,61 @@ import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 
 import createProvider from '../../../createProvider';
 import * as ActionsModule from '../../../context/actions';
-import { DataState } from '@aws-amplify/ui-react-core';
+import * as ControlsModule from '../../../context/controls';
+
 import {
   isValidFolderName,
   CreateFolderControls,
-  CreateFolderMessage,
   FIELD_VALIDATION_MESSAGE,
-  RESULT_SUCCESS_MESSAGE,
-  RESULT_ERROR_MESSAGE,
 } from '../CreateFolderControls';
-import { CreateFolderActionOutput } from '../../../context/actions/createFolderAction';
+
+const INITIAL_PAGINATE_STATE = [
+  { hasNext: false, hasPrevious: false, isLoadingNextPage: false, current: 0 },
+  jest.fn(),
+];
+
+const TEST_ACTIONS = {
+  CREATE_FOLDER: { displayName: 'Create Folder', handler: jest.fn() },
+};
 
 const useActionSpy = jest.spyOn(ActionsModule, 'useAction');
+const useControlSpy = jest.spyOn(ControlsModule, 'useControl');
 
-const listLocations = jest.fn(() =>
-  Promise.resolve({ locations: [], nextToken: undefined })
+useControlSpy.mockImplementation(
+  ({ type }) =>
+    ({
+      ACTION_SELECT: [
+        {
+          actions: TEST_ACTIONS,
+          selected: { type: 'CREATE_FOLDER', items: undefined },
+        },
+        jest.fn(),
+      ],
+      NAVIGATE: [
+        {
+          location: {
+            scope: 's3://test-bucket/test-prefix/*',
+            permission: 'READ',
+            type: 'PREFIX',
+          },
+          history: [{ prefix: 'test-prefix/', position: 0 }],
+          path: 'test-prefix/',
+        },
+        jest.fn(),
+      ],
+      PAGINATE: INITIAL_PAGINATE_STATE,
+    })[type]
 );
 
 const config = {
   getLocationCredentials: jest.fn(),
-  listLocations,
+  listLocations: jest.fn(),
   region: 'region',
   registerAuthListener: jest.fn(),
 };
-const Provider = createProvider({ config });
+const Provider = createProvider({ actions: TEST_ACTIONS, config });
 
-describe('CreateFolderActionView', () => {
-  it('renders a CreateFolderActionView', async () => {
-    await waitFor(() => {
-      expect(
-        render(
-          <Provider>
-            <CreateFolderControls />
-          </Provider>
-        ).container
-      ).toBeDefined();
-    });
-  });
-
+describe('CreateFolderControls', () => {
   it('handles folder creation in the happy path', async () => {
     const handleAction = jest.fn();
     useActionSpy.mockReturnValue([
@@ -72,7 +89,9 @@ describe('CreateFolderActionView', () => {
 
     expect(fieldError).toBe(null);
     expect(handleAction).toHaveBeenCalledTimes(1);
-    expect(handleAction).toHaveBeenCalledWith({ prefix: 'test-folder-name/' });
+    expect(handleAction).toHaveBeenCalledWith({
+      prefix: 'test-prefix/test-folder-name/',
+    });
   });
 
   it('shows a field error when invalid folder name is entered', async () => {
@@ -144,69 +163,6 @@ describe('CreateFolderActionView', () => {
       options: { reset: true },
       prefix: '',
     });
-  });
-
-  it('shows a success message when result is SUCCESS', async () => {
-    const useActionSpy = jest.spyOn(ActionsModule, 'useAction');
-    const handleUpdateActionState = jest.fn();
-
-    const createFolderActionState: DataState<CreateFolderActionOutput> = {
-      data: { result: { key: 'test', status: 'SUCCESS', message: undefined } },
-      hasError: false,
-      isLoading: false,
-      message: undefined,
-    };
-
-    useActionSpy.mockReturnValue([
-      createFolderActionState,
-      handleUpdateActionState,
-    ]);
-
-    await waitFor(() => {
-      render(
-        <Provider>
-          <CreateFolderMessage />
-        </Provider>
-      );
-    });
-
-    const successMessage = screen.getByText(RESULT_SUCCESS_MESSAGE);
-
-    expect(successMessage).toBeInTheDocument();
-
-    useActionSpy.mockClear();
-    handleUpdateActionState.mockClear();
-  });
-  it('shows an error message when result is ERROR', async () => {
-    const useActionSpy = jest.spyOn(ActionsModule, 'useAction');
-    const handleUpdateActionState = jest.fn();
-
-    const createFolderActionState: DataState<CreateFolderActionOutput> = {
-      data: { result: { key: 'test', status: 'ERROR', message: undefined } },
-      hasError: false,
-      isLoading: false,
-      message: undefined,
-    };
-
-    useActionSpy.mockReturnValue([
-      createFolderActionState,
-      handleUpdateActionState,
-    ]);
-
-    await waitFor(() => {
-      render(
-        <Provider>
-          <CreateFolderMessage />
-        </Provider>
-      );
-    });
-
-    const successMessage = screen.getByText(RESULT_ERROR_MESSAGE);
-
-    expect(successMessage).toBeInTheDocument();
-
-    useActionSpy.mockClear();
-    handleUpdateActionState.mockClear();
   });
 });
 

@@ -5,7 +5,7 @@ import {
 import { IconElement } from './IconElement';
 
 export interface StorageBrowserElements {
-  Button: typeof ButtonElement;
+  Button: typeof ButtonElementWithRef;
   DefinitionList: typeof DefinitionListElement;
   DefinitionTerm: typeof DefinitionTermElement;
   DefinitionDetail: typeof DefinitionDetailElement;
@@ -28,15 +28,15 @@ export interface StorageBrowserElements {
   UnorderedList: typeof UnorderedListElement;
   View: typeof ViewElement;
 }
-export type ActionVariant = 'upload-folder' | 'upload-file' | 'create-folder';
+
 export type PaginateVariant = `paginate-${'next' | 'current' | 'previous'}`;
 export type MessageVariant = 'info' | 'success' | 'error' | 'warning';
 export type IconElementProps = React.ComponentProps<typeof IconElement>;
 
 export type ButtonElementProps = React.ComponentProps<typeof ButtonElement>;
-type ButtonElementVariant =
-  | 'action-select-item'
-  | 'action-select-toggle'
+export type ButtonElementVariant =
+  | 'actions-menu-item'
+  | 'actions-menu-toggle'
   | 'action-submit'
   | 'cancel'
   | 'download'
@@ -49,11 +49,6 @@ type ButtonElementVariant =
   | 'sort'
   | 'table-data'
   | PaginateVariant;
-
-export const TestButton = defineBaseElement({
-  type: 'button',
-  displayName: 'Button',
-});
 
 export const DefinitionListElement = defineBaseElementWithRef({
   type: 'dl',
@@ -70,6 +65,7 @@ export const DefinitionDetailElement = defineBaseElementWithRef({
   displayName: 'DefinitionDetail',
 });
 
+export type LabelElementProps = React.ComponentProps<typeof LabelElement>;
 export const LabelElement = defineBaseElementWithRef<'label', 'htmlFor'>({
   type: 'label',
   displayName: 'Label',
@@ -80,6 +76,7 @@ export const NavElement = defineBaseElement({
   displayName: 'Nav',
 });
 
+export type TextElementProps = React.ComponentProps<typeof TextElement>;
 export const TextElement = defineBaseElementWithRef<'p', 'id'>({
   type: 'p',
   displayName: 'Text',
@@ -148,13 +145,19 @@ export const InputElement = defineBaseElementWithRef<
   displayName: 'Input',
 });
 
-export const ButtonElement = defineBaseElementWithRef<
+export const ButtonElementWithRef = defineBaseElementWithRef<
   'button',
   'disabled' | 'onClick' | 'role' | 'type',
   ButtonElementVariant
 >({ type: 'button', displayName: 'Button' });
 
-export const ViewElement = defineBaseElementWithRef<'div', 'id'>({
+export const ButtonElement = defineBaseElement<
+  'button',
+  'disabled' | 'onClick' | 'role' | 'type',
+  ButtonElementVariant
+>({ type: 'button', displayName: 'Button' });
+
+export const ViewElement = defineBaseElementWithRef<'div', 'id' | 'role'>({
   type: 'div',
   displayName: 'View',
 });
@@ -165,7 +168,7 @@ export const SpanElement = defineBaseElementWithRef({
 });
 
 export const StorageBrowserElements: StorageBrowserElements = {
-  Button: ButtonElement,
+  Button: ButtonElementWithRef,
   DefinitionList: DefinitionListElement,
   DefinitionTerm: DefinitionTermElement,
   DefinitionDetail: DefinitionDetailElement,
