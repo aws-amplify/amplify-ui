@@ -192,9 +192,6 @@ describe('CreateFolderControls', () => {
     const successMessage = screen.getByText(RESULT_COMPLETE_MESSAGE);
 
     expect(successMessage).toBeInTheDocument();
-
-    // useActionSpy.mockClear();
-    // handleUpdateActionState.mockClear();
   });
   it('shows a default error message when result is ERROR', async () => {
     const handleAction = jest.fn();
