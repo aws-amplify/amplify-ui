@@ -182,28 +182,6 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
   );
 };
 
-const mergeSelectedFiles = (prevFiles: File[], files: File[]): File[] => {
-  const filesMap = new Map<string, File>();
-
-  prevFiles.forEach((item) => {
-    // If we have previously selected items, use them to create our map of unique items
-    const { name, webkitRelativePath } = item;
-
-    filesMap.set(
-      webkitRelativePath?.length > 0 ? webkitRelativePath : name,
-      item
-    );
-  });
-
-  for (const data of files) {
-    const { name } = data;
-
-    filesMap.set(name, data);
-  }
-
-  return Array.from(filesMap.values());
-};
-
 const parseSelectionData = (
   value: string | string[] | undefined
 ): { type: 'file' | 'folder' | undefined; accept: string | undefined } => {
@@ -222,11 +200,7 @@ const parseSelectionData = (
 export const UploadControls = (): JSX.Element => {
   const [{ history, path }] = useControl({ type: 'NAVIGATE' });
   const [files, setFiles] = React.useState<File[]>([]);
-  const [fileSelect, handleSelect] = useFileSelect((newFiles) => {
-    setFiles((prevFiles) => {
-      return mergeSelectedFiles(prevFiles, newFiles);
-    });
-  });
+  const [fileSelect, handleSelect] = useFileSelect(setFiles);
 
   const [{ selected, actions }, handleUpdateState] = useControl({
     type: 'ACTION_SELECT',
