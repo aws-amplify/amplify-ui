@@ -3,7 +3,6 @@ import { render, screen, waitFor } from '@testing-library/react';
 
 import * as ControlsModule from '../../../context/controls';
 import createProvider from '../../../createProvider';
-import { ActionSelectState } from '../../../context/controls/ActionSelect/ActionSelect';
 
 import { UploadControls, ActionIcon, ICON_CLASS } from '../UploadControls';
 
@@ -13,12 +12,9 @@ const TEST_ACTIONS = {
 
 const useControlSpy = jest.spyOn(ControlsModule, 'useControl');
 
-const actionSelectState: ActionSelectState = {
+const locationActionsState = {
   actions: TEST_ACTIONS,
-  selected: {
-    items: [],
-    type: 'UPLOAD_FILES',
-  },
+  selected: { items: [], type: 'UPLOAD_FILES' },
 };
 
 const navigateState = {
@@ -38,7 +34,7 @@ const navigateState = {
 
 useControlSpy.mockImplementation(({ type }) => {
   if (type === 'ACTION_SELECT') {
-    return [actionSelectState, jest.fn()];
+    return [locationActionsState, jest.fn()];
   }
 
   if (type === 'NAVIGATE') {
@@ -52,7 +48,7 @@ const config = {
   region: 'region',
   registerAuthListener: jest.fn(),
 };
-const Provider = createProvider({ actions: TEST_ACTIONS, config });
+const Provider = createProvider({ config });
 
 describe('UploadControls', () => {
   beforeEach(() => {

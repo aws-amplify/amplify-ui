@@ -2,13 +2,10 @@ import React from 'react';
 import { MergeBaseElements } from '@aws-amplify/ui-react-core/elements';
 
 import { StorageBrowserElements } from './context/elements';
+import { useControl } from './context/controls';
+import { LocationActions } from './context/locationActions';
 import createProvider, { CreateProviderInput } from './createProvider';
 import { LocationsView, LocationDetailView, LocationActionView } from './Views';
-import { useControl } from './context/controls';
-import {
-  ACTIONS_DEFAULT,
-  LocationActions,
-} from './context/controls/locationActions';
 
 const validateRegisterAuthListener = (registerAuthListener: any) => {
   if (typeof registerAuthListener !== 'function') {
@@ -19,7 +16,9 @@ const validateRegisterAuthListener = (registerAuthListener: any) => {
 };
 
 export interface CreateStorageBrowserInput<T, K>
-  extends CreateProviderInput<T, K> {}
+  extends Omit<CreateProviderInput<T, K>, 'actions'> {
+  actions?: K;
+}
 
 export interface StorageBrowser<T extends StorageBrowserElements> {
   (): React.JSX.Element;
@@ -64,9 +63,8 @@ export function createStorageBrowser<
   StorageBrowser: StorageBrowser<ResolvedStorageBrowserElements<T>>;
 } {
   validateRegisterAuthListener(input.config.registerAuthListener);
-  const actions = { ...input.actions, ...ACTIONS_DEFAULT };
 
-  const Provider = createProvider({ ...input, actions });
+  const Provider = createProvider(input);
 
   const StorageBrowser: StorageBrowser<
     ResolvedStorageBrowserElements<T>

@@ -4,7 +4,7 @@ import { isEmptyObject } from '@aws-amplify/ui';
 
 import { ActionsMenu, ActionItemProps } from '../../../components/ActionsMenu';
 import { useControl } from '../../../context/controls';
-import { LocationActions } from '../../../context/controls/locationActions';
+import { LocationActions } from '../../../context/locationActions';
 import { LocationItem, Permission } from '../../../context/types';
 
 const getKeyedFragments = (...nodes: React.ReactNode[]): React.ReactNode[] =>

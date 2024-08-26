@@ -1,9 +1,9 @@
-import { ACTIONS_DEFAULT, OPTIONS_DEFAULT } from '../defaults';
+import { LOCATION_ACTIONS_DEFAULT, OPTIONS_DEFAULT } from '../defaults';
 import { LocationActionOptions } from '../types';
 
 describe('default actions', () => {
   it('contains the expected properties', () => {
-    expect(ACTIONS_DEFAULT).toMatchSnapshot();
+    expect(LOCATION_ACTIONS_DEFAULT).toMatchSnapshot();
   });
 
   it('has the expected behavior for the values of default options', () => {

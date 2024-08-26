@@ -13,7 +13,10 @@ import { ControlProvider } from './context/controls';
 import { StorageBrowserElements } from './context/elements';
 import { Controller } from './Controller';
 import { ErrorBoundary } from './ErrorBoundary';
-import { LocationActions } from './context/controls/locationActions';
+import {
+  LocationActions,
+  resolveLocationActions,
+} from './context/locationActions';
 
 export interface Config
   extends Pick<
@@ -24,7 +27,7 @@ export interface Config
 }
 
 export interface CreateProviderInput<T, K> {
-  actions: K;
+  actions?: K;
   config: Config;
   elements?: T;
 }
@@ -39,6 +42,7 @@ export default function createProvider<
 }: CreateProviderInput<T, K>): (props: {
   children?: React.ReactNode;
 }) => React.JSX.Element {
+  const locationActions = resolveLocationActions(actions);
   const listLocationsAction = createListLocationsAction(config.listLocations);
 
   return function Provider({
@@ -49,7 +53,7 @@ export default function createProvider<
     return (
       <ErrorBoundary>
         <ElementsProvider elements={elements}>
-          <ControlProvider actions={actions}>
+          <ControlProvider actions={locationActions}>
             <LocationConfigProvider {...config}>
               <ActionProvider listLocationsAction={listLocationsAction}>
                 <Controller />

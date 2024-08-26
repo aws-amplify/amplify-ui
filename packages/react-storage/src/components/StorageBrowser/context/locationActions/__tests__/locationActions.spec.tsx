@@ -1,24 +1,21 @@
-import {
-  actionSelectReducer,
-  ActionSelectState,
-  ActionSelectAction,
-} from '../ActionSelect';
+import { locationActionsReducer } from '../locationActions';
+import { LocationActionsState, LocationActionsAction } from '../types';
 
-describe('actionSelectReducer', () => {
+describe('locationActionsReducer', () => {
   it('handles a SET_ACTION action as expected', () => {
-    const initialState: ActionSelectState = {
+    const initialState: LocationActionsState = {
       actions: {},
       selected: {
         type: undefined,
         items: undefined,
       },
     };
-    const action: ActionSelectAction = {
+    const action: LocationActionsAction = {
       payload: 'UPLOAD_FILES',
       type: 'SET_ACTION',
     };
 
-    const newState = actionSelectReducer(initialState, action);
+    const newState = locationActionsReducer(initialState, action);
     const expectedState = {
       actions: {},
       selected: {
@@ -30,15 +27,15 @@ describe('actionSelectReducer', () => {
   });
 
   it('handles a CLEAR action as expected', () => {
-    const initialState: ActionSelectState = {
+    const initialState: LocationActionsState = {
       actions: {},
       selected: {
         type: 'UPLOAD_FILES',
         items: [],
       },
     };
-    const action: ActionSelectAction = { type: 'CLEAR' };
-    const newState = actionSelectReducer(initialState, action);
+    const action: LocationActionsAction = { type: 'CLEAR' };
+    const newState = locationActionsReducer(initialState, action);
 
     const expectedState = {
       actions: {},

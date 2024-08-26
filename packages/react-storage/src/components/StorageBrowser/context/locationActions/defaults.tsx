@@ -1,7 +1,6 @@
 import React from 'react';
-import { IconElement } from '../../elements/IconElement';
+import { IconElement } from '../elements/IconElement';
 
-import { TaskActionOutput, TaskActionInput } from '../../types';
 import { LocationAction } from './types';
 
 export const OPTIONS_DEFAULT: LocationAction['options'] = {
@@ -9,11 +8,7 @@ export const OPTIONS_DEFAULT: LocationAction['options'] = {
   hide: (permission) => permission === 'READ',
 };
 
-const handler = (_: TaskActionInput): Promise<TaskActionOutput> =>
-  Promise.resolve({ result: undefined });
-
-const CREATE_FOLDER: LocationAction = {
-  handler,
+const CREATE_FOLDER: Omit<LocationAction, 'handler'> = {
   options: {
     ...OPTIONS_DEFAULT,
     displayName: 'Create Folder',
@@ -21,8 +16,7 @@ const CREATE_FOLDER: LocationAction = {
   },
 };
 
-const UPLOAD_FOLDER: LocationAction = {
-  handler,
+const UPLOAD_FOLDER: Omit<LocationAction, 'handler'> = {
   options: {
     ...OPTIONS_DEFAULT,
     displayName: 'Upload Folder',
@@ -31,8 +25,7 @@ const UPLOAD_FOLDER: LocationAction = {
   },
 };
 
-const UPLOAD_FILES: LocationAction = {
-  handler,
+const UPLOAD_FILES: Omit<LocationAction, 'handler'> = {
   options: {
     ...OPTIONS_DEFAULT,
     displayName: 'Upload Files',
@@ -41,4 +34,10 @@ const UPLOAD_FILES: LocationAction = {
   },
 };
 
-export const ACTIONS_DEFAULT = { CREATE_FOLDER, UPLOAD_FILES, UPLOAD_FOLDER };
+export const LOCATION_ACTIONS_DEFAULT = {
+  CREATE_FOLDER,
+  UPLOAD_FILES,
+  UPLOAD_FOLDER,
+};
+
+export type LocationActionsDefault = typeof LOCATION_ACTIONS_DEFAULT;

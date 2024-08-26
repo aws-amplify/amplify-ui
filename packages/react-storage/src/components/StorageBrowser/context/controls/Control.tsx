@@ -1,11 +1,14 @@
 import React from 'react';
 import { NavigateProvider, NavigateContext } from './Navigate';
 import { PaginateProvider, PaginateContext } from './Paginate';
-import { ActionSelectProvider, ActionSelectContext } from './ActionSelect';
-import { LocationActions } from './locationActions';
+import {
+  LocationActionsProvider,
+  LocationActionsContext,
+} from '../locationActions';
+import { LocationActions } from '../locationActions';
 
 const CONTEXTS = {
-  ACTION_SELECT: ActionSelectContext,
+  ACTION_SELECT: LocationActionsContext,
   NAVIGATE: NavigateContext,
   PAGINATE: PaginateContext,
 };
@@ -21,9 +24,9 @@ export function ControlProvider({
 }): React.JSX.Element {
   return (
     <NavigateProvider>
-      <ActionSelectProvider actions={actions}>
+      <LocationActionsProvider actions={actions}>
         <PaginateProvider>{children}</PaginateProvider>
-      </ActionSelectProvider>
+      </LocationActionsProvider>
     </NavigateProvider>
   );
 }

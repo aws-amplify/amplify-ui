@@ -55,7 +55,7 @@ const config = {
   region: 'region',
   registerAuthListener: jest.fn(),
 };
-const Provider = createProvider({ actions: TEST_ACTIONS, config });
+const Provider = createProvider({ config });
 
 describe('CreateFolderControls', () => {
   it('handles folder creation in the happy path', async () => {

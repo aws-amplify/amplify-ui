@@ -3,7 +3,6 @@
 exports[`default actions contains the expected properties 1`] = `
 {
   "CREATE_FOLDER": {
-    "handler": [Function],
     "options": {
       "disable": [Function],
       "displayName": "Create Folder",
@@ -14,7 +13,6 @@ exports[`default actions contains the expected properties 1`] = `
     },
   },
   "UPLOAD_FILES": {
-    "handler": [Function],
     "options": {
       "disable": [Function],
       "displayName": "Upload Files",
@@ -26,7 +24,6 @@ exports[`default actions contains the expected properties 1`] = `
     },
   },
   "UPLOAD_FOLDER": {
-    "handler": [Function],
     "options": {
       "disable": [Function],
       "displayName": "Upload Folder",

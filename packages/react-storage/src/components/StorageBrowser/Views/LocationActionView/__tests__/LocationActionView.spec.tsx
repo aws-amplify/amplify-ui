@@ -23,7 +23,7 @@ const config = {
   region: 'region',
   registerAuthListener: jest.fn(),
 };
-const Provider = createProvider({ actions: TEST_ACTIONS, config });
+const Provider = createProvider({ config });
 
 describe('LocationActionView', () => {
   it('renders a `LocationActionView`', async () => {
