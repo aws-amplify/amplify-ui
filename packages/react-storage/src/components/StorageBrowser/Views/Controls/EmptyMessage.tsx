@@ -5,8 +5,14 @@ import { CLASS_BASE } from '../constants';
 
 const BLOCK_NAME = `${CLASS_BASE}__empty-message`;
 
-export const EmptyMessageControl = (): React.JSX.Element => (
+interface EmptyMessageControlProps {
+  children?: React.ReactNode;
+}
+
+export const EmptyMessageControl = ({
+  children,
+}: EmptyMessageControlProps): React.JSX.Element => (
   <ViewElement className={BLOCK_NAME} variant="empty-message">
-    No items to show.
+    {children}
   </ViewElement>
 );

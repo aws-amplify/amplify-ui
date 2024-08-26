@@ -78,7 +78,9 @@ const LocationDetailEmptyMessage = () => {
   const shouldShowEmptyMessage =
     data.result.length === 0 && !isLoading && !hasError;
 
-  return shouldShowEmptyMessage ? <EmptyMessage /> : null;
+  return shouldShowEmptyMessage ? (
+    <EmptyMessage>No items to show.</EmptyMessage>
+  ) : null;
 };
 
 // @ts-expect-error TODO: add Controls assignment

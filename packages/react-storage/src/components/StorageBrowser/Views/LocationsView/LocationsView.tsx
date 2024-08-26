@@ -67,7 +67,9 @@ const LocationsEmptyMessage = () => {
   const shouldShowEmptyMessage =
     data.result.length === 0 && !isLoading && !hasError;
 
-  return shouldShowEmptyMessage ? <EmptyMessage /> : null;
+  return shouldShowEmptyMessage ? (
+    <EmptyMessage>No locations to show.</EmptyMessage>
+  ) : null;
 };
 
 const LocationsViewControls: LocationsViewControls = () => {
