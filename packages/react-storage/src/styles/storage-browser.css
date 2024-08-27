@@ -120,7 +120,7 @@
 
 .storage-browser__destination {
   grid-column: 1 / 3;
-  margin-inline-start: var(--storage-browser-gap);
+  margin: 0 0 0 var(--storage-browser-gap);
 }
 
 .storage-browser__summary__definition,
