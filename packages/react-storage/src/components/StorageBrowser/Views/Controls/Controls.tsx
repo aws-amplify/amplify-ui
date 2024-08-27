@@ -24,7 +24,7 @@ export interface Controls<
   Download: typeof DownloadControl;
   EmptyMessage: typeof EmptyMessageControl;
   Exit: typeof ExitControl;
-  Loading: LoadingControl<T>;
+  Loading: typeof LoadingControl;
   Message: typeof MessageControl;
   Overwrite: typeof OverwriteControl;
   Paginate: PaginateControl<T>;
@@ -35,7 +35,7 @@ export interface Controls<
   Summary: SummaryControl<T>;
   Table: TableControl<T>;
   Target: TargetControl<T>;
-  Title: TitleControl<T>;
+  Title: typeof TitleControl;
 }
 
 export const Controls: Controls = {
