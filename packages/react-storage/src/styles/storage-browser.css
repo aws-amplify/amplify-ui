@@ -14,7 +14,7 @@
 
 .storage-browser__title {
   margin: 0;
-  grid-column: 1 / 4;
+  grid-column: 1 / 3;
   margin-inline-start: var(--storage-browser-gap);
 }
 
@@ -62,34 +62,10 @@
 
 .storage-browser__target__field {
   grid-column: 1 / -1;
-  display: inline-grid;
-  gap: var(--storage-browser-gap);
-  grid-template-rows: repeat(3, auto);
-  grid-template-columns: 1fr auto;
-  grid-template-areas:
-    'label label'
-    'input submit'
-    'error error';
-}
-
-.storage-browser__target__label {
-  grid-area: label;
-}
-.storage-browser__target__input {
-  grid-area: input;
-}
-.storage-browser__target__button {
-  grid-area: submit;
-}
-.storage-browser__target__error {
-  grid-area: error;
-}
-.storage-browser__target__destination {
   display: flex;
+  flex-direction: column;
+  margin-inline-start: var(--storage-browser-gap);
   gap: var(--storage-browser-gap);
-}
-.storage-browser__target__destination__value {
-  word-break: break-word;
 }
 
 .storage-browser__message {
@@ -97,6 +73,7 @@
   align-items: flex-start;
   display: flex;
   gap: var(--storage-browser-gap);
+  margin-inline-start: var(--storage-browser-gap);
 }
 .storage-browser__message__icon,
 .storage-browser__message__dismiss {
@@ -116,7 +93,7 @@
 
 .storage-browser__destination {
   grid-column: 1 / 3;
-  margin: -0;
+  margin-inline-start: var(--storage-browser-gap);
 }
 
 .storage-browser__summary__definition,
@@ -221,15 +198,13 @@
 }
 
 .storage-browser__primary {
-  grid-column: 5 / -1;
-  grid-row-start: 1;
+  grid-column: 4 / -1;
   justify-self: flex-end;
 }
 
 .storage-browser__exit {
-  grid-column: 4 / 5;
-  grid-row-start: 1;
-  justify-self: flex-end;
+  grid-column: 1 / -1;
+  justify-self: flex-start;
 }
 
 .storage-browser__add-files {
