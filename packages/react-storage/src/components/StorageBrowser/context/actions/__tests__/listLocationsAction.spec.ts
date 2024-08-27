@@ -72,13 +72,13 @@ describe('createListLocationsAction', () => {
   });
 
   it('should paginate with default page limit and provide next token', async () => {
-    // assume, total items: 150; default page limit: 100
+    // assume, total items: 1500; default page limit: 1000
     mockListLocations.mockResolvedValueOnce({
-      locations: generateMockLocations(60),
+      locations: generateMockLocations(600),
       nextToken: 'next',
     });
     mockListLocations.mockResolvedValueOnce({
-      locations: generateMockLocations(40),
+      locations: generateMockLocations(400),
       nextToken: 'next-oooo',
     });
 
@@ -91,15 +91,15 @@ describe('createListLocationsAction', () => {
 
     expect(mockListLocations).toHaveBeenCalledTimes(2);
     expect(mockListLocations).toHaveBeenCalledWith({
-      pageSize: 100,
+      pageSize: 1000,
       nextToken: undefined,
     });
     expect(mockListLocations).toHaveBeenCalledWith({
-      pageSize: 40,
+      pageSize: 400,
       nextToken: 'next',
     });
 
-    expect(output.result).toHaveLength(100);
+    expect(output.result).toHaveLength(1000);
     expect(output.nextToken).toBe('next-oooo');
   });
 

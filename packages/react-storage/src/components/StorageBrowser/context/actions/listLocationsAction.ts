@@ -11,7 +11,7 @@ import {
   Permission,
 } from '../types';
 
-const PAGE_SIZE = 100;
+const PAGE_SIZE = 1000;
 
 export interface ListLocationsActionOptions<T>
   extends Omit<ListActionOptions<T>, 'delimiter'> {}
