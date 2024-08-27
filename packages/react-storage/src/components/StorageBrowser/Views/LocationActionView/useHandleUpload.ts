@@ -94,7 +94,6 @@ export function useHandleUpload({
         const input: UploadDataWithPathInput = {
           path: `${prefix}${key}`,
           data,
-
           options: {
             bucket: { bucketName, region },
             locationCredentialsProvider: credentialsProvider,

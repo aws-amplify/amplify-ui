@@ -201,14 +201,14 @@ export const UploadControls = (): JSX.Element => {
   const [{ history, path }] = useControl({ type: 'NAVIGATE' });
   const [files, setFiles] = React.useState<File[]>([]);
   const [fileSelect, handleSelect] = useFileSelect(setFiles);
-  const [preventOverwrite, setPreventOverwrite] = React.useState<boolean>(true);
+  const [overwrite, setOverwrite] = React.useState(false);
   const [{ selected, actions }, handleUpdateState] = useControl({
     type: 'ACTION_SELECT',
   });
 
   const [tasks, handleUpload] = useHandleUpload({
     prefix: path,
-    preventOverwrite,
+    preventOverwrite: !overwrite,
     files,
   });
 
@@ -317,8 +317,10 @@ export const UploadControls = (): JSX.Element => {
       </Primary>
       <Destination>{history[history.length - 1].prefix}</Destination>
       <Overwrite
-        checked={preventOverwrite}
-        handleChange={() => setPreventOverwrite(!preventOverwrite)}
+        defaultChecked={overwrite}
+        handleChange={() => {
+          setOverwrite((overwrite) => !overwrite);
+        }}
       />
       <Summary />
       <Table

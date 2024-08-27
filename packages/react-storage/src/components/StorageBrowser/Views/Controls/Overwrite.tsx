@@ -8,20 +8,20 @@ import {
 } from '../../context/elements/definitions';
 
 const BLOCK_NAME = `${CLASS_BASE}__overwrite`;
-export const LABEL_TEXT = "Don't overwrite existing files with the same name.";
+export const LABEL_TEXT = 'Overwrite existing files';
 
 interface OverwriteControlProps {
-  checked?: boolean;
+  defaultChecked?: boolean;
   handleChange?: () => void;
 }
 
 export const OverwriteControl = ({
-  checked,
+  defaultChecked,
   handleChange,
 }: OverwriteControlProps): React.JSX.Element => (
   <ViewElement className={BLOCK_NAME}>
     <InputElement
-      checked={checked}
+      defaultChecked={defaultChecked}
       onChange={handleChange}
       type="checkbox"
       id="overwrite"
