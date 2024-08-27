@@ -18,6 +18,11 @@ import { fieldcontrol, FieldControlTokens } from './fieldControl';
 import { fieldgroup, FieldGroupTokens } from './fieldGroup';
 import { fieldset, FieldsetTokens } from './fieldset';
 import { fieldmessages, FieldMessagesTokens } from './fieldMessages';
+import {
+  fileuploader,
+  FileUploaderTokens,
+  storagemanager,
+} from './fileuploader';
 import { flex, FlexTokens } from './flex';
 import { heading, HeadingTokens } from './heading';
 import { highlightmatch, HighlightMatchTokens } from './highlightMatch';
@@ -42,7 +47,6 @@ import { select, SelectTokens } from './select';
 import { selectfield, SelectFieldTokens } from './selectField';
 import { sliderfield, SliderFieldTokens } from './sliderField';
 import { stepperfield, StepperFieldTokens } from './stepperField';
-import { storagemanager, StorageManagerTokens } from './storagemanager';
 import { switchfield, SwitchFieldTokens } from './switchField';
 import { table, TableTokens } from './table';
 import { tabs, TabsTokens } from './tabs';
@@ -78,6 +82,7 @@ type BaseComponentTokens<Output extends OutputVariantKey> = {
   fieldcontrol?: FieldControlTokens<Output>;
   fieldgroup?: FieldGroupTokens<Output>;
   fieldmessages?: FieldMessagesTokens<Output>;
+  fileuploader?: FileUploaderTokens<Output>;
   flex?: FlexTokens<Output>;
   heading?: HeadingTokens<Output>;
   highlightmatch?: HighlightMatchTokens<Output>;
@@ -102,7 +107,7 @@ type BaseComponentTokens<Output extends OutputVariantKey> = {
   selectfield?: SelectFieldTokens<Output>;
   sliderfield?: SliderFieldTokens<Output>;
   stepperfield?: StepperFieldTokens<Output>;
-  storagemanager?: StorageManagerTokens<Output>;
+  storagemanager?: FileUploaderTokens<Output>;
   switchfield?: SwitchFieldTokens<Output>;
   table?: TableTokens<Output>;
   tabs?: TabsTokens<Output>;
@@ -146,6 +151,7 @@ export const components: DefaultComponentTokens = {
   fieldgroup,
   fieldmessages,
   fieldset,
+  fileuploader,
   flex,
   heading,
   icon,

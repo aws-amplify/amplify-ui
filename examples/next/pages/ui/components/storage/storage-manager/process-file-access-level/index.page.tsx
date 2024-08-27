@@ -1,15 +1,12 @@
 import { Amplify } from 'aws-amplify';
 import { withAuthenticator } from '@aws-amplify/ui-react';
-import {
-  StorageManager,
-  StorageManagerProps,
-} from '@aws-amplify/ui-react-storage';
+import { FileUploader, FileUploaderProps } from '@aws-amplify/ui-react-storage';
 import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
-const processFile: StorageManagerProps['processFile'] = async ({ file }) => {
+const processFile: FileUploaderProps['processFile'] = async ({ file }) => {
   const fileExtension = file.name.split('.').pop();
 
   return file
@@ -24,9 +21,9 @@ const processFile: StorageManagerProps['processFile'] = async ({ file }) => {
     });
 };
 
-export function StorageManagerExample() {
+export function FileUploaderExample() {
   return (
-    <StorageManager
+    <FileUploader
       acceptedFileTypes={['image/*']}
       path={({ identityId }) => `private/${identityId}/`}
       maxFileCount={3}
@@ -35,4 +32,4 @@ export function StorageManagerExample() {
     />
   );
 }
-export default withAuthenticator(StorageManagerExample);
+export default withAuthenticator(FileUploaderExample);

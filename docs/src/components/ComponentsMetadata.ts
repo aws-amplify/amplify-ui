@@ -19,6 +19,7 @@ type ComponentNameKey =
   | 'Divider'
   | 'DropZone'
   | 'Fieldset'
+  | 'FileUploader'
   | 'Flex'
   | 'Grid'
   | 'Heading'
@@ -45,7 +46,6 @@ type ComponentNameKey =
   | 'SelectField'
   | 'StepperField'
   | 'StorageImage'
-  | 'StorageManager'
   | 'SwitchField'
   | 'Table'
   | 'Tabs'
@@ -607,81 +607,81 @@ export const ComponentsMetadata: ComponentClassNameItems = {
     components: ['StorageImage'],
     description: 'Class applied to the img tag',
   },
-  StorageManager: {
-    className: ComponentClassName.StorageManager,
-    components: ['StorageManager'],
+  FileUploader: {
+    className: ComponentClassName.FileUploader,
+    components: ['FileUploader'],
   },
-  StorageManagerDropZone: {
-    className: ComponentClassName.StorageManagerDropZone,
-    components: ['StorageManager'],
+  FileUploaderDropZone: {
+    className: ComponentClassName.FileUploaderDropZone,
+    components: ['FileUploader'],
   },
-  StorageManagerDropZoneIcon: {
-    className: ComponentClassName.StorageManagerDropZoneIcon,
-    components: ['StorageManager'],
+  FileUploaderDropZoneIcon: {
+    className: ComponentClassName.FileUploaderDropZoneIcon,
+    components: ['FileUploader'],
   },
-  StorageManagerDropZoneText: {
-    className: ComponentClassName.StorageManagerDropZoneText,
-    components: ['StorageManager'],
+  FileUploaderDropZoneText: {
+    className: ComponentClassName.FileUploaderDropZoneText,
+    components: ['FileUploader'],
   },
-  StorageManagerFilePicker: {
-    className: ComponentClassName.StorageManagerFilePicker,
-    components: ['StorageManager'],
+  FileUploaderFilePicker: {
+    className: ComponentClassName.FileUploaderFilePicker,
+    components: ['FileUploader'],
   },
-  StorageManagerFile: {
-    className: ComponentClassName.StorageManagerFile,
-    components: ['StorageManager'],
+  FileUploaderFile: {
+    className: ComponentClassName.FileUploaderFile,
+    components: ['FileUploader'],
   },
-  StorageManagerFileWrapper: {
-    className: ComponentClassName.StorageManagerFileWrapper,
-    components: ['StorageManager'],
+  FileUploaderFileWrapper: {
+    className: ComponentClassName.FileUploaderFileWrapper,
+    components: ['FileUploader'],
   },
-  StorageManagerFileList: {
-    className: ComponentClassName.StorageManagerFileList,
-    components: ['StorageManager'],
+  FileUploaderFileList: {
+    className: ComponentClassName.FileUploaderFileList,
+    components: ['FileUploader'],
   },
-  StorageManagerFileName: {
-    className: ComponentClassName.StorageManagerFileName,
-    components: ['StorageManager'],
+  FileUploaderFileName: {
+    className: ComponentClassName.FileUploaderFileName,
+    components: ['FileUploader'],
   },
-  StorageManagerLoader: {
-    className: ComponentClassName.StorageManagerLoader,
-    components: ['StorageManager'],
+  FileUploaderLoader: {
+    className: ComponentClassName.FileUploaderLoader,
+    components: ['FileUploader'],
   },
-  StorageManagerFileSize: {
-    className: ComponentClassName.StorageManagerFileSize,
-    components: ['StorageManager'],
+  FileUploaderFileSize: {
+    className: ComponentClassName.FileUploaderFileSize,
+    components: ['FileUploader'],
   },
-  StorageManagerFileInfo: {
-    className: ComponentClassName.StorageManagerFileInfo,
-    components: ['StorageManager'],
+  FileUploaderFileInfo: {
+    className: ComponentClassName.FileUploaderFileInfo,
+    components: ['FileUploader'],
   },
-  StorageManagerFileImage: {
-    className: ComponentClassName.StorageManagerFileImage,
-    components: ['StorageManager'],
+  FileUploaderFileImage: {
+    className: ComponentClassName.FileUploaderFileImage,
+    components: ['FileUploader'],
   },
-  StorageManagerFileMain: {
-    className: ComponentClassName.StorageManagerFileMain,
-    components: ['StorageManager'],
+  FileUploaderFileMain: {
+    className: ComponentClassName.FileUploaderFileMain,
+    components: ['FileUploader'],
   },
-  StorageManagerFileStatus: {
-    className: ComponentClassName.StorageManagerFileStatus,
-    components: ['StorageManager'],
+  FileUploaderFileStatus: {
+    className: ComponentClassName.FileUploaderFileStatus,
+    components: ['FileUploader'],
   },
-  StorageManagerPreviewer: {
-    className: ComponentClassName.StorageManagerPreviewer,
-    components: ['StorageManager'],
+  FileUploaderPreviewer: {
+    className: ComponentClassName.FileUploaderPreviewer,
+    components: ['FileUploader'],
   },
-  StorageManagerPreviewerText: {
-    className: ComponentClassName.StorageManagerPreviewerText,
-    components: ['StorageManager'],
+  FileUploaderPreviewerText: {
+    className: ComponentClassName.FileUploaderPreviewerText,
+    components: ['FileUploader'],
   },
-  StorageManagerPreviewerActions: {
-    className: ComponentClassName.StorageManagerPreviewerActions,
-    components: ['StorageManager'],
+  FileUploaderPreviewerActions: {
+    className: ComponentClassName.FileUploaderPreviewerActions,
+    components: ['FileUploader'],
   },
-  StorageManagerPreviewerFooter: {
-    className: ComponentClassName.StorageManagerPreviewerFooter,
-    components: ['StorageManager'],
+  FileUploaderPreviewerFooter: {
+    className: ComponentClassName.FileUploaderPreviewerFooter,
+    components: ['FileUploader'],
   },
   SwitchField: {
     className: ComponentClassName.SwitchField,

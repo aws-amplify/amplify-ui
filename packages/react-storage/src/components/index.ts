@@ -1,12 +1,12 @@
 export { StorageImage, StorageImageProps } from './StorageImage';
 
 export {
-  StorageManager,
-  StorageManagerProps,
-  DropZoneProps,
   ContainerProps,
+  DropZoneProps,
+  FileListFooterProps,
+  FileListHeaderProps,
   FileListProps,
   FilePickerProps,
-  FileListHeaderProps,
-  FileListFooterProps,
-} from './StorageManager';
+  FileUploader,
+  FileUploaderProps,
+} from './FileUploader';

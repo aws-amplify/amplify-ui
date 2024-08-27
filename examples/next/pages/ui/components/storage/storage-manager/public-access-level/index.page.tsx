@@ -1,12 +1,12 @@
 import { Amplify } from 'aws-amplify';
-import { StorageManager } from '@aws-amplify/ui-react-storage';
+import { FileUploader } from '@aws-amplify/ui-react-storage';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
-export function StorageManagerExample() {
+export function FileUploaderExample() {
   return (
-    <StorageManager
+    <FileUploader
       acceptedFileTypes={['image/*']}
       accessLevel="guest"
       maxFileCount={3}
@@ -15,4 +15,4 @@ export function StorageManagerExample() {
     />
   );
 }
-export default StorageManagerExample;
+export default FileUploaderExample;

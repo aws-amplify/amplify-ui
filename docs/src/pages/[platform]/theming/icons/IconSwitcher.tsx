@@ -42,7 +42,7 @@ import {
   HiStar,
   HiUpload,
 } from 'react-icons/hi';
-import { StorageManager } from '@aws-amplify/ui-react-storage';
+import { FileUploader } from '@aws-amplify/ui-react-storage';
 import {
   FcExpand,
   FcHighPriority,
@@ -85,7 +85,7 @@ const iconMap: Record<string, IconsContextInterface> = {
       add: <FiPlus />,
       remove: <FiMinus />,
     },
-    storageManager: {
+    fileUploader: {
       upload: <FiUploadCloud />,
     },
   },
@@ -118,7 +118,7 @@ const iconMap: Record<string, IconsContextInterface> = {
       add: <HiPlus />,
       remove: <HiMinus />,
     },
-    storageManager: {
+    fileUploader: {
       upload: <HiUpload />,
     },
   },
@@ -148,7 +148,7 @@ const iconMap: Record<string, IconsContextInterface> = {
       add: <FcPlus />,
       remove: <FcMinus />,
     },
-    storageManager: {
+    fileUploader: {
       upload: <FcUpload />,
     },
   },
@@ -195,7 +195,7 @@ export default function IconProviderExample() {
             <Rating value={3.5} />
           </Flex>
         </Flex>
-        <StorageManager accessLevel="guest" maxFileCount={5} />
+        <FileUploader accessLevel="guest" maxFileCount={5} />
       </Flex>
     </IconsProvider>
   );

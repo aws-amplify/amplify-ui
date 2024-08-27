@@ -4,17 +4,17 @@ import {
   useAuthenticator,
   withAuthenticator,
 } from '@aws-amplify/ui-react';
-import { StorageManager } from '@aws-amplify/ui-react-storage';
+import { FileUploader } from '@aws-amplify/ui-react-storage';
 
 import '@aws-amplify/ui-react/styles.css';
 import amplifyOutputs from './amplify_outputs';
 Amplify.configure(amplifyOutputs);
 
-export function StorageManagerExample() {
+export function FileUploaderExample() {
   const { signOut } = useAuthenticator((context) => [context.signOut]);
   return (
     <>
-      <StorageManager
+      <FileUploader
         acceptedFileTypes={['image/*']}
         path={({ identityId }) => `private/${identityId}/`}
         maxFileCount={3}
@@ -25,4 +25,4 @@ export function StorageManagerExample() {
     </>
   );
 }
-export default withAuthenticator(StorageManagerExample);
+export default withAuthenticator(FileUploaderExample);

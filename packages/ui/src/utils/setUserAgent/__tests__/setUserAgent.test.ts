@@ -3,10 +3,10 @@ import * as UserAgentModule from '@aws-amplify/core/internals/utils';
 import {
   ACCOUNT_SETTINGS_INPUT_BASE,
   AUTHENTICATOR_INPUT_BASE,
+  FILE_UPLOADER_INPUT_BASE,
   IN_APP_MESSAGING_INPUT_BASE,
   LOCATION_SEARCH_INPUT_BASE,
   MAP_VIEW_INPUT_BASE,
-  STORAGE_MANAGER_INPUT_BASE,
 } from '../constants';
 import { setUserAgent } from '..';
 import { SetUserAgentOptions } from '../setUserAgent';
@@ -120,9 +120,9 @@ describe('setUserAgent', () => {
     });
   });
 
-  it('passes the expected input for StorageManager', () => {
+  it('passes the expected input for FileUploader', () => {
     const details: SetUserAgentOptions = {
-      componentName: 'StorageManager',
+      componentName: 'FileUploader',
       packageName: 'react-storage',
       version: '1.0.0',
     };
@@ -131,8 +131,8 @@ describe('setUserAgent', () => {
 
     expect(setCustomUserAgentSpy).toHaveBeenCalledTimes(1);
     expect(setCustomUserAgentSpy).toHaveBeenCalledWith({
-      ...STORAGE_MANAGER_INPUT_BASE,
-      additionalDetails: [['StorageManager'], ['ui-react-storage', '1.0.0']],
+      ...FILE_UPLOADER_INPUT_BASE,
+      additionalDetails: [['FileUploader'], ['ui-react-storage', '1.0.0']],
     });
   });
 });
