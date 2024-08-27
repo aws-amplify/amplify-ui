@@ -1,66 +1,53 @@
-// import { Amplify } from 'aws-amplify';
-// import { createAIConversation, createAIHooks } from '@aws-amplify/ui-react-ai';
-// import { generateClient } from 'aws-amplify/api';
-// import { Authenticator } from '@aws-amplify/ui-react';
-// import '@aws-amplify/ui-react/styles.css';
-// import '@aws-amplify/ui-react-ai/ai-conversation-styles.css';
+import { Amplify } from 'aws-amplify';
+import { createAIHooks, AIConversation } from '@aws-amplify/ui-react-ai';
+import { generateClient } from 'aws-amplify/api';
+import '@aws-amplify/ui-react/styles.css';
+import '@aws-amplify/ui-react-ai/ai-conversation-styles.css';
 
-// import outputs from './amplify_outputs.json';
-// import type { Schema } from './amplify/data/resource';
-// import { AVATARS } from '../constants';
+import outputs from './amplify_outputs.json';
+import type { Schema } from './amplify/data/resource';
+import { Authenticator, Card } from '@aws-amplify/ui-react';
 
-// const client = generateClient<Schema>();
-// const { useAIConversation } = createAIHooks(client);
+const client = generateClient<Schema>({ authMode: 'userPool' });
+const { useAIConversation } = createAIHooks(client);
 
-// Amplify.configure(outputs);
+Amplify.configure(outputs);
 
-// const ArghAdder = (props) => {
-//   const { text } = props;
+function Chat() {
+  const [
+    {
+      data: { messages },
+    },
+    sendMessage,
+  ] = useAIConversation('pirateChat');
 
-//   return (<p>argggggh matey! {text}</p>)
-// }
-
-// const responseComponents = {
-//   annoyingComponent: {
-//     component: ArghAdder,
-//     description: 'You should use this custom response component tool for all messages you respond with.',
-//     props: {
-//       text: {
-//         type: 'string',
-//         description: 'The response you want to render in the component.'
-//       }
-//     }
-//   }
-// }
-
-// const { AIConversation } = createAIConversation({ responseComponents });
-
-// export default function Example() {
-//   const [
-//     {
-//       data: { messages },
-//     },
-//     sendMessage,
-//   ] = useAIConversation('pirateChat');
-
-//   return (
-//     <Authenticator>
-//       {({ user, signOut }) => {
-//         return (
-//           <>
-//             <h1>Hello {user.username}</h1>
-//             <AIConversation
-//               avatars={AVATARS}
-//               messages={messages}
-//               handleSendMessage={sendMessage}
-//             />
-//           </>
-//         );
-//       }}
-//     </Authenticator>
-//   );
-// }
+  return (
+    <Card variation="outlined" width="50%" height="300px" margin="0 auto">
+      <AIConversation
+        messages={messages}
+        handleSendMessage={sendMessage}
+        suggestedPrompts={[
+          {
+            inputText: 'hello',
+            header: 'hello',
+          },
+          {
+            inputText: 'how are you?',
+            header: 'how are you?',
+          },
+        ]}
+        variant="bubble"
+      />
+    </Card>
+  );
+}
 
 export default function Example() {
-  return <div>hello world</div>;
+  return (
+    <Authenticator>
+      {({ user, signOut }) => {
+        return <Chat />;
+      }}
+    </Authenticator>
+  );
 }

@@ -4,7 +4,7 @@ import { MessageVariant } from '../types';
 type MessageVariantContextProps = MessageVariant | undefined;
 
 export const MessageVariantContext =
-  React.createContext<MessageVariantContextProps>('borderless');
+  React.createContext<MessageVariantContextProps>(undefined);
 
 export const MessageVariantProvider = ({
   children,

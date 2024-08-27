@@ -8,6 +8,7 @@ import {
   SuggestedPromptsContext,
 } from '../../context';
 import { classNames } from '@aws-amplify/ui';
+import { ControlsContext } from '../../context/ControlsContext';
 
 const { View, Button, Text, Heading, Icon } = AIConversationElements;
 
@@ -111,13 +112,28 @@ const Container = withBaseElementProps(View, {
   className: `${PROMPT_BLOCK}__container`,
 });
 
-export const PromptControl: PromptControl = () => (
-  <Container>
-    <AIIcon />
-    <HeaderText>How can I help you today?</HeaderText>
-    <PromptGroup />
-  </Container>
-);
+export const PromptControl: PromptControl = () => {
+  const suggestedPromptsArray = React.useContext(SuggestedPromptsContext);
+  const controls = React.useContext(ControlsContext);
+  const { setInput } = React.useContext(InputContext);
+
+  if (controls?.PromptList) {
+    return (
+      <controls.PromptList
+        setInput={setInput}
+        suggestedPrompts={suggestedPromptsArray}
+      />
+    );
+  }
+
+  return (
+    <Container>
+      <AIIcon />
+      <HeaderText>How can I help you today?</HeaderText>
+      <PromptGroup />
+    </Container>
+  );
+};
 
 export const AutoHidablePromptControl = (): JSX.Element | undefined => {
   const messages = React.useContext(MessagesContext);

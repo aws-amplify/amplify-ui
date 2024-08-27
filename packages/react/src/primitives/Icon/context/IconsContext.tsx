@@ -8,6 +8,9 @@ export type IconsContextInterface = {
   accordion?: ComponentIcons<'more'>;
   alert?: ComponentIcons<'close' | 'info' | 'error' | 'success' | 'warning'>;
   avatar?: ComponentIcons<'user'>;
+  aiConversation?: ComponentIcons<
+    'attach' | 'close' | 'send' | 'remove' | 'assistant' | 'user'
+  >;
   checkbox?: ComponentIcons<'indeterminate' | 'checked'>;
   field?: ComponentIcons<'clear'>;
   menu?: ComponentIcons<'menu'>;

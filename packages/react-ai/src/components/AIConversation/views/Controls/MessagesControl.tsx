@@ -12,6 +12,7 @@ import { ActionsBarControl } from './ActionsBarControl';
 import { AvatarControl } from './AvatarControl';
 import { ConversationMessage } from '../../../../types';
 import { ResponseComponentsContext } from '../../context/ResponseComponentsContext';
+import { ControlsContext } from '../../context/ControlsContext';
 
 const { Image, Span, Text, View } = AIConversationElements;
 
@@ -157,6 +158,7 @@ const Layout: typeof View = React.forwardRef(function Layout(props, ref) {
 
 export const MessagesControl: MessagesControl = ({ renderMessage }) => {
   const messages = React.useContext(MessagesContext);
+  const controls = React.useContext(ControlsContext);
   const messagesRef = React.useRef<(HTMLDivElement | null)[]>([]);
 
   const [focusedItemIndex, setFocusedItemIndex] = React.useState(
@@ -197,6 +199,10 @@ export const MessagesControl: MessagesControl = ({ renderMessage }) => {
     },
     [messages]
   );
+
+  if (controls?.MessageList) {
+    return <controls.MessageList messages={messages!} />;
+  }
 
   return (
     <Layout>

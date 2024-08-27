@@ -12,6 +12,7 @@ import {
 import { DisplayTextTemplate } from '@aws-amplify/ui';
 import { AIConversationDisplayText } from './displayText';
 import { ConversationMessage, SendMessage } from '../../types';
+import { ControlsContextProps } from './context/ControlsContext';
 
 export interface Controls<
   T extends Partial<AIConversationElements> = AIConversationElements,
@@ -34,25 +35,27 @@ export interface AIConversationInput<
   actions?: CustomAction[];
   responseComponents?: ResponseComponents;
   variant?: MessageVariant;
+  controls?: ControlsContextProps;
 }
 
 export interface AIConversationProps {
   messages: ConversationMessage[];
   handleSendMessage: SendMessage;
-  avatars: Avatars;
+  avatars?: Avatars;
 }
 
 export interface AIConversation<T extends Partial<AIConversationElements>> {
   (props: AIConversationProps): JSX.Element;
   Conversation: () => React.JSX.Element;
   Controls: Controls<T>;
+  Provider: (
+    props: {
+      children?: React.ReactNode;
+    } & Pick<AIConversationProps, 'messages' | 'avatars' | 'handleSendMessage'>
+  ) => React.JSX.Element;
 }
 
-export type MessageVariant =
-  | 'bubble-1'
-  | 'bubble-2'
-  | 'borderless-background'
-  | 'borderless';
+export type MessageVariant = 'bubble' | 'default';
 
 export interface Avatar {
   username?: string;
@@ -60,8 +63,8 @@ export interface Avatar {
 }
 
 export interface Avatars {
-  user: Avatar;
-  ai: Avatar;
+  user?: Avatar;
+  ai?: Avatar;
 }
 
 export interface CustomAction {

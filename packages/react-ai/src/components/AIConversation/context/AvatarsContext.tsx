@@ -11,7 +11,7 @@ export const AvatarsProvider = ({
   avatars,
 }: {
   children?: React.ReactNode;
-  avatars: Avatars;
+  avatars?: Avatars;
 }): JSX.Element => {
   return (
     <AvatarsContext.Provider value={avatars}>

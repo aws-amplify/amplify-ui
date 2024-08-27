@@ -134,13 +134,11 @@ describe('MessagesControl', () => {
     const messagesContainer = container.firstChild;
     expect(messagesContainer).toBeDefined();
     expect(messagesContainer).toHaveClass('ai-messages__container');
-    expect(messagesContainer).toHaveClass('ai-messages__container--borderless');
 
     const messageContainer = messagesContainer?.firstChild;
     expect(messageContainer).toBeDefined();
     expect(messageContainer).toHaveClass('ai-message');
     expect(messageContainer).toHaveClass('ai-message--assistant');
-    expect(messageContainer).toHaveClass('ai-message--borderless');
   });
 
   it('renders MessagesControl with custom classnames', () => {
@@ -148,7 +146,7 @@ describe('MessagesControl', () => {
       <MessagesProvider
         messages={[AITextMessage, userTextMessage, AIImageMessage]}
       >
-        <MessageVariantProvider variant="bubble-2">
+        <MessageVariantProvider variant="bubble">
           <MessagesControl />
         </MessageVariantProvider>
       </MessagesProvider>
@@ -156,13 +154,13 @@ describe('MessagesControl', () => {
     const messagesContainer = container.firstChild;
     expect(messagesContainer).toBeDefined();
     expect(messagesContainer).toHaveClass('ai-messages__container');
-    expect(messagesContainer).toHaveClass('ai-messages__container--bubble-2');
+    expect(messagesContainer).toHaveClass('ai-messages__container--bubble');
 
     const messageContainer = messagesContainer?.firstChild;
     expect(messageContainer).toBeDefined();
     expect(messageContainer).toHaveClass('ai-message');
     expect(messageContainer).toHaveClass('ai-message--assistant');
-    expect(messageContainer).toHaveClass('ai-message--bubble-2');
+    expect(messageContainer).toHaveClass('ai-message--bubble');
   });
 
   it('renders a MessagesControl element with avatars and actions', () => {
@@ -302,7 +300,6 @@ describe('MessageControl', () => {
     const content = screen.getByTestId('content');
     expect(content).toBeInTheDocument();
     expect(content).toHaveClass('ai-message__content');
-    expect(content).toHaveClass('ai-message__content--borderless');
 
     const textContent = screen.getByText('Yes, here is proof.');
     const imageContent = screen.getByRole('img');
@@ -315,7 +312,7 @@ describe('MessageControl', () => {
   it('renders custom classnames', () => {
     render(
       <RoleContext.Provider value="assistant">
-        <MessageVariantProvider variant="borderless-background">
+        <MessageVariantProvider variant="bubble">
           <MessageControl message={AIImageMessage} />
         </MessageVariantProvider>
       </RoleContext.Provider>
@@ -324,7 +321,7 @@ describe('MessageControl', () => {
     const content = screen.getByTestId('content');
     expect(content).toBeInTheDocument();
     expect(content).toHaveClass('ai-message__content');
-    expect(content).toHaveClass('ai-message__content--borderless-background');
+    expect(content).toHaveClass('ai-message__content--bubble');
   });
 
   it('renders text content', () => {

@@ -4,7 +4,8 @@ interface Input {
   text?: string;
   files?: File[];
 }
-interface InputContext {
+
+export interface InputContext {
   input?: Input;
   setInput?: React.Dispatch<React.SetStateAction<Input | undefined>>;
 }

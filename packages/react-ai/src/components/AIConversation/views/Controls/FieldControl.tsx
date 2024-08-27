@@ -12,6 +12,7 @@ import {
   convertResponseComponentsToToolConfiguration,
   ResponseComponentsContext,
 } from '../../context/ResponseComponentsContext';
+import { ControlsContext } from '../../context/ControlsContext';
 
 const {
   Button,
@@ -146,6 +147,7 @@ export const FieldControl: FieldControl = () => {
   const handleSendMessage = React.useContext(SendMessageContext);
   const ref = React.useRef<HTMLFormElement | null>(null);
   const responseComponents = React.useContext(ResponseComponentsContext);
+  const controls = React.useContext(ControlsContext);
 
   const submitMessage = () => {
     ref.current?.reset();
@@ -199,6 +201,16 @@ export const FieldControl: FieldControl = () => {
       }
     }
   };
+
+  if (controls?.Form) {
+    return (
+      <controls.Form
+        handleSubmit={handleSubmit}
+        input={input!}
+        setInput={setInput!}
+      />
+    );
+  }
 
   return (
     <form
