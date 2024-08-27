@@ -8,7 +8,7 @@ import {
 } from '../../context/elements/definitions';
 
 const BLOCK_NAME = `${CLASS_BASE}__overwrite`;
-const LABEL_TEXT = "Don't overwrite existing files with the same name.";
+export const LABEL_TEXT = "Don't overwrite existing files with the same name.";
 
 interface OverwriteControlProps {
   checked?: boolean;
