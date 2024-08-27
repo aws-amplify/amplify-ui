@@ -45,7 +45,10 @@ const RefreshControl = () => {
     <Refresh
       disabled={isLoading || data.result.length <= 0}
       onClick={() =>
-        handleList({ prefix: path, options: { refresh: true, pageSize: 1000 } })
+        handleList({
+          prefix: path,
+          options: { refresh: true, pageSize: 1000, delimiter: '/' },
+        })
       }
     />
   );
