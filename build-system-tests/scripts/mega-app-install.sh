@@ -136,7 +136,6 @@ else
     fi
 
     if [[ "$FRAMEWORK" == "react-native" ]]; then
-        echo "TAGGED_UI_FRAMEWORK=$TAGGED_UI_FRAMEWORK"
         DEPENDENCIES="$TAGGED_UI_FRAMEWORK @aws-amplify/react-native aws-amplify react-native-safe-area-context @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
         echo "npm install $DEPENDENCIES"
         npm install $DEPENDENCIES

@@ -3,7 +3,7 @@
 #
 # Triggered by: merge to `main`
 
-name: POC Test and Publish / next
+name: Test and Publish / next
 
 concurrency:
   group: e2e-${{ github.sha }}
@@ -11,9 +11,7 @@ concurrency:
 
 on:
   push:
-    # TODO
-    # branches: [main]
-    branches: [rn-log-build-system]
+    branches: [main]
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -58,16 +56,11 @@ jobs:
       DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
   publish:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Fake Publish
-        run: echo "Fake Publish to next"
-    # TODO
-    # uses: aws-amplify/amplify-ui/.github/workflows/reusable-tagged-publish.yml@main
-    # with:
-    #   dist-tag: next
-    # secrets:
-    #   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-tagged-publish.yml@main
+    with:
+      dist-tag: next
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   deploy-sample-app:
     runs-on: ubuntu-latest
@@ -75,11 +68,9 @@ jobs:
     needs: publish
     steps:
       - name: Trigger build for beta liveness sample app pointing at next tag
-        run: echo "Trigger build for beta liveness sample app pointing at next tag"
-        # TODO
-        # run: curl -X POST -d {} $ENDPOINT -H "Content-Type:application/json"
-        # env:
-        #   ENDPOINT: ${{ secrets.LIVENESS_BETA_SAMPLE_APP_BUILD_TRIGGER }}
+        run: curl -X POST -d {} $ENDPOINT -H "Content-Type:application/json"
+        env:
+          ENDPOINT: ${{ secrets.LIVENESS_BETA_SAMPLE_APP_BUILD_TRIGGER }}
 
   build-react-native:
     uses: ./.github/workflows/reusable-build-system-test-react-native.yml
@@ -136,36 +127,32 @@ jobs:
     # Send a failure data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a failure
     runs-on: ubuntu-latest
     environment: ci
-    needs: 
+    needs:
       - build-test
       - build-react-native
     if: ${{ failure() }}
     steps:
       - name: Log failure data point to metric PublishNextFailure
-        run: echo "Log failure data point to metric PublishNextFailure"
-        # TODO
-        # uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
-        # with:
-        #   metric-name: PublishNextFailure
-        #   value: 1
-        #   role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
-        #   aws-region: us-east-2
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+        with:
+          metric-name: PublishNextFailure
+          value: 1
+          role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
+          aws-region: us-east-2
 
   log-success-metric:
     # Send a success data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a success
     runs-on: ubuntu-latest
     environment: ci
-    needs: 
+    needs:
       - build-test
       - build-react-native
     if: ${{ success() }}
     steps:
       - name: Log success data point to metric PublishNextFailure
-        run: echo "Log success data point to metric PublishNextFailure"
-        # TODO
-        # uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
-        # with:
-        #   metric-name: PublishNextFailure
-        #   value: 0
-        #   role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
-        #   aws-region: us-east-2
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+        with:
+          metric-name: PublishNextFailure
+          value: 0
+          role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
+          aws-region: us-east-2

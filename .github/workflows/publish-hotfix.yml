@@ -4,13 +4,11 @@
 
 # If successful, we will publish all updated UI packages to NPM.
 
-name: POC Test and Publish / hotfix
+name: Test and Publish / hotfix
 
 on:
   push:
-    # TODO
-    # branches: [hotfix]
-    branches: [rn-log-build-system]
+    branches: [hotfix]
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -33,16 +31,11 @@ jobs:
 
   publish-hotfix:
     needs: [setup]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Fake publish
-        run: echo "Publishing to @hotfix"
-    # TODO
-      # uses: ./.github/workflows/reusable-tagged-publish.yml
-      # with:
-      #   dist-tag: hotfix
-      # secrets:
-      #   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    uses: ./.github/workflows/reusable-tagged-publish.yml
+    with:
+      dist-tag: hotfix
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   build-test:
     runs-on: ubuntu-latest
@@ -99,12 +92,10 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     environment: deployment
-    needs: 
+    needs:
       - build-test
       - build-react-native
-    # TODO
-    # if: ${{ needs.setup.outputs.has-changesets != 'true' }}
-    if: false
+    if: ${{ needs.setup.outputs.has-changesets != 'true' }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@b80ff79f1755d06ba70441c368a6fe801f5f3a62 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
