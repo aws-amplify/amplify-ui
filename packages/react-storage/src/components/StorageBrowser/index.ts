@@ -1,4 +1,4 @@
-export { StorageBrowserElements } from './context/elements';
+export { StorageBrowserElements, elementsDefault } from './context/elements';
 export {
   createStorageBrowser,
   CreateStorageBrowserInput,
@@ -11,4 +11,3 @@ export {
   CreateManagedAuthAdapterInput,
   StorageBrowserAuthAdapter,
 } from './adapters';
-export { elementsDefault } from './context/elements';
