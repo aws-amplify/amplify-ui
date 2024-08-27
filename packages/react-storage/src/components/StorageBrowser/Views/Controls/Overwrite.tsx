@@ -11,12 +11,21 @@ const BLOCK_NAME = `${CLASS_BASE}__overwrite`;
 const LABEL_TEXT = "Don't overwrite existing files with the same name.";
 
 interface OverwriteControlProps {
-  // checked?: boolean;
+  checked?: boolean;
+  handleChange?: () => void;
 }
 
-export const OverwriteControl = (): React.JSX.Element => (
+export const OverwriteControl = ({
+  checked,
+  handleChange,
+}: OverwriteControlProps): React.JSX.Element => (
   <ViewElement className={BLOCK_NAME}>
-    <InputElement defaultChecked type="checkbox" id="overwrite" />
+    <InputElement
+      checked={checked}
+      onChange={handleChange}
+      type="checkbox"
+      id="overwrite"
+    />
     <LabelElement htmlFor="overwrite">{LABEL_TEXT}</LabelElement>
   </ViewElement>
 );
