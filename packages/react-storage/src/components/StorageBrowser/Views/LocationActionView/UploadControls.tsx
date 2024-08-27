@@ -3,7 +3,7 @@ import React from 'react';
 import { humanFileSize } from '@aws-amplify/ui';
 import { useFileSelect } from '@aws-amplify/ui-react/internal';
 
-import { StorageBrowserElements } from '../../context/elements';
+import { ButtonElement, StorageBrowserElements } from '../../context/elements';
 import { useControl } from '../../context/controls';
 import { compareNumbers, compareStrings } from '../../context/controls/Table';
 import { TaskStatus } from '../../context/types';
@@ -301,19 +301,41 @@ export const UploadControls = (): JSX.Element => {
     [direction, selection]
   );
 
+  const disabled = tasks.some((task) => task.status === 'PENDING');
+
   return (
     <>
       {fileSelect}
       <Title />
       <Exit onClick={() => handleUpdateState({ type: 'CLEAR' })} />
       <Primary
-        disabled={tasks.some((task) => task.status === 'PENDING')}
+        disabled={disabled}
         onClick={() => {
           handleUpload();
         }}
       >
         Start
       </Primary>
+      <ButtonElement
+        disabled={disabled}
+        className={`${CLASS_BASE}__add-folder`}
+        variant="add-folder"
+        onClick={() => {
+          handleSelect('folder');
+        }}
+      >
+        Add folder
+      </ButtonElement>
+      <ButtonElement
+        disabled={disabled}
+        className={`${CLASS_BASE}__add-files`}
+        variant="add-files"
+        onClick={() => {
+          handleSelect('file');
+        }}
+      >
+        Add files
+      </ButtonElement>
       <Destination>{history[history.length - 1].prefix}</Destination>
       <Summary />
       <Table
