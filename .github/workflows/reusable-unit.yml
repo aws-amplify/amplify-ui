@@ -114,6 +114,7 @@ jobs:
       - name: Build react package
         if: |
           matrix.package == 'react-auth' ||
+          matrix.package == 'react-ai' ||
           matrix.package == 'react-geo' ||
           matrix.package == 'react-liveness' ||
           matrix.package == 'react-notifications' ||
