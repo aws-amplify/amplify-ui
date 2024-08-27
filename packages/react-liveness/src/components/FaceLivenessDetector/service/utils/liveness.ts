@@ -274,8 +274,6 @@ export function drawStaticOval(
   const ovalDetails = getStaticLivenessOvalDetails({
     width: width!,
     height: height!,
-    centerXSeed: Math.round(Math.random() * 10) / 10, // random values between 0 and 1
-    centerYSeed: Math.round(Math.random() * 10) / 10, // random values between 0 and 1
     ratioMultiplier: 0.3,
   });
   ovalDetails.flippedCenterX = width! - ovalDetails.centerX;
