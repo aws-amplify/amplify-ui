@@ -13,7 +13,7 @@ describe('OverwriteControl', () => {
   });
 
   it('renders the OverwriteControl checked', () => {
-    render(<OverwriteControl checked />);
+    render(<OverwriteControl defaultChecked />);
     const input = screen.getByRole('checkbox');
     expect(input).toHaveAttribute('checked');
   });
