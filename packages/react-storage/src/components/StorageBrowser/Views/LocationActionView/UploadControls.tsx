@@ -307,16 +307,15 @@ export const UploadControls = (): JSX.Element => {
     <>
       {fileSelect}
       <Title />
-      <ButtonElement
+      <Exit onClick={() => handleUpdateState({ type: 'CLEAR' })} />
+      <Primary
         disabled={disabled}
-        className={`${CLASS_BASE}__add-files`}
-        variant="add-files"
         onClick={() => {
-          handleSelect('file');
+          handleUpload();
         }}
       >
-        Add files
-      </ButtonElement>
+        Start
+      </Primary>
       <ButtonElement
         disabled={disabled}
         className={`${CLASS_BASE}__add-folder`}
@@ -327,15 +326,16 @@ export const UploadControls = (): JSX.Element => {
       >
         Add folder
       </ButtonElement>
-      <Exit onClick={() => handleUpdateState({ type: 'CLEAR' })} />
-      <Primary
+      <ButtonElement
         disabled={disabled}
+        className={`${CLASS_BASE}__add-files`}
+        variant="add-files"
         onClick={() => {
-          handleUpload();
+          handleSelect('file');
         }}
       >
-        Start
-      </Primary>
+        Add files
+      </ButtonElement>
       <Destination>{history[history.length - 1].prefix}</Destination>
       <Summary />
       <Table
