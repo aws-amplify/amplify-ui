@@ -38,7 +38,7 @@
     "vue-latest-nuxt-latest-ts": "npm run setup:vue:nuxt",
     "rn-latest-cli-latest-ts-ios": "npm run setup:react-native:cli -- -A ios -n rnLatestCliLatestTsIos",
     "rn-latest-cli-latest-ts-android": "npm run setup:react-native:cli -- -A android -n rnLatestCliLatestTsAndroid",
-    "rn-latest-expo-latest-ts-android": "npm run setup:react-native:expo -- -A android -n rnLatestExpoLatestTsAndroid",
+    "rn-latest-expo-latest-ts-android-ui-latest": "npm run setup:react-native:expo -- -A android -n rnLatestExpoLatestTsAndroid",
     "rn-latest-expo-latest-ts-android-ui-next": "npm run setup:react-native:expo -- -A android -n rnLatestExpoLatestTsAndroid -t next",
     "rn-latest-expo-latest-ts-android-ui-hotfix": "npm run setup:react-native:expo -- -A android -n rnLatestExpoLatestTsAndroid -t hotfix",
     "checkReactNativeLogs": "node --require esbuild-register ./scripts/checkReactNativeLog.ts"
