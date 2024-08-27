@@ -22,6 +22,7 @@ import {
 } from '@aws-amplify/ui-react';
 import {
   ButtonElementProps,
+  InputElementProps,
   LabelElementProps,
   TextElementProps,
 } from './definitions';
@@ -132,9 +133,15 @@ const Label = React.forwardRef<HTMLLabelElement, LabelElementProps>(
   }
 );
 
-const Input = React.forwardRef<HTMLInputElement>(function Input(props, ref) {
-  return <_Input {...props} ref={ref} />;
-});
+const Input = React.forwardRef<HTMLInputElement, InputElementProps>(
+  function Input(props, ref) {
+    const { type } = props;
+    if (type === 'checkbox') {
+      return <input {...props} />;
+    }
+    return <_Input {...props} ref={ref} />;
+  }
+);
 
 const Title = React.forwardRef<HTMLHeadingElement>(
   function Heading(props, ref) {

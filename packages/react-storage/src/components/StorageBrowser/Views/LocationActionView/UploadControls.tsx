@@ -25,7 +25,7 @@ import { CancelableTask, useHandleUpload } from './useHandleUpload';
 const { Icon, DefinitionDetail, DefinitionList, DefinitionTerm } =
   StorageBrowserElements;
 
-const { Cancel, Exit, Primary, Summary, Table } = Controls;
+const { Cancel, Exit, Overwrite, Primary, Summary, Table } = Controls;
 
 interface LocationActionViewColumns extends CancelableTask {
   type: string;
@@ -201,13 +201,16 @@ export const UploadControls = (): JSX.Element => {
   const [{ history, path }] = useControl({ type: 'NAVIGATE' });
   const [files, setFiles] = React.useState<File[]>([]);
   const [fileSelect, handleSelect] = useFileSelect(setFiles);
-
+  // preventOverwrite is enabled by default in our call to uploadData
+  // so we set overwrite to default to false to match in our UI
+  const [overwrite, setOverwrite] = React.useState(false);
   const [{ selected, actions }, handleUpdateState] = useControl({
     type: 'ACTION_SELECT',
   });
 
   const [tasks, handleUpload] = useHandleUpload({
     prefix: path,
+    preventOverwrite: !overwrite,
     files,
   });
 
@@ -337,6 +340,12 @@ export const UploadControls = (): JSX.Element => {
         Add files
       </ButtonElement>
       <Destination>{history[history.length - 1].prefix}</Destination>
+      <Overwrite
+        defaultChecked={overwrite}
+        handleChange={() => {
+          setOverwrite((overwrite) => !overwrite);
+        }}
+      />
       <Summary />
       <Table
         data={tableData}

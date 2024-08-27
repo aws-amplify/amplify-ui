@@ -139,9 +139,16 @@ export const ProgressBarElement = defineBaseElementWithRef({
   displayName: 'ProgressBar',
 });
 
+export type InputElementProps = React.ComponentProps<typeof InputElement>;
 export const InputElement = defineBaseElementWithRef<
   'input',
-  'disabled' | 'type' | 'id' | 'onBlur' | 'onChange' | 'onFocus'
+  | 'disabled'
+  | 'type'
+  | 'id'
+  | 'onBlur'
+  | 'onChange'
+  | 'onFocus'
+  | 'defaultChecked'
 >({
   type: 'input',
   displayName: 'Input',

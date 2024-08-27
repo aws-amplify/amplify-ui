@@ -62,9 +62,11 @@ const updateTasks = <T extends Task | CancelableTask>(
 export function useHandleUpload({
   prefix,
   files,
+  preventOverwrite,
 }: {
   prefix: string;
   files: File[];
+  preventOverwrite: boolean;
 }): [tasks: CancelableTask[], handleUpload: () => void] {
   const getConfig = useGetLocationConfig();
 
@@ -106,6 +108,7 @@ export function useHandleUpload({
               };
               setTasks((curr) => updateTasks(curr, nextTask));
             },
+            preventOverwrite,
           },
         };
 
