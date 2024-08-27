@@ -4,6 +4,7 @@ export {
   ButtonElementProps,
   MessageVariant,
   PaginateVariant,
+  SpanElement,
   StorageBrowserElements,
   TableBodyElement,
   TableDataElement,
