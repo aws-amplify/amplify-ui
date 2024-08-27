@@ -93,6 +93,9 @@ describe('LocationDetailView', () => {
       await user.click(refreshButton);
     });
 
-    expect(handleList).toHaveBeenCalled();
+    expect(handleList).toHaveBeenCalledWith({
+      prefix: 'cat-cat/',
+      options: { refresh: true, pageSize: 1000, delimiter: '/' },
+    });
   });
 });
