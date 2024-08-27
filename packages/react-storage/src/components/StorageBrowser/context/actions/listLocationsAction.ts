@@ -11,7 +11,7 @@ import {
   Permission,
 } from '../types';
 
-const PAGE_SIZE = 1000;
+const PAGE_SIZE = 100;
 
 export interface ListLocationsActionOptions<T>
   extends Omit<ListActionOptions<T>, 'delimiter'> {}
@@ -58,7 +58,7 @@ export const createListLocationsAction = (
     }
 
     let locationsResult: ListLocationsOutput['locations'] = [];
-    let nextPageToken: ListLocationsOutput['nextToken'] = refresh
+    let nextNextToken: ListLocationsOutput['nextToken'] = refresh
       ? undefined
       : nextToken;
     let remainingPageSize = pageSize;
@@ -67,19 +67,19 @@ export const createListLocationsAction = (
       remainingPageSize = remainingPageSize - locationsResult.length;
 
       const output = await listLocations({
-        nextToken: nextPageToken,
+        nextToken: nextNextToken,
         pageSize: remainingPageSize,
       });
-      nextPageToken = output.nextToken;
+      nextNextToken = output.nextToken;
 
       locationsResult = [...locationsResult, ...output.locations].filter(
         ({ permission }) => !shouldExclude(permission, exclude)
       );
-    } while (nextPageToken && locationsResult.length < pageSize);
+    } while (nextNextToken && locationsResult.length < pageSize);
 
     const result = refresh
       ? locationsResult
       : [...(prevState.result ?? []), ...locationsResult];
 
-    return { result, nextToken: nextPageToken };
+    return { result, nextToken: nextNextToken };
   };

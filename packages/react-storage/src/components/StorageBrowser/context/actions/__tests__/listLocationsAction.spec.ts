@@ -37,7 +37,7 @@ describe('createListLocationsAction', () => {
     );
 
     expect(output.result).toHaveLength(100);
-    expect(output.nextToken).toBeDefined();
+    expect(output.nextToken).toBe('next');
   });
 
   it('merges the current action result with the previous action result', async () => {
@@ -58,7 +58,7 @@ describe('createListLocationsAction', () => {
     );
 
     expect(result).toHaveLength(100);
-    expect(nextToken).toBeDefined();
+    expect(nextToken).toBe('next');
 
     const { result: nextResult, nextToken: nextNextToken } =
       await listLocationsAction(
@@ -68,18 +68,18 @@ describe('createListLocationsAction', () => {
 
     expect(nextResult).toHaveLength(200);
     expect(nextNextToken).not.toBe(nextToken);
-    expect(nextToken).toBeDefined();
+    expect(nextNextToken).toBe('next-oooo');
   });
 
   it('should paginate with default page limit and provide next token', async () => {
-    // assume, total items: 1500; default page limit: 1000
+    // assume, total items: 150; default page limit: 100
     mockListLocations.mockResolvedValueOnce({
-      locations: generateMockLocations(600),
+      locations: generateMockLocations(60),
       nextToken: 'next',
     });
     mockListLocations.mockResolvedValueOnce({
-      locations: generateMockLocations(400),
-      nextToken: 'next',
+      locations: generateMockLocations(40),
+      nextToken: 'next-oooo',
     });
 
     const listLocationsAction = createListLocationsAction(mockListLocations);
@@ -89,19 +89,18 @@ describe('createListLocationsAction', () => {
       {}
     );
 
-    expect(mockListLocations).toHaveBeenNthCalledWith(1, {
-      pageSize: 1000,
+    expect(mockListLocations).toHaveBeenCalledTimes(2);
+    expect(mockListLocations).toHaveBeenCalledWith({
+      pageSize: 100,
       nextToken: undefined,
     });
-
-    expect(mockListLocations).toHaveBeenLastCalledWith({
-      pageSize: 400,
+    expect(mockListLocations).toHaveBeenCalledWith({
+      pageSize: 40,
       nextToken: 'next',
     });
 
-    expect(mockListLocations).toHaveBeenCalledTimes(2);
-    expect(output.result).toHaveLength(1000);
-    expect(output.nextToken).toBeDefined();
+    expect(output.result).toHaveLength(100);
+    expect(output.nextToken).toBe('next-oooo');
   });
 
   it('should paginate with input page limit and conclude', async () => {
@@ -122,17 +121,16 @@ describe('createListLocationsAction', () => {
       { options: { pageSize: 100 } }
     );
 
-    expect(mockListLocations).toHaveBeenNthCalledWith(1, {
+    expect(mockListLocations).toHaveBeenCalledTimes(2);
+    expect(mockListLocations).toHaveBeenCalledWith({
       pageSize: 100,
       nextToken: undefined,
     });
-
-    expect(mockListLocations).toHaveBeenLastCalledWith({
+    expect(mockListLocations).toHaveBeenCalledWith({
       pageSize: 50,
       nextToken: 'next',
     });
 
-    expect(mockListLocations).toHaveBeenCalledTimes(2);
     expect(output.result).toHaveLength(70);
     expect(output.nextToken).toBeUndefined();
   });
