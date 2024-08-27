@@ -21,6 +21,7 @@ export const trDict = { ...authenticatorDict.trDict };
 export const ruDict = { ...authenticatorDict.ruDict };
 export const heDict = { ...authenticatorDict.heDict };
 export const uaDict = { ...authenticatorDict.uaDict };
+export const thDict = { ...authenticatorDict.thDict };
 
 export const defaultTexts = {
   ...authenticatorDict.defaultTexts,
