@@ -2,14 +2,14 @@ import { ListLocations } from '@aws-amplify/storage/storage-browser';
 import { createListLocationsAction } from '../listLocationsAction';
 import { LocationAccess } from '../../types';
 
-const fakeLocation = {
+const fakeLocation: LocationAccess = {
   scope: 's3://some-bucket/*',
   permission: 'READ',
   type: 'BUCKET',
 };
 
 const generateMockLocations = (size: number) =>
-  Array(size).fill(fakeLocation) as LocationAccess[];
+  Array<LocationAccess>(size).fill(fakeLocation);
 
 const listLocations: ListLocations = ({ pageSize } = {}) => {
   return Promise.resolve({
@@ -71,7 +71,72 @@ describe('createListLocationsAction', () => {
     expect(nextToken).toBeDefined();
   });
 
+  it('should paginate with default page limit and provide next token', async () => {
+    // assume, total items: 1500; default page limit: 1000
+    mockListLocations.mockResolvedValueOnce({
+      locations: generateMockLocations(600),
+      nextToken: 'next',
+    });
+    mockListLocations.mockResolvedValueOnce({
+      locations: generateMockLocations(400),
+      nextToken: 'next',
+    });
+
+    const listLocationsAction = createListLocationsAction(mockListLocations);
+
+    const output = await listLocationsAction(
+      { nextToken: undefined, result: [] },
+      {}
+    );
+
+    expect(mockListLocations).toHaveBeenNthCalledWith(1, {
+      pageSize: 1000,
+      nextToken: undefined,
+    });
+
+    expect(mockListLocations).toHaveBeenLastCalledWith({
+      pageSize: 400,
+      nextToken: 'next',
+    });
+
+    expect(mockListLocations).toHaveBeenCalledTimes(2);
+    expect(output.result).toHaveLength(1000);
+    expect(output.nextToken).toBeDefined();
+  });
+
+  it('should paginate with input page limit and conclude', async () => {
+    // assume, total items: 70; requested page limit: 100
+    mockListLocations.mockResolvedValueOnce({
+      locations: generateMockLocations(50),
+      nextToken: 'next',
+    });
+    mockListLocations.mockResolvedValueOnce({
+      locations: generateMockLocations(20),
+      nextToken: undefined,
+    });
+
+    const listLocationsAction = createListLocationsAction(mockListLocations);
+
+    const output = await listLocationsAction(
+      { nextToken: undefined, result: [] },
+      { options: { pageSize: 100 } }
+    );
+
+    expect(mockListLocations).toHaveBeenNthCalledWith(1, {
+      pageSize: 100,
+      nextToken: undefined,
+    });
+
+    expect(mockListLocations).toHaveBeenLastCalledWith({
+      pageSize: 50,
+      nextToken: 'next',
+    });
+
+    expect(mockListLocations).toHaveBeenCalledTimes(2);
+    expect(output.result).toHaveLength(70);
+    expect(output.nextToken).toBeUndefined();
+  });
+
   it.todo('handles a search action as expected');
   it.todo('handles a refresh action as expected');
-  it.todo('handles a paginate action as expected');
 });
