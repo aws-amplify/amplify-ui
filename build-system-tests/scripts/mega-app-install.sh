@@ -9,6 +9,7 @@ FRAMEWORK="react"
 FRAMEWORK_VERSION="latest"
 PKG_MANAGER="npm"
 PKG_MANAGER_VERSION="latest"
+TAG="latest"
 
 # Import install function
 source "./scripts/install-with-retries.sh"
@@ -53,6 +54,10 @@ while [[ $# -gt 0 ]]; do
         PKG_MANAGER_VERSION=$2
         shift
         ;;
+    -t | --tag)
+        TAG=$2
+        shift
+        ;;
     -h | --help)
         echo "Usage: mega-app-create-app.sh [OPTIONS]"
         echo "Options:"
@@ -64,6 +69,7 @@ while [[ $# -gt 0 ]]; do
         echo "  -f, --framework-version     Specify the framework version (default: latest)"
         echo "  -P, --pkg-manager           Specify the package manager: npm, yarn (default: npm)"
         echo "  -p, --pkg-manager-version   Specify the package manager version (default: latest)"
+        echo "  -t, --tag                   Specify the tag (default: latest)"
         echo "  -h, --help                  Show help message"
         exit 0
         ;;
@@ -84,16 +90,17 @@ echo "##########################"
 echo "# Start Mega App Install #"
 echo "##########################"
 
-DEPENDENCIES="$FRAMEWORK@$FRAMEWORK_VERSION @aws-amplify/ui-$FRAMEWORK aws-amplify"
+TAGGED_UI_FRAMEWORK="@aws-amplify/ui-$FRAMEWORK@$TAG"
+DEPENDENCIES="$FRAMEWORK@$FRAMEWORK_VERSION $TAGGED_UI_FRAMEWORK aws-amplify"
 
 echo "cd ./mega-apps/${MEGA_APP_NAME}"
-cd ./mega-apps/${MEGA_APP_NAME}
+cd "./mega-apps/${MEGA_APP_NAME}"
 
 if [ "$FRAMEWORK" == 'react' ]; then
     # add react-dom
-    echo "DEPENDENCIES='$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage @aws-amplify/ui-react-geo @aws-amplify/ui-react-notifications @aws-amplify/geo'"
     DEPENDENCIES="$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage @aws-amplify/ui-react-geo @aws-amplify/ui-react-notifications @aws-amplify/geo"
-
+    echo "DEPENDENCIES=$DEPENDENCIES"
+    
     if [[ "$BUILD_TOOL" == 'cra' && "$LANGUAGE" == 'ts' ]]; then
         DEP_TYPES="@types/react@$FRAMEWORK_VERSION @types/react-dom@$FRAMEWORK_VERSION"
         echo "DEP_TYPES='$DEP_TYPES'"
@@ -102,25 +109,23 @@ if [ "$FRAMEWORK" == 'react' ]; then
 elif [ "$FRAMEWORK" == 'angular' ]; then
     # remove angular since it's deprecated https://www.npmjs.com/package/angular
     # We've install @amplify/cli when creating the app
-    echo "DEPENDENCIES="@aws-amplify/ui-$FRAMEWORK aws-amplify""
-    DEPENDENCIES="@aws-amplify/ui-$FRAMEWORK aws-amplify"
+    DEPENDENCIES="$TAGGED_UI_FRAMEWORK aws-amplify"
+    echo "DEPENDENCIES=$DEPENDENCIES"
 fi
-
-echo "Dependencies to be installed: $DEPENDENCIES"
 
 if [ "$PKG_MANAGER" == 'yarn' ]; then
     echo "yarn version"
     yarn -v
     echo "yarn set version $PKG_MANAGER_VERSION"
-    yarn set version $PKG_MANAGER_VERSION
+    yarn set version "$PKG_MANAGER_VERSION"
     echo "yarn version"
     yarn -v
     if [[ "$BUILD_TOOL" == 'cra' && "$LANGUAGE" == 'ts' ]]; then
         echo "yarn add $DEP_TYPES"
-        yarn add $DEP_TYPES
+        yarn add "$DEP_TYPES"
     fi
     echo "yarn add $DEPENDENCIES"
-    yarn add $DEPENDENCIES
+    yarn add "$DEPENDENCIES"
 else
     if [[ "$BUILD_TOOL" == 'cra' && "$LANGUAGE" == 'ts' ]]; then
         # If not testing the latest React, we need to download its types.
@@ -136,8 +141,10 @@ else
     fi
 
     if [[ "$FRAMEWORK" == "react-native" ]]; then
-        echo "npm install @aws-amplify/ui-react-native @aws-amplify/react-native aws-amplify react-native-safe-area-context @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
-        npm install @aws-amplify/ui-react-native @aws-amplify/react-native aws-amplify react-native-safe-area-context @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill
+        echo "TAGGED_UI_FRAMEWORK=$TAGGED_UI_FRAMEWORK"
+        DEPENDENCIES="$TAGGED_UI_FRAMEWORK @aws-amplify/react-native aws-amplify react-native-safe-area-context @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
+        echo "npm install $DEPENDENCIES"
+        npm install $DEPENDENCIES
         if [[ "$BUILD_TOOL" == "expo" ]]; then
             echo "npx expo install --fix" 
             npx expo install --fix # fix the dependencies that are incompatible with the installed expo versio
