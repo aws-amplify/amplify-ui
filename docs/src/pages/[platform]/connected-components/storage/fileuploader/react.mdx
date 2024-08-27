@@ -92,12 +92,12 @@ The example below shows configuring the FileUploader to upload to the `protected
     <Accordion.Content>
       Versions 3.0.18 and earlier use `accessLevel` and an optional `path` prop in place of the required `path`. `accessLevel` refers to the [Amplify Storage access level](https://docs.amplify.aws/gen1/react/build-a-backend/storage/configure-access/), which is `'guest' | 'protected' | 'private'`, and `path` is a `string`.
     ```tsx
-    <FileUploader
+    <StorageManager
       accessLevel="guest"
       path="images/"
       maxFileCount={1}
     />
-    <FileUploader
+    <StorageManager
       accessLevel="private"
       maxFileCount={1}
     />
@@ -105,14 +105,14 @@ The example below shows configuring the FileUploader to upload to the `protected
 
     To migrate to a newer version, replace `accessLevel` with `path`. If you were using `path` already, append `public`, `private` or `protected` to the beginning of the path.
     ```diff
-      <FileUploader
+      <StorageManager
     -   accessLevel="guest"
     +   path="public/"
         maxFileCount={1}
       />
     ```
     ```diff
-      <FileUploader
+      <StorageManager
     -   accessLevel="private"
     -   path="images/"
     +   path={({ identityId }) => `private/${identityId}/images/`}
