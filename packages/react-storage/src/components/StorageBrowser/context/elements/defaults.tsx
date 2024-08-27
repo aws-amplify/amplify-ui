@@ -63,7 +63,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonElementProps>(
         );
       case 'exit':
         return (
-          <_Button {...props} size="small" colorTheme="overlay" ref={ref} />
+          <_Button
+            {...props}
+            size="small"
+            paddingInline="xs"
+            variation="link"
+            ref={ref}
+          />
         );
       case 'message-dismiss':
         return (

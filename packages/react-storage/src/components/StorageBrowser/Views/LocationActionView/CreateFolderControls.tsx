@@ -95,16 +95,13 @@ export const CreateFolderControls = (): React.JSX.Element => {
 
   return (
     <>
-      <Title />
       <Exit
         onClick={() => {
           handleClose();
         }}
       />
+      <Title />
       <Primary {...primaryProps} />
-      {result?.status === 'COMPLETE' || result?.status === 'FAILED' ? (
-        <CreateFolderMessage />
-      ) : null}
       <Target.Field.Container>
         <Target.Field.Label htmlFor="folder-name-input">
           Enter folder name:
@@ -124,6 +121,9 @@ export const CreateFolderControls = (): React.JSX.Element => {
           </Target.Field.Error>
         ) : null}
       </Target.Field.Container>
+      {result?.status === 'COMPLETE' || result?.status === 'FAILED' ? (
+        <CreateFolderMessage />
+      ) : null}
     </>
   );
 };

@@ -14,7 +14,7 @@ const BUTTON_VARIANTS: [ButtonElementVariant, string[]][] = [
   ['action-submit', []],
   ['cancel', ['amplify-button--link', 'amplify-button--link--error']],
   ['download', ['amplify-button--link']],
-  ['exit', ['amplify-button--outlined--overlay']],
+  ['exit', ['amplify-button--link']],
   ['message-dismiss', ['amplify-button--link--overlay']],
   ['navigate', ['amplify-button--link']],
   ['primary', ['amplify-button--primary']],
