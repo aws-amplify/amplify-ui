@@ -1,4 +1,7 @@
-import { ListLocations } from '@aws-amplify/storage/storage-browser';
+import {
+  ListLocations,
+  ListLocationsOutput,
+} from '@aws-amplify/storage/storage-browser';
 
 import {
   ListActionInput,
@@ -7,6 +10,8 @@ import {
   LocationAccess,
   Permission,
 } from '../types';
+
+const PAGE_SIZE = 1000;
 
 export interface ListLocationsActionOptions<T>
   extends Omit<ListActionOptions<T>, 'delimiter'> {}
@@ -40,23 +45,41 @@ export const createListLocationsAction = (
 ): ListLocationsAction =>
   async function listLocationsAction(prevState, input) {
     const { options } = input ?? {};
-    const { exclude, nextToken, pageSize, refresh, reset } = options ?? {};
+    const {
+      exclude,
+      nextToken,
+      pageSize = PAGE_SIZE,
+      refresh,
+      reset,
+    } = options ?? {};
 
     if (reset) {
       return { result: [], nextToken: undefined };
     }
 
-    const output = await listLocations(
-      refresh ? { pageSize } : { nextToken, pageSize }
-    );
+    let locationsResult: ListLocationsOutput['locations'] = [];
+    let nextNextToken: ListLocationsOutput['nextToken'] = refresh
+      ? undefined
+      : nextToken;
+    let remainingPageSize = pageSize;
 
-    const locations = output.locations.filter(
-      ({ permission }) => !shouldExclude(permission, exclude)
-    );
+    do {
+      remainingPageSize = remainingPageSize - locationsResult.length;
+
+      const output = await listLocations({
+        nextToken: nextNextToken,
+        pageSize: remainingPageSize,
+      });
+      nextNextToken = output.nextToken;
+
+      locationsResult = [...locationsResult, ...output.locations].filter(
+        ({ permission }) => !shouldExclude(permission, exclude)
+      );
+    } while (nextNextToken && locationsResult.length < pageSize);
 
     const result = refresh
-      ? locations
-      : [...(prevState.result ?? []), ...locations];
+      ? locationsResult
+      : [...(prevState.result ?? []), ...locationsResult];
 
-    return { result, nextToken: output.nextToken };
+    return { result, nextToken: nextNextToken };
   };
