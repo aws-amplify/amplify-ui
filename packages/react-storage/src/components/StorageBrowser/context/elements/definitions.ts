@@ -38,6 +38,8 @@ export type ButtonElementVariant =
   | 'actions-menu-item'
   | 'actions-menu-toggle'
   | 'action-submit'
+  | 'add-files'
+  | 'add-folder'
   | 'cancel'
   | 'download'
   | 'exit'
