@@ -201,6 +201,8 @@ export const UploadControls = (): JSX.Element => {
   const [{ history, path }] = useControl({ type: 'NAVIGATE' });
   const [files, setFiles] = React.useState<File[]>([]);
   const [fileSelect, handleSelect] = useFileSelect(setFiles);
+  // preventOverwrite is enabled by default in our call to uploadData
+  // so we set overwrite to default to false to match in our UI
   const [overwrite, setOverwrite] = React.useState(false);
   const [{ selected, actions }, handleUpdateState] = useControl({
     type: 'ACTION_SELECT',
