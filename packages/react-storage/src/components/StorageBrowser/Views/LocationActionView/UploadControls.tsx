@@ -309,8 +309,8 @@ export const UploadControls = (): JSX.Element => {
   return (
     <>
       {fileSelect}
-      <Title />
       <Exit onClick={() => handleUpdateState({ type: 'CLEAR' })} />
+      <Title />
       <Primary
         disabled={disabled}
         onClick={() => {
