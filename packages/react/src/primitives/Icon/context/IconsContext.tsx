@@ -9,6 +9,9 @@ export type IconsContextInterface = {
   alert?: ComponentIcons<'close' | 'info' | 'error' | 'success' | 'warning'>;
   checkbox?: ComponentIcons<'indeterminate' | 'checked'>;
   field?: ComponentIcons<'clear'>;
+  fileUploader?: ComponentIcons<
+    'upload' | 'remove' | 'error' | 'success' | 'file'
+  >;
   menu?: ComponentIcons<'menu'>;
   message?: ComponentIcons<'close' | 'info' | 'error' | 'success' | 'warning'>;
   pagination?: ComponentIcons<'previous' | 'next'>;

@@ -13,12 +13,12 @@ const children = {
 const displayText = {
   name: `displayText`,
   description: 'Test strings that are used in the component',
-  type: `StorageManagerDisplayText`,
+  type: `FileUploaderDisplayText`,
 };
 
 const eventHandler = `(file: {key: string}) => void;`;
 
-export const STORAGE_MANAGER = [
+export const FILE_UPLOADER = [
   {
     name: `path`,
     description:
@@ -93,7 +93,7 @@ export const STORAGE_MANAGER = [
   {
     name: `displayText?`,
     description: 'Text to override in the component.',
-    type: 'StorageManagerDisplayText',
+    type: 'FileUploaderDisplayText',
   },
   {
     name: `useAccelerateEndpoint?`,
@@ -102,7 +102,7 @@ export const STORAGE_MANAGER = [
   },
   {
     name: `components?.Container?`,
-    description: 'The container the StorageManager is wrapped in.',
+    description: 'The container the FileUploader is wrapped in.',
     type: `React.ComponentType<ContainerProps>`,
   },
   {
@@ -132,8 +132,8 @@ export const STORAGE_MANAGER = [
   },
   {
     name: `ref?`,
-    description: 'Forward ref prop exposing StorageManager imperative methods.',
-    type: `React.ForwardedRef<StorageManagerHandle>`,
+    description: 'Forward ref prop exposing FileUploader imperative methods.',
+    type: `React.ForwardedRef<FileUploaderHandle>`,
   },
 ];
 
