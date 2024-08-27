@@ -89,8 +89,6 @@ jobs:
 
   build-test:
     needs: publish
-    # TODO
-    if: false
     runs-on: ubuntu-latest
     environment: ci
     steps:
