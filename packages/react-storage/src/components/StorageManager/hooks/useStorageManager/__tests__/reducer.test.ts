@@ -3,30 +3,30 @@ import { useReducer } from 'react';
 
 import { UploadDataOutput } from 'aws-amplify/storage';
 
-import { storageManagerStateReducer } from '../reducer';
+import { fileUploaderStateReducer } from '../reducer';
 import {
   Action,
-  StorageManagerActionTypes,
-  UseStorageManagerState,
+  FileUploaderActionTypes,
+  UseFileUploaderState,
 } from '../types';
 import { FileStatus, StorageFile, StorageFiles } from '../../../types';
 
 const imageFile = new File(['hello'], 'hello.png', { type: 'image/png' });
-const initialState: UseStorageManagerState = {
+const initialState: UseFileUploaderState = {
   files: [],
 };
 
 // mock Date.now() so we can get accurate file IDs
 const dateSpy = jest.spyOn(Date, 'now').mockImplementation(() => 1487076708000);
 
-describe('storageManagerStateReducer', () => {
+describe('fileUploaderStateReducer', () => {
   beforeEach(() => {
     dateSpy.mockClear();
   });
 
   it('should add files to state on ADD_FILES action', () => {
     const addFilesAction: Action = {
-      type: StorageManagerActionTypes.ADD_FILES,
+      type: FileUploaderActionTypes.ADD_FILES,
       files: [imageFile],
       status: FileStatus.QUEUED,
       getFileErrorMessage: jest.fn().mockReturnValue('Test error'),
@@ -45,7 +45,7 @@ describe('storageManagerStateReducer', () => {
     ];
     const { result } = renderHook(() => {
       const [state, dispatch] = useReducer(
-        storageManagerStateReducer,
+        fileUploaderStateReducer,
         initialState
       );
       return { state, dispatch };
@@ -60,7 +60,7 @@ describe('storageManagerStateReducer', () => {
 
   it('should clear files from state on CLEAR_FILES action', () => {
     const { result } = renderHook(() => {
-      const [state, dispatch] = useReducer(storageManagerStateReducer, {
+      const [state, dispatch] = useReducer(fileUploaderStateReducer, {
         files: [
           {
             id: imageFile.name,
@@ -77,7 +77,7 @@ describe('storageManagerStateReducer', () => {
     });
 
     const clearFilesAction: Action = {
-      type: StorageManagerActionTypes.CLEAR_FILES,
+      type: FileUploaderActionTypes.CLEAR_FILES,
     };
     act(() => result.current.dispatch(clearFilesAction));
 
@@ -86,7 +86,7 @@ describe('storageManagerStateReducer', () => {
 
   it('should set uploading status and progress on SET_STATUS_UPLOADING action', () => {
     const { result } = renderHook(() => {
-      const [state, dispatch] = useReducer(storageManagerStateReducer, {
+      const [state, dispatch] = useReducer(fileUploaderStateReducer, {
         files: [
           {
             id: imageFile.name,
@@ -104,7 +104,7 @@ describe('storageManagerStateReducer', () => {
 
     const testUploadTask = {} as UploadDataOutput;
     const uploadingAction: Action = {
-      type: StorageManagerActionTypes.SET_STATUS_UPLOADING,
+      type: FileUploaderActionTypes.SET_STATUS_UPLOADING,
       id: imageFile.name,
       uploadTask: testUploadTask,
     };
@@ -127,7 +127,7 @@ describe('storageManagerStateReducer', () => {
 
   it('should set upload progress of a file on SET_UPLOAD_PROGRESS action', () => {
     const { result } = renderHook(() => {
-      const [state, dispatch] = useReducer(storageManagerStateReducer, {
+      const [state, dispatch] = useReducer(fileUploaderStateReducer, {
         files: [
           {
             id: imageFile.name,
@@ -144,7 +144,7 @@ describe('storageManagerStateReducer', () => {
     });
 
     const uploadProgressAction: Action = {
-      type: StorageManagerActionTypes.SET_UPLOAD_PROGRESS,
+      type: FileUploaderActionTypes.SET_UPLOAD_PROGRESS,
       id: imageFile.name,
       progress: 50,
     };
@@ -175,14 +175,14 @@ describe('storageManagerStateReducer', () => {
       progress: -1,
     };
     const { result } = renderHook(() => {
-      const [state, dispatch] = useReducer(storageManagerStateReducer, {
+      const [state, dispatch] = useReducer(fileUploaderStateReducer, {
         files: [file],
       });
       return { state, dispatch };
     });
 
     const uploadProgressAction: Action = {
-      type: StorageManagerActionTypes.SET_UPLOAD_PROGRESS,
+      type: FileUploaderActionTypes.SET_UPLOAD_PROGRESS,
       id: 'not-found',
       progress: 50,
     };
@@ -193,7 +193,7 @@ describe('storageManagerStateReducer', () => {
 
   it('should update the status of a file progress of a file on SET_STATUS action', () => {
     const { result } = renderHook(() => {
-      const [state, dispatch] = useReducer(storageManagerStateReducer, {
+      const [state, dispatch] = useReducer(fileUploaderStateReducer, {
         files: [
           {
             id: imageFile.name,
@@ -210,7 +210,7 @@ describe('storageManagerStateReducer', () => {
     });
 
     const setStatusAction: Action = {
-      type: StorageManagerActionTypes.SET_STATUS,
+      type: FileUploaderActionTypes.SET_STATUS,
       id: imageFile.name,
       status: FileStatus.UPLOADED,
     };
@@ -241,14 +241,14 @@ describe('storageManagerStateReducer', () => {
       progress: -1,
     };
     const { result } = renderHook(() => {
-      const [state, dispatch] = useReducer(storageManagerStateReducer, {
+      const [state, dispatch] = useReducer(fileUploaderStateReducer, {
         files: [file],
       });
       return { state, dispatch };
     });
 
     const setStatusAction: Action = {
-      type: StorageManagerActionTypes.SET_STATUS,
+      type: FileUploaderActionTypes.SET_STATUS,
       id: 'not-found',
       status: FileStatus.UPLOADED,
     };
@@ -259,7 +259,7 @@ describe('storageManagerStateReducer', () => {
 
   it('should remove file from state on REMOVE_UPLOAD action', () => {
     const { result } = renderHook(() => {
-      const [state, dispatch] = useReducer(storageManagerStateReducer, {
+      const [state, dispatch] = useReducer(fileUploaderStateReducer, {
         files: [
           {
             id: imageFile.name,
@@ -276,7 +276,7 @@ describe('storageManagerStateReducer', () => {
     });
 
     const removeUploadAction: Action = {
-      type: StorageManagerActionTypes.REMOVE_UPLOAD,
+      type: FileUploaderActionTypes.REMOVE_UPLOAD,
       id: imageFile.name,
     };
     act(() => result.current.dispatch(removeUploadAction));
@@ -295,14 +295,14 @@ describe('storageManagerStateReducer', () => {
       progress: -1,
     };
     const { result } = renderHook(() => {
-      const [state, dispatch] = useReducer(storageManagerStateReducer, {
+      const [state, dispatch] = useReducer(fileUploaderStateReducer, {
         files: [file],
       });
       return { state, dispatch };
     });
 
     const removeUploadAction: Action = {
-      type: StorageManagerActionTypes.REMOVE_UPLOAD,
+      type: FileUploaderActionTypes.REMOVE_UPLOAD,
       id: 'not-found',
     };
     act(() => result.current.dispatch(removeUploadAction));
@@ -322,7 +322,7 @@ describe('storageManagerStateReducer', () => {
     };
 
     const { result } = renderHook(() => {
-      const [state, dispatch] = useReducer(storageManagerStateReducer, {
+      const [state, dispatch] = useReducer(fileUploaderStateReducer, {
         files: [file],
       });
       return { state, dispatch };
@@ -330,7 +330,7 @@ describe('storageManagerStateReducer', () => {
 
     const processedKey = `processed-${imageFile.name}`;
     const action: Action = {
-      type: StorageManagerActionTypes.SET_PROCESSED_FILE_KEY,
+      type: FileUploaderActionTypes.SET_PROCESSED_FILE_KEY,
       id: imageFile.name,
       processedKey,
     };
@@ -344,7 +344,7 @@ describe('storageManagerStateReducer', () => {
 
   it('should only change added files to queued in QUEUE_FILES action', () => {
     const { result } = renderHook(() => {
-      const [state, dispatch] = useReducer(storageManagerStateReducer, {
+      const [state, dispatch] = useReducer(fileUploaderStateReducer, {
         files: [
           {
             id: imageFile.name,
@@ -370,7 +370,7 @@ describe('storageManagerStateReducer', () => {
     });
 
     const queueFilesAction: Action = {
-      type: StorageManagerActionTypes.QUEUE_FILES,
+      type: FileUploaderActionTypes.QUEUE_FILES,
     };
 
     act(() => result.current.dispatch(queueFilesAction));

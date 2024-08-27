@@ -1,6 +1,6 @@
 import { DisplayTextTemplate } from '@aws-amplify/ui';
 
-export type StorageManagerDisplayText = DisplayTextTemplate<{
+export type FileUploaderDisplayText = DisplayTextTemplate<{
   getFilesUploadedText?: (count: number) => string;
   getFileSizeErrorText?: (sizeText: string) => string;
   getRemainingFilesText?: (count: number) => string;
@@ -20,46 +20,51 @@ export type StorageManagerDisplayText = DisplayTextTemplate<{
   getPausedText?: (percentage: number) => string;
 }>;
 
-export type StorageManagerDisplayTextDefault =
-  Required<StorageManagerDisplayText>;
+export type StorageManagerDisplayText = FileUploaderDisplayText;
+
+export type FileUploaderDisplayTextDefault = Required<FileUploaderDisplayText>;
+
+export type StorageManagerDisplayTextDefault = FileUploaderDisplayTextDefault;
+
+export const defaultFileUploaderDisplayText: FileUploaderDisplayTextDefault = {
+  getFilesUploadedText(count: number): string {
+    return `${count} ${count === 1 ? 'file uploaded' : 'files uploaded'}`;
+  },
+  getFileSizeErrorText(sizeText: string): string {
+    return `File size must be below ${sizeText}`;
+  },
+  getRemainingFilesText(count: number): string {
+    return `${count} ${count === 1 ? 'file' : 'files'} uploading`;
+  },
+  getSelectedFilesText(count: number): string {
+    return `${count} ${count === 1 ? 'file' : 'files'} selected`;
+  },
+  getUploadingText(percentage: number): string {
+    return `Uploading${percentage > 0 ? `: ${percentage}%` : ''}`;
+  },
+  getUploadButtonText(count: number): string {
+    return `Upload ${count} ${count === 1 ? 'file' : 'files'}`;
+  },
+  getMaxFilesErrorText(count: number): string {
+    return `Cannot choose more than ${count} ${
+      count === 1 ? 'file' : 'files'
+    }. Remove files before updating`;
+  },
+  getErrorText(message: string): string {
+    return message;
+  },
+  doneButtonText: 'Done',
+  clearAllButtonText: 'Clear all',
+  extensionNotAllowedText: 'Extension not allowed',
+  browseFilesText: 'Browse files',
+  dropFilesText: 'Drop files here or',
+  pauseButtonText: 'Pause',
+  resumeButtonText: 'Resume',
+  uploadSuccessfulText: 'Uploaded',
+  getPausedText(percentage: number): string {
+    return `Paused: ${percentage}%`;
+  },
+};
 
 export const defaultStorageManagerDisplayText: StorageManagerDisplayTextDefault =
-  {
-    getFilesUploadedText(count: number): string {
-      return `${count} ${count === 1 ? 'file uploaded' : 'files uploaded'}`;
-    },
-    getFileSizeErrorText(sizeText: string): string {
-      return `File size must be below ${sizeText}`;
-    },
-    getRemainingFilesText(count: number): string {
-      return `${count} ${count === 1 ? 'file' : 'files'} uploading`;
-    },
-    getSelectedFilesText(count: number): string {
-      return `${count} ${count === 1 ? 'file' : 'files'} selected`;
-    },
-    getUploadingText(percentage: number): string {
-      return `Uploading${percentage > 0 ? `: ${percentage}%` : ''}`;
-    },
-    getUploadButtonText(count: number): string {
-      return `Upload ${count} ${count === 1 ? 'file' : 'files'}`;
-    },
-    getMaxFilesErrorText(count: number): string {
-      return `Cannot choose more than ${count} ${
-        count === 1 ? 'file' : 'files'
-      }. Remove files before updating`;
-    },
-    getErrorText(message: string): string {
-      return message;
-    },
-    doneButtonText: 'Done',
-    clearAllButtonText: 'Clear all',
-    extensionNotAllowedText: 'Extension not allowed',
-    browseFilesText: 'Browse files',
-    dropFilesText: 'Drop files here or',
-    pauseButtonText: 'Pause',
-    resumeButtonText: 'Resume',
-    uploadSuccessfulText: 'Uploaded',
-    getPausedText(percentage: number): string {
-      return `Paused: ${percentage}%`;
-    },
-  };
+  defaultFileUploaderDisplayText;

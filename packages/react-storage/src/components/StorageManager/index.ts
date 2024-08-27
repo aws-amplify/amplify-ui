@@ -1,5 +1,8 @@
-export { StorageManager } from './StorageManager';
-export { StorageManagerProps } from './types';
+export { FileUploader, FileUploader as StorageManager } from './StorageManager';
+export {
+  FileUploaderProps,
+  FileUploaderProps as StorageManagerProps,
+} from './types';
 export {
   DropZoneProps,
   ContainerProps,

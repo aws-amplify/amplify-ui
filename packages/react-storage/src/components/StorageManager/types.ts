@@ -10,7 +10,7 @@ import {
   FileListProps,
   FilePickerProps,
 } from './ui';
-import { StorageManagerDisplayText, PathCallback, UploadTask } from './utils';
+import { FileUploaderDisplayText, PathCallback, UploadTask } from './utils';
 
 export enum FileStatus {
   ADDED = 'added',
@@ -48,11 +48,13 @@ export type ProcessFile = (
   params: ProcessFileParams
 ) => Promise<ProcessFileParams> | ProcessFileParams;
 
-export interface StorageManagerHandle {
+export interface FileUploaderHandle {
   clearFiles: () => void;
 }
 
-export interface StorageManagerProps {
+export interface StorageManagerHandle extends FileUploaderHandle {}
+
+export interface FileUploaderProps {
   /**
    * List of accepted File types, values of `['*']` or undefined allow any files
    * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept
@@ -86,7 +88,7 @@ export interface StorageManagerProps {
   /**
    * Overrides default display text
    */
-  displayText?: StorageManagerDisplayText;
+  displayText?: FileUploaderDisplayText;
   /**
    * Determines if upload can be paused / resumed
    */
@@ -131,8 +133,10 @@ export interface StorageManagerProps {
   useAccelerateEndpoint?: boolean;
 }
 
-export interface StorageManagerPathProps
-  extends Omit<StorageManagerProps, 'accessLevel' | 'path'> {
+export interface StorageManagerProps extends FileUploaderProps {}
+
+export interface FileUploaderPathProps
+  extends Omit<FileUploaderProps, 'accessLevel' | 'path'> {
   /**
    * S3 bucket key, allows either a `string` or a `PathCallback`:
    * - `string`: `path` is prefixed to the file `key` for each file
@@ -143,3 +147,5 @@ export interface StorageManagerPathProps
   accessLevel?: never;
   useAccelerateEndpoint?: boolean;
 }
+
+export interface StorageManagerPathProps extends FileUploaderPathProps {}

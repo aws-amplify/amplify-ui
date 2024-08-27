@@ -6,12 +6,12 @@ import { isFunction } from '@aws-amplify/ui';
 import { PathCallback, uploadFile } from '../../utils';
 import { getInput } from '../../utils';
 import { FileStatus } from '../../types';
-import { StorageManagerProps } from '../../types';
-import { UseStorageManager } from '../useStorageManager';
+import { FileUploaderProps } from '../../types';
+import { UseFileUploader } from '../useStorageManager';
 
 export interface UseUploadFilesProps
   extends Pick<
-      StorageManagerProps,
+      FileUploaderProps,
       | 'isResumable'
       | 'onUploadSuccess'
       | 'onUploadError'
@@ -21,10 +21,10 @@ export interface UseUploadFilesProps
       | 'useAccelerateEndpoint'
     >,
     Pick<
-      UseStorageManager,
+      UseFileUploader,
       'setUploadingFile' | 'setUploadProgress' | 'setUploadSuccess' | 'files'
     > {
-  accessLevel?: StorageManagerProps['accessLevel'];
+  accessLevel?: FileUploaderProps['accessLevel'];
   onProcessFileSuccess: (input: { id: string; processedKey: string }) => void;
   path?: string | PathCallback;
 }

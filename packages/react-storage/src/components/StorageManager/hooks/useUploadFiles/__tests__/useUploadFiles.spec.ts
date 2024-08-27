@@ -3,7 +3,7 @@ import { waitFor } from '@testing-library/react';
 
 import * as Storage from 'aws-amplify/storage';
 
-import { FileStatus, StorageFile, StorageManagerProps } from '../../../types';
+import { FileStatus, StorageFile, FileUploaderProps } from '../../../types';
 import { useUploadFiles, UseUploadFilesProps } from '../useUploadFiles';
 
 const uploadDataSpy = jest
@@ -149,7 +149,7 @@ describe('useUploadFiles', () => {
   });
 
   it('should start upload after processFile', async () => {
-    const processFile: StorageManagerProps['processFile'] = ({ file }) => ({
+    const processFile: FileUploaderProps['processFile'] = ({ file }) => ({
       file,
       key: 'test.png',
     });
@@ -171,7 +171,7 @@ describe('useUploadFiles', () => {
   });
 
   it('should start upload after processFile promise resolves', async () => {
-    const processFile: StorageManagerProps['processFile'] = ({ file }) =>
+    const processFile: FileUploaderProps['processFile'] = ({ file }) =>
       new Promise((resolve) => resolve({ file, key: 'test.png' }));
 
     const { waitForNextUpdate } = renderHook(() =>

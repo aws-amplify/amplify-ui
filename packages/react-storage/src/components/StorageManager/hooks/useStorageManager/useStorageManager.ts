@@ -3,8 +3,8 @@ import React from 'react';
 import { isObject } from '@aws-amplify/ui';
 
 import { StorageFiles, FileStatus, DefaultFile } from '../../types';
-import { Action, GetFileErrorMessage, UseStorageManagerState } from './types';
-import { storageManagerStateReducer } from './reducer';
+import { Action, GetFileErrorMessage, UseFileUploaderState } from './types';
+import { fileUploaderStateReducer } from './reducer';
 import {
   addFilesAction,
   clearFilesAction,
@@ -17,7 +17,7 @@ import {
 } from './actions';
 import { TaskHandler } from '../../utils';
 
-export interface UseStorageManager {
+export interface UseFileUploader {
   addFiles: (params: {
     files: File[];
     status: FileStatus;
@@ -43,21 +43,18 @@ const createFileFromDefault = (file: DefaultFile) =>
     ? { ...file, id: file.key, status: FileStatus.UPLOADED }
     : undefined;
 
-export function useStorageManager(
+export function useFileUploader(
   defaultFiles: Array<DefaultFile> = []
-): UseStorageManager {
+): UseFileUploader {
   const [{ files }, dispatch] = React.useReducer<
-    (
-      prevState: UseStorageManagerState,
-      action: Action
-    ) => UseStorageManagerState
-  >(storageManagerStateReducer, {
+    (prevState: UseFileUploaderState, action: Action) => UseFileUploaderState
+  >(fileUploaderStateReducer, {
     files: (Array.isArray(defaultFiles)
       ? defaultFiles.map(createFileFromDefault).filter((file) => !!file)
       : []) as StorageFiles,
   });
 
-  const addFiles: UseStorageManager['addFiles'] = ({
+  const addFiles: UseFileUploader['addFiles'] = ({
     files,
     status,
     getFileErrorMessage,
@@ -65,45 +62,45 @@ export function useStorageManager(
     dispatch(addFilesAction({ files, status, getFileErrorMessage }));
   };
 
-  const clearFiles: UseStorageManager['clearFiles'] = () => {
+  const clearFiles: UseFileUploader['clearFiles'] = () => {
     dispatch(clearFilesAction());
   };
 
-  const queueFiles: UseStorageManager['queueFiles'] = () => {
+  const queueFiles: UseFileUploader['queueFiles'] = () => {
     dispatch(queueFilesAction());
   };
 
-  const setUploadingFile: UseStorageManager['setUploadingFile'] = ({
+  const setUploadingFile: UseFileUploader['setUploadingFile'] = ({
     uploadTask,
     id,
   }) => {
     dispatch(setUploadingFileAction({ id, uploadTask }));
   };
 
-  const setProcessedKey: UseStorageManager['setProcessedKey'] = (input) => {
+  const setProcessedKey: UseFileUploader['setProcessedKey'] = (input) => {
     dispatch(setProcessedKeyAction(input));
   };
 
-  const setUploadProgress: UseStorageManager['setUploadProgress'] = ({
+  const setUploadProgress: UseFileUploader['setUploadProgress'] = ({
     progress,
     id,
   }) => {
     dispatch(setUploadProgressAction({ id, progress }));
   };
 
-  const setUploadSuccess: UseStorageManager['setUploadSuccess'] = ({ id }) => {
+  const setUploadSuccess: UseFileUploader['setUploadSuccess'] = ({ id }) => {
     dispatch(setUploadStatusAction({ id, status: FileStatus.UPLOADED }));
   };
 
-  const setUploadPaused: UseStorageManager['setUploadPaused'] = ({ id }) => {
+  const setUploadPaused: UseFileUploader['setUploadPaused'] = ({ id }) => {
     dispatch(setUploadStatusAction({ id, status: FileStatus.PAUSED }));
   };
 
-  const setUploadResumed: UseStorageManager['setUploadPaused'] = ({ id }) => {
+  const setUploadResumed: UseFileUploader['setUploadPaused'] = ({ id }) => {
     dispatch(setUploadStatusAction({ id, status: FileStatus.UPLOADING }));
   };
 
-  const removeUpload: UseStorageManager['removeUpload'] = ({ id }) => {
+  const removeUpload: UseFileUploader['removeUpload'] = ({ id }) => {
     dispatch(removeUploadAction({ id }));
   };
 

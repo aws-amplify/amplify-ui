@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`StorageManager behaves as expected with a path prop 1`] = `
+exports[`FileUploader behaves as expected with a path prop 1`] = `
 <div>
   <div
     class="amplify-storagemanager "
@@ -56,7 +56,7 @@ exports[`StorageManager behaves as expected with a path prop 1`] = `
 </div>
 `;
 
-exports[`StorageManager behaves as expected with an accessLevel prop 1`] = `
+exports[`FileUploader behaves as expected with an accessLevel prop 1`] = `
 <div>
   <div
     class="amplify-storagemanager "

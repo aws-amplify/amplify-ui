@@ -1,10 +1,6 @@
 import { FileStatus } from '../../types';
 
-import {
-  Action,
-  AddFilesActionParams,
-  StorageManagerActionTypes,
-} from './types';
+import { Action, AddFilesActionParams, FileUploaderActionTypes } from './types';
 import { TaskEvent } from '../../utils';
 
 export const addFilesAction = ({
@@ -12,18 +8,18 @@ export const addFilesAction = ({
   status,
   getFileErrorMessage,
 }: AddFilesActionParams): Action => ({
-  type: StorageManagerActionTypes.ADD_FILES,
+  type: FileUploaderActionTypes.ADD_FILES,
   files,
   status,
   getFileErrorMessage,
 });
 
 export const clearFilesAction = (): Action => ({
-  type: StorageManagerActionTypes.CLEAR_FILES,
+  type: FileUploaderActionTypes.CLEAR_FILES,
 });
 
 export const queueFilesAction = (): Action => ({
-  type: StorageManagerActionTypes.QUEUE_FILES,
+  type: FileUploaderActionTypes.QUEUE_FILES,
 });
 
 export const setProcessedKeyAction = (input: {
@@ -31,14 +27,14 @@ export const setProcessedKeyAction = (input: {
   processedKey: string;
 }): Action => ({
   ...input,
-  type: StorageManagerActionTypes.SET_PROCESSED_FILE_KEY,
+  type: FileUploaderActionTypes.SET_PROCESSED_FILE_KEY,
 });
 
 export const setUploadingFileAction = ({
   id,
   uploadTask,
 }: TaskEvent): Action => ({
-  type: StorageManagerActionTypes.SET_STATUS_UPLOADING,
+  type: FileUploaderActionTypes.SET_STATUS_UPLOADING,
   id,
   uploadTask,
 });
@@ -50,7 +46,7 @@ export const setUploadProgressAction = ({
   id: string;
   progress: number;
 }): Action => ({
-  type: StorageManagerActionTypes.SET_UPLOAD_PROGRESS,
+  type: FileUploaderActionTypes.SET_UPLOAD_PROGRESS,
   id,
   progress,
 });
@@ -62,12 +58,12 @@ export const setUploadStatusAction = ({
   id: string;
   status: FileStatus;
 }): Action => ({
-  type: StorageManagerActionTypes.SET_STATUS,
+  type: FileUploaderActionTypes.SET_STATUS,
   id,
   status,
 });
 
 export const removeUploadAction = ({ id }: { id: string }): Action => ({
-  type: StorageManagerActionTypes.REMOVE_UPLOAD,
+  type: FileUploaderActionTypes.REMOVE_UPLOAD,
   id,
 });
