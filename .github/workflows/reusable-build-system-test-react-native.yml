@@ -5,7 +5,7 @@ on:
   workflow_call:
     inputs:
       dist-tag:
-        required: false
+        required: true
         type: string
 
 jobs:
