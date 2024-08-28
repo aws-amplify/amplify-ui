@@ -1,9 +1,11 @@
 import React, { AriaAttributes } from 'react';
-import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import {
   ButtonElementProps,
+  NavElement,
+  OrderedListElement,
   PaginateVariant,
+  SpanElement,
   StorageBrowserElements,
 } from '../../context/elements';
 import type { OmitElements } from '../types';
@@ -13,17 +15,16 @@ const {
   Button: ButtonElement,
   Icon: IconElement,
   ListItem,
-  Nav,
-  OrderedList,
-  Span: SpanElement,
 } = StorageBrowserElements;
 
 const BLOCK_NAME = `${CLASS_BASE}__paginate`;
+const DEFAULT_VARIANTS = [
+  'paginate-previous',
+  'paginate-current',
+  'paginate-next',
+] as const;
 
-interface PaginateItemProps
-  extends Pick<ButtonElementProps, 'children' | 'disabled' | 'onClick'> {
-  variant?: PaginateVariant;
-}
+interface PaginateItemProps extends ButtonElementProps {}
 
 interface _PaginateItemControl<
   T extends StorageBrowserElements = StorageBrowserElements,
@@ -52,42 +53,10 @@ export interface PaginateControl<
   (): React.JSX.Element;
 }
 
-const PaginateContainer: _PaginateControl['Container'] = function Container({
-  children,
-  className = BLOCK_NAME,
-  ...props
-}) {
-  return (
-    <Nav
-      {...props}
-      aria-label={props['aria-label'] ?? 'Pagination'}
-      className={className}
-    >
-      <OrderedList className={`${className}__list`}>{children}</OrderedList>
-    </Nav>
-  );
-};
-
-const PaginateItemContainer = withBaseElementProps(
-  ListItem,
-  ({ className = `${BLOCK_NAME}__item`, ...props }) => ({ ...props, className })
-);
-
-const PaginateText: typeof SpanElement = React.forwardRef(function PaginateText(
-  { children, className = `${BLOCK_NAME}__text`, ...props },
-  ref
-) {
-  return (
-    <SpanElement {...props} className={className} ref={ref}>
-      {children}
-    </SpanElement>
-  );
-});
-
 const getButtonVariantProps = (
   variant: PaginateVariant,
   props: PaginateProps
-): Omit<ButtonElementProps, 'variant'> & { variant?: PaginateVariant } => {
+): ButtonElementProps => {
   const {
     currentPage,
     disableNext,
@@ -103,7 +72,11 @@ const getButtonVariantProps = (
     case 'paginate-current':
       ariaCurrent = 'page';
       ariaLabel = `Page ${currentPage}`;
-      children = <PaginateText>{currentPage}</PaginateText>;
+      children = (
+        <SpanElement className={`${BLOCK_NAME}__text`}>
+          {currentPage}
+        </SpanElement>
+      );
       className = `${BLOCK_NAME}__button-current`;
       break;
     case 'paginate-next':
@@ -139,9 +112,9 @@ const getButtonVariantProps = (
 };
 
 const PaginateItem = (props: PaginateItemProps) => (
-  <PaginateItemContainer>
+  <ListItem className={`${BLOCK_NAME}__item`}>
     <ButtonElement {...props} />
-  </PaginateItemContainer>
+  </ListItem>
 );
 
 export interface PaginateProps {
@@ -153,11 +126,16 @@ export interface PaginateProps {
 }
 
 export const PaginateControl = (props: PaginateProps): React.JSX.Element => {
+  // const data = DEFAULT_VARIANTS.map((variant) =>
+  //   getButtonVariantProps(variant, props)
+  // );
   return (
-    <PaginateContainer>
-      <PaginateItem {...getButtonVariantProps('paginate-previous', props)} />
-      <PaginateItem {...getButtonVariantProps('paginate-current', props)} />
-      <PaginateItem {...getButtonVariantProps('paginate-next', props)} />
-    </PaginateContainer>
+    <NavElement {...props} aria-label={'Pagination'}>
+      <OrderedListElement className={`${BLOCK_NAME}__list`}>
+        <PaginateItem {...getButtonVariantProps('paginate-previous', props)} />
+        <PaginateItem {...getButtonVariantProps('paginate-current', props)} />
+        <PaginateItem {...getButtonVariantProps('paginate-next', props)} />
+      </OrderedListElement>
+    </NavElement>
   );
 };
