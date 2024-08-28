@@ -16,8 +16,8 @@ cd mega-apps/$MEGA_APP_NAME
 # Step 1: Log errors to LOG_FILE in the background
 log "command" "touch $LOG_FILE"
 touch $LOG_FILE
-log "command" "npm install -D react-native-log-ios"
-npm install -D react-native-log-ios
+log "command" "npm install -D react-native-log-ios >$LOG_FILE"
+npm install -D react-native-log-ios >$LOG_FILE
 log "command" "npx react-native-log-ios $MEGA_APP_NAME >$LOG_FILE &"
 npx react-native-log-ios $MEGA_APP_NAME >$LOG_FILE &
 
