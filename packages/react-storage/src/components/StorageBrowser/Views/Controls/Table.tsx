@@ -1,13 +1,18 @@
 import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
+import { humanFileSize } from '@aws-amplify/ui';
 
 import { StorageBrowserElements } from '../../context/elements';
 import { DownloadControl } from './Download';
 import { CLASS_BASE } from '../constants';
 import { useControl } from '../../context/controls';
-import { LocationAccess, LocationItem, Permission } from '../../context/types';
-import { useAction, useLocationsData } from '../../context/actions';
-import { compareStrings } from '../../context/controls/Table';
+import { FileItem, FolderItem, LocationItem } from '../../context/types';
+import { useAction } from '../../context/actions';
+import {
+  compareDates,
+  compareNumbers,
+  compareStrings,
+} from '../../context/controls/Table';
 
 export type SortDirection = 'ascending' | 'descending' | 'none';
 
@@ -45,7 +50,7 @@ const TableHead = withBaseElementProps(BaseTableHead, {
   className: `${BLOCK_NAME}__head`,
 });
 
-const TableHeaderButton = withBaseElementProps(Button, {
+export const TableHeaderButton = withBaseElementProps(Button, {
   className: `${BLOCK_NAME}__header__button`,
   variant: 'sort',
 });
@@ -101,21 +106,6 @@ const TableRow = withBaseElementProps(BaseTableRow, {
   className: `${BLOCK_NAME}__row`,
 });
 
-const LOCATION_VIEW_COLUMNS: Column<LocationAccess<Permission>>[] = [
-  {
-    header: 'Name',
-    key: 'scope',
-  },
-  {
-    header: 'Type',
-    key: 'type',
-  },
-  {
-    header: 'Permission',
-    key: 'permission',
-  },
-];
-
 const LOCATION_DETAIL_VIEW_COLUMNS: Column<LocationItem>[] = [
   {
     key: 'key',
@@ -146,7 +136,7 @@ export interface Column<T> {
 
 export interface TableControl<
   T extends StorageBrowserElements = StorageBrowserElements,
-> extends Pick<T, 'TableData' | 'TableRow'> {
+> extends Pick<T, 'TableData' | 'TableRow' | 'TableHeader'> {
   <U>(props: TableControlProps<U>): React.JSX.Element;
 }
 
@@ -184,185 +174,156 @@ export const TableControl: TableControl = <U,>({
 
 TableControl.TableRow = TableRow;
 TableControl.TableData = TableData;
+TableControl.TableHeader = TableHeader;
 
-const LocationsViewColumnSortMap = {
-  scope: compareStrings,
+const LocationDetailViewColumnSortMap = {
+  key: compareStrings,
   type: compareStrings,
-  permission: compareStrings,
+  lastModified: compareDates,
+  size: compareNumbers,
 };
 
-export const LocationsViewTable = (): JSX.Element => {
-  const [{ data, isLoading }] = useLocationsData();
-  const [, handleUpdateState] = useControl({ type: 'NAVIGATE' });
+export const LocationDetailViewTable = (): JSX.Element | null => {
+  const [{ history, path }, handleUpdateState] = useControl({
+    type: 'NAVIGATE',
+  });
 
-  const hasLocations = !!data.result?.length;
-  const shouldRenderLocations = !hasLocations || isLoading;
+  const [{ data, isLoading }] = useAction({
+    type: 'LIST_LOCATION_ITEMS',
+  });
+
+  const currentPosition = history.length;
+  const hasItems = !!data.result?.length;
 
   const [compareFn, setCompareFn] = React.useState(() => compareStrings);
-  const [sortState, setSortState] = React.useState<
-    SortState<LocationAccess<Permission>>
-  >({
-    selection: 'scope',
+  const [sortState, setSortState] = React.useState<SortState<LocationItem>>({
+    selection: 'key',
     direction: 'ascending',
   });
 
-  const { direction: sortDirection, selection } = sortState;
+  const { direction, selection } = sortState;
 
   const tableData =
-    sortDirection === 'ascending'
+    direction === 'ascending'
       ? data.result.sort((a, b) => compareFn(a[selection], b[selection]))
       : data.result.sort((a, b) => compareFn(b[selection], a[selection]));
 
   const renderHeaderItem = React.useCallback(
-    (column: Column<LocationAccess<Permission>>) => {
-      // Defining this function inside the `LocationsViewTable` to get access
+    (column: Column<LocationItem>) => {
+      // Defining this function inside the `LocationDetailViewTable` to get access
       // to the current sort state
+
       const { header, key } = column;
 
       return (
         <TableHeader
           key={header}
-          aria-sort={selection === key ? sortDirection : 'none'}
+          variant={key}
+          aria-label={
+            key == ('download' as keyof LocationItem)
+              ? column.header
+              : undefined
+          }
+          aria-sort={selection === key ? direction : 'none'}
         >
-          <TableHeaderButton
-            onClick={() => {
-              setCompareFn(() => LocationsViewColumnSortMap[column.key]);
+          {LocationDetailViewColumnSortMap[column.key] ? (
+            <TableHeaderButton
+              onClick={() => {
+                setCompareFn(() => LocationDetailViewColumnSortMap[column.key]);
 
-              setSortState((prevState) => ({
-                selection: column.key,
-                direction:
-                  prevState.direction === 'ascending'
-                    ? 'descending'
-                    : 'ascending',
-              }));
-            }}
-          >
-            {column.header}
-            {selection === column.key ? (
-              <Icon
-                variant={
-                  sortDirection === 'none'
-                    ? 'sort-indeterminate'
-                    : `sort-${sortDirection}`
-                }
-              />
-            ) : (
-              <Icon variant="sort-indeterminate" />
-            )}
-          </TableHeaderButton>
+                setSortState((prevState) => ({
+                  selection: column.key,
+                  direction:
+                    prevState.direction === 'ascending'
+                      ? 'descending'
+                      : 'ascending',
+                }));
+              }}
+            >
+              {column.header}
+              {selection === column.key ? (
+                <Icon
+                  variant={
+                    direction === 'none'
+                      ? 'sort-indeterminate'
+                      : `sort-${direction}`
+                  }
+                />
+              ) : (
+                <Icon variant="sort-indeterminate" />
+              )}
+            </TableHeaderButton>
+          ) : column.key !== ('download' as keyof LocationItem) ? (
+            column.header
+          ) : null}
         </TableHeader>
       );
     },
-    [sortDirection, selection]
+    [direction, selection]
   );
-
-  // @TODO: This should be it's own component instead of using `useCallback`
-  const renderRowItem: RenderRowItem<LocationAccess<Permission>> =
-    React.useCallback(
-      (row: LocationAccess<Permission>, index: number) => {
-        return (
-          <TableRow key={index}>
-            {LOCATION_VIEW_COLUMNS.map((column) => (
-              <TableData key={`${index}-${column.header}`} variant={column.key}>
-                {column.key === 'scope' &&
-                (row.type === 'BUCKET' || row.type === 'PREFIX') ? (
-                  <TableDataButton
-                    key={row['scope']}
-                    onClick={() => {
-                      handleUpdateState({
-                        type: 'ACCESS_LOCATION',
-                        location: row,
-                      });
-                    }}
-                    type="button"
-                  >
-                    <Icon className={ICON_CLASS} variant="folder" /> {row.scope}
-                  </TableDataButton>
-                ) : (
-                  <TableDataText>{row[column.key]}</TableDataText>
-                )}
-              </TableData>
-            ))}
-          </TableRow>
-        );
-      },
-      [handleUpdateState]
-    );
-
-  return shouldRenderLocations ? (
-    <div>...loading</div>
-  ) : (
-    <TableControl
-      columns={LOCATION_VIEW_COLUMNS}
-      data={tableData}
-      renderHeaderItem={renderHeaderItem}
-      renderRowItem={renderRowItem}
-    />
-  );
-};
-
-export const LocationDetailViewTable = (): JSX.Element => {
-  const [{ history, path }, handleUpdateState] = useControl({
-    type: 'NAVIGATE',
-  });
-
-  const [{ data, isLoading }, handleList] = useAction({
-    type: 'LIST_LOCATION_ITEMS',
-  });
-
-  const currentPosition = history.length;
-  const hasHistory = !!currentPosition;
-  const hasItems = !!data.result?.length;
-
-  React.useEffect(() => {
-    if (!hasHistory) return;
-
-    handleList({
-      prefix: path,
-      options: { pageSize: 1000, refresh: true, delimiter: '/' },
-    });
-  }, [handleList, hasHistory, path]);
 
   // @TODO: This should be it's own component instead of using `useCallback`
   const renderRowItem: RenderRowItem<LocationItem> = React.useCallback(
     (row, index) => {
-      const parseTableData = (
+      const renderTableData = (
         row: LocationItem,
         column: Column<LocationItem>
       ) => {
-        if (
-          row.type === 'FILE' &&
-          // @ts-ignore @TODO fix this ts error: This comparison appears to be unintentional because the types '"key" | "type"' and '"lastModified"' have no overlap.
-          column.key === 'lastModified' &&
-          row[column.key]
-        ) {
-          return (
-            <TableDataText>
-              {new Date(row[column.key]).toLocaleString()}
-            </TableDataText>
-          );
-        } else if (column.key === ('download' as keyof LocationItem)) {
-          return row.type === 'FILE' ? (
-            <DownloadControl fileKey={`${path}${row.key}`} />
-          ) : null;
-        } else {
-          return (
-            <TableDataText>
-              {column.key === 'key' && row.type === 'FILE' ? (
-                <Icon className={ICON_CLASS} variant="file" />
-              ) : null}
-              {row[column.key]}
-            </TableDataText>
-          );
-        }
-      };
+        const { type } = row;
 
-      return (
-        <TableRow key={index}>
-          {LOCATION_DETAIL_VIEW_COLUMNS.map((column) => {
-            return (
-              <TableData key={`${index}-${column.header}`} variant={column.key}>
-                {column.key === 'key' && row.type === 'FOLDER' ? (
+        switch (type) {
+          case 'FILE': {
+            // Casting column as Column<FileItem> to assert that we're only working with FileItems
+            // since the type is 'FILE'
+            const { key } = column as Column<FileItem>;
+
+            switch (key) {
+              case 'size': {
+                return (
+                  <TableDataText>
+                    {humanFileSize(row.size ?? 0, true)}
+                  </TableDataText>
+                );
+              }
+              case 'lastModified': {
+                return (
+                  <TableDataText>
+                    {new Date(row.lastModified).toLocaleString()}
+                  </TableDataText>
+                );
+              }
+              case 'download' as keyof LocationItem: {
+                return <DownloadControl fileKey={`${path}${row.key}`} />;
+              }
+              case 'type': {
+                const indexOfDot = row.key.lastIndexOf('.');
+
+                return indexOfDot > -1 ? (
+                  <TableDataText>{row.key.slice(indexOfDot + 1)}</TableDataText>
+                ) : (
+                  '-'
+                );
+              }
+              case 'key': {
+                return (
+                  <TableDataText>
+                    <Icon className={ICON_CLASS} variant="file" />
+                    {row.key}
+                  </TableDataText>
+                );
+              }
+              default:
+                return <TableDataText>{row[column.key]}</TableDataText>;
+            }
+          }
+          case 'FOLDER': {
+            // Casting column as Column<FolderItem> to assert that we're only working with FileItems
+            // since the type is 'FOLDER'
+            const { key } = column as Column<FolderItem>;
+
+            switch (key) {
+              case 'key': {
+                return (
                   <TableDataButton
                     onClick={() => {
                       handleUpdateState({
@@ -377,9 +338,24 @@ export const LocationDetailViewTable = (): JSX.Element => {
                   >
                     <Icon className={ICON_CLASS} variant="folder" /> {row.key}
                   </TableDataButton>
-                ) : (
-                  parseTableData(row, column)
-                )}
+                );
+              }
+              case 'type': {
+                return <TableDataText>Folder</TableDataText>;
+              }
+              default:
+                return <TableDataText>{row[column.key]}</TableDataText>;
+            }
+          }
+        }
+      };
+
+      return (
+        <TableRow key={index}>
+          {LOCATION_DETAIL_VIEW_COLUMNS.map((column) => {
+            return (
+              <TableData key={`${index}-${column.header}`} variant={column.key}>
+                {renderTableData(row, column)}
               </TableData>
             );
           })}
@@ -389,14 +365,12 @@ export const LocationDetailViewTable = (): JSX.Element => {
     [handleUpdateState, currentPosition, path]
   );
 
-  return isLoading && !hasItems ? (
-    <span>loading...</span>
-  ) : (
+  return hasItems && !isLoading ? (
     <TableControl
       columns={LOCATION_DETAIL_VIEW_COLUMNS}
-      data={data.result}
-      renderHeaderItem={() => <div></div>} // temporary
+      data={tableData}
+      renderHeaderItem={renderHeaderItem}
       renderRowItem={renderRowItem}
     />
-  );
+  ) : null;
 };

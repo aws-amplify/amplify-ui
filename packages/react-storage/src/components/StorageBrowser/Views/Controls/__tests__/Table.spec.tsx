@@ -1,31 +1,9 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
-import createProvider from '../../../createProvider';
-import * as ControlsModule from '../../../context/controls/';
-import * as ActionsModule from '../../../context/actions';
-import { LocationItem } from '../../../context/actions';
+import { LocationItem } from '../../../context/types';
 
-import {
-  Column,
-  LocationDetailViewTable,
-  LocationsViewTable,
-  TableControl,
-} from '../Table';
-
-const useControlSpy = jest.spyOn(ControlsModule, 'useControl');
-const useActionSpy = jest.spyOn(ActionsModule, 'useAction');
-
-const handleUpdateControlState = jest.fn();
-const controlState = {
-  location: {
-    scope: 's3://test-bucket/*',
-    permission: 'READ',
-    type: 'BUCKET',
-  },
-  history: [{ prefix: '', position: 0 }],
-  path: '',
-};
+import { Column, TableControl } from '../Table';
 
 const locationItems: LocationItem[] = [
   {
@@ -52,38 +30,7 @@ const locationItems: LocationItem[] = [
   },
 ];
 
-const locationItemsState = {
-  data: { result: locationItems, nextToken: undefined },
-  hasError: false,
-  isLoading: false,
-  message: undefined,
-};
-const handleUpdateActionState = jest.fn();
-
-useActionSpy.mockReturnValue([locationItemsState, handleUpdateActionState]);
-
-const listLocations = jest.fn(() =>
-  Promise.resolve({ locations: [], nextToken: undefined })
-);
-
-const config = {
-  getLocationCredentials: jest.fn(),
-  listLocations,
-  region: 'region',
-  registerAuthListener: jest.fn(),
-};
-
-const Provider = createProvider({ config });
-
 describe('TableControl', () => {
-  beforeEach(() => {
-    useActionSpy.mockClear();
-    useControlSpy.mockClear();
-
-    handleUpdateActionState.mockClear();
-    handleUpdateControlState.mockClear();
-  });
-
   it('calls renderHeaderItem and renderRowItem to render the TableControl', () => {
     const renderHeaderItemSpy = jest.fn();
     const renderRowItemSpy = jest.fn();
@@ -110,110 +57,5 @@ describe('TableControl', () => {
 
     expect(renderHeaderItemSpy).toHaveBeenCalled();
     expect(renderRowItemSpy).toHaveBeenCalled();
-  });
-});
-
-describe('LocationsViewTable', () => {
-  beforeEach(() => {
-    useActionSpy.mockClear();
-    useControlSpy.mockClear();
-
-    handleUpdateActionState.mockClear();
-    handleUpdateControlState.mockClear();
-  });
-
-  it('renders a Locations View table', async () => {
-    await waitFor(() =>
-      expect(
-        render(
-          <Provider>
-            <LocationsViewTable />
-          </Provider>
-        ).container
-      ).toBeDefined()
-    );
-  });
-
-  it('does not load location items when location is not set', async () => {
-    useControlSpy.mockReturnValue([
-      { location: undefined, history: [], path: '' },
-      handleUpdateControlState,
-    ]);
-
-    useActionSpy.mockReturnValue([
-      { ...locationItemsState, data: { result: [], nextToken: undefined } },
-      handleUpdateActionState,
-    ]);
-
-    await waitFor(() => {
-      render(
-        <Provider>
-          <LocationDetailViewTable />
-        </Provider>
-      );
-    });
-
-    expect(handleUpdateActionState).not.toHaveBeenCalled();
-  });
-});
-
-describe('LocationDetailViewTable', () => {
-  beforeEach(() => {
-    useActionSpy.mockClear();
-    useControlSpy.mockClear();
-
-    handleUpdateActionState.mockClear();
-    handleUpdateControlState.mockClear();
-  });
-
-  it('loads initial location items for a BUCKET location as expected', async () => {
-    useControlSpy.mockReturnValue([controlState, handleUpdateControlState]);
-
-    useActionSpy.mockReturnValue([locationItemsState, handleUpdateActionState]);
-
-    await waitFor(() => {
-      render(
-        <Provider>
-          <LocationDetailViewTable />
-        </Provider>
-      );
-    });
-
-    expect(handleUpdateActionState).toHaveBeenCalledTimes(1);
-    expect(handleUpdateActionState).toHaveBeenCalledWith({
-      prefix: '',
-      options: { delimiter: '/', pageSize: 1000, refresh: true },
-    });
-  });
-
-  it('loads initial location items for a PREFIX location as expected', async () => {
-    const prefixControlState = {
-      location: {
-        scope: 's3://test-bucket/test-prefix/*',
-        permission: 'READ',
-        type: 'PREFIX',
-      },
-      history: [{ prefix: 'test-prefix/', position: 0 }],
-      path: 'test-prefix/',
-    };
-
-    useControlSpy.mockReturnValue([
-      prefixControlState,
-      handleUpdateControlState,
-    ]);
-
-    await waitFor(() => {
-      render(
-        <Provider>
-          <LocationDetailViewTable />
-        </Provider>
-      );
-    });
-
-    expect(handleUpdateActionState).toHaveBeenCalledTimes(1);
-    expect(handleUpdateActionState).toHaveBeenCalledWith({
-      prefix: 'test-prefix/',
-      options: { delimiter: '/', pageSize: 1000, refresh: true },
-    });
   });
 });

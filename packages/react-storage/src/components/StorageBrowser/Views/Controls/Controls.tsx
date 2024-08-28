@@ -1,11 +1,13 @@
 import { StorageBrowserElements } from '../../context/elements';
 
-import { ActionSelectControl } from './ActionSelect';
 import { CancelControl } from './Cancel';
 import { DownloadControl } from './Download';
+import { EmptyMessageControl } from './EmptyMessage';
 import { ExitControl } from './Exit';
+import { LoadingControl } from './Loading';
 import { MessageControl } from './Message';
 import { NavigateControl } from './Navigate';
+import { OverwriteControl } from './Overwrite';
 import { PaginateControl } from './Paginate';
 import { PrimaryControl } from './Primary';
 import { RefreshControl } from './Refresh';
@@ -18,28 +20,32 @@ import { TitleControl } from './Title';
 export interface Controls<
   T extends StorageBrowserElements = StorageBrowserElements,
 > {
-  ActionSelect: ActionSelectControl<T>;
-  Cancel: CancelControl<T>;
-  Download: DownloadControl<T>;
-  Exit: ExitControl<T>;
-  Message: MessageControl<T>;
+  Cancel: typeof CancelControl;
+  Download: typeof DownloadControl;
+  EmptyMessage: typeof EmptyMessageControl;
+  Exit: typeof ExitControl;
+  Loading: typeof LoadingControl;
+  Message: typeof MessageControl;
+  Overwrite: typeof OverwriteControl;
   Paginate: PaginateControl<T>;
-  Primary: PrimaryControl<T>;
+  Primary: typeof PrimaryControl;
   Navigate: NavigateControl<T>;
-  Refresh: RefreshControl<T>;
-  Search: SearchControl<T>;
+  Refresh: typeof RefreshControl;
+  Search: typeof SearchControl;
   Summary: SummaryControl<T>;
   Table: TableControl<T>;
   Target: TargetControl<T>;
-  Title: TitleControl<T>;
+  Title: typeof TitleControl;
 }
 
 export const Controls: Controls = {
-  Exit: ExitControl,
-  ActionSelect: ActionSelectControl,
   Cancel: CancelControl,
   Download: DownloadControl,
+  EmptyMessage: EmptyMessageControl,
+  Exit: ExitControl,
+  Loading: LoadingControl,
   Message: MessageControl,
+  Overwrite: OverwriteControl,
   Paginate: PaginateControl,
   Primary: PrimaryControl,
   Navigate: NavigateControl,

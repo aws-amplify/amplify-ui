@@ -22,6 +22,7 @@ import {
 } from '@aws-amplify/ui-react';
 import {
   ButtonElementProps,
+  InputElementProps,
   LabelElementProps,
   TextElementProps,
 } from './definitions';
@@ -30,7 +31,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonElementProps>(
   function Button(props, ref) {
     const { disabled, variant } = props;
     switch (variant) {
-      case 'action-select-item':
+      case 'actions-menu-item':
         return (
           <_Button
             {...props}
@@ -63,7 +64,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonElementProps>(
         );
       case 'exit':
         return (
-          <_Button {...props} size="small" colorTheme="overlay" ref={ref} />
+          <_Button
+            {...props}
+            size="small"
+            paddingInline="xs"
+            variation="link"
+            ref={ref}
+          />
         );
       case 'message-dismiss':
         return (
@@ -76,6 +83,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonElementProps>(
           />
         );
       case 'navigate':
+      case 'paginate-current':
+      case 'paginate-next':
+      case 'paginate-previous':
         return (
           <_Button
             {...props}
@@ -85,13 +95,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonElementProps>(
             ref={ref}
           />
         );
-      case 'action-select-toggle':
+      case 'actions-menu-toggle':
       case 'download':
       case 'refresh':
       case 'sort':
-      case 'paginate-current':
-      case 'paginate-next':
-      case 'paginate-previous':
         return <_Button {...props} size="small" variation="link" ref={ref} />;
       case 'table-data':
         return (
@@ -126,9 +133,15 @@ const Label = React.forwardRef<HTMLLabelElement, LabelElementProps>(
   }
 );
 
-const Input = React.forwardRef<HTMLInputElement>(function Input(props, ref) {
-  return <_Input {...props} ref={ref} />;
-});
+const Input = React.forwardRef<HTMLInputElement, InputElementProps>(
+  function Input(props, ref) {
+    const { type } = props;
+    if (type === 'checkbox') {
+      return <input {...props} />;
+    }
+    return <_Input {...props} ref={ref} />;
+  }
+);
 
 const Title = React.forwardRef<HTMLHeadingElement>(
   function Heading(props, ref) {
@@ -204,7 +217,7 @@ const Text = React.forwardRef<HTMLParagraphElement, TextElementProps>(
 const View = React.forwardRef<HTMLDivElement, ViewProps & { variant?: string }>(
   function View({ variant, ...props }, ref) {
     switch (variant) {
-      case 'action-select-menu':
+      case 'actions-menu-list':
         return (
           <_View
             {...props}
@@ -225,6 +238,12 @@ const View = React.forwardRef<HTMLDivElement, ViewProps & { variant?: string }>(
             <Flex gap="small" alignItems="center">
               {props.children}
             </Flex>
+          </_Message>
+        );
+      case 'empty-message':
+        return (
+          <_Message {...props} colorTheme="neutral" ref={ref}>
+            <Flex justifyContent="center">{props.children}</Flex>
           </_Message>
         );
       default:

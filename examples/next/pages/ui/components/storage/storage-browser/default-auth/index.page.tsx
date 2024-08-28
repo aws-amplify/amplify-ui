@@ -7,7 +7,7 @@ import {
   createStorageBrowser,
   createAmplifyAuthAdapter,
   elementsDefault,
-} from '@aws-amplify/ui-react-storage';
+} from '@aws-amplify/ui-react-storage/browser';
 import '@aws-amplify/ui-react-storage/styles.css';
 import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
 
@@ -16,9 +16,10 @@ import config from './aws-exports';
 Amplify.configure(config);
 
 const { StorageBrowser } = createStorageBrowser({
+  actions: {},
   elements: elementsDefault,
   config: createAmplifyAuthAdapter({
-    options: { defaultPrefixes: ['public/', 'private/', 'protected/'] },
+    options: { defaultPrefixes: ['public/', 'protected/'] },
   }),
 });
 
@@ -26,6 +27,8 @@ function Example() {
   return (
     <>
       <Button
+        marginBlockEnd="xl"
+        size="small"
         onClick={() => {
           signOut();
         }}
