@@ -188,12 +188,11 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
     type: 'NAVIGATE',
   });
 
-  const [{ data, isLoading }, handleList] = useAction({
+  const [{ data, isLoading }] = useAction({
     type: 'LIST_LOCATION_ITEMS',
   });
 
   const currentPosition = history.length;
-  const hasHistory = !!currentPosition;
   const hasItems = !!data.result?.length;
 
   const [compareFn, setCompareFn] = React.useState(() => compareStrings);
@@ -208,15 +207,6 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
     direction === 'ascending'
       ? data.result.sort((a, b) => compareFn(a[selection], b[selection]))
       : data.result.sort((a, b) => compareFn(b[selection], a[selection]));
-
-  React.useEffect(() => {
-    if (!hasHistory) return;
-
-    handleList({
-      prefix: path,
-      options: { pageSize: 1000, refresh: true, delimiter: '/' },
-    });
-  }, [handleList, hasHistory, history, path]);
 
   const renderHeaderItem = React.useCallback(
     (column: Column<LocationItem>) => {
