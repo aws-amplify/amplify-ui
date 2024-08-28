@@ -51,10 +51,6 @@ const removeTask = <T extends Task | CancelableTask>(
   return [...tasks.slice(0, index), ...tasks.slice(index + 1)];
 };
 
-const removeFile = (files: File[], key: string): File[] => {
-  return files.filter((file) => getFileKey(file) !== key);
-};
-
 const updateTasks = <T extends Task | CancelableTask>(
   tasks: T[],
   task: TaskUpdate
@@ -73,28 +69,27 @@ const updateTasks = <T extends Task | CancelableTask>(
   return [...tasks.slice(0, index), updatedTask, ...tasks.slice(index + 1)];
 };
 
-// Helper function to replace files with the same name
-const mergeSelectedFiles = (prevFiles: File[], newFiles: File[]): File[] => {
-  const files: File[] = [];
-  const filesSet = new Set<string>();
+const mergeSelectedTasks = (
+  prevTasks: CancelableTask[],
+  newTasks: CancelableTask[]
+): CancelableTask[] => {
+  const tasks: CancelableTask[] = [];
+  const tasksSet = new Set<string>();
 
-  // Add new files so they appear on the top of the table
-  newFiles.forEach((file) => {
-    const fileKey = getFileKey(file);
-
-    files.push(file);
-    filesSet.add(fileKey);
+  // Add new tasks so they appear on the top of the table
+  newTasks.forEach((file) => {
+    tasks.push(file);
+    tasksSet.add(file.key);
   });
 
-  prevFiles.forEach((file) => {
-    const fileKey = getFileKey(file);
-
-    if (!filesSet.has(fileKey)) {
-      files.push(file);
+  // Add back any of the older tasks that we previously had
+  prevTasks.forEach((file) => {
+    if (!tasksSet.has(file.key)) {
+      tasks.push(file);
     }
   });
 
-  return files;
+  return tasks;
 };
 
 export function useHandleUpload({
@@ -111,19 +106,16 @@ export function useHandleUpload({
   const getConfig = useGetLocationConfig();
 
   const [tasks, setTasks] = React.useState<CancelableTask[]>(() => []);
-  const [_, setFiles] = React.useState<File[]>([]);
 
   const handleFileSelect = (newFiles: File[]) => {
-    setFiles((prevFiles) => {
-      const mergedFiles = mergeSelectedFiles(prevFiles, newFiles);
-
-      const nextTasks = mergedFiles.map((file) => {
+    setTasks((prevTasks) => {
+      // iterate over new files and create new tasks
+      const newTasks = newFiles.map((file) => {
         const key = getFileKey(file);
 
         return {
           cancel: () => {
             setTasks((prev) => removeTask(prev, key));
-            setFiles((prev) => removeFile(prev, key));
           },
           key,
           data: file,
@@ -133,8 +125,7 @@ export function useHandleUpload({
         };
       });
 
-      setTasks(nextTasks);
-      return mergedFiles;
+      return mergeSelectedTasks(prevTasks, newTasks);
     });
   };
 
