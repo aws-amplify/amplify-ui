@@ -24,19 +24,21 @@ interface TaskUpdate extends Partial<CancelableTask> {
   key: string;
 }
 
+const getFileKey = (file: File) => {
+  const { name, webkitRelativePath } = file;
+
+  return webkitRelativePath?.length > 0 ? webkitRelativePath : name;
+};
+
 const removeTask = <T extends Task | CancelableTask>(
   tasks: T[],
-  key: string,
-  updateFiles: React.Dispatch<React.SetStateAction<File[]>>
+  key: string
 ): T[] => {
   const index = tasks.findIndex(({ key: itemKey }) => key === itemKey);
 
   if (index === -1) {
     return tasks;
   }
-
-  // @TODO don't use file.name, need to use webkitRelatiavePath when bugfix gets merged in
-  updateFiles((prevFiles) => prevFiles.filter((file) => file.name !== key));
 
   if (index === 0) {
     return tasks.slice(1);
@@ -47,6 +49,10 @@ const removeTask = <T extends Task | CancelableTask>(
   }
 
   return [...tasks.slice(0, index), ...tasks.slice(index + 1)];
+};
+
+const removeFile = (files: File[], key: string): File[] => {
+  return files.filter((file) => getFileKey(file) !== key);
 };
 
 const updateTasks = <T extends Task | CancelableTask>(
@@ -67,39 +73,70 @@ const updateTasks = <T extends Task | CancelableTask>(
   return [...tasks.slice(0, index), updatedTask, ...tasks.slice(index + 1)];
 };
 
+// Helper function to replace files with the same name
+const mergeSelectedFiles = (prevFiles: File[], newFiles: File[]): File[] => {
+  const files: File[] = [];
+  const filesSet = new Set<string>();
+
+  // Add new files so they appear on the top of the table
+  newFiles.forEach((file) => {
+    const fileKey = getFileKey(file);
+
+    files.push(file);
+    filesSet.add(fileKey);
+  });
+
+  prevFiles.forEach((file) => {
+    const fileKey = getFileKey(file);
+
+    if (!filesSet.has(fileKey)) {
+      files.push(file);
+    }
+  });
+
+  return files;
+};
+
 export function useHandleUpload({
   prefix,
-  files,
   preventOverwrite,
-  updateFiles,
 }: {
   prefix: string;
-  files: File[];
   preventOverwrite: boolean;
-  updateFiles: React.Dispatch<React.SetStateAction<File[]>>;
-}): [tasks: CancelableTask[], handleUpload: () => void] {
+}): [
+  tasks: CancelableTask[],
+  handleUpload: () => void,
+  handleFileSelect: (files: File[]) => void,
+] {
   const getConfig = useGetLocationConfig();
 
   const [tasks, setTasks] = React.useState<CancelableTask[]>(() => []);
+  const [_, setFiles] = React.useState<File[]>([]);
 
-  React.useEffect(() => {
-    const nextTasks = files.map((file) => {
-      const key =
-        file.webkitRelativePath?.length > 0
-          ? file.webkitRelativePath
-          : file.name;
+  const handleFileSelect = (newFiles: File[]) => {
+    setFiles((prevFiles) => {
+      const mergedFiles = mergeSelectedFiles(prevFiles, newFiles);
 
-      return {
-        cancel: () => setTasks((prev) => removeTask(prev, key, updateFiles)),
-        key,
-        data: file,
-        size: file.size,
-        status: 'INITIAL' as const,
-        progress: 0,
-      };
+      const nextTasks = mergedFiles.map((file) => {
+        const key = getFileKey(file);
+
+        return {
+          cancel: () => {
+            setTasks((prev) => removeTask(prev, key));
+            setFiles((prev) => removeFile(prev, key));
+          },
+          key,
+          data: file,
+          size: file.size,
+          status: 'INITIAL' as const,
+          progress: 0,
+        };
+      });
+
+      setTasks(nextTasks);
+      return mergedFiles;
     });
-    setTasks(nextTasks);
-  }, [files, updateFiles]);
+  };
 
   const handleUpload = () =>
     setTasks((prevTasks) =>
@@ -156,5 +193,5 @@ export function useHandleUpload({
       })
     );
 
-  return [tasks, handleUpload];
+  return [tasks, handleUpload, handleFileSelect];
 }

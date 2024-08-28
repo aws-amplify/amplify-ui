@@ -197,35 +197,8 @@ const parseSelectionData = (
   return { type, accept };
 };
 
-// Helper function to replace files with the same name
-const mergeSelectedFiles = (prevFiles: File[], newFiles: File[]): File[] => {
-  const files: File[] = [];
-  const filesSet = new Set<string>();
-
-  // Add new files so they appear on the top of the table
-  newFiles.forEach((file) => {
-    files.push(file);
-    filesSet.add(file.name);
-  });
-
-  prevFiles.forEach((file) => {
-    if (!filesSet.has(file.name)) {
-      files.push(file);
-    }
-  });
-
-  return files;
-};
-
 export const UploadControls = (): JSX.Element => {
   const [{ history, path }] = useControl({ type: 'NAVIGATE' });
-  const [files, setFiles] = React.useState<File[]>([]);
-
-  const [fileSelect, handleSelect] = useFileSelect((newFiles) => {
-    setFiles((prevFiles) => {
-      return mergeSelectedFiles(prevFiles, newFiles);
-    });
-  });
 
   // preventOverwrite is enabled by default in our call to uploadData
   // so we set overwrite to default to false to match in our UI
@@ -234,12 +207,12 @@ export const UploadControls = (): JSX.Element => {
     type: 'ACTION_SELECT',
   });
 
-  const [tasks, handleUpload] = useHandleUpload({
+  const [tasks, handleUpload, handleFileSelect] = useHandleUpload({
     prefix: path,
     preventOverwrite: !overwrite,
-    files,
-    updateFiles: setFiles,
   });
+
+  const [fileSelect, handleSelect] = useFileSelect(handleFileSelect);
 
   let tableData = tasks.map((task) => {
     const folder = task.data.webkitRelativePath.lastIndexOf('/') + 1;
