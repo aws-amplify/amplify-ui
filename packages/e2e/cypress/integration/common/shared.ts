@@ -228,6 +228,10 @@ const typeInInputHandler = (field: string, value: string) => {
 };
 When('I type a new {string} with value {string}', typeInInputHandler);
 
+When('I lose focus on {string} input', (field: string) => {
+  cy.findInputField(field).blur();
+});
+
 When('I click the {string} tab', (label: string) => {
   cy.findByRole('tab', {
     name: new RegExp(`^${escapeRegExp(label)}$`, 'i'),
@@ -254,6 +258,18 @@ Then('I do not see the {string} button', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
   }).should('not.exist');
+});
+
+When('I click the {string} menuitem', (label: string) => {
+  cy.findByRole('menuitem', {
+    name: new RegExp(`^${escapeRegExp(label)}$`, 'i'),
+  }).click();
+});
+
+Then('I see the {string} menuitem', (label: string) => {
+  cy.findByRole('menuitem', {
+    name: new RegExp(`^${escapeRegExp(label)}$`, 'i'),
+  }).should('exist');
 });
 
 When('I click the {string} checkbox', (label: string) => {
