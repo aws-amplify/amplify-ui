@@ -1,6 +1,6 @@
 import { Modifiers, ComponentStyles, Elements, ColorTheme } from './utils';
 
-export type StorageManagerTheme<Required extends boolean = false> =
+export type FileUploaderTheme<Required extends boolean = false> =
   ComponentStyles &
     Modifiers<ColorTheme, Required> &
     Elements<

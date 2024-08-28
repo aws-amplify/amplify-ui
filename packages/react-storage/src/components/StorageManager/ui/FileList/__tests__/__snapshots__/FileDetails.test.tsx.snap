@@ -3,16 +3,16 @@
 exports[`FileDetails renders as expected 1`] = `
 <div>
   <div
-    class="amplify-storagemanager__file__main"
+    class="amplify-fileuploader__file__main"
   >
     <p
-      class="amplify-text amplify-storagemanager__file__name"
+      class="amplify-text amplify-fileuploader__file__name"
     >
       Test
     </p>
   </div>
   <span
-    class="amplify-text amplify-storagemanager__file__size"
+    class="amplify-text amplify-fileuploader__file__size"
   >
     100 B
   </span>

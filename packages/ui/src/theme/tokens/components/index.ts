@@ -42,7 +42,11 @@ import { select, SelectTokens } from './select';
 import { selectfield, SelectFieldTokens } from './selectField';
 import { sliderfield, SliderFieldTokens } from './sliderField';
 import { stepperfield, StepperFieldTokens } from './stepperField';
-import { storagemanager, StorageManagerTokens } from './storagemanager';
+import {
+  fileuploader,
+  FileUploaderTokens,
+  fileuploader as storagemanager,
+} from './fileuploader';
 import { switchfield, SwitchFieldTokens } from './switchField';
 import { table, TableTokens } from './table';
 import { tabs, TabsTokens } from './tabs';
@@ -85,6 +89,7 @@ type BaseComponentTokens<Output extends OutputVariantKey> = {
   image?: ImageTokens<Output>;
   inappmessaging?: InAppMessagingTokens<Output>;
   input?: InputTokens<Output>;
+  fileuploader?: FileUploaderTokens<Output>;
   link?: LinkTokens<Output>;
   liveness?: LivenessTokens<Output>;
   loader?: LoaderTokens<Output>;
@@ -102,7 +107,7 @@ type BaseComponentTokens<Output extends OutputVariantKey> = {
   selectfield?: SelectFieldTokens<Output>;
   sliderfield?: SliderFieldTokens<Output>;
   stepperfield?: StepperFieldTokens<Output>;
-  storagemanager?: StorageManagerTokens<Output>;
+  storagemanager?: FileUploaderTokens<Output>;
   switchfield?: SwitchFieldTokens<Output>;
   table?: TableTokens<Output>;
   tabs?: TabsTokens<Output>;
@@ -146,6 +151,7 @@ export const components: DefaultComponentTokens = {
   fieldgroup,
   fieldmessages,
   fieldset,
+  fileuploader,
   flex,
   heading,
   icon,

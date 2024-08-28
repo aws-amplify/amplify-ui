@@ -9,7 +9,7 @@ type BaseDropZoneTokens<OutputType> = DesignTokenProperties<
   | 'borderRadius',
   OutputType
 >;
-export interface StorageManagerTokens<OutputType extends OutputVariantKey> {
+export interface FileUploaderTokens<OutputType extends OutputVariantKey> {
   dropzone?: DesignTokenProperties<
     'gap' | 'paddingBlock' | 'paddingInline' | 'textAlign',
     OutputType
@@ -68,7 +68,9 @@ export interface StorageManagerTokens<OutputType extends OutputVariantKey> {
   };
 }
 
-export const storagemanager: Required<StorageManagerTokens<'default'>> = {
+// export interface StorageManagerTokens extends FileUploaderTokens<'default'> {}
+
+export const fileuploader: Required<FileUploaderTokens<'default'>> = {
   dropzone: {
     backgroundColor: { value: '{colors.background.primary}' },
     borderRadius: { value: '{radii.small}' },
@@ -83,11 +85,11 @@ export const storagemanager: Required<StorageManagerTokens<'default'>> = {
     _active: {
       backgroundColor: { value: '{colors.primary.10}' },
       borderRadius: {
-        value: '{components.storagemanager.dropzone.borderRadius}',
+        value: '{components.fileuploader.dropzone.borderRadius}',
       },
       borderColor: { value: '{colors.border.pressed}' },
       borderStyle: {
-        value: '{components.storagemanager.dropzone.borderStyle}',
+        value: '{components.fileuploader.dropzone.borderStyle}',
       },
       borderWidth: { value: '{borderWidths.medium}' },
     },

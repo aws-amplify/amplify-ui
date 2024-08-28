@@ -31,7 +31,10 @@ import { SelectTheme } from './select';
 import { SelectFieldTheme } from './selectField';
 import { SliderFieldTheme } from './sliderField';
 import { StepperFieldTheme } from './stepperField';
-import { StorageManagerTheme } from './storageManager';
+import {
+  FileUploaderTheme,
+  FileUploaderTheme as StorageManagerTheme,
+} from './fileUploader';
 import { SwitchFieldTheme, SwitchTheme } from './switchField';
 import { TableTheme } from './table';
 import { TabsTheme } from './tabs';
@@ -65,6 +68,7 @@ export type ComponentsTheme<TokensType extends WebTokens = WebTokens> =
   | BaseComponentTheme<FieldGroupTheme, 'field-group', TokensType>
   | BaseComponentTheme<FieldsetTheme, 'fieldset', TokensType>
   | BaseComponentTheme<HeadingTheme, 'heading', TokensType>
+  | BaseComponentTheme<FileUploaderTheme, 'fileUploader', TokensType>
   | BaseComponentTheme<HighlightMatchTheme, 'highlightmatch', TokensType>
   | BaseComponentTheme<InputTheme, 'input', TokensType>
   | BaseComponentTheme<LoaderTheme, 'loader', TokensType>
@@ -111,6 +115,7 @@ export type AllComponentThemes = {
   field: FieldTheme;
   'field-group': FieldGroupTheme;
   fieldset: FieldsetTheme;
+  fileuploader: FileUploaderTheme;
   heading: HeadingTheme;
   highlightmatch: HighlightMatchTheme;
   input: InputTheme;

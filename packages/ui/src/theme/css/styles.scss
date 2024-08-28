@@ -63,8 +63,8 @@
 @import './component/toggleButtonGroup.scss';
 // In-App Messaging components
 @import './component/inAppMessaging/index.scss';
-// StorageManager component
-@import './component/StorageManager/index.scss';
+// FileUploader component
+@import './component/FileUploader/index.scss';
 
 // This comes after the field styles so it can override them
 @import './component/fieldModifiers.scss';

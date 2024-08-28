@@ -8,7 +8,7 @@ const theme = {
       small: '2px',
     },
     components: {
-      storagemanager: {
+      fileuploader: {
         dropzone: {
           borderColor: '{colors.primary.60}',
         },

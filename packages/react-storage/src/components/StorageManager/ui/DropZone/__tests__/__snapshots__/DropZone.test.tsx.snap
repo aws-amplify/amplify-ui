@@ -3,11 +3,11 @@
 exports[`DropZone renders correctly 1`] = `
 <div>
   <div
-    class="amplify-storagemanager__dropzone"
+    class="amplify-fileuploader__dropzone"
   >
     <span
       aria-hidden="true"
-      class="amplify-storagemanager__dropzone__icon"
+      class="amplify-fileuploader__dropzone__icon"
     >
       <span
         class="amplify-icon"
@@ -28,7 +28,7 @@ exports[`DropZone renders correctly 1`] = `
       </span>
     </span>
     <p
-      class="amplify-text amplify-storagemanager__dropzone__text"
+      class="amplify-text amplify-fileuploader__dropzone__text"
     >
       Drop files here or
     </p>
@@ -39,18 +39,18 @@ exports[`DropZone renders correctly 1`] = `
 exports[`DropZone renders custom icons from IconProvider 1`] = `
 <div>
   <div
-    class="amplify-storagemanager__dropzone"
+    class="amplify-fileuploader__dropzone"
   >
     <span
       aria-hidden="true"
-      class="amplify-storagemanager__dropzone__icon"
+      class="amplify-fileuploader__dropzone__icon"
     >
       <div
         data-testid="upload"
       />
     </span>
     <p
-      class="amplify-text amplify-storagemanager__dropzone__text"
+      class="amplify-text amplify-fileuploader__dropzone__text"
     >
       Drop files here or
     </p>
