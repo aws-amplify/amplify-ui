@@ -77,7 +77,7 @@ const getLocationsData = ({
 }: {
   data: LocationAccess[];
   onLocationClick: (location: LocationAccess) => void;
-  onTableHeaderClick: (location: string) => void;
+  onTableHeaderClick: (header: string) => void;
   sortState: SortState;
 }) => {
   const { selection, direction } = sortState;
@@ -141,9 +141,9 @@ export function DataTableControl(): React.JSX.Element {
             location,
           });
         },
-        onTableHeaderClick: (location: string) => {
+        onTableHeaderClick: (header: string) => {
           setSortState((prevState) => ({
-            selection: location,
+            selection: header,
             direction:
               prevState.direction === 'ascending' ? 'descending' : 'ascending',
           }));

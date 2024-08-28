@@ -3,9 +3,10 @@ import React from 'react';
 import { StorageBrowserElements } from '../../context/elements';
 import { useControl } from '../../context/controls';
 import { ActionsMenuControl } from './Controls/ActionsMenu';
-import { Controls, LocationDetailViewTable } from '../Controls';
+import { Controls } from '../Controls';
 import { CommonControl } from '../types';
 import { useAction } from '../../context/actions';
+import { DataTableControl } from './Controls/DataTable';
 
 const {
   EmptyMessage,
@@ -97,7 +98,7 @@ export const LocationDetailViewControls: LocationDetailViewControls = () => {
       <Paginate />
       <LocationDetailMessage />
       <Loading />
-      <LocationDetailViewTable />
+      <DataTableControl />
       <LocationDetailEmptyMessage />
     </>
   );
