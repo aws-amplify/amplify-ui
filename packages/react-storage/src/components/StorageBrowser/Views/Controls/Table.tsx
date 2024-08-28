@@ -203,9 +203,7 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
 
   const { direction, selection } = sortState;
 
-  let tableData = data.result;
-
-  tableData =
+  const tableData =
     direction === 'ascending'
       ? data.result.sort((a, b) => compareFn(a[selection], b[selection]))
       : data.result.sort((a, b) => compareFn(b[selection], a[selection]));
