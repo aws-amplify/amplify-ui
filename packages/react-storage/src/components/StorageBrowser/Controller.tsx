@@ -11,7 +11,9 @@ export function Controller(): null {
   const [, handleListLocations] = useLocationsData();
 
   React.useEffect(() => {
-    handleListLocations({ options: { pageSize: 1000, refresh: true } });
+    handleListLocations({
+      options: { pageSize: 1000, refresh: true, exclude: 'WRITE' },
+    });
   }, [handleListLocations]);
 
   const [{ selected }] = useControl({ type: 'ACTION_SELECT' });
