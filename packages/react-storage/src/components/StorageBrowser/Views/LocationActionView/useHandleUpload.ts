@@ -73,17 +73,21 @@ export function useHandleUpload({
   const [tasks, setTasks] = React.useState<CancelableTask[]>(() => []);
 
   React.useEffect(() => {
-    const nextTasks = files.map((file) => ({
-      cancel: () => setTasks((prev) => removeTask(prev, file.name)),
-      key:
+    const nextTasks = files.map((file) => {
+      const key =
         file.webkitRelativePath?.length > 0
           ? file.webkitRelativePath
-          : file.name,
-      data: file,
-      size: file.size,
-      status: 'INITIAL' as const,
-      progress: 0,
-    }));
+          : file.name;
+
+      return {
+        cancel: () => setTasks((prev) => removeTask(prev, key)),
+        key,
+        data: file,
+        size: file.size,
+        status: 'INITIAL' as const,
+        progress: 0,
+      };
+    });
     setTasks(nextTasks);
   }, [files]);
 
