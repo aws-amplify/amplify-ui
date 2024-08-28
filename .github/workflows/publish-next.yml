@@ -56,7 +56,13 @@ jobs:
       DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
       DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
-  build-react-native:
+  build-test-v2:
+    uses: ./.github/workflows/reusable-build-system-test.yml
+    needs: e2e
+    with:
+      dist-tag: next
+    
+  build-test-v2-react-native:
     uses: ./.github/workflows/reusable-build-system-test-react-native.yml
     needs: e2e
     with:

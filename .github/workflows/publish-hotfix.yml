@@ -76,7 +76,13 @@ jobs:
         run: yarn build
         working-directory: ./canary
 
-  build-react-native:
+  build-test-v2:
+    uses: ./.github/workflows/reusable-build-system-test.yml
+    needs: setup
+    with:
+      dist-tag: hotfix
+
+  build-test-v2-react-native:
     uses: ./.github/workflows/reusable-build-system-test-react-native.yml
     needs: setup
     with:
