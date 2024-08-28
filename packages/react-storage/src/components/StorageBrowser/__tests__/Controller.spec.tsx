@@ -155,7 +155,7 @@ describe('Controller', () => {
 
     expect(handleListLocations).toHaveBeenCalledTimes(1);
     expect(handleListLocations).toHaveBeenCalledWith({
-      options: { pageSize: 1000, refresh: true },
+      options: { exclude: 'WRITE', pageSize: 1000, refresh: true },
     });
     expect(updatedHandleListLocations).not.toHaveBeenCalled();
 
@@ -165,7 +165,7 @@ describe('Controller', () => {
     expect(handleListLocations).toHaveBeenCalledTimes(1);
     expect(updatedHandleListLocations).toHaveBeenCalledTimes(1);
     expect(updatedHandleListLocations).toHaveBeenCalledWith({
-      options: { pageSize: 1000, refresh: true },
+      options: { exclude: 'WRITE', pageSize: 1000, refresh: true },
     });
   });
 
