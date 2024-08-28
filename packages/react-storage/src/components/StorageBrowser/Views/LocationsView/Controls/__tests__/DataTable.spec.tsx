@@ -32,9 +32,38 @@ const config = {
 
 const Provider = createProvider({ actions: {}, config });
 
+const INITIAL_PAGINATE_STATE = [
+  {
+    hasNext: false,
+    hasPrevious: false,
+    isLoadingNextPage: false,
+    current: 0,
+  },
+  jest.fn(),
+];
+
+const mockNavigateUpdateState = jest.fn();
+const INITIAL_NAVIGATE_STATE = [
+  { location: undefined, history: [], path: '' },
+  mockNavigateUpdateState,
+];
+
+const mockActionSelectUpdateState = jest.fn();
+const INITIAL_ACTION_STATE = [
+  { selected: { type: undefined, items: undefined }, actions: {} },
+  mockActionSelectUpdateState,
+];
+
 describe('LocationsViewTableControl', () => {
   beforeEach(() => {
-    useControlModuleSpy.mockReturnValue([{}, jest.fn()]);
+    useControlModuleSpy.mockImplementation(
+      ({ type }) =>
+        ({
+          ACTION_SELECT: INITIAL_ACTION_STATE,
+          NAVIGATE: INITIAL_NAVIGATE_STATE,
+          PAGINATE: INITIAL_PAGINATE_STATE,
+        })[type]
+    );
     useLocationsDataSpy.mockReturnValue([
       {
         data: { result: mockData, nextToken: undefined },
@@ -77,9 +106,6 @@ describe('LocationsViewTableControl', () => {
   });
 
   it('triggers location click handler when a row is clicked', () => {
-    const mockHandleUpdateState = jest.fn();
-    useControlModuleSpy.mockReturnValue([{}, mockHandleUpdateState]);
-
     render(
       <Provider>
         <DataTableControl />
@@ -89,7 +115,7 @@ describe('LocationsViewTableControl', () => {
     const firstRowButton = screen.getByRole('button', { name: 'Location A' });
     fireEvent.click(firstRowButton);
 
-    expect(mockHandleUpdateState).toHaveBeenCalledWith({
+    expect(mockNavigateUpdateState).toHaveBeenCalledWith({
       type: 'ACCESS_LOCATION',
       location: mockData[0],
     });
