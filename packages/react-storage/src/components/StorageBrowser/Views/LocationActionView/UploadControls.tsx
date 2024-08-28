@@ -197,10 +197,36 @@ const parseSelectionData = (
   return { type, accept };
 };
 
+// Helper function to replace files with the same name
+const mergeSelectedFiles = (prevFiles: File[], newFiles: File[]): File[] => {
+  const files: File[] = [];
+  const filesSet = new Set<string>();
+
+  // Add new files so they appear on the top of the table
+  newFiles.forEach((file) => {
+    files.push(file);
+    filesSet.add(file.name);
+  });
+
+  prevFiles.forEach((file) => {
+    if (!filesSet.has(file.name)) {
+      files.push(file);
+    }
+  });
+
+  return files;
+};
+
 export const UploadControls = (): JSX.Element => {
   const [{ history, path }] = useControl({ type: 'NAVIGATE' });
   const [files, setFiles] = React.useState<File[]>([]);
-  const [fileSelect, handleSelect] = useFileSelect(setFiles);
+
+  const [fileSelect, handleSelect] = useFileSelect((newFiles) => {
+    setFiles((prevFiles) => {
+      return mergeSelectedFiles(prevFiles, newFiles);
+    });
+  });
+
   // preventOverwrite is enabled by default in our call to uploadData
   // so we set overwrite to default to false to match in our UI
   const [overwrite, setOverwrite] = React.useState(false);
@@ -212,6 +238,7 @@ export const UploadControls = (): JSX.Element => {
     prefix: path,
     preventOverwrite: !overwrite,
     files,
+    updateFiles: setFiles,
   });
 
   let tableData = tasks.map((task) => {
@@ -240,16 +267,18 @@ export const UploadControls = (): JSX.Element => {
   const [sortState, setSortState] = React.useState<
     SortState<LocationActionViewColumns>
   >({
-    selection: 'key',
+    selection: undefined,
     direction: 'ascending',
   });
 
   const { direction, selection } = sortState;
 
-  tableData =
-    direction === 'ascending'
-      ? tableData.sort((a, b) => compareFn(a[selection], b[selection]))
-      : tableData.sort((a, b) => compareFn(b[selection], a[selection]));
+  if (selection) {
+    tableData =
+      direction === 'ascending'
+        ? tableData.sort((a, b) => compareFn(a[selection], b[selection]))
+        : tableData.sort((a, b) => compareFn(b[selection], a[selection]));
+  }
 
   const renderHeaderItem = React.useCallback(
     (column: Column<LocationActionViewColumns>) => {
@@ -304,7 +333,7 @@ export const UploadControls = (): JSX.Element => {
     [direction, selection]
   );
 
-  const disabled = tasks.some((task) => task.status === 'PENDING');
+  const disabled = tasks.some((task) => task.status !== 'INITIAL');
 
   return (
     <>

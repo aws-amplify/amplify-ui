@@ -26,9 +26,17 @@ interface TaskUpdate extends Partial<CancelableTask> {
 
 const removeTask = <T extends Task | CancelableTask>(
   tasks: T[],
-  key: string
+  key: string,
+  updateFiles: React.Dispatch<React.SetStateAction<File[]>>
 ): T[] => {
   const index = tasks.findIndex(({ key: itemKey }) => key === itemKey);
+
+  if (index === -1) {
+    return tasks;
+  }
+
+  // @TODO don't use file.name, need to use webkitRelatiavePath when bugfix gets merged in
+  updateFiles((prevFiles) => prevFiles.filter((file) => file.name !== key));
 
   if (index === 0) {
     return tasks.slice(1);
@@ -63,10 +71,12 @@ export function useHandleUpload({
   prefix,
   files,
   preventOverwrite,
+  updateFiles,
 }: {
   prefix: string;
   files: File[];
   preventOverwrite: boolean;
+  updateFiles: React.Dispatch<React.SetStateAction<File[]>>;
 }): [tasks: CancelableTask[], handleUpload: () => void] {
   const getConfig = useGetLocationConfig();
 
@@ -74,7 +84,8 @@ export function useHandleUpload({
 
   React.useEffect(() => {
     const nextTasks = files.map((file) => ({
-      cancel: () => setTasks((prev) => removeTask(prev, file.name)),
+      cancel: () =>
+        setTasks((prev) => removeTask(prev, file.name, updateFiles)),
       key:
         file.webkitRelativePath?.length > 0
           ? file.webkitRelativePath
@@ -85,7 +96,7 @@ export function useHandleUpload({
       progress: 0,
     }));
     setTasks(nextTasks);
-  }, [files]);
+  }, [files, updateFiles]);
 
   const handleUpload = () =>
     setTasks((prevTasks) =>
