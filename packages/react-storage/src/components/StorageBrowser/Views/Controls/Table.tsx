@@ -17,7 +17,7 @@ import {
 export type SortDirection = 'ascending' | 'descending' | 'none';
 
 export type SortState<T> = {
-  selection: keyof T | undefined;
+  selection: keyof T;
   direction: SortDirection;
 };
 
@@ -205,12 +205,10 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
 
   let tableData = data.result;
 
-  if (selection) {
-    tableData =
-      direction === 'ascending'
-        ? data.result.sort((a, b) => compareFn(a[selection], b[selection]))
-        : data.result.sort((a, b) => compareFn(b[selection], a[selection]));
-  }
+  tableData =
+    direction === 'ascending'
+      ? data.result.sort((a, b) => compareFn(a[selection], b[selection]))
+      : data.result.sort((a, b) => compareFn(b[selection], a[selection]));
 
   const renderHeaderItem = React.useCallback(
     (column: Column<LocationItem>) => {

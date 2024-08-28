@@ -240,18 +240,16 @@ export const UploadControls = (): JSX.Element => {
   const [sortState, setSortState] = React.useState<
     SortState<LocationActionViewColumns>
   >({
-    selection: undefined,
+    selection: 'key',
     direction: 'ascending',
   });
 
   const { direction, selection } = sortState;
 
-  if (selection) {
-    tableData =
-      direction === 'ascending'
-        ? tableData.sort((a, b) => compareFn(a[selection], b[selection]))
-        : tableData.sort((a, b) => compareFn(b[selection], a[selection]));
-  }
+  tableData =
+    direction === 'ascending'
+      ? tableData.sort((a, b) => compareFn(a[selection], b[selection]))
+      : tableData.sort((a, b) => compareFn(b[selection], a[selection]));
 
   const renderHeaderItem = React.useCallback(
     (column: Column<LocationActionViewColumns>) => {
