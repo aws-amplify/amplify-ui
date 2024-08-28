@@ -40,7 +40,7 @@ const LocationsViewRefresh = () => {
       disabled={isLoading || data.result.length <= 0}
       onClick={() =>
         handleListLocations({
-          options: { refresh: true, pageSize: 1000 },
+          options: { refresh: true, pageSize: 1000, exclude: 'WRITE' },
         })
       }
     />
