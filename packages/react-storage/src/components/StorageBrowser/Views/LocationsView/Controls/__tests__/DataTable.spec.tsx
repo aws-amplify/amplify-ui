@@ -8,6 +8,8 @@ import * as UseLocationsDataModule from '../../../../context/actions';
 import createProvider from '../../../../createProvider';
 import { LocationAccess } from '../../../../context/types';
 
+const TEST_RANGE: [number, number] = [0, 100];
+
 const useControlModuleSpy = jest.spyOn(UseControlModule, 'useControl');
 const useLocationsDataSpy = jest.spyOn(
   UseLocationsDataModule,
@@ -19,51 +21,18 @@ const mockData: LocationAccess<UseLocationsDataModule.Permission>[] = [
   { scope: 'Location B', type: 'PREFIX', permission: 'WRITE' },
 ];
 
-const listLocations = jest.fn(() =>
-  Promise.resolve({ locations: [], nextToken: undefined })
-);
-
 const config = {
   getLocationCredentials: jest.fn(),
-  listLocations,
+  listLocations: jest.fn(),
   region: 'region',
   registerAuthListener: jest.fn(),
 };
 
 const Provider = createProvider({ actions: {}, config });
 
-const INITIAL_PAGINATE_STATE = [
-  {
-    hasNext: false,
-    hasPrevious: false,
-    isLoadingNextPage: false,
-    current: 0,
-  },
-  jest.fn(),
-];
-
-const mockNavigateUpdateState = jest.fn();
-const INITIAL_NAVIGATE_STATE = [
-  { location: undefined, history: [], path: '' },
-  mockNavigateUpdateState,
-];
-
-const mockActionSelectUpdateState = jest.fn();
-const INITIAL_ACTION_STATE = [
-  { selected: { type: undefined, items: undefined }, actions: {} },
-  mockActionSelectUpdateState,
-];
-
 describe('LocationsViewTableControl', () => {
   beforeEach(() => {
-    useControlModuleSpy.mockImplementation(
-      ({ type }) =>
-        ({
-          ACTION_SELECT: INITIAL_ACTION_STATE,
-          NAVIGATE: INITIAL_NAVIGATE_STATE,
-          PAGINATE: INITIAL_PAGINATE_STATE,
-        })[type]
-    );
+    useControlModuleSpy.mockReturnValue([{}, jest.fn()]);
     useLocationsDataSpy.mockReturnValue([
       {
         data: { result: mockData, nextToken: undefined },
@@ -78,7 +47,7 @@ describe('LocationsViewTableControl', () => {
   it('renders the table with data', () => {
     const { getByText } = render(
       <Provider>
-        <DataTableControl />
+        <DataTableControl range={TEST_RANGE} />
       </Provider>
     );
 
@@ -92,7 +61,7 @@ describe('LocationsViewTableControl', () => {
   it('renders the correct icon based on sort state', () => {
     const { getByText } = render(
       <Provider>
-        <DataTableControl />
+        <DataTableControl range={TEST_RANGE} />
       </Provider>
     );
 
@@ -106,16 +75,19 @@ describe('LocationsViewTableControl', () => {
   });
 
   it('triggers location click handler when a row is clicked', () => {
+    const mockHandleUpdateState = jest.fn();
+    useControlModuleSpy.mockReturnValue([{}, mockHandleUpdateState]);
+
     render(
       <Provider>
-        <DataTableControl />
+        <DataTableControl range={TEST_RANGE} />
       </Provider>
     );
 
     const firstRowButton = screen.getByRole('button', { name: 'Location A' });
     fireEvent.click(firstRowButton);
 
-    expect(mockNavigateUpdateState).toHaveBeenCalledWith({
+    expect(mockHandleUpdateState).toHaveBeenCalledWith({
       type: 'ACCESS_LOCATION',
       location: mockData[0],
     });

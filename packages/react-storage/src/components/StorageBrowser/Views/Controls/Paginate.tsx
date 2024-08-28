@@ -8,7 +8,6 @@ import {
 } from '../../context/elements';
 import type { OmitElements } from '../types';
 import { CLASS_BASE } from '../constants';
-import { PaginateStateContext, useControl } from '../../context/controls';
 
 const {
   Button: ButtonElement,
@@ -20,13 +19,9 @@ const {
 } = StorageBrowserElements;
 
 const BLOCK_NAME = `${CLASS_BASE}__paginate`;
-const PAGINATE_VARIANTS = [
-  { variant: 'paginate-previous' },
-  { variant: 'paginate-current' },
-  { variant: 'paginate-next' },
-] as const;
 
-interface PaginateItemProps extends Pick<ButtonElementProps, 'onClick'> {
+interface PaginateItemProps
+  extends Pick<ButtonElementProps, 'children' | 'disabled' | 'onClick'> {
   variant?: PaginateVariant;
 }
 
@@ -73,42 +68,33 @@ const PaginateContainer: _PaginateControl['Container'] = function Container({
   );
 };
 
-const PaginateItemContext = React.createContext<PaginateItemProps>({
-  variant: undefined,
-});
-
 const PaginateItemContainer = withBaseElementProps(
   ListItem,
   ({ className = `${BLOCK_NAME}__item`, ...props }) => ({ ...props, className })
 );
 
-const PaginateText: typeof SpanElement = React.forwardRef(function Span(
-  { children, className = `${BLOCK_NAME}__text`, variant: _variant, ...props },
+const PaginateText: typeof SpanElement = React.forwardRef(function PaginateText(
+  { children, className = `${BLOCK_NAME}__text`, ...props },
   ref
 ) {
-  const { variant } = React.useContext(PaginateItemContext);
-  const [{ current }] = useControl({ type: 'PAGINATE' });
-
   return (
-    <SpanElement
-      {...props}
-      className={className}
-      ref={ref}
-      variant={_variant ?? variant}
-    >
-      {children ?? current}
+    <SpanElement {...props} className={className} ref={ref}>
+      {children}
     </SpanElement>
   );
 });
 
 const getButtonVariantProps = (
-  { variant, ...props }: ButtonElementProps,
-  context: PaginateStateContext
-): ButtonElementProps => {
-  const [
-    { hasNext, hasPrevious, isLoadingNextPage, current },
-    handleUpdateState,
-  ] = context;
+  variant: PaginateVariant,
+  props: PaginateProps
+): Omit<ButtonElementProps, 'variant'> & { variant?: PaginateVariant } => {
+  const {
+    currentPage,
+    disableNext,
+    disablePrevious,
+    handleNext,
+    handlePrevious,
+  } = props;
 
   let ariaCurrent: AriaAttributes['aria-current'];
   let ariaLabel, className, disabled, onClick, children;
@@ -116,15 +102,15 @@ const getButtonVariantProps = (
   switch (variant) {
     case 'paginate-current':
       ariaCurrent = 'page';
-      ariaLabel = `Page ${current}`;
-      children = <PaginateText />;
+      ariaLabel = `Page ${currentPage}`;
+      children = <PaginateText>{currentPage}</PaginateText>;
       className = `${BLOCK_NAME}__button-current`;
       break;
     case 'paginate-next':
       ariaLabel = 'Go to next page';
       className = `${BLOCK_NAME}__button-next`;
-      disabled = !hasNext || isLoadingNextPage;
-      onClick = () => handleUpdateState({ type: 'NEXT' });
+      disabled = disableNext;
+      onClick = handleNext;
       children = (
         <IconElement variant={variant} className={`${BLOCK_NAME}__icon`} />
       );
@@ -132,8 +118,8 @@ const getButtonVariantProps = (
     case 'paginate-previous':
       ariaLabel = 'Go to previous page';
       className = `${BLOCK_NAME}__button-next`;
-      disabled = !hasPrevious;
-      onClick = () => handleUpdateState({ type: 'PREVIOUS' });
+      disabled = disablePrevious;
+      onClick = handlePrevious;
       children = (
         <IconElement variant={variant} className={`${BLOCK_NAME}__icon`} />
       );
@@ -141,68 +127,37 @@ const getButtonVariantProps = (
   }
 
   return {
-    ...props,
-    'aria-current': props['aria-current'] ?? ariaCurrent,
-    'aria-label': props['aria-label'] ?? ariaLabel,
-    children: props.children ?? children,
-    className: props.className ?? className,
-    disabled: props.disabled ?? disabled,
-    onClick: props.onClick ?? onClick,
-    type: props.type ?? 'button',
+    'aria-current': ariaCurrent,
+    'aria-label': ariaLabel,
+    children,
+    className,
+    disabled,
+    onClick,
+    type: 'button',
     variant,
   };
 };
 
-const PaginateButtonControl: typeof ButtonElement = React.forwardRef(
-  function Button({ variant: _variant, ...props }, ref) {
-    const { variant } = React.useContext(PaginateItemContext);
-    const context = useControl({ type: 'PAGINATE' });
-
-    return (
-      <ButtonElement
-        {...getButtonVariantProps(
-          { ref, variant: _variant ?? variant, ...props },
-          context
-        )}
-      />
-    );
-  }
+const PaginateItem = (props: PaginateItemProps) => (
+  <PaginateItemContainer>
+    <ButtonElement {...props} />
+  </PaginateItemContainer>
 );
 
-const PaginateItem = (props: PaginateItemProps) => {
-  const { variant } = props;
+export interface PaginateProps {
+  currentPage?: string;
+  disableNext?: boolean;
+  disablePrevious?: boolean;
+  handleNext?: () => void;
+  handlePrevious?: () => void;
+}
 
-  return (
-    <PaginateItemContext.Provider key={variant} value={props}>
-      <PaginateItemContainer>
-        <PaginateButtonControl />
-      </PaginateItemContainer>
-    </PaginateItemContext.Provider>
-  );
-};
-
-const CurrentControl = ({ variant }: PaginateItemProps) => (
-  <PaginateItem variant={variant ?? 'paginate-current'} />
-);
-
-const NextControl = ({ variant }: PaginateItemProps) => (
-  <PaginateItem variant={variant ?? 'paginate-next'} />
-);
-
-const PreviousControl = ({ variant }: PaginateItemProps) => (
-  <PaginateItem variant={variant ?? 'paginate-previous'} />
-);
-
-export const PaginateControl: PaginateControl = () => {
+export const PaginateControl = (props: PaginateProps): React.JSX.Element => {
   return (
     <PaginateContainer>
-      {PAGINATE_VARIANTS.map((props) => (
-        <PaginateItem key={props.variant} {...props} />
-      ))}
+      <PaginateItem {...getButtonVariantProps('paginate-previous', props)} />
+      <PaginateItem {...getButtonVariantProps('paginate-current', props)} />
+      <PaginateItem {...getButtonVariantProps('paginate-next', props)} />
     </PaginateContainer>
   );
 };
-
-PaginateControl.Current = CurrentControl;
-PaginateControl.Next = NextControl;
-PaginateControl.Previous = PreviousControl;

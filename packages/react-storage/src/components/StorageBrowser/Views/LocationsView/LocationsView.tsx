@@ -1,10 +1,7 @@
 import React from 'react';
 
-import { StorageBrowserElements } from '../../context/elements';
-
 import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
-import { CommonControl, ViewComponent } from '../types';
 import { useLocationsData } from '../../context/actions';
 import { DataTableControl } from './Controls/DataTable';
 
@@ -14,37 +11,21 @@ const {
   Message,
   Paginate,
   Refresh,
-  Search,
   Title,
 } = Controls;
 
-interface LocationsViewControls<
-  T extends StorageBrowserElements = StorageBrowserElements,
-  // exclude `Toggle` from `Search` for Locations List
-> extends Exclude<
-    Pick<Controls<T>, CommonControl | 'Paginate' | 'Refresh' | 'Search'>,
-    Controls<T>['Search']
-  > {
+export interface LocationsView<_T = unknown> {
   (): React.JSX.Element;
 }
 
-export interface LocationsView<
-  T extends StorageBrowserElements = StorageBrowserElements,
-> extends ViewComponent<LocationsViewControls<T>> {}
-
-const LocationsViewRefresh = () => {
-  const [{ data, isLoading }, handleListLocations] = useLocationsData();
-
-  return (
-    <Refresh
-      disabled={isLoading || data.result.length <= 0}
-      onClick={() =>
-        handleListLocations({
-          options: { refresh: true, pageSize: 1000, exclude: 'WRITE' },
-        })
-      }
-    />
-  );
+const RefreshControl = ({
+  disableRefresh,
+  handleRefresh,
+}: {
+  disableRefresh?: boolean;
+  handleRefresh?: () => void;
+}) => {
+  return <Refresh disabled={disableRefresh} onClick={handleRefresh} />;
 };
 
 const Loading = () => {
@@ -71,33 +52,114 @@ const LocationsEmptyMessage = () => {
   ) : null;
 };
 
-// @ts-expect-error TODO: add Controls assignment
-const LocationsViewControls: LocationsViewControls = () => {
-  return (
-    <>
-      <Title>Home</Title>
-      <LocationsViewRefresh />
-      <Paginate />
-      <LocationsMessage />
-      <Loading />
-      <DataTableControl />
-      <LocationsEmptyMessage />
-    </>
-  );
+const PAGE_SIZE = 5;
+
+export const usePaginate = ({
+  hasNext,
+  onPaginateNext,
+  resultCount,
+}: {
+  hasNext: boolean;
+  onPaginateNext: () => void;
+  resultCount: number;
+}): {
+  currentPage: string;
+  disableNext: boolean;
+  disablePrevious: boolean;
+  handlePaginateNext: () => void;
+  handlePaginatePrevious: () => void;
+  range: [start: number, end: number];
+  reset: () => void;
+} => {
+  const [page, setPage] = React.useState(1);
+
+  const highestPageVisited = Math.round(resultCount / PAGE_SIZE);
+  const shouldPaginate = highestPageVisited === page && hasNext;
+
+  const disablePrevious = page <= 1;
+
+  const start = page === 1 ? 0 : (page - 1) * PAGE_SIZE;
+  const end = page === 1 ? PAGE_SIZE : page * PAGE_SIZE;
+
+  const handlePaginateNext = () => {
+    if (shouldPaginate) {
+      onPaginateNext();
+    }
+    setPage((prev) => prev + 1);
+  };
+
+  const handlePaginatePrevious = () => {
+    setPage((prev) => prev - 1);
+  };
+
+  return {
+    currentPage: `${page}`,
+    disablePrevious,
+    disableNext: !hasNext,
+    handlePaginateNext,
+    handlePaginatePrevious,
+    range: [start, end],
+    reset: () => {
+      setPage(1);
+    },
+  };
 };
 
-LocationsViewControls.Message = Message;
-LocationsViewControls.Paginate = Paginate;
-LocationsViewControls.Refresh = Refresh;
-LocationsViewControls.Search = Search;
-LocationsViewControls.Title = Title;
-
 export const LocationsView: LocationsView = () => {
+  const [{ data, isLoading }, handleList] = useLocationsData();
+
+  // initial load
+  React.useEffect(() => {
+    handleList({
+      options: { exclude: 'WRITE', pageSize: PAGE_SIZE, refresh: true },
+    });
+  }, [handleList]);
+
+  const resultCount = data.result.length;
+  const {
+    currentPage,
+    disableNext,
+    disablePrevious,
+    handlePaginateNext,
+    handlePaginatePrevious,
+    range,
+    reset,
+  } = usePaginate({
+    hasNext: !!data.nextToken,
+    onPaginateNext: () =>
+      handleList({
+        options: {
+          pageSize: PAGE_SIZE,
+          nextToken: data.nextToken,
+          exclude: 'WRITE',
+        },
+      }),
+    resultCount,
+  });
+
   return (
     <div className={CLASS_BASE} data-testid="LOCATIONS_VIEW">
-      <LocationsViewControls />
+      <Title>Home</Title>
+      <RefreshControl
+        disableRefresh={isLoading || resultCount === 0}
+        handleRefresh={() => {
+          reset();
+          handleList({
+            options: { pageSize: PAGE_SIZE, refresh: true, exclude: 'WRITE' },
+          });
+        }}
+      />
+      <Paginate
+        currentPage={currentPage}
+        disableNext={disableNext || isLoading}
+        disablePrevious={disablePrevious || isLoading}
+        handleNext={handlePaginateNext}
+        handlePrevious={handlePaginatePrevious}
+      />
+      <LocationsMessage />
+      <Loading />
+      <DataTableControl range={range} />
+      <LocationsEmptyMessage />
     </div>
   );
 };
-
-LocationsView.Controls = LocationsViewControls;

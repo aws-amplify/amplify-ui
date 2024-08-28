@@ -11,7 +11,6 @@ import {
 } from './context/config';
 import { ControlProvider } from './context/controls';
 import { StorageBrowserElements } from './context/elements';
-import { Controller } from './Controller';
 import { ErrorBoundary } from './ErrorBoundary';
 import { LocationActions } from './context/controls/locationActions';
 
@@ -52,7 +51,6 @@ export default function createProvider<
           <ControlProvider actions={actions}>
             <LocationConfigProvider {...config}>
               <ActionProvider listLocationsAction={listLocationsAction}>
-                <Controller />
                 {children}
               </ActionProvider>
             </LocationConfigProvider>
