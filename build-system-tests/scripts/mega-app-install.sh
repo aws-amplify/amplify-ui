@@ -117,10 +117,10 @@ if [ "$PKG_MANAGER" == 'yarn' ]; then
     yarn -v
     if [[ "$BUILD_TOOL" == 'cra' && "$LANGUAGE" == 'ts' ]]; then
         echo "yarn add $DEP_TYPES"
-        yarn add "$DEP_TYPES"
+        yarn add $DEP_TYPES
     fi
     echo "yarn add $DEPENDENCIES"
-    yarn add "$DEPENDENCIES"
+    yarn add $DEPENDENCIES
 else
     if [[ "$BUILD_TOOL" == 'cra' && "$LANGUAGE" == 'ts' ]]; then
         # If not testing the latest React, we need to download its types.
