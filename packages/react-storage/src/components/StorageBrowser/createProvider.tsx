@@ -13,6 +13,7 @@ import { ControlProvider } from './context/controls';
 import { StorageBrowserElements } from './context/elements';
 import { ErrorBoundary } from './ErrorBoundary';
 import { LocationActions } from './context/controls/locationActions';
+import { Controller } from './Controller';
 
 export interface Config
   extends Pick<
@@ -51,6 +52,7 @@ export default function createProvider<
           <ControlProvider actions={actions}>
             <LocationConfigProvider {...config}>
               <ActionProvider listLocationsAction={listLocationsAction}>
+                <Controller />
                 {children}
               </ActionProvider>
             </LocationConfigProvider>
