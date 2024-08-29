@@ -11,9 +11,9 @@ import {
 } from './context/config';
 import { ControlProvider } from './context/controls';
 import { StorageBrowserElements } from './context/elements';
-import { Controller } from './Controller';
 import { ErrorBoundary } from './ErrorBoundary';
 import { LocationActions } from './context/controls/locationActions';
+import { Controller } from './Controller';
 
 export interface Config
   extends Pick<

@@ -120,7 +120,11 @@ const getLocationsData = ({
   return { columns, rows };
 };
 
-export function DataTableControl(): React.JSX.Element {
+export function DataTableControl({
+  range,
+}: {
+  range: [start: number, end: number];
+}): React.JSX.Element {
   const [{ data }] = useLocationsData();
 
   const [, handleUpdateState] = useControl({ type: 'NAVIGATE' });
@@ -130,10 +134,12 @@ export function DataTableControl(): React.JSX.Element {
     direction: 'ascending',
   });
 
+  const [start, end] = range;
+
   const locationsData = React.useMemo(
     () =>
       getLocationsData({
-        data: data.result,
+        data: data.result.slice(start, end),
         sortState,
         onLocationClick: (location) => {
           handleUpdateState({
@@ -149,7 +155,7 @@ export function DataTableControl(): React.JSX.Element {
           }));
         },
       }),
-    [data.result, handleUpdateState, sortState]
+    [data.result, handleUpdateState, sortState, start, end]
   );
 
   return <DataTable data={locationsData} />;
