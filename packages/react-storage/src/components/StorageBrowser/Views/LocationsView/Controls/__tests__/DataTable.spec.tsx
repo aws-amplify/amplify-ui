@@ -2,11 +2,11 @@ import React from 'react';
 
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import { DataTableControl } from '../DataTable';
-import * as UseControlModule from '../../../../context/controls';
 import * as UseLocationsDataModule from '../../../../context/actions';
-import createProvider from '../../../../createProvider';
+import * as UseControlModule from '../../../../context/controls';
 import { LocationAccess } from '../../../../context/types';
+
+import { DataTableControl } from '../DataTable';
 
 const TEST_RANGE: [number, number] = [0, 100];
 
@@ -20,15 +20,6 @@ const mockData: LocationAccess<UseLocationsDataModule.Permission>[] = [
   { scope: 'Location A', type: 'BUCKET', permission: 'READ' },
   { scope: 'Location B', type: 'PREFIX', permission: 'WRITE' },
 ];
-
-const config = {
-  getLocationCredentials: jest.fn(),
-  listLocations: jest.fn(),
-  region: 'region',
-  registerAuthListener: jest.fn(),
-};
-
-const Provider = createProvider({ actions: {}, config });
 
 describe('LocationsViewTableControl', () => {
   beforeEach(() => {
@@ -45,11 +36,7 @@ describe('LocationsViewTableControl', () => {
   });
 
   it('renders the table with data', () => {
-    const { getByText } = render(
-      <Provider>
-        <DataTableControl range={TEST_RANGE} />
-      </Provider>
-    );
+    const { getByText } = render(<DataTableControl range={TEST_RANGE} />);
 
     expect(getByText('Name')).toBeInTheDocument();
     expect(getByText('Type')).toBeInTheDocument();
@@ -59,11 +46,7 @@ describe('LocationsViewTableControl', () => {
   });
 
   it('renders the correct icon based on sort state', () => {
-    const { getByText } = render(
-      <Provider>
-        <DataTableControl range={TEST_RANGE} />
-      </Provider>
-    );
+    const { getByText } = render(<DataTableControl range={TEST_RANGE} />);
 
     const nameTh = screen.getByRole('columnheader', { name: 'Name' });
 
@@ -78,11 +61,7 @@ describe('LocationsViewTableControl', () => {
     const mockHandleUpdateState = jest.fn();
     useControlModuleSpy.mockReturnValue([{}, mockHandleUpdateState]);
 
-    render(
-      <Provider>
-        <DataTableControl range={TEST_RANGE} />
-      </Provider>
-    );
+    render(<DataTableControl range={TEST_RANGE} />);
 
     const firstRowButton = screen.getByRole('button', { name: 'Location A' });
     fireEvent.click(firstRowButton);
