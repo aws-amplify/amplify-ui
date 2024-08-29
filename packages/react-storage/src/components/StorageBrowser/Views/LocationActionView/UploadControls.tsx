@@ -305,6 +305,14 @@ export const UploadControls = (): JSX.Element => {
   );
 
   const disabled = tasks.some((task) => task.status === 'PENDING');
+  const queuedTasks = tasks.filter((task) => task.status === 'QUEUED').length;
+  const canceledTasks = tasks.filter(
+    (task) => task.status === 'CANCELED'
+  ).length;
+  const failedTasks = tasks.filter((task) => task.status === 'FAILED').length;
+  const completeTasks = tasks.filter(
+    (task) => task.status === 'COMPLETE'
+  ).length;
 
   return (
     <>
@@ -346,7 +354,15 @@ export const UploadControls = (): JSX.Element => {
           setOverwrite((overwrite) => !overwrite);
         }}
       />
-      <Summary />
+      {tasks.length ? (
+        <Summary
+          total={tasks.length}
+          complete={completeTasks}
+          failed={failedTasks}
+          canceled={canceledTasks}
+          queued={queuedTasks}
+        />
+      ) : null}
       <Table
         data={tableData}
         columns={LOCATION_ACTION_VIEW_COLUMNS}
