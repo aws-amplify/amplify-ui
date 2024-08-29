@@ -27,7 +27,7 @@ export interface Controls<
   Loading: typeof LoadingControl;
   Message: typeof MessageControl;
   Overwrite: typeof OverwriteControl;
-  Paginate: PaginateControl<T>;
+  Paginate: typeof PaginateControl;
   Primary: typeof PrimaryControl;
   Navigate: NavigateControl<T>;
   Refresh: typeof RefreshControl;

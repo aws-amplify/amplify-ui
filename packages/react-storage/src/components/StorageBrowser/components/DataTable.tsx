@@ -29,10 +29,7 @@ export interface Data<T, K = {}> {
   rows: T[][];
 }
 
-export interface DataTableProps<
-  T extends RowDataItemProps,
-  K extends ColumnHeaderItemProps,
-> {
+export interface DataTableProps<T, K> {
   data?: Data<T, K>;
   renderColumnHeaderItem?: (props: K, index: number) => React.JSX.Element;
   renderRowDataItem?: (props: T, index: number) => React.JSX.Element;
