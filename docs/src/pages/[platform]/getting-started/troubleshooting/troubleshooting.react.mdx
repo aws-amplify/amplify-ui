@@ -170,14 +170,7 @@ This is a known problem when using the `jsdom` library (a dependency of Jest) wi
 
 ### Next 13.4+: React Server Components
 
-If you attempt to use Amplify with Next.js server components, you may encounter the following error:
-
-```
-./node_modules/@aws-amplify/ui-react-core/dist/esm/components/FormCore/FormProvider.mjs
-Attempted import error: 'useForm' is not exported from 'react-hook-form' (imported as 'useForm').
-```
-
-Next.js 13.4+ introduces [app directory](https://nextjs.org/docs/app/building-your-application/routing#the-app-directory) with the usage of [Server Components](https://nextjs.org/docs/app/building-your-application/rendering/server-components). To use Amplify UI componenents, you must use them inside the Client Component tree by placing `"use client"` at the boundary between your Client and Server component module graph. Please see the Next.js [documentation](https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns#using-third-party-packages-and-providers) on how you could achieve this.
+Next.js 13.4+ introduces [app directory](https://nextjs.org/docs/app/building-your-application/routing#the-app-directory) with the usage of [Server Components](https://nextjs.org/docs/app/building-your-application/rendering/server-components). Amplify UI components are intended to be used on the client side. See [here](#attempted-import-error-useform-is-not-exported-from-react-hook-form-imported-as-useform) for solutions.
 
 ### Next 13.4+: `Module not found` Errors
 
@@ -194,6 +187,8 @@ Module not found: Can't resolve 'aws-crt' in 'xxx'
 These errors will not affect the use and functionality of the client, nor will errors appear in the browser console. This is a known transitive issue when using the AWS SDK. The issue is currently tracked [here](https://github.com/aws-amplify/amplify-js/issues/11030).
 
 ## Server-Side Rendering (SSR)
+
+### Attempted import error: 'useForm' is not exported from 'react-hook-form' (imported as 'useForm').
 
 If you attempt to use Amplify with server-side rendering, you may encounter the following error:
 
