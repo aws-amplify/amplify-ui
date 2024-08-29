@@ -199,8 +199,7 @@ const parseSelectionData = (
 
 export const UploadControls = (): JSX.Element => {
   const [{ history, path }] = useControl({ type: 'NAVIGATE' });
-  const [files, setFiles] = React.useState<File[]>([]);
-  const [fileSelect, handleSelect] = useFileSelect(setFiles);
+
   // preventOverwrite is enabled by default in our call to uploadData
   // so we set overwrite to default to false to match in our UI
   const [overwrite, setOverwrite] = React.useState(false);
@@ -208,11 +207,12 @@ export const UploadControls = (): JSX.Element => {
     type: 'ACTION_SELECT',
   });
 
-  const [tasks, handleUpload] = useHandleUpload({
+  const [tasks, handleUpload, handleFileSelect] = useHandleUpload({
     prefix: path,
     preventOverwrite: !overwrite,
-    files,
   });
+
+  const [fileSelect, handleSelect] = useFileSelect(handleFileSelect);
 
   let tableData = tasks.map((task) => {
     const folder = task.data.webkitRelativePath.lastIndexOf('/') + 1;
