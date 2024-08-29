@@ -9,5 +9,13 @@
     "liveness": "yarn --cwd liveness/",
     "storage": "yarn --cwd storage/",
     "in-app-messaging": "yarn --cwd in-app-messaging/"
+  },
+  "devDependencies": {
+    "@aws-amplify/graphql-conversation-transformer": "raven",
+    "@aws-amplify/graphql-generation-transformer": "raven",
+    "@aws-amplify/backend-cli": "^1.1.1",
+    "aws-cdk": "^2.143.1",
+    "aws-cdk-lib": "^2.143.1",
+    "constructs": "^10.3.0"
   }
 }
