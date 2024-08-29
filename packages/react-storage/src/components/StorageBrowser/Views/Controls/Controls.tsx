@@ -32,7 +32,7 @@ export interface Controls<
   Navigate: NavigateControl<T>;
   Refresh: typeof RefreshControl;
   Search: typeof SearchControl;
-  Summary: SummaryControl<T>;
+  Summary: typeof SummaryControl;
   Table: TableControl<T>;
   Target: TargetControl<T>;
   Title: typeof TitleControl;
