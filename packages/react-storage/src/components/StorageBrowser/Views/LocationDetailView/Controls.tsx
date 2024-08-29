@@ -12,6 +12,7 @@ import { listViewHelpers } from '../utils';
 const DEFAULT_PAGE_SIZE = 10;
 const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
+  delimiter: '/',
 };
 
 const {
@@ -54,7 +55,7 @@ const RefreshControl = () => {
       onClick={() =>
         handleList({
           prefix: path,
-          options: { refresh: true, pageSize: 1000, delimiter: '/' },
+          options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
         })
       }
     />
