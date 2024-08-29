@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useAction, useLocationsData } from './context/actions';
+import { useAction } from './context/actions';
 import { useControl } from './context/controls';
 
 /**
@@ -8,14 +8,6 @@ import { useControl } from './context/controls';
  * loading behavior
  */
 export function Controller(): null {
-  const [, handleListLocations] = useLocationsData();
-
-  React.useEffect(() => {
-    handleListLocations({
-      options: { pageSize: 1000, refresh: true, exclude: 'WRITE' },
-    });
-  }, [handleListLocations]);
-
   const [{ selected }] = useControl({ type: 'ACTION_SELECT' });
   const [{ history, path }] = useControl({
     type: 'NAVIGATE',

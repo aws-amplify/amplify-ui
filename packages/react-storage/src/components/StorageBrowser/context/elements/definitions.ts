@@ -31,9 +31,11 @@ export interface StorageBrowserElements {
 
 export type PaginateVariant = `paginate-${'next' | 'current' | 'previous'}`;
 export type MessageVariant = 'info' | 'success' | 'error' | 'warning';
-export type IconElementProps = React.ComponentProps<typeof IconElement>;
+export interface IconElementProps
+  extends React.ComponentProps<typeof IconElement> {}
 
-export type ButtonElementProps = React.ComponentProps<typeof ButtonElement>;
+export interface ButtonElementProps
+  extends React.ComponentProps<typeof ButtonElement> {}
 export type ButtonElementVariant =
   | 'actions-menu-item'
   | 'actions-menu-toggle'
@@ -67,22 +69,29 @@ export const DefinitionDetailElement = defineBaseElementWithRef({
   displayName: 'DefinitionDetail',
 });
 
-export type LabelElementProps = React.ComponentProps<typeof LabelElement>;
+export interface LabelElementProps
+  extends React.ComponentProps<typeof LabelElement> {}
 export const LabelElement = defineBaseElementWithRef<'label', 'htmlFor'>({
   type: 'label',
   displayName: 'Label',
 });
 
+export interface NavElementProps
+  extends React.ComponentProps<typeof NavElement> {}
 export const NavElement = defineBaseElement({
   type: 'nav',
   displayName: 'Nav',
 });
 
-export type TextElementProps = React.ComponentProps<typeof TextElement>;
+export interface TextElementProps
+  extends React.ComponentProps<typeof TextElement> {}
 export const TextElement = defineBaseElementWithRef<'p', 'id'>({
   type: 'p',
   displayName: 'Text',
 });
+
+export interface OrderedListElementProps
+  extends React.ComponentProps<typeof OrderedListElement> {}
 
 export const OrderedListElement = defineBaseElementWithRef({
   type: 'ol',
@@ -94,6 +103,8 @@ export const UnorderedListElement = defineBaseElementWithRef({
   displayName: 'UnorderedList',
 });
 
+export interface ListItemElementProps
+  extends React.ComponentProps<typeof ListItemElement> {}
 export const ListItemElement = defineBaseElementWithRef({
   type: 'li',
   displayName: 'ListItem',
