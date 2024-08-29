@@ -14,11 +14,6 @@ import {
   compareStrings,
 } from '../../context/controls/Table';
 
-const DEFAULT_PAGE_SIZE = 10;
-const DEFAULT_LIST_OPTIONS = {
-  pageSize: DEFAULT_PAGE_SIZE,
-};
-
 export type SortDirection = 'ascending' | 'descending' | 'none';
 
 export type SortState<T> = {
