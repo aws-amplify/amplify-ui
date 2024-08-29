@@ -6,7 +6,7 @@ interface UsePaginate {
     resultCount: number;
     hasNextToken: boolean;
   }) => void;
-  handlePaginatePrevious: (input?: {}) => void;
+  handlePaginatePrevious: () => void;
   handleReset: () => void;
 }
 

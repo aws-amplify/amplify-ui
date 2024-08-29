@@ -9,6 +9,12 @@ import { listViewHelpers } from '../utils';
 
 import { DataTableControl } from './Controls/DataTable';
 
+const DEFAULT_PAGE_SIZE = 100;
+const DEFAULT_LIST_OPTIONS = {
+  exclude: 'WRITE' as const,
+  pageSize: DEFAULT_PAGE_SIZE,
+};
+
 const {
   EmptyMessage,
   Loading: LoadingElement,
@@ -56,8 +62,6 @@ const LocationsEmptyMessage = () => {
   ) : null;
 };
 
-const PAGE_SIZE = 10;
-
 export const LocationsView: LocationsView = () => {
   const [{ data, isLoading }, handleList] = useLocationsData();
 
@@ -68,13 +72,13 @@ export const LocationsView: LocationsView = () => {
   // initial load
   React.useEffect(() => {
     handleList({
-      options: { exclude: 'WRITE', pageSize: PAGE_SIZE, refresh: true },
+      options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
     });
   }, [handleList]);
 
   const onPaginateNext = () =>
     handleList({
-      options: { pageSize: PAGE_SIZE, nextToken },
+      options: { ...DEFAULT_LIST_OPTIONS, nextToken },
     });
 
   const {
@@ -82,14 +86,14 @@ export const LocationsView: LocationsView = () => {
     handlePaginateNext,
     handlePaginatePrevious,
     handleReset,
-  } = usePaginate({ onPaginateNext, pageSize: PAGE_SIZE });
+  } = usePaginate({ onPaginateNext, pageSize: DEFAULT_PAGE_SIZE });
 
   const { disableNext, disablePrevious, disableRefresh, range } =
     listViewHelpers({
       currentPage,
       hasNextToken,
       isLoading,
-      pageSize: PAGE_SIZE,
+      pageSize: DEFAULT_PAGE_SIZE,
       resultCount,
     });
 
@@ -100,7 +104,9 @@ export const LocationsView: LocationsView = () => {
         disableRefresh={disableRefresh}
         handleRefresh={() => {
           handleReset();
-          handleList({ options: { pageSize: PAGE_SIZE, refresh: true } });
+          handleList({
+            options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
+          });
         }}
       />
       <Paginate
