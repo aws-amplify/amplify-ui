@@ -14,6 +14,11 @@ import {
   compareStrings,
 } from '../../context/controls/Table';
 
+const DEFAULT_PAGE_SIZE = 10;
+const DEFAULT_LIST_OPTIONS = {
+  pageSize: DEFAULT_PAGE_SIZE,
+};
+
 export type SortDirection = 'ascending' | 'descending' | 'none';
 
 export type SortState<T> = {
@@ -183,7 +188,13 @@ const LocationDetailViewColumnSortMap = {
   size: compareNumbers,
 };
 
-export const LocationDetailViewTable = (): JSX.Element | null => {
+export const LocationDetailViewTable = ({
+  range,
+}: {
+  range: [start: number, end: number];
+}): JSX.Element | null => {
+  const [start, end] = range;
+
   const [{ history, path }, handleUpdateState] = useControl({
     type: 'NAVIGATE',
   });
@@ -191,6 +202,14 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
   const [{ data, isLoading }] = useAction({
     type: 'LIST_LOCATION_ITEMS',
   });
+
+  // // initial load
+  // React.useEffect(() => {
+  //   handleList({
+  //     prefix: path,
+  //     options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
+  //   });
+  // }, [path, handleList]);
 
   const currentPosition = history.length;
   const hasItems = !!data.result?.length;
@@ -203,10 +222,11 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
 
   const { direction, selection } = sortState;
 
-  const tableData =
+  const tableData = (
     direction === 'ascending'
       ? data.result.sort((a, b) => compareFn(a[selection], b[selection]))
-      : data.result.sort((a, b) => compareFn(b[selection], a[selection]));
+      : data.result.sort((a, b) => compareFn(b[selection], a[selection]))
+  ).slice(start, end);
 
   const renderHeaderItem = React.useCallback(
     (column: Column<LocationItem>) => {

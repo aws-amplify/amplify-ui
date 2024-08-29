@@ -6,6 +6,13 @@ import { ActionsMenuControl } from './Controls/ActionsMenu';
 import { Controls, LocationDetailViewTable } from '../Controls';
 import { CommonControl } from '../types';
 import { useAction } from '../../context/actions';
+import { usePaginate } from '../hooks/usePaginate';
+import { listViewHelpers } from '../utils';
+
+const DEFAULT_PAGE_SIZE = 10;
+const DEFAULT_LIST_OPTIONS = {
+  pageSize: DEFAULT_PAGE_SIZE,
+};
 
 const {
   EmptyMessage,
@@ -88,16 +95,69 @@ const LocationDetailEmptyMessage = () => {
 
 // @ts-expect-error TODO: add Controls assignment
 export const LocationDetailViewControls: LocationDetailViewControls = () => {
+  const [{ data, isLoading }, handleList] = useAction({
+    type: 'LIST_LOCATION_ITEMS',
+  });
+
+  const { result, nextToken } = data;
+  console.log(result.length);
+  const resultCount = result.length;
+  const hasNextToken = !!nextToken;
+  const [{ path }] = useControl({ type: 'NAVIGATE' });
+
+  React.useEffect(() => {
+    handleList({
+      prefix: path,
+      options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
+    });
+  }, [path, handleList]);
+
+  const onPaginateNext = () =>
+    handleList({
+      prefix: path,
+      options: { ...DEFAULT_LIST_OPTIONS, nextToken },
+    });
+
+  const { currentPage, handlePaginateNext, handlePaginatePrevious } =
+    usePaginate({ onPaginateNext, pageSize: DEFAULT_PAGE_SIZE });
+
+  console.log('hasNextToken: ', hasNextToken);
+  const { disableNext, disablePrevious, range } = listViewHelpers({
+    currentPage,
+    hasNextToken,
+    isLoading,
+    pageSize: DEFAULT_PAGE_SIZE,
+    resultCount,
+  });
+  console.log(
+    'listViewHelpers: ',
+    listViewHelpers({
+      currentPage,
+      hasNextToken,
+      isLoading,
+      pageSize: DEFAULT_PAGE_SIZE,
+      resultCount,
+    })
+  );
+
   return (
     <>
       <Navigate />
       <Title />
       <RefreshControl />
       <ActionsMenuControl />
-      <Paginate />
+      <Paginate
+        currentPage={currentPage}
+        disableNext={disableNext}
+        disablePrevious={disablePrevious}
+        handleNext={() => {
+          handlePaginateNext({ resultCount, hasNextToken });
+        }}
+        handlePrevious={handlePaginatePrevious}
+      />
       <LocationDetailMessage />
       <Loading />
-      <LocationDetailViewTable />
+      <LocationDetailViewTable range={range} />
       <LocationDetailEmptyMessage />
     </>
   );
