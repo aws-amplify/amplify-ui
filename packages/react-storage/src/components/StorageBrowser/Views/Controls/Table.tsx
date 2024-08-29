@@ -209,11 +209,13 @@ export const LocationDetailViewTable = ({
 
   const { direction, selection } = sortState;
 
-  const tableData = (
+  // Use range prop values to get the current page of data
+  const pagedData = data.result.slice(start, end);
+
+  const tableData =
     direction === 'ascending'
-      ? data.result.sort((a, b) => compareFn(a[selection], b[selection]))
-      : data.result.sort((a, b) => compareFn(b[selection], a[selection]))
-  ).slice(start, end);
+      ? pagedData.sort((a, b) => compareFn(a[selection], b[selection]))
+      : pagedData.sort((a, b) => compareFn(b[selection], a[selection]));
 
   const renderHeaderItem = React.useCallback(
     (column: Column<LocationItem>) => {
