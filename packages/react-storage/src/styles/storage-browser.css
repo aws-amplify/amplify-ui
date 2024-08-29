@@ -1,6 +1,7 @@
 .storage-browser {
   --storage-browser-gap-small: 0.375rem;
   --storage-browser-gap: 0.6rem;
+  --storage-browser-gap-large: 1.2rem;
   --storage-browser-status-error: hsl(0, 95%, 30%);
   --storage-browser-status-success: hsl(130, 33%, 37%);
   --storage-browser-status-progress: hsl(220, 95%, 30%);
@@ -88,7 +89,7 @@
   justify-content: flex-end;
   margin: 0;
   display: flex;
-  gap: var(--storage-browser-gap);
+  gap: var(--storage-browser-gap-large);
 }
 
 .storage-browser__overwrite {
@@ -103,7 +104,7 @@
 .storage-browser__summary__definition,
 .storage-browser__destination {
   display: flex;
-  gap: var(--storage-browser-gap);
+  gap: var(--storage-browser-gap-small);
 }
 
 .storage-browser__summary__definition__detail,
