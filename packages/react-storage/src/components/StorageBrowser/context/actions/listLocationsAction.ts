@@ -61,10 +61,9 @@ export const createListLocationsAction = (
     let nextNextToken: ListLocationsOutput['nextToken'] = refresh
       ? undefined
       : nextToken;
-    let remainingPageSize = pageSize;
 
     do {
-      remainingPageSize = remainingPageSize - locationsResult.length;
+      const remainingPageSize = pageSize - locationsResult.length;
 
       const output = await listLocations({
         nextToken: nextNextToken,
@@ -72,10 +71,13 @@ export const createListLocationsAction = (
       });
       nextNextToken = output.nextToken;
 
-      locationsResult = [...locationsResult, ...output.locations].filter(
-        ({ permission, type }) =>
-          !(type === 'OBJECT' || shouldExclude(permission, exclude))
-      );
+      locationsResult = [
+        ...locationsResult,
+        ...output.locations.filter(
+          ({ permission, type }) =>
+            !(type === 'OBJECT' || shouldExclude(permission, exclude))
+        ),
+      ];
     } while (nextNextToken && locationsResult.length < pageSize);
 
     const result = refresh
