@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Amplify } from 'aws-amplify';
-import { fetchAuthSession, signOut } from 'aws-amplify/auth';
+import { signOut } from 'aws-amplify/auth';
 
 import { Button, withAuthenticator } from '@aws-amplify/ui-react';
 import {
