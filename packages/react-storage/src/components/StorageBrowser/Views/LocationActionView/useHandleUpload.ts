@@ -1,8 +1,15 @@
 import React from 'react';
-import { uploadData, UploadDataWithPathInput } from 'aws-amplify/storage';
+import {
+  uploadData,
+  UploadDataWithPathInput,
+  isCancelError,
+} from 'aws-amplify/storage';
 
 import { useGetLocationConfig } from '../../context/config';
 import { TaskStatus } from '../../context/types';
+
+// 5MB for multipart upload
+export const MULTIPART_UPLOAD_THRESHOLD_BYTES = 5242880;
 
 /**
  * Base `task`
@@ -95,9 +102,11 @@ const mergeSelectedTasks = (
 export function useHandleUpload({
   prefix,
   preventOverwrite,
+  batchSize = 6,
 }: {
   prefix: string;
   preventOverwrite: boolean;
+  batchSize?: number;
 }): [
   tasks: CancelableTask[],
   handleUpload: () => void,
@@ -129,60 +138,76 @@ export function useHandleUpload({
     });
   };
 
-  const handleUpload = () =>
-    setTasks((prevTasks) =>
-      prevTasks.map(({ key, data, progress, size }) => {
-        const { bucket: bucketName, credentialsProvider, region } = getConfig();
-        const input: UploadDataWithPathInput = {
-          path: `${prefix}${key}`,
-          data,
-          options: {
-            bucket: { bucketName, region },
-            locationCredentialsProvider: credentialsProvider,
-            onProgress: ({ totalBytes, transferredBytes }) => {
-              const progress = totalBytes ? transferredBytes / totalBytes : 0;
-              const nextTask: TaskUpdate = {
-                key,
-                progress,
-                ...(totalBytes === transferredBytes
-                  ? { cancel: undefined }
-                  : undefined),
-              };
-              setTasks((curr) => updateTasks(curr, nextTask));
-            },
-            preventOverwrite,
+  const handleUpload = async () => {
+    let currentIndex = 0;
+
+    const uploadNext = async () => {
+      if (currentIndex >= tasks.length) {
+        return;
+      }
+
+      const task = tasks[currentIndex];
+
+      currentIndex++;
+
+      const { key, data } = task;
+      const { bucket: bucketName, credentialsProvider, region } = getConfig();
+      const input: UploadDataWithPathInput = {
+        path: `${prefix}${key}`,
+        data,
+        options: {
+          bucket: { bucketName, region },
+          locationCredentialsProvider: credentialsProvider,
+          onProgress: ({ totalBytes, transferredBytes }) => {
+            const progress = totalBytes ? transferredBytes / totalBytes : 0;
+            const nextTask: TaskUpdate = {
+              key,
+              progress,
+              ...(totalBytes === transferredBytes
+                ? { cancel: undefined }
+                : undefined),
+            };
+            setTasks((curr) => updateTasks(curr, nextTask));
           },
-        };
+          preventOverwrite,
+        },
+      };
 
-        const { cancel, result } = uploadData(input);
+      const { cancel, result } = uploadData(input);
 
-        result
-          .then(() => {
-            setTasks((curr) => updateTasks(curr, { key, status: 'COMPLETE' }));
-          })
-          .catch(() => {
-            setTasks((curr) => updateTasks(curr, { key, status: 'FAILED' }));
-          });
+      task.cancel =
+        task.size >= MULTIPART_UPLOAD_THRESHOLD_BYTES
+          ? () => cancel()
+          : undefined;
 
-        const handleCancel = () => {
-          cancel();
+      setTasks((curr) =>
+        updateTasks(curr, { key, status: 'PENDING', cancel: task.cancel })
+      );
 
+      try {
+        await result;
+        setTasks((curr) => updateTasks(curr, { key, status: 'COMPLETE' }));
+      } catch (error) {
+        if (isCancelError(error)) {
           setTasks((curr) =>
-            // assign cancel to noop
-            updateTasks(curr, { key, cancel: () => null, status: 'CANCELED' })
+            updateTasks(curr, { key, status: 'CANCELED', cancel: undefined })
           );
-        };
+        } else {
+          setTasks((curr) => updateTasks(curr, { key, status: 'FAILED' }));
+        }
+      } finally {
+        // Start the next upload in the queue
+        uploadNext();
+      }
+    };
 
-        return {
-          cancel: handleCancel,
-          key,
-          data,
-          progress,
-          size,
-          status: 'PENDING',
-        };
-      })
-    );
+    // Start the initial set of uploads
+    const initialUploads = Array(batchSize)
+      .fill(null)
+      .map(() => uploadNext());
+
+    await Promise.all(initialUploads);
+  };
 
   return [tasks, handleUpload, handleFileSelect];
 }

@@ -153,14 +153,20 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
       case 'status':
         return <TableDataText>{row.status}</TableDataText>;
       case 'progress':
-        return <TableDataText>{row.progress}</TableDataText>;
-      case 'cancel':
         return (
-          <Cancel
-            onClick={row.cancel}
-            ariaLabel={`Cancel upload for ${row.key}`}
-          />
+          <TableDataText>{`${Math.round(row.progress * 100)}%`}</TableDataText>
         );
+      case 'cancel':
+        if (row.cancel) {
+          return (
+            <Cancel
+              onClick={row.cancel}
+              ariaLabel={`Cancel upload for ${row.key}`}
+            />
+          );
+        }
+
+        return null;
       default:
         return null;
     }
@@ -210,17 +216,23 @@ export const UploadControls = (): JSX.Element => {
   const [tasks, handleUpload, handleFileSelect] = useHandleUpload({
     prefix: path,
     preventOverwrite: !overwrite,
+    batchSize: 6,
   });
 
   const [fileSelect, handleSelect] = useFileSelect(handleFileSelect);
 
   let tableData = tasks.map((task) => {
-    const folder = task.data.webkitRelativePath.lastIndexOf('/') + 1;
+    const { webkitRelativePath } = task.data;
+
+    const folder =
+      webkitRelativePath?.length > 0
+        ? webkitRelativePath.slice(0, webkitRelativePath.lastIndexOf('/') + 1)
+        : '/';
 
     return {
       ...task,
       type: task.data.type ?? '-',
-      folder: folder > -1 ? task.data.webkitRelativePath.slice(0, folder) : '/',
+      folder,
     };
   });
 
