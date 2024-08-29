@@ -100,7 +100,6 @@ export const LocationDetailViewControls: LocationDetailViewControls = () => {
   });
 
   const { result, nextToken } = data;
-  console.log(result.length);
   const resultCount = result.length;
   const hasNextToken = !!nextToken;
   const [{ path }] = useControl({ type: 'NAVIGATE' });
@@ -121,7 +120,6 @@ export const LocationDetailViewControls: LocationDetailViewControls = () => {
   const { currentPage, handlePaginateNext, handlePaginatePrevious } =
     usePaginate({ onPaginateNext, pageSize: DEFAULT_PAGE_SIZE });
 
-  console.log('hasNextToken: ', hasNextToken);
   const { disableNext, disablePrevious, range } = listViewHelpers({
     currentPage,
     hasNextToken,
@@ -129,16 +127,6 @@ export const LocationDetailViewControls: LocationDetailViewControls = () => {
     pageSize: DEFAULT_PAGE_SIZE,
     resultCount,
   });
-  console.log(
-    'listViewHelpers: ',
-    listViewHelpers({
-      currentPage,
-      hasNextToken,
-      isLoading,
-      pageSize: DEFAULT_PAGE_SIZE,
-      resultCount,
-    })
-  );
 
   return (
     <>

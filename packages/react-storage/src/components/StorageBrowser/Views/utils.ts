@@ -19,13 +19,6 @@ export const listViewHelpers = ({
   const isLastPage = Math.round(resultCount / pageSize) === currentPage;
   const start = currentPage === 1 ? 0 : (currentPage - 1) * pageSize;
   const end = currentPage === 1 ? pageSize : currentPage * pageSize;
-  console.log('resultCount: ', resultCount);
-  console.log('isLastPage: ', isLastPage);
-  console.log(
-    'Math.round(resultCount / pageSize: ',
-    Math.round(resultCount / pageSize)
-  );
-  console.log('currentPage: ', currentPage);
   return {
     disableRefresh: isLoading || resultCount === 0,
     disableNext: (!hasNextToken && isLastPage) || isLoading,

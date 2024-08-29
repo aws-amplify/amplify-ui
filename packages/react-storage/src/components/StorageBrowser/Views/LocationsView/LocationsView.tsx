@@ -9,7 +9,7 @@ import { listViewHelpers } from '../utils';
 
 import { DataTableControl } from './Controls/DataTable';
 
-const DEFAULT_PAGE_SIZE = 10;
+const DEFAULT_PAGE_SIZE = 100;
 const DEFAULT_LIST_OPTIONS = {
   exclude: 'WRITE' as const,
   pageSize: DEFAULT_PAGE_SIZE,
@@ -67,7 +67,6 @@ export const LocationsView: LocationsView = () => {
 
   const { result, nextToken } = data;
   const resultCount = result.length;
-  console.log('resultCount on Locations: ', resultCount);
   const hasNextToken = !!nextToken;
 
   // initial load
