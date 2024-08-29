@@ -42,25 +42,35 @@ export const Title = (): React.JSX.Element => {
   return <TitleElement>{prefix}</TitleElement>;
 };
 
-const RefreshControl = () => {
-  const [{ path }] = useControl({ type: 'NAVIGATE' });
-
-  const [{ data, isLoading }, handleList] = useAction({
-    type: 'LIST_LOCATION_ITEMS',
-  });
-
-  return (
-    <Refresh
-      disabled={isLoading || data.result.length <= 0}
-      onClick={() =>
-        handleList({
-          prefix: path,
-          options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
-        })
-      }
-    />
-  );
+const RefreshControl = ({
+  disableRefresh,
+  handleRefresh,
+}: {
+  disableRefresh?: boolean;
+  handleRefresh?: () => void;
+}) => {
+  return <Refresh disabled={disableRefresh} onClick={handleRefresh} />;
 };
+
+// const RefreshControl = () => {
+//   const [{ path }] = useControl({ type: 'NAVIGATE' });
+
+//   const [{ data, isLoading }, handleList] = useAction({
+//     type: 'LIST_LOCATION_ITEMS',
+//   });
+
+//   return (
+//     <Refresh
+//       disabled={isLoading || data.result.length <= 0}
+//       onClick={() =>
+//         handleList({
+//           prefix: path,
+//           options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
+//         })
+//       }
+//     />
+//   );
+// };
 
 const Loading = () => {
   const [{ isLoading }] = useAction({
@@ -118,22 +128,36 @@ export const LocationDetailViewControls: LocationDetailViewControls = () => {
       options: { ...DEFAULT_LIST_OPTIONS, nextToken },
     });
 
-  const { currentPage, handlePaginateNext, handlePaginatePrevious } =
-    usePaginate({ onPaginateNext, pageSize: DEFAULT_PAGE_SIZE });
-
-  const { disableNext, disablePrevious, range } = listViewHelpers({
+  const {
     currentPage,
-    hasNextToken,
-    isLoading,
-    pageSize: DEFAULT_PAGE_SIZE,
-    resultCount,
-  });
+    handlePaginateNext,
+    handlePaginatePrevious,
+    handleReset,
+  } = usePaginate({ onPaginateNext, pageSize: DEFAULT_PAGE_SIZE });
+
+  const { disableNext, disablePrevious, disableRefresh, range } =
+    listViewHelpers({
+      currentPage,
+      hasNextToken,
+      isLoading,
+      pageSize: DEFAULT_PAGE_SIZE,
+      resultCount,
+    });
 
   return (
     <>
       <Navigate />
       <Title />
-      <RefreshControl />
+      <RefreshControl
+        disableRefresh={disableRefresh}
+        handleRefresh={() => {
+          handleReset();
+          handleList({
+            prefix: path,
+            options: { ...DEFAULT_LIST_OPTIONS, nextToken },
+          });
+        }}
+      />
       <ActionsMenuControl />
       <Paginate
         currentPage={currentPage}
