@@ -16,12 +16,6 @@ import config from './aws-exports';
 Amplify.configure(config);
 
 function Example() {
-  const [identityId, setIdentityId] = React.useState<string>(null);
-
-  useEffect(() => {
-    fetchAuthSession().then((data) => setIdentityId(data.identityId));
-  }, []);
-
   const { StorageBrowser } = createStorageBrowser({
     actions: {},
     elements: elementsDefault,
@@ -30,9 +24,8 @@ function Example() {
         defaultPrefixes: [
           'public/',
           'forbidden/',
-          ...(identityId
-            ? [`protected/${identityId}/`, `private/${identityId}/`]
-            : []),
+          (identityId: string) => `protected/${identityId}/`,
+          (identityId: string) => `private/${identityId}/`,
         ],
       },
     }),
@@ -49,7 +42,7 @@ function Example() {
       >
         Sign Out
       </Button>
-      {identityId && <StorageBrowser />}
+      <StorageBrowser />
     </>
   );
 }
