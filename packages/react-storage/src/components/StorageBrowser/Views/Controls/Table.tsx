@@ -198,14 +198,6 @@ export const LocationDetailViewTable = ({
     type: 'LIST_LOCATION_ITEMS',
   });
 
-  // // initial load
-  // React.useEffect(() => {
-  //   handleList({
-  //     prefix: path,
-  //     options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
-  //   });
-  // }, [path, handleList]);
-
   const currentPosition = history.length;
   const hasItems = !!data.result?.length;
 
