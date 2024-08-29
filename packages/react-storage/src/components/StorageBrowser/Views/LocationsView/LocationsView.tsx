@@ -3,6 +3,10 @@ import React from 'react';
 import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
 import { useLocationsData } from '../../context/actions';
+
+import { usePaginate } from '../hooks/usePaginate';
+import { listViewHelpers } from '../utils';
+
 import { DataTableControl } from './Controls/DataTable';
 
 const {
@@ -33,7 +37,7 @@ const Loading = () => {
   return isLoading ? <LoadingElement /> : null;
 };
 
-export const LocationsMessage = (): React.JSX.Element | null => {
+const LocationsMessage = (): React.JSX.Element | null => {
   const [{ hasError, message }] = useLocationsData();
   return hasError ? (
     <Message variant="error">
@@ -52,61 +56,14 @@ const LocationsEmptyMessage = () => {
   ) : null;
 };
 
-const PAGE_SIZE = 5;
-
-export const usePaginate = ({
-  hasNext,
-  onPaginateNext,
-  resultCount,
-}: {
-  hasNext: boolean;
-  onPaginateNext: () => void;
-  resultCount: number;
-}): {
-  currentPage: string;
-  disableNext: boolean;
-  disablePrevious: boolean;
-  handlePaginateNext: () => void;
-  handlePaginatePrevious: () => void;
-  range: [start: number, end: number];
-  reset: () => void;
-} => {
-  const [page, setPage] = React.useState(1);
-
-  const highestPageVisited = Math.round(resultCount / PAGE_SIZE);
-  const shouldPaginate = highestPageVisited === page && hasNext;
-
-  const disablePrevious = page <= 1;
-
-  const start = page === 1 ? 0 : (page - 1) * PAGE_SIZE;
-  const end = page === 1 ? PAGE_SIZE : page * PAGE_SIZE;
-
-  const handlePaginateNext = () => {
-    if (shouldPaginate) {
-      onPaginateNext();
-    }
-    setPage((prev) => prev + 1);
-  };
-
-  const handlePaginatePrevious = () => {
-    setPage((prev) => prev - 1);
-  };
-
-  return {
-    currentPage: `${page}`,
-    disablePrevious,
-    disableNext: !hasNext,
-    handlePaginateNext,
-    handlePaginatePrevious,
-    range: [start, end],
-    reset: () => {
-      setPage(1);
-    },
-  };
-};
+const PAGE_SIZE = 10;
 
 export const LocationsView: LocationsView = () => {
   const [{ data, isLoading }, handleList] = useLocationsData();
+
+  const { result, nextToken } = data;
+  const resultCount = result.length;
+  const hasNextToken = !!nextToken;
 
   // initial load
   React.useEffect(() => {
@@ -115,45 +72,44 @@ export const LocationsView: LocationsView = () => {
     });
   }, [handleList]);
 
-  const resultCount = data.result.length;
+  const onPaginateNext = () =>
+    handleList({
+      options: { pageSize: PAGE_SIZE, nextToken },
+    });
+
   const {
     currentPage,
-    disableNext,
-    disablePrevious,
     handlePaginateNext,
     handlePaginatePrevious,
-    range,
-    reset,
-  } = usePaginate({
-    hasNext: !!data.nextToken,
-    onPaginateNext: () =>
-      handleList({
-        options: {
-          pageSize: PAGE_SIZE,
-          nextToken: data.nextToken,
-          exclude: 'WRITE',
-        },
-      }),
-    resultCount,
-  });
+    handleReset,
+  } = usePaginate({ onPaginateNext, pageSize: PAGE_SIZE });
+
+  const { disableNext, disablePrevious, disableRefresh, range } =
+    listViewHelpers({
+      currentPage,
+      hasNextToken,
+      isLoading,
+      pageSize: PAGE_SIZE,
+      resultCount,
+    });
 
   return (
     <div className={CLASS_BASE} data-testid="LOCATIONS_VIEW">
       <Title>Home</Title>
       <RefreshControl
-        disableRefresh={isLoading || resultCount === 0}
+        disableRefresh={disableRefresh}
         handleRefresh={() => {
-          reset();
-          handleList({
-            options: { pageSize: PAGE_SIZE, refresh: true, exclude: 'WRITE' },
-          });
+          handleReset();
+          handleList({ options: { pageSize: PAGE_SIZE, refresh: true } });
         }}
       />
       <Paginate
         currentPage={currentPage}
-        disableNext={disableNext || isLoading}
-        disablePrevious={disablePrevious || isLoading}
-        handleNext={handlePaginateNext}
+        disableNext={disableNext}
+        disablePrevious={disablePrevious}
+        handleNext={() => {
+          handlePaginateNext({ resultCount, hasNextToken });
+        }}
         handlePrevious={handlePaginatePrevious}
       />
       <LocationsMessage />

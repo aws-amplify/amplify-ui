@@ -1,21 +1,16 @@
-import React, { AriaAttributes } from 'react';
+import React from 'react';
 
 import {
   ButtonElementProps,
-  NavElement,
-  OrderedListElement,
   PaginateVariant,
   SpanElement,
   StorageBrowserElements,
 } from '../../context/elements';
-import type { OmitElements } from '../types';
+import { Paginate } from '../../components/Paginate';
+
 import { CLASS_BASE } from '../constants';
 
-const {
-  Button: ButtonElement,
-  Icon: IconElement,
-  ListItem,
-} = StorageBrowserElements;
+const { Icon: IconElement } = StorageBrowserElements;
 
 const BLOCK_NAME = `${CLASS_BASE}__paginate`;
 const DEFAULT_VARIANTS = [
@@ -24,38 +19,9 @@ const DEFAULT_VARIANTS = [
   'paginate-next',
 ] as const;
 
-interface PaginateItemProps extends ButtonElementProps {}
-
-interface _PaginateItemControl<
-  T extends StorageBrowserElements = StorageBrowserElements,
-> {
-  (props: PaginateItemProps): React.JSX.Element;
-  Container: T['ListItem'];
-}
-export interface PaginateItemControl<
-  T extends StorageBrowserElements = StorageBrowserElements,
-> extends OmitElements<_PaginateItemControl<T>, 'Container'> {
-  (props: PaginateItemProps): React.JSX.Element;
-}
-
-export interface _PaginateControl<
-  T extends StorageBrowserElements = StorageBrowserElements,
-> {
-  Container: T['Nav'];
-  Current: PaginateItemControl<T>;
-  Next: PaginateItemControl<T>;
-  Previous: PaginateItemControl<T>;
-}
-
-export interface PaginateControl<
-  T extends StorageBrowserElements = StorageBrowserElements,
-> extends OmitElements<_PaginateControl<T>, 'Container'> {
-  (): React.JSX.Element;
-}
-
 const getButtonVariantProps = (
   variant: PaginateVariant,
-  props: PaginateProps
+  props: PaginateControlProps
 ): ButtonElementProps => {
   const {
     currentPage,
@@ -65,20 +31,20 @@ const getButtonVariantProps = (
     handlePrevious,
   } = props;
 
-  let ariaCurrent: AriaAttributes['aria-current'];
-  let ariaLabel, className, disabled, onClick, children;
+  let ariaCurrent, ariaLabel, className, disabled, onClick, children;
 
   switch (variant) {
-    case 'paginate-current':
-      ariaCurrent = 'page';
-      ariaLabel = `Page ${currentPage}`;
+    case 'paginate-current': {
+      const page = `${currentPage}`;
+
+      ariaCurrent = 'page' as const;
+      ariaLabel = `Page ${page}`;
       children = (
-        <SpanElement className={`${BLOCK_NAME}__text`}>
-          {currentPage}
-        </SpanElement>
+        <SpanElement className={`${BLOCK_NAME}__text`}>{page}</SpanElement>
       );
       className = `${BLOCK_NAME}__button-current`;
       break;
+    }
     case 'paginate-next':
       ariaLabel = 'Go to next page';
       className = `${BLOCK_NAME}__button-next`;
@@ -111,31 +77,26 @@ const getButtonVariantProps = (
   };
 };
 
-const PaginateItem = (props: PaginateItemProps) => (
-  <ListItem className={`${BLOCK_NAME}__item`}>
-    <ButtonElement {...props} />
-  </ListItem>
-);
-
-export interface PaginateProps {
-  currentPage?: string;
+// all props below are used but eslint is erroring becuase they are passed to a
+// on the
+export interface PaginateControlProps {
+  // eslint-disable-next-line react/no-unused-prop-types
+  currentPage?: number;
+  // eslint-disable-next-line react/no-unused-prop-types
   disableNext?: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
   disablePrevious?: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
   handleNext?: () => void;
+  // eslint-disable-next-line react/no-unused-prop-types
   handlePrevious?: () => void;
 }
 
-export const PaginateControl = (props: PaginateProps): React.JSX.Element => {
-  // const data = DEFAULT_VARIANTS.map((variant) =>
-  //   getButtonVariantProps(variant, props)
-  // );
-  return (
-    <NavElement {...props} aria-label={'Pagination'}>
-      <OrderedListElement className={`${BLOCK_NAME}__list`}>
-        <PaginateItem {...getButtonVariantProps('paginate-previous', props)} />
-        <PaginateItem {...getButtonVariantProps('paginate-current', props)} />
-        <PaginateItem {...getButtonVariantProps('paginate-next', props)} />
-      </OrderedListElement>
-    </NavElement>
+export const PaginateControl = (
+  props: PaginateControlProps
+): React.JSX.Element => {
+  const data = DEFAULT_VARIANTS.map((variant) =>
+    getButtonVariantProps(variant, props)
   );
+  return <Paginate data={data} />;
 };

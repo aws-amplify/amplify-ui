@@ -12,17 +12,20 @@ import { DataListProps } from './types';
 
 const BLOCK_NAME = `${CLASS_BASE}__paginate`;
 
-function PaginateItem(props: PaginateItemProps) {
+export interface PaginateItemProps extends ButtonElementProps {}
+
+export interface PaginateProps extends DataListProps<PaginateItemProps> {}
+
+function PaginateItem(props: PaginateItemProps, index: number) {
   return (
-    <ListItemElement className={`${BLOCK_NAME}__item`}>
+    <ListItemElement
+      className={`${BLOCK_NAME}__item`}
+      key={props?.key ?? index}
+    >
       <ButtonElement {...props} />
     </ListItemElement>
   );
 }
-
-export interface PaginateItemProps extends ButtonElementProps {}
-
-export interface PaginateProps extends DataListProps<PaginateItemProps> {}
 
 export function Paginate({
   data,
