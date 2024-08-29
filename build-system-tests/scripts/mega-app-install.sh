@@ -12,7 +12,7 @@ PKG_MANAGER_VERSION="latest"
 TAG="latest"
 
 # Import install function
-source "./scripts/install-with-retries.sh"
+source "./scripts/install-dependencies-with-retries.sh"
 
 # Options
 # e.g.
@@ -125,7 +125,7 @@ else
     if [[ "$BUILD_TOOL" == 'cra' && "$LANGUAGE" == 'ts' ]]; then
         # If not testing the latest React, we need to download its types.
         # CRA is the only framework that we test React 16.
-        install_with_retries npm "$DEP_TYPES"
+        install_dependencies_with_retries npm "$DEP_TYPES"
     fi
 
     if [[ "$BUILD_TOOL" == 'next' && "$BUILD_TOOL_VERSION" == '11' ]]; then
@@ -144,7 +144,7 @@ else
             npx expo install --fix # fix the dependencies that are incompatible with the installed expo versio
         fi
     else
-        install_with_retries npm "$DEPENDENCIES"
+        install_dependencies_with_retries npm "$DEPENDENCIES"
     fi
 fi
 
