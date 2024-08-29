@@ -13,6 +13,7 @@ import {
   ResponseComponentsContext,
 } from '../../context/ResponseComponentsContext';
 import { ControlsContext } from '../../context/ControlsContext';
+import { getImageTypeFromMimeType } from '../../utils';
 
 const {
   Button,
@@ -149,7 +150,7 @@ export const FieldControl: FieldControl = () => {
   const responseComponents = React.useContext(ResponseComponentsContext);
   const controls = React.useContext(ControlsContext);
 
-  const submitMessage = () => {
+  const submitMessage = async () => {
     ref.current?.reset();
     const submittedContent: InputContent[] = [];
     if (input?.text) {
@@ -158,19 +159,20 @@ export const FieldControl: FieldControl = () => {
       };
       submittedContent.push(textContent);
     }
+
     if (input?.files) {
-      input.files.forEach((file) => {
-        file.arrayBuffer().then((buffer) => {
-          const fileContent: ConversationMessageContent = {
-            image: {
-              format: file.type as 'png' | 'jpeg' | 'gif' | 'webp',
-              source: { bytes: new Uint8Array(buffer) },
-            },
-          };
-          submittedContent.push(fileContent);
-        });
-      });
+      for (const file of input.files) {
+        const buffer = await file.arrayBuffer();
+        const fileContent: ConversationMessageContent = {
+          image: {
+            format: getImageTypeFromMimeType(file.type),
+            source: { bytes: Uint8Array.from(Buffer.from(buffer)) },
+          },
+        };
+        submittedContent.push(fileContent);
+      }
     }
+
     if (handleSendMessage) {
       handleSendMessage({
         content: submittedContent,

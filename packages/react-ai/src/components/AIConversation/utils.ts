@@ -39,3 +39,9 @@ export function convertBufferToBase64(
   }
   return `data:image/${format};base64,${base64string}`;
 }
+
+export function getImageTypeFromMimeType(
+  mimeType: string
+): 'png' | 'jpeg' | 'gif' | 'webp' {
+  return mimeType.split('/')[1] as 'png' | 'jpeg' | 'gif' | 'webp';
+}

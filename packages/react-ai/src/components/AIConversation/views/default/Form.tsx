@@ -24,6 +24,7 @@ export const Form: ControlsContextProps['Form'] = ({
   const sendIcon = icons?.send ?? <IconSend />;
   const attachIcon = icons?.attach ?? <IconAttach />;
   const hiddenInput = React.useRef<HTMLInputElement>(null);
+
   return (
     <DropZone
       className={ComponentClassName.AIConversationFormDropzone}
@@ -94,7 +95,7 @@ export const Form: ControlsContextProps['Form'] = ({
           type="submit"
           variation="primary"
           className={ComponentClassName.AIConversationFormSend}
-          isDisabled={!input?.text?.length}
+          isDisabled={!input?.text?.length && !input?.files?.length}
         >
           <span>{sendIcon}</span>
         </Button>
