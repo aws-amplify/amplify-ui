@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Amplify } from 'aws-amplify';
-import { signOut } from 'aws-amplify/auth';
+import { fetchAuthSession, signOut } from 'aws-amplify/auth';
 
 import { Button, withAuthenticator } from '@aws-amplify/ui-react';
 import {
@@ -15,15 +15,29 @@ import config from './aws-exports';
 
 Amplify.configure(config);
 
-const { StorageBrowser } = createStorageBrowser({
-  actions: {},
-  elements: elementsDefault,
-  config: createAmplifyAuthAdapter({
-    options: { defaultPrefixes: ['public/', 'protected/'] },
-  }),
-});
-
 function Example() {
+  const [identityId, setIdentityId] = React.useState<string>(null);
+
+  useEffect(() => {
+    fetchAuthSession().then((data) => setIdentityId(data.identityId));
+  }, []);
+
+  const { StorageBrowser } = createStorageBrowser({
+    actions: {},
+    elements: elementsDefault,
+    config: createAmplifyAuthAdapter({
+      options: {
+        defaultPrefixes: [
+          'public/',
+          'forbidden/',
+          ...(identityId
+            ? [`protected/${identityId}/`, `private/${identityId}/`]
+            : []),
+        ],
+      },
+    }),
+  });
+
   return (
     <>
       <Button
@@ -35,7 +49,7 @@ function Example() {
       >
         Sign Out
       </Button>
-      <StorageBrowser />
+      {identityId && <StorageBrowser />}
     </>
   );
 }
