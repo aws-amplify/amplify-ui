@@ -77,7 +77,7 @@ const getButtonVariantProps = (
   };
 };
 
-// all props below are used but eslint is erroring as they are passed to 
+// all props below are used but eslint is erroring as they are passed to
 // `getButtonVariantProps` instead of a React component
 export interface PaginateControlProps {
   // eslint-disable-next-line react/no-unused-prop-types

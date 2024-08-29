@@ -24,11 +24,21 @@ interface TaskUpdate extends Partial<CancelableTask> {
   key: string;
 }
 
+const getFileKey = (file: File) => {
+  const { name, webkitRelativePath } = file;
+
+  return webkitRelativePath?.length > 0 ? webkitRelativePath : name;
+};
+
 const removeTask = <T extends Task | CancelableTask>(
   tasks: T[],
   key: string
 ): T[] => {
   const index = tasks.findIndex(({ key: itemKey }) => key === itemKey);
+
+  if (index === -1) {
+    return tasks;
+  }
 
   if (index === 0) {
     return tasks.slice(1);
@@ -59,37 +69,65 @@ const updateTasks = <T extends Task | CancelableTask>(
   return [...tasks.slice(0, index), updatedTask, ...tasks.slice(index + 1)];
 };
 
+const mergeSelectedTasks = (
+  prevTasks: CancelableTask[],
+  newTasks: CancelableTask[]
+): CancelableTask[] => {
+  const tasks: CancelableTask[] = [];
+  const tasksSet = new Set<string>();
+
+  // Add new tasks so they appear on the top of the table
+  newTasks.forEach((file) => {
+    tasks.push(file);
+    tasksSet.add(file.key);
+  });
+
+  // Add back any of the older tasks that we previously had
+  prevTasks.forEach((file) => {
+    if (!tasksSet.has(file.key)) {
+      tasks.push(file);
+    }
+  });
+
+  return tasks;
+};
+
 export function useHandleUpload({
   prefix,
-  files,
   preventOverwrite,
 }: {
   prefix: string;
-  files: File[];
   preventOverwrite: boolean;
-}): [tasks: CancelableTask[], handleUpload: () => void] {
+}): [
+  tasks: CancelableTask[],
+  handleUpload: () => void,
+  handleFileSelect: (files: File[]) => void,
+] {
   const getConfig = useGetLocationConfig();
 
   const [tasks, setTasks] = React.useState<CancelableTask[]>(() => []);
 
-  React.useEffect(() => {
-    const nextTasks = files.map((file) => {
-      const key =
-        file.webkitRelativePath?.length > 0
-          ? file.webkitRelativePath
-          : file.name;
+  const handleFileSelect = (newFiles: File[]) => {
+    setTasks((prevTasks) => {
+      // iterate over new files and create new tasks
+      const newTasks = newFiles.map((file) => {
+        const key = getFileKey(file);
 
-      return {
-        cancel: () => setTasks((prev) => removeTask(prev, key)),
-        key,
-        data: file,
-        size: file.size,
-        status: 'INITIAL' as const,
-        progress: 0,
-      };
+        return {
+          cancel: () => {
+            setTasks((prev) => removeTask(prev, key));
+          },
+          key,
+          data: file,
+          size: file.size,
+          status: 'INITIAL' as const,
+          progress: 0,
+        };
+      });
+
+      return mergeSelectedTasks(prevTasks, newTasks);
     });
-    setTasks(nextTasks);
-  }, [files]);
+  };
 
   const handleUpload = () =>
     setTasks((prevTasks) =>
@@ -146,5 +184,5 @@ export function useHandleUpload({
       })
     );
 
-  return [tasks, handleUpload];
+  return [tasks, handleUpload, handleFileSelect];
 }
