@@ -15,15 +15,22 @@ import config from './aws-exports';
 
 Amplify.configure(config);
 
-const { StorageBrowser } = createStorageBrowser({
-  actions: {},
-  elements: elementsDefault,
-  config: createAmplifyAuthAdapter({
-    options: { defaultPrefixes: ['public/', 'protected/'] },
-  }),
-});
-
 function Example() {
+  const { StorageBrowser } = createStorageBrowser({
+    actions: {},
+    elements: elementsDefault,
+    config: createAmplifyAuthAdapter({
+      options: {
+        defaultPrefixes: [
+          'public/',
+          'forbidden/',
+          (identityId: string) => `protected/${identityId}/`,
+          (identityId: string) => `private/${identityId}/`,
+        ],
+      },
+    }),
+  });
+
   return (
     <>
       <Button
