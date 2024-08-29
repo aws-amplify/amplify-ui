@@ -1,12 +1,19 @@
 import React from 'react';
 
-import { StorageBrowserElements } from '../../context/elements';
-
 import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
-import { CommonControl, ViewComponent } from '../types';
 import { useLocationsData } from '../../context/actions';
+
+import { usePaginate } from '../hooks/usePaginate';
+import { listViewHelpers } from '../utils';
+
 import { DataTableControl } from './Controls/DataTable';
+
+const DEFAULT_PAGE_SIZE = 100;
+const DEFAULT_LIST_OPTIONS = {
+  exclude: 'WRITE' as const,
+  pageSize: DEFAULT_PAGE_SIZE,
+};
 
 const {
   EmptyMessage,
@@ -14,37 +21,21 @@ const {
   Message,
   Paginate,
   Refresh,
-  Search,
   Title,
 } = Controls;
 
-interface LocationsViewControls<
-  T extends StorageBrowserElements = StorageBrowserElements,
-  // exclude `Toggle` from `Search` for Locations List
-> extends Exclude<
-    Pick<Controls<T>, CommonControl | 'Paginate' | 'Refresh' | 'Search'>,
-    Controls<T>['Search']
-  > {
+export interface LocationsView<_T = unknown> {
   (): React.JSX.Element;
 }
 
-export interface LocationsView<
-  T extends StorageBrowserElements = StorageBrowserElements,
-> extends ViewComponent<LocationsViewControls<T>> {}
-
-const LocationsViewRefresh = () => {
-  const [{ data, isLoading }, handleListLocations] = useLocationsData();
-
-  return (
-    <Refresh
-      disabled={isLoading || data.result.length <= 0}
-      onClick={() =>
-        handleListLocations({
-          options: { refresh: true, pageSize: 1000, exclude: 'WRITE' },
-        })
-      }
-    />
-  );
+const RefreshControl = ({
+  disableRefresh,
+  handleRefresh,
+}: {
+  disableRefresh?: boolean;
+  handleRefresh?: () => void;
+}) => {
+  return <Refresh disabled={disableRefresh} onClick={handleRefresh} />;
 };
 
 const Loading = () => {
@@ -52,7 +43,7 @@ const Loading = () => {
   return isLoading ? <LoadingElement /> : null;
 };
 
-export const LocationsMessage = (): React.JSX.Element | null => {
+const LocationsMessage = (): React.JSX.Element | null => {
   const [{ hasError, message }] = useLocationsData();
   return hasError ? (
     <Message variant="error">
@@ -71,33 +62,66 @@ const LocationsEmptyMessage = () => {
   ) : null;
 };
 
-// @ts-expect-error TODO: add Controls assignment
-const LocationsViewControls: LocationsViewControls = () => {
-  return (
-    <>
-      <Title>Home</Title>
-      <LocationsViewRefresh />
-      <Paginate />
-      <LocationsMessage />
-      <Loading />
-      <DataTableControl />
-      <LocationsEmptyMessage />
-    </>
-  );
-};
-
-LocationsViewControls.Message = Message;
-LocationsViewControls.Paginate = Paginate;
-LocationsViewControls.Refresh = Refresh;
-LocationsViewControls.Search = Search;
-LocationsViewControls.Title = Title;
-
 export const LocationsView: LocationsView = () => {
+  const [{ data, isLoading }, handleList] = useLocationsData();
+
+  const { result, nextToken } = data;
+  const resultCount = result.length;
+  const hasNextToken = !!nextToken;
+
+  // initial load
+  React.useEffect(() => {
+    handleList({
+      options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
+    });
+  }, [handleList]);
+
+  const onPaginateNext = () =>
+    handleList({
+      options: { ...DEFAULT_LIST_OPTIONS, nextToken },
+    });
+
+  const {
+    currentPage,
+    handlePaginateNext,
+    handlePaginatePrevious,
+    handleReset,
+  } = usePaginate({ onPaginateNext, pageSize: DEFAULT_PAGE_SIZE });
+
+  const { disableNext, disablePrevious, disableRefresh, range } =
+    listViewHelpers({
+      currentPage,
+      hasNextToken,
+      isLoading,
+      pageSize: DEFAULT_PAGE_SIZE,
+      resultCount,
+    });
+
   return (
     <div className={CLASS_BASE} data-testid="LOCATIONS_VIEW">
-      <LocationsViewControls />
+      <Title>Home</Title>
+      <RefreshControl
+        disableRefresh={disableRefresh}
+        handleRefresh={() => {
+          handleReset();
+          handleList({
+            options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
+          });
+        }}
+      />
+      <Paginate
+        currentPage={currentPage}
+        disableNext={disableNext}
+        disablePrevious={disablePrevious}
+        handleNext={() => {
+          handlePaginateNext({ resultCount, hasNextToken });
+        }}
+        handlePrevious={handlePaginatePrevious}
+      />
+      <LocationsMessage />
+      <Loading />
+      <DataTableControl range={range} />
+      <LocationsEmptyMessage />
     </div>
   );
 };
-
-LocationsView.Controls = LocationsViewControls;
