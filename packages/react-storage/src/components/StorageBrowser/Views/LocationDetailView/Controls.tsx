@@ -9,7 +9,7 @@ import { useAction } from '../../context/actions';
 import { usePaginate } from '../hooks/usePaginate';
 import { listViewHelpers } from '../utils';
 
-const DEFAULT_PAGE_SIZE = 3;
+const DEFAULT_PAGE_SIZE = 4;
 const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
   delimiter: '/',
@@ -51,26 +51,6 @@ const RefreshControl = ({
 }) => {
   return <Refresh disabled={disableRefresh} onClick={handleRefresh} />;
 };
-
-// const RefreshControl = () => {
-//   const [{ path }] = useControl({ type: 'NAVIGATE' });
-
-//   const [{ data, isLoading }, handleList] = useAction({
-//     type: 'LIST_LOCATION_ITEMS',
-//   });
-
-//   return (
-//     <Refresh
-//       disabled={isLoading || data.result.length <= 0}
-//       onClick={() =>
-//         handleList({
-//           prefix: path,
-//           options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
-//         })
-//       }
-//     />
-//   );
-// };
 
 const Loading = () => {
   const [{ isLoading }] = useAction({
@@ -154,7 +134,7 @@ export const LocationDetailViewControls: LocationDetailViewControls = () => {
           handleReset();
           handleList({
             prefix: path,
-            options: { ...DEFAULT_LIST_OPTIONS, nextToken },
+            options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
           });
         }}
       />

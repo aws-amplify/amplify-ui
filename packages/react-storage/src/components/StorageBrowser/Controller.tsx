@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { useAction } from './context/actions';
 import { useControl } from './context/controls';
 
 /**
@@ -8,12 +7,8 @@ import { useControl } from './context/controls';
  * loading behavior
  */
 export function Controller(): null {
-  const [{ selected }] = useControl({ type: 'ACTION_SELECT' });
-  const [{ history, path }] = useControl({
+  const [{ history }] = useControl({
     type: 'NAVIGATE',
-  });
-  const [, handleListLocationItems] = useAction({
-    type: 'LIST_LOCATION_ITEMS',
   });
 
   const currentPosition = history.length;
@@ -21,16 +16,7 @@ export function Controller(): null {
 
   React.useEffect(() => {
     if (!hasHistory) return;
-
-    // Check to make sure that we're not in an action view
-    // This makes it so that the list locations refreshes when we go back from an action view
-    if (!selected.type) {
-      handleListLocationItems({
-        prefix: path,
-        options: { pageSize: 1000, refresh: true, delimiter: '/' },
-      });
-    }
-  }, [handleListLocationItems, hasHistory, history, path, selected.type]);
+  }, [hasHistory]);
 
   return null;
 }
