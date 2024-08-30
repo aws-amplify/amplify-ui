@@ -304,7 +304,7 @@ export const UploadControls = (): JSX.Element => {
     [direction, selection]
   );
 
-  const disabled = tasks.some((task) => task.status === 'PENDING');
+  const disabled = tasks.some((task) => task.status !== 'INITIAL');
   const queuedTasks = tasks.filter((task) => task.status === 'QUEUED').length;
   const canceledTasks = tasks.filter(
     (task) => task.status === 'CANCELED'
