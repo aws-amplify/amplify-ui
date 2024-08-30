@@ -11,4 +11,3 @@ export {
   CreateManagedAuthAdapterInput,
   StorageBrowserAuthAdapter,
 } from './adapters';
-export { DefaultStorageBrowser } from './DefaultStorageBrowser';
