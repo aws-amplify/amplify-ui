@@ -17,7 +17,6 @@ Amplify.configure(config);
 
 function Example() {
   const { StorageBrowser } = createStorageBrowser({
-    actions: {},
     elements: elementsDefault,
     config: createAmplifyAuthAdapter({
       options: {

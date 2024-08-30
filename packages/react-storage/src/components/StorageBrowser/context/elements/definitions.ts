@@ -1,11 +1,8 @@
-import {
-  defineBaseElement,
-  defineBaseElementWithRef,
-} from '@aws-amplify/ui-react-core/elements';
+import { defineBaseElement } from '@aws-amplify/ui-react-core/elements';
 import { IconElement } from './IconElement';
 
 export interface StorageBrowserElements {
-  Button: typeof ButtonElementWithRef;
+  Button: typeof ButtonElement;
   DefinitionList: typeof DefinitionListElement;
   DefinitionTerm: typeof DefinitionTermElement;
   DefinitionDetail: typeof DefinitionDetailElement;
@@ -31,11 +28,7 @@ export interface StorageBrowserElements {
 
 export type PaginateVariant = `paginate-${'next' | 'current' | 'previous'}`;
 export type MessageVariant = 'info' | 'success' | 'error' | 'warning';
-export interface IconElementProps
-  extends React.ComponentProps<typeof IconElement> {}
 
-export interface ButtonElementProps
-  extends React.ComponentProps<typeof ButtonElement> {}
 export type ButtonElementVariant =
   | 'actions-menu-item'
   | 'actions-menu-toggle'
@@ -54,24 +47,30 @@ export type ButtonElementVariant =
   | 'table-data'
   | PaginateVariant;
 
-export const DefinitionListElement = defineBaseElementWithRef({
+export interface DefinitionListElementProps
+  extends React.ComponentProps<typeof DefinitionListElement> {}
+export const DefinitionListElement = defineBaseElement({
   type: 'dl',
   displayName: 'DefinitionList',
 });
 
-export const DefinitionTermElement = defineBaseElementWithRef({
+export interface DefinitionTermElementProps
+  extends React.ComponentProps<typeof DefinitionTermElement> {}
+export const DefinitionTermElement = defineBaseElement({
   type: 'dt',
   displayName: 'DefinitionTerm',
 });
 
-export const DefinitionDetailElement = defineBaseElementWithRef({
+export interface DefinitionDetailElementProps
+  extends React.ComponentProps<typeof DefinitionDetailElement> {}
+export const DefinitionDetailElement = defineBaseElement({
   type: 'dd',
   displayName: 'DefinitionDetail',
 });
 
 export interface LabelElementProps
   extends React.ComponentProps<typeof LabelElement> {}
-export const LabelElement = defineBaseElementWithRef<'label', 'htmlFor'>({
+export const LabelElement = defineBaseElement<'label', 'htmlFor'>({
   type: 'label',
   displayName: 'Label',
 });
@@ -85,7 +84,7 @@ export const NavElement = defineBaseElement({
 
 export interface TextElementProps
   extends React.ComponentProps<typeof TextElement> {}
-export const TextElement = defineBaseElementWithRef<'p', 'id'>({
+export const TextElement = defineBaseElement<'p', 'id'>({
   type: 'p',
   displayName: 'Text',
 });
@@ -93,65 +92,85 @@ export const TextElement = defineBaseElementWithRef<'p', 'id'>({
 export interface OrderedListElementProps
   extends React.ComponentProps<typeof OrderedListElement> {}
 
-export const OrderedListElement = defineBaseElementWithRef({
+export interface OrderedListElementProps
+  extends React.ComponentProps<typeof OrderedListElement> {}
+export const OrderedListElement = defineBaseElement({
   type: 'ol',
   displayName: 'OrderedList',
 });
 
-export const UnorderedListElement = defineBaseElementWithRef({
+export interface UnorderedListElementProps
+  extends React.ComponentProps<typeof UnorderedListElement> {}
+export const UnorderedListElement = defineBaseElement({
   type: 'ul',
   displayName: 'UnorderedList',
 });
 
 export interface ListItemElementProps
   extends React.ComponentProps<typeof ListItemElement> {}
-export const ListItemElement = defineBaseElementWithRef({
+export const ListItemElement = defineBaseElement({
   type: 'li',
   displayName: 'ListItem',
 });
 
-export const TableElement = defineBaseElementWithRef({
+export interface TableElementProps
+  extends React.ComponentProps<typeof TableElement> {}
+export const TableElement = defineBaseElement({
   type: 'table',
   displayName: 'Table',
 });
 
-export const TableDataElement = defineBaseElementWithRef({
+export interface TableDataElementProps
+  extends React.ComponentProps<typeof TableDataElement> {}
+export const TableDataElement = defineBaseElement({
   type: 'td',
   displayName: 'TableData',
 });
 
-export const TableRowElement = defineBaseElementWithRef({
+export interface TableRowElementProps
+  extends React.ComponentProps<typeof TableRowElement> {}
+export const TableRowElement = defineBaseElement({
   type: 'tr',
   displayName: 'TableRow',
 });
 
-export const TableHeaderElement = defineBaseElementWithRef({
+export interface TableHeaderElementProps
+  extends React.ComponentProps<typeof TableHeaderElement> {}
+export const TableHeaderElement = defineBaseElement({
   type: 'th',
   displayName: 'TableHeader',
 });
 
-export const TableHeadElement = defineBaseElementWithRef({
+export interface TableHeadElementProps
+  extends React.ComponentProps<typeof TableHeadElement> {}
+export const TableHeadElement = defineBaseElement({
   type: 'thead',
   displayName: 'TableHead',
 });
 
-export const TableBodyElement = defineBaseElementWithRef({
+export interface TableBodyElementProps
+  extends React.ComponentProps<typeof TableBodyElement> {}
+export const TableBodyElement = defineBaseElement({
   type: 'tbody',
   displayName: 'TableBody',
 });
 
-export const HeadingElement = defineBaseElementWithRef({
+export interface HeadingElementProps
+  extends React.ComponentProps<typeof HeadingElement> {}
+export const HeadingElement = defineBaseElement({
   type: 'h2',
   displayName: 'Title',
 });
 
-export const ProgressBarElement = defineBaseElementWithRef({
+export interface ProgressBarElementProps
+  extends React.ComponentProps<typeof ProgressBarElement> {}
+export const ProgressBarElement = defineBaseElement({
   type: 'svg',
   displayName: 'ProgressBar',
 });
 
 export type InputElementProps = React.ComponentProps<typeof InputElement>;
-export const InputElement = defineBaseElementWithRef<
+export const InputElement = defineBaseElement<
   'input',
   | 'disabled'
   | 'type'
@@ -165,30 +184,30 @@ export const InputElement = defineBaseElementWithRef<
   displayName: 'Input',
 });
 
-export const ButtonElementWithRef = defineBaseElementWithRef<
-  'button',
-  'disabled' | 'onClick' | 'role' | 'type',
-  ButtonElementVariant
->({ type: 'button', displayName: 'Button' });
-
+export interface ButtonElementProps
+  extends React.ComponentProps<typeof ButtonElement> {}
 export const ButtonElement = defineBaseElement<
   'button',
   'disabled' | 'onClick' | 'role' | 'type',
   ButtonElementVariant
 >({ type: 'button', displayName: 'Button' });
 
-export const ViewElement = defineBaseElementWithRef<'div', 'id' | 'role'>({
+export interface ViewElementProps
+  extends React.ComponentProps<typeof ViewElement> {}
+export const ViewElement = defineBaseElement<'div', 'id' | 'role'>({
   type: 'div',
   displayName: 'View',
 });
 
-export const SpanElement = defineBaseElementWithRef({
+export interface SpanElementProps
+  extends React.ComponentProps<typeof SpanElement> {}
+export const SpanElement = defineBaseElement<'span', 'id'>({
   type: 'span',
   displayName: 'Span',
 });
 
 export const StorageBrowserElements: StorageBrowserElements = {
-  Button: ButtonElementWithRef,
+  Button: ButtonElement,
   DefinitionList: DefinitionListElement,
   DefinitionTerm: DefinitionTermElement,
   DefinitionDetail: DefinitionDetailElement,

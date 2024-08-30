@@ -1,11 +1,15 @@
 import React from 'react';
 
+import { Field } from '../../components/Field';
 import { useAction } from '../../context/actions';
 import { useControl } from '../../context/controls';
+import { SpanElement } from '../../context/elements';
+
 import { Controls } from '../Controls';
+
 import { Title } from './Controls/Title';
 
-const { Exit, Message, Primary, Target } = Controls;
+const { Exit, Message, Primary } = Controls;
 
 export const isValidFolderName = (name: string | undefined): boolean =>
   !!name?.length && !name.includes('/');
@@ -102,25 +106,22 @@ export const CreateFolderControls = (): React.JSX.Element => {
       />
       <Title />
       <Primary {...primaryProps} />
-      <Target.Field.Container>
-        <Target.Field.Label htmlFor="folder-name-input">
-          Enter folder name:
-        </Target.Field.Label>
-        <Target.Field.Input
-          disabled={isLoading || !!result?.status}
-          aria-invalid={fieldValidationError ? 'true' : undefined}
-          aria-describedby="fieldError"
-          type="text"
-          id="folder-name-input"
-          onBlur={handleBlur}
-          onChange={handleChange}
-        />
+      <Field
+        label="Enter folder name:"
+        disabled={isLoading || !!result?.status}
+        aria-invalid={fieldValidationError ? 'true' : undefined}
+        aria-describedby="fieldError"
+        type="text"
+        id="folder-name-input"
+        onBlur={handleBlur}
+        onChange={handleChange}
+      >
         {fieldValidationError ? (
-          <Target.Field.Error id="fieldError">
+          <SpanElement id={'fieldError'} variant="field-error">
             {fieldValidationError}
-          </Target.Field.Error>
+          </SpanElement>
         ) : null}
-      </Target.Field.Container>
+      </Field>
       {result?.status === 'COMPLETE' || result?.status === 'FAILED' ? (
         <CreateFolderMessage />
       ) : null}
