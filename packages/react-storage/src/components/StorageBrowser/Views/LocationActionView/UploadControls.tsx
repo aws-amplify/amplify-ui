@@ -8,7 +8,7 @@ import { compareNumbers, compareStrings } from '../../context/controls/Table';
 import { TaskStatus } from '../../context/types';
 import { IconVariant } from '../../context/elements/IconElement';
 
-import { getFriendlyTaskStatus } from '../utils';
+import { getFriendlyTaskStatus, getPercentValue } from '../utils';
 import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
 import {
@@ -155,7 +155,7 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
         );
       case 'progress':
         return (
-          <TableDataText>{`${Math.round(row.progress * 100)}%`}</TableDataText>
+          <TableDataText>{`${getPercentValue(row.progress)}%`}</TableDataText>
         );
       case 'cancel':
         if (row.cancel) {

@@ -52,3 +52,7 @@ export const getFriendlyTaskStatus = (status: string): string => {
       return status;
   }
 };
+
+export const getPercentValue = (value: number): number => {
+  return Math.round(value * 100);
+};

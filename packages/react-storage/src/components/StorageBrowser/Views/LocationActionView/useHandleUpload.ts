@@ -9,7 +9,10 @@ import { useGetLocationConfig } from '../../context/config';
 import { TaskStatus } from '../../context/types';
 
 // 5MB for multipart upload
-export const MULTIPART_UPLOAD_THRESHOLD_BYTES = 5242880;
+// https://github.com/aws-amplify/amplify-js/blob/1a5366d113c9af4ce994168653df3aadb142c581/packages/storage/src/providers/s3/utils/constants.ts#L16
+export const MULTIPART_UPLOAD_THRESHOLD_BYTES = 5 * 1024 * 1024;
+
+const DEFAULT_BATCH_SIZE = 6;
 
 /**
  * Base `task`
@@ -107,7 +110,7 @@ const mergeSelectedTasks = (
 export function useHandleUpload({
   prefix,
   preventOverwrite,
-  batchSize = 6,
+  batchSize = DEFAULT_BATCH_SIZE,
 }: {
   prefix: string;
   preventOverwrite: boolean;
