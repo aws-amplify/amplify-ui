@@ -251,7 +251,6 @@ export const UploadControls = (): JSX.Element => {
       ...task,
       type: task.data.type ?? '-',
       folder,
-      friendlyStatus: getFriendlyTaskStatus(task.status),
     };
   });
 

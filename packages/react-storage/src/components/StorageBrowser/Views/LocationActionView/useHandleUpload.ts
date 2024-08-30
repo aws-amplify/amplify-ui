@@ -199,7 +199,7 @@ export function useHandleUpload({
 
     // Update tasks to be in QUEUED state
     // the 'cancel' property will update the the state so the task
-    // has status 'CANCELED' and so that its new 'cancel' property is undefined
+    // has status 'CANCELED' and its 'cancel' property is undefined
     setTasks((prevTasks) =>
       prevTasks.map((task) => ({
         ...task,
