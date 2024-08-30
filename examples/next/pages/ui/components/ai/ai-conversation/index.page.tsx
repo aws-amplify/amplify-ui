@@ -27,6 +27,7 @@ function Chat() {
       <AIConversation
         messages={messages}
         handleSendMessage={sendMessage}
+        isLoading={isLoading}
         suggestedPrompts={[
           {
             inputText: 'hello',
