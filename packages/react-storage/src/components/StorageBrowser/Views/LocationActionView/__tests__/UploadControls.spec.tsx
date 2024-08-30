@@ -1,11 +1,12 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 
 import * as ControlsModule from '../../../context/controls';
 import createProvider from '../../../createProvider';
 import { ActionSelectState } from '../../../context/controls/ActionSelect/ActionSelect';
 
 import { UploadControls, ActionIcon, ICON_CLASS } from '../UploadControls';
+import userEvent from '@testing-library/user-event';
 
 const TEST_ACTIONS = {
   UPLOAD_FILES: { displayName: 'Upload Files', handler: jest.fn() },
@@ -86,6 +87,47 @@ describe('UploadControls', () => {
 
     expect(destination).toBeInTheDocument();
     expect(destinationFolder).toBeInTheDocument();
+  });
+
+  it('opens the file picker when the add files button is clicked and uses the file selection dialog', async () => {
+    const user = userEvent.setup();
+    const files = [
+      new File(['content1'], 'file1.txt', { type: 'text/plain' }),
+      new File(['content2'], 'file2.txt', { type: 'text/plain' }),
+      new File(['content3'], 'file3.txt', {
+        type: 'text/plain',
+      }),
+    ];
+
+    render(
+      <Provider>
+        <UploadControls />
+      </Provider>
+    );
+
+    const button = screen.getByRole('button', { name: 'Add files' });
+    const input: HTMLInputElement = screen.getByTestId('amplify-file-select');
+
+    expect(input).toHaveAttribute('multiple');
+
+    await act(async () => {
+      await user.click(button);
+      await user.upload(input, files);
+    });
+
+    expect(input.files).toHaveLength(3);
+  });
+
+  it('has the webkitdirectory attribute for the input select for folders', () => {
+    render(
+      <Provider>
+        <UploadControls />
+      </Provider>
+    );
+
+    const input: HTMLInputElement = screen.getByTestId('amplify-folder-select');
+
+    expect(input).toHaveAttribute('webkitdirectory');
   });
 });
 
