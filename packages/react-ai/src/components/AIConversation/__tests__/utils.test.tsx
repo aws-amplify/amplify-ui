@@ -1,4 +1,8 @@
-import { convertBufferToBase64, formatDate } from '../utils';
+import {
+  convertBufferToBase64,
+  formatDate,
+  getImageTypeFromMimeType,
+} from '../utils';
 
 describe('convertBufferToBase64', () => {
   it('should convert an ArrayBuffer to a base64 string with the correct format', () => {
@@ -21,6 +25,14 @@ describe('convertBufferToBase64', () => {
     const base64String = convertBufferToBase64(buffer, format);
     expect(base64String).toBe('data:image/gif;base64,/wD/AA==');
   });
+
+  it('should still work in node based Buffer is not defined', () => {
+    (window.Buffer as any) = undefined;
+    const buffer = new Uint8Array([72, 101, 108, 108, 111]).buffer;
+    const format = 'png';
+    const base64String = convertBufferToBase64(buffer, format);
+    expect(base64String).toBe('data:image/png;base64,SGVsbG8=');
+  });
 });
 
 describe('formatDate', () => {
@@ -34,5 +46,14 @@ describe('formatDate', () => {
     const date = new Date('1999-08-20T03:10:59');
     const formattedDate = formatDate(date);
     expect(formattedDate).toBe('Fri, Aug 20 at 3:10 AM');
+  });
+});
+
+describe('getImageTypeFromMimeType', () => {
+  it('should return the image type', () => {
+    expect(getImageTypeFromMimeType('image/jpeg')).toBe('jpeg');
+    expect(getImageTypeFromMimeType('image/gif')).toBe('gif');
+    expect(getImageTypeFromMimeType('image/png')).toBe('png');
+    expect(getImageTypeFromMimeType('image/webp')).toBe('webp');
   });
 });

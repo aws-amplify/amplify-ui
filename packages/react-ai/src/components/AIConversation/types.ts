@@ -42,6 +42,7 @@ export interface AIConversationProps {
   messages: ConversationMessage[];
   handleSendMessage: SendMessage;
   avatars?: Avatars;
+  isLoading?: boolean;
 }
 
 export interface AIConversation<T extends Partial<AIConversationElements>> {

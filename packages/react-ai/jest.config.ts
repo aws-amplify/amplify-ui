@@ -8,6 +8,8 @@ const config: Config = {
     '!<rootDir>/**/index.(ts|tsx)',
     // do not collect from top level version and styles files
     '!<rootDir>/src/(styles|version).(ts|tsx)',
+    // do not collect from top level version and styles files
+    '!<rootDir>/src/ai-conversation-styles.ts',
   ],
   coverageThreshold: {
     global: {

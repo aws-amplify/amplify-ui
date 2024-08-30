@@ -10,6 +10,7 @@ import { IconAttach, IconSend, useIcons } from '@aws-amplify/ui-react/internal';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { ControlsContextProps } from '../../context/ControlsContext';
 import { Attachments } from './Attachments';
+import { LoadingContext } from '../../context/LoadingContext';
 
 function isHTMLFormElement(target: EventTarget): target is HTMLFormElement {
   return 'form' in target;
@@ -24,6 +25,8 @@ export const Form: ControlsContextProps['Form'] = ({
   const sendIcon = icons?.send ?? <IconSend />;
   const attachIcon = icons?.attach ?? <IconAttach />;
   const hiddenInput = React.useRef<HTMLInputElement>(null);
+  const isLoading = React.useContext(LoadingContext);
+  const isInputEmpty = !input?.text?.length && !input?.files?.length;
 
   return (
     <DropZone
@@ -95,7 +98,7 @@ export const Form: ControlsContextProps['Form'] = ({
           type="submit"
           variation="primary"
           className={ComponentClassName.AIConversationFormSend}
-          isDisabled={!input?.text?.length && !input?.files?.length}
+          isDisabled={isLoading ?? isInputEmpty}
         >
           <span>{sendIcon}</span>
         </Button>

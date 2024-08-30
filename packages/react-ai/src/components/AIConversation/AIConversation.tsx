@@ -28,6 +28,7 @@ export const AIConversation = ({
   responseComponents,
   suggestedPrompts,
   variant,
+  isLoading,
 }: _AIConversationProps): JSX.Element => {
   const icons = useIcons('aiConversation');
   const defaultAvatars: Avatars = {
@@ -68,6 +69,7 @@ export const AIConversation = ({
       ...defaultAvatars,
       ...avatars,
     },
+    isLoading,
   };
 
   return (

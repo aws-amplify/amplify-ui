@@ -41,12 +41,13 @@ export function createAIConversation<T extends Partial<AIConversationElements>>(
   });
 
   function AIConversation(props: AIConversationProps): JSX.Element {
-    const { messages, avatars, handleSendMessage } = props;
+    const { messages, avatars, handleSendMessage, isLoading } = props;
     return (
       <Provider
         messages={messages}
         avatars={avatars}
         handleSendMessage={handleSendMessage}
+        isLoading={isLoading}
       >
         <Conversation />
       </Provider>

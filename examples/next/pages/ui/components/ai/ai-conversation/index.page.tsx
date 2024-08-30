@@ -17,6 +17,7 @@ function Chat() {
   const [
     {
       data: { messages },
+      isLoading,
     },
     sendMessage,
   ] = useAIConversation('pirateChat');
