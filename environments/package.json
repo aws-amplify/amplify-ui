@@ -15,6 +15,7 @@
     "@aws-amplify/graphql-conversation-transformer": "raven",
     "@aws-amplify/graphql-generation-transformer": "raven",
     "@aws-amplify/backend-cli": "^1.1.1",
+    "@aws-amplify/cli": "latest",
     "aws-cdk": "^2.143.1",
     "aws-cdk-lib": "^2.143.1",
     "constructs": "^10.3.0"
