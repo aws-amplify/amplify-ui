@@ -1,0 +1,125 @@
+# Description: this is a reusable workflow that runs build on mega-apps that have all the connected components for React Native.
+#
+# See build-system-test-react-native.yml for usage.
+on:
+  workflow_call:
+    inputs:
+      dist-tag:
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: macos-13
+    environment: ci
+    strategy:
+      fail-fast: false
+      matrix:
+        framework: [react-native]
+        framework-version: [latest]
+        # uncomment to re-enable
+        # build-tool: [cli, expo]
+        build-tool: [expo]
+        build-tool-version: [latest]
+        pkg-manager: [npm]
+        language: [ts]
+        node-version: [18]
+        platform: [ios, android]
+        logfile: [test.log]
+        pkg-manager-version: [latest]
+        exclude:
+          - build-tool: expo
+            platform: ios
+
+    env:
+      MEGA_APP_NAME: rn-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}-${{ matrix.platform }}-ui-${{ inputs.dist-tag }}
+
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@b80ff79f1755d06ba70441c368a6fe801f5f3a62 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
+        with:
+          persist-credentials: false
+      - name: Setup Node.js ${{ matrix.node-version }} with ${{ matrix.pkg-manager }}
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: ${{ matrix.pkg-manager }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+
+      - name: Restore CocoaPods cache
+        if: ${{ matrix.platform == 'ios' }}
+        id: restore-cocoapods-cache
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        with:
+          path: ./examples/react-native/ios/Pods
+          key: ${{ runner.os }}-cocoapods-${{ inputs.commit }}
+          restore-keys: pods-${{ hashFiles('examples/react-native/ios/Podfile.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+      - name: Restore node_modules cache
+        if: ${{ matrix.platform == 'ios' }}
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2 https://github.com/actions/cache/commit/0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        id: restore-cache
+        with:
+          path: |
+            ./node_modules
+            **/node_modules
+          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
+      - name: Install Java 17
+        if: ${{ matrix.platform == 'android' }}
+        uses: actions/setup-java@de1bb2b0c5634f0fc4438d7aa9944e68f9bf86cc # 3.6.0
+        with:
+          distribution: 'corretto' # Amazon Corretto Build of OpenJDK
+          java-version: '17'
+
+      - name: Install iOS simulator
+        if: ${{ matrix.platform == 'ios' }}
+        run: |
+          brew tap wix/brew
+          brew install applesimutils
+          brew install watchman
+          brew link --overwrite python@3.11
+          echo "ruby --version"
+          ruby --version
+        continue-on-error: true # brew overwrite step addresses a python install issue: https://github.com/actions/runner-images/issues/8500
+      - name: Update CocoaPods
+        if: ${{ matrix.platform == 'ios' }}
+        run: |
+          gem update cocoapods xcodeproj
+          yarn react-native-example ios:pod-install
+
+      - name: Install Android emulator
+        if: ${{ matrix.platform == 'android' }}
+        run: |
+          echo -e "echo \$ANDROID_HOME"
+          echo $ANDROID_HOME
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install 'build-tools;33.0.2' platform-tools
+          echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-27;default;x86_64"
+          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --force --name Pixel_5_API_27 --device "pixel_5" --abi x86_64 --package "system-images;android-27;default;x86_64"
+          printf 'hw.cpu.ncore=2\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
+          printf 'hw.ramSize=2048\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
+          printf 'hw.heapSize=576\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
+      - name: Start Android emulator
+        if: ${{ matrix.platform == 'android' }}
+        run: |
+          nohup $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
+          $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
+          $ANDROID_HOME/platform-tools/adb devices
+          # disable spell checker
+          $ANDROID_HOME/platform-tools/adb shell settings put secure spell_checker_enabled 0
+          # disable animations
+          $ANDROID_HOME/platform-tools/adb shell settings put global window_animation_scale 0.0
+          $ANDROID_HOME/platform-tools/adb shell settings put global transition_animation_scale 0.0
+          $ANDROID_HOME/platform-tools/adb shell settings put global animator_duration_scale 0.0
+
+      - name: Create MegaApp ${{ env.MEGA_APP_NAME }} and run build on NodeJS ${{ matrix.node-version }}
+        run: npm run ${{ env.MEGA_APP_NAME }}
+        shell: bash
+        working-directory: build-system-tests
+      - name: Detect Mega App Error in Log
+        run: npm run checkReactNativeLogs -- --log-file-name ${{ matrix.logfile }} --mega-app-name ${{ env.MEGA_APP_NAME }} --platform ${{ matrix.platform }}
+        shell: bash
+        working-directory: build-system-tests
