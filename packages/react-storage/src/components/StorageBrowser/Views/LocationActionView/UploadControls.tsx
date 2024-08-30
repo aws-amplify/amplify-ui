@@ -112,6 +112,31 @@ const Destination = ({ children }: { children?: React.ReactNode }) => {
   );
 };
 
+const getFriendlyTaskStatus = (status: string): string => {
+  switch (status) {
+    case 'INITIAL': {
+      return 'Not started';
+    }
+    case 'QUEUED': {
+      return 'Queued';
+    }
+    case 'PENDING': {
+      return 'In progress';
+    }
+    case 'FAILED': {
+      return 'Failed';
+    }
+    case 'COMPLETE': {
+      return 'Completed';
+    }
+    case 'CANCELED': {
+      return 'Canceled';
+    }
+    default:
+      return status;
+  }
+};
+
 const LocationActionViewColumnSortMap = {
   key: compareStrings,
   size: compareNumbers,
@@ -150,7 +175,9 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
       case 'size':
         return <TableDataText>{humanFileSize(row.size, true)}</TableDataText>;
       case 'status':
-        return <TableDataText>{row.status}</TableDataText>;
+        return (
+          <TableDataText>{getFriendlyTaskStatus(row.status)}</TableDataText>
+        );
       case 'progress':
         return (
           <TableDataText>{`${Math.round(row.progress * 100)}%`}</TableDataText>
@@ -197,11 +224,13 @@ export const UploadControls = (): JSX.Element => {
     type: 'ACTION_SELECT',
   });
 
-  const [tasks, handleUpload, handleFileSelect] = useHandleUpload({
-    prefix: path,
-    preventOverwrite: !overwrite,
-    batchSize: 6,
-  });
+  const [tasks, handleUpload, handleFileSelect, handleCancel] = useHandleUpload(
+    {
+      prefix: path,
+      preventOverwrite: !overwrite,
+      batchSize: 6,
+    }
+  );
 
   const handleFileInput = React.useRef<HTMLInputElement>(null);
   const handleFolderInput = React.useRef<HTMLInputElement>(null);
@@ -222,6 +251,7 @@ export const UploadControls = (): JSX.Element => {
       ...task,
       type: task.data.type ?? '-',
       folder,
+      friendlyStatus: getFriendlyTaskStatus(task.status),
     };
   });
 
@@ -350,6 +380,16 @@ export const UploadControls = (): JSX.Element => {
       >
         Start
       </Primary>
+      <ButtonElement
+        variant="cancel"
+        disabled={queuedTasks === 0}
+        className={`${CLASS_BASE}__cancel`}
+        onClick={() => {
+          handleCancel();
+        }}
+      >
+        Cancel
+      </ButtonElement>
       <ButtonElement
         disabled={disabled}
         className={`${CLASS_BASE}__add-folder`}

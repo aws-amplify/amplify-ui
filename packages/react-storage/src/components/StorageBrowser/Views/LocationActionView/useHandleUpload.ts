@@ -116,10 +116,16 @@ export function useHandleUpload({
   tasks: CancelableTask[],
   handleUpload: () => void,
   handleFileSelect: (files: File[]) => void,
+  handleCancel: () => void,
 ] {
   const getConfig = useGetLocationConfig();
 
   const [tasks, setTasks] = React.useState<CancelableTask[]>(() => []);
+  const tasksRef = React.useRef<CancelableTask[]>(tasks);
+
+  React.useEffect(() => {
+    tasksRef.current = tasks;
+  }, [tasks]);
 
   const handleFileSelect = (newFiles: File[]) => {
     setTasks((prevTasks) => {
@@ -188,31 +194,45 @@ export function useHandleUpload({
     };
   };
 
-  // Help set status to queue and remove the "cancel" property so it
-  // doesn't points to the "removeTask" call
-  const queueUpload = (task: CancelableTask): CancelableTask => {
-    const queuedTask: CancelableTask = {
-      ...task,
-      status: 'QUEUED',
-      cancel: undefined,
-    };
-
-    setTasks((prevTasks) => updateTasks(prevTasks, queuedTask));
-
-    return queuedTask;
-  };
-
   const handleUpload = async () => {
     let currentIndex = 0;
 
-    const queuedTasks = tasks.map((task) => queueUpload(task));
+    // Update tasks to be in QUEUED state
+    // the 'cancel' property will update the the state so the task
+    // has status 'CANCELED' and so that its new 'cancel' property is undefined
+    setTasks((prevTasks) =>
+      prevTasks.map((task) => ({
+        ...task,
+        status: 'QUEUED',
+        cancel: () =>
+          setTasks((prevTasks) =>
+            updateTasks(prevTasks, {
+              key: task.key,
+              status: 'CANCELED',
+              cancel: undefined,
+            })
+          ),
+      }))
+    );
 
     const uploadNext = async () => {
-      if (currentIndex >= tasks.length) {
+      const currentTasks = tasksRef.current;
+
+      if (currentIndex >= currentTasks.length) {
         return;
       }
 
-      const pendingTask = processUpload(queuedTasks[currentIndex]);
+      const queuedTask = currentTasks[currentIndex];
+
+      if (queuedTask.status === 'CANCELED') {
+        currentIndex++;
+
+        uploadNext();
+
+        return;
+      }
+
+      const pendingTask = processUpload(queuedTask);
 
       currentIndex++;
 
@@ -246,5 +266,31 @@ export function useHandleUpload({
     await Promise.all(initialUploads);
   };
 
-  return [tasks, handleUpload, handleFileSelect];
+  const handleCancel = () => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) => {
+        if (task.status === 'COMPLETE' || task.progress === 1) {
+          return task;
+        } else if (task.status === 'PENDING') {
+          if (task.cancel && typeof task.cancel === 'function') {
+            // Need to call cancel on all pending tasks if it's cancellable
+            task.cancel();
+          } else {
+            // Uploads with size less than 5MB are not cancellable
+            return task;
+          }
+        }
+
+        // Calling `cancel` above should've updated the state in our try/catch
+        // but returning the updated state here since we are mapping over the tasks
+        return {
+          ...task,
+          status: 'CANCELED',
+          cancel: undefined,
+        };
+      })
+    );
+  };
+
+  return [tasks, handleUpload, handleFileSelect, handleCancel];
 }
