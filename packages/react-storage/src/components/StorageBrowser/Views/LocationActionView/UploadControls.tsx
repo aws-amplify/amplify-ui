@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { humanFileSize } from '@aws-amplify/ui';
-import { useFileSelect } from '@aws-amplify/ui-react/internal';
 
 import { ButtonElement, StorageBrowserElements } from '../../context/elements';
 import { useControl } from '../../context/controls';
@@ -16,7 +15,6 @@ import {
   Column,
   RenderRowItem,
   SortState,
-  TableHeaderButton,
 } from '../Controls/Table';
 
 import { Title } from './Controls/Title';
@@ -182,28 +180,13 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
   );
 };
 
-const parseSelectionData = (
-  value: string | string[] | undefined
-): { type: 'file' | 'folder' | undefined; accept: string | undefined } => {
-  const type =
-    value?.[0] === 'file' || value === 'file'
-      ? 'file'
-      : value?.[0] === 'folder' || value === 'folder'
-      ? 'folder'
-      : undefined;
-
-  const accept = type && Array.isArray(value) ? value[1] : undefined;
-
-  return { type, accept };
-};
-
 export const UploadControls = (): JSX.Element => {
   const [{ history, path }] = useControl({ type: 'NAVIGATE' });
 
   // preventOverwrite is enabled by default in our call to uploadData
   // so we set overwrite to default to false to match in our UI
   const [overwrite, setOverwrite] = React.useState(false);
-  const [{ selected, actions }, handleUpdateState] = useControl({
+  const [{ selected }, handleUpdateState] = useControl({
     type: 'ACTION_SELECT',
   });
 
@@ -212,27 +195,39 @@ export const UploadControls = (): JSX.Element => {
     preventOverwrite: !overwrite,
   });
 
-  const [fileSelect, handleSelect] = useFileSelect(handleFileSelect);
+  const handleFileInput = React.useRef<HTMLInputElement>(null);
+  const handleFolderInput = React.useRef<HTMLInputElement>(null);
+
+  // Noticed that in Safari, the file picker was not registering the on change event
+  // unless I made sure that the useEffect for clicking the file input was only clicked once
+  const initialRun = React.useRef(false);
 
   let tableData = tasks.map((task) => {
-    const folder = task.data.webkitRelativePath.lastIndexOf('/') + 1;
+    const { webkitRelativePath } = task.data;
+
+    const folder =
+      webkitRelativePath?.length > 0
+        ? webkitRelativePath.slice(0, webkitRelativePath.lastIndexOf('/') + 1)
+        : '/';
 
     return {
       ...task,
       type: task.data.type ?? '-',
-      folder: folder > -1 ? task.data.webkitRelativePath.slice(0, folder) : '/',
+      folder,
     };
   });
 
-  const { options } = actions[selected.type!];
-  const { selectionData } = options ?? {};
-
   React.useEffect(() => {
-    const { type, accept } = parseSelectionData(selectionData);
-    if (type) {
-      handleSelect(type, { accept });
+    if (!initialRun.current) {
+      if (selected.type === 'UPLOAD_FILES') {
+        handleFileInput.current?.click();
+      } else if (selected.type === 'UPLOAD_FOLDER') {
+        handleFolderInput.current?.click();
+      }
+
+      initialRun.current = true;
     }
-  }, [handleSelect, selectionData]);
+  }, [selected.type]);
 
   const [compareFn, setCompareFn] = React.useState<(a: any, b: any) => number>(
     () => compareStrings
@@ -264,7 +259,8 @@ export const UploadControls = (): JSX.Element => {
           aria-sort={selection === key ? direction : 'none'}
         >
           {key in LocationActionViewColumnSortMap ? (
-            <TableHeaderButton
+            <ButtonElement
+              className={`${CLASS_BASE}__table__data__button`}
               onClick={() => {
                 setCompareFn(
                   () =>
@@ -294,7 +290,7 @@ export const UploadControls = (): JSX.Element => {
               ) : (
                 <Icon variant="sort-indeterminate" />
               )}
-            </TableHeaderButton>
+            </ButtonElement>
           ) : (
             column.header
           )}
@@ -304,7 +300,7 @@ export const UploadControls = (): JSX.Element => {
     [direction, selection]
   );
 
-  const disabled = tasks.some((task) => task.status === 'PENDING');
+  const disabled = tasks.some((task) => task.status !== 'INITIAL');
   const queuedTasks = tasks.filter((task) => task.status === 'QUEUED').length;
   const canceledTasks = tasks.filter(
     (task) => task.status === 'CANCELED'
@@ -316,7 +312,27 @@ export const UploadControls = (): JSX.Element => {
 
   return (
     <>
-      {fileSelect}
+      <input
+        data-testid="amplify-file-select"
+        type="file"
+        style={{ display: 'none' }}
+        multiple
+        onChange={({ target }) => {
+          handleFileSelect([...(target.files ?? [])]);
+        }}
+        ref={handleFileInput}
+      />
+      <input
+        data-testid="amplify-folder-select"
+        type="file"
+        style={{ display: 'none' }}
+        onChange={({ target }) => {
+          handleFileSelect([...(target.files ?? [])]);
+        }}
+        // @ts-expect-error webkitdirectory is not typed
+        webkitdirectory=""
+        ref={handleFolderInput}
+      />
       <Exit onClick={() => handleUpdateState({ type: 'CLEAR' })} />
       <Title />
       <Primary
@@ -332,7 +348,7 @@ export const UploadControls = (): JSX.Element => {
         className={`${CLASS_BASE}__add-folder`}
         variant="add-folder"
         onClick={() => {
-          handleSelect('folder');
+          handleFolderInput?.current?.click();
         }}
       >
         Add folder
@@ -342,7 +358,7 @@ export const UploadControls = (): JSX.Element => {
         className={`${CLASS_BASE}__add-files`}
         variant="add-files"
         onClick={() => {
-          handleSelect('file');
+          handleFileInput?.current?.click();
         }}
       >
         Add files

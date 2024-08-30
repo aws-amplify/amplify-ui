@@ -5,10 +5,7 @@ import { StorageBrowserElements } from './context/elements';
 import createProvider, { CreateProviderInput } from './createProvider';
 import { LocationsView, LocationDetailView, LocationActionView } from './Views';
 import { useControl } from './context/controls';
-import {
-  ACTIONS_DEFAULT,
-  LocationActions,
-} from './context/controls/locationActions';
+import { ACTIONS_DEFAULT } from './context/controls/locationActions';
 
 const validateRegisterAuthListener = (registerAuthListener: any) => {
   if (typeof registerAuthListener !== 'function') {
@@ -18,13 +15,13 @@ const validateRegisterAuthListener = (registerAuthListener: any) => {
   }
 };
 
-export interface CreateStorageBrowserInput<T, K>
-  extends CreateProviderInput<T, K> {}
+export interface CreateStorageBrowserInput
+  extends Omit<CreateProviderInput, 'actions'> {}
 
-export interface StorageBrowser<T extends StorageBrowserElements> {
+export interface StorageBrowser {
   (): React.JSX.Element;
-  LocationDetailView: LocationDetailView<T>;
-  LocationsView: LocationsView<T>;
+  LocationDetailView: () => React.JSX.Element;
+  LocationsView: () => React.JSX.Element;
   Provider: (props: { children?: React.ReactNode }) => React.JSX.Element;
 }
 
@@ -55,22 +52,14 @@ function DefaultStorageBrowser(): React.JSX.Element {
   return <LocationsView />;
 }
 
-export function createStorageBrowser<
-  T extends Partial<StorageBrowserElements>,
-  K extends LocationActions,
->(
-  input: CreateStorageBrowserInput<T, K>
-): {
-  StorageBrowser: StorageBrowser<ResolvedStorageBrowserElements<T>>;
+export function createStorageBrowser(input: CreateStorageBrowserInput): {
+  StorageBrowser: StorageBrowser;
 } {
   validateRegisterAuthListener(input.config.registerAuthListener);
-  const actions = { ...input.actions, ...ACTIONS_DEFAULT };
 
-  const Provider = createProvider({ ...input, actions });
+  const Provider = createProvider({ ...input, actions: ACTIONS_DEFAULT });
 
-  const StorageBrowser: StorageBrowser<
-    ResolvedStorageBrowserElements<T>
-  > = () => (
+  const StorageBrowser = () => (
     <Provider>
       <DefaultStorageBrowser />
     </Provider>
@@ -80,7 +69,6 @@ export function createStorageBrowser<
   StorageBrowser.LocationDetailView = LocationDetailView;
   StorageBrowser.LocationsView = LocationsView;
 
-  // @ts-expect-error - force allow `displayName`
   StorageBrowser.displayName = 'StorageBrowser';
 
   return { StorageBrowser };
