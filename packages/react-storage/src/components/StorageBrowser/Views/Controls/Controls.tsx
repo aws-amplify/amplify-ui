@@ -1,5 +1,3 @@
-import { StorageBrowserElements } from '../../context/elements';
-
 import { CancelControl } from './Cancel';
 import { DownloadControl } from './Download';
 import { EmptyMessageControl } from './EmptyMessage';
@@ -14,12 +12,9 @@ import { RefreshControl } from './Refresh';
 import { SearchControl } from './Search';
 import { SummaryControl } from './Summary';
 import { TableControl } from './Table';
-import { TargetControl } from './Target';
 import { TitleControl } from './Title';
 
-export interface Controls<
-  T extends StorageBrowserElements = StorageBrowserElements,
-> {
+export interface Controls {
   Cancel: typeof CancelControl;
   Download: typeof DownloadControl;
   EmptyMessage: typeof EmptyMessageControl;
@@ -29,12 +24,11 @@ export interface Controls<
   Overwrite: typeof OverwriteControl;
   Paginate: typeof PaginateControl;
   Primary: typeof PrimaryControl;
-  Navigate: NavigateControl<T>;
+  Navigate: typeof NavigateControl;
   Refresh: typeof RefreshControl;
   Search: typeof SearchControl;
   Summary: typeof SummaryControl;
-  Table: TableControl<T>;
-  Target: TargetControl<T>;
+  Table: typeof TableControl;
   Title: typeof TitleControl;
 }
 
@@ -53,6 +47,5 @@ export const Controls: Controls = {
   Search: SearchControl,
   Summary: SummaryControl,
   Table: TableControl,
-  Target: TargetControl,
   Title: TitleControl,
 };
