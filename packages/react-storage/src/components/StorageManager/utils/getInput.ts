@@ -4,19 +4,23 @@ import { UploadDataWithPathInput, UploadDataInput } from 'aws-amplify/storage';
 
 import { isString, isTypedFunction } from '@aws-amplify/ui';
 
-import { ProcessFile } from '../types';
+import { ProcessFile, ProcessFileErrorParams } from '../types';
 import { resolveFile } from './resolveFile';
 import { PathCallback, PathInput } from './uploadFile';
+import { UseStorageManager } from '../hooks';
 
 export interface GetInputParams {
   accessLevel: StorageAccessLevel | undefined;
   file: File;
   key: string;
   onProcessFileSuccess: (input: { processedKey: string }) => void;
+  onProcessFileError?: (error: ProcessFileErrorParams) => void;
   onProgress: NonNullable<UploadDataWithPathInput['options']>['onProgress'];
   path: string | PathCallback | undefined;
   processFile: ProcessFile | undefined;
   useAccelerateEndpoint?: boolean;
+  id: string;
+  removeUpload: UseStorageManager['removeUpload'];
 }
 
 export const getInput = ({
@@ -24,9 +28,12 @@ export const getInput = ({
   file,
   key,
   onProcessFileSuccess,
+  onProcessFileError,
   onProgress,
   path,
   processFile,
+  id,
+  removeUpload,
   useAccelerateEndpoint,
 }: GetInputParams) => {
   return async (): Promise<PathInput | UploadDataInput> => {
@@ -39,7 +46,14 @@ export const getInput = ({
       file: data,
       key: processedKey,
       ...rest
-    } = await resolveFile({ file, key, processFile });
+    } = await resolveFile({
+      file,
+      key,
+      processFile,
+      removeUpload,
+      id,
+      onProcessFileError,
+    });
 
     const contentType = file.type || 'binary/octet-stream';
 
@@ -47,6 +61,7 @@ export const getInput = ({
     const options = { contentType, onProgress, useAccelerateEndpoint, ...rest };
 
     let inputResult: PathInput | UploadDataInput;
+
     if (hasKeyInput) {
       // legacy handling of `path` is to prefix to `fileKey`
       const resolvedKey = hasStringPath

@@ -1,5 +1,12 @@
 # Contributing
 
+## Prerequisites
+
+If not previously installed, install and configure [Node Version Manager](https://github.com/nvm-sh/nvm):
+
+1. Run `nvm install`
+1. Run `nvm use 20`
+
 ## Getting Started
 
 1. Navigate to the _root_ of your local clone of [aws-amplify/amplify-ui](https://github.com/aws-amplify/amplify-ui)

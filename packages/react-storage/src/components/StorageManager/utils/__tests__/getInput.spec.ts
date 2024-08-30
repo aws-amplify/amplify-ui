@@ -21,12 +21,15 @@ const processFile: GetInputParams['processFile'] = ({ key, ...rest }) => ({
 const stringPath = 'my-path/';
 
 const onProcessFileSuccess = jest.fn();
+
 const inputBase: Omit<GetInputParams, 'path' | 'accessLevel'> = {
   file,
   key,
   onProgress,
   processFile: undefined,
   onProcessFileSuccess,
+  id: '',
+  removeUpload: () => {},
 };
 const pathStringInput: GetInputParams = {
   ...inputBase,

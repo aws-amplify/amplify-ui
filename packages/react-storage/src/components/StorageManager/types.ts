@@ -48,6 +48,18 @@ export type ProcessFile = (
   params: ProcessFileParams
 ) => Promise<ProcessFileParams> | ProcessFileParams;
 
+//export type ProcessFileError = ProcessFileParams & { error: string };
+
+export interface ProcessFileErrorParams extends Record<string, any> {
+  file: File;
+  key: string;
+  useAccelerateEndpoint?: boolean;
+  error: string | Error;
+}
+
+export type ProcessFileError = (error: ProcessFileErrorParams) => void;
+//) => Promise<ProcessFileError> | ProcessFileError;
+
 export interface StorageManagerHandle {
   clearFiles: () => void;
 }
@@ -120,6 +132,10 @@ export interface StorageManagerProps {
    */
   processFile?: ProcessFile;
   /**
+   * Monitor process file errors
+   */
+  onProcessFileError?: (error: ProcessFileErrorParams) => void;
+  /**
    * Determines if thumbnails show for image files
    */
   showThumbnails?: boolean;
@@ -140,6 +156,8 @@ export interface StorageManagerPathProps
    *    resolved value is prefixed to the file `key` for each file
    */
   path: string | PathCallback;
+
   accessLevel?: never;
+
   useAccelerateEndpoint?: boolean;
 }

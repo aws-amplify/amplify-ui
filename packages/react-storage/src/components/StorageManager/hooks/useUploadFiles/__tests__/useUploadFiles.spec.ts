@@ -42,15 +42,19 @@ const mockQueuedFile: StorageFile = {
 const mockOnProcessFileSuccess = jest.fn();
 const mockOnUploadError = jest.fn();
 const mockOnUploadStart = jest.fn();
+const mockRemoveUpload = jest.fn();
 const mockSetUploadingFile = jest.fn();
 const mockSetUploadProgress = jest.fn();
 const mockSetUploadSuccess = jest.fn();
+
 const props: Omit<UseUploadFilesProps, 'files'> = {
   accessLevel: 'guest',
   maxFileCount: 2,
+  isResumable: false,
   onProcessFileSuccess: mockOnProcessFileSuccess,
   onUploadError: mockOnUploadError,
   onUploadStart: mockOnUploadStart,
+  removeUpload: mockRemoveUpload,
   setUploadingFile: mockSetUploadingFile,
   setUploadProgress: mockSetUploadProgress,
   setUploadSuccess: mockSetUploadSuccess,
@@ -189,6 +193,60 @@ describe('useUploadFiles', () => {
       expect(mockOnUploadStart).toHaveBeenCalledWith({
         key: 'test.png',
       });
+    });
+  });
+
+  it('should remove upload after processFile promise rejects', async () => {
+    const processFile: StorageManagerProps['processFile'] = ({ file }) =>
+      //@ts-ignore
+      Promise.reject({ file, key: 'test.png', error: 'forced test error' });
+
+    const { waitForNextUpdate } = renderHook(() =>
+      useUploadFiles({
+        ...props,
+        isResumable: true,
+        processFile,
+        files: [mockQueuedFile],
+      })
+    );
+
+    waitForNextUpdate();
+
+    await waitFor(() => {
+      expect(mockOnUploadError).toHaveBeenCalledWith('forced test error', {
+        key: 'test.png',
+      });
+    });
+
+    await waitFor(() => {
+      expect(mockRemoveUpload).toHaveBeenCalled();
+    });
+  });
+
+  it('should remove upload after processFile promise throws', async () => {
+    const processFile: StorageManagerProps['processFile'] = () => {
+      throw new Error('forced test error');
+    };
+
+    const { waitForNextUpdate } = renderHook(() =>
+      useUploadFiles({
+        ...props,
+        isResumable: true,
+        processFile,
+        files: [mockQueuedFile],
+      })
+    );
+
+    waitForNextUpdate();
+
+    await waitFor(() => {
+      expect(mockOnUploadError).toHaveBeenCalledWith('forced test error', {
+        key: 'test.png',
+      });
+    });
+
+    await waitFor(() => {
+      expect(mockRemoveUpload).toHaveBeenCalled();
     });
   });
 
