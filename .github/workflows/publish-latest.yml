@@ -83,12 +83,14 @@ jobs:
         working-directory: ./canary
 
   build-test-v2:
+    if: ${{ needs.setup.outputs.has-changesets != 'true' }}
     uses: ./.github/workflows/reusable-build-system-test.yml
     needs: setup
     with:
       dist-tag: next
 
   build-test-v2-react-native:
+    if: ${{ needs.setup.outputs.has-changesets != 'true' }}
     uses: ./.github/workflows/reusable-build-system-test-react-native.yml
     needs: setup
     with:
