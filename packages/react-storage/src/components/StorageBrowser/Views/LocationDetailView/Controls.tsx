@@ -9,7 +9,7 @@ import { useAction } from '../../context/actions';
 import { usePaginate } from '../hooks/usePaginate';
 import { listViewHelpers } from '../utils';
 
-const DEFAULT_PAGE_SIZE = 4;
+const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
   delimiter: '/',
