@@ -103,6 +103,31 @@ describe('LocationDetailView', () => {
     });
   });
 
+  it('shows a Loading element when first loaded', () => {
+    jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
+      {
+        data: {
+          result: [],
+          nextToken: undefined,
+        },
+        hasError: false,
+        isLoading: true,
+        message: undefined,
+      },
+      handleList,
+    ]);
+
+    render(
+      <Provider>
+        <LocationDetailView />
+      </Provider>
+    );
+
+    const text = screen.getByText('Loading');
+
+    expect(text).toBeInTheDocument();
+  });
+
   it('loads initial location items for a BUCKET location as expected', () => {
     jest.spyOn(ControlsModule, 'useControl').mockImplementation(
       ({ type }) =>
