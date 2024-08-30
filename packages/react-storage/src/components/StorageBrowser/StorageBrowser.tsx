@@ -15,7 +15,6 @@ export const StorageBrowser = ({
   defaultPrefixes,
 }: StorageBrowserProps): JSX.Element => {
   const { StorageBrowser } = createStorageBrowser({
-    actions: {},
     elements: elementsDefault,
     config: createAmplifyAuthAdapter({
       options: {
