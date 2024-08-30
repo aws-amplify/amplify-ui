@@ -61,7 +61,7 @@
   display: block;
 }
 
-.storage-browser__target__field {
+.storage-browser__field {
   grid-column: 1 / -1;
   display: flex;
   flex-direction: column;

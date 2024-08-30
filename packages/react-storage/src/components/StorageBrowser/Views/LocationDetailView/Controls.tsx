@@ -1,37 +1,27 @@
 import React from 'react';
 
-import { StorageBrowserElements } from '../../context/elements';
-import { useControl } from '../../context/controls';
-import { ActionsMenuControl } from './Controls/ActionsMenu';
-import { Controls, LocationDetailViewTable } from '../Controls';
-import { CommonControl } from '../types';
 import { useAction } from '../../context/actions';
+import { useControl } from '../../context/controls';
+import { Controls, LocationDetailViewTable } from '../Controls';
+
+import { ActionsMenuControl } from './Controls/ActionsMenu';
 
 const {
   EmptyMessage,
-  Loading: LoadingElement,
+  Loading: LoadingControl,
   Message,
   Navigate,
   Paginate,
   Refresh,
-  Title: TitleElement,
+  Title: TitleControl,
 } = Controls;
-
-export interface LocationDetailViewControls<
-  T extends StorageBrowserElements = StorageBrowserElements,
-> extends Pick<
-    Controls<T>,
-    CommonControl | 'Title' | 'Paginate' | 'Refresh' | 'Search'
-  > {
-  (): React.JSX.Element;
-}
 
 export const Title = (): React.JSX.Element => {
   const [{ history }] = useControl({ type: 'NAVIGATE' });
 
   const { prefix } = history.slice(-1)[0];
 
-  return <TitleElement>{prefix}</TitleElement>;
+  return <TitleControl>{prefix}</TitleControl>;
 };
 
 const RefreshControl = () => {
@@ -59,7 +49,7 @@ const Loading = () => {
     type: 'LIST_LOCATION_ITEMS',
   });
 
-  return isLoading ? <LoadingElement /> : null;
+  return isLoading ? <LoadingControl /> : null;
 };
 
 export const LocationDetailMessage = (): React.JSX.Element | null => {
@@ -86,8 +76,7 @@ const LocationDetailEmptyMessage = () => {
   ) : null;
 };
 
-// @ts-expect-error TODO: add Controls assignment
-export const LocationDetailViewControls: LocationDetailViewControls = () => {
+export const LocationDetailViewControls = (): React.JSX.Element => {
   return (
     <>
       <Navigate />

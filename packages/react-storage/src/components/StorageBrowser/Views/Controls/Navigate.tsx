@@ -1,33 +1,24 @@
 import React from 'react';
-import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import { useControl } from '../../context/controls';
-import { StorageBrowserElements } from '../../context/elements';
+import {
+  ButtonElement,
+  ButtonElementProps,
+  ListItemElement,
+  NavElement,
+  NavElementProps,
+  OrderedListElement,
+  SpanElement,
+  StorageBrowserElements,
+} from '../../context/elements';
 import { parseLocationAccess } from '../../context/controls/Navigate/utils';
 
 import { CLASS_BASE } from '../constants';
-import type { OmitElements } from '../types';
+
 import { LocationData, useAction } from '../../context/actions';
 
-export interface _NavigateControl<
-  T extends StorageBrowserElements = StorageBrowserElements,
-> {
-  (props: { renderNavigateItem?: RenderNavigateItem }): React.JSX.Element;
-  Container: T['Nav'];
-  NavigateItem: NavigateItem<T>;
-}
-
-export interface NavigateControl<
-  T extends StorageBrowserElements = StorageBrowserElements,
-> extends OmitElements<_NavigateControl<T>, 'Container' | 'NavigateItem'> {
-  (props: { renderNavigateItem?: RenderNavigateItem }): React.JSX.Element;
-}
-
-interface NavigateItemProps {
-  children?: React.ReactNode;
-  disabled?: boolean;
-  isCurrent?: boolean;
-  onClick?: () => void;
+interface NavigateItemProps extends ButtonElementProps {
+  seperator?: React.ReactNode;
 }
 
 type RenderNavigateItem = (props: NavigateItemProps) => React.JSX.Element;
@@ -39,57 +30,53 @@ interface NavigateItem<
   Separator: T['Span'];
 }
 
-const { Span, Button, Nav, OrderedList, ListItem } = StorageBrowserElements;
 const BLOCK_NAME = `${CLASS_BASE}__navigate`;
 
 const HOME_NAVIGATE_ITEM = 'Home';
 
-const Separator = withBaseElementProps(Span, {
-  className: `${BLOCK_NAME}__separator`,
-  'aria-hidden': true,
-  children: '/',
-});
-
-const NavigateItemContainer = withBaseElementProps(ListItem, {
-  className: `${BLOCK_NAME}__item`,
-});
-
-const NavigateButton = withBaseElementProps(Button, {
-  className: `${BLOCK_NAME}__button`,
-  variant: 'navigate',
-});
-
-export const NavigateItem = (props: NavigateItemProps): React.JSX.Element => {
-  const { isCurrent, ...rest } = props;
+function Separator() {
   return (
-    <NavigateItemContainer>
-      <NavigateButton {...rest} aria-current={isCurrent ? 'page' : undefined} />
-      {isCurrent ? null : <Separator />}
-    </NavigateItemContainer>
+    <SpanElement aria-hidden className={`${BLOCK_NAME}__separator`}>
+      /
+    </SpanElement>
+  );
+}
+
+export const NavigateItem = ({
+  className = `${BLOCK_NAME}__button`,
+  children,
+  seperator = null,
+  ...props
+}: NavigateItemProps): React.JSX.Element => {
+  return (
+    <ListItemElement className={`${BLOCK_NAME}__item`}>
+      <ButtonElement {...props} className={className} variant="navigate">
+        {children}
+      </ButtonElement>
+      {seperator}
+    </ListItemElement>
   );
 };
 
-NavigateItem.Button = NavigateButton;
-NavigateItem.Separator = Separator;
-NavigateItem.ListItem = ListItem;
-
-const NavigateContainer: typeof Nav = function Container({
+function NavigateContainer({
   children,
   className = BLOCK_NAME,
   ...props
-}) {
+}: NavElementProps) {
   return (
-    <Nav
+    <NavElement
       {...props}
       aria-label={props['aria-label'] ?? 'Breadcrumbs'}
       className={className}
     >
-      <OrderedList className={`${className}__list`}>{children}</OrderedList>
-    </Nav>
+      <OrderedListElement className={`${className}__list`}>
+        {children}
+      </OrderedListElement>
+    </NavElement>
   );
-};
+}
 
-export const NavigateControl: NavigateControl = (_props) => {
+export function NavigateControl(): React.JSX.Element {
   const [{ history, location }, handleUpdateState] = useControl({
     type: 'NAVIGATE',
   });
@@ -108,10 +95,11 @@ export const NavigateControl: NavigateControl = (_props) => {
           handleUpdateState({ type: 'EXIT' });
           handleUpdateList({ prefix: '', options: { reset: true } });
         }}
+        seperator={<Separator />}
       >
         {HOME_NAVIGATE_ITEM}
       </NavigateItem>
-      {history?.map((entry) => {
+      {history?.map((entry, index) => {
         const { position, prefix: _prefix } = entry;
         // remove trailing `/` from `prefix`
         const prefix = _prefix.slice(0, -1);
@@ -124,20 +112,22 @@ export const NavigateControl: NavigateControl = (_props) => {
             ? `${bucket}${prefix ? `/${prefix}` : prefix}`
             : prefix;
 
+        const isCurrent = index === history.length - 1;
+
         return (
-          <React.Fragment key={`${prefix}/${position}`}>
-            <NavigateItem
-              disabled={isLoading}
-              onClick={() => {
-                handleUpdateState({ type: 'NAVIGATE', entry });
-              }}
-              isCurrent={position === history.length - 1}
-            >
-              {displayValue}
-            </NavigateItem>
-          </React.Fragment>
+          <NavigateItem
+            aria-current={isCurrent ? 'page' : undefined}
+            disabled={isLoading}
+            key={`${prefix}/${position}`}
+            onClick={() => {
+              handleUpdateState({ type: 'NAVIGATE', entry });
+            }}
+            seperator={isCurrent ? null : <Separator />}
+          >
+            {displayValue}
+          </NavigateItem>
         );
       })}
     </NavigateContainer>
   );
-};
+}

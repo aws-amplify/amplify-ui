@@ -15,7 +15,6 @@ import {
   Column,
   RenderRowItem,
   SortState,
-  TableHeaderButton,
 } from '../Controls/Table';
 
 import { Title } from './Controls/Title';
@@ -296,7 +295,8 @@ export const UploadControls = (): JSX.Element => {
           aria-sort={selection === key ? direction : 'none'}
         >
           {key in LocationActionViewColumnSortMap ? (
-            <TableHeaderButton
+            <ButtonElement
+              className={`${CLASS_BASE}__table__data__button`}
               onClick={() => {
                 setCompareFn(
                   () =>
@@ -326,7 +326,7 @@ export const UploadControls = (): JSX.Element => {
               ) : (
                 <Icon variant="sort-indeterminate" />
               )}
-            </TableHeaderButton>
+            </ButtonElement>
           ) : (
             column.header
           )}
