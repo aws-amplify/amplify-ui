@@ -84,13 +84,23 @@ export async function listLocationItemsAction(
     strategy: delimiter ? 'exclude' : 'include',
   };
 
+  // `ListObjectsV2` returns the root `key` on initial request, which is from
+  // filtered from `results` by `parseResult`, creatimg a scenario where the
+  // return count of `results` to be one item less than provided the `pageSize`.
+  // To mitigate, if a `pageSize` is provided and there are no previous `results`
+  // or `refresh` is `true` increment the provided `pageSize` by `1`
+  const hasPrevResults = !!prevState.result.length;
+  const resolvedPageSize =
+    pageSize && (!hasPrevResults || refresh) ? pageSize + 1 : pageSize;
+
   const listInput: ListPaginateWithPathInput = {
     path,
     options: {
       bucket,
       locationCredentialsProvider: credentialsProvider,
+      // ignore provided `nextToken` on `refresh`
       nextToken: refresh ? undefined : nextToken,
-      pageSize,
+      pageSize: resolvedPageSize,
       subpathStrategy,
     },
   };
