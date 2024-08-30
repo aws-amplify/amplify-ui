@@ -199,23 +199,34 @@ export const UploadControls = (): JSX.Element => {
   const handleFileInput = React.useRef<HTMLInputElement>(null);
   const handleFolderInput = React.useRef<HTMLInputElement>(null);
 
+  // Noticed that in Safari, the file picker was not registering the on change event
+  // unless I made sure that the useEffect for clicking the file input was only clicked once
+  const initialRun = React.useRef(false);
+
   let tableData = tasks.map((task) => {
-    const folder = task.data.webkitRelativePath.lastIndexOf('/') + 1;
+    const { webkitRelativePath } = task.data;
+
+    const folder =
+      webkitRelativePath?.length > 0
+        ? webkitRelativePath.slice(0, webkitRelativePath.lastIndexOf('/') + 1)
+        : '/';
 
     return {
       ...task,
       type: task.data.type ?? '-',
-      folder: folder > -1 ? task.data.webkitRelativePath.slice(0, folder) : '/',
+      folder,
     };
   });
 
   React.useEffect(() => {
-    if (selected.type === 'UPLOAD_FILES') {
-      handleFileInput?.current?.click();
-    }
+    if (!initialRun.current) {
+      if (selected.type === 'UPLOAD_FILES') {
+        handleFileInput.current?.click();
+      } else if (selected.type === 'UPLOAD_FOLDER') {
+        handleFolderInput.current?.click();
+      }
 
-    if (selected.type === 'UPLOAD_FOLDER') {
-      handleFolderInput?.current?.click();
+      initialRun.current = true;
     }
   }, [selected.type]);
 
@@ -302,6 +313,7 @@ export const UploadControls = (): JSX.Element => {
   return (
     <>
       <input
+        data-testid="amplify-file-select"
         type="file"
         style={{ display: 'none' }}
         multiple
@@ -311,6 +323,7 @@ export const UploadControls = (): JSX.Element => {
         ref={handleFileInput}
       />
       <input
+        data-testid="amplify-folder-select"
         type="file"
         style={{ display: 'none' }}
         onChange={({ target }) => {
