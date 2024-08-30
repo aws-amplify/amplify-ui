@@ -27,6 +27,11 @@ export interface CancelableTask extends Omit<Task, 'status'> {
   status: TaskStatus | 'CANCELED';
 }
 
+interface PendingTask {
+  task: CancelableTask;
+  result: Promise<any>;
+}
+
 interface TaskUpdate extends Partial<CancelableTask> {
   key: string;
 }
@@ -138,65 +143,97 @@ export function useHandleUpload({
     });
   };
 
+  const processUpload = (task: CancelableTask): PendingTask => {
+    const { key, data } = task;
+    const { bucket: bucketName, credentialsProvider, region } = getConfig();
+    const input: UploadDataWithPathInput = {
+      path: `${prefix}${key}`,
+      data,
+      options: {
+        bucket: { bucketName, region },
+        locationCredentialsProvider: credentialsProvider,
+        onProgress: ({ totalBytes, transferredBytes }) => {
+          const progress = totalBytes ? transferredBytes / totalBytes : 0;
+          const nextTask: TaskUpdate = {
+            key,
+            progress,
+            ...(totalBytes === transferredBytes
+              ? { cancel: undefined }
+              : undefined),
+          };
+          setTasks((curr) => updateTasks(curr, nextTask));
+        },
+        preventOverwrite,
+      },
+    };
+
+    const { cancel, result } = uploadData(input);
+
+    const cancelFn =
+      task.size >= MULTIPART_UPLOAD_THRESHOLD_BYTES
+        ? () => cancel()
+        : undefined;
+
+    const pendingTask: CancelableTask = {
+      ...task,
+      status: 'PENDING',
+      cancel: cancelFn,
+    };
+
+    setTasks((prevTasks) => updateTasks(prevTasks, pendingTask));
+
+    return {
+      task: pendingTask,
+      result,
+    };
+  };
+
+  // Help set status to queue and remove the "cancel" property so it
+  // doesn't points to the "removeTask" call
+  const queueUpload = (task: CancelableTask): CancelableTask => {
+    const queuedTask: CancelableTask = {
+      ...task,
+      status: 'QUEUED',
+      cancel: undefined,
+    };
+
+    setTasks((prevTasks) => updateTasks(prevTasks, queuedTask));
+
+    return queuedTask;
+  };
+
   const handleUpload = async () => {
     let currentIndex = 0;
+
+    const queuedTasks = tasks.map((task) => queueUpload(task));
 
     const uploadNext = async () => {
       if (currentIndex >= tasks.length) {
         return;
       }
 
-      const task = tasks[currentIndex];
+      const pendingTask = processUpload(queuedTasks[currentIndex]);
 
       currentIndex++;
 
-      const { key, data } = task;
-      const { bucket: bucketName, credentialsProvider, region } = getConfig();
-      const input: UploadDataWithPathInput = {
-        path: `${prefix}${key}`,
-        data,
-        options: {
-          bucket: { bucketName, region },
-          locationCredentialsProvider: credentialsProvider,
-          onProgress: ({ totalBytes, transferredBytes }) => {
-            const progress = totalBytes ? transferredBytes / totalBytes : 0;
-            const nextTask: TaskUpdate = {
-              key,
-              progress,
-              ...(totalBytes === transferredBytes
-                ? { cancel: undefined }
-                : undefined),
-            };
-            setTasks((curr) => updateTasks(curr, nextTask));
-          },
-          preventOverwrite,
-        },
-      };
-
-      const { cancel, result } = uploadData(input);
-
-      task.cancel =
-        task.size >= MULTIPART_UPLOAD_THRESHOLD_BYTES
-          ? () => cancel()
-          : undefined;
-
-      setTasks((curr) =>
-        updateTasks(curr, { key, status: 'PENDING', cancel: task.cancel })
-      );
+      const { task, result } = pendingTask;
+      const { key } = task;
 
       try {
         await result;
-        setTasks((curr) => updateTasks(curr, { key, status: 'COMPLETE' }));
+
+        setTasks((prevTasks) =>
+          updateTasks(prevTasks, { key, status: 'COMPLETE' })
+        );
       } catch (error) {
-        if (isCancelError(error)) {
-          setTasks((curr) =>
-            updateTasks(curr, { key, status: 'CANCELED', cancel: undefined })
-          );
-        } else {
-          setTasks((curr) => updateTasks(curr, { key, status: 'FAILED' }));
-        }
+        setTasks((prevTasks) =>
+          updateTasks(prevTasks, {
+            key,
+            status: isCancelError(error) ? 'CANCELED' : 'FAILED',
+            cancel: undefined,
+          })
+        );
       } finally {
-        // Start the next upload in the queue
         uploadNext();
       }
     };
