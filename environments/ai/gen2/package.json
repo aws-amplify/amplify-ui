@@ -3,6 +3,6 @@
   "name": "@aws-amplify/ui-gen2-ai-environment",
   "version": "0.0.1",
   "scripts": {
-    "generate": "AWS_REGION=us-east-2 npx ampx generate outputs --branch gen2-ai-backend --app-id d3hmlpl76hdd50"
+    "generate": "AWS_REGION=us-west-2 npx ampx generate outputs --branch gen2-ai-backend --app-id dlbmj68rw0w3c"
   }
 }
