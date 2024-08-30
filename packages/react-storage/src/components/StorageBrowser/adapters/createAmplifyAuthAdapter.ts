@@ -15,6 +15,9 @@ interface AWSTemporaryCredentials
   extends NonNullable<
     Awaited<ReturnType<LocationCredentialsProvider>>['credentials']
   > {}
+export interface CreateAmplifyAuthAdapterOptions {
+  defaultPrefixes: (string | ((identityId: string) => string))[];
+}
 
 const isTemporaryCredentials = (
   value?: AWSCredentials | AWSTemporaryCredentials
@@ -22,7 +25,7 @@ const isTemporaryCredentials = (
   !!value?.sessionToken || !!value?.expiration;
 
 export const createAmplifyAuthAdapter = (input?: {
-  options?: { defaultPrefixes?: (string | ((identityId: string) => string))[] };
+  options?: CreateAmplifyAuthAdapterOptions;
 }): StorageBrowserAuthAdapter => {
   const { bucket, region } = Amplify.getConfig()?.Storage?.S3 ?? {};
   if (!bucket || !region) {
