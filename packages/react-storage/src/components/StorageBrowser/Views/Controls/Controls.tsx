@@ -27,12 +27,12 @@ export interface Controls<
   Loading: typeof LoadingControl;
   Message: typeof MessageControl;
   Overwrite: typeof OverwriteControl;
-  Paginate: PaginateControl<T>;
+  Paginate: typeof PaginateControl;
   Primary: typeof PrimaryControl;
   Navigate: NavigateControl<T>;
   Refresh: typeof RefreshControl;
   Search: typeof SearchControl;
-  Summary: SummaryControl<T>;
+  Summary: typeof SummaryControl;
   Table: TableControl<T>;
   Target: TargetControl<T>;
   Title: typeof TitleControl;

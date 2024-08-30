@@ -16,7 +16,7 @@ const PAGE_SIZE = 1000;
 export interface ListLocationsActionOptions<T>
   extends Omit<ListActionOptions<T>, 'delimiter'> {}
 
-export interface ListLocationsActionInput<T = never>
+export interface ListLocationsActionInput<T = Permission>
   extends Omit<
     ListActionInput<ListLocationsActionOptions<T>>,
     'prefix' | 'config'
@@ -27,7 +27,7 @@ export interface ListLocationsActionOutput<K = Permission>
 
 export type ListLocationsAction<T = never> = (
   prevState: ListLocationsActionOutput,
-  input: ListLocationsActionInput<T>
+  input: ListLocationsActionInput
 ) => Promise<ListLocationsActionOutput<Exclude<Permission, T>>>;
 
 const shouldExclude = <T extends Permission>(
@@ -61,10 +61,9 @@ export const createListLocationsAction = (
     let nextNextToken: ListLocationsOutput['nextToken'] = refresh
       ? undefined
       : nextToken;
-    let remainingPageSize = pageSize;
 
     do {
-      remainingPageSize = remainingPageSize - locationsResult.length;
+      const remainingPageSize = pageSize - locationsResult.length;
 
       const output = await listLocations({
         nextToken: nextNextToken,
@@ -72,9 +71,13 @@ export const createListLocationsAction = (
       });
       nextNextToken = output.nextToken;
 
-      locationsResult = [...locationsResult, ...output.locations].filter(
-        ({ permission }) => !shouldExclude(permission, exclude)
-      );
+      locationsResult = [
+        ...locationsResult,
+        ...output.locations.filter(
+          ({ permission, type }) =>
+            !(type === 'OBJECT' || shouldExclude(permission, exclude))
+        ),
+      ];
     } while (nextNextToken && locationsResult.length < pageSize);
 
     const result = refresh

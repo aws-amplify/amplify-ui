@@ -8,6 +8,13 @@ const fakeLocation: LocationAccess = {
   type: 'BUCKET',
 };
 
+const getFakeLocation = (
+  permission: LocationAccess['permission'] = 'READWRITE',
+  type: LocationAccess['type'] = 'BUCKET'
+) => {
+  return { ...fakeLocation, permission, type };
+};
+
 const generateMockLocations = (size: number) =>
   Array<LocationAccess>(size).fill(fakeLocation);
 
@@ -75,11 +82,15 @@ describe('createListLocationsAction', () => {
     // assume, total items: 1500; default page limit: 1000
     mockListLocations.mockResolvedValueOnce({
       locations: generateMockLocations(600),
-      nextToken: 'next',
+      nextToken: 'next-1',
     });
     mockListLocations.mockResolvedValueOnce({
-      locations: generateMockLocations(400),
-      nextToken: 'next-oooo',
+      locations: generateMockLocations(200),
+      nextToken: 'next-2',
+    });
+    mockListLocations.mockResolvedValueOnce({
+      locations: generateMockLocations(200),
+      nextToken: 'next-3',
     });
 
     const listLocationsAction = createListLocationsAction(mockListLocations);
@@ -89,18 +100,22 @@ describe('createListLocationsAction', () => {
       {}
     );
 
-    expect(mockListLocations).toHaveBeenCalledTimes(2);
+    expect(mockListLocations).toHaveBeenCalledTimes(3);
     expect(mockListLocations).toHaveBeenCalledWith({
       pageSize: 1000,
       nextToken: undefined,
     });
     expect(mockListLocations).toHaveBeenCalledWith({
       pageSize: 400,
-      nextToken: 'next',
+      nextToken: 'next-1',
+    });
+    expect(mockListLocations).toHaveBeenCalledWith({
+      pageSize: 200,
+      nextToken: 'next-2',
     });
 
     expect(output.result).toHaveLength(1000);
-    expect(output.nextToken).toBe('next-oooo');
+    expect(output.nextToken).toBe('next-3');
   });
 
   it('should paginate with input page limit and conclude', async () => {
@@ -132,6 +147,57 @@ describe('createListLocationsAction', () => {
     });
 
     expect(output.result).toHaveLength(70);
+    expect(output.nextToken).toBeUndefined();
+  });
+
+  it(`should filter out locations with write permission and 'OBJECT' type. Return desired pages`, async () => {
+    const fakeReadLocations = [
+      getFakeLocation('READ', 'BUCKET'),
+      getFakeLocation('READ', 'OBJECT'),
+      getFakeLocation('READ', 'PREFIX'),
+    ];
+    const fakeWriteLocations = [
+      getFakeLocation('WRITE', 'BUCKET'),
+      getFakeLocation('WRITE', 'OBJECT'),
+      getFakeLocation('WRITE', 'PREFIX'),
+    ];
+    const fakeReadWriteLocations = [
+      getFakeLocation('READWRITE', 'BUCKET'),
+      getFakeLocation('READWRITE', 'OBJECT'),
+      getFakeLocation('READWRITE', 'PREFIX'),
+    ];
+
+    mockListLocations.mockResolvedValueOnce({
+      locations: [...fakeReadLocations, ...fakeWriteLocations],
+      nextToken: 'next',
+    });
+    mockListLocations.mockResolvedValueOnce({
+      locations: [...fakeReadWriteLocations],
+      nextToken: undefined,
+    });
+
+    const listLocationsAction = createListLocationsAction(mockListLocations);
+    const output = await listLocationsAction(
+      { nextToken: undefined, result: [] },
+      { options: { pageSize: 4, exclude: 'WRITE' } }
+    );
+
+    expect(mockListLocations).toHaveBeenCalledTimes(2);
+    expect(mockListLocations).toHaveBeenCalledWith({
+      pageSize: 4,
+      nextToken: undefined,
+    });
+    expect(mockListLocations).toHaveBeenCalledWith({
+      pageSize: 2,
+      nextToken: 'next',
+    });
+
+    expect(output.result).toStrictEqual([
+      getFakeLocation('READ', 'BUCKET'),
+      getFakeLocation('READ', 'PREFIX'),
+      getFakeLocation('READWRITE', 'BUCKET'),
+      getFakeLocation('READWRITE', 'PREFIX'),
+    ]);
     expect(output.nextToken).toBeUndefined();
   });
 
