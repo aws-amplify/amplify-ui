@@ -36,6 +36,7 @@
   "files": [
     "dist",
     "internal",
+    "server",
     "LICENSE"
   ],
   "scripts": {
