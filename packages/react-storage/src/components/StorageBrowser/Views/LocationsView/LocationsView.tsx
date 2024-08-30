@@ -10,7 +10,7 @@ import { listViewHelpers } from '../utils';
 import { DataTableControl } from './Controls/DataTable';
 
 const DEFAULT_PAGE_SIZE = 100;
-const DEFAULT_LIST_OPTIONS = {
+export const DEFAULT_LIST_OPTIONS = {
   exclude: 'WRITE' as const,
   pageSize: DEFAULT_PAGE_SIZE,
 };

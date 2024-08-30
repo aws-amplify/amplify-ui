@@ -10,7 +10,7 @@ import { usePaginate } from '../hooks/usePaginate';
 import { listViewHelpers } from '../utils';
 
 const DEFAULT_PAGE_SIZE = 4;
-const DEFAULT_LIST_OPTIONS = {
+export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
   delimiter: '/',
 };
