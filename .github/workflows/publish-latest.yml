@@ -84,6 +84,7 @@ jobs:
 
   build-test-v2:
     needs: setup
+    environment: ci
     if: ${{ needs.setup.outputs.has-changesets != 'true' }}
     runs-on: ubuntu-latest
     steps:
@@ -94,6 +95,7 @@ jobs:
 
   build-test-v2-react-native:
     needs: setup
+    environment: ci
     if: ${{ needs.setup.outputs.has-changesets != 'true' }}
     runs-on: ubuntu-latest
     steps:
