@@ -13,6 +13,7 @@ Amplify.configure(config);
 
 const defaultPrefixes = [
   'public/',
+  // intentionally added to test a prefix that should return 403 forbidden
   'forbidden/',
   (identityId: string) => `protected/${identityId}/`,
   (identityId: string) => `private/${identityId}/`,
