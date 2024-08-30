@@ -7,7 +7,7 @@ import {
 import { createStorageBrowser } from './createStorageBrowser';
 import { elementsDefault } from './context/elements';
 
-interface StorageBrowserProps {
+export interface StorageBrowserProps {
   defaultPrefixes: CreateAmplifyAuthAdapterOptions['defaultPrefixes'];
 }
 

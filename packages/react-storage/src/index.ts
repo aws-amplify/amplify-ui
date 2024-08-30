@@ -10,4 +10,7 @@ export {
   FileListHeaderProps,
   FileListFooterProps,
 } from './components';
-export { StorageBrowser } from './components/StorageBrowser';
+export {
+  StorageBrowser,
+  StorageBrowserProps,
+} from './components/StorageBrowser/StorageBrowser';
