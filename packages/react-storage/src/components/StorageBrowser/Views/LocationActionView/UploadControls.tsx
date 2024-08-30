@@ -8,6 +8,7 @@ import { compareNumbers, compareStrings } from '../../context/controls/Table';
 import { TaskStatus } from '../../context/types';
 import { IconVariant } from '../../context/elements/IconElement';
 
+import { getFriendlyTaskStatus } from '../utils';
 import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
 import {
@@ -109,31 +110,6 @@ const Destination = ({ children }: { children?: React.ReactNode }) => {
       </DefinitionDetail>
     </DefinitionList>
   );
-};
-
-const getFriendlyTaskStatus = (status: string): string => {
-  switch (status) {
-    case 'INITIAL': {
-      return 'Not started';
-    }
-    case 'QUEUED': {
-      return 'Queued';
-    }
-    case 'PENDING': {
-      return 'In progress';
-    }
-    case 'FAILED': {
-      return 'Failed';
-    }
-    case 'COMPLETE': {
-      return 'Completed';
-    }
-    case 'CANCELED': {
-      return 'Canceled';
-    }
-    default:
-      return status;
-  }
 };
 
 const LocationActionViewColumnSortMap = {
