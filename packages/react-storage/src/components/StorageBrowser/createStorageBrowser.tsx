@@ -18,7 +18,7 @@ const validateRegisterAuthListener = (registerAuthListener: any) => {
 export interface CreateStorageBrowserInput
   extends Omit<CreateProviderInput, 'actions'> {}
 
-export interface StorageBrowser {
+export interface StorageBrowserComponent {
   (): React.JSX.Element;
   LocationDetailView: () => React.JSX.Element;
   LocationsView: () => React.JSX.Element;
@@ -53,7 +53,7 @@ function DefaultStorageBrowser(): React.JSX.Element {
 }
 
 export function createStorageBrowser(input: CreateStorageBrowserInput): {
-  StorageBrowser: StorageBrowser;
+  StorageBrowser: StorageBrowserComponent;
 } {
   validateRegisterAuthListener(input.config.registerAuthListener);
 
