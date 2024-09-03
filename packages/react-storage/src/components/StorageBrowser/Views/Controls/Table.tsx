@@ -203,7 +203,7 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
           {LocationDetailViewColumnSortMap[column.key] ? (
             <Button
               variant="sort"
-              className={`${TABLE_HEADER_BUTTON_CLASS_NAME}`}
+              className={TABLE_HEADER_BUTTON_CLASS_NAME}
               onClick={() => {
                 setCompareFn(() => LocationDetailViewColumnSortMap[column.key]);
 

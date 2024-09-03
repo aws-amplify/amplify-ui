@@ -262,7 +262,7 @@ export const UploadControls = (): JSX.Element => {
           {key in LocationActionViewColumnSortMap ? (
             <ButtonElement
               variant="sort"
-              className={`${TABLE_HEADER_BUTTON_CLASS_NAME}`}
+              className={TABLE_HEADER_BUTTON_CLASS_NAME}
               onClick={() => {
                 setCompareFn(
                   () =>
