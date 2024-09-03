@@ -4,7 +4,7 @@
 
 # If successful, we will publish all updated UI packages to NPM.
 
-name: Test and Publish / latest
+name: Test and Publish / poc-publish-fix
 
 on:
   pull_request:
