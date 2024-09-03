@@ -42,7 +42,6 @@ const config = {
 describe('elementsDefault', () => {
   it('should render the elementsDefault when used', async () => {
     const { StorageBrowser } = createStorageBrowser({
-      actions: {},
       elements: elementsDefault,
       config,
     });
@@ -53,9 +52,8 @@ describe('elementsDefault', () => {
       expect(screen.getByRole('heading', { name: 'Home' })).toBeInTheDocument();
     });
 
-    const title = screen.getByRole('heading', { name: 'Home' });
     const refresh = screen.getByRole('button', { name: 'Refresh table' });
-    expect(title.classList).toContain('amplify-heading');
+
     expect(refresh.classList).toContain('amplify-button');
   });
 
@@ -93,10 +91,10 @@ describe('elementsDefault', () => {
   );
 
   it('should render the Title with Amplify UI styles', () => {
-    const { Title } = elementsDefault;
-    render(<Title />);
-    const title = screen.getByRole('heading');
-    expect(title.classList).toContain('amplify-heading');
+    const { Heading } = elementsDefault;
+    render(<Heading />);
+    const heading = screen.getByRole('heading');
+    expect(heading.classList).toContain('amplify-heading');
   });
 
   it('should render the Label with Amplify UI styles', () => {
