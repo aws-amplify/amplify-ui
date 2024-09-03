@@ -83,13 +83,6 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
   const hasNextToken = !!nextToken;
   const [{ path }] = useControl({ type: 'NAVIGATE' });
 
-  React.useEffect(() => {
-    handleList({
-      prefix: path,
-      options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
-    });
-  }, [path, handleList]);
-
   const onPaginateNext = () =>
     handleList({
       prefix: path,
@@ -102,6 +95,14 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
     handlePaginatePrevious,
     handleReset,
   } = usePaginate({ onPaginateNext, pageSize: DEFAULT_PAGE_SIZE });
+
+  React.useEffect(() => {
+    handleReset();
+    handleList({
+      prefix: path,
+      options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
+    });
+  }, [path, handleList, handleReset]);
 
   const { disableNext, disablePrevious, disableRefresh, range } =
     listViewHelpers({

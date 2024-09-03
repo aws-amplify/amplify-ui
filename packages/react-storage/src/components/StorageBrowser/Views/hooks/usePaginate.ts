@@ -6,7 +6,7 @@ interface UsePaginate {
     resultCount: number;
     hasNextToken: boolean;
   }) => void;
-  handlePaginatePrevious: () => void;
+  handlePaginatePrevious: (input?: {}) => void;
   handleReset: () => void;
 }
 
@@ -20,6 +20,10 @@ export const usePaginate = ({
   pageSize: number;
 }): UsePaginate => {
   const [currentPage, setCurrentPage] = React.useState(1);
+
+  const handleReset = React.useRef(() => {
+    setCurrentPage(1);
+  }).current;
 
   return React.useMemo(
     () => ({
@@ -40,10 +44,8 @@ export const usePaginate = ({
 
         setCurrentPage((prev) => prev - 1);
       },
-      handleReset: () => {
-        setCurrentPage(1);
-      },
+      handleReset,
     }),
-    [currentPage, onPaginateNext, onPaginatePrevious, pageSize]
+    [currentPage, handleReset, onPaginateNext, onPaginatePrevious, pageSize]
   );
 };
