@@ -388,7 +388,10 @@ export const LivenessCameraModule = (
             height={mediaHeight}
             onCanPlay={handleMediaPlay}
             data-testid="video"
-            className={LivenessClassNames.Video}
+            className={classNames(
+              LivenessClassNames.Video,
+              isRecordingStopped && LivenessClassNames.FadeOut
+            )}
             aria-label={cameraDisplayText.a11yVideoLabelText}
           />
           <Flex
