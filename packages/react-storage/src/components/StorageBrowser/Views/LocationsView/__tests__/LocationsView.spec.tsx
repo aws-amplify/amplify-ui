@@ -6,7 +6,7 @@ import * as ActionsModule from '../../../context/actions';
 import * as ControlsModule from '../../../context/controls';
 
 import { LocationsView } from '..';
-import { DEFAULT_LIST_OPTIONS } from '../LocationsView';
+import { DEFAULT_LIST_OPTIONS, DEFAULT_ERROR_MESSAGE } from '../LocationsView';
 
 const INITIAL_PAGINATE_STATE = [
   {
@@ -107,6 +107,58 @@ describe('LocationsListView', () => {
         ).container
       ).toBeDefined();
     });
+  });
+
+  it('renders a returned error message for `LocationsListView`', () => {
+    const errorMessage = 'Something went wrong.';
+
+    useLocationsDataSpy.mockReturnValue([
+      {
+        data: {
+          result: [],
+          nextToken: undefined,
+        },
+        hasError: true,
+        isLoading: false,
+        message: errorMessage,
+      },
+      handleListLocations,
+    ]);
+
+    render(
+      <Provider>
+        <LocationsView />
+      </Provider>
+    );
+
+    const message = screen.getByRole('alert');
+    const messageText = screen.getByText(errorMessage);
+    expect(message).toBeInTheDocument();
+    expect(messageText).toBeInTheDocument();
+  });
+
+  it('renders a fallback error message for `LocationsListView`', () => {
+    useLocationsDataSpy.mockReturnValue([
+      {
+        data: {
+          result: [],
+          nextToken: undefined,
+        },
+        hasError: true,
+        isLoading: false,
+        message: undefined,
+      },
+      handleListLocations,
+    ]);
+
+    render(
+      <Provider>
+        <LocationsView />
+      </Provider>
+    );
+
+    const messageText = screen.getByText(DEFAULT_ERROR_MESSAGE);
+    expect(messageText).toBeInTheDocument();
   });
 
   it('renders a Locations View table', () => {
