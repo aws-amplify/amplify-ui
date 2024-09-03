@@ -14,6 +14,7 @@ export const DEFAULT_LIST_OPTIONS = {
   exclude: 'WRITE' as const,
   pageSize: DEFAULT_PAGE_SIZE,
 };
+export const DEFAULT_ERROR_MESSAGE = 'There was an error loading locations.';
 
 const {
   EmptyMessage,
@@ -46,9 +47,7 @@ const Loading = () => {
 const LocationsMessage = (): React.JSX.Element | null => {
   const [{ hasError, message }] = useLocationsData();
   return hasError ? (
-    <Message variant="error">
-      {message ?? 'There was an error loading locations.'}
-    </Message>
+    <Message variant="error">{message ?? DEFAULT_ERROR_MESSAGE}</Message>
   ) : null;
 };
 
