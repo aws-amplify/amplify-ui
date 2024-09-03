@@ -98,7 +98,9 @@ export const Form: ControlsContextProps['Form'] = ({
           type="submit"
           variation="primary"
           className={ComponentClassName.AIConversationFormSend}
-          isDisabled={isLoading ?? isInputEmpty}
+          // we intentionally || in the case where isLoading is false we should use the value of isInputEmpty
+          // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+          isDisabled={isLoading || isInputEmpty}
         >
           <span>{sendIcon}</span>
         </Button>

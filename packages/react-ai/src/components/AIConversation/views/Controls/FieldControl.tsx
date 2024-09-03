@@ -45,7 +45,9 @@ const SendButton: typeof SendButtonBase = React.forwardRef(
     return (
       <SendButtonBase
         {...props}
-        disabled={isLoading ?? !hasInput}
+        // we intentionally || in the case where isLoading is false we should use the value of hasInput
+        // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+        disabled={isLoading || !hasInput}
         type="submit"
         ref={ref}
         data-testid="send-button"
