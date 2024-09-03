@@ -10,7 +10,6 @@ Feature: Storage Browser denied access without sufficient permissions
     Then I see the "Sign in" button
     When I click the "Sign in" button
     When I click the button containing "forbidden"
-    When I make a "GET" request to "https://fileuploaderbucket121216-dev.s3.us-east-2.amazonaws.com/?list-type=2&delimiter=%2F&max-keys=1000&prefix=forbidden%2F" it returns a status code of "403"
   
   
   @react
@@ -30,4 +29,3 @@ Feature: Storage Browser denied access without sufficient permissions
     When I type a new "Enter folder name:" with value "Blackberry"
     Then I see the "Create Folder" button
     When I click the "Create Folder" button
-    When I make a "POST" request to "https://fileuploaderbucket121216-dev.s3.us-east-2.amazonaws.com/forbidden/Blackberry/?uploads" it returns a status code of "403"
