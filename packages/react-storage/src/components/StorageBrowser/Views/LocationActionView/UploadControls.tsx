@@ -260,7 +260,7 @@ export const UploadControls = (): JSX.Element => {
         >
           {key in LocationActionViewColumnSortMap ? (
             <ButtonElement
-              className={`${CLASS_BASE}__table__data__button`}
+              variant="sort"
               onClick={() => {
                 setCompareFn(
                   () =>
