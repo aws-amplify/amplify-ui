@@ -6,9 +6,10 @@ import {
   IconElement,
   ViewElement,
 } from '../context/elements';
-import { CLASS_BASE } from '../Views/constants';
+import { CLASS_BASE } from '../views/constants';
 
 import { DataListProps } from './types';
+import { isFunction } from '@aws-amplify/ui';
 
 const MENU_BLOCK_NAME = `${CLASS_BASE}__actions-menu`;
 
@@ -20,7 +21,11 @@ const ACTION_ITEM_VARIANT = 'actions-menu-item';
 
 export interface ActionItemProps extends ButtonElementProps {}
 
-export interface ActionsMenuProps extends DataListProps<ActionItemProps> {}
+type HandleSelect = (value: ActionItemProps['value']) => void;
+export interface ActionsMenuProps extends DataListProps<ActionItemProps> {
+  disabled?: boolean;
+  onSelect?: HandleSelect;
+}
 
 export function ActionItem(
   {
@@ -43,17 +48,48 @@ export function ActionItem(
   );
 }
 
+const getActionMenuItemProps = ({
+  data,
+  disabled: _disabled = false,
+  onSelect,
+}: ActionsMenuProps): ActionItemProps[] =>
+  !data?.length
+    ? []
+    : data.map(({ disabled = _disabled, onClick, value, ...item }) => ({
+        ...item,
+        disabled,
+        onClick: (e) => {
+          if (isFunction(onClick)) {
+            onClick(e);
+          }
+          if (isFunction(onSelect)) {
+            onSelect(value);
+          }
+        },
+        value,
+      }));
+
 export function ActionsMenu({
   data,
+  disabled,
+  onSelect: _handleSelect,
   renderItem = ActionItem,
 }: ActionsMenuProps): React.JSX.Element {
   const [isOpen, setIsOpen] = React.useState(false);
+
+  const onSelect: HandleSelect = (value) => {
+    if (isFunction(_handleSelect)) {
+      _handleSelect(value);
+    }
+    setIsOpen(false);
+  };
 
   return (
     <ViewElement className={MENU_BLOCK_NAME}>
       <ButtonElement
         aria-label="Actions"
         className={TOGGLE_CLASS_NAME}
+        disabled={disabled}
         data-testid="ACTIONS_MENU_TOGGLE"
         onClick={() => {
           setIsOpen((prev) => !prev);
@@ -74,7 +110,7 @@ export function ActionsMenu({
         role="menu"
         variant="actions-menu-list"
       >
-        {data?.map(renderItem)}
+        {getActionMenuItemProps({ data, onSelect }).map(renderItem)}
       </ViewElement>
     </ViewElement>
   );

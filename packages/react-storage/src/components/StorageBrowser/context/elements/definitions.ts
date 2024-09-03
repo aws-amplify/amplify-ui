@@ -188,7 +188,7 @@ export interface ButtonElementProps
   extends React.ComponentProps<typeof ButtonElement> {}
 export const ButtonElement = defineBaseElement<
   'button',
-  'disabled' | 'onClick' | 'role' | 'type',
+  'disabled' | 'onClick' | 'role' | 'type' | 'value',
   ButtonElementVariant
 >({ type: 'button', displayName: 'Button' });
 
