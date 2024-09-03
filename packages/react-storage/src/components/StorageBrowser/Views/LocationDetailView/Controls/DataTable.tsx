@@ -233,7 +233,11 @@ const getLocationsItemData = ({
   return { columns, rows };
 };
 
-export function DataTableControl(): React.JSX.Element {
+export function DataTableControl({
+  range,
+}: {
+  range: [start: number, end: number];
+}): React.JSX.Element {
   const [{ history, path }, handleUpdateState] = useControl({
     type: 'NAVIGATE',
   });
@@ -249,27 +253,41 @@ export function DataTableControl(): React.JSX.Element {
 
   const currentPosition = history.length;
 
-  const locationItemsData = getLocationsItemData({
-    locationItems: data.result,
-    sortState,
-    path,
-    onTableHeaderClick: (header: string) => {
-      setSortState((prevState) => ({
-        selection: header,
-        direction:
-          prevState.direction === 'ascending' ? 'descending' : 'ascending',
-      }));
-    },
-    onLocationItemFolderClick: (locationItemFolder: string) => {
-      handleUpdateState({
-        type: 'NAVIGATE',
-        entry: {
-          position: currentPosition + 1,
-          prefix: locationItemFolder,
+  const [start, end] = range;
+
+  const locationItemsData = React.useMemo(
+    () =>
+      getLocationsItemData({
+        locationItems: data.result.slice(start, end),
+        sortState,
+        path,
+        onTableHeaderClick: (header: string) => {
+          setSortState((prevState) => ({
+            selection: header,
+            direction:
+              prevState.direction === 'ascending' ? 'descending' : 'ascending',
+          }));
         },
-      });
-    },
-  });
+        onLocationItemFolderClick: (locationItemFolder: string) => {
+          handleUpdateState({
+            type: 'NAVIGATE',
+            entry: {
+              position: currentPosition + 1,
+              prefix: locationItemFolder,
+            },
+          });
+        },
+      }),
+    [
+      currentPosition,
+      data.result,
+      handleUpdateState,
+      path,
+      sortState,
+      start,
+      end,
+    ]
+  );
 
   return <DataTable data={locationItemsData} />;
 }
