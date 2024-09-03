@@ -16,7 +16,9 @@ export const listViewHelpers = ({
   disableRefresh: boolean;
   range: [start: number, end: number];
 } => {
-  const isLastPage = Math.round(resultCount / pageSize) === currentPage;
+  const isLastPage =
+    Math.round(resultCount / pageSize) === currentPage ||
+    Math.round(resultCount / pageSize) === 0;
   const start = currentPage === 1 ? 0 : (currentPage - 1) * pageSize;
   const end = currentPage === 1 ? pageSize : currentPage * pageSize;
 
