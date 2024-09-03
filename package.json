@@ -68,7 +68,11 @@
     ]
   },
   "resolutions": {
-    "**/@aws-amplify/data-schema": "0.0.0-ai-20240815192737",
+    "@aws-amplify/appsync-modelgen-plugin": "2.12.4-raven.0",
+    "@aws-amplify/graphql-api-construct": "1.11.6-raven.13",
+    "@aws-amplify/graphql-conversation-transformer": "0.1.1-raven.11",
+    "@aws-amplify/graphql-generation-transformer": "0.1.1-raven.7",
+    "@aws-amplify/data-schema": "0.0.0-ai-20240815192737",
     "**/@react-native-community/**/fast-xml-parser": "^4.4.1",
     "**/@aws-*/**/fast-xml-parser": "^4.4.1",
     "**/@aws-amplify/ui-angular-example/**/codelyzer/**/@angular/core": "10.2.5",
