@@ -184,7 +184,7 @@ describe('CreateFolderControls', () => {
     await waitFor(() => {
       render(
         <Provider>
-          <CreateFolderMessage />
+          <CreateFolderControls />
         </Provider>
       );
     });
