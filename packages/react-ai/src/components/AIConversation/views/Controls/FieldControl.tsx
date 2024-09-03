@@ -14,6 +14,7 @@ import {
 } from '../../context/ResponseComponentsContext';
 import { ControlsContext } from '../../context/ControlsContext';
 import { getImageTypeFromMimeType } from '../../utils';
+import { LoadingContext } from '../../context/LoadingContext';
 
 const {
   Button,
@@ -38,14 +39,15 @@ const SendButtonBase = withBaseElementProps(Button, {
 const SendButton: typeof SendButtonBase = React.forwardRef(
   function SendButton(props, ref) {
     const { input } = React.useContext(InputContext);
-    // TODO should come from context
-    const isWaitingForResponse = false;
+    const isLoading = React.useContext(LoadingContext);
     const hasInput = !!input?.text || !!input?.files?.length;
 
     return (
       <SendButtonBase
         {...props}
-        disabled={isWaitingForResponse || !hasInput}
+        // we intentionally || in the case where isLoading is false we should use the value of hasInput
+        // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+        disabled={isLoading || !hasInput}
         type="submit"
         ref={ref}
         data-testid="send-button"

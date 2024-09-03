@@ -17,6 +17,7 @@ function Chat() {
   const [
     {
       data: { messages },
+      isLoading,
     },
     sendMessage,
   ] = useAIConversation('pirateChat');
@@ -26,6 +27,7 @@ function Chat() {
       <AIConversation
         messages={messages}
         handleSendMessage={sendMessage}
+        isLoading={isLoading}
         suggestedPrompts={[
           {
             inputText: 'hello',

@@ -13,6 +13,7 @@ import { AIConversationInput, AIConversationProps } from './types';
 import { ResponseComponentsProvider } from './context/ResponseComponentsContext';
 import { SendMessageContextProvider } from './context/SendMessageContext';
 import { ControlsProvider } from './context/ControlsContext';
+import { LoadingContextProvider } from './context/LoadingContext';
 
 export default function createProvider<
   T extends Partial<AIConversationElements>,
@@ -37,11 +38,12 @@ export default function createProvider<
     messages,
     avatars,
     handleSendMessage,
+    isLoading,
   }: {
     children?: React.ReactNode;
   } & Pick<
     AIConversationProps,
-    'messages' | 'avatars' | 'handleSendMessage'
+    'messages' | 'avatars' | 'handleSendMessage' | 'isLoading'
   >): React.JSX.Element {
     return (
       <ElementsProvider elements={elements}>
@@ -56,7 +58,9 @@ export default function createProvider<
                     <ActionsProvider actions={actions}>
                       <MessageVariantProvider variant={variant}>
                         <MessagesProvider messages={messages}>
-                          {children}
+                          <LoadingContextProvider isLoading={isLoading}>
+                            {children}
+                          </LoadingContextProvider>
                         </MessagesProvider>
                       </MessageVariantProvider>
                     </ActionsProvider>
