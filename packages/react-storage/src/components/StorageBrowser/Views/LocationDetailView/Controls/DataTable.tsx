@@ -5,7 +5,9 @@ import { humanFileSize } from '@aws-amplify/ui';
 import {
   DataTable,
   TABLE_DATA_BUTTON_CLASS,
+  TABLE_DATA_CLASS_NAME,
   TABLE_DATA_ICON_CLASS,
+  TABLE_DATA_TEXT_CLASS_NAME,
   TABLE_HEADER_BUTTON_CLASS_NAME,
   TABLE_HEADER_CLASS_NAME,
 } from '../../../components/DataTable';
@@ -17,7 +19,11 @@ import {
   compareNumbers,
   compareStrings,
 } from '../../../context/controls/Table';
-import { ButtonElement, IconElement } from '../../../context/elements';
+import {
+  ButtonElement,
+  IconElement,
+  SpanElement,
+} from '../../../context/elements';
 import { DownloadControl } from '../../Controls';
 import { getFileExtension } from '../../utils';
 
@@ -169,13 +175,14 @@ const getLocationsItemData = ({
 
     return [
       {
+        className: `${TABLE_DATA_CLASS_NAME} ${TABLE_DATA_CLASS_NAME}--key`,
         key: `td-name-${index}`,
         children:
           type === 'FILE' ? (
-            <>
+            <SpanElement className={TABLE_DATA_TEXT_CLASS_NAME}>
               <IconElement className={TABLE_DATA_ICON_CLASS} variant="file" />
               {item.key}
-            </>
+            </SpanElement>
           ) : (
             <ButtonElement
               className={TABLE_DATA_BUTTON_CLASS}
@@ -188,26 +195,46 @@ const getLocationsItemData = ({
           ),
       },
       {
+        className: `${TABLE_DATA_CLASS_NAME} ${TABLE_DATA_CLASS_NAME}--type`,
         key: `td-type-${index}`,
-        children: type === 'FILE' ? item.fileExt : 'Folder',
+        children: (
+          <SpanElement className={TABLE_DATA_TEXT_CLASS_NAME}>
+            {type === 'FILE' ? item.fileExt : 'Folder'}
+          </SpanElement>
+        ),
       },
       {
+        className: `${TABLE_DATA_CLASS_NAME} ${TABLE_DATA_CLASS_NAME}--lastModified`,
         key: `td-lastModified-${index}`,
-        children:
-          type === 'FILE' ? new Date(item.lastModified!).toLocaleString() : '',
+        children: (
+          <SpanElement className={TABLE_DATA_TEXT_CLASS_NAME}>
+            {type === 'FILE'
+              ? new Date(item.lastModified!).toLocaleString()
+              : ''}
+          </SpanElement>
+        ),
       },
       {
+        className: `${TABLE_DATA_CLASS_NAME}${TABLE_DATA_CLASS_NAME}--size`,
         key: `td-size-${index}`,
-        children: type === 'FILE' ? humanFileSize(item.size ?? 0, true) : '',
+        children: (
+          <SpanElement className={TABLE_DATA_TEXT_CLASS_NAME}>
+            {type === 'FILE' ? humanFileSize(item.size ?? 0, true) : ''}
+          </SpanElement>
+        ),
       },
       {
+        className: `${TABLE_DATA_CLASS_NAME} ${TABLE_DATA_CLASS_NAME}--download`,
         key: `td-download-${index}`,
-        children:
-          type === 'FILE' ? (
-            <DownloadControl fileKey={`${path}${item.key}`} />
-          ) : (
-            ''
-          ),
+        children: (
+          <SpanElement className={TABLE_DATA_TEXT_CLASS_NAME}>
+            {type === 'FILE' ? (
+              <DownloadControl fileKey={`${path}${item.key}`} />
+            ) : (
+              ''
+            )}
+          </SpanElement>
+        ),
       },
     ];
   });

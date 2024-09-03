@@ -16,6 +16,7 @@ export const TABLE_HEADER_CLASS_NAME = `${TABLE_CLASS_NAME}__header`;
 export const TABLE_HEADER_BUTTON_CLASS_NAME = `${TABLE_CLASS_NAME}__header__button`;
 export const TABLE_ROW_CLASS_NAME = `${TABLE_CLASS_NAME}__row`;
 export const TABLE_DATA_CLASS_NAME = `${TABLE_CLASS_NAME}__data`;
+export const TABLE_DATA_TEXT_CLASS_NAME = `${TABLE_DATA_CLASS_NAME}__text`;
 export const TABLE_DATA_BUTTON_CLASS = `${TABLE_CLASS_NAME}__data__button`;
 export const TABLE_DATA_ICON_CLASS = `${TABLE_CLASS_NAME}__data__icon`;
 
