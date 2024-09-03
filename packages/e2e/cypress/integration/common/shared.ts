@@ -124,6 +124,20 @@ Given('I confirm request {string}', (json: string) => {
   });
 });
 
+When(
+  'I make a {string} request to {string} it returns a status code of {string}',
+  (method: string, url: string, statusCode: string) => {
+    cy.request({
+      method,
+      url,
+      followRedirect: true,
+      failOnStatusCode: false,
+    }).then(({ status }) => {
+      expect(status).to.be.equal(+statusCode);
+    });
+  }
+);
+
 Given(
   'I intercept {string} with fixture {string} and add header {string} with value {string}',
   (json: string, fixture: string, headerName: string, headerValue: string) => {
