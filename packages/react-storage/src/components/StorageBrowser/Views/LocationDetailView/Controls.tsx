@@ -2,7 +2,8 @@ import React from 'react';
 
 import { useAction } from '../../context/actions';
 import { useControl } from '../../context/controls';
-import { Controls, LocationDetailViewTable } from '../Controls';
+import { Controls } from '../Controls';
+import { DataTableControl } from './Controls/DataTable';
 
 import { ActionsMenuControl } from './Controls/ActionsMenu';
 
@@ -86,7 +87,7 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
       <Paginate />
       <LocationDetailMessage />
       <Loading />
-      <LocationDetailViewTable />
+      <DataTableControl />
       <LocationDetailEmptyMessage />
     </>
   );
