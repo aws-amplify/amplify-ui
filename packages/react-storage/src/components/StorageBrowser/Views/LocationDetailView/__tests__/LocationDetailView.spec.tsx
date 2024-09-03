@@ -7,7 +7,7 @@ import * as ActionsModule from '../../../context/actions';
 import * as ControlsModule from '../../../context/controls';
 
 import { LocationDetailView } from '../LocationDetailView';
-import { DEFAULT_LIST_OPTIONS } from '../Controls';
+import { DEFAULT_LIST_OPTIONS, DEFAULT_ERROR_MESSAGE } from '../Controls';
 
 const INITIAL_PAGINATE_STATE = [
   {
@@ -126,6 +126,59 @@ describe('LocationDetailView', () => {
     const text = screen.getByText('Loading');
 
     expect(text).toBeInTheDocument();
+  });
+
+  it('renders a returned error Message', () => {
+    const errorMessage = 'A network error occurred.';
+
+    jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
+      {
+        data: {
+          result: [],
+          nextToken: undefined,
+        },
+        hasError: true,
+        isLoading: true,
+        message: errorMessage,
+      },
+      handleList,
+    ]);
+
+    render(
+      <Provider>
+        <LocationDetailView />
+      </Provider>
+    );
+
+    const message = screen.getByRole('alert');
+    const messageText = screen.getByText(errorMessage);
+
+    expect(message).toBeInTheDocument();
+    expect(messageText).toBeInTheDocument();
+  });
+
+  it('renders a default error Message', () => {
+    jest.spyOn(ActionsModule, 'useAction').mockReturnValue([
+      {
+        data: {
+          result: [],
+          nextToken: undefined,
+        },
+        hasError: true,
+        isLoading: true,
+        message: undefined,
+      },
+      handleList,
+    ]);
+
+    render(
+      <Provider>
+        <LocationDetailView />
+      </Provider>
+    );
+
+    const messageText = screen.getByText(DEFAULT_ERROR_MESSAGE);
+    expect(messageText).toBeInTheDocument();
   });
 
   it('loads initial location items for a BUCKET location as expected', () => {
