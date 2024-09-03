@@ -10,7 +10,7 @@ Feature: Storage Browser denied access without sufficient permissions
     Then I see the "Sign in" button
     When I click the "Sign in" button
     When I click the button containing "forbidden"
-  
+    Then I don't see "amplify-table"
   
   @react
   Scenario: Attempt to add folder without write access
@@ -29,3 +29,4 @@ Feature: Storage Browser denied access without sufficient permissions
     When I type a new "Enter folder name:" with value "Blackberry"
     Then I see the "Create Folder" button
     When I click the "Create Folder" button
+    Then I do not see "Folder created."
