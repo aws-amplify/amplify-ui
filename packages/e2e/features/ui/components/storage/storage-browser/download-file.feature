@@ -10,8 +10,7 @@ Feature: Download file with storage browser
     Then I click the "Sign in" button
     Then I see the "Sign Out" button
     Then I see "Home"
-    Then I see the "s3://fileuploaderbucket121216-dev/public/*" button
-    Then I click the "s3://fileuploaderbucket121216-dev/public/*" button
+    Then I click the button containing "public"
     Then I see "test.txt"
     Then I click the "Download public/test.txt" button
     Then I verify the downloaded file "test.txt" has the contents "file contents"

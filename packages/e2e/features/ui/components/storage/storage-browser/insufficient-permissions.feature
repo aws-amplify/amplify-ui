@@ -9,7 +9,7 @@ Feature: Storage Browser denied access without sufficient permissions
     Then I type my password
     Then I see the "Sign in" button
     When I click the "Sign in" button
-    When I click the "s3://fileuploaderbucket121216-dev/forbidden/*" button
+    When I click the button containing "forbidden"
     When I make a "GET" request to "https://fileuploaderbucket121216-dev.s3.us-east-2.amazonaws.com/?list-type=2&delimiter=%2F&max-keys=1000&prefix=forbidden%2F" it returns a status code of "403"
   
   
@@ -19,7 +19,7 @@ Feature: Storage Browser denied access without sufficient permissions
     Then I type my password
     Then I see the "Sign in" button
     When I click the "Sign in" button
-    When I click the "s3://fileuploaderbucket121216-dev/forbidden/*" button
+    When I click the button containing "forbidden"
     Then I see the "Actions" button
     When I click the "Actions" button
     Then I see the "Create Folder" menuitem

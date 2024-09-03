@@ -9,7 +9,7 @@ Feature: Storage Browser uses error boundry
     Then I type my password
     Then I see the "Sign in" button
     When I click the "Sign in" button
-    When I click the "s3://fileuploaderbucket121216-dev/forbidden/*" button
+    When I click the button containing "forbidden"
     Then I see "no identity-based policy allows the s3:ListBucket action"
   
   
@@ -19,7 +19,7 @@ Feature: Storage Browser uses error boundry
     Then I type my password
     Then I see the "Sign in" button
     When I click the "Sign in" button
-    When I click the "s3://fileuploaderbucket121216-dev/forbidden/*" button
+    When I click the button containing "forbidden"
     Then I see the "Actions" button
     When I click the "Actions" button
     Then I see the "Create Folder" menuitem
