@@ -7,6 +7,7 @@ import { useControl } from '../../context/controls';
 import { Controls, LocationDetailViewTable } from '../Controls';
 import { ActionsMenuControl } from './Controls/ActionsMenu';
 
+export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
   pageSize: DEFAULT_PAGE_SIZE,
@@ -55,9 +56,7 @@ export const LocationDetailMessage = (): React.JSX.Element | null => {
   });
 
   return hasError ? (
-    <Message variant="error">
-      {message ?? 'There was an error loading items.'}
-    </Message>
+    <Message variant="error">{message ?? DEFAULT_ERROR_MESSAGE}</Message>
   ) : null;
 };
 
