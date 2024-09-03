@@ -114,7 +114,14 @@ export function NavigateControl(): React.JSX.Element {
 
         const isCurrent = index === history.length - 1;
 
-        return (
+        return isCurrent ? (
+          <ListItemElement
+            className={`${BLOCK_NAME}__item`}
+            aria-current="page"
+          >
+            <SpanElement variant="navigate-current">{displayValue}</SpanElement>
+          </ListItemElement>
+        ) : (
           <NavigateItem
             aria-current={isCurrent ? 'page' : undefined}
             disabled={isLoading}
