@@ -1,10 +1,17 @@
 import React from 'react';
 
 import { useAction } from '../../context/actions';
+import { usePaginate } from '../hooks/usePaginate';
+import { listViewHelpers } from '../utils';
 import { useControl } from '../../context/controls';
 import { Controls, LocationDetailViewTable } from '../Controls';
-
 import { ActionsMenuControl } from './Controls/ActionsMenu';
+
+const DEFAULT_PAGE_SIZE = 100;
+export const DEFAULT_LIST_OPTIONS = {
+  pageSize: DEFAULT_PAGE_SIZE,
+  delimiter: '/',
+};
 
 const {
   EmptyMessage,
@@ -24,24 +31,14 @@ export const Title = (): React.JSX.Element => {
   return <TitleControl>{prefix}</TitleControl>;
 };
 
-const RefreshControl = () => {
-  const [{ path }] = useControl({ type: 'NAVIGATE' });
-
-  const [{ data, isLoading }, handleList] = useAction({
-    type: 'LIST_LOCATION_ITEMS',
-  });
-
-  return (
-    <Refresh
-      disabled={isLoading || data.result.length <= 0}
-      onClick={() =>
-        handleList({
-          prefix: path,
-          options: { refresh: true, pageSize: 1000, delimiter: '/' },
-        })
-      }
-    />
-  );
+const RefreshControl = ({
+  disableRefresh,
+  handleRefresh,
+}: {
+  disableRefresh?: boolean;
+  handleRefresh?: () => void;
+}) => {
+  return <Refresh disabled={disableRefresh} onClick={handleRefresh} />;
 };
 
 const Loading = () => {
@@ -77,16 +74,71 @@ const LocationDetailEmptyMessage = () => {
 };
 
 export const LocationDetailViewControls = (): React.JSX.Element => {
+  const [{ data, isLoading }, handleList] = useAction({
+    type: 'LIST_LOCATION_ITEMS',
+  });
+
+  const { result, nextToken } = data;
+  const resultCount = result.length;
+  const hasNextToken = !!nextToken;
+  const [{ path }] = useControl({ type: 'NAVIGATE' });
+
+  React.useEffect(() => {
+    handleList({
+      prefix: path,
+      options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
+    });
+  }, [path, handleList]);
+
+  const onPaginateNext = () =>
+    handleList({
+      prefix: path,
+      options: { ...DEFAULT_LIST_OPTIONS, nextToken },
+    });
+
+  const {
+    currentPage,
+    handlePaginateNext,
+    handlePaginatePrevious,
+    handleReset,
+  } = usePaginate({ onPaginateNext, pageSize: DEFAULT_PAGE_SIZE });
+
+  const { disableNext, disablePrevious, disableRefresh, range } =
+    listViewHelpers({
+      currentPage,
+      hasNextToken,
+      isLoading,
+      pageSize: DEFAULT_PAGE_SIZE,
+      resultCount,
+    });
+
   return (
     <>
       <Navigate />
       <Title />
-      <RefreshControl />
+      <RefreshControl
+        disableRefresh={disableRefresh}
+        handleRefresh={() => {
+          handleReset();
+          handleList({
+            prefix: path,
+            options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
+          });
+        }}
+      />
       <ActionsMenuControl />
-      <Paginate />
+      <Paginate
+        currentPage={currentPage}
+        disableNext={disableNext}
+        disablePrevious={disablePrevious}
+        handleNext={() => {
+          handlePaginateNext({ resultCount, hasNextToken });
+        }}
+        handlePrevious={handlePaginatePrevious}
+      />
       <LocationDetailMessage />
       <Loading />
-      <LocationDetailViewTable />
+      <LocationDetailViewTable range={range} />
       <LocationDetailEmptyMessage />
     </>
   );
