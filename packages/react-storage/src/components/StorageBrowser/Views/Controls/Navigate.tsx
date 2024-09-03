@@ -17,9 +17,7 @@ import { CLASS_BASE } from '../constants';
 
 import { LocationData, useAction } from '../../context/actions';
 
-interface NavigateItemProps extends ButtonElementProps {
-  seperator?: React.ReactNode;
-}
+interface NavigateItemProps extends ButtonElementProps {}
 
 type RenderNavigateItem = (props: NavigateItemProps) => React.JSX.Element;
 
@@ -45,7 +43,6 @@ function Separator() {
 export const NavigateItem = ({
   className = `${BLOCK_NAME}__button`,
   children,
-  seperator = null,
   ...props
 }: NavigateItemProps): React.JSX.Element => {
   return (
@@ -53,7 +50,7 @@ export const NavigateItem = ({
       <ButtonElement {...props} className={className} variant="navigate">
         {children}
       </ButtonElement>
-      {seperator}
+      <Separator />
     </ListItemElement>
   );
 };
@@ -95,7 +92,6 @@ export function NavigateControl(): React.JSX.Element {
           handleUpdateState({ type: 'EXIT' });
           handleUpdateList({ prefix: '', options: { reset: true } });
         }}
-        seperator={<Separator />}
       >
         {HOME_NAVIGATE_ITEM}
       </NavigateItem>
@@ -123,13 +119,11 @@ export function NavigateControl(): React.JSX.Element {
           </ListItemElement>
         ) : (
           <NavigateItem
-            aria-current={isCurrent ? 'page' : undefined}
             disabled={isLoading}
             key={`${prefix}/${position}`}
             onClick={() => {
               handleUpdateState({ type: 'NAVIGATE', entry });
             }}
-            seperator={isCurrent ? null : <Separator />}
           >
             {displayValue}
           </NavigateItem>
