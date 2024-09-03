@@ -1,5 +1,18 @@
 # @aws-amplify/ui
 
+## 6.2.0
+
+### Minor Changes
+
+- [#5436](https://github.com/aws-amplify/amplify-ui/pull/5436) [`6e67ab6be`](https://github.com/aws-amplify/amplify-ui/commit/6e67ab6beb65e8ac7c7db6c6586df3c4f219bdbf) Thanks [@vLannaAi](https://github.com/vLannaAi)! - i18n Authenticator in Thai.
+  Localization of Authenticator in the Thai Language.
+  Added a new language using the ISO code 'th'
+  Created a new dictionary for Authenticator strings, and localized with supervision of 3 Thai native speaker, verified by ChatGPT 4.o, Claude Sonnet 3.5, and Google Translate.
+
+### Patch Changes
+
+- [#5645](https://github.com/aws-amplify/amplify-ui/pull/5645) [`634815ff0`](https://github.com/aws-amplify/amplify-ui/commit/634815ff07defd89123963bab98f410c5e1fc9cd) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(utils): moving humanFileSize to ui package
+
 ## 6.1.0
 
 ### Minor Changes
