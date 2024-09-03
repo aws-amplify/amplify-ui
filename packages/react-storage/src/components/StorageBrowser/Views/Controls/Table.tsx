@@ -17,6 +17,7 @@ import {
   compareNumbers,
   compareStrings,
 } from '../../context/controls/Table';
+import { TABLE_HEADER_BUTTON_CLASS_NAME } from '../../components/DataTable';
 
 export type SortDirection = 'ascending' | 'descending' | 'none';
 
@@ -156,7 +157,13 @@ const LocationDetailViewColumnSortMap = {
   size: compareNumbers,
 };
 
-export const LocationDetailViewTable = (): JSX.Element | null => {
+export const LocationDetailViewTable = ({
+  range,
+}: {
+  range: [start: number, end: number];
+}): JSX.Element | null => {
+  const [start, end] = range;
+
   const [{ history, path }, handleUpdateState] = useControl({
     type: 'NAVIGATE',
   });
@@ -176,10 +183,13 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
 
   const { direction, selection } = sortState;
 
+  // Use range prop values to get the current page of data
+  const pagedData = data.result.slice(start, end);
+
   const tableData =
     direction === 'ascending'
-      ? data.result.sort((a, b) => compareFn(a[selection], b[selection]))
-      : data.result.sort((a, b) => compareFn(b[selection], a[selection]));
+      ? pagedData.sort((a, b) => compareFn(a[selection], b[selection]))
+      : pagedData.sort((a, b) => compareFn(b[selection], a[selection]));
 
   const renderHeaderItem = React.useCallback(
     (column: Column<LocationItem>) => {
@@ -201,6 +211,8 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
         >
           {LocationDetailViewColumnSortMap[column.key] ? (
             <Button
+              variant="sort"
+              className={TABLE_HEADER_BUTTON_CLASS_NAME}
               onClick={() => {
                 setCompareFn(() => LocationDetailViewColumnSortMap[column.key]);
 

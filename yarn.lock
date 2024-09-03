@@ -436,10 +436,10 @@
   resolved "https://registry.npmjs.org/@assemblyscript/loader/-/loader-0.10.1.tgz#70e45678f06c72fa2e350e8553ec4a4d72b92e06"
   integrity sha512-H71nDOOL8Y7kWRLqf6Sums+01Q5msqBW2KhDUTemh1tvY04eSkSXrK0uj/4mmY0Xr16/3zyZmsrxN7CKuRbNRg==
 
-"@aws-amplify/analytics@7.0.43-storage-browser.0d31f3b.0+0d31f3b":
-  version "7.0.43-storage-browser.0d31f3b.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/analytics/-/analytics-7.0.43-storage-browser.0d31f3b.0.tgz#e39a97513c5cd5d04a0574fd63ef987c5fa7f286"
-  integrity sha512-L4+yxdMqQz5FKphTGr1vTzpO8vRv/bJdwzJju8WdH0qIdT4yaVXi6YT2vDHWB9wxyOb40ZBqBOjxJrO3/dxrEQ==
+"@aws-amplify/analytics@7.0.44-storage-browser.5e1740c.0+5e1740c":
+  version "7.0.44-storage-browser.5e1740c.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/analytics/-/analytics-7.0.44-storage-browser.5e1740c.0.tgz#bcb7e4ac897a4c0f014b6cb10b11d314f1c1f516"
+  integrity sha512-XnmK6J1FK2USN43WJIlCA74eRaWh/pgJObXMQsDgDOnEDPDi75hG/26SfMGng9k9Ohdk6dxEavTnqYLaKTjb/A==
   dependencies:
     "@aws-sdk/client-firehose" "3.621.0"
     "@aws-sdk/client-kinesis" "3.621.0"
@@ -447,13 +447,13 @@
     "@smithy/util-utf8" "2.0.0"
     tslib "^2.5.0"
 
-"@aws-amplify/api-graphql@4.1.14-storage-browser.0d31f3b.0+0d31f3b":
-  version "4.1.14-storage-browser.0d31f3b.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/api-graphql/-/api-graphql-4.1.14-storage-browser.0d31f3b.0.tgz#7f233e90da297deda54a1fa2f96c0ec29227822b"
-  integrity sha512-LeP9ewg7kzk/aQnUIxj1zHhHZLH/AFehLNzNwsgqkMOF55eb08aGkxdfi46BgGNzazjjpQkW0IuRFolEz6v+cQ==
+"@aws-amplify/api-graphql@4.1.15-storage-browser.5e1740c.0+5e1740c":
+  version "4.1.15-storage-browser.5e1740c.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/api-graphql/-/api-graphql-4.1.15-storage-browser.5e1740c.0.tgz#4957e6ef2f93a5d80b98948c8749a2f4ec6bdb31"
+  integrity sha512-Ro+zUj8XQd7NZOuNzdw3/yUaQT9UaoBYLXU3PBKkyd5XhkQym0hTg4ELs53Y0GLRSx+VuWM2DUWhOAu27F7akg==
   dependencies:
-    "@aws-amplify/api-rest" "4.0.43-storage-browser.0d31f3b.0+0d31f3b"
-    "@aws-amplify/core" "6.3.10-storage-browser.0d31f3b.0+0d31f3b"
+    "@aws-amplify/api-rest" "4.0.44-storage-browser.5e1740c.0+5e1740c"
+    "@aws-amplify/core" "6.3.11-storage-browser.5e1740c.0+5e1740c"
     "@aws-amplify/data-schema" "^1.0.0"
     "@aws-sdk/types" "3.387.0"
     graphql "15.8.0"
@@ -461,33 +461,33 @@
     tslib "^2.5.0"
     uuid "^9.0.0"
 
-"@aws-amplify/api-rest@4.0.43-storage-browser.0d31f3b.0+0d31f3b":
-  version "4.0.43-storage-browser.0d31f3b.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/api-rest/-/api-rest-4.0.43-storage-browser.0d31f3b.0.tgz#7178e520909a2a932b873df74567b6af95d7af06"
-  integrity sha512-o8G8s1PkZW3bMLiVSNH8V1fGmM73qvZYPIXh+HvhdNEz5QqgWotEDzrgZsd9Bek/VqwYj6MatDvmjCOe0FAlzQ==
+"@aws-amplify/api-rest@4.0.44-storage-browser.5e1740c.0+5e1740c":
+  version "4.0.44-storage-browser.5e1740c.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/api-rest/-/api-rest-4.0.44-storage-browser.5e1740c.0.tgz#be542a36ab15a44ab6d09990e81033819139d582"
+  integrity sha512-biKfhhErqNA0pWgC1rQmTozy21U8cIOwSZ+N5W+yRkygXm27kpEn4lI/Iu1ggSvLgB5HX+nJHdfJzgeX0bdEfw==
   dependencies:
     tslib "^2.5.0"
 
-"@aws-amplify/api@6.0.45-storage-browser.0d31f3b.0+0d31f3b":
-  version "6.0.45-storage-browser.0d31f3b.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/api/-/api-6.0.45-storage-browser.0d31f3b.0.tgz#9d230ebe57da0d5e3db28d15432834feb6600df0"
-  integrity sha512-O7dfJxUJIzYvZOaxvf88flybd2moOcNxGnHY3ML/593FuyNbi+OkJ4GtXYBihxdhBP7FF8NKl8+7HJHLTusPnQ==
+"@aws-amplify/api@6.0.46-storage-browser.5e1740c.0+5e1740c":
+  version "6.0.46-storage-browser.5e1740c.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/api/-/api-6.0.46-storage-browser.5e1740c.0.tgz#a1143b72834fb4211a42dd7415b798a88af0ab59"
+  integrity sha512-D9v4gUL7cHofAMlCnuJkPqlBqba7t9/jDGr9ujDSb7p6kesMkzC1t6ThGzhs4Zbn4NhHdFAiYS75lLwdgMn/Rw==
   dependencies:
-    "@aws-amplify/api-graphql" "4.1.14-storage-browser.0d31f3b.0+0d31f3b"
-    "@aws-amplify/api-rest" "4.0.43-storage-browser.0d31f3b.0+0d31f3b"
+    "@aws-amplify/api-graphql" "4.1.15-storage-browser.5e1740c.0+5e1740c"
+    "@aws-amplify/api-rest" "4.0.44-storage-browser.5e1740c.0+5e1740c"
     tslib "^2.5.0"
 
-"@aws-amplify/auth@6.3.14-storage-browser.0d31f3b.0+0d31f3b":
-  version "6.3.14-storage-browser.0d31f3b.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/auth/-/auth-6.3.14-storage-browser.0d31f3b.0.tgz#a6110fb6bd39d4804d0076de19a8535a61fac09b"
-  integrity sha512-D6qmnAwtlIRPB1usSjYw8S8utISZnVBUj4tO8QnuttDcDRR7k624XCFowaC0yh29yMZNO3wAzgFtoMWyg9H5NA==
+"@aws-amplify/auth@6.3.15-storage-browser.5e1740c.0+5e1740c":
+  version "6.3.15-storage-browser.5e1740c.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/auth/-/auth-6.3.15-storage-browser.5e1740c.0.tgz#bd8191e412df517ac557120caa9f9c48056aa387"
+  integrity sha512-wyzSXVt9vzowlUT2QXYlMrwFPfsC13VcRz+jXvPMruwUwfbspFdbBE/AZmfJ+zpK7R2Op00nBtzXcyHkzvZ6HQ==
   dependencies:
     tslib "^2.5.0"
 
-"@aws-amplify/core@6.3.10-storage-browser.0d31f3b.0+0d31f3b":
-  version "6.3.10-storage-browser.0d31f3b.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/core/-/core-6.3.10-storage-browser.0d31f3b.0.tgz#ccb069de6280b0cc2e240c65ac6d346a065d40a1"
-  integrity sha512-dmF7s8dQwCsNZBkxox5d7RxRqWLaBf5i0IoEFsDS1i+ZKv38weOCoIJpiKReowGzPUFy5/4EmCepEIkOR9Z8Fg==
+"@aws-amplify/core@6.3.11-storage-browser.5e1740c.0+5e1740c":
+  version "6.3.11-storage-browser.5e1740c.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/core/-/core-6.3.11-storage-browser.5e1740c.0.tgz#dbfb9400aac6828f12aa0ed03c3425141de28e74"
+  integrity sha512-UBRF4nKuiomRX6ji8O5/Mzm2PGI/YJOhyYvdV9vfuFcNXDLF8OzbGrfVfcnIc8CDzuMhkvssT3MT9I/LubMtkA==
   dependencies:
     "@aws-crypto/sha256-js" "5.2.0"
     "@aws-sdk/types" "3.398.0"
@@ -516,12 +516,12 @@
     "@types/aws-lambda" "^8.10.134"
     rxjs "^7.8.1"
 
-"@aws-amplify/datastore@5.0.45-storage-browser.0d31f3b.0+0d31f3b":
-  version "5.0.45-storage-browser.0d31f3b.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/datastore/-/datastore-5.0.45-storage-browser.0d31f3b.0.tgz#b75ff4783f1b430820f993c7c2360193745d7f16"
-  integrity sha512-3y+YfY47x64z+T2aANIr/p7oObBpp27KqaxWB4iXrYJ4HEowOGi/nz+jbJP3id4jo8NdbF+Tn78Eyllw7ID0Wg==
+"@aws-amplify/datastore@5.0.46-storage-browser.5e1740c.0+5e1740c":
+  version "5.0.46-storage-browser.5e1740c.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/datastore/-/datastore-5.0.46-storage-browser.5e1740c.0.tgz#1be180c053e16a2458469ec0fbe038ece4a83ae8"
+  integrity sha512-oz1pEddxS29wqfJYfR4k21zN2SEXBnG3r3utpeL+7ClsNCdKGHjzvgMULwkGzO5iittiyhlN13/DA74WJp/gqg==
   dependencies:
-    "@aws-amplify/api" "6.0.45-storage-browser.0d31f3b.0+0d31f3b"
+    "@aws-amplify/api" "6.0.46-storage-browser.5e1740c.0+5e1740c"
     buffer "4.9.2"
     idb "5.0.6"
     immer "9.0.6"
@@ -529,19 +529,19 @@
     ulid "^2.3.0"
 
 "@aws-amplify/geo@storage-browser":
-  version "3.0.43-storage-browser.0d31f3b.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/geo/-/geo-3.0.43-storage-browser.0d31f3b.0.tgz#859d4b3301798a16350bd5c97f480766e9f5a368"
-  integrity sha512-w7LGG3ksU1LaZNjy7KjHTLJnQ/57PlwRnNl94X6Vu74jNnFF3x2+Qt6Nwo5RzzOJpILSvVnPuFYY4FOI2SmYzw==
+  version "3.0.44-storage-browser.5e1740c.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/geo/-/geo-3.0.44-storage-browser.5e1740c.0.tgz#c76ed68aecf49f274b958fd0749a2fc9bbaa9cfb"
+  integrity sha512-UrpafGhbpgxWC1xieQoVis9VJpf8TGdUD7S6JiH2uxCOVvJHJ0pm1UkHKsJE5dgBmPhuMtRP73cdtAOfuJ/n/g==
   dependencies:
     "@aws-sdk/client-location" "3.621.0"
     "@turf/boolean-clockwise" "6.5.0"
     camelcase-keys "6.2.2"
     tslib "^2.5.0"
 
-"@aws-amplify/notifications@2.0.43-storage-browser.0d31f3b.0+0d31f3b":
-  version "2.0.43-storage-browser.0d31f3b.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/notifications/-/notifications-2.0.43-storage-browser.0d31f3b.0.tgz#dfe391df8a67ebadcc4146e9190499c6cb1710d5"
-  integrity sha512-BhWBUvdD/u8rLShV40y6QmUe6GTN/Jv9MDAhoVEUSyTdrqaTmCyBd3iNn0tUkEw53Vr+NgWxMsGrXvu35q/PAQ==
+"@aws-amplify/notifications@2.0.44-storage-browser.5e1740c.0+5e1740c":
+  version "2.0.44-storage-browser.5e1740c.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/notifications/-/notifications-2.0.44-storage-browser.5e1740c.0.tgz#9234feef1d8f6e1ae78ce8e98ca6effe47d488ee"
+  integrity sha512-SDyWueWxOy4ZGFtKiEzKEwgtESNS8bgsC1JViZLlve4+5mn1+KHUgxIaweeVCO3Jy23sni54ZLucbQ+cyfkUsA==
   dependencies:
     lodash "^4.17.21"
     tslib "^2.5.0"
@@ -574,10 +574,10 @@
   resolved "https://registry.npmjs.org/@aws-amplify/rtn-web-browser/-/rtn-web-browser-1.0.30.tgz#664053391226c956dce25402b77263059b914e1c"
   integrity sha512-1n3za9kmCOMjOXh3qMGZboQm6PlefiDZED1b78cOpeyha7AzynOfJm8y8jGd71gZPODSP94FD+6aa7VNq/S/4w==
 
-"@aws-amplify/storage@6.6.1-storage-browser.0d31f3b.0+0d31f3b":
-  version "6.6.1-storage-browser.0d31f3b.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/storage/-/storage-6.6.1-storage-browser.0d31f3b.0.tgz#b751dd96f72d43a3d6671fa5557c5abd0f7caa2f"
-  integrity sha512-+y50fpWgRlDMmiES+vQcgqXXnLi0uuH+NS7aqlhCB7w5EsWrqcW/9hRTC4G2fG3xT0F6CTxVJyj+xcvAVLKgGg==
+"@aws-amplify/storage@6.6.2-storage-browser.5e1740c.0+5e1740c":
+  version "6.6.2-storage-browser.5e1740c.0"
+  resolved "https://registry.npmjs.org/@aws-amplify/storage/-/storage-6.6.2-storage-browser.5e1740c.0.tgz#2894c08f6bd070ff9e6a57f2369ced485afc99ee"
+  integrity sha512-Zb/co1syv7qQOCouTgPl/MaBMzU2RvZ6WQs7kD96K7rFQcGOlHb9XQHhAT1rXk2BLCf1T95STpIjBc6irmwQVg==
   dependencies:
     "@aws-sdk/types" "3.398.0"
     "@smithy/md5-js" "2.0.7"
@@ -7579,22 +7579,6 @@
   resolved "https://registry.npmjs.org/@types/emscripten/-/emscripten-0.0.34.tgz#12b4a344274fb102ff2f6c877b37587bc3e46008"
   integrity sha512-QSb9ojDincskc+uKMI0KXp8e1NALFINCrMlp8VGKGcTSxeEyRTTKyjWw75NYrCZHUsVEEEpr1tYHpbtaC++/sQ==
 
-"@types/eslint-scope@^3.7.3":
-  version "3.7.4"
-  resolved "https://registry.npmjs.org/@types/eslint-scope/-/eslint-scope-3.7.4.tgz#37fc1223f0786c39627068a12e94d6e6fc61de16"
-  integrity sha512-9K4zoImiZc3HlIp6AVUDE4CWYx22a+lhSZMYNpbjW04+YF0KWj4pJXnEMjdnFTiQibFFmElcsasJXDbdI/EPhA==
-  dependencies:
-    "@types/eslint" "*"
-    "@types/estree" "*"
-
-"@types/eslint@*":
-  version "8.37.0"
-  resolved "https://registry.npmjs.org/@types/eslint/-/eslint-8.37.0.tgz#29cebc6c2a3ac7fea7113207bf5a828fdf4d7ef1"
-  integrity sha512-Piet7dG2JBuDIfohBngQ3rCt7MgO9xCO4xIMKxBThCq5PNRB91IjlJ10eJVwfoNtvTErmxLzwBZ7rHZtbOMmFQ==
-  dependencies:
-    "@types/estree" "*"
-    "@types/json-schema" "*"
-
 "@types/estree-jsx@^1.0.0":
   version "1.0.0"
   resolved "https://registry.npmjs.org/@types/estree-jsx/-/estree-jsx-1.0.0.tgz#7bfc979ab9f692b492017df42520f7f765e98df1"
@@ -7616,11 +7600,6 @@
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-1.0.5.tgz#a6ce3e556e00fd9895dd872dd172ad0d4bd687f4"
   integrity sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==
-
-"@types/estree@^0.0.51":
-  version "0.0.51"
-  resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.51.tgz#cfd70924a25a3fd32b218e5e420e6897e1ac4f40"
-  integrity sha512-CuPgU6f3eT/XgKKPqKd/gLZV1Xmvf1a2R5POBOGQa6uv82xpls89HU5zKeVoyR8XzHd1RGNOlQlvUe3CFkjWNQ==
 
 "@types/express-serve-static-core@*", "@types/express-serve-static-core@^4.17.33":
   version "4.17.35"
@@ -7744,15 +7723,15 @@
     "@types/tough-cookie" "*"
     parse5 "^7.0.0"
 
-"@types/json-schema@*", "@types/json-schema@^7.0.5", "@types/json-schema@^7.0.8", "@types/json-schema@^7.0.9":
-  version "7.0.11"
-  resolved "https://registry.npmjs.org/@types/json-schema/-/json-schema-7.0.11.tgz#d421b6c527a3037f7c84433fd2c4229e016863d3"
-  integrity sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==
-
 "@types/json-schema@^7.0.12":
   version "7.0.14"
   resolved "https://registry.npmjs.org/@types/json-schema/-/json-schema-7.0.14.tgz#74a97a5573980802f32c8e47b663530ab3b6b7d1"
   integrity sha512-U3PUjAudAdJBeC2pgN8uTIKgxrb4nlDF3SF0++EldXQvQBGkpFZMSnwQiIoDU77tv45VgNkl/L4ouD+rEomujw==
+
+"@types/json-schema@^7.0.5", "@types/json-schema@^7.0.8", "@types/json-schema@^7.0.9":
+  version "7.0.11"
+  resolved "https://registry.npmjs.org/@types/json-schema/-/json-schema-7.0.11.tgz#d421b6c527a3037f7c84433fd2c4229e016863d3"
+  integrity sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==
 
 "@types/json5@^0.0.29":
   version "0.0.29"
@@ -8778,14 +8757,6 @@
   dependencies:
     vue-demi "*"
 
-"@webassemblyjs/ast@1.11.1":
-  version "1.11.1"
-  resolved "https://registry.npmjs.org/@webassemblyjs/ast/-/ast-1.11.1.tgz#2bfd767eae1a6996f432ff7e8d7fc75679c0b6a7"
-  integrity sha512-ukBh14qFLjxTQNTXocdyksN5QdM28S1CxHt2rdskFyL+xFV7VremuBLVbmCePj+URalXBENx/9Lm7lnhihtCSw==
-  dependencies:
-    "@webassemblyjs/helper-numbers" "1.11.1"
-    "@webassemblyjs/helper-wasm-bytecode" "1.11.1"
-
 "@webassemblyjs/ast@1.12.1", "@webassemblyjs/ast@^1.12.1":
   version "1.12.1"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.12.1.tgz#bb16a0e8b1914f979f45864c23819cc3e3f0d4bb"
@@ -8794,44 +8765,20 @@
     "@webassemblyjs/helper-numbers" "1.11.6"
     "@webassemblyjs/helper-wasm-bytecode" "1.11.6"
 
-"@webassemblyjs/floating-point-hex-parser@1.11.1":
-  version "1.11.1"
-  resolved "https://registry.npmjs.org/@webassemblyjs/floating-point-hex-parser/-/floating-point-hex-parser-1.11.1.tgz#f6c61a705f0fd7a6aecaa4e8198f23d9dc179e4f"
-  integrity sha512-iGRfyc5Bq+NnNuX8b5hwBrRjzf0ocrJPI6GWFodBFzmFnyvrQ83SHKhmilCU/8Jv67i4GJZBMhEzltxzcNagtQ==
-
 "@webassemblyjs/floating-point-hex-parser@1.11.6":
   version "1.11.6"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/floating-point-hex-parser/-/floating-point-hex-parser-1.11.6.tgz#dacbcb95aff135c8260f77fa3b4c5fea600a6431"
   integrity sha512-ejAj9hfRJ2XMsNHk/v6Fu2dGS+i4UaXBXGemOfQ/JfQ6mdQg/WXtwleQRLLS4OvfDhv8rYnVwH27YJLMyYsxhw==
-
-"@webassemblyjs/helper-api-error@1.11.1":
-  version "1.11.1"
-  resolved "https://registry.npmjs.org/@webassemblyjs/helper-api-error/-/helper-api-error-1.11.1.tgz#1a63192d8788e5c012800ba6a7a46c705288fd16"
-  integrity sha512-RlhS8CBCXfRUR/cwo2ho9bkheSXG0+NwooXcc3PAILALf2QLdFyj7KGsKRbVc95hZnhnERon4kW/D3SZpp6Tcg==
 
 "@webassemblyjs/helper-api-error@1.11.6":
   version "1.11.6"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/helper-api-error/-/helper-api-error-1.11.6.tgz#6132f68c4acd59dcd141c44b18cbebbd9f2fa768"
   integrity sha512-o0YkoP4pVu4rN8aTJgAyj9hC2Sv5UlkzCHhxqWj8butaLvnpdc2jOwh4ewE6CX0txSfLn/UYaV/pheS2Txg//Q==
 
-"@webassemblyjs/helper-buffer@1.11.1":
-  version "1.11.1"
-  resolved "https://registry.npmjs.org/@webassemblyjs/helper-buffer/-/helper-buffer-1.11.1.tgz#832a900eb444884cde9a7cad467f81500f5e5ab5"
-  integrity sha512-gwikF65aDNeeXa8JxXa2BAk+REjSyhrNC9ZwdT0f8jc4dQQeDQ7G4m0f2QCLPJiMTTO6wfDmRmj/pW0PsUvIcA==
-
 "@webassemblyjs/helper-buffer@1.12.1":
   version "1.12.1"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/helper-buffer/-/helper-buffer-1.12.1.tgz#6df20d272ea5439bf20ab3492b7fb70e9bfcb3f6"
   integrity sha512-nzJwQw99DNDKr9BVCOZcLuJJUlqkJh+kVzVl6Fmq/tI5ZtEyWT1KZMyOXltXLZJmDtvLCDgwsyrkohEtopTXCw==
-
-"@webassemblyjs/helper-numbers@1.11.1":
-  version "1.11.1"
-  resolved "https://registry.npmjs.org/@webassemblyjs/helper-numbers/-/helper-numbers-1.11.1.tgz#64d81da219fbbba1e3bd1bfc74f6e8c4e10a62ae"
-  integrity sha512-vDkbxiB8zfnPdNK9Rajcey5C0w+QJugEglN0of+kmO8l7lDb77AnlKYQF7aarZuCrv+l0UvqL+68gSDr3k9LPQ==
-  dependencies:
-    "@webassemblyjs/floating-point-hex-parser" "1.11.1"
-    "@webassemblyjs/helper-api-error" "1.11.1"
-    "@xtuc/long" "4.2.2"
 
 "@webassemblyjs/helper-numbers@1.11.6":
   version "1.11.6"
@@ -8842,25 +8789,10 @@
     "@webassemblyjs/helper-api-error" "1.11.6"
     "@xtuc/long" "4.2.2"
 
-"@webassemblyjs/helper-wasm-bytecode@1.11.1":
-  version "1.11.1"
-  resolved "https://registry.npmjs.org/@webassemblyjs/helper-wasm-bytecode/-/helper-wasm-bytecode-1.11.1.tgz#f328241e41e7b199d0b20c18e88429c4433295e1"
-  integrity sha512-PvpoOGiJwXeTrSf/qfudJhwlvDQxFgelbMqtq52WWiXC6Xgg1IREdngmPN3bs4RoO83PnL/nFrxucXj1+BX62Q==
-
 "@webassemblyjs/helper-wasm-bytecode@1.11.6":
   version "1.11.6"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/helper-wasm-bytecode/-/helper-wasm-bytecode-1.11.6.tgz#bb2ebdb3b83aa26d9baad4c46d4315283acd51e9"
   integrity sha512-sFFHKwcmBprO9e7Icf0+gddyWYDViL8bpPjJJl0WHxCdETktXdmtWLGVzoHbqUcY4Be1LkNfwTmXOJUFZYSJdA==
-
-"@webassemblyjs/helper-wasm-section@1.11.1":
-  version "1.11.1"
-  resolved "https://registry.npmjs.org/@webassemblyjs/helper-wasm-section/-/helper-wasm-section-1.11.1.tgz#21ee065a7b635f319e738f0dd73bfbda281c097a"
-  integrity sha512-10P9No29rYX1j7F3EVPX3JvGPQPae+AomuSTPiF9eBQeChHI6iqjMIwR9JmOJXwpnn/oVGDk7I5IlskuMwU/pg==
-  dependencies:
-    "@webassemblyjs/ast" "1.11.1"
-    "@webassemblyjs/helper-buffer" "1.11.1"
-    "@webassemblyjs/helper-wasm-bytecode" "1.11.1"
-    "@webassemblyjs/wasm-gen" "1.11.1"
 
 "@webassemblyjs/helper-wasm-section@1.12.1":
   version "1.12.1"
@@ -8872,26 +8804,12 @@
     "@webassemblyjs/helper-wasm-bytecode" "1.11.6"
     "@webassemblyjs/wasm-gen" "1.12.1"
 
-"@webassemblyjs/ieee754@1.11.1":
-  version "1.11.1"
-  resolved "https://registry.npmjs.org/@webassemblyjs/ieee754/-/ieee754-1.11.1.tgz#963929e9bbd05709e7e12243a099180812992614"
-  integrity sha512-hJ87QIPtAMKbFq6CGTkZYJivEwZDbQUgYd3qKSadTNOhVY7p+gfP6Sr0lLRVTaG1JjFj+r3YchoqRYxNH3M0GQ==
-  dependencies:
-    "@xtuc/ieee754" "^1.2.0"
-
 "@webassemblyjs/ieee754@1.11.6":
   version "1.11.6"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ieee754/-/ieee754-1.11.6.tgz#bb665c91d0b14fffceb0e38298c329af043c6e3a"
   integrity sha512-LM4p2csPNvbij6U1f19v6WR56QZ8JcHg3QIJTlSwzFcmx6WSORicYj6I63f9yU1kEUtrpG+kjkiIAkevHpDXrg==
   dependencies:
     "@xtuc/ieee754" "^1.2.0"
-
-"@webassemblyjs/leb128@1.11.1":
-  version "1.11.1"
-  resolved "https://registry.npmjs.org/@webassemblyjs/leb128/-/leb128-1.11.1.tgz#ce814b45574e93d76bae1fb2644ab9cdd9527aa5"
-  integrity sha512-BJ2P0hNZ0u+Th1YZXJpzW6miwqQUGcIHT1G/sf72gLVD9DZ5AdYTqPNbHZh6K1M5VmKvFXwGSWZADz+qBWxeRw==
-  dependencies:
-    "@xtuc/long" "4.2.2"
 
 "@webassemblyjs/leb128@1.11.6":
   version "1.11.6"
@@ -8900,29 +8818,10 @@
   dependencies:
     "@xtuc/long" "4.2.2"
 
-"@webassemblyjs/utf8@1.11.1":
-  version "1.11.1"
-  resolved "https://registry.npmjs.org/@webassemblyjs/utf8/-/utf8-1.11.1.tgz#d1f8b764369e7c6e6bae350e854dec9a59f0a3ff"
-  integrity sha512-9kqcxAEdMhiwQkHpkNiorZzqpGrodQQ2IGrHHxCy+Ozng0ofyMA0lTqiLkVs1uzTRejX+/O0EOT7KxqVPuXosQ==
-
 "@webassemblyjs/utf8@1.11.6":
   version "1.11.6"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/utf8/-/utf8-1.11.6.tgz#90f8bc34c561595fe156603be7253cdbcd0fab5a"
   integrity sha512-vtXf2wTQ3+up9Zsg8sa2yWiQpzSsMyXj0qViVP6xKGCUT8p8YJ6HqI7l5eCnWx1T/FYdsv07HQs2wTFbbof/RA==
-
-"@webassemblyjs/wasm-edit@1.11.1":
-  version "1.11.1"
-  resolved "https://registry.npmjs.org/@webassemblyjs/wasm-edit/-/wasm-edit-1.11.1.tgz#ad206ebf4bf95a058ce9880a8c092c5dec8193d6"
-  integrity sha512-g+RsupUC1aTHfR8CDgnsVRVZFJqdkFHpsHMfJuWQzWU3tvnLC07UqHICfP+4XyL2tnr1amvl1Sdp06TnYCmVkA==
-  dependencies:
-    "@webassemblyjs/ast" "1.11.1"
-    "@webassemblyjs/helper-buffer" "1.11.1"
-    "@webassemblyjs/helper-wasm-bytecode" "1.11.1"
-    "@webassemblyjs/helper-wasm-section" "1.11.1"
-    "@webassemblyjs/wasm-gen" "1.11.1"
-    "@webassemblyjs/wasm-opt" "1.11.1"
-    "@webassemblyjs/wasm-parser" "1.11.1"
-    "@webassemblyjs/wast-printer" "1.11.1"
 
 "@webassemblyjs/wasm-edit@^1.12.1":
   version "1.12.1"
@@ -8938,17 +8837,6 @@
     "@webassemblyjs/wasm-parser" "1.12.1"
     "@webassemblyjs/wast-printer" "1.12.1"
 
-"@webassemblyjs/wasm-gen@1.11.1":
-  version "1.11.1"
-  resolved "https://registry.npmjs.org/@webassemblyjs/wasm-gen/-/wasm-gen-1.11.1.tgz#86c5ea304849759b7d88c47a32f4f039ae3c8f76"
-  integrity sha512-F7QqKXwwNlMmsulj6+O7r4mmtAlCWfO/0HdgOxSklZfQcDu0TpLiD1mRt/zF25Bk59FIjEuGAIyn5ei4yMfLhA==
-  dependencies:
-    "@webassemblyjs/ast" "1.11.1"
-    "@webassemblyjs/helper-wasm-bytecode" "1.11.1"
-    "@webassemblyjs/ieee754" "1.11.1"
-    "@webassemblyjs/leb128" "1.11.1"
-    "@webassemblyjs/utf8" "1.11.1"
-
 "@webassemblyjs/wasm-gen@1.12.1":
   version "1.12.1"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/wasm-gen/-/wasm-gen-1.12.1.tgz#a6520601da1b5700448273666a71ad0a45d78547"
@@ -8960,16 +8848,6 @@
     "@webassemblyjs/leb128" "1.11.6"
     "@webassemblyjs/utf8" "1.11.6"
 
-"@webassemblyjs/wasm-opt@1.11.1":
-  version "1.11.1"
-  resolved "https://registry.npmjs.org/@webassemblyjs/wasm-opt/-/wasm-opt-1.11.1.tgz#657b4c2202f4cf3b345f8a4c6461c8c2418985f2"
-  integrity sha512-VqnkNqnZlU5EB64pp1l7hdm3hmQw7Vgqa0KF/KCNO9sIpI6Fk6brDEiX+iCOYrvMuBWDws0NkTOxYEb85XQHHw==
-  dependencies:
-    "@webassemblyjs/ast" "1.11.1"
-    "@webassemblyjs/helper-buffer" "1.11.1"
-    "@webassemblyjs/wasm-gen" "1.11.1"
-    "@webassemblyjs/wasm-parser" "1.11.1"
-
 "@webassemblyjs/wasm-opt@1.12.1":
   version "1.12.1"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/wasm-opt/-/wasm-opt-1.12.1.tgz#9e6e81475dfcfb62dab574ac2dda38226c232bc5"
@@ -8979,18 +8857,6 @@
     "@webassemblyjs/helper-buffer" "1.12.1"
     "@webassemblyjs/wasm-gen" "1.12.1"
     "@webassemblyjs/wasm-parser" "1.12.1"
-
-"@webassemblyjs/wasm-parser@1.11.1":
-  version "1.11.1"
-  resolved "https://registry.npmjs.org/@webassemblyjs/wasm-parser/-/wasm-parser-1.11.1.tgz#86ca734534f417e9bd3c67c7a1c75d8be41fb199"
-  integrity sha512-rrBujw+dJu32gYB7/Lup6UhdkPx9S9SnobZzRVL7VcBH9Bt9bCBLEuX/YXOOtBsOZ4NQrRykKhffRWHvigQvOA==
-  dependencies:
-    "@webassemblyjs/ast" "1.11.1"
-    "@webassemblyjs/helper-api-error" "1.11.1"
-    "@webassemblyjs/helper-wasm-bytecode" "1.11.1"
-    "@webassemblyjs/ieee754" "1.11.1"
-    "@webassemblyjs/leb128" "1.11.1"
-    "@webassemblyjs/utf8" "1.11.1"
 
 "@webassemblyjs/wasm-parser@1.12.1", "@webassemblyjs/wasm-parser@^1.12.1":
   version "1.12.1"
@@ -9003,14 +8869,6 @@
     "@webassemblyjs/ieee754" "1.11.6"
     "@webassemblyjs/leb128" "1.11.6"
     "@webassemblyjs/utf8" "1.11.6"
-
-"@webassemblyjs/wast-printer@1.11.1":
-  version "1.11.1"
-  resolved "https://registry.npmjs.org/@webassemblyjs/wast-printer/-/wast-printer-1.11.1.tgz#d0c73beda8eec5426f10ae8ef55cee5e7084c2f0"
-  integrity sha512-IQboUWM4eKzWW+N/jij2sRatKMh99QEelo3Eb2q0qXkvPRISAj8Qxtmw5itwqK+TTkBuUIE45AxYPToqPtL5gg==
-  dependencies:
-    "@webassemblyjs/ast" "1.11.1"
-    "@xtuc/long" "4.2.2"
 
 "@webassemblyjs/wast-printer@1.12.1":
   version "1.12.1"
@@ -9104,11 +8962,6 @@ acorn-globals@^7.0.0:
   dependencies:
     acorn "^8.1.0"
     acorn-walk "^8.0.2"
-
-acorn-import-assertions@^1.7.6:
-  version "1.8.0"
-  resolved "https://registry.npmjs.org/acorn-import-assertions/-/acorn-import-assertions-1.8.0.tgz#ba2b5939ce62c238db6d93d81c9b111b29b855e9"
-  integrity sha512-m7VZ3jwz4eK6A4Vtt8Ew1/mNbP24u0FhdyfA7fSvnJR6LMdfOYnmuIrrJAgrYfYJ10F/otaHTtrtrtmHdMNzEw==
 
 acorn-import-attributes@^1.9.5:
   version "1.9.5"
@@ -9608,17 +9461,17 @@ available-typed-arrays@^1.0.5:
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
 aws-amplify@storage-browser:
-  version "6.5.1-storage-browser.0d31f3b.0"
-  resolved "https://registry.npmjs.org/aws-amplify/-/aws-amplify-6.5.1-storage-browser.0d31f3b.0.tgz#4f1a48139eccc2efc80f8430920d57f697ff209f"
-  integrity sha512-K1yUM96KjcQWUdiOGfQmcr9T/4lF1bgMUzQ2P9VTh5koX05xIX4+8/Nue0/gJcO9FHaO/b0EdQS5C1eW2QXsmg==
+  version "6.5.2-storage-browser.5e1740c.0"
+  resolved "https://registry.npmjs.org/aws-amplify/-/aws-amplify-6.5.2-storage-browser.5e1740c.0.tgz#5e4ae2e4d2260bf44acb6cc472c52e32b4b319fe"
+  integrity sha512-8yjE6yV9y0Lsts3IDH2QFR6wM5Jyp3yWWc/eLeTycZYCK8h2quyNPYlaGJW5L+Br1H8GYxaJ15LMBdDpe0mLNA==
   dependencies:
-    "@aws-amplify/analytics" "7.0.43-storage-browser.0d31f3b.0+0d31f3b"
-    "@aws-amplify/api" "6.0.45-storage-browser.0d31f3b.0+0d31f3b"
-    "@aws-amplify/auth" "6.3.14-storage-browser.0d31f3b.0+0d31f3b"
-    "@aws-amplify/core" "6.3.10-storage-browser.0d31f3b.0+0d31f3b"
-    "@aws-amplify/datastore" "5.0.45-storage-browser.0d31f3b.0+0d31f3b"
-    "@aws-amplify/notifications" "2.0.43-storage-browser.0d31f3b.0+0d31f3b"
-    "@aws-amplify/storage" "6.6.1-storage-browser.0d31f3b.0+0d31f3b"
+    "@aws-amplify/analytics" "7.0.44-storage-browser.5e1740c.0+5e1740c"
+    "@aws-amplify/api" "6.0.46-storage-browser.5e1740c.0+5e1740c"
+    "@aws-amplify/auth" "6.3.15-storage-browser.5e1740c.0+5e1740c"
+    "@aws-amplify/core" "6.3.11-storage-browser.5e1740c.0+5e1740c"
+    "@aws-amplify/datastore" "5.0.46-storage-browser.5e1740c.0+5e1740c"
+    "@aws-amplify/notifications" "2.0.44-storage-browser.5e1740c.0+5e1740c"
+    "@aws-amplify/storage" "6.6.2-storage-browser.5e1740c.0+5e1740c"
     tslib "^2.5.0"
 
 aws-sign2@~0.7.0:
@@ -10032,7 +9885,7 @@ browser-stdout@1.3.1:
   resolved "https://registry.npmjs.org/browser-stdout/-/browser-stdout-1.3.1.tgz#baa559ee14ced73452229bad7326467c61fabd60"
   integrity sha512-qhAVI1+Av2X7qelOfAIYwXONood6XlZE/fXaBSmW/T5SzLAmCgzi+eiWE7fUvbHaeNBQH13UftjpXxsfLkMpgw==
 
-browserslist@^4.0.0, browserslist@^4.14.5, browserslist@^4.16.15, browserslist@^4.20.0, browserslist@^4.21.10, browserslist@^4.21.3, browserslist@^4.21.4, browserslist@^4.21.5, browserslist@^4.21.9, browserslist@^4.22.1, browserslist@^4.22.2, browserslist@^4.9.1:
+browserslist@^4.0.0, browserslist@^4.16.15, browserslist@^4.20.0, browserslist@^4.21.10, browserslist@^4.21.3, browserslist@^4.21.4, browserslist@^4.21.5, browserslist@^4.21.9, browserslist@^4.22.1, browserslist@^4.22.2, browserslist@^4.9.1:
   version "4.23.3"
   resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.23.3.tgz#debb029d3c93ebc97ffbc8d9cbb03403e227c800"
   integrity sha512-btwCFJVjI4YWDNfau8RhZ+B1Q/VLoUITrm3RlP6y1tYGWIOa+InuYiRGXUBXo8nA1qKmHMyLB/iVQg5TT4eFoA==
@@ -12159,14 +12012,6 @@ engine.io@~6.5.2:
     engine.io-parser "~5.2.1"
     ws "~8.17.1"
 
-enhanced-resolve@^5.10.0:
-  version "5.12.0"
-  resolved "https://registry.npmjs.org/enhanced-resolve/-/enhanced-resolve-5.12.0.tgz#300e1c90228f5b570c4d35babf263f6da7155634"
-  integrity sha512-QHTXI/sZQmko1cbDoNAa3mJ5qhWUUNAq3vR0/YiD379fWQrcfuoX1+HW2S0MTt7XmoPLapdaDKUtelUSPic7hQ==
-  dependencies:
-    graceful-fs "^4.2.4"
-    tapable "^2.2.0"
-
 enhanced-resolve@^5.12.0:
   version "5.15.0"
   resolved "https://registry.npmjs.org/enhanced-resolve/-/enhanced-resolve-5.15.0.tgz#1af946c7d93603eb88e9896cee4904dc012e9c35"
@@ -12378,11 +12223,6 @@ es-module-lexer@^0.6.0:
   version "0.6.0"
   resolved "https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-0.6.0.tgz#e72ab05b7412e62b9be37c37a09bdb6000d706f0"
   integrity sha512-f8kcHX1ArhllUtb/wVSyvygoKCznIjnxhLxy7TCvIiMdT7fL4ZDTIKaadMe6eLvOXg6Wk02UeoFgUoZ2EKZZUA==
-
-es-module-lexer@^0.9.0:
-  version "0.9.3"
-  resolved "https://registry.yarnpkg.com/es-module-lexer/-/es-module-lexer-0.9.3.tgz#6f13db00cc38417137daf74366f535c8eb438f19"
-  integrity sha512-1HQ2M2sPtxwnvOvT1ZClHyQDiggdNjURWpY2we6aMKCQiUVxTmVs2UYPLIrD84sS+kMdUwfBSylbJPwNnBrnHQ==
 
 es-module-lexer@^1.2.1:
   version "1.2.1"
@@ -21662,7 +21502,7 @@ schema-utils@^2.6.5:
     ajv "^6.12.4"
     ajv-keywords "^3.5.2"
 
-schema-utils@^3.0.0, schema-utils@^3.1.0, schema-utils@^3.1.1:
+schema-utils@^3.0.0, schema-utils@^3.1.1:
   version "3.1.1"
   resolved "https://registry.npmjs.org/schema-utils/-/schema-utils-3.1.1.tgz#bc74c4b6b6995c1d88f76a8b77bea7219e0c8281"
   integrity sha512-Y5PQxS4ITlC+EahLuXaY86TXfR7Dc5lw294alXOq86JAHCihAIZfqv8nNCWvaEJvaC51uN9hbLGeV0cFBdH+Fw==
@@ -22869,17 +22709,6 @@ term-size@^2.1.0:
   resolved "https://registry.npmjs.org/term-size/-/term-size-2.2.1.tgz#2a6a54840432c2fb6320fea0f415531e90189f54"
   integrity sha512-wK0Ri4fOGjv/XPy8SBHZChl8CM7uMc5VML7SqiQ0zG7+J5Vr+RMQDoHa2CNT6KHUnTGIXH34UDMkPzAUyapBZg==
 
-terser-webpack-plugin@^5.1.3:
-  version "5.3.7"
-  resolved "https://registry.npmjs.org/terser-webpack-plugin/-/terser-webpack-plugin-5.3.7.tgz#ef760632d24991760f339fe9290deb936ad1ffc7"
-  integrity sha512-AfKwIktyP7Cu50xNjXF/6Qb5lBNzYaWpU6YfoX3uZicTx0zTy0stDDCsvjDapKsSDvOeWo5MEq4TmdBy2cNoHw==
-  dependencies:
-    "@jridgewell/trace-mapping" "^0.3.17"
-    jest-worker "^27.4.5"
-    schema-utils "^3.1.1"
-    serialize-javascript "^6.0.1"
-    terser "^5.16.5"
-
 terser-webpack-plugin@^5.3.10:
   version "5.3.10"
   resolved "https://registry.yarnpkg.com/terser-webpack-plugin/-/terser-webpack-plugin-5.3.10.tgz#904f4c9193c6fd2a03f693a2150c62a92f40d199"
@@ -22908,16 +22737,6 @@ terser@^5.15.0:
   dependencies:
     "@jridgewell/source-map" "^0.3.3"
     acorn "^8.8.2"
-    commander "^2.20.0"
-    source-map-support "~0.5.20"
-
-terser@^5.16.5:
-  version "5.16.9"
-  resolved "https://registry.npmjs.org/terser/-/terser-5.16.9.tgz#7a28cb178e330c484369886f2afd623d9847495f"
-  integrity sha512-HPa/FdTB9XGI2H1/keLFZHxl6WNvAI4YalHGtDQTlMnJcoqSab1UwL4l1hGEhs6/GmLHBZIg/YgB++jcbzoOEg==
-  dependencies:
-    "@jridgewell/source-map" "^0.3.2"
-    acorn "^8.5.0"
     commander "^2.20.0"
     source-map-support "~0.5.20"
 
@@ -24112,14 +23931,6 @@ walker@^1.0.7, walker@^1.0.8:
   dependencies:
     makeerror "1.0.12"
 
-watchpack@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.npmjs.org/watchpack/-/watchpack-2.4.0.tgz#fa33032374962c78113f93c7f2fb4c54c9862a5d"
-  integrity sha512-Lcvm7MGST/4fup+ifyKi2hjyIAwcdI4HRgtvTpIUxBRhB+RFtUh8XtDOxUfctVCnhVi+QQj49i91OyvzkJl6cg==
-  dependencies:
-    glob-to-regexp "^0.4.1"
-    graceful-fs "^4.1.2"
-
 watchpack@^2.4.1:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/watchpack/-/watchpack-2.4.2.tgz#2feeaed67412e7c33184e5a79ca738fbd38564da"
@@ -24238,7 +24049,7 @@ webpack-virtual-modules@^0.5.0:
   resolved "https://registry.npmjs.org/webpack-virtual-modules/-/webpack-virtual-modules-0.5.0.tgz#362f14738a56dae107937ab98ea7062e8bdd3b6c"
   integrity sha512-kyDivFZ7ZM0BVOUteVbDFhlRt7Ah/CSPwJdi8hBpkK7QLumUqdLtVfm/PX/hkcnrvr0i77fO5+TjZ94Pe+C9iw==
 
-webpack@5.76.1, webpack@^5.76.0, webpack@^5.88.2:
+webpack@5.76.1, webpack@^5.56.0, webpack@^5.76.0, webpack@^5.88.2:
   version "5.94.0"
   resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.94.0.tgz#77a6089c716e7ab90c1c67574a28da518a20970f"
   integrity sha512-KcsGn50VT+06JH/iunZJedYGUJS5FGjow8wb9c0v5n1Om8O1g4L6LjtfxwlXIATopoQu+vOXXa7gYisWxCoPyg==
@@ -24265,36 +24076,6 @@ webpack@5.76.1, webpack@^5.76.0, webpack@^5.88.2:
     tapable "^2.1.1"
     terser-webpack-plugin "^5.3.10"
     watchpack "^2.4.1"
-    webpack-sources "^3.2.3"
-
-webpack@^5.56.0:
-  version "5.76.1"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.76.1.tgz#7773de017e988bccb0f13c7d75ec245f377d295c"
-  integrity sha512-4+YIK4Abzv8172/SGqObnUjaIHjLEuUasz9EwQj/9xmPPkYJy2Mh03Q/lJfSD3YLzbxy5FeTq5Uw0323Oh6SJQ==
-  dependencies:
-    "@types/eslint-scope" "^3.7.3"
-    "@types/estree" "^0.0.51"
-    "@webassemblyjs/ast" "1.11.1"
-    "@webassemblyjs/wasm-edit" "1.11.1"
-    "@webassemblyjs/wasm-parser" "1.11.1"
-    acorn "^8.7.1"
-    acorn-import-assertions "^1.7.6"
-    browserslist "^4.14.5"
-    chrome-trace-event "^1.0.2"
-    enhanced-resolve "^5.10.0"
-    es-module-lexer "^0.9.0"
-    eslint-scope "5.1.1"
-    events "^3.2.0"
-    glob-to-regexp "^0.4.1"
-    graceful-fs "^4.2.9"
-    json-parse-even-better-errors "^2.3.1"
-    loader-runner "^4.2.0"
-    mime-types "^2.1.27"
-    neo-async "^2.6.2"
-    schema-utils "^3.1.0"
-    tapable "^2.1.1"
-    terser-webpack-plugin "^5.1.3"
-    watchpack "^2.4.0"
     webpack-sources "^3.2.3"
 
 websocket-driver@>=0.5.1, websocket-driver@^0.7.4:

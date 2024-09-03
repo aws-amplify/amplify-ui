@@ -6,6 +6,7 @@ import * as ActionsModule from '../../../context/actions';
 import * as ControlsModule from '../../../context/controls';
 
 import { LocationsView } from '..';
+import { DEFAULT_LIST_OPTIONS } from '../LocationsView';
 
 const INITIAL_PAGINATE_STATE = [
   {
@@ -156,6 +157,12 @@ describe('LocationsListView', () => {
     );
 
     expect(handleListLocations).toHaveBeenCalledTimes(1);
+    expect(handleListLocations).toHaveBeenCalledWith({
+      options: {
+        ...DEFAULT_LIST_OPTIONS,
+        refresh: true,
+      },
+    });
 
     rerender(
       <Provider>
