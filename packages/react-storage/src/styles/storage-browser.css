@@ -7,6 +7,8 @@
   --storage-browser-status-progress: hsl(220, 95%, 30%);
   --storage-browser-status-initial: hsl(210, 10%, 58%);
   --storage-browser-loading-animation: spin 1s ease-out infinite;
+  --storage-browser-error-background: hsl(0, 75%, 95%);
+  --storage-browser-error-text: hsl(0, 100%, 20%);
   display: grid;
   gap: var(--storage-browser-gap);
   grid-template-columns: 1fr 1fr 1fr max-content max-content;
@@ -259,4 +261,12 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* Error boundary */
+.storage-browser__error {
+  background-color: var(--storage-browser-error-background);
+  color: var(--storage-browser-error-text);
+  grid-column: 1 / -1;
+  padding: var(--storage-browser-gap-large);
 }
