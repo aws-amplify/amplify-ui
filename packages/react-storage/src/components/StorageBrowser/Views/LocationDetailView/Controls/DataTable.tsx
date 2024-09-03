@@ -34,6 +34,45 @@ export type SortState = {
   direction: SortDirection;
 };
 
+type Column<T> = {
+  key: keyof T;
+  header: string;
+  compareFn?: (a: T, b: T) => number;
+};
+
+type DataTableLocationItems = {
+  key: string;
+  fileExt: string;
+  lastModified: Date | undefined;
+  size: number | undefined;
+  type: string;
+};
+
+// Define the columns for the data table
+const columnData: Column<DataTableLocationItems>[] = [
+  {
+    key: 'key',
+    header: 'Name',
+    compareFn: (a, b) => compareStrings(a.key, b.key),
+  },
+  {
+    key: 'fileExt',
+    header: 'Type',
+    compareFn: (a, b) => compareStrings(a.fileExt, b.fileExt),
+  },
+  {
+    key: 'lastModified',
+    header: 'Last Modified',
+    compareFn: (a, b) => compareDates(a.lastModified!, b.lastModified!),
+  },
+  {
+    key: 'size',
+    header: 'Size',
+    compareFn: (a, b) => compareNumbers(a.size!, b.size!),
+  },
+];
+
+// Generate a table header item
 const getColumnItem = ({
   columnData,
   selection,
@@ -67,43 +106,7 @@ const getColumnItem = ({
   };
 };
 
-type Column<T> = {
-  key: keyof T;
-  header: string;
-  compareFn?: (a: T, b: T) => number;
-};
-
-type DataTableLocationItems = {
-  key: string;
-  fileExt: string;
-  lastModified: Date | undefined;
-  size: number | undefined;
-  type: string;
-};
-
-const columnData: Column<DataTableLocationItems>[] = [
-  {
-    key: 'key',
-    header: 'Name',
-    compareFn: (a, b) => compareStrings(a.key, b.key),
-  },
-  {
-    key: 'fileExt',
-    header: 'Type',
-    compareFn: (a, b) => compareStrings(a.fileExt, b.fileExt),
-  },
-  {
-    key: 'lastModified',
-    header: 'Last Modified',
-    compareFn: (a, b) => compareDates(a.lastModified!, b.lastModified!),
-  },
-  {
-    key: 'size',
-    header: 'Size',
-    compareFn: (a, b) => compareNumbers(a.size!, b.size!),
-  },
-];
-
+// Generate the data for each row in the table
 const getLocationsItemData = ({
   locationItems,
   onTableHeaderClick,
@@ -117,41 +120,32 @@ const getLocationsItemData = ({
   sortState: SortState;
   path: string;
 }) => {
-  // Map the location items so that it has the data we want to use and sort with
-  const data = locationItems.map((item) => {
-    return {
-      key: item.key,
-      type: item.type,
-      fileExt: item.type === 'FILE' ? getFileExtension(item.key) : '',
-      download:
-        item.type === 'FILE' ? (
-          <DownloadControl fileKey={`${path}${item.key}`} />
-        ) : null,
-      size: item.type === 'FILE' ? item.size : undefined,
-      data: item.type === 'FILE' ? item.data : undefined,
-      lastModified:
-        item.type === 'FILE' ? new Date(item.lastModified) : undefined,
-    };
-  });
+  // Map location items to the required table data format
+  const data = locationItems.map((item) => ({
+    key: item.key,
+    type: item.type,
+    fileExt: item.type === 'FILE' ? getFileExtension(item.key) : '',
+    download:
+      item.type === 'FILE' ? (
+        <DownloadControl fileKey={`${path}${item.key}`} />
+      ) : null,
+    size: item.type === 'FILE' ? item.size : undefined,
+    lastModified:
+      item.type === 'FILE' ? new Date(item.lastModified) : undefined,
+  }));
 
+  // Sort the data based on the selected column and direction
   const { selection, direction } = sortState;
   const selectedColumn = columnData.find((column) => column.key === selection);
 
-  const compareFn = selectedColumn?.compareFn;
-
-  if (compareFn) {
+  if (selectedColumn?.compareFn) {
     data.sort((a, b) => {
-      if (
-        Object.prototype.hasOwnProperty.call(a, selectedColumn.key) &&
-        Object.prototype.hasOwnProperty.call(b, selectedColumn.key)
-      ) {
-        return direction === 'ascending' ? compareFn(a, b) : compareFn(b, a);
-      }
-
-      return direction === 'ascending' ? 1 : -1;
+      const comparison = selectedColumn.compareFn!(a, b);
+      return direction === 'ascending' ? comparison : -comparison;
     });
   }
 
+  // Generate column headers
   const columns = columnData.map((column) =>
     getColumnItem({
       columnData: column,
@@ -161,15 +155,15 @@ const getLocationsItemData = ({
     })
   );
 
-  const downloadTableHeader = {
+  // Add the download column header
+  columns.push({
     'aria-label': 'Download',
     key: 'th_download',
     className: `${TABLE_HEADER_CLASS_NAME} ${TABLE_HEADER_CLASS_NAME}--download`,
     'aria-sort': 'none',
-  };
+  });
 
-  columns.push(downloadTableHeader);
-
+  // Generate rows for the table
   const rows = data.map((item, index) => {
     const { type } = item;
 
@@ -215,7 +209,7 @@ const getLocationsItemData = ({
         ),
       },
       {
-        className: `${TABLE_DATA_CLASS_NAME}${TABLE_DATA_CLASS_NAME}--size`,
+        className: `${TABLE_DATA_CLASS_NAME} ${TABLE_DATA_CLASS_NAME}--size`,
         key: `td-size-${index}`,
         children: (
           <SpanElement className={TABLE_DATA_TEXT_CLASS_NAME}>
