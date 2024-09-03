@@ -220,15 +220,12 @@ const getLocationsItemData = ({
       {
         className: `${TABLE_DATA_CLASS_NAME} ${TABLE_DATA_CLASS_NAME}--download`,
         key: `td-download-${index}`,
-        children: (
-          <SpanElement className={TABLE_DATA_TEXT_CLASS_NAME}>
-            {type === 'FILE' ? (
-              <DownloadControl fileKey={`${path}${item.key}`} />
-            ) : (
-              ''
-            )}
-          </SpanElement>
-        ),
+        children:
+          type === 'FILE' ? (
+            <DownloadControl fileKey={`${path}${item.key}`} />
+          ) : (
+            ''
+          ),
       },
     ];
   });
