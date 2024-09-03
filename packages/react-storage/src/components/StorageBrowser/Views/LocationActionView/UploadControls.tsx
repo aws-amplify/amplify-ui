@@ -19,6 +19,7 @@ import {
 
 import { Title } from './Controls/Title';
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
+import { TABLE_HEADER_BUTTON_CLASS_NAME } from '../../components/DataTable';
 
 const { Icon, DefinitionDetail, DefinitionList, DefinitionTerm } =
   StorageBrowserElements;
@@ -261,7 +262,7 @@ export const UploadControls = (): JSX.Element => {
           {key in LocationActionViewColumnSortMap ? (
             <ButtonElement
               variant="sort"
-              className={`${CLASS_BASE}__table__header__button`}
+              className={`${TABLE_HEADER_BUTTON_CLASS_NAME}`}
               onClick={() => {
                 setCompareFn(
                   () =>

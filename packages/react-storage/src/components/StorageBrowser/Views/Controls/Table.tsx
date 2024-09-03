@@ -17,6 +17,7 @@ import {
   compareNumbers,
   compareStrings,
 } from '../../context/controls/Table';
+import { TABLE_HEADER_BUTTON_CLASS_NAME } from '../../components/DataTable';
 
 export type SortDirection = 'ascending' | 'descending' | 'none';
 
@@ -202,7 +203,7 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
           {LocationDetailViewColumnSortMap[column.key] ? (
             <Button
               variant="sort"
-              className={`${TABLE_HEADER_CLASS}__button`}
+              className={`${TABLE_HEADER_BUTTON_CLASS_NAME}`}
               onClick={() => {
                 setCompareFn(() => LocationDetailViewColumnSortMap[column.key]);
 
