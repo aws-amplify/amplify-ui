@@ -121,18 +121,23 @@ const getLocationsItemData = ({
   path: string;
 }) => {
   // Map location items to the required table data format
-  const data = locationItems.map((item) => ({
-    key: item.key,
-    type: item.type,
-    fileExt: item.type === 'FILE' ? getFileExtension(item.key) : '',
-    download:
-      item.type === 'FILE' ? (
-        <DownloadControl fileKey={`${path}${item.key}`} />
-      ) : null,
-    size: item.type === 'FILE' ? item.size : undefined,
-    lastModified:
-      item.type === 'FILE' ? new Date(item.lastModified) : undefined,
-  }));
+  const data = locationItems.map((item) => {
+    const fileExtension = getFileExtension(item.key);
+    const fileExt = fileExtension.length > 0 ? fileExtension : '- ';
+
+    return {
+      key: item.key,
+      type: item.type,
+      fileExt: item.type === 'FILE' ? fileExt : '',
+      download:
+        item.type === 'FILE' ? (
+          <DownloadControl fileKey={`${path}${item.key}`} />
+        ) : null,
+      size: item.type === 'FILE' ? item.size : undefined,
+      lastModified:
+        item.type === 'FILE' ? new Date(item.lastModified) : undefined,
+    };
+  });
 
   // Sort the data based on the selected column and direction
   const { selection, direction } = sortState;

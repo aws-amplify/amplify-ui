@@ -35,6 +35,5 @@ export const listViewHelpers = ({
 export const getFileExtension = (fileName: string): string => {
   const indexOfDot = fileName.lastIndexOf('.');
 
-  // Return '-' when no file extension found from file name, similar to S3 console
-  return indexOfDot > -1 ? fileName.slice(indexOfDot + 1) : '-';
+  return indexOfDot > -1 ? fileName.slice(indexOfDot + 1) : '';
 };
