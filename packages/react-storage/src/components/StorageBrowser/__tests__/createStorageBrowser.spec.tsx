@@ -56,7 +56,7 @@ const config = {
   registerAuthListener: jest.fn(),
 };
 
-const input = { actions: {}, config };
+const input = { config };
 
 describe('createStorageBrowser', () => {
   beforeEach(() => {

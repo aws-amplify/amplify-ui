@@ -118,9 +118,8 @@ describe('NavigateControl', () => {
     const lastSeparator = lastItem.querySelector(
       '.storage-browser__navigate__separator'
     );
-    const currentButton = lastItem.querySelector('button');
 
-    expect(currentButton).toHaveAttribute('aria-current', 'page');
+    expect(lastItem).toHaveAttribute('aria-current', 'page');
     expect(lastSeparator).toBeNull();
   });
 });

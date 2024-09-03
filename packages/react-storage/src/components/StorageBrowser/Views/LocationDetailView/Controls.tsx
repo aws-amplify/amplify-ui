@@ -1,57 +1,45 @@
 import React from 'react';
 
-import { StorageBrowserElements } from '../../context/elements';
-import { useControl } from '../../context/controls';
-import { ActionsMenuControl } from './Controls/ActionsMenu';
-import { Controls, LocationDetailViewTable } from '../Controls';
-import { CommonControl } from '../types';
 import { useAction } from '../../context/actions';
+import { usePaginate } from '../hooks/usePaginate';
+import { listViewHelpers } from '../utils';
+import { useControl } from '../../context/controls';
+import { Controls, LocationDetailViewTable } from '../Controls';
+import { ActionsMenuControl } from './Controls/ActionsMenu';
+
+export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
+const DEFAULT_PAGE_SIZE = 100;
+export const DEFAULT_LIST_OPTIONS = {
+  pageSize: DEFAULT_PAGE_SIZE,
+  delimiter: '/',
+};
 
 const {
   EmptyMessage,
-  Loading: LoadingElement,
+  Loading: LoadingControl,
   Message,
   Navigate,
   Paginate,
   Refresh,
-  Title: TitleElement,
+  Title: TitleControl,
 } = Controls;
-
-export interface LocationDetailViewControls<
-  T extends StorageBrowserElements = StorageBrowserElements,
-> extends Pick<
-    Controls<T>,
-    CommonControl | 'Title' | 'Paginate' | 'Refresh' | 'Search'
-  > {
-  (): React.JSX.Element;
-}
 
 export const Title = (): React.JSX.Element => {
   const [{ history }] = useControl({ type: 'NAVIGATE' });
 
   const { prefix } = history.slice(-1)[0];
 
-  return <TitleElement>{prefix}</TitleElement>;
+  return <TitleControl>{prefix}</TitleControl>;
 };
 
-const RefreshControl = () => {
-  const [{ path }] = useControl({ type: 'NAVIGATE' });
-
-  const [{ data, isLoading }, handleList] = useAction({
-    type: 'LIST_LOCATION_ITEMS',
-  });
-
-  return (
-    <Refresh
-      disabled={isLoading || data.result.length <= 0}
-      onClick={() =>
-        handleList({
-          prefix: path,
-          options: { refresh: true, pageSize: 1000, delimiter: '/' },
-        })
-      }
-    />
-  );
+const RefreshControl = ({
+  disableRefresh,
+  handleRefresh,
+}: {
+  disableRefresh?: boolean;
+  handleRefresh?: () => void;
+}) => {
+  return <Refresh disabled={disableRefresh} onClick={handleRefresh} />;
 };
 
 const Loading = () => {
@@ -59,7 +47,7 @@ const Loading = () => {
     type: 'LIST_LOCATION_ITEMS',
   });
 
-  return isLoading ? <LoadingElement /> : null;
+  return isLoading ? <LoadingControl /> : null;
 };
 
 export const LocationDetailMessage = (): React.JSX.Element | null => {
@@ -68,9 +56,7 @@ export const LocationDetailMessage = (): React.JSX.Element | null => {
   });
 
   return hasError ? (
-    <Message variant="error">
-      {message ?? 'There was an error loading items.'}
-    </Message>
+    <Message variant="error">{message ?? DEFAULT_ERROR_MESSAGE}</Message>
   ) : null;
 };
 
@@ -86,18 +72,73 @@ const LocationDetailEmptyMessage = () => {
   ) : null;
 };
 
-// @ts-expect-error TODO: add Controls assignment
-export const LocationDetailViewControls: LocationDetailViewControls = () => {
+export const LocationDetailViewControls = (): React.JSX.Element => {
+  const [{ data, isLoading }, handleList] = useAction({
+    type: 'LIST_LOCATION_ITEMS',
+  });
+
+  const { result, nextToken } = data;
+  const resultCount = result.length;
+  const hasNextToken = !!nextToken;
+  const [{ path }] = useControl({ type: 'NAVIGATE' });
+
+  const onPaginateNext = () =>
+    handleList({
+      prefix: path,
+      options: { ...DEFAULT_LIST_OPTIONS, nextToken },
+    });
+
+  const {
+    currentPage,
+    handlePaginateNext,
+    handlePaginatePrevious,
+    handleReset,
+  } = usePaginate({ onPaginateNext, pageSize: DEFAULT_PAGE_SIZE });
+
+  React.useEffect(() => {
+    handleReset();
+    handleList({
+      prefix: path,
+      options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
+    });
+  }, [path, handleList, handleReset]);
+
+  const { disableNext, disablePrevious, disableRefresh, range } =
+    listViewHelpers({
+      currentPage,
+      hasNextToken,
+      isLoading,
+      pageSize: DEFAULT_PAGE_SIZE,
+      resultCount,
+    });
+
   return (
     <>
       <Navigate />
       <Title />
-      <RefreshControl />
+      <RefreshControl
+        disableRefresh={disableRefresh}
+        handleRefresh={() => {
+          handleReset();
+          handleList({
+            prefix: path,
+            options: { ...DEFAULT_LIST_OPTIONS, refresh: true },
+          });
+        }}
+      />
       <ActionsMenuControl />
-      <Paginate />
+      <Paginate
+        currentPage={currentPage}
+        disableNext={disableNext}
+        disablePrevious={disablePrevious}
+        handleNext={() => {
+          handlePaginateNext({ resultCount, hasNextToken });
+        }}
+        handlePrevious={handlePaginatePrevious}
+      />
       <LocationDetailMessage />
       <Loading />
-      <LocationDetailViewTable />
+      <LocationDetailViewTable range={range} />
       <LocationDetailEmptyMessage />
     </>
   );

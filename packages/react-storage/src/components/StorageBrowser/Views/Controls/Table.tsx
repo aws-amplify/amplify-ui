@@ -1,8 +1,12 @@
 import React from 'react';
-import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 import { humanFileSize } from '@aws-amplify/ui';
 
-import { StorageBrowserElements } from '../../context/elements';
+import {
+  SpanElementProps,
+  StorageBrowserElements,
+  TableDataElementProps,
+  TableHeaderElementProps,
+} from '../../context/elements';
 import { DownloadControl } from './Download';
 import { CLASS_BASE } from '../constants';
 import { useControl } from '../../context/controls';
@@ -13,6 +17,7 @@ import {
   compareNumbers,
   compareStrings,
 } from '../../context/controls/Table';
+import { TABLE_HEADER_BUTTON_CLASS_NAME } from '../../components/DataTable';
 
 export type SortDirection = 'ascending' | 'descending' | 'none';
 
@@ -22,12 +27,12 @@ export type SortState<T> = {
 };
 
 const {
-  Table: BaseTable,
-  TableBody: BaseTableBody,
+  Table,
+  TableBody,
   TableData: BaseTableData,
-  TableHead: BaseTableHead,
+  TableHead,
   TableHeader: BaseTableHeader,
-  TableRow: BaseTableRow,
+  TableRow,
   Button,
   Icon,
   Span,
@@ -38,73 +43,46 @@ const ICON_CLASS = `${BLOCK_NAME}__data__icon`;
 const TABLE_DATA_CLASS = `${BLOCK_NAME}__data`;
 const TABLE_HEADER_CLASS = `${BLOCK_NAME}__header`;
 
-const Table = withBaseElementProps(BaseTable, {
-  className: `${BLOCK_NAME}`,
-});
+function TableData({ className, variant, ...props }: TableDataElementProps) {
+  return (
+    <BaseTableData
+      {...props}
+      className={
+        className ??
+        `${TABLE_DATA_CLASS}${
+          variant ? ` ${TABLE_DATA_CLASS}--${variant}` : ''
+        }`
+      }
+      variant={variant}
+    />
+  );
+}
 
-const TableBody = withBaseElementProps(BaseTableBody, {
-  className: `${BLOCK_NAME}__body`,
-});
+function TableHeader({
+  className,
+  variant,
+  ...props
+}: TableHeaderElementProps) {
+  return (
+    <BaseTableHeader
+      {...props}
+      className={
+        className ??
+        `${TABLE_HEADER_CLASS} ${
+          variant ? ` ${TABLE_HEADER_CLASS}--${variant}` : ''
+        }`
+      }
+      variant={variant}
+    />
+  );
+}
 
-const TableHead = withBaseElementProps(BaseTableHead, {
-  className: `${BLOCK_NAME}__head`,
-});
-
-export const TableHeaderButton = withBaseElementProps(Button, {
-  className: `${BLOCK_NAME}__header__button`,
-  variant: 'sort',
-});
-
-const TableData: typeof BaseTableData = React.forwardRef(
-  function TableData(props, ref) {
-    const { variant } = props;
-    return (
-      <BaseTableData
-        {...props}
-        className={
-          props.className ??
-          `${TABLE_DATA_CLASS}${
-            variant ? ` ${TABLE_DATA_CLASS}--${variant}` : ''
-          }`
-        }
-        variant={variant}
-        ref={ref}
-      />
-    );
-  }
-);
-
-const TableHeader: typeof BaseTableHeader = React.forwardRef(
-  function TableHeader(props, ref) {
-    const { variant } = props;
-    return (
-      <BaseTableHeader
-        {...props}
-        className={
-          props.className ??
-          `${TABLE_HEADER_CLASS} ${
-            variant ? ` ${TABLE_HEADER_CLASS}--${variant}` : ''
-          }`
-        }
-        variant={variant}
-        ref={ref}
-      />
-    );
-  }
-);
-
-const TableDataButton = withBaseElementProps(Button, {
-  className: `${BLOCK_NAME}__data__button`,
-  variant: 'table-data',
-});
-
-export const TableDataText = withBaseElementProps(Span, {
-  className: `${BLOCK_NAME}__data__text`,
-});
-
-const TableRow = withBaseElementProps(BaseTableRow, {
-  className: `${BLOCK_NAME}__row`,
-});
+export function TableDataText({
+  className = `${BLOCK_NAME}__data__text`,
+  ...props
+}: SpanElementProps): React.JSX.Element {
+  return <Span {...props} className={className} />;
+}
 
 const LOCATION_DETAIL_VIEW_COLUMNS: Column<LocationItem>[] = [
   {
@@ -134,12 +112,6 @@ export interface Column<T> {
   key: keyof T;
 }
 
-export interface TableControl<
-  T extends StorageBrowserElements = StorageBrowserElements,
-> extends Pick<T, 'TableData' | 'TableRow' | 'TableHeader'> {
-  <U>(props: TableControlProps<U>): React.JSX.Element;
-}
-
 export type RenderHeaderItem<T> = (column: Column<T>) => JSX.Element;
 
 export type RenderRowItem<T> = (row: T, index: number) => JSX.Element;
@@ -151,26 +123,28 @@ interface TableControlProps<T> {
   renderRowItem: RenderRowItem<T>;
 }
 
-export const TableControl: TableControl = <U,>({
+export function TableControl<U>({
   data,
   columns,
   renderHeaderItem,
   renderRowItem,
-}: TableControlProps<U>) => {
+}: TableControlProps<U>): React.JSX.Element {
   const ariaLabel = 'Table';
 
   return (
-    <Table aria-label={ariaLabel}>
-      <TableHead>
-        <TableRow>{columns.map((column) => renderHeaderItem(column))}</TableRow>
+    <Table aria-label={ariaLabel} className={BLOCK_NAME}>
+      <TableHead className={`${BLOCK_NAME}__head`}>
+        <TableRow className={`${BLOCK_NAME}__row`}>
+          {columns.map((column) => renderHeaderItem(column))}
+        </TableRow>
       </TableHead>
 
-      <TableBody>
+      <TableBody className={`${BLOCK_NAME}__body`}>
         {data?.map((row: U, rowIndex: number) => renderRowItem(row, rowIndex))}
       </TableBody>
     </Table>
   );
-};
+}
 
 TableControl.TableRow = TableRow;
 TableControl.TableData = TableData;
@@ -183,7 +157,13 @@ const LocationDetailViewColumnSortMap = {
   size: compareNumbers,
 };
 
-export const LocationDetailViewTable = (): JSX.Element | null => {
+export const LocationDetailViewTable = ({
+  range,
+}: {
+  range: [start: number, end: number];
+}): JSX.Element | null => {
+  const [start, end] = range;
+
   const [{ history, path }, handleUpdateState] = useControl({
     type: 'NAVIGATE',
   });
@@ -203,10 +183,13 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
 
   const { direction, selection } = sortState;
 
+  // Use range prop values to get the current page of data
+  const pagedData = data.result.slice(start, end);
+
   const tableData =
     direction === 'ascending'
-      ? data.result.sort((a, b) => compareFn(a[selection], b[selection]))
-      : data.result.sort((a, b) => compareFn(b[selection], a[selection]));
+      ? pagedData.sort((a, b) => compareFn(a[selection], b[selection]))
+      : pagedData.sort((a, b) => compareFn(b[selection], a[selection]));
 
   const renderHeaderItem = React.useCallback(
     (column: Column<LocationItem>) => {
@@ -227,7 +210,9 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
           aria-sort={selection === key ? direction : 'none'}
         >
           {LocationDetailViewColumnSortMap[column.key] ? (
-            <TableHeaderButton
+            <Button
+              variant="sort"
+              className={TABLE_HEADER_BUTTON_CLASS_NAME}
               onClick={() => {
                 setCompareFn(() => LocationDetailViewColumnSortMap[column.key]);
 
@@ -252,7 +237,7 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
               ) : (
                 <Icon variant="sort-indeterminate" />
               )}
-            </TableHeaderButton>
+            </Button>
           ) : column.key !== ('download' as keyof LocationItem) ? (
             column.header
           ) : null}
@@ -324,7 +309,9 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
             switch (key) {
               case 'key': {
                 return (
-                  <TableDataButton
+                  <Button
+                    className={`${BLOCK_NAME}__data__button`}
+                    variant="table-data"
                     onClick={() => {
                       handleUpdateState({
                         type: 'NAVIGATE',
@@ -337,7 +324,7 @@ export const LocationDetailViewTable = (): JSX.Element | null => {
                     key={`${index}-${row.key}`}
                   >
                     <Icon className={ICON_CLASS} variant="folder" /> {row.key}
-                  </TableDataButton>
+                  </Button>
                 );
               }
               case 'type': {

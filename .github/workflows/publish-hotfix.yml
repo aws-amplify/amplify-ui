@@ -83,10 +83,35 @@ jobs:
         run: yarn build
         working-directory: ./canary
 
+  build-test-v2:
+    runs-on: ubuntu-latest
+    needs: publish-hotfix
+    environment: ci
+    if: ${{ needs.setup.outputs.has-changesets != 'true' }}
+    steps:
+      - name: Build test v2
+        uses: ./.github/workflows/reusable-build-system-test.yml
+        with:
+          dist-tag: hotfix
+
+  build-test-v2-react-native:
+    runs-on: ubuntu-latest
+    needs: publish-hotfix
+    environment: ci
+    if: ${{ needs.setup.outputs.has-changesets != 'true' }}
+    steps:
+      - name: Build test v2 React Native
+        uses: ./.github/workflows/reusable-build-system-test-react-native.yml
+        with:
+          dist-tag: hotfix
+
   publish:
     runs-on: ubuntu-latest
     environment: deployment
-    needs: build-test
+    needs:
+      - build-test
+      - build-test-v2
+      - build-test-v2-react-native
     if: ${{ needs.setup.outputs.has-changesets != 'true' }}
     steps:
       - name: Checkout repo

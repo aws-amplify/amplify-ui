@@ -2,7 +2,7 @@ export { StorageBrowserElements, elementsDefault } from './context/elements';
 export {
   createStorageBrowser,
   CreateStorageBrowserInput,
-  StorageBrowser,
+  StorageBrowserComponent,
   ResolvedStorageBrowserElements,
 } from './createStorageBrowser';
 export {

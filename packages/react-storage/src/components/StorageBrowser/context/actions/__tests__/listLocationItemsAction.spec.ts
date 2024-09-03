@@ -10,9 +10,8 @@ const config = {
   credentialsProvider: jest.fn(),
   region: 'region',
 };
-const options = {
-  delimiter: '/',
-};
+
+const options = { delimiter: '/' };
 const prefix = 'a_prefix/';
 const initialValue = { nextToken: undefined, result: [] };
 
@@ -39,7 +38,8 @@ describe('listLocationItemsAction', () => {
   });
 
   it('returns the expected output shape in the happy path', async () => {
-    // @ts-expect-error
+    // @ts-expect-error `list` returns a union type of `ListPaginateOutput` | `ListAllOutput`
+    // causing the spy to yell due to the lack of `nextToken` on `ListAllOutput`
     listSpy.mockResolvedValueOnce({ items: [], nextToken: 'tokeno' });
 
     const { result, nextToken } = await listLocationItemsAction(initialValue, {
@@ -86,8 +86,57 @@ describe('listLocationItemsAction', () => {
     expect(nextToken).toBeDefined();
   });
 
+  it('provides expected `pageSize` to `list` on `refresh`', async () => {
+    listSpy.mockResolvedValueOnce({ items: [] });
+
+    const input = {
+      config,
+      options: { refresh: true, pageSize: 10 },
+      prefix: 'a_prefix',
+    };
+
+    await listLocationItemsAction(initialValue, input);
+
+    expect(listSpy).toHaveBeenCalledTimes(1);
+    expect(listSpy).toHaveBeenCalledWith({
+      path: input.prefix,
+      options: {
+        bucket: {
+          bucketName: input.config.bucket,
+          region: input.config.region,
+        },
+        locationCredentialsProvider: input.config.credentialsProvider,
+        nextToken: undefined,
+        pageSize: input.options.pageSize + 1,
+        subpathStrategy: { delimiter: undefined, strategy: 'include' },
+      },
+    });
+  });
+
+  it('provides expected `pageSize` to `list` on initial load', async () => {
+    listSpy.mockResolvedValueOnce({ items: [] });
+
+    const input = { config, options: { pageSize: 10 }, prefix: 'a_prefix' };
+
+    await listLocationItemsAction(initialValue, input);
+
+    expect(listSpy).toHaveBeenCalledTimes(1);
+    expect(listSpy).toHaveBeenCalledWith({
+      path: input.prefix,
+      options: {
+        bucket: {
+          bucketName: input.config.bucket,
+          region: input.config.region,
+        },
+        locationCredentialsProvider: input.config.credentialsProvider,
+        nextToken: undefined,
+        pageSize: input.options.pageSize + 1,
+        subpathStrategy: { delimiter: undefined, strategy: 'include' },
+      },
+    });
+  });
+
   it.todo('handles a search action as expected');
-  it.todo('handles a refresh action as expected');
   it.todo('handles a paginate action as expected');
 });
 
