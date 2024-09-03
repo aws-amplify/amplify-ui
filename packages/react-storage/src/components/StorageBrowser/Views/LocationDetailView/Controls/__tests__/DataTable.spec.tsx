@@ -8,6 +8,8 @@ import * as UseActionModule from '../../../../context/actions';
 
 import { DataTableControl } from '../DataTable';
 
+const TEST_RANGE: [number, number] = [0, 100];
+
 const useControlModuleSpy = jest.spyOn(UseControlModule, 'useControl');
 const useActionModuleSpy = jest.spyOn(UseActionModule, 'useAction');
 
@@ -89,7 +91,7 @@ describe('Location Detail View DataTable', () => {
   it('renders the table with data', () => {
     const { getByText } = render(
       <Provider>
-        <DataTableControl />
+        <DataTableControl range={TEST_RANGE} />
       </Provider>
     );
 
@@ -101,7 +103,7 @@ describe('Location Detail View DataTable', () => {
   it('renders the correct icon based on sort state', () => {
     const { getByText } = render(
       <Provider>
-        <DataTableControl />
+        <DataTableControl range={TEST_RANGE} />
       </Provider>
     );
 
@@ -142,7 +144,7 @@ describe('Location Detail View DataTable', () => {
 
     render(
       <Provider>
-        <DataTableControl />
+        <DataTableControl range={TEST_RANGE} />
       </Provider>
     );
 
