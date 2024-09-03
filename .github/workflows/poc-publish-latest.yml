@@ -8,7 +8,7 @@ name: Test and Publish / poc-publish-fix
 
 on:
   pull_request:
-    branches: [poc-publish-fix]
+    branches: [fix-publish-workflow]
 
 permissions:
   id-token: write # This is required for requesting the JWT
