@@ -49,7 +49,10 @@ export const NavigateItem = ({
   ...props
 }: NavigateItemProps): React.JSX.Element => {
   return (
-    <ListItemElement className={`${BLOCK_NAME}__item`}>
+    <ListItemElement
+      aria-current={isCurrent ? 'page' : undefined}
+      className={`${BLOCK_NAME}__item`}
+    >
       {isCurrent ? (
         <SpanElement variant="navigate-current">{children}</SpanElement>
       ) : (

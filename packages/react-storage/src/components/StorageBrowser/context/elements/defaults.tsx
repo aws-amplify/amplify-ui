@@ -129,7 +129,15 @@ function Heading(props: HeadingElementProps): React.JSX.Element {
 function Span(props: SpanElementProps): React.JSX.Element {
   const { variant } = props;
   if (variant === 'navigate-current') {
-    return <_View {...props} as="span" padding="xs" color="font.secondary" />;
+    return (
+      <_View
+        {...props}
+        as="span"
+        padding="xs"
+        color="font.secondary"
+        fontSize="small"
+      />
+    );
   }
   return <_View {...props} as="span" />;
 }
