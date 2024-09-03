@@ -12,9 +12,7 @@ interface ErrorBoundaryState {
 
 const Fallback = (): React.JSX.Element => (
   <div className={CLASS_BASE}>
-    <div className={`${CLASS_BASE}__error`}>
-      Something went wrong. Please try again.
-    </div>
+    <div className={`${CLASS_BASE}__error`}>Something went wrong.</div>
   </div>
 );
 
