@@ -17,7 +17,9 @@ import { CLASS_BASE } from '../constants';
 
 import { LocationData, useAction } from '../../context/actions';
 
-interface NavigateItemProps extends ButtonElementProps {}
+interface NavigateItemProps extends ButtonElementProps {
+  isCurrent?: boolean;
+}
 
 type RenderNavigateItem = (props: NavigateItemProps) => React.JSX.Element;
 
@@ -43,14 +45,21 @@ function Separator() {
 export const NavigateItem = ({
   className = `${BLOCK_NAME}__button`,
   children,
+  isCurrent = false,
   ...props
 }: NavigateItemProps): React.JSX.Element => {
   return (
     <ListItemElement className={`${BLOCK_NAME}__item`}>
-      <ButtonElement {...props} className={className} variant="navigate">
-        {children}
-      </ButtonElement>
-      <Separator />
+      {isCurrent ? (
+        <SpanElement variant="navigate-current">{children}</SpanElement>
+      ) : (
+        <>
+          <ButtonElement {...props} className={className} variant="navigate">
+            {children}
+          </ButtonElement>
+          <Separator />
+        </>
+      )}
     </ListItemElement>
   );
 };
@@ -109,21 +118,14 @@ export function NavigateControl(): React.JSX.Element {
             : prefix;
 
         const isCurrent = index === history.length - 1;
-
-        return isCurrent ? (
-          <ListItemElement
-            className={`${BLOCK_NAME}__item`}
-            aria-current="page"
-          >
-            <SpanElement variant="navigate-current">{displayValue}</SpanElement>
-          </ListItemElement>
-        ) : (
+        return (
           <NavigateItem
             disabled={isLoading}
             key={`${prefix}/${position}`}
             onClick={() => {
               handleUpdateState({ type: 'NAVIGATE', entry });
             }}
+            isCurrent={isCurrent}
           >
             {displayValue}
           </NavigateItem>
