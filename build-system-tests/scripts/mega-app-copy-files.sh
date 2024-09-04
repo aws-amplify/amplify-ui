@@ -160,12 +160,25 @@ if [[ "$FRAMEWORK" == 'angular' ]]; then
 fi
 
 if [[ "$FRAMEWORK" == 'vue' ]]; then
-    echo "cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue"
-    cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue
     echo "cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.js"
     cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.js
     echo "cp $AWS_EXPORTS_DECLARATION_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.d.ts"
     cp $AWS_EXPORTS_DECLARATION_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.d.ts
+
+    echo "add allowJs: true to tsconfig for aws-exports.js"
+    echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/tsconfig.app.json -e \"this.compilerOptions.allowJs=true\""
+    npx json -I -f mega-apps/${MEGA_APP_NAME}/tsconfig.app.json -e "this.compilerOptions.allowJs=true"
+
+    if [[ "$BUILD_TOOL" == 'nuxt' ]]; then
+        echo "cp templates/components/vue/nuxt/* mega-apps/${MEGA_APP_NAME}/"
+        cp templates/components/vue/nuxt/* mega-apps/${MEGA_APP_NAME}/
+        
+        echo "npx strip-json-comments mega-apps/${MEGA_APP_NAME}/tsconfig.json >tmpfile && mv tmpfile mega-apps/${MEGA_APP_NAME}/tsconfig.json && rm -f tmpfile"
+        npx strip-json-comments mega-apps/${MEGA_APP_NAME}/tsconfig.json >tmpfile && mv tmpfile mega-apps/${MEGA_APP_NAME}/tsconfig.json && rm -f tmpfile
+    else
+        echo "cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue"
+        cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue
+    fi
 
     # See Troubleshooting: https://ui.docs.amplify.aws/vue/getting-started/troubleshooting
     if [[ "$BUILD_TOOL" == 'vite' ]]; then
@@ -173,23 +186,11 @@ if [[ "$FRAMEWORK" == 'vue' ]]; then
         cp templates/components/vue/vite/index.html mega-apps/${MEGA_APP_NAME}/index.html
         echo "cp templates/components/vue/vite/vite.config.ts mega-apps/${MEGA_APP_NAME}/vite.config.ts"
         cp templates/components/vue/vite/vite.config.ts mega-apps/${MEGA_APP_NAME}/vite.config.ts
-        if [[ "$BUILD_TOOL_VERSION" == "latest"]]; then
+        if [[ "$BUILD_TOOL_VERSION" == "latest" ]]; then
             # remove comments from JSON files because `json` package can't process comments
             echo "npx strip-json-comments mega-apps/${MEGA_APP_NAME}/tsconfig.app.json >tmpfile && mv tmpfile mega-apps/${MEGA_APP_NAME}/tsconfig.app.json && rm -f tmpfile"
             npx strip-json-comments mega-apps/${MEGA_APP_NAME}/tsconfig.app.json >tmpfile && mv tmpfile mega-apps/${MEGA_APP_NAME}/tsconfig.app.json && rm -f tmpfile
-    fi
-
-    if [[ "$BUILD_TOOL" == 'nuxt' ]]; then
-        echo "cp templates/components/vue/nuxt/* mega-apps/${MEGA_APP_NAME}/"
-        cp templates/components/vue/nuxt/* mega-apps/${MEGA_APP_NAME}/
-
-        echo "add allowJs: true to tsconfig for aws-exports.js"
-        echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/tsconfig.json -e \"this.allowJs=true\""
-        npx json -I -f mega-apps/${MEGA_APP_NAME}/tsconfig.json -e "this.allowJs=true"
-    else
-        echo "add allowJs: true to tsconfig for aws-exports.js"
-        echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/tsconfig.app.json -e \"this.compilerOptions.allowJs=true\""
-        npx json -I -f mega-apps/${MEGA_APP_NAME}/tsconfig.app.json -e "this.compilerOptions.allowJs=true"
+        fi
     fi
 fi
 
