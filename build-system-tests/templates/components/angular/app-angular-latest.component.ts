@@ -1,4 +1,4 @@
-import { Component } from '@angularcore';
+import { Component } from '@angular/core';
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 
 @Component({

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Text } from 'react-native';
 import 'react-native-get-random-values';
-import 'react-native-url-polyfill/aut';
+import 'react-native-url-polyfill/auto';
 
 import { initializeInAppMessaging } from 'aws-amplify/in-app-messaging';
 

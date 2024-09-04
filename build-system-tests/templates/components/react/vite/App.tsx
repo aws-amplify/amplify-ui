@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Amplify } from 'aws-aplify';
+import { Amplify } from 'aws-amplify';
 import {
   initializeInAppMessaging,
   syncMessages,
