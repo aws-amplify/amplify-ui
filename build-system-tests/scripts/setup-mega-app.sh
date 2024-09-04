@@ -84,7 +84,7 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
-# Check if MEGA_APP_NAME is provided
+# Create MEGA_APP_NAME if none provided
 if [[ -z "$MEGA_APP_NAME" ]]; then
   MEGA_APP_NAME="$FRAMEWORK-$FRAMEWORK_VERSION-$BUILD_TOOL-$BUILD_TOOL_VERSION-$LANGUAGE-ui-$TAG"
 fi
