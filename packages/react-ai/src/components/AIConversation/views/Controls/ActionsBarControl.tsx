@@ -55,14 +55,12 @@ ActionsBarControl.Button = ActionButton;
 ActionsBarControl.Container = Container;
 ActionsBarControl.Icon = ActionIcon;
 
-export interface ActionsBarControl<
-  T extends Partial<AIConversationElements> = AIConversationElements,
-> {
+export interface ActionsBarControl {
   (props: {
     message: ConversationMessage;
     focusable?: boolean;
   }): React.JSX.Element;
-  Button: T['Button'];
-  Container: T['View'];
-  Icon: T['Span'];
+  Button: AIConversationElements['Button'];
+  Container: AIConversationElements['View'];
+  Icon: AIConversationElements['Span'];
 }

@@ -2,7 +2,6 @@ import React from 'react';
 
 import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 
-import { AIConversationElements } from './context/elements';
 import { ActionsProvider } from './context/ActionsContext';
 import { AvatarsProvider } from './context/AvatarsContext';
 import { InputContextProvider } from './context/InputContext';
@@ -15,9 +14,7 @@ import { SendMessageContextProvider } from './context/SendMessageContext';
 import { ControlsProvider } from './context/ControlsContext';
 import { LoadingContextProvider } from './context/LoadingContext';
 
-export default function createProvider<
-  T extends Partial<AIConversationElements>,
->({
+export default function createProvider({
   elements,
   actions,
   suggestedPrompts,
@@ -25,7 +22,7 @@ export default function createProvider<
   variant,
   controls,
 }: Pick<
-  AIConversationInput<T>,
+  AIConversationInput,
   | 'elements'
   | 'actions'
   | 'suggestedPrompts'

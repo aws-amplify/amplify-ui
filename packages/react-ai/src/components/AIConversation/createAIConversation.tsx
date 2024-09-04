@@ -14,13 +14,10 @@ import {
   MessagesControl,
   PromptControl,
 } from './views';
-import { AIConversationElements } from './context/elements';
 import createProvider from './createProvider';
 
-export function createAIConversation<T extends Partial<AIConversationElements>>(
-  input: AIConversationInput<T> = {}
-): {
-  AIConversation: AIConversation<T>;
+export function createAIConversation(input: AIConversationInput = {}): {
+  AIConversation: AIConversation;
 } {
   const {
     elements,
@@ -54,18 +51,12 @@ export function createAIConversation<T extends Partial<AIConversationElements>>(
     );
   }
 
-  const Controls: Controls<T> = {
-    // @ts-expect-error TODO fix type error
+  const Controls: Controls = {
     ActionsBar: ActionsBarControl,
-    // @ts-expect-error TODO fix type error
     Avatars: AvatarControl,
-    // @ts-expect-error TODO fix type error
     Field: FieldControl,
-    // @ts-expect-error TODO fix type error
     Header: HeaderControl,
-    // @ts-expect-error TODO fix type error
     Messages: MessagesControl,
-    // @ts-expect-error TODO fix type error
     SuggestedPrompts: PromptControl,
   };
 

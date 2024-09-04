@@ -149,13 +149,11 @@ PromptControl.Icon = AIIcon;
 PromptControl.PromptGroup = PromptGroup;
 PromptControl.PromptCard = PromptCard;
 
-export interface PromptControl<
-  T extends Partial<AIConversationElements> = AIConversationElements,
-> {
+export interface PromptControl {
   (): React.JSX.Element;
-  Container: T['View'];
-  Header: T['Heading'];
-  Icon: T['Icon'];
-  PromptGroup: T['View'];
-  PromptCard: T['Button'];
+  Container: AIConversationElements['View'];
+  Header: AIConversationElements['Heading'];
+  Icon: AIConversationElements['Icon'];
+  PromptGroup: AIConversationElements['View'];
+  PromptCard: AIConversationElements['Button'];
 }

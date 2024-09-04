@@ -76,11 +76,9 @@ AttachFileControl.Icon = AttachFileIcon;
 AttachFileControl.Button = AttachFileButton;
 AttachFileControl.Container = AttachFileContainer;
 
-export interface AttachFileControl<
-  T extends Partial<AIConversationElements> = AIConversationElements,
-> {
+export interface AttachFileControl {
   (): React.JSX.Element;
-  Container: T['View'];
-  Icon: T['Icon'];
-  Button: T['Button'];
+  Container: AIConversationElements['View'];
+  Icon: AIConversationElements['Icon'];
+  Button: AIConversationElements['Button'];
 }

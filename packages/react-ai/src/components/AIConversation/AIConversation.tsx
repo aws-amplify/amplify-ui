@@ -17,7 +17,7 @@ import createProvider from './createProvider';
 
 interface _AIConversationProps
   extends AIConversationProps,
-    AIConversationInput<{}> {}
+    AIConversationInput {}
 
 export const AIConversation = ({
   actions,
