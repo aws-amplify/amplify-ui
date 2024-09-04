@@ -4,7 +4,8 @@ import { useAction } from '../../context/actions';
 import { usePaginate } from '../hooks/usePaginate';
 import { listViewHelpers } from '../utils';
 import { useControl } from '../../context/controls';
-import { Controls, LocationDetailViewTable } from '../Controls';
+import { Controls } from '../Controls';
+import { DataTableControl } from './Controls/DataTable';
 import { ActionsMenuControl } from './Controls/ActionsMenu';
 
 export const DEFAULT_ERROR_MESSAGE = 'There was an error loading items.';
@@ -138,7 +139,7 @@ export const LocationDetailViewControls = (): React.JSX.Element => {
       />
       <LocationDetailMessage />
       <Loading />
-      <LocationDetailViewTable range={range} />
+      <DataTableControl range={range} />
       <LocationDetailEmptyMessage />
     </>
   );

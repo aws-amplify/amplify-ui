@@ -31,3 +31,9 @@ export const listViewHelpers = ({
     range: [start, end],
   };
 };
+
+export const getFileExtension = (fileName: string): string => {
+  const indexOfDot = fileName.lastIndexOf('.');
+
+  return indexOfDot > -1 ? fileName.slice(indexOfDot + 1) : '';
+};
