@@ -85,7 +85,9 @@ const AIConversationBase = React.forwardRef(function AIConversation({
   );
 });
 
-// pass an empty object as first param to avoid destructive action on `AIConversationBase`
+/**
+ * @experimental
+ */
 export const AIConversation = Object.assign({}, AIConversationBase, {
   MessageList,
   PromptList,
