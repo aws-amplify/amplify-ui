@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
-import { InputContext } from '../../context';
+import { ConversationInputContext } from '../../context';
 import { AIConversationElements } from '../../context/elements';
 
 const {
@@ -132,7 +132,7 @@ const UnorderedList = withBaseElementProps(ListElement, {
 });
 
 export const AttachmentListControl: AttachmentListControl = () => {
-  const { input, setInput } = React.useContext(InputContext);
+  const { input, setInput } = React.useContext(ConversationInputContext);
   return (
     <UnorderedList>
       {input?.files?.map((file, index) => {

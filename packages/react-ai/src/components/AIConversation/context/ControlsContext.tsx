@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputContext } from './InputContext';
+import { ConversationInputContext } from './ConversationInputContext';
 import { SuggestedPrompt } from '../types';
 import { ConversationMessage } from '../../../types';
 
@@ -7,12 +7,12 @@ export interface ControlsContextProps {
   Form?: React.ComponentType<
     {
       handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-    } & Required<InputContext>
+    } & Required<ConversationInputContext>
   >;
   MessageList?: React.ComponentType<{ messages: ConversationMessage[] }>;
   PromptList?: React.ComponentType<{
     suggestedPrompts?: SuggestedPrompt[];
-    setInput: InputContext['setInput'];
+    setInput: ConversationInputContext['setInput'];
   }>;
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { InputContext } from '../../../context';
+import { ConversationInputContext } from '../../../context';
 import {
   AttachmentControl,
   AttachmentListControl,
@@ -23,9 +23,11 @@ const AttachmentListWithContext = () => {
     files: MOCK_FILES,
   });
   return (
-    <InputContext.Provider value={{ input: input, setInput: setInput }}>
+    <ConversationInputContext.Provider
+      value={{ input: input, setInput: setInput }}
+    >
       <AttachmentListControl />
-    </InputContext.Provider>
+    </ConversationInputContext.Provider>
   );
 };
 

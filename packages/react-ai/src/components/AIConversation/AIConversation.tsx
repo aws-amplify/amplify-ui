@@ -19,7 +19,7 @@ interface _AIConversationProps
   extends AIConversationProps,
     AIConversationInput {}
 
-const AIConversationBase = React.forwardRef(function AIConversation({
+function AIConversationBase({
   actions,
   avatars,
   controls,
@@ -83,12 +83,12 @@ const AIConversationBase = React.forwardRef(function AIConversation({
       </Flex>
     </Provider>
   );
-});
+}
 
 /**
  * @experimental
  */
-export const AIConversation = Object.assign({}, AIConversationBase, {
+export const AIConversation = Object.assign(AIConversationBase, {
   MessageList,
   PromptList,
   Form,

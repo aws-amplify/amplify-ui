@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { PromptControl } from '../PromptControl';
 import { SuggestedPromptProvider } from '../../../context/SuggestedPromptsContext';
-import { InputContext } from '../../../context';
+import { ConversationInputContext } from '../../../context';
 
 const MOCK_PROMPTS = [
   {
@@ -34,9 +34,9 @@ describe('PromptControl', () => {
   it('renders a PromptControl element with prompts', async () => {
     const result = render(
       <SuggestedPromptProvider suggestedPrompts={MOCK_PROMPTS}>
-        <InputContext.Provider value={{ setInput: () => {} }}>
+        <ConversationInputContext.Provider value={{ setInput: () => {} }}>
           <PromptControl />
-        </InputContext.Provider>
+        </ConversationInputContext.Provider>
       </SuggestedPromptProvider>
     );
     expect(result.container).toBeDefined();

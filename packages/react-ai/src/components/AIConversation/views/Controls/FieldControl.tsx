@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
-import { InputContext } from '../../context';
+import { ConversationInputContext } from '../../context';
 import { AIConversationElements } from '../../context/elements';
 import { AttachFileControl } from './AttachFileControl';
 import { MessagesContext } from '../../context';
@@ -38,7 +38,7 @@ const SendButtonBase = withBaseElementProps(Button, {
 
 const SendButton: typeof SendButtonBase = React.forwardRef(
   function SendButton(props, ref) {
-    const { input } = React.useContext(InputContext);
+    const { input } = React.useContext(ConversationInputContext);
     const isLoading = React.useContext(LoadingContext);
     const hasInput = !!input?.text || !!input?.files?.length;
 
@@ -99,7 +99,7 @@ const useHandleResize = (
 
 const TextInput: typeof TextAreaBase = React.forwardRef(
   function TextInput(props, ref) {
-    const { setInput } = React.useContext(InputContext);
+    const { setInput } = React.useContext(ConversationInputContext);
     const messages = React.useContext(MessagesContext);
     const textAreaRef = React.useRef<HTMLTextAreaElement | null>(null);
     useHandleResize(textAreaRef);
@@ -146,7 +146,7 @@ const InputContainer = withBaseElementProps(View, {
 });
 
 export const FieldControl: FieldControl = () => {
-  const { input, setInput } = React.useContext(InputContext);
+  const { input, setInput } = React.useContext(ConversationInputContext);
   const handleSendMessage = React.useContext(SendMessageContext);
   const ref = React.useRef<HTMLFormElement | null>(null);
   const responseComponents = React.useContext(ResponseComponentsContext);

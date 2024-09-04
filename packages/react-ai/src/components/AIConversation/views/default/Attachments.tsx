@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, Image, Text, View } from '@aws-amplify/ui-react';
 import { IconClose, useIcons } from '@aws-amplify/ui-react/internal';
-import { InputContext } from '../../context';
+import { ConversationInputContext } from '../../context';
 import { ComponentClassName } from '@aws-amplify/ui';
 
 // TODO remove this after merge main back into this branch
@@ -72,7 +72,7 @@ export const Attachments = ({
   setInput,
 }: {
   files?: File[];
-  setInput: InputContext['setInput'];
+  setInput: ConversationInputContext['setInput'];
 }): JSX.Element | null => {
   if (!files || files.length < 1) {
     return null;
