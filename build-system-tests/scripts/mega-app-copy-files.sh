@@ -160,25 +160,9 @@ if [[ "$FRAMEWORK" == 'angular' ]]; then
 fi
 
 if [[ "$FRAMEWORK" == 'vue' ]]; then
-    echo "cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.js"
-    cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.js
-    echo "cp $AWS_EXPORTS_DECLARATION_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.d.ts"
-    cp $AWS_EXPORTS_DECLARATION_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.d.ts
-
-    echo "add allowJs: true to tsconfig for aws-exports.js"
-    echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/tsconfig.app.json -e \"this.compilerOptions.allowJs=true\""
-    npx json -I -f mega-apps/${MEGA_APP_NAME}/tsconfig.app.json -e "this.compilerOptions.allowJs=true"
-
-    if [[ "$BUILD_TOOL" == 'nuxt' ]]; then
-        echo "cp templates/components/vue/nuxt/* mega-apps/${MEGA_APP_NAME}/"
-        cp templates/components/vue/nuxt/* mega-apps/${MEGA_APP_NAME}/
-        
-        echo "npx strip-json-comments mega-apps/${MEGA_APP_NAME}/tsconfig.json >tmpfile && mv tmpfile mega-apps/${MEGA_APP_NAME}/tsconfig.json && rm -f tmpfile"
-        npx strip-json-comments mega-apps/${MEGA_APP_NAME}/tsconfig.json >tmpfile && mv tmpfile mega-apps/${MEGA_APP_NAME}/tsconfig.json && rm -f tmpfile
-    else
-        echo "cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue"
-        cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue
-    fi
+    TS_CONFIG_FILE="mega-apps/${MEGA_APP_NAME}/tsconfig.json"
+    AWS_EXPORTS_PATH="mega-apps/${MEGA_APP_NAME}/src/aws-exports.js"
+    AWS_EXPORTS_DECLARATION_PATH="mega-apps/${MEGA_APP_NAME}/src/aws-exports.d.ts"
 
     # See Troubleshooting: https://ui.docs.amplify.aws/vue/getting-started/troubleshooting
     if [[ "$BUILD_TOOL" == 'vite' ]]; then
@@ -186,12 +170,32 @@ if [[ "$FRAMEWORK" == 'vue' ]]; then
         cp templates/components/vue/vite/index.html mega-apps/${MEGA_APP_NAME}/index.html
         echo "cp templates/components/vue/vite/vite.config.ts mega-apps/${MEGA_APP_NAME}/vite.config.ts"
         cp templates/components/vue/vite/vite.config.ts mega-apps/${MEGA_APP_NAME}/vite.config.ts
-        if [[ "$BUILD_TOOL_VERSION" == "latest" ]]; then
-            # remove comments from JSON files because `json` package can't process comments
-            echo "npx strip-json-comments mega-apps/${MEGA_APP_NAME}/tsconfig.app.json >tmpfile && mv tmpfile mega-apps/${MEGA_APP_NAME}/tsconfig.app.json && rm -f tmpfile"
-            npx strip-json-comments mega-apps/${MEGA_APP_NAME}/tsconfig.app.json >tmpfile && mv tmpfile mega-apps/${MEGA_APP_NAME}/tsconfig.app.json && rm -f tmpfile
-        fi
     fi
+
+    if [[ "$BUILD_TOOL" == 'nuxt' ]]; then
+        # nuxt doesn't use the src/ directory
+        echo "cp templates/components/vue/nuxt/* mega-apps/${MEGA_APP_NAME}/"
+        cp templates/components/vue/nuxt/* mega-apps/${MEGA_APP_NAME}/
+
+        AWS_EXPORTS_PATH="mega-apps/${MEGA_APP_NAME}/aws-exports.js"
+        AWS_EXPORTS_DECLARATION_PATH="mega-apps/${MEGA_APP_NAME}/aws-exports.d.ts"
+    else
+        echo "cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue"
+        cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue
+    fi
+
+    echo "cp $AWS_EXPORTS_FILE $AWS_EXPORTS_PATH"
+    cp $AWS_EXPORTS_FILE $AWS_EXPORTS_PATH
+    echo "cp $AWS_EXPORTS_DECLARATION_FILE $AWS_EXPORTS_DECLARATION_PATH"
+    cp $AWS_EXPORTS_DECLARATION_FILE $AWS_EXPORTS_DECLARATION_PATH
+
+    # remove comments from JSON files because `json` package can't process comments
+    echo "npx strip-json-comments $TS_CONFIG_FILE >tmpfile && mv tmpfile $TS_CONFIG_FILE && rm -f tmpfile"
+    npx strip-json-comments $TS_CONFIG_FILE >tmpfile && mv tmpfile $TS_CONFIG_FILE && rm -f tmpfile
+
+    echo "add allowJs: true to tsconfig for aws-exports.js"
+    npx json -I -f "$TS_CONFIG_FILE" -e "this.compilerOptions = this.compilerOptions || {}; this.compilerOptions.allowJs = true"
+    npx json -I -f "$TS_CONFIG_FILE" -e "this.compilerOptions = this.compilerOptions || {}; this.compilerOptions.allowJs = true"
 fi
 
 if [[ "$FRAMEWORK" == "react-native" ]]; then
