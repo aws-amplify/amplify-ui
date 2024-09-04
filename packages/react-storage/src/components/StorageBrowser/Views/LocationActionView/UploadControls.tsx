@@ -2,13 +2,14 @@ import React from 'react';
 
 import { humanFileSize } from '@aws-amplify/ui';
 
+import { TABLE_HEADER_BUTTON_CLASS_NAME } from '../../components/DataTable';
 import { ButtonElement, StorageBrowserElements } from '../../context/elements';
 import { useControl } from '../../context/controls';
 import { compareNumbers, compareStrings } from '../../context/controls/Table';
 import { TaskStatus } from '../../context/types';
 import { IconVariant } from '../../context/elements/IconElement';
 
-import { getFriendlyTaskStatus, getPercentValue } from '../utils';
+import { getPercentValue } from '../utils';
 import { CLASS_BASE } from '../constants';
 import { Controls } from '../Controls';
 import {
@@ -19,8 +20,8 @@ import {
 } from '../Controls/Table';
 
 import { Title } from './Controls/Title';
+import { STATUS_DISPLAY_VALUES } from './constants';
 import { CancelableTask, useHandleUpload } from './useHandleUpload';
-import { TABLE_HEADER_BUTTON_CLASS_NAME } from '../../components/DataTable';
 
 const { Icon, DefinitionDetail, DefinitionList, DefinitionTerm } =
   StorageBrowserElements;
@@ -32,6 +33,11 @@ interface LocationActionViewColumns extends CancelableTask {
   folder: string;
 }
 
+interface ActionIconProps {
+  status?: TaskStatus | 'CANCELED';
+}
+
+const DEFAULT_OVERWRITE_PROTECTION = true;
 const LOCATION_ACTION_VIEW_COLUMNS: Column<LocationActionViewColumns>[] = [
   {
     key: 'key',
@@ -62,10 +68,6 @@ const LOCATION_ACTION_VIEW_COLUMNS: Column<LocationActionViewColumns>[] = [
     header: 'Cancel',
   },
 ];
-
-interface ActionIconProps {
-  status?: TaskStatus | 'CANCELED';
-}
 
 export const ICON_CLASS = `${CLASS_BASE}__action-status`;
 const DESTINATION_CLASS = `${CLASS_BASE}__destination`;
@@ -152,7 +154,7 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
         return <TableDataText>{humanFileSize(row.size, true)}</TableDataText>;
       case 'status':
         return (
-          <TableDataText>{getFriendlyTaskStatus(row.status)}</TableDataText>
+          <TableDataText>{STATUS_DISPLAY_VALUES[row.status]}</TableDataText>
         );
       case 'progress':
         return (
@@ -193,19 +195,15 @@ const renderRowItem: RenderRowItem<LocationActionViewColumns> = (
 export const UploadControls = (): JSX.Element => {
   const [{ history, path }] = useControl({ type: 'NAVIGATE' });
 
-  // preventOverwrite is enabled by default in our call to uploadData
-  // so we set overwrite to default to false to match in our UI
-  const [overwrite, setOverwrite] = React.useState(false);
+  const [preventOverwrite, setPreventOverwrite] = React.useState(
+    DEFAULT_OVERWRITE_PROTECTION
+  );
   const [{ selected }, handleUpdateState] = useControl({
     type: 'ACTION_SELECT',
   });
 
   const [tasks, handleUpload, handleFileSelect, handleCancel] = useHandleUpload(
-    {
-      prefix: path,
-      preventOverwrite: !overwrite,
-      batchSize: 6,
-    }
+    { prefix: path, preventOverwrite }
   );
 
   const handleFileInput = React.useRef<HTMLInputElement>(null);
@@ -223,11 +221,7 @@ export const UploadControls = (): JSX.Element => {
         ? webkitRelativePath.slice(0, webkitRelativePath.lastIndexOf('/') + 1)
         : '/';
 
-    return {
-      ...task,
-      type: task.data.type ?? '-',
-      folder,
-    };
+    return { ...task, type: task.data.type ?? '-', folder };
   });
 
   React.useEffect(() => {
@@ -314,14 +308,32 @@ export const UploadControls = (): JSX.Element => {
     [direction, selection]
   );
 
-  const disabled = tasks.some((task) => task.status !== 'INITIAL');
-  const queuedTasks = tasks.filter((task) => task.status === 'QUEUED').length;
-  const canceledTasks = tasks.filter(
-    (task) => task.status === 'CANCELED'
+  const taskCount = tasks.length;
+
+  const processingTasks = tasks.filter(({ status }) => status === 'PENDING');
+  const hasCompleted =
+    !!taskCount &&
+    tasks.every(
+      ({ status }) =>
+        status === 'CANCELED' || status === 'COMPLETE' || status === 'FAILED'
+    );
+
+  const hasStarted = !!processingTasks.length;
+
+  const disableCancel = !taskCount || !hasStarted || hasCompleted;
+  const disablePrimary = !taskCount || hasStarted || hasCompleted;
+  const disableOverwrite = hasStarted || hasCompleted;
+  const disableSelectFiles = hasStarted || hasCompleted;
+
+  const queuedTasks = tasks.filter(
+    ({ status }) => status === 'QUEUED' || status === 'INITIAL'
   ).length;
-  const failedTasks = tasks.filter((task) => task.status === 'FAILED').length;
+  const canceledTasks = tasks.filter(
+    ({ status }) => status === 'CANCELED'
+  ).length;
+  const failedTasks = tasks.filter(({ status }) => status === 'FAILED').length;
   const completeTasks = tasks.filter(
-    (task) => task.status === 'COMPLETE'
+    ({ status }) => status === 'COMPLETE'
   ).length;
 
   return (
@@ -350,7 +362,7 @@ export const UploadControls = (): JSX.Element => {
       <Exit onClick={() => handleUpdateState({ type: 'CLEAR' })} />
       <Title />
       <Primary
-        disabled={disabled}
+        disabled={disablePrimary}
         onClick={() => {
           handleUpload();
         }}
@@ -359,7 +371,7 @@ export const UploadControls = (): JSX.Element => {
       </Primary>
       <ButtonElement
         variant="cancel"
-        disabled={queuedTasks === 0}
+        disabled={disableCancel}
         className={`${CLASS_BASE}__cancel`}
         onClick={() => {
           handleCancel();
@@ -368,7 +380,7 @@ export const UploadControls = (): JSX.Element => {
         Cancel
       </ButtonElement>
       <ButtonElement
-        disabled={disabled}
+        disabled={disableSelectFiles}
         className={`${CLASS_BASE}__add-folder`}
         variant="add-folder"
         onClick={() => {
@@ -378,7 +390,7 @@ export const UploadControls = (): JSX.Element => {
         Add folder
       </ButtonElement>
       <ButtonElement
-        disabled={disabled}
+        disabled={disableSelectFiles}
         className={`${CLASS_BASE}__add-files`}
         variant="add-files"
         onClick={() => {
@@ -389,14 +401,15 @@ export const UploadControls = (): JSX.Element => {
       </ButtonElement>
       <Destination>{history[history.length - 1].prefix}</Destination>
       <Overwrite
-        defaultChecked={overwrite}
+        defaultChecked={!preventOverwrite}
+        disabled={disableOverwrite}
         handleChange={() => {
-          setOverwrite((overwrite) => !overwrite);
+          setPreventOverwrite((overwrite) => !overwrite);
         }}
       />
-      {tasks.length ? (
+      {taskCount ? (
         <Summary
-          total={tasks.length}
+          total={taskCount}
           complete={completeTasks}
           failed={failedTasks}
           canceled={canceledTasks}

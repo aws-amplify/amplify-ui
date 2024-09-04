@@ -4,6 +4,7 @@ import {
   UploadDataWithPathInput,
   isCancelError,
 } from 'aws-amplify/storage';
+import { isFunction } from '@aws-amplify/ui';
 
 import { useGetLocationConfig } from '../../context/config';
 import { TaskStatus } from '../../context/types';
@@ -11,8 +12,6 @@ import { TaskStatus } from '../../context/types';
 // 5MB for multipart upload
 // https://github.com/aws-amplify/amplify-js/blob/1a5366d113c9af4ce994168653df3aadb142c581/packages/storage/src/providers/s3/utils/constants.ts#L16
 export const MULTIPART_UPLOAD_THRESHOLD_BYTES = 5 * 1024 * 1024;
-
-const DEFAULT_BATCH_SIZE = 6;
 
 /**
  * Base `task`
@@ -28,11 +27,6 @@ interface Task {
 export interface CancelableTask extends Omit<Task, 'status'> {
   cancel: (() => void) | undefined;
   status: TaskStatus | 'CANCELED';
-}
-
-interface PendingTask {
-  task: CancelableTask;
-  result: Promise<any>;
 }
 
 interface TaskUpdate extends Partial<CancelableTask> {
@@ -110,11 +104,9 @@ const mergeSelectedTasks = (
 export function useHandleUpload({
   prefix,
   preventOverwrite,
-  batchSize = DEFAULT_BATCH_SIZE,
 }: {
   prefix: string;
   preventOverwrite: boolean;
-  batchSize?: number;
 }): [
   tasks: CancelableTask[],
   handleUpload: () => void,
@@ -124,11 +116,6 @@ export function useHandleUpload({
   const getConfig = useGetLocationConfig();
 
   const [tasks, setTasks] = React.useState<CancelableTask[]>(() => []);
-  const tasksRef = React.useRef<CancelableTask[]>(tasks);
-
-  React.useEffect(() => {
-    tasksRef.current = tasks;
-  }, [tasks]);
 
   const handleFileSelect = (newFiles: File[]) => {
     setTasks((prevTasks) => {
@@ -152,148 +139,103 @@ export function useHandleUpload({
     });
   };
 
-  const processUpload = (task: CancelableTask): PendingTask => {
-    const { key, data } = task;
-    const { bucket: bucketName, credentialsProvider, region } = getConfig();
-    const input: UploadDataWithPathInput = {
-      path: `${prefix}${key}`,
-      data,
-      options: {
-        bucket: { bucketName, region },
-        locationCredentialsProvider: credentialsProvider,
-        onProgress: ({ totalBytes, transferredBytes }) => {
-          const progress = totalBytes ? transferredBytes / totalBytes : 0;
-          const nextTask: TaskUpdate = {
-            key,
-            progress,
-            ...(totalBytes === transferredBytes
-              ? { cancel: undefined }
-              : undefined),
-          };
-          setTasks((curr) => updateTasks(curr, nextTask));
+  const processUpload = React.useCallback(
+    async (_task?: CancelableTask) => {
+      const task = _task ?? tasks.find(({ status }) => status === 'INITIAL');
+
+      if (!task) return;
+
+      const { key, data } = task;
+      const { bucket: bucketName, credentialsProvider, region } = getConfig();
+
+      const input: UploadDataWithPathInput = {
+        path: `${prefix}${key}`,
+        data,
+        options: {
+          bucket: { bucketName, region },
+          locationCredentialsProvider: credentialsProvider,
+          onProgress: ({ totalBytes, transferredBytes }) => {
+            const progress = totalBytes ? transferredBytes / totalBytes : 0;
+            const nextTask: TaskUpdate = {
+              key,
+              progress,
+              ...(totalBytes === transferredBytes
+                ? { cancel: undefined }
+                : undefined),
+            };
+            setTasks((curr) => updateTasks(curr, nextTask));
+          },
+          preventOverwrite,
         },
-        preventOverwrite,
-      },
-    };
-
-    const { cancel, result } = uploadData(input);
-
-    const cancelFn =
-      task.size >= MULTIPART_UPLOAD_THRESHOLD_BYTES
-        ? () => cancel()
-        : undefined;
-
-    const pendingTask: CancelableTask = {
-      ...task,
-      status: 'PENDING',
-      cancel: cancelFn,
-    };
-
-    setTasks((prevTasks) => updateTasks(prevTasks, pendingTask));
-
-    return {
-      task: pendingTask,
-      result,
-    };
-  };
-
-  const handleUpload = async () => {
-    let currentIndex = 0;
-
-    // Update tasks to be in QUEUED state
-    // the 'cancel' property will update the the state so the task
-    // has status 'CANCELED' and its 'cancel' property is undefined
-    setTasks((prevTasks) =>
-      prevTasks.map((task) => ({
-        ...task,
-        status: 'QUEUED',
-        cancel: () =>
-          setTasks((prevTasks) =>
-            updateTasks(prevTasks, {
-              key: task.key,
-              status: 'CANCELED',
-              cancel: undefined,
-            })
-          ),
-      }))
-    );
-
-    const uploadNext = async () => {
-      const currentTasks = tasksRef.current;
-
-      if (currentIndex >= currentTasks.length) {
-        return;
-      }
-
-      const queuedTask = currentTasks[currentIndex];
-
-      if (queuedTask.status === 'CANCELED') {
-        currentIndex++;
-
-        uploadNext();
-
-        return;
-      }
-
-      const pendingTask = processUpload(queuedTask);
-
-      currentIndex++;
-
-      const { task, result } = pendingTask;
-      const { key } = task;
+      };
 
       try {
+        const { cancel: _cancel, result } = uploadData(input);
+
+        const cancel =
+          task.size < MULTIPART_UPLOAD_THRESHOLD_BYTES ? undefined : _cancel;
+
+        setTasks((prevTasks) =>
+          prevTasks.map(({ key: _key, status, ...rest }) => {
+            const isCurrent = _key === key;
+            if (isCurrent) {
+              return { ...rest, key, status: 'PENDING', cancel };
+            }
+
+            const isInitial = status === 'INITIAL';
+
+            if (isInitial) {
+              return {
+                ...rest,
+                key: _key,
+                status: 'QUEUED',
+                cancel: () =>
+                  setTasks((prev) =>
+                    updateTasks(prev, {
+                      key: _key,
+                      cancel: undefined,
+                      status: 'CANCELED',
+                    })
+                  ),
+              };
+            }
+
+            return { ...rest, key: _key, status };
+          })
+        );
+
         await result;
 
         setTasks((prevTasks) =>
-          updateTasks(prevTasks, { key, status: 'COMPLETE' })
+          updateTasks(prevTasks, { key, cancel: undefined, status: 'COMPLETE' })
         );
       } catch (error) {
+        const status = isCancelError(error) ? 'CANCELED' : 'FAILED';
+
         setTasks((prevTasks) =>
-          updateTasks(prevTasks, {
-            key,
-            status: isCancelError(error) ? 'CANCELED' : 'FAILED',
-            cancel: undefined,
-          })
+          updateTasks(prevTasks, { key, cancel: undefined, status })
         );
-      } finally {
-        uploadNext();
       }
-    };
+    },
+    [getConfig, tasks, prefix, preventOverwrite]
+  );
 
-    // Start the initial set of uploads
-    const initialUploads = Array(batchSize)
-      .fill(null)
-      .map(() => uploadNext());
+  React.useEffect(() => {
+    const hasStarted = tasks.some(({ status }) => status !== 'INITIAL');
+    const hasPendingTask = tasks.some(({ status }) => status === 'PENDING');
 
-    await Promise.all(initialUploads);
+    if (hasPendingTask || !hasStarted) return;
+
+    const nextTask = tasks.find(({ status }) => status === 'QUEUED');
+
+    if (!nextTask) return;
+
+    processUpload(nextTask);
+  }, [processUpload, tasks]);
+
+  const handleCancelAll = () => {
+    tasks.forEach(({ cancel }) => (isFunction(cancel) ? cancel() : undefined));
   };
 
-  const handleCancel = () => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) => {
-        if (task.status === 'COMPLETE' || task.progress === 1) {
-          return task;
-        } else if (task.status === 'PENDING') {
-          if (task.cancel && typeof task.cancel === 'function') {
-            // Need to call cancel on all pending tasks if it's cancellable
-            task.cancel();
-          } else {
-            // Uploads with size less than 5MB are not cancellable
-            return task;
-          }
-        }
-
-        // Calling `cancel` above should've updated the state in our try/catch
-        // but returning the updated state here since we are mapping over the tasks
-        return {
-          ...task,
-          status: 'CANCELED',
-          cancel: undefined,
-        };
-      })
-    );
-  };
-
-  return [tasks, handleUpload, handleFileSelect, handleCancel];
+  return [tasks, () => processUpload(), handleFileSelect, handleCancelAll];
 }

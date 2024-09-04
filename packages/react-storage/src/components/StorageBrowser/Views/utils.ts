@@ -32,31 +32,6 @@ export const listViewHelpers = ({
   };
 };
 
-export const getFriendlyTaskStatus = (status: string): string => {
-  switch (status) {
-    case 'INITIAL': {
-      return 'Not started';
-    }
-    case 'QUEUED': {
-      return 'Queued';
-    }
-    case 'PENDING': {
-      return 'In progress';
-    }
-    case 'FAILED': {
-      return 'Failed';
-    }
-    case 'COMPLETE': {
-      return 'Completed';
-    }
-    case 'CANCELED': {
-      return 'Canceled';
-    }
-    default:
-      return status;
-  }
-};
-
 export const getPercentValue = (value: number): number => {
   return Math.round(value * 100);
 };
