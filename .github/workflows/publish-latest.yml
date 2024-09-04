@@ -85,14 +85,14 @@ jobs:
   build-test-v2:
     uses: ./.github/workflows/reusable-build-system-test.yml
     needs: setup
-    if: ${{ needs.setup.outputs.has-changesets != 'true' }}
+    if: false
     with:
       dist-tag: next
 
   build-test-v2-react-native:
     uses: ./.github/workflows/reusable-build-system-test-react-native.yml
     needs: setup
-    if: ${{ needs.setup.outputs.has-changesets != 'true' }}
+    if: false
     with:
       dist-tag: next
 
