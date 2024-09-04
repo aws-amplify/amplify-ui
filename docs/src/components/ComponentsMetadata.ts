@@ -19,6 +19,7 @@ type ComponentNameKey =
   | 'Divider'
   | 'DropZone'
   | 'Fieldset'
+  | 'FileUploader'
   | 'Flex'
   | 'Grid'
   | 'Heading'
@@ -45,6 +46,7 @@ type ComponentNameKey =
   | 'SelectField'
   | 'StepperField'
   | 'StorageImage'
+  | 'StorageManager'
   | 'SwitchField'
   | 'Table'
   | 'Tabs'
@@ -315,6 +317,82 @@ export const ComponentsMetadata: ComponentClassNameItems = {
     className: ComponentClassName.FieldsetLegend,
     components: ['Fieldset'],
     description: 'Visual label for the Fieldset primitive',
+  },
+  FileUploader: {
+    className: ComponentClassName.FileUploader,
+    components: ['FileUploader'],
+  },
+  FileUploaderDropZone: {
+    className: ComponentClassName.FileUploaderDropZone,
+    components: ['FileUploader'],
+  },
+  FileUploaderDropZoneIcon: {
+    className: ComponentClassName.FileUploaderDropZoneIcon,
+    components: ['FileUploader'],
+  },
+  FileUploaderDropZoneText: {
+    className: ComponentClassName.FileUploaderDropZoneText,
+    components: ['FileUploader'],
+  },
+  FileUploaderFilePicker: {
+    className: ComponentClassName.FileUploaderFilePicker,
+    components: ['FileUploader'],
+  },
+  FileUploaderFile: {
+    className: ComponentClassName.FileUploaderFile,
+    components: ['FileUploader'],
+  },
+  FileUploaderFileWrapper: {
+    className: ComponentClassName.FileUploaderFileWrapper,
+    components: ['FileUploader'],
+  },
+  FileUploaderFileList: {
+    className: ComponentClassName.FileUploaderFileList,
+    components: ['FileUploader'],
+  },
+  FileUploaderFileName: {
+    className: ComponentClassName.FileUploaderFileName,
+    components: ['FileUploader'],
+  },
+  FileUploaderLoader: {
+    className: ComponentClassName.FileUploaderLoader,
+    components: ['FileUploader'],
+  },
+  FileUploaderFileSize: {
+    className: ComponentClassName.FileUploaderFileSize,
+    components: ['FileUploader'],
+  },
+  FileUploaderFileInfo: {
+    className: ComponentClassName.FileUploaderFileInfo,
+    components: ['FileUploader'],
+  },
+  FileUploaderFileImage: {
+    className: ComponentClassName.FileUploaderFileImage,
+    components: ['FileUploader'],
+  },
+  FileUploaderFileMain: {
+    className: ComponentClassName.FileUploaderFileMain,
+    components: ['FileUploader'],
+  },
+  FileUploaderFileStatus: {
+    className: ComponentClassName.FileUploaderFileStatus,
+    components: ['FileUploader'],
+  },
+  FileUploaderPreviewer: {
+    className: ComponentClassName.FileUploaderPreviewer,
+    components: ['FileUploader'],
+  },
+  FileUploaderPreviewerText: {
+    className: ComponentClassName.FileUploaderPreviewerText,
+    components: ['FileUploader'],
+  },
+  FileUploaderPreviewerActions: {
+    className: ComponentClassName.FileUploaderPreviewerActions,
+    components: ['FileUploader'],
+  },
+  FileUploaderPreviewerFooter: {
+    className: ComponentClassName.FileUploaderPreviewerFooter,
+    components: ['FileUploader'],
   },
   Flex: {
     className: ComponentClassName.Flex,
