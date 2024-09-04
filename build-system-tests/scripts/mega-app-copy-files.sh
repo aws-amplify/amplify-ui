@@ -160,7 +160,6 @@ if [[ "$FRAMEWORK" == 'angular' ]]; then
 fi
 
 if [[ "$FRAMEWORK" == 'vue' ]]; then
-    TS_CONFIG_FILE="mega-apps/${MEGA_APP_NAME}/tsconfig.json"
     AWS_EXPORTS_PATH="mega-apps/${MEGA_APP_NAME}/src/aws-exports.js"
     AWS_EXPORTS_DECLARATION_PATH="mega-apps/${MEGA_APP_NAME}/src/aws-exports.d.ts"
 
@@ -188,14 +187,6 @@ if [[ "$FRAMEWORK" == 'vue' ]]; then
     cp $AWS_EXPORTS_FILE $AWS_EXPORTS_PATH
     echo "cp $AWS_EXPORTS_DECLARATION_FILE $AWS_EXPORTS_DECLARATION_PATH"
     cp $AWS_EXPORTS_DECLARATION_FILE $AWS_EXPORTS_DECLARATION_PATH
-
-    # remove comments from JSON files because `json` package can't process comments
-    echo "npx strip-json-comments $TS_CONFIG_FILE >tmpfile && mv tmpfile $TS_CONFIG_FILE && rm -f tmpfile"
-    npx strip-json-comments $TS_CONFIG_FILE >tmpfile && mv tmpfile $TS_CONFIG_FILE && rm -f tmpfile
-
-    echo "add allowJs: true to tsconfig for aws-exports.js"
-    npx json -I -f "$TS_CONFIG_FILE" -e "this.compilerOptions = this.compilerOptions || {}; this.compilerOptions.allowJs = true"
-    npx json -I -f "$TS_CONFIG_FILE" -e "this.compilerOptions = this.compilerOptions || {}; this.compilerOptions.allowJs = true"
 fi
 
 if [[ "$FRAMEWORK" == "react-native" ]]; then
