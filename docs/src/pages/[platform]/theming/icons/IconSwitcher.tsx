@@ -67,9 +67,6 @@ const iconMap: Record<string, IconsContextInterface> = {
       error: <FiAlertCircle />,
       info: <FiInfo />,
     },
-    fileUploader: {
-      upload: <FiUploadCloud />,
-    },
     passwordField: {
       visibility: <FiEye />,
       visibilityOff: <FiEyeOff />,
@@ -88,6 +85,9 @@ const iconMap: Record<string, IconsContextInterface> = {
       add: <FiPlus />,
       remove: <FiMinus />,
     },
+    storageManager: {
+      upload: <FiUploadCloud />,
+    },
   },
   hi: {
     alert: {
@@ -99,9 +99,6 @@ const iconMap: Record<string, IconsContextInterface> = {
     checkbox: {
       checked: <HiCheck />,
       indeterminate: <HiMinus />,
-    },
-    fileUploader: {
-      upload: <HiUpload />,
     },
     passwordField: {
       visibility: <HiEye />,
@@ -121,6 +118,9 @@ const iconMap: Record<string, IconsContextInterface> = {
       add: <HiPlus />,
       remove: <HiMinus />,
     },
+    storageManager: {
+      upload: <HiUpload />,
+    },
   },
   fc: {
     alert: {
@@ -129,9 +129,6 @@ const iconMap: Record<string, IconsContextInterface> = {
       error: <FcHighPriority />,
       info: <FcInfo />,
       close: <FcMinus />,
-    },
-    fileUploader: {
-      upload: <FcUpload />,
     },
     passwordField: {
       visibility: <FcKey />,
@@ -150,6 +147,9 @@ const iconMap: Record<string, IconsContextInterface> = {
     stepperField: {
       add: <FcPlus />,
       remove: <FcMinus />,
+    },
+    storageManager: {
+      upload: <FcUpload />,
     },
   },
   default: {},
