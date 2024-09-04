@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Authenticator } from '@aws-amplify/ui-vue';
+import { Authenticator } from '@aws-amplify/ui-vu';
 import '@aws-amplify/ui-vue/styles.css';
 </script>
 <template>
