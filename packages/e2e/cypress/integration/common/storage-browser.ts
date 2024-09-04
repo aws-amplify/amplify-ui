@@ -3,9 +3,8 @@ import { escapeRegExp } from 'lodash';
 
 When('I click the {string} button on a slow network', (name: string) => {
   cy.intercept({ method: 'GET' }, (req) => {
-    alert('intercepted');
     req.on('response', (res) => {
-      res.setDelay(5000);
+      res.setDelay(3000);
     });
   });
 
