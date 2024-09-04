@@ -3,4 +3,4 @@
 '@aws-amplify/ui': minor
 ---
 
-Adds FileUploader as new default name of StorageManager to avoid confusion with upcoming StorageBrowser
+Adds FileUploader as new default name of StorageManager to avoid confusion with new components
