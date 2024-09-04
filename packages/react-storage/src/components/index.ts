@@ -1,3 +1,5 @@
+export { FileUploader, FileUploaderProps } from './FileUploader';
+
 export { StorageImage, StorageImageProps } from './StorageImage';
 
 export {
