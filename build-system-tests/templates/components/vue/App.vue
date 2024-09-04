@@ -20,7 +20,7 @@ export default defineComponent({
 </script>
 
 <script setup lang="ts">
-import { Authenticator } from '@aws-amplify/ui-vue';
+import { Authenticator } from '@aws-amplify/u-vue';
 import '@aws-amplify/ui-vue/styles.css';
 
 import { Amplify } from 'aws-amplify';
