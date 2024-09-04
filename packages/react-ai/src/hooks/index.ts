@@ -1,2 +1,3 @@
 import { AIContextProvider, AIContext } from './AIContextProvider';
-export { AIContextProvider, AIContext };
+import { createAIHooks } from './createAIHooks';
+export { AIContextProvider, AIContext, createAIHooks };

@@ -59,7 +59,6 @@ export const AttachFileControl: AttachFileControl = () => {
       </AttachFileButton>
       <VisuallyHidden>
         <input
-          // TODO follow up about what file types are accepted
           accept=".jpeg,.png,.webp,.gif"
           data-testid="hidden-file-input"
           onChange={handleFileChange}

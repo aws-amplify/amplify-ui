@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface Input {
+export interface Input {
   text?: string;
   files?: File[];
 }
