@@ -14,22 +14,17 @@ import { AIConversationDisplayText } from './displayText';
 import { ConversationMessage, SendMessage } from '../../types';
 import { ControlsContextProps } from './context/ControlsContext';
 
-export interface Controls<
-  T extends Partial<AIConversationElements> = AIConversationElements,
-> {
-  (): React.JSX.Element;
-  Avatars: AvatarControl<T>;
-  ActionsBar: ActionsBarControl<T>;
-  Field: FieldControl<T>;
-  Header: HeaderControl<T>;
-  Messages: MessagesControl<T>;
-  SuggestedPrompts: PromptControl<T>;
+export interface Controls {
+  Avatars: AvatarControl;
+  ActionsBar: ActionsBarControl;
+  Field: FieldControl;
+  Header: HeaderControl;
+  Messages: MessagesControl;
+  SuggestedPrompts: PromptControl;
 }
 
-export interface AIConversationInput<
-  T extends Partial<AIConversationElements>,
-> {
-  elements?: T;
+export interface AIConversationInput {
+  elements?: Partial<AIConversationElements>;
   displayText?: DisplayTextTemplate<AIConversationDisplayText>;
   suggestedPrompts?: SuggestedPrompt[];
   actions?: CustomAction[];
@@ -45,10 +40,10 @@ export interface AIConversationProps {
   isLoading?: boolean;
 }
 
-export interface AIConversation<T extends Partial<AIConversationElements>> {
+export interface AIConversation {
   (props: AIConversationProps): JSX.Element;
   Conversation: () => React.JSX.Element;
-  Controls: Controls<T>;
+  Controls: Controls;
   Provider: (
     props: {
       children?: React.ReactNode;

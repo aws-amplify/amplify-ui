@@ -49,11 +49,9 @@ HeaderControl.Container = Container;
 HeaderControl.Text = HeaderText;
 HeaderControl.Button = CloseButton;
 
-export interface HeaderControl<
-  T extends Partial<AIConversationElements> = AIConversationElements,
-> {
+export interface HeaderControl {
   (): React.JSX.Element;
-  Container: T['View'];
-  Button: T['Button'];
-  Text: T['Text'];
+  Container: AIConversationElements['View'];
+  Button: AIConversationElements['Button'];
+  Text: AIConversationElements['Text'];
 }

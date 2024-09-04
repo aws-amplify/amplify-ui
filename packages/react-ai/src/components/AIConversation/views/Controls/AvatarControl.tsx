@@ -69,11 +69,9 @@ AvatarControl.Container = Container;
 AvatarControl.DisplayName = AvatarDisplayName;
 AvatarControl.Icon = AvatarIcon;
 
-export interface AvatarControl<
-  T extends Partial<AIConversationElements> = AIConversationElements,
-> {
+export interface AvatarControl {
   (): React.JSX.Element;
-  Container: T['View'];
-  DisplayName: T['Text'];
-  Icon: T['Span'];
+  Container: AIConversationElements['View'];
+  DisplayName: AIConversationElements['Text'];
+  Icon: AIConversationElements['Span'];
 }

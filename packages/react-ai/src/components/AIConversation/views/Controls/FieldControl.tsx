@@ -245,14 +245,12 @@ FieldControl.TextInput = TextInput;
 FieldControl.SendButton = SendButton;
 FieldControl.SendIcon = SendIcon;
 
-export interface FieldControl<
-  T extends Partial<AIConversationElements> = AIConversationElements,
-> {
+export interface FieldControl {
   (): React.JSX.Element;
-  AttachFile: AttachFileControl<T>;
-  InputContainer: T['View'];
-  Label: T['Label'];
-  TextInput: T['TextArea'];
-  SendButton: T['Button'];
-  SendIcon: T['Icon'];
+  AttachFile: AttachFileControl;
+  InputContainer: AIConversationElements['View'];
+  Label: AIConversationElements['Label'];
+  TextInput: AIConversationElements['TextArea'];
+  SendButton: AIConversationElements['Button'];
+  SendIcon: AIConversationElements['Icon'];
 }

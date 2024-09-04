@@ -247,17 +247,15 @@ MessagesControl.Layout = Layout;
 MessagesControl.Message = MessageControl;
 MessagesControl.Separator = Separator;
 
-export interface MessagesControl<
-  T extends Partial<AIConversationElements> = AIConversationElements,
-> {
+export interface MessagesControl {
   (props: {
     renderMessage?: (message: ConversationMessage) => React.ReactNode;
   }): JSX.Element;
-  ActionsBar: ActionsBarControl<T>;
-  Avatar: AvatarControl<T>;
-  Container: T['View'];
-  HeaderContainer: T['View'];
-  Layout: T['View'];
-  Message: MessageControl<T>;
-  Separator: T['Span'];
+  ActionsBar: ActionsBarControl;
+  Avatar: AvatarControl;
+  Container: AIConversationElements['View'];
+  HeaderContainer: AIConversationElements['View'];
+  Layout: AIConversationElements['View'];
+  Message: MessageControl;
+  Separator: AIConversationElements['Span'];
 }
