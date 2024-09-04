@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Default values
 BUILD_TOOL="cra"
@@ -105,4 +106,4 @@ BASE_OPTIONS="--build-tool $BUILD_TOOL --build-tool-version $BUILD_TOOL_VERSION 
 ./scripts/mega-app-install.sh $BASE_OPTIONS --pkg-manager $PKG_MANAGER --pkg-manager-version $PKG_MANAGER_VERSION --tag $TAG
 
 # Build mega app
-# ./scripts/mega-app-build.sh $BASE_OPTIONS --platform $PLATFORM
+./scripts/mega-app-build.sh $BASE_OPTIONS --platform $PLATFORM
