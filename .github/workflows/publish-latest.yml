@@ -83,16 +83,16 @@ jobs:
         working-directory: ./canary
 
   build-test-v2:
+    if: false
     uses: ./.github/workflows/reusable-build-system-test.yml
     needs: setup
-    if: false
     with:
       dist-tag: next
 
   build-test-v2-react-native:
+    if: false
     uses: ./.github/workflows/reusable-build-system-test-react-native.yml
     needs: setup
-    if: false
     with:
       dist-tag: next
 
