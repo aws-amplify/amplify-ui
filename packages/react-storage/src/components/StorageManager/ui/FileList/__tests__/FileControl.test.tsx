@@ -110,7 +110,7 @@ describe('FileControl', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.FileUploaderFileImage}`
+        `${ComponentClassName.StorageManagerFileImage}`
       )
     ).toHaveLength(1);
 
