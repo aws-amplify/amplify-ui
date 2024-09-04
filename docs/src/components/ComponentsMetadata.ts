@@ -45,7 +45,6 @@ type ComponentNameKey =
   | 'SelectField'
   | 'StepperField'
   | 'StorageImage'
-  | 'StorageManager'
   | 'SwitchField'
   | 'Table'
   | 'Tabs'
