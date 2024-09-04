@@ -205,7 +205,7 @@
 }
 
 .storage-browser__primary {
-  grid-column: 4 / -1;
+  grid-column: 3 / -2;
   justify-self: flex-end;
 }
 

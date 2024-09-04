@@ -12,16 +12,19 @@ export const LABEL_TEXT = 'Overwrite existing files';
 
 interface OverwriteControlProps {
   defaultChecked?: boolean;
+  disabled?: boolean;
   handleChange?: () => void;
 }
 
 export const OverwriteControl = ({
   defaultChecked,
+  disabled,
   handleChange,
 }: OverwriteControlProps): React.JSX.Element => (
   <ViewElement className={BLOCK_NAME}>
     <InputElement
       defaultChecked={defaultChecked}
+      disabled={disabled}
       onChange={handleChange}
       type="checkbox"
       id="overwrite"
