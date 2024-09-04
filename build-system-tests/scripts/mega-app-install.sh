@@ -128,12 +128,12 @@ else
         install_dependencies_with_retries npm "$DEP_TYPES"
     fi
 
-    if [[ "$BUILD_TOOL" == 'next' && "$BUILD_TOOL_VERSION" == '11' ]]; then
-        # We have to remove the initial downloaded node_modules for Next.js 11,
-        # because create-next-app only creates the app with the latest version
-        echo "rm -rf node_modules"
-        rm -rf node_modules
-    fi
+    # if [[ "$BUILD_TOOL" == 'next' && "$BUILD_TOOL_VERSION" == '11' ]]; then
+    #     # We have to remove the initial downloaded node_modules for Next.js 11,
+    #     # because create-next-app only creates the app with the latest version
+    #     echo "rm -rf node_modules"
+    #     rm -rf node_modules
+    # fi
 
     if [[ "$FRAMEWORK" == "react-native" ]]; then
         DEPENDENCIES="$TAGGED_UI_FRAMEWORK @aws-amplify/react-native aws-amplify react-native-safe-area-context @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
