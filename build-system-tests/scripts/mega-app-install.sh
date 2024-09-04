@@ -86,8 +86,8 @@ echo "##########################"
 echo "# Start Mega App Install #"
 echo "##########################"
 
-TAGGED_UI_FRAMEWORK="@aws-amplify/ui-$FRAMEWORK@$TAG"
-DEPENDENCIES="$FRAMEWORK@$FRAMEWORK_VERSION $TAGGED_UI_FRAMEWORK aws-ampify"
+TAGGED_UI_FRAMEWORK="@aws-amplify/u-$FRAMEWORK@$TAG"
+DEPENDENCIES="$FRAMEWORK@$FRAMEWORK_VERSION $TAGGED_UI_FRAMEWORK aws-amplify"
 
 echo "cd ./mega-apps/${MEGA_APP_NAME}"
 cd "./mega-apps/${MEGA_APP_NAME}"
@@ -137,7 +137,7 @@ else
     # fi
 
     if [[ "$FRAMEWORK" == "react-native" ]]; then
-        DEPENDENCIES="$TAGGED_UI_FRAMEWORK @aws-ampify/react-native aws-amplify react-native-safe-area-context @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
+        DEPENDENCIES="$TAGGED_UI_FRAMEWORK @aws-amplify/react-native aws-amplify react-native-safe-area-context @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
         echo "npm install $DEPENDENCIES"
         npm install $DEPENDENCIES
         if [[ "$BUILD_TOOL" == "expo" ]]; then
