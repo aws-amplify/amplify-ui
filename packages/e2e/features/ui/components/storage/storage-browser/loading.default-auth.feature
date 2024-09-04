@@ -19,3 +19,4 @@ Feature: Loading spinner on Storage Browser views
     Then I click the button containing "public"
     Then I click the "Refresh table" button on a slow network
     Then I see "Loading"
+    
