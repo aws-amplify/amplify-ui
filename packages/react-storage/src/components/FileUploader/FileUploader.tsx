@@ -8,7 +8,7 @@ import {
 } from '@aws-amplify/ui-react-core';
 import { useDropZone } from '@aws-amplify/ui-react/internal';
 
-import { useStorageManager, useUploadFiles } from './hooks';
+import { useFileUploader, useUploadFiles } from './hooks';
 import {
   FileStatus,
   FileUploaderProps,
@@ -25,7 +25,7 @@ import {
 } from './ui';
 import {
   checkMaxFileSize,
-  defaultStorageManagerDisplayText,
+  defaultFileUploaderDisplayText,
   filterAllowedFiles,
   TaskHandler,
 } from './utils';
@@ -91,7 +91,7 @@ const FileUploaderBase = React.forwardRef(function FileUploader(
     (typeof maxFileCount === 'number' && maxFileCount > 1);
 
   const displayText = {
-    ...defaultStorageManagerDisplayText,
+    ...defaultFileUploaderDisplayText,
     ...overrideDisplayText,
   };
 
@@ -117,7 +117,7 @@ const FileUploaderBase = React.forwardRef(function FileUploader(
     setUploadProgress,
     setUploadSuccess,
     setUploadResumed,
-  } = useStorageManager(defaultFiles);
+  } = useFileUploader(defaultFiles);
 
   React.useImperativeHandle(ref, () => ({ clearFiles }));
 
@@ -251,8 +251,8 @@ const FileUploaderBase = React.forwardRef(function FileUploader(
 
   return (
     <Components.Container
-      className={`${ComponentClassName.StorageManager} ${
-        hasFiles ? ComponentClassName.StorageManagerPreviewer : ''
+      className={`${ComponentClassName.FileUploader} ${
+        hasFiles ? ComponentClassName.FileUploaderPreviewer : ''
       }`}
     >
       <Components.DropZone

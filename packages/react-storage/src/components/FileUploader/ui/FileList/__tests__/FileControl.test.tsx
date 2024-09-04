@@ -6,10 +6,10 @@ import { ComponentClassName } from '@aws-amplify/ui';
 import { FileControlProps } from '../types';
 import { FileControl } from '../FileControl';
 import { FileStatus } from '../../../types';
-import { defaultStorageManagerDisplayText } from '../../../utils/displayText';
+import { defaultFileUploaderDisplayText } from '../../../utils/displayText';
 
 const fileControlProps: FileControlProps = {
-  displayText: defaultStorageManagerDisplayText,
+  displayText: defaultFileUploaderDisplayText,
   displayName: 'fileName',
   errorMessage: '',
   isImage: false,
@@ -32,32 +32,30 @@ describe('FileControl', () => {
     expect(container).toMatchSnapshot();
 
     expect(
+      container.getElementsByClassName(`${ComponentClassName.FileUploaderFile}`)
+    ).toHaveLength(1);
+
+    expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerFile}`
+        `${ComponentClassName.FileUploaderFileWrapper}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerFileWrapper}`
+        `${ComponentClassName.FileUploaderFileStatus}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerFileStatus}`
+        `${ComponentClassName.FileUploaderLoader}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerLoader}`
-      )
-    ).toHaveLength(1);
-
-    expect(
-      container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerFileImage}`
+        `${ComponentClassName.FileUploaderFileImage}`
       )
     ).toHaveLength(0);
   });
@@ -70,20 +68,18 @@ describe('FileControl', () => {
     expect(container).toMatchSnapshot();
 
     expect(
+      container.getElementsByClassName(`${ComponentClassName.FileUploaderFile}`)
+    ).toHaveLength(1);
+
+    expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerFile}`
+        `${ComponentClassName.FileUploaderFileStatus}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerFileStatus}`
-      )
-    ).toHaveLength(1);
-
-    expect(
-      container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerLoader}`
+        `${ComponentClassName.FileUploaderLoader}`
       )
     ).toHaveLength(0);
   });
@@ -95,7 +91,7 @@ describe('FileControl', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerFileImage}`
+        `${ComponentClassName.FileUploaderFileImage}`
       )
     ).toHaveLength(1);
 

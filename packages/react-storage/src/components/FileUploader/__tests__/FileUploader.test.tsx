@@ -17,7 +17,7 @@ import {
   ACCESS_LEVEL_DEPRECATION_MESSAGE,
 } from '../FileUploader';
 import { FileUploaderProps, FileUploaderHandle, FileStatus } from '../types';
-import { defaultStorageManagerDisplayText } from '../utils';
+import { defaultFileUploaderDisplayText } from '../utils';
 
 const warnSpy = jest.spyOn(console, 'warn').mockImplementation();
 
@@ -31,7 +31,7 @@ const uploadDataSpy = jest
     result: Promise.resolve({ key: input.key, data: input.data }),
   }));
 
-const storeManagerProps: FileUploaderProps = {
+const fileUploaderProps: FileUploaderProps = {
   accessLevel: 'guest',
   maxFileCount: 100,
 };
@@ -43,39 +43,39 @@ describe('FileUploader', () => {
 
   it('behaves as expected with an accessLevel prop', () => {
     const { container, getByText } = render(
-      <FileUploader {...storeManagerProps} />
+      <FileUploader {...fileUploaderProps} />
     );
     expect(container).toMatchSnapshot();
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerDropZone}`
+        `${ComponentClassName.FileUploaderDropZone}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerDropZoneText}`
+        `${ComponentClassName.FileUploaderDropZoneText}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerDropZoneIcon}`
+        `${ComponentClassName.FileUploaderDropZoneIcon}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerFilePicker}`
+        `${ComponentClassName.FileUploaderFilePicker}`
       )
     ).toHaveLength(1);
 
     expect(
-      getByText(defaultStorageManagerDisplayText.browseFilesText)
+      getByText(defaultFileUploaderDisplayText.browseFilesText)
     ).toBeVisible();
     expect(
-      getByText(defaultStorageManagerDisplayText.dropFilesText)
+      getByText(defaultFileUploaderDisplayText.dropFilesText)
     ).toBeVisible();
 
     expect(warnSpy).toHaveBeenCalledTimes(1);
@@ -89,33 +89,33 @@ describe('FileUploader', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerDropZone}`
+        `${ComponentClassName.FileUploaderDropZone}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerDropZoneText}`
+        `${ComponentClassName.FileUploaderDropZoneText}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerDropZoneIcon}`
+        `${ComponentClassName.FileUploaderDropZoneIcon}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerFilePicker}`
+        `${ComponentClassName.FileUploaderFilePicker}`
       )
     ).toHaveLength(1);
 
     expect(
-      getByText(defaultStorageManagerDisplayText.browseFilesText)
+      getByText(defaultFileUploaderDisplayText.browseFilesText)
     ).toBeVisible();
     expect(
-      getByText(defaultStorageManagerDisplayText.dropFilesText)
+      getByText(defaultFileUploaderDisplayText.dropFilesText)
     ).toBeVisible();
 
     expect(warnSpy).not.toHaveBeenCalled();
@@ -123,7 +123,7 @@ describe('FileUploader', () => {
 
   it('renders as expected with autoUpload turned off', () => {
     const { getByText } = render(
-      <FileUploader {...storeManagerProps} autoUpload={false} />
+      <FileUploader {...fileUploaderProps} autoUpload={false} />
     );
     const hiddenInput = document.querySelector(
       'input[type="file"]'
@@ -133,21 +133,21 @@ describe('FileUploader', () => {
     fireEvent.change(hiddenInput, { target: { files: [mockFile] } });
 
     expect(
-      getByText(defaultStorageManagerDisplayText.clearAllButtonText)
+      getByText(defaultFileUploaderDisplayText.clearAllButtonText)
     ).toBeVisible();
     expect(
-      getByText(defaultStorageManagerDisplayText.getSelectedFilesText(1))
+      getByText(defaultFileUploaderDisplayText.getSelectedFilesText(1))
     ).toBeVisible();
   });
 
   it('renders as expected with override display text', () => {
     const displayText = {
-      ...defaultStorageManagerDisplayText,
+      ...defaultFileUploaderDisplayText,
       dropFilesText: 'Drag and drop files here, or click to select files',
       browseFilesText: 'Select Files',
     };
     const { getByText } = render(
-      <FileUploader {...storeManagerProps} displayText={displayText} />
+      <FileUploader {...fileUploaderProps} displayText={displayText} />
     );
     expect(
       getByText('Drag and drop files here, or click to select files')
@@ -158,7 +158,7 @@ describe('FileUploader', () => {
   it('displays error message when file exceeds max file size', () => {
     const maxFileSize = 0;
     const { getByText } = render(
-      <FileUploader {...storeManagerProps} maxFileSize={maxFileSize} />
+      <FileUploader {...fileUploaderProps} maxFileSize={maxFileSize} />
     );
     const hiddenInput = document.querySelector(
       'input[type="file"]'
@@ -170,14 +170,14 @@ describe('FileUploader', () => {
     fireEvent.change(hiddenInput, { target: { files: [mockFile] } });
 
     expect(
-      getByText(defaultStorageManagerDisplayText.getFileSizeErrorText('0 B'))
+      getByText(defaultFileUploaderDisplayText.getFileSizeErrorText('0 B'))
     ).toBeVisible();
   });
 
   it('displays error message when max file count is exceeded', () => {
     const maxFileCount = 1;
     const { getByText } = render(
-      <FileUploader {...storeManagerProps} maxFileCount={maxFileCount} />
+      <FileUploader {...fileUploaderProps} maxFileCount={maxFileCount} />
     );
     const hiddenInput = document.querySelector(
       'input[type="file"]'
@@ -191,7 +191,7 @@ describe('FileUploader', () => {
 
     expect(
       getByText(
-        defaultStorageManagerDisplayText.getMaxFilesErrorText(maxFileCount)
+        defaultFileUploaderDisplayText.getMaxFilesErrorText(maxFileCount)
       )
     ).toBeVisible();
   });
@@ -199,7 +199,7 @@ describe('FileUploader', () => {
   it('calls onUploadSuccess callback when file is successfully uploaded', async () => {
     const onUploadSuccess = jest.fn();
     render(
-      <FileUploader {...storeManagerProps} onUploadSuccess={onUploadSuccess} />
+      <FileUploader {...fileUploaderProps} onUploadSuccess={onUploadSuccess} />
     );
     const hiddenInput = document.querySelector(
       'input[type="file"]'
@@ -229,7 +229,7 @@ describe('FileUploader', () => {
   it('calls onUploadStart callback when file starts uploading', async () => {
     const onUploadStart = jest.fn();
     render(
-      <FileUploader {...storeManagerProps} onUploadStart={onUploadStart} />
+      <FileUploader {...fileUploaderProps} onUploadStart={onUploadStart} />
     );
     const hiddenInput = document.querySelector(
       'input[type="file"]'
@@ -261,7 +261,7 @@ describe('FileUploader', () => {
 
     const { container } = render(
       <FileUploader
-        {...storeManagerProps}
+        {...fileUploaderProps}
         autoUpload={false}
         onFileRemove={onFileRemove}
       />
@@ -295,7 +295,7 @@ describe('FileUploader', () => {
     const onFileRemove = jest.fn();
 
     const { container } = render(
-      <FileUploader {...storeManagerProps} onFileRemove={onFileRemove} />
+      <FileUploader {...fileUploaderProps} onFileRemove={onFileRemove} />
     );
     const hiddenInput = document.querySelector(
       'input[type="file"]'
@@ -335,7 +335,7 @@ describe('FileUploader', () => {
 
     const { container } = render(
       <FileUploader
-        {...storeManagerProps}
+        {...fileUploaderProps}
         onFileRemove={onFileRemove}
         processFile={processFile}
       />
@@ -378,7 +378,7 @@ describe('FileUploader', () => {
 
     const { container } = render(
       <FileUploader
-        {...storeManagerProps}
+        {...fileUploaderProps}
         onFileRemove={onFileRemove}
         processFile={processFile}
         path={() => 'my-path'}
@@ -413,7 +413,7 @@ describe('FileUploader', () => {
   });
 
   it('logs a warning if maxFileCount is zero', () => {
-    render(<FileUploader {...storeManagerProps} maxFileCount={0} />);
+    render(<FileUploader {...fileUploaderProps} maxFileCount={0} />);
 
     expect(warnSpy).toHaveBeenCalledTimes(2);
     expect(warnSpy.mock.calls[0][0]).toBe(MISSING_REQUIRED_PROPS_MESSAGE);
@@ -421,7 +421,7 @@ describe('FileUploader', () => {
   });
 
   it('logs a warning if provided an accessLevel prop', () => {
-    render(<FileUploader {...storeManagerProps} maxFileCount={1} />);
+    render(<FileUploader {...fileUploaderProps} maxFileCount={1} />);
 
     expect(warnSpy).toHaveBeenCalledTimes(1);
     expect(warnSpy.mock.calls[0][0]).toBe(ACCESS_LEVEL_DEPRECATION_MESSAGE);
@@ -429,13 +429,13 @@ describe('FileUploader', () => {
 
   it('should trigger hidden input onChange', async () => {
     const mockAddFiles = jest.fn();
-    jest.spyOn(StorageHooks, 'useStorageManager').mockReturnValue({
+    jest.spyOn(StorageHooks, 'useFileUploader').mockReturnValue({
       addFiles: mockAddFiles,
       files: [],
       status: FileStatus.QUEUED,
-    } as unknown as StorageHooks.UseStorageManager);
+    } as unknown as StorageHooks.UseFileUploader);
 
-    const { findByRole } = render(<FileUploader {...storeManagerProps} />);
+    const { findByRole } = render(<FileUploader {...fileUploaderProps} />);
 
     const filePickerButton = await findByRole('button');
 
@@ -467,13 +467,13 @@ describe('FileUploader', () => {
     const ref = React.createRef<FileUploaderHandle>();
     const mockAddFiles = jest.fn();
     const mockClearFiles = jest.fn();
-    jest.spyOn(StorageHooks, 'useStorageManager').mockReturnValue({
+    jest.spyOn(StorageHooks, 'useFileUploader').mockReturnValue({
       addFiles: mockAddFiles,
       clearFiles: mockClearFiles,
       files: [],
-    } as unknown as StorageHooks.UseStorageManager);
+    } as unknown as StorageHooks.UseFileUploader);
 
-    render(<FileUploader {...storeManagerProps} ref={ref} />);
+    render(<FileUploader {...fileUploaderProps} ref={ref} />);
     const hiddenInput = document.querySelector(
       'input[type="file"]'
     ) as HTMLInputElement;

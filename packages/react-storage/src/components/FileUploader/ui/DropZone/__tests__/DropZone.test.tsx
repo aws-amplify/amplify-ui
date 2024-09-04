@@ -5,7 +5,7 @@ import { ComponentClassName } from '@aws-amplify/ui';
 import { IconsProvider, View } from '@aws-amplify/ui-react';
 import { classNameModifier } from '@aws-amplify/ui';
 
-import { defaultStorageManagerDisplayText } from '../../../utils/displayText';
+import { defaultFileUploaderDisplayText } from '../../../utils/displayText';
 import { DropZone } from '../DropZone';
 
 describe('DropZone', () => {
@@ -18,7 +18,7 @@ describe('DropZone', () => {
         onDragOver={() => {}}
         onDragStart={() => {}}
         onDrop={() => {}}
-        displayText={defaultStorageManagerDisplayText}
+        displayText={defaultFileUploaderDisplayText}
       />
     );
 
@@ -35,14 +35,14 @@ describe('DropZone', () => {
         onDragOver={() => {}}
         onDragStart={() => {}}
         onDrop={() => {}}
-        displayText={defaultStorageManagerDisplayText}
+        displayText={defaultFileUploaderDisplayText}
         testId={testId}
       />
     );
 
     const dropZoneElement = await screen.findByTestId(testId);
     expect(dropZoneElement).toHaveClass(
-      classNameModifier(ComponentClassName.StorageManagerDropZone, 'active')
+      classNameModifier(ComponentClassName.FileUploaderDropZone, 'active')
     );
   });
 
@@ -57,7 +57,7 @@ describe('DropZone', () => {
         onDragOver={() => {}}
         onDragStart={() => {}}
         onDrop={() => {}}
-        displayText={defaultStorageManagerDisplayText}
+        displayText={defaultFileUploaderDisplayText}
         testId={testId}
       >
         {testText}
@@ -84,7 +84,7 @@ describe('DropZone', () => {
           onDragOver={() => {}}
           onDragStart={() => {}}
           onDrop={() => {}}
-          displayText={defaultStorageManagerDisplayText}
+          displayText={defaultFileUploaderDisplayText}
         />
       </IconsProvider>
     );

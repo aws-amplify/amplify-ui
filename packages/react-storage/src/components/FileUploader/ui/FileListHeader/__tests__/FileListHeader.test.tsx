@@ -4,12 +4,12 @@ import { render } from '@testing-library/react';
 import { ComponentClassName } from '@aws-amplify/ui';
 
 import { FileListHeader, FileListHeaderProps } from '../FileListHeader';
-import { defaultStorageManagerDisplayText } from '../../../utils/displayText';
+import { defaultFileUploaderDisplayText } from '../../../utils/displayText';
 
 const headerProps: FileListHeaderProps = {
   fileCount: 2,
   remainingFilesCount: 1,
-  displayText: defaultStorageManagerDisplayText,
+  displayText: defaultFileUploaderDisplayText,
   allUploadsSuccessful: false,
 };
 
@@ -21,7 +21,7 @@ describe('FileListHeader', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerPreviewerText}`
+        `${ComponentClassName.FileUploaderPreviewerText}`
       )
     ).toHaveLength(1);
 

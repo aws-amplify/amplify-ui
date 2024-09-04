@@ -1,8 +1,8 @@
-import { StorageManagerDisplayTextDefault, TaskHandler } from '../../utils';
+import { FileUploaderDisplayTextDefault, TaskHandler } from '../../utils';
 import { FileStatus, StorageFile } from '../../types';
 
 export interface FileListProps {
-  displayText: StorageManagerDisplayTextDefault;
+  displayText: FileUploaderDisplayTextDefault;
   files: StorageFile[];
   isResumable: boolean;
   onCancelUpload: TaskHandler;
@@ -15,7 +15,7 @@ export interface FileListProps {
 }
 
 export interface FileControlProps {
-  displayText: StorageManagerDisplayTextDefault;
+  displayText: FileUploaderDisplayTextDefault;
   displayName: string;
   errorMessage: string;
   isImage: boolean;
@@ -34,7 +34,7 @@ export interface FileControlProps {
 
 export interface FileStatusMessageProps
   extends Pick<
-    StorageManagerDisplayTextDefault,
+    FileUploaderDisplayTextDefault,
     'getUploadingText' | 'getPausedText' | 'uploadSuccessfulText'
   > {
   status: FileStatus;

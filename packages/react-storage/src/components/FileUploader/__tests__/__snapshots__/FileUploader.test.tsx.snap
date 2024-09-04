@@ -3,14 +3,14 @@
 exports[`FileUploader behaves as expected with a path prop 1`] = `
 <div>
   <div
-    class="amplify-storagemanager "
+    class="amplify-fileuploader "
   >
     <div
-      class="amplify-storagemanager__dropzone"
+      class="amplify-fileuploader__dropzone"
     >
       <span
         aria-hidden="true"
-        class="amplify-storagemanager__dropzone__icon"
+        class="amplify-fileuploader__dropzone__icon"
       >
         <span
           class="amplify-icon"
@@ -31,12 +31,12 @@ exports[`FileUploader behaves as expected with a path prop 1`] = `
         </span>
       </span>
       <p
-        class="amplify-text amplify-storagemanager__dropzone__text"
+        class="amplify-text amplify-fileuploader__dropzone__text"
       >
         Drop files here or
       </p>
       <button
-        class="amplify-button amplify-field-group__control amplify-button--small amplify-storagemanager__file__picker"
+        class="amplify-button amplify-field-group__control amplify-button--small amplify-fileuploader__file__picker"
         type="button"
       >
         Browse files
@@ -59,14 +59,14 @@ exports[`FileUploader behaves as expected with a path prop 1`] = `
 exports[`FileUploader behaves as expected with an accessLevel prop 1`] = `
 <div>
   <div
-    class="amplify-storagemanager "
+    class="amplify-fileuploader "
   >
     <div
-      class="amplify-storagemanager__dropzone"
+      class="amplify-fileuploader__dropzone"
     >
       <span
         aria-hidden="true"
-        class="amplify-storagemanager__dropzone__icon"
+        class="amplify-fileuploader__dropzone__icon"
       >
         <span
           class="amplify-icon"
@@ -87,12 +87,12 @@ exports[`FileUploader behaves as expected with an accessLevel prop 1`] = `
         </span>
       </span>
       <p
-        class="amplify-text amplify-storagemanager__dropzone__text"
+        class="amplify-text amplify-fileuploader__dropzone__text"
       >
         Drop files here or
       </p>
       <button
-        class="amplify-button amplify-field-group__control amplify-button--small amplify-storagemanager__file__picker"
+        class="amplify-button amplify-field-group__control amplify-button--small amplify-fileuploader__file__picker"
         type="button"
       >
         Browse files

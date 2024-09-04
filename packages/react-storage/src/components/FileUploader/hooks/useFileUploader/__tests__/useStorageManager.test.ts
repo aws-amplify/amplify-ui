@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 
 import { DefaultFile, FileStatus } from '../../../types';
-import { useStorageManager } from '../useStorageManager';
+import { useFileUploader } from '../useFileUploader';
 
 jest.mock('aws-amplify/storage');
 
@@ -11,7 +11,7 @@ describe('useUploadFiles', () => {
   afterEach(() => jest.clearAllMocks());
 
   it('should initialize with default files', () => {
-    const { result } = renderHook(() => useStorageManager(defaultFiles));
+    const { result } = renderHook(() => useFileUploader(defaultFiles));
 
     expect(result.current.files.length).toBe(2);
 
@@ -22,7 +22,7 @@ describe('useUploadFiles', () => {
   });
 
   it('should add files', () => {
-    const { result } = renderHook(() => useStorageManager());
+    const { result } = renderHook(() => useFileUploader());
     const status = FileStatus.QUEUED;
 
     expect(result.current.files.length).toBe(0);
@@ -44,7 +44,7 @@ describe('useUploadFiles', () => {
   });
 
   it('should queue files', () => {
-    const { result } = renderHook(() => useStorageManager());
+    const { result } = renderHook(() => useFileUploader());
     const status = FileStatus.ADDED;
 
     act(() =>
@@ -67,7 +67,7 @@ describe('useUploadFiles', () => {
   });
 
   it('should clear files', () => {
-    const { result } = renderHook(() => useStorageManager(defaultFiles));
+    const { result } = renderHook(() => useFileUploader(defaultFiles));
     act(() =>
       result.current.addFiles({
         files: [
@@ -85,7 +85,7 @@ describe('useUploadFiles', () => {
   });
 
   it('should set uploading file', () => {
-    const { result } = renderHook(() => useStorageManager(defaultFiles));
+    const { result } = renderHook(() => useFileUploader(defaultFiles));
 
     act(() =>
       result.current.setUploadingFile({
@@ -106,7 +106,7 @@ describe('useUploadFiles', () => {
   });
 
   it('should set upload progress', () => {
-    const { result } = renderHook(() => useStorageManager(defaultFiles));
+    const { result } = renderHook(() => useFileUploader(defaultFiles));
 
     act(() =>
       result.current.setUploadProgress({
@@ -119,7 +119,7 @@ describe('useUploadFiles', () => {
   });
 
   it('should set upload success', () => {
-    const { result } = renderHook(() => useStorageManager(defaultFiles));
+    const { result } = renderHook(() => useFileUploader(defaultFiles));
 
     act(() =>
       result.current.setUploadSuccess({
@@ -131,7 +131,7 @@ describe('useUploadFiles', () => {
   });
 
   it('should set upload paused', () => {
-    const { result } = renderHook(() => useStorageManager(defaultFiles));
+    const { result } = renderHook(() => useFileUploader(defaultFiles));
 
     act(() =>
       result.current.setUploadPaused({
@@ -143,7 +143,7 @@ describe('useUploadFiles', () => {
   });
 
   it('should set upload resumed', () => {
-    const { result } = renderHook(() => useStorageManager(defaultFiles));
+    const { result } = renderHook(() => useFileUploader(defaultFiles));
 
     act(() =>
       result.current.setUploadResumed({
@@ -155,7 +155,7 @@ describe('useUploadFiles', () => {
   });
 
   it('should remove upload', () => {
-    const { result } = renderHook(() => useStorageManager(defaultFiles));
+    const { result } = renderHook(() => useFileUploader(defaultFiles));
 
     expect(result.current.files.length).toBe(2);
     act(() =>
@@ -167,7 +167,7 @@ describe('useUploadFiles', () => {
   });
 
   it('should update a target file key', () => {
-    const { result } = renderHook(() => useStorageManager(defaultFiles));
+    const { result } = renderHook(() => useFileUploader(defaultFiles));
 
     const processedKey = 'processedKey';
 
@@ -181,20 +181,20 @@ describe('useUploadFiles', () => {
   describe('defaultFiles', () => {
     it('should handle good defaultFiles', () => {
       const { result } = renderHook(() =>
-        useStorageManager([{ key: 'file.jpg' }])
+        useFileUploader([{ key: 'file.jpg' }])
       );
       expect(result.current.files).toHaveLength(1);
     });
 
     it('should handle null defaultFiles', () => {
       // @ts-expect-error
-      const { result } = renderHook(() => useStorageManager(null));
+      const { result } = renderHook(() => useFileUploader(null));
       expect(result.current.files).toHaveLength(0);
     });
 
     it('should handle bad defaultFiles', () => {
       const { result } = renderHook(() =>
-        useStorageManager([
+        useFileUploader([
           // @ts-expect-error
           null,
           // @ts-expect-error

@@ -1,8 +1,8 @@
-import { StorageManagerDisplayText } from '../../utils/displayText';
+import { FileUploaderDisplayText } from '../../utils/displayText';
 
 export interface DropZoneProps {
   children?: React.ReactNode;
-  displayText: StorageManagerDisplayText;
+  displayText: FileUploaderDisplayText;
   inDropZone: boolean;
   onDragEnter: (event: React.DragEvent<HTMLDivElement>) => void;
   onDragLeave: (event: React.DragEvent<HTMLDivElement>) => void;

@@ -1,8 +1,8 @@
 export { checkMaxFileSize } from './checkMaxFileSize';
 export {
-  defaultStorageManagerDisplayText,
-  StorageManagerDisplayText,
-  StorageManagerDisplayTextDefault,
+  defaultFileUploaderDisplayText,
+  FileUploaderDisplayText,
+  FileUploaderDisplayTextDefault,
 } from './displayText';
 export { filterAllowedFiles } from './filterAllowedFiles';
 export { getInput } from './getInput';

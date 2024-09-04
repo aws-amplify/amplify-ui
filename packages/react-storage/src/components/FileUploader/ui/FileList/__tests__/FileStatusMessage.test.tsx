@@ -28,7 +28,7 @@ describe('FileStatusMessage', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerFileStatus}`
+        `${ComponentClassName.FileUploaderFileStatus}`
       )
     ).toHaveLength(1);
     expect(
@@ -44,7 +44,7 @@ describe('FileStatusMessage', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerFileStatus}`
+        `${ComponentClassName.FileUploaderFileStatus}`
       )
     ).toHaveLength(1);
     expect(await findByText(uploadingPausedText)).toBeVisible();
@@ -58,7 +58,7 @@ describe('FileStatusMessage', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerFileStatus}`
+        `${ComponentClassName.FileUploaderFileStatus}`
       )
     ).toHaveLength(1);
     expect(await findByText(uploadSuccessful)).toBeVisible();
@@ -72,7 +72,7 @@ describe('FileStatusMessage', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerFileStatus}`
+        `${ComponentClassName.FileUploaderFileStatus}`
       )
     ).toHaveLength(1);
     expect(await findByText(errorUploading)).toBeVisible();

@@ -10,7 +10,7 @@ import {
   FileListProps,
   FilePickerProps,
 } from './ui';
-import { StorageManagerDisplayText, PathCallback, UploadTask } from './utils';
+import { FileUploaderDisplayText, PathCallback, UploadTask } from './utils';
 
 export enum FileStatus {
   ADDED = 'added',
@@ -86,7 +86,7 @@ export interface FileUploaderProps {
   /**
    * Overrides default display text
    */
-  displayText?: StorageManagerDisplayText;
+  displayText?: FileUploaderDisplayText;
   /**
    * Determines if upload can be paused / resumed
    */

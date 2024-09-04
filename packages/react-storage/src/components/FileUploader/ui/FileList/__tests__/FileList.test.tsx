@@ -7,7 +7,7 @@ import { ComponentClassName } from '@aws-amplify/ui';
 import { FileList } from '../FileList';
 import { FileListProps } from '../types';
 import { FileStatus, StorageFile } from '../../../types';
-import { defaultStorageManagerDisplayText } from '../../../utils';
+import { defaultFileUploaderDisplayText } from '../../../utils';
 
 const mockFile: StorageFile = {
   id: 'test',
@@ -25,7 +25,7 @@ const mockOnResume = jest.fn();
 const mockOnPause = jest.fn();
 
 const fileListProps: FileListProps = {
-  displayText: defaultStorageManagerDisplayText,
+  displayText: defaultFileUploaderDisplayText,
   files: [mockFile],
   isResumable: false,
   onCancelUpload: mockOnCancelUpload,
@@ -49,19 +49,17 @@ describe('FileList', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerFileList}`
+        `${ComponentClassName.FileUploaderFileList}`
       )
     ).toHaveLength(1);
 
     expect(
-      container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerFile}`
-      )
+      container.getElementsByClassName(`${ComponentClassName.FileUploaderFile}`)
     ).toHaveLength(fileListProps.files.length);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerFileStatus}`
+        `${ComponentClassName.FileUploaderFileStatus}`
       )
     ).toHaveLength(1);
   });
@@ -75,18 +73,16 @@ describe('FileList', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerFileList}`
+        `${ComponentClassName.FileUploaderFileList}`
       )
     ).toHaveLength(1);
 
     expect(
-      container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerFile}`
-      )
+      container.getElementsByClassName(`${ComponentClassName.FileUploaderFile}`)
     ).toHaveLength(fileListProps.files.length);
 
     expect(
-      getByText(defaultStorageManagerDisplayText.pauseButtonText)
+      getByText(defaultFileUploaderDisplayText.pauseButtonText)
     ).toBeInTheDocument();
   });
 
@@ -117,7 +113,7 @@ describe('FileList', () => {
   it('should call onPause when pause button is clicked', () => {
     const { getByText } = render(<FileList {...fileListProps} isResumable />);
     const pauseButton = getByText(
-      defaultStorageManagerDisplayText.pauseButtonText
+      defaultFileUploaderDisplayText.pauseButtonText
     );
     fireEvent.click(pauseButton);
     expect(mockOnPause).toHaveBeenCalledTimes(1);

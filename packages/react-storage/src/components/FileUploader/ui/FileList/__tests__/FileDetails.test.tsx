@@ -21,19 +21,19 @@ describe('FileDetails', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerFileMain}`
+        `${ComponentClassName.FileUploaderFileMain}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerFileName}`
+        `${ComponentClassName.FileUploaderFileName}`
       )
     ).toHaveLength(1);
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerFileSize}`
+        `${ComponentClassName.FileUploaderFileSize}`
       )
     ).toHaveLength(1);
 

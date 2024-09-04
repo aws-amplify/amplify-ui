@@ -3,7 +3,7 @@
 exports[`FileThumbnail renders an icon 1`] = `
 <div>
   <div
-    class="amplify-storagemanager__file__image"
+    class="amplify-fileuploader__file__image"
   >
     <span
       class="amplify-icon"
@@ -29,7 +29,7 @@ exports[`FileThumbnail renders an icon 1`] = `
 exports[`FileThumbnail renders an image 1`] = `
 <div>
   <div
-    class="amplify-storagemanager__file__image"
+    class="amplify-fileuploader__file__image"
   >
     <img
       alt="test"
@@ -43,7 +43,7 @@ exports[`FileThumbnail renders an image 1`] = `
 exports[`FileThumbnail renders custom icons from IconProvider 1`] = `
 <div>
   <div
-    class="amplify-storagemanager__file__image"
+    class="amplify-fileuploader__file__image"
   >
     <div
       data-testid="file"

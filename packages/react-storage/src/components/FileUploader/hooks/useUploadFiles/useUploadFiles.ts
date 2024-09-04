@@ -7,7 +7,7 @@ import { PathCallback, uploadFile } from '../../utils';
 import { getInput } from '../../utils';
 import { FileStatus } from '../../types';
 import { FileUploaderProps } from '../../types';
-import { UseStorageManager } from '../useStorageManager';
+import { UseFileUploader } from '../useFileUploader';
 
 export interface UseUploadFilesProps
   extends Pick<
@@ -21,7 +21,7 @@ export interface UseUploadFilesProps
       | 'useAccelerateEndpoint'
     >,
     Pick<
-      UseStorageManager,
+      UseFileUploader,
       'setUploadingFile' | 'setUploadProgress' | 'setUploadSuccess' | 'files'
     > {
   accessLevel?: FileUploaderProps['accessLevel'];

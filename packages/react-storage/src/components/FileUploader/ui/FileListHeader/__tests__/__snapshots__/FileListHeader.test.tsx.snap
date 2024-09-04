@@ -3,7 +3,7 @@
 exports[`FileListHeader renders as expected when uploads are in progress 1`] = `
 <div>
   <p
-    class="amplify-text amplify-storagemanager__previewer__text"
+    class="amplify-text amplify-fileuploader__previewer__text"
   >
     1 file uploading
   </p>
@@ -13,7 +13,7 @@ exports[`FileListHeader renders as expected when uploads are in progress 1`] = `
 exports[`FileListHeader renders as expected when uploads are successful 1`] = `
 <div>
   <p
-    class="amplify-text amplify-storagemanager__previewer__text"
+    class="amplify-text amplify-fileuploader__previewer__text"
   >
     2 files uploaded
   </p>

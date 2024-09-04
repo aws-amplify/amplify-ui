@@ -27,7 +27,7 @@ export function FileList({
   const headingMaxFiles = getMaxFilesErrorText(maxFileCount);
 
   return (
-    <View className={ComponentClassName.StorageManagerFileList}>
+    <View className={ComponentClassName.FileUploaderFileList}>
       {files.map((storageFile) => {
         const { file, status, progress, error, key, isImage, id, uploadTask } =
           storageFile;

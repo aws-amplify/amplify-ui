@@ -25,11 +25,8 @@ export function DropZone({
     <View
       className={classNames(
         inDropZone &&
-          classNameModifier(
-            ComponentClassName.StorageManagerDropZone,
-            'active'
-          ),
-        ComponentClassName.StorageManagerDropZone
+          classNameModifier(ComponentClassName.FileUploaderDropZone, 'active'),
+        ComponentClassName.FileUploaderDropZone
       )}
       data-testid={testId}
       onDragStart={onDragStart}
@@ -41,12 +38,12 @@ export function DropZone({
       <View
         as="span"
         aria-hidden
-        className={ComponentClassName.StorageManagerDropZoneIcon}
+        className={ComponentClassName.FileUploaderDropZoneIcon}
       >
         {icons?.upload ?? <IconUpload />}
       </View>
 
-      <Text className={ComponentClassName.StorageManagerDropZoneText}>
+      <Text className={ComponentClassName.FileUploaderDropZoneText}>
         {dropFilesText}
       </Text>
       {children}

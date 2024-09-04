@@ -35,8 +35,8 @@ export function FileControl({
   } = displayText;
 
   return (
-    <View className={ComponentClassName.StorageManagerFile}>
-      <View className={ComponentClassName.StorageManagerFileWrapper}>
+    <View className={ComponentClassName.FileUploaderFile}>
+      <View className={ComponentClassName.FileUploaderFileWrapper}>
         {showThumbnails ? (
           <FileThumbnail
             isImage={isImage}
@@ -47,7 +47,7 @@ export function FileControl({
         <UploadDetails displayName={displayName} fileSize={size} />
         {status === FileStatus.UPLOADING ? (
           <Loader
-            className={ComponentClassName.StorageManagerLoader}
+            className={ComponentClassName.FileUploaderLoader}
             variation="linear"
             percentage={progress}
             isDeterminate={loaderIsDeterminate}

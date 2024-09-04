@@ -19,7 +19,7 @@ describe('FileThumbnail', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerFileImage}`
+        `${ComponentClassName.FileUploaderFileImage}`
       )
     ).toHaveLength(1);
 
@@ -36,7 +36,7 @@ describe('FileThumbnail', () => {
     const { container } = render(<FileThumbnail {...thumbnailProps} isImage />);
     expect(
       container.getElementsByClassName(
-        `${ComponentClassName.StorageManagerFileImage}`
+        `${ComponentClassName.FileUploaderFileImage}`
       )
     ).toHaveLength(1);
 

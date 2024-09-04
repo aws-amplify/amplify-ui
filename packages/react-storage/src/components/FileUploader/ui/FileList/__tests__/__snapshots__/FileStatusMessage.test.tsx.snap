@@ -3,7 +3,7 @@
 exports[`FileStatusMessage renders as expected when file is uploaded 1`] = `
 <div>
   <p
-    class="amplify-text amplify-storagemanager__file__status amplify-storagemanager__file__status--success"
+    class="amplify-text amplify-fileuploader__file__status amplify-fileuploader__file__status--success"
   >
     <span>
       <span
@@ -32,7 +32,7 @@ exports[`FileStatusMessage renders as expected when file is uploaded 1`] = `
 exports[`FileStatusMessage renders as expected when file is uploading 1`] = `
 <div>
   <p
-    class="amplify-text amplify-storagemanager__file__status"
+    class="amplify-text amplify-fileuploader__file__status"
   >
     Uploading... 50%
   </p>
@@ -42,7 +42,7 @@ exports[`FileStatusMessage renders as expected when file is uploading 1`] = `
 exports[`FileStatusMessage renders as expected when file uploading is paused 1`] = `
 <div>
   <p
-    class="amplify-text amplify-storagemanager__file__status"
+    class="amplify-text amplify-fileuploader__file__status"
   >
     Uploading paused...
   </p>
@@ -52,7 +52,7 @@ exports[`FileStatusMessage renders as expected when file uploading is paused 1`]
 exports[`FileStatusMessage renders as expected when there is an error uploading 1`] = `
 <div>
   <p
-    class="amplify-text amplify-storagemanager__file__status amplify-storagemanager__file__status--error"
+    class="amplify-text amplify-fileuploader__file__status amplify-fileuploader__file__status--error"
   >
     <span>
       <span
@@ -81,7 +81,7 @@ exports[`FileStatusMessage renders as expected when there is an error uploading 
 exports[`FileStatusMessage renders custom icons from IconProvider 1`] = `
 <div>
   <p
-    class="amplify-text amplify-storagemanager__file__status amplify-storagemanager__file__status--error"
+    class="amplify-text amplify-fileuploader__file__status amplify-fileuploader__file__status--error"
   >
     <span>
       <span
@@ -91,7 +91,7 @@ exports[`FileStatusMessage renders custom icons from IconProvider 1`] = `
     Error
   </p>
   <p
-    class="amplify-text amplify-storagemanager__file__status amplify-storagemanager__file__status--success"
+    class="amplify-text amplify-fileuploader__file__status amplify-fileuploader__file__status--success"
   >
     <span>
       <span

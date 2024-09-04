@@ -1,9 +1,5 @@
 import { FileStatus, StorageFile, StorageFiles } from '../../types';
-import {
-  Action,
-  StorageManagerActionTypes,
-  UseStorageManagerState,
-} from './types';
+import { Action, FileUploaderActionTypes, UseFileUploaderState } from './types';
 
 const updateFiles = (
   files: StorageFiles,
@@ -16,12 +12,12 @@ const updateFiles = (
     return [...files, currentFile];
   }, []);
 
-export function storageManagerStateReducer(
-  state: UseStorageManagerState,
+export function fileUploaderStateReducer(
+  state: UseFileUploaderState,
   action: Action
-): UseStorageManagerState {
+): UseFileUploaderState {
   switch (action.type) {
-    case StorageManagerActionTypes.ADD_FILES: {
+    case FileUploaderActionTypes.ADD_FILES: {
       const { files, status } = action;
 
       const newUploads: StorageFiles = files.map((file) => {
@@ -44,10 +40,10 @@ export function storageManagerStateReducer(
 
       return { ...state, files: newFiles };
     }
-    case StorageManagerActionTypes.CLEAR_FILES: {
+    case FileUploaderActionTypes.CLEAR_FILES: {
       return { ...state, files: [] };
     }
-    case StorageManagerActionTypes.QUEUE_FILES: {
+    case FileUploaderActionTypes.QUEUE_FILES: {
       const { files } = state;
 
       const newFiles = files.reduce<StorageFiles>((files, currentFile) => {
@@ -66,7 +62,7 @@ export function storageManagerStateReducer(
         files: newFiles,
       };
     }
-    case StorageManagerActionTypes.SET_STATUS_UPLOADING: {
+    case FileUploaderActionTypes.SET_STATUS_UPLOADING: {
       const { id, uploadTask } = action;
       const status = FileStatus.UPLOADING;
       const progress = 0;
@@ -76,25 +72,25 @@ export function storageManagerStateReducer(
 
       return { ...state, files };
     }
-    case StorageManagerActionTypes.SET_PROCESSED_FILE_KEY: {
+    case FileUploaderActionTypes.SET_PROCESSED_FILE_KEY: {
       const { processedKey, id } = action;
       const files = updateFiles(state.files, { processedKey, id });
 
       return { files };
     }
-    case StorageManagerActionTypes.SET_UPLOAD_PROGRESS: {
+    case FileUploaderActionTypes.SET_UPLOAD_PROGRESS: {
       const { id, progress } = action;
       const files = updateFiles(state.files, { id, progress });
 
       return { ...state, files };
     }
-    case StorageManagerActionTypes.SET_STATUS: {
+    case FileUploaderActionTypes.SET_STATUS: {
       const { id, status } = action;
       const files = updateFiles(state.files, { id, status });
 
       return { ...state, files };
     }
-    case StorageManagerActionTypes.REMOVE_UPLOAD: {
+    case FileUploaderActionTypes.REMOVE_UPLOAD: {
       const { id } = action;
       const { files } = state;
 

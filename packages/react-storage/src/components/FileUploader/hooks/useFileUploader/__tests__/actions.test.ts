@@ -10,7 +10,7 @@ import {
   setUploadProgressAction,
   setUploadStatusAction,
 } from '../actions';
-import { StorageManagerActionTypes } from '../types';
+import { FileUploaderActionTypes } from '../types';
 
 describe('addFilesAction', () => {
   it('creates an action with the ADD_FILES type and the given files and error message', () => {
@@ -18,7 +18,7 @@ describe('addFilesAction', () => {
     const status = FileStatus.QUEUED;
     const getFileErrorMessage = () => 'Something went wrong';
     const expectedAction = {
-      type: StorageManagerActionTypes.ADD_FILES,
+      type: FileUploaderActionTypes.ADD_FILES,
       files,
       status,
       getFileErrorMessage,
@@ -31,7 +31,7 @@ describe('addFilesAction', () => {
 describe('queueFilesAction', () => {
   it('creates an action with the QUEUE_FILES type', () => {
     const expectedAction = {
-      type: StorageManagerActionTypes.QUEUE_FILES,
+      type: FileUploaderActionTypes.QUEUE_FILES,
     };
     const action = queueFilesAction();
     expect(action).toEqual(expectedAction);
@@ -41,7 +41,7 @@ describe('queueFilesAction', () => {
 describe('clearFilesAction', () => {
   it('creates an action with the CLEAR_FILES type', () => {
     const expectedAction = {
-      type: StorageManagerActionTypes.CLEAR_FILES,
+      type: FileUploaderActionTypes.CLEAR_FILES,
     };
     const action = clearFilesAction();
     expect(action).toEqual(expectedAction);
@@ -53,7 +53,7 @@ describe('setUploadingFileAction', () => {
     const id = 'test-id';
     const uploadTask = {} as UploadDataOutput;
     const expectedAction = {
-      type: StorageManagerActionTypes.SET_STATUS_UPLOADING,
+      type: FileUploaderActionTypes.SET_STATUS_UPLOADING,
       id,
       uploadTask,
     };
@@ -67,7 +67,7 @@ describe('setUploadProgressAction', () => {
     const id = 'test-id';
     const progress = 50;
     const expectedAction = {
-      type: StorageManagerActionTypes.SET_UPLOAD_PROGRESS,
+      type: FileUploaderActionTypes.SET_UPLOAD_PROGRESS,
       id,
       progress,
     };
@@ -81,7 +81,7 @@ describe('setUploadStatusAction', () => {
     const id = 'test-id';
     const status = FileStatus.PAUSED;
     const expectedAction = {
-      type: StorageManagerActionTypes.SET_STATUS,
+      type: FileUploaderActionTypes.SET_STATUS,
       id,
       status,
     };
@@ -94,7 +94,7 @@ describe('removeUploadAction', () => {
   it('creates an action with the REMOVE_UPLOAD type', () => {
     const id = 'test-id';
     const expectedAction = {
-      type: StorageManagerActionTypes.REMOVE_UPLOAD,
+      type: FileUploaderActionTypes.REMOVE_UPLOAD,
       id,
     };
     const action = removeUploadAction({ id });

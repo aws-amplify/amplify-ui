@@ -9,12 +9,12 @@ export const UploadDetails = ({
 }: UploadDetailsProps): JSX.Element => {
   return (
     <>
-      <View className={ComponentClassName.StorageManagerFileMain}>
-        <Text className={ComponentClassName.StorageManagerFileName}>
+      <View className={ComponentClassName.FileUploaderFileMain}>
+        <Text className={ComponentClassName.FileUploaderFileName}>
           {displayName}
         </Text>
       </View>
-      <Text as="span" className={ComponentClassName.StorageManagerFileSize}>
+      <Text as="span" className={ComponentClassName.FileUploaderFileSize}>
         {fileSize ? humanFileSize(fileSize, true) : ''}
       </Text>
     </>

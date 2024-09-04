@@ -1,11 +1,11 @@
 import { FileStatus, StorageFiles } from '../../types';
 import { UploadTask } from '../../utils';
 
-export interface UseStorageManagerState {
+export interface UseFileUploaderState {
   files: StorageFiles;
 }
 
-export enum StorageManagerActionTypes {
+export enum FileUploaderActionTypes {
   ADD_FILES = 'ADD_FILES',
   CLEAR_FILES = 'CLEAR_FILES',
   QUEUE_FILES = 'QUEUE_FILES',
@@ -20,39 +20,39 @@ export type GetFileErrorMessage = (file: File) => string;
 
 export type Action =
   | {
-      type: StorageManagerActionTypes.ADD_FILES;
+      type: FileUploaderActionTypes.ADD_FILES;
       files: File[];
       status: FileStatus;
       getFileErrorMessage: GetFileErrorMessage;
     }
   | {
-      type: StorageManagerActionTypes.CLEAR_FILES;
+      type: FileUploaderActionTypes.CLEAR_FILES;
     }
   | {
-      type: StorageManagerActionTypes.SET_STATUS;
+      type: FileUploaderActionTypes.SET_STATUS;
       id: string;
       status: FileStatus;
     }
   | {
-      type: StorageManagerActionTypes.QUEUE_FILES;
+      type: FileUploaderActionTypes.QUEUE_FILES;
     }
   | {
-      type: StorageManagerActionTypes.SET_STATUS_UPLOADING;
+      type: FileUploaderActionTypes.SET_STATUS_UPLOADING;
       id: string;
       uploadTask?: UploadTask;
     }
   | {
-      type: StorageManagerActionTypes.SET_UPLOAD_PROGRESS;
+      type: FileUploaderActionTypes.SET_UPLOAD_PROGRESS;
       id: string;
       progress: number;
     }
   | {
-      type: StorageManagerActionTypes.SET_PROCESSED_FILE_KEY;
+      type: FileUploaderActionTypes.SET_PROCESSED_FILE_KEY;
       id: string;
       processedKey: string;
     }
   | {
-      type: StorageManagerActionTypes.REMOVE_UPLOAD;
+      type: FileUploaderActionTypes.REMOVE_UPLOAD;
       id: string;
     };
 

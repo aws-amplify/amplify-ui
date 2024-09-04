@@ -7,7 +7,7 @@ export type FilePickerProps = ButtonProps;
 
 export function FilePicker({
   children,
-  className = ComponentClassName.StorageManagerFilePicker,
+  className = ComponentClassName.FileUploaderFilePicker,
   size = 'small',
   ...props
 }: FilePickerProps): JSX.Element {

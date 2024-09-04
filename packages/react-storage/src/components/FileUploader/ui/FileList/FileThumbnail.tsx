@@ -18,7 +18,7 @@ export const FileThumbnail = ({
   );
 
   return (
-    <View className={ComponentClassName.StorageManagerFileImage}>
+    <View className={ComponentClassName.FileUploaderFileImage}>
       {thumbnail}
     </View>
   );

@@ -22,7 +22,7 @@ describe('FilePicker', () => {
 
     const filePickerButton = await screen.findByRole('button');
     expect(filePickerButton).toHaveClass(
-      ComponentClassName.StorageManagerFilePicker
+      ComponentClassName.FileUploaderFilePicker
     );
   });
 });
