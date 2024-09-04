@@ -1,6 +1,6 @@
 import { ActionsContext } from './ActionsContext';
 import { AvatarsContext } from './AvatarsContext';
-import { InputContext } from './InputContext';
+import { ConversationInputContext } from './ConversationInputContext';
 import { MessagesContext, RoleContext } from './MessagesContext';
 import { SuggestedPromptsContext } from './SuggestedPromptsContext';
 import { MessageVariantContext } from './MessageVariantContext';
@@ -8,7 +8,7 @@ import { MessageVariantContext } from './MessageVariantContext';
 export {
   ActionsContext,
   AvatarsContext,
-  InputContext,
+  ConversationInputContext,
   MessagesContext,
   RoleContext,
   SuggestedPromptsContext,

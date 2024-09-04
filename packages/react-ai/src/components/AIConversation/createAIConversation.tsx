@@ -16,6 +16,9 @@ import {
 } from './views';
 import createProvider from './createProvider';
 
+/**
+ * @experimental
+ */
 export function createAIConversation(input: AIConversationInput = {}): {
   AIConversation: AIConversation;
 } {

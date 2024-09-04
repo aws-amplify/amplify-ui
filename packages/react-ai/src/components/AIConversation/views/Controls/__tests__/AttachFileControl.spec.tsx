@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { InputContext } from '../../../context';
+import { ConversationInputContext } from '../../../context';
 import { AttachFileControl } from '../AttachFileControl';
 
 const inputContextValue = {
@@ -53,9 +53,9 @@ describe('AttachFileControl', () => {
 
   it('triggers a file change event when selecting a file', () => {
     render(
-      <InputContext.Provider value={inputContextValue}>
+      <ConversationInputContext.Provider value={inputContextValue}>
         <AttachFileControl />
-      </InputContext.Provider>
+      </ConversationInputContext.Provider>
     );
 
     const file = new File(['file content'], 'test.png', { type: 'image/png' });

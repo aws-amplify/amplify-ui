@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
-import { InputContext } from '../../context';
+import { ConversationInputContext } from '../../context';
 import { AIConversationElements } from '../../context/elements';
 
 const { Button, Icon, View } = AIConversationElements;
@@ -31,7 +31,7 @@ const AttachFileButton = withBaseElementProps(Button, {
 
 export const AttachFileControl: AttachFileControl = () => {
   const hiddenInput = React.useRef<HTMLInputElement>(null);
-  const { setInput } = React.useContext(InputContext);
+  const { setInput } = React.useContext(ConversationInputContext);
 
   function handleButtonClick() {
     if (hiddenInput.current) {
@@ -59,7 +59,6 @@ export const AttachFileControl: AttachFileControl = () => {
       </AttachFileButton>
       <VisuallyHidden>
         <input
-          // TODO follow up about what file types are accepted
           accept=".jpeg,.png,.webp,.gif"
           data-testid="hidden-file-input"
           onChange={handleFileChange}

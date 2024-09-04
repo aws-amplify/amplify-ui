@@ -28,6 +28,9 @@ export const useAIContext = (): ContextType => {
   return { routeToConversationsMap, setRouteToConversationsMap };
 };
 
+/**
+ * @experimental
+ */
 export const AIContextProvider = ({
   children,
 }: {

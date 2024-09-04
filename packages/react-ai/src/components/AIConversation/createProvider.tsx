@@ -4,7 +4,7 @@ import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 
 import { ActionsProvider } from './context/ActionsContext';
 import { AvatarsProvider } from './context/AvatarsContext';
-import { InputContextProvider } from './context/InputContext';
+import { ConversationInputContextProvider } from './context/ConversationInputContext';
 import { MessagesProvider } from './context/MessagesContext';
 import { MessageVariantProvider } from './context/MessageVariantContext';
 import { SuggestedPromptProvider } from './context/SuggestedPromptsContext';
@@ -47,7 +47,7 @@ export default function createProvider({
         <ControlsProvider controls={controls}>
           <SuggestedPromptProvider suggestedPrompts={suggestedPrompts}>
             <ResponseComponentsProvider responseComponents={responseComponents}>
-              <InputContextProvider>
+              <ConversationInputContextProvider>
                 <SendMessageContextProvider
                   handleSendMessage={handleSendMessage}
                 >
@@ -63,7 +63,7 @@ export default function createProvider({
                     </ActionsProvider>
                   </AvatarsProvider>
                 </SendMessageContextProvider>
-              </InputContextProvider>
+              </ConversationInputContextProvider>
             </ResponseComponentsProvider>
           </SuggestedPromptProvider>
         </ControlsProvider>

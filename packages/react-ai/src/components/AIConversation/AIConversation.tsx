@@ -19,7 +19,7 @@ interface _AIConversationProps
   extends AIConversationProps,
     AIConversationInput {}
 
-export const AIConversation = ({
+function AIConversationBase({
   actions,
   avatars,
   controls,
@@ -29,7 +29,7 @@ export const AIConversation = ({
   suggestedPrompts,
   variant,
   isLoading,
-}: _AIConversationProps): JSX.Element => {
+}: _AIConversationProps): JSX.Element {
   const icons = useIcons('aiConversation');
   const defaultAvatars: Avatars = {
     ai: {
@@ -83,4 +83,13 @@ export const AIConversation = ({
       </Flex>
     </Provider>
   );
-};
+}
+
+/**
+ * @experimental
+ */
+export const AIConversation = Object.assign(AIConversationBase, {
+  MessageList,
+  PromptList,
+  Form,
+});

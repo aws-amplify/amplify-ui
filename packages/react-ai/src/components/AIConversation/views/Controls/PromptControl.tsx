@@ -3,7 +3,7 @@ import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 
 import {
   AIConversationElements,
-  InputContext,
+  ConversationInputContext,
   MessagesContext,
   SuggestedPromptsContext,
 } from '../../context';
@@ -70,7 +70,7 @@ const PromptGroupBase = withBaseElementProps(View, {
 const PromptGroup: typeof PromptGroupBase = React.forwardRef(
   function ButtonGroup(props, ref) {
     const suggestedPromptsArray = React.useContext(SuggestedPromptsContext);
-    const { setInput } = React.useContext(InputContext);
+    const { setInput } = React.useContext(ConversationInputContext);
 
     if (!suggestedPromptsArray) {
       return;
@@ -115,7 +115,7 @@ const Container = withBaseElementProps(View, {
 export const PromptControl: PromptControl = () => {
   const suggestedPromptsArray = React.useContext(SuggestedPromptsContext);
   const controls = React.useContext(ControlsContext);
-  const { setInput } = React.useContext(InputContext);
+  const { setInput } = React.useContext(ConversationInputContext);
 
   if (controls?.PromptList) {
     return (

@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, act } from '@testing-library/react';
 import { MessagesProvider } from '../../../context/MessagesContext';
 import { FieldControl } from '../FieldControl';
-import { InputContextProvider } from '../../../context/InputContext';
+import { ConversationInputContextProvider } from '../../../context/ConversationInputContext';
 import userEvent from '@testing-library/user-event';
 import { SendMessageContextProvider } from '../../../context/SendMessageContext';
 
@@ -70,9 +70,9 @@ describe('FieldControl', () => {
 
   it('disables the send button when the input field is empty', async () => {
     const { rerender } = render(
-      <InputContextProvider>
+      <ConversationInputContextProvider>
         <FieldControl />
-      </InputContextProvider>
+      </ConversationInputContextProvider>
     );
     expect(screen.getByTestId('send-button')).toBeDisabled();
 
@@ -87,9 +87,9 @@ describe('FieldControl', () => {
     const sendMessage = jest.fn();
     render(
       <SendMessageContextProvider handleSendMessage={sendMessage}>
-        <InputContextProvider>
+        <ConversationInputContextProvider>
           <FieldControl />
-        </InputContextProvider>
+        </ConversationInputContextProvider>
       </SendMessageContextProvider>
     );
     const textInput = screen.getByTestId('text-input');

@@ -1,7 +1,5 @@
-import { createAIConversation } from './components/AIConversation';
-import { createAIHooks } from './hooks/createAIHooks';
-import { AIContextProvider } from './hooks/AIContextProvider';
-import { AIConversation } from './components/AIConversation';
+import { createAIConversation, AIConversation } from './components';
+import { createAIHooks, AIContextProvider } from './hooks';
 export {
   createAIConversation,
   createAIHooks,
