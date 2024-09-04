@@ -18,7 +18,7 @@ import { CLASS_BASE } from '../constants';
 import { LocationData, useAction } from '../../context/actions';
 
 interface NavigateItemProps extends ButtonElementProps {
-  seperator?: React.ReactNode;
+  isCurrent?: boolean;
 }
 
 type RenderNavigateItem = (props: NavigateItemProps) => React.JSX.Element;
@@ -45,15 +45,24 @@ function Separator() {
 export const NavigateItem = ({
   className = `${BLOCK_NAME}__button`,
   children,
-  seperator = null,
+  isCurrent = false,
   ...props
 }: NavigateItemProps): React.JSX.Element => {
   return (
-    <ListItemElement className={`${BLOCK_NAME}__item`}>
-      <ButtonElement {...props} className={className} variant="navigate">
-        {children}
-      </ButtonElement>
-      {seperator}
+    <ListItemElement
+      aria-current={isCurrent ? 'page' : undefined}
+      className={`${BLOCK_NAME}__item`}
+    >
+      {isCurrent ? (
+        <SpanElement variant="navigate-current">{children}</SpanElement>
+      ) : (
+        <>
+          <ButtonElement {...props} className={className} variant="navigate">
+            {children}
+          </ButtonElement>
+          <Separator />
+        </>
+      )}
     </ListItemElement>
   );
 };
@@ -95,7 +104,6 @@ export function NavigateControl(): React.JSX.Element {
           handleUpdateState({ type: 'EXIT' });
           handleUpdateList({ prefix: '', options: { reset: true } });
         }}
-        seperator={<Separator />}
       >
         {HOME_NAVIGATE_ITEM}
       </NavigateItem>
@@ -113,16 +121,14 @@ export function NavigateControl(): React.JSX.Element {
             : prefix;
 
         const isCurrent = index === history.length - 1;
-
         return (
           <NavigateItem
-            aria-current={isCurrent ? 'page' : undefined}
             disabled={isLoading}
             key={`${prefix}/${position}`}
             onClick={() => {
               handleUpdateState({ type: 'NAVIGATE', entry });
             }}
-            seperator={isCurrent ? null : <Separator />}
+            isCurrent={isCurrent}
           >
             {displayValue}
           </NavigateItem>
