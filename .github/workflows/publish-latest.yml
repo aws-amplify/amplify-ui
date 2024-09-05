@@ -82,10 +82,27 @@ jobs:
         run: yarn build
         working-directory: ./canary
 
+  build-test-v2:
+    uses: ./.github/workflows/reusable-build-system-test.yml
+    needs: setup
+    if: ${{ needs.setup.outputs.has-changesets != 'true' }}
+    with:
+      dist-tag: next
+
+  build-test-v2-react-native:
+    uses: ./.github/workflows/reusable-build-system-test-react-native.yml
+    needs: setup
+    if: ${{ needs.setup.outputs.has-changesets != 'true' }}
+    with:
+      dist-tag: next
+
   publish:
     runs-on: ubuntu-latest
     environment: deployment
-    needs: build-test
+    needs:
+      - build-test
+      - build-test-v2
+      - build-test-v2-react-native
     if: ${{ needs.setup.outputs.has-changesets != 'true' }}
     steps:
       - name: Checkout repo

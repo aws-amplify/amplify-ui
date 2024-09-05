@@ -1,4 +1,6 @@
 export {
+  FileUploader,
+  FileUploaderProps,
   StorageImage,
   StorageImageProps,
   StorageManager,
