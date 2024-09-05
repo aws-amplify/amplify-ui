@@ -21,9 +21,7 @@ describe('ErrorBoundary', () => {
       </ErrorBoundary>
     );
 
-    expect(
-      screen.getByText('Something went wrong. Please try again.')
-    ).toBeInTheDocument();
+    expect(screen.getByText('Something went wrong.')).toBeInTheDocument();
   });
 
   it('should render children when no error is thrown', () => {
