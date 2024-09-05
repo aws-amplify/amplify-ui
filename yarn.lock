@@ -1609,41 +1609,6 @@
     fast-xml-parser "^4.2.5"
     tslib "^2.5.0"
 
-"@aws-amplify/ui-react-core@3.0.18":
-  version "3.0.18"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react-core/-/ui-react-core-3.0.18.tgz#1e6d675e0817939d5eee6befce1d4aa68aa1b563"
-  integrity sha512-Jv657+4DYhK5zWOobcj4nobel+9fhy6VeDg61/fVOK2FybH7HnqjacRnOd49GC1bKBM5ui8sj4RVCO2wi7638Q==
-  dependencies:
-    "@aws-amplify/ui" "6.1.0"
-    "@xstate/react" "^3.2.2"
-    lodash "4.17.21"
-    react-hook-form "^7.43.5"
-    xstate "^4.33.6"
-
-"@aws-amplify/ui-react@6.2.0":
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react/-/ui-react-6.2.0.tgz#fcbf42bb3b3ed207011a2b15371ff716aac9025c"
-  integrity sha512-/NJ5Uh11EUYePTzqItwbqp+Jq5bJfwwwzKm0ceixf6+4M8t9kHlxnLJaDgKMGi8nme9oPkp8aPzlT8kiyqMCjw==
-  dependencies:
-    "@aws-amplify/ui" "6.1.0"
-    "@aws-amplify/ui-react-core" "3.0.18"
-    "@radix-ui/react-direction" "1.0.0"
-    "@radix-ui/react-dropdown-menu" "1.0.0"
-    "@radix-ui/react-slider" "1.0.0"
-    "@xstate/react" "^3.2.2"
-    lodash "4.17.21"
-    qrcode "1.5.0"
-    tslib "^2.5.2"
-
-"@aws-amplify/ui@6.1.0":
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/ui/-/ui-6.1.0.tgz#89682814328410b9a4629ac9bb6b00c7b237e728"
-  integrity sha512-bZhjRQDLo0CT9uwLspp14IktKKTcGYQh3730NT7kcWcuWM/A8PJAPVhGD7AQ1aLSZ4ytzvxLhxT3UBU1JNVAIg==
-  dependencies:
-    csstype "^3.1.1"
-    lodash "4.17.21"
-    tslib "^2.5.2"
-
 "@aws-cdk/asset-awscli-v1@^2.2.202":
   version "2.2.202"
   resolved "https://registry.yarnpkg.com/@aws-cdk/asset-awscli-v1/-/asset-awscli-v1-2.2.202.tgz#4627201d71f6a5c60db36385ce09cb81005f4b32"
