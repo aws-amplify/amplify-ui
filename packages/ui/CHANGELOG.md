@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 6.3.0
+
+### Minor Changes
+
+- [#5744](https://github.com/aws-amplify/amplify-ui/pull/5744) [`c3dfbe044`](https://github.com/aws-amplify/amplify-ui/commit/c3dfbe044fd18e084cd411ce0ff84dcab1a80224) Thanks [@jordanvn](https://github.com/jordanvn)! - Adds FileUploader as new default name of StorageManager to avoid confusion with new components
+
 ## 6.2.0
 
 ### Minor Changes
