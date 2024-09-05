@@ -13,4 +13,4 @@ export {
 export {
   StorageBrowser,
   StorageBrowserProps,
-} from './components/StorageBrowser/StorageBrowser';
+} from './components/StorageBrowser/StorageBrowserAmplify';

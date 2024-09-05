@@ -9,7 +9,7 @@ import {
   TableRowElement,
 } from '../context/elements';
 
-import { CLASS_BASE } from '../Views/constants';
+import { CLASS_BASE } from '../views/constants';
 
 export const TABLE_CLASS_NAME = `${CLASS_BASE}__table`;
 export const TABLE_HEADER_CLASS_NAME = `${TABLE_CLASS_NAME}__header`;

@@ -9,7 +9,33 @@ import { Button, Flex } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react-storage/storage-browser-styles.css';
 import '@aws-amplify/ui-react-storage/styles.css';
 
-const { StorageBrowser } = createStorageBrowser({ config: managedAuthAdapter });
+const { StorageBrowser, useControl } = createStorageBrowser({
+  config: managedAuthAdapter,
+});
+
+function LocationActionView() {
+  return (
+    <dialog open>
+      <StorageBrowser.LocationActionView />
+    </dialog>
+  );
+}
+
+function MyStorageBrowser() {
+  const [{ selected }] = useControl('LOCATION_ACTIONS');
+
+  return (
+    <Flex>
+      <Flex direction={'column'}>
+        <StorageBrowser.LocationsView />
+      </Flex>
+      <Flex minWidth={'50vw'} direction={'column'}>
+        <StorageBrowser.LocationDetailView />
+      </Flex>
+      {selected.type ? <LocationActionView /> : null}
+    </Flex>
+  );
+}
 
 function Example() {
   const [authenticated, setAuthenticated] = React.useState(false);
@@ -48,14 +74,7 @@ function Example() {
         Sign Out
       </Button>
       <StorageBrowser.Provider>
-        <Flex>
-          <Flex direction={'column'}>
-            <StorageBrowser.LocationsView />
-          </Flex>
-          <Flex direction={'column'}>
-            <StorageBrowser.LocationDetailView />
-          </Flex>
-        </Flex>
+        <MyStorageBrowser />
       </StorageBrowser.Provider>
     </>
   );
