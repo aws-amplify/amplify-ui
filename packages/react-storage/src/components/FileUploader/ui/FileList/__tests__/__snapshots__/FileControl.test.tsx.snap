@@ -3,25 +3,25 @@
 exports[`FileControl renders as expected when file is uploading 1`] = `
 <div>
   <div
-    class="amplify-storagemanager__file"
+    class="amplify-fileuploader__file"
   >
     <div
-      class="amplify-storagemanager__file__wrapper"
+      class="amplify-fileuploader__file__wrapper"
     >
       <div
-        class="amplify-storagemanager__file__main"
+        class="amplify-fileuploader__file__main"
       >
         <p
-          class="amplify-text amplify-storagemanager__file__name"
+          class="amplify-text amplify-fileuploader__file__name"
         >
           fileName
         </p>
       </div>
       <span
-        class="amplify-text amplify-storagemanager__file__size"
+        class="amplify-text amplify-fileuploader__file__size"
       />
       <svg
-        class="amplify-loader amplify-loader--linear amplify-storagemanager__loader"
+        class="amplify-loader amplify-loader--linear amplify-fileuploader__loader"
         role="img"
       >
         <g>
@@ -76,7 +76,7 @@ exports[`FileControl renders as expected when file is uploading 1`] = `
       </button>
     </div>
     <p
-      class="amplify-text amplify-storagemanager__file__status"
+      class="amplify-text amplify-fileuploader__file__status"
     >
       Uploading
     </p>
@@ -87,22 +87,22 @@ exports[`FileControl renders as expected when file is uploading 1`] = `
 exports[`FileControl renders as expected when uploading is paused 1`] = `
 <div>
   <div
-    class="amplify-storagemanager__file"
+    class="amplify-fileuploader__file"
   >
     <div
-      class="amplify-storagemanager__file__wrapper"
+      class="amplify-fileuploader__file__wrapper"
     >
       <div
-        class="amplify-storagemanager__file__main"
+        class="amplify-fileuploader__file__main"
       >
         <p
-          class="amplify-text amplify-storagemanager__file__name"
+          class="amplify-text amplify-fileuploader__file__name"
         >
           fileName
         </p>
       </div>
       <span
-        class="amplify-text amplify-storagemanager__file__size"
+        class="amplify-text amplify-fileuploader__file__size"
       />
       <button
         class="amplify-button amplify-field-group__control amplify-button--small"
@@ -138,7 +138,7 @@ exports[`FileControl renders as expected when uploading is paused 1`] = `
       </button>
     </div>
     <p
-      class="amplify-text amplify-storagemanager__file__status"
+      class="amplify-text amplify-fileuploader__file__status"
     >
       Paused: 0%
     </p>
@@ -149,13 +149,13 @@ exports[`FileControl renders as expected when uploading is paused 1`] = `
 exports[`FileControl renders thumbnails 1`] = `
 <div>
   <div
-    class="amplify-storagemanager__file"
+    class="amplify-fileuploader__file"
   >
     <div
-      class="amplify-storagemanager__file__wrapper"
+      class="amplify-fileuploader__file__wrapper"
     >
       <div
-        class="amplify-storagemanager__file__image"
+        class="amplify-fileuploader__file__image"
       >
         <span
           class="amplify-icon"
@@ -176,19 +176,19 @@ exports[`FileControl renders thumbnails 1`] = `
         </span>
       </div>
       <div
-        class="amplify-storagemanager__file__main"
+        class="amplify-fileuploader__file__main"
       >
         <p
-          class="amplify-text amplify-storagemanager__file__name"
+          class="amplify-text amplify-fileuploader__file__name"
         >
           fileName
         </p>
       </div>
       <span
-        class="amplify-text amplify-storagemanager__file__size"
+        class="amplify-text amplify-fileuploader__file__size"
       />
       <svg
-        class="amplify-loader amplify-loader--linear amplify-storagemanager__loader"
+        class="amplify-loader amplify-loader--linear amplify-fileuploader__loader"
         role="img"
       >
         <g>
@@ -243,7 +243,7 @@ exports[`FileControl renders thumbnails 1`] = `
       </button>
     </div>
     <p
-      class="amplify-text amplify-storagemanager__file__status"
+      class="amplify-text amplify-fileuploader__file__status"
     >
       Uploading
     </p>
@@ -254,13 +254,13 @@ exports[`FileControl renders thumbnails 1`] = `
 exports[`FileControl should default to showThumbnails being true 1`] = `
 <div>
   <div
-    class="amplify-storagemanager__file"
+    class="amplify-fileuploader__file"
   >
     <div
-      class="amplify-storagemanager__file__wrapper"
+      class="amplify-fileuploader__file__wrapper"
     >
       <div
-        class="amplify-storagemanager__file__image"
+        class="amplify-fileuploader__file__image"
       >
         <span
           class="amplify-icon"
@@ -281,19 +281,19 @@ exports[`FileControl should default to showThumbnails being true 1`] = `
         </span>
       </div>
       <div
-        class="amplify-storagemanager__file__main"
+        class="amplify-fileuploader__file__main"
       >
         <p
-          class="amplify-text amplify-storagemanager__file__name"
+          class="amplify-text amplify-fileuploader__file__name"
         >
           fileName
         </p>
       </div>
       <span
-        class="amplify-text amplify-storagemanager__file__size"
+        class="amplify-text amplify-fileuploader__file__size"
       />
       <svg
-        class="amplify-loader amplify-loader--linear amplify-storagemanager__loader"
+        class="amplify-loader amplify-loader--linear amplify-fileuploader__loader"
         role="img"
       >
         <g>
@@ -348,7 +348,7 @@ exports[`FileControl should default to showThumbnails being true 1`] = `
       </button>
     </div>
     <p
-      class="amplify-text amplify-storagemanager__file__status"
+      class="amplify-text amplify-fileuploader__file__status"
     >
       Uploading
     </p>
