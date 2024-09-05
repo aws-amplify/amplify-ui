@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e 
+set -e
 
 # Define the log file path
 LOG_FILE=$1
