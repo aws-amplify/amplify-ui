@@ -146,9 +146,6 @@ if [[ "$FRAMEWORK" == 'angular' ]]; then
         echo "add polyfills to angular.json"
         echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/angular.json -e \"this.projects[\\\"$MEGA_APP_NAME\\\"].architect.build.options.polyfills.push(\\\"src/polyfills.ts\\\")\""
         npx json -I -f mega-apps/${MEGA_APP_NAME}/angular.json -e "this.projects[\"$MEGA_APP_NAME\"].architect.build.options.polyfills.push(\"src/polyfills.ts\")"
-        echo "strip comments from tsconfig.app.json and add polyfills.ts"
-        echo "npx strip-json-comments mega-apps/${MEGA_APP_NAME}/tsconfig.app.json | npx json -a -e 'this.files.push(\"src/polyfills.ts\")' >tsconfig.app.json.tmp && mv tsconfig.app.json.tmp ./mega-apps/$MEGA_APP_NAME/tsconfig.app.json && rm -f tsconfig.app.json.tmp"
-        npx strip-json-comments mega-apps/${MEGA_APP_NAME}/tsconfig.app.json | npx json -a -e 'this.files.push("src/polyfills.ts")' >tsconfig.app.json.tmp && mv tsconfig.app.json.tmp ./mega-apps/$MEGA_APP_NAME/tsconfig.app.json && rm -f tsconfig.app.json.tmp
     fi
     # Angular 14 is incompatible with @types/node > 20.11.7, so pin at this version
     if [[ "$FRAMEWORK_VERSION" == 14 ]]; then
@@ -156,7 +153,6 @@ if [[ "$FRAMEWORK" == 'angular' ]]; then
         echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/package.json -e 'this.dependencies["@types/node"] = "20.11.7"'"
         npx json -I -f mega-apps/${MEGA_APP_NAME}/package.json -e 'this.dependencies["@types/node"] = "20.11.7"'
     fi
-
 fi
 
 if [[ "$FRAMEWORK" == 'vue' ]]; then
