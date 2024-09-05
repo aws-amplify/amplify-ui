@@ -1,1 +1,4 @@
-export { LocationActionView } from './LocationActionView';
+export {
+  LocationActionView,
+  LocationActionViewProps,
+} from './LocationActionView';

@@ -5,9 +5,13 @@ import { Controls } from '../Controls';
 import { useLocationsData } from '../../context/actions';
 
 import { usePaginate } from '../hooks/usePaginate';
-import { listViewHelpers } from '../utils';
+import { listViewHelpers, resolveClassName } from '../utils';
 
 import { DataTableControl } from './Controls/DataTable';
+
+export interface LocationsViewProps {
+  className?: (defaultClassName: string) => string;
+}
 
 const DEFAULT_PAGE_SIZE = 100;
 export const DEFAULT_LIST_OPTIONS = {
@@ -24,10 +28,6 @@ const {
   Refresh,
   Title,
 } = Controls;
-
-export interface LocationsView<_T = unknown> {
-  (): React.JSX.Element;
-}
 
 const RefreshControl = ({
   disableRefresh,
@@ -61,7 +61,9 @@ const LocationsEmptyMessage = () => {
   ) : null;
 };
 
-export const LocationsView: LocationsView = () => {
+export function LocationsView({
+  className,
+}: LocationsViewProps): React.JSX.Element {
   const [{ data, isLoading }, handleList] = useLocationsData();
 
   const { result, nextToken } = data;
@@ -97,7 +99,10 @@ export const LocationsView: LocationsView = () => {
     });
 
   return (
-    <div className={CLASS_BASE} data-testid="LOCATIONS_VIEW">
+    <div
+      className={resolveClassName(CLASS_BASE, className)}
+      data-testid="LOCATIONS_VIEW"
+    >
       <Title>Home</Title>
       <RefreshControl
         disableRefresh={disableRefresh}
@@ -123,4 +128,4 @@ export const LocationsView: LocationsView = () => {
       <LocationsEmptyMessage />
     </div>
   );
-};
+}

@@ -1,1 +1,1 @@
-export { LocationsView } from './LocationsView';
+export { LocationsView, LocationsViewProps } from './LocationsView';

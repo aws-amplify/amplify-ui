@@ -1,16 +1,22 @@
 import React from 'react';
 
-import { LocationActionView as LocationActionViewDefault } from './LocationActionView';
+import {
+  LocationActionView as LocationActionViewDefault,
+  LocationActionViewProps,
+} from './LocationActionView';
 import {
   LocationDetailView as LocationDetailViewDefault,
   LocationDetailViewProps,
 } from './LocationDetailView';
-import { LocationsView as LocationsViewDefault } from './LocationsView';
+import {
+  LocationsView as LocationsViewDefault,
+  LocationsViewProps,
+} from './LocationsView';
 
 export interface Views {
-  LocationActionView?: () => React.JSX.Element;
+  LocationActionView?: (props: LocationActionViewProps) => React.JSX.Element;
   LocationDetailView?: (props: LocationDetailViewProps) => React.JSX.Element;
-  LocationsView?: () => React.JSX.Element;
+  LocationsView?: (props: LocationsViewProps) => React.JSX.Element;
 }
 
 const ViewsContext = React.createContext<Required<Views> | undefined>(
@@ -24,6 +30,8 @@ export function ViewsProvider({
   children?: React.ReactNode;
   views?: Views;
 }): React.JSX.Element {
+  // destructure `views` to prevent extraneous rerender of components in the
+  // scenario of an unstable reference provided as `views`
   const { LocationDetailView, LocationActionView, LocationsView } = views ?? {};
   const value = React.useMemo(
     () => ({
