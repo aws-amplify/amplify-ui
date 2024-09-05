@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
         let-signOut="signOut"
       >
         <h1>Welcome {{ user.username }}!</h1>
-        <buton (click)="signOut()">Sign Out</buton>
+        <button (click)="signOut()">Sign Out</button>
       </ng-template>
     </amplify-authenticator>
   `,

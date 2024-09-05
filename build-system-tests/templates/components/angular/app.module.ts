@@ -8,6 +8,6 @@ import { AppComponent } from './app.component';
   declarations: [AppComponent],
   imports: [BrowserModule, AmplifyAuthenticatorModule],
   providers: [],
-  bootstap: [AppComponent],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -26,7 +26,7 @@ Amplify.configure(awsconfig);
       <h1>Hello {{ user.username }}!</h1>
       <button @click="signOut">Sign Out</button>
     </template>
-  </athenticator>
+  </authenticator>
 </template>
 
 <style>
