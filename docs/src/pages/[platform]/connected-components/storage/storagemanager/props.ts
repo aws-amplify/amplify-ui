@@ -83,7 +83,7 @@ export const STORAGE_MANAGER = [
     name: `processFile?`,
     description:
       'Called immediately before uploading a file to allow you to edit the key or the file itself. The function can return synchronously or return a promise.',
-    type: `(params: {key: string, file: Blob}) => Promise<{key: string, file: Blob} & Record<string, any>> | {key: string, file: Blob} & Record<string, string>;`,
+    type: `(params: {key: string, file: File}) => Promise<{key: string, file: File} & Record<string, any>> | {key: string, file: File} & Record<string, string>;`,
   },
   {
     name: `defaultFiles?`,
