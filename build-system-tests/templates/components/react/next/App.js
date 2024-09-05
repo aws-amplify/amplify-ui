@@ -26,10 +26,10 @@ export default function Home() {
 
   return (
     <>
-      <InAppMessagingProvider>
+      <InApMessagingProvider>
         <InAppMessageDisplay />
         <Text>In-App Messaging Example</Text>
-      </InAppMessagingProvider>
+      </InApMessagingProvider>
       <Authenticator>
         {({ signOut, user = { username: '' } }) => (
           <main>

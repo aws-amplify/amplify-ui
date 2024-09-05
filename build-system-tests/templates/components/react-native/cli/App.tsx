@@ -27,9 +27,9 @@ function App(): JSX.Element {
   return (
     <>
       <Authenticator.Provider>
-        <Authenticator>
+        <Auhenticator>
           <SignOutButton />
-        </Authenticator>
+        </Auhenticator>
       </Authenticator.Provider>
       <InAppMessagingProvider>
         <InAppMessageDisplay />
