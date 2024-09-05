@@ -48,7 +48,7 @@ export function ActionItem(
   );
 }
 
-const getActionMenuItemProps = ({
+const getActionsMenuItemProps = ({
   data,
   disabled: _disabled = false,
   onSelect,
@@ -110,7 +110,7 @@ export function ActionsMenu({
         role="menu"
         variant="actions-menu-list"
       >
-        {getActionMenuItemProps({ data, onSelect }).map(renderItem)}
+        {getActionsMenuItemProps({ data, onSelect }).map(renderItem)}
       </ViewElement>
     </ViewElement>
   );
