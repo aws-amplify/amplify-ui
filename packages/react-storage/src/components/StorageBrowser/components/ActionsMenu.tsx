@@ -71,7 +71,7 @@ const getActionMenuItemProps = ({
 
 export function ActionsMenu({
   data,
-  disabled,
+  disabled = false,
   onSelect: _handleSelect,
   renderItem = ActionItem,
 }: ActionsMenuProps): React.JSX.Element {
@@ -89,7 +89,7 @@ export function ActionsMenu({
       <ButtonElement
         aria-label="Actions"
         className={TOGGLE_CLASS_NAME}
-        disabled={disabled}
+        disabled={disabled || !data?.length}
         data-testid="ACTIONS_MENU_TOGGLE"
         onClick={() => {
           setIsOpen((prev) => !prev);
