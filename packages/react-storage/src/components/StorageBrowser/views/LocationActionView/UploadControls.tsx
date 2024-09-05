@@ -301,9 +301,8 @@ export const UploadControls = (): JSX.Element => {
   const hasStarted = !!taskCounts.PENDING;
   const hasCompleted =
     !!taskCounts.TOTAL &&
-    (['CANCELED', 'COMPLETE', 'FAILED'] as const).every(
-      (status) => !!taskCounts[status]
-    );
+    taskCounts.CANCELED + taskCounts.COMPLETE + taskCounts.FAILED ===
+      taskCounts.TOTAL;
 
   const disableCancel = !taskCounts.TOTAL || !hasStarted || hasCompleted;
   const disablePrimary = !taskCounts.TOTAL || hasStarted || hasCompleted;
