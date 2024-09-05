@@ -10,7 +10,7 @@ import { LocationItem, Permission } from '../../../context/types';
 const getKeyedFragments = (...nodes: React.ReactNode[]): React.ReactNode[] =>
   nodes.map((child, key) => <React.Fragment key={key}>{child}</React.Fragment>);
 
-const getMenuData = ({
+const getActionsMenuData = ({
   actions,
   items = [],
   onSelect,
@@ -35,7 +35,10 @@ const getMenuData = ({
             typeof disable === 'function' ? disable(items) : disable ?? false;
           const onClick = () => onSelect(key);
 
-          return [...output, { children, disabled, key, onClick }];
+          return [
+            ...output,
+            { children, disabled, key, onClick, value: displayName },
+          ];
         },
         []
       );
@@ -53,7 +56,7 @@ export function ActionsMenuControl({
 
   const data = React.useMemo(
     () =>
-      getMenuData({
+      getActionsMenuData({
         actions,
         items,
         onSelect: (payload) => {
