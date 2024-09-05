@@ -1,5 +1,18 @@
 # @aws-amplify/ui-react-storage
 
+## 3.3.0
+
+### Minor Changes
+
+- [#5744](https://github.com/aws-amplify/amplify-ui/pull/5744) [`c3dfbe044`](https://github.com/aws-amplify/amplify-ui/commit/c3dfbe044fd18e084cd411ce0ff84dcab1a80224) Thanks [@jordanvn](https://github.com/jordanvn)! - Adds FileUploader as new default name of StorageManager to avoid confusion with new components
+
+### Patch Changes
+
+- Updated dependencies [[`c3dfbe044`](https://github.com/aws-amplify/amplify-ui/commit/c3dfbe044fd18e084cd411ce0ff84dcab1a80224)]:
+  - @aws-amplify/ui@6.3.0
+  - @aws-amplify/ui-react@6.2.2
+  - @aws-amplify/ui-react-core@3.0.20
+
 ## 3.2.1
 
 ### Patch Changes
