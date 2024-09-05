@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CLASS_BASE } from '../Views/constants';
+import { CLASS_BASE } from '../views/constants';
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;
