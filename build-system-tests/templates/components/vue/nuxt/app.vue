@@ -17,12 +17,12 @@ Amplify.configure(awsconfig);
 </script>
 
 <template>
-  <authentiator>
+  <authenticator>
     <template v-slot="{ user, signOut }">
       <h1>Hello {{ user.username }}!</h1>
       <button @click="signOut">Sign Out</button>
-    </template>
-  </authentiator>
+    </tempate>
+  </authenticator>
 </template>
 
 <style>
