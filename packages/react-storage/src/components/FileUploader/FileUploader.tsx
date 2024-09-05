@@ -8,12 +8,12 @@ import {
 } from '@aws-amplify/ui-react-core';
 import { useDropZone } from '@aws-amplify/ui-react/internal';
 
-import { useStorageManager, useUploadFiles } from './hooks';
+import { useFileUploader, useUploadFiles } from './hooks';
 import {
   FileStatus,
-  StorageManagerProps,
-  StorageManagerPathProps,
-  StorageManagerHandle,
+  FileUploaderProps,
+  FileUploaderPathProps,
+  FileUploaderHandle,
 } from './types';
 import {
   Container,
@@ -25,7 +25,7 @@ import {
 } from './ui';
 import {
   checkMaxFileSize,
-  defaultStorageManagerDisplayText,
+  defaultFileUploaderDisplayText,
   filterAllowedFiles,
   TaskHandler,
 } from './utils';
@@ -34,13 +34,13 @@ import { VERSION } from '../../version';
 const logger = getLogger('Storage');
 
 export const MISSING_REQUIRED_PROPS_MESSAGE =
-  '`StorageManager` requires a `maxFileCount` prop to be provided.';
+  '`FileUploader` requires a `maxFileCount` prop to be provided.';
 export const ACCESS_LEVEL_WITH_PATH_CALLBACK_MESSAGE =
-  '`StorageManager` does not allow usage of a `path` callback prop with an `accessLevel` prop.';
+  '`FileUploader` does not allow usage of a `path` callback prop with an `accessLevel` prop.';
 export const ACCESS_LEVEL_DEPRECATION_MESSAGE =
-  '`accessLevel` has been deprecated and will be removed in a future major version. See migration notes at https://ui.docs.amplify.aws/react/connected-components/storage/storagemanager';
+  '`accessLevel` has been deprecated and will be removed in a future major version. See migration notes at https://ui.docs.amplify.aws/react/connected-components/storage/FileUploader';
 
-const StorageManagerBase = React.forwardRef(function StorageManager(
+const FileUploaderBase = React.forwardRef(function FileUploader(
   {
     acceptedFileTypes = [],
     accessLevel,
@@ -59,15 +59,9 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     processFile,
     showThumbnails = true,
     useAccelerateEndpoint,
-  }: StorageManagerPathProps | StorageManagerProps,
-  ref: React.ForwardedRef<StorageManagerHandle>
+  }: FileUploaderPathProps | FileUploaderProps,
+  ref: React.ForwardedRef<FileUploaderHandle>
 ): JSX.Element {
-  useDeprecationWarning({
-    message:
-      'The `StorageManager` component has been renamed as the `FileUploader` component.',
-    shouldWarn: false,
-  });
-
   if (!maxFileCount) {
     // eslint-disable-next-line no-console
     console.warn(MISSING_REQUIRED_PROPS_MESSAGE);
@@ -97,7 +91,7 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     (typeof maxFileCount === 'number' && maxFileCount > 1);
 
   const displayText = {
-    ...defaultStorageManagerDisplayText,
+    ...defaultFileUploaderDisplayText,
     ...overrideDisplayText,
   };
 
@@ -123,7 +117,7 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
     setUploadProgress,
     setUploadSuccess,
     setUploadResumed,
-  } = useStorageManager(defaultFiles);
+  } = useFileUploader(defaultFiles);
 
   React.useImperativeHandle(ref, () => ({ clearFiles }));
 
@@ -250,15 +244,15 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
   }
 
   useSetUserAgent({
-    componentName: 'StorageManager',
+    componentName: 'FileUploader',
     packageName: 'react-storage',
     version: VERSION,
   });
 
   return (
     <Components.Container
-      className={`${ComponentClassName.StorageManager} ${
-        hasFiles ? ComponentClassName.StorageManagerPreviewer : ''
+      className={`${ComponentClassName.FileUploader} ${
+        hasFiles ? ComponentClassName.FileUploaderPreviewer : ''
       }`}
     >
       <Components.DropZone
@@ -315,8 +309,8 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
   );
 });
 
-// pass an empty object as first param to avoid destructive action on `StorageManagerBase`
-const StorageManager = Object.assign({}, StorageManagerBase, {
+// pass an empty object as first param to avoid destructive action on `FileUploaderBase`
+const FileUploader = Object.assign({}, FileUploaderBase, {
   Container,
   DropZone,
   FileList,
@@ -325,4 +319,4 @@ const StorageManager = Object.assign({}, StorageManagerBase, {
   FilePicker,
 });
 
-export { StorageManager };
+export { FileUploader };
