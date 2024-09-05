@@ -62,6 +62,12 @@ const StorageManagerBase = React.forwardRef(function StorageManager(
   }: StorageManagerPathProps | StorageManagerProps,
   ref: React.ForwardedRef<StorageManagerHandle>
 ): JSX.Element {
+  useDeprecationWarning({
+    message:
+      'The `StorageManager` component has been renamed as the `FileUploader` component.',
+    shouldWarn: false,
+  });
+
   if (!maxFileCount) {
     // eslint-disable-next-line no-console
     console.warn(MISSING_REQUIRED_PROPS_MESSAGE);

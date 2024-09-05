@@ -1,5 +1,12 @@
 # @aws-amplify/ui-angular
 
+## 5.0.20
+
+### Patch Changes
+
+- Updated dependencies [[`6e67ab6be`](https://github.com/aws-amplify/amplify-ui/commit/6e67ab6beb65e8ac7c7db6c6586df3c4f219bdbf), [`634815ff0`](https://github.com/aws-amplify/amplify-ui/commit/634815ff07defd89123963bab98f410c5e1fc9cd)]:
+  - @aws-amplify/ui@6.2.0
+
 ## 5.0.19
 
 ### Patch Changes
@@ -511,7 +518,10 @@ import { ConfirmSignInInput } from 'aws-amplify';
   @Component()
   class MyComponent implements OnInit, OnDelete {
     private unsubscribe: () => void;
-    constructor(private authenticator: Authenticator, private route: Router) {}
+    constructor(
+      private authenticator: Authenticator,
+      private route: Router
+    ) {}
 
     ngOnInit() {
       this.unsubscribe = authenticator.subscribe(({ authStatus }) => {
