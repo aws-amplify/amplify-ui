@@ -7,7 +7,7 @@ import {
   NavElement,
   OrderedListElement,
 } from '../context/elements';
-import { CLASS_BASE } from '../Views/constants';
+import { CLASS_BASE } from '../views/constants';
 import { DataListProps } from './types';
 
 const BLOCK_NAME = `${CLASS_BASE}__paginate`;
