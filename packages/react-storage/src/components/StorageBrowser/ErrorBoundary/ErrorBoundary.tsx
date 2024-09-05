@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { CLASS_BASE } from '../Views/constants';
+
 interface ErrorBoundaryProps {
   children: React.ReactNode;
 }
@@ -9,7 +11,9 @@ interface ErrorBoundaryState {
 }
 
 const Fallback = (): React.JSX.Element => (
-  <p>Something went wrong. Please try again.</p>
+  <div className={CLASS_BASE}>
+    <div className={`${CLASS_BASE}__error`}>Something went wrong.</div>
+  </div>
 );
 
 export class ErrorBoundary extends React.Component<
@@ -29,7 +33,6 @@ export class ErrorBoundary extends React.Component<
   render(): React.ReactNode {
     const { hasError } = this.state;
     const { children } = this.props;
-
     if (hasError) {
       return <Fallback />;
     }

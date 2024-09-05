@@ -22,16 +22,21 @@ export interface ActionItemProps extends ButtonElementProps {}
 
 export interface ActionsMenuProps extends DataListProps<ActionItemProps> {}
 
-export function ActionItem({
-  className = BUTTON_CLASS_NAME,
-  variant = ACTION_ITEM_VARIANT,
-  role = 'menuitem',
-  ...props
-}: ActionItemProps): React.JSX.Element {
+export function ActionItem(
+  {
+    className = BUTTON_CLASS_NAME,
+    key,
+    variant = ACTION_ITEM_VARIANT,
+    role = 'menuitem',
+    ...props
+  }: ActionItemProps,
+  index: number
+): React.JSX.Element {
   return (
     <ButtonElement
       {...props}
       className={className}
+      key={key ?? index}
       role={role}
       variant={variant}
     />

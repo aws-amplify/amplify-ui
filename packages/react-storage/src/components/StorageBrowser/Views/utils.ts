@@ -31,3 +31,7 @@ export const listViewHelpers = ({
     range: [start, end],
   };
 };
+
+export const getPercentValue = (value: number): number => {
+  return Math.round(value * 100);
+};
