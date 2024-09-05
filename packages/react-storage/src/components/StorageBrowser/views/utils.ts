@@ -1,4 +1,4 @@
-import { isFunction } from '@aws-amplify/ui';
+import { isFunction, isString } from '@aws-amplify/ui';
 
 export const listViewHelpers = ({
   currentPage,
@@ -45,8 +45,14 @@ export const getPercentValue = (value: number): number =>
 
 export const resolveClassName = (
   defaultClassName: string,
-  cb?: (defaultClassName: string) => string
-): string => (isFunction(cb) ? cb(defaultClassName) : defaultClassName);
+  className?: string | ((defaultClassName: string) => string)
+): string => {
+  if (isString(className)) return `${defaultClassName} ${className}`;
+
+  if (isFunction(className)) return className(defaultClassName);
+
+  return defaultClassName;
+};
 
 export const compareStrings = (a: string, b: string): number => {
   if (a === undefined) return 1;
