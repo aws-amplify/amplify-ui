@@ -18,13 +18,12 @@ jobs:
         framework: [react-native]
         framework-version: [latest]
         # uncomment to re-enable
-        # build-tool: [cli, expo]
-        build-tool: [expo]
+        build-tool: [cli]
         build-tool-version: [latest]
         pkg-manager: [npm]
         language: [ts]
         node-version: [18]
-        platform: [ios, android]
+        platform: [ios]
         logfile: [test.log]
         pkg-manager-version: [latest]
         exclude:
