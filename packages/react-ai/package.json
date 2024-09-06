@@ -56,7 +56,6 @@
     "@aws-sdk/client-bedrock-runtime": "^3.624.0",
     "@rollup/plugin-commonjs": "^22.0.1",
     "@types/jest-when": "^3.5.0",
-    "@types/json-schema": "^7.0.15",
     "jest-when": "^3.5.1"
   }
 }
