@@ -35,6 +35,14 @@ type AIGenerationClient<T extends Record<any, any>> = Pick<
   'generations'
 >;
 
+interface GraphQLFormattedError {
+  readonly message: string;
+  readonly errorType: string;
+  readonly errorInfo: null | {
+    [key: string]: unknown;
+  };
+}
+
 export function createUseAIGeneration<
   Client extends Record<'generations' | 'conversations', Record<string, any>>,
   Schema extends getSchema<Client>,
@@ -52,7 +60,9 @@ export function createUseAIGeneration<
     const updateAIGenerationStateAction = async (
       _prev: Schema[Key]['returnType'],
       input: Schema[Key]['args']
-    ): Promise<Schema[Key]['returnType']> => {
+    ): Promise<
+      Schema[Key]['returnType'] & { graphqlErrors: GraphQLFormattedError[] }
+    > => {
       const result = await handleGenerate(input);
 
       // handleGenerate returns a Promised wrapper around Schema[Key]['returnType'] which includes data, errors, and clientExtensions
@@ -60,8 +70,10 @@ export function createUseAIGeneration<
       // TODO: follow up with how to type handleGenerate to properly return the promise wrapper shape
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       const data = (result as any).data as Schema[Key]['returnType'];
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
-      return { ...data, ...(result as any).errors };
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+      const graphqlErrors = (result as any).errors;
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-assignment
+      return { ...data, graphqlErrors };
     };
 
     return useDataState(updateAIGenerationStateAction, {});
