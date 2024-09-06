@@ -75,8 +75,8 @@ export interface SuggestedPrompt {
   inputText: string;
 }
 
-type JSONSchema4TypeName =
-  | 'string' //
+type JSONType =
+  | 'string'
   | 'number'
   | 'integer'
   | 'boolean'
@@ -86,7 +86,7 @@ type JSONSchema4TypeName =
   | 'any';
 
 type ResponseComponentProp = {
-  type: JSONSchema4TypeName;
+  type: JSONType;
   enum?: string[];
   description?: string;
   required?: boolean;
