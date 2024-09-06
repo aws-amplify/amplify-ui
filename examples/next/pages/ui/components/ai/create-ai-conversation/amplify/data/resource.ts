@@ -2,7 +2,7 @@ import { a, ClientSchema, defineData } from '@aws-amplify/backend';
 
 const schema = a.schema({
   pirateChat: a.conversation({
-    aiModel: a.aiModel.anthropic.claude3Haiku(),
+    aiModel: a.ai.model('Claude 3 Haiku'),
     systemPrompt:
       'You are a helpful chatbot that responds in the voice and tone of a pirate. Respond in 20 words or less.',
     inferenceConfiguration: {
