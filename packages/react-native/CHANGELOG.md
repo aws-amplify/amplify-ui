@@ -1,5 +1,14 @@
 # @aws-amplify/ui-react-native
 
+## 2.2.7
+
+### Patch Changes
+
+- Updated dependencies [[`c3dfbe044`](https://github.com/aws-amplify/amplify-ui/commit/c3dfbe044fd18e084cd411ce0ff84dcab1a80224)]:
+  - @aws-amplify/ui@6.3.0
+  - @aws-amplify/ui-react-core@3.0.20
+  - @aws-amplify/ui-react-core-notifications@2.0.20
+
 ## 2.2.6
 
 ### Patch Changes

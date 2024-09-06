@@ -9,11 +9,11 @@ import {
   Loader,
   Icon,
 } from '@aws-amplify/ui-react';
-import { StorageManager } from '@aws-amplify/ui-react-storage';
+import { FileUploader } from '@aws-amplify/ui-react-storage';
 
 export const App = () => {
   return (
-    <StorageManager
+    <FileUploader
       acceptedFileTypes={['image/*']}
       path="public/"
       maxFileCount={100}

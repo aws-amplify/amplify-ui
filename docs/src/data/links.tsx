@@ -212,9 +212,9 @@ export const connectedComponents: ComponentNavItem[] = [
     tertiary: true,
   },
   {
-    href: '/connected-components/storage/storagemanager',
-    label: 'Storage Manager',
-    body: 'StorageManager component allows users to upload and manage files in your Amplify backend.',
+    href: '/connected-components/storage/fileuploader',
+    label: 'File Uploader',
+    body: 'FileUploader component allows users to upload and manage files in your Amplify backend.',
     platforms: ['react'],
     tertiary: true,
   },
