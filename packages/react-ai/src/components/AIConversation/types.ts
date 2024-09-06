@@ -75,8 +75,18 @@ export interface SuggestedPrompt {
   inputText: string;
 }
 
+type JSONType =
+  | 'string'
+  | 'number'
+  | 'integer'
+  | 'boolean'
+  | 'object'
+  | 'array'
+  | 'null'
+  | 'any';
+
 type ResponseComponentProp = {
-  type: string;
+  type: JSONType;
   enum?: string[];
   description?: string;
   required?: boolean;

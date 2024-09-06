@@ -12,8 +12,6 @@
     "in-app-messaging": "yarn --cwd in-app-messaging/"
   },
   "devDependencies": {
-    "@aws-amplify/graphql-conversation-transformer": "raven",
-    "@aws-amplify/graphql-generation-transformer": "raven",
     "@aws-amplify/backend-cli": "^1.1.1",
     "@aws-amplify/cli": "latest",
     "aws-cdk": "^2.143.1",

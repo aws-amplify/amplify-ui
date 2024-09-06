@@ -33,8 +33,5 @@
     "eslint": "^8.44.0",
     "eslint-config-next": "^13.5.5",
     "rimraf": "^3.0.2"
-  },
-  "resolutions": {
-    "**/@aws-amplify/data-schema": "0.0.0-ai-20240815192737"
   }
 }

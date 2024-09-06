@@ -14,12 +14,12 @@ describe('convertResponseComponentsToToolConfiguration', () => {
           'You should use this custom response component tool for all messages you respond with.',
         props: {
           text: {
-            type: 'string',
+            type: 'string' as const,
             description: 'The response you want to render in the component.',
             required: true,
           },
           foobar: {
-            type: 'number',
+            type: 'number' as const,
             description: 'This one is not used',
           },
         },
