@@ -5,7 +5,7 @@ import {
   syncMessages,
 } from 'aws-amplify/in-app-messaging';
 import { AccountSettings, Authenticator, Text } from '@aws-amplify/ui-react';
-import { StorageManager } from '@aws-amplify/ui-react-storage';
+import { StorageManager, FileUploader } from '@aws-amplify/ui-react-storage';
 import {
   InAppMessageDisplay,
   InAppMessagingProvider,
@@ -41,6 +41,12 @@ export default function Home() {
       <AccountSettings.ChangePassword onSuccess={() => {}} />
       <AccountSettings.DeleteUser onSuccess={() => {}} />
       <StorageManager
+        acceptedFileTypes={['image/*']}
+        accessLevel="guest"
+        maxFileCount={1}
+        isResumable
+      />
+      <FileUploader
         acceptedFileTypes={['image/*']}
         accessLevel="guest"
         maxFileCount={1}
