@@ -52,10 +52,11 @@
     "@aws-amplify/ui-react-core": "3.0.19"
   },
   "devDependencies": {
-    "@aws-amplify/data-schema": "fixme",
+    "@aws-amplify/data-schema": "^1.5.0",
     "@aws-sdk/client-bedrock-runtime": "^3.624.0",
     "@rollup/plugin-commonjs": "^22.0.1",
     "@types/jest-when": "^3.5.0",
+    "@types/json-schema": "^7.0.15",
     "jest-when": "^3.5.1"
   }
 }

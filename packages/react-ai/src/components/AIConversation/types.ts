@@ -1,4 +1,5 @@
 import React from 'react';
+import { JSONSchema4TypeName } from 'json-schema';
 
 import { AIConversationElements } from './context/elements';
 import {
@@ -76,7 +77,7 @@ export interface SuggestedPrompt {
 }
 
 type ResponseComponentProp = {
-  type: string;
+  type: JSONSchema4TypeName;
   enum?: string[];
   description?: string;
   required?: boolean;
