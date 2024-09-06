@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -v
 # Default values
 BUILD_TOOL="cra"
 BUILD_TOOL_VERSION="latest"
@@ -7,6 +7,8 @@ LANGUAGE="ts"
 MEGA_APP_NAME=""
 FRAMEWORK="react"
 FRAMEWORK_VERSION="latest"
+
+source "./scripts/log-and-run-command.sh"
 
 # Options
 # e.g.
@@ -64,15 +66,13 @@ echo "###########################"
 echo "# Start Creating Mega App #"
 echo "###########################"
 
-echo "mkdir -p mega-apps/"
-mkdir -p mega-apps/
-echo "cd mega-apps"
-cd mega-apps
+log_and_run mkdir -p mega-apps/
+log_and_run cd mega-apps
 
 # Create a blank package.json
 # Otherwise mega-apps will be automatically created in build-system-tests/ folder even if we cd into mega-apps/ folder.
-echo "echo "{}" >package.json"
-echo "{}" >package.json
+
+log_and_run 'echo "{}" > package.json'
 
 if [[ "$BUILD_TOOL" == 'cra' && "$LANGUAGE" == 'js' ]]; then
     echo "npx create-react-app ${MEGA_APP_NAME}"
@@ -90,8 +90,7 @@ if [ "$BUILD_TOOL" == 'next' ]; then
 fi
 
 if [ "$BUILD_TOOL" == 'vite' ]; then
-    echo "npm create vite@${BUILD_TOOL_VERSION} $MEGA_APP_NAME -- --template ${FRAMEWORK}-ts"
-    npm create vite@${BUILD_TOOL_VERSION} $MEGA_APP_NAME -- --template ${FRAMEWORK}-ts
+    log_and_run npm create vite@${BUILD_TOOL_VERSION} $MEGA_APP_NAME -- --template ${FRAMEWORK}-ts
 fi
 
 if [[ "$FRAMEWORK" == 'angular' ]]; then
