@@ -1,26 +1,17 @@
-import { Before, Given } from '@badeball/cypress-cucumber-preprocessor';
+import { When } from '@badeball/cypress-cucumber-preprocessor';
+import { escapeRegExp } from 'lodash';
 
-let language = 'en-US';
-
-Before(() => {
-  cy.intercept({ method: 'GET', query: { 'list-type': '2' } }, (req) => {
-    req.on('response', (res) => {
-      res.setDelay(10000);
+When(
+  'I click the button containing {string} on a slow connection',
+  (name: string) => {
+    cy.intercept({ method: 'GET', query: { 'list-type': '2' } }, (req) => {
+      req.on('response', (res) => {
+        res.setDelay(3000);
+      });
     });
-  });
-});
 
-Given(
-  "I'm running the StorageBrowser example {string} on a slow connection",
-  (example: string) => {
-    cy.visit(example, {
-      // See: https://glebbahmutov.com/blog/cypress-tips-and-tricks/#control-navigatorlanguage
-      onBeforeLoad(win) {
-        Object.defineProperty(win.navigator, 'language', { value: language });
-      },
-      onLoad(contentWindow) {
-        window = contentWindow;
-      },
-    });
+    cy.findByRole('button', {
+      name: new RegExp(`${escapeRegExp(name)}`, 'i'),
+    }).click();
   }
 );
