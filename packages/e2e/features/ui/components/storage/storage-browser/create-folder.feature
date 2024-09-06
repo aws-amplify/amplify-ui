@@ -53,3 +53,4 @@ Feature: Create folder with Storage Browser
     Then I type a new "Enter folder name:" with value "Blackberry/"
     When I click the "Create Folder" button while offline
     Then I see "Network Error"
+    
