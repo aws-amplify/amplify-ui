@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Default values
 BUILD_TOOL="cra"
@@ -126,13 +127,6 @@ else
         # If not testing the latest React, we need to download its types.
         # CRA is the only framework that we test React 16.
         install_dependencies_with_retries npm "$DEP_TYPES"
-    fi
-
-    if [[ "$BUILD_TOOL" == 'next' && "$BUILD_TOOL_VERSION" == '11' ]]; then
-        # We have to remove the initial downloaded node_modules for Next.js 11,
-        # because create-next-app only creates the app with the latest version
-        echo "rm -rf node_modules"
-        rm -rf node_modules
     fi
 
     if [[ "$FRAMEWORK" == "react-native" ]]; then
