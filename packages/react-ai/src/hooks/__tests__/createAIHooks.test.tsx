@@ -142,7 +142,10 @@ describe('createAIHooks', () => {
       const expectedResult = {
         recipe: 'This is a recipe for chocolate cake that tastes bad',
       };
-      generateRecipeMock.mockResolvedValueOnce(expectedResult);
+      const generateReturn = {
+        data: expectedResult,
+      };
+      generateRecipeMock.mockResolvedValueOnce(generateReturn);
       const { useAIGeneration } = createAIHooks(client);
 
       const { result: hookResult, waitForNextUpdate } = renderHook(() =>
