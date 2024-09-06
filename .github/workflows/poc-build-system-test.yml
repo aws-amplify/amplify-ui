@@ -7,7 +7,8 @@ permissions:
 
 on:
   pull_request:
-    branches: [poc-storage-canaries]
+    branches: [storage-canaries]
+
 jobs:
   build:
     uses: ./.github/workflows/reusable-build-system-test.yml
