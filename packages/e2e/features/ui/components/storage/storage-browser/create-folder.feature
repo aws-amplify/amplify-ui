@@ -38,3 +38,18 @@ Feature: Create folder with Storage Browser
     When I type a new "Enter folder name:" with value "Blackberry/"
     When I lose focus on "Enter folder name:" input
     Then I see "Folder name must be at least one character and cannot contain a \"/\"."
+
+@react
+ Scenario: Create folder shows a Network error if offline
+    When I type my "email" with status "CONFIRMED"
+    Then I type my password
+    Then I click the "Sign in" button
+    When I click the button containing "public"
+    Then I see the "Actions" button
+    When I click the "Actions" button
+    Then I see the "Create Folder" menuitem
+    Then I click the "Create Folder" menuitem
+    Then I see "Enter folder name:"
+    Then I type a new "Enter folder name:" with value "Blackberry/"
+    When I click the "Create Folder" button while offline
+    Then I see "Network Error"
