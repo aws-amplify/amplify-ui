@@ -195,7 +195,7 @@ export default function IconProviderExample() {
             <Rating value={3.5} />
           </Flex>
         </Flex>
-        <FileUploader accessLevel="guest" maxFileCount={5} />
+        <FileUploader path="public/" maxFileCount={5} />
       </Flex>
     </IconsProvider>
   );
