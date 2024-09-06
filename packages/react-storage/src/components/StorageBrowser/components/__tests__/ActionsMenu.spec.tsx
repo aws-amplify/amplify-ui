@@ -1,5 +1,5 @@
 import React from 'react';
-import { act, render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { ActionsMenu, ActionsMenuProps } from '../ActionsMenu';
@@ -24,7 +24,7 @@ describe('ActionsMenu', () => {
 
     const toggle = getByTestId('ACTIONS_MENU_TOGGLE');
 
-    await act(async () => {
+    await waitFor(async () => {
       await user.click(toggle);
     });
 
@@ -33,7 +33,7 @@ describe('ActionsMenu', () => {
       'storage-browser__actions-menu__menu storage-browser__actions-menu__menu--open'
     );
 
-    await act(async () => {
+    await waitFor(async () => {
       await user.click(toggle);
     });
 
@@ -50,13 +50,15 @@ describe('ActionsMenu', () => {
 
     const toggle = getByTestId('ACTIONS_MENU_TOGGLE');
 
-    await act(async () => {
+    await waitFor(async () => {
       await user.click(toggle);
     });
 
     const menuItem = getByText('Fun!');
 
-    await user.click(menuItem);
+    await waitFor(async () => {
+      await user.click(menuItem);
+    });
 
     expect(onClick).toHaveBeenCalledTimes(1);
   });

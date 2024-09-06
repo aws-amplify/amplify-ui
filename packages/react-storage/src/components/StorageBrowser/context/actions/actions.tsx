@@ -46,17 +46,16 @@ const [ActionStateProvider, useActionState] = createActionStateContext(
   ERROR_MESSAGE
 );
 
-export const useAction = <T extends keyof ActionsWithConfig>({
-  type,
-}: {
-  type: T;
-}): UseActionState<ActionsWithConfig[T]> => {
+export const useAction = <T extends keyof ActionsWithConfig>(
+  type: T
+): UseActionState<ActionsWithConfig[T]> => {
   const [state, handle] = useActionState({ type });
-  const getConfig = useGetLocationConfig();
+  const config = useGetLocationConfig();
+
   const handleAction = React.useCallback(
     (input: Parameters<UseActionState<ActionsWithConfig[T]>[1]>) =>
-      handle({ ...input, config: getConfig }),
-    [getConfig, handle]
+      handle({ ...input, config }),
+    [config, handle]
   );
 
   return [state, handleAction] as UseActionState<ActionsWithConfig[T]>;

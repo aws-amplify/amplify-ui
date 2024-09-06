@@ -3,13 +3,13 @@ import { GetLocationCredentials } from '@aws-amplify/storage/storage-browser';
 
 import { LocationData } from './types';
 
-import { useControl } from './controls';
+import { useControl } from './control';
 import {
   RegisterAuthListener,
   useGetCredentialsProvider,
 } from './useGetCredentialsProvider';
 import { LocationConfig } from './types';
-import { parseLocationAccess } from './controls/Navigate/utils';
+import { parseLocationAccess } from './navigate/utils';
 
 export interface LocationConfigProviderProps {
   children?: React.ReactNode;
@@ -30,7 +30,7 @@ export function LocationConfigProvider({
   registerAuthListener,
   region,
 }: LocationConfigProviderProps): React.JSX.Element {
-  const [{ location, path }] = useControl({ type: 'NAVIGATE' });
+  const [{ location, path }] = useControl('NAVIGATE');
 
   const { permission, scope: locationScope } = location ?? {};
   const { bucket } = location

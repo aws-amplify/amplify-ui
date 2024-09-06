@@ -6,7 +6,7 @@ import {
   InputElement,
   LabelElement,
 } from '../context/elements';
-import { CLASS_BASE } from '../Views/constants';
+import { CLASS_BASE } from '../views/constants';
 
 const BLOCK_NAME = `${CLASS_BASE}__field`;
 
