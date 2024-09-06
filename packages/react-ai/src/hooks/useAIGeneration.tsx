@@ -55,7 +55,10 @@ export function createUseAIGeneration<
     ): Promise<Schema[Key]['returnType']> => {
       const result = await handleGenerate(input);
 
-      return { ...result };
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const data = (result as any).data as Schema[Key]['returnType'];
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
+      return { ...data, ...(result as any).errors };
     };
 
     return useDataState(updateAIGenerationStateAction, {});
