@@ -63,16 +63,22 @@
   ],
   "size-limit": [
     {
+      "name": "createStorageBrowser",
+      "path": "dist/esm/components/StorageBrowser/browser.mjs",
+      "import": "{ createStorageBrowser }",
+      "limit": "15 kB"
+    },
+    {
+      "name": "StorageBrowser",
+      "path": "dist/esm/index.mjs",
+      "import": "{ StorageBrowser }",
+      "limit": "32.5 kB"
+    },
+    {
       "name": "StorageManager",
       "path": "dist/esm/index.mjs",
       "import": "{ StorageManager }",
       "limit": "25.5 kB"
-    },
-    {
-      "name": "createStorageBrowser",
-      "path": "dist/esm/components/StorageBrowser/browser.mjs",
-      "import": "{ createStorageBrowser }",
-      "limit": "15.2 kB"
     }
   ]
 }
