@@ -55,6 +55,9 @@ export function createUseAIGeneration<
     ): Promise<Schema[Key]['returnType']> => {
       const result = await handleGenerate(input);
 
+      // handleGenerate returns a Promised wrapper around Schema[Key]['returnType'] which includes data, errors, and clientExtensions
+      // The type of data is Schema[Key]['returnType'] which useDataState also wraps in a data return
+      // TODO: follow up with how to type handleGenerate to properly return the promise wrapper shape
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       const data = (result as any).data as Schema[Key]['returnType'];
       // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
