@@ -98,6 +98,22 @@ Given(
   }
 );
 
+Given(
+  'I intercept a {string} request to {string}',
+  (method: string, endpoint: string) => {
+    cy.intercept(method, endpoint).as(`${method}_REQUEST`);
+  }
+);
+
+Then(
+  'I confirm the {string} request has a status of {string}',
+  (method: string, statusCode: string) => {
+    cy.wait(`@${method}_REQUEST`)
+      .its('response.statusCode')
+      .should('eq', +statusCode);
+  }
+);
+
 Given('I spy request {string}', (json: string) => {
   let routeMatcher;
 
