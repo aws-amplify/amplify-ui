@@ -61,7 +61,7 @@ export function createUseAIGeneration<
       _prev: Schema[Key]['returnType'],
       input: Schema[Key]['args']
     ): Promise<
-      Schema[Key]['returnType'] & { graphqlErrors: GraphQLFormattedError[] }
+      Schema[Key]['returnType'] & { graphqlErrors?: GraphQLFormattedError[] }
     > => {
       const result = await handleGenerate(input);
 
@@ -73,7 +73,7 @@ export function createUseAIGeneration<
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       const graphqlErrors = (result as any).errors;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-assignment
-      return { ...data, graphqlErrors };
+      return { ...data, ...(graphqlErrors ? { graphqlErrors } : {}) };
     };
 
     return useDataState(updateAIGenerationStateAction, {});
