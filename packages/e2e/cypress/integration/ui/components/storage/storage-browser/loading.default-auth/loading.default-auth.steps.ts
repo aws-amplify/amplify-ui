@@ -5,7 +5,7 @@ let language = 'en-US';
 Before(() => {
   cy.intercept({ method: 'GET', query: { 'list-type': '2' } }, (req) => {
     req.on('response', (res) => {
-      res.setDelay(3000);
+      res.setDelay(10000);
     });
   });
 });
