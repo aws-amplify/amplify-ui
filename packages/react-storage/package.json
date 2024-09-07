@@ -64,7 +64,7 @@
       "name": "StorageImage",
       "path": "dist/esm/index.mjs",
       "import": "{ StorageImage }",
-      "limit": "17 kB",
+      "limit": "17 kB"
     },
     {
       "name": "StorageManager",
