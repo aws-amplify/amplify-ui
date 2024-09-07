@@ -69,7 +69,7 @@ describe('FieldControl', () => {
   });
 
   it('disables the send button when the input field is empty', async () => {
-    const { rerender } = render(
+    render(
       <ConversationInputContextProvider>
         <FieldControl />
       </ConversationInputContextProvider>
