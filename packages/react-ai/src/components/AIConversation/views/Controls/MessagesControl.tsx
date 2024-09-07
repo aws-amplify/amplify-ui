@@ -29,9 +29,9 @@ const MediaContent: typeof MediaContentBase = React.forwardRef(
     const role = React.useContext(RoleContext);
     return (
       <MediaContentBase
-        {...props}
         ref={ref}
         className={`${MESSAGE_BLOCK}__image ${MESSAGE_BLOCK}__image--${variant} ${MESSAGE_BLOCK}__image--${role}`}
+        {...props}
       />
     );
   }
@@ -39,7 +39,7 @@ const MediaContent: typeof MediaContentBase = React.forwardRef(
 
 const TextContent: typeof Text = React.forwardRef(
   function TextContent(props, ref) {
-    return <Text {...props} ref={ref} className={`${MESSAGE_BLOCK}__text`} />;
+    return <Text ref={ref} className={`${MESSAGE_BLOCK}__text`} {...props} />;
   }
 );
 
@@ -122,9 +122,9 @@ const HeaderContainer: typeof View = React.forwardRef(
     const variant = React.useContext(MessageVariantContext);
     return (
       <View
-        {...props}
         ref={ref}
         className={`${MESSAGE_BLOCK}__header__container ${MESSAGE_BLOCK}__header__container--${variant}`}
+        {...props}
       />
     );
   }
@@ -136,9 +136,9 @@ const MessageContainer: typeof View = React.forwardRef(
     const role = React.useContext(RoleContext);
     return (
       <View
-        {...props}
         ref={ref}
         className={`${MESSAGE_BLOCK} ${MESSAGE_BLOCK}--${variant} ${MESSAGE_BLOCK}--${role}`}
+        {...props}
       />
     );
   }
@@ -148,10 +148,10 @@ const Layout: typeof View = React.forwardRef(function Layout(props, ref) {
   const variant = React.useContext(MessageVariantContext);
   return (
     <View
-      {...props}
       ref={ref}
       className={`${MESSAGES_BLOCK}__container ${MESSAGES_BLOCK}__container--${variant}`}
       aria-live={'assertive'}
+      {...props}
     />
   );
 });
