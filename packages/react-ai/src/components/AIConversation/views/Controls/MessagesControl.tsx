@@ -49,9 +49,9 @@ const ContentContainer: typeof View = React.forwardRef(
     return (
       <View
         data-testid={'content'}
-        {...props}
-        ref={ref}
         className={`${MESSAGE_BLOCK}__content ${MESSAGE_BLOCK}__content--${variant}`}
+        ref={ref}
+        {...props}
       />
     );
   }

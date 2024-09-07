@@ -10,7 +10,6 @@ import { Authenticator, Card } from '@aws-amplify/ui-react';
 
 const client = generateClient<Schema>({ authMode: 'userPool' });
 const { useAIConversation } = createAIHooks(client);
-console.log(client);
 
 Amplify.configure(outputs);
 

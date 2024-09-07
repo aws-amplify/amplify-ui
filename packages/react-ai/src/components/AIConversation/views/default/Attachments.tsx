@@ -2,32 +2,7 @@ import * as React from 'react';
 import { Button, Image, Text, View } from '@aws-amplify/ui-react';
 import { IconClose, useIcons } from '@aws-amplify/ui-react/internal';
 import { ConversationInputContext } from '../../context';
-import { ComponentClassName } from '@aws-amplify/ui';
-
-// TODO remove this after merge main back into this branch
-function humanFileSize(bytes: number, si = false, dp = 1): string {
-  const thresh = si ? 1000 : 1024;
-
-  if (Math.abs(bytes) < thresh) {
-    return `${bytes} B`;
-  }
-
-  const units = si
-    ? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
-    : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
-  let unit = -1;
-  const range = 10 ** dp;
-
-  do {
-    bytes /= thresh;
-    ++unit;
-  } while (
-    Math.round(Math.abs(bytes) * range) / range >= thresh &&
-    unit < units.length - 1
-  );
-
-  return bytes.toFixed(dp) + ' ' + units[unit];
-}
+import { ComponentClassName, humanFileSize } from '@aws-amplify/ui';
 
 const Attachment = ({
   file,

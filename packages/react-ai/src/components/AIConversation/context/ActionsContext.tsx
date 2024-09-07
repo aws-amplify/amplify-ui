@@ -1,10 +1,9 @@
 import React from 'react';
 import { CustomAction } from '../types';
 
-type ActionsContextProps = CustomAction[] | undefined;
-
-export const ActionsContext =
-  React.createContext<ActionsContextProps>(undefined);
+export const ActionsContext = React.createContext<CustomAction[] | undefined>(
+  undefined
+);
 
 export const ActionsProvider = ({
   children,

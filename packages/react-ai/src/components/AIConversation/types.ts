@@ -85,22 +85,22 @@ type JSONType =
   | 'null'
   | 'any';
 
-type ResponseComponentProp = {
+interface ResponseComponentProp {
   type: JSONType;
   enum?: string[];
   description?: string;
   required?: boolean;
-};
+}
 
-type ResponseComponentPropMap = {
+interface ResponseComponentPropMap {
   [key: string]: ResponseComponentProp;
-};
+}
 
-export type ResponseComponent = {
+export interface ResponseComponent {
   component: React.ComponentType<any>;
   description?: string;
   props: ResponseComponentPropMap;
-};
+}
 
 export interface ResponseComponents {
   [key: string]: ResponseComponent;

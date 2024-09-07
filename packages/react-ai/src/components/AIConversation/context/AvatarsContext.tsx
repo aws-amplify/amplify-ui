@@ -1,10 +1,9 @@
 import React from 'react';
 import { Avatars } from '../types';
 
-type AvatarContextProps = Avatars | undefined;
-
-export const AvatarsContext =
-  React.createContext<AvatarContextProps>(undefined);
+export const AvatarsContext = React.createContext<Avatars | undefined>(
+  undefined
+);
 
 export const AvatarsProvider = ({
   children,

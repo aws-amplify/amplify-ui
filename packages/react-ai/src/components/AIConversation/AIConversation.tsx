@@ -15,7 +15,7 @@ import { AutoHidablePromptControl } from './views/Controls';
 import { ComponentClassName } from '@aws-amplify/ui';
 import createProvider from './createProvider';
 
-interface _AIConversationProps
+interface AIConversationBaseProps
   extends AIConversationProps,
     AIConversationInput {}
 
@@ -29,7 +29,7 @@ function AIConversationBase({
   suggestedPrompts,
   variant,
   isLoading,
-}: _AIConversationProps): JSX.Element {
+}: AIConversationBaseProps): JSX.Element {
   const icons = useIcons('aiConversation');
   const defaultAvatars: Avatars = {
     ai: {

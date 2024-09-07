@@ -2,17 +2,12 @@ import { DataState, useDataState } from '@aws-amplify/ui-react-core';
 import { V6Client } from '@aws-amplify/api-graphql';
 import { getSchema } from '../types';
 
-interface UseAIGenerationInput {
-  onError?: (error: Error) => void;
-}
-
 export interface UseAIGenerationHookWrapper<
   Key extends keyof AIGenerationClient<Schema>['generations'],
   Schema extends Record<any, any>,
 > {
   useAIGeneration: <U extends Key>(
-    routeName: U,
-    input?: UseAIGenerationInput
+    routeName: U
   ) => [
     Awaited<DataState<Schema[U]['returnType']>>,
     (input: Schema[U]['args']) => void,
@@ -23,8 +18,7 @@ export type UseAIGenerationHook<
   Key extends keyof AIGenerationClient<Schema>['generations'],
   Schema extends Record<any, any>,
 > = (
-  routeName: Key,
-  input?: UseAIGenerationInput
+  routeName: Key
 ) => [
   Awaited<DataState<Schema[Key]['returnType']>>,
   (input: Schema[Key]['args']) => void,
@@ -50,8 +44,7 @@ export function createUseAIGeneration<
   const useAIGeneration = <
     Key extends keyof AIGenerationClient<Schema>['generations'],
   >(
-    routeName: Key,
-    _input?: UseAIGenerationInput
+    routeName: Key
   ) => {
     const handleGenerate = (
       client.generations as AIGenerationClient<Schema>['generations']
