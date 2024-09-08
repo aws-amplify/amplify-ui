@@ -94,17 +94,17 @@ const avatars: Avatars = {
 };
 
 describe('createAIConversation', () => {
-  it('returns an AIConversation', async () => {
+  it('returns an AIConversation', () => {
     const { AIConversation } = createAIConversation();
 
     const sendMessage: SendMessage = () => {};
-    const container = await render(
+    const { container } = render(
       <AIConversation
         messages={messages}
         avatars={avatars}
         handleSendMessage={sendMessage}
       />
-    ).container;
+    );
     expect(container).toBeDefined();
     const avatarElements = screen.getAllByTestId('avatar');
     const screenMessages = screen.getAllByTestId('message');

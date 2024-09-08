@@ -22,10 +22,11 @@ const AttachmentListWithContext = () => {
   const [input, setInput] = React.useState<Input | undefined>({
     files: MOCK_FILES,
   });
+  const value = React.useMemo(() => {
+    return { input: input, setInput: setInput };
+  }, [input]);
   return (
-    <ConversationInputContext.Provider
-      value={{ input: input, setInput: setInput }}
-    >
+    <ConversationInputContext.Provider value={value}>
       <AttachmentListControl />
     </ConversationInputContext.Provider>
   );

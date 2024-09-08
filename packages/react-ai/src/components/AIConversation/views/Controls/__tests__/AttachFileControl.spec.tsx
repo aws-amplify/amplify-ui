@@ -65,9 +65,12 @@ describe('AttachFileControl', () => {
 
     expect(inputContextValue.setInput).toHaveBeenCalled();
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const updateFunction = inputContextValue.setInput.mock.calls[0][0];
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     const updatedState = updateFunction({ files: [] });
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     expect(updatedState.files).toEqual([file]);
   });
 });

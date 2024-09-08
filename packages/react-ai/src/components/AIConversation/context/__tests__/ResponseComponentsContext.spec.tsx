@@ -6,7 +6,7 @@ const ArghAdder = () => {
 };
 
 describe('convertResponseComponentsToToolConfiguration', () => {
-  it('takes in responseComponents and returns a ToolConfiguration', async () => {
+  it('takes in responseComponents and returns a ToolConfiguration', () => {
     const responseComponents = {
       annoyingComponent: {
         component: ArghAdder,
@@ -56,7 +56,7 @@ describe('convertResponseComponentsToToolConfiguration', () => {
     expect(resultToolConfiguration).toEqual(expectedResult);
   });
 
-  it('returns undefined with no input', async () => {
+  it('returns undefined with no input', () => {
     expect(convertResponseComponentsToToolConfiguration()).toBeUndefined();
   });
 });

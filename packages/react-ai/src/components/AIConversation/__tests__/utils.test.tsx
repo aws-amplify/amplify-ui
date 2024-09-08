@@ -6,7 +6,7 @@ import {
 
 describe('convertBufferToBase64', () => {
   it('should convert an ArrayBuffer to a base64 string with the correct format', () => {
-    const buffer = new Uint8Array([72, 101, 108, 108, 111]).buffer;
+    const { buffer } = new Uint8Array([72, 101, 108, 108, 111]);
     const format = 'png';
     const base64String = convertBufferToBase64(buffer, format);
     expect(base64String).toBe('data:image/png;base64,SGVsbG8=');
@@ -20,7 +20,7 @@ describe('convertBufferToBase64', () => {
   });
 
   it('should convert an ArrayBuffer with different content correctly', () => {
-    const buffer = new Uint8Array([255, 0, 255, 0]).buffer;
+    const { buffer } = new Uint8Array([255, 0, 255, 0]);
     const format = 'gif';
     const base64String = convertBufferToBase64(buffer, format);
     expect(base64String).toBe('data:image/gif;base64,/wD/AA==');
@@ -28,7 +28,7 @@ describe('convertBufferToBase64', () => {
 
   it('should still work in node based Buffer is not defined', () => {
     (window.Buffer as any) = undefined;
-    const buffer = new Uint8Array([72, 101, 108, 108, 111]).buffer;
+    const { buffer } = new Uint8Array([72, 101, 108, 108, 111]);
     const format = 'png';
     const base64String = convertBufferToBase64(buffer, format);
     expect(base64String).toBe('data:image/png;base64,SGVsbG8=');

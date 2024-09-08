@@ -31,7 +31,7 @@ describe('PromptControl', () => {
     expect(result.findAllByText(MOCK_PROMPTS[0].header)).toBeDefined();
   });
 
-  it('renders a PromptControl element with prompts', async () => {
+  it('renders a PromptControl element with prompts and updates input state', async () => {
     const result = render(
       <SuggestedPromptProvider suggestedPrompts={MOCK_PROMPTS}>
         <ConversationInputContext.Provider value={{ setInput: () => {} }}>

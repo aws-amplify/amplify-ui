@@ -5,7 +5,7 @@ const listMessageMock = jest.fn().mockResolvedValue({ data: [] });
 const sendMessageMock = jest.fn().mockResolvedValue({ data: {} });
 const onMessageMock = jest.fn().mockReturnValue({ unsubscribe: jest.fn() });
 const generateRecipeMock = jest.fn();
-let id = 'foobar';
+const id = 'foobar';
 
 const mockGet = jest.fn().mockImplementation(() => {
   return {
@@ -40,7 +40,7 @@ describe('createAIHooks', () => {
     onMessageMock.mockReset();
   });
 
-  it('returns an useAIGeneration and useAIConversation hooks', async () => {
+  it('returns an useAIGeneration and useAIConversation hooks', () => {
     const client = new mockClient();
     const { useAIConversation, useAIGeneration } = createAIHooks(client);
 
@@ -103,9 +103,11 @@ describe('createAIHooks', () => {
       await waitForNextUpdate();
       expect(result.current[0].data.messages).toHaveLength(2);
 
-      const foobar = onMessageMock.mock.calls[0][0];
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const onMessageHandler = onMessageMock.mock.calls[0][0];
       act(() => {
-        foobar({ content: [{ text: 'Pirate responding' }] });
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        onMessageHandler({ content: [{ text: 'Pirate responding' }] });
       });
       expect(result.current[0].data.messages).toHaveLength(3);
     });
@@ -127,9 +129,11 @@ describe('createAIHooks', () => {
       await waitForNextUpdate();
       expect(result.current[0].data.messages).toHaveLength(2);
 
-      const foobar = onMessageMock.mock.calls[0][0];
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const onMessageHandler = onMessageMock.mock.calls[0][0];
       act(() => {
-        foobar({ content: [{ text: 'Pirate responding' }] });
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        onMessageHandler({ content: [{ text: 'Pirate responding' }] });
       });
       expect(result.current[0].data.messages).toHaveLength(3);
       expect(onResponse).toHaveBeenCalled();

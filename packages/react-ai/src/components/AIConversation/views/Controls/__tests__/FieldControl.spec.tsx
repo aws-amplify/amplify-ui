@@ -98,7 +98,7 @@ describe('FieldControl', () => {
     });
     expect(screen.getByTestId('send-button')).not.toBeDisabled();
     screen.getByTestId('send-button').click();
-    expect(sendMessage).toBeCalledTimes(1);
+    expect(sendMessage).toHaveBeenCalledTimes(1);
   });
 
   it.todo('disables the send button when waiting for an AI message');
