@@ -1,8 +1,8 @@
-import { StorageManager } from '@aws-amplify/ui-react-storage';
+import { FileUploader } from '@aws-amplify/ui-react-storage';
 
 export const App = () => {
   return (
-    <StorageManager
+    <FileUploader
       acceptedFileTypes={[
         // you can list file extensions:
         '.gif',
