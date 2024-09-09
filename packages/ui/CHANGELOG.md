@@ -1,5 +1,32 @@
 # @aws-amplify/ui
 
+## 6.4.0
+
+### Minor Changes
+
+- [#5767](https://github.com/aws-amplify/amplify-ui/pull/5767) [`afffa89cb`](https://github.com/aws-amplify/amplify-ui/commit/afffa89cb29bb08ff1b626c727a2c9fb93bf11b3) Thanks [@thaddmt](https://github.com/thaddmt)! - feat(primitives): add Avatar primitive
+
+  ```jsx
+  {
+    /* Avatar with image */
+  }
+  <Avatar src="/cats/5.jpg" />;
+  {
+    /* Avatar with default placeholder icon */
+  }
+  <Avatar />;
+  {
+    /* Avatar with initials */
+  }
+  <Avatar>DB</Avatar>;
+  {
+    /* Avatar with custom icon */
+  }
+  <Avatar>
+    <FiSmile style={{ width: '60%', height: '60%' }} />
+  </Avatar>;
+  ```
+
 ## 6.3.0
 
 ### Minor Changes
