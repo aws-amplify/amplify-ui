@@ -35,12 +35,14 @@ export const deDict: AuthenticatorDictionary = {
   'Enter your password': 'Geben Sie Ihr Passwort ein',
   'Enter your email': 'Geben Sie Ihre E-Mail ein',
   'Enter your phone number': 'Geben Sie Ihre Telefonnummer ein',
-  'Enter your Preferred Username': 'Geben Sie Ihren bevorzugten Benutzernamen ein',
+  'Enter your Preferred Username':
+    'Geben Sie Ihren bevorzugten Benutzernamen ein',
   'Enter your username': 'Geben Sie Ihren Benutzernamen ein',
   'Forgot password?': 'Passwort vergessen?',
   'Forgot your password?': 'Passwort vergessen? ',
   'Hide password': 'Passwort verbergen',
-  'It may take a minute to arrive': 'Es kann eine Minute dauern, bis er ankommt',
+  'It may take a minute to arrive':
+    'Es kann eine Minute dauern, bis er ankommt',
   Loading: 'Wird geladen',
   'New password': 'Neues Passwort',
   or: 'oder',

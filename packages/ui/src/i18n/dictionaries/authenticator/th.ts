@@ -72,11 +72,11 @@ export const thDict: AuthenticatorDictionary = {
   'We Sent A Code': 'เราได้ส่งรหัสแล้ว',
   'We Texted You': 'เราได้ส่ง SMS ถึงคุณแล้ว',
   'Your code is on the way. To log in, enter the code we emailed to':
-   'รหัสของคุณกำลังมา เพื่อเข้าสู่ระบบ กรุณากรอกรหัสที่เราส่งไปยังอีเมล',
+    'รหัสของคุณกำลังมา เพื่อเข้าสู่ระบบ กรุณากรอกรหัสที่เราส่งไปยังอีเมล',
   'Your code is on the way. To log in, enter the code we sent you':
-   'รหัสของคุณกำลังมา เพื่อเข้าสู่ระบบ กรุณากรอกรหัสที่เราส่งให้คุณ',
+    'รหัสของคุณกำลังมา เพื่อเข้าสู่ระบบ กรุณากรอกรหัสที่เราส่งให้คุณ',
   'Your code is on the way. To log in, enter the code we texted to':
-   'รหัสของคุณกำลังมา เพื่อเข้าสู่ระบบ กรุณากรอกรหัสที่เราส่งไปยัง SMS',
+    'รหัสของคุณกำลังมา เพื่อเข้าสู่ระบบ กรุณากรอกรหัสที่เราส่งไปยัง SMS',
 
   // Additional translations
   'An account with the given email already exists.':

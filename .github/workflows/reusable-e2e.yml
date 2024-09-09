@@ -178,6 +178,10 @@ jobs:
         if: ${{ matrix.package == 'react' }}
         run: yarn react-liveness build
 
+      - name: Build react-ai package
+        if: ${{ matrix.package == 'react' }}
+        run: yarn react-ai build
+
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
 

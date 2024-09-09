@@ -12,6 +12,7 @@
     "refresh": "yarn clean && yarn setup",
     "angular": "yarn workspace @aws-amplify/ui-angular",
     "react": "yarn workspace @aws-amplify/ui-react",
+    "react-ai": "yarn workspace @aws-amplify/ui-react-ai",
     "react-auth": "yarn workspace @aws-amplify/ui-react-auth",
     "react-core": "yarn workspace @aws-amplify/ui-react-core",
     "react-core-auth": "yarn workspace @aws-amplify/ui-react-core-auth",
