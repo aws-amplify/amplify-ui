@@ -98,6 +98,22 @@ Given(
   }
 );
 
+Given(
+  'I intercept a {string} request to {string}',
+  (method: string, endpoint: string) => {
+    cy.intercept(method, endpoint).as(`${method}_REQUEST`);
+  }
+);
+
+Then(
+  'I confirm the {string} request has a status of {string}',
+  (method: string, statusCode: string) => {
+    cy.wait(`@${method}_REQUEST`)
+      .its('response.statusCode')
+      .should('eq', +statusCode);
+  }
+);
+
 Given('I spy request {string}', (json: string) => {
   let routeMatcher;
 
@@ -228,6 +244,10 @@ const typeInInputHandler = (field: string, value: string) => {
 };
 When('I type a new {string} with value {string}', typeInInputHandler);
 
+When('I lose focus on {string} input', (field: string) => {
+  cy.findInputField(field).blur();
+});
+
 When('I click the {string} tab', (label: string) => {
   cy.findByRole('tab', {
     name: new RegExp(`^${escapeRegExp(label)}$`, 'i'),
@@ -244,6 +264,18 @@ When('I click the {string} button', (name: string) => {
   }).click();
 });
 
+When('I click the button containing {string}', (name: string) => {
+  cy.findByRole('button', {
+    name: new RegExp(`${escapeRegExp(name)}`, 'i'),
+  }).click();
+});
+
+Then('I see the button containing {string}', (name: string) => {
+  cy.findByRole('button', {
+    name: new RegExp(`${escapeRegExp(name)}`, 'i'),
+  }).should('exist');
+});
+
 Then('I see the {string} button', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
@@ -254,6 +286,18 @@ Then('I do not see the {string} button', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
   }).should('not.exist');
+});
+
+When('I click the {string} menuitem', (label: string) => {
+  cy.findByRole('menuitem', {
+    name: new RegExp(`^${escapeRegExp(label)}$`, 'i'),
+  }).click();
+});
+
+Then('I see the {string} menuitem', (label: string) => {
+  cy.findByRole('menuitem', {
+    name: new RegExp(`^${escapeRegExp(label)}$`, 'i'),
+  }).should('exist');
 });
 
 When('I click the {string} checkbox', (label: string) => {
@@ -284,6 +328,12 @@ Then('I see {string}', (message: string) => {
   cy.findByRole('document')
     .contains(new RegExp(escapeRegExp(message), 'i'))
     .should('exist');
+});
+
+Then('I do not see {string}', (message: string) => {
+  cy.findByRole('document')
+    .contains(new RegExp(escapeRegExp(message), 'i'))
+    .should('not.exist');
 });
 
 Then('I see {string} element', (id: string) => {
