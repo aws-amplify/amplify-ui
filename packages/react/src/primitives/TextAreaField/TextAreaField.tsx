@@ -8,7 +8,7 @@ import { Flex } from '../Flex';
 import { Label } from '../Label';
 import { ForwardRefPrimitive, Primitive } from '../types';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
-import { TextArea } from '../TextArea';
+import { TextArea, AutoresizeTextArea } from '../TextArea';
 import {
   BaseTextAreaFieldProps,
   TextAreaFieldProps,
@@ -37,6 +37,7 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
     size,
     testId,
     inputStyles,
+    autoResize,
     // Destructuring the 'resize' style prop because while it is a style prop
     // it should go on the textarea element and not the wrapper div.
     resize,
@@ -74,17 +75,31 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
         labelHidden={labelHidden}
         descriptiveText={descriptiveText}
       />
-      <TextArea
-        aria-describedby={ariaDescribedBy}
-        hasError={hasError}
-        id={fieldId}
-        ref={ref}
-        rows={rows ?? DEFAULT_ROW_COUNT}
-        size={size}
-        resize={resize}
-        {...rest}
-        {...inputStyles}
-      />
+      {autoResize ? (
+        <AutoresizeTextArea
+          aria-describedby={ariaDescribedBy}
+          hasError={hasError}
+          id={fieldId}
+          ref={ref}
+          rows={rows ?? DEFAULT_ROW_COUNT}
+          size={size}
+          resize={resize}
+          {...rest}
+          {...inputStyles}
+        />
+      ) : (
+        <TextArea
+          aria-describedby={ariaDescribedBy}
+          hasError={hasError}
+          id={fieldId}
+          ref={ref}
+          rows={rows ?? DEFAULT_ROW_COUNT}
+          size={size}
+          resize={resize}
+          {...rest}
+          {...inputStyles}
+        />
+      )}
       <FieldErrorMessage
         id={errorId}
         hasError={hasError}

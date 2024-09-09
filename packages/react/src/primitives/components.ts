@@ -1,5 +1,6 @@
 export { Alert } from './Alert';
 export { Autocomplete } from './Autocomplete';
+export { Avatar, AvatarProps } from './Avatar';
 export { Badge } from './Badge';
 export { Breadcrumbs } from './Breadcrumbs';
 export { Button } from './Button';
