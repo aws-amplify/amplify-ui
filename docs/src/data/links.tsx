@@ -41,6 +41,7 @@ import {
   MdChevronRight,
   MdPanToolAlt,
   MdLabel,
+  MdAccountCircle,
 } from 'react-icons/md';
 
 export interface ComponentNavItem {
@@ -226,6 +227,13 @@ export const connectedComponents: ComponentNavItem[] = [
 ];
 
 export const dataDisplayComponents: ComponentNavItem[] = [
+  {
+    href: '/components/avatar',
+    label: 'Avatar',
+    body: `An Avatar represents a user by displaying a profile image, initials, or a fallback icon.`,
+    platforms: ['react'],
+    icon: MdAccountCircle,
+  },
   {
     href: '/components/badge',
     label: 'Badge',

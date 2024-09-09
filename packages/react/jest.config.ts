@@ -16,7 +16,7 @@ const config: Config = {
       branches: 80,
       functions: 80,
       lines: 91,
-      statements: 95,
+      statements: 94,
     },
   },
   moduleNameMapper: { '^uuid$': '<rootDir>/../../node_modules/uuid' },

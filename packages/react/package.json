@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react",
-  "version": "6.2.2",
+  "version": "6.3.0",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -55,8 +55,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "6.3.0",
-    "@aws-amplify/ui-react-core": "3.0.20",
+    "@aws-amplify/ui": "6.4.0",
+    "@aws-amplify/ui-react-core": "3.0.21",
     "@radix-ui/react-direction": "1.0.0",
     "@radix-ui/react-dropdown-menu": "1.0.0",
     "@radix-ui/react-slider": "1.0.0",
@@ -89,13 +89,13 @@
       "name": "Authenticator",
       "path": "dist/esm/index.mjs",
       "import": "{ Authenticator }",
-      "limit": "77 kB"
+      "limit": "65 kB"
     },
     {
       "name": "AccountSettings",
       "path": "dist/esm/index.mjs",
       "import": "{ AccountSettings }",
-      "limit": "30 kB"
+      "limit": "25 kB"
     }
   ]
 }
