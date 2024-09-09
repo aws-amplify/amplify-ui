@@ -6,7 +6,7 @@ module.exports = {
   overrides: [
     {
       extends: ['@aws-amplify/amplify-ui/jest'],
-      files: ['**/__mocks__/**', '**/__tests__/**'],
+      files: ['**/__mocks__/**', '**/__tests__/**', '__tests__/exports.ts'],
     },
   ],
 };
