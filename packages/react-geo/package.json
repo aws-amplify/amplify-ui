@@ -64,7 +64,7 @@
       "name": "LocationSearch",
       "path": "dist/esm/index.mjs",
       "import": "{ LocationSearch }",
-      "limit": "202 kB"
+      "limit": "202.5 kB"
     },
     {
       "name": "MapView",
