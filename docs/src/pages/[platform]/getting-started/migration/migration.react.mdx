@@ -830,8 +830,4 @@ The 3.x version of `@aws-amplify/ui-react-storage` has a minimum dependency of 6
 
 #### 1. public accessLevel becomes 'guest' in Storage components
 
-Starting in v6 of the Amplify JS libraries, `'public'` access level, meaning unauthentiated users can access it, became `'guest'`. The `accessLevel` property on StorageManager and StorageImage components have been updated to reflect this change. 
-
-#### 2. Removal of FileUploader
-
-The FileUploader component was the predecessor to the [`StorageManager`](../connected-components/storage/storagemanager) component. In this major version we are removing the FileUploader component. Please use the StorageManager component which covers all of the use-cases of FileUploader and more. 
+Starting in v6 of the Amplify JS libraries, `'public'` access level, meaning unauthentiated users can access it, became `'guest'`. The `accessLevel` property on FileUploader and StorageImage components have been updated to reflect this change.

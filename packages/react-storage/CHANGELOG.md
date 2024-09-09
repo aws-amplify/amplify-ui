@@ -1,5 +1,38 @@
 # @aws-amplify/ui-react-storage
 
+## 3.3.1
+
+### Patch Changes
+
+- Updated dependencies [[`afffa89cb`](https://github.com/aws-amplify/amplify-ui/commit/afffa89cb29bb08ff1b626c727a2c9fb93bf11b3), [`afffa89cb`](https://github.com/aws-amplify/amplify-ui/commit/afffa89cb29bb08ff1b626c727a2c9fb93bf11b3), [`afffa89cb`](https://github.com/aws-amplify/amplify-ui/commit/afffa89cb29bb08ff1b626c727a2c9fb93bf11b3)]:
+  - @aws-amplify/ui-react@6.3.0
+  - @aws-amplify/ui@6.4.0
+  - @aws-amplify/ui-react-core@3.0.21
+
+## 3.3.0
+
+### Minor Changes
+
+- [#5744](https://github.com/aws-amplify/amplify-ui/pull/5744) [`c3dfbe044`](https://github.com/aws-amplify/amplify-ui/commit/c3dfbe044fd18e084cd411ce0ff84dcab1a80224) Thanks [@jordanvn](https://github.com/jordanvn)! - Adds FileUploader as new default name of StorageManager to avoid confusion with new components
+
+### Patch Changes
+
+- Updated dependencies [[`c3dfbe044`](https://github.com/aws-amplify/amplify-ui/commit/c3dfbe044fd18e084cd411ce0ff84dcab1a80224)]:
+  - @aws-amplify/ui@6.3.0
+  - @aws-amplify/ui-react@6.2.2
+  - @aws-amplify/ui-react-core@3.0.20
+
+## 3.2.1
+
+### Patch Changes
+
+- [#5645](https://github.com/aws-amplify/amplify-ui/pull/5645) [`634815ff0`](https://github.com/aws-amplify/amplify-ui/commit/634815ff07defd89123963bab98f410c5e1fc9cd) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(utils): moving humanFileSize to ui package
+
+- Updated dependencies [[`6e67ab6be`](https://github.com/aws-amplify/amplify-ui/commit/6e67ab6beb65e8ac7c7db6c6586df3c4f219bdbf), [`634815ff0`](https://github.com/aws-amplify/amplify-ui/commit/634815ff07defd89123963bab98f410c5e1fc9cd)]:
+  - @aws-amplify/ui@6.2.0
+  - @aws-amplify/ui-react@6.2.1
+  - @aws-amplify/ui-react-core@3.0.19
+
 ## 3.2.0
 
 ### Minor Changes

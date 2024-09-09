@@ -15,7 +15,7 @@ const defaultConfig = {
 
 /**
  * https://docs.amplify.aws/lib/storage/custom-plugin/q/platform/js/
- * Mocking out the Storage class so we can render the StorageManager component
+ * Mocking out the Storage class so we can render the FileUploader component
  * without an Amplify backend.
  */
 // export default class MyStorageProvider implements StorageProvider {

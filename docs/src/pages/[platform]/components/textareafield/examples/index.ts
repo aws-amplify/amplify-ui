@@ -1,3 +1,4 @@
+export { AutoresizeTextareaExample } from './AutoresizeTextareaExample';
 export { DefaultTextAreaExample } from './DefaultTextAreaExample';
 export { DefaultRequiredTextAreaFieldExample } from './DefaultRequiredTextAreaFieldExample';
 export { RequiredTextAreaFieldExample } from './RequiredTextAreaFieldExample';

@@ -1,0 +1,383 @@
+import { Alert, Accordion } from '@aws-amplify/ui-react';
+
+import AppDirectoryAlert from '@/components/AppDirectoryAlert';
+
+import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
+import { Example, ExampleCode } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
+import { InstallScripts } from '@/components/InstallScripts';
+import { FILE_UPLOADER, FILE_PICKER, DROPZONE_PROPS, DISPLAY_TEXT } from './props';
+import {
+  DefaultExample,
+  ComponentOverridesExample,
+  DisplayTextExample,
+  EventExample,
+  FileTypesExample,
+  HandleExample,
+  HashExample,
+  I18nExample,
+  MetadataExample,
+  PathPropExample,
+  ResumableExample,
+  ThemeExample,
+  UploadActionsExample,
+} from './examples'
+
+<Alert variation="info" heading="Storage Manager is renamed">
+  Beginning with _@aws-amplify/ui-react-storage_ version 3.3.0, the `StorageManager`
+  component has been renamed to `FileUploader`. To migrate, upgrade to the
+  latest version of _@aws-amplify/ui-react-storage_ and replace `StorageManager`
+  related imports with their corresponding `FileUploader` equivalents.
+  <br />
+  `StorageManager` will continue to receive official support until the next major
+  version release of _@aws-amplify/ui-react-storage_, at which point `StorageManager`
+  will be replaced by `FileUploader`.
+</Alert>
+
+<br />
+
+<DefaultExample />
+
+## Basic Usage
+
+<Alert variation="warning" heading="Wait!">
+  Did you follow the [quick start instructions](/connected-components/storage#quick-start) to set up the storage and auth services?
+</Alert>
+
+<AppDirectoryAlert />
+
+To use the FileUploader component import it into your React application with the included styles. 
+
+<InstallScripts component="storage" />
+
+<ExampleCode>
+```jsx
+import { FileUploader } from '@aws-amplify/ui-react-storage';
+import '@aws-amplify/ui-react/styles.css';
+```
+</ExampleCode>
+
+At a minimum you must include the `path` and `maxFileCount` props. `path` refers to the S3 image path that will be prefixed to each file key. It is either a `string` or a callback function that accepts the current user's Cognito `identityId` and returns a `string`. See [upload files](https://docs.amplify.aws/react/build-a-backend/storage/upload-files) 
+
+<Alert variation="info" heading="Version 3.0.18">
+  Using `@aws-amplify/ui-react-storage` version 3.0.18 or below and looking for the `accessLevel` prop? See [`Deprecated Props`](#deprecated-props)
+</Alert>
+
+<Example>
+  <DefaultExample />
+  <ExampleCode>
+    ```jsx file=./examples/Default.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+### Private or Protected Buckets
+When uploading to private or protected S3 buckets, you'll need to wrap your app in the `Authenticator`, allowing the `FileUploader` component to infer the Cognito `identityId` of the currently signed-in user. This can be done directly with the `Authenticator` component or with `withAuthenticator`, as shown in [Add the Authenticator](/connected-components/authenticator#step-3-add-the-authenticator).
+
+The example below shows configuring the FileUploader to upload to the `protected` folder under the users' identity id.
+
+<Example>
+  <ExampleCode>
+    ```jsx
+    <FileUploader
+      acceptedFileTypes={['image/*']}
+      path={({ identityId }) => `protected/${identityId}/`}
+      maxFileCount={1}
+      isResumable
+    />
+    ```
+  </ExampleCode>
+</Example>
+
+### Deprecated props
+
+<Accordion.Container>
+  <Accordion.Item key={"title"} value={"title"}>
+    <Accordion.Trigger>
+      Using `@aws-amplify/ui-react-storage` version 3.0.18 or below?
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
+      Versions 3.0.18 and earlier use `accessLevel` and an optional `path` prop in place of the required `path`. `accessLevel` refers to the [Amplify Storage access level](https://docs.amplify.aws/gen1/react/build-a-backend/storage/configure-access/), which is `'guest' | 'protected' | 'private'`, and `path` is a `string`.
+    ```tsx
+    <StorageManager
+      accessLevel="guest"
+      path="images/"
+      maxFileCount={1}
+    />
+    <StorageManager
+      accessLevel="private"
+      maxFileCount={1}
+    />
+    ```
+
+    To migrate to a newer version, replace `accessLevel` with `path`. If you were using `path` already, append `public`, `private` or `protected` to the beginning of the path.
+    ```diff
+      <StorageManager
+    -   accessLevel="guest"
+    +   path="public/"
+        maxFileCount={1}
+      />
+    ```
+    ```diff
+      <StorageManager
+    -   accessLevel="private"
+    -   path="images/"
+    +   path={({ identityId }) => `private/${identityId}/images/`}
+        maxFileCount={1}
+      />
+    ```
+    </Accordion.Content>
+  </Accordion.Item>
+</Accordion.Container>
+
+<Alert variation="info">
+  The uploading capabilities in these examples are stubbed out so they don't actually upload files anywhere!
+</Alert>
+
+### Props
+
+<ReactPropsTable props={FILE_UPLOADER} />
+
+## Manually Upload
+
+The default behavior of the File Uploader component is to automatically start the upload after a file is selected. If you wish to change that, set the value of the `autoUpload` prop to false.
+
+<Example>
+  <UploadActionsExample />
+  <ExampleCode>
+    ```jsx file=./examples/UploadActions.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+## Setting Limits
+
+You can limit what users upload with these 3 props:
+
+* `maxFileSize`: sets a maximum file size the uploader will accept in bytes. The default is unlimited.
+* `maxFileCount`: accepts how many files at one time you can select to upload.
+* `acceptedFileTypes`: an array of file type strings that follow the [HTML `accept` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept).
+
+<Example>
+  <FileTypesExample />
+  <ExampleCode>
+    ```jsx file=./examples/FileTypes.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+
+## Pausable / Resumable Uploads
+
+A resumable upload will upload the file in chunks. This allows users to pause an upload and resume it at a later time. You will typically want to do this only when the expected files are larger than the chunk size, which is 5MB.
+
+<Example>
+  <ResumableExample />
+  <ExampleCode>
+    ```jsx file=./examples/Resumable.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+## Pre-upload Processing
+
+You might want to process or modify the file(s) and/or file name(s) before they are uploaded. One common situation is you may want to ensure files uploaded are at unique keys by hashing the file contents and using that as the key rather than the filename.
+
+You can pass a `processFile` function to the FileUploader which accepts an object with `file`: [File](https://developer.mozilla.org/en-US/docs/Web/API/File), and `key`: string, and should return an object with file, key, and any other Storage configurations. The `processFile` can either return synchronously or return a Promise. This example uses a Promise to read the contents of the file and create a hash for the key.
+
+<Example>
+  <HashExample />
+  <ExampleCode>
+    ```jsx file=./examples/Hash.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+Other uses-cases for processing the file before upload:
+
+1. Performing file optimizations like removing unnecessary metadata.
+1. Performing custom file validations like reading the contents of a file to ensure it is in the proper structure.
+
+You can also add any other [Amplify Storage options](https://docs.amplify.aws/react/build-a-backend/storage/upload-files) by adding them to the return object of `processFile`
+
+## Event Handling
+
+The FileUploader component has several event handlers: `onUploadStart`, `onUploadSuccess`, `onUploadError`, and `onFileRemove`
+
+<Example>
+  <EventExample />
+  <ExampleCode>
+    ```jsx file=./examples/Event.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+<Alert variation="warning" heading="Use a previousState">
+Be careful setting state in the `onUploadSuccess` because that function is bound when the upload _starts_. Make sure to use the previous state argument rather than the current state in the component.
+</Alert>
+
+## `path` Usage
+
+The `path` prop of the `FileUploader` is prepended to the `key` value (resolved from either the file itself or the returned `key` of `processFile`) submitted to S3. Using a `'/'` as the last character of `path` allows uploading to a specific folder inside the provided `accessLevel` folder.
+
+<Example>
+  <ExampleCode>
+    ```jsx file=./examples/PathProp.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+## Adding metadata
+
+Metadata is added as an object with string key-value pairs. It is sent as custom HTTP headers with the name `x-amz-meta-[key]`. For example, if your metadata for a file was `{mode: 'night'}`, it would set the `x-amz-meta-mode` HTTP header to `night`.
+
+You can add metadata by adding a `metadata` object in the return object of `processFile`. 
+
+<Example>
+  <MetadataExample />
+  <ExampleCode>
+    ```jsx file=./examples/Metadata.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+## Accelerate Endpoint
+
+Amazon S3 transfer acceleration optimizes transfer speeds from around the world into S3 buckets. When you use Transfer Acceleration, additional data transfer charges might apply. For more information about pricing, see [Amazon S3 pricing](https://aws.amazon.com/s3/pricing/).
+
+To use transfer acceleration you first need to [enable it on your S3 bucket](https://docs.amplify.aws/react/build-a-backend/storage/extend-s3-resources/#example---enable-transfer-acceleration). Then add `useAccelerateEndpoint` on the `<FileUploader />` component. By default transfer acceleration is off. 
+
+<ExampleCode>
+
+```jsx
+<FileUploader
+  acceptedFileTypes={['image/*']}
+  maxFileCount={10}
+  useAccelerateEndpoint
+/>
+```
+
+</ExampleCode>
+
+You can also choose whether or not to use transfer acceleration at the file level by returning `useAccelerateEndpoint` from the `processFile` function.
+
+<ExampleCode>
+
+```jsx
+<FileUploader
+  acceptedFileTypes={['image/*']}
+  maxFileCount={10}
+  processFile={({ file, key }) => {
+    return {
+      file,
+      key,
+      useAccelerateEndpoint: file.size > 10000 ? true : false,
+    };
+  }}
+/>
+```
+
+</ExampleCode>
+
+## Customization
+
+### Text and labels
+
+All text in the FileUploader component is customizable with the `displayText` prop. 
+
+<Example>
+  <DisplayTextExample />
+  <ExampleCode>
+    ```jsx file=./examples/DisplayText.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+
+<Accordion.Item>
+  <Accordion.Trigger>
+    Display text props
+    <Accordion.Icon />
+  </Accordion.Trigger>
+  <Accordion.Content>
+    <ReactPropsTable props={DISPLAY_TEXT} />
+  </Accordion.Content>
+</Accordion.Item>
+
+### Internationalization
+
+You can use the `displayText` prop to also support different languages. Use an open source library like i18next, react-intl, or make your own:
+
+<Example>
+  <I18nExample />
+  <ExampleCode>
+    ```jsx file=./examples/i18n.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+### Component overrides
+
+Don't like how things look? Use your own components inside the FileUploader! You can pass your own components with the `components` prop. The available components to override are: `Container`, `FileList`, `FileListHeader`, `FileListFooter`, `DropZone`, and `FilePicker`. 
+
+_You can even use a completely different UI kit like MUI, Chakra, or your own design system!_
+
+<Example>
+  <ComponentOverridesExample />
+  <ExampleCode>
+    ```jsx file=./examples/ComponentOverrides.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+<Accordion.Container>
+  <Accordion.Item value="filepicker">
+    <Accordion.Trigger>
+      FilePicker props
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
+      <ReactPropsTable props={FILE_PICKER} />
+    </Accordion.Content>
+  </Accordion.Item>
+  <Accordion.Item value="dropzone">
+    <Accordion.Trigger>
+      DropZone props
+      <Accordion.Icon />
+    </Accordion.Trigger>
+    <Accordion.Content>
+      <ReactPropsTable props={DROPZONE_PROPS} />
+    </Accordion.Content>
+  </Accordion.Item>
+</Accordion.Container>
+
+### Imperative handles
+
+The `files` state is managed within the `FileUploader` component itself. To allow for clearing the internal `files` state, `FileUploader` exposes a custom ref handle to the parent component with a `clearFiles` method.
+
+<Example>
+  <HandleExample />
+  <ExampleCode>
+    ```jsx file=./examples/Handle.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+### Theming
+
+<Example>
+  <ThemeExample />
+  <ExampleCode>
+    ```jsx file=./examples/Theme.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+
+### Target Classes
+
+If you like, you can target classes directly or use CSS variables to make changes to the look and feel of the File Uploader. 
+
+<ComponentStyleDisplay componentName="FileUploader" />
