@@ -2,6 +2,7 @@ import { WebTokens } from '../tokens';
 import { AccordionTheme } from './accordion';
 import { AlertTheme } from './alert';
 import { AutoCompleteTheme } from './autocomplete';
+import { AvatarTheme } from './avatar';
 import { BadgeTheme } from './badge';
 import { BreadcrumbsTheme } from './breadcrumbs';
 import { ButtonTheme } from './button';
@@ -51,6 +52,7 @@ export type ComponentsTheme<TokensType extends WebTokens = WebTokens> =
   | BaseComponentTheme<AccordionTheme, 'accordion', TokensType>
   | BaseComponentTheme<AlertTheme, 'alert', TokensType>
   | BaseComponentTheme<AutoCompleteTheme, 'autocomplete', TokensType>
+  | BaseComponentTheme<AvatarTheme, 'avatar', TokensType>
   | BaseComponentTheme<BadgeTheme, 'badge', TokensType>
   | BaseComponentTheme<BreadcrumbsTheme, 'breadcrumbs', TokensType>
   | BaseComponentTheme<ButtonTheme, 'button', TokensType>
@@ -98,6 +100,7 @@ export type AllComponentThemes = {
   accordion: AccordionTheme;
   alert: AlertTheme;
   autocomplete: AutoCompleteTheme;
+  avatar: AvatarTheme;
   badge: BadgeTheme;
   breadcrumbs: BreadcrumbsTheme;
   button: ButtonTheme;
