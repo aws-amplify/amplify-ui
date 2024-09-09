@@ -46,9 +46,21 @@ export default function Home() {
         maxFileCount={1}
         isResumable
       />
+      <StorageManager
+        acceptedFileTypes={['image/*']}
+        path="public/"
+        maxFileCount={1}
+        isResumable
+      />
       <FileUploader
         acceptedFileTypes={['image/*']}
         accessLevel="guest"
+        maxFileCount={1}
+        isResumable
+      />
+      <FileUploader
+        acceptedFileTypes={['image/*']}
+        path="public/"
         maxFileCount={1}
         isResumable
       />
