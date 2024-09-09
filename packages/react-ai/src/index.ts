@@ -1,8 +1,15 @@
-import { createAIConversation, AIConversation } from './components';
-import { createAIHooks, AIContextProvider } from './hooks';
 export {
   createAIConversation,
-  createAIHooks,
-  AIContextProvider,
   AIConversation,
-};
+  Avatars,
+  CustomAction,
+  ResponseComponent,
+  SuggestedPrompt,
+} from './components';
+export { createAIHooks, AIContextProvider } from './hooks';
+export {
+  ConversationMessage,
+  ConversationMessageContent,
+  SendMessage,
+  SendMesageParameters,
+} from './types';
