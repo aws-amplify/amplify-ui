@@ -1,4 +1,4 @@
-import * as exported from '../src';
+import * as exported from '..';
 
 describe('@aws-amplify/ui-react-ai', () => {
   describe('exports', () => {
