@@ -89,13 +89,13 @@
       "name": "Authenticator",
       "path": "dist/esm/index.mjs",
       "import": "{ Authenticator }",
-      "limit": "77 kB"
+      "limit": "65 kB"
     },
     {
       "name": "AccountSettings",
       "path": "dist/esm/index.mjs",
       "import": "{ AccountSettings }",
-      "limit": "30 kB"
+      "limit": "25 kB"
     }
   ]
 }

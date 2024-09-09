@@ -58,19 +58,19 @@
       "name": "FileUploader",
       "path": "dist/esm/index.mjs",
       "import": "{ FileUploader }",
-      "limit": "25 kB"
+      "limit": "21.5 kB"
     },
     {
       "name": "StorageImage",
       "path": "dist/esm/index.mjs",
       "import": "{ StorageImage }",
-      "limit": "17 kB"
+      "limit": "14.5 kB"
     },
     {
       "name": "StorageManager",
       "path": "dist/esm/index.mjs",
       "import": "{ StorageManager }",
-      "limit": "25 kB"
+      "limit": "21.5 kB"
     }
   ]
 }
