@@ -1,6 +1,7 @@
 import { AlertTokens, alert } from './alert';
 import { AutocompleteTokens, autocomplete } from './autocomplete';
 import { AuthenticatorTokens, authenticator } from './authenticator';
+import { AvatarTokens, avatar } from './avatar';
 import { badge, BadgeTokens } from './badge';
 import { breadcrumbs, BreadcrumbsTokens } from './breadcrumbs';
 import { button, ButtonTokens } from './button';
@@ -62,6 +63,7 @@ type BaseComponentTokens<Output extends OutputVariantKey> = {
   alert?: AlertTokens<Output>;
   authenticator?: AuthenticatorTokens<Output>;
   autocomplete?: AutocompleteTokens<Output>;
+  avatar?: AvatarTokens<Output>;
   badge?: BadgeTokens<Output>;
   breadcrumbs?: BreadcrumbsTokens<Output>;
   button?: ButtonTokens<Output>;
@@ -130,6 +132,7 @@ export const components: DefaultComponentTokens = {
   alert,
   authenticator,
   autocomplete,
+  avatar,
   badge,
   breadcrumbs,
   button,

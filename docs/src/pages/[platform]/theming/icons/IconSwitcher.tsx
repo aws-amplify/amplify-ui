@@ -42,7 +42,7 @@ import {
   HiStar,
   HiUpload,
 } from 'react-icons/hi';
-import { StorageManager } from '@aws-amplify/ui-react-storage';
+import { FileUploader } from '@aws-amplify/ui-react-storage';
 import {
   FcExpand,
   FcHighPriority,
@@ -195,7 +195,7 @@ export default function IconProviderExample() {
             <Rating value={3.5} />
           </Flex>
         </Flex>
-        <StorageManager accessLevel="guest" maxFileCount={5} />
+        <FileUploader path="public/" maxFileCount={5} />
       </Flex>
     </IconsProvider>
   );

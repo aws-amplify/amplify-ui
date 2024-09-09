@@ -47,6 +47,7 @@ export type ElementDisplayName =
   | 'DefinitionTerm'
   | 'Heading' // h1, h2, etc
   | 'Icon'
+  | 'Image'
   | 'Input'
   | 'Label'
   | 'ListItem'
@@ -54,6 +55,7 @@ export type ElementDisplayName =
   | 'ProgressBar'
   | 'Span'
   | 'Text'
+  | 'TextArea'
   | 'Title'
   | 'View'
   | ListElementDisplayName

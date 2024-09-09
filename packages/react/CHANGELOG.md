@@ -1,5 +1,79 @@
 # @aws-amplify/ui-react
 
+## 6.3.0
+
+### Minor Changes
+
+- [#5767](https://github.com/aws-amplify/amplify-ui/pull/5767) [`afffa89cb`](https://github.com/aws-amplify/amplify-ui/commit/afffa89cb29bb08ff1b626c727a2c9fb93bf11b3) Thanks [@thaddmt](https://github.com/thaddmt)! - feat(textarea): add autoresizing to textarea
+
+  ```jsx
+  export const AutoresizeTextareaExample = () => {
+    const [value, setValue] = React.useState('');
+
+    return (
+      <TextAreaField
+        autoResize
+        label="Comments"
+        value={value}
+        onChange={(e) => {
+          setValue(e.target.value);
+        }}
+      />
+    );
+  };
+  ```
+
+- [#5767](https://github.com/aws-amplify/amplify-ui/pull/5767) [`afffa89cb`](https://github.com/aws-amplify/amplify-ui/commit/afffa89cb29bb08ff1b626c727a2c9fb93bf11b3) Thanks [@thaddmt](https://github.com/thaddmt)! - feat(scrollview): add autoScroll prop
+
+  ```jsx
+  <ScrollView autoScroll="smooth">{/* ... */}</ScrollView>
+  ```
+
+- [#5767](https://github.com/aws-amplify/amplify-ui/pull/5767) [`afffa89cb`](https://github.com/aws-amplify/amplify-ui/commit/afffa89cb29bb08ff1b626c727a2c9fb93bf11b3) Thanks [@thaddmt](https://github.com/thaddmt)! - feat(primitives): add Avatar primitive
+
+  ```jsx
+  {
+    /* Avatar with image */
+  }
+  <Avatar src="/cats/5.jpg" />;
+  {
+    /* Avatar with default placeholder icon */
+  }
+  <Avatar />;
+  {
+    /* Avatar with initials */
+  }
+  <Avatar>DB</Avatar>;
+  {
+    /* Avatar with custom icon */
+  }
+  <Avatar>
+    <FiSmile style={{ width: '60%', height: '60%' }} />
+  </Avatar>;
+  ```
+
+### Patch Changes
+
+- Updated dependencies [[`afffa89cb`](https://github.com/aws-amplify/amplify-ui/commit/afffa89cb29bb08ff1b626c727a2c9fb93bf11b3)]:
+  - @aws-amplify/ui@6.4.0
+  - @aws-amplify/ui-react-core@3.0.21
+
+## 6.2.2
+
+### Patch Changes
+
+- Updated dependencies [[`c3dfbe044`](https://github.com/aws-amplify/amplify-ui/commit/c3dfbe044fd18e084cd411ce0ff84dcab1a80224)]:
+  - @aws-amplify/ui@6.3.0
+  - @aws-amplify/ui-react-core@3.0.20
+
+## 6.2.1
+
+### Patch Changes
+
+- Updated dependencies [[`6e67ab6be`](https://github.com/aws-amplify/amplify-ui/commit/6e67ab6beb65e8ac7c7db6c6586df3c4f219bdbf), [`634815ff0`](https://github.com/aws-amplify/amplify-ui/commit/634815ff07defd89123963bab98f410c5e1fc9cd)]:
+  - @aws-amplify/ui@6.2.0
+  - @aws-amplify/ui-react-core@3.0.19
+
 ## 6.2.0
 
 ### Minor Changes
