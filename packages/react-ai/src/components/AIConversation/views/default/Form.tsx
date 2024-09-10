@@ -16,7 +16,7 @@ function isHTMLFormElement(target: EventTarget): target is HTMLFormElement {
   return 'form' in target;
 }
 
-export const Form: ControlsContextProps['Form'] = ({
+export const Form: NonNullable<ControlsContextProps['Form']> = ({
   setInput,
   input,
   handleSubmit,
@@ -47,6 +47,8 @@ export const Form: ControlsContextProps['Form'] = ({
           className={ComponentClassName.AIConversationFormAttach}
           onClick={() => {
             hiddenInput?.current?.click();
+            if (hiddenInput && hiddenInput.current)
+              hiddenInput.current.value = '';
           }}
         >
           <span>{attachIcon}</span>
@@ -67,6 +69,7 @@ export const Form: ControlsContextProps['Form'] = ({
               }}
               multiple
               accept="*"
+              data-testid="hidden-file-input"
             />
           </VisuallyHidden>
         </Button>
@@ -78,6 +81,7 @@ export const Form: ControlsContextProps['Form'] = ({
           flex="1"
           rows={1}
           value={input?.text ?? ''}
+          testId="text-input"
           onKeyDown={(e) => {
             // Submit on enter key if shift is not pressed also
             const shouldSubmit = !e.shiftKey && e.key === 'Enter';
