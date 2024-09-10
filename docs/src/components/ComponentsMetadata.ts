@@ -285,6 +285,11 @@ export const ComponentsMetadata: ComponentClassNameItems = {
     components: ['Avatar'],
     description: 'Class applied to the icon element',
   },
+  AvatarLoader: {
+    className: ComponentClassName.AvatarLoader,
+    components: ['Avatar'],
+    description: 'Class applied to the loader element',
+  },
   Badge: {
     className: ComponentClassName.Badge,
     components: ['Badge'],
