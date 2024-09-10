@@ -11,6 +11,11 @@ module.exports = {
   // point to local tsconfig
   parserOptions: { project: ['tsconfig.json'], tsconfigRootDir: __dirname },
   rules: {
-    'import/no-extraneous-dependencies': 'error',
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: ['**/__tests__/**', '**/jest.*'],
+      },
+    ],
   },
 };

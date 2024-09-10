@@ -12,7 +12,7 @@ module.exports = {
     node: true,
     'vue/setup-compiler-macros': true,
   },
-  ignorePatterns: ['dist'],
+  ignorePatterns: ['.eslintrc.cjs', 'dist'],
   overrides: [
     {
       files: ['authenticator.vue', 'index.ts'],
@@ -37,7 +37,12 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': 'off',
     // we intentionally use non-null assertion where types are inaccurate.
     '@typescript-eslint/no-non-null-assertion': 'off',
-    'import/no-extraneous-dependencies': 'error',
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: ['**/__tests__/**', '**/jest.*', 'vite.config.ts'],
+      },
+    ],
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'vue/script-setup-uses-vars': 'error',

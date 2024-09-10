@@ -18,6 +18,11 @@ module.exports = {
   parserOptions: { project: ['tsconfig.json'], tsconfigRootDir: __dirname },
   plugins: ['import'],
   rules: {
-    'import/no-extraneous-dependencies': 'error',
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: ['**/__tests__/**', '**/__mocks__/**', '**/jest.*'],
+      },
+    ],
   },
 };

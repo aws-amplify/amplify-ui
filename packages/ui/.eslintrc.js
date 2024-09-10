@@ -13,7 +13,12 @@ module.exports = {
   },
   plugins: ['import'],
   rules: {
-    'import/no-extraneous-dependencies': 'error',
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: ['**/__tests__/**', 'rollup.config.ts', '**/jest.*'],
+      },
+    ],
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-undef': 'off',

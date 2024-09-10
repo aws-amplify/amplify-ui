@@ -48,7 +48,14 @@ module.exports = {
   rules: {
     'import/no-extraneous-dependencies': [
       'error',
-      { packageDir: [__dirname, path.join(__dirname, 'projects/ui-angular')] },
+      {
+        devDependencies: [
+          '**/__tests__/**',
+          '**/*.spec.{ts,tsx,js}',
+          '**/*.jest.ts',
+        ],
+        packageDir: [__dirname, path.join(__dirname, 'projects/ui-angular')],
+      },
     ],
   },
 };
