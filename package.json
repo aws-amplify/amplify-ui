@@ -75,7 +75,6 @@
     "**/@angular-devkit/build-angular/webpack": "^5.76.0",
     "**/@size-limit/webpack/webpack": "^5.76.0",
     "**/serve/serve-handler/minimatch": "3.0.5",
-    "**/serve/serve-handler/path-to-regexp": "8.0.0",
     "@adobe/css-tools": "^4.3.2",
     "@babel/traverse": "7.23.2",
     "@cypress/request": "^3.0.0",
