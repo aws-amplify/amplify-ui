@@ -53,13 +53,11 @@ export default function createProvider({
       ...displayText,
     };
     return (
-      <ConversationDisplayTextProvider {..._displayText}>
-        <ElementsProvider elements={elements}>
-          <ControlsProvider controls={controls}>
-            <SuggestedPromptProvider suggestedPrompts={suggestedPrompts}>
-              <ResponseComponentsProvider
-                responseComponents={responseComponents}
-              >
+      <ElementsProvider elements={elements}>
+        <ControlsProvider controls={controls}>
+          <SuggestedPromptProvider suggestedPrompts={suggestedPrompts}>
+            <ResponseComponentsProvider responseComponents={responseComponents}>
+              <ConversationDisplayTextProvider {..._displayText}>
                 <ConversationInputContextProvider>
                   <SendMessageContextProvider
                     handleSendMessage={handleSendMessage}
@@ -77,11 +75,11 @@ export default function createProvider({
                     </AvatarsProvider>
                   </SendMessageContextProvider>
                 </ConversationInputContextProvider>
-              </ResponseComponentsProvider>
-            </SuggestedPromptProvider>
-          </ControlsProvider>
-        </ElementsProvider>
-      </ConversationDisplayTextProvider>
+              </ConversationDisplayTextProvider>
+            </ResponseComponentsProvider>
+          </SuggestedPromptProvider>
+        </ControlsProvider>
+      </ElementsProvider>
     );
   };
 }
