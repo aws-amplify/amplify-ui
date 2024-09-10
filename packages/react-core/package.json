@@ -40,11 +40,21 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@aws-amplify/core": "^6.4.0",
     "@aws-amplify/ui": "6.3.0",
     "@xstate/react": "^3.2.2",
     "lodash": "4.17.21",
     "react-hook-form": "^7.43.5",
     "xstate": "^4.33.6"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^11.1.4",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/react-hooks": "^8.0.1",
+    "jest": "^29.7.0",
+    "react-test-renderer": "^18.2.0",
+    "rollup": "^2.70.0",
+    "rollup-plugin-node-externals": "^4.1.1"
   },
   "peerDependencies": {
     "aws-amplify": "^6.3.2",

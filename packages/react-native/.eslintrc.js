@@ -1,5 +1,11 @@
 module.exports = {
-  ignorePatterns: ['.eslintrc.js', 'babel.config.js', 'dist', 'lib'],
+  ignorePatterns: [
+    '.eslintrc.js',
+    'babel.config.js',
+    'coverage',
+    'dist',
+    'lib',
+  ],
   extends: ['@aws-amplify/amplify-ui/react'],
   overrides: [
     {
@@ -9,4 +15,8 @@ module.exports = {
   ],
   // point to local tsconfig
   parserOptions: { project: ['tsconfig.json'], tsconfigRootDir: __dirname },
+  plugins: ['import'],
+  rules: {
+    'import/no-extraneous-dependencies': 'error',
+  },
 };

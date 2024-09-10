@@ -41,6 +41,7 @@
   "dependencies": {
     "@aws-amplify/ui": "6.3.0",
     "@aws-amplify/ui-react": "6.2.2",
+    "@aws-amplify/ui-react-core": "3.0.20",
     "@aws-amplify/ui-react-core-notifications": "2.0.20",
     "tinycolor2": "1.4.2"
   },
@@ -50,7 +51,12 @@
     "react-dom": "^16.14.0 || ^17.0 || ^18.0"
   },
   "devDependencies": {
-    "@types/tinycolor2": "^1.4.3"
+    "@testing-library/jest-dom": "^6.1.5",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@testing-library/user-event": "^14.5.1",
+    "@types/tinycolor2": "^1.4.3",
+    "jest": "^29.7.0"
   },
   "sideEffects": [
     "dist/**/*.css"

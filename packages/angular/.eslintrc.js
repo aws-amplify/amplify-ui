@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   root: true,
   overrides: [
@@ -42,4 +44,11 @@ module.exports = {
       files: ['**/__mocks__/**', '**/__tests__/**'],
     },
   ],
+  plugins: ['import'],
+  rules: {
+    'import/no-extraneous-dependencies': [
+      'error',
+      { packageDir: [__dirname, path.join(__dirname, 'projects/ui-angular')] },
+    ],
+  },
 };
