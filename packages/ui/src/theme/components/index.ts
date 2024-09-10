@@ -16,6 +16,7 @@ import { DropZoneTheme } from './dropZone';
 import { FieldTheme } from './field';
 import { FieldGroupTheme } from './fieldGroup';
 import { FieldsetTheme } from './fieldset';
+import { FileUploaderTheme } from './fileUploader';
 import { HeadingTheme } from './heading';
 import { HighlightMatchTheme } from './highlightMatch';
 import { InputTheme } from './input';
@@ -66,6 +67,7 @@ export type ComponentsTheme<TokensType extends WebTokens = WebTokens> =
   | BaseComponentTheme<FieldTheme, 'field', TokensType>
   | BaseComponentTheme<FieldGroupTheme, 'field-group', TokensType>
   | BaseComponentTheme<FieldsetTheme, 'fieldset', TokensType>
+  | BaseComponentTheme<FileUploaderTheme, 'fileuploader', TokensType>
   | BaseComponentTheme<HeadingTheme, 'heading', TokensType>
   | BaseComponentTheme<HighlightMatchTheme, 'highlightmatch', TokensType>
   | BaseComponentTheme<InputTheme, 'input', TokensType>
@@ -114,6 +116,7 @@ export type AllComponentThemes = {
   field: FieldTheme;
   'field-group': FieldGroupTheme;
   fieldset: FieldsetTheme;
+  fileuploader: FileUploaderTheme;
   heading: HeadingTheme;
   highlightmatch: HighlightMatchTheme;
   input: InputTheme;
