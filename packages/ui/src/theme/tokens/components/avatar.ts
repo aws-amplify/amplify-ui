@@ -33,6 +33,7 @@ export type AvatarTokens<OutputType extends OutputVariantKey> =
     info?: AvatarVariationTokens<OutputType>;
     success?: AvatarVariationTokens<OutputType>;
     warning?: AvatarVariationTokens<OutputType>;
+    primary?: AvatarVariationTokens<OutputType>;
   };
 
 export const avatar: Required<AvatarTokens<'default'>> = {
@@ -71,6 +72,12 @@ export const avatar: Required<AvatarTokens<'default'>> = {
 
   error: {
     color: { value: '{colors.font.error.value}' },
+    backgroundColor: { value: '{colors.background.error.value}' },
+    borderColor: { value: '{colors.border.error.value}' },
+  },
+
+  primary: {
+    color: { value: '{colors.font.accent.value}' },
     backgroundColor: { value: '{colors.background.error.value}' },
     borderColor: { value: '{colors.border.error.value}' },
   },
