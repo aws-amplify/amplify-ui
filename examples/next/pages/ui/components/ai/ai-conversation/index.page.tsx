@@ -13,7 +13,7 @@ const { useAIConversation } = createAIHooks(client);
 
 Amplify.configure(outputs);
 
-const formatDate = (date) =>
+const formatDate = (date: Date): string =>
   `Argh the time be round ${date.toLocaleTimeString('en-US', {
     hour: 'numeric',
     minute: 'numeric',
