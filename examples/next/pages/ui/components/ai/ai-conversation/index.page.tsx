@@ -13,6 +13,13 @@ const { useAIConversation } = createAIHooks(client);
 
 Amplify.configure(outputs);
 
+const formatDate = (date) =>
+  `Argh the time be round ${date.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  })}`;
+
 function Chat() {
   const [
     {
@@ -25,6 +32,7 @@ function Chat() {
   return (
     <Card variation="outlined" width="50%" height="300px" margin="0 auto">
       <AIConversation
+        displayText={{ getMessageTimestampText: formatDate }}
         messages={messages}
         handleSendMessage={sendMessage}
         isLoading={isLoading}

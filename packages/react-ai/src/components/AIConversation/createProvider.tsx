@@ -2,17 +2,21 @@ import React from 'react';
 
 import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 
-import { ActionsProvider } from './context/ActionsContext';
-import { AvatarsProvider } from './context/AvatarsContext';
-import { ConversationInputContextProvider } from './context/ConversationInputContext';
-import { MessagesProvider } from './context/MessagesContext';
-import { MessageVariantProvider } from './context/MessageVariantContext';
-import { SuggestedPromptProvider } from './context/SuggestedPromptsContext';
 import { AIConversationInput, AIConversationProps } from './types';
-import { ResponseComponentsProvider } from './context/ResponseComponentsContext';
-import { SendMessageContextProvider } from './context/SendMessageContext';
-import { ControlsProvider } from './context/ControlsContext';
-import { LoadingContextProvider } from './context/LoadingContext';
+import { defaultAIConversationDisplayTextEn } from './displayText';
+import {
+  ConversationDisplayTextProvider,
+  SuggestedPromptProvider,
+  ConversationInputContextProvider,
+  AvatarsProvider,
+  ActionsProvider,
+  MessageVariantProvider,
+  MessagesProvider,
+  ControlsProvider,
+  LoadingContextProvider,
+  ResponseComponentsProvider,
+  SendMessageContextProvider,
+} from './context';
 
 export default function createProvider({
   elements,
@@ -21,6 +25,7 @@ export default function createProvider({
   responseComponents,
   variant,
   controls,
+  displayText,
 }: Pick<
   AIConversationInput,
   | 'elements'
@@ -29,6 +34,7 @@ export default function createProvider({
   | 'responseComponents'
   | 'variant'
   | 'controls'
+  | 'displayText'
 >) {
   return function Provider({
     children,
@@ -42,32 +48,40 @@ export default function createProvider({
     AIConversationProps,
     'messages' | 'avatars' | 'handleSendMessage' | 'isLoading'
   >): React.JSX.Element {
+    const _displayText = {
+      ...defaultAIConversationDisplayTextEn,
+      ...displayText,
+    };
     return (
-      <ElementsProvider elements={elements}>
-        <ControlsProvider controls={controls}>
-          <SuggestedPromptProvider suggestedPrompts={suggestedPrompts}>
-            <ResponseComponentsProvider responseComponents={responseComponents}>
-              <ConversationInputContextProvider>
-                <SendMessageContextProvider
-                  handleSendMessage={handleSendMessage}
-                >
-                  <AvatarsProvider avatars={avatars}>
-                    <ActionsProvider actions={actions}>
-                      <MessageVariantProvider variant={variant}>
-                        <MessagesProvider messages={messages}>
-                          <LoadingContextProvider isLoading={isLoading}>
-                            {children}
-                          </LoadingContextProvider>
-                        </MessagesProvider>
-                      </MessageVariantProvider>
-                    </ActionsProvider>
-                  </AvatarsProvider>
-                </SendMessageContextProvider>
-              </ConversationInputContextProvider>
-            </ResponseComponentsProvider>
-          </SuggestedPromptProvider>
-        </ControlsProvider>
-      </ElementsProvider>
+      <ConversationDisplayTextProvider {..._displayText}>
+        <ElementsProvider elements={elements}>
+          <ControlsProvider controls={controls}>
+            <SuggestedPromptProvider suggestedPrompts={suggestedPrompts}>
+              <ResponseComponentsProvider
+                responseComponents={responseComponents}
+              >
+                <ConversationInputContextProvider>
+                  <SendMessageContextProvider
+                    handleSendMessage={handleSendMessage}
+                  >
+                    <AvatarsProvider avatars={avatars}>
+                      <ActionsProvider actions={actions}>
+                        <MessageVariantProvider variant={variant}>
+                          <MessagesProvider messages={messages}>
+                            <LoadingContextProvider isLoading={isLoading}>
+                              {children}
+                            </LoadingContextProvider>
+                          </MessagesProvider>
+                        </MessageVariantProvider>
+                      </ActionsProvider>
+                    </AvatarsProvider>
+                  </SendMessageContextProvider>
+                </ConversationInputContextProvider>
+              </ResponseComponentsProvider>
+            </SuggestedPromptProvider>
+          </ControlsProvider>
+        </ElementsProvider>
+      </ConversationDisplayTextProvider>
     );
   };
 }
