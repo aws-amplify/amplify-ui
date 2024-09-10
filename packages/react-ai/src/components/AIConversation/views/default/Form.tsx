@@ -47,8 +47,9 @@ export const Form: NonNullable<ControlsContextProps['Form']> = ({
           className={ComponentClassName.AIConversationFormAttach}
           onClick={() => {
             hiddenInput?.current?.click();
-            if (hiddenInput && hiddenInput.current)
+            if (hiddenInput?.current) {
               hiddenInput.current.value = '';
+            }
           }}
         >
           <span>{attachIcon}</span>
