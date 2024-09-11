@@ -11,23 +11,45 @@ import {
 } from '../types';
 import { View } from '../View';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
+import { useComposeRefsCallback } from '../../hooks/useComposeRefsCallback';
 
 const ScrollViewPrimitive: Primitive<ScrollViewProps, 'div'> = (
-  { children, className, orientation, ...rest },
-  ref
-) => (
-  <View
-    className={classNames(
-      ComponentClassName.ScrollView,
-      classNameModifier(ComponentClassName.ScrollView, orientation),
-      className
-    )}
-    ref={ref}
-    {...rest}
-  >
-    {children}
-  </View>
-);
+  { children, className, orientation, autoScroll, ...rest },
+  externalRef
+) => {
+  const internalRef = React.useRef<HTMLDivElement | null>(null);
+  const composedRefs = useComposeRefsCallback<HTMLDivElement | null>({
+    externalRef,
+    internalRef,
+  });
+
+  React.useEffect(() => {
+    if (autoScroll) {
+      internalRef.current?.scrollTo({
+        top: internalRef.current?.scrollHeight,
+        left: internalRef.current?.scrollWidth,
+        behavior: autoScroll,
+      });
+    }
+  }, [
+    children, // include children in the dependency array so that when children changes the scrollview scrolls
+    autoScroll,
+  ]);
+
+  return (
+    <View
+      className={classNames(
+        ComponentClassName.ScrollView,
+        classNameModifier(ComponentClassName.ScrollView, orientation),
+        className
+      )}
+      ref={composedRefs}
+      {...rest}
+    >
+      {children}
+    </View>
+  );
+};
 
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/scrollview)

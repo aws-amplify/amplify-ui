@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-storage",
-  "version": "3.3.0",
+  "version": "3.3.2",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -40,9 +40,9 @@
   },
   "dependencies": {
     "@aws-amplify/core": "^6.4.0",
-    "@aws-amplify/ui": "6.3.0",
-    "@aws-amplify/ui-react": "6.2.2",
-    "@aws-amplify/ui-react-core": "3.0.20",
+    "@aws-amplify/ui": "6.4.1",
+    "@aws-amplify/ui-react": "6.3.1",
+    "@aws-amplify/ui-react-core": "3.0.22",
     "jest": "^29.7.0",
     "lodash": "4.17.21",
     "tslib": "^2.5.2"
@@ -63,10 +63,22 @@
   ],
   "size-limit": [
     {
+      "name": "FileUploader",
+      "path": "dist/esm/index.mjs",
+      "import": "{ FileUploader }",
+      "limit": "21.5 kB"
+    },
+    {
+      "name": "StorageImage",
+      "path": "dist/esm/index.mjs",
+      "import": "{ StorageImage }",
+      "limit": "14.5 kB"
+    },
+    {
       "name": "StorageManager",
       "path": "dist/esm/index.mjs",
       "import": "{ StorageManager }",
-      "limit": "25.5 kB"
+      "limit": "21.5 kB"
     }
   ]
 }

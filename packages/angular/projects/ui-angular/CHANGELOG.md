@@ -1,5 +1,19 @@
 # @aws-amplify/ui-angular
 
+## 5.0.23
+
+### Patch Changes
+
+- Updated dependencies [[`9d96dd1fe`](https://github.com/aws-amplify/amplify-ui/commit/9d96dd1fe51212e8e55b0dde816122a6f5672762)]:
+  - @aws-amplify/ui@6.4.1
+
+## 5.0.22
+
+### Patch Changes
+
+- Updated dependencies [[`afffa89cb`](https://github.com/aws-amplify/amplify-ui/commit/afffa89cb29bb08ff1b626c727a2c9fb93bf11b3)]:
+  - @aws-amplify/ui@6.4.0
+
 ## 5.0.21
 
 ### Patch Changes

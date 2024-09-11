@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-liveness",
-  "version": "3.1.6",
+  "version": "3.1.8",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -48,8 +48,8 @@
   },
   "dependencies": {
     "@aws-amplify/core": "^6.4.0",
-    "@aws-amplify/ui": "6.3.0",
-    "@aws-amplify/ui-react": "6.2.2",
+    "@aws-amplify/ui": "6.4.1",
+    "@aws-amplify/ui-react": "6.3.1",
     "@aws-sdk/client-rekognitionstreaming": "3.621.0",
     "@aws-sdk/util-format-url": "3.609.0",
     "@smithy/eventstream-serde-browser": "^2.0.4",
@@ -86,7 +86,7 @@
       "name": "FaceLivenessDetector",
       "path": "dist/esm/index.mjs",
       "import": "{ FaceLivenessDetector }",
-      "limit": "287 kB"
+      "limit": "225 kB"
     }
   ]
 }

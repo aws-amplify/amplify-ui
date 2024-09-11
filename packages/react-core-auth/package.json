@@ -1,7 +1,7 @@
 {
   "name": "@aws-amplify/ui-react-core-auth",
   "private": true,
-  "version": "0.0.22",
+  "version": "0.0.24",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "react-native": "src/index.ts",
@@ -34,8 +34,8 @@
   },
   "dependencies": {
     "@aws-amplify/core": "^6.4.0",
-    "@aws-amplify/ui": "6.3.0",
-    "@aws-amplify/ui-react-core": "3.0.20",
+    "@aws-amplify/ui": "6.4.1",
+    "@aws-amplify/ui-react-core": "3.0.22",
     "@xstate/react": "3.2.2",
     "lodash": "4.17.21",
     "qrcode": "1.5.0",

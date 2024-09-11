@@ -1,5 +1,38 @@
 # @aws-amplify/ui
 
+## 6.4.1
+
+### Patch Changes
+
+- [#5780](https://github.com/aws-amplify/amplify-ui/pull/5780) [`9d96dd1fe`](https://github.com/aws-amplify/amplify-ui/commit/9d96dd1fe51212e8e55b0dde816122a6f5672762) Thanks [@jordanvn](https://github.com/jordanvn)! - fixed missing styles for FileUploader component
+
+## 6.4.0
+
+### Minor Changes
+
+- [#5767](https://github.com/aws-amplify/amplify-ui/pull/5767) [`afffa89cb`](https://github.com/aws-amplify/amplify-ui/commit/afffa89cb29bb08ff1b626c727a2c9fb93bf11b3) Thanks [@thaddmt](https://github.com/thaddmt)! - feat(primitives): add Avatar primitive
+
+  ```jsx
+  {
+    /* Avatar with image */
+  }
+  <Avatar src="/cats/5.jpg" />;
+  {
+    /* Avatar with default placeholder icon */
+  }
+  <Avatar />;
+  {
+    /* Avatar with initials */
+  }
+  <Avatar>DB</Avatar>;
+  {
+    /* Avatar with custom icon */
+  }
+  <Avatar>
+    <FiSmile style={{ width: '60%', height: '60%' }} />
+  </Avatar>;
+  ```
+
 ## 6.3.0
 
 ### Minor Changes
