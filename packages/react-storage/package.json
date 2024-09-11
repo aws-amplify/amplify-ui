@@ -39,6 +39,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@aws-amplify/core": "^6.2.1",
     "@aws-amplify/ui": "6.4.1",
     "@aws-amplify/ui-react": "6.3.1",
     "@aws-amplify/ui-react-core": "3.0.22",
@@ -46,7 +47,6 @@
     "tslib": "^2.5.2"
   },
   "peerDependencies": {
-    "@aws-amplify/core": "^6.2.1",
     "aws-amplify": "^6.3.2",
     "react": "^16.14.0 || ^17.0 || ^18.0",
     "react-dom": "^16.14.0 || ^17.0 || ^18.0"
