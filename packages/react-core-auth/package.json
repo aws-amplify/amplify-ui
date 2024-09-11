@@ -41,7 +41,7 @@
     "xstate": "^4.33.6"
   },
   "peerDependencies": {
-    "@aws-amplify/core": "^6.4.0",
+    "@aws-amplify/core": "^6.2.1",
     "aws-amplify": "^6.3.2",
     "react": "^16.14.0 || ^17.0 || ^18.0"
   },

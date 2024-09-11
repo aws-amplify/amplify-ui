@@ -46,7 +46,6 @@
     "xstate": "^4.33.6"
   },
   "devDependencies": {
-    "@aws-amplify/core": "^6.4.0",
     "@babel/core": "^7.23.2",
     "@babel/preset-env": "^7.23.2",
     "@rollup/plugin-dynamic-import-vars": "^1.4.0",
