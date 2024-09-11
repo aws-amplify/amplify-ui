@@ -9,7 +9,8 @@
     "build": "ng build --configuration production",
     "test": "jest",
     "test:watch": "yarn test --watch",
-    "lint": "ng lint"
+    "lint": "yarn typecheck && eslint . --ext .js,.jsx,.ts,.tsx",
+    "typecheck": "tsc --noEmit"
   },
   "license": "Apache-2.0",
   "devDependencies": {
