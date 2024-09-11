@@ -5,8 +5,8 @@ import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import '@aws-amplify/ui-react-ai/ai-conversation-styles.css';
 
-import outputs from './amplify_outputs.json';
-import type { Schema } from './amplify/data/resource';
+import outputs from './amplify_outputs.js';
+import type { Schema } from '@environments/ai/gen2/amplify/data/resource';
 import { AVATARS } from '../constants';
 
 const client = generateClient<Schema>();
