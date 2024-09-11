@@ -5,9 +5,9 @@ import {
   AvatarsContext,
   MessageVariantContext,
   RoleContext,
+  useConversationDisplayText,
 } from '../../context';
 import { ConversationMessage } from '../../../../types';
-import { formatDate } from '../../utils';
 import { ControlsContextProps } from '../../context/ControlsContext';
 import {
   ComponentClassName,
@@ -19,6 +19,7 @@ const MessageMeta = ({ message }: { message: ConversationMessage }) => {
   // need to pass this in as props in order for it to be overridable
   const avatars = React.useContext(AvatarsContext);
   const role = React.useContext(RoleContext);
+  const { getMessageTimestampText } = useConversationDisplayText();
   // maybe rename 'avatar' to something else
   const avatar = role === 'assistant' ? avatars?.ai : avatars?.user;
   return (
@@ -27,7 +28,7 @@ const MessageMeta = ({ message }: { message: ConversationMessage }) => {
         {avatar?.username}
       </Text>
       <Text className={ComponentClassName.AIConversationMessageSenderTimestamp}>
-        {formatDate(new Date(message.createdAt))}
+        {getMessageTimestampText(new Date(message.createdAt))}
       </Text>
     </View>
   );

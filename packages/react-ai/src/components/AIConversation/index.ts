@@ -1,3 +1,17 @@
 import { createAIConversation } from './createAIConversation';
 import { AIConversation } from './AIConversation';
-export { createAIConversation, AIConversation };
+import {
+  Avatars,
+  CustomAction,
+  ResponseComponent,
+  SuggestedPrompt,
+} from './types';
+
+export {
+  createAIConversation,
+  AIConversation,
+  Avatars,
+  CustomAction,
+  ResponseComponent,
+  SuggestedPrompt,
+};
