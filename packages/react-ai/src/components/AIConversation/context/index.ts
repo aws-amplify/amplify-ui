@@ -1,17 +1,35 @@
-import { ActionsContext } from './ActionsContext';
-import { AvatarsContext } from './AvatarsContext';
-import { ConversationInputContext } from './ConversationInputContext';
-import { MessagesContext, RoleContext } from './MessagesContext';
-import { SuggestedPromptsContext } from './SuggestedPromptsContext';
-import { MessageVariantContext } from './MessageVariantContext';
-
+export { ActionsContext, ActionsProvider } from './ActionsContext';
+export { AvatarsContext, AvatarsProvider } from './AvatarsContext';
 export {
-  ActionsContext,
-  AvatarsContext,
   ConversationInputContext,
+  ConversationInput,
+  ConversationInputContextProvider,
+} from './ConversationInputContext';
+export {
   MessagesContext,
   RoleContext,
+  MessagesProvider,
+} from './MessagesContext';
+export {
   SuggestedPromptsContext,
+  SuggestedPromptProvider,
+} from './SuggestedPromptsContext';
+export {
   MessageVariantContext,
-};
+  MessageVariantProvider,
+} from './MessageVariantContext';
+export {
+  ConversationDisplayTextContext,
+  useConversationDisplayText,
+  ConversationDisplayTextProvider,
+} from './DisplayTextContext';
+export {
+  ControlsContext,
+  ControlsContextProps,
+  ControlsProvider,
+} from './ControlsContext';
+export { LoadingContextProvider } from './LoadingContext';
+export { ResponseComponentsProvider } from './ResponseComponentsContext';
+export { SendMessageContextProvider } from './SendMessageContext';
+
 export * from './elements';

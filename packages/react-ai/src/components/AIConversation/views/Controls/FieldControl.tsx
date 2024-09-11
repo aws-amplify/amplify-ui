@@ -168,7 +168,7 @@ export const FieldControl: FieldControl = () => {
         const fileContent: ConversationMessageContent = {
           image: {
             format: getImageTypeFromMimeType(file.type),
-            source: { bytes: Uint8Array.from(Buffer.from(buffer)) },
+            source: { bytes: new Uint8Array(buffer) },
           },
         };
         submittedContent.push(fileContent);

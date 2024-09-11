@@ -29,6 +29,7 @@ export function createAIConversation(input: AIConversationInput = {}): {
     responseComponents,
     variant,
     controls,
+    displayText,
   } = input;
 
   const Provider = createProvider({
@@ -38,6 +39,7 @@ export function createAIConversation(input: AIConversationInput = {}): {
     responseComponents,
     variant,
     controls,
+    displayText,
   });
 
   function AIConversation(props: AIConversationProps): JSX.Element {
