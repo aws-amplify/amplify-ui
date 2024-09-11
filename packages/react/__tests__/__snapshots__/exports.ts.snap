@@ -1131,6 +1131,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "isDisabled": {
         "type": "boolean",
       },
+      "isLoading": {
+        "type": "boolean",
+      },
       "left": {
         "type": "string",
       },
