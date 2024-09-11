@@ -4,7 +4,15 @@ module.exports = {
     node: true,
   },
   extends: ['eslint:recommended'],
-  ignorePatterns: ['dist'],
+  ignorePatterns: ['dist', 'rollup.config.ts'],
+  overrides: [
+    {
+      files: ['**/__tests__/**', '**/jest.*'],
+      rules: {
+        'import/no-extraneous-dependencies': 'off',
+      },
+    },
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2020,
@@ -13,12 +21,7 @@ module.exports = {
   },
   plugins: ['import'],
   rules: {
-    'import/no-extraneous-dependencies': [
-      'error',
-      {
-        devDependencies: ['**/__tests__/**', 'rollup.config.ts', '**/jest.*'],
-      },
-    ],
+    'import/no-extraneous-dependencies': 'error',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-undef': 'off',

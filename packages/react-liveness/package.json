@@ -42,12 +42,13 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
+    "@aws-amplify/core": "^6.4.0",
+    "@smithy/types": "^3.3.0",
     "aws-amplify": "^6.3.2",
     "react": "^16.14.0 || ^17.0 || ^18.0",
     "react-dom": "^16.14.0 || ^17.0 || ^18.0"
   },
   "dependencies": {
-    "@aws-amplify/core": "^6.4.0",
     "@aws-amplify/ui": "6.4.1",
     "@aws-amplify/ui-react": "6.3.1",
     "@aws-sdk/client-rekognitionstreaming": "3.621.0",
@@ -70,11 +71,8 @@
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.1",
-    "@testing-library/jest-dom": "^6.1.5",
-    "@testing-library/react": "^14.0.0",
     "@types/jest-when": "^3.5.0",
     "blob-polyfill": "^7.0.20220408",
-    "jest": "^29.7.0",
     "jest-canvas-mock": "^2.5.2",
     "jest-websocket-mock": "^2.4.1",
     "jest-when": "^3.5.1",

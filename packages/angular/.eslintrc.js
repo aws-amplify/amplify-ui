@@ -45,18 +45,4 @@ module.exports = {
       files: ['**/__mocks__/**', '**/__tests__/**'],
     },
   ],
-  plugins: ['import'],
-  rules: {
-    'import/no-extraneous-dependencies': [
-      'error',
-      {
-        devDependencies: [
-          '**/__tests__/**',
-          '**/*.spec.{ts,tsx,js}',
-          '**/*.jest.ts',
-        ],
-        packageDir: [__dirname, path.join(__dirname, 'projects/ui-angular')],
-      },
-    ],
-  },
 };
