@@ -14,6 +14,7 @@ import {
   classNameModifier,
   classNames,
 } from '@aws-amplify/ui';
+import { LoadingContext } from '../../context/LoadingContext';
 
 const MessageMeta = ({ message }: { message: ConversationMessage }) => {
   // need to pass this in as props in order for it to be overridable
@@ -30,6 +31,35 @@ const MessageMeta = ({ message }: { message: ConversationMessage }) => {
       <Text className={ComponentClassName.AIConversationMessageSenderTimestamp}>
         {getMessageTimestampText(new Date(message.createdAt))}
       </Text>
+    </View>
+  );
+};
+
+const LoadingMessage = () => {
+  const avatars = React.useContext(AvatarsContext);
+  const variant = React.useContext(MessageVariantContext);
+  const avatar = avatars?.ai;
+
+  return (
+    <View
+      className={classNames(
+        ComponentClassName.AIConversationMessage,
+        classNameModifier(ComponentClassName.AIConversationMessage, variant),
+        classNameModifier(ComponentClassName.AIConversationMessage, 'assistant')
+      )}
+    >
+      <View className={ComponentClassName.AIConversationMessageAvatar}>
+        <Avatar isLoading>{avatar?.avatar}</Avatar>
+      </View>
+      <View className={ComponentClassName.AIConversationMessageBody}>
+        <View className={ComponentClassName.AIConversationMessageSender}>
+          <Text
+            className={ComponentClassName.AIConversationMessageSenderUsername}
+          >
+            {avatar?.username}
+          </Text>
+        </View>
+      </View>
     </View>
   );
 };
@@ -68,11 +98,13 @@ const Message = ({ message }: { message: ConversationMessage }) => {
 export const MessageList: ControlsContextProps['MessageList'] = ({
   messages,
 }) => {
+  const isLoading = React.useContext(LoadingContext);
   return (
     <View className={ComponentClassName.AIConversationMessageList}>
       {messages.map((message, i) => (
         <Message key={`message-${i}`} message={message} />
       ))}
+      {isLoading ? <LoadingMessage /> : null}
     </View>
   );
 };
