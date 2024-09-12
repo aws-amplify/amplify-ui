@@ -37,6 +37,12 @@ export interface BaseAvatarProps extends BaseViewProps {
    * The size property will affect the size of the avatar.
    */
   size?: AvatarSizes;
+
+  /**
+   * @description
+   * The isLoading property will display a loader around the avatar
+   */
+  isLoading?: boolean;
 }
 
 export type AvatarProps<Element extends ElementType = 'span'> = PrimitiveProps<
