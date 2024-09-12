@@ -1,6 +1,6 @@
 module.exports = {
   extends: ['@aws-amplify/amplify-ui/react'],
-  ignorePatterns: ['.eslintrc.js', 'coverage', 'dist', 'rollup.config.ts'],
+  ignorePatterns: ['.eslintrc.js', 'dist', 'rollup.config.ts'],
   overrides: [
     {
       extends: ['@aws-amplify/amplify-ui/jest'],

@@ -4,7 +4,6 @@ module.exports = {
     '.eslintrc.js',
     'dist',
     'rollup.config.ts',
-    'coverage',
     // NOTE: remove to turn on linting for test files
     '__tests__',
   ],
