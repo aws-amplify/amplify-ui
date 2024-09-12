@@ -19,6 +19,7 @@ import { fieldcontrol, FieldControlTokens } from './fieldControl';
 import { fieldgroup, FieldGroupTokens } from './fieldGroup';
 import { fieldset, FieldsetTokens } from './fieldset';
 import { fieldmessages, FieldMessagesTokens } from './fieldMessages';
+import { fileuploader, FileUploaderTokens } from './fileuploader';
 import { flex, FlexTokens } from './flex';
 import { heading, HeadingTokens } from './heading';
 import { highlightmatch, HighlightMatchTokens } from './highlightMatch';
@@ -80,6 +81,7 @@ type BaseComponentTokens<Output extends OutputVariantKey> = {
   fieldcontrol?: FieldControlTokens<Output>;
   fieldgroup?: FieldGroupTokens<Output>;
   fieldmessages?: FieldMessagesTokens<Output>;
+  fileuploader?: FileUploaderTokens<Output>;
   flex?: FlexTokens<Output>;
   heading?: HeadingTokens<Output>;
   highlightmatch?: HighlightMatchTokens<Output>;
@@ -149,6 +151,7 @@ export const components: DefaultComponentTokens = {
   fieldgroup,
   fieldmessages,
   fieldset,
+  fileuploader,
   flex,
   heading,
   icon,
