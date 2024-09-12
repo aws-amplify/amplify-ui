@@ -27,7 +27,6 @@
     "swr": "^2.0.0"
   },
   "devDependencies": {
-    "@aws-amplify/backend": "^1.0.4",
     "@types/node": "^15.12.4",
     "@types/react": "^18.2.22",
     "eslint": "^8.44.0",
