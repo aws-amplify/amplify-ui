@@ -47,7 +47,7 @@
     "react-dom": "^16.14.0 || ^17.0 || ^18.0"
   },
   "dependencies": {
-    "@aws-amplify/core": "^6.2.1",
+    "@aws-amplify/core": "6.4.0",
     "@aws-amplify/ui": "6.4.1",
     "@aws-amplify/ui-react": "6.3.1",
     "@aws-sdk/client-rekognitionstreaming": "3.621.0",
