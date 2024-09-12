@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  ignorePatterns: ['.eslintrc.js', 'dist'],
+  ignorePatterns: ['.eslintrc.js', 'coverage', 'dist'],
   overrides: [
     {
       files: ['**/*.ts'],
@@ -40,7 +40,12 @@ module.exports = {
     },
     {
       extends: ['@aws-amplify/amplify-ui/jest'],
-      files: ['**/__mocks__/**', '**/__tests__/**'],
+      files: [
+        '**/__mocks__/**',
+        '**/__tests__/**',
+        '**/*.spec.ts',
+        '**/*.jest.ts',
+      ],
     },
   ],
 };
