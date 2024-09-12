@@ -507,10 +507,31 @@
     tslib "^2.5.0"
     uuid "^9.0.0"
 
+"@aws-amplify/api-graphql@^4.1.11":
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/api-graphql/-/api-graphql-4.3.0.tgz#b8f6dbe60cb029da7c7cf5bae6818982a51cb391"
+  integrity sha512-wvem3CY3sWHqeKm140XJsQ+vcKKW69oF/1YwVDW5oQYR7zAWSyaU2Bvi5PAVUdZQeQrf2E6usuBYbY7DVNXJfg==
+  dependencies:
+    "@aws-amplify/api-rest" "4.0.47"
+    "@aws-amplify/core" "6.4.0"
+    "@aws-amplify/data-schema" "^1.0.0"
+    "@aws-sdk/types" "3.387.0"
+    graphql "15.8.0"
+    rxjs "^7.8.1"
+    tslib "^2.5.0"
+    uuid "^9.0.0"
+
 "@aws-amplify/api-rest@4.0.40":
   version "4.0.40"
   resolved "https://registry.yarnpkg.com/@aws-amplify/api-rest/-/api-rest-4.0.40.tgz#ec22197d0728e46a24c674b96239d2ab16f4af87"
   integrity sha512-WCWHG6+XBiNu+eFZOyZOLTkfpHdIQUPec0ixNPc+7o14jbxuDJ5WsmQG67c0HhYdAr+hV+hdfroYxivQzDb7Bg==
+  dependencies:
+    tslib "^2.5.0"
+
+"@aws-amplify/api-rest@4.0.47":
+  version "4.0.47"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/api-rest/-/api-rest-4.0.47.tgz#f2d940134d26c29c21a270de79ce03c13cc7b247"
+  integrity sha512-DwEJGS+38ugct5nTPgiE7zKATmrvPP/rzCcgN+baocYbd+4eB60xuWXodfsdPbuBttEL7mqAzAlDMGZkhBOaZw==
   dependencies:
     tslib "^2.5.0"
 
@@ -669,6 +690,20 @@
   version "6.3.7"
   resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-6.3.7.tgz#b71caaa1726f4a5081170ebd6fa90ce5e3ac604c"
   integrity sha512-OfUUrhgBW0EyjjXoTORR+vFEtnl8owY1CubId3R2aRPrpg1xi9SDrAT8ZX/o1gUPfGOHkalKBF3xhoQSHNh8Vg==
+  dependencies:
+    "@aws-crypto/sha256-js" "5.2.0"
+    "@aws-sdk/types" "3.398.0"
+    "@smithy/util-hex-encoding" "2.0.0"
+    "@types/uuid" "^9.0.0"
+    js-cookie "^3.0.5"
+    rxjs "^7.8.1"
+    tslib "^2.5.0"
+    uuid "^9.0.0"
+
+"@aws-amplify/core@6.4.0", "@aws-amplify/core@^6.2.1":
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-6.4.0.tgz#33434d1366681e2073007d6b3d4fcf53fdae3c87"
+  integrity sha512-XdXs9cYlOoH1Gf1Rfamh7fLFcc4EQwinRTDFkNMu7qprk80+enPrZzoDiADkparVia8qY0yhOM6GXVjwrMaJOw==
   dependencies:
     "@aws-crypto/sha256-js" "5.2.0"
     "@aws-sdk/types" "3.398.0"
