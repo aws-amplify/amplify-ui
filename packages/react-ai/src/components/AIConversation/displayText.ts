@@ -1,12 +1,13 @@
 import { DisplayTextTemplate } from '@aws-amplify/ui';
+import { formatDate } from './utils';
 
 export type ConversationDisplayText = {
-  conversationHeaderText?: string;
+  getMessageTimestampText?: (date: Date) => string;
 };
 
-export const defaultAIConversationDisplayText: Required<AIConversationDisplayText> =
+export const defaultAIConversationDisplayTextEn: Required<AIConversationDisplayText> =
   {
-    conversationHeaderText: 'Raven Chat',
+    getMessageTimestampText: (date: Date) => formatDate(date),
   };
 
 export type AIConversationDisplayText =

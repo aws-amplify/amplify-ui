@@ -5,9 +5,10 @@ import {
   MessagesContext,
   MessageVariantContext,
   RoleContext,
+  useConversationDisplayText,
 } from '../../context';
 import { AIConversationElements } from '../../context/elements';
-import { convertBufferToBase64, formatDate } from '../../utils';
+import { convertBufferToBase64 } from '../../utils';
 import { ActionsBarControl } from './ActionsBarControl';
 import { AvatarControl } from './AvatarControl';
 import { ConversationMessage } from '../../../../types';
@@ -159,6 +160,7 @@ const Layout: typeof View = React.forwardRef(function Layout(props, ref) {
 export const MessagesControl: MessagesControl = ({ renderMessage }) => {
   const messages = React.useContext(MessagesContext);
   const controls = React.useContext(ControlsContext);
+  const { getMessageTimestampText } = useConversationDisplayText();
   const messagesRef = React.useRef<(HTMLDivElement | null)[]>([]);
 
   const [focusedItemIndex, setFocusedItemIndex] = React.useState(
@@ -222,7 +224,9 @@ export const MessagesControl: MessagesControl = ({ renderMessage }) => {
               <HeaderContainer>
                 <AvatarControl />
                 <Separator />
-                <Timestamp>{formatDate(new Date(message.createdAt))}</Timestamp>
+                <Timestamp>
+                  {getMessageTimestampText(new Date(message.createdAt))}
+                </Timestamp>
               </HeaderContainer>
               <MessageControl message={message} />
               {message.role === 'assistant' ? (

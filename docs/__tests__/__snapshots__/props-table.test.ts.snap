@@ -1123,6 +1123,13 @@ exports[`Props Table 1`] = `
                         "category": "BaseAvatarProps",
                         "isOptional": true
                     },
+                    "isLoading": {
+                        "name": "isLoading",
+                        "type": "boolean | undefined",
+                        "description": "The isLoading property will display a loader around the avatar",
+                        "category": "BaseAvatarProps",
+                        "isOptional": true
+                    },
                     "isDisabled": {
                         "name": "isDisabled",
                         "type": "boolean | undefined",

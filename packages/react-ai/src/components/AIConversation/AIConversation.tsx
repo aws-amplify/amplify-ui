@@ -29,6 +29,7 @@ function AIConversationBase({
   suggestedPrompts,
   variant,
   isLoading,
+  displayText,
 }: AIConversationBaseProps): JSX.Element {
   const icons = useIcons('aiConversation');
   const defaultAvatars: Avatars = {
@@ -60,6 +61,7 @@ function AIConversationBase({
       Form,
       ...controls,
     },
+    displayText,
   });
 
   const providerProps = {
