@@ -35,6 +35,7 @@
     "style-dictionary": "3.9.1"
   },
   "peerDependencies": {
+    "@react-native-async-storage/async-storage": "*",
     "aws-amplify": "^6.6.0",
     "react": "*",
     "react-native": "^0.70 || ^0.71 || ^0.72 || ^0.73 || ^0.74 || ^0.75",
