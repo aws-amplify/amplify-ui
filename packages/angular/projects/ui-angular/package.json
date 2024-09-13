@@ -15,7 +15,7 @@
   },
   "peerDependencies": {
     "@angular/core": ">= 14.0.0",
-    "aws-amplify": "^6.3.2"
+    "aws-amplify": "^6.6.0"
   },
   "dependencies": {
     "@angular/common": "^14.3.0",
