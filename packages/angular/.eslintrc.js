@@ -1,6 +1,5 @@
 module.exports = {
   root: true,
-  ignorePatterns: ['.eslintrc.js', 'coverage', 'dist'],
   overrides: [
     {
       files: ['**/*.ts'],
@@ -43,9 +42,19 @@ module.exports = {
       files: [
         '**/__mocks__/**',
         '**/__tests__/**',
-        '**/*.spec.ts',
-        '**/*.jest.ts',
+        './projects/ui-angular/src/lib/components/authenticator/components/setup-totp/setup-totp.component.spec.ts',
       ],
+    },
+    {
+      rules: {
+        'import/no-extraneous-dependencies': [
+          'error',
+          {
+            packageDir: ['.', '../..', './projects/ui-angular'],
+          },
+        ],
+      },
+      files: ['**/*.ts'],
     },
   ],
 };
