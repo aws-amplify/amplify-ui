@@ -55,7 +55,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/core": "^6.2.1",
+    "@aws-amplify/core": "6.4.0",
     "@aws-amplify/ui": "6.4.1",
     "@aws-amplify/ui-react-core": "3.0.22",
     "@radix-ui/react-direction": "1.0.0",
