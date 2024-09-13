@@ -2,7 +2,7 @@ import { SignatureV4 } from '@smithy/signature-v4';
 import {
   HttpRequest as HttpRequest,
   RequestPresigningArguments,
-} from '@smithy/types';
+} from './types';
 
 // override aws sdk default value of 60
 export const REQUEST_EXPIRY = 299;
