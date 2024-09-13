@@ -45,7 +45,12 @@ module.exports = {
     'generator-star-spacing': 'off',
     'global-require': 'off',
     'implicit-arrow-linebreak': 'off',
-    'import/no-extraneous-dependencies': 'error',
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        packageDir: ['.', '../..'],
+      },
+    ],
     'index/only-import-export': 'error',
     'max-params': 2,
     'no-alert': 'error',
