@@ -4,8 +4,21 @@ import { ToolConfiguration } from '../../../types';
 
 type ResponseComponentsContextProps = ResponseComponents | undefined;
 
+export const RESPONSE_COMPONENT_PREFIX = 'UI_';
+
 export const ResponseComponentsContext =
   React.createContext<ResponseComponentsContextProps>(undefined);
+
+const prependResponseComponents = (responseComponents?: ResponseComponents) => {
+  if (!responseComponents) return responseComponents;
+  return Object.keys(responseComponents).reduce(
+    (prev, key) => (
+      (prev[`${RESPONSE_COMPONENT_PREFIX}${key}`] = responseComponents[key]),
+      prev
+    ),
+    {} as ResponseComponents
+  );
+};
 
 export const ResponseComponentsProvider = ({
   children,
@@ -15,7 +28,9 @@ export const ResponseComponentsProvider = ({
   responseComponents?: ResponseComponents;
 }): JSX.Element => {
   return (
-    <ResponseComponentsContext.Provider value={responseComponents}>
+    <ResponseComponentsContext.Provider
+      value={prependResponseComponents(responseComponents)}
+    >
       {children}
     </ResponseComponentsContext.Provider>
   );
