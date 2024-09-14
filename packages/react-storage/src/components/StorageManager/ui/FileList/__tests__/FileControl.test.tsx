@@ -101,4 +101,19 @@ describe('FileControl', () => {
 
     expect(container).toMatchSnapshot();
   });
+
+  it('should default to showThumbnails being true', () => {
+    //@ts-expect-error
+    fileControlProps.showThumbnails = undefined;
+
+    const { container } = render(<FileControl {...fileControlProps} />);
+
+    expect(
+      container.getElementsByClassName(
+        `${ComponentClassName.StorageManagerFileImage}`
+      )
+    ).toHaveLength(1);
+
+    expect(container).toMatchSnapshot();
+  });
 });

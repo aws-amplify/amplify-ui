@@ -1,5 +1,39 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.1.8
+
+### Patch Changes
+
+- Updated dependencies [[`9d96dd1fe`](https://github.com/aws-amplify/amplify-ui/commit/9d96dd1fe51212e8e55b0dde816122a6f5672762)]:
+  - @aws-amplify/ui@6.4.1
+  - @aws-amplify/ui-react@6.3.1
+
+## 3.1.7
+
+### Patch Changes
+
+- Updated dependencies [[`afffa89cb`](https://github.com/aws-amplify/amplify-ui/commit/afffa89cb29bb08ff1b626c727a2c9fb93bf11b3), [`afffa89cb`](https://github.com/aws-amplify/amplify-ui/commit/afffa89cb29bb08ff1b626c727a2c9fb93bf11b3), [`afffa89cb`](https://github.com/aws-amplify/amplify-ui/commit/afffa89cb29bb08ff1b626c727a2c9fb93bf11b3)]:
+  - @aws-amplify/ui-react@6.3.0
+  - @aws-amplify/ui@6.4.0
+
+## 3.1.6
+
+### Patch Changes
+
+- Updated dependencies [[`c3dfbe044`](https://github.com/aws-amplify/amplify-ui/commit/c3dfbe044fd18e084cd411ce0ff84dcab1a80224)]:
+  - @aws-amplify/ui@6.3.0
+  - @aws-amplify/ui-react@6.2.2
+
+## 3.1.5
+
+### Patch Changes
+
+- [#5737](https://github.com/aws-amplify/amplify-ui/pull/5737) [`a5acab9b4`](https://github.com/aws-amplify/amplify-ui/commit/a5acab9b41f8b0b07aa871c2dd64de7d78eeb71f) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(liveness): Hide verifying screen video (#5553)
+
+- Updated dependencies [[`6e67ab6be`](https://github.com/aws-amplify/amplify-ui/commit/6e67ab6beb65e8ac7c7db6c6586df3c4f219bdbf), [`634815ff0`](https://github.com/aws-amplify/amplify-ui/commit/634815ff07defd89123963bab98f410c5e1fc9cd)]:
+  - @aws-amplify/ui@6.2.0
+  - @aws-amplify/ui-react@6.2.1
+
 ## 3.1.4
 
 ### Patch Changes

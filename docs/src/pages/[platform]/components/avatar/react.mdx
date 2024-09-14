@@ -1,0 +1,205 @@
+import { Fragment } from '@/components/Fragment'; 
+import { Avatar, View } from '@aws-amplify/ui-react';
+
+import { Example, ExampleCode } from '@/components/Example';
+import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import ThemeExample from '@/components/ThemeExample.mdx';
+
+import { AvatarDemo } from './demo';
+import {
+  DefaultAvatarExample,
+  AvatarIconProviderExample,
+  AvatarColorExample,
+  AvatarVariationExample,
+  AvatarSizeExample,
+  AvatarStyleExample,
+  AvatarThemeExample,
+  AvatarAccessibilityExample,
+  AvatarLoadingExample,
+} from './examples';
+
+## Demo
+
+<AvatarDemo />
+
+## Usage
+
+Import the Avatar primitive and styles.
+
+<Example>
+  <View>
+    <DefaultAvatarExample />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/DefaultAvatarExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+### Sizes
+
+<Example>
+  <View>
+    <AvatarSizeExample />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/AvatarSizeExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+
+### Variations
+
+<Example>
+  <View>
+    <AvatarVariationExample />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/AvatarVariationExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+
+### Colors
+
+<Example>
+  <View>
+    <AvatarColorExample />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/AvatarColorExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+
+### Loading
+
+<Example>
+  <View>
+    <AvatarLoadingExample />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/AvatarLoadingExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+### Changing the default icon
+
+You can use the `<IconsProvider>` to change the default icon for all Avatars in your application. 
+
+<Example>
+  <View>
+    <AvatarIconProviderExample />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/AvatarIconProviderExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+## Styling
+
+<ThemeExample component="Avatar">
+
+<Example>
+  <AvatarThemeExample />
+  
+  <ExampleCode>
+  ```jsx file=./examples/AvatarThemeExample.tsx
+  ```
+  </ExampleCode>
+</Example>
+</ThemeExample>
+
+### Target classes
+
+<ComponentStyleDisplay componentName="Avatar" />
+
+### Global styling
+
+To override styling on all Breadcrumbs components, you can set Amplify CSS variables or use the target classes like `.amplify-avatar` class.
+
+<Example>
+  <ExampleCode>
+    ```css
+    /* styles.css */
+    .amplify-avatar {
+      background-color: pink;
+    }
+    ```
+  </ExampleCode>
+</Example>
+
+### Local styling
+
+To override styling on a specific Avatar component or sub-component, you can use (in order of increasing specificity): a class selector and style props.
+
+_Using a class selector:_
+
+<Example>
+  <ExampleCode>
+    ```jsx
+    <Avatar className="my-avatar" />
+    ```
+  
+    ```css
+    /* styles.css */
+    .my-avatar {
+       background-color: pink;
+    }
+    ```
+  </ExampleCode>
+</Example>
+
+_Using style props:_
+
+<Example>
+  <AvatarStyleExample />
+  
+  <ExampleCode>
+  ```jsx file=./examples/AvatarStyleExample.tsx
+  ```
+  </ExampleCode>
+</Example>
+
+
+## Accessibility
+
+If you pass a `src` prop to have the Avatar show an image, you should pass an `alt` prop to provide alt text on the image. You can also pass aria attributes like `aria-label` if you want to provide text to screenreaders. 
+
+<Example>
+  <AvatarAccessibilityExample />
+  
+  <ExampleCode>
+  ```jsx file=./examples/AvatarAccessibilityExample.tsx
+  ```
+  </ExampleCode>
+</Example>

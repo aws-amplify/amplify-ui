@@ -93,7 +93,18 @@ Then(
 );
 
 Then('I see placeholder {string}', async (placeholder: string) => {
-  await expect(element(by.text(placeholder))).toExist();
+  const emailField = element(
+    by.id('authenticator__text-field__input-username')
+  );
+  await expect(emailField).toExist();
+  const attributes = await emailField.getAttributes();
+  if ((attributes as Detox.ElementAttributes).placeholder) {
+    if ((attributes as any).placeholder !== placeholder) {
+      throw new Error(
+        `No element found with placeholder value: ${placeholder}`
+      );
+    }
+  }
 });
 
 Then(

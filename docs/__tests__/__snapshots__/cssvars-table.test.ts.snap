@@ -839,6 +839,122 @@ exports[`CSS Variables Table 1`] = `
         "value": "100%"
     },
     {
+        "variable": "--amplify-components-avatar-background-color",
+        "value": "var(--amplify-colors-background-tertiary)"
+    },
+    {
+        "variable": "--amplify-components-avatar-border-color",
+        "value": "var(--amplify-colors-border-primary)"
+    },
+    {
+        "variable": "--amplify-components-avatar-border-radius",
+        "value": "100%"
+    },
+    {
+        "variable": "--amplify-components-avatar-border-width",
+        "value": "var(--amplify-border-widths-medium)"
+    },
+    {
+        "variable": "--amplify-components-avatar-color",
+        "value": "var(--amplify-colors-font-tertiary)"
+    },
+    {
+        "variable": "--amplify-components-avatar-error-background-color",
+        "value": "var(--amplify-colors-background-error)"
+    },
+    {
+        "variable": "--amplify-components-avatar-error-border-color",
+        "value": "var(--amplify-colors-border-error)"
+    },
+    {
+        "variable": "--amplify-components-avatar-error-color",
+        "value": "var(--amplify-colors-font-error)"
+    },
+    {
+        "variable": "--amplify-components-avatar-font-size",
+        "value": "var(--amplify-font-sizes-small)"
+    },
+    {
+        "variable": "--amplify-components-avatar-font-weight",
+        "value": "var(--amplify-font-weights-semibold)"
+    },
+    {
+        "variable": "--amplify-components-avatar-height",
+        "value": "var(--amplify-font-sizes-xxl)"
+    },
+    {
+        "variable": "--amplify-components-avatar-info-background-color",
+        "value": "var(--amplify-colors-background-info)"
+    },
+    {
+        "variable": "--amplify-components-avatar-info-border-color",
+        "value": "var(--amplify-colors-border-info)"
+    },
+    {
+        "variable": "--amplify-components-avatar-info-color",
+        "value": "var(--amplify-colors-font-info)"
+    },
+    {
+        "variable": "--amplify-components-avatar-large-font-size",
+        "value": "var(--amplify-font-sizes-medium)"
+    },
+    {
+        "variable": "--amplify-components-avatar-large-height",
+        "value": "var(--amplify-font-sizes-xxxl)"
+    },
+    {
+        "variable": "--amplify-components-avatar-large-width",
+        "value": "var(--amplify-font-sizes-xxxl)"
+    },
+    {
+        "variable": "--amplify-components-avatar-line-height",
+        "value": "1"
+    },
+    {
+        "variable": "--amplify-components-avatar-small-font-size",
+        "value": "var(--amplify-font-sizes-xs)"
+    },
+    {
+        "variable": "--amplify-components-avatar-small-height",
+        "value": "var(--amplify-font-sizes-xl)"
+    },
+    {
+        "variable": "--amplify-components-avatar-small-width",
+        "value": "var(--amplify-font-sizes-xl)"
+    },
+    {
+        "variable": "--amplify-components-avatar-success-background-color",
+        "value": "var(--amplify-colors-background-success)"
+    },
+    {
+        "variable": "--amplify-components-avatar-success-border-color",
+        "value": "var(--amplify-colors-border-success)"
+    },
+    {
+        "variable": "--amplify-components-avatar-success-color",
+        "value": "var(--amplify-colors-font-success)"
+    },
+    {
+        "variable": "--amplify-components-avatar-text-align",
+        "value": "center"
+    },
+    {
+        "variable": "--amplify-components-avatar-warning-background-color",
+        "value": "var(--amplify-colors-background-warning)"
+    },
+    {
+        "variable": "--amplify-components-avatar-warning-border-color",
+        "value": "var(--amplify-colors-border-warning)"
+    },
+    {
+        "variable": "--amplify-components-avatar-warning-color",
+        "value": "var(--amplify-colors-font-warning)"
+    },
+    {
+        "variable": "--amplify-components-avatar-width",
+        "value": "var(--amplify-font-sizes-xxl)"
+    },
+    {
         "variable": "--amplify-components-badge-background-color",
         "value": "var(--amplify-colors-background-tertiary)"
     },
@@ -3193,6 +3309,250 @@ exports[`CSS Variables Table 1`] = `
     {
         "variable": "--amplify-components-fieldset-small-gap",
         "value": "var(--amplify-components-field-small-gap)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-dropzone-active-background-color",
+        "value": "var(--amplify-colors-primary-10)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-dropzone-active-border-color",
+        "value": "var(--amplify-colors-border-pressed)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-dropzone-active-border-radius",
+        "value": "var(--amplify-components-fileuploader-dropzone-border-radius)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-dropzone-active-border-style",
+        "value": "var(--amplify-components-fileuploader-dropzone-border-style)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-dropzone-active-border-width",
+        "value": "var(--amplify-border-widths-medium)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-dropzone-background-color",
+        "value": "var(--amplify-colors-background-primary)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-dropzone-border-color",
+        "value": "var(--amplify-colors-border-primary)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-dropzone-border-radius",
+        "value": "var(--amplify-radii-small)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-dropzone-border-style",
+        "value": "dashed"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-dropzone-border-width",
+        "value": "var(--amplify-border-widths-small)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-dropzone-gap",
+        "value": "var(--amplify-space-small)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-dropzone-icon-color",
+        "value": "var(--amplify-colors-border-primary)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-dropzone-icon-font-size",
+        "value": "var(--amplify-font-sizes-xxl)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-dropzone-padding-block",
+        "value": "var(--amplify-space-xl)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-dropzone-padding-inline",
+        "value": "var(--amplify-space-large)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-dropzone-text-align",
+        "value": "center"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-dropzone-text-color",
+        "value": "var(--amplify-colors-font-tertiary)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-dropzone-text-font-size",
+        "value": "var(--amplify-font-sizes-medium)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-dropzone-text-font-weight",
+        "value": "var(--amplify-font-weights-bold)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-file-align-items",
+        "value": "baseline"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-file-background-color",
+        "value": "var(--amplify-colors-background-primary)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-file-border-color",
+        "value": "var(--amplify-colors-border-primary)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-file-border-radius",
+        "value": "var(--amplify-radii-small)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-file-border-style",
+        "value": "solid"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-file-border-width",
+        "value": "var(--amplify-border-widths-small)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-file-gap",
+        "value": "var(--amplify-space-small)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-file-image-background-color",
+        "value": "var(--amplify-colors-background-secondary)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-file-image-border-radius",
+        "value": "var(--amplify-radii-small)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-file-image-color",
+        "value": "var(--amplify-colors-font-tertiary)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-file-image-height",
+        "value": "var(--amplify-space-xxl)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-file-image-width",
+        "value": "var(--amplify-space-xxl)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-file-name-color",
+        "value": "var(--amplify-colors-font-primary)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-file-name-font-size",
+        "value": "var(--amplify-font-sizes-medium)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-file-name-font-weight",
+        "value": "var(--amplify-font-weights-bold)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-file-padding-block",
+        "value": "var(--amplify-space-xs)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-file-padding-inline",
+        "value": "var(--amplify-space-small)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-file-size-color",
+        "value": "var(--amplify-colors-font-tertiary)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-file-size-font-size",
+        "value": "var(--amplify-font-sizes-small)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-file-size-font-weight",
+        "value": "var(--amplify-font-weights-normal)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-filelist-flex-direction",
+        "value": "column"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-filelist-gap",
+        "value": "var(--amplify-space-small)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-loader-stroke-empty",
+        "value": "var(--amplify-colors-border-secondary)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-loader-stroke-filled",
+        "value": "var(--amplify-components-loader-stroke-filled)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-loader-stroke-linecap",
+        "value": "round"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-loader-stroke-width",
+        "value": "var(--amplify-border-widths-large)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-previewer-background-color",
+        "value": "var(--amplify-colors-background-primary)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-previewer-body-gap",
+        "value": "var(--amplify-space-small)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-previewer-body-padding-block",
+        "value": "var(--amplify-space-medium)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-previewer-body-padding-inline",
+        "value": "var(--amplify-space-medium)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-previewer-border-color",
+        "value": "var(--amplify-colors-border-primary)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-previewer-border-radius",
+        "value": "var(--amplify-radii-small)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-previewer-border-style",
+        "value": "solid"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-previewer-border-width",
+        "value": "var(--amplify-border-widths-small)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-previewer-footer-justify-content",
+        "value": "flex-end"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-previewer-max-height",
+        "value": "40rem"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-previewer-max-width",
+        "value": "auto"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-previewer-padding-block",
+        "value": "var(--amplify-space-zero)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-previewer-padding-inline",
+        "value": "var(--amplify-space-zero)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-previewer-text-color",
+        "value": "var(--amplify-colors-font-primary)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-previewer-text-font-size",
+        "value": "var(--amplify-font-sizes-medium)"
+    },
+    {
+        "variable": "--amplify-components-fileuploader-previewer-text-font-weight",
+        "value": "var(--amplify-font-weights-bold)"
     },
     {
         "variable": "--amplify-components-flex-align-content",

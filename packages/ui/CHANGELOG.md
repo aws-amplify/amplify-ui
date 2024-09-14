@@ -1,5 +1,57 @@
 # @aws-amplify/ui
 
+## 6.4.1
+
+### Patch Changes
+
+- [#5780](https://github.com/aws-amplify/amplify-ui/pull/5780) [`9d96dd1fe`](https://github.com/aws-amplify/amplify-ui/commit/9d96dd1fe51212e8e55b0dde816122a6f5672762) Thanks [@jordanvn](https://github.com/jordanvn)! - fixed missing styles for FileUploader component
+
+## 6.4.0
+
+### Minor Changes
+
+- [#5767](https://github.com/aws-amplify/amplify-ui/pull/5767) [`afffa89cb`](https://github.com/aws-amplify/amplify-ui/commit/afffa89cb29bb08ff1b626c727a2c9fb93bf11b3) Thanks [@thaddmt](https://github.com/thaddmt)! - feat(primitives): add Avatar primitive
+
+  ```jsx
+  {
+    /* Avatar with image */
+  }
+  <Avatar src="/cats/5.jpg" />;
+  {
+    /* Avatar with default placeholder icon */
+  }
+  <Avatar />;
+  {
+    /* Avatar with initials */
+  }
+  <Avatar>DB</Avatar>;
+  {
+    /* Avatar with custom icon */
+  }
+  <Avatar>
+    <FiSmile style={{ width: '60%', height: '60%' }} />
+  </Avatar>;
+  ```
+
+## 6.3.0
+
+### Minor Changes
+
+- [#5744](https://github.com/aws-amplify/amplify-ui/pull/5744) [`c3dfbe044`](https://github.com/aws-amplify/amplify-ui/commit/c3dfbe044fd18e084cd411ce0ff84dcab1a80224) Thanks [@jordanvn](https://github.com/jordanvn)! - Adds FileUploader as new default name of StorageManager to avoid confusion with new components
+
+## 6.2.0
+
+### Minor Changes
+
+- [#5436](https://github.com/aws-amplify/amplify-ui/pull/5436) [`6e67ab6be`](https://github.com/aws-amplify/amplify-ui/commit/6e67ab6beb65e8ac7c7db6c6586df3c4f219bdbf) Thanks [@vLannaAi](https://github.com/vLannaAi)! - i18n Authenticator in Thai.
+  Localization of Authenticator in the Thai Language.
+  Added a new language using the ISO code 'th'
+  Created a new dictionary for Authenticator strings, and localized with supervision of 3 Thai native speaker, verified by ChatGPT 4.o, Claude Sonnet 3.5, and Google Translate.
+
+### Patch Changes
+
+- [#5645](https://github.com/aws-amplify/amplify-ui/pull/5645) [`634815ff0`](https://github.com/aws-amplify/amplify-ui/commit/634815ff07defd89123963bab98f410c5e1fc9cd) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(utils): moving humanFileSize to ui package
+
 ## 6.1.0
 
 ### Minor Changes

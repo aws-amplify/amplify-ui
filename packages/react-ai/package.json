@@ -1,0 +1,59 @@
+{
+  "name": "@aws-amplify/ui-react-ai",
+  "version": "0.1.1",
+  "main": "dist/index.js",
+  "module": "dist/esm/index.mjs",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./ai-conversation-styles.css": "./dist/ai-conversation-styles.css"
+  },
+  "browser": {
+    "./ai-conversation-styles.css": "./dist/ai-conversation-styles.css"
+  },
+  "types": "dist/types/index.d.ts",
+  "sideEffects": [
+    "dist/**/*.css"
+  ],
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws-amplify/amplify-ui",
+    "directory": "packages/react-ai"
+  },
+  "files": [
+    "dist",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "yarn build:rollup",
+    "build:rollup": "rollup --config",
+    "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-ai\"'",
+    "clean": "rimraf dist node_modules",
+    "dev": "yarn build:rollup --watch",
+    "lint": "yarn typecheck && eslint src",
+    "prebuild": "rimraf dist",
+    "size": "yarn size-limit",
+    "test": "jest",
+    "test:watch": "yarn test --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "aws-amplify": "^6.3.2",
+    "react": "^16.14.0 || ^17.0 || ^18.0",
+    "react-dom": "^16.14.0 || ^17.0 || ^18.0"
+  },
+  "dependencies": {
+    "@aws-amplify/ui": "^6.4.1",
+    "@aws-amplify/ui-react": "^6.3.1",
+    "@aws-amplify/ui-react-core": "^3.0.22"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.1",
+    "@types/jest-when": "^3.5.0",
+    "jest-when": "^3.5.1"
+  }
+}

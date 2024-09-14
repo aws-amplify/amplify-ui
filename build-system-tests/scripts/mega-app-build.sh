@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Default values
 BUILD_TOOL="cra"
@@ -71,11 +72,6 @@ while [[ $# -gt 0 ]]; do
     esac
     shift
 done
-
-# Check if MEGA_APP_NAME is provided
-if [[ -z "$MEGA_APP_NAME" ]]; then
-    MEGA_APP_NAME="$FRAMEWORK-$FRAMEWORK_VERSION-$BUILD_TOOL-$BUILD_TOOL_VERSION-$LANGUAGE"
-fi
 
 echo "########################"
 echo "# Start Mega App Build #"
