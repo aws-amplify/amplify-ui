@@ -27,10 +27,13 @@ export const ResponseComponentsProvider = ({
   children?: React.ReactNode;
   responseComponents?: ResponseComponents;
 }): JSX.Element => {
+  const _responseComponents = React.useMemo(
+    () => prependResponseComponents(responseComponents),
+    [responseComponents]
+  );
+
   return (
-    <ResponseComponentsContext.Provider
-      value={prependResponseComponents(responseComponents)}
-    >
+    <ResponseComponentsContext.Provider value={_responseComponents}>
       {children}
     </ResponseComponentsContext.Provider>
   );
