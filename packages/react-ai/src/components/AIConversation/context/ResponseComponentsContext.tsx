@@ -4,7 +4,7 @@ import { ToolConfiguration } from '../../../types';
 
 type ResponseComponentsContextProps = ResponseComponents | undefined;
 
-export const RESPONSE_COMPONENT_PREFIX = 'UI_';
+export const RESPONSE_COMPONENT_PREFIX = 'AMPLIFY_UI_';
 
 export const ResponseComponentsContext =
   React.createContext<ResponseComponentsContextProps>(undefined);

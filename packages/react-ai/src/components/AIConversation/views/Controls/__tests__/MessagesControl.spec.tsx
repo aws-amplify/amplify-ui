@@ -54,7 +54,7 @@ const AIResponseComponentMessage: ConversationMessage = {
   content: [
     {
       toolUse: {
-        name: 'UI_annoyingComponent',
+        name: 'AMPLIFY_UI_annoyingComponent',
         input: { text: 'ahoy matey' },
         toolUseId: 'tooluseID',
       },
