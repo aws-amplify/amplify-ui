@@ -493,7 +493,7 @@
     "@smithy/util-utf8" "2.0.0"
     tslib "^2.5.0"
 
-"@aws-amplify/api-graphql@4.3.0", "@aws-amplify/api-graphql@^4.1.11":
+"@aws-amplify/api-graphql@4.3.0":
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/@aws-amplify/api-graphql/-/api-graphql-4.3.0.tgz#b8f6dbe60cb029da7c7cf5bae6818982a51cb391"
   integrity sha512-wvem3CY3sWHqeKm140XJsQ+vcKKW69oF/1YwVDW5oQYR7zAWSyaU2Bvi5PAVUdZQeQrf2E6usuBYbY7DVNXJfg==
@@ -669,6 +669,20 @@
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-6.4.0.tgz#33434d1366681e2073007d6b3d4fcf53fdae3c87"
   integrity sha512-XdXs9cYlOoH1Gf1Rfamh7fLFcc4EQwinRTDFkNMu7qprk80+enPrZzoDiADkparVia8qY0yhOM6GXVjwrMaJOw==
+  dependencies:
+    "@aws-crypto/sha256-js" "5.2.0"
+    "@aws-sdk/types" "3.398.0"
+    "@smithy/util-hex-encoding" "2.0.0"
+    "@types/uuid" "^9.0.0"
+    js-cookie "^3.0.5"
+    rxjs "^7.8.1"
+    tslib "^2.5.0"
+    uuid "^9.0.0"
+
+"@aws-amplify/core@^6.4.0":
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-6.4.1.tgz#362d4037fd4de9c890603a96b9df6a31b4b3adcd"
+  integrity sha512-PcnnAkf/OUH+tLWIVaiB1CuG/c2/vIay2+innO+Yzj7yuL4TnT5ZmRwwPmJmkw6yAngwXSD7WTaiyhUIrgE8hQ==
   dependencies:
     "@aws-crypto/sha256-js" "5.2.0"
     "@aws-sdk/types" "3.398.0"
