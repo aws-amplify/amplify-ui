@@ -10,9 +10,20 @@ import { View } from '../View';
 import { IconUser, useIcons } from '../Icon';
 import { Image } from '../Image';
 import { AvatarProps, BaseAvatarProps } from './types';
+import { Loader } from '../Loader';
 
 const AvatarPrimitive: Primitive<AvatarProps, 'span'> = (
-  { className, children, variation, colorTheme, size, src, alt, ...rest },
+  {
+    className,
+    children,
+    variation,
+    colorTheme,
+    size,
+    src,
+    alt,
+    isLoading,
+    ...rest
+  },
   ref
 ) => {
   const icons = useIcons('avatar');
@@ -40,6 +51,9 @@ const AvatarPrimitive: Primitive<AvatarProps, 'span'> = (
           </View>
         )
       )}
+      {isLoading ? (
+        <Loader className={ComponentClassName.AvatarLoader} />
+      ) : null}
     </View>
   );
 };
