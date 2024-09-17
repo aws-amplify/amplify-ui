@@ -4,6 +4,7 @@ import { MessageControl } from '../Controls/MessagesControl';
 import {
   AvatarsContext,
   MessageVariantContext,
+  RESPONSE_COMPONENT_PREFIX,
   RoleContext,
   useConversationDisplayText,
 } from '../../context';
@@ -99,9 +100,19 @@ export const MessageList: ControlsContextProps['MessageList'] = ({
   messages,
 }) => {
   const isLoading = React.useContext(LoadingContext);
+  const messagesWithRenderableContent =
+    messages?.filter((message) =>
+      message.content.some(
+        (content) =>
+          content.image ??
+          content.text ??
+          content.toolUse?.name.startsWith(RESPONSE_COMPONENT_PREFIX)
+      )
+    ) ?? [];
+
   return (
     <View className={ComponentClassName.AIConversationMessageList}>
-      {messages.map((message, i) => (
+      {messagesWithRenderableContent.map((message, i) => (
         <Message key={`message-${i}`} message={message} />
       ))}
       {isLoading ? <LoadingMessage /> : null}

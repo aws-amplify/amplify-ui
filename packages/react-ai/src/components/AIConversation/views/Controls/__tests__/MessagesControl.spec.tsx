@@ -54,7 +54,38 @@ const AIResponseComponentMessage: ConversationMessage = {
   content: [
     {
       toolUse: {
-        name: 'annoyingComponent',
+        name: 'AMPLIFY_UI_annoyingComponent',
+        input: { text: 'ahoy matey' },
+        toolUseId: 'tooluseID',
+      },
+    },
+  ],
+  role: 'assistant',
+  createdAt: new Date(2023, 4, 21, 15, 25).toDateString(),
+};
+const ToolUseMessage: ConversationMessage = {
+  conversationId: 'foobar',
+  id: '3',
+  content: [
+    {
+      toolUse: {
+        name: '"generateRecipe"',
+        input: { text: 'ahoy matey' },
+        toolUseId: 'tooluseID',
+      },
+    },
+  ],
+  role: 'assistant',
+  createdAt: new Date(2023, 4, 21, 15, 25).toDateString(),
+};
+const TextAndToolUseMessage: ConversationMessage = {
+  conversationId: 'foobar',
+  id: '3',
+  content: [
+    { text: 'hey what up' },
+    {
+      toolUse: {
+        name: '"generateRecipe"',
         input: { text: 'ahoy matey' },
         toolUseId: 'tooluseID',
       },
@@ -344,5 +375,16 @@ describe('MessageControl', () => {
     );
     const message = screen.getByText('argh matey! ahoy matey');
     expect(message).toBeInTheDocument();
+  });
+
+  it('renders text when sent with a tooluse content', () => {
+    render(<MessageControl message={TextAndToolUseMessage} />);
+    const message = screen.getByText('hey what up');
+    expect(message).toBeInTheDocument();
+  });
+
+  it('renders nothing when only a toolUse block is sent', () => {
+    const { container } = render(<MessageControl message={ToolUseMessage} />);
+    expect(container.firstChild).toBeEmptyDOMElement();
   });
 });
