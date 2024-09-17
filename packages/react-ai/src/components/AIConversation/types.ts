@@ -38,6 +38,7 @@ export interface AIConversationProps {
   handleSendMessage: SendMessage;
   avatars?: Avatars;
   isLoading?: boolean;
+  allowAttachments?: boolean;
 }
 
 export interface AIConversation {
