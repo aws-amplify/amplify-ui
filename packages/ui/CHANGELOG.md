@@ -1,5 +1,15 @@
 # @aws-amplify/ui
 
+## 6.5.0
+
+### Minor Changes
+
+- [#5777](https://github.com/aws-amplify/amplify-ui/pull/5777) [`0ebf8b346`](https://github.com/aws-amplify/amplify-ui/commit/0ebf8b346bc744cd73e1e7891eafc07538d6419d) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(avatar): add loading state to avatar and AIConversation
+
+  ```jsx
+  <Avatar isLoading />
+  ```
+
 ## 6.4.1
 
 ### Patch Changes
