@@ -26,7 +26,7 @@ export type ComponentStyleProps<Element extends ElementType = 'style'> =
   PrimitiveProps<BaseComponentStyleProps, Element>;
 
 const ComponentStylePrimitive: Primitive<ComponentStyleProps, 'style'> = (
-  { theme, componentThemes = [], nonce, ...rest },
+  { theme, componentThemes = [], ...rest },
   ref
 ) => {
   if (!theme || !componentThemes.length) {
@@ -38,7 +38,7 @@ const ComponentStylePrimitive: Primitive<ComponentStyleProps, 'style'> = (
     components: componentThemes,
   });
 
-  return <Style {...rest} ref={ref} cssText={cssText} nonce={nonce} />;
+  return <Style {...rest} ref={ref} cssText={cssText} />;
 };
 
 /**

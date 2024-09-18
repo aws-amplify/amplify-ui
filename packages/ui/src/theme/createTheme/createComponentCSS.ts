@@ -58,7 +58,7 @@ function recursiveComponentCSS(baseSelector: string, theme: BaseTheme) {
   return str;
 }
 
-interface CreateComponentCSSProps {
+interface CreateComponentCSSParams {
   theme: Pick<WebTheme, 'tokens' | 'breakpoints' | 'name'>;
   components: Array<ComponentsTheme>;
 }
@@ -70,7 +70,7 @@ interface CreateComponentCSSProps {
 export function createComponentCSS({
   theme,
   components,
-}: CreateComponentCSSProps) {
+}: CreateComponentCSSParams) {
   let cssText = '';
   const { tokens, name: themeName, breakpoints } = theme;
 
