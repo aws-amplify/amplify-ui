@@ -12,7 +12,10 @@ import { convertBufferToBase64 } from '../../utils';
 import { ActionsBarControl } from './ActionsBarControl';
 import { AvatarControl } from './AvatarControl';
 import { ConversationMessage } from '../../../../types';
-import { ResponseComponentsContext } from '../../context/ResponseComponentsContext';
+import {
+  RESPONSE_COMPONENT_PREFIX,
+  ResponseComponentsContext,
+} from '../../context/ResponseComponentsContext';
 import { ControlsContext } from '../../context/ControlsContext';
 
 const { Image, Span, Text, View } = AIConversationElements;
@@ -83,7 +86,11 @@ export const MessageControl: MessageControl = ({ message }) => {
         } else if (content.toolUse) {
           // For now tool use is limited to custom response components
           const { name, input } = content.toolUse;
-          if (!responseComponents || !name) {
+          if (
+            !responseComponents ||
+            !name ||
+            !name.startsWith(RESPONSE_COMPONENT_PREFIX)
+          ) {
             return;
           } else {
             const response = responseComponents[name];
@@ -206,9 +213,19 @@ export const MessagesControl: MessagesControl = ({ renderMessage }) => {
     return <controls.MessageList messages={messages!} />;
   }
 
+  const messagesWithRenderableContent =
+    messages?.filter((message) =>
+      message.content.some(
+        (content) =>
+          content.image ??
+          content.text ??
+          content.toolUse?.name.startsWith(RESPONSE_COMPONENT_PREFIX)
+      )
+    ) ?? [];
+
   return (
     <Layout>
-      {messages?.map((message, index) => {
+      {messagesWithRenderableContent?.map((message, index) => {
         return renderMessage ? (
           renderMessage(message)
         ) : (
