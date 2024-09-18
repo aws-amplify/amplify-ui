@@ -10,10 +10,10 @@
   "dependencies": {
     "@aws-amplify/ui-vue": "latest",
     "aws-amplify": "latest",
-    "vue": "^3.2.27"
+    "vue": "latest"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.0.1",
-    "vite": "^2.7.13"
+    "vite": "latest"
   }
 }
