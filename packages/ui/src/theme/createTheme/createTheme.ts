@@ -74,12 +74,13 @@ export function createTheme<TokensType extends WebTokens = WebTokens>(
     `\n}\n`;
 
   if (theme?.components) {
-    cssText += createComponentCSS(
-      name,
-      theme.components,
-      tokens,
-      mergedTheme.breakpoints
-    );
+    cssText += createComponentCSS({
+      theme: {
+        ...mergedTheme,
+        tokens,
+      },
+      components: theme.components,
+    });
   }
 
   let overrides: Array<Override> = [];
