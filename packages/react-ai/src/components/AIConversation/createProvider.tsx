@@ -61,11 +61,9 @@ export default function createProvider({
     return (
       <ElementsProvider elements={elements}>
         <ControlsProvider controls={controls}>
-          <AttachmentProvider allowAttachments={allowAttachments}>
-            <SuggestedPromptProvider suggestedPrompts={suggestedPrompts}>
-              <ResponseComponentsProvider
-                responseComponents={responseComponents}
-              >
+          <SuggestedPromptProvider suggestedPrompts={suggestedPrompts}>
+            <ResponseComponentsProvider responseComponents={responseComponents}>
+              <AttachmentProvider allowAttachments={allowAttachments}>
                 <ConversationDisplayTextProvider {..._displayText}>
                   <ConversationInputContextProvider>
                     <SendMessageContextProvider
@@ -85,9 +83,9 @@ export default function createProvider({
                     </SendMessageContextProvider>
                   </ConversationInputContextProvider>
                 </ConversationDisplayTextProvider>
-              </ResponseComponentsProvider>
-            </SuggestedPromptProvider>
-          </AttachmentProvider>
+              </AttachmentProvider>
+            </ResponseComponentsProvider>
+          </SuggestedPromptProvider>
         </ControlsProvider>
       </ElementsProvider>
     );
