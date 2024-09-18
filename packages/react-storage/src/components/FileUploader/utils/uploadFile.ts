@@ -20,7 +20,7 @@ export type PathCallback = (input: {
 export type UploadTask = UploadDataOutput | UploadDataWithPathOutput;
 export interface TaskEvent {
   id: string;
-  uploadTask: UploadTask;
+  uploadTask?: UploadTask;
 }
 
 // omit `path` callback, `path` must always be a string to support resolving
