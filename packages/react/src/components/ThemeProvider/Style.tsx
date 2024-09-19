@@ -66,21 +66,18 @@ const StylePrimitive: Primitive<StyleProps, 'style'> = (
         Therefore, by only rendering CSS text which does not include a closing '</style>' tag, 
         we ensure that the browser will correctly interpret all the text as CSS. 
   */
-  if (cssText === undefined) {
+  if (cssText === undefined || /<\/style/i.test(cssText)) {
     return null;
   }
-  if (/<\/style/i.test(cssText)) {
-    return null;
-  } else {
-    return (
-      <style
-        {...rest}
-        ref={ref}
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: cssText }}
-      />
-    );
-  }
+  
+  return (
+    <style
+      {...rest}
+      ref={ref}
+      // eslint-disable-next-line react/no-danger
+      dangerouslySetInnerHTML={{ __html: cssText }}
+    />
+  );
 };
 
 /**
