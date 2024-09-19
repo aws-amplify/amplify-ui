@@ -27,6 +27,7 @@ export default function createProvider({
   variant,
   controls,
   displayText,
+  allowAttachments,
 }: Pick<
   AIConversationInput,
   | 'elements'
@@ -36,6 +37,7 @@ export default function createProvider({
   | 'variant'
   | 'controls'
   | 'displayText'
+  | 'allowAttachments'
 >) {
   return function Provider({
     children,
@@ -43,16 +45,11 @@ export default function createProvider({
     avatars,
     handleSendMessage,
     isLoading,
-    allowAttachments,
   }: {
     children?: React.ReactNode;
   } & Pick<
     AIConversationProps,
-    | 'messages'
-    | 'avatars'
-    | 'handleSendMessage'
-    | 'isLoading'
-    | 'allowAttachments'
+    'messages' | 'avatars' | 'handleSendMessage' | 'isLoading'
   >): React.JSX.Element {
     const _displayText = {
       ...defaultAIConversationDisplayTextEn,

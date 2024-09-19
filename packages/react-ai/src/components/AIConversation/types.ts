@@ -31,6 +31,7 @@ export interface AIConversationInput {
   responseComponents?: ResponseComponents;
   variant?: MessageVariant;
   controls?: ControlsContextProps;
+  allowAttachments?: boolean;
 }
 
 export interface AIConversationProps {
@@ -38,7 +39,6 @@ export interface AIConversationProps {
   handleSendMessage: SendMessage;
   avatars?: Avatars;
   isLoading?: boolean;
-  allowAttachments?: boolean;
 }
 
 export interface AIConversation {
