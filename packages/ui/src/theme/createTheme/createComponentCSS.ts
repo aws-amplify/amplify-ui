@@ -58,17 +58,21 @@ function recursiveComponentCSS(baseSelector: string, theme: BaseTheme) {
   return str;
 }
 
+interface CreateComponentCSSParams {
+  theme: Pick<WebTheme, 'tokens' | 'breakpoints' | 'name'>;
+  components: Array<ComponentsTheme>;
+}
+
 /**
  * This will take a component theme and create the appropriate CSS for it.
  *
  */
-export function createComponentCSS(
-  themeName: string,
-  components: Array<ComponentsTheme>,
-  tokens: WebTheme['tokens'],
-  breakpoints: DefaultTheme['breakpoints']
-) {
+export function createComponentCSS({
+  theme,
+  components,
+}: CreateComponentCSSParams) {
   let cssText = '';
+  const { tokens, name: themeName, breakpoints } = theme;
 
   components.forEach(({ name, theme, overrides }) => {
     const baseComponentClassName = `amplify-${name}`;
