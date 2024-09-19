@@ -32,11 +32,9 @@ export const setProcessedKeyAction = (input: {
 
 export const setUploadingFileAction = ({
   id,
-  uploadTask,
 }: TaskEvent): Action => ({
   type: FileUploaderActionTypes.SET_STATUS_UPLOADING,
   id,
-  uploadTask,
 });
 
 export const setUploadProgressAction = ({

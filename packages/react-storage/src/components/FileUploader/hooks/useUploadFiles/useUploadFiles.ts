@@ -82,6 +82,7 @@ export function useUploadFiles({
           useAccelerateEndpoint,
         });
 
+        setUploadingFile({ id });
         uploadFile({
           input,
           onComplete: (event) => {
@@ -99,11 +100,11 @@ export function useUploadFiles({
               onUploadError(error.message, { key });
             }
           },
-          onStart: ({ key, uploadTask }) => {
+          onStart: ({ key }) => {
             if (isFunction(onUploadStart)) {
               onUploadStart({ key });
             }
-            setUploadingFile({ id, uploadTask });
+            // setUploadingFile({ id, uploadTask });
           },
         });
       }

@@ -71,10 +71,9 @@ export function useFileUploader(
   };
 
   const setUploadingFile: UseFileUploader['setUploadingFile'] = ({
-    uploadTask,
     id,
   }) => {
-    dispatch(setUploadingFileAction({ id, uploadTask }));
+    dispatch(setUploadingFileAction({ id }));
   };
 
   const setProcessedKey: UseFileUploader['setProcessedKey'] = (input) => {
