@@ -310,7 +310,7 @@ describe('fileUploaderStateReducer', () => {
     expect(result.current.state.files).toEqual([file]);
   });
 
-  it('updates the key of a target file on SET_PROCESSED_FILE_KEY', () => {
+  it('updates the resolvedKey of a target file on SET_STATUS_SUCESS', () => {
     const file: StorageFile = {
       id: imageFile.name,
       file: imageFile,
@@ -328,18 +328,19 @@ describe('fileUploaderStateReducer', () => {
       return { state, dispatch };
     });
 
-    const processedKey = `processed-${imageFile.name}`;
+    const resolvedKey = `processed-${imageFile.name}`;
     const action: Action = {
-      type: FileUploaderActionTypes.SET_PROCESSED_FILE_KEY,
+      type: FileUploaderActionTypes.SET_STATUS_UPLOADED,
       id: imageFile.name,
-      processedKey,
+      resolvedKey,
+      status: FileStatus.UPLOADED,
     };
 
-    expect(result.current.state.files[0].processedKey).toBeUndefined();
+    expect(result.current.state.files[0].resolvedKey).toBeUndefined();
 
     act(() => result.current.dispatch(action));
 
-    expect(result.current.state.files[0].processedKey).toBe(processedKey);
+    expect(result.current.state.files[0].resolvedKey).toBe(resolvedKey);
   });
 
   it('should only change added files to queued in QUEUE_FILES action', () => {

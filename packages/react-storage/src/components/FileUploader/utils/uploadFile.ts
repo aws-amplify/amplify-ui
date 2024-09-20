@@ -50,7 +50,6 @@ export async function uploadFile({
   onComplete,
 }: UploadFileProps): Promise<UploadDataWithPathOutput | UploadDataOutput> {
   const resolvedInput = await input();
-
   const uploadTask = (uploadData as UploadData)(resolvedInput);
 
   const key =
