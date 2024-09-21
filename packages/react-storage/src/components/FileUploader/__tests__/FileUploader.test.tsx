@@ -15,6 +15,7 @@ import {
   FileUploader,
   MISSING_REQUIRED_PROPS_MESSAGE,
   ACCESS_LEVEL_DEPRECATION_MESSAGE,
+  ACCESS_LEVEL_WITH_PATH_CALLBACK_MESSAGE,
 } from '../FileUploader';
 import { FileUploaderProps, FileUploaderHandle, FileStatus } from '../types';
 import { defaultFileUploaderDisplayText } from '../utils';
@@ -28,7 +29,10 @@ const uploadDataSpy = jest
     pause: jest.fn(),
     resume: jest.fn(),
     state: 'SUCCESS',
-    result: Promise.resolve({ key: input.key, data: input.data }),
+    result: Promise.resolve({
+      key: (input as { path?: string })?.path ?? input.key,
+      data: input.data,
+    }),
   }));
 
 const fileUploaderProps: FileUploaderProps = {
@@ -153,6 +157,22 @@ describe('FileUploader', () => {
       getByText('Drag and drop files here, or click to select files')
     ).toBeVisible();
     expect(getByText('Select Files')).toBeVisible();
+  });
+
+  it('displays error message when provided with `path` callback and `accessLevel` props', () => {
+    // turn off error logging in console for test output
+    jest.spyOn(console, 'error').mockImplementation();
+
+    expect(() =>
+      render(
+        // @ts-expect-error providign callback `path` and `accessLevel` are disallowd by TS
+        <FileUploader
+          accessLevel="private"
+          path={() => 'path'}
+          maxFileCount={12}
+        />
+      )
+    ).toThrow(ACCESS_LEVEL_WITH_PATH_CALLBACK_MESSAGE);
   });
 
   it('displays error message when file exceeds max file size', () => {
@@ -324,7 +344,7 @@ describe('FileUploader', () => {
     });
   });
 
-  it('provides the processed file key on a remove file event after upload when processFile is provided', async () => {
+  it('provides the resolved file key on a remove file event after upload when processFile is provided', async () => {
     const onFileRemove = jest.fn();
 
     const processedKey = 'processedKey';
@@ -369,6 +389,7 @@ describe('FileUploader', () => {
 
   it('provides the processed file key on a remove file event after upload when processFile is provided with a path function', async () => {
     const onFileRemove = jest.fn();
+    const path = () => 'my-path';
 
     const processedKey = 'processedKey';
     const processFile: FileUploaderProps['processFile'] = (input) => ({
@@ -381,7 +402,7 @@ describe('FileUploader', () => {
         {...fileUploaderProps}
         onFileRemove={onFileRemove}
         processFile={processFile}
-        path={() => 'my-path'}
+        path={path}
         accessLevel={undefined}
       />
     );
@@ -398,17 +419,19 @@ describe('FileUploader', () => {
     // Wait for the file to be uploaded
     await waitFor(() => {
       expect(uploadDataSpy).toHaveBeenCalled();
+    });
 
-      const removeButton = getByTestId(
-        container,
-        'storage-manager-remove-button'
-      );
-      expect(removeButton).toBeDefined();
+    const removeButton = getByTestId(
+      container,
+      'storage-manager-remove-button'
+    );
+    expect(removeButton).toBeDefined();
 
-      fireEvent.click(removeButton);
+    fireEvent.click(removeButton);
 
-      expect(onFileRemove).toHaveBeenCalledTimes(1);
-      expect(onFileRemove).toHaveBeenCalledWith({ key: processedKey });
+    expect(onFileRemove).toHaveBeenCalledTimes(1);
+    expect(onFileRemove).toHaveBeenCalledWith({
+      key: `${path()}processedKey`,
     });
   });
 
