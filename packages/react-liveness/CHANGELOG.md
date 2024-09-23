@@ -1,5 +1,23 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.1.10
+
+### Patch Changes
+
+- [#5798](https://github.com/aws-amplify/amplify-ui/pull/5798) [`2f0119f4c`](https://github.com/aws-amplify/amplify-ui/commit/2f0119f4cae704976c29b1e3634c54d8fae9dd95) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(liveness): use video stream dimensions instead of videoEl dimensions
+
+- Updated dependencies [[`0ddeea9d4`](https://github.com/aws-amplify/amplify-ui/commit/0ddeea9d432f12621e0e32dae346e72881b790db), [`7a12237d2`](https://github.com/aws-amplify/amplify-ui/commit/7a12237d2c96107ef97d3c62d9d26d6b6f1d824c)]:
+  - @aws-amplify/ui-react@6.5.0
+  - @aws-amplify/ui@6.6.0
+
+## 3.1.9
+
+### Patch Changes
+
+- Updated dependencies [[`0ebf8b346`](https://github.com/aws-amplify/amplify-ui/commit/0ebf8b346bc744cd73e1e7891eafc07538d6419d)]:
+  - @aws-amplify/ui-react@6.4.0
+  - @aws-amplify/ui@6.5.0
+
 ## 3.1.8
 
 ### Patch Changes
