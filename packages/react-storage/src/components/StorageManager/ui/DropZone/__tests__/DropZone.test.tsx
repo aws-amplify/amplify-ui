@@ -5,7 +5,7 @@ import { ComponentClassName } from '@aws-amplify/ui';
 import { IconsProvider, View } from '@aws-amplify/ui-react';
 import { classNameModifier } from '@aws-amplify/ui';
 
-import { defaultStorageManagerDisplayText } from '../../../utils/displayText';
+import { defaultFileUploaderDisplayText as defaultStorageManagerDisplayText } from '../../../../FileUploader/utils/displayText';
 import { DropZone } from '../DropZone';
 
 describe('DropZone', () => {

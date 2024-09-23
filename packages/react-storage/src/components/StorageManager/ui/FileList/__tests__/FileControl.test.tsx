@@ -3,10 +3,11 @@ import { render } from '@testing-library/react';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 
+import { FileStatus } from '../../../../FileUploader/types';
+import { defaultFileUploaderDisplayText as defaultStorageManagerDisplayText } from '../../../../FileUploader/utils/displayText';
+
 import { FileControlProps } from '../types';
 import { FileControl } from '../FileControl';
-import { FileStatus } from '../../../types';
-import { defaultStorageManagerDisplayText } from '../../../utils/displayText';
 
 const fileControlProps: FileControlProps = {
   displayText: defaultStorageManagerDisplayText,
