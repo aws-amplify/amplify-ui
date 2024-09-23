@@ -69,7 +69,7 @@ const StylePrimitive: Primitive<StyleProps, 'style'> = (
   if (cssText === undefined || /<\/style/i.test(cssText)) {
     return null;
   }
-
+  
   return (
     <style
       {...rest}
