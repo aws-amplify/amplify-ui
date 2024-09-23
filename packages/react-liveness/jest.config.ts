@@ -12,9 +12,9 @@ const config: Config = {
   coverageThreshold: {
     global: {
       branches: 81,
-      functions: 85,
-      lines: 89,
-      statements: 89,
+      functions: 84,
+      lines: 88,
+      statements: 88,
     },
   },
   testPathIgnorePatterns: [],

@@ -1,5 +1,6 @@
 import { AwsCredentialProvider } from './credentials';
 import { ErrorState } from './error';
+import { SessionInformation as ServerSessionInformation } from '@aws-sdk/client-rekognitionstreaming';
 
 /**
  * The props for the FaceLivenessDetectorCore which allows for full configuration of auth
@@ -14,7 +15,10 @@ export interface FaceLivenessDetectorCoreProps {
    * Callback that signals when the liveness session has completed analysis.
    * At this point a request can be made to GetFaceLivenessSessionResults.
    */
-  onAnalysisComplete: () => Promise<void>;
+  onAnalysisComplete: (result: {
+    videoBlob: Blob;
+    deviceMetadata: Record<string, string>;
+  }) => void;
 
   /**
    * The AWS region to stream the video to, for current regional support see the documentation here: FIXME LINK
@@ -79,6 +83,11 @@ export interface FaceLivenessDetectorCoreConfig {
    * Internal use only - parameter for overriding the liveness endpoint
    */
   endpointOverride?: string;
+
+  serverSessionInformationProvider?: (
+    videoWidth: number,
+    videoHeight: number
+  ) => ServerSessionInformation;
 }
 
 export type FaceLivenessDetectorConfig = Omit<
