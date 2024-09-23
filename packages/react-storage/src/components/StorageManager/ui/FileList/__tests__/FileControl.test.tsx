@@ -3,10 +3,11 @@ import { render } from '@testing-library/react';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 
+import { FileStatus } from '../../../../FileUploader/types';
+import { defaultFileUploaderDisplayText as defaultStorageManagerDisplayText } from '../../../../FileUploader/utils/displayText';
+
 import { FileControlProps } from '../types';
 import { FileControl } from '../FileControl';
-import { FileStatus } from '../../../types';
-import { defaultStorageManagerDisplayText } from '../../../utils/displayText';
 
 const fileControlProps: FileControlProps = {
   displayText: defaultStorageManagerDisplayText,
@@ -92,6 +93,21 @@ describe('FileControl', () => {
     const { container } = render(
       <FileControl {...fileControlProps} showThumbnails />
     );
+
+    expect(
+      container.getElementsByClassName(
+        `${ComponentClassName.StorageManagerFileImage}`
+      )
+    ).toHaveLength(1);
+
+    expect(container).toMatchSnapshot();
+  });
+
+  it('should default to showThumbnails being true', () => {
+    //@ts-expect-error
+    fileControlProps.showThumbnails = undefined;
+
+    const { container } = render(<FileControl {...fileControlProps} />);
 
     expect(
       container.getElementsByClassName(

@@ -45,6 +45,7 @@ jobs:
       STORAGE_E2E_ROLE_ARN: ${{ secrets.STORAGE_E2E_ROLE_ARN }}
       LIVENESS_E2E_ROLE_ARN: ${{ secrets.LIVENESS_E2E_ROLE_ARN }}
       IN_APP_MESSAGING_E2E_ROLE_ARN: ${{ secrets.IN_APP_MESSAGING_E2E_ROLE_ARN }}
+      AI_E2E_ROLE_ARN: ${{ secrets.AI_E2E_ROLE_ARN }}
       DOMAIN: ${{ secrets.DOMAIN }}
       PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
       USERNAME: ${{ secrets.USERNAME }}
@@ -71,6 +72,18 @@ jobs:
         run: curl -X POST -d {} $ENDPOINT -H "Content-Type:application/json"
         env:
           ENDPOINT: ${{ secrets.LIVENESS_BETA_SAMPLE_APP_BUILD_TRIGGER }}
+
+  build-test-v2:
+    uses: ./.github/workflows/reusable-build-system-test.yml
+    needs: publish
+    with:
+      dist-tag: next
+
+  build-test-v2-react-native:
+    uses: ./.github/workflows/reusable-build-system-test-react-native.yml
+    needs: publish
+    with:
+      dist-tag: next
 
   build-test:
     needs: publish
@@ -121,7 +134,10 @@ jobs:
     # Send a failure data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a failure
     runs-on: ubuntu-latest
     environment: ci
-    needs: build-test
+    needs:
+      - build-test
+      - build-test-v2
+      - build-test-v2-react-native
     if: ${{ failure() }}
     steps:
       - name: Log failure data point to metric PublishNextFailure
@@ -136,7 +152,10 @@ jobs:
     # Send a success data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a success
     runs-on: ubuntu-latest
     environment: ci
-    needs: build-test
+    needs:
+      - build-test
+      - build-test-v2
+      - build-test-v2-react-native
     if: ${{ success() }}
     steps:
       - name: Log success data point to metric PublishNextFailure

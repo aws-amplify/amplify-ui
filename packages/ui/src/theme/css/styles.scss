@@ -29,6 +29,7 @@
 @import './component/alert.scss';
 @import './component/autocomplete.scss';
 @import './component/authenticator.scss';
+@import './component/avatar.scss';
 @import './component/breadcrumbs.scss';
 @import './component/card.scss';
 @import './component/collection.scss';
@@ -61,10 +62,14 @@
 @import './component/textField.scss';
 @import './component/toggleButton.scss';
 @import './component/toggleButtonGroup.scss';
+// FileUploader component
+@import './component/FileUploader/index.scss';
 // In-App Messaging components
 @import './component/inAppMessaging/index.scss';
 // StorageManager component
 @import './component/StorageManager/index.scss';
+// AIConversation component
+@import './component/AIConversation/index.scss';
 
 // This comes after the field styles so it can override them
 @import './component/fieldModifiers.scss';

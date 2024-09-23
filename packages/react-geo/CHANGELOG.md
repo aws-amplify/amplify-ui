@@ -1,5 +1,53 @@
 # @aws-amplify/ui-react-geo
 
+## 2.0.25
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react-core@3.0.24
+
+## 2.0.24
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react-core@3.0.23
+
+## 2.0.23
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react-core@3.0.22
+
+## 2.0.22
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react-core@3.0.21
+
+## 2.0.21
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react-core@3.0.20
+
+## 2.0.20
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react-core@3.0.19
+
+## 2.0.19
+
+### Patch Changes
+
+- [#5634](https://github.com/aws-amplify/amplify-ui/pull/5634) [`c4a2004ed`](https://github.com/aws-amplify/amplify-ui/commit/c4a2004ed439612545cbf1ac0393afeb922e997c) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(deps): Update maplibre-gl-js-amplify package
+
 ## 2.0.18
 
 ### Patch Changes

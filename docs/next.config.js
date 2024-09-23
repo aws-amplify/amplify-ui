@@ -166,6 +166,14 @@ module.exports = withNextPluginPreval({
         permanent: false,
       },
       /**
+       * Renamed "Storage Manager" to "File Uploader"
+       */
+      {
+        source: '/react/connected-components/storage/storagemanager',
+        destination: '/react/connected-components/storage/fileuploader',
+        permanent: true,
+      },
+      /**
        * Redirect traffic from CRA to Vite getting started page
        */
       {

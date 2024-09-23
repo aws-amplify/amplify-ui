@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Default values
 BUILD_TOOL="cra"
@@ -60,11 +61,6 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
-# Check if MEGA_APP_NAME is provided
-if [[ -z "$MEGA_APP_NAME" ]]; then
-    MEGA_APP_NAME="$FRAMEWORK-$FRAMEWORK_VERSION-$BUILD_TOOL-$BUILD_TOOL_VERSION-$LANGUAGE"
-fi
-
 echo "#######################"
 echo "# Start Copying Files #"
 echo "#######################"
@@ -105,14 +101,6 @@ if [ "$BUILD_TOOL" == 'next' ]; then
     cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/data/aws-exports.js
     echo "cp templates/components/react/next/App.js mega-apps/${MEGA_APP_NAME}/pages/index.tsx"
     cp templates/components/react/next/App.js mega-apps/${MEGA_APP_NAME}/pages/index.tsx
-    if [ "$BUILD_TOOL_VERSION" == '11' ]; then
-        # We have to customize the package.json and tsconfig.json for Next.js 11,
-        # because create-next-app only creates the app with the latest version
-        echo "cp templates/components/react/next/template-package-${BUILD_TOOL_VERSION}.json mega-apps/${MEGA_APP_NAME}/package.json"
-        cp templates/components/react/next/template-package-${BUILD_TOOL_VERSION}.json mega-apps/${MEGA_APP_NAME}/package.json
-        echo "cp templates/components/react/next/template-tsconfig-${BUILD_TOOL_VERSION}.json mega-apps/${MEGA_APP_NAME}/tsconfig.json"
-        cp templates/components/react/next/template-tsconfig-${BUILD_TOOL_VERSION}.json mega-apps/${MEGA_APP_NAME}/tsconfig.json
-    fi
 fi
 
 if [[ "$FRAMEWORK" == 'react' && "$BUILD_TOOL" == 'vite' ]]; then
@@ -165,16 +153,8 @@ if [[ "$FRAMEWORK" == 'angular' ]]; then
 fi
 
 if [[ "$FRAMEWORK" == 'vue' ]]; then
-    echo "cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue"
-    cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue
-    echo "cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.js"
-    cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.js
-    echo "cp $AWS_EXPORTS_DECLARATION_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.d.ts"
-    cp $AWS_EXPORTS_DECLARATION_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.d.ts
-
-    # remove comments from JSON files because `json` package can't process comments
-    echo "npx strip-json-comments mega-apps/${MEGA_APP_NAME}/tsconfig.app.json >tmpfile && mv tmpfile mega-apps/${MEGA_APP_NAME}/tsconfig.app.json && rm -f tmpfile"
-    npx strip-json-comments mega-apps/${MEGA_APP_NAME}/tsconfig.app.json >tmpfile && mv tmpfile mega-apps/${MEGA_APP_NAME}/tsconfig.app.json && rm -f tmpfile
+    AWS_EXPORTS_PATH="mega-apps/${MEGA_APP_NAME}/src/aws-exports.js"
+    AWS_EXPORTS_DECLARATION_PATH="mega-apps/${MEGA_APP_NAME}/src/aws-exports.d.ts"
 
     # See Troubleshooting: https://ui.docs.amplify.aws/vue/getting-started/troubleshooting
     if [[ "$BUILD_TOOL" == 'vite' ]]; then
@@ -185,17 +165,21 @@ if [[ "$FRAMEWORK" == 'vue' ]]; then
     fi
 
     if [[ "$BUILD_TOOL" == 'nuxt' ]]; then
+        # nuxt doesn't use the src/ directory
         echo "cp templates/components/vue/nuxt/* mega-apps/${MEGA_APP_NAME}/"
         cp templates/components/vue/nuxt/* mega-apps/${MEGA_APP_NAME}/
 
-        echo "add allowJs: true to tsconfig for aws-exports.js"
-        echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/tsconfig.json -e \"this.allowJs=true\""
-        npx json -I -f mega-apps/${MEGA_APP_NAME}/tsconfig.json -e "this.allowJs=true"
+        AWS_EXPORTS_PATH="mega-apps/${MEGA_APP_NAME}/aws-exports.js"
+        AWS_EXPORTS_DECLARATION_PATH="mega-apps/${MEGA_APP_NAME}/aws-exports.d.ts"
     else
-        echo "add allowJs: true to tsconfig for aws-exports.js"
-        echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/tsconfig.app.json -e \"this.compilerOptions.allowJs=true\""
-        npx json -I -f mega-apps/${MEGA_APP_NAME}/tsconfig.app.json -e "this.compilerOptions.allowJs=true"
+        echo "cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue"
+        cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue
     fi
+
+    echo "cp $AWS_EXPORTS_FILE $AWS_EXPORTS_PATH"
+    cp $AWS_EXPORTS_FILE $AWS_EXPORTS_PATH
+    echo "cp $AWS_EXPORTS_DECLARATION_FILE $AWS_EXPORTS_DECLARATION_PATH"
+    cp $AWS_EXPORTS_DECLARATION_FILE $AWS_EXPORTS_DECLARATION_PATH
 fi
 
 if [[ "$FRAMEWORK" == "react-native" ]]; then
