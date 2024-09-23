@@ -11,7 +11,7 @@ concurrency:
 
 on:
   pull_request:
-    branches: [feat-storage-browser/main]
+    branches: [storage-browser-main-workflows]
 
 permissions:
   id-token: write # This is required for requesting the JWT
