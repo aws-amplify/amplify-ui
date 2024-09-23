@@ -1,6 +1,6 @@
 import { StorageAccessLevel } from '@aws-amplify/core';
 import { ImageProps } from '@aws-amplify/ui-react';
-import { StorageBucket } from '../StorageManager/types';
+import { StorageBucket } from '../FileUploader/types';
 
 export interface StorageImageProps extends Omit<ImageProps, 'src'> {
   // Use imgKey instead of key because key is a reserved keyword
