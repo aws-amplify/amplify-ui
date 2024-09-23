@@ -3,6 +3,7 @@ export {
   defineComponentTheme,
   createComponentClasses,
   createComponentCSS,
+  createGlobalCSS,
   cssNameTransform,
   isDesignToken,
   setupTokens,
