@@ -57,11 +57,11 @@ jobs:
       DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
   publish:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-tagged-publish.yml@main
-    with:
-      dist-tag: storage-browser-alpha
-    secrets:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    runs-on: ubuntu-latest
+    environment: ci
+    steps:
+        - name: Fake Publish
+          run: echo "Fake Publish to storage-browser-alpha tag"
 
   build-test-v2:
     uses: ./.github/workflows/reusable-build-system-test.yml
