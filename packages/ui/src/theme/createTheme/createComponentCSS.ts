@@ -14,7 +14,7 @@ function addVars(selector: string, vars: Record<string, unknown>) {
     .join(' ')}}\n`;
 }
 
-function recursiveComponentCSS(baseSelector: string, theme: BaseTheme) {
+export function recursiveComponentCSS(baseSelector: string, theme: BaseTheme) {
   let str = '';
   const { _modifiers = {}, _element = {}, _vars, ...props } = theme;
 

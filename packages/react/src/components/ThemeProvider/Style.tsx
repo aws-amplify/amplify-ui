@@ -1,26 +1,14 @@
 import * as React from 'react';
-import {
-  BaseComponentProps,
-  ElementType,
-  ForwardRefPrimitive,
-  Primitive,
-  PrimitiveProps,
-} from '../../primitives/types';
-import { primitiveWithForwardRef } from '../../primitives/utils/primitiveWithForwardRef';
 
-interface BaseStyleProps extends BaseComponentProps {
+interface StyleProps extends React.ComponentProps<'style'> {
   cssText?: string;
 }
 
-export type StyleProps<Element extends ElementType = 'style'> = PrimitiveProps<
-  BaseStyleProps,
-  Element
->;
-
-const StylePrimitive: Primitive<StyleProps, 'style'> = (
-  { cssText, ...rest },
-  ref
-) => {
+/**
+ * @experimental
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/theme)
+ */
+export const Style = ({ cssText, ...rest }: StyleProps): JSX.Element | null => {
   /*
     Only inject theme CSS variables if given a theme.
     The CSS file users import already has the default theme variables in it.
@@ -69,22 +57,14 @@ const StylePrimitive: Primitive<StyleProps, 'style'> = (
   if (cssText === undefined || /<\/style/i.test(cssText)) {
     return null;
   }
-  
+
   return (
     <style
       {...rest}
-      ref={ref}
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: cssText }}
     />
   );
 };
-
-/**
- * @experimental
- * [📖 Docs](https://ui.docs.amplify.aws/react/components/theme)
- */
-export const Style: ForwardRefPrimitive<BaseStyleProps, 'style'> =
-  primitiveWithForwardRef(StylePrimitive);
 
 Style.displayName = 'Style';

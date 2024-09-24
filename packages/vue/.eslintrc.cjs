@@ -3,6 +3,7 @@ require('@rushstack/eslint-patch/modern-module-resolution');
 
 module.exports = {
   root: true,
+  plugins: ['import'],
   extends: [
     'plugin:vue/vue3-essential',
     'eslint:recommended',
@@ -19,6 +20,12 @@ module.exports = {
   },
   ignorePatterns: ['dist'],
   rules: {
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        packageDir: ['.', '../..'],
+      },
+    ],
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     '@typescript-eslint/ban-ts-comment': 'off',

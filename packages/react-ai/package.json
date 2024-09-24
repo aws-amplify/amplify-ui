@@ -42,7 +42,8 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "aws-amplify": "^6.3.2",
+    "@aws-amplify/api-graphql": "^4.3.0",
+    "aws-amplify": "^6.6.0",
     "react": "^16.14.0 || ^17.0 || ^18.0",
     "react-dom": "^16.14.0 || ^17.0 || ^18.0"
   },
