@@ -4,7 +4,7 @@ import { translate } from '@aws-amplify/ui';
 import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { Alert } from '../../../primitives/Alert';
 
-export const RemoteErrorMessage = (): JSX.Element => {
+export const RemoteErrorMessage = (): React.JSX.Element => {
   const { error } = useAuthenticator((context) => [context.error]);
 
   return (

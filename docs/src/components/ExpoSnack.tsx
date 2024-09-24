@@ -65,7 +65,7 @@ export const ExpoSnack = (options: SnackOptions) => {
   // We need a unique ID b/c we need to listen to window events that the iframe
   // will send and it sends the iframe id
   const id = React.useRef(Math.random().toString(36).substring(2, 10));
-  const ref = React.useRef<HTMLIFrameElement>();
+  const ref = React.useRef<HTMLIFrameElement>(undefined);
   const [theme, setTheme] = React.useState('light');
 
   React.useLayoutEffect(() => {

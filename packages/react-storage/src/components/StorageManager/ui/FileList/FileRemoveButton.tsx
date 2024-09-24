@@ -6,7 +6,7 @@ import { FileRemoveButtonProps } from './types';
 export const FileRemoveButton = ({
   altText,
   onClick,
-}: FileRemoveButtonProps): JSX.Element => {
+}: FileRemoveButtonProps): React.JSX.Element => {
   const icons = useIcons('storageManager');
   return (
     <Button

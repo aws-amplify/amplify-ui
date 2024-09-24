@@ -53,10 +53,10 @@ export interface AIConversationProps {
 export interface AIConversation<
   PropsType extends AIConversationProps = AIConversationProps,
 > {
-  (props: PropsType): JSX.Element;
-  DefaultMessage: () => JSX.Element | undefined;
-  Messages: () => JSX.Element;
-  Form: () => JSX.Element;
+  (props: PropsType): React.JSX.Element;
+  DefaultMessage: () => React.JSX.Element | undefined;
+  Messages: () => React.JSX.Element;
+  Form: () => React.JSX.Element;
   Provider: (props: AIConversationProviderProps) => React.JSX.Element;
 }
 

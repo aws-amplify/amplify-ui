@@ -7,7 +7,7 @@ export default function DefaultHeader({
   children,
   level = 3,
   ...rest
-}: DefaultHeaderProps): JSX.Element | null {
+}: DefaultHeaderProps): React.JSX.Element | null {
   return children ? (
     <Heading {...rest} level={level}>
       {children}

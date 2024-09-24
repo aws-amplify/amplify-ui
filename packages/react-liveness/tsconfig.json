@@ -1,5 +1,6 @@
 {
   "extends": "@aws-amplify/typescript-config/tsconfig.react.json",
+  "compilerOptions": { "types": ["@types/emscripten", "@types/long"] },
   "include": ["*.mjs", "*.ts", "src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]
 }

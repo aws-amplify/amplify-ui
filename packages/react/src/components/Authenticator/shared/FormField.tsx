@@ -20,7 +20,7 @@ export function FormField({
   name,
   type,
   ...props
-}: FormFieldProps): JSX.Element {
+}: FormFieldProps): React.JSX.Element {
   const { validationErrors } = useAuthenticator(({ validationErrors }) => [
     validationErrors,
   ]);

@@ -38,3 +38,6 @@ export const Badge: ForwardRefPrimitive<BaseBadgeProps, 'span'> =
   primitiveWithForwardRef(BadgePrimitive);
 
 Badge.displayName = 'Badge';
+
+type _ExFromBase = Exclude<BaseBadgeProps, BadgeProps>;
+type _ExBaseFrom = Exclude<BadgeProps, BaseBadgeProps>;

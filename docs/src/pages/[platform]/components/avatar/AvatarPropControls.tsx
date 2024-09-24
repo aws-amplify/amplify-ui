@@ -16,7 +16,7 @@ export interface AvatarPropControlsProps extends AvatarProps {
 }
 
 interface AvatarPropControlsInterface {
-  (props: AvatarPropControlsProps): JSX.Element;
+  (props: AvatarPropControlsProps): React.JSX.Element;
 }
 
 export const AvatarPropControls: AvatarPropControlsInterface = ({
