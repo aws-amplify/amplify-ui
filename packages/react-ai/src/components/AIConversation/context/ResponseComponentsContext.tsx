@@ -4,8 +4,21 @@ import { ToolConfiguration } from '../../../types';
 
 type ResponseComponentsContextProps = ResponseComponents | undefined;
 
+export const RESPONSE_COMPONENT_PREFIX = 'AMPLIFY_UI_';
+
 export const ResponseComponentsContext =
   React.createContext<ResponseComponentsContextProps>(undefined);
+
+const prependResponseComponents = (responseComponents?: ResponseComponents) => {
+  if (!responseComponents) return responseComponents;
+  return Object.keys(responseComponents).reduce(
+    (prev, key) => (
+      (prev[`${RESPONSE_COMPONENT_PREFIX}${key}`] = responseComponents[key]),
+      prev
+    ),
+    {} as ResponseComponents
+  );
+};
 
 export const ResponseComponentsProvider = ({
   children,
@@ -14,8 +27,13 @@ export const ResponseComponentsProvider = ({
   children?: React.ReactNode;
   responseComponents?: ResponseComponents;
 }): JSX.Element => {
+  const _responseComponents = React.useMemo(
+    () => prependResponseComponents(responseComponents),
+    [responseComponents]
+  );
+
   return (
-    <ResponseComponentsContext.Provider value={responseComponents}>
+    <ResponseComponentsContext.Provider value={_responseComponents}>
       {children}
     </ResponseComponentsContext.Provider>
   );

@@ -2,11 +2,14 @@ export {
   createTheme,
   defineComponentTheme,
   createComponentClasses,
+  createComponentCSS,
   cssNameTransform,
   isDesignToken,
   setupTokens,
   SetupToken,
 } from './createTheme';
+
+export { BaseComponentTheme } from './components';
 export { defaultTheme } from './defaultTheme';
 export {
   defaultDarkModeOverride,
