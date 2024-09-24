@@ -22,6 +22,8 @@ export interface AIConversationTokens<OutputType extends OutputVariantKey> {
       >;
     };
     body?: DesignTokenProperties<'gap', OutputType>;
+    user?: DesignTokenProperties<'backgroundColor', OutputType>;
+    assistant?: DesignTokenProperties<'backgroundColor', OutputType>;
   };
   form?: DesignTokenProperties<'gap', OutputType> & {
     dropzone?: DesignTokenProperties<'padding', OutputType>;
@@ -60,7 +62,12 @@ export const aiConversation: Required<AIConversationTokens<'default'>> = {
     gap: { value: '{space.small.value}' },
     paddingBlock: { value: '{space.small.value}' },
     paddingInline: { value: '{space.small.value}' },
-    // need to get modifiers in here
+    user: {
+      backgroundColor: { value: '{colors.background.secondary.value}' },
+    },
+    assistant: {
+      backgroundColor: { value: '{colors.brand.primary.10.value}' },
+    },
     list: {},
     avatar: {},
     sender: {

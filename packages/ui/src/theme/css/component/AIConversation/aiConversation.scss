@@ -95,11 +95,15 @@
     }
 
     &--user {
-      --internal-bg-color: var(--amplify-colors-background-secondary);
+      --internal-bg-color: var(
+        --amplify-components-ai-conversation-message-user-background-color
+      );
     }
 
     &--assistant {
-      --internal-bg-color: var(--amplify-colors-primary-10);
+      --internal-bg-color: var(
+        --amplify-components-ai-conversation-message-user-background-color
+      );
       --internal-flex-direction: row;
       --internal-body-align-items: flex-start;
     }
