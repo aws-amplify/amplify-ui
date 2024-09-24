@@ -1,5 +1,26 @@
 # @aws-amplify/ui-react-ai
 
+## 0.2.0
+
+### Minor Changes
+
+- [#5777](https://github.com/aws-amplify/amplify-ui/pull/5777) [`0ebf8b346`](https://github.com/aws-amplify/amplify-ui/commit/0ebf8b346bc744cd73e1e7891eafc07538d6419d) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(avatar): add loading state to avatar and AIConversation
+
+  ```jsx
+  <Avatar isLoading />
+  ```
+
+### Patch Changes
+
+- [#5799](https://github.com/aws-amplify/amplify-ui/pull/5799) [`b80bab00a`](https://github.com/aws-amplify/amplify-ui/commit/b80bab00a67a915d971bf28a455c304fc5682487) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(ai): fix renders for empty toolUse messages
+
+- [#5776](https://github.com/aws-amplify/amplify-ui/pull/5776) [`b600b3bd8`](https://github.com/aws-amplify/amplify-ui/commit/b600b3bd8a7a85872d37f07a69e8bfacc532d73a) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(ai): fixes reattaching the same file by always triggering the onChange event
+
+- Updated dependencies [[`0ebf8b346`](https://github.com/aws-amplify/amplify-ui/commit/0ebf8b346bc744cd73e1e7891eafc07538d6419d)]:
+  - @aws-amplify/ui-react@6.4.0
+  - @aws-amplify/ui@6.5.0
+  - @aws-amplify/ui-react-core@3.0.23
+
 ## 0.1.1
 
 ### Patch Changes
