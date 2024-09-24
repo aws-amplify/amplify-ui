@@ -111,7 +111,6 @@ const FileUploaderBase = React.forwardRef(function FileUploader(
     files,
     removeUpload,
     queueFiles,
-    setProcessedKey,
     setUploadingFile,
     setUploadPaused,
     setUploadProgress,
@@ -149,7 +148,6 @@ const FileUploaderBase = React.forwardRef(function FileUploader(
     onUploadError,
     onUploadSuccess,
     onUploadStart,
-    onProcessFileSuccess: setProcessedKey,
     setUploadingFile,
     setUploadProgress,
     setUploadSuccess,
@@ -205,8 +203,7 @@ const FileUploaderBase = React.forwardRef(function FileUploader(
     if (typeof onFileRemove === 'function') {
       const file = files.find((file) => file.id === id);
       if (file) {
-        // return `processedKey` if available and `processFile` is provided
-        const key = (processFile && file?.processedKey) ?? file.key;
+        const key = file.resolvedKey ?? file.key;
         onFileRemove({ key });
       }
     }

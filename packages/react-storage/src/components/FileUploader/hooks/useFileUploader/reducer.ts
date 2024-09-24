@@ -46,8 +46,8 @@ export function fileUploaderStateReducer(
     case FileUploaderActionTypes.QUEUE_FILES: {
       const { files } = state;
 
-      const newFiles = files.reduce<StorageFiles>((files, currentFile) => {
-        return [
+      const newFiles = files.reduce<StorageFiles>(
+        (files, currentFile) => [
           ...files,
           {
             ...currentFile,
@@ -55,12 +55,10 @@ export function fileUploaderStateReducer(
               ? { status: FileStatus.QUEUED }
               : {}),
           },
-        ];
-      }, []);
-      return {
-        ...state,
-        files: newFiles,
-      };
+        ],
+        []
+      );
+      return { ...state, files: newFiles };
     }
     case FileUploaderActionTypes.SET_STATUS_UPLOADING: {
       const { id, uploadTask } = action;
@@ -72,11 +70,9 @@ export function fileUploaderStateReducer(
 
       return { ...state, files };
     }
-    case FileUploaderActionTypes.SET_PROCESSED_FILE_KEY: {
-      const { processedKey, id } = action;
-      const files = updateFiles(state.files, { processedKey, id });
-
-      return { files };
+    case FileUploaderActionTypes.SET_STATUS_UPLOADED: {
+      const files = updateFiles(state.files, action);
+      return { ...state, files };
     }
     case FileUploaderActionTypes.SET_UPLOAD_PROGRESS: {
       const { id, progress } = action;
@@ -95,16 +91,11 @@ export function fileUploaderStateReducer(
       const { files } = state;
 
       const newFiles = files.reduce<StorageFiles>((files, currentFile) => {
-        if (currentFile.id === id) {
-          // remove by not returning currentFile
-          return [...files];
-        }
-        return [...files, currentFile];
+        // remove by not returning currentFile
+        return currentFile.id === id ? [...files] : [...files, currentFile];
       }, []);
-      return {
-        ...state,
-        files: newFiles,
-      };
+
+      return { ...state, files: newFiles };
     }
   }
 }

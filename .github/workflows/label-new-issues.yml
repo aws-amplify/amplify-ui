@@ -15,13 +15,14 @@ jobs:
     permissions:
       issues: write
 
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      ISSUE_NUMBER: ${{ github.event.issue.number }}
+      REPOSITORY_NAME: ${{ github.event.repository.full_name }}
     steps:
       - uses: actions/checkout@b80ff79f1755d06ba70441c368a6fe801f5f3a62 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
       - name: Add pending-triage label
         shell: bash
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
         # run bash script to sanitize issue number and add label
         # first sanitize the ISSUE_NUMBER which is a assumed to be string representing an integer
         # remove any newline characters with tr because awk only works with single lines of code and may have unexpected behavior if newline is present
@@ -33,4 +34,14 @@ jobs:
             echo "Issue number must be a positive integer"
             exit 1
           fi
-          gh issue edit $ISSUE_NUMBER_INT --add-label 'pending-triage'
+          gh issue edit $ISSUE_NUMBER_INT --repo $REPOSITORY_NAME --add-label 'pending-triage'
+      - name: Add pending-maintainer-response label
+        if: ${{ !contains(fromJSON('["MEMBER", "OWNER"]'), github.event.issue.author_association) }}
+        shell: bash
+        run: |
+          ISSUE_NUMBER_INT=$(echo "$ISSUE_NUMBER" | tr -d '\n' | awk '{print int($0)}')
+          if [ "$ISSUE_NUMBER_INT" -le 0 ]; then
+            echo "Issue number must be a positive integer"
+            exit 1
+          fi
+          gh issue edit $ISSUE_NUMBER_INT --repo $REPOSITORY_NAME --add-label "pending-maintainer-response"

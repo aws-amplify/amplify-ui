@@ -12,7 +12,6 @@ export interface GetInputParams {
   accessLevel: StorageAccessLevel | undefined;
   file: File;
   key: string;
-  onProcessFileSuccess: (input: { processedKey: string }) => void;
   onProgress: NonNullable<UploadDataWithPathInput['options']>['onProgress'];
   path: string | PathCallback | undefined;
   processFile: ProcessFile | undefined;
@@ -23,7 +22,6 @@ export const getInput = ({
   accessLevel,
   file,
   key,
-  onProcessFileSuccess,
   onProgress,
   path,
   processFile,
@@ -65,11 +63,6 @@ export const getInput = ({
       }${processedKey}`;
 
       inputResult = { data: file, path: resolvedPath, options };
-    }
-
-    if (processFile) {
-      // provide post-processing value of target `key`
-      onProcessFileSuccess({ processedKey });
     }
 
     return inputResult;

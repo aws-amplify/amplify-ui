@@ -6,14 +6,15 @@ export interface UseFileUploaderState {
 }
 
 export enum FileUploaderActionTypes {
-  ADD_FILES = 'ADD_FILES',
-  CLEAR_FILES = 'CLEAR_FILES',
-  QUEUE_FILES = 'QUEUE_FILES',
-  SET_STATUS = 'SET_STATUS',
-  SET_PROCESSED_FILE_KEY = 'SET_PROCESSED_FILE_KEY',
-  SET_STATUS_UPLOADING = 'SET_STATUS_UPLOADING',
-  SET_UPLOAD_PROGRESS = 'SET_UPLOAD_PROGRESS',
-  REMOVE_UPLOAD = 'REMOVE_UPLOAD',
+  ADD_FILES,
+  CLEAR_FILES,
+  QUEUE_FILES,
+  REMOVE_UPLOAD,
+  SET_STATUS,
+  SET_PROCESSED_FILE_KEY,
+  SET_STATUS_UPLOADED,
+  SET_STATUS_UPLOADING,
+  SET_UPLOAD_PROGRESS,
 }
 
 export type GetFileErrorMessage = (file: File) => string;
@@ -47,9 +48,10 @@ export type Action =
       progress: number;
     }
   | {
-      type: FileUploaderActionTypes.SET_PROCESSED_FILE_KEY;
+      type: FileUploaderActionTypes.SET_STATUS_UPLOADED;
       id: string;
-      processedKey: string;
+      resolvedKey: string;
+      status: FileStatus.UPLOADED;
     }
   | {
       type: FileUploaderActionTypes.REMOVE_UPLOAD;
