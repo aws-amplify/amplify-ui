@@ -11,14 +11,7 @@ module.exports = {
     sourceType: 'module',
     allowImportExportEverywhere: true,
   },
-  plugins: ['import'],
   rules: {
-    'import/no-extraneous-dependencies': [
-      'error',
-      {
-        packageDir: ['.', '../..'],
-      },
-    ],
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-undef': 'off',
