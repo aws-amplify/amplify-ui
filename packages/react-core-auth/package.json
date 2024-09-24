@@ -26,7 +26,7 @@
     "clean": "rimraf dist node_modules",
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-core-auth\"'",
     "dev": "yarn build --watch",
-    "lint": "yarn typecheck && eslint src",
+    "lint": "yarn typecheck && eslint .",
     "prebuild": "rimraf dist",
     "test": "jest",
     "test:watch": "yarn test --watch",

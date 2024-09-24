@@ -33,7 +33,7 @@
     "build": "rollup --config",
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-core\"'",
     "dev": "yarn build --watch",
-    "lint": "yarn typecheck && eslint src",
+    "lint": "yarn typecheck && eslint .",
     "prebuild": "rimraf dist",
     "test": "jest",
     "test:watch": "yarn test --watch",

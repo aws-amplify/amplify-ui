@@ -1,20 +1,32 @@
 module.exports = {
-  root: true,
-  env: {
-    node: true,
-  },
+  env: { node: true },
+  plugins: ['@typescript-eslint'],
   extends: ['eslint:recommended'],
-  ignorePatterns: ['dist'],
+  ignorePatterns: [
+    '.eslintrc.js',
+    'coverage',
+    'dist',
+    'node_modules',
+    '__tests__',
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 2020,
+    ecmaVersion: 12,
     sourceType: 'module',
-    allowImportExportEverywhere: true,
+    project: ['tsconfig.json'],
+    tsconfigRootDir: __dirname,
   },
   rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-undef': 'off',
-    'no-unused-vars': 'off', // prefer @typescript-eslint version
+    'no-console': 'error',
+    'no-debugger': 'error',
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        argsIgnorePattern: '_',
+        varsIgnorePattern: '_',
+        ignoreRestSiblings: true,
+      },
+    ],
   },
 };

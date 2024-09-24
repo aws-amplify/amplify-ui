@@ -12,10 +12,7 @@ const config = defineConfig([
   // CJS config
   {
     input,
-    output: {
-      dir: 'dist',
-      format: 'cjs',
-    },
+    output: { dir: 'dist', format: 'cjs' },
     plugins: [
       externals({ include: /^@aws-amplify/ }),
       typescript({ declarationDir: 'dist/types', sourceMap, tsconfig }),
@@ -44,11 +41,7 @@ const config = defineConfig([
   // CSS config
   {
     input: 'src/styles.ts',
-    output: {
-      dir: 'dist',
-      format: 'cjs',
-      assetFileNames: '[name][extname]',
-    },
+    output: { dir: 'dist', format: 'cjs', assetFileNames: '[name][extname]' },
     plugins: [styles({ mode: ['extract'] })],
   },
 ]);
