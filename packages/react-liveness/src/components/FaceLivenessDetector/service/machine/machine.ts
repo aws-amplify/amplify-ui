@@ -1345,7 +1345,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           .map((info) => {
             return info.Challenge?.FaceMovementAndLightChallenge
               ?.ColorDisplayed;
-          });
+          })
+          .filter(Boolean);
 
         const deviceMetadata: { [key: string]: any } = {
           application: {
