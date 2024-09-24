@@ -16,6 +16,7 @@ module.exports = {
     project: ['tsconfig.json'],
     tsconfigRootDir: __dirname,
   },
+  plugins: ['import'],
   rules: {
     'no-console': 'error',
     'no-debugger': 'error',
@@ -27,6 +28,10 @@ module.exports = {
         varsIgnorePattern: '_',
         ignoreRestSiblings: true,
       },
+    ],
+    'import/no-extraneous-dependencies': [
+      'error',
+      { packageDir: ['.', '../..'] },
     ],
   },
 };

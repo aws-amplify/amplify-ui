@@ -47,8 +47,8 @@
     "tslib": "^2.5.2"
   },
   "peerDependencies": {
-    "@aws-amplify/geo": "^3.0.40",
-    "aws-amplify": "^6.3.2",
+    "@aws-amplify/geo": "^3.0.47",
+    "aws-amplify": "^6.6.0",
     "react": "^16.14.0 || ^17.0 || ^18.0",
     "react-dom": "^16.14.0 || ^17.0 || ^18.0"
   },
