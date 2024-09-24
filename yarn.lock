@@ -493,36 +493,20 @@
     "@smithy/util-utf8" "2.0.0"
     tslib "^2.5.0"
 
-<<<<<<< HEAD
-"@aws-amplify/api-graphql@4.1.14":
-  version "4.1.14"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/api-graphql/-/api-graphql-4.1.14.tgz#707866c2eaafec6d1506a43020b668e290516d45"
-  integrity sha512-CvWrEP9XGbm5cagI+pld3YOLjPQbhXSUQNpWpWO0avUCWlWjtcMprbl/g7DA5VOpxHRxGzIvd1hGy2R4QstPqQ==
+"@aws-amplify/api-graphql@4.3.2":
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/api-graphql/-/api-graphql-4.3.2.tgz#596cd879d0be4d84f62ccdc28ee25e8cb3f6df92"
+  integrity sha512-izdaQOUMD/CuTY7eHI2ngjt2i80bMynNT63HueJszkeyc+N/eEl5qAQNRHx+VaVGiyGgiz82WxcEU6gfLKnvMA==
   dependencies:
-    "@aws-amplify/api-rest" "4.0.43"
+    "@aws-amplify/api-rest" "4.0.49"
+    "@aws-amplify/core" "6.4.2"
     "@aws-amplify/data-schema" "^1.5.0"
->>>>>>> main
     "@aws-sdk/types" "3.387.0"
     graphql "15.8.0"
     rxjs "^7.8.1"
     tslib "^2.5.0"
     uuid "^9.0.0"
 
-"@aws-amplify/api-rest@4.0.43":
-  version "4.0.43"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/api-rest/-/api-rest-4.0.43.tgz#0d1827e457ecc357b9d7b60c7b1b90597370495f"
-  integrity sha512-05oyAD/8r8eSjuJ5IO7XXmssyMmqMNUM9b6I/O6+0cxNg169y9qrkvEvmqYm+zK8LFHy8GEZ5M+erxBXoHe3Pg==
-  dependencies:
-    tslib "^2.5.0"
-
-"@aws-amplify/api@6.0.45":
-  version "6.0.45"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/api/-/api-6.0.45.tgz#47bcb11e63f6f7651c514bfe462196ae929163bf"
-  integrity sha512-dndnJ8AQ7kOE//UScGbOZMp24sOyecTs3VvsXQXWGmi6MSDzjEuZdLZLwI5RLG4p9zsVoDneuFMZJqnE9O12Wg==
-  dependencies:
-    "@aws-amplify/api-graphql" "4.1.14"
-    "@aws-amplify/api-rest" "4.0.43"
-=======
 "@aws-amplify/api-rest@4.0.49":
   version "4.0.49"
   resolved "https://registry.yarnpkg.com/@aws-amplify/api-rest/-/api-rest-4.0.49.tgz#80f9c4cc2e31b87da0f14a1cfdf1d6914f33d660"
@@ -537,7 +521,6 @@
   dependencies:
     "@aws-amplify/api-graphql" "4.3.2"
     "@aws-amplify/api-rest" "4.0.49"
->>>>>>> main
     tslib "^2.5.0"
 
 "@aws-amplify/appsync-modelgen-plugin@2.13.0":
@@ -8466,14 +8449,6 @@
     "@smithy/types" "^3.4.0"
     tslib "^2.6.2"
 
-"@smithy/abort-controller@^3.1.4":
-  version "3.1.4"
-  resolved "https://registry.yarnpkg.com/@smithy/abort-controller/-/abort-controller-3.1.4.tgz#7cb22871f7392319c565d1d9ab3cb04e635c4dd9"
-  integrity sha512-VupaALAQlXViW3/enTf/f5l5JZYSAxoJL7f0nanhNNKnww6DGCg1oYIuNP78KDugnkwthBO6iEcym16HhWV8RQ==
-  dependencies:
-    "@smithy/types" "^3.4.2"
-    tslib "^2.6.2"
-
 "@smithy/chunked-blob-reader-native@^3.0.0":
   version "3.0.0"
   resolved "https://registry.npmjs.org/@smithy/chunked-blob-reader-native/-/chunked-blob-reader-native-3.0.0.tgz#f1104b30030f76f9aadcbd3cdca4377bd1ba2695"
@@ -9449,13 +9424,6 @@
   version "3.4.0"
   resolved "https://registry.npmjs.org/@smithy/types/-/types-3.4.0.tgz#08b7b3d6af30c66fd0682c73c206a5baf8b40a63"
   integrity sha512-0shOWSg/pnFXPcsSU8ZbaJ4JBHZJPPzLCJxafJvbMVFo9l1w81CqpgUqjlKGNHVrVB7fhIs+WS82JDTyzaLyLA==
-  dependencies:
-    tslib "^2.6.2"
-
-"@smithy/types@^3.4.2":
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/@smithy/types/-/types-3.4.2.tgz#aa2d087922d57205dbad68df8a45c848699c551e"
-  integrity sha512-tHiFcfcVedVBHpmHUEUHOCCih8iZbIAYn9NvPsNzaPm/237I3imdDdZoOC8c87H5HBAVEa06tTgb+OcSWV9g5w==
   dependencies:
     tslib "^2.6.2"
 
