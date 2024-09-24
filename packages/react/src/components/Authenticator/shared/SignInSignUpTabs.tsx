@@ -16,7 +16,7 @@ export const SignInSignUpTabs = ({
   variation,
 }: {
   hideSignUp: boolean;
-} & RouteProps): JSX.Element => {
+} & RouteProps): React.JSX.Element => {
   const { route, toSignIn, toSignUp } = useAuthenticator((context) => [
     context.route,
     context.toSignIn,

@@ -40,7 +40,7 @@
   },
   "peerDependencies": {
     "aws-amplify": "^6.9.0",
-    "react": "^16.14.0 || ^17.0 || ^18.0"
+    "react": "^16.14 || ^17 || ^18 || ^19"
   },
   "sideEffects": false
 }

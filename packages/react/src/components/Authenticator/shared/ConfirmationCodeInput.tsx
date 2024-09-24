@@ -14,7 +14,7 @@ export interface ConfirmationCodeInputProps {
 
 export const ConfirmationCodeInput = (
   props: ConfirmationCodeInputProps
-): JSX.Element => {
+): React.JSX.Element => {
   const {
     errorText,
     labelHidden = true,

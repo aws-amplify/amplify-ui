@@ -54,8 +54,8 @@
   },
   "peerDependencies": {
     "aws-amplify": "^6.9.0",
-    "react": "^16.14.0 || ^17.0 || ^18.0",
-    "react-dom": "^16.14.0 || ^17.0 || ^18.0"
+    "react": "^16.14 || ^17 || ^18 || ^19",
+    "react-dom": "^16.14 || ^17 || ^18 || ^19"
   },
   "devDependencies": {
     "jest-tsd": "^0.2.2",
