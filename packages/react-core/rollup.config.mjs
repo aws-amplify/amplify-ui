@@ -15,7 +15,7 @@ const config = defineConfig([
   // CJS config
   {
     input,
-    output: { dir: 'dist', format: 'cjs' },
+    output: { dir: 'dist', esModule: true, format: 'cjs' },
     plugins: [
       externals({ include: /^@aws-amplify/ }),
       typescript({ declarationDir: 'dist/types', sourceMap, tsconfig }),
