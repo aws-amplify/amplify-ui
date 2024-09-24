@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-interface StyleProps extends React.StyleHTMLAttributes<'style'> {
+interface StyleProps extends React.ComponentProps<'style'> {
   cssText?: string;
 }
 

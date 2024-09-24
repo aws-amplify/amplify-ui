@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createGlobalCSS } from '@aws-amplify/ui';
 import { Style } from './Style';
 
-interface GlobalStyleProps extends React.StyleHTMLAttributes<'style'> {
+interface GlobalStyleProps extends React.ComponentProps<'style'> {
   /**
    * Provide a server generated nonce which matches your CSP `style-src` rule.
    * This will be attached to the generated <style> tag.
