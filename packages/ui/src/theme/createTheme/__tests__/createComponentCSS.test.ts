@@ -105,21 +105,27 @@ describe('@aws-amplify/ui', () => {
       const theme = {
         padding: '20px',
       };
-      const css = createComponentCSS(
-        `test`,
-        [
+      const css = createComponentCSS({
+        theme: {
+          name: 'test',
+          tokens,
+          breakpoints,
+        },
+        components: [
           {
             name: 'testing',
             theme,
           },
         ],
-        tokens,
-        breakpoints
-      );
+      });
 
-      const functionCSS = createComponentCSS(
-        `test`,
-        [
+      const functionCSS = createComponentCSS({
+        theme: {
+          name: 'test',
+          tokens,
+          breakpoints,
+        },
+        components: [
           {
             name: 'testing',
             theme(tokens) {
@@ -127,17 +133,19 @@ describe('@aws-amplify/ui', () => {
             },
           },
         ],
-        tokens,
-        breakpoints
-      );
+      });
       expect(css).toMatchSnapshot();
       expect(functionCSS).toMatchSnapshot();
     });
 
     it('should work with custom tokens', () => {
-      const css = createComponentCSS(
-        'test',
-        [
+      const css = createComponentCSS({
+        theme: {
+          name: 'test',
+          tokens: customTokens,
+          breakpoints,
+        },
+        components: [
           {
             name: 'avatar',
             theme(tokens) {
@@ -147,16 +155,18 @@ describe('@aws-amplify/ui', () => {
             },
           },
         ],
-        customTokens,
-        breakpoints
-      );
+      });
       expect(css).toMatchSnapshot();
     });
 
     it('should pass through raw values', () => {
-      const css = createComponentCSS(
-        `test`,
-        [
+      const css = createComponentCSS({
+        theme: {
+          name: 'test',
+          tokens,
+          breakpoints,
+        },
+        components: [
           {
             name: 'badge',
             theme: (tokens) => {
@@ -172,22 +182,31 @@ describe('@aws-amplify/ui', () => {
             },
           },
         ],
-        tokens,
-        breakpoints
-      );
+      });
       expect(css).toMatchSnapshot();
     });
 
     it('should work with built-in components', () => {
       expect(
-        createComponentCSS(`test`, [avatarTheme], tokens, breakpoints)
+        createComponentCSS({
+          theme: {
+            name: 'test',
+            tokens,
+            breakpoints,
+          },
+          components: [avatarTheme],
+        })
       ).toMatchSnapshot();
     });
 
     it('can use custom primitives', () => {
-      const css = createComponentCSS(
-        'test',
-        [
+      const css = createComponentCSS({
+        theme: {
+          name: 'test',
+          tokens,
+          breakpoints,
+        },
+        components: [
           {
             name: 'chip',
             theme: {
@@ -219,9 +238,7 @@ describe('@aws-amplify/ui', () => {
             },
           },
         ],
-        tokens,
-        breakpoints
-      );
+      });
       expect(css).toMatchSnapshot();
     });
   });

@@ -23,7 +23,7 @@
     "test:links": "node --require esbuild-register ./scripts/link-checker-puppeteer.ts"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "6.3.1",
+    "@aws-amplify/ui-react": "6.5.0",
     "@docsearch/react": "3",
     "@mdx-js/loader": "^2.1.0",
     "@mdx-js/mdx": "^2.1.0",
@@ -33,7 +33,7 @@
     "gray-matter": "^4.0.3",
     "lodash": "^4.17.21",
     "mdx-prism": "^0.3.3",
-    "next": "^14.1.1",
+    "next": "^14.2.10",
     "next-plugin-preval": "^1.2.1",
     "prism-react-renderer": "1.2.1",
     "raw-loader": "^4.0.2",

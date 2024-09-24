@@ -3,7 +3,8 @@ import React from 'react';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { View, Loader, Button } from '@aws-amplify/ui-react';
 
-import { FileStatus } from '../../types';
+import { FileStatus } from '../../../FileUploader/types';
+
 import { FileStatusMessage } from './FileStatusMessage';
 import { FileRemoveButton } from './FileRemoveButton';
 import { UploadDetails } from './FileDetails';

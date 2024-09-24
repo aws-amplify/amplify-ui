@@ -29,7 +29,10 @@ export {
   ControlsProvider,
 } from './ControlsContext';
 export { LoadingContextProvider } from './LoadingContext';
-export { ResponseComponentsProvider } from './ResponseComponentsContext';
+export {
+  ResponseComponentsProvider,
+  RESPONSE_COMPONENT_PREFIX,
+} from './ResponseComponentsContext';
 export { SendMessageContextProvider } from './SendMessageContext';
 
 export * from './elements';

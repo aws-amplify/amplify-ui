@@ -22,14 +22,6 @@ export const queueFilesAction = (): Action => ({
   type: FileUploaderActionTypes.QUEUE_FILES,
 });
 
-export const setProcessedKeyAction = (input: {
-  id: string;
-  processedKey: string;
-}): Action => ({
-  ...input,
-  type: FileUploaderActionTypes.SET_PROCESSED_FILE_KEY,
-});
-
 export const setUploadingFileAction = ({
   id,
   uploadTask,
@@ -61,6 +53,19 @@ export const setUploadStatusAction = ({
   type: FileUploaderActionTypes.SET_STATUS,
   id,
   status,
+});
+
+export const setUploadSuccessAction = ({
+  id,
+  resolvedKey,
+}: {
+  id: string;
+  resolvedKey: string;
+}): Action => ({
+  type: FileUploaderActionTypes.SET_STATUS_UPLOADED,
+  id,
+  resolvedKey,
+  status: FileStatus.UPLOADED,
 });
 
 export const removeUploadAction = ({ id }: { id: string }): Action => ({

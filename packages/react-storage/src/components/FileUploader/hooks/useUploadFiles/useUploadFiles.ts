@@ -25,7 +25,6 @@ export interface UseUploadFilesProps
       'setUploadingFile' | 'setUploadProgress' | 'setUploadSuccess' | 'files'
     > {
   accessLevel?: FileUploaderProps['accessLevel'];
-  onProcessFileSuccess: (input: { id: string; processedKey: string }) => void;
   path?: string | PathCallback;
 }
 
@@ -34,7 +33,6 @@ export function useUploadFiles({
   files,
   isResumable,
   maxFileCount,
-  onProcessFileSuccess,
   onUploadError,
   onUploadStart,
   onUploadSuccess,
@@ -68,14 +66,10 @@ export function useUploadFiles({
       };
 
       if (file) {
-        const handleProcessFileSuccess = (input: { processedKey: string }) =>
-          onProcessFileSuccess({ id, ...input });
-
         const input = getInput({
           accessLevel,
           file,
           key,
-          onProcessFileSuccess: handleProcessFileSuccess,
           onProgress,
           path,
           processFile,
@@ -85,14 +79,14 @@ export function useUploadFiles({
         uploadFile({
           input,
           onComplete: (event) => {
+            const resolvedKey =
+              (event as { key: string }).key ??
+              (event as { path: string }).path;
+
             if (isFunction(onUploadSuccess)) {
-              onUploadSuccess({
-                key:
-                  (event as { key: string }).key ??
-                  (event as { path: string }).path,
-              });
+              onUploadSuccess({ key: resolvedKey });
             }
-            setUploadSuccess({ id });
+            setUploadSuccess({ id, resolvedKey });
           },
           onError: ({ key, error }) => {
             if (isFunction(onUploadError)) {
@@ -115,7 +109,6 @@ export function useUploadFiles({
     setUploadProgress,
     setUploadingFile,
     onUploadError,
-    onProcessFileSuccess,
     onUploadSuccess,
     onUploadStart,
     maxFileCount,

@@ -60,7 +60,7 @@ export class LivenessStreamProvider {
   private _reader!: ReadableStreamDefaultReader;
   private videoEl: HTMLVideoElement;
   private _client!: RekognitionStreamingClient;
-  private _stream: MediaStream;
+  private stream: MediaStream;
   private initPromise: Promise<void>;
 
   constructor({
@@ -74,7 +74,7 @@ export class LivenessStreamProvider {
   }: StreamProviderArgs) {
     this.sessionId = sessionId;
     this.region = region;
-    this._stream = stream;
+    this.stream = stream;
     this.videoEl = videoEl;
     this.videoRecorder = new VideoRecorder(stream);
     this.credentialProvider = credentialProvider;
@@ -198,13 +198,15 @@ export class LivenessStreamProvider {
       this.videoRecorder.videoStream
     )();
 
+    const mediaSettings = this.stream.getTracks()[0].getSettings();
+
     const response = await this._client.send(
       new StartFaceLivenessSessionCommand({
         ChallengeVersions: 'FaceMovementAndLightChallenge_1.0.0',
         SessionId: this.sessionId,
         LivenessRequestStream: livenessRequestGenerator,
-        VideoWidth: this.videoEl.videoWidth.toString(),
-        VideoHeight: this.videoEl.videoHeight.toString(),
+        VideoWidth: (mediaSettings.width ?? this.videoEl.width).toString(),
+        VideoHeight: (mediaSettings.height ?? this.videoEl.height).toString(),
       })
     );
     return response.LivenessResponseStream!;

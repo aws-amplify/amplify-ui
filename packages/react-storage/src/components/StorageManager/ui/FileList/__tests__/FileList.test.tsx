@@ -6,8 +6,8 @@ import { ComponentClassName } from '@aws-amplify/ui';
 
 import { FileList } from '../FileList';
 import { FileListProps } from '../types';
-import { FileStatus, StorageFile } from '../../../types';
-import { defaultStorageManagerDisplayText } from '../../../utils';
+import { FileStatus, StorageFile } from '../../../../FileUploader/types';
+import { defaultFileUploaderDisplayText as defaultStorageManagerDisplayText } from '../../../../FileUploader/utils';
 
 const mockFile: StorageFile = {
   id: 'test',

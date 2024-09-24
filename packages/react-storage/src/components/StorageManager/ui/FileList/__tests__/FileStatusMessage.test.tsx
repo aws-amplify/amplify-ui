@@ -6,7 +6,7 @@ import { IconsProvider, View } from '@aws-amplify/ui-react';
 
 import { FileStatusMessage } from '../FileStatusMessage';
 import { FileStatusMessageProps } from '../types';
-import { FileStatus } from '../../../types';
+import { FileStatus } from '../../../../FileUploader/types';
 
 const uploadingText = 'Uploading...';
 const uploadingPausedText = 'Uploading paused...';

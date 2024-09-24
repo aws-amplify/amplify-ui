@@ -124,6 +124,7 @@ describe('useUploadFiles', () => {
     act(() =>
       result.current.setUploadSuccess({
         id: 'file1',
+        resolvedKey: 'file1',
       })
     );
 
@@ -164,18 +165,6 @@ describe('useUploadFiles', () => {
       })
     );
     expect(result.current.files.length).toBe(1);
-  });
-
-  it('should update a target file key', () => {
-    const { result } = renderHook(() => useFileUploader(defaultFiles));
-
-    const processedKey = 'processedKey';
-
-    expect(result.current.files[0].processedKey).toBeUndefined();
-
-    act(() => result.current.setProcessedKey({ id: 'file1', processedKey }));
-
-    expect(result.current.files[0].processedKey).toBe(processedKey);
   });
 
   describe('defaultFiles', () => {

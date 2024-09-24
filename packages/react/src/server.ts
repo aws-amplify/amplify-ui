@@ -1,4 +1,5 @@
 export { ThemeStyle } from './components/ThemeProvider/ThemeStyle';
+export { ComponentStyle } from './components/ThemeProvider/ComponentStyle';
 export {
   createTheme,
   defineComponentTheme,
