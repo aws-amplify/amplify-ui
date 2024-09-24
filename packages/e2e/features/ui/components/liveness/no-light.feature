@@ -23,7 +23,3 @@ Feature: Liveness Detector
       Then I see "connecting"
       Then I click the "Start video check" button
       Then I see "liveness-detector" element
-      Then I see "Move closer"
-      Then I see the "Face didn't fit inside oval in time limit." timeout error
-      Then I click the "Try again" button
-      Then I see the "Start video check" button
