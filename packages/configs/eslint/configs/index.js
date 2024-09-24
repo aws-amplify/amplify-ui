@@ -1,6 +1,6 @@
 module.exports = {
   env: { node: true },
-  plugins: ['@typescript-eslint', 'index'],
+  plugins: ['@typescript-eslint', 'import', 'index'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
@@ -45,6 +45,12 @@ module.exports = {
     'generator-star-spacing': 'off',
     'global-require': 'off',
     'implicit-arrow-linebreak': 'off',
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        packageDir: ['.', '../..'],
+      },
+    ],
     'index/only-import-export': 'error',
     'max-params': 2,
     'no-alert': 'error',
