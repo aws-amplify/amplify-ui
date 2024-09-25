@@ -133,7 +133,7 @@
     "prettier": "^3.0.3",
     "react-test-renderer": "^18.2.0",
     "rimraf": "^3.0.2",
-    "rollup": "^2.70.0",
+    "rollup": "^3.29.5",
     "rollup-plugin-node-externals": "^4.1.1",
     "rollup-plugin-styles": "^4.0.0",
     "ts-jest": "^29.1.1",
