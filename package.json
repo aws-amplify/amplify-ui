@@ -122,7 +122,7 @@
     "@types/jest": "^29.5.5",
     "@types/react-test-renderer": "^18.0.2",
     "@vitejs/plugin-vue": "^2.3.4",
-    "aws-amplify": "6.4.3",
+    "aws-amplify": "^6.6.0",
     "esbuild-register": "^3.5.0",
     "eslint": "^8.44.0",
     "fs-extra": "^11.1.1",
@@ -140,7 +140,7 @@
     "ts-morph": "^17.0.0",
     "turbo": "^2.0.11",
     "typescript": "^5.2.2",
-    "vite": "^5.2.8",
+    "vite": "^5.2.14",
     "vue-tsc": "^2.0.7"
   }
 }

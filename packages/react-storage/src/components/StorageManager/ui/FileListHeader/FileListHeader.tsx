@@ -1,5 +1,6 @@
 import React from 'react';
-import { StorageManagerDisplayTextDefault } from '../../utils';
+import { FileUploaderDisplayTextDefault as StorageManagerDisplayTextDefault } from '../../../FileUploader/utils';
+
 import { ComponentClassName } from '@aws-amplify/ui';
 import { Text } from '@aws-amplify/ui-react';
 

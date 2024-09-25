@@ -1,5 +1,5 @@
 export { FileUploader } from './FileUploader';
-export { FileUploaderProps } from './types';
+export { FileUploaderHandle, FileUploaderProps } from './types';
 export {
   DropZoneProps,
   ContainerProps,
