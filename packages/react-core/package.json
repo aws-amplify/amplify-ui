@@ -11,7 +11,7 @@
       "types": "./dist/types/index.d.ts"
     },
     "./elements": {
-      "import": "./dist/esm/elements/elements.mjs",
+      "import": "./dist/esm/elements.mjs",
       "require": "./dist/elements.js",
       "react-native": "./src/elements/index.ts",
       "types": "./dist/types/elements/index.d.ts"

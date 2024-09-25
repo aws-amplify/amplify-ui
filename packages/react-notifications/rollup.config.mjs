@@ -8,14 +8,21 @@ const input = ['src/index.ts'];
 const sourceMap = false;
 const tsconfig = 'tsconfig.dist.json';
 
+/**
+ * @type {import('rollup').OutputOptions}
+ */
+const cjsOutput = {
+  dir: 'dist',
+  esModule: true,
+  format: 'cjs',
+  interop: 'auto',
+};
+
 const config = defineConfig([
   // CJS config
   {
     input,
-    output: {
-      dir: 'dist',
-      format: 'cjs',
-    },
+    output: cjsOutput,
     plugins: [
       externals({ include: /^@aws-amplify/ }),
       typescript({ declarationDir: 'dist/types', sourceMap, tsconfig }),
