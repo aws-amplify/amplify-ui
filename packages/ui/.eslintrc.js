@@ -1,6 +1,6 @@
 module.exports = {
   env: { node: true },
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'import'],
   extends: ['eslint:recommended'],
   ignorePatterns: [
     '.eslintrc.js',
@@ -16,10 +16,10 @@ module.exports = {
     project: ['tsconfig.json'],
     tsconfigRootDir: __dirname,
   },
-  plugins: ['import'],
   rules: {
     'no-console': 'error',
     'no-debugger': 'error',
+    // prefer `typescript-eslint` rule
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': [
       'error',
