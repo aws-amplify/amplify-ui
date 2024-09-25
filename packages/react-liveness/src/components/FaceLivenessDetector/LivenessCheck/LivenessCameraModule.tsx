@@ -116,7 +116,7 @@ export const LivenessCameraModule = (
   const isFaceMovementChallenge =
     useLivenessSelector(selectChallengeType) === FACE_MOVEMENT_CHALLENGE.type;
   const allowSelectableDevicesMobile =
-    !isMobileScreen || (isMobileScreen && isFaceMovementChallenge);
+    !isMobileScreen || isFaceMovementChallenge;
 
   const videoStream = useLivenessSelector(selectVideoStream);
   const videoConstraints = useLivenessSelector(selectVideoConstraints);
