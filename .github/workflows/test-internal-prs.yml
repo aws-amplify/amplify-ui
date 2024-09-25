@@ -14,7 +14,7 @@ concurrency:
 on:
   pull_request:
     # branches: [main, hotfix]
-    branches: [liveness/alpha]
+    branches: [liveness-dca-v2]
     types: [opened, synchronize, labeled]
 
 jobs:
@@ -108,7 +108,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
-    secrets: 
+    secrets:
       LIVENESS_E2E_CODE_ARTIFACT_ARN: ${{ secrets.LIVENESS_E2E_CODE_ARTIFACT_ARN }}
 
   unit:
