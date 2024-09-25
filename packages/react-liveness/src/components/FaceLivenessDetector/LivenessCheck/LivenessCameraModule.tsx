@@ -115,8 +115,8 @@ export const LivenessCameraModule = (
 
   const isFaceMovementChallenge =
     useLivenessSelector(selectChallengeType) === FACE_MOVEMENT_CHALLENGE.type;
-  const isMobileFaceMovementAndLightChallenge =
-    isMobileScreen && !isFaceMovementChallenge;
+  const allowSelectableDevicesMobile =
+    !isMobileScreen || (isMobileScreen && isFaceMovementChallenge);
 
   const videoStream = useLivenessSelector(selectVideoStream);
   const videoConstraints = useLivenessSelector(selectVideoConstraints);
@@ -421,7 +421,7 @@ export const LivenessCameraModule = (
           </Flex>
 
           {isStartView &&
-            !isMobileFaceMovementAndLightChallenge &&
+            allowSelectableDevicesMobile &&
             selectableDevices &&
             selectableDevices.length > 1 && (
               <Flex className={LivenessClassNames.StartScreenCameraSelect}>
