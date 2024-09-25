@@ -1,6 +1,7 @@
 import { isUndefined } from '@aws-amplify/ui';
 import { TIME_SLICE } from '../constants';
 import { VideoStream, StreamResult, StreamResultType } from '../types';
+import { ClientSessionInformationEvent } from '@aws-sdk/client-rekognitionstreaming';
 
 export class StreamRecorder {
   #chunks: Blob[];
@@ -14,6 +15,7 @@ export class StreamRecorder {
   #recorderStopped!: Promise<void>;
   #videoStream: VideoStream;
   #eventListeners: { [key: string]: (args: any) => void };
+  #clientInfoEvents: ClientSessionInformationEvent[];
 
   constructor(stream: MediaStream) {
     if (typeof MediaRecorder === 'undefined') {
@@ -25,6 +27,15 @@ export class StreamRecorder {
     this.#initialRecorder = this.#recorder;
     this.#videoStream = this.#createReadableStream();
     this.#eventListeners = {};
+    this.#clientInfoEvents = [];
+  }
+
+  getChunks(): Blob[] {
+    return this.#chunks;
+  }
+
+  getClientSessionInfoEvents(): ClientSessionInformationEvent[] {
+    return this.#clientInfoEvents;
   }
 
   getVideoStream(): VideoStream {
@@ -43,6 +54,9 @@ export class StreamRecorder {
       : StreamResult<T>
   ): void {
     const { type } = event;
+    if (type === 'sessionInfo') {
+      this.#clientInfoEvents.push(event.data);
+    }
     const data = type === 'streamStop' ? undefined : event.data;
     this.#recorder.dispatchEvent(new MessageEvent(type, { data }));
   }
