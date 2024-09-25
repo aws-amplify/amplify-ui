@@ -14,6 +14,7 @@ const cjsOutput = {
   dir: 'dist',
   esModule: true,
   format: 'cjs',
+  generatedCode: { reservedNamesAsProps: false },
   interop: 'auto',
 };
 
