@@ -13,4 +13,4 @@
 "@aws-amplify/ui-vue": patch
 ---
 
-[WIP] chore(rollup): upgrade rollup deps, migrate to mjs config file, enforce linting on mjs files
+chore(rollup): upgrade rollup deps, migrate to mjs config file, enforce linting on mjs files
