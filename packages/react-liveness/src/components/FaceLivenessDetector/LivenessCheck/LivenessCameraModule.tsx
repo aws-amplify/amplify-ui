@@ -115,8 +115,6 @@ export const LivenessCameraModule = (
 
   const isFaceMovementChallenge =
     useLivenessSelector(selectChallengeType) === FACE_MOVEMENT_CHALLENGE.type;
-  const allowSelectableDevicesMobile =
-    !isMobileScreen || isFaceMovementChallenge;
 
   const videoStream = useLivenessSelector(selectVideoStream);
   const videoConstraints = useLivenessSelector(selectVideoConstraints);
@@ -161,6 +159,15 @@ export const LivenessCameraModule = (
   const [aspectRatio, setAspectRatio] = useState<number>(() =>
     videoWidth && videoHeight ? videoWidth / videoHeight : 0
   );
+
+  // Only allow on mobile screen if it is no light challenge
+  const allowSelectableDevicesMobile =
+    !isMobileScreen || isFaceMovementChallenge;
+  const allowSelectableDevices =
+    isStartView &&
+    allowSelectableDevicesMobile &&
+    selectableDevices &&
+    selectableDevices.length > 1;
 
   React.useEffect(() => {
     if (canvasRef?.current && videoRef?.current && videoStream && isStartView) {
@@ -420,38 +427,33 @@ export const LivenessCameraModule = (
             <View as="canvas" ref={canvasRef} />
           </Flex>
 
-          {isStartView &&
-            allowSelectableDevicesMobile &&
-            selectableDevices &&
-            selectableDevices.length > 1 && (
-              <Flex className={LivenessClassNames.StartScreenCameraSelect}>
-                <View
-                  className={
-                    LivenessClassNames.StartScreenCameraSelectContainer
-                  }
+          {allowSelectableDevices && (
+            <Flex className={LivenessClassNames.StartScreenCameraSelect}>
+              <View
+                className={LivenessClassNames.StartScreenCameraSelectContainer}
+              >
+                <Label
+                  htmlFor="amplify-liveness-camera-select"
+                  className={`${LivenessClassNames.StartScreenCameraSelect}__label`}
                 >
-                  <Label
-                    htmlFor="amplify-liveness-camera-select"
-                    className={`${LivenessClassNames.StartScreenCameraSelect}__label`}
-                  >
-                    Camera:
-                  </Label>
-                  <SelectField
-                    id="amplify-liveness-camera-select"
-                    label="Camera"
-                    labelHidden
-                    value={selectedDeviceId}
-                    onChange={onCameraChange}
-                  >
-                    {selectableDevices?.map((device) => (
-                      <option value={device.deviceId} key={device.deviceId}>
-                        {device.label}
-                      </option>
-                    ))}
-                  </SelectField>
-                </View>
-              </Flex>
-            )}
+                  Camera:
+                </Label>
+                <SelectField
+                  id="amplify-liveness-camera-select"
+                  label="Camera"
+                  labelHidden
+                  value={selectedDeviceId}
+                  onChange={onCameraChange}
+                >
+                  {selectableDevices?.map((device) => (
+                    <option value={device.deviceId} key={device.deviceId}>
+                      {device.label}
+                    </option>
+                  ))}
+                </SelectField>
+              </View>
+            </Flex>
+          )}
         </View>
       </Flex>
 
