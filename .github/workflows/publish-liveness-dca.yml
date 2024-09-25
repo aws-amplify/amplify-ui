@@ -28,6 +28,11 @@ jobs:
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
+    permissions:
+      id-token: write
+      contents: read
+    secrets: 
+      LIVENESS_E2E_CODE_ARTIFACT_ARN: ${{ secrets.LIVENESS_E2E_CODE_ARTIFACT_ARN }}
 
   unit:
     uses: ./.github/workflows/reusable-unit.yml
