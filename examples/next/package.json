@@ -10,12 +10,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^6.5.0",
-    "@aws-amplify/ui-react-ai": "0.2.0",
-    "@aws-amplify/ui-react-geo": "^2.0.25",
-    "@aws-amplify/ui-react-liveness": "^3.1.10",
-    "@aws-amplify/ui-react-notifications": "^2.0.29",
-    "@aws-amplify/ui-react-storage": "^3.3.4",
+    "@aws-amplify/ui-react": "^6.5.1",
+    "@aws-amplify/ui-react-ai": "0.2.1",
+    "@aws-amplify/ui-react-geo": "^2.0.26",
+    "@aws-amplify/ui-react-liveness": "^3.1.11",
+    "@aws-amplify/ui-react-notifications": "^2.0.30",
+    "@aws-amplify/ui-react-storage": "^3.3.5",
     "@aws-sdk/credential-providers": "^3.370.0",
     "next": "^14.2.10",
     "next-global-css": "^1.1.1",

@@ -1,5 +1,29 @@
 # @aws-amplify/ui-react
 
+## 6.5.1
+
+### Patch Changes
+
+- [#5796](https://github.com/aws-amplify/amplify-ui/pull/5796) [`bf9dbc334`](https://github.com/aws-amplify/amplify-ui/commit/bf9dbc334293aff844a835e1717ee529e1abded3) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(deps): Fix transitive dependencies.
+
+- [#5825](https://github.com/aws-amplify/amplify-ui/pull/5825) [`3a677a1af`](https://github.com/aws-amplify/amplify-ui/commit/3a677a1afa60652fcd1a5adb734b9c94d4ba5c3d) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(theming): add global style ability (experimental)
+
+  Adding the ability to create global styles with the experimental theming APIs
+
+  ```jsx
+  <GlobalStyle styles={{
+    'body': {
+      backgroundColor: 'purple'
+      // supports design tokens!
+      color: theme.tokens.colors.font.primary
+    }
+  }} />
+  ```
+
+- Updated dependencies [[`bf9dbc334`](https://github.com/aws-amplify/amplify-ui/commit/bf9dbc334293aff844a835e1717ee529e1abded3), [`3a677a1af`](https://github.com/aws-amplify/amplify-ui/commit/3a677a1afa60652fcd1a5adb734b9c94d4ba5c3d)]:
+  - @aws-amplify/ui-react-core@3.0.25
+  - @aws-amplify/ui@6.6.1
+
 ## 6.5.0
 
 ### Minor Changes
