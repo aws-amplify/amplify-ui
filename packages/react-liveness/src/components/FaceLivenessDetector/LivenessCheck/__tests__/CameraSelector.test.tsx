@@ -13,10 +13,7 @@ const mockMediaDevice: MediaDeviceInfo = {
 describe('CameraSelector', () => {
   it('should render', () => {
     const result = render(
-      <CameraSelector
-        onCameraChange={() => {}}
-        selectableDevices={[mockMediaDevice]}
-      />
+      <CameraSelector onSelect={() => {}} devices={[mockMediaDevice]} />
     );
 
     expect(result.container).toBeDefined();

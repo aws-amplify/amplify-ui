@@ -3,13 +3,17 @@ import React from 'react';
 import { LivenessClassNames } from '../types/classNames';
 
 interface CameraSelectorProps {
-  selectedDeviceId?: string;
-  onCameraChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  selectableDevices: MediaDeviceInfo[];
+  deviceId?: string;
+  onSelect: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  devices: MediaDeviceInfo[];
 }
 
 export const CameraSelector = (props: CameraSelectorProps): JSX.Element => {
-  const { onCameraChange, selectableDevices, selectedDeviceId } = props;
+  const {
+    onSelect: onCameraChange,
+    devices: selectableDevices,
+    deviceId: selectedDeviceId,
+  } = props;
   return (
     <Flex className={LivenessClassNames.StartScreenCameraSelect}>
       <View className={LivenessClassNames.StartScreenCameraSelectContainer}>
@@ -27,7 +31,7 @@ export const CameraSelector = (props: CameraSelectorProps): JSX.Element => {
           value={selectedDeviceId}
           onChange={onCameraChange}
         >
-          {selectableDevices?.map((device) => (
+          {selectableDevices.map((device) => (
             <option value={device.deviceId} key={device.deviceId}>
               {device.label}
             </option>

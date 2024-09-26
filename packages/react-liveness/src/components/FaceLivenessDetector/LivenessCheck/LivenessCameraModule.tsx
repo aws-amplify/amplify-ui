@@ -154,13 +154,11 @@ export const LivenessCameraModule = (
   );
 
   // Only mobile device camera selection for no light challenge
-  const allowSelectableDevicesMobile =
-    !isMobileScreen || isFaceMovementChallenge;
-  const allowSelectableDevices =
+  const hasMultipleDevices = !!selectableDevices?.length;
+  const allowDeviceSelection =
     isStartView &&
-    allowSelectableDevicesMobile &&
-    selectableDevices &&
-    selectableDevices.length > 1;
+    hasMultipleDevices &&
+    (!isMobileScreen || isFaceMovementChallenge);
 
   React.useEffect(() => {
     if (canvasRef?.current && videoRef?.current && videoStream && isStartView) {
@@ -420,13 +418,13 @@ export const LivenessCameraModule = (
             <View as="canvas" ref={canvasRef} />
           </Flex>
 
-          {allowSelectableDevices && (
+          {allowDeviceSelection ? (
             <CameraSelector
-              onCameraChange={onCameraChange}
-              selectableDevices={selectableDevices}
-              selectedDeviceId={selectedDeviceId}
+              onSelect={onCameraChange}
+              devices={selectableDevices}
+              deviceId={selectedDeviceId}
             />
-          )}
+          ) : null}
         </View>
       </Flex>
 
