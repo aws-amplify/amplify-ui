@@ -507,6 +507,31 @@ describe('LivenessCameraModule', () => {
     ).toBeInTheDocument();
   });
 
+  it('should render hair check screen when isStart = true, should not render camera selector if only one camera', () => {
+    isStart = true;
+    mockStateMatchesAndSelectors();
+    mockUseLivenessSelector.mockReturnValue(25).mockReturnValue(['device-id']);
+
+    renderWithLivenessProvider(
+      <LivenessCameraModule
+        isMobileScreen={false}
+        isRecordingStopped={false}
+        hintDisplayText={hintDisplayText}
+        streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        instructionDisplayText={instructionDisplayText}
+      />
+    );
+    const videoEl = screen.getByTestId('video');
+    videoEl.dispatchEvent(new Event('canplay'));
+
+    expect(screen.getByTestId('popover-icon')).toBeInTheDocument();
+    expect(
+      screen.queryByTestId('amplify-liveness-camera-select')
+    ).not.toBeInTheDocument();
+  });
+
   it('selectors should work', () => {
     mockUseLivenessSelector.mockReturnValueOnce({}).mockReturnValueOnce({});
     const state: any = {
