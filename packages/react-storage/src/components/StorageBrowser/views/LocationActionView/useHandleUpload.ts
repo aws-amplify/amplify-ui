@@ -1,9 +1,11 @@
 import React from 'react';
 import {
-  uploadData,
+  // uploadData,
   UploadDataWithPathInput,
   isCancelError,
 } from 'aws-amplify/storage';
+
+import { uploadData } from '@aws-amplify/storage/dist/esm/providers/s3';
 import { isFunction, isUndefined } from '@aws-amplify/ui';
 
 import { useGetLocationConfig } from '../../context/config';
