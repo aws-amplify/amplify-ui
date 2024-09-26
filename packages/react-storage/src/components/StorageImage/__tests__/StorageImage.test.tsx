@@ -170,6 +170,27 @@ describe('StorageImage', () => {
     );
   });
 
+  it('should pass bucket to getUrl when supplied', () => {
+    getUrlSpy.mockResolvedValue({
+      url: new URL(imgURL),
+      expiresAt: new Date(),
+    });
+    render(
+      <StorageImage
+        alt="StorageImage"
+        imgKey={imgKey}
+        accessLevel={accessLevel}
+        bucket="my-bucket"
+      />
+    );
+
+    expect(getUrlSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        options: expect.objectContaining({ bucket: 'my-bucket' }),
+      })
+    );
+  });
+
   describe('with `imgKey`', () => {
     it('should get the presigned URL and pass it to image src attribute', async () => {
       getUrlSpy.mockResolvedValue({

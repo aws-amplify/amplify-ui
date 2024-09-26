@@ -37,6 +37,7 @@ const uploadDataSpy = jest
 
 const fileUploaderProps: FileUploaderProps = {
   accessLevel: 'guest',
+  bucket: 'my-bucket',
   maxFileCount: 100,
 };
 
@@ -238,6 +239,7 @@ describe('FileUploader', () => {
         data: file,
         options: {
           accessLevel: 'guest',
+          bucket: 'my-bucket',
           contentType: 'text/plain',
           onProgress: expect.any(Function),
         },
@@ -268,6 +270,7 @@ describe('FileUploader', () => {
         data: file,
         options: {
           accessLevel: 'guest',
+          bucket: 'my-bucket',
           contentType: 'text/plain',
           onProgress: expect.any(Function),
         },
