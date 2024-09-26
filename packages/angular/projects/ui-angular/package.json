@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-angular",
-  "version": "5.0.25",
+  "version": "5.0.26",
   "scripts": {
     "build": "yarn --cwd ../../ build",
     "dev": "yarn --cwd ../../ dev",
@@ -15,13 +15,13 @@
   },
   "peerDependencies": {
     "@angular/core": ">= 14.0.0",
-    "aws-amplify": "^6.6.0"
+    "@angular/common": ">= 14.0.0",
+    "aws-amplify": "^6.6.0",
+    "rxjs": "^6.5.3 || ^7.4.0"
   },
   "dependencies": {
-    "@angular/common": "^14.3.0",
-    "@aws-amplify/ui": "6.6.0",
+    "@aws-amplify/ui": "6.6.1",
     "nanoid": "3.1.31",
-    "rxjs": "^7.8.1",
     "qrcode": "1.5.0",
     "tslib": "^2.5.2",
     "xstate": "^4.33.6"

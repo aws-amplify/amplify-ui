@@ -45,9 +45,7 @@ export const getAliasDefaultFormField = (
 };
 
 /** Reusable confirmation code form fields. */
-const getConfirmationCodeFormFields = (
-  state: AuthMachineState
-): FormFields => ({
+const getConfirmationCodeFormFields = (_: AuthMachineState): FormFields => ({
   confirmation_code: {
     ...getDefaultFormField('confirmation_code'),
     label: 'Code *',
@@ -94,6 +92,7 @@ const getSignUpFormFields = (state: AuthMachineState): FormFields => {
       formField[fieldName] = { ...fieldAttrs };
     } else {
       // There's a `custom:*` attribute or one we don't already have an implementation for
+      // eslint-disable-next-line no-console
       console.debug(
         `Authenticator does not have a default implementation for ${fieldName}. Customize SignUp FormFields to add your own.`
       );
@@ -102,7 +101,7 @@ const getSignUpFormFields = (state: AuthMachineState): FormFields => {
   return formField;
 };
 
-const getConfirmSignUpFormFields = (state: AuthMachineState): FormFields => ({
+const getConfirmSignUpFormFields = (_: AuthMachineState): FormFields => ({
   confirmation_code: {
     ...getDefaultFormField('confirmation_code'),
     placeholder: 'Enter your code',
@@ -158,6 +157,7 @@ const getForceNewPasswordFormFields = (state: AuthMachineState): FormFields => {
       formField[fieldName] = { ...getDefaultFormField(fieldName) };
     } else {
       // There's a `custom:*` attribute or one we don't already have an implementation for
+      // eslint-disable-next-line no-console
       console.debug(
         `Authenticator does not have a default implementation for ${fieldName}. Customize ForceNewPassword FormFields to add your own.`
       );
