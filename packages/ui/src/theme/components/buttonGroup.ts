@@ -1,4 +1,3 @@
 import { ComponentStyles } from './utils';
 
-export type ButtonGroupTheme<Required extends boolean = false> =
-  ComponentStyles;
+export interface ButtonGroupTheme extends ComponentStyles {}
