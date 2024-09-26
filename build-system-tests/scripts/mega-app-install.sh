@@ -87,7 +87,8 @@ echo "# Start Mega App Install #"
 echo "##########################"
 
 TAGGED_UI_FRAMEWORK="@aws-amplify/ui-$FRAMEWORK@$TAG"
-DEPENDENCIES="$FRAMEWORK@$FRAMEWORK_VERSION $TAGGED_UI_FRAMEWORK aws-amplify"
+# Hard code storage-browser tag
+DEPENDENCIES="$FRAMEWORK@$FRAMEWORK_VERSION $TAGGED_UI_FRAMEWORK aws-amplify@storage-browser"
 
 echo "cd ./mega-apps/${MEGA_APP_NAME}"
 cd "./mega-apps/${MEGA_APP_NAME}"
