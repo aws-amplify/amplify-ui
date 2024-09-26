@@ -153,7 +153,7 @@ export const LivenessCameraModule = (
     videoWidth && videoHeight ? videoWidth / videoHeight : 0
   );
 
-  // Only allow on mobile screen if it is no light challenge
+  // Only mobile device camera selection for no light challenge
   const allowSelectableDevicesMobile =
     !isMobileScreen || isFaceMovementChallenge;
   const allowSelectableDevices =
