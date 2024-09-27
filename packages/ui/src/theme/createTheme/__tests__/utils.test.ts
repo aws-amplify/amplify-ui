@@ -1,9 +1,9 @@
+import { usesReference } from '../../../utils';
 import {
   referenceValue,
   isDesignToken,
   cssValue,
   cssNameTransform,
-  usesReference,
   flattenProperties,
   deepExtend,
 } from '../utils';

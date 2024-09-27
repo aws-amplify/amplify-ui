@@ -290,3 +290,23 @@ export function splitObject(
   });
   return [left, right] as const;
 }
+
+export const cloneDeep = function (obj) {
+  if (obj === null || obj === undefined || typeof obj !== 'object') {
+    return obj;
+  }
+
+  if (obj instanceof Array) {
+    return obj.reduce((arr, item, i) => {
+      arr[i] = cloneDeep(item);
+      return arr;
+    }, []);
+  }
+
+  if (obj instanceof Object) {
+    return Object.keys(obj || {}).reduce((cpObj, key) => {
+      cpObj[key] = cloneDeep(obj[key]);
+      return cpObj;
+    }, {});
+  }
+};
