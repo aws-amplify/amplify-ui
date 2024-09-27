@@ -92,8 +92,8 @@ export const defaultServices = {
 
   // Validation hooks for overriding
   async validateCustomSignUp(
-    formData: AuthFormData,
-    touchData: AuthTouchData
+    _: AuthFormData,
+    __: AuthTouchData
   ): Promise<ValidatorResult> {},
   async validateFormPassword(
     formData: AuthFormData,
@@ -169,7 +169,7 @@ export const defaultServices = {
     }
   },
   async validatePreferredUsername(
-    formData: AuthFormData,
-    touchData: AuthTouchData
+    _: AuthFormData,
+    __: AuthTouchData
   ): Promise<ValidatorResult> {},
 };

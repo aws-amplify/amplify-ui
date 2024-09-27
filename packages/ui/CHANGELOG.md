@@ -1,5 +1,68 @@
 # @aws-amplify/ui
 
+## 6.6.1
+
+### Patch Changes
+
+- [#5796](https://github.com/aws-amplify/amplify-ui/pull/5796) [`bf9dbc334`](https://github.com/aws-amplify/amplify-ui/commit/bf9dbc334293aff844a835e1717ee529e1abded3) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(deps): Fix transitive dependencies.
+
+- [#5825](https://github.com/aws-amplify/amplify-ui/pull/5825) [`3a677a1af`](https://github.com/aws-amplify/amplify-ui/commit/3a677a1afa60652fcd1a5adb734b9c94d4ba5c3d) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(theming): add global style ability (experimental)
+
+  Adding the ability to create global styles with the experimental theming APIs
+
+  ```jsx
+  <GlobalStyle styles={{
+    'body': {
+      backgroundColor: 'purple'
+      // supports design tokens!
+      color: theme.tokens.colors.font.primary
+    }
+  }} />
+  ```
+
+## 6.6.0
+
+### Minor Changes
+
+- [#5812](https://github.com/aws-amplify/amplify-ui/pull/5812) [`0ddeea9d4`](https://github.com/aws-amplify/amplify-ui/commit/0ddeea9d432f12621e0e32dae346e72881b790db) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(theming) add custom component style rendering
+
+  ```jsx
+  const customComponentTheme = defineComponentTheme({
+    name: 'custom-component',
+    theme(tokens) {
+      return {
+        color: tokens.colors.red[10]
+      }
+    }
+  });
+
+  export function CustomComponent() {
+    return (
+      <>
+        <View className={customComponentTheme.className()}>
+        </View>
+        // This will create a style tag with only the styles in the component theme
+        // the styles are scoped to the global theme
+        <ComponentStyle theme={theme} componentThemes=[customComponentTheme] />
+      </>
+    )
+  }
+  ```
+
+### Patch Changes
+
+- [#5807](https://github.com/aws-amplify/amplify-ui/pull/5807) [`7a12237d2`](https://github.com/aws-amplify/amplify-ui/commit/7a12237d2c96107ef97d3c62d9d26d6b6f1d824c) Thanks [@zerbusdetroy](https://github.com/zerbusdetroy)! - Fix some FR and ES authenticator translations"
+
+## 6.5.0
+
+### Minor Changes
+
+- [#5777](https://github.com/aws-amplify/amplify-ui/pull/5777) [`0ebf8b346`](https://github.com/aws-amplify/amplify-ui/commit/0ebf8b346bc744cd73e1e7891eafc07538d6419d) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(avatar): add loading state to avatar and AIConversation
+
+  ```jsx
+  <Avatar isLoading />
+  ```
+
 ## 6.4.1
 
 ### Patch Changes

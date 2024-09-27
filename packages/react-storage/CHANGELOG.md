@@ -1,5 +1,38 @@
 # @aws-amplify/ui-react-storage
 
+## 3.3.5
+
+### Patch Changes
+
+- [#5796](https://github.com/aws-amplify/amplify-ui/pull/5796) [`bf9dbc334`](https://github.com/aws-amplify/amplify-ui/commit/bf9dbc334293aff844a835e1717ee529e1abded3) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(deps): Fix transitive dependencies.
+
+- Updated dependencies [[`bf9dbc334`](https://github.com/aws-amplify/amplify-ui/commit/bf9dbc334293aff844a835e1717ee529e1abded3), [`3a677a1af`](https://github.com/aws-amplify/amplify-ui/commit/3a677a1afa60652fcd1a5adb734b9c94d4ba5c3d)]:
+  - @aws-amplify/ui-react-core@3.0.25
+  - @aws-amplify/ui-react@6.5.1
+  - @aws-amplify/ui@6.6.1
+
+## 3.3.4
+
+### Patch Changes
+
+- [#5815](https://github.com/aws-amplify/amplify-ui/pull/5815) [`028a91ba8`](https://github.com/aws-amplify/amplify-ui/commit/028a91ba8a4bdc433abf9a91bf82a4d30faf031d) Thanks [@esauerbo](https://github.com/esauerbo)! - chore(storage): Export `FileUploaderHandle` and `StorageManagerHandle`
+
+- [#5818](https://github.com/aws-amplify/amplify-ui/pull/5818) [`0d50470c8`](https://github.com/aws-amplify/amplify-ui/commit/0d50470c82c811e47fc7c99ab44ceeb7b287f7ba) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(file-uploader): fix duplicate upload requests
+
+- Updated dependencies [[`0ddeea9d4`](https://github.com/aws-amplify/amplify-ui/commit/0ddeea9d432f12621e0e32dae346e72881b790db), [`7a12237d2`](https://github.com/aws-amplify/amplify-ui/commit/7a12237d2c96107ef97d3c62d9d26d6b6f1d824c)]:
+  - @aws-amplify/ui-react@6.5.0
+  - @aws-amplify/ui@6.6.0
+  - @aws-amplify/ui-react-core@3.0.24
+
+## 3.3.3
+
+### Patch Changes
+
+- Updated dependencies [[`0ebf8b346`](https://github.com/aws-amplify/amplify-ui/commit/0ebf8b346bc744cd73e1e7891eafc07538d6419d)]:
+  - @aws-amplify/ui-react@6.4.0
+  - @aws-amplify/ui@6.5.0
+  - @aws-amplify/ui-react-core@3.0.23
+
 ## 3.3.2
 
 ### Patch Changes
