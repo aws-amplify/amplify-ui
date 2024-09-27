@@ -11,7 +11,7 @@
       "types": "./dist/types/index.d.ts"
     },
     "./elements": {
-      "import": "./dist/esm/elements/elements.mjs",
+      "import": "./dist/esm/elements.mjs",
       "require": "./dist/elements.js",
       "react-native": "./src/elements/index.ts",
       "types": "./dist/types/elements/index.d.ts"
@@ -33,7 +33,7 @@
     "build": "rollup --config",
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-core\"'",
     "dev": "yarn build --watch",
-    "lint": "yarn typecheck && eslint src",
+    "lint": "yarn typecheck && eslint .",
     "prebuild": "rimraf dist",
     "test": "jest",
     "test:watch": "yarn test --watch",

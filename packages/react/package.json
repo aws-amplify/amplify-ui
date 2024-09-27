@@ -47,7 +47,7 @@
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react\"'",
     "clean": "rimraf dist node_modules",
     "dev": "yarn build:rollup --watch",
-    "lint": "yarn typecheck && eslint src --ext .js,.ts,.tsx",
+    "lint": "yarn typecheck && eslint .",
     "prebuild": "rimraf dist",
     "size": "yarn size-limit",
     "test": "jest",

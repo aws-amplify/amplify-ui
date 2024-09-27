@@ -34,7 +34,7 @@
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-liveness\"'",
     "clean": "rimraf dist node_modules",
     "dev": "yarn build:rollup --watch",
-    "lint": "yarn typecheck && eslint src",
+    "lint": "yarn typecheck && eslint .",
     "prebuild": "rimraf dist",
     "size": "yarn size-limit",
     "test": "jest",
@@ -69,7 +69,6 @@
     "xstate": "^4.33.6"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^22.0.1",
     "@types/jest-when": "^3.5.0",
     "blob-polyfill": "^7.0.20220408",
     "jest-canvas-mock": "^2.5.2",
