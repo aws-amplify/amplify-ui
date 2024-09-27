@@ -483,7 +483,9 @@ describe('LivenessCameraModule', () => {
   it('should render hair check screen when isStart = true', () => {
     isStart = true;
     mockStateMatchesAndSelectors();
-    mockUseLivenessSelector.mockReturnValue(25).mockReturnValue(['device-id']);
+    mockUseLivenessSelector
+      .mockReturnValue(25)
+      .mockReturnValue(['device-id', 'device-id-2', 'device-id-3']);
 
     renderWithLivenessProvider(
       <LivenessCameraModule
@@ -500,6 +502,9 @@ describe('LivenessCameraModule', () => {
     videoEl.dispatchEvent(new Event('canplay'));
 
     expect(screen.getByTestId('popover-icon')).toBeInTheDocument();
+    expect(
+      screen.getByTestId('amplify-liveness-camera-select')
+    ).toBeInTheDocument();
   });
 
   it('selectors should work', () => {

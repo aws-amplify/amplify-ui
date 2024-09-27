@@ -1,15 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { classNames } from '@aws-amplify/ui';
 
-import {
-  Button,
-  Flex,
-  Label,
-  Loader,
-  SelectField,
-  Text,
-  View,
-} from '@aws-amplify/ui-react';
+import { Button, Flex, Loader, Text, View } from '@aws-amplify/ui-react';
 import { useColorMode } from '@aws-amplify/ui-react/internal';
 import { FaceMatchState, clearOvalCanvas, drawStaticOval } from '../service';
 import {
@@ -40,6 +32,7 @@ import {
   DefaultRecordingIcon,
 } from '../shared/DefaultStartScreenComponents';
 import { FACE_MOVEMENT_CHALLENGE } from '../service/utils/constants';
+import { CameraSelector } from './CameraSelector';
 
 export const selectChallengeType = createLivenessSelector(
   (state) => state.context.parsedSessionInformation?.Challenge?.Name
@@ -159,6 +152,13 @@ export const LivenessCameraModule = (
   const [aspectRatio, setAspectRatio] = useState<number>(() =>
     videoWidth && videoHeight ? videoWidth / videoHeight : 0
   );
+
+  // Only mobile device camera selection for no light challenge
+  const hasMultipleDevices = !!selectableDevices?.length;
+  const allowDeviceSelection =
+    isStartView &&
+    hasMultipleDevices &&
+    (!isMobileScreen || isFaceMovementChallenge);
 
   React.useEffect(() => {
     if (canvasRef?.current && videoRef?.current && videoStream && isStartView) {
@@ -417,38 +417,13 @@ export const LivenessCameraModule = (
             <View as="canvas" ref={canvasRef} />
           </Flex>
 
-          {isStartView &&
-            !isMobileScreen &&
-            selectableDevices &&
-            selectableDevices.length > 1 && (
-              <Flex className={LivenessClassNames.StartScreenCameraSelect}>
-                <View
-                  className={
-                    LivenessClassNames.StartScreenCameraSelectContainer
-                  }
-                >
-                  <Label
-                    htmlFor="amplify-liveness-camera-select"
-                    className={`${LivenessClassNames.StartScreenCameraSelect}__label`}
-                  >
-                    Camera:
-                  </Label>
-                  <SelectField
-                    id="amplify-liveness-camera-select"
-                    label="Camera"
-                    labelHidden
-                    value={selectedDeviceId}
-                    onChange={onCameraChange}
-                  >
-                    {selectableDevices?.map((device) => (
-                      <option value={device.deviceId} key={device.deviceId}>
-                        {device.label}
-                      </option>
-                    ))}
-                  </SelectField>
-                </View>
-              </Flex>
-            )}
+          {allowDeviceSelection ? (
+            <CameraSelector
+              onSelect={onCameraChange}
+              devices={selectableDevices}
+              deviceId={selectedDeviceId}
+            />
+          ) : null}
         </View>
       </Flex>
 
