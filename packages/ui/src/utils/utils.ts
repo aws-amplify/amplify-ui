@@ -208,18 +208,6 @@ export const classNameModifierByFlag = (
 };
 
 /**
- * `isFunction` but types the param with its function signature
- *
- * @param {unknown} value param to check
- * @returns {boolean} whether `value` is a function
- */
-export function isTypedFunction<T extends (...args: any[]) => any>(
-  value: unknown
-): value is T {
-  return isFunction(value);
-}
-
-/**
  * Similar to `Array.join`, with an optional callback/template param
  * for formatting returned string values
  *
