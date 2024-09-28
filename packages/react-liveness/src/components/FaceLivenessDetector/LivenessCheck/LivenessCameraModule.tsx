@@ -154,7 +154,8 @@ export const LivenessCameraModule = (
   );
 
   // Only mobile device camera selection for no light challenge
-  const hasMultipleDevices = !!selectableDevices?.length;
+  const hasMultipleDevices =
+    !!selectableDevices?.length && selectableDevices.length > 1;
   const allowDeviceSelection =
     isStartView &&
     hasMultipleDevices &&
