@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-core-notifications",
-  "version": "2.0.24",
+  "version": "2.0.25",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -28,18 +28,18 @@
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-core-notifications\"'",
     "clean": "rimraf dist node_modules",
     "dev": "yarn build:rollup --watch",
-    "lint": "yarn typecheck && eslint src --ext .js,.ts,.tsx",
+    "lint": "yarn typecheck && eslint .",
     "prebuild": "rimraf dist",
     "test": "jest",
     "test:watch": "yarn test --watch",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "6.6.0",
-    "@aws-amplify/ui-react-core": "3.0.24"
+    "@aws-amplify/ui": "6.6.1",
+    "@aws-amplify/ui-react-core": "3.0.25"
   },
   "peerDependencies": {
-    "aws-amplify": "^6.3.2",
+    "aws-amplify": "^6.6.0",
     "react": "^16.14.0 || ^17.0 || ^18.0"
   },
   "sideEffects": false

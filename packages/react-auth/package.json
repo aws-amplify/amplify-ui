@@ -1,7 +1,7 @@
 {
   "name": "@aws-amplify/ui-react-auth",
   "private": true,
-  "version": "0.0.31",
+  "version": "0.0.32",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -32,7 +32,7 @@
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-auth\"'",
     "clean": "rimraf dist node_modules",
     "dev": "yarn build:rollup --watch",
-    "lint": "yarn typecheck && eslint src --ext .js,.ts,.tsx",
+    "lint": "yarn typecheck && eslint .",
     "prebuild": "rimraf dist",
     "size": "yarn size-limit",
     "test": "jest",
@@ -40,16 +40,16 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "6.6.0",
-    "@aws-amplify/ui-react": "6.5.0",
-    "@aws-amplify/ui-react-core": "3.0.24",
-    "@aws-amplify/ui-react-core-auth": "0.0.26",
+    "@aws-amplify/ui": "6.6.1",
+    "@aws-amplify/ui-react": "6.5.1",
+    "@aws-amplify/ui-react-core": "3.0.25",
+    "@aws-amplify/ui-react-core-auth": "0.0.27",
     "@xstate/react": "3.2.2",
     "lodash": "4.17.21",
     "tslib": "^2.5.2"
   },
   "peerDependencies": {
-    "aws-amplify": "^6.3.2",
+    "aws-amplify": "^6.6.0",
     "react": "^16.14.0 || ^17.0 || ^18.0",
     "react-dom": "^16.14.0 || ^17.0 || ^18.0"
   },

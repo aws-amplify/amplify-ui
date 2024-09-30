@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-ai",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -34,7 +34,7 @@
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-ai\"'",
     "clean": "rimraf dist node_modules",
     "dev": "yarn build:rollup --watch",
-    "lint": "yarn typecheck && eslint src",
+    "lint": "yarn typecheck && eslint .",
     "prebuild": "rimraf dist",
     "size": "yarn size-limit",
     "test": "jest",
@@ -42,17 +42,17 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "aws-amplify": "^6.3.2",
+    "@aws-amplify/api-graphql": "^4.3.0",
+    "aws-amplify": "^6.6.0",
     "react": "^16.14.0 || ^17.0 || ^18.0",
     "react-dom": "^16.14.0 || ^17.0 || ^18.0"
   },
   "dependencies": {
-    "@aws-amplify/ui": "^6.5.0",
-    "@aws-amplify/ui-react": "^6.4.0",
-    "@aws-amplify/ui-react-core": "^3.0.23"
+    "@aws-amplify/ui": "^6.6.1",
+    "@aws-amplify/ui-react": "^6.5.1",
+    "@aws-amplify/ui-react-core": "^3.0.25"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^22.0.1",
     "@types/jest-when": "^3.5.0",
     "jest-when": "^3.5.1"
   }

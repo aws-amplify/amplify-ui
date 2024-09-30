@@ -123,6 +123,7 @@ exports[`@aws-amplify/ui-react/internal exports should match snapshot 1`] = `
 exports[`@aws-amplify/ui-react/server exports should match snapshot 1`] = `
 [
   "ComponentStyle",
+  "GlobalStyle",
   "ThemeStyle",
   "createComponentClasses",
   "createTheme",

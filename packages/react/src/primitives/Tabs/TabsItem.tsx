@@ -4,7 +4,7 @@ import { classNames } from '@aws-amplify/ui';
 import {
   ComponentClassName,
   classNameModifierByFlag,
-  isTypedFunction,
+  isFunction,
 } from '@aws-amplify/ui';
 
 import { ForwardRefPrimitive, Primitive } from '../types';
@@ -25,7 +25,7 @@ const TabsItemPrimitive: Primitive<TabsItemProps, 'button'> = (
   }
   const isActive = activeTab === value;
   const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (isTypedFunction(onClick)) {
+    if (isFunction(onClick)) {
       onClick?.(e);
     }
     setActiveTab(value);

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { act, renderHook } from '@testing-library/react-hooks';
-import { useDropZone } from '../useDropZone';
-import { UseDropZoneProps } from '../types';
+import useDropZone from '../useDropZone';
+import type { UseDropZoneParams } from '../useDropZone';
 
 const mockFile = new File(['hello'], 'hello.png', { type: 'image/png' });
 const mockOnDropComplete = jest.fn();
-const dropZoneProps: UseDropZoneProps = {
+const dropZoneProps: UseDropZoneParams = {
   onDropComplete: mockOnDropComplete,
 };
 type DragEvent = React.DragEvent<HTMLDivElement>;

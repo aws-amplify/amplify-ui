@@ -1,17 +1,9 @@
 import * as React from 'react';
 import { WebTheme, createComponentCSS } from '@aws-amplify/ui';
-import {
-  BaseComponentProps,
-  ElementType,
-  ForwardRefPrimitive,
-  Primitive,
-  PrimitiveProps,
-} from '../../primitives/types';
-import { primitiveWithForwardRef } from '../../primitives/utils/primitiveWithForwardRef';
 import { BaseComponentTheme } from '@aws-amplify/ui';
 import { Style } from './Style';
 
-interface BaseComponentStyleProps extends BaseComponentProps {
+interface ComponentStyleProps extends React.ComponentProps<'style'> {
   /**
    * Provide a server generated nonce which matches your CSP `style-src` rule.
    * This will be attached to the generated <style> tag.
@@ -22,13 +14,15 @@ interface BaseComponentStyleProps extends BaseComponentProps {
   componentThemes: BaseComponentTheme[];
 }
 
-export type ComponentStyleProps<Element extends ElementType = 'style'> =
-  PrimitiveProps<BaseComponentStyleProps, Element>;
-
-const ComponentStylePrimitive: Primitive<ComponentStyleProps, 'style'> = (
-  { theme, componentThemes = [], ...rest },
-  ref
-) => {
+/**
+ * @experimental
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/theme)
+ */
+export const ComponentStyle = ({
+  theme,
+  componentThemes = [],
+  ...rest
+}: ComponentStyleProps): JSX.Element | null => {
   if (!theme || !componentThemes.length) {
     return null;
   }
@@ -38,16 +32,7 @@ const ComponentStylePrimitive: Primitive<ComponentStyleProps, 'style'> = (
     components: componentThemes,
   });
 
-  return <Style {...rest} ref={ref} cssText={cssText} />;
+  return <Style {...rest} cssText={cssText} />;
 };
-
-/**
- * @experimental
- * [📖 Docs](https://ui.docs.amplify.aws/react/components/theme)
- */
-export const ComponentStyle: ForwardRefPrimitive<
-  BaseComponentStyleProps,
-  'style'
-> = primitiveWithForwardRef(ComponentStylePrimitive);
 
 ComponentStyle.displayName = 'ComponentStyle';

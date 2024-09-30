@@ -14,7 +14,12 @@ describe('Form', () => {
 
   it('renders a Form component with the correct elements', () => {
     const result = render(
-      <Form setInput={setInput} input={input} handleSubmit={handleSubmit} />
+      <Form
+        allowAttachments
+        setInput={setInput}
+        input={input}
+        handleSubmit={handleSubmit}
+      />
     );
     expect(result.container).toBeDefined();
 
@@ -31,7 +36,12 @@ describe('Form', () => {
 
   it('can upload files to the input', async () => {
     const result = render(
-      <Form setInput={setInput} input={input} handleSubmit={handleSubmit} />
+      <Form
+        allowAttachments
+        setInput={setInput}
+        input={input}
+        handleSubmit={handleSubmit}
+      />
     );
     expect(result.container).toBeDefined();
 
