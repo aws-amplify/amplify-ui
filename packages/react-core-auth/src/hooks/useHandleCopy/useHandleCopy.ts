@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { isString, isTypedFunction } from '@aws-amplify/ui';
+import { isString, isFunction } from '@aws-amplify/ui';
 import { useTimeout } from '@aws-amplify/ui-react-core';
 
 interface UseHandleCopyParams {
@@ -52,7 +52,7 @@ export default function useHandleCopy({
     (v?: string) => {
       // prefer `v` passed to callback over `target`
       const copyValue = v ?? target;
-      if (isTypedFunction(copyHandler) && isString(copyValue)) {
+      if (isFunction(copyHandler) && isString(copyValue)) {
         copyHandler(copyValue);
         setValue(copyValue);
       }
