@@ -16,7 +16,6 @@ export interface StorageImageProps extends Omit<ImageProps, 'src'> {
    * `accessLevel` will be replaced with `path` in a future major version of Amplify UI. See https://ui.docs.amplify.aws/react/connected-components/storage/storageimage#props
    */
   accessLevel: StorageAccessLevel;
-  bucket?: StorageBucket;
   /**
    * @deprecated
    * `identityId` will be replaced with `path` in a future major version of Amplify UI. See https://ui.docs.amplify.aws/react/connected-components/storage/storageimage#props
