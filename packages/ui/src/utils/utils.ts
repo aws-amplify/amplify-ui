@@ -291,7 +291,7 @@ export function splitObject(
   return [left, right] as const;
 }
 
-export const cloneDeep = function (obj) {
+export const cloneDeep = function (obj: unknown) {
   if (obj === null || obj === undefined || typeof obj !== 'object') {
     return obj;
   }
@@ -304,9 +304,12 @@ export const cloneDeep = function (obj) {
   }
 
   if (obj instanceof Object) {
-    return Object.keys(obj || {}).reduce((cpObj, key) => {
-      cpObj[key] = cloneDeep(obj[key]);
-      return cpObj;
-    }, {});
+    return Object.keys(obj || {}).reduce(
+      (cpObj, key) => {
+        cpObj[key] = cloneDeep((obj as Record<string, unknown>)[key]);
+        return cpObj;
+      },
+      {} as Record<string, unknown>
+    );
   }
 };
