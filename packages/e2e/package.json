@@ -6,6 +6,7 @@
   "scripts": {
     "clean": "rimraf node_modules",
     "dev": "cypress open",
+    "test:ai": "cypress run --spec 'features/ui/components/ai/*.feature' --browser chrome",
     "test:examples": "cypress run --spec 'features/ui/hooks/*.feature','features/ui/components/**/*.feature' --browser chrome",
     "test:authenticator": "cypress run --spec 'features/ui/components/authenticator/*.feature' --browser chrome",
     "test:hooks": "cypress run --spec 'features/ui/hooks/*.feature' --browser chrome",
