@@ -4,21 +4,26 @@ import styles from 'rollup-plugin-styles';
 import externals from 'rollup-plugin-node-externals';
 
 // common config settings
-const input = {
-  index: 'src/index.ts',
-  browser: 'src/components/StorageBrowser/index.ts',
-};
+const input = ['src/index.ts'];
 const sourceMap = false;
 const tsconfig = 'tsconfig.dist.json';
+
+/**
+ * @type {import('rollup').OutputOptions}
+ */
+const cjsOutput = {
+  dir: 'dist',
+  esModule: true,
+  format: 'cjs',
+  generatedCode: { reservedNamesAsProps: false },
+  interop: 'auto',
+};
 
 const config = defineConfig([
   // CJS config
   {
     input,
-    output: {
-      dir: 'dist',
-      format: 'cjs',
-    },
+    output: cjsOutput,
     plugins: [
       externals({ include: /^@aws-amplify/ }),
       typescript({ declarationDir: 'dist/types', sourceMap, tsconfig }),
@@ -46,16 +51,7 @@ const config = defineConfig([
   },
   // CSS config
   {
-    input: 'src/styles/styles.ts',
-    output: {
-      dir: 'dist',
-      format: 'cjs',
-      assetFileNames: '[name][extname]',
-    },
-    plugins: [styles({ mode: ['extract'] })],
-  },
-  {
-    input: 'src/styles/storage-browser-styles.ts',
+    input: 'src/styles.ts',
     output: {
       dir: 'dist',
       format: 'cjs',
