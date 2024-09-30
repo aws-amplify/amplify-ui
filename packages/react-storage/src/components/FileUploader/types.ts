@@ -78,10 +78,6 @@ export interface FileUploaderProps {
    */
   autoUpload?: boolean;
   /**
-   * Designates the bucket to upload to, if the user has multiple buckets configured
-   */
-  bucket?: StorageBucket;
-  /**
    * Component overrides
    */
   components?: {

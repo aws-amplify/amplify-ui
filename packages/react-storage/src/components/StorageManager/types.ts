@@ -1,22 +1,5 @@
-import * as React from 'react';
-
-import type { StorageAccessLevel } from '@aws-amplify/core';
-
-import { FileStatus } from '../FileUploader/types';
-import {
-  FileUploaderDisplayText as StorageManagerDisplayText,
-  PathCallback,
-  UploadTask,
-} from '../FileUploader/utils';
-
-import {
-  ContainerProps,
-  DropZoneProps,
-  FileListHeaderProps,
-  FileListFooterProps,
-  FileListProps,
-  FilePickerProps,
-} from './ui';
+import { FileStatus, FileUploaderProps } from '../FileUploader/types';
+import { PathCallback, UploadTask } from '../FileUploader/utils';
 
 interface BucketInfo {
   bucketName: string;
@@ -58,88 +41,7 @@ export interface StorageManagerHandle {
   clearFiles: () => void;
 }
 
-export interface StorageManagerProps {
-  /**
-   * List of accepted File types, values of `['*']` or undefined allow any files
-   * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept
-   */
-  acceptedFileTypes?: string[];
-  /**
-   * Access level for file uploads
-   * @see https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/
-   */
-  accessLevel: StorageAccessLevel;
-
-  /**
-   * Determines if the upload will automatically start after a file is selected, default value: true
-   */
-  autoUpload?: boolean;
-  /**
-   * Designates the bucket to upload to, if the user has multiple buckets configured
-   */
-  bucket?: StorageBucket;
-  /**
-   * Component overrides
-   */
-  components?: {
-    Container?: React.ComponentType<ContainerProps>;
-    DropZone?: React.ComponentType<DropZoneProps>;
-    FileList?: React.ComponentType<FileListProps>;
-    FilePicker?: React.ComponentType<FilePickerProps>;
-    FileListHeader?: React.ComponentType<FileListHeaderProps>;
-    FileListFooter?: React.ComponentType<FileListFooterProps>;
-  };
-  /**
-   * List of default files already uploaded
-   */
-  defaultFiles?: DefaultFile[];
-  /**
-   * Overrides default display text
-   */
-  displayText?: StorageManagerDisplayText;
-  /**
-   * Determines if upload can be paused / resumed
-   */
-  isResumable?: boolean;
-  /**
-   * Maximum total files to upload in each batch
-   */
-  maxFileCount: number;
-  /**
-   * Maximum file size in bytes
-   */
-  maxFileSize?: number;
-  /**
-   * When a file is removed
-   */
-  onFileRemove?: (file: { key: string }) => void;
-  /**
-   * Monitor upload errors
-   */
-  onUploadError?: (error: string, file: { key: string }) => void;
-  /**
-   * Monitor upload success
-   */
-  onUploadSuccess?: (event: { key?: string }) => void;
-  /**
-   * When a file begins uploading
-   */
-  onUploadStart?: (event: { key?: string }) => void;
-  /**
-   * Process file before upload
-   */
-  processFile?: ProcessFile;
-  /**
-   * Determines if thumbnails show for image files
-   */
-  showThumbnails?: boolean;
-  /**
-   * Provided value is prefixed to the file `key` for each file
-   */
-  path?: string;
-
-  useAccelerateEndpoint?: boolean;
-}
+export interface StorageManagerProps extends FileUploaderProps {}
 
 export interface StorageManagerPathProps
   extends Omit<StorageManagerProps, 'accessLevel' | 'path'> {
