@@ -5,7 +5,7 @@ export const App = () => {
     <FileUploader
       acceptedFileTypes={['image/*']}
       bucket={{
-        bucketName: 'my-bucket-96e87892835c413e9963f3004a44e1ff',
+        bucketName: 'my-bucket-xxxxxxxx',
         region: 'us-west-2',
       }}
       path="public/"
