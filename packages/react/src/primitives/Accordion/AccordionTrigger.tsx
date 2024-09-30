@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { classNames } from '@aws-amplify/ui';
 
-import { ComponentClassName, isTypedFunction } from '@aws-amplify/ui';
+import { ComponentClassName, isFunction } from '@aws-amplify/ui';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
@@ -20,7 +20,7 @@ const AccordionTriggerPrimitive: Primitive<AccordionTriggerProps, 'summary'> = (
   const context = React.useContext(AccordionContext);
   const value = React.useContext(AccordionItemContext);
   const handleOnClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    if (isTypedFunction(rest.onClick)) {
+    if (isFunction(rest.onClick)) {
       rest.onClick(e);
     }
 

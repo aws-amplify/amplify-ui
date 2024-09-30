@@ -36,6 +36,7 @@ function Chat() {
         messages={messages}
         handleSendMessage={sendMessage}
         isLoading={isLoading}
+        allowAttachments
         suggestedPrompts={[
           {
             inputText: 'hello',

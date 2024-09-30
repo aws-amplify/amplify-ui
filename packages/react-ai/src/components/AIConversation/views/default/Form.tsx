@@ -11,15 +11,49 @@ import { ComponentClassName } from '@aws-amplify/ui';
 import { ControlsContextProps } from '../../context/ControlsContext';
 import { Attachments } from './Attachments';
 import { LoadingContext } from '../../context/LoadingContext';
+import { ConversationInputContext } from '../../context';
 
 function isHTMLFormElement(target: EventTarget): target is HTMLFormElement {
   return 'form' in target;
 }
 
+/**
+ * Will conditionally render the DropZone if allowAttachments
+ * is true
+ */
+const FormWrapper = ({
+  children,
+  allowAttachments,
+  setInput,
+}: {
+  children: React.ReactNode;
+  allowAttachments?: boolean;
+  setInput: ConversationInputContext['setInput'];
+}) => {
+  if (allowAttachments) {
+    return (
+      <DropZone
+        className={ComponentClassName.AIConversationFormDropzone}
+        onDropComplete={({ acceptedFiles }) => {
+          setInput?.((prevInput) => ({
+            ...prevInput,
+            files: [...(prevInput?.files ?? []), ...acceptedFiles],
+          }));
+        }}
+      >
+        {children}
+      </DropZone>
+    );
+  } else {
+    return children;
+  }
+};
+
 export const Form: NonNullable<ControlsContextProps['Form']> = ({
   setInput,
   input,
   handleSubmit,
+  allowAttachments,
 }) => {
   const icons = useIcons('aiConversation');
   const sendIcon = icons?.send ?? <IconSend />;
@@ -29,51 +63,46 @@ export const Form: NonNullable<ControlsContextProps['Form']> = ({
   const isInputEmpty = !input?.text?.length && !input?.files?.length;
 
   return (
-    <DropZone
-      className={ComponentClassName.AIConversationFormDropzone}
-      onDropComplete={({ acceptedFiles }) => {
-        setInput((prevInput) => ({
-          ...prevInput,
-          files: [...(prevInput?.files ?? []), ...acceptedFiles],
-        }));
-      }}
-    >
+    <FormWrapper allowAttachments={allowAttachments} setInput={setInput}>
       <View
         as="form"
         className={ComponentClassName.AIConversationForm}
         onSubmit={handleSubmit}
       >
-        <Button
-          className={ComponentClassName.AIConversationFormAttach}
-          onClick={() => {
-            hiddenInput?.current?.click();
-            if (hiddenInput?.current) {
-              hiddenInput.current.value = '';
-            }
-          }}
-        >
-          <span>{attachIcon}</span>
-          <VisuallyHidden>
-            <input
-              type="file"
-              tabIndex={-1}
-              ref={hiddenInput}
-              onChange={(e) => {
-                const { files } = e.target;
-                if (!files || files.length === 0) {
-                  return;
-                }
-                setInput((prevValue) => ({
-                  ...prevValue,
-                  files: [...(prevValue?.files ?? []), ...Array.from(files)],
-                }));
-              }}
-              multiple
-              accept="*"
-              data-testid="hidden-file-input"
-            />
-          </VisuallyHidden>
-        </Button>
+        {allowAttachments ? (
+          <Button
+            className={ComponentClassName.AIConversationFormAttach}
+            onClick={() => {
+              hiddenInput?.current?.click();
+              if (hiddenInput?.current) {
+                hiddenInput.current.value = '';
+              }
+            }}
+          >
+            <span>{attachIcon}</span>
+            <VisuallyHidden>
+              <input
+                type="file"
+                tabIndex={-1}
+                ref={hiddenInput}
+                onChange={(e) => {
+                  const { files } = e.target;
+                  if (!files || files.length === 0) {
+                    return;
+                  }
+                  setInput((prevValue) => ({
+                    ...prevValue,
+                    files: [...(prevValue?.files ?? []), ...Array.from(files)],
+                  }));
+                }}
+                multiple
+                accept="*"
+                data-testid="hidden-file-input"
+              />
+            </VisuallyHidden>
+          </Button>
+        ) : null}
+
         <TextAreaField
           className={ComponentClassName.AIConversationFormField}
           label="input"
@@ -111,6 +140,6 @@ export const Form: NonNullable<ControlsContextProps['Form']> = ({
         </Button>
       </View>
       <Attachments setInput={setInput} files={input?.files} />
-    </DropZone>
+    </FormWrapper>
   );
 };
