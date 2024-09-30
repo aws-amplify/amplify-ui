@@ -162,45 +162,6 @@ describe('theme utils', () => {
     });
   });
 
-  // https://github.com/amzn/style-dictionary/blob/main/__tests__/utils/reference/usesReference.test.js
-  describe('usesReference()', () => {
-    it(`returns false for non-strings`, () => {
-      expect(usesReference(42)).toBe(false);
-    });
-
-    it(`returns false if value uses no reference`, () => {
-      expect(usesReference('foo.bar')).toBe(false);
-    });
-
-    it(`returns true if value is a reference`, () => {
-      expect(usesReference('{foo.bar}')).toBe(true);
-    });
-
-    it(`should return true if value uses a reference`, () => {
-      expect(usesReference('baz {foo.bar}')).toBe(true);
-    });
-
-    it(`returns true if an object uses a reference`, () => {
-      expect(usesReference({ foo: '{bar}' })).toBe(true);
-    });
-
-    it(`returns false if an object doesn't have a reference`, () => {
-      expect(usesReference({ foo: 'bar' })).toBe(false);
-    });
-
-    it(`returns true if a nested object has a reference`, () => {
-      expect(usesReference({ foo: { bar: '{bar}' } })).toBe(true);
-    });
-
-    it(`returns true if an array uses a reference`, () => {
-      expect(usesReference(['foo', '{bar}'])).toBe(true);
-    });
-
-    it(`returns false if an array doesn't use a reference`, () => {
-      expect(usesReference(['foo', 'bar'])).toBe(false);
-    });
-  });
-
   // https://github.com/amzn/style-dictionary/blob/main/__tests__/utils/deepExtend.test.js
   describe('deepExtend', () => {
     it('should return an object', () => {

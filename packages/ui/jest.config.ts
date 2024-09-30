@@ -8,10 +8,6 @@ const config: Config = {
     '!<rootDir>/src/index.ts',
     // ignore internal `debugUtils` from coverage thresholds
     '!<rootDir>/**/debugUtils.ts',
-    // ignore coverage for copied style-dictionary functions
-    '!<rootDir>/src/theme/createTheme/resolveObject.ts',
-    '!<rootDir>/src/utils/references.ts',
-    '!<rootDir>/src/utils/groupMessages.ts',
   ],
   coverageThreshold: {
     global: {

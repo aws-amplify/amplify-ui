@@ -8,10 +8,8 @@ const defaults = {
 
 /**
  * Checks if the value uses a value reference.
- * @param {string} value
- * @returns {boolean} - True, if the value uses a value reference
  */
-export function usesReference(value: any, regexOrOptions = {}): boolean {
+export function usesReference(value: unknown, regexOrOptions = {}): boolean {
   const regex =
     regexOrOptions instanceof RegExp
       ? regexOrOptions
@@ -81,13 +79,8 @@ export function createReferenceRegex(opts = {}) {
 
 /**
  * Returns the path from a path name be splitting the name by a given separator.
- *
- * @private
- * @param {string} pathName
- * @param {Object} opts
- * @returns {Array} - The path
  */
-export function getPathFromName(pathName, opts = {}) {
+export function getPathFromName(pathName: string, opts = {}): Array<string> {
   const options = Object.assign({}, defaults, opts);
   if (typeof pathName !== 'string') {
     throw new Error('Getting path from name failed. Name must be a string');
@@ -97,13 +90,8 @@ export function getPathFromName(pathName, opts = {}) {
 
 /**
  * Returns the paths name be joining its parts with a given separator.
- *
- * @private
- * @param {Array} path
- * @param {Object} opts
- * @returns {string} - The paths name
  */
-export function getName(path, opts = {}) {
+export function getName(path: Array<string>, opts = {}): string {
   const options = Object.assign({}, defaults, opts);
   if (!path || !(path instanceof Array)) {
     throw new Error('Getting name for path failed. Path must be an array');
