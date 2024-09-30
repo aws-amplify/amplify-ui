@@ -1,7 +1,6 @@
 import { DataState, useDataState } from '@aws-amplify/ui-react-core';
 import { V6Client } from '@aws-amplify/api-graphql';
 import { getSchema } from '../types';
-import React from 'react';
 
 export interface UseAIGenerationHookWrapper<
   Key extends keyof AIGenerationClient<Schema>['generations'],
@@ -59,10 +58,6 @@ export function createUseAIGeneration<
     state: GenerateState<Schema[Key]['returnType']>,
     handleAction: (input: Schema[Key]['args']) => void,
   ] => {
-    const [graphqlErrors, setGraphqlErrors] = React.useState<
-      GraphQLFormattedError[] | undefined
-    >(undefined);
-
     const handleGenerate = (
       client.generations as AIGenerationClient<Schema>['generations']
     )[routeName];
@@ -71,21 +66,18 @@ export function createUseAIGeneration<
       _prev: Schema[Key]['returnType'],
       input: Schema[Key]['args']
     ): Promise<Schema[Key]['returnType']> => {
-      const result = await handleGenerate(input);
-
-      const { data, errors } = result as SingularReturnValue<
-        Schema[Key]['returnType']
-      >;
-      setGraphqlErrors(errors);
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-      return data;
+      return await handleGenerate(input);
     };
 
-    const [data, handler] = useDataState(
+    const [result, handler] = useDataState(
       updateAIGenerationStateAction,
       undefined
     );
-    return [{ ...data, graphqlErrors }, handler];
+
+    const { data, errors } =
+      (result?.data as SingularReturnValue<Schema[Key]['returnType']>) ?? {};
+
+    return [{ ...result, data, graphqlErrors: errors }, handler];
   };
 
   return useAIGeneration;
