@@ -15,6 +15,7 @@ import {
 import { ControlsContext } from '../../context/ControlsContext';
 import { getImageTypeFromMimeType } from '../../utils';
 import { LoadingContext } from '../../context/LoadingContext';
+import { AttachmentContext } from '../../context/AttachmentContext';
 
 const {
   Button,
@@ -148,6 +149,7 @@ const InputContainer = withBaseElementProps(View, {
 export const FieldControl: FieldControl = () => {
   const { input, setInput } = React.useContext(ConversationInputContext);
   const handleSendMessage = React.useContext(SendMessageContext);
+  const allowAttachments = React.useContext(AttachmentContext);
   const ref = React.useRef<HTMLFormElement | null>(null);
   const responseComponents = React.useContext(ResponseComponentsContext);
   const controls = React.useContext(ControlsContext);
@@ -212,6 +214,7 @@ export const FieldControl: FieldControl = () => {
         handleSubmit={handleSubmit}
         input={input!}
         setInput={setInput!}
+        allowAttachments={allowAttachments}
       />
     );
   }
@@ -223,7 +226,7 @@ export const FieldControl: FieldControl = () => {
       method="post"
       ref={ref}
     >
-      <AttachFileControl />
+      {allowAttachments ? <AttachFileControl /> : null}
       <InputContainer>
         <VisuallyHidden>
           <Label />
