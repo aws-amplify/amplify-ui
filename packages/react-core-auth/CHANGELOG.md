@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react-core-auth
 
+## 0.0.28
+
+### Patch Changes
+
+- [#5849](https://github.com/aws-amplify/amplify-ui/pull/5849) [`22e285f58`](https://github.com/aws-amplify/amplify-ui/commit/22e285f5802e40b78c5a055a7384943c41252428) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(utils): prefer isFunction
+
+- Updated dependencies [[`22e285f58`](https://github.com/aws-amplify/amplify-ui/commit/22e285f5802e40b78c5a055a7384943c41252428), [`545aa6a60`](https://github.com/aws-amplify/amplify-ui/commit/545aa6a608b68b9fb78f5df56da0e1e09b537d58), [`87d74a7de`](https://github.com/aws-amplify/amplify-ui/commit/87d74a7deaa7d0cf393dfed3fb3cc85a3790c382)]:
+  - @aws-amplify/ui-react-core@3.0.26
+  - @aws-amplify/ui@6.6.2
+
 ## 0.0.27
 
 ### Patch Changes
