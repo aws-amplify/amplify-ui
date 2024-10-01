@@ -52,4 +52,4 @@ export {
 
 export { MergeProps } from './types';
 
-export { createContextUtilities } from './utils';
+export { createContextUtilities, withContext, WithContext } from './utils';
