@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { DataAction } from '@aws-amplify/ui-react-core';
+import { AsyncDataAction, DataAction } from '@aws-amplify/ui-react-core';
 
 import { Permission } from '../types';
 import { useGetLocationConfig } from '../config';
 
 import {
   ActionState,
+  InitialValue,
   createActionStateContext,
 } from './createActionStateContext';
 
@@ -20,11 +21,15 @@ export type ActionsWithConfig = {
 };
 
 export type DefaultActions = typeof DEFAULT_ACTIONS;
-export type WithLocationConfig<T> = T extends DataAction<infer K, infer U>
+export type WithLocationConfig<T> = T extends AsyncDataAction<infer K, infer U>
+  ? AsyncDataAction<K, Omit<U, 'config'>>
+  : T extends DataAction<infer K, infer U>
   ? DataAction<K, Omit<U, 'config'>>
   : never;
 
-export type UseActionState<T> = T extends DataAction<infer K, infer U>
+export type UseActionState<T> = T extends
+  | AsyncDataAction<infer K, infer U>
+  | DataAction<infer K, infer U>
   ? ActionState<K, U>
   : never;
 
@@ -36,7 +41,7 @@ export const DEFAULT_ACTIONS = {
   LIST_LOCATION_ITEMS: listLocationItemsAction,
 };
 
-export const INITIAL_VALUE = {
+export const INITIAL_VALUE: InitialValue<ActionsWithConfig> = {
   CREATE_FOLDER: { result: undefined },
   LIST_LOCATION_ITEMS: { result: [], nextToken: undefined },
 };

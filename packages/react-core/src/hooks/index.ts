@@ -1,4 +1,9 @@
-export { default as useDataState, DataAction, DataState } from './useDataState';
+export {
+  default as useDataState,
+  AsyncDataAction,
+  DataAction,
+  DataState,
+} from './useDataState';
 
 export {
   default as useDeprecationWarning,

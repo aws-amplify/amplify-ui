@@ -2,8 +2,9 @@ import React from 'react';
 import { act, renderHook } from '@testing-library/react-hooks';
 
 import { createActionStateContext } from '../createActionStateContext';
+import { AsyncDataAction } from '@aws-amplify/ui-react-core';
 
-const actionOne = jest.fn(
+const actionOne: AsyncDataAction = jest.fn(
   (
     _: { value: string | undefined },
     { inputValue }: { inputValue: string }
@@ -11,7 +12,7 @@ const actionOne = jest.fn(
     Promise.resolve({ value: inputValue })
 );
 
-const actionTwo = jest.fn(
+const actionTwo: AsyncDataAction = jest.fn(
   (
     _: { anotherValue: boolean },
     { inputValue }: { inputValue: boolean }
@@ -19,12 +20,11 @@ const actionTwo = jest.fn(
     Promise.resolve({ anotherValue: inputValue })
 );
 
+const actions = { actionOne, actionTwo };
 const initialValue = {
   actionOne: { value: undefined },
   actionTwo: { anotherValue: false },
 };
-
-const actions = { actionOne, actionTwo };
 
 describe('createActionStateContext', () => {
   it('creates a composed `Provider`', async () => {

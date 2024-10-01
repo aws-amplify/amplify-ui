@@ -36,7 +36,7 @@ type CreateContextUtilitiesReturn<ContextType, ContextName extends string> = {
     : Key extends `use${string}`
     ? (params?: HookParams) => ContextType
     : Key extends `${string}Context`
-    ? React.Context<ContextType | undefined>
+    ? React.Context<ContextType>
     : never;
 };
 
@@ -89,7 +89,7 @@ type CreateContextUtilitiesReturn<ContextType, ContextName extends string> = {
 export default function createContextUtilities<
   ContextType,
   ContextName extends string = string,
-  Message extends string | undefined = string | undefined
+  Message extends string | undefined = string | undefined,
 >(
   options: ContextOptions<ContextType, ContextName, Message>
 ): CreateContextUtilitiesReturn<ContextType, ContextName> {
