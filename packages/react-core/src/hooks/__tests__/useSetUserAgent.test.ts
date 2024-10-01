@@ -1,26 +1,22 @@
-import * as UserAgentModule from '@aws-amplify/core/internals/utils';
-import { SetUserAgentOptions } from '@aws-amplify/ui/src/utils/setUserAgent/setUserAgent';
 import { renderHook } from '@testing-library/react-hooks';
+
+import * as UserAgentModule from '@aws-amplify/ui';
 
 import useSetUserAgent from '../useSetUserAgent';
 
 describe('useSetUserAgent', () => {
-  const setCustomUserAgentSpy = jest.spyOn(
-    UserAgentModule,
-    'setCustomUserAgent'
-  );
-
-  beforeEach(() => {
-    setCustomUserAgentSpy.mockReset();
-  });
-
   it('should call setUserAgent when component mounts', () => {
-    const details: SetUserAgentOptions = {
+    const setCustomUserAgentSpy = jest.spyOn(UserAgentModule, 'setUserAgent');
+
+    const details: UserAgentModule.SetUserAgentOptions = {
       componentName: 'Authenticator',
       packageName: 'vue',
       version: '1.0.0',
     };
+
     renderHook(() => useSetUserAgent(details));
+
     expect(setCustomUserAgentSpy).toHaveBeenCalledTimes(1);
+    expect(setCustomUserAgentSpy).toHaveBeenCalledWith(details);
   });
 });
