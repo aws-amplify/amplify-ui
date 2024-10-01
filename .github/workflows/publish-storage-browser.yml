@@ -64,6 +64,6 @@ jobs:
     uses: ./.github/workflows/reusable-tagged-publish.yml
     needs: e2e
     with:
-      dist-tag: storage-browser-alpha
+      dist-tag: storage-browser
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
