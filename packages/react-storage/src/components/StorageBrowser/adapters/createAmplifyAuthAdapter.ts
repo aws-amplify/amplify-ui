@@ -1,7 +1,7 @@
 import { Amplify } from 'aws-amplify';
 import { Hub } from 'aws-amplify/utils';
 import { AuthSession, fetchAuthSession } from 'aws-amplify/auth';
-import { LocationCredentialsProvider } from '@aws-amplify/storage/storage-browser';
+import { LocationCredentialsProvider } from '@aws-amplify/storage/internals';
 
 import { StorageBrowserAuthAdapter } from './types';
 import { LocationAccess } from '../context/types';

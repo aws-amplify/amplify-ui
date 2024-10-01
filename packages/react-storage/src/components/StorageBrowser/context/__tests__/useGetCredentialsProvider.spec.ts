@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react';
-import * as StorageBrowserModule from '@aws-amplify/storage/storage-browser';
+import * as StorageBrowserModule from '@aws-amplify/storage/internals';
 
 import { useGetCredentialsProvider } from '../useGetCredentialsProvider';
 

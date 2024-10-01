@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ListLocations } from '@aws-amplify/storage/storage-browser';
+import { ListLocations } from '@aws-amplify/storage/internals';
 import { ElementsProvider } from '@aws-amplify/ui-react-core/elements';
 
 import { ActionProvider, createListLocationsAction } from './context/actions';

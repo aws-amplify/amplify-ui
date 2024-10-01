@@ -1,4 +1,4 @@
-import { ListLocations } from '@aws-amplify/storage/storage-browser';
+import { ListLocations } from '@aws-amplify/storage/internals';
 import { createListLocationsAction } from '../listLocationsAction';
 import { LocationAccess } from '../../types';
 

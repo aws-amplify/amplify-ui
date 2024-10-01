@@ -1,7 +1,7 @@
 import {
   ListLocations,
   ListLocationsOutput,
-} from '@aws-amplify/storage/storage-browser';
+} from '@aws-amplify/storage/internals';
 
 import {
   ListActionInput,
