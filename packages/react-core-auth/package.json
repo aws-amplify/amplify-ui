@@ -41,7 +41,7 @@
     "xstate": "^4.33.6"
   },
   "peerDependencies": {
-    "@aws-amplify/core": "storage-browser",
+    "@aws-amplify/core": "*",
     "aws-amplify": "storage-browser",
     "react": "^16.14.0 || ^17.0 || ^18.0"
   },

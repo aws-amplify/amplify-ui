@@ -679,20 +679,6 @@
     tslib "^2.5.0"
     uuid "^9.0.0"
 
-"@aws-amplify/core@storage-browser":
-  version "6.4.3-storage-browser.53c96b8.0"
-  resolved "https://registry.npmjs.org/@aws-amplify/core/-/core-6.4.3-storage-browser.53c96b8.0.tgz#96d637afe43fb9eb4cc68d1be1270606d8700d06"
-  integrity sha512-eHCOFMqXuSv47B5ggEaW/0VaeEu789adogf8rgQsItYzUBSTywykzC3e2g6mZ/atAGkDMBL2YhsCD7ozGNpKBw==
-  dependencies:
-    "@aws-crypto/sha256-js" "5.2.0"
-    "@aws-sdk/types" "3.398.0"
-    "@smithy/util-hex-encoding" "2.0.0"
-    "@types/uuid" "^9.0.0"
-    js-cookie "^3.0.5"
-    rxjs "^7.8.1"
-    tslib "^2.5.0"
-    uuid "^9.0.0"
-
 "@aws-amplify/data-construct@^1.9.6":
   version "1.10.0"
   resolved "https://registry.npmjs.org/@aws-amplify/data-construct/-/data-construct-1.10.0.tgz#ed799009ea3e4314f97aac34073abcff69832b37"

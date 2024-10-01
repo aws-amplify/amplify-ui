@@ -65,7 +65,7 @@
     "vite-jest": "^0.1.4"
   },
   "peerDependencies": {
-    "@aws-amplify/core": "storage-browser",
+    "@aws-amplify/core": "*",
     "aws-amplify": "storage-browser",
     "vue": "^3.0"
   }

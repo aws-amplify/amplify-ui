@@ -42,7 +42,7 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "@aws-amplify/core": "storage-browser",
+    "@aws-amplify/core": "*",
     "aws-amplify": "storage-browser",
     "react": "^16.14.0 || ^17.0 || ^18.0",
     "react-dom": "^16.14.0 || ^17.0 || ^18.0"
