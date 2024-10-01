@@ -12,7 +12,7 @@
     "./browser": {
       "main": "./dist/browser.js",
       "types": "./dist/types/components/StorageBrowser/index.d.ts",
-      "import": "./dist/esm/components/StorageBrowser/browser.mjs"
+      "import": "./dist/esm/browser.mjs"
     },
     "./styles.css": "./dist/styles.css",
     "./storage-browser-styles.css": "./dist/storage-browser-styles.css"
@@ -65,7 +65,7 @@
   "size-limit": [
     {
       "name": "createStorageBrowser",
-      "path": "dist/esm/components/StorageBrowser/browser.mjs",
+      "path": "dist/esm/browser.mjs",
       "import": "{ createStorageBrowser }",
       "limit": "15.2 kB"
     },
