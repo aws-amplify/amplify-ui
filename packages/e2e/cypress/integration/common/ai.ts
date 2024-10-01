@@ -1,5 +1,5 @@
 import { Then } from '@badeball/cypress-cucumber-preprocessor';
-import { escapeRegExp } from 'cypress/types/lodash';
+import { escapeRegExp } from 'lodash';
 
 Then('I type {string}', (message: string) => {
   cy.wait(1000); // todo: remove this once we figure out what's causing re-render
