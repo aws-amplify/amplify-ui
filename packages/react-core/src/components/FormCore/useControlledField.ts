@@ -6,7 +6,7 @@ import {
   UseControlledField,
   UseControlledFieldParams,
 } from './types';
-import { isTypedFunction } from '@aws-amplify/ui';
+import { isFunction } from '@aws-amplify/ui';
 
 export const DEFAULT_ERROR_MESSAGE =
   '`useControlledField` must be used within a `FormProvider`';
@@ -44,7 +44,7 @@ export default function useControlledField<OnBlur extends FocusHandler>({
   const hasError = !!errorMessage;
 
   const handleBlur = (event: Parameters<OnBlur>[0]) => {
-    if (isTypedFunction(_onBlur)) {
+    if (isFunction(_onBlur)) {
       _onBlur(event);
     }
     // `useController.onBlur` does not receive params
@@ -52,7 +52,7 @@ export default function useControlledField<OnBlur extends FocusHandler>({
   };
 
   const handleChangeText = (event: string) => {
-    if (isTypedFunction(_onChangeText)) {
+    if (isFunction(_onChangeText)) {
       _onChangeText(event);
     }
     onChangeText(event);

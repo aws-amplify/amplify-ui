@@ -1,4 +1,4 @@
-import { DefaultTheme, WebTheme } from '../types';
+import { WebTheme } from '../types';
 import { propsToString } from './utils';
 import { ComponentsTheme } from '../components';
 import { isFunction, splitObject } from '../../utils';
