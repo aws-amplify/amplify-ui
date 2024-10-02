@@ -3,6 +3,7 @@
   "version": "5.0.27",
   "scripts": {
     "build": "yarn --cwd ../../ build",
+    "clean": "yarn --cwd ../../ clean",
     "dev": "yarn --cwd ../../ dev",
     "lint": "yarn --cwd ../../ lint",
     "test": "yarn --cwd ../../ test"
