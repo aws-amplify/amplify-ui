@@ -16,6 +16,7 @@ export interface StorageImageProps extends Omit<ImageProps, 'src'> {
    * `accessLevel` will be replaced with `path` in a future major version of Amplify UI. See https://ui.docs.amplify.aws/react/connected-components/storage/storageimage#props
    */
   accessLevel: StorageAccessLevel;
+  bucket?: never;
   /**
    * @deprecated
    * `identityId` will be replaced with `path` in a future major version of Amplify UI. See https://ui.docs.amplify.aws/react/connected-components/storage/storageimage#props
@@ -37,6 +38,7 @@ export interface StorageImageProps extends Omit<ImageProps, 'src'> {
 
 type OmittedPropKey =
   | 'accessLevel'
+  | 'bucket'
   | 'imgKey'
   | 'identityId'
   | 'onStorageGetError'

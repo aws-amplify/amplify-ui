@@ -80,6 +80,7 @@ export interface FileUploaderProps {
   /**
    * Component overrides
    */
+  bucket?: never;
   components?: {
     Container?: React.ComponentType<ContainerProps>;
     DropZone?: React.ComponentType<DropZoneProps>;
@@ -141,7 +142,7 @@ export interface FileUploaderProps {
 }
 
 export interface FileUploaderPathProps
-  extends Omit<FileUploaderProps, 'accessLevel' | 'path'> {
+  extends Omit<FileUploaderProps, 'accessLevel' | 'bucket' | 'path'> {
   /**
    * S3 bucket key, allows either a `string` or a `PathCallback`:
    * - `string`: `path` is prefixed to the file `key` for each file

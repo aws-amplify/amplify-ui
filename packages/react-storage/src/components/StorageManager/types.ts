@@ -44,7 +44,7 @@ export interface StorageManagerHandle {
 export interface StorageManagerProps extends FileUploaderProps {}
 
 export interface StorageManagerPathProps
-  extends Omit<StorageManagerProps, 'accessLevel' | 'path'> {
+  extends Omit<StorageManagerProps, 'accessLevel' | 'bucket' | 'path'> {
   /**
    * S3 bucket key, allows either a `string` or a `PathCallback`:
    * - `string`: `path` is prefixed to the file `key` for each file
