@@ -27,7 +27,7 @@ export interface ListLocationsActionInput<T = Permission | LocationType>
     'config' | 'prefix'
   > {
   // `ListLocations` does not require `bucket`
-  config: Omit<ActionConfig, 'bucket'>;
+  config: Omit<ActionInputConfig, 'bucket'>;
 }
 export interface ListLocationsActionOutput<T = Permission | LocationType>
   extends ListActionOutput<LocationData<T>> {}
