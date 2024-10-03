@@ -1,7 +1,7 @@
 import { Permission } from '@aws-amplify/storage/internals';
 
 import {
-  ActionConfig,
+  ActionInputConfig,
   ListActionOptions,
   ListActionInput,
   ListActionOutput,
