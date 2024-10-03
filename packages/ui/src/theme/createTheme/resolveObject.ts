@@ -10,29 +10,38 @@ import {
   usesReference,
 } from '../../utils';
 
-let currentContext = []; // To maintain the context to be able to test for circular definitions
 const DEFAULTS = {
   ignoreKeys: ['original'],
 };
-let updatedObject;
 
 export function resolveObject<T>(object: Record<string, any>): T {
-  updatedObject = cloneDeep(object); // This object will be edited
-
+  const foundCirc: Record<string, boolean> = {};
+  const clone = cloneDeep(object); // This object will be edited
+  const currentContext: string[] = []; // To maintain the context to be able to test for circular definitions
   if (typeof object === 'object') {
-    currentContext = [];
-    return traverseObject({ object: updatedObject }) as T;
+    return traverseObject({
+      slice: clone,
+      fullObj: clone,
+      currentContext,
+      foundCirc,
+    }) as T;
   } else {
     throw new Error('Please pass an object in');
   }
 }
 
-export function traverseObject<T>({ object }): T {
-  for (let key in object) {
-    if (!has(object, key)) {
+export function traverseObject<T>({
+  slice,
+  fullObj,
+  currentContext,
+  foundCirc,
+}): T {
+  for (let key in slice) {
+    if (!has(slice, key)) {
       continue;
     }
 
+    const prop = slice[key];
     // We want to check for ignoredKeys, this is to
     // skip over attributes that should not be
     // mutated, like a copy of the original property.
@@ -41,24 +50,25 @@ export function traverseObject<T>({ object }): T {
     }
 
     currentContext.push(key);
-    if (typeof object[key] === 'object') {
-      traverseObject({ object: object[key] });
+    if (typeof prop === 'object') {
+      traverseObject({ currentContext, slice: prop, fullObj, foundCirc });
     } else {
-      if (typeof object[key] === 'string' && object[key].indexOf('{') > -1) {
-        object[key] = compileValue({
-          value: object[key],
+      if (typeof prop === 'string' && prop.indexOf('{') > -1) {
+        slice[key] = compileValue({
+          value: prop,
           stack: [getName(currentContext)],
+          foundCirc,
+          fullObj,
         });
       }
     }
     currentContext.pop();
   }
 
-  return object as T;
+  return fullObj as T;
 }
 
-let foundCirc = {};
-export function compileValue({ value, stack }) {
+export function compileValue({ value, stack, foundCirc, fullObj }) {
   let toRet = value,
     ref;
 
@@ -74,7 +84,7 @@ export function compileValue({ value, stack }) {
 
     stack.push(variable);
 
-    ref = resolveReference(pathName, updatedObject);
+    ref = resolveReference(pathName, fullObj);
 
     // If the reference doesn't end in 'value'
     // and
@@ -115,7 +125,7 @@ export function compileValue({ value, stack }) {
             // Add our found circular reference to the end of the cycle
             circStack.push(reference);
           } else {
-            toRet = compileValue({ value: toRet, stack });
+            toRet = compileValue({ value: toRet, stack, foundCirc, fullObj });
           }
         }
         // if evaluated value is a number and equal to the reference, we want to keep the type
