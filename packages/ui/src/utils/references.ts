@@ -1,6 +1,6 @@
 import { has } from './utils';
 
-const defaults = {
+const DEFAULTS = {
   openingCharacter: '{',
   closingCharacter: '}',
   separator: '.',
@@ -63,7 +63,7 @@ export function resolveReference(path, obj) {
 }
 
 export function createReferenceRegex(opts = {}) {
-  const options = Object.assign({}, defaults, opts);
+  const options = Object.assign({}, DEFAULTS, opts);
 
   return new RegExp(
     '\\' +
@@ -81,7 +81,7 @@ export function createReferenceRegex(opts = {}) {
  * Returns the path from a path name be splitting the name by a given separator.
  */
 export function getPathFromName(pathName: string, opts = {}): Array<string> {
-  const options = Object.assign({}, defaults, opts);
+  const options = Object.assign({}, DEFAULTS, opts);
   if (typeof pathName !== 'string') {
     throw new Error('Getting path from name failed. Name must be a string');
   }
@@ -92,7 +92,7 @@ export function getPathFromName(pathName: string, opts = {}): Array<string> {
  * Returns the paths name be joining its parts with a given separator.
  */
 export function getName(path: Array<string>, opts = {}): string {
-  const options = Object.assign({}, defaults, opts);
+  const options = Object.assign({}, DEFAULTS, opts);
   if (!path || !(path instanceof Array)) {
     throw new Error('Getting name for path failed. Path must be an array');
   }

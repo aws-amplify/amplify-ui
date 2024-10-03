@@ -15,28 +15,28 @@ const PROPERTY_REFERENCE_WARNINGS =
   GroupMessages.GROUP.PropertyReferenceWarnings;
 
 let currentContext = []; // To maintain the context to be able to test for circular definitions
-const defaults = {
+const DEFAULTS = {
   ignoreKeys: ['original'],
   ignorePaths: [],
 };
-let updatedObject, regex, options;
+let updatedObject;
 
 export function resolveObject<T>(object: Record<string, any>): T {
-  options = Object.assign({}, defaults);
+  const options = Object.assign({}, DEFAULTS);
 
   updatedObject = cloneDeep(object); // This object will be edited
 
-  regex = createReferenceRegex(options);
+  const regex = createReferenceRegex(options);
 
   if (typeof object === 'object') {
     currentContext = [];
-    return traverseObject(updatedObject) as T;
+    return traverseObject(updatedObject, options, regex) as T;
   } else {
     throw new Error('Please pass an object in');
   }
 }
 
-export function traverseObject<T>(obj): T {
+export function traverseObject<T>(obj, options, regex): T {
   let key;
 
   for (key in obj) {
@@ -53,10 +53,15 @@ export function traverseObject<T>(obj): T {
 
     currentContext.push(key);
     if (typeof obj[key] === 'object') {
-      traverseObject(obj[key]);
+      traverseObject(obj[key], options, regex);
     } else {
       if (typeof obj[key] === 'string' && obj[key].indexOf('{') > -1) {
-        obj[key] = compileValue(obj[key], [getName(currentContext)]);
+        obj[key] = compileValue(
+          obj[key],
+          [getName(currentContext)],
+          options,
+          regex
+        );
       }
     }
     currentContext.pop();
@@ -66,7 +71,7 @@ export function traverseObject<T>(obj): T {
 }
 
 let foundCirc = {};
-export function compileValue(value, stack) {
+export function compileValue(value, stack, options, regex) {
   let toRet = value,
     ref;
 
@@ -138,7 +143,7 @@ export function compileValue(value, stack) {
               'Circular definition cycle:  ' + circStack.join(', ')
             );
           } else {
-            toRet = compileValue(toRet, stack);
+            toRet = compileValue(toRet, stack, options, regex);
           }
         }
         // if evaluated value is a number and equal to the reference, we want to keep the type
