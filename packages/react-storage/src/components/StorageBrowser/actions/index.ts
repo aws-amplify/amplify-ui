@@ -19,7 +19,7 @@ export {
 } from './handlers';
 
 export {
-  ActionConfig,
+  ActionInputConfig,
   DataTaskAction,
   DataTaskActionInput,
   DataTaskActionOutput,
