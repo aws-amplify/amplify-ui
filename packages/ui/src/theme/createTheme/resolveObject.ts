@@ -14,29 +14,29 @@ import {
 const PROPERTY_REFERENCE_WARNINGS =
   GroupMessages.GROUP.PropertyReferenceWarnings;
 
-let current_context = []; // To maintain the context to be able to test for circular definitions
+let currentContext = []; // To maintain the context to be able to test for circular definitions
 const defaults = {
   ignoreKeys: ['original'],
   ignorePaths: [],
 };
-let updated_object, regex, options;
+let updatedObject, regex, options;
 
 export function resolveObject<T>(object: Record<string, any>): T {
   options = Object.assign({}, defaults);
 
-  updated_object = cloneDeep(object); // This object will be edited
+  updatedObject = cloneDeep(object); // This object will be edited
 
   regex = createReferenceRegex(options);
 
   if (typeof object === 'object') {
-    current_context = [];
-    return traverseObj(updated_object) as T;
+    currentContext = [];
+    return traverseObject(updatedObject) as T;
   } else {
     throw new Error('Please pass an object in');
   }
 }
 
-function traverseObj<T>(obj): T {
+export function traverseObject<T>(obj): T {
   let key;
 
   for (key in obj) {
@@ -51,23 +51,23 @@ function traverseObj<T>(obj): T {
       continue;
     }
 
-    current_context.push(key);
+    currentContext.push(key);
     if (typeof obj[key] === 'object') {
-      traverseObj(obj[key]);
+      traverseObject(obj[key]);
     } else {
       if (typeof obj[key] === 'string' && obj[key].indexOf('{') > -1) {
-        obj[key] = compile_value(obj[key], [getName(current_context)]);
+        obj[key] = compileValue(obj[key], [getName(currentContext)]);
       }
     }
-    current_context.pop();
+    currentContext.pop();
   }
 
   return obj as T;
 }
 
 let foundCirc = {};
-function compile_value(value, stack) {
-  let to_ret = value,
+export function compileValue(value, stack) {
+  let toRet = value,
     ref;
 
   // Replace the reference inline, but don't replace the whole string because
@@ -77,7 +77,7 @@ function compile_value(value, stack) {
 
     // Find what the value is referencing
     const pathName = getPathFromName(variable, options);
-    const context = getName(current_context, options);
+    const context = getName(currentContext, options);
     const refHasValue = pathName[pathName.length - 1] === 'value';
 
     if (refHasValue && options.ignorePaths.indexOf(variable) !== -1) {
@@ -91,7 +91,7 @@ function compile_value(value, stack) {
 
     stack.push(variable);
 
-    ref = resolveReference(pathName, updated_object);
+    ref = resolveReference(pathName, updatedObject);
 
     // If the reference doesn't end in 'value'
     // and
@@ -105,11 +105,11 @@ function compile_value(value, stack) {
 
     if (typeof ref !== 'undefined') {
       if (typeof ref === 'string' || typeof ref === 'number') {
-        to_ret = value.replace(match, ref);
+        toRet = value.replace(match, ref);
 
         // Recursive, therefore we can compute multi-layer variables like a = b, b = c, eventually a = c
-        if (usesReference(to_ret, regex)) {
-          var reference = to_ret.slice(1, -1);
+        if (usesReference(toRet, regex)) {
+          var reference = toRet.slice(1, -1);
 
           // Compare to found circular references
           if (has(foundCirc, reference)) {
@@ -138,16 +138,16 @@ function compile_value(value, stack) {
               'Circular definition cycle:  ' + circStack.join(', ')
             );
           } else {
-            to_ret = compile_value(to_ret, stack);
+            toRet = compileValue(toRet, stack);
           }
         }
         // if evaluated value is a number and equal to the reference, we want to keep the type
-        if (typeof ref === 'number' && ref.toString() === to_ret) {
-          to_ret = ref;
+        if (typeof ref === 'number' && ref.toString() === toRet) {
+          toRet = ref;
         }
       } else {
         // if evaluated value is not a string or number, we want to keep the type
-        to_ret = ref;
+        toRet = ref;
       }
     } else {
       GroupMessages.add(
@@ -158,12 +158,12 @@ function compile_value(value, stack) {
           variable +
           ', which is not defined'
       );
-      to_ret = ref;
+      toRet = ref;
     }
     stack.pop(variable);
 
-    return to_ret;
+    return toRet;
   });
 
-  return to_ret;
+  return toRet;
 }

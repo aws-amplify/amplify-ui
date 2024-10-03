@@ -93,8 +93,8 @@ describe('usesReference()', () => {
   describe(`with custom options`, () => {
     it(`returns true if value is reference`, () => {
       const customOpts = {
-        opening_character: '(',
-        closing_character: ')',
+        openingCharacter: '(',
+        closingCharacter: ')',
         separator: '|',
       };
 

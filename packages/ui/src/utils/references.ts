@@ -1,8 +1,8 @@
 import { has } from './utils';
 
 const defaults = {
-  opening_character: '{',
-  closing_character: '}',
+  openingCharacter: '{',
+  closingCharacter: '}',
   separator: '.',
 };
 
@@ -67,12 +67,12 @@ export function createReferenceRegex(opts = {}) {
 
   return new RegExp(
     '\\' +
-      options.opening_character +
+      options.openingCharacter +
       '([^' +
-      options.closing_character +
+      options.closingCharacter +
       ']+)' +
       '\\' +
-      options.closing_character,
+      options.closingCharacter,
     'g'
   );
 }
