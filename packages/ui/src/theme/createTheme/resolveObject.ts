@@ -5,14 +5,10 @@ import {
   createReferenceRegex,
   getName,
   getPathFromName,
-  GroupMessages,
   has,
   resolveReference,
   usesReference,
 } from '../../utils';
-
-const PROPERTY_REFERENCE_WARNINGS =
-  GroupMessages.GROUP.PropertyReferenceWarnings;
 
 let currentContext = []; // To maintain the context to be able to test for circular definitions
 const DEFAULTS = {
@@ -82,7 +78,6 @@ export function compileValue(value, stack, options, regex) {
 
     // Find what the value is referencing
     const pathName = getPathFromName(variable, options);
-    const context = getName(currentContext, options);
     const refHasValue = pathName[pathName.length - 1] === 'value';
 
     if (refHasValue && options.ignorePaths.indexOf(variable) !== -1) {
@@ -136,12 +131,6 @@ export function compileValue(value, stack, options, regex) {
 
             // Add our found circular reference to the end of the cycle
             circStack.push(reference);
-
-            // Add circ reference info to our list of warning messages
-            GroupMessages.add(
-              PROPERTY_REFERENCE_WARNINGS,
-              'Circular definition cycle:  ' + circStack.join(', ')
-            );
           } else {
             toRet = compileValue(toRet, stack, options, regex);
           }
@@ -155,14 +144,6 @@ export function compileValue(value, stack, options, regex) {
         toRet = ref;
       }
     } else {
-      GroupMessages.add(
-        PROPERTY_REFERENCE_WARNINGS,
-        "Reference doesn't exist: " +
-          context +
-          ' tries to reference ' +
-          variable +
-          ', which is not defined'
-      );
       toRet = ref;
     }
     stack.pop(variable);
