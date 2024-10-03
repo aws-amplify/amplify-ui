@@ -89,30 +89,12 @@ describe('usesReference()', () => {
   it(`returns false if an array doesn't use a reference`, () => {
     expect(usesReference(['foo', 'bar'])).toBe(false);
   });
-
-  describe(`with custom options`, () => {
-    it(`returns true if value is reference`, () => {
-      const customOpts = {
-        openingCharacter: '(',
-        closingCharacter: ')',
-        separator: '|',
-      };
-
-      expect(usesReference('(foo|bar)', customOpts)).toBe(true);
-    });
-  });
 });
 
 describe('getPathFromName()', () => {
   it('should split pathName using default separator', () => {
     const pathName = 'foo.bar.baz';
     const result = getPathFromName(pathName);
-    expect(result).toEqual(['foo', 'bar', 'baz']);
-  });
-
-  it('should split pathName using custom separator', () => {
-    const pathName = 'foo/bar/baz';
-    const result = getPathFromName(pathName, { separator: '/' });
     expect(result).toEqual(['foo', 'bar', 'baz']);
   });
 
@@ -140,12 +122,6 @@ describe('getPathFromName()', () => {
     const result = getPathFromName(pathName);
     expect(result).toEqual(['']);
   });
-
-  it('should split pathName correctly when only separator is passed in opts', () => {
-    const pathName = 'foo-bar-baz';
-    const result = getPathFromName(pathName, { separator: '-' });
-    expect(result).toEqual(['foo', 'bar', 'baz']);
-  });
 });
 
 describe('getName', () => {
@@ -153,12 +129,6 @@ describe('getName', () => {
     const path = ['foo', 'bar', 'baz'];
     const result = getName(path);
     expect(result).toBe('foo.bar.baz');
-  });
-
-  test('should join array elements using custom separator', () => {
-    const path = ['foo', 'bar', 'baz'];
-    const result = getName(path, { separator: '/' });
-    expect(result).toBe('foo/bar/baz');
   });
 
   test('should return an empty string for an empty array', () => {

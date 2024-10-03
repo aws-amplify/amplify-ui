@@ -13,81 +13,64 @@ import {
 let currentContext = []; // To maintain the context to be able to test for circular definitions
 const DEFAULTS = {
   ignoreKeys: ['original'],
-  ignorePaths: [],
 };
 let updatedObject;
 
 export function resolveObject<T>(object: Record<string, any>): T {
-  const options = Object.assign({}, DEFAULTS);
-
   updatedObject = cloneDeep(object); // This object will be edited
-
-  const regex = createReferenceRegex(options);
 
   if (typeof object === 'object') {
     currentContext = [];
-    return traverseObject(updatedObject, options, regex) as T;
+    return traverseObject({ object: updatedObject }) as T;
   } else {
     throw new Error('Please pass an object in');
   }
 }
 
-export function traverseObject<T>(obj, options, regex): T {
-  let key;
-
-  for (key in obj) {
-    if (!has(obj, key)) {
+export function traverseObject<T>({ object }): T {
+  for (let key in object) {
+    if (!has(object, key)) {
       continue;
     }
 
     // We want to check for ignoredKeys, this is to
     // skip over attributes that should not be
     // mutated, like a copy of the original property.
-    if (options.ignoreKeys && options.ignoreKeys.indexOf(key) !== -1) {
+    if (DEFAULTS.ignoreKeys && DEFAULTS.ignoreKeys.indexOf(key) !== -1) {
       continue;
     }
 
     currentContext.push(key);
-    if (typeof obj[key] === 'object') {
-      traverseObject(obj[key], options, regex);
+    if (typeof object[key] === 'object') {
+      traverseObject({ object: object[key] });
     } else {
-      if (typeof obj[key] === 'string' && obj[key].indexOf('{') > -1) {
-        obj[key] = compileValue(
-          obj[key],
-          [getName(currentContext)],
-          options,
-          regex
-        );
+      if (typeof object[key] === 'string' && object[key].indexOf('{') > -1) {
+        object[key] = compileValue({
+          value: object[key],
+          stack: [getName(currentContext)],
+        });
       }
     }
     currentContext.pop();
   }
 
-  return obj as T;
+  return object as T;
 }
 
 let foundCirc = {};
-export function compileValue(value, stack, options, regex) {
+export function compileValue({ value, stack }) {
   let toRet = value,
     ref;
 
+  const regex = createReferenceRegex();
   // Replace the reference inline, but don't replace the whole string because
   // references can be part of the value such as "1px solid {color.border.light}"
   value.replace(regex, function (match, variable) {
     variable = variable.trim();
 
     // Find what the value is referencing
-    const pathName = getPathFromName(variable, options);
+    const pathName = getPathFromName(variable);
     const refHasValue = pathName[pathName.length - 1] === 'value';
-
-    if (refHasValue && options.ignorePaths.indexOf(variable) !== -1) {
-      return value;
-    } else if (
-      !refHasValue &&
-      options.ignorePaths.indexOf(`${variable}.value`) !== -1
-    ) {
-      return value;
-    }
 
     stack.push(variable);
 
@@ -108,7 +91,7 @@ export function compileValue(value, stack, options, regex) {
         toRet = value.replace(match, ref);
 
         // Recursive, therefore we can compute multi-layer variables like a = b, b = c, eventually a = c
-        if (usesReference(toRet, regex)) {
+        if (usesReference(toRet)) {
           var reference = toRet.slice(1, -1);
 
           // Compare to found circular references
@@ -132,7 +115,7 @@ export function compileValue(value, stack, options, regex) {
             // Add our found circular reference to the end of the cycle
             circStack.push(reference);
           } else {
-            toRet = compileValue(toRet, stack, options, regex);
+            toRet = compileValue({ value: toRet, stack });
           }
         }
         // if evaluated value is a number and equal to the reference, we want to keep the type

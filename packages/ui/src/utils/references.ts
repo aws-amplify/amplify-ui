@@ -1,6 +1,6 @@
 import { has } from './utils';
 
-const DEFAULTS = {
+const OPTIONS = {
   openingCharacter: '{',
   closingCharacter: '}',
   separator: '.',
@@ -9,11 +9,8 @@ const DEFAULTS = {
 /**
  * Checks if the value uses a value reference.
  */
-export function usesReference(value: unknown, regexOrOptions = {}): boolean {
-  const regex =
-    regexOrOptions instanceof RegExp
-      ? regexOrOptions
-      : createReferenceRegex(regexOrOptions);
+export function usesReference(value: unknown): boolean {
+  const regex = createReferenceRegex();
 
   if (typeof value === 'string') {
     return regex.test(value);
@@ -27,7 +24,7 @@ export function usesReference(value: unknown, regexOrOptions = {}): boolean {
     for (const key in value) {
       if (has(value, key)) {
         const element = value[key];
-        let reference = usesReference(element, regexOrOptions);
+        let reference = usesReference(element);
         if (reference) {
           hasReference = true;
           break;
@@ -62,17 +59,15 @@ export function resolveReference(path, obj) {
   return ref;
 }
 
-export function createReferenceRegex(opts = {}) {
-  const options = Object.assign({}, DEFAULTS, opts);
-
+export function createReferenceRegex() {
   return new RegExp(
     '\\' +
-      options.openingCharacter +
+      OPTIONS.openingCharacter +
       '([^' +
-      options.closingCharacter +
+      OPTIONS.closingCharacter +
       ']+)' +
       '\\' +
-      options.closingCharacter,
+      OPTIONS.closingCharacter,
     'g'
   );
 }
@@ -80,21 +75,19 @@ export function createReferenceRegex(opts = {}) {
 /**
  * Returns the path from a path name be splitting the name by a given separator.
  */
-export function getPathFromName(pathName: string, opts = {}): Array<string> {
-  const options = Object.assign({}, DEFAULTS, opts);
+export function getPathFromName(pathName: string): Array<string> {
   if (typeof pathName !== 'string') {
     throw new Error('Getting path from name failed. Name must be a string');
   }
-  return pathName.split(options.separator);
+  return pathName.split(OPTIONS.separator);
 }
 
 /**
  * Returns the paths name be joining its parts with a given separator.
  */
-export function getName(path: Array<string>, opts = {}): string {
-  const options = Object.assign({}, DEFAULTS, opts);
+export function getName(path: Array<string>): string {
   if (!path || !(path instanceof Array)) {
     throw new Error('Getting name for path failed. Path must be an array');
   }
-  return path.join(options.separator);
+  return path.join(OPTIONS.separator);
 }
