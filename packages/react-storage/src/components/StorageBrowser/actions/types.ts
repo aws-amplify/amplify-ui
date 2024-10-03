@@ -1,7 +1,7 @@
 import { LocationCredentialsProvider } from '@aws-amplify/storage/internals';
 
 export type LocationType = 'OBJECT' | 'PREFIX' | 'BUCKET';
-export interface ActionConfig {
+export interface ActionInputConfig {
   accountId: string;
   bucket: string;
   credentials: LocationCredentialsProvider;
