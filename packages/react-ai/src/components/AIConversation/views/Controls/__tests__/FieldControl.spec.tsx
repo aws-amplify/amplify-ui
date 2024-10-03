@@ -5,10 +5,15 @@ import { FieldControl } from '../FieldControl';
 import { ConversationInputContextProvider } from '../../../context/ConversationInputContext';
 import userEvent from '@testing-library/user-event';
 import { SendMessageContextProvider } from '../../../context/SendMessageContext';
+import { AttachmentProvider } from '../../../context/AttachmentContext';
 
 describe('FieldControl', () => {
   it('renders a FieldControl component with the correct elements', () => {
-    const result = render(<FieldControl />);
+    const result = render(
+      <AttachmentProvider allowAttachments>
+        <FieldControl />
+      </AttachmentProvider>
+    );
     expect(result.container).toBeDefined();
 
     const form = screen.findByRole('form');
@@ -23,7 +28,11 @@ describe('FieldControl', () => {
   });
 
   it('renders FieldControl with the correct accessibility roles', () => {
-    render(<FieldControl />);
+    render(
+      <AttachmentProvider allowAttachments>
+        <FieldControl />
+      </AttachmentProvider>
+    );
 
     const actionButtons = screen.getAllByRole('button');
     const sendButton = actionButtons[1];

@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-vue",
-  "version": "4.2.18",
+  "version": "4.2.19",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -38,7 +38,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "6.6.1",
+    "@aws-amplify/ui": "6.6.2",
     "@vueuse/core": "7.5.5",
     "@xstate/vue": "0.8.1",
     "nanoid": "3.1.31",
@@ -65,7 +65,7 @@
     "vite-jest": "^0.1.4"
   },
   "peerDependencies": {
-    "@aws-amplify/core": "^6.4.0",
+    "@aws-amplify/core": "*",
     "aws-amplify": "^6.6.0",
     "vue": "^3.0"
   }

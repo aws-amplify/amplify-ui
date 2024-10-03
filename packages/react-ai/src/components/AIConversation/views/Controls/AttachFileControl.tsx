@@ -3,6 +3,7 @@ import React from 'react';
 import { withBaseElementProps } from '@aws-amplify/ui-react-core/elements';
 import { ConversationInputContext } from '../../context';
 import { AIConversationElements } from '../../context/elements';
+import { useDropZone } from '@aws-amplify/ui-react-core';
 
 const { Button, Icon, View } = AIConversationElements;
 
@@ -32,6 +33,17 @@ const AttachFileButton = withBaseElementProps(Button, {
 export const AttachFileControl: AttachFileControl = () => {
   const hiddenInput = React.useRef<HTMLInputElement>(null);
   const { setInput } = React.useContext(ConversationInputContext);
+  const { dragState, ...dropHandlers } = useDropZone({
+    acceptedFileTypes: ['.jpeg'],
+    onDropComplete: ({ acceptedFiles }) => {
+      if (acceptedFiles && acceptedFiles?.length > 0 && setInput) {
+        setInput((prevInput) => ({
+          ...prevInput,
+          files: [...(prevInput?.files ?? []), ...acceptedFiles],
+        }));
+      }
+    },
+  });
 
   function handleButtonClick() {
     if (hiddenInput.current) {
@@ -53,7 +65,7 @@ export const AttachFileControl: AttachFileControl = () => {
   }
 
   return (
-    <AttachFileContainer>
+    <AttachFileContainer {...dropHandlers}>
       <AttachFileButton onClick={handleButtonClick}>
         <AttachFileIcon />
       </AttachFileButton>
