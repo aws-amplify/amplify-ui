@@ -9,7 +9,7 @@ export interface ActionInputConfig {
 }
 
 interface ActionInput<T = any> {
-  config: ActionConfig;
+  config: ActionInputConfig;
   prefix: string;
   options?: T;
 }
