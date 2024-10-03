@@ -23,7 +23,10 @@ export interface FileItem {
 
 export type LocationItem = FileItem | FolderItem;
 
-export interface ListLocationItemsOptions extends ListActionOptions {
+type LocationItemType = LocationItem['type'];
+
+export interface ListLocationItemsOptions
+  extends ListActionOptions<LocationItemType> {
   delimiter?: string;
   query?: string;
 }

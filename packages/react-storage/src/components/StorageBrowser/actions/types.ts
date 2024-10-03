@@ -5,6 +5,7 @@ export interface ActionInputConfig {
   accountId: string;
   bucket: string;
   credentials: LocationCredentialsProvider;
+  // permission???
   region: string;
 }
 
@@ -29,7 +30,8 @@ export interface DataTaskActionOutput {
 
 export type DataTaskAction<T = any> = (input: T) => DataTaskActionOutput;
 
-export interface ListActionOptions {
+export interface ListActionOptions<T> {
+  exclude?: T;
   nextToken?: string;
   pageSize?: number;
 }
